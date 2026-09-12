@@ -83,65 +83,42 @@
   fill-opacity: 0.12;
 }
 
-/* ── Gelas dan pin ────────────────────────────────────────────────────────
-   Area bebas hero di mobile hanya sekitar 80x120px: di kanan judul dan di
-   bawah tombol notifikasi. Tiga pita bertingkat (titik, rute, gelas) muat di
-   situ, tapi uap dan pin tidak. Kalau dipaksa, ketiganya bertumpuk dan
-   akumulasi alpha naik ke ~25%. Jadi keduanya muncul saat lebarnya ada. */
+/* ── Gelas soda dan pin ──────────────────────────────────────────────────
+   Geometri dari lucide cup-soda, dipakai apa adanya lalu dimiringkan 9 derajat.
+   Area bebas hero di mobile hanya sekitar 80x120px (di kanan judul, di bawah
+   tombol notifikasi), jadi ketiga pita - titik, rute, gelas - muat, tapi pin
+   tidak. Pin muncul saat lebarnya ada. */
 
-.s7-glass__steam[data-hanya-lebar],
-.s7-glass__pin[data-hanya-lebar] {
+.s7-cup__pin[data-hanya-lebar] {
   display: none;
 }
 
-.s7-glass__steam {
+
+
+/* stroke-width ditulis dalam satuan ikon (24x24), lalu ikut dikali scale(3.8).
+   0.8 di sini berarti 3 unit viewBox, sekitar 1.7px di layar - setebal ornamen
+   lain di hero ini, bukan 2px asli lucide yang akan jadi 4.3px dan terlalu
+   berat untuk dekorasi 12%. */
+.s7-cup {
   fill: none;
   stroke: var(--on-brand);
-  stroke-opacity: 0.1;
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-/* Gelas digambar sebagai garis, bukan siluet: isiannya sangat tipis hanya
-   supaya bentuknya punya massa, dan garisnya yang membuatnya terbaca. */
-.s7-glass__body {
-  fill: var(--on-brand);
-  fill-opacity: 0.05;
-  stroke: var(--on-brand);
   stroke-opacity: 0.12;
-  stroke-width: 3;
+  stroke-width: 0.8;
+  stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.s7-glass__rim {
-  fill: none;
-  stroke: var(--on-brand);
-  stroke-opacity: 0.14;
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-.s7-glass__level {
-  fill: none;
-  stroke: var(--on-brand);
-  stroke-opacity: 0.1;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-}
-
-.s7-glass__pin-halo {
+.s7-cup__pin-halo {
   fill: var(--on-brand);
   fill-opacity: 0.08;
 }
 
-/* Pin aslinya #FFE0B2 pada 90% — di luar palet, dan hampir pekat. */
-.s7-glass__pin-mark {
+.s7-cup__pin-mark {
   fill: var(--on-brand);
   fill-opacity: 0.12;
 }
 
-/* Titik tengahnya aslinya #FF3D00, merah yang tidak ada di palet. */
-.s7-glass__pin-dot {
+.s7-cup__pin-dot {
   fill: var(--on-brand);
   fill-opacity: 0.08;
 }
@@ -497,8 +474,7 @@
 /* ── Lebar besar ────────────────────────────────────────────────────────── */
 
 @media (min-width: 768px) {
-  .s7-bowl__steam[data-hanya-lebar],
-  .s7-bowl__pin[data-hanya-lebar] {
+  .s7-cup__pin[data-hanya-lebar] {
     display: block;
   }
 

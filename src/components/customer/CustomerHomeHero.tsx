@@ -86,36 +86,26 @@ function Sa7teinHeroPattern() {
         )}
       </g>
 
-      <g className="s7-glass" transform="translate(715, 258)">
-        {/* Uap. */}
-        <g className="s7-glass__steam" data-hanya-lebar>
-          <path d="M 25 -48 Q 15 -68 25 -88" />
-          <path d="M 50 -53 Q 40 -73 50 -93" />
-          <path d="M 75 -48 Q 65 -68 75 -88" />
-        </g>
-
-        {/* Gelas: mengerucut ke bawah, sudut bawah membulat. Sengaja lebih
-            tinggi daripada lebar dan bersisi lurus — bentuk sebelumnya lebar,
-            gepeng, dan berlengkung kembar sehingga terbaca sebagai bukan gelas. */}
-        <path
-          className="s7-glass__body"
-          d="M 12 -30 L 26 46 Q 28 52 34 52 L 66 52 Q 72 52 74 46 L 88 -30 Z"
-        />
-
-        {/* Bibir gelas. */}
-        <path className="s7-glass__rim" d="M 12 -30 H 88" />
-
-        {/* Tinggi isian. */}
-        <path className="s7-glass__level" d="M 21 14 H 79" />
+      {/* Gelas soda, geometri lucide cup-soda apa adanya, dimiringkan 9 derajat.
+          scale(3.8) dengan stroke-width 0.8 di dalamnya -> 3 unit viewBox,
+          sekitar 1.7px di layar, setara ketebalan ornamen lain di hero ini. */}
+      <g
+        className="s7-cup"
+        transform="translate(730 258) translate(12 12) rotate(-9) scale(3.8) translate(-12 -12)"
+      >
+        <path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8" />
+        <path d="M5 8h14" />
+        <path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0" />
+        <path d="m12 8 1-6h2" />
 
         {/* Pin lokasi. */}
-        <g className="s7-glass__pin" data-hanya-lebar transform="translate(104, -50)">
-          <circle className="s7-glass__pin-halo" cx="12" cy="12" r="14" />
+        <g className="s7-cup__pin" data-hanya-lebar transform="translate(22 2)">
+          <circle className="s7-cup__pin-halo" cx="4" cy="4" r="3.4" />
           <path
-            className="s7-glass__pin-mark"
-            d="M 12 4 C 7.5 4 4 7.5 4 12 C 4 18 12 24 12 24 C 12 24 20 18 20 12 C 20 7.5 16.5 4 12 4 Z"
+            className="s7-cup__pin-mark"
+            d="M 4 1.4 C 2.9 1.4 2 2.3 2 3.4 C 2 4.9 4 6.4 4 6.4 C 4 6.4 6 4.9 6 3.4 C 6 2.3 5.1 1.4 4 1.4 Z"
           />
-          <circle className="s7-glass__pin-dot" cx="12" cy="10" r="3" />
+          <circle className="s7-cup__pin-dot" cx="4" cy="3.2" r="0.8" />
         </g>
       </g>
     </svg>
