@@ -1,6 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
+
 export default function ForgotPassword() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -10,7 +15,7 @@ export default function ForgotPassword() {
             <div className="row h-100">
               <div className="col-12 d-flex flex-column justify-content-center">
                 <div className="back-button">
-                  <button type="button" className="btn-back" aria-label="Back">
+                  <button type="button" className="btn-back" aria-label="Back" onClick={() => navigate(-1)}>
                     <svg width={20} height={20} viewBox="0 0 20 20" fill="none">
                       <path d="M16.875 10H3.125" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       <path d="M8.75 4.375L3.125 10L8.75 15.625" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -24,7 +29,7 @@ export default function ForgotPassword() {
                   <p className="auth-subtitle">
                     Enter your email address and we will help you restore your account.
                   </p>
-                  <form className="auth-form" noValidate>
+                  <form className="auth-form" noValidate onSubmit={(e) => { e.preventDefault(); toast.success("OTP sent to your email!"); navigate('/forgot-password-otp') }}>
                     <div className="form-group">
                       <label className="form-label">
                         Email

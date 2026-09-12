@@ -1,6 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
+
 export default function Verification() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -11,7 +16,7 @@ export default function Verification() {
               <div className="row h-100">
                 <div className="col-12 d-flex flex-column justify-content-between">
                   <div className="back-button">
-                    <button className="btn-back">
+                    <button className="btn-back" onClick={() => navigate(-1)}>
                       <svg width={24} height={24} viewBox="0 0 24 24">
                         <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
@@ -40,7 +45,7 @@ export default function Verification() {
                       <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
                       <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
                     </div>
-                    <button className="btn btn-primary btn-verify">
+                    <button className="btn btn-primary btn-verify" onClick={() => { toast.success("Email verified successfully!"); navigate('/signin') }}>
                       Verify
                     </button>
                     <p className="resend-text">

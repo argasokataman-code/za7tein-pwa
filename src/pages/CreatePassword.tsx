@@ -1,6 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
+
 export default function CreatePassword() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -10,7 +15,7 @@ export default function CreatePassword() {
             <div className="row h-100">
               <div className="col-12 d-flex flex-column justify-content-center">
                 <div className="back-button">
-                  <button type="button" className="btn-back" aria-label="Back">
+                  <button type="button" className="btn-back" aria-label="Back" onClick={() => navigate(-1)}>
                     <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
                       <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -23,7 +28,7 @@ export default function CreatePassword() {
                   <p className="auth-subtitle">
                     Choose a strong password to secure your account. Make it unique and memorable!
                   </p>
-                  <form className="auth-form" noValidate>
+                  <form className="auth-form" noValidate onSubmit={(e) => { e.preventDefault(); toast.success("Password updated successfully!"); navigate('/signin') }}>
                     <div className="form-group">
                       <label className="form-label">
                         Password

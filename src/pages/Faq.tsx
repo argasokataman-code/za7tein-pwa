@@ -1,8 +1,30 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+const faq = [
+  {
+    question: 'What types of payments are accepted?',
+    answer:
+      'We accept all major credit and debit cards (Visa, Mastercard), Apple Pay, Google Pay, and PayPal.',
+  },
+  {
+    question: 'How long does it take for a payment to process?',
+    answer:
+      'Card payments are usually processed within seconds. Your bank may take 1–3 business days to reflect the charge.',
+  },
+  {
+    question: 'How do I add or remove a card?',
+    answer:
+      'Go to Profile → Payment Account → Your Card. Tap "Add New Card" to add, or use the manage option to remove a card.',
+  },
+]
+
 export default function Faq() {
+  const [open, setOpen] = useState(-1)
+  const [query, setQuery] = useState('')
+
   return (
     <>
     <div className="app-shell">
@@ -25,7 +47,13 @@ export default function Faq() {
                   <circle cx="11" cy="11" r="8" />
                   <path d="M21 21l-4.35-4.35" />
                 </svg>
-                <input className="help-search-input" placeholder="Search here..." type="search" />
+                <input
+                  className="help-search-input"
+                  placeholder="Search here..."
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
               </div>
               <div style={{ marginBottom: "16px" }}>
                 <h2 style={{ fontSize: "15px", fontWeight: "700", color: "rgb(255, 255, 255)", marginBottom: "4px" }}>
@@ -36,36 +64,25 @@ export default function Faq() {
                 </p>
               </div>
               <div className="faq-accordion">
-                <div className="faq-item">
-                  <button type="button" className="faq-question" aria-expanded="false">
-                    What types of payments are accepted?
-                  </button>
-                  <div className="faq-answer">
-                    <p>
-                      We accept all major credit and debit cards (Visa, Mastercard), Apple Pay, Google Pay, and PayPal.
-                    </p>
-                  </div>
-                </div>
-                <div className="faq-item">
-                  <button type="button" className="faq-question" aria-expanded="false">
-                    How long does it take for a payment to process?
-                  </button>
-                  <div className="faq-answer">
-                    <p>
-                      Card payments are usually processed within seconds. Your bank may take 1–3 business days to reflect the charge.
-                    </p>
-                  </div>
-                </div>
-                <div className="faq-item">
-                  <button type="button" className="faq-question" aria-expanded="false">
-                    How do I add or remove a card?
-                  </button>
-                  <div className="faq-answer">
-                    <p>
-                      Go to Profile → Payment Account → Your Card. Tap "Add New Card" to add, or use the manage option to remove a card.
-                    </p>
-                  </div>
-                </div>
+                {faq
+                  .filter((item) =>
+                    `${item.question} ${item.answer}`.toLowerCase().includes(query.toLowerCase()),
+                  )
+                  .map((item, i) => (
+                    <div key={item.question} className={`faq-item${open === i ? ' is-open' : ''}`}>
+                      <button
+                        type="button"
+                        className="faq-question"
+                        aria-expanded={open === i}
+                        onClick={() => setOpen(open === i ? -1 : i)}
+                      >
+                        {item.question}
+                      </button>
+                      <div className="faq-answer">
+                        <p>{item.answer}</p>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </main>
           </div>

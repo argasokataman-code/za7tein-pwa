@@ -1,6 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
+
 export default function ForgotPasswordOtp() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -10,7 +15,7 @@ export default function ForgotPasswordOtp() {
             <div className="row h-100">
               <div className="col-12 d-flex flex-column">
                 <div className="back-button">
-                  <button type="button" className="btn-back" aria-label="Back">
+                  <button type="button" className="btn-back" aria-label="Back" onClick={() => navigate(-1)}>
                     <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
                       <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -39,7 +44,7 @@ export default function ForgotPasswordOtp() {
                     <input className="otp-box" maxLength={1} inputMode="numeric" aria-label="Digit 5" data-i="4" type="text" value="" />
                     <input className="otp-box" maxLength={1} inputMode="numeric" aria-label="Digit 6" data-i="5" type="text" value="" />
                   </div>
-                  <button className="btn btn-primary btn-verify-small">
+                  <button className="btn btn-primary btn-verify-small" onClick={() => { toast.success("OTP verified!"); navigate('/create-password') }}>
                     Verify
                   </button>
                   <p className="resend-text-small" style={{ marginTop: "16px", color: "rgb(156, 163, 175)", fontSize: "13px" }}>

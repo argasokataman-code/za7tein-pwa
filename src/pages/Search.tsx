@@ -1,15 +1,23 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { FavoriteButton } from '../components/ui/FavoriteButton'
+import { useFoodActions } from '../hooks/useFoodActions'
+
+import { useChipSet } from '../hooks/useToggleSet'
 
 export default function Search() {
+  const chips = useChipSet([])
+  const { addToCart } = useFoodActions()
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
       <main>
         <div className="search-screen">
           <div className="search-header">
-            <button type="button" className="btn-back" aria-label="Go back">
+            <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
               <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
                 <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -50,31 +58,31 @@ export default function Search() {
               </button>
             </div>
             <div className="chip-row" role="list" aria-label="Recent searches">
-              <button role="listitem" className="chip" aria-label="Search for Pizza">
+              <button role="listitem" className={`chip${chips.isActive("Pizza ×") ? " active" : ""}`} onClick={() => chips.toggle("Pizza ×")} aria-label="Search for Pizza">
                 Pizza
                 <span role="button" aria-label="Remove Pizza">
                   ×
                 </span>
               </button>
-              <button role="listitem" className="chip" aria-label="Search for Burger">
+              <button role="listitem" className={`chip${chips.isActive("Burger ×") ? " active" : ""}`} onClick={() => chips.toggle("Burger ×")} aria-label="Search for Burger">
                 Burger
                 <span role="button" aria-label="Remove Burger">
                   ×
                 </span>
               </button>
-              <button role="listitem" className="chip" aria-label="Search for Pastry">
+              <button role="listitem" className={`chip${chips.isActive("Pastry ×") ? " active" : ""}`} onClick={() => chips.toggle("Pastry ×")} aria-label="Search for Pastry">
                 Pastry
                 <span role="button" aria-label="Remove Pastry">
                   ×
                 </span>
               </button>
-              <button role="listitem" className="chip" aria-label="Search for Cookies">
+              <button role="listitem" className={`chip${chips.isActive("Cookies ×") ? " active" : ""}`} onClick={() => chips.toggle("Cookies ×")} aria-label="Search for Cookies">
                 Cookies
                 <span role="button" aria-label="Remove Cookies">
                   ×
                 </span>
               </button>
-              <button role="listitem" className="chip" aria-label="Search for Meat Church">
+              <button role="listitem" className={`chip${chips.isActive("Meat Church ×") ? " active" : ""}`} onClick={() => chips.toggle("Meat Church ×")} aria-label="Search for Meat Church">
                 Meat Church
                 <span role="button" aria-label="Remove Meat Church">
                   ×
@@ -111,7 +119,7 @@ export default function Search() {
                     $15.00
                   </div>
                 </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Tandoori Pizza to cart">
+                <button type="button" className="hot-deal-add" aria-label="Add Tandoori Pizza to cart" onClick={(e) => { e.stopPropagation(); addToCart('1') }}>
                   add
                 </button>
               </Link>
@@ -136,7 +144,7 @@ export default function Search() {
                     $12.00
                   </div>
                 </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Chinese Fried Rice to cart">
+                <button type="button" className="hot-deal-add" aria-label="Add Chinese Fried Rice to cart" onClick={(e) => { e.stopPropagation(); addToCart('2') }}>
                   add
                 </button>
               </Link>
@@ -161,7 +169,7 @@ export default function Search() {
                     $18.00
                   </div>
                 </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Burger Deluxe to cart">
+                <button type="button" className="hot-deal-add" aria-label="Add Burger Deluxe to cart" onClick={(e) => { e.stopPropagation(); addToCart('3') }}>
                   add
                 </button>
               </Link>
@@ -186,7 +194,7 @@ export default function Search() {
                     $15.00
                   </div>
                 </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Cheese Sizzling to cart">
+                <button type="button" className="hot-deal-add" aria-label="Add Cheese Sizzling to cart" onClick={(e) => { e.stopPropagation(); addToCart('4') }}>
                   add
                 </button>
               </Link>
@@ -211,7 +219,7 @@ export default function Search() {
                     $15.00
                   </div>
                 </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Classic Burger to cart">
+                <button type="button" className="hot-deal-add" aria-label="Add Classic Burger to cart" onClick={(e) => { e.stopPropagation(); addToCart('5') }}>
                   add
                 </button>
               </Link>
@@ -236,7 +244,7 @@ export default function Search() {
                     $13.50
                   </div>
                 </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Pasta Carbonara to cart">
+                <button type="button" className="hot-deal-add" aria-label="Add Pasta Carbonara to cart" onClick={(e) => { e.stopPropagation(); addToCart('6') }}>
                   add
                 </button>
               </Link>
@@ -256,11 +264,7 @@ export default function Search() {
                   <span className="discount-badge">
                     10% Off
                   </span>
-                  <button type="button" className="favorite-btn " aria-label="Add Tandoori Pizza to favorites" aria-pressed="false">
-                    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 2.99817C16.2275 2.99817 15.5121 3.14052 14.8446 3.41708C14.1772 3.69364 13.5708 4.099 13.06 4.61L12 5.67L10.94 4.61C9.9083 3.57831 8.50903 2.99871 7.05 2.99871C5.59096 2.99871 4.19169 3.57831 3.16 4.61C2.1283 5.64169 1.54871 7.04097 1.54871 8.5C1.54871 9.95903 2.1283 11.3583 3.16 12.39L4.22 13.45L12 21.23L19.78 13.45L20.84 12.39C21.351 11.8792 21.7564 11.2728 22.0329 10.6054C22.3095 9.93789 22.4518 9.22248 22.4518 8.5C22.4518 7.77752 22.3095 7.0621 22.0329 6.39464C21.7564 5.72718 21.351 5.12075 20.84 4.61Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
+                  <FavoriteButton id="1" name="Tandoori Pizza" />
                 </div>
                 <div className="food-card-content">
                   <div className="food-name-price">
@@ -297,7 +301,7 @@ export default function Search() {
                       (27 Reviews)
                     </span>
                   </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Tandoori Pizza to cart">
+                  <button type="button" className="buy-now-btn" aria-label="Add Tandoori Pizza to cart" onClick={(e) => { e.stopPropagation(); addToCart('1') }}>
                     Buy Now
                   </button>
                 </div>
@@ -308,11 +312,7 @@ export default function Search() {
                   <span className="discount-badge">
                     10% Off
                   </span>
-                  <button type="button" className="favorite-btn " aria-label="Add Chinese Fried Rice to favorites" aria-pressed="false">
-                    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 2.99817C16.2275 2.99817 15.5121 3.14052 14.8446 3.41708C14.1772 3.69364 13.5708 4.099 13.06 4.61L12 5.67L10.94 4.61C9.9083 3.57831 8.50903 2.99871 7.05 2.99871C5.59096 2.99871 4.19169 3.57831 3.16 4.61C2.1283 5.64169 1.54871 7.04097 1.54871 8.5C1.54871 9.95903 2.1283 11.3583 3.16 12.39L4.22 13.45L12 21.23L19.78 13.45L20.84 12.39C21.351 11.8792 21.7564 11.2728 22.0329 10.6054C22.3095 9.93789 22.4518 9.22248 22.4518 8.5C22.4518 7.77752 22.3095 7.0621 22.0329 6.39464C21.7564 5.72718 21.351 5.12075 20.84 4.61Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
+                  <FavoriteButton id="2" name="Chinese Fried Rice" />
                 </div>
                 <div className="food-card-content">
                   <div className="food-name-price">
@@ -349,7 +349,7 @@ export default function Search() {
                       (45 Reviews)
                     </span>
                   </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Chinese Fried Rice to cart">
+                  <button type="button" className="buy-now-btn" aria-label="Add Chinese Fried Rice to cart" onClick={(e) => { e.stopPropagation(); addToCart('2') }}>
                     Buy Now
                   </button>
                 </div>
@@ -360,11 +360,7 @@ export default function Search() {
                   <span className="discount-badge">
                     15% Off
                   </span>
-                  <button type="button" className="favorite-btn " aria-label="Add Burger Deluxe to favorites" aria-pressed="false">
-                    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 2.99817C16.2275 2.99817 15.5121 3.14052 14.8446 3.41708C14.1772 3.69364 13.5708 4.099 13.06 4.61L12 5.67L10.94 4.61C9.9083 3.57831 8.50903 2.99871 7.05 2.99871C5.59096 2.99871 4.19169 3.57831 3.16 4.61C2.1283 5.64169 1.54871 7.04097 1.54871 8.5C1.54871 9.95903 2.1283 11.3583 3.16 12.39L4.22 13.45L12 21.23L19.78 13.45L20.84 12.39C21.351 11.8792 21.7564 11.2728 22.0329 10.6054C22.3095 9.93789 22.4518 9.22248 22.4518 8.5C22.4518 7.77752 22.3095 7.0621 22.0329 6.39464C21.7564 5.72718 21.351 5.12075 20.84 4.61Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
+                  <FavoriteButton id="3" name="Burger Deluxe" />
                 </div>
                 <div className="food-card-content">
                   <div className="food-name-price">
@@ -401,7 +397,7 @@ export default function Search() {
                       (35 Reviews)
                     </span>
                   </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Burger Deluxe to cart">
+                  <button type="button" className="buy-now-btn" aria-label="Add Burger Deluxe to cart" onClick={(e) => { e.stopPropagation(); addToCart('3') }}>
                     Buy Now
                   </button>
                 </div>
@@ -409,11 +405,7 @@ export default function Search() {
               <Link className="food-card" role="listitem" aria-label="Cheese Sizzling" to="/menu-detail/4" style={{ textDecoration: "none", display: "block" }}>
                 <div className="food-card-image">
                   <img alt="Cheese Sizzling" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <button type="button" className="favorite-btn " aria-label="Add Cheese Sizzling to favorites" aria-pressed="false">
-                    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 2.99817C16.2275 2.99817 15.5121 3.14052 14.8446 3.41708C14.1772 3.69364 13.5708 4.099 13.06 4.61L12 5.67L10.94 4.61C9.9083 3.57831 8.50903 2.99871 7.05 2.99871C5.59096 2.99871 4.19169 3.57831 3.16 4.61C2.1283 5.64169 1.54871 7.04097 1.54871 8.5C1.54871 9.95903 2.1283 11.3583 3.16 12.39L4.22 13.45L12 21.23L19.78 13.45L20.84 12.39C21.351 11.8792 21.7564 11.2728 22.0329 10.6054C22.3095 9.93789 22.4518 9.22248 22.4518 8.5C22.4518 7.77752 22.3095 7.0621 22.0329 6.39464C21.7564 5.72718 21.351 5.12075 20.84 4.61Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
+                  <FavoriteButton id="4" name="Cheese Sizzling" />
                 </div>
                 <div className="food-card-content">
                   <div className="food-name-price">
@@ -450,7 +442,7 @@ export default function Search() {
                       (92 Reviews)
                     </span>
                   </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Cheese Sizzling to cart">
+                  <button type="button" className="buy-now-btn" aria-label="Add Cheese Sizzling to cart" onClick={(e) => { e.stopPropagation(); addToCart('4') }}>
                     Buy Now
                   </button>
                 </div>
@@ -458,11 +450,7 @@ export default function Search() {
               <Link className="food-card" role="listitem" aria-label="Classic Burger" to="/menu-detail/5" style={{ textDecoration: "none", display: "block" }}>
                 <div className="food-card-image">
                   <img alt="Classic Burger" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <button type="button" className="favorite-btn " aria-label="Add Classic Burger to favorites" aria-pressed="false">
-                    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 2.99817C16.2275 2.99817 15.5121 3.14052 14.8446 3.41708C14.1772 3.69364 13.5708 4.099 13.06 4.61L12 5.67L10.94 4.61C9.9083 3.57831 8.50903 2.99871 7.05 2.99871C5.59096 2.99871 4.19169 3.57831 3.16 4.61C2.1283 5.64169 1.54871 7.04097 1.54871 8.5C1.54871 9.95903 2.1283 11.3583 3.16 12.39L4.22 13.45L12 21.23L19.78 13.45L20.84 12.39C21.351 11.8792 21.7564 11.2728 22.0329 10.6054C22.3095 9.93789 22.4518 9.22248 22.4518 8.5C22.4518 7.77752 22.3095 7.0621 22.0329 6.39464C21.7564 5.72718 21.351 5.12075 20.84 4.61Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
+                  <FavoriteButton id="5" name="Classic Burger" />
                 </div>
                 <div className="food-card-content">
                   <div className="food-name-price">
@@ -499,7 +487,7 @@ export default function Search() {
                       (92 Reviews)
                     </span>
                   </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Classic Burger to cart">
+                  <button type="button" className="buy-now-btn" aria-label="Add Classic Burger to cart" onClick={(e) => { e.stopPropagation(); addToCart('5') }}>
                     Buy Now
                   </button>
                 </div>
@@ -507,11 +495,7 @@ export default function Search() {
               <Link className="food-card" role="listitem" aria-label="Pasta Carbonara" to="/menu-detail/6" style={{ textDecoration: "none", display: "block" }}>
                 <div className="food-card-image">
                   <img alt="Pasta Carbonara" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <button type="button" className="favorite-btn " aria-label="Add Pasta Carbonara to favorites" aria-pressed="false">
-                    <svg width={18} height={18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.84 4.61C20.3292 4.099 19.7228 3.69364 19.0554 3.41708C18.3879 3.14052 17.6725 2.99817 16.95 2.99817C16.2275 2.99817 15.5121 3.14052 14.8446 3.41708C14.1772 3.69364 13.5708 4.099 13.06 4.61L12 5.67L10.94 4.61C9.9083 3.57831 8.50903 2.99871 7.05 2.99871C5.59096 2.99871 4.19169 3.57831 3.16 4.61C2.1283 5.64169 1.54871 7.04097 1.54871 8.5C1.54871 9.95903 2.1283 11.3583 3.16 12.39L4.22 13.45L12 21.23L19.78 13.45L20.84 12.39C21.351 11.8792 21.7564 11.2728 22.0329 10.6054C22.3095 9.93789 22.4518 9.22248 22.4518 8.5C22.4518 7.77752 22.3095 7.0621 22.0329 6.39464C21.7564 5.72718 21.351 5.12075 20.84 4.61Z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
+                  <FavoriteButton id="6" name="Pasta Carbonara" />
                 </div>
                 <div className="food-card-content">
                   <div className="food-name-price">
@@ -548,7 +532,7 @@ export default function Search() {
                       (58 Reviews)
                     </span>
                   </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Pasta Carbonara to cart">
+                  <button type="button" className="buy-now-btn" aria-label="Add Pasta Carbonara to cart" onClick={(e) => { e.stopPropagation(); addToCart('6') }}>
                     Buy Now
                   </button>
                 </div>

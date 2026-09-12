@@ -1,8 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
 
 export default function SignUp() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -18,7 +21,7 @@ export default function SignUp() {
                   <p className="auth-subtitle">
                     Join us today and unlock endless possibilities. It's quick, easy, and just a step away!
                   </p>
-                  <form className="auth-form" noValidate>
+                  <form className="auth-form" noValidate onSubmit={(e) => { e.preventDefault(); toast.success("Account created!"); navigate('/verification') }}>
                     <div className="form-group">
                       <label htmlFor="fullname" className="form-label">
                         Full Name

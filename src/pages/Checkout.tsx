@@ -1,13 +1,16 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useNavigate } from 'react-router-dom'
+
 export default function Checkout() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
       <main>
         <div className="checkout-screen">
           <div className="checkout-header">
-            <button type="button" className="btn-back" aria-label="Go back">
+            <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
               <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
                 <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

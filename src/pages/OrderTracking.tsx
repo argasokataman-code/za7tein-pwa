@@ -2,7 +2,10 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useEffect } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 export default function OrderTracking() {
+  const navigate = useNavigate()
   useEffect(() => {
     document.body.className = "order-tracking-page"
     return () => {
@@ -16,7 +19,7 @@ export default function OrderTracking() {
       <main>
         <div className="order-tracking-screen">
           <header className="order-tracking-header">
-            <button className="back-btn-map" aria-label="Go back" type="button">
+            <button className="back-btn-map" aria-label="Go back" type="button" onClick={() => navigate(-1)}>
               <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
                 <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

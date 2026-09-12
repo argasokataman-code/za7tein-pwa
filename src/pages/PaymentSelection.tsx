@@ -1,15 +1,19 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { useSelection } from '../hooks/useToggleSet'
 
 export default function PaymentSelection() {
+  const selection = useSelection("Master Card **** **** 1234")
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
       <main>
         <div className="payment-selection-screen">
           <header className="payment-selection-header">
-            <button type="button" className="btn-back" aria-label="Go back">
+            <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
               <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
                 <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -23,7 +27,7 @@ export default function PaymentSelection() {
               Payment Account
             </Link>
             <div className="payment-list" role="radiogroup" aria-label="Select a payment method">
-              <button type="button" role="radio" aria-checked="false" className="payment-item">
+              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("PayPal") ? " selected" : ""}`} onClick={() => selection.select("PayPal")}>
                 <div className="payment-icon">
                   <div className="paypal-logo" aria-label="PayPal">
                     <svg width={40} height={24} viewBox="0 0 40 24" fill="none">
@@ -41,7 +45,7 @@ export default function PaymentSelection() {
                   <div className="radio-outer" />
                 </div>
               </button>
-              <button type="button" role="radio" aria-checked="false" className="payment-item">
+              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("Google Pay") ? " selected" : ""}`} onClick={() => selection.select("Google Pay")}>
                 <div className="payment-icon">
                   <div className="googlepay-logo" aria-label="Google Pay">
                     <svg width={32} height={32} viewBox="0 0 48 48" fill="none">
@@ -61,7 +65,7 @@ export default function PaymentSelection() {
                   <div className="radio-outer" />
                 </div>
               </button>
-              <button type="button" role="radio" aria-checked="false" className="payment-item">
+              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("Apple Pay") ? " selected" : ""}`} onClick={() => selection.select("Apple Pay")}>
                 <div className="payment-icon">
                   <div className="applepay-logo" aria-label="Apple Pay">
                     <svg width={28} height={28} viewBox="0 0 24 24" fill="none">
@@ -78,7 +82,7 @@ export default function PaymentSelection() {
                   <div className="radio-outer" />
                 </div>
               </button>
-              <button type="button" role="radio" aria-checked="true" className="payment-item selected">
+              <button type="button" role="radio" aria-checked="true" className={`payment-item${selection.isSelected("Master Card **** **** 1234") ? " selected" : ""}`} onClick={() => selection.select("Master Card **** **** 1234")}>
                 <div className="payment-icon">
                   <div className="mastercard-logo" aria-label="Mastercard">
                     <div className="mc-circle mc-red" />

@@ -1,8 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
 
 export default function SignIn() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -12,7 +15,7 @@ export default function SignIn() {
             <div className="row h-100">
               <div className="col-12 d-flex flex-column">
                 <div className="back-button">
-                  <button type="button" className="btn-back" aria-label="Go back">
+                  <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
                     <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
                       <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -28,7 +31,7 @@ export default function SignIn() {
                   <p className="auth-subtitle">
                     Glad to have you here again. Let's get started!
                   </p>
-                  <form className="auth-form" noValidate>
+                  <form className="auth-form" noValidate onSubmit={(e) => { e.preventDefault(); toast.success("Welcome back!"); navigate('/home') }}>
                     <div className="form-group">
                       <label htmlFor="email" className="form-label">
                         Email
