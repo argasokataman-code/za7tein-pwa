@@ -317,7 +317,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 <p className="track-row-note">{copy.courier}</p>
               </div>
               <div className="track-actions">
-                <a className="track-action" href="tel:+6281234567890">
+                <a className="track-action" href={`tel:${courier.phone}`}>
                   <IconPhone />
                   Hubungi
                 </a>

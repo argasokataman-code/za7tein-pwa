@@ -7,7 +7,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
 
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
-import { formatDistance, isDeliverable, rupiah, zoneFor } from '../data/merchant'
+import {
+  DEFAULT_NEW_ADDRESS_PIN,
+  formatDistance,
+  isDeliverable,
+  rupiah,
+  zoneFor,
+} from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockUser } from '../data/user'
 import { addAddress, setAddress } from '../store/slices/cartSlice'
@@ -61,10 +67,7 @@ export default function AddressSelection() {
       address: data.building,
       city: 'Jakarta Selatan',
       fullAddress: `${data.building} · ${data.floor} · ${data.unit}`,
-      // Pin baru dianggap di dalam Zona A sampai pengguna menggeser pin peta.
-      lat: -6.2575,
-      lng: 106.7812,
-      distanceMeters: 540,
+      ...DEFAULT_NEW_ADDRESS_PIN,
     }
     dispatch(addAddress(next))
     dispatch(setAddress(id))

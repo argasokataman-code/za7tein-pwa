@@ -136,6 +136,8 @@ export interface Courier {
   id: string
   merchantId: string
   name: string
+  /** Nomor kurir, dipakai tombol "Hubungi" di halaman pelacakan. */
+  phone: string
   status: 'at_store' | 'delivering' | 'offline'
   activeOrderCount: number
 }

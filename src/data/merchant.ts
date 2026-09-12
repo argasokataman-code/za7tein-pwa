@@ -38,11 +38,23 @@ export const mockMerchant: Merchant = {
   bank: { name: 'BCA', account: '8830 1122 3344', holder: 'Ali Santoso' },
 }
 
+/**
+ * Pin bawaan untuk alamat yang baru ditambahkan, sebelum pengguna menggeser
+ * pin di peta. Sengaja di dalam Zona A (540 m < 600 m) supaya alamat baru
+ * selalu bisa diantar; kalau angkanya diubah, jaraknya harus ikut dijaga agar
+ * tetap satu zona dengan distanceMeters.
+ */
+export const DEFAULT_NEW_ADDRESS_PIN = {
+  lat: -6.2575,
+  lng: 106.7812,
+  distanceMeters: 540,
+} as const
+
 /** Kurir toko bersifat eksklusif milik satu merchant (PRD bab 04). */
 export const mockCouriers: Courier[] = [
-  { id: '1', merchantId: '1', name: 'Budi Santoso', status: 'at_store', activeOrderCount: 0 },
-  { id: '2', merchantId: '1', name: 'Andi Pratama', status: 'delivering', activeOrderCount: 2 },
-  { id: '3', merchantId: '1', name: 'Rizal', status: 'offline', activeOrderCount: 0 },
+  { id: '1', merchantId: '1', name: 'Budi Santoso', phone: '+6281234567890', status: 'at_store', activeOrderCount: 0 },
+  { id: '2', merchantId: '1', name: 'Andi Pratama', phone: '+6281298765432', status: 'delivering', activeOrderCount: 2 },
+  { id: '3', merchantId: '1', name: 'Rizal', phone: '+6281355566677', status: 'offline', activeOrderCount: 0 },
 ]
 
 export const MAX_COURIERS_PER_MERCHANT = 3
