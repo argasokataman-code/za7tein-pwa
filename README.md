@@ -99,6 +99,8 @@ wired to the store (see Status).
 - [x] Cart / favourites / FAQ / filter chips / payment / rating / logout
 - [x] Documentation page: sidebar navigation and per-block copy buttons
 - [x] Landing and onboarding PWA banners are dismissible
+- [x] Order screens render a live Leaflet map (OpenStreetMap tiles, restaurant
+      and delivery markers, dashed route, working recenter)
 - [ ] Inert by design or by omission: the two numpad spacer keys, and the
       documentation hamburger (no `doc-*` class has styles upstream, so there
       is nothing for it to toggle)

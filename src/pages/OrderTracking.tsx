@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
+import { useLeafletMap } from '../hooks/useLeafletMap'
+
 export default function OrderTracking() {
+  const { recenter } = useLeafletMap("tracking-map")
   const navigate = useNavigate()
   useEffect(() => {
     document.body.className = "order-tracking-page"
@@ -31,7 +34,7 @@ export default function OrderTracking() {
             </h1>
           </header>
           <div id="tracking-map" className="order-map-container" />
-          <button className="recenter-btn" aria-label="Recenter map" type="button" onClick={() => { toast.success("Map re-centered on your location") }}>
+          <button className="recenter-btn" aria-label="Recenter map" type="button" onClick={recenter}>
             <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2" />
               <circle cx="12" cy="12" r="3" fill="white" />
