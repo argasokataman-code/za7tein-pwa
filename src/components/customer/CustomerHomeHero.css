@@ -53,10 +53,9 @@
 }
 
 /* ── Opasitas pola ────────────────────────────────────────────────────────
-   Semua di sini, dalam rentang 4-14%. Di berkas aslinya handle 70%, uap 40%,
-   dan tatakan 30%: dikomposit ke atas oranye merek, ketiganya jadi pink dan
-   salmon dan menggeser rona hero. Angka di bawah menjaga semuanya tetap
-   oranye — pada 14% putih di atas #F15A37 hanya menjadi rgb(243,113,83). */
+   Semua di sini, dalam rentang 4-14%. Di berkas aslinya pin mencapai 90% dan
+   uap 45%: dikomposit ke atas oranye merek, keduanya berhenti terbaca sebagai
+   oranye. Pada 14% putih di atas #F15A37 hanya menjadi rgb(243,113,83). */
 
 .s7-wave {
   fill: var(--on-brand);
@@ -70,8 +69,13 @@
   fill-opacity: 0.08;
 }
 
-.s7-wave--three {
-  fill-opacity: 0.04;
+/* Garis rute pengiriman. */
+.s7-route {
+  fill: none;
+  stroke: var(--on-brand);
+  stroke-opacity: 0.1;
+  stroke-width: 3;
+  stroke-dasharray: 8 8;
 }
 
 .s7-dot-matrix {
@@ -79,41 +83,53 @@
   fill-opacity: 0.12;
 }
 
-/* ── Cloche ─────────────────────────────────────────────────────────────── */
+/* ── Mangkuk dan pin ──────────────────────────────────────────────────────
+   Area bebas hero di mobile hanya sekitar 80x120px: di kanan judul dan di
+   bawah tombol notifikasi. Tiga pita bertingkat (titik, rute, mangkuk) muat di
+   situ, tapi uap dan pin tidak. Kalau dipaksa, ketiganya bertumpuk dan
+   akumulasi alpha naik ke ~25%. Jadi keduanya muncul saat lebarnya ada. */
 
-.s7-cloche {
-  fill: none;
+.s7-bowl__steam[data-hanya-lebar],
+.s7-bowl__pin[data-hanya-lebar] {
+  display: none;
 }
 
-.s7-cloche__steam {
+.s7-bowl__steam {
   fill: none;
   stroke: var(--on-brand);
-  stroke-opacity: 0.11;
-  stroke-width: 2.5;
+  stroke-opacity: 0.1;
+  stroke-width: 3;
   stroke-linecap: round;
 }
 
-.s7-cloche__dome {
+.s7-bowl__body {
   fill: var(--on-brand);
-  fill-opacity: 0.09;
+  fill-opacity: 0.06;
   stroke: var(--on-brand);
-  stroke-opacity: 0.14;
-  stroke-width: 2;
+  stroke-opacity: 0.12;
+  stroke-width: 3;
 }
 
-.s7-cloche__handle {
+.s7-bowl__rim {
   fill: var(--on-brand);
-  fill-opacity: 0.14;
+  fill-opacity: 0.1;
 }
 
-.s7-cloche__tray {
+.s7-bowl__pin-halo {
+  fill: var(--on-brand);
+  fill-opacity: 0.08;
+}
+
+/* Pin aslinya #FFE0B2 pada 90% — di luar palet, dan hampir pekat. */
+.s7-bowl__pin-mark {
   fill: var(--on-brand);
   fill-opacity: 0.12;
 }
 
-.s7-cloche__tray-2 {
+/* Titik tengahnya aslinya #FF3D00, merah yang tidak ada di palet. */
+.s7-bowl__pin-dot {
   fill: var(--on-brand);
-  fill-opacity: 0.08;
+  fill-opacity: 0.1;
 }
 
 /* ── Baris atas ─────────────────────────────────────────────────────────── */
@@ -467,7 +483,8 @@
 /* ── Lebar besar ────────────────────────────────────────────────────────── */
 
 @media (min-width: 768px) {
-  .s7-cloche[data-hanya-lebar] {
+  .s7-bowl__steam[data-hanya-lebar],
+  .s7-bowl__pin[data-hanya-lebar] {
     display: block;
   }
 
