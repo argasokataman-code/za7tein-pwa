@@ -1478,3 +1478,42 @@ body.sa7tein-track-page {
     transition: none;
   }
 }
+
+/* ── Payment amount: header 44px dan home-indicator ────────────────────────
+   Dua cacat yang bikin tampilannya rusak.
+
+   1. Header-nya position:fixed dengan top:44px, disisakan untuk status bar
+      yang tidak pernah dirender. Akibatnya pita 0-44px terbuka dan konten
+      yang digulir lewat di atas header. Header diturunkan ke 0 dan padding
+      atas konten disesuaikan dari 104px (44+60) menjadi 76px.
+
+   2. .home-indicator didefinisikan tiga kali di _app.scss dengan maksud
+      berbeda: pil 134x5 di tengah, strip selebar layar untuk safe-area, dan
+      wadah flex 24px. Kekhususannya sama, jadi yang terakhir menang per
+      properti -- left dan right jadi 0, height jadi 24px, sementara width
+      134px dan translate(-50%) dari aturan pertama tetap berlaku. Hasilnya
+      blok ivory 134x24 di x -67..67, separuh keluar tepi kiri layar.
+      Markup memakai elemen ini sendirian tanpa anak .home-indicator2, jadi
+      bentuk yang masuk akal cuma pilnya sendiri. Satu aturan lengkap di sini
+      menang lewat urutan sumber, tanpa perlu menyunting ketiga tempat itu. */
+
+.payment-amount-header {
+  top: 0;
+}
+
+.payment-amount-content {
+  padding-top: 76px;
+}
+
+.home-indicator {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  z-index: 1000;
+  width: 134px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(32, 32, 32, 0.1);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
