@@ -151,40 +151,55 @@ export default function Home() {
               aria-hidden="true"
               focusable="false"
             >
-              {/* Arrive — cincin sepusat di balik foto, titik tujuan */}
-              <g fill="none" stroke="#C9451E" strokeWidth="1">
-                <circle cx="284" cy="67" r="46" strokeOpacity="0.10" />
-                <circle cx="284" cy="67" r="62" strokeOpacity="0.08" />
-                <circle cx="284" cy="67" r="78" strokeOpacity="0.06" />
+              {/* 4 — bentuk organik terpotong yang masuk dari tepi kanan, memberi
+                  kedalaman di belakang foto. Isi, bukan garis. */}
+              <g fill="#8A2B10">
+                <path d="M352 -10C292 14 284 114 352 146Z" fillOpacity="0.28" />
+                <path d="M352 26C316 42 314 96 352 112Z" fillOpacity="0.32" />
               </g>
 
-              {/* Prepare — dua busur bertumpuk, rim piring */}
-              <g fill="none" stroke="#F89B7F" strokeWidth="1">
-                <path d="M-24 30C34 6 116 0 186 16" strokeOpacity="0.12" />
-                <path d="M-24 40C36 18 118 12 184 28" strokeOpacity="0.08" />
-              </g>
-
-              {/* Move — jalur perjalanan, lewat kanal lalu di balik foto */}
-              <path
-                d="M6 122C66 134 128 128 190 110C240 96 250 54 268 30C280 14 300 10 318 16"
+              {/* 3 — ilustrasi cloche: kubah, alas, tiga ujung uap.
+                  Diletakkan di area kosong antara tombol dan foto supaya
+                  bentuknya benar-benar terbaca; alasnya memanjang ke kiri
+                  dan kanan sehingga menyatukan paruh kiri dan kanan banner. */}
+              <g
                 fill="none"
-                stroke="#F89B7F"
-                strokeWidth="1.25"
-                strokeOpacity="0.15"
+                stroke="#FFF6F0"
+                strokeOpacity="0.42"
+                strokeWidth="3.5"
                 strokeLinecap="round"
-              />
+              >
+                <path d="M161 120A54 54 0 0 1 269 120" />
+                <path d="M146 120H284" strokeWidth="2.5" />
+                <path d="M199 64C194 58 202 54 197 48" />
+                <path d="M215 62C210 56 218 52 213 46" />
+                <path d="M231 64C226 58 234 54 229 48" />
+              </g>
 
-              {/* Simpul: terisi = asal & tujuan, berongga = sedang bergerak */}
-              <circle cx="18" cy="123" r="2.8" fill="#F89B7F" fillOpacity="0.15" />
-              <circle cx="190" cy="110" r="3.8" fill="none" stroke="#F89B7F" strokeWidth="1.25" strokeOpacity="0.15" />
-              <circle cx="318" cy="16" r="2.8" fill="#F89B7F" fillOpacity="0.15" />
-              <circle cx="318" cy="16" r="6.2" fill="none" stroke="#F89B7F" strokeWidth="1" strokeOpacity="0.10" />
+              {/* 1 — tiga bukit berlapis yang naik dari tepi bawah */}
+              <g fill="#FFF6F0">
+                <path d="M-10 133C6 100 40 82 74 88C108 94 138 116 158 133Z" fillOpacity="0.1" />
+                <path d="M18 133C34 106 68 96 98 106C124 115 146 126 158 133Z" fillOpacity="0.12" />
+                <path d="M52 133C68 118 100 114 126 122C142 127 152 131 158 133Z" fillOpacity="0.14" />
+              </g>
 
-              {/* Titik ritmis, bukan acak */}
-              <g fill="#C9451E">
-                <circle cx="52" cy="10" r="1.8" fillOpacity="0.15" />
-                <circle cx="222" cy="128" r="1.8" fillOpacity="0.15" />
-                <circle cx="338" cy="40" r="1.8" fillOpacity="0.14" />
+              {/* 2 — matriks titik, di atas judul bukan di belakangnya */}
+              <g fill="#FFF6F0" fillOpacity="0.38">
+                <circle cx="124" cy="3" r="2.4" />
+                <circle cx="136" cy="3" r="2.4" />
+                <circle cx="148" cy="3" r="2.4" />
+                <circle cx="160" cy="3" r="2.4" />
+                <circle cx="172" cy="3" r="2.4" />
+                <circle cx="124" cy="9" r="2.4" />
+                <circle cx="136" cy="9" r="2.4" />
+                <circle cx="148" cy="9" r="2.4" />
+                <circle cx="160" cy="9" r="2.4" />
+                <circle cx="172" cy="9" r="2.4" />
+                <circle cx="124" cy="15" r="2.4" />
+                <circle cx="136" cy="15" r="2.4" />
+                <circle cx="148" cy="15" r="2.4" />
+                <circle cx="160" cy="15" r="2.4" />
+                <circle cx="172" cy="15" r="2.4" />
               </g>
             </svg>
             <div className="ad-content">
