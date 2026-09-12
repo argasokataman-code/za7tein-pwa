@@ -604,3 +604,21 @@ select {
 .review-card + .review-card {
   margin-top: var(--space-2);
 }
+
+// Baris opsi modifier: kontur tidak terpilih sebelumnya memakai --border
+// (1,20:1 terhadap latar halaman) sehingga barisnya tidak terbaca sebagai
+// sesuatu yang bisa ditekan, sementara yang terpilih memakai token yang tidak
+// pernah ada sehingga jatuh ke currentColor dan menghasilkan cincin hitam
+// 20:1. Sekarang keduanya berjarak wajar.
+.modifier-option {
+  border-color: var(--border-strong);
+}
+
+.modifier-option.active {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+}
+
+.modifier-option:hover:not(.active) {
+  border-color: var(--sa7tein-orange);
+}

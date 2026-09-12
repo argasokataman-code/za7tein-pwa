@@ -173,7 +173,7 @@
   padding: 10px 12px;
   border: 1px dashed var(--border);
   border-radius: var(--radius-lg);
-  background: var(--canvas);
+  background: var(--bg-warm);
   font-size: var(--text-sm);
   font-weight: 700;
   color: var(--orange-ink);
@@ -215,7 +215,7 @@
 }
 
 .modifier-option.active {
-  border-color: var(--orange-brand);
+  border-color: var(--sa7tein-orange);
   background: var(--orange-soft);
 }
 
@@ -248,6 +248,6 @@
 }
 
 .modifier-box.active {
-  border-color: var(--orange-brand);
-  background: var(--orange-brand);
+  border-color: var(--sa7tein-orange);
+  background: var(--sa7tein-orange);
 }
