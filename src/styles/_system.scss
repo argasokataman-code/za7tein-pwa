@@ -287,3 +287,27 @@ select {
 .btn-back:hover {
   border-color: var(--border-strong);
 }
+
+// ── 7. Hormati preferensi gerak pengguna ──────────────────────────────────
+// Sebelum ini tidak ada satu pun aturan prefers-reduced-motion, sementara app
+// punya 9 keyframes dan 100+ transisi. Pengguna yang meminta gerak minimal
+// tetap mendapat semuanya. Blok ini mematikan animasi dekoratif tanpa
+// menghilangkan perubahan state — transisinya dipangkas jadi instan.
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  // Spinner tetap boleh berputar: tanpa itu tidak ada indikasi proses.
+  .spinner,
+  .loader,
+  [class*='spinner'] {
+    animation-duration: 1.2s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
