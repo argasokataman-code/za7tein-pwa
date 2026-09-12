@@ -34,6 +34,57 @@ export default function Home() {
     <div className="home-screen-wrapper">
       <div className="home-screen">
         <div className="home-header">
+          {/*
+            Dekorasi latar header — bahasa visual yang sama dengan banner promo,
+            tapi dikomposisikan untuk geometri header: isinya padat (baris atas,
+            judul selebar header, search bar), jadi dekorasi hanya hidup di
+            pita-pita kosong dan di balik foto profil.
+          */}
+          <div className="hdr-decor-wrap" aria-hidden="true">
+            <svg
+              className="hdr-decor"
+              viewBox="0 0 390 211"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+            >
+              {/* bentuk organik besar masuk dari tepi kanan, memberi kedalaman
+                  di balik tombol notifikasi */}
+              <path d="M410 -20C344 10 336 176 410 231Z" fill="#FFF6F0" fillOpacity="0.2" />
+              <path d="M410 44C368 62 366 150 410 168Z" fill="#8A2B10" fillOpacity="0.24" />
+
+              {/* dua busur bertumpuk menyapu pita atas */}
+              <g fill="none" stroke="#FFF6F0" strokeWidth="3.5" strokeLinecap="round">
+                <path d="M-20 34C60 8 180 2 302 26" strokeOpacity="0.42" />
+                <path d="M-20 48C64 24 184 18 300 40" strokeOpacity="0.32" strokeWidth="2.5" />
+              </g>
+
+              {/* perbukitan berlapis naik dari tepi bawah */}
+              <g fill="#FFF6F0">
+                <path d="M-20 211C40 178 104 162 160 174C216 186 268 202 306 211Z" fillOpacity="0.1" />
+                <path d="M14 211C66 186 126 176 178 188C228 199 272 207 306 211Z" fillOpacity="0.12" />
+                <path d="M74 211C112 197 164 192 208 200C248 206 280 209 306 211Z" fillOpacity="0.14" />
+              </g>
+
+              {/* matriks titik di pita antara baris atas dan judul */}
+              <g fill="#FFF6F0" fillOpacity="0.38">
+              <circle cx="296" cy="76" r="2.4" />
+              <circle cx="308" cy="76" r="2.4" />
+              <circle cx="320" cy="76" r="2.4" />
+              <circle cx="332" cy="76" r="2.4" />
+              <circle cx="344" cy="76" r="2.4" />
+              <circle cx="296" cy="82" r="2.4" />
+              <circle cx="308" cy="82" r="2.4" />
+              <circle cx="320" cy="82" r="2.4" />
+              <circle cx="332" cy="82" r="2.4" />
+              <circle cx="344" cy="82" r="2.4" />
+              <circle cx="296" cy="88" r="2.4" />
+              <circle cx="308" cy="88" r="2.4" />
+              <circle cx="320" cy="88" r="2.4" />
+              <circle cx="332" cy="88" r="2.4" />
+              <circle cx="344" cy="88" r="2.4" />
+              </g>
+            </svg>
+          </div>
           <div className="header-content">
             <div className="header-top">
               <Link className="profile-section" to="/account-setup">
