@@ -1,0 +1,96 @@
+{
+  "version": 2,
+  "description": "Sa7tein PWA — rules manifest. Front-end showcase only. Baca ini + AGENTS.md + .githooks/pre-commit sebelum kerja.",
+  "scope": {
+    "is": ["UI/UX", "design system", "mock data di src/data", "Redux state"],
+    "is_not": ["backend/API/database", "autentikasi sungguhan", "pembayaran sungguhan", "Web Push service worker"]
+  },
+  "agent": {
+    "startup_hooks": [
+      "baca .rules.json dulu",
+      "baca AGENTS.md",
+      "baca .githooks/pre-commit",
+      "atlas query topik sebelum usul perubahan"
+    ]
+  },
+  "stack": {
+    "build": "Vite + TypeScript",
+    "ui": "React 19 + react-router-dom v7",
+    "styling": "SCSS, bundel di src/styles/ (_system.scss = lapisan yang menang)",
+    "state": "Redux Toolkit + redux-persist (cart, favorites, accountSetup)",
+    "form": "react-hook-form + zod",
+    "icons": "lucide-react saja (strokeWidth eksplisit)",
+    "map": "leaflet + react-leaflet",
+    "pwa": "vite-plugin-pwa (service worker hanya di build)"
+  },
+  "commands": {
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "lint": "npm run lint",
+    "preview": "npm run preview"
+  },
+  "layout_invariants": {
+    "shell_max": "430px (kolom aplikasi terkunci, mobile-first)",
+    "page_gutter": "--space-5 (20px), tanpa pengecualian",
+    "scroll": "satu penggulung: dokumen. Dilarang overflow-y: auto bersarang",
+    "fixed_bars": "wajib max-width: var(--shell-max); margin-inline: auto",
+    "sticky_header": "margin-inline: calc(-1 * var(--space-5)); padding-inline: var(--space-5)",
+    "media_query": "merespons lebar JENDELA, bukan kolom. Untuk kolom sempit pakai container query / layout ringkas tanpa syarat"
+  },
+  "max_lines": {
+    "component_tsx": 600,
+    "page_tsx": 700,
+    "page_exempt": ["Documentation.tsx (layar docs, berdiri sendiri)"],
+    "hook": 150,
+    "data": 500,
+    "context": "co-located .css hanya untuk komponen besar yang berdiri sendiri (kini CustomerHomeHero.css)"
+  },
+  "forbidden_patterns": {
+    "code": [
+      "dangerouslySetInnerHTML",
+      "eval(",
+      "new Function(",
+      "innerHTML =",
+      "console.log (di src/)",
+      "useAppStore( (hook tidak ada; pakai useAppDispatch + useAppSelector)"
+    ],
+    "packages": ["react-icons", "@heroicons", "@fortawesome", "@tabler/icons", "emoji di UI atau kode"],
+    "values": [
+      "angka/string dipakai >1 tempat sebagai literal di JSX (wajib export const di src/data/)",
+      "nilai warna di luar peran token (lihat AGENTS.md §4)",
+      "var(--...) yang tokennya belum ada",
+      "URL gambar eksternal (aset dari public/assets/)"
+    ],
+    "svg": ["preserveAspectRatio=\"none\" (pakai xMidYMid slice)"]
+  },
+  "reusable": {
+    "order": ["OrderStageScreen", "Journey Line / status pesanan (src/components/OrderStageScreen.tsx)"],
+    "ui": ["FoodCard", "AddToCartButton", "FavoriteButton", "BackButton"],
+    "layout": ["BottomNav", "HomeIndicator"],
+    "customer": ["CustomerHomeHero"]
+  },
+  "code_style": {
+    "file_naming": "PascalCase",
+    "components_ui": "named export",
+    "pages": "default export",
+    "props": "interface XxxProps di atas komponen (atau inline type)",
+    "slice": "createSlice, name camelCase = key combineReducers, default export reducer + named actions",
+    "hooks": "src/hooks/, useXxx, named export, return objek polos (bukan array)",
+    "route": "tuple [path, Page] di array routes (src/App.tsx), bukan <Route> terpisah, tanpa lazy import",
+    "types": "src/types.ts satu-satunya sumber tipe domain; import type { X } from '../types'"
+  },
+  "git": {
+    "commitStyle": "Conventional Commits",
+    "hooksPath": ".githooks",
+    "bypass": "git commit --no-verify (darurat saja, wajib lapor)"
+  },
+  "pre_commit": {
+    "checks": ["forbidden patterns", "line counts", "lint (oxlint)", "build (tsc -b && vite build)", "atlas check"]
+  },
+  "atlas": {
+    "enabled": true,
+    "cli": "$HOME/.config/opencode/skills/atlas-owner/scripts/atlas.mjs",
+    "after_significant_work": "record >=1 node (type/status benar, conn >=1)"
+  },
+  "readBefore": ["AGENTS.md", ".githooks/pre-commit", "atlas query <topik>"]
+}

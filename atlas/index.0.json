@@ -1,0 +1,3199 @@
+{
+  "shard": 0,
+  "nodes": [
+    {
+      "id": "FEAT-001",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public",
+      "conn": []
+    },
+    {
+      "id": "FEAT-002",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-001",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": ".gitignore",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-002",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": ".oxlintrc.json",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-003",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "AGENTS.md — AGENTS.md — Sa7tein PWA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-003",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "index.html",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-004",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "package.json",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-005",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "PRD_Sa7tein.pdf",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-004",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "README.md — Delivo — Food Delivery PWA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-006",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "tsconfig.app.json",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-007",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "tsconfig.json",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-008",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "tsconfig.node.json",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-009",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:23",
+      "tags": [
+        "scan"
+      ],
+      "summary": "vite.config.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-005",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 1. Repo ini apa, dan apa batasnya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-001",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md: Backend, API, database, atau skema tabel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-002",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md: Pembayaran sungguhan — COD dan transfer manual hanya alur layar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-003",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md: Service worker untuk Web Push — PWA-nya jalan, tapi push tidak",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-006",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 2. Stack & perintah",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-007",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 3. Di mana menulis CSS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-008",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 4. Token",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-009",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 5. Invarian tata letak",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-010",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 6. Ikon & gambar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-004",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md: **Tanpa paket ikon lain.** SVG inline hanya untuk ornamen dan ilustrasi; ikon fungsional memakai lucide.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-005",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md: **Tanpa ilustrasi stok dan tanpa URL gambar eksternal** — aset dari `public/assets/`.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "NEG-001",
+      "type": "negative",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md: Dekorasi SVG: pakai `preserveAspectRatio=\"xMidYMid slice\"`, **jangan `none`**. `none` meregang tidak seragam dan mengubah lingkar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "NEG-002",
+      "type": "negative",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md: **Journey Line dan status pesanan sudah jadi komponen.** Merchant dan kurir memandang pesanan yang sama dari sisi berbeda — turun",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-016",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — Getting started",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-017",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — Structure",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-018",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — Fidelity",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-019",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — How the screens were ported",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-020",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — Status",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-006",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md: [x] Auth flow, including the 4- and 6-digit code boxes and the PIN numpad",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-007",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md: [x] Cart / favourites / FAQ / filter chips / payment / rating / logout",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-008",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md: [x] Landing and onboarding PWA banners are dismissible",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-021",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — Interaction coverage",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-022",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:52:26",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — Note on the documentation screen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-016",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-128x128.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-017",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-144x144.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-018",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-152x152.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-019",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-192x192.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-020",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-384x384.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-021",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-512x512.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-022",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-72x72.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-023",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons/icon-96x96.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-024",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/favicon.ico",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-025",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/favicon.svg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-026",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons.svg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-027",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/manifest.json",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-028",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-029",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/customer",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-030",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/layout",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-031",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/pwa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-032",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/ui",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-033",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/OrderStageScreen.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-034",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/data",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-035",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/data/foods.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-036",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/data/merchant.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-037",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/data/notifications.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-038",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/data/reviews.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-039",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/data/user.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-040",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/hooks",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-041",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/hooks/useAppStore.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-042",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/hooks/useFoodActions.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-043",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/hooks/useLeafletMap.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-044",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/hooks/useOtpInput.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-045",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/hooks/useToggleSet.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-046",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/lib",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-047",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/lib/schemas.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-048",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-049",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/AccountSetup.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-050",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/AddCard.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-051",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/AddCardAddress.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-052",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/AddNewCard.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-053",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/AddProfilePhoto.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-054",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/AddressSelection.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-055",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/ChangePassword.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-056",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Checkout.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-057",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/CreatePassword.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-058",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/CreatePin.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-059",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Documentation.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-060",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Faq.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-061",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Favorites.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-062",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Filter.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-063",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/ForgotPassword.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-064",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/ForgotPasswordOtp.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-065",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/HelpCenter.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-066",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Home.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-067",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Landing.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-068",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Language.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-069",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/MenuDetail.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-070",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Notifications.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-071",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/NotificationSettings.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-072",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Offline.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-073",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Onboarding.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-074",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/OrderArrived.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-075",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/OrderChat.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-076",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/OrderDelivered.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-077",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/OrderDelivery.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-078",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/OrderPlaced.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-079",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/OrderSuccess.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-080",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/OrderTracking.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-081",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/PaymentAccount.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-082",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/PaymentAmount.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-083",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/PaymentSelection.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-084",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/PersonalData.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-085",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/PinSuccess.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-086",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/PrivacyPolicy.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-087",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Profile.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-088",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/RatingDriver.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-089",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Reviews.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-090",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Search.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-091",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Security.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-092",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/SignIn.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-093",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/SignUp.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-094",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/Verification.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-095",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/pages/YourCard.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-096",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-097",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/slices",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-098",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/index.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-099",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/provider.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-100",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/_app.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/_docs.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-103",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/_fonts.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-104",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/_modules.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-105",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/_reboot.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-106",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/_rebrand.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-107",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/_system.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-108",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/styles/index.scss",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-109",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/App.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/main.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:34",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/types.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-112",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/fonts/manrope.woff2",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-113",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img/card",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-114",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img/icon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-115",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img/menu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-116",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img/menu-details",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-117",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img/reviewer",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-118",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img/onboarding-bg.jpg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-119",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img/profile.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-120",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/media/layers-2x.793209de.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-121",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/media/layers.78ca0acf.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-122",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/media/marker-icon.b9f7ac13.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-123",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/media/onboarding-bg.196fa385.jpg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-124",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/media/profile.f3501486.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-125",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/media/visa.4c91c8bb.png",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-126",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/customer/CustomerHomeHero.css",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-127",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/customer/CustomerHomeHero.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-128",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/layout/BottomNav.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-129",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/layout/HomeIndicator.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-130",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/ui/AddToCartButton.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-131",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/ui/BackButton.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-132",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/ui/FavoriteButton.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-133",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/components/ui/FoodCard.tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-134",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/slices/accountSetupSlice.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-135",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/slices/authSlice.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-136",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/slices/cartSlice.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-137",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/slices/favoritesSlice.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-138",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/slices/notificationsSlice.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-139",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:53:38",
+      "tags": [
+        "scan"
+      ],
+      "summary": "src/store/slices/uiSlice.ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-140",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "18:53:41",
+      "tags": [
+        "atlas",
+        "meta",
+        "map"
+      ],
+      "summary": "Deep scan depth 4: full repo map — src/pages (46 screens), components/{customer,layout,pwa,ui}, store/slices (6), hooks, data, styles, publi",
+      "conn": [
+        {
+          "id": "FEAT-002",
+          "type": "relates",
+          "raw": "FEAT-002:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-011",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 7. Konvensi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-012",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 8. Memverifikasi pekerjaanmu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-013",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 9. Status & arah berikutnya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-014",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "AGENTS.md — 10. Sebelum mengirim",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-015",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "ingest"
+      ],
+      "summary": "README.md — Stack",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-141",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-142",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/fonts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-143",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/img",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-144",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/assets/media",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-145",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:20",
+      "tags": [
+        "scan"
+      ],
+      "summary": "public/icons",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUS-001",
+      "type": "business",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:54:40",
+      "tags": [
+        "biz",
+        "product"
+      ],
+      "summary": "Sa7tein front-end UI/UX showcase: food-delivery PWA, mock data only (no backend/auth/payment/push). Customer role done (46 routes); merchant",
+      "conn": [
+        {
+          "id": "FEAT-013",
+          "type": "relates",
+          "raw": "FEAT-013:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-010",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "18:54:45",
+      "tags": [
+        "atlas",
+        "meta"
+      ],
+      "summary": "Fresh atlas init: scan repo (22 features, 9 files) + ingest AGENTS.md/README into 40 knowledge nodes (8 decisions, 2 negative).",
+      "conn": [
+        {
+          "id": "BUS-001",
+          "type": "relates",
+          "raw": "BUS-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "PF-146",
+      "type": "pitfall",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "18:55:46",
+      "tags": [
+        "atlas",
+        "meta",
+        "trap"
+      ],
+      "summary": "atlas scan (depth>=3) after ingest reused low FEAT-011..015 ids -> duplicate node id + stale scan tag; check FAIL. Repair: delete dup ids (f",
+      "conn": [
+        {
+          "id": "TASK-140",
+          "type": "caused",
+          "raw": "TASK-140:caused"
+        }
+      ]
+    },
+    {
+      "id": "TASK-147",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:06:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+35/-1) — edit via tool: 5. Tidak ada `var(--…)` yang tokennya be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-148",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:06:57",
+      "tags": [
+        "atlas",
+        "meta",
+        "docs"
+      ],
+      "summary": "AGENTS.md: tambah §11 Skema data (types.ts single source, named const mock, fungsi murni) + §12 Komponen reusable (registry, naming, props, ",
+      "conn": [
+        {
+          "id": "FEAT-011",
+          "type": "relates",
+          "raw": "FEAT-011:relates"
+        },
+        {
+          "id": "FEAT-011",
+          "type": "implements",
+          "raw": "FEAT-011:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:10:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json (+96) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:10:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit (+101) — write via tool: #!/bin/bash",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit"
+    },
+    {
+      "id": "TASK-151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:11:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/README.md (+34) — write via tool: # Git hooks — Sa7tein PWA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/README.md"
+    },
+    {
+      "id": "TASK-152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:11:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/opencode.json (+17) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/opencode.json"
+    },
+    {
+      "id": "TASK-153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:11:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit (+2/-2) — edit via tool: check \"No useAppStore hook (use useAppDi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit"
+    },
+    {
+      "id": "TASK-154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:12:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit (+20/-20) — edit via tool: line_check() {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit"
+    },
+    {
+      "id": "TASK-155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:12:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json (+1/-1) — edit via tool: \"useAppStore( (hook tidak ada; pakai use",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:12:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+1/-1) — edit via tool: - **State**: satu slice per domain di `s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "19:12:36",
+      "tags": [
+        "atlas",
+        "meta",
+        "infra"
+      ],
+      "summary": "Pasang enforcement repo: .rules.json (manifest), .githooks/pre-commit (15 cek: forbidden/linecount/lint/build/atlas), .githooks/README, open",
+      "conn": [
+        {
+          "id": "BUS-001",
+          "type": "relates",
+          "raw": "BUS-001:relates"
+        },
+        {
+          "id": "FEAT-011",
+          "type": "relates",
+          "raw": "FEAT-011:relates"
+        }
+      ]
+    }
+  ]
+}

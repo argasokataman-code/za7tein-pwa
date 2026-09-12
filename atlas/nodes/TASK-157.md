@@ -1,0 +1,1 @@
+Pasang enforcement repo: .rules.json (manifest), .githooks/pre-commit (15 cek: forbidden/linecount/lint/build/atlas), .githooks/README, opencode.json (instructions+permission). hooksPath=.githooks. Hook 15/15 pass.

@@ -190,3 +190,37 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 3. Tidak ada `position: fixed` tanpa batas kolom
 4. Tidak ada emoji, tidak ada paket ikon baru, tidak ada warna di luar peran token
 5. Tidak ada `var(--…)` yang tokennya belum ada
+
+---
+
+## 11. Skema data
+
+**`src/types.ts` adalah satu-satunya sumber tipe domain.** Tipe yang dipakai lebih dari satu modul tinggal di sini. Impor selalu bentuk `import type { X } from '../types'`.
+
+- Data mock hidup di `src/data/`, diekspor sebagai **named const bertipe** (`export const foods: Food[] = [...]`), bukan default export.
+- Nilai yang dipakai di lebih dari satu tempat wajib jadi `export const` di `src/data/` — contoh `MAX_DELIVERY_METERS` dan `MAX_COURIERS_PER_MERCHANT` di `merchant.ts` — bukan literal yang disalin ke JSX. Pernah ada nomor telepon hardcoded di markup padahal tipenya belum punya field untuk itu.
+- Logika turunan tinggal di modul data sebagai fungsi murni, jangan disalin ke komponen: `rupiah()`, `formatDistance()`, `zoneFor()`, `haversineMeters()`, `deliveryFeeFor()`, `isDeliverable()` (`merchant.ts`); `getFood()`, `modifierSummary()`, `modifierExtra()` (`foods.ts`).
+- Objek literal kecil yang harus tetap presisi pakai `as const` (`DEFAULT_NEW_ADDRESS_PIN`, `mockOrder`).
+- Tipe state yang hanya dipakai satu slice tetap di file slice-nya sebagai interface lokal, tidak di `types.ts`.
+
+## 12. Komponen & kode reusable
+
+**Pakai komponen yang sudah ada sebelum menggambar ulang.** Ini yang paling sering dilanggar dan paling mahal.
+
+Registry yang harus dipakai ulang:
+
+- `OrderStageScreen` — semua layar tahap order (diterima / dimasak / diantar / tiba). Empat halaman order dulu salinan kembar dan tiap perbaikan desain harus diulang empat kali.
+- **Journey Line / status pesanan** — merchant dan kurir memandang order yang sama dari sisi berbeda; turunkan dari komponen ini (`src/components/OrderStageScreen.tsx`).
+- `src/components/ui/`: `FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`.
+- `src/components/customer/`: `CustomerHomeHero`; `src/components/layout/`: `BottomNav`, `HomeIndicator`.
+
+Konvensi kode:
+
+- **Nama file PascalCase**, nama fungsi = nama file. `src/components/ui/` memakai **named export**; halaman `src/pages/` memakai **default export**.
+- **Props**: `interface XxxProps` tepat di atas komponen (atau inline type pada parameter), bukan tipe yang diimpor dari `types.ts`.
+- **Ikon**: `lucide-react`, `strokeWidth` eksplisit. Tanpa paket ikon lain, tanpa emoji, tanpa URL gambar eksternal.
+- **CSS**: gaya komponen default ke `src/styles/_system.scss` (lapisan yang menang). Co-located `.css` hanya untuk komponen besar yang berdiri sendiri — saat ini cuma `CustomerHomeHero.css`. Jangan menambah `.css` komponen baru tanpa alasan kuat.
+- **State**: satu slice per domain di `src/store/slices/`, `name` camelCase sama dengan key `combineReducers`, **default export** reducer + named destructured actions. Persist hanya yang ada di whitelist `src/store/index.ts` (`cart`, `favorites`, `accountSetup`). Hook: `useAppDispatch` + `useAppSelector` — **tidak ada** hook `useAppStore` (file `src/hooks/useAppStore.ts` tetap ada sebagai tempat kedua hook itu; jangan bikin hook baru bernama `useAppStore`).
+- **Hooks** di `src/hooks/`, nama `useXxx`, named export, return objek polos (bukan array).
+- **Route**: tambahkan tuple `[path, Page]` ke array `routes` di `src/App.tsx`, bukan `<Route>` terpisah. Tanpa lazy import.
+- **Tanpa dependency baru** untuk hal yang bisa diselesaikan beberapa baris atau sudah ada di stack.
