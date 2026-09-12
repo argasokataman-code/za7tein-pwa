@@ -2502,54 +2502,6 @@ div[class*="-screen"] .container {
 
 .merchant-list { display: flex; flex-direction: column; }
 
-.merchant-menu-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding-block: var(--space-3);
-  border-bottom: 1px solid var(--border);
-}
-.merchant-menu-item:last-child { border-bottom: 0; }
-
-.merchant-menu-thumb {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--border);
-}
-
-.merchant-menu-body { flex: 1; min-width: 0; }
-
-.merchant-menu-row-name {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-primary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.merchant-menu-row-meta {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-  margin-top: 2px;
-}
-
-.merchant-menu-stock-btn {
-  display: inline-block;
-  margin-top: 2px;
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-  text-align: left;
-}
-.merchant-menu-stock-btn.is-low { color: var(--warning-ink); }
-.merchant-menu-stock-btn.is-out { color: var(--danger-ink); }
-
-.merchant-menu-item.is-unavailable .merchant-menu-thumb { filter: grayscale(1); opacity: 0.7; }
-.merchant-menu-item.is-unavailable .merchant-menu-row-name { color: var(--text-secondary); }
-
 .merchant-toggle-switch {
   position: relative;
   flex-shrink: 0;
@@ -2876,6 +2828,9 @@ div[class*="-screen"] .container {
 
 .merchant-menu-item:last-child { border-bottom: 1px solid var(--border-strong); }
 
+.merchant-menu-item.is-unavailable .merchant-menu-thumb { filter: grayscale(1); opacity: 0.7; }
+.merchant-menu-item.is-unavailable .merchant-menu-row-name { color: var(--text-secondary); }
+
 .merchant-menu-primary {
   display: flex;
   align-items: flex-start;
@@ -2887,6 +2842,9 @@ div[class*="-screen"] .container {
   width: 64px;
   height: 64px;
   border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--border);
 }
 
 .merchant-menu-body {
@@ -2898,9 +2856,17 @@ div[class*="-screen"] .container {
 .merchant-menu-row-name {
   font-size: var(--text-sm);
   font-weight: 700;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.merchant-menu-row-meta { margin-top: var(--space-1); }
+.merchant-menu-row-meta {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
 
 .merchant-menu-row-price {
   margin-top: var(--space-1);
@@ -2929,10 +2895,11 @@ div[class*="-screen"] .container {
   color: var(--text-primary);
   font-size: var(--text-xs);
   font-weight: 600;
+  text-align: left;
 }
 
-.merchant-menu-stock-btn.is-low { background: var(--warning-soft); }
-.merchant-menu-stock-btn.is-out { background: var(--red-soft); }
+.merchant-menu-stock-btn.is-low { background: var(--warning-soft); color: var(--warning-ink); }
+.merchant-menu-stock-btn.is-out { background: var(--red-soft); color: var(--danger-ink); }
 
 .merchant-menu-availability {
   display: inline-flex;

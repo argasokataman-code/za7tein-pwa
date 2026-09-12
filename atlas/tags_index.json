@@ -1331,6 +1331,30 @@
     {
       "id": "TASK-389",
       "shard": 1
+    },
+    {
+      "id": "TASK-390",
+      "shard": 1
+    },
+    {
+      "id": "TASK-393",
+      "shard": 1
+    },
+    {
+      "id": "TASK-394",
+      "shard": 1
+    },
+    {
+      "id": "TASK-395",
+      "shard": 1
+    },
+    {
+      "id": "TASK-397",
+      "shard": 1
+    },
+    {
+      "id": "TASK-398",
+      "shard": 1
     }
   ],
   "docs": [
@@ -1385,6 +1409,14 @@
     {
       "id": "TASK-242",
       "shard": 1
+    },
+    {
+      "id": "TASK-392",
+      "shard": 1
+    },
+    {
+      "id": "TASK-396",
+      "shard": 1
     }
   ],
   "decision": [
@@ -1432,6 +1464,14 @@
     },
     {
       "id": "TASK-242",
+      "shard": 1
+    },
+    {
+      "id": "TASK-392",
+      "shard": 1
+    },
+    {
+      "id": "TASK-396",
       "shard": 1
     }
   ],
@@ -1555,6 +1595,10 @@
     {
       "id": "TASK-389",
       "shard": 1
+    },
+    {
+      "id": "TASK-395",
+      "shard": 1
     }
   ],
   "scaffold": [
@@ -1583,6 +1627,10 @@
     {
       "id": "PF-147",
       "shard": 0
+    },
+    {
+      "id": "TASK-396",
+      "shard": 1
     }
   ],
   "specificity": [
@@ -1621,12 +1669,28 @@
     {
       "id": "BUG-101",
       "shard": 0
+    },
+    {
+      "id": "TASK-392",
+      "shard": 1
+    },
+    {
+      "id": "TASK-396",
+      "shard": 1
     }
   ],
   "audit": [
     {
       "id": "TASK-320",
       "shard": 0
+    },
+    {
+      "id": "TASK-391",
+      "shard": 1
+    },
+    {
+      "id": "TASK-392",
+      "shard": 1
     }
   ],
   "refactor": [
@@ -1681,6 +1745,10 @@
     {
       "id": "DEC-014",
       "shard": 1
+    },
+    {
+      "id": "TASK-391",
+      "shard": 1
     }
   ],
   "versioning": [
@@ -1706,6 +1774,28 @@
   "governance": [
     {
       "id": "TASK-241",
+      "shard": 1
+    }
+  ],
+  "conformance": [
+    {
+      "id": "TASK-391",
+      "shard": 1
+    }
+  ],
+  "irbid": [
+    {
+      "id": "TASK-391",
+      "shard": 1
+    }
+  ],
+  "senior-fe": [
+    {
+      "id": "TASK-392",
+      "shard": 1
+    },
+    {
+      "id": "TASK-396",
       "shard": 1
     }
   ]

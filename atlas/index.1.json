@@ -681,6 +681,200 @@
         }
       ],
       "loc": "src/pages/MerchantMenu.tsx:1"
+    },
+    {
+      "id": "TASK-390",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:23:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/prd-conformance.md (+152) — write via tool: # Sa7tein PRD Conformance Repo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/prd-conformance.md"
+    },
+    {
+      "id": "TASK-391",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:24:01",
+      "tags": [
+        "prd",
+        "conformance",
+        "audit",
+        "irbid"
+      ],
+      "summary": "Audit runtime vs PRD Irbid MVP: 17.5% (3.5/20 FR) - 1 done, 5 partial, 14 belum; courier+admin 0%; deposit/batch/SLA absent",
+      "conn": [
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        },
+        {
+          "id": "TASK-390",
+          "type": "relates",
+          "raw": "TASK-390:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-392",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:31:54",
+      "tags": [
+        "ui",
+        "audit",
+        "senior-fe",
+        "merchant",
+        "a11y"
+      ],
+      "summary": "Senior-FE audit /merchant/menu ~70/100: layout/touch/icons solid; fail a11y alt='' 15 img, 3 contrast <4.5, duplicate legacy CSS block",
+      "conn": [
+        {
+          "id": "TASK-391",
+          "type": "relates",
+          "raw": "TASK-391:relates"
+        },
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-393",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:33:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+1/-1) — edit via tool: tsx: <img className=\"merchant-menu-th",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-394",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:33:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+29/-18) — edit via tool: .merchant-menu-thumb {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-395",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:34:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build 2>&1; echo \"EXIT_CODE=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-396",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:35:16",
+      "tags": [
+        "ui",
+        "merchant",
+        "a11y",
+        "css",
+        "senior-fe"
+      ],
+      "summary": "Fix /merchant/menu reds: alt=item.name 15 img + preview; merged legacy .merchant-menu-* props into winning rules then deleted block. build+l",
+      "conn": [
+        {
+          "id": "TASK-392",
+          "type": "fixes",
+          "raw": "TASK-392:fixes"
+        },
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-397",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:36:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+14/-6) — edit via tool: tsx:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-398",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:36:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-3) — edit via tool: tsx: <span className=\"doc-version-ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

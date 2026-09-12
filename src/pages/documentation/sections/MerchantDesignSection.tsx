@@ -130,6 +130,14 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         meminta konfirmasi dan menjelaskan dampaknya ke katalog pelanggan.
         Form tambah/ubah memiliki label yang terhubung ke input.
       </p>
+      <p className="doc-p">
+        Setiap thumbnail memakai <code className="doc-inline">alt</code> nama item
+        (bukan kosong) supaya daftar tetap terbaca screen reader; gambar pratinjau
+        memberi dimensi eksplisit + lazy loading agar tata letak tidak bergeser.
+        Aturan <code className="doc-inline">.merchant-menu-*</code> dikonsolidasi ke
+        satu blok — properti yang hanya ada di blok lama (object-fit, ellipsis nama,
+        warna stok, state tidak tersedia) dipindah dulu sebelum blok duplikat dihapus.
+      </p>
       <h3 className="doc-h3">
         Unified catalog
       </h3>

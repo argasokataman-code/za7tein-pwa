@@ -176,7 +176,7 @@ export default function MerchantMenu() {
           {visibleItems.map((item) => (
             <div key={item.id} className={`merchant-menu-item${item.available ? '' : ' is-unavailable'}`}>
               <div className="merchant-menu-primary">
-                <img className="merchant-menu-thumb" src={item.image} alt="" width={64} height={64} loading="lazy" decoding="async" />
+                <img className="merchant-menu-thumb" src={item.image} alt={item.name} width={64} height={64} loading="lazy" decoding="async" />
                 <div className="merchant-menu-body">
                   <p className="merchant-menu-row-name">{item.name}</p>
                   <p className="merchant-menu-row-meta">{item.category}</p>
@@ -285,7 +285,7 @@ export default function MerchantMenu() {
             <button type="button" className="merchant-btn-ghost" onClick={handleImagePick}>
               <ImagePlus size={16} strokeWidth={1.75} /> Gambar
             </button>
-            {formImage && <img className="merchant-form-thumb" src={formImage} alt="" />}
+            {formImage && <img className="merchant-form-thumb" src={formImage} alt="Pratinjau gambar" width={64} height={64} loading="lazy" decoding="async" />}
           </div>
           <div className="merchant-actions">
             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Simpan</button>
