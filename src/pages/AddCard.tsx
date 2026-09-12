@@ -2,7 +2,22 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { cardSchema, type CardFormData } from '../lib/schemas'
+
+import toast from 'react-hot-toast'
+
 export default function AddCard() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<CardFormData>({ resolver: zodResolver(cardSchema) })
+  const onSubmit = async () => {
+    await new Promise((r) => setTimeout(r, 500))
+    toast.success("Card details saved!"); navigate('/payment-account')
+  }
   const navigate = useNavigate()
   return (
     <>
@@ -52,37 +67,41 @@ export default function AddCard() {
                 </div>
               </div>
             </div>
-            <form id="add-card-form" className="add-card-form" noValidate>
+            <form id="add-card-form" className="add-card-form" noValidate onSubmit={handleSubmit(onSubmit)}>
               <div className="form-group">
                 <label htmlFor="card-holder-name" className="form-label">
                   Card Holder Name
                 </label>
-                <input id="card-holder-name" className="form-control" placeholder="Enter name" autoComplete="cc-name" aria-required="true" type="text" value="" />
+                <input id="card-holder-name" className={`form-control${errors.cardHolder ? " error" : ""}`} placeholder="Enter name" autoComplete="cc-name" type="text"  {...register("cardHolder")} />
+                      {errors.cardHolder ? (<span className="error-message">{errors.cardHolder.message}</span>) : null}
               </div>
               <div className="form-group">
                 <label htmlFor="card-number" className="form-label">
                   Card Number
                 </label>
-                <input id="card-number" className="form-control" placeholder="Enter card number" inputMode="numeric" autoComplete="cc-number" maxLength={19} aria-required="true" type="text" value="5294 2436 4780 9568" />
+                <input id="card-number" className={`form-control${errors.cardNumber ? " error" : ""}`} placeholder="Enter card number" inputMode="numeric" autoComplete="cc-number" maxLength={19} type="text" value="5294 2436 4780 9568"  {...register("cardNumber")} />
+                      {errors.cardNumber ? (<span className="error-message">{errors.cardNumber.message}</span>) : null}
               </div>
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="cvv" className="form-label">
                     CVV
                   </label>
-                  <input id="cvv" className="form-control" placeholder="CVV" inputMode="numeric" maxLength={4} autoComplete="cc-csc" aria-required="true" type="text" value="" />
+                  <input id="cvv" className={`form-control${errors.cvv ? " error" : ""}`} placeholder="CVV" inputMode="numeric" maxLength={4} autoComplete="cc-csc" type="text"  {...register("cvv")} />
+                      {errors.cvv ? (<span className="error-message">{errors.cvv.message}</span>) : null}
                 </div>
                 <div className="form-group">
                   <label htmlFor="expire-date" className="form-label">
                     Expire Date
                   </label>
-                  <input id="expire-date" className="form-control" placeholder="MM/YY" inputMode="numeric" maxLength={5} autoComplete="cc-exp" aria-required="true" type="text" value="12/24" />
+                  <input id="expire-date" className={`form-control${errors.expiry ? " error" : ""}`} placeholder="MM/YY" inputMode="numeric" maxLength={5} autoComplete="cc-exp" type="text" value="12/24"  {...register("expiry")} />
+                      {errors.expiry ? (<span className="error-message">{errors.expiry.message}</span>) : null}
                 </div>
               </div>
             </form>
           </div>
           <div className="add-card-footer">
-            <button type="submit" form="add-card-form" className="proceed-btn" aria-busy="false">
+            <button type="submit" form="add-card-form" className="proceed-btn" aria-busy="false" disabled={isSubmitting}>
               Continue
             </button>
           </div>

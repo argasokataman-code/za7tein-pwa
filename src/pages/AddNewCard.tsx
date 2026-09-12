@@ -4,7 +4,20 @@ import { useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { cardSchema, type CardFormData } from '../lib/schemas'
+
 export default function AddNewCard() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<CardFormData>({ resolver: zodResolver(cardSchema) })
+  const onSubmit = async () => {
+    await new Promise((r) => setTimeout(r, 500))
+    toast.success("Card details saved!"); navigate('/payment-account')
+  }
   const navigate = useNavigate()
   return (
     <>
@@ -49,34 +62,38 @@ export default function AddNewCard() {
                   </span>
                 </div>
               </div>
-              <form className="wallet-form add-card-form">
+              <form className="wallet-form add-card-form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group-profile">
                   <label className="form-label-profile">
                     Card Number
                   </label>
-                  <input inputMode="numeric" className="form-input-profile" placeholder="0000 0000 0000 0000" maxLength={19} type="text" value="" />
+                  <input inputMode="numeric" className={`form-input-profile${errors.cardNumber ? " error" : ""}`} placeholder="0000 0000 0000 0000" maxLength={19} type="text"  {...register("cardNumber")} />
+                      {errors.cardNumber ? (<span className="error-message">{errors.cardNumber.message}</span>) : null}
                 </div>
                 <div className="form-group-profile">
                   <label className="form-label-profile">
                     Card Holder Name
                   </label>
-                  <input className="form-input-profile" placeholder="Name on card" type="text" value="" />
+                  <input className={`form-input-profile${errors.cardHolder ? " error" : ""}`} placeholder="Name on card" type="text"  {...register("cardHolder")} />
+                      {errors.cardHolder ? (<span className="error-message">{errors.cardHolder.message}</span>) : null}
                 </div>
                 <div className="form-row-2">
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Expired
                     </label>
-                    <input inputMode="numeric" className="form-input-profile" placeholder="MM/YY" maxLength={5} type="text" value="" />
+                    <input inputMode="numeric" className={`form-input-profile${errors.expiry ? " error" : ""}`} placeholder="MM/YY" maxLength={5} type="text"  {...register("expiry")} />
+                      {errors.expiry ? (<span className="error-message">{errors.expiry.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       CVV Code
                     </label>
-                    <input inputMode="numeric" className="form-input-profile" placeholder="•••" maxLength={4} type="password" value="" />
+                    <input inputMode="numeric" className={`form-input-profile${errors.cvv ? " error" : ""}`} placeholder="•••" maxLength={4} type="password"  {...register("cvv")} />
+                      {errors.cvv ? (<span className="error-message">{errors.cvv.message}</span>) : null}
                   </div>
                 </div>
-                <button type="submit" className="btn-profile-primary" onClick={() => { toast.success("Card details saved!"); navigate('/payment-account') }}>
+                <button type="submit" className="btn-profile-primary" onClick={() => { toast.success("Card details saved!"); navigate('/payment-account') }} disabled={isSubmitting}>
                   Add Card
                 </button>
               </form>

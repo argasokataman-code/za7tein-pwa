@@ -4,8 +4,30 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
+import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { signUpSchema, type SignUpFormData } from '../lib/schemas'
+
 export default function SignUp() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema) })
   const navigate = useNavigate()
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
+
+  const onSubmit = async () => {
+    if (!acceptedTerms) {
+      toast.error('Please accept the Terms and Conditions')
+      return
+    }
+    await new Promise((r) => setTimeout(r, 800))
+    toast.success('Account created!')
+    navigate('/verification')
+  }
+
   return (
     <>
     <div className="app-shell">
@@ -21,12 +43,13 @@ export default function SignUp() {
                   <p className="auth-subtitle">
                     Join us today and unlock endless possibilities. It's quick, easy, and just a step away!
                   </p>
-                  <form className="auth-form" noValidate onSubmit={(e) => { e.preventDefault(); toast.success("Account created!"); navigate('/verification') }}>
+                  <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <label htmlFor="fullname" className="form-label">
                         Full Name
                       </label>
-                      <input id="fullname" className="form-control" placeholder="Enter your name" type="text" name="name" />
+                      <input id="fullname" className={`form-control${errors.name ? " error" : ""}`} placeholder="Enter your name" type="text"  {...register("name")} />
+                      {errors.name ? (<span className="error-message">{errors.name.message}</span>) : null}
                     </div>
                     <div className="form-group">
                       <label htmlFor="phone" className="form-label">
@@ -74,21 +97,24 @@ export default function SignUp() {
                             <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                         </div>
-                        <input id="phone" className="form-control phone-input" placeholder="Enter your number" type="tel" name="phone" />
+                        <input id="phone" className={`form-control phone-input${errors.phone ? " error" : ""}`} placeholder="Enter your number" type="tel"  {...register("phone")} />
+                      {errors.phone ? (<span className="error-message">{errors.phone.message}</span>) : null}
                       </div>
                     </div>
                     <div className="form-group">
                       <label htmlFor="email-signup" className="form-label">
                         Email
                       </label>
-                      <input id="email-signup" className="form-control" placeholder="Enter your email" type="email" name="email" />
+                      <input id="email-signup" className={`form-control${errors.email ? " error" : ""}`} placeholder="Enter your email" type="email"  {...register("email")} />
+                      {errors.email ? (<span className="error-message">{errors.email.message}</span>) : null}
                     </div>
                     <div className="form-group">
                       <label htmlFor="password-signup" className="form-label">
                         Password
                       </label>
                       <div className="password-wrapper">
-                        <input id="password-signup" className="form-control" placeholder="Enter your password" type="password" name="password" />
+                        <input id="password-signup" className={`form-control${errors.password ? " error" : ""}`} placeholder="Enter your password" type="password"  {...register("password")} />
+                      {errors.password ? (<span className="error-message">{errors.password.message}</span>) : null}
                         <span className="password-toggle" role="button" tabIndex={0} aria-label="Show password">
                           <svg width={20} height={20} viewBox="0 0 24 24" fill="none">
                             <path d="M12 5C7.5 5 3.73 7.61 2 11.5C3.73 15.39 7.5 18 12 18C16.5 18 20.27 15.39 22 11.5C20.27 7.61 16.5 5 12 5ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z" fill="currentColor" />
@@ -96,13 +122,13 @@ export default function SignUp() {
                         </span>
                       </div>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-auth">
+                    <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
                       Sign Up
                     </button>
                   </form>
                   <div className="terms-wrapper">
                     <label className="terms-checkbox">
-                      <input id="terms-checkbox" type="checkbox" />
+                      <input id="terms-checkbox" type="checkbox" checked={acceptedTerms} onChange={(e) => setAcceptedTerms(e.target.checked)} />
                       <span className="checkmark" />
                       <span className="terms-text">
                         By creating an account, you agree to our 

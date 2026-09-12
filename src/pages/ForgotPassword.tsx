@@ -1,11 +1,26 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-import toast from 'react-hot-toast'
+import { forgotPasswordSchema, type ForgotPasswordFormData } from '../lib/schemas'
 
 export default function ForgotPassword() {
   const navigate = useNavigate()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ForgotPasswordFormData>({ resolver: zodResolver(forgotPasswordSchema) })
+
+  const onSubmit = async () => {
+    await new Promise((r) => setTimeout(r, 600))
+    toast.success('OTP sent to your email!')
+    navigate('/forgot-password-otp')
+  }
+
   return (
     <>
     <div className="app-shell">
@@ -29,14 +44,17 @@ export default function ForgotPassword() {
                   <p className="auth-subtitle">
                     Enter your email address and we will help you restore your account.
                   </p>
-                  <form className="auth-form" noValidate onSubmit={(e) => { e.preventDefault(); toast.success("OTP sent to your email!"); navigate('/forgot-password-otp') }}>
+                  <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <label className="form-label">
                         Email
                       </label>
-                      <input className="form-control" placeholder="wilson@09gail.com" type="email" name="email" />
+                      <input className={`form-control${errors.email ? " error" : ""}`} placeholder="wilson@09gail.com" type="email" {...register("email")} />
+                      {errors.email ? (
+                        <span className="error-message">{errors.email.message}</span>
+                      ) : null}
                     </div>
-                    <button type="submit" className="btn btn-primary btn-auth">
+                    <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
                       Send OTP
                     </button>
                   </form>

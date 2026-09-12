@@ -101,6 +101,8 @@ wired to the store (see Status).
 - [x] Landing and onboarding PWA banners are dismissible
 - [x] Order screens render a live Leaflet map (OpenStreetMap tiles, restaurant
       and delivery markers, dashed route, working recenter)
+- [x] Forms are controlled with react-hook-form + Zod, showing the app's own
+      error styling and messages (`src/lib/schemas.ts`)
 - [ ] Inert by design or by omission: the two numpad spacer keys, and the
       documentation hamburger (no `doc-*` class has styles upstream, so there
       is nothing for it to toggle)

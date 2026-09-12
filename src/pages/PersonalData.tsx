@@ -4,7 +4,20 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { personalDataSchema, type PersonalDataFormData } from '../lib/schemas'
+
 export default function PersonalData() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<PersonalDataFormData>({ resolver: zodResolver(personalDataSchema) })
+  const onSubmit = async () => {
+    await new Promise((r) => setTimeout(r, 500))
+    toast.success("Changes saved!"); navigate('/profile')
+  }
   const navigate = useNavigate()
   return (
     <>
@@ -35,30 +48,34 @@ export default function PersonalData() {
                     </Link>
                   </div>
                 </div>
-                <form className="personal-data-form" noValidate>
+                <form className="personal-data-form" noValidate onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Full Name
                     </label>
-                    <input className="form-input-profile" placeholder="Jenny Wilson" type="text" name="fullName" />
+                    <input className={`form-input-profile${errors.fullName ? " error" : ""}`} placeholder="Jenny Wilson" type="text"  {...register("fullName")} />
+                      {errors.fullName ? (<span className="error-message">{errors.fullName.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Email
                     </label>
-                    <input className="form-input-profile" placeholder="you@email.com" type="email" name="email" />
+                    <input className={`form-input-profile${errors.email ? " error" : ""}`} placeholder="you@email.com" type="email"  {...register("email")} />
+                      {errors.email ? (<span className="error-message">{errors.email.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Phone Number
                     </label>
-                    <input className="form-input-profile" placeholder="+1 - 304 555 0121" type="tel" name="phone" />
+                    <input className={`form-input-profile${errors.phone ? " error" : ""}`} placeholder="+1 - 304 555 0121" type="tel"  {...register("phone")} />
+                      {errors.phone ? (<span className="error-message">{errors.phone.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Date of Birth
                     </label>
-                    <input className="form-input-profile" placeholder="November 24, 2000" type="date" name="dob" />
+                    <input className={`form-input-profile${errors.dob ? " error" : ""}`} placeholder="November 24, 2000" type="date"  {...register("dob")} />
+                      {errors.dob ? (<span className="error-message">{errors.dob.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
@@ -79,7 +96,7 @@ export default function PersonalData() {
                       </option>
                     </select>
                   </div>
-                  <button type="submit" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
+                  <button type="submit" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }} disabled={isSubmitting}>
                     Save Changes
                   </button>
                 </form>

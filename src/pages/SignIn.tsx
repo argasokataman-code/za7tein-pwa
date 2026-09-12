@@ -1,11 +1,27 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
-import toast from 'react-hot-toast'
+import { signInSchema, type SignInFormData } from '../lib/schemas'
 
 export default function SignIn() {
   const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<SignInFormData>({ resolver: zodResolver(signInSchema) })
+
+  const onSubmit = () => {
+    toast.success('Welcome back!')
+    navigate('/home')
+  }
+
   return (
     <>
     <div className="app-shell">
@@ -31,33 +47,39 @@ export default function SignIn() {
                   <p className="auth-subtitle">
                     Glad to have you here again. Let's get started!
                   </p>
-                  <form className="auth-form" noValidate onSubmit={(e) => { e.preventDefault(); toast.success("Welcome back!"); navigate('/home') }}>
+                  <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <label htmlFor="email" className="form-label">
                         Email
                       </label>
-                      <input id="email" className="form-control" placeholder="wilson@09gail.com" type="email" name="email" />
+                      <input id="email" className={`form-control${errors.email ? " error" : ""}`} placeholder="wilson@09gail.com" type="email" {...register("email")} />
+                      {errors.email ? (
+                        <span className="error-message">{errors.email.message}</span>
+                      ) : null}
                     </div>
                     <div className="form-group">
                       <label htmlFor="password" className="form-label">
                         Password
                       </label>
                       <div className="password-wrapper">
-                        <input id="password" className="form-control" placeholder="Enter your password" type="password" name="password" />
-                        <span className="password-toggle" aria-label="Toggle password" style={{ cursor: "pointer" }}>
-                          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <input id="password" className={`form-control${errors.password ? " error" : ""}`} placeholder="Enter your password" type={showPassword ? "text" : "password"} {...register("password")} />
+                        <span className="password-toggle" aria-label="Toggle password" role="button" tabIndex={0} style={{ cursor: "pointer" }} onClick={() => setShowPassword((v) => !v)}>
+                          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                             <circle cx="12" cy="12" r="3" />
                           </svg>
                         </span>
                       </div>
+                      {errors.password ? (
+                        <span className="error-message">{errors.password.message}</span>
+                      ) : null}
                     </div>
                     <div className="text-end mb-4">
                       <Link className="forgot-link" to="/forgot-password" style={{ color: "rgb(253, 105, 49)", fontSize: "13px", textDecoration: "none" }}>
                         Forgot Password?
                       </Link>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-auth">
+                    <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
                       Sign In
                     </button>
                   </form>
