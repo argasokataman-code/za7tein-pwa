@@ -1,9 +1,10 @@
-import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { rupiah } from '../data/merchant'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
+import CustomerHomeHero from '../components/customer/CustomerHomeHero'
 import { BottomNav } from '../components/layout/BottomNav'
 import { AddToCartButton } from '../components/ui/AddToCartButton'
 import { FoodCard } from '../components/ui/FoodCard'
@@ -26,113 +27,17 @@ export default function Home() {
     <div className="app-shell">
     <div className="home-screen-wrapper">
       <div className="home-screen">
-        <div className="home-header">
-          {/*
-            Dekorasi latar header — bahasa visual yang sama dengan banner promo,
-            tapi dikomposisikan untuk geometri header: isinya padat (baris atas,
-            judul selebar header, search bar), jadi dekorasi hanya hidup di
-            pita-pita kosong dan di balik foto profil.
-          */}
-          <div className="hdr-decor-wrap" aria-hidden="true">
-            <svg
-              className="hdr-decor"
-              viewBox="0 0 390 211"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-            >
-              {/* bentuk organik besar masuk dari tepi kanan, memberi kedalaman
-                  di balik tombol notifikasi */}
-              <path d="M410 -20C344 10 336 176 410 231Z" fill="#FFF6F0" fillOpacity="0.2" />
-              <path d="M410 44C368 62 366 150 410 168Z" fill="#8A2B10" fillOpacity="0.24" />
-
-
-              {/* perbukitan berlapis naik dari tepi bawah */}
-              <g fill="#FFF6F0">
-                <path d="M-20 211C40 178 104 162 160 174C216 186 268 202 306 211Z" fillOpacity="0.1" />
-                <path d="M14 211C66 186 126 176 178 188C228 199 272 207 306 211Z" fillOpacity="0.12" />
-                <path d="M74 211C112 197 164 192 208 200C248 206 280 209 306 211Z" fillOpacity="0.14" />
-              </g>
-
-              {/* matriks titik di pita antara baris atas dan judul */}
-              <g fill="#FFF6F0" fillOpacity="0.38">
-              <circle cx="296" cy="76" r="2.4" />
-              <circle cx="308" cy="76" r="2.4" />
-              <circle cx="320" cy="76" r="2.4" />
-              <circle cx="332" cy="76" r="2.4" />
-              <circle cx="344" cy="76" r="2.4" />
-              <circle cx="296" cy="82" r="2.4" />
-              <circle cx="308" cy="82" r="2.4" />
-              <circle cx="320" cy="82" r="2.4" />
-              <circle cx="332" cy="82" r="2.4" />
-              <circle cx="344" cy="82" r="2.4" />
-              <circle cx="296" cy="88" r="2.4" />
-              <circle cx="308" cy="88" r="2.4" />
-              <circle cx="320" cy="88" r="2.4" />
-              <circle cx="332" cy="88" r="2.4" />
-              <circle cx="344" cy="88" r="2.4" />
-              </g>
-            </svg>
-          </div>
-          <div className="header-content">
-            <div className="header-top">
-              <Link className="profile-section" to="/account-setup">
-                <img
-                  alt={user?.name ?? 'Profile'}
-                  width={48}
-                  height={48}
-                  src={user?.avatar ?? '/assets/img/profile.png'}
-                  style={{ borderRadius: '50%', objectFit: 'cover' }}
-                />
-              </Link>
-
-              <button
-                type="button"
-                className="location-section location-section-btn"
-                aria-label="Change delivery location"
-                aria-haspopup="dialog"
-                aria-expanded="false"
-               onClick={() => { toast.success("Change delivery location") }}>
-                <div className="location-label">
-                  <span>Delivery location</span>
-                  <ChevronDown size={14} />
-                </div>
-                <div className="location-address">
-                  <MapPin size={14} />
-                  <span>{locationLabel}</span>
-                </div>
-              </button>
-
-              <Link className="notification-section" to="/notifications" style={{ textDecoration: 'none' }}>
-                <div className="notification-icon-wrapper">
-                  <Bell size={24} aria-hidden="true" />
-                  <span className="notification-badge">{notificationCount}</span>
-                </div>
-              </Link>
-            </div>
-
-            <h1 className="header-title">What would you prefer to eat today?</h1>
-
-            <div className="search-section">
-              <div
-                className="search-bar"
-                role="button"
-                tabIndex={0}
-                aria-label="Search food"
-                style={{ cursor: 'pointer' }}
-                onClick={() => navigate('/search')}
-                onKeyDown={(e) => e.key === 'Enter' && navigate('/search')}
-              >
-                <Search size={18} />
-                <span style={{ flex: 1, color: '#6B6865', fontSize: 15 }}>
-                  Search menu, restaurant
-                </span>
-                <Link to="/filter" style={{ display: 'flex', color: '#6B6865' }}>
-                  <SlidersHorizontal size={18} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CustomerHomeHero
+          avatarUrl={user?.avatar}
+          avatarAlt={user?.name ?? ''}
+          location={locationLabel}
+          notificationCount={notificationCount}
+          onOpenProfile={() => navigate('/profile')}
+          onChangeLocation={() => toast.success('Change delivery location')}
+          onOpenNotifications={() => navigate('/notifications')}
+          onOpenFilters={() => navigate('/filter')}
+          onSubmitSearch={() => navigate('/search')}
+        />
 
         <div className="home-content">
           <div className="categories-section">

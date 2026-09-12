@@ -1,0 +1,476 @@
+/*
+ * Hero beranda pelanggan.
+ *
+ * Warna dan jarak diambil dari token aplikasi (--sa7tein-orange, --bg-warm,
+ * --text-primary, --space-*), bukan dari set variabel kedua. Hanya dua nada
+ * oranye yang khas hero yang dideklarasikan di sini, dan scope-nya sengaja
+ * di .s7-hero supaya tidak bocor ke komponen lain.
+ */
+
+.s7-hero {
+  /* Nada oranye khas hero. Token proyek tetap dipakai untuk warna lain. */
+  --hero-deep: #d94727;
+  /* Putih penuh, bukan alpha: di atas oranye merek, menurunkan opasitas
+     menurunkan kontras secara langsung, dan oranye ini sudah berada di
+     batas bawah untuk teks kecil. */
+  --hero-muted: var(--on-brand);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  width: 100%;
+
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+
+  /* Sudut bawah dibulatkan sesuai spesifikasi. Nilai ini di atas skala radius
+     token (maksimal 12px) karena hero adalah bagian penuh, bukan kartu —
+     kartu di dalamnya tetap memakai token. */
+  border-radius: 0 0 22px 22px;
+}
+
+.s7-hero__content {
+  position: relative;
+  z-index: 2;
+
+  padding: 22px 22px 26px;
+}
+
+/* ── Pola latar ─────────────────────────────────────────────────────────── */
+
+.s7-hero-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+.s7-pattern-fill {
+  fill: currentColor;
+}
+
+/* Bentuk bawah pertama: sapuan terang, 8%. */
+.s7-pattern-fill--one {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+/* Bentuk bawah kedua: nada lebih gelap, jadi terbaca sebagai lapisan di
+   belakang yang pertama. */
+.s7-pattern-fill--two {
+  color: rgba(180, 45, 20, 0.12);
+}
+
+/* Bentuk tepi kanan, 7%. */
+.s7-pattern-fill--three {
+  color: rgba(255, 255, 255, 0.07);
+}
+
+.s7-dot-matrix {
+  fill: rgba(255, 255, 255, 0.28);
+}
+
+.s7-cloche {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.11);
+
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Baris atas ─────────────────────────────────────────────────────────── */
+
+.s7-hero__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-4);
+}
+
+.s7-profile-location {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  min-width: 0;
+}
+
+.s7-avatar-button,
+.s7-location,
+.s7-notification,
+.s7-search__filter {
+  appearance: none;
+  border: 0;
+
+  font: inherit;
+  cursor: pointer;
+}
+
+.s7-avatar-button {
+  flex: 0 0 auto;
+
+  /* 48px: di dalam rentang 44–52px yang diminta, dan tetap di bawah judul
+     dalam hierarki. */
+  width: 48px;
+  height: 48px;
+
+  padding: 0;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.s7-avatar {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.s7-avatar--kosong {
+  display: grid;
+  place-items: center;
+
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.s7-location {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 3px;
+
+  min-width: 0;
+  min-height: 44px;
+
+  padding: 0;
+
+  background: transparent;
+  color: var(--on-brand);
+
+  text-align: left;
+
+  transition: opacity var(--motion-fast) ease-out;
+}
+
+.s7-location:active {
+  opacity: 0.8;
+}
+
+.s7-location__label {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-1);
+
+  font-size: var(--text-sm);
+  font-weight: 700;
+
+  line-height: 1.15;
+}
+
+.s7-location__value {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  min-width: 0;
+
+  color: var(--hero-muted);
+
+  font-size: var(--text-base);
+  font-weight: 500;
+
+  line-height: 1.2;
+}
+
+.s7-location__value > span {
+  max-width: 190px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Notifikasi ─────────────────────────────────────────────────────────── */
+
+.s7-notification {
+  position: relative;
+
+  flex: 0 0 auto;
+
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--on-brand);
+
+  transition:
+    transform var(--motion-fast) ease-out,
+    background var(--motion-fast) ease-out;
+}
+
+.s7-notification:active {
+  transform: translateY(1px);
+}
+
+.s7-notification__badge {
+  position: absolute;
+
+  top: -5px;
+  right: -4px;
+
+  display: grid;
+  place-items: center;
+
+  min-width: 23px;
+  height: 23px;
+
+  padding: 0 5px;
+
+  border-radius: 999px;
+
+  background: var(--surface);
+  color: var(--hero-deep);
+
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ── Judul ──────────────────────────────────────────────────────────────── */
+
+.s7-hero__intro {
+  margin-top: 44px;
+}
+
+.s7-hero__headline {
+  margin: 0;
+
+  /* Tanpa batas lebar di layar kecil: <br> yang menentukan kedua baris.
+     Batas 15ch sebelumnya lebih sempit daripada "What would you like",
+     sehingga baris pertama pecah lagi dan judulnya jadi tiga baris. */
+  font-size: clamp(31px, 8.2vw, 44px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+/* ── Pencarian ──────────────────────────────────────────────────────────── */
+
+.s7-search {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: 68px;
+
+  margin-top: var(--space-6);
+  padding: 0 var(--space-4);
+
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+  color: var(--text-secondary);
+
+  transition:
+    border-color var(--motion-standard) ease-out,
+    box-shadow var(--motion-standard) ease-out;
+}
+
+/* Fokus ditandai di pembungkusnya, bukan di input, supaya cincinnya mengelilingi
+   seluruh kotak termasuk ikon dan tombol filter. */
+.s7-search:focus-within {
+  border-color: rgba(217, 71, 39, 0.45);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16);
+}
+
+.s7-search input {
+  flex: 1;
+
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+
+  padding: 0 var(--space-3);
+
+  background: transparent;
+
+  font: inherit;
+  font-size: var(--text-base);
+  font-weight: 500;
+
+  color: var(--text-primary);
+}
+
+.s7-search input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Safari menampilkan tombol bersihkan bawaan yang tidak bisa digayakan. */
+.s7-search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.s7-search__divider {
+  width: 1px;
+  height: 34px;
+
+  margin: 0 var(--space-2);
+
+  background: var(--border-strong);
+}
+
+.s7-search__filter {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: var(--radius-md);
+
+  background: transparent;
+  color: var(--text-secondary);
+
+  transition:
+    background var(--motion-fast) ease-out,
+    transform var(--motion-fast) ease-out;
+}
+
+.s7-search__filter:hover {
+  background: var(--bg-warm);
+}
+
+.s7-search__filter:active {
+  transform: translateY(1px);
+}
+
+/* ── Ikon ───────────────────────────────────────────────────────────────── */
+
+.s7-icon {
+  flex: 0 0 auto;
+
+  width: 20px;
+  height: 20px;
+}
+
+.s7-chevron {
+  width: 17px;
+  height: 17px;
+}
+
+.s7-bell-icon {
+  width: 23px;
+  height: 23px;
+}
+
+.s7-search-icon {
+  flex: 0 0 auto;
+
+  width: 24px;
+  height: 24px;
+}
+
+.s7-filter-icon {
+  width: 25px;
+  height: 25px;
+}
+
+/* ── Layar sempit ───────────────────────────────────────────────────────── */
+
+@media (max-width: 380px) {
+  .s7-hero__content {
+    padding: 20px 18px 24px;
+  }
+
+  .s7-avatar-button,
+  .s7-notification {
+    width: 44px;
+    height: 44px;
+  }
+
+  .s7-location__value > span {
+    max-width: 132px;
+  }
+
+  .s7-hero__intro {
+    margin-top: 38px;
+  }
+
+  .s7-hero__headline {
+    font-size: 30px;
+  }
+
+  .s7-search {
+    min-height: 64px;
+    margin-top: var(--space-5);
+  }
+}
+
+/* ── Lebar besar ────────────────────────────────────────────────────────── */
+
+@media (min-width: 768px) {
+  .s7-hero {
+    border-radius: 0 0 28px 28px;
+  }
+
+  .s7-hero__content {
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    padding: 30px 36px 34px;
+  }
+
+  .s7-hero__intro {
+    margin-top: 52px;
+  }
+
+  .s7-hero__headline {
+    max-width: 20ch;
+  }
+
+  .s7-search {
+    max-width: 760px;
+  }
+}
+
+/* ── Gerak dikurangi ────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .s7-location,
+  .s7-notification,
+  .s7-search,
+  .s7-search__filter {
+    transition: none;
+  }
+
+  .s7-notification:active,
+  .s7-search__filter:active {
+    transform: none;
+  }
+}
