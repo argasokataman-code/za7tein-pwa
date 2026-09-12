@@ -72,7 +72,7 @@ export default function SignIn() {
                       ) : null}
                     </div>
                     <div className="text-end mb-4">
-                      <Link className="forgot-link" to="/forgot-password" style={{ color: "#F15A37)", fontSize: "13px", textDecoration: "none" }}>
+                      <Link className="forgot-link" to="/forgot-password" style={{ color: "#F15A37", fontSize: "13px", textDecoration: "none" }}>
                         Forgot Password?
                       </Link>
                     </div>
@@ -102,7 +102,7 @@ export default function SignIn() {
                   </div>
                   <p className="signup-text mt-6 text-center" style={{ fontSize: "14px", color: "rgb(156, 163, 175)" }}>
                     Don't have an account? 
-                    <Link to="/signup" style={{ color: "#F15A37)", fontWeight: "600", textDecoration: "none" }}>
+                    <Link to="/signup" style={{ color: "#F15A37", fontWeight: "600", textDecoration: "none" }}>
                       Sign Up
                     </Link>
                   </p>

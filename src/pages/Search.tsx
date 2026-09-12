@@ -1,8 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { Star } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { FavoriteButton } from '../components/ui/FavoriteButton'
+import { FoodCard } from '../components/ui/FoodCard'
+import { deals, popular } from '../data/foods'
+import { rupiah } from '../data/merchant'
 import { useFoodActions } from '../hooks/useFoodActions'
 
 import { useChipSet } from '../hooks/useToggleSet'
@@ -103,156 +106,48 @@ export default function Search() {
               </Link>
             </div>
             <div className="hot-deals-list h-scroll-strip" role="list">
-              <Link className="hot-deal-card" role="listitem" aria-label="Tandoori Pizza" to="/menu-detail/1" style={{ textDecoration: "none" }}>
-                <div style={{ position: "relative", flexShrink: "0" }}>
-                  <img alt="Tandoori Pizza" width={80} height={80} className="hot-deal-image" src="/assets/img/menu-details/menu-details-thumb.png" style={{ color: "transparent", width: "80px", height: "80px", objectFit: "cover", borderRadius: "12px" }} />
-                </div>
-                <div className="hot-deal-info">
-                  <span className="hot-deal-title">
-                    Tandoori Pizza
-                  </span>
-                  <div className="hot-deal-meta">
-                    15-30 min • 1.3 km
+              {deals.map((f) => (
+                <Link
+                  key={f.id}
+                  className="hot-deal-card"
+                  role="listitem"
+                  aria-label={f.name}
+                  to={`/menu-detail/${f.id}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div style={{ position: 'relative', flexShrink: '0' }}>
+                    <img
+                      alt={f.name}
+                      width={80}
+                      height={80}
+                      className="hot-deal-image"
+                      src={f.image}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ color: 'transparent', width: '80px', height: '80px', objectFit: 'cover', borderRadius: '12px' }}
+                    />
                   </div>
-                  <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    4.3 (27 Reviews)
+                  <div className="hot-deal-info">
+                    <span className="hot-deal-title">{f.name}</span>
+                    <div className="hot-deal-meta">
+                      {f.deliveryTime} • {f.distance}
+                    </div>
+                    <div className="hot-deal-rating">
+                      <Star size={11} aria-hidden="true" />
+                      {f.rating} ({f.reviewCount} Reviews)
+                    </div>
+                    <div className="hot-deal-price">{rupiah(f.price)}</div>
                   </div>
-                  <div className="hot-deal-price">
-                    $15.00
-                  </div>
-                </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Tandoori Pizza to cart" onClick={(e) => { e.stopPropagation(); addToCart('1') }}>
-                  add
-                </button>
-              </Link>
-              <Link className="hot-deal-card" role="listitem" aria-label="Chinese Fried Rice" to="/menu-detail/2" style={{ textDecoration: "none" }}>
-                <div style={{ position: "relative", flexShrink: "0" }}>
-                  <img alt="Chinese Fried Rice" width={80} height={80} className="hot-deal-image" src="/assets/img/onboarding-bg.jpg" style={{ color: "transparent", width: "80px", height: "80px", objectFit: "cover", borderRadius: "12px" }} />
-                </div>
-                <div className="hot-deal-info">
-                  <span className="hot-deal-title">
-                    Chinese Fried Rice
-                  </span>
-                  <div className="hot-deal-meta">
-                    20-35 min • 2.1 km
-                  </div>
-                  <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    4.1 (45 Reviews)
-                  </div>
-                  <div className="hot-deal-price">
-                    $12.00
-                  </div>
-                </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Chinese Fried Rice to cart" onClick={(e) => { e.stopPropagation(); addToCart('2') }}>
-                  add
-                </button>
-              </Link>
-              <Link className="hot-deal-card" role="listitem" aria-label="Burger Deluxe" to="/menu-detail/3" style={{ textDecoration: "none" }}>
-                <div style={{ position: "relative", flexShrink: "0" }}>
-                  <img alt="Burger Deluxe" width={80} height={80} className="hot-deal-image" src="/assets/img/onboarding-bg.jpg" style={{ color: "transparent", width: "80px", height: "80px", objectFit: "cover", borderRadius: "12px" }} />
-                </div>
-                <div className="hot-deal-info">
-                  <span className="hot-deal-title">
-                    Burger Deluxe
-                  </span>
-                  <div className="hot-deal-meta">
-                    20-35 min • 2.5 km
-                  </div>
-                  <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    4.7 (35 Reviews)
-                  </div>
-                  <div className="hot-deal-price">
-                    $18.00
-                  </div>
-                </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Burger Deluxe to cart" onClick={(e) => { e.stopPropagation(); addToCart('3') }}>
-                  add
-                </button>
-              </Link>
-              <Link className="hot-deal-card" role="listitem" aria-label="Cheese Sizzling" to="/menu-detail/4" style={{ textDecoration: "none" }}>
-                <div style={{ position: "relative", flexShrink: "0" }}>
-                  <img alt="Cheese Sizzling" width={80} height={80} className="hot-deal-image" src="/assets/img/onboarding-bg.jpg" style={{ color: "transparent", width: "80px", height: "80px", objectFit: "cover", borderRadius: "12px" }} />
-                </div>
-                <div className="hot-deal-info">
-                  <span className="hot-deal-title">
-                    Cheese Sizzling
-                  </span>
-                  <div className="hot-deal-meta">
-                    15-30 min • 1.3 km
-                  </div>
-                  <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    4.2 (92 Reviews)
-                  </div>
-                  <div className="hot-deal-price">
-                    $15.00
-                  </div>
-                </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Cheese Sizzling to cart" onClick={(e) => { e.stopPropagation(); addToCart('4') }}>
-                  add
-                </button>
-              </Link>
-              <Link className="hot-deal-card" role="listitem" aria-label="Classic Burger" to="/menu-detail/5" style={{ textDecoration: "none" }}>
-                <div style={{ position: "relative", flexShrink: "0" }}>
-                  <img alt="Classic Burger" width={80} height={80} className="hot-deal-image" src="/assets/img/onboarding-bg.jpg" style={{ color: "transparent", width: "80px", height: "80px", objectFit: "cover", borderRadius: "12px" }} />
-                </div>
-                <div className="hot-deal-info">
-                  <span className="hot-deal-title">
-                    Classic Burger
-                  </span>
-                  <div className="hot-deal-meta">
-                    15-30 min • 1.3 km
-                  </div>
-                  <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    4.2 (92 Reviews)
-                  </div>
-                  <div className="hot-deal-price">
-                    $15.00
-                  </div>
-                </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Classic Burger to cart" onClick={(e) => { e.stopPropagation(); addToCart('5') }}>
-                  add
-                </button>
-              </Link>
-              <Link className="hot-deal-card" role="listitem" aria-label="Pasta Carbonara" to="/menu-detail/6" style={{ textDecoration: "none" }}>
-                <div style={{ position: "relative", flexShrink: "0" }}>
-                  <img alt="Pasta Carbonara" width={80} height={80} className="hot-deal-image" src="/assets/img/onboarding-bg.jpg" style={{ color: "transparent", width: "80px", height: "80px", objectFit: "cover", borderRadius: "12px" }} />
-                </div>
-                <div className="hot-deal-info">
-                  <span className="hot-deal-title">
-                    Pasta Carbonara
-                  </span>
-                  <div className="hot-deal-meta">
-                    25-40 min • 1.8 km
-                  </div>
-                  <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    4.6 (58 Reviews)
-                  </div>
-                  <div className="hot-deal-price">
-                    $13.50
-                  </div>
-                </div>
-                <button type="button" className="hot-deal-add" aria-label="Add Pasta Carbonara to cart" onClick={(e) => { e.stopPropagation(); addToCart('6') }}>
-                  add
-                </button>
-              </Link>
+                  <button
+                    type="button"
+                    className="hot-deal-add"
+                    aria-label={`Tambah ${f.name} ke keranjang`}
+                    onClick={(e) => { e.stopPropagation(); addToCart(f.id) }}
+                  >
+                    tambah
+                  </button>
+                </Link>
+              ))}
             </div>
             <div className="section-header">
               <h2 className="section-title">
@@ -263,285 +158,14 @@ export default function Search() {
               </Link>
             </div>
             <div className="food-cards-scroll" role="list">
-              <Link className="food-card" role="listitem" aria-label="Tandoori Pizza, 10% off" to="/menu-detail/1" style={{ textDecoration: "none", display: "block" }}>
-                <div className="food-card-image">
-                  <img alt="Tandoori Pizza" src="/assets/img/menu-details/menu-details-thumb.png" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <span className="discount-badge">
-                    10% Off
-                  </span>
-                  <FavoriteButton id="1" name="Tandoori Pizza" />
-                </div>
-                <div className="food-card-content">
-                  <div className="food-name-price">
-                    <h3 className="food-name">
-                      Tandoori Pizza
-                    </h3>
-                    <span className="food-price">
-                      $15.00
-                    </span>
-                  </div>
-                  <div className="food-delivery-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                    <span>
-                      15-30 min
-                    </span>
-                    <span className="separator">
-                      •
-                    </span>
-                    <span>
-                      1.3 km
-                    </span>
-                  </div>
-                  <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    <span className="rating-value">
-                      4.3
-                    </span>
-                    <span className="rating-count">
-                      (27 Reviews)
-                    </span>
-                  </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Tandoori Pizza to cart" onClick={(e) => { e.stopPropagation(); addToCart('1') }}>
-                    Buy Now
-                  </button>
-                </div>
-              </Link>
-              <Link className="food-card" role="listitem" aria-label="Chinese Fried Rice, 10% off" to="/menu-detail/2" style={{ textDecoration: "none", display: "block" }}>
-                <div className="food-card-image">
-                  <img alt="Chinese Fried Rice" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <span className="discount-badge">
-                    10% Off
-                  </span>
-                  <FavoriteButton id="2" name="Chinese Fried Rice" />
-                </div>
-                <div className="food-card-content">
-                  <div className="food-name-price">
-                    <h3 className="food-name">
-                      Chinese Fried Rice
-                    </h3>
-                    <span className="food-price">
-                      $12.00
-                    </span>
-                  </div>
-                  <div className="food-delivery-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                    <span>
-                      20-35 min
-                    </span>
-                    <span className="separator">
-                      •
-                    </span>
-                    <span>
-                      2.1 km
-                    </span>
-                  </div>
-                  <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    <span className="rating-value">
-                      4.1
-                    </span>
-                    <span className="rating-count">
-                      (45 Reviews)
-                    </span>
-                  </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Chinese Fried Rice to cart" onClick={(e) => { e.stopPropagation(); addToCart('2') }}>
-                    Buy Now
-                  </button>
-                </div>
-              </Link>
-              <Link className="food-card" role="listitem" aria-label="Burger Deluxe, 15% off" to="/menu-detail/3" style={{ textDecoration: "none", display: "block" }}>
-                <div className="food-card-image">
-                  <img alt="Burger Deluxe" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <span className="discount-badge">
-                    15% Off
-                  </span>
-                  <FavoriteButton id="3" name="Burger Deluxe" />
-                </div>
-                <div className="food-card-content">
-                  <div className="food-name-price">
-                    <h3 className="food-name">
-                      Burger Deluxe
-                    </h3>
-                    <span className="food-price">
-                      $18.00
-                    </span>
-                  </div>
-                  <div className="food-delivery-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                    <span>
-                      20-35 min
-                    </span>
-                    <span className="separator">
-                      •
-                    </span>
-                    <span>
-                      2.5 km
-                    </span>
-                  </div>
-                  <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    <span className="rating-value">
-                      4.7
-                    </span>
-                    <span className="rating-count">
-                      (35 Reviews)
-                    </span>
-                  </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Burger Deluxe to cart" onClick={(e) => { e.stopPropagation(); addToCart('3') }}>
-                    Buy Now
-                  </button>
-                </div>
-              </Link>
-              <Link className="food-card" role="listitem" aria-label="Cheese Sizzling" to="/menu-detail/4" style={{ textDecoration: "none", display: "block" }}>
-                <div className="food-card-image">
-                  <img alt="Cheese Sizzling" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <FavoriteButton id="4" name="Cheese Sizzling" />
-                </div>
-                <div className="food-card-content">
-                  <div className="food-name-price">
-                    <h3 className="food-name">
-                      Cheese Sizzling
-                    </h3>
-                    <span className="food-price">
-                      $15.00
-                    </span>
-                  </div>
-                  <div className="food-delivery-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                    <span>
-                      15-30 min
-                    </span>
-                    <span className="separator">
-                      •
-                    </span>
-                    <span>
-                      1.3 km
-                    </span>
-                  </div>
-                  <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    <span className="rating-value">
-                      4.2
-                    </span>
-                    <span className="rating-count">
-                      (92 Reviews)
-                    </span>
-                  </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Cheese Sizzling to cart" onClick={(e) => { e.stopPropagation(); addToCart('4') }}>
-                    Buy Now
-                  </button>
-                </div>
-              </Link>
-              <Link className="food-card" role="listitem" aria-label="Classic Burger" to="/menu-detail/5" style={{ textDecoration: "none", display: "block" }}>
-                <div className="food-card-image">
-                  <img alt="Classic Burger" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <FavoriteButton id="5" name="Classic Burger" />
-                </div>
-                <div className="food-card-content">
-                  <div className="food-name-price">
-                    <h3 className="food-name">
-                      Classic Burger
-                    </h3>
-                    <span className="food-price">
-                      $15.00
-                    </span>
-                  </div>
-                  <div className="food-delivery-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                    <span>
-                      15-30 min
-                    </span>
-                    <span className="separator">
-                      •
-                    </span>
-                    <span>
-                      1.3 km
-                    </span>
-                  </div>
-                  <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    <span className="rating-value">
-                      4.2
-                    </span>
-                    <span className="rating-count">
-                      (92 Reviews)
-                    </span>
-                  </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Classic Burger to cart" onClick={(e) => { e.stopPropagation(); addToCart('5') }}>
-                    Buy Now
-                  </button>
-                </div>
-              </Link>
-              <Link className="food-card" role="listitem" aria-label="Pasta Carbonara" to="/menu-detail/6" style={{ textDecoration: "none", display: "block" }}>
-                <div className="food-card-image">
-                  <img alt="Pasta Carbonara" src="/assets/img/onboarding-bg.jpg" style={{ position: "absolute", height: "100%", width: "100%", inset: "0px", objectFit: "cover", color: "transparent" }} />
-                  <FavoriteButton id="6" name="Pasta Carbonara" />
-                </div>
-                <div className="food-card-content">
-                  <div className="food-name-price">
-                    <h3 className="food-name">
-                      Pasta Carbonara
-                    </h3>
-                    <span className="food-price">
-                      $13.50
-                    </span>
-                  </div>
-                  <div className="food-delivery-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-clock">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                    <span>
-                      25-40 min
-                    </span>
-                    <span className="separator">
-                      •
-                    </span>
-                    <span>
-                      1.8 km
-                    </span>
-                  </div>
-                  <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
-                      <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
-                    </svg>
-                    <span className="rating-value">
-                      4.6
-                    </span>
-                    <span className="rating-count">
-                      (58 Reviews)
-                    </span>
-                  </div>
-                  <button type="button" className="buy-now-btn" aria-label="Add Pasta Carbonara to cart" onClick={(e) => { e.stopPropagation(); addToCart('6') }}>
-                    Buy Now
-                  </button>
-                </div>
-              </Link>
+              {popular.map((f) => (
+                <FoodCard
+                  key={f.id}
+                  food={f}
+                  onOpen={(food) => navigate(`/menu-detail/${food.id}`)}
+                  onAdd={(food) => addToCart(food.id)}
+                />
+              ))}
             </div>
           </div>
         </div>

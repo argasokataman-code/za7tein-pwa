@@ -29,7 +29,7 @@ export default function YourCard() {
                           Current Balance
                         </span>
                         <div className="card-visual-amount">
-                          $4,570.80
+                          Rp4.570.800
                         </div>
                       </div>
                       <img alt="Mastercard" width={47} height={37} className="card-logo" src="/assets/img/card/mastercard.png" style={{ color: "transparent" }} />
@@ -61,7 +61,7 @@ export default function YourCard() {
                           Current Balance
                         </span>
                         <div className="card-visual-amount">
-                          $3,242.23
+                          Rp3.242.230
                         </div>
                       </div>
                       <img alt="Visa" width={47} height={37} className="card-logo" src="/assets/img/card/visa.png" style={{ color: "transparent" }} />

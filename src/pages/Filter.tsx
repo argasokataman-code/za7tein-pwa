@@ -33,16 +33,16 @@ export default function Filter() {
               </div>
               <div className="price-range">
                 <span>
-                  $10
+                  Rp5.000
                 </span>
-                <span aria-live="polite" aria-atomic="true" style={{ color: "#F15A37)", fontWeight: "600" }}>
-                  $200
+                <span aria-live="polite" aria-atomic="true" style={{ color: "#F15A37", fontWeight: "600" }}>
+                  Rp20.000
                 </span>
                 <span>
-                  $500+
+                  Rp35.000+
                 </span>
               </div>
-              <input min={10} max={500} className="range-input" aria-label="Price up to $200" aria-valuemin={10} aria-valuemax={500} aria-valuenow={200} aria-valuetext="$200" type="range" value="200" />
+              <input min={5000} max={35000} className="range-input" aria-label="Harga sampai Rp20.000" aria-valuemin={5000} aria-valuemax={35000} aria-valuenow={20000} aria-valuetext="Rp20.000" type="range" defaultValue={20000} />
             </div>
             <div className="filter-block">
               <div className="filter-title">

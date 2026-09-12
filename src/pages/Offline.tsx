@@ -19,7 +19,7 @@ export default function Offline() {
         <p style={{ fontSize: "15px", color: "rgb(105, 117, 134)", lineHeight: "1.6", maxWidth: "300px", margin: "0px 0px 36px" }}>
           No internet connection. Check your network and try again.
         </p>
-        <button type="button" onClick={() => navigate('/home')} style={{ height: "56px", padding: "0px 32px", background: "#F15A37)", color: "rgb(255, 255, 255)", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", borderRadius: "9999px", fontWeight: "600", fontSize: "16px", cursor: "pointer", fontFamily: "inherit" }}>
+        <button type="button" onClick={() => navigate('/home')} style={{ height: "56px", padding: "0px 32px", background: "#F15A37", color: "rgb(255, 255, 255)", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", borderRadius: "9999px", fontWeight: "600", fontSize: "16px", cursor: "pointer", fontFamily: "inherit" }}>
           Retry
         </button>
       </div>

@@ -38,7 +38,7 @@ export default function AddCardAddress() {
             <main className="wallet-main add-card-main">
               <div className="card-preview card-preview-orange">
                 <div className="card-preview-balance">
-                  $3,242.23
+                  Rp3.242.230
                 </div>
                 <div className="card-preview-logo">
                   VISA

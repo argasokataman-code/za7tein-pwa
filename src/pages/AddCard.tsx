@@ -44,7 +44,7 @@ export default function AddCard() {
                       Current Balance
                     </span>
                     <span className="balance-amount">
-                      $4,570.80
+                      Rp4.570.800
                     </span>
                   </div>
                   <div className="card-brand-logo">

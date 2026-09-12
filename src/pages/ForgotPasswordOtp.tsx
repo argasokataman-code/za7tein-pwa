@@ -63,7 +63,7 @@ export default function ForgotPasswordOtp() {
                   </button>
                   <p className="resend-text-small" style={{ marginTop: "16px", color: "rgb(156, 163, 175)", fontSize: "13px" }}>
                     Didn't receive the code? 
-                    <button type="button" onClick={() => toast.success("Code resent!")} style={{ background: "none", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", color: "#F15A37)", fontWeight: "600", cursor: "pointer", fontSize: "13px" }}>
+                    <button type="button" onClick={() => toast.success("Code resent!")} style={{ background: "none", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", color: "#F15A37", fontWeight: "600", cursor: "pointer", fontSize: "13px" }}>
                       Resend Code
                     </button>
                   </p>

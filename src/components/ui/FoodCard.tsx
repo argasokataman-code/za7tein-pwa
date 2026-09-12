@@ -1,5 +1,6 @@
 import { Clock, Star } from 'lucide-react'
 
+import { rupiah } from '../../data/merchant'
 import { FavoriteButton } from './FavoriteButton'
 import type { Food } from '../../types'
 
@@ -35,7 +36,7 @@ export function FoodCard({ food, onOpen, onAdd }: FoodCardProps) {
       <div className="food-card-content">
         <div className="food-name-price">
           <h3 className="food-name">{food.name}</h3>
-          <span className="food-price">${food.price.toFixed(2)}</span>
+          <span className="food-price">{rupiah(food.price)}</span>
         </div>
 
         <div className="food-delivery-info">
