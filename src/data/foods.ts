@@ -1,104 +1,130 @@
-import type { Category, Food } from '../types'
+import type { Category, Food, ModifierGroup } from '../types'
 
-export const foods: Food[] = [
+/** Kategori menu toko — Makanan / Minuman (PRD bab 06). */
+export const categories: Category[] = [
+  { id: 'all', label: 'Semua' },
+  { id: 'makanan', label: 'Makanan', emoji: '🍢' },
+  { id: 'minuman', label: 'Minuman', emoji: '🥤' },
+]
+
+/** Modifier grup dipakai layar detail menu (PRD bab 02). */
+const SPICE: ModifierGroup = {
+  id: 'spice',
+  name: 'TINGKAT PEDAS',
+  type: 'single',
+  options: [
+    { id: 'mild', label: 'Tidak Pedas', extraPrice: 0 },
+    { id: 'medium', label: 'Sedang', extraPrice: 0 },
+    { id: 'hot', label: 'Pedas', extraPrice: 0 },
+  ],
+}
+
+const ADDONS: ModifierGroup = {
+  id: 'addons',
+  name: 'TAMBAHAN',
+  type: 'multi',
+  options: [
+    { id: 'lontong', label: 'Lontong', extraPrice: 8000 },
+    { id: 'sambal', label: 'Sambal Extra', extraPrice: 5000 },
+  ],
+}
+
+const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGroup[] }> = [
   {
     id: '1',
-    name: 'Tandoori Pizza',
-    price: 15,
-    rating: 4.3,
-    reviewCount: 27,
-    deliveryTime: '15-30 min',
-    distance: '1.3 km',
+    name: 'Sate Ayam',
+    price: 28000,
+    rating: 4.7,
+    reviewCount: 92,
+    deliveryTime: '15-30 menit',
+    distance: '420 m',
     discountPercent: 10,
-    category: 'pizza',
+    category: 'makanan',
     image: '/assets/img/menu-details/menu-details-thumb.png',
     description:
-      'Delicious tandoori pizza with fresh toppings and our signature sauce. Prepared fresh to order with premium ingredients.',
+      'Sate ayam kampung dibakar arang, disajikan dengan bumbu kacang dan lontong. Dibuat segar per porsi.',
     isPopular: true,
-    calories: 520,
+    modifierGroups: [SPICE, ADDONS],
   },
   {
     id: '2',
-    name: 'Chinese Fried Rice',
-    price: 12,
-    rating: 4.1,
-    reviewCount: 45,
-    deliveryTime: '20-35 min',
-    distance: '2.1 km',
-    discountPercent: 10,
-    category: 'pasta',
+    name: 'Sate Kambing',
+    price: 32000,
+    rating: 4.6,
+    reviewCount: 58,
+    deliveryTime: '20-35 menit',
+    distance: '420 m',
+    category: 'makanan',
     image: '/assets/img/onboarding-bg.jpg',
-    description:
-      'Authentic Chinese fried rice with vegetables and our special wok sauce.',
-    isPopular: true,
+    description: 'Sate kambing muda tanpa prengus, dibakar dengan arang dan bumbu kecap.',
+    modifierGroups: [SPICE, ADDONS],
   },
   {
     id: '3',
-    name: 'Burger Deluxe',
-    price: 18,
-    rating: 4.7,
-    reviewCount: 35,
-    deliveryTime: '20-35 min',
-    distance: '2.5 km',
+    name: 'Nasi Goreng',
+    price: 25000,
+    rating: 4.5,
+    reviewCount: 74,
+    deliveryTime: '15-30 menit',
+    distance: '420 m',
     discountPercent: 15,
-    category: 'burger',
+    category: 'makanan',
     image: '/assets/img/onboarding-bg.jpg',
-    description:
-      'A premium burger stacked with fresh lettuce, tomato, double cheese, and our secret sauce.',
-    isPopular: true,
+    description: 'Nasi goreng kampung dengan telur, ayam, dan kerupuk. Level pedas bisa dipilih.',
+    modifierGroups: [SPICE],
   },
   {
     id: '4',
-    name: 'Cheese Sizzling',
-    price: 15,
-    rating: 4.2,
-    reviewCount: 92,
-    deliveryTime: '15-30 min',
-    distance: '1.3 km',
-    category: 'burger',
+    name: 'Lontong',
+    price: 8000,
+    rating: 4.4,
+    reviewCount: 31,
+    deliveryTime: '10-20 menit',
+    distance: '420 m',
+    category: 'makanan',
     image: '/assets/img/onboarding-bg.jpg',
-    description: 'Sizzling cheese burger with fresh vegetables and house sauce.',
-    isPopular: true,
+    description: 'Lontong daun pisang, pendamping sate.',
   },
   {
     id: '5',
-    name: 'Classic Burger',
-    price: 15,
-    rating: 4.2,
-    reviewCount: 92,
-    deliveryTime: '15-30 min',
-    distance: '1.3 km',
-    category: 'burger',
+    name: 'Es Teh Manis',
+    price: 6000,
+    rating: 4.8,
+    reviewCount: 120,
+    deliveryTime: '10-20 menit',
+    distance: '420 m',
+    category: 'minuman',
     image: '/assets/img/onboarding-bg.jpg',
-    description: 'Our classic beef burger with lettuce, tomato, and special sauce.',
-    isPopular: true,
-  },
-  {
-    id: '6',
-    name: 'Pasta Carbonara',
-    price: 13.5,
-    rating: 4.6,
-    reviewCount: 58,
-    deliveryTime: '25-40 min',
-    distance: '1.8 km',
-    category: 'pasta',
-    image: '/assets/img/onboarding-bg.jpg',
-    description:
-      'Classic Italian pasta carbonara with crispy pancetta, egg, parmesan and black pepper.',
-    isPopular: true,
+    description: 'Teh tubruk manis dengan es batu, disajikan dingin.',
   },
 ]
 
-export const categories: Category[] = [
-  { id: 'all', label: 'All' },
-  { id: 'pizza', label: 'Pizza', emoji: '🍕' },
-  { id: 'burger', label: 'Burger', emoji: '🍔' },
-  { id: 'sushi', label: 'Sushi', emoji: '🍣' },
-  { id: 'pasta', label: 'Pasta', emoji: '🍝' },
-  { id: 'desserts', label: 'Desserts', emoji: '🍰' },
-]
+export const foods: Food[] = MENU
 
-export const getFood = (id: string): Food | undefined => foods.find((f) => f.id === id)
+export function getFood(id: string | undefined): Food | undefined {
+  return foods.find((f) => f.id === id)
+}
 
-export const deals = foods.filter((f) => f.discountPercent)
-export const popular = foods.filter((f) => f.isPopular)
+/** Ringkasan pilihan modifier, mis. "Sedang, Lontong". */
+export function modifierSummary(groups: ModifierGroup[] | undefined, chosen: string[]): string {
+  if (!groups || chosen.length === 0) return ''
+  const labels = groups
+    .flatMap((g) => g.options)
+    .filter((o) => chosen.includes(o.id))
+    .map((o) => o.label)
+  return labels.join(', ')
+}
+
+export function modifierExtra(groups: ModifierGroup[] | undefined, chosen: string[]): number {
+  if (!groups) return 0
+  return groups
+    .flatMap((g) => g.options)
+    .filter((o) => chosen.includes(o.id))
+    .reduce((sum, o) => sum + o.extraPrice, 0)
+}
+
+/** Menu berdiskon — bagian "Super Deals" di beranda. */
+export const deals: Food[] = foods.filter((f) => f.discountPercent !== undefined)
+
+/** Menu paling sering dipesan — bagian "Hot Deals" di beranda. */
+export const popular: Food[] = [...foods].sort((a, b) => b.reviewCount - a.reviewCount)

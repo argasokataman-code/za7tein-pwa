@@ -39,22 +39,22 @@ export default function SignIn() {
                 </div>
                 <div className="auth-content">
                   <h1 className="auth-title">
-                    Welcome Back! 
+                    Selamat Datang! 
                     <span className="wave-icon">
                       👋
                     </span>
                   </h1>
                   <p className="auth-subtitle">
-                    Glad to have you here again. Let's get started!
+                    Masuk dengan nomor HP yang terdaftar.
                   </p>
                   <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
-                      <label htmlFor="email" className="form-label">
-                        Email
+                      <label htmlFor="phone" className="form-label">
+                        Nomor HP
                       </label>
-                      <input id="email" className={`form-control${errors.email ? " error" : ""}`} placeholder="wilson@09gail.com" type="email" {...register("email")} />
-                      {errors.email ? (
-                        <span className="error-message">{errors.email.message}</span>
+                      <input id="phone" className={`form-control${errors.phone ? " error" : ""}`} placeholder="0812 3456 7890" type="tel" inputMode="tel" autoComplete="tel" {...register("phone")} />
+                      {errors.phone ? (
+                        <span className="error-message">{errors.phone.message}</span>
                       ) : null}
                     </div>
                     <div className="form-group">

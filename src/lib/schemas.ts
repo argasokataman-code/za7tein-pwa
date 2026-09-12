@@ -1,61 +1,80 @@
 import { z } from 'zod'
 
-// Recovered from the original app's src/lib/schemas.ts, messages included.
+// Sa7tein memakai nomor HP sebagai identitas login (PRD bab 02), jadi email
+// tidak lagi wajib. Pesan validasi memakai Bahasa Indonesia.
+
+/** Nomor HP Indonesia: 08xx / +628xx / 628xx. */
+export const phoneField = z
+  .string()
+  .min(1, 'Nomor HP wajib diisi')
+  .regex(/^(\+62|62|0)8[1-9][0-9]{6,11}$/, 'Format nomor HP tidak valid')
 
 export const signInSchema = z.object({
-  email: z.string().min(1, 'Email is required').email('Invalid email'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  phone: phoneField,
+  password: z.string().min(6, 'Password minimal 6 karakter'),
 })
 
-// The sign-up screen validates a phone number, not a password confirmation —
-// the in-app documentation still describes the older shape.
 export const signUpSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  phone: z.string().min(7, 'Enter a valid phone number'),
-  email: z.string().min(1, 'Email is required').email('Invalid email'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  name: z.string().min(2, 'Nama minimal 2 karakter'),
+  phone: phoneField,
+  email: z.string().email('Format email tidak valid').optional().or(z.literal('')),
+  password: z.string().min(6, 'Password minimal 6 karakter'),
 })
 
 export const forgotPasswordSchema = z.object({
-  email: z.string().email('Invalid email'),
+  phone: phoneField,
 })
 
 export const createPasswordSchema = z
   .object({
-    password: z.string().min(6, 'Password must be at least 6 characters'),
+    password: z.string().min(6, 'Password minimal 6 karakter'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
+    message: 'Password tidak sama',
     path: ['confirmPassword'],
   })
 
+/**
+ * Alamat apartemen. PRD mewajibkan gedung, lantai, dan unit — pin GPS saja
+ * tidak cukup bagi kurir untuk menemukan pintu.
+ */
+export const apartmentSchema = z.object({
+  building: z.string().min(3, 'Nama gedung / tower wajib diisi'),
+  floor: z.string().min(1, 'Nomor lantai wajib diisi'),
+  unit: z.string().min(1, 'Nomor unit wajib diisi'),
+  notes: z.string().optional(),
+})
+
+// Masih dipakai halaman dompet lama.
 export const cardSchema = z.object({
-  cardHolder: z.string().min(2, 'Card holder name is required'),
-  cardNumber: z.string().min(16, 'Enter a valid card number'),
-  cvv: z.string().min(3, 'Enter a valid CVV').max(4),
-  expiry: z.string().length(5, 'Enter expiry as MM/YY'),
+  cardHolder: z.string().min(2, 'Nama pemegang kartu wajib diisi'),
+  cardNumber: z.string().min(16, 'Nomor kartu tidak valid'),
+  cvv: z.string().min(3, 'CVV tidak valid').max(4),
+  expiry: z.string().length(5, 'Isi masa berlaku MM/YY'),
 })
 
 export const billingSchema = z.object({
-  street: z.string().min(3, 'Street address is required'),
-  city: z.string().min(2, 'City is required'),
-  state: z.string().min(2, 'State is required'),
-  zip: z.string().min(4, 'Zip code is required'),
+  street: z.string().min(3, 'Alamat wajib diisi'),
+  city: z.string().min(2, 'Kota wajib diisi'),
+  state: z.string().min(2, 'Provinsi wajib diisi'),
+  zip: z.string().min(4, 'Kode pos wajib diisi'),
 })
 
 export const personalDataSchema = z.object({
-  fullName: z.string().min(2, 'Full name is required'),
-  email: z.string().email('Invalid email'),
-  phone: z.string().min(7, 'Phone number is required'),
+  fullName: z.string().min(2, 'Nama lengkap wajib diisi'),
+  phone: phoneField,
+  email: z.string().email('Format email tidak valid').optional().or(z.literal('')),
   dob: z.string().optional(),
   gender: z.string().optional(),
 })
 
+export type PhoneField = z.infer<typeof phoneField>
 export type SignInFormData = z.infer<typeof signInSchema>
 export type SignUpFormData = z.infer<typeof signUpSchema>
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
 export type CreatePasswordFormData = z.infer<typeof createPasswordSchema>
+export type ApartmentFormData = z.infer<typeof apartmentSchema>
 export type CardFormData = z.infer<typeof cardSchema>
 export type BillingFormData = z.infer<typeof billingSchema>
 export type PersonalDataFormData = z.infer<typeof personalDataSchema>

@@ -8,17 +8,19 @@ interface CartState {
 }
 
 const initialState: CartState = {
+  // Contoh pesanan #S7-1024 dari PRD: 2× Sate Ayam dengan modifier.
   items: [
     {
       id: '1',
-      name: 'Tandoori Pizza',
-      price: 15,
-      quantity: 1,
+      name: 'Sate Ayam',
+      price: 28000,
+      quantity: 2,
       image: '/assets/img/menu-details/menu-details-thumb.png',
+      modifiers: 'Sedang',
     },
   ],
-  selectedAddressId: 'home',
-  selectedPaymentId: 'card',
+  selectedAddressId: 'tower-a',
+  selectedPaymentId: 'cod',
 }
 
 const cartSlice = createSlice({

@@ -42,20 +42,20 @@ export default function ForgotPassword() {
                     Forgot Password
                   </h1>
                   <p className="auth-subtitle">
-                    Enter your email address and we will help you restore your account.
+                    Masukkan nomor HP terdaftar, kami akan mengirim kode OTP.
                   </p>
                   <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                       <label className="form-label">
-                        Email
+                        Nomor HP
                       </label>
-                      <input className={`form-control${errors.email ? " error" : ""}`} placeholder="wilson@09gail.com" type="email" {...register("email")} />
-                      {errors.email ? (
-                        <span className="error-message">{errors.email.message}</span>
+                      <input className={`form-control${errors.phone ? " error" : ""}`} placeholder="0812 3456 7890" type="tel" inputMode="tel" autoComplete="tel" {...register("phone")} />
+                      {errors.phone ? (
+                        <span className="error-message">{errors.phone.message}</span>
                       ) : null}
                     </div>
                     <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
-                      Send OTP
+                      Kirim OTP
                     </button>
                   </form>
                 </div>
