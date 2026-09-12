@@ -841,7 +841,7 @@
     {
       "id": "TASK-397",
       "type": "task",
-      "status": "done",
+      "status": "archived",
       "date": "2026-09-12",
       "time": "23:36:35",
       "tags": [
@@ -860,7 +860,7 @@
     {
       "id": "TASK-398",
       "type": "task",
-      "status": "done",
+      "status": "archived",
       "date": "2026-09-12",
       "time": "23:36:35",
       "tags": [
@@ -875,6 +875,1070 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-399",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:39:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/vercel.json (+4) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/vercel.json"
+    },
+    {
+      "id": "TASK-400",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:41:10",
+      "tags": [
+        "deploy",
+        "vercel",
+        "infra"
+      ],
+      "summary": "Deploy Vercel production https://sa7tein-pwa.vercel.app (project prj_E3NGO9zjpEBdWKDUy9k4KOdP0yPS); vercel.json SPA rewrite; deep-link /merc",
+      "conn": [
+        {
+          "id": "TASK-396",
+          "type": "relates",
+          "raw": "TASK-396:relates"
+        },
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-401",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:48:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Landing.tsx (+180) — write via tool: tsx: import { ArrowRight, Bike, ChefHat, C",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Landing.tsx"
+    },
+    {
+      "id": "TASK-402",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:48:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+548/-10) — edit via tool: .merchant-delete-confirm {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-403",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:48:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx (+41) — write via tool: tsx:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx"
+    },
+    {
+      "id": "TASK-404",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:48:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '13', id: 'merchant-de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-405",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "23:49:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { MerchantDesignSection ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-406",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:49:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build; echo \"EXIT:$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-407",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:49:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run lint; echo \"EXIT:$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-408",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:50:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+9/-6) — edit via tool: .landing-brand {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-409",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:59:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+7/-5) — edit via tool: div.landing-page {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-410",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-12",
+      "time": "23:59:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx (+24/-14) — edit via tool: t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx"
+    },
+    {
+      "id": "TASK-411",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:00:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_modules.scss (+3/-51) — edit via tool: // Bootstrap utilities used by ported ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_modules.scss"
+    },
+    {
+      "id": "TASK-412",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:00:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+5/-7) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-413",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:00:57",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-414",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:01:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-415",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "00:02:22",
+      "tags": [
+        "ui",
+        "landing",
+        "marketing",
+        "senior-fe",
+        "layout-exception"
+      ],
+      "summary": "Redesign landing full-width: rewrite Landing.tsx (Irbid copy), .landing-* tokens in _system.scss, fix div[class*=-page] specificity, docs La",
+      "conn": [
+        {
+          "id": "TASK-400",
+          "type": "relates",
+          "raw": "TASK-400:relates"
+        },
+        {
+          "id": "TASK-392",
+          "type": "relates",
+          "raw": "TASK-392:relates"
+        },
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-416",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:06:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Onboarding.tsx (+114) — write via tool: tsx: import { Bike, ChefHat, Download, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Onboarding.tsx"
+    },
+    {
+      "id": "TASK-417",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:06:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+203/-3) — edit via tool: .landing-footer-nav a:hover {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-418",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:06:41",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build 2>&1; echo \"EXIT_BUILD=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-419",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:07:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: bash -c 'npm run lint' 2>&1; echo \"EXIT_LINT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-420",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:09:37",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-421",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:10:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Onboarding.tsx (+19/-19) — edit via tool: tsx: <aside className=\"onboarding-ins",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Onboarding.tsx"
+    },
+    {
+      "id": "TASK-422",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:11:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build; echo \"BUILD_EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-423",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:11:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: echo npm run lint passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-424",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:11:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run lint; echo \"LINT_EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-425",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:12:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-3) — edit via tool: tsx: <span className=\"doc-version-ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-426",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "00:12:40",
+      "tags": [
+        "ui",
+        "onboarding",
+        "senior-fe",
+        "a11y"
+      ],
+      "summary": "Rewrite /onboarding: fix unstyled PwaPasangBanner + invisible desc; 3 functional slides (photo/soft/mint), token styles in _system.scss, dot",
+      "conn": [
+        {
+          "id": "TASK-415",
+          "type": "relates",
+          "raw": "TASK-415:relates"
+        },
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-427",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "00:16:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -25; echo \"EXIT=${PIPESTATUS[0]}\"; rtk ls -la dist/assets/*.css 2>/dev/null passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-428",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "00:16:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build >/tmp/build.log 2>&1; echo \"EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-429",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "00:17:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-app.mjs (+81) — write via tool: import fs from 'node:fs'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-app.mjs"
+    },
+    {
+      "id": "TASK-430",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "00:17:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build 2>&1; echo \"EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-431",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "00:17:57",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run lint 2>&1; echo \"LINT_EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-432",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:19:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-system.mjs (+186) — write via tool: import fs from 'node:fs'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-system.mjs"
+    },
+    {
+      "id": "TASK-433",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:21:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/diag-cart.mjs (+37) — write via tool: import fs from 'node:fs'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/diag-cart.mjs"
+    },
+    {
+      "id": "TASK-434",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:21:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/diag2.mjs (+55) — write via tool: import fs from 'node:fs'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/diag2.mjs"
+    },
+    {
+      "id": "TASK-435",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:22:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-system.mjs (+11/-9) — edit via tool: for (let i = 0; i < arr.length;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-system.mjs"
+    },
+    {
+      "id": "TASK-436",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:22:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run lint 2>&1; echo \"LINT_EXIT=$?\"; echo \"=====GOV=====\"; rtk npm run governance:check 2>&1; echo \"GOV_EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-437",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:24:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+14/-10) — edit via tool: | berkas | isinya | aturan |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-438",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:24:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit (+2/-1) — edit via tool: line_check \"src/data\" \"*.ts\" 500 \"Mock d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit"
+    },
+    {
+      "id": "TASK-439",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:24:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json (+4/-3) — edit via tool: \"hook\": 150,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-440",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:24:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/StylingSection.tsx (+44/-18) — edit via tool: tsx: <p cl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/StylingSection.tsx"
+    },
+    {
+      "id": "TASK-441",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:24:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-3) — edit via tool: tsx: <span className=\"doc-version-ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-442",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:25:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build; echo \"EXIT_CODE=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-443",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:25:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: bash -c 'npm run lint'; echo \"LINT_EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-444",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:25:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/cmp-css.mjs (+70) — write via tool: import fs from 'node:fs'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/cmp-css.mjs"
+    },
+    {
+      "id": "TASK-445",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:26:08",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build; echo \"EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-446",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:26:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/cmp-css2.mjs (+94) — write via tool: import fs from 'node:fs'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/cmp-css2.mjs"
+    },
+    {
+      "id": "TASK-447",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:31:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-system.mjs (+1/-1) — edit via tool: const MAX = 500",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/split-system.mjs"
+    },
+    {
+      "id": "TASK-448",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:32:15",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build 2>&1; echo \"BUILD_EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-449",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:32:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run lint 2>&1; echo \"LINT_EXIT=$?\"; echo \"=== GOV ===\"; rtk npm run governance:check 2>&1; echo \"GOV_EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-450",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:33:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build; echo \"EXIT=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-451",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-09-13",
+      "time": "00:33:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/StylingSection.tsx (+10/-11) — edit via tool: tsx: <DocC",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/StylingSection.tsx"
+    },
+    {
+      "id": "TASK-452",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-13",
+      "time": "00:34:15",
+      "tags": [
+        "styles",
+        "scss",
+        "architecture",
+        "refactor"
+      ],
+      "summary": "Split styles: _app->app/part-01..17 (ordered, byte-identical), _system->system/* per domain + mixins (@extend->@include), enforce 600-line S",
+      "conn": [
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        },
+        {
+          "id": "TASK-426",
+          "type": "relates",
+          "raw": "TASK-426:relates"
+        },
+        {
+          "id": "TASK-415",
+          "type": "relates",
+          "raw": "TASK-415:relates"
+        }
+      ]
     }
   ]
 }

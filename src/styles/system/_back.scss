@@ -1,0 +1,40 @@
+@use "./mixins" as *;
+
+// ── 6. Tombol kembali yang tak terlihat ───────────────────────────────────
+// Markup hasil porting menulis stroke="white" pada panahnya, sementara
+// .btn-back punya cakram putih — panah putih di atas cakram putih, jadi
+// tombolnya hilang di layar berlatar terang. Aturan CSS mengalahkan
+// presentation attribute SVG, jadi cukup satu aturan di sini alih-alih
+// menyunting 30 berkas markup.
+.btn-back {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.btn-back svg,
+.btn-back svg path {
+  stroke: currentColor;
+}
+
+// Di atas header oranye, cakram putih tetap terbaca; pastikan tidak
+// tenggelam oleh latar yang sama-sama terang.
+.btn-back:hover {
+  border-color: var(--border-strong);
+}
+
+.btn-back,
+.favorite-btn {
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+}
+
+.password-wrapper .password-toggle {
+  right: var(--space-1);
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+}

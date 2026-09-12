@@ -1,63 +1,112 @@
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
+import { Bike, ChefHat, Download, X } from 'lucide-react'
 import { useState } from 'react'
-
 import toast from 'react-hot-toast'
-
 import { useNavigate } from 'react-router-dom'
+
+import { HomeIndicator } from '../components/layout/HomeIndicator'
+
+const SLIDES = [
+  {
+    id: 'near',
+    kind: 'photo',
+    title: 'Makanan sekitar, selagi hangat',
+    text: 'Pesan dari dapur di sekitarmu dan ikuti perjalanannya sampai tiba.',
+  },
+  {
+    id: 'kitchen',
+    kind: 'soft',
+    title: 'Antrean dapur terlihat',
+    text: 'Estimasi masak 15, 25, atau 35 menit, jelas sejak checkout.',
+  },
+  {
+    id: 'deliver',
+    kind: 'mint',
+    title: 'Diantar satu perjalanan',
+    text: 'Kurir menjemput beberapa pesanan sekaligus dengan rute terkunci.',
+  },
+] as const
 
 export default function Onboarding() {
   const navigate = useNavigate()
-  const [showBanner, setShowBanner] = useState(true)
+  const [index, setIndex] = useState(0)
+  const [showInstall, setShowInstall] = useState(true)
+
+  const slide = SLIDES[index]
+  const isLast = index === SLIDES.length - 1
+
+  const goNext = () => {
+    if (isLast) navigate('/signin')
+    else setIndex((current) => current + 1)
+  }
+
   return (
-    <>
-    <div className="app-shell">
-      {showBanner && (
-        <div className="PwaPasangBanner-module-scss-module__ziTC8q__wrapper PwaPasangBanner-module-scss-module__ziTC8q__show">
-        <p className="PwaPasangBanner-module-scss-module__ziTC8q__text">
-          <strong>
-            Pasang aplikasi
-          </strong>
-           — Pasang Sa7tein PWA untuk pengalaman lebih cepat.
-        </p>
-        <div className="PwaPasangBanner-module-scss-module__ziTC8q__actions">
-          <button className="PwaPasangBanner-module-scss-module__ziTC8q__installBtn" onClick={() => toast.success("Use your browser menu to install Sa7tein")}>
-            Pasang
-          </button>
-          <button className="PwaPasangBanner-module-scss-module__ziTC8q__dismissBtn" aria-label="Dismiss" onClick={() => setShowBanner(false)}>
-            ×
-          </button>
-        </div>
-      </div>
-      )}
-      <div className="screen active">
-        <div className="onboarding-image onboarding-image-1" />
-        <div className="onboarding-overlay" />
-        <div className="container h-100">
-          <div className="row h-100">
-            <div className="col-12 d-flex flex-column justify-content-end">
-              <div className="onboarding-content">
-                <h2 className="onboarding-title" style={{ whiteSpace: "pre-line" }}>
-                  Makan enak, kapan saja, di mana saja
-                </h2>
-                <p className="onboarding-description">
-                  Jelajahi pilihan makanan, pesan dalam hitungan detik, dan nikmati antar cepat sampai ke pintu kamu.
-                </p>
-                <div className="pagination-dots">
-                  <span className="dot active" />
-                  <span className="dot" />
-                  <span className="dot" />
-                </div>
-                <button className="btn btn-primary btn-continue" onClick={() => { navigate('/signin') }}>
-                  Lanjut
-                </button>
-              </div>
-            </div>
+    <div className="onboarding-page">
+      <div className="onboarding-media">
+        {slide.kind === 'photo' ? (
+          <div className="onboarding-photo" aria-hidden="true" />
+        ) : (
+          <div className={`onboarding-art is-${slide.kind}`} aria-hidden="true">
+            {slide.kind === 'soft' ? (
+              <ChefHat size={68} strokeWidth={1.75} />
+            ) : (
+              <Bike size={68} strokeWidth={1.75} />
+            )}
           </div>
-        </div>
-        <div className="home-indicator " />
+        )}
+
+        {showInstall && (
+          <aside className="onboarding-install" aria-label="Saran pasang aplikasi">
+            <Download size={16} strokeWidth={1.75} aria-hidden="true" />
+            <p>Pasang aplikasi untuk pengalaman lebih cepat</p>
+            <button
+              type="button"
+              className="onboarding-install-btn"
+              onClick={() => toast.success('Pakai menu browser untuk memasang Sa7tein')}
+            >
+              Pasang
+            </button>
+            <button
+              type="button"
+              className="onboarding-install-close"
+              aria-label="Tutup saran pasang"
+              onClick={() => setShowInstall(false)}
+            >
+              <X size={16} strokeWidth={1.75} />
+            </button>
+          </aside>
+        )}
       </div>
+
+      <div className="onboarding-sheet">
+        <div className="onboarding-sheet-top">
+          <div className="onboarding-dots" role="group" aria-label="Langkah pengenalan">
+            {SLIDES.map((item, i) => (
+              <button
+                key={item.id}
+                type="button"
+                aria-current={i === index ? 'step' : undefined}
+                aria-label={`Langkah ${i + 1}`}
+                className={`onboarding-dot${i === index ? ' is-active' : ''}`}
+                onClick={() => setIndex(i)}
+              >
+                <span aria-hidden="true" />
+              </button>
+            ))}
+          </div>
+          <button type="button" className="onboarding-skip" onClick={() => navigate('/signin')}>
+            Lewati
+          </button>
+        </div>
+
+        <h1 className="onboarding-heading">{slide.title}</h1>
+        <p className="onboarding-body">{slide.text}</p>
+
+        <button type="button" className="onboarding-cta" onClick={goNext}>
+          {isLast ? 'Mulai' : 'Lanjut'}
+        </button>
+      </div>
+
+      <HomeIndicator />
     </div>
-    </>
   )
 }

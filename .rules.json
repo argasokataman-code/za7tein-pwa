@@ -52,6 +52,7 @@
     "page_exempt": ["Documentation.tsx (layar docs, berdiri sendiri)"],
     "hook": 150,
     "data": 500,
+    "style_scss": 600,
     "context": "co-located .css hanya untuk komponen besar yang berdiri sendiri (kini CustomerHomeHero.css)"
   },
   "forbidden_patterns": {

@@ -1,0 +1,175 @@
+@use "./mixins" as *;
+
+// ── Peta ──────────────────────────────────────────────────────────────────
+.track-map {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+// Tahap awal: sekadar cuplikan, tidak boleh menguasai layar.
+.track-map--preview {
+  height: 148px;
+  margin: var(--space-5) 0;
+}
+
+.track-map--preview .order-map-container {
+  filter: saturate(0.85);
+}
+
+// Tahap pengantaran: peta memang jadi bagian utama.
+.track-map--delivery {
+  height: 52vh;
+  min-height: 300px;
+  margin: var(--space-4) 0 var(--space-6);
+}
+
+.track-recenter {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+// ── Penanda dan rute peta ─────────────────────────────────────────────────
+.sa7tein-pin {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--pin);
+  border: 3px solid var(--surface);
+  box-shadow: 0 1px 4px rgba(32, 32, 32, 0.35);
+}
+
+.sa7tein-pin--pulse {
+  animation: sa7tein-pin-pulse 1.8s var(--ease-out) infinite;
+}
+
+@keyframes sa7tein-pin-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 1px 4px rgba(32, 32, 32, 0.35),
+      0 0 0 0 rgba(92, 122, 92, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 1px 4px rgba(32, 32, 32, 0.35),
+      0 0 0 8px rgba(92, 122, 92, 0);
+  }
+}
+
+.sa7tein-route {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// Rute digambar saat pengantaran dimulai, bukan muncul sekaligus.
+.sa7tein-route--draw {
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: sa7tein-route-draw 1200ms var(--ease-out) forwards;
+}
+
+@keyframes sa7tein-route-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+// Peta pelacakan harus mengisi PEMBUNGKUSNYA, bukan viewport.
+//
+// Aturan lama di _app.scss memasang position:fixed + inset:104px 0 0 untuk
+// menjadikan peta sebagai latar penuh layar. Elemen fixed tidak bisa dipotong
+// oleh overflow milik leluhurnya, jadi peta lolos keluar dari kotak 148px dan
+// menutupi seluruh halaman — Journey Line dan bagian toko/kurir/tujuan
+// tertimbun di bawahnya. Di-scope ke .track-map supaya layar order lama yang
+// memang memakai peta penuh layar tidak ikut berubah.
+.track-map .order-map-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-warm);
+}
+
+// Layar tahap pesanan menggulir seperti dokumen biasa. Aturan lama mengunci
+// body setinggi viewport dengan overflow:hidden, sehingga apa pun yang jatuh
+// di bawah lipatan tidak bisa dijangkau sama sekali.
+//
+// Nama kelasnya `sa7tein-track-page`, bukan `order-placed-page`: kelima rute
+// order memakai komponen yang sama sekarang, jadi nama lama sudah menyesatkan.
+body.sa7tein-track-page {
+  background: var(--bg-warm);
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+}
+
+// Layar kegagalan (/account-setup). Versi lama memakai latar hitam dan teks
+// abu kebiruan lewat inline style, jadi satu-satunya layar yang tidak mengikuti
+// sistem hangat — dan teksnya nyaris tak terbaca di atas hitam.
+.setup-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding-block: var(--space-6);
+  padding-inline: var(--space-5);
+  text-align: center;
+  background: var(--bg-warm);
+}
+
+.setup-error-icon {
+  margin-bottom: var(--space-6);
+  color: var(--text-primary);
+}
+
+.setup-error-title {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.setup-error-text {
+  max-width: 320px;
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.setup-error-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: 280px;
+}
+
+.setup-error-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+}

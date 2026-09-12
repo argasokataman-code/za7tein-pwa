@@ -1,0 +1,129 @@
+@use "./mixins" as *;
+
+// ── 1. Tombol ─────────────────────────────────────────────────────────────
+// Satu geometri untuk semua tombol. Varian hanya membedakan warna, bukan
+// bentuk — itulah yang bikin UI terasa tidak konsisten sebelumnya.
+
+
+
+
+.btn-primary,
+.proceed-btn,
+.pay-btn,
+.apply-btn,
+.buy-now-btn,
+.add-to-cart-btn,
+.continue-btn,
+.add-form-save-btn,
+.rating-submit-btn,
+.delivered-home-btn,
+.voucher-apply-btn,
+.btn-profile-primary,
+.btn-verify,
+.btn-auth,
+.wallet-footer-btn,
+.order-arrived-rate-btn {
+  @include s-btn-shape;
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.btn-primary:hover:not(:disabled),
+.proceed-btn:hover:not(:disabled),
+.pay-btn:hover:not(:disabled),
+.apply-btn:hover:not(:disabled),
+.buy-now-btn:hover:not(:disabled),
+.add-to-cart-btn:hover:not(:disabled),
+.continue-btn:hover:not(:disabled),
+.add-form-save-btn:hover:not(:disabled),
+.rating-submit-btn:hover:not(:disabled),
+.delivered-home-btn:hover:not(:disabled),
+.voucher-apply-btn:hover:not(:disabled),
+.btn-profile-primary:hover:not(:disabled),
+.btn-verify:hover:not(:disabled),
+.btn-auth:hover:not(:disabled),
+.wallet-footer-btn:hover:not(:disabled),
+.order-arrived-rate-btn:hover:not(:disabled) {
+  background: var(--orange-deep);
+}
+
+.btn-social,
+.category-btn,
+.add-address-btn,
+.add-payment-btn,
+.btn-profile-outline,
+.btn-upload-photo,
+.btn-logout,
+.numpad-btn {
+  @include s-btn-shape;
+  background: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+.btn-social:hover:not(:disabled),
+.add-address-btn:hover:not(:disabled),
+.add-payment-btn:hover:not(:disabled),
+.btn-profile-outline:hover:not(:disabled),
+.btn-upload-photo:hover:not(:disabled),
+.btn-logout:hover:not(:disabled),
+.numpad-btn:hover:not(:disabled) {
+  border-color: var(--border-strong);
+}
+
+.link-btn,
+.read-more-btn,
+.clear-btn,
+.select-all-btn,
+.payment-change-btn,
+.payment-change-btn:hover {
+  @include s-btn-shape;
+  background: transparent;
+  color: var(--orange-ink);
+  border-color: transparent;
+  min-height: 0;
+  padding: 0 var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.address-delete-btn,
+.remove-item-btn {
+  @include s-btn-shape;
+  background: var(--red-soft);
+  color: var(--danger-ink);
+  min-height: 0;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+}
+
+// Kontrol di atas peta: transparannya punya alasan fungsi (kontras terhadap
+// peta apa pun), jadi variannya sendiri, bukan penyimpangan.
+.btn-back-map,
+.back-btn-map,
+.favorite-btn,
+.btn-more,
+.btn-options-map,
+.btn-location-map,
+.map-header .btn-back,
+.add-form-cancel-btn {
+  color: #FFFFFF;
+  background: rgba(32, 32, 32, 0.55);
+  border-radius: var(--radius-md);
+}
+
+// ── 2. Tombol ikon: tetap bulat, ukurannya diseragamkan ───────────────────
+.btn-back,
+.camera-icon-btn,
+.profile-edit-btn,
+.avatar-edit-btn,
+.recenter-btn,
+.driver-action-btn,
+.btn-current-location-map,
+.location-picker-gps-icon,
+.qty-btn,
+.quantity-btn {
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

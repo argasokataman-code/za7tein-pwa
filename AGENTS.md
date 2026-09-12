@@ -60,13 +60,17 @@ tokens → fonts → reboot → app → modules → docs → rebrand → system
 | berkas | isinya | aturan |
 |---|---|---|
 | `_tokens.scss` | token desain | satu-satunya sumber nilai |
-| `_app.scss` | **stylesheet hasil porting, 10.000 baris** | jangan disunting borongan |
-| `_system.scss` | **design system, lapisan yang menang** | di sini tempat menulis gaya baru |
+| `app/` | **stylesheet hasil porting**, partial berurutan `part-NN.scss` (≤600 baris) | urutan `@use` load-bearing — tambah, jangan susun ulang |
+| `_app.scss` | facade: hanya daftar `@use "./app/part-NN"` | jangan taruh gaya baru di sini |
+| `system/` | **design system**, partial per domain + `_mixins.scss` (≤600 baris) | di sini tempat menulis gaya baru |
+| `_system.scss` | facade: hanya daftar `@use "./system/…"` | urutan load-bearing |
 | `_docs.scss` | halaman `/documentation` | berdiri sendiri |
 
-**Gaya baru selalu ke `_system.scss`.** `_app.scss` adalah stylesheet lama yang dipulihkan dari build sebelumnya — ia punya nilai ad-hoc (radius 33 macam, 40 ukuran huruf) dan itulah yang sedang dirapikan. Pola yang dipakai: memetakan kelas lamanya ke primitif lewat daftar selector di `_system.scss`, bukan menyunting `_app.scss`.
+**Gaya baru selalu ke partial di `src/styles/system/`** (diimpor terakhir lewat facade `_system.scss`). `app/` adalah stylesheet lama yang dipulihkan dari build sebelumnya — ia punya nilai ad-hoc (radius 33 macam, 40 ukuran huruf) dan itulah yang sedang dirapikan. Pola yang dipakai: memetakan kelas lamanya ke primitif lewat daftar selector di partial `system/`, bukan menyunting `app/`.
 
-Kalau memang harus menimpa aturan di `_app.scss`, tulis override-nya di `_system.scss` — berkas itu diimpor terakhir, jadi menang pada kekhususan yang sama.
+**Batas 600 baris per berkas `.scss`**, dienforce pre-commit. Untuk geometri bersama pakai `@mixin` di `src/styles/system/_mixins.scss` + `@include` — bukan `@extend`, karena placeholder tidak bisa lintas modul `@use`.
+
+Kalau memang harus menimpa aturan di `app/`, tulis override-nya di partial `system/` — facade `_system.scss` diimpor terakhir, jadi menang pada kekhususan yang sama.
 
 ---
 

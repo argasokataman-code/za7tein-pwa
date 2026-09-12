@@ -1,0 +1,282 @@
+@use "./mixins" as *;
+
+.chat-compose__send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-typing__dot {
+    animation: none;
+  }
+}
+
+/* ── Bilah fixed harus ikut kolom, bukan viewport ──────────────────────────
+   .checkout-actions dan sekitar 20 bilah fixed lain memakai left:0/right:0
+   atau width:100%. Pada elemen position:fixed itu berarti 100% VIEWPORT,
+   bukan 100% induknya — jadi di desktop bilahnya menyeberang seluruh layar
+   sementara semua konten terkunci di kolom 1024px yang ditengahkan aturan
+   global di _app.scss. Di /checkout tombolnya jadi pita oranye 1400px pada
+   layar 1440px, dan bilahnya menonjol 208px di kiri dan kanan konten.
+
+   max-width + margin auto memasukkan mereka kembali ke kolom. Untuk yang
+   memakai left:50% + translate(-50%), max-width saja sudah cukup karena
+   translate sudah menengahkan; margin auto di situ tidak berpengaruh.
+
+   .screen, .status-bar, .keyboard, .numeric-keypad, dan .nav-ber sengaja
+   tidak ikut: itu chrome perangkat atau wadah tersembunyi, bukan bilah
+   aplikasi, jadi selebar layar memang yang benar. */
+
+.setup-footer,
+.checkout-actions,
+.address-selection-footer,
+.payment-selection-footer,
+.add-card-footer,
+.rating-driver-footer,
+.payment-amount-footer,
+.favorites-header,
+.profile-header,
+.payment-amount-header,
+.rating-driver-header,
+.map-header,
+.bottom-nav,
+.menu-detail-actions,
+.location-sheet,
+.order-details-panel,
+.order-placed-header,
+.order-tracking-header,
+.order-delivery-header,
+.order-delivered-header,
+.order-success-header,
+.order-arrived-header {
+  max-width: var(--shell-max);
+  margin-inline: auto;
+}
+
+/* `.home-screen-wrapper .bottom-nav` dari stylesheet lama berspesifisitas
+   0-2-0, jadi ia menang atas `.bottom-nav` di atas dan bilahnya melebar
+   1024px — 297px keluar kolom di tiap sisi. Aturan ini (0-2-0 juga, tapi
+   berkas ini diimpor terakhir) mengembalikan bilah ke kolom shell di semua
+   lebar: `left/right: 0` + `max-width` + `margin-inline: auto` menengahkan
+   elemen `fixed` terhadap viewport tanpa `transform`. */
+.bottom-nav,
+.home-screen-wrapper .bottom-nav {
+  left: 0;
+  right: 0;
+  transform: none;
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+}
+
+// Fixed elements outside the mobile shell still use viewport coordinates.
+// Constrain their visible surfaces to the same centered 430px column.
+.screen,
+.profile-modal-overlay,
+.doc-root .doc-topbar,
+.doc-root .doc-overlay {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  left: 0;
+  right: 0;
+}
+
+.screen {
+  transform: none;
+}
+
+.screen.active {
+  position: relative;
+  top: auto;
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+}
+
+.screen.active .container,
+.screen.active .container .row.h-100,
+.screen.active .container .row.h-100 .col-12.d-flex.flex-column,
+.screen.active .auth-content {
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  overflow: visible !important;
+}
+
+.doc-root .doc-topbar {
+  padding-inline: var(--space-5);
+}
+
+.doc-root .doc-sidebar {
+  left: max(0px, calc((100vw - var(--shell-max)) / 2));
+}
+
+[data-rht-toaster] {
+  max-width: var(--shell-max);
+  margin-inline: auto;
+}
+
+/* ── Kotak masuk notifikasi ────────────────────────────────────────────────
+   Barisnya tombol, bukan div: menekannya menandai sudah dibaca. Yang belum
+   dibaca ditandai tepi kiri oranye dan ikon bertint, bukan latar baru —
+   supaya tidak menambah warna kelima ke palet yang sedang dirapikan. */
+
+.inbox-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.inbox-head__count {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.inbox-head__action {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-2);
+  border: none;
+  background: none;
+  color: var(--sa7tein-orange);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.inbox-row--unread {
+  border-left: 3px solid var(--sa7tein-orange);
+}
+
+.inbox-row__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-warm);
+  color: var(--text-secondary);
+}
+
+.inbox-row--unread .inbox-row__icon {
+  background-color: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.inbox-row__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.inbox-row__title {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.inbox-row__body {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.inbox-row__time {
+  margin-top: 2px;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.inbox-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+/* ── Padding halaman alur profil ───────────────────────────────────────────
+   Padding 20px seharusnya datang dari .profile-flow-page-scroll, elemen
+   antara yang tidak dipakai semua halaman. Akibatnya .profile-flow dan
+   .profile-flow-main tidak punya padding sama sekali di empat halaman —
+   Notifications, NotificationSettings, AddProfilePhoto, Language — dan
+   kartunya menempel persis ke tepi layar.
+
+   Padding dipindah ke .profile-flow supaya berlaku untuk semua halaman tanpa
+   bergantung pada elemen antara. .profile-flow-page-scroll kemudian dilepas
+   kunci tingginya, karena kalau tidak halaman yang memakainya tetap punya dua
+   penggulung bersarang. */
+
+.profile-flow {
+  max-width: var(--shell-max);
+  padding-inline: var(--space-5);
+}
+
+/* Header melebar sampai tepi kolom supaya latarnya menutupi konten yang lewat
+   di belakangnya saat digulir; isinya tetap sejajar 20px. */
+.profile-flow-header {
+  margin-inline: calc(-1 * var(--space-5));
+  padding-inline: var(--space-5);
+}
+
+.profile-flow-page .profile-flow-page-scroll {
+  height: auto;
+  min-height: 0;
+  padding: 0 0 var(--space-8);
+  overflow: visible;
+}
+
+/* ── Jarak tepi halaman diseragamkan ───────────────────────────────────────
+   Tiga komponen memakai angka berbeda, jadi lebar kolom isi tiap halaman
+   tidak sama: .main-frame 12px, .menu-detail-content 16px, hero 22px.
+   .main-frame bahkan berbeda antar viewport, karena dua
+   @media (max-width:767px) mengecilkan padding horizontalnya — jadi halaman
+   profil punya tepi 12px di mobile dan 20px di desktop.
+
+   Ketiganya diseragamkan di sini, di satu tempat, supaya nilai berikutnya
+   tidak perlu dicari di tiga berkas berbeda. Vertikalnya tidak disentuh. */
+
+.main-frame,
+.menu-detail-content,
+.s7-hero__content {
+  padding-inline: var(--space-5);
+}
+
+/* Halaman auth memakai .container bawaan Bootstrap, yang padding horizontalnya
+   24px — jadi alur masuk punya tepi berbeda dari halaman lain. Markup-nya sudah
+   punya kelas *-screen sendiri, jadi penyempitannya bisa dibatasi ke situ. */
+div[class*="-screen"] .container {
+  padding-inline: var(--space-5);
+}

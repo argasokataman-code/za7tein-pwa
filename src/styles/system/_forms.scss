@@ -1,0 +1,18 @@
+@use "./mixins" as *;
+
+// ── 4. Input: satu radius, satu tinggi, satu focus ring ───────────────────
+
+
+.form-control,
+.form-input-profile,
+.proof-input ~ .proof-upload,
+input[type='text'],
+input[type='tel'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='search'],
+textarea,
+select {
+  @include field-shape;
+}

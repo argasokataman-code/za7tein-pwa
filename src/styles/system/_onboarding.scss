@@ -1,0 +1,201 @@
+@use "./mixins" as *;
+
+// ── Onboarding ────────────────────────────────────────────────────────────
+
+.onboarding-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--bg-warm);
+}
+
+.onboarding-media {
+  position: relative;
+  flex: 1;
+  min-height: 46dvh;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.onboarding-photo {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/media/onboarding-bg.196fa385.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+.onboarding-art {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.onboarding-art.is-soft {
+  background: var(--orange-soft);
+  color: var(--orange-soft-ink);
+}
+
+.onboarding-art.is-mint {
+  background: var(--green-soft);
+  color: var(--success-ink);
+}
+
+.onboarding-install {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  left: var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.onboarding-install svg {
+  flex-shrink: 0;
+  color: var(--orange-ink);
+}
+
+.onboarding-install p {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+}
+
+.onboarding-install-btn {
+  flex-shrink: 0;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--sa7tein-orange);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.onboarding-install-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.onboarding-install-btn:focus-visible,
+.onboarding-install-close:focus-visible,
+.onboarding-skip:focus-visible,
+.onboarding-cta:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+.onboarding-sheet {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(-1 * var(--space-5));
+  padding: var(--space-5) var(--space-5) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  background: var(--surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: var(--shadow-md);
+}
+
+.onboarding-sheet-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.onboarding-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.onboarding-dot {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.onboarding-dot span {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  transition: width var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
+}
+
+.onboarding-dot.is-active span {
+  width: 24px;
+  background: var(--sa7tein-orange);
+}
+
+.onboarding-skip {
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.onboarding-skip:hover {
+  color: var(--text-primary);
+}
+
+.onboarding-heading {
+  font-size: var(--text-xl);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.onboarding-body {
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+}
+
+.onboarding-cta {
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-top: var(--space-5);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--sa7tein-orange);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 700;
+  cursor: pointer;
+  transition: box-shadow var(--motion-fast) var(--ease-out);
+}
+
+.onboarding-cta:hover {
+  box-shadow: var(--shadow-brand);
+}

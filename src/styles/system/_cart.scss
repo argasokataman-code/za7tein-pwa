@@ -1,0 +1,500 @@
+@use "./mixins" as *;
+
+// ── Tombol "Tambah" dan badge keranjang ──────────────────────────────────
+// Menekan Tambah tidak memindahkan halaman, jadi satu-satunya bukti bahwa
+// keranjang bertambah adalah angka di badge ini. Keduanya harus ada bersama:
+// tombol tanpa badge terasa tidak melakukan apa pun.
+
+.buy-now-btn,
+.hot-deal-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+}
+
+// Ikon di dalam tombol tidak boleh mewarisi peregangan flex.
+.buy-now-btn > svg,
+.hot-deal-add > svg {
+  flex-shrink: 0;
+}
+
+.nav-icon-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.nav-cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border: 1.5px solid var(--surface);
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+// Keterangan yang hanya dibaca pembaca layar — badge angkanya sendiri
+// ditandai aria-hidden supaya tidak dibacakan sebagai angka lepas.
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Checkout: isi pesanan ────────────────────────────────────────────────
+   Aturan lama mengunci .checkout-screen pada 100vh dan membuat
+   .checkout-content menggulir di dalamnya. Itu dua penggulung bersarang, pola
+   yang bikin gulir terasa tidak mulus di halaman lain, jadi tingginya dilepas
+   dan headernya dibuat menempel. */
+
+.checkout-screen {
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+}
+
+.checkout-header {
+  position: sticky;
+  top: 0;
+}
+
+.checkout-content {
+  overflow: visible;
+  /* padding bawah sengaja tidak disentuh: aturan aslinya 100px, dan itu pas
+     untuk .checkout-actions yang position: fixed setinggi 77px. Sempat kutimpa
+     jadi 32px dan ringkasan terakhir tertutup tombol. */
+}
+
+/* Aslinya 80px jarak antar bagian. Dengan empat bagian itu jadi 320px ruang
+   mati; 24px sudah cukup karena tiap bagian sudah punya judul sendiri. */
+.checkout-screen .checkout-section {
+  margin-bottom: var(--space-5);
+}
+
+.checkout-store {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checkout-store__name {
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.checkout-store__hours {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.checkout-item__image {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.checkout-item__info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.checkout-item__name {
+  overflow: hidden;
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.checkout-item__modifier {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.checkout-item__unit {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.checkout-item__side {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.checkout-item__total {
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Sasaran sentuh dari token, bukan angka lepas. Barisnya tetap muat karena
+   gambar 52px lebih tinggi daripada stepper-nya. */
+.qty-stepper button {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    background var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out);
+}
+
+.qty-stepper button:hover {
+  background: var(--bg-warm);
+  border-color: var(--border-strong);
+}
+
+.qty-stepper__value {
+  min-width: 28px;
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  text-align: center;
+}
+
+.checkout-empty-cta {
+  max-width: 260px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qty-stepper button {
+    transition: none;
+  }
+}
+
+/* ── Payment amount: header 44px dan home-indicator ────────────────────────
+   Dua cacat yang bikin tampilannya rusak.
+
+   1. Header-nya position:fixed dengan top:44px, disisakan untuk status bar
+      yang tidak pernah dirender. Akibatnya pita 0-44px terbuka dan konten
+      yang digulir lewat di atas header. Header diturunkan ke 0 dan padding
+      atas konten disesuaikan dari 104px (44+60) menjadi 76px.
+
+   2. .home-indicator didefinisikan tiga kali di _app.scss dengan maksud
+      berbeda: pil 134x5 di tengah, strip selebar layar untuk safe-area, dan
+      wadah flex 24px. Kekhususannya sama, jadi yang terakhir menang per
+      properti -- left dan right jadi 0, height jadi 24px, sementara width
+      134px dan translate(-50%) dari aturan pertama tetap berlaku. Hasilnya
+      blok ivory 134x24 di x -67..67, separuh keluar tepi kiri layar.
+      Markup memakai elemen ini sendirian tanpa anak .home-indicator2, jadi
+      bentuk yang masuk akal cuma pilnya sendiri. Satu aturan lengkap di sini
+      menang lewat urutan sumber, tanpa perlu menyunting ketiga tempat itu. */
+
+.payment-amount-header {
+  top: 0;
+}
+
+.payment-amount-content {
+  padding-top: 76px;
+}
+
+.home-indicator {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  z-index: 1000;
+  width: 134px;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(32, 32, 32, 0.1);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* ── Permukaan kartu: #DFD2C6 dipakai sebagai latar ────────────────────────
+   #DFD2C6 adalah token --border-strong, token untuk GARIS. Di _app.scss ia
+   dipakai sebagai latar di 17 tempat, tujuh di antaranya permukaan kartu:
+   .address-item, .payment-item, .add-card-form .form-control,
+   .order-summary-section, .payment-method-display, .payment-method-card, dan
+   .driver-card.
+
+   Akibatnya kartu dicat hampir sama gelap dengan latar: #DFD2C6 terhadap
+   #FFF9F4 hanya 1.42:1, jadi yang terlihat bukan kartu di atas halaman
+   melainkan gumpalan taupe. Ditambah empat krem lain yang berdesakan di
+   halaman yang sama, hasilnya kusam.
+
+   Sekarang tiap warna punya satu tugas: --surface untuk kartu, --border-strong
+   untuk tepinya, --border untuk garis pemisah di dalam kartu, dan --bg-warm
+   untuk halaman. Sisanya yang memang placeholder atau keadaan tertekan
+   (.profile-photo-placeholder, .driver-avatar-placeholder, .toggle-slider,
+   .wallet-item-icon, .numpad-btn:active, .qty-btn) dibiarkan, karena di sana
+   nada tengah justru yang benar.
+
+   .payment-method-display sengaja jadi pembungkus tanpa latar: kartu di
+   dalamnya yang jadi panel, supaya tidak ada dua lapis yang saling menutupi. */
+
+.address-item,
+.address-item:hover,
+.payment-item,
+.payment-item:hover,
+.driver-card,
+.order-summary-section,
+.payment-method-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+
+.address-item:hover,
+.payment-item:hover {
+  background-color: var(--bg-warm);
+}
+
+.payment-method-display {
+  background-color: transparent;
+}
+
+.add-card-form .form-control {
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+
+.add-card-form .form-control:focus {
+  border-color: var(--sa7tein-orange);
+}
+
+/* ── Chat dengan kurir ─────────────────────────────────────────────────────
+   Satu penggulung dokumen, seperti halaman lain: header menempel di atas,
+   bilah tulis menempel di bawah, percakapannya yang menggulir. Tidak ada
+   penggulung bersarang.
+
+   Gelembung masuk memakai permukaan kartu yang sama dengan sisa aplikasi,
+   gelembung keluar memakai oranye merek. Yang membedakan sisi, bukan warna
+   baru — supaya tidak menambah krem kelima ke dalam palet. */
+
+.chat-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: var(--bg-warm);
+}
+
+.chat-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--bg-warm);
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-header__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.chat-header__name {
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.chat-header__status {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+/* Penyeimbang lebar tombol kembali supaya namanya benar-benar di tengah. */
+.chat-header__spacer {
+  flex: none;
+  width: var(--touch-min);
+}
+
+.chat-thread {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-5) var(--space-3);
+}
+
+.chat-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 78%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.chat-bubble--kurir {
+  align-self: flex-start;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: var(--radius-xs);
+}
+
+.chat-bubble--aku {
+  align-self: flex-end;
+  background-color: var(--sa7tein-orange);
+  border-bottom-right-radius: var(--radius-xs);
+  color: var(--on-brand);
+}
+
+.chat-bubble__text {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.chat-bubble__jam {
+  align-self: flex-end;
+  font-size: 11px;
+  opacity: 0.72;
+}
+
+.chat-bubble--kurir .chat-bubble__jam {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.chat-typing {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-typing__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background-color: var(--text-secondary);
+  animation: chat-typing 1.2s var(--ease-inout) infinite;
+}
+
+.chat-typing__dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chat-typing__dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes chat-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.chat-suggestions {
+  display: flex;
+  gap: var(--space-2);
+  padding: 0 var(--space-5) var(--space-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chat-suggestions::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-chip {
+  flex: none;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.chat-chip:hover {
+  background-color: var(--bg-warm);
+}
+
+.chat-compose {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  background-color: var(--bg-warm);
+  border-top: 1px solid var(--border);
+}
+
+.chat-compose__input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+.chat-compose__input:focus {
+  border-color: var(--sa7tein-orange);
+  outline: none;
+}
+
+.chat-compose__send {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+  cursor: pointer;
+}

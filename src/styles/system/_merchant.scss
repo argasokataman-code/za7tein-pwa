@@ -1,0 +1,499 @@
+@use "./mixins" as *;
+
+/* ── 12. Merchant console ───────────────────────────────────────────────────
+   Lapisan baru untuk role merchant. Semua nilai lewat token; bottom-nav sudah
+   diatur global, di sini hanya jarak agar isi tidak tertutup bilah. */
+
+.merchant-page {
+  padding: var(--space-5) var(--space-5) calc(var(--nav-height) + var(--space-6));
+}
+
+.merchant-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin-inline: calc(-1 * var(--space-5));
+  padding: var(--space-3) var(--space-5);
+  background: var(--bg-warm);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-4);
+}
+
+.merchant-eyebrow {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-1);
+}
+
+.merchant-title {
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+}
+
+.merchant-card {
+  @include card-surface;
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--sa7tein-orange);
+}
+
+.merchant-card-title {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-card-sub {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-toggle {
+  margin-top: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.merchant-toggle.is-open {
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.merchant-quota {
+  margin-top: var(--space-3);
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.merchant-quota span {
+  display: block;
+  height: 100%;
+  background: var(--sa7tein-orange);
+}
+
+.merchant-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.merchant-stat {
+  @include card-surface;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  color: inherit;
+}
+
+.merchant-stat-value {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+}
+
+.merchant-stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-section {
+  margin-bottom: var(--space-4);
+}
+
+.merchant-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.merchant-section-head h2 {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+}
+
+.merchant-section-head a {
+  font-size: var(--text-xs);
+  color: var(--orange-ink);
+}
+
+.merchant-order {
+  @include card-surface;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  color: inherit;
+}
+
+.merchant-order-code {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-order-sub {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-badge {
+  font-size: var(--text-xs);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.merchant-badge-masuk,
+.merchant-badge-diterima {
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+}
+
+.merchant-badge-dimasak,
+.merchant-badge-diantar,
+.merchant-badge-tiba,
+.merchant-badge-delivering {
+  background: var(--orange-soft);
+  color: var(--orange-soft-ink);
+}
+
+.merchant-badge-selesai,
+.merchant-badge-at_store {
+  background: var(--success-soft);
+  color: var(--success-ink);
+}
+
+.merchant-badge-ditolak,
+.merchant-badge-batal,
+.merchant-badge-offline {
+  background: var(--red-soft);
+  color: var(--danger-ink);
+}
+
+.merchant-tabs {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+}
+
+.merchant-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.merchant-tab.active {
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.merchant-tab-count {
+  font-size: var(--text-xs);
+  opacity: 0.8;
+}
+
+.merchant-order-card {
+  @include card-surface;
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-order-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.merchant-order-items {
+  list-style: none;
+  margin: var(--space-3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.merchant-order-items li {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-order-meta {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-order-total {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  margin-top: var(--space-1);
+}
+
+.merchant-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.merchant-actions .btn {
+  flex: 1;
+}
+
+.merchant-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.merchant-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.merchant-form .form-group {
+  margin-bottom: var(--space-3);
+}
+
+.merchant-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.merchant-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-summary-sep { color: var(--border-strong); }
+.merchant-summary-item.is-low { color: var(--warning-ink); }
+.merchant-summary-item.is-out { color: var(--danger-ink); }
+
+.merchant-attention { margin-bottom: var(--space-5); }
+
+.merchant-attention-head {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.merchant-attention-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+}
+.merchant-attention-row.is-low { background: var(--warning-soft); }
+.merchant-attention-row.is-out { background: var(--red-soft); }
+
+.merchant-attention-name { font-size: var(--text-sm); color: var(--text-primary); }
+.merchant-attention-stock { font-size: var(--text-xs); color: var(--text-secondary); margin-top: 2px; }
+
+.merchant-attention-action {
+  flex-shrink: 0;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.merchant-section-title {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.merchant-list { display: flex; flex-direction: column; }
+
+.merchant-toggle-switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  transition: background var(--motion-fast) var(--ease-out);
+}
+.merchant-toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+.merchant-toggle-switch.is-on { background: var(--success); }
+.merchant-toggle-switch.is-on::after { transform: translateX(18px); }
+
+.merchant-menu-more-wrap { position: relative; flex-shrink: 0; }
+
+.merchant-menu-more {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+}
+
+.merchant-overflow {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 30;
+  min-width: 150px;
+  padding: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+.merchant-overflow button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  text-align: left;
+}
+.merchant-overflow button.is-danger { color: var(--danger-ink); }
+
+.sheet-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  display: flex;
+  align-items: flex-end;
+  background: var(--overlay);
+}
+
+.sheet-panel {
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--space-5);
+  padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+}
+
+.sheet-title {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.sheet-field-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-2);
+}
+
+.sheet-actions { margin-top: var(--space-4); }
+.sheet-actions .btn { width: 100%; }
+
+.stock-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+.stock-stepper button {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+.stock-stepper-value {
+  min-width: 3ch;
+  text-align: center;
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+}
+
+.merchant-form-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--border);
+}

@@ -1,0 +1,198 @@
+@use "./mixins" as *;
+
+// ── 8. Banner promo beranda ───────────────────────────────────────────────
+// Kartu ini mewarisi tiga masalah: teksnya gelap di atas banner oranye, CTA-nya
+// berlatar transparan-gelap dengan teks gelap (praktis tak terbaca), dan
+// `flex-wrap: wrap-reverse` menaruh gambar setinggi 90px di atas teksnya
+// sehingga sisa ruangnya mati. Dirombak jadi banner merek yang utuh:
+// headline putih, CTA pil putih, dan gambar jadi thumbnail bulat di kanan.
+.ad-banner {
+  // Orange rata, bukan gradien: sesuai arahan, gradien tidak dipakai lagi di
+  // sini — kedalaman visualnya sekarang datang dari dekorasi SVG di bawah.
+  background: var(--sa7tein-orange);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  overflow: hidden;
+  position: relative;
+}
+
+// Dekorasi mengisi seluruh banner di belakang isi, tidak menangkap klik.
+.ad-decor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+// Opasitas dekorasi banner promo, dalam rentang 4-14% seperti pola hero.
+// Di markup aslinya cloche 0.42 dan titik 0.38 — dikomposit ke atas oranye
+// merek keduanya jadi salmon, rgb(247,156,133) dan rgb(246,149,125), bukan
+// oranye lagi. Bentuk gelap di kanan tetap: ia memperdalam, bukan mencuci,
+// dan warnanya kini memakai token --orange-deep.
+.ad-decor__cloche {
+  fill: none;
+  stroke: var(--bg-warm);
+  stroke-opacity: 0.14;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.ad-decor__cloche-tray {
+  stroke-width: 2.5;
+}
+
+.ad-decor__hills {
+  fill: var(--bg-warm);
+}
+
+.ad-decor__hill-1 {
+  fill-opacity: 0.1;
+}
+
+.ad-decor__hill-2 {
+  fill-opacity: 0.12;
+}
+
+.ad-decor__hill-3 {
+  fill-opacity: 0.14;
+}
+
+.ad-decor__dots {
+  fill: var(--bg-warm);
+  fill-opacity: 0.12;
+}
+
+.ad-decor__depth {
+  fill: var(--orange-deep);
+}
+
+.ad-decor__depth-1 {
+  fill-opacity: 0.28;
+}
+
+.ad-decor__depth-2 {
+  fill-opacity: 0.32;
+}
+
+
+.ad-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: nowrap;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.ad-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  // Rapat satu langkah: span "30%" yang besar menambah tinggi baris, jadi
+  // jarak 12px terbaca lebih longgar daripada angkanya.
+  gap: var(--space-2);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+// Judulnya dulu satu blok seragam, jadi mata harus membaca seluruh kalimat
+// untuk menemukan nilainya. Sekarang angkanya yang jadi titik fokus dan teks
+// di sekelilingnya turun jadi pendukung.
+.ad-title {
+  color: var(--on-brand);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+  flex: none;
+  // Tanpa ini kalimatnya pecah menyisakan satu kata menggantung di baris
+  // kedua ("pertamamu"), yang lalu terbaca sebagai celah kosong di kolom kiri.
+  text-wrap: balance;
+}
+
+.ad-title-value {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  vertical-align: -0.06em;
+  margin-right: 2px;
+}
+
+// CTA putih di atas oranye: kontras tinggi dan jadi titik terang banner.
+.ad-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--orange-ink);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 0 var(--space-5);
+  min-height: 40px;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.ad-cta:hover {
+  transform: translateY(-1px);
+}
+
+.ad-image {
+  flex: 0 0 auto;
+  width: 92px;
+  height: 92px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.ad-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+// Di layar sempit, gambar dikecilkan lagi alih-alih membalik urutan.
+@media (max-width: 360px) {
+  .ad-image {
+    width: 68px;
+    height: 68px;
+  }
+
+  .ad-banner {
+    padding: var(--space-4);
+  }
+}
+
+// ── 9. Dekorasi latar header beranda ──────────────────────────────────────
+// Bahasa visual yang sama dengan banner promo. Header punya sudut bawah
+// melengkung, jadi dekorasinya dibungkus elemen yang memotong mengikuti
+// lengkung itu — overflow: hidden dipasang di pembungkus, bukan di header,
+// supaya dialog pemilih lokasi tidak ikut terpotong.
+.hdr-decor-wrap {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hdr-decor {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.home-header .header-content {
+  position: relative;
+  z-index: 1;
+}

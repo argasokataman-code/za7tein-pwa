@@ -1,0 +1,14 @@
+@use "./mixins" as *;
+
+// ── 3. Kartu: satu radius, satu garis, satu elevasi ───────────────────────
+
+.review-card,
+.summary-item,
+.payment-method-card,
+.addr-form,
+.address-item,
+.menu-description-wrapper,
+.order-summary-section,
+.payment-amount-content > * {
+  border-radius: var(--radius-lg);
+}

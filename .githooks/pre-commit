@@ -71,6 +71,7 @@ line_check "src/components" "*.tsx" 600 "Components" ""
 line_check "src/pages" "*.tsx" 700 "Pages" "Documentation.tsx"
 line_check "src/hooks" "*.ts" 150 "Hooks" ""
 line_check "src/data" "*.ts" 500 "Mock data" ""
+line_check "src/styles" "*.scss" 600 "Stylesheets" ""
 
 # ───────────── 3. LINT ─────────────
 check "PRD registry and design tokens" "npm run governance:check"
