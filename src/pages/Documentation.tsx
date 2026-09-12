@@ -1616,9 +1616,10 @@ const {
 // Dispatches setLocationLabel(address) to uiSlice
 
 // Customize saved addresses at top of LocationPicker.tsx:
+// Ikon memakai lucide (strokeWidth 1.75), bukan emoji.
 const SAVED_ADDRESSES = [
-  { id: "1", label: "Home", address: "44 Street Town, New York", icon: "🏠" },
-  { id: "2", label: "Work", address: "120 Business Ave, Manhattan", icon: "💼" },
+  { id: "1", label: "Home", address: "44 Street Town, New York", icon: Home },
+  { id: "2", label: "Work", address: "120 Business Ave, Manhattan", icon: Briefcase },
 ];`}</code>
               </pre>
             </div>

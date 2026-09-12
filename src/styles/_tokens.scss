@@ -79,9 +79,8 @@ html, body { font-family: var(--font-sans); }
   --shadow-md: 0 8px 24px rgba(32, 32, 32, 0.10);
   --shadow-brand: 0 8px 20px rgba(241, 90, 55, 0.28);
 
-  /* satu gradient merek, dipakai di mana pun arah diagonal dibutuhkan */
-  --gradient-brand: linear-gradient(135deg, #F15A37 0%, #D9491F 100%);
-
+  /* Gradient merek dihapus: brief melarang gradient, dan ketiga
+     pemakaiannya sudah diganti warna solid. */
   /* warna khusus peringkat — punya tugas sendiri, terpisah dari aksi */
   --star: #FBBF24;
 }

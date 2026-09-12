@@ -200,9 +200,9 @@ export default function Profile() {
               </div>
             </div>
           </div>
-          <div className="profile-modal-overlay" aria-labelledby="logout-modal-title" style={{ position: "fixed", inset: "0px", zIndex: "9999", display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(0, 0, 0, 0)", transition: "background 0.3s" }}>
-            <div className="profile-modal profile-modal-exit" style={{ width: "100%", maxWidth: "480px", background: "rgb(26, 26, 26)", borderRadius: "24px 24px 0px 0px", paddingTop: "20px", paddingRight: "24px", paddingBottom: "calc(32px + env(safe-area-inset-bottom))", paddingLeft: "24px" }}>
-              <div style={{ width: "40px", height: "4px", background: "rgba(255, 255, 255, 0.2)", borderRadius: "2px", margin: "0px auto 28px" }} />
+          <div className="profile-modal-overlay" aria-labelledby="logout-modal-title" style={{ position: "fixed", inset: "0px", zIndex: "9999", display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(32, 32, 32, 0.45)", transition: "background 0.3s" }}>
+            <div className="profile-modal profile-modal-exit" style={{ width: "100%", maxWidth: "480px", background: "var(--surface)", borderRadius: "var(--radius-lg) var(--radius-lg) 0px 0px", paddingTop: "20px", paddingRight: "24px", paddingBottom: "calc(32px + env(safe-area-inset-bottom))", paddingLeft: "24px" }}>
+              <div style={{ width: "40px", height: "4px", background: "var(--border-strong)", borderRadius: "2px", margin: "0px auto 28px" }} />
               <h2 className="profile-modal-title" id="logout-modal-title" style={{ marginBottom: "8px" }}>
                 Are you sure you want to logout?
               </h2>

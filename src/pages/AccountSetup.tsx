@@ -1,38 +1,51 @@
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
-
 import { useNavigate } from 'react-router-dom'
 
+/**
+ * Layar kegagalan.
+ *
+ * Versi hasil porting memakai latar hitam pekat dengan teks abu kebiruan, dan
+ * tombol "Try Again" yang sebenarnya tidak mencoba ulang apa pun — ia langsung
+ * membawa ke /home, jadi labelnya berbohong. Sekarang memakai palet hangat
+ * yang sama dengan sisa aplikasi, dan tombolnya benar-benar mengulang.
+ */
 export default function AccountSetup() {
   const navigate = useNavigate()
+
   return (
-    <>
     <div className="app-shell">
-      <div style={{ minHeight: "100dvh", background: "rgb(0, 0, 0)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 32px", textAlign: "center", fontFamily: "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif" }}>
-        <div style={{ marginBottom: "24px" }}>
-          <svg width={72} height={72} viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
-            <path d="M12 7l.01 5M12 16h.01" stroke="#F15A37" strokeWidth="2.5" strokeLinecap="round" />
+      <div className="setup-error">
+        <div className="setup-error-icon">
+          <svg width={72} height={72} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" opacity={0.25} />
+            <path
+              d="M12 7l.01 5M12 16h.01"
+              stroke="var(--sa7tein-orange)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
           </svg>
         </div>
-        <h1 style={{ fontSize: "clamp(22px, 5vw, 30px)", fontWeight: "700", color: "rgb(255, 255, 255)", margin: "0px 0px 12px" }}>
-          Something went wrong
-        </h1>
-        <p style={{ fontSize: "15px", color: "rgb(105, 117, 134)", lineHeight: "1.6", maxWidth: "320px", margin: "0px 0px 8px" }}>
-          An unexpected error occurred. Please try again.
+        <h1 className="setup-error-title">Terjadi kesalahan</h1>
+        <p className="setup-error-text">
+          Ada gangguan saat memuat halaman ini. Coba muat ulang, atau kembali ke beranda.
         </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: "280px" }}>
-          <button type="button" onClick={() => navigate('/home')} style={{ height: "56px", background: "#F15A37", color: "rgb(255, 255, 255)", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", borderRadius: "9999px", fontWeight: "600", fontSize: "16px", cursor: "pointer", fontFamily: "inherit" }}>
-            Try Again
+        <div className="setup-error-actions">
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={() => window.location.reload()}
+          >
+            Coba lagi
           </button>
-          <Link to="/home" style={{ height: "56px", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255, 255, 255, 0.06)", color: "rgb(255, 255, 255)", border: "1px solid rgba(255, 255, 255, 0.1)", borderRadius: "9999px", fontWeight: "500", fontSize: "15px", textDecoration: "none" }}>
-            Go to Home
-          </Link>
+          <button
+            className="setup-error-secondary"
+            type="button"
+            onClick={() => navigate('/home')}
+          >
+            Ke beranda
+          </button>
         </div>
       </div>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
-    </>
   )
 }
