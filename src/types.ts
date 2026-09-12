@@ -165,3 +165,21 @@ export interface AppNotification {
   time: string
   unread: boolean
 }
+
+/** Status order dari sudut pandang merchant. Menumpang `OrderStage` yang sudah ada. */
+export type MerchantOrderStatus = 'masuk' | OrderStage | 'selesai' | 'ditolak' | 'batal'
+
+export interface MerchantOrder {
+  id: string
+  code: string
+  customerName: string
+  address: string
+  items: CartItem[]
+  total: number
+  distanceMeters: number
+  zone: ZoneId
+  status: MerchantOrderStatus
+  placedAt: string
+  paymentMethod: PaymentMethod['id']
+  cookMinutes?: number
+}

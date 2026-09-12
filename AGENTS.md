@@ -190,6 +190,8 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 3. Tidak ada `position: fixed` tanpa batas kolom
 4. Tidak ada emoji, tidak ada paket ikon baru, tidak ada warna di luar peran token
 5. Tidak ada `var(--…)` yang tokennya belum ada
+6. **Halaman dokumentasi global (`src/pages/Documentation.tsx`) diperbarui di commit yang sama** — dienforce di pre-commit cek #6
+7. Record node atlas untuk pekerjaan signifikan
 
 ---
 

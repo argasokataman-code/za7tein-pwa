@@ -24,6 +24,10 @@ import Home from './pages/Home'
 import Landing from './pages/Landing'
 import Language from './pages/Language'
 import MenuDetail from './pages/MenuDetail'
+import MerchantCouriers from './pages/MerchantCouriers'
+import MerchantDashboard from './pages/MerchantDashboard'
+import MerchantOrders from './pages/MerchantOrders'
+import MerchantSettings from './pages/MerchantSettings'
 import NotificationSettings from './pages/NotificationSettings'
 import Notifications from './pages/Notifications'
 import Offline from './pages/Offline'
@@ -66,6 +70,10 @@ const routes: [string, React.ComponentType][] = [
   ['/filter', Filter],
   ['/favorites', Favorites],
   ['/menu-detail/:id', MenuDetail],
+  ['/merchant', MerchantDashboard],
+  ['/merchant/orders', MerchantOrders],
+  ['/merchant/couriers', MerchantCouriers],
+  ['/merchant/settings', MerchantSettings],
   ['/checkout', Checkout],
   ['/address-selection', AddressSelection],
   ['/payment-selection', PaymentSelection],

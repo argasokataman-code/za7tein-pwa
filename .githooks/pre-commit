@@ -84,6 +84,21 @@ if [ -d atlas ] && [ -f "$ATLAS" ]; then
   check "Atlas integrity" "node \"$ATLAS\" check"
 fi
 
+# ───────────── 6. DOCUMENTATION SYNC ─────────────
+# Setiap perubahan src/ wajib ikut update halaman dokumentasi global.
+STAGED=$(git diff --cached --name-only)
+APP_TOUCHED=$(echo "$STAGED" | grep -E '^src/(pages|components|data|store|hooks)/' | grep -v '^src/pages/Documentation\.tsx$')
+DOC_TOUCHED=$(echo "$STAGED" | grep -c '^src/pages/Documentation\.tsx$')
+echo -e "${YELLOW}[check]${NC} Global documentation updated with src changes..."
+if [ -z "$APP_TOUCHED" ] || [ "$DOC_TOUCHED" -gt 0 ]; then
+  echo -e "${GREEN}  ok${NC} Documentation in sync"
+  PASS=$((PASS + 1))
+else
+  echo -e "${RED}  FAIL${NC} src/ berubah tapi src/pages/Documentation.tsx tidak"
+  echo "$APP_TOUCHED" | sed 's/^/    /'
+  FAIL=$((FAIL + 1))
+fi
+
 echo ""
 echo "======================================"
 echo -e "  ${GREEN}$PASS passed${NC}, ${RED}$FAIL failed${NC}"

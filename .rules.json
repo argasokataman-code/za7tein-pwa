@@ -85,7 +85,12 @@
     "bypass": "git commit --no-verify (darurat saja, wajib lapor)"
   },
   "pre_commit": {
-    "checks": ["forbidden patterns", "line counts", "lint (oxlint)", "build (tsc -b && vite build)", "atlas check"]
+    "checks": ["forbidden patterns", "line counts", "lint (oxlint)", "build (tsc -b && vite build)", "atlas check", "documentation sync"]
+  },
+  "documentation": {
+    "global_page": "src/pages/Documentation.tsx",
+    "rule": "Setiap perubahan src/ (pages|components|data|store|hooks) WAJIB ikut memperbarui halaman dokumentasi global di commit yang sama. Dienforce di .githooks/pre-commit cek #6.",
+    "bypass": "git commit --no-verify (darurat, wajib lapor)"
   },
   "atlas": {
     "enabled": true,

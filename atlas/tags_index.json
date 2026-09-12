@@ -787,17 +787,121 @@
     {
       "id": "TASK-156",
       "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-175",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
     }
   ],
   "docs": [
     {
       "id": "TASK-148",
       "shard": 0
+    },
+    {
+      "id": "DEC-010",
+      "shard": 0
     }
   ],
   "infra": [
     {
       "id": "TASK-157",
+      "shard": 0
+    }
+  ],
+  "merchant": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "decision": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "ui": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "verify": [
+    {
+      "id": "TASK-175",
       "shard": 0
     }
   ]

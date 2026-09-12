@@ -2003,3 +2003,361 @@ body.sa7tein-track-page {
 div[class*="-screen"] .container {
   padding-inline: var(--space-5);
 }
+
+/* ── 12. Merchant console ───────────────────────────────────────────────────
+   Lapisan baru untuk role merchant. Semua nilai lewat token; bottom-nav sudah
+   diatur global, di sini hanya jarak agar isi tidak tertutup bilah. */
+
+.merchant-page {
+  padding: var(--space-5) var(--space-5) calc(var(--nav-height) + var(--space-6));
+}
+
+.merchant-header {
+  margin-bottom: var(--space-4);
+}
+
+.merchant-eyebrow {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--space-1);
+}
+
+.merchant-title {
+  font-size: var(--text-xl);
+  color: var(--text-primary);
+}
+
+.merchant-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--sa7tein-orange);
+}
+
+.merchant-card-title {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-card-sub {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-toggle {
+  margin-top: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.merchant-toggle.is-open {
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.merchant-quota {
+  margin-top: var(--space-3);
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.merchant-quota span {
+  display: block;
+  height: 100%;
+  background: var(--sa7tein-orange);
+}
+
+.merchant-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.merchant-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  color: inherit;
+}
+
+.merchant-stat-value {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+}
+
+.merchant-stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-section {
+  margin-bottom: var(--space-4);
+}
+
+.merchant-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.merchant-section-head h2 {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+}
+
+.merchant-section-head a {
+  font-size: var(--text-xs);
+  color: var(--orange-ink);
+}
+
+.merchant-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+  color: inherit;
+}
+
+.merchant-order-code {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-order-sub {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-badge {
+  font-size: var(--text-xs);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.merchant-badge-masuk,
+.merchant-badge-diterima {
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+}
+
+.merchant-badge-dimasak,
+.merchant-badge-diantar,
+.merchant-badge-tiba,
+.merchant-badge-delivering {
+  background: var(--orange-soft-ink);
+  color: var(--orange-ink);
+}
+
+.merchant-badge-selesai,
+.merchant-badge-at_store {
+  background: var(--success-soft);
+  color: var(--success-ink);
+}
+
+.merchant-badge-ditolak,
+.merchant-badge-batal,
+.merchant-badge-offline {
+  background: var(--danger-soft);
+  color: var(--danger-ink);
+}
+
+.merchant-tabs {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+}
+
+.merchant-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.merchant-tab.active {
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.merchant-tab-count {
+  font-size: var(--text-xs);
+  opacity: 0.8;
+}
+
+.merchant-order-card {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-order-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.merchant-order-items {
+  list-style: none;
+  margin: var(--space-3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.merchant-order-items li {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-order-meta {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-order-total {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  margin-top: var(--space-1);
+}
+
+.merchant-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.merchant-actions .btn {
+  flex: 1;
+}
+
+.merchant-btn-ghost {
+  min-height: var(--touch-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.merchant-cook {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.merchant-cook label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-cook input[type='range'] {
+  width: 100%;
+  accent-color: var(--sa7tein-orange);
+}
+
+.merchant-courier {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-courier-icon {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: var(--radius-md);
+  background: var(--orange-soft-ink);
+  color: var(--orange-ink);
+  flex-shrink: 0;
+}
+
+.merchant-courier-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.merchant-courier-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--orange-ink);
+  margin-top: var(--space-1);
+}
+
+.merchant-empty,
+.merchant-hint-inline {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  padding: var(--space-3) 0;
+}
+
+.merchant-hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-secondary);
+}
+
+.merchant-hint p {
+  font-size: var(--text-xs);
+}
+
+.merchant-signout {
+  width: 100%;
+  margin-top: var(--space-2);
+}

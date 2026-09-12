@@ -17,6 +17,7 @@ import auth from './slices/authSlice'
 import accountSetup from './slices/accountSetupSlice'
 import cart from './slices/cartSlice'
 import favorites from './slices/favoritesSlice'
+import merchant from './slices/merchantSlice'
 import notifications from './slices/notificationsSlice'
 import ui from './slices/uiSlice'
 
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   auth,
   cart,
   favorites,
+  merchant,
   notifications,
   ui,
   accountSetup,

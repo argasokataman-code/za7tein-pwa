@@ -759,6 +759,79 @@ export default function Documentation() {
                 </tbody>
               </table>
             </div>
+            <h3 className="doc-h3">
+              Merchant Console — /merchant group
+            </h3>
+            <p>
+              A separate role shell for merchants, distinct from the customer app.
+              It uses its own bottom nav (<code className="doc-inline">MerchantBottomNav</code>)
+              and is entirely mock-data driven (no backend or auth).
+              All routes are prefixed with <code className="doc-inline">/merchant</code>
+              {' '}so they don't collide with the 46 customer routes.
+            </p>
+            <div className="doc-table-wrap">
+              <table className="doc-table">
+                <thead>
+                  <tr>
+                    <th>
+                      Route
+                    </th>
+                    <th>
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant
+                      </code>
+                    </td>
+                    <td>
+                      Dashboard: toggle buka/tutup, kuota harian, statistik order
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant/orders
+                      </code>
+                    </td>
+                    <td>
+                      Antrean order: tab status, terima/tolak, estimasi masak 15–30 menit
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant/couriers
+                      </code>
+                    </td>
+                    <td>
+                      Kelola kurir khusus toko (maksimal 3)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant/settings
+                      </code>
+                    </td>
+                    <td>
+                      Setelan toko: jam operasional, paket/kuota, rekening
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              Merchant screens reuse <code className="doc-inline">JourneyLine</code> from{' '}
+              <code className="doc-inline">src/components/OrderStageScreen.tsx</code> and data
+              from <code className="doc-inline">src/data/merchant.ts</code> and{' '}
+              <code className="doc-inline">src/data/merchantOrders.ts</code>.
+              Navigation is handled by <code className="doc-inline">MerchantBottomNav</code>.
+            </p>
           </section>
           <section id="file-structure" className="doc-section">
             <div className="doc-section-header">

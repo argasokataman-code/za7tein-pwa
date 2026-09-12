@@ -829,6 +829,78 @@
     {
       "id": "TASK-156",
       "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
     }
   ],
   "sa7tein": [
@@ -1419,6 +1491,10 @@
     {
       "id": "TASK-155",
       "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
     }
   ],
   "dec-003": [
@@ -1454,6 +1530,10 @@
     },
     {
       "id": "FEAT-013",
+      "shard": 0
+    },
+    {
+      "id": "DEC-010",
       "shard": 0
     }
   ],
@@ -1534,6 +1614,14 @@
     },
     {
       "id": "TASK-147",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
       "shard": 0
     }
   ],
@@ -1861,6 +1949,18 @@
     {
       "id": "BUS-001",
       "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "DEC-010",
+      "shard": 0
     }
   ],
   "kurir": [
@@ -1882,6 +1982,10 @@
     },
     {
       "id": "TASK-147",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
       "shard": 0
     }
   ],
@@ -2038,6 +2142,14 @@
   "auth": [
     {
       "id": "DEC-006",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "DEC-010",
       "shard": 0
     }
   ],
@@ -3849,6 +3961,10 @@
     {
       "id": "TASK-157",
       "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
     }
   ],
   "meta": [
@@ -4393,6 +4509,78 @@
     {
       "id": "TASK-156",
       "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -4402,6 +4590,10 @@
     },
     {
       "id": "TASK-156",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
       "shard": 0
     }
   ],
@@ -4430,6 +4622,46 @@
     },
     {
       "id": "TASK-156",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
       "shard": 0
     }
   ],
@@ -4469,6 +4701,78 @@
     {
       "id": "TASK-156",
       "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
     }
   ],
   "tool:": [
@@ -4507,11 +4811,87 @@
     {
       "id": "TASK-156",
       "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
     }
   ],
   "ada": [
     {
       "id": "TASK-147",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
       "shard": 0
     }
   ],
@@ -4519,17 +4899,29 @@
     {
       "id": "TASK-147",
       "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
     }
   ],
   "tokennya": [
     {
       "id": "TASK-147",
       "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
     }
   ],
   "be": [
     {
       "id": "TASK-147",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
       "shard": 0
     }
   ],
@@ -4568,6 +4960,82 @@
     },
     {
       "id": "TASK-156",
+      "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-162",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-175",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
       "shard": 0
     }
   ],
@@ -4677,6 +5145,10 @@
     {
       "id": "TASK-148",
       "shard": 0
+    },
+    {
+      "id": "DEC-010",
+      "shard": 0
     }
   ],
   "task-148": [
@@ -4692,6 +5164,10 @@
     },
     {
       "id": "TASK-155",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
       "shard": 0
     }
   ],
@@ -4717,6 +5193,38 @@
     {
       "id": "TASK-152",
       "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
     }
   ],
   "{": [
@@ -4730,6 +5238,50 @@
     },
     {
       "id": "TASK-154",
+      "shard": 0
+    },
+    {
+      "id": "TASK-161",
+      "shard": 0
+    },
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-173",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
       "shard": 0
     }
   ],
@@ -4750,6 +5302,10 @@
     },
     {
       "id": "TASK-154",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
       "shard": 0
     }
   ],
@@ -4786,6 +5342,14 @@
   "#": [
     {
       "id": "TASK-151",
+      "shard": 0
+    },
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-160",
       "shard": 0
     }
   ],
@@ -4892,6 +5456,10 @@
     },
     {
       "id": "TASK-156",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
       "shard": 0
     }
   ],
@@ -5048,6 +5616,790 @@
   "task-157": [
     {
       "id": "TASK-157",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/docs/plan-merchant.md": [
+    {
+      "id": "TASK-158",
+      "shard": 0
+    },
+    {
+      "id": "TASK-159",
+      "shard": 0
+    }
+  ],
+  "(+116)": [
+    {
+      "id": "TASK-158",
+      "shard": 0
+    }
+  ],
+  "plan": [
+    {
+      "id": "TASK-158",
+      "shard": 0
+    }
+  ],
+  "console": [
+    {
+      "id": "TASK-158",
+      "shard": 0
+    }
+  ],
+  "(e2e": [
+    {
+      "id": "TASK-158",
+      "shard": 0
+    }
+  ],
+  "ui/ux)": [
+    {
+      "id": "TASK-158",
+      "shard": 0
+    }
+  ],
+  "task-158": [
+    {
+      "id": "TASK-158",
+      "shard": 0
+    }
+  ],
+  "(+5/-4)": [
+    {
+      "id": "TASK-159",
+      "shard": 0
+    }
+  ],
+  "##": [
+    {
+      "id": "TASK-159",
+      "shard": 0
+    }
+  ],
+  "m1": [
+    {
+      "id": "TASK-159",
+      "shard": 0
+    }
+  ],
+  "task-159": [
+    {
+      "id": "TASK-159",
+      "shard": 0
+    }
+  ],
+  "console:": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "halaman": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "terpisah": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "(/merchant/*),": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "wajib": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "terintegrasi": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "ke": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "/documentation.": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "plan:": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "docs/plan-merchant.md": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "decision": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "ui": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "dec-010": [
+    {
+      "id": "DEC-010",
+      "shard": 0
+    }
+  ],
+  "(+22/-7)": [
+    {
+      "id": "TASK-160",
+      "shard": 0
+    }
+  ],
+  "─────────────": [
+    {
+      "id": "TASK-160",
+      "shard": 0
+    }
+  ],
+  "integrity": [
+    {
+      "id": "TASK-160",
+      "shard": 0
+    }
+  ],
+  "─────": [
+    {
+      "id": "TASK-160",
+      "shard": 0
+    }
+  ],
+  "task-160": [
+    {
+      "id": "TASK-160",
+      "shard": 0
+    }
+  ],
+  "(+8/-3)": [
+    {
+      "id": "TASK-161",
+      "shard": 0
+    }
+  ],
+  "\"pre_commit\":": [
+    {
+      "id": "TASK-161",
+      "shard": 0
+    }
+  ],
+  "task-161": [
+    {
+      "id": "TASK-161",
+      "shard": 0
+    }
+  ],
+  "(+3/-1)": [
+    {
+      "id": "TASK-162",
+      "shard": 0
+    }
+  ],
+  "task-162": [
+    {
+      "id": "TASK-162",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/types.ts": [
+    {
+      "id": "TASK-163",
+      "shard": 0
+    }
+  ],
+  "(+26/-8)": [
+    {
+      "id": "TASK-163",
+      "shard": 0
+    }
+  ],
+  "ts:": [
+    {
+      "id": "TASK-163",
+      "shard": 0
+    },
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    }
+  ],
+  "export": [
+    {
+      "id": "TASK-163",
+      "shard": 0
+    }
+  ],
+  "interface": [
+    {
+      "id": "TASK-163",
+      "shard": 0
+    }
+  ],
+  "appnotification": [
+    {
+      "id": "TASK-163",
+      "shard": 0
+    }
+  ],
+  "task-163": [
+    {
+      "id": "TASK-163",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/data/merchantorders.ts": [
+    {
+      "id": "TASK-164",
+      "shard": 0
+    }
+  ],
+  "(+141)": [
+    {
+      "id": "TASK-164",
+      "shard": 0
+    }
+  ],
+  "import": [
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    },
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
+    }
+  ],
+  "type": [
+    {
+      "id": "TASK-164",
+      "shard": 0
+    },
+    {
+      "id": "TASK-165",
+      "shard": 0
+    }
+  ],
+  "cartitem,": [
+    {
+      "id": "TASK-164",
+      "shard": 0
+    }
+  ],
+  "merchanto": [
+    {
+      "id": "TASK-164",
+      "shard": 0
+    }
+  ],
+  "task-164": [
+    {
+      "id": "TASK-164",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/store/slices/merchantslice.ts": [
+    {
+      "id": "TASK-165",
+      "shard": 0
+    }
+  ],
+  "(+44)": [
+    {
+      "id": "TASK-165",
+      "shard": 0
+    }
+  ],
+  "createslice,": [
+    {
+      "id": "TASK-165",
+      "shard": 0
+    }
+  ],
+  "task-165": [
+    {
+      "id": "TASK-165",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/store/index.ts": [
+    {
+      "id": "TASK-166",
+      "shard": 0
+    }
+  ],
+  "(+3/-2)": [
+    {
+      "id": "TASK-166",
+      "shard": 0
+    }
+  ],
+  "favorites": [
+    {
+      "id": "TASK-166",
+      "shard": 0
+    }
+  ],
+  "from": [
+    {
+      "id": "TASK-166",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
+    }
+  ],
+  "'./slices/favorite": [
+    {
+      "id": "TASK-166",
+      "shard": 0
+    }
+  ],
+  "task-166": [
+    {
+      "id": "TASK-166",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/components/layout/merchantbottomnav.tsx": [
+    {
+      "id": "TASK-167",
+      "shard": 0
+    }
+  ],
+  "(+41)": [
+    {
+      "id": "TASK-167",
+      "shard": 0
+    }
+  ],
+  "tsx:": [
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    },
+    {
+      "id": "TASK-172",
+      "shard": 0
+    },
+    {
+      "id": "TASK-174",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
+    }
+  ],
+  "bike,": [
+    {
+      "id": "TASK-167",
+      "shard": 0
+    },
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    }
+  ],
+  "c": [
+    {
+      "id": "TASK-167",
+      "shard": 0
+    }
+  ],
+  "task-167": [
+    {
+      "id": "TASK-167",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/pages/merchantdashboard.tsx": [
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
+    }
+  ],
+  "(+117)": [
+    {
+      "id": "TASK-168",
+      "shard": 0
+    }
+  ],
+  "clock,": [
+    {
+      "id": "TASK-168",
+      "shard": 0
+    },
+    {
+      "id": "TASK-171",
+      "shard": 0
+    }
+  ],
+  "store": [
+    {
+      "id": "TASK-168",
+      "shard": 0
+    }
+  ],
+  "task-168": [
+    {
+      "id": "TASK-168",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/pages/merchantorders.tsx": [
+    {
+      "id": "TASK-169",
+      "shard": 0
+    }
+  ],
+  "(+129)": [
+    {
+      "id": "TASK-169",
+      "shard": 0
+    }
+  ],
+  "usestate": [
+    {
+      "id": "TASK-169",
+      "shard": 0
+    }
+  ],
+  "}": [
+    {
+      "id": "TASK-169",
+      "shard": 0
+    },
+    {
+      "id": "TASK-170",
+      "shard": 0
+    },
+    {
+      "id": "TASK-176",
+      "shard": 0
+    }
+  ],
+  "'reac": [
+    {
+      "id": "TASK-169",
+      "shard": 0
+    }
+  ],
+  "task-169": [
+    {
+      "id": "TASK-169",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/pages/merchantcouriers.tsx": [
+    {
+      "id": "TASK-170",
+      "shard": 0
+    }
+  ],
+  "(+51)": [
+    {
+      "id": "TASK-170",
+      "shard": 0
+    }
+  ],
+  "phone": [
+    {
+      "id": "TASK-170",
+      "shard": 0
+    }
+  ],
+  "'": [
+    {
+      "id": "TASK-170",
+      "shard": 0
+    }
+  ],
+  "task-170": [
+    {
+      "id": "TASK-170",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/pages/merchantsettings.tsx": [
+    {
+      "id": "TASK-171",
+      "shard": 0
+    }
+  ],
+  "(+73)": [
+    {
+      "id": "TASK-171",
+      "shard": 0
+    }
+  ],
+  "creditcard,": [
+    {
+      "id": "TASK-171",
+      "shard": 0
+    }
+  ],
+  "g": [
+    {
+      "id": "TASK-171",
+      "shard": 0
+    }
+  ],
+  "task-171": [
+    {
+      "id": "TASK-171",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/app.tsx": [
+    {
+      "id": "TASK-172",
+      "shard": 0
+    }
+  ],
+  "(+6/-2)": [
+    {
+      "id": "TASK-172",
+      "shard": 0
+    }
+  ],
+  "menudetail": [
+    {
+      "id": "TASK-172",
+      "shard": 0
+    }
+  ],
+  "'./pages/menudeta": [
+    {
+      "id": "TASK-172",
+      "shard": 0
+    }
+  ],
+  "task-172": [
+    {
+      "id": "TASK-172",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/styles/_system.scss": [
+    {
+      "id": "TASK-173",
+      "shard": 0
+    }
+  ],
+  "(+361/-3)": [
+    {
+      "id": "TASK-173",
+      "shard": 0
+    }
+  ],
+  "div[class*=\"-screen\"]": [
+    {
+      "id": "TASK-173",
+      "shard": 0
+    }
+  ],
+  ".container": [
+    {
+      "id": "TASK-173",
+      "shard": 0
+    }
+  ],
+  "task-173": [
+    {
+      "id": "TASK-173",
+      "shard": 0
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/pages/documentation.tsx": [
+    {
+      "id": "TASK-174",
+      "shard": 0
+    }
+  ],
+  "(+77/-4)": [
+    {
+      "id": "TASK-174",
+      "shard": 0
+    }
+  ],
+  "</table>": [
+    {
+      "id": "TASK-174",
+      "shard": 0
+    }
+  ],
+  "task-174": [
+    {
+      "id": "TASK-174",
+      "shard": 0
+    }
+  ],
+  "verify:": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "rtk": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "npm": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "run": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "build": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "2>&1": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "passed": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "verify": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "task-175": [
+    {
+      "id": "TASK-175",
+      "shard": 0
+    }
+  ],
+  "countbytab": [
+    {
+      "id": "TASK-176",
+      "shard": 0
+    }
+  ],
+  "task-176": [
+    {
+      "id": "TASK-176",
       "shard": 0
     }
   ]

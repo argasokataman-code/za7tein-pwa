@@ -1,0 +1,140 @@
+import type { CartItem, MerchantOrder, MerchantOrderStatus } from '../types'
+
+/** Tab antrean merchant — satu sumber untuk label dan status anggotanya. */
+export const QUEUE_TABS = [
+  { id: 'masuk', label: 'Antrean', statuses: ['masuk'] },
+  { id: 'diproses', label: 'Diproses', statuses: ['diterima', 'dimasak', 'diantar', 'tiba'] },
+  { id: 'selesai', label: 'Selesai', statuses: ['selesai'] },
+  { id: 'batal', label: 'Batal', statuses: ['ditolak', 'batal'] },
+] as const
+
+export type QueueTabId = (typeof QUEUE_TABS)[number]['id']
+
+const items = {
+  geprek: [{ id: 'ayam-geprek', name: 'Ayam Geprek + Nasi', price: 22000, quantity: 2, image: '' }],
+  mie: [{ id: 'mie-goreng', name: 'Mie Goreng Spesial', price: 18000, quantity: 1, image: '' }],
+  nasi: [{ id: 'nasi-uduk', name: 'Nasi Uduk Komplit', price: 20000, quantity: 3, image: '' }],
+  es: [{ id: 'es-teh', name: 'Es Teh Manis', price: 6000, quantity: 2, image: '' }],
+} satisfies Record<string, CartItem[]>
+
+export const merchantOrders: MerchantOrder[] = [
+  {
+    id: 'mo-1',
+    code: 'SA-1041',
+    customerName: 'Rani',
+    address: 'Menara Sudirman, Lt. 12 Unit B',
+    items: items.geprek,
+    total: 44000,
+    distanceMeters: 480,
+    zone: 'A',
+    status: 'masuk',
+    placedAt: '2 menit lalu',
+    paymentMethod: 'cod',
+  },
+  {
+    id: 'mo-2',
+    code: 'SA-1040',
+    customerName: 'Budi',
+    address: 'Jl. Kebon Sirih No. 8, Jakarta Pusat',
+    items: items.mie,
+    total: 18000,
+    distanceMeters: 900,
+    zone: 'B',
+    status: 'masuk',
+    placedAt: '5 menit lalu',
+    paymentMethod: 'transfer',
+  },
+  {
+    id: 'mo-3',
+    code: 'SA-1039',
+    customerName: 'Sinta',
+    address: 'Apartemen Casablanca, Tower B Lt. 7',
+    items: items.nasi,
+    total: 60000,
+    distanceMeters: 1300,
+    zone: 'B',
+    status: 'dimasak',
+    placedAt: '14 menit lalu',
+    paymentMethod: 'cod',
+    cookMinutes: 20,
+  },
+  {
+    id: 'mo-4',
+    code: 'SA-1038',
+    customerName: 'Andre',
+    address: 'Jl. Sabang No. 22, Jakarta Pusat',
+    items: items.geprek,
+    total: 44000,
+    distanceMeters: 1750,
+    zone: 'C',
+    status: 'dimasak',
+    placedAt: '18 menit lalu',
+    paymentMethod: 'transfer',
+    cookMinutes: 25,
+  },
+  {
+    id: 'mo-5',
+    code: 'SA-1037',
+    customerName: 'Maya',
+    address: 'Wisma BNI 46, Lt. 20',
+    items: items.es,
+    total: 12000,
+    distanceMeters: 620,
+    zone: 'B',
+    status: 'diantar',
+    placedAt: '26 menit lalu',
+    paymentMethod: 'cod',
+  },
+  {
+    id: 'mo-6',
+    code: 'SA-1036',
+    customerName: 'Dimas',
+    address: 'Jl. Wahid Hasyim No. 4, Jakarta Pusat',
+    items: items.nasi,
+    total: 60000,
+    distanceMeters: 1900,
+    zone: 'C',
+    status: 'tiba',
+    placedAt: '34 menit lalu',
+    paymentMethod: 'transfer',
+  },
+  {
+    id: 'mo-7',
+    code: 'SA-1035',
+    customerName: 'Tia',
+    address: 'Menara Imperium, Lt. 3 Unit A',
+    items: items.mie,
+    total: 18000,
+    distanceMeters: 540,
+    zone: 'A',
+    status: 'selesai',
+    placedAt: '1 jam lalu',
+    paymentMethod: 'cod',
+  },
+  {
+    id: 'mo-8',
+    code: 'SA-1034',
+    customerName: 'Fajar',
+    address: 'Jl. Jaksa No. 30, Jakarta Pusat',
+    items: items.geprek,
+    total: 44000,
+    distanceMeters: 1600,
+    zone: 'C',
+    status: 'ditolak',
+    placedAt: '2 jam lalu',
+    paymentMethod: 'transfer',
+  },
+]
+
+export function ordersForStatuses(
+  orders: MerchantOrder[],
+  statuses: readonly MerchantOrderStatus[],
+): MerchantOrder[] {
+  return orders.filter((order) => statuses.includes(order.status))
+}
+
+export function countByTab(orders: MerchantOrder[], tabId: QueueTabId): number {
+  const tab = QUEUE_TABS.find((t) => t.id === tabId)
+  if (!tab) return 0
+  return ordersForStatuses(orders, tab.statuses).length
+}
