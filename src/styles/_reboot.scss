@@ -1,0 +1,41 @@
+// Subset of Bootstrap's reboot that the app's stylesheet relies on.
+// The original build shipped Bootstrap globally; the app CSS assumes these
+// defaults (notably heading line-height 1.2 and body line-height 1.5).
+
+body {
+  line-height: 1.5;
+  text-align: left;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
