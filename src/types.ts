@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 
 // Domain model for the Sa7tein marketplace (PRD v1.1).
-// Fields are additive over the original Delivo shapes so the ported screens
+// Fields are additive over the original Sa7tein shapes so the ported screens
 // keep working while the PRD flows come online.
 
 export interface ModifierOption {

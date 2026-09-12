@@ -19,7 +19,7 @@ export function RouteProtectionSection() {
       </h3>
       <DocCode lang="typescript">
         <code>{`// 1. User logs in → Redux: isAuthenticated = true
-// 2. useAuthCookie → writes: document.cookie = "delivo_auth=true"
+// 2. useAuthCookie → writes: document.cookie = "sa7tein_auth=true"
 // 3. User navigates to /checkout
 // 4. middleware reads cookie → passes through ✓
 

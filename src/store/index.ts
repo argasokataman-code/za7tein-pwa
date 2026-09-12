@@ -42,17 +42,16 @@ const rootReducer = combineReducers({
 })
 
 // Hanya slice ini yang bertahan setelah reload.
-// Key tetap 'delivo' meski app sudah rebrand: mengganti key akan membuang
-// keranjang dan favorit pengguna lama tanpa peringatan.
+// Key persist milik Sa7tein.
 const persistConfig = {
-  key: 'delivo',
+  key: 'sa7tein',
   version: 2,
   storage,
   whitelist: ['cart', 'favorites', 'accountSetup', 'catalog'],
 }
 
 /**
- * Cart versi lama menyimpan id menu Delivo dan belum mengenal alamat apartemen
+ * Cart versi lama menyimpan id menu versi lama dan belum mengenal alamat apartemen
  * maupun bukti transfer. Kalau dibiarkan, `addresses` tidak ada dan layar
  * checkout gagal render.
  *
@@ -62,7 +61,7 @@ const persistConfig = {
  */
 function repairPersistedCart() {
   try {
-    const raw = localStorage.getItem('persist:delivo')
+    const raw = localStorage.getItem('persist:sa7tein')
     if (!raw) return
     const outer = JSON.parse(raw)
     const cart = JSON.parse(outer.cart ?? '{}')
@@ -99,7 +98,7 @@ function repairPersistedCart() {
     })
     const meta = JSON.parse(outer._persist ?? '{}')
     outer._persist = JSON.stringify({ ...meta, version: 2 })
-    localStorage.setItem('persist:delivo', JSON.stringify(outer))
+    localStorage.setItem('persist:sa7tein', JSON.stringify(outer))
   } catch {
     // State rusak tidak boleh menghalangi app terbuka.
   }

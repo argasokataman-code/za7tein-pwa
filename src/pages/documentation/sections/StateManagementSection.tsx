@@ -25,7 +25,7 @@ export function StateManagementSection() {
                 cart
               </td>
               <td>
-                delivo:cart
+                sa7tein:cart
               </td>
               <td>
                 items, selectedAddressId, selectedPaymentId
@@ -36,7 +36,7 @@ export function StateManagementSection() {
                 favorites
               </td>
               <td>
-                delivo:favorites
+                sa7tein:favorites
               </td>
               <td>
                 ids
@@ -47,7 +47,7 @@ export function StateManagementSection() {
                 accountSetup
               </td>
               <td>
-                delivo:accountSetup
+                sa7tein:accountSetup
               </td>
               <td>
                 currentScreen, selectedLanguage, profilePhoto, isSetupCompleted
@@ -58,7 +58,7 @@ export function StateManagementSection() {
                 catalog
               </td>
               <td>
-                delivo:catalog
+                sa7tein:catalog
               </td>
               <td>
                 items
@@ -72,7 +72,7 @@ export function StateManagementSection() {
                 not persisted
               </td>
               <td>
-                mirrored to delivo_auth cookie
+                mirrored to sa7tein_auth cookie
               </td>
             </tr>
             <tr>

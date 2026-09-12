@@ -140,6 +140,17 @@ export function WhatsNewSection() {
                 Global skeleton (loading.tsx) on every route
               </td>
             </tr>
+            <tr>
+              <td>
+                Brand identity
+              </td>
+              <td>
+                "Delivo" — package, service worker cache, redux-persist keys
+              </td>
+              <td>
+                "Sa7tein" — package renamed, cache "sa7tein-static", persist prefix "sa7tein:"
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

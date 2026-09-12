@@ -30,7 +30,7 @@ export default defineConfig({
               request.destination === 'image' || request.destination === 'font',
             handler: 'CacheFirst',
             options: {
-              cacheName: 'delivo-static',
+              cacheName: 'sa7tein-static',
               expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 30 },
             },
           },
