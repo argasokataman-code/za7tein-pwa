@@ -110,6 +110,8 @@ margin-inline: auto;
 
 Elemen `fixed` diposisikan terhadap **viewport**, bukan induknya. Tanpa dua baris ini, bilahnya menyeberang seluruh jendela sementara kontennya terkunci di kolom 430px — pernah terjadi di ~24 bilah sekaligus.
 
+**Waspada spesifisitas.** Selector pembungkus di `_app.scss` bisa lebih kuat dari `.bottom-nav` (0-1-0). Kejadian nyata: `.home-screen-wrapper .bottom-nav` (0-2-0, di dalam `@media (min-width:768px)`) menang, bilah jadi `max-width: 1024px` dan menyeberang 297px di tiap sisi. Kalau `.bottom-nav`/bilah tetap melebar di layar lebar, **curigai aturan pembungkus di `_app.scss`, bukan tokennya**. Obatnya: tulis override dengan spesifisitas **setara atau lebih tinggi** di `_system.scss` (diimpor terakhir → menang pada kekhususan sama), dan set eksplisit `left: 0; right: 0; transform: none` supaya `left: 50% / translateX(-50%)` lama tidak ikut. Catatan lengkap: atlas `PF-147`.
+
 **Header menempel melebar sampai tepi kolom** supaya latarnya menutupi konten yang lewat di belakangnya:
 
 ```scss

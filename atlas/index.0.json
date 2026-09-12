@@ -4258,6 +4258,47 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "PF-147",
+      "type": "pitfall",
+      "status": "active",
+      "date": "2026-09-12",
+      "time": "20:58:47",
+      "tags": [
+        "layout",
+        "css",
+        "specificity",
+        "fixed-bar",
+        "recurring"
+      ],
+      "summary": "PITFALL layout: selector wrapper 0-2-0 di _app.scss (mis .home-screen-wrapper .bottom-nav) menang atas .bottom-nav 0-1-0 di _system.scss -> ",
+      "conn": [
+        {
+          "id": "DEC-010",
+          "type": "relates",
+          "raw": "DEC-010:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-304",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "20:58:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+3/-1) — edit via tool: Elemen `fixed` diposisikan terhadap **vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
     }
   ]
 }
