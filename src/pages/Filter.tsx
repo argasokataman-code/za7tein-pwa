@@ -34,7 +34,7 @@ export default function Filter() {
                 <span>
                   $10
                 </span>
-                <span aria-live="polite" aria-atomic="true" style={{ color: "rgb(253, 105, 49)", fontWeight: "600" }}>
+                <span aria-live="polite" aria-atomic="true" style={{ color: "#F15A37)", fontWeight: "600" }}>
                   $200
                 </span>
                 <span>

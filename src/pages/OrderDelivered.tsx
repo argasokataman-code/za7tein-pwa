@@ -30,7 +30,7 @@ export default function OrderDelivered() {
               </svg>
             </button>
             <h1 className="order-delivered-title">
-              Checkout
+              Pesanan
             </h1>
           </header>
           <div id="delivered-map" className="order-map-container" />
@@ -109,7 +109,7 @@ export default function OrderDelivered() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Order Placed
+                    Pesanan Diterima
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -122,7 +122,7 @@ export default function OrderDelivered() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Food Preparation
+                    Sedang Dimasak
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -135,7 +135,7 @@ export default function OrderDelivered() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Out for Delivery
+                    Sedang Diantar
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -163,7 +163,7 @@ export default function OrderDelivered() {
               </div>
               <div className="status-text">
                 <h3 className="status-title">
-                  Order delivered
+                  Pesanan Tiba
                 </h3>
                 <p className="status-subtitle">
                   Enjoy your meal! Thank you for ordering.
@@ -172,7 +172,7 @@ export default function OrderDelivered() {
             </div>
             <div style={{ marginTop: "20px" }}>
               <button className="delivered-home-btn" style={{ width: "100%" }} onClick={() => { navigate('/home') }}>
-                Done
+                Selesai
               </button>
             </div>
           </div>

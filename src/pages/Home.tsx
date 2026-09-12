@@ -1,4 +1,5 @@
 import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, Star } from 'lucide-react'
+import { rupiah } from '../data/merchant'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
@@ -182,7 +183,7 @@ export default function Home() {
                       <Star size={14} fill="currentColor" />
                       {food.rating} ({food.reviewCount} Reviews)
                     </div>
-                    <div className="hot-deal-price">${food.price.toFixed(2)}</div>
+                    <div className="hot-deal-price">{rupiah(food.price)}</div>
                   </div>
                   <button
                     type="button"

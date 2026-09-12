@@ -27,7 +27,7 @@ export default function ForgotPasswordOtp() {
                 </div>
                 <div className="verify-content-compact text-center">
                   <div className="icon-wrapper" style={{ marginBottom: "16px" }}>
-                    <div className="email-icon" style={{ width: "80px", height: "80px", background: "rgba(253, 105, 49, 0.1)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0px auto" }}>
+                    <div className="email-icon" style={{ width: "80px", height: "80px", background: "rgba(241,90,55, 0.1)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0px auto" }}>
                       <svg width={40} height={40} viewBox="0 0 60 60" fill="none">
                         <path d="M10 15L30 30L50 15" stroke="#F15A37" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                         <rect x="7" y="12" width={46} height={36} rx="4" stroke="#F15A37" strokeWidth="3" fill="none" />
@@ -63,7 +63,7 @@ export default function ForgotPasswordOtp() {
                   </button>
                   <p className="resend-text-small" style={{ marginTop: "16px", color: "rgb(156, 163, 175)", fontSize: "13px" }}>
                     Didn't receive the code? 
-                    <button type="button" onClick={() => toast.success("Code resent!")} style={{ background: "none", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", color: "rgb(253, 105, 49)", fontWeight: "600", cursor: "pointer", fontSize: "13px" }}>
+                    <button type="button" onClick={() => toast.success("Code resent!")} style={{ background: "none", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", color: "#F15A37)", fontWeight: "600", cursor: "pointer", fontSize: "13px" }}>
                       Resend Code
                     </button>
                   </p>

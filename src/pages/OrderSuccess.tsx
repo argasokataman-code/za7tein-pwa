@@ -30,7 +30,7 @@ export default function OrderSuccess() {
               </svg>
             </button>
             <h1 className="order-placed-title">
-              Checkout
+              Pesanan
             </h1>
           </header>
           <div id="order-map" className="order-map-container" />
@@ -109,7 +109,7 @@ export default function OrderSuccess() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Order Placed
+                    Pesanan Diterima
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -122,7 +122,7 @@ export default function OrderSuccess() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Food Preparation
+                    Sedang Dimasak
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -135,7 +135,7 @@ export default function OrderSuccess() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Out for Delivery
+                    Sedang Diantar
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -163,10 +163,10 @@ export default function OrderSuccess() {
               </div>
               <div className="status-text">
                 <h3 className="status-title">
-                  Your order have been placed
+                  Pesananmu sudah masuk
                 </h3>
                 <p className="status-subtitle">
-                  The restaurant will make your order in a moment
+                  Toko akan segera menyiapkan pesananmu
                 </p>
               </div>
             </div>

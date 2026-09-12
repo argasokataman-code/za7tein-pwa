@@ -17,14 +17,14 @@ export default function Profile() {
         <div className="my-account">
           <div className="my-account-scroll">
             <div className="main-frame">
-              <Link className="profile-header-block profile-header-link" aria-label="Edit profile for Jenny Wilson" to="/personal-data" style={{ textDecoration: "none" }}>
-                <img alt="Jenny Wilson" width={64} height={64} className="avatar-image-60" src="/assets/img/profile.png" style={{ color: "transparent" }} />
+              <Link className="profile-header-block profile-header-link" aria-label="Edit profile for Dimas Ardianto" to="/personal-data" style={{ textDecoration: "none" }}>
+                <img alt="Dimas Ardianto" width={64} height={64} className="avatar-image-60" src="/assets/img/profile.png" style={{ color: "transparent" }} />
                 <div className="auto-layout-vertical" style={{ flex: "1 1 0%", minWidth: "0px" }}>
                   <div className="jenny-wilson" style={{ color: "rgb(255, 255, 255)", fontWeight: "700", fontSize: "16px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                    Jenny Wilson
+                    Dimas Ardianto
                   </div>
                   <div className="wilson-09-gail-com" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                    wilson@09gail.com
+                    dimas@sa7tein.id
                   </div>
                 </div>
                 <span className="profile-header-chevron">
@@ -87,7 +87,7 @@ export default function Profile() {
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      <span className="" aria-label="3 unread" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minWidth: "18px", height: "18px", padding: "0px 4px", borderRadius: "10px", fontSize: "10px", fontWeight: "700", lineHeight: "1", background: "rgb(253, 105, 49)", color: "rgb(255, 255, 255)" }}>
+                      <span className="" aria-label="3 unread" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minWidth: "18px", height: "18px", padding: "0px 4px", borderRadius: "10px", fontSize: "10px", fontWeight: "700", lineHeight: "1", background: "#F15A37)", color: "rgb(255, 255, 255)" }}>
                         3
                       </span>
                       <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="arrow-right">

@@ -23,7 +23,7 @@ export default function AccountSetup() {
           An unexpected error occurred. Please try again.
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", maxWidth: "280px" }}>
-          <button type="button" onClick={() => navigate('/home')} style={{ height: "56px", background: "rgb(253, 105, 49)", color: "rgb(255, 255, 255)", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", borderRadius: "9999px", fontWeight: "600", fontSize: "16px", cursor: "pointer", fontFamily: "inherit" }}>
+          <button type="button" onClick={() => navigate('/home')} style={{ height: "56px", background: "#F15A37)", color: "rgb(255, 255, 255)", borderWidth: "medium", borderStyle: "none", borderColor: "currentcolor", borderImage: "none", borderRadius: "9999px", fontWeight: "600", fontSize: "16px", cursor: "pointer", fontFamily: "inherit" }}>
             Try Again
           </button>
           <Link to="/home" style={{ height: "56px", display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(255, 255, 255, 0.06)", color: "rgb(255, 255, 255)", border: "1px solid rgba(255, 255, 255, 0.1)", borderRadius: "9999px", fontWeight: "500", fontSize: "15px", textDecoration: "none" }}>

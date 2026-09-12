@@ -1,4 +1,5 @@
 import { Clock, Star } from 'lucide-react'
+import { rupiah } from '../data/merchant'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -107,7 +108,7 @@ export default function Favorites() {
                       <div className="food-card-content">
                         <div className="food-name-price">
                           <h3 className="food-name">{food.name}</h3>
-                          <span className="food-price">${food.price.toFixed(2)}</span>
+                          <span className="food-price">{rupiah(food.price)}</span>
                         </div>
                         <div className="food-delivery-info">
                           <Clock size={14} />

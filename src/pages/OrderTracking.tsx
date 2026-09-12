@@ -30,7 +30,7 @@ export default function OrderTracking() {
               </svg>
             </button>
             <h1 className="order-tracking-title">
-              Checkout
+              Pesanan
             </h1>
           </header>
           <div id="tracking-map" className="order-map-container" />
@@ -109,7 +109,7 @@ export default function OrderTracking() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Order Placed
+                    Pesanan Diterima
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -122,7 +122,7 @@ export default function OrderTracking() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Food Preparation
+                    Sedang Dimasak
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -135,7 +135,7 @@ export default function OrderTracking() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Out for Delivery
+                    Sedang Diantar
                   </span>
                 </div>
                 <div className="progress-line" />
@@ -164,10 +164,10 @@ export default function OrderTracking() {
               </div>
               <div className="status-text">
                 <h3 className="status-title">
-                  Preparing your order
+                  Pesanan sedang disiapkan
                 </h3>
                 <p className="status-subtitle">
-                  The restaurant is now cooking your order
+                  Toko sedang memasak pesananmu
                 </p>
               </div>
             </div>

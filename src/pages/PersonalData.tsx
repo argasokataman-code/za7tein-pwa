@@ -53,21 +53,21 @@ export default function PersonalData() {
                     <label className="form-label-profile">
                       Full Name
                     </label>
-                    <input className={`form-input-profile${errors.fullName ? " error" : ""}`} placeholder="Jenny Wilson" type="text"  {...register("fullName")} />
+                    <input className={`form-input-profile${errors.fullName ? " error" : ""}`} placeholder="Dimas Ardianto" type="text"  {...register("fullName")} />
                       {errors.fullName ? (<span className="error-message">{errors.fullName.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Email
                     </label>
-                    <input className={`form-input-profile${errors.email ? " error" : ""}`} placeholder="you@email.com" type="email"  {...register("email")} />
+                    <input className={`form-input-profile${errors.email ? " error" : ""}`} placeholder="dimas@sa7tein.id" type="email"  {...register("email")} />
                       {errors.email ? (<span className="error-message">{errors.email.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Phone Number
                     </label>
-                    <input className={`form-input-profile${errors.phone ? " error" : ""}`} placeholder="+1 - 304 555 0121" type="tel"  {...register("phone")} />
+                    <input className={`form-input-profile${errors.phone ? " error" : ""}`} placeholder="+62 812 3456 7890" type="tel"  {...register("phone")} />
                       {errors.phone ? (<span className="error-message">{errors.phone.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">

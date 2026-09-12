@@ -51,7 +51,7 @@ export default function OrderArrived() {
               Enjoy your food! We hope you have a great meal. Thank you for choosing Sa7tein.
             </p>
             <Link className="order-arrived-rate-btn" to="/rating-driver">
-              Rate your driver
+              Beri rating kurir
             </Link>
           </div>
           <div className="home-indicator " />
