@@ -48,7 +48,7 @@ export default function OrderArrived() {
               Your order has arrived!
             </h1>
             <p className="order-arrived-message">
-              Enjoy your food! We hope you have a great meal. Thank you for choosing Delivo.
+              Enjoy your food! We hope you have a great meal. Thank you for choosing Sa7tein.
             </p>
             <Link className="order-arrived-rate-btn" to="/rating-driver">
               Rate your driver

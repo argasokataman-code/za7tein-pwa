@@ -1,0 +1,59 @@
+// ── Sa7tein contrast repairs ────────────────────────────────────────────────
+// In the Delivo source these elements were light-on-dark. The palette swap put
+// them on a brand-orange fill, where the remapped dark text fails WCAG AA
+// (measured 3.34:1 on the home header). Restore white for the foregrounds that
+// sit directly on brand orange.
+//
+// Deliberately a targeted list rather than `.container *`: orange screens also
+// contain white cards and white pills (e.g. `.search-bar`) whose dark text is
+// correct. Elements with their own background are left alone.
+.header-content,
+.header-top,
+.location-section,
+.location-label,
+.location-address,
+.notification-section,
+.notification-icon-wrapper,
+.header-title,
+.search-section,
+.discount-badge,
+.notification-badge,
+.nav-badge,
+.item-count-badge,
+.driver-badge,
+.rating-driver-badge,
+.buy-now-btn,
+.hot-deal-add,
+.btn-primary,
+.btn-profile-primary,
+.proceed-btn,
+.pay-btn,
+.apply-btn,
+.continue-btn,
+.add-to-cart-btn,
+.add-form-save-btn,
+.rating-submit-btn,
+.delivered-home-btn,
+.voucher-apply-btn,
+.driver-action-btn,
+.recenter-btn,
+.avatar-edit-btn,
+.profile-edit-btn,
+.camera-icon-btn,
+.profile-photo-wrapper .camera-icon-btn,
+.category-btn.active,
+.address-icon,
+.email-icon,
+.radio-inner,
+.pagination-dots .dot.active,
+.status-icon.preparing-icon,
+.success-icon-circle,
+.success-icon-circle-modal,
+.profile-modal-icon.success-icon,
+.profile-modal-icon.exit-icon,
+.wallet-badge.connect,
+.key.return,
+.location-picker-gps-icon,
+.distribution-fill {
+  color: #FFFFFF;
+}

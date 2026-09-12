@@ -27,7 +27,7 @@ export default function Documentation() {
       <div className="doc-root">
         <div className="doc-topbar">
           <span className="doc-topbar-logo">
-            Delivo
+            Sa7tein
           </span>
           <button className="doc-hamburger" aria-label="Open menu">
             <span />
@@ -39,7 +39,7 @@ export default function Documentation() {
         <aside className="doc-sidebar ">
           <div className="doc-sidebar-logo">
             <span className="doc-logo-mark">
-              Delivo
+              Sa7tein
             </span>
             <span className="doc-logo-sub">
               Documentation
@@ -50,7 +50,7 @@ export default function Documentation() {
               v2.0.0
             </span>
             <span>
-              Next.js · React 19 · TypeScript
+              React 19 · Vite · TypeScript
             </span>
           </div>
           <nav className="doc-nav">
@@ -137,19 +137,19 @@ export default function Documentation() {
               Documentation
             </div>
             <h1 className="doc-hero-title">
-              Delivo 
+              Sa7tein 
               <span>
-                Next.js
+                PWA
               </span>
               <br />
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Complete reference for the Next.js 16 conversion of the Delivo food delivery PWA. Every screen, route, slice, and component — documented.
+              Panduan lengkap PWA marketplace makanan hyperlocal Sa7tein. Setiap layar, route, slice, dan komponen — terdokumentasi.
             </p>
             <div className="doc-hero-tags">
               <span className="doc-hero-tag">
-                Next.js 16
+                React 19 + Vite
               </span>
               <span className="doc-hero-tag">
                 React 19
@@ -185,9 +185,9 @@ export default function Documentation() {
             </div>
             <p className="doc-p">
               <strong style={{ color: "var(--text)" }}>
-                Delivo Next.js
+                Sa7tein
               </strong>
-               is the full Next.js 16 conversion of the original Delivo PWA HTML prototype. Every screen has been rebuilt as a React Server Component or Client Component inside the App Router.
+               is the full React 19 + Vite conversion of the original Sa7tein PWA HTML prototype. Every screen has been rebuilt as a React Server Component or Client Component inside the App Router.
             </p>
             <p className="doc-p">
               The app covers the complete food delivery user journey end-to-end:
@@ -279,7 +279,7 @@ export default function Documentation() {
                       HTML Version
                     </th>
                     <th>
-                      Next.js Version
+                      Sa7tein (React)
                     </th>
                   </tr>
                 </thead>
@@ -292,7 +292,7 @@ export default function Documentation() {
                       window.location.href / &lt;a href&gt;
                     </td>
                     <td>
-                      next/navigation — router.push(), router.replace()
+                      react-router-dom — useNavigate(), &lt;Link&gt;
                     </td>
                   </tr>
                   <tr>
@@ -358,7 +358,7 @@ export default function Documentation() {
                       &lt;img&gt; tags
                     </td>
                     <td>
-                      next/image with fill, sizes, lazy loading
+                      &lt;img&gt; dengan object-fit: cover
                     </td>
                   </tr>
                   <tr>
@@ -779,60 +779,33 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>{`delivo-next/
+                <code>{`sa7tein-pwa/
 │
-├── middleware.ts              # Edge route protection (reads cookie)
-├── next.config.ts             # PWA headers, image domains
 ├── public/
 │   ├── manifest.json          # PWA manifest
-│   ├── sw.js                  # Service worker
-│   └── assets/img/            # All images, icons
+│   ├── sw.js                  # Service worker (vite-plugin-pwa)
+│   └── assets/
+│       ├── img/               # Gambar, ikon
+│       └── fonts/             # Manrope (self-hosted)
 │
 └── src/
-    ├── app/
-    │   ├── layout.tsx          # Root — fonts, meta, ReduxProvider, SW
-    │   ├── loading.tsx         # Global skeleton
-    │   ├── not-found.tsx       # 404
-    │   ├── error.tsx           # Error boundary
-    │   ├── offline/page.tsx
-    │   ├── (auth)/             # Auth route group
-    │   ├── (main)/             # Main route group
-    │   │   ├── layout.tsx      # Adds BottomNav, paddingBottom
-    │   │   └── [each main route]/page.tsx
-    │   └── account-setup/
+    ├── main.tsx               # Entry — Redux Provider + PersistGate
+    ├── App.tsx                # Router + toaster
+    │
+    ├── pages/                 # 50 layar
     │
     ├── components/
-    │   ├── layout/             # BottomNav, HomeIndicator, StatusBar
-    │   ├── ui/                 # BackButton, FavoriteButton, LocationPicker
-    │   └── pwa/                # ServiceWorkerRegistrar
+    │   ├── layout/            # BottomNav, HomeIndicator
+    │   └── ui/                # FavoriteButton, BackButton
     │
     ├── store/
-    │   ├── index.ts            # configureStore — 3 persisted slices
-    │   ├── provider.tsx        # ReduxProvider + PersistGate + AuthCookieSync
-    │   └── slices/             # auth, cart, favorites, ui, accountSetup
+    │   ├── index.ts           # configureStore + redux-persist
+    │   └── slices/            # auth, cart, favorites, ui, accountSetup
     │
-    ├── hooks/
-    │   ├── useAppStore.ts      # Typed dispatch + selector
-    │   ├── useAuthCookie.ts    # Redux auth → browser cookie bridge
-    │   ├── useCart.ts
-    │   └── useOtpInput.ts
-    │
-    ├── lib/
-    │   ├── mockData/           # foods.ts, user.ts, orders.ts
-    │   ├── schemas.ts          # All Zod schemas
-    │   └── utils.ts
-    │
-    ├── types/                  # food.ts, order.ts, user.ts
-    │
-    └── styles/
-        ├── _index.scss         # @use imports for all partials
-        ├── _base.scss          # Variables, reset, utilities
-        ├── _onboarding.scss
-        ├── _auth-styles.scss
-        ├── _home.scss
-        ├── _user-profile.scss
-        ├── _skeleton.scss
-        └── _nextjs-fixes.scss  # SSR/hydration/overflow/desktop fixes`}</code>
+    ├── hooks/                 # useAppStore, useOtpInput, useLeafletMap
+    ├── lib/schemas.ts         # Skema Zod
+    ├── data/                  # Data contoh (foods, reviews, user)
+    └── styles/                # tokens, fonts, reboot, app, modules, docs`}</code>
               </pre>
             </div>
           </section>

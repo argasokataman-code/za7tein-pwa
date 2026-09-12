@@ -1,16 +1,20 @@
 {
-  "name": "Delivo - Food Delivery App",
-  "short_name": "Delivo",
-  "description": "Order. Eat. Repeat — Your favourite food delivery app",
+  "name": "Sa7tein — Marketplace Makanan Hyperlocal",
+  "short_name": "Sa7tein",
+  "description": "Pesan makanan dari toko sekitar dalam radius 2 km. COD atau transfer manual.",
   "start_url": "/",
   "id": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#FFF9F4",
+  "theme_color": "#F15A37",
   "orientation": "portrait-primary",
   "scope": "/",
-  "lang": "en",
-  "categories": ["food", "lifestyle", "shopping"],
+  "lang": "id",
+  "categories": [
+    "food",
+    "lifestyle",
+    "shopping"
+  ],
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -63,18 +67,28 @@
   ],
   "shortcuts": [
     {
-      "name": "Order Food",
-      "short_name": "Order",
-      "description": "Browse and order food",
+      "name": "Pesan Makanan",
+      "short_name": "Pesan",
+      "description": "Jelajahi menu dan pesan",
       "url": "/home",
-      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+      "icons": [
+        {
+          "src": "/icons/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
     },
     {
-      "name": "My Orders",
-      "short_name": "Orders",
-      "description": "View your order history",
-      "url": "/orders",
-      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+      "name": "Pesanan Saya",
+      "short_name": "Pesanan",
+      "description": "Lacak pesanan berjalan",
+      "url": "/checkout",
+      "icons": [
+        {
+          "src": "/icons/icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
     }
   ]
 }

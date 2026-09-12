@@ -18,10 +18,10 @@ export default function Onboarding() {
           <strong>
             Download the app
           </strong>
-           — Install Delivo PWA for a better experience.
+           — Install Sa7tein PWA untuk pengalaman lebih cepat.
         </p>
         <div className="PwaInstallBanner-module-scss-module__ziTC8q__actions">
-          <button className="PwaInstallBanner-module-scss-module__ziTC8q__installBtn" onClick={() => toast.success("Use your browser menu to install Delivo")}>
+          <button className="PwaInstallBanner-module-scss-module__ziTC8q__installBtn" onClick={() => toast.success("Use your browser menu to install Sa7tein")}>
             Install
           </button>
           <button className="PwaInstallBanner-module-scss-module__ziTC8q__dismissBtn" aria-label="Dismiss" onClick={() => setShowBanner(false)}>
