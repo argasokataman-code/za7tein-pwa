@@ -34,6 +34,21 @@ export const merchantSignUpSchema = z.object({
   password: z.string().min(6, 'Password minimal 6 karakter'),
 })
 
+// Item menu toko — halaman Menu & Stock.
+export const merchantMenuItemSchema = z.object({
+  name: z.string().min(2, 'Nama minimal 2 karakter'),
+  price: z.number().min(1000, 'Harga minimal Rp1.000'),
+  category: z.string().min(2, 'Kategori wajib diisi'),
+  stock: z.number().min(0, 'Stok tidak boleh negatif'),
+})
+
+// Profil toko — halaman Setelan merchant.
+export const merchantStoreSchema = z.object({
+  name: z.string().min(2, 'Nama toko minimal 2 karakter'),
+  phone: phoneField,
+  address: z.string().min(5, 'Alamat wajib diisi'),
+})
+
 export const forgotPasswordSchema = z.object({
   phone: phoneField,
 })
@@ -87,6 +102,8 @@ export type SignInFormData = z.infer<typeof signInSchema>
 export type SignUpFormData = z.infer<typeof signUpSchema>
 export type MerchantSignInFormData = z.infer<typeof merchantSignInSchema>
 export type MerchantSignUpFormData = z.infer<typeof merchantSignUpSchema>
+export type MerchantMenuItemFormData = z.infer<typeof merchantMenuItemSchema>
+export type MerchantStoreFormData = z.infer<typeof merchantStoreSchema>
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
 export type CreatePasswordFormData = z.infer<typeof createPasswordSchema>
 export type ApartmentFormData = z.infer<typeof apartmentSchema>

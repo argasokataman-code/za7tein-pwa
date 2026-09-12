@@ -26,6 +26,7 @@ import Language from './pages/Language'
 import MenuDetail from './pages/MenuDetail'
 import MerchantCouriers from './pages/MerchantCouriers'
 import MerchantDashboard from './pages/MerchantDashboard'
+import MerchantMenu from './pages/MerchantMenu'
 import MerchantOrders from './pages/MerchantOrders'
 import MerchantPending from './pages/MerchantPending'
 import MerchantSettings from './pages/MerchantSettings'
@@ -78,6 +79,7 @@ const routes: [string, React.ComponentType][] = [
   ['/merchant/pending', MerchantPending],
   ['/merchant', MerchantDashboard],
   ['/merchant/orders', MerchantOrders],
+  ['/merchant/menu', MerchantMenu],
   ['/merchant/couriers', MerchantCouriers],
   ['/merchant/settings', MerchantSettings],
   ['/checkout', Checkout],

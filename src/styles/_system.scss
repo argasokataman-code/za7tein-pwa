@@ -2277,6 +2277,10 @@ div[class*="-screen"] .container {
 }
 
 .merchant-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
   min-height: var(--touch-min);
   padding-inline: var(--space-4);
   border-radius: var(--radius-md);
@@ -2284,6 +2288,79 @@ div[class*="-screen"] .container {
   background: var(--surface);
   color: var(--text-primary);
   font-size: var(--text-sm);
+}
+
+.merchant-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.merchant-form .form-group {
+  margin-bottom: var(--space-3);
+}
+
+.merchant-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-menu-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.merchant-menu-stock {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.merchant-menu-stock.is-low {
+  color: var(--warning-ink);
+}
+
+.merchant-menu-stock.is-out {
+  color: var(--danger-ink);
+}
+
+.merchant-menu-actions {
+  display: flex;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.merchant-menu-actions button {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.merchant-map {
+  width: 100%;
+  height: 180px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+  background: var(--bg-warm);
+}
+
+.merchant-form .btn-auth {
+  width: 100%;
 }
 
 .merchant-cook {

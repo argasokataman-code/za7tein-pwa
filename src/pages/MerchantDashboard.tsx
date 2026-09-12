@@ -1,4 +1,4 @@
-import { Bike, Clock, Store, Wallet } from 'lucide-react'
+import { Bike, Clock, PlusCircle, Store, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
@@ -99,6 +99,19 @@ export default function MerchantDashboard() {
               </span>
             </Link>
           ))}
+        </section>
+
+        <section className="merchant-section">
+          <div className="merchant-section-head">
+            <h2>Kelola</h2>
+          </div>
+          <Link className="merchant-order" to="/merchant/menu">
+            <div>
+              <p className="merchant-order-code">Menu &amp; Stock</p>
+              <p className="merchant-order-sub">Atur item dan ketersediaan</p>
+            </div>
+            <PlusCircle size={18} strokeWidth={1.75} />
+          </Link>
         </section>
 
         <section className="merchant-card merchant-hint">

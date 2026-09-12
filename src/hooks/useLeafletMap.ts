@@ -62,8 +62,10 @@ export type MapMode = 'preview' | 'delivery'
  * `mode` menentukan bobotnya: `preview` untuk status awal, di mana peta hanya
  * pelengkap dan tidak boleh menguasai layar; `delivery` saat kurir berjalan,
  * di mana peta memang menjadi bagian utama dan rutenya digambar.
+ *
+ * `single` hanya menampilkan pin toko — dipakai pratinjau lokasi di Setelan.
  */
-export function useLeafletMap(mapId: string, mode: MapMode = 'preview') {
+export function useLeafletMap(mapId: string, mode: MapMode = 'preview', options: { single?: boolean } = {}) {
   const mapRef = useRef<LeafletMap | null>(null)
 
   useEffect(() => {
@@ -95,36 +97,31 @@ export function useLeafletMap(mapId: string, mode: MapMode = 'preview') {
         attribution: '© OpenStreetMap contributors',
       }).addTo(map)
 
-      L.marker(RESTAURANT, { icon: pin(L, PIN_MERCHANT) })
-        .addTo(map)
-        .bindPopup(mockMerchant.name)
-      L.marker(DESTINATION, { icon: pin(L, PIN_DESTINATION) })
-        .addTo(map)
-        .bindPopup('Alamat pengantaran')
+      L.marker(RESTAURANT, { icon: pin(L, PIN_MERCHANT) }).addTo(map).bindPopup(mockMerchant.name)
 
-      if (mode === 'delivery') {
-        L.marker(COURIER, { icon: pin(L, PIN_COURIER, true) })
-          .addTo(map)
-          .bindPopup('Budi Santoso')
-      }
-
-      L.polyline(ROUTE, {
-        color: PIN_MERCHANT,
-        weight: mode === 'delivery' ? 4 : 3,
-        opacity: mode === 'delivery' ? 0.95 : 0.6,
-        lineCap: 'round',
-        lineJoin: 'round',
-        className:
-          mode === 'delivery' ? 'sa7tein-route sa7tein-route--draw' : 'sa7tein-route',
-      }).addTo(map)
-
-      if (mode === 'delivery') {
-        map.fitBounds(L.latLngBounds(ROUTE), { padding: [48, 48] })
+      if (options.single) {
+        map.setView(RESTAURANT, 16)
       } else {
-        map.setView(
-          [(RESTAURANT[0] + DESTINATION[0]) / 2, (RESTAURANT[1] + DESTINATION[1]) / 2],
-          15,
-        )
+        L.marker(DESTINATION, { icon: pin(L, PIN_DESTINATION) }).addTo(map).bindPopup('Alamat pengantaran')
+
+        if (mode === 'delivery') {
+          L.marker(COURIER, { icon: pin(L, PIN_COURIER, true) }).addTo(map).bindPopup('Budi Santoso')
+        }
+
+        L.polyline(ROUTE, {
+          color: PIN_MERCHANT,
+          weight: mode === 'delivery' ? 4 : 3,
+          opacity: mode === 'delivery' ? 0.95 : 0.6,
+          lineCap: 'round',
+          lineJoin: 'round',
+          className: mode === 'delivery' ? 'sa7tein-route sa7tein-route--draw' : 'sa7tein-route',
+        }).addTo(map)
+
+        if (mode === 'delivery') {
+          map.fitBounds(L.latLngBounds(ROUTE), { padding: [48, 48] })
+        } else {
+          map.setView([(RESTAURANT[0] + DESTINATION[0]) / 2, (RESTAURANT[1] + DESTINATION[1]) / 2], 15)
+        }
       }
 
       mapRef.current = map
@@ -135,16 +132,10 @@ export function useLeafletMap(mapId: string, mode: MapMode = 'preview') {
       mapRef.current?.remove()
       mapRef.current = null
     }
-  }, [mapId, mode])
+  }, [mapId, mode, options.single])
 
   return {
     recenter: () =>
-      mapRef.current?.fitBounds(
-        [
-          [RESTAURANT[0], RESTAURANT[1]],
-          [DESTINATION[0], DESTINATION[1]],
-        ],
-        { padding: [48, 48] },
-      ),
+      mapRef.current?.fitBounds([RESTAURANT, DESTINATION], { padding: [48, 48] }),
   }
 }

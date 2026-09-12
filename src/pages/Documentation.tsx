@@ -852,7 +852,17 @@ export default function Documentation() {
                       </code>
                     </td>
                     <td>
-                      Setelan toko: jam operasional, paket/kuota, rekening
+                      Setelan toko: form edit nama/telepon/alamat, peta lokasi
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant/menu
+                      </code>
+                    </td>
+                    <td>
+                      Menu &amp; Stock: atur item, stok, dan ketersediaan
                     </td>
                   </tr>
                 </tbody>
@@ -1565,6 +1575,22 @@ $error-color:   #ff3b30;`}</code>
                     </td>
                     <td>
                       name, email, phone (opsional), password
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      merchantMenuItemSchema
+                    </td>
+                    <td>
+                      name + price + category + stock (Menu &amp; Stock merchant)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      merchantStoreSchema
+                    </td>
+                    <td>
+                      name + phone + address (Setelan toko merchant)
                     </td>
                   </tr>
                 </tbody>

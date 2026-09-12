@@ -183,3 +183,11 @@ export interface MerchantOrder {
   paymentMethod: PaymentMethod['id']
   cookMinutes?: number
 }
+
+export interface MerchantMenuItem {
+  id: string
+  name: string
+  price: number
+  category: string
+  stock: number
+}
