@@ -70,17 +70,22 @@
 .doc-root .doc-card-title { font-size: var(--text-sm); font-weight: 700; color: var(--text); margin-bottom: 4px }
 .doc-root .doc-card-sub { font-size: var(--text-xs); color: var(--muted); line-height: 1.5 }
 .doc-root .doc-overlay { display: none; position: fixed; inset: 0; background: rgba(32,32,32,0.45); z-index: 99 }
-@media (max-width: 900px) {
-    .doc-root .doc-topbar { display: flex }
-    .doc-root .doc-sidebar { transform: translateX(-100%); z-index: 300 }
-    .doc-root .doc-sidebar.open { transform: translateX(0) }
-    .doc-root .doc-overlay.open { display: block }
-    .doc-root .doc-main { margin-left: 0; max-width: 100%; padding: 80px 20px 80px }
-}
-@media (max-width: 500px) {
-    .doc-root .doc-hero-title { font-size: var(--text-xl) }
-    .doc-root .doc-section-title { font-size: var(--text-lg) }
-    .doc-root .doc-main { padding: 72px 16px 80px }
-    .doc-root .doc-hero { margin-bottom: 40px }
-    .doc-root .doc-section { margin-bottom: 52px }
-}
+/* Tata letak ringkas dipakai TANPA SYARAT, bukan di bawah breakpoint.
+
+   Media query merespons lebar JENDELA, bukan lebar kolom. Halaman ini selalu
+   hidup di dalam kolom aplikasi yang lebarnya paling besar 430px, jadi di
+   jendela 1440px aturan desktopnya tetap berlaku di dalam kolom sempit itu:
+   sidebar fixed 260px ditambah margin-left 260px menyisakan 170px untuk
+   konten, dan padding 56px di tiap sisi menyusutkannya jadi 58px. Isinya
+   terbaca sebagai serpihan tipis di luar kolom.
+
+   Karena kolomnya kini selalu sempit, tata letak ringkasnya selalu benar. */
+.doc-root .doc-topbar { display: flex }
+.doc-root .doc-sidebar { transform: translateX(-100%); z-index: 300 }
+.doc-root .doc-sidebar.open { transform: translateX(0) }
+.doc-root .doc-overlay.open { display: block }
+.doc-root .doc-main { margin-left: 0; max-width: 100%; padding: 72px 16px 80px }
+.doc-root .doc-hero-title { font-size: var(--text-xl) }
+.doc-root .doc-section-title { font-size: var(--text-lg) }
+.doc-root .doc-hero { margin-bottom: 40px }
+.doc-root .doc-section { margin-bottom: 52px }
