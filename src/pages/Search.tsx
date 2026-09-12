@@ -163,7 +163,6 @@ export default function Search() {
                   key={f.id}
                   food={f}
                   onOpen={(food) => navigate(`/menu-detail/${food.id}`)}
-                  onAdd={(food) => addToCart(food.id)}
                 />
               ))}
             </div>

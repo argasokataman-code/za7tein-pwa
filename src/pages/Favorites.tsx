@@ -1,29 +1,19 @@
 import { Clock, Star } from 'lucide-react'
 import { rupiah } from '../data/merchant'
-import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { AddToCartButton } from '../components/ui/AddToCartButton'
 import { FavoriteButton } from '../components/ui/FavoriteButton'
 import { foods } from '../data/foods'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { addItem } from '../store/slices/cartSlice'
+import { useAppSelector } from '../hooks/useAppStore'
 import type { Food } from '../types'
 
 export default function Favorites() {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
   const ids = useAppSelector((s) => s.favorites.ids)
   const favorites = ids
     .map((id) => foods.find((f) => f.id === id))
     .filter((f): f is Food => Boolean(f))
-
-  const buyNow = (food: Food) => {
-    dispatch(
-      addItem({ food, quantity: 1 }),
-    )
-    toast.success(`${food.name} added to cart!`, { icon: <Star size={18} aria-hidden="true" /> })
-    navigate('/checkout')
-  }
 
   return (
     <>
@@ -123,18 +113,7 @@ export default function Favorites() {
                             ({food.reviewCount} Reviews)
                           </span>
                         </div>
-                        <button
-                          type="button"
-                          className="buy-now-btn"
-                          aria-label={`Add ${food.name} to cart`}
-                          onClick={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                            buyNow(food)
-                          }}
-                        >
-                          Buy Now
-                        </button>
+                        <AddToCartButton food={food} />
                       </div>
                     </Link>
                   ))}

@@ -1,16 +1,16 @@
 import { Clock, Star } from 'lucide-react'
 
 import { rupiah } from '../../data/merchant'
+import { AddToCartButton } from './AddToCartButton'
 import { FavoriteButton } from './FavoriteButton'
 import type { Food } from '../../types'
 
 interface FoodCardProps {
   food: Food
   onOpen: (food: Food) => void
-  onAdd: (food: Food) => void
 }
 
-export function FoodCard({ food, onOpen, onAdd }: FoodCardProps) {
+export function FoodCard({ food, onOpen }: FoodCardProps) {
   return (
     <div className="food-card" role="article" style={{ cursor: 'pointer' }} onClick={() => onOpen(food)}>
       <div className="food-card-image">
@@ -52,17 +52,7 @@ export function FoodCard({ food, onOpen, onAdd }: FoodCardProps) {
           <span className="rating-count">({food.reviewCount} Reviews)</span>
         </div>
 
-        <button
-          type="button"
-          className="buy-now-btn"
-          aria-label={`Add ${food.name} to cart`}
-          onClick={(e) => {
-            e.stopPropagation()
-            onAdd(food)
-          }}
-        >
-          Buy Now
-        </button>
+        <AddToCartButton food={food} />
       </div>
     </div>
   )

@@ -2,6 +2,7 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link, useNavigate } from 'react-router-dom'
 
+import { BottomNav } from '../components/layout/BottomNav'
 import { logout } from '../store/slices/authSlice'
 import { useAppDispatch } from '../hooks/useAppStore'
 
@@ -220,46 +221,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <nav className="bottom-nav">
-          <Link className="nav-item " to="/home">
-            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-house">
-              <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-              <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            </svg>
-            <span>
-              Home
-            </span>
-          </Link>
-          <Link className="nav-item " to="/checkout">
-            <span style={{ position: "relative", display: "inline-flex" }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shopping-bag">
-                <path d="M16 10a4 4 0 0 1-8 0" />
-                <path d="M3.103 6.034h17.794" />
-                <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" />
-              </svg>
-            </span>
-            <span>
-              My Order
-            </span>
-          </Link>
-          <Link className="nav-item " to="/favorites">
-            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart">
-              <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
-            </svg>
-            <span>
-              Favorites
-            </span>
-          </Link>
-          <Link className="nav-item active" to="/profile">
-            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-user">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            <span>
-              Profile
-            </span>
-          </Link>
-        </nav>
+        <BottomNav />
       </main>
     </div>
     <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />

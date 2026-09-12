@@ -5,17 +5,15 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { BottomNav } from '../components/layout/BottomNav'
+import { AddToCartButton } from '../components/ui/AddToCartButton'
 import { FoodCard } from '../components/ui/FoodCard'
 import { categories, deals, popular } from '../data/foods'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { addItem } from '../store/slices/cartSlice'
-import type { Food } from '../types'
+import { useAppSelector } from '../hooks/useAppStore'
 
 const AD_IMAGE = '/assets/media/onboarding-bg.196fa385.jpg'
 
 export default function Home() {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
   const user = useAppSelector((s) => s.auth.user)
   const notificationCount = useAppSelector((s) => s.ui.notificationCount)
   const locationLabel = useAppSelector((s) => s.ui.locationLabel)
@@ -23,11 +21,6 @@ export default function Home() {
 
   const visiblePopular =
     category === 'all' ? popular : popular.filter((f) => f.category === category)
-
-  const handleAdd = (food: Food) => {
-    dispatch(addItem({ food }))
-    toast.success(`${food.name} added to cart`)
-  }
 
   return (
     <div className="app-shell">
@@ -177,7 +170,6 @@ export default function Home() {
                   key={food.id}
                   food={food}
                   onOpen={(f) => navigate(`/menu-detail/${f.id}`)}
-                  onAdd={handleAdd}
                 />
               ))}
             </div>
@@ -303,17 +295,7 @@ export default function Home() {
                     </div>
                     <div className="hot-deal-price">{rupiah(food.price)}</div>
                   </div>
-                  <button
-                    type="button"
-                    className="hot-deal-add"
-                    aria-label={`Add ${food.name} to cart`}
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleAdd(food)
-                    }}
-                  >
-                    add
-                  </button>
+                  <AddToCartButton food={food} className="hot-deal-add" />
                 </div>
               ))}
             </div>

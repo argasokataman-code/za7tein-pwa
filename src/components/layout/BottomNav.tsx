@@ -1,6 +1,9 @@
 import { Heart, ShoppingBag, User } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
+import { useAppSelector } from '../../hooks/useAppStore'
+import { selectCartCount } from '../../store/slices/cartSlice'
+
 /** Matches the original markup exactly — lucide's newer House also emits `lucide-home`. */
 function HouseIcon() {
   return (
@@ -31,6 +34,8 @@ const items = [
 ]
 
 export function BottomNav() {
+  const cartCount = useAppSelector((s) => selectCartCount(s.cart.items))
+
   return (
     <nav className="bottom-nav">
       {items.map(({ to, label, Icon }) => (
@@ -39,8 +44,21 @@ export function BottomNav() {
           to={to}
           className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
         >
-          <Icon />
+          <span className="nav-icon-wrap">
+            <Icon />
+            {/* Angka di badge inilah satu-satunya umpan balik setelah menekan
+                "Tambah" — tanpa ini tombolnya terasa tidak melakukan apa pun,
+                karena menambah barang tidak mengubah halaman mana pun. */}
+            {to === '/checkout' && cartCount > 0 ? (
+              <span className="nav-cart-badge" aria-hidden="true">
+                {cartCount}
+              </span>
+            ) : null}
+          </span>
           <span>{label}</span>
+          {to === '/checkout' && cartCount > 0 ? (
+            <span className="sr-only">{cartCount} item di keranjang</span>
+          ) : null}
         </NavLink>
       ))}
     </nav>
