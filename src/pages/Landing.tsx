@@ -109,7 +109,6 @@ export default function Landing() {
         </div>
       </div>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

@@ -40,6 +40,9 @@ export const merchantMenuItemSchema = z.object({
   price: z.number().min(1000, 'Harga minimal Rp1.000'),
   category: z.string().min(2, 'Kategori wajib diisi'),
   stock: z.number().min(0, 'Stok tidak boleh negatif'),
+  image: z.string().optional(),
+  description: z.string().optional(),
+  available: z.boolean().optional(),
 })
 
 // Profil toko — halaman Setelan merchant.

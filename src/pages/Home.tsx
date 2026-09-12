@@ -8,8 +8,8 @@ import CustomerHomeHero from '../components/customer/CustomerHomeHero'
 import { BottomNav } from '../components/layout/BottomNav'
 import { AddToCartButton } from '../components/ui/AddToCartButton'
 import { FoodCard } from '../components/ui/FoodCard'
-import { categories, deals, popular } from '../data/foods'
 import { useAppSelector } from '../hooks/useAppStore'
+import { useCatalog } from '../hooks/useCatalog'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 
 const AD_IMAGE = '/assets/media/onboarding-bg.196fa385.jpg'
@@ -20,6 +20,7 @@ export default function Home() {
   const unreadNotifications = useAppSelector((s) => selectUnreadCount(s.notifications.items))
   const locationLabel = useAppSelector((s) => s.ui.locationLabel)
   const [category, setCategory] = useState('all')
+  const { categories, deals, popular } = useCatalog()
 
   const visiblePopular =
     category === 'all' ? popular : popular.filter((f) => f.category === category)

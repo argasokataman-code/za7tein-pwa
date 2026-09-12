@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "note": "Approved decorative or brand SVG exceptions only; functional icons must use lucide-react. Raw colors are a shrinking legacy ceiling, not permission for new values.",
+  "inlineSvg": {
+    "src/components/customer/CustomerHomeHero.tsx": [
+      "0eff9e9470c8736a14f4409d9959817ecd2eb88bf3c42a179fbad3ac0f5310fe"
+    ],
+    "src/pages/Home.tsx": [
+      "7738600e79828da191b98dc41daacbe35b21b63509836382ec14b75b5dbbc008"
+    ],
+    "src/pages/SignIn.tsx": [
+      "24b51a501e066485c70e1ce1241c3ae54b723277ee9e39c658cc5d9c19803a57",
+      "1d2e93c7fd99f490bdad384c1b75d822fd7ac9cc9337e32a2aa9f7abbfcbed65"
+    ],
+    "src/pages/SignUp.tsx": [
+      "d50fb15c51d7f5371e89844209b20f1db861ba4bc78e7d3c7ee7143a55b69f00"
+    ]
+  },
+  "rawColors": {
+    "src/components/customer/CustomerHomeHero.css": 8,
+    "src/components/customer/CustomerHomeHero.tsx": 5,
+    "src/pages/AddressSelection.tsx": 1,
+    "src/pages/Faq.tsx": 2,
+    "src/pages/Filter.tsx": 1,
+    "src/pages/ForgotPasswordOtp.tsx": 3,
+    "src/pages/MenuDetail.tsx": 2,
+    "src/pages/Profile.tsx": 1,
+    "src/pages/SignIn.tsx": 4,
+    "src/pages/SignUp.tsx": 2,
+    "src/pages/documentation/sections/ComponentsSection.tsx": 2,
+    "src/styles/_system.scss": 23
+  }
+}

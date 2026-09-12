@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react'
+import { ChevronLeft, Star } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -19,9 +19,7 @@ export default function Filter() {
           <div className="filter-sheet">
             <div className="filter-header">
               <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
               <h1>
                 Filter
@@ -71,7 +69,7 @@ export default function Filter() {
                 Payment Type
               </div>
               <label className="radio-item">
-                <input aria-label="Pay now" type="radio" checked name="payment" />
+                <input aria-label="Pay now" type="radio" defaultChecked name="payment" />
                 <span className="radio-dot" />
                 <span>
                   Pay now
@@ -119,7 +117,6 @@ export default function Filter() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

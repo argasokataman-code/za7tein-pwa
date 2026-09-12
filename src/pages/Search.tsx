@@ -1,10 +1,10 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Star } from 'lucide-react'
+import { ChevronLeft, Star, SearchIcon, SlidersHorizontal } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { FoodCard } from '../components/ui/FoodCard'
-import { deals, popular } from '../data/foods'
+import { useCatalog } from '../hooks/useCatalog'
 import { rupiah } from '../data/merchant'
 import { useFoodActions } from '../hooks/useFoodActions'
 
@@ -19,6 +19,7 @@ export default function Search() {
   const chips = useChipSet([])
   const { addToCart } = useFoodActions()
   const navigate = useNavigate()
+  const { deals, popular } = useCatalog()
   return (
     <>
     <div className="app-shell">
@@ -26,9 +27,7 @@ export default function Search() {
         <div className="search-screen">
           <div className="search-header">
             <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-              <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ChevronLeft size={24} strokeWidth={1.75} />
             </button>
             <h1>
               Search
@@ -36,23 +35,10 @@ export default function Search() {
           </div>
           <div className="search-page-bar">
             <div className="search-bar">
-              <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#6B6865" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search search-icon">
-                <path d="m21 21-4.34-4.34" />
-                <circle cx="11" cy="11" r="8" />
-              </svg>
+              <SearchIcon size={20} strokeWidth={1.75} className="search-icon" />
               <input placeholder="Search for Food.." className="search-input" aria-label="Search for food" type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
               <Link className="filter-link" aria-label="Open filters" to="/filter">
-                <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#6B6865" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sliders-horizontal">
-                  <path d="M10 5H3" />
-                  <path d="M12 19H3" />
-                  <path d="M14 3v4" />
-                  <path d="M16 17v4" />
-                  <path d="M21 12h-9" />
-                  <path d="M21 19h-5" />
-                  <path d="M21 5h-7" />
-                  <path d="M8 10v4" />
-                  <path d="M8 12H3" />
-                </svg>
+                <SlidersHorizontal size={22} strokeWidth={1.75} />
               </Link>
             </div>
           </div>
@@ -170,7 +156,6 @@ export default function Search() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

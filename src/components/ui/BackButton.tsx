@@ -7,7 +7,7 @@ interface BackButtonProps {
   label?: string
 }
 
-export function BackButton({ to, className = '', label = 'Go back' }: BackButtonProps) {
+export function BackButton({ to, className = '', label = 'Kembali' }: BackButtonProps) {
   const navigate = useNavigate()
 
   return (
@@ -17,7 +17,7 @@ export function BackButton({ to, className = '', label = 'Go back' }: BackButton
       aria-label={label}
       onClick={() => (to ? navigate(to) : navigate(-1))}
     >
-      <ChevronLeft size={24} />
+      <ChevronLeft size={24} strokeWidth={1.75} />
     </button>
   )
 }

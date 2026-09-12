@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link, useNavigate } from 'react-router-dom'
@@ -14,9 +15,7 @@ export default function Language() {
           <div className="profile-flow">
             <header className="profile-flow-header ">
               <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </Link>
               <h1 className="profile-flow-title">
                 Language
@@ -32,7 +31,7 @@ export default function Language() {
                     <span className="language-name">
                       English (US)
                     </span>
-                    <input className="language-radio" type="radio" value="en-US" checked name="language" />
+                    <input className="language-radio" type="radio" value="en-US" defaultChecked name="language" />
                     <span className="language-radio-ui" />
                   </label>
                   <label className="language-option">
@@ -87,7 +86,6 @@ export default function Language() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

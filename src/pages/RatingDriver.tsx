@@ -1,3 +1,4 @@
+import { ChevronLeft, Clock3, Star } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -16,9 +17,7 @@ export default function RatingDriver() {
           <div className="rating-driver-screen">
             <header className="rating-driver-header">
               <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
               <h1 className="rating-driver-title">
                 Rating
@@ -30,10 +29,7 @@ export default function RatingDriver() {
                   No. Pesanan - 012345
                 </h2>
                 <div className="rating-order-time">
-                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                    <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
+                  <Clock3 size={16} strokeWidth={1.75} />
                   <span>
                     Hari ini, 12:28 PM
                   </span>
@@ -52,29 +48,19 @@ export default function RatingDriver() {
               </p>
               <div className="star-rating" role="group" aria-label="Star rating">
                 <button type="button" className={`star-btn${rating >= 1 ? " active" : ""}`} aria-label="1 star" style={{ pointerEvents: "auto" }} onClick={() => setRating(1)}>
-                  <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
+                  <Star size={40} strokeWidth={1.75} color={rating >= 1 ? 'var(--star)' : 'var(--text-secondary)'} fill={rating >= 1 ? 'var(--star)' : 'none'} />
                 </button>
                 <button type="button" className={`star-btn${rating >= 2 ? " active" : ""}`} aria-label="2 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(2)}>
-                  <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
+                  <Star size={40} strokeWidth={1.75} color={rating >= 2 ? 'var(--star)' : 'var(--text-secondary)'} fill={rating >= 2 ? 'var(--star)' : 'none'} />
                 </button>
                 <button type="button" className={`star-btn${rating >= 3 ? " active" : ""}`} aria-label="3 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(3)}>
-                  <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
+                  <Star size={40} strokeWidth={1.75} color={rating >= 3 ? 'var(--star)' : 'var(--text-secondary)'} fill={rating >= 3 ? 'var(--star)' : 'none'} />
                 </button>
                 <button type="button" className={`star-btn${rating >= 4 ? " active" : ""}`} aria-label="4 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(4)}>
-                  <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
+                  <Star size={40} strokeWidth={1.75} color={rating >= 4 ? 'var(--star)' : 'var(--text-secondary)'} fill={rating >= 4 ? 'var(--star)' : 'none'} />
                 </button>
                 <button type="button" className={`star-btn${rating >= 5 ? " active" : ""}`} aria-label="5 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(5)}>
-                  <svg width={40} height={40} viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
+                  <Star size={40} strokeWidth={1.75} color={rating >= 5 ? 'var(--star)' : 'var(--text-secondary)'} fill={rating >= 5 ? 'var(--star)' : 'none'} />
                 </button>
               </div>
             </div>
@@ -88,7 +74,6 @@ export default function RatingDriver() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, UserRound } from 'lucide-react'
 /**
  * Hero beranda pelanggan.
  *
@@ -85,96 +86,23 @@ function Sa7teinHeroPattern() {
 }
 
 function LocationPinIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="s7-icon" aria-hidden="true">
-      <path
-        d="M12 21s6-5.4 6-11a6 6 0 1 0-12 0c0 5.6 6 11 6 11Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinejoin="round"
-      />
-      <circle
-        cx="12"
-        cy="10"
-        r="2.2"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-      />
-    </svg>
-  )
+  return <MapPin className="s7-icon" strokeWidth={1.75} aria-hidden="true" />
 }
 
 function ChevronDownIcon() {
-  return (
-    <svg viewBox="0 0 20 20" className="s7-chevron" aria-hidden="true">
-      <path
-        d="m5.5 7.5 4.5 4.5 4.5-4.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
+  return <ChevronDown className="s7-chevron" strokeWidth={1.75} aria-hidden="true" />
 }
 
 function BellIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="s7-bell-icon" aria-hidden="true">
-      <path
-        d="M6.8 9.4a5.2 5.2 0 0 1 10.4 0v3.3l1.5 2.7H5.3l1.5-2.7V9.4Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M10 18.1c.4.9 1.1 1.4 2 1.4s1.6-.5 2-1.4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-      />
-    </svg>
-  )
+  return <Bell className="s7-bell-icon" strokeWidth={1.75} aria-hidden="true" />
 }
 
 function SearchIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="s7-search-icon" aria-hidden="true">
-      <circle
-        cx="10.5"
-        cy="10.5"
-        r="6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-      />
-      <path
-        d="m15 15 4.5 4.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.75"
-        strokeLinecap="round"
-      />
-    </svg>
-  )
+  return <Search className="s7-search-icon" strokeWidth={1.75} aria-hidden="true" />
 }
 
 function FilterIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="s7-filter-icon" aria-hidden="true">
-      <path d="M5 7h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-      <circle cx="9" cy="7" r="2" fill="currentColor" />
-      <path d="M5 12h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-      <circle cx="15" cy="12" r="2" fill="currentColor" />
-      <path d="M5 17h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
-      <circle cx="11" cy="17" r="2" fill="currentColor" />
-    </svg>
-  )
+  return <SlidersHorizontal className="s7-filter-icon" strokeWidth={1.75} aria-hidden="true" />
 }
 
 type Props = {
@@ -217,23 +145,7 @@ export default function CustomerHomeHero({
                 <img src={avatarUrl} alt={avatarAlt} className="s7-avatar" />
               ) : (
                 <span className="s7-avatar s7-avatar--kosong" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" className="s7-icon">
-                    <path
-                      d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.75"
-                      strokeLinecap="round"
-                    />
-                    <circle
-                      cx="12"
-                      cy="7"
-                      r="4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.75"
-                    />
-                  </svg>
+                  <UserRound className="s7-icon" strokeWidth={1.75} aria-hidden="true" />
                 </span>
               )}
             </button>

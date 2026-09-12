@@ -1,5 +1,5 @@
 // PRD: tanpa payment gateway. Hanya COD dan transfer manual ke rekening toko.
-import { CheckCircle2 } from 'lucide-react'
+import { ChevronLeft, CheckCircle2, Banknote, Landmark } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -10,21 +10,13 @@ import { setPayment } from '../store/slices/cartSlice'
 
 function CodIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={26} height={26} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="20" height="12" x="2" y="6" rx="2" />
-      <circle cx="12" cy="12" r="2.5" />
-      <path d="M6 12h.01M18 12h.01" />
-    </svg>
+    <Banknote size={26} strokeWidth={1.75} color="var(--on-brand)" />
   )
 }
 
 function TransferIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={26} height={26} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 21h18" />
-      <path d="M5 21V10l7-5 7 5v11" />
-      <path d="M9 21v-6h6v6" />
-    </svg>
+    <Landmark size={26} strokeWidth={1.75} color="var(--on-brand)" />
   )
 }
 
@@ -46,9 +38,7 @@ export default function PaymentSelection() {
           <div className="payment-selection-screen">
             <header className="payment-selection-header">
               <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
               <h1 className="payment-selection-title">
                 Metode Pembayaran
@@ -104,7 +94,6 @@ export default function PaymentSelection() {
           </div>
         </main>
       </div>
-      <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

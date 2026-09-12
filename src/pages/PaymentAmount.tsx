@@ -1,6 +1,6 @@
 // Ringkasan checkout: subtotal + ongkir zona, metode bayar PRD (COD / transfer),
 // dan unggah bukti transfer untuk pesanan transfer.
-import { Check } from 'lucide-react'
+import { ChevronLeft, Check } from 'lucide-react'
 
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -64,9 +64,7 @@ export default function PaymentAmount() {
           <div className="payment-amount-screen">
             <header className="payment-amount-header">
               <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
               <h1 className="payment-amount-title">
                 Checkout
@@ -191,7 +189,6 @@ export default function PaymentAmount() {
           </div>
         </main>
       </div>
-      <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

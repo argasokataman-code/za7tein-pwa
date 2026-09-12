@@ -1,4 +1,4 @@
-import { Bike, Check, Home, Utensils, type LucideIcon } from 'lucide-react'
+import { Bike, Check, ChevronLeft, Crosshair, Home, MapPin, MessageCircle, Phone, Star, Store, UserRound, Utensils, type LucideIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -31,80 +31,19 @@ import type { OrderStage } from '../types'
  * satunya pasti tertinggal. Sekarang tahapnya yang berbeda, tampilannya satu.
  */
 
-/* ── Ikon ──────────────────────────────────────────────────────────────────
-   Semuanya satu bahasa: viewBox 24, isi `none`, `stroke="currentColor"`, tebal
-   1,75, ujung membulat. Versi lama mencampur ikon berisi (fill) dan bergaris
-   (stroke) dalam satu baris — clipboard, rice cooker, lalu dua ikon garis —
-   sehingga terbaca seperti diambil dari beberapa set berbeda.                 */
+const IconStore = () => <Store size={20} strokeWidth={1.75} aria-hidden="true" />
 
-const stroke = {
-  fill: 'none',
-  stroke: 'currentColor',
-  strokeWidth: 1.75,
-  strokeLinecap: 'round' as const,
-  strokeLinejoin: 'round' as const,
-}
+const IconCourier = () => <UserRound size={20} strokeWidth={1.75} aria-hidden="true" />
 
-function IconStore() {
-  return (
-    <svg width={20} height={20} viewBox="0 0 24 24" {...stroke} aria-hidden="true">
-      <path d="M4 10v9a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-9" />
-      <path d="M3 6.5 4.8 3.5A1 1 0 0 1 5.7 3h12.6a1 1 0 0 1 .9.5L21 6.5v1.2a2.6 2.6 0 0 1-4.5 1.8 2.6 2.6 0 0 1-4 0 2.6 2.6 0 0 1-4 0 2.6 2.6 0 0 1-4.5-1.8z" />
-      <path d="M9.5 20v-5h5v5" />
-    </svg>
-  )
-}
+const IconPin = () => <MapPin size={20} strokeWidth={1.75} aria-hidden="true" />
 
-function IconCourier() {
-  return (
-    <svg width={20} height={20} viewBox="0 0 24 24" {...stroke} aria-hidden="true">
-      <circle cx="12" cy="7.5" r="3.5" />
-      <path d="M5 20.5a7 7 0 0 1 14 0" />
-    </svg>
-  )
-}
+const IconPhone = () => <Phone size={16} strokeWidth={1.75} aria-hidden="true" />
 
-function IconPin() {
-  return (
-    <svg width={20} height={20} viewBox="0 0 24 24" {...stroke} aria-hidden="true">
-      <path d="M20 10.5c0 5-8 10.5-8 10.5S4 15.5 4 10.5a8 8 0 0 1 16 0" />
-      <circle cx="12" cy="10.5" r="2.75" />
-    </svg>
-  )
-}
+const IconChat = () => <MessageCircle size={16} strokeWidth={1.75} aria-hidden="true" />
 
-function IconPhone() {
-  return (
-    <svg width={16} height={16} viewBox="0 0 24 24" {...stroke} aria-hidden="true">
-      <path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2" />
-    </svg>
-  )
-}
+const IconBack = () => <ChevronLeft size={22} strokeWidth={1.75} aria-hidden="true" />
 
-function IconChat() {
-  return (
-    <svg width={16} height={16} viewBox="0 0 24 24" {...stroke} aria-hidden="true">
-      <path d="M20.5 11.5a8 8 0 0 1-11.3 7.2L4 20l1.3-5.1A8 8 0 1 1 20.5 11.5" />
-    </svg>
-  )
-}
-
-function IconBack() {
-  return (
-    <svg width={22} height={22} viewBox="0 0 24 24" {...stroke} aria-hidden="true">
-      <path d="m14.5 5.5-6.5 6.5 6.5 6.5" />
-    </svg>
-  )
-}
-
-function IconRecenter() {
-  return (
-    <svg width={20} height={20} viewBox="0 0 24 24" {...stroke} aria-hidden="true">
-      <circle cx="12" cy="12" r="8" />
-      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
-    </svg>
-  )
-}
+const IconRecenter = () => <Crosshair size={20} strokeWidth={1.75} aria-hidden="true" />
 
 /* ── Sa7tein Journey Line ─────────────────────────────────────────────────
    Menggantikan baris empat ikon generik dengan rel bertitik: simpul selesai
@@ -135,7 +74,7 @@ function JourneyLine({ stage }: { stage: OrderStage }) {
           return (
             <span key={s.id} className={`journey-cell journey-cell--${st}`}>
               <span className={`journey-node journey-node--${st}`}>
-                <Icon size={13} strokeWidth={2} aria-hidden="true" />
+                <Icon size={13} strokeWidth={1.75} aria-hidden="true" />
               </span>
             </span>
           )
@@ -305,12 +244,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 <p className="track-row-name">
                   {courier.name}
                   <span className="track-rating">
-                    <svg width={12} height={12} viewBox="0 0 24 24" aria-hidden="true">
-                      <path
-                        d="m12 3 2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L12 16.9 6.4 20l1.4-6.2L3 9.5l6.4-.6z"
-                        fill="currentColor"
-                      />
-                    </svg>
+                    <Star size={12} strokeWidth={1.75} fill="currentColor" aria-hidden="true" />
                     {mockOrder.courierRating}
                   </span>
                 </p>

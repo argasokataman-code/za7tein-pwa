@@ -1,3 +1,4 @@
+import { ChevronLeft, Check, Eye } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -33,9 +34,7 @@ export default function CreatePassword() {
               <div className="col-12 d-flex flex-column justify-content-center">
                 <div className="back-button">
                   <button type="button" className="btn-back" aria-label="Back" onClick={() => navigate(-1)}>
-                    <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                      <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <ChevronLeft size={24} strokeWidth={1.75} />
                   </button>
                 </div>
                 <div className="auth-content">
@@ -53,10 +52,7 @@ export default function CreatePassword() {
                       <div className="password-wrapper">
                         <input className={`form-control${errors.password ? " error" : ""}`} placeholder="Enter your password" type={showPassword ? "text" : "password"} {...register("password")} />
                         <span className="password-toggle" style={{ cursor: "pointer" }} role="button" tabIndex={0} onClick={() => setShowPassword((v) => !v)}>
-                          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
+                          <Eye size={20} strokeWidth={1.75} />
                         </span>
                       </div>
                       {errors.password ? (
@@ -83,9 +79,7 @@ export default function CreatePassword() {
           <div className={`profile-modal-overlay${showModal ? " is-open" : ""}`}>
             <div className="profile-modal">
               <div className="profile-modal-icon success-icon">
-                <svg width={48} height={48} viewBox="0 0 56 56" fill="none">
-                  <path d="M11.667 28L23.333 39.667L46.667 16.333" stroke="white" strokeWidth="4.667" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <Check size={48} strokeWidth={1.75} color="var(--on-brand)" />
               </div>
               <h2 className="profile-modal-title">
                 Password Changed!
@@ -102,7 +96,6 @@ export default function CreatePassword() {
         </div>
       </div>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

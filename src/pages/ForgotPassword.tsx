@@ -1,3 +1,4 @@
+import { ArrowLeft } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -31,10 +32,7 @@ export default function ForgotPassword() {
               <div className="col-12 d-flex flex-column justify-content-center">
                 <div className="back-button">
                   <button type="button" className="btn-back" aria-label="Back" onClick={() => navigate(-1)}>
-                    <svg width={20} height={20} viewBox="0 0 20 20" fill="none">
-                      <path d="M16.875 10H3.125" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M8.75 4.375L3.125 10L8.75 15.625" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <ArrowLeft size={20} strokeWidth={1.75} />
                   </button>
                 </div>
                 <div className="auth-content">
@@ -66,7 +64,6 @@ export default function ForgotPassword() {
         </div>
       </div>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

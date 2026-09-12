@@ -9,7 +9,7 @@
 
 .s7-hero {
   /* Nada oranye khas hero. Token proyek tetap dipakai untuk warna lain. */
-  --hero-deep: #d94727;
+  --hero-deep: var(--orange-deep);
   /* Putih penuh, bukan alpha: di atas oranye merek, menurunkan opasitas
      menurunkan kontras secara langsung, dan oranye ini sudah berada di
      batas bawah untuk teks kecil. */
@@ -24,17 +24,14 @@
   background: var(--sa7tein-orange);
   color: var(--on-brand);
 
-  /* Sudut bawah dibulatkan sesuai spesifikasi. Nilai ini di atas skala radius
-     token (maksimal 12px) karena hero adalah bagian penuh, bukan kartu —
-     kartu di dalamnya tetap memakai token. */
-  border-radius: 0 0 22px 22px;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 }
 
 .s7-hero__content {
   position: relative;
   z-index: 2;
 
-  padding: 22px var(--space-5) 26px;
+  padding: var(--space-5) var(--space-5) var(--space-6);
 }
 
 /* ── Pola latar ─────────────────────────────────────────────────────────── */
@@ -66,7 +63,7 @@
 }
 
 .s7-wave--two {
-  fill-opacity: 0.16;
+  fill-opacity: 0.14;
 }
 
 .s7-dot-matrix {

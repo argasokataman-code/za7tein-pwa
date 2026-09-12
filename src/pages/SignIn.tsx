@@ -1,3 +1,4 @@
+import { ChevronLeft, Eye, EyeOff } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -32,9 +33,7 @@ export default function SignIn() {
               <div className="col-12 d-flex flex-column">
                 <div className="back-button">
                   <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                    <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                      <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <ChevronLeft size={24} strokeWidth={1.75} />
                   </button>
                 </div>
                 <div className="auth-content">
@@ -60,12 +59,9 @@ export default function SignIn() {
                       </label>
                       <div className="password-wrapper">
                         <input id="password" className={`form-control${errors.password ? " error" : ""}`} placeholder="Enter your password" type={showPassword ? "text" : "password"} {...register("password")} />
-                        <span className="password-toggle" aria-label="Toggle password" role="button" tabIndex={0} style={{ cursor: "pointer" }} onClick={() => setShowPassword((v) => !v)}>
-                          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        </span>
+                        <button type="button" className="password-toggle" aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'} aria-pressed={showPassword} onClick={() => setShowPassword((v) => !v)}>
+                          {showPassword ? <EyeOff size={20} strokeWidth={1.75} /> : <Eye size={20} strokeWidth={1.75} />}
+                        </button>
                       </div>
                       {errors.password ? (
                         <span className="error-message">{errors.password.message}</span>
@@ -114,7 +110,6 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

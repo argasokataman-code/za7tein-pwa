@@ -73,6 +73,7 @@ line_check "src/hooks" "*.ts" 150 "Hooks" ""
 line_check "src/data" "*.ts" 500 "Mock data" ""
 
 # ───────────── 3. LINT ─────────────
+check "PRD registry and design tokens" "npm run governance:check"
 check "Linter (oxlint)" "npx oxlint --quiet"
 
 # ───────────── 4. BUILD ─────────────

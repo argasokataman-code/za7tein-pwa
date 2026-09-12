@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -26,9 +27,7 @@ export default function AddCard() {
         <div className="add-card-screen">
           <header className="add-card-header">
             <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-              <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ChevronLeft size={24} strokeWidth={1.75} />
             </button>
             <h1 className="add-card-title">
               Add Card
@@ -109,7 +108,6 @@ export default function AddCard() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

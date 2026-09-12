@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { formatDistance, rupiah } from '../data/merchant'
-import { QUEUE_TABS, ordersForStatuses, type QueueTabId } from '../data/merchantOrders'
+import { QUEUE_TABS, ordersForStatuses, orderStatusLabel, type QueueTabId } from '../data/merchantOrders'
 import { setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
 
 export default function MerchantOrders() {
@@ -52,7 +52,7 @@ export default function MerchantOrders() {
                   </p>
                 </div>
                 <span className={`merchant-badge merchant-badge-${order.status}`}>
-                  {order.status}
+                  {orderStatusLabel(order.status)}
                 </span>
               </div>
 

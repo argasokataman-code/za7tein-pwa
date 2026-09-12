@@ -1,86 +1,87 @@
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
+import { ChevronLeft, Eye, EyeOff } from 'lucide-react'
+import { useState, type FormEvent } from 'react'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-import toast from 'react-hot-toast'
+const PASSWORD_FIELDS = [
+  { id: 'currentPassword', label: 'Kata sandi saat ini', placeholder: 'Masukkan kata sandi saat ini' },
+  { id: 'newPassword', label: 'Kata sandi baru', placeholder: 'Masukkan kata sandi baru' },
+  { id: 'confirmPassword', label: 'Konfirmasi kata sandi baru', placeholder: 'Ulangi kata sandi baru' },
+] as const
+
+type PasswordFieldId = (typeof PASSWORD_FIELDS)[number]['id']
 
 export default function ChangePassword() {
   const navigate = useNavigate()
+  const [visible, setVisible] = useState<PasswordFieldId[]>([])
+  const [values, setValues] = useState<Record<PasswordFieldId, string>>({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  })
+
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (Object.values(values).some((value) => !value)) {
+      toast.error('Lengkapi semua kolom kata sandi')
+      return
+    }
+    if (values.newPassword !== values.confirmPassword) {
+      toast.error('Konfirmasi kata sandi belum cocok')
+      return
+    }
+    toast.success('Perubahan kata sandi disimulasikan')
+    navigate('/profile')
+  }
+
   return (
-    <>
     <div className="app-shell">
-      <main>
-        <div className="profile-flow-page">
-          <div className="profile-flow-page-scroll">
-            <div className="profile-flow">
-              <header className="profile-flow-header">
-                <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                  <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                    <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                <h1 className="profile-flow-title">
-                  Change Password
-                </h1>
-              </header>
-              <main className="profile-flow-main">
-                <p className="text-muted-profile">
-                  Create a new password to secure your account.
-                </p>
-                <form className="auth-form">
-                  <div className="form-group-profile mb-4">
-                    <label className="form-label-profile">
-                      Current Password
-                    </label>
-                    <div className="password-wrapper" style={{ position: "relative" }}>
-                      <input className="form-input-profile pe-5" placeholder="Enter current password" type="password" name="currentPassword" />
-                      <span className="password-toggle" style={{ position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", cursor: "pointer", color: "rgb(105, 117, 134)" }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye">
-                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                      </span>
+      <main className="profile-flow-page">
+        <div className="profile-flow-page-scroll">
+          <div className="profile-flow">
+            <header className="profile-flow-header">
+              <button type="button" className="btn-back" aria-label="Kembali" onClick={() => navigate(-1)}>
+                <ChevronLeft size={24} strokeWidth={1.75} />
+              </button>
+              <h1 className="profile-flow-title">Ubah kata sandi</h1>
+            </header>
+            <div className="profile-flow-main">
+              <p className="text-muted-profile">Buat kata sandi baru untuk akunmu.</p>
+              <form className="auth-form" onSubmit={submit}>
+                {PASSWORD_FIELDS.map((field) => {
+                  const isVisible = visible.includes(field.id)
+                  return (
+                    <div className="form-group-profile mb-4" key={field.id}>
+                      <label className="form-label-profile" htmlFor={field.id}>{field.label}</label>
+                      <div className="password-wrapper">
+                        <input
+                          id={field.id}
+                          className="form-input-profile pe-5"
+                          placeholder={field.placeholder}
+                          type={isVisible ? 'text' : 'password'}
+                          autoComplete={field.id === 'currentPassword' ? 'current-password' : 'new-password'}
+                          value={values[field.id]}
+                          onChange={(event) => setValues((previous) => ({ ...previous, [field.id]: event.target.value }))}
+                        />
+                        <button
+                          type="button"
+                          className="password-toggle"
+                          aria-label={`${isVisible ? 'Sembunyikan' : 'Tampilkan'} ${field.label.toLowerCase()}`}
+                          aria-pressed={isVisible}
+                          onClick={() => setVisible((previous) => isVisible ? previous.filter((id) => id !== field.id) : [...previous, field.id])}
+                        >
+                          {isVisible ? <EyeOff size={20} strokeWidth={1.75} /> : <Eye size={20} strokeWidth={1.75} />}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                  <div className="form-group-profile mb-4">
-                    <label className="form-label-profile">
-                      New Password
-                    </label>
-                    <div className="password-wrapper" style={{ position: "relative" }}>
-                      <input className="form-input-profile pe-5" placeholder="Enter new password" type="password" name="newPassword" />
-                      <span className="password-toggle" style={{ position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", cursor: "pointer", color: "rgb(105, 117, 134)" }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye">
-                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="form-group-profile mb-4">
-                    <label className="form-label-profile">
-                      Confirm New Password
-                    </label>
-                    <div className="password-wrapper" style={{ position: "relative" }}>
-                      <input className="form-input-profile pe-5" placeholder="Confirm new password" type="password" name="confirmPassword" />
-                      <span className="password-toggle" style={{ position: "absolute", right: "16px", top: "50%", transform: "translateY(-50%)", cursor: "pointer", color: "rgb(105, 117, 134)" }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye">
-                          <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <button type="submit" className="btn-profile-primary mt-4" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
-                    Save Password
-                  </button>
-                </form>
-              </main>
+                  )
+                })}
+                <button type="submit" className="btn-profile-primary mt-4">Simpan perubahan</button>
+              </form>
             </div>
           </div>
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
-    </>
   )
 }

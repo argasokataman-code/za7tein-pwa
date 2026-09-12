@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "activeRevision": "irbid-mvp-2026-09-12",
+  "revisions": [
+    {
+      "id": "radius-mvp-legacy",
+      "documentVersion": "1.1",
+      "status": "superseded",
+      "source": "versions/radius-mvp-legacy/source.pdf",
+      "sha256": "0a230ab9edd72fa46f3080415da0e890b5c2061b40a201b5b8e1a915b76b3777",
+      "scope": "Indonesia, IDR, radius A/B/C, COD dan transfer manual, free tier",
+      "supersededBy": "irbid-mvp-2026-09-12"
+    },
+    {
+      "id": "irbid-mvp-2026-09-12",
+      "documentVersion": "1.1",
+      "status": "active",
+      "source": "versions/irbid-mvp-2026-09-12/source.pdf",
+      "sha256": "cc666e9384cf64b0b0b76bdeefb11bfbbfa1d5555c8997a124cb1a6479da195a",
+      "scope": "Irbid, JOD/IDR, Hijazi/Syimali, Midtrans, deposit COD, batch pedestrian",
+      "supersedes": "radius-mvp-legacy",
+      "decisionRecord": "decision-irbid-mvp.md",
+      "milestonePlan": "milestones-irbid-mvp.md"
+    }
+  ]
+}

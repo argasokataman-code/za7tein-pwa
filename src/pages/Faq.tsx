@@ -1,3 +1,4 @@
+import { ChevronLeft, Search as SearchIcon } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useState } from 'react'
@@ -33,9 +34,7 @@ export default function Faq() {
           <div className="wallet-flow">
             <header className="profile-flow-header ">
               <Link className="back-btn-profile" aria-label="Go back" to="/help-center">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </Link>
               <h1 className="profile-flow-title">
                 FAQ
@@ -43,10 +42,7 @@ export default function Faq() {
             </header>
             <main className="wallet-main">
               <div className="help-search-wrap">
-                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="M21 21l-4.35-4.35" />
-                </svg>
+                <SearchIcon size={20} strokeWidth={1.75} />
                 <input
                   className="help-search-input"
                   placeholder="Search here..."
@@ -89,7 +85,6 @@ export default function Faq() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { ChevronLeft, Delete } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import toast from 'react-hot-toast'
@@ -19,9 +20,7 @@ export default function CreatePin() {
             <div className="wallet-flow">
               <header className="profile-flow-header ">
                 <Link className="back-btn-profile" aria-label="Go back" to="/security">
-                  <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
+                  <ChevronLeft size={24} strokeWidth={1.75} />
                 </Link>
                 <h1 className="profile-flow-title">Create Pin</h1>
               </header>
@@ -70,11 +69,7 @@ export default function CreatePin() {
                     aria-label="Backspace"
                     onClick={pin.handleNumpadBackspace}
                   >
-                    <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                      <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
-                      <line x1={18} y1={9} x2={12} y2={15} />
-                      <line x1={12} y1={9} x2={18} y2={15} />
-                    </svg>
+                    <Delete size={22} strokeWidth={1.75} />
                   </button>
                 ) : (
                   <button
@@ -91,10 +86,6 @@ export default function CreatePin() {
           </div>
         </main>
       </div>
-      <div
-        data-rht-toaster=""
-        style={{ position: 'fixed', zIndex: 9999, inset: 16, pointerEvents: 'none' }}
-      />
     </>
   )
 }

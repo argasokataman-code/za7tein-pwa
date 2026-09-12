@@ -10,6 +10,21 @@ export const QUEUE_TABS = [
 
 export type QueueTabId = (typeof QUEUE_TABS)[number]['id']
 
+export const ORDER_STATUS_LABEL: Record<MerchantOrderStatus, string> = {
+  masuk: 'Baru',
+  diterima: 'Diterima',
+  dimasak: 'Dimasak',
+  diantar: 'Diantar',
+  tiba: 'Tiba',
+  selesai: 'Selesai',
+  ditolak: 'Ditolak',
+  batal: 'Batal',
+};
+
+export function orderStatusLabel(status: MerchantOrderStatus): string {
+  return ORDER_STATUS_LABEL[status];
+}
+
 const items = {
   geprek: [{ id: 'ayam-geprek', name: 'Ayam Geprek + Nasi', price: 22000, quantity: 2, image: '' }],
   mie: [{ id: 'mie-goreng', name: 'Mie Goreng Spesial', price: 18000, quantity: 1, image: '' }],

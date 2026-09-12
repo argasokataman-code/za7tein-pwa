@@ -10,13 +10,14 @@ import {
   persistStore,
 } from 'redux-persist'
 
-import { foods } from '../data/foods'
+import { menuSeed } from '../data/catalog'
 import { mockUser } from '../data/user'
 
 import auth from './slices/authSlice'
 import accountSetup from './slices/accountSetupSlice'
 import cart from './slices/cartSlice'
 import favorites from './slices/favoritesSlice'
+import catalog from './slices/catalogSlice'
 import merchant from './slices/merchantSlice'
 import notifications from './slices/notificationsSlice'
 import ui from './slices/uiSlice'
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   auth,
   cart,
   favorites,
+  catalog,
   merchant,
   notifications,
   ui,
@@ -46,7 +48,7 @@ const persistConfig = {
   key: 'delivo',
   version: 2,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog'],
 }
 
 /**
@@ -65,7 +67,7 @@ function repairPersistedCart() {
     const outer = JSON.parse(raw)
     const cart = JSON.parse(outer.cart ?? '{}')
     const legacyItems = (cart.items ?? []).some((i: any) => {
-      const food = foods.find((f) => f.id === i.id)
+      const food = menuSeed.find((f) => f.id === i.id)
       return !food || (!i.modifiers && i.price !== food.price)
     })
     const needsRepair =
@@ -76,10 +78,8 @@ function repairPersistedCart() {
 
     if (!needsRepair) return
 
-    // Baris ber-modifier dibiarkan apa adanya: harganya sudah termasuk tambahan
-    // yang tidak bisa direkonstruksi dari katalog.
     const items = (cart.items ?? []).flatMap((item: any) => {
-      const food = foods.find((f) => f.id === item.id)
+      const food = menuSeed.find((f) => f.id === item.id)
       if (!food) return []
       if (item.modifiers) return [item]
       return [{ ...item, name: food.name, image: food.image, price: food.price }]

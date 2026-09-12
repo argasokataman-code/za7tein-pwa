@@ -1,13 +1,4 @@
-import { CupSoda, LayoutGrid, UtensilsCrossed } from 'lucide-react'
-
-import type { Category, Food, ModifierGroup } from '../types'
-
-/** Kategori menu toko — Makanan / Minuman (PRD bab 06). */
-export const categories: Category[] = [
-  { id: 'all', label: 'Semua', icon: LayoutGrid },
-  { id: 'makanan', label: 'Makanan', icon: UtensilsCrossed },
-  { id: 'minuman', label: 'Minuman', icon: CupSoda },
-]
+import type { Food, ModifierGroup } from '../types'
 
 /** Modifier grup dipakai layar detail menu (PRD bab 02). */
 const SPICE: ModifierGroup = {
@@ -137,10 +128,6 @@ const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGrou
 
 export const foods: Food[] = MENU
 
-export function getFood(id: string | undefined): Food | undefined {
-  return foods.find((f) => f.id === id)
-}
-
 /** Ringkasan pilihan modifier, mis. "Sedang, Lontong". */
 export function modifierSummary(groups: ModifierGroup[] | undefined, chosen: string[]): string {
   if (!groups || chosen.length === 0) return ''
@@ -158,9 +145,3 @@ export function modifierExtra(groups: ModifierGroup[] | undefined, chosen: strin
     .filter((o) => chosen.includes(o.id))
     .reduce((sum, o) => sum + o.extraPrice, 0)
 }
-
-/** Menu berdiskon — bagian "Super Deals" di beranda. */
-export const deals: Food[] = foods.filter((f) => f.discountPercent !== undefined)
-
-/** Menu paling sering dipesan — bagian "Hot Deals" di beranda. */
-export const popular: Food[] = [...foods].sort((a, b) => b.reviewCount - a.reviewCount)

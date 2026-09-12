@@ -35,6 +35,11 @@ export interface Food {
   modifierGroups?: ModifierGroup[]
 }
 
+export interface MenuItem extends Food {
+  stock: number
+  available: boolean
+}
+
 export interface Category {
   id: string
   label: string
@@ -182,12 +187,4 @@ export interface MerchantOrder {
   placedAt: string
   paymentMethod: PaymentMethod['id']
   cookMinutes?: number
-}
-
-export interface MerchantMenuItem {
-  id: string
-  name: string
-  price: number
-  category: string
-  stock: number
 }

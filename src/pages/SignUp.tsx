@@ -1,3 +1,4 @@
+import { ChevronDown, Eye, EyeOff } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link, useNavigate } from 'react-router-dom'
@@ -17,6 +18,7 @@ export default function SignUp() {
   } = useForm<SignUpFormData>({ resolver: zodResolver(signUpSchema) })
   const navigate = useNavigate()
   const [acceptedTerms, setAcceptedTerms] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const onSubmit = async () => {
     if (!acceptedTerms) {
@@ -93,9 +95,7 @@ export default function SignUp() {
                           <span className="country-code">
                             +1
                           </span>
-                          <svg width={16} height={16} viewBox="0 0 24 24" fill="none" className="dropdown-icon">
-                            <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <ChevronDown size={16} strokeWidth={1.75} className="dropdown-icon" />
                         </div>
                         <input id="phone" className={`form-control phone-input${errors.phone ? " error" : ""}`} placeholder="Enter your number" type="tel"  {...register("phone")} />
                       {errors.phone ? (<span className="error-message">{errors.phone.message}</span>) : null}
@@ -113,13 +113,11 @@ export default function SignUp() {
                         Password
                       </label>
                       <div className="password-wrapper">
-                        <input id="password-signup" className={`form-control${errors.password ? " error" : ""}`} placeholder="Enter your password" type="password"  {...register("password")} />
+                        <input id="password-signup" className={`form-control${errors.password ? " error" : ""}`} placeholder="Enter your password" type={showPassword ? 'text' : 'password'} {...register("password")} />
                       {errors.password ? (<span className="error-message">{errors.password.message}</span>) : null}
-                        <span className="password-toggle" role="button" tabIndex={0} aria-label="Show password">
-                          <svg width={20} height={20} viewBox="0 0 24 24" fill="none">
-                            <path d="M12 5C7.5 5 3.73 7.61 2 11.5C3.73 15.39 7.5 18 12 18C16.5 18 20.27 15.39 22 11.5C20.27 7.61 16.5 5 12 5ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z" fill="currentColor" />
-                          </svg>
-                        </span>
+                        <button type="button" className="password-toggle" aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'} aria-pressed={showPassword} onClick={() => setShowPassword((v) => !v)}>
+                          {showPassword ? <EyeOff size={20} strokeWidth={1.75} /> : <Eye size={20} strokeWidth={1.75} />}
+                        </button>
                       </div>
                     </div>
                     <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
@@ -157,7 +155,6 @@ export default function SignUp() {
         </div>
       </div>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

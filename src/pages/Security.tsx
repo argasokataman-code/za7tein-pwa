@@ -1,3 +1,4 @@
+import { ArrowRight, ChevronLeft } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link, useNavigate } from 'react-router-dom'
@@ -14,9 +15,7 @@ export default function Security() {
           <div className="wallet-flow">
             <header className="profile-flow-header ">
               <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </Link>
               <h1 className="profile-flow-title">
                 Security
@@ -29,7 +28,7 @@ export default function Security() {
                     Remember Password
                   </span>
                   <label className="toggle-wrap">
-                    <input className="toggle-input" type="checkbox" checked />
+                    <input className="toggle-input" type="checkbox" defaultChecked />
                     <span className="toggle-slider" />
                   </label>
                 </div>
@@ -38,7 +37,7 @@ export default function Security() {
                     Face ID
                   </span>
                   <label className="toggle-wrap">
-                    <input className="toggle-input" type="checkbox" checked />
+                    <input className="toggle-input" type="checkbox" defaultChecked />
                     <span className="toggle-slider" />
                   </label>
                 </div>
@@ -55,9 +54,7 @@ export default function Security() {
                   <span className="security-row-label">
                     Google Authentication
                   </span>
-                  <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+                  <ArrowRight size={20} strokeWidth={1.75} />
                 </Link>
               </div>
               <button type="button" className="btn-profile-primary wallet-footer-btn" onClick={() => { toast.success("Settings saved!"); navigate('/profile') }}>
@@ -68,7 +65,6 @@ export default function Security() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

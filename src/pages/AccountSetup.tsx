@@ -1,3 +1,4 @@
+import { CircleAlert } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 /**
@@ -15,15 +16,7 @@ export default function AccountSetup() {
     <div className="app-shell">
       <div className="setup-error">
         <div className="setup-error-icon">
-          <svg width={72} height={72} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" opacity={0.25} />
-            <path
-              d="M12 7l.01 5M12 16h.01"
-              stroke="var(--sa7tein-orange)"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-          </svg>
+          <CircleAlert size={72} strokeWidth={1.75} aria-hidden="true" />
         </div>
         <h1 className="setup-error-title">Terjadi kesalahan</h1>
         <p className="setup-error-text">

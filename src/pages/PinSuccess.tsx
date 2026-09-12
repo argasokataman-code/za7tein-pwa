@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
@@ -11,9 +12,7 @@ export default function PinSuccess() {
           <div className="wallet-flow success-screen">
             <div className="success-icon-wrap">
               <div className="success-icon-circle">
-                <svg width={64} height={64} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
+                <Check size={64} strokeWidth={1.75} color="var(--on-brand)" />
               </div>
             </div>
             <h1 className="success-title">
@@ -29,7 +28,6 @@ export default function PinSuccess() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

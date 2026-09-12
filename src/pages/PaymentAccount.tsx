@@ -1,3 +1,4 @@
+import { ArrowRight, ChevronLeft, CreditCard } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
@@ -13,9 +14,7 @@ export default function PaymentAccount() {
           <div className="wallet-flow">
             <header className="profile-flow-header ">
               <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </Link>
               <h1 className="profile-flow-title">
                 Payment Account
@@ -24,10 +23,7 @@ export default function PaymentAccount() {
             <main className="wallet-main">
               <Link className="wallet-item wallet-item-link" to="/your-card">
                 <div className="wallet-item-icon">
-                  <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="1" y="4" width={22} height={16} rx="2" />
-                    <path d="M1 10h22" />
-                  </svg>
+                  <CreditCard size={24} strokeWidth={1.75} />
                 </div>
                 <div className="wallet-item-left">
                   <span className="wallet-item-title">
@@ -37,9 +33,7 @@ export default function PaymentAccount() {
                     View and manage your cards
                   </span>
                 </div>
-                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <ArrowRight size={20} strokeWidth={1.75} />
               </Link>
               <div className="wallet-item">
                 <div className="wallet-item-icon">
@@ -97,7 +91,6 @@ export default function PaymentAccount() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

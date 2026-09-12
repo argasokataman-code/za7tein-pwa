@@ -130,6 +130,7 @@ export default function App() {
       </BrowserRouter>
       <Toaster
         position="top-center"
+        containerStyle={{ maxWidth: 'var(--shell-max)', marginInline: 'auto' }}
         toastOptions={{
           style: {
             background: 'var(--surface)',

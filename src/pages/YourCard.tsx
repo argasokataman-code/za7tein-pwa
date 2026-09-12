@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
@@ -11,9 +12,7 @@ export default function YourCard() {
           <div className="wallet-flow">
             <header className="profile-flow-header ">
               <Link className="back-btn-profile" aria-label="Go back" to="/payment-account">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </Link>
               <h1 className="profile-flow-title">
                 Your Card
@@ -45,7 +44,7 @@ export default function YourCard() {
                   </div>
                   <div className="card-option-meta">
                     <label className="card-checkbox-label">
-                      <input className="card-radio" type="radio" value="1" checked name="defaultCard" />
+                      <input className="card-radio" type="radio" value="1" defaultChecked name="defaultCard" />
                       <span className="card-checkbox-custom" />
                       <span className="use-default-text">
                         Use as default payment method
@@ -94,7 +93,6 @@ export default function YourCard() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

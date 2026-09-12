@@ -1,3 +1,4 @@
+import { ChevronLeft, SquarePen } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link, useNavigate } from 'react-router-dom'
@@ -28,9 +29,7 @@ export default function PersonalData() {
             <div className="profile-flow">
               <header className="profile-flow-header ">
                 <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                  <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
+                  <ChevronLeft size={24} strokeWidth={1.75} />
                 </Link>
                 <h1 className="profile-flow-title">
                   Personal Data
@@ -41,10 +40,7 @@ export default function PersonalData() {
                   <div className="personal-data-avatar">
                     <img alt="Profile" width={52} height={52} src="/assets/img/profile.png" style={{ color: "transparent" }} />
                     <Link className="avatar-edit-btn" aria-label="Change photo" to="/add-profile-photo">
-                      <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                        <path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                      </svg>
+                      <SquarePen size={16} strokeWidth={1.75} />
                     </Link>
                   </div>
                 </div>
@@ -106,7 +102,6 @@ export default function PersonalData() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

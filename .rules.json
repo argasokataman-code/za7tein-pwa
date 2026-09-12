@@ -1,12 +1,21 @@
 {
   "version": 2,
-  "description": "Sa7tein PWA — rules manifest. Front-end showcase only. Baca ini + AGENTS.md + .githooks/pre-commit sebelum kerja.",
+  "description": "Sa7tein PWA — front-end showcase. Product authority: docs/product/prd/manifest.json; UI contract: docs/design/DNA.md.",
+  "productAuthority": {
+    "manifest": "docs/product/prd/manifest.json",
+    "intake": "docs/product/prd/README.md",
+    "activeRevision": "irbid-mvp-2026-09-12",
+    "rule": "PDF/BRS baru proposed sampai source-backed analysis, decision record, dan milestone plan selesai; jangan menyimpulkan dari nama/versi file"
+  },
+  "designDNA": "docs/design/DNA.md",
+  "designDebt": "docs/design/legacy-debt.json (inline SVG count per TSX file may only decrease without a recorded decorative exception)",
   "scope": {
     "is": ["UI/UX", "design system", "mock data di src/data", "Redux state"],
     "is_not": ["backend/API/database", "autentikasi sungguhan", "pembayaran sungguhan", "Web Push service worker"]
   },
   "agent": {
     "startup_hooks": [
+      "baca manifest PRD aktif dan docs/design/DNA.md dulu",
       "baca .rules.json dulu",
       "baca AGENTS.md",
       "baca .githooks/pre-commit",

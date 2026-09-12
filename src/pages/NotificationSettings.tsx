@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react'
 // Preferensi notifikasi. Dipindah dari /notifications, karena rute itu
 // seharusnya berarti kotak masuk — itulah yang dijanjikan tombol lonceng
 // berbadge. Halaman ini yang ditautkan dari menu Profil.
@@ -30,15 +31,7 @@ export default function NotificationSettings() {
                 aria-label="Kembali"
                 onClick={() => navigate(-1)}
               >
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path
-                    d="M15 18l-6-6 6-6"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} aria-hidden="true" />
               </button>
               <h1 className="profile-flow-title">Pengaturan Notifikasi</h1>
             </header>

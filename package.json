@@ -7,6 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
+    "governance:check": "node scripts/check-governance.mjs",
+    "prd:intake": "node scripts/prd-intake.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -3,7 +3,7 @@
 // cannot leak into the rest of the app.
 
 .doc-root *, .doc-root *::before, .doc-root *::after { box-sizing: border-box; margin: 0; padding: 0 }
-.doc-root { --orange: #F15A37; --orange-dim: rgba(241,90,55,0.12); --orange-glow: rgba(241,90,55,0.25); --bg: #FFF9F4; --surface: #FFFFFF; --surface2: #FBF5EF; --border: #EDE4DC; --border2: #DFD2C6; --text: #202020; --muted: #6B6865; --green: #2F8A57; --yellow: #D88A32; --sidebar-w: 260px; --header-h: 56px }
+.doc-root { --orange: var(--sa7tein-orange); --orange-dim: var(--orange-soft); --orange-glow: var(--orange-soft); --bg: var(--bg-warm); --surface2: var(--bg-warm); --border2: var(--border-strong); --text: var(--text-primary); --muted: var(--text-secondary); --green: var(--success); --yellow: var(--warning); --sidebar-w: 260px; --header-h: 56px }
 .doc-root { scroll-behavior: smooth }
 .doc-root { background: var(--bg); color: var(--text); font-family: var(--font-sans); line-height: 1.65; overflow-x: hidden }
 .doc-root { display: flex; min-height: 100vh }

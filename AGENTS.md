@@ -17,7 +17,11 @@ Yang **tidak** dikerjakan di repo ini, dan jangan dimulai di sini:
 
 **Semua data adalah mock.** Isinya di `src/data/`, state-nya di Redux. Kalau sebuah aturan bisnis dari PRD tampak butuh logika, di sini ia jadi **state yang ditampilkan**: kuota `7 / 10` bukan counter yang harus benar, "Ditugaskan otomatis" bukan algoritma.
 
-PRD produknya ada di luar repo ini (`PRD_Sa7tein.pdf`). Repo ini mengerjakan **tampilannya**.
+PRD produk diregistrasi di `docs/product/prd/manifest.json`. Kedua PDF ada di `docs/product/prd/versions/`; revisi aktif `irbid-mvp-2026-09-12`, revisi `radius-mvp-legacy` sudah digantikan. Repo ini mengerjakan **tampilannya**. Aturan lama di bawah yang menyebut A/B/C, kuota free tier, dan transfer manual menjelaskan **kondisi kode saat ini**, bukan requirement aktif.
+
+**Sebelum setiap tugas produk:** baca manifest, sumber PRD aktif, `docs/product/prd/decision-irbid-mvp.md`, dan `docs/design/DNA.md`. Jangan mengambil aturan bisnis dari nama file, komentar lama, atau atlas tanpa mengecek PRD aktif. Jika PRD/BRS baru masuk `docs/product/prd/inbox/`, jalankan alur intake di `docs/product/prd/README.md`; dokumen baru berstatus proposed sampai keputusan aktivasi tertulis. Requirement yang tidak jelas wajib ditandai `UNRESOLVED` dengan sumber, bukan diisi dengan tebakan. Milestone dibuat dari requirement bersumber dan dependensi, bukan sekadar daftar layar.
+
+**Setiap perubahan UI:** baca `docs/design/DNA.md` dan audit terbaru di `docs/design/`. `legacy-debt.json` adalah batas maksimum SVG inline per file; ikon fungsional baru harus Lucide. Kinerja layout terbaru tercatat di `docs/design/audit-2026-09-12.md`, tetapi pengukuran ulang tetap wajib untuk layar yang disentuh.
 
 ---
 
@@ -168,9 +172,9 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 
 ---
 
-## 9. Status & arah berikutnya
+## 9. Status implementasi legacy & arah migrasi
 
-**Role customer selesai** — 46 rute, dari onboarding sampai pesanan selesai. Zona A/B/C (600 m / 1,5 km / 2 km dengan tarif 5.000 / 9.000 / 13.000), geofence 2 km, form apartemen wajib, COD dan transfer manual — semuanya sesuai PRD.
+**Role customer versi legacy selesai** — 46 rute, dari onboarding sampai pesanan selesai. Zona A/B/C (600 m / 1,5 km / 2 km dengan tarif 5.000 / 9.000 / 13.000), geofence 2 km, form apartemen wajib, COD dan transfer manual masih sesuai PRD lama, **belum** sesuai PRD aktif Irbid. Rencana migrasi ada di `docs/product/prd/milestones-irbid-mvp.md`.
 
 **Berikutnya, tiga role sisanya** (masing-masing punya developer sendiri):
 

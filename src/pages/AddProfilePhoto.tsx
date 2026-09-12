@@ -1,3 +1,4 @@
+import { ChevronLeft, Check, TriangleAlert } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -14,9 +15,7 @@ export default function AddProfilePhoto() {
           <div className="profile-flow">
             <header className="profile-flow-header">
               <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                  <path d="M15 18L9 12L15 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
               <h1 className="profile-flow-title">
                 Add Profile Photo
@@ -40,9 +39,7 @@ export default function AddProfilePhoto() {
           <div className="profile-modal-overlay " id="successModal">
             <div className="profile-modal profile-modal-success">
               <div className="profile-modal-icon success-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-check">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
+                <Check size={48} strokeWidth={1.75} />
               </div>
               <h2 className="profile-modal-title">
                 Profile Update Successfully
@@ -58,11 +55,7 @@ export default function AddProfilePhoto() {
           <div className="profile-modal-overlay " id="exitModal">
             <div className="profile-modal profile-modal-exit">
               <div className="profile-modal-icon exit-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-triangle-alert">
-                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
-                  <path d="M12 9v4" />
-                  <path d="M12 17h.01" />
-                </svg>
+                <TriangleAlert size={48} strokeWidth={1.75} />
               </div>
               <h2 className="profile-modal-title">
                 Are you sure want to exit without saving your profile?
@@ -83,7 +76,6 @@ export default function AddProfilePhoto() {
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
     </>
   )
 }

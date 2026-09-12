@@ -17,6 +17,8 @@ Cek terpasang: `git config core.hooksPath` → harus `.githooks`.
 | 3 | Lint | `npx oxlint --quiet` |
 | 4 | Build | `npm run build` (tsc -b && vite build) |
 | 5 | Atlas | `node <atlas> check` (kalau folder `atlas/` ada) |
+| 6 | Product governance | Satu PRD aktif, sumber PDF tetap sesuai SHA-256, milestone/decision tersedia, token CSS terdefinisi |
+| 7 | Documentation sync | Perubahan app harus memperbarui `src/pages/Documentation.tsx` |
 
 Semua harus lulus. Hook menolak commit jika ada yang gagal.
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant, rupiah } from '../data/merchant'
-import { countByTab } from '../data/merchantOrders'
+import { countByTab, orderStatusLabel } from '../data/merchantOrders'
 import { toggleActive } from '../store/slices/merchantSlice'
 
 export default function MerchantDashboard() {
@@ -95,7 +95,7 @@ export default function MerchantDashboard() {
                 </p>
               </div>
               <span className={`merchant-badge merchant-badge-${order.status}`}>
-                {order.status}
+                {orderStatusLabel(order.status)}
               </span>
             </Link>
           ))}
@@ -107,7 +107,7 @@ export default function MerchantDashboard() {
           </div>
           <Link className="merchant-order" to="/merchant/menu">
             <div>
-              <p className="merchant-order-code">Menu &amp; Stock</p>
+              <p className="merchant-order-code">Menu &amp; Stok</p>
               <p className="merchant-order-sub">Atur item dan ketersediaan</p>
             </div>
             <PlusCircle size={18} strokeWidth={1.75} />

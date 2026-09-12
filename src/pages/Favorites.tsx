@@ -1,19 +1,20 @@
-import { Clock, Star } from 'lucide-react'
+import { Clock, Star, ChevronLeft, Heart } from 'lucide-react'
 import { rupiah } from '../data/merchant'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AddToCartButton } from '../components/ui/AddToCartButton'
 import { FavoriteButton } from '../components/ui/FavoriteButton'
-import { foods } from '../data/foods'
 import { useAppSelector } from '../hooks/useAppStore'
-import type { Food } from '../types'
+import { useCatalog } from '../hooks/useCatalog'
+import type { MenuItem } from '../types'
 
 export default function Favorites() {
   const navigate = useNavigate()
   const ids = useAppSelector((s) => s.favorites.ids)
+  const { items } = useCatalog()
   const favorites = ids
-    .map((id) => foods.find((f) => f.id === id))
-    .filter((f): f is Food => Boolean(f))
+    .map((id) => items.find((f) => f.id === id))
+    .filter((f): f is MenuItem => Boolean(f))
 
   return (
     <>
@@ -27,15 +28,7 @@ export default function Favorites() {
                 aria-label="Go back"
                 onClick={() => navigate(-1)}
               >
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M15 18L9 12L15 6"
-                    stroke="white"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
               <h1 className="favorites-title">
                 Favorites{favorites.length > 0 ? ` (${favorites.length})` : ''}
@@ -51,15 +44,7 @@ export default function Favorites() {
             >
               {favorites.length === 0 ? (
                 <div className="empty-state">
-                  <svg width={80} height={80} viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                      stroke="white"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Heart size={80} strokeWidth={1.75} color="var(--orange-ink)" />
                   <h2>No Favorites Yet</h2>
                   <p>Start adding your favourite items to see them here!</p>
                   <Link className="btn btn-primary" to="/home">
@@ -124,15 +109,6 @@ export default function Favorites() {
           </div>
         </main>
       </div>
-      <div
-        data-rht-toaster=""
-        style={{
-          position: 'fixed',
-          zIndex: 9999,
-          inset: 16,
-          pointerEvents: 'none',
-        }}
-      />
     </>
   )
 }
