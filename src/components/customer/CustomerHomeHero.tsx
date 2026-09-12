@@ -67,12 +67,6 @@ function Sa7teinHeroPattern() {
         d="M0,400 C200,350 350,460 600,390 C800,320 900,440 1000,380 L1000,520 L0,520 Z"
       />
 
-      {/* Garis rute pengiriman. */}
-      <path
-        className="s7-route"
-        d="M 706 200 Q 790 212 800 238 T 892 228"
-      />
-
       <g className="s7-dot-matrix">
         {[0, 1, 2].map((row) =>
           [0, 1, 2, 3].map((column) => (
@@ -86,28 +80,6 @@ function Sa7teinHeroPattern() {
         )}
       </g>
 
-      {/* Gelas soda, geometri lucide cup-soda apa adanya, dimiringkan 9 derajat.
-          scale(3.8) dengan stroke-width 0.8 di dalamnya -> 3 unit viewBox,
-          sekitar 1.7px di layar, setara ketebalan ornamen lain di hero ini. */}
-      <g
-        className="s7-cup"
-        transform="translate(730 258) translate(12 12) rotate(-9) scale(3.8) translate(-12 -12)"
-      >
-        <path d="m6 8 1.75 12.28a2 2 0 0 0 2 1.72h4.54a2 2 0 0 0 2-1.72L18 8" />
-        <path d="M5 8h14" />
-        <path d="M7 15a6.47 6.47 0 0 1 5 0 6.47 6.47 0 0 0 5 0" />
-        <path d="m12 8 1-6h2" />
-
-        {/* Pin lokasi. */}
-        <g className="s7-cup__pin" data-hanya-lebar transform="translate(22 2)">
-          <circle className="s7-cup__pin-halo" cx="4" cy="4" r="3.4" />
-          <path
-            className="s7-cup__pin-mark"
-            d="M 4 1.4 C 2.9 1.4 2 2.3 2 3.4 C 2 4.9 4 6.4 4 6.4 C 4 6.4 6 4.9 6 3.4 C 6 2.3 5.1 1.4 4 1.4 Z"
-          />
-          <circle className="s7-cup__pin-dot" cx="4" cy="3.2" r="0.8" />
-        </g>
-      </g>
     </svg>
   )
 }
