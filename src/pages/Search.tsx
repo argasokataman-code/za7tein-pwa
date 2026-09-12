@@ -9,7 +9,10 @@ import { useChipSet } from '../hooks/useToggleSet'
 
 import toast from 'react-hot-toast'
 
+import { useState } from 'react'
+
 export default function Search() {
+  const [query, setQuery] = useState('')
   const chips = useChipSet([])
   const { addToCart } = useFoodActions()
   const navigate = useNavigate()
@@ -34,7 +37,7 @@ export default function Search() {
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />
               </svg>
-              <input placeholder="Search for Food.." className="search-input" aria-label="Search for food" type="text" value="" />
+              <input placeholder="Search for Food.." className="search-input" aria-label="Search for food" type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
               <Link className="filter-link" aria-label="Open filters" to="/filter">
                 <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#787878" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sliders-horizontal">
                   <path d="M10 5H3" />
