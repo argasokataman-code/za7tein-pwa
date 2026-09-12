@@ -15,6 +15,7 @@ import { ComponentsSection } from './documentation/sections/ComponentsSection'
 import { BackendSection } from './documentation/sections/BackendSection'
 import { MerchantDesignSection } from './documentation/sections/MerchantDesignSection'
 import { LayoutExceptionsSection } from './documentation/sections/LayoutExceptionsSection'
+import { LandingSection } from './documentation/sections/LandingSection'
 
 const SECTIONS = [
   IntroductionSection,
@@ -31,6 +32,7 @@ const SECTIONS = [
   BackendSection,
   MerchantDesignSection,
   LayoutExceptionsSection,
+  LandingSection,
 ]
 
 const HERO_TAGS = [
@@ -78,7 +80,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.2.0
+              v2.3.0
             </span>
             <span>
               React 19 · Vite · TypeScript

@@ -19,4 +19,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '12', id: 'backend', label: 'Backend Integration' },
   { num: '13', id: 'merchant-design', label: 'Merchant Console' },
   { num: '14', id: 'layout-exceptions', label: 'Layout Exceptions' },
+  { num: '15', id: 'landing', label: 'Landing Page' },
 ]

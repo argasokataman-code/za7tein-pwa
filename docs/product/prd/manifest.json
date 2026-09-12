@@ -21,6 +21,16 @@
       "supersedes": "radius-mvp-legacy",
       "decisionRecord": "decision-irbid-mvp.md",
       "milestonePlan": "milestones-irbid-mvp.md"
+    },
+    {
+      "id": "landing-page-2026-09-13",
+      "documentVersion": "UNVERIFIED",
+      "status": "proposed",
+      "source": "versions/landing-page-2026-09-13/source.md",
+      "sha256": "b3d538883e33a6bcfe8f88d88de980fc9d280923853bfc68c9583149a60cb5be",
+      "originalFilename": "landing-page.md",
+      "decisionRecord": "decision-landing-page.md",
+      "milestonePlan": "versions/landing-page-2026-09-13/milestones.md"
     }
   ]
 }

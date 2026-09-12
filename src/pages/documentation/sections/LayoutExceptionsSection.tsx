@@ -40,6 +40,22 @@ div.landing-page {
         430px column, and the <code className="doc-inline">:has()</code> trigger restores
         the shell automatically when the landing page unmounts.
       </p>
+      <h3 className="doc-h3">Landing — decorative brand motifs</h3>
+      <p className="doc-p">
+        The 2026-09-13 landing revision (spec:
+        <code className="doc-inline">docs/product/prd/decision-landing-page.md</code>) adds decorative inline
+        SVG motifs (route line, dot matrix, cloche) in
+        <code className="doc-inline">src/components/landing/LandingDecor.tsx</code>. They are ornament only and
+        recorded in <code className="doc-inline">docs/design/legacy-debt.json</code>; functional icons remain
+        <code className="doc-inline">lucide-react</code>, and the radius cap stays at 12px.
+      </p>
+      <p className="doc-p">
+        A later app-first revision keeps the full-width shell exception but removes the
+        hand-rolled product mockups: previews now render the real{' '}
+        <code className="doc-inline">FoodCard</code> and the shared{' '}
+        <code className="doc-inline">JourneyLine</code> against mock data. See the{' '}
+        <em>Landing Page</em> section for the component wiring.
+      </p>
       <h3 className="doc-h3">Super Admin — pending</h3>
       <p className="doc-p">
         The Super Admin dashboard (tables, full-width) is expected to need the same
