@@ -1840,6 +1840,22 @@ body.sa7tein-track-page {
   margin-inline: auto;
 }
 
+/* `.home-screen-wrapper .bottom-nav` dari stylesheet lama berspesifisitas
+   0-2-0, jadi ia menang atas `.bottom-nav` di atas dan bilahnya melebar
+   1024px — 297px keluar kolom di tiap sisi. Aturan ini (0-2-0 juga, tapi
+   berkas ini diimpor terakhir) mengembalikan bilah ke kolom shell di semua
+   lebar: `left/right: 0` + `max-width` + `margin-inline: auto` menengahkan
+   elemen `fixed` terhadap viewport tanpa `transform`. */
+.bottom-nav,
+.home-screen-wrapper .bottom-nav {
+  left: 0;
+  right: 0;
+  transform: none;
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+}
+
 /* ── Kotak masuk notifikasi ────────────────────────────────────────────────
    Barisnya tombol, bukan div: menekannya menandai sudah dibaca. Yang belum
    dibaca ditandai tepi kiri oranye dan ikon bertint, bukan latar baru —
