@@ -110,7 +110,16 @@ export default function App() {
       </BrowserRouter>
       <Toaster
         position="top-center"
-        toastOptions={{ style: { background: '#1a1a1a', color: '#fff' } }}
+        toastOptions={{
+          style: {
+            background: 'var(--surface)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: 'var(--shadow-md)',
+            fontSize: 'var(--text-sm)',
+          },
+        }}
       />
     </StoreProvider>
   )
