@@ -24,12 +24,25 @@
 
 import './CustomerHomeHero.css'
 
-function Sa7teinHeroPattern() {
+/**
+ * Pola latar hero, dipecah dua lapis.
+ *
+ * Versi sebelumnya memakai satu SVG dengan `preserveAspectRatio="none"`.
+ * Itu memaksa viewBox 1000x520 bertemu kotak hero yang rasionya 1.31, jadi
+ * skalanya tidak seragam: 0.390 mendatar melawan 0.572 tegak, beda 1.47x.
+ * Akibatnya lingkaran r=5 tampil sebagai lonjong 3.9x5.7px, dan stroke 9 unit
+ * menjadi 3.5px mendatar tapi 5.1px tegak — garisnya tidak sama tebal.
+ *
+ * Jadi hanya bentuk aliran yang boleh diregangkan; ia organik dan tidak punya
+ * acuan bulat. Titik dan cloche dipisah ke lapisnya sendiri yang diskalakan
+ * seragam, supaya lingkarannya tetap bulat dan tebal garisnya tetap rata.
+ */
+function Sa7teinHeroWaves() {
   return (
     <svg
-      className="s7-hero-pattern"
-      viewBox="0 0 1000 520"
-      preserveAspectRatio="none"
+      className="s7-hero-waves"
+      viewBox="0 0 1000 260"
+      preserveAspectRatio="xMidYMax slice"
       aria-hidden="true"
       focusable="false"
     >
@@ -38,55 +51,68 @@ function Sa7teinHeroPattern() {
           bentuk yang mengambang sendiri-sendiri. */}
       <path
         className="s7-pattern-fill s7-pattern-fill--one"
-        d="M0 500
-           C130 430 240 450 360 475
-           C490 502 610 450 720 460
-           C850 472 930 510 1000 520
-           L1000 520
-           L0 520 Z"
+        d="M0 240
+           C130 170 240 190 360 215
+           C490 242 610 190 720 200
+           C850 212 930 250 1000 260
+           L1000 260
+           L0 260 Z"
       />
 
       <path
         className="s7-pattern-fill s7-pattern-fill--two"
-        d="M0 520
-           C180 455 310 420 470 470
-           C640 520 760 470 1000 440
-           L1000 520 Z"
+        d="M0 260
+           C180 195 310 160 470 210
+           C640 260 760 210 1000 180
+           L1000 260 Z"
       />
+    </svg>
+  )
+}
 
+function Sa7teinHeroMotif() {
+  return (
+    <svg
+      className="s7-hero-motif"
+      viewBox="0 0 460 520"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+      focusable="false"
+    >
       {/* Bentuk organik besar yang terpotong di tepi kanan — memberi kesan
           komposisi yang lebih luas dari kotaknya. */}
       <path
         className="s7-pattern-fill s7-pattern-fill--three"
-        d="M870 -30
-           C945 70 930 180 910 270
-           C890 350 900 450 1000 540
-           L1000 -30 Z"
+        d="M362 -30
+           C437 70 422 180 402 270
+           C382 350 392 450 492 540
+           L492 -30 Z"
       />
 
-      {/* Matriks titik, diletakkan di pita kosong antara lokasi dan judul. */}
+      {/* Matriks titik — tekstur penunjang, jadi opasitasnya di bawah cloche. */}
       <g className="s7-dot-matrix">
         {[0, 1, 2, 3, 4].map((column) =>
           [0, 1, 2].map((row) => (
             <circle
               key={`${column}-${row}`}
-              cx={700 + column * 26}
-              cy={125 + row * 26}
+              cx={216 + column * 26}
+              cy={128 + row * 26}
               r="5"
             />
           )),
         )}
       </g>
 
-      {/* Cloche — garis tipis, bukan isian, supaya terbaca sebagai ilustrasi
-          dan bukan siluet yang menutupi konten. */}
-      <g className="s7-cloche">
-        <path d="M715 380 H885" />
-        <path d="M735 365 C742 300 785 270 800 270 C840 270 865 310 870 365" />
-        <path d="M796 270 C795 260 802 250 810 250" />
-        <path d="M770 235 C760 220 765 208 775 195" />
-        <path d="M815 235 C805 220 812 207 820 195" />
-        <path d="M852 238 C845 224 850 212 859 202" />
+      {/* Cloche. Opasitasnya di ujung atas rentang 6–14% yang diminta: pada
+          11% bentuknya cuma terbaca sebagai bercak, padahal ini satu-satunya
+          unsur yang benar-benar mengatakan "makanan". */}
+      <g className="s7-cloche" data-hanya-lebar>
+        <path d="M231 366 H401" />
+        <path d="M251 351 C258 286 301 256 316 256 C356 256 381 296 386 351" />
+        <path d="M312 256 C311 246 318 236 326 236" />
+        <path d="M286 221 C276 206 281 194 291 181" />
+        <path d="M331 221 C321 206 328 193 336 181" />
+        <path d="M368 224 C361 210 366 198 375 188" />
       </g>
     </svg>
   )
@@ -210,7 +236,8 @@ export default function CustomerHomeHero({
 }: Props) {
   return (
     <section className="s7-hero">
-      <Sa7teinHeroPattern />
+      <Sa7teinHeroWaves />
+      <Sa7teinHeroMotif />
 
       <div className="s7-hero__content">
         <header className="s7-hero__topbar">
