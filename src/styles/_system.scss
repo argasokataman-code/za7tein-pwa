@@ -659,3 +659,35 @@ select {
 .category-btn.active svg {
   color: var(--on-brand);
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 11. Scroll
+// ═══════════════════════════════════════════════════════════════════════════
+// html/body dikunci height:100% + overflow:hidden, jadi dokumen tidak pernah
+// bisa menggulir dan body berubah menjadi kontainer scroll. Di atasnya,
+// kontainer halaman seperti .my-account-scroll memasang overflow-y:auto
+// sendiri. Hasilnya dua kontainer bersarang memperebutkan gestur yang sama:
+// yang dalam menghabiskan jatahnya dulu (44px di halaman profil), tersangkut,
+// baru yang luar melanjutkan. Itu yang terasa patah, bukan mulus.
+//
+// Sekarang hanya dokumen yang menggulir, jadi browser memakai momentum asli
+// platform dan URL bar ikut menyusut saat digulir di ponsel.
+
+html,
+body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100dvh;
+}
+
+// Kontainer halaman tidak lagi menggulir sendiri; biarkan tumbuh alami.
+.my-account-scroll,
+.profile-flow-page-scroll {
+  height: auto;
+  max-height: none;
+  overflow: visible;
+}
