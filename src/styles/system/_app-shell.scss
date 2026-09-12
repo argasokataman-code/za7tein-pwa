@@ -1,0 +1,6 @@
+// Native-app feel for the installed PWA: disable webpage overscroll /
+// pull-to-refresh bounce so the app does not scroll past its content.
+html,
+body {
+  overscroll-behavior: none;
+}

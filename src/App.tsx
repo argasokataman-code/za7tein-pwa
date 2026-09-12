@@ -59,8 +59,14 @@ import SignUp from './pages/SignUp'
 import Verification from './pages/Verification'
 import YourCard from './pages/YourCard'
 
-const routes: [string, React.ComponentType][] = [
+const APP_BASENAME = '/app'
+
+const webRoutes: [string, React.ComponentType][] = [
   ['/', Landing],
+  ['/documentation', Documentation],
+]
+
+const appRoutes: [string, React.ComponentType][] = [
   ['/onboarding', Onboarding],
   ['/account-setup', AccountSetup],
   ['/signin', SignIn],
@@ -113,21 +119,43 @@ const routes: [string, React.ComponentType][] = [
   ['/faq', Faq],
   ['/help-center', HelpCenter],
   ['/privacy-policy', PrivacyPolicy],
-  ['/documentation', Documentation],
   ['/offline', Offline],
 ]
 
+function AppRouter() {
+  return (
+    <BrowserRouter basename={APP_BASENAME}>
+      <Routes>
+        {appRoutes.map(([path, Component]) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
+        <Route path="*" element={<Navigate to="/home" replace />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+function WebsiteRouter() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {webRoutes.map(([path, Component]) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
 export default function App() {
+  const isApp =
+    window.location.pathname === APP_BASENAME ||
+    window.location.pathname.startsWith(`${APP_BASENAME}/`)
+
   return (
     <StoreProvider>
-      <BrowserRouter>
-        <Routes>
-          {routes.map(([path, Component]) => (
-            <Route key={path} path={path} element={<Component />} />
-          ))}
-          <Route path="*" element={<Navigate to="/home" replace />} />
-        </Routes>
-      </BrowserRouter>
+      {isApp ? <AppRouter /> : <WebsiteRouter />}
       <Toaster
         position="top-center"
         containerStyle={{ maxWidth: 'var(--shell-max)', marginInline: 'auto' }}

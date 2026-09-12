@@ -2,13 +2,13 @@
   "name": "Sa7tein — Marketplace Makanan Hyperlocal",
   "short_name": "Sa7tein",
   "description": "Pesan makanan dari toko sekitar dalam radius 2 km. COD atau transfer manual.",
-  "start_url": "/",
-  "id": "/",
+  "start_url": "/app/home",
+  "id": "/app/",
   "display": "standalone",
   "background_color": "#FFF9F4",
   "theme_color": "#F15A37",
   "orientation": "portrait-primary",
-  "scope": "/",
+  "scope": "/app/",
   "lang": "id",
   "categories": [
     "food",
@@ -70,7 +70,7 @@
       "name": "Pesan Makanan",
       "short_name": "Pesan",
       "description": "Jelajahi menu dan pesan",
-      "url": "/home",
+      "url": "/app/home",
       "icons": [
         {
           "src": "/icons/icon-96x96.png",
@@ -82,7 +82,7 @@
       "name": "Pesanan Saya",
       "short_name": "Pesanan",
       "description": "Lacak pesanan berjalan",
-      "url": "/checkout",
+      "url": "/app/checkout",
       "icons": [
         {
           "src": "/icons/icon-96x96.png",

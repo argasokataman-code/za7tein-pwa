@@ -151,6 +151,17 @@ export function WhatsNewSection() {
                 "Sa7tein" — package renamed, cache "sa7tein-static", persist prefix "sa7tein:"
               </td>
             </tr>
+            <tr>
+              <td>
+                App scope
+              </td>
+              <td>
+                One SPA; PWA started at "/" (the landing page), service worker controlled every URL
+              </td>
+              <td>
+                App moved under "/app/*" with router basename; PWA start_url "/app/home", scope "/app/"; landing and /documentation stay plain web pages
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

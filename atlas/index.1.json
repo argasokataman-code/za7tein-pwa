@@ -2930,6 +2930,253 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/WhatsNewSection.tsx"
+    },
+    {
+      "id": "TASK-934",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:50:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest.json (+2/-2) — edit via tool: \"start_url\": \"/app/home\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest.json"
+    },
+    {
+      "id": "TASK-935",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:50:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Landing.tsx (+1/-1) — edit via tool: tsx: import { Link } from 'react-router-do",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Landing.tsx"
+    },
+    {
+      "id": "TASK-936",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:50:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+62/-57) — edit via tool: tsx: const APP_BASENAME = '/app'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-937",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:50:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/vite.config.ts (+1/-1) — edit via tool: ts: navigateFallbackDenylist: [/^\\/api\\//, /",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/vite.config.ts"
+    },
+    {
+      "id": "TASK-938",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:51:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Landing.tsx (+1/-1) — edit via tool: tsx: <a href=\"/app/merchant/orders\">Mercha",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Landing.tsx"
+    },
+    {
+      "id": "TASK-939",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:52:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build 2>&1; echo \"EXIT_STATUS=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-940",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:53:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: c=\"npm run lint\"; eval \"$c\"; echo \"EXIT_STATUS=$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-941",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:53:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+7) — write via tool: // Native-app feel for the insta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-942",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:53:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/index.html (+1/-1) — edit via tool: content=\"width=device-width, initial-sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/index.html"
+    },
+    {
+      "id": "TASK-943",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:53:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/onboarding\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-944",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:53:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-945",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:54:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -30 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-946",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:54:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.5.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

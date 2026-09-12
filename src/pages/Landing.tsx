@@ -10,7 +10,7 @@ import {
   UtensilsCrossed,
   Wallet,
 } from 'lucide-react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { JourneyLine } from '../components/JourneyLine'
 import { ClocheDecor, DotMatrixDecor, RouteDecor } from '../components/landing/LandingDecor'
@@ -45,8 +45,7 @@ const ZONES = [
 ]
 
 export default function Landing() {
-  const navigate = useNavigate()
-  const openFood = (id: string) => navigate(`/menu-detail/${id}`)
+  const openFood = (id: string) => { window.location.href = `/app/menu-detail/${id}` }
 
   return (
     <div className="landing-page lp">
@@ -69,8 +68,8 @@ export default function Landing() {
             </nav>
           </details>
           <div className="lp-nav-actions">
-            <Link to="/signin" className="lp-btn lp-btn-quiet">Masuk</Link>
-            <Link to="/onboarding" className="lp-btn lp-btn-primary">Mulai Pesan</Link>
+            <a href="/app/signin" className="lp-btn lp-btn-quiet">Masuk</a>
+            <a href="/app/onboarding" className="lp-btn lp-btn-primary">Mulai Pesan</a>
           </div>
         </div>
       </header>
@@ -88,9 +87,9 @@ export default function Landing() {
                 pengantaran langsung dari kurir toko.
               </p>
               <div className="lp-hero-actions">
-                <Link to="/onboarding" className="lp-btn lp-btn-solid">
+                <a href="/app/onboarding" className="lp-btn lp-btn-solid">
                   Mulai Pesan <ArrowRight size={18} strokeWidth={1.75} />
-                </Link>
+                </a>
                 <a href="#cara-kerja" className="lp-btn lp-btn-outline">Lihat Cara Kerja</a>
               </div>
             </div>
@@ -214,9 +213,9 @@ export default function Landing() {
                 Terima pesanan, atur waktu masak, kelola stok, dan pantau kurir dalam satu
                 tampilan operasional.
               </p>
-              <Link to="/merchant/orders" className="lp-btn lp-btn-primary">
+              <a href="/app/merchant/orders" className="lp-btn lp-btn-primary">
                 Buka konsol merchant <ArrowRight size={18} strokeWidth={1.75} />
-              </Link>
+              </a>
             </div>
             <div className="lp-ticket lp-ticket-lg">
               <span className="lp-ticket-head">
@@ -301,7 +300,7 @@ export default function Landing() {
               <p>Temukan merchant di sekitarmu dan pesan langsung dari Sa7tein.</p>
             </div>
             <div className="lp-cta-actions">
-              <Link to="/onboarding" className="lp-btn lp-btn-solid">Mulai Pesan</Link>
+              <a href="/app/onboarding" className="lp-btn lp-btn-solid">Mulai Pesan</a>
               <a href="#merchant" className="lp-btn lp-btn-outline">Daftar Merchant</a>
             </div>
           </div>
@@ -314,7 +313,7 @@ export default function Landing() {
           <p>Showcase UI/UX — semua data mock, tanpa transaksi sungguhan.</p>
           <nav className="lp-footer-nav" aria-label="Tautan footer">
             <a href="#cara-kerja">Cara Kerja</a>
-            <Link to="/merchant/orders">Merchant</Link>
+            <a href="/app/merchant/orders">Merchant</a>
             <Link to="/documentation">Dokumentasi</Link>
           </nav>
         </div>
