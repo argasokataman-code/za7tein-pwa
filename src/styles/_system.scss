@@ -1941,3 +1941,34 @@ body.sa7tein-track-page {
   color: var(--text-secondary);
   font-size: var(--text-sm);
 }
+
+/* ── Padding halaman alur profil ───────────────────────────────────────────
+   Padding 20px seharusnya datang dari .profile-flow-page-scroll, elemen
+   antara yang tidak dipakai semua halaman. Akibatnya .profile-flow dan
+   .profile-flow-main tidak punya padding sama sekali di empat halaman —
+   Notifications, NotificationSettings, AddProfilePhoto, Language — dan
+   kartunya menempel persis ke tepi layar.
+
+   Padding dipindah ke .profile-flow supaya berlaku untuk semua halaman tanpa
+   bergantung pada elemen antara. .profile-flow-page-scroll kemudian dilepas
+   kunci tingginya, karena kalau tidak halaman yang memakainya tetap punya dua
+   penggulung bersarang. */
+
+.profile-flow {
+  max-width: var(--shell-max);
+  padding-inline: var(--space-5);
+}
+
+/* Header melebar sampai tepi kolom supaya latarnya menutupi konten yang lewat
+   di belakangnya saat digulir; isinya tetap sejajar 20px. */
+.profile-flow-header {
+  margin-inline: calc(-1 * var(--space-5));
+  padding-inline: var(--space-5);
+}
+
+.profile-flow-page .profile-flow-page-scroll {
+  height: auto;
+  min-height: 0;
+  padding: 0 0 var(--space-8);
+  overflow: visible;
+}

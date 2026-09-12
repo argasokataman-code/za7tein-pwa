@@ -72,13 +72,14 @@ body {
 @media (min-width:768px) {
   body {
     width:100%
-  }
-
-
-  .home-screen,.onboarding-screen,.auth-screen,.order-placed-screen,.order-tracking-screen,.order-delivered-screen,.menu-detail-screen,.checkout-screen,.payment-screen,.profile-screen,.settings-screen,div[class*=-screen],div[class*=-page],body>div {
-    max-width:1024px;
-    margin:0 auto
   }}
+
+/* Tidak dibungkus media query: kolomnya dikunci ke lebar mobile di lebar
+   berapa pun, supaya tata letak 390px tidak pernah melar. */
+.home-screen,.onboarding-screen,.auth-screen,.order-placed-screen,.order-tracking-screen,.order-delivered-screen,.menu-detail-screen,.checkout-screen,.payment-screen,.profile-screen,.settings-screen,div[class*=-screen],div[class*=-page],body>div {
+  max-width:var(--shell-max);
+  margin:0 auto
+}
 
 .h-scroll-strip {
   -webkit-overflow-scrolling:touch;

@@ -35,9 +35,12 @@
   --radius-xl: 12px;   /* sheet, modal — brief menahan langit-langit di 12px */
   --radius-pill: 9999px;
 
-  /* Batas lebar kolom aplikasi. Dipakai aturan global di _app.scss untuk
-     semua *-screen, dan oleh bilah position:fixed supaya tetap sejajar. */
-  --shell-max: 1024px;
+  /* Batas lebar kolom aplikasi. 430px adalah lebar mobile terlebar yang
+     dirancang; aplikasi ini mobile-first, jadi di jendela lebar ia tampil
+     sebagai kolom ponsel yang ditengahkan, bukan melar sampai 1024px dan
+     membuat tata letak 390px terlihat renggang. Dipakai aturan global di
+     _app.scss dan oleh bilah position:fixed supaya tetap sejajar. */
+  --shell-max: 430px;
 
   --space-1: 4px;
   --space-2: 8px;
