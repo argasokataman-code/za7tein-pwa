@@ -791,10 +791,17 @@ body {
 // informasinya. Di sini pemisah antar bagian cukup garis 1px, dan yang
 // membedakan tingkat kepentingan adalah ukuran huruf serta jarak.
 
+/* Tiga nilai ini dulu hex mentah di blok :root milik _system.scss, dan
+   --success bahkan MENIMPA token dari _tokens.scss — sumber kebenaran kedua
+   untuk warna yang sama, persis pola yang sedang diberantas di berkas ini.
+
+   --journey-todo adalah krem kelima: #d9cfc6 bersebelahan dengan --border
+   #EDE4DC dan --border-strong #DFD2C6, tanpa peran yang berbeda. Sekarang
+   keduanya menunjuk token yang sudah ada, jadi nama semantiknya tetap tapi
+   nilainya tidak lagi berdiri sendiri. */
 :root {
-  --success: #5c7a5c;
-  --success-soft: #eaf0ea;
-  --journey-todo: #d9cfc6;
+  --success-soft: var(--green-soft);
+  --journey-todo: var(--border-strong);
 }
 
 .track-screen {
