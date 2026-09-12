@@ -3177,6 +3177,25 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-947",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "01:54:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/sa7tein-commitmsg.txt (+8) — write via tool: feat(pwa): scope the app unde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/sa7tein-commitmsg.txt"
     }
   ]
 }
