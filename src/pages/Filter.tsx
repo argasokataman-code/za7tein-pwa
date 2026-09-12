@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useChipSet } from '../hooks/useToggleSet'
 
+
 export default function Filter() {
   const chips = useChipSet(["Sizzling"])
   const navigate = useNavigate()
@@ -104,7 +105,7 @@ export default function Filter() {
               </div>
             </div>
             <div className="filter-actions">
-              <button type="button" className="apply-btn" aria-label="Apply selected filters">
+              <button type="button" className="apply-btn" aria-label="Apply selected filters" onClick={() => { navigate('/search') }}>
                 Apply Filter
               </button>
               <button type="button" className="clear-btn" aria-label="Clear all filters">

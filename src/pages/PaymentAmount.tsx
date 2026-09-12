@@ -2,6 +2,7 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+
 export default function PaymentAmount() {
   const navigate = useNavigate()
   return (
@@ -66,7 +67,7 @@ export default function PaymentAmount() {
             </div>
           </div>
           <div className="payment-amount-footer">
-            <button className="btn btn-primary pay-btn">
+            <button className="btn btn-primary pay-btn" onClick={() => { navigate('/order-placed') }}>
               Pay Now
             </button>
           </div>

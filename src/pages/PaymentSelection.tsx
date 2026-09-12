@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { useSelection } from '../hooks/useToggleSet'
 
+import toast from 'react-hot-toast'
+
 export default function PaymentSelection() {
   const selection = useSelection("Master Card **** **** 1234")
   const navigate = useNavigate()
@@ -27,7 +29,7 @@ export default function PaymentSelection() {
               Payment Account
             </Link>
             <div className="payment-list" role="radiogroup" aria-label="Select a payment method">
-              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("PayPal") ? " selected" : ""}`} onClick={() => selection.select("PayPal")}>
+              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("PayPal") ? " selected" : ""}`} onClick={() => { selection.select("PayPal"); toast.success("PayPal selected", { icon: "✅" }); navigate('/payment-amount') }}>
                 <div className="payment-icon">
                   <div className="paypal-logo" aria-label="PayPal">
                     <svg width={40} height={24} viewBox="0 0 40 24" fill="none">
@@ -45,7 +47,7 @@ export default function PaymentSelection() {
                   <div className="radio-outer" />
                 </div>
               </button>
-              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("Google Pay") ? " selected" : ""}`} onClick={() => selection.select("Google Pay")}>
+              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("Google Pay") ? " selected" : ""}`} onClick={() => { selection.select("Google Pay"); toast.success("Google Pay selected", { icon: "✅" }); navigate('/payment-amount') }}>
                 <div className="payment-icon">
                   <div className="googlepay-logo" aria-label="Google Pay">
                     <svg width={32} height={32} viewBox="0 0 48 48" fill="none">
@@ -65,7 +67,7 @@ export default function PaymentSelection() {
                   <div className="radio-outer" />
                 </div>
               </button>
-              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("Apple Pay") ? " selected" : ""}`} onClick={() => selection.select("Apple Pay")}>
+              <button type="button" role="radio" aria-checked="false" className={`payment-item${selection.isSelected("Apple Pay") ? " selected" : ""}`} onClick={() => { selection.select("Apple Pay"); toast.success("Apple Pay selected", { icon: "✅" }); navigate('/payment-amount') }}>
                 <div className="payment-icon">
                   <div className="applepay-logo" aria-label="Apple Pay">
                     <svg width={28} height={28} viewBox="0 0 24 24" fill="none">
@@ -82,7 +84,7 @@ export default function PaymentSelection() {
                   <div className="radio-outer" />
                 </div>
               </button>
-              <button type="button" role="radio" aria-checked="true" className={`payment-item${selection.isSelected("Master Card **** **** 1234") ? " selected" : ""}`} onClick={() => selection.select("Master Card **** **** 1234")}>
+              <button type="button" role="radio" aria-checked="true" className={`payment-item${selection.isSelected("Master Card **** **** 1234") ? " selected" : ""}`} onClick={() => { selection.select("Master Card **** **** 1234"); toast.success("Master Card **** **** 1234 selected", { icon: "✅" }); navigate('/payment-amount') }}>
                 <div className="payment-icon">
                   <div className="mastercard-logo" aria-label="Mastercard">
                     <div className="mc-circle mc-red" />

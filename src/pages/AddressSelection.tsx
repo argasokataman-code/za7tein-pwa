@@ -2,6 +2,7 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+
 export default function AddressSelection() {
   const navigate = useNavigate()
   return (
@@ -128,7 +129,7 @@ export default function AddressSelection() {
             </button>
           </div>
           <div className="address-selection-footer">
-            <button type="button" className="proceed-btn" aria-label="Continue with selected address">
+            <button type="button" className="proceed-btn" aria-label="Continue with selected address" onClick={() => { navigate('/checkout') }}>
               Continue
             </button>
           </div>

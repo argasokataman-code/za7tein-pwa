@@ -2,7 +2,11 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+import toast from 'react-hot-toast'
+import { useState } from 'react'
+
 export default function RatingDriver() {
+  const [rating, setRating] = useState(4)
   const navigate = useNavigate()
   return (
     <>
@@ -47,27 +51,27 @@ export default function RatingDriver() {
                 How much rating would you like to give?
               </p>
               <div className="star-rating" role="group" aria-label="Star rating">
-                <button type="button" className="star-btn active" aria-label="1 star" style={{ pointerEvents: "auto" }}>
+                <button type="button" className={`star-btn${rating >= 1 ? " active" : ""}`} aria-label="1 star" style={{ pointerEvents: "auto" }} onClick={() => setRating(1)}>
                   <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
                 </button>
-                <button type="button" className="star-btn active" aria-label="2 stars" style={{ pointerEvents: "auto" }}>
+                <button type="button" className={`star-btn${rating >= 2 ? " active" : ""}`} aria-label="2 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(2)}>
                   <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
                 </button>
-                <button type="button" className="star-btn active" aria-label="3 stars" style={{ pointerEvents: "auto" }}>
+                <button type="button" className={`star-btn${rating >= 3 ? " active" : ""}`} aria-label="3 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(3)}>
                   <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
                 </button>
-                <button type="button" className="star-btn active" aria-label="4 stars" style={{ pointerEvents: "auto" }}>
+                <button type="button" className={`star-btn${rating >= 4 ? " active" : ""}`} aria-label="4 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(4)}>
                   <svg width={40} height={40} viewBox="0 0 24 24" fill="#fbbf24" stroke="#fbbf24" strokeWidth="2">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
                 </button>
-                <button type="button" className="star-btn" aria-label="5 stars" style={{ pointerEvents: "auto" }}>
+                <button type="button" className={`star-btn${rating >= 5 ? " active" : ""}`} aria-label="5 stars" style={{ pointerEvents: "auto" }} onClick={() => setRating(5)}>
                   <svg width={40} height={40} viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
@@ -75,7 +79,7 @@ export default function RatingDriver() {
               </div>
             </div>
             <div className="rating-driver-footer">
-              <button type="button" className="rating-submit-btn">
+              <button type="button" className="rating-submit-btn" onClick={() => { toast.success("Rating submitted! Thank you."); navigate('/home') }}>
                 Submit
               </button>
             </div>

@@ -2,6 +2,8 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+import toast from 'react-hot-toast'
+
 export default function AddProfilePhoto() {
   const navigate = useNavigate()
   return (
@@ -30,7 +32,7 @@ export default function AddProfilePhoto() {
                 </button>
                 <input accept="image/*" className="d-none" type="file" />
               </div>
-              <button type="button" className="btn-profile-primary">
+              <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
                 Save Changes
               </button>
             </main>
@@ -48,7 +50,7 @@ export default function AddProfilePhoto() {
               <p className="profile-modal-text">
                 Congratulations! Your changes have been saved. Your profile is now up-to-date.
               </p>
-              <button type="button" className="btn-profile-primary">
+              <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
                 Done
               </button>
             </div>
@@ -72,7 +74,7 @@ export default function AddProfilePhoto() {
                 <button type="button" className="btn-profile-outline">
                   Cancel
                 </button>
-                <button type="button" className="btn-profile-primary">
+                <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
                   Yes
                 </button>
               </div>

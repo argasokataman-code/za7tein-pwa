@@ -1,8 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
 
 export default function Security() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -57,7 +60,7 @@ export default function Security() {
                   </svg>
                 </Link>
               </div>
-              <button type="button" className="btn-profile-primary wallet-footer-btn">
+              <button type="button" className="btn-profile-primary wallet-footer-btn" onClick={() => { toast.success("Settings saved!"); navigate('/profile') }}>
                 Save
               </button>
             </main>

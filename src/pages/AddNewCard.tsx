@@ -2,6 +2,8 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+import toast from 'react-hot-toast'
+
 export default function AddNewCard() {
   const navigate = useNavigate()
   return (
@@ -74,7 +76,7 @@ export default function AddNewCard() {
                     <input inputMode="numeric" className="form-input-profile" placeholder="•••" maxLength={4} type="password" value="" />
                   </div>
                 </div>
-                <button type="submit" className="btn-profile-primary">
+                <button type="submit" className="btn-profile-primary" onClick={() => { toast.success("Card details saved!"); navigate('/payment-account') }}>
                   Add Card
                 </button>
               </form>

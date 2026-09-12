@@ -2,6 +2,8 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+import toast from 'react-hot-toast'
+
 export default function ChangePassword() {
   const navigate = useNavigate()
   return (
@@ -68,7 +70,7 @@ export default function ChangePassword() {
                       </span>
                     </div>
                   </div>
-                  <button type="submit" className="btn-profile-primary mt-4">
+                  <button type="submit" className="btn-profile-primary mt-4" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
                     Save Password
                   </button>
                 </form>

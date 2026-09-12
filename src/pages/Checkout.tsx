@@ -2,7 +2,13 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
 
+import toast from 'react-hot-toast'
+
+import { useAppSelector } from '../hooks/useAppStore'
+import { selectCartCount } from '../store/slices/cartSlice'
+
 export default function Checkout() {
+  const cartCount = useAppSelector((s) => selectCartCount(s.cart.items))
   const navigate = useNavigate()
   return (
     <>
@@ -34,7 +40,7 @@ export default function Checkout() {
             <p className="empty-cart-text">
               Add some delicious food from the menu, then come back here to checkout.
             </p>
-            <button type="button" className="proceed-btn" style={{ maxWidth: "260px", width: "100%" }}>
+            <button type="button" className="proceed-btn" style={{ maxWidth: "260px", width: "100%" }} onClick={() => { if (cartCount === 0) { toast.error("Your cart is empty"); return; } navigate('/payment-selection') }}>
               Browse Menu
             </button>
           </div>

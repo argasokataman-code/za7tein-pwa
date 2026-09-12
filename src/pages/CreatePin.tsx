@@ -1,8 +1,10 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 export default function CreatePin() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -29,7 +31,7 @@ export default function CreatePin() {
                 <input className="otp-box" maxLength={1} inputMode="numeric" aria-label="Digit 3" data-i="2" type="text" value="" />
                 <input className="otp-box" maxLength={1} inputMode="numeric" aria-label="Digit 4" data-i="3" type="text" value="" />
               </div>
-              <button type="button" className="btn-profile-primary">
+              <button type="button" className="btn-profile-primary" onClick={() => { navigate('/pin-success') }}>
                 Verify
               </button>
             </main>

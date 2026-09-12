@@ -1,8 +1,11 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import toast from 'react-hot-toast'
 
 export default function PersonalData() {
+  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -76,7 +79,7 @@ export default function PersonalData() {
                       </option>
                     </select>
                   </div>
-                  <button type="submit" className="btn-profile-primary">
+                  <button type="submit" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
                     Save Changes
                   </button>
                 </form>
