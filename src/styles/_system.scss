@@ -1517,3 +1517,54 @@ body.sa7tein-track-page {
   transform: translateX(-50%);
   pointer-events: none;
 }
+
+/* ── Permukaan kartu: #DFD2C6 dipakai sebagai latar ────────────────────────
+   #DFD2C6 adalah token --border-strong, token untuk GARIS. Di _app.scss ia
+   dipakai sebagai latar di 17 tempat, tujuh di antaranya permukaan kartu:
+   .address-item, .payment-item, .add-card-form .form-control,
+   .order-summary-section, .payment-method-display, .payment-method-card, dan
+   .driver-card.
+
+   Akibatnya kartu dicat hampir sama gelap dengan latar: #DFD2C6 terhadap
+   #FFF9F4 hanya 1.42:1, jadi yang terlihat bukan kartu di atas halaman
+   melainkan gumpalan taupe. Ditambah empat krem lain yang berdesakan di
+   halaman yang sama, hasilnya kusam.
+
+   Sekarang tiap warna punya satu tugas: --surface untuk kartu, --border-strong
+   untuk tepinya, --border untuk garis pemisah di dalam kartu, dan --bg-warm
+   untuk halaman. Sisanya yang memang placeholder atau keadaan tertekan
+   (.profile-photo-placeholder, .driver-avatar-placeholder, .toggle-slider,
+   .wallet-item-icon, .numpad-btn:active, .qty-btn) dibiarkan, karena di sana
+   nada tengah justru yang benar.
+
+   .payment-method-display sengaja jadi pembungkus tanpa latar: kartu di
+   dalamnya yang jadi panel, supaya tidak ada dua lapis yang saling menutupi. */
+
+.address-item,
+.address-item:hover,
+.payment-item,
+.payment-item:hover,
+.driver-card,
+.order-summary-section,
+.payment-method-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+
+.address-item:hover,
+.payment-item:hover {
+  background-color: var(--bg-warm);
+}
+
+.payment-method-display {
+  background-color: transparent;
+}
+
+.add-card-form .form-control {
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+}
+
+.add-card-form .form-control:focus {
+  border-color: var(--sa7tein-orange);
+}
