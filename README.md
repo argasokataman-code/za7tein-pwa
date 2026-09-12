@@ -85,7 +85,8 @@ keeps the original class names, inline styles and icon markup. Six order screens
 also set a `<body>` class, which the generated components reproduce with a
 `useEffect`.
 
-`/home` and `/menu-detail/:id` are hand-written and fully wired to the store;
+`/home` and `/menu-detail/:id` are hand-written; the rest were ported, then
+wired to the store (see Status).
 the remaining screens are faithful markup ports — interactive behaviour beyond
 navigation is still to be added (see Status).
 
@@ -95,6 +96,16 @@ navigation is still to be added (see Status).
 - [x] Redux store (auth / cart / favorites / ui / accountSetup) + persistence
 - [x] App shell + shared UI components, all 50 routes registered
 - [x] All 50 screens rebuilt — structure verified identical to the original
-- [x] `/home` and `/menu-detail/:id` fully wired to the store
-- [ ] Wire forms and interactions on the remaining screens (auth submit,
-      checkout totals, filters, toggles) — currently presentational
+- [x] Navigation wired everywhere (links, back buttons, bottom nav)
+- [x] Auth flow submits with the original toasts and destinations
+- [x] Cart / favourites / FAQ / filter chips / payment selection / rating
+- [ ] Still presentational: the PIN numpad, the in-page documentation nav and
+      copy buttons, the driver call/chat buttons, the map recenter controls
+      and the social sign-in buttons
+
+## Interaction coverage
+
+Roughly 60 controls are wired to real behaviour; ~96 buttons are still inert,
+concentrated in a few screens (the `/create-pin` numpad is 24 of them and the
+`/documentation` page accounts for 27 more). `grep -c "<button"` plus a check
+for `onClick` is a quick way to see what is left.
