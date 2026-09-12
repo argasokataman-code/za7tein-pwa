@@ -1232,7 +1232,8 @@ body.sa7tein-track-page {
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  padding: var(--space-6) var(--space-8);
+  padding-block: var(--space-6);
+  padding-inline: var(--space-5);
   text-align: center;
   background: var(--bg-warm);
 }
@@ -1971,4 +1972,27 @@ body.sa7tein-track-page {
   min-height: 0;
   padding: 0 0 var(--space-8);
   overflow: visible;
+}
+
+/* ── Jarak tepi halaman diseragamkan ───────────────────────────────────────
+   Tiga komponen memakai angka berbeda, jadi lebar kolom isi tiap halaman
+   tidak sama: .main-frame 12px, .menu-detail-content 16px, hero 22px.
+   .main-frame bahkan berbeda antar viewport, karena dua
+   @media (max-width:767px) mengecilkan padding horizontalnya — jadi halaman
+   profil punya tepi 12px di mobile dan 20px di desktop.
+
+   Ketiganya diseragamkan di sini, di satu tempat, supaya nilai berikutnya
+   tidak perlu dicari di tiga berkas berbeda. Vertikalnya tidak disentuh. */
+
+.main-frame,
+.menu-detail-content,
+.s7-hero__content {
+  padding-inline: var(--space-5);
+}
+
+/* Halaman auth memakai .container bawaan Bootstrap, yang padding horizontalnya
+   24px — jadi alur masuk punya tepi berbeda dari halaman lain. Markup-nya sudah
+   punya kelas *-screen sendiri, jadi penyempitannya bisa dibatasi ke situ. */
+div[class*="-screen"] .container {
+  padding-inline: var(--space-5);
 }

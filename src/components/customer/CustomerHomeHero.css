@@ -34,7 +34,7 @@
   position: relative;
   z-index: 2;
 
-  padding: 22px 22px 26px;
+  padding: 22px var(--space-5) 26px;
 }
 
 /* ── Pola latar ─────────────────────────────────────────────────────────── */
@@ -395,7 +395,7 @@
 
 @media (max-width: 380px) {
   .s7-hero__content {
-    padding: 20px 18px 24px;
+    padding: 20px var(--space-5) 24px;
   }
 
   .s7-avatar-button,

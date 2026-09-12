@@ -84,7 +84,7 @@
 .doc-root .doc-sidebar { transform: translateX(-100%); z-index: 300 }
 .doc-root .doc-sidebar.open { transform: translateX(0) }
 .doc-root .doc-overlay.open { display: block }
-.doc-root .doc-main { margin-left: 0; max-width: 100%; padding: 72px 16px 80px }
+.doc-root .doc-main { margin-left: 0; max-width: 100%; padding: 72px var(--space-5) 80px }
 .doc-root .doc-hero-title { font-size: var(--text-xl) }
 .doc-root .doc-section-title { font-size: var(--text-lg) }
 .doc-root .doc-hero { margin-bottom: 40px }
