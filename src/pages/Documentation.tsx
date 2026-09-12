@@ -779,9 +779,60 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  delivo-next/ │ ├── middleware.ts # Edge route protection (reads cookie) ├── next.config.ts # PWA headers, image domains ├── public/ │ ├── manifest.json # PWA manifest │ ├── sw.js # Service worker │ └── assets/img/ # All images, icons │ └── src/ ├── app/ │ ├── layout.tsx # Root — fonts, meta, ReduxProvider, SW │ ├── loading.tsx # Global skeleton │ ├── not-found.tsx # 404 │ ├── error.tsx # Error boundary │ ├── offline/page.tsx │ ├── (auth)/ # Auth route group │ ├── (main)/ # Main route group │ │ ├── layout.tsx # Adds BottomNav, paddingBottom │ │ └── [each main route]/page.tsx │ └── account-setup/ │ ├── components/ │ ├── layout/ # BottomNav, HomeIndicator, StatusBar │ ├── ui/ # BackButton, FavoriteButton, LocationPicker │ └── pwa/ # ServiceWorkerRegistrar │ ├── store/ │ ├── index.ts # configureStore — 3 persisted slices │ ├── provider.tsx # ReduxProvider + PersistGate + AuthCookieSync │ └── slices/ # auth, cart, favorites, ui, accountSetup │ ├── hooks/ │ ├── useAppStore.ts # Typed dispatch + selector │ ├── useAuthCookie.ts # Redux auth → browser cookie bridge │ ├── useCart.ts │ └── useOtpInput.ts │ ├── lib/ │ ├── mockData/ # foods.ts, user.ts, orders.ts │ ├── schemas.ts # All Zod schemas │ └── utils.ts │ ├── types/ # food.ts, order.ts, user.ts │ └── styles/ ├── _index.scss # @use imports for all partials ├── _base.scss # Variables, reset, utilities ├── _onboarding.scss ├── _auth-styles.scss ├── _home.scss ├── _user-profile.scss ├── _skeleton.scss └── _nextjs-fixes.scss # SSR/hydration/overflow/desktop fixes
-                </code>
+                <code>{`delivo-next/
+│
+├── middleware.ts              # Edge route protection (reads cookie)
+├── next.config.ts             # PWA headers, image domains
+├── public/
+│   ├── manifest.json          # PWA manifest
+│   ├── sw.js                  # Service worker
+│   └── assets/img/            # All images, icons
+│
+└── src/
+    ├── app/
+    │   ├── layout.tsx          # Root — fonts, meta, ReduxProvider, SW
+    │   ├── loading.tsx         # Global skeleton
+    │   ├── not-found.tsx       # 404
+    │   ├── error.tsx           # Error boundary
+    │   ├── offline/page.tsx
+    │   ├── (auth)/             # Auth route group
+    │   ├── (main)/             # Main route group
+    │   │   ├── layout.tsx      # Adds BottomNav, paddingBottom
+    │   │   └── [each main route]/page.tsx
+    │   └── account-setup/
+    │
+    ├── components/
+    │   ├── layout/             # BottomNav, HomeIndicator, StatusBar
+    │   ├── ui/                 # BackButton, FavoriteButton, LocationPicker
+    │   └── pwa/                # ServiceWorkerRegistrar
+    │
+    ├── store/
+    │   ├── index.ts            # configureStore — 3 persisted slices
+    │   ├── provider.tsx        # ReduxProvider + PersistGate + AuthCookieSync
+    │   └── slices/             # auth, cart, favorites, ui, accountSetup
+    │
+    ├── hooks/
+    │   ├── useAppStore.ts      # Typed dispatch + selector
+    │   ├── useAuthCookie.ts    # Redux auth → browser cookie bridge
+    │   ├── useCart.ts
+    │   └── useOtpInput.ts
+    │
+    ├── lib/
+    │   ├── mockData/           # foods.ts, user.ts, orders.ts
+    │   ├── schemas.ts          # All Zod schemas
+    │   └── utils.ts
+    │
+    ├── types/                  # food.ts, order.ts, user.ts
+    │
+    └── styles/
+        ├── _index.scss         # @use imports for all partials
+        ├── _base.scss          # Variables, reset, utilities
+        ├── _onboarding.scss
+        ├── _auth-styles.scss
+        ├── _home.scss
+        ├── _user-profile.scss
+        ├── _skeleton.scss
+        └── _nextjs-fixes.scss  # SSR/hydration/overflow/desktop fixes`}</code>
               </pre>
             </div>
           </section>
@@ -818,9 +869,8 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  npm install npm run dev
-                </code>
+                <code>{`npm install
+npm run dev`}</code>
               </pre>
             </div>
             <div className="doc-info">
@@ -850,9 +900,8 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  npm run build npm start
-                </code>
+                <code>{`npm run build
+npm start`}</code>
               </pre>
             </div>
             <div className="doc-info">
@@ -894,9 +943,15 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  // 1. User logs in → Redux: isAuthenticated = true // 2. useAuthCookie → writes: document.cookie = "delivo_auth=true" // 3. User navigates to /checkout // 4. middleware reads cookie → passes through ✓ // Logout dispatch(logout()); // useAuthCookie detects false → clears cookie // middleware blocks all protected routes immediately
-                </code>
+                <code>{`// 1. User logs in → Redux: isAuthenticated = true
+// 2. useAuthCookie → writes: document.cookie = "delivo_auth=true"
+// 3. User navigates to /checkout
+// 4. middleware reads cookie → passes through ✓
+
+// Logout
+dispatch(logout());
+// useAuthCookie detects false → clears cookie
+// middleware blocks all protected routes immediately`}</code>
               </pre>
             </div>
             <h3 className="doc-h3">
@@ -1057,9 +1112,18 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  import &#123; useAppDispatch, useAppSelector &#125; from "@/hooks/useAppStore"; import &#123; addItem &#125; from "@/store/slices/cartSlice"; import &#123; toggleFavorite &#125; from "@/store/slices/favoritesSlice"; import &#123; setLocationLabel &#125; from "@/store/slices/uiSlice"; import &#123; logout &#125; from "@/store/slices/authSlice"; const dispatch = useAppDispatch(); dispatch(addItem(&#123; id, name, price, quantity: 1, image &#125;)); dispatch(toggleFavorite(foodId)); dispatch(setLocationLabel("5th Ave, New York")); dispatch(logout());
-                </code>
+                <code>{`import { useAppDispatch, useAppSelector } from "@/hooks/useAppStore";
+import { addItem } from "@/store/slices/cartSlice";
+import { toggleFavorite } from "@/store/slices/favoritesSlice";
+import { setLocationLabel } from "@/store/slices/uiSlice";
+import { logout } from "@/store/slices/authSlice";
+
+const dispatch = useAppDispatch();
+
+dispatch(addItem({ id, name, price, quantity: 1, image }));
+dispatch(toggleFavorite(foodId));
+dispatch(setLocationLabel("5th Ave, New York"));
+dispatch(logout());`}</code>
               </pre>
             </div>
             <div className="doc-info">
@@ -1253,9 +1317,14 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  // src/styles/_index.scss @use "base"; @use "onboarding"; @use "auth-styles"; @use "home"; @use "user-profile"; @use "skeleton"; @use "nextjs-fixes"; // ← always last
-                </code>
+                <code>{`// src/styles/_index.scss
+@use "base";
+@use "onboarding";
+@use "auth-styles";
+@use "home";
+@use "user-profile";
+@use "skeleton";
+@use "nextjs-fixes";  // ← always last`}</code>
               </pre>
             </div>
             <h3 className="doc-h3">
@@ -1278,9 +1347,10 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  $font-14: clamp(13px, 0.5vw + 11px, 14px); $font-16: clamp(14px, 0.6vw + 12px, 16px); $font-24: clamp(20px, 1.2vw + 16px, 24px); // $font-10 through $font-64 all available
-                </code>
+                <code>{`$font-14: clamp(13px, 0.5vw + 11px, 14px);
+$font-16: clamp(14px, 0.6vw + 12px, 16px);
+$font-24: clamp(20px, 1.2vw + 16px, 24px);
+// $font-10 through $font-64 all available`}</code>
               </pre>
             </div>
             <h3 className="doc-h3">
@@ -1296,9 +1366,13 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  $primary-color: #fd6931; // Orange — all accents, buttons, active states $bg-dark: #000000; // Page background $text-light: #ffffff; // Primary text $text-muted: #697586; // Placeholder, secondary text $input-bg: #1a1a1a99; $input-border: #3a3a3a; $error-color: #ff3b30;
-                </code>
+                <code>{`$primary-color: #fd6931;   // Orange — all accents, buttons, active states
+$bg-dark:       #000000;   // Page background
+$text-light:    #ffffff;   // Primary text
+$text-muted:    #697586;   // Placeholder, secondary text
+$input-bg:      #1a1a1a99;
+$input-border:  #3a3a3a;
+$error-color:   #ff3b30;`}</code>
               </pre>
             </div>
           </section>
@@ -1414,9 +1488,17 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  import &#123; useForm &#125; from "react-hook-form"; import &#123; zodResolver &#125; from "@hookform/resolvers/zod"; import &#123; signInSchema, type SignInFormData &#125; from "@/lib/schemas"; const &#123; register, handleSubmit, formState: &#123; errors &#125;, &#125; = useForm&lt;SignInFormData&gt;(&#123; resolver: zodResolver(signInSchema), &#125;);
-                </code>
+                <code>{`import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signInSchema, type SignInFormData } from "@/lib/schemas";
+
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm<SignInFormData>({
+  resolver: zodResolver(signInSchema),
+});`}</code>
               </pre>
             </div>
           </section>
@@ -1447,9 +1529,11 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  &lt;BackButton variant="default" // "default" | "card" | "map" | "dark" behavior="smart" // "smart" | "history" | "href" href="/home" // fallback URL for "smart", target for "href" /&gt;
-                </code>
+                <code>{`<BackButton
+  variant="default"  // "default" | "card" | "map" | "dark"
+  behavior="smart"   // "smart" | "history" | "href"
+  href="/home"       // fallback URL for "smart", target for "href"
+/>`}</code>
               </pre>
             </div>
             <div className="doc-table-wrap">
@@ -1510,9 +1594,11 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  &lt;FavoriteButton id=&#123;item.id&#125; // food item ID name=&#123;item.name&#125; // used in toast message variant="card" // "card" | "header" /&gt;
-                </code>
+                <code>{`<FavoriteButton
+  id={item.id}      // food item ID
+  name={item.name}  // used in toast message
+  variant="card"    // "card" | "header"
+/>`}</code>
               </pre>
             </div>
             <div className="doc-info">
@@ -1551,9 +1637,16 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  // In HomeClient.tsx header &lt;LocationPicker /&gt; // Opens bottom sheet with GPS + saved addresses // Dispatches setLocationLabel(address) to uiSlice // Customize saved addresses at top of LocationPicker.tsx: const SAVED_ADDRESSES = [ &#123; id: "1", label: "Home", address: "44 Street Town, New York", icon: "🏠" &#125;, &#123; id: "2", label: "Work", address: "120 Business Ave, Manhattan", icon: "💼" &#125;, ];
-                </code>
+                <code>{`// In HomeClient.tsx header
+<LocationPicker />
+// Opens bottom sheet with GPS + saved addresses
+// Dispatches setLocationLabel(address) to uiSlice
+
+// Customize saved addresses at top of LocationPicker.tsx:
+const SAVED_ADDRESSES = [
+  { id: "1", label: "Home", address: "44 Street Town, New York", icon: "🏠" },
+  { id: "2", label: "Work", address: "120 Business Ave, Manhattan", icon: "💼" },
+];`}</code>
               </pre>
             </div>
           </section>
@@ -1582,9 +1675,12 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  // src/store/slices/authSlice.ts const initialState: AuthState = &#123; user: null, // was MOCK_USER isAuthenticated: false, // was true isLoading: false, &#125;;
-                </code>
+                <code>{`// src/store/slices/authSlice.ts
+const initialState: AuthState = {
+  user: null,              // was MOCK_USER
+  isAuthenticated: false,  // was true
+  isLoading: false,
+};`}</code>
               </pre>
             </div>
             <h3 className="doc-h3">
@@ -1600,9 +1696,13 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  // middleware.ts — replace cookie check with JWT import &#123; jwtVerify &#125; from "jose"; // Edge-compatible const token = request.cookies.get("auth_token")?.value; if (!token) return redirectToSignIn(); await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));
-                </code>
+                <code>{`// middleware.ts — replace cookie check with JWT
+import { jwtVerify } from "jose"; // Edge-compatible
+
+const token = request.cookies.get("auth_token")?.value;
+if (!token) return redirectToSignIn();
+
+await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));`}</code>
               </pre>
             </div>
             <h3 className="doc-h3">
@@ -1618,9 +1718,14 @@ export default function Documentation() {
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>
-                  // src/store/api/foodApi.ts export const foodApi = baseApi.injectEndpoints(&#123; endpoints: (builder) =&gt; (&#123; getFoods: builder.query&lt;FoodItem[], void&gt;(&#123; query: () =&gt; "/foods", &#125;), &#125;), &#125;);
-                </code>
+                <code>{`// src/store/api/foodApi.ts
+export const foodApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getFoods: builder.query<FoodItem[], void>({
+      query: () => "/foods",
+    }),
+  }),
+});`}</code>
               </pre>
             </div>
             <h3 className="doc-h3">

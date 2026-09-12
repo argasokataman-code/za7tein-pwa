@@ -117,3 +117,11 @@ stylesheet — the landing page's CSS-module bundle, the PWA install banner and 
 few Bootstrap utilities. Those rules were extracted into
 `src/styles/_modules.scss`; the landing page's computed styles now match the
 original element for element.
+
+## Note on the documentation screen
+
+`/documentation` ships its own stylesheet as an inline `<style>` tag rather than
+a CSS file, which is why it is recovered separately into `src/styles/_docs.scss`
+and scoped under `.doc-root`. Its code samples also had to be re-emitted as JSX
+template literals: the HTML->JSX port normalises whitespace, which silently
+flattens the newlines inside `<pre>` blocks.
