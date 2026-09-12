@@ -137,9 +137,11 @@ export default function Home() {
           <div className="ad-banner" style={{ marginBottom: 24 }}>
             <div className="ad-content">
               <div className="ad-text">
-                <h3 className="ad-title">Up To 30% Off On First Order</h3>
+                <h3 className="ad-title">
+                  Diskon <span className="ad-title-value">30%</span> untuk pesanan pertamamu
+                </h3>
                 <button type="button" className="ad-cta" onClick={() => navigate('/search')}>
-                  Order Now
+                  Pesan Sekarang
                 </button>
               </div>
               <div className="ad-image">

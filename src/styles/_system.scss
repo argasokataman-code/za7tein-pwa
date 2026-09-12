@@ -311,3 +311,112 @@ select {
     animation-iteration-count: infinite !important;
   }
 }
+
+// ── 8. Banner promo beranda ───────────────────────────────────────────────
+// Kartu ini mewarisi tiga masalah: teksnya gelap di atas banner oranye, CTA-nya
+// berlatar transparan-gelap dengan teks gelap (praktis tak terbaca), dan
+// `flex-wrap: wrap-reverse` menaruh gambar setinggi 90px di atas teksnya
+// sehingga sisa ruangnya mati. Dirombak jadi banner merek yang utuh:
+// headline putih, CTA pil putih, dan gambar jadi thumbnail bulat di kanan.
+.ad-banner {
+  background: var(--gradient-brand);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  overflow: hidden;
+  position: relative;
+}
+
+.ad-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.ad-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  // Rapat satu langkah: span "30%" yang besar menambah tinggi baris, jadi
+  // jarak 12px terbaca lebih longgar daripada angkanya.
+  gap: var(--space-2);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+// Judulnya dulu satu blok seragam, jadi mata harus membaca seluruh kalimat
+// untuk menemukan nilainya. Sekarang angkanya yang jadi titik fokus dan teks
+// di sekelilingnya turun jadi pendukung.
+.ad-title {
+  color: var(--on-brand);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+  flex: none;
+  // Tanpa ini kalimatnya pecah menyisakan satu kata menggantung di baris
+  // kedua ("pertamamu"), yang lalu terbaca sebagai celah kosong di kolom kiri.
+  text-wrap: balance;
+}
+
+.ad-title-value {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  vertical-align: -0.06em;
+  margin-right: 2px;
+}
+
+// CTA putih di atas oranye: kontras tinggi dan jadi titik terang banner.
+.ad-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  color: var(--orange-ink);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 0 var(--space-5);
+  min-height: 40px;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.ad-cta:hover {
+  transform: translateY(-1px);
+}
+
+.ad-image {
+  flex: 0 0 auto;
+  width: 92px;
+  height: 92px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.ad-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+// Di layar sempit, gambar dikecilkan lagi alih-alih membalik urutan.
+@media (max-width: 360px) {
+  .ad-image {
+    width: 68px;
+    height: 68px;
+  }
+
+  .ad-banner {
+    padding: var(--space-4);
+  }
+}
