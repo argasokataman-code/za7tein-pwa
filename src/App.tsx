@@ -24,6 +24,7 @@ import Home from './pages/Home'
 import Landing from './pages/Landing'
 import Language from './pages/Language'
 import MenuDetail from './pages/MenuDetail'
+import NotificationSettings from './pages/NotificationSettings'
 import Notifications from './pages/Notifications'
 import Offline from './pages/Offline'
 import Onboarding from './pages/Onboarding'
@@ -86,6 +87,7 @@ const routes: [string, React.ComponentType][] = [
   ['/security', Security],
   ['/language', Language],
   ['/notifications', Notifications],
+  ['/notification-settings', NotificationSettings],
   ['/payment-account', PaymentAccount],
   ['/your-card', YourCard],
   ['/add-new-card', AddNewCard],

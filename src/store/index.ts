@@ -17,6 +17,7 @@ import auth from './slices/authSlice'
 import accountSetup from './slices/accountSetupSlice'
 import cart from './slices/cartSlice'
 import favorites from './slices/favoritesSlice'
+import notifications from './slices/notificationsSlice'
 import ui from './slices/uiSlice'
 
 // Minimal localStorage-backed storage so we don't depend on redux-persist's
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   auth,
   cart,
   favorites,
+  notifications,
   ui,
   accountSetup,
 })

@@ -1,102 +1,107 @@
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link, useNavigate } from 'react-router-dom'
+// Kotak masuk notifikasi — tujuan tombol lonceng di beranda.
+//
+// Sebelumnya rute ini berisi halaman preferensi toggle, dan lonceng berbadge
+// "3" membuka halaman yang tidak memuat satu pun notifikasi. Preferensinya
+// pindah ke /notification-settings, karena itu memang pengaturan dan ditautkan
+// dari menu Profil, bukan dari lonceng.
+import { Bell, Bike, Check, Tag, Wallet, type LucideIcon } from 'lucide-react'
 
-import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { markAllRead, markRead, selectUnreadCount } from '../store/slices/notificationsSlice'
+import type { AppNotification } from '../types'
+
+const KIND_ICON: Record<AppNotification['kind'], LucideIcon> = {
+  order: Bike,
+  promo: Tag,
+  payment: Wallet,
+  system: Bell,
+}
 
 export default function Notifications() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const items = useAppSelector((s) => s.notifications.items)
+  const unread = selectUnreadCount(items)
+
   return (
-    <>
     <div className="app-shell">
       <main>
         <div className="profile-flow-page">
           <div className="profile-flow">
-            <header className="profile-flow-header ">
-              <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
+            <header className="profile-flow-header">
+              <button
+                type="button"
+                className="back-btn-profile"
+                aria-label="Kembali"
+                onClick={() => navigate(-1)}
+              >
+                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M15 18l-6-6 6-6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
-              </Link>
-              <h1 className="profile-flow-title">
-                Notifications
-              </h1>
-            </header>
-            <main className="profile-flow-main">
-              <div className="notifications-list">
-                <div className="notification-row">
-                  <span className="notification-label">
-                    Notifications
-                  </span>
-                  <label className="toggle-wrap" htmlFor="toggle-notifications">
-                    <input id="toggle-notifications" className="toggle-input" type="checkbox" checked />
-                    <span className="toggle-slider" />
-                  </label>
-                </div>
-                <div className="notification-row">
-                  <span className="notification-label">
-                    Sound
-                  </span>
-                  <label className="toggle-wrap" htmlFor="toggle-sound">
-                    <input id="toggle-sound" className="toggle-input" type="checkbox" />
-                    <span className="toggle-slider" />
-                  </label>
-                </div>
-                <div className="notification-row">
-                  <span className="notification-label">
-                    Vibrate
-                  </span>
-                  <label className="toggle-wrap" htmlFor="toggle-vibrate">
-                    <input id="toggle-vibrate" className="toggle-input" type="checkbox" />
-                    <span className="toggle-slider" />
-                  </label>
-                </div>
-                <div className="notification-row">
-                  <span className="notification-label">
-                    Special Offers
-                  </span>
-                  <label className="toggle-wrap" htmlFor="toggle-offers">
-                    <input id="toggle-offers" className="toggle-input" type="checkbox" checked />
-                    <span className="toggle-slider" />
-                  </label>
-                </div>
-                <div className="notification-row">
-                  <span className="notification-label">
-                    Payments
-                  </span>
-                  <label className="toggle-wrap" htmlFor="toggle-payments">
-                    <input id="toggle-payments" className="toggle-input" type="checkbox" />
-                    <span className="toggle-slider" />
-                  </label>
-                </div>
-                <div className="notification-row">
-                  <span className="notification-label">
-                    Cashback
-                  </span>
-                  <label className="toggle-wrap" htmlFor="toggle-cashback">
-                    <input id="toggle-cashback" className="toggle-input" type="checkbox" />
-                    <span className="toggle-slider" />
-                  </label>
-                </div>
-                <div className="notification-row">
-                  <span className="notification-label">
-                    App Updates
-                  </span>
-                  <label className="toggle-wrap" htmlFor="toggle-updates">
-                    <input id="toggle-updates" className="toggle-input" type="checkbox" checked />
-                    <span className="toggle-slider" />
-                  </label>
-                </div>
-              </div>
-              <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Settings saved!"); navigate('/profile') }}>
-                Save
               </button>
+              <h1 className="profile-flow-title">Notifikasi</h1>
+            </header>
+
+            <main className="profile-flow-main">
+              <div className="inbox-head">
+                <span className="inbox-head__count">
+                  {unread > 0 ? `${unread} belum dibaca` : 'Semua sudah dibaca'}
+                </span>
+                {unread > 0 ? (
+                  <button
+                    type="button"
+                    className="inbox-head__action"
+                    onClick={() => dispatch(markAllRead())}
+                  >
+                    Tandai semua dibaca
+                  </button>
+                ) : null}
+              </div>
+
+              <ul className="inbox-list">
+                {items.map((n) => {
+                  const Icon = KIND_ICON[n.kind]
+                  return (
+                    <li key={n.id}>
+                      <button
+                        type="button"
+                        className={n.unread ? 'inbox-row inbox-row--unread' : 'inbox-row'}
+                        aria-label={`${n.title}${n.unread ? ', belum dibaca' : ''}`}
+                        onClick={() => dispatch(markRead(n.id))}
+                      >
+                        <span className="inbox-row__icon" aria-hidden="true">
+                          <Icon size={18} strokeWidth={1.75} />
+                        </span>
+
+                        <span className="inbox-row__text">
+                          <span className="inbox-row__title">{n.title}</span>
+                          <span className="inbox-row__body">{n.body}</span>
+                          <span className="inbox-row__time">{n.time}</span>
+                        </span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+
+              {unread === 0 ? (
+                <p className="inbox-foot">
+                  <Check size={16} strokeWidth={2} aria-hidden="true" />
+                  Semua notifikasi sudah dibaca.
+                </p>
+              ) : null}
             </main>
           </div>
         </div>
       </main>
     </div>
-    <div data-rht-toaster="" style={{ position: "fixed", zIndex: "9999", inset: "16px", pointerEvents: "none" }} />
-    </>
   )
 }

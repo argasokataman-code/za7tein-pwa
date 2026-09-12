@@ -154,3 +154,14 @@ export interface CartItem {
 
 /** Empat tahap perjalanan pesanan, dipakai Sa7tein Journey Line. */
 export type OrderStage = 'diterima' | 'dimasak' | 'diantar' | 'tiba'
+
+export type NotificationKind = 'order' | 'promo' | 'payment' | 'system'
+
+export interface AppNotification {
+  id: string
+  kind: NotificationKind
+  title: string
+  body: string
+  time: string
+  unread: boolean
+}

@@ -10,13 +10,14 @@ import { AddToCartButton } from '../components/ui/AddToCartButton'
 import { FoodCard } from '../components/ui/FoodCard'
 import { categories, deals, popular } from '../data/foods'
 import { useAppSelector } from '../hooks/useAppStore'
+import { selectUnreadCount } from '../store/slices/notificationsSlice'
 
 const AD_IMAGE = '/assets/media/onboarding-bg.196fa385.jpg'
 
 export default function Home() {
   const navigate = useNavigate()
   const user = useAppSelector((s) => s.auth.user)
-  const notificationCount = useAppSelector((s) => s.ui.notificationCount)
+  const unreadNotifications = useAppSelector((s) => selectUnreadCount(s.notifications.items))
   const locationLabel = useAppSelector((s) => s.ui.locationLabel)
   const [category, setCategory] = useState('all')
 
@@ -31,7 +32,7 @@ export default function Home() {
           avatarUrl={user?.avatar}
           avatarAlt={user?.name ?? ''}
           location={locationLabel}
-          notificationCount={notificationCount}
+          notificationCount={unreadNotifications}
           onOpenProfile={() => navigate('/profile')}
           onChangeLocation={() => toast.success('Change delivery location')}
           onOpenNotifications={() => navigate('/notifications')}

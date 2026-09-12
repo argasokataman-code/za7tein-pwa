@@ -75,7 +75,7 @@ export default function Profile() {
                       </svg>
                     </div>
                   </Link>
-                  <Link className="item-list" aria-label="Notifications" to="/notifications">
+                  <Link className="item-list" aria-label="Notification settings" to="/notification-settings">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "rgb(206, 210, 230)" }}>
                         <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

@@ -1831,3 +1831,113 @@ body.sa7tein-track-page {
   max-width: var(--shell-max);
   margin-inline: auto;
 }
+
+/* ── Kotak masuk notifikasi ────────────────────────────────────────────────
+   Barisnya tombol, bukan div: menekannya menandai sudah dibaca. Yang belum
+   dibaca ditandai tepi kiri oranye dan ikon bertint, bukan latar baru —
+   supaya tidak menambah warna kelima ke palet yang sedang dirapikan. */
+
+.inbox-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.inbox-head__count {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.inbox-head__action {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-2);
+  border: none;
+  background: none;
+  color: var(--sa7tein-orange);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.inbox-row--unread {
+  border-left: 3px solid var(--sa7tein-orange);
+}
+
+.inbox-row__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-warm);
+  color: var(--text-secondary);
+}
+
+.inbox-row--unread .inbox-row__icon {
+  background-color: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.inbox-row__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.inbox-row__title {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.inbox-row__body {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.inbox-row__time {
+  margin-top: 2px;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.inbox-foot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
