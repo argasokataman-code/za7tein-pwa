@@ -83,18 +83,18 @@
   fill-opacity: 0.12;
 }
 
-/* ── Mangkuk dan pin ──────────────────────────────────────────────────────
+/* ── Gelas dan pin ────────────────────────────────────────────────────────
    Area bebas hero di mobile hanya sekitar 80x120px: di kanan judul dan di
-   bawah tombol notifikasi. Tiga pita bertingkat (titik, rute, mangkuk) muat di
+   bawah tombol notifikasi. Tiga pita bertingkat (titik, rute, gelas) muat di
    situ, tapi uap dan pin tidak. Kalau dipaksa, ketiganya bertumpuk dan
    akumulasi alpha naik ke ~25%. Jadi keduanya muncul saat lebarnya ada. */
 
-.s7-bowl__steam[data-hanya-lebar],
-.s7-bowl__pin[data-hanya-lebar] {
+.s7-glass__steam[data-hanya-lebar],
+.s7-glass__pin[data-hanya-lebar] {
   display: none;
 }
 
-.s7-bowl__steam {
+.s7-glass__steam {
   fill: none;
   stroke: var(--on-brand);
   stroke-opacity: 0.1;
@@ -102,34 +102,48 @@
   stroke-linecap: round;
 }
 
-.s7-bowl__body {
+/* Gelas digambar sebagai garis, bukan siluet: isiannya sangat tipis hanya
+   supaya bentuknya punya massa, dan garisnya yang membuatnya terbaca. */
+.s7-glass__body {
   fill: var(--on-brand);
-  fill-opacity: 0.06;
+  fill-opacity: 0.05;
   stroke: var(--on-brand);
   stroke-opacity: 0.12;
   stroke-width: 3;
+  stroke-linejoin: round;
 }
 
-.s7-bowl__rim {
-  fill: var(--on-brand);
-  fill-opacity: 0.1;
+.s7-glass__rim {
+  fill: none;
+  stroke: var(--on-brand);
+  stroke-opacity: 0.14;
+  stroke-width: 3;
+  stroke-linecap: round;
 }
 
-.s7-bowl__pin-halo {
+.s7-glass__level {
+  fill: none;
+  stroke: var(--on-brand);
+  stroke-opacity: 0.1;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.s7-glass__pin-halo {
   fill: var(--on-brand);
   fill-opacity: 0.08;
 }
 
 /* Pin aslinya #FFE0B2 pada 90% — di luar palet, dan hampir pekat. */
-.s7-bowl__pin-mark {
+.s7-glass__pin-mark {
   fill: var(--on-brand);
   fill-opacity: 0.12;
 }
 
 /* Titik tengahnya aslinya #FF3D00, merah yang tidak ada di palet. */
-.s7-bowl__pin-dot {
+.s7-glass__pin-dot {
   fill: var(--on-brand);
-  fill-opacity: 0.1;
+  fill-opacity: 0.08;
 }
 
 /* ── Baris atas ─────────────────────────────────────────────────────────── */

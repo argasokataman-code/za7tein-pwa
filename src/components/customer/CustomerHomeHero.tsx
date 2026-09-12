@@ -86,28 +86,36 @@ function Sa7teinHeroPattern() {
         )}
       </g>
 
-      <g className="s7-bowl" transform="translate(715, 258)">
+      <g className="s7-glass" transform="translate(715, 258)">
         {/* Uap. */}
-        <g className="s7-bowl__steam" data-hanya-lebar>
-          <path d="M 25 -25 Q 15 -45 25 -65" />
-          <path d="M 50 -30 Q 40 -50 50 -70" />
-          <path d="M 75 -25 Q 65 -45 75 -65" />
+        <g className="s7-glass__steam" data-hanya-lebar>
+          <path d="M 25 -48 Q 15 -68 25 -88" />
+          <path d="M 50 -53 Q 40 -73 50 -93" />
+          <path d="M 75 -48 Q 65 -68 75 -88" />
         </g>
 
-        {/* Mangkuk. */}
-        <path className="s7-bowl__body" d="M 0 0 C 5 55, 95 55, 100 0 Z" />
+        {/* Gelas: mengerucut ke bawah, sudut bawah membulat. Sengaja lebih
+            tinggi daripada lebar dan bersisi lurus — bentuk sebelumnya lebar,
+            gepeng, dan berlengkung kembar sehingga terbaca sebagai bukan gelas. */}
+        <path
+          className="s7-glass__body"
+          d="M 12 -30 L 26 46 Q 28 52 34 52 L 66 52 Q 72 52 74 46 L 88 -30 Z"
+        />
 
-        {/* Bibir mangkuk. */}
-        <rect className="s7-bowl__rim" x="-5" y="-6" width="110" height="8" rx="4" />
+        {/* Bibir gelas. */}
+        <path className="s7-glass__rim" d="M 12 -30 H 88" />
+
+        {/* Tinggi isian. */}
+        <path className="s7-glass__level" d="M 21 14 H 79" />
 
         {/* Pin lokasi. */}
-        <g className="s7-bowl__pin" data-hanya-lebar transform="translate(110, -44)">
-          <circle className="s7-bowl__pin-halo" cx="12" cy="12" r="14" />
+        <g className="s7-glass__pin" data-hanya-lebar transform="translate(104, -50)">
+          <circle className="s7-glass__pin-halo" cx="12" cy="12" r="14" />
           <path
-            className="s7-bowl__pin-mark"
+            className="s7-glass__pin-mark"
             d="M 12 4 C 7.5 4 4 7.5 4 12 C 4 18 12 24 12 24 C 12 24 20 18 20 12 C 20 7.5 16.5 4 12 4 Z"
           />
-          <circle className="s7-bowl__pin-dot" cx="12" cy="10" r="3" />
+          <circle className="s7-glass__pin-dot" cx="12" cy="10" r="3" />
         </g>
       </g>
     </svg>
