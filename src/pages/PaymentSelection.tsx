@@ -117,7 +117,7 @@ export default function PaymentSelection() {
             </Link>
           </div>
           <div className="payment-selection-footer">
-            <button type="button" className="proceed-btn" aria-label="Confirm payment method and continue">
+            <button type="button" className="proceed-btn" aria-label="Confirm payment method and continue" onClick={() => { navigate('/payment-amount') }}>
               Continue
             </button>
           </div>

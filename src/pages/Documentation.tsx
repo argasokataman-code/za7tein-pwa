@@ -1,6 +1,26 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+
 export default function Documentation() {
+  const [active, setActive] = useState(0)
+
+  const goTo = (index: number, id: string) => {
+    setActive(index)
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const copyCode = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const code = e.currentTarget.closest('.doc-code-wrap')?.querySelector('pre')?.innerText ?? ''
+    try {
+      await navigator.clipboard.writeText(code)
+      toast.success('Copied to clipboard!')
+    } catch {
+      toast.error('Copy failed')
+    }
+  }
+
   return (
     <>
     <div className="app-shell">
@@ -37,73 +57,73 @@ export default function Documentation() {
             <div className="doc-nav-label">
               Contents
             </div>
-            <button className="doc-nav-item active">
+            <button className={`doc-nav-item ${active === 0 ? "active" : ""}`} onClick={() => goTo(0, "introduction")}>
               <span className="doc-nav-num">
                 01
               </span>
               Introduction
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 1 ? "active" : ""}`} onClick={() => goTo(1, "whats-new")}>
               <span className="doc-nav-num">
                 02
               </span>
               What Changed
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 2 ? "active" : ""}`} onClick={() => goTo(2, "pages")}>
               <span className="doc-nav-num">
                 03
               </span>
               Pages &amp; Routes
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 3 ? "active" : ""}`} onClick={() => goTo(3, "file-structure")}>
               <span className="doc-nav-num">
                 04
               </span>
               File Structure
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 4 ? "active" : ""}`} onClick={() => goTo(4, "installation")}>
               <span className="doc-nav-num">
                 05
               </span>
               Installation
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 5 ? "active" : ""}`} onClick={() => goTo(5, "route-protection")}>
               <span className="doc-nav-num">
                 06
               </span>
               Route Protection
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 6 ? "active" : ""}`} onClick={() => goTo(6, "state")}>
               <span className="doc-nav-num">
                 07
               </span>
               State Management
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 7 ? "active" : ""}`} onClick={() => goTo(7, "pwa")}>
               <span className="doc-nav-num">
                 08
               </span>
               PWA Setup
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 8 ? "active" : ""}`} onClick={() => goTo(8, "styling")}>
               <span className="doc-nav-num">
                 09
               </span>
               Styling System
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 9 ? "active" : ""}`} onClick={() => goTo(9, "forms")}>
               <span className="doc-nav-num">
                 10
               </span>
               Form Validation
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 10 ? "active" : ""}`} onClick={() => goTo(10, "components")}>
               <span className="doc-nav-num">
                 11
               </span>
               Key Components
             </button>
-            <button className="doc-nav-item ">
+            <button className={`doc-nav-item ${active === 11 ? "active" : ""}`} onClick={() => goTo(11, "backend")}>
               <span className="doc-nav-num">
                 12
               </span>
@@ -754,7 +774,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   bash
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -793,7 +813,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   bash
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -825,7 +845,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   bash
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -869,7 +889,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   typescript
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1032,7 +1052,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   typescript
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1228,7 +1248,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   scss
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1253,7 +1273,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   scss
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1271,7 +1291,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   scss
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1389,7 +1409,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   typescript
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1422,7 +1442,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   tsx
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1485,7 +1505,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   tsx
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1526,7 +1546,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   tsx
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1557,7 +1577,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   typescript
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1575,7 +1595,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   typescript
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>
@@ -1593,7 +1613,7 @@ export default function Documentation() {
                 <span className="doc-code-lang">
                   typescript
                 </span>
-                <button className="doc-copy-btn ">
+                <button className="doc-copy-btn" onClick={copyCode}>
                   Copy
                 </button>
               </div>

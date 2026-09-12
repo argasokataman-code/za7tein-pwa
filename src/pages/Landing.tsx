@@ -2,11 +2,17 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
 
+import { useState } from 'react'
+
+import toast from 'react-hot-toast'
+
 export default function Landing() {
+  const [showBanner, setShowBanner] = useState(true)
   return (
     <>
     <div className="app-shell">
-      <div className="page-module___8aEwW__pwaNotification page-module___8aEwW__show" role="alert" aria-live="polite">
+      {showBanner && (
+        <div className="page-module___8aEwW__pwaNotification page-module___8aEwW__show" role="alert" aria-live="polite">
         <p className="page-module___8aEwW__pwaText">
           <strong>
             Download the app
@@ -14,14 +20,15 @@ export default function Landing() {
            — Install Delivo PWA for a better experience.
         </p>
         <div className="page-module___8aEwW__pwaActions">
-          <button type="button" className="page-module___8aEwW__pwaInstallBtn">
+          <button type="button" className="page-module___8aEwW__pwaInstallBtn" onClick={() => toast.success("Use your browser menu to install Delivo")}>
             Install
           </button>
-          <button type="button" className="page-module___8aEwW__pwaDismissBtn" aria-label="Dismiss">
+          <button type="button" className="page-module___8aEwW__pwaDismissBtn" aria-label="Dismiss" onClick={() => setShowBanner(false)}>
             ×
           </button>
         </div>
       </div>
+      )}
       <div className="page-module___8aEwW__body">
         <p className="page-module___8aEwW__brand">
           Delivo

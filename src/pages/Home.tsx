@@ -51,7 +51,7 @@ export default function Home() {
                 aria-label="Change delivery location"
                 aria-haspopup="dialog"
                 aria-expanded="false"
-              >
+               onClick={() => { toast.success("Change delivery location") }}>
                 <div className="location-label">
                   <span>Delivery location</span>
                   <ChevronDown size={14} />

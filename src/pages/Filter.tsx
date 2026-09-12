@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { useChipSet } from '../hooks/useToggleSet'
 
 
+import toast from 'react-hot-toast'
+
 export default function Filter() {
   const chips = useChipSet(["Sizzling"])
   const navigate = useNavigate()
@@ -108,7 +110,7 @@ export default function Filter() {
               <button type="button" className="apply-btn" aria-label="Apply selected filters" onClick={() => { navigate('/search') }}>
                 Apply Filter
               </button>
-              <button type="button" className="clear-btn" aria-label="Clear all filters">
+              <button type="button" className="clear-btn" aria-label="Clear all filters" onClick={() => { toast.success('Filters cleared') }}>
                 Clear All
               </button>
             </div>

@@ -4,6 +4,8 @@ import { useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import toast from 'react-hot-toast'
+
 export default function OrderDelivery() {
   const navigate = useNavigate()
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function OrderDelivery() {
             </h1>
           </header>
           <div id="delivery-map" className="order-map-container" />
-          <button className="recenter-btn" aria-label="Recenter map" type="button">
+          <button className="recenter-btn" aria-label="Recenter map" type="button" onClick={() => { toast.success("Map re-centered on your location") }}>
             <svg width={24} height={24} viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2" />
               <circle cx="12" cy="12" r="3" fill="white" />
@@ -87,7 +89,7 @@ export default function OrderDelivery() {
                     <path d="M1.636 2.455a.818.818 0 0 1 .818-.818h1.762c.4 0 .74.289.806.683l.605 3.63a.818.818 0 0 1-.322.831L4.046 7.449c.913 2.27 2.724 4.081 4.994 4.995l.633-1.267a.818.818 0 0 1 .831-.322l3.63.605a.818.818 0 0 1 .683.806v1.762a.818.818 0 0 1-.818.818H12.273C6.398 14.846 1.636 10.084 1.636 4.21V2.455Z" fill="#0D0D0D" />
                   </svg>
                 </a>
-                <button className="driver-action-btn chat-btn" aria-label="Chat with driver" type="button">
+                <button className="driver-action-btn chat-btn" aria-label="Chat with driver" type="button" onClick={() => { toast.success("Chat with driver") }}>
                   <svg width={17} height={17} viewBox="0 0 17 17" fill="none">
                     <path fillRule="evenodd" clipRule="evenodd" d="M14.727 4.09v6.546c0 .904-.732 1.636-1.636 1.636H9L4.91 15.545v-3.273H3.273A1.636 1.636 0 0 1 1.636 10.636V4.09c0-.904.732-1.636 1.636-1.636h10.82c.903 0 1.636.732 1.636 1.636ZM5.727 7.363a.818.818 0 1 1-1.636 0 .818.818 0 0 1 1.636 0Zm1.636 0a.818.818 0 1 0 1.637 0 .818.818 0 0 0-1.637 0Zm3.273 0a.818.818 0 1 0 1.637 0 .818.818 0 0 0-1.637 0Z" fill="#0D0D0D" />
                   </svg>

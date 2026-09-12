@@ -87,8 +87,6 @@ also set a `<body>` class, which the generated components reproduce with a
 
 `/home` and `/menu-detail/:id` are hand-written; the rest were ported, then
 wired to the store (see Status).
-the remaining screens are faithful markup ports — interactive behaviour beyond
-navigation is still to be added (see Status).
 
 ## Status
 
@@ -97,15 +95,21 @@ navigation is still to be added (see Status).
 - [x] App shell + shared UI components, all 50 routes registered
 - [x] All 50 screens rebuilt — structure verified identical to the original
 - [x] Navigation wired everywhere (links, back buttons, bottom nav)
-- [x] Auth flow submits with the original toasts and destinations
-- [x] Cart / favourites / FAQ / filter chips / payment selection / rating
-- [ ] Still presentational: the PIN numpad, the in-page documentation nav and
-      copy buttons, the driver call/chat buttons, the map recenter controls
-      and the social sign-in buttons
+- [x] Auth flow, including the 4- and 6-digit code boxes and the PIN numpad
+- [x] Cart / favourites / FAQ / filter chips / payment / rating / logout
+- [x] Documentation page: sidebar navigation and per-block copy buttons
+- [x] Landing and onboarding PWA banners are dismissible
+- [ ] Inert by design or by omission: the two numpad spacer keys, and the
+      documentation hamburger (no `doc-*` class has styles upstream, so there
+      is nothing for it to toggle)
 
 ## Interaction coverage
 
-Roughly 60 controls are wired to real behaviour; ~96 buttons are still inert,
-concentrated in a few screens (the `/create-pin` numpad is 24 of them and the
-`/documentation` page accounts for 27 more). `grep -c "<button"` plus a check
-for `onClick` is a quick way to see what is left.
+Every `<button>` has a handler except the numpad spacers and the documentation
+hamburger.
+
+Note that ~40 classes used by the markup had no styles in the recovered app
+stylesheet — the landing page's CSS-module bundle, the PWA install banner and a
+few Bootstrap utilities. Those rules were extracted into
+`src/styles/_modules.scss`; the landing page's computed styles now match the
+original element for element.

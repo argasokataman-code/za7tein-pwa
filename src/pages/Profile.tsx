@@ -1,8 +1,15 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
+import { logout } from '../store/slices/authSlice'
+import { useAppDispatch } from '../hooks/useAppStore'
+
+import toast from 'react-hot-toast'
 
 export default function Profile() {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   return (
     <>
     <div className="app-shell">
@@ -187,7 +194,7 @@ export default function Profile() {
                 </div>
               </section>
               <div className="profile-logout-wrap">
-                <button type="button" className="btn-logout">
+                <button type="button" className="btn-logout" onClick={() => { dispatch(logout()); toast.success('Logged out'); navigate('/signin') }}>
                   Log out
                 </button>
               </div>
@@ -203,10 +210,10 @@ export default function Profile() {
                 You will be returned to the sign‑in screen.
               </p>
               <div className="profile-modal-actions" style={{ display: "flex", gap: "12px" }}>
-                <button type="button" className="btn-profile-outline" style={{ flex: "1 1 0%" }}>
+                <button type="button" className="btn-profile-outline" style={{ flex: "1 1 0%" }} onClick={() => navigate('/add-profile-photo')}>
                   Cancel
                 </button>
-                <button type="button" className="btn-profile-primary" style={{ flex: "1 1 0%", opacity: "1", cursor: "pointer" }}>
+                <button type="button" className="btn-profile-primary" style={{ flex: "1 1 0%", opacity: "1", cursor: "pointer" }} onClick={() => { dispatch(logout()); toast.success('Logged out'); navigate('/signin') }}>
                   Log Out
                 </button>
               </div>

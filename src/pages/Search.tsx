@@ -7,6 +7,8 @@ import { useFoodActions } from '../hooks/useFoodActions'
 
 import { useChipSet } from '../hooks/useToggleSet'
 
+import toast from 'react-hot-toast'
+
 export default function Search() {
   const chips = useChipSet([])
   const { addToCart } = useFoodActions()
@@ -53,7 +55,7 @@ export default function Search() {
               <h2>
                 Recent Search
               </h2>
-              <button type="button" className="link-btn" aria-label="Clear all recent searches">
+              <button type="button" className="link-btn" aria-label="Clear all recent searches" onClick={() => { toast.success("See all results") }}>
                 Clear All
               </button>
             </div>

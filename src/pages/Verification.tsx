@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
+import { useOtpInput } from '../hooks/useOtpInput'
+
 export default function Verification() {
+  const otp = useOtpInput(6)
   const navigate = useNavigate()
   return (
     <>
@@ -38,14 +41,24 @@ export default function Verification() {
                       Enter the 6 digit code we sent by email
                     </p>
                     <div className="code-inputs">
-                      <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
-                      <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
-                      <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
-                      <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
-                      <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
-                      <input inputMode="numeric" maxLength={1} className="code-input" type="text" value="" />
+                      {otp.values.map((value, i) => (
+                        <input
+                          key={i}
+                          ref={(el) => {
+                            otp.refs.current[i] = el
+                          }}
+                          inputMode="numeric"
+                          maxLength={1}
+                          className="code-input"
+                          aria-label={`Digit ${i + 1}`}
+                          type="text"
+                          value={value}
+                          onChange={(e) => otp.handleChange(i, e.target.value)}
+                          onKeyDown={(e) => otp.handleKeyDown(i, e.key)}
+                        />
+                      ))}
                     </div>
-                    <button className="btn btn-primary btn-verify" onClick={() => { toast.success("Email verified successfully!"); navigate('/signin') }}>
+                    <button className="btn btn-primary btn-verify" onClick={() => otp.isComplete ? (toast.success("Email verified successfully!"), navigate('/signin')) : toast.error('Enter all 6 digits')}>
                       Verify
                     </button>
                     <p className="resend-text">

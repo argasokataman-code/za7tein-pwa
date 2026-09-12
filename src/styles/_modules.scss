@@ -1,0 +1,60 @@
+// Styles the ported markup needs that live outside the main app
+// stylesheet: the landing page's CSS-module bundle, the PWA install
+// banner, and the Bootstrap utilities the screens rely on.
+  .PwaInstallBanner-module-scss-module__ziTC8q__wrapper { z-index:9999; background:#0d0d0d; border-bottom:1px solid #fd69314d; justify-content:space-between; align-items:center; gap:12px; width:100%; max-width:1024px; padding:10px 16px 10px 20px; font-family:Plus Jakarta Sans,sans-serif; transition:transform .35s ease-out; display:flex; position:fixed; top:0; left:50%; transform:translate(-50%)translateY(-100%); box-shadow:0 4px 20px #0000004d }
+  .PwaInstallBanner-module-scss-module__ziTC8q__show { transform:translate(-50%)translateY(0) }
+  .PwaInstallBanner-module-scss-module__ziTC8q__text { color:#fff; flex:1; margin:0; font-size:14px }
+  .PwaInstallBanner-module-scss-module__ziTC8q__text strong { color:#fd6931 }
+  .PwaInstallBanner-module-scss-module__ziTC8q__actions { flex-shrink:0; align-items:center; gap:8px; display:flex }
+  .PwaInstallBanner-module-scss-module__ziTC8q__installBtn { color:#fff; cursor:pointer; background:#fd6931; border:none; border-radius:8px; padding:8px 16px; font-size:14px; font-weight:600 }
+  .PwaInstallBanner-module-scss-module__ziTC8q__dismissBtn { color:#697586; cursor:pointer; background:#ffffff1a; border:none; border-radius:8px; width:32px; height:32px; padding:0; font-size:1.25rem; line-height:1 }
+  .page-module___8aEwW__body { color:#fff; text-align:center; background:#0d0d0d; flex-direction:column; justify-content:center; align-items:center; min-height:100vh; padding:24px 20px; font-family:Plus Jakarta Sans,sans-serif; display:flex }
+  .page-module___8aEwW__brand { color:#fd6931; letter-spacing:.05em; margin-bottom:8px; font-size:clamp(.8rem,2vw + .5rem,.9rem); font-weight:600 }
+  .page-module___8aEwW__title { margin-bottom:12px; font-size:clamp(1.75rem,5vw,2.25rem); font-weight:700; line-height:1.2 }
+  .page-module___8aEwW__subtitle { color:#9ca3af; max-width:420px; margin-bottom:28px; margin-left:auto; margin-right:auto; font-size:clamp(.875rem,2vw + .5rem,1rem) }
+  .page-module___8aEwW__features { color:#9ca3af; flex-wrap:wrap; justify-content:center; gap:10px 16px; margin:0 0 32px; padding:0; font-size:clamp(.8rem,2vw + .5rem,.9rem); list-style:none; display:flex }
+  .page-module___8aEwW__features li { align-items:center; gap:6px; display:flex }
+  .page-module___8aEwW__features li:before { content:"•"; color:#fd6931; font-weight:700 }
+  .page-module___8aEwW__buttons { flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:40px; display:flex }
+  .page-module___8aEwW__btn { cursor:pointer; border:none; border-radius:12px; padding:14px 28px; font-family:Plus Jakarta Sans,sans-serif; font-size:clamp(.9rem,2vw + .5rem,1rem); font-weight:600; text-decoration:none; transition:background .2s,transform .1s; display:inline-block }
+  .page-module___8aEwW__btnPrimary { color:#fff; background:#fd6931 }
+  .page-module___8aEwW__btnPrimary:hover { color:#fff; background:#e85a28; transform:translateY(-1px) }
+  .page-module___8aEwW__btnOutline { color:#fd6931; background:0 0; border:2px solid #fd6931 }
+  .page-module___8aEwW__btnOutline:hover { color:#fd6931; background:#fd693126 }
+  .page-module___8aEwW__viewbox { width:100%; max-width:380px; margin:2rem auto 2.5rem; padding:0 12px }
+  .page-module___8aEwW__viewboxTitle { color:#fff; margin-bottom:6px; font-size:clamp(.9rem,2vw + .5rem,1rem); font-weight:600 }
+  .page-module___8aEwW__viewboxSubtitle { color:#9ca3af; margin-bottom:16px; font-size:clamp(.75rem,1.5vw + .5rem,.85rem) }
+  .page-module___8aEwW__phoneFrame { background:#1a1a1a; border-radius:36px; width:100%; max-width:400px; height:640px; margin:0 auto 16px; position:relative; overflow:hidden; box-shadow:0 24px 48px #00000080,0 0 0 3px #2a2a2a,0 0 0 6px #1a1a1a }
+  .page-module___8aEwW__phoneFrame:before { content:""; z-index:2; background:#0d0d0d; border-radius:0 0 16px 16px; width:100px; height:24px; position:absolute; top:0; left:50%; transform:translate(-50%) }
+  .page-module___8aEwW__phoneScreen { background:#000; border-radius:24px; position:absolute; inset:28px 12px 12px; overflow:hidden }
+  .page-module___8aEwW__phoneScreen iframe { border:none; width:100%; height:100%; display:block }
+  .page-module___8aEwW__scan { background:#ffffff0f; border-radius:16px; max-width:320px; margin-bottom:24px; margin-left:auto; margin-right:auto; padding:24px 28px }
+  .page-module___8aEwW__scanTitle { color:#9ca3af; margin-bottom:12px; font-size:clamp(.75rem,1.5vw + .5rem,.85rem) }
+  .page-module___8aEwW__qr { object-fit:contain; background:#fff; border-radius:12px; width:120px; height:120px; margin:0 auto 12px; display:block }
+  .page-module___8aEwW__preview { margin-top:20px }
+  .page-module___8aEwW__previewTitle { margin-bottom:8px; font-size:clamp(.875rem,2vw + .5rem,.95rem); font-weight:600 }
+  .page-module___8aEwW__previewText { color:#9ca3af; margin-bottom:12px; font-size:clamp(.75rem,1.5vw + .5rem,.85rem) }
+  .page-module___8aEwW__credit { color:#9ca3af; margin-top:2rem; font-size:clamp(.75rem,1.5vw + .5rem,.85rem) }
+  .page-module___8aEwW__pwaNotification { z-index:9999; background:#0d0d0d; border-bottom:1px solid #fd69314d; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px 12px 20px; font-family:Plus Jakarta Sans,sans-serif; transition:transform .35s ease-out; display:flex; position:fixed; top:0; left:0; right:0; transform:translateY(-100%); box-shadow:0 4px 20px #0000004d }
+  .page-module___8aEwW__pwaNotification.page-module___8aEwW__show { transform:translateY(0) }
+  .page-module___8aEwW__pwaText { color:#fff; flex:1; margin:0; font-size:clamp(.8rem,2vw + .4rem,.95rem) }
+  .page-module___8aEwW__pwaText strong { color:#fd6931 }
+  .page-module___8aEwW__pwaActions { flex-shrink:0; align-items:center; gap:8px; display:flex }
+  .page-module___8aEwW__pwaInstallBtn { color:#fff; cursor:pointer; background:#fd6931; border:none; border-radius:8px; padding:8px 16px; font-family:Plus Jakarta Sans,sans-serif; font-size:.875rem; font-weight:600; transition:background .2s }
+  .page-module___8aEwW__pwaInstallBtn:hover { background:#e85a28 }
+  .page-module___8aEwW__pwaDismissBtn { color:#9ca3af; cursor:pointer; background:#ffffff1a; border:none; border-radius:8px; justify-content:center; align-items:center; width:32px; height:32px; padding:0; font-size:1.25rem; line-height:1; transition:background .2s,color .2s; display:flex }
+  .page-module___8aEwW__pwaDismissBtn:hover { color:#fff; background:#ffffff26 }
+
+@media (min-width:768px) {
+  .page-module___8aEwW__viewbox { max-width:340px; margin:2.5rem auto 3rem }
+  .page-module___8aEwW__phoneFrame { max-width:400px }
+}
+  .d-none { display:none!important }
+  .justify-content-end { justify-content:flex-end!important }
+  .justify-content-center { justify-content:center!important }
+  .justify-content-between { justify-content:space-between!important }
+  .mt-4 { margin-top:1.5rem!important }
+  .mb-4 { margin-bottom:1.5rem!important }
+  .pe-5 { padding-right:3rem!important }
+  .text-end { text-align:right!important }
+  .text-center { text-align:center!important }

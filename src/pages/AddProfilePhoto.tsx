@@ -27,7 +27,7 @@ export default function AddProfilePhoto() {
                 <div className="add-photo-avatar">
                   <img id="profilePhotoPreview" alt="Profile" width={52} height={52} src="/_next/static/media/profile.f3501486.png" style={{ color: "transparent" }} />
                 </div>
-                <button type="button" className="btn-upload-photo">
+                <button type="button" className="btn-upload-photo" onClick={() => { toast.success("Choose a new photo") }}>
                   Upload New Photo
                 </button>
                 <input accept="image/*" className="d-none" type="file" />
@@ -71,7 +71,7 @@ export default function AddProfilePhoto() {
                 If you exit now any changes you haven't saved will be lost.
               </p>
               <div className="profile-modal-actions">
-                <button type="button" className="btn-profile-outline">
+                <button type="button" className="btn-profile-outline" onClick={() => { navigate(-1) }}>
                   Cancel
                 </button>
                 <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>

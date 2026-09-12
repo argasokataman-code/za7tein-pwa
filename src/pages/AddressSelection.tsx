@@ -3,6 +3,8 @@
 import { useNavigate } from 'react-router-dom'
 
 
+import toast from 'react-hot-toast'
+
 export default function AddressSelection() {
   const navigate = useNavigate()
   return (
@@ -38,7 +40,7 @@ export default function AddressSelection() {
                   </p>
                 </div>
                 <div className="address-actions">
-                  <button type="button" className="address-delete-btn" aria-label="Delete Home">
+                  <button type="button" className="address-delete-btn" aria-label="Delete Home" onClick={() => { toast.success("Address removed") }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2 lucide-trash-2">
                       <path d="M10 11v6" />
                       <path d="M14 11v6" />
@@ -70,7 +72,7 @@ export default function AddressSelection() {
                   </p>
                 </div>
                 <div className="address-actions">
-                  <button type="button" className="address-delete-btn" aria-label="Delete My Office">
+                  <button type="button" className="address-delete-btn" aria-label="Delete My Office" onClick={() => { toast.success("Address removed") }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2 lucide-trash-2">
                       <path d="M10 11v6" />
                       <path d="M14 11v6" />
@@ -103,7 +105,7 @@ export default function AddressSelection() {
                   </p>
                 </div>
                 <div className="address-actions">
-                  <button type="button" className="address-delete-btn" aria-label="Delete My Apartment">
+                  <button type="button" className="address-delete-btn" aria-label="Delete My Apartment" onClick={() => { toast.success("Address removed") }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2 lucide-trash-2">
                       <path d="M10 11v6" />
                       <path d="M14 11v6" />
@@ -118,7 +120,7 @@ export default function AddressSelection() {
                 </div>
               </div>
             </div>
-            <button type="button" className="add-address-btn" aria-label="Add new address">
+            <button type="button" className="add-address-btn" aria-label="Add new address" onClick={() => { toast.success('Add a new address') }}>
               <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus">
                 <path d="M5 12h14" />
                 <path d="M12 5v14" />

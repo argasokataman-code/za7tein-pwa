@@ -1,10 +1,19 @@
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useState } from 'react'
+
+import toast from 'react-hot-toast'
+
+import { useNavigate } from 'react-router-dom'
+
 export default function Onboarding() {
+  const navigate = useNavigate()
+  const [showBanner, setShowBanner] = useState(true)
   return (
     <>
     <div className="app-shell">
-      <div className="PwaInstallBanner-module-scss-module__ziTC8q__wrapper PwaInstallBanner-module-scss-module__ziTC8q__show">
+      {showBanner && (
+        <div className="PwaInstallBanner-module-scss-module__ziTC8q__wrapper PwaInstallBanner-module-scss-module__ziTC8q__show">
         <p className="PwaInstallBanner-module-scss-module__ziTC8q__text">
           <strong>
             Download the app
@@ -12,14 +21,15 @@ export default function Onboarding() {
            — Install Delivo PWA for a better experience.
         </p>
         <div className="PwaInstallBanner-module-scss-module__ziTC8q__actions">
-          <button className="PwaInstallBanner-module-scss-module__ziTC8q__installBtn">
+          <button className="PwaInstallBanner-module-scss-module__ziTC8q__installBtn" onClick={() => toast.success("Use your browser menu to install Delivo")}>
             Install
           </button>
-          <button className="PwaInstallBanner-module-scss-module__ziTC8q__dismissBtn" aria-label="Dismiss">
+          <button className="PwaInstallBanner-module-scss-module__ziTC8q__dismissBtn" aria-label="Dismiss" onClick={() => setShowBanner(false)}>
             ×
           </button>
         </div>
       </div>
+      )}
       <div className="screen active">
         <div className="onboarding-image onboarding-image-1" />
         <div className="onboarding-overlay" />
@@ -38,7 +48,7 @@ export default function Onboarding() {
                   <span className="dot" />
                   <span className="dot" />
                 </div>
-                <button className="btn btn-primary btn-continue">
+                <button className="btn btn-primary btn-continue" onClick={() => { navigate('/signin') }}>
                   Continue
                 </button>
               </div>

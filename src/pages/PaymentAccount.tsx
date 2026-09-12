@@ -2,6 +2,8 @@
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
 
+import toast from 'react-hot-toast'
+
 export default function PaymentAccount() {
   return (
     <>
@@ -51,7 +53,7 @@ export default function PaymentAccount() {
                     Connected
                   </span>
                 </div>
-                <button type="button" className="wallet-badge remove">
+                <button type="button" className="wallet-badge remove" onClick={() => { toast.success("Default payment method") }}>
                   Remove
                 </button>
               </div>
@@ -67,7 +69,7 @@ export default function PaymentAccount() {
                     Connected
                   </span>
                 </div>
-                <button type="button" className="wallet-badge remove">
+                <button type="button" className="wallet-badge remove" onClick={() => { toast.success("Default payment method") }}>
                   Remove
                 </button>
               </div>
@@ -83,7 +85,7 @@ export default function PaymentAccount() {
                     Unconnected
                   </span>
                 </div>
-                <button type="button" className="wallet-badge connect">
+                <button type="button" className="wallet-badge connect" onClick={() => { toast.success("Default payment method") }}>
                   Connect
                 </button>
               </div>

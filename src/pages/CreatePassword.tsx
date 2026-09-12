@@ -70,7 +70,7 @@ export default function CreatePassword() {
               <p className="profile-modal-text">
                 Your password has been successfully updated.
               </p>
-              <button className="btn-profile-primary">
+              <button className="btn-profile-primary" onClick={() => { toast.success('Password updated successfully!'); navigate('/home') }}>
                 Back to Home
               </button>
             </div>
