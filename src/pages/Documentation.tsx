@@ -764,6 +764,9 @@ export default function Documentation() {
             </h3>
             <p>
               A separate role shell for merchants, distinct from the customer app.
+              Merchant auth (<code className="doc-inline">/merchant/signin</code> and{' '}
+              <code className="doc-inline">/merchant/signup</code>) is separate from customer auth{' '}
+              (<code className="doc-inline">/signin</code>).
               It uses its own bottom nav (<code className="doc-inline">MerchantBottomNav</code>)
               and is entirely mock-data driven (no backend or auth).
               All routes are prefixed with <code className="doc-inline">/merchant</code>
@@ -782,6 +785,36 @@ export default function Documentation() {
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant/signin
+                      </code>
+                    </td>
+                    <td>
+                      Masuk merchant (email + password)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant/signup
+                      </code>
+                    </td>
+                    <td>
+                      Daftar toko
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code className="doc-inline">
+                        /merchant/pending
+                      </code>
+                    </td>
+                    <td>
+                      Menunggu persetujuan Super Admin
+                    </td>
+                  </tr>
                   <tr>
                     <td>
                       <code className="doc-inline">
@@ -1510,12 +1543,28 @@ $error-color:   #ff3b30;`}</code>
                       street, city, state, zip
                     </td>
                   </tr>
-                  <tr>
+                   <tr>
                     <td>
                       personalDataSchema
                     </td>
                     <td>
                       fullName, email, phone, dob?, gender?
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      merchantSignInSchema
+                    </td>
+                    <td>
+                      email, password (akun merchant, terpisah dari customer)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      merchantSignUpSchema
+                    </td>
+                    <td>
+                      name, email, phone (opsional), password
                     </td>
                   </tr>
                 </tbody>

@@ -21,6 +21,19 @@ export const signUpSchema = z.object({
   password: z.string().min(6, 'Password minimal 6 karakter'),
 })
 
+// Merchant memakai email sebagai identitas, terpisah dari akun customer.
+export const merchantSignInSchema = z.object({
+  email: z.string().email('Format email tidak valid'),
+  password: z.string().min(6, 'Password minimal 6 karakter'),
+})
+
+export const merchantSignUpSchema = z.object({
+  name: z.string().min(2, 'Nama toko minimal 2 karakter'),
+  email: z.string().email('Format email tidak valid'),
+  phone: phoneField.optional().or(z.literal('')),
+  password: z.string().min(6, 'Password minimal 6 karakter'),
+})
+
 export const forgotPasswordSchema = z.object({
   phone: phoneField,
 })
@@ -72,6 +85,8 @@ export const personalDataSchema = z.object({
 export type PhoneField = z.infer<typeof phoneField>
 export type SignInFormData = z.infer<typeof signInSchema>
 export type SignUpFormData = z.infer<typeof signUpSchema>
+export type MerchantSignInFormData = z.infer<typeof merchantSignInSchema>
+export type MerchantSignUpFormData = z.infer<typeof merchantSignUpSchema>
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
 export type CreatePasswordFormData = z.infer<typeof createPasswordSchema>
 export type ApartmentFormData = z.infer<typeof apartmentSchema>

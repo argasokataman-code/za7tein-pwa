@@ -27,7 +27,10 @@ import MenuDetail from './pages/MenuDetail'
 import MerchantCouriers from './pages/MerchantCouriers'
 import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantOrders from './pages/MerchantOrders'
+import MerchantPending from './pages/MerchantPending'
 import MerchantSettings from './pages/MerchantSettings'
+import MerchantSignIn from './pages/MerchantSignIn'
+import MerchantSignUp from './pages/MerchantSignUp'
 import NotificationSettings from './pages/NotificationSettings'
 import Notifications from './pages/Notifications'
 import Offline from './pages/Offline'
@@ -70,6 +73,9 @@ const routes: [string, React.ComponentType][] = [
   ['/filter', Filter],
   ['/favorites', Favorites],
   ['/menu-detail/:id', MenuDetail],
+  ['/merchant/signin', MerchantSignIn],
+  ['/merchant/signup', MerchantSignUp],
+  ['/merchant/pending', MerchantPending],
   ['/merchant', MerchantDashboard],
   ['/merchant/orders', MerchantOrders],
   ['/merchant/couriers', MerchantCouriers],
