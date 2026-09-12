@@ -8,9 +8,9 @@ import toast from 'react-hot-toast'
 
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
 import { formatDistance, isDeliverable, rupiah, zoneFor } from '../data/merchant'
-import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { setAddress } from '../store/slices/cartSlice'
+import { mockUser } from '../data/user'
+import { addAddress, setAddress } from '../store/slices/cartSlice'
 import type { Address } from '../types'
 
 const ICONS: Record<string, string> = {
@@ -36,7 +36,8 @@ export default function AddressSelection() {
   const dispatch = useAppDispatch()
   const selectedId = useAppSelector((s) => s.cart.selectedAddressId)
   const [showForm, setShowForm] = useState(false)
-  const [addresses, setAddresses] = useState<Address[]>(mockUser.addresses)
+  const stored = useAppSelector((s) => s.cart.addresses)
+  const addresses = stored?.length ? stored : mockUser.addresses
 
   const {
     register,
@@ -65,7 +66,7 @@ export default function AddressSelection() {
       lng: 106.7812,
       distanceMeters: 540,
     }
-    setAddresses((prev) => [...prev, next])
+    dispatch(addAddress(next))
     dispatch(setAddress(id))
     reset()
     setShowForm(false)

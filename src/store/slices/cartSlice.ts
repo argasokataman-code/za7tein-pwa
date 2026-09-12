@@ -1,10 +1,15 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { CartItem, Food } from '../../types'
+import { mockUser } from '../../data/user'
+import type { Address, CartItem, Food } from '../../types'
 
 interface CartState {
   items: CartItem[]
+  /** Alamat dibagi ke seluruh alur checkout, bukan state lokal per layar. */
+  addresses: Address[]
   selectedAddressId: string | null
   selectedPaymentId: string | null
+  /** Nama file bukti transfer; wajib ada sebelum pesanan transfer dikirim. */
+  transferProof: string | null
 }
 
 const initialState: CartState = {
@@ -19,25 +24,40 @@ const initialState: CartState = {
       modifiers: 'Sedang',
     },
   ],
+  addresses: mockUser.addresses,
   selectedAddressId: 'tower-a',
   selectedPaymentId: 'cod',
+  transferProof: null,
 }
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem(state, action: PayloadAction<{ food: Food; quantity?: number }>) {
-      const { food, quantity = 1 } = action.payload
-      const existing = state.items.find((i) => i.id === food.id)
+    addItem(
+      state,
+      action: PayloadAction<{
+        food: Food
+        quantity?: number
+        /** harga satuan setelah modifier, mis. Sate Ayam + Lontong */
+        unitPrice?: number
+        modifiers?: string
+      }>,
+    ) {
+      const { food, quantity = 1, unitPrice, modifiers } = action.payload
+      // Sate Ayam "Pedas" dan "Tidak Pedas" adalah baris terpisah di keranjang.
+      const existing = state.items.find(
+        (i) => i.id === food.id && (i.modifiers ?? '') === (modifiers ?? ''),
+      )
       if (existing) existing.quantity += quantity
       else
         state.items.push({
           id: food.id,
           name: food.name,
-          price: food.price,
+          price: unitPrice ?? food.price,
           quantity,
           image: food.image,
+          modifiers,
         })
     },
     updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
@@ -60,6 +80,14 @@ const cartSlice = createSlice({
     },
     setPayment(state, action: PayloadAction<string>) {
       state.selectedPaymentId = action.payload
+      // Bukti transfer hanya relevan untuk metode transfer.
+      if (action.payload !== 'transfer') state.transferProof = null
+    },
+    setTransferProof(state, action: PayloadAction<string | null>) {
+      state.transferProof = action.payload
+    },
+    addAddress(state, action: PayloadAction<Address>) {
+      state.addresses.push(action.payload)
     },
   },
 })
@@ -71,6 +99,8 @@ export const {
   clearCart,
   setAddress,
   setPayment,
+  setTransferProof,
+  addAddress,
 } = cartSlice.actions
 
 export const selectCartCount = (items: CartItem[]) =>

@@ -131,3 +131,123 @@
 .addr-form-actions > * {
   flex: 1;
 }
+
+.payment-method-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.payment-method-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.payment-change-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange-ink);
+  cursor: pointer;
+}
+
+.payment-method-note {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.proof-input {
+  display: none;
+}
+
+.proof-upload {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--canvas);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--orange-ink);
+  cursor: pointer;
+}
+
+.proof-upload--done {
+  border-style: solid;
+  color: var(--success-ink);
+  border-color: var(--success-ink);
+  background: var(--green-soft);
+}
+
+/* ── Modifier menu (detail menu) ─────────────────────────────────────────── */
+.modifier-group {
+  margin-top: 16px;
+}
+
+.modifier-group-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+.modifier-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-align: left;
+}
+
+.modifier-option.active {
+  border-color: var(--orange-brand);
+  background: var(--orange-soft);
+}
+
+.modifier-option-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modifier-option-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--orange-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.modifier-box {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.modifier-box--multi {
+  border-radius: var(--radius-sm);
+}
+
+.modifier-box.active {
+  border-color: var(--orange-brand);
+  background: var(--orange-brand);
+}

@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { foods, getFood } from '../data/foods'
+import { foods, getFood, modifierExtra, modifierSummary } from '../data/foods'
 import { menuDetailReviews } from '../data/reviews'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { addItem } from '../store/slices/cartSlice'
 import { toggleFavorite } from '../store/slices/favoritesSlice'
+import { rupiah } from '../data/merchant'
+import type { ModifierGroup } from '../types'
 
 const TRUNCATE_AT = 96
 
@@ -16,6 +18,7 @@ export default function MenuDetail() {
   const dispatch = useAppDispatch()
   const [quantity, setQuantity] = useState(1)
   const [expanded, setExpanded] = useState(false)
+  const [chosen, setChosen] = useState<string[]>([])
 
   const food = getFood(id ?? '') ?? foods[0]
   const isFavorite = useAppSelector((s) => s.favorites.ids.includes(food.id))
@@ -25,9 +28,38 @@ export default function MenuDetail() {
       ? `${food.description.slice(0, TRUNCATE_AT)}…`
       : food.description
 
+  // Grup "single" default ke pilihan sedang kalau ada, supaya pembeli tidak
+  // tanpa sengaja memesan level pedas paling ringan.
+  useEffect(() => {
+    const defaults: string[] = []
+    food.modifierGroups?.forEach((g) => {
+      if (g.type !== 'single') return
+      const medium = g.options.find((o) => o.id === 'medium')
+      defaults.push(medium ? medium.id : g.options[0].id)
+    })
+    setChosen(defaults)
+    setQuantity(1)
+  }, [food.id, food.modifierGroups])
+
+  const toggle = (group: ModifierGroup, optionId: string) => {
+    setChosen((prev) => {
+      if (group.type === 'single') {
+        const cleared = prev.filter((id) => !group.options.some((o) => o.id === id))
+        return [...cleared, optionId]
+      }
+      return prev.includes(optionId)
+        ? prev.filter((id) => id !== optionId)
+        : [...prev, optionId]
+    })
+  }
+
+  const extras = modifierExtra(food.modifierGroups, chosen)
+  const unitPrice = food.price + extras
+
   const addToCart = () => {
-    dispatch(addItem({ food, quantity }))
-    toast.success(`${quantity} × ${food.name} added to cart`)
+    const summary = modifierSummary(food.modifierGroups, chosen)
+    dispatch(addItem({ food, quantity, unitPrice, modifiers: summary || undefined }))
+    toast.success(`${quantity} × ${food.name}${summary ? ` (${summary})` : ''} masuk keranjang`)
   }
 
   return (
@@ -99,7 +131,7 @@ export default function MenuDetail() {
             <div className="menu-detail-content">
               <div className="menu-detail-name-price">
                 <h2 className="menu-detail-name">{food.name}</h2>
-                <span className="menu-detail-price">${food.price.toFixed(2)}</span>
+                <span className="menu-detail-price">{rupiah(unitPrice)}</span>
               </div>
 
               <div className="menu-info-badges" role="list" aria-label="Food details">
@@ -113,7 +145,7 @@ export default function MenuDetail() {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <span>Free Delivery</span>
+                  <span>Ongkir per zona</span>
                 </div>
                 <div className="info-badge" role="listitem">
                   <svg width={18} height={18} viewBox="0 0 24 24" fill="none">
@@ -157,6 +189,30 @@ export default function MenuDetail() {
                   ) : null}
                 </div>
               </div>
+
+              {food.modifierGroups?.map((group) => (
+                <div className="modifier-group" key={group.id} role="group" aria-label={group.name}>
+                  <h3 className="modifier-group-title">{group.name}</h3>
+                  {group.options.map((opt) => {
+                    const active = chosen.includes(opt.id)
+                    return (
+                      <button
+                        key={opt.id}
+                        type="button"
+                        className={`modifier-option${active ? ' active' : ''}`}
+                        aria-pressed={active}
+                        onClick={() => toggle(group, opt.id)}
+                      >
+                        <span className={`modifier-box${group.type === 'multi' ? ' modifier-box--multi' : ''}${active ? ' active' : ''}`} />
+                        <span className="modifier-option-label">{opt.label}</span>
+                        {opt.extraPrice > 0 ? (
+                          <span className="modifier-option-price">+{rupiah(opt.extraPrice)}</span>
+                        ) : null}
+                      </button>
+                    )
+                  })}
+                </div>
+              ))}
 
               <div className="menu-reviews-section">
                 <div className="reviews-header">
@@ -231,7 +287,7 @@ export default function MenuDetail() {
               <button
                 type="button"
                 className="add-to-cart-btn"
-                aria-label={`Add ${quantity} ${food.name} to cart, total $${(food.price * quantity).toFixed(2)}`}
+                aria-label={`Tambah ${quantity} ${food.name} ke keranjang, total ${rupiah(unitPrice * quantity)}`}
                 onClick={addToCart}
               >
                 <svg width={20} height={20} viewBox="0 0 24 24" fill="none">
@@ -251,7 +307,7 @@ export default function MenuDetail() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span>Add to Cart — ${(food.price * quantity).toFixed(2)}</span>
+                <span>Tambah ke Keranjang — {rupiah(unitPrice * quantity)}</span>
               </button>
             </div>
             <div className="home-indicator " />
