@@ -149,3 +149,6 @@ export interface CartItem {
   /** ringkasan modifier terpilih, mis. "Pedas Sedang, + Lontong" */
   modifiers?: string
 }
+
+/** Empat tahap perjalanan pesanan, dipakai Sa7tein Journey Line. */
+export type OrderStage = 'diterima' | 'dimasak' | 'diantar' | 'tiba'

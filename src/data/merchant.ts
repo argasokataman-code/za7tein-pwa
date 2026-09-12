@@ -1,4 +1,4 @@
-import type { Courier, DeliveryZone, Merchant, PaymentMethod } from '../types'
+import type { Courier, DeliveryZone, Merchant, OrderStage, PaymentMethod } from '../types'
 
 export const MAX_DELIVERY_METERS = 2000
 
@@ -46,6 +46,23 @@ export const mockCouriers: Courier[] = [
 ]
 
 export const MAX_COURIERS_PER_MERCHANT = 3
+
+/** Urutan tahap perjalanan; satu sumber untuk Journey Line dan label status. */
+export const ORDER_STAGES: { id: OrderStage; label: string }[] = [
+  { id: 'diterima', label: 'Diterima' },
+  { id: 'dimasak', label: 'Dimasak' },
+  { id: 'diantar', label: 'Diantar' },
+  { id: 'tiba', label: 'Tiba' },
+]
+
+/** Pesanan contoh — nomor, jam, dan estimasi dari PRD. */
+export const mockOrder = {
+  code: 'S7-772292',
+  placedAt: '12:27',
+  readyEstimate: '12:47',
+  arriveEstimate: '13:05',
+  courierRating: 4.7,
+} as const
 
 /** Semua jarak memakai format rupiah tanpa desimal, tabular-friendly. */
 export function rupiah(value: number): string {

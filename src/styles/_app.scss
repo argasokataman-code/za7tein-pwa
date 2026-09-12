@@ -7277,18 +7277,10 @@ body.order-placed-page {
   background:linear-gradient(90deg,#F15A37,#fff3,#0000)
 }
 
-.order-status-message {
-  background-color:#FFF9F4;
-  border:1px solid #ff69b466;
-  border-radius:var(--radius-md);
-  align-items:flex-start;
-  gap:12px;
-  padding:16px;
-  display:flex
-}
+
 
 .status-icon {
-  background-color:#ff69b4;
+  background-color:var(--success);
   border-radius:50%;
   flex-shrink:0;
   justify-content:center;
@@ -7428,17 +7420,17 @@ body.order-delivery-page {
 }
 
 .progress-step.active .step-icon.delivery-step-icon {
-  background-color:#7c3aed;
-  border-color:#7c3aed
+  background-color:var(--success);
+  border-color:var(--success)
 }
 
 .order-status-message.delivery-status {
-  background-color:#7c3aed33;
-  border:1px solid #7c3aed66
+  background-color:var(--success-soft);
+  border:1px solid var(--success)
 }
 
 .status-icon.delivery-status-icon {
-  background-color:#7c3aed
+  background-color:var(--success)
 }
 
 @media (min-width:768px) {

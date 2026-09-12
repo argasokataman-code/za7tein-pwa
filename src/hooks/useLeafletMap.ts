@@ -18,23 +18,52 @@ const DESTINATION: [number, number] = [
   mockUser.addresses[0].lat,
   mockUser.addresses[0].lng,
 ]
-const ZOOM = 15
 
-function pin(L: typeof import('leaflet'), color: string) {
+/**
+ * Rute di antara keduanya. Versi lama menarik garis lurus diagonal, yang
+ * terbaca sebagai "dua titik dihubungkan", bukan sebagai perjalanan. Belokan
+ * ringan ini membuatnya terbaca seperti jalan.
+ */
+const ROUTE: [number, number][] = [
+  RESTAURANT,
+  [RESTAURANT[0] + 0.0009, RESTAURANT[1] + 0.0004],
+  [(RESTAURANT[0] + DESTINATION[0]) / 2 + 0.0011, (RESTAURANT[1] + DESTINATION[1]) / 2],
+  [DESTINATION[0] + 0.0006, DESTINATION[1] - 0.0005],
+  DESTINATION,
+]
+
+/** Titik kurir, di awal rute sampai pengantaran dimulai. */
+const COURIER: [number, number] = ROUTE[1]
+
+/**
+ * Warna pin mengikuti palet aplikasi. Versi porting memakai #3B82F6 untuk
+ * titik tujuan — biru generik yang tidak ada di palet Sa7tein, sehingga peta
+ * terasa dari aplikasi lain.
+ */
+const PIN_MERCHANT = '#F15A37'
+const PIN_DESTINATION = '#202020'
+const PIN_COURIER = '#5C7A5C'
+
+function pin(L: typeof import('leaflet'), color: string, pulse = false) {
   return L.divIcon({
-    html: `<div style="width:14px;height:14px;border-radius:50%;background:${color};border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.45);"></div>`,
-    iconSize: [14, 14],
-    iconAnchor: [7, 7],
+    html: `<div class="sa7tein-pin${pulse ? ' sa7tein-pin--pulse' : ''}" style="--pin:${color}"></div>`,
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
     className: '',
   })
 }
 
+export type MapMode = 'preview' | 'delivery'
+
 /**
- * Fills an existing `<div class="order-map-container" id=...>` with the same
- * OpenStreetMap view the original screens render, and exposes `recenter()` for
- * the map's locate button. Leaflet is loaded lazily, like the original.
+ * Mengisi `<div class="order-map-container" id=...>` dengan peta OpenStreetMap
+ * dan menyediakan `recenter()`.
+ *
+ * `mode` menentukan bobotnya: `preview` untuk status awal, di mana peta hanya
+ * pelengkap dan tidak boleh menguasai layar; `delivery` saat kurir berjalan,
+ * di mana peta memang menjadi bagian utama dan rutenya digambar.
  */
-export function useLeafletMap(mapId: string) {
+export function useLeafletMap(mapId: string, mode: MapMode = 'preview') {
   const mapRef = useRef<LeafletMap | null>(null)
 
   useEffect(() => {
@@ -51,23 +80,52 @@ export function useLeafletMap(mapId: string) {
       if (cancelled) return
       const L = module.default
 
-      const map = L.map(element, { zoomControl: false, attributionControl: false })
-      map.setView(RESTAURANT, ZOOM)
+      const map = L.map(element, {
+        zoomControl: false,
+        attributionControl: false,
+        // Peta preview tidak perlu menangkap gestur; halaman tetap bisa digulir.
+        dragging: mode === 'delivery',
+        scrollWheelZoom: false,
+        touchZoom: mode === 'delivery',
+        doubleClickZoom: mode === 'delivery',
+        keyboard: false,
+      })
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
       }).addTo(map)
 
-      L.marker(RESTAURANT, { icon: pin(L, '#F15A37') }).addTo(map).bindPopup('Restaurant')
-      L.marker(DESTINATION, { icon: pin(L, '#3B82F6') })
+      L.marker(RESTAURANT, { icon: pin(L, PIN_MERCHANT) })
         .addTo(map)
-        .bindPopup('Delivery address')
-      L.polyline([RESTAURANT, DESTINATION], {
-        color: '#F15A37',
-        weight: 3,
-        dashArray: '8 6',
-        opacity: 0.8,
+        .bindPopup(mockMerchant.name)
+      L.marker(DESTINATION, { icon: pin(L, PIN_DESTINATION) })
+        .addTo(map)
+        .bindPopup('Alamat pengantaran')
+
+      if (mode === 'delivery') {
+        L.marker(COURIER, { icon: pin(L, PIN_COURIER, true) })
+          .addTo(map)
+          .bindPopup('Budi Santoso')
+      }
+
+      L.polyline(ROUTE, {
+        color: PIN_MERCHANT,
+        weight: mode === 'delivery' ? 4 : 3,
+        opacity: mode === 'delivery' ? 0.95 : 0.6,
+        lineCap: 'round',
+        lineJoin: 'round',
+        className:
+          mode === 'delivery' ? 'sa7tein-route sa7tein-route--draw' : 'sa7tein-route',
       }).addTo(map)
+
+      if (mode === 'delivery') {
+        map.fitBounds(L.latLngBounds(ROUTE), { padding: [48, 48] })
+      } else {
+        map.setView(
+          [(RESTAURANT[0] + DESTINATION[0]) / 2, (RESTAURANT[1] + DESTINATION[1]) / 2],
+          15,
+        )
+      }
 
       mapRef.current = map
     })
@@ -77,9 +135,16 @@ export function useLeafletMap(mapId: string) {
       mapRef.current?.remove()
       mapRef.current = null
     }
-  }, [mapId])
+  }, [mapId, mode])
 
   return {
-    recenter: () => mapRef.current?.setView(RESTAURANT, ZOOM),
+    recenter: () =>
+      mapRef.current?.fitBounds(
+        [
+          [RESTAURANT[0], RESTAURANT[1]],
+          [DESTINATION[0], DESTINATION[1]],
+        ],
+        { padding: [48, 48] },
+      ),
   }
 }

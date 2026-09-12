@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { mockUser } from '../../data/user'
-import type { Address, CartItem, Food } from '../../types'
+import type { Address, CartItem, Food, OrderStage } from '../../types'
 
 interface CartState {
   items: CartItem[]
@@ -10,6 +10,8 @@ interface CartState {
   selectedPaymentId: string | null
   /** Nama file bukti transfer; wajib ada sebelum pesanan transfer dikirim. */
   transferProof: string | null
+  /** Tahap berjalan; halaman pelacakan menyesuaikan tampilannya dari sini. */
+  orderStage: OrderStage
 }
 
 const initialState: CartState = {
@@ -28,6 +30,7 @@ const initialState: CartState = {
   selectedAddressId: 'tower-a',
   selectedPaymentId: 'cod',
   transferProof: null,
+  orderStage: 'dimasak',
 }
 
 const cartSlice = createSlice({
@@ -59,6 +62,9 @@ const cartSlice = createSlice({
           image: food.image,
           modifiers,
         })
+    },
+    setOrderStage(state, action: PayloadAction<OrderStage>) {
+      state.orderStage = action.payload
     },
     updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
       const item = state.items.find((i) => i.id === action.payload.id)
