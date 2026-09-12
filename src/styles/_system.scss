@@ -1159,10 +1159,14 @@ body {
   background: var(--bg-warm);
 }
 
-// Halaman pelacakan menggulir seperti dokumen biasa. Aturan lama mengunci
+// Layar tahap pesanan menggulir seperti dokumen biasa. Aturan lama mengunci
 // body setinggi viewport dengan overflow:hidden, sehingga apa pun yang jatuh
 // di bawah lipatan tidak bisa dijangkau sama sekali.
-body.order-placed-page {
+//
+// Nama kelasnya `sa7tein-track-page`, bukan `order-placed-page`: kelima rute
+// order memakai komponen yang sama sekarang, jadi nama lama sudah menyesatkan.
+body.sa7tein-track-page {
+  background: var(--bg-warm);
   height: auto;
   min-height: 100dvh;
   overflow: visible;
