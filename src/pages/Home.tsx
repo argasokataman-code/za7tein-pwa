@@ -1,4 +1,4 @@
-import { MapPin, Search, SlidersHorizontal, Star, ChevronDown } from 'lucide-react'
+import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, Star } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
@@ -29,6 +29,7 @@ export default function Home() {
   }
 
   return (
+    <div className="app-shell">
     <div className="home-screen-wrapper">
       <div className="home-screen">
         <div className="home-header">
@@ -63,21 +64,7 @@ export default function Home() {
 
               <Link className="notification-section" to="/notifications" style={{ textDecoration: 'none' }}>
                 <div className="notification-icon-wrapper">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M10.268 21a2 2 0 0 0 3.464 0" />
-                    <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />
-                  </svg>
+                  <Bell size={24} aria-hidden="true" />
                   <span className="notification-badge">{notificationCount}</span>
                 </div>
               </Link>
@@ -216,6 +203,7 @@ export default function Home() {
       </div>
 
       <BottomNav />
+    </div>
     </div>
   )
 }

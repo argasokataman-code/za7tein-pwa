@@ -2,83 +2,116 @@ import { Toaster } from 'react-hot-toast'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { StoreProvider } from './store/provider'
+
+import AccountSetup from './pages/AccountSetup'
+import AddCard from './pages/AddCard'
+import AddCardAddress from './pages/AddCardAddress'
+import AddNewCard from './pages/AddNewCard'
+import AddProfilePhoto from './pages/AddProfilePhoto'
+import AddressSelection from './pages/AddressSelection'
+import ChangePassword from './pages/ChangePassword'
+import Checkout from './pages/Checkout'
+import CreatePassword from './pages/CreatePassword'
+import CreatePin from './pages/CreatePin'
+import Documentation from './pages/Documentation'
+import Faq from './pages/Faq'
+import Favorites from './pages/Favorites'
+import Filter from './pages/Filter'
+import ForgotPassword from './pages/ForgotPassword'
+import ForgotPasswordOtp from './pages/ForgotPasswordOtp'
+import HelpCenter from './pages/HelpCenter'
 import Home from './pages/Home'
-import { Placeholder } from './pages/Placeholder'
+import Landing from './pages/Landing'
+import Language from './pages/Language'
+import MenuDetail from './pages/MenuDetail'
+import Notifications from './pages/Notifications'
+import Offline from './pages/Offline'
+import Onboarding from './pages/Onboarding'
+import OrderArrived from './pages/OrderArrived'
+import OrderDelivered from './pages/OrderDelivered'
+import OrderDelivery from './pages/OrderDelivery'
+import OrderPlaced from './pages/OrderPlaced'
+import OrderSuccess from './pages/OrderSuccess'
+import OrderTracking from './pages/OrderTracking'
+import PaymentAccount from './pages/PaymentAccount'
+import PaymentAmount from './pages/PaymentAmount'
+import PaymentSelection from './pages/PaymentSelection'
+import PersonalData from './pages/PersonalData'
+import PinSuccess from './pages/PinSuccess'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import Profile from './pages/Profile'
+import RatingDriver from './pages/RatingDriver'
+import Reviews from './pages/Reviews'
+import Search from './pages/Search'
+import Security from './pages/Security'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
+import Verification from './pages/Verification'
+import YourCard from './pages/YourCard'
 
-/** Routes that already have a rebuilt screen. */
-const built = new Set(['/home'])
-
-/** Every route the app mirrors, in navigation order. */
-const routes: { path: string; title: string; nav?: boolean }[] = [
-  { path: '/', title: 'Delivo' },
-  { path: '/onboarding', title: 'Onboarding' },
-  { path: '/account-setup', title: 'Account Setup' },
-  { path: '/signin', title: 'Sign In' },
-  { path: '/signup', title: 'Sign Up' },
-  { path: '/forgot-password', title: 'Forgot Password' },
-  { path: '/forgot-password-otp', title: 'OTP Verification' },
-  { path: '/create-password', title: 'Create Password' },
-  { path: '/verification', title: 'Email Verification' },
-  { path: '/home', title: 'Home', nav: true },
-  { path: '/search', title: 'Search', nav: true },
-  { path: '/filter', title: 'Filter' },
-  { path: '/favorites', title: 'Favorites', nav: true },
-  { path: '/menu-detail/:id', title: 'Menu Detail' },
-  { path: '/checkout', title: 'Checkout', nav: true },
-  { path: '/address-selection', title: 'Address Selection' },
-  { path: '/payment-selection', title: 'Payment Selection' },
-  { path: '/payment-amount', title: 'Payment Amount' },
-  { path: '/order-placed', title: 'Order Placed' },
-  { path: '/order-delivery', title: 'Order Delivery' },
-  { path: '/order-tracking', title: 'Order Tracking' },
-  { path: '/order-arrived', title: 'Order Arrived' },
-  { path: '/order-delivered', title: 'Order Delivered' },
-  { path: '/order-success', title: 'Order Success' },
-  { path: '/rating-driver', title: 'Rating Driver' },
-  { path: '/profile', title: 'Profile', nav: true },
-  { path: '/personal-data', title: 'Personal Data' },
-  { path: '/add-profile-photo', title: 'Profile Photo' },
-  { path: '/change-password', title: 'Change Password' },
-  { path: '/create-pin', title: 'Create PIN' },
-  { path: '/pin-success', title: 'PIN Success' },
-  { path: '/security', title: 'Security' },
-  { path: '/language', title: 'Language' },
-  { path: '/notifications', title: 'Notifications' },
-  { path: '/payment-account', title: 'Payment Account' },
-  { path: '/your-card', title: 'Your Card' },
-  { path: '/add-new-card', title: 'Add New Card' },
-  { path: '/add-card', title: 'Add Card' },
-  { path: '/add-card-address', title: 'Billing Address' },
-  { path: '/reviews', title: 'Reviews' },
-  { path: '/faq', title: 'FAQ' },
-  { path: '/help-center', title: 'Help Center' },
-  { path: '/privacy-policy', title: 'Privacy Policy' },
-  { path: '/documentation', title: 'Documentation' },
-  { path: '/offline', title: 'Offline' },
+const routes: [string, React.ComponentType][] = [
+  ['/', Landing],
+  ['/onboarding', Onboarding],
+  ['/account-setup', AccountSetup],
+  ['/signin', SignIn],
+  ['/signup', SignUp],
+  ['/forgot-password', ForgotPassword],
+  ['/forgot-password-otp', ForgotPasswordOtp],
+  ['/create-password', CreatePassword],
+  ['/verification', Verification],
+  ['/home', Home],
+  ['/search', Search],
+  ['/filter', Filter],
+  ['/favorites', Favorites],
+  ['/menu-detail/:id', MenuDetail],
+  ['/checkout', Checkout],
+  ['/address-selection', AddressSelection],
+  ['/payment-selection', PaymentSelection],
+  ['/payment-amount', PaymentAmount],
+  ['/order-placed', OrderPlaced],
+  ['/order-delivery', OrderDelivery],
+  ['/order-tracking', OrderTracking],
+  ['/order-arrived', OrderArrived],
+  ['/order-delivered', OrderDelivered],
+  ['/order-success', OrderSuccess],
+  ['/rating-driver', RatingDriver],
+  ['/profile', Profile],
+  ['/personal-data', PersonalData],
+  ['/add-profile-photo', AddProfilePhoto],
+  ['/change-password', ChangePassword],
+  ['/create-pin', CreatePin],
+  ['/pin-success', PinSuccess],
+  ['/security', Security],
+  ['/language', Language],
+  ['/notifications', Notifications],
+  ['/payment-account', PaymentAccount],
+  ['/your-card', YourCard],
+  ['/add-new-card', AddNewCard],
+  ['/add-card', AddCard],
+  ['/add-card-address', AddCardAddress],
+  ['/reviews', Reviews],
+  ['/faq', Faq],
+  ['/help-center', HelpCenter],
+  ['/privacy-policy', PrivacyPolicy],
+  ['/documentation', Documentation],
+  ['/offline', Offline],
 ]
-
-function AppRoutes() {
-  return (
-    <Routes>
-      {routes.map(({ path, title, nav }) =>
-        built.has(path) ? (
-          <Route key={path} path={path} element={<Home />} />
-        ) : (
-          <Route key={path} path={path} element={<Placeholder title={title} withNav={nav} />} />
-        ),
-      )}
-      <Route path="*" element={<Navigate to="/home" replace />} />
-    </Routes>
-  )
-}
 
 export default function App() {
   return (
     <StoreProvider>
       <BrowserRouter>
-        <AppRoutes />
+        <Routes>
+          {routes.map(([path, Component]) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          <Route path="*" element={<Navigate to="/home" replace />} />
+        </Routes>
       </BrowserRouter>
-      <Toaster position="top-center" toastOptions={{ style: { background: '#1a1a1a', color: '#fff' } }} />
+      <Toaster
+        position="top-center"
+        toastOptions={{ style: { background: '#1a1a1a', color: '#fff' } }}
+      />
     </StoreProvider>
   )
 }
