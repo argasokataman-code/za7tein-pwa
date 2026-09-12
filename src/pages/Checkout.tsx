@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 import { formatDistance, isDeliverable, mockMerchant, rupiah, zoneFor } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { selectCartCount, selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
+import { selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
 
 export default function Checkout() {
   const navigate = useNavigate()
@@ -24,7 +24,6 @@ export default function Checkout() {
   const addresses = stored?.length ? stored : mockUser.addresses
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
 
-  const count = selectCartCount(items)
   const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
   const zone = address ? zoneFor(address.distanceMeters) : null
@@ -105,9 +104,10 @@ export default function Checkout() {
 
                 {/* Item — setiap baris bisa diubah jumlahnya atau dibuang. */}
                 <div className="checkout-section">
-                  <h2 className="section-title">
-                    {count} item
-                  </h2>
+                  {/* Menghitung baris, bukan kuantitas. selectCartCount
+                      menjumlahkan satuan — Sate Ayam x2 + 1 + 1 = 4 — sehingga
+                      judulnya berbunyi "4 item" di atas daftar tiga baris. */}
+                  <h2 className="section-title">{items.length} item</h2>
                   <div className="checkout-items-list">
                     {items.map((item) => (
                       <div

@@ -1789,3 +1789,45 @@ body.sa7tein-track-page {
     animation: none;
   }
 }
+
+/* ── Bilah fixed harus ikut kolom, bukan viewport ──────────────────────────
+   .checkout-actions dan sekitar 20 bilah fixed lain memakai left:0/right:0
+   atau width:100%. Pada elemen position:fixed itu berarti 100% VIEWPORT,
+   bukan 100% induknya — jadi di desktop bilahnya menyeberang seluruh layar
+   sementara semua konten terkunci di kolom 1024px yang ditengahkan aturan
+   global di _app.scss. Di /checkout tombolnya jadi pita oranye 1400px pada
+   layar 1440px, dan bilahnya menonjol 208px di kiri dan kanan konten.
+
+   max-width + margin auto memasukkan mereka kembali ke kolom. Untuk yang
+   memakai left:50% + translate(-50%), max-width saja sudah cukup karena
+   translate sudah menengahkan; margin auto di situ tidak berpengaruh.
+
+   .screen, .status-bar, .keyboard, .numeric-keypad, dan .nav-ber sengaja
+   tidak ikut: itu chrome perangkat atau wadah tersembunyi, bukan bilah
+   aplikasi, jadi selebar layar memang yang benar. */
+
+.setup-footer,
+.checkout-actions,
+.address-selection-footer,
+.payment-selection-footer,
+.add-card-footer,
+.rating-driver-footer,
+.payment-amount-footer,
+.favorites-header,
+.profile-header,
+.payment-amount-header,
+.rating-driver-header,
+.map-header,
+.bottom-nav,
+.menu-detail-actions,
+.location-sheet,
+.order-details-panel,
+.order-placed-header,
+.order-tracking-header,
+.order-delivery-header,
+.order-delivered-header,
+.order-success-header,
+.order-arrived-header {
+  max-width: var(--shell-max);
+  margin-inline: auto;
+}
