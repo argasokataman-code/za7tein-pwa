@@ -3,6 +3,8 @@
 Front-end showcase only. Mock data, Redux state, tanpa backend/API/auth/DB/payment.
 Referensi flow: `sa7tein-merchant.vercel.app` (auth-first → dashboard), disesuaikan ke shell PWA 430px.
 
+**Status: M0–M7 selesai.** Verifikasi: build 0 error, lint bersih, overflow horizontal 0 di 390px & 1440px, shell 430px terkunci.
+
 ## Prinsip
 
 - Mock data di `src/data/`, state di Redux. Aturan bisnis = **state yang ditampilkan**, bukan logika.

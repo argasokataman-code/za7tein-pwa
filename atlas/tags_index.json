@@ -983,6 +983,10 @@
     {
       "id": "TASK-222",
       "shard": 0
+    },
+    {
+      "id": "TASK-223",
+      "shard": 0
     }
   ],
   "docs": [
@@ -1009,6 +1013,10 @@
     {
       "id": "TASK-201",
       "shard": 0
+    },
+    {
+      "id": "TASK-301",
+      "shard": 0
     }
   ],
   "decision": [
@@ -1024,6 +1032,10 @@
     },
     {
       "id": "TASK-201",
+      "shard": 0
+    },
+    {
+      "id": "TASK-301",
       "shard": 0
     }
   ],
@@ -1052,6 +1064,12 @@
   "scaffold": [
     {
       "id": "TASK-201",
+      "shard": 0
+    }
+  ],
+  "verified": [
+    {
+      "id": "TASK-301",
       "shard": 0
     }
   ]

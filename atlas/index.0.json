@@ -4176,6 +4176,50 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "20:35:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-merchant.md (+4/-2) — edit via tool: Front-end showcase only. Mock data, Redu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-merchant.md"
+    },
+    {
+      "id": "TASK-301",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-12",
+      "time": "20:35:47",
+      "tags": [
+        "merchant",
+        "ui",
+        "verified"
+      ],
+      "summary": "Merchant M4-M7: Menu&Stock, Setelan toko + peta (hook single option), verifikasi 390/1440 overflow 0, shell 430",
+      "conn": [
+        {
+          "id": "TASK-201",
+          "type": "relates",
+          "raw": "TASK-201:relates"
+        },
+        {
+          "id": "DEC-010",
+          "type": "implements",
+          "raw": "DEC-010:implements"
+        }
+      ]
     }
   ]
 }
