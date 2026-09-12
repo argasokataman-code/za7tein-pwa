@@ -691,3 +691,42 @@ body {
   max-height: none;
   overflow: visible;
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 12. Judul halaman
+// ═══════════════════════════════════════════════════════════════════════════
+// Kelima belas judul ini sudah text-align:center, tetapi karena memakai flex:1
+// mereka dipusatkan pada SISA RUANG setelah tombol back, bukan pada header.
+// Di lebar 390px: header membentang 20-370, tombol back 20-64, sehingga judul
+// dapat kotak 80-370 dan teksnya berpusat di 225 - sementara tengah layar di
+// 195. Meleset 30px ke kanan: cukup untuk terasa, terlalu kecil untuk langsung
+// ketahuan.
+//
+// Keempat belas header induknya sudah position non-static (relative, fixed,
+// sticky, absolute), jadi judul bisa dipusatkan pada header tanpa menyentuh
+// posisi header mana pun. Itu penting: memaksa position:relative pada header
+// sticky akan merusak perilaku menempelnya.
+
+.menu-detail-title,
+.reviews-page-title,
+.checkout-page-title,
+.profile-flow-title,
+.address-selection-title,
+.payment-selection-title,
+.favorites-title,
+.add-card-title,
+.payment-amount-title,
+.order-success-title,
+.order-placed-title,
+.order-tracking-title,
+.order-delivery-title,
+.order-delivered-title,
+.rating-driver-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 128px);
+  padding-right: 0;
+  text-align: center;
+}
