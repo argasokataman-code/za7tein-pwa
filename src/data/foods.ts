@@ -29,6 +29,38 @@ const ADDONS: ModifierGroup = {
   ],
 }
 
+
+const TEMPERATURE: ModifierGroup = {
+  id: 'temperature',
+  name: 'PILIHAN',
+  type: 'single',
+  options: [
+    { id: 'ice', label: 'Es', extraPrice: 0 },
+    { id: 'hot', label: 'Panas', extraPrice: 0 },
+  ],
+}
+
+const SUGAR: ModifierGroup = {
+  id: 'sugar',
+  name: 'GULA',
+  type: 'single',
+  options: [
+    { id: 'normal', label: 'Normal', extraPrice: 0 },
+    { id: 'less', label: 'Sedikit', extraPrice: 0 },
+    { id: 'none', label: 'Tanpa Gula', extraPrice: 0 },
+  ],
+}
+
+const PORTION: ModifierGroup = {
+  id: 'portion',
+  name: 'PORSI',
+  type: 'single',
+  options: [
+    { id: 'one', label: '1 Bungkus', extraPrice: 0 },
+    { id: 'two', label: '2 Bungkus', extraPrice: 8000 },
+  ],
+}
+
 const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGroup[] }> = [
   {
     id: '1',
@@ -84,6 +116,7 @@ const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGrou
     category: 'makanan',
     image: '/assets/img/onboarding-bg.jpg',
     description: 'Lontong daun pisang, pendamping sate.',
+    modifierGroups: [PORTION],
   },
   {
     id: '5',
@@ -96,6 +129,7 @@ const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGrou
     category: 'minuman',
     image: '/assets/img/onboarding-bg.jpg',
     description: 'Teh tubruk manis dengan es batu, disajikan dingin.',
+    modifierGroups: [TEMPERATURE, SUGAR],
   },
 ]
 
