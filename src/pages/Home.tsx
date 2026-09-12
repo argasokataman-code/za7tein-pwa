@@ -99,38 +99,32 @@ export default function Home() {
             >
               {/* 4 — bentuk organik terpotong yang masuk dari tepi kanan, memberi
                   kedalaman di belakang foto. Isi, bukan garis. */}
-              <g fill="#8A2B10">
-                <path d="M352 -10C292 14 284 114 352 146Z" fillOpacity="0.28" />
-                <path d="M352 26C316 42 314 96 352 112Z" fillOpacity="0.32" />
+              <g className="ad-decor__depth">
+                <path d="M352 -10C292 14 284 114 352 146Z" className="ad-decor__depth-1" />
+                <path d="M352 26C316 42 314 96 352 112Z" className="ad-decor__depth-2" />
               </g>
 
               {/* 3 — ilustrasi cloche: kubah, alas, tiga ujung uap.
                   Diletakkan di area kosong antara tombol dan foto supaya
                   bentuknya benar-benar terbaca; alasnya memanjang ke kiri
                   dan kanan sehingga menyatukan paruh kiri dan kanan banner. */}
-              <g
-                fill="none"
-                stroke="#FFF6F0"
-                strokeOpacity="0.42"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              >
-                <path d="M161 120A54 54 0 0 1 269 120" />
-                <path d="M146 120H284" strokeWidth="2.5" />
-                <path d="M199 64C194 58 202 54 197 48" />
-                <path d="M215 62C210 56 218 52 213 46" />
-                <path d="M231 64C226 58 234 54 229 48" />
+              <g className="ad-decor__cloche">
+                <path d="M181 120A54 54 0 0 1 289 120" />
+                <path d="M166 120H304" className="ad-decor__cloche-tray" />
+                <path d="M219 64C214 58 222 54 217 48" />
+                <path d="M235 62C230 56 238 52 233 46" />
+                <path d="M251 64C246 58 254 54 249 48" />
               </g>
 
               {/* 1 — tiga bukit berlapis yang naik dari tepi bawah */}
-              <g fill="#FFF6F0">
-                <path d="M-10 133C6 100 40 82 74 88C108 94 138 116 158 133Z" fillOpacity="0.1" />
-                <path d="M18 133C34 106 68 96 98 106C124 115 146 126 158 133Z" fillOpacity="0.12" />
-                <path d="M52 133C68 118 100 114 126 122C142 127 152 131 158 133Z" fillOpacity="0.14" />
+              <g className="ad-decor__hills">
+                <path className="ad-decor__hill-1" d="M-10 133C6 100 40 82 74 88C108 94 138 116 158 133Z" />
+                <path className="ad-decor__hill-2" d="M18 133C34 106 68 96 98 106C124 115 146 126 158 133Z" />
+                <path className="ad-decor__hill-3" d="M52 133C68 118 100 114 126 122C142 127 152 131 158 133Z" />
               </g>
 
               {/* 2 — matriks titik, di atas judul bukan di belakangnya */}
-              <g fill="#FFF6F0" fillOpacity="0.38">
+              <g className="ad-decor__dots">
                 <circle cx="124" cy="3" r="2.4" />
                 <circle cx="136" cy="3" r="2.4" />
                 <circle cx="148" cy="3" r="2.4" />

@@ -337,6 +337,57 @@ select {
   pointer-events: none;
 }
 
+// Opasitas dekorasi banner promo, dalam rentang 4-14% seperti pola hero.
+// Di markup aslinya cloche 0.42 dan titik 0.38 — dikomposit ke atas oranye
+// merek keduanya jadi salmon, rgb(247,156,133) dan rgb(246,149,125), bukan
+// oranye lagi. Bentuk gelap di kanan tetap: ia memperdalam, bukan mencuci,
+// dan warnanya kini memakai token --orange-deep.
+.ad-decor__cloche {
+  fill: none;
+  stroke: var(--bg-warm);
+  stroke-opacity: 0.14;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.ad-decor__cloche-tray {
+  stroke-width: 2.5;
+}
+
+.ad-decor__hills {
+  fill: var(--bg-warm);
+}
+
+.ad-decor__hill-1 {
+  fill-opacity: 0.1;
+}
+
+.ad-decor__hill-2 {
+  fill-opacity: 0.12;
+}
+
+.ad-decor__hill-3 {
+  fill-opacity: 0.14;
+}
+
+.ad-decor__dots {
+  fill: var(--bg-warm);
+  fill-opacity: 0.12;
+}
+
+.ad-decor__depth {
+  fill: var(--orange-deep);
+}
+
+.ad-decor__depth-1 {
+  fill-opacity: 0.28;
+}
+
+.ad-decor__depth-2 {
+  fill-opacity: 0.32;
+}
+
+
 .ad-content {
   display: flex;
   align-items: center;
