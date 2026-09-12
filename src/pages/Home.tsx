@@ -83,10 +83,10 @@ export default function Home() {
                 onKeyDown={(e) => e.key === 'Enter' && navigate('/search')}
               >
                 <Search size={18} />
-                <span style={{ flex: 1, color: '#697586', fontSize: 15 }}>
+                <span style={{ flex: 1, color: '#6B6865', fontSize: 15 }}>
                   Search menu, restaurant
                 </span>
-                <Link to="/filter" style={{ display: 'flex', color: '#697586' }}>
+                <Link to="/filter" style={{ display: 'flex', color: '#6B6865' }}>
                   <SlidersHorizontal size={18} />
                 </Link>
               </div>

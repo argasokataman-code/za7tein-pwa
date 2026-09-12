@@ -28,7 +28,7 @@ export default function Profile() {
                   </div>
                 </div>
                 <span className="profile-header-chevron">
-                  <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#FD6931" strokeWidth="2">
+                  <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#F15A37" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </span>

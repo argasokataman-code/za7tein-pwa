@@ -33,13 +33,13 @@ export default function Search() {
           </div>
           <div className="search-page-bar">
             <div className="search-bar">
-              <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#697586" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search search-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="#6B6865" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search search-icon">
                 <path d="m21 21-4.34-4.34" />
                 <circle cx="11" cy="11" r="8" />
               </svg>
               <input placeholder="Search for Food.." className="search-input" aria-label="Search for food" type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
               <Link className="filter-link" aria-label="Open filters" to="/filter">
-                <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#787878" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sliders-horizontal">
+                <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="#6B6865" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-sliders-horizontal">
                   <path d="M10 5H3" />
                   <path d="M12 19H3" />
                   <path d="M14 3v4" />
@@ -115,7 +115,7 @@ export default function Search() {
                     15-30 min • 1.3 km
                   </div>
                   <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     4.3 (27 Reviews)
@@ -140,7 +140,7 @@ export default function Search() {
                     20-35 min • 2.1 km
                   </div>
                   <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     4.1 (45 Reviews)
@@ -165,7 +165,7 @@ export default function Search() {
                     20-35 min • 2.5 km
                   </div>
                   <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     4.7 (35 Reviews)
@@ -190,7 +190,7 @@ export default function Search() {
                     15-30 min • 1.3 km
                   </div>
                   <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     4.2 (92 Reviews)
@@ -215,7 +215,7 @@ export default function Search() {
                     15-30 min • 1.3 km
                   </div>
                   <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     4.2 (92 Reviews)
@@ -240,7 +240,7 @@ export default function Search() {
                     25-40 min • 1.8 km
                   </div>
                   <div className="hot-deal-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width={11} height={11} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star" style={{ display: "inline", marginRight: "2px" }}>
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     4.6 (58 Reviews)
@@ -296,7 +296,7 @@ export default function Search() {
                     </span>
                   </div>
                   <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     <span className="rating-value">
@@ -344,7 +344,7 @@ export default function Search() {
                     </span>
                   </div>
                   <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     <span className="rating-value">
@@ -392,7 +392,7 @@ export default function Search() {
                     </span>
                   </div>
                   <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     <span className="rating-value">
@@ -437,7 +437,7 @@ export default function Search() {
                     </span>
                   </div>
                   <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     <span className="rating-value">
@@ -482,7 +482,7 @@ export default function Search() {
                     </span>
                   </div>
                   <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     <span className="rating-value">
@@ -527,7 +527,7 @@ export default function Search() {
                     </span>
                   </div>
                   <div className="food-rating">
-                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#FD6931" stroke="#FD6931" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" width={13} height={13} viewBox="0 0 24 24" fill="#F15A37" stroke="#F15A37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-star">
                       <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
                     </svg>
                     <span className="rating-value">

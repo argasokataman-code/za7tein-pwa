@@ -1339,7 +1339,7 @@ $font-24: clamp(20px, 1.2vw + 16px, 24px);
                 </button>
               </div>
               <pre className="doc-pre">
-                <code>{`$primary-color: #fd6931;   // Orange — all accents, buttons, active states
+                <code>{`$primary-color: #F15A37;   // Orange — all accents, buttons, active states
 $bg-dark:       #000000;   // Page background
 $text-light:    #ffffff;   // Primary text
 $text-muted:    #697586;   // Placeholder, secondary text

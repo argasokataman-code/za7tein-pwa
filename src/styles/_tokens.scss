@@ -58,3 +58,33 @@
 }
 
 html, body { font-family: var(--font-sans); }
+
+// ── Skala Sa7tein ───────────────────────────────────────────────────────────
+// Lima langkah radius + pill, enam langkah huruf, dua tingkat elevasi.
+// Angka-angka ini menggantikan 33 nilai radius dan 40 ukuran huruf ad-hoc
+// yang diwarisi dari stylesheet hasil porting.
+:root {
+  --radius-xs: 6px;    /* badge kotak, kontrol rapat */
+  --radius-sm: 10px;   /* input, kontrol kecil */
+  --radius-md: 14px;   /* tombol */
+  --radius-lg: 18px;   /* kartu, list item */
+  --radius-xl: 24px;   /* sheet, modal, blok hero */
+  --radius-pill: 9999px;
+
+  --text-xs: clamp(11px, 0.4vw + 10px, 12px);
+  --text-sm: clamp(13px, 0.5vw + 11px, 14px);
+  --text-base: clamp(14px, 0.6vw + 12px, 16px);
+  --text-lg: clamp(16px, 0.7vw + 14px, 18px);
+  --text-xl: clamp(20px, 1.2vw + 16px, 24px);
+  --text-2xl: clamp(26px, 1.5vw + 22px, 32px);
+
+  --shadow-sm: 0 1px 2px rgba(32, 32, 32, 0.05);
+  --shadow-md: 0 8px 24px rgba(32, 32, 32, 0.10);
+  --shadow-brand: 0 8px 20px rgba(241, 90, 55, 0.28);
+
+  /* satu gradient merek, dipakai di mana pun arah diagonal dibutuhkan */
+  --gradient-brand: linear-gradient(135deg, #F15A37 0%, #D9491F 100%);
+
+  /* warna khusus peringkat — punya tugas sendiri, terpisah dari aksi */
+  --star: #FBBF24;
+}

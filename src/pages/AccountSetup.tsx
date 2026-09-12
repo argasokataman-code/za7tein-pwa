@@ -13,7 +13,7 @@ export default function AccountSetup() {
         <div style={{ marginBottom: "24px" }}>
           <svg width={72} height={72} viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" />
-            <path d="M12 7l.01 5M12 16h.01" stroke="#FD6931" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M12 7l.01 5M12 16h.01" stroke="#F15A37" strokeWidth="2.5" strokeLinecap="round" />
           </svg>
         </div>
         <h1 style={{ fontSize: "clamp(22px, 5vw, 30px)", fontWeight: "700", color: "rgb(255, 255, 255)", margin: "0px 0px 12px" }}>

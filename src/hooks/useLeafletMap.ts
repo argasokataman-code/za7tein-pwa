@@ -46,12 +46,12 @@ export function useLeafletMap(mapId: string) {
         attribution: '© OpenStreetMap contributors',
       }).addTo(map)
 
-      L.marker(RESTAURANT, { icon: pin(L, '#FD6931') }).addTo(map).bindPopup('Restaurant')
+      L.marker(RESTAURANT, { icon: pin(L, '#F15A37') }).addTo(map).bindPopup('Restaurant')
       L.marker(DESTINATION, { icon: pin(L, '#3B82F6') })
         .addTo(map)
         .bindPopup('Delivery address')
       L.polyline([RESTAURANT, DESTINATION], {
-        color: '#FD6931',
+        color: '#F15A37',
         weight: 3,
         dashArray: '8 6',
         opacity: 0.8,

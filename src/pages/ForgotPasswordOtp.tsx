@@ -29,8 +29,8 @@ export default function ForgotPasswordOtp() {
                   <div className="icon-wrapper" style={{ marginBottom: "16px" }}>
                     <div className="email-icon" style={{ width: "80px", height: "80px", background: "rgba(253, 105, 49, 0.1)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0px auto" }}>
                       <svg width={40} height={40} viewBox="0 0 60 60" fill="none">
-                        <path d="M10 15L30 30L50 15" stroke="#fd6931" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                        <rect x="7" y="12" width={46} height={36} rx="4" stroke="#fd6931" strokeWidth="3" fill="none" />
+                        <path d="M10 15L30 30L50 15" stroke="#F15A37" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                        <rect x="7" y="12" width={46} height={36} rx="4" stroke="#F15A37" strokeWidth="3" fill="none" />
                       </svg>
                     </div>
                   </div>
