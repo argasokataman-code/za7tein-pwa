@@ -644,7 +644,7 @@ export default function Documentation() {
                       </code>
                     </td>
                     <td>
-                      Delivered confirmation
+                      Tiba confirmation
                     </td>
                   </tr>
                   <tr>

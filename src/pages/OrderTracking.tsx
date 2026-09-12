@@ -44,7 +44,7 @@ export default function OrderTracking() {
             <div className="panel-handle" />
             <div className="order-info-section">
               <h2 className="order-number">
-                Order Number - 936844
+                No. Pesanan - 936844
               </h2>
               <div className="order-time">
                 <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
@@ -52,7 +52,7 @@ export default function OrderTracking() {
                   <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
                 <span>
-                  Today, 12:27 PM
+                  Hari ini, 12:27 PM
                 </span>
               </div>
             </div>
@@ -74,7 +74,7 @@ export default function OrderTracking() {
                 </div>
                 <div className="driver-info">
                   <h3 className="driver-name">
-                    Lucas Nathan
+                    Budi Santoso
                   </h3>
                   <div className="driver-rating">
                     <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
@@ -149,7 +149,7 @@ export default function OrderTracking() {
                     </svg>
                   </div>
                   <span className="step-label">
-                    Delivered
+                    Tiba
                   </span>
                 </div>
               </div>

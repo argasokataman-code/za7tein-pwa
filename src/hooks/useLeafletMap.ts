@@ -3,10 +3,22 @@ import type { Map as LeafletMap } from 'leaflet'
 
 import 'leaflet/dist/leaflet.css'
 
-/** Restaurant and delivery address used by every order screen. */
-const RESTAURANT: [number, number] = [23.8103, 90.4125]
-const DESTINATION: [number, number] = [23.7808, 90.3996]
-const ZOOM = 14
+import { mockMerchant } from '../data/merchant'
+import { mockUser } from '../data/user'
+
+/**
+ * Titik toko dan alamat pengantaran diambil dari data, bukan angka lepas.
+ * Versi hasil porting memakai koordinat Dhaka (23.81, 90.41) — petanya
+ * menampilkan aksara Bengali sementara alamat pesanannya "Jakarta Selatan",
+ * jadi peta dan data saling bertentangan. Menurunkannya dari merchant dan
+ * alamat terpilih membuat keduanya tidak bisa melenceng lagi.
+ */
+const RESTAURANT: [number, number] = [mockMerchant.lat, mockMerchant.lng]
+const DESTINATION: [number, number] = [
+  mockUser.addresses[0].lat,
+  mockUser.addresses[0].lng,
+]
+const ZOOM = 15
 
 function pin(L: typeof import('leaflet'), color: string) {
   return L.divIcon({

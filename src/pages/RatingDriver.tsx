@@ -27,7 +27,7 @@ export default function RatingDriver() {
             <div className="rating-driver-content">
               <div className="rating-order-info">
                 <h2 className="rating-order-number">
-                  Order Number - 012345
+                  No. Pesanan - 012345
                 </h2>
                 <div className="rating-order-time">
                   <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
@@ -35,16 +35,16 @@ export default function RatingDriver() {
                     <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                   </svg>
                   <span>
-                    Today, 12:28 PM
+                    Hari ini, 12:28 PM
                   </span>
                 </div>
               </div>
               <div className="rating-driver-card">
                 <div className="rating-driver-avatar-wrap">
-                  <img alt="Lucas Nathan" width={100} height={100} className="rating-driver-avatar" src="/assets/img/profile.png" style={{ color: "transparent" }} />
+                  <img alt="Budi Santoso" width={100} height={100} className="rating-driver-avatar" src="/assets/img/profile.png" style={{ color: "transparent" }} />
                 </div>
                 <h3 className="rating-driver-name">
-                  Lucas Nathan
+                  Budi Santoso
                 </h3>
               </div>
               <p className="rating-prompt">
