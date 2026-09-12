@@ -25,94 +25,85 @@
 import './CustomerHomeHero.css'
 
 /**
- * Pola latar hero, dipecah dua lapis.
+ * Pola latar hero.
  *
- * Versi sebelumnya memakai satu SVG dengan `preserveAspectRatio="none"`.
- * Itu memaksa viewBox 1000x520 bertemu kotak hero yang rasionya 1.31, jadi
- * skalanya tidak seragam: 0.390 mendatar melawan 0.572 tegak, beda 1.47x.
- * Akibatnya lingkaran r=5 tampil sebagai lonjong 3.9x5.7px, dan stroke 9 unit
- * menjadi 3.5px mendatar tapi 5.1px tegak — garisnya tidak sama tebal.
+ * Susunannya dari versi yang dipakai sekarang: tiga lapis gelombang, matriks
+ * titik, dan cloche yang lengkap (uap, handle, kubah, tatakan).
  *
- * Jadi hanya bentuk aliran yang boleh diregangkan; ia organik dan tidak punya
- * acuan bulat. Titik dan cloche dipisah ke lapisnya sendiri yang diskalakan
- * seragam, supaya lingkarannya tetap bulat dan tebal garisnya tetap rata.
+ * Tiga hal dibuang dari berkas aslinya:
+ *
+ * - <linearGradient> #FF5722->#E64A19. Hero sudah memakai --sa7tein-orange,
+ *   jadi rect gradien itu hanya menimpa warna merek dengan oranye yang bukan
+ *   milik Sa7tein. Gradient juga dilarang brief.
+ * - <filter> feGaussianBlur. Glow = kesan neon, dan blur 140% area mahal di
+ *   perangkat mobile.
+ * - #FFE0B2 pada kilauan. Di luar palet, dan pada 60% ia menggeser rona
+ *   oranye ke peach.
+ *
+ * Semua opasitasnya kini di CSS, dalam rentang 4-14%: pada 70% dan 40% seperti
+ * berkas aslinya, handle dan uap dikomposit jadi pink dan salmon, bukan lagi
+ * oranye.
+ *
+ * `slice` dipakai supaya skalanya seragam — tanpa itu lingkaran dan tebal garis
+ * ikut gepeng, masalah yang sudah pernah muncul di pola sebelumnya.
  */
-function Sa7teinHeroWaves() {
+function Sa7teinHeroPattern() {
   return (
     <svg
-      className="s7-hero-waves"
-      viewBox="0 0 1000 260"
-      preserveAspectRatio="xMidYMax slice"
+      className="s7-hero-pattern"
+      viewBox="0 0 1000 520"
+      preserveAspectRatio="xMidYMid slice"
       aria-hidden="true"
       focusable="false"
     >
-      {/* Dua bentuk mengalir yang naik dari tepi bawah. Yang kedua memakai
-          nada lebih gelap supaya terbaca sebagai lapisan, bukan tumpukan
-          bentuk yang mengambang sendiri-sendiri. */}
+      {/* Gelombang dasar, dari tepi bawah. */}
       <path
-        className="s7-pattern-fill s7-pattern-fill--one"
-        d="M0 240
-           C130 170 240 190 360 215
-           C490 242 610 190 720 200
-           C850 212 930 250 1000 260
-           L1000 260
-           L0 260 Z"
+        className="s7-wave s7-wave--one"
+        d="M0 360 C 220 440, 420 380, 620 420 C 800 450, 910 410, 1000 430 L 1000 520 L 0 520 Z"
+      />
+      <path
+        className="s7-wave s7-wave--two"
+        d="M0 420 C 250 370, 500 460, 750 410 C 880 380, 940 430, 1000 410 L 1000 520 L 0 520 Z"
       />
 
+      {/* Aliran tipis di sudut kanan atas. */}
       <path
-        className="s7-pattern-fill s7-pattern-fill--two"
-        d="M0 260
-           C180 195 310 160 470 210
-           C640 260 760 210 1000 180
-           L1000 260 Z"
-      />
-    </svg>
-  )
-}
-
-function Sa7teinHeroMotif() {
-  return (
-    <svg
-      className="s7-hero-motif"
-      viewBox="0 0 460 520"
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-      focusable="false"
-    >
-      {/* Bentuk organik besar yang terpotong di tepi kanan — memberi kesan
-          komposisi yang lebih luas dari kotaknya. */}
-      <path
-        className="s7-pattern-fill s7-pattern-fill--three"
-        d="M362 -30
-           C437 70 422 180 402 270
-           C382 350 392 450 492 540
-           L492 -30 Z"
+        className="s7-wave s7-wave--three"
+        d="M600 0 C 720 140, 840 180, 1000 190 L 1000 0 Z"
       />
 
-      {/* Matriks titik — tekstur penunjang, jadi opasitasnya di bawah cloche. */}
       <g className="s7-dot-matrix">
         {[0, 1, 2, 3, 4].map((column) =>
           [0, 1, 2].map((row) => (
             <circle
               key={`${column}-${row}`}
-              cx={216 + column * 26}
-              cy={128 + row * 26}
-              r="5"
+              cx={720 + column * 24}
+              cy={150 + row * 24}
+              r="3.5"
             />
           )),
         )}
       </g>
 
-      {/* Cloche. Opasitasnya di ujung atas rentang 6–14% yang diminta: pada
-          11% bentuknya cuma terbaca sebagai bercak, padahal ini satu-satunya
-          unsur yang benar-benar mengatakan "makanan". */}
-      <g className="s7-cloche" data-hanya-lebar>
-        <path d="M231 366 H401" />
-        <path d="M251 351 C258 286 301 256 316 256 C356 256 381 296 386 351" />
-        <path d="M312 256 C311 246 318 236 326 236" />
-        <path d="M286 221 C276 206 281 194 291 181" />
-        <path d="M331 221 C321 206 328 193 336 181" />
-        <path d="M368 224 C361 210 366 198 375 188" />
+      <g className="s7-cloche">
+        {/* Uap. */}
+        <g className="s7-cloche__steam">
+          <path d="M 765 210 Q 755 190 765 170 T 765 135" />
+          <path d="M 800 200 Q 790 180 800 160 T 800 125" />
+          <path d="M 835 210 Q 825 190 835 170 T 835 135" />
+        </g>
+
+        {/* Kubah: isian tipis plus garis luar. */}
+        <path
+          className="s7-cloche__dome"
+          d="M 710 350 C 710 250, 890 250, 890 350 Z"
+        />
+
+        <circle className="s7-cloche__handle" cx="800" cy="235" r="9" />
+
+        {/* Tatakan. */}
+        <rect className="s7-cloche__tray" x="690" y="350" width="220" height="10" rx="5" />
+        <rect className="s7-cloche__tray-2" x="670" y="362" width="260" height="6" rx="3" />
       </g>
     </svg>
   )
@@ -236,8 +227,7 @@ export default function CustomerHomeHero({
 }: Props) {
   return (
     <section className="s7-hero">
-      <Sa7teinHeroWaves />
-      <Sa7teinHeroMotif />
+      <Sa7teinHeroPattern />
 
       <div className="s7-hero__content">
         <header className="s7-hero__topbar">

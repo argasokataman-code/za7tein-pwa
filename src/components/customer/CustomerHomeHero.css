@@ -39,78 +39,81 @@
 
 /* ── Pola latar ─────────────────────────────────────────────────────────── */
 
-/* Lapis aliran: ditambatkan ke dasar hero, diskalakan seragam (`slice`).
-   Sebelumnya lapis ini memakai `none` dan ikut teregang 1.47x, sehingga
-   lengkungnya memipih jadi pita datar — persis kesan "gelombang SaaS" yang
-   brief larang. Dengan `slice` lengkungnya kembali ke bentuk aslinya. */
-.s7-hero-waves {
+/* Pola latar. `slice` di SVG membuat skalanya seragam, jadi lingkaran tetap
+   bulat dan tebal garis tetap rata di lebar layar mana pun. */
+.s7-hero-pattern {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: 1;
 
   width: 100%;
-  height: 46%;
-
-  pointer-events: none;
-}
-
-/* Lapis motif: titik dan cloche. Diskalakan seragam (`meet`), jadi lingkarannya
-   tetap bulat dan tebal garisnya rata di lebar layar mana pun. */
-.s7-hero-motif {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-
   height: 100%;
-  width: auto;
-  max-width: 58%;
 
   pointer-events: none;
 }
 
-.s7-pattern-fill {
-  fill: currentColor;
+/* ── Opasitas pola ────────────────────────────────────────────────────────
+   Semua di sini, dalam rentang 4-14%. Di berkas aslinya handle 70%, uap 40%,
+   dan tatakan 30%: dikomposit ke atas oranye merek, ketiganya jadi pink dan
+   salmon dan menggeser rona hero. Angka di bawah menjaga semuanya tetap
+   oranye — pada 14% putih di atas #F15A37 hanya menjadi rgb(243,113,83). */
+
+.s7-wave {
+  fill: var(--on-brand);
 }
 
-/* Bentuk bawah pertama: sapuan terang, 8%. */
-.s7-pattern-fill--one {
-  color: rgba(255, 255, 255, 0.08);
+.s7-wave--one {
+  fill-opacity: 0.05;
 }
 
-/* Bentuk bawah kedua: nada lebih gelap, jadi terbaca sebagai lapisan di
-   belakang yang pertama. */
-.s7-pattern-fill--two {
-  color: rgba(180, 45, 20, 0.12);
+.s7-wave--two {
+  fill-opacity: 0.08;
 }
 
-/* Bentuk tepi kanan, 7%. */
-.s7-pattern-fill--three {
-  color: rgba(255, 255, 255, 0.07);
+.s7-wave--three {
+  fill-opacity: 0.04;
 }
 
-/* Tekstur penunjang, jadi di bawah cloche. */
 .s7-dot-matrix {
-  fill: rgba(255, 255, 255, 0.2);
+  fill: var(--on-brand);
+  fill-opacity: 0.12;
 }
 
-/* Di bawah 768px ruang kosong hero cuma pita tipis, dan cloche seukuran ini
-   pasti mendarat di belakang judul. Jadi di mobile komposisinya cukup aliran
-   di dasar plus matriks titik; cloche muncul saat lebarnya benar-benar ada. */
-.s7-cloche[data-hanya-lebar] {
-  display: none;
-}
+/* ── Cloche ─────────────────────────────────────────────────────────────── */
 
 .s7-cloche {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.12);
+}
 
-  stroke-width: 9;
+.s7-cloche__steam {
+  fill: none;
+  stroke: var(--on-brand);
+  stroke-opacity: 0.11;
+  stroke-width: 2.5;
   stroke-linecap: round;
-  stroke-linejoin: round;
+}
+
+.s7-cloche__dome {
+  fill: var(--on-brand);
+  fill-opacity: 0.09;
+  stroke: var(--on-brand);
+  stroke-opacity: 0.14;
+  stroke-width: 2;
+}
+
+.s7-cloche__handle {
+  fill: var(--on-brand);
+  fill-opacity: 0.14;
+}
+
+.s7-cloche__tray {
+  fill: var(--on-brand);
+  fill-opacity: 0.12;
+}
+
+.s7-cloche__tray-2 {
+  fill: var(--on-brand);
+  fill-opacity: 0.08;
 }
 
 /* ── Baris atas ─────────────────────────────────────────────────────────── */
