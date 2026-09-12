@@ -1,3 +1,4 @@
+import { Bike, Check, Home, Utensils, type LucideIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -111,27 +112,12 @@ function IconRecenter() {
 
 type NodeState = 'done' | 'active' | 'todo'
 
-function JourneyNode({ state }: { state: NodeState }) {
-  if (state === 'done') {
-    return (
-      <svg width={14} height={14} viewBox="0 0 14 14" {...stroke} aria-hidden="true">
-        <path d="m2.75 7.25 3 3 5.5-6" />
-      </svg>
-    )
-  }
-  if (state === 'active') {
-    return (
-      <svg width={14} height={14} viewBox="0 0 14 14" aria-hidden="true">
-        <circle cx="7" cy="7" r="6" fill="none" stroke="currentColor" strokeWidth={1.75} />
-        <circle cx="7" cy="7" r="2.75" fill="currentColor" />
-      </svg>
-    )
-  }
-  return (
-    <svg width={14} height={14} viewBox="0 0 14 14" aria-hidden="true">
-      <circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" strokeWidth={1.75} />
-    </svg>
-  )
+/** Ikon tiap tahap, memakai lucide yang sudah jadi bahasa ikon aplikasi. */
+const STEP_ICON: Record<OrderStage, LucideIcon> = {
+  diterima: Check,
+  dimasak: Utensils,
+  diantar: Bike,
+  tiba: Home,
 }
 
 function JourneyLine({ stage }: { stage: OrderStage }) {
@@ -142,11 +128,17 @@ function JourneyLine({ stage }: { stage: OrderStage }) {
   return (
     <div className="journey">
       <div className="journey-rail">
-        {ORDER_STAGES.map((s, i) => (
-          <span key={s.id} className={`journey-cell journey-cell--${stateOf(i)}`}>
-            <JourneyNode state={stateOf(i)} />
-          </span>
-        ))}
+        {ORDER_STAGES.map((s, i) => {
+          const Icon = STEP_ICON[s.id]
+          const st = stateOf(i)
+          return (
+            <span key={s.id} className={`journey-cell journey-cell--${st}`}>
+              <span className={`journey-node journey-node--${st}`}>
+                <Icon size={13} strokeWidth={2} aria-hidden="true" />
+              </span>
+            </span>
+          )
+        })}
       </div>
       <div className="journey-labels">
         {ORDER_STAGES.map((s, i) => (

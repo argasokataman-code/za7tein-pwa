@@ -850,7 +850,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 20px;
+  height: 26px;
   color: var(--journey-todo);
 }
 
@@ -875,9 +875,71 @@ body {
 }
 
 // Ruas yang sudah dilewati ikut hijau, ruas sesudahnya tetap abu.
-.journey-cell--done::before,
-.journey-cell--active::before {
+// Bobotnya disamakan dengan rule dasar di atas (dua kelas + pseudo-elemen).
+// Dengan satu kelas saja, rule dasar yang lebih berat tetap menang dan ruas
+// menuju simpul aktif tidak pernah berubah warna.
+.journey-cell.journey-cell--done::before,
+.journey-cell.journey-cell--active::before {
   background: var(--success);
+}
+
+// Ruas menuju simpul aktif tumbuh dari simpul sebelumnya, jadi garisnya
+// terbaca terisi maju alih-alih muncul sekaligus. Ini pengganti animasi
+// framer-motion di contoh aslinya: untuk satu garis bertambah panjang,
+// keyframes CSS sudah cukup dan tidak menambah dependensi.
+.journey-cell.journey-cell--active::before {
+  transform-origin: left center;
+  background: var(--sa7tein-orange);
+  animation: journey-fill 620ms var(--ease-out) both;
+}
+
+@keyframes journey-fill {
+  from {
+    transform: translateY(-50%) scaleX(0);
+  }
+  to {
+    transform: translateY(-50%) scaleX(1);
+  }
+}
+
+// Simpul: lingkaran kecil berikon, bukan lingkaran ikon besar. Ukurannya 26px
+// supaya nadanya tetap ketimbang judul, dan latarnya menutup garis rel yang
+// lewat di belakangnya.
+.journey-node {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1.5px solid var(--journey-todo);
+  border-radius: 50%;
+  background: var(--bg-warm);
+  color: var(--journey-todo);
+}
+
+.journey-node--done {
+  border-color: var(--success);
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.journey-node--active {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+  color: var(--sa7tein-orange);
+  animation: journey-pulse 2s var(--ease-out) infinite;
+}
+
+@keyframes journey-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(241, 90, 55, 0.32);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(241, 90, 55, 0);
+  }
 }
 
 .journey-labels {
