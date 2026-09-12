@@ -749,7 +749,7 @@ body {
 .track-screen {
   min-height: 100dvh;
   background: var(--bg-warm);
-  padding: 0 var(--space-4) var(--space-8);
+  padding: 0 var(--space-5) var(--space-8);
 }
 
 // ── Header ────────────────────────────────────────────────────────────────
@@ -760,7 +760,11 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) 0;
+  // Header menempel, jadi latarnya harus menutup selebar layar — kalau hanya
+  // selebar konten, isi halaman terlihat lewat di sela 20px kiri-kanannya saat
+  // digulir. Margin negatif melebarkan latar, padding mengembalikan isinya.
+  margin: 0 calc(-1 * var(--space-5));
+  padding: var(--space-3) var(--space-5);
   background: var(--bg-warm);
 }
 
@@ -899,17 +903,12 @@ body {
 
 // ── Bagian informasi ──────────────────────────────────────────────────────
 .track-section {
-  padding: var(--space-4) 0;
+  padding: var(--space-5) 0;
   border-top: 1px solid var(--border);
 }
 
-.track-section:first-of-type {
-  border-top: 0;
-  padding-top: var(--space-2);
-}
-
 .track-section-title {
-  margin: 0 0 var(--space-3);
+  margin: 0 0 var(--space-4);
   font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -1006,6 +1005,7 @@ body {
 // Tahap awal: sekadar cuplikan, tidak boleh menguasai layar.
 .track-map--preview {
   height: 148px;
+  margin: var(--space-5) 0;
 }
 
 .track-map--preview .order-map-container {
@@ -1016,7 +1016,7 @@ body {
 .track-map--delivery {
   height: 52vh;
   min-height: 300px;
-  margin-bottom: var(--space-5);
+  margin: var(--space-4) 0 var(--space-6);
 }
 
 .order-map-container {
