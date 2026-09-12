@@ -52,11 +52,6 @@ export default function Home() {
               <path d="M410 -20C344 10 336 176 410 231Z" fill="#FFF6F0" fillOpacity="0.2" />
               <path d="M410 44C368 62 366 150 410 168Z" fill="#8A2B10" fillOpacity="0.24" />
 
-              {/* dua busur bertumpuk menyapu pita atas */}
-              <g fill="none" stroke="#FFF6F0" strokeWidth="3.5" strokeLinecap="round">
-                <path d="M-20 34C60 8 180 2 302 26" strokeOpacity="0.42" />
-                <path d="M-20 48C64 24 184 18 300 40" strokeOpacity="0.32" strokeWidth="2.5" />
-              </g>
 
               {/* perbukitan berlapis naik dari tepi bawah */}
               <g fill="#FFF6F0">
