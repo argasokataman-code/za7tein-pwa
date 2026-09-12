@@ -1,4 +1,6 @@
 // PRD: tanpa payment gateway. Hanya COD dan transfer manual ke rekening toko.
+import { CheckCircle2 } from 'lucide-react'
+
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -33,7 +35,7 @@ export default function PaymentSelection() {
 
   const choose = (id: string, label: string) => {
     dispatch(setPayment(id))
-    toast.success(label, { icon: '✅' })
+    toast.success(label, { icon: <CheckCircle2 size={18} aria-hidden="true" /> })
     navigate('/payment-amount')
   }
 

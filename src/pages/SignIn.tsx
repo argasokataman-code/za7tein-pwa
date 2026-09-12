@@ -39,10 +39,7 @@ export default function SignIn() {
                 </div>
                 <div className="auth-content">
                   <h1 className="auth-title">
-                    Selamat Datang! 
-                    <span className="wave-icon">
-                      👋
-                    </span>
+                    Selamat Datang!
                   </h1>
                   <p className="auth-subtitle">
                     Masuk dengan nomor HP yang terdaftar.

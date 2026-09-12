@@ -145,25 +145,28 @@ export default function Home() {
           <div className="categories-section">
             <h2 className="section-title">Categories</h2>
             <div className="categories-scroll" role="list">
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  role="listitem"
-                  className={`category-btn ${category === c.id ? 'active' : ''}`}
-                  aria-pressed={category === c.id}
-                  onClick={() => setCategory(c.id)}
-                >
-                  {c.emoji ? <span aria-hidden="true">{c.emoji}</span> : null}
-                  {c.label}
-                </button>
-              ))}
+              {categories.map((c) => {
+                const Icon = c.icon
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    role="listitem"
+                    className={`category-btn ${category === c.id ? 'active' : ''}`}
+                    aria-pressed={category === c.id}
+                    onClick={() => setCategory(c.id)}
+                  >
+                    {Icon ? <Icon size={16} strokeWidth={2} aria-hidden="true" /> : null}
+                    {c.label}
+                  </button>
+                )
+              })}
             </div>
           </div>
 
           <div className="deals-section">
             <div className="section-header">
-              <h2 className="section-title">Super Deals 🔥</h2>
+              <h2 className="section-title">Super Deals</h2>
               <Link className="see-all-link" to="/search">
                 See All
               </Link>
@@ -265,7 +268,7 @@ export default function Home() {
 
           <div className="hot-deals-section">
             <div className="section-header">
-              <h2 className="section-title">Hot Deals 🔥</h2>
+              <h2 className="section-title">Hot Deals</h2>
               <Link className="see-all-link" to="/search">
                 See All
               </Link>

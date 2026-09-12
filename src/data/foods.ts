@@ -1,10 +1,12 @@
+import { CupSoda, LayoutGrid, UtensilsCrossed } from 'lucide-react'
+
 import type { Category, Food, ModifierGroup } from '../types'
 
 /** Kategori menu toko — Makanan / Minuman (PRD bab 06). */
 export const categories: Category[] = [
-  { id: 'all', label: 'Semua' },
-  { id: 'makanan', label: 'Makanan', emoji: '🍢' },
-  { id: 'minuman', label: 'Minuman', emoji: '🥤' },
+  { id: 'all', label: 'Semua', icon: LayoutGrid },
+  { id: 'makanan', label: 'Makanan', icon: UtensilsCrossed },
+  { id: 'minuman', label: 'Minuman', icon: CupSoda },
 ]
 
 /** Modifier grup dipakai layar detail menu (PRD bab 02). */

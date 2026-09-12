@@ -21,7 +21,7 @@ export default function Favorites() {
     dispatch(
       addItem({ food, quantity: 1 }),
     )
-    toast.success(`${food.name} added to cart!`, { icon: '🛒' })
+    toast.success(`${food.name} added to cart!`, { icon: <Star size={18} aria-hidden="true" /> })
     navigate('/checkout')
   }
 

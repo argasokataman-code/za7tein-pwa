@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -89,20 +90,20 @@ export default function Filter() {
                 Star Rating
               </div>
               <div className="rating-row" role="group" aria-label="Star rating filter">
-                <button type="button" className={`rating-chip${chips.isActive("1 ★") ? " active" : ""}`} onClick={() => chips.toggle("1 ★")} aria-pressed="false" aria-label="1 star">
-                  1 ★
+                <button type="button" className={`rating-chip${chips.isActive("1") ? " active" : ""}`} onClick={() => chips.toggle("1")} aria-pressed="false" aria-label="1 star">
+                  1 <Star size={14} strokeWidth={2} aria-hidden="true" />
                 </button>
-                <button type="button" className={`rating-chip${chips.isActive("2 ★") ? " active" : ""}`} onClick={() => chips.toggle("2 ★")} aria-pressed="false" aria-label="2 stars">
-                  2 ★
+                <button type="button" className={`rating-chip${chips.isActive("2") ? " active" : ""}`} onClick={() => chips.toggle("2")} aria-pressed="false" aria-label="2 star">
+                  2 <Star size={14} strokeWidth={2} aria-hidden="true" />
                 </button>
-                <button type="button" className={`rating-chip${chips.isActive("3 ★") ? " active" : ""}`} onClick={() => chips.toggle("3 ★")} aria-pressed="false" aria-label="3 stars">
-                  3 ★
+                <button type="button" className={`rating-chip${chips.isActive("3") ? " active" : ""}`} onClick={() => chips.toggle("3")} aria-pressed="false" aria-label="3 star">
+                  3 <Star size={14} strokeWidth={2} aria-hidden="true" />
                 </button>
-                <button type="button" className={`rating-chip${chips.isActive("4 ★") ? " active" : ""}`} onClick={() => chips.toggle("4 ★")} aria-pressed="false" aria-label="4 stars">
-                  4 ★
+                <button type="button" className={`rating-chip${chips.isActive("4") ? " active" : ""}`} onClick={() => chips.toggle("4")} aria-pressed="false" aria-label="4 star">
+                  4 <Star size={14} strokeWidth={2} aria-hidden="true" />
                 </button>
-                <button type="button" className={`rating-chip${chips.isActive("5 ★") ? " active" : ""}`} onClick={() => chips.toggle("5 ★")} aria-pressed="false" aria-label="5 stars">
-                  5 ★
+                <button type="button" className={`rating-chip${chips.isActive("5") ? " active" : ""}`} onClick={() => chips.toggle("5")} aria-pressed="false" aria-label="5 star">
+                  5 <Star size={14} strokeWidth={2} aria-hidden="true" />
                 </button>
               </div>
             </div>

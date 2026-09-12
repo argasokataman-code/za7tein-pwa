@@ -1,3 +1,5 @@
+import type { LucideIcon } from 'lucide-react'
+
 // Domain model for the Sa7tein marketplace (PRD v1.1).
 // Fields are additive over the original Delivo shapes so the ported screens
 // keep working while the PRD flows come online.
@@ -36,7 +38,12 @@ export interface Food {
 export interface Category {
   id: string
   label: string
-  emoji?: string
+  /**
+   * Ikon Lucide, bukan emoji. Emoji dirender berbeda di tiap platform —
+   * ukuran, warna, dan gayanya di luar kendali kita — sehingga tidak bisa
+   * masuk sistem ikon yang strokenya seragam.
+   */
+  icon?: LucideIcon
 }
 
 export interface Review {

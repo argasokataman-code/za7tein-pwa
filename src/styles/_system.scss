@@ -637,3 +637,25 @@ select {
   padding: 0;
   min-height: 0;
 }
+
+// ── 11. Chip kategori ─────────────────────────────────────────────────────
+// Emoji diganti ikon Lucide. Emoji punya ukuran, warna, dan gaya sendiri di
+// tiap platform sehingga tidak bisa diseragamkan; ikon Lucide mewarisi
+// currentColor, jadi otomatis putih di chip aktif dan gelap di chip biasa.
+.category-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.category-btn svg {
+  flex: 0 0 auto;
+  // Dipatok eksplisit supaya tidak bergantung pada aturan svg lain di
+  // stylesheet lama, yang tadi merender 20px meski atributnya 16.
+  width: 16px;
+  height: 16px;
+}
+
+.category-btn.active svg {
+  color: var(--on-brand);
+}

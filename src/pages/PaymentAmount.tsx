@@ -1,5 +1,7 @@
 // Ringkasan checkout: subtotal + ongkir zona, metode bayar PRD (COD / transfer),
 // dan unggah bukti transfer untuk pesanan transfer.
+import { Check } from 'lucide-react'
+
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -161,7 +163,14 @@ export default function PaymentAmount() {
                         className={proof ? 'proof-upload proof-upload--done' : 'proof-upload'}
                         onClick={() => fileRef.current?.click()}
                       >
-                        {proof ? `✓ ${proof}` : 'Unggah Bukti Transfer'}
+                        {proof ? (
+                          <>
+                            <Check size={16} strokeWidth={2.5} aria-hidden="true" />
+                            {proof}
+                          </>
+                        ) : (
+                          'Unggah Bukti Transfer'
+                        )}
                       </button>
                       <p className="payment-method-note">
                         {proof

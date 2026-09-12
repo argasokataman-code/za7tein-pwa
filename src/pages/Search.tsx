@@ -96,7 +96,7 @@ export default function Search() {
             </div>
             <div className="section-header">
               <h2 className="section-title">
-                Hot Deals 🔥
+                Hot Deals
               </h2>
               <Link className="see-all-link" to="/home">
                 See All
@@ -256,7 +256,7 @@ export default function Search() {
             </div>
             <div className="section-header">
               <h2 className="section-title">
-                Recommended 🔥
+                Recommended
               </h2>
               <Link className="see-all-link" to="/home">
                 See All
