@@ -135,6 +135,58 @@ export default function Home() {
           </div>
 
           <div className="ad-banner" style={{ marginBottom: 24 }}>
+            {/*
+              Dekorasi latar banner — bahasa visual "Prepare -> Move -> Arrive".
+              Tiga bentuk besar saja, semuanya variasi orange yang sama:
+              dua busur bertumpuk (rim piring, kiri atas), satu jalur tipis
+              dengan tiga simpul (toko -> kurir -> pelanggan) yang menghilang
+              di balik foto lalu muncul lagi di atasnya, dan satu set cincin
+              sepusat di balik foto sebagai titik tujuan. Semua opacity di
+              bawah 15% supaya tidak bersaing dengan teks.
+            */}
+            <svg
+              className="ad-decor"
+              viewBox="0 0 350 133"
+              preserveAspectRatio="xMidYMid slice"
+              aria-hidden="true"
+              focusable="false"
+            >
+              {/* Arrive — cincin sepusat di balik foto, titik tujuan */}
+              <g fill="none" stroke="#C9451E" strokeWidth="1">
+                <circle cx="284" cy="67" r="46" strokeOpacity="0.10" />
+                <circle cx="284" cy="67" r="62" strokeOpacity="0.08" />
+                <circle cx="284" cy="67" r="78" strokeOpacity="0.06" />
+              </g>
+
+              {/* Prepare — dua busur bertumpuk, rim piring */}
+              <g fill="none" stroke="#F89B7F" strokeWidth="1">
+                <path d="M-24 30C34 6 116 0 186 16" strokeOpacity="0.12" />
+                <path d="M-24 40C36 18 118 12 184 28" strokeOpacity="0.08" />
+              </g>
+
+              {/* Move — jalur perjalanan, lewat kanal lalu di balik foto */}
+              <path
+                d="M6 122C66 134 128 128 190 110C240 96 250 54 268 30C280 14 300 10 318 16"
+                fill="none"
+                stroke="#F89B7F"
+                strokeWidth="1.25"
+                strokeOpacity="0.15"
+                strokeLinecap="round"
+              />
+
+              {/* Simpul: terisi = asal & tujuan, berongga = sedang bergerak */}
+              <circle cx="18" cy="123" r="2.8" fill="#F89B7F" fillOpacity="0.15" />
+              <circle cx="190" cy="110" r="3.8" fill="none" stroke="#F89B7F" strokeWidth="1.25" strokeOpacity="0.15" />
+              <circle cx="318" cy="16" r="2.8" fill="#F89B7F" fillOpacity="0.15" />
+              <circle cx="318" cy="16" r="6.2" fill="none" stroke="#F89B7F" strokeWidth="1" strokeOpacity="0.10" />
+
+              {/* Titik ritmis, bukan acak */}
+              <g fill="#C9451E">
+                <circle cx="52" cy="10" r="1.8" fillOpacity="0.15" />
+                <circle cx="222" cy="128" r="1.8" fillOpacity="0.15" />
+                <circle cx="338" cy="40" r="1.8" fillOpacity="0.14" />
+              </g>
+            </svg>
             <div className="ad-content">
               <div className="ad-text">
                 <h3 className="ad-title">

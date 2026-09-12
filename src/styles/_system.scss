@@ -319,11 +319,22 @@ select {
 // sehingga sisa ruangnya mati. Dirombak jadi banner merek yang utuh:
 // headline putih, CTA pil putih, dan gambar jadi thumbnail bulat di kanan.
 .ad-banner {
-  background: var(--gradient-brand);
+  // Orange rata, bukan gradien: sesuai arahan, gradien tidak dipakai lagi di
+  // sini — kedalaman visualnya sekarang datang dari dekorasi SVG di bawah.
+  background: var(--sa7tein-orange);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   overflow: hidden;
   position: relative;
+}
+
+// Dekorasi mengisi seluruh banner di belakang isi, tidak menangkap klik.
+.ad-decor {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .ad-content {
@@ -333,6 +344,8 @@ select {
   gap: var(--space-4);
   flex-wrap: nowrap;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .ad-text {
