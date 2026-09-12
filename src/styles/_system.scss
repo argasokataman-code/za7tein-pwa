@@ -1568,3 +1568,224 @@ body.sa7tein-track-page {
 .add-card-form .form-control:focus {
   border-color: var(--sa7tein-orange);
 }
+
+/* ── Chat dengan kurir ─────────────────────────────────────────────────────
+   Satu penggulung dokumen, seperti halaman lain: header menempel di atas,
+   bilah tulis menempel di bawah, percakapannya yang menggulir. Tidak ada
+   penggulung bersarang.
+
+   Gelembung masuk memakai permukaan kartu yang sama dengan sisa aplikasi,
+   gelembung keluar memakai oranye merek. Yang membedakan sisi, bukan warna
+   baru — supaya tidak menambah krem kelima ke dalam palet. */
+
+.chat-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: var(--bg-warm);
+}
+
+.chat-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-5);
+  background-color: var(--bg-warm);
+  border-bottom: 1px solid var(--border);
+}
+
+.chat-header__who {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.chat-header__name {
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.chat-header__status {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+/* Penyeimbang lebar tombol kembali supaya namanya benar-benar di tengah. */
+.chat-header__spacer {
+  flex: none;
+  width: var(--touch-min);
+}
+
+.chat-thread {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-5) var(--space-3);
+}
+
+.chat-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 78%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+}
+
+.chat-bubble--kurir {
+  align-self: flex-start;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: var(--radius-xs);
+}
+
+.chat-bubble--aku {
+  align-self: flex-end;
+  background-color: var(--sa7tein-orange);
+  border-bottom-right-radius: var(--radius-xs);
+  color: var(--on-brand);
+}
+
+.chat-bubble__text {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.chat-bubble__jam {
+  align-self: flex-end;
+  font-size: 11px;
+  opacity: 0.72;
+}
+
+.chat-bubble--kurir .chat-bubble__jam {
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.chat-typing {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-typing__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background-color: var(--text-secondary);
+  animation: chat-typing 1.2s var(--ease-inout) infinite;
+}
+
+.chat-typing__dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chat-typing__dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes chat-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.chat-suggestions {
+  display: flex;
+  gap: var(--space-2);
+  padding: 0 var(--space-5) var(--space-3);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chat-suggestions::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-chip {
+  flex: none;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.chat-chip:hover {
+  background-color: var(--bg-warm);
+}
+
+.chat-compose {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom));
+  background-color: var(--bg-warm);
+  border-top: 1px solid var(--border);
+}
+
+.chat-compose__input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+
+.chat-compose__input:focus {
+  border-color: var(--sa7tein-orange);
+  outline: none;
+}
+
+.chat-compose__send {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: none;
+  border-radius: var(--radius-pill);
+  background-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+  cursor: pointer;
+}
+
+.chat-compose__send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-typing__dot {
+    animation: none;
+  }
+}

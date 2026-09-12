@@ -28,6 +28,7 @@ import Notifications from './pages/Notifications'
 import Offline from './pages/Offline'
 import Onboarding from './pages/Onboarding'
 import OrderArrived from './pages/OrderArrived'
+import OrderChat from './pages/OrderChat'
 import OrderDelivered from './pages/OrderDelivered'
 import OrderDelivery from './pages/OrderDelivery'
 import OrderPlaced from './pages/OrderPlaced'
@@ -69,6 +70,7 @@ const routes: [string, React.ComponentType][] = [
   ['/payment-selection', PaymentSelection],
   ['/payment-amount', PaymentAmount],
   ['/order-placed', OrderPlaced],
+  ['/order-chat', OrderChat],
   ['/order-delivery', OrderDelivery],
   ['/order-tracking', OrderTracking],
   ['/order-arrived', OrderArrived],

@@ -2,8 +2,6 @@ import { Bike, Check, Home, Utensils, type LucideIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import toast from 'react-hot-toast'
-
 import {
   ORDER_STAGES,
   formatDistance,
@@ -326,7 +324,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 <button
                   className="track-action"
                   type="button"
-                  onClick={() => toast.success('Membuka chat dengan kurir')}
+                  onClick={() => navigate('/order-chat')}
                 >
                   <IconChat />
                   Chat
