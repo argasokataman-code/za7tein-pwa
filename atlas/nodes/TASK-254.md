@@ -1,0 +1,1 @@
+Restore root manifest identity so legacy Delivo installs update in place as Sa7tein while the service worker remains scoped to /app; refine merchant menu hierarchy with store context and clearer stock controls.

@@ -5440,6 +5440,71 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts"
+    },
+    {
+      "id": "TASK-1051",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "14:11:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.gitignore (+2/-1) — edit via tool: .vercel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.gitignore"
+    },
+    {
+      "id": "TASK-254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "14:26:09",
+      "tags": [
+        "pwa",
+        "manifest",
+        "migration",
+        "merchant",
+        "ui"
+      ],
+      "summary": "Restore root manifest identity so legacy Delivo installs update in place as Sa7tein while the service worker remains scoped to /app; refine ",
+      "conn": [
+        {
+          "id": "TASK-253",
+          "type": "relates",
+          "raw": "TASK-253:relates"
+        }
+      ],
+      "loc": "docs/design/pwa-experience-2026-09-13.md:7"
+    },
+    {
+      "id": "TASK-255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "14:31:05",
+      "tags": [
+        "merchant",
+        "ui",
+        "design-system",
+        "header",
+        "navigation"
+      ],
+      "summary": "Unify the merchant console chrome with a reusable sticky MerchantPageHeader across dashboard, orders, menu, couriers, reviews, and settings;",
+      "conn": [
+        {
+          "id": "TASK-254",
+          "type": "relates",
+          "raw": "TASK-254:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/ComponentsSection.tsx:97"
     }
   ]
 }

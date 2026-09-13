@@ -12,11 +12,24 @@
   position: sticky;
   top: 0;
   z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 76px;
   margin-inline: calc(-1 * var(--space-5));
   padding: var(--space-3) var(--space-5);
   background: var(--bg-warm);
   border-bottom: 1px solid var(--border);
   margin-bottom: var(--space-4);
+}
+
+.merchant-header-copy {
+  min-width: 0;
+}
+
+.merchant-header-action {
+  flex-shrink: 0;
 }
 
 .merchant-eyebrow {

@@ -2,6 +2,7 @@ import { Bike, ChevronRight, Clock, PlusCircle, Star, Store, Wallet } from 'luci
 import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant, rupiah } from '../data/merchant'
 import { countByTab, orderStatusLabel } from '../data/merchantOrders'
@@ -21,10 +22,7 @@ export default function MerchantDashboard() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <header className="merchant-header">
-          <p className="merchant-eyebrow">Dapur</p>
-          <h1 className="merchant-title">{mockMerchant.name}</h1>
-        </header>
+        <MerchantPageHeader eyebrow="Dapur" title={mockMerchant.name} />
 
         <section className="merchant-card">
           <div className="merchant-row">

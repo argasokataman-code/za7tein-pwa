@@ -1,6 +1,7 @@
 import { Bike, Phone } from 'lucide-react'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { MAX_COURIERS_PER_MERCHANT, mockCouriers } from '../data/merchant'
 
 const STATUS_LABEL: Record<string, string> = {
@@ -13,12 +14,10 @@ export default function MerchantCouriers() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <header className="merchant-header">
-          <h1 className="merchant-title">Kurir</h1>
-          <p className="merchant-eyebrow">
-            {mockCouriers.length} / {MAX_COURIERS_PER_MERCHANT} kurir terdaftar
-          </p>
-        </header>
+        <MerchantPageHeader
+          eyebrow={`${mockCouriers.length} / ${MAX_COURIERS_PER_MERCHANT} kurir terdaftar`}
+          title="Kurir"
+        />
 
         {mockCouriers.map((courier) => (
           <section key={courier.id} className="merchant-courier">

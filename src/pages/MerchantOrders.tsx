@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Star } from 'lucide-react'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { formatDistance, rupiah } from '../data/merchant'
 import { QUEUE_TABS, ordersForStatuses, orderStatusLabel, type QueueTabId } from '../data/merchantOrders'
@@ -18,9 +19,7 @@ export default function MerchantOrders() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <header className="merchant-header">
-          <h1 className="merchant-title">Order</h1>
-        </header>
+        <MerchantPageHeader eyebrow="Antrean dapur" title="Order" />
 
         <div className="merchant-tabs" role="tablist">
           {QUEUE_TABS.map((t) => (

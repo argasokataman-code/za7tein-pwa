@@ -104,6 +104,17 @@ export function ComponentsSection() {
       <p className="doc-p">
         Returns <code className="doc-inline">null</code> when closed. Closes on Escape key and overlay click.
       </p>
+      <h3 className="doc-h3">
+        MerchantPageHeader
+      </h3>
+      <p className="doc-p">
+        <code className="doc-inline">src/components/merchant/MerchantPageHeader.tsx</code>
+        {' '}menyatukan header sticky pada seluruh console merchant. Beri
+        <code className="doc-inline">title</code>, optional
+        <code className="doc-inline"> eyebrow</code>, dan optional
+        <code className="doc-inline"> action</code>; jangan membuat header merchant baru
+        per halaman.
+      </p>
     </DocSection>
   )
 }

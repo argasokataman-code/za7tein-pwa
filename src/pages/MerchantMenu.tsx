@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { useCatalog } from '../hooks/useCatalog'
-import { useAppDispatch } from '../hooks/useAppStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
-import { rupiah } from '../data/merchant'
+import { mockMerchant, rupiah } from '../data/merchant'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import { addMenuItem, removeMenuItem, setStock, toggleAvailable, updateMenuItem } from '../store/slices/catalogSlice'
 import type { MenuItem } from '../types'
@@ -19,9 +20,11 @@ const FALLBACK_IMAGE = '/assets/img/menu-details/menu-details-thumb.png'
 export default function MerchantMenu() {
   const dispatch = useAppDispatch()
   const { items } = useCatalog()
+  const isActive = useAppSelector((state) => state.merchant.isActive)
 
   const lowCount = countLowStock(items)
   const outCount = countOutOfStock(items)
+  const readyCount = items.filter((item) => item.available && item.stock > 0).length
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'out'>('all')
   const visibleItems = items.filter((item) =>
     stockFilter === 'out' ? item.stock <= 0 :
@@ -148,12 +151,23 @@ export default function MerchantMenu() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <header className="merchant-header merchant-header-row">
-          <h1 className="merchant-title">Menu &amp; Stok</h1>
-          <button type="button" className="merchant-add-btn" onClick={openAdd}>
-            <Plus size={16} strokeWidth={1.75} /> Tambah Item
-          </button>
-        </header>
+        <MerchantPageHeader
+          eyebrow={mockMerchant.name}
+          title="Menu & Stok"
+          action={(
+            <button type="button" className="merchant-add-btn" onClick={openAdd}>
+              <Plus size={16} strokeWidth={1.75} /> Tambah Item
+            </button>
+          )}
+        />
+
+        <section className="merchant-menu-context" aria-label="Status katalog">
+          <span className={`merchant-menu-context-status${isActive ? ' is-open' : ''}`}>
+            <span aria-hidden="true" />
+            {isActive ? 'Toko buka' : 'Toko tutup'}
+          </span>
+          <p>{readyCount} menu siap dilihat pelanggan</p>
+        </section>
 
         <div className="merchant-menu-overview" role="group" aria-label="Filter status stok">
           <button type="button" className={`merchant-menu-stat${stockFilter === 'all' ? ' is-active' : ''}`} aria-pressed={stockFilter === 'all'} onClick={() => setStockFilter('all')}>

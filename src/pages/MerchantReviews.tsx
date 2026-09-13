@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import {
   averageRating,
@@ -69,9 +70,7 @@ export default function MerchantReviews() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <header className="merchant-header">
-          <h1 className="merchant-title">Ulasan</h1>
-        </header>
+        <MerchantPageHeader eyebrow="Kualitas menu" title="Ulasan" />
 
         <section className="merchant-card merchant-review-summary">
           <div className="merchant-review-score">

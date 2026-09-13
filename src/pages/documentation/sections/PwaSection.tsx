@@ -86,7 +86,11 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
       <h3 className="doc-h3">Manifest</h3>
       <p className="doc-p">
         Plugin diatur <code>manifest: false</code>. Manifest dikirim langsung dari
-        <code> public/manifest.json</code>, bukan dihasilkan plugin. Ikon tersedia
+        <code> public/manifest.json</code>, bukan dihasilkan plugin. Manifest
+        mempertahankan <code>id: '/'</code> dan <code>scope: '/'</code> agar
+        instalasi Delivo lama diperbarui menjadi Sa7tein, bukan dibuat aplikasi
+        kedua. Jalur awalnya tetap <code>/app/home</code>; yang dibatasi ke
+        <code>/app/</code> adalah service worker, bukan identitas launcher. Ikon tersedia
         di <code>public/icons/</code> (sa7tein-72 hingga sa7tein-512 png,
         sa7tein-cloche.svg, sa7tein-mark.svg).
       </p>
@@ -97,7 +101,9 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
         Untuk menguji perilaku offline, jalankan <code>npm run build</code> lalu
         <code> npm run preview</code> dan verifikasi di DevTools &gt; Application
         &gt; Service Workers. Pastikan <code>scope</code> terdaftar di
-        <code> /app/</code>, bukan di root.
+        <code> /app/</code>, bukan di root. Ini adalah scope service worker;
+        manifest sengaja memakai scope root agar instalasi lama bermigrasi di
+        tempat.
       </p>
     </DocSection>
   )

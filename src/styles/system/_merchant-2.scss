@@ -160,7 +160,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  min-height: 82px;
+  min-height: 88px;
   padding: var(--space-3);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
@@ -187,6 +187,7 @@
 .merchant-menu-stat.is-active {
   border-color: var(--sa7tein-orange);
   background: var(--orange-soft);
+  box-shadow: inset 0 0 0 1px var(--sa7tein-orange);
 }
 
 .merchant-menu-list-head {
@@ -212,7 +213,7 @@
 
 .merchant-menu-item {
   display: block;
-  padding: var(--space-3);
+  padding: var(--space-4);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
   background: var(--surface);
@@ -232,8 +233,8 @@
 }
 
 .merchant-menu-thumb {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: var(--radius-sm);
   object-fit: cover;
   flex-shrink: 0;
@@ -247,7 +248,7 @@
 }
 
 .merchant-menu-row-name {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 700;
   color: var(--text-primary);
   overflow: hidden;
@@ -263,7 +264,7 @@
 
 .merchant-menu-row-price {
   margin-top: var(--space-1);
-  color: var(--text-primary);
+  color: var(--orange-soft-ink);
   font-size: var(--text-sm);
   font-weight: 700;
 }
@@ -273,8 +274,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
-  margin-top: var(--space-3);
-  padding-top: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
   border-top: 1px solid var(--border);
 }
 

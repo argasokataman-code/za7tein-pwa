@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { mockMerchant } from '../data/merchant'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
@@ -59,9 +60,7 @@ export default function MerchantSettings() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <header className="merchant-header">
-          <h1 className="merchant-title">Setelan toko</h1>
-        </header>
+        <MerchantPageHeader eyebrow="Profil & operasional" title="Setelan toko" />
 
         <form className="merchant-card merchant-form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
