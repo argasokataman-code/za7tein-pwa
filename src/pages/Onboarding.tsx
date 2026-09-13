@@ -1,5 +1,5 @@
 import { Bike, ChefHat, Download, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,10 +26,41 @@ const SLIDES = [
   },
 ] as const
 
+interface InstallPromptEvent extends Event {
+  prompt: () => Promise<void>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
+}
+
 export default function Onboarding() {
   const navigate = useNavigate()
   const [index, setIndex] = useState(0)
   const [showInstall, setShowInstall] = useState(true)
+  const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null)
+
+  useEffect(() => {
+    const onPrompt = (event: Event) => {
+      event.preventDefault()
+      setInstallPrompt(event as InstallPromptEvent)
+    }
+    const onInstalled = () => setShowInstall(false)
+    window.addEventListener('beforeinstallprompt', onPrompt)
+    window.addEventListener('appinstalled', onInstalled)
+    return () => {
+      window.removeEventListener('beforeinstallprompt', onPrompt)
+      window.removeEventListener('appinstalled', onInstalled)
+    }
+  }, [])
+
+  const installApp = async () => {
+    if (installPrompt) {
+      await installPrompt.prompt()
+      const choice = await installPrompt.userChoice
+      setInstallPrompt(null)
+      if (choice.outcome === 'accepted') setShowInstall(false)
+      return
+    }
+    toast('Buka menu Bagikan di browser, lalu pilih Tambahkan ke Layar Utama.')
+  }
 
   const slide = SLIDES[index]
   const isLast = index === SLIDES.length - 1
@@ -54,14 +85,14 @@ export default function Onboarding() {
           </div>
         )}
 
-        {showInstall && (
+        {showInstall && !window.matchMedia('(display-mode: standalone)').matches && (
           <aside className="onboarding-install" aria-label="Saran pasang aplikasi">
             <Download size={16} strokeWidth={1.75} aria-hidden="true" />
             <p>Pasang aplikasi untuk pengalaman lebih cepat</p>
             <button
               type="button"
               className="onboarding-install-btn"
-              onClick={() => toast.success('Pakai menu browser untuk memasang Sa7tein')}
+              onClick={installApp}
             >
               Pasang
             </button>

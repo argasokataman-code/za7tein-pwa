@@ -4,18 +4,41 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
     <meta name="theme-color" content="#F15A37" />
-    <meta name="description" content="Marketplace makanan hyperlocal — pesan dalam radius 2 km, bayar COD atau transfer" />
+    <meta name="description" content="Marketplace makanan hyperlocal Sa7tein di Irbid" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Sa7tein" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png" />
+    <link rel="icon" type="image/svg+xml" href="/icons/sa7tein-mark.svg" />
+    <link rel="apple-touch-icon" href="/icons/sa7tein-192x192.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/sa7tein-152x152.png" />
+    <style>
+      #boot-splash[hidden] { display: none; }
+      #boot-splash { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #FFF9F4; color: #202020; font-family: system-ui, sans-serif; }
+      #boot-splash .boot-inner { display: grid; justify-items: center; gap: 16px; padding: 24px; text-align: center; }
+      #boot-splash img { width: 80px; height: 80px; border-radius: 12px; }
+      #boot-splash strong { font-size: 24px; letter-spacing: -0.03em; }
+      #boot-splash .boot-progress { width: 72px; height: 4px; overflow: hidden; border-radius: 9999px; background: #EDE4DC; }
+      #boot-splash .boot-progress::after { content: ''; display: block; width: 36px; height: 100%; border-radius: inherit; background: #F15A37; animation: boot-move 1.1s ease-in-out infinite alternate; }
+      @keyframes boot-move { to { transform: translateX(36px); } }
+      @media (prefers-reduced-motion: reduce) { #boot-splash .boot-progress::after { animation: none; width: 72px; } }
+    </style>
     <title>Sa7tein — Marketplace Makanan Hyperlocal</title>
   </head>
   <body>
+    <div id="boot-splash" role="status" aria-label="Membuka Sa7tein" hidden>
+      <div class="boot-inner">
+        <img src="/icons/sa7tein-192x192.png" alt="" />
+        <strong>Sa7tein</strong>
+        <span class="boot-progress" aria-hidden="true"></span>
+      </div>
+    </div>
+    <script>
+      if (location.pathname === '/app' || location.pathname.startsWith('/app/')) {
+        document.getElementById('boot-splash').hidden = false;
+      }
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

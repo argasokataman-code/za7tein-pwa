@@ -1,7 +1,9 @@
 import { Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { StoreProvider } from './store/provider'
+import { MobileDeviceFrame } from './components/layout/MobileDeviceFrame'
 
 import AccountSetup from './pages/AccountSetup'
 import AddCard from './pages/AddCard'
@@ -123,14 +125,23 @@ const appRoutes: [string, React.ComponentType][] = [
 ]
 
 function AppRouter() {
+  useEffect(() => {
+    const splash = document.getElementById('boot-splash')
+    if (!splash) return
+    const frame = requestAnimationFrame(() => splash.remove())
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
   return (
     <BrowserRouter basename={APP_BASENAME}>
-      <Routes>
-        {appRoutes.map(([path, Component]) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-        <Route path="*" element={<Navigate to="/home" replace />} />
-      </Routes>
+      <MobileDeviceFrame>
+        <Routes>
+          {appRoutes.map(([path, Component]) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          <Route path="*" element={<Navigate to="/home" replace />} />
+        </Routes>
+      </MobileDeviceFrame>
     </BrowserRouter>
   )
 }
@@ -142,10 +153,21 @@ function WebsiteRouter() {
         {webRoutes.map(([path, Component]) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
+        {appRoutes.map(([path]) => (
+          <Route key={`legacy-${path}`} path={path} element={<LegacyAppRedirect />} />
+        ))}
+        <Route path="/merchant/*" element={<LegacyAppRedirect />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   )
+}
+
+function LegacyAppRedirect() {
+  useEffect(() => {
+    window.location.replace(`/app${window.location.pathname}${window.location.search}${window.location.hash}`)
+  }, [])
+  return null
 }
 
 export default function App() {

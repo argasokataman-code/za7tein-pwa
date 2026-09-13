@@ -9,7 +9,7 @@ npm install --include=dev
 npm run dev
 ```
 
-Aplikasi lokal tersedia di `http://localhost:5173`. Untuk memeriksa hasil kerja:
+Website promosi tersedia di `http://localhost:5173/`; pengalaman aplikasi PWA ada di `http://localhost:5173/app/home`. Jalur merchant adalah `/app/merchant/*`. Tautan lama `/merchant/*` dialihkan ke jalur aplikasi. Untuk memeriksa hasil kerja:
 
 ```bash
 npm run governance:check
@@ -17,7 +17,7 @@ npm run lint
 npm run build
 ```
 
-PWA/service worker aktif pada hasil build (`npm run preview`), bukan dev server.
+PWA/service worker aktif pada hasil build (`npm run preview`), bukan dev server. Boot screen dan scroll native didokumentasikan di [audit pengalaman PWA](docs/design/pwa-experience-2026-09-13.md).
 
 ## PRD atau BRS baru
 
@@ -29,7 +29,7 @@ Petunjuk lengkap dan sumber kebenaran versi ada di [registri PRD](docs/product/p
 
 ## DNA antarmuka
 
-[Aturan UI/UX wajib](docs/design/DNA.md) mengikat perbaikan, pengembangan, dan layar baru. Token desain ada di `src/styles/_tokens.scss`; gaya baru ditulis di `src/styles/_system.scss`; komponen bersama ada di `src/components/`. Layar dan rute terdaftar di `src/App.tsx`, data mock di `src/data/`, tipe domain di `src/types.ts`.
+[Aturan UI/UX wajib](docs/design/DNA.md) mengikat perbaikan, pengembangan, dan layar baru. Token desain ada di `src/styles/_tokens.scss`; gaya baru ditulis di partial `src/styles/system/`; komponen bersama ada di `src/components/`. Layar dan rute terdaftar di `src/App.tsx`, data mock di `src/data/`, tipe domain di `src/types.ts`.
 
 `AGENTS.md` adalah pintu masuk agen. Pemeriksaan otomatis menolak token yang tidak dikenal, ikon fungsional SVG inline baru, warna mentah baru di lapisan UI yang diawasi, dan PRD/BRS yang belum diproses. Audit browser tetap diperlukan untuk pengalaman visual dan aksesibilitas.
 
