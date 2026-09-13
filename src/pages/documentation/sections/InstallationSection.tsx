@@ -19,7 +19,7 @@ export function InstallationSection() {
         Install & Run
       </h3>
       <DocCode lang="bash">
-        {`npm install
+        {`npm install --include=dev
 npm run dev`}
       </DocCode>
       <div className="doc-info">
@@ -30,18 +30,22 @@ npm run dev`}
         <code>
           isAuthenticated: true
         </code>
-         and
+         and a
         <code>
-          MOCK_USER
+          mockUser
         </code>
-         pre-loaded so you can browse all screens immediately without signing in.
+         object pre-loaded from
+        <code>
+          src/data/user.ts
+        </code>
+         so you can browse all screens immediately without signing in.
       </div>
       <h3 className="doc-h3">
         Production Build
       </h3>
       <DocCode lang="bash">
         {`npm run build
-npm start`}
+npm run preview`}
       </DocCode>
       <div className="doc-info">
         <strong>

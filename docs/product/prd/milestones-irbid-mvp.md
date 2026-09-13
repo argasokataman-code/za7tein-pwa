@@ -12,3 +12,13 @@ Status awal: `planned`. Milestone adalah rencana, bukan klaim fitur sudah selesa
 | M5 | Konsistensi dan handoff | M1–M4 | Journey Line lintas role konsisten; 390px/1440px terukur; dokumentasi dan kontrak BE lengkap; lint/build lulus | Daftar endpoint/event dan ownership validasi ditinjau BE |
 
 Setiap milestone baru harus dipecah menjadi tugas dengan `sourceRef`, `affectedFiles`, `owner`, `dependency`, `acceptance`, `mockState`, dan `backendContract`. Jika requirement belum jelas, task berstatus `blocked-by-decision`, bukan dianggap selesai.
+
+## Di luar PRD aktif — UNRESOLVED
+
+Item di bawah dibangun sebagai UI mock atas permintaan pemilik produk, tetapi **tidak memiliki sumber di PRD aktif**. Ditandai `UNRESOLVED` + `blocked-by-decision`; jangan dianggap requirement aktif sampai ada keputusan tertulis.
+
+| ID | Item | Status | Sumber tidak ada | affectedFiles | mockState | backendContract |
+|---|---|---|---|---|---|---|
+| X-MR-1 | Ulasan pembeli: merchant membaca & membalas komentar per hidangan (`/merchant/reviews`) | UNRESOLVED / blocked-by-decision | PRD aktif hal. 4–11, FR-MC tidak menyebut ulasan atau respons pembeli | `src/pages/MerchantReviews.tsx`, `src/data/merchantReviews.ts`, `src/store/slices/merchantSlice.ts`, `src/App.tsx`, `src/pages/MerchantDashboard.tsx` | `reviewReplies` di slice `merchant` (tidak dipersist) | — |
+
+Pertanyaan yang belum diputuskan: apakah ulasan/respons masuk ruang lingkup merchant, apakah balasan wajib, dan apakah ulasan terikat order/hidangan. Sampai itu diputuskan, fitur tetap demo UI dan tidak boleh diklaim sesuai PRD.

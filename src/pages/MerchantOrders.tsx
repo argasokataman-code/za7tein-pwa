@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Star } from 'lucide-react'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -45,15 +46,40 @@ export default function MerchantOrders() {
           visible.map((order) => (
             <section key={order.id} className="merchant-order-card">
               <div className="merchant-order-head">
-                <div>
-                  <p className="merchant-order-code">{order.code}</p>
-                  <p className="merchant-order-sub">
-                    {order.customerName} · {order.placedAt}
-                  </p>
+                <div className="merchant-order-buyer">
+                  <img
+                    className="merchant-buyer-avatar"
+                    src={order.buyerAvatar}
+                    alt={`Profil ${order.customerName}`}
+                    width={40}
+                    height={40}
+                  />
+                  <div>
+                    <p className="merchant-order-code">{order.code}</p>
+                    <p className="merchant-order-sub">
+                      {order.customerName} · {order.placedAt}
+                    </p>
+                  </div>
                 </div>
-                <span className={`merchant-badge merchant-badge-${order.status}`}>
-                  {orderStatusLabel(order.status)}
-                </span>
+                <div className="merchant-order-head-right">
+                  <div
+                    className="merchant-order-rating"
+                    aria-label={`Rating pembeli ${order.buyerRating} dari 5`}
+                  >
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star
+                        key={i}
+                        size={12}
+                        strokeWidth={1.75}
+                        color="var(--star)"
+                        fill={i < order.buyerRating ? 'var(--star)' : 'none'}
+                      />
+                    ))}
+                  </div>
+                  <span className={`merchant-badge merchant-badge-${order.status}`}>
+                    {orderStatusLabel(order.status)}
+                  </span>
+                </div>
               </div>
 
               <ul className="merchant-order-items">

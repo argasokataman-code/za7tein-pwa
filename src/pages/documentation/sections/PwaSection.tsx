@@ -1,3 +1,4 @@
+import { DocCode } from '../DocCode'
 import { DocSection } from '../DocSection'
 
 export function PwaSection() {
@@ -27,15 +28,76 @@ export function PwaSection() {
       <p className="doc-p">
         Tombol Pasang di onboarding memakai prompt browser saat tersedia; bila
         browser tidak menyediakannya, pengguna mendapat petunjuk memasang dari
-        menu Bagikan. Service worker dibuat oleh <code>vite-plugin-pwa</code> saat
-        build dan tidak aktif pada dev server. Uji instalasi dan offline pada
-        hasil <code>npm run build</code> lalu <code>npm run preview</code>.
+        menu Bagikan. Uji instalasi dan offline pada hasil
+        <code> npm run build</code> lalu <code>npm run preview</code>.
+      </p>
+
+      <h3 className="doc-h3">Service Worker</h3>
+      <p className="doc-p">
+        Service worker tidak ada di repositori. Plugin <code>vite-plugin-pwa</code>
+        dengan strategi <code>generateSW</code> membuat <code>dist/sw.js</code> saat
+        build. Tidak ada impor <code>virtual:pwa-register</code> atau komponen
+        pendaftaran manual &mdash; <code>injectRegister: 'auto'</code> menyuntikkan
+        kode registrasi secara otomatis. SW tidak aktif pada dev server
+        (<code>devOptions.enabled: false</code>).
+      </p>
+      <DocCode lang="typescript">{`// vite.config.ts — ringkasan VitePWA
+VitePWA({
+  strategies: 'generateSW',
+  registerType: 'autoUpdate',
+  scope: '/app/',
+  injectRegister: 'auto',
+  manifest: false,          // pakai public/manifest.json milik sendiri
+  includeAssets: ['favicon.ico', 'icons/*.png', 'assets/**/*'],
+  workbox: {
+    globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,woff2}'],
+    navigateFallback: '/index.html',
+    navigateFallbackDenylist: [/^\\/api\\//, /^\\/$/, /^\\/documentation/],
+    runtimeCaching: [
+      { urlPattern: /^https:\\/\\/[abc]\\.tile\\.openstreetmap\\.org\\/.*/i,
+        handler: 'CacheFirst' },   // OSM tiles, 7 hari
+      { urlPattern: ({ request }) =>
+          request.destination === 'image' || request.destination === 'font',
+        handler: 'CacheFirst' },   // aset statis, 30 hari
+    ],
+  },
+  devOptions: { enabled: false },
+})`}</DocCode>
+
+      <h3 className="doc-h3">Scope dan Registrasi</h3>
+      <p className="doc-p">
+        Worker hanya mengendalikan jalur di bawah <code>scope: '/app/'</code>.
+        Halaman promosi di <code>/</code> tidak terpengaruh caching worker.
+        Registrasi bersifat <code>autoUpdate</code> &mdash; worker baru diaktifkan
+        tanpa prompt pengguna saat file service worker berubah.
       </p>
       <p className="doc-p">
-        Worker lama pernah menguasai seluruh origin dan dapat menampilkan
-        landing usang dari cache. Worker baru hanya ber-scope <code>/app/</code>;
-        saat build baru dibuka, registrasi worker root lama dilepas lalu halaman
-        dimuat ulang sekali. Website promosi tidak lagi dikendalikan worker PWA.
+        Build lama pernah mendaftarkan worker berskala origin (<code>/</code>).
+        Di <code>src/main.tsx</code>, aplikasi memeriksa registrasi root lama dan
+        melepaskannya sebelum memuat halaman baru:</p>
+      <DocCode lang="typescript">{`// src/main.tsx — bersihkan worker root lama
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  void navigator.serviceWorker.getRegistrations().then(async (reg) => {
+    const root = reg.find((r) => r.scope === \`\${location.origin}/\`)
+    if (root && await root.unregister()) location.reload()
+  })
+}`}</DocCode>
+
+      <h3 className="doc-h3">Manifest</h3>
+      <p className="doc-p">
+        Plugin diatur <code>manifest: false</code>. Manifest dikirim langsung dari
+        <code> public/manifest.json</code>, bukan dihasilkan plugin. Ikon tersedia
+        di <code>public/icons/</code> (sa7tein-72 hingga sa7tein-512 png,
+        sa7tein-cloche.svg, sa7tein-mark.svg).
+      </p>
+
+      <h3 className="doc-h3">Cek Sebelum Kirim</h3>
+      <p className="doc-p">
+        Service worker hanya aktif pada hasil build, bukan <code>npm run dev</code>.
+        Untuk menguji perilaku offline, jalankan <code>npm run build</code> lalu
+        <code> npm run preview</code> dan verifikasi di DevTools &gt; Application
+        &gt; Service Workers. Pastikan <code>scope</code> terdaftar di
+        <code> /app/</code>, bukan di root.
       </p>
     </DocSection>
   )

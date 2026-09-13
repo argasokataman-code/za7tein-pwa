@@ -59,6 +59,24 @@ export interface Review {
   text: string
 }
 
+/**
+ * Ulasan dari sudut pandang merchant — terikat ke satu hidangan katalog
+ * supaya pemilik toko tahu menu mana yang dikomentari. Di luar PRD aktif:
+ * FR-MC tidak menyebut ulasan/respons; ditandai UNRESOLVED di
+ * docs/product/prd/milestones-irbid-mvp.md.
+ */
+export interface MerchantReview {
+  id: string
+  customerName: string
+  avatar: string
+  rating: number
+  text: string
+  /** id MenuItem di katalog, mis. 'mm-1' */
+  foodId: string
+  foodName: string
+  createdAt: string
+}
+
 /** Zona pengantaran — radius maksimal 2 km (PRD bab 04). */
 export type ZoneId = 'A' | 'B' | 'C'
 
@@ -178,6 +196,8 @@ export interface MerchantOrder {
   id: string
   code: string
   customerName: string
+  buyerAvatar: string
+  buyerRating: number
   address: string
   items: CartItem[]
   total: number

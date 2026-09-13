@@ -40,7 +40,7 @@ export function FormsSection() {
                 signInSchema
               </td>
               <td>
-                email, password
+                phone, password
               </td>
             </tr>
             <tr>
@@ -48,7 +48,7 @@ export function FormsSection() {
                 signUpSchema
               </td>
               <td>
-                name, email, password, confirmPassword (cross-field check)
+                name, phone, email (opsional), password
               </td>
             </tr>
             <tr>
@@ -56,7 +56,7 @@ export function FormsSection() {
                 forgotPasswordSchema
               </td>
               <td>
-                email
+                phone
               </td>
             </tr>
             <tr>
@@ -64,7 +64,15 @@ export function FormsSection() {
                 createPasswordSchema
               </td>
               <td>
-                password, confirmPassword
+                password, confirmPassword (cross-field check)
+              </td>
+            </tr>
+            <tr>
+              <td>
+                apartmentSchema
+              </td>
+              <td>
+                building, floor, unit, notes?
               </td>
             </tr>
             <tr>
@@ -88,7 +96,7 @@ export function FormsSection() {
                 personalDataSchema
               </td>
               <td>
-                fullName, email, phone, dob?, gender?
+                fullName, phone, email (opsional), dob?, gender?
               </td>
             </tr>
             <tr>

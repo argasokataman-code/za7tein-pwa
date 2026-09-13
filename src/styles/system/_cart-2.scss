@@ -136,10 +136,6 @@
   padding-inline: var(--space-5);
 }
 
-.doc-root .doc-sidebar {
-  left: max(0px, calc((100vw - var(--shell-max)) / 2));
-}
-
 [data-rht-toaster] {
   max-width: var(--shell-max);
   margin-inline: auto;

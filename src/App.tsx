@@ -31,6 +31,7 @@ import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantMenu from './pages/MerchantMenu'
 import MerchantOrders from './pages/MerchantOrders'
 import MerchantPending from './pages/MerchantPending'
+import MerchantReviews from './pages/MerchantReviews'
 import MerchantSettings from './pages/MerchantSettings'
 import MerchantSignIn from './pages/MerchantSignIn'
 import MerchantSignUp from './pages/MerchantSignUp'
@@ -88,6 +89,7 @@ const appRoutes: [string, React.ComponentType][] = [
   ['/merchant', MerchantDashboard],
   ['/merchant/orders', MerchantOrders],
   ['/merchant/menu', MerchantMenu],
+  ['/merchant/reviews', MerchantReviews],
   ['/merchant/couriers', MerchantCouriers],
   ['/merchant/settings', MerchantSettings],
   ['/checkout', Checkout],

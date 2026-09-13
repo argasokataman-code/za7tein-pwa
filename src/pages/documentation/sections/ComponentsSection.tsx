@@ -14,51 +14,14 @@ export function ComponentsSection() {
       </p>
       <DocCode lang="tsx">
         {`<BackButton
-  variant="default"  // "default" | "card" | "map" | "dark"
-  behavior="smart"   // "smart" | "history" | "href"
-  href="/home"       // fallback URL for "smart", target for "href"
+  to="/home"            // optional — navigate(to) when set
+  label="Kembali"       // optional — defaults to "Kembali"
+  className=""           // optional
 />`}
       </DocCode>
-      <div className="doc-table-wrap">
-        <table className="doc-table">
-          <thead>
-            <tr>
-              <th>
-                Behavior
-              </th>
-              <th>
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                smart
-              </td>
-              <td>
-                router.back() if history exists, else router.push(href)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                history
-              </td>
-              <td>
-                Always router.back()
-              </td>
-            </tr>
-            <tr>
-              <td>
-                href
-              </td>
-              <td>
-                Always router.push(href)
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <p className="doc-p">
+        Calls <code className="doc-inline">navigate(to)</code> when <code className="doc-inline">to</code> is passed, otherwise <code className="doc-inline">navigate(-1)</code>.
+      </p>
       <h3 className="doc-h3">
         FavoriteButton
       </h3>
@@ -70,49 +33,77 @@ export function ComponentsSection() {
       <DocCode lang="tsx">
         {`<FavoriteButton
   id={item.id}      // food item ID
-  name={item.name}  // used in toast message
-  variant="card"    // "card" | "header"
+  name={item.name}  // used in aria-label
+  size={18}          // optional — Heart icon size, default 18
 />`}
       </DocCode>
       <div className="doc-info">
         <strong>
           Important:
         </strong>
-         Never nest 
+         Never nest
         <code>
           &lt;FavoriteButton&gt;
         </code>
-         inside a 
+         inside a
         <code>
           &lt;Link&gt;
         </code>
-        . Use 
-        <code>
-          &lt;div onClick=&#123;() =&gt; router.push(...)&#125;&gt;
-        </code>
-         as the card wrapper instead. Button-inside-anchor is invalid HTML and causes page reloads on favorite clicks.
+        . Button-inside-anchor is invalid HTML and causes page reloads on favorite clicks.
       </div>
       <h3 className="doc-h3">
-        LocationPicker
+        FoodCard
       </h3>
       <p className="doc-p">
         <code className="doc-inline">
-          src/components/ui/LocationPicker.tsx
+          src/components/ui/FoodCard.tsx
         </code>
       </p>
       <DocCode lang="tsx">
-        {`// In HomeClient.tsx header
-<LocationPicker />
-// Opens bottom sheet with GPS + saved addresses
-// Dispatches setLocationLabel(address) to uiSlice
-
-// Customize saved addresses at top of LocationPicker.tsx:
-// Ikon memakai lucide (strokeWidth 1.75), bukan emoji.
-const SAVED_ADDRESSES = [
-  { id: "1", label: "Home", address: "44 Street Town, New York", icon: Home },
-  { id: "2", label: "Work", address: "120 Business Ave, Manhattan", icon: Briefcase },
-];`}
+        {`<FoodCard
+  food={item}                // Food object
+  onOpen={(food) => openSheet(food)}  // called on card click
+/>`}
       </DocCode>
+      <p className="doc-p">
+        Renders image, name, price, delivery time, distance, rating, discount badge (if present), FavoriteButton, and AddToCartButton. The entire card is clickable via <code className="doc-inline">onOpen</code>.
+      </p>
+      <h3 className="doc-h3">
+        AddToCartButton
+      </h3>
+      <p className="doc-p">
+        <code className="doc-inline">
+          src/components/ui/AddToCartButton.tsx
+        </code>
+      </p>
+      <DocCode lang="tsx">
+        {`<AddToCartButton
+  food={item}       // Food object — dispatched to cartSlice
+/>`}
+      </DocCode>
+      <p className="doc-p">
+        Dispatches <code className="doc-inline">addItem</code> to the cart slice and shows a toast. Does not navigate away.
+      </p>
+      <h3 className="doc-h3">
+        BottomSheet
+      </h3>
+      <p className="doc-p">
+        <code className="doc-inline">
+          src/components/ui/BottomSheet.tsx
+        </code>
+      </p>
+      <DocCode lang="tsx">
+        {`<BottomSheet
+  open={isOpen}
+  title="Detail Item"     // optional
+  onClose={() => setOpen(false)}
+>
+  <p>Sheet content here</p>
+</BottomSheet>`}
+      </DocCode>
+      <p className="doc-p">
+        Returns <code className="doc-inline">null</code> when closed. Closes on Escape key and overlay click.
+      </p>
     </DocSection>
   )
 }

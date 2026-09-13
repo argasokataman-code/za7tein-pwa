@@ -36,7 +36,7 @@ export function MerchantDesignSection() {
       </p>
       <DocCode lang="tsx">
         {`// src/components/layout/MerchantBottomNav.tsx
-import { Bike, ClipboardList, LayoutDashboard, Settings, UtensilsCrossed } from 'lucide-react'
+import { Bike, BookOpenText, ClipboardList, LayoutDashboard, Settings } from 'lucide-react'
 
 import { useAppSelector } from '../../hooks/useAppStore'
 import { BottomNav } from './BottomNav'
@@ -57,7 +57,7 @@ export function MerchantBottomNav() {
       badge: incoming,
       srText: incoming > 0 ? \`\${incoming} pesanan masuk\` : undefined,
     },
-    { to: '/merchant/menu', label: 'Menu', Icon: UtensilsCrossed, end: false },
+    { to: '/merchant/menu', label: 'Menu', Icon: BookOpenText, end: false },
     { to: '/merchant/couriers', label: 'Kurir', Icon: Bike, end: false },
     { to: '/merchant/settings', label: 'Setelan', Icon: Settings, end: false },
   ]
@@ -116,8 +116,50 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         This is a conscious decision, not an oversight.
       </p>
       <h3 className="doc-h3">
+        Profil &amp; rating pembeli di kartu order
+      </h3>
+      <p className="doc-p">
+        Setiap kartu order menampilkan avatar pembeli (40&nbsp;px, pill) di sebelah
+        kode dan nama, plus rating bintang 1–5 (lucide
+        <code className="doc-inline">Star</code>, token
+        <code className="doc-inline">--star</code>) di kolom kanan di atas badge
+        status. Pola yang sama dipakai di daftar "Order terbaru" pada dashboard
+        merchant. Data mock memakai avatar
+        <code className="doc-inline">/assets/img/reviewer/user1–6.png</code> dan
+        rating per order di <code className="doc-inline">merchantOrders.ts</code>.
+      </p>
+      <h3 className="doc-h3">
+        Lokasi presisi di Setelan toko
+      </h3>
+      <p className="doc-p">
+        Peta Setelan berubah dari pratinjau statis jadi pemilih lokasi: pin
+        oranye bisa digeser (mode <code className="doc-inline">picker</code> di
+        <code className="doc-inline">useLeafletMap</code>), tombol "Pakai lokasi
+        saat ini" memakai <code className="doc-inline">navigator.geolocation</code>
+        dan memindahkan pin, lalu koordinat terpilih tampil real-time di kartu
+        Koordinat. Geolokasi ditolak? Pin tetap bisa digeser manual.
+      </p>
+      <h3 className="doc-h3">
+        Statistik dashboard berwarna
+      </h3>
+      <p className="doc-p">
+        Empat kartu stat di dashboard memakai tint per peran agar tidak monoton:
+        Antrean <code className="doc-inline">--warning-soft</code>, Diproses
+        <code className="doc-inline">--orange-soft</code>, Selesai
+        <code className="doc-inline">--success-soft</code>, dan Pendapatan
+        (kartu hero) <code className="doc-inline">--sa7tein-orange</code> dengan
+        teks <code className="doc-inline">--on-brand</code>. Tidak ada token baru.
+      </p>
+      <h3 className="doc-h3">
         Menu &amp; Stok — katalog operasional
       </h3>
+      <p className="doc-p">
+        Quick action "Kelola" di dashboard memakai kartu aksi terpisah
+        (<code className="doc-inline">merchant-quick-action</code>): ikon dalam
+        lingkaran oranye (<code className="doc-inline">--orange-soft</code> /
+        <code className="doc-inline">--orange-ink</code>) plus chevron kanan — bukan
+        baris order, supaya jelas bisa diketuk.
+      </p>
       <p className="doc-p">
         Ringkasan 3 kartu adalah filter interaktif: Semua menu, Menipis, dan Habis.
         Setiap item hanya muncul satu kali dalam daftar yang dipilih. Kartu item
@@ -155,8 +197,34 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         The merchant bottom nav now has five tabs: Beranda, Order, Menu, Kurir,
         Setelan. <code className="doc-inline">/merchant/menu</code> is active on the
         Menu page. The <code className="doc-inline">Menu</code> icon (lucide
-        <code className="doc-inline">UtensilsCrossed</code>) sits between Order and
+        <code className="doc-inline">BookOpenText</code>) sits between Order and
         Kurir.
+      </p>
+      <h3 className="doc-h3">
+        Ulasan pembeli — di luar PRD aktif (UNRESOLVED)
+      </h3>
+      <p className="doc-p">
+        Halaman <code className="doc-inline">/merchant/reviews</code> memberi
+        pemilik toko membaca ulasan pembeli per hidangan dan membalasnya. Ini
+        <strong> di luar PRD aktif</strong>: FR-MC pada
+        <code className="doc-inline">irbid-mvp-2026-09-12</code> tidak menyebut
+        ulasan atau respons pembeli. Karena itu item ini ditandai
+        <code className="doc-inline">UNRESOLVED</code> +
+        <code className="doc-inline">blocked-by-decision</code> di
+        <code className="doc-inline">docs/product/prd/milestones-irbid-mvp.md</code>
+        — bukan diisi dengan asumsi.
+      </p>
+      <p className="doc-p">
+        Entry-nya kartu "Ulasan Pembeli" di section Kelola dashboard; bottom nav
+        tetap 5 tab (keputusan desain tidak diubah). Mock hidup di
+        <code className="doc-inline">src/data/merchantReviews.ts</code>, terikat
+        ke id katalog nyata (<code className="doc-inline">mm-1..mm-5</code>).
+        Balasan disimpan di slice <code className="doc-inline">merchant</code>
+        sebagai <code className="doc-inline">reviewReplies</code> dan
+        <strong> tidak dipersist</strong> — sama seperti field merchant lain, jadi
+        balasan reset saat reload. Form balasan memakai
+        <code className="doc-inline">BottomSheet</code> bersama; tidak ada
+        komponen, token, atau warna baru.
       </p>
     </DocSection>
   )

@@ -20,4 +20,8 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '13', id: 'merchant-design', label: 'Merchant Console' },
   { num: '14', id: 'layout-exceptions', label: 'Layout Exceptions' },
   { num: '15', id: 'landing', label: 'Landing Page' },
+  { num: '16', id: 'design-tokens', label: 'Design Tokens' },
+  { num: '17', id: 'buttons', label: 'Buttons & Controls' },
+  { num: '18', id: 'elements', label: 'UI Elements' },
+  { num: '19', id: 'motion-svg', label: 'Motion & Icons' },
 ]

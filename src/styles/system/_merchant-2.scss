@@ -6,8 +6,33 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
   overflow: hidden;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
   background: var(--bg-warm);
+}
+
+.merchant-map--picker {
+  height: 220px;
+}
+
+.merchant-map-hint {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-locate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-3);
 }
 
 .merchant-form .btn-auth {
@@ -320,4 +345,253 @@
   color: var(--on-brand);
   font-size: var(--text-sm);
   font-weight: 700;
+}
+
+/* Merchant reviews: ringkasan rating + ulasan per hidangan. Balasan disimpan
+   di slice merchant; di sini hanya lapisan tampilannya. */
+.merchant-review-summary {
+  padding-bottom: var(--space-3);
+}
+
+.merchant-review-score {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.merchant-review-average {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.merchant-review-stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.merchant-review-count {
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-review-distribution {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+.merchant-review-dist-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.merchant-review-dist-stars {
+  width: 1ch;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.merchant-review-dist-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.merchant-review-dist-fill {
+  display: block;
+  height: 100%;
+  background: var(--sa7tein-orange);
+}
+
+.merchant-review-dist-count {
+  min-width: 2ch;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.merchant-review-card {
+  @include card-surface;
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-review-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.merchant-review-author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.merchant-review-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.merchant-review-date {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-review-dish {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--orange-soft);
+  color: var(--orange-soft-ink);
+  font-size: var(--text-xs);
+}
+
+.merchant-review-text {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-review-actions {
+  display: flex;
+  margin-top: var(--space-3);
+}
+
+.merchant-review-reply {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-warm);
+}
+
+.merchant-review-reply-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--orange-soft-ink);
+}
+
+.merchant-review-reply-text {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-review-reply-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  margin-top: var(--space-1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  box-shadow: none;
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.merchant-review-reply-edit:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+.merchant-review-field-label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.merchant-review-textarea {
+  width: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-family: inherit;
+  resize: vertical;
+}
+
+.merchant-review-textarea:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+.sheet-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  display: flex;
+  align-items: flex-end;
+  background: var(--overlay);
+}
+
+.sheet-panel {
+  width: 100%;
+  background: var(--surface);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--space-5);
+  padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+}
+
+.sheet-title {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.sheet-field-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-2);
+}
+
+.sheet-actions { margin-top: var(--space-4); }
+.sheet-actions .btn { width: 100%; }
+
+.stock-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+.stock-stepper button {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+.stock-stepper-value {
+  min-width: 3ch;
+  text-align: center;
+  font-size: var(--text-xl);
+  color: var(--text-primary);
 }

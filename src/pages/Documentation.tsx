@@ -16,6 +16,10 @@ import { BackendSection } from './documentation/sections/BackendSection'
 import { MerchantDesignSection } from './documentation/sections/MerchantDesignSection'
 import { LayoutExceptionsSection } from './documentation/sections/LayoutExceptionsSection'
 import { LandingSection } from './documentation/sections/LandingSection'
+import { DesignTokensSection } from './documentation/sections/DesignTokensSection'
+import { ButtonsSection } from './documentation/sections/ButtonsSection'
+import { ElementsSection } from './documentation/sections/ElementsSection'
+import { MotionIconsSection } from './documentation/sections/MotionIconsSection'
 
 const SECTIONS = [
   IntroductionSection,
@@ -33,6 +37,10 @@ const SECTIONS = [
   MerchantDesignSection,
   LayoutExceptionsSection,
   LandingSection,
+  DesignTokensSection,
+  ButtonsSection,
+  ElementsSection,
+  MotionIconsSection,
 ]
 
 const HERO_TAGS = [

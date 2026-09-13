@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Clock, CreditCard, Globe, MapPin } from 'lucide-react'
+import { Clock, CreditCard, Globe, LocateFixed, MapPin } from 'lucide-react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
@@ -17,7 +18,30 @@ const DEFAULTS: MerchantStoreFormData = {
 }
 
 export default function MerchantSettings() {
-  useLeafletMap('merchant-map', 'preview', { single: true })
+  const [coords, setCoords] = useState({ lat: mockMerchant.lat, lng: mockMerchant.lng })
+
+  const { setPosition } = useLeafletMap('merchant-map', 'picker', {
+    picker: {
+      initial: [mockMerchant.lat, mockMerchant.lng],
+      onMove: (lat, lng) => setCoords({ lat, lng }),
+    },
+  })
+
+  const locateMe = () => {
+    if (!navigator.geolocation) {
+      toast.error('Browser tidak mendukung lokasi')
+      return
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords
+        setPosition(latitude, longitude)
+        toast.success('Lokasi saat ini dipakai')
+      },
+      () => toast.error('Akses lokasi ditolak — geser pin saja'),
+      { enableHighAccuracy: true },
+    )
+  }
 
   const {
     register,
@@ -80,7 +104,12 @@ export default function MerchantSettings() {
             ) : null}
           </div>
 
-          <div id="merchant-map" className="merchant-map" aria-label="Pratinjau lokasi toko" />
+          <div id="merchant-map" className="merchant-map merchant-map--picker" aria-label="Pilih lokasi toko" />
+          <p className="merchant-map-hint">Geser pin oranye untuk memilih titik lokasi toko.</p>
+          <button type="button" className="merchant-locate" onClick={locateMe}>
+            <LocateFixed size={16} strokeWidth={1.75} />
+            Pakai lokasi saat ini
+          </button>
 
           <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
             Simpan perubahan
@@ -93,7 +122,7 @@ export default function MerchantSettings() {
             <div>
               <p className="merchant-card-title">Koordinat</p>
               <p className="merchant-card-sub">
-                {mockMerchant.lat.toFixed(5)}, {mockMerchant.lng.toFixed(5)}
+                {coords.lat.toFixed(5)}, {coords.lng.toFixed(5)}
               </p>
             </div>
           </div>

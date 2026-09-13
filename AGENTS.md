@@ -45,6 +45,10 @@ npm run build               # tsc -b && vite build
 npm run lint                # oxlint
 ```
 
+**⚠️ Jangan pernah pakai `rtk lint` / `rtk tsc` / wrapper `rtk *`.** `rtk` adalah CLI proxy global (Homebrew, `/opt/homebrew/bin/rtk`) yang membungkus ESLint/tsc — bukan alat repo ini dan rusak di sini (output JSON parse error). Verifikasi Wajib pakai script npm: `npm run lint` (= oxlint) dan `npm run build`. Subagent/agent: kalau instruksi bilang lint/build, jalankan persis `npm run lint` / `npm run build`, jangan ganti ke `rtk`.
+
+**Satu perintah verifikasi: `./scripts/verify.sh`.** Script ini menjalankan `npm run lint` + `npm run build`. Saat menugaskan verifikasi ke subagent, minta jalankan **persis** `./scripts/verify.sh` — perintah tunggal, tanpa substitusi, tanpa wrapper. Inilah cara mencegah subagent nyangkut di `rtk`.
+
 Service worker hanya aktif pada hasil build, bukan di `npm run dev`.
 
 ---

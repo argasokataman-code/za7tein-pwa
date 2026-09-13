@@ -1,4 +1,4 @@
-import { Bike, Clock, PlusCircle, Store, Wallet } from 'lucide-react'
+import { Bike, ChevronRight, Clock, PlusCircle, Star, Store, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
@@ -63,19 +63,19 @@ export default function MerchantDashboard() {
         </section>
 
         <section className="merchant-stats">
-          <Link className="merchant-stat" to="/merchant/orders">
+          <Link className="merchant-stat merchant-stat--queue" to="/merchant/orders">
             <span className="merchant-stat-value">{countByTab(orders, 'masuk')}</span>
             <span className="merchant-stat-label">Antrean</span>
           </Link>
-          <Link className="merchant-stat" to="/merchant/orders">
+          <Link className="merchant-stat merchant-stat--active" to="/merchant/orders">
             <span className="merchant-stat-value">{countByTab(orders, 'diproses')}</span>
             <span className="merchant-stat-label">Diproses</span>
           </Link>
-          <div className="merchant-stat">
+          <div className="merchant-stat merchant-stat--done">
             <span className="merchant-stat-value">{countByTab(orders, 'selesai')}</span>
             <span className="merchant-stat-label">Selesai</span>
           </div>
-          <div className="merchant-stat">
+          <div className="merchant-stat merchant-stat--revenue">
             <span className="merchant-stat-value">{rupiah(revenue)}</span>
             <span className="merchant-stat-label">Pendapatan</span>
           </div>
@@ -88,15 +88,40 @@ export default function MerchantDashboard() {
           </div>
           {orders.slice(0, 3).map((order) => (
             <Link key={order.id} to="/merchant/orders" className="merchant-order">
-              <div>
-                <p className="merchant-order-code">{order.code}</p>
-                <p className="merchant-order-sub">
-                  {order.customerName} · {order.items.length} item
-                </p>
+              <div className="merchant-order-buyer">
+                <img
+                  className="merchant-buyer-avatar"
+                  src={order.buyerAvatar}
+                  alt={`Profil ${order.customerName}`}
+                  width={40}
+                  height={40}
+                />
+                <div>
+                  <p className="merchant-order-code">{order.code}</p>
+                  <p className="merchant-order-sub">
+                    {order.customerName} · {order.items.length} item
+                  </p>
+                </div>
               </div>
-              <span className={`merchant-badge merchant-badge-${order.status}`}>
-                {orderStatusLabel(order.status)}
-              </span>
+              <div className="merchant-order-head-right">
+                <div
+                  className="merchant-order-rating"
+                  aria-label={`Rating pembeli ${order.buyerRating} dari 5`}
+                >
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <Star
+                      key={i}
+                      size={12}
+                      strokeWidth={1.75}
+                      color="var(--star)"
+                      fill={i < order.buyerRating ? 'var(--star)' : 'none'}
+                    />
+                  ))}
+                </div>
+                <span className={`merchant-badge merchant-badge-${order.status}`}>
+                  {orderStatusLabel(order.status)}
+                </span>
+              </div>
             </Link>
           ))}
         </section>
@@ -105,12 +130,25 @@ export default function MerchantDashboard() {
           <div className="merchant-section-head">
             <h2>Kelola</h2>
           </div>
-          <Link className="merchant-order" to="/merchant/menu">
+          <Link className="merchant-quick-action" to="/merchant/menu">
+            <span className="merchant-quick-icon">
+              <PlusCircle size={20} strokeWidth={1.75} />
+            </span>
             <div>
-              <p className="merchant-order-code">Menu &amp; Stok</p>
-              <p className="merchant-order-sub">Atur item dan ketersediaan</p>
+              <p className="merchant-quick-title">Menu &amp; Stok</p>
+              <p className="merchant-quick-sub">Atur item dan ketersediaan</p>
             </div>
-            <PlusCircle size={18} strokeWidth={1.75} />
+            <ChevronRight size={18} strokeWidth={1.75} className="merchant-quick-chevron" />
+          </Link>
+          <Link className="merchant-quick-action" to="/merchant/reviews">
+            <span className="merchant-quick-icon">
+              <Star size={20} strokeWidth={1.75} />
+            </span>
+            <div>
+              <p className="merchant-quick-title">Ulasan Pembeli</p>
+              <p className="merchant-quick-sub">Baca &amp; balas komentar soal menu</p>
+            </div>
+            <ChevronRight size={18} strokeWidth={1.75} className="merchant-quick-chevron" />
           </Link>
         </section>
 

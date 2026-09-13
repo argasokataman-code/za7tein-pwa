@@ -33,10 +33,10 @@ export function StylingSection() {
 ├─ _app.scss        facade -> @use "./app/part-01..17" (ported, ordered)
 ├─ app/part-01..17  ordered chunks, <=600 lines (frozen port)
 ├─ _system.scss     facade -> @use "./system/*"
-└─ system/          17 flat partials + _mixins.scss (target <=500)
+└─ system/          18 files (17 flat partials + _mixins.scss, target <=500)
    _mixins  _buttons  _cards  _forms  _badges  _back  _motion
    _home  _menu  _tracking  _map  _cart  _cart-2
-   _merchant  _merchant-2  _landing  _landing-2  _onboarding`}
+   _merchant  _merchant-2  _app-shell  _landing-refresh  _onboarding`}
       </DocCode>
       <p className="doc-p">
         Shared shape primitives are <code className="doc-inline">@mixin</code>s in

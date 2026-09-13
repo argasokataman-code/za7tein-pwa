@@ -8,30 +8,42 @@ export function FileStructureSection() {
         {`sa7tein-pwa/
 │
 ├── public/
-│   ├── manifest.json          # PWA manifest
-│   ├── sw.js                  # Service worker (vite-plugin-pwa)
+│   ├── favicon.ico, favicon.svg, icons.svg
+│   ├── manifest.json
+│   ├── icons/                 # PWA icons (72..512 png, mark, cloche)
 │   └── assets/
-│       ├── img/               # Gambar, ikon
-│       └── fonts/             # Manrope (self-hosted)
+│       ├── fonts/             # Manrope (self-hosted)
+│       ├── illustrations/
+│       ├── img/
+│       └── media/
 │
 └── src/
     ├── main.tsx               # Entry — Redux Provider + PersistGate
-    ├── App.tsx                # Router + toaster
+    ├── App.tsx                # Router + routes array
+    ├── types.ts               # Domain types (satu sumber)
     │
-    ├── pages/                 # 50 layar
+    ├── pages/                 # ~54 layar (satu per rute)
     │
     ├── components/
-    │   ├── layout/            # BottomNav, HomeIndicator
-    │   └── ui/                # FavoriteButton, BackButton
+    │   ├── customer/          # CustomerHomeHero, CustomerHomeHero.css
+    │   ├── layout/            # BottomNav, HomeIndicator, MerchantBottomNav, MobileDeviceFrame
+    │   ├── ui/                # AddToCartButton, BackButton, BottomSheet, FavoriteButton, FoodCard
+    │   ├── JourneyLine.tsx
+    │   └── OrderStageScreen.tsx
     │
     ├── store/
     │   ├── index.ts           # configureStore + redux-persist
-    │   └── slices/            # auth, cart, favorites, ui, accountSetup
+    │   └── slices/            # 8 slice (accountSetup, auth, cart, catalog, favorites, merchant, notifications, ui)
     │
-    ├── hooks/                 # useAppStore, useOtpInput, useLeafletMap
-    ├── lib/schemas.ts         # Skema Zod
-    ├── data/                  # Data contoh (foods, reviews, user)
-    └── styles/                # tokens, fonts, reboot, app, modules, docs`}
+    ├── hooks/                 # useAppStore, useCatalog, useFoodActions, useLeafletMap, useOtpInput, useToggleSet
+    │
+    ├── data/                  # catalog, foods, merchant, merchantOrders, merchantReviews, notifications, reviews, user
+    │
+    └── styles/
+        ├── index.scss         # Urutan import (load-bearing)
+        ├── _tokens.scss       # Desain token
+        ├── app/               # part-01..part-17 (porting lama)
+        └── system/            # Design system (18 partial: buttons, cards, forms, dll)`}
       </DocCode>
     </DocSection>
   )

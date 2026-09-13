@@ -248,6 +248,16 @@ body {
   padding: var(--space-5) var(--space-5) calc(var(--nav-height) + var(--space-6));
 }
 
+// `.home-content` di atas `flex: none` dan setinggi kontennya, jadi ia tak bisa
+// menyusut; sementara `.home-screen` — flex item di `.home-screen-wrapper` yang
+// row flex — di-stretch ke `min-height` wrapper-nya. Dalam kolom flex bertinggi
+// tetap itu seluruh penyusutan jatuh ke `.s7-hero` (satu-satunya item dengan
+// flex-shrink 1), dan hero beranda kolaps ke 0px sehingga beranda kehilangan
+// header oranyya. Hero juga harus non-shrinkable.
+.home-screen > .s7-hero {
+  flex: none;
+}
+
 .search-content {
   padding-inline: var(--space-5);
   padding-bottom: calc(var(--nav-height) + var(--space-6));

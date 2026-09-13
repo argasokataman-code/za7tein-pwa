@@ -49,7 +49,7 @@ export function WhatsNewSection() {
                 None
               </td>
               <td>
-                Middleware-based route protection via Edge cookie
+                Mock auth — isAuthenticated: true, no route guard
               </td>
             </tr>
             <tr>
@@ -82,7 +82,7 @@ export function WhatsNewSection() {
                 service-worker.js + HTML registration
               </td>
               <td>
-                public/sw.js + ServiceWorkerRegistrar component
+                vite-plugin-pwa — SW auto-generated at build, registration injected via injectRegister: 'auto'
               </td>
             </tr>
             <tr>
@@ -137,7 +137,7 @@ export function WhatsNewSection() {
                 None
               </td>
               <td>
-                Global skeleton (loading.tsx) on every route
+                PersistGate renders null while rehydrating — no visible skeleton
               </td>
             </tr>
             <tr>

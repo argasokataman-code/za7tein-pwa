@@ -13,23 +13,21 @@ export function BackendSection() {
       <DocCode lang="typescript">
         {`// src/store/slices/authSlice.ts
 const initialState: AuthState = {
-  user: null,              // was MOCK_USER
+  user: null,              // was mockUser
   isAuthenticated: false,  // was true
   isLoading: false,
 };`}
       </DocCode>
       <h3 className="doc-h3">
-        Middleware — JWT verification
+        Route protection — server-side guard
       </h3>
-      <DocCode lang="typescript">
-        {`// middleware.ts — replace cookie check with JWT
-import { jwtVerify } from "jose"; // Edge-compatible
-
-const token = request.cookies.get("auth_token")?.value;
-if (!token) return redirectToSignIn();
-
-await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));`}
-      </DocCode>
+      <p className="doc-p">
+        This repo is a front-end showcase — no server, Edge Runtime, or
+        <code className="doc-inline">middleware.ts</code>
+        exists here. In a production setup, route guards live server-side
+        (API middleware, route handlers) or via a client-side auth wrapper
+        that checks Redux state before rendering protected pages.
+      </p>
       <h3 className="doc-h3">
         Food data — RTK Query
       </h3>

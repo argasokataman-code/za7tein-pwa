@@ -28,7 +28,7 @@ export function StateManagementSection() {
                 sa7tein:cart
               </td>
               <td>
-                items, selectedAddressId, selectedPaymentId
+                items, addresses, selectedAddressId, selectedPaymentId, transferProof, orderStage
               </td>
             </tr>
             <tr>
@@ -72,7 +72,7 @@ export function StateManagementSection() {
                 not persisted
               </td>
               <td>
-                mirrored to sa7tein_auth cookie
+                user, isAuthenticated, isLoading
               </td>
             </tr>
             <tr>
@@ -83,7 +83,29 @@ export function StateManagementSection() {
                 not persisted
               </td>
               <td>
-                notificationCount, locationLabel, cartBadgeCount
+                locationLabel, cartBadgeCount
+              </td>
+            </tr>
+            <tr>
+              <td>
+                merchant
+              </td>
+              <td>
+                not persisted
+              </td>
+              <td>
+                orders, isActive, todayOrderCount, dailyLimit, reviewReplies
+              </td>
+            </tr>
+            <tr>
+              <td>
+                notifications
+              </td>
+              <td>
+                not persisted
+              </td>
+              <td>
+                items
               </td>
             </tr>
           </tbody>
@@ -104,7 +126,7 @@ import { logout } from "@/store/slices/authSlice";
 
 const dispatch = useAppDispatch();
 
-dispatch(addItem({ id, name, price, quantity: 1, image }));
+dispatch(addItem({ food: menuData[0], quantity: 2, modifiers: "Sedang" }));
 dispatch(toggleFavorite(foodId));
 dispatch(setLocationLabel("5th Ave, New York"));
 dispatch(logout());`}</code>
