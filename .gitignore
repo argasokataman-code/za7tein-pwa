@@ -26,3 +26,4 @@ dev-dist
 *.sln
 *.sw?
 .vercel
+.commandcode
