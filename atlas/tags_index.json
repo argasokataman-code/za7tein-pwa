@@ -731,6 +731,10 @@
     {
       "id": "TASK-140",
       "shard": 0
+    },
+    {
+      "id": "TASK-247",
+      "shard": 1
     }
   ],
   "biz": [
@@ -1811,6 +1815,10 @@
     {
       "id": "TASK-947",
       "shard": 1
+    },
+    {
+      "id": "TASK-948",
+      "shard": 1
     }
   ],
   "docs": [
@@ -1940,6 +1948,34 @@
     },
     {
       "id": "TASK-426",
+      "shard": 1
+    },
+    {
+      "id": "TASK-245",
+      "shard": 1
+    },
+    {
+      "id": "TASK-246",
+      "shard": 1
+    },
+    {
+      "id": "TASK-247",
+      "shard": 1
+    },
+    {
+      "id": "TASK-248",
+      "shard": 1
+    },
+    {
+      "id": "TASK-249",
+      "shard": 1
+    },
+    {
+      "id": "TASK-250",
+      "shard": 1
+    },
+    {
+      "id": "TASK-251",
       "shard": 1
     }
   ],
@@ -2229,6 +2265,10 @@
     {
       "id": "TASK-240",
       "shard": 1
+    },
+    {
+      "id": "TASK-248",
+      "shard": 1
     }
   ],
   "css": [
@@ -2369,6 +2409,10 @@
     {
       "id": "TASK-391",
       "shard": 1
+    },
+    {
+      "id": "TASK-243",
+      "shard": 1
     }
   ],
   "versioning": [
@@ -2411,6 +2455,10 @@
     {
       "id": "TASK-391",
       "shard": 1
+    },
+    {
+      "id": "TASK-243",
+      "shard": 1
     }
   ],
   "senior-fe": [
@@ -2451,6 +2499,26 @@
     {
       "id": "LP-002",
       "shard": 1
+    },
+    {
+      "id": "TASK-245",
+      "shard": 1
+    },
+    {
+      "id": "TASK-246",
+      "shard": 1
+    },
+    {
+      "id": "TASK-247",
+      "shard": 1
+    },
+    {
+      "id": "TASK-248",
+      "shard": 1
+    },
+    {
+      "id": "TASK-249",
+      "shard": 1
     }
   ],
   "marketing": [
@@ -2487,6 +2555,14 @@
     {
       "id": "LP-002",
       "shard": 1
+    },
+    {
+      "id": "TASK-245",
+      "shard": 1
+    },
+    {
+      "id": "TASK-246",
+      "shard": 1
     }
   ],
   "reuse": [
@@ -2510,6 +2586,76 @@
   "pwa": [
     {
       "id": "TASK-930",
+      "shard": 1
+    },
+    {
+      "id": "TASK-244",
+      "shard": 1
+    },
+    {
+      "id": "TASK-245",
+      "shard": 1
+    }
+  ],
+  "gap": [
+    {
+      "id": "TASK-243",
+      "shard": 1
+    }
+  ],
+  "ux": [
+    {
+      "id": "TASK-244",
+      "shard": 1
+    }
+  ],
+  "scroll": [
+    {
+      "id": "TASK-244",
+      "shard": 1
+    }
+  ],
+  "brand": [
+    {
+      "id": "TASK-244",
+      "shard": 1
+    }
+  ],
+  "motion": [
+    {
+      "id": "TASK-247",
+      "shard": 1
+    }
+  ],
+  "cta": [
+    {
+      "id": "TASK-249",
+      "shard": 1
+    }
+  ],
+  "app-preview": [
+    {
+      "id": "TASK-250",
+      "shard": 1
+    },
+    {
+      "id": "TASK-251",
+      "shard": 1
+    }
+  ],
+  "mobile-frame": [
+    {
+      "id": "TASK-250",
+      "shard": 1
+    },
+    {
+      "id": "TASK-251",
+      "shard": 1
+    }
+  ],
+  "simulator": [
+    {
+      "id": "TASK-251",
       "shard": 1
     }
   ]

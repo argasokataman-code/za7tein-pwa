@@ -3196,6 +3196,218 @@
         }
       ],
       "loc": "/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/sa7tein-commitmsg.txt"
+    },
+    {
+      "id": "TASK-243",
+      "type": "task",
+      "status": "active",
+      "date": "2026-09-13",
+      "time": "07:15:42",
+      "tags": [
+        "prd",
+        "irbid",
+        "gap"
+      ],
+      "summary": "PRD Irbid UI mock alignment estimated ~15% (6 partial of 20 FR); legacy IDR/radius A-B-C remains; migrate M0-M5",
+      "conn": [
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        }
+      ],
+      "loc": "docs/product/prd/milestones-irbid-mvp.md:1"
+    },
+    {
+      "id": "TASK-244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "07:19:33",
+      "tags": [
+        "pwa",
+        "ux",
+        "scroll",
+        "brand"
+      ],
+      "summary": "Fixed app-like PWA experience: Sa7tein boot splash and launcher icons, native document overscroll, legacy merchant route redirect; verified ",
+      "conn": [
+        {
+          "id": "TASK-241",
+          "type": "relates",
+          "raw": "TASK-241:relates"
+        }
+      ],
+      "loc": "docs/design/pwa-experience-2026-09-13.md:1"
+    },
+    {
+      "id": "TASK-245",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "07:37:47",
+      "tags": [
+        "landing",
+        "ui",
+        "pwa",
+        "design"
+      ],
+      "summary": "Reworked food-first Sa7tein landing and fixed invisible Apple login logo; scoped PWA worker to /app to clear stale landing cache",
+      "conn": [
+        {
+          "id": "TASK-244",
+          "type": "relates",
+          "raw": "TASK-244:relates"
+        }
+      ],
+      "loc": "docs/design/landing-audit-2026-09-13.md:1"
+    },
+    {
+      "id": "TASK-246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "07:48:02",
+      "tags": [
+        "landing",
+        "ui",
+        "design"
+      ],
+      "summary": "Align landing with user-drawn visual sample: orange hero with stacked app, merchant and courier previews; journey, zones, role cards, and CT",
+      "conn": [
+        {
+          "id": "TASK-245",
+          "type": "relates",
+          "raw": "TASK-245:relates"
+        }
+      ],
+      "loc": "docs/design/landing-audit-2026-09-13.md:1"
+    },
+    {
+      "id": "TASK-247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "07:57:39",
+      "tags": [
+        "landing",
+        "map",
+        "motion",
+        "ui"
+      ],
+      "summary": "Replace placeholder route lines with local SVG street maps and add restrained scroll reveal, parallax, and animated service radius with redu",
+      "conn": [
+        {
+          "id": "TASK-246",
+          "type": "relates",
+          "raw": "TASK-246:relates"
+        }
+      ],
+      "loc": "docs/design/landing-audit-2026-09-13.md:1"
+    },
+    {
+      "id": "TASK-248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "08:04:00",
+      "tags": [
+        "landing",
+        "layout",
+        "ui"
+      ],
+      "summary": "Recompose landing into spacious focused sections for customer, area, merchant, courier and local food while keeping user visual language and",
+      "conn": [
+        {
+          "id": "TASK-247",
+          "type": "relates",
+          "raw": "TASK-247:relates"
+        }
+      ],
+      "loc": "docs/design/landing-audit-2026-09-13.md:1"
+    },
+    {
+      "id": "TASK-249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "08:10:11",
+      "tags": [
+        "landing",
+        "cta",
+        "ui"
+      ],
+      "summary": "Redesign closing landing banner as focused customer CTA with full food photo panel and separately contextualized merchant link",
+      "conn": [
+        {
+          "id": "TASK-248",
+          "type": "relates",
+          "raw": "TASK-248:relates"
+        }
+      ],
+      "loc": "docs/design/landing-audit-2026-09-13.md:1"
+    },
+    {
+      "id": "TASK-250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "08:15:47",
+      "tags": [
+        "app-preview",
+        "mobile-frame",
+        "ui"
+      ],
+      "summary": "Wrap every /app route in a desktop mobile-device frame while preserving full-screen native app layout on mobile",
+      "conn": [
+        {
+          "id": "TASK-249",
+          "type": "relates",
+          "raw": "TASK-249:relates"
+        }
+      ],
+      "loc": "src/components/layout/MobileDeviceFrame.tsx:1"
+    },
+    {
+      "id": "TASK-251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "08:19:52",
+      "tags": [
+        "app-preview",
+        "simulator",
+        "mobile-frame",
+        "ui"
+      ],
+      "summary": "Refine desktop app preview from decorative bezel into viewport-height mobile simulator with scoped fixed UI and internal simulator scrolling",
+      "conn": [
+        {
+          "id": "TASK-250",
+          "type": "relates",
+          "raw": "TASK-250:relates"
+        }
+      ],
+      "loc": "src/styles/system/_app-shell.scss:1"
+    },
+    {
+      "id": "TASK-948",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "08:26:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: Panduan PWA Sa7tein: landing de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }
