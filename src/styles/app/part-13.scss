@@ -145,14 +145,14 @@
 
 body.order-tracking-page {
   background-color:#FFF9F4;
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .order-tracking-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   position:relative;
   overflow:hidden
@@ -203,14 +203,14 @@ body.order-tracking-page {
 
 body.order-delivery-page {
   background-color:#FFF9F4;
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .order-delivery-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   position:relative;
   overflow:hidden
@@ -266,14 +266,14 @@ body.order-delivery-page {
 
 body.order-delivered-page {
   background-color:#FFF9F4;
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .order-delivered-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   position:relative;
   overflow:hidden
@@ -347,14 +347,14 @@ body.order-delivered-page {
 
 body.order-arrived-page {
   background-color:#F15A37;
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .order-arrived-screen {
   background-color:#F15A37;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -548,14 +548,14 @@ body.order-arrived-page {
 
 body.rating-driver-page {
   background-color:#FFF9F4;
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .rating-driver-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }

@@ -36,3 +36,7 @@ Versi sebelumnya mengulang foto nasi goreng dari section tepat di atasnya, memot
 ## Frame preview aplikasi
 
 Setiap rute `/app/*` sekarang dibungkus simulator perangkat saat dibuka pada layar lebih dari 700px. Simulator memberi bezel, speaker, tombol samping, layar aplikasi 430px, dan elevasi sederhana agar preview terbaca sebagai aplikasi ponsel. Tinggi simulator mengikuti viewport dan layar di dalamnya menggulir sendiri sehingga bilah fixed tidak keluar dari bezel. Ini pengecualian scroll khusus preview desktop. Di perangkat ponsel simulator menghilang sepenuhnya dan dokumen kembali menjadi satu-satunya penggulung vertikal.
+
+Bottom navigation legacy dikunci eksplisit ke tepi bawah layar simulator. Paint containment pada layar simulator menjadi containing block untuk elemen `position: fixed`, sehingga bilah tidak lagi menghitung posisi terhadap halaman browser dan muncul di tengah preview.
+
+Simulator desktop juga dipasang tetap pada viewport. Ini mencegah halaman browser di luar bezel ikut naik saat pengguna menggulir konten panjang; hanya layar aplikasi di dalam perangkat yang bergerak.

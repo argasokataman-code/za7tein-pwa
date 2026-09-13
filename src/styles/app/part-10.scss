@@ -261,14 +261,14 @@
   }}
 
 body.address-selection-page {
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .address-selection-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }

@@ -80,7 +80,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.5.0
+              v2.6.0
             </span>
             <span>
               React 19 · Vite · TypeScript
@@ -118,7 +118,7 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan PWA Sa7tein: jalur aplikasi /app, landing dengan satu aksi utama per section, cache yang aman, scroll native, dan aturan desain.
+              Panduan PWA Sa7tein: jalur aplikasi /app, landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (

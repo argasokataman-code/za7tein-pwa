@@ -223,7 +223,7 @@ body {
 }
 
 body {
-  min-height: 100dvh;
+  min-height: var(--app-vh);
 }
 
 // Home, search, and filter retained viewport-height scroll panes from the
@@ -232,7 +232,7 @@ body {
 .search-screen,
 .filter-screen {
   height: auto;
-  min-height: 100dvh;
+  min-height: var(--app-vh);
   overflow: visible;
 }
 
@@ -257,7 +257,7 @@ body {
 .add-card-screen,
 .reviews-screen {
   height: auto;
-  min-height: 100dvh;
+  min-height: var(--app-vh);
   overflow: visible;
 }
 
@@ -345,7 +345,7 @@ body {
 }
 
 .track-screen {
-  min-height: 100dvh;
+  min-height: var(--app-vh);
   background: var(--bg-warm);
   padding: 0 var(--space-5) var(--space-8);
 }

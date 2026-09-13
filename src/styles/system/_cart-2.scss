@@ -90,7 +90,7 @@
   position: relative;
   top: auto;
   height: auto;
-  min-height: 100dvh;
+  min-height: var(--app-vh);
   overflow: visible;
 }
 
@@ -102,6 +102,34 @@
   max-height: none;
   min-height: 0;
   overflow: visible !important;
+}
+
+// Auth screens fill the whole app viewport: the form centers in the space
+// under the back button instead of leaving a dead gap above the bottom edge.
+// Same layout on mobile and inside the desktop frame (1:1).
+.screen.active:has(.auth-content) {
+  display: flex;
+  flex-direction: column;
+}
+
+.screen.active:has(.auth-content) > .container,
+.screen.active:has(.auth-content) .container > .row.h-100 {
+  flex: 1;
+  min-height: 0;
+}
+
+.screen.active:has(.auth-content) .row.h-100 > .col-12 {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen.active:has(.auth-content) .auth-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .doc-root .doc-topbar {
@@ -276,7 +304,16 @@
 
 /* Halaman auth memakai .container bawaan Bootstrap, yang padding horizontalnya
    24px — jadi alur masuk punya tepi berbeda dari halaman lain. Markup-nya sudah
-   punya kelas *-screen sendiri, jadi penyempitannya bisa dibatasi ke situ. */
+   punya kelas *-screen sendiri, jadi penyempitannya bisa dibatasi ke situ.
+
+   Lock 430px juga membuat `.screen .container` legacy di app/part-03.scss:315
+   (@media >=768px, `max-width:1024px; margin:0 auto`) jadi bumerang: container
+   adalah flex item `.screen.active`, dan margin auto itu membatalkan stretch —
+   lebarnya shrink-to-fit 288px di dalam frame 430px, gap 71px tiap sisi. Di
+   bawah 768px margin-nya 0, jadi gap-nya hanya muncul di desktop. `width:100%`
+   mengembalikannya selebar kolom; margin auto tak punya ruang bebas lagi. */
 div[class*="-screen"] .container {
+  width: 100%;
+  margin-inline: 0;
   padding-inline: var(--space-5);
 }

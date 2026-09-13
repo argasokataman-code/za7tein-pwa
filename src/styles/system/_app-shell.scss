@@ -1,9 +1,27 @@
+// App viewport height. On mobile this is the real dynamic viewport; inside the
+// desktop device frame it becomes the frame's screen height so the app renders
+// 1:1 with the phone (no 100dvh ghost scroll against the taller desktop window).
+:root {
+  --app-vh: 100dvh;
+}
+
 // Let the document use the platform's native momentum, edge bounce and
 // browser pull-to-refresh. Nested page scrollers remain forbidden by the DNA.
 html,
 body {
   overscroll-behavior-y: auto;
   scroll-behavior: auto;
+}
+
+// Lock legacy di app/part-01.scss memberi `margin: 0 auto` ke `div[class*=-page]`
+// dan `div[class*=-screen]`. Begitu elemen itu jadi anak langsung `.app-shell`
+// (yang flex column), margin auto membatalkan `align-items: stretch` — wrapper-nya
+// shrink-to-fit selebar konten, bukan 430px. Halaman auth cuma 289px di dalam
+// frame 430px, jadi ada gap 70px di kiri-kanan. `width: 100%` menghabiskan ruang
+// bebas sehingga margin auto tidak punya apa pun untuk diserap.
+.app-shell > [class*="-page"],
+.app-shell > [class*="-screen"] {
+  width: 100%;
 }
 
 // Every /app route is previewed as a contained phone simulator on wider
@@ -17,10 +35,14 @@ body {
 }
 
 .mobile-device-frame {
-  position: relative;
+  position: fixed;
+  z-index: 1;
+  top: var(--space-4);
+  right: 0;
+  left: 0;
   width: min(100% - 32px, 462px);
   height: min(860px, calc(100dvh - 32px));
-  margin: var(--space-4) auto;
+  margin: 0 auto;
   padding: 12px;
   border: 2px solid var(--text-primary);
   border-radius: 42px;
@@ -62,21 +84,73 @@ body {
 }
 
 .mobile-device-screen {
+  position: relative;
   height: 100%;
-  overflow-x: clip;
-  overflow-y: auto;
+  overflow: hidden;
+  overscroll-behavior: contain;
   border-radius: 30px;
   background: var(--bg-warm);
-  scrollbar-width: none;
+  // Paint containment gives every position:fixed child a firm containing
+  // block. Without it, legacy bottom navs can calculate against the outer
+  // document and appear halfway through the simulator.
+  contain: paint;
   transform: translateZ(0);
-}
-
-.mobile-device-screen::-webkit-scrollbar {
-  display: none;
 }
 
 .mobile-device-screen > .app-shell {
   min-height: 100%;
+}
+
+// The screen owns the containing block; the app-shell owns the scroll. If the
+// scroll container is also the containing block, position:fixed children scroll
+// with it (bottom nav floats away) instead of pinning to the screen edges.
+@media (min-width: 701px) {
+  .mobile-device-screen > .app-shell {
+    height: 100%;
+    overflow-x: clip;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+
+  .mobile-device-screen > .app-shell::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+// Bottom navigation is device chrome in desktop preview: pin it to the
+// simulator screen, never the browser viewport or a page-length scroll box.
+@media (min-width: 701px) {
+  .mobile-device-screen .bottom-nav,
+  .mobile-device-screen .home-screen-wrapper .bottom-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: var(--shell-max);
+    margin-inline: auto;
+    transform: none;
+  }
+}
+
+// Desktop only: the screen is the app viewport. `--app-vh` resolves to the
+// screen's content box, so every full-height screen fits exactly and the app
+// renders identically to mobile — only the frame around it differs.
+@media (min-width: 701px) {
+  // The frame is fixed-size and owns its own scroll, so the document behind it
+  // must not scroll or rubber-band. Kills the stray 16px body overscroll.
+  html:has(.mobile-device-frame),
+  body:has(.mobile-device-frame) {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  .mobile-device-screen {
+    container-type: size;
+    --app-vh: 100cqh;
+  }
 }
 
 @media (max-width: 700px) {
@@ -87,6 +161,10 @@ body {
   }
 
   .mobile-device-frame {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
     width: 100%;
     height: auto;
     min-height: 0;
@@ -111,6 +189,7 @@ body {
     min-height: 0;
     overflow: visible;
     border-radius: 0;
+    contain: none;
     transform: none;
   }
 

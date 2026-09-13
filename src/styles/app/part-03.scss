@@ -581,7 +581,7 @@
 }
 
 .map-container-wrapper {
-  height:100vh;
+  height:var(--app-vh);
   position:fixed;
   inset:0;
   overflow:hidden
@@ -590,7 +590,7 @@
 .map-container {
   z-index:1;
   background-color:#e5e5e5;
-  height:calc(100vh - 104px);
+  height:calc(var(--app-vh) - 104px);
   position:fixed;
   inset:104px 0 0
 }

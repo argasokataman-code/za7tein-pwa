@@ -31,14 +31,14 @@
 }
 
 body.payment-amount-page {
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .payment-amount-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -208,14 +208,14 @@ body.payment-amount-page {
 
 body.order-success-page {
   background-color:#F15A37;
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .order-success-screen {
   background-color:#F15A37;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -345,14 +345,14 @@ body.order-success-page {
 
 body.order-placed-page {
   background-color:#FFF9F4;
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .order-placed-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   position:relative;
   overflow:hidden
@@ -398,7 +398,7 @@ body.order-placed-page {
 .order-map-container {
   z-index:1;
   background-color:#e5e5e5;
-  height:calc(100vh - 104px);
+  height:calc(var(--app-vh) - 104px);
   position:fixed;
   inset:104px 0 0
 }

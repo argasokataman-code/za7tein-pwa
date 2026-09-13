@@ -58,14 +58,14 @@
 }
 
 /* ── Checkout: isi pesanan ────────────────────────────────────────────────
-   Aturan lama mengunci .checkout-screen pada 100vh dan membuat
+   Aturan lama mengunci .checkout-screen pada var(--app-vh) dan membuat
    .checkout-content menggulir di dalamnya. Itu dua penggulung bersarang, pola
    yang bikin gulir terasa tidak mulus di halaman lain, jadi tingginya dilepas
    dan headernya dibuat menempel. */
 
 .checkout-screen {
   height: auto;
-  min-height: 100dvh;
+  min-height: var(--app-vh);
   overflow: visible;
 }
 
@@ -301,7 +301,7 @@
 .chat-screen {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: var(--app-vh);
   background-color: var(--bg-warm);
 }
 

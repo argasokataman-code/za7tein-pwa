@@ -145,7 +145,7 @@
 
 body.reviews-page {
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -153,7 +153,7 @@ body.reviews-page {
 .reviews-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -378,7 +378,7 @@ body.reviews-page {
 
 body.checkout-page {
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -386,7 +386,7 @@ body.checkout-page {
 .checkout-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }

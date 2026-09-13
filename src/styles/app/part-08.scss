@@ -246,7 +246,7 @@
 
 body.menu-detail-page {
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -255,7 +255,7 @@ body.menu-detail-page {
   -webkit-overflow-scrolling:touch;
   background-color:#FFF9F4;
   height:auto;
-  min-height:100vh;
+  min-height:var(--app-vh);
   padding-bottom:150px;
   position:relative;
   overflow:hidden auto

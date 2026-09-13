@@ -3408,6 +3408,321 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-949",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "09:35:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+14/-7) — edit via tool: // App viewport height. On mo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-950",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "09:35:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -15 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-951",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "09:48:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+10/-9) — edit via tool: .mobile-device-screen {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-952",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "09:48:40",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-953",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "10:32:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss (+31/-9) — edit via tool: .screen.active .container,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss"
+    },
+    {
+      "id": "TASK-954",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "10:32:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-955",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "10:36:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss (+19/-13) — edit via tool: .screen.active:has(.auth-conten",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss"
+    },
+    {
+      "id": "TASK-956",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "10:36:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-957",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "10:46:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/eval-rects.js (+124) — write via tool: js: JSON.stringify((function(){",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/eval-rects.js"
+    },
+    {
+      "id": "TASK-252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "10:52:51",
+      "tags": [
+        "simulator",
+        "bottom-nav",
+        "fixed-ui"
+      ],
+      "summary": "Fix legacy merchant bottom navigation positioning inside desktop phone simulator by explicitly scoping fixed chrome to the simulator screen",
+      "conn": [
+        {
+          "id": "TASK-251",
+          "type": "relates",
+          "raw": "TASK-251:relates"
+        }
+      ],
+      "loc": "src/styles/system/_app-shell.scss:71"
+    },
+    {
+      "id": "TASK-253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "10:54:54",
+      "tags": [
+        "simulator",
+        "scroll",
+        "desktop-preview"
+      ],
+      "summary": "Pin desktop mobile simulator to viewport so browser page no longer scrolls with app content; only internal device screen scrolls",
+      "conn": [
+        {
+          "id": "TASK-252",
+          "type": "relates",
+          "raw": "TASK-252:relates"
+        }
+      ],
+      "loc": "src/styles/system/_app-shell.scss:26"
+    },
+    {
+      "id": "TASK-958",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "11:03:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+33/-22) — edit via tool: position: relative;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-959",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "11:04:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run build passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-960",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "11:04:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk npm run lint passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-103",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-09-13",
+      "time": "11:05:12",
+      "tags": [
+        "simulator",
+        "fixed",
+        "bottom-nav",
+        "scroll"
+      ],
+      "summary": "Desktop simulator: scroller was also fixed containing block, nav scrolled away. Moved scroll to .app-shell; screen owns containing block.",
+      "conn": [
+        {
+          "id": "TASK-253",
+          "type": "led_to",
+          "raw": "TASK-253:led_to"
+        },
+        {
+          "id": "TASK-252",
+          "type": "relates",
+          "raw": "TASK-252:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-961",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "11:39:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.6.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

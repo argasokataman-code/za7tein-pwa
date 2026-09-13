@@ -1,7 +1,7 @@
 .home-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  min-height:100vh;
+  min-height:var(--app-vh);
   display:flex;
   overflow-x:hidden
 }
@@ -245,7 +245,7 @@ html,body {
 .home-screen-wrapper {
   justify-content:center;
   width:100%;
-  min-height:100vh;
+  min-height:var(--app-vh);
   display:flex
 }
 
@@ -270,7 +270,7 @@ html,body {
   flex-direction:column;
   width:100%;
   max-width:1024px;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   position:relative;
   overflow:hidden

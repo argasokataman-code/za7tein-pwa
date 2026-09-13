@@ -18,22 +18,22 @@
 body.profile-flow-page {
   -webkit-overflow-scrolling:touch;
   height:auto;
-  min-height:100vh;
+  min-height:var(--app-vh);
   overflow:hidden auto
 }
 
 .profile-flow-page-scroll {
   -webkit-overflow-scrolling:touch;
   box-sizing:border-box;
-  height:100vh;
-  min-height:100vh;
+  height:var(--app-vh);
+  min-height:var(--app-vh);
   padding:0 20px 32px;
   overflow:hidden auto
 }
 
 .profile-flow-page {
   background:#FFF9F4;
-  min-height:100vh;
+  min-height:var(--app-vh);
   padding:0
 }
 
@@ -495,20 +495,20 @@ body.profile-flow-page {
 body.wallet-page {
   -webkit-overflow-scrolling:touch;
   height:auto;
-  min-height:100vh;
+  min-height:var(--app-vh);
   overflow:hidden auto
 }
 
 .wallet-page {
   background:#FFF9F4;
-  min-height:100vh;
+  min-height:var(--app-vh);
   padding:0 20px 32px
 }
 
 .wallet-flow {
   flex-direction:column;
   max-width:1024px;
-  min-height:100vh;
+  min-height:var(--app-vh);
   margin:0 auto;
   display:flex
 }

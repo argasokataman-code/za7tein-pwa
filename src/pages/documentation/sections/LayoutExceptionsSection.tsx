@@ -9,7 +9,10 @@ export function LayoutExceptionsSection() {
         Saat dibuka pada lebar layar desktop, shell ini berada dalam simulator
         perangkat 462px agar seluruh preview aplikasi terbaca sebagai pengalaman
         ponsel. Simulator memiliki satu penggulung internal untuk meniru layar
-        perangkat dan membuat elemen fixed tetap berada di dalam bezel.
+        perangkat dan membuat elemen fixed—termasuk bottom navigation—tetap
+        berada di tepi bawah bezel, bukan di tengah halaman preview. Simulator
+        sendiri dipasang tetap pada viewport desktop; halaman browser di luar
+        perangkat tidak ikut bergulir.
         Pada lebar 700px ke bawah simulator otomatis hilang dan aplikasi memakai
         layar perangkat secara penuh.
         Website promosi di <code>/</code> sengaja full-width; pengecualian ini

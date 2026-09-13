@@ -433,7 +433,7 @@
 .search-screen,.filter-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   padding-bottom:24px;
   display:flex;
   overflow:hidden
@@ -527,7 +527,7 @@
 
 .filter-sheet {
   background-color:#FFF9F4;
-  min-height:100vh;
+  min-height:var(--app-vh);
   padding:70px 20px 24px
 }
 

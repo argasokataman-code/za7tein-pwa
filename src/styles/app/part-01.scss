@@ -34,7 +34,7 @@ body {
   scroll-behavior:smooth;
   background-color:#FFF9F4;
   flex-direction:column;
-  min-height:100dvh;
+  min-height:var(--app-vh);
   display:flex
 }
 

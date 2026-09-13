@@ -146,7 +146,7 @@
 
 .rating-driver-page {
   background-color:#FFF9F4;
-  min-height:100vh;
+  min-height:var(--app-vh);
   padding-bottom:100px
 }
 
@@ -160,7 +160,7 @@
   .rating-driver-screen {
     border-left:1px solid #EDE4DC;
     border-right:1px solid #EDE4DC;
-    min-height:100vh;
+    min-height:var(--app-vh);
     box-shadow:var(--shadow-md)
   }}
 
@@ -372,16 +372,16 @@ html,body {
 
 .my-account {
   background:#FFF9F4;
-  min-height:100vh;
+  min-height:var(--app-vh);
   position:relative
 }
 
 .my-account-scroll {
   -webkit-overflow-scrolling:touch;
   box-sizing:border-box;
-  height:100vh;
+  height:var(--app-vh);
   min-height:0;
-  max-height:100vh;
+  max-height:var(--app-vh);
   overflow:hidden auto
 }
 

@@ -91,14 +91,14 @@
   }}
 
 body.payment-selection-page {
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .payment-selection-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -333,14 +333,14 @@ body.payment-selection-page {
 }
 
 body.favorites-page,body.profile-page {
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .favorites-screen,.profile-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }
@@ -454,14 +454,14 @@ body.favorites-page,body.profile-page {
   }}
 
 body.add-card-page {
-  height:100vh;
+  height:var(--app-vh);
   overflow:hidden
 }
 
 .add-card-screen {
   background-color:#FFF9F4;
   flex-direction:column;
-  height:100vh;
+  height:var(--app-vh);
   display:flex;
   overflow:hidden
 }

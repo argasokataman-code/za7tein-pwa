@@ -1819,6 +1819,58 @@
     {
       "id": "TASK-948",
       "shard": 1
+    },
+    {
+      "id": "TASK-949",
+      "shard": 1
+    },
+    {
+      "id": "TASK-950",
+      "shard": 1
+    },
+    {
+      "id": "TASK-951",
+      "shard": 1
+    },
+    {
+      "id": "TASK-952",
+      "shard": 1
+    },
+    {
+      "id": "TASK-953",
+      "shard": 1
+    },
+    {
+      "id": "TASK-954",
+      "shard": 1
+    },
+    {
+      "id": "TASK-955",
+      "shard": 1
+    },
+    {
+      "id": "TASK-956",
+      "shard": 1
+    },
+    {
+      "id": "TASK-957",
+      "shard": 1
+    },
+    {
+      "id": "TASK-958",
+      "shard": 1
+    },
+    {
+      "id": "TASK-959",
+      "shard": 1
+    },
+    {
+      "id": "TASK-960",
+      "shard": 1
+    },
+    {
+      "id": "TASK-961",
+      "shard": 1
     }
   ],
   "docs": [
@@ -2243,6 +2295,30 @@
     {
       "id": "TASK-945",
       "shard": 1
+    },
+    {
+      "id": "TASK-950",
+      "shard": 1
+    },
+    {
+      "id": "TASK-952",
+      "shard": 1
+    },
+    {
+      "id": "TASK-954",
+      "shard": 1
+    },
+    {
+      "id": "TASK-956",
+      "shard": 1
+    },
+    {
+      "id": "TASK-959",
+      "shard": 1
+    },
+    {
+      "id": "TASK-960",
+      "shard": 1
     }
   ],
   "scaffold": [
@@ -2613,6 +2689,14 @@
     {
       "id": "TASK-244",
       "shard": 1
+    },
+    {
+      "id": "TASK-253",
+      "shard": 1
+    },
+    {
+      "id": "BUG-103",
+      "shard": 1
     }
   ],
   "brand": [
@@ -2656,6 +2740,46 @@
   "simulator": [
     {
       "id": "TASK-251",
+      "shard": 1
+    },
+    {
+      "id": "TASK-252",
+      "shard": 1
+    },
+    {
+      "id": "TASK-253",
+      "shard": 1
+    },
+    {
+      "id": "BUG-103",
+      "shard": 1
+    }
+  ],
+  "bottom-nav": [
+    {
+      "id": "TASK-252",
+      "shard": 1
+    },
+    {
+      "id": "BUG-103",
+      "shard": 1
+    }
+  ],
+  "fixed-ui": [
+    {
+      "id": "TASK-252",
+      "shard": 1
+    }
+  ],
+  "desktop-preview": [
+    {
+      "id": "TASK-253",
+      "shard": 1
+    }
+  ],
+  "fixed": [
+    {
+      "id": "BUG-103",
       "shard": 1
     }
   ]
