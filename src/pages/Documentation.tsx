@@ -118,7 +118,7 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan PWA Sa7tein: landing dengan satu aksi utama per section, cache yang aman, scroll native, dan aturan desain.
+              Panduan PWA Sa7tein: landing dengan satu aksi utama per section, simulasi perangkat pada layar lebar, cache yang aman, scroll native, dan aturan desain.
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (

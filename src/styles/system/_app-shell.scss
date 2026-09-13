@@ -1,6 +1,120 @@
-// Native-app feel for the installed PWA: disable webpage overscroll /
-// pull-to-refresh bounce so the app does not scroll past its content.
+// Let the document use the platform's native momentum, edge bounce and
+// browser pull-to-refresh. Nested page scrollers remain forbidden by the DNA.
 html,
 body {
-  overscroll-behavior: none;
+  overscroll-behavior-y: auto;
+  scroll-behavior: auto;
+}
+
+// Every /app route is previewed as a contained phone simulator on wider
+// displays. The desktop simulator owns its scroll; the real mobile app keeps
+// the document as its native scroller below 700px.
+#root:has(.mobile-device-frame) {
+  width: 100%;
+  max-width: none;
+  min-height: 100dvh;
+  margin: 0;
+}
+
+.mobile-device-frame {
+  position: relative;
+  width: min(100% - 32px, 462px);
+  height: min(860px, calc(100dvh - 32px));
+  margin: var(--space-4) auto;
+  padding: 12px;
+  border: 2px solid var(--text-primary);
+  border-radius: 42px;
+  background: var(--text-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-device-frame::before,
+.mobile-device-frame::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--text-primary);
+}
+
+.mobile-device-frame::before {
+  top: 148px;
+  left: -5px;
+  height: 66px;
+}
+
+.mobile-device-frame::after {
+  top: 116px;
+  right: -5px;
+  height: 46px;
+}
+
+.mobile-device-speaker {
+  position: absolute;
+  z-index: 2;
+  top: 5px;
+  left: 50%;
+  width: 76px;
+  height: 5px;
+  transform: translateX(-50%);
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+}
+
+.mobile-device-screen {
+  height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+  border-radius: 30px;
+  background: var(--bg-warm);
+  scrollbar-width: none;
+  transform: translateZ(0);
+}
+
+.mobile-device-screen::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-device-screen > .app-shell {
+  min-height: 100%;
+}
+
+@media (max-width: 700px) {
+  #root:has(.mobile-device-frame) {
+    width: 100%;
+    max-width: var(--shell-max);
+    margin: 0 auto;
+  }
+
+  .mobile-device-frame {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mobile-device-speaker {
+    display: none;
+  }
+
+  .mobile-device-frame::before,
+  .mobile-device-frame::after {
+    display: none;
+  }
+
+  .mobile-device-screen {
+    min-height: 0;
+    overflow: visible;
+    border-radius: 0;
+    transform: none;
+  }
+
+  .mobile-device-screen > .app-shell {
+    min-height: 100dvh;
+  }
 }
