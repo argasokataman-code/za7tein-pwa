@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="title desc">
+  <title id="title">Peta ilustratif area layanan</title>
+  <desc id="desc">Blok jalan, area hijau, dan rumah sekitar titik toko.</desc>
+  <rect width="400" height="400" fill="#F7F4EF"/>
+  <path d="M10 10h100v95H10zM130 10h75v95h-75zM225 10h160v95H225zM10 125h100v80H10zM130 125h75v80h-75zM225 125h160v80H225zM10 225h100v160H10zM130 225h75v160h-75zM225 225h160v160H225z" fill="#EAE5DD"/>
+  <path d="M10 125h100v80H10zM225 225h160v160H225z" fill="#D6E9D6"/>
+  <path d="M20 18h35v35H20zM66 20h32v29H66zM28 68h70v23H28zM140 20h50v34h-50zM142 65h48v25h-48zM237 20h61v29h-61zM312 20h58v29h-58zM238 66h54v25h-54zM305 65h65v28h-65zM20 237h74v37H20zM20 289h74v34H20zM20 338h74v34H20zM141 239h51v46h-51zM141 302h51v66h-51zM239 237h51v41h-51zM307 236h59v43h-59zM241 302h126v62H241z" fill="#E0DAD1"/>
+  <path d="M119-10v420M215-10v420M-10 115h420M-10 215h420" fill="none" stroke="#DDD5CA" stroke-width="23"/>
+  <path d="M119-10v420M215-10v420M-10 115h420M-10 215h420" fill="none" stroke="#fff" stroke-width="17"/>
+  <path d="M18 59h80M238 56h130M22 328h75M312 310v49" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+</svg>

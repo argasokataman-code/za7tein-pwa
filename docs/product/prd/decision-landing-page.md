@@ -45,3 +45,15 @@ garis rute, dot matrix, bentuk cloche/sajian, pola makanan. Ikon fungsional (nil
 - Tanpa transaksi, testimoni, atau angka fiktif.
 - Semua data mock. Courier = mock.
 - Gate: `governance:check`, `lint`, `build`, ukur 360/390/430/768/1024/1440.
+
+## Revisi visual setelah review pengguna — 2026-09-13
+
+Pengguna menilai implementasi awal terlalu mirip template AI meskipun mengikuti banyak butir brief. Revisi berikutnya memprioritaskan foto makanan dan cerita dapur-ke-pintu, mengurangi frame produk yang berulang, menghapus mockup ponsel generik, dan membuang dekorasi serta stylesheet landing lama yang tidak dipakai. Journey Line menjadi garis editorial; tiket dapur dan status kurir tetap ada sebagai data contoh. Ini adalah keputusan desain, bukan perubahan otoritas PRD: Irbid tetap aktif, brief landing tetap proposed.
+
+## Koreksi berdasarkan sampel visual pengguna
+
+Gambar yang diberikan pengguna adalah referensi desain buatan pengguna, bukan tangkapan layar lama. Implementasi editorial di atas menyimpang dari komposisi referensi. Landing sekarang mengikuti urutan dan hierarki sampel: navigasi putih, hero oranye dengan layar aplikasi/tiket/peta bertumpuk, tiga nilai, Journey Line empat langkah, tiga layar produk, ilustrasi jangkauan dan merchant, tiga kartu, serta CTA oranye. Aturan bisnis tetap mengikuti PRD Irbid aktif (Hijazi/Syimali), sehingga label Zona A/B/C di sampel tidak disalin.
+
+## Penataan ulang layout setelah klarifikasi pengguna
+
+Sampel visual adalah acuan bahasa desain, bukan cetak biru untuk memadatkan semua konten. Landing tetap satu halaman promosi dengan navigasi anchor, tetapi tiap topik kini menjadi section tersendiri: hero, cara kerja, pengalaman pelanggan, area layanan, merchant, kurir, rasa lokal, dan CTA. Pada desktop tiap section memiliki pesan dan visual utama dengan ruang vertikal yang lapang; pada ponsel urutan menjadi satu kolom. Konten dan animasi yang sudah ada dipertahankan.

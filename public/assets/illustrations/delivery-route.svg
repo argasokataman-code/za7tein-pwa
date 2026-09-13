@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="title desc">
+  <title id="title">Perjalanan kurir dari toko menuju rumah</title>
+  <desc id="desc">Peta ilustratif: jalur oranye mengikuti jalan dari toko di kiri bawah ke rumah di kanan atas.</desc>
+  <style>
+    .ground{fill:#F7F4EF}.block{fill:#EDE8E1}.block2{fill:#E7E2DA}.park{fill:#D9EBD9}
+    .road-edge{fill:none;stroke:#E2DBD1;stroke-width:19;stroke-linecap:round;stroke-linejoin:round}
+    .road{fill:none;stroke:#fff;stroke-width:15;stroke-linecap:round;stroke-linejoin:round}
+    .minor{fill:none;stroke:#fff;stroke-width:7;stroke-linecap:round}
+    .route-back{fill:none;stroke:#fff;stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+    .route{fill:none;stroke:#F15A37;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+    .route-glint{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-dasharray:5 15;animation:travel 1.2s linear infinite}
+    .pin{fill:#F15A37;stroke:#fff;stroke-width:4}.pin-center{fill:#fff}
+    .courier{fill:#fff;stroke:#F15A37;stroke-width:4}.courier-dot{fill:#F15A37}
+    .pulse{fill:none;stroke:#F15A37;stroke-width:3;transform-origin:255px 142px;animation:pulse 2.4s ease-out infinite}
+    @keyframes travel{to{stroke-dashoffset:-20}}@keyframes pulse{0%{opacity:.7;transform:scale(.6)}100%{opacity:0;transform:scale(1.7)}}
+    @media(prefers-reduced-motion:reduce){.route-glint,.pulse{animation:none}.pulse{opacity:0}}
+  </style>
+  <rect width="480" height="300" class="ground"/>
+  <path d="M17 18h88v55H17zM126 17h85v43h-85zM239 18h77v48h-77zM341 16h118v57H341zM15 97h84v59H15zM121 91h77v54h-77zM225 91h95v57h-95zM347 96h110v57H347zM19 181h78v49H19zM124 173h84v59h-84zM235 174h78v51h-78zM343 178h114v49H343zM17 253h86v35H17zM129 256h81v33h-81zM239 252h78v37h-78zM343 252h113v38H343z" class="block"/>
+  <path d="M15 97h84v59H15zM343 178h114v49H343z" class="park"/>
+  <path d="M31 108h18v17H31zM63 117h23v22H63zM138 28h22v18h-22zM173 28h26v18h-26zM253 28h21v27h-21zM284 33h20v22h-20zM354 26h30v26h-30zM400 29h42v26h-42zM133 105h24v26h-24zM169 106h20v25h-20zM240 105h25v31h-25zM277 106h26v24h-26zM31 190h20v27H31zM64 194h20v20H64zM139 185h24v31h-24zM177 187h19v31h-19zM246 185h25v23h-25zM283 184h19v28h-19zM359 189h28v24h-28zM401 187h37v27h-37z" class="block2"/>
+  <path d="M111 -10V310M222 -10V310M330 -10V310M-10 80H490M-10 164H490M-10 241H490" class="road-edge"/>
+  <path d="M111 -10V310M222 -10V310M330 -10V310M-10 80H490M-10 164H490M-10 241H490" class="road"/>
+  <path d="M9 45h92M129 222h77M347 132h105M271 246v45" class="minor"/>
+  <path d="M72 242H111V164H222V80H330H404" class="route-back"/>
+  <path d="M72 242H111V164H222V80H330H404" class="route"/>
+  <path d="M72 242H111V164H222V80H330H404" class="route-glint"/>
+  <path d="M72 220c-13 0-24 10-24 23 0 18 24 39 24 39s24-21 24-39c0-13-11-23-24-23z" class="pin"/><circle cx="72" cy="243" r="7" class="pin-center"/>
+  <path d="M404 52c-15 0-27 12-27 27 0 19 27 43 27 43s27-24 27-43c0-15-12-27-27-27z" class="pin"/><path d="M394 83v-8l10-8 10 8v8h-20m7 0v-7h6v7" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="255" cy="142" r="21" class="courier"/><circle cx="255" cy="142" r="28" class="pulse"/><circle cx="255" cy="142" r="35" class="pulse" style="animation-delay:.7s"/><path d="M245 148h20m-15 0 5-10 5 10m-11-13h4" fill="none" stroke="#F15A37" stroke-width="2.5" stroke-linecap="round"/><circle cx="246" cy="151" r="3" class="courier-dot"/><circle cx="264" cy="151" r="3" class="courier-dot"/>
+</svg>

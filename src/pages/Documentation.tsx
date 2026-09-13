@@ -118,7 +118,7 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan lengkap PWA marketplace makanan hyperlocal Sa7tein. Setiap layar, route, slice, dan komponen — terdokumentasi.
+              Panduan PWA Sa7tein: landing dengan satu aksi utama per section, cache yang aman, scroll native, dan aturan desain.
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (

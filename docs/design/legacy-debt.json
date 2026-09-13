@@ -9,16 +9,11 @@
       "7738600e79828da191b98dc41daacbe35b21b63509836382ec14b75b5dbbc008"
     ],
     "src/pages/SignIn.tsx": [
-      "24b51a501e066485c70e1ce1241c3ae54b723277ee9e39c658cc5d9c19803a57",
+      "3cc3bb893142d996f1894a6424bf06156a920bf5d2803b3a3b5e1ad063d87c4e",
       "1d2e93c7fd99f490bdad384c1b75d822fd7ac9cc9337e32a2aa9f7abbfcbed65"
     ],
     "src/pages/SignUp.tsx": [
       "d50fb15c51d7f5371e89844209b20f1db861ba4bc78e7d3c7ee7143a55b69f00"
-    ],
-    "src/components/landing/LandingDecor.tsx": [
-      "c8abc0530694a4c8ca5f2a9165920d043f5fa7a48375092277d8e0037a87be52",
-      "839e9a5ffb38049f8cf80c8bae349b542ac03e60fa6dfca237889c4a04bec950",
-      "1f94356c6dc08b727fe5a1bbb564e6d96ce2e2c90fa84377e6c6e1108fe8ba17"
     ]
   },
   "rawColors": {
@@ -30,7 +25,7 @@
     "src/pages/ForgotPasswordOtp.tsx": 3,
     "src/pages/MenuDetail.tsx": 2,
     "src/pages/Profile.tsx": 1,
-    "src/pages/SignIn.tsx": 4,
+    "src/pages/SignIn.tsx": 1,
     "src/pages/SignUp.tsx": 2,
     "src/pages/documentation/sections/ComponentsSection.tsx": 2,
     "src/styles/_system.scss": 23
