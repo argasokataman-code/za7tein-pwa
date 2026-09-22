@@ -1,22 +1,18 @@
 import { ChevronLeft, MapPin, Phone } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { JourneyLine } from '../components/JourneyLine'
+import { DeliveryActionCard, DeliveryStepper } from '../components/DeliveryCheckpoints'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useTick } from '../hooks/useTick'
 import { formatDistance, money } from '../data/merchant'
 import {
   COURIER_ACTION_LABEL,
-  COURIER_CHECKPOINT_LABEL,
   COURIER_GUARD_MINUTES,
-  COURIER_STEPS,
-  courierStepIndex,
   elapsedMinutes,
-  formatCountdown,
-  slaRemainingMs,
 } from '../data/courier'
 import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/courierSlice'
 
@@ -44,9 +40,6 @@ export default function CourierTaskDetail() {
     )
   }
 
-  const stepIndex = courierStepIndex(task.checkpoint)
-  const sla = slaRemainingMs(task, now)
-  const overdue = sla != null && sla < 0
   const actionLabel = COURIER_ACTION_LABEL[task.checkpoint]
   const elapsed = elapsedMinutes(task, now)
   const isGuard = task.checkpoint === 'tiba'
@@ -57,8 +50,7 @@ export default function CourierTaskDetail() {
 
   // Tanpa OTP yang benar kurir tidak bisa settle (C-09) — validator ada di layar,
   // reducer hanya menyelesaikan setelah kode cocok.
-  function submitOtp(event: FormEvent) {
-    event.preventDefault()
+  function submitOtp() {
     if (!task) return
     if (otp !== task.otp) {
       toast.error('Kode OTP tidak cocok')
@@ -114,18 +106,7 @@ export default function CourierTaskDetail() {
 
         <section className="courier-section">
           <h2 className="courier-section-title">Checkpoint</h2>
-          <ol className="courier-steps">
-            {COURIER_STEPS.map((step, index) => {
-              const state = index < stepIndex ? 'done' : index === stepIndex ? 'active' : 'todo'
-              return (
-                <li key={step.id} className={`courier-step courier-step--${state}`}>
-                  <span className="courier-step-dot" aria-hidden="true" />
-                  <span className="courier-step-label">{step.label}</span>
-                </li>
-              )
-            })}
-          </ol>
-          <p className="courier-step-state">{COURIER_CHECKPOINT_LABEL[task.checkpoint]}</p>
+          <DeliveryStepper checkpoint={task.checkpoint} />
         </section>
 
         {isFinished ? (
@@ -143,75 +124,52 @@ export default function CourierTaskDetail() {
             </p>
           </section>
         ) : (
-          <section className="courier-action">
-            {sla != null ? (
-              <p className={`courier-timer ${overdue ? 'is-overdue' : ''}`}>
-                {overdue
-                  ? 'Lewat SLA — tim CS ditandai otomatis'
-                  : `Sisa waktu ${formatCountdown(sla)}`}
-              </p>
-            ) : null}
-
-            {actionLabel ? (
-              <button
-                type="button"
-                className="btn btn-primary courier-primary"
-                onClick={() => dispatch(advanceCheckpoint({ id: task.id }))}
-              >
-                {actionLabel}
-              </button>
-            ) : null}
-
-            {isGuard ? (
+          <DeliveryActionCard
+            checkpoint={task.checkpoint}
+            startedAt={task.checkpointStartedAt ?? null}
+            now={now}
+            otp={otp}
+            onOtpChange={setOtp}
+            onOtpSubmit={submitOtp}
+            otpHint={`Kode demo: ${task.otp}`}
+            actions={
               <>
-                <div className="courier-guard">
-                  <p className="courier-card-sub">
-                    {canCall
-                      ? 'Sudah lewat 5 menit — hubungi customer sekarang.'
-                      : `Hubungi customer bila menunggu lebih dari ${COURIER_GUARD_MINUTES.call} menit.`}
-                  </p>
-                  <a className="courier-guard-call" href={`tel:${task.customerPhone}`}>
-                    <Phone size={16} strokeWidth={1.75} aria-hidden="true" />
-                    Hubungi customer
-                  </a>
+                {actionLabel ? (
                   <button
                     type="button"
-                    className="courier-btn-ghost"
-                    disabled={!canCancel}
-                    onClick={() => dispatch(cancelTask({ id: task.id }))}
+                    className="btn btn-primary courier-primary"
+                    onClick={() => dispatch(advanceCheckpoint({ id: task.id }))}
                   >
-                    {canCancel
-                      ? 'Batal — customer lalai'
-                      : `Batal aktif setelah ${COURIER_GUARD_MINUTES.batal} menit`}
+                    {actionLabel}
                   </button>
-                </div>
+                ) : null}
 
-                <form className="courier-otp" onSubmit={submitOtp}>
-                  <label htmlFor="courier-otp">Kode OTP dari customer (4 digit)</label>
-                  <input
-                    id="courier-otp"
-                    className="form-control"
-                    inputMode="numeric"
-                    autoComplete="one-time-code"
-                    maxLength={4}
-                    value={otp}
-                    onChange={(event) =>
-                      setOtp(event.target.value.replace(/\D/g, '').slice(0, 4))
-                    }
-                  />
-                  <p className="courier-otp-hint">Kode demo: {task.otp}</p>
-                  <button className="btn btn-primary" type="submit" disabled={otp.length !== 4}>
-                    Selesaikan
-                  </button>
-                </form>
+                {isGuard ? (
+                  <div className="courier-guard">
+                    <p className="courier-card-sub">
+                      {canCall
+                        ? 'Sudah lewat 5 menit — hubungi customer sekarang.'
+                        : `Hubungi customer bila menunggu lebih dari ${COURIER_GUARD_MINUTES.call} menit.`}
+                    </p>
+                    <a className="courier-guard-call" href={`tel:${task.customerPhone}`}>
+                      <Phone size={16} strokeWidth={1.75} aria-hidden="true" />
+                      Hubungi customer
+                    </a>
+                    <button
+                      type="button"
+                      className="courier-btn-ghost"
+                      disabled={!canCancel}
+                      onClick={() => dispatch(cancelTask({ id: task.id }))}
+                    >
+                      {canCancel
+                        ? 'Batal — customer lalai'
+                        : `Batal aktif setelah ${COURIER_GUARD_MINUTES.batal} menit`}
+                    </button>
+                  </div>
+                ) : null}
               </>
-            ) : null}
-
-            <p className="courier-sla-note">
-              SLA 15/30/10 menit masih sementara (PO 2026-09-22) — final menunggu data rute Irbid
-              (OQ-13).
-            </p>
-          </section>
+            }
+          />
         )}
       </main>
     </div>

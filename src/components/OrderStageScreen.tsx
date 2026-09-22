@@ -1,9 +1,15 @@
 import { ChevronLeft, Crosshair, MapPin, MessageCircle, Phone, Scale, Star, Store, UserRound } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
+import { DeliveryActionCard, DeliveryStepper } from './DeliveryCheckpoints'
 import { JourneyLine } from './JourneyLine'
 
+import {
+  DELIVERY_OTP_DEMO,
+  COURIER_ACTION_LABEL,
+} from '../data/courier'
 import {
   HOLD_EVENT_LABEL,
   HOLD_STATUS_COPY,
@@ -17,7 +23,14 @@ import {
 } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useLeafletMap } from '../hooks/useLeafletMap'
-import { cancelOrder, matchCourier, settleOrderHold } from '../store/slices/cartSlice'
+import { useTick } from '../hooks/useTick'
+import {
+  advanceDelivery,
+  cancelOrder,
+  completeDelivery,
+  matchCourier,
+  settleOrderHold,
+} from '../store/slices/cartSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
 import type { OrderStage } from '../types'
 
@@ -107,6 +120,11 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const holdStatus = useAppSelector((s) => s.cart.holdStatus)
   const holdAmount = useAppSelector((s) => s.cart.holdAmountIdr)
   const holdLedger = useAppSelector((s) => s.cart.holdLedger)
+  const deliveryCheckpoint = useAppSelector((s) => s.cart.deliveryCheckpoint)
+  const deliveryCheckpointAt = useAppSelector((s) => s.cart.deliveryCheckpointAt)
+  const gpsSnapshot = useAppSelector((s) => s.cart.gpsSnapshot)
+  const { now } = useTick()
+  const [otp, setOtp] = useState('')
 
   // State tersimpan bisa berasal dari bentuk sebelum tahap pesanan ada, jadi
   // nilainya divalidasi di sini. Tanpa ini STATUS[undefined] melempar dan
@@ -159,6 +177,23 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
         amountIdr: holdAmount,
       }),
     )
+  }
+
+  // OTP pengiriman (F5). Kode benar menutup pengiriman; kalau hold COD sudah
+  // di-cut, OTP yang sama juga menyelesaikan hold — satu serah terima fisik.
+  const deliveryAction = COURIER_ACTION_LABEL[deliveryCheckpoint]
+
+  const submitDeliveryOtp = () => {
+    if (otp !== DELIVERY_OTP_DEMO) {
+      toast.error('Kode OTP tidak cocok')
+      return
+    }
+    dispatch(completeDelivery())
+    if (holdStatus === 'cut') {
+      dispatch(settleOrderHold())
+      dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
+    }
+    toast.success('OTP terverifikasi — pengiriman selesai')
   }
 
   const mapBlock = (
@@ -331,6 +366,54 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
               </div>
             </section>
           ) : null}
+
+          {/* Checkpoint pengiriman (F5/M5). Tombolnya aksi demo supaya timer SLA
+              dan OTP bisa dilihat dari sisi customer; di produksi aksi ini milik
+              kurir (layar kurir memakai komponen yang sama). */}
+          <section className="track-section">
+            <h2 className="track-section-title">Checkpoint pengiriman</h2>
+            <DeliveryStepper checkpoint={deliveryCheckpoint} />
+            {deliveryCheckpoint === 'selesai' ? (
+              <p className="track-row-note">
+                Pengiriman selesai — OTP terverifikasi, order tidak menggantung.
+              </p>
+            ) : (
+              <DeliveryActionCard
+                checkpoint={deliveryCheckpoint}
+                startedAt={deliveryCheckpointAt}
+                now={now}
+                otp={otp}
+                onOtpChange={setOtp}
+                onOtpSubmit={submitDeliveryOtp}
+                otpHint={`Kode demo: ${DELIVERY_OTP_DEMO}`}
+                evidence={
+                  deliveryCheckpoint === 'tiba' && gpsSnapshot ? (
+                    <p className="courier-card-sub">
+                      Bukti: GPS {gpsSnapshot.lat.toFixed(5)}, {gpsSnapshot.lng.toFixed(5)} · foto
+                      serah terima (mock)
+                    </p>
+                  ) : null
+                }
+                actions={
+                  deliveryAction ? (
+                    <button
+                      type="button"
+                      className="btn btn-primary courier-primary"
+                      onClick={() =>
+                        dispatch(
+                          advanceDelivery({
+                            gps: address ? { lat: address.lat, lng: address.lng } : undefined,
+                          }),
+                        )
+                      }
+                    >
+                      {deliveryAction}
+                    </button>
+                  ) : null
+                }
+              />
+            )}
+          </section>
 
           {/* Sengketa hanya masuk akal setelah pesanan tiba — window 24 jam
               dihitung dari order selesai (F8/M6). */}

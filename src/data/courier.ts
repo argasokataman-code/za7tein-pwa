@@ -77,6 +77,15 @@ export const COURIER_SLA_MINUTES: Partial<Record<CourierCheckpoint, number>> = {
 }
 
 /**
+ * Auto-settle setelah window OTP lewat (menit). F5 menegaskan order tidak boleh
+ * menggantung pending selamanya: timeout OTP → tetap settle, bukan stuck.
+ */
+export const AUTO_SETTLE_MINUTES = 10
+
+/** OTP demo 4 digit — dipakai sisi kurir (F13) dan sisi customer (M5). */
+export const DELIVERY_OTP_DEMO = '4821'
+
+/**
  * Guard customer lalai saat menunggu OTP (flow F13): +5 menit kurir
  * menghubungi customer, +10 menit kurir boleh membatalkan tugas. Penalti
  * customer masih UNRESOLVED (OQ-14) — jangan dipilih salah satu.
@@ -184,7 +193,10 @@ export function isDoneTask(task: CourierTask): boolean {
 }
 
 /** Milidetik sisa SLA untuk jeda checkpoint sekarang, atau null kalau jeda tak ber-SLA. */
-export function slaRemainingMs(task: CourierTask, now: number): number | null {
+export function slaRemainingMs(
+  task: Pick<CourierTask, 'checkpoint' | 'checkpointStartedAt'>,
+  now: number,
+): number | null {
   const minutes = COURIER_SLA_MINUTES[task.checkpoint]
   if (!minutes || !task.checkpointStartedAt) return null
   const elapsed = now - new Date(task.checkpointStartedAt).getTime()
@@ -192,7 +204,10 @@ export function slaRemainingMs(task: CourierTask, now: number): number | null {
 }
 
 /** Menit berjalan sejak checkpoint sekarang dimulai (0 kalau belum ada). */
-export function elapsedMinutes(task: CourierTask, now: number): number {
+export function elapsedMinutes(
+  task: Pick<CourierTask, 'checkpoint' | 'checkpointStartedAt'>,
+  now: number,
+): number {
   if (!task.checkpointStartedAt) return 0
   return (now - new Date(task.checkpointStartedAt).getTime()) / 60_000
 }

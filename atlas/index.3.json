@@ -4368,6 +4368,219 @@
         }
       ],
       "commit": "38e9915"
+    },
+    {
+      "id": "TASK-2721",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:20:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courier.ts (+19/-13) — edit via tool: ts: /** Milidetik sisa SLA untuk jeda chec",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courier.ts"
+    },
+    {
+      "id": "TASK-2722",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:20:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/DeliveryCheckpoints.tsx (+128) — write via tool: tsx: import type { ReactN",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/DeliveryCheckpoints.tsx"
+    },
+    {
+      "id": "TASK-2723",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:20:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+178) — write via tool: tsx: import { ChevronLeft, MapPi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-2724",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:21:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+13/-11) — edit via tool: ts: import { createSlice, type P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-2725",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:21:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+35/-22) — edit via tool: tsx: import { ChevronLeft,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-2726",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:21:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '25', id: 'cod-hold', ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2727",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:21:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DeliveryCheckpointSection.tsx (+79) — write via tool: ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DeliveryCheckpointSection.tsx"
+    },
+    {
+      "id": "TASK-2728",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:21:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: import { CodHoldSection } from ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2729",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:21:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -5 && npm run build 2>&1 | tail -6 && npm run governance:c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-2008",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:22:47",
+      "tags": [
+        "delivery",
+        "sla",
+        "otp",
+        "m5"
+      ],
+      "summary": "M5 checkpoint pengiriman: DeliveryStepper+DeliveryActionCard dipakai kurir & customer, timer SLA 15/30/10 dari waktu nyata, OTP 4 digit, ind",
+      "conn": [
+        {
+          "id": "FEAT-2007",
+          "type": "relates",
+          "raw": "FEAT-2007:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2740",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:22:47",
+      "tags": [
+        "delivery",
+        "sla",
+        "m5"
+      ],
+      "summary": "Implement M5: cartSlice deliveryCheckpoint+gpsSnapshot, komponen bersama DeliveryCheckpoints, OTP menutup hold cut, docs 26; gate f5+f13 PAS",
+      "conn": [
+        {
+          "id": "FEAT-2008",
+          "type": "relates",
+          "raw": "FEAT-2008:relates"
+        }
+      ],
+      "commit": "895b04f"
     }
   ]
 }

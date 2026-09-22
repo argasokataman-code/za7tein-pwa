@@ -1,8 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { nextCheckpoint } from '../../data/courier'
 import { mockUser } from '../../data/user'
 import type {
   Address,
   CartItem,
+  CourierCheckpoint,
   Food,
   HoldEvent,
   HoldEventName,
@@ -29,6 +31,15 @@ interface CartState {
   holdAmountIdr: number
   /** Ledger hold append-only — tiap transisi menambah satu entry. */
   holdLedger: HoldEvent[]
+  /**
+   * Checkpoint pengiriman order (F5/M5): masuk → ambil → berangkat → tiba →
+   * selesai. Waktu mulai disimpan ISO supaya SLA dihitung dari kejadian nyata,
+   * bukan dari timer palsu. `selesai` hanya lewat OTP, bukan tombol lanjut.
+   */
+  deliveryCheckpoint: CourierCheckpoint
+  deliveryCheckpointAt: string | null
+  /** GPS disnapshot sekali saat "Tiba" (kontrak BE M5), bukan tiap render. */
+  gpsSnapshot: { lat: number; lng: number } | null
 }
 
 const initialState: CartState = {
@@ -51,6 +62,9 @@ const initialState: CartState = {
   holdStatus: 'none',
   holdAmountIdr: 0,
   holdLedger: [],
+  deliveryCheckpoint: 'masuk',
+  deliveryCheckpointAt: null,
+  gpsSnapshot: null,
 }
 
 /** Id entry hold: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -169,6 +183,29 @@ const cartSlice = createSlice({
       state.holdAmountIdr = 0
       state.holdLedger = []
     },
+    /**
+     * Maju satu checkpoint pengiriman (F5). GPS hanya disimpan saat "Tiba" —
+     * kontrak BE menetapkan snapshot sekali, bukan stream.
+     */
+    advanceDelivery(state, action: PayloadAction<{ gps?: { lat: number; lng: number } } | undefined>) {
+      const next = nextCheckpoint(state.deliveryCheckpoint)
+      // `selesai` dicapai lewat OTP, bukan tombol lanjut.
+      if (!next || next === 'selesai') return
+      state.deliveryCheckpoint = next
+      state.deliveryCheckpointAt = new Date().toISOString()
+      if (next === 'tiba' && action.payload?.gps) state.gpsSnapshot = action.payload.gps
+    },
+    /** OTP benar → pengiriman selesai (auto-settle otomatis kalau window lewat). */
+    completeDelivery(state) {
+      if (state.deliveryCheckpoint !== 'tiba') return
+      state.deliveryCheckpoint = 'selesai'
+      state.deliveryCheckpointAt = new Date().toISOString()
+    },
+    resetDelivery(state) {
+      state.deliveryCheckpoint = 'masuk'
+      state.deliveryCheckpointAt = null
+      state.gpsSnapshot = null
+    },
   },
 })
 
@@ -186,6 +223,9 @@ export const {
   settleOrderHold,
   cancelOrder,
   resetOrderHold,
+  advanceDelivery,
+  completeDelivery,
+  resetDelivery,
 } = cartSlice.actions
 
 export const selectCartCount = (items: CartItem[]) =>
