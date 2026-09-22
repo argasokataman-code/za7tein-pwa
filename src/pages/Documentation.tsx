@@ -19,6 +19,7 @@ import { CheckoutFeeSection } from './documentation/sections/CheckoutFeeSection'
 import { CodHoldSection } from './documentation/sections/CodHoldSection'
 import { DeliveryCheckpointSection } from './documentation/sections/DeliveryCheckpointSection'
 import { DisputeSection } from './documentation/sections/DisputeSection'
+import { PushSection } from './documentation/sections/PushSection'
 import { TaxSection } from './documentation/sections/TaxSection'
 import { WalletSection } from './documentation/sections/WalletSection'
 import { BackendSection } from './documentation/sections/BackendSection'
@@ -59,6 +60,7 @@ const SECTIONS = [
   DeliveryCheckpointSection,
   DisputeSection,
   TaxSection,
+  PushSection,
 ]
 
 const HERO_TAGS = [
@@ -106,7 +108,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.15.0
+              v2.16.0
             </span>
             <span>
               React 19 · Vite · TypeScript

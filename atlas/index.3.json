@@ -5059,6 +5059,351 @@
         }
       ],
       "commit": "53750e8"
+    },
+    {
+      "id": "TASK-2781",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:28:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts (+15/-10) — edit via tool: ts: import { z } from 'zod'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-2782",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:28:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/phone.ts (+37) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/phone.ts"
+    },
+    {
+      "id": "TASK-2783",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+21/-8) — edit via tool: ts: export interface AppNotification {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-2784",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/notificationsSlice.ts (+13/-10) — edit via tool: ts: import { mockNotifi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/notificationsSlice.ts"
+    },
+    {
+      "id": "TASK-2785",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts (+35/-9) — edit via tool: ts: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts"
+    },
+    {
+      "id": "TASK-2786",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx (+4/-2) — edit via tool: tsx: export default function ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx"
+    },
+    {
+      "id": "TASK-2787",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+7/-6) — edit via tool: tsx: import { ArrowLeft, MessageCircle, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-2788",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss (+56/-12) — edit via tool: .chat-compose__send {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss"
+    },
+    {
+      "id": "TASK-2789",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignUp.tsx (+3/-3) — edit via tool: tsx: <span className=\"country-code\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignUp.tsx"
+    },
+    {
+      "id": "TASK-2790",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+1/-1) — edit via tool: ts: whitelist: ['cart', 'favorites', 'accoun",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-2791",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:29:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+58) — write via tool: tsx: import { Do",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-2792",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:30:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { PushSection } from './",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2793",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:30:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md (+1/-1) — edit via tool: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md"
+    },
+    {
+      "id": "TASK-2794",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:30:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '28', id: 'tax', label",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2795",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:30:18",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -4 && npm run build 2>&1 | tail -3 && ./scripts/flows-gate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2796",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:30:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport re\n# types.ts: rename interface\np='src/types.ts'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-2011",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:31:59",
+      "tags": [
+        "push",
+        "wa",
+        "m8"
+      ],
+      "summary": "M8: validasi E.164 (+962/+62) satu sumber di data/phone.ts, registrasi push mock + kontrak payload, fallback wa.me saat lawan offline",
+      "conn": [
+        {
+          "id": "FEAT-2010",
+          "type": "relates",
+          "raw": "FEAT-2010:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2800",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:31:59",
+      "tags": [
+        "push",
+        "wa",
+        "m8"
+      ],
+      "summary": "Implement M8: phone.ts+phoneField E.164, kartu push di NotificationSettings, fallback WA di OrderChat, docs 29; gate f11 PASS",
+      "conn": [
+        {
+          "id": "FEAT-2011",
+          "type": "relates",
+          "raw": "FEAT-2011:relates"
+        }
+      ],
+      "commit": "bdeb3bf"
     }
   ]
 }

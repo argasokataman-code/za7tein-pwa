@@ -6,6 +6,10 @@ import { useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
+import { PUSH_CONTRACT, mockPushSubscription } from '../data/notifications'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { clearPush, registerPush } from '../store/slices/notificationsSlice'
+
 const TOGGLES = [
   { id: 'notifications', label: 'Notifikasi', on: true },
   { id: 'sound', label: 'Suara', on: false },
@@ -18,6 +22,8 @@ const TOGGLES = [
 
 export default function NotificationSettings() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const subscription = useAppSelector((s) => s.notifications.subscription)
 
   return (
     <div className="app-shell">
@@ -53,6 +59,67 @@ export default function NotificationSettings() {
                   </div>
                 ))}
               </div>
+
+              {/* Push (M8). Yang disimulasikan hanya registrasinya: repo ini
+                  tidak punya service worker push, jadi tidak ada notifikasi
+                  yang benar-benar dikirim — kontraknya ditampilkan, bukan
+                  dipura-pura jalan. */}
+              <section className="admin-card" aria-label="Registrasi push">
+                <p className="admin-card-title">Notifikasi push</p>
+                {subscription ? (
+                  <>
+                    <p className="admin-card-sub">
+                      Aktif · {subscription.platform} · kedaluwarsa{' '}
+                      {new Date(subscription.expiresAt).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </p>
+                    <p className="admin-note">Endpoint {subscription.endpoint}</p>
+                    <p className="admin-note">
+                      Keys {subscription.keys.p256dh} · {subscription.keys.auth}
+                    </p>
+                    <p className="admin-note">
+                      Kontrak payload: maks {PUSH_CONTRACT.maxPayloadKb} KB, TTL wajib,{' '}
+                      userVisibleOnly.
+                    </p>
+                    <button
+                      type="button"
+                      className="admin-btn-ghost"
+                      onClick={() => {
+                        dispatch(clearPush())
+                        toast.success('Registrasi push dimatikan')
+                      }}
+                    >
+                      Matikan push
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <p className="admin-note">
+                      Daftarkan perangkat untuk menerima update pesanan tanpa membuka aplikasi.
+                      Mock: subscription disimpan di store; pengiriman push belum ada di repo ini.
+                    </p>
+                    <button
+                      type="button"
+                      className="btn-profile-primary"
+                      onClick={() => {
+                        dispatch(
+                          registerPush({
+                            subscription: mockPushSubscription(
+                              navigator.userAgent.includes('Mobile') ? 'mobile-web' : 'web',
+                            ),
+                          }),
+                        )
+                        toast.success('Push terdaftar (mock)')
+                      }}
+                    >
+                      Aktifkan push
+                    </button>
+                  </>
+                )}
+              </section>
 
               <button
                 type="button"

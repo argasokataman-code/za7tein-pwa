@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { signUpSchema, type SignUpFormData } from '../lib/schemas'
+import { WA_PHONE_HINT } from '../data/phone'
 
 export default function SignUp() {
   const {
@@ -55,7 +56,7 @@ export default function SignUp() {
                     </div>
                     <div className="form-group">
                       <label htmlFor="phone" className="form-label">
-                        Phone Number
+                        Phone Number (WhatsApp)
                       </label>
                       <div className="phone-wrapper">
                         <div className="country-selector">
@@ -93,12 +94,13 @@ export default function SignUp() {
                             </g>
                           </svg>
                           <span className="country-code">
-                            +1
+                            +62
                           </span>
                           <ChevronDown size={16} strokeWidth={1.75} className="dropdown-icon" />
                         </div>
-                        <input id="phone" className={`form-control phone-input${errors.phone ? " error" : ""}`} placeholder="Enter your number" type="tel"  {...register("phone")} />
+                        <input id="phone" className={`form-control phone-input${errors.phone ? " error" : ""}`} placeholder="+62 812 3456 7890" type="tel"  {...register("phone")} />
                       {errors.phone ? (<span className="error-message">{errors.phone.message}</span>) : null}
+                      <p className="phone-hint">{WA_PHONE_HINT}</p>
                       </div>
                     </div>
                     <div className="form-group">

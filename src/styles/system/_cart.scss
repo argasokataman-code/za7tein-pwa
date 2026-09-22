@@ -522,3 +522,47 @@
   color: var(--on-brand);
   cursor: pointer;
 }
+
+/* ── Fallback WA saat lawan offline (M8) ─────────────────────────────────── */
+
+.chat-fallback {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-3) var(--space-5);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+
+.chat-fallback__text {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.chat-fallback__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chat-chip--demo {
+  border-style: dashed;
+}
+
+/* Hint format nomor WA (M8) */
+.phone-hint {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}

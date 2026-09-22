@@ -3,7 +3,7 @@
 // mendasarinya — sementara halaman /notifications ternyata berisi preferensi
 // toggle, bukan daftar notifikasi. Jadi lonceng berbadge "3" membuka halaman
 // yang tidak memuat satu pun notifikasi.
-import type { AppNotification } from '../types'
+import type { AppNotification, PushSubscriptionRecord } from '../types'
 
 /** Tiga yang belum dibaca, supaya cocok dengan badge lonceng yang sudah ada. */
 export const mockNotifications: AppNotification[] = [
@@ -56,4 +56,30 @@ export const mockNotifications: AppNotification[] = [
     unread: false,
   },
 ]
+
+/* ── Push (R-PUSH-01, M8) ──────────────────────────────────────────────────── */
+
+/**
+ * Ketentuan payload push dari PRD. Ditampilkan di layar pengaturan sebagai
+ * kontrak, bukan diimplementasikan: repo ini tidak punya service worker push,
+ * jadi tidak ada notifikasi yang benar-benar dikirim.
+ */
+export const PUSH_CONTRACT = {
+  maxPayloadKb: 4,
+  ttlRequired: true,
+  userVisibleOnly: true,
+} as const
+
+/**
+ * Subscription mock. Endpoint sengaja domain contoh supaya jelas tidak ada
+ * server push yang menerima; kuncinya dipotong karena bukan kunci nyata.
+ */
+export function mockPushSubscription(platform = 'web'): PushSubscriptionRecord {
+  return {
+    endpoint: 'https://push.sa7tein.example/sub/9f2c1b',
+    keys: { p256dh: 'BOr…mock…p256dh', auth: 'K7f…mock' },
+    platform,
+    expiresAt: new Date(Date.now() + 30 * 24 * 3_600_000).toISOString(),
+  }
+}
 

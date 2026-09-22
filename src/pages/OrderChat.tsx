@@ -6,12 +6,13 @@
 // tidak punya backend, dan menyimpannya di store berarti percakapan ikut
 // tersimpan ke localStorage lewat redux-persist, yang justru bikin keadaan
 // aneh saat dibuka lagi berhari-hari kemudian.
-import { ArrowLeft, Send } from 'lucide-react'
+import { ArrowLeft, MessageCircle, Send } from 'lucide-react'
 
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { mockCouriers, mockOrder } from '../data/merchant'
+import { waLink } from '../data/phone'
 
 type Pesan = {
   id: number
@@ -55,6 +56,12 @@ export default function OrderChat() {
   const [pesan, setPesan] = useState<Pesan[]>(AWAL)
   const [draf, setDraf] = useState('')
   const [menulis, setMenulis] = useState(false)
+  /**
+   * Lawan (kurir) offline → balasan otomatis berhenti dan tombol fallback WA
+   * muncul (M8). Awalnya online; tombol demo di bawah thread yang mematikan
+   * presence, karena mock ini tidak punya soket presence sungguhan.
+   */
+  const [offline, setOffline] = useState(false)
   const nomorBalasan = useRef(0)
   const ujungDaftar = useRef<HTMLDivElement>(null)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -81,6 +88,9 @@ export default function OrderChat() {
       { id: Date.now(), dari: 'aku', teks: isi, jam: jam() },
     ])
     setDraf('')
+    // Lawan offline: pesan tetap tampil, tapi tidak ada balasan otomatis yang
+    // berpura-pura kurirnya masih membaca (M8).
+    if (offline) return
     setMenulis(true)
 
     timer.current = setTimeout(() => {
@@ -111,7 +121,11 @@ export default function OrderChat() {
             <div className="chat-header__who">
               <span className="chat-header__name">{courier.name}</span>
               <span className="chat-header__status">
-                {menulis ? 'sedang menulis…' : 'Kurir · pesanan ' + mockOrder.code}
+                {offline
+                  ? 'Kurir sedang offline'
+                  : menulis
+                    ? 'sedang menulis…'
+                    : 'Kurir · pesanan ' + mockOrder.code}
               </span>
             </div>
 
@@ -137,6 +151,28 @@ export default function OrderChat() {
             <div ref={ujungDaftar} />
           </div>
 
+          {/* Fallback WA (M8): tampil hanya saat lawan offline, dengan deep link
+              wa.me berisi nomor E.164 + teks order supaya konteksnya ikut. */}
+          {offline ? (
+            <div className="chat-fallback" role="status">
+              <p className="chat-fallback__text">
+                Kurir offline — balasan otomatis dimatikan. Lanjut lewat WhatsApp?
+              </p>
+              <a
+                className="chat-fallback__cta"
+                href={waLink(
+                  courier.phone,
+                  `Halo ${courier.name}, ini soal pesanan ${mockOrder.code}.`,
+                )}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <MessageCircle size={16} strokeWidth={1.75} aria-hidden="true" />
+                Chat WhatsApp
+              </a>
+            </div>
+          ) : null}
+
           <div className="chat-suggestions">
             {SARAN.map((s) => (
               <button
@@ -148,6 +184,13 @@ export default function OrderChat() {
                 {s}
               </button>
             ))}
+            <button
+              type="button"
+              className="chat-chip chat-chip--demo"
+              onClick={() => setOffline((v) => !v)}
+            >
+              {offline ? 'Kurir kembali online' : 'Simulasi: kurir offline'}
+            </button>
           </div>
 
           <form

@@ -1,13 +1,18 @@
 import { z } from 'zod'
 
+import { isE164, toE164 } from '../data/phone'
+
 // Sa7tein memakai nomor HP sebagai identitas login (PRD bab 02), jadi email
 // tidak lagi wajib. Pesan validasi memakai Bahasa Indonesia.
 
-/** Nomor HP Indonesia: 08xx / +628xx / 628xx. */
+/**
+ * Nomor WA wajib E.164 (R-PUSH-01, M8): `+62…` atau `+962…`. Nomor lokal
+ * (`08xx`) dinormalisasi dulu, jadi input lama tetap lolos validasi.
+ */
 export const phoneField = z
   .string()
   .min(1, 'Nomor HP wajib diisi')
-  .regex(/^(\+62|62|0)8[1-9][0-9]{6,11}$/, 'Format nomor HP tidak valid')
+  .refine((value) => isE164(toE164(value)), 'Format nomor WA tidak valid (+62… atau +962…)')
 
 export const signInSchema = z.object({
   phone: phoneField,

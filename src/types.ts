@@ -230,6 +230,23 @@ export interface AppNotification {
   unread: boolean
 }
 
+/**
+ * Subscription Web Push (R-PUSH-01, M8). Bentuknya mengikuti kontrak BE
+ * (`endpoint`, `keys`, `platform`, `expiresAt`); di repo ini registrasinya mock —
+ * tidak ada service worker push yang mengirim (AGENTS §1).
+ *
+ * Namanya diberi akhiran `Record` supaya tidak bentrok dengan `PushSubscription`
+ * milik DOM — kalau namanya sama, TypeScript diam-diam memakai tipe global dan
+ * errornya baru muncul jauh dari penyebabnya.
+ */
+export interface PushSubscriptionRecord {
+  endpoint: string
+  keys: { p256dh: string; auth: string }
+  platform: string
+  /** ISO — kapan subscription perlu diperbarui. */
+  expiresAt: string
+}
+
 /** Status order dari sudut pandang merchant. Menumpang `OrderStage` yang sudah ada. */
 export type MerchantOrderStatus = 'masuk' | OrderStage | 'selesai' | 'ditolak' | 'batal'
 
