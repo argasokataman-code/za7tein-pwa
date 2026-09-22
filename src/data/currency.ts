@@ -29,6 +29,14 @@ export function idrToJod(idr: number): number {
   return Number((idr / MOCK_EXCHANGE_RATE.rate).toFixed(2))
 }
 
+/**
+ * Kembalikan nominal JOD ke IDR utuh. Dipakai untuk konstanta yang PRD tetapkan
+ * dalam JOD (fee, ambang top-up) supaya state tetap IDR (R-CURR-01).
+ */
+export function jodToIdr(value: number): number {
+  return Math.round(value * MOCK_EXCHANGE_RATE.rate)
+}
+
 /** Nominal JOD, mis. `1,09 JOD`. */
 export function jod(value: number): string {
   return `${value.toFixed(2).replace('.', ',')} JOD`

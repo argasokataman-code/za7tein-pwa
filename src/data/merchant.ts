@@ -1,5 +1,7 @@
 import type { Courier, DeliveryZone, Merchant, OrderStage, PaymentMethod } from '../types'
 
+import { jodToIdr } from './currency'
+
 export const MAX_DELIVERY_METERS = 2000
 
 /**
@@ -15,6 +17,23 @@ export const PLATFORM_FEE_JOD = PLATFORM_FEE_MERCHANT_JOD + PLATFORM_FEE_CUSTOME
 /** Akun baru wajib top-up minimal 3,5 JOD (Rp80.500) sebelum bisa order (R-TOPUP-01). */
 export const MIN_TOPUP_NEW_ACCOUNT_JOD = 3.5
 
+/**
+ * Padanan IDR dari konstanta yang PRD tetapkan dalam JOD. State dan perhitungan
+ * tetap IDR; angka JOD di atas hanya nominal kontrak.
+ */
+export const PLATFORM_FEE_MERCHANT_IDR = jodToIdr(PLATFORM_FEE_MERCHANT_JOD)
+export const PLATFORM_FEE_CUSTOMER_IDR = jodToIdr(PLATFORM_FEE_CUSTOMER_JOD)
+export const MIN_TOPUP_NEW_ACCOUNT_IDR = jodToIdr(MIN_TOPUP_NEW_ACCOUNT_JOD)
+
+/**
+ * Gate saldo awal (R-TOPUP-01, guard flow F3): akun wajib punya minimal 3,5 JOD
+ * sebelum bisa order — berlaku **semua metode**, bukan cuma bayar pakai saldo.
+ * Saldo tepat di ambang dinyatakan lolos (`>=`).
+ */
+export function needsTopUpGate(availableIdr: number): boolean {
+  return availableIdr < MIN_TOPUP_NEW_ACCOUNT_IDR
+}
+
 /** Zona pengantaran — tarif naik seiring radius (PRD bab 04). */
 export const DELIVERY_ZONES: DeliveryZone[] = [
   { id: 'A', label: 'Zona A', range: '< 600 m', fee: 5000 },
@@ -22,16 +41,21 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
   { id: 'C', label: 'Zona C', range: '1,5 km – 2 km', fee: 13000 },
 ]
 
-/** PRD: tanpa payment gateway — hanya COD dan transfer manual. */
+/** Metode bayar PRD v2 — saldo wallet dulu; COD & transfer legacy tetap ada (OQ-25). */
 export const PAYMENT_METHODS: PaymentMethod[] = [
+  {
+    id: 'wallet',
+    label: 'Saldo Sa7tein',
+    description: 'Bayar dari saldo wallet Sa7tein — top-up lewat Xendit (VA/QRIS).',
+  },
   {
     id: 'cod',
     label: 'COD — Bayar di Tempat',
-    description: 'Bayar tunai ke kurir toko saat pesanan tiba.',
+    description: 'Saldo dipotong (hold) saat kurir match, settle setelah OTP.',
   },
   {
     id: 'transfer',
-    label: 'Transfer Manual',
+    label: 'Transfer Manual (legacy)',
     description: 'Transfer ke rekening toko, lalu unggah bukti transfer.',
   },
 ]

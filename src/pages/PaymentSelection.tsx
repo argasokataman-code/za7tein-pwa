@@ -1,5 +1,5 @@
-// PRD: tanpa payment gateway. Hanya COD dan transfer manual ke rekening toko.
-import { ChevronLeft, CheckCircle2, Banknote, Landmark } from 'lucide-react'
+// Metode bayar (PRD v2): saldo Sa7tein, COD, dan transfer manual legacy.
+import { ChevronLeft, CheckCircle2, Banknote, Landmark, Wallet } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -8,16 +8,10 @@ import { PAYMENT_METHODS, mockMerchant } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setPayment } from '../store/slices/cartSlice'
 
-function CodIcon() {
-  return (
-    <Banknote size={26} strokeWidth={1.75} color="var(--on-brand)" />
-  )
-}
-
-function TransferIcon() {
-  return (
-    <Landmark size={26} strokeWidth={1.75} color="var(--on-brand)" />
-  )
+const METHOD_ICONS: Record<string, typeof Wallet> = {
+  wallet: Wallet,
+  cod: Banknote,
+  transfer: Landmark,
 }
 
 export default function PaymentSelection() {
@@ -58,7 +52,10 @@ export default function PaymentSelection() {
                       onClick={() => choose(m.id, m.label)}
                     >
                       <div className="payment-icon">
-                        {m.id === 'cod' ? <CodIcon /> : <TransferIcon />}
+                        {(() => {
+                          const Icon = METHOD_ICONS[m.id] ?? Wallet
+                          return <Icon size={26} strokeWidth={1.75} color="var(--on-brand)" />
+                        })()}
                       </div>
                       <div className="payment-info">
                         <h3 className="payment-name">

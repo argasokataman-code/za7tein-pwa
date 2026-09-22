@@ -7,7 +7,16 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import { PAYMENT_METHODS, formatDistance, isDeliverable, money, zoneFor } from '../data/merchant'
+import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
+import {
+  PAYMENT_METHODS,
+  PLATFORM_FEE_CUSTOMER_IDR,
+  formatDistance,
+  isDeliverable,
+  money,
+  needsTopUpGate,
+  zoneFor,
+} from '../data/merchant'
 import { mockMerchant } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -30,10 +39,12 @@ export default function PaymentAmount() {
   const zone = address ? zoneFor(address.distanceMeters) : null
   const deliverable = address ? isDeliverable(address.distanceMeters) : false
   const fee = zone?.fee ?? 0
-  const total = subtotal + fee
+  const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
   const method = PAYMENT_METHODS.find((m) => m.id === paymentId) ?? PAYMENT_METHODS[0]
   const needsProof = method.id === 'transfer'
-  const canPay = deliverable && items.length > 0 && (!needsProof || proof !== null)
+  const walletAvailable = useAppSelector((s) => s.wallet.balance.available)
+  const gated = needsTopUpGate(walletAvailable)
+  const canPay = deliverable && items.length > 0 && (!needsProof || proof !== null) && !gated
 
   const pickProof = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -53,6 +64,10 @@ export default function PaymentAmount() {
     }
     if (needsProof && !proof) {
       toast.error('Unggah bukti transfer dulu')
+      return
+    }
+    if (gated) {
+      toast.error('Saldo di bawah 3,5 JOD — top-up dulu')
       return
     }
     navigate('/order-placed')
@@ -110,6 +125,14 @@ export default function PaymentAmount() {
                   </span>
                   <span>
                     {deliverable ? money(fee) : '—'}
+                  </span>
+                </div>
+                <div className="summary-item">
+                  <span>
+                    Biaya Layanan
+                  </span>
+                  <span>
+                    {money(PLATFORM_FEE_CUSTOMER_IDR)}
                   </span>
                 </div>
                 <div className="summary-item">
@@ -182,9 +205,14 @@ export default function PaymentAmount() {
                 </div>
               </div>
             </div>
+            <WalletTopUpGate />
             <div className="payment-amount-footer">
               <button className="btn btn-primary pay-btn" disabled={!canPay} onClick={pay}>
-                {method.id === 'cod' ? `Pesan — ${money(total)}` : `Bayar — ${money(total)}`}
+                {gated
+                  ? 'Top-up dulu · saldo kurang'
+                  : method.id === 'cod'
+                    ? `Pesan — ${money(total)}`
+                    : `Bayar — ${money(total)}`}
               </button>
             </div>
             <div className="home-indicator " />

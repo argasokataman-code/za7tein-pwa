@@ -27,4 +27,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '20', id: 'courier-design', label: 'Courier Console' },
   { num: '21', id: 'admin-design', label: 'Admin Panel (CS)' },
   { num: '22', id: 'currency', label: 'Mata Uang — IDR + JOD' },
+  { num: '23', id: 'checkout-fee', label: 'Fee Checkout & Gate Saldo' },
 ]

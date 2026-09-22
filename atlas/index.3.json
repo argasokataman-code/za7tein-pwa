@@ -3390,6 +3390,291 @@
         }
       ],
       "commit": "065e966"
+    },
+    {
+      "id": "TASK-2621",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+3/-1) — edit via tool: ts: import type { Courier, DeliveryZone, Me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-2622",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts (+12/-4) — edit via tool: ts: /** Padanan JOD, dibulatkan 2 desimal ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts"
+    },
+    {
+      "id": "TASK-2623",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+1/-1) — edit via tool: ts: selectedPaymentId: 'wallet',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-2624",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/wallet.ts (+17/-17) — edit via tool: ts: const AVAILABLE_IDR = 40_000 // 1,74 JO",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/wallet.ts"
+    },
+    {
+      "id": "TASK-2625",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_wallet-gate.scss (+27) — write via tool: /* ── Gate saldo awal (R-TOPU",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_wallet-gate.scss"
+    },
+    {
+      "id": "TASK-2626",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/WalletTopUpGate.tsx (+29) — write via tool: tsx: import { TriangleAlert",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/WalletTopUpGate.tsx"
+    },
+    {
+      "id": "TASK-2627",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+11/-2) — edit via tool: tsx: import { ExchangeRateNote } from '.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-2628",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx (+2/-2) — edit via tool: tsx: const fee = zone?.fee ?? 0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx"
+    },
+    {
+      "id": "TASK-2629",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentSelection.tsx (+15/-21) — edit via tool: tsx: // Metode bayar (PRD v2): ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentSelection.tsx"
+    },
+    {
+      "id": "TASK-2630",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:02:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+4/-3) — edit via tool: @use \"./system/app-shell\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-2631",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:03:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -4 && npm run build 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2632",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:03:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '22', id: 'currency', ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2633",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:03:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CheckoutFeeSection.tsx (+51) — write via tool: tsx: impo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CheckoutFeeSection.tsx"
+    },
+    {
+      "id": "TASK-2634",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:03:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { CurrencySection } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2635",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:03:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && npm run governance:c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

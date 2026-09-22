@@ -11,7 +11,16 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import { formatDistance, isDeliverable, mockMerchant, money, zoneFor } from '../data/merchant'
+import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
+import {
+  PLATFORM_FEE_CUSTOMER_IDR,
+  formatDistance,
+  isDeliverable,
+  mockMerchant,
+  money,
+  needsTopUpGate,
+  zoneFor,
+} from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
@@ -24,13 +33,17 @@ export default function Checkout() {
   const stored = useAppSelector((s) => s.cart.addresses)
   const addresses = stored?.length ? stored : mockUser.addresses
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
+  const walletAvailable = useAppSelector((s) => s.wallet.balance.available)
+  /** Gate saldo awal menahan langkah berikutnya, bukan cuma pesan (R-TOPUP-01). */
+  const gated = needsTopUpGate(walletAvailable)
 
   const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
   const zone = address ? zoneFor(address.distanceMeters) : null
   const deliverable = address ? isDeliverable(address.distanceMeters) : false
   const fee = deliverable ? (zone?.fee ?? 0) : 0
-  const total = subtotal + fee
+  // Fee customer flat 0,22 JOD (R-FEE-01) — selalu ikut, berapa pun metodenya.
+  const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
 
   return (
     <div className="app-shell">
@@ -194,6 +207,10 @@ export default function Checkout() {
                     <span>{deliverable ? money(fee) : '—'}</span>
                   </div>
                   <div className="summary-item">
+                    <span>Biaya Layanan</span>
+                    <span>{money(PLATFORM_FEE_CUSTOMER_IDR)}</span>
+                  </div>
+                  <div className="summary-item">
                     <span>Diskon</span>
                     <span>{money(0)}</span>
                   </div>
@@ -206,20 +223,30 @@ export default function Checkout() {
                 </div>
               </div>
 
+              <WalletTopUpGate />
+
               <div className="checkout-actions">
                 <button
                   type="button"
                   className="proceed-btn"
-                  disabled={!deliverable}
+                  disabled={!deliverable || gated}
                   onClick={() => {
                     if (!deliverable) {
                       toast.error('Alamat di luar jangkauan 2 km')
                       return
                     }
+                    if (gated) {
+                      toast.error('Saldo di bawah 3,5 JOD — top-up dulu')
+                      return
+                    }
                     navigate('/payment-selection')
                   }}
                 >
-                  {deliverable ? `Lanjut Bayar · ${money(total)}` : 'Di luar jangkauan'}
+                  {!deliverable
+                    ? 'Di luar jangkauan'
+                    : gated
+                      ? 'Top-up dulu · saldo kurang'
+                      : `Lanjut Bayar · ${money(total)}`}
                 </button>
               </div>
             </>

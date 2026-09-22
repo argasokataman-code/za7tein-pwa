@@ -28,7 +28,7 @@ const initialState: CartState = {
   ],
   addresses: mockUser.addresses,
   selectedAddressId: 'tower-a',
-  selectedPaymentId: 'cod',
+  selectedPaymentId: 'wallet',
   transferProof: null,
   orderStage: 'dimasak',
 }

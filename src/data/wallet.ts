@@ -7,7 +7,7 @@ import type { Payout, TopUp, Wallet } from '../types'
  * Angka sengaja tidak nol supaya layar M3 (available + pending) langsung punya
  * isi: satu order berjalan menyumbang `pending`.
  */
-const AVAILABLE_IDR = 80_500 // = 3,5 JOD, ambang top-up akun baru
+const AVAILABLE_IDR = 40_000 // 1,74 JOD — di bawah ambang, jadi gate checkout terlihat (M2)
 const PENDING_IDR = 23_000 // hold satu order berjalan (F2 COD hold)
 
 export const mockWallet: Wallet = {
@@ -19,7 +19,7 @@ export const mockWallet: Wallet = {
 export const mockTopUps: TopUp[] = [
   {
     id: 'tu-1',
-    amount: AVAILABLE_IDR,
+    amount: AVAILABLE_IDR + PENDING_IDR, // = saldo terkredit; 23.000 di antaranya ter-hold
     channel: 'xendit_va',
     status: 'completed',
     createdAt: '2026-09-22T09:15:00+07:00',
