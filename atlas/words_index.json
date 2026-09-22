@@ -3983,6 +3983,22 @@
     {
       "id": "TASK-2634",
       "shard": 3
+    },
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2644",
+      "shard": 3
     }
   ],
   "sa7tein": [
@@ -12145,6 +12161,22 @@
     {
       "id": "TASK-2634",
       "shard": 3
+    },
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2644",
+      "shard": 3
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -14298,6 +14330,18 @@
     },
     {
       "id": "TASK-2634",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2644",
       "shard": 3
     }
   ],
@@ -17169,6 +17213,22 @@
     {
       "id": "TASK-2634",
       "shard": 3
+    },
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2644",
+      "shard": 3
     }
   ],
   "tool:": [
@@ -20002,6 +20062,22 @@
     },
     {
       "id": "TASK-2634",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2644",
       "shard": 3
     }
   ],
@@ -23353,6 +23429,22 @@
     {
       "id": "TASK-2635",
       "shard": 3
+    },
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2644",
+      "shard": 3
     }
   ],
   "task-147": [
@@ -24388,6 +24480,10 @@
     },
     {
       "id": "TASK-2633",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2641",
       "shard": 3
     }
   ],
@@ -25579,6 +25675,10 @@
     {
       "id": "TASK-2087",
       "shard": 3
+    },
+    {
+      "id": "TASK-2641",
+      "shard": 3
     }
   ],
   "git": [
@@ -26620,6 +26720,10 @@
     },
     {
       "id": "TASK-2623",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
       "shard": 3
     }
   ],
@@ -35765,6 +35869,10 @@
     {
       "id": "TASK-2087",
       "shard": 3
+    },
+    {
+      "id": "TASK-2642",
+      "shard": 3
     }
   ],
   "<span": [
@@ -39260,6 +39368,10 @@
     },
     {
       "id": "DEC-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2641",
       "shard": 3
     }
   ],
@@ -57979,6 +58091,10 @@
     {
       "id": "TASK-1360",
       "shard": 3
+    },
+    {
+      "id": "TASK-2644",
+      "shard": 3
     }
   ],
   "f21": [
@@ -61423,11 +61539,19 @@
     {
       "id": "DEC-2004",
       "shard": 3
+    },
+    {
+      "id": "TASK-2641",
+      "shard": 3
     }
   ],
   "v2": [
     {
       "id": "DEC-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2641",
       "shard": 3
     }
   ],
@@ -62386,6 +62510,68 @@
   "task-2640": [
     {
       "id": "TASK-2640",
+      "shard": 3
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/docs/todo-v2-migration.md": [
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    }
+  ],
+  "(+66)": [
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    }
+  ],
+  "todo": [
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    }
+  ],
+  "(`irbid-mvp-v2-": [
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    }
+  ],
+  "task-2641": [
+    {
+      "id": "TASK-2641",
+      "shard": 3
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md": [
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2644",
+      "shard": 3
+    }
+  ],
+  "task-2642": [
+    {
+      "id": "TASK-2642",
+      "shard": 3
+    }
+  ],
+  "task-2643": [
+    {
+      "id": "TASK-2643",
+      "shard": 3
+    }
+  ],
+  "task-2644": [
+    {
+      "id": "TASK-2644",
       "shard": 3
     }
   ]
