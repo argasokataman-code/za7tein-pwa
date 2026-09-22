@@ -4887,6 +4887,178 @@
         }
       ],
       "commit": "4801c54"
+    },
+    {
+      "id": "TASK-2761",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:27:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+5/-6) — edit via tool: ts: /** Fee platform flat (PRD v2 \"Fee Plat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-2762",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:27:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss (+25/-1) — edit via tool: /* ── Baris info-only (pajak M7) ─",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss"
+    },
+    {
+      "id": "TASK-2763",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:27:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+10/-6) — edit via tool: tsx: <div className=\"summary-divider\" />",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-2764",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:27:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '27', id: 'dispute', l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2765",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:27:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/TaxSection.tsx (+62) — write via tool: tsx: import { Doc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/TaxSection.tsx"
+    },
+    {
+      "id": "TASK-2766",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:27:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: import { DisputeSection } from ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2767",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:27:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && ./scripts/flows-gate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-2010",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:28:10",
+      "tags": [
+        "tax",
+        "m7"
+      ],
+      "summary": "M7 pajak 2 lapis info-only di checkout: GST makanan 16% (merchant setor) + GST fee platform 16% (kewajiban platform), tak masuk total",
+      "conn": [
+        {
+          "id": "FEAT-2009",
+          "type": "relates",
+          "raw": "FEAT-2009:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2780",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:28:10",
+      "tags": [
+        "tax",
+        "m7"
+      ],
+      "summary": "Implement M7: konstanta+fungsi pajak di data/merchant.ts, 2 baris info di Checkout, docs 28; gate f4 PASS",
+      "conn": [
+        {
+          "id": "FEAT-2010",
+          "type": "relates",
+          "raw": "FEAT-2010:relates"
+        }
+      ],
+      "commit": "53750e8"
     }
   ]
 }

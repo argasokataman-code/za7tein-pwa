@@ -33,6 +33,28 @@ export const PLATFORM_FEE_MERCHANT_IDR = jodToIdr(PLATFORM_FEE_MERCHANT_JOD)
 export const PLATFORM_FEE_CUSTOMER_IDR = jodToIdr(PLATFORM_FEE_CUSTOMER_JOD)
 export const MIN_TOPUP_NEW_ACCOUNT_IDR = jodToIdr(MIN_TOPUP_NEW_ACCOUNT_JOD)
 
+/* ── Pajak (R-TAX-01, F4) ────────────────────────────────────────────────────
+ * Dua lapis: GST makanan (merchant yang menyetor, objek = penjualan) dan GST
+ * atas fee platform (kewajiban platform, objek = fee 0,37 JOD per order).
+ *
+ * Tarif 16% ada di acceptance M7, TAPI statusnya belum final: OQ-2/3/4 (tarif
+ * GST makanan, PPN ekspor jasa, status PKP) dan OQ-17/18 masih terbuka. Karena
+ * itu angkanya dipakai untuk tampilan dengan tanda "belum final" — jangan
+ * diklaim sebagai tarif final dan jangan dipakai menghitung setoran.
+ */
+export const GST_FOOD_PERCENT = 16
+export const PLATFORM_GST_PERCENT = 16
+
+/** Nilai GST makanan untuk sebuah subtotal (info-only, tidak masuk total bayar). */
+export function gstFoodIdr(subtotalIdr: number): number {
+  return Math.round((subtotalIdr * GST_FOOD_PERCENT) / 100)
+}
+
+/** GST atas objek fee platform 0,37 JOD (info-only, tak masuk total bayar). */
+export function platformGstIdr(): number {
+  return Math.round((jodToIdr(PLATFORM_FEE_JOD) * PLATFORM_GST_PERCENT) / 100)
+}
+
 /**
  * Gate saldo awal (R-TOPUP-01, guard flow F3): akun wajib punya minimal 3,5 JOD
  * sebelum bisa order — berlaku **semua metode**, bukan cuma bayar pakai saldo.

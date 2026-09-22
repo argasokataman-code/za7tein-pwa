@@ -481,6 +481,30 @@
   font-size: var(--text-sm);
 }
 
+/* ── Baris info-only (pajak M7) ───────────────────────────────────────────── */
+
+.summary-item--info {
+  color: var(--text-secondary);
+}
+
+.summary-info-tag {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.summary-info-note {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
 .chat-compose__input:focus {
   border-color: var(--sa7tein-orange);
   outline: none;

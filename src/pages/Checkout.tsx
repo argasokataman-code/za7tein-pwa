@@ -13,12 +13,16 @@ import toast from 'react-hot-toast'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
+  GST_FOOD_PERCENT,
   PLATFORM_FEE_CUSTOMER_IDR,
+  PLATFORM_GST_PERCENT,
   formatDistance,
+  gstFoodIdr,
   isDeliverable,
   mockMerchant,
   money,
   needsTopUpGate,
+  platformGstIdr,
   zoneFor,
 } from '../data/merchant'
 import { mockUser } from '../data/user'
@@ -210,6 +214,23 @@ export default function Checkout() {
                     <span>Biaya Layanan</span>
                     <span>{money(PLATFORM_FEE_CUSTOMER_IDR)}</span>
                   </div>
+                  {/* Pajak 2 lapis (R-TAX-01, F4) — info-only di MVP: tidak
+                      menambah total, karena tarif & kewajiban setornya belum
+                      final (OQ-2/3/4, OQ-17/18). */}
+                  <div className="summary-item summary-item--info">
+                    <span>
+                      GST makanan ({GST_FOOD_PERCENT}%)
+                      <span className="summary-info-tag">merchant setor</span>
+                    </span>
+                    <span>{money(gstFoodIdr(subtotal))}</span>
+                  </div>
+                  <div className="summary-item summary-item--info">
+                    <span>
+                      GST fee platform ({PLATFORM_GST_PERCENT}%)
+                      <span className="summary-info-tag">kewajiban platform</span>
+                    </span>
+                    <span>{money(platformGstIdr())}</span>
+                  </div>
                   <div className="summary-item">
                     <span>Diskon</span>
                     <span>{money(0)}</span>
@@ -219,6 +240,10 @@ export default function Checkout() {
                     <span>Total Bayar</span>
                     <span>{money(total)}</span>
                   </div>
+                  <p className="summary-info-note">
+                    Dua baris pajak di atas info-only — belum masuk total. Tarif dan kewajiban
+                    setornya belum final (menunggu konsultan pajak, OQ-17/18).
+                  </p>
                   <ExchangeRateNote />
                 </div>
               </div>

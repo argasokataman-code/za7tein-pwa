@@ -32,4 +32,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '25', id: 'cod-hold', label: 'Hold COD via Wallet' },
   { num: '26', id: 'delivery-checkpoint', label: 'Checkpoint Pengiriman, SLA & Auto-settle' },
   { num: '27', id: 'dispute', label: 'Sengketa & Pembekuan Hold' },
+  { num: '28', id: 'tax', label: 'Pajak Dua Lapis (Info-only)' },
 ]
