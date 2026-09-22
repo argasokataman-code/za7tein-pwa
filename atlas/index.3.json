@@ -5577,6 +5577,196 @@
         }
       ],
       "commit": "0a5993f"
+    },
+    {
+      "id": "TASK-2821",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:34:22",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && pkill -f \"vite\" ; A=/Users/vanviakingali/.local/share/fnm/node-versions/v24.16.0/in",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2822",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:35:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/incentive.ts (+92) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/incentive.ts"
+    },
+    {
+      "id": "TASK-2823",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:35:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+42/-1) — edit via tool: ts: /** Tier rebate bulanan (R-INCENTIVE-01,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-2824",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:35:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts (+52/-23) — edit via tool: ts: import { createSlice, ty",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-2825",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:35:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+29/-16) — edit via tool: tsx: import { Bike, ChevronRig",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-2826",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:35:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '30', id: 'ledger', la",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2827",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:35:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { IncentiveSection } fro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2828",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:35:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/IncentiveSection.tsx (+83) — write via tool: tsx: import",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/IncentiveSection.tsx"
+    },
+    {
+      "id": "TASK-2829",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:36:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md (+10/-3) — edit via tool: ## Riwayat keputusan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md"
+    },
+    {
+      "id": "TASK-2830",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:36:19",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -4 && npm run build 2>&1 | tail -4 && npm run governance:c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

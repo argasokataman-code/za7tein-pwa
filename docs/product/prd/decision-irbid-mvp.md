@@ -13,6 +13,13 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 
 ## Riwayat keputusan
 
+### Lokasi state insentif merchant — 2026-09-23 (keputusan implementasi)
+
+- **Menyimpang dari kolom Mock state M10** `milestones.md` yang menulis `walletSlice`: modal 5 JOD dan cashback tier hidup di **`merchantSlice.credit`**.
+- Alasan: `walletSlice` adalah wallet **customer** (M3). Satu slice untuk dua pemilik uang yang berbeda membuat batas aktor kabur — layar customer bisa membaca uang merchant, dan guard role di repo ini bersandar pada nama slice.
+- Nama field tetap mengikuti kontrak BE (`merchant_credit_balance`, `rebate_tier`, `rebate_period`, `rebate_amount_jod`, `rebate_paid_at`), jadi perpindahan ke backend tidak mengubah nama.
+- Kolom Mock state M10 di `milestones.md` sudah dikoreksi di commit yang sama; detailnya di `/documentation` bagian 31.
+
 ### Klarifikasi peran konsol: Panel Admin (CS) vs Super Admin — 2026-09-23 (keputusan PO)
 
 - **Menggantikan sebagian `C-12`** (`analysis.md`): kalimat *"Portal keeps the name 'CS' and doubles as super admin"* **tidak lagi berlaku**. Konsol `/admin/*` adalah **panel admin platform yang dikelola CS** (approval tenant, deposit gate, dispute queue, liability, ledger, blacklist COD), dan **Super Admin adalah role terpisah**.

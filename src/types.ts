@@ -424,6 +424,47 @@ export interface LiabilitySummary {
   xenditBalance: number
 }
 
+/** Tier rebate bulanan (R-INCENTIVE-01, F9). */
+export type RebateTier = 'tier_1' | 'tier_2' | 'tier_3'
+
+/** Event modal/rebate merchant — sama dengan kontrak BE (M10). */
+export type MerchantCreditEventName =
+  | 'merchant_credit_granted'
+  | 'merchant_credit_debited'
+  | 'rebate_tier_reached'
+  | 'rebate_paid'
+
+/** Entry modal/rebate — append-only, alasan sama dengan ledger (M9). */
+export interface MerchantCreditEvent {
+  id: string
+  event: MerchantCreditEventName
+  /** JOD — nominal yang dipotong dari modal atau cashback yang dibayar. */
+  amountJod: number
+  at: string
+}
+
+/**
+ * State insentif merchant (M10). Semua nominal JOD karena kontraknya JOD
+ * (`merchant_credit_balance`, `rebate_amount_jod`); padanan IDR dihitung di
+ * layer tampilan seperti aturan R-CURR-01.
+ */
+export interface MerchantCreditState {
+  /** Sisa modal awal 5 JOD — non-tunai & non-withdrawal (I-3 belum final). */
+  merchantCreditBalance: number
+  /** `YYYY-MM` periode tier berjalan. */
+  rebatePeriod: string
+  /** Order settled pada periode ini — dasar ambang tier. */
+  settledThisPeriod: number
+  rebateTier: RebateTier | null
+  rebateAmountJod: number
+  /** null = tier sudah tercapai tapi cashback belum dibayar. */
+  rebatePaidAt: string | null
+  /** Dompet deposit merchant; cashback masuk ke sini, bukan ke modal. */
+  depositBalanceJod: number
+  /** Riwayat event modal & cashback, append-only. */
+  events: MerchantCreditEvent[]
+}
+
 /** Merchant aktif di konsol SA, dengan aksi guard suspend/blacklist. */
 export interface AdminMerchant {
   id: string
