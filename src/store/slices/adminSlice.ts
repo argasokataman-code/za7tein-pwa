@@ -88,7 +88,7 @@ const adminSlice = createSlice({
       if (dispute) dispute.status = 'investigating'
     },
     /**
-     * Putusan SA. Refund/release menambah satu entry ledger append-only (F8);
+     * Putusan panel CS. Refund/release menambah satu entry ledger append-only (F8);
      * `no_action` tidak menambah entry karena tidak mengubah saldo.
      */
     resolveDispute(
@@ -104,7 +104,7 @@ const adminSlice = createSlice({
       const entry = ledgerEntryFor(dispute, resolution, percent)
       if (entry) state.ledger.unshift(entry)
     },
-    /** Form "Ajukan Sengketa" dari sisi customer/merchant masuk ke queue SA. */
+    /** Form "Ajukan Sengketa" dari sisi customer/merchant masuk ke queue panel CS. */
     fileDispute(state, action: PayloadAction<Omit<Dispute, 'id' | 'status' | 'filedAt'>>) {
       state.disputes.unshift({
         ...action.payload,

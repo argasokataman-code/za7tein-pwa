@@ -74,8 +74,19 @@ export const DISPUTE_CATEGORIES = [
   'Lainnya',
 ]
 
-/** Empat resolusi F8 beserta efeknya — ditampilkan sebagai catatan tombol. */
-export const RESOLUTIONS: { id: DisputeResolution; label: string; effect: string }[] = [
+/**
+ * Window pengajuan sengketa (jam) dihitung dari order selesai. Angka 24 jam ada
+ * di PRD M6; finalisasi kategori + window menunggu volume (OQ-29), jadi jangan
+ * dianggap terkunci.
+ */
+export const DISPUTE_WINDOW_HOURS = 24
+
+/** Token status order setelah putusan — sama dengan kontrak BE `order.resolved_*`. */
+export function resolvedOrderToken(resolution: DisputeResolution): string {
+  return `resolved_${resolution === 'no_action' ? 'rejected' : resolution}`
+}
+
+/** Empat resolusi F8 beserta efeknya — ditampilkan sebagai catatan tombol. */export const RESOLUTIONS: { id: DisputeResolution; label: string; effect: string }[] = [
   { id: 'refund_full', label: 'Refund penuh', effect: '100% ke customer, fee customer ikut kembali' },
   { id: 'refund_partial', label: 'Refund sebagian', effect: 'X% ke customer, sisanya cair ke merchant' },
   { id: 'released', label: 'Release ke merchant', effect: 'Fee merchant tetap dipotong' },

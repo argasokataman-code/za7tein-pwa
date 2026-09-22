@@ -40,6 +40,8 @@ interface CartState {
   deliveryCheckpointAt: string | null
   /** GPS disnapshot sekali saat "Tiba" (kontrak BE M5), bukan tiap render. */
   gpsSnapshot: { lat: number; lng: number } | null
+  /** Order selesai — dasar window sengketa 24 jam (M6). */
+  orderCompletedAt: string | null
 }
 
 const initialState: CartState = {
@@ -65,6 +67,7 @@ const initialState: CartState = {
   deliveryCheckpoint: 'masuk',
   deliveryCheckpointAt: null,
   gpsSnapshot: null,
+  orderCompletedAt: null,
 }
 
 /** Id entry hold: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -200,11 +203,14 @@ const cartSlice = createSlice({
       if (state.deliveryCheckpoint !== 'tiba') return
       state.deliveryCheckpoint = 'selesai'
       state.deliveryCheckpointAt = new Date().toISOString()
+      // Window sengketa 24 jam (M6) dihitung dari titik ini.
+      state.orderCompletedAt = state.deliveryCheckpointAt
     },
     resetDelivery(state) {
       state.deliveryCheckpoint = 'masuk'
       state.deliveryCheckpointAt = null
       state.gpsSnapshot = null
+      state.orderCompletedAt = null
     },
   },
 })

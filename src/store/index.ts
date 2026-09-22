@@ -49,11 +49,13 @@ const rootReducer = combineReducers({
 
 // Hanya slice ini yang bertahan setelah reload.
 // Key persist milik Sa7tein.
+// `admin` ikut persist sejak M6: putusan sengketa dan entry ledger harus terbaca
+// lintas role (customer → panel CS), dan perpindahan role me-reload halaman.
 const persistConfig = {
   key: 'sa7tein',
   version: 2,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin'],
 }
 
 /**

@@ -60,6 +60,11 @@ interface DeliveryActionCardProps {
   actions?: ReactNode
   /** Bukti saat Tiba (customer: GPS + foto). Kurir tidak mengirim apa pun. */
   evidence?: ReactNode
+  /**
+   * Order sedang disputed → auto-settle dijeda sampai ada putusan (M6/F8).
+   * Ditampilkan sebagai catatan ganti, bukan timer yang jalan diam-diam.
+   */
+  autoSettlePaused?: boolean
 }
 
 /**
@@ -77,6 +82,7 @@ export function DeliveryActionCard({
   otpHint,
   actions,
   evidence,
+  autoSettlePaused = false,
 }: DeliveryActionCardProps) {
   const timer = timerOf(checkpoint, startedAt)
   const sla = slaRemainingMs(timer, now)
@@ -123,8 +129,13 @@ export function DeliveryActionCard({
       ) : null}
 
       {/* F5: order tidak boleh menggantung pending selamanya — OTP lewat tetap
-          auto-settle, bukan stuck. */}
-      {autoSettle ? (
+          auto-settle, bukan stuck. Kecuali order disputed: hold dibekukan sampai
+          ada putusan (F8), jadi auto-settle dijeda. */}
+      {autoSettle && autoSettlePaused ? (
+        <p className="courier-sla-note">
+          Auto-settle dijeda — order sedang disputed sampai panel CS memutuskan (F8).
+        </p>
+      ) : autoSettle ? (
         <p className="courier-sla-note">
           Customer lalai: window OTP {AUTO_SETTLE_MINUTES} menit lewat — order tetap auto-settle,
           tidak menggantung pending.

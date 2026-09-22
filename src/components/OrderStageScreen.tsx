@@ -10,6 +10,7 @@ import {
   DELIVERY_OTP_DEMO,
   COURIER_ACTION_LABEL,
 } from '../data/courier'
+import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import {
   HOLD_EVENT_LABEL,
   HOLD_STATUS_COPY,
@@ -123,6 +124,14 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const deliveryCheckpoint = useAppSelector((s) => s.cart.deliveryCheckpoint)
   const deliveryCheckpointAt = useAppSelector((s) => s.cart.deliveryCheckpointAt)
   const gpsSnapshot = useAppSelector((s) => s.cart.gpsSnapshot)
+  const orderCompletedAt = useAppSelector((s) => s.cart.orderCompletedAt)
+  // Sengketa hidup di `admin.disputes` — satu sumber untuk order yang sama,
+  // dibaca juga oleh antrean panel CS. Jadi order detail tidak menyimpan
+  // salinan status yang bisa berbeda dengan yang diputuskan CS.
+  const disputes = useAppSelector((s) => s.admin.disputes)
+  const dispute = disputes.find((d) => d.orderCode === mockOrder.code)
+  const isDisputed = dispute?.status === 'open' || dispute?.status === 'investigating'
+  const resolutionToken = dispute?.resolution ? resolvedOrderToken(dispute.resolution) : null
   const { now } = useTick()
   const [otp, setOtp] = useState('')
 
@@ -182,6 +191,13 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   // OTP pengiriman (F5). Kode benar menutup pengiriman; kalau hold COD sudah
   // di-cut, OTP yang sama juga menyelesaikan hold — satu serah terima fisik.
   const deliveryAction = COURIER_ACTION_LABEL[deliveryCheckpoint]
+
+  // Window sengketa 24 jam (M6) dihitung dari order selesai. Order yang belum
+  // lewat alur checkpoint dianggap masih di dalam window — mock, bukan aturan
+  // final (kategori + window masih OQ-29).
+  const disputeWindowOpen =
+    !orderCompletedAt ||
+    now - new Date(orderCompletedAt).getTime() < DISPUTE_WINDOW_HOURS * 3_600_000
 
   const submitDeliveryOtp = () => {
     if (otp !== DELIVERY_OTP_DEMO) {
@@ -261,7 +277,12 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                   <span className="hold-card__amount">{money(holdAmount)}</span>
                 </div>
                 <p className="hold-card__note">{holdCopy.note}</p>
-                {holdCopy.action || holdCopy.cancel ? (
+                {isDisputed && (holdStatus === 'held' || holdStatus === 'cut') ? (
+                  <p className="hold-card__note">
+                    Hold dibekukan sampai panel CS memutuskan sengketa (F8).
+                  </p>
+                ) : null}
+                {!isDisputed && (holdCopy.action || holdCopy.cancel) ? (
                   <div className="hold-card__actions">
                     {holdCopy.action ? (
                       <button className="track-action" type="button" onClick={advanceHold}>
@@ -386,6 +407,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 onOtpChange={setOtp}
                 onOtpSubmit={submitDeliveryOtp}
                 otpHint={`Kode demo: ${DELIVERY_OTP_DEMO}`}
+                autoSettlePaused={isDisputed}
                 evidence={
                   deliveryCheckpoint === 'tiba' && gpsSnapshot ? (
                     <p className="courier-card-sub">
@@ -415,9 +437,10 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
             )}
           </section>
 
-          {/* Sengketa hanya masuk akal setelah pesanan tiba — window 24 jam
-              dihitung dari order selesai (F8/M6). */}
-          {stage === 'tiba' ? (
+          {/* Sengketa (F8/M6): 1× per order, window 24 jam dari order selesai.
+              Antrean putusannya ada di panel CS (`/admin`), bukan konsol Super
+              Admin terpisah. */}
+          {stage === 'tiba' || dispute ? (
             <section className="track-section">
               <h2 className="track-section-title">Sengketa</h2>
               <div className="track-row">
@@ -425,21 +448,52 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                   <Scale size={20} strokeWidth={1.75} aria-hidden="true" />
                 </span>
                 <div className="track-row-text">
-                  <p className="track-row-name">Pesanan tidak sesuai?</p>
-                  <p className="track-row-note">
-                    1× per order, window 24 jam setelah pesanan selesai.
-                  </p>
+                  {dispute ? (
+                    <>
+                      <p className="track-row-name">
+                        {dispute.category}
+                        <span className={`admin-badge admin-badge--${dispute.status}`}>
+                          {disputeStatusLabel[dispute.status]}
+                        </span>
+                      </p>
+                      <p className="track-row-note">
+                        Diajukan {dispute.filedAt} oleh{' '}
+                        {dispute.filedBy === 'customer' ? 'customer' : 'merchant'} · 1× per order.
+                      </p>
+                      {resolutionToken ? (
+                        <p className="track-row-meta">
+                          Order {resolutionToken} ·{' '}
+                          {RESOLUTIONS.find((r) => r.id === dispute.resolution)?.label}
+                          {dispute.partialPercent ? ` (${dispute.partialPercent}%)` : ''}
+                        </p>
+                      ) : (
+                        <p className="track-row-meta">
+                          Hold dibekukan sampai panel CS memutuskan.
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <p className="track-row-name">Pesanan tidak sesuai?</p>
+                      <p className="track-row-note">
+                        1× per order, window {DISPUTE_WINDOW_HOURS} jam setelah pesanan selesai.
+                      </p>
+                    </>
+                  )}
                 </div>
-                <div className="track-actions">
-                  <button
-                    className="track-action"
-                    type="button"
-                    onClick={() => navigate(`/dispute?order=${mockOrder.code}&by=customer`)}
-                  >
-                    <IconScale />
-                    Ajukan
-                  </button>
-                </div>
+                {!dispute ? (
+                  <div className="track-actions">
+                    <button
+                      className="track-action"
+                      type="button"
+                      disabled={!disputeWindowOpen}
+                      onClick={() => navigate(`/dispute?order=${mockOrder.code}&by=customer`)}
+                    >
+                      <IconScale />
+                      {disputeWindowOpen ? 'Ajukan' : 'Window lewat'}
+                    </button>
+                  </div>
+                ) : null}
               </div>
             </section>
           ) : null}

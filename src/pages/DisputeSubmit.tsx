@@ -30,6 +30,12 @@ export default function DisputeSubmit() {
   const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const orderIdr = cartTotal > 0 ? cartTotal : DEMO_DISPUTE_ORDER_IDR
 
+  // 1× per order (F8): dicek langsung dari queue yang sama dengan yang dipakai
+  // panel CS, jadi tidak ada form kedua untuk order yang sudah disengketakan.
+  const alreadyFiled = useAppSelector((s) =>
+    s.admin.disputes.some((d) => d.orderCode === orderCode),
+  )
+
   const [party, setParty] = useState('')
   const [category, setCategory] = useState('')
   const [reason, setReason] = useState('')
@@ -37,6 +43,10 @@ export default function DisputeSubmit() {
 
   function submit(event: FormEvent) {
     event.preventDefault()
+    if (alreadyFiled) {
+      toast.error('Order ini sudah pernah disengketakan (1× per order)')
+      return
+    }
     if (!category) {
       toast.error('Pilih kategori sengketa dulu')
       return
@@ -159,9 +169,14 @@ export default function DisputeSubmit() {
             {photoCount > 0 ? `${photoCount} foto dipilih` : 'Belum ada foto dipilih'}
           </p>
 
-          <button className="btn btn-primary" type="submit">
-            Kirim sengketa
+          <button className="btn btn-primary" type="submit" disabled={alreadyFiled}>
+            {alreadyFiled ? 'Sudah pernah diajukan' : 'Kirim sengketa'}
           </button>
+          {alreadyFiled ? (
+            <p className="admin-note" role="status">
+              Order {orderCode} sudah ada di antrean panel CS — 1× per order.
+            </p>
+          ) : null}
           <p className="admin-note">
             1× per order, window 24 jam setelah order selesai. Kategori dan window masih sementara
             (OQ-29) — form ini state tampilan, bukan aturan yang dikunci.

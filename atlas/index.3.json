@@ -4581,6 +4581,312 @@
         }
       ],
       "commit": "895b04f"
+    },
+    {
+      "id": "TASK-2741",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:23:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts (+13/-1) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2742",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:23:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+14/-11) — edit via tool: ts: /** OTP benar → pengiriman s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-2743",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:23:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/DeliveryCheckpoints.tsx (+10/-5) — edit via tool: tsx: /** Aksi milik pema",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/DeliveryCheckpoints.tsx"
+    },
+    {
+      "id": "TASK-2744",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:23:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+11/-3) — edit via tool: tsx: const gpsSnapshot = us",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-2745",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:24:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+60/-28) — edit via tool: tsx: {/* Sengketa (F8/M6):",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-2746",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:24:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/DisputeSubmit.tsx (+7/-3) — edit via tool: tsx: function submit(event: FormEven",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/DisputeSubmit.tsx"
+    },
+    {
+      "id": "TASK-2747",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:24:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/adminSlice.ts (+1/-1) — edit via tool: ts: /** Form \"Ajukan Sengketa\" da",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/adminSlice.ts"
+    },
+    {
+      "id": "TASK-2748",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:24:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DisputeSection.tsx (+96) — write via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DisputeSection.tsx"
+    },
+    {
+      "id": "TASK-2749",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:24:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '26', id: 'delivery-ch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2750",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:24:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: import { DeliveryCheckpointSect",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2751",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:24:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && npm run governance:c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2752",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:25:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+10/-8) — edit via tool: ts: // Hanya slice ini yang bertahan setelah",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-2753",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:26:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && pkill -f \"vite\" ; npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && np",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-2009",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:26:32",
+      "tags": [
+        "dispute",
+        "m6"
+      ],
+      "summary": "M6 sengketa: order detail baca admin.disputes, 1x per order, window 24 jam dari orderCompletedAt, hold dibekukan + auto-settle dijeda, token",
+      "conn": [
+        {
+          "id": "FEAT-2008",
+          "type": "relates",
+          "raw": "FEAT-2008:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-2005",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:26:32",
+      "tags": [
+        "store",
+        "persist",
+        "m6"
+      ],
+      "summary": "Slice admin ikut whitelist persist sejak M6: putusan sengketa + ledger harus terbaca lintas role, dan pindah role me-reload halaman",
+      "conn": [
+        {
+          "id": "FEAT-2009",
+          "type": "relates",
+          "raw": "FEAT-2009:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2760",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:26:33",
+      "tags": [
+        "dispute",
+        "m6"
+      ],
+      "summary": "Implement M6: guard 1x/window, freeze hold, pause auto-settle, token resolved_*, persist admin, docs 27; gate f8 PASS",
+      "conn": [
+        {
+          "id": "FEAT-2009",
+          "type": "relates",
+          "raw": "FEAT-2009:relates"
+        }
+      ],
+      "commit": "4801c54"
     }
   ]
 }
