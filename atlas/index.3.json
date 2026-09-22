@@ -3675,6 +3675,48 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "FEAT-2005",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:04:35",
+      "tags": [
+        "fee",
+        "gate",
+        "m2",
+        "checkout"
+      ],
+      "summary": "M2 checkout: baris Biaya Layanan fee customer 0,22 JOD, metode wallet/cod/transfer, gate saldo 3,5 JOD memblokir CTA + kartu WalletTopUpGate",
+      "conn": [
+        {
+          "id": "FEAT-2004",
+          "type": "relates",
+          "raw": "FEAT-2004:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2640",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:04:35",
+      "tags": [
+        "fee",
+        "gate",
+        "m2"
+      ],
+      "summary": "Implement M2: fee IDR dari jodToIdr, needsTopUpGate, WalletTopUpGate, PAYMENT_METHODS +wallet, docs section 23; gate f1/f3/f4 PASS",
+      "conn": [
+        {
+          "id": "FEAT-2005",
+          "type": "relates",
+          "raw": "FEAT-2005:relates"
+        }
+      ],
+      "commit": "4aaf497"
     }
   ]
 }
