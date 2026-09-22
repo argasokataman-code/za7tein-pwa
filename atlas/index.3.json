@@ -4078,6 +4078,46 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "FEAT-2006",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:13:27",
+      "tags": [
+        "wallet",
+        "m3",
+        "prd-v2"
+      ],
+      "summary": "M3 wallet: /wallet (available+pending), /wallet/top-up (preset JOD, VA/QRIS, pending->webhook), /wallet/payout (hold saat request, fee OQ-22",
+      "conn": [
+        {
+          "id": "FEAT-2005",
+          "type": "relates",
+          "raw": "FEAT-2005:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2700",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:13:27",
+      "tags": [
+        "wallet",
+        "m3"
+      ],
+      "summary": "Implement M3: 3 layar wallet + aksi slice + gate CTA ke top-up, docs section 24; gate f3/f6 PASS, loop gate tertutup",
+      "conn": [
+        {
+          "id": "FEAT-2006",
+          "type": "relates",
+          "raw": "FEAT-2006:relates"
+        }
+      ],
+      "commit": "5a18943"
     }
   ]
 }
