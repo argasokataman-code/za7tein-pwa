@@ -1,4 +1,4 @@
-import { ArrowRight, Bell, CircleHelp, CreditCard, FileText, Globe, LockKeyhole, Shield, UserRound } from 'lucide-react'
+import { ArrowRight, Bell, CircleHelp, CreditCard, FileText, Globe, LockKeyhole, Shield, UserRound, Wallet } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link, useNavigate } from 'react-router-dom'
@@ -100,6 +100,19 @@ export default function Profile() {
                       </div>
                       <span className="edit-profile">
                         Language
+                      </span>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
+                    </div>
+                  </Link>
+                  <Link className="item-list" aria-label="Saldo Sa7tein" to="/wallet">
+                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                      <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
+                        <Wallet size={20} strokeWidth={1.75} />
+                      </div>
+                      <span className="edit-profile">
+                        Saldo Sa7tein
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>

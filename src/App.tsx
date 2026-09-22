@@ -70,6 +70,9 @@ import Security from './pages/Security'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Verification from './pages/Verification'
+import WalletBalance from './pages/WalletBalance'
+import WalletPayout from './pages/WalletPayout'
+import WalletTopUp from './pages/WalletTopUp'
 import YourCard from './pages/YourCard'
 
 // Tiap peran punya prefix URL sendiri dan BrowserRouter basename sendiri, jadi
@@ -119,6 +122,9 @@ const customerRoutes: [string, ComponentType][] = [
   ['/dispute', DisputeSubmit],
   ['/rating-driver', RatingDriver],
   ['/profile', Profile],
+  ['/wallet', WalletBalance],
+  ['/wallet/top-up', WalletTopUp],
+  ['/wallet/payout', WalletPayout],
   ['/personal-data', PersonalData],
   ['/add-profile-photo', AddProfilePhoto],
   ['/change-password', ChangePassword],

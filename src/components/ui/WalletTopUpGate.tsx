@@ -1,4 +1,5 @@
 import { TriangleAlert } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import { MIN_TOPUP_NEW_ACCOUNT_IDR, needsTopUpGate } from '../../data/merchant'
 import { money } from '../../data/currency'
@@ -6,8 +7,8 @@ import { useAppSelector } from '../../hooks/useAppStore'
 
 /**
  * Gate saldo awal (R-TOPUP-01) — ditampilkan di checkout/pembayaran kalau saldo
- * `available` di bawah 3,5 JOD. Layar top-up ada di M3; sampai itu dibangun, gate
- * cuma menjelaskan kenapa pembayaran diblokir.
+ * `available` di bawah 3,5 JOD. Tombol di dalamnya menuju layar top-up (M3),
+ * karena gate tanpa jalan keluar cuma memblokir.
  */
 export function WalletTopUpGate() {
   const available = useAppSelector((s) => s.wallet.balance.available)
@@ -20,8 +21,11 @@ export function WalletTopUpGate() {
         <p className="wallet-gate__title">Top-up dulu, minimal {money(MIN_TOPUP_NEW_ACCOUNT_IDR)}</p>
         <p className="wallet-gate__body">
           Saldo kamu {money(available)}. Gate saldo awal berlaku untuk semua metode, bukan cuma
-          bayar pakai saldo. Layar top-up menyusul (M3).
+          bayar pakai saldo.
         </p>
+        <Link className="wallet-gate__cta" to="/wallet/top-up">
+          Top-up sekarang
+        </Link>
       </div>
     </div>
   )
