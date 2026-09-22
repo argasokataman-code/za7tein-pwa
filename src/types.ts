@@ -132,13 +132,54 @@ export interface Card {
   image: string
 }
 
-/** PRD: hanya COD dan transfer manual — tanpa payment gateway. */
-export type PaymentMethodId = 'cod' | 'transfer'
+/** Metode bayar PRD v2: `wallet` (top-up Xendit) + channel VA/QRIS. `cod` & `transfer` legacy. */
+export type PaymentMethodId = 'cod' | 'transfer' | 'wallet' | 'xendit_va' | 'xendit_qris'
 
 export interface PaymentMethod {
   id: PaymentMethodId
   label: string
   description: string
+}
+
+/** Status transaksi uang (top-up, payout) — R-WALLET-01. */
+export type WalletTxStatus = 'pending' | 'processing' | 'completed' | 'failed'
+
+/** Channel top-up Xendit (PRD §2 Xendit). */
+export type TopUpChannel = 'xendit_va' | 'xendit_qris'
+
+/**
+ * Saldo satu wallet. `pending` = dana hold order berjalan, `available` = sisa yang
+ * bisa dipakai. Semua nominal **IDR** — source of truth; JOD hanya tampilan
+ * (R-CURR-01), jadi jangan simpan nominal JOD di sini.
+ */
+export interface Wallet {
+  balance: number
+  available: number
+  pending: number
+}
+
+export interface TopUp {
+  id: string
+  amount: number
+  channel: TopUpChannel
+  status: WalletTxStatus
+  createdAt: string
+}
+
+export interface Payout {
+  id: string
+  amount: number
+  status: WalletTxStatus
+  createdAt: string
+}
+
+/** Satu baris tabel `exchange_rates` — rate IDR→JOD, display-only (R-CURR-01). */
+export interface ExchangeRate {
+  base: string
+  quote: string
+  rate: number
+  fetchedAt: string
+  source: string
 }
 
 export interface Merchant {

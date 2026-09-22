@@ -66,6 +66,17 @@ export function StateManagementSection() {
             </tr>
             <tr>
               <td>
+                wallet
+              </td>
+              <td>
+                sa7tein:wallet
+              </td>
+              <td>
+                balance, topUpHistory, payoutHistory
+              </td>
+            </tr>
+            <tr>
+              <td>
                 auth
               </td>
               <td>

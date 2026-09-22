@@ -20,6 +20,7 @@ import favorites from './slices/favoritesSlice'
 import catalog from './slices/catalogSlice'
 import merchant from './slices/merchantSlice'
 import courier from './slices/courierSlice'
+import wallet from './slices/walletSlice'
 import admin from './slices/adminSlice'
 import notifications from './slices/notificationsSlice'
 import ui from './slices/uiSlice'
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   catalog,
   merchant,
   courier,
+  wallet,
   admin,
   notifications,
   ui,
@@ -51,7 +53,7 @@ const persistConfig = {
   key: 'sa7tein',
   version: 2,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet'],
 }
 
 /**

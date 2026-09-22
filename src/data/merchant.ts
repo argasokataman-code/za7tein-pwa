@@ -2,6 +2,19 @@ import type { Courier, DeliveryZone, Merchant, OrderStage, PaymentMethod } from 
 
 export const MAX_DELIVERY_METERS = 2000
 
+/**
+ * Fee platform flat (PRD v2 "Fee Platform", update PO 2026-09-21):
+ * merchant 0,15 + customer 0,22 = 0,37 JOD per order. Berlaku **semua** metode,
+ * termasuk COD cash & transfer manual (PO 2026-09-22, OQ-25). Angka JOD =
+ * nominal tampilan; settlement tetap IDR (R-CURR-01).
+ */
+export const PLATFORM_FEE_MERCHANT_JOD = 0.15
+export const PLATFORM_FEE_CUSTOMER_JOD = 0.22
+export const PLATFORM_FEE_JOD = PLATFORM_FEE_MERCHANT_JOD + PLATFORM_FEE_CUSTOMER_JOD
+
+/** Akun baru wajib top-up minimal 3,5 JOD (Rp80.500) sebelum bisa order (R-TOPUP-01). */
+export const MIN_TOPUP_NEW_ACCOUNT_JOD = 3.5
+
 /** Zona pengantaran — tarif naik seiring radius (PRD bab 04). */
 export const DELIVERY_ZONES: DeliveryZone[] = [
   { id: 'A', label: 'Zona A', range: '< 600 m', fee: 5000 },
