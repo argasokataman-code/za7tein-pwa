@@ -1,4 +1,12 @@
-import type { Courier, DeliveryZone, Merchant, OrderStage, PaymentMethod } from '../types'
+import type {
+  Courier,
+  DeliveryZone,
+  HoldEventName,
+  HoldStatus,
+  Merchant,
+  OrderStage,
+  PaymentMethod,
+} from '../types'
 
 import { jodToIdr } from './currency'
 
@@ -152,4 +160,53 @@ export function deliveryFeeFor(meters: number): number {
 
 export function isDeliverable(meters: number): boolean {
   return meters <= MAX_DELIVERY_METERS
+}
+
+/**
+ * Copy per status hold (F2). `action` = tombol aksi mock yang sah dari status
+ * itu, `cancel` = tombol batal, `note` = keterangan di detail order. Status
+ * akhir tidak punya aksi lanjutan — di situlah lifecycle berhenti.
+ */
+export const HOLD_STATUS_COPY: Record<
+  HoldStatus,
+  { label: string; note: string; action?: string; cancel?: string }
+> = {
+  none: {
+    label: 'Belum ada hold',
+    note: 'Hold dibuat saat pesanan COD dibuat.',
+    action: 'Buat pesanan',
+  },
+  held: {
+    label: 'Held',
+    note: 'Saldo ditahan sejak pesanan dibuat, belum masuk ke merchant.',
+    action: 'Kurir match',
+    cancel: 'Batal (sebelum match)',
+  },
+  cut: {
+    label: 'Cut',
+    note: 'Kurir sudah match; potongan dikunci sampai OTP.',
+    action: 'OTP sukses',
+    cancel: 'Batal (sesudah match)',
+  },
+  settled: {
+    label: 'Settled',
+    note: 'OTP terverifikasi — dana diteruskan ke merchant.',
+  },
+  released: {
+    label: 'Released',
+    note: 'Batal sebelum match. Saldo kembali tanpa potongan.',
+  },
+  reversed: {
+    label: 'Reversed',
+    note: 'Batal sesudah match. Potongan dikembalikan lewat entry reversal.',
+  },
+}
+
+/** Label ledger per event hold — tiap transisi = satu entry append-only. */
+export const HOLD_EVENT_LABEL: Record<HoldEventName, string> = {
+  hold_created: 'hold_created — saldo masuk hold',
+  hold_cut: 'hold_cut — potongan dikunci saat kurir match',
+  hold_settled: 'hold_settled — dana diteruskan ke merchant',
+  hold_released: 'hold_released — hold dilepas (batal sebelum match)',
+  hold_reversed: 'hold_reversed — reversal potongan (batal sesudah match)',
 }

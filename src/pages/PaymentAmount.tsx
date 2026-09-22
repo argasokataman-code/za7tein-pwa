@@ -20,7 +20,8 @@ import {
 import { mockMerchant } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { selectSubtotal, setTransferProof } from '../store/slices/cartSlice'
+import { selectSubtotal, setTransferProof, createOrderHold } from '../store/slices/cartSlice'
+import { applyHoldEvent } from '../store/slices/walletSlice'
 
 export default function PaymentAmount() {
   const navigate = useNavigate()
@@ -44,7 +45,14 @@ export default function PaymentAmount() {
   const needsProof = method.id === 'transfer'
   const walletAvailable = useAppSelector((s) => s.wallet.balance.available)
   const gated = needsTopUpGate(walletAvailable)
-  const canPay = deliverable && items.length > 0 && (!needsProof || proof !== null) && !gated
+  /**
+   * COD memakai hold dari saldo wallet (R-COD-01), jadi nominal order harus
+   * benar-benar tersedia. Gate 3,5 JOD cuma ambang akun baru — bukan jaminan
+   * saldo cukup untuk order ini.
+   */
+  const holdShort = method.id === 'cod' && walletAvailable < total
+  const canPay =
+    deliverable && items.length > 0 && (!needsProof || proof !== null) && !gated && !holdShort
 
   const pickProof = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -69,6 +77,15 @@ export default function PaymentAmount() {
     if (gated) {
       toast.error('Saldo di bawah 3,5 JOD — top-up dulu')
       return
+    }
+    if (holdShort) {
+      toast.error('Saldo tidak cukup untuk hold COD')
+      return
+    }
+    if (method.id === 'cod') {
+      // Order COD dibuat → saldo ditahan. Satu transisi = satu entry hold.
+      dispatch(createOrderHold({ amountIdr: total }))
+      dispatch(applyHoldEvent({ event: 'hold_created', amountIdr: total }))
     }
     navigate('/order-placed')
   }
@@ -206,13 +223,21 @@ export default function PaymentAmount() {
               </div>
             </div>
             <WalletTopUpGate />
+            {holdShort ? (
+              <p className="wallet-warning" role="status">
+                Saldo tersedia {money(walletAvailable)} — kurang dari {money(total)} yang perlu
+                di-hold untuk COD.
+              </p>
+            ) : null}
             <div className="payment-amount-footer">
               <button className="btn btn-primary pay-btn" disabled={!canPay} onClick={pay}>
                 {gated
                   ? 'Top-up dulu · saldo kurang'
-                  : method.id === 'cod'
-                    ? `Pesan — ${money(total)}`
-                    : `Bayar — ${money(total)}`}
+                  : holdShort
+                    ? 'Saldo kurang untuk hold COD'
+                    : method.id === 'cod'
+                      ? `Pesan — ${money(total)}`
+                      : `Bayar — ${money(total)}`}
               </button>
             </div>
             <div className="home-indicator " />

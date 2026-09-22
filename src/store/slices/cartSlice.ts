@@ -1,6 +1,14 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { mockUser } from '../../data/user'
-import type { Address, CartItem, Food, OrderStage } from '../../types'
+import type {
+  Address,
+  CartItem,
+  Food,
+  HoldEvent,
+  HoldEventName,
+  HoldStatus,
+  OrderStage,
+} from '../../types'
 
 interface CartState {
   items: CartItem[]
@@ -12,6 +20,15 @@ interface CartState {
   transferProof: string | null
   /** Tahap berjalan; halaman pelacakan menyesuaikan tampilannya dari sini. */
   orderStage: OrderStage
+  /**
+   * Hold COD via wallet (R-COD-01, F2). Satu urutan: none → held → cut →
+   * settled, dengan jalur batal released/reversed. Nominalnya disimpan sekali
+   * saat hold dibuat supaya transisi berikutnya tidak bisa memakai angka lain.
+   */
+  holdStatus: HoldStatus
+  holdAmountIdr: number
+  /** Ledger hold append-only — tiap transisi menambah satu entry. */
+  holdLedger: HoldEvent[]
 }
 
 const initialState: CartState = {
@@ -31,7 +48,18 @@ const initialState: CartState = {
   selectedPaymentId: 'wallet',
   transferProof: null,
   orderStage: 'dimasak',
+  holdStatus: 'none',
+  holdAmountIdr: 0,
+  holdLedger: [],
 }
+
+/** Id entry hold: urutan + waktu, cukup unik untuk mock satu sesi. */
+const holdEvent = (event: HoldEventName, amountIdr: number, index: number): HoldEvent => ({
+  id: `${event}-${index + 1}-${Date.now()}`,
+  event,
+  amountIdr,
+  at: new Date().toISOString(),
+})
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -95,6 +123,52 @@ const cartSlice = createSlice({
     addAddress(state, action: PayloadAction<Address>) {
       state.addresses.push(action.payload)
     },
+    /** Order COD dibuat → saldo ditahan (event `hold_created`). */
+    createOrderHold(state, action: PayloadAction<{ amountIdr: number }>) {
+      if (state.holdStatus !== 'none') return
+      state.holdStatus = 'held'
+      state.holdAmountIdr = action.payload.amountIdr
+      state.holdLedger.push(
+        holdEvent('hold_created', action.payload.amountIdr, state.holdLedger.length),
+      )
+    },
+    /** Kurir match → potongan dikunci (event `hold_cut`). */
+    matchCourier(state) {
+      if (state.holdStatus !== 'held') return
+      state.holdStatus = 'cut'
+      state.holdLedger.push(holdEvent('hold_cut', state.holdAmountIdr, state.holdLedger.length))
+    },
+    /** OTP sukses → dana ke merchant (event `hold_settled`). */
+    settleOrderHold(state) {
+      if (state.holdStatus !== 'cut') return
+      state.holdStatus = 'settled'
+      state.holdLedger.push(
+        holdEvent('hold_settled', state.holdAmountIdr, state.holdLedger.length),
+      )
+    },
+    /**
+     * Batal dua jalur (F2): sebelum match → `released`, sesudah match →
+     * `reversed`. Status lain diabaikan, jadi tidak ada transisi liar.
+     */
+    cancelOrder(state) {
+      if (state.holdStatus === 'held') {
+        state.holdStatus = 'released'
+        state.holdLedger.push(
+          holdEvent('hold_released', state.holdAmountIdr, state.holdLedger.length),
+        )
+      } else if (state.holdStatus === 'cut') {
+        state.holdStatus = 'reversed'
+        state.holdLedger.push(
+          holdEvent('hold_reversed', state.holdAmountIdr, state.holdLedger.length),
+        )
+      }
+    },
+    /** Reset hold saat pesanan baru dimulai dari keranjang kosong. */
+    resetOrderHold(state) {
+      state.holdStatus = 'none'
+      state.holdAmountIdr = 0
+      state.holdLedger = []
+    },
   },
 })
 
@@ -107,6 +181,11 @@ export const {
   setPayment,
   setTransferProof,
   addAddress,
+  createOrderHold,
+  matchCourier,
+  settleOrderHold,
+  cancelOrder,
+  resetOrderHold,
 } = cartSlice.actions
 
 export const selectCartCount = (items: CartItem[]) =>

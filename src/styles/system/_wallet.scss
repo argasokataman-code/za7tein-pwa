@@ -180,3 +180,87 @@
   font-size: var(--text-xs);
   color: var(--danger-ink);
 }
+
+/* ── Hold COD di detail order (M4, flow F2) ─────────────────────────────── */
+
+.hold-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+
+.hold-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.hold-status {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hold-status--held {
+  color: var(--warning-ink);
+}
+
+.hold-status--cut {
+  color: var(--orange-ink);
+}
+
+.hold-status--settled {
+  color: var(--success-ink);
+}
+
+.hold-status--released {
+  color: var(--text-secondary);
+}
+
+.hold-status--reversed {
+  color: var(--danger-ink);
+}
+
+.hold-card__amount {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.hold-card__note {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.hold-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.hold-ledger {
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.hold-ledger__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.hold-ledger__row span:first-child {
+  min-width: 0;
+}

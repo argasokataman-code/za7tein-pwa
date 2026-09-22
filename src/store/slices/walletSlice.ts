@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { mockPayouts, mockTopUps, mockWallet } from '../../data/wallet'
-import type { Payout, TopUp, TopUpChannel, Wallet } from '../../types'
+import type { HoldEventName, Payout, TopUp, TopUpChannel, Wallet } from '../../types'
 
 interface WalletState {
   balance: Wallet
@@ -60,8 +60,35 @@ const walletSlice = createSlice({
       state.balance.available -= amount
       state.balance.balance -= amount
     },
+    /**
+     * Perpindahan uang hold COD (F2), dipanggil bersama transisi di cartSlice:
+     * `hold_created` memindahkan available → pending, `hold_cut` tidak mengubah
+     * saldo (potongan dikunci), `hold_settled` mengeluarkan dana dari wallet,
+     * `hold_released`/`hold_reversed` mengembalikannya ke available. Diklem di 0
+     * supaya mock tidak pernah menampilkan saldo negatif.
+     */
+    applyHoldEvent(state, action: PayloadAction<{ event: HoldEventName; amountIdr: number }>) {
+      const { event, amountIdr } = action.payload
+      switch (event) {
+        case 'hold_created':
+          state.balance.available = Math.max(0, state.balance.available - amountIdr)
+          state.balance.pending += amountIdr
+          break
+        case 'hold_cut':
+          break
+        case 'hold_settled':
+          state.balance.pending = Math.max(0, state.balance.pending - amountIdr)
+          state.balance.balance = Math.max(0, state.balance.balance - amountIdr)
+          break
+        case 'hold_released':
+        case 'hold_reversed':
+          state.balance.pending = Math.max(0, state.balance.pending - amountIdr)
+          state.balance.available += amountIdr
+          break
+      }
+    },
   },
 })
 
-export const { requestTopUp, settleTopUp, requestPayout } = walletSlice.actions
+export const { requestTopUp, settleTopUp, requestPayout, applyHoldEvent } = walletSlice.actions
 export default walletSlice.reducer

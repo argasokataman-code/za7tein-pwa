@@ -29,4 +29,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '22', id: 'currency', label: 'Mata Uang — IDR + JOD' },
   { num: '23', id: 'checkout-fee', label: 'Fee Checkout & Gate Saldo' },
   { num: '24', id: 'wallet', label: 'Wallet — Saldo, Top-up, Tarik' },
+  { num: '25', id: 'cod-hold', label: 'Hold COD via Wallet' },
 ]

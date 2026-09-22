@@ -353,6 +353,31 @@ export interface Dispute {
   partialPercent?: number
 }
 
+/**
+ * Status hold COD via wallet (R-COD-01, flow F2). `held` = order dibuat, saldo
+ * ditahan; `cut` = kurir match; `settled` = OTP sukses, uang pindah ke merchant.
+ * Dua jalur batal: `released` (sebelum match, hold dilepas) dan `reversed`
+ * (sesudah match, potongan dikembalikan lewat entry reversal).
+ */
+export type HoldStatus = 'none' | 'held' | 'cut' | 'settled' | 'released' | 'reversed'
+
+/** Nama event hold — sama dengan kontrak BE, satu event per transisi (M4). */
+export type HoldEventName =
+  | 'hold_created'
+  | 'hold_cut'
+  | 'hold_settled'
+  | 'hold_released'
+  | 'hold_reversed'
+
+/** Entry hold append-only. Tiap transisi menambah satu; tidak ada yang diubah. */
+export interface HoldEvent {
+  id: string
+  event: HoldEventName
+  /** IDR — nominal hold saat event terjadi. */
+  amountIdr: number
+  at: string
+}
+
 export type LedgerEntryType =
   | 'deposit_hold'
   | 'cod_hold'

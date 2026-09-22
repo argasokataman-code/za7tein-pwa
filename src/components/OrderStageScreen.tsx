@@ -5,6 +5,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { JourneyLine } from './JourneyLine'
 
 import {
+  HOLD_EVENT_LABEL,
+  HOLD_STATUS_COPY,
   ORDER_STAGES,
   formatDistance,
   mockCouriers,
@@ -13,8 +15,10 @@ import {
   money,
   zoneFor,
 } from '../data/merchant'
-import { useAppSelector } from '../hooks/useAppStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useLeafletMap } from '../hooks/useLeafletMap'
+import { cancelOrder, matchCourier, settleOrderHold } from '../store/slices/cartSlice'
+import { applyHoldEvent } from '../store/slices/walletSlice'
 import type { OrderStage } from '../types'
 
 /**
@@ -92,10 +96,17 @@ type Props = {
 
 export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [params] = useSearchParams()
   const rawStage = useAppSelector((s) => s.cart.orderStage)
   const addresses = useAppSelector((s) => s.cart.addresses)
   const selectedAddressId = useAppSelector((s) => s.cart.selectedAddressId)
+  // Hold COD (F2/M4) hanya berlaku untuk pesanan COD; metodenya dibaca dari store
+  // supaya detail order menampilkan lifecycle yang benar, bukan selalu.
+  const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
+  const holdStatus = useAppSelector((s) => s.cart.holdStatus)
+  const holdAmount = useAppSelector((s) => s.cart.holdAmountIdr)
+  const holdLedger = useAppSelector((s) => s.cart.holdLedger)
 
   // State tersimpan bisa berasal dari bentuk sebelum tahap pesanan ada, jadi
   // nilainya divalidasi di sini. Tanpa ini STATUS[undefined] melempar dan
@@ -122,6 +133,33 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const [alamatKompleks, alamatTower] = address
     ? address.building.split(' — ')
     : ['', '']
+
+  // Aksi mock lifecycle hold: satu tombol menggerakkan cartSlice (status +
+  // ledger) dan wallet (perpindahan dana) bersamaan, karena satu transisi PRD
+  // memang satu event status + satu entry ledger.
+  const isCod = paymentId === 'cod'
+  const holdCopy = HOLD_STATUS_COPY[holdStatus]
+
+  const advanceHold = () => {
+    if (holdStatus === 'held') {
+      dispatch(matchCourier())
+      dispatch(applyHoldEvent({ event: 'hold_cut', amountIdr: holdAmount }))
+    } else if (holdStatus === 'cut') {
+      dispatch(settleOrderHold())
+      dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
+    }
+  }
+
+  const cancelHold = () => {
+    if (holdStatus !== 'held' && holdStatus !== 'cut') return
+    dispatch(cancelOrder())
+    dispatch(
+      applyHoldEvent({
+        event: holdStatus === 'held' ? 'hold_released' : 'hold_reversed',
+        amountIdr: holdAmount,
+      }),
+    )
+  }
 
   const mapBlock = (
     <div className={`track-map track-map--${isDelivery ? 'delivery' : 'preview'}`}>
@@ -174,6 +212,52 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
           </section>
 
           <JourneyLine stage={stage} />
+
+          {/* Hold COD via wallet (R-COD-01, F2). Muncul di detail order supaya
+              transisinya terlihat di tempat orang mencari status pesanan. */}
+          {isCod ? (
+            <section className="track-section">
+              <h2 className="track-section-title">Hold COD</h2>
+              <div className="hold-card" data-hold-status={holdStatus}>
+                <div className="hold-card__head">
+                  <span className={`hold-status hold-status--${holdStatus}`}>
+                    {holdCopy.label}
+                  </span>
+                  <span className="hold-card__amount">{money(holdAmount)}</span>
+                </div>
+                <p className="hold-card__note">{holdCopy.note}</p>
+                {holdCopy.action || holdCopy.cancel ? (
+                  <div className="hold-card__actions">
+                    {holdCopy.action ? (
+                      <button className="track-action" type="button" onClick={advanceHold}>
+                        {holdCopy.action}
+                      </button>
+                    ) : null}
+                    {holdCopy.cancel ? (
+                      <button className="track-action" type="button" onClick={cancelHold}>
+                        {holdCopy.cancel}
+                      </button>
+                    ) : null}
+                  </div>
+                ) : null}
+                {holdLedger.length > 0 ? (
+                  <ol className="hold-ledger" aria-label="Ledger hold">
+                    {holdLedger.map((entry) => (
+                      <li key={entry.id} className="hold-ledger__row">
+                        <span>{HOLD_EVENT_LABEL[entry.event]}</span>
+                        <span>
+                          {new Date(entry.at).toLocaleTimeString('id-ID', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                ) : null}
+              </div>
+            </section>
+          ) : null}
 
           {isDelivery ? null : mapBlock}
 
