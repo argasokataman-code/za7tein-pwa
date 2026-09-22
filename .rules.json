@@ -4,7 +4,7 @@
   "productAuthority": {
     "manifest": "docs/product/prd/manifest.json",
     "intake": "docs/product/prd/README.md",
-    "activeRevision": "irbid-mvp-2026-09-12",
+    "activeRevision": "irbid-mvp-v2-2026-09-21",
     "rule": "PDF/BRS baru proposed sampai source-backed analysis, decision record, dan milestone plan selesai; jangan menyimpulkan dari nama/versi file"
   },
   "designDNA": "docs/design/DNA.md",

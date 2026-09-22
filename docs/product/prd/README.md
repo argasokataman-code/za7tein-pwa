@@ -2,7 +2,7 @@
 
 `manifest.json` adalah satu-satunya penunjuk revisi aktif. Semua PDF disimpan di `versions/<id>/source.pdf`. **Label versi yang tercetak di PDF bukan identitas unik**: dua PDF saat ini sama-sama menyebut v1.1. Identitas repo memakai `id` unik, status, sumber, dan rantai `supersedes`.
 
-PRD aktif adalah `irbid-mvp-2026-09-12`. Kode saat ini masih banyak mengikuti `radius-mvp-legacy`; jangan menyebut fitur lama sebagai requirement aktif hanya karena sudah ada di UI. Keputusan ini didokumentasikan di `decision-irbid-mvp.md`.
+PRD aktif adalah `irbid-mvp-v2-2026-09-21`. Kode saat ini masih banyak mengikuti `radius-mvp-legacy`; jangan menyebut fitur lama sebagai requirement aktif hanya karena sudah ada di UI. Keputusan ini didokumentasikan di `decision-irbid-mvp.md`.
 
 ## Menambah PRD atau BRS
 

@@ -1,0 +1,259 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F20 — Address & Zone",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "alamat",
+      "label": "Layar form alamat & peta"
+    },
+    {
+      "id": "checkout",
+      "label": "Layar checkout: gate & ongkir"
+    },
+    {
+      "id": "guard",
+      "label": "Guard tampilan, zone & fallback",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "alamat",
+      "label": "Alamat & zona",
+      "fromCol": 0,
+      "toCol": 2
+    },
+    {
+      "id": "gate",
+      "label": "Checkout gate",
+      "fromCol": 3,
+      "toCol": 4
+    },
+    {
+      "id": "order",
+      "label": "Order",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ],
+  "mainPath": [
+    "pin",
+    "zone",
+    "pick",
+    "gate",
+    "fee",
+    "order"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "pin"
+    ],
+    "allowedTerminals": [
+      "order",
+      "reject",
+      "recompute",
+      "retry"
+    ],
+    "requiredEdges": [
+      {
+        "from": "pin",
+        "to": "zone"
+      },
+      {
+        "from": "zone",
+        "to": "pick"
+      },
+      {
+        "from": "pick",
+        "to": "gate"
+      },
+      {
+        "from": "gate",
+        "to": "fee"
+      },
+      {
+        "from": "fee",
+        "to": "order"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "pin",
+      "lane": "alamat",
+      "col": 0,
+      "type": "frontend",
+      "label": "Pasang pin alamat",
+      "sublabel": "peta leaflet · default pin",
+      "width": 176
+    },
+    {
+      "id": "zone",
+      "lane": "checkout",
+      "col": 1,
+      "type": "frontend",
+      "label": "Simpan & hitung zona",
+      "sublabel": "Hijazi / Syimali ≤2 km",
+      "width": 176
+    },
+    {
+      "id": "pick",
+      "lane": "alamat",
+      "col": 2,
+      "type": "frontend",
+      "label": "Pilih alamat",
+      "sublabel": "default auto dipilih",
+      "width": 172
+    },
+    {
+      "id": "gate",
+      "lane": "checkout",
+      "col": 3,
+      "type": "frontend",
+      "label": "Gate coverage",
+      "sublabel": "jarak vs deliveryConfig",
+      "width": 176
+    },
+    {
+      "id": "fee",
+      "lane": "checkout",
+      "col": 4,
+      "type": "frontend",
+      "label": "Hitung deliveryFee",
+      "sublabel": "feeByDistance ATAU feeByArea",
+      "width": 176
+    },
+    {
+      "id": "order",
+      "lane": "checkout",
+      "col": 5,
+      "type": "frontend",
+      "label": "Order dibuat",
+      "sublabel": "zone → order.zone (snapshot)",
+      "width": 172
+    },
+    {
+      "id": "reject",
+      "lane": "guard",
+      "col": 4,
+      "type": "security",
+      "label": "Ditolak 422",
+      "sublabel": "di luar area antar",
+      "tag": "blocked",
+      "width": 172
+    },
+    {
+      "id": "recompute",
+      "lane": "alamat",
+      "col": 5,
+      "type": "frontend",
+      "label": "Alamat default ganti",
+      "sublabel": "order lama tak recompute",
+      "width": 176
+    },
+    {
+      "id": "retry",
+      "lane": "guard",
+      "col": 1,
+      "type": "frontend",
+      "label": "Peta gagal",
+      "sublabel": "retry muat ulang peta",
+      "tag": "gate",
+      "width": 172
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-pin-zone",
+      "from": "pin",
+      "to": "zone",
+      "label": "simpan + zone",
+      "role": "main"
+    },
+    {
+      "id": "e-zone-pick",
+      "from": "zone",
+      "to": "pick",
+      "label": "alamat tersimpan",
+      "role": "main"
+    },
+    {
+      "id": "e-pick-gate",
+      "from": "pick",
+      "to": "gate",
+      "label": "checkout → gate coverage",
+      "role": "main"
+    },
+    {
+      "id": "e-gate-fee",
+      "from": "gate",
+      "to": "fee",
+      "label": "PASS · ongkir tampil",
+      "role": "main"
+    },
+    {
+      "id": "e-fee-order",
+      "from": "fee",
+      "to": "order",
+      "label": "order terkirim · zone ikut",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-gate-reject",
+      "from": "gate",
+      "to": "reject",
+      "label": "422 di luar coverage",
+      "role": "error",
+      "variant": "dashed"
+    },
+    {
+      "id": "e-order-recompute",
+      "from": "order",
+      "to": "recompute",
+      "label": "default ganti → recompute",
+      "role": "branch"
+    },
+    {
+      "id": "e-pin-retry",
+      "from": "pin",
+      "to": "retry",
+      "role": "error",
+      "variant": "dashed",
+      "label": "pin tak ditemukan / gagal"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Bisnis: kenapa flow ini ada",
+      "items": [
+        "**Masalah:** ongkir & area antar harus jelas sebelum order. Merchant hanya melayani **Hijazi** (pemukiman barat) & **Syimali** (utara kampus), **≤2 km haversine dari dapur**, hanya jika merchant mengaktifkannya (`C-13`); ongkir 100% ke merchant (`C-07`)",
+        "**Skenario & nilai:** customer tahu bisa/tidak diantar + ongkir sebelum bayar; merchant atur jangkauan & ongkir sendiri; platform tidak menanggung ongkir. Di luar 2 km atau zona tidak aktif → checkout diblokir \"di luar area antar\" → pilih alamat lain / ganti merchant; lolos → ongkir tampil → order jalan (zona snapshot)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Alur inti: alamat → gate → order",
+      "items": [
+        "Tambah alamat: pin + label + teks → zona tampil: **Hijazi / Syimali ≤2 km** (`C-13`, per-merchant `is_active_*`) → simpan `address`",
+        "Gate `isDeliverable()`: mode `radius` (jarak ≤ `radiusMeters`) atau `area` (zona harus aktif). A/B/C di kode repo = LEGACY",
+        "PASS → ongkir tampil (`feeByDistance` ATAU `feeByArea`) → lanjut order; zona jadi snapshot (order lama tidak berubah)"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Branch, guard & sumber",
+      "items": [
+        "FAIL → \"di luar area antar\" → pilih alamat lain / ganti merchant · pin/peta gagal → retry · simpan alamat non-deliverable UNRESOLVED",
+        "Dasar `R-ADDR-01`: `C-13` + `C-05` + `C-07` · UNRESOLVED: `radiusMeters` & tier fee final · master zona = Super Admin (`f15`, belum ada) · haversine = 0",
+        "Zona & ongkir dihitung di luar repo — layar mock · cross-ref `f1:checkout`, `f16`"
+      ]
+    }
+  ]
+}

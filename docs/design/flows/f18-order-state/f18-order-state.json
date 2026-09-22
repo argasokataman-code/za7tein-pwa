@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "F18 — Order State Machine",
+    "quality_profile": "showcase",
+    "viewBox": [1000, 640]
+  },
+  "lanes": [
+    { "id": "main", "label": "Pesan, bayar & masak" },
+    { "id": "kirim", "label": "Antar" },
+    { "id": "terminal", "label": "Hasil akhir" }
+  ],
+  "states": [
+    { "id": "cart", "type": "start", "label": "cart", "sublabel": "isi keranjang", "lane": "main", "col": 0 },
+    { "id": "quotation", "type": "decision", "label": "quotation", "sublabel": "draft harga · sebelum bayar", "lane": "main", "col": 1 },
+    { "id": "prepare", "type": "active", "label": "prepare", "sublabel": "masak · placedAt + SLA", "lane": "main", "col": 2 },
+    { "id": "waitingCourier", "type": "waiting", "label": "waitingCourier", "sublabel": "tunggu match kurir", "lane": "main", "col": 3 },
+    { "id": "waitingDelivery", "type": "waiting", "label": "waitingDelivery", "sublabel": "kurir ditugaskan", "lane": "kirim", "col": 1, "width": 118 },
+    { "id": "delivery", "type": "active", "label": "delivery", "sublabel": "etaDelivery berjalan", "lane": "kirim", "col": 2, "width": 118 },
+    { "id": "canceled", "type": "failure", "label": "canceled", "sublabel": "cancelBy + reason", "lane": "terminal", "col": 0 },
+    { "id": "done", "type": "success", "label": "done", "sublabel": "OTP sukses → settle", "lane": "terminal", "col": 2 }
+  ],
+  "transitions": [
+    { "id": "t-checkout", "from": "cart", "to": "quotation", "label": "checkout_submitted", "labelDy": 55 },
+    { "id": "t-pay", "from": "quotation", "to": "prepare", "label": "payment_confirmed", "variant": "emphasis", "labelAt": [365, 110] },
+    { "id": "t-ready", "from": "prepare", "to": "waitingCourier", "label": "merchant_ready", "labelDy": 55, "labelDx": -30 },
+    { "id": "t-match", "from": "waitingCourier", "to": "waitingDelivery", "label": "courier_matched", "variant": "emphasis", "route": "drop", "channelY": 215, "labelAt": [556, 258] },
+    { "id": "t-pickup", "from": "waitingDelivery", "to": "delivery", "label": "courier_picked_up", "labelAt": [633, 362] },
+    { "id": "t-otp", "from": "delivery", "to": "done", "label": "otp_verified", "variant": "emphasis", "labelAt": [770, 356] },
+
+    { "id": "t-cancel-quote", "from": "quotation", "to": "canceled", "label": "cancel_order", "variant": "dashed", "route": "drop", "channelY": 197, "labelAt": [295, 200] },
+    { "id": "t-cancel-prepare", "from": "prepare", "to": "canceled", "label": "merchant_rejected", "variant": "dashed", "route": "drop", "channelY": 237, "labelAt": [240, 240], "note": "feeds f2 release/reverse hold" },
+    { "id": "t-cancel-wc", "from": "waitingCourier", "to": "canceled", "label": "order_canceled", "variant": "dashed", "route": "drop", "channelY": 257, "labelAt": [497, 232] },
+    { "id": "t-cancel-wd", "from": "waitingDelivery", "to": "canceled", "label": "order_canceled", "variant": "dashed", "labelAt": [508, 350] }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Jalur utama (event snake_case)", "items": ["checkout_submitted → quotation", "payment_confirmed → prepare", "merchant_ready → courier_matched", "courier_picked_up → delivery → done"] },
+    { "dot": "slate", "title": "Pembatalan & paymentStatus", "items": ["cancel: cancelBy + cancelReason", "merchant tolak → canceled + f2 hold", "paymentStatus: unpaid → paid", "failed retry · refunded = note (F22)"] },
+    { "dot": "amber", "title": "Sumber & UNRESOLVED", "items": ["R-STATE-01 · schema draft entri 9", "UNRESOLVED: quotation vs placed", "UNRESOLVED: cancel 10 mnt · SLA", "UNRESOLVED: paymentStatus manual?"] }
+  ]
+}

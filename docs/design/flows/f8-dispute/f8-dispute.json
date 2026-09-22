@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F8 — Dispute (Queue Super Admin, 4 Resolusi)",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "petition", "label": "Pengaju — Customer/Merchant" },
+    { "id": "admin", "label": "Super Admin — Queue" },
+    { "id": "system", "label": "Sistem, Hold & Ledger" }
+  ],
+  "phases": [
+    { "id": "ajuan", "label": "Pengajuan", "fromCol": 0, "toCol": 2 },
+    { "id": "resolusi", "label": "Resolusi", "fromCol": 3, "toCol": 5, "variant": "emphasis" }
+  ],
+  "mainPath": ["ajukan", "queue", "review", "resolusi", "apply", "resolved"],
+  "semanticChecks": {
+    "allowedRoots": ["ajukan", "fund"],
+    "allowedTerminals": ["resolved", "freeze"],
+    "requiredEdges": [
+      { "from": "ajukan", "to": "queue" },
+      { "from": "review", "to": "resolusi" },
+      { "from": "resolusi", "to": "apply" },
+      { "from": "apply", "to": "resolved" }
+    ]
+  },
+  "nodes": [
+    { "id": "ajukan", "lane": "petition", "col": 0, "type": "frontend", "label": "Ajukan Sengketa", "sublabel": "alasan + foto ≤3", "width": 130 },
+    { "id": "queue", "lane": "admin", "col": 1, "type": "backend", "label": "Queue Disputed", "sublabel": "1× per order", "width": 122 },
+    { "id": "review", "lane": "admin", "col": 2, "type": "backend", "label": "Buka bukti", "sublabel": "OTP · foto · lokasi", "width": 122 },
+    { "id": "resolusi", "lane": "admin", "col": 3, "type": "security", "label": "Pilih resolusi", "sublabel": "4 aksi", "width": 124 },
+    { "id": "freeze", "lane": "system", "col": 1, "type": "security", "label": "Bekukan hold", "sublabel": "pause auto-settle", "width": 128 },
+    { "id": "fund", "lane": "system", "col": 2, "type": "database", "label": "Protection fund", "sublabel": "2% fee platform", "width": 130 },
+    { "id": "apply", "lane": "system", "col": 4, "type": "backend", "label": "Terapkan putusan", "sublabel": "hold di-release", "width": 130 },
+    { "id": "resolved", "lane": "system", "col": 5, "type": "backend", "label": "resolved_*", "sublabel": "1 ledger entry baru", "width": 134 }
+  ],
+  "edges": [
+    { "id": "e-filed", "from": "ajukan", "to": "queue", "label": "dispute_filed", "role": "main", "variant": "emphasis" },
+    { "id": "e-open", "from": "queue", "to": "review", "label": "admin buka", "role": "main" },
+    { "id": "e-pick", "from": "review", "to": "resolusi", "label": "periksa bukti", "role": "main" },
+    { "id": "e-decide", "from": "resolusi", "to": "apply", "label": "putusan", "role": "main" },
+    { "id": "e-done", "from": "apply", "to": "resolved", "label": "selesai", "role": "main", "variant": "emphasis" },
+    { "id": "e-freeze", "from": "queue", "to": "freeze", "label": "order → disputed", "role": "branch" },
+    { "id": "e-fund", "from": "fund", "to": "apply", "label": "tanpa pihak salah", "role": "branch", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "4 resolusi Super Admin", "items": ["Refund penuh — 100% ke customer, fee 0,22 ikut kembali", "Refund sebagian — X% customer, sisanya cair merchant", "Release ke merchant — fee 0,15 tetap dipotong · Tolak — tanpa ubah saldo"] },
+    { "dot": "amber", "title": "Aturan keras", "items": ["Window 24 jam setelah settled · 1× per order, tanpa appeal (MVP)", "Hold dibekukan + auto-settle pause selama disputed — order tak boleh settled final", "Refund = internal ledger instan, tanpa fee · bukti: log OTP, geolocation, foto, timestamp"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-DISPUTE-01 — analysis.md · M6 — milestones.md (deps M0, M4, M5)", "UNRESOLVED: OQ-29 — window/kategori/SLA, ditunda sampai >5/bulan", "UNRESOLVED: OQ-30 — siapa super admin operasional · protection fund 2% (OQ-12 closed)"] }
+  ]
+}

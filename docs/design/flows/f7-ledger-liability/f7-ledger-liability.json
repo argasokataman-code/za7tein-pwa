@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "F7 — Ledger & Liability (Double-Entry, Append-Only)",
+    "quality_profile": "showcase",
+    "viewBox": [1085, 507]
+  },
+  "stages": [
+    { "label": "Peristiwa uang" },
+    { "label": "Entri" },
+    { "label": "Buku besar" },
+    { "label": "Liability & cek" }
+  ],
+  "nodes": [
+    { "id": "topupIn", "type": "external", "label": "Top-up Xendit", "sublabel": "top_up_completed (F3)", "stage": 0, "row": 0, "width": 132 },
+    { "id": "orderFlow", "type": "backend", "label": "Order & fee", "sublabel": "hold/cut/settle (F2, F4)", "stage": 0, "row": 1, "width": 140 },
+    { "id": "reversal", "type": "backend", "label": "Reversal / batal", "sublabel": "released atau reversed", "stage": 0, "row": 2, "width": 140 },
+
+    { "id": "entry", "type": "backend", "label": "Entri double-entry", "sublabel": "1 peristiwa ≥ 2 baris", "stage": 1, "row": 0, "width": 140 },
+
+    { "id": "ledger", "type": "database", "label": "wallet_ledgers", "sublabel": "append-only, kronologis", "stage": 2, "row": 0, "width": 140 },
+
+    { "id": "liability", "type": "database", "label": "Liability wallet", "sublabel": "saldo user = utang platform", "stage": 3, "row": 0, "width": 148 },
+    { "id": "cek", "type": "security", "label": "Cek Xendit", "sublabel": "saldo ≥ total liability?", "stage": 3, "row": 1, "width": 148 },
+    { "id": "flag", "type": "security", "label": "Flag", "sublabel": "saldo kurang → alert", "stage": 3, "row": 2, "width": 132 }
+  ],
+  "flows": [
+    { "id": "f-topup-entry", "from": "topupIn", "to": "entry", "label": "top_up_completed", "variant": "emphasis", "route": "straight", "labelAt": [155, 200] },
+    { "id": "f-order-entry", "from": "orderFlow", "to": "entry", "label": "hold / cut / settle", "labelAt": [330, 204] },
+    { "id": "f-reversal-entry", "from": "reversal", "to": "entry", "label": "entry baru, bukan edit", "variant": "dashed", "labelAt": [208, 314] },
+    { "id": "f-entry-ledger", "from": "entry", "to": "ledger", "label": "append", "variant": "emphasis" },
+    { "id": "f-ledger-liability", "from": "ledger", "to": "liability", "label": "jumlah per wallet", "labelAt": [636, 200] },
+    { "id": "f-liability-cek", "from": "liability", "to": "cek", "label": "bandingkan", "labelAt": [745, 200] },
+    { "id": "f-cek-flag", "from": "cek", "to": "flag", "label": "kurang", "variant": "dashed", "labelAt": [745, 314] }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Aturan buku besar", "items": ["Double-entry, append-only, kronologis (R-LEDGER-01)", "Reversal hanya lewat entry baru — tidak pernah edit/hapus baris", "Tiap transisi hold di F2 = 1 entri; fee F4 = entri sendiri"] },
+    { "dot": "amber", "title": "Metrik solvabilitas", "items": ["Saldo Xendit ≥ total liability wallet", "Kalau kurang → flag (dashboard Super Admin)", "Saldo wallet user = liability platform, bukan pendapatan"] },
+    { "dot": "slate", "title": "Sumber", "items": ["R-LEDGER-01 — analysis.md · M9 — milestones.md", "Ledger = backend only (M0 BE contract); repo ini mock tampilan", "Masukan: F3 top-up, F2 settle/batal, F4 fee · Keluaran: F6 cash-out"] }
+  ]
+}

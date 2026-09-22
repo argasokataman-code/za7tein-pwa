@@ -1,0 +1,254 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F19 — Rating & Review",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "prompt",
+      "label": "Prompt & tampilan ulasan"
+    },
+    {
+      "id": "form",
+      "label": "Form penilaian"
+    },
+    {
+      "id": "guard",
+      "label": "Guard tampilan",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "picu",
+      "label": "Order selesai → prompt",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "isi",
+      "label": "Isi penilaian",
+      "fromCol": 2,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ],
+  "mainPath": [
+    "done",
+    "prompt",
+    "toko",
+    "nilai",
+    "teks",
+    "kirim"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "done",
+      "balas"
+    ],
+    "allowedTerminals": [
+      "tampil",
+      "balas",
+      "guard"
+    ],
+    "requiredEdges": [
+      {
+        "from": "done",
+        "to": "prompt"
+      },
+      {
+        "from": "prompt",
+        "to": "toko"
+      },
+      {
+        "from": "toko",
+        "to": "nilai"
+      },
+      {
+        "from": "nilai",
+        "to": "teks"
+      },
+      {
+        "from": "teks",
+        "to": "kirim"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "done",
+      "lane": "prompt",
+      "col": 0,
+      "type": "frontend",
+      "label": "Order selesai",
+      "sublabel": "status: done · f18",
+      "width": 132
+    },
+    {
+      "id": "prompt",
+      "lane": "prompt",
+      "col": 1,
+      "type": "frontend",
+      "label": "Prompt nilai + tip",
+      "sublabel": "boleh lewati · timing ?",
+      "width": 136
+    },
+    {
+      "id": "toko",
+      "lane": "form",
+      "col": 2,
+      "type": "frontend",
+      "label": "Bintang merchant",
+      "sublabel": "1..5 · wajib",
+      "width": 132
+    },
+    {
+      "id": "nilai",
+      "lane": "form",
+      "col": 3,
+      "type": "frontend",
+      "label": "Bintang kurir & menu",
+      "sublabel": "kurir · per hidangan",
+      "width": 136
+    },
+    {
+      "id": "teks",
+      "lane": "form",
+      "col": 4,
+      "type": "frontend",
+      "label": "Teks, tag & tip",
+      "sublabel": "opsional · tip kurir",
+      "width": 132
+    },
+    {
+      "id": "kirim",
+      "lane": "form",
+      "col": 5,
+      "type": "frontend",
+      "label": "Tombol kirim",
+      "sublabel": "validasi tampilan",
+      "width": 132
+    },
+    {
+      "id": "tampil",
+      "lane": "prompt",
+      "col": 5,
+      "type": "frontend",
+      "label": "Ulasan tampil",
+      "sublabel": "rata-rata · distribusi",
+      "width": 136
+    },
+    {
+      "id": "balas",
+      "lane": "prompt",
+      "col": 3,
+      "type": "frontend",
+      "label": "Balasan merchant",
+      "sublabel": "1x per ulasan · mock",
+      "width": 136
+    },
+    {
+      "id": "guard",
+      "lane": "guard",
+      "col": 4,
+      "type": "security",
+      "label": "Ditolak",
+      "sublabel": "bukan peserta · dobel",
+      "tag": "blocked",
+      "width": 144
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-done",
+      "from": "done",
+      "to": "prompt",
+      "label": "order selesai",
+      "role": "main"
+    },
+    {
+      "id": "e-open",
+      "from": "prompt",
+      "to": "toko",
+      "label": "customer buka · boleh lewati",
+      "role": "main"
+    },
+    {
+      "id": "e-kurir",
+      "from": "toko",
+      "to": "nilai",
+      "label": "kurir & menu",
+      "role": "main"
+    },
+    {
+      "id": "e-teks",
+      "from": "nilai",
+      "to": "teks",
+      "label": "teks opsional",
+      "role": "main"
+    },
+    {
+      "id": "e-kirim",
+      "from": "teks",
+      "to": "kirim",
+      "label": "kirim penilaian",
+      "role": "main"
+    },
+    {
+      "id": "e-tampil",
+      "from": "kirim",
+      "to": "tampil",
+      "label": "tersimpan → tampil",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-balas",
+      "from": "balas",
+      "to": "tampil",
+      "label": "merchant balas · 1x",
+      "role": "branch"
+    },
+    {
+      "id": "e-block",
+      "from": "kirim",
+      "to": "guard",
+      "label": "bukan peserta / dobel",
+      "role": "branch",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Alur layar: selesai → prompt → nilai → tampil",
+      "items": [
+        "Order `done` (`f18`) → prompt penilaian; boleh lewati. Jendela pengisian UNRESOLVED",
+        "Satu penilaian per order: bintang merchant (wajib) + bintang kurir (bila ada kurir) + bintang per hidangan (opsional) + teks & tag (opsional)",
+        "Tampil di kartu merchant (rata-rata + jumlah), halaman ulasan (rata-rata, distribusi, terbaru), detail menu; tanpa ulasan = \"belum ada penilaian\""
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Aturan bisnis (BRS rating-review-2026-09-22)",
+      "items": [
+        "Hanya peserta order; order wajib `done`; satu penilaian per order — ubah/hapus UNRESOLVED",
+        "Rating BUKAN jalur sengketa: tidak membekukan dana, tidak mengubah status order (`C-12`); tanpa insentif (BR-7, BR-11)",
+        "Kurir dinilai untuk merchant (`C-06`) — tampil di konsol merchant; balasan merchant sudah ada di repo",
+        "**Tip kurir digabung di layar ini** (PO 2026-09-22): opsional, 100% ke kurir, dari wallet customer → wallet kurir; withdraw menunggu akumulasi (`f6`)"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber, status & UNRESOLVED",
+      "items": [
+        "BRS `rating-review-2026-09-22` — revisi `proposed`; `activeRevision` tetap irbid-mvp-v2-2026-09-21",
+        "Keputusan PO 2026-09-22: rating masuk MVP + **tip kurir** digabung di layar pasca-order (aturan tip dari PRD §Tips, bukan requirement baru)",
+        "Layar ada: `RatingDriver.tsx`, `Reviews.tsx`, `MerchantReviews.tsx` + `src/data/merchantReviews.ts`; layar tip belum ada (digabung di sini)",
+        "UNRESOLVED: jendela · edit/hapus · tag · batas balasan · moderasi · ambang rata-rata · isi dari riwayat · tip (ambang withdraw — `f6`)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": {
+    "title": "F5 — Verifikasi Pengiriman (Checkpoint + OTP + SLA)",
+    "quality_profile": "showcase",
+    "viewBox": [1080, 640]
+  },
+  "lanes": [
+    { "id": "main", "label": "Checkpoint utama" },
+    { "id": "timeout", "label": "Timeout & Auto-settle" },
+    { "id": "terminal", "label": "Hasil akhir" }
+  ],
+  "states": [
+    { "id": "ambil", "type": "start", "label": "Ambil", "sublabel": "merchant konfirmasi", "lane": "main", "col": 0 },
+    { "id": "berangkat", "type": "active", "label": "Berangkat", "sublabel": "timer 15m", "lane": "main", "col": 1 },
+    { "id": "tiba", "type": "active", "label": "Tiba", "sublabel": "geo + foto · timer 30m", "lane": "main", "col": 2, "width": 126 },
+    { "id": "otp", "type": "decision", "label": "OTP 4 digit", "sublabel": "timer 10m", "lane": "main", "col": 3 },
+    { "id": "settled", "type": "success", "label": "Settled", "sublabel": "auto-settle wajib", "lane": "terminal", "col": 2 },
+
+    { "id": "noOtp", "type": "waiting", "label": "Customer lalai", "sublabel": "tanpa OTP 10m", "lane": "timeout", "col": 2 }
+  ],
+  "transitions": [
+    { "id": "t-berangkat", "from": "ambil", "to": "berangkat", "label": "kurir berangkat", "labelDy": 55 },
+    { "id": "t-tiba", "from": "berangkat", "to": "tiba", "label": "sampai lokasi", "variant": "emphasis", "labelDy": 55 },
+    { "id": "t-otp", "from": "tiba", "to": "otp", "label": "minta OTP", "labelDy": 55 },
+    { "id": "t-otp-ok", "from": "otp", "to": "settled", "label": "OTP sukses", "variant": "emphasis", "labelAt": [633, 350] },
+
+    { "id": "t-timeout", "from": "otp", "to": "noOtp", "label": "timeout 10m", "variant": "dashed", "route": "drop", "channelX": 556, "channelY": 240, "labelAt": [590, 240] },
+    { "id": "t-autosettle", "from": "noOtp", "to": "settled", "label": "auto-settle", "variant": "dashed", "labelAt": [710, 350] }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Checkpoint & SLA", "items": ["Ambil → Berangkat 15m → Tiba 30m (geolocation + foto) → OTP 10m → auto-settle 10m setelah Tiba", "Timer 15/30/10 = keputusan sementara PO 2026-09-22 (OQ-13)"] },
+    { "dot": "amber", "title": "Auto-complete wajib", "items": ["Order tidak boleh menggantung pending selamanya (neg. scenario #7: saldo beku)", "Timeout OTP → tetap settle otomatis, bukan stuck", "Komplain → dispute 24 jam (F8)"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-DELIV-01 — analysis.md · M5 — milestones.md", "UNRESOLVED: OQ-14 — % penalti customer lalai (jangan ditebak)", "Detail uang settle → F2 · Detail order payung → F1"] }
+  ]
+}

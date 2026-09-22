@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "F4 — Fee & Pajak Checkout (0,37 JOD + Pajak 2 Lapis)",
+    "quality_profile": "showcase",
+    "viewBox": [1085, 507]
+  },
+  "stages": [
+    { "label": "Input checkout" },
+    { "label": "Komponen tagihan" },
+    { "label": "Fee platform" },
+    { "label": "Pajak & setoran" }
+  ],
+  "nodes": [
+    { "id": "basis", "type": "backend", "label": "Subtotal & ongkir", "sublabel": "ongkir 100% merchant", "stage": 0, "row": 0 },
+    { "id": "tip", "type": "backend", "label": "Tip kurir", "sublabel": "opsional · 100% ke kurir", "stage": 0, "row": 2, "width": 140 },
+
+    { "id": "feeCustomer", "type": "backend", "label": "Fee customer 0,22", "sublabel": "per order · semua metode", "stage": 1, "row": 0, "width": 132 },
+    { "id": "totalCustomer", "type": "backend", "label": "Total customer", "sublabel": "subtotal + ongkir + fee", "stage": 1, "row": 1, "width": 132 },
+
+    { "id": "feeMerchant", "type": "backend", "label": "Fee merchant 0,15", "sublabel": "saat settle (F2)", "stage": 2, "row": 0, "width": 132 },
+    { "id": "platform", "type": "backend", "label": "Platform 0,37 JOD", "sublabel": "0,22 + 0,15", "stage": 2, "row": 1, "width": 132 },
+
+    { "id": "gstFood", "type": "backend", "label": "GST makanan 16%", "sublabel": "merchant setor · UNRESOLVED", "stage": 3, "row": 0, "width": 140 },
+    { "id": "feeTax", "type": "backend", "label": "GST/PPh atas fee", "sublabel": "objek = 0,37 JOD", "stage": 3, "row": 1, "width": 140 },
+    { "id": "pphFinal", "type": "backend", "label": "PPh final 0,5%", "sublabel": "fee platform", "stage": 3, "row": 2, "width": 140 }
+  ],
+  "flows": [
+    { "id": "f-basis-total", "from": "basis", "to": "totalCustomer", "label": "hitung" },
+    { "id": "f-tip-total", "from": "tip", "to": "totalCustomer", "label": "opsional", "fromSide": "top", "toSide": "bottom", "via": [[100, 328], [315, 328]], "labelAt": [207, 328] },
+    { "id": "f-feeCust-total", "from": "feeCustomer", "to": "totalCustomer", "label": "ditampilkan", "labelAt": [345, 200] },
+    { "id": "f-feeCust-platform", "from": "feeCustomer", "to": "platform", "label": "0,22" },
+    { "id": "f-feeMerch-platform", "from": "feeMerchant", "to": "platform", "label": "0,15", "labelAt": [530, 200] },
+    { "id": "f-basis-gst", "from": "basis", "to": "gstFood", "label": "16% penjualan makanan", "fromSide": "top", "toSide": "top", "via": [[100, 100], [745, 100]] },
+    { "id": "f-platform-feeTax", "from": "platform", "to": "feeTax", "label": "objek pajak", "route": "straight" },
+    { "id": "f-platform-pph", "from": "platform", "to": "pphFinal", "label": "0,5%" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Fee flat 0,37 JOD", "items": ["Customer 0,22 JOD + merchant 0,15 JOD per order", "Berlaku SEMUA metode, termasuk transfer manual & COD cash (OQ-25, PO 2026-09-22)", "Ongkir 100% ke merchant — bukan pendapatan platform", "Tip opsional & sukarela, 100% ke kurir, tidak kena fee platform: dipilih saat checkout ATAU setelah terima (dua titik masuk; yang setelah-terima = prompt pasca-order `f19`)"] },
+    { "dot": "amber", "title": "Pajak 2 lapis", "items": ["GST makanan Jordan 16% — merchant setor atas penjualan", "GST/PPh atas fee platform (objek 0,37) + PPh final 0,5%", "Fee merchant dipotong saat settle (lihat F2); fee customer saat order dibayar"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-FEE-01, R-TAX-01 — analysis.md · M2, M7 — milestones.md", "UNRESOLVED (jangan ditebak): OQ-2/3/4 tarif GST makanan, PPN ekspor jasa, status PKP", "UNRESOLVED: OQ-17/18 (R-TAX-01) · OQ-27 sanity check fee customer 0,22"] }
+  ]
+}

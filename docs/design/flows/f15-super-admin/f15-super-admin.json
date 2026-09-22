@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F15 — Super Admin Console",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "konsol", "label": "Konsol Super Admin (layar)" },
+    { "id": "pantau", "label": "Layar pantau & aksi" },
+    { "id": "guard", "label": "Guard tampilan & role", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "approval", "label": "Approval tenant & deposit", "fromCol": 0, "toCol": 2 },
+    { "id": "monitor", "label": "Monitoring & eskalasi", "fromCol": 3, "toCol": 5, "variant": "emphasis" }
+  ],
+  "mainPath": ["queue", "review", "deposit", "liability", "escalate", "dispute"],
+  "semanticChecks": {
+    "allowedRoots": ["queue"],
+    "allowedTerminals": ["reject", "blacklist", "suspend", "noaction"],
+    "requiredEdges": [
+      { "from": "queue", "to": "review" },
+      { "from": "review", "to": "deposit" },
+      { "from": "deposit", "to": "liability" },
+      { "from": "liability", "to": "escalate" },
+      { "from": "escalate", "to": "dispute" }
+    ]
+  },
+  "nodes": [
+    { "id": "queue", "lane": "konsol", "col": 0, "type": "frontend", "label": "Queue onboarding", "sublabel": "tenantStatus: pending", "width": 130 },
+    { "id": "review", "lane": "konsol", "col": 1, "type": "frontend", "label": "Review merchant", "sublabel": "foto · deliveryConfig", "width": 132 },
+    { "id": "deposit", "lane": "pantau", "col": 2, "type": "frontend", "label": "Approve deposit", "sublabel": "3,50 JOD · unpaid → held", "width": 146 },
+    { "id": "liability", "lane": "pantau", "col": 3, "type": "frontend", "label": "Dashboard liability", "sublabel": "agregat tampil (mock)", "width": 138 },
+    { "id": "escalate", "lane": "konsol", "col": 4, "type": "frontend", "label": "SLA escalation", "sublabel": "escalatedToAdmin: true", "width": 134 },
+    { "id": "dispute", "lane": "pantau", "col": 5, "type": "frontend", "label": "Antrian sengketa", "sublabel": "open → resolved", "width": 126 },
+    { "id": "reject", "lane": "guard", "col": 2, "type": "security", "label": "Onboarding ditolak", "sublabel": "→ suspended", "tag": "blocked", "width": 132 },
+    { "id": "blacklist", "lane": "guard", "col": 4, "type": "security", "label": "Blacklist COD", "sublabel": "riskFlag: true", "tag": "blocked", "width": 130 },
+    { "id": "suspend", "lane": "guard", "col": 3, "type": "security", "label": "Suspend merchant", "sublabel": "→ suspended", "tag": "blocked", "width": 126 },
+    { "id": "noaction", "lane": "guard", "col": 5, "type": "security", "label": "Dispute ditolak", "sublabel": "resolution: no_action", "tag": "closed", "width": 134 }
+  ],
+  "edges": [
+    { "id": "e-review", "from": "queue", "to": "review", "label": "data merchant masuk", "role": "main" },
+    { "id": "e-deposit", "from": "review", "to": "deposit", "label": "verifikasi transfer → held", "role": "main" },
+    { "id": "e-monitor", "from": "deposit", "to": "liability", "label": "merchant aktif → pantau", "role": "main", "variant": "emphasis" },
+    { "id": "e-alert", "from": "liability", "to": "escalate", "label": "breach SLA → alert masuk", "role": "main" },
+    { "id": "e-tindak", "from": "escalate", "to": "dispute", "label": "kasus berlarut → antrian sengketa", "role": "main" },
+    { "id": "e-reject", "from": "review", "to": "reject", "label": "gagal verifikasi", "role": "branch", "variant": "security" },
+    { "id": "e-suspend", "from": "liability", "to": "suspend", "label": "indikasi pelanggaran", "role": "branch", "variant": "security" },
+    { "id": "e-blacklist", "from": "liability", "to": "blacklist", "label": "riwayat COD bermasalah", "role": "branch", "variant": "security" },
+    { "id": "e-rejected", "from": "dispute", "to": "noaction", "label": "status rejected → no_action", "role": "branch", "variant": "security" }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Approval tenant & blacklist",
+      "items": [
+        "Queue `merchant.tenantStatus: pending` (onboarding F16 — akan datang) → SA review data merchant, foto, `deliveryConfig`",
+        "Deposit `unpaid → held`: verifikasi transfer masuk → set `held` → `tenantStatus: approved` (aktifkan merchant)",
+        "Blacklist COD: `tenantStatus: blacklisted` + `customer.riskFlag: true` → blokir checkout COD (sambungan `f2-cod-hold`)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Monitoring & eskalasi",
+      "items": [
+        "Liability dashboard: agregat `wallet.reservedBalance` + ledger → kewajiban = saldo wallet customer + merchant + tips kurir belum di-payout. **Bukan gaji kurir** (`C-06` — kurir digaji merchant); layar view, angka mock",
+        "SLA escalation: `batch.escalatedToAdmin: true` (F21 — akan datang) → alert masuk → chase merchant / cancel / refund",
+        "Dispute queue: `incidentResolution.status: open → investigating → resolved/rejected` → `resolution` (refund_customer / refund_order / resettle / no_action)"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "Dasar: `C-12` (portal CS = Super Admin) + PRD §5C (deposit COD 3,50 JOD) + `R-DISPUTE-01` · schema-draft-v1.md entri 3/4/11/12/13/15 hanya nama field · repo ini front-end saja: konsol & aksi di sini tampilan mock (AGENTS.md §1)",
+        "UNRESOLVED: angka SLA (DEC-1037 sementara) · konfigurasi kuota tier (approval tier belum ada field)",
+        "UNRESOLVED: siapa admin — multi-admin? audit trail? (OQ-30) · jadwal settlement liability"
+      ]
+    }
+  ]
+}

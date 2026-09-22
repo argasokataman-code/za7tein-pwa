@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Sa7tein PWA — Peta Aplikasi per Role",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "customer", "type": "external", "label": "Customer", "sublabel": "PWA /app", "pos": [60, 60], "size": [170, 64] },
+    { "id": "merchant", "type": "external", "label": "Merchant", "sublabel": "/merchant/*", "pos": [360, 60], "size": [170, 64] },
+    { "id": "courier", "type": "external", "label": "Kurir", "sublabel": "planned", "tag": "planned", "pos": [660, 60], "size": [170, 64] },
+    { "id": "admin", "type": "external", "label": "Super Admin", "sublabel": "planned", "tag": "planned", "pos": [960, 60], "size": [170, 64] },
+
+    { "id": "customerapp", "type": "frontend", "label": "Customer App", "sublabel": "Discovery, Checkout, Order", "pos": [60, 300], "size": [170, 64] },
+    { "id": "merchantapp", "type": "frontend", "label": "Merchant Console", "sublabel": "Orders, Menu, Reviews", "pos": [360, 300], "size": [170, 64] },
+    { "id": "courierapp", "type": "frontend", "label": "Courier Console", "sublabel": "planned", "tag": "planned", "pos": [660, 300], "size": [170, 64] },
+    { "id": "adminapp", "type": "frontend", "label": "Super Admin", "sublabel": "planned", "tag": "planned", "pos": [960, 300], "size": [170, 64] },
+
+    { "id": "store", "type": "database", "label": "Redux Store", "sublabel": "8 slice · persist 4", "pos": [60, 540], "size": [170, 64] },
+    { "id": "data", "type": "database", "label": "Mock Data", "sublabel": "src/data · 8 modul", "pos": [360, 540], "size": [170, 64] },
+    { "id": "handoff", "type": "external", "label": "Kontrak BE", "sublabel": "Xendit, ledger, push", "pos": [660, 540], "size": [170, 64] },
+    { "id": "web", "type": "frontend", "label": "Web (plain)", "sublabel": "Landing, Documentation", "pos": [960, 540], "size": [170, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "PWA /app — 53 rute", "wraps": ["customerapp", "merchantapp"] },
+    { "kind": "region", "label": "Belum dibangun (planned)", "wraps": ["courier", "admin", "courierapp", "adminapp"] },
+    { "kind": "region", "label": "Web (plain)", "wraps": ["web"] }
+  ],
+  "connections": [
+    { "id": "c-app", "from": "customer", "to": "customerapp", "label": "pesan", "labelDy": 30 },
+    { "id": "m-app", "from": "merchant", "to": "merchantapp", "label": "kelola", "labelDy": 30 },
+    { "id": "cu-app", "from": "courier", "to": "courierapp", "label": "antar", "variant": "dashed", "labelDy": 30 },
+    { "id": "a-app", "from": "admin", "to": "adminapp", "label": "awasi", "variant": "dashed", "labelDy": 30 },
+
+    { "id": "c-store", "from": "customerapp", "to": "store", "label": "state", "labelDy": 30 },
+    { "id": "m-store", "from": "merchantapp", "to": "store", "label": "state" },
+    { "id": "data-store", "from": "data", "to": "store", "label": "seed", "labelAt": [262, 592] },
+
+    { "id": "cu-handoff", "from": "courierapp", "to": "handoff", "label": "payout", "variant": "dashed", "labelDy": 30 },
+    { "id": "a-handoff", "from": "adminapp", "to": "handoff", "label": "ledger & dispute", "variant": "dashed" },
+    { "id": "m-handoff", "from": "merchantapp", "to": "handoff", "label": "kontrak (future)", "variant": "dashed" }
+  ]
+}

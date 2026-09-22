@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein — Peta Flow Bisnis (20 diagram)</title>
+<style>
+  :root{
+    --bg:#faf7f2; --surface:#fff; --border:#e7e0d6; --text:#221c15; --muted:#6f675c;
+    --orange:#e8590c; --on-orange:#fff; --chip:#f1ece4; --ok:#2f9e44; --open:#e8590c;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#17140f; --surface:#201c16; --border:#37312a; --text:#f1ece4; --muted:#a89e91; --chip:#2a251e; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 -apple-system,"Segoe UI",Roboto,sans-serif}
+  header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 20px}
+  h1{margin:0;font-size:18px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+  h1 small{color:var(--muted);font-weight:400;font-size:13px}
+  main{max-width:1200px;margin:0 auto;padding:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:border-color .15s,transform .15s}
+  .card:hover{border-color:var(--orange);transform:translateY(-1px)}
+  .card h2{margin:0 0 6px;font-size:15px}
+  .card .slug{font:11px var(--mono);color:var(--muted)}
+  .badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .b{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--chip);border:1px solid var(--border);color:var(--muted)}
+  .b.type{color:var(--text)}
+  .b.ok{color:var(--ok);border-color:var(--ok)}
+  .b.umb{background:var(--orange);border-color:var(--orange);color:var(--on-orange)}
+  .b.prop{background:#c92a2a;border-color:#c92a2a;color:#fff}
+  .b.part{border-color:var(--orange);color:var(--orange)}
+  section{margin-top:28px}
+  section h3{font-size:14px;margin:0 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;font-size:13px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border)}
+  th{color:var(--muted);font-weight:600;background:var(--chip)}
+  tr:last-child td{border-bottom:0}
+  td.m{font-family:var(--mono);font-size:12px}
+  .as{color:var(--muted);font-style:italic}
+  /* stage view */
+  #stage{display:none;height:100vh;flex-direction:column}
+  body.stage #home{display:none}
+  body.stage #stage{display:flex}
+  .topbar{display:flex;gap:12px;align-items:center;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border);flex-wrap:wrap}
+  .topbar button{font:600 13px inherit;color:var(--on-orange);background:var(--orange);border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+  .topbar .meta{font:12px var(--mono);color:var(--muted)}
+  iframe{flex:1;border:0;width:100%;background:var(--surface)}
+  footer{padding:18px 20px;color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Sa7tein — Peta Flow Bisnis <small>PRD aktif irbid-mvp-v2-2026-09-21 · 20 diagram · bisnis dulu: lihat <code>BUSINESS.md</code> · repo front-end saja: diagram = layar & state (AGENTS.md §1)</small></h1>
+</header>
+
+<main id="home">
+  <div class="grid" id="grid"></div>
+
+  <section>
+    <h3>Peta koneksi (sumber: INDEX.json — klik slug untuk buka)</h3>
+    <table id="links"><thead><tr><th>Dari</th><th>Ke</th><th>Sebagai</th><th>Event</th><th>Requirement</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <section>
+    <h3>Trace requirement → flow → entity (bahan ERD backend)</h3>
+    <table id="trace"><thead><tr><th>Requirement</th><th>Flow</th><th>Entity</th><th>UNRESOLVED</th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <footer>Bisnis per flow: <code>BUSINESS.md</code> (dibaca sebelum menyunting diagram) · Deep-link: <code>#f1-order-lifecycle</code> dsb · tombol Back browser berfungsi · spesifikasi diedit di <code>&lt;slug&gt;/&lt;slug&gt;.json</code></footer>
+</main>
+
+<div id="stage">
+  <div class="topbar">
+    <button id="back">← Dashboard</button>
+    <strong id="stage-title"></strong>
+    <span class="meta" id="stage-meta"></span>
+  </div>
+  <iframe id="frame" title="Flow diagram"></iframe>
+</div>
+
+<script>
+const FLOWS = [
+  {slug:"f1-order-lifecycle",       title:"Order end-to-end (payung)",      type:"workflow", role:"umbrella",  ms:"M2–M5",  req:"R-COD-01, R-DELIV-01, R-TOPUP-01, R-FEE-01", biz:"decided", basis:"R-* + C-06..C-11"},
+  {slug:"f2-cod-hold",              title:"COD via wallet (hold lifecycle)",type:"lifecycle",role:"drilldown", ms:"M4",     req:"R-COD-01", biz:"decided", basis:"R-COD-01, C-08, PO#5"},
+  {slug:"f3-wallet-topup",          title:"Wallet & top-up",                type:"workflow", role:"drilldown", ms:"M0–M3",  req:"R-WALLET-01, R-TOPUP-01", biz:"decided", basis:"R-* + C-14"},
+  {slug:"f4-fee-tax",               title:"Fee & pajak checkout",           type:"dataflow", role:"drilldown", ms:"M2, M7", req:"R-FEE-01, R-TAX-01", open:["OQ-2","OQ-3","OQ-4","OQ-17","OQ-18"], biz:"partial", basis:"R-* + PO#1-2"},
+  {slug:"f5-delivery-verification", title:"Verifikasi pengiriman",          type:"lifecycle",role:"drilldown", ms:"M5",     req:"R-DELIV-01", open:["OQ-14"], biz:"partial", basis:"R-DELIV-01, C-09, C-10"},
+  {slug:"f6-cashout-payout",        title:"Cash-out & payout",              type:"workflow", role:"drilldown", ms:"M3, M9", req:"R-CASHOUT-01, R-WALLET-01", open:["OQ-16","OQ-22"], biz:"partial", basis:"R-* + unit economics"},
+  {slug:"f7-ledger-liability",      title:"Ledger & liability",             type:"dataflow", role:"drilldown", ms:"M9",     req:"R-LEDGER-01", biz:"decided", basis:"R-LEDGER-01"},
+  {slug:"f8-dispute",               title:"Dispute (queue Super Admin)",    type:"workflow", role:"drilldown", ms:"M6",     req:"R-DISPUTE-01", open:["OQ-29","OQ-30"], biz:"partial", basis:"R-DISPUTE-01, C-12"},
+  {slug:"f9-incentive",             title:"Insentif Founding Merchant",     type:"workflow", role:"drilldown", ms:"M10",    req:"R-INCENTIVE-01", open:["I-3","I-4","I-5","I-6"], biz:"partial", basis:"R-INCENTIVE-01, PO#7, I-1/I-2"},
+  {slug:"f10-exchange-rate",        title:"Kurs IDR↔JOD",                   type:"sequence", role:"support",   ms:"M1",     req:"R-CURR-01", open:["OQ-26","OQ-28"], biz:"partial", basis:"R-CURR-01, C-14"},
+  {slug:"f11-push-notification",    title:"Push + fallback WhatsApp",       type:"sequence", role:"support",   ms:"M8",     req:"R-PUSH-01", open:["device test"], biz:"partial", basis:"R-PUSH-01, C-18"},
+  {slug:"f12-merchant-console",     title:"Merchant Console (sisi dapur)",  type:"workflow", role:"drilldown", ms:"M4/M5/M11 + plan-merchant", req:"plan-merchant.md, C-06, C-07", open:["OQ-30"], biz:"partial", basis:"C-06, C-07"},
+  {slug:"f13-courier-view",         title:"Tampilan Kurir (pengantaran)",   type:"workflow", role:"drilldown", ms:"M4, M5", req:"R-DELIV-01, R-COD-01", open:["OQ-13","OQ-14"], biz:"partial", basis:"C-06, R-DELIV-01"},
+  {slug:"f14-chat-order",           title:"Chat per Order",                 type:"workflow", role:"drilldown", ms:"—",      req:"C-18 (in-app chat)", biz:"decided", basis:"C-18, C-12", open:["retensi chat"]},
+  {slug:"f15-super-admin",          title:"Super Admin Console (portal CS)",type:"workflow", role:"drilldown", ms:"M6, M9", req:"C-12, PRD §5C", biz:"partial", basis:"C-12, PRD 5C", open:["OQ-30"]},
+  {slug:"f16-merchant-onboarding",  title:"Merchant Onboarding",            type:"workflow", role:"drilldown", ms:"M4, M11", req:"PRD §5C + §Insentif Founding", biz:"partial", basis:"PRD 5C + §Insentif + I-1/I-2", open:["I-3","I-5"]},
+  {slug:"f17-payment-xendit",       title:"Payment Xendit (VA/QRIS)",       type:"sequence", role:"support",   ms:"M2",     req:"C-01, DEC-1039, OQ-25", biz:"decided", basis:"C-01, DEC-1039", open:["idempotency","webhook retry"]},
+  {slug:"f18-order-state",          title:"Order State Machine",            type:"lifecycle",role:"drilldown", ms:"M2–M5",  req:"C-17, DEC-1037", biz:"partial", basis:"C-17", open:["quotation vs placed"]},
+  {slug:"f19-rating-review",        title:"Rating, Review & Tip",            type:"workflow", role:"drilldown", ms:"—",      req:"BRS rating-review-2026-09-22 + PRD §Tips", biz:"partial", basis:"BRS proposed + PO 2026-09-22 (tip gabung)", open:["jendela","tag","moderasi","tip (f6)"]},
+  {slug:"f20-address-zone",         title:"Address & Zone (coverage)",      type:"workflow", role:"drilldown", ms:"M2",     req:"C-13, C-05, C-07", biz:"decided", basis:"C-13 (Hijazi/Syimali ≤2 km)", open:["master zona"]},
+  {slug:"f21-account-auth",         title:"Registrasi & Masuk Akun",        type:"workflow", role:"drilldown", ms:"M8",     req:"PRD §Registrasi + PO 2026-09-22", biz:"decided", basis:"PRD :760 + :727 + Google & nomor WA (Level 1)", open:["Google merchant?","sesi/token"]}
+];
+
+const LINKS = [
+  ["f1-order-lifecycle:order","f2-cod-hold:none→held","drilldown","hold_created","R-COD-01"],
+  ["f1-order-lifecycle:dapur","f2-cod-hold:held→cut","drilldown","hold_cut","R-COD-01"],
+  ["f1-order-lifecycle:otp","f2-cod-hold:cut→settled","drilldown","hold_settled","R-COD-01"],
+  ["f1-order-lifecycle:batal","f2-cod-hold:released|reversed","drilldown","hold_released|hold_reversed","R-COD-01"],
+  ["f1-order-lifecycle:topUpGate","f3-wallet-topup:completed","drilldown","topup_completed","R-TOPUP-01"],
+  ["f1-order-lifecycle:checkout","f4-fee-tax","drilldown","fee_computed","R-FEE-01"],
+  ["f1-order-lifecycle:dapur|tiba|otp","f5-delivery-verification","drilldown","checkpoint_*","R-DELIV-01"],
+  ["f2-cod-hold:cut→settled","f7-ledger-liability:entry","feeds","ledger_entry","R-LEDGER-01"],
+  ["f7-ledger-liability:ledger","f6-cashout-payout","feeds","cashout_requested","R-CASHOUT-01"],
+  ["f2-cod-hold","f8-dispute","interrupts","dispute_opened","R-DISPUTE-01"],
+  ["f2-cod-hold:cut→settled","f9-incentive","feeds","fee_deducted_from_credit","R-INCENTIVE-01"],
+  ["f4-fee-tax","f10-exchange-rate","reads","rate_fetched","R-CURR-01"],
+  ["f1-order-lifecycle|f8-dispute","f11-push-notification","notifies","push_sent","R-PUSH-01"],
+  ["f1-order-lifecycle:dapur","f12-merchant-console","drilldown","order_accepted","R-COD-01"],
+  ["f12-merchant-console:assign","f13-courier-view","feeds","courier_match","R-DELIV-01"],
+  ["f13-courier-view:selesai","f1-order-lifecycle:otp","feeds","otp_verified","R-DELIV-01"],
+  ["f1-order-lifecycle:placed","f14-chat-order:placed","drilldown","chat_opened","C-18"],
+  ["f13-courier-view:selesai","f14-chat-order:courierjoin","feeds","courier_joined_chat","C-18"],
+  ["f8-dispute","f14-chat-order:dispute","notifies","dispute_opened","R-DISPUTE-01"],
+  ["f16-merchant-onboarding:submit","f15-super-admin:queue","drilldown","tenant_submitted","PRD §5C"],
+  ["f15-super-admin:deposit","f16-merchant-onboarding:deposit","feeds","deposit_held","PRD §5C"],
+  ["f15-super-admin:blacklist","f2-cod-hold","blocks","cod_blocked","C-12"],
+  ["f7-ledger-liability:ledger","f15-super-admin:liability","feeds","liability_view","C-12"],
+  ["f15-super-admin:dispute","f8-dispute","drilldown","dispute_resolved","R-DISPUTE-01"],
+  ["f16-merchant-onboarding:profil","f20-address-zone:gate","feeds","delivery_config_set","R-ADDR-01"],
+  ["f1-order-lifecycle:checkout","f17-payment-xendit:checkout","drilldown","payment_method_selected","C-01+DEC-1039"],
+  ["f17-payment-xendit:paid","f1-order-lifecycle:order","feeds","payment_confirmed","C-01+DEC-1039"],
+  ["f17-payment-xendit:paid","f7-ledger-liability:entry","feeds","ledger_entry","R-LEDGER-01"],
+  ["f1-order-lifecycle:order","f18-order-state:cart","drilldown","order_status_changed","C-17"],
+  ["f18-order-state:prepare","f12-merchant-console:antrean","feeds","merchant_ready","C-17"],
+  ["f18-order-state:done","f19-rating-review:done","feeds","review_prompt","R-RATE-01"],
+  ["f19-rating-review:submit","f12-merchant-console:terima","feeds","review_saved","R-RATE-01"],
+  ["f20-address-zone:gate","f1-order-lifecycle:checkout","feeds","coverage_checked","R-ADDR-01"],
+  ["f20-address-zone:order","f18-order-state:quotation","feeds","order_zone_snapshot","R-ADDR-01"],
+  ["f21-account-auth:order","f3-wallet-topup","feeds","topup_gate_pending","R-TOPUP-01"],
+  ["f21-account-auth:onboard","f16-merchant-onboarding","feeds","tenant_signup","PRD §5C"],
+  ["f21-account-auth:phone","f11-push-notification","feeds","wa_fallback_ready","R-PUSH-01"]
+];
+
+const TRACE = [
+  ["R-COD-01","f1:order, f2","wallet_holds, wallet_ledgers, orders",""],
+  ["R-TOPUP-01","f1:topUpGate, f3","topups, wallets, wallet_ledgers",""],
+  ["R-WALLET-01","f1:checkout, f3, f4:tip, f6, f19:teks","wallets, wallet_ledgers","OQ-16, OQ-22"],
+  ["R-FEE-01","f1:checkout, f4","orders, fees",""],
+  ["R-TAX-01","f4","taxes","OQ-2, OQ-3, OQ-4, OQ-17, OQ-18"],
+  ["R-DELIV-01","f5, f13","checkpoints, orders, wallet_holds","OQ-13, OQ-14"],
+  ["R-CASHOUT-01","f6","cashouts, wallets","OQ-16, OQ-22"],
+  ["R-LEDGER-01","f7","wallet_ledgers, liabilities",""],
+  ["R-DISPUTE-01","f8","disputes, protection_fund, orders","OQ-29, OQ-30"],
+  ["R-INCENTIVE-01","f9","merchant_credit, cashback_tiers","I-3, I-4, I-5, I-6"],
+  ["R-CURR-01","f10","exchange_rates","OQ-26, OQ-28"],
+  ["R-PUSH-01","f11","push_subscriptions","device test, WA API L2"],
+  ["MERCHANT-CONSOLE (tanpa R-*; plan-merchant + C-06/C-07)","f1:dapur, f12","orders, couriers, merchant_credit","OQ-30"],
+  ["C-18 (chat in-app)","f1:placed, f14","chats, chat_messages","retensi chat (N hari)"],
+  ["C-12 (CS = Super Admin) — approval","f15:queue|deposit|blacklist, f16","merchants, deposits, users","OQ-30"],
+  ["C-12 (CS = Super Admin) — monitoring","f15:liability|escalate","wallet_ledgers, incident_resolutions, orders","angka SLA (DEC-1037)"],
+  ["PRD §5C + I-2 (merchant onboarding)","f16","merchants, deposits, couriers, merchant_credit","I-3, I-5"],
+  ["C-01 + DEC-1039 (payment)","f1:checkout, f17","orders, wallet_ledgers, topups","idempotency, webhook retry, VA expiry"],
+  ["C-17 (order state)","f1, f18","orders, batches","quotation vs placed"],
+  ["R-RATE-01","f18:done, f19","rating_reviews, review_replies","jendela, edit/hapus, tag, batas balasan, moderasi, tip (f6)"],
+  ["R-ADDR-01","f16:profil, f20","addresses, merchants, orders","master zona (f15)"],
+  ["PRD §Registrasi (Level 1)","f21:method|phone|verify","users, phone_verifications","Google merchant?, sesi/token, verifikasi Level 2"]
+];
+
+const bySlug = Object.fromEntries(FLOWS.map(f => [f.slug, f]));
+const slugOf = ref => ref.split(/[|:]/)[0];
+
+// ---- render dashboard ----
+document.getElementById("grid").innerHTML = FLOWS.map(f => `
+  <div class="card" data-slug="${f.slug}">
+    <h2>${f.title}</h2>
+    <div class="slug">${f.slug}</div>
+    <div class="badges">
+      <span class="b type">${f.type}</span>
+      <span class="b ${f.role === "umbrella" ? "umb" : ""}">${f.role}</span>
+      <span class="b">${f.ms}</span>
+      <span class="b ok">9/9 · visual ✓</span>
+      <span class="b ${f.biz === "proposed" ? "prop" : f.biz === "partial" ? "part" : ""}">bisnis: ${f.biz}</span>
+      ${f.open ? `<span class="b" style="color:var(--open);border-color:var(--open)">${f.open.length} UNRESOLVED</span>` : ""}
+    </div>
+    <div class="badges"><span class="b">${f.req}</span></div>
+    <div class="badges"><span class="b">dasar: ${f.basis}</span></div>
+  </div>`).join("");
+
+document.querySelector("#links tbody").innerHTML = LINKS.map(([from, to, as, ev, req]) => `
+  <tr>
+    <td class="m"><a href="#${slugOf(from)}" style="color:inherit">${from}</a></td>
+    <td class="m"><a href="#${slugOf(to)}" style="color:inherit">${to}</a></td>
+    <td class="as">${as}</td><td class="m">${ev}</td><td class="m">${req}</td>
+  </tr>`).join("");
+
+document.querySelector("#trace tbody").innerHTML = TRACE.map(([req, flows, ent, open]) => `
+  <tr><td class="m">${req}</td><td class="m">${flows}</td><td class="m">${ent}</td>
+  <td class="m" style="color:var(--open)">${open || "—"}</td></tr>`).join("");
+
+// ---- routing: #slug = stage, kosong = dashboard ----
+function route() {
+  const slug = decodeURIComponent(location.hash.slice(1));
+  const f = bySlug[slug];
+  if (f) {
+    document.body.classList.add("stage");
+    document.getElementById("stage-title").textContent = f.title;
+    document.getElementById("stage-meta").textContent =
+      `${f.slug} · ${f.type} · ${f.role} · ${f.ms} · bisnis: ${f.biz} (dasar: ${f.basis}) · validate 9/9 · visual 4vp ✓` +
+      (f.open ? ` · UNRESOLVED: ${f.open.join(", ")}` : "");
+    const frame = document.getElementById("frame");
+    const src = `${f.slug}/${f.slug}.html`;
+    if (!frame.src.endsWith(src)) frame.src = src;
+  } else {
+    document.body.classList.remove("stage");
+    document.getElementById("frame").src = "about:blank";
+  }
+}
+window.addEventListener("hashchange", route);
+
+document.getElementById("home").addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if (card) location.hash = card.dataset.slug;   // pushState alami lewat hashchange
+});
+// ponytail: history.back() dari handler diblokir Chrome (file://) — hash='' deterministik, tak pernah keluar halaman
+function goBack() { location.hash = ""; }
+document.getElementById("back").addEventListener("click", goBack);
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && document.body.classList.contains("stage")) goBack();
+});
+
+route();
+</script>
+</body>
+</html>

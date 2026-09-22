@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F9 — Insentif Merchant (Modal 5 JOD + Cashback Tier)",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "credit", "label": "Modal 5 JOD (non-withdrawal)" },
+    { "id": "rebate", "label": "Cashback bulanan" },
+    { "id": "caveat", "label": "UNRESOLVED & Guard", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "modal", "label": "Modal awal", "fromCol": 0, "toCol": 1 },
+    { "id": "tier", "label": "Tier bulanan", "fromCol": 2, "toCol": 5, "variant": "emphasis" }
+  ],
+  "mainPath": ["grant", "debit", "volume", "tier", "pay", "deposit"],
+  "semanticChecks": {
+    "allowedRoots": ["grant"],
+    "allowedTerminals": ["deposit", "habis", "open"],
+    "requiredEdges": [
+      { "from": "grant", "to": "debit" },
+      { "from": "debit", "to": "volume" },
+      { "from": "tier", "to": "pay" },
+      { "from": "pay", "to": "deposit" }
+    ]
+  },
+  "nodes": [
+    { "id": "grant", "lane": "credit", "col": 0, "type": "backend", "label": "Kredit 5 JOD", "sublabel": "non-withdrawal", "width": 118 },
+    { "id": "debit", "lane": "credit", "col": 1, "type": "backend", "label": "Fee dipotong", "sublabel": "0,15 × ~33 order", "width": 124 },
+    { "id": "habis", "lane": "credit", "col": 2, "type": "backend", "label": "Credit habis", "sublabel": "fee normal kembali", "width": 124 },
+    { "id": "volume", "lane": "rebate", "col": 2, "type": "backend", "label": "Volume settled", "sublabel": "order / bulan", "width": 120 },
+    { "id": "tier", "lane": "rebate", "col": 3, "type": "security", "label": "Cek tier", "sublabel": "500 / 1.000 / 1.250", "width": 124 },
+    { "id": "pay", "lane": "rebate", "col": 4, "type": "backend", "label": "Cashback bulanan", "sublabel": "15 / 40 / 62,5 JOD", "width": 134 },
+    { "id": "deposit", "lane": "rebate", "col": 5, "type": "database", "label": "Dompet deposit", "sublabel": "I-3 OPEN", "width": 124 },
+    { "id": "open", "lane": "caveat", "col": 3, "type": "security", "label": "UNRESOLVED", "sublabel": "I-3..I-6", "tag": "open", "width": 112 }
+  ],
+  "edges": [
+    { "id": "e-grant-debit", "from": "grant", "to": "debit", "label": "otomatis saat daftar", "role": "main" },
+    { "id": "e-debit-volume", "from": "debit", "to": "volume", "label": "setiap settle", "role": "main" },
+    { "id": "e-volume-tier", "from": "volume", "to": "tier", "label": "akhir bulan", "role": "main" },
+    { "id": "e-tier-pay", "from": "tier", "to": "pay", "label": "tercapai", "role": "main", "variant": "emphasis" },
+    { "id": "e-pay-deposit", "from": "pay", "to": "deposit", "label": "kas keluar platform", "role": "main" },
+    { "id": "e-debit-habis", "from": "debit", "to": "habis", "label": "≈33 order", "role": "branch" },
+    { "id": "e-tier-open", "from": "tier", "to": "open", "label": "periode & kuota?", "role": "error", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Modal 5 JOD (I-2 RESOLVED)", "items": ["Kredit sistem non-tunai, non-withdrawal — hanya memotong fee 0,15; fee customer tetap 0,22 (I-1 RESOLVED)", "≈33 order pertama (5 ÷ 0,15 = 33,3); akun ledger merchant_credit", "TERPISAH dari deposit COD 3,50 JOD (PO 2026-09-22)"] },
+    { "dot": "amber", "title": "Tier bulanan", "items": ["Tier 1: 500 order → 15 JOD (fee efektif 0,12/porsi)", "Tier 2: 1.000 → 40 JOD (0,11) · Tier 3: 1.250+ → 62,5 JOD (0,10)", "Cashback = arus kas keluar akhir bulan → dompet deposit dapur"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-INCENTIVE-01 — analysis.md · M10 — milestones.md (deps M0, M3, M9)", "I-3: cashback withdrawable? · I-4: periode tier & naik di tengah bulan", "I-5: kuota Founding · I-6: sisa modal saat merchant berhenti"] }
+  ]
+}

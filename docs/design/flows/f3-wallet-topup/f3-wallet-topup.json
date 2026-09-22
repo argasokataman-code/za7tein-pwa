@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F3 — Wallet & Top-up (Xendit VA/QRIS)",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "customer", "label": "Customer — Top-up" },
+    { "id": "ledger", "label": "Wallet & Internal Ledger" },
+    { "id": "caveat", "label": "Gate & Catatan", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "topup", "label": "Top-up via Xendit", "fromCol": 0, "toCol": 3 },
+    { "id": "saldo", "label": "Saldo & Ledger", "fromCol": 4, "toCol": 5, "variant": "emphasis" }
+  ],
+  "mainPath": ["amount", "channel", "redirect", "pending", "completed", "balance"],
+  "semanticChecks": {
+    "allowedRoots": ["amount"],
+    "allowedTerminals": ["balance", "gate", "xenditPayout"],
+    "requiredEdges": [
+      { "from": "pending", "to": "completed" },
+      { "from": "completed", "to": "balance" }
+    ]
+  },
+  "nodes": [
+    { "id": "amount", "lane": "customer", "col": 0, "type": "frontend", "label": "Pilih nominal", "sublabel": "isi saldo wallet", "width": 120 },
+    { "id": "channel", "lane": "customer", "col": 1, "type": "security", "label": "Pilih channel", "sublabel": "VA / QRIS (mock)", "width": 120 },
+    { "id": "redirect", "lane": "customer", "col": 2, "type": "backend", "label": "Redirect Xendit", "sublabel": "idempotency-key", "width": 126 },
+    { "id": "pending", "lane": "customer", "col": 3, "type": "backend", "label": "TopUp pending", "sublabel": "menunggu webhook", "width": 126 },
+    { "id": "completed", "lane": "customer", "col": 4, "type": "backend", "label": "completed", "sublabel": "webhook masuk", "width": 112 },
+    { "id": "balance", "lane": "customer", "col": 5, "type": "external", "label": "Saldo wallet", "sublabel": "available + pending", "width": 126 },
+
+    { "id": "internalLedger", "lane": "ledger", "col": 4, "type": "backend", "label": "Internal ledger", "sublabel": "antar-wallet instan", "width": 132 },
+    { "id": "xenditPayout", "lane": "ledger", "col": 5, "type": "backend", "label": "Xendit payout", "sublabel": "keluar → F6", "width": 118 },
+
+    { "id": "gate", "lane": "caveat", "col": 1, "type": "security", "label": "Gate akun baru", "sublabel": "wajib ≥ 3,5 JOD", "tag": "gate" }
+  ],
+  "edges": [
+    { "id": "e-amount-channel", "from": "amount", "to": "channel", "label": "lanjut", "role": "main" },
+    { "id": "e-channel-redirect", "from": "channel", "to": "redirect", "label": "VA / QRIS", "role": "main" },
+    { "id": "e-redirect-pending", "from": "redirect", "to": "pending", "label": "buat topup", "role": "main" },
+    { "id": "e-pending-completed", "from": "pending", "to": "completed", "label": "webhook", "variant": "emphasis", "role": "main" },
+    { "id": "e-completed-balance", "from": "completed", "to": "balance", "label": "kredit saldo", "role": "main" },
+
+    { "id": "e-balance-ledger", "from": "balance", "to": "internalLedger", "label": "bayar order", "role": "branch" },
+    { "id": "e-ledger-payout", "from": "internalLedger", "to": "xenditPayout", "label": "withdraw", "role": "branch" },
+
+    { "id": "e-amount-gate", "from": "amount", "to": "gate", "label": "nominal < 3,5 JOD", "variant": "dashed", "role": "error" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Tiga wallet (closed-loop)", "items": ["Customer: top-up Xendit VA/QRIS masuk, bayar order keluar", "Merchant: kredit otomatis saat settle (lihat F2) · Kurir: khusus tips, gaji dari merchant", "Antar-wallet = internal ledger, instan, tanpa fee gateway (R-WALLET-01)"] },
+    { "dot": "amber", "title": "State & aturan teknis", "items": ["TopUp state: pending / processing / completed / failed", "Setiap request gateway wajib idempotency-key + reference_id (anti duplikat)", "Saldo punya status available dan pending (hold saat order berjalan)"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-WALLET-01, R-TOPUP-01 — analysis.md · M0, M2, M3 — milestones.md", "DEFERRED (BE, PO 2026-09-22): OQ-5/7/8/23 onboarding & fee Xendit", "UNRESOLVED: OQ-15/19 segregated account e-money; gate 3,5 JOD berlaku semua metode (bukan hanya prepaid)"] }
+  ]
+}

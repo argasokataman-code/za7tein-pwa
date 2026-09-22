@@ -2,7 +2,7 @@
 
 - ID: `landing-page-2026-09-13`
 - Sumber: `versions/landing-page-2026-09-13/source.md` (brief desain, 637 baris)
-- Status: **proposed** — diadopsi sebagai **spec desain pelengkap** di bawah PRD aktif. `activeRevision` tetap `irbid-mvp-2026-09-12`.
+- Status: **proposed** — diadopsi sebagai **spec desain pelengkap** di bawah PRD aktif. `activeRevision` tetap `irbid-mvp-v2-2026-09-21`.
 - Alasan tidak diaktifkan: dokumen ini brief desain landing, bukan aturan domain produk. Mengaktifkannya akan men-supersede Irbid dan meregresi aturan produk.
 
 ## Resolusi konflik (diputuskan pemilik produk)

@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F6 — Cash-out & Payout (Customer · Merchant · Kurir)",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "customer", "label": "Customer — Cash-out" },
+    { "id": "other", "label": "Sumber dana lain" },
+    { "id": "caveat", "label": "UNRESOLVED & Guard", "variant": "exception" }
+  ],
+  "phases": [
+    { "id": "pengajuan", "label": "Pengajuan", "fromCol": 0, "toCol": 1 },
+    { "id": "proses", "label": "Proses Xendit payout", "fromCol": 2, "toCol": 4, "variant": "emphasis" }
+  ],
+  "mainPath": ["request", "feeCheck", "withdraw", "payoutWait", "done"],
+  "semanticChecks": {
+    "allowedRoots": ["request", "mSrc", "cSrc"],
+    "allowedTerminals": ["done", "feeOpen"],
+    "requiredEdges": [
+      { "from": "request", "to": "feeCheck" },
+      { "from": "feeCheck", "to": "withdraw" },
+      { "from": "payoutWait", "to": "done" }
+    ]
+  },
+  "nodes": [
+    { "id": "request", "lane": "customer", "col": 0, "type": "frontend", "label": "Minta cash-out", "sublabel": "nominal + rekening", "width": 126 },
+    { "id": "feeCheck", "lane": "customer", "col": 1, "type": "security", "label": "Fee cash-out", "sublabel": "placeholder", "width": 118 },
+    { "id": "withdraw", "lane": "customer", "col": 2, "type": "backend", "label": "Ajukan payout", "sublabel": "POST /v3/payouts", "width": 126 },
+    { "id": "payoutWait", "lane": "customer", "col": 3, "type": "backend", "label": "Menunggu", "sublabel": "webhook v3_payout.*", "width": 118 },
+    { "id": "done", "lane": "customer", "col": 4, "type": "external", "label": "Dana masuk", "sublabel": "saldo berkurang", "width": 118 },
+
+    { "id": "mSrc", "lane": "other", "col": 0, "type": "external", "label": "Merchant", "sublabel": "kredit settle (F2)", "width": 120 },
+    { "id": "cSrc", "lane": "other", "col": 1, "type": "external", "label": "Kurir", "sublabel": "tips · akumulasi", "width": 122 },
+
+    { "id": "feeOpen", "lane": "caveat", "col": 1, "type": "security", "label": "Fee & flow tarik", "sublabel": "UNRESOLVED OQ-16/22", "tag": "open", "width": 132 }
+  ],
+  "edges": [
+    { "id": "e-request-fee", "from": "request", "to": "feeCheck", "label": "cek", "role": "main" },
+    { "id": "e-fee-withdraw", "from": "feeCheck", "to": "withdraw", "label": "lolos", "variant": "emphasis", "role": "main" },
+    { "id": "e-withdraw-wait", "from": "withdraw", "to": "payoutWait", "label": "payout dibuat", "role": "main" },
+    { "id": "e-wait-done", "from": "payoutWait", "to": "done", "label": "sukses", "variant": "emphasis", "role": "main" },
+
+    { "id": "e-merchant-withdraw", "from": "mSrc", "to": "withdraw", "label": "withdraw", "role": "branch" },
+    { "id": "e-courier-withdraw", "from": "cSrc", "to": "withdraw", "label": "withdraw", "role": "branch" },
+
+    { "id": "e-fee-feeOpen", "from": "feeCheck", "to": "feeOpen", "label": "belum final", "variant": "dashed", "role": "error" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Tiga jalur keluar", "items": ["Customer: cash-out saldo → rekening", "Merchant: auto-kredit settle → withdraw Xendit payout", "Kurir: tips customer → withdraw setelah akumulasi ambang minimum; **fee payout ditanggung kurir** (dipotong dari withdraw — PO 2026-09-22). Gaji dari merchant"] },
+    { "dot": "amber", "title": "Mekanisme", "items": ["Semua = Xendit payout: POST /v3/payouts + webhook v3_payout.*", "idempotency-key + reference_id wajib (anti duplikat)", "Xendit hanya 2 titik: top-up masuk (F3) + payout keluar (sini)"] },
+    { "dot": "slate", "title": "UNRESOLVED (jangan ditebak)", "items": ["OQ-22 — fee cash-out customer (blocker M3): tanpa fee platform rugi ≈Rp3.200/kejadian (unit economics); tampil sebagai placeholder", "OQ-16 — flow cash-out saldo customer ke rekening", "Sumber: R-CASHOUT-01, R-WALLET-01 · M3 · UNRESOLVED tips: angka ambang minimum withdraw · fee payout tips ditanggung kurir (PO 2026-09-22)"] }
+  ]
+}

@@ -1,6 +1,6 @@
 # Analysis: landing-page-2026-09-13
 
-Status: REVIEWED. Spec pelengkap disetujui — lihat `docs/product/prd/decision-landing-page.md`. Baseline aktif: `irbid-mvp-2026-09-12`.
+Status: REVIEWED. Spec pelengkap disetujui — lihat `docs/product/prd/decision-landing-page.md`. Baseline aktif: `irbid-mvp-v2-2026-09-21`.
 
 ## Source inventory
 - Version printed in document: tidak ada nomor versi (brief desain, bukan PRD produk).
@@ -37,7 +37,7 @@ Status: REVIEWED. Spec pelengkap disetujui — lihat `docs/product/prd/decision-
 
 ## Conflicts and open questions
 
-- **C1 — Model zona (kritis).** Brief §04 dan §07 memakai **radius sekitar 2 km** dan **Zona A/B/C** (<600 m, 600 m–1.5 km, 1.5–2 km). Ini persis model `radius-mvp-legacy` yang berstatus **superseded** (`manifest.json` scope: "Indonesia, IDR, radius A/B/C ... free tier"). PRD aktif `irbid-mvp-2026-09-12` scope: "Irbid, JOD/IDR, **Hijazi/Syimali**, Midtrans, deposit COD, batch pedestrian". **UNRESOLVED** — pilih: (a) landing mengikuti zona Irbid, atau (b) brief sengaja memakai model radius (berarti Irbid tidak berlaku untuk landing / perlu revisi keputusan Irbid). Tidak boleh ditebak.
+- **C1 — Model zona (kritis).** Brief §04 dan §07 memakai **radius sekitar 2 km** dan **Zona A/B/C** (<600 m, 600 m–1.5 km, 1.5–2 km). Ini persis model `radius-mvp-legacy` yang berstatus **superseded** (`manifest.json` scope: "Indonesia, IDR, radius A/B/C ... free tier"). PRD aktif saat itu `irbid-mvp-2026-09-12` (kini superseded) scope: "Irbid, JOD/IDR, **Hijazi/Syimali**, Midtrans, deposit COD, batch pedestrian". **UNRESOLVED** — pilih: (a) landing mengikuti zona Irbid, atau (b) brief sengaja memakai model radius (berarti Irbid tidak berlaku untuk landing / perlu revisi keputusan Irbid). Tidak boleh ditebak.
 - **C2 — Pembayaran.** Brief §04 "Pembayaran masuk ke merchant". Irbid = Midtrans + **deposit COD** merchant. **UNRESOLVED** — arti "langsung" perlu dinyatakan ulang sesuai Irbid atau ditandai legacy.
 - **C3 — Free tier.** Brief §10 "Free: 10 order/hari; Paid: kuota lebih tinggi". Ini model free tier `radius-mvp-legacy`. Irbid memakai **deposit/komisi** (FR-MC-03). **UNRESOLVED**.
 - **C4 — Pasar/mata uang.** Brief tidak menyebut JOD/IDR/Irbid. Mengikuti C1. **UNRESOLVED**.
@@ -47,7 +47,7 @@ Status: REVIEWED. Spec pelengkap disetujui — lihat `docs/product/prd/decision-
 - **C8 — Rute nav belum ada.** Nav §14 minta "Cara Kerja, Untuk Merchant, Area, Tentang". "Area" → section LND-07; "Tentang" belum ada halaman/section; "Untuk Merchant" → `/merchant/menu` atau section LND-08; "Pelajari paket merchant" (§10) belum ada tujuan. **UNRESOLVED** — tentukan anchor/route.
 - **C9 — Target CTA.** "Mulai Pesan" (§02/§13) arahnya belum ditentukan (`/onboarding`? `/home`?); "Daftar Merchant" arah merchant. **UNRESOLVED**.
 - **C10 — Courier (§09).** Runtime courier 0% (lihat audit conformance). Section menampilkan layar kurir yang belum ada; hanya bisa mock statis. **Catat sebagai mock showcase**, bukan fitur aktif.
-- **C11 — Model aktivasi.** Brief ini bukan sumber aturan produk. Mengaktifkannya sebagai `activeRevision` akan men-supersede Irbid dan meregresi aturan produk. **Rekomendasi:** tetap `proposed`, adopsi sebagai **spec desain pelengkap** di bawah Irbid lewat `decision-landing-page.md`; `activeRevision` tetap `irbid-mvp-2026-09-12`. Perlu keputusan pemilik produk.
+- **C11 — Model aktivasi.** Brief ini bukan sumber aturan produk. Mengaktifkannya sebagai `activeRevision` akan men-supersede Irbid dan meregresi aturan produk. **Rekomendasi:** tetap `proposed`, adopsi sebagai **spec desain pelengkap** di bawah Irbid lewat `decision-landing-page.md`; `activeRevision` tetap `irbid-mvp-v2-2026-09-21`. Perlu keputusan pemilik produk.
 
 ## Repo impact and evidence
 
@@ -65,4 +65,4 @@ Status: REVIEWED. Spec pelengkap disetujui — lihat `docs/product/prd/decision-
 - D4 (C6): **tahan cap radius 12px**; token/DNA tidak diubah.
 - D5 (C7): **pakai aset lokal yang ada** (`public/assets/img/menu/*.webp`, burger onboarding).
 - D6 (C8/C9): **target default** (lihat `decision-landing-page.md`).
-- D7 (C11): **spec pelengkap**; `activeRevision` tetap `irbid-mvp-2026-09-12`.
+- D7 (C11): **spec pelengkap**; `activeRevision` tetap `irbid-mvp-v2-2026-09-21`.

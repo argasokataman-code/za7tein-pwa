@@ -17,7 +17,7 @@ Yang **tidak** dikerjakan di repo ini, dan jangan dimulai di sini:
 
 **Semua data adalah mock.** Isinya di `src/data/`, state-nya di Redux. Kalau sebuah aturan bisnis dari PRD tampak butuh logika, di sini ia jadi **state yang ditampilkan**: kuota `7 / 10` bukan counter yang harus benar, "Ditugaskan otomatis" bukan algoritma.
 
-PRD produk diregistrasi di `docs/product/prd/manifest.json`. Kedua PDF ada di `docs/product/prd/versions/`; revisi aktif `irbid-mvp-2026-09-12`, revisi `radius-mvp-legacy` sudah digantikan. Repo ini mengerjakan **tampilannya**. Aturan lama di bawah yang menyebut A/B/C, kuota free tier, dan transfer manual menjelaskan **kondisi kode saat ini**, bukan requirement aktif.
+PRD produk diregistrasi di `docs/product/prd/manifest.json`. Sumber PRD aktif ada di `docs/product/prd/versions/`; revisi aktif `irbid-mvp-v2-2026-09-21`, menggantikan `irbid-mvp-2026-09-12` yang kini `superseded` (dan `radius-mvp-legacy` sebelumnya). Repo ini mengerjakan **tampilannya**. Aturan lama di bawah yang menyebut A/B/C, kuota free tier, dan transfer manual menjelaskan **kondisi kode saat ini**, bukan requirement aktif.
 
 **Sebelum setiap tugas produk:** baca manifest, sumber PRD aktif, `docs/product/prd/decision-irbid-mvp.md`, dan `docs/design/DNA.md`. Jangan mengambil aturan bisnis dari nama file, komentar lama, atau atlas tanpa mengecek PRD aktif. Jika PRD/BRS baru masuk `docs/product/prd/inbox/`, jalankan alur intake di `docs/product/prd/README.md`; dokumen baru berstatus proposed sampai keputusan aktivasi tertulis. Requirement yang tidak jelas wajib ditandai `UNRESOLVED` dengan sumber, bukan diisi dengan tebakan. Milestone dibuat dari requirement bersumber dan dependensi, bukan sekadar daftar layar.
 

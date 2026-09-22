@@ -1,0 +1,299 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F14 — Chat per Order",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "chat",
+      "label": "Layar chat (app)"
+    },
+    {
+      "id": "pesan",
+      "label": "Daftar chat & status pesan"
+    },
+    {
+      "id": "guard",
+      "label": "Guard tampilan",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "buat",
+      "label": "Thread & pesan",
+      "fromCol": 0,
+      "toCol": 2
+    },
+    {
+      "id": "kirim",
+      "label": "Kirim, receipt & arsip",
+      "fromCol": 3,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ],
+  "mainPath": [
+    "placed",
+    "thread",
+    "message",
+    "delivery",
+    "readreceipt",
+    "archive"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "placed",
+      "courierjoin",
+      "access"
+    ],
+    "allowedTerminals": [
+      "archive",
+      "dispute",
+      "reject"
+    ],
+    "requiredEdges": [
+      {
+        "from": "placed",
+        "to": "thread"
+      },
+      {
+        "from": "thread",
+        "to": "message"
+      },
+      {
+        "from": "message",
+        "to": "delivery"
+      },
+      {
+        "from": "delivery",
+        "to": "readreceipt"
+      },
+      {
+        "from": "readreceipt",
+        "to": "archive"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "placed",
+      "lane": "chat",
+      "col": 0,
+      "type": "frontend",
+      "label": "Order placed",
+      "sublabel": "buka dari layar order",
+      "width": 124
+    },
+    {
+      "id": "courierjoin",
+      "lane": "chat",
+      "col": 2,
+      "type": "frontend",
+      "label": "Kurir masuk thread",
+      "sublabel": "event courier_match",
+      "width": 130
+    },
+    {
+      "id": "retry",
+      "lane": "chat",
+      "col": 3,
+      "type": "frontend",
+      "label": "Gagal kirim",
+      "sublabel": "retry manual / otomatis",
+      "width": 120
+    },
+    {
+      "id": "thread",
+      "lane": "pesan",
+      "col": 1,
+      "type": "frontend",
+      "label": "Daftar chat",
+      "sublabel": "orderId · ≤3 peserta",
+      "width": 132
+    },
+    {
+      "id": "message",
+      "lane": "pesan",
+      "col": 2,
+      "type": "frontend",
+      "label": "Tulis pesan",
+      "sublabel": "sender · body · at",
+      "width": 116
+    },
+    {
+      "id": "delivery",
+      "lane": "pesan",
+      "col": 3,
+      "type": "frontend",
+      "label": "Pesan terkirim",
+      "sublabel": "status di bubble",
+      "width": 110
+    },
+    {
+      "id": "readreceipt",
+      "lane": "pesan",
+      "col": 4,
+      "type": "frontend",
+      "label": "Dibaca",
+      "sublabel": "readAt · badge",
+      "width": 104
+    },
+    {
+      "id": "archive",
+      "lane": "pesan",
+      "col": 5,
+      "type": "frontend",
+      "label": "Chat read-only",
+      "sublabel": "done + N hari",
+      "tag": "closed",
+      "width": 130
+    },
+    {
+      "id": "access",
+      "lane": "guard",
+      "col": 2,
+      "type": "security",
+      "label": "Peserta saja",
+      "sublabel": "≤3 peserta",
+      "width": 128
+    },
+    {
+      "id": "dispute",
+      "lane": "guard",
+      "col": 0,
+      "type": "security",
+      "label": "Thread priority",
+      "sublabel": "flag dispute_opened",
+      "tag": "priority",
+      "width": 126
+    },
+    {
+      "id": "reject",
+      "lane": "guard",
+      "col": 3,
+      "type": "security",
+      "label": "Pesan ditolak",
+      "sublabel": "rate limit / abuse",
+      "tag": "blocked",
+      "width": 120
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-place",
+      "from": "placed",
+      "to": "thread",
+      "label": "order placed",
+      "role": "main"
+    },
+    {
+      "id": "e-write",
+      "from": "thread",
+      "to": "message",
+      "label": "tulis pesan",
+      "role": "main"
+    },
+    {
+      "id": "e-send",
+      "from": "message",
+      "to": "delivery",
+      "label": "kirim",
+      "role": "main"
+    },
+    {
+      "id": "e-read",
+      "from": "delivery",
+      "to": "readreceipt",
+      "label": "dibaca → readAt",
+      "role": "main"
+    },
+    {
+      "id": "e-archive",
+      "from": "readreceipt",
+      "to": "archive",
+      "label": "order done + N hari",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-courier",
+      "from": "courierjoin",
+      "to": "thread",
+      "label": "courier_match → courier masuk",
+      "role": "branch"
+    },
+    {
+      "id": "e-access",
+      "from": "access",
+      "to": "message",
+      "label": "guard: peserta lolos ≤3",
+      "role": "branch",
+      "variant": "security",
+      "route": "drop",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "e-dispute",
+      "from": "thread",
+      "to": "dispute",
+      "label": "dispute_opened → priority (F8)",
+      "role": "branch",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-retry-out",
+      "from": "message",
+      "to": "retry",
+      "label": "gagal kirim",
+      "role": "branch"
+    },
+    {
+      "id": "e-retry-in",
+      "from": "retry",
+      "to": "delivery",
+      "label": "retry terkirim",
+      "role": "branch"
+    },
+    {
+      "id": "e-reject",
+      "from": "message",
+      "to": "reject",
+      "label": "melebihi limit / abuse",
+      "role": "branch",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Thread & pesan",
+      "items": [
+        "Chat dibuka dari layar order (schema `chat`: orderId, peserta customer/merchant/kurir, maks 3) — di repo ini layar mock, pesan tidak benar-benar terkirim (AGENTS.md §1)",
+        "Bubble pesan: sender, body (string), at · readAt = badge dibaca · lastMessage/lastAt = preview daftar",
+        "Buka dari layar order; peserta penuh setelah event courier_match (sambungan f12→f13)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Branch & guard",
+      "items": [
+        "Pesan gagal kirim → retry; courier belum match → thread 2 peserta dulu, courier masuk saat courier_match",
+        "Dispute (F8) membuka thread priority — flag dispute_opened pada thread",
+        "Guard tampilan: hanya peserta (≤3) yang melihat thread; rate limit/abuse → pesan tampil ditolak"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "Dasar: `C-18` (in-app chat dipertahankan) + `C-12` (dispute jalur terpisah) · schema-draft-v1.md entri 14 hanya nama field · PRD irbid-mvp-v2-2026-09-21 · repo ini front-end saja: layar chat = tampilan mock (AGENTS.md §1)",
+        "UNRESOLVED: retensi chat setelah order done — N hari archiving belum ditentukan PRD",
+        "UNRESOLVED: media/gambar message (schema hanya body: string) · notifikasi push incoming chat (F11 ada, belum dipastikan)"
+      ]
+    }
+  ]
+}

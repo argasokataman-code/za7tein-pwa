@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "F17 — Payment Xendit (VA/QRIS)",
+    "quality_profile": "showcase",
+    "viewBox": [1080, 560]
+  },
+  "participants": [
+    { "id": "cust", "type": "frontend", "label": "App customer", "sublabel": "checkout · bayar" },
+    { "id": "order", "type": "backend", "label": "Order", "sublabel": "unpaid" },
+    { "id": "xendit", "type": "external", "label": "Xendit", "sublabel": "VA/QRIS" },
+    { "id": "hook", "type": "backend", "label": "Webhook", "sublabel": "verify" },
+    { "id": "ledger", "type": "backend", "label": "LedgerLedger", "sublabel": "cr · db" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "cust", "to": "order", "y": 160, "label": "checkout · paymentMethod: xendit_va | xendit_qris | cod | transfer", "note": "cod: skip Xendit, bayar saat serah terima (F2) · transfer: upload bukti → verifikasi (UNRESOLVED)" },
+    { "id": "m2", "from": "order", "to": "xendit", "y": 195, "label": "create unpaid → request invoice VA/QRIS" },
+    { "id": "m3", "from": "xendit", "to": "order", "y": 230, "label": "invoice + VA number / QR string → pending → tampil ke customer" },
+    { "id": "m4", "from": "cust", "to": "xendit", "y": 265, "label": "bayar: transfer VA / scan QRIS" },
+    { "id": "m5", "from": "xendit", "to": "hook", "y": 300, "label": "webhook: payment.paid" },
+    { "id": "m6", "from": "hook", "to": "order", "y": 335, "label": "verify signature → idempotency (dup event → ignore)", "variant": "security" },
+    { "id": "m7", "from": "order", "to": "ledger", "y": 370, "label": "paid · paidAt → ledger cr (reference topUp|order)", "variant": "emphasis", "note": "order lanjut · placedAt mulai SLA" },
+    { "id": "m8", "from": "xendit", "to": "hook", "y": 405, "label": "expired → paymentStatus: failed → retry / batal", "variant": "dashed" },
+    { "id": "m9", "from": "order", "to": "xendit", "y": 440, "label": "webhook tak masuk → polling GET status → samakan state", "variant": "dashed" },
+    { "id": "m10", "from": "order", "to": "xendit", "y": 475, "label": "dispute resolved (F8 → F22) → request refund → ledger db", "note": "paymentStatus: refunded" }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Alur utama VA/QRIS",
+      "items": [
+        "checkout → unpaid → invoice Xendit → pending → customer bayar VA/QRIS",
+        "webhook paid → verify signature + idempotency → paid + paidAt → ledger cr → SLA mulai",
+        "Dasar: C-01 (Xendit) + DEC-1039 (payout) + OQ-25 (fee & PPN atas fee) — tidak ada R-* khusus payment"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Gagal, fallback & refund",
+      "items": [
+        "expired → failed → retry invoice baru / batal",
+        "webhook tak masuk → polling GET status → samakan state",
+        "refund F8 → F22 → ledger db · cod skip Xendit (F2) · transfer manual upload bukti"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "DEC-1039: Xendit DIPAKAI VA/QRIS — desain final, BE belum implement",
+        "DEC-1037: transfer manual bayar langsung ke merchant, platform tidak menahan",
+        "UNRESOLVED: idempotency key (xenditInvoiceId belum ada) · webhook retry/backoff · expiry VA/QRIS · fee Xendit vs PO 0,37 · verifikasi bukti transfer"
+      ]
+    }
+  ]
+}

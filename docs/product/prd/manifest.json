@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "activeRevision": "irbid-mvp-2026-09-12",
+  "activeRevision": "irbid-mvp-v2-2026-09-21",
   "revisions": [
     {
       "id": "radius-mvp-legacy",
@@ -14,11 +14,12 @@
     {
       "id": "irbid-mvp-2026-09-12",
       "documentVersion": "1.1",
-      "status": "active",
+      "status": "superseded",
       "source": "versions/irbid-mvp-2026-09-12/source.pdf",
       "sha256": "cc666e9384cf64b0b0b76bdeefb11bfbbfa1d5555c8997a124cb1a6479da195a",
       "scope": "Irbid, JOD/IDR, Hijazi/Syimali, Midtrans, deposit COD, batch pedestrian",
       "supersedes": "radius-mvp-legacy",
+      "supersededBy": "irbid-mvp-v2-2026-09-21",
       "decisionRecord": "decision-irbid-mvp.md",
       "milestonePlan": "milestones-irbid-mvp.md"
     },
@@ -31,6 +32,27 @@
       "originalFilename": "landing-page.md",
       "decisionRecord": "decision-landing-page.md",
       "milestonePlan": "versions/landing-page-2026-09-13/milestones.md"
+    },
+    {
+      "id": "irbid-mvp-v2-2026-09-21",
+      "documentVersion": "UNVERIFIED",
+      "status": "active",
+      "source": "versions/irbid-mvp-v2-2026-09-21/source.md",
+      "sha256": "fdeba32fc1503227c45ff1fd72e482e4f2b67c7c65accdc906774c5a0e1051cc",
+      "originalFilename": "irbid-mvp-v2-2026-09-21.md",
+      "supersedes": "irbid-mvp-2026-09-12",
+      "decisionRecord": "versions/irbid-mvp-v2-2026-09-21/analysis.md",
+      "milestonePlan": "versions/irbid-mvp-v2-2026-09-21/milestones.md"
+    },
+    {
+      "id": "rating-review-2026-09-22",
+      "documentVersion": "UNVERIFIED",
+      "status": "proposed",
+      "source": "versions/rating-review-2026-09-22/source.md",
+      "sha256": "ef0aea351b8bc8dcedce9b0a0b524f95ac8d182aee3091fb3586a25eace12e26",
+      "originalFilename": "brs-rating-review.md",
+      "decisionRecord": "versions/rating-review-2026-09-22/analysis.md",
+      "milestonePlan": "versions/rating-review-2026-09-22/milestones.md"
     }
   ]
 }

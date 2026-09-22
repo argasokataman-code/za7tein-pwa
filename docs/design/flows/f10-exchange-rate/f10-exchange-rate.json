@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "F10 — Kurs & Mata Uang (IDR source of truth, JOD display)",
+    "quality_profile": "showcase",
+    "column_fit": "spread",
+    "viewBox": [1080, 480]
+  },
+  "participants": [
+    { "id": "ext", "type": "external", "label": "API kurs", "sublabel": "provider eksternal (OQ-26 OPEN)" },
+    { "id": "cron", "type": "backend", "label": "Scheduler", "sublabel": "sync 1×24 jam" },
+    { "id": "rates", "type": "database", "label": "exchange_rates", "sublabel": "base/quote/rate" },
+    { "id": "calc", "type": "backend", "label": "Kalkulasi uang", "sublabel": "server — semua IDR" },
+    { "id": "ui", "type": "frontend", "label": "Render UI", "sublabel": "konversi ke JOD" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "cron", "to": "ext", "y": 160, "label": "rate_fetch (1×24 jam)", "variant": "emphasis" },
+    { "id": "m2", "from": "ext", "to": "rates", "y": 225, "label": "rate_fetched → INSERT", "variant": "emphasis", "note": "fetch gagal → fallback rate terakhir (OQ-28 OPEN), jangan blokir" },
+    { "id": "m3", "from": "ui", "to": "calc", "y": 290, "label": "render: IDR → JOD, bulat 2 desimal", "variant": "return", "note": "disclaimer: kurs estimasi, mengikuti kurs harian" },
+    { "id": "m4", "from": "calc", "to": "rates", "y": 355, "label": "baca rate terakhir (server = IDR)" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Aturan (R-CURR-01)", "items": ["Semua settlement = IDR lewat Xendit; tidak ada uang menyentuh JOD", "JOD display-only — harga/ongkir/fee/saldo disimpan IDR", "Rate sync 1×24 jam dari API eksternal; fetch gagal → pakai rate terakhir, jangan blokir transaksi"] },
+    { "dot": "amber", "title": "Pembulatan & UI", "items": ["Bulatkan JOD ke 2 desimal hanya di layer tampilan; ledger tetap IDR utuh", "Jangan simpan nominal JOD sebagai nilai transaksi (sumber drift)", "Widget kurs tampilkan waktu sync terakhir + disclaimer wajib"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-CURR-01 — analysis.md (DECIDED) · M1 — milestones.md (deps M0)", "UNRESOLVED: OQ-26 — provider IDR>JOD (bukan ECB-only)", "UNRESOLVED: OQ-28 — berapa lama fallback rate terakhir saat API mati", "Wise dibatalkan (R-CURR-01)"] }
+  ]
+}

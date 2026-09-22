@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "F11 — Push Notification & WhatsApp Fallback",
+    "quality_profile": "showcase",
+    "viewBox": [1080, 540]
+  },
+  "participants": [
+    { "id": "server", "type": "backend", "label": "Server", "sublabel": "ubah status order" },
+    { "id": "push", "type": "messagebus", "label": "Web Push", "sublabel": "payload ≤4 KB" },
+    { "id": "app", "type": "frontend", "label": "App user", "sublabel": "tap → fetch detail" },
+    { "id": "ios", "type": "external", "label": "iOS 16.4+", "sublabel": "force-quit = bisu" },
+    { "id": "wa", "type": "external", "label": "WhatsApp", "sublabel": "wa.me Level 1" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "app", "to": "server", "y": 160, "label": "push_subscribe (endpoint+keys)" },
+    { "id": "m2", "from": "server", "to": "push", "y": 225, "label": "push_sent: order_id + teks", "variant": "emphasis", "note": "TTL wajib · silent dilarang · payload ≤4 KB" },
+    { "id": "m3", "from": "push", "to": "app", "y": 290, "label": "deliver · tap → fetch detail" },
+    { "id": "m4", "from": "push", "to": "ios", "y": 355, "label": "gagal (force-quit / ITP 7 hari)", "variant": "dashed" },
+    { "id": "m5", "from": "server", "to": "wa", "y": 420, "label": "fallback kritis: wa.me link", "variant": "security", "note": "event kritis wajib fallback WA/SMS · nomor E.164" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Pola push (server-driven)", "items": ["Server ubah status → push ringkas (order_id + teks) → tap → app fetch", "Payload max 4 KB, TTL wajib, userVisibleOnly, silent push dilarang", "Event: push_subscribed, push_sent, push_delivery_confirmed"] },
+    { "dot": "amber", "title": "Event per alur", "items": ["Customer: \"Kurir sudah sampai\", \"Kurir sedang otw\" + estimasi", "Super admin: auto-alert SLA Ambil→Berangkat 15m & Berangkat→Tiba 30m", "Tiba di lokasi 5m → notif + call customer otomatis via app"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-PUSH-01 — analysis.md · M8 — milestones.md (deps M0)", "WhatsApp fallback kritis: nomor WA wajib registrasi E.164 (+962/+62)", "OQ-24 RESOLVED (PO 2026-09-22): nomor WA wajib + validasi format E.164 (Level 1), tanpa OTP", "Status: push testing di device belum dilakukan; WA Business API L2 TIDAK dipakai di MVP (PO 2026-09-23) — fallback tetap `wa.me`"] }
+  ]
+}

@@ -1,0 +1,279 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F16 — Merchant Onboarding",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "merchant",
+      "label": "Layar merchant"
+    },
+    {
+      "id": "status",
+      "label": "Status & aksi onboarding"
+    },
+    {
+      "id": "guard",
+      "label": "Guard tampilan",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "daftar",
+      "label": "Daftar & profil toko",
+      "fromCol": 0,
+      "toCol": 2
+    },
+    {
+      "id": "approval",
+      "label": "Approval & deposit",
+      "fromCol": 3,
+      "toCol": 4
+    },
+    {
+      "id": "aktif",
+      "label": "Aktif & onboarding kurir",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ],
+  "mainPath": [
+    "signup",
+    "profil",
+    "submit",
+    "review",
+    "deposit",
+    "kredit"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "signup"
+    ],
+    "allowedTerminals": [
+      "kurir",
+      "reject",
+      "blacklist",
+      "suspend"
+    ],
+    "requiredEdges": [
+      {
+        "from": "signup",
+        "to": "profil"
+      },
+      {
+        "from": "profil",
+        "to": "submit"
+      },
+      {
+        "from": "submit",
+        "to": "review"
+      },
+      {
+        "from": "review",
+        "to": "deposit"
+      },
+      {
+        "from": "deposit",
+        "to": "kredit"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "signup",
+      "lane": "merchant",
+      "col": 0,
+      "type": "frontend",
+      "label": "Signup merchant",
+      "sublabel": "email + password",
+      "width": 112
+    },
+    {
+      "id": "profil",
+      "lane": "merchant",
+      "col": 1,
+      "type": "frontend",
+      "label": "Form profil toko",
+      "sublabel": "foto · delivery",
+      "width": 116
+    },
+    {
+      "id": "submit",
+      "lane": "status",
+      "col": 2,
+      "type": "frontend",
+      "label": "Submit onboarding",
+      "sublabel": "status: pending",
+      "width": 116
+    },
+    {
+      "id": "review",
+      "lane": "status",
+      "col": 3,
+      "type": "frontend",
+      "label": "Review SA",
+      "sublabel": "approve / reject",
+      "width": 106
+    },
+    {
+      "id": "deposit",
+      "lane": "status",
+      "col": 4,
+      "type": "frontend",
+      "label": "Deposit",
+      "sublabel": "3,50 JOD · held",
+      "width": 106
+    },
+    {
+      "id": "kredit",
+      "lane": "status",
+      "col": 5,
+      "type": "frontend",
+      "label": "Kredit Founding",
+      "sublabel": "5 JOD non-withdrawal",
+      "width": 138
+    },
+    {
+      "id": "kurir",
+      "lane": "merchant",
+      "col": 5,
+      "type": "frontend",
+      "label": "Aktif & kurir",
+      "sublabel": "aktif · maks 3",
+      "width": 116
+    },
+    {
+      "id": "reject",
+      "lane": "guard",
+      "col": 3,
+      "type": "security",
+      "label": "Ditolak",
+      "sublabel": "→ suspended",
+      "tag": "blocked",
+      "width": 100
+    },
+    {
+      "id": "suspend",
+      "lane": "guard",
+      "col": 4,
+      "type": "security",
+      "label": "Deposit gagal",
+      "sublabel": "→ reminder",
+      "tag": "blocked",
+      "width": 104
+    },
+    {
+      "id": "blacklist",
+      "lane": "guard",
+      "col": 5,
+      "type": "security",
+      "label": "Blacklist",
+      "sublabel": "→ blacklisted",
+      "tag": "blocked",
+      "width": 108
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-signup",
+      "from": "signup",
+      "to": "profil",
+      "label": "user dibuat type: merchant",
+      "role": "main"
+    },
+    {
+      "id": "e-profil",
+      "from": "profil",
+      "to": "submit",
+      "label": "form lengkap → submit",
+      "role": "main"
+    },
+    {
+      "id": "e-queue",
+      "from": "submit",
+      "to": "review",
+      "label": "tenant_submitted → antrean SA",
+      "role": "main"
+    },
+    {
+      "id": "e-deposit",
+      "from": "review",
+      "to": "deposit",
+      "label": "approve → instruksi bayar",
+      "role": "main"
+    },
+    {
+      "id": "e-activate",
+      "from": "deposit",
+      "to": "kredit",
+      "label": "held → approved · kredit masuk",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-kredit",
+      "from": "kredit",
+      "to": "kurir",
+      "label": "aktif → onboarding kurir",
+      "role": "main"
+    },
+    {
+      "id": "e-reject",
+      "from": "review",
+      "to": "reject",
+      "label": "gagal review",
+      "role": "branch",
+      "variant": "security"
+    },
+    {
+      "id": "e-suspend",
+      "from": "deposit",
+      "to": "suspend",
+      "label": "telat / gagal bayar",
+      "role": "branch",
+      "variant": "security"
+    },
+    {
+      "id": "e-blacklist",
+      "from": "deposit",
+      "to": "blacklist",
+      "label": "pelanggaran · SA kapan pun",
+      "role": "branch",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Alur inti registrasi → aktif",
+      "items": [
+        "Signup (`src/lib/schemas.ts`, HP opsional) → user `type: merchant` → form profil (foto D1, `deliveryConfig`: radius+`feeByDistance` ATAU area+`feeByArea`)",
+        "Submit → `tenantStatus: pending` → antrean SA (`f15:queue`, `tenant_submitted`) → approve/reject",
+        "Deposit 3,50 JOD (§5C): bayar → SA verifikasi → `held` → `approved` → toko aktif; lalu kredit Founding 5 JOD (non-withdrawal, ≈33 order pertama) masuk — terpisah, bukan pengganti (I-2)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Branch & guard",
+      "items": [
+        "Reject: `suspended` + alasan → daftar ulang (`/merchant/signup`)",
+        "Deposit gagal/telat: reminder → suspend · blacklist: SA set `blacklisted` kapan pun → `f15-super-admin`",
+        "Guard: rate limit signup, verifikasi deposit anti-fake (UNRESOLVED)",
+        "Setelah aktif: onboarding kurir (karyawan merchant, rekrut off-app, maks 3) → `f13-courier-view`"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "Dasar: PRD §5C (deposit 3,50 JOD) + §Insentif Founding (kredit 5 JOD, cashback 15/40/62,5 JOD) + I-1/I-2 + `C-12` · schema-draft entri 4 hanya nama field · front-end saja (AGENTS.md §1)",
+        "UNRESOLVED: verifikasi deposit · I-3 cashback withdrawable · I-4 periode tier · I-5 kuota Founding · I-6 sisa modal",
+        "UNRESOLVED: dokumen legal merchant · jadwal review SLA onboarding"
+      ]
+    }
+  ]
+}

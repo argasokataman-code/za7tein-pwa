@@ -1,0 +1,251 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F21 — Registrasi & Masuk Akun",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "customer",
+      "label": "Customer — daftar & masuk"
+    },
+    {
+      "id": "merchant",
+      "label": "Merchant & kurir — daftar"
+    },
+    {
+      "id": "guard",
+      "label": "Guard & UNRESOLVED",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "masuk",
+      "label": "Masuk Google",
+      "fromCol": 0,
+      "toCol": 1
+    },
+    {
+      "id": "nomor",
+      "label": "Nomor WA wajib (E.164)",
+      "fromCol": 2,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "lanjut",
+      "label": "Lanjut peran",
+      "fromCol": 4,
+      "toCol": 4
+    }
+  ],
+  "mainPath": [
+    "welcome",
+    "method",
+    "phone",
+    "verify",
+    "order"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "welcome"
+    ],
+    "allowedTerminals": [
+      "order",
+      "onboard",
+      "guard"
+    ],
+    "requiredEdges": [
+      {
+        "from": "welcome",
+        "to": "method"
+      },
+      {
+        "from": "method",
+        "to": "phone"
+      },
+      {
+        "from": "phone",
+        "to": "verify"
+      },
+      {
+        "from": "verify",
+        "to": "order"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "welcome",
+      "lane": "customer",
+      "col": 0,
+      "type": "frontend",
+      "label": "Onboarding",
+      "sublabel": "buka app · pilih peran",
+      "width": 120
+    },
+    {
+      "id": "method",
+      "lane": "customer",
+      "col": 1,
+      "type": "frontend",
+      "label": "Login Google",
+      "sublabel": "menggantikan sandi",
+      "width": 126
+    },
+    {
+      "id": "phone",
+      "lane": "customer",
+      "col": 2,
+      "type": "frontend",
+      "label": "Nomor WA",
+      "sublabel": "wajib · E.164",
+      "width": 120
+    },
+    {
+      "id": "verify",
+      "lane": "customer",
+      "col": 3,
+      "type": "security",
+      "label": "Verifikasi nomor",
+      "sublabel": "format + E.164 · Level 1",
+      "width": 126
+    },
+    {
+      "id": "order",
+      "lane": "customer",
+      "col": 4,
+      "type": "external",
+      "label": "Boleh order",
+      "sublabel": "gate top-up 3,5 JOD (f3)",
+      "width": 132
+    },
+    {
+      "id": "mSignup",
+      "lane": "merchant",
+      "col": 1,
+      "type": "frontend",
+      "label": "Daftar toko",
+      "sublabel": "nama · email · telepon",
+      "width": 132
+    },
+    {
+      "id": "mPhone",
+      "lane": "merchant",
+      "col": 2,
+      "type": "frontend",
+      "label": "Nomor WA toko",
+      "sublabel": "wajib · E.164",
+      "width": 124
+    },
+    {
+      "id": "onboard",
+      "lane": "merchant",
+      "col": 3,
+      "type": "external",
+      "label": "Onboarding merchant",
+      "sublabel": "deposit 3,50 JOD · f16",
+      "width": 140
+    },
+    {
+      "id": "guard",
+      "lane": "guard",
+      "col": 3,
+      "type": "security",
+      "label": "Guard pendaftaran",
+      "sublabel": "nomor tak sah / duplikat",
+      "tag": "gate",
+      "width": 128
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-welcome-method",
+      "from": "welcome",
+      "to": "method",
+      "label": "mulai",
+      "role": "main"
+    },
+    {
+      "id": "e-method-phone",
+      "from": "method",
+      "to": "phone",
+      "label": "akun Google ok",
+      "role": "main"
+    },
+    {
+      "id": "e-phone-verify",
+      "from": "phone",
+      "to": "verify",
+      "label": "format lolos",
+      "role": "main"
+    },
+    {
+      "id": "e-verify-order",
+      "from": "verify",
+      "to": "order",
+      "label": "nomor sah · profil & PIN",
+      "variant": "emphasis",
+      "role": "main"
+    },
+    {
+      "id": "e-welcome-msignup",
+      "from": "welcome",
+      "to": "mSignup",
+      "label": "daftar merchant",
+      "role": "branch"
+    },
+    {
+      "id": "e-msignup-mphone",
+      "from": "mSignup",
+      "to": "mPhone",
+      "label": "form toko",
+      "role": "main"
+    },
+    {
+      "id": "e-mphone-onboard",
+      "from": "mPhone",
+      "to": "onboard",
+      "label": "nomor terverifikasi",
+      "role": "branch"
+    },
+    {
+      "id": "e-verify-guard",
+      "from": "verify",
+      "to": "guard",
+      "label": "tak sah / duplikat",
+      "variant": "dashed",
+      "role": "error"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Bisnis: kenapa flow ini ada",
+      "items": [
+        "**Masalah:** akun sampah & nomor palsu. Nomor WA satu-satunya kanal kontak kurir↔customer + fallback `wa.me` (`f11`), jadi nomor wajib sah dan ternormalisasi **E.164** (PRD `source.md:727`, `:760`)",
+        "**Skenario & nilai:** customer **login Google** → isi nomor WA (validasi format E.164) → bisa order; merchant/kurir daftar toko → nomor WA → lanjut onboarding `f16` (deposit 3,50 JOD + approval SA). Penyaring akun sampah tetap gate top-up 3,5 JOD (`f3`)"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Alur & aturan",
+      "items": [
+        "Customer: onboarding → **login Google** → **nomor WA wajib (E.164)** → verifikasi format → profil & PIN → gate top-up 3,5 JOD sebelum bisa order (`f3`)",
+        "Merchant & kurir: form toko (nama, email, telepon, sandi) → nomor WA toko → diserahkan ke `f16` (deposit 3,50 JOD, approval SA, `deliveryConfig`)",
+        "**Google menggantikan sandi, bukan nomor WA** — akun Google tidak memberi nomor telepon; nomor diisi manual + validasi E.164 (Level 1, gratis). OTP/WA Business = Level 2 yang PRD tunda"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "Dasar: PRD `source.md:760` (nomor WA wajib) · `:727` (E.164) · `:725-731` (Level 1 `wa.me`; Level 2 ditolak) · **keputusan PO 2026-09-22: login Google + nomor WA wajib, tanpa OTP**",
+        "Layar sudah ada di repo (mock): `SignIn` (+ tombol Google demo), `SignUp`, `AccountSetup`, `ForgotPassword*`, `MerchantSignUp`, `MerchantPending`",
+        "UNRESOLVED: apakah merchant/kurir juga boleh Google · sesi/token & PIN belum punya dasar di PRD · ganti nomor & retensi · WA Business API (Level 2) TIDAK dipakai di MVP (PO 2026-09-23) — fallback tetap `wa.me`"
+      ]
+    }
+  ]
+}
