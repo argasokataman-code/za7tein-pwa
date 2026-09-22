@@ -910,6 +910,103 @@
         }
       ],
       "loc": "src/App.tsx:1"
+    },
+    {
+      "id": "TASK-2002",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:17:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/check-governance.mjs (+35/-1) — edit via tool: // ── Flow specs (docs/design/flow",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/check-governance.mjs"
+    },
+    {
+      "id": "TASK-2003",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:17:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json (+4/-3) — edit via tool: \"startup_hooks\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-2004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:17:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit (+1/-1) — edit via tool: check \"PRD registry, flow specs and desi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit"
+    },
+    {
+      "id": "TASK-2005",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:18:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+3/-1) — edit via tool: **Sebelum setiap tugas produk:** baca ma",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "DEC-2002",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "00:18:36",
+      "tags": [
+        "rules",
+        "governance",
+        "prd",
+        "flow"
+      ],
+      "summary": "Develop wajib ikut PRD aktif + flow yang ada; dienforce governance:check (folder<->INDEX, spec+README, terikat revisi PRD); gate manual flow",
+      "conn": [
+        {
+          "id": "DEC-2001",
+          "type": "relates",
+          "raw": "DEC-2001:relates"
+        }
+      ]
     }
   ]
 }

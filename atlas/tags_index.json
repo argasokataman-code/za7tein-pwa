@@ -3499,6 +3499,22 @@
     {
       "id": "TASK-1400",
       "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "docs": [
@@ -4365,6 +4381,10 @@
     {
       "id": "DEC-1379",
       "shard": 3
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "versioning": [
@@ -4399,6 +4419,10 @@
     {
       "id": "TASK-257",
       "shard": 1
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "conformance": [
@@ -5023,6 +5047,10 @@
     {
       "id": "TASK-1183",
       "shard": 2
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "f1": [
@@ -5448,6 +5476,12 @@
   "role": [
     {
       "id": "DEC-2001",
+      "shard": 3
+    }
+  ],
+  "rules": [
+    {
+      "id": "DEC-2002",
       "shard": 3
     }
   ]

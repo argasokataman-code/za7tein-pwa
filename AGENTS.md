@@ -21,6 +21,8 @@ PRD produk diregistrasi di `docs/product/prd/manifest.json`. Sumber PRD aktif ad
 
 **Sebelum setiap tugas produk:** baca manifest, sumber PRD aktif, `docs/product/prd/decision-irbid-mvp.md`, dan `docs/design/DNA.md`. Jangan mengambil aturan bisnis dari nama file, komentar lama, atau atlas tanpa mengecek PRD aktif. Jika PRD/BRS baru masuk `docs/product/prd/inbox/`, jalankan alur intake di `docs/product/prd/README.md`; dokumen baru berstatus proposed sampai keputusan aktivasi tertulis. Requirement yang tidak jelas wajib ditandai `UNRESOLVED` dengan sumber, bukan diisi dengan tebakan. Milestone dibuat dari requirement bersumber dan dependensi, bukan sekadar daftar layar.
 
+**Wajib ikut PRD dan flow.** Sebelum mengubah perilaku, baca PRD aktif **dan** peta flow yang sudah ada: `docs/design/flows/INDEX.json` (indeks + basis requirement per flow) dan flow yang relevan di `docs/design/flows/<slug>/` (spec `*.json` + `README.md`). Flow menggambarkan layar dan state yang dijanjikan PRD — jangan merancang ulang alur yang sudah ada. Kalau perubahan memang menyimpang dari flow, itu bukan alasan mengabaikannya: tandai `UNRESOLVED` dengan sumber, lalu **update flow dan PRD di commit yang sama**. Perubahan yang menyentuh sebuah flow wajib lolos `./scripts/flows-gate.sh <slug>` (atau `--all`); script itu menangani `deliver` + `visual-check` dan membuang artefak berat. `npm run governance:check` (jalan di pre-commit) menolak commit kalau folder flow tidak cocok dengan `INDEX.json`, spec/README hilang, atau flow tidak lagi terikat ke revisi PRD aktif.
+
 **Setiap perubahan UI:** baca `docs/design/DNA.md` dan audit terbaru di `docs/design/`. `legacy-debt.json` adalah batas maksimum SVG inline per file; ikon fungsional baru harus Lucide. Kinerja layout terbaru tercatat di `docs/design/audit-2026-09-12.md`, tetapi pengukuran ulang tetap wajib untuk layar yang disentuh.
 
 ---
@@ -205,7 +207,8 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 4. Tidak ada emoji, tidak ada paket ikon baru, tidak ada warna di luar peran token
 5. Tidak ada `var(--…)` yang tokennya belum ada
 6. **Halaman dokumentasi global (`src/pages/Documentation.tsx`) diperbarui di commit yang sama** — dienforce di pre-commit cek #6
-7. Record node atlas untuk pekerjaan signifikan
+7. Perubahan yang menyentuh flow: `./scripts/flows-gate.sh <slug>` lolos, dan flow + PRD diperbarui di commit yang sama
+8. Record node atlas untuk pekerjaan signifikan
 
 ---
 

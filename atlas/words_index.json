@@ -3469,6 +3469,22 @@
     {
       "id": "TASK-1400",
       "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "sa7tein": [
@@ -4098,6 +4114,10 @@
     },
     {
       "id": "DEC-1379",
+      "shard": 3
+    },
+    {
+      "id": "DEC-2002",
       "shard": 3
     }
   ],
@@ -5401,6 +5421,10 @@
     {
       "id": "TASK-491",
       "shard": 1
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "sama": [
@@ -5701,6 +5725,10 @@
     {
       "id": "TASK-255",
       "shard": 1
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
     }
   ],
   "6-digit": [
@@ -8333,6 +8361,10 @@
     {
       "id": "DEC-2001",
       "shard": 3
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "agents.md/readme": [
@@ -8535,6 +8567,10 @@
     {
       "id": "TASK-343",
       "shard": 0
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
     }
   ],
   "fail.": [
@@ -10967,6 +11003,22 @@
     {
       "id": "TASK-1400",
       "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -10997,12 +11049,20 @@
     {
       "id": "TASK-1002",
       "shard": 1
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "(+35/-1)": [
     {
       "id": "TASK-147",
       "shard": 0
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
     }
   ],
   "edit": [
@@ -12760,6 +12820,22 @@
     },
     {
       "id": "TASK-1400",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2005",
       "shard": 3
     }
   ],
@@ -15151,6 +15227,22 @@
     {
       "id": "TASK-1400",
       "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "tool:": [
@@ -17504,6 +17596,22 @@
     },
     {
       "id": "TASK-1400",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2005",
       "shard": 3
     }
   ],
@@ -20315,6 +20423,22 @@
     {
       "id": "TASK-1400",
       "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "task-147": [
@@ -20535,6 +20659,10 @@
     {
       "id": "TASK-439",
       "shard": 1
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
     }
   ],
   "(+96)": [
@@ -21989,6 +22117,10 @@
     {
       "id": "TASK-438",
       "shard": 1
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
     }
   ],
   "(+101)": [
@@ -23095,6 +23227,10 @@
     {
       "id": "TASK-1400",
       "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
     }
   ],
   "\"useappstore(": [
@@ -23117,6 +23253,10 @@
     {
       "id": "TASK-155",
       "shard": 0
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "use": [
@@ -23611,6 +23751,10 @@
     {
       "id": "DEC-1370",
       "shard": 3
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "terintegrasi": [
@@ -23873,6 +24017,10 @@
     {
       "id": "TASK-1310",
       "shard": 2
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "task-162": [
@@ -29249,6 +29397,10 @@
     {
       "id": "TASK-1385",
       "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
     }
   ],
   "item": [
@@ -32965,6 +33117,10 @@
     {
       "id": "TASK-1299",
       "shard": 2
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
     }
   ],
   "--shadow-subtle:": [
@@ -33787,6 +33943,10 @@
     {
       "id": "DEC-1379",
       "shard": 3
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "manifest": [
@@ -33865,6 +34025,10 @@
     {
       "id": "TASK-257",
       "shard": 1
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "checks": [
@@ -34609,6 +34773,10 @@
     {
       "id": "TASK-396",
       "shard": 1
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "then": [
@@ -35821,6 +35989,10 @@
     {
       "id": "TASK-486",
       "shard": 1
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "\"gov_exit=$?\"": [
@@ -36569,6 +36741,10 @@
     {
       "id": "TASK-1318",
       "shard": 2
+    },
+    {
+      "id": "TASK-2003",
+      "shard": 3
     }
   ],
   "task-466": [
@@ -36817,6 +36993,10 @@
     {
       "id": "TASK-479",
       "shard": 1
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
     }
   ],
   "(full-wi": [
@@ -40413,6 +40593,10 @@
     {
       "id": "FEAT-1035",
       "shard": 1
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "balas": [
@@ -40509,6 +40693,10 @@
     {
       "id": "TASK-1062",
       "shard": 1
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "(fr-mc": [
@@ -42789,6 +42977,18 @@
     {
       "id": "TASK-1369",
       "shard": 3
+    },
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "bisnis": [
@@ -42883,6 +43083,10 @@
     {
       "id": "TASK-1183",
       "shard": 2
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "showcase,": [
@@ -49197,6 +49401,10 @@
     {
       "id": "TASK-1263",
       "shard": 2
+    },
+    {
+      "id": "DEC-2002",
+      "shard": 3
     }
   ],
   "`pr": [
@@ -50751,6 +50959,10 @@
     {
       "id": "DEC-1322",
       "shard": 2
+    },
+    {
+      "id": "TASK-2005",
+      "shard": 3
     }
   ],
   "pertama:": [
@@ -52776,6 +52988,148 @@
   "task-2001": [
     {
       "id": "TASK-2001",
+      "shard": 3
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/scripts/check-governance.mjs": [
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    }
+  ],
+  "specs": [
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    }
+  ],
+  "(docs/design/flow": [
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    }
+  ],
+  "task-2002": [
+    {
+      "id": "TASK-2002",
+      "shard": 3
+    }
+  ],
+  "\"startup_hooks\":": [
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    }
+  ],
+  "task-2003": [
+    {
+      "id": "TASK-2003",
+      "shard": 3
+    }
+  ],
+  "\"prd": [
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    }
+  ],
+  "registry,": [
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    }
+  ],
+  "desi": [
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    }
+  ],
+  "task-2004": [
+    {
+      "id": "TASK-2004",
+      "shard": 3
+    }
+  ],
+  "**sebelum": [
+    {
+      "id": "TASK-2005",
+      "shard": 3
+    }
+  ],
+  "tugas": [
+    {
+      "id": "TASK-2005",
+      "shard": 3
+    }
+  ],
+  "produk:**": [
+    {
+      "id": "TASK-2005",
+      "shard": 3
+    }
+  ],
+  "ma": [
+    {
+      "id": "TASK-2005",
+      "shard": 3
+    }
+  ],
+  "task-2005": [
+    {
+      "id": "TASK-2005",
+      "shard": 3
+    }
+  ],
+  "develop": [
+    {
+      "id": "DEC-2002",
+      "shard": 3
+    }
+  ],
+  "ikut": [
+    {
+      "id": "DEC-2002",
+      "shard": 3
+    }
+  ],
+  "dienforce": [
+    {
+      "id": "DEC-2002",
+      "shard": 3
+    }
+  ],
+  "(folder<->index,": [
+    {
+      "id": "DEC-2002",
+      "shard": 3
+    }
+  ],
+  "spec+readme,": [
+    {
+      "id": "DEC-2002",
+      "shard": 3
+    }
+  ],
+  "terikat": [
+    {
+      "id": "DEC-2002",
+      "shard": 3
+    }
+  ],
+  "prd);": [
+    {
+      "id": "DEC-2002",
+      "shard": 3
+    }
+  ],
+  "dec-2002": [
+    {
+      "id": "DEC-2002",
       "shard": 3
     }
   ]

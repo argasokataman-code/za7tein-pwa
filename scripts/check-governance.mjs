@@ -74,6 +74,40 @@ for (const file of files) {
     if (!defined.has(match[1]) && !legacyExternal.has(match[1])) errors.push(`Undefined design token ${match[1]} in ${file.slice(root.length + 1)}`)
   }
 }
+// ── Flow specs (docs/design/flows/) ─────────────────────────────────────────
+// Perilaku produk harus mengikuti PRD aktif dan flow yang sudah ada. Gate ini
+// menjaga flow tetap utuh dan terikat ke revisi PRD aktif, sehingga perubahan
+// kode yang menyimpang dari flow tidak bisa lolos tanpa memperbarui flow.
+// Regenerasi diagram sendiri dijalankan manual: ./scripts/flows-gate.sh <slug>.
+const flowsDir = resolve(root, 'docs/design/flows')
+if (!existsSync(resolve(flowsDir, 'INDEX.json'))) {
+  errors.push('Missing docs/design/flows/INDEX.json (business flow index)')
+} else {
+  const flowsIndex = JSON.parse(readFileSync(resolve(flowsDir, 'INDEX.json'), 'utf8'))
+  const indexed = Object.keys(flowsIndex.flows ?? {})
+  const flowFolders = readdirSync(flowsDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && /^f\d+-/.test(entry.name))
+    .map((entry) => entry.name)
+  for (const slug of flowFolders) {
+    if (!indexed.includes(slug)) errors.push(`Flow folder not listed in INDEX.json: ${slug}`)
+    const spec = resolve(flowsDir, slug, `${slug}.json`)
+    if (!existsSync(spec)) errors.push(`Missing flow spec: ${slug}/${slug}.json`)
+    else if (!JSON.parse(readFileSync(spec, 'utf8')).diagram_type) errors.push(`Flow spec has no diagram_type: ${slug}`)
+    if (!existsSync(resolve(flowsDir, slug, 'README.md'))) errors.push(`Missing flow README: ${slug}/README.md`)
+  }
+  for (const slug of indexed) {
+    if (!flowFolders.includes(slug)) errors.push(`INDEX.json lists a missing flow folder: ${slug}`)
+    const entry = flowsIndex.flows[slug] ?? {}
+    if (!entry.type) errors.push(`Flow ${slug} has no diagram type in INDEX.json`)
+    if (!entry.basis) errors.push(`Flow ${slug} has no requirement basis in INDEX.json`)
+  }
+  const flowPlan = resolve(flowsDir, 'PLAN.md')
+  const planText = existsSync(flowPlan) ? readFileSync(flowPlan, 'utf8') : ''
+  if (!readFileSync(resolve(flowsDir, 'INDEX.json'), 'utf8').includes(manifest.activeRevision) || !planText.includes(manifest.activeRevision)) {
+    errors.push(`Flow specs are not tied to the active PRD revision ${manifest.activeRevision}; update docs/design/flows/ (INDEX.json and PLAN.md) to match`)
+  }
+}
+
 if (errors.length) {
   console.error(errors.join('\n'))
   process.exit(1)
