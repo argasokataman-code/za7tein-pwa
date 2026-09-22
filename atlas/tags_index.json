@@ -5960,5 +5960,45 @@
       "id": "DEC-2003",
       "shard": 3
     }
+  ],
+  "wallet": [
+    {
+      "id": "FEAT-2003",
+      "shard": 3
+    },
+    {
+      "id": "DEC-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2600",
+      "shard": 3
+    }
+  ],
+  "m0": [
+    {
+      "id": "FEAT-2003",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2600",
+      "shard": 3
+    }
+  ],
+  "prd-v2": [
+    {
+      "id": "FEAT-2003",
+      "shard": 3
+    },
+    {
+      "id": "DEC-2004",
+      "shard": 3
+    }
+  ],
+  "currency": [
+    {
+      "id": "DEC-2004",
+      "shard": 3
+    }
   ]
 }
