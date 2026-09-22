@@ -7,6 +7,10 @@
     {
       "id": "TASK-263",
       "shard": 2
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "1": [
@@ -5143,6 +5147,14 @@
     {
       "id": "TASK-2601",
       "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "mana": [
@@ -8519,6 +8531,10 @@
     {
       "id": "TASK-2092",
       "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "only": [
@@ -8934,6 +8950,10 @@
     },
     {
       "id": "TASK-2606",
+      "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
       "shard": 3
     }
   ],
@@ -23221,6 +23241,10 @@
     {
       "id": "TASK-2600",
       "shard": 3
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "task-148": [
@@ -26741,6 +26765,14 @@
     {
       "id": "TASK-159",
       "shard": 0
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "task-159": [
@@ -34617,6 +34649,10 @@
     {
       "id": "TASK-301",
       "shard": 0
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "0,": [
@@ -34630,6 +34666,10 @@
     },
     {
       "id": "TASK-2600",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
       "shard": 3
     }
   ],
@@ -38327,6 +38367,10 @@
     {
       "id": "TASK-1334",
       "shard": 2
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "tunggal;": [
@@ -47185,6 +47229,10 @@
     {
       "id": "DEC-2004",
       "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "semua": [
@@ -48100,6 +48148,10 @@
     },
     {
       "id": "TASK-2600",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
       "shard": 3
     }
   ],
@@ -50257,6 +50309,10 @@
     {
       "id": "TASK-1137",
       "shard": 2
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "kurs": [
@@ -50276,6 +50332,10 @@
     },
     {
       "id": "TASK-2606",
+      "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
       "shard": 3
     }
   ],
@@ -50569,6 +50629,10 @@
     {
       "id": "TASK-263",
       "shard": 2
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "(sisi": [
@@ -50781,6 +50845,10 @@
     {
       "id": "TASK-1345",
       "shard": 2
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "verify.sh": [
@@ -56185,6 +56253,10 @@
     {
       "id": "TASK-2005",
       "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "pertama:": [
@@ -56857,6 +56929,10 @@
     {
       "id": "DEC-1350",
       "shard": 2
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "(1": [
@@ -59203,6 +59279,10 @@
     {
       "id": "TASK-2604",
       "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "konsol": [
@@ -59422,6 +59502,10 @@
     },
     {
       "id": "TASK-2606",
+      "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
       "shard": 3
     }
   ],
@@ -60567,6 +60651,10 @@
     {
       "id": "DEC-2004",
       "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
     }
   ],
   "feat-2003": [
@@ -60643,6 +60731,14 @@
     {
       "id": "DEC-2004",
       "shard": 3
+    },
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
     }
   ],
   "dec-2004": [
@@ -60654,6 +60750,10 @@
   "implement": [
     {
       "id": "TASK-2600",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
       "shard": 3
     }
   ],
@@ -60684,6 +60784,10 @@
   "lint/build": [
     {
       "id": "TASK-2600",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
       "shard": 3
     }
   ],
@@ -61008,6 +61112,112 @@
   "task-2619": [
     {
       "id": "TASK-2619",
+      "shard": 3
+    }
+  ],
+  "kurs:": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    }
+  ],
+  "money(),": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    }
+  ],
+  "moneyplain();": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    }
+  ],
+  "widget": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    },
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "rate+sync+disclaimer": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    }
+  ],
+  "checkout;": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    }
+  ],
+  "tunggal": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    }
+  ],
+  "feat-2004": [
+    {
+      "id": "FEAT-2004",
+      "shard": 3
+    }
+  ],
+  "m1:": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "currency.ts,": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "rename": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "rupiah->money": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "global,": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "exchangeratenote,": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "section": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "22;": [
+    {
+      "id": "TASK-2620",
+      "shard": 3
+    }
+  ],
+  "task-2620": [
+    {
+      "id": "TASK-2620",
       "shard": 3
     }
   ]
