@@ -1,6 +1,6 @@
 # F13 — Tampilan Kurir (sisi pengantaran)
 
-Workflow sisi kurir: 4 checkpoint + SLA timer + OTP. Milestone **M4/M5** (deps M0); PRD aktif `irbid-mvp-v2-2026-09-21`. **Belum di-develop** — sumber gambaran = PRD.
+Workflow sisi kurir: 4 checkpoint + SLA timer + OTP. Milestone **M4/M5** (deps M0); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop** — rencana & keputusan implementasi ada di `docs/plan-courier.md`; spec ini tetap sumber gambaran alur.
 
 | Berkas | Isi |
 |---|---|

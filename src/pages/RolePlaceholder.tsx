@@ -1,7 +1,6 @@
 import { Construction } from 'lucide-react'
 
 const ROLE_LABELS: Record<string, string> = {
-  courier: 'Kurir',
   admin: 'Super Admin',
 }
 
@@ -10,7 +9,7 @@ interface RolePlaceholderProps {
 }
 
 /**
- * Placeholder peran yang belum dibangun (kurir, super admin).
+ * Placeholder peran yang belum dibangun (super admin).
  *
  * URL-nya sudah disiapkan supaya tiap peran punya alamat dan manifest sendiri,
  * tapi layarnya belum ada. Hapus komponen ini ketika perannya mulai dibangun.

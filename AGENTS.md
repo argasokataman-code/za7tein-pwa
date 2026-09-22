@@ -184,13 +184,13 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 
 ## 9. Status implementasi legacy & arah migrasi
 
-**Role customer versi legacy selesai** — 46 rute, dari onboarding sampai pesanan selesai. Zona A/B/C (600 m / 1,5 km / 2 km dengan tarif 5.000 / 9.000 / 13.000), geofence 2 km, form apartemen wajib, COD dan transfer manual masih sesuai PRD lama, **belum** sesuai PRD aktif Irbid. Rencana migrasi ada di `docs/product/prd/milestones-irbid-mvp.md`.
+**Role customer versi legacy selesai** — 46 rute, dari onboarding sampai pesanan selesai. Zona A/B/C (600 m / 1,5 km / 2 km dengan tarif 5.000 / 9.000 / 13.000), geofence 2 km, form apartemen wajib, COD dan transfer manual masih sesuai PRD lama, **belum** sesuai PRD aktif Irbid. Rencana migrasi ada di `docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md`.
 
-**Berikutnya, tiga role sisanya** (masing-masing punya developer sendiri):
+**Status per role** (masing-masing punya developer sendiri):
 
-1. **Merchant console** — toggle buka/tutup, antrean order masuk, slider estimasi masak 15–30 menit, indikator kuota harian, daftar kurir. Mulai dari sini: pesanan customer sekarang tidak mendarat di mana pun.
-2. **Tampilan kurir** — "minimalis satu tangan" menurut PRD. Daftar rute dengan detail lantai/unit, tombol "Mulai Antar" dan "Tiba", serta layar verifikasi bukti transfer.
-3. **Super Admin** — approval tenant, konfigurasi kuota tier, master zona.
+1. **Merchant console** — selesai. Lihat `docs/plan-merchant.md` (M0–M7).
+2. **Tampilan kurir** — selesai. Lihat `docs/plan-courier.md` (K0–K4), dibangun dari flow `f13-courier-view`. Detail tugas menampilkan dua sumbu berdampingan (Journey Line untuk order, stepper checkpoint untuk kurir) dan **tanpa layar login** — PRD aktif tidak punya requirement auth kurir, ditandai `UNRESOLVED-by-absence`. Label aksi resmi "Ambil"/"Berangkat"/"Tiba"; "Mulai Antar" tidak ada di PRD v2.
+3. **Super Admin** — belum dibangun. Approval tenant, konfigurasi kuota tier, master zona.
 
 **Dua hal yang harus dijaga saat menambah role:**
 

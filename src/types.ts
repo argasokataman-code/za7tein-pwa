@@ -208,3 +208,51 @@ export interface MerchantOrder {
   paymentMethod: PaymentMethod['id']
   cookMinutes?: number
 }
+
+/**
+ * Checkpoint pengantaran dari sisi kurir. Sumbu ini cermin urutan flow F13
+ * (`docs/design/flows/f13-courier-view/`) — masuk → ambil → berangkat → tiba →
+ * (OTP) → selesai, plus cabang `batal` saat customer lalai. Berbeda dari
+ * `OrderStage` (sumbu customer/merchant): kurir menekan aksi, customer melihat
+ * tahap. Layar detail menampilkan keduanya berdampingan.
+ *
+ * Catatan: node `otp` di flow bukan state tersimpan — ia langkah di dalam
+ * state `tiba` (sudah tiba, menunggu kode customer). Karena itu nilai di sini
+ * berhenti di `tiba`, dan stepper menampilkan `otp` sebagai langkah kelima.
+ */
+export type CourierCheckpoint =
+  | 'masuk'
+  | 'ambil'
+  | 'berangkat'
+  | 'tiba'
+  | 'selesai'
+  | 'batal'
+
+/** Satu tugas pengantaran milik kurir toko (PRD M4/M5). */
+export interface CourierTask {
+  id: string
+  code: string
+  customerName: string
+  /** Nomor customer, dipakai tombol "Hubungi customer" saat guard customer lalai. */
+  customerPhone: string
+  /** Jalan / kawasan alamat tujuan. */
+  address: string
+  /** Lantai & unit wajib — pin GPS saja tidak cukup untuk kurir (PRD bab 04). */
+  floor: string
+  unit: string
+  items: CartItem[]
+  total: number
+  distanceMeters: number
+  zone: ZoneId
+  paymentMethod: PaymentMethod['id']
+  /** Tips customer. Kurir karyawan merchant: hanya tips yang jadi miliknya (C-06). */
+  tip: number
+  /** Tahap order dari sisi customer/merchant, dipakai Journey Line. */
+  orderStage: OrderStage
+  checkpoint: CourierCheckpoint
+  /** Waktu mulai jeda checkpoint ini — dasar hitung mundur SLA. */
+  checkpointStartedAt?: string
+  /** Kode OTP 4 digit dari customer. Tanpa OTP kurir tidak bisa settle (C-09). */
+  otp: string
+  otpVerified?: boolean
+}

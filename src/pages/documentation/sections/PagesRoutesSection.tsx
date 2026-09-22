@@ -117,6 +117,13 @@ const merchantRows: Row[] = [
   { path: '/settings', component: 'MerchantSettings', desc: 'Setelan toko: form edit nama/telepon/alamat, peta lokasi' },
 ]
 
+const courierRows: Row[] = [
+  { path: '/', component: 'CourierTasks', desc: 'Tugas: toggle siap/jeda, kartu tugas berjalan, riwayat' },
+  { path: '/task/:id', component: 'CourierTaskDetail', desc: 'Detail: JourneyLine + stepper checkpoint + SLA timer + OTP + guard batal' },
+  { path: '/tips', component: 'CourierTips', desc: 'Tips: hanya tips yang jadi milik kurir (C-06)' },
+  { path: '/profile', component: 'CourierProfile', desc: 'Profil kurir + status siap/jeda' },
+]
+
 export function PagesRoutesSection() {
   return (
     <DocSection id="pages" num="03" title="Pages & Routes">
@@ -126,16 +133,17 @@ export function PagesRoutesSection() {
         groups, no layout wrappers, no <code className="doc-inline">&lt;Outlet&gt;</code>.
       </p>
       <p className="doc-p">
-        Role yang belum dibangun sudah punya prefix: <code className="doc-inline">/courier/*</code>
-        {' '}dan <code className="doc-inline">/admin/*</code> menampilkan layar
-        placeholder. Route-nya ditambahkan saat perannya mulai dibangun.
+        Role yang belum dibangun sudah punya prefix: <code className="doc-inline">/admin/*</code>
+        {' '}menampilkan layar placeholder. Route-nya ditambahkan saat perannya mulai
+        dibangun.
       </p>
       <p className="doc-p">
         Empat router berbagi file ini. Mount-time, <code className="doc-inline">App</code>
         {' '}membaca pathname dan memilih router: <code className="doc-inline">/customer</code>
-        {' '}(<code className="doc-inline">CustomerRouter</code>, home <code className="doc-inline">/home</code>),
-        {' '}<code className="doc-inline">/merchant</code> (<code className="doc-inline">MerchantRouter</code>,
-        home <code className="doc-inline">/</code>), <code className="doc-inline">/courier</code> dan
+        {' '}(<code className="doc-inline">RoleRouter</code>, home <code className="doc-inline">/home</code>),
+        {' '}<code className="doc-inline">/merchant</code> (<code className="doc-inline">RoleRouter</code>,
+        home <code className="doc-inline">/</code>), <code className="doc-inline">/courier</code>
+        {' '}(<code className="doc-inline">RoleRouter</code>, home <code className="doc-inline">/</code>), dan
         {' '}<code className="doc-inline">/admin</code> (placeholder). Selain itu,
         {' '}<code className="doc-inline">WebsiteRouter</code> melayani web routes dan
         mengalihkan jalur lama lewat <code className="doc-inline">LegacyAppRedirect</code>.
@@ -205,6 +213,45 @@ export function PagesRoutesSection() {
         <code className="doc-inline">src/data/catalog.ts</code>. Orders:{' '}
         <code className="doc-inline">src/data/merchant.ts</code> and{' '}
         <code className="doc-inline">src/data/merchantOrders.ts</code>.
+      </p>
+      <h3 className="doc-h3">Courier Console</h3>
+      <p className="doc-p">
+        Separate role shell for couriers (<code className="doc-inline">/courier</code>),
+        built from flow <code className="doc-inline">F13</code>. No login screen:
+        the active PRD has no courier auth requirement — a courier is a merchant
+        employee (C-06), managed by the merchant. Uses{' '}
+        <code className="doc-inline">CourierBottomNav</code> (three tabs, one-handed
+        brief) and is entirely mock-data driven. Checkpoints follow the flow order
+        <code className="doc-inline"> masuk → ambil → berangkat → tiba → (OTP) → selesai</code>,
+        with <code className="doc-inline">batal</code> as the customer-fault branch.
+      </p>
+      <div className="doc-table-wrap">
+        <table className="doc-table">
+          <thead>
+            <tr>
+              <th>Path (under /courier)</th>
+              <th>Component</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {courierRows.map((r) => (
+              <tr key={r.path}>
+                <td><code className="doc-inline">{r.path}</code></td>
+                <td><code className="doc-inline">{r.component}</code></td>
+                <td>{r.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="doc-p">
+        Data seed: <code className="doc-inline">src/data/courier.ts</code>; state:{' '}
+        <code className="doc-inline">src/store/slices/courierSlice.ts</code>{' '}
+        (<code className="doc-inline">isOnline</code>, <code className="doc-inline">tasks</code>;
+        not persisted). SLA 15/30/10 menit masih sementara (PO 2026-09-22, OQ-13) and
+        the customer-fault penalty is UNRESOLVED (OQ-14) — both are shown as state,
+        never guessed.
       </p>
     </DocSection>
   )

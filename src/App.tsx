@@ -13,6 +13,10 @@ import AddProfilePhoto from './pages/AddProfilePhoto'
 import AddressSelection from './pages/AddressSelection'
 import ChangePassword from './pages/ChangePassword'
 import Checkout from './pages/Checkout'
+import CourierProfile from './pages/CourierProfile'
+import CourierTaskDetail from './pages/CourierTaskDetail'
+import CourierTasks from './pages/CourierTasks'
+import CourierTips from './pages/CourierTips'
 import CreatePassword from './pages/CreatePassword'
 import CreatePin from './pages/CreatePin'
 import Documentation from './pages/Documentation'
@@ -143,6 +147,15 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/settings', MerchantSettings],
 ]
 
+// Kurir — dipasang di /courier/*. Tanpa layar login: PRD aktif tidak punya
+// requirement auth kurir (C-06: kurir karyawan merchant, dikelola merchant).
+const courierRoutes: [string, ComponentType][] = [
+  ['/', CourierTasks],
+  ['/task/:id', CourierTaskDetail],
+  ['/tips', CourierTips],
+  ['/profile', CourierProfile],
+]
+
 interface RoleRouterProps {
   basename: string
   routes: [string, ComponentType][]
@@ -164,7 +177,7 @@ function RoleRouter({ basename, routes, home }: RoleRouterProps) {
   )
 }
 
-function PlaceholderRouter({ role }: { role: 'courier' | 'admin' }) {
+function PlaceholderRouter({ role }: { role: 'admin' }) {
   return (
     <BrowserRouter basename={`/${role}`}>
       <MobileDeviceFrame>
@@ -222,8 +235,10 @@ export default function App() {
         <RoleRouter basename="/customer" routes={customerRoutes} home="/home" />
       ) : role === '/merchant' ? (
         <RoleRouter basename="/merchant" routes={merchantRoutes} home="/" />
-      ) : role === '/courier' || role === '/admin' ? (
-        <PlaceholderRouter role={role === '/courier' ? 'courier' : 'admin'} />
+      ) : role === '/courier' ? (
+        <RoleRouter basename="/courier" routes={courierRoutes} home="/" />
+      ) : role === '/admin' ? (
+        <PlaceholderRouter role="admin" />
       ) : (
         <WebsiteRouter />
       )}

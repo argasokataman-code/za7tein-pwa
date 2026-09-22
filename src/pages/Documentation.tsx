@@ -12,6 +12,7 @@ import { PwaSection } from './documentation/sections/PwaSection'
 import { StylingSection } from './documentation/sections/StylingSection'
 import { FormsSection } from './documentation/sections/FormsSection'
 import { ComponentsSection } from './documentation/sections/ComponentsSection'
+import { CourierDesignSection } from './documentation/sections/CourierDesignSection'
 import { BackendSection } from './documentation/sections/BackendSection'
 import { MerchantDesignSection } from './documentation/sections/MerchantDesignSection'
 import { LayoutExceptionsSection } from './documentation/sections/LayoutExceptionsSection'
@@ -41,6 +42,7 @@ const SECTIONS = [
   ButtonsSection,
   ElementsSection,
   MotionIconsSection,
+  CourierDesignSection,
 ]
 
 const HERO_TAGS = [
