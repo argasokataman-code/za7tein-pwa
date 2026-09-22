@@ -6,7 +6,8 @@ import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
-import { PAYMENT_METHODS, formatDistance, isDeliverable, rupiah, zoneFor } from '../data/merchant'
+import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
+import { PAYMENT_METHODS, formatDistance, isDeliverable, money, zoneFor } from '../data/merchant'
 import { mockMerchant } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -100,7 +101,7 @@ export default function PaymentAmount() {
                     Order Amount
                   </span>
                   <span>
-                    {rupiah(subtotal)}
+                    {money(subtotal)}
                   </span>
                 </div>
                 <div className="summary-item">
@@ -108,7 +109,7 @@ export default function PaymentAmount() {
                     Ongkir {deliverable && zone ? `(Zona ${zone.id})` : ''}
                   </span>
                   <span>
-                    {deliverable ? rupiah(fee) : '—'}
+                    {deliverable ? money(fee) : '—'}
                   </span>
                 </div>
                 <div className="summary-item">
@@ -116,7 +117,7 @@ export default function PaymentAmount() {
                     Discount
                   </span>
                   <span>
-                    {rupiah(0)}
+                    {money(0)}
                   </span>
                 </div>
                 <div className="summary-divider" />
@@ -125,9 +126,10 @@ export default function PaymentAmount() {
                     Total Payment
                   </span>
                   <span>
-                    {rupiah(total)}
+                    {money(total)}
                   </span>
                 </div>
+                <ExchangeRateNote />
               </div>
 
               <div className="payment-method-display">
@@ -182,7 +184,7 @@ export default function PaymentAmount() {
             </div>
             <div className="payment-amount-footer">
               <button className="btn btn-primary pay-btn" disabled={!canPay} onClick={pay}>
-                {method.id === 'cod' ? `Pesan — ${rupiah(total)}` : `Bayar — ${rupiah(total)}`}
+                {method.id === 'cod' ? `Pesan — ${money(total)}` : `Bayar — ${money(total)}`}
               </button>
             </div>
             <div className="home-indicator " />

@@ -26,4 +26,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '19', id: 'motion-svg', label: 'Motion & Icons' },
   { num: '20', id: 'courier-design', label: 'Courier Console' },
   { num: '21', id: 'admin-design', label: 'Admin Panel (CS)' },
+  { num: '22', id: 'currency', label: 'Mata Uang — IDR + JOD' },
 ]

@@ -12,7 +12,7 @@ import {
   DEFAULT_NEW_ADDRESS_PIN,
   formatDistance,
   isDeliverable,
-  rupiah,
+  money,
   zoneFor,
 } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -124,7 +124,7 @@ export default function AddressSelection() {
                             {blocked ? 'Di luar jangkauan' : `Zona ${zone!.id} · ${zone!.range}`}
                           </span>
                           <span className="zone-fee">
-                            {blocked ? '> 2 km' : `${formatDistance(a.distanceMeters)} · ongkir ${rupiah(zone!.fee)}`}
+                            {blocked ? '> 2 km' : `${formatDistance(a.distanceMeters)} · ongkir ${money(zone!.fee)}`}
                           </span>
                         </p>
                       </div>

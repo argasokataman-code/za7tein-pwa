@@ -59,11 +59,12 @@ Form sengketa (F8) satu komponen, dipasang di dua peran:
 - `src/types.ts` — `TenantStatus`, `DepositStatus`, `AdminTenant`, `DisputeStatus`,
   `DisputeResolution`, `Dispute`, `LedgerEntryType`, `LedgerEntry`, `LiabilitySummary`,
   `AdminMerchant`, `AdminEscalation`.
-- `src/data/admin.ts` — label status, `jod()`, `idrToJod()`, `MOCK_JOD_RATE`,
-  `DISPUTE_CATEGORIES`, `RESOLUTIONS`, mock (`adminTenants`, `adminMerchants`,
-  `adminDisputes`, `adminLedger`, `adminEscalations`, `mockLiability`), plus fungsi
-  murni `totalLiability()`, `liabilityGap()`, `openDisputeCount()`,
-  `pendingTenantCount()`, `ledgerEntryFor()`.
+- `src/data/admin.ts` — label status, `DISPUTE_CATEGORIES`, `RESOLUTIONS`, mock
+  (`adminTenants`, `adminMerchants`, `adminDisputes`, `adminLedger`,
+  `adminEscalations`, `mockLiability`), plus fungsi murni `totalLiability()`,
+  `liabilityGap()`, `openDisputeCount()`, `pendingTenantCount()`,
+  `ledgerEntryFor()`. Nominal JOD pakai `jod()`/`idrToJod()` dari
+  `src/data/currency.ts` (satu sumber kurs, M1).
 - `src/store/slices/adminSlice.ts` — `tenants`, `merchants`, `disputes`, `ledger`,
   `liability`, `escalations`, `customerRiskFlags`; aksi `approveDeposit`,
   `rejectOnboarding`, `suspendMerchant`, `blacklistCod`, `startInvestigation`,

@@ -89,10 +89,9 @@ export const mockOrder = {
   courierRating: 4.7,
 } as const
 
-/** Semua jarak memakai format rupiah tanpa desimal, tabular-friendly. */
-export function rupiah(value: number): string {
-  return 'Rp' + Math.round(value).toLocaleString('id-ID')
-}
+// Formatter uang tinggal di `data/currency.ts` (IDR + padanan JOD, R-CURR-01).
+// Diekspor ulang di sini supaya pemakai lama tidak perlu ganti jalur impor.
+export { money, moneyPlain } from './currency'
 
 export function formatDistance(meters: number): string {
   return meters < 1000 ? `${meters} m` : `${(meters / 1000).toFixed(1).replace('.', ',')} km`

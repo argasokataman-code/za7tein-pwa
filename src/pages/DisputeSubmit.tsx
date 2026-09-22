@@ -4,8 +4,9 @@ import { toast } from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { mockMerchant, rupiah } from '../data/merchant'
-import { DISPUTE_CATEGORIES, DEMO_DISPUTE_ORDER_IDR, idrToJod, jod } from '../data/admin'
+import { mockMerchant, money } from '../data/merchant'
+import { DISPUTE_CATEGORIES, DEMO_DISPUTE_ORDER_IDR } from '../data/admin'
+import { idrToJod } from '../data/currency'
 import { fileDispute } from '../store/slices/adminSlice'
 
 const MAX_PHOTOS = 3
@@ -88,7 +89,7 @@ export default function DisputeSubmit() {
         <section className="admin-card">
           <p className="admin-card-title">Order {orderCode}</p>
           <p className="admin-card-sub">
-            {mockMerchant.name} · nilai order {rupiah(orderIdr)} ({jod(idrToJod(orderIdr))})
+            {mockMerchant.name} · nilai order {money(orderIdr)}
           </p>
         </section>
 

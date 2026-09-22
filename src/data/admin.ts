@@ -21,23 +21,8 @@ import type {
  * angka liability di sini adalah state yang ditampilkan, bukan logika uang.
  */
 
-/** Semua nominal konsol SA dalam JOD (PRD aktif), bukan IDR. */
-export function jod(value: number): string {
-  return `${value.toFixed(2).replace('.', ',')} JOD`
-}
-
-/**
- * Rate mock 1 JOD = Rp23.000 — contoh yang disebut PRD M1 untuk widget kurs.
- * M1 belum diimplementasikan di repo ini; angka ini dipakai HANYA untuk
- * menampilkan padanan JOD pada sengketa yang diajukan customer (order disimpan
- * dalam IDR). Jangan dipakai sebagai sumber kurs.
- */
-export const MOCK_JOD_RATE = 23000
-
-/** Padanan JOD dari nominal IDR, 2 desimal. */
-export function idrToJod(idr: number): number {
-  return Number((idr / MOCK_JOD_RATE).toFixed(2))
-}
+/** Semua nominal konsol admin (CS) dalam JOD (PRD aktif), bukan IDR. */
+export { idrToJod, jod } from './currency'
 
 /**
  * Nilai order yang dipakai form sengketa saat cart kosong (mis. halaman dibuka

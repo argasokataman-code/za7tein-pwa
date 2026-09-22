@@ -10,7 +10,7 @@ import {
   mockCouriers,
   mockMerchant,
   mockOrder,
-  rupiah,
+  money,
   zoneFor,
 } from '../data/merchant'
 import { useAppSelector } from '../hooks/useAppStore'
@@ -240,7 +240,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                   <p className="track-row-meta">
                     {address.address} · {formatDistance(address.distanceMeters)}
                     {zone
-                      ? ` · ${zone.label} · ongkir ${rupiah(zone.fee)}`
+                      ? ` · ${zone.label} · ongkir ${money(zone.fee)}`
                       : ' · di luar jangkauan'}
                   </p>
                 </div>

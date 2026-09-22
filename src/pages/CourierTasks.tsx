@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { formatDistance, rupiah } from '../data/merchant'
+import { formatDistance, money } from '../data/merchant'
 import { COURIER_CHECKPOINT_LABEL, isActiveTask, isDoneTask, totalTips } from '../data/courier'
 import { toggleOnline } from '../store/slices/courierSlice'
 import type { CourierTask } from '../types'
@@ -31,7 +31,7 @@ function TaskCard({ task }: { task: CourierTask }) {
         <span className="courier-task-meta">
           {task.items.map((item) => `${item.quantity}× ${item.name}`).join(', ')}
         </span>
-        <span className="courier-task-total">{rupiah(task.total)}</span>
+        <span className="courier-task-total">{money(task.total)}</span>
       </div>
 
       <span className="courier-task-cta">
@@ -103,7 +103,7 @@ export default function CourierTasks() {
                   </p>
                 </div>
                 <span className="courier-history-tip">
-                  {isDoneTask(task) ? `Tips ${rupiah(task.tip)}` : '—'}
+                  {isDoneTask(task) ? `Tips ${money(task.tip)}` : '—'}
                 </span>
               </Link>
             ))
@@ -111,7 +111,7 @@ export default function CourierTasks() {
         </section>
 
         <p className="courier-note">
-          Tips selesai hari ini {rupiah(totalTips(tasks))}. Kurir adalah karyawan merchant —
+          Tips selesai hari ini {money(totalTips(tasks))}. Kurir adalah karyawan merchant —
           platform tidak menahan dana kurir (C-06).
         </p>
       </main>

@@ -10,7 +10,8 @@ import { Minus, Plus, ChevronLeft, ShoppingBag } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
-import { formatDistance, isDeliverable, mockMerchant, rupiah, zoneFor } from '../data/merchant'
+import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
+import { formatDistance, isDeliverable, mockMerchant, money, zoneFor } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
@@ -104,12 +105,12 @@ export default function Checkout() {
                           {item.modifiers ? (
                             <span className="checkout-item__modifier">{item.modifiers}</span>
                           ) : null}
-                          <span className="checkout-item__unit">{rupiah(item.price)}</span>
+                          <span className="checkout-item__unit">{money(item.price)}</span>
                         </div>
 
                         <div className="checkout-item__side">
                           <span className="checkout-item__total">
-                            {rupiah(item.price * item.quantity)}
+                            {money(item.price * item.quantity)}
                           </span>
 
                           {/* Tanpa tombol buang terpisah: menekan - sampai 0
@@ -186,21 +187,22 @@ export default function Checkout() {
                   <h2 className="section-title">Ringkasan Pesanan</h2>
                   <div className="summary-item">
                     <span>Subtotal</span>
-                    <span>{rupiah(subtotal)}</span>
+                    <span>{money(subtotal)}</span>
                   </div>
                   <div className="summary-item">
                     <span>Ongkir {deliverable && zone ? `(Zona ${zone.id})` : ''}</span>
-                    <span>{deliverable ? rupiah(fee) : '—'}</span>
+                    <span>{deliverable ? money(fee) : '—'}</span>
                   </div>
                   <div className="summary-item">
                     <span>Diskon</span>
-                    <span>{rupiah(0)}</span>
+                    <span>{money(0)}</span>
                   </div>
                   <div className="summary-divider" />
                   <div className="summary-total">
                     <span>Total Bayar</span>
-                    <span>{rupiah(total)}</span>
+                    <span>{money(total)}</span>
                   </div>
+                  <ExchangeRateNote />
                 </div>
               </div>
 
@@ -217,7 +219,7 @@ export default function Checkout() {
                     navigate('/payment-selection')
                   }}
                 >
-                  {deliverable ? `Lanjut Bayar · ${rupiah(total)}` : 'Di luar jangkauan'}
+                  {deliverable ? `Lanjut Bayar · ${money(total)}` : 'Di luar jangkauan'}
                 </button>
               </div>
             </>

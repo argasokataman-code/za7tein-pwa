@@ -1,0 +1,9 @@
+/* ── Mata uang: IDR + padanan JOD (M1, flow F10) ────────────────────────────
+   Nominal disimpan IDR (source of truth); JOD hanya tampilan. Widget kurs
+   memuat rate, waktu sync terakhir, dan disclaimer wajib. */
+
+.exchange-rate-note {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}

@@ -1,5 +1,5 @@
 import { Clock, Star, ChevronLeft, Heart } from 'lucide-react'
-import { rupiah } from '../data/merchant'
+import { money } from '../data/merchant'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AddToCartButton } from '../components/ui/AddToCartButton'
@@ -83,7 +83,7 @@ export default function Favorites() {
                       <div className="food-card-content">
                         <div className="food-name-price">
                           <h3 className="food-name">{food.name}</h3>
-                          <span className="food-price">{rupiah(food.price)}</span>
+                          <span className="food-price">{money(food.price)}</span>
                         </div>
                         <div className="food-delivery-info">
                           <Clock size={14} />

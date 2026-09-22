@@ -7,7 +7,7 @@ import { JourneyLine } from '../components/JourneyLine'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useTick } from '../hooks/useTick'
-import { formatDistance, rupiah } from '../data/merchant'
+import { formatDistance, money } from '../data/merchant'
 import {
   COURIER_ACTION_LABEL,
   COURIER_CHECKPOINT_LABEL,
@@ -98,7 +98,7 @@ export default function CourierTaskDetail() {
           </div>
           <p className="courier-task-meta">
             {formatDistance(task.distanceMeters)} · Zona {task.zone} ·{' '}
-            {task.paymentMethod === 'cod' ? `COD ${rupiah(task.total)}` : `Transfer ${rupiah(task.total)}`}
+            {task.paymentMethod === 'cod' ? `COD ${money(task.total)}` : `Transfer ${money(task.total)}`}
           </p>
           <p className="courier-task-meta">
             {task.paymentMethod === 'cod'
@@ -132,7 +132,7 @@ export default function CourierTaskDetail() {
           <section className="courier-card courier-settled">
             <p className="courier-card-title">Pesanan selesai</p>
             <p className="courier-card-sub">
-              OTP terverifikasi → hold settled. Tips kamu {rupiah(task.tip)} masuk dompet.
+              OTP terverifikasi → hold settled. Tips kamu {money(task.tip)} masuk dompet.
             </p>
           </section>
         ) : isCancelled ? (

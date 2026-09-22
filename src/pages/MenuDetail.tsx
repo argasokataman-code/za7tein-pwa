@@ -9,7 +9,8 @@ import { menuDetailReviews } from '../data/reviews'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { FavoriteButton } from '../components/ui/FavoriteButton'
 import { addItem } from '../store/slices/cartSlice'
-import { rupiah } from '../data/merchant'
+import { money } from '../data/merchant'
+import { moneyPlain } from '../data/currency'
 import type { ModifierGroup } from '../types'
 
 const TRUNCATE_AT = 96
@@ -111,7 +112,7 @@ export default function MenuDetail() {
             <div className="menu-detail-content">
               <div className="menu-detail-name-price">
                 <h2 className="menu-detail-name">{food.name}</h2>
-                <span className="menu-detail-price">{rupiah(unitPrice)}</span>
+                <span className="menu-detail-price">{money(unitPrice)}</span>
               </div>
 
               <div className="menu-info-badges" role="list" aria-label="Food details">
@@ -165,7 +166,7 @@ export default function MenuDetail() {
                         <span className={`modifier-box${group.type === 'multi' ? ' modifier-box--multi' : ''}${active ? ' active' : ''}`} />
                         <span className="modifier-option-label">{opt.label}</span>
                         {opt.extraPrice > 0 ? (
-                          <span className="modifier-option-price">+{rupiah(opt.extraPrice)}</span>
+                          <span className="modifier-option-price">+{money(opt.extraPrice)}</span>
                         ) : null}
                       </button>
                     )
@@ -232,11 +233,11 @@ export default function MenuDetail() {
               <button
                 type="button"
                 className="add-to-cart-btn"
-                aria-label={`Tambah ${quantity} ${food.name} ke keranjang, total ${rupiah(unitPrice * quantity)}`}
+                aria-label={`Tambah ${quantity} ${food.name} ke keranjang, total ${moneyPlain(unitPrice * quantity)}`}
                 onClick={addToCart}
               >
                 <ShoppingCart size={20} strokeWidth={1.75} />
-                <span>Tambah ke Keranjang — {rupiah(unitPrice * quantity)}</span>
+                <span>Tambah ke Keranjang — {money(unitPrice * quantity)}</span>
               </button>
             </div>
             <div className="home-indicator " />

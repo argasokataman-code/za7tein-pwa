@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { formatDistance, rupiah } from '../data/merchant'
+import { formatDistance, money } from '../data/merchant'
 import { QUEUE_TABS, ordersForStatuses, orderStatusLabel, type QueueTabId } from '../data/merchantOrders'
 import { setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
 
@@ -88,7 +88,7 @@ export default function MerchantOrders() {
                     <span>
                       {item.quantity}× {item.name}
                     </span>
-                    <span>{rupiah(item.price * item.quantity)}</span>
+                    <span>{money(item.price * item.quantity)}</span>
                   </li>
                 ))}
               </ul>
@@ -97,7 +97,7 @@ export default function MerchantOrders() {
                 {order.address} · {formatDistance(order.distanceMeters)} · Zona {order.zone} ·{' '}
                 {order.paymentMethod === 'cod' ? 'COD' : 'Transfer'}
               </p>
-              <p className="merchant-order-total">Total {rupiah(order.total)}</p>
+              <p className="merchant-order-total">Total {money(order.total)}</p>
 
               {order.status === 'masuk' ? (
                 <div className="merchant-actions">

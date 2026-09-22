@@ -9,7 +9,7 @@ import { BottomSheet } from '../components/ui/BottomSheet'
 import { useCatalog } from '../hooks/useCatalog'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
-import { mockMerchant, rupiah } from '../data/merchant'
+import { mockMerchant, money } from '../data/merchant'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import { addMenuItem, removeMenuItem, setStock, toggleAvailable, updateMenuItem } from '../store/slices/catalogSlice'
 import type { MenuItem } from '../types'
@@ -194,7 +194,7 @@ export default function MerchantMenu() {
                 <div className="merchant-menu-body">
                   <p className="merchant-menu-row-name">{item.name}</p>
                   <p className="merchant-menu-row-meta">{item.category}</p>
-                  <p className="merchant-menu-row-price">{rupiah(item.price)}</p>
+                  <p className="merchant-menu-row-price">{money(item.price)}</p>
                 </div>
                 <div className="merchant-menu-more-wrap">
                 <button

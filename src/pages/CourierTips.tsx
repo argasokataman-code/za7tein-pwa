@@ -1,7 +1,7 @@
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { useAppSelector } from '../hooks/useAppStore'
-import { rupiah } from '../data/merchant'
+import { money } from '../data/merchant'
 import { isDoneTask, totalTips } from '../data/courier'
 
 export default function CourierTips() {
@@ -15,7 +15,7 @@ export default function CourierTips() {
 
         <section className="courier-card courier-tips-hero">
           <p className="courier-card-sub">Total tips</p>
-          <p className="courier-tips-total">{rupiah(totalTips(tasks))}</p>
+          <p className="courier-tips-total">{money(totalTips(tasks))}</p>
         </section>
 
         <section className="courier-card">
@@ -37,7 +37,7 @@ export default function CourierTips() {
                   <p className="courier-task-code">{task.code}</p>
                   <p className="courier-task-sub">{task.customerName}</p>
                 </div>
-                <span className="courier-history-tip">{rupiah(task.tip)}</span>
+                <span className="courier-history-tip">{money(task.tip)}</span>
               </div>
             ))
           )}

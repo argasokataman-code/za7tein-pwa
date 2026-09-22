@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { FoodCard } from '../components/ui/FoodCard'
 import { useCatalog } from '../hooks/useCatalog'
-import { rupiah } from '../data/merchant'
+import { money } from '../data/merchant'
 import { useFoodActions } from '../hooks/useFoodActions'
 
 import { useChipSet } from '../hooks/useToggleSet'
@@ -122,7 +122,7 @@ export default function Search() {
                       <Star size={11} aria-hidden="true" />
                       {f.rating} ({f.reviewCount} Reviews)
                     </div>
-                    <div className="hot-deal-price">{rupiah(f.price)}</div>
+                    <div className="hot-deal-price">{money(f.price)}</div>
                   </div>
                   <button
                     type="button"

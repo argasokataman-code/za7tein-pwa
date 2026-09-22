@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { mockMerchant, rupiah } from '../data/merchant'
+import { mockMerchant, money } from '../data/merchant'
 import { countByTab, orderStatusLabel } from '../data/merchantOrders'
 import { toggleActive } from '../store/slices/merchantSlice'
 
@@ -74,7 +74,7 @@ export default function MerchantDashboard() {
             <span className="merchant-stat-label">Selesai</span>
           </div>
           <div className="merchant-stat merchant-stat--revenue">
-            <span className="merchant-stat-value">{rupiah(revenue)}</span>
+            <span className="merchant-stat-value">{money(revenue)}</span>
             <span className="merchant-stat-label">Pendapatan</span>
           </div>
         </section>

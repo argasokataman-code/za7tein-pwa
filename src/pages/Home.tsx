@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react'
-import { rupiah } from '../data/merchant'
+import { money } from '../data/merchant'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
@@ -194,7 +194,7 @@ export default function Home() {
                       <Star size={14} fill="currentColor" />
                       {food.rating} ({food.reviewCount} Reviews)
                     </div>
-                    <div className="hot-deal-price">{rupiah(food.price)}</div>
+                    <div className="hot-deal-price">{money(food.price)}</div>
                   </div>
                   <AddToCartButton food={food} className="hot-deal-add" />
                 </div>
