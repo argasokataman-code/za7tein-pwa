@@ -5404,6 +5404,179 @@
         }
       ],
       "commit": "bdeb3bf"
+    },
+    {
+      "id": "TASK-2801",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:32:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx (+16/-13) — edit via tool: tsx: import { aggregateLiability,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-2802",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:32:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts (+5/-2) — edit via tool: ts: import { idrToJod } from './currency'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2803",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:32:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminLedger.tsx (+35/-3) — edit via tool: tsx: <p className=\"admin-note\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminLedger.tsx"
+    },
+    {
+      "id": "TASK-2804",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:33:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { LedgerSection } from '",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2805",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:33:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LedgerSection.tsx (+54) — write via tool: tsx: import { ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LedgerSection.tsx"
+    },
+    {
+      "id": "TASK-2806",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:33:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '29', id: 'push', labe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2807",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:33:18",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && ./scripts/flows-gate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-2012",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:34:10",
+      "tags": [
+        "ledger",
+        "liability",
+        "m9"
+      ],
+      "summary": "M9: agregat liability diselaraskan aggregateLiability dengan wallet demo, ledger CS append-only + daftar transisi hold order berjalan",
+      "conn": [
+        {
+          "id": "FEAT-2011",
+          "type": "relates",
+          "raw": "FEAT-2011:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2820",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:34:11",
+      "tags": [
+        "ledger",
+        "m9"
+      ],
+      "summary": "Implement M9: aggregateLiability + angka hidup di AdminDashboard, transisi hold di AdminLedger, docs 30; gate f7 PASS",
+      "conn": [
+        {
+          "id": "FEAT-2012",
+          "type": "relates",
+          "raw": "FEAT-2012:relates"
+        }
+      ],
+      "commit": "0a5993f"
     }
   ]
 }

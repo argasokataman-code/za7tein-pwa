@@ -5,16 +5,19 @@ import { toast } from 'react-hot-toast'
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { jod, liabilityGap, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
+import { aggregateLiability, jod, idrToJod, liabilityGap, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
 import { clearEscalation } from '../store/slices/adminSlice'
 
 export default function AdminDashboard() {
   const dispatch = useAppDispatch()
-  const liability = useAppSelector((s) => s.admin.liability)
+  const storedLiability = useAppSelector((s) => s.admin.liability)
+  const walletIdr = useAppSelector((s) => s.wallet.balance.balance)
   const escalations = useAppSelector((s) => s.admin.escalations)
   const tenants = useAppSelector((s) => s.admin.tenants)
   const disputes = useAppSelector((s) => s.admin.disputes)
 
+  // Agregat ikut wallet demo yang hidup, bukan angka statis (M9/M11).
+  const liability = aggregateLiability(storedLiability, walletIdr)
   const total = totalLiability(liability)
   const gap = liabilityGap(liability)
   const underFunded = gap < 0
@@ -58,7 +61,9 @@ export default function AdminDashboard() {
           </p>
           <p className="admin-note">
             Gaji kurir tidak masuk hitungan ini — kurir digaji merchant, yang lewat platform hanya
-            tips (C-06).
+            tips (C-06). Porsi wallet customer diselaraskan dengan wallet demo yang sedang aktif
+            ({jod(idrToJod(walletIdr))}), jadi top-up, hold, dan settlement ikut menggeser angka di
+            atas.
           </p>
         </section>
 

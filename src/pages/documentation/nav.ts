@@ -34,4 +34,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '27', id: 'dispute', label: 'Sengketa & Pembekuan Hold' },
   { num: '28', id: 'tax', label: 'Pajak Dua Lapis (Info-only)' },
   { num: '29', id: 'push', label: 'Nomor WA & Push (Mock)' },
+  { num: '30', id: 'ledger', label: 'Ledger & Liability' },
 ]

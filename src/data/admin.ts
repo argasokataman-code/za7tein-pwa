@@ -12,6 +12,9 @@ import type {
   TenantStatus,
 } from '../types'
 
+import { idrToJod } from './currency'
+import { mockWallet } from './wallet'
+
 /**
  * Panel admin (CS) — data mock.
  *
@@ -103,6 +106,26 @@ export const mockLiability: LiabilitySummary = {
 /** Kewajiban platform: saldo customer + merchant + tips kurir yang belum di-payout. */
 export function totalLiability(liability: LiabilitySummary): number {
   return liability.customerWallets + liability.merchantWallets + liability.courierTips
+}
+
+/** Saldo wallet demo saat awal — dasar penyelarasan agregat (M9/M11). */
+export const DEMO_WALLET_BASE_JOD = idrToJod(mockWallet.balance)
+
+/**
+ * Agregat liability diselaraskan dengan wallet demo yang hidup: top-up, hold,
+ * settlement, dan payout menggeser porsi customer dengan selisih yang sama.
+ * Tanpa ini, layar Ringkasan menampilkan angka statis yang tidak bergerak walau
+ * saldo demo naik-turun — dan M11 meminta saldo lintas role sinkron.
+ */
+export function aggregateLiability(
+  base: LiabilitySummary,
+  liveWalletIdr: number,
+): LiabilitySummary {
+  const delta = idrToJod(liveWalletIdr) - DEMO_WALLET_BASE_JOD
+  return {
+    ...base,
+    customerWallets: Math.round((base.customerWallets + delta) * 100) / 100,
+  }
 }
 
 /** Selisih saldo Xendit terhadap kewajiban; negatif = kurang (flag di dashboard). */
