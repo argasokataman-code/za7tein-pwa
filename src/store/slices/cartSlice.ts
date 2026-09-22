@@ -60,7 +60,9 @@ const initialState: CartState = {
   selectedAddressId: 'tower-a',
   selectedPaymentId: 'wallet',
   transferProof: null,
-  orderStage: 'dimasak',
+  // Order demo dimulai dari tahap yang sama dengan yang dilihat merchant
+  // ('masuk' di `merchantOrders` SA-1041) dan kurir ('masuk', belum diambil).
+  orderStage: 'diterima',
   holdStatus: 'none',
   holdAmountIdr: 0,
   holdLedger: [],

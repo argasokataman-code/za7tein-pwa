@@ -59,6 +59,235 @@
         }
       ],
       "commit": "a76a98a"
+    },
+    {
+      "id": "TASK-2841",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:37:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts (+1/-1) — edit via tool: ts: body: 'Warung Sate Pak Ali sedang ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts"
+    },
+    {
+      "id": "TASK-2842",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:37:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+4/-2) — edit via tool: ts: transferProof: null,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-2843",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:37:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/DisputeSubmit.tsx (+1/-1) — edit via tool: tsx: const orderCode = params.get('o",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/DisputeSubmit.tsx"
+    },
+    {
+      "id": "TASK-2844",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:37:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+8/-2) — edit via tool: ts: export const mockOrder = {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-2845",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:37:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2846",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:39:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ConsistencySection.tsx (+200) — write via tool: tsx: imp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ConsistencySection.tsx"
+    },
+    {
+      "id": "TASK-2847",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:39:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts (+9/-9) — edit via tool: ts: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2848",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:39:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { ConsistencySection } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2849",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:39:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '31', id: 'incentive',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2850",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:40:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && npm run governance:c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-2014",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "01:40:36",
+      "tags": [
+        "consistency",
+        "m11"
+      ],
+      "summary": "M11: satu kode order SA-1041 di 4 role, kontrak BE M0-M10 dikonsolidasi di docs 32, audit 12 layar @390/1440 (kolom 430, tepi 20, overflow 0",
+      "conn": [
+        {
+          "id": "FEAT-2013",
+          "type": "relates",
+          "raw": "FEAT-2013:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2860",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "01:40:36",
+      "tags": [
+        "consistency",
+        "m11"
+      ],
+      "summary": "Implement M11: kode order disatukan + stage awal 'diterima', ledger CS ref SA-1041, docs 32 konsolidasi kontrak BE; audit 12 layar lulus",
+      "conn": [
+        {
+          "id": "FEAT-2014",
+          "type": "relates",
+          "raw": "FEAT-2014:relates"
+        }
+      ],
+      "commit": "193857a"
     }
   ]
 }

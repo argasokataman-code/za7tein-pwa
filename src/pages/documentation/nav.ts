@@ -36,4 +36,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '29', id: 'push', label: 'Nomor WA & Push (Mock)' },
   { num: '30', id: 'ledger', label: 'Ledger & Liability' },
   { num: '31', id: 'incentive', label: 'Insentif Merchant — Modal & Cashback Tier' },
+  { num: '32', id: 'consistency', label: 'Konsistensi Lintas Role & Kontrak BE' },
 ]

@@ -271,9 +271,9 @@ export const adminLedger: LedgerEntry[] = [
     at: 'Hari ini 08:55',
     type: 'cod_hold',
     direction: 'debit',
-    amount: 2.8,
-    ref: 'SA-1039',
-    memo: 'Hold COD dibekukan karena order disputed',
+    amount: 2.87,
+    ref: 'SA-1041',
+    memo: 'Hold COD order yang sedang berjalan (2,87 JOD)',
   },
   {
     id: 'led-6',

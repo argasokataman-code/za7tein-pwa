@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { mockMerchant, money } from '../data/merchant'
+import { mockMerchant, mockOrder, money } from '../data/merchant'
 import { DISPUTE_CATEGORIES, DEMO_DISPUTE_ORDER_IDR } from '../data/admin'
 import { idrToJod } from '../data/currency'
 import { fileDispute } from '../store/slices/adminSlice'
@@ -24,7 +24,7 @@ export default function DisputeSubmit() {
   const [params] = useSearchParams()
   const cartItems = useAppSelector((s) => s.cart.items)
 
-  const orderCode = params.get('order') ?? 'S7-772292'
+  const orderCode = params.get('order') ?? mockOrder.code
   const filedBy = params.get('by') === 'merchant' ? 'merchant' : 'customer'
 
   const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)

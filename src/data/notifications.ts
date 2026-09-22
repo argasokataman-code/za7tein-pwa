@@ -11,7 +11,7 @@ export const mockNotifications: AppNotification[] = [
     id: 'n1',
     kind: 'order',
     title: 'Pesanan sedang dimasak',
-    body: 'Warung Sate Pak Ali sedang menyiapkan pesanan S7-772292.',
+    body: 'Warung Sate Pak Ali sedang menyiapkan pesanan SA-1041.',
     time: '12.32',
     unread: true,
   },

@@ -136,7 +136,13 @@ export const ORDER_STAGES: { id: OrderStage; label: string }[] = [
 
 /** Pesanan contoh — nomor, jam, dan estimasi dari PRD. */
 export const mockOrder = {
-  code: 'S7-772292',
+  /**
+   * Kode satu-satunya order demo yang berjalan. Merchant (`merchantOrders`),
+   * kurir (`courierTasks` ct-1), dan baris ledger panel CS memakai kode yang
+   * sama supaya M11 bisa memeriksa order yang sama di empat role — bukan empat
+   * pesanan berbeda dengan kode berbeda.
+   */
+  code: 'SA-1041',
   placedAt: '12:27',
   readyEstimate: '12:47',
   arriveEstimate: '13:05',
