@@ -1,0 +1,915 @@
+{
+  "shard": 3,
+  "nodes": [
+    {
+      "id": "TASK-1356",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:42:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/f21-account-auth.json (+9/-10) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/f21-account-auth.json"
+    },
+    {
+      "id": "TASK-1357",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:43:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+5/-2) — edit via tool: { \"from\": \"f20-address-zone:order\", \"to\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1358",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:43:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+3/-2) — edit via tool: {slug:\"f20-address-zone\",         title:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1359",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:44:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+2/-1) — edit via tool: | 13 flow | Node bertipe `backend` di fl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1360",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:44:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+8/-1) — edit via tool: ### F21 — Registrasi & masuk akun ✅ done",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1361",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:44:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/README.md (+54) — write via tool: # F21 — Registrasi & Masuk Akun",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/README.md"
+    },
+    {
+      "id": "TASK-1362",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:45:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"b3d2bd44c9f52c7ba6565a627208a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-1363",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:47:47",
+      "tags": [
+        "flows",
+        "f21",
+        "auth",
+        "registration"
+      ],
+      "summary": "Flow f21-account-auth dibuat (login Google + nomor WA E.164 + OTP WA wajib, PO 2026-09-22); PRD :760 di-resolve + sha manifest; INDEX/index.",
+      "conn": [
+        {
+          "id": "TASK-1352",
+          "type": "implements",
+          "raw": "TASK-1352:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1364",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:56:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/f21-account-auth.json (+2/-2) — edit via tool: \"label\": \"Verifikasi nomor\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/f21-account-auth.json"
+    },
+    {
+      "id": "TASK-1365",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:57:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/fix-otp.js (+42) — write via tool: js: const fs = require(\"fs\");",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/fix-otp.js"
+    },
+    {
+      "id": "TASK-1366",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:57:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"9fe840dd64de372c20c4b362d691c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-1367",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:58:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/f21-account-auth.json (+8/-8) — edit via tool: \"**Google menggantikan sandi, bukan nomo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/f21-account-auth.json"
+    },
+    {
+      "id": "TASK-1368",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:58:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — AUTH-1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-1369",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:58:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — flow b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/README.md"
+    },
+    {
+      "id": "DEC-1370",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "23:59:48",
+      "tags": [
+        "auth",
+        "otp",
+        "whatsapp",
+        "prd",
+        "flows"
+      ],
+      "summary": "PO 2026-09-22 (koreksi): registrasi TANPA OTP WA — nomor WA wajib diisi + validasi format E.164 (Level 1, gratis, fallback wa.me). OTP/WA Bu",
+      "conn": [
+        {
+          "id": "TASK-1363",
+          "type": "relates",
+          "raw": "TASK-1363:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1371",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:01:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/f11-push-notification.json (+1/-1) — edit via tool: \"OQ-24 RESOLVED (PO 2026-09-22): nomor W",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/f11-push-notification.json"
+    },
+    {
+      "id": "TASK-1372",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:02:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/f11-push-notification.json (+1/-1) — edit via tool: { \"id\": \"wa\", \"type\": \"external\", \"label",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/f11-push-notification.json"
+    },
+    {
+      "id": "TASK-1373",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:02:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+1/-1) — edit via tool: {slug:\"f11-push-notification\",    title:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1374",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:02:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | R-PUSH-01, C-18 | partial | OQ-24 RESO",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1375",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:02:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: - **UNRESOLVED:** push device test (iOS ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1376",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:03:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/README.md (+2/-1) — edit via tool: - **OQ-24 RESOLVED (PO 2026-09-22):** no",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/README.md"
+    },
+    {
+      "id": "TASK-1377",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:05:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"fdeba32fc1503227c45ff1fd72e48",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-1378",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:05:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/f21-account-auth.json (+1/-1) — edit via tool: \"Dasar: PRD `source.md:760` (nomor WA wa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/f21-account-auth.json"
+    },
+    {
+      "id": "DEC-1379",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "00:06:39",
+      "tags": [
+        "whatsapp",
+        "push",
+        "prd",
+        "fallback"
+      ],
+      "summary": "PO 2026-09-23: WA Business API (Level 2) TIDAK dipakai di MVP — fallback tetap wa.me manual (gratis, tanpa nomor WA Business & approval Meta",
+      "conn": [
+        {
+          "id": "DEC-1370",
+          "type": "relates",
+          "raw": "DEC-1370:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1380",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+247) — write via tool: tsx: import { Toaster } from 'react-hot-toast",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-1381",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/RolePlaceholder.tsx (+41) — write via tool: tsx: import { Construction } from '",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/RolePlaceholder.tsx"
+    },
+    {
+      "id": "TASK-1382",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/MerchantBottomNav.tsx (+12/-12) — edit via tool: tsx: { to: '/', la",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/MerchantBottomNav.tsx"
+    },
+    {
+      "id": "TASK-1383",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/index.html (+5/-3) — edit via tool: if (['/customer', '/merchant', '/courier",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/index.html"
+    },
+    {
+      "id": "TASK-1384",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/vite.config.ts (+1/-1) — edit via tool: ts: scope: '/',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/vite.config.ts"
+    },
+    {
+      "id": "TASK-1385",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/main.tsx (+10/-8) — edit via tool: tsx: // Build sebelumnya mendaftarkan service",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/main.tsx"
+    },
+    {
+      "id": "TASK-1386",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-merchant.json (+45) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-merchant.json"
+    },
+    {
+      "id": "TASK-1387",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-admin.json (+28) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-admin.json"
+    },
+    {
+      "id": "TASK-1388",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-courier.json (+29) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-courier.json"
+    },
+    {
+      "id": "TASK-1389",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-customer.json (+45) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest-customer.json"
+    },
+    {
+      "id": "TASK-1390",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:11:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest.json (+1/-1) — edit via tool: \"start_url\": \"/\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/manifest.json"
+    },
+    {
+      "id": "TASK-1391",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx (+2/-1) — edit via tool: tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx"
+    },
+    {
+      "id": "TASK-1392",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: Panduan PWA Sa7tein: tiap peran",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-1393",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/WhatsNewSection.tsx (+2/-2) — edit via tool: tsx: App sp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/WhatsNewSection.tsx"
+    },
+    {
+      "id": "TASK-1394",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+12/-12) — edit via tool: tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-1395",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PagesRoutesSection.tsx (+11/-11) — edit via tool: tsx: c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PagesRoutesSection.tsx"
+    },
+    {
+      "id": "TASK-1396",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/RouteProtectionSection.tsx (+65/-50) — edit via tool: ts",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/RouteProtectionSection.tsx"
+    },
+    {
+      "id": "TASK-1397",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx (+172) — write via tool: tsx: import { Do",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx"
+    },
+    {
+      "id": "TASK-1398",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/README.md (+1/-1) — edit via tool: Website promosi tersedia di `http://loca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/README.md"
+    },
+    {
+      "id": "TASK-1399",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+1/-1) — edit via tool: | PWA | Tiap prefix peran (`/customer/*`",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-1400",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:12:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-merchant.md (+1/-1) — edit via tool: - Prefix URL `/merchant/*` dengan basena",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-merchant.md"
+    },
+    {
+      "id": "DEC-2001",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "00:14:29",
+      "tags": [
+        "routing",
+        "pwa",
+        "role",
+        "architecture"
+      ],
+      "summary": "PWA dipisah per role: /customer /merchant /courier /admin, tiap prefix basename sendiri + manifest sendiri (install terpisah); satu SW scope",
+      "conn": [
+        {
+          "id": "DEC-010",
+          "type": "relates",
+          "raw": "DEC-010:relates"
+        },
+        {
+          "id": "DEC-011",
+          "type": "relates",
+          "raw": "DEC-011:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:14:29",
+      "tags": [
+        "routing",
+        "pwa",
+        "ui",
+        "docs"
+      ],
+      "summary": "Split App.tsx jadi RoleRouter per prefix, 4 manifest, placeholder courier/admin, redirect /app+polos, docs+README+plan update; build+lint+go",
+      "conn": [
+        {
+          "id": "DEC-2001",
+          "type": "implements",
+          "raw": "DEC-2001:implements"
+        }
+      ],
+      "loc": "src/App.tsx:1"
+    }
+  ]
+}

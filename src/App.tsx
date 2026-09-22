@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast'
-import { useEffect } from 'react'
+import { useEffect, type ComponentType } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import { StoreProvider } from './store/provider'
@@ -55,6 +55,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
 import RatingDriver from './pages/RatingDriver'
 import Reviews from './pages/Reviews'
+import RolePlaceholder from './pages/RolePlaceholder'
 import Search from './pages/Search'
 import Security from './pages/Security'
 import SignIn from './pages/SignIn'
@@ -62,14 +63,26 @@ import SignUp from './pages/SignUp'
 import Verification from './pages/Verification'
 import YourCard from './pages/YourCard'
 
-const APP_BASENAME = '/app'
+// Tiap peran punya prefix URL sendiri dan BrowserRouter basename sendiri, jadi
+// satu deployment bisa melayani beberapa PWA yang diinstall terpisah.
+const ROLE_BASES = ['/customer', '/merchant', '/courier', '/admin'] as const
+type RoleBase = (typeof ROLE_BASES)[number]
 
-const webRoutes: [string, React.ComponentType][] = [
+function roleFromPath(pathname: string): RoleBase | null {
+  return (
+    ROLE_BASES.find(
+      (base) => pathname === base || pathname.startsWith(`${base}/`),
+    ) ?? null
+  )
+}
+
+const webRoutes: [string, ComponentType][] = [
   ['/', Landing],
   ['/documentation', Documentation],
 ]
 
-const appRoutes: [string, React.ComponentType][] = [
+// Pelanggan — dipasang di /customer/*.
+const customerRoutes: [string, ComponentType][] = [
   ['/onboarding', Onboarding],
   ['/account-setup', AccountSetup],
   ['/signin', SignIn],
@@ -83,15 +96,6 @@ const appRoutes: [string, React.ComponentType][] = [
   ['/filter', Filter],
   ['/favorites', Favorites],
   ['/menu-detail/:id', MenuDetail],
-  ['/merchant/signin', MerchantSignIn],
-  ['/merchant/signup', MerchantSignUp],
-  ['/merchant/pending', MerchantPending],
-  ['/merchant', MerchantDashboard],
-  ['/merchant/orders', MerchantOrders],
-  ['/merchant/menu', MerchantMenu],
-  ['/merchant/reviews', MerchantReviews],
-  ['/merchant/couriers', MerchantCouriers],
-  ['/merchant/settings', MerchantSettings],
   ['/checkout', Checkout],
   ['/address-selection', AddressSelection],
   ['/payment-selection', PaymentSelection],
@@ -126,22 +130,46 @@ const appRoutes: [string, React.ComponentType][] = [
   ['/offline', Offline],
 ]
 
-function AppRouter() {
-  useEffect(() => {
-    const splash = document.getElementById('boot-splash')
-    if (!splash) return
-    const frame = requestAnimationFrame(() => splash.remove())
-    return () => cancelAnimationFrame(frame)
-  }, [])
+// Merchant — dipasang di /merchant/*.
+const merchantRoutes: [string, ComponentType][] = [
+  ['/signin', MerchantSignIn],
+  ['/signup', MerchantSignUp],
+  ['/pending', MerchantPending],
+  ['/', MerchantDashboard],
+  ['/orders', MerchantOrders],
+  ['/menu', MerchantMenu],
+  ['/reviews', MerchantReviews],
+  ['/couriers', MerchantCouriers],
+  ['/settings', MerchantSettings],
+]
 
+interface RoleRouterProps {
+  basename: string
+  routes: [string, ComponentType][]
+  home: string
+}
+
+function RoleRouter({ basename, routes, home }: RoleRouterProps) {
   return (
-    <BrowserRouter basename={APP_BASENAME}>
+    <BrowserRouter basename={basename}>
       <MobileDeviceFrame>
         <Routes>
-          {appRoutes.map(([path, Component]) => (
+          {routes.map(([path, Component]) => (
             <Route key={path} path={path} element={<Component />} />
           ))}
-          <Route path="*" element={<Navigate to="/home" replace />} />
+          <Route path="*" element={<Navigate to={home} replace />} />
+        </Routes>
+      </MobileDeviceFrame>
+    </BrowserRouter>
+  )
+}
+
+function PlaceholderRouter({ role }: { role: 'courier' | 'admin' }) {
+  return (
+    <BrowserRouter basename={`/${role}`}>
+      <MobileDeviceFrame>
+        <Routes>
+          <Route path="*" element={<RolePlaceholder role={role} />} />
         </Routes>
       </MobileDeviceFrame>
     </BrowserRouter>
@@ -155,31 +183,50 @@ function WebsiteRouter() {
         {webRoutes.map(([path, Component]) => (
           <Route key={path} path={path} element={<Component />} />
         ))}
-        {appRoutes.map(([path]) => (
+        <Route path="/app" element={<LegacyAppRedirect />} />
+        <Route path="/app/*" element={<LegacyAppRedirect />} />
+        {customerRoutes.map(([path]) => (
           <Route key={`legacy-${path}`} path={path} element={<LegacyAppRedirect />} />
         ))}
-        <Route path="/merchant/*" element={<LegacyAppRedirect />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   )
 }
 
+// Tautan lama: /app/* dan jalur polos (/home, /signin) menuju peran yang benar.
 function LegacyAppRedirect() {
   useEffect(() => {
-    window.location.replace(`/app${window.location.pathname}${window.location.search}${window.location.hash}`)
+    const { pathname, search, hash } = window.location
+    const target = pathname.startsWith('/app')
+      ? pathname.replace(/^\/app\/merchant/, '/merchant').replace(/^\/app/, '/customer')
+      : `/customer${pathname}`
+    window.location.replace(`${target}${search}${hash}`)
   }, [])
   return null
 }
 
 export default function App() {
-  const isApp =
-    window.location.pathname === APP_BASENAME ||
-    window.location.pathname.startsWith(`${APP_BASENAME}/`)
+  const role = roleFromPath(window.location.pathname)
+
+  useEffect(() => {
+    const splash = document.getElementById('boot-splash')
+    if (!splash) return
+    const frame = requestAnimationFrame(() => splash.remove())
+    return () => cancelAnimationFrame(frame)
+  }, [])
 
   return (
     <StoreProvider>
-      {isApp ? <AppRouter /> : <WebsiteRouter />}
+      {role === '/customer' ? (
+        <RoleRouter basename="/customer" routes={customerRoutes} home="/home" />
+      ) : role === '/merchant' ? (
+        <RoleRouter basename="/merchant" routes={merchantRoutes} home="/" />
+      ) : role === '/courier' || role === '/admin' ? (
+        <PlaceholderRouter role={role === '/courier' ? 'courier' : 'admin'} />
+      ) : (
+        <WebsiteRouter />
+      )}
       <Toaster
         position="top-center"
         containerStyle={{ maxWidth: 'var(--shell-max)', marginInline: 'auto' }}

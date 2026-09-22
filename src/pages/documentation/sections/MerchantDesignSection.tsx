@@ -48,18 +48,18 @@ export function MerchantBottomNav() {
   const incoming = countByTab(orders, 'masuk')
 
   const items: BottomNavItem[] = [
-    { to: '/merchant', label: 'Beranda', Icon: LayoutDashboard, end: true },
+    { to: '/', label: 'Beranda', Icon: LayoutDashboard, end: true },
     {
-      to: '/merchant/orders',
+      to: '/orders',
       label: 'Order',
       Icon: ClipboardList,
       end: false,
       badge: incoming,
       srText: incoming > 0 ? \`\${incoming} pesanan masuk\` : undefined,
     },
-    { to: '/merchant/menu', label: 'Menu', Icon: BookOpenText, end: false },
-    { to: '/merchant/couriers', label: 'Kurir', Icon: Bike, end: false },
-    { to: '/merchant/settings', label: 'Setelan', Icon: Settings, end: false },
+    { to: '/menu', label: 'Menu', Icon: BookOpenText, end: false },
+    { to: '/couriers', label: 'Kurir', Icon: Bike, end: false },
+    { to: '/settings', label: 'Setelan', Icon: Settings, end: false },
   ]
 
   return <BottomNav items={items} />
@@ -206,13 +206,13 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
       <p className="doc-p">
         Halaman <code className="doc-inline">/merchant/reviews</code> memberi
         pemilik toko membaca ulasan pembeli per hidangan dan membalasnya. Ini
-        <strong> di luar PRD aktif</strong>: FR-MC pada
-        <code className="doc-inline">irbid-mvp-2026-09-12</code> tidak menyebut
-        ulasan atau respons pembeli. Karena itu item ini ditandai
-        <code className="doc-inline">UNRESOLVED</code> +
-        <code className="doc-inline">blocked-by-decision</code> di
-        <code className="doc-inline">docs/product/prd/milestones-irbid-mvp.md</code>
-        — bukan diisi dengan asumsi.
+        <strong> di luar PRD aktif</strong>: tidak ada requirement <code className="doc-inline">R-*</code>
+        di <code className="doc-inline">irbid-mvp-v2-2026-09-21</code> maupun
+        milestone <code className="doc-inline">M0–M11</code> di
+        <code className="doc-inline">docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md</code>
+        yang menyebut ulasan atau respons pembeli. Karena itu item ini ditandai
+        <code className="doc-inline">UNRESOLVED</code> (out-of-PRD), bukan
+        diisi dengan asumsi.
       </p>
       <p className="doc-p">
         Entry-nya kartu "Ulasan Pembeli" di section Kelola dashboard; bottom nav

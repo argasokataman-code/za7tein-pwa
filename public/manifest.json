@@ -2,7 +2,7 @@
   "name": "Sa7tein — Marketplace Makanan Hyperlocal",
   "short_name": "Sa7tein",
   "description": "Pesan makanan dari dapur sekitar di Irbid, Yordania.",
-  "start_url": "/app/home",
+  "start_url": "/",
   "id": "/",
   "display": "standalone",
   "background_color": "#FFF9F4",
@@ -70,7 +70,7 @@
       "name": "Pesan Makanan",
       "short_name": "Pesan",
       "description": "Jelajahi menu dan pesan",
-      "url": "/app/home",
+      "url": "/customer/home",
       "icons": [
         {
           "src": "/icons/sa7tein-96x96.png",
@@ -82,7 +82,7 @@
       "name": "Pesanan Saya",
       "short_name": "Pesanan",
       "description": "Lacak pesanan berjalan",
-      "url": "/app/checkout",
+      "url": "/customer/checkout",
       "icons": [
         {
           "src": "/icons/sa7tein-96x96.png",

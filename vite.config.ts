@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       strategies: 'generateSW',
       registerType: 'autoUpdate',
-      scope: '/app/',
+      scope: '/',
       injectRegister: 'auto',
       // the app ships its own public/manifest.json
       manifest: false,

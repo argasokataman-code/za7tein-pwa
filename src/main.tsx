@@ -4,12 +4,14 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import './styles/index.scss'
 
-// Older builds registered a root-scoped worker and could keep serving the
-// marketing page from an old cache. The installed app now owns only /app/.
+// Build sebelumnya mendaftarkan service worker berskala /app/. Sekarang worker
+// memakai scope '/' agar mencakup semua prefix peran, jadi registrasi lama
+// dilepas supaya tidak ada dua worker yang saling menimpa.
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
-  void navigator.serviceWorker.getRegistrations().then(async (registrations) => {
-    const rootWorker = registrations.find((item) => item.scope === `${location.origin}/`)
-    if (rootWorker && await rootWorker.unregister()) location.reload()
+  void navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const item of registrations) {
+      if (item.scope === `${location.origin}/app/`) void item.unregister()
+    }
   })
 }
 

@@ -5505,6 +5505,350 @@
         }
       ],
       "loc": "src/pages/documentation/sections/ComponentsSection.tsx:97"
+    },
+    {
+      "id": "TASK-1052",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "14:37:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.7.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-256",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-13",
+      "time": "14:38:12",
+      "tags": [
+        "release",
+        "deploy",
+        "merchant"
+      ],
+      "summary": "Commit d6ba053 merchant chrome unify; push main; Vercel prod deploy sa7tein-pwa.vercel.app",
+      "conn": [
+        {
+          "id": "TASK-255",
+          "type": "relates",
+          "raw": "TASK-255:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1053",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+3/-3) — edit via tool: \"id\": \"irbid-mvp-2026-09-12\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-1054",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: .rules.json (+1/-1) — edit via tool: \"activeRevision\": \"irbid-mvp-v2-2026-09-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": ".rules.json"
+    },
+    {
+      "id": "TASK-1055",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/README.md (+1/-1) — edit via tool: PRD aktif adalah `irbid-mvp-v2-2026-09-2",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/README.md"
+    },
+    {
+      "id": "TASK-1056",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: AGENTS.md (+1/-1) — edit via tool: PRD produk diregistrasi di `docs/product",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "AGENTS.md"
+    },
+    {
+      "id": "TASK-1057",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/decision-irbid-mvp.md (+28) — write via tool: # Keputusan sumber produk: Irbid MVP",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/decision-irbid-mvp.md"
+    },
+    {
+      "id": "TASK-1058",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md (+1/-1) — edit via tool: Status: REVIEWED. Aktif sejak 2026-09-22",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md"
+    },
+    {
+      "id": "TASK-1059",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md (+1/-1) — edit via tool: - SHA-256: 0f80c546dee94e1c7b45a4cc74bfc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md"
+    },
+    {
+      "id": "TASK-1060",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/IntroductionSection.tsx (+1/-1) — edit via tool: tsx: is a React 19 + Vite UI/UX showcase with",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/IntroductionSection.tsx"
+    },
+    {
+      "id": "TASK-1061",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/MerchantDesignSection.tsx (+9/-9) — edit via tool: tsx: Halaman <code className=\"doc-inline\">/me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-1062",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/landing-page-2026-09-13/analysis.md (+1/-1) — edit via tool: PRD aktif saat itu `irbid-mvp-2026-09-12",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/landing-page-2026-09-13/analysis.md"
+    },
+    {
+      "id": "TASK-1063",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:03:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/decision-landing-page.md (+1/-1) — edit via tool: - Status: **proposed** — diadopsi sebaga",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/decision-landing-page.md"
+    },
+    {
+      "id": "TASK-257",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:04:50",
+      "tags": [
+        "prd",
+        "activation",
+        "governance"
+      ],
+      "summary": "Aktivasi PRD irbid-mvp-v2-2026-09-21: manifest flip (09-12 superseded), decision doc rewrite, AGENTS/.rules/README, doc page sync; governanc",
+      "conn": [
+        {
+          "id": "DEC-1036",
+          "type": "relates",
+          "raw": "DEC-1036:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1064",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:06:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md (+1/-1) — edit via tool: | OQ-7 | Onboarding Xendit: persetujuan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md"
+    },
+    {
+      "id": "TASK-1065",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:09:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md (+1/-1) — edit via tool: 6. Urutan implementasi: apakah wallet di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md"
+    },
+    {
+      "id": "TASK-1066",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:09:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md (+1/-1) — edit via tool: | OQ-5 | Xendit: onboarding + approval s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md"
+    },
+    {
+      "id": "TASK-1067",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:09:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"11e2d2d3b728c6c315c73e360a268",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
     }
   ]
 }

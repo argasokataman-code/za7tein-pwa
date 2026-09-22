@@ -5,7 +5,8 @@ export function LayoutExceptionsSection() {
   return (
     <DocSection id="layout-exceptions" num="14" title="Layout Exceptions">
       <p className="doc-p">
-        Layar aplikasi di <code>/app/*</code> tetap memakai shell maksimal 430px.
+        Layar tiap peran (<code>/customer/*</code>, <code>/merchant/*</code>,{' '}
+        <code>/courier/*</code>, <code>/admin/*</code>) tetap memakai shell maksimal 430px.
         Saat dibuka pada lebar layar desktop, shell ini berada dalam simulator
         perangkat 462px agar seluruh preview aplikasi terbaca sebagai pengalaman
         ponsel. Simulator memiliki satu penggulung internal untuk meniru layar

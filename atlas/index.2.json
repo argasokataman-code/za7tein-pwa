@@ -1,0 +1,5858 @@
+{
+  "shard": 2,
+  "nodes": [
+    {
+      "id": "DEC-1037",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "00:10:31",
+      "tags": [
+        "prd",
+        "po-2026-09-22",
+        "fee",
+        "sla",
+        "xendit"
+      ],
+      "summary": "PO 2026-09-22: OQ-25 fee flat 0,37 JOD semua metode termasuk legacy; OQ-13 SLA 15/30/10 sementara; OQ-5/6/7/8/23 Xendit ditunda ke BE (repo ",
+      "conn": [
+        {
+          "id": "TASK-257",
+          "type": "relates",
+          "raw": "TASK-257:relates"
+        },
+        {
+          "id": "DEC-1036",
+          "type": "relates",
+          "raw": "DEC-1036:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1068",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:13:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md (+1/-1) — edit via tool: - **Fee customer tetap berjalan normal =",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md"
+    },
+    {
+      "id": "TASK-1069",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:13:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md (+1/-1) — edit via tool: | I-1 | Insentif: fee customer di ketent",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/analysis.md"
+    },
+    {
+      "id": "TASK-1070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:14:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/manifest.json (+2/-2) — edit via tool: \"source\": \"versions/irbid-mvp-v2-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/manifest.json"
+    },
+    {
+      "id": "DEC-1038",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "00:15:27",
+      "tags": [
+        "prd",
+        "po-2026-09-22",
+        "insentif",
+        "fee"
+      ],
+      "summary": "PO 2026-09-22: I-1 fee customer 0,22 JOD (0,20 tidak berlaku); I-2 modal 5 JOD kredit non-tunai terpisah dari deposit COD 3,50",
+      "conn": [
+        {
+          "id": "DEC-1037",
+          "type": "relates",
+          "raw": "DEC-1037:relates"
+        },
+        {
+          "id": "TASK-257",
+          "type": "relates",
+          "raw": "TASK-257:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:24:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json (+43) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json"
+    },
+    {
+      "id": "TASK-1072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:26:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json (+44) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json"
+    },
+    {
+      "id": "TASK-1073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:28:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json (+10/-10) — edit via tool: { \"id\": \"c-ap",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json"
+    },
+    {
+      "id": "TASK-1074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:29:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json (+1/-1) — edit via tool: { \"id\": \"data-s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/app-map.architecture.json"
+    },
+    {
+      "id": "TASK-258",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:32:53",
+      "tags": [
+        "archify",
+        "diagram",
+        "architecture",
+        "prd"
+      ],
+      "summary": "Peta arsitektur app per role (archify) di docs/design/app-map/: spec + app-map.html + sidecar. showcase 9/9, visual-check pass 4 viewport",
+      "conn": [
+        {
+          "id": "TASK-257",
+          "type": "relates",
+          "raw": "TASK-257:relates"
+        },
+        {
+          "id": "DEC-1037",
+          "type": "relates",
+          "raw": "DEC-1037:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:36:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/app-map/README.md (+38) — write via tool: # Peta Aplikasi per Role (archify)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/app-map/README.md"
+    },
+    {
+      "id": "TASK-1076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:42:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+157) — write via tool: # Rencana Diagram Flow Bisnis Sa7tein",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-259",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:43:09",
+      "tags": [
+        "archify",
+        "planning",
+        "flows",
+        "prd"
+      ],
+      "summary": "Doc planning diagram flow bisnis docs/design/flows/PLAN.md: 11 flow F1-F11, konvensi folder, gate showcase, urutan milestone M1-M11",
+      "conn": [
+        {
+          "id": "TASK-258",
+          "type": "relates",
+          "raw": "TASK-258:relates"
+        },
+        {
+          "id": "DEC-1038",
+          "type": "relates",
+          "raw": "DEC-1038:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:45:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+68) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:46:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-1) — edit via tool: { \"id\": \"e-masak-match\", \"from\": \"masak\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:47:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-1) — edit via tool: { \"id\": \"settle\", \"lane\": \"sistem\", \"col",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:48:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-1) — edit via tool: { \"id\": \"e-tiba-otp\", \"from\": \"tiba\", \"t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:49:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+60) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:50:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-1) — edit via tool: { \"id\": \"otp\", \"lane\": \"customer\", \"col\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:52:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+3/-3) — edit via tool: Urutan bangun = urutan milestone (M1 → M",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:52:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md (+43) — write via tool: # F1 — Order End-to-End",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "00:52:28",
+      "tags": [
+        "archify",
+        "flow",
+        "f1",
+        "order"
+      ],
+      "summary": "F1 order end-to-end workflow (archify) di docs/design/flows/f1-order-lifecycle/; 3 lane, showcase 9/9, visual-check pass 4 viewport",
+      "conn": [
+        {
+          "id": "TASK-259",
+          "type": "relates",
+          "raw": "TASK-259:relates"
+        },
+        {
+          "id": "DEC-1037",
+          "type": "relates",
+          "raw": "DEC-1037:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:02:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+61) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:03:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+2/-2) — edit via tool: { \"id\": \"payMethod\", \"lane\": \"customer\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1087",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:05:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md (+29/-21) — edit via tool: ## Alur",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-1088",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:08:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+35) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:09:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+1/-1) — edit via tool: { \"id\": \"cancel\", \"label\": \"Pembatalan &",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:10:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+8/-8) — edit via tool: \"transitions\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:13:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+1/-1) — edit via tool: { \"id\": \"t-cancel-before\", \"from\": \"held",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:15:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+5/-4) — edit via tool: \"meta\": {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1093",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:16:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+1/-1) — edit via tool: \"viewBox\": [800, 700]",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1094",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:17:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+1/-1) — edit via tool: \"viewBox\": [1000, 700]",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1095",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:18:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+1/-1) — edit via tool: \"viewBox\": [1000, 640]",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1096",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:19:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F2 — COD via wallet hold lifecycle ✅",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1097",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:19:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/README.md (+45) — write via tool: # F2 — COD via Wallet Hold Lifecycle",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/README.md"
+    },
+    {
+      "id": "TASK-1098",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:21:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F2 — COD via wallet (hold lifecycle)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "01:21:35",
+      "tags": [
+        "archify",
+        "flow",
+        "f2",
+        "lifecycle",
+        "cod"
+      ],
+      "summary": "F2 COD hold lifecycle (archify) di docs/design/flows/f2-cod-hold/; 2 lane, showcase 9/9, visual-check pass 4 viewport",
+      "conn": [
+        {
+          "id": "TASK-259",
+          "type": "relates",
+          "raw": "TASK-259:relates"
+        },
+        {
+          "id": "DEC-1038",
+          "type": "relates",
+          "raw": "DEC-1038:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1099",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:30:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+47) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:30:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/README.md (+5/-1) — edit via tool: ## Terhubung (lihat `../INDEX.json`)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/README.md"
+    },
+    {
+      "id": "TASK-1101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:30:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md (+5/-1) — edit via tool: ## Terhubung (lihat `../INDEX.json`)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-1102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:31:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f3-wallet-topup/f3-wallet-topup.json (+57) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f3-wallet-topup/f3-wallet-topup.json"
+    },
+    {
+      "id": "TASK-1103",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:31:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f3-wallet-topup\": { \"type\": \"workflow\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1104",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:31:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F3 — Wallet & top-up ✅ done",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1105",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:31:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f3-wallet-topup/README.md (+47) — write via tool: # F3 — Wallet & Top-up",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f3-wallet-topup/README.md"
+    },
+    {
+      "id": "TASK-1106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:31:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f5-delivery-verification/f5-delivery-verification.json (+37) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f5-delivery-verification/f5-delivery-verification.json"
+    },
+    {
+      "id": "TASK-1107",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:32:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f5-delivery-verification/f5-delivery-verification.json (+11/-11) — edit via tool: { \"id\": \"noOtp\", \"type\": \"waitin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f5-delivery-verification/f5-delivery-verification.json"
+    },
+    {
+      "id": "TASK-1108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:33:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F5 — Verifikasi pengiriman (checkpoi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1109",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:33:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f5-delivery-verification\": { \"type\": \"l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:33:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f5-delivery-verification/README.md (+43) — write via tool: # F5 — Verifikasi Pengiriman (Checkpoint",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f5-delivery-verification/README.md"
+    },
+    {
+      "id": "TASK-1111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:33:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+47) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:34:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+42) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:35:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+1/-1) — edit via tool: { \"id\": \"f-basis-gst\", \"from\": \"basis\", ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:36:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+1/-1) — edit via tool: \"viewBox\": [1085, 507]",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:36:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F4 — Fee & pajak checkout ✅ done",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:36:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f4-fee-tax\": { \"type\": \"dataflow\", \"sta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:36:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/README.md (+49) — write via tool: # F4 — Fee & Pajak Checkout",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/README.md"
+    },
+    {
+      "id": "TASK-1118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:37:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f7-ledger-liability/f7-ledger-liability.json (+43) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f7-ledger-liability/f7-ledger-liability.json"
+    },
+    {
+      "id": "TASK-1119",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:38:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F7 — Ledger & liability ✅ done",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1120",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:38:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f7-ledger-liability/README.md (+48) — write via tool: # F7 — Ledger & Liability",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f7-ledger-liability/README.md"
+    },
+    {
+      "id": "TASK-1121",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:38:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f7-ledger-liability\": { \"type\": \"datafl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1122",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:38:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/f6-cashout-payout.json (+56) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/f6-cashout-payout.json"
+    },
+    {
+      "id": "TASK-1123",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:39:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F6 — Cash-out & payout ✅ done",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1124",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:39:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f6-cashout-payout\": { \"type\": \"workflow",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1125",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:39:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/README.md (+44) — write via tool: # F6 — Cash-out & Payout",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/README.md"
+    },
+    {
+      "id": "TASK-1126",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:40:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f8-dispute/f8-dispute.json (+53) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f8-dispute/f8-dispute.json"
+    },
+    {
+      "id": "TASK-1127",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:40:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F8 — Dispute ✅ done",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1128",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:40:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f8-dispute/README.md (+49) — write via tool: # F8 — Dispute (Queue Super Admin)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f8-dispute/README.md"
+    },
+    {
+      "id": "TASK-1129",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:40:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f8-dispute\": { \"type\": \"workflow\", \"sta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1130",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:41:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f9-incentive/f9-incentive.json (+53) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f9-incentive/f9-incentive.json"
+    },
+    {
+      "id": "TASK-1131",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:42:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/f11-push-notification.json (+29) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/f11-push-notification.json"
+    },
+    {
+      "id": "TASK-1132",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:42:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f10-exchange-rate/f10-exchange-rate.json (+29) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f10-exchange-rate/f10-exchange-rate.json"
+    },
+    {
+      "id": "TASK-1133",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:42:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+1/-1) — edit via tool: ### F9 — Insentif merchant ✅ done",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1134",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:42:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f9-incentive\": { \"type\": \"workflow\", \"s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1135",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:42:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f9-incentive/README.md (+47) — write via tool: # F9 — Insentif Merchant (Modal 5 JOD + ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f9-incentive/README.md"
+    },
+    {
+      "id": "TASK-1136",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:42:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/README.md (+46) — write via tool: # F11 — Push Notification & WhatsApp Fal",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/README.md"
+    },
+    {
+      "id": "TASK-1137",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:42:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f10-exchange-rate/README.md (+47) — write via tool: # F10 — Kurs IDR ↔ JOD",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f10-exchange-rate/README.md"
+    },
+    {
+      "id": "TASK-1138",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:43:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f10-exchange-rate/f10-exchange-rate.json (+3/-2) — edit via tool: \"quality_profile\": \"showcase\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f10-exchange-rate/f10-exchange-rate.json"
+    },
+    {
+      "id": "TASK-1139",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:43:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/f11-push-notification.json (+16/-17) — edit via tool: \"quality_profile\": \"showcase\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/f11-push-notification.json"
+    },
+    {
+      "id": "TASK-1140",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:44:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/README.md (+10/-5) — edit via tool: ## Sumber (jangan dikarang)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/README.md"
+    },
+    {
+      "id": "TASK-1141",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:44:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f10-exchange-rate/README.md (+5/-3) — edit via tool: ## Catatan desain",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f10-exchange-rate/README.md"
+    },
+    {
+      "id": "TASK-1142",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:44:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+1/-1) — edit via tool: { \"from\": \"f1-order-lifecycle:topUp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1143",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:45:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+2/-2) — edit via tool: { \"from\": \"f2-cod-hold:cut->settled",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:46:18",
+      "tags": [
+        "flows",
+        "archify",
+        "docs"
+      ],
+      "summary": "11 diagram flow bisnis F1-F11 (archify showcase) selesai + INDEX.json trace + M11 lint audit",
+      "conn": [
+        {
+          "id": "TASK-261",
+          "type": "relates",
+          "raw": "TASK-261:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1144",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:52:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f13-courier-view/f13-courier-view.json (+53) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f13-courier-view/f13-courier-view.json"
+    },
+    {
+      "id": "TASK-1145",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:52:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f12-merchant-console/f12-merchant-console.json (+54) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f12-merchant-console/f12-merchant-console.json"
+    },
+    {
+      "id": "TASK-1146",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:53:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f13-courier-view/README.md (+45) — write via tool: # F13 — Tampilan Kurir (sisi pengantaran",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-1147",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:53:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+5/-3) — edit via tool: \"f10-exchange-rate\": { \"type\": \"sequence",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1148",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:53:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+5/-3) — edit via tool: | 11 | F11 push | lintas potong (bisa ka",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:53:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+18/-5) — edit via tool: - **Sumber:** R-PUSH-01; M8",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:53:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+5/-2) — edit via tool: { \"from\": \"f1-order-lifecycle|f8-dispute",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:53:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f12-merchant-console/README.md (+44) — write via tool: # F12 — Merchant Console (sisi dapur)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f12-merchant-console/README.md"
+    },
+    {
+      "id": "TASK-263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:53:57",
+      "tags": [
+        "flows",
+        "archify",
+        "merchant",
+        "courier"
+      ],
+      "summary": "F12 merchant console + F13 tampilan kurir ditambahkan; INDEX 13 flow, semua gate 9/9 + visual pass, verify.sh 0 error",
+      "conn": [
+        {
+          "id": "TASK-262",
+          "type": "relates",
+          "raw": "TASK-262:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:55:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+198) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:56:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+13/-7) — edit via tool: let fromDashboard = false; // navigasi d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:57:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+15/-7) — edit via tool: function goBack() {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:58:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+10/-24) — edit via tool: document.getElementById(\"home\").addEvent",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:59:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+2/-1) — edit via tool: | `README.md` | Ringkas flow + sumber re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-264",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "08:59:21",
+      "tags": [
+        "flows",
+        "dashboard",
+        "docs"
+      ],
+      "summary": "Dashboard terpusat docs/design/flows/index.html: 13 flow, pilih->stage iframe, back/esc, deep-link hash, peta koneksi+trace; smoke test pass",
+      "conn": [
+        {
+          "id": "TASK-263",
+          "type": "relates",
+          "raw": "TASK-263:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:04:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+1/-1) — edit via tool: \"UNRESOLVED: OQ-17/18 (R-TAX-01) · OQ-27",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1158",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:04:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f12-merchant-console/README.md (+1/-1) — edit via tool: **Lane Toko & Antrean:** Buka/Tutup (`is",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f12-merchant-console/README.md"
+    },
+    {
+      "id": "TASK-1159",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:04:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-1) — edit via tool: { \"id\": \"topUpGate\", \"lane\": \"caveat\", \"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:04:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f12-merchant-console/f12-merchant-console.json (+1/-1) — edit via tool: { \"dot\": \"orange\", \"title\": \"Antrean & a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f12-merchant-console/f12-merchant-console.json"
+    },
+    {
+      "id": "TASK-1161",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:04:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: { \"from\": \"f1-order-lifecycle:topUpGate\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1162",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:05:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-1) — edit via tool: \"Akun baru top-up min 3,5 JOD sebelum or",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-265",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:06:33",
+      "tags": [
+        "audit",
+        "flows",
+        "prd"
+      ],
+      "summary": "Audit 1:1 13 flow vs PRD v2: 5 mismatch fixed (F12 timer, F1 gate+tip, F4 OQ-27, INDEX event+trace)",
+      "conn": [
+        {
+          "id": "TASK-262",
+          "type": "relates",
+          "raw": "TASK-262:relates"
+        },
+        {
+          "id": "TASK-263",
+          "type": "relates",
+          "raw": "TASK-263:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1163",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:16:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/f11-push-notification.json (+1/-1) — edit via tool: \"viewBox\": [1080, 540]",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/f11-push-notification.json"
+    },
+    {
+      "id": "TASK-1164",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:16:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f5-delivery-verification/f5-delivery-verification.json (+1/-1) — edit via tool: { \"id\": \"settled\", \"type\": \"succes",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f5-delivery-verification/f5-delivery-verification.json"
+    },
+    {
+      "id": "TASK-1165",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:16:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+5/-4) — edit via tool: \"lanes\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1166",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:17:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/f2-cod-hold.json (+1/-1) — edit via tool: { \"id\": \"t-otp\", \"from\": \"cut\", \"to\": \"s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1167",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:17:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f5-delivery-verification/f5-delivery-verification.json (+4/-4) — edit via tool: { \"id\": \"t-otp-ok\", \"from\": \"otp\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f5-delivery-verification/f5-delivery-verification.json"
+    },
+    {
+      "id": "TASK-1168",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:19:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f2-cod-hold/f2-cod-hold.json (+4/-4) — edit via tool: { \"id\": \"t-otp\", ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1169",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:20:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f5-delivery-verification/f5-delivery-verification.json (+1/-1) — edit via tool: { \"dot\": \"amber\", \"title\": \"Auto-c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f5-delivery-verification/f5-delivery-verification.json"
+    },
+    {
+      "id": "TASK-1170",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:20:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f2-cod-hold/f2-cod-hold.json (+2/-2) — edit via tool: { \"id\": \"t-cancel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f2-cod-hold/f2-cod-hold.json"
+    },
+    {
+      "id": "TASK-1171",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:21:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f11-push-notification/README.md (+1/-1) — edit via tool: `push_subscribe` (endpoint+keys) → statu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f11-push-notification/README.md"
+    },
+    {
+      "id": "TASK-1172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:21:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f5-delivery-verification/README.md (+3/-1) — edit via tool: **Timeout:** OTP tidak dimasukkan dalam ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f5-delivery-verification/README.md"
+    },
+    {
+      "id": "TASK-1173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:24:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: { \"req\": \"R-WALLET-01\", \"flows\": [\"f1-or",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:24:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+2/-1) — edit via tool: { \"id\": \"basis\", \"type\": \"backend\", \"lab",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:24:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md (+2/-1) — edit via tool: - **Transfer manual:** fee flat 0,37 JOD",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-1176",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:25:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+1/-1) — edit via tool: \"Ongkir 100% ke merchant — bukan pendapa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1177",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:28:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f2-cod-hold/README.md (+2/-1) — edit via tool: - Tiga lane: Lifecycle utama + Pembatala",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f2-cod-hold/README.md"
+    },
+    {
+      "id": "TASK-1178",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:31:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f4-fee-tax/f4-fee-tax.json (+1/-1) — edit via tool: { \"id\": \"tip\", \"typ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1179",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:31:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/README.md (+1/-1) — edit via tool: - `R-FEE-01`, `R-TAX-01`, `R-WALLET-01` ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/README.md"
+    },
+    {
+      "id": "TASK-266",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "09:32:00",
+      "tags": [
+        "flows",
+        "archify",
+        "audit"
+      ],
+      "summary": "Audit koneksi 13 flow + fix band kosong F2/F5, komponen F11, node tip kurir F4, trace R-WALLET-01",
+      "conn": [
+        {
+          "id": "TASK-265",
+          "type": "relates",
+          "raw": "TASK-265:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1180",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "19:30:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/schema-draft-v1.md (+285) — write via tool: # Schema Draft v1 — Backend ERD (Draft B",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/schema-draft-v1.md"
+    },
+    {
+      "id": "TASK-267",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "19:32:20",
+      "tags": [
+        "schema",
+        "docs"
+      ],
+      "summary": "Schema draft v1 docs/product/schema-draft-v1.md: BE draft + tambahan (payment, orderItem, variant, chat, dispute)",
+      "conn": [
+        {
+          "id": "DEC-1037",
+          "type": "relates",
+          "raw": "DEC-1037:relates"
+        },
+        {
+          "id": "DEC-1038",
+          "type": "relates",
+          "raw": "DEC-1038:relates"
+        }
+      ],
+      "loc": "docs/product/schema-draft-v1.md"
+    },
+    {
+      "id": "DEC-1039",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "19:32:29",
+      "tags": [
+        "payment",
+        "backend"
+      ],
+      "summary": "Xendit dipakai utk VA/QRIS (final), BE belum implement; fee transfer langsung user-merchant sesuai desain",
+      "conn": [
+        {
+          "id": "DEC-1037",
+          "type": "led_to",
+          "raw": "DEC-1037:led_to"
+        },
+        {
+          "id": "TASK-267",
+          "type": "led_to",
+          "raw": "TASK-267:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1181",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "19:50:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/f14-chat-order.json (+63) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/f14-chat-order.json"
+    },
+    {
+      "id": "TASK-1182",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "19:55:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/README.md (+48) — write via tool: # F14 — Chat Order",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/README.md"
+    },
+    {
+      "id": "TASK-1183",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "19:55:51",
+      "tags": [
+        "design",
+        "flow",
+        "chat"
+      ],
+      "summary": "F14 chat-order flow: spec+html+visual-check, gate 9/9 pass, INDEX untouched",
+      "conn": [
+        {
+          "id": "TASK-260",
+          "type": "relates",
+          "raw": "TASK-260:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/f14-chat-order.json"
+    },
+    {
+      "id": "TASK-1184",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "19:59:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/README.md (+49) — write via tool: # F15 — Super Admin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-1185",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "19:59:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/f15-super-admin.json (+82) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/f15-super-admin.json"
+    },
+    {
+      "id": "TASK-1186",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:01:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/f15-super-admin.json (+10/-10) — edit via tool: { \"id\": \"queue\", \"lane\": \"frontend\", \"co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/f15-super-admin.json"
+    },
+    {
+      "id": "TASK-1187",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:03:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+88) — write via ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1188",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:04:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+82) — write via ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1189",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:05:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+1/-1) — edit via",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1190",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:07:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+7/-10) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1191",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:10:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md (+50) — write via tool: # F16 — Merch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-1192",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:11:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/README.md (+57) — write via tool: # F17 — Payment Xe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/README.md"
+    },
+    {
+      "id": "TASK-1193",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:11:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/f17-payment-xendit.json (+63) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/f17-payment-xendit.json"
+    },
+    {
+      "id": "TASK-1194",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:12:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/f17-payment-xendit.json (+5/-5) — edit via tool: { \"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/f17-payment-xendit.json"
+    },
+    {
+      "id": "TASK-1195",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:17:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/f17-payment-xendit.json (+58) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/f17-payment-xendit.json"
+    },
+    {
+      "id": "TASK-1196",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:18:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/README.md (+1/-1) — edit via tool: Terakhir diperbar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-xendit/README.md"
+    },
+    {
+      "id": "TASK-1197",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:22:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json (+43) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json"
+    },
+    {
+      "id": "TASK-1198",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:32:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json (+10/-10) — edit via tool: { \"id\":",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json"
+    },
+    {
+      "id": "TASK-1199",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:33:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json (+2/-2) — edit via tool: { \"id\": \"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json"
+    },
+    {
+      "id": "TASK-1200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:36:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json (+5/-5) — edit via tool: \"cards\": ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/f18-order-state.json"
+    },
+    {
+      "id": "TASK-1201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:46:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/README.md (+55) — write via tool: # F18 — Order State M",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/README.md"
+    },
+    {
+      "id": "TASK-1202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:52:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json (+266) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:53:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json (+235) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:54:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json (+6/-7) — edit via tool: \"item",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:55:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json (+3/-4) — edit via tool: ]",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:56:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json (+227) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:57:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json (+226) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1208",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "20:58:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json (+2/-6) — edit via tool: \"item",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1209",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:02:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/README.md (+52) — write via tool: # F19 — Rating & Re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-1210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:06:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/f20-address-zone.json (+262) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:07:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/f20-address-zone.json (+2/-2) — edit via tool: \"label\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:12:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/f20-address-zone.json (+3/-3) — edit via tool: \"id\": \"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:24:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/README.md (+53) — write via tool: # F20 — Address & Zo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f20-address-zone/README.md"
+    },
+    {
+      "id": "TASK-1214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:37:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+225) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1215",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:38:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/README.md (+52) — write via tool: # F19 — Rating & Review",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "DEC-1216",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "21:38:49",
+      "tags": [
+        "flows",
+        "archify",
+        "fe-only",
+        "f19"
+      ],
+      "summary": "Flow archify di repo ini menggambarkan layar (FE), bukan lane backend; aturan data masuk kartu/README",
+      "conn": [
+        {
+          "id": "TASK-1213",
+          "type": "relates",
+          "raw": "TASK-1213:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1217",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:38:49",
+      "tags": [
+        "flows",
+        "f19",
+        "archify",
+        "rewrite"
+      ],
+      "summary": "F19 rating-review ditulis ulang jadi flow layar (3 lane: prompt/form/guard); validate 9/9, deliver+visual-check pass",
+      "conn": [
+        {
+          "id": "TASK-1213",
+          "type": "relates",
+          "raw": "TASK-1213:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1218",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:40:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/f14-chat-order.json (+10/-10) — edit via tool: \"id\": \"chat\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/f14-chat-order.json"
+    },
+    {
+      "id": "TASK-1219",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:40:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/f15-super-admin.json (+3/-3) — edit via tool: { \"id\": \"konsol\", \"label\": \"Konsol Super",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/f15-super-admin.json"
+    },
+    {
+      "id": "TASK-1220",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:41:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/f15-super-admin.json (+1/-1) — edit via tool: \"lane\": \"konsol\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/f15-super-admin.json"
+    },
+    {
+      "id": "TASK-1221",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:41:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+10/-10) — edit via tool: \"id\": \"merchant\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1222",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:41:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+13/-13) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:42:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+2/-2) — edit via tool: \"label\": \"Hitung deliveryFee\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1224",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:43:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+1/-1) — edit via tool: \"label\": \"fee valid → order + zone snaps",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1225",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:44:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+1/-1) — edit via tool: \"label\": \"simpan + zone\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1226",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:44:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/README.md (+3/-3) — edit via tool: **Lane Daftar chat & status pesan:** Daf",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/README.md"
+    },
+    {
+      "id": "TASK-1227",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:44:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/README.md (+3/-3) — edit via tool: **Lane Layar pantau & aksi:** Approve de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-1228",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:45:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/README.md (+3/-3) — edit via tool: **Lane Status & aksi onboarding (submit ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-1229",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:45:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/README.md (+5/-5) — edit via tool: **Lane Layar form alamat & peta:** Custo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/README.md"
+    },
+    {
+      "id": "TASK-1230",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:46:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+86) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1231",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:46:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+1/-1) — edit via tool: <title>Sa7tein — Peta Flow Bisnis (20 di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1232",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:47:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — lane d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-1233",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:47:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — lane d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/README.md"
+    },
+    {
+      "id": "TASK-1234",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:47:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — lane d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-1235",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:47:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — lane d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/README.md"
+    },
+    {
+      "id": "BUG-1236",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-09-22",
+      "time": "21:49:42",
+      "tags": [
+        "flows",
+        "f20",
+        "archify",
+        "geometry"
+      ],
+      "summary": "F20 spec gagal validate showcase (proper-crossing + desktop-readability); label edge panjang + rute zone→pick memutar keluar",
+      "conn": [
+        {
+          "id": "TASK-1217",
+          "type": "relates",
+          "raw": "TASK-1217:relates"
+        },
+        {
+          "id": "DEC-1216",
+          "type": "relates",
+          "raw": "DEC-1216:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1237",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:49:42",
+      "tags": [
+        "flows",
+        "archify",
+        "index",
+        "dashboard"
+      ],
+      "summary": "Lane f14/f15/f16/f20 dirapikan jadi flow layar; INDEX.json + index.html dashboard 13 -> 20 diagram (links 34, trace 21)",
+      "conn": [
+        {
+          "id": "TASK-1217",
+          "type": "relates",
+          "raw": "TASK-1217:relates"
+        },
+        {
+          "id": "DEC-1216",
+          "type": "relates",
+          "raw": "DEC-1216:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1238",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:56:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+86) — write via tool: # Peta Bisnis Flow — Sa7tein Irbid MVP",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1239",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:56:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+22/-22) — edit via tool: \"flows\": {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1240",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:56:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+22/-22) — edit via tool: const FLOWS = [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:57:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+15/-13) — edit via tool: document.getElementById(\"grid\").innerHTM",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1242",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:57:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/README.md (+5/-3) — edit via tool: # F19 — Rating & Review",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-1243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:57:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+1/-1) — edit via tool: \"STATUS `proposed`: tidak ada requiremen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "NEG-1244",
+      "type": "negative",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "21:58:28",
+      "tags": [
+        "flows",
+        "archify",
+        "process",
+        "business"
+      ],
+      "summary": "Flow f14-f20 digambar dari schema-draft + kode repo tanpa lapisan bisnis PRD -> jadi diagram BE & f20 pakai zona legacy A/B/C",
+      "conn": [
+        {
+          "id": "TASK-1217",
+          "type": "relates",
+          "raw": "TASK-1217:relates"
+        },
+        {
+          "id": "BUG-1236",
+          "type": "relates",
+          "raw": "BUG-1236:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-1246",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "21:58:51",
+      "tags": [
+        "flows",
+        "business",
+        "prd",
+        "process"
+      ],
+      "summary": "Bisnis dulu: BUSINESS.md jadi gerbang sebelum diagram; flow tanpa dasar R-*/C-* ditandai proposed",
+      "conn": [
+        {
+          "id": "NEG-1244",
+          "type": "led_to",
+          "raw": "NEG-1244:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "21:58:51",
+      "tags": [
+        "flows",
+        "business",
+        "index",
+        "dashboard"
+      ],
+      "summary": "Buat docs/design/flows/BUSINESS.md (20 flow: masalah/aktor/nilai/dasar/status); f19 -> proposed; INDEX+index.html tampil basis & status bisn",
+      "conn": [
+        {
+          "id": "DEC-1246",
+          "type": "implements",
+          "raw": "DEC-1246:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:03:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/inbox/brs-rating-review.md (+88) — write via tool: # BRS — Rating & Review (customer → merc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/inbox/brs-rating-review.md"
+    },
+    {
+      "id": "TASK-1249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:04:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/inbox/brs-rating-review.md (+4/-4) — edit via tool: **BR-2 — Tiga sasaran penilaian, satu pe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/inbox/brs-rating-review.md"
+    },
+    {
+      "id": "TASK-1250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:05:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/rating-review-2026-09-22/source.md (+1/-1) — edit via tool: **BR-10 — Balasan merchant.** Merchant b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/rating-review-2026-09-22/source.md"
+    },
+    {
+      "id": "TASK-1251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:05:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"c51a4aa3bc7118036d75527d036d1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-1252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:06:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/rating-review-2026-09-22/analysis.md (+65) — write via tool: # Analysis: rating-review-2026-09-22",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/rating-review-2026-09-22/analysis.md"
+    },
+    {
+      "id": "TASK-1253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:06:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/rating-review-2026-09-22/milestones.md (+24) — write via tool: # Milestones: rating-review-2026-09-22",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/rating-review-2026-09-22/milestones.md"
+    },
+    {
+      "id": "TASK-1254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:06:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+258) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:07:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+4/-3) — edit via tool: \"allowedRoots\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1256",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:08:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+3/-3) — edit via tool: \"label\": \"kurir & menu\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1257",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:09:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+3/-3) — edit via tool: \"sublabel\": \"bukan peserta · dobel\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1258",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:10:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+3/-3) — edit via tool: \"id\": \"tampil\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1259",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:11:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+30/-31) — edit via tool: \"cards\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:11:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+2/-2) — edit via tool: \"Tambah alamat: pin peta (`DEFAULT_NEW_A",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:12:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+6/-6) — edit via tool: \"items\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:13:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/README.md (+5/-5) — edit via tool: **Lane Layar form alamat & peta:** Custo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/README.md"
+    },
+    {
+      "id": "TASK-1263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:13:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/README.md (+3/-3) — edit via tool: > **Status: requirement baru, revisi `pr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-1264",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:14:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/README.md (+31/-29) — edit via tool: ## Alur layar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-1265",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:14:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | **f19 rating-review** | Pembeli belum ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1266",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:14:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: { \"req\": \"R-RATE-01\", \"flows\": [\"f18-ord",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1267",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:14:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+1/-1) — edit via tool: {slug:\"f19-rating-review\",        title:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1268",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:15:24",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint && npm run build passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "REQ-1269",
+      "type": "requirement",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "22:15:43",
+      "tags": [
+        "rating",
+        "review",
+        "brs",
+        "prd"
+      ],
+      "summary": "R-RATE-01..05: rating masuk MVP (bintang merchant/kurir/hidangan + ulasan + balasan); BRS rating-review-2026-09-22 status proposed",
+      "conn": [
+        {
+          "id": "DEC-1246",
+          "type": "relates",
+          "raw": "DEC-1246:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1270",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:15:55",
+      "tags": [
+        "flows",
+        "f19",
+        "f20",
+        "business",
+        "prd"
+      ],
+      "summary": "F19 jadi requirement via BRS intake + diagram diselaraskan; F20 zona dikoreksi ke Hijazi/Syimali C-13; governance/lint/build pass",
+      "conn": [
+        {
+          "id": "REQ-1269",
+          "type": "implements",
+          "raw": "REQ-1269:implements"
+        },
+        {
+          "id": "NEG-1244",
+          "type": "relates",
+          "raw": "NEG-1244:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1271",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:49:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+5/-5) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1272",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:50:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+1/-1) — edit via tool: \"Deposit 3,50 JOD (§5C): bayar → SA ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1273",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:51:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json (+1/-1) — edit via tool: \"Submit → `tenantStatus: pending` → ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/f16-merchant-onboarding.json"
+    },
+    {
+      "id": "TASK-1274",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:51:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f16-merchant-onboarding/README.md (+10/-7) — edit via tool: **Lane Status & aksi onboarding (submit ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-1275",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:52:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/f14-chat-order.json (+1/-1) — edit via tool: \"Dasar: `C-18` (in-app chat dipertahanka",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/f14-chat-order.json"
+    },
+    {
+      "id": "TASK-1276",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:52:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/f15-super-admin.json (+1/-1) — edit via tool: \"Dasar: `C-12` (portal CS = Super Admin)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/f15-super-admin.json"
+    },
+    {
+      "id": "TASK-1277",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:52:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f17-payment-xendit/f17-payment-xendit.json (+1/-1) — edit via tool: \"Dasar: C-01 (Xendit) + DEC-1039 (payout",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f17-payment-xendit/f17-payment-xendit.json"
+    },
+    {
+      "id": "TASK-1278",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:52:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/README.md (+1/-1) — edit via tool: - **Dasar: `C-12`** — portal CS merangka",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-1279",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:52:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f18-order-state/README.md (+1/-1) — edit via tool: - **Dasar: `C-17`** — enum 9 status dipe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f18-order-state/README.md"
+    },
+    {
+      "id": "TASK-1280",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:52:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/README.md (+1/-1) — edit via tool: - **Dasar: `C-18`** — in-app chat dipert",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/README.md"
+    },
+    {
+      "id": "TASK-1281",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:52:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f17-payment-xendit/README.md (+1/-1) — edit via tool: - **Dasar: `C-01`** (Xendit dipilih seba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f17-payment-xendit/README.md"
+    },
+    {
+      "id": "TASK-1282",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:53:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — label ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-1283",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:53:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f18-order-state/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — label ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f18-order-state/README.md"
+    },
+    {
+      "id": "TASK-1284",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:53:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f17-payment-xendit/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — label ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f17-payment-xendit/README.md"
+    },
+    {
+      "id": "TASK-1285",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:53:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f14-chat-order/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — label ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f14-chat-order/README.md"
+    },
+    {
+      "id": "TASK-1286",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:53:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+6/-4) — edit via tool: | f14 | Diberi label `R-CHAT-01 syntheti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1287",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:54:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/f6-cashout-payout.json (+1/-1) — edit via tool: \"OQ-22 — fee cash-out customer (blocker ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/f6-cashout-payout.json"
+    },
+    {
+      "id": "TASK-1288",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:54:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f9-incentive/f9-incentive.json (+1/-1) — edit via tool: \"items\": [\"Kredit sistem non-tunai, non-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f9-incentive/f9-incentive.json"
+    },
+    {
+      "id": "TASK-1289",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:54:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — audit ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1290",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:55:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+1/-1) — edit via tool: {slug:\"f16-merchant-onboarding\",  title:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1291",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:55:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f16-merchant-onboarding\": { \"type\": \"wo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "BUG-1292",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:55:25",
+      "tags": [
+        "flows",
+        "business",
+        "f16",
+        "incentive"
+      ],
+      "summary": "F16 merchant-onboarding tidak memuat insentif Founding (kredit 5 JOD + cashback tiered) padahal BUSINESS.md & PRD §Insentif menyebutnya",
+      "conn": [
+        {
+          "id": "TASK-1270",
+          "type": "relates",
+          "raw": "TASK-1270:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1293",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:55:43",
+      "tags": [
+        "flows",
+        "audit",
+        "business",
+        "f6",
+        "f9",
+        "f14",
+        "f15",
+        "f16",
+        "f17",
+        "f18"
+      ],
+      "summary": "Audit bisnis 20 flow: f16 +kredit Founding 5 JOD, f6/f9 +alasan bisnis, label synthetic f14/f15/f16/f17/f18 diganti dasar C-*/PRD; semua gat",
+      "conn": [
+        {
+          "id": "BUG-1292",
+          "type": "fixes",
+          "raw": "BUG-1292:fixes"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1294",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:58:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/README.md (+1/-1) — edit via tool: **Lane Layar pantau & aksi:** Approve de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-1295",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:58:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/f15-super-admin.json (+1/-1) — edit via tool: \"Liability dashboard: agregat `wallet.re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/f15-super-admin.json"
+    },
+    {
+      "id": "TASK-1296",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:59:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | 13 flow | Node bertipe `backend` di fl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1297",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "22:59:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f15-super-admin/README.md (+2/-1) — edit via tool: - Liability dashboard dan SLA escalation",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-1298",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:00:02",
+      "tags": [
+        "flows",
+        "business",
+        "f15",
+        "liability"
+      ],
+      "summary": "F15 liability dikoreksi: kewajiban = saldo wallet customer + merchant + tips kurir (bukan gaji kurir, C-06); sweep node backend 9 flow ditun",
+      "conn": [
+        {
+          "id": "TASK-1293",
+          "type": "relates",
+          "raw": "TASK-1293:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1299",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:06:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/README.md (+4/-3) — edit via tool: - Semua = Xendit payout: `POST /v3/payou",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/README.md"
+    },
+    {
+      "id": "TASK-1300",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:06:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/f6-cashout-payout.json (+1/-1) — edit via tool: \"items\": [\"Customer: cash-out saldo → re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/f6-cashout-payout.json"
+    },
+    {
+      "id": "TASK-1301",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:07:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+1/-1) — edit via tool: \"items\": [\"Customer 0,22 JOD + merchant ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1302",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:07:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/README.md (+1/-1) — edit via tool: **Input:** Subtotal & ongkir (ongkir 100",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/README.md"
+    },
+    {
+      "id": "TASK-1303",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:07:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md (+1/-1) — edit via tool: - **Tip kurir:** opsional & sukarela, 10",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-1304",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:07:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-1) — edit via tool: \"items\": [\"Prepaid: saldo dipotong saat ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-1305",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:09:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+2/-1) — edit via tool: - **Kurir = karyawan merchant**, bukan e",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1306",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:09:46",
+      "tags": [
+        "flows",
+        "tip",
+        "business",
+        "f1",
+        "f4",
+        "f6"
+      ],
+      "summary": "Tip dilengkapi: f6 aturan withdraw tips (akumulasi ambang + UNRESOLVED penanggung fee payout), f4 dua titik masuk tip, f1 catatan layar tip ",
+      "conn": [
+        {
+          "id": "TASK-1298",
+          "type": "relates",
+          "raw": "TASK-1298:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1307",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:11:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+3/-3) — edit via tool: \"label\": \"Teks, tag & tip\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1308",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:12:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+2/-2) — edit via tool: \"Keputusan PO 2026-09-22: rating masuk M",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1309",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:12:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/README.md (+2/-1) — edit via tool: - Merchant boleh membalas ulasan; state ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-1310",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:12:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/rating-review-2026-09-22/source.md (+3/-1) — edit via tool: **BR-11 — Tanpa insentif.** Tidak ada ua",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/rating-review-2026-09-22/source.md"
+    },
+    {
+      "id": "TASK-1311",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:13:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"c510c175655be822b1ffbdde3f213",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-1312",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:13:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/rating-review-2026-09-22/analysis.md (+1/-1) — edit via tool: - SHA-256: c510c175655be822b1ffbdde3f213",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/rating-review-2026-09-22/analysis.md"
+    },
+    {
+      "id": "TASK-1313",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:13:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: - **Tip (source:78-84, lintas flow f1/f3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1314",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:13:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+6/-6) — edit via tool: { \"req\": \"C-18 (chat in-app)\", \"flows\": ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-1315",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:13:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/index.html (+1/-1) — edit via tool: [\"R-WALLET-01\",\"f1:checkout, f3, f4:tip,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-1316",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:14:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | **f19 rating-review (+ tip)** | Pembel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1317",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:14:37",
+      "tags": [
+        "flows",
+        "tip",
+        "f19",
+        "index",
+        "business"
+      ],
+      "summary": "Tip kurir digabung ke prompt pasca-order f19 (PO 2026-09-22): prompt nilai+tip, form teks/tag/tip; BRS + manifest sha diperbarui; trace INDE",
+      "conn": [
+        {
+          "id": "TASK-1306",
+          "type": "implements",
+          "raw": "TASK-1306:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1318",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:17:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+29/-30) — edit via tool: \"cards\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1319",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:18:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/f20-address-zone.json (+9/-9) — edit via tool: \"**Aktor & nilai:** customer tahu bisa/t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/f20-address-zone.json"
+    },
+    {
+      "id": "TASK-1320",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:19:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f20-address-zone/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — **dita",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f20-address-zone/README.md"
+    },
+    {
+      "id": "TASK-1321",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:19:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | f20 | Diagram tidak punya kartu bisnis",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "DEC-1322",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "23:19:46",
+      "tags": [
+        "flows",
+        "ux",
+        "business",
+        "diagram"
+      ],
+      "summary": "Setiap diagram flow wajib punya kartu bisnis sebagai kartu pertama: masalah, aktor/nilai, skenario — supaya tidak perlu buka README/BUSINESS",
+      "conn": [
+        {
+          "id": "TASK-1317",
+          "type": "relates",
+          "raw": "TASK-1317:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1323",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:20:00",
+      "tags": [
+        "flows",
+        "f20",
+        "business",
+        "ux"
+      ],
+      "summary": "Pola kartu bisnis dibuat di f20 (masalah/aktor-nilai/skenario) + README; 9/9, visual pass; rollout 19 flow lain menunggu keputusan",
+      "conn": [
+        {
+          "id": "DEC-1322",
+          "type": "implements",
+          "raw": "DEC-1322:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1324",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:22:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json — edit via tool",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1325",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:22:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/README.md — edit via tool",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/README.md"
+    },
+    {
+      "id": "TASK-1326",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:22:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md — edit via tool",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-1327",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:23:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md (+1/-1) — edit via tool: - **Tip kurir:** opsional & sukarela, 10",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-1328",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:23:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/README.md (+1/-1) — edit via tool: **Input:** Subtotal & ongkir (ongkir 100",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/README.md"
+    },
+    {
+      "id": "TASK-1329",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:23:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f4-fee-tax/f4-fee-tax.json (+1/-1) — edit via tool: { \"dot\": \"orange\", \"title\": \"Fee flat 0,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f4-fee-tax/f4-fee-tax.json"
+    },
+    {
+      "id": "TASK-1330",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:23:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | tip | Layar \"kasih tip setelah terima\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1331",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:23:43",
+      "tags": [
+        "flows",
+        "tip",
+        "f1",
+        "f4"
+      ],
+      "summary": "Bersihkan teks lama 'layar setelah-terima belum ada di repo' di f1 README + f4 JSON/README -> menunjuk prompt pasca-order f19; f4 deliver 9/",
+      "conn": [
+        {
+          "id": "TASK-1317",
+          "type": "relates",
+          "raw": "TASK-1317:relates"
+        },
+        {
+          "id": "DEC-1322",
+          "type": "relates",
+          "raw": "DEC-1322:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1332",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/f6-cashout-payout.json (+1/-1) — edit via tool: { \"dot\": \"orange\", \"title\": \"Tiga jalur ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/f6-cashout-payout.json"
+    },
+    {
+      "id": "TASK-1333",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md (+1/-1) — edit via tool: - Tip **tidak kena komisi platform** — 1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md"
+    },
+    {
+      "id": "TASK-1334",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/README.md (+1/-1) — edit via tool: **Lane Sumber dana lain:** Merchant (kre",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/README.md"
+    },
+    {
+      "id": "TASK-1335",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/README.md (+1/-1) — edit via tool: - **Tip kurir digabung di layar pasca-or",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-1336",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/rating-review-2026-09-22/source.md (+1/-1) — edit via tool: **Catatan layar (bukan requirement baru)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/rating-review-2026-09-22/source.md"
+    },
+    {
+      "id": "TASK-1337",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/f19-rating-review.json (+1/-1) — edit via tool: \"UNRESOLVED: jendela · edit/hapus · tag ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/f19-rating-review.json"
+    },
+    {
+      "id": "TASK-1338",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | **f6 cashout-payout** | Uang keluar si",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-1339",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"ef0aea351b8bc8dcedce9b0a0b524",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-1340",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:25:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/rating-review-2026-09-22/analysis.md (+1/-1) — edit via tool: - SHA-256: ef0aea351b8bc8dcedce9b0a0b524",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/rating-review-2026-09-22/analysis.md"
+    },
+    {
+      "id": "TASK-1341",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:26:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f6-cashout-payout/f6-cashout-payout.json (+1/-1) — edit via tool: { \"dot\": \"slate\", \"title\": \"UNRESOLVED (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f6-cashout-payout/f6-cashout-payout.json"
+    },
+    {
+      "id": "TASK-1342",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:26:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f19-rating-review/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-22 — **tip ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-1343",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:26:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: · tip: ambang withdraw (`f6`; fee payout",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "DEC-1344",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "23:26:48",
+      "tags": [
+        "tip",
+        "payout",
+        "courier",
+        "prd",
+        "business"
+      ],
+      "summary": "PO 2026-09-22: fee payout tips kurir ditanggung KURIR (dipotong dari nilai withdraw), bukan platform; source.md:84 diperbarui, UNRESOLVED di",
+      "conn": [
+        {
+          "id": "DEC-1322",
+          "type": "relates",
+          "raw": "DEC-1322:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1345",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:26:57",
+      "tags": [
+        "flows",
+        "f6",
+        "f19",
+        "tip"
+      ],
+      "summary": "Terapkan keputusan fee payout: PRD source.md + manifest sha, f6 (kartu + README), f19 (UNRESOLVED), BUSINESS.md; f6 9/9 visual pass, f19 9/9",
+      "conn": [
+        {
+          "id": "DEC-1344",
+          "type": "implements",
+          "raw": "DEC-1344:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1346",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:29:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: scripts/flows-gate.sh (+65) — write via tool: #!/usr/bin/env bash",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "scripts/flows-gate.sh"
+    },
+    {
+      "id": "TASK-1347",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:29:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: .gitignore (+7/-2) — edit via tool: .vercel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": ".gitignore"
+    },
+    {
+      "id": "TASK-1348",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:31:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+2/-2) — edit via tool: | `<slug>.html` | Artefak jadi — **gener",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-1349",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:32:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/PLAN.md (+39/-9) — edit via tool: ### Update — SATU perintah, jangan tiga",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "DEC-1350",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-22",
+      "time": "23:32:37",
+      "tags": [
+        "archify",
+        "flows",
+        "workflow",
+        "tooling"
+      ],
+      "summary": "Standing rule archify: hanya deliver + visual-check lewat scripts/flows-gate.sh (1 panggilan, 1 baris). Tidak pakai validate/render/preview/",
+      "conn": [
+        {
+          "id": "DEC-1322",
+          "type": "relates",
+          "raw": "DEC-1322:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1351",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:32:41",
+      "tags": [
+        "archify",
+        "flows",
+        "tooling",
+        "disk"
+      ],
+      "summary": "Bikin scripts/flows-gate.sh (deliver+visual-check+prune PNG, tipe dari diagram_type), gitignore artefak flow, PLAN.md + 20 README diarahkan ",
+      "conn": [
+        {
+          "id": "DEC-1350",
+          "type": "implements",
+          "raw": "DEC-1350:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1352",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:36:50",
+      "tags": [
+        "flows",
+        "gap",
+        "business",
+        "prd"
+      ],
+      "summary": "Gap analysis: 4 area bisnis PRD tanpa flow (laporan/rekonsiliasi custodian, penalti customer lalai, registrasi+E.164, master zona SA) + land",
+      "conn": [
+        {
+          "id": "DEC-1350",
+          "type": "relates",
+          "raw": "DEC-1350:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-1353",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:40:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md (+1/-1) — edit via tool: 24. Registrasi: nomor WhatsApp wajib (cu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md"
+    },
+    {
+      "id": "TASK-1354",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:40:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/f21-account-auth.json (+297) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/f21-account-auth.json"
+    },
+    {
+      "id": "TASK-1355",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-22",
+      "time": "23:41:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/f21-account-auth.json (+16/-16) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/f21-account-auth.json"
+    }
+  ]
+}

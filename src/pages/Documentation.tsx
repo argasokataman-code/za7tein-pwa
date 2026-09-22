@@ -126,7 +126,7 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan PWA Sa7tein: jalur aplikasi /app, landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
+              Panduan PWA Sa7tein: tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin), landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (

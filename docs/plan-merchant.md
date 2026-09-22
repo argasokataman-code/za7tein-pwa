@@ -11,7 +11,7 @@ Referensi flow: `sa7tein-merchant.vercel.app` (auth-first → dashboard), disesu
 - Reuse sebelum menggambar ulang. `JourneyLine` (`src/components/OrderStageScreen.tsx:124`) dipakai merchant — jangan duplikat.
 - Gaya baru selalu ke `src/styles/_system.scss` (namespace `.merchant-*`). Jangan sentuh `_app.scss` borongan.
 - Tanpa dependency baru. Token dari `_tokens.scss`, tanpa nilai mentah.
-- Route prefix `/merchant/*` biar tidak tabrakan 46 route customer.
+- Prefix URL `/merchant/*` dengan basename router sendiri, terpisah dari `/customer/*` (46 route pelanggan) dan PWA-nya bisa diinstall sendiri.
 - Bar `fixed` wajib `max-width: var(--shell-max); margin-inline: auto`.
 - Ikuti batas baris `.rules.json`: page ≤700, component ≤600, hook ≤150, data ≤500.
 

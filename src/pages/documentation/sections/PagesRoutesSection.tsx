@@ -14,7 +14,7 @@ function RouteTable({ title, rows }: { title: string; rows: Row[] }) {
         <table className="doc-table">
           <thead>
             <tr>
-              <th>Path (under /app)</th>
+              <th>Path (under /customer)</th>
               <th>Component</th>
               <th>Description</th>
             </tr>
@@ -106,15 +106,15 @@ const infoRows: Row[] = [
 ]
 
 const merchantRows: Row[] = [
-  { path: '/merchant/signin', component: 'MerchantSignIn', desc: 'Masuk merchant (email + password)' },
-  { path: '/merchant/signup', component: 'MerchantSignUp', desc: 'Daftar toko' },
-  { path: '/merchant/pending', component: 'MerchantPending', desc: 'Menunggu persetujuan Super Admin' },
-  { path: '/merchant', component: 'MerchantDashboard', desc: 'Dashboard: toggle buka/tutup, kuota harian, statistik order' },
-  { path: '/merchant/orders', component: 'MerchantOrders', desc: 'Antrean order: profil pembeli, tab status, terima/tolak, estimasi masak' },
-  { path: '/merchant/menu', component: 'MerchantMenu', desc: 'Menu & Stock: atur item, stok, ketersediaan' },
-  { path: '/merchant/reviews', component: 'MerchantReviews', desc: 'Ulasan pembeli: baca & balas komentar per hidangan (di luar PRD aktif)' },
-  { path: '/merchant/couriers', component: 'MerchantCouriers', desc: 'Kelola kurir khusus toko (maksimal 3)' },
-  { path: '/merchant/settings', component: 'MerchantSettings', desc: 'Setelan toko: form edit nama/telepon/alamat, peta lokasi' },
+  { path: '/signin', component: 'MerchantSignIn', desc: 'Masuk merchant (email + password)' },
+  { path: '/signup', component: 'MerchantSignUp', desc: 'Daftar toko' },
+  { path: '/pending', component: 'MerchantPending', desc: 'Menunggu persetujuan Super Admin' },
+  { path: '/', component: 'MerchantDashboard', desc: 'Dashboard: toggle buka/tutup, kuota harian, statistik order' },
+  { path: '/orders', component: 'MerchantOrders', desc: 'Antrean order: profil pembeli, tab status, terima/tolak, estimasi masak' },
+  { path: '/menu', component: 'MerchantMenu', desc: 'Menu & Stock: atur item, stok, ketersediaan' },
+  { path: '/reviews', component: 'MerchantReviews', desc: 'Ulasan pembeli: baca & balas komentar per hidangan (di luar PRD aktif)' },
+  { path: '/couriers', component: 'MerchantCouriers', desc: 'Kelola kurir khusus toko (maksimal 3)' },
+  { path: '/settings', component: 'MerchantSettings', desc: 'Setelan toko: form edit nama/telepon/alamat, peta lokasi' },
 ]
 
 export function PagesRoutesSection() {
@@ -126,16 +126,19 @@ export function PagesRoutesSection() {
         groups, no layout wrappers, no <code className="doc-inline">&lt;Outlet&gt;</code>.
       </p>
       <p className="doc-p">
-        Two routers share the file. When pathname is{' '}
-        <code className="doc-inline">/app</code> or starts with{' '}
-        <code className="doc-inline">/app/</code>,{' '}
-        <code className="doc-inline">AppRouter</code> handles it (BrowserRouter
-        with <code className="doc-inline">basename="/app"</code>, wrapped in{' '}
-        <code className="doc-inline">MobileDeviceFrame</code>). Otherwise{' '}
-        <code className="doc-inline">WebsiteRouter</code> serves web routes and
-        redirects legacy app paths via{' '}
-        <code className="doc-inline">LegacyAppRedirect</code> (
-        <code className="doc-inline">window.location.replace(&apos;/app&apos; + path)</code>).
+        Role yang belum dibangun sudah punya prefix: <code className="doc-inline">/courier/*</code>
+        {' '}dan <code className="doc-inline">/admin/*</code> menampilkan layar
+        placeholder. Route-nya ditambahkan saat perannya mulai dibangun.
+      </p>
+      <p className="doc-p">
+        Empat router berbagi file ini. Mount-time, <code className="doc-inline">App</code>
+        {' '}membaca pathname dan memilih router: <code className="doc-inline">/customer</code>
+        {' '}(<code className="doc-inline">CustomerRouter</code>, home <code className="doc-inline">/home</code>),
+        {' '}<code className="doc-inline">/merchant</code> (<code className="doc-inline">MerchantRouter</code>,
+        home <code className="doc-inline">/</code>), <code className="doc-inline">/courier</code> dan
+        {' '}<code className="doc-inline">/admin</code> (placeholder). Selain itu,
+        {' '}<code className="doc-inline">WebsiteRouter</code> melayani web routes dan
+        mengalihkan jalur lama lewat <code className="doc-inline">LegacyAppRedirect</code>.
       </p>
       <h3 className="doc-h3">Website Routes</h3>
       <div className="doc-table-wrap">
@@ -179,7 +182,7 @@ export function PagesRoutesSection() {
         <table className="doc-table">
           <thead>
             <tr>
-              <th>Path (under /app)</th>
+              <th>Path (under /merchant)</th>
               <th>Component</th>
               <th>Description</th>
             </tr>

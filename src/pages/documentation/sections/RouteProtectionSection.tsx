@@ -8,48 +8,63 @@ export function RouteProtectionSection() {
         This showcase has no real authentication or route protection.
         The app boots with <code className="doc-inline">isAuthenticated: true</code> and a mock
         user. No credentials are verified. The only thing resembling "protection" is
-        a basename split and a legacy redirect.
+        the per-role URL split and a legacy redirect.
       </p>
 
       <h3 className="doc-h3">
-        Two Routers, One Basename
+        One Router per Role
       </h3>
       <p className="doc-p">
-        <code className="doc-inline">App.tsx</code> checks the URL at mount time. If the path
-        is <code className="doc-inline">/app</code> or starts with <code className="doc-inline">/app/</code>,
-        it renders <code className="doc-inline">AppRouter</code> (a <code className="doc-inline">BrowserRouter</code> with{' '}
-        <code className="doc-inline">basename="/app"</code>, wrapped in{' '}
-        <code className="doc-inline">MobileDeviceFrame</code>). Otherwise it renders{' '}
-        <code className="doc-inline">WebsiteRouter</code> (a plain <code className="doc-inline">BrowserRouter</code>).
+        <code className="doc-inline">App.tsx</code> checks the URL at mount time. Each role
+        prefix (<code className="doc-inline">/customer</code>,{' '}
+        <code className="doc-inline">/merchant</code>,{' '}
+        <code className="doc-inline">/courier</code>,{' '}
+        <code className="doc-inline">/admin</code>) renders its own{' '}
+        <code className="doc-inline">RoleRouter</code> &mdash; a{' '}
+        <code className="doc-inline">BrowserRouter</code> with that prefix as{' '}
+        <code className="doc-inline">basename</code>, wrapped in{' '}
+        <code className="doc-inline">MobileDeviceFrame</code>. Everything else renders{' '}
+        <code className="doc-inline">WebsiteRouter</code> (a plain{' '}
+        <code className="doc-inline">BrowserRouter</code>).
       </p>
       <DocCode lang="typescript">
-        <code>{`const APP_BASENAME = '/app'
+        <code>{`const ROLE_BASES = ['/customer', '/merchant', '/courier', '/admin'] as const
 
 // App.tsx — mount-time decision
-const isApp =
-  window.location.pathname === APP_BASENAME ||
-  window.location.pathname.startsWith(APP_BASENAME + '/')
+const role = ROLE_BASES.find(
+  (base) => pathname === base || pathname.startsWith(base + '/'),
+)
 
-return isApp ? <AppRouter /> : <WebsiteRouter />`}</code>
+return role ? (
+  <RoleRouter basename={role} routes={routesFor(role)} home={homeFor(role)} />
+) : (
+  <WebsiteRouter />
+)`}</code>
       </DocCode>
 
       <h3 className="doc-h3">
         Legacy Redirect
       </h3>
       <p className="doc-p">
-        <code className="doc-inline">WebsiteRouter</code> registers every app route path
-        under a <code className="doc-inline">LegacyAppRedirect</code> component. On
-        mount it calls <code className="doc-inline">window.location.replace('/app' + path)</code>,
-        so old links like <code className="doc-inline">/home</code> or{' '}
-        <code className="doc-inline">/signin</code> land inside the app basename.
+        <code className="doc-inline">WebsiteRouter</code> registers every customer route path
+        under a <code className="doc-inline">LegacyAppRedirect</code> component, plus{' '}
+        <code className="doc-inline">/app</code> and <code className="doc-inline">/app/*</code>.
+        On mount it rewrites the path into the right role prefix, so old links like{' '}
+        <code className="doc-inline">/home</code>,{' '}
+        <code className="doc-inline">/app/home</code>, or{' '}
+        <code className="doc-inline">/app/merchant/menu</code> land in{' '}
+        <code className="doc-inline">/customer/*</code> or <code className="doc-inline">/merchant/*</code>.
         This redirect is the only routing logic beyond flat route arrays.
       </p>
       <DocCode lang="typescript">
         <code>{`function LegacyAppRedirect() {
   useEffect(() => {
-    window.location.replace(
-      \`/app\${window.location.pathname}\${window.location.search}\`
-    )
+    const target = pathname.startsWith('/app')
+      ? pathname
+          .replace(/^\\/app\\/merchant/, '/merchant')
+          .replace(/^\\/app/, '/customer')
+      : \`/customer\${pathname}\`
+    window.location.replace(target + search + hash)
   }, [])
   return null
 }`}</code>

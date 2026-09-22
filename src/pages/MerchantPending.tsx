@@ -16,11 +16,11 @@ export default function MerchantPending() {
                 Pendaftaran tokomu sedang ditinjau Super Admin. Setelah disetujui, toko bisa
                 menerima order.
               </p>
-              <Link className="btn btn-primary btn-auth" to="/merchant">
+              <Link className="btn btn-primary btn-auth" to="/">
                 Lihat dashboard contoh
               </Link>
               <p className="merchant-auth-switch">
-                Salah memasukkan data? <Link to="/merchant/signup">Daftar ulang</Link>
+                Salah memasukkan data? <Link to="/signup">Daftar ulang</Link>
               </p>
             </div>
           </div>

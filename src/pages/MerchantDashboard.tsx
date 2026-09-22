@@ -61,11 +61,11 @@ export default function MerchantDashboard() {
         </section>
 
         <section className="merchant-stats">
-          <Link className="merchant-stat merchant-stat--queue" to="/merchant/orders">
+          <Link className="merchant-stat merchant-stat--queue" to="/orders">
             <span className="merchant-stat-value">{countByTab(orders, 'masuk')}</span>
             <span className="merchant-stat-label">Antrean</span>
           </Link>
-          <Link className="merchant-stat merchant-stat--active" to="/merchant/orders">
+          <Link className="merchant-stat merchant-stat--active" to="/orders">
             <span className="merchant-stat-value">{countByTab(orders, 'diproses')}</span>
             <span className="merchant-stat-label">Diproses</span>
           </Link>
@@ -82,10 +82,10 @@ export default function MerchantDashboard() {
         <section className="merchant-section">
           <div className="merchant-section-head">
             <h2>Order terbaru</h2>
-            <Link to="/merchant/orders">Lihat semua</Link>
+            <Link to="/orders">Lihat semua</Link>
           </div>
           {orders.slice(0, 3).map((order) => (
-            <Link key={order.id} to="/merchant/orders" className="merchant-order">
+            <Link key={order.id} to="/orders" className="merchant-order">
               <div className="merchant-order-buyer">
                 <img
                   className="merchant-buyer-avatar"
@@ -128,7 +128,7 @@ export default function MerchantDashboard() {
           <div className="merchant-section-head">
             <h2>Kelola</h2>
           </div>
-          <Link className="merchant-quick-action" to="/merchant/menu">
+          <Link className="merchant-quick-action" to="/menu">
             <span className="merchant-quick-icon">
               <PlusCircle size={20} strokeWidth={1.75} />
             </span>
@@ -138,7 +138,7 @@ export default function MerchantDashboard() {
             </div>
             <ChevronRight size={18} strokeWidth={1.75} className="merchant-quick-chevron" />
           </Link>
-          <Link className="merchant-quick-action" to="/merchant/reviews">
+          <Link className="merchant-quick-action" to="/reviews">
             <span className="merchant-quick-icon">
               <Star size={20} strokeWidth={1.75} />
             </span>

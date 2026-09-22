@@ -18,7 +18,7 @@ export default function MerchantSignIn() {
 
   const onSubmit = () => {
     toast.success('Masuk sebagai merchant')
-    navigate('/merchant')
+    navigate('/')
   }
 
   return (
@@ -90,7 +90,7 @@ export default function MerchantSignIn() {
               </form>
 
               <p className="merchant-auth-switch">
-                Belum punya akun toko? <Link to="/merchant/signup">Daftar</Link>
+                Belum punya akun toko? <Link to="/signup">Daftar</Link>
               </p>
             </div>
           </div>

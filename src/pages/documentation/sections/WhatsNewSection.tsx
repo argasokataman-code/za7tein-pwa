@@ -159,7 +159,7 @@ export function WhatsNewSection() {
                 One SPA; PWA started at "/" (the landing page), service worker controlled every URL
               </td>
               <td>
-                App moved under "/app/*" with router basename; PWA start_url "/app/home" while the manifest keeps the legacy root identity for a one-time Delivo-to-Sa7tein upgrade; service worker scope is "/app/"
+                App split by role, each with its own URL prefix and router basename: "/customer/*", "/merchant/*", "/courier/*", "/admin/*". Each role ships its own manifest (separate id, start_url, scope) so it installs as its own PWA; one service worker with scope "/" serves them all.
               </td>
             </tr>
           </tbody>

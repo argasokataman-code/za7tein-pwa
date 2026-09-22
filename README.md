@@ -9,7 +9,7 @@ npm install --include=dev
 npm run dev
 ```
 
-Website promosi tersedia di `http://localhost:5173/`; pengalaman aplikasi PWA ada di `http://localhost:5173/app/home`. Jalur merchant adalah `/app/merchant/*`. Tautan lama `/merchant/*` dialihkan ke jalur aplikasi. Untuk memeriksa hasil kerja:
+Website promosi tersedia di `http://localhost:5173/`; pengalaman aplikasi PWA ada di `http://localhost:5173/customer/home`. Tiap peran punya URL dan instalasi PWA sendiri: `/customer/*` (pelanggan), `/merchant/*` (merchant console), `/courier/*` dan `/admin/*` (placeholder). Tautan lama `/app/*` dan jalur polos seperti `/merchant/*` dialihkan ke prefix peran yang benar. Untuk memeriksa hasil kerja:
 
 ```bash
 npm run governance:check

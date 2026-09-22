@@ -9,7 +9,24 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Sa7tein" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" id="app-manifest" href="/manifest.json" />
+    <script>
+      // Manifest per peran: tiap prefix punya identitas sendiri supaya bisa
+      // diinstall sebagai aplikasi terpisah dari situs dan dari peran lain.
+      (function () {
+        var names = { customer: 'Sa7tein', merchant: 'Sa7tein Merchant', courier: 'Sa7tein Kurir', admin: 'Sa7tein Admin' };
+        var roles = Object.keys(names);
+        for (var i = 0; i < roles.length; i++) {
+          var role = roles[i];
+          if (location.pathname === '/' + role || location.pathname.indexOf('/' + role + '/') === 0) {
+            document.getElementById('app-manifest').setAttribute('href', '/manifest-' + role + '.json');
+            document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', names[role]);
+            document.documentElement.setAttribute('data-role', role);
+            break;
+          }
+        }
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/icons/sa7tein-mark.svg" />
     <link rel="apple-touch-icon" href="/icons/sa7tein-192x192.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/icons/sa7tein-152x152.png" />
@@ -35,7 +52,9 @@
       </div>
     </div>
     <script>
-      if (location.pathname === '/app' || location.pathname.startsWith('/app/')) {
+      if (['/customer', '/merchant', '/courier', '/admin'].some(function (base) {
+        return location.pathname === base || location.pathname.startsWith(base + '/');
+      })) {
         document.getElementById('boot-splash').hidden = false;
       }
     </script>

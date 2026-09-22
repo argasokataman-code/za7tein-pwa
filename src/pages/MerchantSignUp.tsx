@@ -16,7 +16,7 @@ export default function MerchantSignUp() {
   } = useForm<MerchantSignUpFormData>({ resolver: zodResolver(merchantSignUpSchema) })
 
   const onSubmit = () => {
-    navigate('/merchant/pending')
+    navigate('/pending')
   }
 
   return (
@@ -123,7 +123,7 @@ export default function MerchantSignUp() {
               </form>
 
               <p className="merchant-auth-switch">
-                Sudah punya akun toko? <Link to="/merchant/signin">Masuk</Link>
+                Sudah punya akun toko? <Link to="/signin">Masuk</Link>
               </p>
             </div>
           </div>

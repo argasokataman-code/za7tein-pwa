@@ -10,18 +10,18 @@ export function MerchantBottomNav() {
   const incoming = countByTab(orders, 'masuk')
 
   const items: BottomNavItem[] = [
-    { to: '/merchant', label: 'Beranda', Icon: LayoutDashboard, end: true },
+    { to: '/', label: 'Beranda', Icon: LayoutDashboard, end: true },
     {
-      to: '/merchant/orders',
+      to: '/orders',
       label: 'Order',
       Icon: ClipboardList,
       end: false,
       badge: incoming,
       srText: incoming > 0 ? `${incoming} pesanan masuk` : undefined,
     },
-    { to: '/merchant/menu', label: 'Menu', Icon: BookOpenText, end: false },
-    { to: '/merchant/couriers', label: 'Kurir', Icon: Bike, end: false },
-    { to: '/merchant/settings', label: 'Setelan', Icon: Settings, end: false },
+    { to: '/menu', label: 'Menu', Icon: BookOpenText, end: false },
+    { to: '/couriers', label: 'Kurir', Icon: Bike, end: false },
+    { to: '/settings', label: 'Setelan', Icon: Settings, end: false },
   ]
 
   return <BottomNav items={items} />
