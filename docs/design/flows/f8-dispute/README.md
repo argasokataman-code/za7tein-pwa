@@ -1,6 +1,6 @@
-# F8 — Dispute (Queue Super Admin)
+# F8 — Dispute (Queue Panel Admin / CS)
 
-Workflow dispute = antrian kerja Super Admin, bukan portal sengketa. Milestone **M6** (deps M0, M4, M5); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop (basis UI)**: form "Ajukan Sengketa" di sisi customer (`/customer/dispute`) dan merchant (`/merchant/dispute`) + queue resolusi di `/admin/disputes` — lihat `docs/plan-admin.md`.
+Workflow dispute = antrian kerja panel admin (CS), bukan portal sengketa. Milestone **M6** (deps M0, M4, M5); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop (basis UI)**: form "Ajukan Sengketa" di sisi customer (`/customer/dispute`) dan merchant (`/merchant/dispute`) + queue resolusi di `/admin/disputes` — lihat `docs/plan-admin.md`.
 
 | Berkas | Isi |
 |---|---|
@@ -12,7 +12,7 @@ Workflow dispute = antrian kerja Super Admin, bukan portal sengketa. Milestone *
 
 **Lane Pengaju:** Ajukan Sengketa (alasan + kategori + foto ≤3, opsional) → `dispute_filed`.
 
-**Lane Super Admin:** Queue Disputed (1× per order) → Buka bukti (log OTP, geolocation Tiba, foto kurir, timestamp checkpoint) → Pilih resolusi (4 aksi).
+**Lane Panel Admin (CS):** Queue Disputed (1× per order) → Buka bukti (log OTP, geolocation Tiba, foto kurir, timestamp checkpoint) → Pilih resolusi (4 aksi).
 
 **Lane Sistem:** Queue masuk → **Bekukan hold** + pause auto-settle (order → `disputed`, tak boleh `settled` final) → putusan → **Terapkan** (hold di-release sesuai putusan) → `resolved_*` + **1 ledger entry baru** (append-only). Protection fund = sumber untuk kasus tanpa pihak bersalah.
 

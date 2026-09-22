@@ -34,12 +34,14 @@ div.sa-landing {
         360–430px, seluruh bagian disusun ulang secara vertikal.
       </p>
       <p className="doc-p">
-        Dashboard Super Admin sengaja tetap memakai shell 430px seperti role lain
-        pada tahap PWA ini. Arah ke depan sudah dicatat: Super Admin akan menjadi
-        <strong> website penuh non-PWA</strong> (lebar desktop, bukan kolom ponsel)
-        — belum dikerjakan. Saat itu dibangun, pengecualian lebarnya wajib
-        didokumentasikan di sini seperti pengecualian landing di atas, bukan
-        bocor diam-diam.
+        Panel admin (CS) di <code>/admin</code> sengaja tetap memakai shell 430px seperti
+        role lain — CS memakainya dari ponsel. Yang akan menjadi pengecualian lebar
+        adalah <strong>Super Admin</strong>, role terpisah yang belum dibangun: menurut
+        keputusan PO 2026-09-23 ia berupa <strong>website penuh non-PWA</strong> untuk
+        owner/team (kontrol penuh platform). Prefix yang disiapkan <code>/superadmin</code>;
+        cakupan detailnya masih UNRESOLVED. Saat dibangun, pengecualian lebarnya wajib
+        didokumentasikan di sini seperti pengecualian landing di atas, bukan bocor
+        diam-diam.
       </p>
     </DocSection>
   )

@@ -13,7 +13,7 @@ const MAX_PHOTOS = 3
 /**
  * Form "Ajukan Sengketa" — dipakai sisi customer dan merchant (M6, F8).
  *
- * Satu komponen untuk dua peran: keduanya mengirim ke antrean Super Admin yang
+ * Satu komponen untuk dua peran: keduanya mengirim ke antrean panel admin (CS) yang
  * sama, jadi tidak ada dua form yang harus dijaga sinkron. Pihak pengaju dan
  * kode order dibaca dari query (`?order=&by=`), sisanya dari store.
  */

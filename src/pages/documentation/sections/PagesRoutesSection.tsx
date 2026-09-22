@@ -108,7 +108,7 @@ const infoRows: Row[] = [
 const merchantRows: Row[] = [
   { path: '/signin', component: 'MerchantSignIn', desc: 'Masuk merchant (email + password)' },
   { path: '/signup', component: 'MerchantSignUp', desc: 'Daftar toko' },
-  { path: '/pending', component: 'MerchantPending', desc: 'Menunggu persetujuan Super Admin' },
+  { path: '/pending', component: 'MerchantPending', desc: 'Menunggu persetujuan tim CS' },
   { path: '/', component: 'MerchantDashboard', desc: 'Dashboard: toggle buka/tutup, kuota harian, statistik order' },
   { path: '/orders', component: 'MerchantOrders', desc: 'Antrean order: profil pembeli, tab status, terima/tolak, estimasi masak' },
   { path: '/menu', component: 'MerchantMenu', desc: 'Menu & Stock: atur item, stok, ketersediaan' },
@@ -259,14 +259,16 @@ export function PagesRoutesSection() {
         the customer-fault penalty is UNRESOLVED (OQ-14) — both are shown as state,
         never guessed.
       </p>
-      <h3 className="doc-h3">Super Admin Console</h3>
+      <h3 className="doc-h3">Admin Panel (CS)</h3>
       <p className="doc-p">
-        Fourth role (<code className="doc-inline">/admin</code>), built from flows{' '}
+        Fourth role shell (<code className="doc-inline">/admin</code>), operated by{' '}
+        <strong>CS</strong> — not by Super Admin. Built from flows{' '}
         <code className="doc-inline">F15</code> and <code className="doc-inline">F8</code> and
-        milestones M6/M9. Same 430px shell as the other roles — the plan for a
-        full website (non-PWA) console is recorded but not built (see Layout
-        Exceptions and the Admin Console section). The dispute submit form is one
-        shared page mounted on both <code className="doc-inline">/customer/dispute</code> and{' '}
+        milestones M6/M9. Same 430px shell as the other roles. <strong>Super Admin is a
+        separate role</strong> and is not built: per the PO decision of 2026-09-23 it
+        becomes a full non-PWA website for the owner/team (see Layout Exceptions), and
+        its detailed scope is UNRESOLVED. The dispute submit form is one shared page
+        mounted on both <code className="doc-inline">/customer/dispute</code> and{' '}
         <code className="doc-inline">/merchant/dispute</code>, so a customer and a merchant
         filing converge on the same queue.
       </p>

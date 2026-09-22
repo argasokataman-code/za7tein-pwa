@@ -134,7 +134,7 @@ Urutan bangun = urutan milestone (M1 → M11), lalu nilai baca. Status: `todo` /
 
 ### F8 — Dispute ✅ done
 - **Slug:** `f8-dispute` · **Type:** `workflow` · **Milestone:** M6
-- **Alur:** customer/merchant ajukan (kategori + alasan + bukti), 1× per order, window 24 jam → order `disputed`, hold dibekukan, auto-settle pause → queue Super Admin → 4 resolusi (refund penuh / refund sebagian / release ke merchant / tolak) → tiap resolusi = 1 entry ledger; kasus tanpa pihak bersalah dari `protection_fund`
+- **Alur:** customer/merchant ajukan (kategori + alasan + bukti), 1× per order, window 24 jam → order `disputed`, hold dibekukan, auto-settle pause → queue panel admin (CS) → 4 resolusi (refund penuh / refund sebagian / release ke merchant / tolak) → tiap resolusi = 1 entry ledger; kasus tanpa pihak bersalah dari `protection_fund`
 - **UNRESOLVED:** finalisasi window/kategori/SLA (OQ-29), siapa super admin (OQ-30)
 - **Sumber:** R-DISPUTE-01; M6
 

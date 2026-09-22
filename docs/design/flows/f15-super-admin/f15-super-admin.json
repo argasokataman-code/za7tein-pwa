@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "F15 — Super Admin Console",
+    "title": "F15 — Panel Admin (CS)",
     "quality_profile": "showcase"
   },
   "lanes": [

@@ -13,7 +13,7 @@ import type {
 } from '../types'
 
 /**
- * Konsol Super Admin — data mock.
+ * Panel admin (CS) — data mock.
  *
  * Dasar perilaku: flow F15 (`docs/design/flows/f15-super-admin/`) + F8
  * (`docs/design/flows/f8-dispute/`) dan milestone M6/M9 PRD aktif

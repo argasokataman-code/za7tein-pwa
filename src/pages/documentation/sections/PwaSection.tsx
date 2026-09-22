@@ -7,7 +7,7 @@ export function PwaSection() {
       <p className="doc-p">
         Halaman promosi berada di <code>/</code>; tiap peran punya prefix URL sendiri:
         <code> /customer/*</code> (pelanggan), <code>/merchant/*</code> (merchant),
-        <code> /courier/*</code> (kurir), dan <code>/admin/*</code> (Super Admin). Tiap prefix
+        <code> /courier/*</code> (kurir), dan <code>/admin/*</code> (panel admin, dikelola CS). Tiap prefix
         memuat manifest sendiri lewat script kecil di <code>index.html</code>, jadi
         tiap peran bisa diinstall sebagai aplikasi terpisah. Tautan lama seperti
         <code> /home</code>, <code>/app/home</code>, dan{' '}

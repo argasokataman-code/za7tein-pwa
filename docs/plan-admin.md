@@ -1,17 +1,22 @@
-# Plan — Super Admin Console (E2E UI/UX)
+# Plan — Panel Admin (CS) (E2E UI/UX)
 
 Front-end showcase only. Mock data, Redux state, tanpa backend/API/auth/DB/payment.
 Sumber: flow `docs/design/flows/f15-super-admin/` + `docs/design/flows/f8-dispute/`
 dan milestone **M6/M9** PRD aktif `irbid-mvp-v2-2026-09-21`.
+
+Konsol `/admin/*` adalah **panel admin platform yang dikelola CS**. **Super Admin
+adalah role terpisah** (belum dibangun, kelak website penuh non-PWA) — keputusan PO
+2026-09-23 di `docs/product/prd/decision-irbid-mvp.md`, menggantikan sebagian `C-12`.
 
 **Status: S0–S4 selesai.** Verifikasi: build 0 error, lint bersih, overflow
 horizontal 0 di 390px & 1440px, shell 430px terkunci.
 
 ## Prinsip
 
-- **Shell 430px, sama seperti role lain.** Arah ke depan — SA jadi **website penuh
-  non-PWA** (konsol desktop) — dicatat di `/documentation`, **belum dikerjakan**.
-  Kalau nanti dibangun, pengecualian lebar wajib didokumentasikan dulu, bukan
+- **Shell 430px, sama seperti role lain.** Panel ini dipakai CS dari ponsel. Yang
+  akan jadi pengecualian lebar adalah **Super Admin** (role terpisah, website penuh
+  non-PWA, prefix `/superadmin` disiapkan) — belum dibangun, cakupannya
+  `UNRESOLVED`. Saat dibangun, pengecualian lebar wajib didokumentasikan dulu, bukan
   bocor diam-diam (AGENTS §9).
 - Semua nominal konsol SA dalam **JOD** (PRD aktif). IDR→JOD di form sengketa
   memakai rate contoh M1 (Rp23.000) dan dilabeli sementara karena M1 belum ada.
@@ -97,8 +102,8 @@ Form sengketa (F8) satu komponen, dipasang di dua peran:
 - Titik masuk: layar pesanan tiba (customer) dan order selesai (merchant).
 - Responsif 390px & 1440px, overflow horizontal 0, shell 430px.
 - `npm run lint`, `npm run build`.
-- **Integrasi `/documentation`**: section "Super Admin Console", baris route, dan
-  catatan arah website penuh non-PWA di Layout Exceptions.
+- **Integrasi `/documentation`**: section "Admin Panel (CS)", baris route, dan
+  catatan role Super Admin terpisah di Layout Exceptions.
 - Update `docs/design/flows/f15-super-admin/README.md` + `f8-dispute/README.md`,
   `AGENTS.md` §9, `README.md`.
 - Record atlas node.
@@ -112,12 +117,17 @@ Form sengketa (F8) satu komponen, dipasang di dua peran:
 - **Siapa admin / audit trail** (OQ-30) — tidak dibangun.
 - **Jadwal settlement liability** — belum ada; angka liability murni tampilan.
 - **Auth admin** — tidak ada requirement di PRD aktif (`UNRESOLVED-by-absence`).
+- **Super Admin** — role terpisah (website penuh non-PWA, owner/team, kontrol penuh
+  platform termasuk pajak & dashboard). Prefix `/superadmin` disiapkan, **tanpa
+  route/manifest**; cakupan detail `UNRESOLVED` sampai dibahas.
 
 ## Keputusan
 
-1. **Shell tetap 430px.** Opsi lebar desktop ditunda; keputusan sadar dicatat di
-   `/documentation`, arah website penuh non-PWA dicatat untuk nanti. ✅
+1. **Panel `/admin` = CS, shell tetap 430px.** CS memakainya dari ponsel; pengecualian
+   lebar bukan untuk panel ini, melainkan untuk konsol Super Admin yang terpisah. ✅
 2. **Form sengketa satu komponen, dua peran.** Mencegah dua jalur submit menyimpang;
-   keduanya mendarat di queue SA yang sama. ✅
+   keduanya mendarat di queue panel admin yang sama. ✅
 3. **`no_action` tidak menulis ledger.** Putusan itu tidak mengubah saldo, jadi
    tak ada yang dicatat (beda dari refund/release yang menambah 1 entry). ✅
+4. **CS ≠ Super Admin** (2026-09-23). Sebelumnya `C-12` menyebut portal CS "doubles
+   as super admin" — kini dua role terpisah. ✅

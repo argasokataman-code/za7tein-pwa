@@ -258,7 +258,7 @@ export interface CourierTask {
 }
 
 /**
- * Status tenant merchant. `pending` menunggu approval Super Admin; `blacklisted`
+ * Status tenant merchant. `pending` menunggu approval tim CS; `blacklisted`
  * lahir dari aksi blacklist COD dan wajib dibarengi `riskFlag` customer (F15).
  */
 export type TenantStatus = 'pending' | 'approved' | 'suspended' | 'blacklisted'
@@ -266,7 +266,7 @@ export type TenantStatus = 'pending' | 'approved' | 'suspended' | 'blacklisted'
 /** Deposit COD merchant (3,50 JOD, PRD §5C). Approve = verifikasi transfer dulu. */
 export type DepositStatus = 'unpaid' | 'held' | 'released'
 
-/** Antrean onboarding tenant di konsol Super Admin (feeder F16). */
+/** Antrean onboarding tenant di panel admin (CS) — feeder F16. */
 export interface AdminTenant {
   id: string
   name: string

@@ -9,7 +9,7 @@ npm install --include=dev
 npm run dev
 ```
 
-Website promosi tersedia di `http://localhost:5173/`; pengalaman aplikasi PWA ada di `http://localhost:5173/customer/home`. Tiap peran punya URL dan instalasi PWA sendiri: `/customer/*` (pelanggan), `/merchant/*` (merchant console), `/courier/*` (kurir), dan `/admin/*` (Super Admin). Tautan lama `/app/*` dan jalur polos seperti `/merchant/*` dialihkan ke prefix peran yang benar. Untuk memeriksa hasil kerja:
+Website promosi tersedia di `http://localhost:5173/`; pengalaman aplikasi PWA ada di `http://localhost:5173/customer/home`. Tiap peran punya URL dan instalasi PWA sendiri: `/customer/*` (pelanggan), `/merchant/*` (merchant console), `/courier/*` (kurir), dan `/admin/*` (panel admin, dikelola CS). **Super Admin adalah role terpisah** — kelak berupa website penuh non-PWA, belum dibangun (keputusan PO 2026-09-23, lihat `docs/product/prd/decision-irbid-mvp.md`). Tautan lama `/app/*` dan jalur polos seperti `/merchant/*` dialihkan ke prefix peran yang benar. Untuk memeriksa hasil kerja:
 
 ```bash
 npm run governance:check

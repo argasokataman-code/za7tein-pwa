@@ -22,7 +22,7 @@ export default function AdminDashboard() {
   return (
     <div className="app-shell">
       <main className="admin-page">
-        <AdminPageHeader eyebrow="Konsol platform" title="Ringkasan" />
+        <AdminPageHeader eyebrow="Panel admin · CS" title="Ringkasan" />
 
         <section className="admin-card admin-liability">
           <p className="admin-card-sub">Kewajiban platform</p>

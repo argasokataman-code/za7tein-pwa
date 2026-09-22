@@ -147,7 +147,7 @@ export default function CourierTaskDetail() {
             {sla != null ? (
               <p className={`courier-timer ${overdue ? 'is-overdue' : ''}`}>
                 {overdue
-                  ? 'Lewat SLA — super admin ditandai otomatis'
+                  ? 'Lewat SLA — tim CS ditandai otomatis'
                   : `Sisa waktu ${formatCountdown(sla)}`}
               </p>
             ) : null}

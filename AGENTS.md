@@ -190,7 +190,8 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 
 1. **Merchant console** — selesai. Lihat `docs/plan-merchant.md` (M0–M7).
 2. **Tampilan kurir** — selesai. Lihat `docs/plan-courier.md` (K0–K4), dibangun dari flow `f13-courier-view`. Detail tugas menampilkan dua sumbu berdampingan (Journey Line untuk order, stepper checkpoint untuk kurir) dan **tanpa layar login** — PRD aktif tidak punya requirement auth kurir, ditandai `UNRESOLVED-by-absence`. Label aksi resmi "Ambil"/"Berangkat"/"Tiba"; "Mulai Antar" tidak ada di PRD v2.
-3. **Super Admin** — selesai. Lihat `docs/plan-admin.md` (S0–S4), dibangun dari flow `f15-super-admin` + `f8-dispute` dan milestone M6/M9. **Shell 430px sama seperti role lain** pada tahap PWA ini; arah ke depan **Super Admin jadi website penuh non-PWA** (konsol desktop) sudah dicatat di `/documentation` tapi belum dikerjakan. Tanpa auth admin dan tanpa audit trail — PRD aktif tak punya requirementnya (`UNRESOLVED-by-absence`).
+3. **Panel admin (CS)** — selesai. Lihat `docs/plan-admin.md` (S0–S4), dibangun dari flow `f15-super-admin` + `f8-dispute` dan milestone M6/M9. Shell 430px sama seperti role lain. Tanpa auth dan tanpa audit trail — PRD aktif tak punya requirementnya (`UNRESOLVED-by-absence`).
+4. **Super Admin** — **role terpisah, belum dibangun.** Keputusan PO 2026-09-23: konsol `/admin` adalah panel CS (bukan Super Admin), dan Super Admin kelak berupa **website penuh non-PWA** untuk owner/team (kontrol penuh platform, termasuk pajak dan dashboard). Prefix disiapkan `/superadmin`; cakupan detail `UNRESOLVED`. Rujukan: `docs/product/prd/decision-irbid-mvp.md`.
 
 **Dua hal yang harus dijaga saat menambah role:**
 

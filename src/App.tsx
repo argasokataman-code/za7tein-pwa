@@ -163,9 +163,9 @@ const courierRoutes: [string, ComponentType][] = [
   ['/profile', CourierProfile],
 ]
 
-// Super Admin — dipasang di /admin/*. Shell-nya sama dengan role lain (430px).
-// Catatan ke depan: SA akan jadi website penuh non-PWA, bukan kolom ponsel;
-// keputusan itu belum dikerjakan (lihat /documentation).
+// Panel admin (CS) — dipasang di /admin/*. Shell-nya sama dengan role lain (430px).
+// Super Admin BUKAN ini: ia role terpisah, kelak berupa website penuh non-PWA
+// (scope UNRESOLVED). Lihat docs/product/prd/decision-irbid-mvp.md 2026-09-23.
 const adminRoutes: [string, ComponentType][] = [
   ['/', AdminDashboard],
   ['/onboarding', AdminOnboarding],

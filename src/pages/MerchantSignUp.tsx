@@ -35,7 +35,7 @@ export default function MerchantSignUp() {
             <div className="auth-content">
               <h1 className="auth-title">Daftar Toko</h1>
               <p className="auth-subtitle">
-                Akun toko ditinjau Super Admin sebelum bisa menerima order.
+                Akun toko ditinjau tim CS sebelum bisa menerima order.
               </p>
 
               <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>

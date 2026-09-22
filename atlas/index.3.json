@@ -2262,7 +2262,7 @@
         "ui",
         "dispute"
       ],
-      "summary": "Super Admin console /admin/*: liability+alert SLA, queue onboarding (deposit gate), queue sengketa (4 resolusi + ledger), master tenant (sus",
+      "summary": "Panel admin (CS) /admin/*: liability+alert SLA, onboarding deposit gate, sengketa 4 resolusi+ledger, suspend/blacklist 2 sisi",
       "conn": [
         {
           "id": "FEAT-2001",
@@ -2276,6 +2276,507 @@
         }
       ],
       "loc": "src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-2070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+4/-4) — edit via tool: tsx: // Panel admin (CS) — dipasang di /admin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-2071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDisputes.tsx (+1/-1) — edit via tool: tsx: <AdminPageHeader eyebrow=\"Queue",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDisputes.tsx"
+    },
+    {
+      "id": "TASK-2072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx (+1/-1) — edit via tool: tsx: <AdminPageHeader eyebrow=\"Pane",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-2073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md (+11/-3) — edit via tool: ## Riwayat keputusan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md"
+    },
+    {
+      "id": "TASK-2074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/DisputeSubmit.tsx (+1/-1) — edit via tool: tsx: * Satu komponen untuk dua peran",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/DisputeSubmit.tsx"
+    },
+    {
+      "id": "TASK-2075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPending.tsx (+1/-1) — edit via tool: tsx: Pendaftaran tokomu sedang dit",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPending.tsx"
+    },
+    {
+      "id": "TASK-2076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts (+1/-1) — edit via tool: ts: { num: '21', id: 'admin-desig",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PagesRoutesSection.tsx (+1/-1) — edit via tool: tsx: { p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PagesRoutesSection.tsx"
+    },
+    {
+      "id": "TASK-2078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx (+1/-1) — edit via tool: tsx: <code> /cou",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx"
+    },
+    {
+      "id": "TASK-2079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx (+1/-1) — edit via tool: tsx: Akun toko ditinjau tim CS sebe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx"
+    },
+    {
+      "id": "TASK-2080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:44:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+1/-1) — edit via tool: tsx: ? 'Lewat SLA — tim CS ditan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-2081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/README.md (+1/-1) — edit via tool: Tiap peran punya URL dan instalasi PWA s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/README.md"
+    },
+    {
+      "id": "TASK-2082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+2/-1) — edit via tool: 3. **Panel admin (CS)** — selesai. Lihat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-2083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AdminDesignSection.tsx (+27/-19) — edit via tool: tsx: <",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AdminDesignSection.tsx"
+    },
+    {
+      "id": "TASK-2084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx (+13/-11) — edit via tool: t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/LayoutExceptionsSection.tsx"
+    },
+    {
+      "id": "TASK-2085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-admin.md (+9/-5) — edit via tool: # Plan — Panel Admin (CS) (E2E UI/UX)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-admin.md"
+    },
+    {
+      "id": "TASK-2086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f15-super-admin/README.md (+3/-3) — edit via tool: # F15 — Panel Admin ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-2087",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f8-dispute/README.md (+3/-3) — edit via tool: # F8 — Dispute (Queue Pan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f8-dispute/README.md"
+    },
+    {
+      "id": "TASK-2088",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f15-super-admin/f15-super-admin.json (+1/-1) — edit via tool: \"title\": ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f15-super-admin/f15-super-admin.json"
+    },
+    {
+      "id": "TASK-2089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+1/-1) — edit via tool: ts: /** Antrean onboarding tenant di panel a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-2090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_admin.scss (+5/-5) — edit via tool: /* ── 15. Panel admin (CS) ───────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-2091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+2/-2) — edit via tool: { \"req\": \"C-12 (panel CS; Super Adm",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-2092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts (+1/-1) — edit via tool: ts: * Panel admin (CS) — data mock.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2093",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:45:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/PLAN.md (+1/-1) — edit via tool: - **Alur:** customer/merchant ajukan (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-2094",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "00:46:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && npm run governance:c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-2003",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "00:47:00",
+      "tags": [
+        "admin",
+        "cs",
+        "role",
+        "scope"
+      ],
+      "summary": "CS panel (/admin) != Super Admin: SA role terpisah, kelak website penuh non-PWA; sebagian C-12 digantikan, scope SA UNRESOLVED",
+      "conn": [
+        {
+          "id": "FEAT-2002",
+          "type": "relates",
+          "raw": "FEAT-2002:relates"
+        },
+        {
+          "id": "DEC-2002",
+          "type": "relates",
+          "raw": "DEC-2002:relates"
+        }
+      ]
     }
   ]
 }

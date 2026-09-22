@@ -117,7 +117,7 @@ export default function AdminDisputes() {
   return (
     <div className="app-shell">
       <main className="admin-page">
-        <AdminPageHeader eyebrow="Queue Super Admin" title="Sengketa" />
+        <AdminPageHeader eyebrow="Queue CS" title="Sengketa" />
 
         <section className="admin-card">
           <div className="admin-row">

@@ -13,6 +13,14 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 
 ## Riwayat keputusan
 
+### Klarifikasi peran konsol: Panel Admin (CS) vs Super Admin — 2026-09-23 (keputusan PO)
+
+- **Menggantikan sebagian `C-12`** (`analysis.md`): kalimat *"Portal keeps the name 'CS' and doubles as super admin"* **tidak lagi berlaku**. Konsol `/admin/*` adalah **panel admin platform yang dikelola CS** (approval tenant, deposit gate, dispute queue, liability, ledger, blacklist COD), dan **Super Admin adalah role terpisah**.
+- **Super Admin** akan berupa **website penuh (non-PWA)** — bukan kolom ponsel 430px — dipakai owner & team untuk **kontrol penuh platform** (termasuk pajak dan dashboard). Cakupan detail dan prefix belum diputuskan → `UNRESOLVED`, jangan dikarang. Catatan prefix yang disiapkan: `/superadmin`.
+- **Yang sudah dibangun**: panel admin (CS) di `/admin/*` = isi `F15` + `F8` + `M6/M9`, shell 430px seperti role lain. Label "Super Admin" pada konsol ini **salah** dan sudah dikoreksi.
+- **Yang belum**: konsol Super Admin (full website). Tidak ada route/manifest untuknya sampai cakupannya diputuskan.
+- Efek lanjutan: teks yang menyebut "Super Admin" sebagai **pihak operasional** (review onboarding, alert SLA) kini merujuk **tim CS**, sesuai pembagian ini. `OQ-30` (siapa super admin operasional) menyempit jadi: siapa operator CS, dan siapa pemilik konsol Super Admin.
+
 ### `irbid-mvp-2026-09-12` (superseded oleh v2, 2026-09-22)
 
 - Sumber: `versions/irbid-mvp-2026-09-12/source.pdf`, halaman 1–12.

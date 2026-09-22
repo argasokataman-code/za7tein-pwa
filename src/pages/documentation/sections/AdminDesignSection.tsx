@@ -2,24 +2,32 @@ import { DocSection } from '../DocSection'
 
 export function AdminDesignSection() {
   return (
-    <DocSection id="admin-design" num="21" title="Super Admin Console — Design Decisions">
+    <DocSection id="admin-design" num="21" title="Admin Panel (CS) — Design Decisions">
       <p className="doc-p">
-        The Super Admin console (<code className="doc-inline">/admin</code>) is the fourth
-        and last role. Its sources are flow <code className="doc-inline">F15</code>{' '}
-        (console, onboarding, liability, escalation, guard actions) and flow{' '}
-        <code className="doc-inline">F8</code> (dispute queue), plus milestones M6/M9
-        of the active PRD.
+        The console at <code className="doc-inline">/admin</code> is the{' '}
+        <strong>platform admin panel, operated by CS</strong> — the fourth role shell in
+        this PWA. Its sources are flow <code className="doc-inline">F15</code> (onboarding,
+        liability, escalation, guard actions) and flow <code className="doc-inline">F8</code>{' '}
+        (dispute queue), plus milestones M6/M9 of the active PRD.
       </p>
-      <h3 className="doc-h3">Shell: same 430px column, for now</h3>
       <p className="doc-p">
-        A wide table dashboard was the obvious guess for SA, and AGENTS §9 asked for a{' '}
-        <em>documented</em> exception before any width change. The decision recorded
-        here is the conservative one: the SA <strong>PWA keeps the 430px shell</strong>{' '}
-        like every other role, and lists/tables are rendered as stacked cards. The
-        forward plan — <strong>SA becomes a full website, non-PWA</strong>, with a real
-        desktop console — is noted but deliberately not built. When it is built, the
-        width exception must be documented here the same way the landing page
-        exception is (see Layout Exceptions), not leaked silently.
+        <strong>Super Admin is a different role</strong>, deliberately not built here.
+        The PO decision of 2026-09-23 split them: the console that PRD C-12 called
+        &quot;CS, doubling as super admin&quot; is the CS admin panel above, while Super
+        Admin becomes a <strong>separate full-website console (non-PWA)</strong> for the
+        owner/team with full platform control. Its detailed scope and prefix are
+        UNRESOLVED — nothing is stubbed for it yet. See{' '}
+        <code className="doc-inline">docs/product/prd/decision-irbid-mvp.md</code>.
+      </p>
+      <h3 className="doc-h3">Shell: 430px panel, and why Super Admin is different</h3>
+      <p className="doc-p">
+        A wide table dashboard was the obvious guess for this console, and AGENTS §9
+        asked for a <em>documented</em> exception before any width change. Because this
+        shell is the CS panel and CS works on the go, it{' '}
+        <strong>keeps the 430px column</strong> like every other role, with lists rendered
+        as stacked cards. The width exception is therefore <em>not</em> applied here; it
+        belongs to the future Super Admin website, and must be documented here the same
+        way the landing page exception is (see Layout Exceptions) when that is built.
       </p>
       <h3 className="doc-h3">Hard rules as displayed state</h3>
       <p className="doc-p">

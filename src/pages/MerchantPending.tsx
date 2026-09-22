@@ -13,7 +13,7 @@ export default function MerchantPending() {
               </span>
               <h1 className="auth-title">Menunggu persetujuan</h1>
               <p className="auth-subtitle">
-                Pendaftaran tokomu sedang ditinjau Super Admin. Setelah disetujui, toko bisa
+                Pendaftaran tokomu sedang ditinjau tim CS. Setelah disetujui, toko bisa
                 menerima order.
               </p>
               <Link className="btn btn-primary btn-auth" to="/">
