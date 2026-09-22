@@ -1,6 +1,6 @@
 # F15 — Super Admin
 
-Console Super Admin — role ke-4, belum dibangun di repo ini. PRD meminta approval tenant, konfigurasi kuota tier, dan master zona (AGENTS.md §9); skema draft menambah deposit approval, blacklist COD, liability dashboard, SLA escalation, dan dispute queue. Sumber gambaran: `docs/product/schema-draft-v1.md` + PRD `irbid-mvp-v2-2026-09-21`. Repo ini front-end saja — konsol dan aksinya adalah layar mock (AGENTS.md §1).
+Console Super Admin — role ke-4. **Sudah di-develop (basis UI)**: konsol PWA `/admin/*` dengan shell 430px sama seperti role lain. Rencana & keputusan implementasi ada di `docs/plan-admin.md`; spec ini tetap sumber gambaran alur. PRD meminta approval tenant, konfigurasi kuota tier, dan master zona (AGENTS.md §9); skema draft menambah deposit approval, blacklist COD, liability dashboard, SLA escalation, dan dispute queue. Sumber gambaran: `docs/product/schema-draft-v1.md` + PRD `irbid-mvp-v2-2026-09-21`. Repo ini front-end saja — konsol dan aksinya adalah layar mock (AGENTS.md §1).
 
 | Berkas | Isi |
 |---|---|
@@ -23,7 +23,7 @@ Console Super Admin — role ke-4, belum dibangun di repo ini. PRD meminta appro
 - Liability dashboard dan SLA escalation adalah **view agregat**, bukan tabel baru (catatan gap `schema-draft-v1.md`); angkanya mock di repo ini.
 - Isi liability = kewajiban platform: saldo wallet **customer + merchant + tips kurir** yang belum di-payout. **Gaji kurir tidak masuk** — kurir digaji merchant dan platform tidak menahan dana kurir (`C-06`); yang lewat platform hanya tips.
 - Semua aksi SA (approve, reject, suspend, blacklist, resolusi dispute) = satu-satunya jalur `resolvedBy` di `incidentResolution` — keputusan ada di tangan SA, bukan user.
-- Shell 430px kemungkinan salah untuk Super Admin (dashboard tabel) — pengecualian lebar penuh wajib didokumentasikan di `/documentation` (AGENTS.md §9).
+- Shell: PWA Super Admin sementara memakai 430px seperti role lain; arah ke depan **website penuh non-PWA** (konsol desktop) sudah dicatat di `/documentation` dan **belum dikerjakan**. Saat dibangun, pengecualian lebar wajib didokumentasikan di `/documentation` (AGENTS.md §9) — bukan bocor diam-diam.
 - Repo ini front-end saja: konsol, approval, dan aksi SA adalah layar mock (AGENTS.md §1).
 
 ## Terhubung (lihat `../INDEX.json`)

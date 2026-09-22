@@ -1,6 +1,6 @@
 # F8 — Dispute (Queue Super Admin)
 
-Workflow dispute = antrian kerja Super Admin, bukan portal sengketa. Milestone **M6** (deps M0, M4, M5); PRD aktif `irbid-mvp-v2-2026-09-21`.
+Workflow dispute = antrian kerja Super Admin, bukan portal sengketa. Milestone **M6** (deps M0, M4, M5); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop (basis UI)**: form "Ajukan Sengketa" di sisi customer (`/customer/dispute`) dan merchant (`/merchant/dispute`) + queue resolusi di `/admin/disputes` — lihat `docs/plan-admin.md`.
 
 | Berkas | Isi |
 |---|---|

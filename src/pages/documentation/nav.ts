@@ -25,4 +25,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '18', id: 'elements', label: 'UI Elements' },
   { num: '19', id: 'motion-svg', label: 'Motion & Icons' },
   { num: '20', id: 'courier-design', label: 'Courier Console' },
+  { num: '21', id: 'admin-design', label: 'Super Admin Console' },
 ]

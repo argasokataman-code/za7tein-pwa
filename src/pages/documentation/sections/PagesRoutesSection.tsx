@@ -124,6 +124,14 @@ const courierRows: Row[] = [
   { path: '/profile', component: 'CourierProfile', desc: 'Profil kurir + status siap/jeda' },
 ]
 
+const adminRows: Row[] = [
+  { path: '/', component: 'AdminDashboard', desc: 'Ringkasan: liability agregat + flag saldo Xendit + alert SLA' },
+  { path: '/onboarding', component: 'AdminOnboarding', desc: 'Queue tenant: review data, verifikasi deposit → held, tolak' },
+  { path: '/disputes', component: 'AdminDisputes', desc: 'Queue sengketa: investigasi + 4 tombol resolusi' },
+  { path: '/merchants', component: 'AdminMerchants', desc: 'Master tenant: suspend + blacklist COD (dua sisi)' },
+  { path: '/ledger', component: 'AdminLedger', desc: 'Entry ledger append-only, tanpa edit/hapus' },
+]
+
 export function PagesRoutesSection() {
   return (
     <DocSection id="pages" num="03" title="Pages & Routes">
@@ -133,9 +141,7 @@ export function PagesRoutesSection() {
         groups, no layout wrappers, no <code className="doc-inline">&lt;Outlet&gt;</code>.
       </p>
       <p className="doc-p">
-        Role yang belum dibangun sudah punya prefix: <code className="doc-inline">/admin/*</code>
-        {' '}menampilkan layar placeholder. Route-nya ditambahkan saat perannya mulai
-        dibangun.
+        Semua prefix peran sudah terisi; tidak ada lagi layar placeholder.
       </p>
       <p className="doc-p">
         Empat router berbagi file ini. Mount-time, <code className="doc-inline">App</code>
@@ -143,9 +149,9 @@ export function PagesRoutesSection() {
         {' '}(<code className="doc-inline">RoleRouter</code>, home <code className="doc-inline">/home</code>),
         {' '}<code className="doc-inline">/merchant</code> (<code className="doc-inline">RoleRouter</code>,
         home <code className="doc-inline">/</code>), <code className="doc-inline">/courier</code>
-        {' '}(<code className="doc-inline">RoleRouter</code>, home <code className="doc-inline">/</code>), dan
-        {' '}<code className="doc-inline">/admin</code> (placeholder). Selain itu,
-        {' '}<code className="doc-inline">WebsiteRouter</code> melayani web routes dan
+        {' '}dan <code className="doc-inline">/admin</code>{' '}
+        (<code className="doc-inline">RoleRouter</code>, home <code className="doc-inline">/</code>).
+        Selain itu, <code className="doc-inline">WebsiteRouter</code> melayani web routes dan
         mengalihkan jalur lama lewat <code className="doc-inline">LegacyAppRedirect</code>.
       </p>
       <h3 className="doc-h3">Website Routes</h3>
@@ -252,6 +258,44 @@ export function PagesRoutesSection() {
         not persisted). SLA 15/30/10 menit masih sementara (PO 2026-09-22, OQ-13) and
         the customer-fault penalty is UNRESOLVED (OQ-14) — both are shown as state,
         never guessed.
+      </p>
+      <h3 className="doc-h3">Super Admin Console</h3>
+      <p className="doc-p">
+        Fourth role (<code className="doc-inline">/admin</code>), built from flows{' '}
+        <code className="doc-inline">F15</code> and <code className="doc-inline">F8</code> and
+        milestones M6/M9. Same 430px shell as the other roles — the plan for a
+        full website (non-PWA) console is recorded but not built (see Layout
+        Exceptions and the Admin Console section). The dispute submit form is one
+        shared page mounted on both <code className="doc-inline">/customer/dispute</code> and{' '}
+        <code className="doc-inline">/merchant/dispute</code>, so a customer and a merchant
+        filing converge on the same queue.
+      </p>
+      <div className="doc-table-wrap">
+        <table className="doc-table">
+          <thead>
+            <tr>
+              <th>Path (under /admin)</th>
+              <th>Component</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {adminRows.map((r) => (
+              <tr key={r.path}>
+                <td><code className="doc-inline">{r.path}</code></td>
+                <td><code className="doc-inline">{r.component}</code></td>
+                <td>{r.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="doc-p">
+        Data seed: <code className="doc-inline">src/data/admin.ts</code>; state:{' '}
+        <code className="doc-inline">src/store/slices/adminSlice.ts</code> (not persisted).
+        Amounts are JOD per the active PRD; the IDR→JOD figure on the dispute form
+        uses the M1 example rate (Rp23.000) and is labelled as such. Tier quota
+        config is UNRESOLVED (no schema field) and is not built.
       </p>
     </DocSection>
   )

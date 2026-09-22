@@ -190,7 +190,7 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 
 1. **Merchant console** — selesai. Lihat `docs/plan-merchant.md` (M0–M7).
 2. **Tampilan kurir** — selesai. Lihat `docs/plan-courier.md` (K0–K4), dibangun dari flow `f13-courier-view`. Detail tugas menampilkan dua sumbu berdampingan (Journey Line untuk order, stepper checkpoint untuk kurir) dan **tanpa layar login** — PRD aktif tidak punya requirement auth kurir, ditandai `UNRESOLVED-by-absence`. Label aksi resmi "Ambil"/"Berangkat"/"Tiba"; "Mulai Antar" tidak ada di PRD v2.
-3. **Super Admin** — belum dibangun. Approval tenant, konfigurasi kuota tier, master zona.
+3. **Super Admin** — selesai. Lihat `docs/plan-admin.md` (S0–S4), dibangun dari flow `f15-super-admin` + `f8-dispute` dan milestone M6/M9. **Shell 430px sama seperti role lain** pada tahap PWA ini; arah ke depan **Super Admin jadi website penuh non-PWA** (konsol desktop) sudah dicatat di `/documentation` tapi belum dikerjakan. Tanpa auth admin dan tanpa audit trail — PRD aktif tak punya requirementnya (`UNRESOLVED-by-absence`).
 
 **Dua hal yang harus dijaga saat menambah role:**
 

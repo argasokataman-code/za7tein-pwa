@@ -256,3 +256,107 @@ export interface CourierTask {
   otp: string
   otpVerified?: boolean
 }
+
+/**
+ * Status tenant merchant. `pending` menunggu approval Super Admin; `blacklisted`
+ * lahir dari aksi blacklist COD dan wajib dibarengi `riskFlag` customer (F15).
+ */
+export type TenantStatus = 'pending' | 'approved' | 'suspended' | 'blacklisted'
+
+/** Deposit COD merchant (3,50 JOD, PRD §5C). Approve = verifikasi transfer dulu. */
+export type DepositStatus = 'unpaid' | 'held' | 'released'
+
+/** Antrean onboarding tenant di konsol Super Admin (feeder F16). */
+export interface AdminTenant {
+  id: string
+  name: string
+  owner: string
+  city: string
+  submittedAt: string
+  /** Jumlah foto tempat usaha yang diunggah merchant saat onboarding. */
+  photoCount: number
+  /** Konfigurasi pengantaran yang diajukan merchant. */
+  deliveryConfig: { maxKm: number; zones: string }
+  deposit: number
+  depositStatus: DepositStatus
+  tenantStatus: TenantStatus
+}
+
+export type DisputeStatus = 'open' | 'investigating' | 'resolved' | 'rejected'
+
+/** Empat resolusi F8. `no_action` = tolak, tanpa ubah saldo. */
+export type DisputeResolution =
+  | 'refund_full'
+  | 'refund_partial'
+  | 'released'
+  | 'no_action'
+
+/** Sengketa satu order. `disputed` membekukan hold sampai SA memutuskan (M6). */
+export interface Dispute {
+  id: string
+  orderCode: string
+  /** Pihak yang mengajukan; form submit ada di sisi customer dan merchant. */
+  filedBy: 'customer' | 'merchant'
+  /** Nama pihak pengaju. */
+  party: string
+  merchant: string
+  category: string
+  reason: string
+  photoCount: number
+  filedAt: string
+  /** Nilai order yang disengketakan, JOD. */
+  amount: number
+  status: DisputeStatus
+  resolution?: DisputeResolution
+  /** Persentase refund sebagian saat `refund_partial` (belum final, OQ-29). */
+  partialPercent?: number
+}
+
+export type LedgerEntryType =
+  | 'deposit_hold'
+  | 'cod_hold'
+  | 'settlement'
+  | 'fee'
+  | 'refund'
+  | 'protection_fund'
+
+/** Entry ledger — append-only, tanpa aksi edit atau hapus dari UI (M9). */
+export interface LedgerEntry {
+  id: string
+  at: string
+  type: LedgerEntryType
+  direction: 'debit' | 'credit'
+  /** JOD. */
+  amount: number
+  ref: string
+  memo: string
+}
+
+/** Kewajiban platform = saldo wallet yang belum di-payout (view agregat, M9). */
+export interface LiabilitySummary {
+  customerWallets: number
+  merchantWallets: number
+  courierTips: number
+  /** Saldo Xendit mock; dipakai membandingkan dengan total liability. */
+  xenditBalance: number
+}
+
+/** Merchant aktif di konsol SA, dengan aksi guard suspend/blacklist. */
+export interface AdminMerchant {
+  id: string
+  name: string
+  tenantStatus: TenantStatus
+  deposit: number
+  depositStatus: DepositStatus
+  /** Riwayat COD bermasalah — dasar aksi blacklist (F15). */
+  codIssues: number
+}
+
+/** Alert SLA breach yang naik ke SA (`batch.escalatedToAdmin: true`, feeder F21). */
+export interface AdminEscalation {
+  id: string
+  orderCode: string
+  merchant: string
+  detail: string
+  minutesLate: number
+}

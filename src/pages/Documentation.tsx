@@ -13,6 +13,7 @@ import { StylingSection } from './documentation/sections/StylingSection'
 import { FormsSection } from './documentation/sections/FormsSection'
 import { ComponentsSection } from './documentation/sections/ComponentsSection'
 import { CourierDesignSection } from './documentation/sections/CourierDesignSection'
+import { AdminDesignSection } from './documentation/sections/AdminDesignSection'
 import { BackendSection } from './documentation/sections/BackendSection'
 import { MerchantDesignSection } from './documentation/sections/MerchantDesignSection'
 import { LayoutExceptionsSection } from './documentation/sections/LayoutExceptionsSection'
@@ -43,6 +44,7 @@ const SECTIONS = [
   ElementsSection,
   MotionIconsSection,
   CourierDesignSection,
+  AdminDesignSection,
 ]
 
 const HERO_TAGS = [

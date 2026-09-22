@@ -1,4 +1,4 @@
-import { ChevronLeft, Crosshair, MapPin, MessageCircle, Phone, Star, Store, UserRound } from 'lucide-react'
+import { ChevronLeft, Crosshair, MapPin, MessageCircle, Phone, Scale, Star, Store, UserRound } from 'lucide-react'
 import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -46,6 +46,8 @@ const IconChat = () => <MessageCircle size={16} strokeWidth={1.75} aria-hidden="
 const IconBack = () => <ChevronLeft size={22} strokeWidth={1.75} aria-hidden="true" />
 
 const IconRecenter = () => <Crosshair size={20} strokeWidth={1.75} aria-hidden="true" />
+
+const IconScale = () => <Scale size={16} strokeWidth={1.75} aria-hidden="true" />
 
 /* ── Teks per tahap ──────────────────────────────────────────────────────── */
 
@@ -241,6 +243,35 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                       ? ` · ${zone.label} · ongkir ${rupiah(zone.fee)}`
                       : ' · di luar jangkauan'}
                   </p>
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {/* Sengketa hanya masuk akal setelah pesanan tiba — window 24 jam
+              dihitung dari order selesai (F8/M6). */}
+          {stage === 'tiba' ? (
+            <section className="track-section">
+              <h2 className="track-section-title">Sengketa</h2>
+              <div className="track-row">
+                <span className="track-icon">
+                  <Scale size={20} strokeWidth={1.75} aria-hidden="true" />
+                </span>
+                <div className="track-row-text">
+                  <p className="track-row-name">Pesanan tidak sesuai?</p>
+                  <p className="track-row-note">
+                    1× per order, window 24 jam setelah pesanan selesai.
+                  </p>
+                </div>
+                <div className="track-actions">
+                  <button
+                    className="track-action"
+                    type="button"
+                    onClick={() => navigate(`/dispute?order=${mockOrder.code}&by=customer`)}
+                  >
+                    <IconScale />
+                    Ajukan
+                  </button>
                 </div>
               </div>
             </section>

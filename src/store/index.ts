@@ -20,6 +20,7 @@ import favorites from './slices/favoritesSlice'
 import catalog from './slices/catalogSlice'
 import merchant from './slices/merchantSlice'
 import courier from './slices/courierSlice'
+import admin from './slices/adminSlice'
 import notifications from './slices/notificationsSlice'
 import ui from './slices/uiSlice'
 
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   catalog,
   merchant,
   courier,
+  admin,
   notifications,
   ui,
   accountSetup,

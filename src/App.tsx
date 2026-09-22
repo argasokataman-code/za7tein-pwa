@@ -11,6 +11,11 @@ import AddCardAddress from './pages/AddCardAddress'
 import AddNewCard from './pages/AddNewCard'
 import AddProfilePhoto from './pages/AddProfilePhoto'
 import AddressSelection from './pages/AddressSelection'
+import AdminDashboard from './pages/AdminDashboard'
+import AdminDisputes from './pages/AdminDisputes'
+import AdminLedger from './pages/AdminLedger'
+import AdminMerchants from './pages/AdminMerchants'
+import AdminOnboarding from './pages/AdminOnboarding'
 import ChangePassword from './pages/ChangePassword'
 import Checkout from './pages/Checkout'
 import CourierProfile from './pages/CourierProfile'
@@ -19,6 +24,7 @@ import CourierTasks from './pages/CourierTasks'
 import CourierTips from './pages/CourierTips'
 import CreatePassword from './pages/CreatePassword'
 import CreatePin from './pages/CreatePin'
+import DisputeSubmit from './pages/DisputeSubmit'
 import Documentation from './pages/Documentation'
 import Faq from './pages/Faq'
 import Favorites from './pages/Favorites'
@@ -59,7 +65,6 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
 import RatingDriver from './pages/RatingDriver'
 import Reviews from './pages/Reviews'
-import RolePlaceholder from './pages/RolePlaceholder'
 import Search from './pages/Search'
 import Security from './pages/Security'
 import SignIn from './pages/SignIn'
@@ -111,6 +116,7 @@ const customerRoutes: [string, ComponentType][] = [
   ['/order-arrived', OrderArrived],
   ['/order-delivered', OrderDelivered],
   ['/order-success', OrderSuccess],
+  ['/dispute', DisputeSubmit],
   ['/rating-driver', RatingDriver],
   ['/profile', Profile],
   ['/personal-data', PersonalData],
@@ -145,6 +151,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/reviews', MerchantReviews],
   ['/couriers', MerchantCouriers],
   ['/settings', MerchantSettings],
+  ['/dispute', DisputeSubmit],
 ]
 
 // Kurir — dipasang di /courier/*. Tanpa layar login: PRD aktif tidak punya
@@ -154,6 +161,17 @@ const courierRoutes: [string, ComponentType][] = [
   ['/task/:id', CourierTaskDetail],
   ['/tips', CourierTips],
   ['/profile', CourierProfile],
+]
+
+// Super Admin — dipasang di /admin/*. Shell-nya sama dengan role lain (430px).
+// Catatan ke depan: SA akan jadi website penuh non-PWA, bukan kolom ponsel;
+// keputusan itu belum dikerjakan (lihat /documentation).
+const adminRoutes: [string, ComponentType][] = [
+  ['/', AdminDashboard],
+  ['/onboarding', AdminOnboarding],
+  ['/disputes', AdminDisputes],
+  ['/merchants', AdminMerchants],
+  ['/ledger', AdminLedger],
 ]
 
 interface RoleRouterProps {
@@ -171,18 +189,6 @@ function RoleRouter({ basename, routes, home }: RoleRouterProps) {
             <Route key={path} path={path} element={<Component />} />
           ))}
           <Route path="*" element={<Navigate to={home} replace />} />
-        </Routes>
-      </MobileDeviceFrame>
-    </BrowserRouter>
-  )
-}
-
-function PlaceholderRouter({ role }: { role: 'admin' }) {
-  return (
-    <BrowserRouter basename={`/${role}`}>
-      <MobileDeviceFrame>
-        <Routes>
-          <Route path="*" element={<RolePlaceholder role={role} />} />
         </Routes>
       </MobileDeviceFrame>
     </BrowserRouter>
@@ -238,7 +244,7 @@ export default function App() {
       ) : role === '/courier' ? (
         <RoleRouter basename="/courier" routes={courierRoutes} home="/" />
       ) : role === '/admin' ? (
-        <PlaceholderRouter role="admin" />
+        <RoleRouter basename="/admin" routes={adminRoutes} home="/" />
       ) : (
         <WebsiteRouter />
       )}

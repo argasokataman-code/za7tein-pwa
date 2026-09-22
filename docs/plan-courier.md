@@ -56,7 +56,7 @@ adalah karyawan merchant (C-06) dan dikelola merchant. Ditandai
 - `src/components/layout/CourierBottomNav.tsx` — 3 tab (Tugas, Tips, Profil),
   turunan `BottomNav`.
 - `src/components/courier/CourierPageHeader.tsx` — header sticky per peran.
-- Route `courierRoutes` + `RolePlaceholder` dipersempit ke `admin` saja.
+- Route `courierRoutes`; `RolePlaceholder` saat itu dipersempit ke `admin` saja (dihapus ketika konsol Super Admin dibangun).
 
 ## K1 — Tugas (`/courier`)
 

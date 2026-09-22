@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Star } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
@@ -141,6 +142,16 @@ export default function MerchantOrders() {
                   >
                     Siap diantar
                   </button>
+                </div>
+              ) : null}
+              {order.status === 'selesai' ? (
+                <div className="merchant-actions">
+                  <Link
+                    className="merchant-btn-ghost"
+                    to={`/dispute?order=${order.code}&by=merchant`}
+                  >
+                    Ajukan Sengketa
+                  </Link>
                 </div>
               ) : null}
             </section>

@@ -34,9 +34,12 @@ div.sa-landing {
         360–430px, seluruh bagian disusun ulang secara vertikal.
       </p>
       <p className="doc-p">
-        Dashboard Super Admin mungkin membutuhkan pengecualian serupa kelak,
-        tetapi belum ada implementasinya. Keputusan desain harus dicatat
-        sebelum membuat pengecualian baru.
+        Dashboard Super Admin sengaja tetap memakai shell 430px seperti role lain
+        pada tahap PWA ini. Arah ke depan sudah dicatat: Super Admin akan menjadi
+        <strong> website penuh non-PWA</strong> (lebar desktop, bukan kolom ponsel)
+        — belum dikerjakan. Saat itu dibangun, pengecualian lebarnya wajib
+        didokumentasikan di sini seperti pengecualian landing di atas, bukan
+        bocor diam-diam.
       </p>
     </DocSection>
   )
