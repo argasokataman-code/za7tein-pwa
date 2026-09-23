@@ -161,7 +161,7 @@ interface CsAuditRule {
   action: string | ((payload: any) => string)
   target: (payload: any, state: RootState) => string
   /** Aksi yang dijalankan SA lewat slice CS (mis. putusan banding) ditandai `sa`. */
-  actor?: 'sa' | 'cs'
+  actor?: 'sa' | 'cs' | ((payload: any) => 'sa' | 'cs')
 }
 
 const CS_AUDIT_RULES: Record<string, CsAuditRule> = {
@@ -177,8 +177,17 @@ const CS_AUDIT_RULES: Record<string, CsAuditRule> = {
   },
   'admin/suspendMerchant': {
     kind: 'merchant',
-    action: 'Suspend merchant',
+    // Pelaku menentukan bunyi barisnya: "Suspend merchant" tanpa pelaku ambigu
+    // kalau CS dan SA punya tombol yang sama.
+    action: (p) => (p.by === 'sa' ? 'Suspend merchant dari konsol SA' : 'Suspend merchant dari panel CS'),
     target: (p, s) => s.admin.merchants.find((m) => m.id === p.id)?.name ?? p.id,
+    actor: (p) => (p.by === 'sa' ? 'sa' : 'cs'),
+  },
+  'admin/reinstateMerchant': {
+    kind: 'merchant',
+    action: 'Aktifkan kembali merchant',
+    target: (p, s) => s.admin.merchants.find((m) => m.id === p.id)?.name ?? p.id,
+    actor: 'sa',
   },
   'admin/blacklistCod': {
     kind: 'merchant',
@@ -226,7 +235,7 @@ const auditBridge: Middleware = (api) => (next) => (action) => {
     // tidak boleh semuanya tercatat atas nama satu orang. Id-nya ikut dicatat —
     // nama bisa berubah, dan baris audit harus bisa ditautkan ke akun pelakunya.
     const state = api.getState() as RootState
-    const isSa = rule.actor === 'sa'
+    const isSa = (typeof rule.actor === 'function' ? rule.actor(payload) : rule.actor) === 'sa'
     const actorId = isSa ? state.superAdmin.activeOperatorId : state.superAdmin.csActorId
     const operatorName = (id: string, fallback: string) =>
       state.superAdmin.operators.find((operator) => operator.id === id)?.name ?? fallback
@@ -234,7 +243,7 @@ const auditBridge: Middleware = (api) => (next) => (action) => {
       logAudit({
         actor: operatorName(actorId, isSa ? SA_CURRENT_ACTOR.name : CS_CURRENT_ACTOR.name),
         actorId,
-        role: rule.actor ?? 'cs',
+        role: isSa ? 'sa' : 'cs',
         kind: rule.kind,
         action: typeof rule.action === 'function' ? rule.action(payload) : rule.action,
         target: rule.target(payload, api.getState() as RootState),

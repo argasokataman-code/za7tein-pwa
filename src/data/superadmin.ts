@@ -59,6 +59,7 @@ export const saPermissions: SaPermission[] = [
   { id: 'switch.toggle', label: 'Ubah kill switch', group: 'platform' },
   { id: 'ledger.read', label: 'Pantau ledger (read-only)', group: 'platform' },
   { id: 'user.read', label: 'Lihat registri pengguna', group: 'platform' },
+  { id: 'tenant.status', label: 'Suspend & aktifkan kembali tenant', group: 'platform' },
   { id: 'appeal.decide', label: 'Putuskan banding sengketa', group: 'platform' },
   { id: 'tenant.approve', label: 'Setujui tenant & deposit', group: 'operasi' },
   { id: 'tenant.reject', label: 'Tolak / suspend tenant', group: 'operasi' },

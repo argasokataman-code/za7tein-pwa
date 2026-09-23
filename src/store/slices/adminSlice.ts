@@ -67,11 +67,31 @@ const adminSlice = createSlice({
       const tenant = state.tenants.find((t) => t.id === action.payload.id)
       if (tenant) tenant.tenantStatus = 'suspended'
     },
-    suspendMerchant(state, action: PayloadAction<{ id: string }>) {
+    /**
+     * Suspend merchant. Dipanggil dua konsol: panel CS (`/admin/merchants`) dan
+     * dossier SA (`/superadmin/users/merchant/:id`). `by` hanya untuk atribusi —
+     * jembatan audit memakainya supaya aksi SA tidak tercatat atas nama CS, dan
+     * alasan yang ditulis ikut menyebut pelakunya.
+     */
+    suspendMerchant(state, action: PayloadAction<{ id: string; by?: 'sa' | 'cs' }>) {
       const merchant = state.merchants.find((m) => m.id === action.payload.id)
       if (!merchant) return
       merchant.tenantStatus = 'suspended'
-      merchant.statusReason = 'Di-suspend CS dari panel tenant'
+      merchant.statusReason =
+        action.payload.by === 'sa'
+          ? 'Di-suspend SA dari dossier merchant'
+          : 'Di-suspend CS dari panel tenant'
+    },
+    /**
+     * Aktifkan kembali merchant yang di-suspend. Hanya dari `suspended`:
+     * `blacklisted` lahir dari pasangan dua sisi (merchant + riskFlag customer),
+     * jadi mencabutnya harus menyentuh keduanya dan tetap kerja panel CS.
+     */
+    reinstateMerchant(state, action: PayloadAction<{ id: string }>) {
+      const merchant = state.merchants.find((m) => m.id === action.payload.id)
+      if (!merchant || merchant.tenantStatus !== 'suspended') return
+      merchant.tenantStatus = 'approved'
+      merchant.statusReason = null
     },
     /**
      * Blacklist COD menandai DUA sisi sekaligus: merchant `blacklisted` dan
@@ -175,6 +195,7 @@ export const {
   approveDeposit,
   rejectOnboarding,
   suspendMerchant,
+  reinstateMerchant,
   blacklistCod,
   startInvestigation,
   resolveDispute,

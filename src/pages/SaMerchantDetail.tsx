@@ -1,7 +1,10 @@
-import { ArrowLeft, Bike, BookOpen, Clock, Scale, TriangleAlert } from 'lucide-react'
+import { ArrowLeft, Ban, Bike, BookOpen, CheckCircle2, Clock, Scale, TriangleAlert } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { Link, useParams } from 'react-router-dom'
 
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
+import { BottomSheet } from '../components/ui/BottomSheet'
 import {
   adminEscalations,
   depositStatusLabel,
@@ -18,10 +21,12 @@ import {
   escalationsForMerchant,
   ledgerForParty,
 } from '../data/registry'
-import { useAppSelector } from '../hooks/useAppStore'
+import { permissionLabel, roleForOperator, roleHasPermission } from '../data/superadmin'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { reinstateMerchant, suspendMerchant } from '../store/slices/adminSlice'
 
 /**
- * Dossier satu merchant, read-only.
+ * Dossier satu merchant, plus kewenangan SA atas tenantnya.
  *
  * Registri pengguna menjawab "siapa saja merchant kita dan berapa angkanya".
  * Layar ini menjawab pertanyaan berikutnya: "merchant ini sebenarnya
@@ -42,20 +47,35 @@ import { useAppSelector } from '../hooks/useAppStore'
  * - **SLA pakai feed, bukan tabel.** Ia peristiwa berurutan, bukan data
  *   bertabular; tabel keempat yang bentuknya sama hanya jadi pengulangan.
  *
- * **Tanpa aksi ubah status.** Suspend dan blacklist COD tetap kerja panel CS
- * (`/admin/merchants`), keputusan PO 2026-09-23: SA mengawasi, CS mengoperasi.
- * Kalau SA nanti perlu memutuskan sendiri, itu perubahan keputusan, bukan
- * tambahan tombol.
+ * **Kewenangan SA atas tenant** (keputusan PO 2026-09-23, lanjutan). Suspend dan
+ * aktifkan kembali dijalankan dari sini lewat izin `tenant.status`, dan
+ * tercatat di audit trail atas nama operator yang sedang aktif — bukan atas
+ * nama CS, karena tombolnya sama dengan tombol CS tapi pelakunya berbeda.
+ * Yang tetap milik CS: approval onboarding dan blacklist COD. Blacklist
+ * menandai dua sisi sekaligus (merchant + riskFlag customer), jadi mencabutnya
+ * harus menyentuh keduanya dan tetap dikerjakan dari panel CS.
  *
  * Isinya turunan dari modul lain (`src/data/registry.ts`), bukan angka baru.
  * Daftar kurir sengaja hanya identitas: status live kurir papan pantau merchant
  * (`/merchant/couriers`), bukan pengawasan platform.
  */
 export default function SaMerchantDetail() {
+  const dispatch = useAppDispatch()
   const { id = '' } = useParams()
   const merchants = useAppSelector((s) => s.admin.merchants)
   const disputes = useAppSelector((s) => s.admin.disputes)
   const ledger = useAppSelector((s) => s.admin.ledger)
+  // Izin ditegakkan di tombolnya, bukan hanya di rutenya: `user.read` cukup
+  // untuk membuka dossier, tapi tidak cukup untuk mengubah status tenant.
+  const operators = useAppSelector((s) => s.superAdmin.operators)
+  const roles = useAppSelector((s) => s.superAdmin.roles)
+  const activeOperatorId = useAppSelector((s) => s.superAdmin.activeOperatorId)
+  const activeRole = roleForOperator(
+    roles,
+    operators.find((operator) => operator.id === activeOperatorId) ?? operators[0],
+  )
+  const canChangeStatus = roleHasPermission(activeRole, 'tenant.status')
+  const [pendingAction, setPendingAction] = useState<'suspend' | 'reinstate' | null>(null)
 
   const merchant = merchants.find((item) => item.id === id)
 
@@ -140,6 +160,43 @@ export default function SaMerchantDetail() {
               <span>{merchant.approvedAt ?? 'belum'}</span>
             </li>
           </ul>
+          {/* Aksi duduk di kartu yang menjelaskan keadaannya, sama seperti kill
+              switch. Tombolnya mengikuti status, jadi tidak pernah ada tombol
+              yang tidak ada gunanya. */}
+          {!canChangeStatus ? (
+            <p className="sa-note">
+              Role aktif tidak punya izin <strong>{permissionLabel('tenant.status')}</strong>.
+              Tambahkan di Role &amp; operator, atau ganti operator di sidebar.
+            </p>
+          ) : merchant.tenantStatus === 'approved' ? (
+            <div className="sa-actions">
+              <button
+                type="button"
+                className="sa-btn sa-btn--danger"
+                onClick={() => setPendingAction('suspend')}
+              >
+                <Ban size={16} strokeWidth={1.75} aria-hidden="true" />
+                Suspend tenant
+              </button>
+            </div>
+          ) : merchant.tenantStatus === 'suspended' ? (
+            <div className="sa-actions">
+              <button
+                type="button"
+                className="sa-btn sa-btn--primary"
+                onClick={() => setPendingAction('reinstate')}
+              >
+                <CheckCircle2 size={16} strokeWidth={1.75} aria-hidden="true" />
+                Aktifkan kembali
+              </button>
+            </div>
+          ) : (
+            <p className="sa-note">
+              {merchant.tenantStatus === 'blacklisted'
+                ? 'Blacklist COD menandai dua sisi sekaligus, merchant dan riskFlag customer. Mencabutnya harus menyentuh keduanya, jadi tetap kerja panel CS.'
+                : 'Tenant ini belum di-approve. Approval onboarding tetap kerja panel CS.'}
+            </p>
+          )}
         </article>
 
         <article className="sa-card sa-card--glow">
@@ -351,7 +408,8 @@ export default function SaMerchantDetail() {
       </section>
 
       <p className="sa-note">
-        Halaman ini hanya baca. Suspend, blacklist COD, dan review tenant tetap kerja panel CS di{' '}
+        Setiap perubahan status dari konsol ini tercatat di audit trail atas nama operator yang
+        sedang aktif. Blacklist COD dan approval onboarding tenant tetap kerja panel CS di{' '}
         <code className="sa-code">/admin/merchants</code>.
       </p>
       <div className="sa-actions">
@@ -362,6 +420,49 @@ export default function SaMerchantDetail() {
           Banding sengketa
         </Link>
       </div>
+
+      {/* Konfirmasi memakai `BottomSheet` yang sudah ada: ia sudah menangani
+          Escape, klik overlay, dan atribut dialog. Judulnya menyebut akibatnya,
+          bukan "Yakin?" — yang diubah bukan preferensi, merchant berhenti
+          menerima order. */}
+      <BottomSheet
+        open={pendingAction !== null}
+        title={
+          pendingAction === 'suspend'
+            ? `Suspend ${merchant.name}?`
+            : `Aktifkan kembali ${merchant.name}?`
+        }
+        onClose={() => setPendingAction(null)}
+      >
+        <p className="sa-card-sub">
+          {pendingAction === 'suspend'
+            ? 'Merchant berhenti menerima order baru, dan order yang sudah berjalan tetap diselesaikan. Statusnya jadi Suspended dengan alasan yang tampil di kartu identitas.'
+            : 'Tenant kembali aktif dan bisa menerima order lagi. Alasan suspend sebelumnya dihapus, riwayatnya tetap ada di audit trail.'}
+        </p>
+        <div className="sa-actions">
+          <button
+            type="button"
+            className={
+              pendingAction === 'suspend' ? 'sa-btn sa-btn--danger' : 'sa-btn sa-btn--primary'
+            }
+            onClick={() => {
+              if (pendingAction === 'suspend') {
+                dispatch(suspendMerchant({ id: merchant.id, by: 'sa' }))
+                toast.success(`${merchant.name} di-suspend, tercatat di audit trail`)
+              } else {
+                dispatch(reinstateMerchant({ id: merchant.id }))
+                toast.success(`${merchant.name} aktif kembali, tercatat di audit trail`)
+              }
+              setPendingAction(null)
+            }}
+          >
+            {pendingAction === 'suspend' ? 'Ya, suspend' : 'Ya, aktifkan'}
+          </button>
+          <button type="button" className="sa-btn" onClick={() => setPendingAction(null)}>
+            Batal
+          </button>
+        </div>
+      </BottomSheet>
     </SuperAdminShell>
   )
 }

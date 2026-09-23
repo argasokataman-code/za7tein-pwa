@@ -172,16 +172,30 @@ pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
           status pengguna tetap kerja panel CS; SA mengawasi.
         </li>
         <li>
-          <strong>Dossier per merchant, tetap read-only.</strong> Tiap baris merchant punya tautan
-          ke <code className="doc-inline">/superadmin/users/merchant/:id</code>: identitas usaha,
-          keadaan tenant, kurir yang dipekerjakan, sengketa, uang di ledger, dan alert SLA.
-          Komposisinya memakai kosakata konsol yang sudah ada, bukan kartu seragam: hero dua kolom
-          (identitas + deposit yang ditahan platform), strip empat tile{' '}
+          <strong>Dossier per merchant, dengan kewenangan status tenant.</strong> Tiap baris merchant
+          punya tautan ke <code className="doc-inline">/superadmin/users/merchant/:id</code>:
+          identitas usaha, keadaan tenant, kurir yang dipekerjakan, sengketa, uang di ledger, dan
+          alert SLA. Komposisinya memakai kosakata konsol yang sudah ada, bukan kartu seragam: hero
+          dua kolom (identitas + deposit yang ditahan platform), strip empat tile{' '}
           <code className="doc-inline">.sa-stats</code> yang sekaligus jadi indeks ke section-nya,
           lalu section yang bentuknya mengikuti isinya (tabel untuk daftar,{' '}
-          <code className="doc-inline">.sa-feed</code> untuk alert SLA yang berurutan). Tetap{' '}
-          <strong>tanpa aksi</strong>: suspend, blacklist COD, dan review tenant kerja panel CS (
-          <code className="doc-inline">/admin/merchants</code>).
+          <code className="doc-inline">.sa-feed</code> untuk alert SLA yang berurutan).
+        </li>
+        <li>
+          <strong>Suspend &amp; aktifkan kembali tenant dikerjakan dari dossier</strong> (keputusan PO
+          2026-09-23, merevisi butir read-only sebelumnya), lewat izin{' '}
+          <code className="doc-inline">tenant.status</code> yang dicek di tombolnya —{' '}
+          <code className="doc-inline">user.read</code> cukup untuk membuka dossier, tidak cukup
+          untuk mengubah status. Konfirmasi memakai{' '}
+          <code className="doc-inline">BottomSheet</code> yang sama dengan kill switch dan menyebut
+          akibatnya, dan baris audit mencatat operator SA yang aktif, bukan CS: tombolnya sama,
+          pelakunya berbeda, jadi jembatan audit membaca{' '}
+          <code className="doc-inline">by</code> dari payload. Yang tetap milik CS: approval
+          onboarding dan blacklist COD (menandai dua sisi, merchant +{' '}
+          <code className="doc-inline">riskFlag</code> customer) —{' '}
+          <code className="doc-inline">reinstateMerchant</code> menolak status{' '}
+          <code className="doc-inline">blacklisted</code>, jadi batas itu dijaga kode, bukan hanya
+          copy.
         </li>
         <li>
           <strong>Satu tipe per layar, lewat chip.</strong> Ketiga daftar tidak pernah dibaca
