@@ -21,6 +21,7 @@ import {
   switchStatusLabel,
   taxReports,
 } from '../data/superadmin'
+import { jod } from '../data/currency'
 import { useAppSelector } from '../hooks/useAppStore'
 
 /**
@@ -53,8 +54,8 @@ export default function SaDashboard() {
           <p className="sa-card-label">Saldo keuntungan platform</p>
           <p className="sa-card-value">{moneyFromJod(balance)}</p>
           <p className="sa-card-sub">
-            Fee {profit.feeGrossJod} JOD terkumpul − biaya {profit.costJod} JOD − PPh final{' '}
-            {profit.pphFinalJod} JOD − penarikan sebelumnya.
+            Fee {jod(profit.feeGrossJod)} terkumpul − biaya {jod(profit.costJod)} − PPh final{' '}
+            {jod(profit.pphFinalJod)} − penarikan sebelumnya.
           </p>
           <Link className="sa-card-action" to="/profit">
             Kelola & tarik keuntungan
@@ -83,8 +84,8 @@ export default function SaDashboard() {
           </ul>
           <p className="sa-card-sub">
             Ini bukan milik SA. Selisih terhadap saldo Xendit{' '}
-            {gap < 0 ? `kurang ${moneyFromJod(Math.abs(gap))}` : `sisa ${moneyFromJod(gap)}`}
-            top-up dan payout jalan sendiri oleh sistem.
+            {gap < 0 ? `kurang ${moneyFromJod(Math.abs(gap))}` : `sisa ${moneyFromJod(gap)}`}. Top-up
+            dan payout jalan sendiri oleh sistem.
           </p>
         </article>
       </section>

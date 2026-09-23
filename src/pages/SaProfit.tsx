@@ -6,6 +6,7 @@ import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { aggregateLiability, moneyFromJod, totalLiability } from '../data/admin'
 import { profitBalance, roleForOperator, roleHasPermission, withdrawnTotal } from '../data/superadmin'
+import { jod } from '../data/currency'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { withdrawProfit } from '../store/slices/superAdminSlice'
 
@@ -45,7 +46,7 @@ export default function SaProfit() {
     : Number.isNaN(parsed) || parsed <= 0
       ? 'Nominal harus lebih besar dari 0.'
       : parsed > balance
-        ? `Nominal melebihi saldo yang bisa ditarik (${balance.toFixed(2)} JOD).`
+        ? `Nominal melebihi saldo yang bisa ditarik (${jod(balance)}).`
         : null
 
   return (
@@ -55,9 +56,9 @@ export default function SaProfit() {
           <p className="sa-card-label">Bisa ditarik sekarang</p>
           <p className="sa-card-value">{moneyFromJod(balance)}</p>
           <p className="sa-card-sub">
-            Fee terkumpul {profit.feeGrossJod.toFixed(2)} JOD − biaya operasional{' '}
-            {profit.costJod.toFixed(2)} JOD − PPh final {profit.pphFinalJod.toFixed(2)} JOD −
-            penarikan {withdrawnTotal(profit).toFixed(2)} JOD.
+            Fee terkumpul {jod(profit.feeGrossJod)} − biaya operasional{' '}
+            {jod(profit.costJod)} − PPh final {jod(profit.pphFinalJod)} −
+            penarikan {jod(withdrawnTotal(profit))}.
           </p>
         </article>
 
@@ -82,7 +83,7 @@ export default function SaProfit() {
             event.preventDefault()
             if (invalidReason) return
             dispatch(withdrawProfit({ amountJod: Number(parsed.toFixed(2)), method }))
-            toast.success(`Penarikan ${parsed.toFixed(2)} JOD dicatat sebagai processing`)
+            toast.success(`Penarikan ${jod(parsed)} dicatat sebagai processing`)
             setAmount('')
           }}
         >
@@ -123,7 +124,7 @@ export default function SaProfit() {
         <p className="sa-note">
           {!canWithdraw
             ? `Role ${activeRole?.name} boleh melihat saldo, tapi tidak boleh menariknya (izin profit.withdraw).`
-            : (invalidReason ?? `Sisa setelah penarikan ini: ${(balance - parsed).toFixed(2)} JOD.`)}{' '}
+            : (invalidReason ?? `Sisa setelah penarikan ini: ${jod((balance - parsed))}.`)}{' '}
           Penarikan masuk sebagai <em>processing</em>; jadwal settlement final masih UNRESOLVED.
         </p>
       </section>
@@ -147,7 +148,7 @@ export default function SaProfit() {
                 {profit.withdrawals.map((item) => (
                   <tr key={item.id}>
                     <td className="sa-nowrap">{item.at}</td>
-                    <td>{item.amountJod.toFixed(2)} JOD</td>
+                    <td>{jod(item.amountJod)}</td>
                     <td>{item.method}</td>
                     <td>
                       <span className={`sa-chip${item.status === 'settled' ? ' is-ok' : ''}`}>

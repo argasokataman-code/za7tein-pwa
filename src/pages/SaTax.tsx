@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { money } from '../data/admin'
+import { jod } from '../data/currency'
 import { PPH_FINAL_PERCENT, gstFoodFor, taxReports } from '../data/superadmin'
 
 /**
@@ -81,9 +82,9 @@ export default function SaTax() {
                   <td>{row.orders}</td>
                   <td>{money(row.salesIdr)}</td>
                   <td>{money(gstFoodFor(row.salesIdr))}</td>
-                  <td>{row.feeGrossJod.toFixed(2)} JOD</td>
-                  <td>{row.gstOnFeeJod.toFixed(2)} JOD</td>
-                  <td>{row.pphFinalJod.toFixed(2)} JOD</td>
+                  <td>{jod(row.feeGrossJod)}</td>
+                  <td>{jod(row.gstOnFeeJod)}</td>
+                  <td>{jod(row.pphFinalJod)}</td>
                 </tr>
               ))}
               <tr>
@@ -93,9 +94,9 @@ export default function SaTax() {
                 <td>{totals.orders}</td>
                 <td>{money(totals.salesIdr)}</td>
                 <td>{money(gstFoodFor(totals.salesIdr))}</td>
-                <td>{totals.feeGrossJod.toFixed(2)} JOD</td>
-                <td>{totals.gstOnFeeJod.toFixed(2)} JOD</td>
-                <td>{totals.pphFinalJod.toFixed(2)} JOD</td>
+                <td>{jod(totals.feeGrossJod)}</td>
+                <td>{jod(totals.gstOnFeeJod)}</td>
+                <td>{jod(totals.pphFinalJod)}</td>
               </tr>
             </tbody>
           </table>

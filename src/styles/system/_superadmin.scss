@@ -246,8 +246,11 @@ body > div:has(.sa-root) {
 }
 
 .sa-card--brand {
-  background: var(--sa7tein-orange);
-  border-color: var(--sa7tein-orange);
+  // Latar kartu fokus memakai oranye gelap, bukan `--sa7tein-orange`: teks putih
+  // di atas oranye merek hanya 3,4:1 dan gagal WCAG AA untuk label 12px dan sub
+  // 14px. Di oranye gelap rasionya 6,4:1, masih terbaca sebagai oranye merek.
+  background: var(--orange-deep);
+  border-color: var(--orange-deep);
   color: var(--on-brand);
 
   .sa-card-label,

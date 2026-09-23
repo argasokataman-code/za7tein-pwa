@@ -4967,6 +4967,22 @@
     {
       "id": "TASK-3053",
       "shard": 4
+    },
+    {
+      "id": "TASK-3071",
+      "shard": 4
+    },
+    {
+      "id": "TASK-3072",
+      "shard": 4
+    },
+    {
+      "id": "TASK-3073",
+      "shard": 4
+    },
+    {
+      "id": "TASK-3074",
+      "shard": 4
     }
   ],
   "docs": [
@@ -5847,6 +5863,18 @@
     {
       "id": "TASK-3053",
       "shard": 4
+    },
+    {
+      "id": "TASK-3071",
+      "shard": 4
+    },
+    {
+      "id": "TASK-3072",
+      "shard": 4
+    },
+    {
+      "id": "TASK-3074",
+      "shard": 4
     }
   ],
   "scaffold": [
@@ -5945,6 +5973,10 @@
     {
       "id": "TASK-426",
       "shard": 1
+    },
+    {
+      "id": "TASK-3090",
+      "shard": 4
     }
   ],
   "audit": [
@@ -7729,6 +7761,10 @@
     {
       "id": "TASK-3070",
       "shard": 4
+    },
+    {
+      "id": "TASK-3090",
+      "shard": 4
     }
   ],
   "sa-1": [
@@ -7854,6 +7890,18 @@
   "unresolved": [
     {
       "id": "TASK-3070",
+      "shard": 4
+    }
+  ],
+  "contrast": [
+    {
+      "id": "TASK-3090",
+      "shard": 4
+    }
+  ],
+  "formatting": [
+    {
+      "id": "TASK-3090",
       "shard": 4
     }
   ]

@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { ledgerTypeLabel } from '../data/admin'
+import { jod } from '../data/currency'
 import { useAppSelector } from '../hooks/useAppStore'
 import type { LedgerEntryType } from '../types'
 
@@ -43,7 +44,7 @@ export default function SaLedger() {
             <p className="sa-card-sub">
               {rows.length} dari {ledger.length} entry · netto{' '}
               {netJod >= 0 ? '+' : '−'}
-              {Math.abs(netJod).toFixed(2)} JOD · tanpa aksi, hanya baca
+              {jod(Math.abs(netJod))} · tanpa aksi, hanya baca
             </p>
           </div>
           <label className="sa-search">
@@ -105,7 +106,7 @@ export default function SaLedger() {
                         {entry.direction === 'credit' ? 'Masuk' : 'Keluar'}
                       </span>
                     </td>
-                    <td className="sa-nowrap">{entry.amount.toFixed(2)} JOD</td>
+                    <td className="sa-nowrap">{jod(entry.amount)}</td>
                     <td className="sa-nowrap">{entry.ref}</td>
                     <td>{entry.memo}</td>
                   </tr>

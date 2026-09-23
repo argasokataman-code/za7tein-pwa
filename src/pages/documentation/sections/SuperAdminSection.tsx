@@ -112,6 +112,21 @@ pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
         </li>
       </ul>
 
+      <h3 className="doc-h3">Kontras kartu fokus: oranye gelap, bukan oranye merek</h3>
+      <p className="doc-p">
+        Kartu saldo keuntungan memakai latar <code className="doc-inline">--orange-deep</code>,
+        bukan <code className="doc-inline">--sa7tein-orange</code>. Alasannya terukur: teks putih di
+        atas oranye merek hanya <strong>3,4:1</strong>, gagal WCAG AA untuk label 12px dan sub 14px
+        (butuh 4,5:1). Di oranye gelap rasionya <strong>6,5:1</strong>. Aksen oranye merek tetap dipakai untuk nav
+        aktif, tombol primer, dan garis; hanya permukaan berteks kecil yang digelapkan.
+      </p>
+      <p className="doc-p">
+        Catatan: pola putih di atas <code className="doc-inline">--sa7tein-orange</code> masih ada di
+        tombol lama di luar konsol SA (mis. <code className="doc-inline">.proceed-btn</code> di
+        checkout, rasio 3,4:1 untuk teks 16px). Itu utang repo-wide, bukan bagian dari konsol ini,
+        dan belum diubah.
+      </p>
+
       <h3 className="doc-h3">Responsif &amp; tabel lebar</h3>
       <p className="doc-p">
         Halaman tidak pernah menggulir mendatar: overflow horizontal terukur 0 pada 1440px maupun
