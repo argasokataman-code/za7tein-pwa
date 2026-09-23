@@ -211,6 +211,8 @@ node scripts/browser-gate.mjs --route /home --pwa --offline
 
 `--pwa` memakai input sentuh (`Input.dispatchTouchEvent`), memaksa safe-area, dan menuntut service worker **punya cache** — bukan sekadar terdaftar. SW yang terdaftar + `controlling` tapi cache-nya kosong adalah kegagalan nyata yang pernah terjadi (workbox `add-to-cache-list-conflicting-entries` ditelan diam-diam). Detail, angka, dan jebakannya: `docs/design/pwa-testing.md`.
 
+**`--pwa` hanya untuk rute yang bisa diinstal**, yaitu empat peran yang punya manifest sendiri: `customer`, `merchant`, `courier`, `admin`. `/`, `/documentation`, dan `/superadmin/*` bukan app terinstal — dua yang pertama ada di `navigateFallbackDenylist`, yang terakhir memang diputuskan sebagai website penuh non-PWA. `--role all --pwa` menyapu keempat peran app saja dan memberi tahu role yang dilewati; menyebut role non-app bersama `--pwa` keluar dengan error, bukan diam-diam mengukur halaman yang tidak pernah diinstal.
+
 ---
 
 ## 9. Status implementasi legacy & arah migrasi

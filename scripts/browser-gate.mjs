@@ -76,12 +76,18 @@ function tokensFromSource() {
 }
 
 const ROUTE_TABLES = {
-  customer: { base: '/customer', table: 'customerRoutes' },
-  merchant: { base: '/merchant', table: 'merchantRoutes' },
-  courier: { base: '/courier', table: 'courierRoutes' },
-  admin: { base: '/admin', table: 'adminRoutes' },
-  superadmin: { base: '/superadmin', table: 'superAdminRoutes' },
-  web: { base: '', table: 'webRoutes' },
+  // `pwa: true` = rute yang benar-benar bisa diinstal: punya manifest sendiri
+  // (public/manifest-<peran>.json) dan jadi sasaran mode PWA. `/` dan
+  // `/documentation` ada di `navigateFallbackDenylist` vite.config.ts, dan
+  // /superadmin memang diputuskan sebagai website penuh non-PWA (2026-09-23) —
+  // mengukurnya dengan safe-area paksa + syarat service worker hanya
+  // menghasilkan angka palsu dan mengaburkan batas produk.
+  customer: { base: '/customer', table: 'customerRoutes', pwa: true },
+  merchant: { base: '/merchant', table: 'merchantRoutes', pwa: true },
+  courier: { base: '/courier', table: 'courierRoutes', pwa: true },
+  admin: { base: '/admin', table: 'adminRoutes', pwa: true },
+  superadmin: { base: '/superadmin', table: 'superAdminRoutes', pwa: false },
+  web: { base: '', table: 'webRoutes', pwa: false },
 }
 
 function routesFromSource(role) {
@@ -562,7 +568,28 @@ async function main() {
   }
 
   const tokens = tokensFromSource()
-  const roles = OPTS.role === 'all' ? Object.keys(ROUTE_TABLES) : [OPTS.role]
+  // Mode PWA cuma untuk rute yang bisa diinstal. `--role all --pwa` menyapu
+  // keempat peran app saja; memaksa PWA ke landing/dokumentasi/superadmin berarti
+  // mengukur halaman yang tidak pernah diinstal (dan /superadmin memang dashboard
+  // lebar non-PWA). Menyebut role non-app secara eksplisit = error, bukan diam.
+  let roles = OPTS.role === 'all' ? Object.keys(ROUTE_TABLES) : [OPTS.role]
+  if (OPTS.pwa) {
+    const nonPwa = roles.filter((r) => !ROUTE_TABLES[r].pwa)
+    if (nonPwa.length === roles.length) {
+      process.stderr.write(
+        `${C.red}--pwa tidak berlaku untuk role "${roles[0]}".${C.off} Rute ini bukan app terinstal: ` +
+          `tidak punya manifest, dan / serta /documentation ada di navigateFallbackDenylist. ` +
+          `Role yang bisa: ${Object.keys(ROUTE_TABLES).filter((r) => ROUTE_TABLES[r].pwa).join(', ')}.\n`,
+      )
+      process.exit(2)
+    }
+    if (nonPwa.length) {
+      process.stderr.write(
+        `${C.dim}  mode PWA dilewati untuk role non-app: ${nonPwa.join(', ')}${C.off}\n`,
+      )
+      roles = roles.filter((r) => ROUTE_TABLES[r].pwa)
+    }
+  }
   let urls = OPTS.routes.length
     ? OPTS.routes.map((r) => r.startsWith('/') && !r.startsWith('/customer') && !r.startsWith('/merchant') && !r.startsWith('/courier') && !r.startsWith('/admin') && OPTS.role !== 'web' ? ROUTE_TABLES[OPTS.role].base + r : r)
     : roles.flatMap((r) => routesFromSource(r))
