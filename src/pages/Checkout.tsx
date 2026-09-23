@@ -8,7 +8,6 @@
 import { Minus, Plus, ChevronLeft, ShoppingBag } from 'lucide-react'
 
 import { useNavigate, Link } from 'react-router-dom'
-import toast from 'react-hot-toast'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
@@ -22,6 +21,7 @@ import {
   isDeliverable,
   mockMerchant,
   money,
+  moneyPlain,
   needsTopUpGate,
   platformGstIdr,
   zoneFor,
@@ -129,7 +129,14 @@ export default function Checkout() {
                           {item.modifiers ? (
                             <span className="checkout-item__modifier">{item.modifiers}</span>
                           ) : null}
-                          <span className="checkout-item__unit">{money(item.price)}</span>
+                          {/* Harga satuan hanya dicetak kalau kuantitasnya > 1.
+                              Di kuantitas 1 angkanya identik dengan total baris
+                              di kanan, jadi mencetaknya dua kali cuma bising. */}
+                          {item.quantity > 1 ? (
+                            <span className="checkout-item__unit">
+                              {moneyPlain(item.price)} × {item.quantity}
+                            </span>
+                          ) : null}
                         </div>
 
                         <div className="checkout-item__side">
@@ -154,7 +161,7 @@ export default function Checkout() {
                                 )
                               }
                             >
-                              <Minus size={16} strokeWidth={2} aria-hidden="true" />
+                              <Minus size={16} strokeWidth={1.75} aria-hidden="true" />
                             </button>
                             <span className="qty-stepper__value">{item.quantity}</span>
                             <button
@@ -169,7 +176,7 @@ export default function Checkout() {
                                 )
                               }
                             >
-                              <Plus size={16} strokeWidth={2} aria-hidden="true" />
+                              <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
                             </button>
                           </div>
                         </div>
@@ -230,7 +237,7 @@ export default function Checkout() {
                   </div>
                   <div className="summary-item">
                     <span>Ongkir {deliverable && zone ? `(Zona ${zone.label})` : ''}</span>
-                    <span>{deliverable ? money(fee) : '—'}</span>
+                    <span>{deliverable ? money(fee) : 'Tidak berlaku'}</span>
                   </div>
                   <div className="summary-item">
                     <span>Biaya Layanan</span>
@@ -260,10 +267,6 @@ export default function Checkout() {
                     Dua baris pajak di atas info-only dan belum masuk total. Tarif serta
                     kewajiban setornya belum final (menunggu konsultan pajak, OQ-17/18).
                   </p>
-                  <div className="summary-item">
-                    <span>Diskon</span>
-                    <span>{money(0)}</span>
-                  </div>
                   <div className="summary-divider" />
                   <div className="summary-total">
                     <span>Total Bayar</span>
@@ -278,25 +281,15 @@ export default function Checkout() {
               {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
 
               <div className="checkout-actions">
+                {/* Alasan tombol nonaktif hidup di labelnya, dan jalan keluarnya
+                    ada di WalletTopUpGate / pesan maintenance. Cabang toast di
+                    dalam onClick dulu memeriksa kondisi yang sama persis dengan
+                    `disabled`, jadi tidak pernah bisa tercapai. */}
                 <button
                   type="button"
                   className="proceed-btn"
                   disabled={!deliverable || gated || Boolean(maintenanceCopy)}
-                  onClick={() => {
-                    if (maintenanceCopy) {
-                      toast.error('Platform sedang maintenance')
-                      return
-                    }
-                    if (!deliverable) {
-                      toast.error('Alamat di luar area antar')
-                      return
-                    }
-                    if (gated) {
-                      toast.error('Saldo di bawah 3,5 JOD — top-up dulu')
-                      return
-                    }
-                    navigate('/payment-selection')
-                  }}
+                  onClick={() => navigate('/payment-selection')}
                 >
                   {maintenanceCopy
                     ? 'Platform maintenance'

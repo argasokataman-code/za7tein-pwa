@@ -25,6 +25,46 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Checkout: baris item</td>
+              <td>
+                Harga satuan dan total baris dicetak tanpa label; di kuantitas 1 angkanya
+                sama persis, jadi tampil dua kali
+              </td>
+              <td>
+                Harga satuan hanya muncul saat kuantitas &gt; 1 dan ditulis sebagai
+                <code className="doc-inline">Rp28.000 × 2</code>
+              </td>
+            </tr>
+            <tr>
+              <td>Checkout: target sentuh &amp; fokus</td>
+              <td>
+                &quot;Ubah&quot; 29×14 dan &quot;Top-up sekarang&quot; 103×20 (jauh di bawah 44px);
+                ring fokus biru bawaan peramban
+              </td>
+              <td>
+                Keduanya 44px tanpa menggeser tepi teks; ring fokus merek 2px di tombol kembali,
+                stepper, tautan Ubah, dan tautan gate
+              </td>
+            </tr>
+            <tr>
+              <td>Checkout: kode mati &amp; bilah aksi</td>
+              <td>
+                Tiga toast penolakan di handler CTA tak pernah tercapai karena tombol disabled pada
+                kondisi yang sama; ruang bawah 100px kalah dari bilah ~110px saat safe-area aktif
+              </td>
+              <td>
+                Cabang mati dibuang, alasan hidup di label tombol; jarak dari bilah dihitung dari
+                tinggi bilah + safe-area, dan baris Diskon Rp0 yang tak pernah berubah dihapus
+              </td>
+            </tr>
+            <tr>
+              <td>Checkout: gutter banner</td>
+              <td>Gate saldo memakai padding 16px sementara halaman lain 20px</td>
+              <td>
+                Seragam <code className="doc-inline">--space-5</code> (20px)
+              </td>
+            </tr>
+            <tr>
               <td>Service worker (offline)</td>
               <td>
                 <code className="doc-inline">includeAssets</code> tumpang tindih dengan{' '}

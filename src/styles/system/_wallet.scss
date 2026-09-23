@@ -7,7 +7,7 @@
   gap: var(--space-3);
   align-items: flex-start;
   margin-top: var(--space-4);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-md);
   border: 1px solid var(--warning);
   background: var(--warning-soft);
@@ -25,13 +25,23 @@
   font-size: var(--text-xs);
 }
 
+/* Target sentuh 44px — terukur sebelumnya 103×20. */
 .wallet-gate__cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
   margin-top: var(--space-2);
+  margin-inline: calc(-1 * var(--space-2));
+  padding-inline: var(--space-2);
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--warning-ink);
   text-decoration: underline;
+}
+
+.wallet-gate__cta:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
 }
 
 /* Versi ringkas di halaman saldo: satu paragraf, tanpa ikon. */

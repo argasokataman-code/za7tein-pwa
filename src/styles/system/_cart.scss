@@ -67,6 +67,14 @@
   height: auto;
   min-height: var(--app-vh);
   overflow: visible;
+  /* Latar dari token, bukan hex mentah warisan app/part-09.scss (nilainya sama). */
+  background-color: var(--bg-warm);
+  /* Bilah aksi `fixed` setinggi ~110px saat safe-area aktif. Ruangnya ditaruh di
+     screen, bukan di .checkout-content: elemen terakhir yang mengalir bisa isi
+     pesanan, gate saldo, atau pesan maintenance — semuanya butuh jarak yang sama. */
+  padding-bottom: calc(
+    var(--touch-min) + var(--space-8) + var(--space-5) + env(safe-area-inset-bottom)
+  );
 }
 
 .checkout-header {
@@ -76,9 +84,10 @@
 
 .checkout-content {
   overflow: visible;
-  /* padding bawah sengaja tidak disentuh: aturan aslinya 100px, dan itu pas
-     untuk .checkout-actions yang position: fixed setinggi 77px. Sempat kutimpa
-     jadi 32px dan ringkasan terakhir tertutup tombol. */
+  /* 100px warisan dikalibrasi untuk bilah 77px tanpa safe-area; di jendela
+     app-mode bilahnya ~110px sehingga baris terakhir bisa tertutup. Jaraknya
+     sekarang milik .checkout-screen, jadi tidak dobel saat gate saldo tampil. */
+  padding-bottom: 0;
 }
 
 /* Aslinya 80px jarak antar bagian. Dengan empat bagian itu jadi 320px ruang
