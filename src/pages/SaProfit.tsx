@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast'
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { aggregateLiability, moneyFromJod, totalLiability } from '../data/admin'
-import { profitBalance, withdrawnTotal } from '../data/superadmin'
+import { profitBalance, roleForOperator, roleHasPermission, withdrawnTotal } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { withdrawProfit } from '../store/slices/superAdminSlice'
 
@@ -24,6 +24,16 @@ export default function SaProfit() {
   const profit = useAppSelector((s) => s.superAdmin.profit)
   const storedLiability = useAppSelector((s) => s.admin.liability)
   const walletIdr = useAppSelector((s) => s.wallet.balance.balance)
+  // Izin ditegakkan di tombolnya, bukan hanya di nav: role yang boleh melihat
+  // saldo belum tentu boleh menariknya.
+  const operators = useAppSelector((s) => s.superAdmin.operators)
+  const roles = useAppSelector((s) => s.superAdmin.roles)
+  const activeOperatorId = useAppSelector((s) => s.superAdmin.activeOperatorId)
+  const activeRole = roleForOperator(
+    roles,
+    operators.find((operator) => operator.id === activeOperatorId) ?? operators[0],
+  )
+  const canWithdraw = roleHasPermission(activeRole, 'profit.withdraw')
   const [amount, setAmount] = useState('')
   const [method, setMethod] = useState(METHODS[0])
 
@@ -101,15 +111,19 @@ export default function SaProfit() {
           <button
             type="submit"
             className="sa-btn sa-btn--primary"
-            disabled={Boolean(invalidReason)}
-            title={invalidReason ?? undefined}
+            disabled={Boolean(invalidReason) || !canWithdraw}
+            title={
+              !canWithdraw ? `Role ${activeRole?.name} tidak punya izin tarik saldo` : invalidReason ?? undefined
+            }
           >
             <ArrowDownToLine size={16} strokeWidth={1.75} aria-hidden="true" />
-            Tarik keuntungan
+            {canWithdraw ? 'Tarik keuntungan' : 'Tidak punya izin tarik'}
           </button>
         </form>
         <p className="sa-note">
-          {invalidReason ?? `Sisa setelah penarikan ini: ${(balance - parsed).toFixed(2)} JOD.`}{' '}
+          {!canWithdraw
+            ? `Role ${activeRole?.name} boleh melihat saldo, tapi tidak boleh menariknya (izin profit.withdraw).`
+            : (invalidReason ?? `Sisa setelah penarikan ini: ${(balance - parsed).toFixed(2)} JOD.`)}{' '}
           Penarikan masuk sebagai <em>processing</em>; jadwal settlement final masih UNRESOLVED.
         </p>
       </section>

@@ -14,7 +14,16 @@ import type { ReactNode } from 'react'
 import { useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 
-import { SA_CURRENT_ACTOR, saOperators, saRoles } from '../../data/superadmin'
+import {
+  SA_CURRENT_ACTOR,
+  SA_ROUTE_PERMISSIONS,
+  permissionLabel,
+  roleForOperator,
+  saActors,
+  saPermissions,
+} from '../../data/superadmin'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
+import { setActiveOperator } from '../../store/slices/superAdminSlice'
 
 /**
  * Kerangka konsol Super Admin.
@@ -26,6 +35,11 @@ import { SA_CURRENT_ACTOR, saOperators, saRoles } from '../../data/superadmin'
  * - Token yang sama dengan PWA (`--bg-warm`, `--surface`, aksen oranye), supaya
  *   konsol terasa satu produk dengan aplikasi, bukan aplikasi lain.
  * - Aksen oranye dipakai hemat: hanya item nav aktif dan aksi primer.
+ *
+ * Izin ditegakkan di sini, bukan hanya ditampilkan di halaman Role: menu yang
+ * tidak boleh dibuka dinonaktifkan, dan rute yang diketik langsung ditolak
+ * sebelum halamannya dirender. Peta rute → izin tinggal di `data/superadmin.ts`
+ * supaya nav dan gate tidak pernah berbeda pendapat.
  */
 
 const NAV = [
@@ -45,16 +59,26 @@ interface SuperAdminShellProps {
 }
 
 export function SuperAdminShell({ children }: SuperAdminShellProps) {
+  const dispatch = useAppDispatch()
   const { pathname } = useLocation()
+  const operators = useAppSelector((s) => s.superAdmin.operators)
+  const roles = useAppSelector((s) => s.superAdmin.roles)
+  const activeOperatorId = useAppSelector((s) => s.superAdmin.activeOperatorId)
+
+  const actors = saActors(operators, roles)
+  const activeOperator = operators.find((operator) => operator.id === activeOperatorId)
+  const activeRole = roleForOperator(roles, activeOperator ?? operators[0]) ?? null
+  const actor = activeOperator?.name ?? SA_CURRENT_ACTOR.name
+  const actorRole = activeRole?.name ?? 'Pemilik platform'
+
   const current = NAV.find((item) => item.to === pathname) ?? NAV[0]
-  const owner = saOperators.find((o) => o.roleId === 'owner')
-  const actor = owner?.name ?? SA_CURRENT_ACTOR.name
-  const actorRole = saRoles.find((r) => r.id === owner?.roleId)?.name ?? 'Pemilik platform'
+  const required = SA_ROUTE_PERMISSIONS[current.to] ?? ''
+  const allowed = !required || Boolean(activeRole?.permissionIds.includes(required))
 
   // Judul tab harus sama dengan judul halaman yang tampil (senior-fe UX rule).
   useEffect(() => {
-    document.title = `Sa7tein Super Admin, ${current.label}`
-  }, [current.label])
+    document.title = `Sa7tein Super Admin · ${allowed ? current.label : 'Akses ditolak'}`
+  }, [current.label, allowed])
 
   return (
     <div className="sa-root">
@@ -74,23 +98,54 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
         </div>
 
         <nav className="sa-nav" aria-label="Menu konsol">
-          {NAV.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) => `sa-nav-item${isActive ? ' is-active' : ''}`}
-            >
-              <item.icon size={18} strokeWidth={1.75} aria-hidden="true" />
-              {item.label}
-            </NavLink>
-          ))}
+          {NAV.map((item) => {
+            const need = SA_ROUTE_PERMISSIONS[item.to] ?? ''
+            const canOpen = !need || Boolean(activeRole?.permissionIds.includes(need))
+            if (!canOpen) {
+              return (
+                <span
+                  key={item.to}
+                  className="sa-nav-item is-locked"
+                  aria-disabled="true"
+                  title={`Butuh izin: ${permissionLabel(need)}`}
+                >
+                  <item.icon size={18} strokeWidth={1.75} aria-hidden="true" />
+                  {item.label}
+                  <span className="sa-sr">Terkunci, butuh izin {permissionLabel(need)}</span>
+                </span>
+              )
+            }
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) => `sa-nav-item${isActive ? ' is-active' : ''}`}
+              >
+                <item.icon size={18} strokeWidth={1.75} aria-hidden="true" />
+                {item.label}
+              </NavLink>
+            )
+          })}
         </nav>
 
         <div className="sa-side-foot">
-          <p className="sa-side-label">Operator</p>
-          <p className="sa-side-actor">{actor}</p>
-          <p className="sa-side-role">{actorRole}</p>
+          <label className="sa-actor-picker">
+            <span className="sa-side-label">Bertindak sebagai</span>
+            <select
+              value={activeOperatorId}
+              onChange={(event) => dispatch(setActiveOperator({ id: event.target.value }))}
+            >
+              {actors.map((operator) => (
+                <option key={operator.id} value={operator.id}>
+                  {operator.name} · {roleForOperator(roles, operator)?.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p className="sa-side-role">
+            {actorRole} · {activeRole?.permissionIds.length ?? 0} izin
+          </p>
           <Link className="sa-side-link" to="/admin">
             Buka panel CS
           </Link>
@@ -110,7 +165,33 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
           <p className="sa-top-badge">Data demo · bukan transaksi sungguhan</p>
         </header>
         <main className="sa-main" id="sa-main">
-          {children}
+          {allowed ? (
+            children
+          ) : (
+            <section className="sa-card">
+              <p className="sa-card-label">Akses ditolak</p>
+              <p className="sa-card-title">Role {actorRole} tidak punya izin ini</p>
+              <p className="sa-card-sub">
+                Halaman <strong>{current.label}</strong> butuh izin{' '}
+                <strong>{permissionLabel(required)}</strong>. Ganti operator di sidebar, atau minta
+                pemilik platform menambah izin itu di halaman Role &amp; operator.
+              </p>
+              <ul className="sa-kv">
+                <li>
+                  <span>Operator</span>
+                  <span>{actor}</span>
+                </li>
+                <li>
+                  <span>Role</span>
+                  <span>{actorRole}</span>
+                </li>
+                <li>
+                  <span>Izin yang dimiliki</span>
+                  <span>{activeRole?.permissionIds.length ?? 0} dari {saPermissions.length}</span>
+                </li>
+              </ul>
+            </section>
+          )}
         </main>
       </div>
     </div>

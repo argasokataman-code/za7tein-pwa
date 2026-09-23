@@ -5,7 +5,12 @@ import { toast } from 'react-hot-toast'
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { operatorStatusLabel, roleForOperator, saPermissions } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { addOperator, setOperatorStatus, togglePermission } from '../store/slices/superAdminSlice'
+import {
+  addOperator,
+  setCsActor,
+  setOperatorStatus,
+  togglePermission,
+} from '../store/slices/superAdminSlice'
 
 const GROUPS = [
   { id: 'platform', label: 'Platform (khusus SA)' },
@@ -24,6 +29,7 @@ export default function SaRoles() {
   const dispatch = useAppDispatch()
   const roles = useAppSelector((s) => s.superAdmin.roles)
   const operators = useAppSelector((s) => s.superAdmin.operators)
+  const csActorId = useAppSelector((s) => s.superAdmin.csActorId)
   const [name, setName] = useState('')
   const [contact, setContact] = useState('')
   const [roleId, setRoleId] = useState('cs_agent')
@@ -147,6 +153,26 @@ export default function SaRoles() {
               })}
             </tbody>
           </table>
+        </div>
+
+        <div className="sa-form">
+          <p className="sa-perm-group-title">Operator CS yang sedang bertugas</p>
+          <p className="sa-card-sub">
+            Aksi panel CS tercatat di audit trail atas nama operator ini. Di produksi ini datang
+            dari sesi CS; repo ini tanpa auth, jadi ditetapkan dari sini.
+          </p>
+          <label className="sa-field sa-field--inline">
+            <span>Bertugas sebagai</span>
+            <select value={csActorId} onChange={(e) => dispatch(setCsActor({ id: e.target.value }))}>
+              {operators
+                .filter((operator) => roleForOperator(roles, operator)?.scope === 'cs')
+                .map((operator) => (
+                  <option key={operator.id} value={operator.id}>
+                    {operator.name} · {roleForOperator(roles, operator)?.name}
+                  </option>
+                ))}
+            </select>
+          </label>
         </div>
 
         <form

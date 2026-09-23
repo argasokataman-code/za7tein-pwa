@@ -211,9 +211,17 @@ const auditBridge: Middleware = (api) => (next) => (action) => {
   const rule = CS_AUDIT_RULES[(action as { type?: string }).type ?? '']
   if (rule) {
     const payload = (action as { payload?: any }).payload ?? {}
+    // Nama aktor dibaca dari operator yang sedang bertugas, bukan konstanta:
+    // aksi CS tidak boleh semuanya tercatat atas nama satu orang.
+    const state = api.getState() as RootState
+    const operatorName = (id: string, fallback: string) =>
+      state.superAdmin.operators.find((operator) => operator.id === id)?.name ?? fallback
     api.dispatch(
       logAudit({
-        actor: rule.actor === 'sa' ? SA_CURRENT_ACTOR.name : CS_CURRENT_ACTOR.name,
+        actor:
+          rule.actor === 'sa'
+            ? operatorName(state.superAdmin.activeOperatorId, SA_CURRENT_ACTOR.name)
+            : operatorName(state.superAdmin.csActorId, CS_CURRENT_ACTOR.name),
         role: rule.actor ?? 'cs',
         kind: rule.kind,
         action: typeof rule.action === 'function' ? rule.action(payload) : rule.action,

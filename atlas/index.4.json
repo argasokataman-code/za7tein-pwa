@@ -2758,6 +2758,143 @@
         }
       ],
       "loc": "src/pages/PaymentSelection.tsx:1"
+    },
+    {
+      "id": "TASK-3011",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:07:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/store/index.ts'); s = p.read_",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-3012",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:07:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/SuperAdminShell.tsx (+200) — write via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/SuperAdminShell.tsx"
+    },
+    {
+      "id": "TASK-3013",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:08:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\n\n# ── SaProfit: tombol tarik butuh izin profit.with",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-3014",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:08:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && cat >> src/styles/system/_superadmin-2.scss <<'EOF'\n\n/* ── Izin: menu terkunci & pe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-3015",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:11:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx (+37/-1) — edit via tool: tsx: <h3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-3030",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:11:39",
+      "tags": [
+        "superadmin",
+        "permission",
+        "role",
+        "audit",
+        "identity"
+      ],
+      "summary": "Izin ditegakkan (nav + gate rute + tombol sensitif) dan audit memakai operator yang bertugas, bukan nama tetap",
+      "conn": [
+        {
+          "id": "TASK-3010",
+          "type": "led_to",
+          "raw": "TASK-3010:led_to"
+        }
+      ],
+      "loc": "src/data/superadmin.ts:1"
+    },
+    {
+      "id": "TASK-3031",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:11:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && sed -i '' 's/v2\\.26\\.0/v2.27.0/' src/pages/Documentation.tsx && npm run lint 2>&1 |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

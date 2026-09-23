@@ -142,6 +142,44 @@ export const operatorStatusLabel: Record<SaOperator['status'], string> = {
   suspended: 'Nonaktif',
 }
 
+/**
+ * Izin yang dibutuhkan tiap rute konsol. Dipakai dua tempat: nav menyembunyikan
+ * (menonaktifkan) menu yang tidak boleh dibuka, dan shell menolak merender
+ * halaman kalau URL-nya diketik langsung. Satu peta, supaya nav dan gate tidak
+ * pernah berbeda pendapat.
+ *
+ * Ringkasan tidak butuh izin: semua operator SA boleh melihat keadaan platform.
+ */
+export const SA_ROUTE_PERMISSIONS: Record<string, string> = {
+  '/': '',
+  '/zones': 'zone.edit',
+  '/roles': 'role.manage',
+  '/audit': 'audit.read',
+  '/tax': 'tax.read',
+  '/profit': 'profit.read',
+  '/ledger': 'ledger.read',
+  '/appeals': 'appeal.decide',
+  '/switches': 'switch.toggle',
+}
+
+/** Izin yang dimiliki sebuah role. */
+export function roleHasPermission(role: SaRole | null, permissionId: string): boolean {
+  if (!permissionId) return true
+  return role?.permissionIds.includes(permissionId) ?? false
+}
+
+/** Label izin siap tampil, untuk menjelaskan kenapa sebuah menu dikunci. */
+export function permissionLabel(permissionId: string): string {
+  return saPermissions.find((permission) => permission.id === permissionId)?.label ?? permissionId
+}
+
+/** Operator yang boleh dipakai sebagai aktor konsol SA (scope `sa` saja). */
+export function saActors(operators: SaOperator[], roles: SaRole[]): SaOperator[] {
+  return operators.filter(
+    (operator) => operator.status === 'active' && roleForOperator(roles, operator)?.scope === 'sa',
+  )
+}
+
 /** Role yang menentukan izin sebuah operator; `null` kalau role tak dikenal. */
 export function roleForOperator(roles: SaRole[], operator: SaOperator): SaRole | null {
   return roles.find((r) => r.id === operator.roleId) ?? null

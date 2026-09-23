@@ -28,6 +28,14 @@ interface SuperAdminState {
   audit: AuditEntry[]
   profit: ProfitState
   switches: PlatformSwitches
+  /** Operator SA yang sedang membuka konsol; menentukan izin dan nama di audit. */
+  activeOperatorId: string
+  /**
+   * Operator CS yang sedang bertugas. Di produksi ini datang dari sesi CS; repo
+   * ini tanpa auth, jadi ditetapkan dari konsol SA supaya aksi CS tidak semua
+   * tercatat atas nama satu orang.
+   */
+  csActorId: string
 }
 
 const initialState: SuperAdminState = {
@@ -37,6 +45,16 @@ const initialState: SuperAdminState = {
   audit: saAuditLog,
   profit: mockProfit,
   switches: mockSwitches,
+  activeOperatorId: saOperators[0]?.id ?? '',
+  csActorId: saOperators.find((operator) => operator.roleId.startsWith('cs'))?.id ?? '',
+}
+
+/** Nama operator SA yang sedang aktif, untuk dicatat di audit trail. */
+function activeActorName(state: SuperAdminState): string {
+  return (
+    state.operators.find((operator) => operator.id === state.activeOperatorId)?.name ??
+    SA_CURRENT_ACTOR.name
+  )
 }
 
 /**
@@ -62,23 +80,38 @@ function push(
   })
 }
 
+/** Aksi konsol SA selalu tercatat atas nama operator yang sedang aktif. */
+function pushAsActive(state: SuperAdminState, kind: AuditKind, action: string, target: string) {
+  push(state, { name: activeActorName(state), role: 'sa' }, kind, action, target)
+}
+
 const superAdminSlice = createSlice({
   name: 'superAdmin',
   initialState,
   reducers: {
+    /** Ganti operator yang sedang memakai konsol (demo pengganti sesi auth). */
+    setActiveOperator(state, action: PayloadAction<{ id: string }>) {
+      if (!state.operators.some((operator) => operator.id === action.payload.id)) return
+      state.activeOperatorId = action.payload.id
+    },
+    /** Tentukan operator CS yang sedang bertugas, dasar atribusi audit CS. */
+    setCsActor(state, action: PayloadAction<{ id: string }>) {
+      if (!state.operators.some((operator) => operator.id === action.payload.id)) return
+      state.csActorId = action.payload.id
+    },
     /** Simpan poligon zona hasil geser titik (master zona milik SA). */
     saveZone(state, action: PayloadAction<{ id: ZoneGeometry['id']; vertices: ZoneGeometry['vertices'] }>) {
       const zone = state.zones.find((z) => z.id === action.payload.id)
       if (!zone) return
       zone.vertices = action.payload.vertices
-      push(state, SA_CURRENT_ACTOR, 'zone', 'Simpan poligon zona', `${zone.label}, ${zone.note}`)
+      pushAsActive(state, 'zone', 'Simpan poligon zona', `${zone.label}, ${zone.note}`)
     },
     resetZone(state, action: PayloadAction<{ id: ZoneGeometry['id'] }>) {
       const zone = state.zones.find((z) => z.id === action.payload.id)
       const seed = masterZoneGeometry.find((z) => z.id === action.payload.id)
       if (!zone || !seed) return
       zone.vertices = seed.vertices
-      push(state, SA_CURRENT_ACTOR, 'zone', 'Kembalikan poligon ke bentuk awal', zone.label)
+      pushAsActive(state, 'zone', 'Kembalikan poligon ke bentuk awal', zone.label)
     },
     /**
      * Cabut/beri satu izin pada sebuah role. Role pemilik platform (`locked`)
@@ -93,10 +126,7 @@ const superAdminSlice = createSlice({
       role.permissionIds = has
         ? role.permissionIds.filter((id) => id !== permissionId)
         : [...role.permissionIds, permissionId]
-      push(
-        state,
-        SA_CURRENT_ACTOR,
-        'role',
+      pushAsActive(state, 'role',
         has ? 'Cabut izin dari role' : 'Beri izin ke role',
         `${role.name}, ${permissionId}`,
       )
@@ -113,16 +143,13 @@ const superAdminSlice = createSlice({
         createdAt: 'Baru saja',
         status: 'invited',
       })
-      push(state, SA_CURRENT_ACTOR, 'operator', 'Buat akun operator', `${action.payload.name}, ${role.name}`)
+      pushAsActive(state, 'operator', 'Buat akun operator', `${action.payload.name}, ${role.name}`)
     },
     setOperatorStatus(state, action: PayloadAction<{ id: string; status: SaOperator['status'] }>) {
       const operator = state.operators.find((o) => o.id === action.payload.id)
       if (!operator) return
       operator.status = action.payload.status
-      push(
-        state,
-        SA_CURRENT_ACTOR,
-        'operator',
+      pushAsActive(state, 'operator',
         action.payload.status === 'active' ? 'Aktifkan operator' : 'Nonaktifkan operator',
         operator.name,
       )
@@ -142,16 +169,13 @@ const superAdminSlice = createSlice({
         method,
         status: 'processing',
       })
-      push(state, SA_CURRENT_ACTOR, 'profit', 'Tarik saldo keuntungan platform', `${amountJod} JOD`)
+      pushAsActive(state, 'profit', 'Tarik saldo keuntungan platform', `${amountJod} JOD`)
     },
     toggleSwitch(state, action: PayloadAction<{ key: keyof PlatformSwitches }>) {
       const { key } = action.payload
       state.switches[key] = !state.switches[key]
       const label = switchMeta.find((meta) => meta.key === key)?.label ?? key
-      push(
-        state,
-        SA_CURRENT_ACTOR,
-        'switch',
+      pushAsActive(state, 'switch',
         state.switches[key] ? 'Nyalakan jalur' : 'Hentikan jalur',
         label,
       )
@@ -183,6 +207,8 @@ const superAdminSlice = createSlice({
 })
 
 export const {
+  setActiveOperator,
+  setCsActor,
   saveZone,
   resetZone,
   togglePermission,

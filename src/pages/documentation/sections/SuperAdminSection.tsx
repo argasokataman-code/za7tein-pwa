@@ -172,6 +172,42 @@ zoneView() / projectPoint()         // lat/lng → kanvas; kanvas hanya cara men
         "tidak tersedia". Order yang sudah berjalan tidak dibatalkan oleh kill switch.
       </p>
 
+      <h3 className="doc-h3">Izin benar-benar menahan, bukan pajangan</h3>
+      <p className="doc-p">
+        Matriks izin di halaman Role dipakai tiga tempat sekaligus, dari satu peta yang sama
+        (<code className="doc-inline">SA_ROUTE_PERMISSIONS</code> di{' '}
+        <code className="doc-inline">src/data/superadmin.ts</code>):
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Nav</strong>: menu yang izinnya tidak dimiliki dinonaktifkan dan menyebut izin
+          yang kurang, bukan disembunyikan tanpa penjelasan.
+        </li>
+        <li>
+          <strong>Gate rute</strong>: URL yang diketik langsung ditolak sebelum halamannya
+          dirender. Halaman terlarang tidak pernah ter-mount, jadi tidak ada kontrol yang bisa
+          diklik dari jalan samping.
+        </li>
+        <li>
+          <strong>Tombol sensitif</strong>: izin yang lebih halus dari rutenya dicek di tombolnya.
+          Contohnya <code className="doc-inline">profit.read</code> membuka halaman saldo, tapi{' '}
+          <code className="doc-inline">profit.withdraw</code> yang menentukan tombol tarik aktif.
+          Role Staf SA bisa melihat saldo dan tidak bisa menariknya.
+        </li>
+      </ul>
+      <p className="doc-p">
+        Ada pemilih <strong>Bertindak sebagai</strong> di sidebar untuk mencoba ini: ganti ke Staf
+        SA, dan Role &amp; operator, Banding sengketa, serta Kill switch langsung terkunci.
+      </p>
+
+      <h3 className="doc-h3">Siapa yang tercatat di audit trail</h3>
+      <p className="doc-p">
+        Nama di audit trail dibaca dari operator yang sedang bertugas, bukan konstanta. Aksi konsol
+        SA memakai operator aktif di sidebar; aksi panel CS memakai operator CS yang ditetapkan di
+        halaman Role. Tanpa auth, penetapan itu memang pengganti sesi, dan itu ditulis di layarnya,
+        bukan disembunyikan.
+      </p>
+
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
         Kanvas zona digambar sebagai <strong>SVG inline</strong>, bukan peta ber-tile: tile peta

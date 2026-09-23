@@ -480,3 +480,32 @@
   font-size: var(--text-xs);
   color: var(--text-secondary);
 }
+
+/* ── Izin: menu terkunci & pemilih operator ────────────────────────────── */
+
+.sa-nav-item.is-locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+
+  &:hover {
+    background: transparent;
+    color: var(--text-secondary);
+  }
+}
+
+.sa-actor-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+
+  select {
+    @include field-shape;
+    min-height: 36px;
+    font-size: var(--text-xs);
+  }
+}
+
+.sa-field--inline {
+  max-width: 320px;
+  margin-top: var(--space-2);
+}
