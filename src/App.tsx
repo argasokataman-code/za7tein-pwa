@@ -65,7 +65,10 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
 import RatingDriver from './pages/RatingDriver'
 import Reviews from './pages/Reviews'
+import SaAudit from './pages/SaAudit'
 import SaDashboard from './pages/SaDashboard'
+import SaRoles from './pages/SaRoles'
+import SaZones from './pages/SaZones'
 import Search from './pages/Search'
 import Security from './pages/Security'
 import SignIn from './pages/SignIn'
@@ -185,6 +188,9 @@ const adminRoutes: [string, ComponentType][] = [
 // MobileDeviceFrame: dipakai dari desktop sebagai dashboard bertabel.
 const superAdminRoutes: [string, ComponentType][] = [
   ['/', SaDashboard],
+  ['/zones', SaZones],
+  ['/roles', SaRoles],
+  ['/audit', SaAudit],
 ]
 
 function SuperAdminRouter() {

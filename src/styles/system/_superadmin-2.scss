@@ -1,0 +1,329 @@
+@use "./mixins" as *;
+
+/* ── Konsol Super Admin — lanjutan (zona, role, audit) ───────────────────────
+   Dipisah dari `_superadmin.scss` supaya tiap partial tetap di bawah batas 600
+   baris. Urutan @use load-bearing: partial ini diimpor setelah `superadmin`. */
+
+.sa-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.sa-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.sa-card-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.sa-note {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.sa-code {
+  font-family: monospace;
+  font-size: var(--text-xs);
+  padding: 1px var(--space-1);
+  border-radius: var(--radius-xs);
+  background: var(--orange-soft);
+  color: var(--orange-soft-ink);
+}
+
+.sa-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sa-empty {
+  padding: var(--space-5);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ── Tombol & aksi ─────────────────────────────────────────────────────── */
+
+.sa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.sa-btn {
+  @include s-btn-shape;
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+
+  &:hover:not(:disabled) {
+    border-color: var(--text-secondary);
+  }
+}
+
+.sa-btn--primary {
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+
+  &:hover:not(:disabled) {
+    background: var(--orange-deep);
+    border-color: var(--orange-deep);
+  }
+}
+
+.sa-btn--small {
+  min-height: 32px;
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs);
+}
+
+/* ── Kanvas zona ───────────────────────────────────────────────────────── */
+
+.sa-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 460px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  touch-action: none;
+}
+
+.sa-canvas-zone {
+  stroke-width: 0.6;
+  fill-opacity: 0.28;
+
+  &.sa-canvas-zone--a {
+    fill: var(--sa7tein-orange);
+    stroke: var(--orange-deep);
+  }
+
+  &.sa-canvas-zone--b {
+    fill: var(--success);
+    stroke: var(--success-ink);
+  }
+}
+
+.sa-canvas-vertex {
+  fill: var(--surface);
+  stroke: var(--text-primary);
+  stroke-width: 0.7;
+  cursor: grab;
+
+  &.is-selected {
+    fill: var(--sa7tein-orange);
+    stroke: var(--orange-deep);
+    cursor: grabbing;
+  }
+}
+
+.sa-vertex-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* ── Field ─────────────────────────────────────────────────────────────── */
+
+.sa-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+
+  input,
+  select {
+    @include field-shape;
+  }
+}
+
+/* ── Role & permission ─────────────────────────────────────────────────── */
+
+.sa-role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.sa-role {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  background: var(--bg-warm);
+}
+
+.sa-perm-group {
+  margin-top: var(--space-3);
+}
+
+.sa-perm-group-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.sa-perm-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sa-perm {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 32px;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+
+  input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--sa7tein-orange);
+    flex-shrink: 0;
+  }
+}
+
+/* ── Tabel ─────────────────────────────────────────────────────────────── */
+
+.sa-table-wrap {
+  margin-top: var(--space-3);
+  overflow-x: auto;
+}
+
+.sa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+
+  th {
+    text-align: left;
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--border-strong);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  tbody tr:hover td {
+    background: var(--bg-warm);
+  }
+}
+
+.sa-nowrap {
+  white-space: nowrap;
+}
+
+.sa-actor-role {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Form operator ─────────────────────────────────────────────────────── */
+
+.sa-form {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.sa-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-3);
+  align-items: end;
+}
+
+/* ── Filter & pencarian ────────────────────────────────────────────────── */
+
+.sa-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.sa-filter {
+  @include s-btn-shape;
+  min-height: 32px;
+  padding-inline: var(--space-3);
+  font-size: var(--text-xs);
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text-secondary);
+
+  &.is-active {
+    background: var(--orange-soft);
+    border-color: var(--sa7tein-orange);
+    color: var(--orange-soft-ink);
+  }
+}
+
+.sa-search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-3);
+  min-height: var(--touch-min);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-secondary);
+  flex-shrink: 0;
+
+  &:focus-within {
+    border-color: var(--sa7tein-orange);
+    box-shadow: 0 0 0 3px var(--orange-soft);
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    min-width: 180px;
+    min-height: 40px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

@@ -66,13 +66,34 @@ pphFinalFor(fee)        // 0,5% — PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
         CS yang lolos dari pengawasan.
       </p>
 
+      <h3 className="doc-h3">Yang bisa diklik di konsol</h3>
+      <ul className="doc-list">
+        <li>
+          <strong>Master zona</strong> — geser titik di kanvas, atau pilih satu titik lalu isi
+          kolom X/Y (jalur yang bisa dipakai keyboard). <em>Simpan poligon</em> mengubah state dan
+          menambah satu baris audit; <em>Bentuk awal</em> mengembalikannya. Merchant tetap hanya
+          mengaktifkan zona, tidak pernah mengubah poligonnya.
+        </li>
+        <li>
+          <strong>Role &amp; operator</strong> — checkbox izin per role. Role pemilik platform
+          dikunci (semua checkbox nonaktif) supaya konsol tidak bisa mengunci dirinya sendiri.
+          Form <em>Buat operator</em> membuat akun CS berstatus Diundang.
+        </li>
+        <li>
+          <strong>Audit trail</strong> — filter per jenis aksi dan pencarian aktor/objek. Tabelnya
+          read-only dan append-only: tidak ada tombol edit atau hapus, dan itu disengaja.
+        </li>
+      </ul>
+
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
         Master zona digambar di <strong>kanvas SVG skematik</strong> (koordinat 0..100), bukan peta
         ber-tile: tile peta selalu URL eksternal dan repo ini melarang aset gambar eksternal
-        (AGENTS.md §6). Geometri asli milik backend — layar SA hanya menggeser titik lalu
-        menyimpan. Kill switch dan penarikan keuntungan mengubah state demo; tidak ada uang
-        bergerak.
+        (AGENTS.md §6). Kanvas itu satu-satunya SVG inline baru di repo ini, dan sengaja dicatat
+        sebagai pengecualian di <code className="doc-inline">docs/design/legacy-debt.json</code> —
+        ia grafik data yang diedit SA, bukan ikon; ikon fungsional tetap lucide. Geometri asli
+        milik backend — layar SA hanya menggeser titik lalu menyimpan. Kill switch dan penarikan
+        keuntungan mengubah state demo; tidak ada uang bergerak.
       </p>
       <p className="doc-p">
         Yang tetap <code className="doc-inline">UNRESOLVED</code> dan karena itu tidak dikarang di

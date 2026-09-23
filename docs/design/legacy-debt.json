@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "note": "Approved decorative or brand SVG exceptions only; functional icons must use lucide-react. Raw colors are a shrinking legacy ceiling, not permission for new values.",
+  "note": "Approved decorative or brand SVG exceptions only; functional icons must use lucide-react. Raw colors are a shrinking legacy ceiling, not permission for new values. SaZones.tsx holds the zone polygon canvas: it is a data graphic the SA edits, not an icon, and it stays on a schematic 0..100 grid so no external map tile is needed.",
   "inlineSvg": {
     "src/components/customer/CustomerHomeHero.tsx": [
       "0eff9e9470c8736a14f4409d9959817ecd2eb88bf3c42a179fbad3ac0f5310fe"
@@ -14,6 +14,9 @@
     ],
     "src/pages/SignUp.tsx": [
       "d50fb15c51d7f5371e89844209b20f1db861ba4bc78e7d3c7ee7143a55b69f00"
+    ],
+    "src/pages/SaZones.tsx": [
+      "06dc6f726c2adae1e7b140887b8b41d7eca1df38dadba9554979e4b7bf9171ba"
     ]
   },
   "rawColors": {

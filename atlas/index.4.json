@@ -1670,6 +1670,219 @@
         }
       ],
       "loc": "src/components/layout/SuperAdminShell.tsx:1"
+    },
+    {
+      "id": "TASK-2931",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:03:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaZones.tsx (+235) — write via tool: tsx: import { RotateCcw, Save } from 'lucide-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaZones.tsx"
+    },
+    {
+      "id": "TASK-2932",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:03:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaRoles.tsx (+208) — write via tool: tsx: import { UserPlus } from 'lucide-react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaRoles.tsx"
+    },
+    {
+      "id": "TASK-2933",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:03:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaAudit.tsx (+114) — write via tool: tsx: import { Search } from 'lucide-react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaAudit.tsx"
+    },
+    {
+      "id": "TASK-2934",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:03:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/App.tsx (+6/-3) — edit via tool: tsx: const superAdminRoutes: [string, Compone",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/App.tsx"
+    },
+    {
+      "id": "TASK-2935",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:04:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_superadmin-2.scss (+330) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_superadmin-2.scss"
+    },
+    {
+      "id": "TASK-2936",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:04:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/superadmin\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-2937",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:04:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -4 && npm run build 2>&1 | grep -E \"error|✓ built|files ge",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2938",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:09:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/SuperAdminSection.tsx (+20/-1) — edit via tool: tsx: <h3 className=\"doc-h3\">Yang bisa diklik ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-2939",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:09:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && sed -i '' 's/v2\\.22\\.0/v2.23.0/' src/pages/Documentation.tsx && rtk grep -n \"v2.23.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2940",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:10:21",
+      "tags": [
+        "superadmin",
+        "sa-2",
+        "zones",
+        "roles",
+        "audit"
+      ],
+      "summary": "M-SA-2: master zona (kanvas SVG + jalur keyboard), role & operator, audit trail dengan filter",
+      "conn": [
+        {
+          "id": "TASK-2930",
+          "type": "led_to",
+          "raw": "TASK-2930:led_to"
+        }
+      ],
+      "loc": "src/pages/SaAudit.tsx:1"
+    },
+    {
+      "id": "TASK-2941",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:11:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/SuperAdminSection.tsx (+9/-7) — edit via tool: tsx: <p className=\"doc-p\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/SuperAdminSection.tsx"
     }
   ]
 }
