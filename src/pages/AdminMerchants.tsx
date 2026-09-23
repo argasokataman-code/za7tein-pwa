@@ -7,12 +7,14 @@ import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { moneyFromJod, tenantStatusLabel } from '../data/admin'
+import { findCustomer, customers } from '../data/people'
 import { blacklistCod, suspendMerchant } from '../store/slices/adminSlice'
 
 export default function AdminMerchants() {
   const dispatch = useAppDispatch()
   const merchants = useAppSelector((s) => s.admin.merchants)
   const riskFlags = useAppSelector((s) => s.admin.customerRiskFlags)
+  const csActorId = useAppSelector((s) => s.superAdmin.csActorId)
   const [codCustomer, setCodCustomer] = useState<Record<string, string>>({})
 
   return (
@@ -53,15 +55,21 @@ export default function AdminMerchants() {
                   <label className="admin-field" htmlFor={`cod-${merchant.id}`}>
                     Customer yang terlibat COD bermasalah
                   </label>
-                  <input
+                  <select
                     id={`cod-${merchant.id}`}
                     className="form-control"
-                    placeholder="Nama customer"
                     value={codCustomer[merchant.id] ?? ''}
                     onChange={(event) =>
                       setCodCustomer((prev) => ({ ...prev, [merchant.id]: event.target.value }))
                     }
-                  />
+                  >
+                    <option value="">Pilih customer…</option>
+                    {customers.map((customer) => (
+                      <option key={customer.id} value={customer.id}>
+                        {customer.name} · {customer.phone}
+                      </option>
+                    ))}
+                  </select>
                   <div className="admin-actions">
                     <button
                       type="button"
@@ -77,14 +85,20 @@ export default function AdminMerchants() {
                       type="button"
                       className="btn btn-primary"
                       onClick={() => {
-                        const name = (codCustomer[merchant.id] ?? '').trim()
-                        if (!name) {
-                          toast.error('Isi nama customer dulu')
+                        const customerId = codCustomer[merchant.id] ?? ''
+                        if (!customerId) {
+                          toast.error('Pilih customer dulu')
                           return
                         }
-                        dispatch(blacklistCod({ id: merchant.id, customerName: name }))
+                        dispatch(
+                          blacklistCod({ id: merchant.id, customerId, byOperatorId: csActorId }),
+                        )
                         setCodCustomer((prev) => ({ ...prev, [merchant.id]: '' }))
-                        toast.success(`Blacklist COD: ${merchant.name} + ${name} (riskFlag)`)
+                        toast.success(
+                          `Blacklist COD: ${merchant.name} + ${
+                            findCustomer(customerId)?.name ?? customerId
+                          } (riskFlag)`,
+                        )
                       }}
                     >
                       <Ban size={16} strokeWidth={1.75} aria-hidden="true" />
@@ -106,7 +120,14 @@ export default function AdminMerchants() {
               <div key={flag.id} className="admin-history">
                 <div className="admin-row">
                   <TriangleAlert size={16} strokeWidth={1.75} aria-hidden="true" />
-                  <p className="admin-card-title">{flag.name}</p>
+                  <div>
+                    <p className="admin-card-title">
+                      {findCustomer(flag.customerId)?.name ?? flag.customerId}
+                    </p>
+                    <p className="admin-card-sub">
+                      {flag.reason} · {flag.at}
+                    </p>
+                  </div>
                 </div>
                 <span className="admin-badge admin-badge--blacklisted">riskFlag</span>
               </div>

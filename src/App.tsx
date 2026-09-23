@@ -69,9 +69,11 @@ import SaAppeals from './pages/SaAppeals'
 import SaAudit from './pages/SaAudit'
 import SaDashboard from './pages/SaDashboard'
 import SaLedger from './pages/SaLedger'
+import SaMerchantDetail from './pages/SaMerchantDetail'
 import SaProfit from './pages/SaProfit'
 import SaRoles from './pages/SaRoles'
 import SaSwitches from './pages/SaSwitches'
+import SaUsers from './pages/SaUsers'
 import SaTax from './pages/SaTax'
 import SaZones from './pages/SaZones'
 import Search from './pages/Search'
@@ -193,6 +195,8 @@ const adminRoutes: [string, ComponentType][] = [
 // MobileDeviceFrame: dipakai dari desktop sebagai dashboard bertabel.
 const superAdminRoutes: [string, ComponentType][] = [
   ['/', SaDashboard],
+  ['/users', SaUsers],
+  ['/users/merchant/:id', SaMerchantDetail],
   ['/zones', SaZones],
   ['/roles', SaRoles],
   ['/audit', SaAudit],

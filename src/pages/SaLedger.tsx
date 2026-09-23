@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import { ledgerTypeLabel } from '../data/admin'
+import { ledgerPartyLabel, ledgerTypeLabel } from '../data/admin'
 import { jod } from '../data/currency'
 import { useAppSelector } from '../hooks/useAppStore'
 import type { LedgerEntryType } from '../types'
@@ -26,7 +26,9 @@ export default function SaLedger() {
     return ledger.filter((entry) => {
       if (type !== 'all' && entry.type !== type) return false
       if (!needle) return true
-      return `${entry.ref} ${entry.memo}`.toLowerCase().includes(needle)
+      return `${entry.ref} ${entry.memo} ${entry.party.name}`
+        .toLowerCase()
+        .includes(needle)
     })
   }, [ledger, type, query])
 
@@ -45,8 +47,7 @@ export default function SaLedger() {
               {rows.length} dari {ledger.length} entry · netto{' '}
               {netJod >= 0 ? '+' : '−'}
               {jod(Math.abs(netJod))} · tanpa aksi, hanya baca
-            </p>
-          </div>
+            </p>          </div>
           <label className="sa-search">
             <Search size={16} strokeWidth={1.75} aria-hidden="true" />
             <span className="sa-sr">Cari ref order atau memo</span>
@@ -90,6 +91,7 @@ export default function SaLedger() {
                 <tr>
                   <th scope="col">Waktu</th>
                   <th scope="col">Jenis</th>
+                  <th scope="col">Pihak</th>
                   <th scope="col">Arah</th>
                   <th scope="col">Nominal</th>
                   <th scope="col">Ref</th>
@@ -101,6 +103,10 @@ export default function SaLedger() {
                   <tr key={entry.id}>
                     <td className="sa-nowrap">{entry.at}</td>
                     <td>{ledgerTypeLabel[entry.type]}</td>
+                    <td>
+                      {entry.party.name}
+                      <span className="sa-table-sub">{ledgerPartyLabel[entry.party.kind]}</span>
+                    </td>
                     <td>
                       <span className={`sa-chip${entry.direction === 'credit' ? ' is-ok' : ' is-off'}`}>
                         {entry.direction === 'credit' ? 'Masuk' : 'Keluar'}
@@ -118,7 +124,10 @@ export default function SaLedger() {
 
         <p className="sa-note">
           Angka di sini adalah bagian dari kewajiban platform (liability). Karena itu tidak ada
-          tombol aksi: menahan atau melepas dana user bukan keputusan SA.
+          tombol aksi: menahan atau melepas dana user bukan keputusan SA. Kolom{' '}
+          <strong>Pihak</strong> menunjuk id di registri pengguna — sebelumnya ledger tidak
+          menyimpan pihaknya sama sekali, jadi "monitoring detail merchant &amp; customer" tidak
+          bisa dijawab dari layar ini.
         </p>
         <ExchangeRateNote />
       </section>

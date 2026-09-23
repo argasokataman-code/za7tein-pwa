@@ -1,5 +1,6 @@
 import {
   BookOpen,
+  Contact,
   LayoutDashboard,
   Map,
   ReceiptText,
@@ -44,6 +45,7 @@ import { setActiveOperator } from '../../store/slices/superAdminSlice'
 
 const NAV = [
   { to: '/', label: 'Ringkasan', icon: LayoutDashboard, hint: 'Keuntungan, liability, kill switch' },
+  { to: '/users', label: 'Pengguna', icon: Contact, hint: 'Registri customer, merchant, kurir' },
   { to: '/zones', label: 'Master zona', icon: Map, hint: 'Poligon Hijazi & Syimali' },
   { to: '/roles', label: 'Role & operator', icon: Users, hint: 'Izin & akun operator CS' },
   { to: '/audit', label: 'Audit trail', icon: ScrollText, hint: 'Semua aksi SA & CS' },
@@ -71,7 +73,9 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
   const actor = activeOperator?.name ?? SA_CURRENT_ACTOR.name
   const actorRole = activeRole?.name ?? 'Pemilik platform'
 
-  const current = NAV.find((item) => item.to === pathname) ?? NAV[0]
+  const current =
+    NAV.find((item) => (item.to === '/' ? pathname === '/' : pathname.startsWith(item.to))) ??
+    NAV[0]
   const required = SA_ROUTE_PERMISSIONS[current.to] ?? ''
   const allowed = !required || Boolean(activeRole?.permissionIds.includes(required))
 

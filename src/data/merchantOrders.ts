@@ -36,6 +36,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-1',
     code: 'SA-1041',
+    customerId: 'cus-1',
     customerName: 'Rani',
     buyerAvatar: '/assets/img/reviewer/user1.png',
     buyerRating: 5,
@@ -51,6 +52,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-2',
     code: 'SA-1040',
+    customerId: 'cus-2',
     customerName: 'Budi',
     buyerAvatar: '/assets/img/reviewer/user2.png',
     buyerRating: 4,
@@ -66,6 +68,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-3',
     code: 'SA-1039',
+    customerId: 'cus-3',
     customerName: 'Sinta',
     buyerAvatar: '/assets/img/reviewer/user3.png',
     buyerRating: 5,
@@ -82,6 +85,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-4',
     code: 'SA-1038',
+    customerId: 'cus-4',
     customerName: 'Andre',
     buyerAvatar: '/assets/img/reviewer/user4.png',
     buyerRating: 3,
@@ -98,6 +102,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-5',
     code: 'SA-1037',
+    customerId: 'cus-5',
     customerName: 'Maya',
     buyerAvatar: '/assets/img/reviewer/user5.png',
     buyerRating: 4,
@@ -113,6 +118,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-6',
     code: 'SA-1036',
+    customerId: 'cus-6',
     customerName: 'Dimas',
     buyerAvatar: '/assets/img/reviewer/user6.png',
     buyerRating: 5,
@@ -128,6 +134,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-7',
     code: 'SA-1035',
+    customerId: 'cus-7',
     customerName: 'Tia',
     buyerAvatar: '/assets/img/reviewer/user1.png',
     buyerRating: 5,
@@ -143,6 +150,7 @@ export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-8',
     code: 'SA-1034',
+    customerId: 'cus-8',
     customerName: 'Fajar',
     buyerAvatar: '/assets/img/reviewer/user2.png',
     buyerRating: 2,

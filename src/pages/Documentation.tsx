@@ -119,7 +119,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.32.0
+              v2.34.0
             </span>
             <span>
               React 19 · Vite · TypeScript
@@ -157,7 +157,7 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan PWA Sa7tein: tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin — panel admin yang dikelola CS). Super Admin adalah role terpisah: website penuh non-PWA di /superadmin, dengan Ringkasan berupa dashboard chart tulis tangan (donut + bar, tanpa library). Landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
+              Panduan PWA Sa7tein: tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin — panel admin yang dikelola CS). Super Admin adalah role terpisah: website penuh non-PWA di /superadmin, dengan Ringkasan berupa dashboard chart tulis tangan (donut + bar, tanpa library). Landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat. Kartu promo beranda kini bergaya kartu (lingkaran sepusat di atas oranye merek, tanpa gradient) dengan bilah aksi selebar kartu.
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (

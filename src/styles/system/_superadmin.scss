@@ -13,6 +13,17 @@ body > div:has(.sa-root) {
   margin: 0;
 }
 
+/* Sidebar SA memakai `position: sticky`. Stylesheet porting menetapkan
+   `overflow: hidden` pada `html, body` (app/part-01.scss), dan `overflow` yang
+   bukan `visible` menjadikan body sebuah scroll container — itu mematikan
+   sticky untuk semua keturunannya, sehingga sidebar ikut tergeser saat halaman
+   digulir (terukur: top -700 saat scroll 700). `clip` memotong overflow TANPA
+   membuat scroll container, jadi sticky hidup lagi dan penggulung tetap satu:
+   dokumen (DNA §5). */
+body:has(.sa-root) {
+  overflow: clip;
+}
+
 .sa-root {
   display: grid;
   grid-template-columns: 248px minmax(0, 1fr);
@@ -93,6 +104,10 @@ body > div:has(.sa-root) {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  /* Satu-satunya penggulung bersarang yang disengaja di repo ini (DNA §5):
+     sidebar menempel, dan di jendela desktop yang pendek (terukur: 412px nav di
+     viewport 600px) menu bawah tidak akan terjangkau tanpa ini. Penggulung
+     halaman tetap dokumen. Dicatat di /documentation §34. */
   overflow-y: auto;
 }
 
@@ -277,6 +292,9 @@ body > div:has(.sa-root) {
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
+  /* Nominal panjang (IDR + padanan JOD) melipat di kartu sempit; `balance`
+     menyebar barisnya supaya "JOD" tidak pernah jatuh sendirian. */
+  text-wrap: balance;
 }
 
 .sa-card-value--plain {
@@ -333,7 +351,7 @@ body > div:has(.sa-root) {
 
 .sa-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: var(--space-4);
 }
 

@@ -36,9 +36,9 @@ manifest             dilepas di /superadmin (non-PWA, tidak ditawarkan untuk ins
         CS <strong>menjalankan</strong> operasi harian: approval tenant, putusan sengketa level-1,
         dan blacklist COD, semuanya di <code className="doc-inline">/admin/*</code>. SA{' '}
         <strong>mengonfigurasi platform dan mengawasi</strong>: master zona, role &amp; permission,
-        audit trail, laporan pajak, saldo keuntungan, kill switch, dan banding sengketa. Top-up
-        dan payout customer/merchant berjalan <em>self-service</em> oleh sistem, SA hanya
-        memantau ledger-nya, tidak mengesahkan.
+        registri pengguna, audit trail, laporan pajak, saldo keuntungan, kill switch, dan banding
+        sengketa. Top-up dan payout customer/merchant berjalan <em>self-service</em> oleh sistem, SA
+        hanya memantau ledger-nya, tidak mengesahkan.
       </p>
 
       <h3 className="doc-h3">Dua angka uang yang paling mudah tertukar</h3>
@@ -55,6 +55,171 @@ totalLiability(liab)    // customer + merchant + tips kurir        → tidak bol
 feeGrossFor(orders)     // orders × PLATFORM_FEE_JOD (0,37)
 pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
       </DocCode>
+
+      <h3 className="doc-h3">Ringkasan sebagai dashboard: chart tulis tangan, tanpa library</h3>
+      <p className="doc-p">
+        Ringkasan menampilkan angka yang sama dua kali: sebagai nominal (kartu) dan sebagai bentuk
+        (chart). Dua donut membedah <strong>ke mana fee platform pergi</strong> dan{' '}
+        <strong>komposisi kewajiban platform</strong>; dua bar chart menunjukkan order dan fee per
+        periode laporan pajak; satu bar rapat menunjukkan aktivitas audit per hari.
+      </p>
+      <p className="doc-p">
+        Tidak ada library chart yang ditambahkan. Donut cukup dengan{' '}
+        <code className="doc-inline">stroke-dasharray</code> pada{' '}
+        <code className="doc-inline">&lt;circle&gt;</code>, dan bar memakai tinggi persentase — jadi
+        primitifnya <code className="doc-inline">DonutChart</code> +{' '}
+        <code className="doc-inline">BarChart</code> di{' '}
+        <code className="doc-inline">src/components/ui/</code>, dengan agregasi murni di{' '}
+        <code className="doc-inline">src/data/dashboard.ts</code>. Warna lewat kelas nada (
+        <code className="doc-inline">chart-tone--*</code>) yang memetakan ke token peran yang ada;
+        gradient tidak dipakai sama sekali (DNA §4).
+      </p>
+      <p className="doc-p">
+        Tata letak chart + legenda memakai <code className="doc-inline">flex-wrap</code>, bukan
+        media query. Lebar yang menentukan adalah lebar <em>kartu</em>, bukan lebar jendela: di
+        jendela 960px kartu donut cuma 278px, dan media query 560px tidak akan pernah menyala untuk
+        kasus itu — persis jebakan yang diperingatkan AGENTS.md §5. Dengan wrap, legenda turun
+        sendiri begitu ruangnya kurang, di lebar berapa pun, tanpa ambang yang harus ditebak.
+      </p>
+      <p className="doc-p">
+        Animasi: angka uang berhitung naik (<code className="doc-inline">CountUp</code>), donut
+        menggambar potongannya, bar tumbuh bertingkat. Semua lewat{' '}
+        <code className="doc-inline">usePrefersReducedMotion</code> + media query{' '}
+        <code className="doc-inline">prefers-reduced-motion</code>: kalau pengguna meminta gerak
+        dikurangi, chart tampil jadi tanpa animasi.
+      </p>
+      <p className="doc-p">
+        Semua deret berasal dari mock yang sudah ada, tidak ada angka baru. Aktivitas audit per hari
+        mem-parse teks waktu audit trail (<code className="doc-inline">'Hari ini 09:41'</code>)
+        karena <code className="doc-inline">AuditEntry.at</code> belum punya timestamp; kalau kelak
+        berubah ke ISO, ganti <code className="doc-inline">daysAgoFrom()</code>.
+      </p>
+
+      <h3 className="doc-h3">Perlakuan kartu uang: cincin dekoratif + footer aksi</h3>
+      <p className="doc-p">
+        Empat kartu uang di Ringkasan memakai <code className="doc-inline">.sa-card--glow</code>:
+        satu cincin lembut di sudut kanan atas yang bergeser ke tengah dan menajam saat kartu
+        di-hover, plus aksi kartu merek sebagai strip yang menempel dasar. Konsepnya diadaptasi dari
+        contoh kartu publik, tapi disesuaikan ke DNA kita, bukan disalin:
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Warna</strong>: cincin memakai tint merek (<code className="doc-inline">--sa7tein-orange</code>{' '}
+          14%) di kartu putih, dan <code className="doc-inline">currentColor</code> (putih, 10%) di
+          kartu merek — tint oranye di atas oranye tidak terlihat. Tidak ada warna baru, tanpa
+          gradient.
+        </li>
+        <li>
+          <strong>Bentuk &amp; gerak</strong>: radius tetap <code className="doc-inline">--radius-lg</code>{' '}
+          (12px, bukan 15px), durasi <code className="doc-inline">--motion-journey</code>, easing{' '}
+          <code className="doc-inline">--ease-out</code>. Yang dianimasikan hanya{' '}
+          <code className="doc-inline">transform</code> dan <code className="doc-inline">filter</code>,
+          supaya tidak memicu layout.
+        </li>
+        <li>
+          <strong>Strip aksi</strong>: <code className="doc-inline">min-height: var(--touch-min)</code>{' '}
+          (44px) dan <code className="doc-inline">margin-top: auto</code>, jadi ia menempel dasar
+          kartu walau kartu lebih tinggi dari isinya. Karena strip-nya penuh sampai tepi, cincin
+          fokus dipindah ke dalam (<code className="doc-inline">outline-offset: -4px</code>) dengan
+          warna merek — offset positif akan terpotong <code className="doc-inline">overflow: hidden</code>{' '}
+          yang dipakai untuk memotong cincinnya.
+        </li>
+        <li>
+          <strong>Gerak dikurangi</strong>: transisi cincin dimatikan di{' '}
+          <code className="doc-inline">prefers-reduced-motion</code>, seperti chart.
+        </li>
+      </ul>
+      <p className="doc-p">
+        Catatan jujur: karena strip menempel dasar dan kartu di baris grid disamakan tingginya,
+        kartu merek jadi lebih tinggi dari isinya di jendela di bawah ~1200px (baris terukur 422px
+        vs isi ~240px). Ruang itu memang sudah ada sebelumnya, tapi strip membuatnya terlihat. Kalau
+        tidak diinginkan, ubah <code className="doc-inline">margin-top: auto</code> jadi{' '}
+        <code className="doc-inline">var(--space-4)</code> supaya strip kembali mengikuti isi.
+      </p>
+
+      <h3 className="doc-h3">Registri pengguna: dari nama jadi id</h3>
+      <p className="doc-p">
+        Sebelum ini konsol SA bisa melihat <em>uang</em> (ledger, pajak, keuntungan) tetapi tidak
+        bisa melihat <em>orang</em> — dan sebabnya bukan UI. Tidak ada pendataan pengguna sama
+        sekali: customer dan merchant hanya ada sebagai satu objek contoh milik sesi yang sedang
+        login, nama customer hidup sebagai string di 20 field order, sengketa hanya menyimpan nama
+        pihak, dan <code className="doc-inline">LedgerEntry</code> tidak punya field pihak — padahal
+        cakupan SA menjanjikan &ldquo;monitoring ledger <strong>detail merchant &amp; customer</strong>&rdquo;.
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Tiga registri bertipe.</strong>{' '}
+          <code className="doc-inline">Customer</code> di{' '}
+          <code className="doc-inline">src/data/people.ts</code> (8 nama yang sebelumnya cuma
+          string di order), <code className="doc-inline">MerchantRecord</code> di{' '}
+          <code className="doc-inline">src/data/merchant.ts</code> (menggantikan{' '}
+          <code className="doc-inline">AdminMerchant</code>, dan kini berbagi id{' '}
+          <code className="doc-inline">am-1</code> dengan <code className="doc-inline">mockMerchant</code>{' '}
+          — dulu dua record untuk restoran yang sama tanpa penghubung), dan{' '}
+          <code className="doc-inline">Courier</code> dengan{' '}
+          <code className="doc-inline">merchantId</code>.
+        </li>
+        <li>
+          <strong>Rujukan pindah dari nama ke id.</strong> Order, tugas kurir, ulasan, sengketa,
+          ledger, dan audit menunjuk id. Inilah yang membuat pertanyaan per-pengguna bisa dijawab:
+          berapa order, kena berapa sengketa, uangnya masuk ledger yang mana.
+        </li>
+        <li>
+          <strong>Halaman <code className="doc-inline">/superadmin/users</code></strong> (izin{' '}
+          <code className="doc-inline">user.read</code>) menampilkan customer, merchant, dan kurir{' '}
+          <strong>read-only</strong> — angkanya turunan dari modul lain lewat{' '}
+          <code className="doc-inline">src/data/registry.ts</code>, bukan angka baru. Mengubah
+          status pengguna tetap kerja panel CS; SA mengawasi.
+        </li>
+        <li>
+          <strong>Dossier per merchant, tetap read-only.</strong> Tiap baris merchant punya tautan
+          ke <code className="doc-inline">/superadmin/users/merchant/:id</code>: identitas usaha,
+          keadaan tenant, kurir yang dipekerjakan, sengketa, uang di ledger, dan alert SLA.
+          Komposisinya memakai kosakata konsol yang sudah ada, bukan kartu seragam: hero dua kolom
+          (identitas + deposit yang ditahan platform), strip empat tile{' '}
+          <code className="doc-inline">.sa-stats</code> yang sekaligus jadi indeks ke section-nya,
+          lalu section yang bentuknya mengikuti isinya (tabel untuk daftar,{' '}
+          <code className="doc-inline">.sa-feed</code> untuk alert SLA yang berurutan). Tetap{' '}
+          <strong>tanpa aksi</strong>: suspend, blacklist COD, dan review tenant kerja panel CS (
+          <code className="doc-inline">/admin/merchants</code>).
+        </li>
+        <li>
+          <strong>Satu tipe per layar, lewat chip.</strong> Ketiga daftar tidak pernah dibaca
+          bersamaan, jadi menumpuk 8 + 3 + 6 baris hanya memaksa menggulir untuk sampai ke kurir.
+          Baris chip-nya (<code className="doc-inline">.sa-filters</code>) pola yang sama dengan
+          Ledger, Audit, dan Pajak; jumlah per tipe ikut ditulis di chip supaya isinya terbaca
+          tanpa membukanya.
+        </li>
+        <li>
+          <strong>Kolom &ldquo;Pihak&rdquo; di Ledger.</strong> Janji &ldquo;detail merchant &amp;
+          customer&rdquo; akhirnya bisa dipenuhi: tiap entry menyebut siapa pemilik dananya.
+        </li>
+        <li>
+          <strong>Satu penjaga.</strong> <code className="doc-inline">danglingReferences()</code>{' '}
+          memeriksa tiap rujukan id masih ada di registri, dan melapor di konsol saat mode dev.
+          Perlu, karena begitu rujukan pindah ke id, salah ketik tidak lagi memunculkan nama yang
+          salah — ia memunculkan sel kosong yang senyap.
+        </li>
+      </ul>
+      <p className="doc-p">
+        <strong>Kurir menyimpang dari PRD, dan itu keputusan PO.</strong>{' '}
+        <code className="doc-inline">source.md:296</code> menyebut deposit, holding earnings, dan
+        blacklist kurir sebagai tanggung jawab merchant, bukan platform. Daftar kurir lintas
+        merchant di konsol SA diizinkan untuk <em>pengawasan</em> saja — kewajiban kurir tetap
+        milik merchant, dan mengelola kurir bukan kewenangan SA. Karena itu tabel kurir di{' '}
+        <code className="doc-inline">/superadmin/users</code> hanya memuat identitas, nomor, siapa
+        yang mempekerjakan, dan sejak kapan. <strong>Status live kurir</strong> (Di toko / Mengantar)
+        dan beban order berjalan <strong>tidak</strong> ditampilkan di sana: itu papan pantau
+        merchant atas kurirnya sendiri (<code className="doc-inline">/merchant/couriers</code>), dan
+        tempatnya memang di sana. Tercatat di{' '}
+        <code className="doc-inline">decision-irbid-mvp.md</code>.
+      </p>
+      <p className="doc-p">
+        Karena bentuk data berubah, state tersimpan naik ke <strong>versi 4</strong> dan{' '}
+        <code className="doc-inline">admin</code> + <code className="doc-inline">superAdmin</code>{' '}
+        dibuang saat migrasi supaya di-seed ulang; tanpa itu, entry ledger lama yang belum punya{' '}
+        <code className="doc-inline">party</code> langsung melempar error saat tabel dirender.
+      </p>
 
       <h3 className="doc-h3">Audit trail menjangkau kerja CS</h3>
       <p className="doc-p">
@@ -130,9 +295,67 @@ pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
       <h3 className="doc-h3">Responsif &amp; tabel lebar</h3>
       <p className="doc-p">
         Halaman tidak pernah menggulir mendatar: overflow horizontal terukur 0 pada 1440px maupun
-        390px. Tabel yang lebih lebar dari kolomnya menggulir <em>di dalam pembungkusnya</em>{' '}
-        (<code className="doc-inline">.sa-table-wrap</code>), jadi penggulung dokumen tetap satu,
-        aturan DNA soal gulir bersarang tetap dipegang untuk arah vertikal.
+        390px. Tabel yang benar-benar lebih lebar dari kolomnya masih punya penggulung sendiri di
+        dalam <code className="doc-inline">.sa-table-wrap</code>, jadi penggulung dokumen tetap satu
+        dan aturan DNA soal gulir bersarang tetap dipegang untuk arah vertikal.
+      </p>
+      <p className="doc-p">
+        Tapi penggulung itu seharusnya jarang terpakai, dan sebelumnya terlalu sering. Penyebabnya
+        dua, keduanya diperbaiki:
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Header tidak boleh membungkus.</strong>{' '}
+          <code className="doc-inline">.sa-table th</code> dulu{' '}
+          <code className="doc-inline">white-space: nowrap</code>, jadi tabel pajak menolak
+          menyempit: tujuh header panjang memaksa 1031px di ruang 934px. Yang tidak boleh
+          membungkus adalah angkanya, bukan nama kolomnya.
+        </li>
+        <li>
+          <strong>Pasangan IDR + JOD satu baris terlalu panjang.</strong>{' '}
+          <code className="doc-inline">money()</code> menulis{' '}
+          <code className="doc-inline">Rp27.192.000 · ±1182,26 JOD</code> dalam satu baris; di kolom
+          tabel yang banyak itu yang mendorong lebar. Komponen{' '}
+          <code className="doc-inline">MoneyPair</code> menumpuknya dua baris — IDR di atas, JOD di
+          bawah — tanpa membuang salah satu mata uang (R-CURR-01), dan tanpa nilainya pecah di
+          tengah seperti kalau dibiarkan membungkus sendiri.
+        </li>
+        <li>
+          <strong>Aksi baris ada di sel nama, bukan kolom sendiri.</strong> Tabel merchant sudah
+          penuh di 1280px: kolom ke-10 memecah nama merchant jadi tiga baris dan menaikkan tinggi
+          baris dari 57px ke 126px (terukur). Jadi nama merchant yang jadi tautannya (
+          <code className="doc-inline">.sa-cell-link</code>, chevron, target 44px), dan kolom{' '}
+          <strong>Kota</strong> dilepas dari daftar: kota tetap ada di dossier dan tetap ikut
+          dicari. Hasilnya tabel 8 kolom yang muat penuh sampai 1200px, bukan 10 kolom yang
+          menggulir di 1280px.
+        </li>
+      </ul>
+      <p className="doc-p">
+        Hasil terukur: tabel pajak, ledger, audit, dan ketiga tabel registri muat penuh dari lebar
+        jendela <strong>1200px</strong> ke atas. Tabel merchant (8 kolom) butuh 791px di kartu
+        754px pada jendela 1100px, jadi di bawah 1200px ia menggulir di dalam pembungkusnya:
+        fallback yang disengaja, bukan default.
+      </p>
+
+      <h3 className="doc-h3">Sidebar menempel, dan satu penggulung bersarang yang disengaja</h3>
+      <p className="doc-p">
+        Sidebar memakai <code className="doc-inline">position: sticky</code> supaya menu tetap
+        terjangkau saat halaman digulir. Itu sempat <strong>tidak bekerja</strong>: stylesheet
+        porting menetapkan <code className="doc-inline">html, body {'{'} overflow: hidden {'}'}</code>{' '}
+        (di <code className="doc-inline">app/part-01.scss</code>), dan <code className="doc-inline">overflow</code>{' '}
+        yang bukan <code className="doc-inline">visible</code> menjadikan body sebuah scroll
+        container — sticky lalu diukur terhadap body, yang tidak menggulir, jadi sidebar ikut
+        tergeser (terukur: <code className="doc-inline">top: -700</code> saat scroll 700).
+        Perbaikannya <code className="doc-inline">body:has(.sa-root) {'{'} overflow: clip {'}'}</code>:{' '}
+        <code className="doc-inline">clip</code> memotong overflow <em>tanpa</em> membuat scroll
+        container, jadi sticky hidup lagi dan penggulung tetap dokumen.
+      </p>
+      <p className="doc-p">
+        Di jendela desktop yang pendek, daftar menu di sidebar{' '}
+        <strong>menggulir sendiri</strong> (<code className="doc-inline">.sa-nav {'{'} overflow-y: auto {'}'}</code>).
+        Ini satu-satunya penggulung bersarang vertikal yang disengaja di repo, dan alasannya
+        terukur: di viewport 600px daftar menu setinggi 412px — tanpa ini, menu bagian bawah tidak
+        bisa dijangkau sama sekali. Penggulung halaman tetap satu, yaitu dokumen.
       </p>
 
       <h3 className="doc-h3">Poligon zona bukan hiasan</h3>
@@ -249,9 +472,9 @@ layar order lagi                     → "Banding ditinjau SA: diperkuat / diuba
 
       <h3 className="doc-h3">Yang belum ada, dan itu ditulis</h3>
       <p className="doc-p">
-        Dua hal yang sering disangka ada di konsol seperti ini, tapi memang tidak dibangun. Keduanya
-        dicatat di <code className="doc-inline">docs/product/prd/decision-irbid-mvp.md</code>, bukan
-        disembunyikan:
+        Tiga hal yang sering disangka ada di konsol seperti ini, tapi memang tidak dibangun.
+        Ketiganya dicatat di <code className="doc-inline">docs/product/prd/decision-irbid-mvp.md</code>,
+        bukan disembunyikan:
       </p>
       <ul className="doc-list">
         <li>
@@ -268,17 +491,27 @@ layar order lagi                     → "Banding ditinjau SA: diperkuat / diuba
           tanpa format ekspor, periode fiskal, atau penerimanya. Layarnya menampilkan laporan per
           periode; ekspor tidak dikarang (<code className="doc-inline">UNRESOLVED</code>).
         </li>
+        <li>
+          <strong>Target audit masih string.</strong> Pelakunya sudah bertipe (
+          <code className="doc-inline">actorId</code> menunjuk{' '}
+          <code className="doc-inline">SaOperator.id</code>), tapi{' '}
+          <code className="doc-inline">AuditEntry.target</code> masih teks tampilan — satu baris bisa
+          menunjuk order, zona, nominal uang, atau nama role. Taksonomi target belum ada di PRD, jadi
+          ia dibiarkan apa adanya, bukan dikarang (
+          <code className="doc-inline">UNRESOLVED</code>).
+        </li>
       </ul>
 
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
         Kanvas zona digambar sebagai <strong>SVG inline</strong>, bukan peta ber-tile: tile peta
         selalu URL eksternal dan repo ini melarang aset gambar eksternal (AGENTS.md §6). Kanvas itu
-        satu-satunya SVG inline baru di repo ini, dan sengaja dicatat sebagai pengecualian di{' '}
-        <code className="doc-inline">docs/design/legacy-debt.json</code>, ia grafik data yang diedit
-        SA, bukan ikon; ikon fungsional tetap lucide. Geometri asli milik backend, layar SA hanya
-        menggeser titik lalu menyimpan. Kill switch dan penarikan keuntungan mengubah state demo;
-        tidak ada uang bergerak.
+        dan donut Ringkasan adalah dua grafik data yang dicatat sebagai pengecualian di{' '}
+        <code className="doc-inline">docs/design/legacy-debt.json</code> — keduanya grafik data,
+        bukan ikon; ikon fungsional tetap lucide. Bar chart-nya bahkan bukan SVG: batang cuma{' '}
+        <code className="doc-inline">&lt;div&gt;</code> dengan tinggi persentase. Geometri asli
+        milik backend, layar SA hanya menggeser titik lalu menyimpan. Kill switch dan penarikan
+        keuntungan mengubah state demo; tidak ada uang bergerak.
       </p>
       <p className="doc-p">
         Karena coverage kini bisa gagal karena poligon, bukan hanya jarak, pesan blokir di layar

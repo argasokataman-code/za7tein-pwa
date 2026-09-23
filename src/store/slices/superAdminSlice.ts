@@ -64,7 +64,7 @@ function activeActorName(state: SuperAdminState): string {
  */
 function push(
   state: SuperAdminState,
-  actor: { name: string; role: 'sa' | 'cs' },
+  actor: { id: string | null; name: string; role: 'sa' | 'cs' },
   kind: AuditKind,
   action: string,
   target: string,
@@ -73,6 +73,7 @@ function push(
     id: `au-${Date.now()}-${state.audit.length}`,
     at: 'Baru saja',
     actor: actor.name,
+    actorId: actor.id,
     actorRole: actor.role,
     kind,
     action,
@@ -80,9 +81,12 @@ function push(
   })
 }
 
-/** Aksi konsol SA selalu tercatat atas nama operator yang sedang aktif. */
+/**
+ * Aksi konsol SA selalu tercatat atas nama operator yang sedang aktif — id-nya
+ * ikut dicatat, bukan hanya namanya, supaya baris audit bisa ditautkan ke akun.
+ */
 function pushAsActive(state: SuperAdminState, kind: AuditKind, action: string, target: string) {
-  push(state, { name: activeActorName(state), role: 'sa' }, kind, action, target)
+  push(state, { id: state.activeOperatorId, name: activeActorName(state), role: 'sa' }, kind, action, target)
 }
 
 const superAdminSlice = createSlice({
@@ -189,6 +193,8 @@ const superAdminSlice = createSlice({
       state,
       action: PayloadAction<{
         actor: string
+        /** `SaOperator.id` pelaku; `null` untuk aksi sistem. */
+        actorId: string | null
         role?: 'sa' | 'cs'
         kind: AuditKind
         action: string
@@ -197,7 +203,7 @@ const superAdminSlice = createSlice({
     ) {
       push(
         state,
-        { name: action.payload.actor, role: action.payload.role ?? 'cs' },
+        { id: action.payload.actorId, name: action.payload.actor, role: action.payload.role ?? 'cs' },
         action.payload.kind,
         action.payload.action,
         action.payload.target,

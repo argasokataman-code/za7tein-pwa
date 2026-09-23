@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant, mockOrder, money } from '../data/merchant'
 import { DISPUTE_CATEGORIES, DEMO_DISPUTE_ORDER_IDR } from '../data/admin'
 import { idrToJod } from '../data/currency'
+import { mockUser } from '../data/user'
 import { fileDispute } from '../store/slices/adminSlice'
 
 const MAX_PHOTOS = 3
@@ -64,7 +65,12 @@ export default function DisputeSubmit() {
       fileDispute({
         orderCode,
         filedBy,
+        // Pengaju dan pemilik order adalah dua hal berbeda: saat merchant yang
+        // mengajukan, `customerId` tetap customer pemilik order itu.
+        partyId: filedBy === 'merchant' ? mockMerchant.id : mockUser.id,
         party: party.trim(),
+        customerId: mockUser.id,
+        merchantId: mockMerchant.id,
         merchant: mockMerchant.name,
         category,
         reason: reason.trim(),

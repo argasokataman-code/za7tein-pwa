@@ -8,6 +8,7 @@ import type { MerchantReview } from '../types'
 export const merchantReviews: MerchantReview[] = [
   {
     id: 'mr-1',
+    customerId: 'cus-1',
     customerName: 'Rani',
     avatar: '/assets/img/reviewer/user1.png',
     rating: 5,
@@ -18,6 +19,7 @@ export const merchantReviews: MerchantReview[] = [
   },
   {
     id: 'mr-2',
+    customerId: 'cus-2',
     customerName: 'Budi',
     avatar: '/assets/img/reviewer/user2.png',
     rating: 4,
@@ -28,6 +30,7 @@ export const merchantReviews: MerchantReview[] = [
   },
   {
     id: 'mr-3',
+    customerId: 'cus-3',
     customerName: 'Sinta',
     avatar: '/assets/img/reviewer/user3.png',
     rating: 5,
@@ -38,6 +41,7 @@ export const merchantReviews: MerchantReview[] = [
   },
   {
     id: 'mr-4',
+    customerId: 'cus-4',
     customerName: 'Andre',
     avatar: '/assets/img/reviewer/user4.png',
     rating: 3,
@@ -48,6 +52,7 @@ export const merchantReviews: MerchantReview[] = [
   },
   {
     id: 'mr-5',
+    customerId: 'cus-5',
     customerName: 'Maya',
     avatar: '/assets/img/reviewer/user5.png',
     rating: 5,
@@ -58,6 +63,7 @@ export const merchantReviews: MerchantReview[] = [
   },
   {
     id: 'mr-6',
+    customerId: 'cus-6',
     customerName: 'Dimas',
     avatar: '/assets/img/reviewer/user6.png',
     rating: 5,
@@ -68,6 +74,7 @@ export const merchantReviews: MerchantReview[] = [
   },
   {
     id: 'mr-7',
+    customerId: 'cus-7',
     customerName: 'Tia',
     avatar: '/assets/img/reviewer/user1.png',
     rating: 4,
@@ -78,6 +85,7 @@ export const merchantReviews: MerchantReview[] = [
   },
   {
     id: 'mr-8',
+    customerId: 'cus-8',
     customerName: 'Fajar',
     avatar: '/assets/img/reviewer/user2.png',
     rating: 4,

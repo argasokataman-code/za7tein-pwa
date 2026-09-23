@@ -1,0 +1,238 @@
+/* ── Data-viz konsol (donut & bar) ───────────────────────────────────────────
+   Primitif chart tulis tangan: tanpa library, tanpa gradient (DNA §4). Warna
+   lewat kelas nada yang memetakan ke token peran yang sudah ada, jadi chart
+   tidak menambah warna baru. Dipakai Ringkasan Super Admin; bisa dipakai
+   halaman lain kalau butuh komposisi/deret yang sama. */
+
+/* Nada warna — satu kelas per peran token, untuk garis (donut) dan isian (bar). */
+.chart-tone--brand {
+  stroke: var(--sa7tein-orange);
+}
+.chart-tone--success {
+  stroke: var(--success);
+}
+.chart-tone--warning {
+  stroke: var(--warning);
+}
+.chart-tone--danger {
+  stroke: var(--danger);
+}
+.chart-tone--muted {
+  stroke: var(--text-secondary);
+}
+
+.chart-tone-bg--brand {
+  background: var(--sa7tein-orange);
+}
+.chart-tone-bg--success {
+  background: var(--success);
+}
+.chart-tone-bg--warning {
+  background: var(--warning);
+}
+.chart-tone-bg--danger {
+  background: var(--danger);
+}
+.chart-tone-bg--muted {
+  background: var(--text-secondary);
+}
+
+/* ── Donut ─────────────────────────────────────────────────────────────── */
+
+.chart-donut {
+  position: relative;
+  width: 100%;
+  max-width: 168px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+.chart-donut-track {
+  stroke: var(--border);
+}
+
+.chart-donut-seg {
+  transition: stroke-dasharray var(--motion-journey) var(--ease-out);
+  stroke-linecap: butt;
+}
+
+.chart-donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  padding-inline: var(--space-3);
+
+  strong {
+    font-size: var(--text-base);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  span {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+  }
+}
+
+/* ── Legenda ───────────────────────────────────────────────────────────── */
+
+.chart-legend {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+
+  li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--space-2);
+    row-gap: 1px;
+    align-items: baseline;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.chart-legend-dot {
+  grid-column: 1;
+  grid-row: 1;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  align-self: center;
+}
+
+.chart-legend-label {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.chart-legend-value {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+/* ── Bar ───────────────────────────────────────────────────────────────── */
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  min-height: 148px;
+  padding-top: var(--space-2);
+
+  &.is-compact {
+    min-height: 92px;
+    gap: var(--space-3);
+  }
+}
+
+.chart-bar {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chart-bar-value {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.chart-bar-track {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 46px;
+  height: 104px;
+  border-radius: var(--radius-sm);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.is-compact .chart-bar-track {
+  height: 56px;
+}
+
+.chart-bar-fill {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  transform-origin: bottom;
+  animation: chart-grow var(--motion-emphasis) var(--ease-out) both;
+}
+
+.chart-bar-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+@keyframes chart-grow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ── Tata letak kartu: chart + legenda berdampingan ────────────────────── */
+
+/* `flex-wrap`, bukan media query. Lebar yang menentukan di sini adalah lebar
+   KARTU, bukan lebar jendela: di jendela 960px kartu donut cuma 278px, dan
+   media query 560px tidak pernah menyala untuk kasus itu (AGENTS.md §5).
+   Dengan wrap, legenda turun sendiri begitu ruangnya tidak cukup, di lebar
+   berapa pun, tanpa ambang yang harus ditebak. */
+.chart-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.chart-split .chart-donut {
+  flex: 0 0 128px;
+  max-width: 128px;
+}
+
+.chart-split .chart-legend {
+  flex: 1 1 165px;
+}
+
+/* ── Gerak dikurangi: chart tampil jadi, tanpa animasi ─────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .chart-donut-seg {
+    transition: none;
+  }
+
+  .chart-bar-fill {
+    animation: none;
+  }
+}

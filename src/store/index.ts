@@ -14,6 +14,7 @@ import {
 import { menuSeed } from '../data/catalog'
 import { DISPUTE_RESOLUTION_LABEL } from '../data/admin'
 import { CS_CURRENT_ACTOR, SA_CURRENT_ACTOR } from '../data/superadmin'
+import { findCustomer } from '../data/people'
 import { mockUser } from '../data/user'
 
 import auth from './slices/authSlice'
@@ -64,14 +65,22 @@ const rootReducer = combineReducers({
  * gambar (`{x,y}`) ke lat/lng sungguhan supaya gate coverage bisa menguji
  * "titik di dalam poligon". Hanya `superAdmin` yang dibuang, karena hanya itu
  * yang berubah bentuk, keranjang dan saldo demo tidak perlu ikut hilang.
+ *
+ * v4: rujukan antar-entitas pindah dari nama ke id — entry ledger dapat
+ * `party`, sengketa dapat `partyId`/`customerId`/`merchantId`, merchant dapat
+ * identitas pemilik, dan audit dapat `actorId`. State tersimpan dari versi lama
+ * tidak punya kolom itu, dan `entry.party` yang `undefined` langsung
+ * melempar error saat tabel ledger dirender. `admin` + `superAdmin` dibuang
+ * supaya di-seed ulang; keranjang, saldo, dan katalog tidak berubah bentuk.
  */
 const migrations = {
   3: (state: any) => ({ ...state, superAdmin: undefined }),
+  4: (state: any) => ({ ...state, admin: undefined, superAdmin: undefined }),
 }
 
 const persistConfig = {
   key: 'sa7tein',
-  version: 3,
+  version: 4,
   storage,
   whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin', 'superAdmin'],
   migrate: createMigrate(migrations, { debug: false }),
@@ -175,7 +184,9 @@ const CS_AUDIT_RULES: Record<string, CsAuditRule> = {
     kind: 'merchant',
     action: 'Blacklist COD merchant + tandai riskFlag customer',
     target: (p, s) =>
-      `${s.admin.merchants.find((m) => m.id === p.id)?.name ?? p.id} · ${p.customerName}`,
+      `${s.admin.merchants.find((m) => m.id === p.id)?.name ?? p.id} · ${
+        findCustomer(p.customerId)?.name ?? p.customerId
+      }`,
   },
   'admin/startInvestigation': {
     kind: 'dispute',
@@ -211,17 +222,18 @@ const auditBridge: Middleware = (api) => (next) => (action) => {
   const rule = CS_AUDIT_RULES[(action as { type?: string }).type ?? '']
   if (rule) {
     const payload = (action as { payload?: any }).payload ?? {}
-    // Nama aktor dibaca dari operator yang sedang bertugas, bukan konstanta:
-    // aksi CS tidak boleh semuanya tercatat atas nama satu orang.
+    // Aktor dibaca dari operator yang sedang bertugas, bukan konstanta: aksi CS
+    // tidak boleh semuanya tercatat atas nama satu orang. Id-nya ikut dicatat —
+    // nama bisa berubah, dan baris audit harus bisa ditautkan ke akun pelakunya.
     const state = api.getState() as RootState
+    const isSa = rule.actor === 'sa'
+    const actorId = isSa ? state.superAdmin.activeOperatorId : state.superAdmin.csActorId
     const operatorName = (id: string, fallback: string) =>
       state.superAdmin.operators.find((operator) => operator.id === id)?.name ?? fallback
     api.dispatch(
       logAudit({
-        actor:
-          rule.actor === 'sa'
-            ? operatorName(state.superAdmin.activeOperatorId, SA_CURRENT_ACTOR.name)
-            : operatorName(state.superAdmin.csActorId, CS_CURRENT_ACTOR.name),
+        actor: operatorName(actorId, isSa ? SA_CURRENT_ACTOR.name : CS_CURRENT_ACTOR.name),
+        actorId,
         role: rule.actor ?? 'cs',
         kind: rule.kind,
         action: typeof rule.action === 'function' ? rule.action(payload) : rule.action,

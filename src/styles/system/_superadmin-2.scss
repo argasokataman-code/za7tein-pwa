@@ -95,6 +95,37 @@
   font-size: var(--text-xs);
 }
 
+/* Sel tabel yang seluruhnya jadi tautan. Dipakai di registri pengguna: kolom
+   aksi terpisah tidak muat (tabel merchant sudah penuh di 1440px, kolom ke-10
+   memecah nama jadi tiga baris dan menaikkan tinggi baris 57px → 126px), jadi
+   affordance-nya pindah ke sel utama. Target tetap `--touch-min`. */
+.sa-cell-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  color: var(--orange-ink);
+  text-decoration: none;
+
+  &:hover .sa-cell-link-copy {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+}
+
+.sa-cell-link-copy {
+  min-width: 0;
+  font-weight: 700;
+  /* Nama merchant itu nama diri: jangan pecah di tengah ("Warung Sate Pak /
+     Ali"). Kalau daftarnya lebih lebar dari kartu, tabelnya menggulir di dalam
+     pembungkusnya seperti tabel lebar lain di konsol ini. */
+  white-space: nowrap;
+}
+
 /* ── Kanvas zona ───────────────────────────────────────────────────────── */
 
 .sa-canvas {
@@ -232,7 +263,10 @@
     color: var(--text-secondary);
     padding: var(--space-2) var(--space-3);
     border-bottom: 1px solid var(--border-strong);
-    white-space: nowrap;
+    /* Header **boleh** membungkus. Sebelumnya `nowrap`, dan itu yang membuat
+       tabel pajak menolak menyempit: tujuh header panjang memaksa lebar 1031px
+       di ruang 934px, jadi tabelnya menggulir mendatar padahal layarnya lega.
+       Yang tidak boleh membungkus adalah angkanya, bukan namanya. */
   }
 
   td {
@@ -508,4 +542,40 @@
 .sa-field--inline {
   max-width: 320px;
   margin-top: var(--space-2);
+}
+
+/* ── Ringkasan: baris uang asimetris & tile status ─────────────────────── */
+
+/* Baris uang sengaja tidak sama lebar: kartu angka sedikit lebih lebar dari
+   kartu donutnya, supaya angka yang jadi fokus tetap yang pertama terbaca. */
+.sa-hero--money {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+}
+
+/* Tile kill switch: titik status memberi sinyal "ada yang mati" tanpa perlu
+   membaca angkanya lebih dulu. */
+.sa-stat--ok,
+.sa-stat--off {
+  position: relative;
+}
+
+.sa-stat-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--success);
+}
+
+.sa-stat--off .sa-stat-dot {
+  background: var(--danger);
+}
+
+.sa-stat--off .sa-stat-value {
+  color: var(--danger-ink);
+}
+
+@media (max-width: 900px) {
+  .sa-hero--money {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

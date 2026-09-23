@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import { money } from '../data/admin'
+import { MoneyPair } from '../components/ui/MoneyPair'
 import { jod } from '../data/currency'
 import { PPH_FINAL_PERCENT, gstFoodFor, taxReports } from '../data/superadmin'
 
@@ -80,11 +80,15 @@ export default function SaTax() {
                 <tr key={row.period}>
                   <td className="sa-nowrap">{row.period}</td>
                   <td>{row.orders}</td>
-                  <td>{money(row.salesIdr)}</td>
-                  <td>{money(gstFoodFor(row.salesIdr))}</td>
-                  <td>{jod(row.feeGrossJod)}</td>
-                  <td>{jod(row.gstOnFeeJod)}</td>
-                  <td>{jod(row.pphFinalJod)}</td>
+                  <td>
+                    <MoneyPair idr={row.salesIdr} />
+                  </td>
+                  <td>
+                    <MoneyPair idr={gstFoodFor(row.salesIdr)} />
+                  </td>
+                  <td className="sa-nowrap">{jod(row.feeGrossJod)}</td>
+                  <td className="sa-nowrap">{jod(row.gstOnFeeJod)}</td>
+                  <td className="sa-nowrap">{jod(row.pphFinalJod)}</td>
                 </tr>
               ))}
               <tr>
@@ -92,11 +96,15 @@ export default function SaTax() {
                   <strong>Total</strong>
                 </td>
                 <td>{totals.orders}</td>
-                <td>{money(totals.salesIdr)}</td>
-                <td>{money(gstFoodFor(totals.salesIdr))}</td>
-                <td>{jod(totals.feeGrossJod)}</td>
-                <td>{jod(totals.gstOnFeeJod)}</td>
-                <td>{jod(totals.pphFinalJod)}</td>
+                <td>
+                  <MoneyPair idr={totals.salesIdr} />
+                </td>
+                <td>
+                  <MoneyPair idr={gstFoodFor(totals.salesIdr)} />
+                </td>
+                <td className="sa-nowrap">{jod(totals.feeGrossJod)}</td>
+                <td className="sa-nowrap">{jod(totals.gstOnFeeJod)}</td>
+                <td className="sa-nowrap">{jod(totals.pphFinalJod)}</td>
               </tr>
             </tbody>
           </table>

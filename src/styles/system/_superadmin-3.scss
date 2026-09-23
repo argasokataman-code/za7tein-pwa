@@ -1,0 +1,92 @@
+/* ── Konsol SA — perlakuan kartu (cincin dekoratif & footer aksi) ───────────
+   Konsep dari contoh Uiverse: satu cincin lembut di sudut kartu yang bergeser
+   saat hover, dan aksi kartu sebagai strip yang menempel dasar. Diadaptasi ke
+   DNA kita, bukan disalin: warna dari token (tanpa ungu), tanpa gradient,
+   radius tetap --radius-lg (bukan 15px), durasi/easing dari --motion-* dan
+   --ease-*, dan seluruh gerak mati saat prefers-reduced-motion. */
+
+.sa-card--glow {
+  position: relative;
+  overflow: hidden;
+
+  /* Cincin memakai tint merek, bukan `currentColor`: di kartu putih, cincin
+     gelap 10% terbaca seperti noda render, bukan dekorasi. Di kartu merek
+     cincinnya putih (`currentColor` = --on-brand) karena tint oranye di atas
+     oranye tidak terlihat. Opasitas tetap di dalam rentang dekorasi 4–14%
+     (DNA §6), dan tidak ada nilai warna baru. */
+  &::before {
+    content: "";
+    position: absolute;
+    top: -38%;
+    right: -16%;
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    border: 34px solid var(--sa7tein-orange);
+    opacity: 0.14;
+    filter: blur(8px);
+    pointer-events: none;
+    transition: transform var(--motion-journey) var(--ease-out),
+      filter var(--motion-journey) var(--ease-out);
+  }
+
+  &:hover::before {
+    transform: translate(-140%, 30%) scale(1.35);
+    filter: blur(0);
+  }
+}
+
+.sa-card--brand.sa-card--glow::before {
+  border-color: currentColor;
+  opacity: 0.1;
+}
+
+/* Footer aksi menempel dasar kartu merek: label + panah jadi satu strip penuh,
+   bukan tombol kecil mengambang. Kartu dibuat kolom flex supaya strip terdorong
+   ke dasar walau kartu lebih tinggi dari isinya (baris grid menyamakan tinggi
+   kartu, dan tanpa `margin-top: auto` strip-nya menggantung di tengah). */
+.sa-card--brand.sa-card--glow {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+
+.sa-card--brand.sa-card--glow .sa-card-action {
+  margin: auto calc(-1 * var(--space-5)) 0;
+  justify-content: center;
+  min-height: var(--touch-min);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* Strip-nya penuh sampai tepi kartu, jadi cincin fokus tidak boleh memakai
+   offset positif — akan terpotong `overflow: hidden`. Dipindah ke dalam dengan
+   warna merek, yang tetap 3:1 di atas putih (ambang indikator non-teks). */
+.sa-card--brand.sa-card--glow .sa-card-action:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: -4px;
+}
+
+/* Baris kedua di dalam satu sel tabel (id, kontak, alasan status). Dipisah dari
+   selnya supaya tabel registri tetap satu baris per pengguna, bukan melebar jadi
+   dua baris yang sulit dipindai. */
+.sa-table-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* Status netral (menunggu / mengantar / di toko) tidak boleh memakai nada
+   berhasil atau gagal — dua nada itu menyatakan penilaian, dan "menunggu" bukan
+   penilaian. `.sa-chip` hanya punya `is-ok` dan `is-off`, jadi nada ketiga
+   ditambahkan di sini, bukan dengan warna baru: `--bg-warm` + `--text-secondary`. */
+.sa-chip.is-muted {
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-card--glow::before {
+    transition: none;
+  }
+}

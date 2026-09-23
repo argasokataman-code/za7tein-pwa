@@ -58,6 +58,7 @@ export const saPermissions: SaPermission[] = [
   { id: 'profit.withdraw', label: 'Tarik saldo keuntungan', group: 'platform' },
   { id: 'switch.toggle', label: 'Ubah kill switch', group: 'platform' },
   { id: 'ledger.read', label: 'Pantau ledger (read-only)', group: 'platform' },
+  { id: 'user.read', label: 'Lihat registri pengguna', group: 'platform' },
   { id: 'appeal.decide', label: 'Putuskan banding sengketa', group: 'platform' },
   { id: 'tenant.approve', label: 'Setujui tenant & deposit', group: 'operasi' },
   { id: 'tenant.reject', label: 'Tolak / suspend tenant', group: 'operasi' },
@@ -82,7 +83,7 @@ export const saRoles: SaRole[] = [
     id: 'sa_ops',
     name: 'Staf SA',
     scope: 'sa',
-    permissionIds: ['zone.edit', 'audit.read', 'tax.read', 'profit.read', 'ledger.read'],
+    permissionIds: ['zone.edit', 'audit.read', 'tax.read', 'profit.read', 'ledger.read', 'user.read'],
     locked: false,
   },
   {
@@ -158,6 +159,7 @@ export const SA_ROUTE_PERMISSIONS: Record<string, string> = {
   '/tax': 'tax.read',
   '/profit': 'profit.read',
   '/ledger': 'ledger.read',
+  '/users': 'user.read',
   '/appeals': 'appeal.decide',
   '/switches': 'switch.toggle',
 }
@@ -209,7 +211,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-1',
     at: 'Hari ini 09:41',
-    actor: 'Nadia Haddad',
+    actor: "Nadia Haddad",
+    actorId: 'op-1',
     actorRole: 'sa',
     kind: 'switch',
     action: 'Kembalikan jalur payout ke normal',
@@ -218,7 +221,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-2',
     at: 'Hari ini 09:12',
-    actor: 'Dina Khoury',
+    actor: "Dina Khoury",
+    actorId: 'op-3',
     actorRole: 'cs',
     kind: 'onboarding',
     action: 'Setujui deposit tenant, status jadi Aktif',
@@ -227,7 +231,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-3',
     at: 'Kemarin 21:40',
-    actor: 'Dina Khoury',
+    actor: "Dina Khoury",
+    actorId: 'op-3',
     actorRole: 'cs',
     kind: 'dispute',
     action: 'Putusan level-1: refund penuh',
@@ -236,7 +241,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-4',
     at: 'Kemarin 18:02',
-    actor: 'Rami Odeh',
+    actor: "Rami Odeh",
+    actorId: 'op-2',
     actorRole: 'sa',
     kind: 'zone',
     action: 'Simpan poligon zona',
@@ -245,7 +251,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-5',
     at: '2 hari lalu 11:20',
-    actor: 'Nadia Haddad',
+    actor: "Nadia Haddad",
+    actorId: 'op-1',
     actorRole: 'sa',
     kind: 'profit',
     action: 'Tarik saldo keuntungan platform',
@@ -254,7 +261,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-6',
     at: '2 hari lalu 10:05',
-    actor: 'Nadia Haddad',
+    actor: "Nadia Haddad",
+    actorId: 'op-1',
     actorRole: 'sa',
     kind: 'operator',
     action: 'Buat akun operator CS',
@@ -263,7 +271,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-7',
     at: '3 hari lalu 16:30',
-    actor: 'Rami Odeh',
+    actor: "Rami Odeh",
+    actorId: 'op-2',
     actorRole: 'sa',
     kind: 'role',
     action: 'Cabut izin tarik saldo dari Staf SA',
@@ -272,7 +281,8 @@ export const saAuditLog: AuditEntry[] = [
   {
     id: 'au-8',
     at: '4 hari lalu 19:45',
-    actor: 'Dina Khoury',
+    actor: "Dina Khoury",
+    actorId: 'op-3',
     actorRole: 'cs',
     kind: 'merchant',
     action: 'Blacklist COD merchant',

@@ -24,6 +24,13 @@ export const COURIER_CHECKPOINT_ORDER: CourierCheckpoint[] = [
   'selesai',
 ]
 
+/** Status kurir, satu sumber untuk PWA merchant dan registri SA. */
+export const COURIER_STATUS_LABEL: Record<Courier['status'], string> = {
+  at_store: 'Di toko',
+  delivering: 'Mengantar',
+  offline: 'Offline',
+}
+
 export const COURIER_CHECKPOINT_LABEL: Record<CourierCheckpoint, string> = {
   masuk: 'Tugas baru',
   ambil: 'Menunggu diambil',
@@ -108,6 +115,7 @@ export const courierTasks: CourierTask[] = [
   {
     id: 'ct-1',
     code: 'SA-1041',
+    customerId: 'cus-1',
     customerName: 'Rani',
     customerPhone: '+6281200000001',
     address: 'Menara Sudirman',
@@ -126,6 +134,7 @@ export const courierTasks: CourierTask[] = [
   {
     id: 'ct-2',
     code: 'SA-1040',
+    customerId: 'cus-2',
     customerName: 'Budi',
     customerPhone: '+6281200000002',
     address: 'Jl. Kebon Sirih No. 8',
@@ -145,6 +154,7 @@ export const courierTasks: CourierTask[] = [
   {
     id: 'ct-3',
     code: 'SA-1039',
+    customerId: 'cus-3',
     customerName: 'Sinta',
     customerPhone: '+6281200000003',
     address: 'Apartemen Casablanca',
@@ -164,6 +174,7 @@ export const courierTasks: CourierTask[] = [
   {
     id: 'ct-4',
     code: 'SA-1035',
+    customerId: 'cus-7',
     customerName: 'Tia',
     customerPhone: '+6281200000004',
     address: 'Menara Imperium',

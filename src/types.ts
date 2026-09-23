@@ -67,6 +67,8 @@ export interface Review {
  */
 export interface MerchantReview {
   id: string
+  /** `Customer.id` — sebelum ini hanya nama, jadi ulasan tidak bisa ditautkan. */
+  customerId: string
   customerName: string
   avatar: string
   rating: number
@@ -148,6 +150,45 @@ export interface User {
   addresses: Address[]
 }
 
+export type CustomerStatus = 'active' | 'suspended' | 'blacklisted'
+
+/**
+ * Satu penandaan risiko customer. Disimpan sebagai **riwayat**, bukan keadaan:
+ * sebelumnya `customerRiskFlags` hanya `{ id, name }`, jadi alasan, waktu, dan
+ * operator penanda hilang begitu halaman dimuat ulang.
+ */
+export interface CustomerRiskFlag {
+  id: string
+  /** `Customer.id` — dulu hanya nama, jadi flag tidak bisa ditautkan ke akun. */
+  customerId: string
+  reason: string
+  at: string
+  /** `SaOperator.id` — id, bukan nama, supaya bisa ditautkan ke akun pelaku. */
+  byOperatorId: string
+}
+
+/**
+ * Registri customer platform. Sebelum ini customer hanya hidup sebagai
+ * `MerchantOrder.customerName` (string tanpa id), sehingga tidak ada satu pun
+ * pertanyaan per-customer yang bisa dijawab — berapa order, kena berapa
+ * sengketa, uangnya masuk ledger yang mana.
+ *
+ * Profil lengkap (alamat, tanggal lahir) tetap di `User`; di sini hanya kolom
+ * yang dibutuhkan untuk mengenali dan memantau akun.
+ */
+export interface Customer {
+  id: string
+  name: string
+  /** E.164 (+962/+62) — identitas utama Sa7tein (R-PUSH-01). */
+  phone: string
+  phoneVerified: boolean
+  avatar: string
+  /** Jumlah alamat tersimpan; rinciannya di profil customer. */
+  addressCount: number
+  status: CustomerStatus
+  joinedAt: string
+}
+
 export interface Card {
   id: string
   brand: 'visa' | 'mastercard'
@@ -221,14 +262,53 @@ export interface Merchant {
   bank: { name: string; account: string; holder: string }
 }
 
+/**
+ * Registri merchant platform: identitas usaha + keadaan tenant dalam satu
+ * record. Ini yang dibaca konsol SA dan panel CS.
+ *
+ * Sengaja **tidak** mewarisi `Merchant`: `Merchant` adalah profil operasional
+ * PWA merchant (koordinat dapur, rekening, jam buka) yang dimiliki satu toko,
+ * sedangkan registri ini tentang siapa merchantnya dan bagaimana statusnya di
+ * platform. Keduanya terhubung lewat `id` yang sama — dulu `mockMerchant` (id
+ * `'1'`) dan daftar CS (id `'am-1'`) tidak punya penghubung sama sekali.
+ *
+ * Menggantikan `AdminMerchant`.
+ */
+export interface MerchantRecord {
+  id: string
+  name: string
+  /** Nama pemilik usaha, dipisah dari nama usaha supaya kontaknya bisa disimpan. */
+  owner: string
+  /** WA pemilik, E.164. Sebelum ini `AdminTenant.owner` hanya nama tanpa kontak. */
+  ownerPhone: string
+  city: string
+  tier: 'free' | 'pro'
+  /** Zona master yang diaktifkan merchant (poligonnya milik SA). */
+  isActiveHijazi: boolean
+  isActiveSyimali: boolean
+  tenantStatus: TenantStatus
+  deposit: number
+  depositStatus: DepositStatus
+  /** Riwayat COD bermasalah — dasar aksi blacklist (F15). */
+  codIssues: number
+  joinedAt: string
+  /** `null` selama tenant belum di-approve. */
+  approvedAt: string | null
+  /** Alasan saat `suspended`/`blacklisted`; `null` saat normal. */
+  statusReason: string | null
+}
+
 export interface Courier {
   id: string
   merchantId: string
   name: string
   /** Nomor kurir, dipakai tombol "Hubungi" di halaman pelacakan. */
   phone: string
+  /** Verifikasi nomor kurir. Sebelum ini hanya customer yang punya flag ini. */
+  phoneVerified: boolean
   status: 'at_store' | 'delivering' | 'offline'
   activeOrderCount: number
+  joinedAt: string
 }
 
 export interface CartItem {
@@ -278,6 +358,8 @@ export type MerchantOrderStatus = 'masuk' | OrderStage | 'selesai' | 'ditolak' |
 export interface MerchantOrder {
   id: string
   code: string
+  /** `Customer.id` — kunci yang membuat order bisa dihitung per customer. */
+  customerId: string
   customerName: string
   buyerAvatar: string
   buyerRating: number
@@ -315,6 +397,8 @@ export type CourierCheckpoint =
 export interface CourierTask {
   id: string
   code: string
+  /** `Customer.id` — sama dengan yang dipakai order, jadi satu orang satu kunci. */
+  customerId: string
   customerName: string
   /** Nomor customer, dipakai tombol "Hubungi customer" saat guard customer lalai. */
   customerPhone: string
@@ -380,8 +464,14 @@ export interface Dispute {
   orderCode: string
   /** Pihak yang mengajukan; form submit ada di sisi customer dan merchant. */
   filedBy: 'customer' | 'merchant'
-  /** Nama pihak pengaju. */
+  /** `Customer.id` atau `MerchantRecord.id`, mengikuti `filedBy`. */
+  partyId: string
+  /** Nama pihak pengaju (tampilan). */
   party: string
+  /** `Customer.id` pemilik order yang disengketakan — terpisah dari `partyId`. */
+  customerId: string
+  /** `MerchantRecord.id` — dulu hanya nama, jadi sengketa per merchant tak bisa dihitung. */
+  merchantId: string
   merchant: string
   category: string
   reason: string
@@ -442,6 +532,22 @@ export type LedgerEntryType =
   | 'refund'
   | 'protection_fund'
 
+/** Jenis pemilik dana di satu entry ledger. */
+export type LedgerPartyKind = 'customer' | 'merchant' | 'courier' | 'platform'
+
+/**
+ * Pihak yang uangnya bergerak di satu entry ledger. Sebelum ini `LedgerEntry`
+ * tidak punya field pihak sama sekali, sehingga janji PRD "monitoring ledger
+ * detail merchant & customer" (`decision-irbid-mvp.md:52`) tidak bisa dipenuhi:
+ * uangnya terlihat bergerak, pemiliknya tidak.
+ */
+export interface LedgerParty {
+  kind: LedgerPartyKind
+  /** `Customer.id` / `MerchantRecord.id` / `Courier.id`; `null` untuk `platform`. */
+  id: string | null
+  name: string
+}
+
 /** Entry ledger — append-only, tanpa aksi edit atau hapus dari UI (M9). */
 export interface LedgerEntry {
   id: string
@@ -450,6 +556,8 @@ export interface LedgerEntry {
   direction: 'debit' | 'credit'
   /** JOD. */
   amount: number
+  /** Dana siapa yang bergerak di entry ini. */
+  party: LedgerParty
   ref: string
   memo: string
 }
@@ -504,21 +612,12 @@ export interface MerchantCreditState {
   events: MerchantCreditEvent[]
 }
 
-/** Merchant aktif di konsol SA, dengan aksi guard suspend/blacklist. */
-export interface AdminMerchant {
-  id: string
-  name: string
-  tenantStatus: TenantStatus
-  deposit: number
-  depositStatus: DepositStatus
-  /** Riwayat COD bermasalah — dasar aksi blacklist (F15). */
-  codIssues: number
-}
-
 /** Alert SLA breach yang naik ke SA (`batch.escalatedToAdmin: true`, feeder F21). */
 export interface AdminEscalation {
   id: string
   orderCode: string
+  /** `MerchantRecord.id` — dulu hanya nama. */
+  merchantId: string
   merchant: string
   detail: string
   minutesLate: number
@@ -595,11 +694,20 @@ export interface AuditEntry {
   id: string
   at: string
   actor: string
+  /**
+   * `SaOperator.id` pelaku; `null` untuk aksi sistem yang tidak dijalankan akun.
+   * Dulu hanya ada `actor` (nama), jadi audit tidak bisa ditautkan ke akun.
+   */
+  actorId: string | null
   actorRole: 'sa' | 'cs'
   kind: AuditKind
   /** Kalimat aksi yang sudah siap tampil, mis. "Setujui deposit tenant". */
   action: string
-  /** Objek yang kena aksi, mis. order code atau nama merchant. */
+  /**
+   * Objek yang kena aksi, mis. order code atau nama merchant. **Masih string
+   * tampilan, bukan id** — taksonomi target belum ada di PRD, jadi sengaja
+   * dibiarkan apa adanya dan ditandai `UNRESOLVED` di dokumentasi konsol.
+   */
   target: string
 }
 
@@ -646,4 +754,28 @@ export interface PlatformSwitches {
   cod: boolean
   payout: boolean
   maintenance: boolean
+}
+
+// ── Data-viz konsol (donut & bar) ───────────────────────────────────────────
+// Tipe view-model, bukan tipe domain: chart menggambarkan data yang sudah ada
+// (`LiabilitySummary`, `ProfitState`, `TaxReportRow`, `AuditEntry`), tidak
+// menambah aturan bisnis. Lihat `src/data/dashboard.ts`.
+
+/**
+ * Nada warna elemen data-viz. Nama **peran**, bukan nomor palet, supaya chart
+ * memakai token yang sudah ada dan tidak menambah warna baru (DNA §4).
+ */
+export type ChartTone = 'brand' | 'success' | 'warning' | 'danger' | 'muted'
+
+/** Satu potongan donut. */
+export interface ChartSegment {
+  label: string
+  value: number
+  tone: ChartTone
+}
+
+/** Satu batang bar chart. */
+export interface ChartBar {
+  label: string
+  value: number
 }

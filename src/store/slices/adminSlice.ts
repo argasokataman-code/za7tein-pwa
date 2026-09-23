@@ -9,26 +9,32 @@ import {
   ledgerEntryFor,
   mockLiability,
 } from '../../data/admin'
+import { merchantFromTenant } from '../../data/merchant'
 import type {
   AdminEscalation,
   AppealVerdict,
-  AdminMerchant,
   AdminTenant,
+  CustomerRiskFlag,
   Dispute,
   DisputeResolution,
   LedgerEntry,
   LiabilitySummary,
+  MerchantRecord,
 } from '../../types'
 
 interface AdminState {
   tenants: AdminTenant[]
-  merchants: AdminMerchant[]
+  merchants: MerchantRecord[]
   disputes: Dispute[]
   ledger: LedgerEntry[]
   liability: LiabilitySummary
   escalations: AdminEscalation[]
-  /** `customer.riskFlag` — sisi kedua blacklist COD, wajib bareng merchant (F15). */
-  customerRiskFlags: { id: string; name: string }[]
+  /**
+   * `customer.riskFlag` — sisi kedua blacklist COD, wajib bareng merchant (F15).
+   * Disimpan dengan `customerId`, bukan nama: dulu `{ id, name }` sehingga flag
+   * tidak bisa ditautkan ke akun customer mana pun.
+   */
+  customerRiskFlags: CustomerRiskFlag[]
 }
 
 const initialState: AdminState = {
@@ -54,14 +60,7 @@ const adminSlice = createSlice({
       if (!tenant || tenant.depositStatus !== 'unpaid') return
       tenant.depositStatus = 'held'
       tenant.tenantStatus = 'approved'
-      state.merchants.push({
-        id: `am-${tenant.id}`,
-        name: tenant.name,
-        tenantStatus: 'approved',
-        deposit: tenant.deposit,
-        depositStatus: 'held',
-        codIssues: 0,
-      })
+      state.merchants.push(merchantFromTenant(tenant))
     },
     /** Onboarding ditolak → `tenantStatus: suspended`, merchant tidak aktif. */
     rejectOnboarding(state, action: PayloadAction<{ id: string }>) {
@@ -70,18 +69,32 @@ const adminSlice = createSlice({
     },
     suspendMerchant(state, action: PayloadAction<{ id: string }>) {
       const merchant = state.merchants.find((m) => m.id === action.payload.id)
-      if (merchant) merchant.tenantStatus = 'suspended'
+      if (!merchant) return
+      merchant.tenantStatus = 'suspended'
+      merchant.statusReason = 'Di-suspend CS dari panel tenant'
     },
     /**
      * Blacklist COD menandai DUA sisi sekaligus: merchant `blacklisted` dan
-     * `customer.riskFlag: true`. Keduanya dibutuhkan untuk memblokir checkout COD.
+     * customer dapat `riskFlag`. Keduanya dibutuhkan untuk memblokir checkout COD.
+     *
+     * Customer ditunjuk lewat `customerId` dari registri, bukan nama yang
+     * diketik bebas: nama tidak bisa ditautkan ke akun, dan dua customer boleh
+     * punya nama yang sama.
      */
-    blacklistCod(state, action: PayloadAction<{ id: string; customerName: string }>) {
+    blacklistCod(
+      state,
+      action: PayloadAction<{ id: string; customerId: string; byOperatorId: string }>,
+    ) {
       const merchant = state.merchants.find((m) => m.id === action.payload.id)
-      if (merchant) merchant.tenantStatus = 'blacklisted'
+      if (!merchant) return
+      merchant.tenantStatus = 'blacklisted'
+      merchant.codIssues += 1
       state.customerRiskFlags.push({
-        id: `rf-${action.payload.id}`,
-        name: action.payload.customerName,
+        id: `rf-${action.payload.id}-${action.payload.customerId}`,
+        customerId: action.payload.customerId,
+        reason: 'COD bermasalah bersama merchant ini',
+        at: 'Baru saja',
+        byOperatorId: action.payload.byOperatorId,
       })
     },
     startInvestigation(state, action: PayloadAction<{ id: string }>) {

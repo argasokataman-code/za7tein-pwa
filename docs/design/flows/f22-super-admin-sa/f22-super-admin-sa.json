@@ -158,6 +158,15 @@
       "sublabel": "liability bukan milik SA",
       "tag": "blocked",
       "width": 140
+    },
+    {
+      "id": "users",
+      "lane": "awas",
+      "col": 2,
+      "type": "frontend",
+      "label": "Pengguna",
+      "sublabel": "3 tipe + dossier",
+      "width": 100
     }
   ],
   "edges": [
@@ -226,6 +235,20 @@
       "label": "permintaan tarik dana user",
       "role": "branch",
       "variant": "security"
+    },
+    {
+      "id": "e-audit-users",
+      "from": "audit",
+      "to": "users",
+      "label": "orangnya",
+      "role": "branch"
+    },
+    {
+      "id": "e-users-ledger",
+      "from": "users",
+      "to": "ledger",
+      "label": "uangnya",
+      "role": "branch"
     }
   ],
   "cards": [
@@ -241,7 +264,7 @@
       "dot": "amber",
       "title": "Alur inti: konfigurasi → uang → banding",
       "items": [
-        "Ringkasan: saldo keuntungan (boleh ditarik) vs kewajiban platform (dana user, tidak boleh disentuh)",
+        "Ringkasan: saldo keuntungan (boleh ditarik) vs kewajiban platform (dana user, tidak boleh disentuh) · registri pengguna menautkan order, sengketa, dan ledger ke satu id per orang",
         "Master zona **Hijazi & Syimali** ditentukan SA (`f20`) · akun operator CS **dibuat SA** (`OQ-30`)",
         "Banding: putusan level-1 CS ditinjau SA (`f15` → `f22` → `f8`)"
       ]
@@ -251,8 +274,8 @@
       "title": "Guard, sumber & UNRESOLVED",
       "items": [
         "Guard: kill switch menghentikan COD / payout / order baru · dana user tertutup untuk SA · ledger baca saja",
-        "Dasar: PO 2026-09-23 + `C-12` + `R-DISPUTE-01` + `R-LEDGER-01` + `C-13`. Tidak ada `R-SA-*`",
-        "UNRESOLVED: tarif pajak final · jumlah operator · jadwal settlement · geometri zona asli (server)"
+        "Dasar: PO 2026-09-23 + `C-12` + `R-DISPUTE-01` + `R-LEDGER-01` + `C-13`, plus keputusan PO 2026-09-23 tentang registri pengguna. Tidak ada `R-SA-*`",
+        "UNRESOLVED: tarif pajak final · jumlah operator · jadwal settlement · geometri zona asli (server) · taksonomi target audit (masih string)"
       ]
     }
   ],

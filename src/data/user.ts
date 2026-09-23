@@ -3,7 +3,8 @@ import type { Card, User } from '../types'
 // Sample data shared with the Sa7tein merchant mockup so both projects tell the
 // same story (see sa7tein/AGENTS.md — Aturan #7).
 export const mockUser: User = {
-  id: '1',
+  /** Record `cus-6` di registri customer (`src/data/people.ts`) — satu orang satu kunci. */
+  id: 'cus-6',
   name: 'Dimas Ardianto',
   email: 'dimas@sa7tein.id',
   phone: '+62 812 3456 7890',

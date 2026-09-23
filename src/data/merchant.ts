@@ -6,6 +6,7 @@ import type {
   HoldStatus,
   Merchant,
   MerchantDeliveryConfig,
+  MerchantRecord,
   OrderStage,
   PaymentMethod,
   ZoneId,
@@ -114,9 +115,15 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
   },
 ]
 
-/** Merchant contoh, sama dengan mockup merchant. */
+/** Deposit COD merchant & tenant (3,50 JOD, PRD §5C). Approve = verifikasi transfer dulu. */
+export const DEPOSIT_JOD = 3.5
+
+/**
+ * Merchant yang sedang login di PWA merchant. Id-nya sama dengan record
+ * registri di bawah (`am-1`) — itulah penghubung yang dulu tidak ada.
+ */
 export const mockMerchant: Merchant = {
-  id: '1',
+  id: 'am-1',
   name: 'Warung Sate Pak Ali',
   lat: -6.26,
   lng: 106.78,
@@ -127,6 +134,99 @@ export const mockMerchant: Merchant = {
   openTime: '07:00',
   closeTime: '22:00',
   bank: { name: 'BCA', account: '8830 1122 3344', holder: 'Ali Santoso' },
+}
+
+/**
+ * Registri merchant platform — identitas usaha + keadaan tenant dalam satu
+ * record. Ini yang dibaca konsol SA dan panel CS.
+ *
+ * Tenant yang masih `pending` **tidak** ada di sini: ia belum merchant, dan
+ * antreannya ada di panel CS (`adminTenants`, `/admin/onboarding`).
+ */
+export const merchants: MerchantRecord[] = [
+  {
+    id: 'am-1',
+    name: 'Warung Sate Pak Ali',
+    owner: 'Ali Santoso',
+    ownerPhone: '+6281200000011',
+    city: 'Irbid — Al-Hashmi',
+    tier: 'free',
+    isActiveHijazi: true,
+    isActiveSyimali: true,
+    tenantStatus: 'approved',
+    deposit: DEPOSIT_JOD,
+    depositStatus: 'held',
+    codIssues: 0,
+    joinedAt: '4 bulan lalu',
+    approvedAt: '4 bulan lalu',
+    statusReason: null,
+  },
+  {
+    id: 'am-2',
+    name: 'Bakso Pak Kumis',
+    owner: 'Kumis Wijaya',
+    ownerPhone: '+6281200000012',
+    city: 'Irbid — Al-Hashmi',
+    tier: 'pro',
+    isActiveHijazi: true,
+    isActiveSyimali: false,
+    tenantStatus: 'suspended',
+    deposit: DEPOSIT_JOD,
+    depositStatus: 'held',
+    codIssues: 1,
+    joinedAt: '3 bulan lalu',
+    approvedAt: '3 bulan lalu',
+    statusReason: 'COD bermasalah berulang, menunggu konfirmasi pemilik',
+  },
+  {
+    id: 'am-3',
+    name: 'Kopi Kenangan Kecil',
+    owner: 'Rina Kusuma',
+    ownerPhone: '+6281200000013',
+    city: 'Irbid — University St.',
+    tier: 'free',
+    isActiveHijazi: false,
+    isActiveSyimali: true,
+    tenantStatus: 'approved',
+    deposit: DEPOSIT_JOD,
+    depositStatus: 'held',
+    codIssues: 3,
+    joinedAt: '2 bulan lalu',
+    approvedAt: '2 bulan lalu',
+    statusReason: null,
+  },
+]
+
+/**
+ * Merchant baru hasil approve tenant. Kolom operasional PWA (koordinat dapur,
+ * rekening, jam buka) tidak diisi di sini — form onboarding belum
+ * mengumpulkannya, dan mengarang rekening bank bukan tugas registri.
+ */
+export function merchantFromTenant(tenant: {
+  id: string
+  name: string
+  owner: string
+  city: string
+  deposit: number
+  deliveryConfig: { isActiveHijazi: boolean; isActiveSyimali: boolean }
+}): MerchantRecord {
+  return {
+    id: `am-${tenant.id}`,
+    name: tenant.name,
+    owner: tenant.owner,
+    ownerPhone: '',
+    city: tenant.city,
+    tier: 'free',
+    isActiveHijazi: tenant.deliveryConfig.isActiveHijazi,
+    isActiveSyimali: tenant.deliveryConfig.isActiveSyimali,
+    tenantStatus: 'approved',
+    deposit: tenant.deposit,
+    depositStatus: 'held',
+    codIssues: 0,
+    joinedAt: 'Baru saja',
+    approvedAt: 'Baru saja',
+    statusReason: null,
+  }
 }
 
 /**
@@ -142,12 +242,31 @@ export const DEFAULT_NEW_ADDRESS_PIN = {
   zone: 'hijazi',
 } as const
 
-/** Kurir toko bersifat eksklusif milik satu merchant (PRD bab 04). */
-export const mockCouriers: Courier[] = [
-  { id: '1', merchantId: '1', name: 'Budi Santoso', phone: '+6281234567890', status: 'at_store', activeOrderCount: 0 },
-  { id: '2', merchantId: '1', name: 'Andi Pratama', phone: '+6281298765432', status: 'delivering', activeOrderCount: 2 },
-  { id: '3', merchantId: '1', name: 'Rizal', phone: '+6281355566677', status: 'offline', activeOrderCount: 0 },
+/**
+ * Kurir toko bersifat eksklusif milik satu merchant (PRD bab 04). Daftar ini
+ * adalah registri platform — tiap kurir menunjuk merchant pemiliknya lewat
+ * `merchantId` yang sama dengan `MerchantRecord.id`.
+ *
+ * Catatan PRD: `source.md:296` menyebut deposit, holding earnings, dan blacklist
+ * kurir sebagai tanggung jawab merchant, bukan platform. Menampilkan daftar
+ * lintas merchant di konsol SA adalah keputusan PO 2026-09-23 yang **menyimpang**
+ * dari baris itu; dicatat di `decision-irbid-mvp.md` + flow F22.
+ */
+export const couriers: Courier[] = [
+  // Warung Sate Pak Ali (am-1) — kurir yang tampil di PWA merchant & kurir.
+  { id: 'cr-1', merchantId: 'am-1', name: 'Budi Santoso', phone: '+6281234567890', phoneVerified: true, status: 'at_store', activeOrderCount: 0, joinedAt: '5 minggu lalu' },
+  { id: 'cr-2', merchantId: 'am-1', name: 'Andi Pratama', phone: '+6281298765432', phoneVerified: true, status: 'delivering', activeOrderCount: 2, joinedAt: '3 minggu lalu' },
+  { id: 'cr-3', merchantId: 'am-1', name: 'Rizal', phone: '+6281355566677', phoneVerified: false, status: 'offline', activeOrderCount: 0, joinedAt: '1 minggu lalu' },
+  // Merchant lain — hanya muncul di registri SA, tidak di PWA merchant mana pun.
+  { id: 'cr-4', merchantId: 'am-2', name: 'Hasan Basri', phone: '+6281200000021', phoneVerified: true, status: 'offline', activeOrderCount: 0, joinedAt: '2 bulan lalu' },
+  { id: 'cr-5', merchantId: 'am-3', name: 'Yusuf Karim', phone: '+6281200000022', phoneVerified: true, status: 'delivering', activeOrderCount: 1, joinedAt: '1 bulan lalu' },
+  { id: 'cr-6', merchantId: 'am-3', name: 'Slamet Riyadi', phone: '+6281200000023', phoneVerified: false, status: 'at_store', activeOrderCount: 0, joinedAt: '2 minggu lalu' },
 ]
+
+/** Kurir milik merchant yang sedang login — dipakai PWA merchant & kurir. */
+export const mockCouriers: Courier[] = couriers.filter(
+  (courier) => courier.merchantId === mockMerchant.id,
+)
 
 export const MAX_COURIERS_PER_MERCHANT = 3
 

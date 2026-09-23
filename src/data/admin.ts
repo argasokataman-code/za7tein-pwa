@@ -1,6 +1,5 @@
 import type {
   AdminEscalation,
-  AdminMerchant,
   AdminTenant,
   DepositStatus,
   Dispute,
@@ -8,11 +7,16 @@ import type {
   DisputeStatus,
   LedgerEntry,
   LedgerEntryType,
+  LedgerParty,
+  LedgerPartyKind,
   LiabilitySummary,
+  MerchantRecord,
   TenantStatus,
 } from '../types'
 
 import { idrToJod } from './currency'
+import { DEPOSIT_JOD, merchants } from './merchant'
+import { findCustomer } from './people'
 import { mockWallet } from './wallet'
 
 /**
@@ -36,8 +40,6 @@ export { idrToJod, jod, money, moneyFromJod } from './currency'
  * langsung). Bukan angka bisnis — hanya supaya nominal JOD tidak nol di demo.
  */
 export const DEMO_DISPUTE_ORDER_IDR = 44000
-
-const DEPOSIT_JOD = 3.5
 
 export const tenantStatusLabel: Record<TenantStatus, string> = {
   pending: 'Menunggu review',
@@ -66,6 +68,14 @@ export const ledgerTypeLabel: Record<LedgerEntryType, string> = {
   fee: 'Fee platform',
   refund: 'Refund',
   protection_fund: 'Protection fund',
+}
+
+/** Jenis pemilik dana di satu entry ledger, untuk kolom "Pihak". */
+export const ledgerPartyLabel: Record<LedgerPartyKind, string> = {
+  customer: 'Customer',
+  merchant: 'Merchant',
+  courier: 'Kurir',
+  platform: 'Platform',
 }
 
 /**
@@ -202,39 +212,22 @@ export const adminTenants: AdminTenant[] = [
   },
 ]
 
-export const adminMerchants: AdminMerchant[] = [
-  {
-    id: 'am-1',
-    name: 'Warung Sate Pak Ali',
-    tenantStatus: 'approved',
-    deposit: DEPOSIT_JOD,
-    depositStatus: 'held',
-    codIssues: 0,
-  },
-  {
-    id: 'am-2',
-    name: 'Bakso Pak Kumis',
-    tenantStatus: 'suspended',
-    deposit: DEPOSIT_JOD,
-    depositStatus: 'held',
-    codIssues: 1,
-  },
-  {
-    id: 'am-3',
-    name: 'Kopi Kenangan Kecil',
-    tenantStatus: 'approved',
-    deposit: DEPOSIT_JOD,
-    depositStatus: 'held',
-    codIssues: 3,
-  },
-]
+/**
+ * Merchant aktif di konsol CS — sekarang **registri yang sama** dengan
+ * `merchant.ts`, bukan daftar kedua. Dulu di sini ada tiga record `am-*` yang
+ * menduplikasi `mockMerchant` tanpa id penghubung.
+ */
+export const adminMerchants: MerchantRecord[] = merchants
 
 export const adminDisputes: Dispute[] = [
   {
     id: 'dp-1',
     orderCode: 'SA-1032',
     filedBy: 'customer',
+    partyId: 'cus-1',
     party: 'Rani',
+    customerId: 'cus-1',
+    merchantId: 'am-1',
     merchant: 'Warung Sate Pak Ali',
     category: 'Pesanan tidak sesuai',
     reason: 'Sate yang datang tidak sesuai pesanan, bumbu kacang diganti kecap.',
@@ -247,7 +240,10 @@ export const adminDisputes: Dispute[] = [
     id: 'dp-2',
     orderCode: 'SA-1028',
     filedBy: 'merchant',
+    partyId: 'am-2',
     party: 'Bakso Pak Kumis',
+    customerId: 'cus-8',
+    merchantId: 'am-2',
     merchant: 'Bakso Pak Kumis',
     category: 'Bukti pengantaran tidak cocok',
     reason: 'Customer klaim pesanan tidak tiba, padahal foto kurir menunjukkan serah terima.',
@@ -260,7 +256,10 @@ export const adminDisputes: Dispute[] = [
     id: 'dp-3',
     orderCode: 'SA-1019',
     filedBy: 'customer',
+    partyId: 'cus-3',
     party: 'Sinta',
+    customerId: 'cus-3',
+    merchantId: 'am-3',
     merchant: 'Kopi Kenangan Kecil',
     category: 'Jumlah atau item kurang',
     reason: 'Dua gelas hilang dari pesanan.',
@@ -279,7 +278,10 @@ export const adminDisputes: Dispute[] = [
     id: 'dp-4',
     orderCode: 'SA-1004',
     filedBy: 'customer',
+    partyId: 'cus-7',
     party: 'Tia',
+    customerId: 'cus-7',
+    merchantId: 'am-1',
     merchant: 'Warung Sate Pak Ali',
     category: 'Pesanan belum diterima',
     reason: 'Mengaku belum menerima, tetapi log OTP menunjukkan sudah diverifikasi.',
@@ -305,6 +307,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'deposit_hold',
     direction: 'credit',
     amount: DEPOSIT_JOD,
+    party: { kind: 'merchant', id: 'am-1', name: 'Warung Sate Pak Ali' },
     ref: 'SA-1032',
     memo: 'Deposit COD masuk, menunggu di-hold',
   },
@@ -314,6 +317,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'cod_hold',
     direction: 'debit',
     amount: 2.87,
+    party: { kind: 'customer', id: 'cus-1', name: 'Rani' },
     ref: 'SA-1041',
     memo: 'Hold COD order yang sedang berjalan (2,87 JOD)',
   },
@@ -323,6 +327,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'fee',
     direction: 'debit',
     amount: 0.15,
+    party: { kind: 'merchant', id: 'am-1', name: 'Warung Sate Pak Ali' },
     ref: 'SA-1035',
     memo: 'Fee merchant per order settled',
   },
@@ -332,6 +337,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'settlement',
     direction: 'credit',
     amount: 3.05,
+    party: { kind: 'merchant', id: 'am-1', name: 'Warung Sate Pak Ali' },
     ref: 'SA-1035',
     memo: 'Settlement order ke wallet merchant',
   },
@@ -341,6 +347,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'refund',
     direction: 'debit',
     amount: 2.8,
+    party: { kind: 'customer', id: 'cus-3', name: 'Sinta' },
     ref: 'SA-1019',
     memo: 'Refund penuh hasil resolusi sengketa',
   },
@@ -350,6 +357,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'protection_fund',
     direction: 'credit',
     amount: 2.8,
+    party: { kind: 'platform', id: null, name: 'Protection fund platform' },
     ref: 'SA-1019',
     memo: 'Kasus tanpa pihak bersalah — ditanggung protection fund',
   },
@@ -359,6 +367,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'cod_hold',
     direction: 'credit',
     amount: 1.1,
+    party: { kind: 'customer', id: 'cus-7', name: 'Tia' },
     ref: 'SA-1004',
     memo: 'Hold COD order selesai',
   },
@@ -368,6 +377,7 @@ export const adminLedger: LedgerEntry[] = [
     type: 'fee',
     direction: 'debit',
     amount: 0.22,
+    party: { kind: 'customer', id: 'cus-2', name: 'Budi' },
     ref: 'SA-1021',
     memo: 'Fee customer dipungut saat checkout',
   },
@@ -377,6 +387,7 @@ export const adminEscalations: AdminEscalation[] = [
   {
     id: 'esc-1',
     orderCode: 'SA-1040',
+    merchantId: 'am-1',
     merchant: 'Warung Sate Pak Ali',
     detail: 'Kurir lewat SLA Berangkat → Tiba tanpa update checkpoint.',
     minutesLate: 12,
@@ -384,6 +395,7 @@ export const adminEscalations: AdminEscalation[] = [
   {
     id: 'esc-2',
     orderCode: 'SA-1039',
+    merchantId: 'am-3',
     merchant: 'Kopi Kenangan Kecil',
     detail: 'Customer belum menyerahkan OTP, hold belum bisa settle.',
     minutesLate: 6,
@@ -399,6 +411,19 @@ export function pendingTenantCount(tenants: AdminTenant[]): number {
 }
 
 /**
+ * Pihak customer di satu sengketa. Namanya dibaca dari registri, bukan dari
+ * `dispute.party` — `party` adalah nama **pengaju**, dan saat yang mengajukan
+ * merchant, nama itu bukan nama customer.
+ */
+function customerPartyOf(dispute: Dispute): LedgerParty {
+  return {
+    kind: 'customer',
+    id: dispute.customerId,
+    name: findCustomer(dispute.customerId)?.name ?? dispute.customerId,
+  }
+}
+
+/**
  * Entry ledger yang lahir dari satu putusan sengketa (F8: tiap resolusi = 1
  * entry append-only). `no_action` tidak menghasilkan entry — putusan itu tidak
  * mengubah saldo, jadi tak ada yang bisa dicatat.
@@ -411,6 +436,7 @@ export function ledgerEntryFor(
   const base: Omit<LedgerEntry, 'id' | 'type' | 'amount' | 'memo' | 'direction'> = {
     at: 'Baru saja',
     ref: dispute.orderCode,
+    party: { kind: 'merchant', id: dispute.merchantId, name: dispute.merchant },
   }
 
   switch (resolution) {
@@ -422,6 +448,7 @@ export function ledgerEntryFor(
         direction: 'debit',
         amount: dispute.amount,
         memo: 'Refund penuh hasil resolusi sengketa',
+        party: customerPartyOf(dispute),
       }
     case 'refund_partial':
       return {
@@ -431,6 +458,7 @@ export function ledgerEntryFor(
         direction: 'debit',
         amount: Number(((dispute.amount * percent) / 100).toFixed(2)),
         memo: `Refund sebagian ${percent}% hasil resolusi sengketa`,
+        party: customerPartyOf(dispute),
       }
     case 'released':
       return {

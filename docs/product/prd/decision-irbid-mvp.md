@@ -64,6 +64,22 @@ Melengkapi klarifikasi peran di atas. Super Admin = **website penuh non-PWA** (p
 
 **UNRESOLVED lanjutan:** OQ-30 (siapa operator, jumlah admin), jadwal settlement, provider kurs (OQ-26/28), tarif pajak final.
 
+### Registri pengguna — 2026-09-23 (keputusan PO)
+
+Audit konsol SA menemukan sebab kenapa SA bisa melihat **uang** (ledger, pajak, keuntungan) tetapi tidak bisa melihat **orang**: bukan UI-nya yang kurang, tetapi **tidak ada pendataan pengguna sama sekali**. Customer dan merchant hanya ada sebagai satu objek contoh milik sesi yang sedang login, nama customer hidup sebagai string di 20 field order, sengketa hanya menyimpan nama pihak, dan `LedgerEntry` tidak punya field pihak — padahal cakupan di atas menjanjikan "monitoring ledger **detail merchant & customer**", yang berarti janji itu tidak bisa dipenuhi dari data yang ada.
+
+Keputusan PO:
+
+- **Platform menyimpan registri pengguna.** Customer menjadi entitas bertipe (`Customer`, `src/data/people.ts`); merchant menjadi registri (`MerchantRecord`, `src/data/merchant.ts`) yang menggantikan `AdminMerchant` dan berbagi id dengan `mockMerchant`; kurir tetap daftar (`Courier`) dengan `merchantId`. Semuanya punya id.
+- **Rujukan antar-modul pindah dari nama ke id.** Order, tugas kurir, ulasan, sengketa, ledger, dan audit menunjuk id, bukan nama tampilan. Tanpa ini tidak ada satu pun pertanyaan per-pengguna yang bisa dijawab.
+- **Audit dapat `actorId`.** Sebelumnya hanya nama pelaku (`actor`), sehingga baris audit tidak bisa ditautkan ke akun operator. `target` **masih** string tampilan — taksonomi target belum ada di PRD, ditandai `UNRESOLVED`.
+- **Konsol SA mendapat satu layar registri** (`/superadmin/users`, izin `user.read`): customer, merchant, dan kurir, **read-only**. Mengubah status pengguna tetap kerja panel CS; SA mengawasi lewat audit trail.
+- **Daftar kurir lintas merchant diizinkan untuk pengawasan.** Ini **menyimpang** dari `source.md:296` ("deposit, holding earnings, blacklist kurir = tanggung jawab merchant, bukan platform"). Yang berubah hanya **visibilitas** bagi SA; deposit, earnings, dan blacklist kurir tetap milik merchant, dan mengelola kurir **bukan** kewenangan SA.
+- **Status live kurir bukan milik SA.** Kolom status realtime (`Di toko` / `Mengantar` / `Offline`) dan beban order berjalan **dihapus** dari registri SA: itu papan pantau merchant atas kurirnya sendiri (`/merchant/couriers`). Registri SA menyimpan identitas kurir, siapa yang mempekerjakan, dan sejak kapan; pengawasan lintas merchant dibaca dari agregat per merchant (jumlah kurir), bukan dari keadaan sesaat.
+- **Registri punya dossier per merchant, tetap read-only.** Tiap baris merchant di `/superadmin/users` membuka `/superadmin/users/merchant/:id`: identitas usaha, keadaan tenant (status, deposit, zona aktif, COD bermasalah), kurir yang dipekerjakan, sengketa, uang di ledger, dan alert SLA. Alasannya: pengawasan berhenti di angka agregat — "berapa sengketa" tanpa "sengketa apa, uangnya masuk entry mana" tidak bisa ditindaklanjuti. **Tanpa aksi ubah status**: suspend, blacklist COD, dan review tenant tetap kerja panel CS (`/admin/merchants`). Memberi SA tombol itu adalah perubahan keputusan, bukan tambahan tombol.
+
+**UNRESOLVED dari keputusan ini:** taksonomi target audit (`AuditEntry.target` masih string), dan apakah customer/merchant boleh masuk lewat Google (sisa OQ-24).
+
 ### `irbid-mvp-2026-09-12` (superseded oleh v2, 2026-09-22)
 
 - Sumber: `versions/irbid-mvp-2026-09-12/source.pdf`, halaman 1–12.
