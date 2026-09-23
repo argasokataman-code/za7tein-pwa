@@ -269,6 +269,11 @@ export const adminDisputes: Dispute[] = [
     amount: 2.8,
     status: 'resolved',
     resolution: 'refund_full',
+    appeal: {
+      requestedAt: 'Kemarin 22:10',
+      requestedBy: 'merchant',
+      note: 'Merchant menilai foto bukti tidak dinilai; minta putusan ditinjau ulang.',
+    },
   },
   {
     id: 'dp-4',
@@ -283,6 +288,13 @@ export const adminDisputes: Dispute[] = [
     amount: 1.1,
     status: 'rejected',
     resolution: 'no_action',
+    appeal: {
+      requestedAt: '1 hari lalu',
+      requestedBy: 'customer',
+      note: 'Customer mengklaim OTP diberikan orang lain di alamat yang sama.',
+      verdict: 'upheld',
+      decidedAt: 'Kemarin 09:30',
+    },
   },
 ]
 

@@ -3,7 +3,7 @@ import { DocSection } from '../DocSection'
 
 export function SuperAdminSection() {
   return (
-    <DocSection id="superadmin" num="34" title="Konsol Super Admin (SA) — Website Penuh">
+    <DocSection id="superadmin" num="34" title="Konsol Super Admin (SA), Website Penuh">
       <p className="doc-p">
         <strong>Super Admin adalah role terpisah</strong>, bukan halaman di dalam panel CS.
         Keputusan PO 2026-09-23 (<code className="doc-inline">decision-irbid-mvp.md</code>)
@@ -21,23 +21,23 @@ export function SuperAdminSection() {
         aturan lama yang mengunci <code className="doc-inline">body &gt; div</code> ke{' '}
         <code className="doc-inline">--shell-max</code> dibatalkan khusus saat{' '}
         <code className="doc-inline">#root</code> memuat <code className="doc-inline">.sa-root</code>{' '}
-        — pola yang sama dengan <code className="doc-inline">.doc-root</code>. Di bawah 900px
+       , pola yang sama dengan <code className="doc-inline">.doc-root</code>. Di bawah 900px
         sidebar berubah jadi bilah atas yang bisa digeser mendatar, jadi konsol tetap terpakai di
         layar sempit.
       </p>
       <DocCode lang="text">
-        {`/superadmin          konsol SA — sidebar + konten penuh, tanpa MobileDeviceFrame
-/admin               panel CS  — PWA 430px, tetap seperti role lain
+        {`/superadmin          konsol SA, sidebar + konten penuh, tanpa MobileDeviceFrame
+/admin               panel CS , PWA 430px, tetap seperti role lain
 manifest             dilepas di /superadmin (non-PWA, tidak ditawarkan untuk install)`}
       </DocCode>
 
       <h3 className="doc-h3">Batas CS dan SA</h3>
       <p className="doc-p">
         CS <strong>menjalankan</strong> operasi harian: approval tenant, putusan sengketa level-1,
-        dan blacklist COD — semuanya di <code className="doc-inline">/admin/*</code>. SA{' '}
+        dan blacklist COD, semuanya di <code className="doc-inline">/admin/*</code>. SA{' '}
         <strong>mengonfigurasi platform dan mengawasi</strong>: master zona, role &amp; permission,
         audit trail, laporan pajak, saldo keuntungan, kill switch, dan banding sengketa. Top-up
-        dan payout customer/merchant berjalan <em>self-service</em> oleh sistem — SA hanya
+        dan payout customer/merchant berjalan <em>self-service</em> oleh sistem, SA hanya
         memantau ledger-nya, tidak mengesahkan.
       </p>
 
@@ -46,14 +46,14 @@ manifest             dilepas di /superadmin (non-PWA, tidak ditawarkan untuk ins
         <strong>Saldo keuntungan platform</strong> = fee terkumpul (0,37 JOD/order) dikurangi
         biaya operasional, PPh final 0,5%, dan penarikan sebelumnya. Hanya dana ini yang boleh
         ditarik SA. <strong>Kewajiban platform</strong> = saldo wallet customer + merchant + tips
-        kurir yang belum di-payout — itu uang user, tidak pernah bisa ditarik SA. Keduanya
+        kurir yang belum di-payout, itu uang user, tidak pernah bisa ditarik SA. Keduanya
         ditampilkan berdampingan di Ringkasan supaya tidak tertukar.
       </p>
       <DocCode lang="typescript">
         {`profitBalance(profit)   // fee − biaya − PPh final − withdrawn  → boleh ditarik
 totalLiability(liab)    // customer + merchant + tips kurir        → tidak boleh disentuh
 feeGrossFor(orders)     // orders × PLATFORM_FEE_JOD (0,37)
-pphFinalFor(fee)        // 0,5% — PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
+pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
       </DocCode>
 
       <h3 className="doc-h3">Audit trail menjangkau kerja CS</h3>
@@ -69,21 +69,54 @@ pphFinalFor(fee)        // 0,5% — PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
       <h3 className="doc-h3">Yang bisa diklik di konsol</h3>
       <ul className="doc-list">
         <li>
-          <strong>Master zona</strong> — geser titik di kanvas, atau pilih satu titik lalu isi
+          <strong>Master zona</strong>, geser titik di kanvas, atau pilih satu titik lalu isi
           kolom X/Y (jalur yang bisa dipakai keyboard). <em>Simpan poligon</em> mengubah state dan
           menambah satu baris audit; <em>Bentuk awal</em> mengembalikannya. Merchant tetap hanya
           mengaktifkan zona, tidak pernah mengubah poligonnya.
         </li>
         <li>
-          <strong>Role &amp; operator</strong> — checkbox izin per role. Role pemilik platform
+          <strong>Role &amp; operator</strong>, checkbox izin per role. Role pemilik platform
           dikunci (semua checkbox nonaktif) supaya konsol tidak bisa mengunci dirinya sendiri.
           Form <em>Buat operator</em> membuat akun CS berstatus Diundang.
         </li>
         <li>
-          <strong>Audit trail</strong> — filter per jenis aksi dan pencarian aktor/objek. Tabelnya
+          <strong>Audit trail</strong>, filter per jenis aksi dan pencarian aktor/objek. Tabelnya
           read-only dan append-only: tidak ada tombol edit atau hapus, dan itu disengaja.
         </li>
+        <li>
+          <strong>Laporan pajak</strong>, pemilih periode, tabel per periode + baris total. Dua
+          objek pajak dipisah kolomnya: GST makanan (merchant, info) dan PPh final atas fee
+          platform.
+        </li>
+        <li>
+          <strong>Saldo keuntungan</strong>, form penarikan dengan validasi (&gt; 0 dan ≤ saldo,
+          dicek di layar <em>dan</em> di reducer), riwayat penarikan, plus kartu pengingat bahwa
+          dana user di sebelahnya bukan milik SA.
+        </li>
+        <li>
+          <strong>Ledger</strong>, filter jenis entry + pencarian ref/memo, murni baca. Tidak ada
+          tombol aksi di sini karena menahan atau melepas dana user bukan keputusan SA.
+        </li>
+        <li>
+          <strong>Banding sengketa</strong>, putusan level-1 CS ditampilkan sebagai konteks, lalu
+          SA memilih <em>perkuat</em> atau <em>ubah</em> dengan salah satu dari empat resolusi yang
+          sama. Mengubah putusan menambah entry ledger baru, tidak menghapus yang lama.
+        </li>
+        <li>
+          <strong>Kill switch</strong>, tiga jalur (COD, payout, maintenance) dengan konfirmasi
+          yang menyebut akibatnya. Konfirmasinya memakai komponen{' '}
+          <code className="doc-inline">BottomSheet</code> yang sudah ada, dengan override gaya
+          ter-scope supaya dialognya di tengah pada layar desktop.
+        </li>
       </ul>
+
+      <h3 className="doc-h3">Responsif &amp; tabel lebar</h3>
+      <p className="doc-p">
+        Halaman tidak pernah menggulir mendatar: overflow horizontal terukur 0 pada 1440px maupun
+        390px. Tabel yang lebih lebar dari kolomnya menggulir <em>di dalam pembungkusnya</em>{' '}
+        (<code className="doc-inline">.sa-table-wrap</code>), jadi penggulung dokumen tetap satu —
+        aturan DNA soal gulir bersarang tetap dipegang untuk arah vertikal.
+      </p>
 
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
@@ -92,12 +125,12 @@ pphFinalFor(fee)        // 0,5% — PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
         (AGENTS.md §6). Kanvas itu satu-satunya SVG inline baru di repo ini, dan sengaja dicatat
         sebagai pengecualian di <code className="doc-inline">docs/design/legacy-debt.json</code> —
         ia grafik data yang diedit SA, bukan ikon; ikon fungsional tetap lucide. Geometri asli
-        milik backend — layar SA hanya menggeser titik lalu menyimpan. Kill switch dan penarikan
+        milik backend, layar SA hanya menggeser titik lalu menyimpan. Kill switch dan penarikan
         keuntungan mengubah state demo; tidak ada uang bergerak.
       </p>
       <p className="doc-p">
         Yang tetap <code className="doc-inline">UNRESOLVED</code> dan karena itu tidak dikarang di
-        layar: tarif pajak final (OQ-2/3/4, OQ-17/18 — angka di sini placeholder berlabel),
+        layar: tarif pajak final (OQ-2/3/4, OQ-17/18, angka di sini placeholder berlabel),
         jumlah admin/operator konkret (OQ-30 sudah dijawab: akun dibuat SA, role per kebutuhan),
         dan jadwal settlement liability.
       </p>

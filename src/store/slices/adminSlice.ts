@@ -11,6 +11,7 @@ import {
 } from '../../data/admin'
 import type {
   AdminEscalation,
+  AppealVerdict,
   AdminMerchant,
   AdminTenant,
   Dispute,
@@ -117,6 +118,26 @@ const adminSlice = createSlice({
     clearEscalation(state, action: PayloadAction<{ id: string }>) {
       state.escalations = state.escalations.filter((e) => e.id !== action.payload.id)
     },
+    /**
+     * Putusan banding SA atas putusan level-1 CS. `upheld` menguatkan putusan CS
+     * tanpa mengubah saldo; `overturned` mengganti resolusi dan menambah satu
+     * entry ledger baru (append-only — putusan lama tidak dihapus).
+     */
+    decideAppeal(
+      state,
+      action: PayloadAction<{ id: string; verdict: AppealVerdict; resolution?: DisputeResolution }>,
+    ) {
+      const dispute = state.disputes.find((d) => d.id === action.payload.id)
+      if (!dispute || !dispute.appeal || dispute.appeal.verdict) return
+      dispute.appeal.verdict = action.payload.verdict
+      dispute.appeal.decidedAt = 'Baru saja'
+      if (action.payload.verdict === 'overturned' && action.payload.resolution) {
+        dispute.resolution = action.payload.resolution
+        dispute.status = action.payload.resolution === 'no_action' ? 'rejected' : 'resolved'
+        const entry = ledgerEntryFor(dispute, action.payload.resolution)
+        if (entry) state.ledger.unshift({ ...entry, id: `${entry.id}-appeal` })
+      }
+    },
   },
 })
 
@@ -129,5 +150,6 @@ export const {
   resolveDispute,
   fileDispute,
   clearEscalation,
+  decideAppeal,
 } = adminSlice.actions
 export default adminSlice.reducer

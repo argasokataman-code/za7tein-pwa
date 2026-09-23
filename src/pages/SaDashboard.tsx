@@ -12,12 +12,20 @@ import {
   pendingTenantCount,
   totalLiability,
 } from '../data/admin'
-import { auditKindLabel, gstFoodFor, profitBalance, switchMeta, taxReports } from '../data/superadmin'
+import {
+  auditKindLabel,
+  gstFoodFor,
+  profitBalance,
+  switchIsDown,
+  switchMeta,
+  switchStatusLabel,
+  taxReports,
+} from '../data/superadmin'
 import { useAppSelector } from '../hooks/useAppStore'
 
 /**
  * Ringkasan konsol SA. Satu fokus per layar (senior-fe lever): saldo keuntungan
- * platform — dana yang boleh ditarik SA — ditampilkan besar, dan tepat di
+ * platform, dana yang boleh ditarik SA, ditampilkan besar, dan tepat di
  * sebelahnya kewajiban platform yang justru tidak boleh disentuh. Dua angka ini
  * paling mudah tertukar, jadi urutannya sengaja berdampingan.
  */
@@ -36,7 +44,7 @@ export default function SaDashboard() {
   const gap = liabilityGap(liability)
   const lastReport = taxReports[taxReports.length - 1]
   const activeOperators = operators.filter((o) => o.status === 'active').length
-  const downSwitches = switchMeta.filter((s) => !switches[s.key])
+  const downSwitches = switchMeta.filter((meta) => switchIsDown(meta.key, switches))
 
   return (
     <SuperAdminShell>
@@ -75,7 +83,7 @@ export default function SaDashboard() {
           </ul>
           <p className="sa-card-sub">
             Ini bukan milik SA. Selisih terhadap saldo Xendit{' '}
-            {gap < 0 ? `kurang ${moneyFromJod(Math.abs(gap))}` : `sisa ${moneyFromJod(gap)}`} —
+            {gap < 0 ? `kurang ${moneyFromJod(Math.abs(gap))}` : `sisa ${moneyFromJod(gap)}`}
             top-up dan payout jalan sendiri oleh sistem.
           </p>
         </article>
@@ -108,16 +116,16 @@ export default function SaDashboard() {
             {switchMeta.map((meta) => (
               <span
                 key={meta.key}
-                className={`sa-chip${switches[meta.key] ? ' is-ok' : ' is-off'}`}
+                className={`sa-chip${switchIsDown(meta.key, switches) ? ' is-off' : ' is-ok'}`}
               >
-                {switches[meta.key] ? meta.onLabel : meta.offLabel}
+                {switchStatusLabel(meta.key, switches)}
               </span>
             ))}
           </div>
           <p className="sa-card-sub">
             {downSwitches.length === 0
               ? 'Semua jalur berjalan normal.'
-              : `${downSwitches.length} jalur sedang dihentikan — order atau payout bisa terdampak.`}
+              : `${downSwitches.length} jalur sedang dihentikan, order atau payout bisa terdampak.`}
           </p>
           <Link className="sa-link" to="/switches">
             Buka kill switch
@@ -143,7 +151,7 @@ export default function SaDashboard() {
             </li>
           </ul>
           <p className="sa-card-sub">
-            Tarif final menunggu konsultan pajak (OQ-2/3/4, OQ-17/18) — angka ini placeholder.
+            Tarif final menunggu konsultan pajak (OQ-2/3/4, OQ-17/18), angka ini placeholder.
           </p>
           <Link className="sa-link" to="/tax">
             Lihat laporan lengkap

@@ -10,7 +10,7 @@ import type { ZoneGeometry, ZoneId } from '../types'
 
 type Vertex = { x: number; y: number }
 
-/** Luas poligon (shoelace) dalam satuan kanvas — angka relatif, bukan km². */
+/** Luas poligon (shoelace) dalam satuan kanvas, angka relatif, bukan km². */
 function polygonArea(vertices: Vertex[]): number {
   let sum = 0
   for (let i = 0; i < vertices.length; i += 1) {
@@ -26,7 +26,7 @@ const clamp = (value: number) => Math.min(100, Math.max(0, Math.round(value * 10
 /**
  * Master zona. Poligon digambar di kanvas skematik 0..100, bukan peta ber-tile:
  * tile peta selalu URL eksternal dan repo ini melarang aset gambar eksternal
- * (AGENTS.md §6). Geometri sebenarnya milik backend — layar ini menggeser titik
+ * (AGENTS.md §6). Geometri sebenarnya milik backend, layar ini menggeser titik
  * lalu menyimpan.
  *
  * Dua jalur input, bukan satu: geser pakai pointer (cepat) dan kolom X/Y yang
@@ -225,7 +225,7 @@ export default function SaZones() {
           })}
           <p className="sa-note">
             Bentuk awal disimpan di {`saZoneGeometry`} ({saZoneGeometry.length} zona). Merchant
-            tidak bisa mengubah poligon ini — mereka hanya mengaktifkan zona di onboarding.
+            tidak bisa mengubah poligon ini, mereka hanya mengaktifkan zona di onboarding.
           </p>
         </div>
       </section>

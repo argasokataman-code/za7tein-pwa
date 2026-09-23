@@ -16,7 +16,7 @@ const GROUPS = [
  * Role, permission, dan operator.
  *
  * Dua aturan yang menentukan bentuk layar: (1) role pemilik platform tidak bisa
- * diubah dari UI — kalau bisa, satu klik salah mengunci seluruh konsol; (2) akun
+ * diubah dari UI, kalau bisa, satu klik salah mengunci seluruh konsol; (2) akun
  * operator CS dibuat SA (OQ-30, PO 2026-09-23), jadi form "buat operator" ada di
  * sini, bukan di panel CS.
  */
@@ -117,7 +117,7 @@ export default function SaRoles() {
                   <tr key={operator.id}>
                     <td>{operator.name}</td>
                     <td>{operator.contact}</td>
-                    <td>{role?.name ?? '—'}</td>
+                    <td>{role?.name ?? 'Tidak diketahui'}</td>
                     <td>{operator.createdAt}</td>
                     <td>
                       <span className={`sa-chip${operator.status === 'active' ? ' is-ok' : operator.status === 'suspended' ? ' is-off' : ''}`}>

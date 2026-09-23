@@ -13,12 +13,12 @@ import { GST_FOOD_PERCENT, PLATFORM_FEE_JOD, PLATFORM_GST_PERCENT } from './merc
 
 /**
  * Konsol Super Admin (role terpisah, website penuh non-PWA, prefix
- * `/superadmin`) — data mock.
+ * `/superadmin`), data mock.
  *
  * Dasar: keputusan PO 2026-09-23 (`docs/product/prd/decision-irbid-mvp.md`)
  * yang menetapkan cakupan SA: master zona, role & permission, audit trail,
  * laporan pajak, saldo keuntungan platform, kill switch, monitoring ledger,
- * dan banding sengketa. Repo ini front-end saja — semua angka di sini adalah
+ * dan banding sengketa. Repo ini front-end saja, semua angka di sini adalah
  * state yang ditampilkan, bukan logika uang atau pajak (AGENTS.md §1).
  */
 
@@ -28,7 +28,7 @@ function round2(value: number): number {
 }
 
 /**
- * PPh final atas fee platform — 0,5% (keputusan PO 2026-09-23). Angka tarif
+ * PPh final atas fee platform, 0,5% (keputusan PO 2026-09-23). Angka tarif
  * final menunggu konsultan pajak (OQ-17/18), jadi ini dipakai sebagai
  * placeholder yang berlabel, bukan tarif aktif.
  */
@@ -43,7 +43,7 @@ export const SA_CURRENT_ACTOR = { name: 'Nadia Haddad', role: 'sa' as const }
 /**
  * Operator CS yang menjalankan panel `/admin/*`. Dipakai jembatan audit:
  * aksi CS ikut tercatat di audit trail SA tanpa mengubah halaman CS satu per
- * satu. Sama seperti SA, ini mock — repo ini tanpa auth (AGENTS.md §1).
+ * satu. Sama seperti SA, ini mock, repo ini tanpa auth (AGENTS.md §1).
  */
 export const CS_CURRENT_ACTOR = { name: 'Dina Khoury', role: 'cs' as const }
 
@@ -51,7 +51,7 @@ export const CS_CURRENT_ACTOR = { name: 'Dina Khoury', role: 'cs' as const }
 
 /**
  * Poligon zona master dalam koordinat skematik 0..100 (bukan lat/lng).
- * Keputusan desain: kanvas SVG, bukan peta ber-tile — tile peta selalu URL
+ * Keputusan desain: kanvas SVG, bukan peta ber-tile, tile peta selalu URL
  * eksternal, dan repo ini melarang aset gambar eksternal (AGENTS.md §6).
  * Geometri sebenarnya milik backend; layar SA menggeser titik lalu menyimpan.
  */
@@ -59,7 +59,7 @@ export const saZoneGeometry: ZoneGeometry[] = [
   {
     id: 'hijazi',
     label: 'Hijazi',
-    note: 'Pemukiman barat — padat pesanan malam',
+    note: 'Pemukiman barat, padat pesanan malam',
     vertices: [
       { x: 8, y: 54 },
       { x: 32, y: 42 },
@@ -71,7 +71,7 @@ export const saZoneGeometry: ZoneGeometry[] = [
   {
     id: 'syimali',
     label: 'Syimali',
-    note: 'Utara kampus — padat jam makan siang',
+    note: 'Utara kampus, padat jam makan siang',
     vertices: [
       { x: 54, y: 14 },
       { x: 88, y: 20 },
@@ -199,7 +199,7 @@ export const auditKindLabel: Record<AuditEntry['kind'], string> = {
 }
 
 /**
- * Seed audit trail. Aksi CS ikut tercatat — SA mengawasi kerja CS lewat jalur
+ * Seed audit trail. Aksi CS ikut tercatat, SA mengawasi kerja CS lewat jalur
  * ini (keputusan PO 2026-09-23). Aksi baru ditambahkan oleh reducer saat
  * operator memakai konsol, lewat jembatan audit di `src/store/index.ts`.
  */
@@ -238,7 +238,7 @@ export const saAuditLog: AuditEntry[] = [
     actorRole: 'sa',
     kind: 'zone',
     action: 'Simpan poligon zona',
-    target: 'Syimali — utara kampus',
+    target: 'Syimali, utara kampus',
   },
   {
     id: 'au-5',
@@ -256,7 +256,7 @@ export const saAuditLog: AuditEntry[] = [
     actorRole: 'sa',
     kind: 'operator',
     action: 'Buat akun operator CS',
-    target: 'Faisal Aziz — Agen CS',
+    target: 'Faisal Aziz, Agen CS',
   },
   {
     id: 'au-7',
@@ -285,7 +285,7 @@ export function feeGrossFor(orders: number): number {
   return round2(orders * PLATFORM_FEE_JOD)
 }
 
-/** GST atas objek fee platform (16%) — info, belum dipungut (OQ-17). */
+/** GST atas objek fee platform (16%), info, belum dipungut (OQ-17). */
 export function gstOnFeeFor(feeGrossJod: number): number {
   return round2((feeGrossJod * PLATFORM_GST_PERCENT) / 100)
 }
@@ -327,7 +327,7 @@ export function totalFeeGross(rows: TaxReportRow[]): number {
 /**
  * Saldo keuntungan platform: fee terkumpul dikurangi biaya operasional, PPh
  * final, dan penarikan sebelumnya. Ini **satu-satunya** dana yang boleh ditarik
- * SA — saldo customer/merchant/tips tetap liability (keputusan PO 2026-09-23).
+ * SA, saldo customer/merchant/tips tetap liability (keputusan PO 2026-09-23).
  */
 export const mockProfit: ProfitState = {
   feeGrossJod: totalFeeGross(taxReports),
@@ -369,6 +369,23 @@ export const mockSwitches: PlatformSwitches = {
   cod: true,
   payout: true,
   maintenance: false,
+}
+
+/**
+ * Apakah jalur ini sedang **dihentikan**. Untuk COD dan payout, `true` berarti
+ * jalur normal hidup sehingga "berhenti" = `false`. Maintenance dibalik: `true`
+ * justru berarti maintenance aktif. Helper ini yang menyatukan keduanya supaya
+ * layar tidak menghitung sendiri-sendiri dan salah (pernah terbalik).
+ */
+export function switchIsDown(key: keyof PlatformSwitches, switches: PlatformSwitches): boolean {
+  return key === 'maintenance' ? switches[key] : !switches[key]
+}
+
+/** Label status siap tampil untuk sebuah jalur. */
+export function switchStatusLabel(key: keyof PlatformSwitches, switches: PlatformSwitches): string {
+  const meta = switchMeta.find((item) => item.key === key)
+  if (!meta) return ''
+  return switches[key] ? meta.onLabel : meta.offLabel
 }
 
 export const switchMeta: {

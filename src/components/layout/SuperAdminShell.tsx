@@ -53,7 +53,7 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
 
   // Judul tab harus sama dengan judul halaman yang tampil (senior-fe UX rule).
   useEffect(() => {
-    document.title = `Sa7tein Super Admin — ${current.label}`
+    document.title = `Sa7tein Super Admin, ${current.label}`
   }, [current.label])
 
   return (

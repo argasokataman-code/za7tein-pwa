@@ -393,6 +393,20 @@ export interface Dispute {
   resolution?: DisputeResolution
   /** Persentase refund sebagian saat `refund_partial` (belum final, OQ-29). */
   partialPercent?: number
+  /** Banding ke Super Admin setelah putusan level-1 CS (keputusan PO 2026-09-23). */
+  appeal?: DisputeAppeal
+}
+
+/** Putusan banding: putusan CS diperkuat, atau diubah SA. */
+export type AppealVerdict = 'upheld' | 'overturned'
+
+/** Banding sengketa — jalur SA meninjau putusan level-1 CS. */
+export interface DisputeAppeal {
+  requestedAt: string
+  requestedBy: 'customer' | 'merchant'
+  note: string
+  verdict?: AppealVerdict
+  decidedAt?: string
 }
 
 /**

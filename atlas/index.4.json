@@ -1883,6 +1883,411 @@
         }
       ],
       "loc": "src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-2942",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:12:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/types.ts (+34/-20) — edit via tool: ts: /** Sengketa satu order. `disputed` memb",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/types.ts"
+    },
+    {
+      "id": "TASK-2943",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:12:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/admin.ts (+30/-18) — edit via tool: ts: status: 'resolved',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2944",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:13:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/slices/adminSlice.ts (+26/-6) — edit via tool: ts: /** Alert SLA ditindak (chase merchant /",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/slices/adminSlice.ts"
+    },
+    {
+      "id": "TASK-2945",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:13:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/slices/superAdminSlice.ts (+23/-13) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/slices/superAdminSlice.ts"
+    },
+    {
+      "id": "TASK-2946",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:13:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaTax.tsx (+119) — write via tool: tsx: import { useState } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaTax.tsx"
+    },
+    {
+      "id": "TASK-2947",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:14:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaProfit.tsx (+154) — write via tool: tsx: import { ArrowDownToLine, Lock } from 'l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaProfit.tsx"
+    },
+    {
+      "id": "TASK-2948",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:14:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaLedger.tsx (+127) — write via tool: tsx: import { Search } from 'lucide-react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaLedger.tsx"
+    },
+    {
+      "id": "TASK-2949",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:14:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaAppeals.tsx (+182) — write via tool: tsx: import { Scale } from 'lucide-react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaAppeals.tsx"
+    },
+    {
+      "id": "TASK-2950",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:14:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaSwitches.tsx (+118) — write via tool: tsx: import { AlertTriangle, ToggleLeft, Togg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaSwitches.tsx"
+    },
+    {
+      "id": "TASK-2951",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:14:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/App.tsx'); s = p.read_text()\n",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2952",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:15:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && cat >> src/styles/system/_superadmin-2.scss <<'EOF'\n\n/* ── Kill switch ────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2953",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:15:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/SuperAdminSection.tsx (+30/-5) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-2954",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:18:06",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/store/slices/superAdminSlice.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2955",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:18:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/superadmin.ts (+8/-10) — edit via tool: ts: export const switchMeta: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/superadmin.ts"
+    },
+    {
+      "id": "TASK-2956",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:19:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/superadmin.ts (+28/-9) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/superadmin.ts"
+    },
+    {
+      "id": "TASK-2957",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:19:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\n# dashboard: use helpers so maintenance is not coun",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2958",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:20:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/SuperAdminSection.tsx (+9/-1) — edit via tool: tsx: <h3 className=\"doc-h3\">Responsif &amp; t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-2959",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:21:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f22-super-admin-sa/README.md (+1/-1) — edit via tool: Terakhir diperbarui: 2026-09-23 — konsol",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f22-super-admin-sa/README.md"
+    },
+    {
+      "id": "TASK-2960",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:22:49",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\nfiles = [\n 'src/pages/SaAppeals.tsx','src/pages/SaA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2961",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:23:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib, re\nfor f in ['src/pages/SaDashboard.tsx','src/page",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2962",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:24:51",
+      "tags": [
+        "superadmin",
+        "sa-3",
+        "tax",
+        "profit",
+        "ledger",
+        "appeals",
+        "killswitch"
+      ],
+      "summary": "M-SA-3: pajak, saldo keuntungan + penarikan, ledger read-only, banding sengketa, kill switch; semua modul SA selesai",
+      "conn": [
+        {
+          "id": "TASK-2940",
+          "type": "led_to",
+          "raw": "TASK-2940:led_to"
+        }
+      ],
+      "loc": "src/pages/SaProfit.tsx:1"
     }
   ]
 }

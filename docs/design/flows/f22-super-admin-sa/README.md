@@ -59,4 +59,4 @@ Konsol **Super Admin**: website penuh **non-PWA** di prefix `/superadmin`, dipak
 
 Wajib: validate **9/9, 0 error, 0 warning**; deliver exit 0; visual-check pass 4 viewport (light + dark).
 
-Terakhir diperbarui: 2026-09-23 — flow dibuat saat konsol SA dibangun (M-SA-1: kerangka + data + Ringkasan).
+Terakhir diperbarui: 2026-09-23 — konsol SA dibangun penuh (M-SA-1..3): kerangka + Ringkasan, master zona + role/operator + audit trail, lalu pajak + saldo keuntungan + ledger + banding + kill switch. Semua aksi menulis audit trail; aksi CS ikut lewat jembatan audit. Angka tetap mock (AGENTS.md §1).

@@ -327,3 +327,50 @@
     }
   }
 }
+
+/* ── Kill switch ───────────────────────────────────────────────────────── */
+
+.sa-switch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-4);
+}
+
+.sa-btn--danger {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: var(--on-brand);
+
+  &:hover:not(:disabled) {
+    background: var(--danger-ink);
+    border-color: var(--danger-ink);
+  }
+}
+
+.sa-perm-effect {
+  font-style: normal;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+/* ── Dialog di konsol desktop ─────────────────────────────────────────────
+   `BottomSheet` bawaan aplikasi terkunci ke kolom 430px dan menempel di bawah
+   (chrome ponsel). Di konsol SA dialognya ditengahkan dan dilebarkan supaya
+   terbaca di layar desktop; perilaku Escape/overlay tidak diubah. */
+.sa-root .sheet-overlay {
+  max-width: none;
+  margin-inline: 0;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+}
+
+.sa-root .sheet-panel {
+  max-width: 520px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.sa-root .sheet-handle {
+  display: none;
+}

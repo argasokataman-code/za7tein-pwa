@@ -10,7 +10,7 @@ const KINDS = Object.keys(auditKindLabel) as AuditKind[]
 
 /**
  * Audit trail. Read-only dan append-only: tidak ada tombol hapus atau edit, dan
- * itu disengaja — audit yang bisa diubah bukan audit. Aksi CS ikut masuk lewat
+ * itu disengaja, audit yang bisa diubah bukan audit. Aksi CS ikut masuk lewat
  * jembatan audit di `src/store/index.ts`, jadi satu tabel ini memuat kerja SA
  * maupun CS.
  */

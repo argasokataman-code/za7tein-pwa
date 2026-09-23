@@ -9,6 +9,7 @@ import {
   saOperators,
   saRoles,
   saZoneGeometry,
+  switchMeta,
 } from '../../data/superadmin'
 import type {
   AuditEntry,
@@ -146,22 +147,33 @@ const superAdminSlice = createSlice({
     toggleSwitch(state, action: PayloadAction<{ key: keyof PlatformSwitches }>) {
       const { key } = action.payload
       state.switches[key] = !state.switches[key]
+      const label = switchMeta.find((meta) => meta.key === key)?.label ?? key
       push(
         state,
         SA_CURRENT_ACTOR,
         'switch',
         state.switches[key] ? 'Nyalakan jalur' : 'Hentikan jalur',
-        key,
+        label,
       )
     },
     /**
      * Dipakai jembatan audit untuk aksi panel CS (`/admin/*`), supaya kerja CS
-     * ikut terekam tanpa mengubah satu per satu halaman CS.
+     * ikut terekam tanpa mengubah satu per satu halaman CS. `role` diisi `sa`
+     * untuk aksi yang dijalankan SA lewat slice CS (mis. putusan banding).
      */
-    logAudit(state, action: PayloadAction<{ actor: string; kind: AuditKind; action: string; target: string }>) {
+    logAudit(
+      state,
+      action: PayloadAction<{
+        actor: string
+        role?: 'sa' | 'cs'
+        kind: AuditKind
+        action: string
+        target: string
+      }>,
+    ) {
       push(
         state,
-        { name: action.payload.actor, role: 'cs' },
+        { name: action.payload.actor, role: action.payload.role ?? 'cs' },
         action.payload.kind,
         action.payload.action,
         action.payload.target,

@@ -12,7 +12,7 @@ import {
 
 import { menuSeed } from '../data/catalog'
 import { DISPUTE_RESOLUTION_LABEL } from '../data/admin'
-import { CS_CURRENT_ACTOR } from '../data/superadmin'
+import { CS_CURRENT_ACTOR, SA_CURRENT_ACTOR } from '../data/superadmin'
 import { mockUser } from '../data/user'
 
 import auth from './slices/authSlice'
@@ -139,6 +139,8 @@ interface CsAuditRule {
   kind: AuditKind
   action: string | ((payload: any) => string)
   target: (payload: any, state: RootState) => string
+  /** Aksi yang dijalankan SA lewat slice CS (mis. putusan banding) ditandai `sa`. */
+  actor?: 'sa' | 'cs'
 }
 
 const CS_AUDIT_RULES: Record<string, CsAuditRule> = {
@@ -184,6 +186,12 @@ const CS_AUDIT_RULES: Record<string, CsAuditRule> = {
     action: 'Tindak alert SLA',
     target: (p, s) => s.admin.escalations.find((e) => e.id === p.id)?.orderCode ?? p.id,
   },
+  'admin/decideAppeal': {
+    kind: 'dispute',
+    actor: 'sa',
+    action: (p) => (p.verdict === 'upheld' ? 'Perkuat putusan CS (banding)' : 'Ubah putusan CS (banding)'),
+    target: (p, s) => s.admin.disputes.find((d) => d.id === p.id)?.orderCode ?? p.id,
+  },
 }
 
 const auditBridge: Middleware = (api) => (next) => (action) => {
@@ -193,7 +201,8 @@ const auditBridge: Middleware = (api) => (next) => (action) => {
     const payload = (action as { payload?: any }).payload ?? {}
     api.dispatch(
       logAudit({
-        actor: CS_CURRENT_ACTOR.name,
+        actor: rule.actor === 'sa' ? SA_CURRENT_ACTOR.name : CS_CURRENT_ACTOR.name,
+        role: rule.actor ?? 'cs',
         kind: rule.kind,
         action: typeof rule.action === 'function' ? rule.action(payload) : rule.action,
         target: rule.target(payload, api.getState() as RootState),

@@ -65,9 +65,14 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
 import RatingDriver from './pages/RatingDriver'
 import Reviews from './pages/Reviews'
+import SaAppeals from './pages/SaAppeals'
 import SaAudit from './pages/SaAudit'
 import SaDashboard from './pages/SaDashboard'
+import SaLedger from './pages/SaLedger'
+import SaProfit from './pages/SaProfit'
 import SaRoles from './pages/SaRoles'
+import SaSwitches from './pages/SaSwitches'
+import SaTax from './pages/SaTax'
 import SaZones from './pages/SaZones'
 import Search from './pages/Search'
 import Security from './pages/Security'
@@ -191,6 +196,11 @@ const superAdminRoutes: [string, ComponentType][] = [
   ['/zones', SaZones],
   ['/roles', SaRoles],
   ['/audit', SaAudit],
+  ['/tax', SaTax],
+  ['/profit', SaProfit],
+  ['/ledger', SaLedger],
+  ['/appeals', SaAppeals],
+  ['/switches', SaSwitches],
 ]
 
 function SuperAdminRouter() {
