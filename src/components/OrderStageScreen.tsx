@@ -11,6 +11,7 @@ import {
   COURIER_ACTION_LABEL,
 } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
+import { BottomSheet } from './ui/BottomSheet'
 import {
   HOLD_EVENT_LABEL,
   HOLD_STATUS_COPY,
@@ -33,6 +34,7 @@ import {
   matchCourier,
   settleOrderHold,
 } from '../store/slices/cartSlice'
+import { requestAppeal } from '../store/slices/adminSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
 import type { OrderStage } from '../types'
 
@@ -135,6 +137,13 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const resolutionToken = dispute?.resolution ? resolvedOrderToken(dispute.resolution) : null
   const { now } = useTick()
   const [otp, setOtp] = useState('')
+  // Banding (F8 → F22): pihak yang mengajukan sengketa bisa meminta SA meninjau
+  // putusan level-1 CS. Satu banding per sengketa.
+  const appeal = dispute?.appeal
+  const appealDecided = Boolean(appeal?.verdict)
+  const canAppeal = Boolean(dispute && resolutionToken && !appeal)
+  const [appealOpen, setAppealOpen] = useState(false)
+  const [appealNote, setAppealNote] = useState('')
 
   // State tersimpan bisa berasal dari bentuk sebelum tahap pesanan ada, jadi
   // nilainya divalidasi di sini. Tanpa ini STATUS[undefined] melempar dan
@@ -472,6 +481,17 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                           Hold dibekukan sampai panel CS memutuskan.
                         </p>
                       )}
+                      {appeal ? (
+                        <p className="track-row-meta">
+                          {appealDecided
+                            ? `Banding ditinjau SA: ${
+                                appeal.verdict === 'upheld'
+                                  ? 'putusan CS diperkuat'
+                                  : 'putusan diubah'
+                              }`
+                            : 'Banding menunggu tinjauan SA.'}
+                        </p>
+                      ) : null}
                     </>
                   ) : (
                     <>
@@ -495,11 +515,56 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                     </button>
                   </div>
                 ) : null}
+                {canAppeal ? (
+                  <div className="track-actions">
+                    <button
+                      className="track-action"
+                      type="button"
+                      onClick={() => setAppealOpen(true)}
+                    >
+                      <IconScale />
+                      Banding
+                    </button>
+                  </div>
+                ) : null}
               </div>
             </section>
           ) : null}
         </div>
       </main>
+
+      <BottomSheet
+        open={appealOpen}
+        title="Ajukan banding ke Super Admin"
+        onClose={() => setAppealOpen(false)}
+      >
+        <p className="sheet-field-label">
+          Putusan level-1 CS tetap berlaku sampai SA memutuskan.
+        </p>
+        <textarea
+          className="sheet-textarea"
+          value={appealNote}
+          onChange={(event) => setAppealNote(event.target.value)}
+          placeholder="Kenapa putusan ini perlu ditinjau ulang?"
+          rows={3}
+          aria-label="Alasan banding"
+        />
+        <div className="sheet-actions">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => {
+              if (!dispute) return
+              dispatch(requestAppeal({ id: dispute.id, note: appealNote }))
+              toast.success('Banding dikirim ke Super Admin')
+              setAppealNote('')
+              setAppealOpen(false)
+            }}
+          >
+            Kirim banding
+          </button>
+        </div>
+      </BottomSheet>
     </div>
   )
 }

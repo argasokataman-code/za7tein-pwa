@@ -14,6 +14,8 @@ Workflow dispute = antrian kerja panel admin (CS), bukan portal sengketa. Milest
 
 **Lane Panel Admin (CS):** Queue Disputed (1× per order) → Buka bukti (log OTP, geolocation Tiba, foto kurir, timestamp checkpoint) → Pilih resolusi (4 aksi).
 
+**Lane Banding (baru, PO 2026-09-23):** setelah putusan level-1, pihak yang mengajukan sengketa bisa meminta SA meninjau ulang dari layar order (`Banding` di bagian Sengketa). Satu banding per sengketa; putusan CS tetap berlaku sampai SA memutuskan. Queue banding ada di konsol SA (`f22:appeal`), dan keputusan SA bisa memperkuat atau mengubah putusan (mengubah = 1 entry ledger baru, bukan menimpa yang lama).
+
 **Lane Sistem:** Queue masuk → **Bekukan hold** + pause auto-settle (order → `disputed`, tak boleh `settled` final) → putusan → **Terapkan** (hold di-release sesuai putusan) → `resolved_*` + **1 ledger entry baru** (append-only). Protection fund = sumber untuk kasus tanpa pihak bersalah.
 
 ## 4 resolusi
@@ -35,7 +37,8 @@ Memicu/menerima dari `f2-cod-hold` (hold dibekukan, `dispute_opened`), feed `f7-
 
 - `R-DISPUTE-01` — `analysis.md` · Milestone M6 — `versions/irbid-mvp-v2-2026-09-21/milestones.md`
 - Protection fund 2% fee platform — `source.md` §Proteksi (OQ-12 closed)
-- **UNRESOLVED (jangan ditebak):** OQ-29 — finalisasi window/kategori/SLA (ditunda sampai >5/bulan); OQ-30 — siapa super admin operasional & merchant sebagai pihak bersengketa
+- **UNRESOLVED (jangan ditebak):** OQ-29 — finalisasi window/kategori/SLA (ditunda sampai >5/bulan); **banding** — siapa yang boleh mengajukan (pengaju sengketa saja atau kedua pihak) dan apakah ada window/SLA banding. Kode saat ini: hanya pihak pengaju, tanpa window.
+- **OQ-30 sudah dijawab (PO 2026-09-23):** operator CS dibuat SA di konsol `f22`; banding diputus SA, bukan CS.
 
 ## Update
 

@@ -2895,6 +2895,85 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-3032",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:13:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/components/OrderStageScreen.t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-3033",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:18:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx (+25/-1) — edit via tool: tsx: <h3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-3050",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:19:01",
+      "tags": [
+        "superadmin",
+        "appeal",
+        "dispute",
+        "flow-f8"
+      ],
+      "summary": "Banding punya jalur pengajuan: tombol Banding di layar order setelah putusan CS, satu per sengketa, SA perkuat/ubah",
+      "conn": [
+        {
+          "id": "TASK-3030",
+          "type": "led_to",
+          "raw": "TASK-3030:led_to"
+        }
+      ],
+      "loc": "src/store/slices/adminSlice.ts:1"
+    },
+    {
+      "id": "TASK-3051",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:19:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && sed -i '' 's/v2\\.27\\.0/v2.28.0/' src/pages/Documentation.tsx && npm run lint 2>&1 |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

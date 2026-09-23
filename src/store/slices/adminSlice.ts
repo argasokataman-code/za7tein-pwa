@@ -119,6 +119,23 @@ const adminSlice = createSlice({
       state.escalations = state.escalations.filter((e) => e.id !== action.payload.id)
     },
     /**
+     * Ajukan banding ke SA setelah putusan level-1 CS (keputusan PO 2026-09-23).
+     * Satu banding per sengketa, sama seperti satu sengketa per order, dan hanya
+     * bisa diajukan setelah ada putusan. Siapa saja yang boleh mengajukan
+     * (pengaju sengketa atau kedua pihak) belum diputuskan, jadi di sini hanya
+     * pihak yang mengajukan sengketa.
+     */
+    requestAppeal(state, action: PayloadAction<{ id: string; note: string }>) {
+      const dispute = state.disputes.find((d) => d.id === action.payload.id)
+      if (!dispute || dispute.appeal) return
+      if (dispute.status !== 'resolved' && dispute.status !== 'rejected') return
+      dispute.appeal = {
+        requestedAt: 'Baru saja',
+        requestedBy: dispute.filedBy,
+        note: action.payload.note.trim() || 'Tanpa catatan tambahan.',
+      }
+    },
+    /**
      * Putusan banding SA atas putusan level-1 CS. `upheld` menguatkan putusan CS
      * tanpa mengubah saldo; `overturned` mengganti resolusi dan menambah satu
      * entry ledger baru (append-only — putusan lama tidak dihapus).
@@ -150,6 +167,7 @@ export const {
   resolveDispute,
   fileDispute,
   clearEscalation,
+  requestAppeal,
   decideAppeal,
 } = adminSlice.actions
 export default adminSlice.reducer

@@ -208,6 +208,30 @@ zoneView() / projectPoint()         // lat/lng → kanvas; kanvas hanya cara men
         bukan disembunyikan.
       </p>
 
+      <h3 className="doc-h3">Banding punya jalur pengajuan</h3>
+      <p className="doc-p">
+        Sebelumnya antrean banding SA hanya berisi data contoh: tidak ada cara bagi customer atau
+        merchant untuk mengajukan banding, jadi SA bisa memutus banding yang tidak pernah diajukan
+        siapa pun. Sekarang jalurnya ada di layar order, di bagian Sengketa:
+      </p>
+      <DocCode lang="text">
+        {`customer/merchant ajukan sengketa   → panel CS putuskan level-1
+layar order pihak pengaju            → tombol "Banding" (muncul setelah ada putusan)
+konsol SA /superadmin/appeals        → perkuat, atau ubah jadi resolusi lain
+layar order lagi                     → "Banding ditinjau SA: diperkuat / diubah"`}
+      </DocCode>
+      <p className="doc-p">
+        Satu banding per sengketa, sama seperti satu sengketa per order, dan tombolnya hilang
+        setelah dipakai. Putusan CS tetap berlaku selama banding menunggu. Mengubah putusan
+        menambah satu entry ledger baru, bukan menimpa yang lama.
+      </p>
+      <p className="doc-p">
+        Dua hal sengaja tidak dikarang karena belum diputuskan: <strong>siapa</strong> yang boleh
+        mengajukan (kode saat ini hanya pihak pengaju sengketa) dan apakah ada <strong>window/SLA
+        banding</strong> (kode saat ini tanpa batas waktu). Keduanya ditandai{' '}
+        <code className="doc-inline">UNRESOLVED</code> di flow <code className="doc-inline">F8</code>.
+      </p>
+
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
         Kanvas zona digambar sebagai <strong>SVG inline</strong>, bukan peta ber-tile: tile peta
