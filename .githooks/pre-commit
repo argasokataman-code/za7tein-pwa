@@ -101,6 +101,17 @@ else
   FAIL=$((FAIL + 1))
 fi
 
+# ───────────── 7. PENGINGAT GERBANG BROWSER ─────────────
+# Hook tidak bisa mengukur tata letak atau membuktikan tombol bisa diklik —
+# itu butuh server jalan + browser. Yang bisa dilakukan hook: mengingatkan.
+# Aturan: AGENTS.md §8 "Gerbang browser", .rules.json -> browserTesting.
+UI_TOUCHED=$(echo "$STAGED" | grep -E '^src/(pages|components|styles)/')
+if [ -n "$UI_TOUCHED" ]; then
+  echo -e "${YELLOW}[ingat]${NC} Perubahan UI — pastikan gerbang browser sudah dijalankan:"
+  echo "    npm run dev   # terminal lain"
+  echo "    node scripts/browser-gate.mjs --route <path> --strict --click"
+fi
+
 echo ""
 echo "======================================"
 echo -e "  ${GREEN}$PASS passed${NC}, ${RED}$FAIL failed${NC}"

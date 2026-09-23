@@ -41,7 +41,30 @@
     "build": "npm run build",
     "lint": "npm run lint",
     "preview": "npm run preview",
+    "browser:gate": "node scripts/browser-gate.mjs",
     "flows:gate": "./scripts/flows-gate.sh"
+  },
+  "browserTesting": {
+    "wajib": "Setiap fix atau fitur yang menyentuh UI wajib lewat gerbang browser sebelum commit. Tidak ada 'sudah kelihatan benar'.",
+    "perintah": {
+      "satu_role": "node scripts/browser-gate.mjs --role customer",
+      "halaman_disentuh": "node scripts/browser-gate.mjs --route /home --strict",
+      "klik_nyata": "node scripts/browser-gate.mjs --route /home --strict --click",
+      "semua_role": "node scripts/browser-gate.mjs --role all"
+    },
+    "syarat": [
+      "npm run dev jalan di http://localhost:5173",
+      "klon brave-debug hidup; skrip menyalakannya sendiri kalau perlu"
+    ],
+    "angka_dari_kode": "Pembanding dibaca dari src/styles/_tokens.scss (shell-max, touch-min, space-5) dan invarian di layout_invariants. Nilai runtime berbeda dari sumber = bug, bukan selera. Gate juga membuktikan viewport emulasi benar-benar berlaku sebelum angkanya dipakai.",
+    "aturan_klik": "Klik HARUS lewat input nyata yang di-hit-test di titik tengah elemen (brave-debug.click, atau Input.dispatchMouseEvent di scripts/browser-gate.mjs). Gate melaporkan OVERLAY kalau titik tengahnya tertutup elemen lain. DILARANG menilai klik dari eval(\"el.click()\") atau dispatchEvent: keduanya menembus lapisan apa pun dan tidak membuktikan apa pun.",
+    "viewport": "Selalu ukur pada emulasi 390x844 @2 dan 1440x900 — jangan dari jendela klon apa adanya (pernah 500x600 dan angkanya tidak sah).",
+    "severity": {
+      "fail": ["overflow-x != 0", "scroller bersarang di dalam halaman", "lebar kolom != min(viewport, --shell-max)", "token runtime != sumber", "viewport != emulasi", "halaman crash / kosong", "klik kena OVERLAY atau memicu exception"],
+      "warn": ["target < --touch-min 44px", "gutter != --space-5 20px", "bilah fixed keluar kolom"],
+      "strict": "--strict mempromosikan WARN jadi FAIL; wajib dipakai di halaman yang disentuh"
+    },
+    "bukti": "Tempel keluaran skrip (per-rute PASS/FAIL + angka) di laporan akhir. Sebut angka, bukan kesan."
   },
   "layout_invariants": {
     "shell_max": "430px (kolom aplikasi terkunci, mobile-first)",

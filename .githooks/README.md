@@ -22,6 +22,17 @@ Cek terpasang: `git config core.hooksPath` → harus `.githooks`.
 
 Semua harus lulus. Hook menolak commit jika ada yang gagal.
 
+## Yang TIDAK bisa dicek hook: gerbang browser
+
+Tata letak dan "tombol ini benar-benar bisa diklik" tidak bisa diukur dari pre-commit — butuh server jalan + browser. Karena itu wajib dijalankan manual sebelum commit untuk setiap perubahan UI:
+
+```bash
+npm run dev
+node scripts/browser-gate.mjs --route /home --strict --click
+```
+
+Aturan lengkap + alasan: `AGENTS.md` §8 ("Gerbang browser") dan `.rules.json` → `browserTesting`. Ringkasnya: angka pembanding diambil dari token di `src/styles/_tokens.scss`, viewport harus benar-benar ter-emulasi (390/1440), dan klik harus lewat input nyata — bukan `eval("el.click()")`.
+
 ## Bypass (darurat saja)
 
 ```bash

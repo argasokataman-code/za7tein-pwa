@@ -180,6 +180,23 @@ Cara ukur yang terbukti:
 
 Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua sisi" bisa diperiksa; "sudah rapi" tidak.
 
+### Gerbang browser — wajib sebelum commit
+
+`npm run lint` dan `npm run build` tidak bisa melihat tata letak, dan tidak bisa membuktikan sebuah tombol benar-benar bisa diklik. Setiap fix atau fitur yang menyentuh UI wajib lewat gerbang ini:
+
+```bash
+npm run dev                                                    # sekali, terminal lain
+node scripts/browser-gate.mjs --role customer                  # ukur semua rute satu role
+node scripts/browser-gate.mjs --route /home --strict           # halaman yang kamu sentuh
+node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap elemen dari depan
+```
+
+**Angka pembanding datang dari kode, bukan selera.** Gate membaca `--shell-max`, `--touch-min`, dan `--space-5` dari `src/styles/_tokens.scss`, lalu membandingkannya dengan nilai runtime — beda berarti bug, bukan preferensi. Gate juga **membuktikan viewport emulasi benar-benar berlaku** sebelum angkanya dipakai: pernah ada pengukuran yang ternyata diambil di jendela klon 500×600, bukan di kolom 430px. Jangan pernah mengukur dari jendela klon apa adanya — set `Emulation.setDeviceMetricsOverride` (390×844 @2 dan 1440×900) dulu.
+
+**Aturan klik.** Klik harus lewat input nyata yang di-hit-test di titik tengah elemen — `brave-debug.click`, atau `Input.dispatchMouseEvent` di skrip gerbang. Gate melaporkan `OVERLAY` kalau titik tengahnya tertutup elemen lain. **Dilarang** menilai klik dari `eval("el.click()")` atau `dispatchEvent`: keduanya menembus lapisan apa pun, jadi "berhasil" tidak membuktikan apa pun.
+
+Severity: `FAIL` untuk overflow-x, scroller bersarang, lebar kolom, token runtime, viewport, dan halaman yang crash. `WARN` untuk target di bawah 44px, gutter bukan 20px, dan bilah `fixed` yang keluar kolom — ketiganya masih banyak di halaman legacy. `--strict` mempromosikan WARN jadi FAIL; pakai itu di halaman yang kamu sentuh.
+
 ---
 
 ## 9. Status implementasi legacy & arah migrasi
@@ -209,7 +226,8 @@ Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua
 5. Tidak ada `var(--…)` yang tokennya belum ada
 6. **Halaman dokumentasi global (`src/pages/Documentation.tsx`) diperbarui di commit yang sama** — dienforce di pre-commit cek #6
 7. Perubahan yang menyentuh flow: `./scripts/flows-gate.sh <slug>` lolos, dan flow + PRD diperbarui di commit yang sama
-8. Record node atlas untuk pekerjaan signifikan
+8. **Perubahan UI: `node scripts/browser-gate.mjs --route <path> --strict` lolos**, dan `--click` untuk elemen yang kamu ubah (§8)
+9. Record node atlas untuk pekerjaan signifikan
 
 ---
 
