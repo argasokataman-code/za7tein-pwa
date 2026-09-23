@@ -4,12 +4,16 @@
   --app-vh: 100dvh;
 }
 
-// Biarkan dokumen memakai momentum, edge bounce, dan pull-to-refresh bawaan
-// platform. Dokumen tetap satu-satunya penggulung di lebar berapa pun — app ini
-// PWA, jadi tidak ada mode preview terpisah yang boleh menggulir sendiri.
+// Dokumen tetap satu-satunya penggulung, dan tidak memantul. Pantulan overscroll
+// (edge bounce + pull-to-refresh) membuat app terinstal terasa seperti tab
+// peramban — di app-mode tidak ada URL bar yang perlu di-refresh, jadi efeknya
+// cuma "ini website". Momentum gulir dan safe area tidak terpengaruh.
+//
+// Keputusan 2026-09-24 membalik catatan 2026-09-13, yang sengaja mengembalikan
+// nilai ini ke `auto`; jejak keputusannya di docs/design/pwa-experience-2026-09-13.md.
 html,
 body {
-  overscroll-behavior-y: auto;
+  overscroll-behavior-y: none;
   scroll-behavior: auto;
 }
 

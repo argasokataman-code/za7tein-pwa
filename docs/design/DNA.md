@@ -19,9 +19,9 @@ Sa7tein adalah antarmuka makanan hyperlocal yang hangat, jelas, dan cepat dipaka
 | Spasi | `--space-1..8`; touch target minimal `--touch-min` | token; DOM |
 | Ikon | `lucide-react`, `strokeWidth={1.75}`, tanpa emoji | source review |
 | Motion | `--motion-*` dan `--ease-*`; hormati reduced motion | token; UI review |
-| Scroll | Dokumen satu-satunya scroll vertikal; header sticky | DOM overflow audit |
+| Scroll | Dokumen satu-satunya scroll vertikal; header sticky; tanpa pantulan overscroll (`overscroll-behavior-y: none`) | DOM overflow audit |
 | Fixed bar | Dibatasi shell, tidak melintasi kolom | DOM pada 1440px |
-| PWA | Tiap prefix peran (`/customer/*`, `/merchant/*`, `/courier/*`, `/admin/*`) punya boot screen tanpa jeda buatan dan manifest sendiri; scroll native dan safe area tetap hidup | `index.html`, manifest per peran, audit gestur |
+| PWA | Tiap prefix peran (`/customer/*`, `/merchant/*`, `/courier/*`, `/admin/*`) punya boot screen tanpa jeda buatan dan manifest sendiri; momentum gulir native dan safe area tetap hidup, tapi overscroll tidak memantul | `index.html`, manifest per peran, audit gestur |
 
 Gaya baru masuk `_system.scss`; jangan memperbesar stylesheet porting `_app.scss`. Ikon fungsi tidak memakai SVG inline. Foto dan ilustrasi dari `public/assets/`. Tanpa gradient, warna dekoratif baru, atau URL gambar eksternal tanpa keputusan desain tercatat.
 

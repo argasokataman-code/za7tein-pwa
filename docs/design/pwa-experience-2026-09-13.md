@@ -6,6 +6,10 @@ Perbaikan: tautan lama seperti `/home` dan `/merchant/menu` menuju jalur `/app/*
 
 Migrasi identitas: manifest harus mempertahankan `id: '/'` dan `scope: '/'`, yaitu identitas milik instalasi Delivo lama. Bila identitas diganti menjadi `/app/`, Chromium memperlakukannya sebagai aplikasi baru dan dua launcher dapat hidup bersamaan. `start_url` tetap `/app/home`; hanya service worker yang dibatasi ke `/app/`, sehingga landing tidak dikendalikan cache aplikasi. Instalasi Delivo yang sudah ada akan menerima nama dan ikon Sa7tein saat metadata baru dimuat. Penghapusan launcher lama yang sudah telanjur dibuat oleh build beridentitas `/app/` adalah tindakan OS/browser dan tidak dapat dilakukan situs secara programatis.
 
+## Dibalik 2026-09-24
+
+`overscroll-behavior-y` untuk dokumen kembali ke `none` (keputusan pemilik). Alasan: pantulan di ujung gulir dan pull-to-refresh membuat app terinstal terasa seperti tab peramban, sedangkan di app-mode tidak ada URL bar yang perlu di-refresh. Momentum gulir dan safe area tidak terpengaruh — yang mati hanya pantulan. Catatan 2026-09-13 di atas tetap sebagai jejak keputusan saat itu; yang berlaku sekarang adalah `none`, dan itu tercatat di `docs/design/DNA.md` baris Scroll dan PWA.
+
 Penyempurnaan layar merchant: `/app/merchant/menu` kini menampilkan konteks toko buka/tutup dan jumlah menu yang benar-benar siap tampil, sebelum filter kesehatan stok. Kartu item menaikkan skala foto ke 72px dan memisahkan detail menu dari aksi stok/ketersediaan agar daftar panjang tetap dapat dipindai satu tangan.
 
 Verifikasi pada **production preview**, viewport tinggi 844px:

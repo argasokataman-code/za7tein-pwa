@@ -25,6 +25,18 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Pantulan overscroll</td>
+              <td>
+                Dokumen memantul di ujung gulir dan pull-to-refresh memuat ulang app — terasa
+                seperti tab peramban, padahal tidak ada URL bar di app-mode
+              </td>
+              <td>
+                <code className="doc-inline">overscroll-behavior-y: none</code> di dokumen.
+                Momentum gulir dan safe area tetap hidup; yang mati cuma pantulan (keputusan
+                2026-09-24, membalik catatan 2026-09-13)
+              </td>
+            </tr>
+            <tr>
               <td>Checkout: baris item</td>
               <td>
                 Harga satuan dan total baris dicetak tanpa label; di kuantitas 1 angkanya
