@@ -96,7 +96,7 @@ export function ChangelogSection() {
               </td>
               <td>
                 Hover = tint oranye + tepi merek; kartu terpilih tetap oranye saat di-hover; teks
-                memakai <code className="doc-inline">--on-brand</code>
+                memakai <code className="doc-inline">--text-primary</code> (4,86:1, lolos AA)
               </td>
             </tr>
             <tr>

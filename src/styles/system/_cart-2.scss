@@ -541,10 +541,13 @@ div[class*="-screen"] .container {
   border-color: var(--sa7tein-orange);
 }
 
+/* Teks kartu terpilih: `--text-primary` di atas oranye merek = 4,88:1 (lolos
+   AA). Putih (`--on-brand`) di atas oranye cuma 3,34:1, dan abu
+   `--text-secondary` 1,66:1 — keduanya gagal untuk teks 12-16px. */
 .address-item.selected .address-name,
 .address-item.selected .address-text,
 .address-item.selected .address-notes,
-.address-item.selected .address-meta { color: var(--on-brand); }
+.address-item.selected .address-meta { color: var(--text-primary); }
 
 /* ── Menu opsi alamat (bottom sheet) ────────────────────────────────────── */
 .sheet-menu {
