@@ -225,6 +225,21 @@
   padding-top: 76px;
 }
 
+/* Pola lama di app/part-12: screen setinggi viewport + konten `overflow-y: auto`
+   = penggulung bersarang, dan DNA hanya mengizinkan dokumen sebagai penggulung.
+   Sama seperti .checkout-screen: tinggi dilepas, konten menyerahkan gulir ke
+   dokumen. Terukur: clientH 715 vs scrollH 802 sebelum dilepas. */
+.payment-amount-screen {
+  height: auto;
+  min-height: var(--app-vh);
+  overflow: visible;
+}
+
+.payment-amount-content {
+  flex: none;
+  overflow: visible;
+}
+
 .home-indicator {
   position: fixed;
   bottom: 8px;
