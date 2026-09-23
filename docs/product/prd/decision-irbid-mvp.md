@@ -39,12 +39,13 @@ Melengkapi klarifikasi peran di atas. Super Admin = **website penuh non-PWA** (p
 - **Saldo keuntungan platform** — SA menerima **saldo bersih keuntungan aplikasi** (fee 0,37 JOD/order dikurangi biaya), dan itulah satu-satunya dana yang bisa di-withdraw SA sebagai pemegang platform. Ini **bukan** dana user: saldo customer/merchant/tips tetap liability.
 - **Kill switch / mode maintenance** — mis. hentikan COD, hentikan payout, mode maintenance.
 - **Monitoring ledger detail** merchant & customer (read-only).
+- **Audit trail + jalur banding sengketa** — putusan sengketa level-1 tetap di CS; SA mengawasi lewat audit trail dan menangani banding.
 
 **Bukan tugas SA:** top-up dan payout customer/merchant berjalan **self-service oleh sistem** — bukan approval SA. SA hanya memantau ledger mereka.
 
-**Batas panel CS:** CS hanya **melihat** aktivitas merchant & customer; konfigurasi platform (zona, role, pajak, kill switch, revenue) milik SA. Apakah approval tenant dan putusan sengketa yang sudah dibangun tetap di CS atau naik ke SA masih perlu dikonfirmasi → `UNRESOLVED`.
+**Batas panel CS (diputuskan PO 2026-09-23):** CS **menjalankan** approval tenant, putusan sengketa level-1, dan blacklist COD — semuanya sudah dibangun di `/admin/*`. CS **tidak** mengonfigurasi platform: master zona, role & permission, pajak aplikasi, saldo keuntungan, dan kill switch milik SA. SA mengawasi kerja CS lewat audit trail dan menangani banding.
 
-**UNRESOLVED lanjutan:** OQ-30 (siapa operator, jumlah admin), jadwal settlement, provider kurs (OQ-26/28), tarif pajak final, dan batas approval/dispute CS vs SA di atas.
+**UNRESOLVED lanjutan:** OQ-30 (siapa operator, jumlah admin), jadwal settlement, provider kurs (OQ-26/28), tarif pajak final.
 
 ### `irbid-mvp-2026-09-12` (superseded oleh v2, 2026-09-22)
 

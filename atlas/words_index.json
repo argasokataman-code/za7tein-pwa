@@ -4491,6 +4491,14 @@
     {
       "id": "TASK-2891",
       "shard": 4
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "sa7tein": [
@@ -6379,6 +6387,10 @@
     {
       "id": "NEG-002",
       "shard": 0
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "jadi": [
@@ -13325,6 +13337,14 @@
     {
       "id": "TASK-2891",
       "shard": 4
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -15850,6 +15870,14 @@
     },
     {
       "id": "TASK-2891",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2893",
       "shard": 4
     }
   ],
@@ -19177,6 +19205,14 @@
     {
       "id": "TASK-2891",
       "shard": 4
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "tool:": [
@@ -22458,6 +22494,14 @@
     },
     {
       "id": "TASK-2891",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2893",
       "shard": 4
     }
   ],
@@ -26341,6 +26385,14 @@
     {
       "id": "TASK-2891",
       "shard": 4
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "task-147": [
@@ -30045,6 +30097,10 @@
     {
       "id": "TASK-2891",
       "shard": 4
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "\"useappstore(": [
@@ -30209,6 +30265,10 @@
     {
       "id": "TASK-2796",
       "shard": 3
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
     }
   ],
   "**state**:": [
@@ -41899,10 +41959,6 @@
     {
       "id": "TASK-2860",
       "shard": 4
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "refactor": [
@@ -47171,6 +47227,10 @@
     {
       "id": "TASK-1235",
       "shard": 2
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "task-438": [
@@ -52091,6 +52151,10 @@
     {
       "id": "DEC-2006",
       "shard": 4
+    },
+    {
+      "id": "DEC-2890",
+      "shard": 4
     }
   ],
   "tab.": [
@@ -53617,10 +53681,6 @@
     {
       "id": "DEC-1379",
       "shard": 3
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "2026-09-22:": [
@@ -56399,10 +56459,6 @@
     {
       "id": "TASK-2780",
       "shard": 3
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "checkout": [
@@ -56552,6 +56608,10 @@
     },
     {
       "id": "TASK-2860",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2892",
       "shard": 4
     }
   ],
@@ -56870,10 +56930,6 @@
     },
     {
       "id": "TASK-2890",
-      "shard": 4
-    },
-    {
-      "id": "DEC-2890",
       "shard": 4
     }
   ],
@@ -59277,10 +59333,6 @@
     {
       "id": "TASK-2891",
       "shard": 4
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "task-1184": [
@@ -61081,6 +61133,10 @@
     {
       "id": "TASK-2880",
       "shard": 4
+    },
+    {
+      "id": "DEC-2890",
+      "shard": 4
     }
   ],
   "a/b/c": [
@@ -61883,6 +61939,14 @@
     {
       "id": "DEC-2003",
       "shard": 3
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
+    },
+    {
+      "id": "DEC-2890",
+      "shard": 4
     }
   ],
   "task-1272": [
@@ -62006,6 +62070,10 @@
     },
     {
       "id": "TASK-2889",
+      "shard": 4
+    },
+    {
+      "id": "DEC-2890",
       "shard": 4
     }
   ],
@@ -62607,10 +62675,6 @@
     {
       "id": "TASK-2720",
       "shard": 3
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "tips": [
@@ -64167,10 +64231,6 @@
     {
       "id": "TASK-1352",
       "shard": 2
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "sa)": [
@@ -64883,10 +64943,6 @@
     {
       "id": "DEC-1379",
       "shard": 3
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "api": [
@@ -67073,6 +67129,10 @@
     {
       "id": "TASK-2891",
       "shard": 4
+    },
+    {
+      "id": "TASK-2893",
+      "shard": 4
     }
   ],
   "task-2064": [
@@ -67248,6 +67308,10 @@
     },
     {
       "id": "TASK-2890",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2892",
       "shard": 4
     }
   ],
@@ -70543,6 +70607,10 @@
     {
       "id": "FEAT-2014",
       "shard": 4
+    },
+    {
+      "id": "DEC-2890",
+      "shard": 4
     }
   ],
   "pindah": [
@@ -70625,10 +70693,6 @@
     {
       "id": "FEAT-2010",
       "shard": 3
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "plat": [
@@ -72193,6 +72257,10 @@
     {
       "id": "TASK-2866",
       "shard": 4
+    },
+    {
+      "id": "TASK-2892",
+      "shard": 4
     }
   ],
   "task-2866": [
@@ -72553,10 +72621,6 @@
     {
       "id": "TASK-2890",
       "shard": 4
-    },
-    {
-      "id": "DEC-2890",
-      "shard": 4
     }
   ],
   "task-2890": [
@@ -72571,49 +72635,115 @@
       "shard": 4
     }
   ],
-  "zona,": [
+  "**monitoring": [
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    }
+  ],
+  "det": [
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    }
+  ],
+  "task-2892": [
+    {
+      "id": "TASK-2892",
+      "shard": 4
+    }
+  ],
+  "**cakupan": [
+    {
+      "id": "TASK-2893",
+      "shard": 4
+    }
+  ],
+  "task-2893": [
+    {
+      "id": "TASK-2893",
+      "shard": 4
+    }
+  ],
+  "po:": [
     {
       "id": "DEC-2890",
       "shard": 4
     }
   ],
-  "role/permission,": [
+  "master,": [
     {
       "id": "DEC-2890",
       "shard": 4
     }
   ],
-  "trail,": [
+  "audit,": [
     {
       "id": "DEC-2890",
       "shard": 4
     }
   ],
-  "aplikasi,": [
+  "pajak,": [
     {
       "id": "DEC-2890",
       "shard": 4
     }
   ],
-  "keuntungan": [
+  "profit": [
     {
       "id": "DEC-2890",
       "shard": 4
     }
   ],
-  "(net": [
+  "platform,": [
     {
       "id": "DEC-2890",
       "shard": 4
     }
   ],
-  "profit,": [
+  "kill": [
     {
       "id": "DEC-2890",
       "shard": 4
     }
   ],
-  "withd": [
+  "switch,": [
+    {
+      "id": "DEC-2890",
+      "shard": 4
+    }
+  ],
+  "monitor,": [
+    {
+      "id": "DEC-2890",
+      "shard": 4
+    }
+  ],
+  "banding;": [
+    {
+      "id": "DEC-2890",
+      "shard": 4
+    }
+  ],
+  "approval+dispute": [
+    {
+      "id": "DEC-2890",
+      "shard": 4
+    }
+  ],
+  "l1;": [
+    {
+      "id": "DEC-2890",
+      "shard": 4
+    }
+  ],
+  "dokumen": [
+    {
+      "id": "DEC-2890",
+      "shard": 4
+    }
+  ],
+  "dulu": [
     {
       "id": "DEC-2890",
       "shard": 4
