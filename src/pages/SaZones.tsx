@@ -41,7 +41,7 @@ export default function SaZones() {
   const zones = useAppSelector((s) => s.superAdmin.zones)
   const tenants = useAppSelector((s) => s.admin.tenants)
   const storedAddresses = useAppSelector((s) => s.cart.addresses)
-  const addresses = storedAddresses?.length ? storedAddresses : mockUser.addresses
+  const addresses = Array.isArray(storedAddresses) ? storedAddresses : mockUser.addresses
   const [draft, setDraft] = useState<Partial<Record<ZoneId, Vertex[]>>>({})
   const [selected, setSelected] = useState<{ zoneId: ZoneId; index: number } | null>(null)
   const [dragging, setDragging] = useState<{ zoneId: ZoneId; index: number } | null>(null)

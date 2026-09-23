@@ -38,7 +38,7 @@ export default function Checkout() {
 
   const items = useAppSelector((s) => s.cart.items)
   const stored = useAppSelector((s) => s.cart.addresses)
-  const addresses = stored?.length ? stored : mockUser.addresses
+  const addresses = Array.isArray(stored) ? stored : mockUser.addresses
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const walletAvailable = useAppSelector((s) => s.wallet.balance.available)
   /** Gate saldo awal menahan langkah berikutnya, bukan cuma pesan (R-TOPUP-01). */
@@ -210,7 +210,17 @@ export default function Checkout() {
                       </span>
                     </div>
                   </div>
-                ) : null}
+                ) : (
+                  <div className="order-summary-section">
+                    <h2 className="section-title">Antar ke</h2>
+                    <div className="summary-item">
+                      <span>Belum ada alamat pengantaran</span>
+                      <Link className="summary-change-link" to="/address-selection">
+                        Tambah
+                      </Link>
+                    </div>
+                  </div>
+                )}
 
                 <div className="order-summary-section">
                   <h2 className="section-title">Ringkasan Pesanan</h2>
@@ -290,11 +300,13 @@ export default function Checkout() {
                 >
                   {maintenanceCopy
                     ? 'Platform maintenance'
-                    : !deliverable
-                      ? 'Di luar area antar'
-                      : gated
-                        ? 'Top-up dulu · saldo kurang'
-                        : `Lanjut Bayar · ${money(total)}`}
+                    : addresses.length === 0
+                      ? 'Tambah alamat dulu'
+                      : !deliverable
+                        ? 'Di luar area antar'
+                        : gated
+                          ? 'Top-up dulu · saldo kurang'
+                          : `Lanjut Bayar · ${money(total)}`}
                 </button>
               </div>
             </>

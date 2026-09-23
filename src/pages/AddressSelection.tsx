@@ -47,7 +47,7 @@ export default function AddressSelection() {
   })
   const stored = useAppSelector((s) => s.cart.addresses)
   const zones = useAppSelector((s) => s.superAdmin.zones)
-  const addresses = stored?.length ? stored : mockUser.addresses
+  const addresses = Array.isArray(stored) ? stored : mockUser.addresses
 
   const {
     register,
@@ -183,6 +183,11 @@ export default function AddressSelection() {
               </h1>
             </header>
             <div className="address-selection-content">
+              {addresses.length === 0 ? (
+                <p className="address-empty">
+                  Belum ada alamat pengantaran. Tambah satu untuk bisa lanjut checkout.
+                </p>
+              ) : null}
               <div className="address-list" role="radiogroup" aria-label="Pilih alamat pengantaran">
                 {addresses.map((a) => {
                   const zone = zoneFor(a)
@@ -312,7 +317,11 @@ export default function AddressSelection() {
                 disabled={!deliverable}
                 onClick={() => navigate('/checkout')}
               >
-                {deliverable ? 'Lanjut' : 'Di luar area antar'}
+                {addresses.length === 0
+                  ? 'Tambah alamat dulu'
+                  : deliverable
+                    ? 'Lanjut'
+                    : 'Di luar area antar'}
               </button>
             </div>
             <div className="home-indicator" />

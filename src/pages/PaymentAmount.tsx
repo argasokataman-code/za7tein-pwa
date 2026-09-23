@@ -31,7 +31,7 @@ export default function PaymentAmount() {
 
   const items = useAppSelector((s) => s.cart.items)
   const stored = useAppSelector((s) => s.cart.addresses)
-  const addresses = stored?.length ? stored : mockUser.addresses
+  const addresses = Array.isArray(stored) ? stored : mockUser.addresses
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const proof = useAppSelector((s) => s.cart.transferProof)
@@ -123,7 +123,15 @@ export default function PaymentAmount() {
                     </span>
                   </div>
                 </div>
-              ) : null}
+              ) : (
+                <div className="order-summary-section">
+                  <h2 className="section-title">Antar ke</h2>
+                  <div className="summary-item">
+                    <span>Belum ada alamat pengantaran</span>
+                    <span className="zone-fee">Kembali untuk menambah</span>
+                  </div>
+                </div>
+              )}
 
               <div className="order-summary-section">
                 <h2 className="section-title">

@@ -75,6 +75,17 @@ export function ChangelogSection() {
               <td>Memilih berkas + pratinjau lokal (tanpa unggah)</td>
             </tr>
             <tr>
+              <td>Daftar alamat kosong</td>
+              <td>
+                <code className="doc-inline">stored?.length ? stored : mockUser.addresses</code> —
+                hapus alamat terakhir dan daftarnya <em>balik</em> ke 3 alamat mock
+              </td>
+              <td>
+                Fallback hanya saat nilai bukan array; daftar kosong kini menampilkan ajakan tambah,
+                dan Checkout bilang "Tambah alamat dulu"
+              </td>
+            </tr>
+            <tr>
               <td>Kartu alamat (layout)</td>
               <td>
                 Tiga tombol ikon 28px (di bawah <code className="doc-inline">--touch-min</code>)
