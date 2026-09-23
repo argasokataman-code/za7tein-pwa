@@ -36,6 +36,7 @@ Konsol **Super Admin**: website penuh **non-PWA** di prefix `/superadmin`, dipak
 - **Role pemilik platform tidak bisa dicabut dari UI** — kalau bisa, satu klik salah mengunci seluruh konsol.
 - **Kill switch destruktif wajib konfirmasi** di layar, dan setiap perubahan tercatat di audit trail.
 - **Pengecualian lebar disengaja.** Konsol SA tidak memakai kolom 430px (dashboard bertabel); pengecualiannya dicatat di `/documentation` §34, bukan bocor diam-diam (AGENTS.md §9). Di bawah 900px sidebar jadi bilah atas.
+- **Tanpa auth (UNRESOLVED-by-absence).** Konsol ini tidak punya login; di demo, pemilih operator hanya menentukan izin dan atribusi audit, bukan mengamankan akses. Di produksi wajib ada auth + audit login (dicatat di `decision-irbid-mvp.md`).
 - **Non-PWA.** Manifest dilepas di `/superadmin` (`index.html`), dan tidak ada `MobileDeviceFrame`.
 - Repo ini front-end saja: konsol, angka profit, dan kill switch adalah tampilan mock (AGENTS.md §1).
 

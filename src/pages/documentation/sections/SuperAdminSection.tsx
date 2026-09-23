@@ -232,6 +232,29 @@ layar order lagi                     → "Banding ditinjau SA: diperkuat / diuba
         <code className="doc-inline">UNRESOLVED</code> di flow <code className="doc-inline">F8</code>.
       </p>
 
+      <h3 className="doc-h3">Yang belum ada, dan itu ditulis</h3>
+      <p className="doc-p">
+        Dua hal yang sering disangka ada di konsol seperti ini, tapi memang tidak dibangun. Keduanya
+        dicatat di <code className="doc-inline">docs/product/prd/decision-irbid-mvp.md</code>, bukan
+        disembunyikan:
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Tanpa auth.</strong> Tidak ada login di <code className="doc-inline">/superadmin</code>:
+          siapa pun yang membuka URL-nya bisa mengubah kill switch dan menarik saldo keuntungan.
+          Ini mengikuti pola repo (autentikasi sungguhan di luar lingkup, panel CS juga tanpa auth),
+          tapi konsekuensinya lebih berat karena konsol ini memegang kontrol platform. Penggantinya
+          di demo hanya pemilih <em>Bertindak sebagai</em>, yang menentukan izin dan nama di audit
+          trail, bukan mengamankan akses. Di produksi wajib ada auth + audit login
+          (<code className="doc-inline">UNRESOLVED-by-absence</code>).
+        </li>
+        <li>
+          <strong>Tanpa export laporan pajak.</strong> Cakupan PO menyebut "laporan pajak aplikasi"
+          tanpa format ekspor, periode fiskal, atau penerimanya. Layarnya menampilkan laporan per
+          periode; ekspor tidak dikarang (<code className="doc-inline">UNRESOLVED</code>).
+        </li>
+      </ul>
+
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
         Kanvas zona digambar sebagai <strong>SVG inline</strong>, bukan peta ber-tile: tile peta

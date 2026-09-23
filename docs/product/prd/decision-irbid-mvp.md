@@ -56,6 +56,12 @@ Melengkapi klarifikasi peran di atas. Super Admin = **website penuh non-PWA** (p
 
 **Batas panel CS (diputuskan PO 2026-09-23):** CS **menjalankan** approval tenant, putusan sengketa level-1, dan blacklist COD — semuanya sudah dibangun di `/admin/*`. CS **tidak** mengonfigurasi platform: master zona, role & permission, pajak aplikasi, saldo keuntungan, dan kill switch milik SA. SA mengawasi kerja CS lewat audit trail dan menangani banding.
 
+**Yang tidak dibangun di konsol SA (dicatat 2026-09-23, bukan keputusan):**
+
+- **Auth Super Admin tidak ada.** Konsol `/superadmin` tidak punya login. Siapa pun yang membuka URL-nya bisa mengubah kill switch dan menarik saldo keuntungan. Ini mengikuti pola repo (AGENTS.md §1: autentikasi sungguhan di luar lingkup; panel CS juga tanpa auth), tetapi konsekuensinya lebih berat karena konsol ini memegang kontrol platform. Di produksi wajib ada auth + audit login. Status: `UNRESOLVED-by-absence` — PRD aktif tidak memuat requirement auth SA.
+- **Export laporan pajak tidak ada.** Cakupan menyebut "laporan pajak aplikasi" tanpa menyebut format ekspor (CSV/PDF), periode fiskal, atau penerima laporan. Layar SA menampilkan laporan per periode; ekspor ditandai `UNRESOLVED` supaya tidak dikarang.
+- **Aturan banding belum lengkap.** Siapa yang boleh mengajukan banding (pengaju sengketa saja atau kedua pihak) dan apakah ada window/SLA banding belum diputuskan. Kode saat ini: hanya pihak pengaju sengketa, tanpa window. Status: `UNRESOLVED`.
+
 **UNRESOLVED lanjutan:** OQ-30 (siapa operator, jumlah admin), jadwal settlement, provider kurs (OQ-26/28), tarif pajak final.
 
 ### `irbid-mvp-2026-09-12` (superseded oleh v2, 2026-09-22)
