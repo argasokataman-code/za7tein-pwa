@@ -40,6 +40,12 @@ export interface MenuItem extends Food {
   available: boolean
 }
 
+/** Filter yang diteruskan layar Filter ke Search (satu modul memproduksi, satu membaca). */
+export interface SearchFilters {
+  maxPrice?: number
+  categories?: string[]
+}
+
 export interface Category {
   id: string
   label: string
@@ -115,6 +121,8 @@ export interface MerchantDeliveryConfig {
 export interface Address {
   id: string
   name: string
+  /** Alamat utama — dipilih otomatis saat checkout kalau belum ada pilihan. */
+  isDefault: boolean
   /** nama gedung / tower */
   building: string
   floor: string

@@ -2,15 +2,36 @@ import { ChevronLeft, Star } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 import { useChipSet } from '../hooks/useToggleSet'
+import { money } from '../data/merchant'
+import type { SearchFilters } from '../types'
 
-
-import toast from 'react-hot-toast'
+/** Batas slider harga; `PRICE_MAX` = tanpa filter harga. */
+const PRICE_MIN = 5000
+const PRICE_MAX = 35000
 
 export default function Filter() {
   const chips = useChipSet(["Sizzling"])
+  const [maxPrice, setMaxPrice] = useState(PRICE_MAX)
   const navigate = useNavigate()
+
+  // Filter diteruskan ke Search lewat location.state — sebelumnya tombolnya
+  // hanya bernavigasi dan pilihan pengguna hilang.
+  const apply = () => {
+    const filters: SearchFilters = {
+      maxPrice: maxPrice < PRICE_MAX ? maxPrice : undefined,
+      categories: chips.values.filter((value) => !/^\d$/.test(value)),
+    }
+    navigate('/search', { state: filters })
+  }
+
+  const clearAll = () => {
+    chips.clear()
+    setMaxPrice(PRICE_MAX)
+  }
+
   return (
     <>
     <div className="app-shell">
@@ -31,16 +52,16 @@ export default function Filter() {
               </div>
               <div className="price-range">
                 <span>
-                  Rp5.000
+                  {money(PRICE_MIN)}
                 </span>
                 <span aria-live="polite" aria-atomic="true" style={{ color: "#F15A37", fontWeight: "600" }}>
-                  Rp20.000
+                  {money(maxPrice)}
                 </span>
                 <span>
-                  Rp35.000+
+                  {money(PRICE_MAX)}+
                 </span>
               </div>
-              <input min={5000} max={35000} className="range-input" aria-label="Harga sampai Rp20.000" aria-valuemin={5000} aria-valuemax={35000} aria-valuenow={20000} aria-valuetext="Rp20.000" type="range" defaultValue={20000} />
+              <input min={PRICE_MIN} max={PRICE_MAX} value={maxPrice} onChange={(e) => setMaxPrice(Number(e.target.value))} className="range-input" aria-label={`Harga sampai ${money(maxPrice)}`} aria-valuemin={PRICE_MIN} aria-valuemax={PRICE_MAX} aria-valuenow={maxPrice} aria-valuetext={money(maxPrice)} type="range" />
             </div>
             <div className="filter-block">
               <div className="filter-title">
@@ -106,10 +127,10 @@ export default function Filter() {
               </div>
             </div>
             <div className="filter-actions">
-              <button type="button" className="apply-btn" aria-label="Apply selected filters" onClick={() => { navigate('/search') }}>
+              <button type="button" className="apply-btn" aria-label="Apply selected filters" onClick={apply}>
                 Apply Filter
               </button>
-              <button type="button" className="clear-btn" aria-label="Clear all filters" onClick={() => { toast.success('Filters cleared') }}>
+              <button type="button" className="clear-btn" aria-label="Clear all filters" onClick={clearAll}>
                 Clear All
               </button>
             </div>

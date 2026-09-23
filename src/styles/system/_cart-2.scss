@@ -413,3 +413,84 @@ div[class*="-screen"] .container {
   margin: 0;
   padding: var(--space-2) var(--space-4) var(--space-4);
 }
+
+/* ── Aksi pada kartu alamat (flow f20) ─────────────────────────────────────
+   Tiga tombol ikon sekecil tombol hapus yang sudah ada: jadikan utama (oranye
+   merek), ubah (netral), hapus (bahaya). Warna memakai peran token, bukan
+   nilai baru. */
+.address-default-btn,
+.address-edit-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.address-default-btn {
+  border-color: var(--orange-soft);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.address-default-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: var(--space-2);
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-xs);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.addr-form-coverage {
+  margin: 0 0 var(--space-4);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.addr-form-coverage[data-deliverable="false"] {
+  color: var(--danger-ink);
+}
+
+.addr-form-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.search-empty {
+  margin: var(--space-4) 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+/* Judul "Antar ke" di checkout kini punya tautan Ubah di kanan. */
+.order-summary-section .section-title:has(.summary-change-link) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.summary-change-link {
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-decoration: none;
+}

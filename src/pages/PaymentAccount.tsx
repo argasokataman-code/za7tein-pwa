@@ -2,10 +2,38 @@ import { ArrowRight, ChevronLeft, CreditCard } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 import toast from 'react-hot-toast'
 
+interface LinkedMethod {
+  id: string
+  label: string
+  icon: string
+  connected: boolean
+}
+
+const INITIAL_METHODS: LinkedMethod[] = [
+  { id: 'apple-pay', label: 'Apple Pay', icon: '/assets/img/icon/icon1.png', connected: true },
+  { id: 'google-pay', label: 'Google Pay', icon: '/assets/img/icon/icon2.png', connected: true },
+  { id: 'paypal', label: 'PayPal', icon: '/assets/img/icon/icon3.png', connected: false },
+]
+
 export default function PaymentAccount() {
+  const [methods, setMethods] = useState(INITIAL_METHODS)
+
+  const remove = (id: string) => {
+    setMethods((list) => list.filter((method) => method.id !== id))
+    toast.success('Metode dihapus')
+  }
+
+  const connect = (id: string) => {
+    setMethods((list) =>
+      list.map((method) => (method.id === id ? { ...method, connected: true } : method)),
+    )
+    toast.success('Metode terhubung')
+  }
+
   return (
     <>
     <div className="app-shell">
@@ -35,55 +63,31 @@ export default function PaymentAccount() {
                 </div>
                 <ArrowRight size={20} strokeWidth={1.75} />
               </Link>
-              <div className="wallet-item">
-                <div className="wallet-item-icon">
-                  <img alt="Apple Pay" width={24} height={24} src="/assets/img/icon/icon1.png" style={{ color: "transparent" }} />
+              {methods.map((method) => (
+                <div className="wallet-item" key={method.id}>
+                  <div className="wallet-item-icon">
+                    <img alt={method.label} width={24} height={24} src={method.icon} style={{ color: "transparent" }} />
+                  </div>
+                  <div className="wallet-item-left">
+                    <span className="wallet-item-title">
+                      {method.label}
+                    </span>
+                    <span className="wallet-item-sub">
+                      {method.connected ? 'Connected' : 'Unconnected'}
+                    </span>
+                  </div>
+                  {method.connected ? (
+                    <button type="button" className="wallet-badge remove" onClick={() => remove(method.id)}>
+                      Remove
+                    </button>
+                  ) : (
+                    <button type="button" className="wallet-badge connect" onClick={() => connect(method.id)}>
+                      Connect
+                    </button>
+                  )}
                 </div>
-                <div className="wallet-item-left">
-                  <span className="wallet-item-title">
-                    Apple Pay
-                  </span>
-                  <span className="wallet-item-sub">
-                    Connected
-                  </span>
-                </div>
-                <button type="button" className="wallet-badge remove" onClick={() => { toast.success("Default payment method") }}>
-                  Remove
-                </button>
-              </div>
-              <div className="wallet-item">
-                <div className="wallet-item-icon">
-                  <img alt="Google Pay" width={24} height={24} src="/assets/img/icon/icon2.png" style={{ color: "transparent" }} />
-                </div>
-                <div className="wallet-item-left">
-                  <span className="wallet-item-title">
-                    Google Pay
-                  </span>
-                  <span className="wallet-item-sub">
-                    Connected
-                  </span>
-                </div>
-                <button type="button" className="wallet-badge remove" onClick={() => { toast.success("Default payment method") }}>
-                  Remove
-                </button>
-              </div>
-              <div className="wallet-item">
-                <div className="wallet-item-icon">
-                  <img alt="PayPal" width={24} height={24} src="/assets/img/icon/icon3.png" style={{ color: "transparent" }} />
-                </div>
-                <div className="wallet-item-left">
-                  <span className="wallet-item-title">
-                    PayPal
-                  </span>
-                  <span className="wallet-item-sub">
-                    Unconnected
-                  </span>
-                </div>
-                <button type="button" className="wallet-badge connect" onClick={() => { toast.success("Default payment method") }}>
-                  Connect
-                </button>
-              </div>
-              <Link className="btn-profile-primary wallet-footer-btn" to="/profile/add-new-card" style={{ marginTop: "24px" }}>
+              ))}
+              <Link className="btn-profile-primary wallet-footer-btn" to="/add-new-card" style={{ marginTop: "24px" }}>
                 Add New Card
               </Link>
             </main>

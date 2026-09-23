@@ -29,10 +29,12 @@ export function useLeafletMap(
   const markerRef = useRef<LeafletMarker | null>(null)
   const onMoveRef = useRef(options.picker?.onMove)
   const pickerInitialRef = useRef<[number, number]>(options.picker?.initial ?? RESTAURANT)
+  const pickerPopupRef = useRef(options.picker?.popup ?? 'Lokasi toko — geser untuk menyesuaikan')
 
   useEffect(() => {
     onMoveRef.current = options.picker?.onMove
     pickerInitialRef.current = options.picker?.initial ?? RESTAURANT
+    pickerPopupRef.current = options.picker?.popup ?? 'Lokasi toko — geser untuk menyesuaikan'
   })
 
   useEffect(() => {
@@ -73,7 +75,7 @@ export function useLeafletMap(
           draggable: true,
         })
           .addTo(map)
-          .bindPopup('Lokasi toko — geser untuk menyesuaikan')
+          .bindPopup(pickerPopupRef.current)
         marker.on('dragend', () => {
           const p = marker.getLatLng()
           onMoveRef.current?.(p.lat, p.lng)

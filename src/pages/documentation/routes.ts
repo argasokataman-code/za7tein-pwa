@@ -47,7 +47,7 @@ export const CUSTOMER_GROUPS: DocRouteGroup[] = [
     base: '/customer',
     rows: [
       { path: '/onboarding', component: 'Onboarding', desc: 'Splash + carousel' },
-      { path: '/account-setup', component: 'AccountSetup', desc: '5-step wizard (language, location, photo, finish)' },
+      { path: '/account-setup', component: 'AccountSetup', desc: 'Layar kegagalan (error boundary)' },
     ],
   },
   {
@@ -84,13 +84,9 @@ export const CUSTOMER_GROUPS: DocRouteGroup[] = [
       { path: '/address-selection', component: 'AddressSelection', desc: 'Pick delivery address' },
       { path: '/payment-selection', component: 'PaymentSelection', desc: 'Pick payment method' },
       { path: '/payment-amount', component: 'PaymentAmount', desc: 'Enter payment amount' },
-      { path: '/order-placed', component: 'OrderPlaced', desc: 'Order placed + Journey Line' },
+      { path: '/order-placed', component: 'OrderPlaced', desc: 'Order placed + Journey Line (tahap dari store)' },
       { path: '/order-chat', component: 'OrderChat', desc: 'Chat with merchant/driver' },
-      { path: '/order-delivery', component: 'OrderDelivery', desc: 'Delivery in progress' },
-      { path: '/order-tracking', component: 'OrderTracking', desc: 'Map tracking view' },
-      { path: '/order-arrived', component: 'OrderArrived', desc: 'Order arrived + confetti' },
-      { path: '/order-delivered', component: 'OrderDelivered', desc: 'Tiba confirmation' },
-      { path: '/order-success', component: 'OrderSuccess', desc: 'Order completion screen' },
+      { path: '/order-arrived', component: 'OrderArrived', desc: 'Pesanan tiba + confetti → rating kurir' },
       { path: '/dispute', component: 'DisputeSubmit', desc: 'Ajukan sengketa (window 24 jam)' },
       { path: '/rating-driver', component: 'RatingDriver', desc: '5-star driver rating' },
     ],
@@ -130,8 +126,6 @@ export const CUSTOMER_GROUPS: DocRouteGroup[] = [
       { path: '/payment-account', component: 'PaymentAccount', desc: 'Payment account overview' },
       { path: '/your-card', component: 'YourCard', desc: 'Saved card details' },
       { path: '/add-new-card', component: 'AddNewCard', desc: 'Add card (details step)' },
-      { path: '/add-card', component: 'AddCard', desc: 'Add card flow' },
-      { path: '/add-card-address', component: 'AddCardAddress', desc: 'Billing address step' },
     ],
   },
   {

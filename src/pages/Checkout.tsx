@@ -7,7 +7,7 @@
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
 import { Minus, Plus, ChevronLeft, ShoppingBag } from 'lucide-react'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
@@ -181,7 +181,12 @@ export default function Checkout() {
                 {/* Alamat — angka ongkir di bawah bergantung pada zona alamat ini. */}
                 {address ? (
                   <div className="order-summary-section">
-                    <h2 className="section-title">Antar ke</h2>
+                    <h2 className="section-title">
+                      Antar ke
+                      <Link className="summary-change-link" to="/address-selection">
+                        Ubah
+                      </Link>
+                    </h2>
                     <div className="summary-item">
                       <span>{address.building}</span>
                       <span className="zone-fee">

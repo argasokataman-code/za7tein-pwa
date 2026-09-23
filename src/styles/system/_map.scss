@@ -173,3 +173,14 @@ body.sa7tein-track-page {
   font-weight: 500;
   cursor: pointer;
 }
+
+/* ── Peta pemilih titik alamat (flow f20) ──────────────────────────────────
+   Pin digeser untuk menetapkan koordinat alamat; tinggi tetap supaya form
+   tidak melompat saat ubin peta selesai dimuat. */
+.address-map {
+  height: 180px;
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}

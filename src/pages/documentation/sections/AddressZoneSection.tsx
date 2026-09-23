@@ -44,11 +44,22 @@ zoneFor(address) / deliveryFeeFor(address) / isDeliverable(address)`}
         <code className="doc-inline">UNRESOLVED</code> di flow F20, jadi angka mock di repo ini
         adalah placeholder dan bukan tarif aktif.
       </p>
+      <h3 className="doc-h3">CRUD alamat lengkap</h3>
+      <p className="doc-p">
+        Layar <code className="doc-inline">/customer/address-selection</code> menangani{' '}
+        <strong>tambah, ubah, hapus, dan penunjukan alamat utama</strong>, plus peta pemilih titik
+        (<code className="doc-inline">AddressMapPicker</code>, mode <code className="doc-inline">picker</code>)
+        yang menghitung ulang coverage lewat <code className="doc-inline">resolveCoverage()</code>{' '}
+        setiap pin digeser. Alamat utama (<code className="doc-inline">Address.isDefault</code>)
+        dipilih otomatis saat checkout dan tidak bisa dicabut tanpa menunjuk pengganti. Layar ini
+        bisa dibuka dari Profil → <em>Alamat Pengantaran</em> dan dari tombol <em>Ubah</em> di
+        Checkout — sebelumnya rutenya hanya bisa dijangkau lewat URL langsung.
+      </p>
       <p className="doc-p">
         <strong>Catatan demo:</strong> alamat <em>Rumah Orang Tua</em> sengaja di luar coverage
         (2,4 km) supaya jalur blokir “di luar area antar” bisa diperiksa, dan{' '}
-        <em>Tambah Alamat</em> memakai <code className="doc-inline">DEFAULT_NEW_ADDRESS_PIN</code>{' '}
-        yang sudah berada di dalam zona Hijazi.
+        <em>Tambah Alamat</em> mulai dari <code className="doc-inline">DEFAULT_NEW_ADDRESS_PIN</code>{' '}
+        yang sudah berada di dalam zona Hijazi — geser pinnya untuk melihat status coverage berubah.
       </p>
     </DocSection>
   )

@@ -7,6 +7,10 @@ export function useChipSet(initial: string[] = []) {
     isActive: (key: string) => active.includes(key),
     toggle: (key: string) =>
       setActive((a) => (a.includes(key) ? a.filter((x) => x !== key) : [...a, key])),
+    /** Semua chip yang sedang aktif. */
+    values: active,
+    /** Kosongkan semua chip sekaligus (tombol "Clear All"). */
+    clear: () => setActive([]),
   }
 }
 

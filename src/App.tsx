@@ -1,13 +1,12 @@
 import { Toaster } from 'react-hot-toast'
-import { useEffect, type ComponentType } from 'react'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useEffect, type ComponentType, type ReactNode } from 'react'
+import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
 import { StoreProvider } from './store/provider'
 import { MobileDeviceFrame } from './components/layout/MobileDeviceFrame'
+import { AppErrorBoundary } from './components/AppErrorBoundary'
 
 import AccountSetup from './pages/AccountSetup'
-import AddCard from './pages/AddCard'
-import AddCardAddress from './pages/AddCardAddress'
 import AddNewCard from './pages/AddNewCard'
 import AddProfilePhoto from './pages/AddProfilePhoto'
 import AddressSelection from './pages/AddressSelection'
@@ -51,11 +50,7 @@ import Offline from './pages/Offline'
 import Onboarding from './pages/Onboarding'
 import OrderArrived from './pages/OrderArrived'
 import OrderChat from './pages/OrderChat'
-import OrderDelivered from './pages/OrderDelivered'
-import OrderDelivery from './pages/OrderDelivery'
 import OrderPlaced from './pages/OrderPlaced'
-import OrderSuccess from './pages/OrderSuccess'
-import OrderTracking from './pages/OrderTracking'
 import PaymentAccount from './pages/PaymentAccount'
 import PaymentAmount from './pages/PaymentAmount'
 import PaymentSelection from './pages/PaymentSelection'
@@ -125,11 +120,7 @@ const customerRoutes: [string, ComponentType][] = [
   ['/payment-amount', PaymentAmount],
   ['/order-placed', OrderPlaced],
   ['/order-chat', OrderChat],
-  ['/order-delivery', OrderDelivery],
-  ['/order-tracking', OrderTracking],
   ['/order-arrived', OrderArrived],
-  ['/order-delivered', OrderDelivered],
-  ['/order-success', OrderSuccess],
   ['/dispute', DisputeSubmit],
   ['/rating-driver', RatingDriver],
   ['/profile', Profile],
@@ -148,8 +139,6 @@ const customerRoutes: [string, ComponentType][] = [
   ['/payment-account', PaymentAccount],
   ['/your-card', YourCard],
   ['/add-new-card', AddNewCard],
-  ['/add-card', AddCard],
-  ['/add-card-address', AddCardAddress],
   ['/reviews', Reviews],
   ['/faq', Faq],
   ['/help-center', HelpCenter],
@@ -210,12 +199,14 @@ const superAdminRoutes: [string, ComponentType][] = [
 function SuperAdminRouter() {
   return (
     <BrowserRouter basename="/superadmin">
-      <Routes>
-        {superAdminRoutes.map(([path, Component]) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <AppErrorBoundary>
+        <Routes>
+          {superAdminRoutes.map(([path, Component]) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AppErrorBoundary>
     </BrowserRouter>
   )
 }
@@ -224,18 +215,41 @@ interface RoleRouterProps {
   basename: string
   routes: [string, ComponentType][]
   home: string
+  /** Rute layar "tidak ada koneksi" role ini; hanya customer yang punya. */
+  offlinePath?: string
 }
 
-function RoleRouter({ basename, routes, home }: RoleRouterProps) {
+/**
+ * Perilaku lintas-halaman per role: batas galat, dan lompat ke layar offline
+ * saat koneksi putus. Harus di dalam `<BrowserRouter>` karena memakai
+ * `useNavigate`.
+ */
+function RoleChrome({ offlinePath, children }: { offlinePath?: string; children: ReactNode }) {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!offlinePath) return
+    const goOffline = () => navigate(offlinePath)
+    if (!navigator.onLine) goOffline()
+    window.addEventListener('offline', goOffline)
+    return () => window.removeEventListener('offline', goOffline)
+  }, [navigate, offlinePath])
+
+  return <AppErrorBoundary>{children}</AppErrorBoundary>
+}
+
+function RoleRouter({ basename, routes, home, offlinePath }: RoleRouterProps) {
   return (
     <BrowserRouter basename={basename}>
       <MobileDeviceFrame>
-        <Routes>
-          {routes.map(([path, Component]) => (
-            <Route key={path} path={path} element={<Component />} />
-          ))}
-          <Route path="*" element={<Navigate to={home} replace />} />
-        </Routes>
+        <RoleChrome offlinePath={offlinePath}>
+          <Routes>
+            {routes.map(([path, Component]) => (
+              <Route key={path} path={path} element={<Component />} />
+            ))}
+            <Route path="*" element={<Navigate to={home} replace />} />
+          </Routes>
+        </RoleChrome>
       </MobileDeviceFrame>
     </BrowserRouter>
   )
@@ -244,17 +258,19 @@ function RoleRouter({ basename, routes, home }: RoleRouterProps) {
 function WebsiteRouter() {
   return (
     <BrowserRouter>
-      <Routes>
-        {webRoutes.map(([path, Component]) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-        <Route path="/app" element={<LegacyAppRedirect />} />
-        <Route path="/app/*" element={<LegacyAppRedirect />} />
-        {customerRoutes.map(([path]) => (
-          <Route key={`legacy-${path}`} path={path} element={<LegacyAppRedirect />} />
-        ))}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <AppErrorBoundary>
+        <Routes>
+          {webRoutes.map(([path, Component]) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          <Route path="/app" element={<LegacyAppRedirect />} />
+          <Route path="/app/*" element={<LegacyAppRedirect />} />
+          {customerRoutes.map(([path]) => (
+            <Route key={`legacy-${path}`} path={path} element={<LegacyAppRedirect />} />
+          ))}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AppErrorBoundary>
     </BrowserRouter>
   )
 }
@@ -286,7 +302,7 @@ export default function App() {
   return (
     <StoreProvider>
       {role === '/customer' ? (
-        <RoleRouter basename="/customer" routes={customerRoutes} home="/home" />
+        <RoleRouter basename="/customer" routes={customerRoutes} home="/home" offlinePath="/offline" />
       ) : role === '/merchant' ? (
         <RoleRouter basename="/merchant" routes={merchantRoutes} home="/" />
       ) : role === '/courier' ? (

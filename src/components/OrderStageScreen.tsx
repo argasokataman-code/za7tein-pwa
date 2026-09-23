@@ -220,6 +220,9 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
       dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
     }
     toast.success('OTP terverifikasi — pengiriman selesai')
+    // Pengiriman selesai = pesanan tiba: layar perayaan yang menyalurkan ke
+    // rating kurir (F19). Sebelumnya tidak ada yang membuka rute ini.
+    navigate('/order-arrived')
   }
 
   const mapBlock = (

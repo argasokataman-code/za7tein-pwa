@@ -16,6 +16,7 @@ export const mockUser: User = {
     {
       id: 'tower-a',
       name: 'Rumah',
+      isDefault: true,
       building: 'Green View Apartment — Tower A',
       floor: 'Lt 12',
       unit: 'Unit 1208',
@@ -31,6 +32,7 @@ export const mockUser: User = {
     {
       id: 'tower-b',
       name: 'Kantor',
+      isDefault: false,
       building: 'Green View Apartment — Tower B',
       floor: 'Lt 6',
       unit: 'Unit 610',
@@ -46,6 +48,7 @@ export const mockUser: User = {
     {
       id: 'luar-zona',
       name: 'Rumah Orang Tua',
+      isDefault: false,
       building: 'Komplek Melati Indah',
       floor: 'Lt 1',
       unit: 'Blok C2',

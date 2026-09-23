@@ -43,4 +43,6 @@ export type MapMode = 'preview' | 'delivery' | 'picker'
 export interface PickerOptions {
   initial: [number, number]
   onMove: (lat: number, lng: number) => void
+  /** Teks popup pin pemilih; default menyebut lokasi toko. */
+  popup?: string
 }

@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, Building2, ChevronLeft, House, Plus, Trash2, type LucideIcon } from 'lucide-react'
+import { BriefcaseBusiness, Building2, Check, ChevronLeft, House, Pencil, Plus, Star, Trash2, type LucideIcon } from 'lucide-react'
 // Alamat pengantaran. PRD mewajibkan gedung, lantai, dan unit, plus pin yang
 // masih dalam radius 2 km dari toko — di luar itu checkout diblokir.
 import { useState } from 'react'
@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
 
+import { AddressMapPicker } from '../components/customer/AddressMapPicker'
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
 import {
   DEFAULT_NEW_ADDRESS_PIN,
@@ -15,11 +16,18 @@ import {
   isDeliverable,
   money,
   zoneFor,
+  zoneLabel,
 } from '../data/merchant'
 import { resolveCoverage } from '../data/zones'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockUser } from '../data/user'
-import { addAddress, setAddress } from '../store/slices/cartSlice'
+import {
+  addAddress,
+  removeAddress,
+  setAddress,
+  setDefaultAddress,
+  updateAddress,
+} from '../store/slices/cartSlice'
 import type { Address } from '../types'
 
 const ICONS: Record<string, LucideIcon> = {
@@ -38,6 +46,12 @@ export default function AddressSelection() {
   const dispatch = useAppDispatch()
   const selectedId = useAppSelector((s) => s.cart.selectedAddressId)
   const [showForm, setShowForm] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  // Titik pin peta (flow f20). Default dari konstanta mock, digeser di form.
+  const [pin, setPin] = useState<{ lat: number; lng: number }>({
+    lat: DEFAULT_NEW_ADDRESS_PIN.lat,
+    lng: DEFAULT_NEW_ADDRESS_PIN.lng,
+  })
   const stored = useAppSelector((s) => s.cart.addresses)
   const zones = useAppSelector((s) => s.superAdmin.zones)
   const addresses = stored?.length ? stored : mockUser.addresses
@@ -49,42 +63,116 @@ export default function AddressSelection() {
     formState: { errors },
   } = useForm<ApartmentFormData>({ resolver: zodResolver(apartmentSchema) })
 
-  const selected = addresses.find((a) => a.id === selectedId) ?? addresses[0]
+  const selected =
+    addresses.find((a) => a.id === selectedId) ??
+    addresses.find((a) => a.isDefault) ??
+    addresses[0]
   const deliverable = selected ? isDeliverable(selected) : false
 
-  const onAdd = (data: ApartmentFormData) => {
-    const id = `addr-${addresses.length + 1}`
-    // Zona & jarak dihitung poligon master SA, bukan angka tetap: di produksi ini
-    // hasil server (F20), di repo ini `resolveCoverage` jadi stand-in-nya. Jadi
-    // kalau SA menggeser poligon, alamat baru ikut berubah statusnya.
-    const coverage = resolveCoverage(
-      { lat: DEFAULT_NEW_ADDRESS_PIN.lat, lng: DEFAULT_NEW_ADDRESS_PIN.lng },
-      zones,
-    )
-    const next: Address = {
-      id,
-      name: 'Alamat Baru',
-      building: data.building,
-      floor: data.floor,
-      unit: data.unit,
-      notes: data.notes ?? '',
-      address: data.building,
-      city: 'Jakarta Selatan',
-      fullAddress: `${data.building} · ${data.floor} · ${data.unit}`,
-      lat: DEFAULT_NEW_ADDRESS_PIN.lat,
-      lng: DEFAULT_NEW_ADDRESS_PIN.lng,
-      distanceMeters: coverage.distanceMeters,
-      zone: coverage.zone,
-    }
-    dispatch(addAddress(next))
-    dispatch(setAddress(id))
-    reset()
+  // Zona & jarak dihitung dari poligon master SA, bukan angka tetap: di produksi
+  // ini hasil server (F20), di repo ini `resolveCoverage` jadi stand-in-nya. Jadi
+  // kalau SA menggeser poligon, titik pin di form ikut berubah statusnya.
+  const coverage = resolveCoverage({ lat: pin.lat, lng: pin.lng }, zones)
+  const pinPoint = { zone: coverage.zone, distanceMeters: coverage.distanceMeters }
+  const pinDeliverable = isDeliverable(pinPoint)
+
+  const openAdd = () => {
+    setEditingId(null)
+    setPin({ lat: DEFAULT_NEW_ADDRESS_PIN.lat, lng: DEFAULT_NEW_ADDRESS_PIN.lng })
+    reset({
+      building: '',
+      floor: '',
+      unit: '',
+      notes: '',
+      isDefault: !addresses.some((a) => a.isDefault),
+    })
+    setShowForm(true)
+  }
+
+  const openEdit = (address: Address) => {
+    setEditingId(address.id)
+    setPin({ lat: address.lat, lng: address.lng })
+    reset({
+      building: address.building,
+      floor: address.floor,
+      unit: address.unit,
+      notes: address.notes,
+      isDefault: address.isDefault,
+    })
+    setShowForm(true)
+  }
+
+  const closeForm = () => {
     setShowForm(false)
-    toast.success(
-      coverage.zone
-        ? 'Alamat ditambahkan'
-        : 'Alamat ditambahkan, tapi di luar area antar',
-    )
+    setEditingId(null)
+    reset()
+  }
+
+  const onSubmit = (data: ApartmentFormData) => {
+    const result = resolveCoverage({ lat: pin.lat, lng: pin.lng }, zones)
+    if (editingId) {
+      const current = addresses.find((a) => a.id === editingId)
+      if (!current) return
+      // Alamat utama tidak bisa dicabut tanpa menunjuk pengganti — biarkan
+      // statusnya kalau checkbox tidak dicentang.
+      const next: Address = {
+        ...current,
+        building: data.building,
+        floor: data.floor,
+        unit: data.unit,
+        notes: data.notes ?? '',
+        fullAddress: `${data.building} · ${data.floor} · ${data.unit}`,
+        lat: pin.lat,
+        lng: pin.lng,
+        distanceMeters: result.distanceMeters,
+        zone: result.zone,
+        isDefault: Boolean(data.isDefault) || current.isDefault,
+      }
+      dispatch(updateAddress(next))
+      toast.success('Alamat diperbarui')
+    } else {
+      // Id diturunkan dari daftar yang ada (murni), bukan dari jam — supaya
+      // tidak tabrakan setelah alamat dihapus.
+      const nextNumber =
+        addresses.reduce((max, a) => {
+          const n = Number(a.id.split('-')[1])
+          return Number.isFinite(n) ? Math.max(max, n) : max
+        }, 0) + 1
+      const id = `addr-${nextNumber}`
+      const next: Address = {
+        id,
+        name: 'Alamat Baru',
+        isDefault: Boolean(data.isDefault),
+        building: data.building,
+        floor: data.floor,
+        unit: data.unit,
+        notes: data.notes ?? '',
+        address: data.building,
+        city: 'Jakarta Selatan',
+        fullAddress: `${data.building} · ${data.floor} · ${data.unit}`,
+        lat: pin.lat,
+        lng: pin.lng,
+        distanceMeters: result.distanceMeters,
+        zone: result.zone,
+      }
+      dispatch(addAddress(next))
+      if (data.isDefault) dispatch(setDefaultAddress(id))
+      else dispatch(setAddress(id))
+      toast.success(
+        result.zone ? 'Alamat ditambahkan' : 'Alamat ditambahkan, tapi di luar area antar',
+      )
+    }
+    closeForm()
+  }
+
+  const onDelete = (address: Address) => {
+    dispatch(removeAddress(address.id))
+    toast.success('Alamat dihapus')
+  }
+
+  const onSetDefault = (address: Address) => {
+    dispatch(setDefaultAddress(address.id))
+    toast.success('Alamat utama diperbarui')
   }
 
   return (
@@ -129,6 +217,12 @@ export default function AddressSelection() {
                       <div className="address-info">
                         <h3 className="address-name">
                           {a.name}
+                          {a.isDefault ? (
+                            <span className="address-default-badge">
+                              <Check size={12} strokeWidth={2.25} aria-hidden="true" />
+                              Utama
+                            </span>
+                          ) : null}
                         </h3>
                         <p className="address-text">
                           {a.building}
@@ -147,7 +241,39 @@ export default function AddressSelection() {
                         </p>
                       </div>
                       <div className="address-actions">
-                        <button type="button" className="address-delete-btn" aria-label="Hapus alamat" onClick={(e) => { e.stopPropagation(); toast.success('Alamat dihapus') }}>
+                        {!a.isDefault ? (
+                          <button
+                            type="button"
+                            className="address-default-btn"
+                            aria-label={`Jadikan ${a.name} alamat utama`}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              onSetDefault(a)
+                            }}
+                          >
+                            <Star size={14} strokeWidth={1.75} />
+                          </button>
+                        ) : null}
+                        <button
+                          type="button"
+                          className="address-edit-btn"
+                          aria-label={`Ubah alamat ${a.name}`}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            openEdit(a)
+                          }}
+                        >
+                          <Pencil size={14} strokeWidth={1.75} />
+                        </button>
+                        <button
+                          type="button"
+                          className="address-delete-btn"
+                          aria-label={`Hapus alamat ${a.name}`}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onDelete(a)
+                          }}
+                        >
                           <Trash2 size={14} strokeWidth={1.75} />
                         </button>
                         <div className="address-radio-dot">
@@ -162,10 +288,22 @@ export default function AddressSelection() {
               </div>
 
               {showForm ? (
-                <form className="addr-form" noValidate onSubmit={handleSubmit(onAdd)}>
-                  <h2 className="addr-form-title">Detail Apartemen</h2>
+                <form className="addr-form" noValidate onSubmit={handleSubmit(onSubmit)}>
+                  <h2 className="addr-form-title">
+                    {editingId ? 'Ubah Alamat' : 'Detail Apartemen'}
+                  </h2>
                   <p className="addr-form-hint">
                     Wajib diisi — pin GPS saja tidak cukup untuk kurir menemukan pintu.
+                  </p>
+                  <AddressMapPicker
+                    lat={pin.lat}
+                    lng={pin.lng}
+                    onMove={(lat, lng) => setPin({ lat, lng })}
+                  />
+                  <p className="addr-form-coverage" data-deliverable={pinDeliverable}>
+                    {coverage.zone
+                      ? `Zona ${zoneLabel(coverage.zone)} · ${formatDistance(coverage.distanceMeters)} dari toko · ongkir ${money(deliveryFeeFor(pinPoint))}`
+                      : 'Di luar area antar — geser pin ke dalam poligon zona'}
                   </p>
                   <div className="form-group-profile">
                     <label htmlFor="building" className="form-label">Nama Gedung / Tower</label>
@@ -186,13 +324,19 @@ export default function AddressSelection() {
                     <label htmlFor="notes" className="form-label">Catatan Kurir</label>
                     <input id="notes" className="form-input-profile" placeholder="Titip lobi, lift kode #123" {...register('notes')} />
                   </div>
+                  <label className="addr-form-check">
+                    <input type="checkbox" {...register('isDefault')} />
+                    <span>Jadikan alamat utama</span>
+                  </label>
                   <div className="addr-form-actions">
-                    <button type="button" className="btn-profile-outline" onClick={() => setShowForm(false)}>Batal</button>
-                    <button type="submit" className="btn-profile-primary">Simpan Alamat</button>
+                    <button type="button" className="btn-profile-outline" onClick={closeForm}>Batal</button>
+                    <button type="submit" className="btn-profile-primary">
+                      {editingId ? 'Simpan Perubahan' : 'Simpan Alamat'}
+                    </button>
                   </div>
                 </form>
               ) : (
-                <button type="button" className="add-address-btn" aria-label="Tambah alamat baru" onClick={() => setShowForm(true)}>
+                <button type="button" className="add-address-btn" aria-label="Tambah alamat baru" onClick={openAdd}>
                   <Plus size={22} strokeWidth={1.75} />
                   <span>
                     Tambah Alamat

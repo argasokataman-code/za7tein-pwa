@@ -141,7 +141,35 @@ const cartSlice = createSlice({
       state.transferProof = action.payload
     },
     addAddress(state, action: PayloadAction<Address>) {
+      // Alamat pertama otomatis jadi alamat utama.
+      if (!state.addresses.some((item) => item.isDefault)) action.payload.isDefault = true
       state.addresses.push(action.payload)
+    },
+    /** Ubah alamat yang sudah ada — form edit memakai ini, bukan menambah baris baru. */
+    updateAddress(state, action: PayloadAction<Address>) {
+      const index = state.addresses.findIndex((item) => item.id === action.payload.id)
+      if (index < 0) return
+      state.addresses[index] = action.payload
+      if (action.payload.isDefault) {
+        state.addresses.forEach((item) => {
+          item.isDefault = item.id === action.payload.id
+        })
+        state.selectedAddressId = action.payload.id
+      }
+    },
+    removeAddress(state, action: PayloadAction<string>) {
+      state.addresses = state.addresses.filter((item) => item.id !== action.payload)
+      if (state.selectedAddressId !== action.payload) return
+      // Yang dihapus tadi sedang dipilih — jatuh ke alamat utama, lalu yang pertama.
+      state.selectedAddressId =
+        state.addresses.find((item) => item.isDefault)?.id ?? state.addresses[0]?.id ?? null
+    },
+    /** Jadikan satu alamat sebagai utama; sekaligus pilih untuk order ini. */
+    setDefaultAddress(state, action: PayloadAction<string>) {
+      state.addresses.forEach((item) => {
+        item.isDefault = item.id === action.payload
+      })
+      state.selectedAddressId = action.payload
     },
     /**
      * Validasi ulang satu alamat terhadap master zona yang baru. Di produksi ini
@@ -241,6 +269,9 @@ export const {
   setPayment,
   setTransferProof,
   addAddress,
+  updateAddress,
+  removeAddress,
+  setDefaultAddress,
   revalidateAddress,
   createOrderHold,
   matchCourier,

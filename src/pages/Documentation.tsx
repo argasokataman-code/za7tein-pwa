@@ -36,6 +36,7 @@ import { DesignTokensSection } from './documentation/sections/DesignTokensSectio
 import { ButtonsSection } from './documentation/sections/ButtonsSection'
 import { ElementsSection } from './documentation/sections/ElementsSection'
 import { MotionIconsSection } from './documentation/sections/MotionIconsSection'
+import { ChangelogSection } from './documentation/sections/ChangelogSection'
 
 const SECTIONS = [
   IntroductionSection,
@@ -72,6 +73,7 @@ const SECTIONS = [
   AddressZoneSection,
   ConsistencySection,
   SuperAdminSection,
+  ChangelogSection,
 ]
 
 const HERO_TAGS = [

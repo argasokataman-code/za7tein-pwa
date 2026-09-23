@@ -2,11 +2,25 @@ import { ChevronLeft, Check, TriangleAlert } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
+import { useRef, useState, type ChangeEvent } from 'react'
+
+import { mockUser } from '../data/user'
 
 import toast from 'react-hot-toast'
 
 export default function AddProfilePhoto() {
   const navigate = useNavigate()
+  const fileRef = useRef<HTMLInputElement>(null)
+  const [preview, setPreview] = useState(mockUser.avatar)
+
+  // Pratinjau lokal dari berkas yang dipilih. Tidak ada unggahan sungguhan —
+  // repo ini front-end saja (AGENTS.md §1).
+  const onPick = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    setPreview(URL.createObjectURL(file))
+  }
+
   return (
     <>
     <div className="app-shell">
@@ -24,12 +38,12 @@ export default function AddProfilePhoto() {
             <main className="profile-flow-main">
               <div className="add-photo-block">
                 <div className="add-photo-avatar">
-                  <img id="profilePhotoPreview" alt="Profile" width={52} height={52} src="/_next/static/media/profile.f3501486.png" style={{ color: "transparent" }} />
+                  <img id="profilePhotoPreview" alt="Profile" width={52} height={52} src={preview} style={{ color: "transparent" }} />
                 </div>
-                <button type="button" className="btn-upload-photo" onClick={() => { toast.success("Choose a new photo") }}>
+                <button type="button" className="btn-upload-photo" onClick={() => fileRef.current?.click()}>
                   Upload New Photo
                 </button>
-                <input accept="image/*" className="d-none" type="file" />
+                <input accept="image/*" className="d-none" type="file" ref={fileRef} onChange={onPick} />
               </div>
               <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
                 Save Changes

@@ -80,6 +80,7 @@ export const apartmentSchema = z.object({
   floor: z.string().min(1, 'Nomor lantai wajib diisi'),
   unit: z.string().min(1, 'Nomor unit wajib diisi'),
   notes: z.string().optional(),
+  isDefault: z.boolean().optional(),
 })
 
 // Masih dipakai halaman dompet lama.

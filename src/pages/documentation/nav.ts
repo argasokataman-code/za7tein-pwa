@@ -39,4 +39,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '32', id: 'address-zone', label: 'Alamat & Zona — Hijazi / Syimali' },
   { num: '33', id: 'consistency', label: 'Konsistensi Lintas Role & Kontrak BE' },
   { num: '34', id: 'superadmin', label: 'Konsol Super Admin (SA)' },
+  { num: '35', id: 'changelog', label: 'Perbaikan Integrasi & CRUD' },
 ]
