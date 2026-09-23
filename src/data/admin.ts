@@ -24,8 +24,12 @@ import { mockWallet } from './wallet'
  * angka liability di sini adalah state yang ditampilkan, bukan logika uang.
  */
 
-/** Semua nominal konsol admin (CS) dalam JOD (PRD aktif), bukan IDR. */
-export { idrToJod, jod } from './currency'
+/**
+ * Nominal konsol admin (CS): angka mock ditulis dalam JOD, tapi ditampilkan
+ * sebagai pasangan IDR + JOD (`moneyFromJod`) supaya IDR tetap source of truth
+ * dan disclaimernya ikut (R-CURR-01). Lihat `/documentation` bagian 22.
+ */
+export { idrToJod, jod, money, moneyFromJod } from './currency'
 
 /**
  * Nilai order yang dipakai form sengketa saat cart kosong (mis. halaman dibuka

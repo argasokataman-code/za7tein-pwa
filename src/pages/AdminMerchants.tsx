@@ -4,8 +4,9 @@ import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { jod, tenantStatusLabel } from '../data/admin'
+import { moneyFromJod, tenantStatusLabel } from '../data/admin'
 import { blacklistCod, suspendMerchant } from '../store/slices/adminSlice'
 
 export default function AdminMerchants() {
@@ -38,7 +39,7 @@ export default function AdminMerchants() {
                   <div>
                     <p className="admin-card-title">{merchant.name}</p>
                     <p className="admin-card-sub">
-                      Deposit {jod(merchant.deposit)} · COD bermasalah {merchant.codIssues}×
+                      Deposit {moneyFromJod(merchant.deposit)} · COD bermasalah {merchant.codIssues}×
                     </p>
                   </div>
                 </div>
@@ -116,6 +117,7 @@ export default function AdminMerchants() {
         <p className="admin-note">
           Suspend dan blacklist di sini hanya mengubah state tampilan (AGENTS.md §1).
         </p>
+        <ExchangeRateNote />
       </main>
       <AdminBottomNav />
     </div>

@@ -4,7 +4,8 @@ import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { useAppSelector } from '../hooks/useAppStore'
 import { HOLD_EVENT_LABEL } from '../data/merchant'
-import { idrToJod, jod, ledgerTypeLabel } from '../data/admin'
+import { ledgerTypeLabel, money, moneyFromJod } from '../data/admin'
+import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 
 export default function AdminLedger() {
   const ledger = useAppSelector((s) => s.admin.ledger)
@@ -50,7 +51,7 @@ export default function AdminLedger() {
               </div>
               <span className={`admin-ledger-amount is-${entry.direction}`}>
                 {entry.direction === 'credit' ? '+' : '−'}
-                {jod(entry.amount)}
+                {moneyFromJod(entry.amount)}
               </span>
             </div>
           ))}
@@ -59,6 +60,7 @@ export default function AdminLedger() {
         <p className="admin-note">
           Agregat liability di Ringkasan diturunkan dari saldo wallet, bukan dari layar ini (M9).
         </p>
+        <ExchangeRateNote />
 
         {holdLedger.length > 0 ? (
           <section className="admin-section">
@@ -81,7 +83,7 @@ export default function AdminLedger() {
                     })}
                   </p>
                 </div>
-                <span className="admin-ledger-amount">{jod(idrToJod(entry.amountIdr))}</span>
+                <span className="admin-ledger-amount">{money(entry.amountIdr)}</span>
               </div>
             ))}
             <p className="admin-note">

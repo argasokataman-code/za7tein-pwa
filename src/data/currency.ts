@@ -53,6 +53,16 @@ export function money(idr: number): string {
   return `${moneyPlain(idr)} · ±${jod(idrToJod(idr))}`
 }
 
+/**
+ * Nominal uang dari angka yang tersimpan dalam JOD: IDR (source of truth) +
+ * padanan JOD, mis. `Rp80.500 · ±3,50 JOD`. Dipakai konsol CS, yang angka
+ * mock-nya ditulis dalam JOD — konversinya sekali di sini, bukan di tiap layar
+ * (R-CURR-01).
+ */
+export function moneyFromJod(valueJod: number): string {
+  return money(jodToIdr(valueJod))
+}
+
 /** Waktu sync terakhir, ringkas — mis. `23 Sep, 06.00`. */
 export function rateSyncedLabel(): string {
   return new Date(MOCK_EXCHANGE_RATE.fetchedAt).toLocaleString('id-ID', {

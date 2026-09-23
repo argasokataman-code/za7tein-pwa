@@ -671,6 +671,180 @@
         }
       ],
       "loc": "src/data/merchant.ts:67"
+    },
+    {
+      "id": "TASK-2881",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:42:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts (+14/-4) — edit via tool: ts: export function money(idr: number): st",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts"
+    },
+    {
+      "id": "TASK-2882",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:42:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts (+6/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2883",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:42:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx (+4/-3) — edit via tool: tsx: atas.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-2884",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:42:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+24/-15) — edit via tool: tsx: <Doc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "TASK-2885",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:43:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+7/-5) — edit via tool: tsx: <td>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "TASK-2886",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:43:26",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -5 && npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2887",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:43:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts (+1/-1) — edit via tool: ts: export { idrToJod, jod, money, moneyFrom",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2888",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:43:41",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -8 && npm run governance:check 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2889",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "07:45:29",
+      "tags": [
+        "prd-v2",
+        "currency",
+        "cs",
+        "r-curr-01"
+      ],
+      "summary": "Panel CS tampil IDR+JOD via moneyFromJod + ExchangeRateNote di 5 layar uang (R-CURR-01); sebelumnya JOD-only",
+      "conn": [
+        {
+          "id": "TASK-2880",
+          "type": "relates",
+          "raw": "TASK-2880:relates"
+        }
+      ],
+      "loc": "src/data/currency.ts:64"
     }
   ]
 }

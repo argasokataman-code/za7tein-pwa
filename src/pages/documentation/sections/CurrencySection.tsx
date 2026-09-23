@@ -19,6 +19,7 @@ export function CurrencySection() {
       <DocCode lang="typescript">
         {`money(25000)      // "Rp25.000 · ±1,09 JOD"  — pasangan IDR + JOD
 moneyPlain(25000) // "Rp25.000"                — IDR saja, tempat sempit
+moneyFromJod(3.5) // "Rp80.500 · ±3,50 JOD"    — dari angka yang disimpan JOD
 jod(1.09)         // "1,09 JOD"`}
       </DocCode>
       <p className="doc-p">
@@ -30,6 +31,14 @@ jod(1.09)         // "1,09 JOD"`}
         <code className="doc-inline">Rp0 · ±0,00 JOD</code> cuma menambah bising di baris
         diskon. Label tombol utama tetap memuat pasangan — diukur pada 390px, tidak ada yang
         terpotong.
+      </p>
+      <p className="doc-p">
+        Konsol CS juga menampilkan pasangan IDR + JOD sejak 2026-09-23. Angka mock-nya memang
+        ditulis dalam JOD (liability, deposit, nilai order sengketa), jadi konversinya lewat{' '}
+        <code className="doc-inline">moneyFromJod()</code> — sekali di{' '}
+        <code className="doc-inline">currency.ts</code>, bukan diulang di tiap layar. Sebelumnya
+        konsol ini JOD-only, yang menyalahi <code className="doc-inline">R-CURR-01</code>: IDR
+        adalah source of truth dan JOD cuma tampilan.
       </p>
       <div className="doc-table-wrap">
         <table className="doc-table">
@@ -47,6 +56,7 @@ jod(1.09)         // "1,09 JOD"`}
               <td>
                 Satu-satunya sumber kurs + formatter (<code className="doc-inline">money</code>,{' '}
                 <code className="doc-inline">moneyPlain</code>,{' '}
+                <code className="doc-inline">moneyFromJod</code>,{' '}
                 <code className="doc-inline">jod</code>,{' '}
                 <code className="doc-inline">idrToJod</code>) + disclaimer
               </td>
@@ -57,7 +67,8 @@ jod(1.09)         // "1,09 JOD"`}
               </td>
               <td>
                 Widget kurs: 1 JOD = Rp23.000, waktu sync terakhir, disclaimer — dipasang di
-                Checkout dan Payment Amount
+                Checkout, Payment Amount, dan layar uang panel CS (Ringkasan, Ledger, Sengketa,
+                Merchant, Onboarding)
               </td>
             </tr>
             <tr>
@@ -65,9 +76,11 @@ jod(1.09)         // "1,09 JOD"`}
                 <code className="doc-inline">data/admin.ts</code>
               </td>
               <td>
-                Nominal panel admin (CS) tampil <strong>JOD saja</strong> lewat re-export{' '}
-                <code className="doc-inline">jod()</code>/<code className="doc-inline">idrToJod()</code>{' '}
-                dari <code className="doc-inline">currency.ts</code>
+                Nominal panel admin (CS) tampil <strong>IDR + JOD</strong> lewat re-export{' '}
+                <code className="doc-inline">moneyFromJod()</code> /{' '}
+                <code className="doc-inline">money()</code> dari{' '}
+                <code className="doc-inline">currency.ts</code>, plus widget disclaimer di tiap
+                layar uang
               </td>
             </tr>
           </tbody>

@@ -4523,6 +4523,38 @@
     {
       "id": "TASK-2879",
       "shard": 4
+    },
+    {
+      "id": "TASK-2881",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2882",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2883",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2884",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2885",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2886",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2887",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2888",
+      "shard": 4
     }
   ],
   "docs": [
@@ -5266,6 +5298,14 @@
     },
     {
       "id": "TASK-2878",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2886",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2888",
       "shard": 4
     }
   ],
@@ -6737,6 +6777,10 @@
     {
       "id": "DEC-2003",
       "shard": 3
+    },
+    {
+      "id": "TASK-2889",
+      "shard": 4
     }
   ],
   "scope": [
@@ -6797,6 +6841,10 @@
     {
       "id": "TASK-2880",
       "shard": 4
+    },
+    {
+      "id": "TASK-2889",
+      "shard": 4
     }
   ],
   "currency": [
@@ -6811,6 +6859,10 @@
     {
       "id": "TASK-2620",
       "shard": 3
+    },
+    {
+      "id": "TASK-2889",
+      "shard": 4
     }
   ],
   "m1": [
@@ -7022,6 +7074,12 @@
   "zone": [
     {
       "id": "TASK-2880",
+      "shard": 4
+    }
+  ],
+  "r-curr-01": [
+    {
+      "id": "TASK-2889",
       "shard": 4
     }
   ]

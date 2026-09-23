@@ -3,8 +3,9 @@ import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { depositStatusLabel, jod, tenantStatusLabel } from '../data/admin'
+import { depositStatusLabel, moneyFromJod, tenantStatusLabel } from '../data/admin'
 import { activeZonesLabel } from '../data/merchant'
 import { approveDeposit, rejectOnboarding } from '../store/slices/adminSlice'
 import type { AdminTenant } from '../types'
@@ -60,7 +61,7 @@ export default function AdminOnboarding() {
                   </li>
                   <li>
                     <CheckCircle2 size={16} strokeWidth={1.75} aria-hidden="true" />
-                    Deposit {jod(tenant.deposit)} · {depositStatusLabel[tenant.depositStatus]}
+                    Deposit {moneyFromJod(tenant.deposit)} · {depositStatusLabel[tenant.depositStatus]}
                   </li>
                 </ul>
 
@@ -120,6 +121,7 @@ export default function AdminOnboarding() {
           Queue ini adalah feeder F16 (onboarding merchant). Repo ini front-end saja: approve di
           sini hanya mengubah state tampilan.
         </p>
+        <ExchangeRateNote />
       </main>
       <AdminBottomNav />
     </div>

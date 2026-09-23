@@ -5,7 +5,8 @@ import { toast } from 'react-hot-toast'
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { aggregateLiability, jod, idrToJod, liabilityGap, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
+import { aggregateLiability, liabilityGap, moneyFromJod, money, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
+import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { clearEscalation } from '../store/slices/adminSlice'
 
 export default function AdminDashboard() {
@@ -29,7 +30,7 @@ export default function AdminDashboard() {
 
         <section className="admin-card admin-liability">
           <p className="admin-card-sub">Kewajiban platform</p>
-          <p className="admin-liability-total">{jod(total)}</p>
+          <p className="admin-liability-total">{moneyFromJod(total)}</p>
           <p className="admin-card-sub">
             Saldo wallet yang belum di-payout: customer + merchant + tips kurir.
           </p>
@@ -37,34 +38,35 @@ export default function AdminDashboard() {
           <ul className="admin-liability-rows">
             <li>
               <span>Wallet customer</span>
-              <span>{jod(liability.customerWallets)}</span>
+              <span>{moneyFromJod(liability.customerWallets)}</span>
             </li>
             <li>
               <span>Wallet merchant</span>
-              <span>{jod(liability.merchantWallets)}</span>
+              <span>{moneyFromJod(liability.merchantWallets)}</span>
             </li>
             <li>
               <span>Tips kurir</span>
-              <span>{jod(liability.courierTips)}</span>
+              <span>{moneyFromJod(liability.courierTips)}</span>
             </li>
             <li>
               <span>Saldo Xendit (mock)</span>
-              <span>{jod(liability.xenditBalance)}</span>
+              <span>{moneyFromJod(liability.xenditBalance)}</span>
             </li>
           </ul>
 
           <p className={`admin-flag ${underFunded ? 'is-warning' : 'is-ok'}`}>
             {underFunded ? <AlertTriangle size={16} strokeWidth={1.75} aria-hidden="true" /> : <ShieldCheck size={16} strokeWidth={1.75} aria-hidden="true" />}
             {underFunded
-              ? `Saldo Xendit kurang ${jod(Math.abs(gap))} dari total liability.`
-              : `Saldo Xendit cukup (sisa ${jod(gap)}).`}
+              ? `Saldo Xendit kurang ${moneyFromJod(Math.abs(gap))} dari total liability.`
+              : `Saldo Xendit cukup (sisa ${moneyFromJod(gap)}).`}
           </p>
           <p className="admin-note">
             Gaji kurir tidak masuk hitungan ini — kurir digaji merchant, yang lewat platform hanya
             tips (C-06). Porsi wallet customer diselaraskan dengan wallet demo yang sedang aktif
-            ({jod(idrToJod(walletIdr))}), jadi top-up, hold, dan settlement ikut menggeser angka di
+            ({money(walletIdr)}), jadi top-up, hold, dan settlement ikut menggeser angka di
             atas.
           </p>
+          <ExchangeRateNote />
         </section>
 
         <section className="admin-stats">

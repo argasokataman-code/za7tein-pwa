@@ -4,8 +4,9 @@ import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { RESOLUTIONS, disputeStatusLabel, jod } from '../data/admin'
+import { RESOLUTIONS, disputeStatusLabel, moneyFromJod } from '../data/admin'
 import { resolveDispute, startInvestigation } from '../store/slices/adminSlice'
 import type { Dispute, DisputeResolution } from '../types'
 
@@ -46,7 +47,7 @@ function DisputeCard({
       </div>
 
       <p className="admin-card-sub">
-        Merchant: {dispute.merchant} · nilai order {jod(dispute.amount)}
+        Merchant: {dispute.merchant} · nilai order {moneyFromJod(dispute.amount)}
       </p>
       <p className="admin-dispute-reason">
         <strong>{dispute.category}.</strong> {dispute.reason}
@@ -148,6 +149,7 @@ export default function AdminDisputes() {
           Form “Ajukan Sengketa” ada di sisi customer (layar pesanan tiba) dan merchant (order
           selesai); kiriman masuk ke antrean ini.
         </p>
+        <ExchangeRateNote />
       </main>
       <AdminBottomNav />
     </div>
