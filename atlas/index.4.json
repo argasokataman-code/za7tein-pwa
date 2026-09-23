@@ -3133,6 +3133,66 @@
         }
       ],
       "loc": "src/pages/SaDashboard.tsx:1"
+    },
+    {
+      "id": "TASK-3091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:51:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin.scss (+14/-14) — edit via tool: .sa-card--brand {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin.scss"
+    },
+    {
+      "id": "TASK-3092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:53:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\n# opsi select kepotong (\"Pemilik platfc\"); role sud",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-3100",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:53:53",
+      "tags": [
+        "superadmin",
+        "a11y",
+        "contrast",
+        "revert"
+      ],
+      "summary": "Balikin permukaan oranye merek di kartu fokus; kontras diperbaiki dari sisi teks (label/sub gelap 4,9:1, nilai putih 3,4:1)",
+      "conn": [
+        {
+          "id": "TASK-3090",
+          "type": "relates",
+          "raw": "TASK-3090:relates"
+        }
+      ],
+      "loc": "src/styles/system/_superadmin.scss:1"
     }
   ]
 }

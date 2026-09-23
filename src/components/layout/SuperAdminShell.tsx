@@ -138,7 +138,7 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
             >
               {actors.map((operator) => (
                 <option key={operator.id} value={operator.id}>
-                  {operator.name} · {roleForOperator(roles, operator)?.name}
+                  {operator.name}
                 </option>
               ))}
             </select>

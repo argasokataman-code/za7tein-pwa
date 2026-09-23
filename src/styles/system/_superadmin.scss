@@ -246,17 +246,17 @@ body > div:has(.sa-root) {
 }
 
 .sa-card--brand {
-  // Latar kartu fokus memakai oranye gelap, bukan `--sa7tein-orange`: teks putih
-  // di atas oranye merek hanya 3,4:1 dan gagal WCAG AA untuk label 12px dan sub
-  // 14px. Di oranye gelap rasionya 6,4:1, masih terbaca sebagai oranye merek.
-  background: var(--orange-deep);
-  border-color: var(--orange-deep);
+  // Permukaan tetap oranye merek (oranye gelap terbaca kusam). Kontrasnya
+  // diselamatkan dari sisi teks: label dan sub memakai tinta gelap (4,9:1),
+  // sedangkan angka besar tetap putih karena teks besar cukup dengan 3:1.
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
   color: var(--on-brand);
 
   .sa-card-label,
   .sa-card-sub {
-    color: var(--on-brand);
-    opacity: 0.94;
+    color: var(--text-primary);
+    opacity: 1;
   }
 }
 
