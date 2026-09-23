@@ -215,14 +215,20 @@
 // Sekarang hanya dokumen yang menggulir, jadi browser memakai momentum asli
 // platform dan URL bar ikut menyusut saat digulir di ponsel.
 
-html,
-body {
+html {
   height: auto;
   min-height: 100%;
+  /* overflow-x disembunyikan di html (viewport), BUKAN di body. Kalau body yang
+     dipasangi `overflow-x: hidden`, `overflow-y` body ikut terhitung `auto` →
+     body menjadi scroll container yang tidak pernah menggulir. Akibatnya dua:
+     roda mouse mati di body (rantai ke html diblokir `overscroll-behavior`), dan
+     `position: sticky` di dalam body tidak pernah menempel karena scrollport body
+     setinggi kontennya sendiri. */
   overflow-x: hidden;
 }
 
 body {
+  height: auto;
   min-height: var(--app-vh);
 }
 

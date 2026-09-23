@@ -9,12 +9,46 @@
 // peramban — di app-mode tidak ada URL bar yang perlu di-refresh, jadi efeknya
 // cuma "ini website". Momentum gulir dan safe area tidak terpengaruh.
 //
+// `none` dipasang di html saja, bukan `html, body`. Body harus tetap `auto`:
+// kalau body menjadi scroll container (mis. karena `overflow-x: hidden`), nilai
+// `none` di sana memblokir rantai gulir body→html dan roda mouse mati total.
+// Lihat juga `_menu.scss` — `overflow-x: hidden` sengaja hanya di html.
+//
 // Keputusan 2026-09-24 membalik catatan 2026-09-13, yang sengaja mengembalikan
 // nilai ini ke `auto`; jejak keputusannya di docs/design/pwa-experience-2026-09-13.md.
-html,
-body {
+html {
   overscroll-behavior-y: none;
   scroll-behavior: auto;
+}
+
+// Body BUKAN scroll container. Stylesheet porting memasang overflow yang bukan
+// `visible` ke body (app/part-01 `overflow-x: hidden`, app/part-15
+// `overflow: hidden auto` pada body.profile-flow-page dan body.wallet-page).
+// Kotak ber-overflow selain `visible` — termasuk `hidden` — adalah scroll
+// container. Dua akibat terukur saat body jadi scroll container:
+//
+//   1. `position: sticky` di dalamnya tidak pernah menempel: scrollport body
+//      setinggi kontennya sendiri. Terukur header checkout `top: -299` setelah
+//      scroll 320 — ikut tergulir, bukan menempel.
+//   2. Roda mouse berhenti di body. Karena body tidak punya overflow untuk
+//      digulir, guliran harus berantai ke html; begitu ada `overscroll-behavior`
+//      di body, rantai itu putus dan dokumen tidak bisa digulir dengan mouse
+//      sama sekali (tombol keyboard tetap jalan, jadi bug ini mudah lolos).
+//
+// `clip` memotong overflow TANPA menjadikan kotak itu scroll container — pola
+// yang sama sudah dipakai untuk sidebar superadmin (_superadmin.scss, terukur
+// top -700). Penggulungnya tetap satu: html (DNA §5).
+body {
+  overflow: clip;
+}
+
+// Dua kelas body legacy di app/part-15 memakai spesifisitas lebih tinggi (0-1-1),
+// jadi ikut dibetulkan di sini. Pengecualian yang memang perlu — track page
+// (`overflow: visible`) dan superadmin (`overflow: clip` lewat :has) — tetap
+// menang lewat spesifisitasnya masing-masing.
+body.profile-flow-page,
+body.wallet-page {
+  overflow: clip;
 }
 
 // Lock legacy di app/part-01.scss memberi `margin: 0 auto` ke `div[class*=-page]`

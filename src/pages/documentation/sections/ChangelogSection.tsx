@@ -25,6 +25,21 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Scroll: sticky &amp; roda mouse</td>
+              <td>
+                Body ber-<code className="doc-inline">overflow</code> selain <code className="doc-inline">visible</code>{' '}
+                (warisan <code className="doc-inline">app/part-01.scss</code>) menjadikannya scroll container.
+                Dua akibat: header sticky tidak pernah menempel (terukur <code className="doc-inline">top: -299</code>{' '}
+                setelah scroll 320) dan roda mouse berhenti di body — dokumen tidak bisa digulir dengan mouse
+                sama sekali, sementara tombol keyboard tetap jalan
+              </td>
+              <td>
+                <code className="doc-inline">body {'{'} overflow: clip {'}'}</code> — memotong overflow tanpa
+                menjadikan body scroll container. Sticky hidup lagi, roda mouse jalan, dan bilah{' '}
+                <code className="doc-inline">fixed</code> tetap utuh karena elemen fixed lolos dari clip
+              </td>
+            </tr>
+            <tr>
               <td>Pantulan overscroll</td>
               <td>
                 Dokumen memantul di ujung gulir dan pull-to-refresh memuat ulang app — terasa
