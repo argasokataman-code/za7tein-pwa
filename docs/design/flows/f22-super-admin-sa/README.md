@@ -30,7 +30,7 @@ Konsol **Super Admin**: website penuh **non-PWA** di prefix `/superadmin`, dipak
 
 - **Saldo keuntungan ≠ dana user.** Yang boleh ditarik SA hanya fee terkumpul dikurangi biaya, PPh final, dan penarikan sebelumnya. Saldo customer/merchant/tips tetap liability — tidak pernah bisa ditarik SA.
 - **SA bukan approver.** Top-up dan payout self-service oleh sistem; konsol SA hanya memantau ledger.
-- **Master zona milik SA, aktivasi milik merchant.** SA menentukan poligon Hijazi/Syimali; merchant hanya `is_active_hijazi` / `is_active_syimali` (`f20`).
+- **Master zona milik SA, aktivasi milik merchant.** SA menentukan poligon Hijazi/Syimali; merchant hanya `is_active_hijazi` / `is_active_syimali` (`f20`). Poligon disimpan **lat/lng sungguhan** dan dipakai gate coverage lewat `resolveCoverage()` (`src/data/zones.ts`), jadi menggeser titik mengubah alamat mana yang bisa diantar, bukan sekadar gambar. Setelah disimpan, alamat tersimpan divalidasi ulang.
 - **Akun operator CS dibuat SA** (`OQ-30`, PO 2026-09-23) — role & permission ditentukan SA; tidak ada self-registration operator.
 - **Audit trail menjangkau CS.** Aksi `/admin/*` ikut tercatat lewat jembatan audit di `src/store/index.ts`; tidak ada aksi CS yang boleh lolos.
 - **Role pemilik platform tidak bisa dicabut dari UI** — kalau bisa, satu klik salah mengunci seluruh konsol.
@@ -59,4 +59,4 @@ Konsol **Super Admin**: website penuh **non-PWA** di prefix `/superadmin`, dipak
 
 Wajib: validate **9/9, 0 error, 0 warning**; deliver exit 0; visual-check pass 4 viewport (light + dark).
 
-Terakhir diperbarui: 2026-09-23 — konsol SA dibangun penuh (M-SA-1..3): kerangka + Ringkasan, master zona + role/operator + audit trail, lalu pajak + saldo keuntungan + ledger + banding + kill switch. Semua aksi menulis audit trail; aksi CS ikut lewat jembatan audit. Angka tetap mock (AGENTS.md §1).
+Terakhir diperbarui: 2026-09-23 — **master zona tersambung ke coverage**: poligon lat/lng, kanvas proyeksi dengan dapur + lingkaran 2 km, pratinjau alamat demo, dan validasi ulang alamat setelah simpan. Sebelumnya: konsol SA dibangun penuh (M-SA-1..3): kerangka + Ringkasan, master zona + role/operator + audit trail, lalu pajak + saldo keuntungan + ledger + banding + kill switch. Semua aksi menulis audit trail; aksi CS ikut lewat jembatan audit. Angka tetap mock (AGENTS.md §1).

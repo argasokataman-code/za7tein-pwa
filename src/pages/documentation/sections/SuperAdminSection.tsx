@@ -70,7 +70,9 @@ pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
       <ul className="doc-list">
         <li>
           <strong>Master zona</strong>, geser titik di kanvas, atau pilih satu titik lalu isi
-          kolom X/Y (jalur yang bisa dipakai keyboard). <em>Simpan poligon</em> mengubah state dan
+          lat/lng (jalur yang bisa dipakai keyboard). Kanvas menampilkan dapur merchant dan
+          lingkaran jangkauan 2 km, plus titik alamat demo yang ikut berubah status begitu poligon
+          digeser. <em>Simpan poligon</em> menulis bentuk baru, memvalidasi ulang alamat demo, dan
           menambah satu baris audit; <em>Bentuk awal</em> mengembalikannya. Merchant tetap hanya
           mengaktifkan zona, tidak pernah mengubah poligonnya.
         </li>
@@ -114,19 +116,50 @@ pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
       <p className="doc-p">
         Halaman tidak pernah menggulir mendatar: overflow horizontal terukur 0 pada 1440px maupun
         390px. Tabel yang lebih lebar dari kolomnya menggulir <em>di dalam pembungkusnya</em>{' '}
-        (<code className="doc-inline">.sa-table-wrap</code>), jadi penggulung dokumen tetap satu —
+        (<code className="doc-inline">.sa-table-wrap</code>), jadi penggulung dokumen tetap satu,
         aturan DNA soal gulir bersarang tetap dipegang untuk arah vertikal.
+      </p>
+
+      <h3 className="doc-h3">Poligon zona bukan hiasan</h3>
+      <p className="doc-p">
+        Master zona menyimpan vertices sebagai <strong>lat/lng sungguhan</strong>, bukan koordinat
+        gambar, karena gate coverage menguji "titik di dalam poligon" pada koordinat asli. Konsol SA
+        mengeditnya, dan gate membaca hasil editnya saat alamat disimpan lewat{' '}
+        <code className="doc-inline">resolveCoverage()</code> di{' '}
+        <code className="doc-inline">src/data/zones.ts</code>, stand-in server di repo ini, karena
+        di produksi zona dihitung backend (flow <code className="doc-inline">F20</code>). Jadi
+        mengecilkan poligon Hijazi sampai alamat demo keluar memang membuat alamat itu diblokir di
+        checkout, bukan sekadar mengubah gambar.
+      </p>
+      <DocCode lang="typescript">
+        {`pointInPolygon(point, vertices)     // ray casting, syarat pertama coverage
+zoneForPoint(point, polygons)       // titik masuk zona mana, atau null
+resolveCoverage(point, polygons)    // { zone, distanceMeters } — dipakai saat alamat disimpan
+zoneAreaKm2(vertices)               // luas asli, dihitung di ruang meter
+zoneView() / projectPoint()         // lat/lng → kanvas; kanvas hanya cara menggambar`}
+      </DocCode>
+      <p className="doc-p">
+        Setelah poligon disimpan, alamat yang tersimpan <strong>divalidasi ulang</strong> terhadap
+        bentuk baru (<code className="doc-inline">revalidateAddress</code>), supaya daftar alamat
+        customer tidak memegang hasil validasi basi. Order yang sudah jalan tidak ikut berubah,
+        zonanya snapshot saat order dibuat, sesuai PRD.
       </p>
 
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
-        Master zona digambar di <strong>kanvas SVG skematik</strong> (koordinat 0..100), bukan peta
-        ber-tile: tile peta selalu URL eksternal dan repo ini melarang aset gambar eksternal
-        (AGENTS.md §6). Kanvas itu satu-satunya SVG inline baru di repo ini, dan sengaja dicatat
-        sebagai pengecualian di <code className="doc-inline">docs/design/legacy-debt.json</code> —
-        ia grafik data yang diedit SA, bukan ikon; ikon fungsional tetap lucide. Geometri asli
-        milik backend, layar SA hanya menggeser titik lalu menyimpan. Kill switch dan penarikan
-        keuntungan mengubah state demo; tidak ada uang bergerak.
+        Kanvas zona digambar sebagai <strong>SVG inline</strong>, bukan peta ber-tile: tile peta
+        selalu URL eksternal dan repo ini melarang aset gambar eksternal (AGENTS.md §6). Kanvas itu
+        satu-satunya SVG inline baru di repo ini, dan sengaja dicatat sebagai pengecualian di{' '}
+        <code className="doc-inline">docs/design/legacy-debt.json</code>, ia grafik data yang diedit
+        SA, bukan ikon; ikon fungsional tetap lucide. Geometri asli milik backend, layar SA hanya
+        menggeser titik lalu menyimpan. Kill switch dan penarikan keuntungan mengubah state demo;
+        tidak ada uang bergerak.
+      </p>
+      <p className="doc-p">
+        Karena coverage kini bisa gagal karena poligon, bukan hanya jarak, pesan blokir di layar
+        customer tidak lagi menyebut "maksimal 2 km" (itu klaim yang tidak selalu benar). Sekarang
+        bunyinya <strong>Di luar area antar</strong>, dengan keterangan bahwa poligon atau jarak
+        yang tidak lolos.
       </p>
       <p className="doc-p">
         Yang tetap <code className="doc-inline">UNRESOLVED</code> dan karena itu tidak dikarang di

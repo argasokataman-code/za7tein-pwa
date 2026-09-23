@@ -8,9 +8,9 @@ import {
   saAuditLog,
   saOperators,
   saRoles,
-  saZoneGeometry,
   switchMeta,
 } from '../../data/superadmin'
+import { masterZoneGeometry, normalizeZones } from '../../data/zones'
 import type {
   AuditEntry,
   AuditKind,
@@ -31,7 +31,7 @@ interface SuperAdminState {
 }
 
 const initialState: SuperAdminState = {
-  zones: saZoneGeometry,
+  zones: normalizeZones(masterZoneGeometry),
   roles: saRoles,
   operators: saOperators,
   audit: saAuditLog,
@@ -71,11 +71,11 @@ const superAdminSlice = createSlice({
       const zone = state.zones.find((z) => z.id === action.payload.id)
       if (!zone) return
       zone.vertices = action.payload.vertices
-      push(state, SA_CURRENT_ACTOR, 'zone', 'Simpan poligon zona', `${zone.label} — ${zone.note}`)
+      push(state, SA_CURRENT_ACTOR, 'zone', 'Simpan poligon zona', `${zone.label}, ${zone.note}`)
     },
     resetZone(state, action: PayloadAction<{ id: ZoneGeometry['id'] }>) {
       const zone = state.zones.find((z) => z.id === action.payload.id)
-      const seed = saZoneGeometry.find((z) => z.id === action.payload.id)
+      const seed = masterZoneGeometry.find((z) => z.id === action.payload.id)
       if (!zone || !seed) return
       zone.vertices = seed.vertices
       push(state, SA_CURRENT_ACTOR, 'zone', 'Kembalikan poligon ke bentuk awal', zone.label)
@@ -98,7 +98,7 @@ const superAdminSlice = createSlice({
         SA_CURRENT_ACTOR,
         'role',
         has ? 'Cabut izin dari role' : 'Beri izin ke role',
-        `${role.name} — ${permissionId}`,
+        `${role.name}, ${permissionId}`,
       )
     },
     /** Akun operator (termasuk operator CS) dibuat SA, bukan self-service (OQ-30). */
@@ -113,7 +113,7 @@ const superAdminSlice = createSlice({
         createdAt: 'Baru saja',
         status: 'invited',
       })
-      push(state, SA_CURRENT_ACTOR, 'operator', 'Buat akun operator', `${action.payload.name} — ${role.name}`)
+      push(state, SA_CURRENT_ACTOR, 'operator', 'Buat akun operator', `${action.payload.name}, ${role.name}`)
     },
     setOperatorStatus(state, action: PayloadAction<{ id: string; status: SaOperator['status'] }>) {
       const operator = state.operators.find((o) => o.id === action.payload.id)

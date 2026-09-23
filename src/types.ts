@@ -528,17 +528,23 @@ export interface AdminEscalation {
 // Cakupan dari keputusan PO 2026-09-23 (`decision-irbid-mvp.md`). Repo ini
 // front-end saja: semua angka di bawah adalah mock yang ditampilkan.
 
+/** Titik koordinat geografis. Bentuk yang sama dipakai alamat dan poligon zona. */
+export interface GeoPoint {
+  lat: number
+  lng: number
+}
+
 /**
- * Poligon zona master, digambar di kanvas skematik (0..100), bukan peta
- * geografis: repo ini tidak memakai tile eksternal (AGENTS.md §6), dan
- * poligon sebenarnya ditentukan server. Layar SA hanya menampilkan & menggeser
- * titik, lalu menyimpan — geometri aslinya milik backend.
+ * Poligon zona master. Vertices disimpan sebagai **lat/lng sungguhan** karena
+ * inilah bentuk yang dipakai gate coverage (titik di dalam poligon), bukan
+ * koordinat gambar. Kanvas SA hanya memproyeksikan lat/lng itu ke layar supaya
+ * bisa digeser; repo ini tidak memakai tile peta eksternal (AGENTS.md §6).
  */
 export interface ZoneGeometry {
   id: ZoneId
   label: string
   note: string
-  vertices: { x: number; y: number }[]
+  vertices: GeoPoint[]
 }
 
 /** Satu izin yang bisa diberikan ke role. `group` hanya untuk pengelompokan UI. */

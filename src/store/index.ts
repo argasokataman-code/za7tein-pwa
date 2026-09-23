@@ -6,6 +6,7 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
+  createMigrate,
   persistReducer,
   persistStore,
 } from 'redux-persist'
@@ -58,11 +59,22 @@ const rootReducer = combineReducers({
 // lintas role (customer → panel CS), dan perpindahan role me-reload halaman.
 // `superAdmin` ikut persist sejak konsol SA dibangun: konfigurasi zona, role,
 // operator, kill switch, dan audit trail harus bertahan lintas reload.
+/**
+ * Migrasi state tersimpan. v3: vertices poligon zona pindah dari koordinat
+ * gambar (`{x,y}`) ke lat/lng sungguhan supaya gate coverage bisa menguji
+ * "titik di dalam poligon". Hanya `superAdmin` yang dibuang, karena hanya itu
+ * yang berubah bentuk, keranjang dan saldo demo tidak perlu ikut hilang.
+ */
+const migrations = {
+  3: (state: any) => ({ ...state, superAdmin: undefined }),
+}
+
 const persistConfig = {
   key: 'sa7tein',
-  version: 2,
+  version: 3,
   storage,
   whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin', 'superAdmin'],
+  migrate: createMigrate(migrations, { debug: false }),
 }
 
 /**

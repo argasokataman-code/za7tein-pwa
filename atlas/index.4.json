@@ -2288,6 +2288,300 @@
         }
       ],
       "loc": "src/pages/SaProfit.tsx:1"
+    },
+    {
+      "id": "TASK-2963",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:48:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+18/-12) — edit via tool: ts: /** Titik koordinat geografis. Bentuk ya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-2964",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:49:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts (+190) — write via tool: ts: import type { GeoPoint, ZoneGeometry, Zo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts"
+    },
+    {
+      "id": "TASK-2965",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:49:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+17/-6) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-2966",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:50:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaZones.tsx (+341) — write via tool: tsx: import { RotateCcw, Save } from 'luci",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaZones.tsx"
+    },
+    {
+      "id": "TASK-2967",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:50:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddressSelection.tsx (+34/-20) — edit via tool: tsx: const onAdd = (data: Apart",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddressSelection.tsx"
+    },
+    {
+      "id": "TASK-2968",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:50:57",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && wc -l src/styles/system/_superadmin-2.scss && cat >> src/styles/system/_superadmin-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2969",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:51:22",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && cat >> src/styles/system/_superadmin-2.scss <<'EOF'\n\n/* ── Kanvas zona: dapur, jang",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2970",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:51:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts (+10/-11) — edit via tool: ts: export function normalizeZones(polygons:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts"
+    },
+    {
+      "id": "TASK-2971",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:51:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | head -8 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2972",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:52:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+11/-10) — edit via tool: ts: import type {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-2973",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:53:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/pages/SaZones.tsx'); s = p.re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2974",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:55:17",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/store/slices/superAdminSlice.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2975",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:56:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx (+8/-6) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-2976",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:57:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && node -e \"console.log(Object.keys(require('./package.json').scripts).join(', '))\" &&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2990",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:58:26",
+      "tags": [
+        "superadmin",
+        "zones",
+        "coverage",
+        "address",
+        "geo"
+      ],
+      "summary": "Master zona jadi sumber gate coverage: poligon lat/lng, kanvas proyeksi + dapur/ring 2km, pratinjau alamat, revalidate alamat setelah simpan",
+      "conn": [
+        {
+          "id": "TASK-2962",
+          "type": "led_to",
+          "raw": "TASK-2962:led_to"
+        },
+        {
+          "id": "TASK-2940",
+          "type": "relates",
+          "raw": "TASK-2940:relates"
+        }
+      ],
+      "loc": "src/pages/SaZones.tsx:1"
     }
   ]
 }

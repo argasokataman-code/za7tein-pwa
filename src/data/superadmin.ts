@@ -6,7 +6,6 @@ import type {
   SaPermission,
   SaRole,
   TaxReportRow,
-  ZoneGeometry,
 } from '../types'
 
 import { GST_FOOD_PERCENT, PLATFORM_FEE_JOD, PLATFORM_GST_PERCENT } from './merchant'
@@ -46,41 +45,6 @@ export const SA_CURRENT_ACTOR = { name: 'Nadia Haddad', role: 'sa' as const }
  * satu. Sama seperti SA, ini mock, repo ini tanpa auth (AGENTS.md §1).
  */
 export const CS_CURRENT_ACTOR = { name: 'Dina Khoury', role: 'cs' as const }
-
-// ── Master zona ─────────────────────────────────────────────────────────────
-
-/**
- * Poligon zona master dalam koordinat skematik 0..100 (bukan lat/lng).
- * Keputusan desain: kanvas SVG, bukan peta ber-tile, tile peta selalu URL
- * eksternal, dan repo ini melarang aset gambar eksternal (AGENTS.md §6).
- * Geometri sebenarnya milik backend; layar SA menggeser titik lalu menyimpan.
- */
-export const saZoneGeometry: ZoneGeometry[] = [
-  {
-    id: 'hijazi',
-    label: 'Hijazi',
-    note: 'Pemukiman barat, padat pesanan malam',
-    vertices: [
-      { x: 8, y: 54 },
-      { x: 32, y: 42 },
-      { x: 44, y: 62 },
-      { x: 32, y: 86 },
-      { x: 10, y: 78 },
-    ],
-  },
-  {
-    id: 'syimali',
-    label: 'Syimali',
-    note: 'Utara kampus, padat jam makan siang',
-    vertices: [
-      { x: 54, y: 14 },
-      { x: 88, y: 20 },
-      { x: 92, y: 42 },
-      { x: 64, y: 48 },
-      { x: 50, y: 30 },
-    ],
-  },
-]
 
 // ── Role & permission ───────────────────────────────────────────────────────
 

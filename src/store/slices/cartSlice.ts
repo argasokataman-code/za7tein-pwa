@@ -10,6 +10,7 @@ import type {
   HoldEventName,
   HoldStatus,
   OrderStage,
+  ZoneId,
 } from '../../types'
 
 interface CartState {
@@ -142,6 +143,20 @@ const cartSlice = createSlice({
     addAddress(state, action: PayloadAction<Address>) {
       state.addresses.push(action.payload)
     },
+    /**
+     * Validasi ulang satu alamat terhadap master zona yang baru. Di produksi ini
+     * kerja server; di repo ini konsol SA yang memicunya setelah poligon disimpan
+     * supaya daftar alamat customer tidak menyimpan hasil validasi yang basi.
+     */
+    revalidateAddress(
+      state,
+      action: PayloadAction<{ id: string; zone: ZoneId | null; distanceMeters: number }>,
+    ) {
+      const address = state.addresses.find((item) => item.id === action.payload.id)
+      if (!address) return
+      address.zone = action.payload.zone
+      address.distanceMeters = action.payload.distanceMeters
+    },
     /** Order COD dibuat → saldo ditahan (event `hold_created`). */
     createOrderHold(state, action: PayloadAction<{ amountIdr: number }>) {
       if (state.holdStatus !== 'none') return
@@ -226,6 +241,7 @@ export const {
   setPayment,
   setTransferProof,
   addAddress,
+  revalidateAddress,
   createOrderHold,
   matchCourier,
   settleOrderHold,

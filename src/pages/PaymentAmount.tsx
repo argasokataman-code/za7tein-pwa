@@ -64,7 +64,7 @@ export default function PaymentAmount() {
 
   const pay = () => {
     if (!deliverable) {
-      toast.error('Alamat di luar jangkauan 2 km')
+      toast.error('Alamat di luar area antar')
       return
     }
     if (items.length === 0) {
@@ -114,12 +114,12 @@ export default function PaymentAmount() {
                   </div>
                   <div className="summary-item">
                     <span className={deliverable ? 'zone-badge' : 'zone-badge zone-badge--blocked'}>
-                      {deliverable ? `Zona ${zone!.label} · ${zone!.area}` : 'Di luar jangkauan'}
+                      {deliverable ? `Zona ${zone!.label} · ${zone!.area}` : 'Di luar area antar'}
                     </span>
                     <span className="zone-fee">
                       {deliverable
                         ? `${formatDistance(address.distanceMeters)} dari toko`
-                        : `${formatDistance(address.distanceMeters)} — maksimal 2 km`}
+                        : `${formatDistance(address.distanceMeters)}, di luar area antar`}
                     </span>
                   </div>
                 </div>

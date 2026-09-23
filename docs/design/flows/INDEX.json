@@ -63,7 +63,7 @@
     { "from": "f21-account-auth:order", "to": "f3-wallet-topup", "as": "feeds", "event": "topup_gate_pending", "req": "R-TOPUP-01", "note": "akun baru wajib top-up 3,5 JOD sebelum bisa order" },
     { "from": "f21-account-auth:onboard", "to": "f16-merchant-onboarding", "as": "feeds", "event": "tenant_signup", "req": "PRD §5C + I-2", "note": "nomor WA terverifikasi OTP diserahkan ke onboarding merchant" },
     { "from": "f21-account-auth:phone", "to": "f11-push-notification", "as": "feeds", "event": "wa_fallback_ready", "req": "R-PUSH-01", "note": "nomor E.164 = tujuan fallback wa.me" },
-    { "from": "f20-address-zone:zone", "to": "f22-super-admin-sa:zone", "as": "reads", "event": "zone_master_defined", "req": "R-ADDR-01", "note": "poligon Hijazi/Syimali ditentukan SA (f22); merchant hanya mengaktifkan" },
+    { "from": "f20-address-zone:zone", "to": "f22-super-admin-sa:zone", "as": "reads", "event": "zone_master_defined", "req": "R-ADDR-01", "note": "poligon Hijazi/Syimali ditentukan SA (f22) dan dipakai gate lewat resolveCoverage(); merchant hanya mengaktifkan" },
     { "from": "f15-super-admin:dispute", "to": "f22-super-admin-sa:appeal", "as": "feeds", "event": "verdict_appealed", "req": "R-DISPUTE-01", "note": "putusan sengketa level-1 CS bisa dibanding ke SA" },
     { "from": "f22-super-admin-sa:appeal", "to": "f8-dispute", "as": "drilldown", "event": "appeal_decided", "req": "R-DISPUTE-01" },
     { "from": "f7-ledger-liability:ledger", "to": "f22-super-admin-sa:ledger", "as": "feeds", "event": "ledger_monitored", "req": "R-LEDGER-01", "note": "SA memantau read-only; top-up & payout tetap self-service" }

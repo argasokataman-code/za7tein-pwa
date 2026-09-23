@@ -374,3 +374,109 @@
 .sa-root .sheet-handle {
   display: none;
 }
+
+/* ── Kanvas zona: dapur, jangkauan, alamat ─────────────────────────────── */
+
+.sa-canvas-ring {
+  fill: var(--orange-soft);
+  fill-opacity: 0.35;
+  stroke: var(--orange-deep);
+  stroke-width: 0.35;
+  stroke-dasharray: 2 1.4;
+}
+
+.sa-canvas-kitchen {
+  fill: var(--text-primary);
+  stroke: var(--surface);
+  stroke-width: 0.5;
+}
+
+.sa-canvas-dot {
+  fill: var(--text-secondary);
+  fill-opacity: 0.55;
+  stroke: var(--surface);
+  stroke-width: 0.4;
+
+  &.is-inside {
+    fill: var(--success);
+    fill-opacity: 1;
+  }
+}
+
+.sa-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-3);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+  }
+}
+
+.sa-legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+
+  &.sa-legend-swatch--a {
+    background: var(--sa7tein-orange);
+    opacity: 0.5;
+  }
+
+  &.sa-legend-swatch--b {
+    background: var(--success);
+    opacity: 0.5;
+  }
+
+  &.sa-legend-swatch--ring {
+    border-radius: var(--radius-pill);
+    background: var(--orange-soft);
+    border: 1px dashed var(--orange-deep);
+  }
+
+  &.sa-legend-swatch--dot {
+    border-radius: var(--radius-pill);
+    background: var(--text-secondary);
+    opacity: 0.55;
+  }
+}
+
+.sa-addr-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-3);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.sa-addr-name {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  min-width: 110px;
+}
+
+.sa-addr-meta {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}

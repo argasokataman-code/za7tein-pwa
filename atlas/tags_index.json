@@ -4835,6 +4835,62 @@
     {
       "id": "TASK-2961",
       "shard": 4
+    },
+    {
+      "id": "TASK-2963",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2964",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2965",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2966",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2967",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2968",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2969",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2970",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2971",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2972",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2973",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2974",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2975",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2976",
+      "shard": 4
     }
   ],
   "docs": [
@@ -5638,6 +5694,30 @@
     },
     {
       "id": "TASK-2961",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2968",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2969",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2971",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2973",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2974",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2976",
       "shard": 4
     }
   ],
@@ -7473,6 +7553,10 @@
     {
       "id": "TASK-2962",
       "shard": 4
+    },
+    {
+      "id": "TASK-2990",
+      "shard": 4
     }
   ],
   "sa-1": [
@@ -7496,6 +7580,10 @@
   "zones": [
     {
       "id": "TASK-2940",
+      "shard": 4
+    },
+    {
+      "id": "TASK-2990",
       "shard": 4
     }
   ],
@@ -7526,6 +7614,24 @@
   "killswitch": [
     {
       "id": "TASK-2962",
+      "shard": 4
+    }
+  ],
+  "coverage": [
+    {
+      "id": "TASK-2990",
+      "shard": 4
+    }
+  ],
+  "address": [
+    {
+      "id": "TASK-2990",
+      "shard": 4
+    }
+  ],
+  "geo": [
+    {
+      "id": "TASK-2990",
       "shard": 4
     }
   ]

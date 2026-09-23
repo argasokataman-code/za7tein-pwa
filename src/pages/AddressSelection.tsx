@@ -16,6 +16,7 @@ import {
   money,
   zoneFor,
 } from '../data/merchant'
+import { resolveCoverage } from '../data/zones'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockUser } from '../data/user'
 import { addAddress, setAddress } from '../store/slices/cartSlice'
@@ -38,6 +39,7 @@ export default function AddressSelection() {
   const selectedId = useAppSelector((s) => s.cart.selectedAddressId)
   const [showForm, setShowForm] = useState(false)
   const stored = useAppSelector((s) => s.cart.addresses)
+  const zones = useAppSelector((s) => s.superAdmin.zones)
   const addresses = stored?.length ? stored : mockUser.addresses
 
   const {
@@ -52,6 +54,13 @@ export default function AddressSelection() {
 
   const onAdd = (data: ApartmentFormData) => {
     const id = `addr-${addresses.length + 1}`
+    // Zona & jarak dihitung poligon master SA, bukan angka tetap: di produksi ini
+    // hasil server (F20), di repo ini `resolveCoverage` jadi stand-in-nya. Jadi
+    // kalau SA menggeser poligon, alamat baru ikut berubah statusnya.
+    const coverage = resolveCoverage(
+      { lat: DEFAULT_NEW_ADDRESS_PIN.lat, lng: DEFAULT_NEW_ADDRESS_PIN.lng },
+      zones,
+    )
     const next: Address = {
       id,
       name: 'Alamat Baru',
@@ -62,13 +71,20 @@ export default function AddressSelection() {
       address: data.building,
       city: 'Jakarta Selatan',
       fullAddress: `${data.building} · ${data.floor} · ${data.unit}`,
-      ...DEFAULT_NEW_ADDRESS_PIN,
+      lat: DEFAULT_NEW_ADDRESS_PIN.lat,
+      lng: DEFAULT_NEW_ADDRESS_PIN.lng,
+      distanceMeters: coverage.distanceMeters,
+      zone: coverage.zone,
     }
     dispatch(addAddress(next))
     dispatch(setAddress(id))
     reset()
     setShowForm(false)
-    toast.success('Alamat ditambahkan')
+    toast.success(
+      coverage.zone
+        ? 'Alamat ditambahkan'
+        : 'Alamat ditambahkan, tapi di luar area antar',
+    )
   }
 
   return (
@@ -101,7 +117,7 @@ export default function AddressSelection() {
                       tabIndex={blocked ? -1 : 0}
                       onClick={() => {
                         if (blocked) {
-                          toast.error(`Di luar jangkauan — maksimal 2 km`)
+                          toast.error('Di luar area antar')
                           return
                         }
                         dispatch(setAddress(a.id))
@@ -123,10 +139,10 @@ export default function AddressSelection() {
                         {a.notes ? <p className="address-notes">{a.notes}</p> : null}
                         <p className="address-meta">
                           <span className={blocked ? 'zone-badge zone-badge--blocked' : 'zone-badge'}>
-                            {blocked ? 'Di luar jangkauan' : `Zona ${zone!.label} · ${zone!.area}`}
+                            {blocked ? 'Di luar area antar' : `Zona ${zone!.label} · ${zone!.area}`}
                           </span>
                           <span className="zone-fee">
-                            {blocked ? '> 2 km' : `${formatDistance(a.distanceMeters)} · ongkir ${money(fee)}`}
+                            {blocked ? 'poligon atau jarak tidak lolos' : `${formatDistance(a.distanceMeters)} · ongkir ${money(fee)}`}
                           </span>
                         </p>
                       </div>
@@ -192,7 +208,7 @@ export default function AddressSelection() {
                 disabled={!deliverable}
                 onClick={() => navigate('/checkout')}
               >
-                {deliverable ? 'Lanjut' : 'Di luar jangkauan 2 km'}
+                {deliverable ? 'Lanjut' : 'Di luar area antar'}
               </button>
             </div>
             <div className="home-indicator" />

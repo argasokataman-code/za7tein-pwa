@@ -37,7 +37,7 @@ Kartu bisnis ini juga tampil sebagai **kartu pertama** di dalam diagram (`f20-ad
 
 ## Terhubung (lihat ../INDEX.json)
 
-`f1-order-lifecycle` → node `checkout` (gate coverage di sini; `fee_computed` → `f4-fee-tax`); `f4-fee-tax` → komposisi tagihan checkout, `deliveryFee` jadi salah satu basis; `f15-super-admin` → master zona (PRD AGENTS.md §9, belum ada di repo — akan datang, zona aktif menggantung ke sini); `f16-merchant-onboarding` → `merchant.deliveryConfig` (radius/fee ATAU area/fee) diset saat onboarding merchant; `f20-address-zone` → feeds snapshot `order.zone` untuk order lifecycle dan verifikasi fee.
+`f1-order-lifecycle` → node `checkout` (gate coverage di sini; `fee_computed` → `f4-fee-tax`); `f4-fee-tax` → komposisi tagihan checkout, `deliveryFee` jadi salah satu basis; `f22-super-admin-sa` → **master zona** (poligon Hijazi/Syimali diedit SA di `/superadmin/zones`; gate membaca hasil editnya lewat `resolveCoverage()`, lihat `src/data/zones.ts`); `f16-merchant-onboarding` → `merchant.deliveryConfig` (radius/fee ATAU area/fee) diset saat onboarding merchant; `f20-address-zone` → feeds snapshot `order.zone` untuk order lifecycle dan verifikasi fee.
 
 ## Sumber (jangan dikarang)
 
@@ -45,7 +45,8 @@ Kartu bisnis ini juga tampil sebagai **kartu pertama** di dalam diagram (`f20-ad
 - `docs/product/schema-draft-v1.md` — entri 2 (`address`: `label`, `address`, `latitude`, `longitude`, `isDefault`, `zone`) + entri 4 (`merchant.deliveryConfig`: `mode: 'radius'|'area'`, `radiusMeters?`, `feeByDistance?`, `feeByArea?`) — **rancangan data**, bukan aturan bisnis
 - Kode `src/data/merchant.ts` — `DELIVERY_ZONES` (Hijazi/Syimali), `merchantDeliveryConfig` (`mode`, `maxKm`, `isActiveHijazi/Syimali`, `ongkirIdr`), `MAX_DELIVERY_METERS`, `DEFAULT_NEW_ADDRESS_PIN`, `zoneFor()`, `zoneLabel()`, `haversineMeters()`, `deliveryFeeFor()`, `isDeliverable()`
 - `R-ADDR-01` — diturunkan dari `C-13`/`C-05`/`C-07` (sebelumnya ditulis "synthetic dari schema draft"; dikoreksi 2026-09-22)
-- **UNRESOLVED (jangan ditebak):** angka final `radiusMeters` & tier `feeByDistance` · apakah master zona jadi tugas Super Admin di `f15` · apakah alamat di luar coverage boleh tetap disimpan · fallback kalau haversine = 0 (pin sama persis dengan lokasi merchant)
+- **UNRESOLVED (jangan ditebak):** angka final `radiusMeters` & tier `feeByDistance` · apakah alamat di luar coverage boleh tetap disimpan · fallback kalau haversine = 0 (pin sama persis dengan lokasi merchant)
+- **Diputuskan PO 2026-09-23:** master zona adalah tugas **Super Admin** (`f22`), bukan `f15`. Sebelumnya baris ini menyebut `f15` dan berstatus UNRESOLVED; sekarang tertutup.
 
 ## Update
 
@@ -55,4 +56,4 @@ Kartu bisnis ini juga tampil sebagai **kartu pertama** di dalam diagram (`f20-ad
 
 Wajib: validate **9/9, 0 error, 0 warning**; deliver exit 0; visual-check pass 4 viewport (light + dark), overflow 0.
 
-Terakhir diperbarui: 2026-09-23 — **migrasi kode selesai**: `DELIVERY_ZONES` kini Hijazi/Syimali, `Address.zone` snapshot server, ongkir lewat `merchantDeliveryConfig` (angka placeholder, `UNRESOLVED`). Sebelumnya 2026-09-22: kartu bisnis di dalam diagram; zona Hijazi/Syimali ≤2 km (`C-13`), A/B/C disebut legacy.
+Terakhir diperbarui: 2026-09-23 — **poligon master tersambung**: gate memakai `resolveCoverage()` atas poligon yang diedit SA (`/superadmin/zones`), alamat divalidasi ulang saat poligon disimpan, dan pesan blokir customer jadi "Di luar area antar" (tidak lagi mengklaim 2 km, karena coverage juga bisa gagal karena poligon). Sebelumnya: **migrasi kode selesai**: `DELIVERY_ZONES` kini Hijazi/Syimali, `Address.zone` snapshot server, ongkir lewat `merchantDeliveryConfig` (angka placeholder, `UNRESOLVED`). Sebelumnya 2026-09-22: kartu bisnis di dalam diagram; zona Hijazi/Syimali ≤2 km (`C-13`), A/B/C disebut legacy.
