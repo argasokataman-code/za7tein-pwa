@@ -45,6 +45,18 @@ MIN_TOPUP_NEW_ACCOUNT_IDR   = jodToIdr(3.5)   // Rp80.500 — ambang gate`}
         top-up yang membuka gate-nya ada di M3; sebelum itu, gate hanya menjelaskan kenapa
         pembayaran tertahan.
       </p>
+      <h3 className="doc-h3">Ringkasan pesanan bergaya invoice</h3>
+      <p className="doc-p">
+        Kartu <code className="doc-inline">.order-summary-section</code> adalah satu-satunya
+        tempat angka bertumpuk, jadi ia dibaca seperti struk: judul jadi kepala kartu dengan
+        garis penuh, tiap baris label-kiri/nilai-kanan memakai{' '}
+        <code className="doc-inline">font-variant-numeric: tabular-nums</code> supaya kolom
+        nominal rata, pemisah dan total jadi pita selebar kartu, dan catatan pajak menempel
+        tepat di bawah dua baris pajak yang dijelaskannya (bukan setelah total). Gaya hidup di{' '}
+        <code className="doc-inline">src/styles/system/_cart-2.scss</code> dan dipakai bersama
+        oleh Checkout serta Payment Amount lewat kelas yang sama. Nominal tetap IDR dengan
+        padanan JOD, dan dua baris pajak tetap info-only (tidak masuk total) sesuai M7.
+      </p>
     </DocSection>
   )
 }

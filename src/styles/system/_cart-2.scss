@@ -313,3 +313,103 @@ div[class*="-screen"] .container {
   margin-inline: 0;
   padding-inline: var(--space-5);
 }
+
+/* ── Ringkasan pesanan bergaya invoice ─────────────────────────────────────
+   Kartu ini satu-satunya tempat angka bertumpuk, jadi ia dibaca seperti struk:
+   judul jadi kepala kartu bergaris penuh, tiap baris label-kiri/nilai-kanan
+   memakai angka tabular supaya kolom nominal rata, pemisah dan total jadi pita
+   selebar kartu, lalu catatan kecil di kaki. Padding pindah dari kartu ke tiap
+   bagian supaya garis pemisah menembus tepi, bukan berhenti di dalam padding.
+   Dipakai bersama oleh Checkout dan Payment Amount (kelas yang sama). */
+
+.order-summary-section {
+  padding: 0;
+  overflow: hidden;
+}
+
+.order-summary-section .section-title {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.summary-item {
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* Label boleh membungkus; nominal tidak. Rata kanan + angka tabular supaya
+   digit rupiah dan JOD sejajar dari baris ke baris. */
+.summary-item > span:last-child {
+  flex: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Baris pajak info-only: lebih kecil dan redup, tetap satu baris. */
+.summary-item--info {
+  font-size: var(--text-xs);
+}
+
+.summary-item--info > span:last-child {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.summary-info-tag {
+  margin-left: var(--space-2);
+  padding: 2px var(--space-2);
+  border: none;
+  border-radius: var(--radius-xs);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Pemisah selebar kartu, bukan garis di dalam padding. */
+.summary-divider {
+  height: 1px;
+  margin: 0;
+  background: var(--border);
+}
+
+/* Total jadi pita: latar hangat + garis atas, nominal oranye sebagai fokus. */
+.summary-total {
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-warm);
+  border-top: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.summary-total > span:last-child {
+  color: var(--orange-ink);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.summary-info-note {
+  margin: 0;
+  padding: var(--space-2) var(--space-4) 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.order-summary-section .exchange-rate-note {
+  margin: 0;
+  padding: var(--space-2) var(--space-4) var(--space-4);
+}

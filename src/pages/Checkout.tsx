@@ -238,6 +238,13 @@ export default function Checkout() {
                     </span>
                     <span>{money(platformGstIdr())}</span>
                   </div>
+                  {/* Catatan ditempel langsung di bawah baris pajak yang
+                      dijelaskannya, bukan setelah total, supaya pembaca struk
+                      tidak menebak baris mana yang info-only. */}
+                  <p className="summary-info-note">
+                    Dua baris pajak di atas info-only dan belum masuk total. Tarif serta
+                    kewajiban setornya belum final (menunggu konsultan pajak, OQ-17/18).
+                  </p>
                   <div className="summary-item">
                     <span>Diskon</span>
                     <span>{money(0)}</span>
@@ -247,10 +254,6 @@ export default function Checkout() {
                     <span>Total Bayar</span>
                     <span>{money(total)}</span>
                   </div>
-                  <p className="summary-info-note">
-                    Dua baris pajak di atas info-only — belum masuk total. Tarif dan kewajiban
-                    setornya belum final (menunggu konsultan pajak, OQ-17/18).
-                  </p>
                   <ExchangeRateNote />
                 </div>
               </div>
