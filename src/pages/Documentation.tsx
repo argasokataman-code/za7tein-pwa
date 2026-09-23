@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { DOC_NAV } from './documentation/nav'
+import { DOC_SHELLS } from './documentation/routes'
 import { IntroductionSection } from './documentation/sections/IntroductionSection'
 import { WhatsNewSection } from './documentation/sections/WhatsNewSection'
 import { PagesRoutesSection } from './documentation/sections/PagesRoutesSection'
@@ -118,7 +119,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.31.0
+              v2.32.0
             </span>
             <span>
               React 19 · Vite · TypeScript
@@ -156,13 +157,26 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan PWA Sa7tein: tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin — panel admin yang dikelola CS). Super Admin adalah role terpisah: website penuh non-PWA di /superadmin. Landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
+              Panduan PWA Sa7tein: tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin — panel admin yang dikelola CS). Super Admin adalah role terpisah: website penuh non-PWA di /superadmin, dengan Ringkasan berupa dashboard chart tulis tangan (donut + bar, tanpa library). Landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (
                 <span key={tag} className="doc-hero-tag">
                   {tag}
                 </span>
+              ))}
+            </div>
+            <p className="doc-p doc-hero-cta-label">
+              Buka UI langsung — tiap tautan membuka role di tab baru, tanpa login
+              (semua data mock):
+            </p>
+            <div className="doc-cta-grid">
+              {DOC_SHELLS.map((s) => (
+                <a key={s.role} className="doc-cta" href={s.url} target="_blank" rel="noreferrer">
+                  <span className="doc-cta-role">{s.role}</span>
+                  <span className="doc-cta-url">{s.url}</span>
+                  <span className="doc-card-sub">{s.desc}</span>
+                </a>
               ))}
             </div>
           </div>

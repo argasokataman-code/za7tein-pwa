@@ -7,7 +7,7 @@ export interface DocNavItem {
 export const DOC_NAV: DocNavItem[] = [
   { num: '01', id: 'introduction', label: 'Introduction' },
   { num: '02', id: 'whats-new', label: 'What Changed' },
-  { num: '03', id: 'pages', label: 'Pages & Routes' },
+  { num: '03', id: 'pages', label: 'Pages, Routes & Live Links' },
   { num: '04', id: 'file-structure', label: 'File Structure' },
   { num: '05', id: 'installation', label: 'Installation' },
   { num: '06', id: 'route-protection', label: 'Route Protection' },
