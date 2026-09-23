@@ -145,6 +145,33 @@ zoneView() / projectPoint()         // lat/lng → kanvas; kanvas hanya cara men
         zonanya snapshot saat order dibuat, sesuai PRD.
       </p>
 
+      <h3 className="doc-h3">Kill switch menular ke role lain</h3>
+      <p className="doc-p">
+        Kill switch bukan state yang hanya hidup di konsol. Setiap jalur yang dimatikan ditegakkan
+        di layar tempat jalur itu dipakai, lewat <code className="doc-inline">switchBlockCopy()</code>{' '}
+        dan komponen <code className="doc-inline">PlatformNotice</code>:
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>COD dihentikan</strong>: opsi COD di layar metode bayar nonaktif dan menyebut
+          alasannya, bukan hilang begitu saja. Saldo Sa7tein dan transfer tetap bisa dipilih.
+        </li>
+        <li>
+          <strong>Payout dihentikan</strong>: pintu Tarik Saldo di halaman saldo berubah jadi baris
+          tanpa tautan, dan tombol tarik di layar penarikan nonaktif. Ditutup di dua tempat supaya
+          tidak bisa dilewati lewat URL langsung.
+        </li>
+        <li>
+          <strong>Maintenance aktif</strong>: semua metode bayar dan tombol lanjut di checkout
+          ditutup, dan dapur merchant menampilkan pemberitahuan supaya merchant tahu kenapa order
+          berhenti masuk.
+        </li>
+      </ul>
+      <p className="doc-p">
+        Teks blokir selalu menyebut jalan keluar ("pilih Saldo Sa7tein atau transfer"), bukan hanya
+        "tidak tersedia". Order yang sudah berjalan tidak dibatalkan oleh kill switch.
+      </p>
+
       <h3 className="doc-h3">Catatan demo &amp; yang belum final</h3>
       <p className="doc-p">
         Kanvas zona digambar sebagai <strong>SVG inline</strong>, bukan peta ber-tile: tile peta

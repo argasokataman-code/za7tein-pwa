@@ -2,8 +2,10 @@ import { ArrowRight, ChevronLeft, Download, Plus } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { money } from '../data/currency'
 import { MIN_TOPUP_NEW_ACCOUNT_IDR, needsTopUpGate } from '../data/merchant'
+import { switchBlockCopy } from '../data/superadmin'
 import { useAppSelector } from '../hooks/useAppStore'
 
 /**
@@ -13,7 +15,11 @@ import { useAppSelector } from '../hooks/useAppStore'
  */
 export default function WalletBalance() {
   const balance = useAppSelector((s) => s.wallet.balance)
+  const switches = useAppSelector((s) => s.superAdmin.switches)
   const gated = needsTopUpGate(balance.available)
+  // Payout bisa ditahan SA; pintunya ditutup di sini juga, bukan hanya di layar
+  // penarikan, supaya tidak ada jalan masuk lewat URL.
+  const payoutCopy = switchBlockCopy('payout', switches)
 
   return (
     <>
@@ -58,18 +64,31 @@ export default function WalletBalance() {
                   <ArrowRight size={20} strokeWidth={1.75} />
                 </Link>
 
-                <Link className="wallet-item wallet-item-link" to="/wallet/payout">
-                  <div className="wallet-item-icon">
-                    <Download size={24} strokeWidth={1.75} />
+                {payoutCopy ? (
+                  <div className="wallet-item">
+                    <div className="wallet-item-icon">
+                      <Download size={24} strokeWidth={1.75} />
+                    </div>
+                    <div className="wallet-item-left">
+                      <span className="wallet-item-title">Tarik Saldo</span>
+                      <span className="wallet-item-sub">Ditahan platform sementara</span>
+                    </div>
                   </div>
-                  <div className="wallet-item-left">
-                    <span className="wallet-item-title">Tarik Saldo</span>
-                    <span className="wallet-item-sub">
-                      Riwayat penarikan · fee penarikan menyusul (OQ-22)
-                    </span>
-                  </div>
-                  <ArrowRight size={20} strokeWidth={1.75} />
-                </Link>
+                ) : (
+                  <Link className="wallet-item wallet-item-link" to="/wallet/payout">
+                    <div className="wallet-item-icon">
+                      <Download size={24} strokeWidth={1.75} />
+                    </div>
+                    <div className="wallet-item-left">
+                      <span className="wallet-item-title">Tarik Saldo</span>
+                      <span className="wallet-item-sub">
+                        Riwayat penarikan · fee penarikan menyusul (OQ-22)
+                      </span>
+                    </div>
+                    <ArrowRight size={20} strokeWidth={1.75} />
+                  </Link>
+                )}
+                {payoutCopy ? <PlatformNotice message={payoutCopy} /> : null}
               </main>
             </div>
           </div>

@@ -345,6 +345,25 @@ export function switchIsDown(key: keyof PlatformSwitches, switches: PlatformSwit
   return key === 'maintenance' ? switches[key] : !switches[key]
 }
 
+/**
+ * Alasan sebuah jalur ditutup, siap ditampilkan di layar role lain. `null` kalau
+ * jalur hidup. Teksnya menyebut apa yang harus dilakukan pengguna, bukan sekadar
+ * "tidak tersedia", supaya layar yang terblokir tetap memberi jalan keluar.
+ */
+export const SWITCH_BLOCK_COPY: Record<keyof PlatformSwitches, string> = {
+  cod: 'COD sedang dihentikan sementara. Pilih Saldo Sa7tein atau transfer manual.',
+  payout: 'Pencairan saldo sedang ditahan platform. Coba lagi nanti.',
+  maintenance: 'Platform sedang maintenance. Order baru belum bisa dibuat.',
+}
+
+/** Alasan blokir untuk sebuah jalur, atau `null` kalau jalurnya hidup. */
+export function switchBlockCopy(
+  key: keyof PlatformSwitches,
+  switches: PlatformSwitches,
+): string | null {
+  return switchIsDown(key, switches) ? SWITCH_BLOCK_COPY[key] : null
+}
+
 /** Label status siap tampil untuk sebuah jalur. */
 export function switchStatusLabel(key: keyof PlatformSwitches, switches: PlatformSwitches): string {
   const meta = switchMeta.find((item) => item.key === key)

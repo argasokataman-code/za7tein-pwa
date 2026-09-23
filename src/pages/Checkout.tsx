@@ -27,6 +27,8 @@ import {
   zoneFor,
 } from '../data/merchant'
 import { mockUser } from '../data/user'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
 
@@ -49,6 +51,10 @@ export default function Checkout() {
   const fee = address ? deliveryFeeFor(address) : 0
   // Fee customer flat 0,22 JOD (R-FEE-01) — selalu ikut, berapa pun metodenya.
   const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
+  // Kill switch platform: maintenance menutup semua order baru, jadi gate-nya
+  // dipasang di sini juga, bukan hanya di layar SA.
+  const switches = useAppSelector((s) => s.superAdmin.switches)
+  const maintenanceCopy = switchBlockCopy('maintenance', switches)
 
   return (
     <div className="app-shell">
@@ -251,12 +257,18 @@ export default function Checkout() {
 
               <WalletTopUpGate />
 
+              {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
+
               <div className="checkout-actions">
                 <button
                   type="button"
                   className="proceed-btn"
-                  disabled={!deliverable || gated}
+                  disabled={!deliverable || gated || Boolean(maintenanceCopy)}
                   onClick={() => {
+                    if (maintenanceCopy) {
+                      toast.error('Platform sedang maintenance')
+                      return
+                    }
                     if (!deliverable) {
                       toast.error('Alamat di luar area antar')
                       return
@@ -268,11 +280,13 @@ export default function Checkout() {
                     navigate('/payment-selection')
                   }}
                 >
-                  {!deliverable
-                    ? 'Di luar jangkauan'
-                    : gated
-                      ? 'Top-up dulu · saldo kurang'
-                      : `Lanjut Bayar · ${money(total)}`}
+                  {maintenanceCopy
+                    ? 'Platform maintenance'
+                    : !deliverable
+                      ? 'Di luar area antar'
+                      : gated
+                        ? 'Top-up dulu · saldo kurang'
+                        : `Lanjut Bayar · ${money(total)}`}
                 </button>
               </div>
             </>

@@ -6,6 +6,8 @@ import toast from 'react-hot-toast'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { money } from '../data/currency'
 import { PAYOUT_PRESETS_IDR, payoutStatusLabel } from '../data/wallet'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { requestPayout } from '../store/slices/walletSlice'
 
@@ -18,13 +20,19 @@ export default function WalletPayout() {
   const dispatch = useAppDispatch()
   const balance = useAppSelector((s) => s.wallet.balance)
   const history = useAppSelector((s) => s.wallet.payoutHistory)
+  const switches = useAppSelector((s) => s.superAdmin.switches)
+  const payoutCopy = switchBlockCopy('payout', switches)
 
   const [amount, setAmount] = useState<number>(PAYOUT_PRESETS_IDR[0])
 
   const tooMuch = amount > balance.available
-  const canSubmit = amount > 0 && !tooMuch
+  const canSubmit = amount > 0 && !tooMuch && !payoutCopy
 
   const submit = () => {
+    if (payoutCopy) {
+      toast.error('Pencairan saldo sedang ditahan platform')
+      return
+    }
     if (tooMuch) {
       toast.error('Nominal melebihi saldo tersedia')
       return
@@ -93,8 +101,10 @@ export default function WalletPayout() {
                   disabled={!canSubmit}
                   onClick={submit}
                 >
-                  Tarik · {money(amount)}
+                  {payoutCopy ? 'Pencairan ditahan' : `Tarik · ${money(amount)}`}
                 </button>
+
+                {payoutCopy ? <PlatformNotice message={payoutCopy} /> : null}
 
                 <section className="wallet-form" aria-label="Riwayat penarikan">
                   <h2 className="wallet-form-title">Riwayat Penarikan</h2>

@@ -1,0 +1,30 @@
+/* ── Pemberitahuan kill switch platform ─────────────────────────────────────
+   Dipakai lintas role saat SA menutup jalur COD, payout, atau seluruh platform
+   (maintenance). Warna status, bukan warna merek, supaya tidak terbaca sebagai
+   ajakan aksi. */
+
+.platform-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--warning);
+  border-radius: var(--radius-md);
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+
+  svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+}
+
+/* Metode bayar yang ditutup kill switch: tetap terlihat supaya pengguna tahu
+   pilihannya ada tapi sedang mati, bukan menghilang tanpa penjelasan. */
+.payment-item.is-blocked {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

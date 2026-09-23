@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { PAYMENT_METHODS, mockMerchant } from '../data/merchant'
+import { switchBlockCopy, switchIsDown } from '../data/superadmin'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setPayment } from '../store/slices/cartSlice'
 
@@ -18,8 +20,15 @@ export default function PaymentSelection() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const selected = useAppSelector((s) => s.cart.selectedPaymentId)
+  const switches = useAppSelector((s) => s.superAdmin.switches)
+  // Kill switch platform: SA bisa menutup COD saja, atau seluruh order baru
+  // (maintenance). Layar ini yang menegakkannya, bukan konsol SA.
+  const maintenanceCopy = switchBlockCopy('maintenance', switches)
+  const codCopy = switchBlockCopy('cod', switches)
 
   const choose = (id: string, label: string) => {
+    if (switchIsDown('maintenance', switches)) return
+    if (id === 'cod' && switchIsDown('cod', switches)) return
     dispatch(setPayment(id))
     toast.success(label, { icon: <CheckCircle2 size={18} aria-hidden="true" /> })
     navigate('/payment-amount')
@@ -39,16 +48,23 @@ export default function PaymentSelection() {
               </h1>
             </header>
             <div className="payment-selection-content">
+              {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
               <div className="payment-list" role="radiogroup" aria-label="Pilih metode pembayaran">
                 {PAYMENT_METHODS.map((m) => {
                   const isSelected = selected === m.id
+                  const blocked = Boolean(
+                    maintenanceCopy ?? (m.id === 'cod' ? codCopy : null),
+                  )
+                  const reason = m.id === 'cod' ? codCopy : null
                   return (
                     <button
                       key={m.id}
                       type="button"
                       role="radio"
                       aria-checked={isSelected}
-                      className={`payment-item${isSelected ? ' selected' : ''}`}
+                      aria-disabled={blocked}
+                      disabled={blocked}
+                      className={`payment-item${isSelected ? ' selected' : ''}${blocked ? ' is-blocked' : ''}`}
                       onClick={() => choose(m.id, m.label)}
                     >
                       <div className="payment-icon">
@@ -62,9 +78,11 @@ export default function PaymentSelection() {
                           {m.label}
                         </h3>
                         <p className="payment-number">
-                          {m.id === 'transfer'
-                            ? `${mockMerchant.bank.name} ${mockMerchant.bank.account} · ${mockMerchant.bank.holder}`
-                            : m.description}
+                          {blocked && reason
+                            ? reason
+                            : m.id === 'transfer'
+                              ? `${mockMerchant.bank.name} ${mockMerchant.bank.account} · ${mockMerchant.bank.holder}`
+                              : m.description}
                         </p>
                       </div>
                       <div className="payment-radio">
@@ -82,9 +100,10 @@ export default function PaymentSelection() {
                 type="button"
                 className="proceed-btn"
                 aria-label="Lanjut dengan metode terpilih"
+                disabled={Boolean(maintenanceCopy)}
                 onClick={() => navigate('/payment-amount')}
               >
-                Lanjut
+                {maintenanceCopy ? 'Platform maintenance' : 'Lanjut'}
               </button>
             </div>
             <div className="home-indicator " />

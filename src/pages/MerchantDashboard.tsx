@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant, money } from '../data/merchant'
@@ -15,6 +16,7 @@ import {
   rebateProgress,
 } from '../data/incentive'
 import { countByTab, orderStatusLabel } from '../data/merchantOrders'
+import { switchBlockCopy } from '../data/superadmin'
 import { debitCredit, payRebate, recordSettledOrder, toggleActive } from '../store/slices/merchantSlice'
 
 export default function MerchantDashboard() {
@@ -24,6 +26,10 @@ export default function MerchantDashboard() {
   const todayOrderCount = useAppSelector((s) => s.merchant.todayOrderCount)
   const dailyLimit = useAppSelector((s) => s.merchant.dailyLimit)
   const credit = useAppSelector((s) => s.merchant.credit)
+  // Maintenance menolak order baru di semua role; merchant perlu tahu kenapa
+  // ordernya berhenti masuk, bukan cuma merasakan dapur jadi sepi.
+  const switches = useAppSelector((s) => s.superAdmin.switches)
+  const maintenanceCopy = switchBlockCopy('maintenance', switches)
 
   const progress = rebateProgress(credit.settledThisPeriod)
   const creditUsed = 1 - credit.merchantCreditBalance / MERCHANT_CREDIT_JOD
@@ -36,6 +42,8 @@ export default function MerchantDashboard() {
     <div className="app-shell">
       <main className="merchant-page">
         <MerchantPageHeader eyebrow="Dapur" title={mockMerchant.name} />
+
+        {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
 
         <section className="merchant-card">
           <div className="merchant-row">

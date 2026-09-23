@@ -2582,6 +2582,182 @@
         }
       ],
       "loc": "src/pages/SaZones.tsx:1"
+    },
+    {
+      "id": "TASK-2991",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "18:58:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && git add -A && git commit -m \"$(cat <<'EOF'\nfeat(zones): make the master polygons th",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2992",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:01:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PlatformNotice.tsx (+20) — write via tool: tsx: import { AlertTriangle ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PlatformNotice.tsx"
+    },
+    {
+      "id": "TASK-2993",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:02:23",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\n\n# ── PaymentSelection: gate COD + maintenance ────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2994",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:02:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\n\n# ── Checkout: gate maintenance ──────────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2995",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:03:24",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\n\n# ── WalletBalance: payout ditahan ───────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2996",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:03:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/pages/MerchantDashboard.tsx')",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2997",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:05:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx (+28/-1) — edit via tool: tsx: <h3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-2998",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:06:06",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && sed -i '' 's/v2\\.25\\.0/v2.26.0/' src/pages/Documentation.tsx && npm run lint 2>&1 |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-3010",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "19:06:20",
+      "tags": [
+        "superadmin",
+        "killswitch",
+        "coverage",
+        "cod",
+        "payout",
+        "maintenance"
+      ],
+      "summary": "Kill switch ditegakkan lintas role: COD di payment, payout di wallet, maintenance di checkout + dapur merchant",
+      "conn": [
+        {
+          "id": "TASK-2990",
+          "type": "led_to",
+          "raw": "TASK-2990:led_to"
+        }
+      ],
+      "loc": "src/pages/PaymentSelection.tsx:1"
     }
   ]
 }
