@@ -210,6 +210,17 @@ export default function AddressSelection() {
                         }
                         dispatch(setAddress(a.id))
                       }}
+                      onKeyDown={(e) => {
+                        // Kartu ini role="radio" dan bisa di-tab; tanpa ini
+                        // Enter/Space tidak melakukan apa pun.
+                        if (e.key !== 'Enter' && e.key !== ' ') return
+                        e.preventDefault()
+                        if (blocked) {
+                          toast.error('Di luar area antar')
+                          return
+                        }
+                        dispatch(setAddress(a.id))
+                      }}
                     >
                       <div className="address-icon-wrap">
                         <AddressIcon id={a.id} />

@@ -494,3 +494,57 @@ div[class*="-screen"] .container {
   font-weight: 600;
   text-decoration: none;
 }
+
+/* ── Umpan balik hover kartu alamat & metode bayar ─────────────────────────
+   `.address-item:hover` mengecat `--bg-warm` (#FFF9F4) di atas `--surface`
+   (#FFFFFF): bedanya 4 satuan, jadi kartu terasa tidak merespons kursor.
+   Lebih buruk, selektor hover (0-2-0) sama kuat dengan
+   `.address-item.selected` (0-2-0) tapi diimpor belakangan — meng-hover kartu
+   terpilih justru menghapus latar oranyenya, seolah pilihannya lepas.
+
+   Sekarang hover = tint oranye yang jelas + tepi merek; kartu terpilih tetap
+   oranye saat di-hover (0-3-0); dan teks di atas oranye memakai `--on-brand`
+   supaya kontrasnya lolos (teks abu di atas oranye cuma 1,7:1). */
+.address-item:hover,
+.payment-item:hover {
+  background-color: var(--orange-soft);
+  border-color: var(--orange-ink);
+}
+
+.address-item.selected,
+.address-item.selected:hover {
+  background-color: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+}
+
+.address-item.selected .address-name,
+.address-item.selected .address-text,
+.address-item.selected .address-notes,
+.address-item.selected .address-meta,
+.address-item.selected .zone-fee {
+  color: var(--on-brand);
+}
+
+/* Alamat di luar coverage tidak bisa dipilih — jangan beri umpan balik hover
+   yang menyiratkan sebaliknya. */
+.address-item--blocked,
+.address-item--blocked:hover {
+  background-color: var(--surface);
+  border-color: var(--border-strong);
+  cursor: not-allowed;
+}
+
+.address-item:focus-visible,
+.address-default-btn:focus-visible,
+.address-edit-btn:focus-visible,
+.address-delete-btn:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+.address-default-btn:hover,
+.address-edit-btn:hover {
+  background-color: var(--orange-soft);
+  border-color: var(--orange-ink);
+  color: var(--orange-ink);
+}

@@ -75,6 +75,18 @@ export function ChangelogSection() {
               <td>Memilih berkas + pratinjau lokal (tanpa unggah)</td>
             </tr>
             <tr>
+              <td>Hover kartu alamat</td>
+              <td>
+                Hover mengecat <code className="doc-inline">--bg-warm</code> di atas{' '}
+                <code className="doc-inline">--surface</code> (beda 4 satuan, tak terlihat) dan
+                menghapus latar kartu terpilih; teks abu di atas oranye 1,7:1
+              </td>
+              <td>
+                Hover = tint oranye + tepi merek; kartu terpilih tetap oranye saat di-hover; teks
+                memakai <code className="doc-inline">--on-brand</code>
+              </td>
+            </tr>
+            <tr>
               <td>Galat &amp; offline</td>
               <td>Layar ada, tidak dipasang</td>
               <td>
