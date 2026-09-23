@@ -942,6 +942,180 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f15-super-admin/README.md"
+    },
+    {
+      "id": "TASK-2894",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:13:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md (+12/-1) — edit via tool: ### Resolusi UNRESOLVED ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md"
+    },
+    {
+      "id": "TASK-2895",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:14:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md (+2/-1) — edit via tool: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/irbid-mvp-v2-2026-09-21/milestones.md"
+    },
+    {
+      "id": "TASK-2896",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:14:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+5/-5) — edit via tool: tsx: <p className=\"merchant-card",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-2897",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:14:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/IncentiveSection.tsx (+10/-7) — edit via tool: tsx: <p c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/IncentiveSection.tsx"
+    },
+    {
+      "id": "TASK-2898",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:15:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/IncentiveSection.tsx (+5/-5) — edit via tool: tsx: <tr>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/IncentiveSection.tsx"
+    },
+    {
+      "id": "TASK-2899",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:15:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AdminDesignSection.tsx (+21/-8) — edit via tool: tsx: <h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AdminDesignSection.tsx"
+    },
+    {
+      "id": "TASK-2900",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:16:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -4 && npm run build 2>&1 | tail -4 && npm run governance:c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2901",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:16:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/manifest.json (+1/-1) — edit via tool: \"sha256\": \"3f28ece0862c0b8bb03ce3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/manifest.json"
+    },
+    {
+      "id": "DEC-2891",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-23",
+      "time": "08:17:34",
+      "tags": [
+        "prd-v2",
+        "incentive",
+        "dispute",
+        "cs"
+      ],
+      "summary": "PO 2026-09-23: I-6 modal hangus; I-3 cashback non-withdrawal in-app; OQ-30 CS account dibuat SA + role per kebutuhan SA; OQ-29 dipakai semen",
+      "conn": [
+        {
+          "id": "DEC-2890",
+          "type": "relates",
+          "raw": "DEC-2890:relates"
+        }
+      ],
+      "loc": "docs/product/prd/decision-irbid-mvp.md:20"
     }
   ]
 }

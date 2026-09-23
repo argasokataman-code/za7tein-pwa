@@ -187,10 +187,10 @@ Semua angka konsisten.
 |---|---|---|
 | I-1 | Fee customer di ketentuan insentif tertulis **0,20 JOD**, sedangkan keputusan PO 2026-09-21 = **0,22 JOD**. Angka mana yang berlaku? | **RESOLVED (PO 2026-09-22): 0,22 JOD** — ketentuan insentif 0,20 JOD tidak berlaku. |
 | I-2 | Hubungan modal 5 JOD dengan **deposit COD merchant 3,50 JOD** (PRD aktif §5C): menggantikan atau tambahan? | **RESOLVED (PO 2026-09-22): terpisah.** Modal 5 JOD = insentif masa promo berbentuk kredit sistem non-tunai (non-withdrawal); bukan pengganti atau tambahan deposit COD 3,50 JOD. |
-| I-3 | Cashback masuk dompet deposit merchant — ikut **non-withdrawal** atau saldo yang bisa ditarik? | UNRESOLVED |
+| I-3 | Cashback masuk dompet deposit merchant — ikut **non-withdrawal** atau saldo yang bisa ditarik? | **RESOLVED (PO 2026-09-23): non-withdrawal.** Masuk dompet deposit, tapi tidak bisa di-WD — hanya untuk pemakaian di dalam aplikasi. |
 | I-4 | Periode tier: bulan kalender (reset tanggal 1)? Kalau merchant naik tier di tengah bulan — dihitung proporsional atau tier akhir bulan? | UNRESOLVED |
 | I-5 | Kuota "Founding": dibatasi jumlah merchant (mis. 20 pertama) atau semua merchant baru? Berlaku berapa lama? | UNRESOLVED |
-| I-6 | Kalau merchant berhenti sebelum modal 5 JOD habis — sisa saldo hangus atau dianggap utang? | UNRESOLVED |
+| I-6 | Kalau merchant berhenti sebelum modal 5 JOD habis — sisa saldo hangus atau dianggap utang? | **RESOLVED (PO 2026-09-23): hangus.** Kredit digital yang tidak bisa dicairkan; diberhentikan seperti kredit gratis lain, bukan utang. |
 
 ## Guard Zona (Luar Area)
 

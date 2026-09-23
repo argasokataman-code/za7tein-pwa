@@ -28,6 +28,17 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 - **Yang belum**: konsol Super Admin (full website). Tidak ada route/manifest untuknya sampai cakupannya diputuskan.
 - Efek lanjutan: teks yang menyebut "Super Admin" sebagai **pihak operasional** (review onboarding, alert SLA) kini merujuk **tim CS**, sesuai pembagian ini. `OQ-30` (siapa super admin operasional) menyempit jadi: siapa operator CS, dan siapa pemilik konsol Super Admin.
 
+### Resolusi UNRESOLVED — 2026-09-23 (info PO)
+
+Empat pertanyaan yang sebelumnya `UNRESOLVED` ditutup. PO menandai ini info sementara, jadi kalau berubah, catat penggantinya di sini.
+
+- **I-6 — sisa modal 5 JOD kalau merchant berhenti: HANGUS.** Modal adalah kredit digital yang memang tidak bisa dicairkan; diberhentikan sama seperti aktivasi/kredit gratis lain. Tidak jadi utang, tidak di-refund.
+- **I-3 — cashback tier: non-withdrawal.** Cashback masuk dompet deposit merchant tapi **tidak bisa di-WD** — hanya untuk pemakaian di dalam aplikasi (memotong fee order berikutnya). Sama seperti modal, bedanya hanya sumbernya (volume penjualan, bukan grant awal).
+- **OQ-30 — operator CS: dibuat oleh SA.** SA yang membuat akun operator CS, dan **role/permission-nya ditentukan SA** sesuai kebutuhan. Tidak ada self-registration operator. (Jumlah admin & pembagian izin konkret = keputusan operasional SA, bukan blocker produk.)
+- **OQ-29 — window dispute 24 jam + kategori + SLA resolusi: dipakai sementara.** Diterima apa adanya sampai volume sengketa >5/bulan, sama seperti `OQ-13`. Kategori tetap placeholder yang wajar, bukan daftar final.
+
+Konsekuensi kode: label "non-withdrawal" di dashboard merchant kini berlaku untuk modal **dan** cashback (sebelumnya cashback masih ditandai terbuka di I-3).
+
 ### Cakupan Super Admin — 2026-09-23 (keputusan PO)
 
 Melengkapi klarifikasi peran di atas. Super Admin = **website penuh non-PWA** (prefix `/superadmin`), lapisan di atas panel CS. Cakupan yang disetujui PO:

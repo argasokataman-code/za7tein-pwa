@@ -30,8 +30,8 @@ export function IncentiveSection() {
             </tr>
             <tr>
               <td>Masuk ke</td>
-              <td>Kredit sistem — non-tunai, <strong>non-withdrawal</strong></td>
-              <td>Dompet deposit merchant</td>
+              <td>Kredit sistem — non-tunai, <strong>non-withdrawal</strong>; sisa <strong>hangus</strong> kalau merchant berhenti</td>
+              <td>Dompet deposit merchant — juga <strong>non-withdrawal</strong>, hanya untuk pemakaian in-app</td>
             </tr>
           </tbody>
         </table>
@@ -71,11 +71,14 @@ payRebate()            // cashback ke dompet deposit → rebate_paid`}
         <code className="doc-inline">rebate_tier_reached</code> tercatat.
       </p>
       <p className="doc-p">
-        Yang belum final dan karena itu tidak dikarang di UI: apakah cashback bisa ditarik (
-        <code className="doc-inline">I-3</code>), definisi periode &amp; naik tier di tengah bulan (
-        <code className="doc-inline">I-4</code>), kuota Founding merchant (
-        <code className="doc-inline">I-5</code>), dan perlakuan sisa modal kalau merchant berhenti (
-        <code className="doc-inline">I-6</code>).
+        PO 2026-09-23 menutup dua pertanyaan insentif: <strong>cashback non-withdrawal</strong> (
+        <code className="doc-inline">I-3</code>) — masuk dompet deposit tapi hanya bisa dipakai di
+        dalam aplikasi — dan <strong>sisa modal hangus</strong> kalau merchant berhenti (
+        <code className="doc-inline">I-6</code>), karena modal adalah kredit digital yang memang
+        tidak bisa dicairkan. Jadi tidak ada jalur pencairan untuk modal maupun cashback; yang
+        belum final tinggal definisi periode &amp; naik tier di tengah bulan (
+        <code className="doc-inline">I-4</code>) dan kuota Founding merchant (
+        <code className="doc-inline">I-5</code>).
       </p>
     </DocSection>
   )

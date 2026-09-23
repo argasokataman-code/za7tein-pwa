@@ -72,13 +72,26 @@ export function AdminDesignSection() {
         The order amount is shown in JOD using the M1 example rate (Rp23.000), labelled
         as a temporary rate because M1 is not implemented.
       </p>
+      <h3 className="doc-h3">CS panel vs Super Admin</h3>
+      <p className="doc-p">
+        This console is the <strong>CS panel</strong>, and its powers are deliberately
+        bounded. CS runs tenant approval, level-1 dispute verdicts and COD blacklisting
+        — all built here. CS does <em>not</em> configure the platform: master delivery
+        zones, roles and permissions, app tax reports, the platform profit balance and
+        the kill switch belong to <strong>Super Admin</strong>, a separate full website
+        (non-PWA, prefix <code className="doc-inline">/superadmin</code>) that is scoped
+        but not built yet. SA supervises CS through the audit trail and handles appeals.
+        Top-up and payout stay self-service for customer and merchant — never an
+        approval step here.
+      </p>
       <h3 className="doc-h3">What is deliberately not built</h3>
       <p className="doc-p">
         Tier-quota configuration has no schema field, so it is not built
-        (UNRESOLVED). Dispute categories and the 24-hour window are placeholders
-        pending OQ-29 and are labelled as such on screen. There is no admin auth or
-        audit trail — the active PRD has no requirement for either, so they stay
-        UNRESOLVED-by-absence rather than invented.
+        (UNRESOLVED). Dispute categories and the 24-hour window are placeholders —
+        accepted as-is until dispute volume passes 5/month (OQ-29), and labelled as
+        such on screen. There is no admin auth in this console: the CS panel is a mock
+        surface (AGENTS.md §1), while the audit trail is part of the Super Admin scope
+        above rather than invented here.
       </p>
     </DocSection>
   )

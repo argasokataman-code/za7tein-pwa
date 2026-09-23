@@ -182,9 +182,9 @@ export default function MerchantDashboard() {
           </ul>
 
           <p className="merchant-card-sub">
-            Modal tidak bisa ditarik, dan apakah cashback bisa ditarik belum final (I-3) — begitu
-            juga periode &amp; naik tier di tengah bulan (I-4), kuota Founding (I-5), dan sisa modal
-            saat merchant berhenti (I-6).
+            Modal dan cashback sama-sama <strong>non-withdrawal</strong> — hanya bisa dipakai di
+            dalam aplikasi, dan sisa modal hangus kalau merchant berhenti (I-3, I-6). Yang belum
+            final tinggal periode &amp; naik tier di tengah bulan (I-4) dan kuota Founding (I-5).
           </p>
         </section>
 
