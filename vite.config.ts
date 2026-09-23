@@ -12,9 +12,12 @@ export default defineConfig({
       injectRegister: 'auto',
       // the app ships its own public/manifest.json
       manifest: false,
-      includeAssets: ['favicon.ico', 'icons/*.png', 'assets/**/*'],
+      // JANGAN pakai includeAssets untuk berkas yang sudah cocok globPatterns:
+      // entri ganda (satu tanpa revision, satu dengan ?__WB_REVISION__) membuat
+      // workbox melempar `add-to-cache-list-conflicting-entries`, precache batal
+      // diam-diam, dan offline mati. webp cukup ditambahkan ke globPatterns.
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,woff2}'],
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/api\//, /^\/$/, /^\/documentation/],
         runtimeCaching: [
