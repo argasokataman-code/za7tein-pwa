@@ -28,6 +28,24 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 - **Yang belum**: konsol Super Admin (full website). Tidak ada route/manifest untuknya sampai cakupannya diputuskan.
 - Efek lanjutan: teks yang menyebut "Super Admin" sebagai **pihak operasional** (review onboarding, alert SLA) kini merujuk **tim CS**, sesuai pembagian ini. `OQ-30` (siapa super admin operasional) menyempit jadi: siapa operator CS, dan siapa pemilik konsol Super Admin.
 
+### Cakupan Super Admin — 2026-09-23 (keputusan PO)
+
+Melengkapi klarifikasi peran di atas. Super Admin = **website penuh non-PWA** (prefix `/superadmin`), lapisan di atas panel CS. Cakupan yang disetujui PO:
+
+- **Master zona** — SA mendefinisikan area/poligon Hijazi & Syimali secara global; merchant hanya mengaktifkan (`is_active_hijazi` / `is_active_syimali`). Flow `f20` sudah merujuk master zona ke `f15`.
+- **Manajemen role & permission penuh** — operator CS vs SA, multi-admin.
+- **Audit trail** semua aksi (SA maupun CS).
+- **Laporan pajak aplikasi** — GST makanan + PPh final 0,5% atas fee platform.
+- **Saldo keuntungan platform** — SA menerima **saldo bersih keuntungan aplikasi** (fee 0,37 JOD/order dikurangi biaya), dan itulah satu-satunya dana yang bisa di-withdraw SA sebagai pemegang platform. Ini **bukan** dana user: saldo customer/merchant/tips tetap liability.
+- **Kill switch / mode maintenance** — mis. hentikan COD, hentikan payout, mode maintenance.
+- **Monitoring ledger detail** merchant & customer (read-only).
+
+**Bukan tugas SA:** top-up dan payout customer/merchant berjalan **self-service oleh sistem** — bukan approval SA. SA hanya memantau ledger mereka.
+
+**Batas panel CS:** CS hanya **melihat** aktivitas merchant & customer; konfigurasi platform (zona, role, pajak, kill switch, revenue) milik SA. Apakah approval tenant dan putusan sengketa yang sudah dibangun tetap di CS atau naik ke SA masih perlu dikonfirmasi → `UNRESOLVED`.
+
+**UNRESOLVED lanjutan:** OQ-30 (siapa operator, jumlah admin), jadwal settlement, provider kurs (OQ-26/28), tarif pajak final, dan batas approval/dispute CS vs SA di atas.
+
 ### `irbid-mvp-2026-09-12` (superseded oleh v2, 2026-09-22)
 
 - Sumber: `versions/irbid-mvp-2026-09-12/source.pdf`, halaman 1–12.
