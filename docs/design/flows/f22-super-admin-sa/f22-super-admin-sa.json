@@ -1,0 +1,280 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F22 — Konsol Super Admin (SA)",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    {
+      "id": "sa",
+      "label": "Konsol SA (website penuh, desktop)"
+    },
+    {
+      "id": "kontrol",
+      "label": "Kontrol platform & uang"
+    },
+    {
+      "id": "awas",
+      "label": "Pengawasan & banding"
+    },
+    {
+      "id": "guard",
+      "label": "Guard role & dana",
+      "variant": "exception"
+    }
+  ],
+  "mainPath": [
+    "overview",
+    "zone",
+    "roles",
+    "tax",
+    "profit",
+    "appeal"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "overview"
+    ],
+    "allowedTerminals": [
+      "audit",
+      "ledger",
+      "switch",
+      "deny",
+      "appeal"
+    ],
+    "requiredEdges": [
+      {
+        "from": "overview",
+        "to": "zone"
+      },
+      {
+        "from": "zone",
+        "to": "roles"
+      },
+      {
+        "from": "roles",
+        "to": "tax"
+      },
+      {
+        "from": "tax",
+        "to": "profit"
+      },
+      {
+        "from": "profit",
+        "to": "appeal"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "overview",
+      "lane": "sa",
+      "col": 0,
+      "type": "frontend",
+      "label": "Ringkasan SA",
+      "sublabel": "profit vs liability",
+      "width": 140
+    },
+    {
+      "id": "zone",
+      "lane": "sa",
+      "col": 1,
+      "type": "frontend",
+      "label": "Master zona",
+      "sublabel": "poligon Hijazi & Syimali",
+      "width": 140
+    },
+    {
+      "id": "roles",
+      "lane": "sa",
+      "col": 2,
+      "type": "frontend",
+      "label": "Role & permission",
+      "sublabel": "akun operator CS oleh SA",
+      "width": 140
+    },
+    {
+      "id": "tax",
+      "lane": "kontrol",
+      "col": 3,
+      "type": "frontend",
+      "label": "Laporan pajak",
+      "sublabel": "GST makanan + PPh 0,5%",
+      "width": 140
+    },
+    {
+      "id": "profit",
+      "lane": "kontrol",
+      "col": 4,
+      "type": "frontend",
+      "label": "Saldo keuntungan",
+      "sublabel": "fee 0,37 JOD − biaya",
+      "width": 140
+    },
+    {
+      "id": "appeal",
+      "lane": "awas",
+      "col": 5,
+      "type": "frontend",
+      "label": "Banding sengketa",
+      "sublabel": "putusan level-1 ditinjau",
+      "width": 140
+    },
+    {
+      "id": "audit",
+      "lane": "awas",
+      "col": 1,
+      "type": "frontend",
+      "label": "Audit trail",
+      "sublabel": "aksi SA & CS, append-only",
+      "width": 140
+    },
+    {
+      "id": "ledger",
+      "lane": "awas",
+      "col": 3,
+      "type": "frontend",
+      "label": "Ledger read-only",
+      "sublabel": "pantau read-only",
+      "width": 140
+    },
+    {
+      "id": "switch",
+      "lane": "guard",
+      "col": 2,
+      "type": "security",
+      "label": "Kill switch",
+      "sublabel": "COD · payout · maintenance",
+      "tag": "gate",
+      "width": 140
+    },
+    {
+      "id": "deny",
+      "lane": "guard",
+      "col": 4,
+      "type": "security",
+      "label": "Dana user tertutup",
+      "sublabel": "liability bukan milik SA",
+      "tag": "blocked",
+      "width": 140
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-overview-zone",
+      "from": "overview",
+      "to": "zone",
+      "label": "tinjauan → konfigurasi",
+      "role": "main"
+    },
+    {
+      "id": "e-zone-roles",
+      "from": "zone",
+      "to": "roles",
+      "label": "zona master siap · siapa boleh ubah",
+      "role": "main"
+    },
+    {
+      "id": "e-roles-tax",
+      "from": "roles",
+      "to": "tax",
+      "label": "akses platform ditetapkan",
+      "role": "main"
+    },
+    {
+      "id": "e-tax-profit",
+      "from": "tax",
+      "to": "profit",
+      "label": "fee terkumpul − PPh final",
+      "role": "main"
+    },
+    {
+      "id": "e-profit-appeal",
+      "from": "profit",
+      "to": "appeal",
+      "label": "uang platform beres · tinjau banding",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-overview-audit",
+      "from": "overview",
+      "to": "audit",
+      "label": "tinjau kerja CS & SA",
+      "role": "branch"
+    },
+    {
+      "id": "e-overview-switch",
+      "from": "overview",
+      "to": "switch",
+      "label": "hentikan jalur darurat",
+      "role": "branch",
+      "variant": "dashed"
+    },
+    {
+      "id": "e-roles-ledger",
+      "from": "roles",
+      "to": "ledger",
+      "label": "izin pantau ledger (read-only)",
+      "role": "branch"
+    },
+    {
+      "id": "e-profit-deny",
+      "from": "profit",
+      "to": "deny",
+      "label": "permintaan tarik dana user",
+      "role": "branch",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Bisnis: kenapa flow ini ada",
+      "items": [
+        "**Masalah:** konfigurasi platform (zona, role, pajak, kill switch) & pengawasan (audit, ledger, banding) harus terpisah dari kerja CS",
+        "**Nilai:** owner & team pegang kontrol penuh · CS fokus operasi · customer/merchant punya jalur banding"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Alur inti: konfigurasi → uang → banding",
+      "items": [
+        "Ringkasan: saldo keuntungan (boleh ditarik) vs kewajiban platform (dana user, tidak boleh disentuh)",
+        "Master zona **Hijazi & Syimali** ditentukan SA (`f20`) · akun operator CS **dibuat SA** (`OQ-30`)",
+        "Banding: putusan level-1 CS ditinjau SA (`f15` → `f22` → `f8`)"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Guard, sumber & UNRESOLVED",
+      "items": [
+        "Guard: kill switch menghentikan COD / payout / order baru · dana user tertutup untuk SA · ledger baca saja",
+        "Dasar: PO 2026-09-23 + `C-12` + `R-DISPUTE-01` + `R-LEDGER-01` + `C-13`. Tidak ada `R-SA-*`",
+        "UNRESOLVED: tarif pajak final · jumlah operator · jadwal settlement · geometri zona asli (server)"
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "id": "konfigurasi",
+      "label": "Konfigurasi platform",
+      "fromCol": 0,
+      "toCol": 2
+    },
+    {
+      "id": "uang",
+      "label": "Pajak & keuntungan",
+      "fromCol": 3,
+      "toCol": 4
+    },
+    {
+      "id": "awas",
+      "label": "Banding & pengawasan",
+      "fromCol": 5,
+      "toCol": 5,
+      "variant": "emphasis"
+    }
+  ]
+}

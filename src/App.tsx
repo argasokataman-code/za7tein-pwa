@@ -65,6 +65,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Profile from './pages/Profile'
 import RatingDriver from './pages/RatingDriver'
 import Reviews from './pages/Reviews'
+import SaDashboard from './pages/SaDashboard'
 import Search from './pages/Search'
 import Security from './pages/Security'
 import SignIn from './pages/SignIn'
@@ -170,8 +171,7 @@ const courierRoutes: [string, ComponentType][] = [
 ]
 
 // Panel admin (CS) — dipasang di /admin/*. Shell-nya sama dengan role lain (430px).
-// Super Admin BUKAN ini: ia role terpisah, kelak berupa website penuh non-PWA
-// (scope UNRESOLVED). Lihat docs/product/prd/decision-irbid-mvp.md 2026-09-23.
+// Super Admin BUKAN ini: ia role terpisah, website penuh non-PWA.
 const adminRoutes: [string, ComponentType][] = [
   ['/', AdminDashboard],
   ['/onboarding', AdminOnboarding],
@@ -179,6 +179,26 @@ const adminRoutes: [string, ComponentType][] = [
   ['/merchants', AdminMerchants],
   ['/ledger', AdminLedger],
 ]
+
+// Konsol Super Admin — role terpisah, dipasang di /superadmin/* (keputusan PO
+// 2026-09-23: website penuh non-PWA, prefix disiapkan). Tidak memakai
+// MobileDeviceFrame: dipakai dari desktop sebagai dashboard bertabel.
+const superAdminRoutes: [string, ComponentType][] = [
+  ['/', SaDashboard],
+]
+
+function SuperAdminRouter() {
+  return (
+    <BrowserRouter basename="/superadmin">
+      <Routes>
+        {superAdminRoutes.map(([path, Component]) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
 
 interface RoleRouterProps {
   basename: string
@@ -232,7 +252,9 @@ function LegacyAppRedirect() {
 }
 
 export default function App() {
-  const role = roleFromPath(window.location.pathname)
+  const { pathname } = window.location
+  const role = roleFromPath(pathname)
+  const isSuperAdmin = pathname === '/superadmin' || pathname.startsWith('/superadmin/')
 
   useEffect(() => {
     const splash = document.getElementById('boot-splash')
@@ -251,6 +273,8 @@ export default function App() {
         <RoleRouter basename="/courier" routes={courierRoutes} home="/" />
       ) : role === '/admin' ? (
         <RoleRouter basename="/admin" routes={adminRoutes} home="/" />
+      ) : isSuperAdmin ? (
+        <SuperAdminRouter />
       ) : (
         <WebsiteRouter />
       )}

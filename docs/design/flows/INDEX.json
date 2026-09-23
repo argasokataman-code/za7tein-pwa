@@ -22,7 +22,8 @@
     "f18-order-state": { "type": "lifecycle", "status": "done", "role": "drilldown", "basis": "C-17, DEC-1037", "biz": "partial" },
     "f19-rating-review": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "BRS rating-review-2026-09-22 (proposed) + PO 2026-09-22 + PRD §Tips (tip digabung)", "biz": "partial" },
     "f20-address-zone": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "C-13, C-05, C-07", "biz": "decided" },
-    "f21-account-auth": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PRD §Registrasi (source.md:760) + E.164 (:727) + PO 2026-09-22 (Google + nomor WA, Level 1)", "biz": "decided" }
+    "f21-account-auth": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PRD §Registrasi (source.md:760) + E.164 (:727) + PO 2026-09-22 (Google + nomor WA, Level 1)", "biz": "decided" },
+    "f22-super-admin-sa": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PO 2026-09-23 (cakupan Super Admin, decision-irbid-mvp.md) + C-12 + R-DISPUTE-01 + R-LEDGER-01 + C-13", "biz": "partial" }
   },
   "links": [
     { "from": "f1-order-lifecycle:order", "to": "f2-cod-hold:none->held", "as": "drilldown", "event": "hold_created", "req": "R-COD-01" },
@@ -61,7 +62,11 @@
     { "from": "f20-address-zone:order", "to": "f18-order-state:quotation", "as": "feeds", "event": "order_zone_snapshot", "req": "R-ADDR-01" },
     { "from": "f21-account-auth:order", "to": "f3-wallet-topup", "as": "feeds", "event": "topup_gate_pending", "req": "R-TOPUP-01", "note": "akun baru wajib top-up 3,5 JOD sebelum bisa order" },
     { "from": "f21-account-auth:onboard", "to": "f16-merchant-onboarding", "as": "feeds", "event": "tenant_signup", "req": "PRD §5C + I-2", "note": "nomor WA terverifikasi OTP diserahkan ke onboarding merchant" },
-    { "from": "f21-account-auth:phone", "to": "f11-push-notification", "as": "feeds", "event": "wa_fallback_ready", "req": "R-PUSH-01", "note": "nomor E.164 = tujuan fallback wa.me" }
+    { "from": "f21-account-auth:phone", "to": "f11-push-notification", "as": "feeds", "event": "wa_fallback_ready", "req": "R-PUSH-01", "note": "nomor E.164 = tujuan fallback wa.me" },
+    { "from": "f20-address-zone:zone", "to": "f22-super-admin-sa:zone", "as": "reads", "event": "zone_master_defined", "req": "R-ADDR-01", "note": "poligon Hijazi/Syimali ditentukan SA (f22); merchant hanya mengaktifkan" },
+    { "from": "f15-super-admin:dispute", "to": "f22-super-admin-sa:appeal", "as": "feeds", "event": "verdict_appealed", "req": "R-DISPUTE-01", "note": "putusan sengketa level-1 CS bisa dibanding ke SA" },
+    { "from": "f22-super-admin-sa:appeal", "to": "f8-dispute", "as": "drilldown", "event": "appeal_decided", "req": "R-DISPUTE-01" },
+    { "from": "f7-ledger-liability:ledger", "to": "f22-super-admin-sa:ledger", "as": "feeds", "event": "ledger_monitored", "req": "R-LEDGER-01", "note": "SA memantau read-only; top-up & payout tetap self-service" }
   ],
   "trace": [
     { "req": "R-COD-01", "flows": ["f1-order-lifecycle:order", "f2-cod-hold"], "entities": ["wallet_holds", "wallet_ledgers", "orders"] },
@@ -72,19 +77,20 @@
     { "req": "R-DELIV-01", "flows": ["f5-delivery-verification", "f13-courier-view"], "entities": ["checkpoints", "orders", "wallet_holds"], "unresolved": ["OQ-13", "OQ-14"] },
     { "req": "R-CASHOUT-01", "flows": ["f6-cashout-payout"], "entities": ["cashouts", "wallets"], "unresolved": ["OQ-16", "OQ-22"] },
     { "req": "R-LEDGER-01", "flows": ["f7-ledger-liability", "f17-payment-xendit:paid"], "entities": ["wallet_ledgers", "liabilities"] },
-    { "req": "R-DISPUTE-01", "flows": ["f8-dispute", "f15-super-admin:dispute"], "entities": ["disputes", "protection_fund", "orders"], "unresolved": ["OQ-29", "OQ-30"] },
-    { "req": "R-INCENTIVE-01", "flows": ["f9-incentive"], "entities": ["merchant_credit", "cashback_tiers"], "unresolved": ["I-3", "I-4", "I-5", "I-6"] },
+    { "req": "R-DISPUTE-01", "flows": ["f8-dispute", "f15-super-admin:dispute"], "entities": ["disputes", "protection_fund", "orders"], "unresolved": ["kategori & SLA dispute (OQ-29 sementara)"] },
+    { "req": "R-INCENTIVE-01", "flows": ["f9-incentive"], "entities": ["merchant_credit", "cashback_tiers"], "unresolved": ["I-4", "I-5"] },
     { "req": "R-CURR-01", "flows": ["f10-exchange-rate"], "entities": ["exchange_rates"], "unresolved": ["OQ-26", "OQ-28"] },
     { "req": "R-PUSH-01", "flows": ["f11-push-notification"], "entities": ["push_subscriptions"], "unresolved": ["uji push di device"] },
-    { "req": "MERCHANT-CONSOLE", "flows": ["f1-order-lifecycle:dapur", "f12-merchant-console"], "entities": ["orders", "couriers", "merchant_credit"], "unresolved": ["OQ-30"], "note": "tanpa R-* khusus — sumber plan-merchant.md M0-M7 + C-06/C-07" },
+    { "req": "MERCHANT-CONSOLE", "flows": ["f1-order-lifecycle:dapur", "f12-merchant-console"], "entities": ["orders", "couriers", "merchant_credit"], "unresolved": ["angka SLA (DEC-1037 sementara)"], "note": "tanpa R-* khusus — sumber plan-merchant.md M0-M7 + C-06/C-07" },
     { "req": "C-18 (chat in-app)", "flows": ["f1-order-lifecycle:placed", "f14-chat-order"], "entities": ["chats", "chat_messages"], "unresolved": ["retensi chat (N hari)"], "note": "tanpa R-* — dasar C-18 + C-12; skema draft hanya nama field" },
-    { "req": "C-12 (panel CS; Super Admin terpisah sejak 2026-09-23) — approval", "flows": ["f15-super-admin:queue", "f15-super-admin:deposit", "f15-super-admin:blacklist", "f16-merchant-onboarding"], "entities": ["merchants", "deposits", "users"], "unresolved": ["OQ-30"], "note": "tanpa R-* — dasar C-12 + PRD §5C (deposit 3,50 JOD)" },
+    { "req": "C-12 (panel CS; Super Admin terpisah sejak 2026-09-23) — approval", "flows": ["f15-super-admin:queue", "f15-super-admin:deposit", "f15-super-admin:blacklist", "f16-merchant-onboarding"], "entities": ["merchants", "deposits", "users"], "unresolved": ["jadwal settlement liability"], "note": "tanpa R-* — dasar C-12 + PRD §5C (deposit 3,50 JOD)" },
     { "req": "C-12 (panel CS; Super Admin terpisah sejak 2026-09-23) — monitoring", "flows": ["f15-super-admin:liability", "f15-super-admin:escalate"], "entities": ["wallet_ledgers", "incident_resolutions", "orders"], "unresolved": ["angka SLA (DEC-1037)"], "note": "liability = customer + merchant + tips kurir (bukan gaji kurir)" },
-    { "req": "PRD §5C + I-2 (merchant onboarding)", "flows": ["f16-merchant-onboarding"], "entities": ["merchants", "deposits", "couriers", "merchant_credit"], "unresolved": ["I-3", "I-5"], "note": "deposit 3,50 JOD + kredit Founding 5 JOD (terpisah, I-2)" },
+    { "req": "PRD §5C + I-2 (merchant onboarding)", "flows": ["f16-merchant-onboarding"], "entities": ["merchants", "deposits", "couriers", "merchant_credit"], "unresolved": ["I-5"], "note": "deposit 3,50 JOD + kredit Founding 5 JOD (terpisah, I-2)" },
     { "req": "C-01 + DEC-1039 (payment)", "flows": ["f1-order-lifecycle:checkout", "f17-payment-xendit"], "entities": ["orders", "wallet_ledgers", "topups"], "unresolved": ["idempotency key", "webhook retry", "VA expiry"], "note": "tanpa R-* — dasar C-01 + DEC-1039 + OQ-25" },
     { "req": "C-17 (order state)", "flows": ["f1-order-lifecycle", "f18-order-state"], "entities": ["orders", "batches"], "unresolved": ["quotation vs placed"], "note": "enum 9 status + hold_status + state dispute" },
     { "req": "R-RATE-01", "flows": ["f18-order-state:done", "f19-rating-review"], "entities": ["rating_reviews", "review_replies"], "unresolved": ["jendela pengisian", "edit/hapus", "tag cepat", "batas balasan", "moderasi", "ambang rata-rata"] },
     { "req": "R-ADDR-01", "flows": ["f16-merchant-onboarding:profil", "f20-address-zone"], "entities": ["addresses", "merchants", "orders"], "unresolved": ["master zona (f15)"], "note": "zona Hijazi/Syimali ≤2 km (C-13)" },
-    { "req": "PRD §Registrasi (Level 1)", "flows": ["f21-account-auth:method", "f21-account-auth:phone", "f21-account-auth:verify"], "entities": ["users", "phone_verifications"], "unresolved": ["Google untuk merchant/kurir", "sesi/token & PIN", "verifikasi otomatis (Level 2)"], "note": "PO 2026-09-22: login Google + nomor WA wajib (validasi format); E.164 (source.md:727, :760)" }
+    { "req": "PRD §Registrasi (Level 1)", "flows": ["f21-account-auth:method", "f21-account-auth:phone", "f21-account-auth:verify"], "entities": ["users", "phone_verifications"], "unresolved": ["Google untuk merchant/kurir", "sesi/token & PIN", "verifikasi otomatis (Level 2)"], "note": "PO 2026-09-22: login Google + nomor WA wajib (validasi format); E.164 (source.md:727, :760)" },
+    { "req": "PO 2026-09-23 (cakupan Super Admin)", "flows": ["f22-super-admin-sa:zone", "f22-super-admin-sa:roles", "f22-super-admin-sa:tax", "f22-super-admin-sa:profit", "f22-super-admin-sa:switch", "f22-super-admin-sa:audit", "f22-super-admin-sa:appeal"], "entities": ["zones", "roles", "operators", "audit_logs", "tax_reports", "platform_profit", "platform_switches"], "unresolved": ["tarif pajak final (OQ-2/3/4, OQ-17/18)", "jumlah operator konkret (OQ-30 sebagian)", "jadwal settlement liability"], "note": "tanpa R-* — dasar keputusan PO + C-12; SA bukan approver top-up/payout, dana user = liability" }
   ]
 }

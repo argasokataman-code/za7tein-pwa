@@ -38,4 +38,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '31', id: 'incentive', label: 'Insentif Merchant — Modal & Cashback Tier' },
   { num: '32', id: 'address-zone', label: 'Alamat & Zona — Hijazi / Syimali' },
   { num: '33', id: 'consistency', label: 'Konsistensi Lintas Role & Kontrak BE' },
+  { num: '34', id: 'superadmin', label: 'Konsol Super Admin (SA)' },
 ]

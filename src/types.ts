@@ -509,3 +509,121 @@ export interface AdminEscalation {
   detail: string
   minutesLate: number
 }
+
+// ── Konsol Super Admin (role terpisah, website penuh non-PWA) ───────────────
+// Cakupan dari keputusan PO 2026-09-23 (`decision-irbid-mvp.md`). Repo ini
+// front-end saja: semua angka di bawah adalah mock yang ditampilkan.
+
+/**
+ * Poligon zona master, digambar di kanvas skematik (0..100), bukan peta
+ * geografis: repo ini tidak memakai tile eksternal (AGENTS.md §6), dan
+ * poligon sebenarnya ditentukan server. Layar SA hanya menampilkan & menggeser
+ * titik, lalu menyimpan — geometri aslinya milik backend.
+ */
+export interface ZoneGeometry {
+  id: ZoneId
+  label: string
+  note: string
+  vertices: { x: number; y: number }[]
+}
+
+/** Satu izin yang bisa diberikan ke role. `group` hanya untuk pengelompokan UI. */
+export interface SaPermission {
+  id: string
+  label: string
+  group: 'platform' | 'operasi'
+}
+
+/**
+ * Role operator. `scope: 'sa'` = konsol ini; `scope: 'cs'` = panel CS
+ * (`/admin/*`). Akun CS dibuat SA (OQ-30, PO 2026-09-23), bukan self-service.
+ */
+export interface SaRole {
+  id: string
+  name: string
+  scope: 'sa' | 'cs'
+  permissionIds: string[]
+  /** Role pemilik platform: izinnya tidak bisa dicabut dari UI. */
+  locked: boolean
+}
+
+/** Operator (akun) yang dibuat SA; role menentukan izinnya. */
+export interface SaOperator {
+  id: string
+  name: string
+  contact: string
+  roleId: string
+  createdAt: string
+  status: 'active' | 'invited' | 'suspended'
+}
+
+/** Jenis aksi yang tercatat di audit trail — dipakai filter di layar. */
+export type AuditKind =
+  | 'onboarding'
+  | 'dispute'
+  | 'merchant'
+  | 'zone'
+  | 'role'
+  | 'operator'
+  | 'tax'
+  | 'profit'
+  | 'switch'
+  | 'escalate'
+
+/** Entry audit trail; append-only, satu baris per aksi SA maupun CS. */
+export interface AuditEntry {
+  id: string
+  at: string
+  actor: string
+  actorRole: 'sa' | 'cs'
+  kind: AuditKind
+  /** Kalimat aksi yang sudah siap tampil, mis. "Setujui deposit tenant". */
+  action: string
+  /** Objek yang kena aksi, mis. order code atau nama merchant. */
+  target: string
+}
+
+/**
+ * Laporan pajak aplikasi per periode (PO 2026-09-23). Dua objek berbeda:
+ * GST makanan ditanggung merchant atas penjualan (info-only), sedangkan PPh
+ * final 0,5% atas fee platform adalah beban platform.
+ */
+export interface TaxReportRow {
+  period: string
+  orders: number
+  /** Penjualan bruto merchant, IDR. */
+  salesIdr: number
+  /** Fee platform terkumpul (0,37 JOD/order), JOD. */
+  feeGrossJod: number
+  /** GST atas objek fee platform (16%), JOD — belum dipungut (OQ-17). */
+  gstOnFeeJod: number
+  /** PPh final 0,5% atas fee platform, JOD. */
+  pphFinalJod: number
+}
+
+/** Penarikan saldo keuntungan platform. Hanya dana ini yang boleh ditarik SA. */
+export interface ProfitWithdrawal {
+  id: string
+  at: string
+  amountJod: number
+  method: string
+  status: 'settled' | 'processing'
+}
+
+/** Saldo keuntungan platform: fee terkumpul dikurangi biaya, pajak, penarikan. */
+export interface ProfitState {
+  feeGrossJod: number
+  costJod: number
+  pphFinalJod: number
+  withdrawals: ProfitWithdrawal[]
+}
+
+/**
+ * Kill switch platform. `true` = jalur normal hidup; `false` = jalur
+ * dihentikan. Maintenance memblokir seluruh order baru.
+ */
+export interface PlatformSwitches {
+  cod: boolean
+  payout: boolean
+  maintenance: boolean
+}

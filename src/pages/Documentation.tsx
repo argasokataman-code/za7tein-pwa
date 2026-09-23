@@ -20,6 +20,7 @@ import { CodHoldSection } from './documentation/sections/CodHoldSection'
 import { DeliveryCheckpointSection } from './documentation/sections/DeliveryCheckpointSection'
 import { DisputeSection } from './documentation/sections/DisputeSection'
 import { ConsistencySection } from './documentation/sections/ConsistencySection'
+import { SuperAdminSection } from './documentation/sections/SuperAdminSection'
 import { AddressZoneSection } from './documentation/sections/AddressZoneSection'
 import { IncentiveSection } from './documentation/sections/IncentiveSection'
 import { LedgerSection } from './documentation/sections/LedgerSection'
@@ -69,6 +70,7 @@ const SECTIONS = [
   IncentiveSection,
   AddressZoneSection,
   ConsistencySection,
+  SuperAdminSection,
 ]
 
 const HERO_TAGS = [
@@ -116,7 +118,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.21.0
+              v2.22.0
             </span>
             <span>
               React 19 · Vite · TypeScript
@@ -154,7 +156,7 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan PWA Sa7tein: tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin — panel admin yang dikelola CS). Super Admin adalah role terpisah, kelak berupa website penuh non-PWA. Landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
+              Panduan PWA Sa7tein: tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin — panel admin yang dikelola CS). Super Admin adalah role terpisah: website penuh non-PWA di /superadmin. Landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat.
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (

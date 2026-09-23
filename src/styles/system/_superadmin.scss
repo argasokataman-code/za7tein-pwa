@@ -1,0 +1,531 @@
+@use "./mixins" as *;
+
+/* ── Konsol Super Admin (role terpisah, website penuh non-PWA) ───────────────
+   Cakupan & keputusan PO 2026-09-23: `docs/product/prd/decision-irbid-mvp.md`.
+   Pengecualian lebar: konsol ini TIDAK memakai kolom 430px karena dipakai
+   sebagai dashboard bertabel dari desktop; pengecualiannya dicatat di
+   `/documentation` (AGENTS.md §9). Semua nilai lewat token. */
+
+/* `body > div` (cocok dengan #root) mengunci max-width 430px untuk SEMUA rute;
+   batalkan hanya saat #root memuat konsol SA — pola yang sama dengan .doc-root. */
+body > div:has(.sa-root) {
+  max-width: none;
+  margin: 0;
+}
+
+.sa-root {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  min-height: 100dvh;
+  background: var(--bg-warm);
+  color: var(--text-primary);
+}
+
+.sa-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 700;
+
+  &:focus-visible {
+    left: var(--space-4);
+    top: var(--space-4);
+    z-index: 10;
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────────── */
+
+.sa-side {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  height: 100dvh;
+  padding: var(--space-6) var(--space-4);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+
+.sa-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-inline: var(--space-2);
+}
+
+.sa-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.sa-brand-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+
+  strong {
+    font-size: var(--text-base);
+    font-weight: 800;
+  }
+
+  span {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+  }
+}
+
+.sa-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+}
+
+.sa-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--motion-fast) var(--ease-out),
+    color var(--motion-fast) var(--ease-out);
+
+  &:hover {
+    background: var(--orange-soft);
+    color: var(--orange-soft-ink);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+
+  &.is-active {
+    background: var(--orange-soft);
+    color: var(--orange-soft-ink);
+  }
+}
+
+.sa-side-foot {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sa-side-label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.sa-side-actor {
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.sa-side-role {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.sa-side-link {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--orange-ink);
+  text-decoration: none;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+}
+
+/* ── Body & header ─────────────────────────────────────────────────────── */
+
+.sa-body {
+  min-width: 0;
+  padding: var(--space-6) var(--space-7) var(--space-8);
+}
+
+.sa-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.sa-top-eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.sa-top-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.sa-top-hint {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.sa-top-badge {
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.sa-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 1180px;
+}
+
+/* ── Kartu ─────────────────────────────────────────────────────────────── */
+
+.sa-hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+.sa-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+.sa-card {
+  @include card-surface;
+  padding: var(--space-5);
+}
+
+.sa-card--brand {
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+
+  .sa-card-label,
+  .sa-card-sub {
+    color: var(--on-brand);
+    opacity: 0.94;
+  }
+}
+
+.sa-card-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.sa-card-value {
+  margin: var(--space-2) 0 var(--space-1);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.sa-card-value--plain {
+  color: var(--text-primary);
+}
+
+.sa-card-sub {
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.sa-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--on-brand);
+  color: var(--orange-soft-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--on-brand);
+    outline-offset: 3px;
+  }
+}
+
+.sa-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--space-3);
+  min-height: 32px;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--orange-ink);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+}
+
+/* ── Statistik ─────────────────────────────────────────────────────────── */
+
+.sa-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.sa-stat {
+  @include card-surface;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  color: var(--orange-ink);
+  text-decoration: none;
+
+  &:hover {
+    border-color: var(--border-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+}
+
+.sa-stat-value {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.sa-stat-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Daftar nilai & chip ───────────────────────────────────────────────── */
+
+.sa-kv {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.sa-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+
+.sa-chip {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  font-weight: 700;
+
+  &.is-ok {
+    background: var(--green-soft);
+    color: var(--success-ink);
+  }
+
+  &.is-off {
+    background: var(--red-soft);
+    color: var(--danger-ink);
+  }
+}
+
+/* ── Feed audit ────────────────────────────────────────────────────────── */
+
+.sa-feed {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-3);
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--border);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.sa-dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+
+  &.sa-dot--cs {
+    background: var(--text-secondary);
+  }
+}
+
+.sa-feed-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  strong {
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  span {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+  }
+}
+
+.sa-feed-at {
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Lebar sempit: sidebar jadi bilah atas ─────────────────────────────── */
+
+@media (max-width: 900px) {
+  .sa-root {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sa-side {
+    position: static;
+    height: auto;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sa-nav {
+    flex-direction: row;
+    gap: var(--space-2);
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: var(--space-1);
+  }
+
+  .sa-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sa-nav-item {
+    flex-shrink: 0;
+    padding-inline: var(--space-3);
+  }
+
+  .sa-side-foot {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: 0;
+    padding-top: var(--space-3);
+  }
+
+  .sa-side-label,
+  .sa-side-role {
+    display: none;
+  }
+
+  .sa-side-link {
+    margin-top: 0;
+  }
+
+  .sa-body {
+    padding: var(--space-5) var(--space-5) var(--space-8);
+  }
+
+  .sa-top {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+}

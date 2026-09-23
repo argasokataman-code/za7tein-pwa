@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, type Middleware } from '@reduxjs/toolkit'
 import {
   FLUSH,
   PAUSE,
@@ -11,6 +11,8 @@ import {
 } from 'redux-persist'
 
 import { menuSeed } from '../data/catalog'
+import { DISPUTE_RESOLUTION_LABEL } from '../data/admin'
+import { CS_CURRENT_ACTOR } from '../data/superadmin'
 import { mockUser } from '../data/user'
 
 import auth from './slices/authSlice'
@@ -22,8 +24,10 @@ import merchant from './slices/merchantSlice'
 import courier from './slices/courierSlice'
 import wallet from './slices/walletSlice'
 import admin from './slices/adminSlice'
+import superAdmin, { logAudit } from './slices/superAdminSlice'
 import notifications from './slices/notificationsSlice'
 import ui from './slices/uiSlice'
+import type { AuditKind, DisputeResolution } from '../types'
 
 // Minimal localStorage-backed storage so we don't depend on redux-persist's
 // CJS entry point, which Vite struggles to pre-bundle.
@@ -42,6 +46,7 @@ const rootReducer = combineReducers({
   courier,
   wallet,
   admin,
+  superAdmin,
   notifications,
   ui,
   accountSetup,
@@ -51,11 +56,13 @@ const rootReducer = combineReducers({
 // Key persist milik Sa7tein.
 // `admin` ikut persist sejak M6: putusan sengketa dan entry ledger harus terbaca
 // lintas role (customer → panel CS), dan perpindahan role me-reload halaman.
+// `superAdmin` ikut persist sejak konsol SA dibangun: konfigurasi zona, role,
+// operator, kill switch, dan audit trail harus bertahan lintas reload.
 const persistConfig = {
   key: 'sa7tein',
   version: 2,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin', 'superAdmin'],
 }
 
 /**
@@ -123,6 +130,79 @@ repairPersistedCart()
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
+/**
+ * Jembatan audit: tiap aksi panel CS (`admin/*`) menulis satu baris ke audit
+ * trail SA. Ditaruh di middleware, bukan di 8 reducer/halaman CS, supaya tidak
+ * ada aksi CS yang lolos pengawasan dan halaman CS tidak perlu disentuh.
+ */
+interface CsAuditRule {
+  kind: AuditKind
+  action: string | ((payload: any) => string)
+  target: (payload: any, state: RootState) => string
+}
+
+const CS_AUDIT_RULES: Record<string, CsAuditRule> = {
+  'admin/approveDeposit': {
+    kind: 'onboarding',
+    action: 'Setujui deposit tenant, status jadi Aktif',
+    target: (p, s) => s.admin.tenants.find((t) => t.id === p.id)?.name ?? p.id,
+  },
+  'admin/rejectOnboarding': {
+    kind: 'onboarding',
+    action: 'Tolak onboarding tenant',
+    target: (p, s) => s.admin.tenants.find((t) => t.id === p.id)?.name ?? p.id,
+  },
+  'admin/suspendMerchant': {
+    kind: 'merchant',
+    action: 'Suspend merchant',
+    target: (p, s) => s.admin.merchants.find((m) => m.id === p.id)?.name ?? p.id,
+  },
+  'admin/blacklistCod': {
+    kind: 'merchant',
+    action: 'Blacklist COD merchant + tandai riskFlag customer',
+    target: (p, s) =>
+      `${s.admin.merchants.find((m) => m.id === p.id)?.name ?? p.id} · ${p.customerName}`,
+  },
+  'admin/startInvestigation': {
+    kind: 'dispute',
+    action: 'Mulai investigasi sengketa',
+    target: (p, s) => s.admin.disputes.find((d) => d.id === p.id)?.orderCode ?? p.id,
+  },
+  'admin/resolveDispute': {
+    kind: 'dispute',
+    action: (p) =>
+      `Putusan level-1: ${DISPUTE_RESOLUTION_LABEL[p.resolution as DisputeResolution] ?? p.resolution}`,
+    target: (p, s) => s.admin.disputes.find((d) => d.id === p.id)?.orderCode ?? p.id,
+  },
+  'admin/fileDispute': {
+    kind: 'dispute',
+    action: 'Sengketa baru diajukan',
+    target: (p) => p.orderCode,
+  },
+  'admin/clearEscalation': {
+    kind: 'escalate',
+    action: 'Tindak alert SLA',
+    target: (p, s) => s.admin.escalations.find((e) => e.id === p.id)?.orderCode ?? p.id,
+  },
+}
+
+const auditBridge: Middleware = (api) => (next) => (action) => {
+  const result = next(action)
+  const rule = CS_AUDIT_RULES[(action as { type?: string }).type ?? '']
+  if (rule) {
+    const payload = (action as { payload?: any }).payload ?? {}
+    api.dispatch(
+      logAudit({
+        actor: CS_CURRENT_ACTOR.name,
+        kind: rule.kind,
+        action: typeof rule.action === 'function' ? rule.action(payload) : rule.action,
+        target: rule.target(payload, api.getState() as RootState),
+      }),
+    )
+  }
+  return result
+}
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -130,7 +210,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(auditBridge),
 })
 
 export const persistor = persistStore(store)

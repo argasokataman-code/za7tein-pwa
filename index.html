@@ -13,8 +13,17 @@
     <script>
       // Manifest per peran: tiap prefix punya identitas sendiri supaya bisa
       // diinstall sebagai aplikasi terpisah dari situs dan dari peran lain.
+      // `/superadmin` sengaja TIDAK di sini: konsol itu website penuh non-PWA
+      // (keputusan PO 2026-09-23), jadi manifest-nya dilepas supaya browser
+      // tidak menawarkan install.
       (function () {
         var names = { customer: 'Sa7tein', merchant: 'Sa7tein Merchant', courier: 'Sa7tein Kurir', admin: 'Sa7tein Admin' };
+        if (location.pathname === '/superadmin' || location.pathname.indexOf('/superadmin/') === 0) {
+          var link = document.getElementById('app-manifest');
+          if (link) link.parentNode.removeChild(link);
+          document.documentElement.setAttribute('data-role', 'superadmin');
+          return;
+        }
         var roles = Object.keys(names);
         for (var i = 0; i < roles.length; i++) {
           var role = roles[i];

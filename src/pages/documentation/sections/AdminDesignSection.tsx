@@ -79,8 +79,9 @@ export function AdminDesignSection() {
         — all built here. CS does <em>not</em> configure the platform: master delivery
         zones, roles and permissions, app tax reports, the platform profit balance and
         the kill switch belong to <strong>Super Admin</strong>, a separate full website
-        (non-PWA, prefix <code className="doc-inline">/superadmin</code>) that is scoped
-        but not built yet. SA supervises CS through the audit trail and handles appeals.
+        (non-PWA, prefix <code className="doc-inline">/superadmin</code>) that is built as
+        its own console (section 34). SA supervises CS through the audit trail and
+        handles appeals.
         Top-up and payout stay self-service for customer and merchant — never an
         approval step here.
       </p>

@@ -100,6 +100,14 @@ export function resolvedOrderToken(resolution: DisputeResolution): string {
   { id: 'no_action', label: 'Tolak', effect: 'Tanpa ubah saldo' },
 ]
 
+/** Label singkat resolusi untuk audit trail SA (huruf kecil, siap tampil). */
+export const DISPUTE_RESOLUTION_LABEL: Record<DisputeResolution, string> = {
+  refund_full: 'refund penuh',
+  refund_partial: 'refund sebagian',
+  released: 'release ke merchant',
+  no_action: 'tolak',
+}
+
 export const mockLiability: LiabilitySummary = {
   customerWallets: 128.4,
   merchantWallets: 86.75,

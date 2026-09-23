@@ -1116,6 +1116,560 @@
         }
       ],
       "loc": "docs/product/prd/decision-irbid-mvp.md:20"
+    },
+    {
+      "id": "TASK-2902",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:45:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/types.ts (+125/-8) — edit via tool: ts: /** Alert SLA breach yang naik ke SA (`b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/types.ts"
+    },
+    {
+      "id": "TASK-2903",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:46:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/superadmin.ts (+399) — write via tool: ts: import type {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/superadmin.ts"
+    },
+    {
+      "id": "TASK-2904",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:46:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/slices/superAdminSlice.ts (+186) — write via tool: ts: import { createSlice, type PayloadAction",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/slices/superAdminSlice.ts"
+    },
+    {
+      "id": "TASK-2905",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:47:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/superadmin.ts (+8/-1) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/superadmin.ts"
+    },
+    {
+      "id": "TASK-2906",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:47:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/index.ts (+16/-14) — edit via tool: ts: import { menuSeed } from '../data/catalo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/index.ts"
+    },
+    {
+      "id": "TASK-2907",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:47:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/types.ts (+4/-3) — edit via tool: ts: | 'tax'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/types.ts"
+    },
+    {
+      "id": "TASK-2908",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:47:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/admin.ts (+1/-2) — edit via tool: ts: export const mockLiability: LiabilitySum",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2909",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:48:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/admin.ts (+11/-2) — edit via tool: ts: /** Label singkat resolusi untuk audit t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/admin.ts"
+    },
+    {
+      "id": "TASK-2910",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:48:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/index.ts (+1/-1) — edit via tool: ts: import { combineReducers, configureStore",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/index.ts"
+    },
+    {
+      "id": "TASK-2911",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:48:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/layout/SuperAdminShell.tsx (+113) — write via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/layout/SuperAdminShell.tsx"
+    },
+    {
+      "id": "TASK-2912",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:49:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/SaDashboard.tsx (+178) — write via tool: tsx: import { ArrowUpRight, Coins, Lock, Scro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/SaDashboard.tsx"
+    },
+    {
+      "id": "TASK-2913",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:49:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_superadmin.scss (+532) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_superadmin.scss"
+    },
+    {
+      "id": "TASK-2914",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:49:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_system.scss (+3/-2) — edit via tool: @use \"./system/wallet\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-2915",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:50:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/App.tsx (+29/-10) — edit via tool: tsx: // Panel admin (CS) — dipasang di /admin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/App.tsx"
+    },
+    {
+      "id": "TASK-2916",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:50:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: index.html (+26/-17) — edit via tool: <script>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "index.html"
+    },
+    {
+      "id": "TASK-2917",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:50:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/layout/SuperAdminShell.tsx (+3/-2) — edit via tool: tsx: import type { ReactNode } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/layout/SuperAdminShell.tsx"
+    },
+    {
+      "id": "TASK-2918",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:51:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/SuperAdminSection.tsx (+86) — write via tool: tsx: import { DocCode } from '../DocCode'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-2919",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:51:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/nav.ts (+3/-2) — edit via tool: ts: { num: '33', id: 'consistency', label: '",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-2920",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:51:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { ConsistencySection } from './do",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-2921",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:51:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AdminDesignSection.tsx (+4/-3) — edit via tool: tsx: the kill switch belong to <strong>Super ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AdminDesignSection.tsx"
+    },
+    {
+      "id": "TASK-2922",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:52:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -12 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2923",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:52:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2924",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:52:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/index.ts (+5/-5) — edit via tool: ts: interface CsAuditRule {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/index.ts"
+    },
+    {
+      "id": "TASK-2925",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:52:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -12 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2926",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:53:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f22-super-admin-sa/f22-super-admin-sa.json (+284) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f22-super-admin-sa/f22-super-admin-sa.json"
+    },
+    {
+      "id": "TASK-2927",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:54:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f22-super-admin-sa/README.md (+63) — write via tool: # F22 — Konsol Super Admin (SA)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f22-super-admin-sa/README.md"
+    },
+    {
+      "id": "TASK-2928",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:54:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+3/-2) — edit via tool: \"f21-account-auth\": { \"type\": \"workflow\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-2929",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "08:59:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && rtk npm run governance:check; echo \"gov=$?\"; npm run lint 2>&1 | tail -3; npm run b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-2930",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-23",
+      "time": "09:01:42",
+      "tags": [
+        "superadmin",
+        "sa-1",
+        "shell",
+        "data"
+      ],
+      "summary": "M-SA-1: kerangka konsol SA /superadmin (shell penuh + data + Ringkasan), flow f22, jembatan audit CS",
+      "conn": [
+        {
+          "id": "DEC-2890",
+          "type": "implements",
+          "raw": "DEC-2890:implements"
+        }
+      ],
+      "loc": "src/components/layout/SuperAdminShell.tsx:1"
     }
   ]
 }
