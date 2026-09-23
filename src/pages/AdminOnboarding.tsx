@@ -5,6 +5,7 @@ import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { depositStatusLabel, jod, tenantStatusLabel } from '../data/admin'
+import { activeZonesLabel } from '../data/merchant'
 import { approveDeposit, rejectOnboarding } from '../store/slices/adminSlice'
 import type { AdminTenant } from '../types'
 
@@ -51,7 +52,7 @@ export default function AdminOnboarding() {
                   <li>
                     <MapPinned size={16} strokeWidth={1.75} aria-hidden="true" />
                     {tenant.city} · radius {tenant.deliveryConfig.maxKm} km · zona{' '}
-                    {tenant.deliveryConfig.zones}
+                    {activeZonesLabel(tenant.deliveryConfig)}
                   </li>
                   <li>
                     <Image size={16} strokeWidth={1.75} aria-hidden="true" />

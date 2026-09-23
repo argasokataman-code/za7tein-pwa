@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { formatDistance, money } from '../data/merchant'
+import { formatDistance, money, zoneLabel } from '../data/merchant'
 import { QUEUE_TABS, ordersForStatuses, orderStatusLabel, type QueueTabId } from '../data/merchantOrders'
 import { setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
 
@@ -94,7 +94,7 @@ export default function MerchantOrders() {
               </ul>
 
               <p className="merchant-order-meta">
-                {order.address} · {formatDistance(order.distanceMeters)} · Zona {order.zone} ·{' '}
+                {order.address} · {formatDistance(order.distanceMeters)} · Zona {zoneLabel(order.zone)} ·{' '}
                 {order.paymentMethod === 'cod' ? 'COD' : 'Transfer'}
               </p>
               <p className="merchant-order-total">Total {money(order.total)}</p>

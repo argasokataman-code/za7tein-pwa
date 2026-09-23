@@ -36,5 +36,6 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '29', id: 'push', label: 'Nomor WA & Push (Mock)' },
   { num: '30', id: 'ledger', label: 'Ledger & Liability' },
   { num: '31', id: 'incentive', label: 'Insentif Merchant — Modal & Cashback Tier' },
-  { num: '32', id: 'consistency', label: 'Konsistensi Lintas Role & Kontrak BE' },
+  { num: '32', id: 'address-zone', label: 'Alamat & Zona — Hijazi / Syimali' },
+  { num: '33', id: 'consistency', label: 'Konsistensi Lintas Role & Kontrak BE' },
 ]

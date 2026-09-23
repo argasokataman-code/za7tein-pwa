@@ -1,15 +1,19 @@
 import type {
+  Address,
   Courier,
   DeliveryZone,
   HoldEventName,
   HoldStatus,
   Merchant,
+  MerchantDeliveryConfig,
   OrderStage,
   PaymentMethod,
+  ZoneId,
 } from '../types'
 
 import { jodToIdr } from './currency'
 
+/** Batas keras PRD: alamat >2 km Haversine dari dapur tidak dilayani (`C-13`). */
 export const MAX_DELIVERY_METERS = 2000
 
 /**
@@ -64,12 +68,32 @@ export function needsTopUpGate(availableIdr: number): boolean {
   return availableIdr < MIN_TOPUP_NEW_ACCOUNT_IDR
 }
 
-/** Zona pengantaran — tarif naik seiring radius (PRD bab 04). */
+/**
+ * Dua zona pengantaran PRD v2 (`C-13`, flow F20): Hijazi (pemukiman barat) &
+ * Syimali (utara kampus). Merchant hanya melayani zona yang ia aktifkan, dan
+ * hanya untuk alamat ≤2 km Haversine dari dapurnya.
+ */
 export const DELIVERY_ZONES: DeliveryZone[] = [
-  { id: 'A', label: 'Zona A', range: '< 600 m', fee: 5000 },
-  { id: 'B', label: 'Zona B', range: '600 m – 1,5 km', fee: 9000 },
-  { id: 'C', label: 'Zona C', range: '1,5 km – 2 km', fee: 13000 },
+  { id: 'hijazi', label: 'Hijazi', area: 'pemukiman barat' },
+  { id: 'syimali', label: 'Syimali', area: 'utara kampus' },
 ]
+
+/**
+ * Konfigurasi pengantaran merchant contoh (F20/F16). Di produksi ini dihitung
+ * server; di sini tampilan mock. Ongkir **100% merchant** (`C-07`) — platform
+ * tidak mengambil bagian.
+ *
+ * `ongkirIdr` adalah angka placeholder: nominal ongkir final belum diputuskan
+ * (flow F20 menandai tier `feeByDistance`/`feeByArea` sebagai UNRESOLVED), jadi
+ * jangan dikutip sebagai tarif aktif.
+ */
+export const merchantDeliveryConfig: MerchantDeliveryConfig = {
+  mode: 'area',
+  maxKm: 2,
+  isActiveHijazi: true,
+  isActiveSyimali: true,
+  ongkirIdr: 5000,
+}
 
 /** Metode bayar PRD v2 — saldo wallet dulu; COD & transfer legacy tetap ada (OQ-25). */
 export const PAYMENT_METHODS: PaymentMethod[] = [
@@ -107,14 +131,15 @@ export const mockMerchant: Merchant = {
 
 /**
  * Pin bawaan untuk alamat yang baru ditambahkan, sebelum pengguna menggeser
- * pin di peta. Sengaja di dalam Zona A (540 m < 600 m) supaya alamat baru
- * selalu bisa diantar; kalau angkanya diubah, jaraknya harus ikut dijaga agar
- * tetap satu zona dengan distanceMeters.
+ * pin di peta. Sengaja di dalam coverage (540 m < 2 km, zona Hijazi aktif)
+ * supaya alamat baru selalu bisa diantar; kalau angkanya diubah, `zone` dan
+ * `distanceMeters` harus ikut dijaga agar tetap konsisten.
  */
 export const DEFAULT_NEW_ADDRESS_PIN = {
   lat: -6.2575,
   lng: 106.7812,
   distanceMeters: 540,
+  zone: 'hijazi',
 } as const
 
 /** Kurir toko bersifat eksklusif milik satu merchant (PRD bab 04). */
@@ -157,12 +182,38 @@ export function formatDistance(meters: number): string {
   return meters < 1000 ? `${meters} m` : `${(meters / 1000).toFixed(1).replace('.', ',')} km`
 }
 
-/** Zona untuk sebuah jarak, atau null kalau di luar jangkauan kurir toko. */
-export function zoneFor(meters: number): DeliveryZone | null {
-  if (meters > MAX_DELIVERY_METERS) return null
-  if (meters < 600) return DELIVERY_ZONES[0]
-  if (meters <= 1500) return DELIVERY_ZONES[1]
-  return DELIVERY_ZONES[2]
+/** Label zona untuk daftar (mis. `Zona Syimali`), aman kalau id tak dikenal. */
+export function zoneLabel(id: ZoneId): string {
+  return DELIVERY_ZONES.find((z) => z.id === id)?.label ?? id
+}
+
+/** Daftar zona yang diaktifkan merchant, mis. `Hijazi, Syimali` (panel CS). */
+export function activeZonesLabel(config: MerchantDeliveryConfig): string {
+  const zones = [
+    config.isActiveHijazi ? 'Hijazi' : null,
+    config.isActiveSyimali ? 'Syimali' : null,
+  ].filter(Boolean)
+  return zones.length ? zones.join(', ') : 'Belum ada zona'
+}
+
+/**
+ * Zona aktif untuk sebuah alamat, atau null kalau di luar coverage (F20).
+ * Coverage lolos hanya kalau: alamat punya zona hasil validasi server, jarak
+ * ≤ `maxKm` Haversine, DAN merchant mengaktifkan zona itu (`C-13`).
+ */
+export function zoneFor(
+  address: Pick<Address, 'zone' | 'distanceMeters'>,
+): DeliveryZone | null {
+  const { zone } = address
+  if (!zone) return null
+  const limit = Math.min(MAX_DELIVERY_METERS, merchantDeliveryConfig.maxKm * 1000)
+  if (address.distanceMeters > limit) return null
+  const active =
+    zone === 'hijazi'
+      ? merchantDeliveryConfig.isActiveHijazi
+      : merchantDeliveryConfig.isActiveSyimali
+  if (!active) return null
+  return DELIVERY_ZONES.find((z) => z.id === zone) ?? null
 }
 
 /** Jarak geodesik dua koordinat, dipakai memvalidasi pin peta. */
@@ -181,13 +232,16 @@ export function haversineMeters(
   return Math.round(2 * R * Math.asin(Math.sqrt(h)))
 }
 
-/** Ongkir hanya masuk kas merchant kalau alamatnya masih dalam zona. */
-export function deliveryFeeFor(meters: number): number {
-  return zoneFor(meters)?.fee ?? 0
+/**
+ * Ongkir untuk sebuah alamat — masuk kas merchant, bukan platform (`C-07`).
+ * Nol kalau alamat di luar coverage: order tidak jalan, jadi tak ada ongkir.
+ */
+export function deliveryFeeFor(address: Pick<Address, 'zone' | 'distanceMeters'>): number {
+  return zoneFor(address) ? merchantDeliveryConfig.ongkirIdr : 0
 }
 
-export function isDeliverable(meters: number): boolean {
-  return meters <= MAX_DELIVERY_METERS
+export function isDeliverable(address: Pick<Address, 'zone' | 'distanceMeters'>): boolean {
+  return zoneFor(address) !== null
 }
 
 /**

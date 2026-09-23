@@ -8,7 +8,7 @@ import { DeliveryActionCard, DeliveryStepper } from '../components/DeliveryCheck
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useTick } from '../hooks/useTick'
-import { formatDistance, money } from '../data/merchant'
+import { formatDistance, money, zoneLabel } from '../data/merchant'
 import {
   COURIER_ACTION_LABEL,
   COURIER_GUARD_MINUTES,
@@ -89,7 +89,7 @@ export default function CourierTaskDetail() {
             </div>
           </div>
           <p className="courier-task-meta">
-            {formatDistance(task.distanceMeters)} · Zona {task.zone} ·{' '}
+            {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)} ·{' '}
             {task.paymentMethod === 'cod' ? `COD ${money(task.total)}` : `Transfer ${money(task.total)}`}
           </p>
           <p className="courier-task-meta">

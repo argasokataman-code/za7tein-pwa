@@ -25,6 +25,7 @@ export const mockUser: User = {
       lat: -6.257,
       lng: 106.7818,
       distanceMeters: 420,
+      zone: 'hijazi',
     },
     {
       id: 'tower-b',
@@ -39,6 +40,7 @@ export const mockUser: User = {
       lat: -6.267,
       lng: 106.78,
       distanceMeters: 780,
+      zone: 'syimali',
     },
     {
       id: 'luar-zona',
@@ -53,6 +55,7 @@ export const mockUser: User = {
       lat: -6.2816,
       lng: 106.78,
       distanceMeters: 2400,
+      zone: null,
     },
   ],
 }

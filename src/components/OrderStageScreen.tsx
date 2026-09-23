@@ -16,6 +16,7 @@ import {
   HOLD_STATUS_COPY,
   ORDER_STAGES,
   formatDistance,
+  merchantDeliveryConfig,
   mockCouriers,
   mockMerchant,
   mockOrder,
@@ -154,7 +155,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const address = addresses.find((a) => a.id === selectedAddressId) ?? addresses[0] ?? null
   const courier = mockCouriers[0]
   const copy = STATUS[stage]
-  const zone = address ? zoneFor(address.distanceMeters) : null
+  const zone = address ? zoneFor(address) : null
   // building menyimpan "Kompleks — Tower" dalam satu string; dipisah supaya
   // baris pertama menyebut kompleksnya dan baris kedua unitnya, seperti PRD.
   const [alamatKompleks, alamatTower] = address
@@ -380,7 +381,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                   <p className="track-row-meta">
                     {address.address} · {formatDistance(address.distanceMeters)}
                     {zone
-                      ? ` · ${zone.label} · ongkir ${money(zone.fee)}`
+                      ? ` · Zona ${zone.label} · ongkir ${money(merchantDeliveryConfig.ongkirIdr)}`
                       : ' · di luar jangkauan'}
                   </p>
                 </div>

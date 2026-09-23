@@ -16,6 +16,7 @@ import {
   GST_FOOD_PERCENT,
   PLATFORM_FEE_CUSTOMER_IDR,
   PLATFORM_GST_PERCENT,
+  deliveryFeeFor,
   formatDistance,
   gstFoodIdr,
   isDeliverable,
@@ -43,9 +44,9 @@ export default function Checkout() {
 
   const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
-  const zone = address ? zoneFor(address.distanceMeters) : null
-  const deliverable = address ? isDeliverable(address.distanceMeters) : false
-  const fee = deliverable ? (zone?.fee ?? 0) : 0
+  const zone = address ? zoneFor(address) : null
+  const deliverable = address ? isDeliverable(address) : false
+  const fee = address ? deliveryFeeFor(address) : 0
   // Fee customer flat 0,22 JOD (R-FEE-01) — selalu ikut, berapa pun metodenya.
   const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
 
@@ -188,7 +189,7 @@ export default function Checkout() {
                         }
                       >
                         {deliverable
-                          ? `Zona ${zone!.id} · ${zone!.range}`
+                          ? `Zona ${zone!.label} · ${zone!.area}`
                           : 'Di luar jangkauan'}
                       </span>
                       <span className="zone-fee">
@@ -207,7 +208,7 @@ export default function Checkout() {
                     <span>{money(subtotal)}</span>
                   </div>
                   <div className="summary-item">
-                    <span>Ongkir {deliverable && zone ? `(Zona ${zone.id})` : ''}</span>
+                    <span>Ongkir {deliverable && zone ? `(Zona ${zone.label})` : ''}</span>
                     <span>{deliverable ? money(fee) : '—'}</span>
                   </div>
                   <div className="summary-item">

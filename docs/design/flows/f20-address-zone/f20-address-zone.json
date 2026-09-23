@@ -242,7 +242,7 @@
       "title": "Alur inti: alamat → gate → order",
       "items": [
         "Tambah alamat: pin + label + teks → zona tampil: **Hijazi / Syimali ≤2 km** (`C-13`, per-merchant `is_active_*`) → simpan `address`",
-        "Gate `isDeliverable()`: mode `radius` (jarak ≤ `radiusMeters`) atau `area` (zona harus aktif). A/B/C di kode repo = LEGACY",
+        "Gate `isDeliverable()`: mode `radius` (jarak ≤ `radiusMeters`) atau `area` (zona harus aktif). Kode repo sudah pakai Hijazi/Syimali; A/B/C = LEGACY",
         "PASS → ongkir tampil (`feeByDistance` ATAU `feeByArea`) → lanjut order; zona jadi snapshot (order lama tidak berubah)"
       ]
     },

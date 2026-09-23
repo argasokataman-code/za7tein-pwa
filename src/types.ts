@@ -77,14 +77,33 @@ export interface MerchantReview {
   createdAt: string
 }
 
-/** Zona pengantaran — radius maksimal 2 km (PRD bab 04). */
-export type ZoneId = 'A' | 'B' | 'C'
+/**
+ * Zona pengantaran PRD v2 (`C-13`, flow F20) — dua kawasan Irbid: **Hijazi**
+ * (pemukiman barat) & **Syimali** (utara kampus), masing-masing ≤2 km Haversine
+ * dari dapur merchant. Pita radius A/B/C 600 m/1,5 km/2 km adalah model PRD
+ * lama (`radius-mvp-legacy`) dan bukan ketentuan aktif.
+ */
+export type ZoneId = 'hijazi' | 'syimali'
 
 export interface DeliveryZone {
   id: ZoneId
   label: string
-  range: string
-  fee: number
+  /** Arah kawasan, dipakai sebagai keterangan di layar. */
+  area: string
+}
+
+/**
+ * Konfigurasi pengantaran merchant (F20/F16) — di produksi dihitung server,
+ * di repo ini hanya tampilan mock (AGENTS.md §1). Ongkir **100% milik merchant,
+ * 0% fee platform** (`C-07`).
+ */
+export interface MerchantDeliveryConfig {
+  mode: 'radius' | 'area'
+  maxKm: number
+  isActiveHijazi: boolean
+  isActiveSyimali: boolean
+  /** Ongkir yang dibayar customer, diteruskan utuh ke merchant. */
+  ongkirIdr: number
 }
 
 /**
@@ -106,8 +125,14 @@ export interface Address {
   fullAddress: string
   lat: number
   lng: number
-  /** jarak geodesik ke toko, dasar penentuan zona */
+  /** jarak geodesik ke toko, dasar penentuan coverage */
   distanceMeters: number
+  /**
+   * Zona hasil validasi server (poligon Hijazi/Syimali + ≤2 km + merchant
+   * mengaktifkan zona itu). `null` = di luar coverage. Dihitung di luar repo,
+   * layar hanya menampilkan nilainya (flow F20).
+   */
+  zone: ZoneId | null
 }
 
 export interface User {
@@ -334,7 +359,7 @@ export interface AdminTenant {
   /** Jumlah foto tempat usaha yang diunggah merchant saat onboarding. */
   photoCount: number
   /** Konfigurasi pengantaran yang diajukan merchant. */
-  deliveryConfig: { maxKm: number; zones: string }
+  deliveryConfig: MerchantDeliveryConfig
   deposit: number
   depositStatus: DepositStatus
   tenantStatus: TenantStatus

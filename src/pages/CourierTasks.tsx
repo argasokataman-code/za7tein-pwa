@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { formatDistance, money } from '../data/merchant'
+import { formatDistance, money, zoneLabel } from '../data/merchant'
 import { COURIER_CHECKPOINT_LABEL, isActiveTask, isDoneTask, totalTips } from '../data/courier'
 import { toggleOnline } from '../store/slices/courierSlice'
 import type { CourierTask } from '../types'
@@ -17,7 +17,7 @@ function TaskCard({ task }: { task: CourierTask }) {
         <div className="courier-task-copy">
           <p className="courier-task-code">{task.code}</p>
           <p className="courier-task-sub">
-            {task.customerName} · {formatDistance(task.distanceMeters)} · Zona {task.zone}
+            {task.customerName} · {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)}
           </p>
         </div>
         <span className="courier-badge">{COURIER_CHECKPOINT_LABEL[task.checkpoint]}</span>

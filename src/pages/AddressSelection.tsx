@@ -10,6 +10,7 @@ import toast from 'react-hot-toast'
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
 import {
   DEFAULT_NEW_ADDRESS_PIN,
+  deliveryFeeFor,
   formatDistance,
   isDeliverable,
   money,
@@ -47,7 +48,7 @@ export default function AddressSelection() {
   } = useForm<ApartmentFormData>({ resolver: zodResolver(apartmentSchema) })
 
   const selected = addresses.find((a) => a.id === selectedId) ?? addresses[0]
-  const deliverable = selected ? isDeliverable(selected.distanceMeters) : false
+  const deliverable = selected ? isDeliverable(selected) : false
 
   const onAdd = (data: ApartmentFormData) => {
     const id = `addr-${addresses.length + 1}`
@@ -86,8 +87,9 @@ export default function AddressSelection() {
             <div className="address-selection-content">
               <div className="address-list" role="radiogroup" aria-label="Pilih alamat pengantaran">
                 {addresses.map((a) => {
-                  const zone = zoneFor(a.distanceMeters)
+                  const zone = zoneFor(a)
                   const blocked = zone === null
+                  const fee = deliveryFeeFor(a)
                   const isSelected = a.id === selected?.id
                   return (
                     <div
@@ -121,10 +123,10 @@ export default function AddressSelection() {
                         {a.notes ? <p className="address-notes">{a.notes}</p> : null}
                         <p className="address-meta">
                           <span className={blocked ? 'zone-badge zone-badge--blocked' : 'zone-badge'}>
-                            {blocked ? 'Di luar jangkauan' : `Zona ${zone!.id} · ${zone!.range}`}
+                            {blocked ? 'Di luar jangkauan' : `Zona ${zone!.label} · ${zone!.area}`}
                           </span>
                           <span className="zone-fee">
-                            {blocked ? '> 2 km' : `${formatDistance(a.distanceMeters)} · ongkir ${money(zone!.fee)}`}
+                            {blocked ? '> 2 km' : `${formatDistance(a.distanceMeters)} · ongkir ${money(fee)}`}
                           </span>
                         </p>
                       </div>

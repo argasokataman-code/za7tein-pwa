@@ -77,8 +77,14 @@ function repairPersistedCart() {
       const food = menuSeed.find((f) => f.id === i.id)
       return !food || (!i.modifiers && i.price !== food.price)
     })
+    // Alamat versi lama belum menyimpan `zone` (snapshot coverage Hijazi/Syimali,
+    // migrasi zona 2026-09-23). Tanpa field itu semua alamat jadi "di luar
+    // jangkauan", jadi state lama dikembalikan ke alamat mock.
+    const zonesOutdated =
+      Array.isArray(cart.addresses) && cart.addresses.some((a: any) => !('zone' in a))
     const needsRepair =
       !Array.isArray(cart.addresses) ||
+      zonesOutdated ||
       cart.transferProof === undefined ||
       legacyItems ||
       !['wallet', 'cod', 'transfer'].includes(cart.selectedPaymentId)
@@ -95,7 +101,8 @@ function repairPersistedCart() {
     outer.cart = JSON.stringify({
       ...cart,
       items,
-      addresses: Array.isArray(cart.addresses) ? cart.addresses : mockUser.addresses,
+      addresses:
+        Array.isArray(cart.addresses) && !zonesOutdated ? cart.addresses : mockUser.addresses,
       transferProof: cart.transferProof ?? null,
       selectedAddressId: mockUser.addresses.some((a) => a.id === cart.selectedAddressId)
         ? cart.selectedAddressId

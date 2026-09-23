@@ -30,7 +30,7 @@ Target: repo ini (`sa7tein-pwa`) — 4 shell role sudah dibangun (customer, merc
 
 ## Item di luar milestone (terbuka)
 
-- **Model ongkir — BUTUH KEPUTUSAN.** PRD v2: ongkir 100% milik merchant lewat `deliveryConfig` per-merchant; kode masih legacy Zona A/B/C (5.000/9.000/13.000) dan belum tercakup milestone mana pun (`f20-address-zone`, `f12-merchant-console`).
+- **Model ongkir — SELESAI (2026-09-23).** PRD v2 memutuskan zona **Hijazi/Syimali ≤2 km** + merchant mengaktifkan zona (`C-13`), ongkir **100% merchant** (`C-07`) lewat `merchantDeliveryConfig`. Kode sudah dimigrasikan dari pita radius A/B/C (legacy) ke model ini; dokumentasi di `/documentation` bagian 32. **Nominal ongkir final tetap `UNRESOLVED`** (flow `f20-address-zone`), jadi angka di kode adalah placeholder — bukan tarif aktif.
 - **Cakupan Super Admin — BUTUH KEPUTUSAN.** Konsol website penuh non-PWA; prefix `/superadmin` disiapkan tanpa route (lihat `decision-irbid-mvp.md`, DEC-2003).
 - **Panel CS menampilkan IDR + JOD (opsional).** Konsol sekarang JOD-only; helper kurs sudah satu sumber di `src/data/currency.ts`, jadi tinggal keputusan tampilan.
 - **Terkunci `UNRESOLVED` — jangan diisi dengan tebakan:** OQ-22 fee payout (M3, placeholder), OQ-26/OQ-28 provider & umur fallback kurs (M1), OQ-29 kategori + window dispute (M6), OQ-30 operator CS & pemilik konsol Super Admin, OQ-13 angka SLA (M5), OQ-14 penalti customer (M5), sign-off konsultan pajak (M7), validasi push di device (M8), insentif I-3..I-6 (M10).

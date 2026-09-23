@@ -20,6 +20,7 @@ import { CodHoldSection } from './documentation/sections/CodHoldSection'
 import { DeliveryCheckpointSection } from './documentation/sections/DeliveryCheckpointSection'
 import { DisputeSection } from './documentation/sections/DisputeSection'
 import { ConsistencySection } from './documentation/sections/ConsistencySection'
+import { AddressZoneSection } from './documentation/sections/AddressZoneSection'
 import { IncentiveSection } from './documentation/sections/IncentiveSection'
 import { LedgerSection } from './documentation/sections/LedgerSection'
 import { PushSection } from './documentation/sections/PushSection'
@@ -66,6 +67,7 @@ const SECTIONS = [
   PushSection,
   LedgerSection,
   IncentiveSection,
+  AddressZoneSection,
   ConsistencySection,
 ]
 

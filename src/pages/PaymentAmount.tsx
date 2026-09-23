@@ -11,6 +11,7 @@ import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
   PAYMENT_METHODS,
   PLATFORM_FEE_CUSTOMER_IDR,
+  deliveryFeeFor,
   formatDistance,
   isDeliverable,
   money,
@@ -37,9 +38,9 @@ export default function PaymentAmount() {
 
   const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
-  const zone = address ? zoneFor(address.distanceMeters) : null
-  const deliverable = address ? isDeliverable(address.distanceMeters) : false
-  const fee = zone?.fee ?? 0
+  const zone = address ? zoneFor(address) : null
+  const deliverable = address ? isDeliverable(address) : false
+  const fee = address ? deliveryFeeFor(address) : 0
   const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
   const method = PAYMENT_METHODS.find((m) => m.id === paymentId) ?? PAYMENT_METHODS[0]
   const needsProof = method.id === 'transfer'
@@ -113,7 +114,7 @@ export default function PaymentAmount() {
                   </div>
                   <div className="summary-item">
                     <span className={deliverable ? 'zone-badge' : 'zone-badge zone-badge--blocked'}>
-                      {deliverable ? `Zona ${zone!.id} · ${zone!.range}` : 'Di luar jangkauan'}
+                      {deliverable ? `Zona ${zone!.label} · ${zone!.area}` : 'Di luar jangkauan'}
                     </span>
                     <span className="zone-fee">
                       {deliverable
@@ -138,7 +139,7 @@ export default function PaymentAmount() {
                 </div>
                 <div className="summary-item">
                   <span>
-                    Ongkir {deliverable && zone ? `(Zona ${zone.id})` : ''}
+                    Ongkir {deliverable && zone ? `(Zona ${zone.label})` : ''}
                   </span>
                   <span>
                     {deliverable ? money(fee) : '—'}

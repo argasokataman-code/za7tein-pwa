@@ -189,10 +189,12 @@ adminSlice.resolveDispute({ id, resolution })      // putusan CS → 1 entry led
         sengaja lebar penuh karena ia halaman dokumen, bukan layar aplikasi.
       </p>
       <p className="doc-p">
-        Yang masih terbuka setelah M0–M11: model ongkir (PRD v2 memakai{' '}
-        <code className="doc-inline">deliveryConfig</code> per-merchant, kode masih zona A/B/C),
-        cakupan Super Admin sebagai role terpisah, dan seluruh daftar{' '}
-        <code className="doc-inline">UNRESOLVED</code> yang tidak boleh diisi dengan tebakan.
+        Zona sudah tidak lagi legacy: model ongkir/zona memakai{' '}
+        <code className="doc-inline">deliveryConfig</code> per-merchant dengan zona{' '}
+        <strong>Hijazi / Syimali</strong> (lihat bagian Alamat &amp; Zona). Yang masih terbuka
+        setelah M0–M11: cakupan Super Admin sebagai role terpisah, angka ongkir final
+        (<code className="doc-inline">UNRESOLVED</code> di flow F20), dan seluruh daftar{' '}
+        <code className="doc-inline">UNRESOLVED</code> lain yang tidak boleh diisi dengan tebakan.
       </p>
     </DocSection>
   )
