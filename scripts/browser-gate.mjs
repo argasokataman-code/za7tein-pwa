@@ -29,7 +29,11 @@ import { fileURLToPath } from 'node:url'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const CDP = process.env.GATE_CDP || 'http://127.0.0.1:9355'
-const BASE = process.env.GATE_BASE || 'http://localhost:5173'
+// PWA murni harus diukur pada hasil build (service worker hanya ada di build),
+// bukan di dev server.
+const BASE =
+  process.env.GATE_BASE ||
+  (process.argv.includes('--pwa') ? 'http://localhost:4173' : 'http://localhost:5173')
 const LAUNCH_SH =
   process.env.BRAVE_DEBUG_LAUNCH ||
   path.join(process.env.HOME || '', '.local/share/brave-debug-mcp/bin/launch.sh')
@@ -50,6 +54,12 @@ const OPTS = {
   clickLimit: Number(valueOf('--click-limit', '15')),
   width: valueOf('--width', null),
   json: has('--json'),
+  // Mode PWA murni: app-mode window (display-mode: standalone), input sentuh,
+  // safe-area, dan syarat service worker.
+  pwa: has('--pwa'),
+  offline: has('--offline'),
+  insetTop: Number(valueOf('--inset-top', '59')),
+  insetBottom: Number(valueOf('--inset-bottom', '34')),
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -209,7 +219,7 @@ async function fitWindow(cdp, width, height) {
 }
 
 // ── pengukuran di halaman ──────────────────────────────────────────────────
-const MEASURE = `(() => {
+const MEASURE = `(async () => {
   const cs = getComputedStyle(document.documentElement)
   const runtime = {
     shellMax: parseFloat(cs.getPropertyValue('--shell-max')) || null,
@@ -218,6 +228,7 @@ const MEASURE = `(() => {
   }
   const shell = document.querySelector('.app-shell')
     || document.querySelector('div[class*="-screen"]')
+    || document.querySelector('div[class*="-page"]')
     || document.querySelector('main')
     || document.body.firstElementChild
   const sr = shell ? shell.getBoundingClientRect() : { width: 0, x: 0 }
@@ -279,10 +290,42 @@ const MEASURE = `(() => {
       })
       .map((el) => parseFloat(getComputedStyle(el).paddingLeft))
   )].sort((a, b) => a - b)
+  let swCount = 0
+  let controlled = false
+  let cacheCount = 0
+  try {
+    const regs = await navigator.serviceWorker.getRegistrations()
+    swCount = regs.length
+    controlled = !!navigator.serviceWorker.controller
+  } catch { /* service worker tidak didukung */ }
+  try {
+    cacheCount = (await caches.keys()).length
+  } catch { /* cache storage tidak tersedia */ }
+  // Bukti override safe-area benar-benar berlaku: baca env() yang sama yang
+  // dipakai stylesheet (part-01/part-06 hanya aktif saat standalone).
+  const probe = document.createElement('div')
+  probe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;'
+    + 'padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)'
+  document.body.appendChild(probe)
+  const ps = getComputedStyle(probe)
+  const safe = { top: parseFloat(ps.paddingTop) || 0, bottom: parseFloat(ps.paddingBottom) || 0 }
+  probe.remove()
+
   return {
     path: location.pathname,
     runtime,
     viewport: { w: window.innerWidth, h: window.innerHeight },
+    pwa: {
+      displayMode: matchMedia('(display-mode: standalone)').matches
+        ? 'standalone'
+        : matchMedia('(display-mode: minimal-ui)').matches ? 'minimal-ui' : 'browser',
+      touchEvents: 'ontouchstart' in window,
+      maxTouchPoints: navigator.maxTouchPoints,
+      swCount,
+      controlled,
+      cacheCount,
+      safe,
+    },
     shell: { w: Math.round(sr.width), x: Math.round(sr.x) },
     col,
     overflowX: doc.scrollWidth - doc.clientWidth,
@@ -357,6 +400,28 @@ function judge(measured, tokens, strict, viewportWidth) {
 
   if (measured.crashed) push(fail, 'error boundary tampil (halaman crash)')
   if (measured.textLen === 0) push(fail, 'halaman kosong (tidak ada teks)')
+  // Mode PWA murni: yang tidak bisa dibuktikan emulasi CSS — display-mode,
+  // touch event, service worker, dan safe-area — harus benar-benar berlaku.
+  if (OPTS.pwa) {
+    if (measured.pwa.displayMode !== 'standalone') {
+      push(fail, `display-mode "${measured.pwa.displayMode}" != standalone (bukan jendela app-mode)`)
+    }
+    if (!measured.pwa.touchEvents) push(fail, 'touch event tidak aktif (butuh --touch-events=enabled)')
+    if (measured.pwa.swCount === 0) push(fail, 'service worker tidak terdaftar (harus diukur pada hasil build)')
+    if (!measured.pwa.controlled) push(fail, 'service worker tidak mengendalikan halaman')
+    // SW bisa terdaftar & mengendalikan tapi tidak menyimpan apa pun kalau
+    // precache-nya gagal (mis. add-to-cache-list-conflicting-entries) — dan
+    // kegagalan itu ditelan diam-diam.
+    if (measured.pwa.cacheCount === 0) {
+      push(fail, 'tidak ada cache sama sekali: precache workbox gagal, offline tidak akan jalan')
+    }
+    if (Math.abs(measured.pwa.safe.top - OPTS.insetTop) > 1) {
+      push(fail, `safe-area atas ${measured.pwa.safe.top}px != ${OPTS.insetTop}px yang diset`)
+    }
+    if (Math.abs(measured.pwa.safe.bottom - OPTS.insetBottom) > 1) {
+      push(fail, `safe-area bawah ${measured.pwa.safe.bottom}px != ${OPTS.insetBottom}px yang diset`)
+    }
+  }
   // Buktikan emulasi benar-benar berlaku. Mengukur di jendela klon (500px)
   // pernah menghasilkan angka yang tidak ada hubungannya dengan app.
   if (Math.abs(measured.viewport.w - viewportWidth) > 1) {
@@ -420,15 +485,23 @@ async function clickSweep(cdp, url, errors, log) {
       }
     })
 
-    for (const type of ['mousePressed', 'mouseReleased']) {
-      await cdp.send('Input.dispatchMouseEvent', {
-        type,
-        x: aim.cx,
-        y: aim.cy,
-        button: 'left',
-        buttons: type === 'mousePressed' ? 1 : 0,
-        clickCount: 1,
-      })
+    if (OPTS.pwa) {
+      // Jari sungguhan: satu urutan tap di dalam satu sesi CDP.
+      const pt = { x: aim.cx, y: aim.cy, radiusX: 12, radiusY: 12, force: 1, id: 1 }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [pt] })
+      await sleep(60)
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [pt] })
+    } else {
+      for (const type of ['mousePressed', 'mouseReleased']) {
+        await cdp.send('Input.dispatchMouseEvent', {
+          type,
+          x: aim.cx,
+          y: aim.cy,
+          button: 'left',
+          buttons: type === 'mousePressed' ? 1 : 0,
+          clickCount: 1,
+        })
+      }
     }
     await sleep(450)
     const after = await evaluate(cdp, SIGNATURE)
@@ -446,7 +519,10 @@ async function main() {
     const res = await fetch(BASE)
     if (!res.ok) throw new Error(String(res.status))
   } catch {
-    process.stderr.write(`${C.red}Dev server tidak jalan di ${BASE}. Jalankan: npm run dev${C.off}\n`)
+    process.stderr.write(
+      `${C.red}Server tidak jalan di ${BASE}.${C.off} Jalankan: ` +
+        `${OPTS.pwa ? 'npm run build && npm run preview' : 'npm run dev'}\n`,
+    )
     process.exit(2)
   }
 
@@ -462,6 +538,33 @@ async function main() {
   const cdp = await Cdp.connect()
   await cdp.send('Page.enable')
   await cdp.send('Runtime.enable')
+  await cdp.send('Network.enable').catch(() => {})
+
+  // PWA murni butuh jendela app-mode: `display-mode: standalone` tidak bisa
+  // dibuat lewat CDP (Emulation.setEmulatedMedia tidak mendukungnya), jadi
+  // hanya bisa dari flag launch. Lebih baik berhenti dengan perintah tepat
+  // daripada mengukur angka yang tidak berlaku.
+  if (OPTS.pwa) {
+    const mode = await evaluate(cdp, `matchMedia('(display-mode: standalone)').matches`)
+    if (!mode) {
+      process.stderr.write(
+        `${C.red}Mode PWA: tab ini bukan jendela app-mode (display-mode masih "browser").${C.off}\n` +
+          `Jalankan klon ulang dengan app-mode:\n\n` +
+          `  BRAVE_EXTRA_ARGS="--app=${BASE}/app/home --touch-events=enabled" \\\n` +
+          `    ~/.local/share/brave-debug-mcp/bin/launch.sh --fresh\n\n` +
+          `Lalu ulangi perintah ini. Detail: docs/design/pwa-testing.md\n`,
+      )
+      cdp.close()
+      process.exit(2)
+    }
+    await cdp.send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 }).catch(() => {})
+    // Paksa service worker terbaru mengambil alih sebelum mengukur.
+    await cdp
+      .send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 2, mobile: true })
+      .catch(() => {})
+    await warmUpShell(cdp, BASE + (urls[0] || '/'))
+    if (!OPTS.json) logLine(`${C.dim}warm-up: service worker diperbarui, shell dimuat ulang${C.off}`)
+  }
 
   const report = []
   let failed = 0
@@ -470,7 +573,9 @@ async function main() {
 
   if (!OPTS.json) {
     process.stdout.write(
-      `\n${C.dim}gerbang browser — ${urls.length} rute × ${widths.join('/')}px · token sumber: shell-max ${tokens.shellMax}px, touch-min ${tokens.touchMin}px, space-5 ${tokens.space5}px${C.off}\n\n`,
+      `\n${C.dim}gerbang browser — ${urls.length} rute × ${widths.join('/')}px` +
+        `${OPTS.pwa ? ` · mode PWA${OPTS.offline ? ' + offline' : ''} (app-mode, input sentuh, safe-area ${OPTS.insetTop}/${OPTS.insetBottom})` : ''}` +
+        ` · token sumber: shell-max ${tokens.shellMax}px, touch-min ${tokens.touchMin}px, space-5 ${tokens.space5}px${C.off}\n\n`,
     )
   }
 
@@ -485,27 +590,48 @@ async function main() {
         mobile: width < 900,
       })
       await fitWindow(cdp, width, height)
-      const errors = []
-      await goto(cdp, abs)
-      const measured = await evaluate(cdp, MEASURE)
-      const verdict = judge(measured, tokens, OPTS.strict, width)
-      failed += verdict.fail.length ? 1 : 0
-      warned += verdict.warn.length ? 1 : 0
+      const passes = OPTS.offline ? ['online', 'offline'] : ['online']
+      for (const pass of passes) {
+        if (OPTS.pwa) {
+          await cdp
+            .send('Emulation.setSafeAreaInsetsOverride', {
+              insets: { top: OPTS.insetTop, bottom: OPTS.insetBottom, left: 0, right: 0 },
+            })
+            .catch(() => {})
+        }
+        if (pass === 'offline') await setOffline(cdp, true)
 
-      if (OPTS.click && width === widths[0]) {
-        await clickSweep(cdp, abs, errors, (s) => !OPTS.json && logLine(s))
-      }
+        const errors = []
+        await goto(cdp, abs)
+        const measured = await evaluate(cdp, MEASURE)
+        const verdict = judge(measured, tokens, OPTS.strict, width)
+        if (pass === 'offline') {
+          if (measured.textLen === 0) {
+            verdict.fail.push('offline: halaman kosong (service worker tidak melayani cache)')
+          }
+          if (measured.pwa.swCount === 0) verdict.fail.push('offline: service worker hilang')
+        }
+        failed += verdict.fail.length ? 1 : 0
+        warned += verdict.warn.length ? 1 : 0
 
-      report.push({ url, width, fail: verdict.fail, warn: verdict.warn, clickErrors: errors, measured })
+        if (OPTS.click && width === widths[0] && pass === 'online') {
+          await clickSweep(cdp, abs, errors, (s) => !OPTS.json && logLine(s))
+        }
+        if (pass === 'offline') await setOffline(cdp, false)
 
-      if (!OPTS.json) {
-        const bad = verdict.fail.length + errors.length
-        const mark = bad ? `${C.red}FAIL${C.off}` : verdict.warn.length ? `${C.yellow}WARN${C.off}` : `${C.green}PASS${C.off}`
-        logLine(`  ${mark} ${url} @${width}px  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px · overflow ${measured.overflowX}px · ${measured.controls} kontrol${C.off}`)
-        for (const m of verdict.fail) logLine(`      ${C.red}✗${C.off} ${m}`)
-        for (const m of errors) logLine(`      ${C.red}✗${C.off} ${m}`)
-        for (const m of verdict.warn.slice(0, 6)) logLine(`      ${C.yellow}!${C.off} ${m}`)
-        if (verdict.warn.length > 6) logLine(`      ${C.dim}+${verdict.warn.length - 6} peringatan lain${C.off}`)
+        report.push({ url, width, pass, fail: verdict.fail, warn: verdict.warn, clickErrors: errors, measured })
+
+        if (!OPTS.json) {
+          const bad = verdict.fail.length + errors.length
+          const mark = bad ? `${C.red}FAIL${C.off}` : verdict.warn.length ? `${C.yellow}WARN${C.off}` : `${C.green}PASS${C.off}`
+          const tag = pass === 'offline' ? ' offline' : ''
+          const pwaInfo = OPTS.pwa ? ` · ${measured.pwa.displayMode} · sw ${measured.pwa.swCount}${measured.pwa.controlled ? '/ctrl' : ''}` : ''
+          logLine(`  ${mark} ${url} @${width}px${tag}  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px · overflow ${measured.overflowX}px · ${measured.controls} kontrol${pwaInfo}${C.off}`)
+          for (const m of verdict.fail) logLine(`      ${C.red}✗${C.off} ${m}`)
+          for (const m of errors) logLine(`      ${C.red}✗${C.off} ${m}`)
+          for (const m of verdict.warn.slice(0, 6)) logLine(`      ${C.yellow}!${C.off} ${m}`)
+          if (verdict.warn.length > 6) logLine(`      ${C.dim}+${verdict.warn.length - 6} peringatan lain${C.off}`)
+        }
       }
     }
   }
@@ -525,6 +651,34 @@ async function main() {
 }
 
 const logLine = (s) => process.stdout.write(s + '\n')
+
+async function setOffline(cdp, offline) {
+  await cdp.send('Network.emulateNetworkConditions', {
+    offline,
+    latency: 0,
+    downloadThroughput: -1,
+    uploadThroughput: -1,
+  })
+}
+
+/**
+ * Setelah `npm run build`, muat pertama masih menyajikan shell LAMA dari
+ * precache: service worker baru mengambil alih lalu memuat ulang. Mengukur
+ * terlalu cepat = mengukur build sebelumnya (pernah muncul sebagai "scroller
+ * bersarang" yang hilang begitu diukur ulang). Jadi paksa update + muat ulang
+ * sekali sebelum angkanya dipakai.
+ */
+async function warmUpShell(cdp, url) {
+  await goto(cdp, url)
+  await evaluate(cdp, `(async () => {
+    const regs = await navigator.serviceWorker.getRegistrations()
+    await Promise.all(regs.map((r) => r.update().catch(() => {})))
+    return regs.length
+  })()`)
+  await sleep(1500)
+  await cdp.send('Page.reload', {})
+  await sleep(900)
+}
 
 main().catch((err) => {
   process.stderr.write(`${C.red}gerbang browser gagal: ${err.message}${C.off}\n`)

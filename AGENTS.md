@@ -197,6 +197,20 @@ node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap el
 
 Severity: `FAIL` untuk overflow-x, scroller bersarang, lebar kolom, token runtime, viewport, dan halaman yang crash. `WARN` untuk target di bawah 44px, gutter bukan 20px, dan bilah `fixed` yang keluar kolom — ketiganya masih banyak di halaman legacy. `--strict` mempromosikan WARN jadi FAIL; pakai itu di halaman yang kamu sentuh.
 
+### Mode PWA murni
+
+Perubahan yang menyentuh service worker, cache, manifest, atau safe-area **wajib** diukur pada hasil build dan di jendela app-mode — di dev server service worker tidak ada sama sekali (`devOptions.enabled: false`), dan di tab biasa `display-mode` tetap `browser` padahal app bercabang pada itu (`app/part-01.scss`, `app/part-06.scss`, `Onboarding.tsx`).
+
+```bash
+npm run build && npm run preview
+BRAVE_EXTRA_ARGS="--app=http://localhost:4173/customer/home --touch-events=enabled" \
+  ~/.local/share/brave-debug-mcp/bin/launch.sh --fresh
+node scripts/browser-gate.mjs --route /home --pwa --strict --click
+node scripts/browser-gate.mjs --route /home --pwa --offline
+```
+
+`--pwa` memakai input sentuh (`Input.dispatchTouchEvent`), memaksa safe-area, dan menuntut service worker **punya cache** — bukan sekadar terdaftar. SW yang terdaftar + `controlling` tapi cache-nya kosong adalah kegagalan nyata yang pernah terjadi (workbox `add-to-cache-list-conflicting-entries` ditelan diam-diam). Detail, angka, dan jebakannya: `docs/design/pwa-testing.md`.
+
 ---
 
 ## 9. Status implementasi legacy & arah migrasi
