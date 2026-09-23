@@ -16,3 +16,28 @@ textarea,
 select {
   @include field-shape;
 }
+
+/* ── Form alamat (flow f20) ────────────────────────────────────────────────
+   Baris status coverage di bawah peta, dan checkbox "jadikan alamat utama"
+   setinggi --touch-min supaya sasaran sentuhnya 44px. */
+.addr-form-coverage {
+  margin: 0 0 var(--space-4);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.addr-form-coverage[data-deliverable='false'] {
+  color: var(--danger-ink);
+}
+
+.addr-form-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}

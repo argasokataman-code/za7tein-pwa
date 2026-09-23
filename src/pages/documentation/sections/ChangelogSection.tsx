@@ -75,6 +75,19 @@ export function ChangelogSection() {
               <td>Memilih berkas + pratinjau lokal (tanpa unggah)</td>
             </tr>
             <tr>
+              <td>Kartu alamat (layout)</td>
+              <td>
+                Tiga tombol ikon 28px (di bawah <code className="doc-inline">--touch-min</code>)
+                bersarang di dalam <code className="doc-inline">role="radio"</code>; kolom teks 100px
+                di lebar 390px; kapsul zona + kapsul "Utama" menumpuk
+              </td>
+              <td>
+                Satu radio asli + <code className="doc-inline">&lt;label&gt;</code> + satu tombol opsi
+                44px ke bottom sheet; kolom teks 242px; maksimum satu badge per kartu; meta zona jadi
+                satu baris teks
+              </td>
+            </tr>
+            <tr>
               <td>Hover kartu alamat</td>
               <td>
                 Hover mengecat <code className="doc-inline">--bg-warm</code> di atas{' '}

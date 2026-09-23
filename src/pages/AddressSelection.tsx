@@ -1,4 +1,4 @@
-import { BriefcaseBusiness, Building2, Check, ChevronLeft, House, Pencil, Plus, Star, Trash2, type LucideIcon } from 'lucide-react'
+import { Check, ChevronLeft, MoreVertical, Pencil, Plus, Star, Trash2 } from 'lucide-react'
 // Alamat pengantaran. PRD mewajibkan gedung, lantai, dan unit, plus pin yang
 // masih dalam radius 2 km dari toko — di luar itu checkout diblokir.
 import { useState } from 'react'
@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
 
 import { AddressMapPicker } from '../components/customer/AddressMapPicker'
+import { BottomSheet } from '../components/ui/BottomSheet'
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
 import {
   DEFAULT_NEW_ADDRESS_PIN,
@@ -30,23 +31,15 @@ import {
 } from '../store/slices/cartSlice'
 import type { Address } from '../types'
 
-const ICONS: Record<string, LucideIcon> = {
-  'tower-a': House,
-  'tower-b': BriefcaseBusiness,
-  'luar-zona': Building2,
-}
-
-function AddressIcon({ id }: { id: string }) {
-  const Icon = ICONS[id] ?? House
-  return <Icon size={20} strokeWidth={1.75} aria-hidden="true" />
-}
-
 export default function AddressSelection() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const selectedId = useAppSelector((s) => s.cart.selectedAddressId)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
+  // Kartu mana yang menunya terbuka. Satu tombol "opsi" per kartu, bukan tiga
+  // tombol ikon kecil yang berjejal dan bersarang di dalam kontrol radio.
+  const [menuId, setMenuId] = useState<string | null>(null)
   // Titik pin peta (flow f20). Default dari konstanta mock, digeser di form.
   const [pin, setPin] = useState<{ lat: number; lng: number }>({
     lat: DEFAULT_NEW_ADDRESS_PIN.lat,
@@ -68,6 +61,7 @@ export default function AddressSelection() {
     addresses.find((a) => a.isDefault) ??
     addresses[0]
   const deliverable = selected ? isDeliverable(selected) : false
+  const menuAddress = addresses.find((a) => a.id === menuId) ?? null
 
   // Zona & jarak dihitung dari poligon master SA, bukan angka tetap: di produksi
   // ini hasil server (F20), di repo ini `resolveCoverage` jadi stand-in-nya. Jadi
@@ -167,7 +161,7 @@ export default function AddressSelection() {
 
   const onDelete = (address: Address) => {
     dispatch(removeAddress(address.id))
-    toast.success('Alamat dihapus')
+    toast.success(`Alamat ${address.name} dihapus`)
   }
 
   const onSetDefault = (address: Address) => {
@@ -196,103 +190,58 @@ export default function AddressSelection() {
                   const fee = deliveryFeeFor(a)
                   const isSelected = a.id === selected?.id
                   return (
-                    <div
-                      key={a.id}
-                      className={`address-item${isSelected ? ' selected' : ''}${blocked ? ' address-item--blocked' : ''}`}
-                      role="radio"
-                      aria-checked={isSelected}
-                      aria-disabled={blocked}
-                      tabIndex={blocked ? -1 : 0}
-                      onClick={() => {
-                        if (blocked) {
-                          toast.error('Di luar area antar')
-                          return
-                        }
-                        dispatch(setAddress(a.id))
-                      }}
-                      onKeyDown={(e) => {
-                        // Kartu ini role="radio" dan bisa di-tab; tanpa ini
-                        // Enter/Space tidak melakukan apa pun.
-                        if (e.key !== 'Enter' && e.key !== ' ') return
-                        e.preventDefault()
-                        if (blocked) {
-                          toast.error('Di luar area antar')
-                          return
-                        }
-                        dispatch(setAddress(a.id))
-                      }}
-                    >
-                      <div className="address-icon-wrap">
-                        <AddressIcon id={a.id} />
-                      </div>
-                      <div className="address-info">
-                        <h3 className="address-name">
-                          {a.name}
-                          {a.isDefault ? (
-                            <span className="address-default-badge">
-                              <Check size={12} strokeWidth={2.25} aria-hidden="true" />
-                              Utama
-                            </span>
-                          ) : null}
-                        </h3>
-                        <p className="address-text">
-                          {a.building}
-                        </p>
-                        <p className="address-text">
-                          {a.floor} · {a.unit}
-                        </p>
-                        {a.notes ? <p className="address-notes">{a.notes}</p> : null}
-                        <p className="address-meta">
-                          <span className={blocked ? 'zone-badge zone-badge--blocked' : 'zone-badge'}>
-                            {blocked ? 'Di luar area antar' : `Zona ${zone!.label} · ${zone!.area}`}
+                    <div className="address-row" key={a.id}>
+                      {/* Radio asli: keyboard (Space/panah) jalan sendiri, dan
+                          kartu jadi <label> supaya tidak ada kontrol bersarang
+                          di dalam role="radio". */}
+                      <input
+                        type="radio"
+                        id={`address-${a.id}`}
+                        name="delivery-address"
+                        className="sr-only"
+                        checked={isSelected}
+                        disabled={blocked}
+                        onChange={() => dispatch(setAddress(a.id))}
+                      />
+                      <label
+                        htmlFor={`address-${a.id}`}
+                        className={`address-item${isSelected ? ' selected' : ''}${blocked ? ' address-item--blocked' : ''}`}
+                        onClick={() => {
+                          if (blocked) toast.error('Di luar area antar')
+                        }}
+                      >
+                        <span className="address-radio" aria-hidden="true" />
+                        <div className="address-info">
+                          <span className="address-name">
+                            {a.name}
+                            {a.isDefault ? (
+                              <span className="address-default-tag">
+                                <Check size={12} strokeWidth={2.25} aria-hidden="true" />
+                                Utama
+                              </span>
+                            ) : null}
                           </span>
-                          <span className="zone-fee">
-                            {blocked ? 'poligon atau jarak tidak lolos' : `${formatDistance(a.distanceMeters)} · ongkir ${money(fee)}`}
+                          <span className="address-text">{a.building}</span>
+                          <span className="address-text">{a.floor} · {a.unit}</span>
+                          {a.notes ? <span className="address-notes">{a.notes}</span> : null}
+                          {/* Satu baris meta tanpa kapsul: sebelumnya badge zona
+                              + teks ongkir menumpuk jadi dua pil. */}
+                          <span className="address-meta">
+                            {blocked
+                              ? 'Di luar area antar'
+                              : `Zona ${zone!.label} · ${formatDistance(a.distanceMeters)} · ongkir ${money(fee)}`}
                           </span>
-                        </p>
-                      </div>
-                      <div className="address-actions">
-                        {!a.isDefault ? (
-                          <button
-                            type="button"
-                            className="address-default-btn"
-                            aria-label={`Jadikan ${a.name} alamat utama`}
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              onSetDefault(a)
-                            }}
-                          >
-                            <Star size={14} strokeWidth={1.75} />
-                          </button>
-                        ) : null}
-                        <button
-                          type="button"
-                          className="address-edit-btn"
-                          aria-label={`Ubah alamat ${a.name}`}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            openEdit(a)
-                          }}
-                        >
-                          <Pencil size={14} strokeWidth={1.75} />
-                        </button>
-                        <button
-                          type="button"
-                          className="address-delete-btn"
-                          aria-label={`Hapus alamat ${a.name}`}
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            onDelete(a)
-                          }}
-                        >
-                          <Trash2 size={14} strokeWidth={1.75} />
-                        </button>
-                        <div className="address-radio-dot">
-                          <div className={isSelected ? 'radio-outer radio-outer--active' : 'radio-outer'}>
-                            {isSelected ? <div className="radio-inner" /> : null}
-                          </div>
                         </div>
-                      </div>
+                      </label>
+                      <button
+                        type="button"
+                        className="address-menu-btn"
+                        aria-label={`Opsi alamat ${a.name}`}
+                        aria-haspopup="dialog"
+                        onClick={() => setMenuId(a.id)}
+                      >
+                        <MoreVertical size={20} strokeWidth={1.75} />
+                      </button>
                     </div>
                   )
                 })}
@@ -304,7 +253,7 @@ export default function AddressSelection() {
                     {editingId ? 'Ubah Alamat' : 'Detail Apartemen'}
                   </h2>
                   <p className="addr-form-hint">
-                    Wajib diisi — pin GPS saja tidak cukup untuk kurir menemukan pintu.
+                    Wajib diisi. Pin GPS saja tidak cukup untuk kurir menemukan pintu.
                   </p>
                   <AddressMapPicker
                     lat={pin.lat}
@@ -314,11 +263,11 @@ export default function AddressSelection() {
                   <p className="addr-form-coverage" data-deliverable={pinDeliverable}>
                     {coverage.zone
                       ? `Zona ${zoneLabel(coverage.zone)} · ${formatDistance(coverage.distanceMeters)} dari toko · ongkir ${money(deliveryFeeFor(pinPoint))}`
-                      : 'Di luar area antar — geser pin ke dalam poligon zona'}
+                      : 'Di luar area antar. Geser pin ke dalam poligon zona'}
                   </p>
                   <div className="form-group-profile">
                     <label htmlFor="building" className="form-label">Nama Gedung / Tower</label>
-                    <input id="building" className={`form-input-profile${errors.building ? ' error' : ''}`} placeholder="Green View Apartment — Tower A" {...register('building')} />
+                    <input id="building" className={`form-input-profile${errors.building ? ' error' : ''}`} placeholder="Green View Apartment, Tower A" {...register('building')} />
                     {errors.building ? <span className="error-message">{errors.building.message}</span> : null}
                   </div>
                   <div className="form-group-profile">
@@ -370,6 +319,50 @@ export default function AddressSelection() {
           </div>
         </main>
       </div>
+
+      <BottomSheet
+        open={menuAddress !== null}
+        title={menuAddress ? `Alamat ${menuAddress.name}` : ''}
+        onClose={() => setMenuId(null)}
+      >
+        <div className="sheet-menu">
+          <button
+            type="button"
+            className="sheet-menu__item"
+            disabled={menuAddress?.isDefault}
+            onClick={() => {
+              if (menuAddress) onSetDefault(menuAddress)
+              setMenuId(null)
+            }}
+          >
+            <Star size={20} strokeWidth={1.75} aria-hidden="true" />
+            <span>Jadikan alamat utama</span>
+            {menuAddress?.isDefault ? <span className="sheet-menu__note">Sudah utama</span> : null}
+          </button>
+          <button
+            type="button"
+            className="sheet-menu__item"
+            onClick={() => {
+              if (menuAddress) openEdit(menuAddress)
+              setMenuId(null)
+            }}
+          >
+            <Pencil size={20} strokeWidth={1.75} aria-hidden="true" />
+            <span>Ubah alamat</span>
+          </button>
+          <button
+            type="button"
+            className="sheet-menu__item sheet-menu__item--danger"
+            onClick={() => {
+              if (menuAddress) onDelete(menuAddress)
+              setMenuId(null)
+            }}
+          >
+            <Trash2 size={20} strokeWidth={1.75} aria-hidden="true" />
+            <span>Hapus alamat {menuAddress?.name}</span>
+          </button>
+        </div>
+      </BottomSheet>
     </>
   )
 }

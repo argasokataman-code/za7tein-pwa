@@ -359,3 +359,24 @@ body {
   background: var(--bg-warm);
   padding: 0 var(--space-5) var(--space-8);
 }
+
+/* ── Judul "Antar ke" di checkout punya tautan Ubah di kanan ────────────── */
+.order-summary-section .section-title:has(.summary-change-link) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.summary-change-link {
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.search-empty {
+  margin: var(--space-4) 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}

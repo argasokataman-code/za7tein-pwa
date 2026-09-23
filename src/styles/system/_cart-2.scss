@@ -414,97 +414,121 @@ div[class*="-screen"] .container {
   padding: var(--space-2) var(--space-4) var(--space-4);
 }
 
-/* ── Aksi pada kartu alamat (flow f20) ─────────────────────────────────────
-   Tiga tombol ikon sekecil tombol hapus yang sudah ada: jadikan utama (oranye
-   merek), ubah (netral), hapus (bahaya). Warna memakai peran token, bukan
-   nilai baru. */
-.address-default-btn,
-.address-edit-btn {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
+
+/* ── Kartu alamat (flow f20) ───────────────────────────────────────────────
+   Satu kontrol per kartu: radio asli + <label> menutupi kartu, lalu satu
+   tombol opsi 44px di pojok. Dulu tiga tombol ikon 28px (di bawah
+   --touch-min) bersarang di dalam kontrol radio, dan kolom teks tinggal
+   100px di lebar 390px. Kapsul zona dihapus: maksimum SATU badge per kartu. */
+.address-row { position: relative; }
+
+.address-item {
+  position: relative;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding-right: 56px;
+}
+
+.address-radio {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  border: 2px solid var(--border-strong);
+  border-radius: 50%;
   background: var(--surface);
-  color: var(--text-secondary);
-  cursor: pointer;
 }
 
-.address-default-btn {
-  border-color: var(--orange-soft);
-  background: var(--orange-soft);
-  color: var(--orange-ink);
+.address-item.selected .address-radio {
+  border-color: var(--on-brand);
+  background: var(--on-brand);
+  box-shadow: inset 0 0 0 5px var(--sa7tein-orange);
 }
 
-.address-default-badge {
+/* Fokus radio asli (sr-only) dipindah ke kartunya. */
+.address-row input:focus-visible + .address-item {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+.address-item--blocked,
+.address-item--blocked:hover {
+  background-color: var(--surface);
+  border-color: var(--border-strong);
+  cursor: not-allowed;
+}
+
+.address-item--blocked .address-radio { background: var(--bg-warm); }
+
+.address-name {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.address-default-tag {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  margin-left: var(--space-2);
   padding: 1px var(--space-2);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);
-  background: var(--orange-soft);
+  background: var(--surface);
   color: var(--orange-ink);
   font-size: var(--text-xs);
   font-weight: 600;
-  vertical-align: middle;
 }
 
-.addr-form-coverage {
-  margin: 0 0 var(--space-4);
+.address-item.selected .address-default-tag { border-color: var(--on-brand); }
+
+.address-notes {
+  display: block;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-style: italic;
+}
+
+.address-meta {
+  display: block;
+  margin-top: var(--space-1);
   color: var(--text-secondary);
   font-size: var(--text-xs);
   line-height: 1.5;
 }
 
-.addr-form-coverage[data-deliverable="false"] {
-  color: var(--danger-ink);
-}
+.address-item--blocked .address-meta { color: var(--danger-ink); }
 
-.addr-form-check {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-4);
-  color: var(--text-primary);
-  font-size: var(--text-sm);
+.address-menu-btn {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
   cursor: pointer;
 }
 
-.search-empty {
-  margin: var(--space-4) 0;
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
-}
-
-/* Judul "Antar ke" di checkout kini punya tautan Ubah di kanan. */
-.order-summary-section .section-title:has(.summary-change-link) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.summary-change-link {
+.address-menu-btn:hover {
+  background: var(--orange-soft);
   color: var(--orange-ink);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  text-decoration: none;
 }
 
-/* ── Umpan balik hover kartu alamat & metode bayar ─────────────────────────
-   `.address-item:hover` mengecat `--bg-warm` (#FFF9F4) di atas `--surface`
-   (#FFFFFF): bedanya 4 satuan, jadi kartu terasa tidak merespons kursor.
-   Lebih buruk, selektor hover (0-2-0) sama kuat dengan
-   `.address-item.selected` (0-2-0) tapi diimpor belakangan — meng-hover kartu
-   terpilih justru menghapus latar oranyenya, seolah pilihannya lepas.
+.address-item.selected ~ .address-menu-btn { color: var(--on-brand); }
 
-   Sekarang hover = tint oranye yang jelas + tepi merek; kartu terpilih tetap
-   oranye saat di-hover (0-3-0); dan teks di atas oranye memakai `--on-brand`
-   supaya kontrasnya lolos (teks abu di atas oranye cuma 1,7:1). */
+.address-item.selected ~ .address-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--on-brand);
+}
+
+/* Hover: `--bg-warm` (#FFF9F4) di atas `--surface` (#FFFFFF) beda 4 satuan,
+   tak terlihat; selektornya juga sama kuat dengan .selected tapi diimpor
+   belakangan, sehingga hover menghapus latar oranye kartu terpilih. */
 .address-item:hover,
 .payment-item:hover {
   background-color: var(--orange-soft);
@@ -520,31 +544,46 @@ div[class*="-screen"] .container {
 .address-item.selected .address-name,
 .address-item.selected .address-text,
 .address-item.selected .address-notes,
-.address-item.selected .address-meta,
-.address-item.selected .zone-fee {
-  color: var(--on-brand);
+.address-item.selected .address-meta { color: var(--on-brand); }
+
+/* ── Menu opsi alamat (bottom sheet) ────────────────────────────────────── */
+.sheet-menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-2);
 }
 
-/* Alamat di luar coverage tidak bisa dipilih — jangan beri umpan balik hover
-   yang menyiratkan sebaliknya. */
-.address-item--blocked,
-.address-item--blocked:hover {
-  background-color: var(--surface);
-  border-color: var(--border-strong);
-  cursor: not-allowed;
+.sheet-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: var(--space-3) var(--space-1);
+  border: none;
+  border-top: 1px solid var(--border);
+  background: none;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  text-align: left;
+  cursor: pointer;
 }
 
-.address-item:focus-visible,
-.address-default-btn:focus-visible,
-.address-edit-btn:focus-visible,
-.address-delete-btn:focus-visible {
-  outline: 2px solid var(--orange-ink);
-  outline-offset: 2px;
+.sheet-menu__item:first-child { border-top: none; }
+.sheet-menu__item:disabled { color: var(--text-secondary); cursor: default; }
+.sheet-menu__item--danger { color: var(--danger-ink); }
+.sheet-menu__note {
+  margin-left: auto;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
 }
 
-.address-default-btn:hover,
-.address-edit-btn:hover {
-  background-color: var(--orange-soft);
-  border-color: var(--orange-ink);
-  color: var(--orange-ink);
+/* Warna teks ikut bertransisi: latar kartu punya `transition: all` dari
+   stylesheet porting, jadi tanpa ini teks langsung memutih sesaat sementara
+   latarnya masih putih (teks putih di atas kartu putih). */
+.address-name,
+.address-text,
+.address-notes,
+.address-meta {
+  transition: color var(--motion-standard) var(--ease-out);
 }
