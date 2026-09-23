@@ -48,10 +48,10 @@ export function StylingSection() {
       </p>
       <h3 className="doc-h3">Layout invariants</h3>
       <p className="doc-p">
-        The mobile shell is capped at 430px and centered on wide screens inside a
-        462px device frame. At 700px and below, the frame disappears so the app
-        uses the device screen directly. Page gutters are 20px. The document owns
-        vertical scrolling; fixed navigation remains inside the shell.
+        The mobile shell is capped at 430px and centered on wide screens. There is
+        one mode only: the app is a PWA, so a phone preview and a real phone render
+        the same layout. Page gutters are 20px. The document owns vertical
+        scrolling; fixed navigation remains inside the shell.
       </p>
       <DocCode lang="scss">
         {`max-width: var(--shell-max);

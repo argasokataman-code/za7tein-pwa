@@ -121,7 +121,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.38.0
+              v2.39.0
             </span>
             <span>
               React 19 · Vite · TypeScript

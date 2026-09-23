@@ -22,8 +22,8 @@ export function RouteProtectionSection() {
         <code className="doc-inline">/admin</code>) renders its own{' '}
         <code className="doc-inline">RoleRouter</code> &mdash; a{' '}
         <code className="doc-inline">BrowserRouter</code> with that prefix as{' '}
-        <code className="doc-inline">basename</code>, wrapped in{' '}
-        <code className="doc-inline">MobileDeviceFrame</code>. Everything else renders{' '}
+        <code className="doc-inline">basename</code> and an error boundary + offline
+        redirect. Everything else renders{' '}
         <code className="doc-inline">WebsiteRouter</code> (a plain{' '}
         <code className="doc-inline">BrowserRouter</code>).
       </p>

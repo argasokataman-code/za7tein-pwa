@@ -182,10 +182,9 @@ adminSlice.resolveDispute({ id, resolution })      // putusan CS → 1 entry led
       <p className="doc-p">
         Dua belas layar (customer, merchant, kurir, CS, dokumentasi) diukur di kedua breakpoint:
         kolom aplikasi 430px saat jendela lebar (kiri 505px dari 1440px), jarak tepi 20px, dan
-        overflow horizontal 0 di semuanya. Di 1440px ada satu elemen <code className="doc-inline">fixed</code>{' '}
-        selebar 462px: itu bezel simulator ponsel (
-        <code className="doc-inline">.mobile-device-frame</code>) yang memang membungkus kolom 430px
-        — bukan bilah aplikasi yang menyeberang. Halaman <code className="doc-inline">/documentation</code>{' '}
+        overflow horizontal 0 di semuanya. Tidak ada lagi elemen <code className="doc-inline">fixed</code>{' '}
+        selebar 462px: bezel simulator ponsel sudah dihapus, jadi kolom aplikasi satu-satunya
+        pembatas. Halaman <code className="doc-inline">/documentation</code>{' '}
         sengaja lebar penuh karena ia halaman dokumen, bukan layar aplikasi.
       </p>
       <p className="doc-p">

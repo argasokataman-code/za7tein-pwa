@@ -3,7 +3,6 @@ import { useEffect, type ComponentType, type ReactNode } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
 import { StoreProvider } from './store/provider'
-import { MobileDeviceFrame } from './components/layout/MobileDeviceFrame'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
 
 import AccountSetup from './pages/AccountSetup'
@@ -180,8 +179,8 @@ const adminRoutes: [string, ComponentType][] = [
 ]
 
 // Konsol Super Admin — role terpisah, dipasang di /superadmin/* (keputusan PO
-// 2026-09-23: website penuh non-PWA, prefix disiapkan). Tidak memakai
-// MobileDeviceFrame: dipakai dari desktop sebagai dashboard bertabel.
+// 2026-09-23: website penuh non-PWA, prefix disiapkan). Lebar penuh karena
+// dashboard bertabel, bukan kolom PWA 430px.
 const superAdminRoutes: [string, ComponentType][] = [
   ['/', SaDashboard],
   ['/users', SaUsers],
@@ -241,16 +240,14 @@ function RoleChrome({ offlinePath, children }: { offlinePath?: string; children:
 function RoleRouter({ basename, routes, home, offlinePath }: RoleRouterProps) {
   return (
     <BrowserRouter basename={basename}>
-      <MobileDeviceFrame>
-        <RoleChrome offlinePath={offlinePath}>
-          <Routes>
-            {routes.map(([path, Component]) => (
-              <Route key={path} path={path} element={<Component />} />
-            ))}
-            <Route path="*" element={<Navigate to={home} replace />} />
-          </Routes>
-        </RoleChrome>
-      </MobileDeviceFrame>
+      <RoleChrome offlinePath={offlinePath}>
+        <Routes>
+          {routes.map(([path, Component]) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          <Route path="*" element={<Navigate to={home} replace />} />
+        </Routes>
+      </RoleChrome>
     </BrowserRouter>
   )
 }

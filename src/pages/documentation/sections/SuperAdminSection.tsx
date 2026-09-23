@@ -26,7 +26,7 @@ export function SuperAdminSection() {
         layar sempit.
       </p>
       <DocCode lang="text">
-        {`/superadmin          konsol SA, sidebar + konten penuh, tanpa MobileDeviceFrame
+        {`/superadmin          konsol SA, sidebar + konten penuh (website, non-PWA)
 /admin               panel CS , PWA 430px, tetap seperti role lain
 manifest             dilepas di /superadmin (non-PWA, tidak ditawarkan untuk install)`}
       </DocCode>

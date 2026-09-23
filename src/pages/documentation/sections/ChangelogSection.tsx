@@ -25,6 +25,30 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Service worker (offline)</td>
+              <td>
+                <code className="doc-inline">includeAssets</code> tumpang tindih dengan{' '}
+                <code className="doc-inline">globPatterns</code> → workbox melempar{' '}
+                <code className="doc-inline">add-to-cache-list-conflicting-entries</code>, precache batal
+                diam-diam, offline mati total
+              </td>
+              <td>
+                Tumpang tindih dibuang, <code className="doc-inline">webp</code> masuk globPatterns;
+                precache 30 entri / 2,5 MB, offline jalan
+              </td>
+            </tr>
+            <tr>
+              <td>Simulator perangkat desktop</td>
+              <td>
+                Frame 462px di ≥701px: mode layout kedua yang hanya hidup di laptop, menuntut pengecualian
+                &quot;scroll bersarang di dalam bezel&quot;
+              </td>
+              <td>
+                Dihapus. Satu mode, murni PWA: kolom 430px ditengahkan dan dokumen jadi satu-satunya
+                penggulung di lebar berapa pun
+              </td>
+            </tr>
+            <tr>
               <td>Alamat pengantaran</td>
               <td>Tambah saja; hapus hanya toast; tak ada peta; rute tak terjangkau</td>
               <td>CRUD penuh + pin peta + alamat utama; dibuka dari Profil dan tombol Ubah di Checkout</td>
