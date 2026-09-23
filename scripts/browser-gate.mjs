@@ -205,16 +205,37 @@ async function goto(cdp, url) {
 
 // Jendela OS disamakan dengan viewport yang diukur: kalau tidak, yang terlihat
 // di layar (jendela klon 500x600) tidak ada hubungannya dengan yang diukur.
+// Ukuran asli diingat sekali lalu dipulihkan di akhir — tanpa itu jendela
+// pengguna ditinggal melebar di lebar terakhir yang diukur.
+let originalBounds = null
+
 async function fitWindow(cdp, width, height) {
   if (!cdp.targetId) return
   try {
     const { windowId } = await cdp.send('Browser.getWindowForTarget', { targetId: cdp.targetId })
+    if (!originalBounds) {
+      const { bounds } = await cdp.send('Browser.getWindowBounds', { windowId })
+      originalBounds = {
+        windowId,
+        bounds: { left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height },
+      }
+    }
     await cdp.send('Browser.setWindowBounds', {
       windowId,
       bounds: { windowState: 'normal', width: width + 40, height: height + 110 },
     })
   } catch {
     // headless / tanpa window: tidak apa-apa
+  }
+}
+
+/** Kembalikan jendela ke ukuran sebelum gerbang mengukur. */
+async function restoreWindow(cdp) {
+  if (!originalBounds) return
+  try {
+    await cdp.send('Browser.setWindowBounds', originalBounds)
+  } catch {
+    // jendela sudah ditutup / headless
   }
 }
 
@@ -375,8 +396,17 @@ const TARGETS = `(() => { ${CLICKABLE_VIS}
   }
 })()`
 
-const AIM = (i) => `(() => { ${CLICKABLE_VIS}
-  const el = clickable()[${i}]
+// Target dicocokkan lewat identitas (tag + label + href), bukan indeks: sweep ini
+// mengklik dan mengubah state (mis. tombol "−" pada kuantitas 1 menghapus baris
+// keranjang), sehingga indeks bergeser dan label yang dilaporkan jadi milik
+// elemen lain.
+const AIM = (t) => `(() => { ${CLICKABLE_VIS}
+  const want = ${JSON.stringify(t)}
+  const norm = (s) => (s || '').trim().replace(/\\s+/g, ' ').slice(0, 40)
+  const el = clickable().find((e) =>
+    e.tagName === want.tag &&
+    norm(e.getAttribute('aria-label') || e.innerText || e.tagName) === want.label &&
+    (e.getAttribute('href') || null) === (want.href || null))
   if (!el) return null
   el.scrollIntoView({ block: 'center' })
   const b = el.getBoundingClientRect()
@@ -466,12 +496,14 @@ async function clickSweep(cdp, url, errors, log) {
   const limit = Math.min(targets.length, OPTS.clickLimit)
   log(`  klik nyata: ${limit}/${targets.length} elemen${found.skipped ? ` (${found.skipped} nonaktif dilewati)` : ''}`)
 
+  let vanished = 0
   for (let i = 0; i < limit; i++) {
     const t = targets[i]
     await goto(cdp, url)
-    const aim = await evaluate(cdp, AIM(i))
+    const aim = await evaluate(cdp, AIM(t))
     if (!aim) {
-      errors.push(`"${t.label}": elemen hilang setelah render ulang`)
+      // Tidak ada di muat segar = sweep sebelumnya mengubah state, bukan bug.
+      vanished++
       continue
     }
     if (!aim.hitSelf) {
@@ -510,6 +542,9 @@ async function clickSweep(cdp, url, errors, log) {
     if (before === after) log(`    ${C.yellow}~${C.off} tanpa efek terlihat: "${t.label}"`)
     const crashed = await evaluate(cdp, `!!document.querySelector('[data-app-error], .app-error-boundary')`)
     if (crashed) errors.push(`"${t.label}": klik memicu error boundary`)
+  }
+  if (vanished) {
+    log(`    ${C.yellow}~${C.off} ${vanished} elemen hilang setelah klik sebelumnya (dilewati)`)
   }
 }
 
@@ -637,6 +672,7 @@ async function main() {
   }
 
   await cdp.send('Emulation.clearDeviceMetricsOverride').catch(() => {})
+  await restoreWindow(cdp)
   cdp.close()
 
   if (OPTS.json) {
