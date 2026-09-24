@@ -462,3 +462,16 @@
     transform: none;
   }
 }
+
+/* Di app terinstal hero melebar sampai tepi atas — itu desainnya, jadi latar
+   oranyenya tetap sampai tepi; yang turun hanya isinya, supaya baris pertama
+   (avatar, lokasi, lonceng) tidak mendarat di area kamera. Terukur 42px vs
+   safe-area 59px.
+   Sengaja paling bawah berkas: dua media query lebar di atas menyetel
+   `padding` (30px pada >=768px), dan pada kekhususan sama yang menang adalah
+   yang terakhir. */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .s7-hero__content {
+    padding-top: calc(var(--space-5) + env(safe-area-inset-top));
+  }
+}

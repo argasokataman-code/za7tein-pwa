@@ -102,6 +102,15 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Di app terinstal pil merek ini mengambang di tepi atas, jadi ia harus turun
+   melewati status bar OS / kamera punch-hole. Terukur di jendela app-mode
+   390px: tepinya 23px sementara safe-area 59px — namanya masuk ke area kamera. */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .onboarding-brand {
+    top: calc(var(--space-4) + env(safe-area-inset-top));
+  }
+}
+
 .onboarding-brand-mark {
   display: block;
   width: 26px;

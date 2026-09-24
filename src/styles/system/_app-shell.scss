@@ -94,4 +94,47 @@ body.wallet-page {
     height: auto;
     min-height: 60px;
   }
+
+  // Delapan header layar yang belum menyerap inset sama sekali. Terukur di
+  // jendela app-mode 390px: tepi teksnya 11-28px sementara safe-area 59px,
+  // jadi judulnya masuk ke area kamera punch-hole. Tiga yang mengalir cukup
+  // ditambah padding atas; yang `fixed` harus ikut tumbuh, dan konten di
+  // bawahnya diberi ruang setinggi tambahan itu — kalau tidak, kontennya
+  // menyelip ke bawah header.
+  .app-shell .address-selection-header,
+  .app-shell .payment-selection-header,
+  .app-shell .reviews-header {
+    padding-top: calc(16px + env(safe-area-inset-top));
+  }
+
+  .app-shell .favorites-header,
+  .app-shell .profile-header,
+  .app-shell .payment-amount-header {
+    height: auto;
+    min-height: 60px;
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .app-shell .favorites-content,
+  .app-shell .profile-content {
+    padding-top: calc(104px + env(safe-area-inset-top));
+  }
+
+  .app-shell .payment-amount-content {
+    padding-top: calc(76px + env(safe-area-inset-top));
+  }
+
+  // Halaman profil tidak punya header sama sekali: konten teratasnya blok
+  // identitas di dalam `.main-frame` (padding 20px), jadi namanya mendarat di
+  // area kamera. Terukur di jendela app-mode 390px: 26px, safe-area 59px.
+  .app-shell .main-frame {
+    padding-top: calc(20px + env(safe-area-inset-top));
+  }
+
+  // Pil merek di layar masuk (AuthLayout memakai `.app-shell auth`) mengambang
+  // di tepi atas, sama seperti pil onboarding — lihat `_onboarding.scss`.
+  // Terukur 23px, safe-area 59px.
+  .app-shell .auth-photo-brand {
+    top: calc(var(--space-4) + env(safe-area-inset-top));
+  }
 }

@@ -105,22 +105,40 @@ export function PwaSection() {
       <p className="doc-p">
         Bila status bar OS tetap tampil (fallback <code>standalone</code>, notch
         perangkat, atau iOS), konten naik ke bawahnya karena{' '}
-        <code>viewport-fit=cover</code>. Header yang menempel di atas menyerap
-        inset itu di dalam padding-nya sendiri
+        <code>viewport-fit=cover</code> — dan di app terinstal yang menempati
+        pita itu bukan cuma jam/baterai, tapi juga kamera punch-hole di tengah
+        atas. Karena itu <strong>elemen berteks paling atas di tiap layar</strong>{' '}
+        harus menyerap inset-nya: header menempel menyerapnya di padding-nya
+        sendiri
         (<code>padding-top: calc(var(--space-3) + env(safe-area-inset-top))</code>),
-        jadi latarnya menutupi area status bar pada semua posisi gulir, bukan
-        hanya saat di puncak. Aturannya satu tempat di{' '}
+        jadi latarnya tetap menutupi area status bar pada semua posisi gulir,
+        bukan hanya saat di puncak. Aturannya satu tempat di{' '}
         <code>_app-shell.scss</code>: header peran (courier, merchant, admin,
-        track, chat) dan tiga header layar warisan yang masih menempel
-        (<code>.checkout-header</code>, <code>.profile-flow-header</code>,{' '}
-        <code>.rating-driver-header</code>). Header lain di{' '}
-        <code>app/part-01</code>, <code>part-06</code>, dan{' '}
+        track, chat), header layar warisan (<code>.checkout-header</code>,{' '}
+        <code>.profile-flow-header</code>, <code>.rating-driver-header</code>,{' '}
+        <code>.address-selection-header</code>,{' '}
+        <code>.payment-selection-header</code>, <code>.reviews-header</code>,{' '}
+        <code>.favorites-header</code>, <code>.payment-amount-header</code>),
+        layar tanpa header sama sekali (<code>.main-frame</code> di halaman
+        profil), hero beranda (<code>.s7-hero__content</code>, di berkas CSS
+        hero-nya sendiri), dan pil merek yang mengambang di tepi atas
+        (<code>.auth-photo-brand</code>, <code>.onboarding-brand</code>). Header
+        lain di <code>app/part-01</code>, <code>part-06</code>, dan{' '}
         <code>part-10</code> menanganinya sendiri. Gerbang media query-nya
         menyertakan <code>fullscreen</code>, bukan hanya{' '}
         <code>standalone</code>: manifest peran memakai{' '}
         <code>display_override</code> fullscreen, jadi app terinstal bisa
         melaporkan mode itu, dan tanpa keduanya seluruh penyerapan inset mati —
         header kembali terpotong status bar.
+      </p>
+      <p className="doc-p">
+        Yang paling mudah terlewat adalah layar yang elemen teratasnya{' '}
+        <em>bukan</em> header. Terukur di jendela app-mode 390px: sepuluh rute
+        pelanggan menaruh teksnya di 11-52px sementara safe-area 59px — termasuk
+        hero beranda dan nama di halaman profil. Gerbang browser dulu hanya
+        memeriksa header <code>sticky</code>, jadi semuanya lolos; sekarang ia
+        mengambil elemen berteks paling atas di halaman (daun teks, bukan wadah),
+        sehingga celah seperti itu ketahuan sebelum sampai ke perangkat.
       </p>
       <p className="doc-p">
         Di ujung bawah, bilah navigasi menyerap gesture bar dengan{' '}
@@ -279,7 +297,11 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
         <code> npm run preview</code> dan verifikasi di DevTools &gt; Application
         &gt; Service Workers. Pastikan <code>scope</code> terdaftar di{' '}
         <code>/</code>, dan tiap prefix peran memuat manifest yang benar
-        (DevTools &gt; Application &gt; Manifest).
+        (DevTools &gt; Application &gt; Manifest). Gerbang{' '}
+        <code>--pwa</code> juga memaksa safe-area 59/34 dan menolak halaman yang
+        teks teratasnya masuk ke pita itu — jalankan{' '}
+        <code>--role all --pwa</code> setiap kali menyentuh header atau konten
+        teratas.
       </p>
     </DocSection>
   )

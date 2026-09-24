@@ -5577,6 +5577,218 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss"
+    },
+    {
+      "id": "DEC-0059",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-24",
+      "time": "21:45:38",
+      "tags": [
+        "auth",
+        "pwa",
+        "routing"
+      ],
+      "summary": "Gerbang rute mock (AuthGate) + sesi per peran: app baru buka onboarding/layar masuk, bukan beranda. Ganti 'tanpa guard rute' DEC-0058",
+      "conn": [
+        {
+          "id": "DEC-0058",
+          "type": "relates",
+          "raw": "DEC-0058:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4561",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:45:38",
+      "tags": [
+        "ui",
+        "pwa",
+        "cleanup"
+      ],
+      "summary": "Hapus mock home-indicator (komponen+11 pemakaian+6 aturan CSS); reservasi ruang footer payment-amount; scan cek gerbang display-mode",
+      "conn": [
+        {
+          "id": "DEC-0059",
+          "type": "relates",
+          "raw": "DEC-0059:relates"
+        }
+      ],
+      "commit": "9eff29d"
+    },
+    {
+      "id": "TASK-4562",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:54:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+8/-8) — edit via tool: // Konten teratas tidak boleh tertutup ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4563",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:55:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+2/-2) — edit via tool: // Diukur dari dua sisi, sebab header s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4564",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:57:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+1/-1) — edit via tool: for (const el of document.querySelector",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4565",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:58:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss (+4/-5) — edit via tool: .onboarding-brand {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss"
+    },
+    {
+      "id": "TASK-4566",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:58:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+34/-5) — edit via tool: .app-shell .rating-driver-hea",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-4567",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:59:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+21/-12) — edit via tool: .auth-photo-brand {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4568",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:59:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss (+22/-12) — edit via tool: .onboarding-brand {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss"
+    },
+    {
+      "id": "TASK-4569",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:59:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+17/-6) — edit via tool: .s7-hero__content ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-4570",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:01:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+11/-4) — edit via tool: .app-shell .payment-amount-co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
     }
   ]
 }

@@ -386,18 +386,47 @@ const MEASURE = `(async () => {
   const safe = { top: parseFloat(ps.paddingTop) || 0, bottom: parseFloat(ps.paddingBottom) || 0 }
   probe.remove()
 
-  // Konten header teratas harus turun melewati inset status bar di jendela
-  // app-mode; kalau tidak, judulnya tertutup jam/baterai OS. Diukur dari tepi
-  // anak pertama header sticky teratas, sebab padding header-lah yang menyerap
-  // inset itu, bukan wadah halaman.
-  const stickyHeaders = [...document.querySelectorAll('[class*="-header"]')]
-    .filter((el) => getComputedStyle(el).position === 'sticky' && vis(el))
-  const topContent = stickyHeaders.length
-    ? Math.min(...stickyHeaders.map((el) => {
-        const f = el.firstElementChild
-        return Math.round((f || el).getBoundingClientRect().top)
-      }))
-    : null
+  // Konten teratas harus turun melewati inset status bar di jendela app-mode;
+  // kalau tidak, judulnya tertutup jam/baterai OS atau kamera punch-hole.
+  //
+  // Diukur dari dua sisi, sebab header saja tidak cukup: ada halaman yang
+  // konten teratasnya bukan kelas -header sama sekali (judul, hero, baris chip).
+  // Versi lama hanya memeriksa header sticky dan melewatkan sisanya tanpa
+  // suara — gerbang lolos padahal di perangkat kontennya menabrak kamera.
+  //   1. tepi anak pertama header sticky teratas (padding header yang menyerap
+  //      inset, bukan wadah halaman)
+  //   2. elemen berteks paling atas di dalam shell (daun teks, bukan wadah)
+  const headerTop = (() => {
+    const stickyHeaders = [...document.querySelectorAll('[class*="-header"]')]
+      .filter((el) => getComputedStyle(el).position === 'sticky' && vis(el))
+    return stickyHeaders.length
+      ? Math.min(...stickyHeaders.map((el) => {
+          const f = el.firstElementChild
+          return Math.round((f || el).getBoundingClientRect().top)
+        }))
+      : null
+  })()
+  let textTop = null
+  let textWho = null
+  for (const el of document.querySelectorAll('body *')) {
+    if (el.children.length || !vis(el)) continue
+    if (el.closest('[aria-hidden="true"], [class*="toaster"], [class*="overlay"], [class*="backdrop"]')) continue
+    if (!(el.textContent || '').trim()) continue
+    const t = Math.round(el.getBoundingClientRect().top)
+    if (textTop === null || t < textTop) {
+      textTop = t
+      // Sertakan satu leluhur: cukup untuk menebak halaman/komponennya tanpa
+      // membuka DOM, dan itu yang dibutuhkan saat gerbang melaporkan temuan.
+      const parent = String((el.parentElement && (el.parentElement.className || el.parentElement.tagName)) || '').slice(0, 30)
+      textWho = (String(el.className || el.tagName).slice(0, 30) + ' < ' + parent).slice(0, 64)
+    }
+  }
+  const topContent = headerTop === null
+    ? textTop
+    : textTop === null ? headerTop : Math.min(headerTop, textTop)
+  const topWho = textTop !== null && (headerTop === null || textTop < headerTop)
+    ? textWho
+    : 'anak header sticky'
 
   return {
     path: location.pathname,
@@ -416,6 +445,7 @@ const MEASURE = `(async () => {
       cacheCount,
       safe,
       headerTop: topContent,
+      topWho,
     },
     shell: { w: Math.round(sr.width), x: Math.round(sr.x) },
     col,
@@ -521,12 +551,12 @@ function judge(measured, tokens, strict, viewportWidth) {
     if (Math.abs(measured.pwa.safe.bottom - OPTS.insetBottom) > 1) {
       push(fail, `safe-area bawah ${measured.pwa.safe.bottom}px != ${OPTS.insetBottom}px yang diset`)
     }
-    // Konten header tidak boleh tertutup status bar OS. Inset di atas cuma
-    // berguna kalau ada elemen yang benar-benar menyerapnya.
+    // Konten teratas tidak boleh tertutup status bar OS atau kamera punch-hole.
+    // Inset di atas cuma berguna kalau ada elemen yang benar-benar menyerapnya.
     if (measured.pwa.headerTop !== null && measured.pwa.headerTop < measured.pwa.safe.top - 1) {
       push(
         warn,
-        `konten header terpotong status bar: tepi konten ${measured.pwa.headerTop}px < safe-area ${measured.pwa.safe.top}px`,
+        `konten teratas terpotong status bar: tepi ${measured.pwa.headerTop}px < safe-area ${measured.pwa.safe.top}px (${measured.pwa.topWho})`,
       )
     }
   }
