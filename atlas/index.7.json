@@ -4342,6 +4342,101 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4496",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:04:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/main.tsx (+37/-10) — edit via tool: tsx: // Build sebelumnya mendaftarkan service",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/main.tsx"
+    },
+    {
+      "id": "TASK-4497",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:04:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx (+18/-6) — edit via tool: tsx: <code>dist",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx"
+    },
+    {
+      "id": "TASK-4498",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:04:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.77.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4499",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:05:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx (+17/-5) — edit via tool: tsx: build. Tid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx"
+    },
+    {
+      "id": "TASK-4500",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:05:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa; npm run build >/tmp/upd-build.log 2>&1 && echo \"BUILD BARU OK\"; ls -la dist/sw.js | a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

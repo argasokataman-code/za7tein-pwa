@@ -127,10 +127,22 @@ export function PwaSection() {
       <p className="doc-p">
         Service worker tidak ada di repositori. Plugin <code>vite-plugin-pwa</code>
         dengan strategi <code>generateSW</code> membuat <code>dist/sw.js</code> saat
-        build. Tidak ada impor <code>virtual:pwa-register</code> atau komponen
-        pendaftaran manual &mdash; <code>injectRegister: 'auto'</code> menyuntikkan
-        kode registrasi secara otomatis. SW tidak aktif pada dev server
+        build. Tidak ada impor <code>virtual:pwa-register</code> &mdash;{' '}
+        <code>injectRegister: 'auto'</code> menyuntikkan{' '}
+        <code>registerSW.js</code> yang mendaftarkan <code>/sw.js</code> pada{' '}
+        <code>load</code>. SW tidak aktif pada dev server
         (<code>devOptions.enabled: false</code>).
+      </p>
+      <p className="doc-p">
+        Pendaftaran itu saja tidak cukup untuk auto-update: peramban memeriksa
+        ulang <code>sw.js</code> mengikuti cache HTTP, dan Chrome menahannya
+        sampai 24 jam. <code>src/main.tsx</code> karena itu memaksa{' '}
+        <code>registration.update()</code> saat aplikasi dibuka dan tiap kali
+        kembali ke depan, lalu memuat ulang halaman sekali ketika worker baru
+        mengambil alih (<code>controllerchange</code>). Hasilnya deploy baru
+        terpakai di aplikasi terinstal tanpa reinstall dan tanpa tutup-buka
+        manual. Yang tetap butuh reinstall hanya metadata manifest (mode{' '}
+        <code>display</code>, ikon, nama), karena dibaca saat pemasangan.
       </p>
       <DocCode lang="typescript">{`// vite.config.ts — ringkasan VitePWA
 VitePWA({
