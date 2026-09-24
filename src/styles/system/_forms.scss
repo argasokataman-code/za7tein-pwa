@@ -41,3 +41,16 @@ select {
   font-size: var(--text-sm);
   cursor: pointer;
 }
+
+/* ── Slider ─────────────────────────────────────────────────────────────────
+   Tiga slider di repo (Filter harga, estimasi masak MerchantOrders, refund
+   sebagian AdminDisputes) hanya mengatur `width` dan `accent-color`, tanpa
+   tinggi. Terukur 316x16 di /admin/disputes — jalurnya setinggi 16px, jauh di
+   bawah --touch-min, sehingga sulit dipegang jari. Tinggi kontainer dinaikkan
+   ke --touch-min; jalurnya tetap tipis karena itu bagian dari kontrol native,
+   bukan kotak yang bisa ditekan. */
+
+input[type='range'] {
+  min-height: var(--touch-min);
+  accent-color: var(--sa7tein-orange);
+}

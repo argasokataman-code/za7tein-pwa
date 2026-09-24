@@ -59,7 +59,9 @@
 .payment-selection-title,
 .payment-amount-title,
 .verify-title-small,
-.admin-title {
+.admin-title,
+.merchant-title,
+.courier-title {
   font-size: var(--text-2xl);
   font-weight: 800;
   line-height: 1.15;
@@ -86,3 +88,23 @@
 // ukurannya bagian dari perhitungan lebar baris itu — menaikkannya menggeser
 // kedua tombol, bukan sekadar memperbesar huruf. Ia tetap 16px/600 seperti
 // semula. Kalau nanti ikut dirapikan, ubah bersama barisnya, bukan sendirian.
+
+// ── Judul header yang barisnya dibagi kontrol ──────────────────────────────
+// `merchant-title`, `courier-title`, dan `admin-title` dipetakan sebagai judul
+// hero karena mayoritas halamannya memang tidak menaruh kontrol di baris judul.
+// Tapi dua halaman menaruh satu tombol 44px di sana — MerchantMenu ("Tambah
+// Item") dan CourierTaskDetail (tombol kembali). Untuk itu `PageHeader`
+// menambahkan modifier `--has-control` pada headernya, dan judulnya turun ke
+// langkah header. Ditulis di sini, tempat aturan judul tinggal, supaya tetap
+// satu sumber — bukan disebar ke partial per role.
+//
+// Kekhususannya (0-2-0) lebih tinggi dari aturan hero (0-1-0) di atas, jadi
+// menang tanpa bergantung pada urutan impor.
+.merchant-header--has-control .merchant-title,
+.courier-header--has-control .courier-title,
+.admin-header--has-control .admin-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}

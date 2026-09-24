@@ -25,6 +25,24 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Judul halaman role disamakan, tiga header kembar disatukan</td>
+              <td>
+                Empat peran memakai tiga ukuran judul untuk hal yang setara: admin 27,85px, merchant dan courier 20,68px, customer 16,73px. <code className="doc-inline">_type.scss</code> hanya mengenal <code className="doc-inline">admin-title</code>, jadi merchant dan courier masih menulis ukuran dan warna sendiri. <code className="doc-inline">MerchantPageHeader</code>, <code className="doc-inline">CourierPageHeader</code>, dan <code className="doc-inline">AdminPageHeader</code> juga tiga salinan identik — prop sama, markup sama, hanya awalan kelas berbeda
+              </td>
+              <td>
+                Komponen bersama <code className="doc-inline">ui/PageHeader.tsx</code>; ketiga komponen peran jadi selubung tipis sehingga 27 pemakainya tidak perlu disentuh. <code className="doc-inline">merchant-title</code> dan <code className="doc-inline">courier-title</code> masuk pemetaan <code className="doc-inline">_type.scss</code>, dan definisi lamanya dihapus supaya satu tempat. Judul yang barisnya dibagi kontrol 44px (MerchantMenu, CourierTaskDetail) turun ke langkah header lewat modifier <code className="doc-inline">--has-control</code>. Terukur: merchant/courier/admin kini 27,85px/800, dan 16,73px/700 saat ada kontrol
+              </td>
+            </tr>
+            <tr>
+              <td>Slider setinggi sasaran jari</td>
+              <td>
+                Tiga slider (<code className="doc-inline">Filter</code> harga, estimasi masak MerchantOrders, refund sebagian AdminDisputes) hanya diatur <code className="doc-inline">width</code> dan <code className="doc-inline">accent-color</code>, tanpa tinggi. Terukur 316x16 di <code className="doc-inline">/admin/disputes</code>
+              </td>
+              <td>
+                <code className="doc-inline">input[type=range]</code> diberi <code className="doc-inline">min-height: var(--touch-min)</code> dan <code className="doc-inline">accent-color</code> token di <code className="doc-inline">system/_forms.scss</code>. Gate admin 10/10 PASS
+              </td>
+            </tr>
+            <tr>
               <td>Kartu saldo di <code className="doc-inline">/profile</code></td>
               <td>
                 Baris "Saldo Sa7tein" cuma baris teks biasa 350x60 tanpa nominal, terselip di antara setelan lain. Blok avatar+nama di atasnya ditulis dengan <code className="doc-inline">color: var(--on-brand)</code> untuk latar oranye yang tidak ada, jadi namanya putih di atas krem dan praktis hilang; surelnya tanpa aturan <code className="doc-inline">color</code> sama sekali sehingga mewarisi biru tautan bawaan peramban

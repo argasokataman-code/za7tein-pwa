@@ -4723,6 +4723,405 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/audit-role-2026-09-24.md"
+    },
+    {
+      "id": "TASK-4243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:08:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run governance:check 2>&1 | tail -2 && npm run lint 2>&1 | tail -2 && rtk git a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:09:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_type.scss (+18/-16) — edit via tool: // Judul hero: layar tanpa tombol",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_type.scss"
+    },
+    {
+      "id": "TASK-4245",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:10:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+15/-16) — edit via tool: .merchant-eyebrow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-4246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:10:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss (+12/-14) — edit via tool: .courier-eyebrow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-4247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:10:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | grep -Ei \"error|✓ built\" | head",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:14:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+2/-2) — edit via tool: | Judul halaman | Dua jenis menurut mark",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-4249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:14:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx (+49) — write via tool: tsx: import type { ReactNode } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx"
+    },
+    {
+      "id": "TASK-4250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:14:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantPageHeader.tsx (+19) — write via tool: tsx: import type {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantPageHeader.tsx"
+    },
+    {
+      "id": "TASK-4251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:14:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierPageHeader.tsx (+18) — write via tool: tsx: import type { R",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierPageHeader.tsx"
+    },
+    {
+      "id": "TASK-4252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:15:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/AdminPageHeader.tsx (+18) — write via tool: tsx: import type { React",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/AdminPageHeader.tsx"
+    },
+    {
+      "id": "TASK-4253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:15:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_type.scss (+25/-5) — edit via tool: // `menu-detail-title` sengaja TID",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_type.scss"
+    },
+    {
+      "id": "TASK-4254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:15:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | grep -Ei \"error|✓ built\" | head",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:16:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx (+50) — write via tool: tsx: import type { ReactNode } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx"
+    },
+    {
+      "id": "TASK-4256",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:16:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierPageHeader.tsx (+1/-1) — edit via tool: tsx: return <PageHe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierPageHeader.tsx"
+    },
+    {
+      "id": "TASK-4257",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:16:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantPageHeader.tsx (+1/-1) — edit via tool: tsx: return <Page",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantPageHeader.tsx"
+    },
+    {
+      "id": "TASK-4258",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:16:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/AdminPageHeader.tsx (+1/-1) — edit via tool: tsx: return <PageHeader",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/AdminPageHeader.tsx"
+    },
+    {
+      "id": "TASK-4259",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:23:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_forms.scss (+23/-10) — edit via tool: .addr-form-check {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_forms.scss"
+    },
+    {
+      "id": "TASK-4260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:24:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | grep -Ei \"error|✓ built\" | head",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:30:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.59.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:30:18",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" &&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "12:30:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/sa7tein-commit-17.txt (+47) — write via tool: refactor(roles): satu komponen header ha",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/sa7tein-commit-17.txt"
     }
   ]
 }

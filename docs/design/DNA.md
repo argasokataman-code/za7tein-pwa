@@ -16,8 +16,8 @@ Sa7tein adalah antarmuka makanan hyperlocal yang hangat, jelas, dan cepat dipaka
 | Warna aksi | Brand `--sa7tein-orange`; teks oranye pada putih memakai `--orange-ink` | token dan kontras |
 | Radius | Kontainer maksimal 12px; pill hanya untuk kontrol pill/badge | `--radius-*` |
 | Tipografi | `--font-sans`, skala `--text-xs` sampai `--text-2xl` | token, bukan angka baru |
-| Judul halaman | Dua jenis menurut markup: judul **header** (ada tombol kembali di barisnya) `--text-lg`/700; judul **hero** (tidak ada) `--text-2xl`/800. Tidak ada ukuran ketiga untuk peran yang setara | `system/_type.scss`; DOM |
-| Header halaman | Satu pola untuk semua role: judul + tombol kembali opsional, `eyebrow` opsional (`--text-xs`/700/uppercase), tinggi minimum `--nav-height`, latar `--bg-warm`, jarak tepi `--space-5`. Pola sama di dua role atau lebih memakai komponen bersama, bukan salinan kelas | source review; DOM |
+| Judul halaman | Dua jenis menurut markup: judul **header** (berbagi baris dengan kontrol 44px — tombol kembali atau tombol aksi) `--text-lg`/700; judul **hero** (barisnya tidak dibagi kontrol) `--text-2xl`/800. Tidak ada ukuran ketiga untuk peran yang setara | `system/_type.scss`; DOM |
+| Header halaman | Satu pola untuk semua role: judul + kontrol opsional (kembali atau aksi) + `eyebrow` opsional (`--text-xs`/700/uppercase), tinggi minimum `--nav-height`, latar `--bg-warm`, jarak tepi `--space-5`. Pola sama di dua role atau lebih memakai komponen bersama, bukan salinan kelas. Judulnya mengecil ke langkah header begitu ada kontrol di barisnya | source review; DOM |
 | Spasi | `--space-1..8`; touch target minimal `--touch-min` | token; DOM |
 | Ikon | `lucide-react`, `strokeWidth={1.75}`, tanpa emoji | source review |
 | Motion | `--motion-*` dan `--ease-*`; hormati reduced motion | token; UI review |

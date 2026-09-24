@@ -42,11 +42,9 @@
   margin-bottom: var(--space-1);
 }
 
-.courier-title {
-  font-size: var(--text-xl);
-  font-weight: 800;
-  color: var(--text-primary);
-}
+/* .courier-title: ukuran dan bobotnya ditentukan system/_type.scss (judul
+   hero), sama seperti .merchant-title. Alasan yang sama: satu tempat, bukan
+   dua nilai berbeda untuk judul yang setara. */
 
 .courier-back {
   display: inline-flex;

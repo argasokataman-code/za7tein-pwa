@@ -41,11 +41,10 @@
   margin-bottom: var(--space-1);
 }
 
-.merchant-title {
-  font-size: var(--text-xl);
-  font-weight: 800;
-  color: var(--text-primary);
-}
+/* .merchant-title: ukuran dan bobotnya ditentukan system/_type.scss (judul
+   hero). Dulu kelas ini menulis --text-xl/800/--text-primary sendiri, sehingga
+   terukur 20,68px sementara admin 27,85px untuk judul yang setara — dan warna
+   token diulang di dua tempat. */
 
 .merchant-card {
   @include card-surface;
