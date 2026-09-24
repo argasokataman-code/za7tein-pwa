@@ -33,9 +33,9 @@ export default function AdminDashboard() {
       <main className="admin-page">
         <AdminPageHeader eyebrow="Panel admin · CS" title="Ringkasan" />
 
-        {/* Kartu surface, bukan oranye penuh: lihat catatan di _admin.scss
-            (audit 006 #1). Note dan kurs sengaja di luar kartu. */}
-        <section className="admin-card">
+        {/* Tint --orange-soft (audit 006 #1 opsi B): hangat oranye kembali
+            tanpa gagal AA; note dan kurs sengaja di luar kartu. */}
+        <section className="admin-card admin-liability">
           <p className="admin-card-sub">Kewajiban platform</p>
           <p className="admin-liability-total">{moneyFromJod(total)}</p>
           <p className="admin-card-sub">

@@ -161,12 +161,18 @@
 }
 
 /* ── Dashboard: liability + alert ────────────────────────────────────────
-   Kartu liability dulu solid oranye (audit 006 #1, HG-05): terukur teks
-   sekunder di atasnya 1.67:1 dan baris rincian putih 3.36:1, dua-duanya di
-   bawah AA 4.5. Kini kartu surface biasa; oranye pindah ke angka total lewat
-   --orange-ink (4.88:1 di surface), jadi fokusnya tetap kuat tanpa membeli
-   kontras dengan latar penuh. Note dan catatan kurs keluar dari kartu di
-   JSX, ke latar --bg-warm (5.38:1). */
+   Kartu liability dulu solid oranye (audit 006 #1, HG-05): teks sekunder di
+   atasnya 1.67:1 dan baris rincian putih 3.36:1, dua-duanya di bawah AA 4.5.
+   Varian final = opsi B (diminta user setelah opsi A ter-commit): tint
+   --orange-soft dengan border senada, jadi hangat oranye kembali tanpa gagal
+   AA. Terukur runtime: total --orange-ink 4,15:1 (large text, min 3), sub &
+   label sekunder 4,71:1, nilai rincian prima 13,85:1. Note dan catatan kurs
+   tetap di luar kartu, ke latar --bg-warm (5,30:1). */
+
+.admin-liability {
+  background: var(--orange-soft);
+  border-color: var(--orange-soft);
+}
 
 .admin-liability-total {
   font-size: var(--text-2xl);

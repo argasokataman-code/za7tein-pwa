@@ -2387,7 +2387,7 @@
         "admin",
         "design"
       ],
-      "summary": "Kartu liability surface + total --orange-ink, bukan oranye penuh: AA 4.88:1 tanpa kehilangan fokus",
+      "summary": "Kartu liability tint --orange-soft + total --orange-ink (4,15:1 large); opsi surface diganti user",
       "conn": [
         {
           "id": "TASK-917",
@@ -2512,6 +2512,158 @@
         }
       ],
       "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4406",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:44:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminDashboard.tsx (+3/-3) — edit via tool: tsx: {/* Tint --orange-soft (audit 006 #1 ops",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-4407",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:44:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-006-2026-09-24.md (+4/-2) — edit via tool: **1. HG-05 · Kartu liability: teks di at",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-006-2026-09-24.md"
+    },
+    {
+      "id": "TASK-4408",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:44:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_admin.scss (+13/-7) — edit via tool: /* ── Dashboard: liability + alert ─────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-4409",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:44:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-006-fix-2026-09-24.md (+1/-1) — edit via tool: | 1 (HG-05) | Kartu liability `rgb(241,9",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-006-fix-2026-09-24.md"
+    },
+    {
+      "id": "TASK-4410",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:44:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+2/-1) — edit via tool: tsx: Kartu liability jadi tint --orange-soft,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4411",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:45:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+2/-2) — edit via tool: tsx: Kartu liability jadi tint --orange-soft,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4412",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:45:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_admin.scss (+4/-4) — edit via tool: --orange-soft dengan border senada, jadi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-4413",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:46:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.70.1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
     }
   ]
 }

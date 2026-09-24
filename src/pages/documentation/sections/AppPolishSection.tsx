@@ -127,7 +127,8 @@ export function AppPolishSection() {
                 3 literal warna di luar token; danger-ink BF423C di red-soft cuma 4,40:1
               </td>
               <td>
-                Kartu liability jadi surface, total pindah ke --orange-ink (4,88:1), note + kurs
+                Kartu liability jadi tint --orange-soft, total tetap --orange-ink
+                (4,15:1 large, label 4,71:1), note + kurs
                 keluar kartu ke --bg-warm (5,38:1), baris rincian label sekunder + nilai 600; copy
                 dibersihkan dari em dash (15 string, koma/titik/dua-titik); huruf isi naik ke
                 --text-base (dispute reason, detail rows, memo, nominal ledger, judul kartu) jadi
