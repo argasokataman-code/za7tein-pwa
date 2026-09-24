@@ -12,3 +12,43 @@
 .payment-amount-content > * {
   border-radius: var(--radius-lg);
 }
+
+// Kartu "Pasang aplikasi" — satu komponen (`InstallAppCard`) dipakai keempat
+// peran, jadi gayanya pun satu tempat. Bentuknya meniru kartu peran
+// (baris ikon + judul, aksi selebar kartu) supaya terasa asli di mana pun.
+.install-app {
+  @include card-surface;
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.install-app-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--sa7tein-orange);
+}
+
+.install-app-title {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.install-app-sub {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.install-app-btn {
+  margin-top: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}

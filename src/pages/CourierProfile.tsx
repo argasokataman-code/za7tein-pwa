@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
+import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
@@ -76,6 +77,8 @@ export default function CourierProfile() {
             Kurir toko ini eksklusif milik satu merchant (PRD bab 04).
           </p>
         </section>
+
+        <InstallAppCard />
 
         <div className="courier-logout">
           <button type="button" className="btn-logout" onClick={() => setShowLogout(true)}>

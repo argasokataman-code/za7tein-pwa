@@ -29,10 +29,15 @@ export function PwaSection() {
         melihat tinggi halaman.
       </p>
       <p className="doc-p">
-        Tombol Pasang di onboarding memakai prompt browser saat tersedia; bila
-        browser tidak menyediakannya, pengguna mendapat petunjuk memasang dari
-        menu Bagikan. Uji instalasi dan offline pada hasil
-        <code> npm run build</code> lalu <code>npm run preview</code>.
+        Tombol Pasang memakai prompt browser saat tersedia; bila browser tidak
+        menyediakannya, pengguna mendapat petunjuk memasang dari menu Bagikan.
+        Logikanya satu tempat (<code>useInstallPrompt</code>) dan kartunya satu
+        komponen (<code>InstallAppCard</code>) yang dipasang di keempat peran:
+        onboarding, Profil customer, Setelan merchant, Profil kurir, dan dasbor
+        CS. Kartu menyembunyikan dirinya sendiri saat aplikasi sudah terpasang
+        (<code>appinstalled</code>) atau dibuka sebagai aplikasi
+        (<code>display-mode: standalone</code>). Uji instalasi dan offline pada
+        hasil <code>npm run build</code> lalu <code>npm run preview</code>.
       </p>
 
       <h3 className="doc-h3">Service Worker</h3>

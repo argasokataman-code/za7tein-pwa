@@ -3501,6 +3501,350 @@
         }
       ],
       "loc": "src/store/slices/notificationsSlice.ts:1"
+    },
+    {
+      "id": "TASK-4452",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "18:43:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs (+10/-5) — edit via tool: async function httpJson(path) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs"
+    },
+    {
+      "id": "TASK-4453",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "18:48:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs (+2/-2) — edit via tool: const text = await t.run(args || {});",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs"
+    },
+    {
+      "id": "TASK-4454",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "18:49:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs (+32/-6) — edit via tool: function fmt(v) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs"
+    },
+    {
+      "id": "TASK-4455",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "18:49:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.config/opencode/AGENTS.md (+1/-1) — edit via tool: 4. `nav({ url })` (tunggu load selesai) ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.config/opencode/AGENTS.md"
+    },
+    {
+      "id": "TASK-4456",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "18:50:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.local/share/brave-debug-mcp/README.md (+1/-1) — edit via tool: | `nav` / `title` / `url` | navigasi (**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.local/share/brave-debug-mcp/README.md"
+    },
+    {
+      "id": "TASK-4457",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "18:50:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs (+1/-1) — edit via tool: const VERSION = '0.2.0';",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.local/share/brave-debug-mcp/mcp-server.mjs"
+    },
+    {
+      "id": "TASK-4458",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "19:54:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.config/opencode/opencode.json (+8/-8) — edit via tool: \"needmcp\": {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.config/opencode/opencode.json"
+    },
+    {
+      "id": "TASK-4459",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:24:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallAppCard.tsx (+41) — write via tool: tsx: import { Download } fro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallAppCard.tsx"
+    },
+    {
+      "id": "TASK-4460",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:24:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cards.scss (+50/-10) — edit via tool: .review-card,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cards.scss"
+    },
+    {
+      "id": "TASK-4461",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:24:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts (+55) — write via tool: ts: import { useCallback, useEffect",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts"
+    },
+    {
+      "id": "TASK-4462",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:24:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx (+2/-1) — edit via tool: tsx: import { ExchangeRateNote } fr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-4463",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:24:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+2/-1) — edit via tool: tsx: import { BottomSheet } from ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-4464",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:24:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx (+2/-1) — edit via tool: tsx: import { BottomNav } from '../compone",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx"
+    },
+    {
+      "id": "TASK-4465",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:24:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierProfile.tsx (+3/-1) — edit via tool: tsx: <InstallAppCard />",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierProfile.tsx"
+    },
+    {
+      "id": "TASK-4466",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:25:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Onboarding.tsx (+3/-2) — edit via tool: tsx: import { HomeIndicator } from '../",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Onboarding.tsx"
+    },
+    {
+      "id": "TASK-4467",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:25:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.74.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4468",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:25:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx (+11/-6) — edit via tool: tsx: <p classNa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx"
+    },
+    {
+      "id": "TASK-4469",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "20:28:59",
+      "tags": [
+        "pwa",
+        "ui",
+        "component",
+        "install"
+      ],
+      "summary": "Tombol Pasang PWA jadi komponen bersama: hook useInstallPrompt + InstallAppCard di 4 peran (onboarding, profil customer/kurir, setelan merch",
+      "conn": [
+        {
+          "id": "TASK-4459",
+          "type": "relates",
+          "raw": "TASK-4459:relates"
+        }
+      ]
     }
   ]
 }

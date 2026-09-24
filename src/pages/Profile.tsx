@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { BottomNav } from '../components/layout/BottomNav'
+import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { money } from '../data/currency'
 import { logout } from '../store/slices/authSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -187,6 +188,8 @@ export default function Profile() {
                   </Link>
                 </div>
               </section>
+              <InstallAppCard />
+
               <div className="profile-logout-wrap">
                 <button type="button" className="btn-logout" onClick={() => setShowLogout(true)}>
                   Keluar

@@ -8,6 +8,7 @@ import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { DonutChart } from '../components/ui/DonutChart'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
+import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { aggregateLiability, liabilityGap, ledgerTypeLabel, money, moneyFromJod, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
 import { disputeExposure, ledgerFlow, ledgerTypeBars, liabilitySegments } from '../data/dashboard'
@@ -293,6 +294,8 @@ export default function AdminDashboard() {
             </div>
           </div>
         </section>
+
+        <InstallAppCard />
 
         <ConfirmSheet
           open={cancelTarget !== null}

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
+import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { mockMerchant } from '../data/merchant'
@@ -181,6 +182,8 @@ export default function MerchantSettings() {
             </div>
           </div>
         </section>
+
+        <InstallAppCard />
 
         <button
           type="button"
