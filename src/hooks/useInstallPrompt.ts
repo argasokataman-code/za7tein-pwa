@@ -42,9 +42,15 @@ export function useInstallPrompt() {
   }, [promptEvent])
 
   // Sudah dibuka sebagai aplikasi terpasang → tak ada gunanya menawarkan pasang.
-  const standalone =
+  // `standalone` saja tidak cukup: manifest peran memakai `display_override`
+  // fullscreen, jadi app terinstal bisa melaporkan `fullscreen`. Tanpa daftar
+  // mode ini kartu pasang ikut muncul di dalam aplikasi yang sudah terpasang.
+  const installedMode =
     typeof window !== 'undefined' &&
-    window.matchMedia('(display-mode: standalone)').matches
+    (['standalone', 'fullscreen', 'minimal-ui'].some((mode) =>
+      window.matchMedia(`(display-mode: ${mode})`).matches,
+    ) ||
+      (navigator as Navigator & { standalone?: boolean }).standalone === true)
 
   // iOS (Safari maupun peramban lain di iOS) tidak pernah menembakkan
   // `beforeinstallprompt`, jadi satu-satunya jalan pasang lewat menu Bagikan.
@@ -56,7 +62,7 @@ export function useInstallPrompt() {
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
 
   return {
-    hidden: installed || standalone,
+    hidden: installed || installedMode,
     canPrompt: promptEvent !== null,
     isIOS,
     install,

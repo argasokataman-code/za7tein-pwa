@@ -4437,6 +4437,291 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-4501",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:13:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-06.scss (+14/-14) — edit via tool: @media (display-mode:standalone), ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-06.scss"
+    },
+    {
+      "id": "TASK-4502",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:13:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-01.scss (+9/-9) — edit via tool: @media (display-mode:standalone), (d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-01.scss"
+    },
+    {
+      "id": "TASK-4503",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:13:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-10.scss (+14/-14) — edit via tool: @media (display-mode:standalone), ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-10.scss"
+    },
+    {
+      "id": "TASK-4504",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:13:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts (+10/-4) — edit via tool: ts: // Sudah dibuka sebagai aplik",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts"
+    },
+    {
+      "id": "TASK-4505",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:13:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+8/-5) — edit via tool: @media (display-mode:standalon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-4506",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:14:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts (+1/-1) — edit via tool: ts: hidden: installed,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts"
+    },
+    {
+      "id": "TASK-4507",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:14:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.78.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4508",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:14:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx (+8/-3) — edit via tool: tsx: <code>app/p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PwaSection.tsx"
+    },
+    {
+      "id": "TASK-4509",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:14:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa; npm run lint 2>&1 | tail -25 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4510",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:15:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+32/-5) — edit via tool: const errors = []",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4511",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:16:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+4/-3) — edit via tool: const fullscreen = await evaluate(cdp, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4512",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:17:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+1/-1) — edit via tool: report.push({ url, width, pass, fail: v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4513",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:17:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.mjs (+30/-10) — edit via tool: // ── 10. Gerbang display-mode: stand",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.mjs"
+    },
+    {
+      "id": "TASK-4514",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:19:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+16/-8) — edit via tool: // Stylesheet lama memberi he",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-4515",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "21:19:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa; npm run build >/tmp/b2.log 2>&1 && echo \"BUILD OK\"; BRAVE_EXTRA_ARGS=\"--app=http://lo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

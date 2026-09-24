@@ -215,7 +215,7 @@
   color:#C9431F
 }
 
-@media (display-mode:standalone) {
+@media (display-mode:standalone), (display-mode:fullscreen) {
   .status-bar {
     padding-top:env(safe-area-inset-top)
   }

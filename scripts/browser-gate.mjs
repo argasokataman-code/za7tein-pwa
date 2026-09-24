@@ -404,9 +404,11 @@ const MEASURE = `(async () => {
     runtime,
     viewport: { w: window.innerWidth, h: window.innerHeight },
     pwa: {
-      displayMode: matchMedia('(display-mode: standalone)').matches
-        ? 'standalone'
-        : matchMedia('(display-mode: minimal-ui)').matches ? 'minimal-ui' : 'browser',
+      displayMode: matchMedia('(display-mode: fullscreen)').matches
+        ? 'fullscreen'
+        : matchMedia('(display-mode: standalone)').matches
+          ? 'standalone'
+          : matchMedia('(display-mode: minimal-ui)').matches ? 'minimal-ui' : 'browser',
       touchEvents: 'ontouchstart' in window,
       maxTouchPoints: navigator.maxTouchPoints,
       swCount,

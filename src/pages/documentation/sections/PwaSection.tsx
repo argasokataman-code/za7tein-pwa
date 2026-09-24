@@ -34,7 +34,8 @@ export function PwaSection() {
         native, tombolnya memanggil prompt itu; kalau tidak, kartu menampilkan
         langkah manualnya langsung, bukan tombol yang diam. Kartu menyembunyikan
         dirinya sendiri saat aplikasi sudah terpasang (<code>appinstalled</code>)
-        atau dibuka sebagai aplikasi (<code>display-mode: standalone</code>), dan
+        atau dibuka sebagai aplikasi (mode <code>display-mode</code>{' '}
+        <code>standalone</code> atau <code>fullscreen</code>), dan
         ikut dipasang di Profil customer, Setelan merchant, Profil kurir, dasbor
         CS, serta onboarding. Uji instalasi dan offline pada hasil{' '}
         <code>npm run build</code> lalu <code>npm run preview</code>.
@@ -114,7 +115,12 @@ export function PwaSection() {
         (<code>.checkout-header</code>, <code>.profile-flow-header</code>,{' '}
         <code>.rating-driver-header</code>). Header lain di{' '}
         <code>app/part-01</code>, <code>part-06</code>, dan{' '}
-        <code>part-10</code> menanganinya sendiri.
+        <code>part-10</code> menanganinya sendiri. Gerbang media query-nya
+        menyertakan <code>fullscreen</code>, bukan hanya{' '}
+        <code>standalone</code>: manifest peran memakai{' '}
+        <code>display_override</code> fullscreen, jadi app terinstal bisa
+        melaporkan mode itu, dan tanpa keduanya seluruh penyerapan inset mati —
+        header kembali terpotong status bar.
       </p>
       <p className="doc-p">
         Di ujung bawah, bilah navigasi menyerap gesture bar dengan{' '}

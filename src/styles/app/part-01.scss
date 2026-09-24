@@ -496,7 +496,7 @@ body {
     margin:0
   }}
 
-@media (display-mode:standalone) {
+@media (display-mode:standalone), (display-mode:fullscreen) {
   .status-bar {
     padding-top:env(safe-area-inset-top)
   }

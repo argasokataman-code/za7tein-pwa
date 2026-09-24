@@ -280,6 +280,25 @@ function checkDocsSync() {
   }
 }
 
+// ── 10. Gerbang display-mode: standalone wajib ikut fullscreen ────────────
+// Manifest peran memakai `display_override` fullscreen, jadi app terinstal bisa
+// melaporkan mode itu, bukan `standalone`. Aturan safe-area yang cuma digerbang
+// `standalone` mati di sana dan header kembali terpotong status bar — bug ini
+// pernah lolos sampai ke HP karena tak ada yang memeriksanya dari sumber.
+function checkDisplayModeGate() {
+  const hits = []
+  for (const file of walk('src/styles', ['.scss'])) {
+    read(file).split('\n').forEach((line, i) => {
+      if (!line.includes('@media')) return
+      if (/display-mode:\s*standalone/.test(line) && !/display-mode:\s*fullscreen/.test(line)) {
+        hits.push(`${file}:${i + 1}`)
+      }
+    })
+  }
+  if (hits.length) fail.push(`gerbang display-mode standalone tanpa fullscreen: ${hits.join(', ')}`)
+  else info.push('Gerbang display-mode: standalone + fullscreen')
+}
+
 // ── jalankan ──────────────────────────────────────────────────────────────
 checkTokens()
 checkClassNames()
@@ -290,6 +309,7 @@ checkForbidden()
 checkLineCaps()
 checkRoutes()
 checkDocsSync()
+checkDisplayModeGate()
 
 if (ROUTE_FILTER.length) {
   info.push(`Filter rute ${ROUTE_FILTER.join(', ')} dicatat — scan ini statik, tidak menjelajah rute`)
