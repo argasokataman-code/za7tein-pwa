@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Tujuh baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Delapan baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -185,6 +185,37 @@ export function AppPolishSection() {
                 bar yang masih berbeda. Terukur gate <code className="doc-inline">--role all --pwa</code>:
                 <strong> 134/134 PASS, 10 kelas bar semuanya 123px</strong> (= 64px terlihat + 59px inset)
                 di 390px dan 1440px
+              </td>
+            </tr>
+            <tr>
+              <td>Manifest PWA bocor ke rute non-app</td>
+              <td>
+                <code className="doc-inline">index.html</code> memasang{' '}
+                <code className="doc-inline">&lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;</code>{' '}
+                statis di <strong>semua</strong> rute. Skrip di bawahnya hanya mengganti href untuk
+                empat prefix peran dan menghapus untuk <code className="doc-inline">/superadmin</code>,
+                jadi <code className="doc-inline">/</code> dan{' '}
+                <code className="doc-inline">/documentation</code> tetap memakai manifest umum itu
+                (id <code className="doc-inline">&quot;/&quot;</code>, scope{' '}
+                <code className="doc-inline">&quot;/&quot;</code>, start_url{' '}
+                <code className="doc-inline">&quot;/&quot;</code>) dan benar-benar bisa diinstal
+                sebagai app kelima. Scope-nya menelan seluruh prefix peran, jadi tiga app terpasang
+                dengan scope bertumpuk
+              </td>
+              <td>
+                Elemen manifest <strong>dibuat</strong> hanya saat pathname cocok salah satu dari
+                empat prefix peran, dan <code className="doc-inline">public/manifest.json</code>{' '}
+                dihapus supaya tidak ada manifest yatim ber-scope{' '}
+                <code className="doc-inline">&quot;/&quot;</code>. Terukur di build:{' '}
+                <code className="doc-inline">/</code>, <code className="doc-inline">/documentation</code>,{' '}
+                <code className="doc-inline">/superadmin</code>, dan rute tak dikenal melaporkan{' '}
+                <code className="doc-inline">hasManifest false</code>; empat rute peran tetap
+                memakai manifest sendiri dan tetap <code className="doc-inline">standalone</code>.
+                Dua pengaman: <code className="doc-inline">npm run scan</code> menolak{' '}
+                <code className="doc-inline">rel=manifest</code> statis dan manifest di luar empat
+                itu, <code className="doc-inline">browser-gate</code> menolak rute yang mengukur
+                manifest yang bukan miliknya (dibuktikan dengan menyuntik ulang bug-nya). Gate{' '}
+                <code className="doc-inline">--role all --pwa</code> 134/134 lolos
               </td>
             </tr>
           </tbody>

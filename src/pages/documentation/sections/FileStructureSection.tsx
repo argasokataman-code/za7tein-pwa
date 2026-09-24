@@ -9,7 +9,7 @@ export function FileStructureSection() {
 │
 ├── public/
 │   ├── favicon.ico, favicon.svg, icons.svg
-│   ├── manifest.json
+│   ├── manifest-{customer,merchant,courier,admin}.json  # PWA, satu per peran
 │   ├── icons/                 # PWA icons (72..512 png, mark, cloche)
 │   └── assets/
 │       ├── fonts/             # Manrope (self-hosted)

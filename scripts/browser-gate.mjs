@@ -65,6 +65,14 @@ const OPTS = {
   offline: has('--offline'),
   insetTop: Number(valueOf('--inset-top', '59')),
   insetBottom: Number(valueOf('--inset-bottom', '34')),
+  // Audit khusus: rute pertama jadi titik berangkat, tiap rute berikutnya
+  // DIBUKA DARI situ lewat tautan/klik supaya ada riwayat gulir nyata. Itu satu
+  // -satunya cara menemukan halaman yang mewarisi posisi gulir; navigasi
+  // langsung lewat CDP selalu mulai dari atas.
+  audit: has('--audit'),
+  auditPause: Number(valueOf('--audit-pause', '450')),
+  /** Dari mana halaman sebelumnya ditinggalkan: 'top' (default) atau 'bottom'. */
+  auditFrom: valueOf('--audit-from', 'top'),
 }
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -381,8 +389,32 @@ const MEASURE = `(async () => {
   try {
     cacheCount = (await caches.keys()).length
   } catch { /* cache storage tidak tersedia */ }
-  // Bukti override safe-area benar-benar berlaku: baca env() yang sama yang
-  // dipakai stylesheet (part-01/part-06 hanya aktif saat standalone).
+  // Siapa penggulung dokumen ini, dan apakah gulirnya benar-benar berangkat
+  // dari atas. Dipakai untuk membuktikan satu hal yang tidak bisa dilihat dari
+  // sumber: aturan "dokumen satu-satunya penggulung" (_app-shell.scss) plus
+  // "gulir selalu mulai dari atas" berlaku di SEMUA halaman.
+  //
+  // scrollTop di sini diukur SESUDAH navigasi ke rute baru, jadi angka != 0
+  // berarti posisi gulir warisan yang bocor antar halaman.
+  const scroll = (() => {
+    const html = document.documentElement
+    const body = document.body
+    const oy = (el) => getComputedStyle(el).overflowY
+    const isC = (el) => (oy(el) === 'auto' || oy(el) === 'scroll')
+      && el.scrollHeight > el.clientHeight + 1
+    return {
+      htmlScrollTop: Math.round(html.scrollTop),
+      bodyScrollTop: Math.round(body.scrollTop),
+      bodyIsScroller: isC(body),
+      htmlIsScroller: isC(html),
+      // Bila body yang menggulir, dokumen benar-benar tidak bisa menggulir:
+      // gulirnya nyangkut di body dan window.scrollTo tidak berpengaruh.
+      htmlScrollable: html.scrollHeight > html.clientHeight + 1,
+      docScrollTop: Math.round(window.scrollY),
+    }
+  })()
+
+  // Bukti override safe-area benar-benar berlaku: baca env() yang sama yang  // dipakai stylesheet (part-01/part-06 hanya aktif saat standalone).
   const probe = document.createElement('div')
   probe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;'
     + 'padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)'
@@ -463,8 +495,19 @@ const MEASURE = `(async () => {
     }
   })()
 
+  // Manifest yang BENAR-BENAR dibaca peramban di halaman ini. Aturan produk:
+  // hanya empat prefix peran yang boleh punya manifest. Rute lain (landing,
+  // /documentation, /superadmin) harus null — kalau tidak, peramban menawarkan
+  // pasang untuk halaman yang bukan app, dan scope manifestnya bisa menelan
+  // prefix peran. Diukur dari DOM, bukan dari komentar atau niat.
+  const manifestHref = (() => {
+    const link = document.querySelector('link[rel=manifest]')
+    return link ? link.getAttribute('href') : null
+  })()
+
   return {
     path: location.pathname,
+    manifestHref,
     runtime,
     topbar,
     viewport: { w: window.innerWidth, h: window.innerHeight },
@@ -489,6 +532,7 @@ const MEASURE = `(async () => {
     controls: controls.length,
     smallTargets,
     scrollers,
+    scroll,
     fixed,
     gutters,
     crashed: !!document.querySelector('[data-app-error], .app-error-boundary, [data-error-boundary]'),
@@ -496,8 +540,33 @@ const MEASURE = `(async () => {
   }
 })()`
 
-const SIGNATURE = `(() => {
-  const el = document.activeElement
+const SCROLL_AUDIT = `(() => {
+  const html = document.documentElement
+  const body = document.body
+  const oy = (el) => getComputedStyle(el).overflowY
+  const scrollable = (el) => {
+    const o = oy(el)
+    return (o === 'auto' || o === 'scroll') && el.scrollHeight > el.clientHeight + 1
+  }
+  // Siapa saja yang menggulir selain dokumen. Kosong = kontrak terjaga.
+  const scrollableBy = [...document.querySelectorAll('body *')]
+    .filter((el) => scrollable(el))
+    .map((el) => String(el.className || el.tagName).split(' ')[0].slice(0, 28))
+  return {
+    scrollY: Math.round(window.scrollY),
+    htmlScrollTop: Math.round(html.scrollTop),
+    bodyScrollTop: Math.round(body.scrollTop),
+    bodyIsScroller: scrollable(body),
+    htmlIsScroller: scrollable(html),
+    htmlScrollable: html.scrollHeight > html.clientHeight + 1,
+    maxScroll: Math.max(0, html.scrollHeight - html.clientHeight),
+    bodyH: Math.round(body.getBoundingClientRect().height),
+    docH: html.scrollHeight,
+    scrollableBy: [...new Set(scrollableBy)].slice(0, 6),
+  }
+})()`
+
+const SIGNATURE = `(() => {  const el = document.activeElement
   return [location.href, document.body.innerText.length, document.querySelectorAll('*').length,
     el ? el.tagName + (el.getAttribute('aria-label') || '') : ''].join('|')
 })()`
@@ -596,6 +665,22 @@ function judge(measured, tokens, strict, viewportWidth) {
       )
     }
   }
+  // Manifest: hanya empat prefix peran yang boleh punya. Kalau rute non-app
+  // mendapat manifest, peramban menawarkan pasang di halaman yang bukan app —
+  // dan manifest ber-scope "/" bahkan menelan seluruh prefix peran. Gerbang
+  // ini yang menahannya kalau `index.html` kembali memasang manifest statis.
+  if (measured.manifestHref) {
+    const rolePath = measured.path.match(/^\/(customer|merchant|courier|admin)(\/|$)/)
+    if (!rolePath) {
+      push(fail, `manifest di rute non-app: ${measured.path} memakai ${measured.manifestHref}`)
+    } else if (measured.manifestHref !== `/manifest-${rolePath[1]}.json`) {
+      push(
+        fail,
+        `manifest salah untuk ${measured.path}: ${measured.manifestHref} != /manifest-${rolePath[1]}.json`,
+      )
+    }
+  }
+
   // Tinggi bar halaman satu nilai (DNA baris 20: tinggi minimum --nav-height).
   // Sebelum kontrak `_topbar.scss` terukur 60/64/76px menurut halaman. Di
   // app-mode tingginya bar + inset, jadi lantainya tetap token ini.
@@ -621,6 +706,26 @@ function judge(measured, tokens, strict, viewportWidth) {
   }
   if (measured.overflowX !== 0) push(fail, `overflow-x ${measured.overflowX}px (harus 0)`)
   if (measured.scrollers.length) push(fail, `scroller bersarang: ${measured.scrollers.join(', ')}`)
+
+  // Gulir harus berangkat dari atas di setiap halaman baru, dan penggulungnya
+  // tetap dokumen. Dua hal berbeda:
+  //   - `bodyIsScroller` benar = kontrak `_app-shell.scss` bocor (stylesheet
+  //     porting memasang overflow non-visible ke body), dan window.scrollTo
+  //     jadi tidak berpengaruh sama sekali.
+  //   - `docScrollTop != 0` = posisi gulir warisan dari halaman sebelumnya.
+  //     React Router tidak mereset gulir, jadi tanpa ini halaman baru bisa
+  //     terbuka tepat di tengah — persis keluhan "harus scroll ke atas sendiri".
+  if (measured.scroll) {
+    if (measured.scroll.bodyIsScroller && !measured.scroll.htmlIsScroller) {
+      push(fail, 'body jadi scroll container: window.scrollTo tidak berpengaruh (lihat _app-shell.scss)')
+    }
+    if (measured.scroll.docScrollTop !== 0) {
+      push(
+        warn,
+        `gulir tidak mulai dari atas: scrollY ${measured.scroll.docScrollTop}px saat halaman dibuka`,
+      )
+    }
+  }
 
   // Invarian bilah fixed: tidak menyeberang keluar kolom visual.
   for (const f of measured.fixed) {
@@ -746,6 +851,64 @@ async function main() {
   const widths = OPTS.width ? [Number(OPTS.width)] : [390, 1440]
 
   const cdp = await Cdp.connect()
+
+  // Audit gulir: rute pertama jadi titik berangkat, sisanya dibuka dari situ.
+  // Navigasi dokumen penuh supaya Chromium bisa memulihkan posisi gulir persis
+  // seperti yang dialami pengguna, bukan angka yang dibuat-buat.
+  if (OPTS.audit) {
+    const rows = []
+    await cdp.send('Emulation.setDeviceMetricsOverride', {
+      width: 390, height: 844, deviceScaleFactor: 2, mobile: true,
+    })
+    await fitWindow(cdp, 390, 844)
+    if (OPTS.pwa) {
+      await cdp.send('Emulation.setSafeAreaInsetsOverride', {
+        insets: { top: OPTS.insetTop, bottom: OPTS.insetBottom, left: 0, right: 0 },
+      }).catch(() => {})
+    }
+    const first = urls[0].startsWith('http') ? urls[0] : BASE + urls[0]
+    await goto(cdp, first)
+    for (const url of urls) {
+      const abs = url.startsWith('http') ? url : BASE + url
+      if (url !== urls[0]) {
+        const fromTop = OPTS.auditFrom !== 'bottom'
+        if (fromTop) {
+          // "Buka dari atas": halaman berikutnya ditinggalkan dalam keadaan
+          // tergulir ke atas. Ini justru menguji hal yang paling sering bocor:
+          // Chromium menetapkan `scrollRestoration` dan aplikasi tidak
+          // meresetnya, jadi halaman baru bisa terbuka di posisi warisan.
+          await evaluate(cdp, "history.scrollRestoration = 'auto'; window.scrollTo(0, 0); 'ok'")
+        } else {
+          const prevMax = await evaluate(
+            cdp,
+            'Math.max(0, document.documentElement.scrollHeight - document.documentElement.clientHeight)',
+          )
+          await evaluate(cdp, `history.scrollRestoration = 'auto'; window.scrollTo(0, ${prevMax}); 'ok'`)
+        }
+        await sleep(150)
+        await goto(cdp, abs)
+      }
+      await sleep(OPTS.auditPause)
+      const m = await evaluate(cdp, SCROLL_AUDIT)
+      rows.push({ url, ...m })
+      const flag = m.bodyIsScroller
+        ? `${C.red}body=scroller${C.off}`
+        : m.scrollY > 0 ? `${C.yellow}${m.scrollY}px${C.off}` : `${C.green}0px${C.off}`
+      logLine(
+        `  ${url.padEnd(26)} ${C.dim}scrollY=${m.scrollY} · html ${m.htmlScrollTop} · body ${m.bodyScrollTop}` +
+          ` · htmlScrollable=${m.htmlScrollable} · max=${m.maxScroll}${C.off}  ${flag}` +
+          `${m.scrollableBy.length ? `  ${C.yellow}${m.scrollableBy.join(', ')}${C.off}` : ''}`,
+      )
+    }
+    const bad = rows.filter((r) => r.bodyIsScroller || r.scrollY > 0)
+    logLine(
+      `\n${bad.length ? C.red : C.green}${rows.length - bad.length}/${rows.length} halaman mulai dari atas` +
+        ` dan menggulir lewat dokumen${C.off}`,
+    )
+    cdp.close()
+    process.exit(bad.length ? 1 : 0)
+  }
+
   await cdp.send('Page.enable')
   await cdp.send('Runtime.enable')
   await cdp.send('Network.enable').catch(() => {})
@@ -844,7 +1007,9 @@ async function main() {
           const tag = pass === 'offline' ? ' offline' : ''
           const pwaInfo = OPTS.pwa ? ` · ${measured.pwa.displayMode} · sw ${measured.pwa.swCount}${measured.pwa.controlled ? '/ctrl' : ''}` : ''
           const barInfo = measured.topbar ? ` · bar ${measured.topbar.h}px ${measured.topbar.cls}` : ''
-          logLine(`  ${mark} ${url} @${width}px${tag}  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px · overflow ${measured.overflowX}px · ${measured.controls} kontrol${barInfo}${pwaInfo}${C.off}`)
+          const sc = measured.scroll
+          const scrollInfo = sc ? ` · gulir ${sc.docScrollTop}px${sc.bodyIsScroller ? ' body=scroller' : ''}` : ''
+          logLine(`  ${mark} ${url} @${width}px${tag}  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px · overflow ${measured.overflowX}px · ${measured.controls} kontrol${barInfo}${scrollInfo}${pwaInfo}${C.off}`)
           for (const m of verdict.fail) logLine(`      ${C.red}✗${C.off} ${m}`)
           for (const m of errors) logLine(`      ${C.red}✗${C.off} ${m}`)
           for (const m of verdict.warn.slice(0, 6)) logLine(`      ${C.yellow}!${C.off} ${m}`)

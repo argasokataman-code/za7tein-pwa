@@ -10,7 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       scope: '/',
       injectRegister: 'auto',
-      // the app ships its own public/manifest.json
+      // the app ships its own public/manifest-<role>.json, satu per peran
       manifest: false,
       // JANGAN pakai includeAssets untuk berkas yang sudah cocok globPatterns:
       // entri ganda (satu tanpa revision, satu dengan ?__WB_REVISION__) membuat

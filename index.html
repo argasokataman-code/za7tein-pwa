@@ -9,36 +9,54 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Sa7tein" />
-    <link rel="manifest" id="app-manifest" href="/manifest.json" />
     <script>
-      // Manifest per peran: tiap prefix punya identitas sendiri supaya bisa
-      // diinstall sebagai aplikasi terpisah dari situs dan dari peran lain.
-      // `/superadmin` sengaja TIDAK di sini: konsol itu website penuh non-PWA
-      // (keputusan PO 2026-09-23), jadi manifest-nya dilepas supaya browser
-      // tidak menawarkan install.
+      // Manifest HANYA dipasang di rute yang memang bisa diinstal: empat prefix
+      // peran. Rute lain — `/` (landing), `/documentation`, `/superadmin`, dan
+      // apa pun yang tidak dikenal — sengaja tidak punya manifest sama sekali,
+      // supaya peramban tidak menawarkan pasang dan tidak ada app dengan scope
+      // yang menelan prefix peran.
+      //
+      // Sebelum ini `<link rel="manifest" href="/manifest.json">` ada di HTML
+      // statis, dan skrip di bawahnya hanya MENGGANTI href untuk empat peran
+      // serta MENGHAPUS untuk /superadmin. Akibatnya landing dan dokumentasi
+      // tetap memakai manifest umum itu (id "/", scope "/", start_url "/") dan
+      // benar-benar bisa diinstal — padahal `navigateFallbackDenylist`,
+      // `InstallPromptSheet`, `ROUTE_TABLES.web.pwa: false` di
+      // scripts/browser-gate.mjs, dan AGENTS.md §8 semuanya menyatakan rute itu
+      // bukan app terinstal. Niatnya sudah benar di empat tempat; yang bocor
+      // hanya satu baris HTML.
+      //
+      // Dijalankan sebelum `<link rel="manifest">` ada di DOM, jadi tidak ada
+      // jendela waktu di mana peramban sempat membaca manifest yang salah.
       (function () {
         var names = { customer: 'Sa7tein', merchant: 'Sa7tein Merchant', courier: 'Sa7tein Kurir', admin: 'Sa7tein Admin' };
         // Judul jendela app-mode Chromium diambil dari `<title>` dokumen, bukan
         // `name` manifest — tanpa ini empat jendela tampil dengan judul identik
         // dan tidak bisa dibedakan. Peran customer cukup "Sa7tein".
         var titles = { customer: 'Sa7tein — Marketplace Makanan Hyperlocal', merchant: 'Sa7tein Merchant — Sa7tein', courier: 'Sa7tein Kurir — Sa7tein', admin: 'Sa7tein Admin — Sa7tein' };
-        if (location.pathname === '/superadmin' || location.pathname.indexOf('/superadmin/') === 0) {
-          var link = document.getElementById('app-manifest');
-          if (link) link.parentNode.removeChild(link);
-          document.documentElement.setAttribute('data-role', 'superadmin');
-          document.title = 'Sa7tein Super Admin';
-          return;
-        }
         var roles = Object.keys(names);
+        var matched = null;
         for (var i = 0; i < roles.length; i++) {
-          var role = roles[i];
-          if (location.pathname === '/' + role || location.pathname.indexOf('/' + role + '/') === 0) {
-            document.getElementById('app-manifest').setAttribute('href', '/manifest-' + role + '.json');
-            document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', names[role]);
-            document.documentElement.setAttribute('data-role', role);
-            document.title = titles[role];
+          if (location.pathname === '/' + roles[i] || location.pathname.indexOf('/' + roles[i] + '/') === 0) {
+            matched = roles[i];
             break;
           }
+        }
+
+        var link = document.createElement('link');
+        link.rel = 'manifest';
+        link.id = 'app-manifest';
+
+        if (matched) {
+          link.href = '/manifest-' + matched + '.json';
+          document.head.appendChild(link);
+          var apple = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+          if (apple) apple.setAttribute('content', names[matched]);
+          document.documentElement.setAttribute('data-role', matched);
+          document.title = titles[matched];
+        } else if (location.pathname === '/superadmin' || location.pathname.indexOf('/superadmin/') === 0) {
+          document.documentElement.setAttribute('data-role', 'superadmin');
+          document.title = 'Sa7tein Super Admin';
         }
       })();
     </script>

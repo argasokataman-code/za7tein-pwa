@@ -239,11 +239,6 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
           </thead>
           <tbody>
             <tr>
-              <td><code className="doc-inline">/manifest.json</code></td>
-              <td><code className="doc-inline">/</code> (landing)</td>
-              <td><code className="doc-inline">/</code></td>
-            </tr>
-            <tr>
               <td><code className="doc-inline">/manifest-customer.json</code></td>
               <td><code className="doc-inline">/customer/home</code></td>
               <td><code className="doc-inline">/customer/</code></td>
@@ -267,21 +262,40 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
         </table>
       </div>
       <p className="doc-p">
-        Pemilihan manifest dilakukan inline di <code>index.html</code> berdasarkan
-        <code> location.pathname</code>:</p>
-      <DocCode lang="html">{`<link rel="manifest" id="app-manifest" href="/manifest.json" />
-<script>
+        Empat manifest, tidak lebih. <code className="doc-inline">/</code> (landing),
+        <code className="doc-inline">/documentation</code>, dan{' '}
+        <code className="doc-inline">/superadmin</code> <strong>tidak punya manifest
+        sama sekali</strong>, jadi peramban tidak menawarkan pasang di sana dan tidak
+        ada app dengan scope yang menelan prefix peran.
+      </p>
+      <p className="doc-p">
+        Pemasangannya dipilih inline di <code>index.html</code> berdasarkan
+        <code> location.pathname</code>. Elemennya <strong>dibuat</strong> hanya saat
+        rute cocok, bukan ditulis di HTML lalu href-nya diganti — versi lama menulis
+        <code> &lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;</code>{' '}
+        di HTML statis dan hanya mengganti href untuk empat peran, sehingga landing dan
+        dokumentasi tetap memakai manifest umum itu (<code>id</code>{' '}
+        <code className="doc-inline">&quot;/&quot;</code>, <code>scope</code>{' '}
+        <code className="doc-inline">&quot;/&quot;</code>) dan benar-benar bisa
+        diinstal:</p>
+      <DocCode lang="html">{`<script>
   (function () {
     var roles = ['customer', 'merchant', 'courier', 'admin'];
+    var matched = null;
     for (var i = 0; i < roles.length; i++) {
-      var role = roles[i];
-      if (location.pathname === '/' + role ||
-          location.pathname.indexOf('/' + role + '/') === 0) {
-        document.getElementById('app-manifest')
-          .setAttribute('href', '/manifest-' + role + '.json');
+      if (location.pathname === '/' + roles[i] ||
+          location.pathname.indexOf('/' + roles[i] + '/') === 0) {
+        matched = roles[i];
         break;
       }
     }
+    // Tanpa rute peran yang cocok: tidak ada manifest yang dipasang.
+    if (!matched) return;
+    var link = document.createElement('link');
+    link.rel = 'manifest';
+    link.id = 'app-manifest';
+    link.href = '/manifest-' + matched + '.json';
+    document.head.appendChild(link);
   })();
 </script>`}</DocCode>
       <p className="doc-p">

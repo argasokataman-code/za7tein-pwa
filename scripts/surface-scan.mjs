@@ -299,6 +299,55 @@ function checkDisplayModeGate() {
   else info.push('Gerbang display-mode: standalone + fullscreen')
 }
 
+// ── 10b. Manifest PWA hanya untuk empat prefix peran ──────────────────────
+// `rel="manifest"` pernah ditulis statis di index.html sehingga landing dan
+// /documentation memakai manifest umum (id "/", scope "/") dan benar-benar
+// bisa diinstal, padahal AGENTS.md §8, `navigateFallbackDenylist`,
+// `InstallPromptSheet`, dan `ROUTE_TABLES.web.pwa: false` semuanya menyatakan
+// rute itu bukan app. Aturannya sekarang: elemen manifest DIBUAT hanya saat
+// pathname cocok salah satu prefix peran, dan hanya manifest-<peran>.json yang
+// ada di public/. Dua-duanya diperiksa dari sumber.
+function checkManifestScope() {
+  const html = read('index.html')
+  const roles = ['customer', 'merchant', 'courier', 'admin']
+
+  // Tidak boleh ada <link rel="manifest" ...> statis di HTML. Komentar dimatikan
+  // lebih dulu: penjelasan di index.html menyebut bentuk lama itu apa adanya,
+  // dan cek yang membaca komentar sendiri akan menuduh kode yang sudah benar.
+  const withoutComments = html.replace(/<!--[\s\S]*?-->/g, '').replace(/\/\/[^\n]*/g, '')
+  if (/<link[^>]+rel=["']manifest["']/.test(withoutComments)) {
+    fail.push('index.html: <link rel="manifest"> statis — landing & /documentation ikut dapat manifest')
+  }
+
+  for (const role of roles) {
+    if (!exists(`public/manifest-${role}.json`)) {
+      fail.push(`public/manifest-${role}.json hilang`)
+      continue
+    }
+    const m = JSON.parse(read(`public/manifest-${role}.json`))
+    if (m.scope !== `/${role}/`) fail.push(`manifest-${role}.json: scope "${m.scope}" != "/${role}/"`)
+    if (m.id !== `/${role}/`) fail.push(`manifest-${role}.json: id "${m.id}" != "/${role}/"`)
+    if (!String(m.start_url || '').startsWith(`/${role}`)) {
+      fail.push(`manifest-${role}.json: start_url "${m.start_url}" di luar prefix /${role}`)
+    }
+  }
+
+  // Manifest umum tidak boleh ada lagi: kalau ada, ia jadi jalur install
+  // kedua dengan scope "/" yang menelan semua prefix peran.
+  if (exists('public/manifest.json')) {
+    fail.push('public/manifest.json masih ada: manifest umum ber-scope "/" yang menelan prefix peran')
+  }
+
+  // Empat manifest saja, tidak lebih — manifest yatim menandakan jalur install
+  // yang tidak diakui peta rute.
+  const extra = walk('public', ['.json'])
+    .filter((f) => /manifest/.test(f))
+    .filter((f) => !roles.some((r) => f === `public/manifest-${r}.json`))
+  if (extra.length) fail.push(`manifest tak terpakai di public/: ${extra.join(', ')}`)
+
+  if (!fail.length) info.push('Manifest PWA: 4 peran saja, tanpa manifest umum')
+}
+
 // ── jalankan ──────────────────────────────────────────────────────────────
 checkTokens()
 checkClassNames()
@@ -310,6 +359,7 @@ checkLineCaps()
 checkRoutes()
 checkDocsSync()
 checkDisplayModeGate()
+checkManifestScope()
 
 if (ROUTE_FILTER.length) {
   info.push(`Filter rute ${ROUTE_FILTER.join(', ')} dicatat — scan ini statik, tidak menjelajah rute`)
