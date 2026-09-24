@@ -18,3 +18,19 @@
 .profile-header-block .wilson-09-gail-com {
   color: var(--text-secondary);
 }
+
+/* ── Modal keluar ───────────────────────────────────────────────────────────
+   Modal ini dipaku ke dasar layar, dan dasar layar /profile ditempati
+   .bottom-nav (fixed, 76px, z-index 1000). part-15.scss memberi modal z-index
+   1000 juga — seri, dan bilah nav menang karena muncul belakangan di DOM,
+   sehingga tombol Batal/Keluar tertutup 36px. Dinaikkan satu tingkat, lalu
+   diberi ruang bawah sebesar bilah nav plus safe-area supaya tombolnya tidak
+   pernah bersinggungan dengan home indicator di perangkat berponi. */
+
+.profile-modal-overlay {
+  z-index: 1001;
+}
+
+.profile-modal {
+  padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+}

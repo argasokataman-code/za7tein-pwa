@@ -34,6 +34,15 @@ export function ChangelogSection() {
               </td>
             </tr>
             <tr>
+              <td>Modal keluar tertutup bilah nav</td>
+              <td>
+                Modal keluar dipaku ke dasar layar, dan dasar layar itu ditempati <code className="doc-inline">.bottom-nav</code> (fixed, 76px, <code className="doc-inline">z-index 1000</code>). <code className="doc-inline">part-15.scss</code> memberi modal <code className="doc-inline">z-index 1000</code> juga — seri, dan nav menang karena muncul belakangan di DOM, sehingga tombol Batal/Keluar tertutup 36px. Padding bawahnya 40px tetap, tanpa ruang aman perangkat berponi
+              </td>
+              <td>
+                Modal dinaikkan ke <code className="doc-inline">z-index 1001</code> dan padding bawahnya jadi <code className="doc-inline">calc(var(--space-5) + env(safe-area-inset-bottom))</code>. Terukur tombol 165x44 sepasang, berakhir 20px di atas dasar layar, tidak lagi bersinggungan dengan bilah nav
+              </td>
+            </tr>
+            <tr>
               <td>Empat layar auth terakhir pindah ke kerangka bersama</td>
               <td>
                 <code className="doc-inline">ForgotPassword</code>, <code className="doc-inline">ForgotPasswordOtp</code>,{' '}
