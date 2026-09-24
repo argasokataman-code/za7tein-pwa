@@ -1,17 +1,27 @@
 import { ArrowRight, Bell, CircleHelp, CreditCard, FileText, Globe, LockKeyhole, MapPin, Shield, UserRound, Wallet } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { BottomNav } from '../components/layout/BottomNav'
+import { money } from '../data/currency'
 import { logout } from '../store/slices/authSlice'
-import { useAppDispatch } from '../hooks/useAppStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 
 import toast from 'react-hot-toast'
 
 export default function Profile() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const walletAvailable = useAppSelector((s) => s.wallet.balance.available)
+  const [showLogout, setShowLogout] = useState(false)
+
+  const handleLogout = () => {
+    dispatch(logout())
+    toast.success('Berhasil keluar')
+    navigate('/signin')
+  }
   return (
     <>
     <div className="app-shell">
@@ -22,7 +32,7 @@ export default function Profile() {
               <Link className="profile-header-block profile-header-link" aria-label="Edit profile for Dimas Ardianto" to="/personal-data" style={{ textDecoration: "none" }}>
                 <img alt="Dimas Ardianto" width={64} height={64} className="avatar-image-60" src="/assets/img/profile.png" style={{ color: "transparent" }} />
                 <div className="auto-layout-vertical" style={{ flex: "1 1 0%", minWidth: "0px" }}>
-                  <div className="jenny-wilson" style={{ color: "var(--on-brand)", fontWeight: "700", fontSize: "16px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  <div className="jenny-wilson" style={{ fontWeight: "700", fontSize: "16px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                     Dimas Ardianto
                   </div>
                   <div className="wilson-09-gail-com" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -33,18 +43,28 @@ export default function Profile() {
                   <ArrowRight size={20} strokeWidth={1.75} />
                 </span>
               </Link>
-              <section aria-label="General account settings">
+              <section className="wallet-balance-card wallet-balance-card--compact" aria-label="Saldo Sa7tein">
+                <Link className="wallet-balance-compact-text" to="/wallet" style={{ textDecoration: "none" }}>
+                  <span className="wallet-balance-label">Saldo tersedia</span>
+                  <span className="wallet-balance-value">{money(walletAvailable)}</span>
+                </Link>
+                <Link className="wallet-balance-cta" to="/wallet/top-up">
+                  <Wallet size={18} strokeWidth={1.75} />
+                  Top-up
+                </Link>
+              </section>
+              <section aria-label="Setelan akun umum">
                 <h2 className="general">
-                  General
+                  Umum
                 </h2>
                 <div className="content">
-                  <Link className="item-list" aria-label="Edit Profile" to="/personal-data">
+                  <Link className="item-list" aria-label="Edit Profil" to="/personal-data">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <UserRound size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Edit Profile
+                        Edit Profil
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -64,26 +84,26 @@ export default function Profile() {
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </Link>
-                  <Link className="item-list" aria-label="Change Password" to="/change-password">
+                  <Link className="item-list" aria-label="Ganti Kata Sandi" to="/change-password">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <LockKeyhole size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Change Password
+                        Ganti Kata Sandi
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </Link>
-                  <Link className="item-list" aria-label="Notification settings" to="/notification-settings">
+                  <Link className="item-list" aria-label="Notifikasi" to="/notification-settings">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <Bell size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Notifications
+                        Notifikasi
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -93,52 +113,39 @@ export default function Profile() {
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </Link>
-                  <Link className="item-list" aria-label="Security" to="/security">
+                  <Link className="item-list" aria-label="Keamanan" to="/security">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <Shield size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Security
+                        Keamanan
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </Link>
-                  <Link className="item-list" aria-label="Language" to="/language">
+                  <Link className="item-list" aria-label="Bahasa" to="/language">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <Globe size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Language
+                        Bahasa
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </Link>
-                  <Link className="item-list" aria-label="Saldo Sa7tein" to="/wallet">
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
-                        <Wallet size={20} strokeWidth={1.75} />
-                      </div>
-                      <span className="edit-profile">
-                        Saldo Sa7tein
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
-                    </div>
-                  </Link>
-                  <Link className="item-list" aria-label="Payment Account" to="/payment-account">
+                  <Link className="item-list" aria-label="Metode Pembayaran" to="/payment-account">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <CreditCard size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Payment Account
+                        Metode Pembayaran
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -147,31 +154,31 @@ export default function Profile() {
                   </Link>
                 </div>
               </section>
-              <section aria-label="Preferences">
+              <section aria-label="Preferensi">
                 <h2 className="preferencess">
-                  Preferences
+                  Preferensi
                 </h2>
                 <div className="input-fill2">
-                  <Link className="item-list" aria-label="Legal and Policies" to="/privacy-policy">
+                  <Link className="item-list" aria-label="Ketentuan dan Kebijakan" to="/privacy-policy">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <FileText size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Legal and Policies
+                        Ketentuan &amp; Kebijakan
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </Link>
-                  <Link className="item-list" aria-label="Help & Support" to="/help-center">
+                  <Link className="item-list" aria-label="Bantuan &amp; Dukungan" to="/help-center">
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-secondary)" }}>
                         <CircleHelp size={20} strokeWidth={1.75} />
                       </div>
                       <span className="edit-profile">
-                        Help &amp; Support
+                        Bantuan &amp; Dukungan
                       </span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -181,27 +188,27 @@ export default function Profile() {
                 </div>
               </section>
               <div className="profile-logout-wrap">
-                <button type="button" className="btn-logout" onClick={() => { dispatch(logout()); toast.success('Logged out'); navigate('/signin') }}>
-                  Log out
+                <button type="button" className="btn-logout" onClick={() => setShowLogout(true)}>
+                  Keluar
                 </button>
               </div>
             </div>
           </div>
-          <div className="profile-modal-overlay" aria-labelledby="logout-modal-title" style={{ position: "fixed", inset: "0px", zIndex: "9999", display: "flex", alignItems: "flex-end", justifyContent: "center", background: "rgba(32, 32, 32, 0.45)", transition: "background 0.3s" }}>
-            <div className="profile-modal profile-modal-exit" style={{ width: "100%", maxWidth: "480px", background: "var(--surface)", borderRadius: "var(--radius-lg) var(--radius-lg) 0px 0px", paddingTop: "20px", paddingRight: "24px", paddingBottom: "calc(32px + env(safe-area-inset-bottom))", paddingLeft: "24px" }}>
-              <div style={{ width: "40px", height: "4px", background: "var(--border-strong)", borderRadius: "2px", margin: "0px auto 28px" }} />
-              <h2 className="profile-modal-title" id="logout-modal-title" style={{ marginBottom: "8px" }}>
-                Are you sure you want to logout?
+          <div className={`profile-modal-overlay${showLogout ? ' is-open' : ''}`} aria-labelledby="logout-modal-title" aria-hidden={!showLogout}>
+            <div className="profile-modal">
+              <div className="sheet-handle" />
+              <h2 className="profile-modal-title" id="logout-modal-title">
+                Yakin mau keluar?
               </h2>
-              <p className="profile-modal-text" style={{ marginBottom: "28px" }}>
-                You will be returned to the sign‑in screen.
+              <p className="profile-modal-text">
+                Kamu akan kembali ke layar masuk.
               </p>
-              <div className="profile-modal-actions" style={{ display: "flex", gap: "12px" }}>
-                <button type="button" className="btn-profile-outline" style={{ flex: "1 1 0%" }} onClick={() => navigate('/add-profile-photo')}>
-                  Cancel
+              <div className="profile-modal-actions">
+                <button type="button" className="btn-profile-outline" onClick={() => setShowLogout(false)}>
+                  Batal
                 </button>
-                <button type="button" className="btn-profile-primary" style={{ flex: "1 1 0%", opacity: "1", cursor: "pointer" }} onClick={() => { dispatch(logout()); toast.success('Logged out'); navigate('/signin') }}>
-                  Log Out
+                <button type="button" className="btn-profile-primary" onClick={handleLogout}>
+                  Keluar
                 </button>
               </div>
             </div>

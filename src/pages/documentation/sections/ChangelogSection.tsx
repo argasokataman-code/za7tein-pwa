@@ -25,6 +25,15 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Kartu saldo di <code className="doc-inline">/profile</code></td>
+              <td>
+                Baris "Saldo Sa7tein" cuma baris teks biasa 350x60 tanpa nominal, terselip di antara setelan lain. Blok avatar+nama di atasnya ditulis dengan <code className="doc-inline">color: var(--on-brand)</code> untuk latar oranye yang tidak ada, jadi namanya putih di atas krem dan praktis hilang; surelnya tanpa aturan <code className="doc-inline">color</code> sama sekali sehingga mewarisi biru tautan bawaan peramban
+              </td>
+              <td>
+                Varian ringkas <code className="doc-inline">.wallet-balance-card--compact</code> dari kartu saldo yang sudah ada, ditempatkan paling atas di bawah header, latar oranye merek penuh dengan tombol Top-up putih 44px. Nama dan surel kembali ke <code className="doc-inline">--text-primary</code> / <code className="doc-inline">--text-secondary</code> lewat partial baru <code className="doc-inline">system/_profile.scss</code>. Seluruh label setelan jadi Bahasa Indonesia. Gate 2/2 PASS
+              </td>
+            </tr>
+            <tr>
               <td>Empat layar auth terakhir pindah ke kerangka bersama</td>
               <td>
                 <code className="doc-inline">ForgotPassword</code>, <code className="doc-inline">ForgotPasswordOtp</code>,{' '}

@@ -353,9 +353,15 @@ const MEASURE = `(async () => {
   const gutters = [...new Set(
     [...document.querySelectorAll('*')]
       .filter((el) => {
+        // Elemen yang disembunyikan tidak menetapkan apa pun di layar. Panel
+        // modal ber-visibility hidden tetap punya padding 24px di DOM dan
+        // dulu ikut terhitung sebagai gutter halaman, padahal ia tidak terlihat
+        // dan bukan bagian dari kontrak tepi halaman.
+        const cs = getComputedStyle(el)
+        if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') return false
         const b = el.getBoundingClientRect()
         return Math.abs(b.width - sr.width) < 2 && b.height > 40
-          && parseFloat(getComputedStyle(el).paddingLeft) > 0
+          && parseFloat(cs.paddingLeft) > 0
       })
       .map((el) => parseFloat(getComputedStyle(el).paddingLeft))
   )].sort((a, b) => a - b)

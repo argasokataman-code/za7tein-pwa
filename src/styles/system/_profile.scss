@@ -1,0 +1,20 @@
+@use "./mixins" as *;
+
+/* ── Header profil ──────────────────────────────────────────────────────────
+   Blok avatar+nama di /profile dulu dirancang untuk berdiri di atas bidang
+   oranye: namanya ditulis `color: var(--on-brand)` di markup, jadi putih. Tapi
+   bidang oranye itu tidak ada — latar halamannya krem (--bg-warm) — sehingga
+   nama putih di atas krem praktis hilang. Surelnya lebih buruk lagi: kelasnya
+   tidak punya aturan `color` sama sekali, jadi ia mewarisi biru tautan bawaan
+   peramban dan terbaca seperti tautan yang belum digayakan.
+
+   Warnanya dikembalikan ke peran token yang benar di sini, bukan di markup,
+   supaya berlaku untuk semua tempat blok header ini dipakai. */
+
+.profile-header-block .jenny-wilson {
+  color: var(--text-primary);
+}
+
+.profile-header-block .wilson-09-gail-com {
+  color: var(--text-secondary);
+}

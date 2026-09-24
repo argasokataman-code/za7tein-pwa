@@ -85,6 +85,70 @@
   color: var(--text-secondary);
 }
 
+/* Versi ringkas di atas daftar setelan profil: satu baris — label, nominal,
+   tombol top-up. Varian, bukan kartu kedua: bentuk dan radiusnya tetap sama
+   supaya saldo terbaca sebagai benda yang sama di semua layar.
+   
+   Di sini latarnya oranye merek penuh, bukan --surface: di halaman ini saldo
+   bukan sekadar salah satu baris setelan, ia alasan orang membuka profil, jadi
+   ia ditempatkan paling atas dan diberi satu-satunya bidang berwarna di layar.
+   Teks di atasnya memakai --on-brand — tidak ada warna baru. */
+.wallet-balance-card--compact {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: 0;
+  background: var(--sa7tein-orange);
+}
+
+.wallet-balance-compact-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.wallet-balance-card--compact .wallet-balance-label {
+  color: var(--on-brand);
+  opacity: 0.85;
+}
+
+/* Nominal di kartu ringkas memakai skala lebih kecil dari kartu penuh: ia
+   berbagi baris dengan tombol, bukan berdiri sendiri di ruangnya sendiri. */
+.wallet-balance-card--compact .wallet-balance-value {
+  font-size: var(--text-lg);
+  color: var(--on-brand);
+}
+
+/* Tombol di atas oranye dibalik: bidang putih, teks oranye. Tombol oranye di
+   atas oranye akan tenggelam. */
+.wallet-balance-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--on-brand);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.wallet-balance-cta:hover {
+  filter: brightness(0.96);
+}
+
+.wallet-balance-cta:focus-visible {
+  outline: 2px solid var(--on-brand);
+  outline-offset: 2px;
+}
+
 .wallet-form {
   margin-bottom: var(--space-4);
 }
