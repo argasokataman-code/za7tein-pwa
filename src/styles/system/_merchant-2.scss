@@ -82,40 +82,6 @@
   margin-top: var(--space-2);
 }
 
-.merchant-auth-switch {
-  margin-top: var(--space-4);
-  text-align: center;
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-}
-
-.merchant-auth-switch a {
-  color: var(--orange-ink);
-  font-weight: 600;
-}
-
-.merchant-pending {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: var(--space-3);
-}
-
-.merchant-pending .btn-auth {
-  width: 100%;
-}
-
-.merchant-pending-icon {
-  display: grid;
-  place-items: center;
-  width: 88px;
-  height: 88px;
-  border-radius: var(--radius-pill);
-  background: var(--orange-soft);
-  color: var(--orange-soft-ink);
-}
-
 /* Merchant menu: stock health is a filter, and each item is one clear action group. */
 .merchant-menu-overview {
   display: grid;

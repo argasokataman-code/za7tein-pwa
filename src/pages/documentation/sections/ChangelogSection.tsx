@@ -7,7 +7,7 @@ import { DocSection } from '../DocSection'
  */
 export function ChangelogSection() {
   return (
-    <DocSection id="changelog" num="35" title="Perbaikan Integrasi Rute & CRUD (2026-09-23)">
+    <DocSection id="changelog" num="36" title="Perbaikan Integrasi Rute & CRUD (2026-09-23)">
       <p className="doc-p">
         Audit rute menemukan sejumlah layar yang terdaftar di{' '}
         <code className="doc-inline">src/App.tsx</code> tetapi tidak pernah dituju, tombol yang
@@ -24,6 +24,21 @@ export function ChangelogSection() {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>Layar masuk &amp; daftar (customer + merchant)</td>
+              <td>
+                Lima layar menyalin markup Bootstrap hasil porting: gutter 24px, tombol pill 9999px,
+                field 56px, penggulung bersarang, 3 dari 5 layar berbahasa Inggris. Tombol submit
+                terukur di y=933/957 sedangkan viewport berhenti di 844, jadi aksi utama tenggelam
+              </td>
+              <td>
+                Satu <code className="doc-inline">AuthLayout</code>: dua panel (foto aset repo + panel
+                form <code className="doc-inline">--surface</code>), gutter 20px, radius 10px, field
+                44px, dokumen satu-satunya penggulung, copy Indonesia. Tombol Google/Apple/Facebook
+                dan dua tautan <code className="doc-inline">href=&quot;#&quot;</code> dibuang sebagai
+                kontrol palsu. Lihat section Layar Masuk &amp; Daftar
+              </td>
+            </tr>
             <tr>
               <td>Journey Line di order merchant</td>
               <td>

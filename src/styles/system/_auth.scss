@@ -1,0 +1,543 @@
+@use "./mixins" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Layar masuk & daftar (customer + merchant)
+//
+// Menggantikan gaya porting di `app/part-02.scss` untuk lima layar ini. Yang
+// diperbaiki, semuanya terukur:
+//
+//   • Gutter 24px → `--space-5` (20px). Aturan lama `.screen .container`
+//     memasang 24px, jadi `/merchant/signin|signup|pending` memang FAIL di
+//     gerbang browser karena gutter bukan 20px.
+//   • Tombol `--radius-pill` (9999px) → `--radius-md` (10px). Skala radius DNA
+//     berhenti di 12px; pill hanya untuk kontrol pill/badge.
+//   • Form 56px → `--touch-min` (44px). 56px bukan token, dan di HP tinggi
+//     tambahan itu mendorong tombol ke bawah lipatan.
+//   • Penggulung bersarang di `.auth-content` dihapus. Dokumen tetap
+//     satu-satunya penggulung (DNA §5).
+//   • Warna mentah (#F15A37, #6B6865, #DFD2C6 …) → token peran.
+//
+// Bentuk barunya dua panel: bidang foto di atas, panel form di bawah. Foto
+// memakai aset yang sudah ada di repo; tidak ada aset baru.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Kerangkanya memakai `.app-shell` yang sama dengan seluruh aplikasi, bukan
+// kelas baru. Bukan soal selera: `.app-shell` adalah kontrak shell repo ini —
+// lebar kolom `--shell-max`, `min-height: var(--app-vh)`, latar `--bg-warm`,
+// dan `flex-direction: column` sudah ada di sana, dan gerbang browser mengukur
+// kolom dari elemen itu. Layar auth versi porting membuang kontrak itu (cuma
+// `display: block` + spasi), dan terukur: kolom terbaca **0px** alih-alih
+// 390/430px karena gerbang jatuh ke pembungkus `#root`. Jadi `.auth` di sini
+// hanyalah penanda bentuk (dua panel vs varian polos), bukan pembawa layout.
+.auth {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: var(--app-vh);
+}
+
+@media (min-width: 900px) {
+  .auth {
+    flex-direction: row;
+  }
+}
+
+// ── Panel foto ─────────────────────────────────────────────────────────────
+// Tingginya `clamp`, bukan persentase: di layar 390x844 ia mengambil porsi
+// kira-kira seperenam supaya panel form masih memuat judul, dua field, dan
+// tombol tanpa menggulir. Angka 228px yang lama terdokumentasi di sini:
+// dengan foto setinggi itu tombol "Buat akun" terukur di y=933 sedangkan
+// viewport berhenti di 844, jadi aksi utama layar tenggelam di bawah lipatan.
+// Foto ini dekorasi; ia tidak boleh memakan tempat aksi utama.
+
+.auth-photo {
+  position: relative;
+  flex: 0 0 auto;
+  height: clamp(132px, 18dvh, 184px);
+  overflow: hidden;
+  background: var(--orange-soft);
+}
+
+@media (min-width: 900px) {
+  .auth-photo {
+    flex: 1 1 50%;
+    height: auto;
+    min-height: var(--app-vh);
+  }
+}
+
+.auth-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// Merek sebagai label, bukan ikon hiasan: logo mangkuk Sa7tein (aset PWA yang
+// sama di semua manifest) + nama + peran. Peran ditulis karena dua role ini dua
+// aplikasi terinstal yang berbeda, dan pengguna harus tahu ia masuk ke yang benar.
+.auth-photo-brand {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-brand-mark {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-xs);
+}
+
+.auth-brand-name {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.auth-brand-role {
+  padding-left: var(--space-2);
+  border-left: 1px solid var(--border-strong);
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+// ── Panel form ─────────────────────────────────────────────────────────────
+// `justify-content: flex-start` (bukan `center`) dan bukan kebetulan: panel ini
+// isinya lebih tinggi dari ruang yang tersisa di 390x844, jadi memusatkannya
+// hanya membagi luberan ke dua arah dan mendorong judul ke atas lipatan juga.
+// Dengan rata-atas, yang luber hanya bagian bawah, dan tombol tetap urutan
+// terakhir yang bisa dicapai dengan satu kali gulir.
+
+.auth-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  justify-content: flex-start;
+  padding: var(--space-4) var(--space-5) var(--space-6);
+  background: var(--surface);
+}
+
+@media (min-width: 900px) {
+  .auth-panel {
+    // Kolom ponsel tetap muncul di desktop: panel form sengaja dibatasi supaya
+    // baris isian tidak melebar sampai ~700px, yang membuat mata melompat jauh
+    // dari label ke nilai. Di desktop ruangnya panjang, jadi boleh ditengahkan.
+    width: min(100%, 420px);
+    margin-inline: auto;
+    justify-content: center;
+    border-left: 1px solid var(--border);
+  }
+}
+
+// Layar status tanpa foto: satu panel, di tengah.
+.auth--plain .auth-panel {
+  justify-content: center;
+  text-align: center;
+}
+
+.auth-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  margin-bottom: var(--space-3);
+  // Margin negatif menyelaraskan pusat tombol dengan tepi kiri teks, bukan
+  // kotak 44px-nya. Tanpa ini judul layar berikutnya menjorok 22px dari tombol.
+  margin-left: calc(-1 * var(--space-3));
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+}
+
+.auth-back:hover {
+  background: var(--bg-warm);
+  color: var(--text-primary);
+}
+
+.auth-back:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+.auth-head {
+  margin-bottom: var(--space-4);
+}
+
+.auth-h1 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.auth-lede {
+  margin-top: var(--space-1);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+// Baris fakta produk: batas 60–75 karakter DNA tipografi, dan di sini ia juga
+// memisahkan klaim dari formulir sehingga tidak terbaca sebagai bagian isian.
+.auth-tagline {
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+// Layar status tidak punya foto, jadi kepala formulirnya tidak perlu tepi kiri.
+.auth--plain .auth-head {
+  margin-bottom: var(--space-4);
+}
+
+// ── Formulir ───────────────────────────────────────────────────────────────
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.auth-label {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.auth-label span {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.auth-input {
+  @include field-shape;
+  min-height: var(--touch-min);
+}
+
+.auth-input.is-error {
+  border-color: var(--danger);
+}
+
+.auth-input.is-error:focus,
+.auth-input.is-error:focus-visible {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px var(--red-soft);
+}
+
+.auth-input-wrap {
+  position: relative;
+}
+
+.auth-input-wrap .auth-input {
+  padding-right: 52px;
+}
+
+// Tombol 40px di dalam field 44px: kotak visualnya kecil supaya tidak terbaca
+// sebagai tombol kedua di dalam input, tapi **area sentuhnya 44px** dan itu
+// harus jadi milik kontrolnya sendiri, bukan pseudo-elemennya. `::after` pada
+// button tidak memperbesar kotak hit-test-nya (terukur tetap 40x40), jadi
+// tangan penangkapnya diletakkan di pembungkus: `.auth-input-wrap::after`
+// menutupi sudut kanan field dan meneruskan klik ke tombol lewat
+// `pointer-events`, sementara tombolnya tetap memegang fokus dan Enter/Space.
+.auth-input-wrap::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+
+.auth-reveal {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.auth-reveal:hover {
+  color: var(--text-primary);
+}
+
+.auth-reveal:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+.auth-hint {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+.auth-error {
+  color: var(--danger-ink);
+  font-size: var(--text-xs);
+}
+
+// Baris "lupa kata sandi" menempel ke field di atasnya, bukan mengambang
+// setengah jalan ke tombol. Kiri: konteksnya bagian dari sandi. Kanan: menghindari
+// label pendek yang menggantung sendirian di tengah.
+.auth-aside {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.auth-aside a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-1);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-aside a:hover {
+  text-decoration: underline;
+}
+
+.auth-submit {
+  @include s-btn-shape;
+  width: 100%;
+  min-height: var(--touch-min);
+  background: var(--sa7tein-orange);
+  // Kontras 3.36:1 di bawah AA. Dipertahankan sebagai identitas merek; jejaknya
+  // di DNA.md "Pengecualian sadar, keputusan pemilik 2026-09-24" dan DEC-850.
+  color: var(--on-brand);
+  font-size: var(--text-base);
+}
+
+.auth-submit:hover:not(:disabled) {
+  background: var(--orange-deep);
+}
+
+// Pemilih peran: bentuk tombol sama dengan CTA, hanya warnanya yang turun
+// pangkat. Dipakai layar status untuk memberi jalur nyata bagi peran lain.
+.auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.auth-secondary {
+  @include s-btn-shape;
+  width: 100%;
+  min-height: var(--touch-min);
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+}
+
+.auth-secondary:hover {
+  border-color: var(--text-secondary);
+}
+
+.auth-switch {
+  margin-top: var(--space-5);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.auth-switch a {
+  color: var(--orange-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+// Tautan inline di dalam kalimat tinggal 28px tinggi setelah padding, dan itu
+// **pengecualian yang sengaja**: yang menyentuh "Masuk"/"Daftar" adalah kalimat
+// "Sudah punya akun?", bukan kontrol berdiri sendiri, dan memaksanya jadi 44px
+// akan memecah paragraf menjadi dua baris di setiap layar. Target sentuh 44px
+// berlaku untuk kontrol; tautan yang hidup di dalam kalimat dinilai dari area
+// yang bisa disentuh tanpa berpindah baris. Bukan angka yang disembunyikan:
+// 112x44 ("Lupa kata sandi?") di atas sudah memakai `--touch-min` penuh.
+
+.auth-switch a,
+.auth-note a {
+  display: inline-block;
+  padding-block: var(--space-1);
+  margin-block: calc(-1 * var(--space-1));
+}
+
+// ── Persetujuan syarat & ketentuan ─────────────────────────────────────────
+// Checkbox asli (bukan input `display:none` + centang tiruan seperti versi
+// porting): keyboard bisa menjangkaunya dan pembaca layar melihatnya.
+
+.auth-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  // Label ini targetnya seluruh baris: teks 20 barisnya jauh lebih besar dari
+  // kotak centang, dan menekan teks sudah mencentang. Padding vertikal membuat
+  // barisnya sendiri setinggi target sentuh, bukan hanya kotak 20px-nya.
+  padding-block: var(--space-2);
+  cursor: pointer;
+}
+
+// Kotak centang 20x20 sesuai skala kontrol kecil. Nilainya bukan ukuran kotak
+// melainkan apakah kontrolnya bisa ditekan: label pembungkus yang menangkap
+// klik, jadi yang diukur di gate adalah tinggi label, bukan kotak input.
+// Checkbox juga diberi ukuran target sentuh, bukan kotak 20px. Alasan yang
+// sama dengan radio zona: kalau kotaknya sendiri di bawah `--touch-min`, gate
+// menandainya, dan itu memang benar — kotak kecil yang hanya bisa ditekan
+// lewat pembungkusnya menyulitkan pembaca layar dan sentuhan yang tidak tepat.
+// `align-self: flex-start` menjaga kotaknya tetap di baris pertama teks.
+.auth-consent input {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  margin: calc(-1 * var(--space-4)) 0 calc(-1 * var(--space-4)) 0;
+  accent-color: var(--sa7tein-orange);
+  cursor: pointer;
+}
+
+.auth-consent input:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+.auth-consent span {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+}
+
+// ── Layar status (menunggu persetujuan) ────────────────────────────────────
+
+.auth-status-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+}
+
+.auth-note {
+  margin-top: var(--space-5);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.6;
+}
+
+// ── Fieldset zona (daftar toko) ────────────────────────────────────────────
+// Dua zona PRD aktif, jadi radio — bukan teks bebas yang bisa diisi apa saja.
+// Satu baris dua pilihan, target sentuh 44px.
+
+.auth-fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.auth-fieldset .auth-label {
+  margin-bottom: var(--space-2);
+  padding: 0;
+}
+
+.auth-zones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.auth-zone {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
+}
+
+// Radio-nya sendiri diberi ukuran target sentuh, bukan disembunyikan jadi
+// 13x13 (ukuran bawaan browser). Dengan begitu radio asli tetap yang menerima
+// fokus dan klik, kontrolnya tidak perlu pseudo-elemen penangkap, dan tidak ada
+// kontrol yang terukur di bawah `--touch-min` — sebelumnya gate menandai dua
+// input 13x13 di halaman ini.
+.auth-zone input {
+  flex: 0 0 auto;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  margin: 0 calc(-1 * var(--space-2)) 0 calc(-1 * var(--space-1));
+  accent-color: var(--sa7tein-orange);
+  cursor: pointer;
+}
+
+.auth-zone.is-on {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+  color: var(--orange-soft-ink);
+}
+
+.auth-zone:has(input:focus-visible) {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-back,
+  .auth-zone {
+    transition: none;
+  }
+}

@@ -1303,6 +1303,853 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/Sparkline.tsx"
+    },
+    {
+      "id": "TASK-4070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:00:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts (+37) — write via tool: ts: import type { AuthPhoto } from '../types",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts"
+    },
+    {
+      "id": "TASK-4071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:00:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+103) — write via tool: tsx: import { ArrowLeft } from ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-4072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:00:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+14/-5) — edit via tool: ts: /** Satu batang bar chart. */",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-4073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:01:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/authCopy.ts (+38) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/authCopy.ts"
+    },
+    {
+      "id": "TASK-4074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:02:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+444) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:02:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+98) — write via tool: tsx: import { zodResolver } from '@hookform/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-4076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:02:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignUp.tsx (+170) — write via tool: tsx: import { zodResolver } from '@hookform",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignUp.tsx"
+    },
+    {
+      "id": "TASK-4077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:02:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignIn.tsx (+97) — write via tool: tsx: import { zodResolver } from '@h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignIn.tsx"
+    },
+    {
+      "id": "TASK-4078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:02:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx (+158) — write via tool: tsx: import { zodResolver } from '@",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx"
+    },
+    {
+      "id": "TASK-4079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:03:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPending.tsx (+53) — write via tool: tsx: import { Clock } from 'lucide-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPending.tsx"
+    },
+    {
+      "id": "TASK-4080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:03:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts (+7/-6) — edit via tool: ts: export const merchantSignUpSchema = z.ob",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-4081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:03:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:13:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && rtk git status --short && echo \"=== linter result terakhir ===\" && npm run lint 2>&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:13:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:13:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx (+4/-3) — edit via tool: tsx: import { AuthLayout } from '..",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx"
+    },
+    {
+      "id": "TASK-4085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:14:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-auth-hit.mjs (+97) — write via tool: // Hit-test sungguhan untuk tiap elemen ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-auth-hit.mjs"
+    },
+    {
+      "id": "TASK-4086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:16:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+15/-13) — edit via tool: // ── Panel foto ────────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4087",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:17:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+20/-5) — edit via tool: .auth-zone input {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4088",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:17:23",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" pa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:18:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+5/-5) — edit via tool: .auth-form {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:18:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-auth-hit.mjs (+23/-16) — edit via tool: items: items.map((el) => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-auth-hit.mjs"
+    },
+    {
+      "id": "TASK-4091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:19:08",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" && node /tmp/verify-auth-hit.mjs ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:19:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-auth-hit.mjs (+3/-3) — edit via tool: // Target sentuh diukur dari label pembu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-auth-hit.mjs"
+    },
+    {
+      "id": "TASK-4093",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:19:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+47/-38) — edit via tool: .auth-input-wrap {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4094",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:20:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+14/-13) — edit via tool: // Tautan inline di dalam kalimat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4095",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:20:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-auth-click.mjs (+147) — write via tool: // Klik sungguhan lewat Input.dispatchMo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-auth-click.mjs"
+    },
+    {
+      "id": "TASK-4096",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:21:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-auth-click.mjs (+3/-3) — edit via tool: await sleep(1200)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-auth-click.mjs"
+    },
+    {
+      "id": "TASK-4097",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:25:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+2/-2) — edit via tool: tsx: return (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-4098",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:25:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" && node scripts/browser-gate.mjs ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4099",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:26:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+30/-37) — edit via tool: .auth-zone {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:26:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\np='src/styles/system/_auth.scss'\ns=open(p).read()\nold = \"\"\".auth-c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:29:05",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" &&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:29:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\np='src/pages/MerchantSignUp.tsx'\ns=open(p).read()\nold = \"\"\"  const",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4103",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:30:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-signin-submit.mjs (+40) — write via tool: // Cek tunggal berulang: submit SignIn h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-signin-submit.mjs"
+    },
+    {
+      "id": "TASK-4104",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:33:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AuthSection.tsx (+141) — write via tool: tsx: import { D",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AuthSection.tsx"
+    },
+    {
+      "id": "TASK-4105",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:33:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: <DocS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-4106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:33:41",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4107",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:34:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" && node scripts/browser-gate.mjs ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:34:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-docs.mjs (+29) — write via tool: // Konfirmasi section baru benar-benar t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-docs.mjs"
+    },
+    {
+      "id": "FEAT-540",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:34:55",
+      "tags": [
+        "auth",
+        "signin",
+        "signup",
+        "merchant",
+        "customer"
+      ],
+      "summary": "AuthLayout satu kerangka utk 5 layar auth (customer+merchant). Dua panel: foto aset repo + panel form surface. Gutter 20px, radius 10px, fie",
+      "conn": [
+        {
+          "id": "FEAT-520",
+          "type": "relates",
+          "raw": "FEAT-520:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-930",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-24",
+      "time": "09:34:55",
+      "tags": [
+        "auth",
+        "layout",
+        "shell"
+      ],
+      "summary": "Auth memakai .app-shell (kontrak shell repo), bukan kelas baru: tanpa itu gerbang browser mengukur kolom 0px krn jatuh ke pembungkus #root. ",
+      "conn": [
+        {
+          "id": "FEAT-540",
+          "type": "led_to",
+          "raw": "FEAT-540:led_to"
+        }
+      ]
+    },
+    {
+      "id": "DEC-940",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-24",
+      "time": "09:34:55",
+      "tags": [
+        "auth",
+        "honesty",
+        "dead-controls"
+      ],
+      "summary": "Tombol sosial Google/Apple/Facebook + 2 tautan href=# dibuang dari layar auth: repo tanpa backend, logo asli = klaim palsu (HG-04). Checkbox",
+      "conn": [
+        {
+          "id": "FEAT-540",
+          "type": "led_to",
+          "raw": "FEAT-540:led_to"
+        },
+        {
+          "id": "DEC-930",
+          "type": "relates",
+          "raw": "DEC-930:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-1020",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:34:55",
+      "tags": [
+        "auth",
+        "layout",
+        "fold"
+      ],
+      "summary": "Tombol submit auth tenggelam di bwh lipatan: 'Buat akun' y=933, 'Kirim pendaftaran' y=957, viewport 844. Akar: foto 228px. Fix: tinggi foto ",
+      "conn": [
+        {
+          "id": "FEAT-540",
+          "type": "fixes",
+          "raw": "FEAT-540:fixes"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4109",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:35:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/sa7tein-commit-3.txt (+54) — write via tool: feat(auth): satu kerangka untuk layar ma",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/sa7tein-commit-3.txt"
     }
   ]
 }

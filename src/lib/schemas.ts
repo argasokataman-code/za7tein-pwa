@@ -36,6 +36,7 @@ export const merchantSignUpSchema = z.object({
   name: z.string().min(2, 'Nama toko minimal 2 karakter'),
   email: z.string().email('Format email tidak valid'),
   phone: phoneField.optional().or(z.literal('')),
+  zone: z.string().min(1, 'Pilih zona pengantaran'),
   password: z.string().min(6, 'Password minimal 6 karakter'),
 })
 

@@ -11,13 +11,6 @@
     "src/components/customer/CustomerHomeHero.tsx": [
       "0eff9e9470c8736a14f4409d9959817ecd2eb88bf3c42a179fbad3ac0f5310fe"
     ],
-    "src/pages/SignIn.tsx": [
-      "3cc3bb893142d996f1894a6424bf06156a920bf5d2803b3a3b5e1ad063d87c4e",
-      "1d2e93c7fd99f490bdad384c1b75d822fd7ac9cc9337e32a2aa9f7abbfcbed65"
-    ],
-    "src/pages/SignUp.tsx": [
-      "d50fb15c51d7f5371e89844209b20f1db861ba4bc78e7d3c7ee7143a55b69f00"
-    ],
     "src/pages/SaZones.tsx": [
       "61c2592c1b5d0985ceba9682f122804b17df7babef31efc5e7000439478bc1da"
     ]
@@ -31,8 +24,6 @@
     "src/pages/ForgotPasswordOtp.tsx": 3,
     "src/pages/MenuDetail.tsx": 2,
     "src/pages/Profile.tsx": 1,
-    "src/pages/SignIn.tsx": 1,
-    "src/pages/SignUp.tsx": 2,
     "src/pages/documentation/sections/ComponentsSection.tsx": 2,
     "src/styles/_system.scss": 23
   }

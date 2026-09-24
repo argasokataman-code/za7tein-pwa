@@ -793,3 +793,12 @@ export interface ChartBar {
   label: string
   value: number
 }
+
+// ── Layar masuk / daftar ────────────────────────────────────────────────────
+// Foto panel atas layar auth. Bentuknya sengaja `{ src, alt }` polos: yang
+// dibutuhkan `AuthLayout` hanya dua itu, jadi tidak perlu tipe yang lebih kaya.
+
+export interface AuthPhoto {
+  src: string
+  alt: string
+}

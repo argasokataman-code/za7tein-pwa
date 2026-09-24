@@ -36,6 +36,7 @@ import { DesignTokensSection } from './documentation/sections/DesignTokensSectio
 import { ButtonsSection } from './documentation/sections/ButtonsSection'
 import { ElementsSection } from './documentation/sections/ElementsSection'
 import { MotionIconsSection } from './documentation/sections/MotionIconsSection'
+import { AuthSection } from './documentation/sections/AuthSection'
 import { ChangelogSection } from './documentation/sections/ChangelogSection'
 
 const SECTIONS = [
@@ -73,6 +74,7 @@ const SECTIONS = [
   AddressZoneSection,
   ConsistencySection,
   SuperAdminSection,
+  AuthSection,
   ChangelogSection,
 ]
 
@@ -121,7 +123,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.48.0
+              v2.49.0
             </span>
             <span>
               React 19 · Vite · TypeScript

@@ -1,10 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { AuthLayout } from '../components/ui/AuthLayout'
+import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { merchantSignInSchema, type MerchantSignInFormData } from '../lib/schemas'
 
 export default function MerchantSignIn() {
@@ -22,81 +24,73 @@ export default function MerchantSignIn() {
   }
 
   return (
-    <div className="app-shell">
-      <div className="auth-page">
-        <div className="screen active" id="merchant-signin">
-          <div className="container">
+    <AuthLayout
+      photo={AUTH_PHOTO.merchant}
+      role={AUTH_ROLE_LABEL.merchant}
+      title="Masuk merchant"
+      subtitle="Kelola order, menu, dan kurir tokomu dari satu tempat."
+      tagline="Fee merchant 0,15 JOD per porsi, ongkir 100% merchant. Merchant baru dapat modal saldo 5 JOD, non-tunai dan tidak bisa ditarik."
+    >
+      <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="email">
+            Email
+          </label>
+          <input
+            id="email"
+            className={`auth-input${errors.email ? ' is-error' : ''}`}
+            placeholder="toko@contoh.com"
+            type="email"
+            autoComplete="email"
+            aria-invalid={errors.email ? true : undefined}
+            {...register('email')}
+          />
+          {errors.email ? (
+            <span className="auth-error" role="alert">
+              {errors.email.message}
+            </span>
+          ) : null}
+        </div>
+
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="password">
+            Kata sandi
+          </label>
+          <div className="auth-input-wrap">
+            <input
+              id="password"
+              className={`auth-input${errors.password ? ' is-error' : ''}`}
+              placeholder="Kata sandi akun toko"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="current-password"
+              aria-invalid={errors.password ? true : undefined}
+              {...register('password')}
+            />
             <button
               type="button"
-              className="btn-back"
-              aria-label="Kembali"
-              onClick={() => navigate(-1)}
+              className="auth-reveal"
+              aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+              aria-pressed={showPassword}
+              onClick={() => setShowPassword((value) => !value)}
             >
-              <ArrowLeft size={24} strokeWidth={1.75} />
+              {showPassword ? <EyeOff size={20} strokeWidth={1.75} /> : <Eye size={20} strokeWidth={1.75} />}
             </button>
-            <div className="auth-content">
-              <h1 className="auth-title">Masuk Merchant</h1>
-              <p className="auth-subtitle">Kelola order, menu, dan kurir tokomu.</p>
-
-              <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-group">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    className={`form-control${errors.email ? ' error' : ''}`}
-                    placeholder="toko@contoh.com"
-                    type="email"
-                    autoComplete="email"
-                    {...register('email')}
-                  />
-                  {errors.email ? (
-                    <span className="error-message">{errors.email.message}</span>
-                  ) : null}
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password" className="form-label">
-                    Password
-                  </label>
-                  <div className="password-wrapper">
-                    <input
-                      id="password"
-                      className={`form-control${errors.password ? ' error' : ''}`}
-                      placeholder="Password"
-                      type={showPassword ? 'text' : 'password'}
-                      autoComplete="current-password"
-                      {...register('password')}
-                    />
-                    <span
-                      className="password-toggle"
-                      role="button"
-                      tabIndex={0}
-                      aria-label="Tampilkan password"
-                      onClick={() => setShowPassword((v) => !v)}
-                    >
-                      {showPassword ? <EyeOff size={20} strokeWidth={1.75} /> : <Eye size={20} strokeWidth={1.75} />}
-                    </span>
-                  </div>
-                  {errors.password ? (
-                    <span className="error-message">{errors.password.message}</span>
-                  ) : null}
-                </div>
-
-                <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
-                  Masuk
-                </button>
-              </form>
-
-              <p className="merchant-auth-switch">
-                Belum punya akun toko? <Link to="/signup">Daftar</Link>
-              </p>
-            </div>
           </div>
-          <div className="home-indicator" />
+          {errors.password ? (
+            <span className="auth-error" role="alert">
+              {errors.password.message}
+            </span>
+          ) : null}
         </div>
-      </div>
-    </div>
+
+        <button type="submit" className="auth-submit" disabled={isSubmitting}>
+          Masuk
+        </button>
+      </form>
+
+      <p className="auth-switch">
+        Belum punya akun toko? <Link to="/signup">Daftar</Link>
+      </p>
+    </AuthLayout>
   )
 }
