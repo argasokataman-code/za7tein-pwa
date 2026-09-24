@@ -109,6 +109,18 @@ export default function CourierTaskDetail() {
           <DeliveryStepper checkpoint={task.checkpoint} />
         </section>
 
+        {/* Notif customer (flow F13: "Tiba → notif customer"). Web Push tidak
+            diimplementasi di repo ini (AGENTS.md §1, R-PUSH-01), jadi ini bukti
+            mock bahwa notifikasi terkirim saat kurir tiba dan saat selesai —
+            bukan klaim pengiriman sungguhan (HG-12). */}
+        {task.checkpoint === 'tiba' || task.checkpoint === 'selesai' ? (
+          <p className="courier-notif">
+            {task.checkpoint === 'tiba'
+              ? `Notif "Kurir sudah sampai" terkirim ke ${task.customerName} (mock).`
+              : `Notif "Pesanan selesai" terkirim ke ${task.customerName} (mock).`}
+          </p>
+        ) : null}
+
         {isFinished ? (
           <section className="courier-card courier-settled">
             <p className="courier-card-title">Pesanan selesai</p>

@@ -39,7 +39,7 @@ Workflow pendaftaran akun customer + merchant/kurir: **login Google → nomor WA
 
 - PRD aktif `versions/irbid-mvp-v2-2026-09-21/source.md`: `:760` (nomor WA wajib), `:727` (E.164), `:641`/`:653` (gate top-up), Open Question #24 (kini RESOLVED sebagian oleh PO 2026-09-22)
 - Keputusan PO 2026-09-22: login Google untuk customer + nomor WA wajib (validasi format, tanpa OTP)
-- Layar yang sudah ada di repo (mock): `SignIn.tsx` (+ tombol Google demo), `SignUp.tsx`, `ForgotPassword*`, `AccountSetup.tsx`, `MerchantSignUp.tsx`, `MerchantPending.tsx`
+- Layar yang sudah ada di repo (mock): `SignIn.tsx` (+ tombol Google demo), `SignUp.tsx`, `ForgotPassword*`, `AccountSetup.tsx`, `MerchantSignUp.tsx`, `MerchantPending.tsx`, `CourierSignIn.tsx` (kurir, nomor WA + kata sandi)
 - **UNRESOLVED (jangan ditebak):** apakah merchant/kurir juga boleh masuk lewat Google · sesi/token & PIN belum punya dasar di PRD · ganti nomor & retensi data · WA Business API (Level 2) tidak dipakai di MVP (PO 2026-09-23) — fallback tetap `wa.me`
 
 ## Update

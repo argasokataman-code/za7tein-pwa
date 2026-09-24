@@ -7,13 +7,13 @@ import type { AuthPhoto } from '../types'
  * ini adalah satu-satunya isi visual di layar.
  *
  * `width`/`height` adalah dimensi berkas yang sebenarnya (dibaca dari asetnya,
- * bukan ditebak): ketiganya portrait, dan panel foto hanya setinggi ~150px di
+ * bukan ditebak): semuanya portrait, dan panel foto hanya setinggi ~150px di
  * ponsel, jadi yang terpakai cuma sepetak tengah lewat `object-fit: cover`.
  *
  * Setiap layar memakai foto berbeda supaya masuk dan daftar tidak terasa
  * seperti halaman yang sama.
  */
-export const AUTH_PHOTO: Record<'signin' | 'signup' | 'merchant', AuthPhoto> = {
+export const AUTH_PHOTO: Record<'signin' | 'signup' | 'merchant' | 'courier', AuthPhoto> = {
   signin: {
     src: '/assets/img/menu/sate-ayam.webp',
     alt: 'Sate ayam dibakar di atas bara, asap tipis menutupi panggangan',
@@ -32,6 +32,12 @@ export const AUTH_PHOTO: Record<'signin' | 'signup' | 'merchant', AuthPhoto> = {
     width: 800,
     height: 1422,
   },
+  courier: {
+    src: '/assets/img/menu/es-teh-manis.webp',
+    alt: 'Es teh manis dalam gelas tinggi, es batu dan irisan mangga di tepi gelas, permukaan gelas berembun',
+    width: 800,
+    height: 1200,
+  },
 }
 
 /**
@@ -43,4 +49,5 @@ export const AUTH_PHOTO: Record<'signin' | 'signup' | 'merchant', AuthPhoto> = {
 export const AUTH_ROLE_LABEL = {
   customer: 'Pembeli',
   merchant: 'Merchant',
+  courier: 'Kurir',
 } as const

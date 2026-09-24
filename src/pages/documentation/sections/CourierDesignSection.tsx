@@ -35,11 +35,55 @@ export function CourierDesignSection() {
         checkpoint to its position in the five-step stepper so the two views never
         drift.
       </p>
+      <h3 className="doc-h3">Sign in with the WhatsApp number, grounded not guessed</h3>
+      <p className="doc-p">
+        The courier signs in with a phone number, not an email. That is the account-auth
+        decision, not an invention: flow <code className="doc-inline">F21</code> requires
+        a WhatsApp number for the customer <em>and</em> the courier/merchant, stored
+        normalised to E.164 (<code className="doc-inline">source.md:760</code>,{' '}
+        <code className="doc-inline">:727</code>), and <code className="doc-inline">F16</code>{' '}
+        places the courier as a merchant employee recruited once the shop is active
+        (C-06). The screen reuses the existing{' '}
+        <code className="doc-inline">AuthLayout</code> and the shared{' '}
+        <code className="doc-inline">signInSchema</code> (phone + password), so no new
+        auth CSS or a fourth layout was added. No route guard is attached: this repo has
+        no real session (AGENTS.md §1), matching{' '}
+        <code className="doc-inline">/merchant/signin</code>, which also does not guard its
+        dashboard.
+      </p>
+      <h3 className="doc-h3">The dashboard reads the slice it already has</h3>
+      <p className="doc-p">
+        The tasks screen opens with a statline (active, waiting for OTP, finished, tips).
+        Every number is derived from the same <code className="doc-inline">courierSlice</code>{' '}
+        the list below uses — no new mock. The active task stays the focal point; the
+        statline is a glance before scrolling. It borrows the inline, no-box rhythm of{' '}
+        <code className="doc-inline">merchant-statline</code> rather than repeating the
+        boxed stat cards that were already removed elsewhere.
+      </p>
+      <h3 className="doc-h3">OTP handover: the customer shows it, the courier types it</h3>
+      <p className="doc-p">
+        OTP is the only settle trigger (C-09) and belongs to the handover, so the two
+        sides show it differently. The courier types the 4-digit code (
+        <code className="doc-inline">DeliveryActionCard</code> input form). The customer
+        sees it as a display card (<code className="doc-inline">otpDisplayCode</code>) to
+        read out at the door. Previously the customer screen asked the customer to type
+        the code the courier was meant to enter — an inverted role; now only the courier
+        form validates, and the customer card is read-only.
+      </p>
+      <h3 className="doc-h3">The customer notification stays a mock</h3>
+      <p className="doc-p">
+        Flow <code className="doc-inline">F13</code> promises a customer notification at
+        "Tiba". Web Push is not implemented in this repo (AGENTS.md §1,{' '}
+        <code className="doc-inline">R-PUSH-01</code> is UNRESOLVED), so the courier
+        detail screen shows a mock receipt ("Notif ... terkirim ke ... (mock)") when the
+        courier arrives and finishes. It is labelled as a mock rather than claiming a real
+        delivery (HG-12).
+      </p>
       <h3 className="doc-h3">Hard rules rendered as state, not logic</h3>
       <p className="doc-p">
         This repo is front-end only, so the PRD's hard rules appear as displayed
-        state. Without a correct OTP the task cannot settle — the screen validates the
-        4-digit code before dispatching{' '}
+        state. Without a correct OTP the courier task cannot settle — the courier screen
+        validates the 4-digit code before dispatching{' '}
         <code className="doc-inline">completeTask</code>, because OTP is the only
         settle trigger (C-09). The customer-fault guard shows the{' '}
         <code className="doc-inline">Hubungi customer</code> action at +5 minutes and
@@ -52,10 +96,10 @@ export function CourierDesignSection() {
       <p className="doc-p">
         Two flow items are unresolved and are surfaced as text instead of invented
         values: the customer-fault penalty (OQ-14 — 30% / 50% / full delivery fee) and
-        the temporary SLA of 15/30/10 minutes (OQ-13, PO 2026-09-22). The courier login
-        screen is absent on purpose: the active PRD has no courier auth requirement
-        (a courier is a merchant employee under C-06, managed by the merchant), so it
-        is marked UNRESOLVED-by-absence rather than built on a guess.
+        the temporary SLA of 15/30/10 minutes (OQ-13, PO 2026-09-22). The credential
+        mechanism itself (PIN or session/token) has no PRD basis either
+        (<code className="doc-inline">F21</code> marks it UNRESOLVED), so the sign-in
+        screen is a mock that verifies nothing and the note says so.
       </p>
       <h3 className="doc-h3">Money: tips only, never the delivery fee</h3>
       <p className="doc-p">

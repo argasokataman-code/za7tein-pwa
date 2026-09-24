@@ -278,8 +278,9 @@
   color: var(--text-secondary);
 }
 
-// Aksi kurir: tombol kecil berlabel. Versi lama memakai dua lingkaran oranye
-// besar tanpa teks, yang lebih berat dari informasi yang diwakilinya.
+// Aksi kurir: tombol berlabel. Versi lama memakai dua lingkaran oranye besar
+// tanpa teks, yang lebih berat dari informasi yang diwakilinya. Tinggi dinaikkan
+// ke --touch-min (44) dari 34 supaya lolos target sentuh minimum (HG-05).
 .track-actions {
   flex: 0 0 auto;
   display: flex;
@@ -289,8 +290,9 @@
 .track-action {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
-  height: 34px;
+  min-height: var(--touch-min);
   padding: 0 var(--space-3);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xs);

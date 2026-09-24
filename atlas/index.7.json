@@ -2901,6 +2901,409 @@
         }
       ],
       "loc": "src/styles/system/_admin.scss:163"
+    },
+    {
+      "id": "TASK-4424",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:08:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/CourierSignIn.tsx (+106) — write via tool: tsx: import { zodResolver } from '@hookform/r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/CourierSignIn.tsx"
+    },
+    {
+      "id": "TASK-4425",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:08:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/auth.ts (+54) — write via tool: ts: import type { AuthPhoto } from '../types",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/auth.ts"
+    },
+    {
+      "id": "TASK-4426",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:08:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/App.tsx (+3/-2) — edit via tool: tsx: import CourierProfile from './pages/Cour",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/App.tsx"
+    },
+    {
+      "id": "TASK-4427",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:08:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/CourierProfile.tsx (+106) — write via tool: tsx: import { Bike, Store, UserRound } from '",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/CourierProfile.tsx"
+    },
+    {
+      "id": "TASK-4428",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:08:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/CourierTasks.tsx (+147) — write via tool: tsx: import { ChevronRight, Power } from 'luc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/CourierTasks.tsx"
+    },
+    {
+      "id": "TASK-4429",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:08:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/CourierTaskDetail.tsx (+16/-4) — edit via tool: tsx: <section className=\"courier-section\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-4430",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:09:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/DeliveryCheckpoints.tsx (+179) — write via tool: tsx: import type { ReactNode } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/DeliveryCheckpoints.tsx"
+    },
+    {
+      "id": "TASK-4431",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:09:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/OrderStageScreen.tsx (+10/-11) — edit via tool: tsx: // Sisi customer menampilkan OTP, kurir ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-4432",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:09:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_courier.scss (+88/-11) — edit via tool: .courier-avatar {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-4433",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:10:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.72.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4434",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:10:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/CourierDesignSection.tsx (+127) — write via tool: tsx: import { DocSection } from '../DocSectio",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-4435",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:10:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/plan-courier.md (+13/-10) — edit via tool: | Route | Layar |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/plan-courier.md"
+    },
+    {
+      "id": "TASK-4436",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:10:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f13-courier-view/README.md (+4/-1) — edit via tool: - **Tanpa OTP tidak bisa settle** — kuri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-4437",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:10:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: AGENTS.md (+1/-1) — edit via tool: 2. **Tampilan kurir** — selesai. Lihat `",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "AGENTS.md"
+    },
+    {
+      "id": "TASK-4438",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:10:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f21-account-auth/README.md (+1/-1) — edit via tool: - Layar yang sudah ada di repo (mock): `",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f21-account-auth/README.md"
+    },
+    {
+      "id": "TASK-4439",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:10:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -3; echo \"---GOV---\"; npm run governance:check 2>&1 | tail -4; echo \"---FLOWSGATE---\"; sed -n '1,40p' scrip",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4440",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:42:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_tracking.scss (+16/-14) — edit via tool: // Aksi kurir: tombol berlabel. Versi la",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_tracking.scss"
+    },
+    {
+      "id": "TASK-4441",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:42:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.config/opencode/AGENTS.md (+15/-6) — edit via tool: ### Tab discipline",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.config/opencode/AGENTS.md"
+    },
+    {
+      "id": "TASK-4442",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:48:05",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -2; echo \"---BUILD---\"; npm run build 2>&1 | grep -E \"error|✓ built\" | tail -2; echo \"---SCAN---\"; npm run ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-919",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:48:20",
+      "tags": [
+        "courier",
+        "design",
+        "auth",
+        "dashboard"
+      ],
+      "summary": "K5 kurir: masuk nomor WA, statline dashboard, OTP customer (tampil), notif mock; reuse AuthLayout/signInSchema",
+      "conn": [
+        {
+          "id": "TASK-918",
+          "type": "relates",
+          "raw": "TASK-918:relates"
+        }
+      ],
+      "loc": "src/pages/CourierSignIn.tsx:1"
+    },
+    {
+      "id": "DEC-0058",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-24",
+      "time": "17:48:20",
+      "tags": [
+        "courier",
+        "auth"
+      ],
+      "summary": "Masuk kurir = nomor WA (E.164), dasar flow f21-account-auth + f16; sesi mock tanpa guard rute",
+      "conn": [
+        {
+          "id": "TASK-919",
+          "type": "led_to",
+          "raw": "TASK-919:led_to"
+        }
+      ],
+      "loc": "src/pages/CourierSignIn.tsx:1"
     }
   ]
 }

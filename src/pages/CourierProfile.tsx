@@ -1,17 +1,32 @@
 import { Bike, Store, UserRound } from 'lucide-react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
 import { toggleOnline } from '../store/slices/courierSlice'
+import { logout } from '../store/slices/authSlice'
 
 export default function CourierProfile() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const isOnline = useAppSelector((s) => s.courier.isOnline)
   const tasks = useAppSelector((s) => s.courier.tasks)
   const active = tasks.filter(isActiveTask).length
+  const [showLogout, setShowLogout] = useState(false)
+
+  // Keluar = keluar dari akun lalu kembali ke layar masuk kurir. Memakai
+  // `logout()` dari authSlice, sama seperti Profil customer dan Setelan merchant,
+  // bukan state lokal baru.
+  const handleLogout = () => {
+    dispatch(logout())
+    setShowLogout(false)
+    navigate('/signin')
+  }
 
   return (
     <div className="app-shell">
@@ -62,10 +77,27 @@ export default function CourierProfile() {
           </p>
         </section>
 
+        <div className="courier-logout">
+          <button type="button" className="btn-logout" onClick={() => setShowLogout(true)}>
+            Keluar
+          </button>
+        </div>
+
         <p className="courier-note">
-          Login kurir belum ada di PRD aktif (UNRESOLVED-by-absence) — kurir dikelola merchant
-          sebagai karyawan (C-06), jadi tab ini menampilkan identitas dan status saja.
+          Kurir masuk dengan nomor WA (E.164), dasar flow f21-account-auth + f16: kurir karyawan
+          merchant yang direkrut setelah toko aktif (C-06). Sesi masih mock, repo ini front-end
+          saja (AGENTS.md §1).
         </p>
+
+        <ConfirmSheet
+          open={showLogout}
+          title="Keluar dari akun kurir?"
+          body="Kamu kembali ke layar masuk. Tugas yang sedang berjalan tetap tersimpan di perangkat."
+          confirmLabel="Keluar"
+          confirmClass="courier-btn-ghost"
+          onConfirm={handleLogout}
+          onClose={() => setShowLogout(false)}
+        />
       </main>
       <CourierBottomNav />
     </div>

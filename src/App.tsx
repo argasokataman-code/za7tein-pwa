@@ -17,6 +17,7 @@ import AdminOnboarding from './pages/AdminOnboarding'
 import ChangePassword from './pages/ChangePassword'
 import Checkout from './pages/Checkout'
 import CourierProfile from './pages/CourierProfile'
+import CourierSignIn from './pages/CourierSignIn'
 import CourierTaskDetail from './pages/CourierTaskDetail'
 import CourierTasks from './pages/CourierTasks'
 import CourierTips from './pages/CourierTips'
@@ -162,9 +163,12 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/offline', Offline],
 ]
 
-// Kurir — dipasang di /courier/*. Tanpa layar login: PRD aktif tidak punya
-// requirement auth kurir (C-06: kurir karyawan merchant, dikelola merchant).
+// Kurir — dipasang di /courier/*. Masuk lewat nomor WA (E.164): flow
+// f21-account-auth + f16 (kurir karyawan merchant, direkrut setelah toko aktif).
+// Tanpa guard rute — repo ini tidak punya sesi sungguhan (AGENTS.md §1), sama
+// seperti /merchant/signin yang juga tidak menjaga berandanya.
 const courierRoutes: [string, ComponentType][] = [
+  ['/signin', CourierSignIn],
   ['/', CourierTasks],
   ['/task/:id', CourierTaskDetail],
   ['/tips', CourierTips],

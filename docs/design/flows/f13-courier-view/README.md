@@ -1,6 +1,6 @@
 # F13 — Tampilan Kurir (sisi pengantaran)
 
-Workflow sisi kurir: 4 checkpoint + SLA timer + OTP. Milestone **M4/M5** (deps M0); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop** — rencana & keputusan implementasi ada di `docs/plan-courier.md`; spec ini tetap sumber gambaran alur.
+Workflow sisi kurir: 4 checkpoint + SLA timer + OTP. Milestone **M4/M5** (deps M0); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop** — rencana & keputusan implementasi ada di `docs/plan-courier.md` (K0–K5); spec ini tetap sumber gambaran alur. K5 menambah masuk kurir (nomor WA), ringkasan dashboard, dan notif mock.
 
 | Berkas | Isi |
 |---|---|
@@ -19,6 +19,9 @@ Workflow sisi kurir: 4 checkpoint + SLA timer + OTP. Milestone **M4/M5** (deps M
 ## Aturan keras
 
 - **Tanpa OTP tidak bisa settle** — kurir tak dapat komisi (C-09: OTP = satu-satunya trigger settle).
+- **OTP ditampilkan customer, diketik kurir** (C-09) — layar customer memakai `otpDisplayCode`, form input hanya di layar kurir.
+- **Notif customer = mock** — Web Push tidak diimplementasi di repo (AGENTS.md §1, R-PUSH-01); kurir menampilkan bukti notif mock saat Tiba/Selesai, bukan klaim kirim sungguhan.
+- **Masuk kurir pakai nomor WA (E.164)** — dasar flow `f21-account-auth` + `f16`; sesi mock, tanpa guard rute (AGENTS.md §1).
 - Timer: 15m Ambil→Berangkat · 30m Berangkat→Tiba · 10m Tiba→OTP auto-complete. 15/30/10 = sementara (PO 2026-09-22).
 - Tiba +5m: notif + call customer · +5m lagi: kurir boleh "Batal" · total maks 10m.
 - Kurir = karyawan merchant: **tips only** di wallet, platform tak pegang dana kurir (C-06). Tidak ada live GPS (C-10) — checkpoint + snapshot saja.

@@ -136,7 +136,6 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const isDisputed = dispute?.status === 'open' || dispute?.status === 'investigating'
   const resolutionToken = dispute?.resolution ? resolvedOrderToken(dispute.resolution) : null
   const { now } = useTick()
-  const [otp, setOtp] = useState('')
   // Banding (F8 → F22): pihak yang mengajukan sengketa bisa meminta SA meninjau
   // putusan level-1 CS. Satu banding per sengketa.
   const appeal = dispute?.appeal
@@ -209,17 +208,16 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
     !orderCompletedAt ||
     now - new Date(orderCompletedAt).getTime() < DISPUTE_WINDOW_HOURS * 3_600_000
 
-  const submitDeliveryOtp = () => {
-    if (otp !== DELIVERY_OTP_DEMO) {
-      toast.error('Kode OTP tidak cocok')
-      return
-    }
+  // Sisi customer menampilkan OTP, kurir yang memasukkannya (C-09). Layar ini
+  // menyediakan aksi demo supaya alur bisa diselesaikan tanpa peran kurir —
+  // sama seperti tombol checkpoint lain di sini yang juga demo.
+  const completeDeliveryDemo = () => {
     dispatch(completeDelivery())
     if (holdStatus === 'cut') {
       dispatch(settleOrderHold())
       dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
     }
-    toast.success('OTP terverifikasi — pengiriman selesai')
+    toast.success('OTP terverifikasi — pengiriman selesai (demo)')
     // Pengiriman selesai = pesanan tiba: layar perayaan yang menyalurkan ke
     // rating kurir (F19). Sebelumnya tidak ada yang membuka rute ini. Kode order
     // ikut dibawa supaya layar rating dan tip terikat ke order yang sama.
@@ -403,8 +401,9 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
           ) : null}
 
           {/* Checkpoint pengiriman (F5/M5). Tombolnya aksi demo supaya timer SLA
-              dan OTP bisa dilihat dari sisi customer; di produksi aksi ini milik
-              kurir (layar kurir memakai komponen yang sama). */}
+              dan alur OTP bisa dilihat dari sisi customer; di produksi aksi ini
+              milik kurir (layar kurir memakai komponen yang sama). Customer
+              hanya menampilkan OTP, kurir yang memasukkannya (C-09). */}
           <section className="track-section">
             <h2 className="track-section-title">Checkpoint pengiriman</h2>
             <DeliveryStepper checkpoint={deliveryCheckpoint} />
@@ -417,10 +416,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 checkpoint={deliveryCheckpoint}
                 startedAt={deliveryCheckpointAt}
                 now={now}
-                otp={otp}
-                onOtpChange={setOtp}
-                onOtpSubmit={submitDeliveryOtp}
-                otpHint={`Kode demo: ${DELIVERY_OTP_DEMO}`}
+                otpDisplayCode={DELIVERY_OTP_DEMO}
                 autoSettlePaused={isDisputed}
                 evidence={
                   deliveryCheckpoint === 'tiba' && gpsSnapshot ? (
@@ -444,6 +440,14 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                       }
                     >
                       {deliveryAction}
+                    </button>
+                  ) : deliveryCheckpoint === 'tiba' ? (
+                    <button
+                      type="button"
+                      className="btn btn-primary courier-primary"
+                      onClick={completeDeliveryDemo}
+                    >
+                      Selesaikan (demo kurir)
                     </button>
                   ) : null
                 }

@@ -52,10 +52,17 @@ interface DeliveryActionCardProps {
   startedAt: string | null
   /** Jam bersama dari `useTick` — satu timer per halaman, bukan per komponen. */
   now: number
-  otp: string
-  onOtpChange: (value: string) => void
-  onOtpSubmit: () => void
-  otpHint: string
+  /** Sisi kurir: nilai input OTP yang sedang diketik. */
+  otp?: string
+  onOtpChange?: (value: string) => void
+  onOtpSubmit?: () => void
+  otpHint?: string
+  /**
+   * Sisi customer: kode ditampilkan sebagai kartu serah-terima, bukan input.
+   * Kalau diisi, form input tidak dirender — customer menunjukkan kode ini ke
+   * kurir (C-09: yang memasukkan OTP adalah kurir, bukan customer).
+   */
+  otpDisplayCode?: string
   /** Aksi milik pemakai layar (kurir: tombol lanjut + guard; customer: tombol demo). */
   actions?: ReactNode
   /** Bukti saat Tiba (customer: GPS + foto). Kurir tidak mengirim apa pun. */
@@ -68,9 +75,14 @@ interface DeliveryActionCardProps {
 }
 
 /**
- * Kartu aksi pengiriman: timer SLA, bukti checkpoint, aksi pemakai, form OTP
- * saat Tiba, dan catatan auto-settle. Angka SLA dan copy OTP dibaca dari
+ * Kartu aksi pengiriman: timer SLA, bukti checkpoint, aksi pemakai, serah-terima
+ * OTP saat Tiba, dan catatan auto-settle. Angka SLA dan copy OTP dibaca dari
  * `data/courier.ts` supaya kedua peran tidak pernah memakai angka berbeda.
+ *
+ * Dua mode OTP: kurir mengetik kode (`otp`/`onOtpChange`/`onOtpSubmit`), customer
+ * menunjukkan kode (`otpDisplayCode`). Dulu layar customer juga menyuruh customer
+ * mengetik kode yang seharusnya diisi kurir — peran terbalik; sekarang customer
+ * menampilkan kode, kurir yang memasukkannya (C-09).
  */
 export function DeliveryActionCard({
   checkpoint,
@@ -80,6 +92,7 @@ export function DeliveryActionCard({
   onOtpChange,
   onOtpSubmit,
   otpHint,
+  otpDisplayCode,
   actions,
   evidence,
   autoSettlePaused = false,
@@ -103,7 +116,21 @@ export function DeliveryActionCard({
       {evidence}
       {actions}
 
-      {isOtpStep ? (
+      {isOtpStep && otpDisplayCode ? (
+        <div className="courier-otp-display">
+          <p className="courier-otp-label">Tunjukkan kode ini ke kurir</p>
+          <p
+            className="courier-otp-code"
+            aria-label={`Kode OTP ${otpDisplayCode.split('').join(' ')}`}
+          >
+            {otpDisplayCode.split('').join(' ')}
+          </p>
+          <p className="courier-otp-hint">
+            Kurir memasukkan kode ini untuk menyelesaikan pengiriman. Jangan berikan sebelum
+            pesanan kamu periksa.
+          </p>
+        </div>
+      ) : isOtpStep && otp !== undefined && onOtpChange && onOtpSubmit ? (
         <form
           className="courier-otp"
           onSubmit={(event) => {
@@ -121,7 +148,7 @@ export function DeliveryActionCard({
             value={otp}
             onChange={(event) => onOtpChange(event.target.value.replace(/\D/g, '').slice(0, 4))}
           />
-          <p className="courier-otp-hint">{otpHint}</p>
+          {otpHint ? <p className="courier-otp-hint">{otpHint}</p> : null}
           <button className="btn btn-primary" type="submit" disabled={otp.length !== 4}>
             Selesaikan
           </button>

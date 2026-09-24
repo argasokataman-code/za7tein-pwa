@@ -4,7 +4,7 @@ Front-end showcase only. Mock data, Redux state, tanpa backend/API/auth/DB/payme
 Sumber: flow `docs/design/flows/f13-courier-view/` + milestone M4/M5 PRD aktif
 `irbid-mvp-v2-2026-09-21`.
 
-**Status: K0–K4 selesai.** Verifikasi: build 0 error, lint bersih, overflow
+**Status: K0–K5 selesai.** Verifikasi: build 0 error, lint bersih, overflow
 horizontal 0 di 390px & 1440px, shell 430px terkunci.
 
 ## Prinsip
@@ -30,14 +30,17 @@ horizontal 0 di 390px & 1440px, shell 430px terkunci.
 
 | Route | Layar |
 |---|---|
-| `/courier` | Tugas — toggle siap/jeda, tugas berjalan, riwayat |
-| `/courier/task/:id` | Detail tugas — JourneyLine + stepper + SLA timer + OTP + guard batal |
+| `/courier/signin` | Masuk kurir — nomor WA (E.164) + kata sandi (mock) |
+| `/courier` | Tugas — ringkasan hari ini, toggle siap/jeda, tugas berjalan, riwayat |
+| `/courier/task/:id` | Detail tugas — JourneyLine + stepper + SLA timer + OTP + notif mock + guard batal |
 | `/courier/tips` | Tips — hanya tips yang jadi milik kurir (C-06) |
-| `/courier/profile` | Profil kurir + status |
+| `/courier/profile` | Profil kurir + status + keluar |
 
-**Tanpa layar login.** PRD aktif tidak punya requirement auth kurir; kurir
-adalah karyawan merchant (C-06) dan dikelola merchant. Ditandai
-`UNRESOLVED-by-absence`, bukan ditebak.
+**Layar masuk (K5).** Kurir masuk dengan nomor WA (E.164) + kata sandi, mengikuti
+keputusan akun flow `f21-account-auth` (nomor WA wajib untuk customer & kurir,
+`source.md:760`) dan `f16` (kurir karyawan merchant, direkrut setelah toko aktif).
+Tanpa guard rute: repo ini tak punya sesi sungguhan (AGENTS.md §1), sama seperti
+`/merchant/signin`. Mekanisme kredensial (PIN/sesi) tetap `UNRESOLVED` (f21).
 
 ---
 
@@ -87,7 +90,7 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
 - `/courier/tips`: total + riwayat tips; menyatakan ongkir bukan milik kurir dan
   platform tak menahan dana kurir (C-06).
 - `/courier/profile`: identitas `courierSelf`, merchant pemilik, toggle status,
-  catatan `UNRESOLVED-by-absence` soal login kurir.
+  tombol Keluar (kembali ke `/courier/signin`).
 
 ## K4 — Polish & Verifikasi
 
@@ -99,6 +102,17 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
   `AGENTS.md` §9.
 - Record atlas node.
 
+## K5 — Masuk, ringkasan, notif mock
+
+- `/courier/signin` — `CourierSignIn` memakai `AuthLayout` + `signInSchema` yang
+  sudah ada (0 CSS baru); foto peran `AUTH_PHOTO.courier` + label "Kurir".
+- `/courier` — statline hari ini (aktif, menunggu OTP, selesai, tips) dari
+  `courierSlice`; nol mock baru.
+- `/courier/task/:id` — bukti notif mock saat `tiba` dan `selesai` (Web Push di
+  luar scope, R-PUSH-01).
+- Customer: `OrderStageScreen` menampilkan OTP (`otpDisplayCode`), kurir yang
+  mengetik — memperbaiki peran terbalik (C-09).
+
 ---
 
 ## Keputusan
@@ -106,7 +120,8 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
 1. **Checkpoint tersimpan berhenti di `tiba`.** Node `otp` flow F13 bukan state
    tersimpan — ia langkah di dalam `tiba` (sudah tiba, menunggu kode). Stepper
    tetap menampilkan lima langkah. ✅
-2. **Tanpa auth kurir.** Tiada requirement di PRD aktif; ditandai
-   `UNRESOLVED-by-absence`. ✅
+2. **Masuk kurir pakai nomor WA.** Bukan auth sungguhan — dasar flow
+   `f21-account-auth` (nomor WA wajib, E.164) + `f16` (karyawan merchant).
+   Kredensial/sesi tetap mock dan `UNRESOLVED`. ✅
 3. **Dua sumbu di detail.** Journey Line (order) + stepper checkpoint (kurir) —
    reuse, bukan gambar ulang. ✅

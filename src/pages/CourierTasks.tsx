@@ -5,7 +5,12 @@ import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { formatDistance, money, zoneLabel } from '../data/merchant'
-import { COURIER_CHECKPOINT_LABEL, isActiveTask, isDoneTask, totalTips } from '../data/courier'
+import {
+  COURIER_CHECKPOINT_LABEL,
+  isActiveTask,
+  isDoneTask,
+  totalTips,
+} from '../data/courier'
 import { toggleOnline } from '../store/slices/courierSlice'
 import type { CourierTask } from '../types'
 
@@ -49,11 +54,31 @@ export default function CourierTasks() {
 
   const active = tasks.filter(isActiveTask)
   const history = tasks.filter((task) => !isActiveTask(task))
+  const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
+  const done = tasks.filter(isDoneTask)
 
   return (
     <div className="app-shell">
       <main className="courier-page">
         <CourierPageHeader eyebrow="Antar hari ini" title="Tugas" />
+
+        {/* Ringkasan hari ini: empat angka dari `courierSlice` yang sama dengan
+            daftar di bawah, bukan angka baru. Fokus tetap tugas berjalan; ini
+            pembacaan sekilas sebelum menggulir. */}
+        <nav className="courier-statline" aria-label="Ringkasan hari ini">
+          <span>
+            <strong>{active.length}</strong> Aktif
+          </span>
+          <span>
+            <strong>{waitingOtp}</strong> Menunggu OTP
+          </span>
+          <span>
+            <strong>{done.length}</strong> Selesai
+          </span>
+          <span>
+            <strong>{money(totalTips(tasks))}</strong> Tips
+          </span>
+        </nav>
 
         <section className="courier-card">
           <div className="courier-row">
