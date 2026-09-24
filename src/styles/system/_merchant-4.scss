@@ -1,0 +1,150 @@
+@use "./mixins" as *;
+
+// Layar Insentif (/merchant/insentif) — daftar ambang tier, riwayat event,
+// dan blok simulasi. Dipecah dari _merchant-2.scss saat file itu menyentuh
+// batas 600 baris.
+
+.merchant-tier-list,
+.merchant-event-list,
+.merchant-open-list {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+}
+
+.merchant-tier-list li,
+.merchant-event-list li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-tier-list li:last-child,
+.merchant-event-list li:last-child {
+  border-bottom: none;
+}
+
+.merchant-tier-list li.is-reached {
+  color: var(--success-ink);
+}
+
+.merchant-tier-threshold,
+.merchant-event-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.merchant-tier-amount,
+.merchant-event-amount {
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.merchant-event-at {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+.merchant-sim .merchant-card-sub {
+  margin-bottom: var(--space-2);
+}
+
+/* Kartu berisi chart (tren + komposisi di beranda dapur). Primitif chart
+   (`_charts.scss`) dipakai apa adanya; yang ditambah di sini cuma kepala kartu
+   dan keterangan sumbu. */
+.merchant-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.merchant-chart-caption {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* Keterangan sumbu di bawah tiap bar chart. `+ .chart-bars` memberikan jarak
+   antar dua chart yang bertumpuk; yang pertama tidak perlu. */
+.merchant-chart-caption + .chart-bars {
+  margin-top: var(--space-2);
+}
+
+/* Titik nol bar chart: garis tipis, bukan batang 3px. Sebelumnya hari tanpa
+   order digambar batang kecil (`min-height: 3px`) sehingga nol terbaca seperti
+   nilai kecil; sekarang nol tampil sebagai dasar kolom, dan tinggi batang asli
+   yang tetap menentukan nilai. */
+.merchant-chart-caption ~ .chart-bars .chart-bar-fill {
+  min-height: 2px;
+}
+
+/* Perbandingan dua metode bayar (COD vs transfer). Menggantikan donut kedua:
+   split 4/4 tidak menambah informasi di atas bar dua warna, dan donut kedua
+   membuat kartu komposisi 468px dari total halaman 2141px (audit-003 #5/#6).
+   Satu bar penuh dibaca dalam satu pandang; dua segmennya memakai nada chart
+   yang sudah ada supaya bahasanya tetap sama dengan donut di atasnya. */
+.merchant-duo {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.merchant-duo-track {
+  display: flex;
+  height: 10px;
+  border-radius: var(--radius-xs);
+  overflow: hidden;
+  background: var(--border);
+}
+
+.merchant-duo-track > span {
+  display: block;
+  height: 100%;
+}
+
+.merchant-duo-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+  }
+
+  strong {
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+}
+
+.merchant-sim-btn {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.merchant-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}

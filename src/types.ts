@@ -380,6 +380,12 @@ export interface MerchantOrder {
   placedAt: string
   paymentMethod: PaymentMethod['id']
   cookMinutes?: number
+  /**
+   * `Courier.id` yang dipilih merchant untuk order ini. Platform tidak pernah
+   * menugaskan kurir (C-06) — kurir karyawan merchant, jadi rujukan ini hanya
+   * diisi dari aksi merchant (F12 `:assign` → `hold_cut`).
+   */
+  courierId?: string
 }
 
 /**

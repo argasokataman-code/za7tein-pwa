@@ -201,6 +201,27 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         Kurir.
       </p>
       <h3 className="doc-h3">
+        Kelola kurir &amp; pemilihan kurir per order
+      </h3>
+      <p className="doc-p">
+        Halaman <code className="doc-inline">/merchant/couriers</code> adalah pengelola
+        kurir toko: tambah (nama + nomor WA, validasi <code className="doc-inline">phoneField</code>{' '}
+        yang sama dengan pendaftaran), jam tugas (Aktifkan/Nonaktifkan), dan hapus dengan
+        konfirmasi. Kuota dibaca dari <code className="doc-inline">MAX_COURIERS_PER_MERCHANT</code>{' '}
+        (3) — bukan angka di JSX. Status <code className="doc-inline">delivering</code> tidak
+        bisa diubah dari sini karena datang dari checkpoint kurir sendiri (F13).
+      </p>
+      <p className="doc-p">
+        Order yang sudah diterima punya pemilih kurir di{' '}
+        <code className="doc-inline">/merchant/orders</code>. Memilih kurir mengisi{' '}
+        <code className="doc-inline">MerchantOrder.courierId</code> dan menambah hitungan
+        order aktif kurir itu — cermin <code className="doc-inline">C-06</code> (platform
+        tidak menugaskan kurir, merchant memilih sendiri) dan edge F12{' '}
+        <code className="doc-inline">:assign → hold_cut</code>. Copy status hold diambil dari{' '}
+        <code className="doc-inline">HOLD_STATUS_COPY</code>, jadi tidak ada kalimat
+        karangan tentang dana.
+      </p>
+      <h3 className="doc-h3">
         Ulasan pembeli — di luar PRD aktif (UNRESOLVED)
       </h3>
       <p className="doc-p">
@@ -225,6 +246,47 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         balasan reset saat reload. Form balasan memakai
         <code className="doc-inline">BottomSheet</code> bersama; tidak ada
         komponen, token, atau warna baru.
+      </p>
+      <h3 className="doc-h3">
+        Grafik beranda dapur
+      </h3>
+      <p className="doc-p">
+        Beranda dapur menampilkan dua grafik tren (order &amp; pendapatan per hari, tujuh hari) dan
+        satu donut komposisi status order. Grafiknya memakai primitif yang <strong>sudah ada</strong>{' '}
+        — <code className="doc-inline">BarChart</code> dan{' '}
+        <code className="doc-inline">DonutChart</code> di{' '}
+        <code className="doc-inline">src/components/ui/</code> dengan{' '}
+        <code className="doc-inline">_charts.scss</code>, sama seperti Ringkasan Super Admin.
+        Tidak ada library chart baru.
+      </p>
+      <p className="doc-p">
+        Datanya hidup di <code className="doc-inline">src/data/merchantTrend.ts</code>. Merchant
+        tidak menyimpan tanggal pesanan (<code className="doc-inline">placedAt</code> berbentuk
+        teks relatif seperti "2 menit lalu"), jadi deret harian disimpan terpisah dan{' '}
+        <strong>dijaga konsisten dengan kartu di atasnya</strong>: jumlah order tujuh hari sama
+        dengan jumlah order mock, dan pendapatan tujuh hari sama dengan total order yang
+        benar-benar berjalan (order <code className="doc-inline">ditolak</code>/
+        <code className="doc-inline">batal</code> tidak pernah jadi uang).
+      </p>
+      <p className="doc-p">
+        Dua hal yang <strong>sengaja tidak dipakai</strong>, supaya tidak diusulkan ulang:
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Dua chart berdampingan di satu baris.</strong> Percobaan dua kolom pernah dibuat
+          untuk memendekkan kartu, dan diukur gagal: kolom 150px menyisakan 11,1px per batang
+          sementara teks nilai selebar 24,4px, jadi nilai tumpang tindih 1,3px di lima pasang dan
+          label hari menyatu. Chart kembali penuh lebar; kartu lebih tinggi, tapi terbaca.
+        </li>
+        <li>
+          <strong>Judul "Komposisi hari ini".</strong> Mock tidak punya tanggal pesanan, jadi
+          klaim "hari ini" tidak bisa dibuktikan. Judulnya "Komposisi order".
+        </li>
+      </ul>
+      <p className="doc-p">
+        Perbandingan COD vs transfer tidak memakai donut kedua: split 4/4 tidak menambah
+        informasi di atas satu bar dua warna, dan donut kedua membuat kartu komposisi 468px.
+        Sekarang bar perbandingan 10px dengan legenda, tinggi kartu 395px.
       </p>
     </DocSection>
   )

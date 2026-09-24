@@ -18,10 +18,15 @@
       // tidak menawarkan install.
       (function () {
         var names = { customer: 'Sa7tein', merchant: 'Sa7tein Merchant', courier: 'Sa7tein Kurir', admin: 'Sa7tein Admin' };
+        // Judul jendela app-mode Chromium diambil dari `<title>` dokumen, bukan
+        // `name` manifest — tanpa ini empat jendela tampil dengan judul identik
+        // dan tidak bisa dibedakan. Peran customer cukup "Sa7tein".
+        var titles = { customer: 'Sa7tein — Marketplace Makanan Hyperlocal', merchant: 'Sa7tein Merchant — Sa7tein', courier: 'Sa7tein Kurir — Sa7tein', admin: 'Sa7tein Admin — Sa7tein' };
         if (location.pathname === '/superadmin' || location.pathname.indexOf('/superadmin/') === 0) {
           var link = document.getElementById('app-manifest');
           if (link) link.parentNode.removeChild(link);
           document.documentElement.setAttribute('data-role', 'superadmin');
+          document.title = 'Sa7tein Super Admin';
           return;
         }
         var roles = Object.keys(names);
@@ -31,6 +36,7 @@
             document.getElementById('app-manifest').setAttribute('href', '/manifest-' + role + '.json');
             document.querySelector('meta[name="apple-mobile-web-app-title"]').setAttribute('content', names[role]);
             document.documentElement.setAttribute('data-role', role);
+            document.title = titles[role];
             break;
           }
         }
@@ -41,6 +47,9 @@
     <link rel="apple-touch-icon" sizes="152x152" href="/icons/sa7tein-152x152.png" />
     <style>
       #boot-splash[hidden] { display: none; }
+      /* Splash ditutup lewat kelas ini, bukan `remove()`: kegagalan ikon di
+         bawah tidak boleh memblokir penutupan (lihat App.tsx). */
+      #boot-splash.boot-done { display: none; }
       #boot-splash { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #FFF9F4; color: #202020; font-family: system-ui, sans-serif; }
       #boot-splash .boot-inner { display: grid; justify-items: center; gap: 16px; padding: 24px; text-align: center; }
       #boot-splash img { width: 80px; height: 80px; border-radius: 12px; }

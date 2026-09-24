@@ -56,57 +56,26 @@
   accent-color: var(--sa7tein-orange);
 }
 
-.merchant-courier {
-  @include card-surface;
+/** Pemilihan kurir per order (F12 `:assign`). Dipisah dari slider masak
+    supaya jelas ini langkah tersendiri, bukan bagian estimasi masak. */
+.merchant-assign {
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border);
 }
 
-.merchant-courier-icon {
-  display: grid;
-  place-items: center;
-  width: var(--touch-min);
-  height: var(--touch-min);
-  border-radius: var(--radius-md);
-  background: var(--orange-soft);
-  color: var(--orange-soft-ink);
-  flex-shrink: 0;
-}
-
-.merchant-courier-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.merchant-courier-phone {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  font-size: var(--text-xs);
+.merchant-link {
   color: var(--orange-ink);
-  margin-top: var(--space-1);
-}
-
-.merchant-empty,
-.merchant-hint-inline {
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-  padding: var(--space-3) 0;
-}
-
-.merchant-hint {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .merchant-hint p {
   font-size: var(--text-xs);
 }
+
 
 .merchant-signout {
   width: 100%;

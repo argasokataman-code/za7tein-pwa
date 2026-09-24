@@ -1,80 +1,67 @@
 @use "./mixins" as *;
 
-// ── 8. Banner promo beranda ───────────────────────────────────────────────
-// Kartu ini mewarisi tiga masalah: teksnya gelap di atas banner oranye, CTA-nya
-// berlatar transparan-gelap dengan teks gelap (praktis tak terbaca), dan
-// `flex-wrap: wrap-reverse` menaruh gambar setinggi 90px di atas teksnya
-// sehingga sisa ruangnya mati. Dirombak jadi banner merek yang utuh:
-// headline putih, CTA pil putih, dan gambar jadi thumbnail bulat di kanan.
+// ── 8. Kartu promo beranda ────────────────────────────────────────────────
+// Dirombak mengikuti konsep kartu cuaca (KSAplay, Uiverse) yang diterjemahkan
+// ke DNA Sa7tein: sudut ditahan di 12px (bukan 25px), tanpa gradient, kedalaman
+// datang dari tiga lingkaran sepusat di tepi kanan atas (opasitas 8-14% di atas
+// oranye merek), lalu satu bilah aksi penuh selebar kartu di bawah supaya ibu
+// jari mudah menjangkaunya. Isi kartu hanya judul + foto; klaim promo tetap
+// yang sudah ada di mock, tidak ada angka baru.
 .ad-banner {
-  // Orange rata, bukan gradien: sesuai arahan, gradien tidak dipakai lagi di
-  // sini — kedalaman visualnya sekarang datang dari dekorasi SVG di bawah.
   background: var(--sa7tein-orange);
   border-radius: var(--radius-lg);
-  padding: var(--space-5);
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  // Padding dan perataan dari stylesheet porting (part-07) dinolkan di sini:
+  // padding sekarang milik .ad-content, dan bilah aksi harus menempel penuh.
+  padding: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+  box-shadow: var(--shadow-sm);
 }
 
-// Dekorasi mengisi seluruh banner di belakang isi, tidak menangkap klik.
+// Dekorasi mengisi kartu di belakang isi, tidak menangkap klik.
 .ad-decor {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  overflow: hidden;
   pointer-events: none;
 }
 
-// Opasitas dekorasi banner promo, dalam rentang 4-14% seperti pola hero.
-// Di markup aslinya cloche 0.42 dan titik 0.38 — dikomposit ke atas oranye
-// merek keduanya jadi salmon, rgb(247,156,133) dan rgb(246,149,125), bukan
-// oranye lagi. Bentuk gelap di kanan tetap: ia memperdalam, bukan mencuci,
-// dan warnanya kini memakai token --orange-deep.
-.ad-decor__cloche {
-  fill: none;
-  stroke: var(--bg-warm);
-  stroke-opacity: 0.14;
-  stroke-width: 3.5;
-  stroke-linecap: round;
+// Tiga lingkaran sepusat dari tepi kanan atas. Semuanya --bg-warm dengan
+// opasitas 8-14% (rentang dekorasi di atas oranye): yang terbaca hanya
+// kedalaman halus, bukan bentuk yang bersaing dengan judul.
+.ad-decor__circle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--bg-warm);
 }
 
-.ad-decor__cloche-tray {
-  stroke-width: 2.5;
+.ad-decor__circle:nth-child(1) {
+  top: -96px;
+  right: -72px;
+  width: 220px;
+  height: 220px;
+  opacity: 0.08;
 }
 
-.ad-decor__hills {
-  fill: var(--bg-warm);
+.ad-decor__circle:nth-child(2) {
+  top: -64px;
+  right: -44px;
+  width: 148px;
+  height: 148px;
+  opacity: 0.11;
 }
 
-.ad-decor__hill-1 {
-  fill-opacity: 0.1;
+.ad-decor__circle:nth-child(3) {
+  top: -22px;
+  right: -14px;
+  width: 78px;
+  height: 78px;
+  opacity: 0.14;
 }
-
-.ad-decor__hill-2 {
-  fill-opacity: 0.12;
-}
-
-.ad-decor__hill-3 {
-  fill-opacity: 0.14;
-}
-
-.ad-decor__dots {
-  fill: var(--bg-warm);
-  fill-opacity: 0.12;
-}
-
-.ad-decor__depth {
-  fill: var(--orange-deep);
-}
-
-.ad-decor__depth-1 {
-  fill-opacity: 0.28;
-}
-
-.ad-decor__depth-2 {
-  fill-opacity: 0.32;
-}
-
 
 .ad-content {
   display: flex;
@@ -83,6 +70,7 @@
   gap: var(--space-4);
   flex-wrap: nowrap;
   width: 100%;
+  padding: var(--space-5);
   position: relative;
   z-index: 1;
 }
@@ -91,16 +79,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  // Rapat satu langkah: span "30%" yang besar menambah tinggi baris, jadi
-  // jarak 12px terbaca lebih longgar daripada angkanya.
   gap: var(--space-2);
   flex: 1 1 auto;
   min-width: 0;
 }
 
-// Judulnya dulu satu blok seragam, jadi mata harus membaca seluruh kalimat
-// untuk menemukan nilainya. Sekarang angkanya yang jadi titik fokus dan teks
-// di sekelilingnya turun jadi pendukung.
+// Angkanya titik fokus, teks di sekelilingnya pendukung.
 .ad-title {
   color: var(--on-brand);
   font-size: var(--text-sm);
@@ -122,33 +106,10 @@
   margin-right: 2px;
 }
 
-// CTA putih di atas oranye: kontras tinggi dan jadi titik terang banner.
-.ad-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--surface);
-  color: var(--orange-ink);
-  border: none;
-  border-radius: var(--radius-pill);
-  padding: 0 var(--space-5);
-  min-height: 40px;
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: transform var(--motion-fast) var(--ease-out);
-}
-
-.ad-cta:hover {
-  transform: translateY(-1px);
-}
-
 .ad-image {
   flex: 0 0 auto;
-  width: 92px;
-  height: 92px;
+  width: 84px;
+  height: 84px;
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -161,14 +122,42 @@
   display: block;
 }
 
+// Bilah aksi: satu tombol selebar kartu, target 44px, putih di atas oranye
+// supaya aksi utama terbaca pertama.
+.ad-cta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--touch-min);
+  // Radius dan align-self dari porting (part-07) direset supaya bilahnya rata
+  // tepi kartu, bukan pil mengambang di dalamnya.
+  border-radius: 0;
+  align-self: stretch;
+  background: var(--surface);
+  color: var(--orange-ink);
+  border: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-out);
+}
+
+.ad-cta:hover {
+  background: var(--bg-warm);
+}
+
 // Di layar sempit, gambar dikecilkan lagi alih-alih membalik urutan.
 @media (max-width: 360px) {
   .ad-image {
-    width: 68px;
-    height: 68px;
+    width: 64px;
+    height: 64px;
   }
 
-  .ad-banner {
+  .ad-content {
     padding: var(--space-4);
   }
 }

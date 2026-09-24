@@ -41,11 +41,36 @@ export function IncentiveSection() {
         yang satu kredit sistem yang tidak bisa ditarik, yang lain uang yang harus disetor. Menaruh
         semuanya di satu slice akan membuat layar customer bisa membaca uang merchant.
       </p>
+      <h3 className="doc-h3">Angka insentif tinggal di kode, bukan di konsol SA</h3>
+      <p className="doc-p">
+        Angka insentif (modal, fee dari modal, ambang tier, nilai cashback) adalah konstanta di{' '}
+        <code className="doc-inline">src/data/incentive.ts</code>, dan{' '}
+        <strong>sengaja tidak dijadikan konfigurasi yang bisa diubah dari konsol Super Admin</strong>.
+        Percobaan memindahkannya ke <code className="doc-inline">/superadmin/incentive</code> pernah
+        dibuat lalu dicabut, karena membalik arah dependensinya: PWA merchant (role yang menghadap
+        pemilik warung) jadi membaca <code className="doc-inline">state.superAdmin</code> — slice
+        milik konsol owner.
+      </p>
+      <p className="doc-p">
+        Alasannya juga soal proses. <code className="doc-inline">I-4</code> (periode tier +
+        perlakuan naik tier di tengah periode) dan <code className="doc-inline">I-5</code> (kuota
+        &amp; durasi Founding) masih <code className="doc-inline">UNRESOLVED</code> di PRD aktif,
+        dan flow <code className="doc-inline">F9</code> tidak punya node "operator mengubah
+        parameter" — node-nya murni perjalanan dana:{' '}
+        <code className="doc-inline">grant → debit → volume → tier → pay → deposit</code>. Kalau
+        nanti PO memutuskan I-4/I-5, jawabannya masuk PRD <em>dan</em> flow dulu, baru berubah di
+        kode. Layar konfigurasi yang bisa diubah kapan saja justru menyediakan jalan pintas untuk
+        melewati proses itu.
+      </p>
+      <p className="doc-p">
+        Di PWA merchant, kedua pertanyaan itu ditulis apa adanya sebagai "belum final" di{' '}
+        <code className="doc-inline">/merchant/insentif</code> — bukan dijawab dengan tebakan.
+      </p>
       <DocCode lang="typescript">
         {`grantCredit()          // modal 5 JOD   → event merchant_credit_granted
 debitCredit()          // fee 0,15 JOD   → event merchant_credit_debited
 recordSettledOrder()   // +1 order settled; ambang lewat → rebate_tier_reached
-payRebate()            // cashback ke dompet deposit → rebate_paid`}
+payRebate()            // cashback ke dompet deposit → rebate_paid (simulasi platform)`}
       </DocCode>
       <h3 className="doc-h3">Kenapa state-nya di merchantSlice</h3>
       <p className="doc-p">
@@ -65,10 +90,32 @@ payRebate()            // cashback ke dompet deposit → rebate_paid`}
       <p className="doc-p">
         Ambang 500 / 1.000 / 1.250 order settled menentukan tier tertinggi yang tercapai, dan
         cashbacknya 15 / 40 / 62,5 JOD. Progres dihitung dari ambang sebelumnya ke ambang
-        berikutnya, bukan dari nol — jadi bar-nya tidak melompat turun saat tier naik. Data demo
-        sengaja diletakkan satu order di bawah ambang Tier 2, supaya tombol{' '}
-        <em>+1 order settled</em> benar-benar menunjukkan tier berganti dan{' '}
-        <code className="doc-inline">rebate_tier_reached</code> tercatat.
+        berikutnya, bukan dari nol — jadi bar-nya tidak melompat turun saat tier naik.
+      </p>
+      <h3 className="doc-h3">Ringkas di beranda, rinci di /merchant/insentif</h3>
+      <p className="doc-p">
+        Beranda dapur hanya memuat ringkasan 186&nbsp;px: sisa modal, progres tier, dan status
+        cashback periode ini, dengan satu tautan <em>Lihat rincian &amp; riwayat</em>. Riwayat
+        append-only, daftar ambang, catatan <code className="doc-inline">I-4</code>/
+        <code className="doc-inline">I-5</code>, dan blok simulasi pindah ke{' '}
+        <code className="doc-inline">/merchant/insentif</code> (
+        <code className="doc-inline">MerchantRebate.tsx</code>, layar yang memang sudah disebut
+        <code className="doc-inline">analysis.md:131</code>).
+      </p>
+      <p className="doc-p">
+        <strong>Kenapa tidak ada tombol "bayar cashback" di beranda.</strong> Menurut PRD, cashback
+        adalah <em>arus kas keluar platform</em> yang dibayar di akhir bulan ke dompet deposit
+        merchant, dan tidak ada jalur pencairan untuk modal maupun cashback (I-3
+        non-withdrawal). Jadi pelakunya platform, bukan merchant: tombol yang menggambarkan
+        merchant membayar atau menarik akan salah aktor. Kedua aksi yang tersisa di layar insentif
+        diberi label <strong>Simulasi</strong> dan hanya memicu state demo (penanda tier,
+        event <code className="doc-inline">rebate_paid</code>).
+      </p>
+      <p className="doc-p">
+        Sebelumnya keduanya menumpuk di beranda: tombol <em>Bayar cashback Rp345.000 ·
+        ±15,00 JOD</em> selebar 183&nbsp;px dan tinggi 56&nbsp;px berdiri sejajar dengan tombol
+        demo 44&nbsp;px, di dalam kartu 539&nbsp;px (30% tinggi halaman). Beranda kini
+        1.431&nbsp;px dari 1.784&nbsp;px.
       </p>
       <p className="doc-p">
         PO 2026-09-23 menutup dua pertanyaan insentif: <strong>cashback non-withdrawal</strong> (

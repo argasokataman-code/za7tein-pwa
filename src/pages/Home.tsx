@@ -84,79 +84,29 @@ export default function Home() {
 
           <div className="ad-banner" style={{ marginBottom: 24 }}>
             {/*
-              Dekorasi latar banner — bahasa visual "Prepare -> Move -> Arrive".
-              Tiga bentuk besar saja, semuanya variasi orange yang sama:
-              dua busur bertumpuk (rim piring, kiri atas), satu jalur tipis
-              dengan tiga simpul (toko -> kurir -> pelanggan) yang menghilang
-              di balik foto lalu muncul lagi di atasnya, dan satu set cincin
-              sepusat di balik foto sebagai titik tujuan. Semua opacity di
-              bawah 15% supaya tidak bersaing dengan teks.
+              Dekorasi latar kartu promo: tiga lingkaran sepusat dari tepi
+              kanan atas (konsep kartu cuaca KSAplay, Uiverse) yang
+              diterjemahkan ke DNA — kedalaman dari bentuk, bukan gradient.
+              Semua opasitas di bawah 15% supaya tidak bersaing dengan teks.
             */}
-            <svg
-              className="ad-decor"
-              viewBox="0 0 350 133"
-              preserveAspectRatio="xMidYMid slice"
-              aria-hidden="true"
-              focusable="false"
-            >
-              {/* 4 — bentuk organik terpotong yang masuk dari tepi kanan, memberi
-                  kedalaman di belakang foto. Isi, bukan garis. */}
-              <g className="ad-decor__depth">
-                <path d="M352 -10C292 14 284 114 352 146Z" className="ad-decor__depth-1" />
-                <path d="M352 26C316 42 314 96 352 112Z" className="ad-decor__depth-2" />
-              </g>
-
-              {/* 3 — ilustrasi cloche: kubah, alas, tiga ujung uap.
-                  Diletakkan di area kosong antara tombol dan foto supaya
-                  bentuknya benar-benar terbaca; alasnya memanjang ke kiri
-                  dan kanan sehingga menyatukan paruh kiri dan kanan banner. */}
-              <g className="ad-decor__cloche">
-                <path d="M181 120A54 54 0 0 1 289 120" />
-                <path d="M166 120H304" className="ad-decor__cloche-tray" />
-                <path d="M219 64C214 58 222 54 217 48" />
-                <path d="M235 62C230 56 238 52 233 46" />
-                <path d="M251 64C246 58 254 54 249 48" />
-              </g>
-
-              {/* 1 — tiga bukit berlapis yang naik dari tepi bawah */}
-              <g className="ad-decor__hills">
-                <path className="ad-decor__hill-1" d="M-10 133C6 100 40 82 74 88C108 94 138 116 158 133Z" />
-                <path className="ad-decor__hill-2" d="M18 133C34 106 68 96 98 106C124 115 146 126 158 133Z" />
-                <path className="ad-decor__hill-3" d="M52 133C68 118 100 114 126 122C142 127 152 131 158 133Z" />
-              </g>
-
-              {/* 2 — matriks titik, di atas judul bukan di belakangnya */}
-              <g className="ad-decor__dots">
-                <circle cx="124" cy="3" r="2.4" />
-                <circle cx="136" cy="3" r="2.4" />
-                <circle cx="148" cy="3" r="2.4" />
-                <circle cx="160" cy="3" r="2.4" />
-                <circle cx="172" cy="3" r="2.4" />
-                <circle cx="124" cy="9" r="2.4" />
-                <circle cx="136" cy="9" r="2.4" />
-                <circle cx="148" cy="9" r="2.4" />
-                <circle cx="160" cy="9" r="2.4" />
-                <circle cx="172" cy="9" r="2.4" />
-                <circle cx="124" cy="15" r="2.4" />
-                <circle cx="136" cy="15" r="2.4" />
-                <circle cx="148" cy="15" r="2.4" />
-                <circle cx="160" cy="15" r="2.4" />
-                <circle cx="172" cy="15" r="2.4" />
-              </g>
-            </svg>
+            <span className="ad-decor" aria-hidden="true">
+              <span className="ad-decor__circle" />
+              <span className="ad-decor__circle" />
+              <span className="ad-decor__circle" />
+            </span>
             <div className="ad-content">
               <div className="ad-text">
                 <h3 className="ad-title">
                   Diskon <span className="ad-title-value">30%</span> untuk pesanan pertamamu
                 </h3>
-                <button type="button" className="ad-cta" onClick={() => navigate('/search')}>
-                  Pesan Sekarang
-                </button>
               </div>
               <div className="ad-image">
-                <img alt="add banner img" loading="lazy" width={200} height={200} src={AD_IMAGE} />
+                <img alt="Promo Sa7tein" loading="lazy" width={200} height={200} src={AD_IMAGE} />
               </div>
             </div>
+            <button type="button" className="ad-cta" onClick={() => navigate('/search')}>
+              Pesan Sekarang
+            </button>
           </div>
 
           <div className="hot-deals-section">

@@ -1,23 +1,25 @@
 import { Bike, ChevronRight, Clock, PlusCircle, Sparkles, Star, Store, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import toast from 'react-hot-toast'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { BarChart } from '../components/ui/BarChart'
+import { DonutChart } from '../components/ui/DonutChart'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant, money } from '../data/merchant'
-import { jod, jodToIdr } from '../data/currency'
-import {
-  CREDIT_EVENT_LABEL,
-  MERCHANT_CREDIT_JOD,
-  MERCHANT_CREDIT_ORDERS,
-  REBATE_TIERS,
-  rebateProgress,
-} from '../data/incentive'
+import { jodToIdr } from '../data/currency'
+import { rebateProgress } from '../data/incentive'
 import { countByTab, orderStatusLabel } from '../data/merchantOrders'
+import {
+  orderMixSegments,
+  orderTrendBars,
+  paymentMixSegments,
+  revenueTrendBars,
+  trendTotals,
+} from '../data/merchantTrend'
 import { switchBlockCopy } from '../data/superadmin'
-import { debitCredit, payRebate, recordSettledOrder, toggleActive } from '../store/slices/merchantSlice'
+import { toggleActive } from '../store/slices/merchantSlice'
 
 export default function MerchantDashboard() {
   const dispatch = useAppDispatch()
@@ -32,11 +34,22 @@ export default function MerchantDashboard() {
   const maintenanceCopy = switchBlockCopy('maintenance', switches)
 
   const progress = rebateProgress(credit.settledThisPeriod)
-  const creditUsed = 1 - credit.merchantCreditBalance / MERCHANT_CREDIT_JOD
 
+  // Pendapatan = order yang benar-benar berjalan. Order `ditolak`/`batal` tidak
+  // pernah jadi uang, dan sebelumnya kartu ini hanya menghitung `selesai`
+  // sehingga angkanya jauh lebih kecil dari total yang tampil di grafik tren.
   const revenue = orders
-    .filter((o) => o.status === 'selesai')
+    .filter((o) => o.status !== 'ditolak' && o.status !== 'batal')
     .reduce((sum, o) => sum + o.total, 0)
+
+  const trend = trendTotals()
+  const orderMix = orderMixSegments(orders)
+  const paymentMix = paymentMixSegments(orders)
+  const paymentByLabel = (prefix: string) =>
+    paymentMix.find((s) => s.label.startsWith(prefix))?.value ?? 0
+  const paymentCod = paymentByLabel('COD')
+  const paymentTransfer = paymentByLabel('Transfer')
+  const paymentTotal = paymentCod + paymentTransfer || 1
 
   return (
     <div className="app-shell">
@@ -100,9 +113,106 @@ export default function MerchantDashboard() {
           </div>
         </section>
 
-        {/* Insentif merchant (M10, F9): modal 5 JOD non-withdrawal + cashback
-            tier bulanan yang dibayar ke dompet deposit. Angka JOD mengikuti
-            kontrak, padanan IDR ditampilkan lewat money(). */}
+        {/* Tren 7 hari + komposisi. Primitif chart sudah ada (`BarChart`,
+            `DonutChart`, `_charts.scss`) dan dipakai konsol SA — tidak ada
+            library chart baru. Angka datang dari `merchantTrend`, yang menjaga
+            jumlah order dan pendapatannya sama dengan kartu di atas.
+
+            Dua chart tren ditumpuk PENUH LEBAR, bukan dua kolom sempit.
+            Varian dua kolom pernah dipakai dan diukur gagal: kolom 150px −
+            gap 12px×6 menyisakan 11,1px per batang sementara teks "44rb"
+            selebar 24,4px, jadi nilai tumpang tindih 1,3px di 5 pasang dan
+            label hari menyatu (audit-003 #1/#2/#3). Di lebar penuh (~35px
+            per kolom) keduanya muat. */}
+        <section className="merchant-card">
+          <div className="merchant-card-head">
+            <div>
+              <p className="merchant-card-title">Tren 7 hari</p>
+              <p className="merchant-card-sub">
+                {trend.orders} order · {money(trend.revenueIdr)}
+                {trend.best ? ` · terbaik ${trend.best.label}` : ''}
+              </p>
+            </div>
+          </div>
+          <BarChart
+            data={orderTrendBars()}
+            ariaLabel="Jumlah order per hari, tujuh hari terakhir"
+            tone="brand"
+            compact
+          />
+          <p className="merchant-chart-caption">Order per hari</p>
+          <BarChart
+            data={revenueTrendBars()}
+            ariaLabel="Pendapatan per hari dalam ribuan rupiah, tujuh hari terakhir"
+            tone="success"
+            compact
+            format={(value) => `${value}rb`}
+          />
+          {/* "rb" sudah menjelaskan satuan; "(ribuan rupiah)" mengulanginya
+              (audit-003 #8). */}
+          <p className="merchant-chart-caption">Pendapatan per hari</p>
+        </section>
+
+        {/* Judulnya "Komposisi order", bukan "hari ini": mock tidak punya
+            tanggal pesanan (`placedAt` teks relatif), jadi klaim "hari ini"
+            tidak bisa dibuktikan (audit-003 #4). */}
+        <section className="merchant-card">
+          <div className="merchant-card-head">
+            <div>
+              <p className="merchant-card-title">Komposisi order</p>
+              <p className="merchant-card-sub">{orders.length} order sedang dipantau</p>
+            </div>
+          </div>
+          <div className="chart-split">
+            <DonutChart
+              segments={orderMix}
+              ariaLabel="Komposisi status order"
+              centerValue={String(orders.length)}
+              centerLabel="order"
+            />            <ul className="chart-legend">
+              {orderMix.map((segment) => (
+                <li key={segment.label}>
+                  <span className={`chart-legend-dot chart-tone-bg--${segment.tone}`} />
+                  <span className="chart-legend-label">{segment.label}</span>
+                  <span className="chart-legend-value">{segment.value} order</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* COD vs transfer diganti bar perbandingan: split 4/4 = 50/50 tidak
+              butuh donut, dan donut kedua membuat kartu ini 468px
+              (audit-003 #5/#6). Angka tetap dari `paymentMix`. */}
+          <div
+            className="merchant-duo"
+            role="img"
+            aria-label={`Metode bayar: ${paymentCod} order COD, ${paymentTransfer} order transfer`}
+          >
+            <div className="merchant-duo-track">
+              <span
+                className="chart-tone-bg--brand"
+                style={{ width: `${(paymentCod / paymentTotal) * 100}%` }}
+              />
+              <span
+                className="chart-tone-bg--success"
+                style={{ width: `${(paymentTransfer / paymentTotal) * 100}%` }}
+              />
+            </div>
+            <ul className="merchant-duo-legend">
+              <li>
+                <span className="chart-legend-dot chart-tone-bg--brand" />
+                COD (tunai) <strong>{paymentCod} order</strong>
+              </li>
+              <li>
+                <span className="chart-legend-dot chart-tone-bg--success" />
+                Transfer <strong>{paymentTransfer} order</strong>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Ringkasan insentif (M10, F9). Rincian, riwayat, dan aksi simulasi
+            tinggal di /merchant/insentif — beranda dapur tidak boleh jadi
+            tempat membaca 500px insentif. */}
         <section className="merchant-card">
           <div className="merchant-row">
             <Sparkles size={20} strokeWidth={1.75} />
@@ -113,14 +223,6 @@ export default function MerchantDashboard() {
               </p>
             </div>
           </div>
-          <div className="merchant-quota" role="presentation">
-            <span style={{ width: `${Math.round(creditUsed * 100)}%` }} />
-          </div>
-          <p className="merchant-card-sub">
-            {MERCHANT_CREDIT_ORDERS} order pertama memakai modal ini — fee merchant 0,15 JOD per
-            order dipotong dari sini, bukan dari dompet.
-          </p>
-
           <p className="merchant-card-sub">
             Periode {credit.rebatePeriod} · {credit.settledThisPeriod} order settled ·{' '}
             {progress.next
@@ -130,70 +232,16 @@ export default function MerchantDashboard() {
           <div className="merchant-quota" role="presentation">
             <span style={{ width: `${Math.round(progress.ratio * 100)}%` }} />
           </div>
-
-          <ul className="admin-liability-rows">
-            {REBATE_TIERS.map((tier) => (
-              <li key={tier.id}>
-                <span>
-                  {tier.threshold} order
-                  {tier.id === credit.rebateTier ? ' · tercapai' : ''}
-                </span>
-                <span>{jod(tier.amountJod)}</span>
-              </li>
-            ))}
-          </ul>
-
           <p className="merchant-card-sub">
             {credit.rebateTier
               ? credit.rebatePaidAt
-                ? `Cashback ${money(jodToIdr(credit.rebateAmountJod))} sudah dibayar ke dompet deposit (${money(jodToIdr(credit.depositBalanceJod))}).`
-                : `Tier tercapai — cashback ${money(jodToIdr(credit.rebateAmountJod))} menunggu dibayar akhir bulan.`
+                ? `Cashback ${money(jodToIdr(credit.rebateAmountJod))} sudah masuk dompet deposit.`
+                : `Tier ${credit.rebateTier.replace('tier_', '')} tercapai — cashback ${money(jodToIdr(credit.rebateAmountJod))} menunggu dibayar platform akhir bulan.`
               : 'Belum ada ambang tier yang terlewati periode ini.'}
           </p>
-
-          <div className="merchant-row">
-            <button
-              type="button"
-              className="btn btn-primary"
-              disabled={!credit.rebateTier || credit.rebatePaidAt !== null}
-              onClick={() => {
-                dispatch(payRebate())
-                toast.success('Cashback dibayar ke dompet deposit')
-              }}
-            >
-              {credit.rebatePaidAt
-                ? 'Cashback sudah dibayar'
-                : `Bayar cashback ${money(jodToIdr(credit.rebateAmountJod))}`}
-            </button>
-            <button
-              type="button"
-              className="merchant-toggle"
-              onClick={() => {
-                // Satu order settled = satu hitungan periode + satu potongan fee.
-                dispatch(recordSettledOrder())
-                dispatch(debitCredit())
-                toast.success('Order settled dicatat')
-              }}
-            >
-              +1 order settled (demo)
-            </button>
-          </div>
-
-          <p className="merchant-card-sub">Riwayat modal &amp; cashback (append-only)</p>
-          <ul className="admin-liability-rows">
-            {credit.events.slice(0, 4).map((entry) => (
-              <li key={entry.id}>
-                <span>{CREDIT_EVENT_LABEL[entry.event]}</span>
-                <span>{jod(entry.amountJod)}</span>
-              </li>
-            ))}
-          </ul>
-
-          <p className="merchant-card-sub">
-            Modal dan cashback sama-sama <strong>non-withdrawal</strong> — hanya bisa dipakai di
-            dalam aplikasi, dan sisa modal hangus kalau merchant berhenti (I-3, I-6). Yang belum
-            final tinggal periode &amp; naik tier di tengah bulan (I-4) dan kuota Founding (I-5).
-          </p>
+          <Link className="merchant-btn-ghost" to="/insentif">
+            Lihat rincian &amp; riwayat
+          </Link>
         </section>
 
         <section className="merchant-section">

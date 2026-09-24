@@ -76,11 +76,19 @@ const rootReducer = combineReducers({
 const migrations = {
   3: (state: any) => ({ ...state, superAdmin: undefined }),
   4: (state: any) => ({ ...state, admin: undefined, superAdmin: undefined }),
+  /**
+   * v5: `superAdmin` dibuang supaya di-seed ulang. Dipakai saat `superAdmin`
+   * sempat dapat field `incentive` (master insentif di konsol SA) yang kemudian
+   * dicabut kembali: state tersimpan dari masa itu masih membawa field itu, dan
+   * membiarkannya berarti `state.superAdmin` tidak pernah cocok lagi dengan
+   * bentuk yang dipakai kode. Keranjang, saldo, dan katalog tidak berubah bentuk.
+   */
+  5: (state: any) => ({ ...state, superAdmin: undefined }),
 }
 
 const persistConfig = {
   key: 'sa7tein',
-  version: 4,
+  version: 5,
   storage,
   whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin', 'superAdmin'],
   migrate: createMigrate(migrations, { debug: false }),

@@ -420,3 +420,14 @@ body {
   line-height: 1.5;
   text-align: center;
 }
+
+/* Bilah dan indikator berbagi `z-index` 1000 dengan `.sheet-overlay`, dan
+   karena bilah muncul belakangan di bundel ia menang pada nilai yang sama —
+   tombol bawah sheet jadi tidak bisa diklik (klik tengah elemen terukur mendarat
+   di `.bottom-nav`). Sheet wajib di atas; ini aksi destruktif yang tertutup.
+   Spesifisitas dinaikkan ke 0-1-1 (`body .sheet-overlay`) dan berkas ini
+   diimpor terakhir: `z-index` saja di 0-1-0 tidak cukup — aturan 1000 di
+   `merchant-2` masih menang pada urutan dokumen. */
+body .sheet-overlay {
+  z-index: 1002;
+}

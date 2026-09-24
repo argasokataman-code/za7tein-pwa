@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "note": "Approved decorative or brand SVG exceptions only; functional icons must use lucide-react. Raw colors are a shrinking legacy ceiling, not permission for new values. SaZones.tsx holds the zone polygon canvas: it is a data graphic the SA edits, not an icon, and it stays on a schematic 0..100 grid so no external map tile is needed.",
+  "note": "Approved decorative or brand SVG exceptions only; functional icons must use lucide-react. Raw colors are a shrinking legacy ceiling, not permission for new values. SaZones.tsx holds the zone polygon canvas: it is a data graphic the SA edits, not an icon, and it stays on a schematic 0..100 grid so no external map tile is needed. DonutChart.tsx holds the Ringkasan donut: arcs need SVG stroke-dasharray, and it is a data graphic, not an icon; bars in the same dashboard are plain HTML/CSS.",
   "inlineSvg": {
+    "src/components/ui/DonutChart.tsx": [
+      "d2bd875d9fedc3741496bef7239ac278f2e280f9386b8d76b57b49d1e3218676"
+    ],
     "src/components/customer/CustomerHomeHero.tsx": [
       "0eff9e9470c8736a14f4409d9959817ecd2eb88bf3c42a179fbad3ac0f5310fe"
-    ],
-    "src/pages/Home.tsx": [
-      "7738600e79828da191b98dc41daacbe35b21b63509836382ec14b75b5dbbc008"
     ],
     "src/pages/SignIn.tsx": [
       "3cc3bb893142d996f1894a6424bf06156a920bf5d2803b3a3b5e1ad063d87c4e",

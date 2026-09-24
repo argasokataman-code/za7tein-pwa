@@ -2,7 +2,8 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { merchantOrders as seedOrders } from '../../data/merchantOrders'
 import { merchantReviewReplies } from '../../data/merchantReviews'
-import { mockMerchant } from '../../data/merchant'
+import { MAX_COURIERS_PER_MERCHANT, mockCouriers, mockMerchant } from '../../data/merchant'
+import { toE164 } from '../../data/phone'
 import {
   MERCHANT_CREDIT_FEE_JOD,
   MERCHANT_CREDIT_JOD,
@@ -12,6 +13,7 @@ import {
   rebateTierFor,
 } from '../../data/incentive'
 import type {
+  Courier,
   MerchantCreditEvent,
   MerchantCreditEventName,
   MerchantCreditState,
@@ -21,6 +23,11 @@ import type {
 
 interface MerchantState {
   orders: MerchantOrder[]
+  /**
+   * Kurir milik merchant yang sedang login (C-06). Dikelola dari halaman Kurir:
+   * tambah/hapus, jam tugas, dan pemilihan kurir per order.
+   */
+  couriers: Courier[]
   isActive: boolean
   todayOrderCount: number
   dailyLimit: number
@@ -32,6 +39,7 @@ interface MerchantState {
 
 const initialState: MerchantState = {
   orders: seedOrders,
+  couriers: mockCouriers,
   isActive: mockMerchant.isActive,
   todayOrderCount: mockMerchant.todayOrderCount,
   dailyLimit: mockMerchant.dailyLimit,
@@ -68,6 +76,53 @@ const merchantSlice = createSlice({
     setCookMinutes(state, action: PayloadAction<{ id: string; minutes: number }>) {
       const order = state.orders.find((o) => o.id === action.payload.id)
       if (order) order.cookMinutes = action.payload.minutes
+    },
+    /** Merchant mendaftarkan kurirnya sendiri — dibatasi kuota kurir per toko. */
+    addCourier(state, action: PayloadAction<{ name: string; phone: string }>) {
+      if (state.couriers.length >= MAX_COURIERS_PER_MERCHANT) return
+      state.couriers.push({
+        id: `cr-local-${Date.now()}`,
+        merchantId: mockMerchant.id,
+        name: action.payload.name,
+        phone: toE164(action.payload.phone),
+        // Nomor kurir baru belum diverifikasi; hanya seed awal yang sudah.
+        phoneVerified: false,
+        status: 'offline',
+        activeOrderCount: 0,
+        joinedAt: 'baru saja',
+      })
+    },
+    /**
+     * Hapus kurir sekaligus lepas rujukannya di order — order tidak boleh
+     * menyimpan `courierId` yang sudah tidak ada di registri.
+     */
+    removeCourier(state, action: PayloadAction<{ id: string }>) {
+      state.couriers = state.couriers.filter((c) => c.id !== action.payload.id)
+      for (const order of state.orders) {
+        if (order.courierId === action.payload.id) order.courierId = undefined
+      }
+    },
+    /**
+     * Jam tugas kurir: merchant hanya menandai siap / tidak siap. Status
+     * `delivering` datang dari checkpoint kurir sendiri (F13), bukan dari sini.
+     */
+    setCourierDuty(state, action: PayloadAction<{ id: string; onDuty: boolean }>) {
+      const courier = state.couriers.find((c) => c.id === action.payload.id)
+      if (!courier || courier.status === 'delivering') return
+      courier.status = action.payload.onDuty ? 'at_store' : 'offline'
+    },
+    /**
+     * Merchant memilih kurir untuk sebuah order (F12 `:assign` → `hold_cut`).
+     * Hitungan order aktif dijaga konsisten saat kurirnya diganti.
+     */
+    assignCourier(state, action: PayloadAction<{ orderId: string; courierId: string }>) {
+      const order = state.orders.find((o) => o.id === action.payload.orderId)
+      const next = state.couriers.find((c) => c.id === action.payload.courierId)
+      if (!order || !next || order.courierId === next.id) return
+      const previous = state.couriers.find((c) => c.id === order.courierId)
+      if (previous) previous.activeOrderCount = Math.max(0, previous.activeOrderCount - 1)
+      next.activeOrderCount += 1
+      order.courierId = next.id
     },
     setReviewReply(state, action: PayloadAction<{ id: string; text: string }>) {
       state.reviewReplies[action.payload.id] = action.payload.text
@@ -137,6 +192,10 @@ export const {
   toggleActive,
   setOrderStatus,
   setCookMinutes,
+  addCourier,
+  removeCourier,
+  setCourierDuty,
+  assignCourier,
   setReviewReply,
   grantCredit,
   debitCredit,

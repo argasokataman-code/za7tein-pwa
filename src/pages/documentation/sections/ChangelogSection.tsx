@@ -25,6 +25,53 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Grafik beranda dapur</td>
+              <td>
+                Beranda hanya punya angka: empat kartu statistik + kartu insentif. Tidak ada satu pun
+                grafik, jadi pemilik toko tidak bisa melihat bentuk harinya — sibuk di hari apa,
+                berapa order yang benar-benar jadi uang
+              </td>
+              <td>
+                Dua bar chart tren (order &amp; pendapatan per hari, tujuh hari) plus donut komposisi
+                status dan bar perbandingan COD vs transfer. Primitif{' '}
+                <code className="doc-inline">BarChart</code>/
+                <code className="doc-inline">DonutChart</code> yang sudah ada, tanpa library baru.
+                Angka dijaga sama dengan kartu di atasnya
+              </td>
+            </tr>
+            <tr>
+              <td>Insentif: tombol bayar cashback</td>
+              <td>
+                Beranda dapur menaruh tombol <em>Bayar cashback Rp345.000 · ±15,00 JOD</em> (183×56
+                px) sejajar dengan tombol demo 44 px, di dalam kartu 539 px yang juga memuat
+                riwayat dan catatan I-3…I-6. Pelakunya salah: PRD menyebut cashback sebagai arus
+                kas keluar <strong>platform</strong>, dan tidak ada jalur pencairan
+              </td>
+              <td>
+                Beranda tinggal ringkasan 186 px + tautan <em>Lihat rincian &amp; riwayat</em>;
+                rincian pindah ke <code className="doc-inline">/merchant/insentif</code>. Aksi yang
+                tersisa berlabel <strong>Simulasi</strong> dan hanya memicu state demo
+              </td>
+            </tr>
+            <tr>
+              <td>Kelola kurir merchant</td>
+              <td>
+                <code className="doc-inline">/merchant/couriers</code> hanya daftar baca-saja:
+                tidak ada tambah/hapus, padahal <code className="doc-inline">plan-merchant.md</code>{' '}
+                M5 menjanjikan "tambah/hapus kurir" dan flow F12 punya edge{' '}
+                <code className="doc-inline">:assign → hold_cut</code> "merchant pilih kurir
+                sendiri"
+              </td>
+              <td>
+                Halaman jadi pengelola penuh (tambah lewat <code className="doc-inline">BottomSheet</code>,
+                jam tugas, hapus + konfirmasi; kuota dari{' '}
+                <code className="doc-inline">MAX_COURIERS_PER_MERCHANT</code>), dan order berstatus
+                diterima/dimasak dapat pemilih kurir yang mengisi{' '}
+                <code className="doc-inline">courierId</code> + menambah{' '}
+                <code className="doc-inline">activeOrderCount</code>
+              </td>
+            </tr>
+            <tr>
               <td>Scroll: sticky &amp; roda mouse</td>
               <td>
                 Body ber-<code className="doc-inline">overflow</code> selain <code className="doc-inline">visible</code>{' '}

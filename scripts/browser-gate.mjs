@@ -28,7 +28,12 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const CDP = process.env.GATE_CDP || 'http://127.0.0.1:9355'
+// `GATE_CDP` = klon khusus pengukuran (port 9359, profil `profile-gate`).
+// Bukan 9355/9356: kalau gate memakai klon kerja agent, ia memindahkan tab
+// kerja ke rute terakhir yang diukur sehingga jendela app-mode role lain
+// tertinggal di sana, dan Chromium menamai jendela dari `start_url` manifest —
+// akibatnya dua role tampak menjadi aplikasi yang sama.
+const CDP = process.env.GATE_CDP || 'http://127.0.0.1:9359'
 // PWA murni harus diukur pada hasil build (service worker hanya ada di build),
 // bukan di dev server.
 const BASE =
@@ -82,10 +87,13 @@ const ROUTE_TABLES = {
   // /superadmin memang diputuskan sebagai website penuh non-PWA (2026-09-23) —
   // mengukurnya dengan safe-area paksa + syarat service worker hanya
   // menghasilkan angka palsu dan mengaburkan batas produk.
-  customer: { base: '/customer', table: 'customerRoutes', pwa: true },
-  merchant: { base: '/merchant', table: 'merchantRoutes', pwa: true },
-  courier: { base: '/courier', table: 'courierRoutes', pwa: true },
-  admin: { base: '/admin', table: 'adminRoutes', pwa: true },
+  // `startUrl` = `start_url` manifest peran (`public/manifest-<role>.json`).
+  // Dipakai gate untuk mengembalikan jendela app-mode ke beranda perannya
+  // sesudah diukur, supaya tidak tertinggal di rute terakhir.
+  customer: { base: '/customer', table: 'customerRoutes', pwa: true, startUrl: '/customer/home' },
+  merchant: { base: '/merchant', table: 'merchantRoutes', pwa: true, startUrl: '/merchant' },
+  courier: { base: '/courier', table: 'courierRoutes', pwa: true, startUrl: '/courier' },
+  admin: { base: '/admin', table: 'adminRoutes', pwa: true, startUrl: '/admin' },
   superadmin: { base: '/superadmin', table: 'superAdminRoutes', pwa: false },
   web: { base: '', table: 'webRoutes', pwa: false },
 }
@@ -126,7 +134,20 @@ class Cdp {
     } catch {
       if (LAUNCH_SH && existsSyncSafe(LAUNCH_SH)) {
         process.stderr.write(`${C.yellow}CDP mati — menjalankan ${LAUNCH_SH}${C.off}\n`)
-        execFileSync(LAUNCH_SH, { stdio: 'ignore' })
+        // Port + profil klon gate ikut disebut, supaya fallback tidak menghidupkan
+        // klon default (9355) dan lalu mengukur di mesin yang salah.
+        const port = new URL(CDP).port || '9355'
+        execFileSync(LAUNCH_SH, ['--fresh'], {
+          stdio: 'ignore',
+          env: {
+            ...process.env,
+            BRAVE_CDP_PORT: port,
+            BRAVE_PROFILE: process.env.GATE_PROFILE ||
+              path.join(process.env.HOME || '', '.local/share/brave-debug-mcp/bin/profile-gate'),
+            BRAVE_EXTRA_ARGS: process.env.GATE_EXTRA_ARGS ||
+              `--app=${BASE}/customer/home --touch-events=enabled --window-size=430,920`,
+          },
+        })
         await sleep(2500)
         list = await (await fetch(`${CDP}/json/list`)).json()
       } else {
@@ -135,7 +156,8 @@ class Cdp {
         )
       }
     }
-    const page = list.find((t) => t.type === 'page')
+    const page = list.find((t) => t.type === 'page' && (t.url || '').startsWith(BASE))
+      ?? list.find((t) => t.type === 'page')
     if (!page) throw new Error('tidak ada tab page di klon Brave')
     const ws = new WebSocket(page.webSocketDebuggerUrl)
     await new Promise((res, rej) => {
@@ -700,6 +722,13 @@ async function main() {
 
   await cdp.send('Emulation.clearDeviceMetricsOverride').catch(() => {})
   await restoreWindow(cdp)
+  // Kembalikan tab kerja ke start_url peran yang diukur. Tanpa ini jendela
+  // app-mode ditinggal di rute terakhir, dan karena Chromium menamai jendela
+  // dari `start_url` manifest, dua role tampak jadi "aplikasi" yang sama.
+  if (OPTS.pwa) {
+    const mulai = ROUTE_TABLES[OPTS.role]?.startUrl
+    if (mulai) await cdp.send('Page.navigate', { url: BASE + mulai }).catch(() => {})
+  }
   cdp.close()
 
   if (OPTS.json) {

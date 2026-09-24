@@ -222,6 +222,7 @@ export const {
   setOperatorStatus,
   withdrawProfit,
   toggleSwitch,
+
   logAudit,
 } = superAdminSlice.actions
 export default superAdminSlice.reducer

@@ -50,6 +50,16 @@ export const merchantMenuItemSchema = z.object({
   available: z.boolean().optional(),
 })
 
+// Kurir toko — merchant mendaftarkan kurirnya sendiri (C-06: kurir karyawan
+// merchant, platform tidak menugaskan). Nomor memakai `phoneField` yang sama
+// dengan pendaftaran, jadi normalisasi `08xx` → E.164 berlaku di sini juga.
+export const merchantCourierSchema = z.object({
+  name: z.string().min(2, 'Nama minimal 2 karakter'),
+  phone: phoneField,
+})
+
+export type MerchantCourierFormData = z.infer<typeof merchantCourierSchema>
+
 // Profil toko — halaman Setelan merchant.
 export const merchantStoreSchema = z.object({
   name: z.string().min(2, 'Nama toko minimal 2 karakter'),

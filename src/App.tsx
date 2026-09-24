@@ -39,6 +39,7 @@ import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantMenu from './pages/MerchantMenu'
 import MerchantOrders from './pages/MerchantOrders'
 import MerchantPending from './pages/MerchantPending'
+import MerchantRebate from './pages/MerchantRebate'
 import MerchantReviews from './pages/MerchantReviews'
 import MerchantSettings from './pages/MerchantSettings'
 import MerchantSignIn from './pages/MerchantSignIn'
@@ -153,6 +154,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/', MerchantDashboard],
   ['/orders', MerchantOrders],
   ['/menu', MerchantMenu],
+  ['/insentif', MerchantRebate],
   ['/reviews', MerchantReviews],
   ['/couriers', MerchantCouriers],
   ['/settings', MerchantSettings],
@@ -292,8 +294,13 @@ export default function App() {
   useEffect(() => {
     const splash = document.getElementById('boot-splash')
     if (!splash) return
-    const frame = requestAnimationFrame(() => splash.remove())
-    return () => cancelAnimationFrame(frame)
+    // Singkirkan splash lewat class, bukan `remove()` atau `hidden = true`.
+    // Keduanya tidak bisa ditimpa oleh POJO (`img.onerror`), jadi satu ikon
+    // yang gagal dimuat membuat splash menutupi seluruh layar selamanya —
+    // terukur: `elementFromPoint` di tengah tombol mengembalikan `boot-inner`.
+    // `#[hidden]` di index.html memakai `display: none` tanpa `!important`,
+    // sehingga kelas ini menang dan splash benar-benar hilang dari layar.
+    splash.classList.add('boot-done')
   }, [])
 
   return (

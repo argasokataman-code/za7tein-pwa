@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { formatDistance, money, zoneLabel } from '../data/merchant'
+import { COURIER_STATUS_LABEL } from '../data/courier'
+import { HOLD_STATUS_COPY, formatDistance, money, zoneLabel } from '../data/merchant'
 import { QUEUE_TABS, ordersForStatuses, orderStatusLabel, type QueueTabId } from '../data/merchantOrders'
-import { setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
+import { assignCourier, setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
 
 export default function MerchantOrders() {
   const dispatch = useAppDispatch()
   const orders = useAppSelector((s) => s.merchant.orders)
+  const couriers = useAppSelector((s) => s.merchant.couriers)
   const [tab, setTab] = useState<QueueTabId>('masuk')
 
   const activeTab = QUEUE_TABS.find((t) => t.id === tab) ?? QUEUE_TABS[0]
@@ -43,7 +45,9 @@ export default function MerchantOrders() {
         {visible.length === 0 ? (
           <p className="merchant-empty">Belum ada order di tab ini.</p>
         ) : (
-          visible.map((order) => (
+          visible.map((order) => {
+            const courier = couriers.find((c) => c.id === order.courierId)
+            return (
             <section key={order.id} className="merchant-order-card">
               <div className="merchant-order-head">
                 <div className="merchant-order-buyer">
@@ -135,6 +139,35 @@ export default function MerchantOrders() {
                       )
                     }
                   />
+
+                  <div className="merchant-assign">
+                    <label htmlFor={`courier-${order.id}`} className="form-label">
+                      Kurir
+                    </label>
+                    <select
+                      id={`courier-${order.id}`}
+                      className="form-control"
+                      value={order.courierId ?? ''}
+                      onChange={(e) => {
+                        const courierId = e.target.value
+                        if (!courierId) return
+                        dispatch(assignCourier({ orderId: order.id, courierId }))
+                      }}
+                    >
+                      <option value="">Pilih kurir…</option>
+                      {couriers.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.name} · {COURIER_STATUS_LABEL[item.status] ?? item.status}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="merchant-card-sub">
+                      {courier
+                        ? `${courier.name} ditugaskan · hold ${HOLD_STATUS_COPY.cut.label}`
+                        : HOLD_STATUS_COPY.held.note}
+                    </p>
+                  </div>
+
                   <button
                     type="button"
                     className="btn btn-primary"
@@ -155,7 +188,8 @@ export default function MerchantOrders() {
                 </div>
               ) : null}
             </section>
-          ))
+            )
+          })
         )}
       </main>
       <MerchantBottomNav />

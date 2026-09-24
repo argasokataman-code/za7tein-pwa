@@ -115,6 +115,22 @@ export function ComponentsSection() {
         <code className="doc-inline"> action</code>; jangan membuat header merchant baru
         per halaman.
       </p>
+      <h3 className="doc-h3">
+        Kartu promo Home (<code className="doc-inline">.ad-banner</code>)
+      </h3>
+      <p className="doc-p">
+        Banner promo beranda di <code className="doc-inline">src/pages/Home.tsx</code>{' '}
+        mengikuti konsep kartu (KSAplay, Uiverse) yang diterjemahkan ke DNA: sudut
+        ditahan di <code className="doc-inline">--radius-lg</code> (12px, bukan 25px),
+        tanpa gradient, kedalaman datang dari tiga lingkaran sepusat di tepi kanan
+        atas dengan opasitas 8–14% di atas oranye merek, lalu satu bilah aksi
+        (<code className="doc-inline">.ad-cta</code>) selebar kartu dengan target
+        44px. Isinya hanya judul + foto (<code className="doc-inline">public/assets/</code>);
+        klaim promonya tetap copy mock yang ada, tidak ada angka baru. Gaya hidup di{' '}
+        <code className="doc-inline">src/styles/system/_home.scss</code>. SVG dekorasi
+        lama sudah dihapus, jadi <code className="doc-inline">legacy-debt.json</code>{' '}
+        tidak lagi mencatat SVG inline untuk Home.tsx.
+      </p>
     </DocSection>
   )
 }
