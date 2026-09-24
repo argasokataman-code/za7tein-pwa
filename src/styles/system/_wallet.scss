@@ -111,9 +111,12 @@
   flex: 1 1 auto;
 }
 
+/* Label di atas oranye memakai putih penuh, tanpa opacity: menurunkannya ke
+   85% menjatuhkan kontras dari 3,36:1 ke sekitar 2,9:1 — menambah masalah pada
+   pasangan yang sudah di bawah AA. Putih penuh tetap dalam pengecualian sadar
+   yang tercatat di docs/design/DNA.md. */
 .wallet-balance-card--compact .wallet-balance-label {
   color: var(--on-brand);
-  opacity: 0.85;
 }
 
 /* Nominal di kartu ringkas memakai skala lebih kecil dari kartu penuh: ia

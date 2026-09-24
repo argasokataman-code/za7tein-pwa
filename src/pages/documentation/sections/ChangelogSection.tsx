@@ -39,7 +39,16 @@ export function ChangelogSection() {
                 Modal keluar dipaku ke dasar layar, dan dasar layar itu ditempati <code className="doc-inline">.bottom-nav</code> (fixed, 76px, <code className="doc-inline">z-index 1000</code>). <code className="doc-inline">part-15.scss</code> memberi modal <code className="doc-inline">z-index 1000</code> juga — seri, dan nav menang karena muncul belakangan di DOM, sehingga tombol Batal/Keluar tertutup 36px. Padding bawahnya 40px tetap, tanpa ruang aman perangkat berponi
               </td>
               <td>
-                Modal dinaikkan ke <code className="doc-inline">z-index 1001</code> dan padding bawahnya jadi <code className="doc-inline">calc(var(--space-5) + env(safe-area-inset-bottom))</code>. Terukur tombol 165x44 sepasang, berakhir 20px di atas dasar layar, tidak lagi bersinggungan dengan bilah nav
+                Modal dinaikkan ke <code className="doc-inline">z-index 1001</code> dan padding bawahnya jadi <code className="doc-inline">calc(var(--space-5) + env(safe-area-inset-bottom))</code>. Durasi animasinya juga pindah dari <code className="doc-inline">.3s ease-out</code> mentah ke token <code className="doc-inline">--motion-standard</code> + <code className="doc-inline">--ease-out</code>. Terukur tombol 165x44 sepasang, berakhir 20px di atas dasar layar, tidak lagi bersinggungan dengan bilah nav
+              </td>
+            </tr>
+            <tr>
+              <td>Label kartu saldo tanpa penurunan kontras tambahan</td>
+              <td>
+                Label "Saldo tersedia" di atas bidang oranye sempat diberi <code className="doc-inline">opacity: 0.85</code>, yang menjatuhkan kontras dari 3,36:1 ke sekitar 2,9:1 — menambah masalah pada pasangan yang sudah di bawah AA
+              </td>
+              <td>
+                Opacity dibuang; putih penuh, tetap 3,36:1, yaitu pengecualian sadar yang sudah tercatat di <code className="doc-inline">docs/design/DNA.md</code> — bukan penurunan baru di atasnya
               </td>
             </tr>
             <tr>

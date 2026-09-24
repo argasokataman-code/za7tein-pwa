@@ -29,8 +29,11 @@
 
 .profile-modal-overlay {
   z-index: 1001;
+  transition: opacity var(--motion-standard) var(--ease-out),
+    visibility var(--motion-standard) var(--ease-out);
 }
 
 .profile-modal {
   padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  transition: transform var(--motion-standard) var(--ease-out);
 }
