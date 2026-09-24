@@ -5,10 +5,11 @@ export function RouteProtectionSection() {
   return (
     <DocSection id="route-protection" num="06" title="Route Protection">
       <p className="doc-p">
-        This showcase has no real authentication or route protection.
-        The app boots with <code className="doc-inline">isAuthenticated: true</code> and a mock
-        user. No credentials are verified. The only thing resembling "protection" is
-        the per-role URL split and a legacy redirect.
+        There is no real authentication: no credentials are verified, no token is issued, and no
+        backend is involved. What exists is a <strong>mock session gate</strong> that keeps the
+        screen order promised by flow <code className="doc-inline">f21-account-auth</code> —
+        onboarding, then sign-in, then the app. The session is a boolean flag in Redux, nothing
+        more.
       </p>
 
       <h3 className="doc-h3">
@@ -43,6 +44,80 @@ return role ? (
       </DocCode>
 
       <h3 className="doc-h3">
+        Session Gate (AuthGate)
+      </h3>
+      <p className="doc-p">
+        Every route that is not on the role&apos;s public list is wrapped in{' '}
+        <code className="doc-inline">AuthGate</code>. Without a session it renders a{' '}
+        <code className="doc-inline">Navigate</code> to the role&apos;s entry screen, so opening
+        an installed app on a fresh device lands on onboarding or sign-in instead of the home
+        screen. Public lists are matched by path string, not by{' '}
+        <code className="doc-inline">useLocation</code>, so the gate does not depend on how the
+        router trims <code className="doc-inline">basename</code>.
+      </p>
+      <div className="doc-table-wrap">
+        <table className="doc-table">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Entry when signed out</th>
+              <th>Public routes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code className="doc-inline">/customer</code>
+              </td>
+              <td>
+                <code className="doc-inline">/onboarding</code>
+              </td>
+              <td>
+                onboarding, signup, signin, forgot-password, forgot-password-otp,
+                create-password, verification, account-setup, offline
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code className="doc-inline">/merchant</code>
+              </td>
+              <td>
+                <code className="doc-inline">/signin</code>
+              </td>
+              <td>signin, signup, pending, offline</td>
+            </tr>
+            <tr>
+              <td>
+                <code className="doc-inline">/courier</code>
+              </td>
+              <td>
+                <code className="doc-inline">/signin</code>
+              </td>
+              <td>signin, offline</td>
+            </tr>
+            <tr>
+              <td>
+                <code className="doc-inline">/admin</code>,{' '}
+                <code className="doc-inline">/superadmin</code>
+              </td>
+              <td>&mdash;</td>
+              <td>
+                Not gated. The CS panel is documented as having no auth, and Super Admin is a
+                full website rather than an installable app.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p className="doc-p">
+        The install prompt is suppressed on the sign-in screens (
+        <code className="doc-inline">AUTH_FORM_PATHS</code>). Measured before that: a click aimed
+        at <code className="doc-inline">.auth-submit</code> landed on{' '}
+        <code className="doc-inline">.install-prompt-box</code>, so the sign-in button could not
+        be pressed at all.
+      </p>
+
+      <h3 className="doc-h3">
         Legacy Redirect
       </h3>
       <p className="doc-p">
@@ -71,28 +146,33 @@ return role ? (
       </DocCode>
 
       <h3 className="doc-h3">
-        Mock Auth
+        Mock Session
       </h3>
       <p className="doc-p">
-        <code className="doc-inline">authSlice</code> initial state sets{' '}
-        <code className="doc-inline">isAuthenticated: true</code> with a mock user.
-        There is no login verification, no auth cookie, no{' '}
-        <code className="doc-inline">useAuthCookie</code> hook, and no{' '}
-        <code className="doc-inline">middleware.ts</code>. The{' '}
-        <code className="doc-inline">auth</code> slice is not in the persist
-        whitelist — it resets to "authenticated" on every page load.
+        <code className="doc-inline">authSlice</code> starts signed out. The four sign-in screens
+        dispatch <code className="doc-inline">signIn(&#39;/role&#39;)</code> on submit &mdash; a
+        toast, a flag, and a navigate, with nothing verified. The session is persisted, because a
+        session that does not survive a reload would throw the user back to onboarding on every
+        visit, which is exactly the defect this gate fixed.
+      </p>
+      <p className="doc-p">
+        The session is split per role (<code className="doc-inline">role</code> field). All four
+        PWAs are served from one origin, so they share{' '}
+        <code className="doc-inline">localStorage</code>; without the split, signing in to the
+        customer app also unlocked merchant and courier.
       </p>
       <DocCode lang="typescript">
         <code>{`// authSlice.ts — initialState
 const initialState: AuthState = {
   user: mockUser,
-  isAuthenticated: true,  // always true
+  isAuthenticated: false,  // signed out until signIn()
+  role: null,              // '/customer' | '/merchant' | '/courier'
   isLoading: false,
 }
 
 // persistConfig whitelist (store/index.ts)
-whitelist: ['cart', 'favorites', 'accountSetup', 'catalog']
-// 'auth' is NOT persisted`}</code>
+whitelist: [..., 'superAdmin', 'auth']
+// 'auth' IS persisted since the route gate exists`}</code>
       </DocCode>
 
       <h3 className="doc-h3">
@@ -109,9 +189,9 @@ whitelist: ['cart', 'favorites', 'accountSetup', 'catalog']
 
       <div className="doc-callout">
         <p className="doc-p" style={{ margin: 0 }}>
-          No route is protected. All screens are directly browsable. Any future
-          real auth would need a guard component and a persistent session check
-          — neither exists today.
+          Routes inside a role are gated by a mock flag; the flag is not security. Any real auth
+          would replace <code className="doc-inline">AuthGate</code> with a server session check.
+          To get back to the sign-in screen, use Keluar in the profile, or clear site data.
         </p>
       </div>
     </DocSection>

@@ -26,19 +26,29 @@ npm run dev`}
         <strong>
           Note:
         </strong>
-         The app starts with
-        <code>
-          isAuthenticated: true
-        </code>
-         and a
+         The app starts signed out and sign-in is mocked: any phone number or email with a
+        six-character password opens the app, and the{' '}
         <code>
           mockUser
         </code>
-         object pre-loaded from
+         object from{' '}
         <code>
           src/data/user.ts
         </code>
-         so you can browse all screens immediately without signing in.
+         is what the screens render afterwards. To skip the gate when scripting a measurement,
+        seed{' '}
+        <code>
+          persist:sa7tein
+        </code>
+         with{' '}
+        <code>
+          auth.isAuthenticated = true
+        </code>
+         and the matching{' '}
+        <code>
+          role
+        </code>
+         &mdash; that is what the browser gate does.
       </div>
       <h3 className="doc-h3">
         Production Build

@@ -26,7 +26,7 @@ export function FileStructureSection() {
     │
     ├── components/
     │   ├── customer/          # CustomerHomeHero, CustomerHomeHero.css
-    │   ├── layout/            # BottomNav, HomeIndicator, MerchantBottomNav
+    │   ├── layout/            # BottomNav, MerchantBottomNav
     │   ├── ui/                # AddToCartButton, BackButton, BottomSheet, FavoriteButton, FoodCard
     │   ├── JourneyLine.tsx
     │   └── OrderStageScreen.tsx

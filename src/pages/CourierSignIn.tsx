@@ -7,7 +7,9 @@ import { useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
 import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { useAppDispatch } from '../hooks/useAppStore'
 import { signInSchema, type SignInFormData } from '../lib/schemas'
+import { signIn } from '../store/slices/authSlice'
 
 /**
  * Masuk kurir (mock).
@@ -18,11 +20,12 @@ import { signInSchema, type SignInFormData } from '../lib/schemas'
  * setelah toko aktif (C-06). Jadi kurir masuk dengan nomor HP, bukan email.
  *
  * Repo ini front-end saja: tidak ada sesi atau token sungguhan (AGENTS.md §1),
- * submit hanya menampilkan konfirmasi lalu membuka beranda kurir. Mekanisme
+ * submit menandai sesi demo (`signIn()`) lalu membuka beranda kurir. Mekanisme
  * kredensial (PIN/sesi) belum punya dasar di PRD dan tidak dikarang di sini.
  */
 export default function CourierSignIn() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [showPassword, setShowPassword] = useState(false)
   const {
     register,
@@ -31,6 +34,7 @@ export default function CourierSignIn() {
   } = useForm<SignInFormData>({ resolver: zodResolver(signInSchema) })
 
   const onSubmit = () => {
+    dispatch(signIn('/courier'))
     toast.success('Masuk sebagai kurir (demo)')
     navigate('/')
   }

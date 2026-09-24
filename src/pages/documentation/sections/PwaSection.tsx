@@ -128,6 +128,15 @@ export function PwaSection() {
         jadi isinya tetap di atas area gestur sementara latarnya melebar
         sampai tepi layar.
       </p>
+      <p className="doc-p">
+        Pil <code>.home-indicator</code> (134x5, tiruan gesture bar ponsel) sudah
+        dihapus dari seluruh repositori, termasuk komponen{' '}
+        <code>layout/HomeIndicator.tsx</code> dan sebelas pemakaiannya. Di app
+        terinstal OS sudah menggambar gesture bar aslinya sendiri, jadi pil itu
+        terbaca sebagai batang kedua yang menempel di dasar layar. Satu-satunya
+        yang menyerap area gestur sekarang adalah latar bilah navigasi dan
+        dokumen itu sendiri.
+      </p>
 
       <h3 className="doc-h3">Service Worker</h3>
       <p className="doc-p">

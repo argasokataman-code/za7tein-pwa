@@ -3,7 +3,6 @@ import { useCallback, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
-import { HomeIndicator } from '../components/layout/HomeIndicator'
 import { useInstallPrompt } from '../hooks/useInstallPrompt'
 import { ONBOARDING_SLIDES } from '../data/onboarding'
 
@@ -179,8 +178,6 @@ export default function Onboarding() {
           </span>
         </button>
       </div>
-
-      <HomeIndicator />
     </div>
   )
 }

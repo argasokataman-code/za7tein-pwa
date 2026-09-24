@@ -14,7 +14,7 @@ export function BackendSection() {
         {`// src/store/slices/authSlice.ts
 const initialState: AuthState = {
   user: null,              // was mockUser
-  isAuthenticated: false,  // was true
+  isAuthenticated: false,  // the mock gate already starts signed out
   isLoading: false,
 };`}
       </DocCode>

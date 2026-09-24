@@ -5,6 +5,7 @@ import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-route
 import { StoreProvider } from './store/provider'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
 import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
+import { useAppSelector } from './hooks/useAppStore'
 
 import AccountSetup from './pages/AccountSetup'
 import AddNewCard from './pages/AddNewCard'
@@ -101,6 +102,20 @@ const webRoutes: [string, ComponentType][] = [
   ['/documentation', Documentation],
 ]
 
+/**
+ * Layar yang isinya form masuk. Modal pasang aplikasi tidak boleh muncul di
+ * sini: terukur, klik ke `.auth-submit` mendarat di `.install-prompt-box`
+ * sehingga tombol masuk tak bisa ditekan sama sekali.
+ */
+const AUTH_FORM_PATHS = new Set([
+  '/signin',
+  '/signup',
+  '/forgot-password',
+  '/forgot-password-otp',
+  '/create-password',
+  '/verification',
+])
+
 // Pelanggan — dipasang di /customer/*.
 const customerRoutes: [string, ComponentType][] = [
   ['/onboarding', Onboarding],
@@ -166,8 +181,8 @@ const merchantRoutes: [string, ComponentType][] = [
 
 // Kurir — dipasang di /courier/*. Masuk lewat nomor WA (E.164): flow
 // f21-account-auth + f16 (kurir karyawan merchant, direkrut setelah toko aktif).
-// Tanpa guard rute — repo ini tidak punya sesi sungguhan (AGENTS.md §1), sama
-// seperti /merchant/signin yang juga tidak menjaga berandanya.
+// Dijaga `authGate`: beranda kurir hanya terbuka setelah layar masuk, sama
+// seperti /merchant/* dan /customer/*.
 const courierRoutes: [string, ComponentType][] = [
   ['/signin', CourierSignIn],
   ['/', CourierTasks],
@@ -220,12 +235,44 @@ function SuperAdminRouter() {
   )
 }
 
+/**
+ * Gerbang sesi per peran. Isinya hanya layar sebelum "sudah masuk" menurut flow
+ * `f21-account-auth` (onboarding → masuk → nomor WA → verifikasi), plus layar
+ * offline. Layar kegagalan (`/account-setup`) ikut dibuka tanpa sesi: layar yang
+ * menangani error tidak boleh ikut terkurung di balik gerbang.
+ *
+ * `/admin` sengaja tidak ada di peta ini — panel CS memang tanpa auth
+ * (AGENTS.md §9), sama seperti `/superadmin` yang bukan PWA.
+ */
+const authGate: Partial<Record<RoleBase, { entry: string; publicPaths: string[] }>> = {
+  '/customer': {
+    entry: '/onboarding',
+    publicPaths: [
+      '/onboarding',
+      '/signup',
+      '/signin',
+      '/forgot-password',
+      '/forgot-password-otp',
+      '/create-password',
+      '/verification',
+      '/account-setup',
+      '/offline',
+    ],
+  },
+  '/merchant': { entry: '/signin', publicPaths: ['/signin', '/signup', '/pending', '/offline'] },
+  '/courier': { entry: '/signin', publicPaths: ['/signin', '/offline'] },
+}
+
 interface RoleRouterProps {
   basename: string
   routes: [string, ComponentType][]
   home: string
   /** Rute layar "tidak ada koneksi" role ini; hanya customer yang punya. */
   offlinePath?: string
+  /** Tujuan saat belum masuk; tanpa ini role tidak dijaga (panel CS). */
+  entry?: string
+  /** Rute yang boleh dibuka tanpa sesi. */
+  publicPaths?: string[]
 }
 
 /**
@@ -247,13 +294,48 @@ function RoleChrome({ offlinePath, children }: { offlinePath?: string; children:
   return <AppErrorBoundary>{children}</AppErrorBoundary>
 }
 
-function RoleRouter({ basename, routes, home, offlinePath }: RoleRouterProps) {
+/**
+ * Gerbang sesi: layar di dalam aplikasi baru terbuka setelah "masuk". Mode demo
+ * — `signIn()` cuma menandai flag (AGENTS.md §1), tidak ada verifikasi apa pun.
+ * Rute publik dicocokkan dari daftar, bukan lewat `useLocation`, supaya tidak
+ * bergantung pada bagaimana router memotong `basename`. Sesi juga dipisah per
+ * peran (`s.auth.role`) karena keempat PWA berbagi satu origin.
+ */
+function AuthGate({
+  children,
+  entry,
+  role,
+}: {
+  children: ReactNode
+  entry: string
+  role: string
+}) {
+  const signedIn = useAppSelector((s) => s.auth.isAuthenticated && s.auth.role === role)
+  if (!signedIn) return <Navigate to={entry} replace />
+  return <>{children}</>
+}
+
+function RoleRouter({ basename, routes, home, offlinePath, entry, publicPaths = [] }: RoleRouterProps) {
+  const open = new Set(publicPaths)
+
   return (
     <BrowserRouter basename={basename}>
       <RoleChrome offlinePath={offlinePath}>
         <Routes>
           {routes.map(([path, Component]) => (
-            <Route key={path} path={path} element={<Component />} />
+            <Route
+              key={path}
+              path={path}
+              element={
+                entry && !open.has(path) ? (
+                  <AuthGate entry={entry} role={basename}>
+                    <Component />
+                  </AuthGate>
+                ) : (
+                  <Component />
+                )
+              }
+            />
           ))}
           <Route path="*" element={<Navigate to={home} replace />} />
         </Routes>
@@ -298,6 +380,9 @@ export default function App() {
   const { pathname } = window.location
   const role = roleFromPath(pathname)
   const isSuperAdmin = pathname === '/superadmin' || pathname.startsWith('/superadmin/')
+  // Jalur tanpa prefix peran, dipakai untuk memutuskan apakah modal pasang
+  // aplikasi boleh tampil (lihat AUTH_FORM_PATHS).
+  const rolePath = role ? pathname.slice(role.length) || '/' : pathname
 
   useEffect(() => {
     const splash = document.getElementById('boot-splash')
@@ -314,11 +399,32 @@ export default function App() {
   return (
     <StoreProvider>
       {role === '/customer' ? (
-        <RoleRouter basename="/customer" routes={customerRoutes} home="/home" offlinePath="/offline" />
+        <RoleRouter
+          basename="/customer"
+          routes={customerRoutes}
+          home="/home"
+          offlinePath="/offline"
+          entry={authGate['/customer']?.entry}
+          publicPaths={authGate['/customer']?.publicPaths}
+        />
       ) : role === '/merchant' ? (
-        <RoleRouter basename="/merchant" routes={merchantRoutes} home="/" offlinePath="/offline" />
+        <RoleRouter
+          basename="/merchant"
+          routes={merchantRoutes}
+          home="/"
+          offlinePath="/offline"
+          entry={authGate['/merchant']?.entry}
+          publicPaths={authGate['/merchant']?.publicPaths}
+        />
       ) : role === '/courier' ? (
-        <RoleRouter basename="/courier" routes={courierRoutes} home="/" offlinePath="/offline" />
+        <RoleRouter
+          basename="/courier"
+          routes={courierRoutes}
+          home="/"
+          offlinePath="/offline"
+          entry={authGate['/courier']?.entry}
+          publicPaths={authGate['/courier']?.publicPaths}
+        />
       ) : role === '/admin' ? (
         <RoleRouter basename="/admin" routes={adminRoutes} home="/" offlinePath="/offline" />
       ) : isSuperAdmin ? (
@@ -342,8 +448,11 @@ export default function App() {
       />
       {/* Modal pasang aplikasi untuk URL yang memang bisa diinstal (keempat
           peran + halaman promosi). Konsol Super Admin dan /documentation
-          sengaja bukan PWA, jadi tidak ditawari. */}
-      {role !== null || pathname === '/' ? <InstallPromptSheet /> : null}
+          sengaja bukan PWA, jadi tidak ditawari. Layar form masuk dikecualikan
+          supaya modalnya tidak menutupi tombol masuk. */}
+      {(role !== null && !AUTH_FORM_PATHS.has(rolePath)) || pathname === '/' ? (
+        <InstallPromptSheet />
+      ) : null}
     </StoreProvider>
   )
 }

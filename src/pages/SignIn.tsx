@@ -7,10 +7,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
 import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { useAppDispatch } from '../hooks/useAppStore'
 import { signInSchema, type SignInFormData } from '../lib/schemas'
+import { signIn } from '../store/slices/authSlice'
 
 export default function SignIn() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [showPassword, setShowPassword] = useState(false)
   const {
     register,
@@ -19,6 +22,7 @@ export default function SignIn() {
   } = useForm<SignInFormData>({ resolver: zodResolver(signInSchema) })
 
   const onSubmit = () => {
+    dispatch(signIn('/customer'))
     toast.success('Mode demo: berhasil masuk')
     navigate('/home')
   }

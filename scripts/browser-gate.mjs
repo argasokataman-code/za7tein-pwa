@@ -713,8 +713,15 @@ async function main() {
     )
   }
 
+  let seededRole = null
+
   for (const url of urls) {
     const abs = url.startsWith('http') ? url : BASE + url
+    const urlRole = (abs.match(/\/(customer|merchant|courier|admin)(?:\/|$)/) || [])[1]
+    if (urlRole && urlRole !== seededRole) {
+      await seedSession(cdp, `/${urlRole}`)
+      seededRole = urlRole
+    }
     for (const width of widths) {
       const height = width >= 900 ? 900 : 844
       await cdp.send('Emulation.setDeviceMetricsOverride', {
@@ -828,6 +835,27 @@ async function warmUpShell(cdp, url) {
   await sleep(1500)
   await cdp.send('Page.reload', {})
   await sleep(900)
+}
+
+/**
+ * Gerbang rute (`authGate` di App.tsx) memantulkan layar di dalam aplikasi ke
+ * onboarding/layar masuk saat belum ada sesi. Gate mengukur halamannya, bukan
+ * gerbangnya, jadi sesi demo di-seed lebih dulu — sama seperti pengguna yang
+ * sudah masuk. Sesi dipisah per peran, jadi peran ikut dari rute yang diukur
+ * (`--role all` menyapu beberapa peran dalam satu kali jalan). `user: null`
+ * aman: `Home.tsx` membacanya dengan `?.`.
+ */
+async function seedSession(cdp, role) {
+  await evaluate(
+    cdp,
+    `(() => {
+      const key = 'persist:sa7tein'
+      const raw = JSON.parse(localStorage.getItem(key) || '{}')
+      raw.auth = JSON.stringify({ user: null, isAuthenticated: true, role: ${JSON.stringify(role)}, isLoading: false })
+      raw._persist = JSON.stringify({ version: 5, rehydrated: true })
+      localStorage.setItem(key, JSON.stringify(raw))
+    })()`,
+  )
 }
 
 main().catch((err) => {

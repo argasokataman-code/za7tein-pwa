@@ -133,7 +133,6 @@ export default function RatingDriver() {
                 {tip > 0 ? `Kirim · tip ${moneyPlain(tip)}` : 'Kirim rating'}
               </button>
             </div>
-            <div className="home-indicator " />
           </div>
         </div>
       </main>

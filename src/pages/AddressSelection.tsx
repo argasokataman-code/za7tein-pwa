@@ -324,7 +324,6 @@ export default function AddressSelection() {
                     : 'Di luar area antar'}
               </button>
             </div>
-            <div className="home-indicator" />
           </div>
         </main>
       </div>

@@ -80,10 +80,10 @@ export function StateManagementSection() {
                 auth
               </td>
               <td>
-                not persisted
+                persisted
               </td>
               <td>
-                user, isAuthenticated, isLoading
+                user, isAuthenticated, role, isLoading
               </td>
             </tr>
             <tr>

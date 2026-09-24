@@ -240,7 +240,6 @@ export default function MenuDetail() {
                 <span>Tambah ke Keranjang — {money(unitPrice * quantity)}</span>
               </button>
             </div>
-            <div className="home-indicator " />
           </div>
         </main>
       </div>

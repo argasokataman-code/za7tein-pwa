@@ -7,10 +7,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
 import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { useAppDispatch } from '../hooks/useAppStore'
 import { merchantSignInSchema, type MerchantSignInFormData } from '../lib/schemas'
+import { signIn } from '../store/slices/authSlice'
 
 export default function MerchantSignIn() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [showPassword, setShowPassword] = useState(false)
   const {
     register,
@@ -19,6 +22,7 @@ export default function MerchantSignIn() {
   } = useForm<MerchantSignInFormData>({ resolver: zodResolver(merchantSignInSchema) })
 
   const onSubmit = () => {
+    dispatch(signIn('/merchant'))
     toast.success('Masuk sebagai merchant')
     navigate('/')
   }

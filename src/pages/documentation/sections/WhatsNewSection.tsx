@@ -49,7 +49,8 @@ export function WhatsNewSection() {
                 None
               </td>
               <td>
-                Mock auth — isAuthenticated: true, no route guard
+                Mock session gate — signed out until signIn(); protected routes redirect to
+                onboarding/sign-in
               </td>
             </tr>
             <tr>

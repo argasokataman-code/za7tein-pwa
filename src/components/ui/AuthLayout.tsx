@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import type { AuthPhoto } from '../../types'
-import { HomeIndicator } from '../layout/HomeIndicator'
 
 /**
  * Satu kerangka untuk semua layar masuk/daftar.
@@ -102,8 +101,6 @@ export function AuthLayout({
 
         {children}
       </div>
-
-      <HomeIndicator />
     </div>
   )
 }

@@ -60,6 +60,9 @@ const rootReducer = combineReducers({
 // lintas role (customer → panel CS), dan perpindahan role me-reload halaman.
 // `superAdmin` ikut persist sejak konsol SA dibangun: konfigurasi zona, role,
 // operator, kill switch, dan audit trail harus bertahan lintas reload.
+// `auth` ikut persist sejak gerbang rute dipasang: sesi yang tidak bertahan
+// berarti setiap reload melempar pengguna kembali ke onboarding, dan justru
+// itulah yang bikin mode terinstal terasa rusak.
 /**
  * Migrasi state tersimpan. v3: vertices poligon zona pindah dari koordinat
  * gambar (`{x,y}`) ke lat/lng sungguhan supaya gate coverage bisa menguji
@@ -90,7 +93,7 @@ const persistConfig = {
   key: 'sa7tein',
   version: 5,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin', 'superAdmin'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin', 'superAdmin', 'auth'],
   migrate: createMigrate(migrations, { debug: false }),
 }
 

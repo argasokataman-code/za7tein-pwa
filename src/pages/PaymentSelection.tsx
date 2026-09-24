@@ -106,7 +106,6 @@ export default function PaymentSelection() {
                 {maintenanceCopy ? 'Platform maintenance' : 'Lanjut'}
               </button>
             </div>
-            <div className="home-indicator " />
           </div>
         </main>
       </div>

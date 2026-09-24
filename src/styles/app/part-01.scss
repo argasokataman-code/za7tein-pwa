@@ -544,18 +544,6 @@ body {
   font-size:var(--text-sm)
 }
 
-.home-indicator {
-  z-index:1000;
-  background-color:rgba(32, 32, 32, 0.10);
-  border-radius:var(--radius-pill);
-  width:134px;
-  height:5px;
-  position:fixed;
-  bottom:8px;
-  left:50%;
-  transform:translate(-50%)
-}
-
 .screen {
   opacity:0;
   visibility:hidden;

@@ -201,7 +201,6 @@ export default function Reviews() {
               </div>
             </div>
           </div>
-          <div className="home-indicator" />
         </div>
       </main>
     </div>

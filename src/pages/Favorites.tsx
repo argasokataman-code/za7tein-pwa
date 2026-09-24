@@ -105,7 +105,6 @@ export default function Favorites() {
                 </div>
               )}
             </div>
-            <div className="home-indicator " />
           </div>
         </main>
       </div>

@@ -249,7 +249,6 @@ export default function PaymentAmount() {
                       : `Bayar — ${money(total)}`}
               </button>
             </div>
-            <div className="home-indicator " />
           </div>
         </main>
       </div>

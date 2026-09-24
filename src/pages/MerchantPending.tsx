@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { AuthLayout } from '../components/ui/AuthLayout'
 import { AUTH_ROLE_LABEL } from '../data/auth'
 import { PENDING_COPY } from '../data/authCopy'
+import { useAppDispatch } from '../hooks/useAppStore'
+import { signIn } from '../store/slices/authSlice'
 
 /**
  * Layar status setelah pendaftaran toko dikirim.
@@ -19,6 +21,7 @@ import { PENDING_COPY } from '../data/authCopy'
  */
 export default function MerchantPending() {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   return (
     <AuthLayout
@@ -33,8 +36,17 @@ export default function MerchantPending() {
 
       <div className="auth-actions">
         {/* Naik ke beranda merchant: di app terinstal kembali berarti
-            menutup, jadi jalur eksplisitnya lewat riwayat, bukan `-1`. */}
-        <button type="button" className="auth-submit" onClick={() => navigate('/', { replace: true })}>
+            menutup, jadi jalur eksplisitnya lewat riwayat, bukan `-1`.
+            Tombol ini yang membuka konsol, jadi ia juga yang menandai sesi
+            demo — tanpa itu gerbang rute memantulkannya ke layar masuk. */}
+        <button
+          type="button"
+          className="auth-submit"
+          onClick={() => {
+            dispatch(signIn('/merchant'))
+            navigate('/', { replace: true })
+          }}
+        >
           Buka beranda merchant
         </button>
         <Link className="auth-secondary" to="/signup">

@@ -59,7 +59,6 @@ export default function OrderArrived() {
               Beri rating kurir
             </Link>
           </div>
-          <div className="home-indicator " />
         </div>
       </main>
     </div>
