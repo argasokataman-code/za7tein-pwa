@@ -70,14 +70,19 @@ export function CourierDesignSection() {
         the code the courier was meant to enter — an inverted role; now only the courier
         form validates, and the customer card is read-only.
       </p>
-      <h3 className="doc-h3">The customer notification stays a mock</h3>
+      <h3 className="doc-h3">The customer notification is wired, still a mock</h3>
       <p className="doc-p">
         Flow <code className="doc-inline">F13</code> promises a customer notification at
         "Tiba". Web Push is not implemented in this repo (AGENTS.md §1,{' '}
-        <code className="doc-inline">R-PUSH-01</code> is UNRESOLVED), so the courier
-        detail screen shows a mock receipt ("Notif ... terkirim ke ... (mock)") when the
-        courier arrives and finishes. It is labelled as a mock rather than claiming a real
-        delivery (HG-12).
+        <code className="doc-inline">R-PUSH-01</code> is UNRESOLVED), so when the courier
+        taps "Tiba" the screen shows a mock receipt and dispatches one entry into the
+        customer inbox (<code className="doc-inline">pushNotification</code> in{' '}
+        <code className="doc-inline">notificationsSlice</code>) — "Kurir sudah sampai".
+        That is one store read across roles, the same pattern as disputes living in{' '}
+        <code className="doc-inline">adminSlice</code>. The customer's OTP card then
+        appears on the order screen without pressing the demo buttons, because it also
+        reads the courier checkpoint (<code className="doc-inline">otpStep</code>). It is
+        still labelled a mock, not a real push (HG-12).
       </p>
       <h3 className="doc-h3">Hard rules rendered as state, not logic</h3>
       <p className="doc-p">

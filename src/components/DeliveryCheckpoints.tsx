@@ -63,6 +63,11 @@ interface DeliveryActionCardProps {
    * kurir (C-09: yang memasukkan OTP adalah kurir, bukan customer).
    */
   otpDisplayCode?: string
+  /**
+   * Paksa tampil langkah OTP walau checkpoint order belum `tiba` — dipakai sisi
+   * customer saat checkpoint KURIR sudah `tiba` (slice terpisah dari order).
+   */
+  otpStep?: boolean
   /** Aksi milik pemakai layar (kurir: tombol lanjut + guard; customer: tombol demo). */
   actions?: ReactNode
   /** Bukti saat Tiba (customer: GPS + foto). Kurir tidak mengirim apa pun. */
@@ -93,6 +98,7 @@ export function DeliveryActionCard({
   onOtpSubmit,
   otpHint,
   otpDisplayCode,
+  otpStep,
   actions,
   evidence,
   autoSettlePaused = false,
@@ -100,7 +106,7 @@ export function DeliveryActionCard({
   const timer = timerOf(checkpoint, startedAt)
   const sla = slaRemainingMs(timer, now)
   const overdue = sla != null && sla < 0
-  const isOtpStep = checkpoint === 'tiba'
+  const isOtpStep = otpStep ?? checkpoint === 'tiba'
   const autoSettle = isOtpStep && elapsedMinutes(timer, now) >= AUTO_SETTLE_MINUTES
 
   return (

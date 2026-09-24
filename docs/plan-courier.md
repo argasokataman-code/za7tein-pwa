@@ -112,6 +112,9 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
   luar scope, R-PUSH-01).
 - Customer: `OrderStageScreen` menampilkan OTP (`otpDisplayCode`), kurir yang
   mengetik — memperbaiki peran terbalik (C-09).
+- Kurir "Tiba" → satu notif masuk kotak masuk customer (`pushNotification`), dan
+  kartu OTP customer muncul tanpa klik demo (`otpStep` membaca checkpoint kurir).
+  Satu store lintas peran; Web Push tetap di luar scope (R-PUSH-01).
 
 ---
 

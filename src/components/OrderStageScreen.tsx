@@ -136,6 +136,12 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const isDisputed = dispute?.status === 'open' || dispute?.status === 'investigating'
   const resolutionToken = dispute?.resolution ? resolvedOrderToken(dispute.resolution) : null
   const { now } = useTick()
+  // Kurir sudah tiba? Itu checkpoint kurir (slice terpisah), dipakai supaya
+  // customer melihat kartu OTP tanpa harus menekan tombol demo dulu. Satu store,
+  // pola sama seperti sengketa yang dibaca lintas peran.
+  const courierArrived = useAppSelector((s) =>
+    s.courier.tasks.some((t) => t.checkpoint === 'tiba'),
+  )
   // Banding (F8 → F22): pihak yang mengajukan sengketa bisa meminta SA meninjau
   // putusan level-1 CS. Satu banding per sengketa.
   const appeal = dispute?.appeal
@@ -417,6 +423,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 startedAt={deliveryCheckpointAt}
                 now={now}
                 otpDisplayCode={DELIVERY_OTP_DEMO}
+                otpStep={deliveryCheckpoint === 'tiba' || courierArrived}
                 autoSettlePaused={isDisputed}
                 evidence={
                   deliveryCheckpoint === 'tiba' && gpsSnapshot ? (

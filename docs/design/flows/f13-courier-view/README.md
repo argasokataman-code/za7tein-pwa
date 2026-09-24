@@ -20,7 +20,7 @@ Workflow sisi kurir: 4 checkpoint + SLA timer + OTP. Milestone **M4/M5** (deps M
 
 - **Tanpa OTP tidak bisa settle** — kurir tak dapat komisi (C-09: OTP = satu-satunya trigger settle).
 - **OTP ditampilkan customer, diketik kurir** (C-09) — layar customer memakai `otpDisplayCode`, form input hanya di layar kurir.
-- **Notif customer = mock** — Web Push tidak diimplementasi di repo (AGENTS.md §1, R-PUSH-01); kurir menampilkan bukti notif mock saat Tiba/Selesai, bukan klaim kirim sungguhan.
+- **Notif customer = mock tapi tersambung** — kurir tap Tiba → 1 notif masuk kotak masuk customer (`pushNotification`) + kartu OTP customer muncul; Web Push asli tidak diimplementasi (AGENTS.md §1, R-PUSH-01), bukan klaim kirim sungguhan.
 - **Masuk kurir pakai nomor WA (E.164)** — dasar flow `f21-account-auth` + `f16`; sesi mock, tanpa guard rute (AGENTS.md §1).
 - Timer: 15m Ambil→Berangkat · 30m Berangkat→Tiba · 10m Tiba→OTP auto-complete. 15/30/10 = sementara (PO 2026-09-22).
 - Tiba +5m: notif + call customer · +5m lagi: kurir boleh "Batal" · total maks 10m.

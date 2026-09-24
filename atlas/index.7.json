@@ -3304,6 +3304,203 @@
         }
       ],
       "loc": "src/pages/CourierSignIn.tsx:1"
+    },
+    {
+      "id": "TASK-4443",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:52:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/CourierTaskDetail.tsx (+9/-6) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-4444",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:52:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/slices/notificationsSlice.ts (+16/-7) — edit via tool: ts: clearPush(state) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/slices/notificationsSlice.ts"
+    },
+    {
+      "id": "TASK-4445",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:52:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/DeliveryCheckpoints.tsx (+7/-2) — edit via tool: tsx: otpDisplayCode?: string",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/DeliveryCheckpoints.tsx"
+    },
+    {
+      "id": "TASK-4446",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:52:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/OrderStageScreen.tsx (+8/-2) — edit via tool: tsx: const { now } = useTick()",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-4447",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:53:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -2; echo \"---BUILD---\"; npm run build 2>&1 | grep -E \"error|✓ built\" | tail -3; echo \"---SCAN---\"; npm run ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4448",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:53:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/plan-courier.md (+5/-2) — edit via tool: - Customer: `OrderStageScreen` menampilk",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/plan-courier.md"
+    },
+    {
+      "id": "TASK-4449",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:53:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.73.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4450",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:53:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/CourierDesignSection.tsx (+14/-9) — edit via tool: tsx: <h3 className=\"doc-h3\">The customer noti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-4451",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:53:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f13-courier-view/README.md (+1/-1) — edit via tool: - **Notif customer = mock tapi tersambun",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-920",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "17:53:39",
+      "tags": [
+        "courier",
+        "notifications",
+        "cross-role"
+      ],
+      "summary": "Kurir Tiba -> notif inbox customer (pushNotification) + kartu OTP customer muncul (otpStep); satu store lintas peran",
+      "conn": [
+        {
+          "id": "TASK-919",
+          "type": "relates",
+          "raw": "TASK-919:relates"
+        },
+        {
+          "id": "DEC-0058",
+          "type": "relates",
+          "raw": "DEC-0058:relates"
+        }
+      ],
+      "loc": "src/store/slices/notificationsSlice.ts:1"
     }
   ]
 }

@@ -37,10 +37,19 @@ const notificationsSlice = createSlice({
     clearPush(state) {
       state.subscription = null
     },
+    /**
+     * Tambah satu notifikasi ke kotak masuk. Dipakai aksi lintas peran (kurir
+     * "Tiba" → customer dapat notif) — satu store, pola sama seperti sengketa
+     * yang dibaca lintas peran. Web Push asli tetap di luar scope (R-PUSH-01).
+     */
+    pushNotification(state, action: PayloadAction<AppNotification>) {
+      state.items.unshift(action.payload)
+    },
   },
 })
 
-export const { markRead, markAllRead, registerPush, clearPush } = notificationsSlice.actions
+export const { markRead, markAllRead, registerPush, clearPush, pushNotification } =
+  notificationsSlice.actions
 
 export const selectUnreadCount = (items: AppNotification[]) =>
   items.filter((n) => n.unread).length
