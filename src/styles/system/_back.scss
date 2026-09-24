@@ -29,6 +29,16 @@
   min-height: var(--touch-min);
 }
 
+// `.back-btn-profile` (17 halaman profil) ditulis 40x40 di stylesheet porting
+// `app/part-15.scss`, jadi terukur di bawah --touch-min. Bentuknya sama dengan
+// `.btn-back` — hanya ukurannya yang tertinggal — dan keduanya di samping
+// `.profile-flow-title` yang judulnya sudah diseragamkan. Cukup dikunci ke
+// `--touch-min` di sini, bukan menyunting stylesheet porting.
+.back-btn-profile {
+  width: var(--touch-min);
+  height: var(--touch-min);
+}
+
 .password-wrapper .password-toggle {
   right: var(--space-1);
   width: var(--touch-min);

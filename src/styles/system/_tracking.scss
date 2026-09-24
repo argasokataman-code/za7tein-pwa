@@ -21,8 +21,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  // `--touch-min`, bukan 40px: sama seperti .back-btn-profile dan .btn-back,
+  // tombol kembali harus selebar sasaran jari. Bentuknya tombol persegi kecil
+  // dengan ikon di tengah, jadi memperbesarnya tidak menggeser teks di
+  // sebelahnya (header-nya flex dengan judul yang sudah min-width: 0).
+  width: var(--touch-min);
+  height: var(--touch-min);
   border: 1px solid var(--border);
   border-radius: var(--radius-xs);
   background: var(--surface);

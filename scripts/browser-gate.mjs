@@ -309,9 +309,29 @@ const MEASURE = `(async () => {
   }
   const name = (el) => (el.getAttribute('aria-label') || el.innerText || el.className || el.tagName)
     .trim().replace(/\\s+/g, ' ').slice(0, 40)
+  // Tiga pengecualian, semuanya elemen yang tidak pernah jadi sasaran jari —
+  // bukan pelonggaran aturan. Ditulis di luar blok yang dikirim ke halaman
+  // supaya tidak ada backtick/tanda kutip yang mengganggu parser skrip ini.
+  //
+  //   1. .sr-only dan elemen ber-clip: sengaja 1x1 supaya hanya dibaca pembaca
+  //      layar. Memperbesarnya ke 44px justru merusak gunanya.
+  //   2. Elemen peta Leaflet: marker digambar di koordinat peta dan ukurannya
+  //      bagian dari visual peta, bukan kontrol aplikasi.
+  //   3. Apa pun di dalam [aria-hidden="true"]: sudah disembunyikan dari
+  //      teknologi bantu, jadi tidak ada tangan yang menggapainya.
   const controls = [...document.querySelectorAll(
     'button, input:not([type=hidden]), select, textarea, [role="radio"], [role="button"], [role="tab"]'
-  )].filter(vis)
+  )].filter(vis).filter((el) => {
+    if (el.closest('[aria-hidden="true"]')) return false
+    // closest() hanya melihat leluhur; marker Leaflet membawa kelasnya sendiri,
+    // jadi diperiksa dua arah.
+    if (el.closest('.leaflet-container, .leaflet-pane')) return false
+    if (el.className && /(^|\\s)leaflet-/.test(String(el.className))) return false
+    const s = getComputedStyle(el)
+    if (s.clip !== 'auto' || s.clipPath === 'inset(50%)') return false
+    if (el.classList.contains('sr-only') || el.classList.contains('visually-hidden')) return false
+    return true
+  })
   const smallTargets = controls
     .map((el) => ({ label: name(el), ...box(el) }))
     .filter((b) => b.w < runtime.touchMin || b.h < runtime.touchMin)
