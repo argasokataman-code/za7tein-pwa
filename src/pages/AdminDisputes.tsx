@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { RESOLUTIONS, disputeStatusLabel, moneyFromJod } from '../data/admin'
@@ -22,14 +23,18 @@ function DisputeCard({
 }) {
   const dispatch = useAppDispatch()
   const decided = dispute.status === 'resolved' || dispute.status === 'rejected'
+  // Putusan menulis ledger, jadi ketuk kedua terjadi di sheet (audit 006 #4).
+  const [pending, setPending] = useState<DisputeResolution | null>(null)
 
-  function decide(resolution: DisputeResolution) {
-    dispatch(resolveDispute({ id: dispute.id, resolution, percent }))
+  function confirmDecide() {
+    if (!pending) return
+    dispatch(resolveDispute({ id: dispute.id, resolution: pending, percent }))
     toast.success(
-      resolution === 'no_action'
-        ? 'Sengketa ditolak — tanpa ubah saldo'
-        : 'Putusan diterapkan — 1 entry ledger dicatat',
+      pending === 'no_action'
+        ? 'Sengketa ditolak, tanpa ubah saldo'
+        : 'Putusan diterapkan: 1 entry ledger dicatat',
     )
+    setPending(null)
   }
 
   return (
@@ -59,7 +64,7 @@ function DisputeCard({
 
       {decided ? (
         <p className="admin-note">
-          Putusan: {RESOLUTIONS.find((r) => r.id === dispute.resolution)?.label ?? '—'}
+          Putusan: {RESOLUTIONS.find((r) => r.id === dispute.resolution)?.label ?? '-'}
           {dispute.partialPercent ? ` (${dispute.partialPercent}%)` : ''}.
         </p>
       ) : dispute.status === 'open' ? (
@@ -69,7 +74,7 @@ function DisputeCard({
             className="btn btn-primary"
             onClick={() => {
               dispatch(startInvestigation({ id: dispute.id }))
-              toast.success('Investigasi dibuka — hold tetap dibekukan')
+              toast.success('Investigasi dibuka, hold tetap dibekukan')
             }}
           >
             <FileSearch size={16} strokeWidth={1.75} aria-hidden="true" />
@@ -95,18 +100,32 @@ function DisputeCard({
               key={item.id}
               type="button"
               className={item.id === 'no_action' ? 'admin-btn-ghost' : 'btn btn-primary'}
-              onClick={() => decide(item.id)}
+              onClick={() => setPending(item.id)}
             >
               {item.label}
               <span className="admin-res-effect">{item.effect}</span>
             </button>
           ))}
           <p className="admin-note">
-            Persentase refund sebagian dan window 24 jam belum final (OQ-29) — slider ini state
+            Persentase refund sebagian dan window 24 jam belum final (OQ-29): slider ini state
             tampilan, bukan aturan yang dikunci.
           </p>
         </div>
       )}
+
+      <ConfirmSheet
+        open={pending !== null}
+        title={RESOLUTIONS.find((r) => r.id === pending)?.label ?? 'Terapkan putusan'}
+        body={
+          pending === 'no_action'
+            ? 'Tanpa ubah saldo: tidak ada entry ledger untuk putusan ini.'
+            : 'Putusan ini menambah 1 entry ledger append-only dan tidak bisa ditarik kembali.'
+        }
+        confirmLabel="Terapkan putusan"
+        confirmClass={pending === 'no_action' ? 'admin-btn-ghost' : 'btn-primary'}
+        onConfirm={confirmDecide}
+        onClose={() => setPending(null)}
+      />
     </article>
   )
 }

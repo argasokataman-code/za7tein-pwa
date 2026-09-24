@@ -1,17 +1,17 @@
 import { DocSection } from '../DocSection'
 
 /**
- * Perbaikan bentuk layar yang sudah ada: antrean merchant, form sengketa, dan
- * layar pasca-order. Dipisah dari ChangelogSection (audit rute & CRUD
- * 2026-09-23) supaya tiap bagian punya satu topik dan tidak ada yang melewati
- * batas 700 baris — ChangelogSection sempat 716 baris waktu catatan ini
- * ditumpuk ke tabelnya.
+ * Perbaikan bentuk layar yang sudah ada: antrean merchant, form sengketa,
+ * layar pasca-order, dan checkout customer. Dipisah dari ChangelogSection
+ * (audit rute & CRUD 2026-09-23) supaya tiap bagian punya satu topik dan
+ * tidak ada yang melewati batas 700 baris — ChangelogSection sempat 716 baris
+ * waktu catatan ini ditumpuk ke tabelnya.
  */
 export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Tiga baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Lima baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -89,6 +89,52 @@ export function AppPolishSection() {
                 lewat <code className="doc-inline">tipCourier</code> — terverifikasi Rp5.000:
                 saldo Rp40.000 → Rp35.000 di <code className="doc-inline">/wallet</code>. Gate
                 kedua rute 2/2 PASS (<code className="doc-inline">--strict --click</code> 11/11)
+              </td>
+            </tr>
+            <tr>
+              <td>Checkout customer (audit 005, 10 temuan)</td>
+              <td>
+                Kartu gate top-up full-bleed (terukur x=0 w=390 di 390 dan w=430 di 1440:
+                satu-satunya permukaan tanpa gutter 20px); enam peran teks berbagi 14,34px/600;
+                teks isi 14,34px dan catatan pajak 11,56px di bawah lantai mobile; dua sistem
+                kartu (item border 10px vs ringkasan border-strong 12px); top-up disebut empat
+                kali; pasangan Rp·JOD dua belas baris sehingga kolom nominal item 141px
+                menyisakan nama 107px; judul &ldquo;Ringkasan Pesanan&rdquo; beda casing; hex
+                mentah warisan; sisa hover desktop; CTA empty 260px vs terisi 350px
+              </td>
+              <td>
+                Gate pindah ke dalam <code className="doc-inline">.checkout-content</code> (kembali
+                x=20 w=350); judul seksi turun jadi label --text-sm/700 sekunder sementara isi
+                tetap --text-base/600 (empat tingkat: 16,73 / 16 / 13 / 12); token root naik —{' '}
+                <code className="doc-inline">--text-base</code> lantai 16px dan{' '}
+                <code className="doc-inline">--text-xs</code> 12px, jadi seluruh repo ikut
+                (lebar ≥667px tak berubah karena angka atas clamp sama); kartu item ikut
+                border-strong + radius-lg; pesan top-up jadi satu paragraf + label tombol; pasangan
+                JOD tinggal di Total Bayar, catatan kurs, dan gate (baris lain moneyPlain);
+                &ldquo;Ringkasan pesanan&rdquo; sentence case; hex checkout di stylesheet warisan
+                ganti token (nilai identik); hover translateY(-2px) di tombol lanjut dihapus; CTA
+                empty kini 350×44 seperti CTA terisi
+              </td>
+            </tr>
+            <tr>
+              <td>Panel admin · CS (audit 006, 6 temuan)</td>
+              <td>
+                Kartu liability solid oranye: baris rincian putih 13px = 3,36:1 dan note/kurs
+                abu di atas oranye = 1,67:1 (keduanya di bawah AA); 11 em dash di copy UI plus 4
+                di data; isi baca 12&ndash;13px sementara repo sudah berlantai 16 (dispute reason
+                13, data deposit 12, nominal ledger 13, judul kartu cuma 1px di atas label); aksi
+                jalur uang (putusan sengketa, blacklist COD, batal order) 1 ketuk langsung eksekusi;
+                3 literal warna di luar token; danger-ink BF423C di red-soft cuma 4,40:1
+              </td>
+              <td>
+                Kartu liability jadi surface, total pindah ke --orange-ink (4,88:1), note + kurs
+                keluar kartu ke --bg-warm (5,38:1), baris rincian label sekunder + nilai 600; copy
+                dibersihkan dari em dash (15 string, koma/titik/dua-titik); huruf isi naik ke
+                --text-base (dispute reason, detail rows, memo, nominal ledger, judul kartu) jadi
+                tingkat 27,85 / 20,68 / 16 / 13 / 12; ConfirmSheet baru (BottomSheet + .sheet-actions)
+                menjaga 3 aksi jalur uang dengan ketuk kedua, tombol Batal netral .sheet-cancel;
+                literal ganti --overlay-strong (token baru) + --on-brand + --border; temuan #6:
+                --danger-ink B93D37 (4,72:1 terukur di red-soft)
               </td>
             </tr>
           </tbody>

@@ -72,7 +72,7 @@ export default function AdminOnboarding() {
                       className="btn btn-primary"
                       onClick={() => {
                         dispatch(approveDeposit({ id: tenant.id }))
-                        toast.success('Deposit held — merchant diaktifkan')
+                        toast.success('Deposit held, merchant diaktifkan')
                       }}
                     >
                       Verifikasi transfer
@@ -90,7 +90,7 @@ export default function AdminOnboarding() {
                   </div>
                 ) : (
                   <p className="admin-note">
-                    Deposit sudah {depositStatusLabel[tenant.depositStatus]} — merchant aktif.
+                    Deposit sudah {depositStatusLabel[tenant.depositStatus]}; merchant aktif.
                   </p>
                 )}
               </article>

@@ -145,6 +145,10 @@
     {
       "id": "BUG-3204",
       "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
     }
   ],
   "4": [
@@ -211,6 +215,10 @@
     {
       "id": "TASK-4199",
       "shard": 6
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
     }
   ],
   "5": [
@@ -259,6 +267,10 @@
     {
       "id": "TASK-3531",
       "shard": 5
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
     }
   ],
   "7": [
@@ -313,6 +325,10 @@
     {
       "id": "TASK-3800",
       "shard": 5
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
     }
   ],
   "11": [
@@ -387,6 +403,10 @@
     {
       "id": "TASK-396",
       "shard": 1
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
     }
   ],
   "19": [
@@ -419,6 +439,10 @@
     {
       "id": "BUG-3201",
       "shard": 4
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
     }
   ],
   "24": [
@@ -521,6 +545,16 @@
     {
       "id": "TASK-2097",
       "shard": 3
+    }
+  ],
+  "202": [
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
     }
   ],
   "430": [
@@ -7403,6 +7437,142 @@
     {
       "id": "TASK-4371",
       "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "sa7tein": [
@@ -8479,6 +8649,14 @@
     {
       "id": "TASK-4355",
       "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
     }
   ],
   "dec-002": [
@@ -8975,6 +9153,10 @@
     {
       "id": "TASK-912",
       "shard": 7
+    },
+    {
+      "id": "DEC-0055",
+      "shard": 7
     }
   ],
   "perintah": [
@@ -9351,6 +9533,18 @@
     {
       "id": "BUG-3206",
       "shard": 7
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
     }
   ],
   "mana": [
@@ -9455,6 +9649,10 @@
     {
       "id": "DEC-850",
       "shard": 5
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
     }
   ],
   "feat-008": [
@@ -9790,6 +9988,10 @@
     },
     {
       "id": "BUG-3207",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
       "shard": 7
     }
   ],
@@ -10187,6 +10389,18 @@
     {
       "id": "TASK-2893",
       "shard": 4
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
     }
   ],
   "jadi": [
@@ -10779,6 +10993,14 @@
     {
       "id": "TASK-4133",
       "shard": 6
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
     }
   ],
   "sama": [
@@ -12137,6 +12359,10 @@
     {
       "id": "TASK-3566",
       "shard": 5
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
     }
   ],
   "task-056": [
@@ -12217,6 +12443,14 @@
     {
       "id": "TASK-3568",
       "shard": 5
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
     }
   ],
   "task-059": [
@@ -12841,6 +13075,10 @@
     {
       "id": "TASK-2936",
       "shard": 4
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
     }
   ],
   "task-107": [
@@ -13843,6 +14081,26 @@
     {
       "id": "TASK-915",
       "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "role": [
@@ -14470,6 +14728,10 @@
     },
     {
       "id": "BUG-3205",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
       "shard": 7
     }
   ],
@@ -20853,6 +21115,142 @@
     {
       "id": "TASK-4371",
       "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -25530,6 +25928,114 @@
     },
     {
       "id": "TASK-4371",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
       "shard": 7
     }
   ],
@@ -31545,6 +32051,142 @@
     {
       "id": "TASK-4371",
       "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "tool:": [
@@ -37506,6 +38148,142 @@
     },
     {
       "id": "TASK-4371",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
       "shard": 7
     }
   ],
@@ -44813,6 +45591,142 @@
     {
       "id": "TASK-4371",
       "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "task-147": [
@@ -46756,6 +47670,34 @@
     },
     {
       "id": "TASK-4365",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
       "shard": 7
     }
   ],
@@ -48755,6 +49697,46 @@
     {
       "id": "TASK-4371",
       "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
     }
   ],
   "task-149": [
@@ -49099,6 +50081,26 @@
     {
       "id": "TASK-4336",
       "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
     }
   ],
   "git": [
@@ -49325,6 +50327,14 @@
     {
       "id": "TASK-4248",
       "shard": 6
+    },
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "\"no": [
@@ -50533,6 +51543,30 @@
     {
       "id": "TASK-4363",
       "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
     }
   ],
   "\"useappstore(": [
@@ -51309,6 +52343,10 @@
     {
       "id": "TASK-4343",
       "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
     }
   ],
   "##": [
@@ -51576,6 +52614,10 @@
     },
     {
       "id": "TASK-912",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3210",
       "shard": 7
     }
   ],
@@ -51904,6 +52946,10 @@
     },
     {
       "id": "TASK-4352",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
       "shard": 7
     }
   ],
@@ -52998,6 +54044,10 @@
     },
     {
       "id": "TASK-4371",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4396",
       "shard": 7
     }
   ],
@@ -54421,6 +55471,22 @@
     {
       "id": "TASK-4360",
       "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
     }
   ],
   "type": [
@@ -54981,6 +56047,10 @@
     {
       "id": "TASK-4371",
       "shard": 7
+    },
+    {
+      "id": "TASK-4377",
+      "shard": 7
     }
   ],
   "favorites": [
@@ -55441,6 +56511,22 @@
     {
       "id": "TASK-4314",
       "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
     }
   ],
   "'./slices/favorite": [
@@ -55493,6 +56579,10 @@
     {
       "id": "TASK-3105",
       "shard": 4
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
     }
   ],
   "tsx:": [
@@ -57615,6 +58705,70 @@
     {
       "id": "TASK-4370",
       "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "bike,": [
@@ -58402,6 +59556,22 @@
     },
     {
       "id": "TASK-4357",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
       "shard": 7
     }
   ],
@@ -66513,6 +67683,10 @@
     {
       "id": "TASK-4233",
       "shard": 6
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
     }
   ],
   "merchantcouriers": [
@@ -67125,6 +68299,10 @@
     {
       "id": "TASK-4241",
       "shard": 6
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
     }
   ],
   "function": [
@@ -70479,6 +71657,10 @@
     {
       "id": "TASK-4342",
       "shard": 7
+    },
+    {
+      "id": "TASK-4379",
+      "shard": 7
     }
   ],
   "merchantmenuitemschema": [
@@ -70562,6 +71744,10 @@
     },
     {
       "id": "TASK-4369",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4382",
       "shard": 7
     }
   ],
@@ -72029,6 +73215,10 @@
     {
       "id": "TASK-4240",
       "shard": 6
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
     }
   ],
   "showcase": [
@@ -72688,6 +73878,10 @@
     },
     {
       "id": "TASK-4321",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4387",
       "shard": 7
     }
   ],
@@ -73605,6 +74799,10 @@
     {
       "id": "TASK-915",
       "shard": 7
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
     }
   ],
   "dark-on-dark": [
@@ -73753,6 +74951,14 @@
     {
       "id": "BUG-1040",
       "shard": 6
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3210",
+      "shard": 7
     }
   ],
   "bug-101": [
@@ -73948,6 +75154,14 @@
     },
     {
       "id": "TASK-912",
+      "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
       "shard": 7
     }
   ],
@@ -74274,6 +75488,34 @@
     },
     {
       "id": "TASK-4336",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
       "shard": 7
     }
   ],
@@ -76827,6 +78069,10 @@
     {
       "id": "TASK-4367",
       "shard": 7
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
     }
   ],
   "modifierextra,": [
@@ -77463,6 +78709,14 @@
     {
       "id": "TASK-4366",
       "shard": 7
+    },
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
     }
   ],
   "--shadow-subtle:": [
@@ -77495,6 +78749,10 @@
     {
       "id": "TASK-364",
       "shard": 1
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
     }
   ],
   "32,": [
@@ -77505,6 +78763,10 @@
     {
       "id": "FEAT-2014",
       "shard": 4
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
     }
   ],
   "task-364": [
@@ -78401,6 +79663,10 @@
     {
       "id": "TASK-911",
       "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "merc": [
@@ -78445,6 +79711,10 @@
     {
       "id": "BUG-990",
       "shard": 5
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
     }
   ],
   "dec-013": [
@@ -78765,6 +80035,10 @@
     {
       "id": "DEC-900",
       "shard": 5
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "governance": [
@@ -79624,6 +80898,18 @@
     },
     {
       "id": "TASK-910",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
       "shard": 7
     }
   ],
@@ -80683,6 +81969,10 @@
     {
       "id": "TASK-3572",
       "shard": 5
+    },
+    {
+      "id": "DEC-0055",
+      "shard": 7
     }
   ],
   "in": [
@@ -81381,6 +82671,10 @@
     {
       "id": "TASK-2083",
       "shard": 3
+    },
+    {
+      "id": "BUG-3210",
+      "shard": 7
     }
   ],
   "arr.length;": [
@@ -82265,6 +83559,10 @@
     {
       "id": "TASK-3963",
       "shard": 5
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
     }
   ],
   "rout": [
@@ -82426,6 +83724,10 @@
     },
     {
       "id": "TASK-4356",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
       "shard": 7
     }
   ],
@@ -83335,6 +84637,10 @@
     {
       "id": "TASK-4361",
       "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
     }
   ],
   "(full-wi": [
@@ -83597,6 +84903,26 @@
     {
       "id": "TASK-3480",
       "shard": 5
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3210",
+      "shard": 7
     }
   ],
   "reuse": [
@@ -83693,6 +85019,10 @@
     {
       "id": "TASK-3611",
       "shard": 5
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
     }
   ],
   "bertahan": [
@@ -85321,6 +86651,10 @@
     {
       "id": "TASK-915",
       "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
     }
   ],
   "photo": [
@@ -85381,6 +86715,22 @@
     {
       "id": "FEAT-540",
       "shard": 6
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
     }
   ],
   "separately": [
@@ -85567,6 +86917,10 @@
     {
       "id": "TASK-1294",
       "shard": 2
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
     }
   ],
   "task-948": [
@@ -86927,6 +88281,10 @@
     {
       "id": "TASK-3484",
       "shard": 5
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
     }
   ],
   "```bash": [
@@ -87472,6 +88830,18 @@
     },
     {
       "id": "TASK-4347",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
       "shard": 7
     }
   ],
@@ -88245,6 +89615,10 @@
     {
       "id": "TASK-3553",
       "shard": 5
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "aktif": [
@@ -88314,6 +89688,10 @@
     },
     {
       "id": "BUG-3204",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0055",
       "shard": 7
     }
   ],
@@ -90583,6 +91961,10 @@
     {
       "id": "TASK-3207",
       "shard": 4
+    },
+    {
+      "id": "TASK-4395",
+      "shard": 7
     }
   ],
   "3,50": [
@@ -90693,6 +92075,10 @@
     {
       "id": "TASK-4225",
       "shard": 6
+    },
+    {
+      "id": "TASK-4390",
+      "shard": 7
     }
   ],
   "task-1071": [
@@ -91413,6 +92799,14 @@
     {
       "id": "TASK-912",
       "shard": 7
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "showcase,": [
@@ -92103,6 +93497,10 @@
     {
       "id": "TASK-4211",
       "shard": 6
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
     }
   ],
   "task-1088": [
@@ -92721,6 +94119,10 @@
     {
       "id": "TASK-1162",
       "shard": 2
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "task-1104": [
@@ -93073,6 +94475,26 @@
     {
       "id": "BUG-841",
       "shard": 5
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "task-1115": [
@@ -93243,6 +94665,14 @@
     {
       "id": "FEAT-2012",
       "shard": 3
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
     }
   ],
   "task-1119": [
@@ -94613,6 +96043,10 @@
     {
       "id": "TASK-4290",
       "shard": 6
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
     }
   ],
   "goback()": [
@@ -94781,6 +96215,34 @@
     {
       "id": "TASK-2870",
       "shard": 4
+    },
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
     }
   ],
   "oq-27": [
@@ -95529,6 +96991,18 @@
     {
       "id": "TASK-4289",
       "shard": 6
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
     }
   ],
   "pendapa": [
@@ -96244,6 +97718,34 @@
     },
     {
       "id": "BUG-3204",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
       "shard": 7
     }
   ],
@@ -99443,6 +100945,22 @@
     {
       "id": "TASK-2930",
       "shard": 4
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
     }
   ],
   "task-1276": [
@@ -101227,6 +102745,10 @@
     {
       "id": "TASK-3050",
       "shard": 4
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
     }
   ],
   "task-1332": [
@@ -101397,6 +102919,10 @@
     {
       "id": "TASK-3200",
       "shard": 4
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
     }
   ],
   "si": [
@@ -101531,6 +103057,10 @@
     {
       "id": "BUG-1010",
       "shard": 6
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
     }
   ],
   "withdraw),": [
@@ -103281,6 +104811,10 @@
     {
       "id": "TASK-3010",
       "shard": 4
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
     }
   ],
   "/customer": [
@@ -104217,6 +105751,10 @@
     {
       "id": "TASK-2034",
       "shard": 3
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
     }
   ],
   "**role": [
@@ -106025,6 +107563,10 @@
     {
       "id": "DEC-2003",
       "shard": 3
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
     }
   ],
   "terpisah,": [
@@ -106983,6 +108525,22 @@
     {
       "id": "TASK-4303",
       "shard": 7
+    },
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4394",
+      "shard": 7
     }
   ],
   "classname=\"summary-total\"": [
@@ -107663,6 +109221,14 @@
     {
       "id": "TASK-3800",
       "shard": 5
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "baris": [
@@ -109638,6 +111204,10 @@
     },
     {
       "id": "TASK-910",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
       "shard": 7
     }
   ],
@@ -112435,6 +114005,10 @@
     {
       "id": "TASK-2943",
       "shard": 4
+    },
+    {
+      "id": "TASK-4396",
+      "shard": 7
     }
   ],
   "mockliability:": [
@@ -115699,6 +117273,10 @@
     {
       "id": "TASK-3090",
       "shard": 4
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
     }
   ],
   "3,4:1→6,5:1": [
@@ -115847,6 +117425,10 @@
     {
       "id": "BUG-3206",
       "shard": 7
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
     }
   ],
   "merek": [
@@ -115889,6 +117471,10 @@
     {
       "id": "TASK-3100",
       "shard": 4
+    },
+    {
+      "id": "TASK-4397",
+      "shard": 7
     }
   ],
   "4,9:1,": [
@@ -116233,6 +117819,10 @@
     {
       "id": "TASK-3111",
       "shard": 4
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "task-3111": [
@@ -116827,6 +118417,10 @@
     {
       "id": "TASK-3920",
       "shard": 5
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
     }
   ],
   "overflow:hidden": [
@@ -116964,6 +118558,14 @@
     },
     {
       "id": "TASK-915",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0055",
       "shard": 7
     }
   ],
@@ -120633,12 +122235,20 @@
     {
       "id": "TASK-3518",
       "shard": 5
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
     }
   ],
   "'../docsectio": [
     {
       "id": "TASK-3518",
       "shard": 5
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
     }
   ],
   "task-3518": [
@@ -121138,6 +122748,10 @@
     },
     {
       "id": "TASK-913",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4390",
       "shard": 7
     }
   ],
@@ -122029,6 +123643,10 @@
     {
       "id": "BUG-816",
       "shard": 5
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
     }
   ],
   "bug-816": [
@@ -122587,6 +124205,10 @@
     {
       "id": "TASK-3600",
       "shard": 5
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
     }
   ],
   "runtime,": [
@@ -123481,6 +125103,10 @@
     {
       "id": "TASK-3714",
       "shard": 5
+    },
+    {
+      "id": "TASK-4376",
+      "shard": 7
     }
   ],
   "src/styles/system/_app-shell.scss": [
@@ -124051,6 +125677,10 @@
     {
       "id": "TASK-3711",
       "shard": 5
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   "task-3709": [
@@ -126775,6 +128405,10 @@
     {
       "id": "TASK-4288",
       "shard": 6
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
     }
   ],
   "src/pages/merchantrebate.tsx": [
@@ -128111,6 +129745,10 @@
     {
       "id": "TASK-4028",
       "shard": 6
+    },
+    {
+      "id": "TASK-4386",
+      "shard": 7
     }
   ],
   "task-4028": [
@@ -128689,6 +130327,10 @@
     {
       "id": "TASK-4166",
       "shard": 6
+    },
+    {
+      "id": "TASK-4373",
+      "shard": 7
     }
   ],
   "task-4049": [
@@ -130153,6 +131795,14 @@
     {
       "id": "DEC-930",
       "shard": 6
+    },
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
     }
   ],
   "mengukur": [
@@ -130607,6 +132257,18 @@
     {
       "id": "BUG-1040",
       "shard": 6
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
     }
   ],
   "dibuka": [
@@ -130909,6 +132571,14 @@
     {
       "id": "TASK-4136",
       "shard": 6
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
     }
   ],
   "task-4132": [
@@ -131347,6 +133017,18 @@
     {
       "id": "TASK-4302",
       "shard": 7
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4401",
+      "shard": 7
     }
   ],
   "src/styles/system/_menu.s": [
@@ -131733,12 +133415,24 @@
     {
       "id": "TASK-4179",
       "shard": 6
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
     }
   ],
   "huruf": [
     {
       "id": "TASK-4179",
       "shard": 6
+    },
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0055",
+      "shard": 7
     }
   ],
   "judul,": [
@@ -133675,6 +135369,10 @@
     {
       "id": "TASK-4307",
       "shard": 7
+    },
+    {
+      "id": "TASK-4388",
+      "shard": 7
     }
   ],
   "</tr": [
@@ -134661,6 +136359,10 @@
     {
       "id": "BUG-3205",
       "shard": 7
+    },
+    {
+      "id": "BUG-3208",
+      "shard": 7
     }
   ],
   ".form-control": [
@@ -134802,6 +136504,10 @@
   "\"./system/platform-notice\";": [
     {
       "id": "TASK-4356",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4377",
       "shard": 7
     }
   ],
@@ -135159,6 +136865,10 @@
     {
       "id": "TASK-915",
       "shard": 7
+    },
+    {
+      "id": "DEC-0056",
+      "shard": 7
     }
   ],
   "token,": [
@@ -135248,6 +136958,938 @@
   "bug-3207": [
     {
       "id": "BUG-3207",
+      "shard": 7
+    }
+  ],
+  "anti-slop/audit-005-2026-09-24.md": [
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    }
+  ],
+  "(+167)": [
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    }
+  ],
+  "005": [
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    },
+    {
+      "id": "TASK-916",
+      "shard": 7
+    }
+  ],
+  "2026-0": [
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    }
+  ],
+  "task-4372": [
+    {
+      "id": "TASK-4372",
+      "shard": 7
+    }
+  ],
+  "src/styles/system/_checkout.scss": [
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    }
+  ],
+  "task-4373": [
+    {
+      "id": "TASK-4373",
+      "shard": 7
+    }
+  ],
+  "lantai": [
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "16px": [
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    },
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "(g-08,": [
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    }
+  ],
+  "≥16": [
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    }
+  ],
+  "task-4374": [
+    {
+      "id": "TASK-4374",
+      "shard": 7
+    }
+  ],
+  "src/components/ui/wallettopupgate.tsx": [
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    }
+  ],
+  "classname=\"wallet-gate__text\">": [
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    }
+  ],
+  "task-4375": [
+    {
+      "id": "TASK-4375",
+      "shard": 7
+    }
+  ],
+  "diseragamkan": [
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    }
+  ],
+  "task-4376": [
+    {
+      "id": "TASK-4376",
+      "shard": 7
+    }
+  ],
+  "task-4377": [
+    {
+      "id": "TASK-4377",
+      "shard": 7
+    }
+  ],
+  "classname=\"checkout-item__side\">": [
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    }
+  ],
+  "task-4378": [
+    {
+      "id": "TASK-4378",
+      "shard": 7
+    }
+  ],
+  "src/styles/app/part-09.scss": [
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    }
+  ],
+  ".section-title": [
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    }
+  ],
+  "task-4379": [
+    {
+      "id": "TASK-4379",
+      "shard": 7
+    }
+  ],
+  "src/styles/app/part-10.scss": [
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    }
+  ],
+  "(+30/-39)": [
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    }
+  ],
+  ".checkout-actions": [
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    }
+  ],
+  "task-4380": [
+    {
+      "id": "TASK-4380",
+      "shard": 7
+    }
+  ],
+  "src/styles/app/part-17.scss": [
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    }
+  ],
+  ".empty-cart-icon": [
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    }
+  ],
+  "task-4381": [
+    {
+      "id": "TASK-4381",
+      "shard": 7
+    }
+  ],
+  "src/pages/documentation/sections/apppolishsection.tsx": [
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4405",
+      "shard": 7
+    }
+  ],
+  "fitur": [
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    }
+  ],
+  "jalan": [
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    }
+  ],
+  "task-4382": [
+    {
+      "id": "TASK-4382",
+      "shard": 7
+    }
+  ],
+  "v2.69.0": [
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    }
+  ],
+  "task-4383": [
+    {
+      "id": "TASK-4383",
+      "shard": 7
+    }
+  ],
+  "(+125)": [
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    }
+  ],
+  "task-4384": [
+    {
+      "id": "TASK-4384",
+      "shard": 7
+    }
+  ],
+  "anti-slop/audit-005-fix-2026-09-24.md": [
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    }
+  ],
+  "task-4385": [
+    {
+      "id": "TASK-4385",
+      "shard": 7
+    }
+  ],
+  "temuan": [
+    {
+      "id": "TASK-916",
+      "shard": 7
+    }
+  ],
+  "diperbaiki,": [
+    {
+      "id": "TASK-916",
+      "shard": 7
+    }
+  ],
+  "gutter,": [
+    {
+      "id": "TASK-916",
+      "shard": 7
+    }
+  ],
+  "tingkat,": [
+    {
+      "id": "TASK-916",
+      "shard": 7
+    }
+  ],
+  "16/12px": [
+    {
+      "id": "TASK-916",
+      "shard": 7
+    }
+  ],
+  "task-916": [
+    {
+      "id": "TASK-916",
+      "shard": 7
+    }
+  ],
+  "full-bleed": [
+    {
+      "id": "BUG-3208",
+      "shard": 7
+    }
+  ],
+  "x=0": [
+    {
+      "id": "BUG-3208",
+      "shard": 7
+    }
+  ],
+  "(gutter": [
+    {
+      "id": "BUG-3208",
+      "shard": 7
+    }
+  ],
+  "hilang)": [
+    {
+      "id": "BUG-3208",
+      "shard": 7
+    }
+  ],
+  "bug-3208": [
+    {
+      "id": "BUG-3208",
+      "shard": 7
+    }
+  ],
+  "--text-base": [
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "--text-xs": [
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "12px": [
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "(g-08);": [
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  ">=667px": [
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "berubah": [
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "dec-0055": [
+    {
+      "id": "DEC-0055",
+      "shard": 7
+    }
+  ],
+  "anti-slop/audit-006-2026-09-24.md": [
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    }
+  ],
+  "006": [
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-917",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    }
+  ],
+  "(`/admin/": [
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    }
+  ],
+  "task-4386": [
+    {
+      "id": "TASK-4386",
+      "shard": 7
+    }
+  ],
+  "src/styles/system/_admin.scss": [
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    }
+  ],
+  ".admin-card-title": [
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    }
+  ],
+  "task-4387": [
+    {
+      "id": "TASK-4387",
+      "shard": 7
+    }
+  ],
+  ".sheet-actions": [
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    }
+  ],
+  "margin-top:": [
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    }
+  ],
+  "var(--space": [
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    }
+  ],
+  "task-4388": [
+    {
+      "id": "TASK-4388",
+      "shard": 7
+    }
+  ],
+  "--overlay:": [
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    }
+  ],
+  "0.4);": [
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    }
+  ],
+  "task-4389": [
+    {
+      "id": "TASK-4389",
+      "shard": 7
+    }
+  ],
+  "src/components/ui/confirmsheet.tsx": [
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    }
+  ],
+  "'./bottomshe": [
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    }
+  ],
+  "task-4390": [
+    {
+      "id": "TASK-4390",
+      "shard": 7
+    }
+  ],
+  "src/pages/admindashboard.tsx": [
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    }
+  ],
+  "(+19/-22)": [
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    }
+  ],
+  "classname=\"admin-actions\">": [
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    }
+  ],
+  "task-4391": [
+    {
+      "id": "TASK-4391",
+      "shard": 7
+    }
+  ],
+  "src/pages/admindisputes.tsx": [
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    }
+  ],
+  "adminpageheader": [
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    }
+  ],
+  "'../comp": [
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    }
+  ],
+  "task-4392": [
+    {
+      "id": "TASK-4392",
+      "shard": 7
+    }
+  ],
+  "src/pages/adminmerchants.tsx": [
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    }
+  ],
+  "task-4393": [
+    {
+      "id": "TASK-4393",
+      "shard": 7
+    }
+  ],
+  "src/pages/adminledger.tsx": [
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    }
+  ],
+  "classname=\"admin-ledger-copy\">": [
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    }
+  ],
+  "task-4394": [
+    {
+      "id": "TASK-4394",
+      "shard": 7
+    }
+  ],
+  "src/pages/adminonboarding.tsx": [
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    }
+  ],
+  "{depositstatuslabel[tenant": [
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    }
+  ],
+  "task-4395": [
+    {
+      "id": "TASK-4395",
+      "shard": 7
+    }
+  ],
+  "city:": [
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    }
+  ],
+  "'irbid,": [
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    }
+  ],
+  "al-hashmi',": [
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    }
+  ],
+  "task-4396": [
+    {
+      "id": "TASK-4396",
+      "shard": 7
+    }
+  ],
+  "src/pages/documentation/sections/designtokenssection.tsx": [
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    }
+  ],
+  "token:": [
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    }
+  ],
+  "'--overlay',": [
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    }
+  ],
+  "'latar": [
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    }
+  ],
+  "task-4397": [
+    {
+      "id": "TASK-4397",
+      "shard": 7
+    }
+  ],
+  "task-4398": [
+    {
+      "id": "TASK-4398",
+      "shard": 7
+    }
+  ],
+  "v2.70.0": [
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    }
+  ],
+  "task-4399": [
+    {
+      "id": "TASK-4399",
+      "shard": 7
+    }
+  ],
+  "anti-slop/audit-006-fix-2026-09-24.md": [
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    },
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    }
+  ],
+  "task-4400": [
+    {
+      "id": "TASK-4400",
+      "shard": 7
+    }
+  ],
+  "aa,": [
+    {
+      "id": "TASK-917",
+      "shard": 7
+    }
+  ],
+  "em": [
+    {
+      "id": "TASK-917",
+      "shard": 7
+    }
+  ],
+  "dash": [
+    {
+      "id": "TASK-917",
+      "shard": 7
+    }
+  ],
+  "bersih,": [
+    {
+      "id": "TASK-917",
+      "shard": 7
+    }
+  ],
+  "16px,": [
+    {
+      "id": "TASK-917",
+      "shard": 7
+    }
+  ],
+  "confirmsheet": [
+    {
+      "id": "TASK-917",
+      "shard": 7
+    }
+  ],
+  "task-917": [
+    {
+      "id": "TASK-917",
+      "shard": 7
+    }
+  ],
+  "--orange-ink,": [
+    {
+      "id": "DEC-0056",
+      "shard": 7
+    }
+  ],
+  "penuh:": [
+    {
+      "id": "DEC-0056",
+      "shard": 7
+    }
+  ],
+  "4.88:1": [
+    {
+      "id": "DEC-0056",
+      "shard": 7
+    }
+  ],
+  "kehilangan": [
+    {
+      "id": "DEC-0056",
+      "shard": 7
+    }
+  ],
+  "dec-0056": [
+    {
+      "id": "DEC-0056",
+      "shard": 7
+    }
+  ],
+  "--danger:": [
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    }
+  ],
+  "#e5484d;": [
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    }
+  ],
+  "task-4401": [
+    {
+      "id": "TASK-4401",
+      "shard": 7
+    }
+  ],
+  "task-4402": [
+    {
+      "id": "TASK-4402",
+      "shard": 7
+    }
+  ],
+  "danger-ink": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "#bf423c": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "red-soft": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "4.40:1": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "aa;": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "dinaikkan": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "#b93d37": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "(4.72:1": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "terukur)": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "bug-3210": [
+    {
+      "id": "BUG-3210",
+      "shard": 7
+    }
+  ],
+  "<td>panel": [
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    }
+  ],
+  "(audit": [
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    }
+  ],
+  "006,": [
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    }
+  ],
+  "temua": [
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    }
+  ],
+  "task-4403": [
+    {
+      "id": "TASK-4403",
+      "shard": 7
+    }
+  ],
+  "**5.": [
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    }
+  ],
+  "ql-01": [
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    }
+  ],
+  "mentah": [
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    }
+  ],
+  "`system/_ad": [
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    }
+  ],
+  "task-4404": [
+    {
+      "id": "TASK-4404",
+      "shard": 7
+    }
+  ],
+  "literal": [
+    {
+      "id": "TASK-4405",
+      "shard": 7
+    }
+  ],
+  "--overlay-strong": [
+    {
+      "id": "TASK-4405",
+      "shard": 7
+    }
+  ],
+  "task-4405": [
+    {
+      "id": "TASK-4405",
       "shard": 7
     }
   ]

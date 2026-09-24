@@ -18,10 +18,12 @@ export function WalletTopUpGate() {
     <div className="wallet-gate" role="status">
       <TriangleAlert size={18} strokeWidth={1.75} aria-hidden="true" />
       <div className="wallet-gate__text">
-        <p className="wallet-gate__title">Top-up dulu, minimal {money(MIN_TOPUP_NEW_ACCOUNT_IDR)}</p>
+        {/* Satu paragraf, bukan judul+isi: sebelumnya "Top-up dulu, minimal…"
+            mengulang label tombol mati di bilah bawah dan judul gate sendiri —
+            empat penyebutan top-up dalam satu layar (audit 005 #5). */}
         <p className="wallet-gate__body">
-          Saldo kamu {money(available)}. Gate saldo awal berlaku untuk semua metode, bukan cuma
-          bayar pakai saldo.
+          Saldo kamu {money(available)}, minimal top-up {money(MIN_TOPUP_NEW_ACCOUNT_IDR)} sebelum
+          order. Gate ini berlaku untuk semua metode pembayaran, bukan cuma bayar pakai saldo.
         </p>
         <Link className="wallet-gate__cta" to="/wallet/top-up">
           Top-up sekarang

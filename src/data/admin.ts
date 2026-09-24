@@ -160,7 +160,7 @@ export const adminTenants: AdminTenant[] = [
     id: 'tn-1',
     name: 'Nasi Goreng Pak Kumis',
     owner: 'Kumis Wijaya',
-    city: 'Irbid — Al-Hashmi',
+    city: 'Irbid, Al-Hashmi',
     submittedAt: '14 menit lalu',
     photoCount: 3,
     deliveryConfig: {
@@ -178,7 +178,7 @@ export const adminTenants: AdminTenant[] = [
     id: 'tn-2',
     name: 'Kebab Syiria Irbid',
     owner: 'Yusuf Al-Rashid',
-    city: 'Irbid — University St.',
+    city: 'Irbid, University St.',
     submittedAt: '1 jam lalu',
     photoCount: 2,
     deliveryConfig: {
@@ -196,7 +196,7 @@ export const adminTenants: AdminTenant[] = [
     id: 'tn-3',
     name: 'Hummus Ibu Salma',
     owner: 'Salma Haddad',
-    city: 'Irbid — City Center',
+    city: 'Irbid, City Center',
     submittedAt: '3 jam lalu',
     photoCount: 3,
     deliveryConfig: {
@@ -359,7 +359,7 @@ export const adminLedger: LedgerEntry[] = [
     amount: 2.8,
     party: { kind: 'platform', id: null, name: 'Protection fund platform' },
     ref: 'SA-1019',
-    memo: 'Kasus tanpa pihak bersalah — ditanggung protection fund',
+    memo: 'Kasus tanpa pihak bersalah, ditanggung protection fund',
   },
   {
     id: 'led-2',

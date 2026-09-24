@@ -43,6 +43,7 @@ const COLOR_GROUPS: { label: string; swatches: Swatch[] }[] = [
       { token: '--red-soft', role: 'Latar bahaya tipis' },
       { token: '--star', role: 'Bintang rating' },
       { token: '--overlay', role: 'Latar gelap di belakang sheet & modal' },
+      { token: '--overlay-strong', role: 'Overlay pekat elemen kecil di atas foto' },
     ],
   },
 ]

@@ -1,13 +1,16 @@
 import { AlertTriangle, ListChecks, Scale, ShieldCheck, Signal, Store } from 'lucide-react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { aggregateLiability, liabilityGap, moneyFromJod, money, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { clearEscalation } from '../store/slices/adminSlice'
+import type { AdminEscalation } from '../types'
 
 export default function AdminDashboard() {
   const dispatch = useAppDispatch()
@@ -16,6 +19,8 @@ export default function AdminDashboard() {
   const escalations = useAppSelector((s) => s.admin.escalations)
   const tenants = useAppSelector((s) => s.admin.tenants)
   const disputes = useAppSelector((s) => s.admin.disputes)
+  // Batal order menulis refund ke ledger, jadi konfirmasi dulu (audit 006 #4).
+  const [cancelTarget, setCancelTarget] = useState<AdminEscalation | null>(null)
 
   // Agregat ikut wallet demo yang hidup, bukan angka statis (M9/M11).
   const liability = aggregateLiability(storedLiability, walletIdr)
@@ -28,7 +33,9 @@ export default function AdminDashboard() {
       <main className="admin-page">
         <AdminPageHeader eyebrow="Panel admin · CS" title="Ringkasan" />
 
-        <section className="admin-card admin-liability">
+        {/* Kartu surface, bukan oranye penuh: lihat catatan di _admin.scss
+            (audit 006 #1). Note dan kurs sengaja di luar kartu. */}
+        <section className="admin-card">
           <p className="admin-card-sub">Kewajiban platform</p>
           <p className="admin-liability-total">{moneyFromJod(total)}</p>
           <p className="admin-card-sub">
@@ -60,14 +67,15 @@ export default function AdminDashboard() {
               ? `Saldo Xendit kurang ${moneyFromJod(Math.abs(gap))} dari total liability.`
               : `Saldo Xendit cukup (sisa ${moneyFromJod(gap)}).`}
           </p>
-          <p className="admin-note">
-            Gaji kurir tidak masuk hitungan ini — kurir digaji merchant, yang lewat platform hanya
-            tips (C-06). Porsi wallet customer diselaraskan dengan wallet demo yang sedang aktif
-            ({money(walletIdr)}), jadi top-up, hold, dan settlement ikut menggeser angka di
-            atas.
-          </p>
-          <ExchangeRateNote />
         </section>
+
+        <p className="admin-note">
+          Gaji kurir tidak masuk hitungan ini: kurir digaji merchant, yang lewat platform hanya
+          tips (C-06). Porsi wallet customer diselaraskan dengan wallet demo yang sedang aktif
+          ({money(walletIdr)}), jadi top-up, hold, dan settlement ikut menggeser angka di
+          atas.
+        </p>
+        <ExchangeRateNote />
 
         <section className="admin-stats">
           <Link className="admin-stat" to="/onboarding">
@@ -105,7 +113,7 @@ export default function AdminDashboard() {
                     className="btn btn-primary"
                     onClick={() => {
                       dispatch(clearEscalation({ id: alert.id }))
-                      toast.success('Merchant ditindak — alert ditutup')
+                      toast.success('Merchant ditindak, alert ditutup')
                     }}
                   >
                     Tindak merchant
@@ -113,10 +121,7 @@ export default function AdminDashboard() {
                   <button
                     type="button"
                     className="admin-btn-ghost"
-                    onClick={() => {
-                      dispatch(clearEscalation({ id: alert.id }))
-                      toast.success('Order dibatalkan, refund dicatat di ledger')
-                    }}
+                    onClick={() => setCancelTarget(alert)}
                   >
                     Batalkan order
                   </button>
@@ -137,6 +142,21 @@ export default function AdminDashboard() {
             </div>
           </div>
         </section>
+
+        <ConfirmSheet
+          open={cancelTarget !== null}
+          title="Batalkan order?"
+          body={`Order ${cancelTarget?.orderCode ?? ''} dibatalkan dan refund dicatat sebagai 1 entry ledger append-only yang tidak bisa ditarik kembali.`}
+          confirmLabel="Batalkan order"
+          confirmClass="admin-btn-ghost"
+          onConfirm={() => {
+            if (!cancelTarget) return
+            dispatch(clearEscalation({ id: cancelTarget.id }))
+            setCancelTarget(null)
+            toast.success('Order dibatalkan, refund dicatat di ledger')
+          }}
+          onClose={() => setCancelTarget(null)}
+        />
       </main>
       <AdminBottomNav />
     </div>

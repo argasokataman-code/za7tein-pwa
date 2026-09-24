@@ -198,9 +198,8 @@
   text-align: center;
 }
 
-.checkout-empty-cta {
-  max-width: 260px;
-}
+/* Lebar CTA empty state diseragamkan dengan CTA terisi di system/_checkout.scss
+   (dulu max-width 260px — tombol yang sama berbeda bentuk antar state). */
 
 @media (prefers-reduced-motion: reduce) {
   .qty-stepper button {

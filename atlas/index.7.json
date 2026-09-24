@@ -1741,6 +1741,777 @@
         }
       ],
       "loc": "src/pages/Documentation.tsx:81"
+    },
+    {
+      "id": "TASK-4372",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:24:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-005-2026-09-24.md (+167) — write via tool: # Audit 005 — Checkout customer · 2026-0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-005-2026-09-24.md"
+    },
+    {
+      "id": "TASK-4373",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:30:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_checkout.scss (+35) — write via tool: /* ── Checkout customer ────────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-4374",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:30:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_tokens.scss (+8/-3) — edit via tool: /* Lantai huruf isi 16px (G-08, body ≥16",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-4375",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:30:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/ui/WalletTopUpGate.tsx (+8/-6) — edit via tool: tsx: <div className=\"wallet-gate__text\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/ui/WalletTopUpGate.tsx"
+    },
+    {
+      "id": "TASK-4376",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:30:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_cart.scss (+2/-3) — edit via tool: /* Lebar CTA empty state diseragamkan de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_cart.scss"
+    },
+    {
+      "id": "TASK-4377",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:30:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_system.scss (+3/-2) — edit via tool: @use \"./system/platform-notice\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-4378",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:30:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Checkout.tsx (+7/-4) — edit via tool: tsx: <div className=\"checkout-item__side\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-4379",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:31:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/app/part-09.scss (+6/-6) — edit via tool: .section-title {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/app/part-09.scss"
+    },
+    {
+      "id": "TASK-4380",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:31:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/app/part-10.scss (+30/-39) — edit via tool: .checkout-actions {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/app/part-10.scss"
+    },
+    {
+      "id": "TASK-4381",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:31:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/app/part-17.scss (+2/-2) — edit via tool: .empty-cart-icon {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/app/part-17.scss"
+    },
+    {
+      "id": "TASK-4382",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:32:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+4/-4) — edit via tool: tsx: Bukan fitur baru: layar yang sudah jalan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4383",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:32:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.69.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4384",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:33:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+125) — write via tool: tsx: import { DocSection } from '../DocSectio",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4385",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:57:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-005-fix-2026-09-24.md (+46) — write via tool: # Audit 005 Fix — Checkout customer · 20",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-005-fix-2026-09-24.md"
+    },
+    {
+      "id": "TASK-916",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "15:57:07",
+      "tags": [
+        "customer",
+        "checkout",
+        "design",
+        "audit"
+      ],
+      "summary": "Audit 005 checkout: 10 temuan diperbaiki, gate gutter, hierarki 4 tingkat, token teks 16/12px",
+      "conn": [
+        {
+          "id": "TASK-915",
+          "type": "relates",
+          "raw": "TASK-915:relates"
+        }
+      ],
+      "loc": "src/pages/Checkout.tsx:1"
+    },
+    {
+      "id": "BUG-3208",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-09-24",
+      "time": "15:57:08",
+      "tags": [
+        "customer",
+        "checkout",
+        "a11y"
+      ],
+      "summary": "Checkout: gate top-up full-bleed x=0 (gutter DNA hilang) karena di luar .checkout-content",
+      "conn": [
+        {
+          "id": "TASK-916",
+          "type": "fixes",
+          "raw": "TASK-916:fixes"
+        }
+      ],
+      "loc": "src/pages/Checkout.tsx:279"
+    },
+    {
+      "id": "DEC-0055",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-24",
+      "time": "15:57:21",
+      "tags": [
+        "tokens",
+        "design"
+      ],
+      "summary": "Lantai huruf isi --text-base 16px & --text-xs 12px (G-08); lebar >=667px tak berubah",
+      "conn": [
+        {
+          "id": "TASK-916",
+          "type": "led_to",
+          "raw": "TASK-916:led_to"
+        }
+      ],
+      "loc": "src/styles/_tokens.scss:79"
+    },
+    {
+      "id": "TASK-4386",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:17:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-006-2026-09-24.md (+110) — write via tool: # Audit 006 — Panel admin · CS (`/admin/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-006-2026-09-24.md"
+    },
+    {
+      "id": "TASK-4387",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:24:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_admin.scss (+5/-5) — edit via tool: .admin-card-title {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-4388",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:24:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-2.scss (+21/-2) — edit via tool: .sheet-actions { margin-top: var(--space",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-2.scss"
+    },
+    {
+      "id": "TASK-4389",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:24:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_tokens.scss (+5/-1) — edit via tool: --overlay: rgba(32, 32, 32, 0.4);",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-4390",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:24:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/ui/ConfirmSheet.tsx (+43) — write via tool: tsx: import { BottomSheet } from './BottomShe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/ui/ConfirmSheet.tsx"
+    },
+    {
+      "id": "TASK-4391",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminDashboard.tsx (+19/-22) — edit via tool: tsx: <div className=\"admin-actions\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-4392",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminDisputes.tsx (+4/-3) — edit via tool: tsx: import { AdminPageHeader } from '../comp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminDisputes.tsx"
+    },
+    {
+      "id": "TASK-4393",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminMerchants.tsx (+4/-3) — edit via tool: tsx: import { AdminPageHeader } from '../comp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminMerchants.tsx"
+    },
+    {
+      "id": "TASK-4394",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminLedger.tsx (+7/-7) — edit via tool: tsx: <div className=\"admin-ledger-copy\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminLedger.tsx"
+    },
+    {
+      "id": "TASK-4395",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminOnboarding.tsx (+1/-1) — edit via tool: tsx: Deposit sudah {depositStatusLabel[tenant",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminOnboarding.tsx"
+    },
+    {
+      "id": "TASK-4396",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/admin.ts (+1/-1) — edit via tool: ts: city: 'Irbid, Al-Hashmi',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/admin.ts"
+    },
+    {
+      "id": "TASK-4397",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/DesignTokensSection.tsx (+2/-1) — edit via tool: tsx: { token: '--overlay', role: 'Latar gelap",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/DesignTokensSection.tsx"
+    },
+    {
+      "id": "TASK-4398",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+1/-1) — edit via tool: tsx: Bukan fitur baru: layar yang sudah jalan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4399",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:25:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.70.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4400",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:32:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-006-fix-2026-09-24.md (+41) — write via tool: # Audit 006 Fix — Panel admin · CS · 202",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-006-fix-2026-09-24.md"
+    },
+    {
+      "id": "TASK-917",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:32:29",
+      "tags": [
+        "admin",
+        "design",
+        "audit"
+      ],
+      "summary": "Audit 006 panel admin: liability kartu surface AA, 15 em dash bersih, isi 16px, ConfirmSheet 3 jalur uang",
+      "conn": [
+        {
+          "id": "TASK-916",
+          "type": "relates",
+          "raw": "TASK-916:relates"
+        }
+      ],
+      "loc": "src/components/ui/ConfirmSheet.tsx:1"
+    },
+    {
+      "id": "DEC-0056",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-24",
+      "time": "16:32:29",
+      "tags": [
+        "admin",
+        "design"
+      ],
+      "summary": "Kartu liability surface + total --orange-ink, bukan oranye penuh: AA 4.88:1 tanpa kehilangan fokus",
+      "conn": [
+        {
+          "id": "TASK-917",
+          "type": "led_to",
+          "raw": "TASK-917:led_to"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss:163"
+    },
+    {
+      "id": "TASK-4401",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:34:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_tokens.scss (+4/-2) — edit via tool: --danger: #E5484D;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-4402",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:36:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-006-fix-2026-09-24.md (+5/-4) — edit via tool: # Audit 006 Fix — Panel admin · CS · 202",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-006-fix-2026-09-24.md"
+    },
+    {
+      "id": "BUG-3210",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-09-24",
+      "time": "16:36:04",
+      "tags": [
+        "admin",
+        "design",
+        "a11y"
+      ],
+      "summary": "danger-ink #BF423C di red-soft 4.40:1 < AA; dinaikkan ke #B93D37 (4.72:1 terukur)",
+      "conn": [
+        {
+          "id": "TASK-917",
+          "type": "fixes",
+          "raw": "TASK-917:fixes"
+        }
+      ],
+      "loc": "src/styles/_tokens.scss:27"
+    },
+    {
+      "id": "TASK-4403",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:36:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+1/-1) — edit via tool: tsx: <td>Panel admin · CS (audit 006, 6 temua",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4404",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:36:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: anti-slop/audit-006-2026-09-24.md (+15/-7) — edit via tool: **5. QL-01 · Nilai mentah di `system/_ad",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-006-2026-09-24.md"
+    },
+    {
+      "id": "TASK-4405",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:37:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+2/-2) — edit via tool: tsx: literal ganti --overlay-strong (token ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
     }
   ]
 }

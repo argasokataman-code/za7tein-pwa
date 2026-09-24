@@ -378,7 +378,7 @@
 }
 
 .empty-cart-icon {
-  background:#FBE9E2;
+  background:var(--orange-soft);
   border-radius:50%;
   justify-content:center;
   align-items:center;
@@ -389,14 +389,14 @@
 }
 
 .empty-cart-title {
-  color:#202020;
+  color:var(--text-primary);
   margin:0;
   font-size:var(--text-lg);
   font-weight:700
 }
 
 .empty-cart-text {
-  color:#6B6865;
+  color:var(--text-secondary);
   max-width:280px;
   margin:0;
   font-size:var(--text-sm);

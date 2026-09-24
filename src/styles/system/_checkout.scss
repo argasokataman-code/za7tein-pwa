@@ -1,0 +1,36 @@
+/* ── Checkout customer ──────────────────────────────────────────────────────
+   Perbaikan audit 005 (anti-slop/audit-005-2026-09-24.md). Semua angka di
+   bawah hasil pengukuran DOM di 390×844 dan 1440×900. */
+
+/* Hierarki (audit 005 #2): sebelumnya judul seksi, nama toko, nama item,
+   label baris ringkasan, dan label total semuanya 14,34px/600 dengan warna
+   yang sama — enam peran satu ukuran, layar terbaca satu balok teks. Judul
+   seksi yang berdiri di luar kartu ("Pesanan dari", "3 item") turun ke
+   langkah label: --text-sm/700 --text-secondary, supaya isinya (nama toko dan
+   nama item di --text-base/600) jadi isi mata. Judul di dalam kartu tetap
+   gaya kepala kartu (system/_cart-2.scss), tidak kena aturan ini karena
+   wadahnya .order-summary-section, bukan .checkout-section. */
+.checkout-section .section-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+/* Satu sistem kartu (audit 005 #4): kartu item dulu memakai --border/10px
+   sementara kartu ringkasan --border-strong/12px — dua permukaan berbeda di
+   satu layar. Ikut kontrak DNA: batas kartu --border-strong, radius-lg. */
+.checkout-item {
+  border-color: var(--border-strong);
+  border-radius: var(--radius-lg);
+}
+
+/* CTA empty state (audit 005 #10): dulu 260×44 lewat max-width sementara CTA
+   terisi 350×44. Padding horizontal ikut --space-5 supaya lebarnya persis
+   sama dengan tombol di bilah bawah; teksnya tetap dibatasi .empty-cart-text. */
+.checkout-empty-state {
+  padding-inline: var(--space-5);
+}
+
+.checkout-empty-cta {
+  max-width: none;
+}

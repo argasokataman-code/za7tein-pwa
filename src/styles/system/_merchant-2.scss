@@ -559,3 +559,22 @@
 
 .sheet-actions { margin-top: var(--space-4); }
 .sheet-actions .btn { width: 100%; }
+
+/* `.btn` dasar tanpa margin, jadi dua tombol bertumpuk perlu jarak (audit 006 #4). */
+.sheet-actions .btn + .btn { margin-top: var(--space-2); }
+
+/* Tombol batal netral untuk sheet konfirmasi: `.btn` dasar transparan tanpa
+   tepi, jadi ia perlu permukaan supaya terbaca sebagai kontrol (audit 006 #4). */
+.sheet-cancel {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+}
+
+/* Copy penjelas di sheet konfirmasi memakai ukuran baca, bukan caption. */
+.sheet-copy {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}

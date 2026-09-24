@@ -22,7 +22,9 @@
   --warning-ink: #8A5A1A;
   --warning-soft: #FBF1E3;
   --danger: #C94B45;
-  --danger-ink: #BF423C;
+  /* #BF423C di atas --red-soft hanya 4.40:1 (di bawah AA 4.5 untuk teks normal);
+     #B93D37 = 4.72:1 di red-soft dan 5.55:1 di putih (audit-006 #6). */
+  --danger-ink: #B93D37;
   --red-soft: #F9E9E8;
 
   --border: #EDE4DC;
@@ -56,6 +58,10 @@
   --nav-height: 64px;
   --shadow-subtle: 0 1px 2px rgba(32, 32, 32, 0.05);
   --overlay: rgba(32, 32, 32, 0.4);
+  /* Overlay pekat untuk elemen kecil di atas foto (mis. cakram hapus pratinjau):
+     di atas foto yang tak diketahui, --overlay 0.4 bisa jatuh ke ~2.8:1 untuk
+     teks putih; 0.62 mengamankannya di ~4.6:1 (audit 006 #5). */
+  --overlay-strong: rgba(32, 32, 32, 0.62);
 
   --motion-fast: 140ms;
   --motion-standard: 200ms;
@@ -76,9 +82,14 @@ html, body { font-family: var(--font-sans); }
 // Angka-angka ini menggantikan 33 nilai radius dan 40 ukuran huruf ad-hoc
 // yang diwarisi dari stylesheet hasil porting.
 :root {
-  --text-xs: clamp(11px, 0.4vw + 10px, 12px);
+  /* Lantai huruf isi 16px (G-08, body ≥16pt di mobile) dan caption 12px.
+     Clamp lama mulai dari 11px/14px sehingga di kolom 390px hasilnya
+     11,56px/14,34px — teks isi di bawah lantai mobile (audit 005 #3).
+     Angka atas tidak berubah, jadi lebar ≥667px hasilnya sama seperti
+     sebelumnya (xs memang sudah 12, base sudah 16 di situ). */
+  --text-xs: 12px;
   --text-sm: clamp(13px, 0.5vw + 11px, 14px);
-  --text-base: clamp(14px, 0.6vw + 12px, 16px);
+  --text-base: 16px;
   --text-lg: clamp(16px, 0.7vw + 14px, 18px);
   --text-xl: clamp(20px, 1.2vw + 16px, 24px);
   --text-2xl: clamp(26px, 1.5vw + 22px, 32px);

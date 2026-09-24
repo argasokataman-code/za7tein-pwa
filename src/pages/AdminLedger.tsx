@@ -46,7 +46,7 @@ export default function AdminLedger() {
                 <p className="admin-card-title">
                   {ledgerTypeLabel[entry.type]} · {entry.ref}
                 </p>
-                <p className="admin-card-sub">{entry.memo}</p>
+                <p className="admin-card-sub admin-ledger-memo">{entry.memo}</p>
                 <p className="admin-card-sub">{entry.at}</p>
               </div>
               <span className={`admin-ledger-amount is-${entry.direction}`}>
@@ -88,7 +88,7 @@ export default function AdminLedger() {
             ))}
             <p className="admin-note">
               Tiap transisi = 1 entry append-only dan tidak bisa disunting. Arah debit-credit hold
-              belum diputuskan di mock ini, jadi hanya nominal dan waktunya yang ditampilkan —
+              belum diputuskan di mock ini, jadi hanya nominal dan waktunya yang ditampilkan,
               bukan pasangan double-entry yang dikarang.
             </p>
           </section>

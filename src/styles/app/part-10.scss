@@ -203,8 +203,8 @@
   padding:16px 20px;
   padding-bottom:calc(16px + env(safe-area-inset-bottom));
   z-index:1000;
-  background-color:#FFF9F4;
-  border-top:1px solid #EDE4DC;
+  background-color:var(--bg-warm);
+  border-top:1px solid var(--border);
   justify-content:center;
   align-items:center;
   width:100%;
@@ -218,9 +218,9 @@
 }
 
 .proceed-btn {
-  color:#FFFFFF;
+  color:var(--on-brand);
   cursor:pointer;
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   border:none;
   border-radius:var(--radius-md);
   width:100%;
@@ -228,15 +228,6 @@
   font-size:var(--text-base);
   font-weight:600;
   transition:all var(--motion-standard) var(--ease-out)
-}
-
-.proceed-btn:hover {
-  background-color:#F15A37;
-  transform:translateY(-2px)
-}
-
-.proceed-btn:active {
-  transform:translateY(0)
 }
 
 @media (min-width:768px) {

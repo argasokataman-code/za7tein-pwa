@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { moneyFromJod, tenantStatusLabel } from '../data/admin'
@@ -16,6 +17,9 @@ export default function AdminMerchants() {
   const riskFlags = useAppSelector((s) => s.admin.customerRiskFlags)
   const csActorId = useAppSelector((s) => s.superAdmin.csActorId)
   const [codCustomer, setCodCustomer] = useState<Record<string, string>>({})
+  // Blacklist menandai dua sisi (merchant + customer), jadi konfirmasi dulu
+  // lewat sheet (audit 006 #4).
+  const [confirmBlacklist, setConfirmBlacklist] = useState<string | null>(null)
 
   return (
     <div className="app-shell">
@@ -90,15 +94,7 @@ export default function AdminMerchants() {
                           toast.error('Pilih customer dulu')
                           return
                         }
-                        dispatch(
-                          blacklistCod({ id: merchant.id, customerId, byOperatorId: csActorId }),
-                        )
-                        setCodCustomer((prev) => ({ ...prev, [merchant.id]: '' }))
-                        toast.success(
-                          `Blacklist COD: ${merchant.name} + ${
-                            findCustomer(customerId)?.name ?? customerId
-                          } (riskFlag)`,
-                        )
+                        setConfirmBlacklist(merchant.id)
                       }}
                     >
                       <Ban size={16} strokeWidth={1.75} aria-hidden="true" />
@@ -107,7 +103,7 @@ export default function AdminMerchants() {
                   </div>
                 </>
               ) : (
-                <p className="admin-note">Merchant tidak aktif — tidak ada COD untuk diblokir.</p>
+                <p className="admin-note">Merchant tidak aktif: tidak ada COD untuk diblokir.</p>
               )}
             </article>
           ))}
@@ -139,6 +135,31 @@ export default function AdminMerchants() {
           Suspend dan blacklist di sini hanya mengubah state tampilan (AGENTS.md §1).
         </p>
         <ExchangeRateNote />
+
+        {confirmBlacklist ? (
+          <ConfirmSheet
+            open
+            title="Blacklist COD?"
+            body={`Merchant ${
+              merchants.find((m) => m.id === confirmBlacklist)?.name ?? ''
+            } masuk blacklist dan customer terkait dapat riskFlag. Keduanya dipakai supaya checkout COD benar-benar terblokir (F15).`}
+            confirmLabel="Blacklist COD"
+            confirmClass="admin-btn-ghost"
+            onConfirm={() => {
+              const customerId = codCustomer[confirmBlacklist] ?? ''
+              const merchant = merchants.find((m) => m.id === confirmBlacklist)
+              dispatch(blacklistCod({ id: confirmBlacklist, customerId, byOperatorId: csActorId }))
+              setCodCustomer((prev) => ({ ...prev, [confirmBlacklist]: '' }))
+              setConfirmBlacklist(null)
+              toast.success(
+                `Blacklist COD: ${merchant?.name ?? ''} + ${
+                  findCustomer(customerId)?.name ?? customerId
+                } (riskFlag)`,
+              )
+            }}
+            onClose={() => setConfirmBlacklist(null)}
+          />
+        ) : null}
       </main>
       <AdminBottomNav />
     </div>

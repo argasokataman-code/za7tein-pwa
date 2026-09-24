@@ -140,8 +140,11 @@ export default function Checkout() {
                         </div>
 
                         <div className="checkout-item__side">
+                          {/* moneyPlain: pasangan JOD cukup di Total Bayar +
+                              catatan kurs (audit 005 #6) — kolom kanan dulu
+                              141px menyisakan nama item 107px. */}
                           <span className="checkout-item__total">
-                            {money(item.price * item.quantity)}
+                            {moneyPlain(item.price * item.quantity)}
                           </span>
 
                           {/* Tanpa tombol buang terpisah: menekan - sampai 0
@@ -230,18 +233,18 @@ export default function Checkout() {
                 )}
 
                 <div className="order-summary-section">
-                  <h2 className="section-title">Ringkasan Pesanan</h2>
+                  <h2 className="section-title">Ringkasan pesanan</h2>
                   <div className="summary-item">
                     <span>Subtotal</span>
-                    <span>{money(subtotal)}</span>
+                    <span>{moneyPlain(subtotal)}</span>
                   </div>
                   <div className="summary-item">
                     <span>Ongkir {deliverable && zone ? `(Zona ${zone.label})` : ''}</span>
-                    <span>{deliverable ? money(fee) : 'Tidak berlaku'}</span>
+                    <span>{deliverable ? moneyPlain(fee) : 'Tidak berlaku'}</span>
                   </div>
                   <div className="summary-item">
                     <span>Biaya Layanan</span>
-                    <span>{money(PLATFORM_FEE_CUSTOMER_IDR)}</span>
+                    <span>{moneyPlain(PLATFORM_FEE_CUSTOMER_IDR)}</span>
                   </div>
                   {/* Pajak 2 lapis (R-TAX-01, F4) — info-only di MVP: tidak
                       menambah total, karena tarif & kewajiban setornya belum
@@ -251,14 +254,14 @@ export default function Checkout() {
                       GST makanan ({GST_FOOD_PERCENT}%)
                       <span className="summary-info-tag">merchant setor</span>
                     </span>
-                    <span>{money(gstFoodIdr(subtotal))}</span>
+                    <span>{moneyPlain(gstFoodIdr(subtotal))}</span>
                   </div>
                   <div className="summary-item summary-item--info">
                     <span>
                       GST fee platform ({PLATFORM_GST_PERCENT}%)
                       <span className="summary-info-tag">kewajiban platform</span>
                     </span>
-                    <span>{money(platformGstIdr())}</span>
+                    <span>{moneyPlain(platformGstIdr())}</span>
                   </div>
                   {/* Catatan ditempel langsung di bawah baris pajak yang
                       dijelaskannya, bukan setelah total, supaya pembaca struk
@@ -274,9 +277,14 @@ export default function Checkout() {
                   </div>
                   <ExchangeRateNote />
                 </div>
-              </div>
 
-              <WalletTopUpGate />
+                {/* Gate di dalam .checkout-content (audit 005 #1): sebagai
+                    anak langsung .checkout-screen ia kehilangan padding 20px
+                    dan terukur full-bleed x=0 w=390 / w=430 — kartu satu-satunya
+                    yang menempel tepi kolom. PlatformNotice tetap di luar karena
+                    margin-inline-nya sudah milik komponen itu sendiri. */}
+                <WalletTopUpGate />
+              </div>
 
               {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
 
@@ -299,7 +307,7 @@ export default function Checkout() {
                         ? 'Di luar area antar'
                         : gated
                           ? 'Top-up dulu · saldo kurang'
-                          : `Lanjut Bayar · ${money(total)}`}
+                          : `Lanjut Bayar · ${moneyPlain(total)}`}
                 </button>
               </div>
             </>
