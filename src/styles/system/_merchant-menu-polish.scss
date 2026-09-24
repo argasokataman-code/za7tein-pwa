@@ -43,3 +43,111 @@
   font-size: var(--text-xs);
   text-align: right;
 }
+
+/* ── Stock sheet ─────────────────────────────────────────────────────────────
+   Sebelumnya ini form desktop yang diperkecil: judul 14.34px/500 (lebih kecil
+   dari nama hidangan di kartu, 18px/700), label 11.56px, tombol ± kotak 44px,
+   nilai 20.68px/400. Tidak ada yang menjadi fokus. Pola native untuk mengatur
+   kuantitas: angka besar sebagai satu fokus, tombol bulat lega di kiri-kanan.
+   Setiap nilai di bawah memakai token supaya ikut tema, bukan angka mentah. */
+
+.sheet-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-3);
+}
+
+/* Label di bawah 12px tidak terbaca di ponsel (senior-fe mobile PG-06, batas
+   bawah 15pt untuk teks isi; label boleh kecil tapi tetap >= 13px). */
+.sheet-field-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-2);
+}
+
+.stock-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  padding-block: var(--space-2);
+}
+
+/* Varian label khusus stock sheet. Label generik .sheet-field-label dipakai
+   sheet lain sebagai keterangan statis; di sini ia membawa keadaan, jadi
+   warnanya ikut berubah: stok habis -> peringatan, sudah diubah -> merek. */
+.sheet-field-label.is-out {
+  color: var(--warning-ink);
+}
+
+.sheet-field-label.is-changed {
+  color: var(--orange-ink);
+}
+
+/* 56px, bukan 44px: 44px adalah batas MINIMUM (senior-fe mobile HG-05), dan
+   tombol ± ditekan berulang kali, jadi ia layak lebih lega dari minimum.
+   Bulat (pill) karena ini kontrol kuantitas, bukan bidang form. */
+.stock-stepper button {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  cursor: pointer;
+  transition:
+    background var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out),
+    transform var(--motion-fast) var(--ease-out);
+}
+
+.stock-stepper button:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-warm);
+}
+
+/* Ditekan = umpan balik seketika. Satu-satunya gerak di sheet ini, dan ia
+   punya tugas: mengonfirmasi tap terbaca sebelum angka berubah. */
+.stock-stepper button:active {
+  transform: scale(0.94);
+}
+
+.stock-stepper button:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+/* Angka adalah satu-satunya fokus layar: paling besar, paling tebal.
+   `tabular-nums` supaya lebarnya tidak melompat saat nilai berubah digit. */
+.stock-stepper-value {
+  min-width: 4ch;
+  text-align: center;
+  font-size: var(--text-stepper);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  animation: stock-pop var(--motion-standard) var(--ease-out);
+}
+
+/* Skala 0.86 -> 1 pada angka yang baru. Satu-satunya gerak selain :active,
+   tugasnya sama: memberi tahu bahwa tap-nya terbaca. Di bawah
+   prefers-reduced-motion, _motion.scss memangkasnya ke 0.01ms. */
+@keyframes stock-pop {
+  from {
+    transform: scale(0.86);
+    opacity: 0.6;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

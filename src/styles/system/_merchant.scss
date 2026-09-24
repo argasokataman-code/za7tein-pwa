@@ -391,6 +391,24 @@
   flex: 1;
 }
 
+/* Dua tombol di dalam sheet berbagi lebar sama, seperti .profile-modal-actions
+   di role customer. Sebelumnya `.merchant-delete-confirm` saja yang `flex: 1`,
+   sementara Batal hanya selebar isinya — terukur 64px vs 278px di popup keluar
+   MerchantSettings, rasio 1:4. Tombol destruktif yang empat kali lebih lebar
+   dari Batal terbaca sebagai aksi utama, padahal ia yang membuang sesi. */
+.merchant-actions .merchant-btn-ghost,
+.merchant-actions .merchant-delete-confirm {
+  flex: 1;
+  /* Padding mendatar dipindahkan ke nol. Dengan flex-basis 0% + flex-grow 1,
+     ruang bebas dibagi SETELAH padding tiap tombol dihitung — dan mixin
+     .merchant-btn-ghost membawa `padding: 0 var(--space-5)` = 40px, sementara
+     .merchant-delete-confirm tidak punya padding mendatar. Itu sebabnya Batal
+     terukur 189px dan Keluar 153px walau keduanya flex: 1. box-sizing:
+     border-box tidak menolong; yang perlu hilang paddingnya. Teksnya sudah
+     terpusat lewat justify-content, jadi padding tidak dibutuhkan. */
+  padding-inline: 0;
+}
+
 .merchant-btn-ghost {
   display: inline-flex;
   align-items: center;

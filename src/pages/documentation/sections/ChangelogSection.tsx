@@ -474,6 +474,49 @@ export function ChangelogSection() {
                 <code className="doc-inline">offline</code> per role customer
               </td>
             </tr>
+            <tr>
+              <td>Popup keluar toko tidak seimbang</td>
+              <td>
+                Di <code className="doc-inline">/merchant/settings</code> tombol Batal terukur
+                64x44 dan Keluar 278x44 (rasio 1:4) walau keduanya di dalam{' '}
+                <code className="doc-inline">.merchant-actions</code>, karena hanya{' '}
+                <code className="doc-inline">.merchant-delete-confirm</code> yang punya{' '}
+                <code className="doc-inline">flex: 1</code>. Latarnya{' '}
+                <code className="doc-inline">--danger-ink</code>, token untuk teks di latar
+                terang, bukan pengisi bidang tombol
+              </td>
+              <td>
+                Kedua tombol dapat <code className="doc-inline">flex: 1</code> dan padding
+                mendatarnya dinolkan (dengan <code className="doc-inline">flex-basis: 0%</code>,
+                padding tetap dihitung di luar basis, jadi Batal 189px vs Keluar 153px). Bentuk
+                disamakan dengan modal customer: pill, bobot 600, teks dasar. Terukur 171x44
+                sepasang. Aturan yang sama berlaku untuk sheet Hapus di Couriers dan Menu
+              </td>
+            </tr>
+            <tr>
+              <td>Sheet stok merchant: form desktop yang diperkecil</td>
+              <td>
+                Judul sheet terukur 14,34px/500, lebih kecil dari nama hidangan di kartu
+                yang membukanya (18px/700). Label 11,56px, tombol +/- kotak 44px, dan angka
+                stok 20,68px/400. Tidak ada yang menjadi fokus, dan tidak ada gerak sama sekali:
+                <code className="doc-inline">BottomSheet</code> mengembalikan{' '}
+                <code className="doc-inline">null</code> saat tertutup sehingga panelnya muncul
+                mendadak, dan <code className="doc-inline">.sheet-panel</code> tidak punya
+                animasi
+              </td>
+              <td>
+                Angka jadi satu fokus: token baru{' '}
+                <code className="doc-inline">--text-stepper</code> (44px, tanpa clamp karena ini
+                bukan teks berderet) dengan bobot 800 dan{' '}
+                <code className="doc-inline">tabular-nums</code>. Tombol +/- jadi bulat 56px
+                dengan ikon 22px, target di atas minimum 44px karena ditekan berulang. Label
+                membawa keadaan: netral, "Dari N" saat diubah, "Stok habis" saat nol. Panel naik
+                dari bawah dan latarnya memudar, memakai token gerak. Semua sheet ikut naik
+                karena <code className="doc-inline">.sheet-title</code> dan{' '}
+                <code className="doc-inline">.sheet-field-label</code> diperbaiki di tingkat
+                sistem. Gate merchant 22/22 PASS
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

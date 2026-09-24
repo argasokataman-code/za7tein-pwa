@@ -247,14 +247,23 @@ export default function MerchantMenu() {
 
       {/* ── stock sheet ── */}
       <BottomSheet open={stockItem !== null} title={stockItem?.name} onClose={closeStock}>
-        <p className="sheet-field-label">Stok saat ini</p>
+        <p className={`sheet-field-label${stockDraft <= 0 ? ' is-out' : stockDraft !== stockItem?.stock ? ' is-changed' : ''}`}>
+          {stockDraft <= 0
+            ? 'Stok habis'
+            : stockItem && stockDraft !== stockItem.stock
+              ? `Dari ${stockItem.stock}`
+              : 'Stok saat ini'}
+        </p>
         <div className="stock-stepper">
           <button type="button" aria-label="Kurangi stok" onClick={() => setStockDraft((d) => Math.max(0, d - 1))}>
-            <Minus size={18} strokeWidth={1.75} />
+            <Minus size={22} strokeWidth={1.75} />
           </button>
-          <span className="stock-stepper-value">{stockDraft}</span>
+          {/* key: saat angka berubah, span di-remount sehingga animasi pop
+              berjalan lagi. Tanpa key, React memakai ulang node dan animasinya
+              tidak pernah terpicu. */}
+          <span key={stockDraft} className="stock-stepper-value">{stockDraft}</span>
           <button type="button" aria-label="Tambah stok" onClick={() => setStockDraft((d) => d + 1)}>
-            <Plus size={18} strokeWidth={1.75} />
+            <Plus size={22} strokeWidth={1.75} />
           </button>
         </div>
         <div className="sheet-actions">

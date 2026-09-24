@@ -272,15 +272,33 @@
   font-size: var(--text-sm);
 }
 
-.merchant-delete-confirm {
-  flex: 1;
+/* Bentuk tombol sheet disamakan dengan .profile-modal-actions role customer
+   (docs/design/DNA.md: pola sama, satu perilaku): pill, bobot 600, ukuran teks
+   dasar. Warnanya tetap oranye merek — bukan --danger-ink, yang perannya teks
+   di latar terang dan tidak untuk mengisi bidang tombol. */
+.merchant-actions .merchant-delete-confirm {
   min-height: var(--touch-min);
-  border: 0;
-  border-radius: var(--radius-md);
-  background: var(--danger-ink);
+  /* Border transparan 2px, sama tebalnya dengan Batal. Tanpa ini Keluar 4px
+     (2px di tiap sisi) lebih sempit walau keduanya flex: 1 — terukur 173 vs
+     169. Bukan selisih yang terlihat, tapi mudah dihindari dan membuat kedua
+     tombol benar-benar sama. */
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
   color: var(--on-brand);
-  font-size: var(--text-sm);
-  font-weight: 700;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.merchant-actions .merchant-delete-confirm:hover {
+  background: var(--orange-deep);
+}
+
+.merchant-actions .merchant-btn-ghost {
+  border-width: 2px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-base);
+  font-weight: 600;
 }
 
 /* Merchant reviews: ringkasan rating + ulasan per hidangan. Balasan disimpan
@@ -491,20 +509,32 @@
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: var(--space-5);
   padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  /* Panel naik dari bawah dan latarnya memudar masuk. Sebelumnya sheet muncul
+     mendadak tanpa gerak sama sekali — satu-satunya permukaan yang bergerak di
+     repo adalah `.location-picker-sheet`, yang punya keyframes sendiri, dan
+     `.profile-modal-overlay` di role customer. Durasi memakai token, bukan
+     angka mentah, jadi seluruh repo bergerak dengan tempo yang sama.
+     Saat prefers-reduced-motion, `_motion.scss` memangkasnya ke 0.01ms. */
+  animation: sheet-rise var(--motion-emphasis) var(--ease-out);
 }
 
-.sheet-title {
-  font-size: var(--text-base);
-  color: var(--text-primary);
-  margin-bottom: var(--space-3);
+.sheet-overlay {
+  animation: backdrop-in var(--motion-standard) var(--ease-out);
 }
 
-.sheet-field-label {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-  text-align: center;
-  margin-bottom: var(--space-2);
+@keyframes sheet-rise {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }
+
+// .sheet-title, .sheet-field-label, dan .stock-stepper pindah ke
+// _merchant-menu-polish.scss begitu stock sheet dibawa ke pola native.
+// (Dulu di sini: judul 14.34px/500, label 11.56px, tombol ± kotak 44px.)
 
 // Textarea di bottom sheet banding CS tidak punya aturan sama sekali, jadi ia
 // muncul sebagai textarea peramban polos: tanpa border token, radius, latar,
@@ -520,26 +550,3 @@
 
 .sheet-actions { margin-top: var(--space-4); }
 .sheet-actions .btn { width: 100%; }
-
-.stock-stepper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-4);
-}
-.stock-stepper button {
-  display: grid;
-  place-items: center;
-  width: var(--touch-min);
-  height: var(--touch-min);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-strong);
-  background: var(--surface);
-  color: var(--text-primary);
-}
-.stock-stepper-value {
-  min-width: 3ch;
-  text-align: center;
-  font-size: var(--text-xl);
-  color: var(--text-primary);
-}
