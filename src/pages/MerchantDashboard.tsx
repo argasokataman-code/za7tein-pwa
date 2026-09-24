@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
-import { BarChart } from '../components/ui/BarChart'
 import { DonutChart } from '../components/ui/DonutChart'
+import { Sparkline } from '../components/ui/Sparkline'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant, money } from '../data/merchant'
-import { jodToIdr } from '../data/currency'
+import { jodToIdr, moneyPlain } from '../data/currency'
 import { rebateProgress } from '../data/incentive'
 import { countByTab, orderStatusLabel } from '../data/merchantOrders'
 import {
+  menuSalesRanking,
   orderMixSegments,
-  orderTrendBars,
   paymentMixSegments,
   revenueTrendBars,
+  topMenuShare,
   trendTotals,
 } from '../data/merchantTrend'
 import { switchBlockCopy } from '../data/superadmin'
@@ -43,6 +44,9 @@ export default function MerchantDashboard() {
     .reduce((sum, o) => sum + o.total, 0)
 
   const trend = trendTotals()
+  const menuSales = menuSalesRanking(orders)
+  const topMenu = topMenuShare(menuSales)
+  const topSold = menuSales[0]?.sold ?? 1
   const orderMix = orderMixSegments(orders)
   const paymentMix = paymentMixSegments(orders)
   const paymentByLabel = (prefix: string) =>
@@ -94,63 +98,77 @@ export default function MerchantDashboard() {
           </div>
         </section>
 
-        <section className="merchant-stats">
-          <Link className="merchant-stat merchant-stat--queue" to="/orders">
-            <span className="merchant-stat-value">{countByTab(orders, 'masuk')}</span>
-            <span className="merchant-stat-label">Antrean</span>
-          </Link>
-          <Link className="merchant-stat merchant-stat--active" to="/orders">
-            <span className="merchant-stat-value">{countByTab(orders, 'diproses')}</span>
-            <span className="merchant-stat-label">Diproses</span>
-          </Link>
-          <div className="merchant-stat merchant-stat--done">
-            <span className="merchant-stat-value">{countByTab(orders, 'selesai')}</span>
-            <span className="merchant-stat-label">Selesai</span>
-          </div>
-          <div className="merchant-stat merchant-stat--revenue">
-            <span className="merchant-stat-value">{money(revenue)}</span>
-            <span className="merchant-stat-label">Pendapatan</span>
-          </div>
+        {/* Kartu pendapatan: satu kartu lebar penuh dengan angka 2xl + sparkline
+            tujuh hari. Sebelumnya ini kotak keempat dari grid 2×2 yang keempat
+            kartunya seragam — terukur 73/73/99/99px dan SEMUA nilai 17,01px,
+            jadi "Rp256.000" dan "2 order" dicetak sama besar (audit-002 #2/#3).
+            Sekarang uangnya jadi satu-satunya titik fokus, dan tiga angka
+            sisanya turun pangkat jadi satu baris teks. */}
+        <section className="merchant-revenue">
+          <p className="merchant-revenue-label">Pendapatan</p>
+          <p className="merchant-revenue-value">{money(revenue)}</p>
+          <p className="merchant-revenue-sub">
+            7 hari · {trend.orders} order jalan · puncak {trend.best?.label ?? '-'}
+          </p>
+          <Sparkline
+            data={revenueTrendBars()}
+            ariaLabel={`Pendapatan tujuh hari terakhir dalam ribuan rupiah: ${trend.revenueIdr} total`}
+          />
         </section>
 
-        {/* Tren 7 hari + komposisi. Primitif chart sudah ada (`BarChart`,
-            `DonutChart`, `_charts.scss`) dan dipakai konsol SA — tidak ada
-            library chart baru. Angka datang dari `merchantTrend`, yang menjaga
-            jumlah order dan pendapatannya sama dengan kartu di atas.
+        {/* Tiga angka antrean turun pangkat: baris teks 44px, tanpa kotak dan
+            tanpa latar. Dua di antaranya tetap tautan ke tab Order. */}
+        <nav className="merchant-statline" aria-label="Antrean order">
+          <Link to="/orders">
+            <strong>{countByTab(orders, 'masuk')}</strong> Antrean
+          </Link>
+          <Link to="/orders">
+            <strong>{countByTab(orders, 'diproses')}</strong> Diproses
+          </Link>
+          <span>
+            <strong>{countByTab(orders, 'selesai')}</strong> Selesai
+          </span>
+        </nav>
 
-            Dua chart tren ditumpuk PENUH LEBAR, bukan dua kolom sempit.
-            Varian dua kolom pernah dipakai dan diukur gagal: kolom 150px −
-            gap 12px×6 menyisakan 11,1px per batang sementara teks "44rb"
-            selebar 24,4px, jadi nilai tumpang tindih 1,3px di 5 pasang dan
-            label hari menyatu (audit-003 #1/#2/#3). Di lebar penuh (~35px
-            per kolom) keduanya muat. */}
+        {/* Konsekuensi kartu pendapatan: bar chart "Tren 7 hari" 371px dihapus.
+            Bentuk harinya sudah ada di sparkline, dan dua kali menunjukkan hal
+            yang sama bukan kelengkapan. Angka yang menjaganya tetap konsisten:
+            `merchantTrend` adalah sumber yang sama untuk kartu, sparkline, dan
+            baris di atasnya. */}
+        {/* Peringkat menu: `decision data`, bukan laporan. Ember statistik cuma
+            memberi tahu apa yang sedang terjadi; ini memberi tahu menu mana yang
+            layak diperhatikan. Diturunkan dari `CartItem` di order yang sudah
+            ada — nol mock baru. Rentangnya WAJIB disebut, karena delapan order
+            ini sekitar setengah jam terakhir, bukan sepanjang masa. */}
         <section className="merchant-card">
           <div className="merchant-card-head">
             <div>
-              <p className="merchant-card-title">Tren 7 hari</p>
-              <p className="merchant-card-sub">
-                {trend.orders} order · {money(trend.revenueIdr)}
-                {trend.best ? ` · terbaik ${trend.best.label}` : ''}
-              </p>
+              <p className="merchant-card-title">Menu terjual</p>
+              <p className="merchant-card-sub">{orders.length} order terakhir</p>
             </div>
           </div>
-          <BarChart
-            data={orderTrendBars()}
-            ariaLabel="Jumlah order per hari, tujuh hari terakhir"
-            tone="brand"
-            compact
-          />
-          <p className="merchant-chart-caption">Order per hari</p>
-          <BarChart
-            data={revenueTrendBars()}
-            ariaLabel="Pendapatan per hari dalam ribuan rupiah, tujuh hari terakhir"
-            tone="success"
-            compact
-            format={(value) => `${value}rb`}
-          />
-          {/* "rb" sudah menjelaskan satuan; "(ribuan rupiah)" mengulanginya
-              (audit-003 #8). */}
-          <p className="merchant-chart-caption">Pendapatan per hari</p>
+          {topMenu ? (
+            <p className="merchant-card-sub">
+              {topMenu.name} menyumbang {Math.round(topMenu.share * 100)}% porsi terjual dari{' '}
+              {topMenu.orders} order.
+            </p>
+          ) : null}
+          <ul className="merchant-rank">
+            {menuSales.map((row, index) => (
+              <li key={row.id}>
+                <span className="merchant-rank-name">{row.name}</span>
+                <span className="merchant-rank-bar" aria-hidden="true">
+                  <span
+                    className={index === 0 ? 'chart-tone-bg--brand' : 'chart-tone-bg--muted'}
+                    style={{ width: `${(row.sold / topSold) * 100}%` }}
+                  />
+                </span>
+                <span className="merchant-rank-figures">
+                  <strong>{row.sold}</strong> porsi · {moneyPlain(row.revenueIdr)}
+                </span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Judulnya "Komposisi order", bukan "hari ini": mock tidak punya

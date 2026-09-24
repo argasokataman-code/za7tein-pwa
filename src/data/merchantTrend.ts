@@ -106,3 +106,62 @@ export function paymentMixSegments(orders: MerchantOrder[] = merchantOrders): Ch
   ]
   return segments.filter((segment) => segment.value > 0)
 }
+
+/** Satu baris peringkat menu: terjual, omzet, dan berapa order memuatnya. */
+export interface MenuSalesRow {
+  /** `CartItem.id` — kunci yang membuat satu menu tidak terhitung dua kali. */
+  id: string
+  name: string
+  /** Total `quantity` lintas order. */
+  sold: number
+  /** `quantity × price` — omzet menu ini dalam rupiah. */
+  revenueIdr: number
+  /** Berapa order yang memuat menu ini. */
+  orders: number
+}
+
+/**
+ * Peringkat menu dari isi order yang ada — bukan mock baru.
+ *
+ * `MerchantOrder.items` sudah membawa `CartItem.quantity` dan `price`, jadi
+ * "menu apa yang paling disukai" bisa diturunkan tanpa menambah data apa pun.
+ * Dikelompokkan per `CartItem.id`, bukan per nama: dua item dengan nama sama
+ * tapi id berbeda adalah dua baris menu yang berbeda.
+ *
+ * **Rentangnya sempit dan labelnya harus jujur.** Delapan order mock adalah
+ * sekitar setengah jam terakhir, bukan "sepanjang masa"; bisa saja satu kantor
+ * pesan bareng. Pemanggil wajib menyebut rentangnya di UI.
+ */
+export function menuSalesRanking(orders: MerchantOrder[] = merchantOrders): MenuSalesRow[] {
+  const byId = new Map<string, MenuSalesRow>()
+  for (const order of orders) {
+    // Order yang ditolak/batal tidak pernah jadi penjualan.
+    if (order.status === 'ditolak' || order.status === 'batal') continue
+    for (const item of order.items) {
+      const row = byId.get(item.id) ?? {
+        id: item.id,
+        name: item.name,
+        sold: 0,
+        revenueIdr: 0,
+        orders: 0,
+      }
+      row.sold += item.quantity
+      row.revenueIdr += item.quantity * item.price
+      row.orders += 1
+      byId.set(item.id, row)
+    }
+  }
+  return [...byId.values()].sort((a, b) => b.sold - a.sold || b.revenueIdr - a.revenueIdr)
+}
+
+/**
+ * Porsi menu teratas dibanding seluruh porsi terjual (0–1). Dipakai kartu
+ * "Terjual" untuk membaca satu kalimat, bukan menyuruh merchant menghitung
+ * sendiri dari deretan bar.
+ */
+export function topMenuShare(rows: MenuSalesRow[]): { name: string; share: number; orders: number } | null {
+  const top = rows[0]
+  const total = rows.reduce((sum, row) => sum + row.sold, 0)
+  if (!top || total === 0) return null
+  return { name: top.name, share: top.sold / total, orders: top.orders }
+}

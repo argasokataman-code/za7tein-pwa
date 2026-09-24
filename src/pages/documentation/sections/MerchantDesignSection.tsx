@@ -251,42 +251,87 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         Grafik beranda dapur
       </h3>
       <p className="doc-p">
-        Beranda dapur menampilkan dua grafik tren (order &amp; pendapatan per hari, tujuh hari) dan
-        satu donut komposisi status order. Grafiknya memakai primitif yang <strong>sudah ada</strong>{' '}
-        — <code className="doc-inline">BarChart</code> dan{' '}
-        <code className="doc-inline">DonutChart</code> di{' '}
-        <code className="doc-inline">src/components/ui/</code> dengan{' '}
-        <code className="doc-inline">_charts.scss</code>, sama seperti Ringkasan Super Admin.
-        Tidak ada library chart baru.
+        Beranda dapur punya <strong>satu titik fokus uang</strong>: kartu pendapatan lebar penuh
+        dengan angka <code className="doc-inline">--text-2xl</code> dan sparkline tujuh hari, lalu
+        tiga angka antrean turun pangkat jadi satu baris teks 44px. Sebelumnya keempatnya kotak
+        seragam di grid 2×2 (terukur 73/73/99/99px dengan semua nilai 17,01px), jadi "Rp256.000"
+        dan "2 order" tercetak sama besar dan uangnya tidak menonjol.
       </p>
       <p className="doc-p">
-        Datanya hidup di <code className="doc-inline">src/data/merchantTrend.ts</code>. Merchant
-        tidak menyimpan tanggal pesanan (<code className="doc-inline">placedAt</code> berbentuk
-        teks relatif seperti "2 menit lalu"), jadi deret harian disimpan terpisah dan{' '}
-        <strong>dijaga konsisten dengan kartu di atasnya</strong>: jumlah order tujuh hari sama
-        dengan jumlah order mock, dan pendapatan tujuh hari sama dengan total order yang
-        benar-benar berjalan (order <code className="doc-inline">ditolak</code>/
-        <code className="doc-inline">batal</code> tidak pernah jadi uang).
+        Komponen{' '}
+        <code className="doc-inline">Sparkline</code> ({'{'}komponen ui{'}'}) menggambar satu seri
+        sebagai garis di SVG: yang perlu terlihat cuma bentuk harinya, bukan angka tiap titik,
+        dan angkanya tetap tersedia lewat <code className="doc-inline">aria-label</code>. Ini
+        <strong> menggantikan</strong> bar chart "Tren 7 hari" (371px) yang lalu dihapus: bentuk
+        harinya sudah tampil di kartu pendapatan, jadi menampilkannya dua kali bukan kelengkapan.
+        Tidak ada library chart baru, dan nada warnanya token yang sama dengan donut/bar.
       </p>
       <p className="doc-p">
-        Dua hal yang <strong>sengaja tidak dipakai</strong>, supaya tidak diusulkan ulang:
+        <strong>Menu terjual</strong> adalah blok peringkat menu dari{' '}
+        <code className="doc-inline">menuSalesRanking()</code> di{' '}
+        <code className="doc-inline">src/data/merchantTrend.ts</code> — diturunkan dari{' '}
+        <code className="doc-inline">MerchantOrder.items</code> yang sudah ada
+        (<code className="doc-inline">CartItem.quantity × price</code>), jadi <strong>nol mock
+        baru</strong>. Order <code className="doc-inline">ditolak</code>/
+        <code className="doc-inline">batal</code> tidak dihitung karena tidak pernah jadi
+        penjualan.
+      </p>
+      <p className="doc-p">
+        Tiga hal yang sengaja begitu:
       </p>
       <ul className="doc-list">
         <li>
-          <strong>Dua chart berdampingan di satu baris.</strong> Percobaan dua kolom pernah dibuat
-          untuk memendekkan kartu, dan diukur gagal: kolom 150px menyisakan 11,1px per batang
-          sementara teks nilai selebar 24,4px, jadi nilai tumpang tindih 1,3px di lima pasang dan
-          label hari menyatu. Chart kembali penuh lebar; kartu lebih tinggi, tapi terbaca.
+          <strong>Rentangnya disebut, bukan diklaim "sepanjang masa".</strong> Delapan order mock
+          adalah sekitar setengah jam terakhir dan bisa saja satu kantor yang pesan bareng; subjudul
+          menulis "8 order terakhir".
         </li>
         <li>
-          <strong>Judul "Komposisi hari ini".</strong> Mock tidak punya tanggal pesanan, jadi
-          klaim "hari ini" tidak bisa dibuktikan. Judulnya "Komposisi order".
+          <strong>Bar, bukan donut.</strong> Peringkat dibandingkan urutannya, jadi bar panjang
+          relatif 8px lebih terbaca daripada donut. Satu aksen saja: peringkat 1 oranye, sisanya
+          muted.
+        </li>
+        <li>
+          <strong>Peringkat memakai IDR saja</strong> (<code className="doc-inline">moneyPlain</code>),
+          bukan pasangan IDR+JOD. Dua balok teks yang hanya terpisah 12px terbaca sebagai satu baris
+          padat; padanan JOD-nya sudah ada di kartu pendapatan.
         </li>
       </ul>
       <p className="doc-p">
-        Perbandingan COD vs transfer tidak memakai donut kedua: split 4/4 tidak menambah
-        informasi di atas satu bar dua warna, dan donut kedua membuat kartu komposisi 468px.
-        Sekarang bar perbandingan 10px dengan legenda, tinggi kartu 395px.
+        Dua chart tren juga tetap ditumpuk <strong>penuh lebar</strong>, bukan dua kolom. Percobaan
+        dua kolom pernah dibuat untuk memendekkan kartu dan diukur gagal: kolom 150px menyisakan
+        11,1px per batang sementara teks nilai selebar 24,4px, jadi nilai tumpang tindih 1,3px di
+        lima pasang dan label hari menyatu.
+      </p>
+      <p className="doc-p">
+        Perbandingan COD vs transfer memakai bar dua warna, bukan donut kedua: split 4/4 tidak
+        menambah informasi di atas bar, dan donut kedua membuat kartu komposisi 468px (sekarang
+        395px).
+      </p>
+      <h3 className="doc-h3">
+        Journey Line di kartu order
+      </h3>
+      <p className="doc-p">
+        Kartu order di <code className="doc-inline">/merchant/orders</code> menampilkan{' '}
+        <strong>Journey Line</strong> — simpul Diterima · Dimasak · Diantar · Tiba dengan keadaan
+        {' '}<code className="doc-inline">done</code>/<code className="doc-inline">active</code>/
+        <code className="doc-inline">todo</code>. Sebelumnya merchant hanya melihat pil status
+        ("Dimasak"); posisi pesanan di perjalanannya tidak terlihat, jadi memantau antrean berarti
+        menebak.
+      </p>
+      <p className="doc-p">
+        Komponennya yang <strong>sama</strong> dengan layar customer dan tugas kurir (
+        <code className="doc-inline">src/components/JourneyLine.tsx</code>) — bukan digambar ulang.
+        Ini menjaga aturan AGENTS.md §9: merchant dan kurir memandang order yang sama dari sisi
+        berbeda, jadi diturunkan dari satu model.
+      </p>
+      <p className="doc-p">
+        Yang perlu diperhatikan saat memakainya: <code className="doc-inline">MerchantOrderStatus</code>{' '}
+        lebih lebar dari <code className="doc-inline">OrderStage</code>. Pemetaannya eksplisit di{' '}
+        <code className="doc-inline">JOURNEY_STAGE</code> (bukan cast), supaya menambah status baru
+        memaksa keputusan di satu tempat alih-alih diam-diam salah render. Order{' '}
+        <code className="doc-inline">masuk</code> belum punya tahap, dan order{' '}
+        <code className="doc-inline">ditolak</code>/<code className="doc-inline">batal</code> sudah
+        keluar dari rel — keduanya sengaja tidak menampilkan journey.
       </p>
     </DocSection>
   )

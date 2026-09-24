@@ -4,11 +4,29 @@ import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
+import { JourneyLine } from '../components/JourneyLine'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { COURIER_STATUS_LABEL } from '../data/courier'
 import { HOLD_STATUS_COPY, formatDistance, money, zoneLabel } from '../data/merchant'
 import { QUEUE_TABS, ordersForStatuses, orderStatusLabel, type QueueTabId } from '../data/merchantOrders'
 import { assignCourier, setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
+import type { MerchantOrderStatus, OrderStage } from '../types'
+
+/**
+ * Status order merchant → tahap Journey Line.
+ *
+ * `MerchantOrderStatus` lebih lebar dari `OrderStage`: `masuk` belum masuk rel,
+ * dan `selesai`/`ditolak`/`batal` sudah keluar dari rel. Pemetaannya eksplisit
+ * (bukan cast) supaya menambah status baru memaksa keputusan di sini, bukan
+ * diam-diam salah render.
+ */
+const JOURNEY_STAGE: Partial<Record<MerchantOrderStatus, OrderStage>> = {
+  diterima: 'diterima',
+  dimasak: 'dimasak',
+  diantar: 'diantar',
+  tiba: 'tiba',
+  selesai: 'tiba',
+}
 
 export default function MerchantOrders() {
   const dispatch = useAppDispatch()
@@ -85,6 +103,16 @@ export default function MerchantOrders() {
                   </span>
                 </div>
               </div>
+
+              {/* Journey Line: merchant melihat posisi tiap pesanan tanpa
+                  membuka apa pun. Komponen yang sama dengan layar customer dan
+                  tugas kurir — status pesanan tetap satu model lintas peran
+                  (AGENTS.md §9: turunkan, jangan gambar ulang). Order `masuk`
+                  belum punya tahap dan order ditolak/batal tidak lagi di rel,
+                  jadi keduanya tidak menampilkan journey. */}
+              {JOURNEY_STAGE[order.status] ? (
+                <JourneyLine stage={JOURNEY_STAGE[order.status] as OrderStage} />
+              ) : null}
 
               <ul className="merchant-order-items">
                 {order.items.map((item) => (

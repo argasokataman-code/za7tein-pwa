@@ -37,6 +37,40 @@
   background: var(--text-secondary);
 }
 
+/* ── Sparkline ─────────────────────────────────────────────────────────── */
+
+/* Satu seri sebagai garis; dipakai di kartu pendapatan beranda dapur. Nada
+   warnanya ikut token yang sama dengan donut/bar di atas, jadi tidak menambah
+   warna baru. `vector-effect` menjaga garis tetap 2px walau viewBox-nya
+   diregangkan lebar penuh. */
+.chart-spark {
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+/* `vector-effect` tidak dipakai di sini: garis data boleh diskalakan bersama
+   viewBox-nya, karena rasionya sudah nyata (bukan viewBox 0..100 yang
+   diregangkan), dan menambah `vector-effect` membuat tebal garis berbeda dengan
+   yang lain saat kartu menyempit. */
+.chart-spark-line {
+  fill: none;
+  stroke: var(--sa7tein-orange);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-spark-fill {
+  stop-color: var(--sa7tein-orange);
+}
+
+.chart-spark-dot {
+  fill: var(--sa7tein-orange);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+}
+
 /* ── Donut ─────────────────────────────────────────────────────────────── */
 
 .chart-donut {

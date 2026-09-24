@@ -25,6 +25,45 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Journey Line di order merchant</td>
+              <td>
+                Kartu order hanya menampilkan pil status ("Diterima"/"Dimasak"). Posisi pesanan di
+                perjalanannya tidak terlihat, jadi memantau antrean berarti menebak
+              </td>
+              <td>
+                <code className="doc-inline">JourneyLine</code> yang sama dengan layar customer dan
+                kurir, dipasang di tiap kartu order aktif lewat pemetaan status→stage yang eksplisit.
+                Order <em>masuk</em> belum punya tahap; ditolak/batal sudah keluar dari rel
+              </td>
+            </tr>
+            <tr>
+              <td>Kartu statistik beranda dapur</td>
+              <td>
+                Empat kartu seragam di grid 2×2: Antrean · Diproses · Selesai · Pendapatan. Terukur
+                73/73/99/99 px dan <strong>semua nilai 17,01 px</strong>, jadi "Rp256.000" tercetak
+                sama besar dengan "2 order". Uang tidak menonjol, dan dua angkanya mengulang pil
+                merah di tab Order
+              </td>
+              <td>
+                Satu kartu pendapatan lebar penuh: angka <code className="doc-inline">--text-2xl</code>{' '}
+                + sparkline tujuh hari. Tiga angka antrean turun pangkat jadi baris teks 44 px.
+                Ember 182 px → <strong>167 px + 44 px</strong>, dan yang dibaca pertama adalah uangnya
+              </td>
+            </tr>
+            <tr>
+              <td>Beranda tidak punya data keputusan</td>
+              <td>
+                Semua angka di beranda melaporkan <em>apa yang sedang terjadi</em> (antrean, diproses,
+                selesai). Tidak ada satu pun yang memberi tahu <em>menu mana yang layak
+                diperhatikan</em>, padahal itu yang mengubah keputusan dapur
+              </td>
+              <td>
+                Blok <strong>Menu terjual</strong>: peringkat menu + bar 8 px + omzet IDR, diturunkan
+                dari <code className="doc-inline">CartItem</code> di order yang sudah ada (nol mock
+                baru). Rentangnya disebut jujur: "8 order terakhir"
+              </td>
+            </tr>
+            <tr>
               <td>Grafik beranda dapur</td>
               <td>
                 Beranda hanya punya angka: empat kartu statistik + kartu insentif. Tidak ada satu pun
