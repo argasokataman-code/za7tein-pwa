@@ -6,6 +6,7 @@
   "id": "/merchant/",
   "scope": "/merchant/",
   "display": "standalone",
+  "display_override": ["fullscreen", "standalone"],
   "background_color": "#FFF9F4",
   "theme_color": "#F15A37",
   "orientation": "portrait-primary",

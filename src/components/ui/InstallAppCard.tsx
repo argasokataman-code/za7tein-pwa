@@ -1,5 +1,4 @@
 import { Download } from 'lucide-react'
-import toast from 'react-hot-toast'
 
 import { useInstallPrompt } from '../../hooks/useInstallPrompt'
 
@@ -7,21 +6,19 @@ import { useInstallPrompt } from '../../hooks/useInstallPrompt'
  * Kartu "Pasang aplikasi" untuk keempat peran. Satu komponen supaya tidak ada
  * empat salinan logika `beforeinstallprompt` — logikanya di `useInstallPrompt`.
  *
- * Kalau browser belum menawarkan prompt (iOS Safari, Firefox, atau prompt belum
- * siap), tombolnya menjadi instruksi manual, bukan tombol yang diam saja.
- * Kartu ini menyembunyikan dirinya sendiri saat aplikasi sudah terpasang.
+ * Kalau browser punya prompt native (Chrome, Brave, Edge) tombolnya "Pasang" dan
+ * memanggil prompt itu. Kalau tidak (iOS, Firefox), kartu menampilkan langkah
+ * manualnya langsung — bukan tombol yang diam. Kartu ini menyembunyikan dirinya
+ * sendiri saat aplikasi sudah terpasang.
  */
 export function InstallAppCard() {
-  const { hidden, canPrompt, install } = useInstallPrompt()
+  const { hidden, canPrompt, isIOS, install } = useInstallPrompt()
 
   if (hidden) return null
 
-  const handleInstall = async () => {
-    const prompted = await install()
-    if (!prompted) {
-      toast('Buka menu Bagikan di browser, lalu pilih Tambahkan ke Layar Utama.')
-    }
-  }
+  const steps = isIOS
+    ? 'Ketuk Bagikan di Safari, lalu pilih Tambah ke Layar Utama.'
+    : 'Buka menu browser, lalu pilih Pasang aplikasi atau Instal.'
 
   return (
     <section className="install-app" aria-label="Pasang aplikasi">
@@ -32,9 +29,13 @@ export function InstallAppCard() {
           <p className="install-app-sub">Buka tanpa browser, langsung dari layar utama.</p>
         </div>
       </div>
-      <button type="button" className="install-app-btn" onClick={handleInstall}>
-        {canPrompt ? 'Pasang' : 'Cara pasang'}
-      </button>
+      {canPrompt ? (
+        <button type="button" className="install-app-btn" onClick={() => void install()}>
+          Pasang
+        </button>
+      ) : (
+        <p className="install-app-steps">{steps}</p>
+      )}
     </section>
   )
 }

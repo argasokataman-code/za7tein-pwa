@@ -52,3 +52,43 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+// Langkah manual untuk peramban tanpa prompt native (iOS Safari, Firefox):
+// teks, bukan tombol, supaya tidak terlihat bisa diketuk padahal tidak.
+.install-app-steps {
+  margin-top: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+// Modal pasang aplikasi yang muncul sendiri di kunjungan pertama. Memakai
+// ulang kartu di atas; lapisan gelap menutupi layar penuh, kartunya di bawah.
+.install-prompt {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-5);
+  padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  background: rgba(32, 32, 32, 0.4);
+}
+
+.install-prompt-box {
+  width: 100%;
+  max-width: var(--shell-max);
+}
+
+.install-prompt-later {
+  width: 100%;
+  min-height: var(--touch-min);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--on-brand);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}

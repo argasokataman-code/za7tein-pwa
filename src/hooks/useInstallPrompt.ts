@@ -46,9 +46,19 @@ export function useInstallPrompt() {
     typeof window !== 'undefined' &&
     window.matchMedia('(display-mode: standalone)').matches
 
+  // iOS (Safari maupun peramban lain di iOS) tidak pernah menembakkan
+  // `beforeinstallprompt`, jadi satu-satunya jalan pasang lewat menu Bagikan.
+  // Dideteksi di sini supaya pemanggil menampilkan langkah manual, bukan tombol
+  // yang diam saja.
+  const isIOS =
+    typeof navigator !== 'undefined' &&
+    (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
+
   return {
     hidden: installed || standalone,
     canPrompt: promptEvent !== null,
+    isIOS,
     install,
   }
 }

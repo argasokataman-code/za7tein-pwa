@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-route
 
 import { StoreProvider } from './store/provider'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
+import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 
 import AccountSetup from './pages/AccountSetup'
 import AddNewCard from './pages/AddNewCard'
@@ -339,6 +340,10 @@ export default function App() {
           },
         }}
       />
+      {/* Modal pasang aplikasi untuk URL yang memang bisa diinstal (keempat
+          peran + halaman promosi). Konsol Super Admin dan /documentation
+          sengaja bukan PWA, jadi tidak ditawari. */}
+      {role !== null || pathname === '/' ? <InstallPromptSheet /> : null}
     </StoreProvider>
   )
 }

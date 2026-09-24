@@ -29,15 +29,98 @@ export function PwaSection() {
         melihat tinggi halaman.
       </p>
       <p className="doc-p">
-        Tombol Pasang memakai prompt browser saat tersedia; bila browser tidak
-        menyediakannya, pengguna mendapat petunjuk memasang dari menu Bagikan.
-        Logikanya satu tempat (<code>useInstallPrompt</code>) dan kartunya satu
-        komponen (<code>InstallAppCard</code>) yang dipasang di keempat peran:
-        onboarding, Profil customer, Setelan merchant, Profil kurir, dan dasbor
-        CS. Kartu menyembunyikan dirinya sendiri saat aplikasi sudah terpasang
-        (<code>appinstalled</code>) atau dibuka sebagai aplikasi
-        (<code>display-mode: standalone</code>). Uji instalasi dan offline pada
-        hasil <code>npm run build</code> lalu <code>npm run preview</code>.
+        Logika pasang satu tempat (<code>useInstallPrompt</code>) dan kartunya
+        satu komponen (<code>InstallAppCard</code>). Kalau browser punya prompt
+        native, tombolnya memanggil prompt itu; kalau tidak, kartu menampilkan
+        langkah manualnya langsung, bukan tombol yang diam. Kartu menyembunyikan
+        dirinya sendiri saat aplikasi sudah terpasang (<code>appinstalled</code>)
+        atau dibuka sebagai aplikasi (<code>display-mode: standalone</code>), dan
+        ikut dipasang di Profil customer, Setelan merchant, Profil kurir, dasbor
+        CS, serta onboarding. Uji instalasi dan offline pada hasil{' '}
+        <code>npm run build</code> lalu <code>npm run preview</code>.
+      </p>
+
+      <h3 className="doc-h3">Ajakan Pasang Otomatis</h3>
+      <p className="doc-p">
+        <code>InstallPromptSheet</code> menampilkan kartu itu sebagai modal 1,2
+        detik setelah URL pertama kali dibuka (peran mana pun dan halaman
+        promosi), jadi pengguna yang datang dari tautan tidak perlu menemukan
+        kartunya di dalam Profil. Sekali ditutup, modal tidak muncul lagi di
+        peramban itu (<code>localStorage</code>).
+      </p>
+      <p className="doc-p">
+        Modal tidak bisa memaksa dialog native; yang terjadi berbeda per
+        peramban:
+      </p>
+      <div className="doc-table-wrap">
+        <table className="doc-table">
+          <thead>
+            <tr>
+              <th>Peramban</th>
+              <th>Yang terjadi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Chrome / Brave / Edge (Android, desktop)</td>
+              <td>
+                Modal muncul; tombol Pasang memanggil prompt native
+                (<code>beforeinstallprompt</code>). Prompt wajib lewat ketukan,
+                tidak boleh otomatis.
+              </td>
+            </tr>
+            <tr>
+              <td>Safari (iOS)</td>
+              <td>
+                Tidak ada <code>beforeinstallprompt</code> sama sekali; modal
+                menampilkan langkah Bagikan lalu Tambah ke Layar Utama.
+              </td>
+            </tr>
+            <tr>
+              <td>Firefox, peramban tanpa dukungan</td>
+              <td>Modal menampilkan langkah manual dari menu peramban.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 className="doc-h3">Mode Tampilan</h3>
+      <p className="doc-p">
+        Keempat manifest peran memakai{' '}
+        <code>display_override: [&quot;fullscreen&quot;, &quot;standalone&quot;]</code>.
+        Chromium Android yang mendukungnya membuka aplikasi terinstal dalam mode
+        layar penuh: status bar dan bilah sistem disembunyikan, kembali dengan
+        sapuan dari tepi. Browser yang tidak mengenal <code>fullscreen</code>{' '}
+        (iOS) jatuh ke <code>display: standalone</code> yang tetap tanpa
+        antarmuka peramban. Karena itu tidak ada warna status bar yang perlu
+        disetel per halaman. iOS memakai{' '}
+        <code>apple-mobile-web-app-status-bar-style: default</code> (ikon gelap
+        di bar terang) supaya tetap terbaca di atas permukaan app yang terang;
+        <code>black-translucent</code> akan memaksa ikon putih dan hilang di
+        halaman krem.
+      </p>
+
+      <h3 className="doc-h3">Status Bar di App-Mode</h3>
+      <p className="doc-p">
+        Bila status bar OS tetap tampil (fallback <code>standalone</code>, notch
+        perangkat, atau iOS), konten naik ke bawahnya karena{' '}
+        <code>viewport-fit=cover</code>. Header yang menempel di atas menyerap
+        inset itu di dalam padding-nya sendiri
+        (<code>padding-top: calc(var(--space-3) + env(safe-area-inset-top))</code>),
+        jadi latarnya menutupi area status bar pada semua posisi gulir, bukan
+        hanya saat di puncak. Aturannya satu tempat di{' '}
+        <code>_app-shell.scss</code>: header peran (courier, merchant, admin,
+        track, chat) dan tiga header layar warisan yang masih menempel
+        (<code>.checkout-header</code>, <code>.profile-flow-header</code>,{' '}
+        <code>.rating-driver-header</code>). Header lain di{' '}
+        <code>app/part-01</code>, <code>part-06</code>, dan{' '}
+        <code>part-10</code> menanganinya sendiri.
+      </p>
+      <p className="doc-p">
+        Di ujung bawah, bilah navigasi menyerap gesture bar dengan{' '}
+        <code>padding-bottom: calc(12px + env(safe-area-inset-bottom))</code>,
+        jadi isinya tetap di atas area gestur sementara latarnya melebar
+        sampai tepi layar.
       </p>
 
       <h3 className="doc-h3">Service Worker</h3>

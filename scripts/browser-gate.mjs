@@ -386,6 +386,19 @@ const MEASURE = `(async () => {
   const safe = { top: parseFloat(ps.paddingTop) || 0, bottom: parseFloat(ps.paddingBottom) || 0 }
   probe.remove()
 
+  // Konten header teratas harus turun melewati inset status bar di jendela
+  // app-mode; kalau tidak, judulnya tertutup jam/baterai OS. Diukur dari tepi
+  // anak pertama header sticky teratas, sebab padding header-lah yang menyerap
+  // inset itu, bukan wadah halaman.
+  const stickyHeaders = [...document.querySelectorAll('[class*="-header"]')]
+    .filter((el) => getComputedStyle(el).position === 'sticky' && vis(el))
+  const topContent = stickyHeaders.length
+    ? Math.min(...stickyHeaders.map((el) => {
+        const f = el.firstElementChild
+        return Math.round((f || el).getBoundingClientRect().top)
+      }))
+    : null
+
   return {
     path: location.pathname,
     runtime,
@@ -400,6 +413,7 @@ const MEASURE = `(async () => {
       controlled,
       cacheCount,
       safe,
+      headerTop: topContent,
     },
     shell: { w: Math.round(sr.width), x: Math.round(sr.x) },
     col,
@@ -504,6 +518,14 @@ function judge(measured, tokens, strict, viewportWidth) {
     }
     if (Math.abs(measured.pwa.safe.bottom - OPTS.insetBottom) > 1) {
       push(fail, `safe-area bawah ${measured.pwa.safe.bottom}px != ${OPTS.insetBottom}px yang diset`)
+    }
+    // Konten header tidak boleh tertutup status bar OS. Inset di atas cuma
+    // berguna kalau ada elemen yang benar-benar menyerapnya.
+    if (measured.pwa.headerTop !== null && measured.pwa.headerTop < measured.pwa.safe.top - 1) {
+      push(
+        warn,
+        `konten header terpotong status bar: tepi konten ${measured.pwa.headerTop}px < safe-area ${measured.pwa.safe.top}px`,
+      )
     }
   }
   // Buktikan emulasi benar-benar berlaku. Mengukur di jendela klon (500px)
@@ -788,6 +810,14 @@ async function setOffline(cdp, offline) {
  */
 async function warmUpShell(cdp, url) {
   await goto(cdp, url)
+  // Modal pasang aplikasi (`InstallPromptSheet`) menutupi layar pada kunjungan
+  // pertama dan akan membuat tiap klik dilaporkan OVERLAY. Gate menolaknya
+  // lebih dulu — sama seperti pengguna yang menekan "Nanti saja" — supaya yang
+  // diukur adalah halamannya, bukan modalnya.
+  await evaluate(
+    cdp,
+    `localStorage.setItem('sa7tein:install-prompt-dismissed', '1')`,
+  )
   await evaluate(cdp, `(async () => {
     const regs = await navigator.serviceWorker.getRegistrations()
     await Promise.all(regs.map((r) => r.update().catch(() => {})))

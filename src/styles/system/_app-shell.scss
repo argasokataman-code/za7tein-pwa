@@ -61,3 +61,34 @@ body.wallet-page {
 .app-shell > [class*="-screen"] {
   width: 100%;
 }
+
+// Status bar OS di jendela app-mode. `viewport-fit=cover` (index.html) membuat
+// konten naik ke bawah status bar. Header yang menempel di atas harus menyerap
+// inset itu di dalam padding-nya sendiri — bukan di wadah halaman — supaya
+// latarnya menutupi area status bar di semua posisi gulir, bukan cuma saat di
+// puncak. Satu tempat untuk semua header sticky; sebelumnya hanya layar warisan
+// di app/part-01, part-06, dan part-10 yang menanganinya, jadi header peran
+// (courier/merchant/admin) terpotong di app terinstal.
+@media (display-mode: standalone) {
+  // Prefiks `.app-shell` menaikkan kekhususan ke 0-2-0: stylesheet lama punya
+  // `.wallet-flow .profile-flow-header` (0-2-0 juga) yang kalau tidak
+  // disamakan akan menang dan menyisakan padding-top 12px.
+  .app-shell .courier-header,
+  .app-shell .merchant-header,
+  .app-shell .admin-header,
+  .app-shell .track-header,
+  .app-shell .chat-header,
+  .app-shell .checkout-header,
+  .app-shell .profile-flow-header,
+  .app-shell .rating-driver-header {
+    padding-top: calc(var(--space-3) + env(safe-area-inset-top));
+  }
+
+  // Stylesheet lama memberi header ini tinggi tetap 60px. Dengan box-sizing
+  // border-box (part-01), padding inset akan menghimpit isinya. Tingginya
+  // dilepas jadi lantai supaya header ikut tumbuh setinggi inset.
+  .app-shell .rating-driver-header {
+    height: auto;
+    min-height: 60px;
+  }
+}
