@@ -49,11 +49,19 @@
   }
 }
 
-.auth-photo img {
+// `> img`, bukan `img`: logo merek di dalam badge juga <img>, dan selector
+// keturunan `.auth-photo img` (0-1-1) mengalahkan `.auth-brand-mark` (0-1-0),
+// sehingga logo terukur 96x96 — badge merek melebar jadi 234x104 dan terlihat
+// seperti keputusan desain, padahal bug spesifisitas.
+.auth-photo > img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  // Asetnya portrait (800x1422) sedangkan panelnya strip lanskap, jadi tanpa
+  // ini `cover` memotong tepat di tengah dan yang terlihat cuma alas piring.
+  // 38% mengarahkan ke isi mangkuk.
+  object-position: center 38%;
 }
 
 // Merek sebagai label, bukan ikon hiasan: logo mangkuk Sa7tein (aset PWA yang
@@ -536,11 +544,13 @@
   transition: border-color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
 }
 
+// `inset: -1px` (bukan 0): radio mengisi **border box** label, bukan padding
+// box-nya. Dengan `inset: 0` ia terukur 169x42 — dua piksel kurang dari
+// `--touch-min` karena tepi 1px label, dan gerbang membacanya sebagai target
+// di bawah 44px. Nilai negatif ini membuatnya menutup tepi itu.
 .auth-zone input {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -1px;
   margin: 0;
   opacity: 0;
   cursor: pointer;

@@ -2861,6 +2861,177 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-4145",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:11:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+11/-9) — edit via tool: // `inset: -1px` (bukan 0): radio ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4146",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:13:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+14/-8) — edit via tool: ts: // ── Layar masuk / daftar ─────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-4147",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:13:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts (+33/-23) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts"
+    },
+    {
+      "id": "TASK-4148",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:13:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+1/-1) — edit via tool: tsx: photo?: AuthPhoto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-4149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:13:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+14/-6) — edit via tool: // `> img`, bukan `img`: logo mere",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-4150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:14:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" &&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:17:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+22/-2) — edit via tool: tsx: <tr>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-4152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:17:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.51.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:17:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/sa7tein-commit-7.txt (+39) — write via tool: fix(auth): badge merek, ukuran radio zon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/sa7tein-commit-7.txt"
     }
   ]
 }

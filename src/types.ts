@@ -795,10 +795,16 @@ export interface ChartBar {
 }
 
 // ── Layar masuk / daftar ────────────────────────────────────────────────────
-// Foto panel atas layar auth. Bentuknya sengaja `{ src, alt }` polos: yang
-// dibutuhkan `AuthLayout` hanya dua itu, jadi tidak perlu tipe yang lebih kaya.
+// Foto panel atas layar auth. Dimensinya bagian dari tipe karena ketiganya
+// aset portrait (800x1422 atau 800x1200) dan pemanggil harus meneruskannya ke
+// atribut `width`/`height` <img>: tanpa itu browser mengalokasikan ruang
+// sebelum gambar dimuat dengan rasio yang salah, dan panel foto melompat.
 
 export interface AuthPhoto {
   src: string
   alt: string
+  /** Lebar asli berkas, dipakai atribut `width` <img>. */
+  width: number
+  /** Tinggi asli berkas, dipakai atribut `height` <img>. */
+  height: number
 }

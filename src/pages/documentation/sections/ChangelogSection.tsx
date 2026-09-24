@@ -25,6 +25,26 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Layar daftar toko (spesifisitas &amp; ukuran target)</td>
+              <td>
+                Badge merek di panel foto melebar 234×104 karena{' '}
+                <code className="doc-inline">.auth-photo img</code> (0-1-1) menang atas{' '}
+                <code className="doc-inline">.auth-brand-mark</code> (0-1-0), jadi logo 26px
+                terukur 96px. Radio zona 169×42 karena{' '}
+                <code className="doc-inline">inset: 0</code> mengisi padding box, bukan border
+                box. Atribut dimensi foto <code className="doc-inline">860×645</code> padahal
+                asetnya portrait 800×1422
+              </td>
+              <td>
+                <code className="doc-inline">.auth-photo &gt; img</code> supaya hanya foto
+                besar yang kena, <code className="doc-inline">inset: -1px</code> supaya radio
+                menutup tepi label jadi 44px penuh, dan dimensi aset pindah ke{' '}
+                <code className="doc-inline">data/auth.ts</code> lewat tipe{' '}
+                <code className="doc-inline">AuthPhoto</code>. Gate{' '}
+                <code className="doc-inline">/merchant/signup</code> 2/2 PASS
+              </td>
+            </tr>
+            <tr>
               <td>Alur kerja &amp; aturan testing</td>
               <td>
                 Urutan kerja tidak tertulis, jadi tiap tugas dimulai dari kode. Akibatnya

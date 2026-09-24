@@ -2,6 +2,7 @@ import { ArrowLeft } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import type { AuthPhoto } from '../../types'
 import { HomeIndicator } from '../layout/HomeIndicator'
 
 /**
@@ -26,7 +27,7 @@ export interface AuthLayoutProps {
    * Foto makanan dari `public/assets/`. Wajib diisi kecuali untuk layar status
    * yang memang tidak butuh konteks visual.
    */
-  photo?: { src: string; alt: string }
+  photo?: AuthPhoto
   /** Nama peran: "Pembeli" atau "Merchant". Pembeda peran, bukan hiasan. */
   role: string
   /** Judul layar. H1 halaman, jadi harus cocok dengan `<title>`. */
@@ -59,7 +60,13 @@ export function AuthLayout({
     <div className={`app-shell auth${photo ? '' : ' auth--plain'}`}>
       {photo ? (
         <div className="auth-photo">
-          <img src={photo.src} alt={photo.alt} width={860} height={645} decoding="async" />
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            width={photo.width}
+            height={photo.height}
+            decoding="async"
+          />
           <span className="auth-photo-brand">
             <img
               className="auth-brand-mark"
