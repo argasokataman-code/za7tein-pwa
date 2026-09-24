@@ -1,9 +1,25 @@
-import { Bike, ChefHat, Download, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { ArrowRight, ArrowUpRight, Bike, Check, ChefHat, Download, X } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import { HomeIndicator } from '../components/layout/HomeIndicator'
+
+/**
+ * Layar pengenalan customer.
+ *
+ * Bentuknya carousel: satu foto bulat sebagai titik fokus, judul dan isi di
+ * bawahnya, satu aksi primer. Yang bergerak saat pindah slide hanya konten
+ * (foto + teks) — kerangkanya berdiam supaya tombol tidak melompat dari bawah
+ * jari.
+ *
+ * Ikon panah di dalam tombol berubah per slide (`ArrowUpRight` di slide
+ * pertama, `ArrowRight` di tengah, `Check` di akhir) dan itu penanda posisi,
+ * bukan hiasan: pengguna tahu ini slide terakhir tanpa harus menghitung titik.
+ *
+ * Isi slide berasal dari PRD aktif (estimasi masak, rute kurir, zona), bukan
+ * copy pemasaran. Foto memakai aset yang sudah ada di repo.
+ */
 
 const SLIDES = [
   {
@@ -11,18 +27,26 @@ const SLIDES = [
     kind: 'photo',
     title: 'Makanan sekitar, selagi hangat',
     text: 'Pesan dari dapur di sekitarmu dan ikuti perjalanannya sampai tiba.',
+    photo: '/assets/img/menu/sate-ayam.webp',
+    photoAlt: 'Sate ayam dibakar di atas bara, asap tipis menutupi panggangan',
+    cta: 'Lanjut',
+    icon: ArrowUpRight,
   },
   {
     id: 'kitchen',
     kind: 'soft',
     title: 'Antrean dapur terlihat',
     text: 'Estimasi masak 15, 25, atau 35 menit, jelas sejak checkout.',
+    cta: 'Lanjut',
+    icon: ArrowRight,
   },
   {
     id: 'deliver',
     kind: 'mint',
     title: 'Diantar satu perjalanan',
     text: 'Kurir menjemput beberapa pesanan sekaligus dengan rute terkunci.',
+    cta: 'Mulai',
+    icon: Check,
   },
 ] as const
 
@@ -36,6 +60,9 @@ export default function Onboarding() {
   const [index, setIndex] = useState(0)
   const [showInstall, setShowInstall] = useState(true)
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null)
+  /** Slide lama yang masih terlihat saat slide baru masuk (animasi silang). */
+  const [phase, setPhase] = useState<'idle' | 'out'>('idle')
+  const touchStartX = useRef<number | null>(null)
 
   useEffect(() => {
     const onPrompt = (event: Event) => {
@@ -64,26 +91,91 @@ export default function Onboarding() {
 
   const slide = SLIDES[index]
   const isLast = index === SLIDES.length - 1
+  const SlideIcon = slide.icon
+
+  /**
+   * Pindah slide dengan dua fase, bukan satu: `out` dulu (konten memudar dan
+   * mengecil), lalu ganti isi dan lepas `out` supaya masuk kembali. Kalau isi
+   * ditukar langsung tanpa fase keluar, teks baru terlihat melompat di tengah
+   * animasi.
+   */
+  const goTo = useCallback(
+    (next: number) => {
+      if (next === index || phase === 'out') return
+      setPhase('out')
+      window.setTimeout(() => {
+        setIndex(next)
+        setPhase('idle')
+      }, 220)
+    },
+    [index, phase],
+  )
 
   const goNext = () => {
     if (isLast) navigate('/signin')
-    else setIndex((current) => current + 1)
+    else goTo(index + 1)
+  }
+
+  // Swipe: ambang 44px supaya tidak bentrok dengan gulir dokumen dan ketukan
+  // pendek pada tombol.
+  const onTouchStart = (event: React.TouchEvent) => {
+    touchStartX.current = event.changedTouches[0].screenX
+  }
+
+  const onTouchEnd = (event: React.TouchEvent) => {
+    if (touchStartX.current === null) return
+    const delta = touchStartX.current - event.changedTouches[0].screenX
+    touchStartX.current = null
+    if (Math.abs(delta) < 44) return
+    if (delta > 0 && index < SLIDES.length - 1) goTo(index + 1)
+    if (delta < 0 && index > 0) goTo(index - 1)
   }
 
   return (
     <div className="onboarding-page">
-      <div className="onboarding-media">
-        {slide.kind === 'photo' ? (
-          <div className="onboarding-photo" aria-hidden="true" />
-        ) : (
-          <div className={`onboarding-art is-${slide.kind}`} aria-hidden="true">
-            {slide.kind === 'soft' ? (
-              <ChefHat size={68} strokeWidth={1.75} />
-            ) : (
-              <Bike size={68} strokeWidth={1.75} />
-            )}
-          </div>
-        )}
+      <div
+        className="onboarding-media"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        {/* Pola latar: dua lingkaran radial lembut. Nilainya di CSS, bukan
+            gradient merek baru — hanya kedalaman di atas warna aksi. */}
+        <div className="onboarding-stage" aria-hidden="true" />
+
+        <div className={`onboarding-visual is-${slide.kind}${phase === 'out' ? ' is-out' : ''}`}>
+          {slide.kind === 'photo' ? (
+            <img
+              className="onboarding-dish"
+              src={slide.photo}
+              alt={slide.photoAlt}
+              width={800}
+              height={1200}
+              decoding="async"
+            />
+          ) : (
+            <div className="onboarding-disc" aria-hidden="true">
+              {slide.kind === 'soft' ? (
+                <ChefHat size={72} strokeWidth={1.75} />
+              ) : (
+                <Bike size={72} strokeWidth={1.75} />
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Merek di atas foto: dua aplikasi terinstal berbeda, jadi pengguna
+            perlu tahu ini yang mana sejak layar pertama. */}
+        <span className="onboarding-brand">
+          <img
+            className="onboarding-brand-mark"
+            src="/icons/sa7tein-96x96.png"
+            alt=""
+            width={26}
+            height={26}
+            decoding="async"
+          />
+          <span className="onboarding-brand-name">Sa7tein</span>
+        </span>
 
         {showInstall && !window.matchMedia('(display-mode: standalone)').matches && (
           <aside className="onboarding-install" aria-label="Saran pasang aplikasi">
@@ -118,7 +210,7 @@ export default function Onboarding() {
                 aria-current={i === index ? 'step' : undefined}
                 aria-label={`Langkah ${i + 1}`}
                 className={`onboarding-dot${i === index ? ' is-active' : ''}`}
-                onClick={() => setIndex(i)}
+                onClick={() => goTo(i)}
               >
                 <span aria-hidden="true" />
               </button>
@@ -129,11 +221,16 @@ export default function Onboarding() {
           </button>
         </div>
 
-        <h1 className="onboarding-heading">{slide.title}</h1>
-        <p className="onboarding-body">{slide.text}</p>
+        <div className={`onboarding-copy${phase === 'out' ? ' is-out' : ''}`}>
+          <h1 className="onboarding-heading">{slide.title}</h1>
+          <p className="onboarding-body">{slide.text}</p>
+        </div>
 
         <button type="button" className="onboarding-cta" onClick={goNext}>
-          {isLast ? 'Mulai' : 'Lanjut'}
+          <span className="onboarding-cta-label">{slide.cta}</span>
+          <span className="onboarding-cta-icon" aria-hidden="true">
+            <SlideIcon size={20} strokeWidth={2.25} />
+          </span>
         </button>
       </div>
 

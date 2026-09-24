@@ -25,6 +25,15 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Onboarding customer (carousel)</td>
+              <td>
+                Layar pengenalan berupa strip foto pendek lalu panel putih: tidak ada titik fokus, dan tidak ada cara berpindah selain tombol. Foto hanya dipakai di slide pertama
+              </td>
+              <td>
+                Foto mengisi penuh section atas (full-bleed) dengan badge merek di atasnya, carousel tiga slide dengan titik navigasi, geser kiri-kanan, dan transisi silang. Tombol aksi jadi pill putih berisi label + bulatan oranye, ikonnya berganti per slide (panah naik, panah kanan, centang) sebagai penanda posisi. Isi slide tetap dari PRD
+              </td>
+            </tr>
+            <tr>
               <td>Layar daftar toko (spesifisitas &amp; ukuran target)</td>
               <td>
                 Badge merek di panel foto melebar 234×104 karena{' '}

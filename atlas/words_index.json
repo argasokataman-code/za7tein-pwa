@@ -6679,6 +6679,38 @@
     {
       "id": "TASK-4153",
       "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
+      "shard": 6
     }
   ],
   "sa7tein": [
@@ -19137,6 +19169,38 @@
     {
       "id": "TASK-4153",
       "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
+      "shard": 6
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -23246,6 +23310,26 @@
     },
     {
       "id": "TASK-4152",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
       "shard": 6
     }
   ],
@@ -28557,6 +28641,38 @@
     {
       "id": "TASK-4153",
       "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
+      "shard": 6
     }
   ],
   "tool:": [
@@ -33814,6 +33930,38 @@
     },
     {
       "id": "TASK-4153",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
       "shard": 6
     }
   ],
@@ -40249,6 +40397,46 @@
     {
       "id": "TASK-4153",
       "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
+      "shard": 6
     }
   ],
   "task-147": [
@@ -42028,6 +42216,18 @@
     },
     {
       "id": "TASK-4153",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
       "shard": 6
     }
   ],
@@ -43851,6 +44051,10 @@
     {
       "id": "TASK-4128",
       "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
     }
   ],
   "task-149": [
@@ -45512,6 +45716,10 @@
     },
     {
       "id": "TASK-4152",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
       "shard": 6
     }
   ],
@@ -49221,6 +49429,10 @@
     {
       "id": "TASK-4137",
       "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
     }
   ],
   "type": [
@@ -52035,6 +52247,22 @@
     {
       "id": "TASK-4152",
       "shard": 6
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
     }
   ],
   "bike,": [
@@ -53349,6 +53577,10 @@
     {
       "id": "TASK-4152",
       "shard": 6
+    },
+    {
+      "id": "TASK-4161",
+      "shard": 6
     }
   ],
   "(+77/-4)": [
@@ -54421,6 +54653,14 @@
     {
       "id": "TASK-4150",
       "shard": 6
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
     }
   ],
   "rtk": [
@@ -54830,6 +55070,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -55632,6 +55876,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -56463,6 +56711,10 @@
     {
       "id": "TASK-4150",
       "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
     }
   ],
   "build": [
@@ -56960,6 +57212,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -57594,6 +57850,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -59131,6 +59391,14 @@
     {
       "id": "TASK-4150",
       "shard": 6
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
     }
   ],
   "task-175": [
@@ -59848,6 +60116,10 @@
     },
     {
       "id": "TASK-4151",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4162",
       "shard": 6
     }
   ],
@@ -60638,6 +60910,14 @@
     },
     {
       "id": "TASK-4149",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
       "shard": 6
     }
   ],
@@ -61479,6 +61759,14 @@
     {
       "id": "TASK-4150",
       "shard": 6
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa": [
@@ -62188,6 +62476,14 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -62910,6 +63206,14 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -63805,6 +64109,10 @@
     {
       "id": "TASK-4150",
       "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
     }
   ],
   "tail": [
@@ -64246,6 +64554,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -66933,6 +67245,10 @@
     {
       "id": "TASK-4150",
       "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
     }
   ],
   "head": [
@@ -67496,6 +67812,10 @@
     },
     {
       "id": "TASK-4153",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
       "shard": 6
     }
   ],
@@ -69068,6 +69388,14 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -71555,6 +71883,10 @@
     {
       "id": "TASK-3487",
       "shard": 5
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
     }
   ],
   "chefhat,": [
@@ -72369,6 +72701,14 @@
     {
       "id": "TASK-421",
       "shard": 1
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
     }
   ],
   "(+114)": [
@@ -73903,6 +74243,10 @@
     {
       "id": "TASK-4074",
       "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
     }
   ],
   "\"./mixins\"": [
@@ -73936,6 +74280,10 @@
     },
     {
       "id": "TASK-4074",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
       "shard": 6
     }
   ],
@@ -73987,6 +74335,10 @@
     {
       "id": "TASK-4074",
       "shard": 6
+    },
+    {
+      "id": "TASK-4155",
+      "shard": 6
     }
   ],
   "*;": [
@@ -74020,6 +74372,10 @@
     },
     {
       "id": "TASK-4074",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4155",
       "shard": 6
     }
   ],
@@ -74674,6 +75030,10 @@
     },
     {
       "id": "TASK-4146",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
       "shard": 6
     }
   ],
@@ -87757,6 +88117,10 @@
     {
       "id": "TASK-1206",
       "shard": 2
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
     }
   ],
   "task-1206": [
@@ -91347,6 +91711,10 @@
     {
       "id": "FEAT-540",
       "shard": 6
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
     }
   ],
   "titik": [
@@ -91864,6 +92232,10 @@
     },
     {
       "id": "BUG-1030",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
       "shard": 6
     }
   ],
@@ -98169,6 +98541,10 @@
     {
       "id": "TASK-2909",
       "shard": 4
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
     }
   ],
   "exchangeratenote": [
@@ -98739,6 +99115,10 @@
     {
       "id": "TASK-3523",
       "shard": 5
+    },
+    {
+      "id": "TASK-4156",
+      "shard": 6
     }
   ],
   "\"wallet-preset\\|wallet-form\\|wallet-status\\|wallet-balance\\|wallet-history\\": [
@@ -99606,6 +99986,10 @@
     },
     {
       "id": "TASK-4045",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4160",
       "shard": 6
     }
   ],
@@ -103047,6 +103431,10 @@
     {
       "id": "TASK-3108",
       "shard": 4
+    },
+    {
+      "id": "TASK-4154",
+      "shard": 6
     }
   ],
   "coins,": [
@@ -104100,6 +104488,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -108863,6 +109255,10 @@
     {
       "id": "TASK-3260",
       "shard": 4
+    },
+    {
+      "id": "TASK-4160",
+      "shard": 6
     }
   ],
   "sepusat": [
@@ -111055,6 +111451,10 @@
     {
       "id": "TASK-4150",
       "shard": 6
+    },
+    {
+      "id": "TASK-4158",
+      "shard": 6
     }
   ],
   "task-3521": [
@@ -111354,6 +111754,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -113081,6 +113485,10 @@
     {
       "id": "TASK-4151",
       "shard": 6
+    },
+    {
+      "id": "TASK-4162",
+      "shard": 6
     }
   ],
   "(+27/-3)": [
@@ -114659,6 +115067,10 @@
     {
       "id": "TASK-4146",
       "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
     }
   ],
   "route_tables": [
@@ -115524,6 +115936,10 @@
     },
     {
       "id": "TASK-4150",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4158",
       "shard": 6
     }
   ],
@@ -119271,6 +119687,14 @@
     {
       "id": "BUG-1020",
       "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4163",
+      "shard": 6
     }
   ],
   "task-4086": [
@@ -120862,6 +121286,194 @@
   "task-4153": [
     {
       "id": "TASK-4153",
+      "shard": 6
+    }
+  ],
+  "task-4154": [
+    {
+      "id": "TASK-4154",
+      "shard": 6
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/src/styles/system/_onboarding.scss": [
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    }
+  ],
+  "(+336)": [
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    }
+  ],
+  "task-4155": [
+    {
+      "id": "TASK-4155",
+      "shard": 6
+    }
+  ],
+  "\"green-soft\\|success-ink\"": [
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    }
+  ],
+  "src/styles/_tokens.scss": [
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    }
+  ],
+  "src/styles/system/_menu.s": [
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    }
+  ],
+  "task-4156": [
+    {
+      "id": "TASK-4156",
+      "shard": 6
+    }
+  ],
+  "bundar:": [
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    }
+  ],
+  "rasio": [
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    }
+  ],
+  "terkun": [
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    }
+  ],
+  "task-4157": [
+    {
+      "id": "TASK-4157",
+      "shard": 6
+    }
+  ],
+  "task-4158": [
+    {
+      "id": "TASK-4158",
+      "shard": 6
+    }
+  ],
+  "(+42/-38)": [
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    }
+  ],
+  "focal": [
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    }
+  ],
+  "point": [
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    }
+  ],
+  "─────────": [
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    }
+  ],
+  "task-4159": [
+    {
+      "id": "TASK-4159",
+      "shard": 6
+    }
+  ],
+  "(+38/-24)": [
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    }
+  ],
+  "latar:": [
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    }
+  ],
+  "ra": [
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    }
+  ],
+  "task-4160": [
+    {
+      "id": "TASK-4160",
+      "shard": 6
+    }
+  ],
+  "v2.52.0": [
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    }
+  ],
+  "task-4161": [
+    {
+      "id": "TASK-4161",
+      "shard": 6
+    }
+  ],
+  "task-4162": [
+    {
+      "id": "TASK-4162",
+      "shard": 6
+    }
+  ],
+  "/tmp/sa7tein-commit-8.txt": [
+    {
+      "id": "TASK-4163",
+      "shard": 6
+    }
+  ],
+  "feat(onboarding):": [
+    {
+      "id": "TASK-4163",
+      "shard": 6
+    }
+  ],
+  "full-bleed,": [
+    {
+      "id": "TASK-4163",
+      "shard": 6
+    }
+  ],
+  "carou": [
+    {
+      "id": "TASK-4163",
+      "shard": 6
+    }
+  ],
+  "task-4163": [
+    {
+      "id": "TASK-4163",
       "shard": 6
     }
   ]

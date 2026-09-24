@@ -1,6 +1,13 @@
 @use "./mixins" as *;
 
 // ── Onboarding ────────────────────────────────────────────────────────────
+// Carousel: satu foto bulat sebagai titik fokus, judul + isi, satu aksi primer.
+// Yang beranimasi hanya isi (foto + teks); kerangka dan tombol berdiam supaya
+// aksi tidak melompat dari bawah jari saat slide berganti.
+//
+// Tidak ada Tailwind, font eksternal, URL gambar eksternal, radius 48px, atau
+// bezel mockup perangkat: semuanya dibuang saat konsep dipindahkan (DNA.md
+// melarang mockup ponsel generik, gradient, dan URL gambar eksternal).
 
 .onboarding-page {
   display: flex;
@@ -9,44 +16,136 @@
   background: var(--bg-warm);
 }
 
+// Section media: satu lapisan tumpuk. Foto/disc mengisi penuh, overlay dan
+// saran pasang duduk di atasnya. Tanpa padding di sini — foto harus menempel
+// tepi kolom; ruang tepi diatur oleh isi yang ada di atasnya.
 .onboarding-media {
   position: relative;
   flex: 1;
   min-height: 46dvh;
   overflow: hidden;
-  background: var(--surface);
+  background: var(--sa7tein-orange);
 }
 
-.onboarding-photo {
+// Kedalaman lewat dua lingkaran radial, nilai alpha rendah (16% dan 10%)
+// supaya oranye merek tidak bergeser ke salmon. Ini pengganti `bg-pattern`
+// Tailwind, dan bukan gradient merek baru — hanya gelap-terang di atas warna
+// aksi. Terlihat di slide tanpa foto; di slide berfoto, gambar menutupinya.
+.onboarding-stage {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/media/onboarding-bg.196fa385.jpg');
-  background-position: center;
-  background-size: cover;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.16) 0%, transparent 42%),
+    radial-gradient(circle at 88% 84%, rgba(0, 0, 0, 0.1) 0%, transparent 46%);
+  pointer-events: none;
 }
 
-.onboarding-art {
+// ── Focal point ───────────────────────────────────────────────────────────
+// Wadah animasi dan gambar dipisah: `is-out` memudarkan dan mengecilkan
+// wadahnya, sedangkan `object-fit` milik gambar tetap utuh.
+.onboarding-visual {
   position: absolute;
   inset: 0;
+  z-index: 1;
   display: grid;
   place-items: center;
+  transition:
+    opacity var(--motion-standard) var(--ease-in),
+    transform var(--motion-standard) var(--ease-in);
 }
 
-.onboarding-art.is-soft {
-  background: var(--orange-soft);
+.onboarding-visual.is-out {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+// Foto mengisi seluruh section: full-bleed, bukan potongan bulat. Ini gambar
+// konten sesungguhnya, jadi ia berhak memakai ruang penuh dan tidak boleh
+// dikurung di dalam lingkaran kecil.
+.onboarding-dish {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  // Asetnya portrait (800x1200/1422); panel hanya setinggi bagian atas layar.
+  // 38% mengarahkan potongan ke isi makanan, bukan alas piring.
+  object-position: center 38%;
+}
+
+// Lapisan gelap di bawah teks supaya judul tetap terbaca di atas foto terang.
+// Nilainya dari hitam merek, bukan warna baru.
+.onboarding-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(32, 32, 32, 0.72), rgba(32, 32, 32, 0.15) 45%, transparent 70%);
+  pointer-events: none;
+}
+
+// Slide tanpa foto: seluruh section diwarnai lembut + ikon Lucide besar di
+// tengah. Bukan ilustrasi stok, dan bukan lingkaran kecil — ukurannya sama
+// dengan foto supaya perpindahan slide tidak mengubah bentuk apa pun.
+.onboarding-disc {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
   color: var(--orange-soft-ink);
 }
 
-.onboarding-art.is-mint {
+.onboarding-visual.is-soft .onboarding-disc {
+  background: var(--orange-soft);
+}
+
+.onboarding-visual.is-mint .onboarding-disc {
   background: var(--green-soft);
   color: var(--success-ink);
 }
 
+// ── Merek ─────────────────────────────────────────────────────────────────
+// Badge putih di atas foto/ warna, sama pola dengan layar auth: logo 26px +
+// nama. Bukan hiasan — dua peran adalah dua aplikasi terinstal berbeda.
+
+.onboarding-brand {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.onboarding-brand-mark {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-xs);
+}
+
+.onboarding-brand-name {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+// ── Saran pasang aplikasi ─────────────────────────────────────────────────
+
 .onboarding-install {
   position: absolute;
-  top: var(--space-3);
+  // Di bawah badge merek (badge tinggi ~34px di y=16), supaya keduanya tidak
+  // saling menutup saat saran pasang muncul.
+  top: calc(var(--space-4) + 34px + var(--space-2));
   right: var(--space-3);
   left: var(--space-3);
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -99,10 +198,13 @@
 .onboarding-install-btn:focus-visible,
 .onboarding-install-close:focus-visible,
 .onboarding-skip:focus-visible,
-.onboarding-cta:focus-visible {
+.onboarding-cta:focus-visible,
+.onboarding-dot:focus-visible {
   outline: 2px solid var(--orange-ink);
   outline-offset: 2px;
 }
+
+// ── Panel isi ─────────────────────────────────────────────────────────────
 
 .onboarding-sheet {
   position: relative;
@@ -128,6 +230,9 @@
   gap: var(--space-1);
 }
 
+// Target sentuh 44px, penanda terlihat 8px (24px saat aktif) — sama pola
+// dengan checkbox di layar auth: yang diukur gerbang kotak besarnya, yang
+// dilihat mata bulatan kecilnya.
 .onboarding-dot {
   display: grid;
   place-items: center;
@@ -145,7 +250,7 @@
   height: 8px;
   border-radius: var(--radius-pill);
   background: var(--border-strong);
-  transition: width var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
+  transition: width var(--motion-standard) var(--ease-out), background var(--motion-standard) var(--ease-out);
 }
 
 .onboarding-dot.is-active span {
@@ -169,6 +274,17 @@
   color: var(--text-primary);
 }
 
+.onboarding-copy {
+  transition:
+    opacity var(--motion-standard) var(--ease-in),
+    transform var(--motion-standard) var(--ease-in);
+}
+
+.onboarding-copy.is-out {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
 .onboarding-heading {
   font-size: var(--text-xl);
   line-height: 1.2;
@@ -181,21 +297,85 @@
   font-size: var(--text-base);
 }
 
+// ── Aksi primer ───────────────────────────────────────────────────────────
+// Bentuk dari konsep: label di kiri, bulatan ikon di kanan. Tetap satu kontrol
+// (bukan tombol di dalam tombol), jadi seluruh baris bisa diklik dan hanya ada
+// satu target fokus. Radius `--radius-pill` sah di sini karena ini kontrol
+// pill, bukan kartu.
+
 .onboarding-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   width: 100%;
-  min-height: var(--touch-min);
+  min-height: calc(var(--touch-min) + var(--space-2));
   margin-top: var(--space-5);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-5);
   border: 0;
-  border-radius: var(--radius-md);
-  background: var(--sa7tein-orange);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: var(--text-base);
-  font-weight: 700;
   cursor: pointer;
-  transition: box-shadow var(--motion-fast) var(--ease-out);
+  box-shadow: var(--shadow-md);
+  transition:
+    background var(--motion-fast) var(--ease-out),
+    box-shadow var(--motion-fast) var(--ease-out),
+    transform var(--motion-fast) var(--ease-out);
 }
 
 .onboarding-cta:hover {
   box-shadow: var(--shadow-brand);
+}
+
+.onboarding-cta:active {
+  transform: scale(0.985);
+}
+
+.onboarding-cta-label {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.onboarding-cta-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  transition: background var(--motion-fast) var(--ease-out);
+}
+
+.onboarding-cta:hover .onboarding-cta-icon {
+  background: var(--orange-deep);
+}
+
+// Tombol ini berlatar `--surface` di dalam panel yang juga `--surface`, jadi
+// tanpa tepi ia kehilangan batasnya di mode kontras tinggi. Tepi tipis hanya
+// muncul saat `forced-colors`, tidak di tampilan normal.
+@media (forced-colors: active) {
+  .onboarding-cta,
+  .onboarding-disc,
+  .onboarding-dish {
+    border: 1px solid CanvasText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .onboarding-visual,
+  .onboarding-copy,
+  .onboarding-cta,
+  .onboarding-cta-icon,
+  .onboarding-dot span {
+    transition: none;
+  }
+
+  .onboarding-cta:active {
+    transform: none;
+  }
 }
