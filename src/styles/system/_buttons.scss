@@ -112,7 +112,10 @@
 }
 
 // ── 2. Tombol ikon: tetap bulat, ukurannya diseragamkan ───────────────────
-.btn-back,
+// `.btn-back` sengaja tidak lagi di sini: tombol kembali punya kontraknya
+// sendiri di `_topbar.scss` (44px, --radius-md, permukaan + tepi) supaya sama
+// dengan panel peran. Sisanya tetap bulat — mereka toggle/ikon aksi, bukan
+// kontrol kembali, jadi bentuknya tidak perlu ikut.
 .camera-icon-btn,
 .profile-edit-btn,
 .avatar-edit-btn,

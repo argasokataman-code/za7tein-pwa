@@ -43,3 +43,8 @@
 // setelah partial yang mendefinisikan kelas-kelas itu supaya menang pada
 // kekhususan yang sama (0-1-0).
 @use "./system/type";
+
+// Paling akhir: kontrak top bar (tinggi, inset, tombol kembali). Harus setelah
+// semua partial yang mendefinisikan header — merchant, kurir, admin, cart,
+// tracking, post-order, checkout — supaya menang pada kekhususan yang sama.
+@use "./system/topbar";

@@ -33,7 +33,12 @@ const BUTTON_ROWS: ButtonRow[] = [
   {
     role: 'Ikon bulat',
     sample: '.qty-btn',
-    aliases: '.btn-back, .camera-icon-btn, .profile-edit-btn, .avatar-edit-btn, .recenter-btn, .driver-action-btn, .btn-current-location-map, .location-picker-gps-icon, .quantity-btn',
+    aliases: '.camera-icon-btn, .profile-edit-btn, .avatar-edit-btn, .recenter-btn, .driver-action-btn, .btn-current-location-map, .location-picker-gps-icon, .quantity-btn',
+  },
+  {
+    role: 'Tombol kembali',
+    sample: '.btn-back',
+    aliases: '.back-btn, .back-btn-profile, .back-button, .track-back, .courier-back, .admin-back',
   },
   {
     role: 'Overlay peta',
@@ -53,6 +58,21 @@ export function ButtonsSection() {
         min-height 44px (<code className="doc-inline">--touch-min</code>), radius 10px
         (<code className="doc-inline">--radius-md</code>), gap 8px, transisi dari token motion.
         <strong> Tidak ada varian ukuran</strong> — jangan bikin <code className="doc-inline">.btn-sm</code>.
+      </p>
+      <p className="doc-p">
+        Tombol kembali berdiri sebagai perannya sendiri (baris terakhir tabel di bawah): 44px,{' '}
+        <code className="doc-inline">--radius-md</code>, permukaan <code className="doc-inline">--surface</code>{' '}
+        + tepi <code className="doc-inline">--border-strong</code>, ikon 24px/{' '}
+        <code className="doc-inline">stroke-width</code> 1.75. Kontraknya ditulis sekali di{' '}
+        <code className="doc-inline">system/_topbar.scss</code> untuk tujuh kelas aliasnya — sebelum
+        itu terukur 36/40/44/48px dengan empat bentuk berbeda, dan{' '}
+        <code className="doc-inline">.back-btn-profile</code> bahkan 24&times;24 (hanya sebesar
+        ikonnya). Pengecualiannya sadar dan tetap dikunci ukurannya:{' '}
+        <code className="doc-inline">.auth-back</code> (hantu tanpa permukaan) serta varian di atas
+        peta/foto (<code className="doc-inline">.back-btn-map</code>,{' '}
+        <code className="doc-inline">.btn-back-map</code>,{' '}
+        <code className="doc-inline">.map-header .btn-back</code>) yang transparannya punya alasan
+        kontras.
       </p>
 
       <div className="doc-preview">

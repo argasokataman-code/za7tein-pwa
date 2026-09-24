@@ -1,0 +1,167 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Kontrak top bar — satu tinggi, satu bentuk, untuk semua halaman.
+//
+// DNA baris 20: header halaman satu pola untuk semua role — judul + kontrol
+// 44px opsional + eyebrow opsional, tinggi minimum --nav-height, latar
+// --bg-warm, jarak tepi --space-5. Sebelum aturan ini ukurannya hidup di tiap
+// partial dan tidak pernah bertemu: 76px (merchant/kurir/admin), 60px
+// (favorit, saldo, order), padding 16px (alamat, pembayaran, ulasan), 70px
+// (cari). Halaman yang sama-sama "judul + tombol kembali" karena itu tampil
+// beda tinggi dan tepi teksnya tidak sejajar antar layar.
+//
+// Padding vertikal 0, tinggi dari `min-height`: pada border-box `min-height`
+// sudah mencakup padding, jadi bar berisi kontrol 44px yang diberi padding 10px
+// tetap terukur 44px terlihat — bukan 64. Dengan padding 0 dan lantai setinggi
+// bar, area isinya 64px dan kontrolnya terpusat (10px di atas, 10px di bawah).
+// Sama tampilannya, tapi tingginya benar-benar satu nilai.
+
+// Bar halaman saja. Dua yang sengaja tidak ikut: `.menu-detail-header`
+// mengambang di atas foto menu dan tingginya mengikuti tombolnya — ia bukan
+// bilah; `.filter-header` adalah baris di dalam lembar filter, bukan bar
+// halaman. Kelas warisan yang tidak dipakai markup mana pun
+// (order-delivered/-delivery/-placed/-success/-tracking-header, profile-header,
+// location-picker-header, home-header, map-header) sengaja juga tidak ikut.
+$page-bars:
+  ".merchant-header",
+  ".courier-header",
+  ".admin-header",
+  ".track-header",
+  ".chat-header",
+  ".checkout-header",
+  ".profile-flow-header",
+  ".rating-driver-header",
+  ".address-selection-header",
+  ".payment-selection-header",
+  ".reviews-header",
+  ".favorites-header",
+  ".payment-amount-header",
+  ".order-arrived-header",
+  ".add-card-header",
+  ".search-header";
+
+// `.wallet-flow .profile-flow-header` dari app/part-15 (0-2-0) menyetel
+// padding-top 12px; didaftarkan apa adanya supaya tidak lolos dari kontrak.
+//
+// Padding vertikal 0 dan tinggi dari `min-height`, bukan padding 10px: pada
+// border-box, `min-height` mencakup padding, jadi bar berisi kontrol 44px yang
+// diberi padding 10px tetap terukur 44px terlihat — bukan 64. Dengan padding 0
+// dan lantai setinggi bar, area isinya 64px dan kontrolnya terpusat (10px di
+// atas, 10px di bawah) — sama tampilannya, tapi tingginya benar-benar satu.
+#{$page-bars},
+.wallet-flow .profile-flow-header {
+  display: flex;
+  align-items: center;
+  height: auto;
+  min-height: var(--nav-height);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+// Judul hero di dalam bar role (merchant/kurir/admin) dipatok, tidak ikut clamp
+// `vw` milik `--text-2xl`: kolom aplikasi dikunci 430px, tapi tokennya
+// mengikuti lebar jendela, jadi bar yang sama terukur 123px di jendela 390px
+// dan 127px di 1440px — satu-satunya bar yang tingginya masih berbeda. Varian
+// `--has-control` tidak ikut: di situ judulnya memang sudah turun ke `--text-lg`
+// (`_type.scss`).
+.merchant-header:not(.merchant-header--has-control) .merchant-title,
+.courier-header:not(.courier-header--has-control) .courier-title,
+.admin-header:not(.admin-header--has-control) .admin-title {
+  font-size: var(--text-bar-title);
+}
+
+// `.reviews-header` dipakai dua tempat: bar judul /reviews dan baris kecil di
+// detail menu. Yang kedua sudah direset oleh `.menu-detail-content
+// .menu-reviews-section .reviews-header` (0-3-0) di `_menu.scss`, jadi baris
+// kecil itu tidak ikut menjadi bilah 64px.
+
+// ── Tombol kembali: satu ukuran, satu bentuk, satu permukaan ───────────────
+// Terukur: 36px (app/part-07), 40px (part-14/15), 44px, 48px (part-08) dengan
+// empat bentuk (radius-xs, radius-md, pill, 50%) dan tiga permukaan (cakram
+// putih, kotak bergaris, ikon telanjang). Tombol yang sama berubah rupa tiap
+// kali pindah layar. Bentuknya disatukan ke panel peran yang dibangun dari
+// plan (merchant/kurir/admin): 44px, --radius-md, permukaan + tepi.
+//
+// Yang sengaja tidak ikut: `.auth-back` (hantu tanpa permukaan di layar
+// masuk), dan varian di atas peta/foto (`.back-btn-map`, `.btn-back-map`,
+// `.map-header .btn-back`) yang transparannya punya alasan fungsi kontras —
+// lihat `_buttons.scss`. Keduanya tetap dikunci ukuran dan ikonnya.
+$back-solid:
+  ".btn-back",
+  ".back-btn",
+  ".back-btn-profile",
+  ".back-button",
+  ".track-back",
+  ".courier-back",
+  ".admin-back";
+$back-ghost: ".auth-back";
+$back-overlay: ".back-btn-map", ".btn-back-map";
+
+#{$back-solid},
+#{$back-ghost},
+#{$back-overlay} {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  // `min-*` juga dipasang: inilah yang benar-benar bekerja pada tombol
+  // kembali `.btn-back` di `_back.scss`, dan `.back-btn-profile` (13 halaman
+  // profil) ternyata mengabaikan `width`/`height` sehingga terukur 24x24 —
+  // hanya sebesar ikonnya. Lantai ini menutup jalur itu.
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+}
+
+#{$back-solid} {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+}
+
+// Ukuran ikon datang dari prop lucide, jadi berbeda per halaman (22px di layar
+// order, 24px di sebagian besar layar lain). Dikunci di sini alih-alih
+// menyunting dua puluh berkas markup; `stroke-width` juga lewat CSS supaya
+// sama dengan DNA (1.75) walau propnya berbeda.
+:is(#{$back-solid}) svg,
+:is(#{$back-ghost}) svg,
+:is(#{$back-overlay}) svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.75;
+}
+
+// Status bar OS di app-mode (`viewport-fit=cover`, lihat index.html): inset
+// diserap di padding bar, bukan di wadah halaman, supaya latar bar menutupi
+// area status bar di semua posisi gulir. Satu tempat untuk semua bar; versi
+// sebelumnya hanya menangani empat belas kelas dengan tiga nilai berbeda dan
+// melewatkan `.order-arrived-header` sama sekali.
+@media (display-mode:standalone), (display-mode:fullscreen) {
+  .app-shell #{$page-bars},
+  .app-shell .wallet-flow .profile-flow-header {
+    // Lantai dinaikkan sebesar inset dan insetnya masuk lewat padding atas:
+    // area isi tetap 64px, tapi mulai di bawah status bar, dan latar bar
+    // menutupi seluruh area status bar.
+    min-height: calc(var(--nav-height) + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+  }
+
+  // Bar `fixed` mulai dari tepi atas: inset masuk lewat padding, bukan lewat
+  // `top`. `.favorites-header` dan `.order-arrived-header` masih memakai
+  // `top: 44px` — sisa status bar tiruan — jadi 15px pertama latarnya
+  // tertinggal di bawah status bar asli (terukur 59px di jendela 390px).
+  .app-shell .favorites-header,
+  .app-shell .payment-amount-header,
+  .app-shell .order-arrived-header {
+    top: 0;
+  }
+
+  // Konten di bawah bar `fixed` diberi ruang setinggi bar + inset.
+  .app-shell .favorites-content {
+    padding-top: calc(104px + env(safe-area-inset-top));
+  }
+
+  .app-shell .payment-amount-content {
+    padding-top: calc(76px + env(safe-area-inset-top));
+  }
+}

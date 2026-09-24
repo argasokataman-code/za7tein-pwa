@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Enam baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Tujuh baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -156,6 +156,35 @@ export function AppPolishSection() {
                 sama dengan layar Ledger; (6) Alert SLA tetap dengan konfirmasi; (7) kartu Master
                 tenant tetap singkat. Yang bukan milik CS (pajak, profit, audit trail, kill switch)
                 tidak ditampilkan sama sekali
+              </td>
+            </tr>
+            <tr>
+              <td>Top bar: satu tinggi untuk semua halaman, tombol kembali satu bentuk</td>
+              <td>
+                Tiap partial menulis tingginya sendiri: 76px (merchant/kurir/admin), 60px (favorit,
+                saldo, order tiba), padding 16px (alamat, pembayaran, ulasan), 70px (cari) &mdash;
+                halaman yang sama-sama &ldquo;judul + tombol kembali&rdquo; tampil beda. Tombol
+                kembali 36px (part-07), 40px (part-14/15), 48px (part-08) dengan empat bentuk (radius-xs,
+                radius-md, pill, 50%) dan tiga permukaan; ikonnya 22px di layar order dan 24px di
+                tempat lain. Satu jalur juga mengabaikan ukurannya: <code className="doc-inline">.back-btn-profile</code>{' '}
+                (13 halaman profil) terukur 24&times;24, hanya sebesar ikonnya
+              </td>
+              <td>
+                Partial baru <code className="doc-inline">system/_topbar.scss</code>, diimpor terakhir
+                lewat facade <code className="doc-inline">_system.scss</code> (16 kelas bar). Kontraknya:
+                <code className="doc-inline">min-height: var(--nav-height)</code> 64px, padding vertikal 0
+                (pada border-box <code className="doc-inline">min-height</code> sudah mencakup padding,
+                jadi kontrol 44px yang diberi padding 10px tetap terukur 44px terlihat), lantai naik
+                sebesar <code className="doc-inline">env(safe-area-inset-top)</code> di app-mode. Tombol
+                kembali: 44px, <code className="doc-inline">--radius-md</code>, permukaan + tepi
+                <code className="doc-inline">--border-strong</code>, ikon 24px/<code className="doc-inline">stroke-width</code>{' '}
+                1.75 dipatok lewat CSS. Judul hero di bar role dipatok ke token baru{' '}
+                <code className="doc-inline">--text-bar-title</code> 28px: <code className="doc-inline">--text-2xl</code>{' '}
+                memakai <code className="doc-inline">clamp(vw)</code> sehingga judul yang sama 32px di
+                jendela 390px dan 37px di 1440px &mdash; cukup untuk mendorong tingginya, dan itu satu-satunya
+                bar yang masih berbeda. Terukur gate <code className="doc-inline">--role all --pwa</code>:
+                <strong> 134/134 PASS, 10 kelas bar semuanya 123px</strong> (= 64px terlihat + 59px inset)
+                di 390px dan 1440px
               </td>
             </tr>
           </tbody>

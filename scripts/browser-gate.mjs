@@ -77,7 +77,12 @@ function tokensFromSource() {
     const m = scss.match(new RegExp(`--${name}\\s*:\\s*([0-9.]+)px`))
     return m ? Number(m[1]) : null
   }
-  return { shellMax: px('shell-max'), touchMin: px('touch-min'), space5: px('space-5') }
+  return {
+    shellMax: px('shell-max'),
+    touchMin: px('touch-min'),
+    space5: px('space-5'),
+    navHeight: px('nav-height'),
+  }
 }
 
 const ROUTE_TABLES = {
@@ -428,9 +433,40 @@ const MEASURE = `(async () => {
     ? textWho
     : 'anak header sticky'
 
+  // Bar halaman teratas: kelas, tinggi, tepi atas. Dipakai untuk membuktikan
+  // tinggi bar satu nilai (--nav-height) di semua halaman, dan bahwa bar
+  // fixed benar-benar mulai dari tepi atas di app-mode. Hanya bilah yang
+  // menempel (sticky/fixed), selebar kolom, dan berlatar tidak tembus
+  // pandang — jadi bar mengambang di atas foto/map tidak ikut terukur.
+  const topbar = (() => {
+    const bars = [...document.querySelectorAll('[class*="-header"]')].filter((el) => {
+      if (!vis(el)) return false
+      const p = getComputedStyle(el).position
+      if (p !== 'sticky' && p !== 'fixed') return false
+      const r = el.getBoundingClientRect()
+      if (r.width < sr.width * 0.9) return false
+      const m = getComputedStyle(el).backgroundColor.match(/rgba?\(([^)]+)\)/)
+      if (m && m[1].split(',').length === 4 && parseFloat(m[1].split(',')[3]) === 0) return false
+      return true
+    })
+    if (!bars.length) return null
+    bars.sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)
+    const el = bars[0]
+    const r = el.getBoundingClientRect()
+    const cs = getComputedStyle(el)
+    return {
+      cls: String(el.className).split(' ')[0].slice(0, 32),
+      h: Math.round(r.height),
+      top: Math.round(r.top),
+      pad: [Math.round(parseFloat(cs.paddingTop)), Math.round(parseFloat(cs.paddingBottom))],
+      minH: Math.round(parseFloat(cs.minHeight)) || 0,
+    }
+  })()
+
   return {
     path: location.pathname,
     runtime,
+    topbar,
     viewport: { w: window.innerWidth, h: window.innerHeight },
     pwa: {
       displayMode: matchMedia('(display-mode: fullscreen)').matches
@@ -560,6 +596,16 @@ function judge(measured, tokens, strict, viewportWidth) {
       )
     }
   }
+  // Tinggi bar halaman satu nilai (DNA baris 20: tinggi minimum --nav-height).
+  // Sebelum kontrak `_topbar.scss` terukur 60/64/76px menurut halaman. Di
+  // app-mode tingginya bar + inset, jadi lantainya tetap token ini.
+  if (measured.topbar && tokens.navHeight && measured.topbar.h < tokens.navHeight - 1) {
+    push(
+      warn,
+      `bar halaman ${measured.topbar.h}px < --nav-height ${tokens.navHeight}px (${measured.topbar.cls})`,
+    )
+  }
+
   // Buktikan emulasi benar-benar berlaku. Mengukur di jendela klon (500px)
   // pernah menghasilkan angka yang tidak ada hubungannya dengan app.
   if (Math.abs(measured.viewport.w - viewportWidth) > 1) {
@@ -797,7 +843,8 @@ async function main() {
           const mark = bad ? `${C.red}FAIL${C.off}` : verdict.warn.length ? `${C.yellow}WARN${C.off}` : `${C.green}PASS${C.off}`
           const tag = pass === 'offline' ? ' offline' : ''
           const pwaInfo = OPTS.pwa ? ` · ${measured.pwa.displayMode} · sw ${measured.pwa.swCount}${measured.pwa.controlled ? '/ctrl' : ''}` : ''
-          logLine(`  ${mark} ${url} @${width}px${tag}  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px · overflow ${measured.overflowX}px · ${measured.controls} kontrol${pwaInfo}${C.off}`)
+          const barInfo = measured.topbar ? ` · bar ${measured.topbar.h}px ${measured.topbar.cls}` : ''
+          logLine(`  ${mark} ${url} @${width}px${tag}  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px · overflow ${measured.overflowX}px · ${measured.controls} kontrol${barInfo}${pwaInfo}${C.off}`)
           for (const m of verdict.fail) logLine(`      ${C.red}✗${C.off} ${m}`)
           for (const m of errors) logLine(`      ${C.red}✗${C.off} ${m}`)
           for (const m of verdict.warn.slice(0, 6)) logLine(`      ${C.yellow}!${C.off} ${m}`)

@@ -152,6 +152,472 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-3211",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-09-24",
+      "time": "22:12:42",
+      "tags": [
+        "pwa",
+        "safe-area",
+        "cutout"
+      ],
+      "summary": "10 rute customer: teks teratas 11-52px < safe-area 59px, nabrak kamera punch-hole; gerbang cuma cek header sticky",
+      "conn": [
+        {
+          "id": "DEC-0059",
+          "type": "relates",
+          "raw": "DEC-0059:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4579",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:12:42",
+      "tags": [
+        "pwa",
+        "safe-area",
+        "gate"
+      ],
+      "summary": "Inset atas diserap di 8 header warisan, .main-frame, hero .s7-hero__content, pil merek; gerbang ukur daun teks teratas",
+      "conn": [
+        {
+          "id": "BUG-3211",
+          "type": "fixes",
+          "raw": "BUG-3211:fixes"
+        }
+      ],
+      "commit": "f5aa7e5"
+    },
+    {
+      "id": "TASK-4580",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:22:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss (+138) — write via tool: // ══════════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-4581",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:23:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+9/-4) — edit via tool: // Terakhir: menyatukan ukuran/bobot jud",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-4582",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:23:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss (+20/-76) — edit via tool: // Status bar OS di jendela ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_app-shell.scss"
+    },
+    {
+      "id": "TASK-4583",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:23:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_buttons.scss (+6/-3) — edit via tool: // ── 2. Tombol ikon: tetap bula",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_buttons.scss"
+    },
+    {
+      "id": "TASK-4584",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:23:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_back.scss (+12/-22) — edit via tool: // ── 6. Tombol kembali yang tak ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_back.scss"
+    },
+    {
+      "id": "TASK-4585",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:23:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+6/-1) — edit via tool: return {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4586",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:26:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+3/-2) — edit via tool: const pwaInfo = OPTS.pwa ? ` · ${measur",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4587",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:28:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+12/-9) — edit via tool: if (!bars.length) return null",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4588",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:30:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+12/-7) — edit via tool: return {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4589",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:32:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+6/-5) — edit via tool: kids: [...el.children].slice(0, 3).map(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4590",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:34:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+28/-6) — edit via tool: kids: [...el.children].slice(0, 3).map",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4591",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:35:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss (+17/-9) — edit via tool: // `.wallet-flow .profile-flow-h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-4592",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:36:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+7/-35) — edit via tool: return {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4593",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:39:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+2/-1) — edit via tool: minH: Math.round(parseFloat(cs.minHeigh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4594",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:40:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+1/-1) — edit via tool: const barInfo = measured.topbar ? ` · b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4595",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:41:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+5/-2) — edit via tool: minH: Math.round(parseFloat(cs.minHeigh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4596",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:41:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+10/-2) — edit via tool: --text-stepper: 44px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-4597",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:42:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss (+6/-5) — edit via tool: // Padding vertikal 0, tinggi dar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-4598",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:42:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+2/-6) — edit via tool: minH: Math.round(parseFloat(cs.minHeigh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-4599",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:44:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx (+35/-6) — edit via tool: tsx: <tr>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4600",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:44:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ButtonsSection.tsx (+10/-5) — edit via tool: tsx: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ButtonsSection.tsx"
+    },
+    {
+      "id": "TASK-4601",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "22:47:49",
+      "tags": [
+        "ui",
+        "topbar",
+        "design-system"
+      ],
+      "summary": "Top bar satu tinggi 123px app-mode (64+inset 59) semua role/lebar + tombol kembali 44px satu bentuk; token --text-bar-title 28px matikan cla",
+      "conn": [
+        {
+          "id": "TASK-4485",
+          "type": "relates",
+          "raw": "TASK-4485:relates"
+        },
+        {
+          "id": "TASK-4597",
+          "type": "relates",
+          "raw": "TASK-4597:relates"
+        }
+      ],
+      "loc": "src/styles/system/_topbar.scss:1,src/styles/_tokens.scss:100"
     }
   ]
 }

@@ -5,22 +5,12 @@
 // .btn-back punya cakram putih — panah putih di atas cakram putih, jadi
 // tombolnya hilang di layar berlatar terang. Aturan CSS mengalahkan
 // presentation attribute SVG, jadi cukup satu aturan di sini alih-alih
-// menyunting 30 berkas markup.
-.btn-back {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-}
-
+// menyunting 30 berkas markup. Geometri dan permukaannya (44px, --radius-md,
+// --surface + --border-strong) ada di `_topbar.scss` — satu kontrak untuk
+// semua tombol kembali, termasuk yang hantunya di atas peta.
 .btn-back svg,
 .btn-back svg path {
   stroke: currentColor;
-}
-
-// Di atas header oranye, cakram putih tetap terbaca; pastikan tidak
-// tenggelam oleh latar yang sama-sama terang.
-.btn-back:hover {
-  border-color: var(--border-strong);
 }
 
 .btn-back,
@@ -30,14 +20,9 @@
 }
 
 // `.back-btn-profile` (17 halaman profil) ditulis 40x40 di stylesheet porting
-// `app/part-15.scss`, jadi terukur di bawah --touch-min. Bentuknya sama dengan
-// `.btn-back` — hanya ukurannya yang tertinggal — dan keduanya di samping
-// `.profile-flow-title` yang judulnya sudah diseragamkan. Cukup dikunci ke
-// `--touch-min` di sini, bukan menyunting stylesheet porting.
-.back-btn-profile {
-  width: var(--touch-min);
-  height: var(--touch-min);
-}
+// `app/part-15.scss`; sekarang ikut kontrak `_topbar.scss` (44px, --radius-md,
+// permukaan + tepi) seperti tombol kembali lain, jadi tidak ada lagi dua rupa
+// untuk kontrol yang sama.
 
 .password-wrapper .password-toggle {
   right: var(--space-1);

@@ -99,6 +99,14 @@ html, body { font-family: var(--font-sans); }
      jadi ukurannya tetap besar di lebar berapa pun. */
   --text-stepper: 44px;
 
+  /* Judul di dalam bar halaman (role merchant/kurir/admin). Dipatok, tidak ikut
+     clamp `--text-2xl`: token itu memakai `vw`, jadi ia mengikuti lebar JENDELA
+     sementara kolom aplikasi dikunci 430px (AGENTS §5). Untuk bar, judul yang
+     sama terukur 32px di jendela 390px dan 37px di 1440px — cukup untuk
+     mendorong tingginya. Nilainya sama dengan `--text-2xl` di kolom 390px
+     (27,85px), jadi tampilan di ponsel tidak berubah. */
+  --text-bar-title: 28px;
+
   /* Teks isian form dipatok 16px, tidak ikut clamp `--text-base` yang jatuh ke
      14,83px di kolom 390px. Di iOS, fokus ke input di bawah 16px memicu zoom
      otomatis dan menggeser seluruh layout — jadi ini soal perilaku, bukan
