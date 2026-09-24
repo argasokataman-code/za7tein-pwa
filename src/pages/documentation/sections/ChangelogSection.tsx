@@ -25,6 +25,20 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Kontrol mati: Keluar, hamburger dokumentasi, numpad</td>
+              <td>
+                Tombol "Keluar" di Setelan toko tidak punya handler sama sekali.
+                Hamburger di /documentation juga, padahal di layar sempit hanya kelas .open
+                yang memunculkan sidebar, jadi daftar isi tidak bisa dibuka di ponsel. Spacer
+                numpad jadi elemen &lt;button&gt; yang bisa difokus tapi tidak melakukan apa pun
+              </td>
+              <td>
+                "Keluar" membuka BottomSheet konfirmasi lalu logout() + kembali ke
+                /merchant/signin, pola sama dengan Profile.tsx. Hamburger menyalakan .open,
+                overlay menutupnya. Spacer numpad jadi &lt;span aria-hidden&gt;
+              </td>
+            </tr>
+            <tr>
               <td>Layar masuk &amp; daftar (customer + merchant)</td>
               <td>
                 Lima layar menyalin markup Bootstrap hasil porting: gutter 24px, tombol pill 9999px,

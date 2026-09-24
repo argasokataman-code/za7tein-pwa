@@ -91,9 +91,15 @@ const HERO_TAGS = [
 
 export default function Documentation() {
   const [active, setActive] = useState(0)
+  // Sidebar di layar sempit tergeser keluar (`translateX(-100%)`) dan hanya
+  // kelas `.open` yang memunculkannya. Sebelum ini tidak ada yang pernah
+  // menambah `.open`, sementara tombol hamburger tidak punya handler: jadi di
+  // ponsel daftar isi tidak bisa dibuka sama sekali. State ini yang menutupnya.
+  const [navOpen, setNavOpen] = useState(false)
 
   const goTo = (index: number, id: string) => {
     setActive(index)
+    setNavOpen(false)
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -105,14 +111,23 @@ export default function Documentation() {
           <span className="doc-topbar-logo">
             Sa7tein
           </span>
-          <button className="doc-hamburger" aria-label="Open menu">
+          <button
+            className="doc-hamburger"
+            aria-label="Buka daftar isi"
+            aria-expanded={navOpen}
+            aria-controls="doc-nav"
+            onClick={() => setNavOpen((v) => !v)}
+          >
             <span />
             <span />
             <span />
           </button>
         </div>
-        <div className="doc-overlay " />
-        <aside className="doc-sidebar ">
+        <div
+          className={`doc-overlay${navOpen ? ' open' : ''}`}
+          onClick={() => setNavOpen(false)}
+        />
+        <aside className={`doc-sidebar${navOpen ? ' open' : ''}`} id="doc-nav">
           <div className="doc-sidebar-logo">
             <span className="doc-logo-mark">
               Sa7tein

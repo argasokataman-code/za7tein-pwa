@@ -6927,6 +6927,42 @@
     {
       "id": "TASK-4109",
       "shard": 6
+    },
+    {
+      "id": "TASK-4110",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4111",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4112",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4113",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4114",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4115",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4116",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4117",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4118",
+      "shard": 6
     }
   ],
   "docs": [
@@ -7112,6 +7148,10 @@
     },
     {
       "id": "FEAT-540",
+      "shard": 6
+    },
+    {
+      "id": "BUG-1030",
       "shard": 6
     }
   ],
@@ -8299,6 +8339,18 @@
     {
       "id": "TASK-4107",
       "shard": 6
+    },
+    {
+      "id": "TASK-4111",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4114",
+      "shard": 6
+    },
+    {
+      "id": "TASK-4117",
+      "shard": 6
     }
   ],
   "scaffold": [
@@ -8465,6 +8517,10 @@
     {
       "id": "BUG-960",
       "shard": 5
+    },
+    {
+      "id": "BUG-1040",
+      "shard": 6
     }
   ],
   "audit": [
@@ -9143,6 +9199,10 @@
     {
       "id": "TASK-995",
       "shard": 1
+    },
+    {
+      "id": "BUG-1030",
+      "shard": 6
     }
   ],
   "geolocation": [
@@ -9958,6 +10018,10 @@
     },
     {
       "id": "BUG-1020",
+      "shard": 6
+    },
+    {
+      "id": "BUG-1030",
       "shard": 6
     }
   ],
@@ -11191,11 +11255,25 @@
     {
       "id": "DEC-940",
       "shard": 6
+    },
+    {
+      "id": "BUG-1030",
+      "shard": 6
+    },
+    {
+      "id": "BUG-1040",
+      "shard": 6
     }
   ],
   "fold": [
     {
       "id": "BUG-1020",
+      "shard": 6
+    }
+  ],
+  "documentation": [
+    {
+      "id": "BUG-1040",
       "shard": 6
     }
   ]

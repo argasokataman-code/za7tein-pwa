@@ -140,6 +140,36 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         Koordinat. Geolokasi ditolak? Pin tetap bisa digeser manual.
       </p>
       <h3 className="doc-h3">
+        Keluar dari akun toko
+      </h3>
+      <p className="doc-p">
+        Tombol "Keluar" di Setelan toko sebelumnya tidak punya handler sama sekali:
+        bisa ditekan, tidak terjadi apa-apa (kontrol mati, senior-fe HG-06). Sekarang
+        ia membuka <code className="doc-inline">BottomSheet</code> konfirmasi yang
+        menyebut akibatnya, lalu memanggil <code className="doc-inline">logout()</code>{' '}
+        dari <code className="doc-inline">authSlice</code> dan kembali ke{' '}
+        <code className="doc-inline">/merchant/signin</code>. Polanya sama dengan{' '}
+        <code className="doc-inline">Profile.tsx</code> di sisi customer — tidak ada
+        state sesi baru, karena state lain hanya akan berbeda dari yang sudah ada.
+      </p>
+      <h3 className="doc-h3">
+        Kontrol mati lain yang ikut dibersihkan
+      </h3>
+      <p className="doc-p">
+        Pemeriksaan yang sama menemukan dua lagi. Tombol hamburger di{' '}
+        <code className="doc-inline">/documentation</code> tidak punya handler,
+        padahal di layar sempit sidebar memang tergeser keluar dan hanya kelas{' '}
+        <code className="doc-inline">.open</code> yang memunculkannya — artinya
+        daftar isi dokumentasi tidak bisa dibuka sama sekali di ponsel. Sekarang
+        hamburger menyalakan <code className="doc-inline">.open</code>, overlay
+        menutupnya, dan memilih item ikut menutupnya. Spacer grid numpad di{' '}
+        <code className="doc-inline">CreatePin</code> dan{' '}
+        <code className="doc-inline">ForgotPasswordOtp</code> dulu elemen{' '}
+        <code className="doc-inline">&lt;button&gt;</code> yang tidak melakukan apa
+        pun tapi bisa difokus keyboard; kini menjadi{' '}
+        <code className="doc-inline">&lt;span aria-hidden&gt;</code>.
+      </p>
+      <h3 className="doc-h3">
         Statistik dashboard berwarna
       </h3>
       <p className="doc-p">

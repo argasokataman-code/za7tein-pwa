@@ -3,12 +3,16 @@ import { Clock, CreditCard, Globe, LocateFixed, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
+import { BottomSheet } from '../components/ui/BottomSheet'
 import { useLeafletMap } from '../hooks/useLeafletMap'
+import { useAppDispatch } from '../hooks/useAppStore'
 import { mockMerchant } from '../data/merchant'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
+import { logout } from '../store/slices/authSlice'
 
 const TIER_LABEL: Record<string, string> = { free: 'Gratis', pro: 'Pro' }
 
@@ -19,7 +23,10 @@ const DEFAULTS: MerchantStoreFormData = {
 }
 
 export default function MerchantSettings() {
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const [coords, setCoords] = useState({ lat: mockMerchant.lat, lng: mockMerchant.lng })
+  const [signOutOpen, setSignOutOpen] = useState(false)
 
   const { setPosition } = useLeafletMap('merchant-map', 'picker', {
     picker: {
@@ -55,6 +62,19 @@ export default function MerchantSettings() {
 
   const onSubmit = () => {
     toast.success('Setelan toko disimpan')
+  }
+
+  // Keluar = keluar dari akun toko lalu kembali ke layar masuk merchant.
+  // Tombol ini sebelumnya tidak punya handler sama sekali: bisa ditekan, tidak
+  // melakukan apa pun (kontrol mati, senior-fe HG-06). Pola yang dipakai sama
+  // dengan `Profile.tsx` — `logout()` dari authSlice, bukan state lokal baru.
+  // Konfirmasi lewat BottomSheet karena ini aksi yang membuang sesi, dan
+  // akibatnya ditulis apa adanya supaya tidak mengejutkan.
+  const confirmSignOut = () => {
+    dispatch(logout())
+    setSignOutOpen(false)
+    toast.success('Kamu sudah keluar dari akun toko')
+    navigate('/signin')
   }
 
   return (
@@ -162,9 +182,35 @@ export default function MerchantSettings() {
           </div>
         </section>
 
-        <button type="button" className="merchant-btn-ghost merchant-signout">
+        <button
+          type="button"
+          className="merchant-btn-ghost merchant-signout"
+          onClick={() => setSignOutOpen(true)}
+        >
           Keluar
         </button>
+
+        <BottomSheet
+          open={signOutOpen}
+          title="Keluar dari akun toko?"
+          onClose={() => setSignOutOpen(false)}
+        >
+          <p className="merchant-delete-message">
+            Pesanan yang sedang berjalan tetap ada, tapi kamu harus masuk lagi untuk mengelolanya.
+          </p>
+          <div className="merchant-actions">
+            <button
+              type="button"
+              className="merchant-btn-ghost"
+              onClick={() => setSignOutOpen(false)}
+            >
+              Batal
+            </button>
+            <button type="button" className="merchant-delete-confirm" onClick={confirmSignOut}>
+              Keluar
+            </button>
+          </div>
+        </BottomSheet>
       </main>
       <MerchantBottomNav />
     </div>

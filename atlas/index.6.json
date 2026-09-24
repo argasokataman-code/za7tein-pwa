@@ -2150,6 +2150,223 @@
         }
       ],
       "loc": "/tmp/sa7tein-commit-3.txt"
+    },
+    {
+      "id": "TASK-4110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:36:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+15/-11) — edit via tool: tsx: import { zodResolver } fro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-4111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:37:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" pa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:37:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/verify-signout.mjs (+67) — write via tool: // Klik nyata \"Keluar\" di /merchant/sett",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/verify-signout.mjs"
+    },
+    {
+      "id": "TASK-4113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:39:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+18/-9) — edit via tool: tsx: <button",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:40:24",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nfor p,indent in [('src/pages/CreatePin.tsx','                  '),",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:40:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/ForgotPasswordOtp.tsx (+3/-4) — edit via tool: tsx: // Spacer grid, bukan kontr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/ForgotPasswordOtp.tsx"
+    },
+    {
+      "id": "TASK-4116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:42:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+33/-3) — edit via tool: tsx:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-4117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:42:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-1030",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:43:03",
+      "tags": [
+        "merchant",
+        "settings",
+        "auth",
+        "dead-controls"
+      ],
+      "summary": "Tombol Keluar di /merchant/settings tanpa handler (kontrol mati). Fix: BottomSheet konfirmasi + logout() + navigate /merchant/signin, pola s",
+      "conn": [
+        {
+          "id": "FEAT-540",
+          "type": "relates",
+          "raw": "FEAT-540:relates"
+        },
+        {
+          "id": "DEC-940",
+          "type": "relates",
+          "raw": "DEC-940:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-1040",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:43:03",
+      "tags": [
+        "documentation",
+        "dead-controls",
+        "a11y"
+      ],
+      "summary": "Hamburger /documentation tanpa handler: sidebar translateX(-100%) di mobile hanya muncul dgn .open, jadi daftar isi tak bisa dibuka di ponse",
+      "conn": [
+        {
+          "id": "BUG-1030",
+          "type": "relates",
+          "raw": "BUG-1030:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "09:43:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/sa7tein-commit-4.txt (+28) — write via tool: fix(merchant): tombol Keluar benar-benar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/sa7tein-commit-4.txt"
     }
   ]
 }

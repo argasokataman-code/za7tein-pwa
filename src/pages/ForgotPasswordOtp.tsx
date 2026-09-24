@@ -71,7 +71,9 @@ export default function ForgotPasswordOtp() {
           <div className="numpad">
             {DIGITS.map((d, i) =>
               d === '' ? (
-                <button key={`empty-${i}`} type="button" className="numpad-btn numpad-empty" />
+                // Spacer grid, bukan kontrol. Dulu elemen ini <button>, jadi
+                // bisa difokus keyboard padahal tidak melakukan apa pun.
+                  <span key={`empty-${i}`} className="numpad-btn numpad-empty" aria-hidden="true" />
               ) : d === 'back' ? (
                 <button key="back" type="button" className="numpad-btn numpad-back" aria-label="Backspace" onClick={otp.handleNumpadBackspace}>
                   <Delete size={22} strokeWidth={1.75} />
