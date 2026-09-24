@@ -38,4 +38,12 @@ button,
 [type='submit'] {
   -webkit-appearance: button;
   cursor: pointer;
+  /* Border peramban dibuang. Tanpa ini, tombol yang tidak menulis `border`
+     sendiri mewarisi `2px outset buttontext` bawaan peramban — diukur pada
+     .merchant-add-btn: border 2px solid rgb(0,0,0) dan sudut bukan pill,
+     sehingga tombol oranye merek terlihat seperti tombol HTML polos di
+     samping tombol-tombol lain yang pill. Tombol yang memang butuh garis
+     tetap menulisnya sendiri (.merchant-btn-ghost, .stock-stepper button,
+     .btn dari mixin s-btn-shape), jadi reset ini tidak menghapus apa pun. */
+  border: 0;
 }

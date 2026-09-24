@@ -517,6 +517,53 @@ export function ChangelogSection() {
                 sistem. Gate merchant 22/22 PASS
               </td>
             </tr>
+            <tr>
+              <td>Kartu menu: 179px per item, hanya ~3 terlihat per layar</td>
+              <td>
+                Satu kartu mengambil 179px: 72px identitas, garis pemisah penuh, lalu baris
+                kontrol 57px berisi chip berbingkai "Stok 3 · Ubah" 97x44 dan label
+                "Tersedia" 104x44 dengan toggle 26px. Setiap item membawa toolbar-nya
+                sendiri. Meta dan chip memakai 11,56px, di bawah batas baca ponsel. Tiga
+                kartu statistik di atasnya 111x88 dengan angka dan label sama-sama 16px,
+                jadi angkanya tidak menonjol, dan harga oranye membuat enam aksen merek
+                dalam satu layar
+              </td>
+              <td>
+                Baris kontrol dirampingkan ke 44px tanpa garis pemisah, chip berbingkai jadi
+                teks aksi polos, padding kartu 16 turun ke 12px, meta naik ke 13px. Kartu jadi
+                150px sehingga ~3,5 item terlihat. Statistik jadi 111x56 dengan angka
+                <code className="doc-inline">--text-lg</code>/800 di atas label 12px (sejajar
+                mendatar membuat "15 Semua menu" pecah dua baris sementara "2 Habis" muat,
+                jadi barisnya tidak rata). Harga kembali ke{' '}
+                <code className="doc-inline">--text-primary</code> supaya oranye tinggal di
+                aksi. Gate merchant 22/22 PASS
+              </td>
+            </tr>
+            <tr>
+              <td>Tombol mewarisi border peramban</td>
+              <td>
+                <code className="doc-inline">_reboot.scss</code> tidak me-reset{' '}
+                <code className="doc-inline">border</code> pada{' '}
+                <code className="doc-inline">button</code>, jadi tombol yang tidak menulis
+                border sendiri mewarisi <code className="doc-inline">2px outset</code> dengan
+                warna teks tombol bawaan peramban. Terukur pada{' '}
+                <code className="doc-inline">.merchant-add-btn</code>: garis 2px hitam
+                dengan radius 10px, sehingga satu-satunya tombol oranye merek yang kotak dan
+                berbingkai hitam di seluruh aplikasi
+              </td>
+              <td>
+                Reset <code className="doc-inline">border: 0</code> ditambahkan ke aturan{' '}
+                <code className="doc-inline">button</code> di{' '}
+                <code className="doc-inline">_reboot.scss</code>. Aman karena tombol yang butuh
+                garis menulisnya sendiri (<code className="doc-inline">.merchant-btn-ghost</code>,{' '}
+                <code className="doc-inline">.stock-stepper button</code>, mixin{' '}
+                <code className="doc-inline">s-btn-shape</code>), dan yang sudah{' '}
+                <code className="doc-inline">border: none</code> (seperti{' '}
+                <code className="doc-inline">.add-to-cart-btn</code>) tidak berubah. Tombol
+                "Tambah Item" sekaligus jadi pill, seragam dengan tombol merek lain (QL-03
+                satu sistem radius). Gate customer/courier/admin/merchant tidak bertambah FAIL
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

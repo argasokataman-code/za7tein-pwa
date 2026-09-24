@@ -439,12 +439,21 @@
   align-items: center;
   gap: var(--space-1);
   min-height: var(--touch-min);
-  padding-inline: var(--space-3);
-  border-radius: var(--radius-md);
+  padding-inline: var(--space-4);
+  /* Pill, sama dengan tombol aksi merek lain (btn-profile-primary, tombol
+     onboarding, wallet-coupon). Sebelumnya --radius-md 10px sekaligus border
+     peramban 2px hitam, sehingga tombol ini satu-satunya tombol oranye yang
+     kotak dan berbingkai di seluruh aplikasi (senior-fe QL-03 satu sistem
+     radius). */
+  border-radius: var(--radius-pill);
   background: var(--sa7tein-orange);
   color: var(--on-brand);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 700;
+}
+
+.merchant-add-btn:hover {
+  background: var(--orange-deep);
 }
 
 .merchant-summary {

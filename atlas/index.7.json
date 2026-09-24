@@ -1,0 +1,122 @@
+{
+  "shard": 7,
+  "nodes": [
+    {
+      "id": "TASK-4295",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "13:08:08",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && rtk wc -l src/styles/_reboot.scss src/styles/system/_merchant.scss src/styles/syste",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4296",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "13:08:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: teks ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-4297",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "13:08:36",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | grep -Ei \"error|✓ built\" | head",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-905",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "13:08:42",
+      "tags": [
+        "ui",
+        "merchant",
+        "menu",
+        "mobile",
+        "bug"
+      ],
+      "summary": "Kartu menu 179->150px, statistik 88->56px, reset border tombol di _reboot (border peramban 2px hitam bocor ke tombol merek)",
+      "conn": [
+        {
+          "id": "TASK-904",
+          "type": "relates",
+          "raw": "TASK-904:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4298",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "13:09:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+5/-5) — edit via tool: tsx: borde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-4299",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "13:09:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run governance:check 2>&1 | tail -5 && npm run build 2>&1 | grep -Ei \"error|✓ b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    }
+  ]
+}
