@@ -25,6 +25,16 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Skala judul layar (16 kelas jadi 1 aturan)</td>
+              <td>
+                39 halaman punya <code className="doc-inline">&lt;h1&gt;</code>, tetapi ada 16 kelas berbeda untuk judul yang sama: 4 ukuran, 3 bobot (600/700/800), dan satu tanpa bobot. Judul layar yang sama beratnya bisa 600 di satu halaman dan 800 di halaman lain
+              </td>
+              <td>
+                Dua aturan menurut markup, bukan selera: <code className="doc-inline">.page-title</code> (27,85px/800) untuk judul hero yang tidak ada tombol kembali di barisnya, dan{' '}
+                <code className="doc-inline">.page-title--header</code> (16,73px/700) untuk judul yang berdampingan tombol kembali 44px. Terukur di 25 rute customer: dari 4 ukuran/3 bobot jadi 2 kelompok (19 kecil + 6 besar). Lihat partial <code className="doc-inline">system/_type.scss</code>
+              </td>
+            </tr>
+            <tr>
               <td>Hierarki huruf onboarding</td>
               <td>
                 Judul terukur 20,68px dengan bobot 500 — lebih kecil dari label tombolnya sendiri (16,73px tapi bobot 700), jadi aksi terlihat lebih penting daripada pesan. Isi pecah dengan baris terakhir hanya dua kata

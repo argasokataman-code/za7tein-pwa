@@ -1,0 +1,88 @@
+@use "./mixins" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Skala huruf — judul layar
+//
+// 39 halaman punya <h1>, dan sebelum ini ada 16 kelas berbeda untuk judul yang
+// sama: 4 ukuran, 3 bobot (600/700/800), dan satu tanpa bobot. Yang kacau
+// bukan ukurannya — hanya empat, semuanya di skala token — melainkan bobot dan
+// tinggi barisnya. Judul layar yang sama beratnya bisa 600 di satu halaman, 700
+// di halaman lain, 800 di halaman ketiga, sehingga terasa seperti aplikasi
+// berbeda tiap pindah layar.
+//
+// Ada DUA jenis judul, dan bedanya bukan selera — bisa dibaca dari markup:
+//
+//   • Judul hero   — tidak ada tombol kembali di barisnya (onboarding,
+//                    checkout, layar status). Ruangnya penuh, jadi boleh
+//                    memakai langkah terbesar: `--text-2xl`.
+//   • Judul header — berdampingan dengan tombol kembali 44px (17 halaman
+//                    `profile-flow-title`, Favorites, layar auth). Menaikkannya
+//                    ke `--text-2xl` mendorong tombol kembali dan membuat
+//                    headernya tinggi, jadi ukurannya tetap `--text-lg`.
+//
+// Aturannya satu per jenis, bukan enam belas: `.page-title` dan
+// `.page-title--header`. Kelas lama tidak dihapus dari TSX (39 berkas, dan
+// menghapusnya tidak menambah nilai apa pun) — ia hanya berhenti menentukan
+// ukurannya sendiri. Ini pola yang sama dengan pemetaan kelas lama di partial
+// `system/` lain: menang lewat urutan impor `_system.scss`, bukan dengan
+// menyunting 39 halaman.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Judul hero ─────────────────────────────────────────────────────────────
+
+.page-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  // Baris terakhir tidak menyisakan kata menggantung. Aman untuk panjang judul
+  // halaman (satu sampai tiga baris); jangan dibawa ke paragraf panjang.
+  text-wrap: balance;
+}
+
+// ── Judul header (berdampingan tombol kembali) ────────────────────────────
+
+.page-title--header {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+// ── Pemetaan kelas lama ────────────────────────────────────────────────────
+// Judul hero: layar tanpa tombol kembali di baris judulnya.
+.setup-error-title,
+.verify-title,
+.order-arrived-title,
+.success-title,
+.rating-driver-title,
+.payment-selection-title,
+.payment-amount-title,
+.verify-title-small,
+.admin-title {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+// Judul header: berdampingan tombol kembali 44px. Bobot disatukan ke 700
+// (dulu bercampur 600/700/tanpa bobot), ukuran tidak diubah.
+.profile-flow-title,
+.auth-title,
+.favorites-title,
+.reviews-page-title,
+.checkout-page-title,
+.address-selection-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+// `menu-detail-title` sengaja TIDAK dipetakan. Judulnya `flex: 1` dan
+// `text-align: center` di antara dua tombol 44px (kembali dan favorit), jadi
+// ukurannya bagian dari perhitungan lebar baris itu — menaikkannya menggeser
+// kedua tombol, bukan sekadar memperbesar huruf. Ia tetap 16px/600 seperti
+// semula. Kalau nanti ikut dirapikan, ubah bersama barisnya, bukan sendirian.
