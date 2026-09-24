@@ -25,6 +25,41 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Alur kerja &amp; aturan testing</td>
+              <td>
+                Urutan kerja tidak tertulis, jadi tiap tugas dimulai dari kode. Akibatnya
+                bolak-balik: tombol "tenggelam" diukur berkali-kali padahal tinggi fotonya
+                sudah terbaca di CSS, dan <code className="doc-inline">.app-shell</code> baru
+                ketahuan sebagai kontrak shell setelah gerbang mengeluh "kolom 0px". Beberapa
+                <code className="doc-inline">browser-gate</code> dijalankan bersamaan padahal
+                klon 9359 cuma punya satu tab, sehingga proses menumpuk
+              </td>
+              <td>
+                Empat langkah wajib di AGENTS.md §0 (peta → scan → ubah → verifikasi), plus
+                tabel pembagian mana yang butuh browser dan mana yang cukup dari berkas. Aturan
+                satu gate pada satu waktu. <code className="doc-inline">npm run scan</code> jadi
+                langkah 2 yang bisa dijalankan ulang. Lihat section Styling System &amp; §0 AGENTS
+              </td>
+            </tr>
+            <tr>
+              <td>Token &amp; kelas CSS yang hilang (surface scan)</td>
+              <td>
+                <code className="doc-inline">--pin</code> dan dua variabel Bootstrap
+                (<code className="doc-inline">bs-btn-active</code>) tidak pernah didefinisikan,
+                jadi deklarasinya batal dan pin peta muncul tanpa warna. Kelas{' '}
+                <code className="doc-inline">sheet-textarea</code>,{' '}
+                <code className="doc-inline">chart-spark-area</code>,{' '}
+                <code className="doc-inline">quantity-plus/minus</code> dipakai di TSX tanpa aturan CSS
+                sama sekali, jadi elemennya tampil sebagai kontrol peramban polos
+              </td>
+              <td>
+                Pin memakai <code className="doc-inline">--sa7tein-orange</code>, dua baris Bootstrap
+                dibuang, dan kelas yang hilang diberi aturannya. Semuanya ditemukan lewat{' '}
+                <code className="doc-inline">npm run scan</code> (statik, tanpa browser), bukan lewat
+                pengukuran DOM
+              </td>
+            </tr>
+            <tr>
               <td>Kontrol mati: Keluar, hamburger dokumentasi, numpad</td>
               <td>
                 Tombol "Keluar" di Setelan toko tidak punya handler sama sekali.

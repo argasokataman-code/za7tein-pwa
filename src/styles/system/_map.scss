@@ -42,11 +42,15 @@
 }
 
 // ── Penanda dan rute peta ─────────────────────────────────────────────────
+// Pin memakai oranye merek: dulu `var(--pin)`, token yang tidak pernah
+// didefinisikan di berkas mana pun, jadi `background`-nya batal dan pin muncul
+// tanpa warna. Tidak ada nama token baru yang dibuat — `--sa7tein-orange` sudah
+// jadi warna aksi, dan pin memang aksi.
 .sa7tein-pin {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--pin);
+  background: var(--sa7tein-orange);
   border: 3px solid var(--surface);
   box-shadow: 0 1px 4px rgba(32, 32, 32, 0.35);
 }

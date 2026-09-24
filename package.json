@@ -10,6 +10,8 @@
     "governance:check": "node scripts/check-governance.mjs",
     "prd:intake": "node scripts/prd-intake.mjs",
     "preview": "vite preview",
+    "scan": "node scripts/surface-scan.mjs",
+    "scan:test": "node scripts/surface-scan.test.mjs",
     "browser:gate": "node scripts/browser-gate.mjs"
   },
   "dependencies": {

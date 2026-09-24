@@ -3,32 +3,15 @@
 // ═══════════════════════════════════════════════════════════════════════════
 // Layar masuk & daftar (customer + merchant)
 //
-// Menggantikan gaya porting di `app/part-02.scss` untuk lima layar ini. Yang
-// diperbaiki, semuanya terukur:
-//
-//   • Gutter 24px → `--space-5` (20px). Aturan lama `.screen .container`
-//     memasang 24px, jadi `/merchant/signin|signup|pending` memang FAIL di
-//     gerbang browser karena gutter bukan 20px.
-//   • Tombol `--radius-pill` (9999px) → `--radius-md` (10px). Skala radius DNA
-//     berhenti di 12px; pill hanya untuk kontrol pill/badge.
-//   • Form 56px → `--touch-min` (44px). 56px bukan token, dan di HP tinggi
-//     tambahan itu mendorong tombol ke bawah lipatan.
-//   • Penggulung bersarang di `.auth-content` dihapus. Dokumen tetap
-//     satu-satunya penggulung (DNA §5).
-//   • Warna mentah (#F15A37, #6B6865, #DFD2C6 …) → token peran.
-//
-// Bentuk barunya dua panel: bidang foto di atas, panel form di bawah. Foto
-// memakai aset yang sudah ada di repo; tidak ada aset baru.
+// Menggantikan gaya porting `app/part-02.scss` untuk lima layar ini: gutter 24px
+// jadi `--space-5`, tombol pill 9999px jadi `--radius-md`, field 56px jadi
+// `--touch-min`, penggulung bersarang dihapus, warna mentah jadi token.
+// Bentuknya dua panel: bidang foto (aset repo) di atas, panel form di bawah.
 // ═══════════════════════════════════════════════════════════════════════════
 
-// Kerangkanya memakai `.app-shell` yang sama dengan seluruh aplikasi, bukan
-// kelas baru. Bukan soal selera: `.app-shell` adalah kontrak shell repo ini —
-// lebar kolom `--shell-max`, `min-height: var(--app-vh)`, latar `--bg-warm`,
-// dan `flex-direction: column` sudah ada di sana, dan gerbang browser mengukur
-// kolom dari elemen itu. Layar auth versi porting membuang kontrak itu (cuma
-// `display: block` + spasi), dan terukur: kolom terbaca **0px** alih-alih
-// 390/430px karena gerbang jatuh ke pembungkus `#root`. Jadi `.auth` di sini
-// hanyalah penanda bentuk (dua panel vs varian polos), bukan pembawa layout.
+// `.auth` cuma penanda bentuk; kerangkanya memakai `.app-shell` yang sama dengan
+// seluruh aplikasi. Gerbang browser mengukur kolom dari `.app-shell`, dan tanpa
+// kelas itu kolomnya terbaca 0px karena jatuh ke pembungkus `#root`.
 .auth {
   display: flex;
   flex-direction: column;
@@ -414,35 +397,74 @@
 // porting): keyboard bisa menjangkaunya dan pembaca layar melihatnya.
 
 .auth-consent {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
-  // Label ini targetnya seluruh baris: teks 20 barisnya jauh lebih besar dari
-  // kotak centang, dan menekan teks sudah mencentang. Padding vertikal membuat
-  // barisnya sendiri setinggi target sentuh, bukan hanya kotak 20px-nya.
+  // Seluruh baris adalah target: menekan teksnya sudah mencentang, dan padding
+  // vertikal membuat barisnya sendiri setinggi target sentuh.
   padding-block: var(--space-2);
   cursor: pointer;
 }
 
-// Kotak centang 20x20 sesuai skala kontrol kecil. Nilainya bukan ukuran kotak
-// melainkan apakah kontrolnya bisa ditekan: label pembungkus yang menangkap
-// klik, jadi yang diukur di gate adalah tinggi label, bukan kotak input.
-// Checkbox juga diberi ukuran target sentuh, bukan kotak 20px. Alasan yang
-// sama dengan radio zona: kalau kotaknya sendiri di bawah `--touch-min`, gate
-// menandainya, dan itu memang benar — kotak kecil yang hanya bisa ditekan
-// lewat pembungkusnya menyulitkan pembaca layar dan sentuhan yang tidak tepat.
-// `align-self: flex-start` menjaga kotaknya tetap di baris pertama teks.
+// Area sentuh 44px, kotak terlihat 20px — dua hal berbeda. Checkbox aslinya
+// tetap 44px (itu yang diukur gerbang dan menerima fokus), tapi transparan;
+// bentuk 20px-nya digambar di label. Percobaan pertama membesarkan checkbox
+// aslinya sampai 44px: benar menurut gerbang, jelek menurut mata.
 .auth-consent input {
+  position: absolute;
   flex: 0 0 auto;
   align-self: flex-start;
   width: var(--touch-min);
   height: var(--touch-min);
-  margin: calc(-1 * var(--space-4)) 0 calc(-1 * var(--space-4)) 0;
-  accent-color: var(--sa7tein-orange);
+  margin: 0;
+  // Digeser supaya titik tengah area 44px sejajar kotak 20px yang digambar.
+  margin-left: calc((var(--space-3) + 20px - var(--touch-min)) / 2);
+  margin-top: calc((20px - var(--touch-min)) / 2 + 1px);
+  opacity: 0;
   cursor: pointer;
 }
 
-.auth-consent input:focus-visible {
+// Kotak yang benar-benar dilihat pengguna.
+.auth-consent::before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-xs);
+  background: var(--surface);
+  transition: background var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out);
+}
+
+.auth-consent:has(input:checked)::before {
+  border-color: var(--sa7tein-orange);
+  background: var(--sa7tein-orange);
+}
+
+// Centangnya ikon CSS (dua batang diputar), bukan gambar atau emoji.
+.auth-consent::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 7px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--on-brand);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.auth-consent:has(input:checked)::after {
+  transform: rotate(45deg) scale(1);
+}
+
+// Cincin fokus digambar di kotak kecilnya, bukan lingkaran 44px.
+.auth-consent:has(input:focus-visible)::before {
   outline: 2px solid var(--orange-ink);
   outline-offset: 2px;
 }
@@ -494,12 +516,16 @@
   gap: var(--space-2);
 }
 
+// Seluruh kotak zona jadi target sentuh, jadi radio aslinya tidak ikut
+// membesar. Radio tetap di dalam label supaya menekan di mana pun pada kotak
+// tetap memilih zona ini; penandanya digambar 18px sesuai skala aplikasi.
 .auth-zone {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
   min-height: var(--touch-min);
-  padding-inline: var(--space-2);
+  padding-inline: var(--space-3);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
   background: var(--surface);
@@ -510,24 +536,42 @@
   transition: border-color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out);
 }
 
-// Radio-nya sendiri diberi ukuran target sentuh, bukan disembunyikan jadi
-// 13x13 (ukuran bawaan browser). Dengan begitu radio asli tetap yang menerima
-// fokus dan klik, kontrolnya tidak perlu pseudo-elemen penangkap, dan tidak ada
-// kontrol yang terukur di bawah `--touch-min` — sebelumnya gate menandai dua
-// input 13x13 di halaman ini.
 .auth-zone input {
-  flex: 0 0 auto;
-  width: var(--touch-min);
-  height: var(--touch-min);
-  margin: 0 calc(-1 * var(--space-2)) 0 calc(-1 * var(--space-1));
-  accent-color: var(--sa7tein-orange);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
   cursor: pointer;
+}
+
+// Penanda pilihan: lingkaran 18px, digambar pada label.
+.auth-zone::before {
+  content: '';
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
 }
 
 .auth-zone.is-on {
   border-color: var(--sa7tein-orange);
   background: var(--orange-soft);
   color: var(--orange-soft-ink);
+}
+
+.auth-zone.is-on::before {
+  border-color: var(--sa7tein-orange);
+  // Titik tengah lewat inset box-shadow, bukan pseudo-elemen kedua: satu
+  // lingkaran sudah ada, ini hanya isiannya.
+  box-shadow: inset 0 0 0 4px var(--sa7tein-orange);
+  background: var(--surface);
 }
 
 .auth-zone:has(input:focus-visible) {

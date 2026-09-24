@@ -236,9 +236,11 @@ html,body {
   overflow:hidden
 }
 
+// Sisa Bootstrap: `--bs-btn-active-*` tidak pernah didefinisikan di repo ini,
+// jadi dua barisnya batal, dan baris berikutnya sudah memasang oranye merek.
+// Keduanya dibuang, bukan diganti variabel baru, karena `.btn` sudah punya
+// keadaan tertekan sendiri di `_system.scss`.
 .btn-check:checked+.btn,.btn.active,.btn.show,.btn:first-child:active,:not(.btn-check)+.btn:active {
-  color:var(--bs-btn-active-color);
-  border-color:var(--bs-btn-active-border-color);
   background-color:#F15A37
 }
 

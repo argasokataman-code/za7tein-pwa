@@ -65,6 +65,15 @@
   stop-color: var(--sa7tein-orange);
 }
 
+/* Area di bawah garis. `fill` sengaja **tidak** diatur di sini: komponennya
+   sudah memasang gradien lewat atribut (`fill="url(#…)"`), dan aturan CSS
+   `fill` akan mengalahkan atribut itu sehingga gradiennya hilang. Kelas ini
+   sempat dipakai di `Sparkline.tsx` tanpa aturan apa pun — ditemukan lewat
+   surface scan, bukan lewat browser. */
+.chart-spark-area {
+  stroke: none;
+}
+
 .chart-spark-dot {
   fill: var(--sa7tein-orange);
   stroke: var(--surface);

@@ -506,6 +506,18 @@
   margin-bottom: var(--space-2);
 }
 
+// Textarea di bottom sheet banding CS tidak punya aturan sama sekali, jadi ia
+// muncul sebagai textarea peramban polos: tanpa border token, radius, latar,
+// atau font aplikasi. Ditemukan lewat surface scan (kelas dipakai di TSX, nol
+// aturan di SCSS), bukan lewat browser. `field-shape` yang sama dipakai input
+// lain, jadi tingginya saja yang ditambahkan.
+.sheet-textarea {
+  @include field-shape;
+  min-height: 96px;
+  padding-block: var(--space-3);
+  resize: vertical;
+}
+
 .sheet-actions { margin-top: var(--space-4); }
 .sheet-actions .btn { width: 100%; }
 

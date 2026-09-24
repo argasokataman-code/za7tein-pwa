@@ -4,6 +4,23 @@ Panduan untuk siapa pun yang menyentuh repo ini, manusia atau agen.
 
 ---
 
+## 0. Urutan kerja — baca ini dulu, sebelum apa pun
+
+Empat langkah, **berurutan**. Jangan lompat ke kode, jangan lompat ke browser. Urutan yang salah itulah akar pemborosan: menulis dulu lalu mengukur menghasilkan bolak-balik (tombol "tenggelam" diukur berkali-kali padahal tinggi fotonya sudah terbaca di CSS), dan menjalankan browser untuk hal yang bisa dibaca dari berkas itu membayar ongkos termahal untuk informasi yang sudah ada di teks.
+
+| # | Langkah | Kerjakan | Gagal kalau |
+|---|---|---|---|
+| **1** | **PETA** | Baca `docs/design/app-map/` (peta komponen, role, kontrak BE), `docs/design/DNA.md`, dan `src/components/`. Cari yang bisa **dipakai ulang sebelum menggambar apa pun**. | Mulai menulis kode tanpa tahu komponen yang sudah ada. Contoh nyata: `.app-shell` adalah kontrak shell repo ini, tapi baru ketahuan setelah gerbang mengeluh "kolom 0px" — padahal ada di peta dan di `src/styles/system/_app-shell.scss`. |
+| **2** | **AUDIT SURFACE** | `npm run scan`. Statik, nol server, selesai dalam ratusan milidetik: token tak terdefinisi, kelas tanpa aturan CSS, kontrol mati, tautan mati. | Menjalankan browser untuk mencari hal yang bisa dibaca dari berkas. |
+| **3** | **UBAH** | Tulis memakai komponen + token hasil langkah 1. Gaya baru ke `src/styles/system/`, token dari `_tokens.scss`. Perubahan sekecil mungkin, di akarnya. | Menambah komponen/dependency padahal yang ada bisa dipakai; menyalin pola yang sama ke beberapa berkas. |
+| **4** | **VERIFIKASI** | `npm run lint && npm run build && npm run scan`, lalu `browser-gate` **hanya** untuk yang tidak bisa dilihat dari sumber (§8). | Mengklaim "sudah benar" tanpa angka. |
+
+**Temuan alat wajib diverifikasi dengan mata sebelum disebut bug.** Alat bisa salah: parser tag di `surface-scan` pernah berhenti di `>` dalam ekspresi `rating >= 1`, lalu melaporkan lima tombol ber-`onClick` sebagai kontrol mati. Baca kodenya, baru simpulkan. Yang benar adalah DOM dan source, bukan keluaran alat.
+
+**Requirement ambigu → tanya, jangan menebak.** Sebut mana yang sudah pasti dan mana yang belum.
+
+---
+
 ## 1. Repo ini apa, dan apa batasnya
 
 **Showcase UI/UX dan design system.** Semua yang ada di sini adalah **front-end**.
@@ -14,6 +31,8 @@ Yang **tidak** dikerjakan di repo ini, dan jangan dimulai di sini:
 - Autentikasi sungguhan — login tidak memverifikasi apa pun
 - Pembayaran sungguhan — COD dan transfer manual hanya alur layar
 - Service worker untuk Web Push — PWA-nya jalan, tapi push tidak
+
+**Kontrak BE sudah dipetakan, bukan disembunyikan.** `docs/design/app-map/` punya node "Kontrak BE" (Xendit/ledger/push) sebagai rencana, dan repo ini tidak mengimplementasikannya. Jangan merasa ada yang kurang lalu mulai membuat lapisan API: ketiadaan integrasi itu keputusan sadar, bukan utang yang menunggu dibereskan.
 
 **Semua data adalah mock.** Isinya di `src/data/`, state-nya di Redux. Kalau sebuah aturan bisnis dari PRD tampak butuh logika, di sini ia jadi **state yang ditampilkan**: kuota `7 / 10` bukan counter yang harus benar, "Ditugaskan otomatis" bukan algoritma.
 
@@ -180,6 +199,26 @@ Cara ukur yang terbukti:
 
 Dan yang paling penting: **sebutkan angka, bukan kesan.** "Terukur 20px di kedua sisi" bisa diperiksa; "sudah rapi" tidak.
 
+### Urutan: surface scan dulu, browser kemudian
+
+**Mulai dari `npm run scan`, bukan dari browser.** Scan itu statik (nol server, nol klon Brave, selesai dalam ratusan milidetik) dan menangkap hal yang tidak butuh DOM ter-render:
+
+```bash
+npm run scan          # token tak terdefinisi, className tanpa aturan, kontrol mati,
+                      # tautan href="#", preserveAspectRatio, pola terlarang, batas baris, rute
+npm run scan:test     # self-check parser tag
+```
+
+Baru setelah itu naik ke browser, dan **hanya** untuk yang memang mustahil dilihat dari sumber: lebar kolom runtime, gutter, overflow-x, scroller bersarang, ukuran hasil render, PWA, safe-area, dan hit-test klik. Menjalankan `browser-gate` untuk masalah yang bisa dibaca dari berkas itu mahal dan tidak efisien — pernah kejadian: menjalankan gate berkali-kali untuk bug yang sebenarnya satu baris di berkas CSS.
+
+Temuan nyata yang ditangkap scan tapi lolos dari mata (semuanya terverifikasi, bukan tebakan):
+
+- `var(--pin)` dan `var(--bs-btn-active-color)` tidak pernah didefinisikan. Satu `var()` tak terdefinisi membatalkan **seluruh** deklarasi, jadi pin peta muncul tanpa warna.
+- Kelas dipakai di TSX tanpa aturan CSS sama sekali (`sheet-textarea`, `chart-spark-area`, `quantity-plus`). Elemennya tampil sebagai kontrol peramban polos.
+- `<button>` tanpa `onClick` — tombol "Keluar" di Setelan merchant bisa ditekan tapi tidak melakukan apa pun.
+
+Scan juga bisa salah, dan itu harus diakui: parser tag-nya sempat berhenti di `>` yang ada di dalam `rumus >= 1` sehingga melaporkan tombol ber-`onClick` sebagai mati. Karena itu `scan:test` ada, dan setiap temuan **wajib diverifikasi dengan mata** sebelum disebut bug.
+
 ### Gerbang browser — wajib sebelum commit
 
 `npm run lint` dan `npm run build` tidak bisa melihat tata letak, dan tidak bisa membuktikan sebuah tombol benar-benar bisa diklik. Setiap fix atau fitur yang menyentuh UI wajib lewat gerbang ini:
@@ -190,6 +229,35 @@ node scripts/browser-gate.mjs --role customer                  # ukur semua rute
 node scripts/browser-gate.mjs --route /home --strict           # halaman yang kamu sentuh
 node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap elemen dari depan
 ```
+
+**Satu gate pada satu waktu.** Klon pengukuran (9359) cuma punya satu tab; menjalankan beberapa `browser-gate` bersamaan membuatnya saling menunggu dan tampak menggantung, lalu menumpuk sebagai proses zombie. Jalankan di foreground, tunggu selesai, baru yang berikutnya. Kalau ada sisa, `pkill -f "browser-gate.mjs"`. Jangan memindahkan tab klon role (9355–9358) — biarkan tiap jendela role di tempatnya.
+
+**Gate hanya untuk yang tidak bisa dilihat dari sumber.** Ini daftar pembagiannya:
+
+| Hanya bisa dari browser | Sudah cukup dari berkas (`grep`/`read`/`npm run scan`) |
+|---|---|
+| lebar kolom runtime | token tak terdefinisi |
+| gutter runtime, overflow-x | kelas dipakai tanpa aturan CSS |
+| scroller bersarang | tombol tanpa handler, tautan `href="#"` |
+| ukuran elemen hasil render | warna mentah, nilai di luar token |
+| PWA: service worker, cache, display-mode, safe-area | batas baris berkas, rute tak terdaftar |
+| apakah tombol benar-benar bisa diklik (hit-test) | komponen bersama yang seharusnya dipakai ulang |
+
+Menjalankan gate untuk kolom kanan tabel itu mahal dan tidak efisien — pernah kejadian: gate dijalankan berkali-kali untuk bug yang sebenarnya satu baris di berkas CSS.
+
+### Jangan pakai shell untuk mengintip
+
+Shell dipakai untuk **menjalankan alat**, bukan untuk memeriksa keadaan. Semua di bawah ini punya cara yang lebih murah dan langsung:
+
+| Jangan | Pakai |
+|---|---|
+| `cat file` untuk membaca isi | tool `read` |
+| `grep` lewat shell berulang-ulang | tool `grep` |
+| `wc -l` untuk hitung baris | `npm run scan` (sudah termasuk batas baris) |
+| `sleep` menunggu sesuatu | tunggu notifikasi selesai; jangan tidur lalu periksa |
+| skrip Node sekali pakai untuk mengukur | `npm run scan` dulu; kalau masih perlu, tulis alat yang bisa dipakai ulang di `scripts/` |
+
+**Bug testing yang nyata di sesi lalu**, supaya tidak diulang: (1) menjalankan beberapa `browser-gate` bersamaan lalu mem-`background`-kannya berulang, sehingga proses menumpuk dan saling menunggu; (2) `sleep` + `cat | head` untuk "menunggu" skrip yang belum selesai; (3) membuat skrip ukur sekali pakai sebelum memeriksa apakah sudah ada alatnya.
 
 **Angka pembanding datang dari kode, bukan selera.** Gate membaca `--shell-max`, `--touch-min`, dan `--space-5` dari `src/styles/_tokens.scss`, lalu membandingkannya dengan nilai runtime — beda berarti bug, bukan preferensi. Gate juga **membuktikan viewport emulasi benar-benar berlaku** sebelum angkanya dipakai: pernah ada pengukuran yang ternyata diambil di jendela klon 500×600, bukan di kolom 430px. Jangan pernah mengukur dari jendela klon apa adanya — set `Emulation.setDeviceMetricsOverride` (390×844 @2 dan 1440×900) dulu.
 
@@ -235,15 +303,17 @@ node scripts/browser-gate.mjs --route /home --pwa --offline
 
 ## 10. Sebelum mengirim
 
+0. **Sudah lewat empat langkah §0** — peta dibaca, `npm run scan` dijalankan, baru kode, baru verifikasi
 1. `npm run build` — 0 error
-2. Ukur di **390px dan 1440px**: lebar kolom, jarak tepi, overflow horizontal 0
-3. Tidak ada `position: fixed` tanpa batas kolom
-4. Tidak ada emoji, tidak ada paket ikon baru, tidak ada warna di luar peran token
-5. Tidak ada `var(--…)` yang tokennya belum ada
-6. **Halaman dokumentasi global (`src/pages/Documentation.tsx`) diperbarui di commit yang sama** — dienforce di pre-commit cek #6
-7. Perubahan yang menyentuh flow: `./scripts/flows-gate.sh <slug>` lolos, dan flow + PRD diperbarui di commit yang sama
-8. **Perubahan UI: `node scripts/browser-gate.mjs --route <path> --strict` lolos**, dan `--click` untuk elemen yang kamu ubah (§8)
-9. Record node atlas untuk pekerjaan signifikan
+2. `npm run scan` — 0 FAIL (token tak terdefinisi, kelas tanpa aturan, kontrol mati, tautan mati)
+3. Ukur di **390px dan 1440px**: lebar kolom, jarak tepi, overflow horizontal 0
+4. Tidak ada `position: fixed` tanpa batas kolom
+5. Tidak ada emoji, tidak ada paket ikon baru, tidak ada warna di luar peran token
+6. Tidak ada `var(--…)` yang tokennya belum ada
+7. **Halaman dokumentasi global (`src/pages/Documentation.tsx`) diperbarui di commit yang sama** — dienforce di pre-commit cek #6
+8. Perubahan yang menyentuh flow: `./scripts/flows-gate.sh <slug>` lolos, dan flow + PRD diperbarui di commit yang sama
+9. **Perubahan UI: `node scripts/browser-gate.mjs --route <path> --strict` lolos**, dan `--click` untuk elemen yang kamu ubah (§8) — satu gate pada satu waktu
+10. Record node atlas untuk pekerjaan signifikan
 
 ---
 

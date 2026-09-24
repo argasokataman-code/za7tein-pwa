@@ -13,12 +13,23 @@
   "designDNA": "docs/design/DNA.md",
   "designDebt": "docs/design/legacy-debt.json (inline SVG count per TSX file may only decrease without a recorded decorative exception)",
   "scope": {
-    "is": ["UI/UX", "design system", "mock data di src/data", "Redux state"],
-    "is_not": ["backend/API/database", "autentikasi sungguhan", "pembayaran sungguhan", "Web Push service worker"]
+    "is": [
+      "UI/UX",
+      "design system",
+      "mock data di src/data",
+      "Redux state"
+    ],
+    "is_not": [
+      "backend/API/database",
+      "autentikasi sungguhan",
+      "pembayaran sungguhan",
+      "Web Push service worker"
+    ]
   },
   "agent": {
     "startup_hooks": [
       "baca manifest PRD aktif dan docs/design/DNA.md dulu",
+      "baca docs/design/app-map/ dulu (peta komponen + kontrak BE) sebelum menyentuh kode",
       "baca docs/design/flows/INDEX.json + flow relevan sebelum mengubah perilaku",
       "baca .rules.json dulu",
       "baca AGENTS.md",
@@ -42,7 +53,9 @@
     "lint": "npm run lint",
     "preview": "npm run preview",
     "browser:gate": "node scripts/browser-gate.mjs",
-    "flows:gate": "./scripts/flows-gate.sh"
+    "flows:gate": "./scripts/flows-gate.sh",
+    "scan": "node scripts/surface-scan.mjs",
+    "scan:test": "node scripts/surface-scan.test.mjs"
   },
   "browserTesting": {
     "wajib": "Setiap fix atau fitur yang menyentuh UI wajib lewat gerbang browser sebelum commit. Tidak ada 'sudah kelihatan benar'.",
@@ -71,15 +84,44 @@
         "node scripts/browser-gate.mjs --route /home --pwa --offline"
       ],
       "dokumentasi": "docs/design/pwa-testing.md",
-      "syarat": ["display-mode standalone", "touch event aktif", "SW terdaftar + controlling", "cache TIDAK kosong (precache benar-benar jalan)", "safe-area sesuai yang dipaksa", "offline: rute tetap merender"],
-      "tidak_bisa_diuji": ["navigator.maxTouchPoints dan (pointer: coarse) tidak bisa dipaksa di build ini", "instalasi OS sungguhan", "gesture perangkat keras"]
+      "syarat": [
+        "display-mode standalone",
+        "touch event aktif",
+        "SW terdaftar + controlling",
+        "cache TIDAK kosong (precache benar-benar jalan)",
+        "safe-area sesuai yang dipaksa",
+        "offline: rute tetap merender"
+      ],
+      "tidak_bisa_diuji": [
+        "navigator.maxTouchPoints dan (pointer: coarse) tidak bisa dipaksa di build ini",
+        "instalasi OS sungguhan",
+        "gesture perangkat keras"
+      ]
     },
     "severity": {
-      "fail": ["overflow-x != 0", "scroller bersarang di dalam halaman", "lebar kolom != min(viewport, --shell-max)", "token runtime != sumber", "viewport != emulasi", "halaman crash / kosong", "klik kena OVERLAY atau memicu exception"],
-      "warn": ["target < --touch-min 44px", "gutter != --space-5 20px", "bilah fixed keluar kolom"],
+      "fail": [
+        "overflow-x != 0",
+        "scroller bersarang di dalam halaman",
+        "lebar kolom != min(viewport, --shell-max)",
+        "token runtime != sumber",
+        "viewport != emulasi",
+        "halaman crash / kosong",
+        "klik kena OVERLAY atau memicu exception"
+      ],
+      "warn": [
+        "target < --touch-min 44px",
+        "gutter != --space-5 20px",
+        "bilah fixed keluar kolom"
+      ],
       "strict": "--strict mempromosikan WARN jadi FAIL; wajib dipakai di halaman yang disentuh"
     },
-    "bukti": "Tempel keluaran skrip (per-rute PASS/FAIL + angka) di laporan akhir. Sebut angka, bukan kesan."
+    "bukti": "Tempel keluaran skrip (per-rute PASS/FAIL + angka) di laporan akhir. Sebut angka, bukan kesan.",
+    "satu_pada_satu_waktu": {
+      "aturan": "Jalankan SATU browser-gate pada satu waktu. Jangan pernah menjalankan beberapa bersamaan atau membackground-kannya berulang.",
+      "kenapa": "Klon pengukuran (port 9359) hanya punya satu tab. Beberapa proses bersamaan saling menunggu dan tampak menggantung, lalu menumpuk sebagai proses zombie.",
+      "cara": "Jalankan di foreground, tunggu selesai, baru jalankan yang berikutnya. Berhenti pakai pkill -f \"browser-gate.mjs\" kalau ada yang tersisa.",
+      "jangan": "Jangan memindahkan tab klon role 9355-9358 — biarkan jendela masing-masing role di tempatnya."
+    }
   },
   "layout_invariants": {
     "shell_max": "430px (kolom aplikasi terkunci, mobile-first)",
@@ -92,7 +134,9 @@
   "max_lines": {
     "component_tsx": 600,
     "page_tsx": 700,
-    "page_exempt": ["Documentation.tsx (layar docs, berdiri sendiri)"],
+    "page_exempt": [
+      "Documentation.tsx (layar docs, berdiri sendiri)"
+    ],
     "hook": 150,
     "data": 500,
     "style_scss": 600,
@@ -107,20 +151,41 @@
       "console.log (di src/)",
       "useAppStore( (hook tidak ada; pakai useAppDispatch + useAppSelector)"
     ],
-    "packages": ["react-icons", "@heroicons", "@fortawesome", "@tabler/icons", "emoji di UI atau kode"],
+    "packages": [
+      "react-icons",
+      "@heroicons",
+      "@fortawesome",
+      "@tabler/icons",
+      "emoji di UI atau kode"
+    ],
     "values": [
       "angka/string dipakai >1 tempat sebagai literal di JSX (wajib export const di src/data/)",
       "nilai warna di luar peran token (lihat AGENTS.md §4)",
       "var(--...) yang tokennya belum ada",
       "URL gambar eksternal (aset dari public/assets/)"
     ],
-    "svg": ["preserveAspectRatio=\"none\" (pakai xMidYMid slice)"]
+    "svg": [
+      "preserveAspectRatio=\"none\" (pakai xMidYMid slice)"
+    ]
   },
   "reusable": {
-    "order": ["OrderStageScreen", "Journey Line / status pesanan (src/components/OrderStageScreen.tsx)"],
-    "ui": ["FoodCard", "AddToCartButton", "FavoriteButton", "BackButton"],
-    "layout": ["BottomNav", "HomeIndicator"],
-    "customer": ["CustomerHomeHero"]
+    "order": [
+      "OrderStageScreen",
+      "Journey Line / status pesanan (src/components/OrderStageScreen.tsx)"
+    ],
+    "ui": [
+      "FoodCard",
+      "AddToCartButton",
+      "FavoriteButton",
+      "BackButton"
+    ],
+    "layout": [
+      "BottomNav",
+      "HomeIndicator"
+    ],
+    "customer": [
+      "CustomerHomeHero"
+    ]
   },
   "code_style": {
     "file_naming": "PascalCase",
@@ -138,7 +203,15 @@
     "bypass": "git commit --no-verify (darurat saja, wajib lapor)"
   },
   "pre_commit": {
-    "checks": ["forbidden patterns", "line counts", "lint (oxlint)", "build (tsc -b && vite build)", "PRD registry + flow specs + design tokens (governance:check)", "atlas check", "documentation sync"]
+    "checks": [
+      "forbidden patterns",
+      "line counts",
+      "lint (oxlint)",
+      "build (tsc -b && vite build)",
+      "PRD registry + flow specs + design tokens (governance:check)",
+      "atlas check",
+      "documentation sync"
+    ]
   },
   "documentation": {
     "global_page": "src/pages/Documentation.tsx",
@@ -150,5 +223,51 @@
     "cli": "$HOME/.config/opencode/skills/atlas-owner/scripts/atlas.mjs",
     "after_significant_work": "record >=1 node (type/status benar, conn >=1)"
   },
-  "readBefore": ["AGENTS.md", ".githooks/pre-commit", "atlas query <topik>"]
+  "readBefore": [
+    "AGENTS.md",
+    "docs/design/app-map/README.md + app-map.architecture.json",
+    "docs/design/DNA.md",
+    ".githooks/pre-commit",
+    "atlas query <topik>"
+  ],
+  "workflow": {
+    "prinsip": "Urutan yang salah itu akar pemborosan: menulis dulu lalu mengukur menyebabkan bolak-balik, dan menjalankan browser untuk hal yang bisa dibaca dari berkas itu mahal. Ikuti empat langkah di bawah berurutan; jangan lompat ke kode atau ke browser.",
+    "langkah": [
+      {
+        "no": 1,
+        "nama": "PETA",
+        "aksi": "Baca docs/design/app-map/ (peta komponen + role + kontrak BE), docs/design/DNA.md, dan komponen yang sudah ada di src/components/. Cari yang bisa dipakai ulang SEBELUM menggambar apa pun.",
+        "keluaran": "Daftar komponen/token yang akan dipakai ulang + catatan apa yang belum ada",
+        "gagal_kalau": "mulai menulis kode tanpa tahu komponen mana yang sudah ada (contoh nyata: .app-shell adalah kontrak shell, tapi baru ketahuan setelah gerbang bilang kolom 0px)"
+      },
+      {
+        "no": 2,
+        "nama": "AUDIT SURFACE",
+        "aksi": "Jalankan npm run scan. Statik, nol server, selesai dalam ratusan milidetik.",
+        "keluaran": "daftar temuan: token tak terdefinisi, kelas tanpa aturan CSS, kontrol mati, tautan mati",
+        "gagal_kalau": "menjalankan browser untuk mencari hal yang bisa dibaca dari berkas"
+      },
+      {
+        "no": 3,
+        "nama": "UBAH",
+        "aksi": "Tulis kode/gaya memakai komponen dan token hasil langkah 1. Gaya baru ke src/styles/system/, token dari _tokens.scss.",
+        "keluaran": "perubahan sekecil mungkin yang menyelesaikan masalah di akarnya",
+        "gagal_kalau": "menambah komponen/dependency baru padahal yang ada bisa dipakai; menyalin pola yang sama di beberapa berkas"
+      },
+      {
+        "no": 4,
+        "nama": "VERIFIKASI",
+        "aksi": "npm run lint && npm run build && npm run scan, lalu browser-gate HANYA untuk yang tidak bisa dilihat dari sumber (lebar kolom, gutter, overflow-x, scroller bersarang, ukuran hasil render, PWA, safe-area, hit-test klik).",
+        "keluaran": "angka per-rute, bukan kesan",
+        "gagal_kalau": "mengklaim \"sudah benar\" tanpa angka, atau mengukur lewat browser untuk hal statik"
+      }
+    ],
+    "pertanyaan_ke_user": "Kalau requirement ambigu atau mengubah aturan bisnis: tanya dulu, jangan menebak. Sebut mana yang sudah pasti dan mana yang belum."
+  },
+  "testing_anti_pattern": {
+    "shell_untuk_cek_cepat": "Jangan menjalankan shell untuk hal yang bisa dibaca langsung: membaca berkas, menghitung baris, mencari pemakaian, atau tidur menunggu. Pakai grep/read. Shell dipakai untuk menjalankan alat, bukan untuk mengintip keadaan.",
+    "ukur_dulu_paham_belakangan": "Jangan mengukur lewat browser sebelum paham masalahnya dari sumber. Contoh nyata: tombol submit \"tenggelam\" sebenarnya bisa dilihat dari tinggi foto di CSS, bukan dari pengukuran y=933.",
+    "tool_baru": "Jangan membuat skrip/tool baru sebelum memeriksa bahwa belum ada yang bisa dipakai (scripts/, komponen bersama).",
+    "klaim_bug": "Setiap temuan alat WAJIB diverifikasi dengan mata (baca kodenya) sebelum disebut bug. Alat bisa false positive: parser tag pernah melaporkan tombol ber-onClick sebagai kontrol mati."
+  }
 }
