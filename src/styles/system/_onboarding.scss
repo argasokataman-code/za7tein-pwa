@@ -265,16 +265,40 @@
   transform: translateY(-8px);
 }
 
+// Judul onboarding: langkah huruf terbesar yang tersedia (`--text-2xl`
+// 26-32px), bukan `--text-xl`. Layar ini yang pertama dilihat, dan pada
+// 20.68px judulnya terukur lebih kecil dari label tombolnya sendiri (16.73px
+// tapi weight 700) — aksi jadi terlihat lebih penting dari pesannya.
+//
+// `text-wrap: balance` membagi baris rata supaya judul dua baris tidak
+// menyisakan satu kata menggantung di baris kedua.
 .onboarding-heading {
-  font-size: var(--text-xl);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
+// Isi: 15-16px dengan tinggi baris longgar khusus untuk teks panjang di ponsel
+// (1.6, bukan 1.5). Pada ukuran ini Manrope butuh ruang napas lebih, dan
+// paragraf tiga baris terbaca lebih tenang.
+//
+// `text-wrap: balance` membagi baris rata. Sudah dicoba `pretty` lebih dulu dan
+// tidak menyelesaikan masalahnya: `pretty` hanya menghindari baris terakhir
+// berisi SATU kata, sedangkan di sini baris terakhir berisi dua ("sampai
+// tiba.") sehingga dianggap cukup dan tidak diubah. `balance` mengurusnya.
+// Aman untuk panjang ini (dua baris); jangan dibawa ke paragraf panjang.
+//
+// Jarak ke judul `--space-3`, bukan `--space-2`: judul dan isi harus terbaca
+// sebagai satu blok, sedangkan jarak ke aksi lebih longgar (`--space-5` di
+// `.onboarding-cta`) supaya keduanya tidak menyatu.
 .onboarding-body {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
   color: var(--text-secondary);
   font-size: var(--text-base);
+  line-height: 1.6;
+  text-wrap: balance;
 }
 
 // ── Aksi primer ───────────────────────────────────────────────────────────

@@ -3374,6 +3374,158 @@
         }
       ],
       "loc": "/tmp/sa7tein-commit-9.txt"
+    },
+    {
+      "id": "TASK-4172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:56:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss (+24/-11) — edit via tool: // Judul onboarding: langka",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss"
+    },
+    {
+      "id": "TASK-4173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:56:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" && sed -i '' 's|localhost:4173|lo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:57:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss (+19/-9) — edit via tool: // Isi: 15-16px dengan tingg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss"
+    },
+    {
+      "id": "TASK-4175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:58:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss (+20/-19) — edit via tool: // Isi: 15-16px dengan ting",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss"
+    },
+    {
+      "id": "TASK-4176",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:58:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -Ei \"error|✓ built\" && node /tmp/fit.cjs >/dev/null 2>&1;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4177",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:59:18",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | rtk grep -Ei \"error|✓ built\" &&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4178",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:59:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.54.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4179",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "10:59:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/sa7tein-commit-10.txt (+31) — write via tool: fix(onboarding): hierarki huruf judul, b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/sa7tein-commit-10.txt"
     }
   ]
 }

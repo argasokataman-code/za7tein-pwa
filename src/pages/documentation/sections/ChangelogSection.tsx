@@ -25,6 +25,16 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Hierarki huruf onboarding</td>
+              <td>
+                Judul terukur 20,68px dengan bobot 500 — lebih kecil dari label tombolnya sendiri (16,73px tapi bobot 700), jadi aksi terlihat lebih penting daripada pesan. Isi pecah dengan baris terakhir hanya dua kata
+              </td>
+              <td>
+                Judul naik ke langkah terbesar (<code className="doc-inline">--text-2xl</code>, terukur 27,85px) dengan bobot 800 dan jarak huruf -0,02em. Isi dapat jarak ke judul dan{' '}
+                <code className="doc-inline">text-wrap: balance</code> supaya barisnya terbagi rata. Manrope tetap dipakai; yang salah ukurannya, bukan jenis hurufnya
+              </td>
+            </tr>
+            <tr>
               <td>Onboarding: foto asli, tanpa ikon pengganti</td>
               <td>
                 Dua dari tiga slide memakai ilustrasi ikon sebagai pengganti foto, jadi perpindahan slide terasa berpindah bahasa visual — gambar lalu simbol
