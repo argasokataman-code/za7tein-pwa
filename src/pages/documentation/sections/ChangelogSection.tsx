@@ -25,6 +25,16 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Onboarding: foto asli, tanpa ikon pengganti</td>
+              <td>
+                Dua dari tiga slide memakai ilustrasi ikon sebagai pengganti foto, jadi perpindahan slide terasa berpindah bahasa visual — gambar lalu simbol
+              </td>
+              <td>
+                Ketiga slide memakai foto makanan dari <code className="doc-inline">public/assets/img/menu/</code>, mengisi penuh section atas. Tidak ada ikon dekoratif di area foto. Isi dan dimensi slide pindah ke{' '}
+                <code className="doc-inline">data/onboarding.ts</code> supaya dimensi aset tercatat di satu tempat
+              </td>
+            </tr>
+            <tr>
               <td>Onboarding customer (carousel)</td>
               <td>
                 Layar pengenalan berupa strip foto pendek lalu panel putih: tidak ada titik fokus, dan tidak ada cara berpindah selain tombol. Foto hanya dipakai di slide pertama

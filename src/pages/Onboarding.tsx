@@ -1,54 +1,28 @@
-import { ArrowRight, ArrowUpRight, Bike, Check, ChefHat, Download, X } from 'lucide-react'
+import { Download, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import { HomeIndicator } from '../components/layout/HomeIndicator'
+import { ONBOARDING_SLIDES } from '../data/onboarding'
 
 /**
  * Layar pengenalan customer.
  *
- * Bentuknya carousel: satu foto bulat sebagai titik fokus, judul dan isi di
- * bawahnya, satu aksi primer. Yang bergerak saat pindah slide hanya konten
- * (foto + teks) — kerangkanya berdiam supaya tombol tidak melompat dari bawah
- * jari.
+ * Bentuknya carousel: satu foto mengisi penuh section atas sebagai fokus, judul
+ * dan isi di panel putih bawah, satu aksi primer. Yang bergerak saat pindah
+ * slide hanya konten (foto + teks) — kerangkanya berdiam supaya tombol tidak
+ * melompat dari bawah jari.
  *
  * Ikon panah di dalam tombol berubah per slide (`ArrowUpRight` di slide
  * pertama, `ArrowRight` di tengah, `Check` di akhir) dan itu penanda posisi,
  * bukan hiasan: pengguna tahu ini slide terakhir tanpa harus menghitung titik.
  *
- * Isi slide berasal dari PRD aktif (estimasi masak, rute kurir, zona), bukan
- * copy pemasaran. Foto memakai aset yang sudah ada di repo.
+ * Semua slide memakai foto dari `public/assets/img/menu/` — tidak ada ikon
+ * dekoratif sebagai pengganti gambar, karena foto aslinya tersedia. Isi slide
+ * berasal dari PRD aktif (estimasi masak, rute kurir, zona), bukan copy
+ * pemasaran.
  */
-
-const SLIDES = [
-  {
-    id: 'near',
-    kind: 'photo',
-    title: 'Makanan sekitar, selagi hangat',
-    text: 'Pesan dari dapur di sekitarmu dan ikuti perjalanannya sampai tiba.',
-    photo: '/assets/img/menu/sate-ayam.webp',
-    photoAlt: 'Sate ayam dibakar di atas bara, asap tipis menutupi panggangan',
-    cta: 'Lanjut',
-    icon: ArrowUpRight,
-  },
-  {
-    id: 'kitchen',
-    kind: 'soft',
-    title: 'Antrean dapur terlihat',
-    text: 'Estimasi masak 15, 25, atau 35 menit, jelas sejak checkout.',
-    cta: 'Lanjut',
-    icon: ArrowRight,
-  },
-  {
-    id: 'deliver',
-    kind: 'mint',
-    title: 'Diantar satu perjalanan',
-    text: 'Kurir menjemput beberapa pesanan sekaligus dengan rute terkunci.',
-    cta: 'Mulai',
-    icon: Check,
-  },
-] as const
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>
@@ -89,15 +63,14 @@ export default function Onboarding() {
     toast('Buka menu Bagikan di browser, lalu pilih Tambahkan ke Layar Utama.')
   }
 
-  const slide = SLIDES[index]
-  const isLast = index === SLIDES.length - 1
+  const slide = ONBOARDING_SLIDES[index]
+  const isLast = index === ONBOARDING_SLIDES.length - 1
   const SlideIcon = slide.icon
 
   /**
-   * Pindah slide dengan dua fase, bukan satu: `out` dulu (konten memudar dan
-   * mengecil), lalu ganti isi dan lepas `out` supaya masuk kembali. Kalau isi
-   * ditukar langsung tanpa fase keluar, teks baru terlihat melompat di tengah
-   * animasi.
+   * Pindah slide dengan dua fase, bukan satu: `out` dulu (konten memudar),
+   * lalu ganti isi dan lepas `out` supaya masuk kembali. Kalau isi ditukar
+   * langsung tanpa fase keluar, teks baru terlihat melompat di tengah animasi.
    */
   const goTo = useCallback(
     (next: number) => {
@@ -127,7 +100,7 @@ export default function Onboarding() {
     const delta = touchStartX.current - event.changedTouches[0].screenX
     touchStartX.current = null
     if (Math.abs(delta) < 44) return
-    if (delta > 0 && index < SLIDES.length - 1) goTo(index + 1)
+    if (delta > 0 && index < ONBOARDING_SLIDES.length - 1) goTo(index + 1)
     if (delta < 0 && index > 0) goTo(index - 1)
   }
 
@@ -139,28 +112,19 @@ export default function Onboarding() {
         onTouchEnd={onTouchEnd}
       >
         {/* Pola latar: dua lingkaran radial lembut. Nilainya di CSS, bukan
-            gradient merek baru — hanya kedalaman di atas warna aksi. */}
+            gradient merek baru — hanya kedalaman di atas warna aksi. Terlihat
+            saat foto masih dimuat. */}
         <div className="onboarding-stage" aria-hidden="true" />
 
-        <div className={`onboarding-visual is-${slide.kind}${phase === 'out' ? ' is-out' : ''}`}>
-          {slide.kind === 'photo' ? (
-            <img
-              className="onboarding-dish"
-              src={slide.photo}
-              alt={slide.photoAlt}
-              width={800}
-              height={1200}
-              decoding="async"
-            />
-          ) : (
-            <div className="onboarding-disc" aria-hidden="true">
-              {slide.kind === 'soft' ? (
-                <ChefHat size={72} strokeWidth={1.75} />
-              ) : (
-                <Bike size={72} strokeWidth={1.75} />
-              )}
-            </div>
-          )}
+        <div className={`onboarding-visual${phase === 'out' ? ' is-out' : ''}`}>
+          <img
+            className="onboarding-dish"
+            src={slide.photo}
+            alt={slide.photoAlt}
+            width={slide.photoWidth}
+            height={slide.photoHeight}
+            decoding="async"
+          />
         </div>
 
         {/* Merek di atas foto: dua aplikasi terinstal berbeda, jadi pengguna
@@ -203,7 +167,7 @@ export default function Onboarding() {
       <div className="onboarding-sheet">
         <div className="onboarding-sheet-top">
           <div className="onboarding-dots" role="group" aria-label="Langkah pengenalan">
-            {SLIDES.map((item, i) => (
+            {ONBOARDING_SLIDES.map((item, i) => (
               <button
                 key={item.id}
                 type="button"

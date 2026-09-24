@@ -84,26 +84,6 @@
   pointer-events: none;
 }
 
-// Slide tanpa foto: seluruh section diwarnai lembut + ikon Lucide besar di
-// tengah. Bukan ilustrasi stok, dan bukan lingkaran kecil — ukurannya sama
-// dengan foto supaya perpindahan slide tidak mengubah bentuk apa pun.
-.onboarding-disc {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  color: var(--orange-soft-ink);
-}
-
-.onboarding-visual.is-soft .onboarding-disc {
-  background: var(--orange-soft);
-}
-
-.onboarding-visual.is-mint .onboarding-disc {
-  background: var(--green-soft);
-  color: var(--success-ink);
-}
-
 // ── Merek ─────────────────────────────────────────────────────────────────
 // Badge putih di atas foto/ warna, sama pola dengan layar auth: logo 26px +
 // nama. Bukan hiasan — dua peran adalah dua aplikasi terinstal berbeda.
@@ -359,9 +339,7 @@
 // tanpa tepi ia kehilangan batasnya di mode kontras tinggi. Tepi tipis hanya
 // muncul saat `forced-colors`, tidak di tampilan normal.
 @media (forced-colors: active) {
-  .onboarding-cta,
-  .onboarding-disc,
-  .onboarding-dish {
+  .onboarding-cta {
     border: 1px solid CanvasText;
   }
 }
