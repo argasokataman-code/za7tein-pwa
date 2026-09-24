@@ -68,6 +68,30 @@ export function DisputeSection() {
         <code className="doc-inline">resolvedOrderToken</code> supaya sisi order dan sisi CS tidak
         menulis status dengan ejaan berbeda.
       </p>
+      <h3 className="doc-h3">Form pengajuan, bahasa app bukan bahasa peramban</h3>
+      <p className="doc-p">
+        Kategori sengketa bukan <code className="doc-inline">&lt;select&gt;</code> peramban,
+        melainkan satu baris (<code className="doc-inline">.dispute-picker</code>) yang membuka{' '}
+        <code className="doc-inline">BottomSheet</code> berisi daftar{' '}
+        <code className="doc-inline">.sheet-menu</code>, pola yang sama dengan pemilihan kurir di
+        layar order merchant. Form tetap satu layar pendek, dan pilihannya tetap kontrol app, bukan
+        dropdown peramban. <strong>Alasan wajib hanya kalau kategorinya &ldquo;Lainnya&rdquo;</strong>
+        ; kategori lain sudah menjelaskan sendiri isi sengketanya, jadi alasannya opsional dan
+        labelnya menyebut itu. Foto bukti jadi petak 96px dengan pratinjau, tombol hapus 44px, dan
+        satu petak tambah; maks 3 tetap dijaga, dan batas itu dijaga di fungsi pemilih berkas, bukan
+        di atribut peramban. Validasi tampil inline di bawah field (
+        <code className="doc-inline">aria-invalid</code>), bukan hanya toast yang hilang setelah
+        beberapa detik.
+      </p>
+      <p className="doc-p">
+        Dua hal yang membuat layar ini terasa web diperbaiki di akarnya, bukan di halamannya: semua
+        isian form memakai token <code className="doc-inline">--text-field</code> (16px) karena di
+        bawah 16px iOS men-zoom halaman saat fokus, dan{' '}
+        <code className="doc-inline">textarea</code> mendapat tingginya sendiri karena stylesheet
+        lama memaku <code className="doc-inline">.form-control</code> setinggi 56px (satu baris).
+        Keduanya di <code className="doc-inline">system/</code>, jadi seluruh repo ikut, bukan cuma
+        form sengketa.
+      </p>
       <h3 className="doc-h3">Hold dibekukan, auto-settle dijeda</h3>
       <p className="doc-p">
         Selama order <code className="doc-inline">disputed</code>, hold COD tidak bisa dilanjutkan

@@ -199,12 +199,14 @@
 }
 
 .merchant-order-code {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
+  font-weight: 700;
   color: var(--text-primary);
 }
 
 .merchant-order-sub {
-  font-size: var(--text-xs);
+  margin-top: 2px;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
 }
 
@@ -248,8 +250,8 @@
 }
 
 .merchant-badge {
-  font-size: var(--text-xs);
-  padding: 2px var(--space-2);
+  font-size: var(--text-sm);
+  padding: 3px var(--space-2);
   border-radius: var(--radius-pill);
   background: var(--border);
   color: var(--text-secondary);
@@ -318,8 +320,11 @@
 
 .merchant-order-card {
   @include card-surface;
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 .merchant-order-head {
@@ -357,34 +362,48 @@
 
 .merchant-order-items {
   list-style: none;
-  margin: var(--space-3) 0;
+  margin: var(--space-4) 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
 .merchant-order-items li {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  font-size: var(--text-sm);
+  gap: var(--space-3);
+  font-size: var(--text-base);
+  line-height: 1.45;
   color: var(--text-primary);
 }
 
 .merchant-order-meta {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
+  line-height: 1.5;
   color: var(--text-secondary);
 }
 
-.merchant-order-total {
+/* Catatan hold di dalam kartu order: teks keterangan, bukan micro-copy 11,56px.
+   Kartu order adalah layar tugas dapur, jadi isinya naik satu langkah skala. */
+.merchant-order-card .merchant-card-sub {
   font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.merchant-order-total {
+  font-size: var(--text-lg);
+  font-weight: 700;
   color: var(--text-primary);
-  margin-top: var(--space-1);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
 }
 
 .merchant-actions {
   display: flex;
   gap: var(--space-2);
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .merchant-actions .btn {
@@ -550,31 +569,8 @@
   color: var(--text-secondary);
 }
 
-.merchant-overflow {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  z-index: 30;
-  min-width: 150px;
-  padding: var(--space-1);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-}
-.merchant-overflow button {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  width: 100%;
-  min-height: var(--touch-min);
-  padding-inline: var(--space-3);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-  text-align: left;
-}
-.merchant-overflow button.is-danger { color: var(--danger-ink); }
+/* .merchant-overflow (menu ⋮: Ubah/Hapus) pindah ke
+   system/_merchant-menu-polish.scss supaya berkas ini kembali di bawah batas. */
 
 .merchant-form-thumb {
   width: 64px;
@@ -582,4 +578,14 @@
   border-radius: var(--radius-sm);
   object-fit: cover;
   background: var(--border);
+}
+
+/* Pratinjau gambar + tombol upload disejajarkan sebagai satu baris. Sebelumnya
+   keduanya inline di dalam `.form-group` yang `display:block`, sehingga
+   `vertical-align: baseline` mendorong gambar 64px naik 34px di atas tombol
+   44px — terbaca seperti dua elemen yang tidak sengaja bersebelahan. */
+.merchant-image-field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }

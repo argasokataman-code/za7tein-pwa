@@ -28,6 +28,11 @@
 
 .admin-header-copy {
   min-width: 0;
+  /* Mengisi ruang sisa, jadi judul selalu menempel pada elemen di kirinya
+     (tombol kembali) dan aksi kanan tetap terdorong ke tepi. Tanpa ini,
+     `justify-content: space-between` melempar judul ke tepi kanan saat kembali
+     ada di kiri. */
+  flex: 1;
 }
 
 .admin-header-action {
@@ -394,4 +399,114 @@
 
 .admin-ledger-amount.is-debit {
   color: var(--danger-ink);
+}
+
+/* ── Form sengketa (customer + merchant) ────────────────────────────────────
+   Dipakai layar /dispute. Dua hal yang bikin layar ini terasa web dan diperbaiki
+   di sini: `<select>` peramban untuk kategori (diganti baris yang membuka sheet,
+   bukan kontrol peramban), dan `<input type="file">` peramban yang menampilkan
+   tombol "Choose Files" (diganti petak foto dengan pratinjau + hapus). */
+
+.dispute-field {
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  border: 0;
+}
+
+.dispute-field > .admin-field {
+  padding: 0;
+}
+
+/* Satu baris setinggi isian form (`field-shape`), jadi sejajar dengan textarea
+   dan input di bawahnya. Membuka daftar di bottom sheet, bukan `<select>`. */
+.dispute-picker {
+  @include field-shape;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: left;
+  cursor: pointer;
+}
+
+.dispute-picker.is-empty {
+  color: var(--text-secondary);
+}
+
+.dispute-picker[aria-invalid='true'] {
+  border-color: var(--danger-ink);
+}
+
+.dispute-picker-chevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--text-secondary);
+}
+
+.dispute-error {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--danger-ink);
+}
+
+.dispute-photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  /* Sisa 12px di tepi atas supaya tombol hapus yang menyembul di sudut petak
+     tidak menimpa label di atasnya. */
+  margin-top: var(--space-3);
+}
+
+.dispute-photo {
+  position: relative;
+  width: 96px;
+  height: 96px;
+}
+
+.dispute-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+
+/* Tombol hapus 44px: sasaran sentuh minimum (HG-05), tapi yang terlihat cuma
+   cakram kecil di sudut. Menyembul 10px ke luar petak; jarak antar-petak 12px,
+   jadi tidak menimpa petak sebelahnya. */
+.dispute-photo-remove {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgb(32 32 32 / 62%);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.dispute-photo-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  width: 96px;
+  height: 96px;
+  padding: 0;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--bg-warm);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
 }

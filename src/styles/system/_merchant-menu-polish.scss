@@ -44,6 +44,52 @@
   text-align: right;
 }
 
+/* ── Menu ⋮ (Ubah / Hapus) ───────────────────────────────────────────────────
+   Pindah dari _merchant.scss, sekaligus diperbaiki: tombolnya tidak menulis
+   `background` sama sekali sehingga mewarisi `buttonface` bawaan peramban —
+   terukur rgb(239,239,239) pada kedua tombol, tampil sebagai dua kotak abu di
+   dalam panel putih. Radius dalamnya juga 8px di dalam panel radius 10px yang
+   berpadding 4px, jadi lengkungnya tidak sejajar wadah. */
+.merchant-overflow {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 30;
+  min-width: 150px;
+  padding: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.merchant-overflow button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  /* Radius dalam = 10px panel dikurangi padding 4px, supaya sudutnya sejajar. */
+  border-radius: var(--radius-xs);
+  background: transparent;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.merchant-overflow button:hover {
+  background: var(--bg-warm);
+}
+
+.merchant-overflow button:active {
+  background: var(--border);
+}
+
+.merchant-overflow button.is-danger {
+  color: var(--danger-ink);
+}
+
 /* ── Stock sheet ─────────────────────────────────────────────────────────────
    Sebelumnya ini form desktop yang diperkecil: judul 14.34px/500 (lebih kecil
    dari nama hidangan di kartu, 18px/700), label 11.56px, tombol ± kotak 44px,

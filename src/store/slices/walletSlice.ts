@@ -61,6 +61,18 @@ const walletSlice = createSlice({
       state.balance.balance -= amount
     },
     /**
+     * Tip customer → kurir (R-WALLET-01, PRD §Tips): opsional, 100% ke kurir,
+     * tanpa komisi platform. Hanya sisi customer yang punya model di repo ini —
+     * wallet kurir masih angka mock di panel CS — jadi yang dikerjakan di sini
+     * cuma pemotongan saldo, bukan kredit ke wallet yang tidak ada.
+     */
+    tipCourier(state, action: PayloadAction<{ amount: number }>) {
+      const { amount } = action.payload
+      if (amount <= 0 || amount > state.balance.available) return
+      state.balance.available -= amount
+      state.balance.balance -= amount
+    },
+    /**
      * Perpindahan uang hold COD (F2), dipanggil bersama transisi di cartSlice:
      * `hold_created` memindahkan available → pending, `hold_cut` tidak mengubah
      * saldo (potongan dikunci), `hold_settled` mengeluarkan dana dari wallet,
@@ -90,5 +102,11 @@ const walletSlice = createSlice({
   },
 })
 
-export const { requestTopUp, settleTopUp, requestPayout, applyHoldEvent } = walletSlice.actions
+export const {
+  requestTopUp,
+  settleTopUp,
+  requestPayout,
+  tipCourier,
+  applyHoldEvent,
+} = walletSlice.actions
 export default walletSlice.reducer

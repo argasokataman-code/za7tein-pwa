@@ -1,0 +1,117 @@
+@use "./mixins" as *;
+
+// ── Kartu order (antrean dapur) ──────────────────────────────────────────────
+// Kartu order dipakai satu tangan di dapur, jadi kontrolnya pola native:
+// segmented untuk estimasi masak, baris picker + bottom sheet untuk kurir.
+// Slider tarik dan `<select>` peramban dibuang karena keduanya kontrol desktop
+// yang membuat layar terbaca sebagai form web.
+// Dipecah dari _merchant-2.scss supaya berkas itu tetap di bawah batas.
+
+.merchant-cook-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-cook-head strong {
+  font-size: var(--text-base);
+  color: var(--text-primary);
+}
+
+.merchant-cook-segments {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-warm);
+}
+
+/* Radius dalam = radius luar 10px dikurangi padding 4px, supaya sudutnya
+   sejajar wadah (nested radius). */
+.merchant-cook-segments button {
+  min-height: var(--touch-min);
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.merchant-cook-segments button.is-active {
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.merchant-assign-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ── Baris antrean ───────────────────────────────────────────────────────────
+   Antrean = daftar yang dipindai cepat, jadi tiap order satu baris (bukan satu
+   kartu tinggi berisi semua). Detail lengkap dibuka lewat sheet. */
+.merchant-order-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+}
+
+.merchant-order-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.merchant-order-row-items {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.merchant-order-row-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.merchant-order-row-total {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.merchant-order-row-chevron {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+/* Kartu sudah punya `gap`, jadi baris aksi tidak perlu margin tambahan. */
+.merchant-order-card .merchant-actions {
+  margin-top: 0;
+}
+
+/* Baris pilihan memakai pola `.sheet-menu` milik role customer. Item yang
+   sedang terpilih ditandai warna merek + ikon centang. */
+.sheet-menu__item.is-selected {
+  color: var(--orange-ink);
+  font-weight: 600;
+}

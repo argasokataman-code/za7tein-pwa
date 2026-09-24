@@ -1,0 +1,1 @@
+Pasca-order dibenahi: perayaan punya gerakan (pop centang, konfeti mekar+mengapung, teks naik), kontras AA dari token, CTA terang lebar penuh; rating: header selebar kolom, bintang 44px, kode order dari query, chip tip via tipCourier

@@ -43,7 +43,9 @@
   background: var(--surface);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: var(--text-base);
+  /* `--text-field`, bukan `--text-base`: di bawah 16px iOS men-zoom input saat
+     fokus (lihat catatan token di _tokens.scss). */
+  font-size: var(--text-field);
   padding: 0 var(--space-4);
   min-height: var(--touch-min);
   &:focus,

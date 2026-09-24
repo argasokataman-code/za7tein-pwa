@@ -159,6 +159,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/couriers', MerchantCouriers],
   ['/settings', MerchantSettings],
   ['/dispute', DisputeSubmit],
+  ['/offline', Offline],
 ]
 
 // Kurir — dipasang di /courier/*. Tanpa layar login: PRD aktif tidak punya
@@ -168,6 +169,7 @@ const courierRoutes: [string, ComponentType][] = [
   ['/task/:id', CourierTaskDetail],
   ['/tips', CourierTips],
   ['/profile', CourierProfile],
+  ['/offline', Offline],
 ]
 
 // Panel admin (CS) — dipasang di /admin/*. Shell-nya sama dengan role lain (430px).
@@ -178,6 +180,7 @@ const adminRoutes: [string, ComponentType][] = [
   ['/disputes', AdminDisputes],
   ['/merchants', AdminMerchants],
   ['/ledger', AdminLedger],
+  ['/offline', Offline],
 ]
 
 // Konsol Super Admin — role terpisah, dipasang di /superadmin/* (keputusan PO
@@ -308,11 +311,11 @@ export default function App() {
       {role === '/customer' ? (
         <RoleRouter basename="/customer" routes={customerRoutes} home="/home" offlinePath="/offline" />
       ) : role === '/merchant' ? (
-        <RoleRouter basename="/merchant" routes={merchantRoutes} home="/" />
+        <RoleRouter basename="/merchant" routes={merchantRoutes} home="/" offlinePath="/offline" />
       ) : role === '/courier' ? (
-        <RoleRouter basename="/courier" routes={courierRoutes} home="/" />
+        <RoleRouter basename="/courier" routes={courierRoutes} home="/" offlinePath="/offline" />
       ) : role === '/admin' ? (
-        <RoleRouter basename="/admin" routes={adminRoutes} home="/" />
+        <RoleRouter basename="/admin" routes={adminRoutes} home="/" offlinePath="/offline" />
       ) : isSuperAdmin ? (
         <SuperAdminRouter />
       ) : (

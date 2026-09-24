@@ -304,11 +304,14 @@ export default function MerchantMenu() {
             <textarea id="merchant-item-description" className="form-control" {...register('description')} />
           </div>
           <div className="form-group">
-            <input ref={fileRef} type="file" accept="image/*" className="d-none" onChange={handleFileChange} />
-            <button type="button" className="merchant-btn-ghost" onClick={handleImagePick}>
-              <ImagePlus size={16} strokeWidth={1.75} /> Gambar
-            </button>
-            {formImage && <img className="merchant-form-thumb" src={formImage} alt="Pratinjau gambar" width={64} height={64} loading="lazy" decoding="async" />}
+            <span className="form-label">Gambar</span>
+            <div className="merchant-image-field">
+              <input ref={fileRef} type="file" accept="image/*" className="d-none" onChange={handleFileChange} />
+              {formImage && <img className="merchant-form-thumb" src={formImage} alt="Pratinjau gambar" width={64} height={64} loading="lazy" decoding="async" />}
+              <button type="button" className="merchant-btn-ghost" onClick={handleImagePick}>
+                <ImagePlus size={16} strokeWidth={1.75} /> {formImage ? 'Ganti gambar' : 'Gambar'}
+              </button>
+            </div>
           </div>
           <div className="merchant-actions">
             <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Simpan</button>

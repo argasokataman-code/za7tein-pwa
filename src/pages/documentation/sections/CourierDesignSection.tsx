@@ -66,6 +66,17 @@ export function CourierDesignSection() {
         <code className="doc-inline">src/store/slices/courierSlice.ts</code> and is not
         persisted.
       </p>
+      <p className="doc-p">
+        The customer side of the same rule lives on the post-order rating screen
+        (<code className="doc-inline">/rating-driver</code>, reached from{' '}
+        <code className="doc-inline">/order-arrived</code>): optional tip chips, and the
+        chosen amount is deducted from the customer wallet by{' '}
+        <code className="doc-inline">tipCourier</code> in{' '}
+        <code className="doc-inline">walletSlice</code> — 100% to the courier, no platform
+        commission (PRD §Tips). Only the customer half is modelled: the courier wallet is a
+        mock number on the CS panel, so no credit is invented here. Tip amounts are display
+        state, not a decided business rule.
+      </p>
     </DocSection>
   )
 }

@@ -200,7 +200,18 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         Ubah stok membuka <code className="doc-inline">BottomSheet</code> dengan
         stepper dan tombol Simpan. Opsi Ubah/Hapus tetap di menu tambahan; Hapus
         meminta konfirmasi dan menjelaskan dampaknya ke katalog pelanggan.
-        Form tambah/ubah memiliki label yang terhubung ke input.
+        Form tambah/ubah memberi label untuk setiap bidang, termasuk Gambar.
+      </p>
+      <p className="doc-p">
+        Baris Gambar menyejajarkan pratinjau dan tombol upload sebagai satu baris
+        flex (<code className="doc-inline">.merchant-image-field</code>,{' '}
+        <code className="doc-inline">align-items: center</code>). Sebelumnya
+        keduanya inline di dalam <code className="doc-inline">.form-group</code>{' '}
+        yang <code className="doc-inline">display:block</code>, sehingga{' '}
+        <code className="doc-inline">vertical-align: baseline</code> mendorong foto
+        64px naik 34px di atas tombol 44px — terbaca seperti dua elemen yang tidak
+        sengaja bersebelahan. Tombol berganti teks menjadi "Ganti gambar" begitu
+        ada pratinjau.
       </p>
       <p className="doc-p">
         Setiap thumbnail memakai <code className="doc-inline">alt</code> nama item
@@ -362,6 +373,38 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         <code className="doc-inline">masuk</code> belum punya tahap, dan order{' '}
         <code className="doc-inline">ditolak</code>/<code className="doc-inline">batal</code> sudah
         keluar dari rel — keduanya sengaja tidak menampilkan journey.
+      </p>
+      <h3 className="doc-h3">
+        Tipografi kartu order
+      </h3>
+      <p className="doc-p">
+        Kartu order adalah layar tugas dapur, jadi isinya memakai satu langkah skala di
+        atas micro-copy: kode dan baris item <code className="doc-inline">--text-base</code>{' '}
+        (14,34px), keterangan seperti alamat, catatan hold, dan label{' '}
+        <code className="doc-inline">--text-sm</code> (13px), dan total sebagai satu titik
+        fokus <code className="doc-inline">--text-lg</code> (16,73px) bobot 700 dengan garis
+        pemisah di atasnya. Sebelumnya semuanya 11,56-12,95px, jadi tidak ada hierarki dan
+        teksnya terbaca sebagai satu blok padat. Label pemilih kurir dulu ikut tertimpa{' '}
+        <code className="doc-inline">.merchant-cook label</code> (0-1-1) karena ia juga
+        keturunan <code className="doc-inline">.merchant-cook</code>; sekarang labelnya{' '}
+        <code className="doc-inline">.merchant-assign-label</code> (span), lepas dari aturan
+        keturunan itu. Tidak ada token atau komponen baru.
+      </p>
+      <h3 className="doc-h3">
+        Kontrol native di kartu order
+      </h3>
+      <p className="doc-p">
+        Antrean order adalah daftar, jadi setiap order satu{' '}
+        <strong>baris ringkas</strong> (avatar, kode, pembeli·waktu, ringkasan item, badge, total),
+        bukan kartu setinggi satu layar. Detail lengkap (Journey Line, item + harga, alamat, total)
+        dan kontrolnya dibuka lewat <code className="doc-inline">BottomSheet</code>. Di dalam sheet,
+        estimasi masak adalah segmented 15/20/25/30 (target 44px) menggantikan slider tarik, dan
+        kurir adalah daftar dengan pola <code className="doc-inline">.sheet-menu</code> yang sama
+        dengan role customer, menggantikan <code className="doc-inline">&lt;select&gt;</code>{' '}
+        peramban. Panel sheet dibatasi <code className="doc-inline">max-height: 90vh</code> dengan
+        gulir internal, jadi isi panjang tidak meluber keluar layar. Aturan barunya ada di{' '}
+        <code className="doc-inline">system/_merchant-orders.scss</code> (dipecah dari{' '}
+        <code className="doc-inline">_merchant-2.scss</code> agar tetap di bawah batas baris).
       </p>
     </DocSection>
   )

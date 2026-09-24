@@ -70,7 +70,12 @@ export function AdminDesignSection() {
         <code className="doc-inline">adminSlice</code>. One component means the two
         submission paths can never drift apart, and both land in the same SA queue.
         The order amount is shown in JOD using the M1 example rate (Rp23.000), labelled
-        as a temporary rate because M1 is not implemented.
+        as a temporary rate because M1 is not implemented. The form itself speaks app, not
+        browser: the category is a plain row that opens a bottom sheet list (not a native
+        <code className="doc-inline"> &lt;select&gt;</code>), proof photos are preview tiles
+        with a 44px remove button (not a browser "Choose Files" input), and the written
+        reason is required only for the &ldquo;Lainnya&rdquo; category, which is the one
+        choice that cannot explain itself.
       </p>
       <h3 className="doc-h3">CS panel vs Super Admin</h3>
       <p className="doc-p">

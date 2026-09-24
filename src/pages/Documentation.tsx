@@ -37,6 +37,7 @@ import { ButtonsSection } from './documentation/sections/ButtonsSection'
 import { ElementsSection } from './documentation/sections/ElementsSection'
 import { MotionIconsSection } from './documentation/sections/MotionIconsSection'
 import { AuthSection } from './documentation/sections/AuthSection'
+import { AppPolishSection } from './documentation/sections/AppPolishSection'
 import { ChangelogSection } from './documentation/sections/ChangelogSection'
 
 const SECTIONS = [
@@ -76,7 +77,19 @@ const SECTIONS = [
   SuperAdminSection,
   AuthSection,
   ChangelogSection,
+  AppPolishSection,
 ]
+
+// `SECTIONS` dan `DOC_NAV` (src/pages/documentation/nav.ts) dipakai berpasangan:
+// render di bawah memakai DOC_NAV[index] sebagai key. Panjang yang tidak sama
+// membuat entri terakhir undefined dan halaman ini mati tanpa pesan jelas —
+// terjadi saat satu section ditambahkan tanpa entri nav. Gagalkan lebih awal
+// dengan pesan yang menyebut sebabnya.
+if (SECTIONS.length !== DOC_NAV.length) {
+  throw new Error(
+    `Documentation: SECTIONS (${SECTIONS.length}) dan DOC_NAV (${DOC_NAV.length}) tidak sepanjang`,
+  )
+}
 
 const HERO_TAGS = [
   'React 19 + Vite',
@@ -138,7 +151,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v2.61.0
+              v2.68.0
             </span>
             <span>
               React 19 · Vite · TypeScript

@@ -221,8 +221,9 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
     }
     toast.success('OTP terverifikasi — pengiriman selesai')
     // Pengiriman selesai = pesanan tiba: layar perayaan yang menyalurkan ke
-    // rating kurir (F19). Sebelumnya tidak ada yang membuka rute ini.
-    navigate('/order-arrived')
+    // rating kurir (F19). Sebelumnya tidak ada yang membuka rute ini. Kode order
+    // ikut dibawa supaya layar rating dan tip terikat ke order yang sama.
+    navigate(`/order-arrived?order=${mockOrder.code}`)
   }
 
   const mapBlock = (

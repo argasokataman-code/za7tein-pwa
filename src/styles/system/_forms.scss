@@ -54,3 +54,16 @@ input[type='range'] {
   min-height: var(--touch-min);
   accent-color: var(--sa7tein-orange);
 }
+
+/* ── Textarea: tinggi sendiri, bukan tinggi isian satu baris ────────────────
+   Stylesheet lama `app/part-02.scss` memaku `.form-control { height: 56px }`,
+   dan lapisan system cuma menambah `min-height`. Akibatnya kotak Alasan di form
+   sengketa terukur 56px walau `rows={4}` (line-height 21,5px → hanya ~1,6 baris
+   terlihat). Tinggi 56px itu bentuk isian satu baris; textarea butuh tingginya
+   sendiri di semua tempat, bukan hanya di satu halaman. */
+textarea.form-control,
+textarea {
+  height: auto;
+  min-height: 96px;
+  padding: var(--space-3) var(--space-4);
+}

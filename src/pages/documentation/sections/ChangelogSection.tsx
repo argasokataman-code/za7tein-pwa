@@ -564,6 +564,84 @@ export function ChangelogSection() {
                 satu sistem radius). Gate customer/courier/admin/merchant tidak bertambah FAIL
               </td>
             </tr>
+            <tr>
+              <td>Baris gambar di form Ubah/Tambah Item</td>
+              <td>
+                Pratinjau 64px dan tombol upload 44px duduk di satu baris teks di dalam{' '}
+                <code className="doc-inline">.form-group</code> yang{' '}
+                <code className="doc-inline">display:block</code>. Dengan{' '}
+                <code className="doc-inline">vertical-align: baseline</code>, foto terukur naik
+                34px di atas tombol (foto top 353 / bottom 417, tombol top 387 / bottom 431),
+                jadi keduanya terbaca seperti dua elemen yang tidak sengaja bersebelahan dan
+                tanpa label seperti bidang lain
+              </td>
+              <td>
+                Baris flex baru <code className="doc-inline">.merchant-image-field</code> (
+                <code className="doc-inline">align-items: center</code>, gap{' '}
+                <code className="doc-inline">--space-3</code>) menyejajarkan pratinjau lalu
+                tombol, dengan label "Gambar". Terukur bidang 64px, tombol 44px terpusat (10px
+                atas-bawah). Tombol berganti teks jadi "Ganti gambar" saat sudah ada pratinjau
+              </td>
+            </tr>
+            <tr>
+              <td>Tipografi kartu order merchant terlalu rapat</td>
+              <td>
+                Isi kartu order memakai <code className="doc-inline">--text-xs</code>{' '}
+                (11,56px) untuk alamat, catatan hold, label slider, dan rating; kode/item/total
+                cuma <code className="doc-inline">--text-sm</code> (12,95px). Akibatnya semua baris
+                bobotnya serupa dan tidak ada yang jadi fokus. Label pemilih kurir juga kena{' '}
+                <code className="doc-inline">.merchant-cook label</code> (0-1-1) yang menang atas{' '}
+                <code className="doc-inline">.form-label</code> (0-1-0), jadi ikut 11,56px
+              </td>
+              <td>
+                Skala kartu naik satu langkah dengan token yang ada: kode/item{' '}
+                <code className="doc-inline">--text-base</code>, keterangan{' '}
+                <code className="doc-inline">--text-sm</code>, total jadi fokus{' '}
+                <code className="doc-inline">--text-lg</code>/700 dengan garis pemisah di atasnya.
+                Label kurir dipindah ke <code className="doc-inline">.merchant-assign-label</code>{' '}
+                (span) agar lepas dari aturan keturunan yang menimpanya. Terukur: alamat 13px,
+                item 14,34px, total 16,73px/700, kartu 291px, overflow-x 0. Gate /merchant/orders
+                2/2 PASS
+              </td>
+            </tr>
+            <tr>
+              <td>Kontrol desktop di kartu order (kurir &amp; estimasi masak)</td>
+              <td>
+                Pemilih kurir memakai <code className="doc-inline">&lt;select&gt;</code> peramban
+                (terukur 316x56, dropdown OS) dan estimasi masak memakai{' '}
+                <code className="doc-inline">&lt;input type=range&gt;</code> tarik. Keduanya kontrol
+                desktop, jadi layar order terbaca sebagai form web, bukan app
+              </td>
+              <td>
+                Estimasi masak jadi segmented 15/20/25/30 (target 44px, aktif oranye) dan kurir jadi
+                baris picker, keduanya pindah ke satu <code className="doc-inline">BottomSheet</code>{' '}
+                "Atur estimasi &amp; kurir"; daftar kurir memakai pola{' '}
+                <code className="doc-inline">.sheet-menu</code> yang sama dengan role customer, item
+                terpilih ditandai centang. Kartu antrean cukup menampilkan ringkasan satu baris
+                (estimasi · kurir) plus aksi utama, jadi tinggi kartu Diproses turun dari 629px jadi
+                526px. Terverifikasi klik nyata: segmen dan kurir dari dalam sheet mengubah ringkasan
+                kartu, "Selesai" menutup sheet. Gate /merchant/orders 2/2 PASS
+              </td>
+            </tr>
+            <tr>
+              <td>Role merchant/kurir/admin tanpa layar offline</td>
+              <td>
+                Hanya role customer yang dioper <code className="doc-inline">offlinePath</code> ke{' '}
+                <code className="doc-inline">RoleRouter</code>; merchant, kurir, dan admin tidak,
+                padahal <code className="doc-inline">RoleChrome</code> butuh itu untuk mendaftarkan
+                listener <code className="doc-inline">offline</code>. Koneksi putus = tidak terjadi
+                apa-apa
+              </td>
+              <td>
+                Rute <code className="doc-inline">/offline</code> ditambahkan ke tiga daftar rute
+                (memakai halaman <code className="doc-inline">Offline</code> yang sama) dan{' '}
+                <code className="doc-inline">offlinePath</code> dioper untuk ketiganya. Terverifikasi
+                di <code className="doc-inline">/merchant/orders</code>: memicu event{' '}
+                <code className="doc-inline">offline</code> berpindah ke{' '}
+                <code className="doc-inline">/merchant/offline</code> dan menampilkan layar offline.
+                Gate role merchant 24/24 PASS
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

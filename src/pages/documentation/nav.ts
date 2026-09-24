@@ -41,4 +41,5 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '34', id: 'superadmin', label: 'Konsol Super Admin (SA)' },
   { num: '35', id: 'auth', label: 'Layar Masuk & Daftar' },
   { num: '36', id: 'changelog', label: 'Perbaikan Integrasi & CRUD' },
+  { num: '37', id: 'app-polish', label: 'Perbaikan Bentuk App' },
 ]
