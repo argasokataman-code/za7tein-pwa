@@ -161,18 +161,13 @@
 }
 
 /* ── Dashboard: liability + alert ────────────────────────────────────────
-   Kartu liability dulu solid oranye (audit 006 #1, HG-05): teks sekunder di
-   atasnya 1.67:1 dan baris rincian putih 3.36:1, dua-duanya di bawah AA 4.5.
-   Varian final = opsi B (diminta user setelah opsi A ter-commit): tint
-   --orange-soft dengan border senada, jadi hangat oranye kembali tanpa gagal
-   AA. Terukur runtime: total --orange-ink 4,15:1 (large text, min 3), sub &
-   label sekunder 4,71:1, nilai rincian prima 13,85:1. Note dan catatan kurs
-   tetap di luar kartu, ke latar --bg-warm (5,30:1). */
-
-.admin-liability {
-  background: var(--orange-soft);
-  border-color: var(--orange-soft);
-}
+   Perjalanan kartu liability (audit 006 #1): dulu solid oranye (sub sekunder
+   1,67:1, baris putih 3,36:1 — gagal AA), lalu tint --orange-soft (4,15 /
+   4,71:1 lolos), lalu ditinggalkan saat dashboard diperkaya donut komposisi
+   (2026-09-24): kartu kembali --surface persis kontrak DNA baris 15 ("kartu
+   --surface, batas --border-strong") dan warnanya datang dari chart, bukan
+   dari latar. Total --orange-ink 4,88:1 di surface; note dan catatan kurs
+   tetap di luar kartu (5,38:1). */
 
 .admin-liability-total {
   font-size: var(--text-2xl);
@@ -181,7 +176,9 @@
   margin: var(--space-1) 0;
 }
 
-.admin-liability-rows {
+/* Baris label–nilai generik: kartu liability, kartu buku besar. Nilai
+   menonjol dari labelnya (pola baris ringkasan checkout). */
+.admin-kv {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -191,7 +188,7 @@
   border-top: 1px solid var(--border);
 }
 
-.admin-liability-rows li {
+.admin-kv li {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -200,10 +197,51 @@
   color: var(--text-secondary);
 }
 
-/* Nilai rincian uang menonjol dari labelnya (pola baris ringkasan checkout). */
-.admin-liability-rows li span:last-child {
+.admin-kv li span:last-child {
   color: var(--text-primary);
   font-weight: 600;
+}
+
+/* Baris statline antrean (dashboard, menggantikan dua kartu statistik kotak):
+   empat angka tanpa kotak, tiap angka membuka halaman yang datanya ia
+   tunjukkan — pola merchant-statline, namespace admin. */
+.admin-statline {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.admin-statline a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-statline strong {
+  font-size: var(--text-lg);
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* Tautan aksi di dalam kartu panel CS (pola sa-link, namespace admin).
+   min-height 44: target sentuh minimum; tanpa ini tingginya 20px dan gate
+   --strict menolak (audit dashboard 2026-09-24). */
+.admin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-block: var(--space-3);
+  margin-top: var(--space-1);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .admin-flag {
@@ -227,36 +265,58 @@
   color: var(--success-ink);
 }
 
-.admin-stats {
-  display: flex;
-  gap: var(--space-3);
-  margin-bottom: var(--space-4);
-}
-
-.admin-stat {
-  @include card-surface;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-4);
-  color: var(--orange-ink);
-  text-decoration: none;
-}
-
-.admin-stat-value {
-  font-size: var(--text-xl);
-  font-weight: 800;
-  color: var(--text-primary);
-}
-
-.admin-stat-label {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-}
+/* Aturan .admin-stats/.admin-stat lama (dua kartu statistik kotak) dihapus
+   saat digantikan .admin-statline di dashboard — grep nol pemakaian TSX. */
 
 .admin-alert {
   border-color: var(--warning);
+}
+
+/* Baris peringkat horizontal untuk nominal per jenis entry: enam batang
+   vertikal tidak muat di kolom 350px (terukur label 66px pada jarak antar
+   batang 54px — label saling tumpang tindih), jadi datanya dibalik jadi baris:
+   label kiri, batang tengah, nominal kanan. Pola sama dengan peringkat menu
+   merchant, namespace admin. */
+.admin-rank {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.admin-rank li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.admin-rank-name {
+  flex: 0 0 104px;
+  color: var(--text-secondary);
+}
+
+.admin-rank-bar {
+  flex: 1;
+  min-width: 0;
+  height: 8px;
+  background: var(--border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.admin-rank-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.admin-rank-value {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 .admin-actions {

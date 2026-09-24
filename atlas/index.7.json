@@ -2664,6 +2664,243 @@
         }
       ],
       "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4414",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:54:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/dashboard.ts (+66/-12) — edit via tool: ts: /** Jumlah aksi audit per hari, urut lam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/dashboard.ts"
+    },
+    {
+      "id": "TASK-4415",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:54:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_admin.scss (+8/-13) — edit via tool: /* ── Dashboard: liability + alert ─────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-4416",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:54:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminDashboard.tsx (+305/-164) — edit via tool: tsx: import { AlertTriangle, Lock, Scale, Shi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-4417",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:55:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminDashboard.tsx (+1/-1) — edit via tool: tsx: import { aggregateLiability, liabilityGa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-4418",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:55:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/plan-admin.md (+14/-6) — edit via tool: ## S1 — Ringkasan (`/admin`)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/plan-admin.md"
+    },
+    {
+      "id": "TASK-4419",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:55:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/AppPolishSection.tsx (+1/-1) — edit via tool: tsx: Bukan fitur baru: layar yang sudah jalan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4420",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:55:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_admin.scss (+9/-34) — edit via tool: .admin-flag.is-ok {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-4421",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:55:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.71.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4422",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:56:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_admin.scss (+50/-3) — edit via tool: .admin-alert {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-4423",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:56:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AdminDashboard.tsx (+5/-6) — edit via tool: tsx: import { AdminPageHeader } from '../comp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AdminDashboard.tsx"
+    },
+    {
+      "id": "TASK-918",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-24",
+      "time": "16:58:45",
+      "tags": [
+        "admin",
+        "design",
+        "dashboard",
+        "chart"
+      ],
+      "summary": "Dashboard CS: donut komposisi+ekspres, statline, buku besar (kv+baris), feed; reuse DonutChart/liabilitySegments",
+      "conn": [
+        {
+          "id": "TASK-917",
+          "type": "relates",
+          "raw": "TASK-917:relates"
+        }
+      ],
+      "loc": "src/pages/AdminDashboard.tsx:1"
+    },
+    {
+      "id": "DEC-0057",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-24",
+      "time": "16:58:46",
+      "tags": [
+        "admin",
+        "design"
+      ],
+      "summary": "Kartu liability final --surface (DNA baris 15); warna dari donut, tint orange-soft ditinggalkan",
+      "conn": [
+        {
+          "id": "DEC-0056",
+          "type": "led_to",
+          "raw": "DEC-0056:led_to"
+        },
+        {
+          "id": "TASK-918",
+          "type": "led_to",
+          "raw": "TASK-918:led_to"
+        }
+      ],
+      "loc": "src/styles/system/_admin.scss:163"
     }
   ]
 }

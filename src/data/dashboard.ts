@@ -2,21 +2,28 @@ import type {
   AuditEntry,
   ChartBar,
   ChartSegment,
+  ChartTone,
+  Dispute,
+  DisputeStatus,
+  LedgerEntry,
+  LedgerEntryType,
   LiabilitySummary,
   ProfitState,
   TaxReportRow,
 } from '../types'
 
+import { disputeStatusLabel, ledgerTypeLabel } from './admin'
 import { withdrawnTotal } from './superadmin'
 
 /**
- * Agregasi data-viz untuk Ringkasan konsol Super Admin.
+ * Agregasi data-viz untuk Ringkasan konsol Super Admin dan panel CS `/admin`.
  *
  * Fungsi murni: mengubah state yang **sudah ada** (`ProfitState`,
- * `LiabilitySummary`, `TaxReportRow[]`, `AuditEntry[]`) jadi deret yang bisa
- * digambar chart. Tidak ada angka baru dan tidak ada aturan bisnis di sini —
- * repo ini front-end saja (AGENTS.md §1), dan setiap nominal tetap berasal dari
- * mock yang sama dengan yang dipakai tabel/kartu.
+ * `LiabilitySummary`, `TaxReportRow[]`, `AuditEntry[]`, `Dispute[]`,
+ * `LedgerEntry[]`) jadi deret yang bisa digambar chart. Tidak ada angka baru dan
+ * tidak ada aturan bisnis di sini — repo ini front-end saja (AGENTS.md §1), dan
+ * setiap nominal tetap berasal dari mock yang sama dengan yang dipakai
+ * tabel/kartu.
  */
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']
@@ -95,4 +102,58 @@ export function auditByDay(entries: AuditEntry[]): ChartBar[] {
   return [...buckets.entries()]
     .sort((a, b) => b[0] - a[0])
     .map(([daysAgo, count]) => ({ label: dayLabel(daysAgo), value: count }))
+}
+
+/* ── Panel CS (`/admin`) ─────────────────────────────────────────────────── */
+
+/** Nada per status sengketa: terbuka = peringatan, jalan = merek, selesai = sukses. */
+const EXPOSURE_TONE: Record<DisputeStatus, ChartTone> = {
+  open: 'warning',
+  investigating: 'brand',
+  resolved: 'success',
+  rejected: 'muted',
+}
+
+/**
+ * Alokasi nominal sengketa per status (JOD) — berapa uang yang sedang
+ * mengendap di antrean putusan. Segmen nol dibuang supaya legenda tidak
+ * penuh `0,00 JOD`.
+ */
+export function disputeExposure(disputes: Dispute[]): ChartSegment[] {
+  return (Object.keys(disputeStatusLabel) as DisputeStatus[])
+    .map((status) => ({
+      label: disputeStatusLabel[status],
+      value: disputes
+        .filter((dispute) => dispute.status === status)
+        .reduce((sum, dispute) => sum + dispute.amount, 0),
+      tone: EXPOSURE_TONE[status],
+    }))
+    .filter((segment) => segment.value > 0)
+}
+
+/** Arus buku besar: total masuk, keluar, dan bersih (JOD). */
+export function ledgerFlow(ledger: LedgerEntry[]): {
+  credit: number
+  debit: number
+  net: number
+} {
+  const sumBy = (direction: LedgerEntry['direction']) =>
+    ledger
+      .filter((entry) => entry.direction === direction)
+      .reduce((sum, entry) => sum + entry.amount, 0)
+  const credit = sumBy('credit')
+  const debit = sumBy('debit')
+  return { credit, debit, net: credit - debit }
+}
+
+/** Nominal kumulatif per jenis entry (JOD); jenis tanpa entry tidak muncul. */
+export function ledgerTypeBars(ledger: LedgerEntry[]): ChartBar[] {
+  return (Object.keys(ledgerTypeLabel) as LedgerEntryType[])
+    .map((type) => ({
+      label: ledgerTypeLabel[type],
+      value: ledger
+        .filter((entry) => entry.type === type)
+        .reduce((sum, entry) => sum + entry.amount, 0),
+    }))
+    .filter((bar) => bar.value > 0)
 }

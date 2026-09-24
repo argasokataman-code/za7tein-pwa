@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Lima baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Enam baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -136,6 +136,26 @@ export function AppPolishSection() {
                 menjaga 3 aksi jalur uang dengan ketuk kedua, tombol Batal netral .sheet-cancel;
                 literal ganti --overlay-strong (token baru) + --on-brand + --border; temuan #6:
                 --danger-ink B93D37 (4,72:1 terukur di red-soft)
+              </td>
+            </tr>
+            <tr>
+              <td>Dashboard panel CS: visualisasi detail (2026-09-24)</td>
+              <td>
+                Ringkasan cuma kartu teks: baris rincian liability datar, dua kartu statistik
+                kotak, nol chart; angka tersedia tapi bentuk komposisi dan arusnya tak terbaca
+                sekali lihat
+              </td>
+              <td>
+                Tujuh bagian diturunkan dari adminSlice tanpa mock baru: (1) kartu liability
+                kembali --surface sesuai DNA baris 15, donut komposisi + legenda JOD lewat
+                liabilitySegments yang dipakai konsol SA juga; (2) statline 4 angka tanpa kotak
+                (tenant/sengketa/investigasi/riskFlag), tiap angka membuka halamannya; (3) kartu
+                Eksposur sengketa: donut nominal per status (fungsi murni disputeExposure) dengan
+                empty state; (4) Buku besar: kv masuk/keluar/bersih + BarChart per jenis entry
+                (ledgerFlow/ledgerTypeBars); (5) feed Mutasi terbaru 5 entry, markup baris yang
+                sama dengan layar Ledger; (6) Alert SLA tetap dengan konfirmasi; (7) kartu Master
+                tenant tetap singkat. Yang bukan milik CS (pajak, profit, audit trail, kill switch)
+                tidak ditampilkan sama sekali
               </td>
             </tr>
           </tbody>
