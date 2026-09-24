@@ -1,13 +1,24 @@
-import { ArrowLeft } from 'lucide-react'
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
+import { AuthLayout } from '../components/ui/AuthLayout'
+import { AUTH_ROLE_LABEL } from '../data/auth'
 import { forgotPasswordSchema, type ForgotPasswordFormData } from '../lib/schemas'
 
+/**
+ * Lupa kata sandi — langkah pertama: masukkan nomor terdaftar.
+ *
+ * Kerangkanya memakai `AuthLayout` yang sama dengan masuk/daftar, bukan markup
+ * Bootstrap hasil porting (`.container`/`.row`/`.col-12`). Porting itu membawa
+ * gutter 24px (kontraknya `--space-5`) dan penggulung bersarang, jadi tiga
+ * layar auth yang tersisa terasa berbeda lebar dari lima layar auth yang sudah
+ * memakai kerangka bersama.
+ *
+ * Tanpa foto: layar ini satu tujuan dan satu aksi, jadi varian polos
+ * (`photo={undefined}`) yang dipakai — sama seperti layar status.
+ */
 export default function ForgotPassword() {
   const navigate = useNavigate()
   const {
@@ -18,52 +29,46 @@ export default function ForgotPassword() {
 
   const onSubmit = async () => {
     await new Promise((r) => setTimeout(r, 600))
-    toast.success('OTP sent to your email!')
+    toast.success('Kode dikirim ke nomor terdaftar')
     navigate('/forgot-password-otp')
   }
 
   return (
-    <>
-    <div className="app-shell">
-      <div className="auth-page">
-        <div className="screen active">
-          <div className="container h-100">
-            <div className="row h-100">
-              <div className="col-12 d-flex flex-column justify-content-center">
-                <div className="back-button">
-                  <button type="button" className="btn-back" aria-label="Back" onClick={() => navigate(-1)}>
-                    <ArrowLeft size={20} strokeWidth={1.75} />
-                  </button>
-                </div>
-                <div className="auth-content">
-                  <h1 className="auth-title">
-                    Forgot Password
-                  </h1>
-                  <p className="auth-subtitle">
-                    Masukkan nomor HP terdaftar, kami akan mengirim kode OTP.
-                  </p>
-                  <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-group">
-                      <label className="form-label">
-                        Nomor HP
-                      </label>
-                      <input className={`form-control${errors.phone ? " error" : ""}`} placeholder="0812 3456 7890" type="tel" inputMode="tel" autoComplete="tel" {...register("phone")} />
-                      {errors.phone ? (
-                        <span className="error-message">{errors.phone.message}</span>
-                      ) : null}
-                    </div>
-                    <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
-                      Kirim OTP
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="home-indicator " />
+    <AuthLayout
+      role={AUTH_ROLE_LABEL.customer}
+      title="Lupa kata sandi"
+      subtitle="Masukkan nomor HP terdaftar, kami kirim kode untuk membuat sandi baru."
+    >
+      <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="phone">
+            Nomor HP
+          </label>
+          <input
+            id="phone"
+            className={`auth-input${errors.phone ? ' is-error' : ''}`}
+            placeholder="0812 3456 7890"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            aria-invalid={errors.phone ? true : undefined}
+            {...register('phone')}
+          />
+          {errors.phone ? (
+            <span className="auth-error" role="alert">
+              {errors.phone.message}
+            </span>
+          ) : null}
         </div>
-      </div>
-    </div>
-    </>
+
+        <button type="submit" className="auth-submit" disabled={isSubmitting}>
+          Kirim kode
+        </button>
+      </form>
+
+      <p className="auth-switch">
+        Ingat kata sandinya? <Link to="/signin">Masuk</Link>
+      </p>
+    </AuthLayout>
   )
 }

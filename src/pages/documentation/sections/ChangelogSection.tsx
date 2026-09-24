@@ -25,6 +25,17 @@ export function ChangelogSection() {
           </thead>
           <tbody>
             <tr>
+              <td>Empat layar auth terakhir pindah ke kerangka bersama</td>
+              <td>
+                <code className="doc-inline">ForgotPassword</code>, <code className="doc-inline">ForgotPasswordOtp</code>,{' '}
+                <code className="doc-inline">CreatePassword</code>, dan <code className="doc-inline">Verification</code> masih memakai markup Bootstrap hasil porting (<code className="doc-inline">.container</code>/<code className="doc-inline">.row</code>/<code className="doc-inline">.col-12</code>) dengan gutter 24px, penggulung bersarang, copy campur Inggris, dan penampil sandi berupa{' '}
+                <code className="doc-inline">&lt;span role="button"&gt;</code> yang tidak bisa dinyalakan Enter
+              </td>
+              <td>
+                Keempatnya memakai <code className="doc-inline">AuthLayout</code> yang sama dengan lima layar auth lain. Copy jadi Indonesia, penampil sandi jadi <code className="doc-inline">&lt;button&gt;</code> dengan <code className="doc-inline">aria-pressed</code>, kotak OTP masuk <code className="doc-inline">system/_auth-2.scss</code>, dan tombol verifikasi nonaktif sampai enam digit terisi. Gate 8/8 PASS
+              </td>
+            </tr>
+            <tr>
               <td>Skala judul layar (16 kelas jadi 1 aturan)</td>
               <td>
                 39 halaman punya <code className="doc-inline">&lt;h1&gt;</code>, tetapi ada 16 kelas berbeda untuk judul yang sama: 4 ukuran, 3 bobot (600/700/800), dan satu tanpa bobot. Judul layar yang sama beratnya bisa 600 di satu halaman dan 800 di halaman lain

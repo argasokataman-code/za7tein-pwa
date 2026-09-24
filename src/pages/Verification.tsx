@@ -1,79 +1,73 @@
-import { ChevronLeft, Mail } from 'lucide-react'
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
-
 import toast from 'react-hot-toast'
 
+import { AuthLayout } from '../components/ui/AuthLayout'
+import { AUTH_ROLE_LABEL } from '../data/auth'
 import { useOtpInput } from '../hooks/useOtpInput'
 
+/**
+ * Verifikasi email — enam digit yang dikirim ke email terdaftar.
+ *
+ * Kerangkanya `AuthLayout` varian polos, sama seperti layar auth lain. Yang
+ * berubah bersama itu:
+ *
+ *   - Kotak digit memakai `.auth-otp` di kerangka bersama. Sebelumnya
+ *     `.code-input` dari stylesheet porting dengan gutter 24px.
+ *   - Tombolnya `.auth-submit`, dan verifikasinya dinonaktifkan sampai enam
+ *     digit terisi. Dulu tombolnya selalu bisa ditekan lalu menampilkan toast
+ *     error, sehingga kontrolnya tidak pernah menyampaikan keadaannya.
+ *   - Copy Indonesia. "Please Verify Your Email" jadi "Verifikasi email".
+ *
+ * Catatan: PRD aktif tidak punya requirement OTP (level 1 cukup validasi
+ * format + simpan E.164). Layar ini mock yang sudah ada sejak versi lama, dan
+ * tidak mengklaim mengirim apa pun sungguhan.
+ */
 export default function Verification() {
   const otp = useOtpInput(6)
   const navigate = useNavigate()
+
+  const verify = () => {
+    toast.success('Email terverifikasi')
+    navigate('/signin')
+  }
+
   return (
-    <>
-    <div className="app-shell">
-      <div className="auth-page">
-        <div className="auth-page">
-          <div className="screen active">
-            <div className="container h-100">
-              <div className="row h-100">
-                <div className="col-12 d-flex flex-column justify-content-between">
-                  <div className="back-button">
-                    <button className="btn-back" onClick={() => navigate(-1)}>
-                      <ChevronLeft size={24} strokeWidth={1.75} />
-                    </button>
-                  </div>
-                  <div className="verify-content text-center">
-                    <div className="icon-wrapper">
-                      <div className="email-icon">
-                        <Mail size={60} strokeWidth={1.75} color="var(--on-brand)" />
-                      </div>
-                    </div>
-                    <h1 className="verify-title">
-                      Please Verify Your Email
-                    </h1>
-                    <p className="verify-subtitle">
-                      Enter the 6 digit code we sent by email
-                    </p>
-                    <div className="code-inputs">
-                      {otp.values.map((value, i) => (
-                        <input
-                          key={i}
-                          ref={(el) => {
-                            otp.refs.current[i] = el
-                          }}
-                          inputMode="numeric"
-                          maxLength={1}
-                          className="code-input"
-                          aria-label={`Digit ${i + 1}`}
-                          type="text"
-                          value={value}
-                          onChange={(e) => otp.handleChange(i, e.target.value)}
-                          onKeyDown={(e) => otp.handleKeyDown(i, e.key)}
-                        />
-                      ))}
-                    </div>
-                    <button className="btn btn-primary btn-verify" onClick={() => otp.isComplete ? (toast.success("Email verified successfully!"), navigate('/signin')) : toast.error('Enter all 6 digits')}>
-                      Verify
-                    </button>
-                    <p className="resend-text">
-                      You can resend the code in 
-                      <span className="countdown">
-                        58
-                      </span>
-                       seconds
-                    </p>
-                  </div>
-                  <div />
-                </div>
-              </div>
-            </div>
-            <div className="home-indicator " />
-          </div>
+    <AuthLayout
+      role={AUTH_ROLE_LABEL.customer}
+      title="Verifikasi email"
+      subtitle="Masukkan enam digit kode yang kami kirim ke emailmu."
+    >
+      <div className="auth-form">
+        <div className="auth-otp" role="group" aria-label="Kode verifikasi">
+          {otp.values.map((value, i) => (
+            <input
+              key={i}
+              ref={(el) => {
+                otp.refs.current[i] = el
+              }}
+              inputMode="numeric"
+              maxLength={1}
+              className="auth-otp-box"
+              aria-label={`Digit ${i + 1}`}
+              type="text"
+              value={value}
+              onChange={(e) => otp.handleChange(i, e.target.value)}
+              onKeyDown={(e) => otp.handleKeyDown(i, e.key)}
+            />
+          ))}
         </div>
+
+        <button
+          type="button"
+          className="auth-submit"
+          disabled={!otp.isComplete}
+          onClick={verify}
+        >
+          Verifikasi
+        </button>
+
+        <p className="auth-hint">Kode bisa dikirim ulang dalam 58 detik.</p>
       </div>
-    </div>
-    </>
+    </AuthLayout>
   )
 }

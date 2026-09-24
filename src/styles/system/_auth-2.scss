@@ -1,0 +1,67 @@
+@use "./mixins" as *;
+
+// ── Layar auth, lanjutan ───────────────────────────────────────────────────
+// Dipisah dari `_auth.scss` karena berkas itu menyentuh batas 600 baris dan
+// tidak boleh ditumbuhkan. Isinya hal yang hanya dipakai jalur lupa kata sandi:
+// kotak digit OTP, dan tombol teks yang dulu ditulis sebagai <a> saja.
+
+// ── Tombol teks di dalam paragraf ──────────────────────────────────────────
+// `.auth-aside` di `_auth.scss` menata tautan bergaya tombol. Jalur lupa kata
+// sandi memakai <button>, bukan <a>, karena aksinya memanggil toast dan tidak
+// berpindah halaman. Bentuknya harus sama dengan tautan itu, jadi gayanya
+// diletakkan bersama di sini alih-alih menyalin nilai ke dua tempat.
+
+.auth-aside button {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-1);
+  border: 0;
+  background: transparent;
+  color: var(--orange-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-aside button:hover {
+  text-decoration: underline;
+}
+
+.auth-aside button:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+// ── Kotak digit OTP ────────────────────────────────────────────────────────
+// Enam kotak untuk kode verifikasi. Selnya berukuran sasaran sentuh penuh
+// (--touch-min) supaya mengetuk kotak tertentu tidak meleset; angka di
+// dalamnya memakai ukuran lebih besar dari teks biasa karena itu satu-satunya
+// isi selnya.
+
+.auth-otp {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.auth-otp-box {
+  width: 100%;
+  height: var(--touch-min);
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-align: center;
+}
+
+.auth-otp-box:focus {
+  border-color: var(--sa7tein-orange);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--orange-soft);
+}

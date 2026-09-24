@@ -1,14 +1,28 @@
-import { ChevronLeft, Check, Eye } from 'lucide-react'
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
+import { AuthLayout } from '../components/ui/AuthLayout'
+import { AUTH_ROLE_LABEL } from '../data/auth'
 import { createPasswordSchema, type CreatePasswordFormData } from '../lib/schemas'
 
+/**
+ * Membuat kata sandi baru — langkah terakhir lupa kata sandi.
+ *
+ * Dua hal ikut diperbaiki bersama kerangkanya:
+ *
+ *   1. Penampil sandi dulu `<span role="button" tabIndex={0}>`, jadi Enter dan
+ *      Spasi tidak menyalakannya — `role` memberi tahu pembaca layar bahwa itu
+ *      tombol, tapi perilaku tombolnya tidak ada. Sekarang `<button>` sungguhan
+ *      dengan `aria-pressed`.
+ *   2. Copy-nya campur Inggris ("Create New Password", "Password Changed!").
+ *      Diseragamkan ke Bahasa Indonesia seperti layar auth lain.
+ *
+ * Tanpa foto: varian polos, sama seperti langkah pertama.
+ */
 export default function CreatePassword() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
@@ -25,77 +39,83 @@ export default function CreatePassword() {
   }
 
   return (
-    <>
-    <div className="app-shell">
-      <div className="auth-page">
-        <div className="screen active">
-          <div className="container h-100">
-            <div className="row h-100">
-              <div className="col-12 d-flex flex-column justify-content-center">
-                <div className="back-button">
-                  <button type="button" className="btn-back" aria-label="Back" onClick={() => navigate(-1)}>
-                    <ChevronLeft size={24} strokeWidth={1.75} />
-                  </button>
-                </div>
-                <div className="auth-content">
-                  <h1 className="auth-title">
-                    Create New Password
-                  </h1>
-                  <p className="auth-subtitle">
-                    Choose a strong password to secure your account. Make it unique and memorable!
-                  </p>
-                  <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-group">
-                      <label className="form-label">
-                        Password
-                      </label>
-                      <div className="password-wrapper">
-                        <input className={`form-control${errors.password ? " error" : ""}`} placeholder="Enter your password" type={showPassword ? "text" : "password"} {...register("password")} />
-                        <span className="password-toggle" style={{ cursor: "pointer" }} role="button" tabIndex={0} onClick={() => setShowPassword((v) => !v)}>
-                          <Eye size={20} strokeWidth={1.75} />
-                        </span>
-                      </div>
-                      {errors.password ? (
-                        <span className="error-message">{errors.password.message}</span>
-                      ) : null}
-                    </div>
-                    <div className="form-group">
-                      <label className="form-label">
-                        Confirm Password
-                      </label>
-                      <input className={`form-control${errors.confirmPassword ? " error" : ""}`} placeholder="Confirm your password" type="password" {...register("confirmPassword")} />
-                      {errors.confirmPassword ? (
-                        <span className="error-message">{errors.confirmPassword.message}</span>
-                      ) : null}
-                    </div>
-                    <button type="submit" className="btn btn-primary btn-auth" disabled={isSubmitting}>
-                      Create New Password
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
+    <AuthLayout
+      role={AUTH_ROLE_LABEL.customer}
+      title="Buat kata sandi baru"
+      subtitle="Pilih sandi yang kuat dan mudah kamu ingat."
+    >
+      <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="password">
+            Kata sandi
+          </label>
+          <div className="auth-input-wrap">
+            <input
+              id="password"
+              className={`auth-input${errors.password ? ' is-error' : ''}`}
+              placeholder="Minimal 6 karakter"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="new-password"
+              aria-invalid={errors.password ? true : undefined}
+              {...register('password')}
+            />
+            <button
+              type="button"
+              className="auth-reveal"
+              aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+              aria-pressed={showPassword}
+              onClick={() => setShowPassword((value) => !value)}
+            >
+              {showPassword ? <EyeOff size={20} strokeWidth={1.75} /> : <Eye size={20} strokeWidth={1.75} />}
+            </button>
           </div>
-          <div className={`profile-modal-overlay${showModal ? " is-open" : ""}`}>
-            <div className="profile-modal">
-              <div className="profile-modal-icon success-icon">
-                <Check size={48} strokeWidth={1.75} color="var(--on-brand)" />
-              </div>
-              <h2 className="profile-modal-title">
-                Password Changed!
-              </h2>
-              <p className="profile-modal-text">
-                Your password has been successfully updated.
-              </p>
-              <button className="btn-profile-primary" onClick={() => { toast.success('Password updated successfully!'); navigate('/home') }}>
-                Back to Home
-              </button>
-            </div>
-          </div>
-          <div className="home-indicator " />
+          {errors.password ? (
+            <span className="auth-error" role="alert">
+              {errors.password.message}
+            </span>
+          ) : null}
         </div>
-      </div>
-    </div>
-    </>
+
+        <div className="auth-field">
+          <label className="auth-label" htmlFor="confirm">
+            Ulangi kata sandi
+          </label>
+          <input
+            id="confirm"
+            className={`auth-input${errors.confirmPassword ? ' is-error' : ''}`}
+            placeholder="Ulangi kata sandi"
+            type="password"
+            autoComplete="new-password"
+            aria-invalid={errors.confirmPassword ? true : undefined}
+            {...register('confirmPassword')}
+          />
+          {errors.confirmPassword ? (
+            <span className="auth-error" role="alert">
+              {errors.confirmPassword.message}
+            </span>
+          ) : null}
+        </div>
+
+        <button type="submit" className="auth-submit" disabled={isSubmitting}>
+          Simpan kata sandi
+        </button>
+      </form>
+
+      {showModal ? (
+        <div className="auth-form" role="status">
+          <p className="auth-hint">Kata sandi berhasil diperbarui.</p>
+          <button
+            type="button"
+            className="auth-submit"
+            onClick={() => {
+              toast.success('Kata sandi diperbarui')
+              navigate('/home')
+            }}
+          >
+            Kembali ke beranda
+          </button>
+        </div>
+      ) : null}
+    </AuthLayout>
   )
 }
