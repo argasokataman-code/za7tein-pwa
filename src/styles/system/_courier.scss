@@ -331,11 +331,24 @@
 
 .courier-btn-ghost {
   @include s-btn-shape;
-  margin-top: var(--space-2);
-  width: 100%;
   background: var(--red-soft);
   border-color: var(--danger);
   color: var(--danger-ink);
+}
+
+/* Lebar penuh hanya di zona guard detail tugas (aksi berdiri sendiri).
+   Di dalam `.sheet-actions` tombol ikut aturan sheet — sebab itu `width`/`margin`
+   tidak lagi dibawa kelas dasarnya, supaya konfirmasi keluar tidak tergeser 8px
+   dari tombol Batal. Basis eksplisit `calc(50% - gap/2)` membuat dua tombol
+   benar-benar sama lebar walau `s-btn-shape` memberi padding yang berbeda dari
+   `.btn` dasar. */
+.courier-guard .courier-btn-ghost {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.sheet-actions .courier-btn-ghost {
+  flex: 0 0 calc(50% - var(--space-1));
 }
 
 .courier-otp {

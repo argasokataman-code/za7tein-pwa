@@ -1805,6 +1805,70 @@
         }
       ],
       "loc": "src/pages/CourierTasks.tsx:1"
+    },
+    {
+      "id": "TASK-9164",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:52:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss (+15/-8) — edit via tool: .courier-btn-ghost {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-9165",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:55:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss (+14/-8) — edit via tool: /* Lebar penuh hanya di zona gu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "BUG-5000",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:00:32",
+      "tags": [
+        "courier",
+        "ui",
+        "sheet"
+      ],
+      "summary": "Tombol Keluar sheet kurir offset 8px + beda lebar 40px: courier-btn-ghost bawa width/margin; layout dipindah ke .courier-guard, sheet dapat ",
+      "conn": [
+        {
+          "id": "FEAT-2001",
+          "type": "relates",
+          "raw": "FEAT-2001:relates"
+        },
+        {
+          "id": "FEAT-3002",
+          "type": "relates",
+          "raw": "FEAT-3002:relates"
+        }
+      ],
+      "loc": "src/styles/system/_courier.scss:328"
     }
   ]
 }
