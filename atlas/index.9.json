@@ -1068,6 +1068,32 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-9130",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:41:54",
+      "tags": [
+        "merchant",
+        "wallet",
+        "payout"
+      ],
+      "summary": "Dompet merchant + pencairan + CRUD rekening (flow f6, R-WALLET-01): slice payout, /merchant/wallet, /merchant/payout, /merchant/payout-accou",
+      "conn": [
+        {
+          "id": "TASK-9100",
+          "type": "relates",
+          "raw": "TASK-9100:relates"
+        },
+        {
+          "id": "DEC-1040",
+          "type": "relates",
+          "raw": "DEC-1040:relates"
+        }
+      ],
+      "loc": "src/store/slices/payoutSlice.ts"
     }
   ]
 }
