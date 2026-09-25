@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Tujuh belas baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Delapan belas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -497,6 +497,41 @@ export function AppPolishSection() {
                 <code className="doc-inline">hidden</code>). Terukur sesudahnya: elemen tak
                 dirender, hit-test badge kembali ke{' '}
                 <code className="doc-inline">discount-badge__pct</code>
+              </td>
+            </tr>
+            <tr>
+              <td>Modal keluar /profile tertutup bilah nav</td>
+              <td>
+                Komentarnya mengklaim modalnya &ldquo;diberi ruang bawah sebesar bilah
+                nav&rdquo;, padahal padding bawahnya cuma{' '}
+                <code className="doc-inline">--space-5</code> (20px). Terukur di viewport
+                390&times;600: modal terbuka duduk di 406,8&ndash;600 dengan tombol
+                536&ndash;580, sementara <code className="doc-inline">.bottom-nav</code> mulai
+                di 523 &mdash; jadi 57px tombol tepat di bawah bilah. Komentarnya sudah
+                menyebut masalah ini (z-index 1000 seri, nav menang karena belakangan di DOM)
+                tapi perbaikan ruangnya tidak pernah ditulis
+              </td>
+              <td>
+                Ruangnya digenggam overlay, bukan modalnya:{' '}
+                <code className="doc-inline">padding-bottom: var(--nav-height)</code> di{' '}
+                <code className="doc-inline">.profile-modal-overlay</code>, karena yang
+                butuh menghindari bilah adalah wadahnya, dan tinggi bilah itu urusan
+                viewport (dia <code className="doc-inline">fixed</code>), bukan urusan isi
+                modal. Terukur sesudahnya: tombol 472&ndash;516 (h 44), celah ke nav{' '}
+                <strong>7px</strong>, <code className="doc-inline">tertutupNav: false</code>,
+                hit-test <code className="doc-inline">BUTTON.btn-profile-primary</code>. Di
+                jendela 1440px overlay/modal/nav sama-sama sejajar{' '}
+                <code className="doc-inline">.app-shell</code> (505&ndash;935, w 430) &mdash;
+                overlay ini <code className="doc-inline">position: fixed; inset: 0</code>{' '}
+                tanpa batas kolom, jadi{' '}
+                <code className="doc-inline">max-width: var(--shell-max)</code> +{' '}
+                <code className="doc-inline">margin-inline: auto</code> ditambahkan, dan{' '}
+                <code className="doc-inline">max-width: 480px</code> angka mentah di
+                part-15.scss diganti token. Di viewport 390&times;600 transisinya terukur
+                beku di frame awal (<code className="doc-inline">CSSTransition</code>,{' '}
+                <code className="doc-inline">currentTime: 0</code>,{' '}
+                <code className="doc-inline">fill: backwards</code>) &mdash; artefak klon,
+                bukan bug; pengukuran di atas dilakukan dengan transisi dimatikan
               </td>
             </tr>
           </tbody>

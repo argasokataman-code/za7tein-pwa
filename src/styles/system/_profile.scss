@@ -21,14 +21,23 @@
 
 /* ── Modal keluar ───────────────────────────────────────────────────────────
    Modal ini dipaku ke dasar layar, dan dasar layar /profile ditempati
-   .bottom-nav (fixed, 76px, z-index 1000). part-15.scss memberi modal z-index
-   1000 juga — seri, dan bilah nav menang karena muncul belakangan di DOM,
-   sehingga tombol Batal/Keluar tertutup 36px. Dinaikkan satu tingkat, lalu
-   diberi ruang bawah sebesar bilah nav plus safe-area supaya tombolnya tidak
-   pernah bersinggungan dengan home indicator di perangkat berponi. */
+   .bottom-nav (fixed, 77px terukur, z-index 1000). part-15.scss memberi modal
+   z-index 1000 juga — seri, dan bilah nav menang karena muncul belakangan di
+   DOM, sehingga tombol Batal/Keluar tertutup 36px. Karena itu z-index-nya
+   dinaikkan satu tingkat di sini.
 
+   Komentar ini dulu mengklaim modalnya "diberi ruang bawah sebesar bilah nav",
+   padahal tidak: padding bawahnya cuma --space-5 (20px). Terukur di viewport
+   390x600, modal terbuka duduk di 406.8-600 dengan tombol 536-580, sementara
+   .bottom-nav mulai di 523 — jadi 57px tombol tepat berada di bawah bilah, dan
+   yang tersisa cuma tepi atasnya. Ruangnya digenggam overlay, bukan modal:
+   yang butuh menghindari bilah adalah wadahnya, dan tinggi bilah itu urusan
+   viewport (dia `fixed`), bukan urusan isi modal. Safe-area ikut ditambahkan
+   supaya tombolnya tidak bersinggungan dengan home indicator di perangkat
+   berponi. */
 .profile-modal-overlay {
   z-index: 1001;
+  padding-bottom: var(--nav-height);
   transition: opacity var(--motion-standard) var(--ease-out),
     visibility var(--motion-standard) var(--ease-out);
 }
@@ -36,4 +45,25 @@
 .profile-modal {
   padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
   transition: transform var(--motion-standard) var(--ease-out);
+}
+
+/* Modal ini `position: fixed` dan duduk di kolom 430px; di jendela lebar ia
+   harus tetap di tengah kolom, bukan menyeberang viewport. `inset: 0` sudah
+   membentangkannya penuh, jadi lebarnya dibatasi di sini — sama seperti
+   .install-prompt, yang punya masalah yang sama. */
+.profile-modal-overlay {
+  max-width: var(--shell-max);
+  margin-inline: auto;
+}
+
+.profile-modal {
+  max-width: 100%;
+}
+
+/* part-15.scss menulis max-width: 480px — angka mentah, dan tidak sama dengan
+   kolom aplikasi (--shell-max 430px). Selama +50px itu tak pernah terpakai,
+   tapi ia salah sebagai sumber kebenaran: kalau kolomnya berubah, modalnya
+   tidak ikut. Ditulis ulang dari token. */
+.profile-modal {
+  max-width: var(--shell-max);
 }
