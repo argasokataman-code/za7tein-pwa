@@ -1468,6 +1468,44 @@
         }
       ],
       "loc": "src/pages/CourierWallet.tsx:1"
+    },
+    {
+      "id": "TASK-9149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:21:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss (+23/-16) — edit via tool: .courier-secondary-link",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss"
+    },
+    {
+      "id": "TASK-9150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:22:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss (+5/-3) — edit via tool: .courier-account-actions ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss"
     }
   ]
 }
