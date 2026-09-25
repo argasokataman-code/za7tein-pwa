@@ -2299,6 +2299,158 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4689",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:11:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+22/-10) — edit via tool: @supports (animation-timel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4690",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:11:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa; npm run build 2>&1 | grep -iE \"error|✓ built\" | tail -2; pkill -f \"vite preview\" 2>/d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4691",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:12:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+28/-22) — edit via tool: @supports (animation-timel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4692",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:13:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+12/-18) — edit via tool: // Header bergerak naik be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4693",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:14:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+15/-29) — edit via tool: // Header atas bergerak SE",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4694",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:14:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa; wc -l < src/styles/system/_interaction.scss; npm run scan 2>&1 | grep -E \"0 FAIL|FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4695",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:14:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx (+22/-1) — edit via tool: tsx: <tr>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4696",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:14:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.87.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

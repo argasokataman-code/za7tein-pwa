@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Dua belas baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Tiga belas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -332,6 +332,27 @@ export function AppPolishSection() {
                 yang bisa dijalankan pembaca layar, jadi tidak dijadikan tombol. PRD aktif tak menyebut
                 pull-to-refresh (<code className="doc-inline">UNRESOLVED-by-absence</code>), jadi ini
                 keputusan UX, bukan requirement
+              </td>
+            </tr>
+            <tr>
+              <td>Parallax beranda menabrak chip kategori</td>
+              <td>
+                Header beranda bergerak dengan amplitudo 34px dan <code className="doc-inline">from 34px</code>,
+                jadi ia ada di simpangan terjauhnya tepat saat halaman di puncak.
+                <code className="doc-inline">translate</code> tidak menggeser kotak layout: kotak hero berakhir
+                di 293.2px sementara kotak pencariannya tampil di 303.2px, menabrak{' '}
+                <code className="doc-inline">.home-content</code> yang mulai di 293.2px — terukur tumpang 10px,
+                chip Makanan/Minuman/Camilan menempel ke kotak pencarian
+              </td>
+              <td>
+                Akarnya amplitudo yang lebih besar dari celah, bukan arahnya: jarak search-ke-isi terukur
+                24px (269.2 &rarr; 293.2), jadi header tak boleh bergeser lebih dari itu. Mengarahkan ke atas
+                (<code className="doc-inline">to -34px</code>) menghapus tumpang tapi menaruh header di{' '}
+                <code className="doc-inline">top: -34px</code>, menembus tepi atas kolom. Amplitudo diturunkan
+                ke 20px + <code className="doc-inline">animation-direction: reverse</code>, jadi di puncak
+                halaman header duduk di tempat dan simpangan 4px tersisa di akhir gulir. Terukur di gulir
+                0/80/160/240/320px: celah 24/19/14/9/4px &mdash; tak pernah negatif di posisi mana pun, dan{' '}
+                <code className="doc-inline">overflow-x</code> tetap 0
               </td>
             </tr>
           </tbody>

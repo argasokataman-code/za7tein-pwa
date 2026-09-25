@@ -340,14 +340,25 @@ $press-scale: 0.97;
 // `--hero` (header atas), `--media` (foto besar), `--title` (judul bagian),
 // `--card` (blok/kartu), `--decor` (dekorasi di dalam kartu).
 @supports (animation-timeline: view()) {
-  // Header atas digeser SETENGAH kecepatan gulir; tidak menembus tepi atas.
-  // Terukur di beranda pada gulir maksimum 692px (390x844): turun 34px masih
-  // menyisakan satu layar konten di bawahnya.
+  // Header atas bergerak SETENGAH kecepatan gulir: saat isi melaju naik, header
+  // tertinggal sedikit di belakangnya.
+  //
+  // `translate` tidak menggeser kotak layout, dan header bergerak naik bersama
+  // isi pada kecepatan gulir yang sama. Jadi jarak search-ke-isi = `translate(s)
+  // - 24px` (celah statis terukur: dasar search 269.2 vs puncak `.home-content`
+  // 293.2), sehingga amplitudo header tidak boleh melebihi 24px.
+  //
+  // Versi lama memakai 34px dengan `from 34px`, jadi di puncak halaman header
+  // ada di simpangan maksimumnya — tumpang terukur 10px, chip kategori menempel
+  // ke kotak pencarian. Akarnya amplitudo > celah, bukan arahnya. Mengarahkan
+  // ke atas (`to -34px`) menghapus tumpang itu tapi menaruh header di
+  // `top: -34px`, menembus tepi atas kolom. 20px + `reverse` memberi keduanya:
+  // di puncak header duduk di tempat, dan simpangan 4px tersisa di akhir gulir.
   .s7-parallax--hero {
-    animation: parallax-lift linear both;
+    animation: parallax-lift linear both reverse;
     animation-timeline: scroll(root block);
     animation-range: 0 320px;
-    --parallax-lift: 34px;
+    --parallax-lift: 20px;
   }
 
   // Foto besar (mis. hero menu-detail). Ia dinaikkan sedikit lebih lambat lalu
