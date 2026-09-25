@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Empat belas baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Lima belas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -382,6 +382,38 @@ export function AppPolishSection() {
                 halaman header duduk di tempat dan simpangan 4px tersisa di akhir gulir. Terukur di gulir
                 0/80/160/240/320px: celah 24/19/14/9/4px &mdash; tak pernah negatif di posisi mana pun, dan{' '}
                 <code className="doc-inline">overflow-x</code> tetap 0
+              </td>
+            </tr>
+            <tr>
+              <td>Carousel promo: gelombang, dan dot yang benar-benar bisa ditekan</td>
+              <td>
+                Kartu promo hanya satu, dan dekorasinya tiga lingkaran sepusat yang tidak
+                terhubung ke apa pun di aplikasi ini. Titik penunjuk carousel sempat dibuat
+                24&times;24px dengan alasan &ldquo;cukup untuk jari&rdquo; &mdash; gate menolaknya
+                dengan benar, karena batasnya <code className="doc-inline">--touch-min</code> 44px
+              </td>
+              <td>
+                Kartu jadi tiga, isinya dari data yang ada: klaim diskon 30% dari notifikasi
+                promo, sisanya item katalog yang <code className="doc-inline">discountPercent</code>-nya
+                memang terisi &mdash; PRD aktif tidak punya fitur promo, jadi tak ada klaim baru.
+                Latar diganti tiga gelombang SVG dari bawah plus tekstur titik, motif yang sama
+                dengan hero beranda; jumlah lapisan yang memberi kedalaman, bukan gradient pada
+                bentuknya, opasitas <code className="doc-inline">6/9/14%</code> di dalam batas
+                dekorasi. Titik penunjuk jadi 44px, lalu <strong>pindah ke baris CTA</strong>:
+                ditaruh di kanan atas ia bertabrakan dengan judul (3 &times; 44px = 132px, terukur
+                mulai di x=230 sementara kotak judul berakhir di 350), sementara di baris CTA
+                hanya label tombol yang perlu dihindari dan itu digeser lewat{' '}
+                <code className="doc-inline">padding-right</code>. Diuji dengan klik nyata lewat{' '}
+                <code className="doc-inline">Input.dispatchMouseEvent</code>: jalur bergeser{' '}
+                <code className="doc-inline">translate3d(0%)</code> &rarr;{' '}
+                <code className="doc-inline">translate3d(-100%)</code>, kartu aktif 0 &rarr; 1.
+                Dua angka kontras juga hasil ukur: angka promo memakai{' '}
+                <code className="doc-inline">background-clip: text</code> dengan ujung putih{' '}
+                <code className="doc-inline">#fffaf3</code> (3.23:1) setelah krem{' '}
+                <code className="doc-inline">#ffe9b8</code> terukur 2.81:1 &mdash; di bawah ambang
+                3:1; dan keterangan 12px wajib gelap, sebab di atas oranye putih hanya 3.36:1 dan{' '}
+                <code className="doc-inline">--orange-soft-ink</code> 2.12:1, keduanya gagal AA,
+                sementara <code className="doc-inline">--text-primary</code> 4.86:1
               </td>
             </tr>
           </tbody>

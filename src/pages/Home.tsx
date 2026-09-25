@@ -5,14 +5,13 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 import CustomerHomeHero from '../components/customer/CustomerHomeHero'
+import { HomePromoCarousel } from '../components/customer/HomePromoCarousel'
 import { BottomNav } from '../components/layout/BottomNav'
 import { AddToCartButton } from '../components/ui/AddToCartButton'
 import { FoodCard } from '../components/ui/FoodCard'
 import { useAppSelector } from '../hooks/useAppStore'
 import { useCatalog } from '../hooks/useCatalog'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
-
-const AD_IMAGE = '/assets/media/onboarding-bg.196fa385.jpg'
 
 export default function Home() {
   const navigate = useNavigate()
@@ -84,32 +83,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="ad-banner s7-parallax--card" style={{ marginBottom: 24 }}>
-            {/*
-              Dekorasi latar kartu promo: tiga lingkaran sepusat dari tepi
-              kanan atas (konsep kartu cuaca KSAplay, Uiverse) yang
-              diterjemahkan ke DNA — kedalaman dari bentuk, bukan gradient.
-              Semua opasitas di bawah 15% supaya tidak bersaing dengan teks.
-            */}
-            <span className="ad-decor s7-parallax--decor" aria-hidden="true">
-              <span className="ad-decor__circle" />
-              <span className="ad-decor__circle" />
-              <span className="ad-decor__circle" />
-            </span>
-            <div className="ad-content">
-              <div className="ad-text">
-                <h3 className="ad-title">
-                  Diskon <span className="ad-title-value">30%</span> untuk pesanan pertamamu
-                </h3>
-              </div>
-              <div className="ad-image">
-                <img alt="Promo Sa7tein" loading="lazy" width={200} height={200} src={AD_IMAGE} />
-              </div>
-            </div>
-            <button type="button" className="ad-cta" onClick={() => navigate('/search')}>
-              Pesan Sekarang
-            </button>
-          </div>
+          <HomePromoCarousel deals={deals} />
 
           <div className="hot-deals-section">
             <div className="section-header">

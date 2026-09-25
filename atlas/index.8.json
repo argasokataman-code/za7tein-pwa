@@ -2527,6 +2527,253 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4701",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:32:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx (+194) — write via tool: tsx: import { useE",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-4702",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:32:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+1/-26) — edit via tool: tsx: <HomePromoCarousel deals={deals} />",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-4703",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:32:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+182/-64) — edit via tool: // ── 8. Carousel promo beranda ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4704",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:32:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx (+23/-17) — edit via tool: tsx: <h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx"
+    },
+    {
+      "id": "TASK-4705",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:33:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx (+5/-5) — edit via tool: tsx: {'image' in c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-4706",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:34:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx (+54/-25) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-4707",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:34:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+96/-67) — edit via tool: // Gelombang latar: tiga pita dar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4708",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:37:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+38/-34) — edit via tool: // Angka promo: gradien putih-ke-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4709",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:38:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx (+36/-20) — edit via tool: tsx: <p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx"
+    },
+    {
+      "id": "TASK-4710",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:38:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+33/-31) — edit via tool: // Penunjuk posisi. Targetnya 44p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4711",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:39:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+12/-7) — edit via tool: .promo-slide__text {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4712",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:40:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx (+33/-1) — edit via tool: tsx: <tr>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4713",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:41:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.89.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }
