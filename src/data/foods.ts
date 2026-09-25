@@ -96,6 +96,7 @@ const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGrou
     category: 'makanan',
     image: '/assets/img/menu/nasi-goreng.webp',
     description: 'Nasi goreng kampung dengan telur, ayam, dan kerupuk. Level pedas bisa dipilih.',
+    isPopular: true,
     modifierGroups: [SPICE],
   },
   {
@@ -109,6 +110,7 @@ const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGrou
     category: 'makanan',
     image: '/assets/img/menu/lontong.webp',
     description: 'Lontong daun pisang, pendamping sate.',
+    discountPercent: 20,
     modifierGroups: [PORTION],
   },
   {
@@ -122,6 +124,7 @@ const MENU: Array<Omit<Food, 'modifierGroups'> & { modifierGroups?: ModifierGrou
     category: 'minuman',
     image: '/assets/img/menu/es-teh-manis.webp',
     description: 'Teh tubruk manis dengan es batu, disajikan dingin.',
+    discountPercent: 5,
     modifierGroups: [TEMPERATURE, SUGAR],
   },
 ]

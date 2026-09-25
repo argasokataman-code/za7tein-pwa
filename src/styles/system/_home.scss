@@ -8,6 +8,135 @@
 // bentuk. Isi kartunya dari data yang ada (notifikasi promo + item katalog
 // ber-`discountPercent`); PRD aktif tidak punya fitur promo, jadi tidak ada
 // klaim baru yang dikarang.
+// ── 9. Super Deals: badge diskon + latar aksen section ─────────────────────
+// Badge diskon adalah satu-satunya angka yang membuat kartu promo terbaca
+// sebagai promo dari kejauhan, jadi ia dibedakan dari badge lain: pil kaca
+// dengan garis tipis, angka diskonnya lebih besar dari label "Off", dan
+// denyutnya halus dua siklus lalu berhenti — kartu yang berdenyut terus di
+// daftar yang panjang jadi mengganggu, bukan menarik (senior-fe PG-12).
+//
+// Kedua bagian teksnya charcoal. Sempat angka persennya diberi `--surface`
+// (putih) di atas badge yang juga putih, jadi yang terbaca cuma kata "Off" dan
+// angkanya hilang sama sekali — putih di atas putih, rasio 1:1. Terukur di
+// peramban sebelum diperbaiki (`pctColor: rgb(255,255,255)` di atas
+// `rgb(255,249,244)`). Charcoal 4.86:1 di atas oranye lolos AA, dan yang
+// membuat angka itu menonjol adalah ukurannya (16px/800 vs 12px/600), bukan
+// warnanya.
+.deals-section .discount-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3);
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-pill);
+
+  background: var(--bg-warm);
+
+  // Rotasi -3°: cukup untuk terbaca sebagai stiker, tidak cukup untuk membuat
+  // sudut kotaknya menusuk foto di belakangnya.
+  transform: rotate(-3deg);
+  transform-origin: 12px 50%;
+
+  // Denyut berulang tanpa henti (keputusan pemilik produk). Sebelumnya siklusnya
+  // cuma sekali lalu diam, dan terukur `iteration-count: 1` dengan `fill: none`
+  // — denyutnya selesai di detik ~0,3 sebelum mata sempat mendarat di kartunya,
+  // jadi animasinya tak terasa ada sama sekali. Sekarang jeda panjang di dalam
+  // keyframe (0-64% diam) yang membuatnya berdenyut tiap ~2,6s, bukan bergetar
+  // terus: diam lama, sentak singkat.
+  animation: deal-badge-pop 2.6s var(--ease-standard) infinite;
+}
+
+@keyframes deal-badge-pop {
+  0%,
+  64%,
+  100% {
+    scale: 1;
+  }
+  72% {
+    scale: 1.14;
+  }
+  84% {
+    scale: 1.03;
+  }
+}
+
+// Kartu yang sedang di tengah pandangan bernafas sangat halus (1.00-1.015).
+// Amplitudonya sengaja kecil: kartu ini memuat foto dan harga, dan teks yang
+// ikut membesar-besar terbaca sebagai goyang, bukan hidup.
+//
+// Sempat dicoba `animation-timeline: view(inline)` supaya hanya kartu yang
+// terlihat yang berdenyut. Tidak dipakai: terukur `scale` beku `none` di klon
+// headless (scroll-timeline mati di sana), dan mengikat animasi ke posisi gulir
+// di dalam strip horizontal bersarang adalah hal yang paling sering gagal
+// diam-diam di produksi. Animasi biasa lebih jujur: kartu di luar layar memang
+// ikut berdenyut, tapi tak ada yang melihatnya, dan itu jauh lebih murah
+// daripada animasi yang tak jalan sama sekali di sebagian peramban.
+//
+// `prefers-reduced-motion` mematikannya — denyut halus pada delapan kartu
+// sekaligus adalah persis gerakan yang harus dihindari oleh yang memintanya
+// dikurangi.
+@media (prefers-reduced-motion: no-preference) {
+  .deals-section .food-card {
+    animation: deal-card-breathe 3.4s var(--ease-standard) infinite;
+  }
+}
+
+@keyframes deal-card-breathe {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.015;
+  }
+}
+
+.deals-section .discount-badge__pct {
+  font-size: var(--text-base);
+  font-weight: 800;
+  line-height: 1;
+
+  // Charcoal, bukan putih: isian badge-nya sendiri putih `--bg-warm`, jadi putih
+  // di atas putih = angka diskonnya tak terlihat dan yang tersisa cuma "Off".
+  color: var(--text-primary);
+}
+
+.deals-section .discount-badge__off {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1;
+
+  // Charcoal 4.86:1 di atas oranye — lolos AA untuk teks kecil. Justru putih
+  // 3.36:1 yang tidak lolos, jadi "Off"-nya tidak dicerahkan.
+  color: var(--text-primary);
+}
+
+// Latar aksen: section Super Deals dibedakan dari section lain supaya terbaca
+// sebagai satu blok promo. Dipakai `background` + `border` dari token, bukan
+// nilai mentah. `margin-inline` dinaikkan supaya latarnya bisa menempel ke tepi
+// kolom (gutter 20px) walau isinya tetap di dalam gutter.
+.deals-section {
+  // Batch besar: border-nya digambar sebagai `box-shadow` inset 0 0 0 1px, bukan
+  // `border: 1px solid`. Di dalam strip yang menggulir, `border` menggeser posisi
+  // isi sebesar 1px relatif terhadap foto kartu di sebelahnya, dan itu terlihat
+  // sebagai garis yang tidak sejajar. `box-shadow` tidak ikut ke dalam kotak.
+  box-shadow: inset 0 0 0 1px var(--border);
+  border-radius: var(--radius-lg);
+
+  background: var(--orange-soft);
+
+  padding: var(--space-5);
+
+  margin-inline: calc(-1 * var(--space-5));
+}
+
+// Judulnya ikut melebar sampai tepi kotak aksen, jadi jarak tepinya dikembalikan.
+.deals-section .section-header {
+  padding-inline: var(--space-1);
+}
+
 .promo-carousel {
   position: relative;
   border-radius: var(--radius-lg);

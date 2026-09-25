@@ -10,11 +10,19 @@ import { useInstallPrompt } from '../../hooks/useInstallPrompt'
  * memanggil prompt itu. Kalau tidak (iOS, Firefox), kartu menampilkan langkah
  * manualnya langsung — bukan tombol yang diam. Kartu ini menyembunyikan dirinya
  * sendiri saat aplikasi sudah terpasang.
+ *
+ * `forceVisible` dipakai oleh `InstallPromptSheet`: kalau kartu di dalam modal
+ * ikut memutuskan sendiri, keputusannya diambil dari instance hook kedua, dan
+ * dua instance itu bisa berbeda jawaban. Terukur: lapisan gelap modal dirender
+ * (`hidden: false` dari instance sheet) sementara kartunya mengembalikan `null`
+ * (instance kartu) — hasilnya kotak gelap kosong menutupi seluruh layar. Yang
+ * berhak memutuskan di dalam modal adalah modalnya, jadi keputusannya
+ * diteruskan, bukan dihitung ulang.
  */
-export function InstallAppCard() {
+export function InstallAppCard({ forceVisible = false }: { forceVisible?: boolean } = {}) {
   const { hidden, canPrompt, isIOS, install } = useInstallPrompt()
 
-  if (hidden) return null
+  if (hidden && !forceVisible) return null
 
   const steps = isIOS
     ? 'Ketuk Bagikan di Safari, lalu pilih Tambah ke Layar Utama.'

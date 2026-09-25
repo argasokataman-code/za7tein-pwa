@@ -42,7 +42,14 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
           }}
         />
         {food.discountPercent ? (
-          <span className="discount-badge">{food.discountPercent}% Off</span>
+          <span className="discount-badge" aria-label={`Diskon ${food.discountPercent} persen`}>
+            <span className="discount-badge__pct" aria-hidden="true">
+              {food.discountPercent}%
+            </span>
+            <span className="discount-badge__off" aria-hidden="true">
+              Off
+            </span>
+          </span>
         ) : null}
         <FavoriteButton id={food.id} name={food.name} />
       </div>

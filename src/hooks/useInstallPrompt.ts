@@ -19,6 +19,25 @@ export function useInstallPrompt() {
   const [promptEvent, setPromptEvent] = useState<InstallPromptEvent | null>(null)
   const [installed, setInstalled] = useState(false)
 
+  /**
+   * Modalnya hanya layak muncul kalau peramban benar-benar menyediakan prompt.
+   *
+   * Sebelum ini `InstallPromptSheet` menyusun lapisan gelapnya lebih dulu, lalu
+   * `InstallAppCard` mengembalikan `null` ketika promptnya belum ada. Di
+   * peramban yang memang tidak pernah menembakkan `beforeinstallprompt`
+   * (headless Chrome, Firefox, sebagian WebView) hasilnya lapisan gelap
+   * `390x844` dengan `z-index: 1200` menutupi seluruh halaman sementara isinya
+   * kosong. Terukur lewat hit-test: titik tengah badge diskon mendarat di
+   * `.install-prompt`, bukan badge-nya — jadi seluruh beranda tak bisa diklik
+   * dan tak terbaca, bukan cuma section promo.
+   *
+   * Dijaga di hook supaya lapisan gelap dan kartunya hilang bersama; menjaga di
+   * kartunya saja tidak cukup karena lapisan gelapnya bukan milik kartu itu.
+   *
+   * Satu-satunya pengecualiannya iOS: di sana promptnya memang tidak pernah ada
+   * (`beforeinstallprompt` tak didukung sama sekali), tapi langkah manualnya
+   * justru yang mau ditampilkan.
+   */
   useEffect(() => {
     const onPrompt = (event: Event) => {
       event.preventDefault()
@@ -62,7 +81,8 @@ export function useInstallPrompt() {
       (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))
 
   return {
-    hidden: installed || installedMode,
+    // Lapisan gelapnya bukan milik kartu, jadi `hidden` harus ikut mematikannya.
+    hidden: installed || installedMode || (promptEvent === null && !isIOS),
     canPrompt: promptEvent !== null,
     isIOS,
     install,

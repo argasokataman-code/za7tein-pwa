@@ -41,9 +41,10 @@ export function InstallPromptSheet() {
       role="dialog"
       aria-modal="true"
       aria-label="Pasang aplikasi"
+      hidden={hidden}
     >
       <div className="install-prompt-box">
-        <InstallAppCard />
+        <InstallAppCard forceVisible />
         <button type="button" className="install-prompt-later" onClick={dismiss}>
           Nanti saja
         </button>

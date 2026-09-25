@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Enam belas baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Tujuh belas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -449,6 +449,54 @@ export function AppPolishSection() {
                 terverifikasi berganti (Ayam Geprek &rarr; Nasi Uduk Komplit).
                 <code className="doc-inline">prefers-reduced-motion</code> mematikan
                 luncurannya; rotasinya tetap jalan karena itu informasi, bukan dekorasi
+              </td>
+            </tr>
+            <tr>
+              <td>Super Deals · kartu promo, badge diskon, overlay Pasang aplikasi</td>
+              <td>
+                Section cuma 2 kartu karena hanya 2 item katalog punya{' '}
+                <code className="doc-inline">discountPercent</code>; badge{' '}
+                <code className="doc-inline">10% Off</code> statis tanpa pembeda; dan{' '}
+                <strong>seluruh halaman tak bisa diklik</strong> di peramban yang tak pernah
+                menembakkan <code className="doc-inline">beforeinstallprompt</code> &mdash;
+                terukur <code className="doc-inline">.install-prompt</code> 390&times;844 dengan{' '}
+                <code className="doc-inline">z-index: 1200</code> menutupi layar dengan isi
+                kosong, dan hit-test di titik tengah badge mendarat di elemen itu, bukan
+                badge-nya
+              </td>
+              <td>
+                Kartu jadi 8 (empat item katalog &amp; empat item merchant diberi{' '}
+                <code className="doc-inline">discountPercent</code> 5&ndash;25%), semua bergambar.
+                Badge jadi pil kaca: angka 16px/800 di atas label 12px/600, miring{' '}
+                <code className="doc-inline">-3deg</code>, berdenyut{' '}
+                <code className="doc-inline">infinite</code> &mdash; terukur lintas waktu{' '}
+                <code className="doc-inline">1 &rarr; 1.13776 &rarr; 1.0299</code>. Sempat
+                berdenyut sekali (<code className="doc-inline">iteration-count: 1</code>,{' '}
+                <code className="doc-inline">fill: none</code>) sehingga selesai di detik ~0,3
+                sebelum mata mendarat di kartu: tak terasa ada animasi. Angka persennya juga
+                sempat <code className="doc-inline">--surface</code> putih di atas badge putih
+                &mdash; rasio 1:1, yang terbaca cuma kata &ldquo;Off&rdquo;; kini charcoal
+                (4,86:1, terukur <code className="doc-inline">rgb(32,32,32)</code> di atas{' '}
+                <code className="doc-inline">rgb(255,249,244)</code>). Kartu ikut bernafas sangat
+                halus (puncak 1.015, terukur <code className="doc-inline">1.00012 &rarr;
+                1.01497</code>); <code className="doc-inline">animation-timeline: view(inline)</code>{' '}
+                sempat dicoba supaya hanya kartu terlihat yang berdenyut, tapi terukur{' '}
+                <code className="doc-inline">scale: none</code> (beku) dan scroll-timeline di
+                dalam strip horizontal bersarang adalah hal yang paling sering gagal
+                diam-diam. Section dapat latar{' '}
+                <code className="doc-inline">--orange-soft</code> dan garis{' '}
+                <code className="doc-inline">box-shadow</code> inset sebagai ganti{' '}
+                <code className="doc-inline">border</code> (border menggeser isi 1px relatif
+                terhadap foto kartu sebelahnya). Overlay Pasang aplikasi: akarnya{' '}
+                <strong>dua instance</strong> <code className="doc-inline">useInstallPrompt</code>{' '}
+                &mdash; sheet bilang tampil, kartu di dalamnya bilang sembunyi, jadi lapisan
+                gelapnya dirender tanpa isi. Kini satu keputusan di sheet (prop{' '}
+                <code className="doc-inline">forceVisible</code>) plus{' '}
+                <code className="doc-inline">.install-prompt[hidden]</code>{' '}
+                (<code className="doc-inline">display: flex</code> mementahkan atribut{' '}
+                <code className="doc-inline">hidden</code>). Terukur sesudahnya: elemen tak
+                dirender, hit-test badge kembali ke{' '}
+                <code className="doc-inline">discount-badge__pct</code>
               </td>
             </tr>
           </tbody>

@@ -2888,6 +2888,272 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4720",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:49:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts (+5/-4) — edit via tool: ts: description: 'Ayam goreng tepung dengan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts"
+    },
+    {
+      "id": "TASK-4721",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:50:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+94/-1) — edit via tool: // ── 9. Super Deals: badge diskon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4722",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:50:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx (+10/-3) — edit via tool: tsx: {food.discountPercent ? (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-4723",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:51:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/foods.ts (+4/-3) — edit via tool: ts: description: 'Nasi goreng kampung dengan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/foods.ts"
+    },
+    {
+      "id": "TASK-4724",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:51:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+13/-9) — edit via tool: // Batch besar: border-nya digamba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4725",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:00:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts (+32/-17) — edit via tool: ts: export function useInstallPr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts"
+    },
+    {
+      "id": "TASK-4726",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:00:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallPromptSheet.tsx (+6/-5) — edit via tool: tsx: className=\"install",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallPromptSheet.tsx"
+    },
+    {
+      "id": "TASK-4727",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:00:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cards.scss (+18/-11) — edit via tool: .install-prompt {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cards.scss"
+    },
+    {
+      "id": "TASK-4728",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:03:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts (+30/-26) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useInstallPrompt.ts"
+    },
+    {
+      "id": "TASK-4729",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:05:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallAppCard.tsx (+21/-13) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallAppCard.tsx"
+    },
+    {
+      "id": "TASK-4730",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:05:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallPromptSheet.tsx (+1/-1) — edit via tool: tsx: <InstallAppCard fo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/InstallPromptSheet.tsx"
+    },
+    {
+      "id": "TASK-4731",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:16:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+33/-29) — edit via tool: // ── 9. Super Deals: badge disko",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4732",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:18:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+47/-16) — edit via tool: // Denyut berulang tanpa henti (k",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4733",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "09:20:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx (+53/-5) — edit via tool: tsx: <cod",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
     }
   ]
 }

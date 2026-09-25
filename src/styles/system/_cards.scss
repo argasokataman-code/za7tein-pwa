@@ -75,6 +75,13 @@
   background: rgba(32, 32, 32, 0.4);
 }
 
+// `hidden` HTML dimentahkan oleh `display: flex` di atas, jadi harus
+// dikembalikan di sini. Tanpa ini lapisan gelapnya tetap dirender walau
+// kartunya kosong — terukur 390x844 menutupi seluruh halaman.
+.install-prompt[hidden] {
+  display: none;
+}
+
 .install-prompt-box {
   width: 100%;
   max-width: var(--shell-max);

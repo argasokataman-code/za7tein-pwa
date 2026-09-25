@@ -70,6 +70,7 @@ export const menuSeed: MenuItem[] = [
     description: 'Ayam goreng tepung dengan sambal geprek dan nasi putih hangat.',
     stock: 15,
     available: true,
+    discountPercent: 20,
   },
   {
     id: 'mm-2',
@@ -84,6 +85,7 @@ export const menuSeed: MenuItem[] = [
     description: 'Nasi uduk gurih dengan tempe orek, telur, dan kerupuk.',
     stock: 8,
     available: true,
+    discountPercent: 15,
   },
   {
     id: 'mm-3',
@@ -113,6 +115,7 @@ export const menuSeed: MenuItem[] = [
     stock: 12,
     available: true,
     isPopular: true,
+    discountPercent: 25,
   },
   {
     id: 'mm-5',
@@ -127,6 +130,7 @@ export const menuSeed: MenuItem[] = [
     description: 'Teh tubruk manis dengan es batu segar.',
     stock: 40,
     available: true,
+    discountPercent: 10,
   },
   {
     id: 'mm-6',
