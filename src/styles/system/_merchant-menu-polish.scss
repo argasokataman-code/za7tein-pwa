@@ -1,29 +1,30 @@
 @use "./mixins" as *;
 
-/* Context before the stock controls makes this operational list readable at a glance. */
+/* Baris meta status katalog: dot + status + jumlah siap. Sengaja TANPA chrome
+   kartu (border/radius/shadow/background) — sebelumnya ini kartu berbingkai
+   yang cuma memuat satu status dan satu kalimat, sisa pola "kartu statistik"
+   yang sudah dibuang, dan bikin tiga tumpuk chrome (header → kartu → filter)
+   di atas daftar. Cukup satu baris caption supaya filter yang jadi fokus. */
 .merchant-menu-context {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  box-shadow: var(--shadow-subtle);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
 }
 
 .merchant-menu-context-status {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: var(--touch-min);
   color: var(--text-secondary);
-  font-size: var(--text-sm);
   font-weight: 700;
 }
 
+/* Dot status, bukan kontrol: tanpa `min-height: 44px` (itu untuk tap target
+   elemen interaktif, bukan teks). */
 .merchant-menu-context-status > span {
   width: 8px;
   height: 8px;
@@ -39,33 +40,183 @@
   background: var(--success);
 }
 
-.merchant-menu-context p {
-  max-width: 18ch;
+.merchant-menu-context-sep {
+  color: var(--border-strong);
+}
+
+.merchant-menu-context-count {
   color: var(--text-secondary);
-  font-size: var(--text-xs);
-  text-align: right;
 }
 
-/* ── Filter stok menempel di bawah header ────────────────────────────────────
-   Daftar menu 15 item terukur 2265px — 87% dari tinggi halaman (2810px), jadi
-   filter "Semua / Menipis / Habis" yang duduk di atasnya hilang begitu
-   pengguna menggulir. Terukur: satu-satunya elemen `sticky` di halaman ini
-   adalah headernya, jadi setelah menggulir tak ada lagi cara berpindah filter
-   selain kembali ke atas. Geometri bersama ada di `@mixin sticky-below-header`
-   karena halaman Ulasan punya masalah yang sama. */
-.merchant-menu-overview {
+/* ── Filter menu: kategori (utama) + status stok ─────────────────────────────
+   Daftar menu 15 item terukur ±2265px (87% tinggi halaman), jadi filter yang
+   duduk di atasnya hilang begitu digulir. Satu blok sticky (geometri di
+   `@mixin sticky-below-header`) berisi dua baris: chip kategori
+   (Makanan/Minuman/Camilan dari mock `CATEGORIES` + ikonnya) sebagai filter
+   utama, dan segmented status stok sebagai filter sekunder. Menggantikan tiga
+   kartu statistik 56px yang memakan ruang sebelum daftar. */
+.merchant-menu-filters {
   @include sticky-below-header;
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  background: var(--bg-warm);
+
+  /* Garis pemisah full-bleed di dasar bar. Tanpa ini, header grup yang
+     menggulir ke bawah bar (latar sama-sama --bg-warm) kebaca "kepotong",
+     bukan "lewat di bawah bar". */
+  &::after {
+    content: '';
+    position: absolute;
+    right: calc(-1 * var(--space-5));
+    bottom: 0;
+    left: calc(-1 * var(--space-5));
+    height: 1px;
+    background: var(--border);
+  }
 }
 
-/* Kepala daftar ("Semua menu · 15 item") sengaja TIDAK dibuat sticky.
+.merchant-menu-chips {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* Fade tepi kanan = isyarat masih ada chip lain di luar layar; tanpa ini
+     "Camilan" tampak tidak ada padahal cuma perlu digeser. */
+  mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent);
+}
 
-   Percobaan sebelumnya menempelkannya tepat di bawah filter dengan `top`
-   hardcoded. Filter terukur 57px (min-height 56px + tepi, bukan 56), jadi
-   `top` 120px vs bawah filter 121px membuat keduanya tumpang-tindih 1px, dan
-   `::before` filter (z-index 40) yang melebar 12px ke bawah menutupi baris
-   atas kepala daftar (z-index 39) — terukur lewat elementFromPoint, itulah
-   yang terbaca "nabrak-nabrak" saat menggulir. Yang benar-benar perlu menempel
-   hanya filter stok; label daftar ikut menggulir seperti konten biasa. */
+.merchant-menu-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.merchant-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out);
+}
+
+.merchant-chip:hover {
+  background: var(--bg-warm);
+}
+
+.merchant-chip.is-active {
+  border-color: var(--sa7tein-orange);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.merchant-menu-stockfilter em {
+  font-style: normal;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+/* Segmented netral (track abu + thumb permukaan) supaya oranye hanya menandai
+   filter kategori yang aktif; dua "on" oranye berdampingan bikin bingung mana
+   filter utama. */
+.merchant-menu-stockfilter {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+}
+
+.merchant-menu-stockfilter button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.merchant-menu-stockfilter button:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+.merchant-menu-stockfilter button.is-active {
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-subtle);
+}
+
+.merchant-menu-stockfilter button.is-active em {
+  color: var(--text-primary);
+}
+
+/* Kepala tiap grup sticky tepat di bawah bar filter: nama kategori tetap
+   terbaca saat itemnya digulir, lalu terdorong oleh grup berikutnya (pola
+   sticky section header). `top` = tinggi header + tinggi bar filter yang
+   DIUKUR runtime lewat `--menu-filter-h` (ResizeObserver di MerchantMenu) —
+   hardcode `top` dulu bikin kepala kepotong / tumpang-tindih dengan bar.
+   z-index di bawah bar (40) supaya kepala lama lewat di bawahnya. */
+.merchant-menu-group .merchant-menu-list-head {
+  position: sticky;
+  top: calc(var(--nav-height) + var(--menu-filter-h, 0px));
+  z-index: 39;
+  padding-block: var(--space-2);
+  background: var(--bg-warm);
+}
+
+/* Latar melebar ke gutter supaya item tidak lewat di kiri-kanan saat kepala
+   menempel. */
+.merchant-menu-group .merchant-menu-list-head::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(-1 * var(--space-5));
+  z-index: -1;
+  background: var(--bg-warm);
+}
+
+/* Daftar menu dikelompokkan per kategori memakai mock `CATEGORIES` + ikonnya
+   (Makanan/Minuman/Camilan). Tiap grup punya kepala sendiri — ikon + label +
+   jumlah item pada hasil filter aktif; grup yang kosong disembunyikan.
+   `align-items: center` menggantikan `baseline` dasar karena kini ada ikon di
+   sebelah label. */
+.merchant-menu-list-head {
+  align-items: center;
+}
+
+.merchant-menu-group + .merchant-menu-group {
+  margin-top: var(--space-5);
+}
+
+.merchant-menu-list-head .merchant-section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.merchant-menu-list-head .merchant-section-title svg {
+  flex-shrink: 0;
+  color: var(--orange-ink);
+}
 
 /* ── Menu ⋮ (Ubah / Hapus) ───────────────────────────────────────────────────
    Pindah dari _merchant.scss, sekaligus diperbaiki: tombolnya tidak menulis

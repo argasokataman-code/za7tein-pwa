@@ -1,4 +1,617 @@
 {
   "shard": 9,
-  "nodes": []
+  "nodes": [
+    {
+      "id": "TASK-9073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:42:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MerchantMenu.tsx (+12/-4) — edit via tool: tsx: const visibleItems = items.filter((item)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-9074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:42:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-menu-polish.scss (+26/-2) — edit via tool: hanya filter stok; label daftar ikut men",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:42:46",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -4; npm run scan 2>&1 | grep -E \"^ *[0-9]+ FAIL|WAR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:43:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -4; npm run scan 2>&1 | rtk grep -E \"^ *[0-9]+ FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:45:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.95.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-9078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:45:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/MerchantDesignSection.tsx (+17/-2) — edit via tool: tsx: sticky lain tanpa mengukur tingginya di ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:46:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MerchantMenu.tsx (+7/-5) — edit via tool: tsx: const [stockFilter, setStockFilter] = us",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-9080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:46:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-2.scss (+3/-46) — edit via tool: /* Filter kategori + status stok tinggal",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-2.scss"
+    },
+    {
+      "id": "TASK-9081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:47:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-menu-polish.scss (+107/-10) — edit via tool: /* ── Filter menu: kategori (utama) + st",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:52:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-menu-polish.scss (+13/-10) — edit via tool: .merchant-menu-chips {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:52:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MerchantMenu.tsx (+6/-3) — edit via tool: tsx: className={`merchant-chip${category === ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-9084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:53:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -4; npm run scan 2>&1 | rtk grep -E \"^ *[0-9]+ FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:55:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MerchantMenu.tsx (+3/-4) — edit via tool: tsx: {Icon && <Icon size={15} strokeWidth={1.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-9086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:55:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-menu-polish.scss (+6/-11) — edit via tool: .merchant-menu-stockfilter em {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9087",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:59:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-menu-polish.scss (+20/-7) — edit via tool: .merchant-menu-filters {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9088",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:03:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/MerchantDesignSection.tsx (+42/-35) — edit via tool: tsx: <h3 className=\"doc-h3\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:03:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+2/-2) — edit via tool: tsx: dan kepala daftar menu tidak lagi menemp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-9090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:03:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -3; npm run scan 2>&1 | rtk grep -E \"^ *[0-9]+ FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:05:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json (+16/-2) — edit via tool: \"designDNA\": \"docs/design/DNA.md\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-9092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:05:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+20/-5) — edit via tool: **Requirement ambigu → tanya, jangan men",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-9093",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:06:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MerchantMenu.tsx (+21/-7) — edit via tool: tsx: /* ── close overflow on outside click ──",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-9094",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:07:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-menu-polish.scss (+23/-9) — edit via tool: /* Kepala tiap grup sticky tepat di bawa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9095",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:08:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -4; npm run scan 2>&1 | rtk grep -E \"^ *[0-9]+ FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9096",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:08:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant.scss (+7/-3) — edit via tool: .merchant-page {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-9097",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:12:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+24/-17) — edit via tool: tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9098",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:12:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.97.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-9099",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:12:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -3; npm run scan 2>&1 | rtk grep -E \"^ *[0-9]+ FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:13:55",
+      "tags": [
+        "merchant",
+        "menu",
+        "ui"
+      ],
+      "summary": "Kepala grup kategori /merchant/menu sticky di bawah bar filter; offset --menu-filter-h diukur runtime (ResizeObserver), fallback 118px di .m",
+      "conn": [
+        {
+          "id": "TASK-9093",
+          "type": "relates",
+          "raw": "TASK-9093:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "DEC-1040",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-25",
+      "time": "15:14:01",
+      "tags": [
+        "governance",
+        "design",
+        "rules"
+      ],
+      "summary": "Wajib muat skill senior-fe untuk tiap tugas UI/UX/mobile/website; peka & perbaiki tampilan mlenceng di akarnya (AGENTS.md 0b + .rules.json d",
+      "conn": [
+        {
+          "id": "DEC-011",
+          "type": "relates",
+          "raw": "DEC-011:relates"
+        }
+      ],
+      "loc": "AGENTS.md"
+    },
+    {
+      "id": "TASK-9101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:15:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+10/-7) — edit via tool: tsx: <section className=\"merchant-me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-9102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:15:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-menu-polish.scss (+47/-45) — edit via tool: /* Baris meta sta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9103",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:18:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+17/-3) — edit via tool: tsx:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    }
+  ]
 }

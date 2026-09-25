@@ -67,52 +67,9 @@
   margin-top: var(--space-2);
 }
 
-/* Merchant menu: stock health is a filter, and each item is one clear action group. */
-.merchant-menu-overview {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-2);
-  margin-bottom: var(--space-5);
-}
-
-/* Segmented filter, bukan kartu dashboard. Sebelumnya 111x88 tiap kartu dengan
-   angka dan label bertumpuk, keduanya 16px — panel ringkasan sebelum daftar
-   yang menunda tugas utamanya. Sekarang 56px: angka besar di atas label kecil,
-   sama bentuk untuk semua kartu (sejajar mendatar membuat "15 Semua menu"
-   pecah dua baris sementara "4 Menipis" muat, jadi barisnya tidak rata). */
-.merchant-menu-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 2px;
-  min-height: 56px;
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  color: var(--text-primary);
-}
-
-.merchant-menu-stat strong {
-  font-size: var(--text-lg);
-  line-height: 1.1;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-}
-
-.merchant-menu-stat span {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-}
-
-.merchant-menu-stat.is-low strong { color: var(--warning-ink); }
-.merchant-menu-stat.is-out strong { color: var(--danger-ink); }
-.merchant-menu-stat.is-active {
-  border-color: var(--sa7tein-orange);
-  background: var(--orange-soft);
-  box-shadow: inset 0 0 0 1px var(--sa7tein-orange);
-}
+/* Filter kategori + status stok tinggal di `_merchant-menu-polish.scss`
+   (`.merchant-menu-filters`); tiga kartu statistik stok digantikan filter chip
+   supaya kategori bisa dipilih dan bar-nya tidak memakan ruang. */
 
 .merchant-menu-list-head {
   display: flex;

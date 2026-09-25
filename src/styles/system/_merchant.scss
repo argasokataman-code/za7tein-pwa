@@ -5,6 +5,10 @@
    diatur global, di sini hanya jarak agar isi tidak tertutup bilah. */
 
 .merchant-page {
+  /* Fallback tinggi bar filter menu; MerchantMenu mengukurnya runtime lewat
+     ResizeObserver dan menimpa lewat inline style. Dipakai kepala grup sticky
+     di _merchant-menu-polish.scss supaya tidak salah offset. */
+  --menu-filter-h: 118px;
   padding: var(--space-5) var(--space-5) calc(var(--nav-height) + var(--space-6));
 }
 

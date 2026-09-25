@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ImagePlus, Minus, MoreVertical, Pencil, Plus, Trash2 } from 'lucide-react'
+import { ImagePlus, LayoutGrid, Minus, MoreVertical, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -30,10 +30,20 @@ export default function MerchantMenu() {
   const outCount = countOutOfStock(items)
   const readyCount = items.filter((item) => item.available && item.stock > 0).length
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'out'>('all')
+  const [category, setCategory] = useState<'all' | string>('all')
   const visibleItems = items.filter((item) =>
-    stockFilter === 'out' ? item.stock <= 0 :
-      stockFilter === 'low' ? item.stock > 0 && item.stock <= MENU_LOW_STOCK_THRESHOLD : true,
+    (category === 'all' || item.category === category) &&
+    (stockFilter === 'out' ? item.stock <= 0 :
+      stockFilter === 'low' ? item.stock > 0 && item.stock <= MENU_LOW_STOCK_THRESHOLD : true),
   )
+  /* Daftar dikelompokkan per kategori (mock CATEGORIES), urutannya tetap;
+     grup yang kosong setelah filter stok disembunyikan. */
+  const menuGroups = CATEGORIES
+    .map((category) => ({
+      category,
+      items: visibleItems.filter((item) => item.category === category.id),
+    }))
+    .filter((group) => group.items.length > 0)
 
   const [overflowId, setOverflowId] = useState<string | null>(null)
   const [deleteItem, setDeleteItem] = useState<MenuItem | null>(null)
@@ -161,9 +171,23 @@ export default function MerchantMenu() {
     return () => document.removeEventListener('click', close)
   }, [overflowId])
 
+  /* Tinggi bar filter diukur runtime → kepala grup sticky duduk tepat di
+     bawahnya. Hardcode `top` pernah bikin tumpang-tindih; ukur, jangan tebak. */
+  const filtersRef = useRef<HTMLDivElement>(null)
+  const [filterH, setFilterH] = useState(0)
+  useEffect(() => {
+    const el = filtersRef.current
+    if (!el) return
+    const update = () => setFilterH(el.offsetHeight)
+    update()
+    const ro = new ResizeObserver(update)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   return (
     <div className="app-shell">
-      <main className="merchant-page">
+      <main className="merchant-page" style={{ '--menu-filter-h': `${filterH}px` } as CSSProperties}>
         <MerchantPageHeader
           eyebrow={storeName}
           title="Menu & Stok"
@@ -179,92 +203,147 @@ export default function MerchantMenu() {
             <span aria-hidden="true" />
             {isActive ? 'Toko buka' : 'Toko tutup'}
           </span>
-          <p>{readyCount} menu siap dilihat pelanggan</p>
+          <span className="merchant-menu-context-sep" aria-hidden="true">·</span>
+          <span className="merchant-menu-context-count">
+            {readyCount} dari {items.length} menu siap tampil
+          </span>
         </section>
 
-        <div className="merchant-menu-overview" role="group" aria-label="Filter status stok">
-          <button type="button" className={`merchant-menu-stat${stockFilter === 'all' ? ' is-active' : ''}`} aria-pressed={stockFilter === 'all'} onClick={() => setStockFilter('all')}>
-            <strong>{items.length}</strong><span>Semua menu</span>
-          </button>
-          <button type="button" className={`merchant-menu-stat is-low${stockFilter === 'low' ? ' is-active' : ''}`} aria-pressed={stockFilter === 'low'} onClick={() => setStockFilter('low')}>
-            <strong>{lowCount}</strong><span>Menipis</span>
-          </button>
-          <button type="button" className={`merchant-menu-stat is-out${stockFilter === 'out' ? ' is-active' : ''}`} aria-pressed={stockFilter === 'out'} onClick={() => setStockFilter('out')}>
-            <strong>{outCount}</strong><span>Habis</span>
-          </button>
-        </div>
-
-        <div className="merchant-menu-list-head">
-          <h2 className="merchant-section-title">{stockFilter === 'all' ? 'Semua menu' : stockFilter === 'low' ? 'Stok menipis' : 'Stok habis'}</h2>
-          <span>{visibleItems.length} item</span>
-        </div>
-        <div className="merchant-list">
-          {visibleItems.length === 0 && <p className="merchant-menu-empty">Belum ada item dalam kategori ini.</p>}
-          {visibleItems.map((item, index) => (
-            <div
-              key={`${stockFilter}-${item.id}`}
-              className={`merchant-menu-item stagger-in${item.available ? '' : ' is-unavailable'}`}
-              style={{ '--stagger-index': index } as CSSProperties}
+        <div className="merchant-menu-filters" ref={filtersRef}>
+          <div className="merchant-menu-chips" role="tablist" aria-label="Filter kategori menu">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={category === 'all'}
+              className={`merchant-chip${category === 'all' ? ' is-active' : ''}`}
+              onClick={(e) => {
+                setCategory('all')
+                e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
+              }}
             >
-              <div className="merchant-menu-primary">
-                <img className="merchant-menu-thumb" src={item.image} alt={item.name} width={64} height={64} loading="lazy" decoding="async" />
-                <div className="merchant-menu-body">
-                  <p className="merchant-menu-row-name">{item.name}</p>
-                  <p className="merchant-menu-row-meta">{item.category}</p>
-                  <p className="merchant-menu-row-price">{money(item.price)}</p>
-                </div>
-                <div className="merchant-menu-more-wrap">
+              <LayoutGrid size={15} strokeWidth={1.75} aria-hidden="true" />
+              Semua
+            </button>
+            {CATEGORIES.map((c) => {
+              const Icon = c.icon
+              return (
                 <button
+                  key={c.id}
                   type="button"
-                  className="merchant-menu-more"
-                  aria-label={`Opsi ${item.name}`}
-                  onClick={(e) => { e.stopPropagation(); setOverflowId(overflowId === item.id ? null : item.id) }}
-                >
-                  <MoreVertical size={18} strokeWidth={1.75} />
-                </button>
-                {overflowId === item.id && (
-                  <div className="merchant-overflow" onClick={(e) => e.stopPropagation()}>
-                    <button type="button" onClick={() => { setOverflowId(null); openEdit(item) }}>
-                      <Pencil size={16} strokeWidth={1.75} /> Ubah
-                    </button>
-                    <button type="button" className="is-danger" onClick={() => { setOverflowId(null); setDeleteItem(item) }}>
-                      <Trash2 size={16} strokeWidth={1.75} /> Hapus
-                    </button>
-                  </div>
-                )}
-                </div>
-              </div>
-              <div className="merchant-menu-controls">
-                <button
-                  type="button"
-                  className={`merchant-menu-stock-btn${item.stock <= 0 ? ' is-out' : item.stock <= MENU_LOW_STOCK_THRESHOLD ? ' is-low' : ''}`}
-                  onClick={() => openStock(item)}
-                  aria-label={`Atur stok ${item.name}, ${item.stock} tersedia`}
-                >
-                  {item.stock <= 0 ? 'Habis · Isi stok' : `Stok ${item.stock} · Ubah`}
-                </button>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={item.available}
-                  aria-label={`Ketersediaan ${item.name}`}
-                  className={`merchant-menu-availability${item.available ? ' is-on' : ''}`}
-                  onClick={() => {
-                    if (item.available) {
-                      setHideTarget(item)
-                    } else {
-                      dispatch(toggleAvailable(item.id))
-                      toast.success(`${item.name} tampil lagi di menu`)
-                    }
+                  role="tab"
+                  aria-selected={category === c.id}
+                  className={`merchant-chip${category === c.id ? ' is-active' : ''}`}
+                  onClick={(e) => {
+                    setCategory(c.id)
+                    e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
                   }}
                 >
-                  <span>{item.available ? 'Tersedia' : 'Disembunyikan'}</span>
-                  <span className="merchant-toggle-switch" aria-hidden="true" />
+                  {Icon && <Icon size={15} strokeWidth={1.75} aria-hidden="true" />}
+                  {c.label}
                 </button>
-              </div>
-            </div>
-          ))}
+              )
+            })}
+          </div>
+          <div className="merchant-menu-stockfilter" role="group" aria-label="Filter status stok">
+            <button type="button" aria-pressed={stockFilter === 'all'} className={stockFilter === 'all' ? 'is-active' : ''} onClick={() => setStockFilter('all')}>
+              Semua stok
+            </button>
+            <button type="button" aria-pressed={stockFilter === 'low'} className={stockFilter === 'low' ? 'is-active' : ''} onClick={() => setStockFilter('low')}>
+              Menipis <em>{lowCount}</em>
+            </button>
+            <button type="button" aria-pressed={stockFilter === 'out'} className={stockFilter === 'out' ? 'is-active' : ''} onClick={() => setStockFilter('out')}>
+              Habis <em>{outCount}</em>
+            </button>
+          </div>
         </div>
+
+        {visibleItems.length === 0 && (
+          <p className="merchant-menu-empty">Belum ada item dalam kategori ini.</p>
+        )}
+        {menuGroups.map((group) => {
+          const GroupIcon = group.category.icon
+          return (
+            <section
+              key={group.category.id}
+              className="merchant-menu-group"
+              aria-label={group.category.label}
+            >
+              <div className="merchant-menu-list-head">
+                <h2 className="merchant-section-title">
+                  {GroupIcon && <GroupIcon size={16} strokeWidth={1.75} aria-hidden="true" />}
+                  {group.category.label}
+                </h2>
+                <span>{group.items.length} item</span>
+              </div>
+              <div className="merchant-list">
+                {group.items.map((item, index) => (
+                  <div
+                    key={`${stockFilter}-${item.id}`}
+                    className={`merchant-menu-item stagger-in${item.available ? '' : ' is-unavailable'}`}
+                    style={{ '--stagger-index': index } as CSSProperties}
+                  >
+                    <div className="merchant-menu-primary">
+                      <img className="merchant-menu-thumb" src={item.image} alt={item.name} width={64} height={64} loading="lazy" decoding="async" />
+                      <div className="merchant-menu-body">
+                        <p className="merchant-menu-row-name">{item.name}</p>
+                        <p className="merchant-menu-row-meta">{item.category}</p>
+                        <p className="merchant-menu-row-price">{money(item.price)}</p>
+                      </div>
+                      <div className="merchant-menu-more-wrap">
+                        <button
+                          type="button"
+                          className="merchant-menu-more"
+                          aria-label={`Opsi ${item.name}`}
+                          onClick={(e) => { e.stopPropagation(); setOverflowId(overflowId === item.id ? null : item.id) }}
+                        >
+                          <MoreVertical size={18} strokeWidth={1.75} />
+                        </button>
+                        {overflowId === item.id && (
+                          <div className="merchant-overflow" onClick={(e) => e.stopPropagation()}>
+                            <button type="button" onClick={() => { setOverflowId(null); openEdit(item) }}>
+                              <Pencil size={16} strokeWidth={1.75} /> Ubah
+                            </button>
+                            <button type="button" className="is-danger" onClick={() => { setOverflowId(null); setDeleteItem(item) }}>
+                              <Trash2 size={16} strokeWidth={1.75} /> Hapus
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="merchant-menu-controls">
+                      <button
+                        type="button"
+                        className={`merchant-menu-stock-btn${item.stock <= 0 ? ' is-out' : item.stock <= MENU_LOW_STOCK_THRESHOLD ? ' is-low' : ''}`}
+                        onClick={() => openStock(item)}
+                        aria-label={`Atur stok ${item.name}, ${item.stock} tersedia`}
+                      >
+                        {item.stock <= 0 ? 'Habis · Isi stok' : `Stok ${item.stock} · Ubah`}
+                      </button>
+                      <button
+                        type="button"
+                        role="switch"
+                        aria-checked={item.available}
+                        aria-label={`Ketersediaan ${item.name}`}
+                        className={`merchant-menu-availability${item.available ? ' is-on' : ''}`}
+                        onClick={() => {
+                          if (item.available) {
+                            setHideTarget(item)
+                          } else {
+                            dispatch(toggleAvailable(item.id))
+                            toast.success(`${item.name} tampil lagi di menu`)
+                          }
+                        }}
+                      >
+                        <span>{item.available ? 'Tersedia' : 'Disembunyikan'}</span>
+                        <span className="merchant-toggle-switch" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        })}
       </main>
 
       <MerchantBottomNav />

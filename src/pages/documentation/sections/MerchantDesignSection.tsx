@@ -18,24 +18,67 @@ export function MerchantDesignSection() {
         to the shell edges. No separate header component — CSS class reuse only.
       </p>
       <h3 className="doc-h3">
-        Filter stok menempel, kepala daftar tidak
+        Baris status katalog
       </h3>
       <p className="doc-p">
-        Hanya <code className="doc-inline">.merchant-menu-overview</code> (filter
-        Semua/Menipis/Habis) yang <code className="doc-inline">position: sticky</code>{' '}
-        di bawah header, lewat{' '}
-        <code className="doc-inline">@mixin sticky-below-header</code>. Kepala
-        daftar (&ldquo;Semua menu · 15 item&rdquo;) sengaja{' '}
-        <strong>tidak</strong> sticky: percobaan menempelkannya dengan{' '}
-        <code className="doc-inline">top</code> hardcoded membuatnya
-        tumpang-tindih dengan filter (filter terukur <strong>57px</strong>,
-        termasuk tepi — bukan 56) dan <code className="doc-inline">::before</code>{' '}
-        filter menutupi baris atasnya. Terukur lewat{' '}
-        <code className="doc-inline">elementFromPoint</code>: di dalam kepala
-        daftar yang dilaporkan justru{' '}
-        <code className="doc-inline">.merchant-menu-overview</code>. Aturannya:
-        satu elemen sticky per tumpukan; jangan menempelkan label ke elemen
-        sticky lain tanpa mengukur tingginya di runtime.
+        <code className="doc-inline">.merchant-menu-context</code> cukup satu baris
+        caption (dot status + "Toko buka" + "10 dari 15 menu siap tampil"), tanpa
+        chrome kartu. Sebelumnya kartu berbingkai + shadow hanya memuat satu status
+        dan satu kalimat, teks kanannya dikunci{' '}
+        <code className="doc-inline">max-width: 18ch</code> + rata kanan sehingga
+        pecah dua baris, dan status non-interaktif dipaksa{' '}
+        <code className="doc-inline">min-height: var(--touch-min)</code> (itu untuk
+        tap target kontrol, bukan teks). Baris caption menghapus tumpuk chrome
+        ketiga di atas daftar.
+      </p>
+      <h3 className="doc-h3">
+        Filter menu: satu bar sticky, kategori + status stok
+      </h3>
+      <p className="doc-p">
+        <code className="doc-inline">/merchant/menu</code> punya satu bar filter
+        sticky (<code className="doc-inline">.merchant-menu-filters</code>, lewat{' '}
+        <code className="doc-inline">@mixin sticky-below-header</code>) berisi
+        dua baris: baris utama chip kategori (Semua/Makanan/Minuman/Camilan dari
+        mock <code className="doc-inline">CATEGORIES</code> + ikon lucide-nya,
+        digeser mendatar dengan mask fade), baris kedua segmented status stok
+        (Semua stok/Menipis/Habis). Kategori jadi filter utama, status stok
+        sekunder. Yang aktif di kategori memakai oranye merek; segmented sengaja
+        netral (track abu, thumb permukaan) supaya tidak ada dua "on" oranye
+        berdampingan. Keduanya digabung AND, jadi "Minuman + Habis" bisa.
+      </p>
+      <p className="doc-p">
+        Kepala tiap grup kategori juga sticky (pola <em>sticky section header</em>
+        ), duduk tepat di bawah bar filter lewat{' '}
+        <code className="doc-inline">
+          top: calc(var(--nav-height) + var(--menu-filter-h))
+        </code>
+        . Namanya tetap terbaca saat itemnya digulir, lalu terdorong oleh grup
+        berikutnya; <code className="doc-inline">z-index</code> di bawah bar
+        supaya kepala lama lewat di bawahnya. Kuncinya:{' '}
+        <code className="doc-inline">--menu-filter-h</code> diukur runtime
+        (ResizeObserver di <code className="doc-inline">MerchantMenu</code>),
+        bukan hardcode. Percobaan dengan <code className="doc-inline">top</code>{' '}
+        hardcoded dulu bikin kepala tumpang-tindih dengan bar (filter terukur 57px
+        termasuk tepi) dan kebaca "kepotong".{' '}
+        <code className="doc-inline">.merchant-page</code> menyimpan fallback{' '}
+        <code className="doc-inline">--menu-filter-h: 118px</code> kalau JS belum
+        jalan.
+      </p>
+      <p className="doc-p">
+        Dasar bar diberi hairline full-bleed lewat{' '}
+        <code className="doc-inline">::after</code>, dan latar kepala grup
+        melebar ke gutter lewat <code className="doc-inline">::before</code>,
+        supaya item tidak lewat di kiri-kanan kepala saat menempel.
+      </p>
+      <h3 className="doc-h3">
+        Daftar menu per kategori
+      </h3>
+      <p className="doc-p">
+        Hasil filter dikelompokkan per kategori (urutan mengikuti{' '}
+        <code className="doc-inline">CATEGORIES</code>); tiap grup punya kepala
+        sendiri (ikon + label + jumlah item), dan grup yang kosong disembunyikan.
+        Menambah kategori cukup di data itu, halaman ikut. Sebelumnya daftar rata
+        dan tidak ada cara menyaring per jenis makanan/minuman.
       </p>
       <h3 className="doc-h3">
         Cards — shared surface token
