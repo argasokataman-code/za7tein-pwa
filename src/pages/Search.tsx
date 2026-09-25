@@ -78,19 +78,23 @@ export default function Search() {
                 </div>
                 <div className="chip-row" role="list" aria-label="Recent searches">
                   {recent.map((term) => (
-                    <button key={term} role="listitem" className="chip" onClick={() => setQuery(term)} aria-label={`Search for ${term}`}>
-                      {term}
-                      <span
-                        role="button"
+                    <div key={term} role="listitem" className="chip recent-chip">
+                      <button
+                        type="button"
+                        className="recent-chip__term"
+                        onClick={() => setQuery(term)}
+                      >
+                        {term}
+                      </button>
+                      <button
+                        type="button"
+                        className="recent-chip__remove"
                         aria-label={`Remove ${term}`}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          setRecent((list) => list.filter((item) => item !== term))
-                        }}
+                        onClick={() => setRecent((list) => list.filter((item) => item !== term))}
                       >
                         ×
-                      </span>
-                    </button>
+                      </button>
+                    </div>
                   ))}
                 </div>
               </>
@@ -98,7 +102,7 @@ export default function Search() {
             {results !== null ? (
               <>
                 <div className="section-header">
-                  <h2 className="section-title">
+                  <h2 className="section-title s7-parallax--title">
                     Hasil ({results.length})
                   </h2>
                 </div>
@@ -119,7 +123,7 @@ export default function Search() {
             ) : (
               <>
                 <div className="section-header">
-                  <h2 className="section-title">
+                  <h2 className="section-title s7-parallax--title">
                     Hot Deals
                   </h2>
                   <Link className="see-all-link" to="/home">
@@ -171,7 +175,7 @@ export default function Search() {
                   ))}
                 </div>
                 <div className="section-header">
-                  <h2 className="section-title">
+                  <h2 className="section-title s7-parallax--title">
                     Recommended
                   </h2>
                   <Link className="see-all-link" to="/home">

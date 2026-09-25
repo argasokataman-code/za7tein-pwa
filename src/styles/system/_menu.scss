@@ -41,7 +41,11 @@
 
 .menu-detail-content {
   gap: var(--space-4);
-  padding: var(--space-5) var(--space-4) calc(112px + env(safe-area-inset-bottom));
+  // Gutter 20px, bukan 16px: AGENTS.md §5 mengunci jarak tepi halaman ke satu
+  // nilai (`--space-5`) tanpa pengecualian. Nilai 16px di sini bertentangan
+  // dengan aturan di `part-08.scss` (20px), dan gate menandainya sebagai
+  // penyimpangan. Padding bawah tetap lebih besar karena bilah CTA menempel.
+  padding: var(--space-5) var(--space-5) calc(112px + env(safe-area-inset-bottom));
 }
 
 // Hierarki harga: nama jadi fokus, harga memakai tinta merek sebagai aksen.
@@ -135,7 +139,10 @@
   background: var(--surface);
   border-top: 1px solid var(--border);
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-4) calc(var(--space-3) + env(safe-area-inset-bottom));
+  // Gutter 20px seperti isi di atasnya, supaya tombol CTA sejajar dengan kolom
+  // konten — 16px di sini membuat bilahnya 4px lebih lebar dari teks yang
+  // berdiri tepat di atasnya, dan gate menandainya.
+  padding: var(--space-3) var(--space-5) calc(var(--space-3) + env(safe-area-inset-bottom));
 }
 
 // Avatar review seharusnya bulat, bukan kotak bersudut seperti sebelumnya.
@@ -271,7 +278,9 @@ body {
 
 .address-selection-screen,
 .add-card-screen,
-.reviews-screen {
+.reviews-screen,
+.menu-detail-screen,
+.checkout-screen {
   height: auto;
   min-height: var(--app-vh);
   overflow: visible;
@@ -279,7 +288,9 @@ body {
 
 .address-selection-content,
 .add-card-content,
-.reviews-content {
+.reviews-content,
+.menu-detail-content,
+.checkout-content {
   flex: none;
   height: auto;
   overflow: visible;

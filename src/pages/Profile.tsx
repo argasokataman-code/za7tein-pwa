@@ -30,7 +30,7 @@ export default function Profile() {
         <div className="my-account">
           <div className="my-account-scroll">
             <div className="main-frame">
-              <Link className="profile-header-block profile-header-link" aria-label="Edit profile for Dimas Ardianto" to="/personal-data" style={{ textDecoration: "none" }}>
+              <Link className="profile-header-block profile-header-link s7-parallax--card" aria-label="Edit profile for Dimas Ardianto" to="/personal-data" style={{ textDecoration: "none" }}>
                 <img alt="Dimas Ardianto" width={64} height={64} className="avatar-image-60" src="/assets/img/profile.png" style={{ color: "transparent" }} />
                 <div className="auto-layout-vertical" style={{ flex: "1 1 0%", minWidth: "0px" }}>
                   <div className="jenny-wilson" style={{ fontWeight: "700", fontSize: "16px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -44,7 +44,7 @@ export default function Profile() {
                   <ArrowRight size={20} strokeWidth={1.75} />
                 </span>
               </Link>
-              <section className="wallet-balance-card wallet-balance-card--compact" aria-label="Saldo Sa7tein">
+              <section className="wallet-balance-card wallet-balance-card--compact s7-parallax--card" aria-label="Saldo Sa7tein">
                 <Link className="wallet-balance-compact-text" to="/wallet" style={{ textDecoration: "none" }}>
                   <span className="wallet-balance-label">Saldo tersedia</span>
                   <span className="wallet-balance-value">{money(walletAvailable)}</span>
@@ -55,7 +55,7 @@ export default function Profile() {
                 </Link>
               </section>
               <section aria-label="Setelan akun umum">
-                <h2 className="general">
+                <h2 className="general s7-parallax--title">
                   Umum
                 </h2>
                 <div className="content">
@@ -156,7 +156,7 @@ export default function Profile() {
                 </div>
               </section>
               <section aria-label="Preferensi">
-                <h2 className="preferencess">
+                <h2 className="preferencess s7-parallax--title">
                   Preferensi
                 </h2>
                 <div className="input-fill2">

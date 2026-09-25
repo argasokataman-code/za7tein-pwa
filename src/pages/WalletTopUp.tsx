@@ -49,14 +49,14 @@ export default function WalletTopUp() {
                 <h1 className="profile-flow-title">Top-up Saldo</h1>
               </header>
               <main className="wallet-main">
-                <section className="wallet-balance-card" aria-label="Saldo saat ini">
+                <section className="wallet-balance-card s7-parallax--card" aria-label="Saldo saat ini">
                   <span className="wallet-balance-label">Saldo tersedia</span>
                   <span className="wallet-balance-value">{money(balance.available)}</span>
                   <ExchangeRateNote />
                 </section>
 
                 <section className="wallet-form" aria-label="Nominal top-up">
-                  <h2 className="wallet-form-title">Nominal</h2>
+                  <h2 className="wallet-form-title s7-parallax--title">Nominal</h2>
                   <div className="wallet-presets" role="radiogroup" aria-label="Pilih nominal">
                     {TOP_UP_PRESETS_IDR.map((value) => (
                       <button
@@ -78,7 +78,7 @@ export default function WalletTopUp() {
                 </section>
 
                 <section className="wallet-form" aria-label="Kanal pembayaran">
-                  <h2 className="wallet-form-title">Kanal</h2>
+                  <h2 className="wallet-form-title s7-parallax--title">Kanal</h2>
                   {TOP_UP_CHANNELS.map((c) => (
                     <button
                       key={c.id}
@@ -99,7 +99,7 @@ export default function WalletTopUp() {
                 </button>
 
                 <section className="wallet-form" aria-label="Riwayat top-up">
-                  <h2 className="wallet-form-title">Riwayat Top-up</h2>
+                  <h2 className="wallet-form-title s7-parallax--title">Riwayat Top-up</h2>
                   {history.length === 0 ? (
                     <p className="wallet-form-note">Belum ada top-up.</p>
                   ) : (

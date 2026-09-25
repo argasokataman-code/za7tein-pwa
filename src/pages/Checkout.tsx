@@ -95,8 +95,8 @@ export default function Checkout() {
               <div className="checkout-content">
                 {/* Toko — memberi konteks bahwa ini satu pesanan dari satu tempat. */}
                 <div className="checkout-section">
-                  <h2 className="section-title">Pesanan dari</h2>
-                  <div className="checkout-store">
+                  <h2 className="section-title s7-parallax--title">Pesanan dari</h2>
+                  <div className="checkout-store s7-parallax--card">
                     <span className="checkout-store__name">{mockMerchant.name}</span>
                     <span className="checkout-store__hours">
                       Buka {mockMerchant.openTime}–{mockMerchant.closeTime}
@@ -109,7 +109,7 @@ export default function Checkout() {
                   {/* Menghitung baris, bukan kuantitas. selectCartCount
                       menjumlahkan satuan — Sate Ayam x2 + 1 + 1 = 4 — sehingga
                       judulnya berbunyi "4 item" di atas daftar tiga baris. */}
-                  <h2 className="section-title">{items.length} item</h2>
+                  <h2 className="section-title s7-parallax--title">{items.length} item</h2>
                   <div className="checkout-items-list">
                     {items.map((item) => (
                       <div
@@ -190,8 +190,8 @@ export default function Checkout() {
 
                 {/* Alamat — angka ongkir di bawah bergantung pada zona alamat ini. */}
                 {address ? (
-                  <div className="order-summary-section">
-                    <h2 className="section-title">
+                  <div className="order-summary-section s7-parallax--card">
+                    <h2 className="section-title s7-parallax--title">
                       Antar ke
                       <Link className="summary-change-link" to="/address-selection">
                         Ubah
@@ -221,8 +221,8 @@ export default function Checkout() {
                     </div>
                   </div>
                 ) : (
-                  <div className="order-summary-section">
-                    <h2 className="section-title">Antar ke</h2>
+                  <div className="order-summary-section s7-parallax--card">
+                    <h2 className="section-title s7-parallax--title">Antar ke</h2>
                     <div className="summary-item">
                       <span>Belum ada alamat pengantaran</span>
                       <Link className="summary-change-link" to="/address-selection">
@@ -232,8 +232,8 @@ export default function Checkout() {
                   </div>
                 )}
 
-                <div className="order-summary-section">
-                  <h2 className="section-title">Ringkasan pesanan</h2>
+                <div className="order-summary-section s7-parallax--card">
+                  <h2 className="section-title s7-parallax--title">Ringkasan pesanan</h2>
                   <div className="summary-item">
                     <span>Subtotal</span>
                     <span>{moneyPlain(subtotal)}</span>

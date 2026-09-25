@@ -27,7 +27,7 @@ export default function PrivacyPolicy() {
                   </p>
                 </div>
                 <div className="privacy-content">
-                  <section className="privacy-section">
+                  <section className="privacy-section s7-parallax--card">
                     <div className="privacy-icon-title">
                       <div className="privacy-icon">
                         <Box size={20} strokeWidth={1.75} />
@@ -40,7 +40,7 @@ export default function PrivacyPolicy() {
                       We collect information you provide directly (name, email, phone, payment details when you add a card) and automatically (device, logs) to provide and improve our services.
                     </p>
                   </section>
-                  <section className="privacy-section">
+                  <section className="privacy-section s7-parallax--card">
                     <div className="privacy-icon-title">
                       <div className="privacy-icon">
                         <Activity size={20} strokeWidth={1.75} />
@@ -53,7 +53,7 @@ export default function PrivacyPolicy() {
                       We use your information to process orders, manage your account, send notifications, improve our app, and comply with legal obligations.
                     </p>
                   </section>
-                  <section className="privacy-section">
+                  <section className="privacy-section s7-parallax--card">
                     <div className="privacy-icon-title">
                       <div className="privacy-icon">
                         <Upload size={20} strokeWidth={1.75} />
@@ -66,7 +66,7 @@ export default function PrivacyPolicy() {
                       We do not sell your personal information. We may share data with service providers (payment processors, delivery partners) only as necessary to operate the service.
                     </p>
                   </section>
-                  <section className="privacy-section">
+                  <section className="privacy-section s7-parallax--card">
                     <div className="privacy-icon-title">
                       <div className="privacy-icon">
                         <Shield size={20} strokeWidth={1.75} />
@@ -79,7 +79,7 @@ export default function PrivacyPolicy() {
                       We use industry-standard measures to protect your data. Payment details are processed by certified payment providers and are not stored on our servers in full form.
                     </p>
                   </section>
-                  <section className="privacy-section">
+                  <section className="privacy-section s7-parallax--card">
                     <div className="privacy-icon-title">
                       <div className="privacy-icon">
                         <ShieldCheck size={20} strokeWidth={1.75} />

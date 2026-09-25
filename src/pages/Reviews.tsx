@@ -80,12 +80,12 @@ export default function Reviews() {
               </div>
             </div>
             <div className="reviews-list-header">
-              <h2 className="reviews-list-title">
+              <h2 className="reviews-list-title s7-parallax--title">
                 Reviews (120)
               </h2>
             </div>
             <div className="reviews-list-container">
-              <div className="review-card">
+              <div className="review-card s7-parallax--card">
                 <img alt="Dianne Russell" width={48} height={48} className="reviewer-avatar" src="/assets/img/reviewer/user1.png" style={{ color: "transparent" }} />
                 <div className="review-content">
                   <div className="reviewer-info">
@@ -104,7 +104,7 @@ export default function Reviews() {
                   </p>
                 </div>
               </div>
-              <div className="review-card">
+              <div className="review-card s7-parallax--card">
                 <img alt="Cody Fisher" width={48} height={48} className="reviewer-avatar" src="/assets/img/reviewer/user2.png" style={{ color: "transparent" }} />
                 <div className="review-content">
                   <div className="reviewer-info">
@@ -123,7 +123,7 @@ export default function Reviews() {
                   </p>
                 </div>
               </div>
-              <div className="review-card">
+              <div className="review-card s7-parallax--card">
                 <img alt="Jacob Jones" width={48} height={48} className="reviewer-avatar" src="/assets/img/reviewer/user3.png" style={{ color: "transparent" }} />
                 <div className="review-content">
                   <div className="reviewer-info">
@@ -142,7 +142,7 @@ export default function Reviews() {
                   </p>
                 </div>
               </div>
-              <div className="review-card">
+              <div className="review-card s7-parallax--card">
                 <img alt="Esther Howard" width={48} height={48} className="reviewer-avatar" src="/assets/img/reviewer/user4.png" style={{ color: "transparent" }} />
                 <div className="review-content">
                   <div className="reviewer-info">
@@ -161,7 +161,7 @@ export default function Reviews() {
                   </p>
                 </div>
               </div>
-              <div className="review-card">
+              <div className="review-card s7-parallax--card">
                 <img alt="Sarah Wilson" width={48} height={48} className="reviewer-avatar" src="/assets/img/reviewer/user5.png" style={{ color: "transparent" }} />
                 <div className="review-content">
                   <div className="reviewer-info">
@@ -180,7 +180,7 @@ export default function Reviews() {
                   </p>
                 </div>
               </div>
-              <div className="review-card">
+              <div className="review-card s7-parallax--card">
                 <img alt="Michael Brown" width={48} height={48} className="reviewer-avatar" src="/assets/img/reviewer/user6.png" style={{ color: "transparent" }} />
                 <div className="review-content">
                   <div className="reviewer-info">

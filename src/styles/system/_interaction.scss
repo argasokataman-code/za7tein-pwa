@@ -126,6 +126,99 @@ $press-scale: 0.97;
   min-height: var(--touch-min);
 }
 
+// Chip pencarian terakhir. Sebelumnya satu `<button>` yang memuat
+// `<span role="button">` untuk menghapus — kontrol bersarang di dalam kontrol,
+// yang bukan cuma meleset 7x18px tapi juga salah secara aksesibilitas (satu
+// tombol dengan dua aksi berbeda). Sekarang dua tombol bersaudara di dalam
+// satu bungkus, dan **keduanya** memenuhi `--touch-min`.
+//
+// Tinggi 36px yang lama dinaikkan ke 44px; satu-satunya cara agar tombol hapus
+// tidak melebar adalah memasangnya sebagai kotak 44px yang isinya `×` —
+// sasaran jarinya jadi benar, tampilannya tetap ringkas.
+.recent-chip {
+  display: inline-flex;
+  align-items: stretch;
+  min-height: var(--touch-min);
+  padding: 0;
+  overflow: hidden;
+}
+
+.recent-chip__term,
+.recent-chip__remove {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  min-height: var(--touch-min);
+}
+
+.recent-chip__term {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-3);
+  font-weight: 500;
+}
+
+.recent-chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // 44px penuh, bukan 7x18px seperti sebelumnya. Ikon `×` tetap kecil; yang
+  // membesar hanya area yang bisa disentuh.
+  min-width: var(--touch-min);
+  font-size: var(--text-lg);
+  line-height: 1;
+  color: var(--text-secondary);
+}
+
+.recent-chip__remove:hover {
+  background: var(--orange-soft);
+}
+
+// Chip filter (layar /filter) dan opsi modifier (detail menu). Terukur 36-43px
+// — semuanya di bawah `--touch-min`. Tingginya dikunci, bukan paddingnya
+// ditambah: padding tidak akan pernah mencapai 44px dan malah melebarkan chip
+// yang deretan horizontalnya sudah sempit.
+//
+// `.chip` dipakai di dua tempat (`/search` untuk pencarian terakhir, `/filter`
+// untuk kategori), jadi satu aturan menutup keduanya. `.filter-chip` tetap
+// didaftarkan karena dipakai di layar lain.
+.filter-chip,
+.modifier-option,
+.rating-chip,
+.chip:not(.recent-chip) {
+  min-height: var(--touch-min);
+}
+
+// Tombol +/- kuantitas di detail menu: terukur 42x42px, meleset 2px. Dinaikkan
+// ke token supaya tidak ada satu pun kontrol di bawah ambang.
+.quantity-btn {
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+}
+
+// "Clear All" di kepala daftar dan "Clear All" di kaki layar filter: keduanya
+// terukur 18-19px tingginya. Ini tautan aksi, jadi tingginya dikunci tanpa
+// mengubah tampilan teksnya.
+.link-btn,
+.clear-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+}
+
+// "Ganti" di layar jumlah bayar: terukur 52x18px. Tautan aksi di dalam kartu
+// metode bayar — tingginya dikunci, lebarnya tetap mengikuti teksnya.
+.payment-change-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+}
+
 // ── 2. Transisi halaman: fade, dan mengapa bukan geseran ────────────────────
 // Material menyebut pola ini "forward and backward" dan menggeser halaman ke
 // samping. Di repo ini geseran TIDAK dipakai, dan alasannya terukur, bukan
@@ -219,11 +312,10 @@ $press-scale: 0.97;
 // Menggulir 1:1 membuat seluruh halaman bergerak sebagai satu bidang kaku:
 // semua berhenti seketika saat jari berhenti, tidak ada kedalaman. Yang
 // ditambahkan di sini adalah geseran kecil dan berbeda per lapisan, sehingga
-// saat jari menggulir, hero (yang menempel di belakang layar oranye) bergerak
-// sedikit lebih lambat daripada isi — dan kartu promo bergerak lebih lambat
-// lagi. Label "line" yang lama (`_menu.scss` §3) menyebutnya: label diam
-// relatif terhadap kolomnya, jadi ketika isi bergerak labelnya berdiri di atas
-// permukaan yang meluncur. Itu efek yang dikejar.
+// saat jari menggulir, header (yang berdiri di belakang) bergerak sedikit
+// lebih lambat daripada isi — lalu judul bagian dan kartu menyusul dengan
+// kecepatan masing-masing. Beberapa lapis berbeda = halaman terasa punya
+// kedalaman, bukan satu gambar yang digeser.
 //
 // Dikerjakan dengan scroll timeline CSS (`animation-timeline: view()`), bukan
 // listener `scroll` + `requestAnimationFrame`. Alasannya bukan singkatnya kode:
@@ -235,23 +327,37 @@ $press-scale: 0.97;
 // - Satu properti saja: `translate`. Tidak ada `scale`/`rotate`/`blur` di sini,
 //   jadi tak ada yang bisa mendistorsi teks atau foto.
 // - `translate` TIDAK membuat containing block untuk `position: fixed` (beda
-//   dari `transform`), jadi bilah dan header menempel tetap; `overflow-x:
-//    clip` pada hero memotong bagian yang keluar kolom.
-// - Amplitudo 6-14px. Di atas ~20px geraknya terbaca sebagai "elemennya
+//   dari `transform`), jadi bilah bawah, header menempel, dan bilah aksi tetap
+//   di tempatnya.
+// - Amplitudo 14-34px. Di atas ~40px geraknya terbaca sebagai "elemennya
 //   lepas", bukan kedalaman.
 //
 // Penopang: Chromium 115+ (`view()`), Android 16 / Safari 26 untuk iOS; di
 // peramban lama blok `@supports` tidak berlaku dan halaman kembali menggulir
 // 1:1 seperti sebelumnya — tanpa galat, tanpa JS.
+//
+// Dipakai sebagai kelas pada elemen yang sudah ada, bukan komponen baru:
+// `--hero` (header atas), `--media` (foto besar), `--title` (judul bagian),
+// `--card` (blok/kartu), `--decor` (dekorasi di dalam kartu).
 @supports (animation-timeline: view()) {
-  // Hero digeser SETENGAH kecepatan gulir. Tidak menembus tepi atas: teks
-  // diperiksa pada gulir maksimum 692px di 390x844 — turun 32px masih 208px di
-  // bawah tepi; yang terpotong hanya latar, dan `.s7-hero__content` tetap utuh.
+  // Header atas digeser SETENGAH kecepatan gulir; tidak menembus tepi atas.
+  // Terukur di beranda pada gulir maksimum 692px (390x844): turun 34px masih
+  // menyisakan satu layar konten di bawahnya.
   .s7-parallax--hero {
     animation: parallax-lift linear both;
     animation-timeline: scroll(root block);
     animation-range: 0 320px;
-    --parallax-lift: 32px;
+    --parallax-lift: 34px;
+  }
+
+  // Foto besar (mis. hero menu-detail). Ia dinaikkan sedikit lebih lambat lalu
+  // tertinggal, dan TANDA-nya berlawanan dengan lapisan lain supaya fotonya
+  // terbaca "di belakang", bukan "mengambang di depan".
+  .s7-parallax--media {
+    animation: parallax-lift linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 100%;
+    --parallax-lift: -16px;
   }
 
   // Judul bagian adalah "line" yang menahan dalam: naik lebih pendek dari isi,
@@ -270,19 +376,17 @@ $press-scale: 0.97;
     --parallax-lift: 14px;
   }
 
-  // Kartu promo. Ia satu-satunya blok display, jadi memberi gerak sendiri di
-  // sini yang membuat halaman terasa punya dua bidang, bukan satu.
+  // Kartu/blok besar. Menambah satu bidang gerak lagi, jadi halaman tidak
+  // terbaca sebagai satu lembar yang digeser.
   .s7-parallax--card {
     animation: parallax-lift linear both;
     animation-timeline: view(block);
-    animation-range: entry 0% cover 70%;
+    animation-range: entry 0% cover 100%;
     --parallax-lift: 20px;
   }
 
-  // Dekorasi kartu promo: tiga lingkaran yang sama, publiknya bergerak sendiri.
-  // Sama seperti judul, `cover 100%` dipakai supaya tidak ada sisa gerakan yang
-  // menggeser kartu di sekitarnya; yang bergerak hanya saat kartu masih di
-  // paruh bawah layar.
+  // Separate dekorasi di dalam kartu: lingkaran yang sama, tapi bergerak
+  // sendiri dari kartunya supaya terasa ada lapisan di belakang isi.
   .s7-parallax--decor {
     animation: parallax-lift linear both;
     animation-timeline: view(block);
@@ -292,7 +396,7 @@ $press-scale: 0.97;
 }
 
 // Satu keyframe untuk semua lapisan; amplitudonya dari `--parallax-lift`, jadi
-// tidak ada empat keyframe yang isinya sama dan berbeda angka.
+// tidak ada lima keyframe yang isinya sama dan berbeda angka.
 @keyframes parallax-lift {
   from {
     translate: 0 var(--parallax-lift, 12px);
@@ -324,6 +428,7 @@ $press-scale: 0.97;
   // dimatikan, bukan diperhalus — jadi lapisannya hanya di-fade seperti bagian
   // lain yang masuk.
   .s7-parallax--hero,
+  .s7-parallax--media,
   .s7-parallax--title,
   .s7-parallax--card,
   .s7-parallax--decor {

@@ -73,7 +73,7 @@ export default function MenuDetail() {
       <div className="app-shell">
         <main>
           <div className="menu-detail-screen">
-            <div className="menu-detail-hero">
+            <div className="menu-detail-hero s7-parallax--media">
               <img
                 alt={food.name}
                 className="menu-detail-hero-image"
@@ -131,7 +131,7 @@ export default function MenuDetail() {
               </div>
 
               <div className="menu-description-section">
-                <h3 className="description-title">Description</h3>
+                <h3 className="description-title s7-parallax--title">Description</h3>
                 <div className="menu-description-wrapper">
                   <p className="menu-description">
                     <span className="description-bold">{food.name} </span>
@@ -176,14 +176,14 @@ export default function MenuDetail() {
 
               <div className="menu-reviews-section">
                 <div className="reviews-header">
-                  <h3 className="reviews-title">Reviews ({food.reviewCount})</h3>
+                  <h3 className="reviews-title s7-parallax--title">Reviews ({food.reviewCount})</h3>
                   <Link className="see-all-link" to="/reviews">
                     See All
                   </Link>
                 </div>
                 <div className="reviews-list">
                   {menuDetailReviews.map((review) => (
-                    <div className="review-card" key={review.id}>
+                    <div className="review-card s7-parallax--card" key={review.id}>
                       <img
                         alt={review.name}
                         width={52}

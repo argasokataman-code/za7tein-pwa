@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Sepuluh baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Sebelas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -277,6 +277,33 @@ export function AppPolishSection() {
                 dan <code className="doc-inline">overflow-x</code> terukur 0px di semua posisi.
                 Tanpa penopang <code className="doc-inline">view()</code>, halaman kembali 1:1 —
                 tanpa galat
+              </td>
+            </tr>
+            <tr>
+              <td>Parallax diperluas ke delapan layar + scroller mati dibuang</td>
+              <td>
+                Parallax hanya ada di beranda. Tiga layar lain (<code className="doc-inline">menu-detail</code>,{' '}
+                <code className="doc-inline">checkout</code>, <code className="doc-inline">search</code>) menyimpan
+                sisa pola lama: wadah <code className="doc-inline">overflow-y: auto</code> di dalam halaman
+                yang <strong>tingginya sama dengan isinya</strong> (terukur 1352px = 1352px) — scroller
+                mati yang tetap menjadi acuan terdekat untuk <code className="doc-inline">view()</code>,
+                sehingga animasinya dihitung terhadap wadah yang tak pernah bergerak dan semua lapisan
+                beku (terukur <code className="doc-inline">-2.8/4.7/13.5</code> konstan di seluruh posisi gulir)
+              </td>
+              <td>
+                <code className="doc-inline">menu-detail-screen</code> dan{' '}
+                <code className="doc-inline">checkout-screen</code> ditambahkan ke daftar override di
+                <code className="doc-inline">_menu.scss</code> yang sudah menampung{' '}
+                <code className="doc-inline">home/search/filter/address/reviews</code> — satu kontrak
+                "satu penggulung, yaitu dokumen". Setelah itu terukur{' '}
+                <code className="doc-inline">nestedScrollers: 0</code> di delapan layar dan semuanya
+                bergerak. Ikut beres di akar yang sama: gutter <code className="doc-inline">menu-detail</code>{' '}
+                dipulihkan ke <code className="doc-inline">--space-5</code> (16px &rarr; 20px di dua
+                tempat: konten dan bilah CTA — bilah fixed-nya tadinya 4px lebih lebar dari teks di
+                atasnya), dan kontrol bersarang di <code className="doc-inline">Search</code> dipecah
+                jadi dua tombol bersaudara (satu <code className="doc-inline">&lt;button&gt;</code> berisi{' '}
+                <code className="doc-inline">&lt;span role="button"&gt;</code> sebelumnya, dan tombol
+                hapusnya cuma 7&times;18px)
               </td>
             </tr>
           </tbody>

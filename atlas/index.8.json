@@ -1748,6 +1748,329 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4660",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:35:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+90/-75) — edit via tool: // ── 5. Parallax saat men",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4661",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:36:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+5/-4) — edit via tool: .s7-parallax--hero,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4662",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:36:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx (+5/-5) — edit via tool: tsx: <div className=\"section-header\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx"
+    },
+    {
+      "id": "TASK-4663",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:36:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+5/-5) — edit via tool: tsx: <div className=\"menu-detail-hero\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-4664",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:36:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx (+1/-1) — edit via tool: tsx: <h2 className=\"general s7-parallax--t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx"
+    },
+    {
+      "id": "TASK-4665",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:36:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+1/-1) — edit via tool: tsx: <div className=\"checkout-store s7-pa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-4666",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:37:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+2/-2) — edit via tool: tsx: <div className=\"order-summary-sectio",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-4667",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:37:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/WalletTopUp.tsx (+1/-1) — edit via tool: tsx: <section className=\"wallet-balanc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/WalletTopUp.tsx"
+    },
+    {
+      "id": "TASK-4668",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:38:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+5/-5) — edit via tool: tsx: <div className=\"menu-detail-hero s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-4669",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:38:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+20/-16) — edit via tool: .address-selection-screen,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-4670",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:40:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx (+21/-17) — edit via tool: tsx: <div className=\"chip-row\" role=\"list",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx"
+    },
+    {
+      "id": "TASK-4671",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:40:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+68/-6) — edit via tool: .wallet-badge {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4672",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:40:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+8/-4) — edit via tool: .menu-detail-content {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-4673",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:41:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+9/-6) — edit via tool: .menu-detail-actions {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-4674",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:41:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.85.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4675",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:42:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx (+29/-2) — edit via tool: tsx: </tr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4676",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:43:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+33/-16) — edit via tool: // Chip filter (layar /fil",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
     }
   ]
 }
