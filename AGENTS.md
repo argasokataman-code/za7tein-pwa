@@ -21,6 +21,21 @@ Empat langkah, **berurutan**. Jangan lompat ke kode, jangan lompat ke browser. U
 
 ---
 
+## 0b. Desain wajib lewat skill `senior-fe` (ENFORCE)
+
+Repo ini **showcase UI/UX**. Karena itu setiap tugas yang menyentuh tampilan **wajib** memuat skill `senior-fe` sebelum menulis atau menilai desain. Ini aturan keras, bukan saran.
+
+- **Trigger.** Permintaan bermuatan desain: "desain", "bikin UI/UX", "rapikan tampilan", "mobile", "website", layout, komponen visual, warna, tipografi, spacing, animasi, atau review desain.
+- **Cara.** Muat skill: `skill({ name: "senior-fe" })` atau `/senior-fe`. Kalau task-nya mobile, ikuti routing stack di skill itu (SwiftUI / Compose / Flutter / React Native appendix).
+- **Sampai Delivery Gate.** Setiap temuan cites ID + alasan satu baris: `HG-xx` = HIGH, `PG-xx` = MEDIUM, `QL-xx` = LOW. Fix yang disetujui, lalu tulis laporan.
+- **Peka & proaktif.** Kalau tampilan "mlenceng" — hierarki kabur, dua aksen bersaing, elemen kepotong/ketimpa, target <44px, kontras <AA, overflow-x, atau pola slop tanpa alasan — **perbaiki di akarnya, jangan tunggu disuruh.** Satu masalah, satu akar, satu tempat.
+- **Bukti, bukan kesan.** Laporan menyebut angka/selector (`getBoundingClientRect`, `elementFromPoint`, rasio kontras). Yang mustahil dibaca dari sumber diukur lewat `browser-gate` (§8).
+- **Mode audit.** Kalau yang diminta review, pakai mode "After" skill: findings bernomor di `anti-slop/audit-NNN-YYYY-MM-DD.md`, dan **jangan ubah apa pun** sebelum itemnya disetujui.
+
+Ringkasan mesin ada di `.rules.json` → `designReview`. Tidak ada cek pre-commit yang bisa membuktikan skill benar-benar dipakai; enforcement lewat protokol ini, dan commit yang menyentuh UI wajib menyebut ID temuan di laporannya.
+
+---
+
 ## 1. Repo ini apa, dan apa batasnya
 
 **Showcase UI/UX dan design system.** Semua yang ada di sini adalah **front-end**.

@@ -12,6 +12,20 @@
   },
   "designDNA": "docs/design/DNA.md",
   "designDebt": "docs/design/legacy-debt.json (inline SVG count per TSX file may only decrease without a recorded decorative exception)",
+  "designReview": {
+    "enforce": true,
+    "skill": "senior-fe",
+    "trigger": "tugas apa pun yang menyentuh UI/UX, tampilan, tata letak, mobile, atau website: minta desain, bikin UI/UX, rapikan tampilan, layout, komponen visual, warna, tipografi, spacing, animasi, atau review desain",
+    "wajib": [
+      "muat skill senior-fe sebelum menulis atau menilai tampilan (skill({name:'senior-fe'}) atau /senior-fe)",
+      "mobile: ikuti routing stack di skill (SwiftUI/Compose/Flutter/RN appendix)",
+      "jalankan sampai Delivery Gate; tiap temuan cites HG-xx / PG-xx / QL-xx + alasan satu baris",
+      "peka & proaktif: tampilan mlenceng (hierarki kabur, dua aksen bersaing, elemen kepotong/ketimpa, target <44px, kontras <AA, overflow-x, pola slop tanpa alasan) WAJIB diperbaiki di akarnya, tidak menunggu disuruh",
+      "bukti angka/selector (rect, elementFromPoint, rasio kontras), bukan kesan; yang mustahil dibaca dari sumber diukur lewat browser-gate"
+    ],
+    "auditMode": "review pakai mode After skill: findings bernomor di anti-slop/audit-NNN-YYYY-MM-DD.md, jangan ubah apa pun sebelum item disetujui",
+    "catatan": "Tidak ada cek mekanis yang bisa membuktikan skill benar-benar dipakai; enforcement lewat startup protocol + review. Commit yang menyentuh UI wajib menyebut ID temuan di laporan."
+  },
   "scope": {
     "is": [
       "UI/UX",
@@ -34,6 +48,7 @@
       "baca .rules.json dulu",
       "baca AGENTS.md",
       "baca .githooks/pre-commit",
+      "kalau tugas menyentuh UI/UX/mobile/website: muat skill senior-fe dulu (lihat designReview)",
       "atlas query topik sebelum usul perubahan"
     ]
   },
