@@ -21,10 +21,13 @@ import AdminOnboarding from './pages/AdminOnboarding'
 import ChangePassword from './pages/ChangePassword'
 import Checkout from './pages/Checkout'
 import CourierProfile from './pages/CourierProfile'
+import CourierPayout from './pages/CourierPayout'
+import CourierPayoutAccounts from './pages/CourierPayoutAccounts'
 import CourierSignIn from './pages/CourierSignIn'
 import CourierTaskDetail from './pages/CourierTaskDetail'
 import CourierTasks from './pages/CourierTasks'
 import CourierTips from './pages/CourierTips'
+import CourierWallet from './pages/CourierWallet'
 import CreatePassword from './pages/CreatePassword'
 import CreatePin from './pages/CreatePin'
 import DisputeSubmit from './pages/DisputeSubmit'
@@ -196,6 +199,9 @@ const courierRoutes: [string, ComponentType][] = [
   ['/', CourierTasks],
   ['/task/:id', CourierTaskDetail],
   ['/tips', CourierTips],
+  ['/wallet', CourierWallet],
+  ['/payout', CourierPayout],
+  ['/payout-accounts', CourierPayoutAccounts],
   ['/profile', CourierProfile],
   ['/offline', Offline],
 ]

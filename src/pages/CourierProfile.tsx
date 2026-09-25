@@ -1,14 +1,15 @@
-import { Bike, Store, UserRound } from 'lucide-react'
+import { Bike, Landmark, Store, UserRound } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { mockMerchant } from '../data/merchant'
+import { money, mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
+import { courierTipsAvailable } from '../data/courierWallet'
 import { toggleOnline } from '../store/slices/courierSlice'
 import { logout } from '../store/slices/authSlice'
 
@@ -17,6 +18,8 @@ export default function CourierProfile() {
   const navigate = useNavigate()
   const isOnline = useAppSelector((s) => s.courier.isOnline)
   const tasks = useAppSelector((s) => s.courier.tasks)
+  const payouts = useAppSelector((s) => s.courier.payouts)
+  const tipsAvailable = courierTipsAvailable(tasks, payouts)
   const active = tasks.filter(isActiveTask).length
   const [showLogout, setShowLogout] = useState(false)
 
@@ -61,6 +64,19 @@ export default function CourierProfile() {
           >
             {isOnline ? 'Jeda dulu' : 'Siap sekarang'}
           </button>
+        </section>
+
+        <section className="courier-card">
+          <div className="courier-row">
+            <Landmark size={20} strokeWidth={1.75} aria-hidden="true" />
+            <div>
+              <p className="courier-card-title">Dompet tips</p>
+              <p className="courier-card-sub">{money(tipsAvailable)} bisa ditarik</p>
+            </div>
+          </div>
+          <Link className="btn btn-primary courier-wallet-cta" to="/wallet">
+            Buka dompet
+          </Link>
         </section>
 
         <section className="courier-card">

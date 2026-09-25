@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { useAppSelector } from '../hooks/useAppStore'
@@ -17,6 +19,10 @@ export default function CourierTips() {
           <p className="courier-card-sub">Total tips</p>
           <p className="courier-tips-total">{money(totalTips(tasks))}</p>
         </section>
+
+        <Link className="btn btn-primary courier-wallet-cta" to="/wallet">
+          Buka dompet tips
+        </Link>
 
         <section className="courier-card">
           <p className="courier-card-title">Hanya tips yang menjadi milik kurir</p>

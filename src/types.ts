@@ -267,11 +267,13 @@ export interface PayoutAccount {
  */
 export interface PayoutEntry {
   id: string
-  kind: 'settlement' | 'payout'
+  kind: 'settlement' | 'tip' | 'payout'
   amount: number
   status: WalletTxStatus
   createdAt: string
   destination?: string
+  /** Fee payout yang dipotong dari nilai withdraw (kurir menanggungnya). */
+  fee?: number
 }
 
 /** Satu baris tabel `exchange_rates` — rate IDR→JOD, display-only (R-CURR-01). */

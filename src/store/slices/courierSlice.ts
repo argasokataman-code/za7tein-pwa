@@ -1,18 +1,31 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { courierTasks as seedTasks, nextCheckpoint } from '../../data/courier'
-import type { CourierTask } from '../../types'
+import {
+  COURIER_PAYOUT_FEE_IDR,
+  courierTipsAvailable,
+  mockCourierPayoutAccounts,
+} from '../../data/courierWallet'
+import type { CourierTask, PayoutAccount, PayoutEntry } from '../../types'
 
 interface CourierState {
   /** Kurir siap menerima tugas. Tidak dipersist — mock, reset saat reload. */
   isOnline: boolean
   tasks: CourierTask[]
+  /** Rekening tujuan pencairan tips (R-WALLET-01, f6). */
+  payoutAccounts: PayoutAccount[]
+  /** Riwayat pencairan tips; saldo dihitung dari tips − pencairan. */
+  payouts: PayoutEntry[]
 }
 
 const initialState: CourierState = {
   isOnline: true,
   tasks: seedTasks,
+  payoutAccounts: mockCourierPayoutAccounts,
+  payouts: [],
 }
+
+const makeId = (prefix: string, count: number) => `${prefix}-${count + 1}-${Date.now()}`
 
 const courierSlice = createSlice({
   name: 'courier',
@@ -43,8 +56,72 @@ const courierSlice = createSlice({
       task.checkpoint = 'selesai'
       task.checkpointStartedAt = undefined
     },
+    addPayoutAccount(
+      state,
+      action: PayloadAction<{ bankName: string; accountNumber: string; holderName: string }>,
+    ) {
+      state.payoutAccounts.push({
+        id: makeId('cpa', state.payoutAccounts.length),
+        ...action.payload,
+        isPrimary: state.payoutAccounts.length === 0,
+      })
+    },
+    updatePayoutAccount(
+      state,
+      action: PayloadAction<{
+        id: string
+        bankName: string
+        accountNumber: string
+        holderName: string
+      }>,
+    ) {
+      const account = state.payoutAccounts.find((a) => a.id === action.payload.id)
+      if (!account) return
+      account.bankName = action.payload.bankName
+      account.accountNumber = action.payload.accountNumber
+      account.holderName = action.payload.holderName
+    },
+    removePayoutAccount(state, action: PayloadAction<{ id: string }>) {
+      const wasPrimary = state.payoutAccounts.find((a) => a.id === action.payload.id)?.isPrimary
+      state.payoutAccounts = state.payoutAccounts.filter((a) => a.id !== action.payload.id)
+      if (wasPrimary && state.payoutAccounts.length > 0) state.payoutAccounts[0].isPrimary = true
+    },
+    setPrimaryPayoutAccount(state, action: PayloadAction<{ id: string }>) {
+      for (const account of state.payoutAccounts) {
+        account.isPrimary = account.id === action.payload.id
+      }
+    },
+    /**
+     * Pencairan tips (f6). Fee Rp2.500 ditanggung kurir dan dipotong dari nilai
+     * withdraw; saldo tidak disimpan, dihitung dari tips − pencairan.
+     */
+    requestCourierPayout(state, action: PayloadAction<{ amount: number; accountId: string }>) {
+      const { amount, accountId } = action.payload
+      const account = state.payoutAccounts.find((a) => a.id === accountId)
+      if (!account || amount <= 0) return
+      if (amount > courierTipsAvailable(state.tasks, state.payouts)) return
+      state.payouts.unshift({
+        id: makeId('cpo', state.payouts.length),
+        kind: 'payout',
+        amount,
+        fee: COURIER_PAYOUT_FEE_IDR,
+        status: 'pending',
+        createdAt: new Date().toISOString(),
+        destination: `${account.bankName} · ${account.accountNumber}`,
+      })
+    },
   },
 })
 
-export const { toggleOnline, advanceCheckpoint, cancelTask, completeTask } = courierSlice.actions
+export const {
+  toggleOnline,
+  advanceCheckpoint,
+  cancelTask,
+  completeTask,
+  addPayoutAccount,
+  updatePayoutAccount,
+  removePayoutAccount,
+  setPrimaryPayoutAccount,
+  requestCourierPayout,
+} = courierSlice.actions
 export default courierSlice.reducer

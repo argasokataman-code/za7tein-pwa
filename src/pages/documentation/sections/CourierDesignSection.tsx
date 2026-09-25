@@ -122,9 +122,41 @@ export function CourierDesignSection() {
         chosen amount is deducted from the customer wallet by{' '}
         <code className="doc-inline">tipCourier</code> in{' '}
         <code className="doc-inline">walletSlice</code> — 100% to the courier, no platform
-        commission (PRD §Tips). Only the customer half is modelled: the courier wallet is a
-        mock number on the CS panel, so no credit is invented here. Tip amounts are display
-        state, not a decided business rule.
+        commission (PRD §Tips). Only the customer half is modelled there, so no credit is
+        invented on the customer side; the courier wallet now models its own half (below).
+      </p>
+      <h3 className="doc-h3">Courier wallet: withdraw tips, fee on the courier</h3>
+      <p className="doc-p">
+        The wallet (<code className="doc-inline">/courier/wallet</code>) is a separate IDR
+        pot holding <em>tips only</em> — ongkir and salary never enter it (C-06). Its
+        balance is not a second state: it is derived as{' '}
+        <code className="doc-inline">mockCourierTips + totalTips(tasks) − payouts</code>{' '}
+        (<code className="doc-inline">courierTipsAvailable</code> in{' '}
+        <code className="doc-inline">src/data/courierWallet.ts</code>), so completing a
+        task raises it live and the <code className="doc-inline">/tips</code> page still
+        reads the same source. Payouts and payout accounts live in{' '}
+        <code className="doc-inline">courierSlice</code> (not persisted, matching the
+        slice). Withdraw reuses flow{' '}
+        <code className="doc-inline">f6-cashout-payout</code>; the payout fee of Rp2.500
+        per transfer is <em>borne by the courier</em> (PO 2026-09-22,{' '}
+        <code className="doc-inline">source.md:84</code>) and is deducted from the amount,
+        so <code className="doc-inline">/courier/payout</code> shows the net "diterima"
+        before the courier confirms.
+      </p>
+      <p className="doc-p">
+        The accumulation threshold is a visible placeholder, never a guessed rule: PRD
+        gives an example (≥Rp50.000,{' '}
+        <code className="doc-inline">source.md:83</code>) but{' '}
+        <code className="doc-inline">f6-cashout-payout/README.md</code> marks it
+        UNRESOLVED. It lives in one constant,{' '}
+        <code className="doc-inline">COURIER_TIPS_MIN_WITHDRAW_IDR</code>, and the wallet
+        says so on screen — change the constant when the PO decides. Below the threshold
+        the withdraw action is disabled with a meter showing how far away it is, rather
+        than silently allowing an uneconomical withdrawal. The two new payout screens reuse
+        the merchant payout flow (account picker, amount,{' '}
+        <code className="doc-inline">BottomSheet</code> account form,{' '}
+        <code className="doc-inline">ConfirmSheet</code> delete) rather than inventing a
+        second pattern.
       </p>
     </DocSection>
   )
