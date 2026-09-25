@@ -48,3 +48,8 @@
 // semua partial yang mendefinisikan header — merchant, kurir, admin, cart,
 // tracking, post-order, checkout — supaya menang pada kekhususan yang sama.
 @use "./system/topbar";
+
+// Setelah top bar: primitif interaksi (umpan balik tekan, transisi halaman,
+// gerak masuk berurutan, reduced motion). Terakhir supaya `:active` di sini
+// tidak diratakan oleh aturan tekan warisan yang lebih awal.
+@use "./system/interaction";

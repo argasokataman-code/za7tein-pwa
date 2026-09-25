@@ -63,10 +63,42 @@
      teks putih; 0.62 mengamankannya di ~4.6:1 (audit 006 #5). */
   --overlay-strong: rgba(32, 32, 32, 0.62);
 
+  /* Skala gerak. Mengikuti Material Design 3
+     (m3.material.io/styles/motion/easing-and-duration), bukan selera:
+     fast ~ short2, standard = medium1, emphasis ~ long2. Memakai token
+     supaya satu perubahan ikut ke seluruh repo — sebelum ini 59 dari 128
+     transisi menulis durasi mentah (.3s/.2s/.15s) yang tidak ikut apa pun. */
   --motion-fast: 140ms;
   --motion-standard: 200ms;
   --motion-emphasis: 380ms;
   --motion-journey: 650ms;
+
+  /* Pasangan masuk/keluar. M3: "Suggested easing and duration pairs" —
+     elemen masuk 250ms, keluar 200ms. Selisih ini yang memberi hierarki
+     arah; repo sebelumnya memakai 200ms untuk keduanya, jadi tidak ada
+     bedanya mana yang baru datang. */
+  --motion-enter: 250ms;
+  --motion-exit: 200ms;
+  --motion-page: 260ms;
+
+  /* Jeda antar-item untuk daftar yang masuk berurutan, plus batasnya.
+     Di atas 8 item penundaan berubah jadi keterlambatan, bukan informasi. */
+  --stagger-step: 45ms;
+  --stagger-max: 8;
+
+  /* Easing. Nama diambil dari perannya, mengikuti M3. `--ease-out` yang lama
+     sebenarnya "decelerate" (cocok untuk masuk) — namanya dipertahankan
+     karena sudah dipakai 109 kali, dan `--ease-decelerate` ditambahkan sebagai
+     nama yang benar supaya kode baru tidak menebak. */
+  --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Emphasized: kurva ber-overshoot milik M3, untuk gerak yang boleh
+     "memantul" sedikit (badge, konfirmasi). Terekam sebagai bezier yang
+     overshoot ~4% lalu kembali, padanan praktis dari
+     `motionEasingEmphasized` di Android. */
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1.12);
+
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-inout: cubic-bezier(0.4, 0, 0.2, 1);

@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Delapan baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Sembilan baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -216,6 +216,44 @@ export function AppPolishSection() {
                 itu, <code className="doc-inline">browser-gate</code> menolak rute yang mengukur
                 manifest yang bukan miliknya (dibuktikan dengan menyuntik ulang bug-nya). Gate{' '}
                 <code className="doc-inline">--role all --pwa</code> 134/134 lolos
+              </td>
+            </tr>
+            <tr>
+              <td>Gerak &amp; umpan balik tekan (satu berkas: <code className="doc-inline">_interaction.scss</code>)</td>
+              <td>
+                Sebagian besar kontrol tak punya reaksi saat ditekan, jadi di layar sentuh tak ada
+                bedanya menyentuh tombol atau kertas. Arah halaman (maju/mundur) juga tidak terbaca,
+                dan daftar muncul sekaligus tanpa urutan. Durasinya pun tersebar sebagai angka mentah
+                (terukur 59 nilai durasi ad-hoc) alih-alih skala yang satu bahasa
+              </td>
+              <td>
+                Skala tekan 0.97 pada daftar selector eksplisit (bukan selektor generik, karena{' '}
+                <code className="doc-inline">.nav-item</code>/<code className="doc-inline">.food-card</code>{' '}
+                bukan <code className="doc-inline">button</code>). Transisi halaman pindah-peran
+                memakai satu kelas dari <code className="doc-inline">usePageTransition()</code>.
+                Baris masuk berurutan lewat <code className="doc-inline">--stagger-step</code>{' '}
+                (terukur tunda 0s / 0.045s / 0.09s, dibatasi 8 lewat <code className="doc-inline">min()</code>).
+                Durasinya kini token: <code className="doc-inline">--motion-enter/exit/page</code> +{' '}
+                <code className="doc-inline">--ease-*</code>. Terverifikasi:{' '}
+                <code className="doc-inline">matrix(0.97)</code> saat <code className="doc-inline">:active</code>,
+                animasi halaman 0.26s, <code className="doc-inline">stagger-rise</code> 0.38s
+              </td>
+            </tr>
+            <tr>
+              <td>Bilah bawah dipindah ke portal (<code className="doc-inline">BottomNav</code>)</td>
+              <td>
+                <code className="doc-inline">position: fixed</code> di dalam pohon halaman yang
+                dianimasikan: begitu ada <code className="doc-inline">transform</code> pada leluhur,
+                bilah ikut melayang &mdash; terukur turun ke y=1479 selama 260ms dan area bawah layar
+                kosong. Gejalanya terbaca sebagai &quot;navigation bar bisa discroll&quot;
+              </td>
+              <td>
+                <code className="doc-inline">createPortal</code> ke{' '}
+                <code className="doc-inline">document.body</code>: bilah keluar dari pohon halaman,
+                jadi tak ada animasi halaman yang bisa menggesernya. Terukur{' '}
+                <code className="doc-inline">nav.parentElement === BODY</code> dan{' '}
+                <code className="doc-inline">bottom: 0</code> sebelum <em>dan</em> selama transisi.
+                Context router tetap lewat portal, jadi status rute aktif benar
               </td>
             </tr>
           </tbody>

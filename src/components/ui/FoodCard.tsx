@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { Clock, Star } from 'lucide-react'
 
 import { money } from '../../data/merchant'
@@ -8,11 +9,24 @@ import type { Food } from '../../types'
 interface FoodCardProps {
   food: Food
   onOpen: (food: Food) => void
+  /**
+   * Kelas tambahan dari pemanggil. Dipakai daftar yang ingin masuk berurutan
+   * (`stagger-in`) — kartu tidak menentukan itu sendiri, karena halaman yang
+   * menampilkan satu kartu saja tidak butuh animasi masuk berurutan.
+   */
+  className?: string
+  /** Variabel CSS tambahan, mis. `--stagger-index`. */
+  style?: CSSProperties & Record<'--stagger-index', number>
 }
 
-export function FoodCard({ food, onOpen }: FoodCardProps) {
+export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps) {
   return (
-    <div className="food-card" role="article" style={{ cursor: 'pointer' }} onClick={() => onOpen(food)}>
+    <div
+      className={`food-card ${className}`.trim()}
+      role="article"
+      style={{ cursor: 'pointer', ...style }}
+      onClick={() => onOpen(food)}
+    >
       <div className="food-card-image">
         <img
           alt={food.name}

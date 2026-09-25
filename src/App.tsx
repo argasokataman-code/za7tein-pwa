@@ -6,6 +6,7 @@ import { StoreProvider } from './store/provider'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
 import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 import { useAppSelector } from './hooks/useAppStore'
+import { usePageTransition } from './hooks/usePageTransition'
 
 import AccountSetup from './pages/AccountSetup'
 import AddNewCard from './pages/AddNewCard'
@@ -321,26 +322,43 @@ function RoleRouter({ basename, routes, home, offlinePath, entry, publicPaths = 
   return (
     <BrowserRouter basename={basename}>
       <RoleChrome offlinePath={offlinePath}>
-        <Routes>
-          {routes.map(([path, Component]) => (
-            <Route
-              key={path}
-              path={path}
-              element={
-                entry && !open.has(path) ? (
-                  <AuthGate entry={entry} role={basename}>
+        <PageTransition>
+          <Routes>
+            {routes.map(([path, Component]) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  entry && !open.has(path) ? (
+                    <AuthGate entry={entry} role={basename}>
+                      <Component />
+                    </AuthGate>
+                  ) : (
                     <Component />
-                  </AuthGate>
-                ) : (
-                  <Component />
-                )
-              }
-            />
-          ))}
-          <Route path="*" element={<Navigate to={home} replace />} />
-        </Routes>
+                  )
+                }
+              />
+            ))}
+            <Route path="*" element={<Navigate to={home} replace />} />
+          </Routes>
+        </PageTransition>
       </RoleChrome>
     </BrowserRouter>
+  )
+}
+
+/**
+ * Pembungkus gerak antar-halaman. Harus DI DALAM `<BrowserRouter>` karena
+ * `useLocation`/`useNavigationType` milik router, dan `key` yang berubah per
+ * rute yang memaksa React memasang ulang wadahnya — tanpa itu kelas animasi
+ * hanya berganti nama pada elemen yang sama dan animasinya tidak diputar ulang.
+ */
+function PageTransition({ children }: { children: ReactNode }) {
+  const { className, key } = usePageTransition()
+  return (
+    <div key={key} className={className}>
+      {children}
+    </div>
   )
 }
 

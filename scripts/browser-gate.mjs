@@ -937,6 +937,20 @@ async function main() {
       .catch(() => {})
     await warmUpShell(cdp, BASE + (urls[0] || '/'))
     if (!OPTS.json) logLine(`${C.dim}warm-up: service worker diperbarui, shell dimuat ulang${C.off}`)
+  } else {
+    // Mode biasa mengukur apa yang disajikan server, bukan apa yang tersimpan
+    // di cache service worker dari pengukuran sebelumnya. Profil klon gate
+    // menyimpan SW antar jalan, dan tanpa ini gate bisa melaporkan CSS lama
+    // sebagai "masih gagal" padahal build baru sudah benar — pernah kejadian:
+    // tombol 93x34 dilaporkan gagal padahal versi terbaru sudah 44px.
+    await cdp.send('Network.setCacheDisabled', { cacheDisabled: true }).catch(() => {})
+    await evaluate(cdp, `(async () => {
+      const regs = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(regs.map((r) => r.unregister().catch(() => {})))
+      const keys = await caches.keys()
+      await Promise.all(keys.map((k) => caches.delete(k).catch(() => {})))
+      return { regs: regs.length, caches: keys.length }
+    })()`).catch(() => {})
   }
 
   const report = []

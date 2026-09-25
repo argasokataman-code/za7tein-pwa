@@ -72,10 +72,12 @@ export default function Home() {
               </Link>
             </div>
             <div className="food-cards-scroll h-scroll-strip" role="list">
-              {deals.map((food) => (
+              {deals.map((food, i) => (
                 <FoodCard
                   key={food.id}
                   food={food}
+                  style={{ '--stagger-index': i }}
+                  className="stagger-in"
                   onOpen={(f) => navigate(`/menu-detail/${f.id}`)}
                 />
               ))}

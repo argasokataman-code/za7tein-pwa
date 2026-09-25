@@ -1,0 +1,274 @@
+@use "./mixins" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Primitif interaksi: umpan balik tekan, transisi halaman, dan gerak masuk
+// yang informatif.
+//
+// Aturannya bukan "banyak animasi", tapi satu gerak satu tugas. Skala dan
+// pasangan easing/durasi di bawah mengikuti Material Design 3
+// (`m3.material.io/styles/motion`), bukan selera:
+//
+//   masuk lebih lambat dari keluar   masuk 250ms, keluar 200ms
+//   umpan balik tekan                wajib ada di setiap elemen yang bisa ditekan
+//   tekan ringan, jangan mengejutkan skala 0.97, bukan 0.9
+//   reduced motion                   ganti gerakan dengan fade, bukan matikan semua
+//
+// Diukur sebelum blok ini: 29 aturan `:active` di seluruh stylesheet dari
+// ratusan kontrol, jadi chip kategori, kartu makanan, ikon pencarian, dan
+// hampir semua tombol bisa ditekan tanpa mengaku sedang ditekan — di ponsel
+// jeda itu terasa seperti "kenapa belum berubah".
+
+$press-scale: 0.97;
+
+// ── 1. Umpan balik tekan ───────────────────────────────────────────────────
+// Satu nilai untuk semua kontrol, bukan disalin ke tiap berkas. `:active` di
+// sentuh dan tetikus sama-sama berlaku; di desktop, `:active` juga ikut saat
+// tombol utama tetikus ditekan.
+//
+// Kontrol yang sudah punya `:active` sendiri (mis. `.btn-primary` translateY)
+// tetap menang lewat urutan impor: partial ini di-`@use` sebelum partial
+// per-peran, dan `transform` yang lebih spesifik menimpa skala di sini.
+.control-press,
+.btn-back,
+.category-btn,
+.nav-item,
+.food-card,
+.see-all-link,
+.section-header button,
+.sheet-cancel,
+.sheet-action,
+.chip,
+.filter-chip,
+.install-prompt-later,
+.merchant-overflow button,
+.stock-stepper button,
+.quantity-btn,
+.qty-btn,
+.numpad-btn,
+.scroll-top-btn,
+.sa-btn,
+.merchant-btn-ghost,
+.back-btn-profile,
+.btn-profile-primary,
+.track-action,
+.wallet-item,
+.s7-avatar-button {
+  transition:
+    transform var(--motion-fast) var(--ease-out),
+    background-color var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out),
+    color var(--motion-fast) var(--ease-out),
+    opacity var(--motion-fast) var(--ease-out);
+
+  &:active {
+    transform: scale(#{$press-scale});
+  }
+}
+
+// Kartu yang bisa dibuka cukup berubah warna permukaannya: mengecilkan seluruh
+// kartu besar terasa berat, dan kartu berisi gambar akan tampak bergeser.
+.food-card:active {
+  transform: none;
+  border-color: var(--sa7tein-orange);
+}
+
+// Butir navigasi bawah: yang mengecil ikonnya, bukan seluruh butir. Butirnya
+// selebar 62px — menskalakan seluruhnya menggeser label dan titik aktif, dan
+// yang dilihat mata saat jari menyentuh memang ikonnya.
+.nav-item:active {
+  transform: none;
+}
+
+.nav-item:active .nav-icon-wrap {
+  transform: scale(#{$press-scale});
+}
+
+.nav-icon-wrap {
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+// Blok lokasi selebar kolom teks: menskalakannya menggeser seluruh baris.
+// Umpan baliknya cukup peredupan ringan, yang tetap terbaca di atas oranye.
+.s7-location {
+  transition: opacity var(--motion-fast) var(--ease-out);
+}
+
+.s7-location:active {
+  opacity: 0.7;
+}
+
+// Tombol tambah-ke-keranjang: terukur 93x34 sebelum ini, di bawah `--touch-min`
+// (44px). Padding 10px saja tidak pernah menghasilkan 44px, jadi tingginya
+// dikunci ke token — dan isinya ditengahkan karena `min-height` tanpa
+// `align-items` menaruh teks di atas, bukan di tengah.
+//
+// Dua kelas untuk tombol yang sama: `.buy-now-btn` (FoodCard, lebar penuh) dan
+// `.hot-deal-add` (kartu deal ringkas). Keduanya pernah lupa tinggi minimum,
+// jadi keduanya diberi di sini sekali.
+.buy-now-btn,
+.hot-deal-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+}
+
+// Lencana aksi dompet (Hapus/Sambungkan): terukur 71x20 dan 72x20 — jauh di
+// bawah `--touch-min`. Padding 6px 12px tidak akan pernah mencapai 44px, jadi
+// tingginya dikunci dan isinya ditengahkan. Barisnya ikut tumbuh, dan itu
+// memang konsekuensi yang benar: target sentuh yang bisa meleset lebih mahal
+// daripada baris yang sedikit lebih tinggi.
+.wallet-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+}
+
+// ── 2. Transisi halaman: fade, dan mengapa bukan geseran ────────────────────
+// Material menyebut pola ini "forward and backward" dan menggeser halaman ke
+// samping. Di repo ini geseran TIDAK dipakai, dan alasannya terukur, bukan
+// estetika: `transform` pada sebuah leluhur menjadikannya containing block baru
+// untuk `position: fixed`. Repo ini punya puluhan elemen `fixed` di dalam
+// `.app-shell` (header tracking, footer bayar, sheet, bilah bawah), jadi
+// menggeser `.app-shell` akan membuat semuanya melayang selama animasi —
+// terlihat sekali pada bilah bawah, yang turun ke y=1479 dan membuat area bawah
+// layar kosong.
+//
+// Alternatifnya adalah mengeluarkan SEMUA elemen itu ke portal; itu 40+ aturan
+// dengan risiko regresi yang jauh lebih besar daripada nilai gerak 260ms. Jadi
+// halaman masuk dengan fade — `opacity` tidak membuat containing block, jadi
+// tidak ada yang bergeser.
+//
+// `BottomNav` tetap dipindah ke portal (`src/components/layout/BottomNav.tsx`)
+// karena itu memperbaiki masalah nyata: bilah tak lagi bergantung pada pohon
+// halaman, jadi ia tidak pernah ikut ter-transform oleh apa pun di halaman.
+//
+// Dipakai lewat kelas pada wadah halaman dari `usePageTransition()`
+// (`src/hooks/usePageTransition.ts`), bukan pada tiap halaman — satu tempat,
+// dan halaman yang tidak memakainya tidak ikut berubah.
+.page-enter-forward,
+.page-enter-backward {
+  animation: page-fade var(--motion-page) var(--ease-decelerate) both;
+}
+
+@keyframes page-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// ── 3. Baris masuk berurutan ───────────────────────────────────────────────
+// Daftar yang muncul sebagai satu kejadian tidak memberi tahu urutannya.
+// Masuk berurutan mengomunikasikan "ini daftar, dibaca dari atas".
+//
+// Indeksnya datang dari pemanggil (`style={{ '--stagger-index': i }}`), bukan
+// dari `:nth-child` di sini: satu sumber, dan item yang tak berurutan dalam DOM
+// (mis. hasil filter) tetap benar. Tanpa indeks, `var(--stagger-index, 0)`
+// membuat penundaan nol, jadi kelas ini aman dipakai tanpa indeks juga.
+//
+// Batasnya bukan selera: M3 dan praktik umum memakai 5-8 item. Di atas itu
+// pengguna sudah menunggu, jadi sisa daftar muncul bersama. Batas 8 dijaga di
+// sini lewat `min()` supaya tidak bergantung pemanggil meng-clamp indeksnya.
+.stagger-in {
+  /* Nilai bawaan supaya `--stagger-index` punya definisi yang terbaca alat
+     (surface-scan menolak `var()` tanpa definisi), sekaligus tetap bisa ditimpa
+     pemanggil lewat `style={{ '--stagger-index': i }}`. */
+  --stagger-index: 0;
+
+  animation: stagger-rise var(--motion-emphasis) var(--ease-decelerate) both;
+  animation-delay: calc(min(var(--stagger-index, 0), 8) * var(--stagger-step));
+}
+
+@keyframes stagger-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+// ── 4. Badge keranjang: melompat sekali saat jumlahnya naik ────────────────
+// Satu-satunya gerak di bilah bawah. Tugasnya: memberi tahu ada barang masuk.
+// Tanpa ini badge bertambah diam-diam dan pengguna tidak tahu keranjangnya
+// berubah.
+.nav-cart-badge {
+  animation: badge-pop var(--motion-emphasis) var(--ease-emphasized) both;
+}
+
+@keyframes badge-pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.28);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// ── 5. Reduced motion: fade, bukan hilang ──────────────────────────────────
+// M3: "Use subtle fades instead of intense sliding or scaling animations.
+// Disable decorative effects like parallax or shape morphing."
+//
+// Blok global di `_motion.scss` memangkas semua durasi ke 0.01ms, jadi
+// perubahan state tetap terbaca tapi tanpa gerak. Yang ditambahkan di sini
+// hanya untuk gerak yang punya arah (geser, skala, pantulan): dipaksa ke
+// fade-opacity supaya perubahan tetap terlihat sebagai "sesuatu berubah", bukan
+// sebagai sentakan.
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-forward,
+  .page-enter-backward,
+  .stagger-in {
+    animation-name: reduced-fade;
+    animation-duration: var(--motion-standard) !important;
+    transform: none !important;
+  }
+
+  .nav-cart-badge {
+    animation-name: reduced-fade;
+    animation-duration: var(--motion-standard) !important;
+  }
+
+  // Skala saat menekan = gerak dekoratif. Diganti perubahan warna permukaan,
+  // yang tetap menyampaikan "sedang ditekan" tanpa memindahkan apa pun.
+  .control-press:active,
+  .btn-back:active,
+  .category-btn:active,
+  .nav-item:active,
+  .food-card:active,
+  .see-all-link:active,
+  .sheet-cancel:active,
+  .sheet-action:active,
+  .install-prompt-later:active,
+  .merchant-overflow button:active,
+  .stock-stepper button:active,
+  .quantity-btn:active,
+  .qty-btn:active,
+  .numpad-btn:active,
+  .scroll-top-btn:active {
+    transform: none !important;
+  }
+
+  .category-btn:active,
+  .food-card:active {
+    background-color: var(--orange-soft);
+  }
+}
+
+@keyframes reduced-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
