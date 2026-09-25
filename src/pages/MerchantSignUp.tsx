@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
 import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
@@ -10,6 +10,7 @@ import { AUTH_FACTS } from '../data/authCopy'
 import { merchantSignUpSchema, type MerchantSignUpFormData } from '../lib/schemas'
 
 export default function MerchantSignUp() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const {
     register,
@@ -36,7 +37,7 @@ export default function MerchantSignUp() {
       subtitle="Akun toko ditinjau tim CS sebelum bisa menerima order."
       tagline={`Layanan berjalan di ${AUTH_FACTS.city}, dengan dua zona pengantaran. Ongkir ditanggung merchant, dan deposit COD merchant terpisah dari modal saldo 5 JOD.`}
     >
-      <form className="auth-form" noValidate onSubmit={handleSubmit(() => undefined)}>
+      <form className="auth-form" noValidate onSubmit={handleSubmit(() => navigate('/onboarding'))}>
         <div className="auth-field">
           <label className="auth-label" htmlFor="name">
             Nama toko

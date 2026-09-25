@@ -4,6 +4,7 @@ import { merchantOrders as seedOrders } from '../../data/merchantOrders'
 import { merchantReviewReplies } from '../../data/merchantReviews'
 import {
   MAX_COURIERS_PER_MERCHANT,
+  merchantDeliveryConfig,
   mockCouriers,
   mockMerchant,
   mockStoreProfile,
@@ -22,6 +23,7 @@ import type {
   MerchantCreditEvent,
   MerchantCreditEventName,
   MerchantCreditState,
+  MerchantDeliveryConfig,
   MerchantOrder,
   MerchantOrderStatus,
 } from '../../types'
@@ -52,6 +54,12 @@ interface MerchantState {
   storeName: string
   storePhone: string
   storeAddress: string
+  /**
+   * Konfigurasi pengiriman dari form profil toko (f16): mode jangkauan,
+   * radius maksimum, zona aktif, dan ongkir. Menggantikan seed
+   * `merchantDeliveryConfig`. Tidak dipersist.
+   */
+  deliveryConfig: MerchantDeliveryConfig
 }
 
 const initialState: MerchantState = {
@@ -66,6 +74,7 @@ const initialState: MerchantState = {
   storeName: mockStoreProfile.name,
   storePhone: mockStoreProfile.phone,
   storeAddress: mockStoreProfile.address,
+  deliveryConfig: merchantDeliveryConfig,
 }
 
 /** Entry insentif: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -162,6 +171,10 @@ const merchantSlice = createSlice({
       state.storePhone = action.payload.phone
       state.storeAddress = action.payload.address
     },
+    /** Konfigurasi pengiriman dari form profil toko onboarding (f16). */
+    setDeliveryConfig(state, action: PayloadAction<MerchantDeliveryConfig>) {
+      state.deliveryConfig = action.payload
+    },
     /** Merchant baru dapat modal 5 JOD (event `merchant_credit_granted`). */
     grantCredit(state) {
       state.credit.merchantCreditBalance += MERCHANT_CREDIT_JOD
@@ -235,6 +248,7 @@ export const {
   setMerchantLogo,
   removeMerchantLogo,
   setStoreProfile,
+  setDeliveryConfig,
   grantCredit,
   debitCredit,
   recordSettledOrder,

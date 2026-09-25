@@ -1869,6 +1869,351 @@
         }
       ],
       "loc": "src/styles/system/_courier.scss:328"
+    },
+    {
+      "id": "TASK-9166",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:14:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts (+7/-6) — edit via tool: ts: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-9167",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:14:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOnboarding.tsx (+243) — write via tool: tsx: import { zodResolver } fro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOnboarding.tsx"
+    },
+    {
+      "id": "TASK-9168",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:16:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts (+13/-1) — edit via tool: ts: export type MerchantCourierFormData = z.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-9169",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:16:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/courierSlice.ts (+28/-16) — edit via tool: ts: interface CourierState {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/courierSlice.ts"
+    },
+    {
+      "id": "TASK-9170",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:16:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierOnboarding.tsx (+127) — write via tool: tsx: import { zodResolver } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierOnboarding.tsx"
+    },
+    {
+      "id": "TASK-9171",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:16:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierProfile.tsx (+11/-4) — edit via tool: tsx: const payouts = useAppSelecto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierProfile.tsx"
+    },
+    {
+      "id": "TASK-9172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:16:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+4/-3) — edit via tool: tsx: import CourierPayout from './pages/Couri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-9173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:16:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx (+1/-1) — edit via tool: tsx: import { Link, useNavigate } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSignUp.tsx"
+    },
+    {
+      "id": "TASK-9174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:16:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss (+35/-6) — edit via tool: .sheet-copy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss"
+    },
+    {
+      "id": "TASK-9175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:17:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOnboarding.tsx (+1/-1) — edit via tool: tsx: import { DELIVERY_ZONES, z",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOnboarding.tsx"
+    },
+    {
+      "id": "TASK-9176",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:17:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md (+1/-1) — edit via tool: Onboarding m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-9177",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:18:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md (+1/-1) — edit via tool: **Lane Layar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-9178",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:18:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f21-account-auth/README.md (+1/-1) — edit via tool: **Lane Merchant & k",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f21-account-auth/README.md"
+    },
+    {
+      "id": "TASK-9179",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:18:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: Beranda kurir kini berupa dashb",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-9180",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:19:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss (+29/-14) — edit via tool: .merchant-onboarding-mode l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss"
+    },
+    {
+      "id": "DEC-4000",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-09-25",
+      "time": "17:21:37",
+      "tags": [
+        "onboarding",
+        "prd",
+        "po"
+      ],
+      "summary": "PO 2026-09-25: tiap peran punya onboarding sendiri; merchant form profil toko, kurir onboarding sebelum masuk",
+      "conn": [
+        {
+          "id": "FEAT-3002",
+          "type": "relates",
+          "raw": "FEAT-3002:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-3003",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:21:37",
+      "tags": [
+        "merchant",
+        "onboarding"
+      ],
+      "summary": "Merchant /merchant/onboarding: profil toko + foto + deliveryConfig; signup -> onboarding -> pending",
+      "conn": [
+        {
+          "id": "DEC-4000",
+          "type": "relates",
+          "raw": "DEC-4000:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantOnboarding.tsx:1"
+    },
+    {
+      "id": "FEAT-3004",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "17:21:37",
+      "tags": [
+        "courier",
+        "onboarding"
+      ],
+      "summary": "Courier /courier/onboarding: nama + WA + kendaraan, tersimpan di courierSlice.onboarding, dipakai profil",
+      "conn": [
+        {
+          "id": "DEC-4000",
+          "type": "relates",
+          "raw": "DEC-4000:relates"
+        }
+      ],
+      "loc": "src/pages/CourierOnboarding.tsx:1"
     }
   ]
 }

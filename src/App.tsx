@@ -23,6 +23,7 @@ import Checkout from './pages/Checkout'
 import CourierProfile from './pages/CourierProfile'
 import CourierPayout from './pages/CourierPayout'
 import CourierPayoutAccounts from './pages/CourierPayoutAccounts'
+import CourierOnboarding from './pages/CourierOnboarding'
 import CourierSignIn from './pages/CourierSignIn'
 import CourierTaskDetail from './pages/CourierTaskDetail'
 import CourierTasks from './pages/CourierTasks'
@@ -45,6 +46,7 @@ import MenuDetail from './pages/MenuDetail'
 import MerchantCouriers from './pages/MerchantCouriers'
 import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantMenu from './pages/MerchantMenu'
+import MerchantOnboarding from './pages/MerchantOnboarding'
 import MerchantOrders from './pages/MerchantOrders'
 import MerchantPayout from './pages/MerchantPayout'
 import MerchantPayoutAccounts from './pages/MerchantPayoutAccounts'
@@ -175,6 +177,7 @@ const customerRoutes: [string, ComponentType][] = [
 const merchantRoutes: [string, ComponentType][] = [
   ['/signin', MerchantSignIn],
   ['/signup', MerchantSignUp],
+  ['/onboarding', MerchantOnboarding],
   ['/pending', MerchantPending],
   ['/', MerchantDashboard],
   ['/orders', MerchantOrders],
@@ -195,6 +198,7 @@ const merchantRoutes: [string, ComponentType][] = [
 // Dijaga `authGate`: beranda kurir hanya terbuka setelah layar masuk, sama
 // seperti /merchant/* dan /customer/*.
 const courierRoutes: [string, ComponentType][] = [
+  ['/onboarding', CourierOnboarding],
   ['/signin', CourierSignIn],
   ['/', CourierTasks],
   ['/task/:id', CourierTaskDetail],
@@ -273,8 +277,11 @@ const authGate: Partial<Record<RoleBase, { entry: string; publicPaths: string[] 
       '/offline',
     ],
   },
-  '/merchant': { entry: '/signin', publicPaths: ['/signin', '/signup', '/pending', '/offline'] },
-  '/courier': { entry: '/signin', publicPaths: ['/signin', '/offline'] },
+  '/merchant': {
+    entry: '/signin',
+    publicPaths: ['/signin', '/signup', '/onboarding', '/pending', '/offline'],
+  },
+  '/courier': { entry: '/onboarding', publicPaths: ['/onboarding', '/signin', '/offline'] },
 }
 
 interface RoleRouterProps {

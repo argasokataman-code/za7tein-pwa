@@ -16,6 +16,17 @@ interface CourierState {
   payoutAccounts: PayoutAccount[]
   /** Riwayat pencairan tips; saldo dihitung dari tips − pencairan. */
   payouts: PayoutEntry[]
+  /**
+   * Profil hasil onboarding kurir (keputusan PO 2026-09-25). Tipe lokal karena
+   * hanya slice ini yang memakainya. Null sampai onboarding selesai.
+   */
+  onboarding: CourierOnboarding | null
+}
+
+export interface CourierOnboarding {
+  name: string
+  phone: string
+  vehicle: 'motor' | 'mobil'
 }
 
 const initialState: CourierState = {
@@ -23,6 +34,7 @@ const initialState: CourierState = {
   tasks: seedTasks,
   payoutAccounts: mockCourierPayoutAccounts,
   payouts: [],
+  onboarding: null,
 }
 
 const makeId = (prefix: string, count: number) => `${prefix}-${count + 1}-${Date.now()}`
@@ -33,6 +45,10 @@ const courierSlice = createSlice({
   reducers: {
     toggleOnline(state) {
       state.isOnline = !state.isOnline
+    },
+    /** Simpan profil dari onboarding kurir, sebelum masuk. */
+    completeOnboarding(state, action: PayloadAction<CourierOnboarding>) {
+      state.onboarding = action.payload
     },
     /** Maju satu checkpoint sesuai urutan flow F13, lalu mulai jeda SLA baru. */
     advanceCheckpoint(state, action: PayloadAction<{ id: string }>) {
@@ -115,6 +131,7 @@ const courierSlice = createSlice({
 
 export const {
   toggleOnline,
+  completeOnboarding,
   advanceCheckpoint,
   cancelTask,
   completeTask,

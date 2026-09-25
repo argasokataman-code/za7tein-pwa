@@ -13,6 +13,14 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 
 ## Riwayat keputusan
 
+### Onboarding tiap peran — 2026-09-25 (keputusan PO)
+
+- **Setiap peran punya layar onboarding sendiri.** Customer `/customer/onboarding` (sudah ada), merchant `/merchant/onboarding` (form profil toko = langkah `profil` flow `f16`), kurir `/courier/onboarding` (profil + kendaraan), panel admin punya antrean `/admin/onboarding` (approval tenant). Layar onboarding bukan fitur opsional.
+- **Merchant:** `signup` → **form profil toko** → submit → `/merchant/pending`. Sebelum keputusan ini submit signup hanya no-op dan form profil toko tidak ada. Form menyimpan identitas toko (`storeName`/`storePhone`/`storeAddress`) + `deliveryConfig` (mode area/radius, `maxKm`, zona aktif, ongkir).
+- **Kurir:** profil dilengkapi sebelum masuk lalu `/courier/signin`. Ini **menyimpang** dari `f16` yang menyebut kurir hanya "direkrut off-app" setelah toko aktif. Rekrutmen tetap milik merchant (C-06); layar onboarding kurir tidak mengubah siapa yang memperkerjakan.
+- **State mock, ditaruh di slice yang benar:** `deliveryConfig` → `merchantSlice.deliveryConfig`; profil kurir → `courierSlice.onboarding` (tipe lokal slice). Keduanya tidak dipersist.
+- **Masih `UNRESOLVED`:** tarif per-jarak (`feeByDistance`) vs per-area (`feeByArea`) — form hanya menyimpan `ongkirIdr` yang sudah ada; mekanisme verifikasi deposit tetap seperti catatan `f16`.
+
 ### Lokasi state insentif merchant — 2026-09-23 (keputusan implementasi)
 
 - **Menyimpang dari kolom Mock state M10** `milestones.md` yang menulis `walletSlice`: modal 5 JOD dan cashback tier hidup di **`merchantSlice.credit`**.

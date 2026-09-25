@@ -72,6 +72,18 @@ export const merchantCourierSchema = z.object({
 
 export type MerchantCourierFormData = z.infer<typeof merchantCourierSchema>
 
+// Onboarding kurir (keputusan PO 2026-09-25): setiap peran punya layar
+// onboarding sendiri, termasuk kurir. Kurir tetap direkrut merchant (C-06),
+// layar ini melengkapi profil sebelum masuk.
+export const courierOnboardingSchema = z.object({
+  name: z.string().min(2, 'Nama minimal 2 karakter'),
+  phone: phoneField,
+  vehicle: z.enum(['motor', 'mobil'], { message: 'Pilih kendaraan' }),
+  agree: z.literal(true, { message: 'Setujui ketentuan dulu' }),
+})
+
+export type CourierOnboardingFormData = z.infer<typeof courierOnboardingSchema>
+
 // Profil toko — halaman Setelan merchant.
 export const merchantStoreSchema = z.object({
   name: z.string().min(2, 'Nama toko minimal 2 karakter'),

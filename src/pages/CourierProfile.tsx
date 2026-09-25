@@ -19,9 +19,16 @@ export default function CourierProfile() {
   const isOnline = useAppSelector((s) => s.courier.isOnline)
   const tasks = useAppSelector((s) => s.courier.tasks)
   const payouts = useAppSelector((s) => s.courier.payouts)
+  const onboarding = useAppSelector((s) => s.courier.onboarding)
   const tipsAvailable = courierTipsAvailable(tasks, payouts)
   const active = tasks.filter(isActiveTask).length
   const [showLogout, setShowLogout] = useState(false)
+
+  // Profil dari onboarding kurir menang atas data contoh, supaya isian
+  // pengguna benar-benar terpakai (bukan form mati).
+  const name = onboarding?.name || courierSelf.name
+  const phone = onboarding?.phone || courierSelf.phone
+  const vehicleLabel = onboarding?.vehicle === 'mobil' ? 'Mobil' : 'Motor'
 
   // Keluar = keluar dari akun lalu kembali ke layar masuk kurir. Memakai
   // `logout()` dari authSlice, sama seperti Profil customer dan Setelan merchant,
@@ -42,8 +49,11 @@ export default function CourierProfile() {
             <UserRound size={28} strokeWidth={1.75} />
           </span>
           <div>
-            <p className="courier-card-title">{courierSelf.name}</p>
-            <p className="courier-card-sub">{courierSelf.phone}</p>
+            <p className="courier-card-title">{name}</p>
+            <p className="courier-card-sub">{phone}</p>
+            {onboarding ? (
+              <p className="courier-card-sub">Kendaraan: {vehicleLabel}</p>
+            ) : null}
           </div>
         </section>
 

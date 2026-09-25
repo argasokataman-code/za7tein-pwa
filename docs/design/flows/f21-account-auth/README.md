@@ -18,7 +18,7 @@ Workflow pendaftaran akun customer + merchant/kurir: **login Google → nomor WA
 
 **Lane Customer:** Onboarding → **Login Google** (menggantikan sandi) → **Nomor WA** (wajib, dinormalisasi E.164) → **Verifikasi nomor** (format + E.164) → profil & PIN → **Boleh order** (gate top-up 3,5 JOD, `f3`).
 
-**Lane Merchant & kurir:** Daftar toko (nama, email, telepon) → Nomor WA toko (E.164) → **Onboarding merchant** (`f16`: deposit 3,50 JOD, approval SA, `deliveryConfig`).
+**Lane Merchant & kurir:** Daftar toko (nama, email, telepon) → Nomor WA toko (E.164) → **Onboarding merchant** (`f16`: form profil toko `/merchant/onboarding`, deposit 3,50 JOD, approval SA, `deliveryConfig`). **Kurir** (PO 2026-09-25): onboarding sendiri `/courier/onboarding` (nama, nomor WA, kendaraan) → masuk `/courier/signin`; rekrutmen tetap milik merchant (C-06).
 
 **Lane Guard:** bukan E.164 / nomor sudah dipakai — tampil sebagai penolakan, bukan jalur lanjut.
 
@@ -28,7 +28,7 @@ Workflow pendaftaran akun customer + merchant/kurir: **login Google → nomor WA
 - **Google menggantikan sandi, bukan nomor WA** — akun Google tidak memberi nomor telepon; nomor tetap diisi manual lalu diverifikasi OTP (keputusan PO 2026-09-22).
 - **Verifikasi nomor = Level 1**: validasi format + simpan E.164. Tidak ada OTP WA / WhatsApp Business API di MVP — Level 2 ditunda (`source.md:728-731`).
 - Gate top-up **3,5 JOD** untuk akun baru (`:641`, `:653`) tetap jadi penyaring akun sampah — jangan diganti jadi gate di registrasi.
-- Merchant/kurir tidak menyelesaikan onboarding di sini: diserahkan ke `f16` (deposit + approval).
+- Merchant/kurir tidak menyelesaikan deposit/approval di sini: merchant diserahkan ke `f16`. Kurir punya layar onboarding sendiri (`/courier/onboarding`) sebelum masuk (PO 2026-09-25); rekrutmen tetap milik merchant.
 - Frontend saja di repo ini: semua layar mock (AGENTS.md §1). Verifikasi OTP, sesi, dan token tidak berjalan sungguhan.
 
 ## Terhubung (lihat ../INDEX.json)
@@ -39,7 +39,7 @@ Workflow pendaftaran akun customer + merchant/kurir: **login Google → nomor WA
 
 - PRD aktif `versions/irbid-mvp-v2-2026-09-21/source.md`: `:760` (nomor WA wajib), `:727` (E.164), `:641`/`:653` (gate top-up), Open Question #24 (kini RESOLVED sebagian oleh PO 2026-09-22)
 - Keputusan PO 2026-09-22: login Google untuk customer + nomor WA wajib (validasi format, tanpa OTP)
-- Layar yang sudah ada di repo (mock): `SignIn.tsx` (+ tombol Google demo), `SignUp.tsx`, `ForgotPassword*`, `AccountSetup.tsx`, `MerchantSignUp.tsx`, `MerchantPending.tsx`, `CourierSignIn.tsx` (kurir, nomor WA + kata sandi)
+- Layar yang sudah ada di repo (mock): `SignIn.tsx` (+ tombol Google demo), `SignUp.tsx`, `ForgotPassword*`, `AccountSetup.tsx`, `MerchantSignUp.tsx`, `MerchantOnboarding.tsx` (form profil toko, f16), `MerchantPending.tsx`, `CourierOnboarding.tsx` (profil kurir, PO 2026-09-25), `CourierSignIn.tsx` (kurir, nomor WA + kata sandi)
 - **UNRESOLVED (jangan ditebak):** apakah merchant/kurir juga boleh masuk lewat Google · sesi/token & PIN belum punya dasar di PRD · ganti nomor & retensi data · WA Business API (Level 2) tidak dipakai di MVP (PO 2026-09-23) — fallback tetap `wa.me`
 
 ## Update
@@ -50,4 +50,4 @@ Workflow pendaftaran akun customer + merchant/kurir: **login Google → nomor WA
 
 Wajib: 9/9 checks, 0 error, 0 warning; deliver exit 0; visual-check pass 4 viewport (light + dark).
 
-Terakhir diperbarui: 2026-09-22 — flow baru dari gap analysis: registrasi & masuk akun (Google + nomor WA, Level 1). **Koreksi:** OTP WA dibatalkan — itu Level 2 (`source.md:728-731`) yang PRD tunda; verifikasi nomor cukup validasi format + E.164. **PO 2026-09-23: WA Business API (Level 2) tidak dipakai di MVP** — fallback tetap `wa.me`. Validate 9/9 pass, deliver exit 0 (spec `4ab5b7f2`, artifact `cf503dad`), visual-check pass (1440x900, 2048x1320 light + dark, overflow 0).
+Terakhir diperbarui: 2026-09-25 — PO 2026-09-25: kurir punya layar onboarding sendiri (`/courier/onboarding`), merchant punya form profil toko terpasang (`/merchant/onboarding`, f16). Sebelumnya (2026-09-22): flow baru dari gap analysis: registrasi & masuk akun (Google + nomor WA, Level 1). **Koreksi:** OTP WA dibatalkan — itu Level 2 (`source.md:728-731`) yang PRD tunda; verifikasi nomor cukup validasi format + E.164. **PO 2026-09-23: WA Business API (Level 2) tidak dipakai di MVP** — fallback tetap `wa.me`. Validate 9/9 pass, deliver exit 0 (spec `4ab5b7f2`, artifact `cf503dad`), visual-check pass (1440x900, 2048x1320 light + dark, overflow 0).

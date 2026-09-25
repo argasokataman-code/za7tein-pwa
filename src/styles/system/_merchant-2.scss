@@ -519,3 +519,47 @@
   line-height: 1.5;
   color: var(--text-secondary);
 }
+
+/* Form profil toko onboarding (f16): mode jangkauan dan pilihan zona aktif.
+   Pil radio/checkbox memakai `:has` supaya status terpilih terbaca tanpa
+   gambar ulang kontrol native. */
+.merchant-onboarding-mode,
+.merchant-onboarding-zones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.merchant-onboarding-mode label,
+.merchant-onboarding-zones label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+/* Kontrol native mengisi seluruh pil (`position:absolute; inset:0`) alih-alih
+   tampil 13px di samping teks: target sentuh tetap 44px dan status terpilih
+   dibaca lewat `:has(input:checked)`. Bukan `display:none` — input tetap ada di
+   pohon aksesibilitas dan bisa ditelusuri keyboard. */
+.merchant-onboarding-mode input,
+.merchant-onboarding-zones input {
+  position: absolute;
+  inset: -1px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.merchant-onboarding-mode label:has(input:checked),
+.merchant-onboarding-zones label:has(input:checked) {
+  border-color: var(--sa7tein-orange);
+  color: var(--orange-ink);
+}
