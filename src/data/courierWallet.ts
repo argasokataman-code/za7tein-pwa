@@ -1,5 +1,5 @@
 import { courierSelf, totalTips } from './courier'
-import type { CourierTask, PayoutAccount, PayoutEntry } from '../types'
+import type { ChartBar, CourierTask, PayoutAccount, PayoutEntry } from '../types'
 
 /**
  * Dompet kurir (R-WALLET-01, flow f6): **hanya menampung tips**. Gaji kurir
@@ -75,4 +75,35 @@ export function courierTipsAvailable(tasks: CourierTask[], payouts: PayoutEntry[
 /** Nilai bersih yang diterima kurir setelah fee payout dipotong. */
 export function courierPayoutNet(gross: number): number {
   return Math.max(0, gross - COURIER_PAYOUT_FEE_IDR)
+}
+
+/**
+ * Tips per hari (IDR) tujuh hari terakhir, hari tertua dulu. **Mock** — PRD
+ * aktif tidak menetapkan laporan atau target performa kurir, jadi ini murni
+ * tampilan tren, bukan aturan bisnis. Sengaja terpisah dari saldo: saldo
+ * dihitung dari tugas + ledger, angka ini hanya bentuk minggunya.
+ */
+export const mockCourierWeeklyTips = [12_000, 18_000, 0, 15_000, 20_000, 25_000, 8_000]
+
+/**
+ * Seri tips tujuh hari untuk kartu performa beranda. Label hari dihitung dari
+ * tanggal berjalan supaya "puncak" menunjuk nama hari yang benar, bukan indeks.
+ */
+export function courierWeeklyTips(): {
+  bars: ChartBar[]
+  total: number
+  activeDays: number
+  best: ChartBar
+} {
+  const today = new Date()
+  const last = mockCourierWeeklyTips.length - 1
+  const bars: ChartBar[] = mockCourierWeeklyTips.map((value, index) => {
+    const date = new Date(today)
+    date.setDate(today.getDate() - (last - index))
+    return { label: date.toLocaleDateString('id-ID', { weekday: 'short' }), value }
+  })
+  const total = mockCourierWeeklyTips.reduce((sum, value) => sum + value, 0)
+  const activeDays = mockCourierWeeklyTips.filter((value) => value > 0).length
+  const best = bars.reduce((a, b) => (b.value > a.value ? b : a), bars[0])
+  return { bars, total, activeDays, best }
 }

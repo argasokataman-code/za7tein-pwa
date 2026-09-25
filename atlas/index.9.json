@@ -1684,6 +1684,127 @@
         }
       ],
       "loc": "src/pages/CourierTasks.tsx:1"
+    },
+    {
+      "id": "TASK-9159",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:45:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierWallet.ts (+2/-2) — edit via tool: ts: import { courierSelf, totalTips } ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierWallet.ts"
+    },
+    {
+      "id": "TASK-9160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:45:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-dashboard.scss (+119) — write via tool: // Beranda kurir (dash",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-dashboard.scss"
+    },
+    {
+      "id": "TASK-9161",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:46:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTasks.tsx (+17/-16) — edit via tool: tsx: import { ChevronRight, Coins, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTasks.tsx"
+    },
+    {
+      "id": "TASK-9162",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:48:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+9/-5) — edit via tool: tsx: <",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9163",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "16:48:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v3.1.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "FEAT-3002",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-09-25",
+      "time": "16:49:18",
+      "tags": [
+        "courier",
+        "dashboard",
+        "performance"
+      ],
+      "summary": "Beranda kurir + performa: kartu tips 7 hari (Sparkline, mockCourierWeeklyTips) + menu 2 kolom (dompet, rekening, riwayat tips, profil); angk",
+      "conn": [
+        {
+          "id": "FEAT-3001",
+          "type": "relates",
+          "raw": "FEAT-3001:relates"
+        },
+        {
+          "id": "FEAT-3000",
+          "type": "relates",
+          "raw": "FEAT-3000:relates"
+        }
+      ],
+      "loc": "src/pages/CourierTasks.tsx:1"
     }
   ]
 }

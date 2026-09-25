@@ -1,8 +1,9 @@
-import { ChevronRight, Landmark, Power, UserRound, Wallet } from 'lucide-react'
+import { ChevronRight, Coins, Landmark, Power, UserRound, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
+import { Sparkline } from '../components/ui/Sparkline'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { formatDistance, money, zoneLabel } from '../data/merchant'
 import { accountLabel } from '../data/payout'
@@ -13,7 +14,7 @@ import {
   isDoneTask,
   totalTips,
 } from '../data/courier'
-import { courierTipsAvailable } from '../data/courierWallet'
+import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { toggleOnline } from '../store/slices/courierSlice'
 import type { CourierTask } from '../types'
 
@@ -71,6 +72,7 @@ export default function CourierTasks() {
   const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
   const done = tasks.filter(isDoneTask)
   const tipsAvailable = courierTipsAvailable(tasks, payouts)
+  const week = courierWeeklyTips()
 
   return (
     <div className="app-shell">
@@ -126,29 +128,62 @@ export default function CourierTasks() {
           </span>
         </nav>
 
-        {/* Pintasan ke hal yang tidak ada di bilah bawah: dompet dan rekening. */}
-        <nav className="courier-quick" aria-label="Pintasan">
-          <Link className="courier-quick-action" to="/wallet">
-            <span className="courier-quick-icon" aria-hidden="true">
+        {/* Performa: satu angka fokus (tips tujuh hari) + bentuk harinya.
+            Sumbernya mock mingguan yang ditandai di data; PRD tak menetapkan
+            laporan performa kurir, jadi ini tampilan tren, bukan aturan. */}
+        <section className="courier-card">
+          <p className="courier-card-sub">Tips 7 hari terakhir</p>
+          <p className="courier-performa-value">{money(week.total)}</p>
+          <p className="courier-performa-sub">
+            {done.length} tugas selesai · {week.activeDays} hari ada tips · puncak {week.best.label}
+          </p>
+          <Sparkline
+            data={week.bars}
+            ariaLabel={`Tips tujuh hari terakhir: ${week.total} rupiah, ${week.activeDays} hari ada tips, puncak ${week.best.label}`}
+          />
+        </section>
+
+        {/* Menu: pintasan ke semua yang bisa dilakukan kurir dari sini,
+            termasuk Tips dan Profil yang juga ada di bilah bawah. Pintasan
+            bukan pengganti navigasi, jadi keduanya boleh ada. */}
+        <nav className="courier-menu" aria-label="Menu kurir">
+          <Link className="courier-menu-item" to="/wallet">
+            <span className="courier-menu-icon" aria-hidden="true">
               <Wallet size={20} strokeWidth={1.75} />
             </span>
-            <span className="courier-quick-copy">
-              <span className="courier-quick-title">Dompet tips</span>
-              <span className="courier-quick-sub">{money(tipsAvailable)} bisa ditarik</span>
+            <span className="courier-menu-copy">
+              <span className="courier-menu-title">Dompet tips</span>
+              <span className="courier-menu-sub">{money(tipsAvailable)} bisa ditarik</span>
             </span>
-            <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
           </Link>
-          <Link className="courier-quick-action" to="/payout-accounts">
-            <span className="courier-quick-icon" aria-hidden="true">
+          <Link className="courier-menu-item" to="/payout-accounts">
+            <span className="courier-menu-icon" aria-hidden="true">
               <Landmark size={20} strokeWidth={1.75} />
             </span>
-            <span className="courier-quick-copy">
-              <span className="courier-quick-title">Rekening pencairan</span>
-              <span className="courier-quick-sub">
-                {primary ? accountLabel(primary) : 'Belum ada rekening tujuan'}
+            <span className="courier-menu-copy">
+              <span className="courier-menu-title">Rekening pencairan</span>
+              <span className="courier-menu-sub">
+                {primary ? accountLabel(primary) : 'Belum ada rekening'}
               </span>
             </span>
-            <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
+          </Link>
+          <Link className="courier-menu-item" to="/tips">
+            <span className="courier-menu-icon" aria-hidden="true">
+              <Coins size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-menu-copy">
+              <span className="courier-menu-title">Riwayat tips</span>
+              <span className="courier-menu-sub">{money(totalTips(tasks))} dari tugas selesai</span>
+            </span>
+          </Link>
+          <Link className="courier-menu-item" to="/profile">
+            <span className="courier-menu-icon" aria-hidden="true">
+              <UserRound size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-menu-copy">
+              <span className="courier-menu-title">Profil</span>
+              <span className="courier-menu-sub">Akun & status siap</span>
+            </span>
           </Link>
         </nav>
 

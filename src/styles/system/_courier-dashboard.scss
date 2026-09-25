@@ -1,5 +1,5 @@
-// Beranda kurir (dashboard). Identitas + status, pintasan dompet/rekening.
-// Kartu, tombol, statline dasar sudah ada di _courier.scss; di sini hanya
+// Beranda kurir (dashboard): identitas + status, performa tujuh hari, menu
+// pintasan. Kartu, tombol, statline dasar ada di _courier.scss; di sini hanya
 // potongan khas beranda.
 
 .courier-hero-copy {
@@ -40,17 +40,39 @@
   margin-top: var(--space-2);
 }
 
-/* ── Pintasan beranda ────────────────────────────────────────────────────── */
-.courier-quick {
+/* ── Performa tujuh hari ─────────────────────────────────────────────────── */
+/* Satu angka fokus (total tips minggu) + bentuk harinya di bawah. Sama polanya
+   dengan kartu pendapatan merchant, namespace kurir, tanpa warna baru. */
+.courier-performa-value {
+  margin-top: var(--space-1);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.courier-performa-sub {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* ── Menu beranda ────────────────────────────────────────────────────────── */
+/* Dua kolom, tinggi seragam: pintasan ke semua hal yang bisa dilakukan kurir
+   dari sini, termasuk yang sudah ada di bilah bawah (pintasan ≠ navigasi). */
+.courier-menu {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-2);
   margin-bottom: var(--space-4);
 }
 
-.courier-quick-action {
+.courier-menu-item {
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
   min-height: var(--touch-min);
   padding: var(--space-3) var(--space-4);
   border: 1px solid var(--border-strong);
@@ -60,36 +82,34 @@
   text-decoration: none;
 }
 
-.courier-quick-action:focus-visible {
+.courier-menu-item:focus-visible {
   outline: 2px solid var(--sa7tein-orange);
   outline-offset: 2px;
 }
 
-.courier-quick-icon {
+.courier-menu-icon {
   display: grid;
-  flex-shrink: 0;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-md);
   background: var(--orange-soft);
   color: var(--orange-ink);
 }
 
-.courier-quick-copy {
+.courier-menu-copy {
   display: flex;
-  flex: 1;
   min-width: 0;
   flex-direction: column;
 }
 
-.courier-quick-title {
+.courier-menu-title {
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.courier-quick-sub {
+.courier-menu-sub {
   font-size: var(--text-xs);
   color: var(--text-secondary);
   overflow: hidden;

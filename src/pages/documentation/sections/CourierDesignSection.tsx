@@ -71,8 +71,12 @@ export function CourierDesignSection() {
         for OTP, finished, tips, and the withdrawable balance all derive from{' '}
         <code className="doc-inline">courierSlice</code> and{' '}
         <code className="doc-inline">courierTipsAvailable</code>, the same source the task cards
-        below use. The active PRD has no courier dashboard requirement (UNRESOLVED-by-absence), so
-        this screen only composes state that already exists, it does not invent a rule.
+        below use. It also carries a seven-day performance card (tips only, since tips are the
+        courier's whole income here, C-06) and a two-column menu that shortcuts every courier
+        action, including the two tabs already in the bottom nav. The active PRD has no courier
+        dashboard or performance-report requirement (UNRESOLVED-by-absence), so this screen only
+        composes state that already exists; the weekly series is an explicitly marked mock
+        (<code className="doc-inline">mockCourierWeeklyTips</code>), not a decided rule.
       </p>
       <h3 className="doc-h3">OTP handover: the customer shows it, the courier types it</h3>
       <p className="doc-p">

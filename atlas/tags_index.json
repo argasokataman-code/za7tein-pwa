@@ -10227,6 +10227,26 @@
     {
       "id": "TASK-9158",
       "shard": 9
+    },
+    {
+      "id": "TASK-9159",
+      "shard": 9
+    },
+    {
+      "id": "TASK-9160",
+      "shard": 9
+    },
+    {
+      "id": "TASK-9161",
+      "shard": 9
+    },
+    {
+      "id": "TASK-9162",
+      "shard": 9
+    },
+    {
+      "id": "TASK-9163",
+      "shard": 9
     }
   ],
   "docs": [
@@ -13625,6 +13645,10 @@
     {
       "id": "FEAT-3001",
       "shard": 9
+    },
+    {
+      "id": "FEAT-3002",
+      "shard": 9
     }
   ],
   "dashboard": [
@@ -13666,6 +13690,10 @@
     },
     {
       "id": "FEAT-3001",
+      "shard": 9
+    },
+    {
+      "id": "FEAT-3002",
       "shard": 9
     }
   ],
@@ -15704,6 +15732,12 @@
   "beranda": [
     {
       "id": "FEAT-3001",
+      "shard": 9
+    }
+  ],
+  "performance": [
+    {
+      "id": "FEAT-3002",
       "shard": 9
     }
   ]
