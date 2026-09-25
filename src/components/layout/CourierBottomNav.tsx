@@ -1,4 +1,4 @@
-import { ClipboardList, UserRound, Wallet } from 'lucide-react'
+import { Home, UserRound, Wallet } from 'lucide-react'
 
 import { useAppSelector } from '../../hooks/useAppStore'
 import { isActiveTask } from '../../data/courier'
@@ -13,8 +13,8 @@ export function CourierBottomNav() {
   const items: BottomNavItem[] = [
     {
       to: '/',
-      label: 'Tugas',
-      Icon: ClipboardList,
+      label: 'Beranda',
+      Icon: Home,
       end: true,
       badge: active,
       srText: active > 0 ? `${active} tugas berjalan` : undefined,

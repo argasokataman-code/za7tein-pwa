@@ -60,6 +60,20 @@ export function CourierDesignSection() {
         <code className="doc-inline">merchant-statline</code> rather than repeating the
         boxed stat cards that were already removed elsewhere.
       </p>
+      <h3 className="doc-h3">Beranda: identity, status, shortcuts in one screen</h3>
+      <p className="doc-p">
+        The courier home (<code className="doc-inline">/courier</code>) is a dashboard, not a bare
+        task list. It opens with identity plus one primary control (the ready/paused toggle, with a
+        status pill so the answer to "can I reach this courier" is readable before the button),
+        then today's summary, then quick shortcuts to the two things the bottom nav does not hold:
+        the tips wallet and the payout account. The bottom nav labels this tab{' '}
+        <code className="doc-inline">Beranda</code>. Nothing here is a new number: active, waiting
+        for OTP, finished, tips, and the withdrawable balance all derive from{' '}
+        <code className="doc-inline">courierSlice</code> and{' '}
+        <code className="doc-inline">courierTipsAvailable</code>, the same source the task cards
+        below use. The active PRD has no courier dashboard requirement (UNRESOLVED-by-absence), so
+        this screen only composes state that already exists, it does not invent a rule.
+      </p>
       <h3 className="doc-h3">OTP handover: the customer shows it, the courier types it</h3>
       <p className="doc-p">
         OTP is the only settle trigger (C-09) and belongs to the handover, so the two

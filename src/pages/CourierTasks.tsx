@@ -1,16 +1,19 @@
-import { ChevronRight, Power } from 'lucide-react'
+import { ChevronRight, Landmark, Power, UserRound, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { formatDistance, money, zoneLabel } from '../data/merchant'
+import { accountLabel } from '../data/payout'
 import {
   COURIER_CHECKPOINT_LABEL,
+  courierSelf,
   isActiveTask,
   isDoneTask,
   totalTips,
 } from '../data/courier'
+import { courierTipsAvailable } from '../data/courierWallet'
 import { toggleOnline } from '../store/slices/courierSlice'
 import type { CourierTask } from '../types'
 
@@ -47,24 +50,67 @@ function TaskCard({ task }: { task: CourierTask }) {
   )
 }
 
+/**
+ * Beranda kurir (R-WALLET-01 + flow f13). Ini dashboard, bukan daftar tugas
+ * saja: identitas + status siap/jeda di atas, ringkasan hari ini, pintasan ke
+ * dompet dan rekening, baru tugas. Semua angka diturunkan dari `courierSlice`
+ * yang sama dengan daftar di bawah, jadi tidak ada angka baru yang dikarang.
+ * PRD aktif tidak punya requirement dashboard kurir, jadi ini murni tampilan
+ * state yang ada.
+ */
 export default function CourierTasks() {
   const dispatch = useAppDispatch()
   const isOnline = useAppSelector((s) => s.courier.isOnline)
   const tasks = useAppSelector((s) => s.courier.tasks)
+  const payouts = useAppSelector((s) => s.courier.payouts)
+  const accounts = useAppSelector((s) => s.courier.payoutAccounts)
+  const primary = accounts.find((a) => a.isPrimary) ?? accounts[0]
 
   const active = tasks.filter(isActiveTask)
   const history = tasks.filter((task) => !isActiveTask(task))
   const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
   const done = tasks.filter(isDoneTask)
+  const tipsAvailable = courierTipsAvailable(tasks, payouts)
 
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Antar hari ini" title="Tugas" />
+        <CourierPageHeader eyebrow="Antar hari ini" title="Beranda" />
+
+        {/* Identitas + satu kontrol utama: siap atau jeda. Status dan tombolnya
+            satu kartu supaya keputusan "bisa dihubungi atau tidak" ada di
+            tempat yang sama, bukan terpisah. */}
+        <section className="courier-card">
+          <div className="courier-identity">
+            <span className="courier-avatar" aria-hidden="true">
+              <UserRound size={28} strokeWidth={1.75} />
+            </span>
+            <div className="courier-hero-copy">
+              <p className="courier-card-title">{courierSelf.name}</p>
+              <p className="courier-card-sub">{courierSelf.phone}</p>
+            </div>
+            <span className={`courier-status${isOnline ? ' is-on' : ''}`}>
+              <span className="courier-status-dot" aria-hidden="true" />
+              {isOnline ? 'Siap' : 'Jeda'}
+            </span>
+          </div>
+          <p className="courier-card-sub courier-hero-hint">
+            {isOnline
+              ? 'Tugas dari merchant masuk otomatis.'
+              : 'Tugas baru ditahan sampai kamu siap lagi.'}
+          </p>
+          <button
+            type="button"
+            className={`courier-toggle ${isOnline ? 'is-on' : ''}`}
+            onClick={() => dispatch(toggleOnline())}
+          >
+            <Power size={18} strokeWidth={1.75} aria-hidden="true" />
+            {isOnline ? 'Jeda dulu' : 'Siap sekarang'}
+          </button>
+        </section>
 
         {/* Ringkasan hari ini: empat angka dari `courierSlice` yang sama dengan
-            daftar di bawah, bukan angka baru. Fokus tetap tugas berjalan; ini
-            pembacaan sekilas sebelum menggulir. */}
+            daftar di bawah, bukan angka baru. */}
         <nav className="courier-statline" aria-label="Ringkasan hari ini">
           <span>
             <strong>{active.length}</strong> Aktif
@@ -80,28 +126,31 @@ export default function CourierTasks() {
           </span>
         </nav>
 
-        <section className="courier-card">
-          <div className="courier-row">
-            <Power size={20} strokeWidth={1.75} aria-hidden="true" />
-            <div>
-              <p className="courier-card-title">
-                {isOnline ? 'Siap menerima tugas' : 'Sedang tidak siap'}
-              </p>
-              <p className="courier-card-sub">
-                {isOnline
-                  ? 'Tugas dari merchant masuk otomatis'
-                  : 'Tugas baru ditahan sampai kamu siap lagi'}
-              </p>
-            </div>
-          </div>
-          <button
-            type="button"
-            className={`courier-toggle ${isOnline ? 'is-on' : ''}`}
-            onClick={() => dispatch(toggleOnline())}
-          >
-            {isOnline ? 'Jeda dulu' : 'Siap sekarang'}
-          </button>
-        </section>
+        {/* Pintasan ke hal yang tidak ada di bilah bawah: dompet dan rekening. */}
+        <nav className="courier-quick" aria-label="Pintasan">
+          <Link className="courier-quick-action" to="/wallet">
+            <span className="courier-quick-icon" aria-hidden="true">
+              <Wallet size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-quick-copy">
+              <span className="courier-quick-title">Dompet tips</span>
+              <span className="courier-quick-sub">{money(tipsAvailable)} bisa ditarik</span>
+            </span>
+            <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
+          </Link>
+          <Link className="courier-quick-action" to="/payout-accounts">
+            <span className="courier-quick-icon" aria-hidden="true">
+              <Landmark size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-quick-copy">
+              <span className="courier-quick-title">Rekening pencairan</span>
+              <span className="courier-quick-sub">
+                {primary ? accountLabel(primary) : 'Belum ada rekening tujuan'}
+              </span>
+            </span>
+            <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
+          </Link>
+        </nav>
 
         <section className="courier-section">
           <h2 className="courier-section-title">
