@@ -63,6 +63,79 @@
   opacity: 0.14;
 }
 
+// ── Denyut pengalih perhatian ───────────────────────────────────────────────
+// Permintaannya "bergerak terus supaya orang menoleh". Senior-fe menolaknya
+// (PG-12, QL-04): gerakan yang tak pernah berhenti jadi wallpaper dalam ~3
+// detik — mata beradaptasi, dan banner malah lebih mudah diabaikan karena
+// berubah jadi bagian latar. Yang menahan perhatian bukan "selalu bergerak",
+// tapi "bergerak tepat saat dilihat".
+//
+// Jadi: dua siklus, lalu diam. Sesudah itu tak ada apa pun yang berjalan di
+// banner selama halaman terbuka — GPU dan baterai berhenti bekerja, dan
+// gerakannya tetap ada di jendela waktu yang penting.
+//
+// Bentuknya memakai motif yang SUDAH ada, bukan tempelan baru: tiga lingkaran
+// sepusat itu yang bernapas, dari dalam ke luar dengan jeda 120ms.
+//
+// `transform-origin` sengaja TIDAK diubah. Sempat ditulis `calc(100% + 72px)`
+// dengan maksud menaruh sumbu di pusat lingkaran — itu salah: persentase di
+// `transform-origin` dihitung terhadap kotak elemen itu sendiri, bukan terhadap
+// `right`-nya. Terukur, originnya mendarat 182px di kanan pusat sebenarnya,
+// jadi lingkarannya mengembang ke arah yang salah. Karena tiap lingkaran
+// `border-radius: 50%`, pusat kotaknya memang pusat lingkarannya, dan origin
+// bawaan `50% 50%` sudah tepat.
+//
+// Hanya `transform` dan `opacity` yang dianimasikan (compositor), tak ada
+// properti yang memicu layout, dan tak ada `will-change` permanen.
+@keyframes ad-breathe {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Denyut angka 30%. Amplitudonya sengaja kecil: angka itu titik fokus kartu,
+// dan membesarkannya terlalu banyak membuat barisnya bergetar.
+@keyframes ad-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.08);
+  }
+}
+
+.ad-decor__circle {
+  // `both` supaya nilai akhir (skala 1) tetap berlaku setelah animasi selesai,
+  // jadi tak ada lompatan saat animasinya dilepas.
+  animation: ad-breathe var(--motion-journey) var(--ease-standard) 2 both;
+}
+
+// Lingkaran terdalam mulai duluan, lalu gelombangnya menjalar keluar.
+.ad-decor__circle:nth-child(3) {
+  animation-delay: 0ms;
+}
+
+.ad-decor__circle:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.ad-decor__circle:nth-child(1) {
+  animation-delay: 120ms;
+}
+
+.ad-title-value {
+  display: inline-block;
+  animation: ad-pulse var(--motion-journey) var(--ease-emphasized) 2 both;
+  animation-delay: 180ms;
+}
+
 .ad-content {
   display: flex;
   align-items: center;
@@ -148,6 +221,15 @@
 
 .ad-cta:hover {
   background: var(--bg-warm);
+}
+
+// Gerak dikurangi: denyut itu murni dekoratif dan tak membawa informasi, jadi
+// M3 menyarankannya dimatikan, bukan diperhalus. Diamkan keduanya.
+@media (prefers-reduced-motion: reduce) {
+  .ad-decor__circle,
+  .ad-title-value {
+    animation: none;
+  }
 }
 
 // Di layar sempit, gambar dikecilkan lagi alih-alih membalik urutan.

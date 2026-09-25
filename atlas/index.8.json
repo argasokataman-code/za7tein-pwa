@@ -2451,6 +2451,82 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4697",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:25:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+81/-7) — edit via tool: .ad-decor__circle:nth-child(3) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4698",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:26:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss (+61/-62) — edit via tool: // Bentuknya memakai motif yang S",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-4699",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:28:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx (+31/-2) — edit via tool: tsx: <tr>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
+    },
+    {
+      "id": "TASK-4700",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:28:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.88.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

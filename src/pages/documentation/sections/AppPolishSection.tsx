@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Tiga belas baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Empat belas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -332,6 +332,35 @@ export function AppPolishSection() {
                 yang bisa dijalankan pembaca layar, jadi tidak dijadikan tombol. PRD aktif tak menyebut
                 pull-to-refresh (<code className="doc-inline">UNRESOLVED-by-absence</code>), jadi ini
                 keputusan UX, bukan requirement
+              </td>
+            </tr>
+            <tr>
+              <td>Denyut pengalih perhatian di kartu promo</td>
+              <td>
+                Permintaannya &ldquo;bergerak terus supaya orang menoleh&rdquo;. Gerakan yang tak
+                pernah berhenti ditolak: mata beradaptasi dalam ~3 detik, lalu banner justru lebih
+                mudah diabaikan karena berubah jadi bagian latar &mdash; dan GPU di app-mode yang
+                selalu nyala tak punya alasan bekerja abadi
+              </td>
+              <td>
+                Tiga lingkaran sepusat yang sudah ada bernapas (skala 1 &rarr; 1.07 &rarr; 1),
+                gelombangnya menjalar dari dalam ke luar dengan jeda 0/60/120ms, dan angka{' '}
+                <code className="doc-inline">30%</code> berdenyut sekali. <strong>Dua siklus lalu
+                diam</strong> &mdash; setelah ~1.5s tak ada apa pun yang berjalan selama halaman
+                terbuka. Motif lama dipakai, nol elemen baru; hanya{' '}
+                <code className="doc-inline">transform</code>/<code className="doc-inline">opacity</code>{' '}
+                yang dianimasikan (compositor), tanpa <code className="doc-inline">will-change</code>{' '}
+                permanen, <code className="doc-inline">overflow-x</code> tetap 0. Sumbu putar sempat
+                ditulis <code className="doc-inline">calc(100% + 72px)</code> untuk menaruh origin di
+                pusat lingkaran &mdash; salah, persentase di{' '}
+                <code className="doc-inline">transform-origin</code> dihitung terhadap kotak elemen itu
+                sendiri, dan terukur originnya mendarat 182px di kanan pusat sebenarnya. Origin bawaan{' '}
+                <code className="doc-inline">50% 50%</code> sudah tepat karena lingkarannya{' '}
+                <code className="doc-inline">border-radius: 50%</code>.{' '}
+                <code className="doc-inline">prefers-reduced-motion</code> mematikannya, dan itu
+                terverifikasi struktural dari bundel: rule{' '}
+                <code className="doc-inline">animation: none</code> berada di dalam media query dan
+                setelah rule animasinya (188146 &rarr; 189673), jadi menang pada kekhususan sama
               </td>
             </tr>
             <tr>
