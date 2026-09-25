@@ -129,7 +129,7 @@ export default function CustomerHomeHero({
   onSubmitSearch,
 }: Props) {
   return (
-    <section className="s7-hero">
+    <section className="s7-hero s7-parallax--hero">
       <Sa7teinHeroPattern />
 
       <div className="s7-hero__content">

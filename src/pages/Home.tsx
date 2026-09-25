@@ -43,7 +43,7 @@ export default function Home() {
 
         <div className="home-content">
           <div className="categories-section">
-            <h2 className="section-title">Categories</h2>
+            <h2 className="section-title s7-parallax--title">Categories</h2>
             <div className="categories-scroll" role="list">
               {categories.map((c) => {
                 const Icon = c.icon
@@ -66,7 +66,7 @@ export default function Home() {
 
           <div className="deals-section">
             <div className="section-header">
-              <h2 className="section-title">Super Deals</h2>
+              <h2 className="section-title s7-parallax--title">Super Deals</h2>
               <Link className="see-all-link" to="/search">
                 See All
               </Link>
@@ -84,14 +84,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="ad-banner" style={{ marginBottom: 24 }}>
+          <div className="ad-banner s7-parallax--card" style={{ marginBottom: 24 }}>
             {/*
               Dekorasi latar kartu promo: tiga lingkaran sepusat dari tepi
               kanan atas (konsep kartu cuaca KSAplay, Uiverse) yang
               diterjemahkan ke DNA — kedalaman dari bentuk, bukan gradient.
               Semua opasitas di bawah 15% supaya tidak bersaing dengan teks.
             */}
-            <span className="ad-decor" aria-hidden="true">
+            <span className="ad-decor s7-parallax--decor" aria-hidden="true">
               <span className="ad-decor__circle" />
               <span className="ad-decor__circle" />
               <span className="ad-decor__circle" />
@@ -113,7 +113,7 @@ export default function Home() {
 
           <div className="hot-deals-section">
             <div className="section-header">
-              <h2 className="section-title">Hot Deals</h2>
+              <h2 className="section-title s7-parallax--title">Hot Deals</h2>
               <Link className="see-all-link" to="/search">
                 See All
               </Link>

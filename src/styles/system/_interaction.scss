@@ -215,7 +215,94 @@ $press-scale: 0.97;
   }
 }
 
-// ── 5. Reduced motion: fade, bukan hilang ──────────────────────────────────
+// ── 5. Parallax saat menggulir ──────────────────────────────────────────────
+// Menggulir 1:1 membuat seluruh halaman bergerak sebagai satu bidang kaku:
+// semua berhenti seketika saat jari berhenti, tidak ada kedalaman. Yang
+// ditambahkan di sini adalah geseran kecil dan berbeda per lapisan, sehingga
+// saat jari menggulir, hero (yang menempel di belakang layar oranye) bergerak
+// sedikit lebih lambat daripada isi — dan kartu promo bergerak lebih lambat
+// lagi. Label "line" yang lama (`_menu.scss` §3) menyebutnya: label diam
+// relatif terhadap kolomnya, jadi ketika isi bergerak labelnya berdiri di atas
+// permukaan yang meluncur. Itu efek yang dikejar.
+//
+// Dikerjakan dengan scroll timeline CSS (`animation-timeline: view()`), bukan
+// listener `scroll` + `requestAnimationFrame`. Alasannya bukan singkatnya kode:
+// timeline digerakkan kompositor, jadi tetap mulus saat utas utama sibuk, tidak
+// ada jeda satu frame di belakang jari, dan posisinya dihitung dari geometri
+// elemen — tidak ada angka offset yang perlu diperbarui saat tata letak berubah.
+//
+// Batas amannya:
+// - Satu properti saja: `translate`. Tidak ada `scale`/`rotate`/`blur` di sini,
+//   jadi tak ada yang bisa mendistorsi teks atau foto.
+// - `translate` TIDAK membuat containing block untuk `position: fixed` (beda
+//   dari `transform`), jadi bilah dan header menempel tetap; `overflow-x:
+//    clip` pada hero memotong bagian yang keluar kolom.
+// - Amplitudo 6-14px. Di atas ~20px geraknya terbaca sebagai "elemennya
+//   lepas", bukan kedalaman.
+//
+// Penopang: Chromium 115+ (`view()`), Android 16 / Safari 26 untuk iOS; di
+// peramban lama blok `@supports` tidak berlaku dan halaman kembali menggulir
+// 1:1 seperti sebelumnya — tanpa galat, tanpa JS.
+@supports (animation-timeline: view()) {
+  // Hero digeser SETENGAH kecepatan gulir. Tidak menembus tepi atas: teks
+  // diperiksa pada gulir maksimum 692px di 390x844 — turun 32px masih 208px di
+  // bawah tepi; yang terpotong hanya latar, dan `.s7-hero__content` tetap utuh.
+  .s7-parallax--hero {
+    animation: parallax-lift linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 320px;
+    --parallax-lift: 32px;
+  }
+
+  // Judul bagian adalah "line" yang menahan dalam: naik lebih pendek dari isi,
+  // jadi saat menggulir ia terangkat dari isi yang melaju di bawahnya.
+  //
+  // `cover 100%` penting, dan sempat salah: dengan `cover 55%` sisa 45% gerakan
+  // terjadi saat judul sudah menempel di atas, sehingga judul diam berikutnya
+  // ikut tergeser dan jarak antar-judul bergoyang 10px selama menggulir.
+  // Dengan `cover 100%` judul berhenti tepat saat tepi atasnya mencapai layar
+  // (terukur 0px mulai scroll 240px), jadi jarak antar-judul tetap, dan yang
+  // bergerak hanya bagian 0-240px — justru bagian yang terlihat.
+  .s7-parallax--title {
+    animation: parallax-lift linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 100%;
+    --parallax-lift: 14px;
+  }
+
+  // Kartu promo. Ia satu-satunya blok display, jadi memberi gerak sendiri di
+  // sini yang membuat halaman terasa punya dua bidang, bukan satu.
+  .s7-parallax--card {
+    animation: parallax-lift linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 70%;
+    --parallax-lift: 20px;
+  }
+
+  // Dekorasi kartu promo: tiga lingkaran yang sama, publiknya bergerak sendiri.
+  // Sama seperti judul, `cover 100%` dipakai supaya tidak ada sisa gerakan yang
+  // menggeser kartu di sekitarnya; yang bergerak hanya saat kartu masih di
+  // paruh bawah layar.
+  .s7-parallax--decor {
+    animation: parallax-lift linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 100%;
+    --parallax-lift: 26px;
+  }
+}
+
+// Satu keyframe untuk semua lapisan; amplitudonya dari `--parallax-lift`, jadi
+// tidak ada empat keyframe yang isinya sama dan berbeda angka.
+@keyframes parallax-lift {
+  from {
+    translate: 0 var(--parallax-lift, 12px);
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+// ── 6. Reduced motion: fade, bukan hilang ──────────────────────────────────
 // M3: "Use subtle fades instead of intense sliding or scaling animations.
 // Disable decorative effects like parallax or shape morphing."
 //
@@ -231,6 +318,19 @@ $press-scale: 0.97;
     animation-name: reduced-fade;
     animation-duration: var(--motion-standard) !important;
     transform: none !important;
+  }
+
+  // Parallax = gerak dekoratif, arahnya tak membawa informasi. M3 menyarankannya
+  // dimatikan, bukan diperhalus — jadi lapisannya hanya di-fade seperti bagian
+  // lain yang masuk.
+  .s7-parallax--hero,
+  .s7-parallax--title,
+  .s7-parallax--card,
+  .s7-parallax--decor {
+    animation-name: reduced-fade;
+    animation-duration: var(--motion-standard) !important;
+    animation-range: normal;
+    translate: none !important;
   }
 
   .nav-cart-badge {

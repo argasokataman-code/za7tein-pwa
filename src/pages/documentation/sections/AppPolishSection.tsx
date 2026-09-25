@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Sembilan baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Sepuluh baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -254,6 +254,29 @@ export function AppPolishSection() {
                 <code className="doc-inline">nav.parentElement === BODY</code> dan{' '}
                 <code className="doc-inline">bottom: 0</code> sebelum <em>dan</em> selama transisi.
                 Context router tetap lewat portal, jadi status rute aktif benar
+              </td>
+            </tr>
+            <tr>
+              <td>Parallax gulir beranda (scroll-driven CSS)</td>
+              <td>
+                Seluruh halaman bergerak 1:1 sebagai satu bidang kaku: hero, judul bagian, dan
+                kartu promo semuanya berhenti bersamaan, jadi tidak ada kedalaman. Terukur sebelum:
+                hero bergeser 0px relatif gulir di posisi 0/150/300/450, judul bagian ikut persis
+                1:1
+              </td>
+              <td>
+                Empat lapisan bergerak berbeda lewat <code className="doc-inline">animation-timeline:
+                view()</code> / <code className="doc-inline">scroll(root block)</code> — digerakkan
+                kompositor, bukan listener <code className="doc-inline">scroll</code>, jadi tetap
+                mulus saat utas utama sibuk. Terukur pada 0/120/240/360/480/600/692px: hero 32→0px,
+                judul bagian 14.5→0, kartu promo 20.5→1.3, dekorasi kartu punya delta sendiri.
+                Jarak antar-judul tetap (113→111px, goyang &lt;2px dari judul yang masih dalam
+                jangkauan) karena semua pakai <code className="doc-inline">cover 100%</code>. Aman:
+                hanya properti <code className="doc-inline">translate</code> (tidak membuat
+                containing block untuk <code className="doc-inline">fixed</code>), amplitudo 14-32px,
+                dan <code className="doc-inline">overflow-x</code> terukur 0px di semua posisi.
+                Tanpa penopang <code className="doc-inline">view()</code>, halaman kembali 1:1 —
+                tanpa galat
               </td>
             </tr>
           </tbody>
