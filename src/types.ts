@@ -247,6 +247,33 @@ export interface Payout {
   createdAt: string
 }
 
+/**
+ * Rekening pencairan (R-WALLET-01, flow f6). Merchant bisa punya beberapa;
+ * tepat satu bertanda `isPrimary` sebagai tujuan default. Menggantikan rekening
+ * tunggal read-only `Merchant['bank']`, yang dulu hanya bisa dilihat.
+ */
+export interface PayoutAccount {
+  id: string
+  bankName: string
+  accountNumber: string
+  holderName: string
+  isPrimary: boolean
+}
+
+/**
+ * Satu baris dompet merchant: `settlement` = kredit dari order selesai,
+ * `payout` = dana keluar ke rekening. `destination` disimpan sebagai snapshot
+ * supaya riwayat tetap terbaca walau rekeningnya kemudian dihapus.
+ */
+export interface PayoutEntry {
+  id: string
+  kind: 'settlement' | 'payout'
+  amount: number
+  status: WalletTxStatus
+  createdAt: string
+  destination?: string
+}
+
 /** Satu baris tabel `exchange_rates` — rate IDR→JOD, display-only (R-CURR-01). */
 export interface ExchangeRate {
   base: string

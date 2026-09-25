@@ -81,6 +81,30 @@ export function MerchantDesignSection() {
         dan tidak ada cara menyaring per jenis makanan/minuman.
       </p>
       <h3 className="doc-h3">
+        Dompet &amp; rekening pencairan merchant
+      </h3>
+      <p className="doc-p">
+        Tiga rute baru: <code className="doc-inline">/merchant/wallet</code>{' '}
+        (saldo + riwayat), <code className="doc-inline">/merchant/payout</code>{' '}
+        (pilih rekening + nominal), dan{' '}
+        <code className="doc-inline">/merchant/payout-accounts</code> (CRUD
+        rekening). Ini lane merchant flow{' '}
+        <code className="doc-inline">f6-cashout-payout</code> + R-WALLET-01:
+        order selesai → kredit otomatis, keluar hanya lewat Xendit payout. Potnya
+        IDR dan bisa ditarik, terpisah dari modal/cashback Founding (JOD,
+        non-withdrawal, di <code className="doc-inline">/merchant/insentif</code>).
+      </p>
+      <p className="doc-p">
+        Rekening dulu cuma satu dan read-only dari{' '}
+        <code className="doc-inline">mockMerchant.bank</code>; sekarang lewat
+        slice <code className="doc-inline">payout</code> (ikut persist), dengan
+        tepat satu rekening <code className="doc-inline">isPrimary</code>, dan
+        penghapusan rekening utama otomatis menaikkan rekening tersisa. Fee
+        payout Rp2.500/transfer (<code className="doc-inline">source.md:573</code>
+        ) hanya ditampilkan, <strong>belum dipotong</strong> dari saldo karena
+        penanggungnya untuk merchant belum diputuskan PRD.
+      </p>
+      <h3 className="doc-h3">
         Cards — shared surface token
       </h3>
       <p className="doc-p">

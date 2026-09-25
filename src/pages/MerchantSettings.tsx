@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, Store, Trash2 } from 'lucide-react'
+import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, Store, Trash2, Wallet } from 'lucide-react'
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
@@ -11,6 +11,7 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { money } from '../data/currency'
 import { mockMerchant } from '../data/merchant'
 import { imageFileError } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
@@ -34,6 +35,10 @@ export default function MerchantSettings() {
   const storeName = useAppSelector((state) => state.merchant.storeName)
   const storePhone = useAppSelector((state) => state.merchant.storePhone)
   const storeAddress = useAppSelector((state) => state.merchant.storeAddress)
+  const walletBalance = useAppSelector((state) => state.payout.balance)
+  const primaryAccount = useAppSelector(
+    (state) => state.payout.accounts.find((a) => a.isPrimary) ?? state.payout.accounts[0],
+  )
   const logoInputRef = useRef<HTMLInputElement>(null)
   // URL objek yang sedang dipakai; dilepas saat diganti / dihapus / unmount
   // supaya blob tidak menumpuk.
@@ -254,15 +259,35 @@ export default function MerchantSettings() {
 
         <section className="merchant-card">
           <div className="merchant-row">
+            <Wallet size={20} strokeWidth={1.75} />
+            <div>
+              <p className="merchant-card-title">Saldo &amp; pencairan</p>
+              <p className="merchant-card-sub">{money(walletBalance.available)}</p>
+            </div>
+          </div>
+          <Link className="merchant-btn-ghost merchant-wallet-manage" to="/wallet">
+            Buka dompet
+          </Link>
+        </section>
+
+        <section className="merchant-card">
+          <div className="merchant-row">
             <CreditCard size={20} strokeWidth={1.75} />
             <div>
               <p className="merchant-card-title">Rekening pencairan</p>
               <p className="merchant-card-sub">
-                {mockMerchant.bank.name} · {mockMerchant.bank.account}
+                {primaryAccount
+                  ? `${primaryAccount.bankName} · ${primaryAccount.accountNumber}`
+                  : 'Belum ada rekening tujuan'}
               </p>
-              <p className="merchant-card-sub">a.n. {mockMerchant.bank.holder}</p>
+              <p className="merchant-card-sub">
+                {primaryAccount ? `a.n. ${primaryAccount.holderName}` : 'Tambahkan rekening dulu'}
+              </p>
             </div>
           </div>
+          <Link className="merchant-btn-ghost merchant-wallet-manage" to="/payout-accounts">
+            Kelola rekening
+          </Link>
         </section>
 
         <InstallAppCard />

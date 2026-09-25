@@ -612,6 +612,462 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9104",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:26:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+33/-6) — edit via tool: ts: export interface Payout {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-9105",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:26:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/payout.ts (+84) — write via tool: ts: import type { PayoutAccount, PayoutEntry",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/payout.ts"
+    },
+    {
+      "id": "TASK-9106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:26:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/payoutSlice.ts (+91) — write via tool: ts: import { createSlice, type Pa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/payoutSlice.ts"
+    },
+    {
+      "id": "TASK-9107",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:26:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+4/-3) — edit via tool: ts: import merchant from './slices/merchantS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-9108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:27:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts (+13/-2) — edit via tool: ts: available: z.boolean().optional(),",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-9109",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:28:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts (+2/-1) — edit via tool: ts: export type MerchantMenuItemFormData = z",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-9110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:28:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantWallet.tsx (+127) — write via tool: tsx: import { ArrowDownLeft, ArrowU",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantWallet.tsx"
+    },
+    {
+      "id": "TASK-9111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:28:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx (+146) — write via tool: tsx: import { ChevronLeft, CreditCa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx"
+    },
+    {
+      "id": "TASK-9112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:29:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx (+211) — write via tool: tsx: import { zodResolver }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-9113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:29:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+4/-2) — edit via tool: tsx: import MerchantOrders from './pages/Merc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-9114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:29:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+5/-5) — edit via tool: tsx: import { Clock, CreditCard, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-9115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:30:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+3/-2) — edit via tool: tsx: import { useAppDispatch, use",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-9116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:30:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantWallet.tsx (+4/-4) — edit via tool: tsx: <Link className=\"btn btn-prima",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantWallet.tsx"
+    },
+    {
+      "id": "TASK-9117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:31:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-payout.scss (+299) — write via tool: // Dompet & pencairan me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-payout.scss"
+    },
+    {
+      "id": "TASK-9118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:31:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantWallet.tsx (+3/-3) — edit via tool: tsx: <span className=\"merchant-wall",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantWallet.tsx"
+    },
+    {
+      "id": "TASK-9119",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:32:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -iE \"FAIL|payout|wallet\" | head -30; npm run lint 2>&1 | t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9120",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:33:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-payout.scss (+4/-3) — edit via tool: .merchant-payout-amount ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-payout.scss"
+    },
+    {
+      "id": "TASK-9121",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:37:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx (+1/-1) — edit via tool: tsx: navigate('/wallet')",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx"
+    },
+    {
+      "id": "TASK-9122",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:38:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx (+3/-3) — edit via tool: tsx: <Link className=\"btn btn-prima",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx"
+    },
+    {
+      "id": "TASK-9123",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:38:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx (+4/-4) — edit via tool: tsx: <Link className=\"merch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-9124",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:38:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+3/-3) — edit via tool: tsx: <Link className=\"merchant-bt",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-9125",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:39:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.98.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-9126",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:39:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+27/-3) — edit via tool: tsx:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9127",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "15:40:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -3; npm run scan 2>&1 | rtk grep -E \"^ *[0-9]+ FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

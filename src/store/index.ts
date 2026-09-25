@@ -25,6 +25,7 @@ import catalog from './slices/catalogSlice'
 import merchant from './slices/merchantSlice'
 import courier from './slices/courierSlice'
 import wallet from './slices/walletSlice'
+import payout from './slices/payoutSlice'
 import admin from './slices/adminSlice'
 import superAdmin, { logAudit } from './slices/superAdminSlice'
 import notifications from './slices/notificationsSlice'
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
   merchant,
   courier,
   wallet,
+  payout,
   admin,
   superAdmin,
   notifications,
@@ -93,7 +95,7 @@ const persistConfig = {
   key: 'sa7tein',
   version: 5,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'admin', 'superAdmin', 'auth'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth'],
   migrate: createMigrate(migrations, { debug: false }),
 }
 

@@ -51,6 +51,17 @@ export const merchantMenuItemSchema = z.object({
   available: z.boolean().optional(),
 })
 
+// Rekening pencairan merchant (R-WALLET-01, f6). Nomor boleh berspasi untuk
+// keterbacaan, tapi hanya digit + spasi; bank dipilih dari daftar `BANK_OPTIONS`.
+export const payoutAccountSchema = z.object({
+  bankName: z.string().min(1, 'Pilih bank'),
+  accountNumber: z
+    .string()
+    .min(6, 'Nomor rekening minimal 6 digit')
+    .regex(/^[0-9 ]+$/, 'Nomor rekening hanya berisi angka'),
+  holderName: z.string().min(2, 'Nama pemilik rekening wajib diisi'),
+})
+
 // Kurir toko — merchant mendaftarkan kurirnya sendiri (C-06: kurir karyawan
 // merchant, platform tidak menugaskan). Nomor memakai `phoneField` yang sama
 // dengan pendaftaran, jadi normalisasi `08xx` → E.164 berlaku di sini juga.
@@ -123,6 +134,7 @@ export type SignUpFormData = z.infer<typeof signUpSchema>
 export type MerchantSignInFormData = z.infer<typeof merchantSignInSchema>
 export type MerchantSignUpFormData = z.infer<typeof merchantSignUpSchema>
 export type MerchantMenuItemFormData = z.infer<typeof merchantMenuItemSchema>
+export type PayoutAccountFormData = z.infer<typeof payoutAccountSchema>
 export type MerchantStoreFormData = z.infer<typeof merchantStoreSchema>
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
 export type CreatePasswordFormData = z.infer<typeof createPasswordSchema>

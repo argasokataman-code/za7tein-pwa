@@ -43,12 +43,15 @@ import MerchantCouriers from './pages/MerchantCouriers'
 import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantMenu from './pages/MerchantMenu'
 import MerchantOrders from './pages/MerchantOrders'
+import MerchantPayout from './pages/MerchantPayout'
+import MerchantPayoutAccounts from './pages/MerchantPayoutAccounts'
 import MerchantPending from './pages/MerchantPending'
 import MerchantRebate from './pages/MerchantRebate'
 import MerchantReviews from './pages/MerchantReviews'
 import MerchantSettings from './pages/MerchantSettings'
 import MerchantSignIn from './pages/MerchantSignIn'
 import MerchantSignUp from './pages/MerchantSignUp'
+import MerchantWallet from './pages/MerchantWallet'
 import NotificationSettings from './pages/NotificationSettings'
 import Notifications from './pages/Notifications'
 import Offline from './pages/Offline'
@@ -177,6 +180,9 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/reviews', MerchantReviews],
   ['/couriers', MerchantCouriers],
   ['/settings', MerchantSettings],
+  ['/wallet', MerchantWallet],
+  ['/payout', MerchantPayout],
+  ['/payout-accounts', MerchantPayoutAccounts],
   ['/dispute', DisputeSubmit],
   ['/offline', Offline],
 ]
