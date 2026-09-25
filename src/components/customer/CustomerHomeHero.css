@@ -293,8 +293,21 @@
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16);
 }
 
-.s7-search input {
+/* Pembungkus input + saran bergantian. Input dan overlay harus berbagi satu
+   kotak supaya teks sarannya duduk tepat di atas teks yang nanti diketik —
+   kalau overlay ditaruh langsung di `.s7-search` (yang flex), posisinya harus
+   menebak lebar ikon dan tombol filter, dan itu bergeser tiap kali salah satu
+   berubah. Di sini keduanya satu koordinat. */
+.s7-search__field {
+  position: relative;
+
   flex: 1;
+
+  min-width: 0;
+}
+
+.s7-search input {
+  width: 100%;
 
   min-width: 0;
 
@@ -310,6 +323,88 @@
   font-weight: 500;
 
   color: var(--text-primary);
+}
+
+/* Saran pencarian: teks yang bergantian, diposisikan tepat di atas input.
+   Inputnya sendiri `placeholder=""` — atribut tidak bisa dianimasikan
+   per-kata dan tetap terlihat saat `value` terisi, jadi teksnya elemen sendiri.
+
+   `pointer-events: none` supaya ketukan di area itu tetap masuk ke input;
+   `aria-hidden` di sisi React karena saran yang berubah sendiri bukan isi
+   yang perlu dibacakan. */
+.s7-search__suggest {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 var(--space-3);
+
+  pointer-events: none;
+
+  color: var(--text-secondary);
+
+  font-size: var(--text-base);
+  font-weight: 500;
+
+  /* Satu kata terlihat sekaligus; yang lama keluar ke atas, yang baru masuk
+     dari bawah. `overflow: hidden` di sumbu vertikal yang memotongnya. */
+  overflow: hidden;
+
+  transition: opacity var(--motion-fast) var(--ease-out);
+}
+
+.s7-search__suggest--hidden {
+  opacity: 0;
+}
+
+/* Naik-turun: kata masuk dari bawah, naik ke tempatnya. Arahnya satu.
+
+   `from` sengaja tidak menyembunyikan kata, dan fill-mode-nya `none` (bukan
+   `both`). Alasannya ditemukan saat mengukur: dengan `translateY(100%)` +
+   `both`, keadaan awal animasi adalah "kata di luar kotak, terpotong
+   `overflow: hidden`". Kalau animasinya tidak berjalan — terukur di klon
+   headless, waktunya beku di frame 0 — yang terlihat cuma kotak kosong:
+   sarannya hilang total, bukan sekadar tak bergerak.
+
+   Geserannya 9px, bukan persentase: kotak sarannya 44px dan tinggi katanya
+   24px, jadi ruang bebas di luar teks hanya (44-24)/2 = 10px. Geser 9px selalu
+   di dalam kotak, di posisi mana pun animasinya berhenti — sudah diukur
+   236.4/260.4 dengan translate 13.2px, yang melampaui kotak 213.2/257.2.
+
+   `opacity` juga tidak dianimasikan. Sempat ditulis `opacity: 0` di `from`,
+   dan itu membuat kata tak terlihat saat animasinya beku di frame 0 — persis
+   kegagalan yang mau dihindari. Dengan hanya `transform` yang bergerak, kata
+   selalu terbaca; kalau animasinya jalan, ia datang meluncur dari bawah. */
+@keyframes suggest-rise {
+  from {
+    transform: translateY(9px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.s7-search__suggest-word {
+  display: block;
+  width: 100%;
+
+  /* Teks panjang dipotong, bukan membungkus ke baris kedua di dalam kotak
+     yang tingginya tetap. */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  animation: suggest-rise var(--motion-standard) var(--ease-decelerate);
+}
+
+/* Gerak dikurangi: kata tetap bergantian (itu informasi, bukan dekorasi), tapi
+   tanpa meluncur — langsung tampil. */
+@media (prefers-reduced-motion: reduce) {
+  .s7-search__suggest-word {
+    animation: none;
+  }
 }
 
 .s7-search input::placeholder {

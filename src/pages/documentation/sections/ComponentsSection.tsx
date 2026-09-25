@@ -115,6 +115,31 @@ export function ComponentsSection() {
         <code className="doc-inline"> action</code>; jangan membuat header merchant baru
         per halaman.
       </p>
+      <p className="doc-p">
+        Saran pencarian yang bergantian di kolom search hero. Kata-katanya dari katalog
+        yang ada (nama menu populer), bukan daftar karangan. Dipakai elemen overlay,
+        bukan atribut <code className="doc-inline">placeholder</code>: placeholder tak
+        bisa dianimasikan per-kata, tak bisa di-<code className="doc-inline">overflow: hidden</code>,
+        dan tetap terlihat saat <code className="doc-inline">value</code> terisi sehingga
+        dua teks bertumpuk. Inputnya karena itu{' '}
+        <code className="doc-inline">placeholder=&quot;&quot;</code>, dan sarannya
+        disembunyikan begitu ada isi. Rotasinya berhenti saat{' '}
+        <code className="doc-inline">prefers-reduced-motion</code>. Satu temuan saat
+        mengukur: keyframe sempat memakai{' '}
+        <code className="doc-inline">translateY(100%)</code> +{' '}
+        <code className="doc-inline">opacity: 0</code> dengan{' '}
+        <code className="doc-inline">fill-mode: both</code>, sehingga keadaan awalnya
+        adalah &ldquo;kata di luar kotak&rdquo; &mdash; kalau animasinya tidak berjalan
+        (terukur di klon headless, waktunya beku), yang terlihat cuma kotak kosong, jadi
+        sarannya hilang total. Sekarang geserannya 9px (kotak 44px, kata 24px, ruang bebas
+        (44&minus;24)/2 = 10px),{' '}
+        <code className="doc-inline">fill-mode: none</code>, dan{' '}
+        <code className="doc-inline">opacity</code> tidak ikut dianimasikan &mdash; kata
+        selalu terbaca di posisi mana pun animasinya berhenti, dan tetap meluncur saat
+        normal. Overlay-nya <code className="doc-inline">pointer-events: none</code>,
+        diuji dengan klik nyata: ketukan di atasnya tetap memfokuskan{' '}
+        <code className="doc-inline">INPUT[name=q]</code>.
+      </p>
       <h3 className="doc-h3">
         Carousel promo Home (<code className="doc-inline">.promo-carousel</code>)
       </h3>

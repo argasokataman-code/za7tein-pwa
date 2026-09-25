@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Lima belas baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Enam belas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -414,6 +414,41 @@ export function AppPolishSection() {
                 3:1; dan keterangan 12px wajib gelap, sebab di atas oranye putih hanya 3.36:1 dan{' '}
                 <code className="doc-inline">--orange-soft-ink</code> 2.12:1, keduanya gagal AA,
                 sementara <code className="doc-inline">--text-primary</code> 4.86:1
+              </td>
+            </tr>
+            <tr>
+              <td>Saran pencarian bergantian di kolom hero</td>
+              <td>
+                Kolom pencarian cuma diam dengan placeholder statis, tak ada petunjuk apa
+                yang bisa dicari. Menganimasikan atribut{' '}
+                <code className="doc-inline">placeholder</code> langsung tidak mungkin:
+                ia bukan elemen, jadi tak bisa di-<code className="doc-inline">overflow: hidden</code>{' '}
+                per-kata, dan tetap terlihat saat <code className="doc-inline">value</code>{' '}
+                terisi sehingga dua teks bertumpuk
+              </td>
+              <td>
+                Kata bergantian tiap 2.6s, naik dari bawah, isinya dari katalog yang ada
+                (nama menu populer) &mdash; bukan daftar karangan, karena yang dijanjikan
+                di kolom pencarian harus benar-benar ada di dalamnya. Dipasang sebagai
+                elemen overlay bersaudara dengan input (
+                <code className="doc-inline">placeholder=&quot;&quot;</code>), disembunyikan
+                begitu ada isi, dan <code className="doc-inline">pointer-events: none</code>{' '}
+                &mdash; diuji klik nyata, ketukan di atasnya tetap memfokuskan{' '}
+                <code className="doc-inline">INPUT[name=q]</code>. Satu cacat ditemukan saat
+                mengukur: keyframe sempat memakai{' '}
+                <code className="doc-inline">translateY(100%)</code> dan{' '}
+                <code className="doc-inline">opacity: 0</code> dengan{' '}
+                <code className="doc-inline">fill-mode: both</code>, jadi keadaan awalnya
+                adalah &ldquo;kata di luar kotak&rdquo;. Terukur di klon headless (waktu
+                animasi beku di frame 0) hasilnya kotak kosong &mdash; saran hilang total,
+                bukan sekadar tak bergerak. Sekarang geser 9px (kotak 44px, kata 24px,
+                ruang bebas (44&minus;24)/2 = 10px), <code className="doc-inline">fill-mode: none</code>,
+                dan <code className="doc-inline">opacity</code> tidak dianimasikan: kata tetap
+                terbaca di posisi mana pun animasinya berhenti. Terukur saat beku:
+                kata 232.2&ndash;256.2 di dalam kotak 213.2&ndash;257.2, dan rotasi
+                terverifikasi berganti (Ayam Geprek &rarr; Nasi Uduk Komplit).
+                <code className="doc-inline">prefers-reduced-motion</code> mematikan
+                luncurannya; rotasinya tetap jalan karena itu informasi, bukan dekorasi
               </td>
             </tr>
           </tbody>

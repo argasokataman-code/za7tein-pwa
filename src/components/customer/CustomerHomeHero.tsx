@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, UserRound } from 'lucide-react'
 /**
  * Hero beranda pelanggan.
@@ -105,6 +106,61 @@ function FilterIcon() {
   return <SlidersHorizontal className="s7-filter-icon" strokeWidth={1.75} aria-hidden="true" />
 }
 
+/**
+ * Saran pencarian yang bergantian, muncul menggantikan placeholder.
+ *
+ * Kenapa overlay, bukan animasi `placeholder` bawaan: `placeholder` adalah
+ * atribut, bukan elemen — ia tak bisa dianimasikan per-kata, tak bisa
+ * di-`overflow: hidden`, dan tetap terlihat saat pengguna mulai mengetik
+ * (padahal `value` sudah terisi sehingga dua teks bertumpuk). Jadi inputnya
+ * memakai `placeholder=""` dan teksnya ditaruh di elemen bersaudara yang
+ * diposisikan tepat di atasnya, lalu disembunyikan begitu input terisi.
+ *
+ * Kata-katanya diambil dari katalog yang sudah ada (nama menu populer), bukan
+ * daftar karangan: yang dijanjikan di kolom pencarian harus benar-benar ada di
+ * dalamnya.
+ *
+ * Berhenti saat pengguna menyentuh kolomnya. Saran yang terus bergerak ketika
+ * seseorang sedang berpikir justru mengganggu, dan di app-mode ia juga
+ * membangunkan compositor tanpa alasan.
+ */
+const SEARCH_SUGGESTIONS = [
+  'Ayam Geprek',
+  'Nasi Uduk Komplit',
+  'Mie Goreng Spesial',
+  'Kopi Susu Gula Aren',
+  'Pisang Goreng',
+]
+
+/** Jarak antar-kata. Cukup lama untuk dibaca, cukup pendek untuk terasa hidup. */
+const SUGGESTION_MS = 2600
+
+function SearchSuggestions({ hidden }: { hidden: boolean }) {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    if (hidden) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const id = window.setInterval(() => {
+      setIndex((current) => (current + 1) % SEARCH_SUGGESTIONS.length)
+    }, SUGGESTION_MS)
+
+    return () => window.clearInterval(id)
+  }, [hidden])
+
+  return (
+    <span
+      className={`s7-search__suggest${hidden ? ' s7-search__suggest--hidden' : ''}`}
+      aria-hidden="true"
+    >
+      <span className="s7-search__suggest-word" key={index}>
+        {SEARCH_SUGGESTIONS[index]}
+      </span>
+    </span>
+  )
+}
+
 type Props = {
   avatarUrl?: string
   avatarAlt?: string
@@ -128,6 +184,10 @@ export default function CustomerHomeHero({
   onOpenFilters,
   onSubmitSearch,
 }: Props) {
+  // Saran disembunyikan begitu kolom punya isi. `useState` lokal, bukan nilai
+  // dari store: ini murni tampilan kolom pencarian di halaman ini.
+  const [query, setQuery] = useState('')
+
   return (
     <section className="s7-hero s7-parallax--hero">
       <Sa7teinHeroPattern />
@@ -208,12 +268,18 @@ export default function CustomerHomeHero({
         >
           <SearchIcon />
 
-          <input
-            type="search"
-            name="q"
-            placeholder="Search menu, restaurant"
-            aria-label="Cari menu atau restoran"
-          />
+          <span className="s7-search__field">
+            <input
+              type="search"
+              name="q"
+              placeholder=""
+              aria-label="Cari menu atau restoran"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+
+            <SearchSuggestions hidden={query.length > 0} />
+          </span>
 
           <span className="s7-search__divider" aria-hidden="true" />
 
