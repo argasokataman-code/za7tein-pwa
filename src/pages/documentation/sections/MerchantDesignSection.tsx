@@ -18,6 +18,26 @@ export function MerchantDesignSection() {
         to the shell edges. No separate header component — CSS class reuse only.
       </p>
       <h3 className="doc-h3">
+        Filter stok menempel, kepala daftar tidak
+      </h3>
+      <p className="doc-p">
+        Hanya <code className="doc-inline">.merchant-menu-overview</code> (filter
+        Semua/Menipis/Habis) yang <code className="doc-inline">position: sticky</code>{' '}
+        di bawah header, lewat{' '}
+        <code className="doc-inline">@mixin sticky-below-header</code>. Kepala
+        daftar (&ldquo;Semua menu · 15 item&rdquo;) sengaja{' '}
+        <strong>tidak</strong> sticky: percobaan menempelkannya dengan{' '}
+        <code className="doc-inline">top</code> hardcoded membuatnya
+        tumpang-tindih dengan filter (filter terukur <strong>57px</strong>,
+        termasuk tepi — bukan 56) dan <code className="doc-inline">::before</code>{' '}
+        filter menutupi baris atasnya. Terukur lewat{' '}
+        <code className="doc-inline">elementFromPoint</code>: di dalam kepala
+        daftar yang dilaporkan justru{' '}
+        <code className="doc-inline">.merchant-menu-overview</code>. Aturannya:
+        satu elemen sticky per tumpukan; jangan menempelkan label ke elemen
+        sticky lain tanpa mengukur tingginya di runtime.
+      </p>
+      <h3 className="doc-h3">
         Cards — shared surface token
       </h3>
       <p className="doc-p">

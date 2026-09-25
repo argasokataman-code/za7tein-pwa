@@ -5676,6 +5676,82 @@
         }
       ],
       "loc": "src/styles/system/_merchant-menu-polish.scss:60"
+    },
+    {
+      "id": "TASK-9069",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:37:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_merchant-menu-polish.scss (+9/-24) — edit via tool: /* Kepala daftar (\"Semua menu · 15 item\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-9070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:39:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && ./scripts/verify.sh 2>&1 | tail -3; npm run scan 2>&1 | rtk grep -E \"^ *[0-9]+ FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:40:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/MerchantDesignSection.tsx (+22/-2) — edit via tool: tsx: to the shell edges. No separate header c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "14:40:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+2/-2) — edit via tool: tsx: modal aplikasi di-portal ke body supaya ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
     }
   ]
 }

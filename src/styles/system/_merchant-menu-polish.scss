@@ -57,30 +57,15 @@
   @include sticky-below-header;
 }
 
-/* Kepala daftar ("Semua menu · 15 item") ikut menempel supaya jumlahnya selalu
-   terbaca bersama filternya.
+/* Kepala daftar ("Semua menu · 15 item") sengaja TIDAK dibuat sticky.
 
-   `top` = tinggi header (`--nav-height` 64px) + tinggi filter terukur (56px,
-   sama dengan `min-height` `.merchant-menu-stat`). Sebelumnya memakai
-   `+ 57px + --space-5` = 141px, sehingga menyisakan celah 21px di bawah filter
-   tempat item daftar melintas — itulah yang terbaca sebagai "nyangkut". Latar
-   `::before` melebar ke gutter 20px dan 12px ke atas supaya tidak ada celah di
-   sisi kiri-kanan maupun antara filter dan kepala daftar. */
-.merchant-menu-list-head {
-  position: sticky;
-  top: calc(var(--nav-height) + 56px);
-  z-index: 39;
-  padding-top: var(--space-2);
-  background: var(--bg-warm);
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: calc(-1 * var(--space-3)) calc(-1 * var(--space-5));
-    z-index: -1;
-    background: var(--bg-warm);
-  }
-}
+   Percobaan sebelumnya menempelkannya tepat di bawah filter dengan `top`
+   hardcoded. Filter terukur 57px (min-height 56px + tepi, bukan 56), jadi
+   `top` 120px vs bawah filter 121px membuat keduanya tumpang-tindih 1px, dan
+   `::before` filter (z-index 40) yang melebar 12px ke bawah menutupi baris
+   atas kepala daftar (z-index 39) — terukur lewat elementFromPoint, itulah
+   yang terbaca "nabrak-nabrak" saat menggulir. Yang benar-benar perlu menempel
+   hanya filter stok; label daftar ikut menggulir seperti konten biasa. */
 
 /* ── Menu ⋮ (Ubah / Hapus) ───────────────────────────────────────────────────
    Pindah dari _merchant.scss, sekaligus diperbaiki: tombolnya tidak menulis
