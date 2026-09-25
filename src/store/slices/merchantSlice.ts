@@ -2,7 +2,12 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { merchantOrders as seedOrders } from '../../data/merchantOrders'
 import { merchantReviewReplies } from '../../data/merchantReviews'
-import { MAX_COURIERS_PER_MERCHANT, mockCouriers, mockMerchant } from '../../data/merchant'
+import {
+  MAX_COURIERS_PER_MERCHANT,
+  mockCouriers,
+  mockMerchant,
+  mockStoreProfile,
+} from '../../data/merchant'
 import { toE164 } from '../../data/phone'
 import {
   MERCHANT_CREDIT_FEE_JOD,
@@ -35,6 +40,18 @@ interface MerchantState {
   reviewReplies: Record<string, string>
   /** Modal 5 JOD + cashback tier bulanan (M10). */
   credit: MerchantCreditState
+  /**
+   * Foto toko (field `photo` D1, f16). URL objek dari berkas yang dipilih di
+   * klien — tidak ada unggahan sungguhan (AGENTS.md §1). Tidak dipersist.
+   */
+  logo: string | null
+  /**
+   * Profil toko yang bisa disunting di Setelan. Sebelumnya form hanya
+   * memunculkan toast "berhasil" tanpa mengubah state apa pun. Tidak dipersist.
+   */
+  storeName: string
+  storePhone: string
+  storeAddress: string
 }
 
 const initialState: MerchantState = {
@@ -45,6 +62,10 @@ const initialState: MerchantState = {
   dailyLimit: mockMerchant.dailyLimit,
   reviewReplies: merchantReviewReplies,
   credit: mockMerchantCredit,
+  logo: mockMerchant.logo,
+  storeName: mockStoreProfile.name,
+  storePhone: mockStoreProfile.phone,
+  storeAddress: mockStoreProfile.address,
 }
 
 /** Entry insentif: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -127,6 +148,20 @@ const merchantSlice = createSlice({
     setReviewReply(state, action: PayloadAction<{ id: string; text: string }>) {
       state.reviewReplies[action.payload.id] = action.payload.text
     },
+    /** Ganti / unggah foto toko; URL berasal dari `URL.createObjectURL` lokal. */
+    setMerchantLogo(state, action: PayloadAction<string>) {
+      state.logo = action.payload
+    },
+    /** Hapus foto toko — kembali ke placeholder. */
+    removeMerchantLogo(state) {
+      state.logo = null
+    },
+    /** Simpan profil toko dari Setelan (nama, nomor, alamat). */
+    setStoreProfile(state, action: PayloadAction<{ name: string; phone: string; address: string }>) {
+      state.storeName = action.payload.name
+      state.storePhone = action.payload.phone
+      state.storeAddress = action.payload.address
+    },
     /** Merchant baru dapat modal 5 JOD (event `merchant_credit_granted`). */
     grantCredit(state) {
       state.credit.merchantCreditBalance += MERCHANT_CREDIT_JOD
@@ -197,6 +232,9 @@ export const {
   setCourierDuty,
   assignCourier,
   setReviewReply,
+  setMerchantLogo,
+  removeMerchantLogo,
+  setStoreProfile,
   grantCredit,
   debitCredit,
   recordSettledOrder,

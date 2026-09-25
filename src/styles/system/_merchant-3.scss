@@ -3,38 +3,146 @@
 // Kurir toko: kartu daftar kurir + salinan sekunder daftar kosong.
 // Dipecah dari _merchant-2.scss saat file itu menyentuh batas 600 baris.
 
+/* Kartu kurir: kepala (ikon · identitas · status) lalu baris kontrol.
+   Sebelumnya flex-row dengan badge mengambang di tengah vertikal dan status
+   tertulis dua kali (sub "Di toko · 0 order aktif" + badge "Di toko"). Sekarang
+   status hanya di badge, jumlah order hanya muncul saat ada (`> 0`), dan aksi
+   jadi teks polos selebar 44px seperti kontrol menu — bukan dua tombol berbingkai
+   yang membuat kartu 176px. */
 .merchant-courier {
-  @include card-surface;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-subtle);
+}
+
+.merchant-courier-head {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
 }
 
 .merchant-courier-icon {
   display: grid;
   place-items: center;
-  width: var(--touch-min);
-  height: var(--touch-min);
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-md);
   background: var(--orange-soft);
   color: var(--orange-soft-ink);
   flex-shrink: 0;
 }
 
-.merchant-courier-body {
+.merchant-courier-ident {
   flex: 1;
   min-width: 0;
 }
 
+.merchant-courier-name {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.merchant-courier-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.merchant-courier-count {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* Tautan telepon 44px tanpa menggeser aliran teks: elemennya tetap setinggi
+   barisnya, area sentuh dibentangkan lewat pseudo-element `absolute` yang tidak
+   ikut perhitungan baris (pola sama dengan `.merchant-link` di bawah). */
 .merchant-courier-phone {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  font-size: var(--text-xs);
+  margin-top: 2px;
+  font-size: var(--text-sm);
   color: var(--orange-ink);
-  margin-top: var(--space-1);
+}
+
+.merchant-courier-phone::after {
+  content: '';
+  position: absolute;
+  inset-block: -12px;
+  inset-inline: calc(-1 * var(--space-2)) 0;
+}
+
+/* Chip peringatan, bukan baris status: ia hanya muncul saat ada masalah. */
+.merchant-courier-warn {
+  align-self: flex-start;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+  font-size: var(--text-xs);
+}
+
+/* Kurir yang sedang mengantar tidak bisa diubah toko — statusnya milik
+   checkpoint kurir. Satu kalimat menggantikan baris kontrol. */
+.merchant-courier-note {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-courier-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Aksi teks polos, bukan tombol berbingkai: 44px penuh untuk jari, tapi tanpa
+   kotak yang membuat tiap kartu punya toolbar sendiri. */
+.merchant-courier-action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-2);
+  border: 0;
+  background: transparent;
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.merchant-courier-action:first-child {
+  margin-left: calc(-1 * var(--space-2));
+}
+
+.merchant-courier-action.is-danger {
+  margin-left: auto;
+  margin-right: calc(-1 * var(--space-2));
+  color: var(--danger-ink);
+}
+
+.merchant-courier-action:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+/* Tombol tambah tetap di tempatnya saat kuota penuh (disabled) supaya tidak ada
+   pergeseran tata letak, bukan menghilang dan diganti paragraf. */
+.merchant-add-btn:disabled {
+  background: var(--border);
+  color: var(--text-secondary);
 }
 
 .merchant-empty,
@@ -44,10 +152,85 @@
   padding: var(--space-3) 0;
 }
 
-.merchant-hint {
+/* Tautan di tengah kalimat ("di halaman Order") tetap harus bisa ditekan,
+   tapi ia TIDAK boleh mengubah aliran baris teksnya.
+
+   Percobaan pertama memakai `display: inline-block` + `padding-block: 10px` +
+   `margin-block: -10px`. Terukur gagal: tingginya cuma 40px (bukan 44),
+   karena padding di jumlahkan dengan tinggi baris 20,25px, sementara
+   `margin-block` negatif pada elemen `inline-block` tidak dikurangkan dari
+   perhitungan baris — paragrafnya ikut melar jadi 65px untuk dua baris teks.
+
+   Yang benar untuk tautan dalam aliran teks: biarkan elemennya `inline`
+   seperti aslinya, lalu bentangkan area kliknya lewat pseudo-element yang
+   `absolute`. Pseudo-element tidak ikut perhitungan baris sama sekali, jadi
+   teksnya tetap rapat dan area sentuhnya bisa setinggi apa pun.
+
+   `inset-block: -12px` menaikkannya dari 19px ke 43px; teksnya sendiri sudah
+   menyumbang tinggi baris, jadi angkanya tidak perlu persis 44. */
+.merchant-link {
+  position: relative;
+}
+
+.merchant-link::after {
+  content: '';
+  position: absolute;
+  inset-block: -12px;
+  inset-inline: 0;
+}
+
+/* Catatan "diatur di halaman lain" — dulu dua kartu terpisah (2 × 52px), satu
+   ikon dan satu kalimat masing-masing. Bentuk kartu membuat tiap kalimat
+   terbaca sebagai pesan yang berdiri sendiri, padahal keduanya satu jenis.
+   Sekarang satu kartu berisi baris-barisnya.
+
+   Tiap baris tetap `min-height: --touch-min` hanya kalau ia tautan; di sini
+   teksnya sendiri bukan kontrol, jadi tidak ada yang perlu ditekan dan
+   tingginya cukup dari jarak antar baris. */
+.merchant-hint-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.merchant-hint-list-item {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   color: var(--text-secondary);
+}
+
+.merchant-hint-list-item svg {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+/* Tautan "Lihat semua" di kepala section. Terukur sebelumnya 64×18px — hanya
+   setinggi hurufnya, padahal ia satu-satunya jalan ke daftar penuh dan
+   ditekan dengan ibu jari. `min-height: --touch-min` + padding inline
+   mengangkatnya ke 44px tanpa menggeser posisinya, karena kepala section
+   disejajarkan `baseline` dan tingginya ditentukan judul di sebelahnya.
+
+   Margin vertikal negatif membatalkan tambahan tinggi itu supaya jarak ke
+   daftar di bawahnya tidak berubah.
+
+   Ditaruh di berkas ini, bukan _merchant.scss, karena berkas itu menyentuh
+   batas 600 baris; topiknya tetap sama (kepala section), jadi tidak ada
+   pencampuran yang baru. */
+.merchant-section-head a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) 0 0;
+  font-size: var(--text-xs);
+  color: var(--orange-ink);
+  text-decoration: none;
+}
+
+/* Area sentuh yang membesar tidak boleh menghapus tanda bahwa itu tautan;
+   teksnya digarisbawahi saat disentuh. */
+.merchant-section-head a:active {
+  text-decoration: underline;
 }
 

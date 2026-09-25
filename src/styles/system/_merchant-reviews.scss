@@ -1,0 +1,22 @@
+@use "./mixins" as *;
+
+// Layar Ulasan (/merchant/reviews) dan bagian yang hanya dipakainya.
+// Aturan dasarnya masih di `_merchant-2.scss` (kartu, ringkasan, distribusi);
+// berkas ini memuat perilaku gulirnya saja, karena dua berkas induknya sudah
+// menyentuh batas 600 baris dan menaruhnya di sana akan memaksa pemecahan yang
+// tidak ada hubungannya dengan daftar ulasan.
+
+// ── Filter menempel di bawah header ─────────────────────────────────────────
+// Delapan kartu ulasan terukur 1704px, jadi baris filter (Semua + lima nama
+// hidangan) yang duduk di atasnya hilang begitu pengguna menggulir — sama
+// seperti daftar menu. Geometrinya dipakai bersama lewat `sticky-below-header`.
+//
+// `padding-top` dipakai supaya latar pseudo-elementnya punya ruang di atas
+// tombol; tanpa itu tombolnya menempel langsung di tepi bawah header dan
+// terlihat seperti menempel pada judulnya, bukan pada barisnya sendiri.
+.merchant-tabs {
+  @include sticky-below-header(var(--space-4));
+
+  padding-block: var(--space-2);
+  margin-bottom: calc(var(--space-4) - var(--space-2));
+}

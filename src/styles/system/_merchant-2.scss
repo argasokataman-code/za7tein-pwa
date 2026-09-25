@@ -62,11 +62,6 @@
   text-underline-offset: 2px;
 }
 
-.merchant-hint p {
-  font-size: var(--text-xs);
-}
-
-
 .merchant-signout {
   width: 100%;
   margin-top: var(--space-2);
@@ -274,28 +269,10 @@
   font-size: var(--text-sm);
 }
 
-/* Bentuk tombol sheet disamakan dengan .profile-modal-actions role customer
-   (docs/design/DNA.md: pola sama, satu perilaku): pill, bobot 600, ukuran teks
-   dasar. Warnanya tetap oranye merek — bukan --danger-ink, yang perannya teks
-   di latar terang dan tidak untuk mengisi bidang tombol. */
-.merchant-actions .merchant-delete-confirm {
-  min-height: var(--touch-min);
-  /* Border transparan 2px, sama tebalnya dengan Batal. Tanpa ini Keluar 4px
-     (2px di tiap sisi) lebih sempit walau keduanya flex: 1 — terukur 173 vs
-     169. Bukan selisih yang terlihat, tapi mudah dihindari dan membuat kedua
-     tombol benar-benar sama. */
-  border: 2px solid transparent;
-  border-radius: var(--radius-pill);
-  background: var(--sa7tein-orange);
-  color: var(--on-brand);
-  font-size: var(--text-base);
-  font-weight: 600;
-}
-
-.merchant-actions .merchant-delete-confirm:hover {
-  background: var(--orange-deep);
-}
-
+/* Tombol konfirmasi merchant memakai `ConfirmSheet` (kelas default `btn-primary`
+   yang standalone); kelas `merchant-delete-confirm` dulu cuma distyle di bawah
+   `.merchant-actions`, sehingga di dalam sheet yang portal ke body aturannya
+   tidak pernah kena. Sudah dihapus — jangan hidupkan lagi. */
 .merchant-actions .merchant-btn-ghost {
   border-width: 2px;
   border-radius: var(--radius-pill);
@@ -557,11 +534,18 @@
   resize: vertical;
 }
 
-.sheet-actions { margin-top: var(--space-4); }
-.sheet-actions .btn { width: 100%; }
-
-/* `.btn` dasar tanpa margin, jadi dua tombol bertumpuk perlu jarak (audit 006 #4). */
-.sheet-actions .btn + .btn { margin-top: var(--space-2); }
+/* Dua tombol sheet sejajar `flex: 1`, sama dengan `.merchant-actions`,
+   `.admin-actions`, dan `.profile-modal-actions` — dan dengan aturan tertulis di
+   halaman dokumentasi "Popup keluar toko tidak seimbang". Sebelumnya
+   `.sheet-actions` menumpuk penuh (audit 006 #4), sehingga tombol konfirmasi
+   `ConfirmSheet` tampil atas-bawah dan berbeda dari popup merchant lain.
+   Satu tombol tetap selebar penuh karena `flex: 1`. */
+.sheet-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.sheet-actions .btn { flex: 1; width: auto; }
 
 /* Tombol batal netral untuk sheet konfirmasi: `.btn` dasar transparan tanpa
    tepi, jadi ia perlu permukaan supaya terbaca sebagai kontrol (audit 006 #4). */

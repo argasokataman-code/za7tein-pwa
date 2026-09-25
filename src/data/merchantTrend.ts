@@ -87,11 +87,11 @@ export function orderMixSegments(orders: MerchantOrder[] = merchantOrders): Char
   const count = (statuses: string[]) =>
     orders.filter((order) => statuses.includes(order.status)).length
   const segments: ChartSegment[] = [
-    { label: 'Baru', value: count(['masuk']), tone: 'warning' },
-    { label: 'Diproses', value: count(['diterima', 'dimasak']), tone: 'brand' },
+    { label: 'Baru', value: count(['masuk']), tone: 'warning', tab: 'masuk' },
+    { label: 'Diproses', value: count(['diterima', 'dimasak']), tone: 'brand', tab: 'diproses' },
     { label: 'Diantar', value: count(['diantar', 'tiba']), tone: 'success' },
-    { label: 'Selesai', value: count(['selesai']), tone: 'muted' },
-    { label: 'Batal/tolak', value: count(['ditolak', 'batal']), tone: 'danger' },
+    { label: 'Selesai', value: count(['selesai']), tone: 'muted', tab: 'selesai' },
+    { label: 'Batal/tolak', value: count(['ditolak', 'batal']), tone: 'danger', tab: 'batal' },
   ]
   return segments.filter((segment) => segment.value > 0)
 }

@@ -36,6 +36,32 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Filter daftar yang menempel tepat di bawah header halaman.
+   Dua halaman merchant punya daftar panjang (menu 15 item = 2265px, ulasan
+   8 kartu = 1704px) dengan kontrol filternya di atas; begitu digulir,
+   filternya hilang dan satu-satunya cara berpindah adalah kembali ke atas.
+   Terukur sebelumnya: satu-satunya elemen `sticky` di kedua halaman itu
+   adalah headernya.
+
+   `top` memakai `--nav-height` (64px = tinggi header terukur), bukan angka
+   mentah. `z-index` sengaja di bawah header (500) supaya saat keduanya
+   bertemu, header tetap menang. Latar digambar lewat pseudo-element yang
+   melebar melewati gutter, karena kontrolnya sendiri punya celah (`gap` grid
+   atau jarak antar tombol) yang akan memperlihatkan isi daftar lewat. */
+@mixin sticky-below-header($air-top: var(--space-3)) {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 40;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * #{$air-top}) calc(-1 * var(--space-5));
+    z-index: -1;
+    background: var(--bg-warm);
+  }
+}
+
 @mixin field-shape {
   width: 100%;
   border-radius: var(--radius-sm);

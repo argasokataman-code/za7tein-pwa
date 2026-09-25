@@ -78,7 +78,7 @@ export function Sparkline({ data, ariaLabel, height = 34, width = 320 }: Sparkli
           points={`0,${viewH} ${line} ${viewW},${viewH}`}
         />
       ) : null}
-      <polyline className="chart-spark-line" points={line} />
+      <polyline className="chart-spark-line" points={line} pathLength={1} />
       <circle className="chart-spark-dot" cx={lastX} cy={lastY} r="2.5" />
     </svg>
   )

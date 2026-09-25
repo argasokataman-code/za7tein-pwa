@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { COURIER_STATUS_LABEL } from '../data/courier'
 import { MAX_COURIERS_PER_MERCHANT } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -68,74 +69,89 @@ export default function MerchantCouriers() {
           title="Kurir"
         />
 
+        <button
+          type="button"
+          className="merchant-add-btn"
+          onClick={() => setSheetOpen(true)}
+          disabled={quotaFull}
+        >
+          <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
+          Tambah kurir
+        </button>
+
         {quotaFull ? (
           <p className="merchant-hint-inline">
-            Kuota kurir penuh. Hapus satu kurir dulu untuk mendaftarkan yang baru.
+            Kuota penuh. Hapus satu kurir untuk mendaftarkan yang baru.
           </p>
-        ) : (
-          <button type="button" className="merchant-add-btn" onClick={() => setSheetOpen(true)}>
-            <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
-            Tambah kurir
-          </button>
-        )}
+        ) : null}
 
         {couriers.length === 0 ? (
           <p className="merchant-empty">Belum ada kurir terdaftar untuk toko ini.</p>
         ) : (
           couriers.map((courier) => (
             <section key={courier.id} className="merchant-courier">
-              <span className="merchant-courier-icon">
-                <Bike size={22} strokeWidth={1.75} aria-hidden="true" />
-              </span>
-              <div className="merchant-courier-body">
-                <p className="merchant-card-title">{courier.name}</p>
-                <p className="merchant-card-sub">
-                  {COURIER_STATUS_LABEL[courier.status] ?? courier.status} ·{' '}
-                  {courier.activeOrderCount} order aktif
-                  {courier.phoneVerified ? null : ' · nomor belum diverifikasi'}
-                </p>
-                <a className="merchant-courier-phone" href={`tel:${courier.phone}`}>
-                  <Phone size={14} strokeWidth={1.75} aria-hidden="true" /> {courier.phone}
-                </a>
-
-                {courier.status === 'delivering' ? (
-                  <p className="merchant-hint-inline">
-                    Sedang mengantar — status ini datang dari checkpoint kurir, bukan dari toko.
-                  </p>
-                ) : (
-                  <div className="merchant-actions">
-                    <button
-                      type="button"
-                      className="merchant-btn-ghost"
-                      onClick={() =>
-                        dispatch(
-                          setCourierDuty({ id: courier.id, onDuty: courier.status === 'offline' }),
-                        )
-                      }
-                    >
-                      <Power size={16} strokeWidth={1.75} aria-hidden="true" />
-                      {courier.status === 'offline' ? 'Aktifkan' : 'Nonaktifkan'}
-                    </button>
-                    <button
-                      type="button"
-                      className="merchant-btn-ghost"
-                      onClick={() => setDeleteTarget(courier)}
-                    >
-                      <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
-                      Hapus
-                    </button>
-                  </div>
-                )}
+              <div className="merchant-courier-head">
+                <span className="merchant-courier-icon">
+                  <Bike size={20} strokeWidth={1.75} aria-hidden="true" />
+                </span>
+                <div className="merchant-courier-ident">
+                  <p className="merchant-courier-name">{courier.name}</p>
+                  <a className="merchant-courier-phone" href={`tel:${courier.phone}`}>
+                    <Phone size={13} strokeWidth={1.75} aria-hidden="true" />
+                    {courier.phone}
+                  </a>
+                </div>
+                <div className="merchant-courier-side">
+                  <span className={`merchant-badge merchant-badge-${courier.status}`}>
+                    {COURIER_STATUS_LABEL[courier.status] ?? courier.status}
+                  </span>
+                  {courier.activeOrderCount > 0 ? (
+                    <span className="merchant-courier-count">
+                      {courier.activeOrderCount} order aktif
+                    </span>
+                  ) : null}
+                </div>
               </div>
-              <span className={`merchant-badge merchant-badge-${courier.status}`}>
-                {COURIER_STATUS_LABEL[courier.status] ?? courier.status}
-              </span>
+
+              {courier.phoneVerified ? null : (
+                <p className="merchant-courier-warn">Nomor belum diverifikasi</p>
+              )}
+
+              {courier.status === 'delivering' ? (
+                <p className="merchant-courier-note">
+                  Sedang mengantar. Status mengikuti checkpoint kurir.
+                </p>
+              ) : (
+                <div className="merchant-courier-controls">
+                  <button
+                    type="button"
+                    className="merchant-courier-action"
+                    onClick={() =>
+                      dispatch(
+                        setCourierDuty({ id: courier.id, onDuty: courier.status === 'offline' }),
+                      )
+                    }
+                  >
+                    <Power size={16} strokeWidth={1.75} aria-hidden="true" />
+                    {courier.status === 'offline' ? 'Aktifkan' : 'Nonaktifkan'}
+                  </button>
+                  <button
+                    type="button"
+                    className="merchant-courier-action is-danger"
+                    onClick={() => setDeleteTarget(courier)}
+                    aria-label={`Hapus ${courier.name}`}
+                  >
+                    <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
+                    Hapus
+                  </button>
+                </div>
+              )}
             </section>
           ))
         )}
 
         <p className="merchant-hint-inline">
-          Platform tidak menugaskan kurir (C-06) — toko memilih sendiri kurir tiap order di{' '}
+          Kamu yang memilih kurir untuk tiap order di{' '}
           <Link className="merchant-link" to="/orders">
             halaman Order
           </Link>
@@ -179,28 +195,14 @@ export default function MerchantCouriers() {
           </form>
         </BottomSheet>
 
-        <BottomSheet
+        <ConfirmSheet
           open={deleteTarget !== null}
           title="Hapus kurir?"
+          body={`${deleteTarget?.name ?? ''} hilang dari daftar kurir toko, dan order yang sedang ditugaskan kepadanya kehilangan kurirnya.`}
+          confirmLabel="Hapus kurir"
+          onConfirm={confirmDelete}
           onClose={() => setDeleteTarget(null)}
-        >
-          <p className="merchant-delete-message">
-            {deleteTarget?.name} hilang dari daftar kurir toko, dan order yang sedang ditugaskan
-            kepadanya kehilangan kurirnya.
-          </p>
-          <div className="merchant-actions">
-            <button
-              type="button"
-              className="merchant-btn-ghost"
-              onClick={() => setDeleteTarget(null)}
-            >
-              Batal
-            </button>
-            <button type="button" className="merchant-delete-confirm" onClick={confirmDelete}>
-              Hapus kurir
-            </button>
-          </div>
-        </BottomSheet>
+        />
       </main>
       <MerchantBottomNav />
     </div>

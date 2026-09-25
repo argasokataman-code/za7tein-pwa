@@ -1,15 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ImagePlus, Minus, MoreVertical, Pencil, Plus, Trash2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useCatalog } from '../hooks/useCatalog'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
-import { mockMerchant, money } from '../data/merchant'
+import { money } from '../data/merchant'
+import { imageFileError } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import { addMenuItem, removeMenuItem, setStock, toggleAvailable, updateMenuItem } from '../store/slices/catalogSlice'
 import type { MenuItem } from '../types'
@@ -21,6 +24,7 @@ export default function MerchantMenu() {
   const dispatch = useAppDispatch()
   const { items } = useCatalog()
   const isActive = useAppSelector((state) => state.merchant.isActive)
+  const storeName = useAppSelector((state) => state.merchant.storeName)
 
   const lowCount = countLowStock(items)
   const outCount = countOutOfStock(items)
@@ -33,6 +37,9 @@ export default function MerchantMenu() {
 
   const [overflowId, setOverflowId] = useState<string | null>(null)
   const [deleteItem, setDeleteItem] = useState<MenuItem | null>(null)
+  /* Menyembunyikan item menghilangkannya dari menu pelanggan; salah sentuh di
+     sini = menu jualan berkurang tanpa disadari. Tampilkan kembali cukup 1 tap. */
+  const [hideTarget, setHideTarget] = useState<MenuItem | null>(null)
 
   /* ── stock sheet ── */
   const [stockItem, setStockItem] = useState<MenuItem | null>(null)
@@ -134,6 +141,12 @@ export default function MerchantMenu() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    const error = imageFileError(file)
+    if (error) {
+      toast.error(error)
+      e.target.value = ''
+      return
+    }
     const reader = new FileReader()
     reader.onload = () => setFormImage(String(reader.result))
     reader.readAsDataURL(file)
@@ -152,7 +165,7 @@ export default function MerchantMenu() {
     <div className="app-shell">
       <main className="merchant-page">
         <MerchantPageHeader
-          eyebrow={mockMerchant.name}
+          eyebrow={storeName}
           title="Menu & Stok"
           action={(
             <button type="button" className="merchant-add-btn" onClick={openAdd}>
@@ -187,8 +200,12 @@ export default function MerchantMenu() {
         </div>
         <div className="merchant-list">
           {visibleItems.length === 0 && <p className="merchant-menu-empty">Belum ada item dalam kategori ini.</p>}
-          {visibleItems.map((item) => (
-            <div key={item.id} className={`merchant-menu-item${item.available ? '' : ' is-unavailable'}`}>
+          {visibleItems.map((item, index) => (
+            <div
+              key={`${stockFilter}-${item.id}`}
+              className={`merchant-menu-item stagger-in${item.available ? '' : ' is-unavailable'}`}
+              style={{ '--stagger-index': index } as CSSProperties}
+            >
               <div className="merchant-menu-primary">
                 <img className="merchant-menu-thumb" src={item.image} alt={item.name} width={64} height={64} loading="lazy" decoding="async" />
                 <div className="merchant-menu-body">
@@ -232,7 +249,14 @@ export default function MerchantMenu() {
                   aria-checked={item.available}
                   aria-label={`Ketersediaan ${item.name}`}
                   className={`merchant-menu-availability${item.available ? ' is-on' : ''}`}
-                  onClick={() => dispatch(toggleAvailable(item.id))}
+                  onClick={() => {
+                    if (item.available) {
+                      setHideTarget(item)
+                    } else {
+                      dispatch(toggleAvailable(item.id))
+                      toast.success(`${item.name} tampil lagi di menu`)
+                    }
+                  }}
                 >
                   <span>{item.available ? 'Tersedia' : 'Disembunyikan'}</span>
                   <span className="merchant-toggle-switch" aria-hidden="true" />
@@ -320,13 +344,32 @@ export default function MerchantMenu() {
         </form>
       </BottomSheet>
 
-      <BottomSheet open={deleteItem !== null} title="Hapus item menu?" onClose={() => setDeleteItem(null)}>
-        <p className="merchant-delete-message">{deleteItem?.name} akan hilang dari daftar merchant dan menu pelanggan.</p>
-        <div className="merchant-actions">
-          <button type="button" className="merchant-btn-ghost" onClick={() => setDeleteItem(null)}>Batal</button>
-          <button type="button" className="merchant-delete-confirm" onClick={() => { if (deleteItem) dispatch(removeMenuItem(deleteItem.id)); setDeleteItem(null) }}>Hapus item</button>
-        </div>
-      </BottomSheet>
+      <ConfirmSheet
+        open={deleteItem !== null}
+        title="Hapus item menu?"
+        body={`${deleteItem?.name ?? ''} akan hilang dari daftar merchant dan menu pelanggan.`}
+        confirmLabel="Hapus item"
+        onConfirm={() => {
+          if (deleteItem) dispatch(removeMenuItem(deleteItem.id))
+          setDeleteItem(null)
+        }}
+        onClose={() => setDeleteItem(null)}
+      />
+
+      <ConfirmSheet
+        open={hideTarget !== null}
+        title={`Sembunyikan ${hideTarget?.name ?? 'item'}?`}
+        body="Item ini hilang dari menu pelanggan sampai kamu tampilkan lagi. Stok dan datanya tetap tersimpan."
+        confirmLabel="Sembunyikan"
+        onConfirm={() => {
+          if (hideTarget) {
+            dispatch(toggleAvailable(hideTarget.id))
+            toast.success(`${hideTarget.name} disembunyikan dari menu`)
+          }
+          setHideTarget(null)
+        }}
+        onClose={() => setHideTarget(null)}
+      />
     </div>
   )
 }

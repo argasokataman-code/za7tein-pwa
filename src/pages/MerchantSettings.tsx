@@ -1,33 +1,71 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Clock, CreditCard, Globe, LocateFixed, MapPin } from 'lucide-react'
-import { useState } from 'react'
+import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, Store, Trash2 } from 'lucide-react'
+import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
-import { BottomSheet } from '../components/ui/BottomSheet'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useLeafletMap } from '../hooks/useLeafletMap'
-import { useAppDispatch } from '../hooks/useAppStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant } from '../data/merchant'
+import { imageFileError } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import { logout } from '../store/slices/authSlice'
+import {
+  removeMerchantLogo,
+  setMerchantLogo,
+  setStoreProfile,
+} from '../store/slices/merchantSlice'
 
 const TIER_LABEL: Record<string, string> = { free: 'Gratis', pro: 'Pro' }
-
-const DEFAULTS: MerchantStoreFormData = {
-  name: mockMerchant.name,
-  phone: '0811-2222-3333',
-  address: 'Jl. Kebon Sirih No. 8, Jakarta Pusat',
-}
 
 export default function MerchantSettings() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [coords, setCoords] = useState({ lat: mockMerchant.lat, lng: mockMerchant.lng })
   const [signOutOpen, setSignOutOpen] = useState(false)
+  const [removePhotoOpen, setRemovePhotoOpen] = useState(false)
+
+  const logo = useAppSelector((state) => state.merchant.logo)
+  const storeName = useAppSelector((state) => state.merchant.storeName)
+  const storePhone = useAppSelector((state) => state.merchant.storePhone)
+  const storeAddress = useAppSelector((state) => state.merchant.storeAddress)
+  const logoInputRef = useRef<HTMLInputElement>(null)
+  // URL objek yang sedang dipakai; dilepas saat diganti / dihapus / unmount
+  // supaya blob tidak menumpuk.
+  const logoUrlRef = useRef<string | null>(null)
+  useEffect(() => () => { if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current) }, [])
+
+  // Pratinjau lokal dari berkas yang dipilih. Tidak ada unggahan sungguhan —
+  // repo ini front-end saja (AGENTS.md §1).
+  const onLogoPick = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+    const error = imageFileError(file)
+    if (error) {
+      toast.error(error)
+      event.target.value = ''
+      return
+    }
+    if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current)
+    const url = URL.createObjectURL(file)
+    logoUrlRef.current = url
+    dispatch(setMerchantLogo(url))
+    toast.success('Foto toko diperbarui')
+  }
+
+  const onLogoRemove = () => {
+    if (logoUrlRef.current) {
+      URL.revokeObjectURL(logoUrlRef.current)
+      logoUrlRef.current = null
+    }
+    dispatch(removeMerchantLogo())
+    toast.success('Foto toko dihapus')
+  }
 
   const { setPosition } = useLeafletMap('merchant-map', 'picker', {
     picker: {
@@ -58,10 +96,13 @@ export default function MerchantSettings() {
     formState: { errors, isSubmitting },
   } = useForm<MerchantStoreFormData>({
     resolver: zodResolver(merchantStoreSchema),
-    defaultValues: DEFAULTS,
+    defaultValues: { name: storeName, phone: storePhone, address: storeAddress },
   })
 
-  const onSubmit = () => {
+  // Simpan benar-benar mengubah state, bukan cuma toast "berhasil" (dulu form
+  // ini menampilkan sukses padahal tak ada satu pun nilai yang berubah).
+  const onSubmit = (data: MerchantStoreFormData) => {
+    dispatch(setStoreProfile(data))
     toast.success('Setelan toko disimpan')
   }
 
@@ -82,6 +123,47 @@ export default function MerchantSettings() {
     <div className="app-shell">
       <main className="merchant-page">
         <MerchantPageHeader eyebrow="Profil & operasional" title="Setelan toko" />
+
+        {/* Foto toko (field D1, f16). Unggah/Ganti/Hapus ditangani di sini dan
+            langsung tersimpan ke store — tidak menunggu tombol simpan form teks. */}
+        <section className="merchant-card">
+          <p className="merchant-card-title">Foto toko</p>
+          <p className="merchant-card-sub">Tampil sebagai identitas toko di halaman pelanggan.</p>
+          <div className="merchant-image-field">
+            <input
+              ref={logoInputRef}
+              type="file"
+              accept="image/*"
+              className="d-none"
+              onChange={onLogoPick}
+            />
+            {logo ? (
+              <img className="merchant-form-thumb" src={logo} alt="Foto toko" width={64} height={64} />
+            ) : (
+              <span className="merchant-logo-empty" aria-hidden="true">
+                <Store size={24} strokeWidth={1.75} />
+              </span>
+            )}
+            <button
+              type="button"
+              className="merchant-btn-ghost"
+              onClick={() => logoInputRef.current?.click()}
+            >
+              <ImagePlus size={16} strokeWidth={1.75} />
+              {logo ? 'Ganti foto' : 'Unggah foto'}
+            </button>
+          </div>
+          {logo ? (
+            <button
+              type="button"
+              className="merchant-btn-ghost merchant-signout"
+              onClick={() => setRemovePhotoOpen(true)}
+            >
+              <Trash2 size={16} strokeWidth={1.75} />
+              Hapus foto
+            </button>
+          ) : null}
+        </section>
 
         <form className="merchant-card merchant-form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
@@ -193,27 +275,26 @@ export default function MerchantSettings() {
           Keluar
         </button>
 
-        <BottomSheet
+        <ConfirmSheet
           open={signOutOpen}
           title="Keluar dari akun toko?"
+          body="Pesanan yang sedang berjalan tetap ada, tapi kamu harus masuk lagi untuk mengelolanya."
+          confirmLabel="Keluar"
+          onConfirm={confirmSignOut}
           onClose={() => setSignOutOpen(false)}
-        >
-          <p className="merchant-delete-message">
-            Pesanan yang sedang berjalan tetap ada, tapi kamu harus masuk lagi untuk mengelolanya.
-          </p>
-          <div className="merchant-actions">
-            <button
-              type="button"
-              className="merchant-btn-ghost"
-              onClick={() => setSignOutOpen(false)}
-            >
-              Batal
-            </button>
-            <button type="button" className="merchant-delete-confirm" onClick={confirmSignOut}>
-              Keluar
-            </button>
-          </div>
-        </BottomSheet>
+        />
+
+        <ConfirmSheet
+          open={removePhotoOpen}
+          title="Hapus foto toko?"
+          body="Foto toko kembali ke placeholder. Kamu bisa mengunggahnya lagi kapan saja."
+          confirmLabel="Hapus foto"
+          onConfirm={() => {
+            onLogoRemove()
+            setRemovePhotoOpen(false)
+          }}
+          onClose={() => setRemovePhotoOpen(false)}
+        />
       </main>
       <MerchantBottomNav />
     </div>

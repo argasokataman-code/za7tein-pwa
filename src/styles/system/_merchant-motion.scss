@@ -1,0 +1,61 @@
+@use "./mixins" as *;
+
+// ── Gerak halaman merchant ──────────────────────────────────────────────────
+// Dashboard dapur dibuka berkali-kali sehari; yang perlu terasa adalah halaman
+// ini hidup, bukan lambat. Dasarnya `.stagger-in` bersama (di
+// `_interaction.scss`), tetapi dashboard tidak memasang kelas itu satu per satu
+// di TSX: sepuluh section akan membuat penundaan sampai setengah detik sebelum
+// yang terakhir muncul.
+//
+// Di sini urutannya dibatasi ke empat blok pertama saja, lewat `:nth-child` di
+// CSS — nol perubahan di komponennya. Blok pertama (header) tidak ikut karena
+// judul halaman harus langsung ada; yang masuk berurutan adalah isinya.
+
+.merchant-page > :nth-child(2) {
+  --stagger-index: 0;
+}
+
+.merchant-page > :nth-child(3) {
+  --stagger-index: 1;
+}
+
+.merchant-page > :nth-child(4) {
+  --stagger-index: 2;
+}
+
+.merchant-page > :nth-child(5) {
+  --stagger-index: 3;
+}
+
+/* Blok pertama (header) tidak ikut: judul halaman harus langsung ada, dan
+   menganimasikannya membuat seluruh layar terasa tertunda. Isi di bawahnya
+   yang masuk berurutan, mulai dari anak kedua. */
+.merchant-page > :nth-child(2) {
+  --stagger-index: 0;
+}
+
+.merchant-page > :nth-child(3) {
+  --stagger-index: 1;
+}
+
+.merchant-page > :nth-child(4) {
+  --stagger-index: 2;
+}
+
+.merchant-page > :nth-child(5) {
+  --stagger-index: 3;
+}
+
+/* Hanya blok yang punya indeks yang dianimasikan; sisanya muncul langsung.
+   Rentangnya mulai dari anak kedua supaya header tidak ikut, dan berhenti di
+   anak kelima supaya daftar panjang di bawah layar tidak menunggu giliran. */
+.merchant-page > :nth-child(n + 2):nth-child(-n + 5) {
+  animation: stagger-rise var(--motion-emphasis) var(--ease-decelerate) both;
+  animation-delay: calc(min(var(--stagger-index, 0), 8) * var(--stagger-step));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .merchant-page > :nth-child(n + 2):nth-child(-n + 5) {
+    animation: none;
+  }
+}

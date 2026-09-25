@@ -1,3 +1,5 @@
+@use "./mixins" as *;
+
 /* Context before the stock controls makes this operational list readable at a glance. */
 .merchant-menu-context {
   display: flex;
@@ -42,6 +44,42 @@
   color: var(--text-secondary);
   font-size: var(--text-xs);
   text-align: right;
+}
+
+/* ── Filter stok menempel di bawah header ────────────────────────────────────
+   Daftar menu 15 item terukur 2265px — 87% dari tinggi halaman (2810px), jadi
+   filter "Semua / Menipis / Habis" yang duduk di atasnya hilang begitu
+   pengguna menggulir. Terukur: satu-satunya elemen `sticky` di halaman ini
+   adalah headernya, jadi setelah menggulir tak ada lagi cara berpindah filter
+   selain kembali ke atas. Geometri bersama ada di `@mixin sticky-below-header`
+   karena halaman Ulasan punya masalah yang sama. */
+.merchant-menu-overview {
+  @include sticky-below-header;
+}
+
+/* Kepala daftar ("Semua menu · 15 item") ikut menempel supaya jumlahnya selalu
+   terbaca bersama filternya.
+
+   `top` = tinggi header (`--nav-height` 64px) + tinggi filter terukur (56px,
+   sama dengan `min-height` `.merchant-menu-stat`). Sebelumnya memakai
+   `+ 57px + --space-5` = 141px, sehingga menyisakan celah 21px di bawah filter
+   tempat item daftar melintas — itulah yang terbaca sebagai "nyangkut". Latar
+   `::before` melebar ke gutter 20px dan 12px ke atas supaya tidak ada celah di
+   sisi kiri-kanan maupun antara filter dan kepala daftar. */
+.merchant-menu-list-head {
+  position: sticky;
+  top: calc(var(--nav-height) + 56px);
+  z-index: 39;
+  padding-top: var(--space-2);
+  background: var(--bg-warm);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: calc(-1 * var(--space-3)) calc(-1 * var(--space-5));
+    z-index: -1;
+    background: var(--bg-warm);
+  }
 }
 
 /* ── Menu ⋮ (Ubah / Hapus) ───────────────────────────────────────────────────

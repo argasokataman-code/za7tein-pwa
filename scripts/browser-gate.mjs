@@ -35,10 +35,12 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 // akibatnya dua role tampak menjadi aplikasi yang sama.
 const CDP = process.env.GATE_CDP || 'http://127.0.0.1:9359'
 // PWA murni harus diukur pada hasil build (service worker hanya ada di build),
-// bukan di dev server.
-const BASE =
+// bukan di dev server. Di mode biasa, BASE dideteksi dari dev server yang SUDAH
+// hidup — gate tidak pernah menghidupkan server sendiri (dan tidak pernah
+// menyarankan `npm run dev` kalau salah satu port sudah melayani).
+let BASE =
   process.env.GATE_BASE ||
-  (process.argv.includes('--pwa') ? 'http://localhost:4173' : 'http://localhost:5173')
+  (process.argv.includes('--pwa') ? 'http://localhost:4173' : '')
 const LAUNCH_SH =
   process.env.BRAVE_DEBUG_LAUNCH ||
   path.join(process.env.HOME || '', '.local/share/brave-debug-mcp/bin/launch.sh')
@@ -75,8 +77,79 @@ const OPTS = {
   auditFrom: valueOf('--audit-from', 'top'),
 }
 
+if (has('--help') || has('-h')) {
+  process.stdout.write(
+    `browser-gate — ukur UI di klon Brave lewat CDP (${CDP})\n\n` +
+      `  node scripts/browser-gate.mjs --route <path> [--strict] [--click]\n` +
+      `  node scripts/browser-gate.mjs --role <customer|merchant|courier|admin|superadmin|web>\n\n` +
+      `  --route <path>    rute (boleh diulang). Tanpa ini, SATU role default diukur.\n` +
+      `  --role <nama>     role yang diukur (default customer).\n` +
+      `  --strict          promosikan WARN jadi FAIL.\n` +
+      `  --click           uji klik nyata tiap kontrol.\n` +
+      `  --pwa             mode app-mode + input sentuh + syarat service worker.\n` +
+      `  --offline         ukur juga saat offline.\n` +
+      `  --json            keluarkan laporan JSON.\n` +
+      `  --help            tampilkan bantuan ini (tidak mengukur apa pun).\n\n` +
+      `Klon direuse: gate memakai ulang klon/ tab yang sudah hidup, tidak menumpuk.\n`,
+  )
+  process.exit(0)
+}
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 const C = { red: '\x1b[31m', green: '\x1b[32m', yellow: '\x1b[33m', dim: '\x1b[2m', off: '\x1b[0m' }
+
+// ── deteksi klon ───────────────────────────────────────────────────────────
+// Setiap klon punya fingerprint sendiri: port CDP + profil. Gate tidak boleh
+// menumpuk klon/tab baru kalau salah satu sudah hidup — cukup pakai ulang.
+const KNOWN_CLONE_PORTS = [9355, 9356, 9357, 9358, 9359]
+const CDP_HOST = new URL(CDP).hostname || '127.0.0.1'
+
+/** Daftar target CDP, atau `null` kalau endpoint mati (bukan array kosong). */
+async function cdpList(endpoint) {
+  try {
+    const res = await fetch(`${endpoint}/json/list`)
+    if (!res.ok) return null
+    return await res.json()
+  } catch {
+    return null
+  }
+}
+
+/** Buka satu tab baru di klon yang sudah hidup (jangan hidupkan klon baru). */
+async function cdpNewTab(endpoint, url) {
+  try {
+    const res = await fetch(`${endpoint}/json/new?${encodeURIComponent(url)}`, { method: 'PUT' })
+    if (!res.ok) return null
+    return await res.json()
+  } catch {
+    return null
+  }
+}
+
+// ── dev server ─────────────────────────────────────────────────────────────
+// Deteksi server yang SUDAH hidup. Gate tidak pernah menghidupkan dev server:
+// menjalankan `npm run dev` saat satu sudah jalan membuat Vite pindah ke port
+// berikutnya (5174, 5175, ...) dan menumpuk proses. Kalau tak ada yang hidup,
+// berhenti dengan pesan jelas — bukan menghidupkan sendiri.
+const DEV_PORTS = [5173, 5174, 5175, 5176]
+
+async function resolveBase() {
+  if (process.env.GATE_BASE) return process.env.GATE_BASE
+  if (OPTS.pwa) return 'http://localhost:4173'
+  for (const port of DEV_PORTS) {
+    try {
+      const res = await fetch(`http://localhost:${port}/`)
+      if (res.ok) return `http://localhost:${port}`
+    } catch {
+      // port ini kosong; coba berikutnya
+    }
+  }
+  process.stderr.write(
+    `${C.red}Tidak ada dev server di ${DEV_PORTS.map((p) => `:${p}`).join(' / ')}.${C.off}\n` +
+      `Jalankan \`npm run dev\` SEKALI di terminal lain, lalu ulangi. Gate tidak menghidupkan server.\n`,
+  )
+  process.exit(2)
+}
 
 // ── angka pembanding, dibaca dari kode ─────────────────────────────────────
 function tokensFromSource() {
@@ -141,10 +214,28 @@ class Cdp {
   }
 
   static async connect() {
-    let list
-    try {
-      list = await (await fetch(`${CDP}/json/list`)).json()
-    } catch {
+    const endpoint = CDP
+    let list = await cdpList(endpoint)
+
+    // Deteksi: klon lain sudah hidup? Lapor, tapi JANGAN dipakai — memindahkan
+    // tab klon kerja (9355-9358) akan mengusik sesi login di dalamnya. Gate
+    // hanya memakai klon pengukurannya sendiri (9359) supaya tidak menumpuk.
+    if (list === null) {
+      const alive = []
+      for (const port of KNOWN_CLONE_PORTS) {
+        const candidate = `http://${CDP_HOST}:${port}`
+        if (candidate === endpoint) continue
+        if (await cdpList(candidate)) alive.push(port)
+      }
+      if (alive.length) {
+        process.stderr.write(
+          `${C.dim}klon lain hidup (${alive.join(', ')}) — dibiarkan, gate pakai ${CDP}${C.off}\n`,
+        )
+      }
+    }
+
+    // Belum ada klon pengukuran → baru hidupkan (sekali).
+    if (list === null) {
       if (LAUNCH_SH && existsSyncSafe(LAUNCH_SH)) {
         process.stderr.write(`${C.yellow}CDP mati — menjalankan ${LAUNCH_SH}${C.off}\n`)
         // Port + profil klon gate ikut disebut, supaya fallback tidak menghidupkan
@@ -162,13 +253,23 @@ class Cdp {
           },
         })
         await sleep(2500)
-        list = await (await fetch(`${CDP}/json/list`)).json()
+        list = await cdpList(endpoint)
       } else {
         throw new Error(
           `CDP ${CDP} tidak hidup. Jalankan tools["brave-debug"].launch({}) dari agent, lalu ulangi.`,
         )
       }
     }
+
+    if (list === null) throw new Error(`CDP ${endpoint} tidak hidup`)
+
+    // Klon hidup tapi tanpa tab page (semua tab ditutup): buka satu tab di klon
+    // itu. Jangan hidupkan klon baru hanya karena tidak ada tab.
+    if (!list.some((t) => t.type === 'page')) {
+      const opened = await cdpNewTab(endpoint, `${BASE}/customer/home`)
+      if (opened) list = [opened, ...list]
+    }
+
     const page = list.find((t) => t.type === 'page' && (t.url || '').startsWith(BASE))
       ?? list.find((t) => t.type === 'page')
     if (!page) throw new Error('tidak ada tab page di klon Brave')
@@ -809,16 +910,9 @@ async function clickSweep(cdp, url, errors, log) {
 
 // ── jalankan ───────────────────────────────────────────────────────────────
 async function main() {
-  try {
-    const res = await fetch(BASE)
-    if (!res.ok) throw new Error(String(res.status))
-  } catch {
-    process.stderr.write(
-      `${C.red}Server tidak jalan di ${BASE}.${C.off} Jalankan: ` +
-        `${OPTS.pwa ? 'npm run build && npm run preview' : 'npm run dev'}\n`,
-    )
-    process.exit(2)
-  }
+  // Deteksi dev/preview server yang sudah hidup lebih dulu. `resolveBase`
+  // berhenti dengan pesan jelas kalau tak ada — gate tidak menghidupkan server.
+  BASE = await resolveBase()
 
   const tokens = tokensFromSource()
   // Mode PWA cuma untuk rute yang bisa diinstal. `--role all --pwa` menyapu

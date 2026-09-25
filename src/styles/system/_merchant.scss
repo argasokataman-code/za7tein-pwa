@@ -180,12 +180,6 @@
   color: var(--text-primary);
 }
 
-.merchant-section-head a {
-  font-size: var(--text-xs);
-  color: var(--orange-ink);
-  text-decoration: none;
-}
-
 .merchant-order {
   @include card-surface;
   display: flex;
@@ -288,7 +282,11 @@
 .merchant-tabs {
   display: flex;
   gap: var(--space-1);
+  /* Strip tab hanya menggulir horizontal. Tanpa `overflow-y: hidden`,
+     `overflow-x: auto` membuat overflow-y ikut jadi `auto` (spesifikasi CSS),
+     sehingga terhitung scroller vertikal bersarang. */
   overflow-x: auto;
+  overflow-y: hidden;
   margin-bottom: var(--space-4);
 }
 
@@ -415,8 +413,7 @@
    sementara Batal hanya selebar isinya — terukur 64px vs 278px di popup keluar
    MerchantSettings, rasio 1:4. Tombol destruktif yang empat kali lebih lebar
    dari Batal terbaca sebagai aksi utama, padahal ia yang membuang sesi. */
-.merchant-actions .merchant-btn-ghost,
-.merchant-actions .merchant-delete-confirm {
+.merchant-actions .merchant-btn-ghost {
   flex: 1;
   /* Padding mendatar dipindahkan ke nol. Dengan flex-basis 0% + flex-grow 1,
      ruang bebas dibagi SETELAH padding tiap tombol dihitung — dan mixin

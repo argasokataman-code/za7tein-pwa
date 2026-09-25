@@ -153,41 +153,6 @@
    sudah tampil sebagai pil merah di tab Order bawah, jadi beranda tidak perlu
    mengulangnya sebagai kartu. Tinggi tetap `--touch-min` supaya tetap bisa
    disentuh dan sejajar apa pun isinya. */
-.merchant-statline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-1) var(--space-4);
-  margin-bottom: var(--space-4);
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-
-  a,
-  span {
-    display: inline-flex;
-    align-items: baseline;
-    gap: var(--space-1);
-    min-height: var(--touch-min);
-    color: inherit;
-    text-decoration: none;
-  }
-
-  a {
-    color: var(--orange-ink);
-  }
-
-  strong {
-    font-size: var(--text-base);
-    font-weight: 800;
-    font-variant-numeric: tabular-nums;
-    color: var(--text-primary);
-  }
-
-  a strong {
-    color: var(--orange-ink);
-  }
-}
-
 /* Peringkat menu: daftar, bukan grafik. Yang dibandingkan urutannya, jadi bar
    panjang relatif (8px) lebih terbaca daripada donut atau bar chart kolom.
    Satu aksen saja — peringkat 1 oranye, sisanya muted. */
@@ -259,4 +224,38 @@
   color: var(--orange-ink);
   font-size: var(--text-sm);
   text-decoration: none;
+}
+
+/* Identitas toko di hero: foto + nama. Foto dibaca dari `merchantSlice.logo`,
+   jadi unggahan di Setelan toko langsung tampil di beranda. */
+.merchant-hero__id {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.merchant-hero__avatar {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+  object-fit: cover;
+  border: 2px solid var(--on-brand);
+  background: var(--border);
+  color: var(--text-secondary);
+}
+
+/* Placeholder foto toko saat belum ada gambar. Berbagi ukuran radius dengan
+   .merchant-form-thumb supaya baris tidak melompat saat foto diisi/dihapus. */
+.merchant-logo-empty {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--border);
+  color: var(--text-secondary);
 }

@@ -133,8 +133,21 @@ export const mockMerchant: Merchant = {
   isActive: true,
   openTime: '07:00',
   closeTime: '22:00',
+  // Foto contoh: memakai ulang aset menu yang sudah ada (tanpa aset baru).
+  logo: '/assets/img/menu/sate-ayam.webp',
   bank: { name: 'BCA', account: '8830 1122 3344', holder: 'Ali Santoso' },
 }
+
+/**
+ * Profil toko yang disunting di Setelan merchant. Nama mengikuti
+ * `mockMerchant.name` supaya beranda dan form tidak berbeda; nomor & alamat
+ * tidak ada di tipe `Merchant` karena hanya dipakai layar ini.
+ */
+export const mockStoreProfile = {
+  name: mockMerchant.name,
+  phone: '0811-2222-3333',
+  address: 'Jl. Kebon Sirih No. 8, Jakarta Pusat',
+} as const
 
 /**
  * Registri merchant platform — identitas usaha + keadaan tenant dalam satu

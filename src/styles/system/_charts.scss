@@ -52,13 +52,47 @@
 /* `vector-effect` tidak dipakai di sini: garis data boleh diskalakan bersama
    viewBox-nya, karena rasionya sudah nyata (bukan viewBox 0..100 yang
    diregangkan), dan menambah `vector-effect` membuat tebal garis berbeda dengan
-   yang lain saat kartu menyempit. */
+   yang lain saat kartu menyempit.
+
+   Garisnya menggambar dari kiri ke kanan saat kartu masuk, sama seperti cincin
+   donut di kartu lain. Sebelumnya hanya donutnya yang bergerak dan sparkline
+   muncul beku, jadi dua grafik di satu halaman terbaca sebagai dua bahasa.
+   `pathLength="1"` di komponennya membuat `dasharray` tidak perlu tahu panjang
+   path sebenarnya; tanpa itu nilainya harus diukur per data. */
 .chart-spark-line {
   fill: none;
   stroke: var(--sa7tein-orange);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 1;
+  animation: spark-draw var(--motion-journey) var(--ease-decelerate) 120ms both;
+}
+
+@keyframes spark-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Titik ujung muncul setelah garisnya sampai, bukan ikut berjalan. */
+.chart-spark-dot {
+  fill: var(--sa7tein-orange);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+  animation: spark-dot-in var(--motion-standard) var(--ease-decelerate) 620ms both;
+}
+
+@keyframes spark-dot-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .chart-spark-fill {
@@ -72,12 +106,6 @@
    surface scan, bukan lewat browser. */
 .chart-spark-area {
   stroke: none;
-}
-
-.chart-spark-dot {
-  fill: var(--sa7tein-orange);
-  stroke: var(--surface);
-  stroke-width: 1.5;
 }
 
 /* ── Donut ─────────────────────────────────────────────────────────────── */
@@ -173,6 +201,35 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--text-primary);
+}
+
+/* Legenda yang bisa ditekan: tiap baris jadi tautan ke daftar yang dihitungnya.
+   Sebelumnya jalan itu ada di baris angka terpisah di atas kartu; memindahkannya
+   ke sini membuat satu angka punya satu tempat sekaligus satu jalan keluar.
+
+   Tata letaknya sama persis dengan `li` biasa (grid dua kolom) supaya baris
+   statis dan baris yang bisa ditekan tidak berbeda tinggi — kalau berbeda,
+   legenda akan terlihat bergerigi. Area sentuh dinaikkan ke `--touch-min` lewat
+   `min-height` yang dipusatkan, bukan padding, supaya barisnya tidak melar. */
+.chart-legend-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--space-2);
+  row-gap: 1px;
+  align-items: baseline;
+  align-content: center;
+  min-height: var(--touch-min);
+  margin-block: calc(-1 * var(--space-2));
+  color: inherit;
+  text-decoration: none;
+}
+
+.chart-legend-link.is-static {
+  cursor: default;
+}
+
+.chart-legend-link:not(.is-static):active .chart-legend-label {
+  color: var(--orange-ink);
 }
 
 /* ── Bar ───────────────────────────────────────────────────────────────── */
@@ -277,5 +334,17 @@
 
   .chart-bar-fill {
     animation: none;
+  }
+
+  /* Garis dan titiknya langsung tampil utuh. Tanpa ini keduanya tetap berakhir
+     di keadaan akhir, tapi selama 650ms grafiknya kosong — pembaca yang meminta
+     gerak dikurangi justru menunggu lebih lama daripada yang tidak. */
+  .chart-spark-line,
+  .chart-spark-dot {
+    animation: none;
+  }
+
+  .chart-spark-line {
+    stroke-dashoffset: 0;
   }
 }

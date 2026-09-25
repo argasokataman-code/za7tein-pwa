@@ -80,7 +80,7 @@ export const merchantOrders: MerchantOrder[] = [
     status: 'dimasak',
     placedAt: '14 menit lalu',
     paymentMethod: 'cod',
-    cookMinutes: 20,
+    cookMinutes: 25,
   },
   {
     id: 'mo-4',

@@ -267,6 +267,8 @@ export interface Merchant {
   isActive: boolean
   openTime: string
   closeTime: string
+  /** Foto toko (field `photo` D1, f16). Path aset atau object URL sesi unggah. */
+  logo: string
   bank: { name: string; account: string; holder: string }
 }
 
@@ -786,6 +788,17 @@ export interface ChartSegment {
   label: string
   value: number
   tone: ChartTone
+  /**
+   * Id tab antrean yang mewakili potongan ini, kalau ada padanannya.
+   * Dipakai legenda yang bisa ditekan: potongan donut tanpa jalan menuju
+   * daftar ordernya hanya bisa dilihat, tidak bisa ditindaklanjuti.
+   *
+   * Tipenya `string`, bukan `QueueTabId`, karena `QueueTabId` diturunkan dari
+   * `QUEUE_TABS` di `data/merchantOrders.ts` yang sudah mengimpor berkas ini —
+   * memakainya di sini akan membuat lingkaran impor. Nilainya tetap wajib
+   * berasal dari `QUEUE_TABS`; itu dijaga di pemanggilnya (`merchantTrend.ts`).
+   */
+  tab?: string
 }
 
 /** Satu batang bar chart. */

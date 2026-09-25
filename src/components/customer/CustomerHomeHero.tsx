@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, UserRound } from 'lucide-react'
+
+import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 /**
  * Hero beranda pelanggan.
  *
@@ -25,66 +27,6 @@ import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, UserRound } from 
  */
 
 import './CustomerHomeHero.css'
-
-/**
- * Pola latar hero.
- *
- * Komposisinya dari versi terbaru: dua gelombang organik, garis rute
- * pengiriman putus-putus, kluster titik di kanan atas, dan mangkuk beruap
- * dengan pin lokasi sebagai aksen.
- *
- * Bentuknya dipertahankan apa adanya. Yang disesuaikan hanya tiga hal yang
- * bertabrakan dengan palet, dan ketiganya sudah pernah muncul:
- *
- * - <linearGradient> #FF5252 -> #FF3D00 -> #DD2C00. Itu merah, bukan oranye
- *   Sa7tein. Karena <rect>-nya menutup penuh, ia akan mengganti warna merek di
- *   seluruh hero, bukan menambah di atasnya.
- * - <filter> feGaussianBlur. Glow terbaca sebagai neon, dan blur 140% area
- *   mahal di perangkat mobile.
- * - Warna di luar palet: #FFE0B2 pada pin dan #FF3D00 pada titik tengahnya.
- *
- * Opasitasnya dipindah ke CSS dan ditahan di 4-14%. Angka di berkas aslinya
- * mencapai 90% pada pin dan 45% pada uap — dikomposit ke atas oranye merek,
- * keduanya berhenti jadi oranye.
- *
- * `slice` membuat skalanya seragam, jadi lingkaran tetap bulat dan tebal garis
- * tetap rata di lebar layar mana pun.
- */
-function Sa7teinHeroPattern() {
-  return (
-    <svg
-      className="s7-hero-pattern"
-      viewBox="0 0 1000 520"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-      focusable="false"
-    >
-      {/* Gelombang latar: satu masuk dari atas, satu naik dari bawah. */}
-      <path
-        className="s7-wave s7-wave--one"
-        d="M0,160 C320,300 420,100 700,220 C850,280 950,180 1000,200 L1000,0 L0,0 Z"
-      />
-      <path
-        className="s7-wave s7-wave--two"
-        d="M0,400 C200,350 350,460 600,390 C800,320 900,440 1000,380 L1000,520 L0,520 Z"
-      />
-
-      <g className="s7-dot-matrix">
-        {[0, 1, 2].map((row) =>
-          [0, 1, 2, 3].map((column) => (
-            <circle
-              key={`${row}-${column}`}
-              cx={762 + column * 20}
-              cy={140 + row * 20}
-              r="3"
-            />
-          )),
-        )}
-      </g>
-
-    </svg>
-  )
-}
 
 function LocationPinIcon() {
   return <MapPin className="s7-icon" strokeWidth={1.75} aria-hidden="true" />
@@ -189,7 +131,7 @@ export default function CustomerHomeHero({
   const [query, setQuery] = useState('')
 
   return (
-    <section className="s7-hero s7-parallax--hero">
+    <section className="s7-hero s7-hero--customer s7-parallax--hero">
       <Sa7teinHeroPattern />
 
       <div className="s7-hero__content">

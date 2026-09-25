@@ -1,15 +1,19 @@
 {
   "schemaVersion": 1,
-  "note": "Approved decorative or brand SVG exceptions only; functional icons must use lucide-react. Raw colors are a shrinking legacy ceiling, not permission for new values. SaZones.tsx holds the zone polygon canvas: it is a data graphic the SA edits, not an icon, and it stays on a schematic 0..100 grid so no external map tile is needed. DonutChart.tsx holds the Ringkasan donut: arcs need SVG stroke-dasharray, and it is a data graphic, not an icon; bars in the same dashboard are plain HTML/CSS. Sparkline.tsx holds the merchant revenue sparkline: a line needs a polyline path, which HTML/CSS cannot draw, and it is a data graphic with an aria-label carrying the numbers, not an icon.",
+  "note": "Approved decorative or brand SVG exceptions only; functional icons must use lucide-react. Raw colors are a shrinking legacy ceiling, not permission for new values. SaZones.tsx holds the zone polygon canvas: it is a data graphic the SA edits, not an icon, and it stays on a schematic 0..100 grid so no external map tile is needed. DonutChart.tsx holds the Ringkasan donut: arcs need SVG stroke-dasharray, and it is a data graphic, not an icon; bars in the same dashboard are plain HTML/CSS. Sparkline.tsx holds the merchant revenue sparkline: a line needs a polyline path, which HTML/CSS cannot draw, and it is a data graphic with an aria-label carrying the numbers, not an icon. HomePromoCarousel.tsx holds the promo-card background waves and dot texture: the same decorative motif as the home hero, opacity kept at 4-14%, not functional icons.",
   "inlineSvg": {
     "src/components/ui/DonutChart.tsx": [
       "d2bd875d9fedc3741496bef7239ac278f2e280f9386b8d76b57b49d1e3218676"
     ],
     "src/components/ui/Sparkline.tsx": [
-      "c1ba377bd8263af9a42afd3025ae80310e57674324bf595559f38fa762aa76a4"
+      "c53d9fb533006ba8e1a09ff6eb040a67d2d64bd50b2aa9401877de8d9f0e1d25"
     ],
-    "src/components/customer/CustomerHomeHero.tsx": [
-      "0eff9e9470c8736a14f4409d9959817ecd2eb88bf3c42a179fbad3ac0f5310fe"
+    "src/components/customer/HomePromoCarousel.tsx": [
+      "1f10ad4bd744fdba3265ec62d9296b884c132b6f28f779f370f23e99837f34eb"
+    ],
+    "src/components/customer/CustomerHomeHero.tsx": [],
+    "src/components/ui/Sa7teinHeroPattern.tsx": [
+      "ac2e03fb3582b56d515bca3f1f04a2bfbd6555d86abc0e627150e0c32bed9e7c"
     ],
     "src/pages/SaZones.tsx": [
       "61c2592c1b5d0985ceba9682f122804b17df7babef31efc5e7000439478bc1da"
@@ -24,7 +28,8 @@
     "src/pages/ForgotPasswordOtp.tsx": 3,
     "src/pages/MenuDetail.tsx": 2,
     "src/pages/Profile.tsx": 1,
-    "src/pages/documentation/sections/ComponentsSection.tsx": 2,
+    "src/pages/documentation/sections/AppPolishSection.tsx": 4,
+    "src/pages/documentation/sections/ComponentsSection.tsx": 3,
     "src/styles/_system.scss": 23
   }
 }

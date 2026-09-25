@@ -105,6 +105,69 @@ export function ComponentsSection() {
         Returns <code className="doc-inline">null</code> when closed. Closes on Escape key and overlay click.
       </p>
       <h3 className="doc-h3">
+        ConfirmSheet
+      </h3>
+      <p className="doc-p">
+        <code className="doc-inline">
+          src/components/ui/ConfirmSheet.tsx
+        </code>
+      </p>
+      <DocCode lang="tsx">
+        {`<ConfirmSheet
+  open={open}
+  title="Hapus item menu?"
+  body="Item ini hilang dari menu pelanggan."
+  confirmLabel="Hapus item"
+  confirmClass="btn-primary"  // optional — default btn-primary
+  onConfirm={confirm}
+  onClose={close}
+/>`}
+      </DocCode>
+      <p className="doc-p">
+        Satu-satunya pola konfirmasi dua langkah. Isinya{' '}
+        <code className="doc-inline">BottomSheet</code> +{' '}
+        <code className="doc-inline">.sheet-copy</code> +{' '}
+        <code className="doc-inline">.sheet-actions</code> yang sudah ada — bukan
+        modal baru, dan tidak boleh ada sheet konfirmasi yang ditulis tangan per
+        peran. Aturannya:
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Konfirmasi</strong> aksi merusak atau yang menahan uang (tutup
+          toko, hapus item/kurir, tolak/batalkan order, keluar akun) memakai{' '}
+          <code className="doc-inline">ConfirmSheet</code>. Aksi yang mudah
+          dibalik (buka toko, terima order, tugas kurir) tetap satu ketukan.
+        </li>
+        <li>
+          <strong>Form atau konten</strong> (tambah kurir, tambah item, stok,
+          detail order) tetap <code className="doc-inline">BottomSheet</code>{' '}
+          polos — konfirmasi bukan tempat form.
+        </li>
+        <li>
+          Dua tombolnya <strong>sejajar</strong>: keduanya{' '}
+          <code className="doc-inline">.btn</code> dengan{' '}
+          <code className="doc-inline">flex: 1</code>, sama dengan{' '}
+          <code className="doc-inline">.merchant-actions</code>,{' '}
+          <code className="doc-inline">.admin-actions</code>, dan{' '}
+          <code className="doc-inline">.profile-modal-actions</code>. Tombol
+          batal memakai <code className="doc-inline">.sheet-cancel</code>.
+          <strong> Jangan</strong> mengubah{' '}
+          <code className="doc-inline">.sheet-actions</code> jadi menumpuk —
+          dulu pernah begitu (audit 006 #4) dan langsung terbaca &ldquo;popup
+          gak seragam&rdquo;.
+        </li>
+        <li>
+          <strong>Jangan</strong> mengisi{' '}
+          <code className="doc-inline">confirmClass</code> dengan kelas yang
+          hanya distyle di bawah leluhur tertentu (mis.{' '}
+          <code className="doc-inline">.merchant-actions .x</code>). Sheet
+          portal ke <code className="doc-inline">body</code>, jadi selektor
+          berleluhur itu tidak akan kena dan tombolnya jatuh ke{' '}
+          <code className="doc-inline">.btn</code> polos transparan. Pakai kelas
+          standalone.
+        </li>
+      </ul>
+      <h3 className="doc-h3">
         MerchantPageHeader
       </h3>
       <p className="doc-p">

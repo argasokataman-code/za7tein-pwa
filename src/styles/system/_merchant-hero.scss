@@ -1,0 +1,128 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Hero beranda dapur (merchant).
+//
+// Menggabungkan tiga hal yang sebelumnya tiga kartu terpisah — identitas toko
+// ("Dapur" + nama), status buka/tutup dengan tombolnya, dan kuota harian — jadi
+// satu bidang merek di puncak beranda. Bidang oranye dan polanya dipakai
+// bersama beranda pelanggan lewat `system/_hero.scss`.
+//
+// Full-bleed: `margin` negatif sebesar padding `.merchant-page` supaya latar
+// oranye menyentuh tepi kolom; isi di dalamnya tetap memiliki gutter 20px.
+// ═══════════════════════════════════════════════════════════════════════════
+
+.merchant-hero {
+  /* `width: auto` (bukan 100% dari basis bersama): dengan margin negatif di
+     kiri-kanan, `width: 100%` mengunci lebarnya ke lebar konten induk lalu
+     hanya menggeser ke kiri, sehingga tepi kanan tetap menyisakan 20px. `auto`
+     membuatnya benar-benar menyentuh kedua tepi kolom. */
+  width: auto;
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-5);
+}
+
+.merchant-hero__content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+
+  padding: var(--space-5) var(--space-5) var(--space-6);
+}
+
+/* Judul dan eyebrow memakai kelas `merchant-*` supaya skala hurufnya satu
+   sumber dengan header role merchant (`system/_type.scss`); di sini hanya
+   warnanya yang putih. */
+.merchant-hero .merchant-eyebrow {
+  margin-bottom: 0;
+  color: var(--on-brand);
+}
+
+.merchant-hero .merchant-title {
+  margin: 0;
+  color: var(--on-brand);
+}
+
+.merchant-hero__state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  padding: 5px var(--space-3);
+
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--on-brand) 16%, transparent);
+
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.merchant-hero__dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: var(--on-brand);
+}
+
+.merchant-hero__note {
+  font-size: var(--text-xs);
+}
+
+.merchant-hero__toggle {
+  width: 100%;
+  min-height: var(--touch-min);
+
+  border: 0;
+  border-radius: var(--radius-pill);
+
+  background: var(--surface);
+  color: var(--orange-ink);
+
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.merchant-hero__toggle:active {
+  transform: translateY(1px);
+}
+
+.merchant-hero__quota {
+  width: 100%;
+}
+
+.merchant-hero__quota-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.merchant-hero__quota-track {
+  margin-top: var(--space-2);
+  height: 6px;
+
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--on-brand) 22%, transparent);
+
+  overflow: hidden;
+}
+
+.merchant-hero__quota-track span {
+  display: block;
+  height: 100%;
+
+  background: var(--on-brand);
+}
+
+/* Isi turun dari area kamera di app terinstal; latarnya tetap sampai tepi. */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .merchant-hero__content {
+    padding-top: calc(var(--space-5) + env(safe-area-inset-top));
+  }
+}

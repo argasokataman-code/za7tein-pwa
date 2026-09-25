@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { Check, ChevronRight, Star } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { JourneyLine } from '../components/JourneyLine'
 import { BottomSheet } from '../components/ui/BottomSheet'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { COURIER_STATUS_LABEL } from '../data/courier'
 import { HOLD_STATUS_COPY, formatDistance, money, zoneLabel } from '../data/merchant'
@@ -32,19 +34,64 @@ const JOURNEY_STAGE: Partial<Record<MerchantOrderStatus, OrderStage>> = {
 /* Estimasi masak sebagai pilihan tetap, bukan slider. Slider adalah kontrol
    desktop (tarik presisi) dan di ponsel terasa seperti form web; segmented
    control adalah pola native untuk rentang kecil yang diskret. */
-const COOK_OPTIONS = [15, 20, 25, 30] as const
+const COOK_OPTIONS = [15, 25, 35] as const
+const DEFAULT_COOK_MINUTES = 25
 
 export default function MerchantOrders() {
   const dispatch = useAppDispatch()
   const orders = useAppSelector((s) => s.merchant.orders)
   const couriers = useAppSelector((s) => s.merchant.couriers)
-  const [tab, setTab] = useState<QueueTabId>('masuk')
+  const [params] = useSearchParams()
+  /* Tab awal bisa datang dari tautan (?tab=batal), dipakai legenda donut di
+     dashboard: potongan "Batal/tolak 1 order" harus mendarat di daftar yang
+     benar-benar berisi order batal, bukan di tab pertama. Nilai yang tidak
+     dikenal jatuh ke tab pertama supaya tautan lama tidak membuat layar kosong. */
+  const [tab, setTab] = useState<QueueTabId>(() => {
+    const dariTautan = params.get('tab')
+    return QUEUE_TABS.some((t) => t.id === dariTautan) ? (dariTautan as QueueTabId) : 'masuk'
+  })
   const [detailId, setDetailId] = useState<string | null>(null)
+  /* Konfirmasi 2-langkah: aksi yang keluar rel / menahan uang tidak boleh
+     terjadi karena satu sentuhan salah (ConfirmSheet, pola yang sama dengan
+     panel CS). Id disimpan, bukan objek, supaya tetap valid setelah re-render. */
+  const [rejectId, setRejectId] = useState<string | null>(null)
+  const [dispatchId, setDispatchId] = useState<string | null>(null)
+  const [cancelId, setCancelId] = useState<string | null>(null)
 
   const activeTab = QUEUE_TABS.find((t) => t.id === tab) ?? QUEUE_TABS[0]
   const visible = ordersForStatuses(orders, activeTab.statuses)
   const detailOrder = orders.find((o) => o.id === detailId) ?? null
   const detailCourier = detailOrder ? couriers.find((c) => c.id === detailOrder.courierId) : undefined
+  const codeOf = (id: string | null) => orders.find((o) => o.id === id)?.code ?? ''
+
+  const receiveOrder = (id: string, code: string) => {
+    dispatch(setOrderStatus({ id, status: 'diterima' }))
+    toast.success(`Order ${code} diterima`)
+  }
+
+  const confirmReject = () => {
+    if (!rejectId) return
+    const order = orders.find((o) => o.id === rejectId)
+    dispatch(setOrderStatus({ id: rejectId, status: 'ditolak' }))
+    toast.success(`Order ${order?.code ?? ''} ditolak`)
+    setRejectId(null)
+  }
+
+  const confirmDispatch = () => {
+    if (!dispatchId) return
+    const order = orders.find((o) => o.id === dispatchId)
+    dispatch(setOrderStatus({ id: dispatchId, status: 'diantar' }))
+    toast.success(`Order ${order?.code ?? ''} siap dan diserahkan ke kurir`)
+    setDispatchId(null)
+  }
+
+  const confirmCancel = () => {
+    if (!cancelId) return
+    const order = orders.find((o) => o.id === cancelId)
+    dispatch(setOrderStatus({ id: cancelId, status: 'batal' }))
+    toast.success(`Order ${order?.code ?? ''} dibatalkan — dana hold dikembalikan`)
+    setCancelId(null)
+  }
 
   /* Ringkasan item untuk baris antrean: satu baris, dipotong dengan elipsis.
      Daftar lengkap dengan harga ada di sheet detail. */
@@ -120,14 +167,14 @@ export default function MerchantOrders() {
                     <button
                       type="button"
                       className="btn btn-primary"
-                      onClick={() => dispatch(setOrderStatus({ id: order.id, status: 'diterima' }))}
+                      onClick={() => receiveOrder(order.id, order.code)}
                     >
                       Terima
                     </button>
                     <button
                       type="button"
                       className="merchant-btn-ghost"
-                      onClick={() => dispatch(setOrderStatus({ id: order.id, status: 'ditolak' }))}
+                      onClick={() => setRejectId(order.id)}
                     >
                       Tolak
                     </button>
@@ -214,16 +261,17 @@ export default function MerchantOrders() {
                 <button
                   type="button"
                   className="btn btn-primary"
-                  onClick={() =>
-                    dispatch(setOrderStatus({ id: detailOrder.id, status: 'diterima' }))
-                  }
+                  onClick={() => receiveOrder(detailOrder.id, detailOrder.code)}
                 >
                   Terima
                 </button>
                 <button
                   type="button"
                   className="merchant-btn-ghost"
-                  onClick={() => dispatch(setOrderStatus({ id: detailOrder.id, status: 'ditolak' }))}
+                  onClick={() => {
+                    setDetailId(null)
+                    setRejectId(detailOrder.id)
+                  }}
                 >
                   Tolak
                 </button>
@@ -234,7 +282,7 @@ export default function MerchantOrders() {
               <div className="merchant-cook">
                 <div className="merchant-cook-head">
                   <span>Estimasi masak</span>
-                  <strong>{detailOrder.cookMinutes ?? 20} menit</strong>
+                  <strong>{detailOrder.cookMinutes ?? DEFAULT_COOK_MINUTES} menit</strong>
                 </div>
                 <div
                   className="merchant-cook-segments"
@@ -242,7 +290,7 @@ export default function MerchantOrders() {
                   aria-label={`Estimasi masak ${detailOrder.code}`}
                 >
                   {COOK_OPTIONS.map((minutes) => {
-                    const active = (detailOrder.cookMinutes ?? 20) === minutes
+                    const active = (detailOrder.cookMinutes ?? DEFAULT_COOK_MINUTES) === minutes
                     return (
                       <button
                         key={minutes}
@@ -293,13 +341,40 @@ export default function MerchantOrders() {
                   type="button"
                   className="btn btn-primary"
                   onClick={() => {
-                    dispatch(setOrderStatus({ id: detailOrder.id, status: 'diantar' }))
                     setDetailId(null)
+                    setDispatchId(detailOrder.id)
                   }}
                 >
                   Siap diantar
                 </button>
+
+                <button
+                  type="button"
+                  className="merchant-btn-ghost merchant-signout"
+                  onClick={() => {
+                    setDetailId(null)
+                    setCancelId(detailOrder.id)
+                  }}
+                >
+                  Batalkan pesanan
+                </button>
               </div>
+            ) : null}
+
+            {/* Lane guard (f12): order yang sudah di jalan bisa macet. Merchant
+                hanya punya dua jalan keluar — ganti kurir (di blok cook) atau
+                batalkan dan kembalikan dana hold. */}
+            {detailOrder.status === 'diantar' ? (
+              <button
+                type="button"
+                className="merchant-btn-ghost merchant-signout"
+                onClick={() => {
+                  setDetailId(null)
+                  setCancelId(detailOrder.id)
+                }}
+              >
+                Batalkan pesanan
+              </button>
             ) : null}
 
             {detailOrder.status === 'selesai' ? (
@@ -316,6 +391,34 @@ export default function MerchantOrders() {
           </>
         ) : null}
       </BottomSheet>
+
+      {/* Konfirmasi 2-langkah untuk aksi yang keluar rel atau menahan uang. */}
+      <ConfirmSheet
+        open={rejectId !== null}
+        title="Tolak pesanan?"
+        body={`Pesanan ${codeOf(rejectId)} keluar dari antrean dan tidak bisa dikembalikan dari halaman ini.`}
+        confirmLabel="Tolak pesanan"
+        onConfirm={confirmReject}
+        onClose={() => setRejectId(null)}
+      />
+
+      <ConfirmSheet
+        open={dispatchId !== null}
+        title="Serahkan ke kurir?"
+        body={`Pesanan ${codeOf(dispatchId)} ditandai siap diantar. Kurir menerima tugas dan pelanggan melihat statusnya berjalan.`}
+        confirmLabel="Siap diantar"
+        onConfirm={confirmDispatch}
+        onClose={() => setDispatchId(null)}
+      />
+
+      <ConfirmSheet
+        open={cancelId !== null}
+        title="Batalkan pesanan?"
+        body={`Pesanan ${codeOf(cancelId)} dibatalkan dan dana hold dikembalikan ke pelanggan. Kamu tidak menerima pembayaran untuk order ini.`}
+        confirmLabel="Batalkan & refund"
+        onConfirm={confirmCancel}
+        onClose={() => setCancelId(null)}
+      />
 
       <MerchantBottomNav />
     </div>

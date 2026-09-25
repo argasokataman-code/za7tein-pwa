@@ -108,12 +108,29 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
       </h3>
       <p className="doc-p">
         <code className="doc-inline">FoodCard</code>,
-        <code className="doc-inline">CustomerHomeHero</code>, and
-        <code className="doc-inline">JourneyLine</code> are not shared with merchant
-        screens. Merchant content is admin-oriented (order rows, status badges,
-        menu management) — not customer food browsing. Reusing those components
-        would force merchant-specific props into a customer-shaped interface.
-        This is a conscious decision, not an oversight.
+        <code className="doc-inline">JourneyLine</code>, and the customer hero&rsquo;s
+        search and profile content are not shared with merchant screens. Merchant
+        content is admin-oriented (order rows, status badges, menu management) — not
+        customer food browsing. Reusing those components would force merchant-specific
+        props into a customer-shaped interface. This is a conscious decision, not an
+        oversight. The hero&rsquo;s orange field and wave pattern <em>are</em> shared
+        through <code className="doc-inline">Sa7teinHeroPattern</code> and
+        <code className="doc-inline">system/_hero.scss</code>; only the contents differ.
+      </p>
+      <h3 className="doc-h3">
+        Hero beranda dapur
+      </h3>
+      <p className="doc-p">
+        Beranda merchant memakai hero oranye seperti beranda pelanggan
+        (<code className="doc-inline">MerchantHomeHero</code>,{' '}
+        <code className="doc-inline">src/components/merchant/</code>). Tiga hal yang
+        dulu tiga kartu terpisah — identitas toko, status buka/tutup beserta tombolnya,
+        dan kuota harian — kini satu bidang: eyebrow &ldquo;Dapur&rdquo; + nama toko
+        (memakai <code className="doc-inline">merchant-title</code>, skala hero dari{' '}
+        <code className="doc-inline">system/_type.scss</code>), chip status, tombol
+        buka/tutup selebar kartu, lalu bilah kuota. Latar oranye full-bleed ke tepi
+        kolom sementara isinya tetap 20&nbsp;px. Komponen ini tanpa state: nilai dan
+        aksi tetap milik halaman (<code className="doc-inline">merchantSlice</code>).
       </p>
       <h3 className="doc-h3">
         Profil &amp; rating pembeli di kartu order
@@ -138,6 +155,98 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         saat ini" memakai <code className="doc-inline">navigator.geolocation</code>
         dan memindahkan pin, lalu koordinat terpilih tampil real-time di kartu
         Koordinat. Geolokasi ditolak? Pin tetap bisa digeser manual.
+      </p>
+      <h3 className="doc-h3">
+        Foto toko di Setelan
+      </h3>
+      <p className="doc-p">
+        Field foto profil toko (kontrak <code className="doc-inline">photo</code>{' '}
+        D1, flow <code className="doc-inline">f16-merchant-onboarding</code>) kini
+        bisa dikelola di <code className="doc-inline">/merchant/settings</code>:
+        unggah, ganti, dan hapus. Pratinjau memakai berkas lokal lewat{' '}
+        <code className="doc-inline">URL.createObjectURL</code> (front-end saja,
+        AGENTS.md §1) dan disimpan di <code className="doc-inline">merchantSlice</code>{' '}
+        (<code className="doc-inline">setMerchantLogo</code> /{' '}
+        <code className="doc-inline">removeMerchantLogo</code>), bukan menunggu
+        tombol simpan form teks. Baris pratinjau memakai ulang{' '}
+        <code className="doc-inline">.merchant-image-field</code> +{' '}
+        <code className="doc-inline">.merchant-form-thumb</code> yang sudah ada di
+        editor menu; saat kosong diganti placeholder{' '}
+        <code className="doc-inline">.merchant-logo-empty</code> berukuran sama
+        supaya baris tidak melompat. URL objek dilepas saat diganti, dihapus, dan
+        unmount. Foto yang sama tampil di hero beranda (
+        <code className="doc-inline">MerchantHomeHero</code>) karena keduanya
+        membaca <code className="doc-inline">merchantSlice.logo</code>; contoh
+        bawaan memakai ulang aset menu yang sudah ada, tanpa menambah aset baru.
+      </p>
+      <h3 className="doc-h3">
+        Konfirmasi aksi berisiko di konsol merchant
+      </h3>
+      <p className="doc-p">
+        Aksi yang keluar dari rel atau menahan uang tidak lagi terjadi karena
+        satu sentuhan salah. Semuanya memakai{' '}
+        <code className="doc-inline">ConfirmSheet</code> — komponen konfirmasi
+        dua langkah yang sudah dipakai panel CS dan tugas kurir, kini akhirnya
+        masuk role merchant (sebelumnya merchant menulis{' '}
+        <code className="doc-inline">BottomSheet</code> mentah sendiri dan nol
+        memakai komponen bersama). Konfirmasi lama yang masih ditulis tangan —
+        hapus item menu, hapus kurir, keluar dari akun — ikut dipindahkan ke{' '}
+        <code className="doc-inline">ConfirmSheet</code>, jadi seluruh
+        konfirmasi merchant seragam: judul, isi, tombol Batal, dan tombol aksi.
+        Sheet yang berupa form atau konten (tambah kurir, tambah item, stok,
+        detail order) tetap <code className="doc-inline">BottomSheet</code>.
+        Layout dua tombolnya juga disamakan: <code className="doc-inline">.sheet-actions</code>{' '}
+        kini sejajar <code className="doc-inline">flex: 1</code> seperti{' '}
+        <code className="doc-inline">.merchant-actions</code> dan{' '}
+        <code className="doc-inline">.profile-modal-actions</code> — sebelumnya{' '}
+        <code className="doc-inline">ConfirmSheet</code> menumpuk penuh sehingga
+        popup merchant tampil berbeda dari popup merchant lain. Yang dikonfirmasi:
+      </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Tutup toko</strong> (<code className="doc-inline">MerchantDashboard</code>)
+          — membuka kembali cukup satu tap, menutup minta konfirmasi karena
+          order baru langsung berhenti.
+        </li>
+        <li>
+          <strong>Tolak pesanan</strong> (<code className="doc-inline">MerchantOrders</code>)
+          — order keluar dari antrean; dulu satu tap tanpa jejak, tombolnya
+          hilang begitu status berubah.
+        </li>
+        <li>
+          <strong>Siap diantar</strong> — dua langkah, sesuai flow{' '}
+          <code className="doc-inline">f12-merchant-console</code> ("Siap
+          diambil (2-way confirm)").
+        </li>
+        <li>
+          <strong>Batalkan pesanan &amp; refund</strong> — lane guard{' '}
+          <code className="doc-inline">f12</code>: order macet punya jalan
+          keluar (ganti kurir, atau batal dan kembalikan dana hold). Sebelumnya
+          jalur ini tidak ada di kode.
+        </li>
+        <li>
+          <strong>Hapus foto toko</strong> (<code className="doc-inline">MerchantSettings</code>)
+          — dulu langsung hapus tanpa konfirmasi.
+        </li>
+        <li>
+          <strong>Sembunyikan item menu</strong> (<code className="doc-inline">MerchantMenu</code>)
+          — switch ketersediaan dulu langsung <code className="doc-inline">toggleAvailable</code>.
+          Menyembunyikan sekarang minta konfirmasi (item hilang dari menu pelanggan);
+          menampilkan kembali cukup satu tap.
+        </li>
+      </ul>
+      <p className="doc-p">
+        Pilihan estimasi masak disamakan dengan PRD aktif:{' '}
+        <code className="doc-inline">15 / 25 / 35</code> menit (dulu{' '}
+        <code className="doc-inline">15 / 20 / 25 / 30</code>, selisih dari flow
+        dan <code className="doc-inline">source.md</code>). Berkas gambar (foto
+        toko &amp; item menu) lewat <code className="doc-inline">imageFileError</code>{' '}
+        di <code className="doc-inline">src/lib/image.ts</code> — tipe harus
+        gambar dan maksimal 2 MB; <code className="doc-inline">accept</code>{' '}
+        saja tidak menjamin apa pun. Form Setelan kini benar-benar menyimpan ke{' '}
+        <code className="doc-inline">merchantSlice</code> (
+        <code className="doc-inline">setStoreProfile</code>), bukan sekadar toast
+        "berhasil" tanpa perubahan state.
       </p>
       <h3 className="doc-h3">
         Keluar dari akun toko

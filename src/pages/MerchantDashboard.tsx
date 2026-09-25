@@ -1,16 +1,18 @@
-import { Bike, ChevronRight, Clock, PlusCircle, Sparkles, Star, Store, Wallet } from 'lucide-react'
+import { Bike, ChevronRight, Clock, PlusCircle, Sparkles, Star } from 'lucide-react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { DonutChart } from '../components/ui/DonutChart'
 import { Sparkline } from '../components/ui/Sparkline'
-import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
+import { MerchantHomeHero } from '../components/merchant/MerchantHomeHero'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { mockMerchant, money } from '../data/merchant'
 import { jodToIdr, moneyPlain } from '../data/currency'
 import { rebateProgress } from '../data/incentive'
-import { countByTab, orderStatusLabel } from '../data/merchantOrders'
+import { orderStatusLabel } from '../data/merchantOrders'
 import {
   menuSalesRanking,
   orderMixSegments,
@@ -25,6 +27,9 @@ import { toggleActive } from '../store/slices/merchantSlice'
 export default function MerchantDashboard() {
   const dispatch = useAppDispatch()
   const isActive = useAppSelector((s) => s.merchant.isActive)
+  const logo = useAppSelector((s) => s.merchant.logo)
+  const storeName = useAppSelector((s) => s.merchant.storeName)
+  const [closeConfirmOpen, setCloseConfirmOpen] = useState(false)
   const orders = useAppSelector((s) => s.merchant.orders)
   const todayOrderCount = useAppSelector((s) => s.merchant.todayOrderCount)
   const dailyLimit = useAppSelector((s) => s.merchant.dailyLimit)
@@ -58,45 +63,23 @@ export default function MerchantDashboard() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Dapur" title={mockMerchant.name} />
+        <MerchantHomeHero
+          name={storeName}
+          logo={logo}
+          isActive={isActive}
+          closeTime={mockMerchant.closeTime}
+          todayOrderCount={todayOrderCount}
+          dailyLimit={dailyLimit}
+          // Buka cukup satu tap. Tutup menahan order baru, jadi minta konfirmasi
+          // dulu — salah sentuh di sini langsung menghentikan pemasukan.
+          onToggle={() => (isActive ? setCloseConfirmOpen(true) : dispatch(toggleActive()))}
+        />
 
         {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
 
-        <section className="merchant-card">
-          <div className="merchant-row">
-            <Store size={20} strokeWidth={1.75} />
-            <div>
-              <p className="merchant-card-title">
-                {isActive ? 'Buka — menerima order baru' : 'Tutup — order baru ditahan'}
-              </p>
-              <p className="merchant-card-sub">
-                {isActive ? `Tutup otomatis pukul ${mockMerchant.closeTime}` : 'Buka untuk mulai menerima'}
-              </p>
-            </div>
-          </div>
-          <button
-            type="button"
-            className={`merchant-toggle ${isActive ? 'is-open' : ''}`}
-            onClick={() => dispatch(toggleActive())}
-          >
-            {isActive ? 'Tutup toko' : 'Buka toko'}
-          </button>
-        </section>
-
-        <section className="merchant-card">
-          <div className="merchant-row">
-            <Wallet size={20} strokeWidth={1.75} />
-            <div>
-              <p className="merchant-card-title">Kuota harian</p>
-              <p className="merchant-card-sub">
-                {todayOrderCount} / {dailyLimit} order · reset 00:00
-              </p>
-            </div>
-          </div>
-          <div className="merchant-quota" role="presentation">
-            <span style={{ width: `${(todayOrderCount / dailyLimit) * 100}%` }} />
-          </div>
-        </section>
+        {/* Kartu "Buka toko" dan "Kuota harian" dilebur ke hero di atas: ketiganya
+            menjawab satu hal yang sama — apakah toko menerima order dan berapa
+            jatahnya hari ini. Menampilkannya sekali, bukan dua kali. */}
 
         {/* Kartu pendapatan: satu kartu lebar penuh dengan angka 2xl + sparkline
             tujuh hari. Sebelumnya ini kotak keempat dari grid 2×2 yang keempat
@@ -116,19 +99,15 @@ export default function MerchantDashboard() {
           />
         </section>
 
-        {/* Tiga angka antrean turun pangkat: baris teks 44px, tanpa kotak dan
-            tanpa latar. Dua di antaranya tetap tautan ke tab Order. */}
-        <nav className="merchant-statline" aria-label="Antrean order">
-          <Link to="/orders">
-            <strong>{countByTab(orders, 'masuk')}</strong> Antrean
-          </Link>
-          <Link to="/orders">
-            <strong>{countByTab(orders, 'diproses')}</strong> Diproses
-          </Link>
-          <span>
-            <strong>{countByTab(orders, 'selesai')}</strong> Selesai
-          </span>
-        </nav>
+        {/* Baris "Antrean / Diproses / Selesai" dibuang: ketiga angkanya sudah
+            ada di legenda donut "Komposisi order" di bawah, dan dua di antaranya
+            identik ("Antrean" = "Baru", "Selesai" = "Selesai") sementara
+            "Diproses" = "Diproses" + "Diantar". Satu angka berarti, satu tempat.
+
+            Yang hilang bersama barisnya adalah tautannya ke tab Order, dan itu
+            dipindahkan ke legenda donut: tiap potongan yang punya tab persis
+            sekarang bisa ditekan. Jadi navigasinya tidak berkurang, cuma
+            berpindah ke tempat angkanya memang dibaca. */}
 
         {/* Konsekuensi kartu pendapatan: bar chart "Tren 7 hari" 371px dihapus.
             Bentuk harinya sudah ada di sparkline, dan dua kali menunjukkan hal
@@ -188,13 +167,31 @@ export default function MerchantDashboard() {
               centerValue={String(orders.length)}
               centerLabel="order"
             />            <ul className="chart-legend">
-              {orderMix.map((segment) => (
-                <li key={segment.label}>
-                  <span className={`chart-legend-dot chart-tone-bg--${segment.tone}`} />
-                  <span className="chart-legend-label">{segment.label}</span>
-                  <span className="chart-legend-value">{segment.value} order</span>
-                </li>
-              ))}
+              {orderMix.map((segment) => {
+                // Hanya potongan yang punya tab persis yang bisa ditekan.
+                // "Diantar" subset dari tab `diproses` (diterima/dimasak/diantar/
+                // tiba), jadi tautan ke sana akan mendarat di daftar yang lebih
+                // luas dari labelnya — lebih menyesatkan daripada tidak ada
+                // tautan sama sekali.
+                const isi = (
+                  <>
+                    <span className={`chart-legend-dot chart-tone-bg--${segment.tone}`} />
+                    <span className="chart-legend-label">{segment.label}</span>
+                    <span className="chart-legend-value">{segment.value} order</span>
+                  </>
+                )
+                return (
+                  <li key={segment.label}>
+                    {segment.tab ? (
+                      <Link className="chart-legend-link" to={`/orders?tab=${segment.tab}`}>
+                        {isi}
+                      </Link>
+                    ) : (
+                      <span className="chart-legend-link is-static">{isi}</span>
+                    )}
+                  </li>
+                )
+              })}
             </ul>
           </div>
           {/* COD vs transfer diganti bar perbandingan: split 4/4 = 50/50 tidak
@@ -332,14 +329,33 @@ export default function MerchantDashboard() {
           </Link>
         </section>
 
-        <section className="merchant-card merchant-hint">
-          <Clock size={18} strokeWidth={1.75} />
-          <p>Estimasi masak diatur per order di halaman Order.</p>
+        {/* Dua kartu 52px untuk dua kalimat yang masing-masing satu baris:
+            bentuk kartu mengesankan tiap kalimat berdiri sendiri, padahal
+            keduanya satu jenis pesan — "ada yang diatur di halaman lain".
+            Digabung jadi satu kartu; tingginya tetap ~52px karena barisnya
+            bersebelahan, bukan bertumpuk. */}
+        <section className="merchant-card merchant-hint-list" aria-label="Diatur di halaman lain">
+          <p className="merchant-hint-list-item">
+            <Clock size={18} strokeWidth={1.75} aria-hidden="true" />
+            <span>Estimasi masak diatur di halaman Order.</span>
+          </p>
+          <p className="merchant-hint-list-item">
+            <Bike size={18} strokeWidth={1.75} aria-hidden="true" />
+            <span>Kurir khusus diatur di halaman Kurir.</span>
+          </p>
         </section>
-        <section className="merchant-card merchant-hint">
-          <Bike size={18} strokeWidth={1.75} />
-          <p>Kurir khusus tokomu diatur di halaman Kurir.</p>
-        </section>
+
+        <ConfirmSheet
+          open={closeConfirmOpen}
+          title="Tutup toko?"
+          body="Order baru berhenti masuk sampai kamu buka lagi. Order yang sedang berjalan tetap lanjut."
+          confirmLabel="Tutup toko"
+          onConfirm={() => {
+            dispatch(toggleActive())
+            setCloseConfirmOpen(false)
+          }}
+          onClose={() => setCloseConfirmOpen(false)}
+        />
       </main>
       <MerchantBottomNav />
     </div>

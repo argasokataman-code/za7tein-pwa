@@ -7,68 +7,11 @@
  * di .s7-hero supaya tidak bocor ke komponen lain.
  */
 
-.s7-hero {
-  /* Nada oranye khas hero. Token proyek tetap dipakai untuk warna lain. */
-  --hero-deep: var(--orange-deep);
-  /* Putih penuh, bukan alpha: di atas oranye merek, menurunkan opasitas
-     menurunkan kontras secara langsung, dan oranye ini sudah berada di
-     batas bawah untuk teks kecil. */
-  --hero-muted: var(--on-brand);
-
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-
-  width: 100%;
-
-  background: var(--sa7tein-orange);
-  color: var(--on-brand);
-
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-}
-
 .s7-hero__content {
   position: relative;
   z-index: 2;
 
   padding: var(--space-5) var(--space-5) var(--space-6);
-}
-
-/* ── Pola latar ─────────────────────────────────────────────────────────── */
-
-/* Pola latar. `slice` di SVG membuat skalanya seragam, jadi lingkaran tetap
-   bulat dan tebal garis tetap rata di lebar layar mana pun. */
-.s7-hero-pattern {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-
-  width: 100%;
-  height: 100%;
-
-  pointer-events: none;
-}
-
-/* ── Opasitas pola ────────────────────────────────────────────────────────
-   Semua di sini, dalam rentang 4-14%. Di berkas aslinya pin mencapai 90% dan
-   uap 45%: dikomposit ke atas oranye merek, keduanya berhenti terbaca sebagai
-   oranye. Pada 14% putih di atas #F15A37 hanya menjadi rgb(243,113,83). */
-
-.s7-wave {
-  fill: var(--on-brand);
-}
-
-.s7-wave--one {
-  fill-opacity: 0.12;
-}
-
-.s7-wave--two {
-  fill-opacity: 0.14;
-}
-
-.s7-dot-matrix {
-  fill: var(--on-brand);
-  fill-opacity: 0.12;
 }
 
 /* ── Baris atas ─────────────────────────────────────────────────────────── */
@@ -517,7 +460,7 @@
 /* ── Lebar besar ────────────────────────────────────────────────────────── */
 
 @media (min-width: 768px) {
-  .s7-hero {
+  .s7-hero--customer {
     border-radius: 0 0 28px 28px;
   }
 

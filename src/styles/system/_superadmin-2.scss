@@ -390,8 +390,14 @@
 /* ── Dialog di konsol desktop ─────────────────────────────────────────────
    `BottomSheet` bawaan aplikasi terkunci ke kolom 430px dan menempel di bawah
    (chrome ponsel). Di konsol SA dialognya ditengahkan dan dilebarkan supaya
-   terbaca di layar desktop; perilaku Escape/overlay tidak diubah. */
-.sa-root .sheet-overlay {
+   terbaca di layar desktop; perilaku Escape/overlay tidak diubah.
+
+   Selektor memakai `:has(.sa-root)` di `body`, bukan `.sa-root .sheet-overlay`:
+   `BottomSheet` di-portal ke `document.body` (sebab `page-enter` membentuk
+   stacking context dan dulu menutup modal dari nav), jadi sheet bukan lagi
+   keturunan `.sa-root`. `:has` menjaga penataan desktop ini tetap berlaku
+   selama konsol SA ada di halaman. */
+body:has(.sa-root) .sheet-overlay {
   max-width: none;
   margin-inline: 0;
   align-items: center;
@@ -399,13 +405,13 @@
   padding: var(--space-5);
 }
 
-.sa-root .sheet-panel {
+body:has(.sa-root) .sheet-panel {
   max-width: 520px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
 
-.sa-root .sheet-handle {
+body:has(.sa-root) .sheet-handle {
   display: none;
 }
 

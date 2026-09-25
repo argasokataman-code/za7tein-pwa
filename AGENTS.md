@@ -232,6 +232,12 @@ node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap el
 
 **Satu gate pada satu waktu.** Klon pengukuran (9359) cuma punya satu tab; menjalankan beberapa `browser-gate` bersamaan membuatnya saling menunggu dan tampak menggantung, lalu menumpuk sebagai proses zombie. Jalankan di foreground, tunggu selesai, baru yang berikutnya. Kalau ada sisa, `pkill -f "browser-gate.mjs"`. Jangan memindahkan tab klon role (9355–9358) — biarkan tiap jendela role di tempatnya.
 
+**Server & klon: JANGAN PERNAH start yang baru.** Sebelum apa pun, cek yang sudah hidup:
+`lsof -nP -iTCP -sTCP:LISTEN | grep -E ':(5173|5174|5175|4173)'` dan `lsof -nP -iTCP -sTCP:LISTEN | grep 935`.
+- Dev server: pakai yang sudah jalan. `browser-gate` **mendeteksi sendiri** port 5173/5174/5175/5176 (mode biasa) atau 4173 (mode `--pwa`) dan berhenti dengan pesan kalau tak ada — gate tidak menghidupkan server. Kalau sudah ada yang melayani, `npm run dev` lagi hanya membuat Vite pindah ke port berikutnya dan menumpuk proses. Dilarang.
+- Klon Brave: `browser-gate` memakai ulang klon 9359 kalau hidup, dan hanya menghidupkannya sekali kalau benar-benar mati. Jangan buka tab/klon baru "untuk memastikan". `brave-debug` default 9355 = klon kerja user (pegang login) — biarkan.
+- Selesai mengukur: matikan klon gate yang kamu hidupkan (`kill` PID proses utama `profile-gate`, terarah — bukan `pkill Brave`), supaya tak menumpuk. Klon kerja (9355) jangan disentuh.
+
 **Gate hanya untuk yang tidak bisa dilihat dari sumber.** Ini daftar pembagiannya:
 
 | Hanya bisa dari browser | Sudah cukup dari berkas (`grep`/`read`/`npm run scan`) |

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { MessageSquare, Pencil, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -124,10 +124,14 @@ export default function MerchantReviews() {
         {visible.length === 0 ? (
           <p className="merchant-empty">Belum ada ulasan untuk hidangan ini.</p>
         ) : (
-          visible.map((review) => {
+          visible.map((review, index) => {
             const reply = replies[review.id]
             return (
-              <article key={review.id} className="merchant-review-card">
+              <article
+                key={`${filter}-${review.id}`}
+                className="merchant-review-card stagger-in"
+                style={{ '--stagger-index': index } as CSSProperties}
+              >
                 <div className="merchant-review-head">
                   <div className="merchant-review-author">
                     <img
