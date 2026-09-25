@@ -11,7 +11,7 @@ export function AppPolishSection() {
   return (
     <DocSection id="app-polish" num="37" title="Perbaikan Bentuk App (2026-09-24)">
       <p className="doc-p">
-        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Sebelas baris di bawah adalah
+        Bukan fitur baru: layar yang sudah jalan diberi bentuk app. Dua belas baris di bawah adalah
         perubahan yang bisa diperiksa angkanya, semuanya diukur di kolom 390px dan diverifikasi
         lewat <code className="doc-inline">npm run scan</code> plus gate{' '}
         <code className="doc-inline">browser-gate</code> per rute.
@@ -304,6 +304,34 @@ export function AppPolishSection() {
                 jadi dua tombol bersaudara (satu <code className="doc-inline">&lt;button&gt;</code> berisi{' '}
                 <code className="doc-inline">&lt;span role="button"&gt;</code> sebelumnya, dan tombol
                 hapusnya cuma 7&times;18px)
+              </td>
+            </tr>
+            <tr>
+              <td>Tarik-untuk-menyegarkan (keempat peran)</td>
+              <td>
+                Keputusan 2026-09-24 mematikan <code className="doc-inline">overscroll-behavior-y</code>{' '}
+                di dokumen karena pantulan bawaan membuat app terinstal terasa seperti tab peramban.
+                Konsekuensinya pull-to-refresh bawaan ikut mati &mdash; dan itu memang tidak diinginkan,
+                sebab <code className="doc-inline">location.reload()</code> memuat ulang seluruh aplikasi.
+                Sebelum ini, menarik di puncak halaman tidak menghasilkan apa pun sama sekali
+              </td>
+              <td>
+                Versi native-nya: tarik ke bawah, indikator muncul, lalu selesai &mdash; halaman tidak
+                dimuat ulang. Dipasang sekali di <code className="doc-inline">PageTransition</code>,
+                jadi keempat peran mendapatkannya tanpa perubahan di tiap halaman. Lingkupnya sengaja
+                gestur + indikator saja: repo ini tidak punya backend, jadi &ldquo;memuat ulang data&rdquo;
+                tak bisa mengambil apa pun, dan menambahnya berarti mengosongkan katalog/dompet yang
+                sudah diisi dari layar merchant dan admin. Gestur dibaca dari <code className="doc-inline">touchmove</code>{' '}
+                mentah, karena <code className="doc-inline">overscroll-behavior-y: none</code> memblokir
+                rantai overscroll sehingga tak ada peristiwa bawaan yang bisa ditangkap. Hanya aktif
+                saat <code className="doc-inline">scrollY &le; 0</code>; tarikan di bawah ambang 64px
+                kembali ke nol tanpa berputar. Gerakannya lewat satu properti{' '}
+                <code className="doc-inline">translate</code> (bukan <code className="doc-inline">transform</code>)
+                supaya tidak menjadi containing block untuk <code className="doc-inline">fixed</code>,
+                dan indikatornya <code className="doc-inline">aria-hidden</code> &mdash; tidak ada kontrol
+                yang bisa dijalankan pembaca layar, jadi tidak dijadikan tombol. PRD aktif tak menyebut
+                pull-to-refresh (<code className="doc-inline">UNRESOLVED-by-absence</code>), jadi ini
+                keputusan UX, bukan requirement
               </td>
             </tr>
           </tbody>

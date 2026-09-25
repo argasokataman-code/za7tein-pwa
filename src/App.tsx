@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-route
 
 import { StoreProvider } from './store/provider'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
+import { PullToRefreshIndicator } from './components/layout/PullToRefreshIndicator'
 import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 import { useAppSelector } from './hooks/useAppStore'
 import { usePageTransition } from './hooks/usePageTransition'
@@ -357,6 +358,7 @@ function PageTransition({ children }: { children: ReactNode }) {
   const { className, key } = usePageTransition()
   return (
     <div key={key} className={className}>
+      <PullToRefreshIndicator />
       {children}
     </div>
   )

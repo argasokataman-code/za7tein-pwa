@@ -2071,6 +2071,234 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4677",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:48:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts (+121) — write via tool: ts: import { useCallback, useEffec",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts"
+    },
+    {
+      "id": "TASK-4678",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:48:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/PullToRefreshIndicator.tsx (+49) — write via tool: tsx: import { Re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/PullToRefreshIndicator.tsx"
+    },
+    {
+      "id": "TASK-4679",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:49:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+99/-1) — edit via tool: // ── 7. Tarik-untuk-menyeg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4680",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:49:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+9/-8) — edit via tool: tsx: function PageTransition({ children }: { ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-4681",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:51:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts (+33/-29) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts"
+    },
+    {
+      "id": "TASK-4682",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:51:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/PullToRefreshIndicator.tsx (+37/-44) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/PullToRefreshIndicator.tsx"
+    },
+    {
+      "id": "TASK-4683",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:51:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+17/-13) — edit via tool: // ── 7. Tarik-untuk-menye",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-4684",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "07:59:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts (+24/-10) — edit via tool: ts: export function usePullToRef",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts"
+    },
+    {
+      "id": "TASK-4685",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:00:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa; npm run build 2>&1 | grep -iE \"error|✓ built\" | tail -3; pkill -f \"vite preview\" 2>/d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-4686",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:04:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts (+20/-12) — edit via tool: ts: const pullRef = useRef(0)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePullToRefresh.ts"
+    },
+    {
+      "id": "TASK-4687",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:08:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: v2.86.0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-4688",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "08:08:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx (+30/-2) — edit via tool: tsx: </tr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AppPolishSection.tsx"
     }
   ]
 }

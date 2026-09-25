@@ -406,7 +406,109 @@ $press-scale: 0.97;
   }
 }
 
-// ── 6. Reduced motion: fade, bukan hilang ──────────────────────────────────
+// ── 7. Tarik-untuk-menyegarkan ─────────────────────────────────────────────
+// Dipasang sekali di `PageTransition`, jadi keempat peran mendapatkannya tanpa
+// perubahan di tiap halaman.
+//
+// Kenapa bukan pull-to-refresh bawaan peramban: `overscroll-behavior-y: none`
+// di `html` (keputusan 2026-09-24) mematikannya, dan itu memang disengaja —
+// pantulan bawaan membuat app terinstal terasa seperti tab peramban. Yang
+// dibangun di sini versi native-nya: indikator sendiri, tanpa memuat ulang
+// halaman (`location.reload()`).
+//
+// Lingkupnya gestur + indikator; repo ini tidak punya backend, jadi tidak ada
+// yang bisa diambil ulang. Sebelumnya tarikan di puncak halaman tidak
+// menghasilkan apa pun sama sekali.
+//
+// Seluruh gerakan lewat satu properti `--ptr-pull`, dan `translate` dipakai
+// (bukan `transform`) supaya tidak menjadi containing block untuk
+// `position: fixed` — pelajaran yang sama dengan parallax di atas.
+.ptr {
+  --ptr-pull: 0px;
+  --ptr-progress: 0;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  // Bilah `fixed` wajib dibatasi kolom (DNA §5, sebelumnya 24 bilah melebar
+  // menyeberang jendela).
+  max-width: var(--shell-max);
+  margin-inline: auto;
+
+  display: grid;
+  place-items: center;
+
+  // Titik pusat cakram saat tarikan penuh. Indikatornya masuk dari atas, jadi
+  // posisinya sendiri sudah memberi tahu arah gesturnya.
+  padding-top: var(--space-3);
+
+  z-index: 999;
+
+  // Menangkap sentuhan = mematikan gestur yang baru saja dibaca hook-nya.
+  pointer-events: none;
+
+  translate: 0 calc(var(--ptr-pull) - 44px);
+  opacity: var(--ptr-progress);
+
+  // Kembali mulus saat jari dilepas di bawah ambang; saat ditarik, perubahan
+  // datang tiap frame jadi transisi ini tidak terasa.
+  transition:
+    translate var(--motion-standard) var(--ease-decelerate),
+    opacity var(--motion-fast) var(--ease-decelerate);
+}
+
+// Saat menyegarkan: tetap di tempat, tanpa transisi yang menahannya.
+.ptr--refreshing {
+  translate: 0 0;
+  padding-top: 0;
+  opacity: 1;
+  transition: none;
+}
+
+.ptr__disc {
+  display: grid;
+  place-items: center;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: var(--surface);
+  color: var(--sa7tein-orange);
+  box-shadow: var(--shadow-md);
+
+  // Cakram ikut berputar mengikuti tarikan, jadi jari dapat umpan balik
+  // sebelum ambang tercapai.
+  rotate: calc(var(--ptr-progress) * 180deg);
+}
+
+.ptr--refreshing .ptr__disc {
+  animation: ptr-spin var(--motion-journey) linear infinite;
+}
+
+@keyframes ptr-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+// Gerak dikurangi: indikator tetap ada (ia memberi tahu ada yang sedang
+// dimuat), tapi tanpa putaran.
+@media (prefers-reduced-motion: reduce) {
+  .ptr,
+  .ptr__disc {
+    transition: none;
+  }
+
+  .ptr--refreshing .ptr__disc {
+    animation: none;
+  }
+}
+
+// ── 8. Reduced motion: fade, bukan hilang ──────────────────────────────────
 // M3: "Use subtle fades instead of intense sliding or scaling animations.
 // Disable decorative effects like parallax or shape morphing."
 //
