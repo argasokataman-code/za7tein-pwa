@@ -6,6 +6,8 @@ import {
   fetchMerchantCredit,
   fetchMerchantProfile,
   fetchMerchantRecords,
+  fetchOperators,
+  fetchRoles,
   fetchStoreStatus,
   fetchSwitches,
   fetchWallet,
@@ -16,7 +18,7 @@ import { apiEnabled } from '../api/supabase'
 import { setMerchants } from '../store/slices/adminSlice'
 import { hydrateCredit, hydrateProfile, setCouriers, setStoreActive } from '../store/slices/merchantSlice'
 import { setBalance as setPayoutBalance } from '../store/slices/payoutSlice'
-import { setSwitches, setZones } from '../store/slices/superAdminSlice'
+import { setOperators, setRoles, setSwitches, setZones } from '../store/slices/superAdminSlice'
 import { setBalance as setWalletBalance } from '../store/slices/walletSlice'
 import { useAppDispatch, useAppSelector } from './useAppStore'
 
@@ -49,49 +51,37 @@ function useSyncOnce<T>(
 
 /** Kurir milik merchant demo → `merchant.couriers`. */
 function useCouriers(): void {
-  useSyncOnce(
-    () => fetchCouriers(MERCHANT_ID),
-    (rows, dispatch) => {
-      if (rows.length) dispatch(setCouriers(rows))
-    },
-  )
+  useSyncOnce(() => fetchCouriers(MERCHANT_ID), (rows, d) => {
+    if (rows.length) d(setCouriers(rows))
+  })
 }
+
 /** Modal + rebate merchant → `merchant.credit`. */
 function useMerchantCredit(): void {
-  useSyncOnce(
-    () => fetchMerchantCredit(MERCHANT_ID),
-    (credit, dispatch) => {
-      if (credit) dispatch(hydrateCredit(credit))
-    },
-  )
+  useSyncOnce(() => fetchMerchantCredit(MERCHANT_ID), (credit, d) => {
+    if (credit) d(hydrateCredit(credit))
+  })
 }
-/** Profil toko (nama, kontak, foto, konfigurasi kirim) → `merchant`. */
+
+/** Profil toko (nama, kontak, foto, jam, config kirim) → `merchant`. */
 function useMerchantProfile(): void {
-  useSyncOnce(
-    () => fetchMerchantProfile(MERCHANT_ID),
-    (profile, dispatch) => {
-      if (profile) dispatch(hydrateProfile(profile))
-    },
-  )
+  useSyncOnce(() => fetchMerchantProfile(MERCHANT_ID), (profile, d) => {
+    if (profile) d(hydrateProfile(profile))
+  })
 }
+
 /** Registri merchant platform → `admin.merchants` (panel CS + konsol SA). */
 function useMerchantRegistry(): void {
-  useSyncOnce(
-    () => fetchMerchantRecords(),
-    (rows, dispatch) => {
-      if (rows.length) dispatch(setMerchants(rows))
-    },
-  )
+  useSyncOnce(() => fetchMerchantRecords(), (rows, d) => {
+    if (rows.length) d(setMerchants(rows))
+  })
 }
 
 /** Saldo wallet live: customer → `wallet`, merchant → `payout`. */
 function useWallet(userId: number, target: 'customer' | 'merchant'): void {
-  useSyncOnce(
-    () => fetchWallet(userId),
-    (wallet, dispatch) => {
-      dispatch(target === 'customer' ? setWalletBalance(wallet) : setPayoutBalance(wallet))
-    },
-  )
+  useSyncOnce(() => fetchWallet(userId), (wallet, d) => {
+    d(target === 'customer' ? setWalletBalance(wallet) : setPayoutBalance(wallet))
+  })
 }
 
 /** Status toko dua arah: baca `store_status`, tulis balik saat Buka/Tutup ditekan. */
@@ -120,20 +110,22 @@ function useStoreStatus(): void {
   }, [isActive])
 }
 
-/** Konsol SA: zona + kill-switch. Role & operator tetap mock (vocabulary izin beda, operator tanpa nama). */
+/**
+ * Konsol SA: zona, kill-switch, role, dan operator. Role + operator harus
+ * diambil bersamaan — kalau role live tapi operator mock, `roleId` mock
+ * (`owner`) tak ada di daftar role live (`sa_owner`) sehingga konsol terkunci.
+ */
 function useSuperAdmin(): void {
-  useSyncOnce(
-    () => fetchZones(),
-    (rows, dispatch) => {
-      if (rows.length) dispatch(setZones(rows))
-    },
-  )
-  useSyncOnce(
-    () => fetchSwitches(),
-    (switches, dispatch) => {
-      if (switches) dispatch(setSwitches(switches))
-    },
-  )
+  useSyncOnce(() => fetchZones(), (rows, d) => {
+    if (rows.length) d(setZones(rows))
+  })
+  useSyncOnce(() => fetchSwitches(), (switches, d) => d(setSwitches(switches)))
+  useSyncOnce(() => fetchRoles(), (rows, d) => {
+    if (rows.length) d(setRoles(rows))
+  })
+  useSyncOnce(() => fetchOperators(), (rows, d) => {
+    if (rows.length) d(setOperators(rows))
+  })
 }
 
 /** Panggil sekali di `App` (di dalam `StoreProvider`) — semua sinkron referensi. */

@@ -61,8 +61,7 @@ export const foodApi = baseApi.injectEndpoints({
         read from PostgREST in <code className="doc-inline">src/api/reference.ts</code> and synced
         into Redux once from <code className="doc-inline">App</code> (
         <code className="doc-inline">useApiSync</code>), mock-first: a failed call leaves the seed
-        in place. Storefront rating and opening hours come straight from{' '}
-        <code className="doc-inline">merchants</code> (
+        in place. Storefront rating and opening hours come straight from{' '}        <code className="doc-inline">merchants</code> (
         <code className="doc-inline">rating_avg</code>,{' '}
         <code className="doc-inline">rating_count</code>,{' '}
         <code className="doc-inline">open_time</code>,{' '}
@@ -71,7 +70,8 @@ export const foodApi = baseApi.injectEndpoints({
         phone, address, photo, opening hours, delivery config) is hydrated into the merchant slice
         from the same table. The full merchant registry (owner, city, tier, tenant/deposit
         status, active zones, COD issues) is read into <code className="doc-inline">admin.merchants</code>{' '}
-        for the CS panel and SA console. The merchant incentive history is
+        for the CS panel and SA console. SA roles and operators are read too, now that the backend
+        permission verbs match the UI catalog. The merchant incentive history is
         read from <code className="doc-inline">merchant_credit_events</code>. The merchant store
         open/close toggle writes back{' '}
         <code className="doc-inline">PATCH /rest/v1/merchants?id=eq.1</code>, and the customer
