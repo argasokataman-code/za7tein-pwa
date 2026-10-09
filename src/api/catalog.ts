@@ -18,7 +18,8 @@ export interface MerchantRow {
   store_name: string
   description: string | null
   photo: string | null
-  available: boolean
+  /** Backend memakai `store_status` ('open'/'closed'), rename dari `available`. */
+  store_status: string | null
 }
 
 export interface MenuRow {
@@ -55,7 +56,7 @@ function toStorefront(row: MerchantRow): Storefront {
     distance: '—',
     openTime: '',
     closeTime: '',
-    isOpen: row.available,
+    isOpen: row.store_status === 'open',
   }
 }
 
