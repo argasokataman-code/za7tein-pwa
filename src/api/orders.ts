@@ -37,6 +37,8 @@ interface OrderRow {
   payment_method: string
   zone_code: string | null
   created_at: string
+  placed_at: string | null
+  courier_id: number | null
 }
 
 export interface NewOrder {
@@ -140,10 +142,11 @@ function toMerchantOrder(row: OrderRow): MerchantOrder {
     distanceMeters: 0,
     zone,
     status: STATUS_MAP[row.status] ?? 'baru',
-    placedAt: relativeTime(row.created_at),
+    placedAt: relativeTime(row.placed_at ?? row.created_at),
     paymentMethod: (PAYMENT_IDS.includes(row.payment_method)
       ? row.payment_method
       : 'cod') as PaymentMethod['id'],
+    courierId: row.courier_id != null ? String(row.courier_id) : undefined,
   }
 }
 
@@ -167,7 +170,7 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
   await ensureMerchantSession()
   const rows = await rest<OrderRow>(
     'orders',
-    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,zone_code,created_at&merchant_id=eq.${merchantId}&order=created_at.desc`,
+    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,zone_code,created_at,placed_at,courier_id&merchant_id=eq.${merchantId}&order=created_at.desc`,
   )
   return rows.map(toMerchantOrder)
 }

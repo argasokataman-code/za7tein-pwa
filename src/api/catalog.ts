@@ -13,6 +13,11 @@ import { rest } from './supabase'
 /** Foto pengganti bila backend belum punya gambar (tanpa URL eksternal). */
 const FALLBACK_IMAGE = '/assets/img/menu/nasi-goreng.webp'
 
+/** 'HH:MM:SS' dari backend → 'HH:MM' untuk tampilan. */
+function hhmm(value: string | null): string {
+  return value ? value.slice(0, 5) : ''
+}
+
 export interface MerchantRow {
   id: number
   store_name: string
@@ -20,6 +25,10 @@ export interface MerchantRow {
   photo: string | null
   /** Backend memakai `store_status` ('open'/'closed'), rename dari `available`. */
   store_status: string | null
+  rating_avg: number | null
+  rating_count: number | null
+  open_time: string | null
+  close_time: string | null
 }
 
 export interface MenuRow {
@@ -49,13 +58,14 @@ function toStorefront(row: MerchantRow): Storefront {
     tagline: row.description ?? '',
     logo: row.photo ?? FALLBACK_IMAGE,
     cover: row.photo ?? FALLBACK_IMAGE,
-    // Backend belum menyimpan rating/jam/jarak merchant (rating_reviews kosong).
-    rating: 0,
-    reviewCount: 0,
+    // Rating & jam buka kini tersedia langsung di `merchants` — tak perlu
+    // agregasi rating_reviews. Jarak/waktu antar tetap di luar repo.
+    rating: row.rating_avg ?? 0,
+    reviewCount: row.rating_count ?? 0,
     deliveryTime: '—',
     distance: '—',
-    openTime: '',
-    closeTime: '',
+    openTime: hhmm(row.open_time),
+    closeTime: hhmm(row.close_time),
     isOpen: row.store_status === 'open',
   }
 }
