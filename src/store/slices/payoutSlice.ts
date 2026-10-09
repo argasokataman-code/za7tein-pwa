@@ -27,6 +27,10 @@ const payoutSlice = createSlice({
   name: 'payout',
   initialState,
   reducers: {
+    /** API: saldo dompet merchant live (IDR) menimpa mock. */
+    setBalance(state, action: PayloadAction<Wallet>) {
+      state.balance = action.payload
+    },
     addAccount(
       state,
       action: PayloadAction<{ bankName: string; accountNumber: string; holderName: string }>,
@@ -81,6 +85,7 @@ const payoutSlice = createSlice({
 })
 
 export const {
+  setBalance,
   addAccount,
   updateAccount,
   removeAccount,

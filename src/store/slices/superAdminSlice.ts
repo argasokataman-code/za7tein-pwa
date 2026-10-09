@@ -93,6 +93,29 @@ const superAdminSlice = createSlice({
   name: 'superAdmin',
   initialState,
   reducers: {
+    /** API: timpa konfigurasi konsol (zona/role/operator/kill-switch) dengan backend. */
+    setZones(state, action: PayloadAction<ZoneGeometry[]>) {
+      state.zones = action.payload
+    },
+    setRoles(state, action: PayloadAction<SaRole[]>) {
+      state.roles = action.payload
+    },
+    setOperators(state, action: PayloadAction<SaOperator[]>) {
+      state.operators = action.payload
+      // Kunci role: 'sa*' = konsol ini, 'cs*' = panel CS. Pilih operator SA
+      // sebagai pemakai aktif — kalau tidak, operator CS (baris pertama backend)
+      // dianggap pemakai dan seluruh konsol SA tampil terkunci.
+      const isSa = (roleId: string) => roleId.startsWith('sa')
+      if (!state.operators.some((o) => o.id === state.activeOperatorId && isSa(o.roleId))) {
+        state.activeOperatorId =
+          (state.operators.find((o) => isSa(o.roleId)) ?? state.operators[0])?.id ?? ''
+      }
+      const csActor = state.operators.find((o) => !isSa(o.roleId))
+      if (csActor) state.csActorId = csActor.id
+    },
+    setSwitches(state, action: PayloadAction<PlatformSwitches>) {
+      state.switches = action.payload
+    },
     /** Ganti operator yang sedang memakai konsol (demo pengganti sesi auth). */
     setActiveOperator(state, action: PayloadAction<{ id: string }>) {
       if (!state.operators.some((operator) => operator.id === action.payload.id)) return
@@ -213,6 +236,10 @@ const superAdminSlice = createSlice({
 })
 
 export const {
+  setZones,
+  setRoles,
+  setOperators,
+  setSwitches,
   setActiveOperator,
   setCsActor,
   saveZone,

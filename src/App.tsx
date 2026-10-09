@@ -8,6 +8,7 @@ import { PullToRefreshIndicator } from './components/layout/PullToRefreshIndicat
 import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 import { useAppSelector } from './hooks/useAppStore'
 import { usePageTransition } from './hooks/usePageTransition'
+import { useApiSync } from './hooks/useApiReference'
 
 import AccountSetup from './pages/AccountSetup'
 import AddNewCard from './pages/AddNewCard'
@@ -417,6 +418,15 @@ function LegacyAppRedirect() {
   return null
 }
 
+/**
+ * Sinkron data referensi live sekali di root. Di dalam `StoreProvider` karena
+ * butuh store Redux (kurir, dompet, insentif, konsol SA).
+ */
+function ApiSync() {
+  useApiSync()
+  return null
+}
+
 export default function App() {
   const { pathname } = window.location
   const role = roleFromPath(pathname)
@@ -439,6 +449,7 @@ export default function App() {
 
   return (
     <StoreProvider>
+      <ApiSync />
       {role === '/customer' ? (
         <RoleRouter
           basename="/customer"

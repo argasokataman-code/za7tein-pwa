@@ -36,8 +36,13 @@ function bearer(): string {
   return sessionToken ?? anonKey
 }
 
-/** Login email/kata sandi Supabase (password grant). Menyimpan token untuk request berikutnya. */
-export async function signIn(email: string, password: string): Promise<void> {
+/**
+ * Login email/kata sandi Supabase (password grant). Mengembalikan access token
+ * **tanpa** menyentuh `sessionToken` global — `reference.ts` butuh sesi per-akun,
+ * dan menyetel token global di sini membuat dua login paralel (mis. customer +
+ * merchant) saling menimpa.
+ */
+export async function signInToken(email: string, password: string): Promise<string> {
   const res = await fetch(`${url}/auth/v1/token?grant_type=password`, {
     method: 'POST',
     headers: { apikey: anonKey, 'content-type': 'application/json' },
@@ -45,7 +50,12 @@ export async function signIn(email: string, password: string): Promise<void> {
   })
   if (!res.ok) throw new Error(`[api] auth ${res.status}`)
   const data = (await res.json()) as { access_token?: string }
-  sessionToken = data.access_token ?? null
+  return data.access_token ?? ''
+}
+
+/** Login email/kata sandi; menyimpan token untuk `rest`/`create` berikutnya. */
+export async function signIn(email: string, password: string): Promise<void> {
+  sessionToken = (await signInToken(email, password)) || null
 }
 
 /**
@@ -63,6 +73,41 @@ export async function rest<T>(table: string, query = ''): Promise<T[]> {
   })
   if (!res.ok) throw new Error(`[api] ${table} ${res.status}`)
   return (await res.json()) as T[]
+}
+
+/**
+ * `rest` dengan token eksplisit, untuk tabel yang butuh sesi akun tertentu
+ * (`reference.ts` membaca sebagai `cs@`) tanpa mengganggu token global.
+ */
+export async function restWith<T>(token: string, table: string, query = ''): Promise<T[]> {
+  const res = await fetch(`${url}/rest/v1/${table}${query}`, {
+    headers: { apikey: anonKey, Authorization: `Bearer ${token}`, accept: 'application/json' },
+  })
+  if (!res.ok) throw new Error(`[api] ${table} ${res.status}`)
+  return (await res.json()) as T[]
+}
+
+/**
+ * PATCH satu baris (mis. `merchants.store_status`). Token eksplisit karena RLS
+ * hanya mengizinkan pemilik baris — merchant menulis status tokonya sendiri.
+ */
+export async function patch(
+  token: string,
+  table: string,
+  query: string,
+  body: Record<string, unknown>,
+): Promise<void> {
+  const res = await fetch(`${url}/rest/v1/${table}${query}`, {
+    method: 'PATCH',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+      Prefer: 'return=minimal',
+    },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) throw new Error(`[api] PATCH ${table} ${res.status}`)
 }
 
 /**

@@ -96,6 +96,18 @@ const merchantSlice = createSlice({
     toggleActive(state) {
       state.isActive = !state.isActive
     },
+    /** API: `merchants.store_status` → buka/tutup (dipakai sinkron store-status). */
+    setStoreActive(state, action: PayloadAction<boolean>) {
+      state.isActive = action.payload
+    },
+    /** API: ganti daftar kurir dengan baris backend. */
+    setCouriers(state, action: PayloadAction<Courier[]>) {
+      state.couriers = action.payload
+    },
+    /** API: timpa sebagian state insentif (modal, tier, dompet deposit). */
+    hydrateCredit(state, action: PayloadAction<Partial<MerchantCreditState>>) {
+      state.credit = { ...state.credit, ...action.payload }
+    },
     setOrderStatus(
       state,
       action: PayloadAction<{ id: string; status: MerchantOrderStatus }>,
@@ -247,6 +259,9 @@ const merchantSlice = createSlice({
 
 export const {
   toggleActive,
+  setStoreActive,
+  setCouriers,
+  hydrateCredit,
   setOrderStatus,
   mergeOrders,
   setCookMinutes,

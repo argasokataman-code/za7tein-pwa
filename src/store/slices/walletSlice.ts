@@ -28,6 +28,10 @@ const walletSlice = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
+    /** API: saldo wallet live (IDR) menimpa mock. */
+    setBalance(state, action: PayloadAction<Wallet>) {
+      state.balance = action.payload
+    },
     requestTopUp(state, action: PayloadAction<{ amount: number; channel: TopUpChannel }>) {
       const { amount, channel } = action.payload
       if (amount <= 0) return
@@ -103,6 +107,7 @@ const walletSlice = createSlice({
 })
 
 export const {
+  setBalance,
   requestTopUp,
   settleTopUp,
   requestPayout,

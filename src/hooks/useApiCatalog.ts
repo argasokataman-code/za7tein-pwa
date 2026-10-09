@@ -18,13 +18,20 @@ export function useStorefronts(fallback: Storefront[]): Storefront[] {
   useEffect(() => {
     if (!apiEnabled) return
     let alive = true
-    fetchStorefronts()
-      .then((next) => {
-        if (alive) setRemote(next)
-      })
-      .catch(() => {})
+    const load = () =>
+      fetchStorefronts()
+        .then((next) => {
+          if (alive) setRemote(next)
+        })
+        .catch(() => {})
+    load()
+    // ponytail: polling 15 dtk menutup status buka/tutup toko tanpa kanal WS;
+    // ganti ke Supabase Realtime (`postgres_changes` di `merchants`) kalau
+    // publication-nya sudah siap.
+    const timer = setInterval(load, 15_000)
     return () => {
       alive = false
+      clearInterval(timer)
     }
   }, [])
   return remote ?? fallback

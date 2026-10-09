@@ -54,6 +54,19 @@ export const foodApi = baseApi.injectEndpoints({
         re-login the demo merchant account so RLS returns the rows.
       </p>
       <h3 className="doc-h3">
+        Reference data — live reads
+      </h3>
+      <p className="doc-p">
+        Couriers, wallets, merchant incentive, SA zones/roles/operators, and kill switches are
+        read from PostgREST in <code className="doc-inline">src/api/reference.ts</code> and synced
+        into Redux once from <code className="doc-inline">App</code> (
+        <code className="doc-inline">useApiSync</code>), mock-first: a failed call leaves the seed
+        in place. The merchant store open/close toggle writes back{' '}
+        <code className="doc-inline">PATCH /rest/v1/merchants?id=eq.1</code>, and the customer
+        storefront polls for changes. RLS guards the user tables, so reads sign in the demo
+        <code className="doc-inline">cs@</code> account (explicit token, never the global one).
+      </p>
+      <h3 className="doc-h3">
         Order tracking — WebSocket
       </h3>
       <p className="doc-p">
