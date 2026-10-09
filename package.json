@@ -12,7 +12,9 @@
     "preview": "vite preview",
     "scan": "node scripts/surface-scan.mjs",
     "scan:test": "node scripts/surface-scan.test.mjs",
-    "browser:gate": "node scripts/browser-gate.mjs"
+    "browser:gate": "node scripts/browser-gate.mjs",
+    "e2e": "node scripts/e2e-browsers.mjs",
+    "e2e:stop": "node scripts/e2e-browsers.mjs --stop"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
