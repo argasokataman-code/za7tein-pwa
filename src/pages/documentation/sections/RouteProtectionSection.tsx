@@ -187,7 +187,7 @@ whitelist: [..., 'superAdmin', 'auth']
         access to any route.
       </p>
 
-      <div className="doc-callout">
+      <div className="doc-info">
         <p className="doc-p" style={{ margin: 0 }}>
           Routes inside a role are gated by a mock flag; the flag is not security. Any real auth
           would replace <code className="doc-inline">AuthGate</code> with a server session check.

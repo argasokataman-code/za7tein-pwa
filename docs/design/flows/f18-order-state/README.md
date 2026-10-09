@@ -18,6 +18,20 @@ Diagram lifecycle tunggal untuk `order.status` (8 state sesuai skema) — selama
 
 Root = `cart`; terminal = `done`, `canceled`.
 
+## Peta tahap UI (Journey Line, EDISI 01)
+
+Journey Line menampilkan model 5 tahap (Figma Patterns, EDISI 01) yang **dipetakan ke state machine di atas** — bukan state baru:
+
+| Tahap UI | State |
+|---|---|
+| Baru | `quotation` (order dibuat, sebelum merchant terima) |
+| Disiapkan | `prepare` |
+| Siap | `waitingCourier` (`merchant_ready`) |
+| Diantar | `waitingDelivery` + `delivery` |
+| Selesai | `done` |
+
+Sub-state operasional merchant (`diterima`, `tiba` di `MerchantOrderStatus`) dan `canceled` (`ditolak`/`batal`) tidak jadi simpul Journey Line. Enum backend tetap 8 state — peta ini lapisan tampilan (keputusan PO 2026-10-09, `../decision-irbid-mvp.md`).
+
 ## Aturan keras (jangan dilupakan)
 
 - **8 state sesuai skema, jangan ditambah.** `cart | quotation | canceled | prepare | waitingCourier | waitingDelivery | delivery | done` — nilai persis dari `schema-draft-v1.md` entri 9.
@@ -50,3 +64,5 @@ Root = `cart`; terminal = `done`, `canceled`.
 Wajib: validate **9/9, 0 error, 0 warning**; deliver exit 0; visual-check pass 4 viewport (light + dark).
 
 Terakhir diperbarui: 2026-09-22 — label `R-STATE-01 synthetic` diganti dasar **`C-17`** (enum 9 status + `hold_status` + state dispute) + `DEC-1037` (SLA sementara). Validate 9/9 pass, deliver exit 0 (spec `65d63d3a`, artifact `85b41cb7`), visual-check pass (1440x900, 2048x1320 light + dark, overflow 0).
+
+Diperbarui 2026-10-09: ditambah bagian **Peta tahap UI (Journey Line, EDISI 01)** — 5 tahap tampilan dipetakan ke 8 state backend, tanpa mengubah state machine (keputusan PO 2026-10-09).

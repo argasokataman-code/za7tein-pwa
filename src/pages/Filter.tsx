@@ -54,9 +54,11 @@ export default function Filter() {
                 <span>
                   {money(PRICE_MIN)}
                 </span>
-                <span aria-live="polite" aria-atomic="true" style={{ color: "#F15A37", fontWeight: "600" }}>
-                  {money(maxPrice)}
-                </span>
+                {maxPrice < PRICE_MAX ? (
+                  <span aria-live="polite" aria-atomic="true" className="price-range__now">
+                    {money(maxPrice)}
+                  </span>
+                ) : null}
                 <span>
                   {money(PRICE_MAX)}+
                 </span>

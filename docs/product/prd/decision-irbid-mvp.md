@@ -13,6 +13,13 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 
 ## Riwayat keputusan
 
+### Model status pesanan 5 tahap (EDISI 01) — 2026-10-09 (keputusan PO)
+
+- **Journey pesanan memakai 5 tahap kanonik** dari Figma Patterns EDISI 01: `Baru → Disiapkan → Siap → Diantar → Selesai` (`OrderStage`). Ini **lapisan tampilan** di atas state machine backend `f18-order-state` (enum 8 state tetap): Baru=`quotation`, Disiapkan=`prepare`, Siap=`waitingCourier`, Diantar=`waitingDelivery`/`delivery`, Selesai=`done`.
+- **`MerchantOrderStatus` tetap lebih kaya**: `diterima` (merchant terima, sebelum dapur mulai) dan `tiba` (kurir sampai, menunggu OTP) jadi sub-state operasional tanpa simpul Journey Line; `ditolak`/`batal` = terminal batal.
+- **Dasar**: Figma “sa7tein / Patterns”, bagian “Aturan konsistensi” — *"New → Preparing → Ready → Diantar (Info) → Delivered. Cancelled terminal, tampilkan alasan. Jangan tampilkan 'Terkirim' sebelum konfirmasi. Ready bukan 'Sudah dibayar'."* Label tampilan memakai bahasa Indonesia.
+- Aturan format ikut EDISI 01: Rupiah `Rp28.000` (tanpa spasi/desimal), pecahan/rating pakai koma (`4,9`), ETA rentang menit, waktu lokal `13.42`.
+
 ### Onboarding tiap peran — 2026-09-25 (keputusan PO)
 
 - **Setiap peran punya layar onboarding sendiri.** Customer `/customer/onboarding` (sudah ada), merchant `/merchant/onboarding` (form profil toko = langkah `profil` flow `f16`), kurir `/courier/onboarding` (profil + kendaraan), panel admin punya antrean `/admin/onboarding` (approval tenant). Layar onboarding bukan fitur opsional.

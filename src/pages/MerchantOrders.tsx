@@ -18,17 +18,20 @@ import type { MerchantOrderStatus, OrderStage } from '../types'
 /**
  * Status order merchant → tahap Journey Line.
  *
- * `MerchantOrderStatus` lebih lebar dari `OrderStage`: `masuk` belum masuk rel,
- * dan `selesai`/`ditolak`/`batal` sudah keluar dari rel. Pemetaannya eksplisit
- * (bukan cast) supaya menambah status baru memaksa keputusan di sini, bukan
- * diam-diam salah render.
+ * `MerchantOrderStatus` lebih lebar dari `OrderStage`: `diterima` dan `tiba`
+ * adalah sub-state operasional (merchant menerima; kurir sudah sampai) yang
+ * tidak punya simpul sendiri di rel, sementara `ditolak`/`batal` sudah keluar
+ * rel. Pemetaannya eksplisit (bukan cast) supaya menambah status baru memaksa
+ * keputusan di sini, bukan diam-diam salah render.
  */
 const JOURNEY_STAGE: Partial<Record<MerchantOrderStatus, OrderStage>> = {
-  diterima: 'diterima',
-  dimasak: 'dimasak',
+  baru: 'baru',
+  diterima: 'disiapkan',
+  disiapkan: 'disiapkan',
+  siap: 'siap',
   diantar: 'diantar',
-  tiba: 'tiba',
-  selesai: 'tiba',
+  tiba: 'diantar',
+  selesai: 'selesai',
 }
 
 /* Estimasi masak sebagai pilihan tetap, bukan slider. Slider adalah kontrol
@@ -162,7 +165,7 @@ export default function MerchantOrders() {
                   />
                 </button>
 
-                {order.status === 'masuk' ? (
+                {order.status === 'baru' ? (
                   <div className="merchant-actions">
                     <button
                       type="button"
@@ -232,9 +235,9 @@ export default function MerchantOrders() {
 
             {/* Journey Line: komponen yang sama dengan layar customer dan tugas
                 kurir — status pesanan tetap satu model lintas peran
-                (AGENTS.md §9: turunkan, jangan gambar ulang). Order `masuk`
-                belum punya tahap, dan order ditolak/batal sudah keluar dari
-                rel, jadi keduanya tidak menampilkan journey. */}
+                (AGENTS.md §9: turunkan, jangan gambar ulang). Order `diterima`
+                dan `tiba` memakai tahap rel terdekat, dan order ditolak/batal
+                sudah keluar rel, jadi keduanya tidak menampilkan journey. */}
             {JOURNEY_STAGE[detailOrder.status] ? (
               <JourneyLine stage={JOURNEY_STAGE[detailOrder.status] as OrderStage} />
             ) : null}
@@ -256,7 +259,7 @@ export default function MerchantOrders() {
             </p>
             <p className="merchant-order-total">Total {money(detailOrder.total)}</p>
 
-            {detailOrder.status === 'masuk' ? (
+            {detailOrder.status === 'baru' ? (
               <div className="merchant-actions">
                 <button
                   type="button"
@@ -278,7 +281,9 @@ export default function MerchantOrders() {
               </div>
             ) : null}
 
-            {detailOrder.status === 'diterima' || detailOrder.status === 'dimasak' ? (
+            {detailOrder.status === 'diterima' ||
+            detailOrder.status === 'disiapkan' ||
+            detailOrder.status === 'siap' ? (
               <div className="merchant-cook">
                 <div className="merchant-cook-head">
                   <span>Estimasi masak</span>
@@ -337,16 +342,28 @@ export default function MerchantOrders() {
                     : HOLD_STATUS_COPY.held.note}
                 </p>
 
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => {
-                    setDetailId(null)
-                    setDispatchId(detailOrder.id)
-                  }}
-                >
-                  Siap diantar
-                </button>
+                {detailOrder.status === 'siap' ? (
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setDetailId(null)
+                      setDispatchId(detailOrder.id)
+                    }}
+                  >
+                    Siap diantar
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() =>
+                      dispatch(setOrderStatus({ id: detailOrder.id, status: 'siap' }))
+                    }
+                  >
+                    Tandai siap
+                  </button>
+                )}
 
                 <button
                   type="button"

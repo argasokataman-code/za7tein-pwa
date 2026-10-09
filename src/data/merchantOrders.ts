@@ -2,8 +2,8 @@ import type { CartItem, MerchantOrder, MerchantOrderStatus } from '../types'
 
 /** Tab antrean merchant — satu sumber untuk label dan status anggotanya. */
 export const QUEUE_TABS = [
-  { id: 'masuk', label: 'Antrean', statuses: ['masuk'] },
-  { id: 'diproses', label: 'Diproses', statuses: ['diterima', 'dimasak', 'diantar', 'tiba'] },
+  { id: 'masuk', label: 'Antrean', statuses: ['baru'] },
+  { id: 'diproses', label: 'Diproses', statuses: ['diterima', 'disiapkan', 'siap', 'diantar', 'tiba'] },
   { id: 'selesai', label: 'Selesai', statuses: ['selesai'] },
   { id: 'batal', label: 'Batal', statuses: ['ditolak', 'batal'] },
 ] as const
@@ -11,9 +11,10 @@ export const QUEUE_TABS = [
 export type QueueTabId = (typeof QUEUE_TABS)[number]['id']
 
 export const ORDER_STATUS_LABEL: Record<MerchantOrderStatus, string> = {
-  masuk: 'Baru',
+  baru: 'Baru',
   diterima: 'Diterima',
-  dimasak: 'Dimasak',
+  disiapkan: 'Disiapkan',
+  siap: 'Siap',
   diantar: 'Diantar',
   tiba: 'Tiba',
   selesai: 'Selesai',
@@ -45,7 +46,7 @@ export const merchantOrders: MerchantOrder[] = [
     total: 44000,
     distanceMeters: 480,
     zone: 'hijazi',
-    status: 'masuk',
+    status: 'baru',
     placedAt: '2 menit lalu',
     paymentMethod: 'cod',
   },
@@ -61,7 +62,7 @@ export const merchantOrders: MerchantOrder[] = [
     total: 18000,
     distanceMeters: 900,
     zone: 'syimali',
-    status: 'masuk',
+    status: 'baru',
     placedAt: '5 menit lalu',
     paymentMethod: 'transfer',
   },
@@ -77,7 +78,7 @@ export const merchantOrders: MerchantOrder[] = [
     total: 60000,
     distanceMeters: 1300,
     zone: 'syimali',
-    status: 'dimasak',
+    status: 'disiapkan',
     placedAt: '14 menit lalu',
     paymentMethod: 'cod',
     cookMinutes: 25,
@@ -94,7 +95,7 @@ export const merchantOrders: MerchantOrder[] = [
     total: 44000,
     distanceMeters: 1750,
     zone: 'hijazi',
-    status: 'dimasak',
+    status: 'siap',
     placedAt: '18 menit lalu',
     paymentMethod: 'transfer',
     cookMinutes: 25,

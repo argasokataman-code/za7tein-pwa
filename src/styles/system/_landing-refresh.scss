@@ -27,8 +27,8 @@
 .sa-sample-actions { display: flex; gap: 12px; }
 .sa-sample-hero-art { position: relative; min-height: 480px; }
 .sa-dots { position: absolute; width: 120px; height: 110px; top: 40px; left: 20px; background-image: radial-gradient(rgb(255 255 255 / 27%) 2px, transparent 3px); background-size: 22px 22px; }
-.sa-phone { width: 210px; height: 430px; overflow: hidden; position: relative; border: 5px solid #262626; border-radius: 32px; background: var(--surface); color: var(--text-primary); box-shadow: 0 15px 32px rgb(0 0 0 / 20%); padding: 17px 11px 12px; font-size: 11px; }
-.sa-phone-island { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 72px; height: 14px; border-radius: 0 0 10px 10px; background: #262626; }
+.sa-phone { width: 210px; height: 430px; overflow: hidden; position: relative; border: 5px solid #262626; /* token-ok: bezel mock ponsel, di luar palet produk */ border-radius: 32px; background: var(--surface); color: var(--text-primary); box-shadow: 0 15px 32px rgb(0 0 0 / 20%); padding: 17px 11px 12px; font-size: 11px; }
+.sa-phone-island { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 72px; height: 14px; border-radius: 0 0 10px 10px; background: #262626; /* token-ok: bezel mock ponsel, di luar palet produk */ }
 .sa-phone-status { display: flex; justify-content: space-between; font-size: 8px; font-weight: 800; margin-bottom: 10px; }
 .sa-phone-brand { display: flex; gap: 3px; align-items: center; color: var(--orange-ink); font-size: 13px; font-weight: 800; }
 .sa-phone-brand img { width: 18px; }

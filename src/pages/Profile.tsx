@@ -30,9 +30,9 @@ export default function Profile() {
         <div className="my-account">
           <div className="my-account-scroll">
             <div className="main-frame">
-              <Link className="profile-header-block profile-header-link s7-parallax--card" aria-label="Edit profile for Dimas Ardianto" to="/personal-data" style={{ textDecoration: "none" }}>
+              <Link className="profile-header-block s7-parallax--card" aria-label="Edit profile for Dimas Ardianto" to="/personal-data" style={{ textDecoration: "none" }}>
                 <img alt="Dimas Ardianto" width={64} height={64} className="avatar-image-60" src="/assets/img/profile.png" style={{ color: "transparent" }} />
-                <div className="auto-layout-vertical" style={{ flex: "1 1 0%", minWidth: "0px" }}>
+                <div style={{ flex: "1 1 0%", minWidth: "0px" }}>
                   <div className="jenny-wilson" style={{ fontWeight: "700", fontSize: "16px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                     Dimas Ardianto
                   </div>

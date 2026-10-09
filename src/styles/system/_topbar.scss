@@ -164,4 +164,16 @@ $back-overlay: ".back-btn-map", ".btn-back-map";
   .app-shell .payment-amount-content {
     padding-top: calc(76px + env(safe-area-inset-top));
   }
+
+  // Judul halaman dipusatkan lewat `position: absolute` tanpa `top`, jadi ia
+  // mengambil posisi statis — yang berpusat pada KOTAK PENUH bar (border box),
+  // bukan area isi di bawah inset. Saat bar tumbuh sebesar inset di atas,
+  // pusatnya ikut naik dan pada viewport lebar tepi atas judul melewati garis
+  // safe-area (terukur 54px < 59px di 1440px). `top` inert untuk judul ini
+  // (terukur: `top` 0 vs 200px tidak menggeser) dan `env()` di dalam
+  // `transform` tidak terbaca, jadi digeser lewat `margin-top`, yang ikut
+  // menentukan posisi statis.
+  .app-shell .payment-selection-header .payment-selection-title {
+    margin-top: calc(env(safe-area-inset-top) / 2);
+  }
 }

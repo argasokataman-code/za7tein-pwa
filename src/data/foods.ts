@@ -1,5 +1,10 @@
 import type { Food, ModifierGroup } from '../types'
 
+/** Rating dengan koma desimal, mis. `4,7` — aturan format Patterns EDISI 01. */
+export function formatRating(rating: number): string {
+  return rating.toFixed(1).replace('.', ',')
+}
+
 /** Modifier grup dipakai layar detail menu (PRD bab 02). */
 const SPICE: ModifierGroup = {
   id: 'spice',

@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react'
 import { Clock, Star } from 'lucide-react'
 
 import { money } from '../../data/merchant'
+import { formatRating } from '../../data/foods'
 import { AddToCartButton } from './AddToCartButton'
 import { FavoriteButton } from './FavoriteButton'
 import type { Food } from '../../types'
@@ -60,17 +61,19 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
           <span className="food-price">{money(food.price)}</span>
         </div>
 
-        <div className="food-delivery-info">
-          <Clock size={14} />
-          <span>{food.deliveryTime}</span>
-          <span className="separator">•</span>
-          <span>{food.distance}</span>
-        </div>
+        <div className="food-meta">
+          <div className="food-delivery-info">
+            <Clock size={14} />
+            <span>{food.deliveryTime}</span>
+            <span className="separator">•</span>
+            <span>{food.distance}</span>
+          </div>
 
-        <div className="food-rating">
-          <Star size={14} fill="currentColor" />
-          <span className="rating-value">{food.rating}</span>
-          <span className="rating-count">({food.reviewCount} Reviews)</span>
+          <div className="food-rating">
+            <Star size={14} fill="currentColor" />
+            <span className="rating-value">{formatRating(food.rating)}</span>
+            <span className="rating-count">({food.reviewCount} ulasan)</span>
+          </div>
         </div>
 
         <AddToCartButton food={food} />

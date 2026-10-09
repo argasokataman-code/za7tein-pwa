@@ -76,17 +76,23 @@ const STATUS: Record<
   OrderStage,
   { label: string; etaLabel: string; eta: string; courier: string }
 > = {
-  diterima: {
+  baru: {
     label: 'Pesanan diterima',
     etaLabel: 'Estimasi siap',
     eta: mockOrder.readyEstimate,
     courier: 'Menunggu konfirmasi toko',
   },
-  dimasak: {
-    label: 'Sedang dimasak',
+  disiapkan: {
+    label: 'Sedang disiapkan',
     etaLabel: 'Estimasi siap',
     eta: mockOrder.readyEstimate,
-    courier: 'Menunggu pesanan siap',
+    courier: 'Dapur menyiapkan pesananmu',
+  },
+  siap: {
+    label: 'Pesanan siap',
+    etaLabel: 'Estimasi siap',
+    eta: mockOrder.readyEstimate,
+    courier: 'Menunggu kurir mengambil',
   },
   diantar: {
     label: 'Sedang diantar',
@@ -94,8 +100,8 @@ const STATUS: Record<
     eta: mockOrder.arriveEstimate,
     courier: 'Menuju alamatmu',
   },
-  tiba: {
-    label: 'Pesanan tiba',
+  selesai: {
+    label: 'Pesanan selesai',
     etaLabel: 'Tiba pukul',
     eta: mockOrder.arriveEstimate,
     courier: 'Pesanan sudah diterima',
@@ -160,7 +166,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const override = params.get('stage')
   const stage: OrderStage = sah(override)
     ? override
-    : fixedStage ?? (sah(rawStage) ? rawStage : 'dimasak')
+    : fixedStage ?? (sah(rawStage) ? rawStage : 'disiapkan')
 
   // Pengantaran satu-satunya tahap di mana peta memang layak dominan.
   const isDelivery = stage === 'diantar'
@@ -465,7 +471,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
           {/* Sengketa (F8/M6): 1× per order, window 24 jam dari order selesai.
               Antrean putusannya ada di panel CS (`/admin`), bukan konsol Super
               Admin terpisah. */}
-          {stage === 'tiba' || dispute ? (
+          {stage === 'selesai' || dispute ? (
             <section className="track-section">
               <h2 className="track-section-title">Sengketa</h2>
               <div className="track-row">

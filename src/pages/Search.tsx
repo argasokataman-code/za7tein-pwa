@@ -1,13 +1,14 @@
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
-import { ChevronLeft, Star, SearchIcon, SlidersHorizontal } from 'lucide-react'
+// Search finds a dish (menu-level). The default (no query, no filter) used to
+// show a "Hot Deals" strip and a "Recommended" strip copied from the old
+// beranda; the promo/deals now live on the store page, so the strip is gone and
+// the default is a single recommended grid that uses the same FoodCard as the
+// results. Classes match the stylesheet in src/styles/_app.scss + system/.
+import { ChevronLeft, SearchIcon, SlidersHorizontal } from 'lucide-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
 import { FoodCard } from '../components/ui/FoodCard'
 import { useCatalog } from '../hooks/useCatalog'
-import { money } from '../data/merchant'
-import { useFoodActions } from '../hooks/useFoodActions'
 import type { SearchFilters } from '../types'
 
 const RECENT_SEARCHES = ['Pizza', 'Burger', 'Pastry', 'Cookies', 'Meat Church']
@@ -15,13 +16,12 @@ const RECENT_SEARCHES = ['Pizza', 'Burger', 'Pastry', 'Cookies', 'Meat Church']
 export default function Search() {
   const [query, setQuery] = useState('')
   const [recent, setRecent] = useState(RECENT_SEARCHES)
-  const { addToCart } = useFoodActions()
   const navigate = useNavigate()
   const location = useLocation()
-  const { items, deals, popular } = useCatalog()
+  const { items, popular } = useCatalog()
 
   // Filter dari layar Filter (location.state). `null` = tidak sedang memfilter,
-  // jadi Hot Deals + Recommended yang tampil.
+  // jadi grid "Rekomendasi" yang tampil.
   const filters = location.state as SearchFilters | null
 
   const results = useMemo(() => {
@@ -42,6 +42,8 @@ export default function Search() {
       return true
     })
   }, [items, query, filters])
+
+  const openMenu = (id: string) => navigate(`/menu-detail/${id}`)
 
   return (
     <>
@@ -112,82 +114,39 @@ export default function Search() {
                       <FoodCard
                         key={food.id}
                         food={food}
-                        onOpen={(item) => navigate(`/menu-detail/${item.id}`)}
+                        onOpen={(item) => openMenu(item.id)}
                       />
                     ))}
                   </div>
                 ) : (
-                  <p className="search-empty">Tidak ada menu yang cocok.</p>
+                  <>
+                    <p className="search-empty">Tidak ada menu yang cocok.</p>
+                    <button
+                      type="button"
+                      className="link-btn"
+                      onClick={() => {
+                        setQuery('')
+                        navigate(location.pathname, { replace: true, state: null })
+                      }}
+                    >
+                      Hapus filter
+                    </button>
+                  </>
                 )}
               </>
             ) : (
               <>
                 <div className="section-header">
                   <h2 className="section-title s7-parallax--title">
-                    Hot Deals
+                    Rekomendasi
                   </h2>
-                  <Link className="see-all-link" to="/home">
-                    See All
-                  </Link>
                 </div>
-                <div className="hot-deals-list h-scroll-strip" role="list">
-                  {deals.map((f) => (
-                    <Link
-                      key={f.id}
-                      className="hot-deal-card"
-                      role="listitem"
-                      aria-label={f.name}
-                      to={`/menu-detail/${f.id}`}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      <div style={{ position: 'relative', flexShrink: '0' }}>
-                        <img
-                          alt={f.name}
-                          width={80}
-                          height={80}
-                          className="hot-deal-image"
-                          src={f.image}
-                          loading="lazy"
-                          decoding="async"
-                          style={{ color: 'transparent', width: '80px', height: '80px', objectFit: 'cover', borderRadius: '12px' }}
-                        />
-                      </div>
-                      <div className="hot-deal-info">
-                        <span className="hot-deal-title">{f.name}</span>
-                        <div className="hot-deal-meta">
-                          {f.deliveryTime} • {f.distance}
-                        </div>
-                        <div className="hot-deal-rating">
-                          <Star size={11} aria-hidden="true" />
-                          {f.rating} ({f.reviewCount} Reviews)
-                        </div>
-                        <div className="hot-deal-price">{money(f.price)}</div>
-                      </div>
-                      <button
-                        type="button"
-                        className="hot-deal-add"
-                        aria-label={`Tambah ${f.name} ke keranjang`}
-                        onClick={(e) => { e.stopPropagation(); addToCart(f.id) }}
-                      >
-                        tambah
-                      </button>
-                    </Link>
-                  ))}
-                </div>
-                <div className="section-header">
-                  <h2 className="section-title s7-parallax--title">
-                    Recommended
-                  </h2>
-                  <Link className="see-all-link" to="/home">
-                    See All
-                  </Link>
-                </div>
-                <div className="food-cards-scroll" role="list">
-                  {popular.map((f) => (
+                <div className="favorites-grid" role="list">
+                  {popular.map((food) => (
                     <FoodCard
-                      key={f.id}
-                      food={f}
-                      onOpen={(food) => navigate(`/menu-detail/${food.id}`)}
+                      key={food.id}
+                      food={food}
+                      onOpen={(item) => openMenu(item.id)}
                     />
                   ))}
                 </div>

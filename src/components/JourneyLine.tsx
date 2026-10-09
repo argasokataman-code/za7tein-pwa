@@ -1,4 +1,4 @@
-import { Bike, Check, Home, Utensils, type LucideIcon } from 'lucide-react'
+import { Bike, ClipboardList, Home, PackageCheck, Utensils, type LucideIcon } from 'lucide-react'
 
 import { ORDER_STAGES } from '../data/merchant'
 import type { OrderStage } from '../types'
@@ -16,10 +16,11 @@ type NodeState = 'done' | 'active' | 'todo'
 
 /** Ikon tiap tahap, memakai lucide yang sudah jadi bahasa ikon aplikasi. */
 const STEP_ICON: Record<OrderStage, LucideIcon> = {
-  diterima: Check,
-  dimasak: Utensils,
+  baru: ClipboardList,
+  disiapkan: Utensils,
+  siap: PackageCheck,
   diantar: Bike,
-  tiba: Home,
+  selesai: Home,
 }
 
 interface JourneyLineProps {

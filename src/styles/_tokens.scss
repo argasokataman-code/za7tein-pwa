@@ -2,33 +2,45 @@
 // Dua lapis tiap warna: warna dasar untuk fill/dot/bar (non-text),
 // dan *-ink untuk teks & background tombol supaya lolos WCAG AA.
 :root {
-  --sa7tein-orange: #F15A37;
-  --orange-ink: #C9431F;
+  // Palet EDISI 01 — peta primitive -> semantic Figma "sa7tein / Foundations":
+  // orange/500 = brand.primary, orange/700 = action.text, navy/700 = text.primary.
+  --sa7tein-orange: #E8421A;
+  --orange-ink: #B83213;
   --orange-soft-ink: #9E3416;
   --orange-deep: #A83818;
-  --orange-soft: #FBE9E2;
+  --orange-soft: #FDEDE8;
 
-  --bg-warm: #FFF9F4;
+  --bg-warm: #F8F9F7;
   --surface: #FFFFFF;
   --on-brand: #FFFFFF;
 
-  --text-primary: #202020;
-  --text-secondary: #6B6865;
+  --text-primary: #1A3A5C;
+  --text-secondary: #59665F;
+  // --text-disabled & --icon-decor: reserved, belum ada consumer. Dipakai saat
+  // state kontrol nonaktif / ikon dekoratif dibangun (M2/M5).
+  --text-disabled: #A6AEA9;
+  --icon-decor: #7A857F;
 
-  --success: #2F8A57;
-  --success-ink: #2A7A4C;
-  --green-soft: #E8F4EC;
-  --warning: #D88A32;
-  --warning-ink: #8A5A1A;
-  --warning-soft: #FBF1E3;
-  --danger: #C94B45;
-  /* #BF423C di atas --red-soft hanya 4.40:1 (di bawah AA 4.5 untuk teks normal);
-     #B93D37 = 4.72:1 di red-soft dan 5.55:1 di putih (audit-006 #6). */
-  --danger-ink: #B93D37;
-  --red-soft: #F9E9E8;
+  // Navy juga dipakai sebagai latar gelap (panel/hero/footer navy).
+  --navy: #1A3A5C;
+  --on-navy: #FFFFFF;
 
-  --border: #EDE4DC;
-  --border-strong: #DFD2C6;
+  --success: #32765A;
+  --success-ink: #32765A;
+  --green-soft: #EAF4ED;
+  --warning: #9A631B;
+  --warning-ink: #9A631B;
+  --warning-soft: #FFF4DF;
+  --danger: #B93838;
+  --danger-ink: #B93838;
+  --red-soft: #FCECEC;
+  // Info: reserved untuk status "Disiapkan" (Figma status.info). Belum ada consumer.
+  --info: #487A9F;
+  --info-ink: #356282;
+  --info-soft: #ECF4FA;
+
+  --border: #E7ECE7;
+  --border-strong: #D6DDD6;
 
   --radius-xs: 6px;    /* badge, kontrol rapat */
   --radius-sm: 8px;    /* input, kontrol kecil */
@@ -52,11 +64,13 @@
   --space-6: 24px;
   --space-7: 28px;
   --space-8: 32px;
+  --space-9: 48px;
+  --space-10: 64px;
 
-  --font-sans: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
   --touch-min: 44px;
   --nav-height: 64px;
-  --shadow-subtle: 0 1px 2px rgba(32, 32, 32, 0.05);
+  --shadow-subtle: 0 1px 2px rgba(26, 58, 92, 0.05);
   --overlay: rgba(32, 32, 32, 0.4);
   /* Overlay pekat untuk elemen kecil di atas foto (mis. cakram hapus pratinjau):
      di atas foto yang tak diketahui, --overlay 0.4 bisa jatuh ke ~2.8:1 untuk
@@ -104,7 +118,7 @@
   --ease-inout: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* the recovered stylesheet references this variable for its font stack */
-  --font-plus-jakarta: 'Manrope';
+  --font-plus-jakarta: 'Inter';
 }
 
 html, body { font-family: var(--font-sans); }
@@ -145,9 +159,10 @@ html, body { font-family: var(--font-sans); }
      selera ukuran huruf. */
   --text-field: 16px;
 
-  --shadow-sm: 0 1px 2px rgba(32, 32, 32, 0.05);
-  --shadow-md: 0 8px 24px rgba(32, 32, 32, 0.10);
-  --shadow-brand: 0 8px 20px rgba(241, 90, 55, 0.28);
+  // Elevasi EDISI 01: bayangan bernuansa navy (rgba(26,58,92)), bukan abu netral.
+  --shadow-sm: 0 2px 8px rgba(26, 58, 92, 0.05);
+  --shadow-md: 0 8px 24px rgba(26, 58, 92, 0.10);
+  --shadow-brand: 0 8px 20px rgba(232, 66, 26, 0.28);
 
   /* Gradient merek dihapus: brief melarang gradient, dan ketiga
      pemakaiannya sudah diganti warna solid. */

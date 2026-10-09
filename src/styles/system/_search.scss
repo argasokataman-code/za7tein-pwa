@@ -1,0 +1,86 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Halaman "Search" (dan chip bersama yang dipakai Filter).
+//
+// Chrome layar ini masih datang dari stylesheet porting (`app/part-06/07`)
+// dengan warna mentah `#EDE4DC` / `#202020` / `#6B6865` / `#C9431F`. Partial ini
+// memetakannya ke token design system — permukaan `--surface`, tepi `--border`,
+// teks `--text-primary` / `--text-secondary`, aksen `--orange-ink`. Tidak ada
+// nilai mentah di sini; `.chip` sengaja ikut ditata karena dipakai bersama oleh
+// halaman Filter.
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Judul header sudah diunifikasi `type/` + `topbar/`; di sini hanya warna dan
+// jaraknya disamakan dengan token.
+.search-header {
+  color: var(--text-primary);
+}
+
+.search-header h1 {
+  color: var(--text-primary);
+}
+
+.search-page-bar {
+  padding: 0 var(--space-5) var(--space-3);
+}
+
+.search-bar {
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-icon {
+  color: var(--text-secondary);
+}
+
+.search-input {
+  color: var(--text-primary);
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+// Ikon filter adalah kontrol nyata (tautan ke /filter): sasaran jarinya diberi
+// ukuran `--touch-min`, bukan 24px seperti sebelumnya. Ikonnya sendiri tetap
+// kecil; yang membesar hanya area sentuh.
+.filter-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: var(--touch-min);
+  height: var(--touch-min);
+
+  color: var(--text-secondary);
+  border-radius: var(--radius-md);
+}
+
+.filter-link svg {
+  width: 22px;
+  height: 22px;
+}
+
+.search-section-header h2 {
+  color: var(--text-primary);
+}
+
+// Chip (recent search di Search, filter di Filter). `.recent-chip` di
+// `interaction/` mengatur area sentuh dua tombolnya; di sini hanya kulitnya.
+.chip {
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.chip.active {
+  color: var(--orange-ink);
+  border-color: var(--sa7tein-orange);
+}

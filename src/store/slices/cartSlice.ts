@@ -62,8 +62,8 @@ const initialState: CartState = {
   selectedPaymentId: 'wallet',
   transferProof: null,
   // Order demo dimulai dari tahap yang sama dengan yang dilihat merchant
-  // ('masuk' di `merchantOrders` SA-1041) dan kurir ('masuk', belum diambil).
-  orderStage: 'diterima',
+  // ('baru' di `merchantOrders` SA-1041) dan kurir (checkpoint 'masuk', belum diambil).
+  orderStage: 'baru',
   holdStatus: 'none',
   holdAmountIdr: 0,
   holdLedger: [],

@@ -156,8 +156,8 @@ export function MerchantBottomNav() {
         Order status — human labels
       </h3>
       <p className="doc-p">
-        Raw enum values (e.g. <code className="doc-inline">masuk</code>,
-        <code className="doc-inline">dimasak</code>) are displayed via
+        Raw enum values (e.g. <code className="doc-inline">baru</code>,
+        <code className="doc-inline">disiapkan</code>) are displayed via
         <code className="doc-inline">orderStatusLabel()</code>, which returns Indonesian
         labels:
       </p>
@@ -166,9 +166,10 @@ export function MerchantBottomNav() {
 import type { MerchantOrderStatus } from '../types'
 
 export const ORDER_STATUS_LABEL: Record<MerchantOrderStatus, string> = {
-  masuk: 'Baru',
+  baru: 'Baru',
   diterima: 'Diterima',
-  dimasak: 'Dimasak',
+  disiapkan: 'Disiapkan',
+  siap: 'Siap',
   diantar: 'Diantar',
   tiba: 'Tiba',
   selesai: 'Selesai',
@@ -549,7 +550,7 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
       </h3>
       <p className="doc-p">
         Kartu order di <code className="doc-inline">/merchant/orders</code> menampilkan{' '}
-        <strong>Journey Line</strong> — simpul Diterima · Dimasak · Diantar · Tiba dengan keadaan
+        <strong>Journey Line</strong> — simpul Baru · Disiapkan · Siap · Diantar · Selesai dengan keadaan
         {' '}<code className="doc-inline">done</code>/<code className="doc-inline">active</code>/
         <code className="doc-inline">todo</code>. Sebelumnya merchant hanya melihat pil status
         ("Dimasak"); posisi pesanan di perjalanannya tidak terlihat, jadi memantau antrean berarti
@@ -565,10 +566,11 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         Yang perlu diperhatikan saat memakainya: <code className="doc-inline">MerchantOrderStatus</code>{' '}
         lebih lebar dari <code className="doc-inline">OrderStage</code>. Pemetaannya eksplisit di{' '}
         <code className="doc-inline">JOURNEY_STAGE</code> (bukan cast), supaya menambah status baru
-        memaksa keputusan di satu tempat alih-alih diam-diam salah render. Order{' '}
-        <code className="doc-inline">masuk</code> belum punya tahap, dan order{' '}
+        memaksa keputusan di satu tempat alih-alih diam-diam salah render. Sub-state{' '}
+        <code className="doc-inline">diterima</code> dan <code className="doc-inline">tiba</code>{' '}
+        memakai tahap rel terdekat, dan order{' '}
         <code className="doc-inline">ditolak</code>/<code className="doc-inline">batal</code> sudah
-        keluar dari rel — keduanya sengaja tidak menampilkan journey.
+        keluar dari rel — yang terakhir sengaja tidak menampilkan journey.
       </p>
       <h3 className="doc-h3">
         Tipografi kartu order

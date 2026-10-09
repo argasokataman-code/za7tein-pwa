@@ -48,6 +48,7 @@ import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantMenu from './pages/MerchantMenu'
 import MerchantOnboarding from './pages/MerchantOnboarding'
 import MerchantOrders from './pages/MerchantOrders'
+import MerchantPage from './pages/MerchantPage'
 import MerchantPayout from './pages/MerchantPayout'
 import MerchantPayoutAccounts from './pages/MerchantPayoutAccounts'
 import MerchantPending from './pages/MerchantPending'
@@ -141,6 +142,7 @@ const customerRoutes: [string, ComponentType][] = [
   ['/filter', Filter],
   ['/favorites', Favorites],
   ['/menu-detail/:id', MenuDetail],
+  ['/merchant/:id', MerchantPage],
   ['/checkout', Checkout],
   ['/address-selection', AddressSelection],
   ['/payment-selection', PaymentSelection],

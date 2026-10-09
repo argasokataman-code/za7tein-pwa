@@ -66,7 +66,7 @@ export function ComponentsSection() {
 />`}
       </DocCode>
       <p className="doc-p">
-        Renders image, name, price, delivery time, distance, rating, discount badge (if present), FavoriteButton, and AddToCartButton. The entire card is clickable via <code className="doc-inline">onOpen</code>.
+        Renders image, name, price, delivery time, distance, rating, discount badge (if present), FavoriteButton, and AddToCartButton. The entire card is clickable via <code className="doc-inline">onOpen</code>. Layout is uniform: the photo (180px) and the name (2 lines), price (1 line) and meta (1 line) blocks have locked heights, so every card is the same size regardless of content length. In grids, <code className="doc-inline">.favorites-grid</code> is pinned to a single column.
       </p>
       <h3 className="doc-h3">
         AddToCartButton

@@ -283,12 +283,13 @@ export const mockCouriers: Courier[] = couriers.filter(
 
 export const MAX_COURIERS_PER_MERCHANT = 3
 
-/** Urutan tahap perjalanan; satu sumber untuk Journey Line dan label status. */
+/** Urutan lima tahap perjalanan; satu sumber untuk Journey Line dan label status. */
 export const ORDER_STAGES: { id: OrderStage; label: string }[] = [
-  { id: 'diterima', label: 'Diterima' },
-  { id: 'dimasak', label: 'Dimasak' },
+  { id: 'baru', label: 'Baru' },
+  { id: 'disiapkan', label: 'Disiapkan' },
+  { id: 'siap', label: 'Siap' },
   { id: 'diantar', label: 'Diantar' },
-  { id: 'tiba', label: 'Tiba' },
+  { id: 'selesai', label: 'Selesai' },
 ]
 
 /** Pesanan contoh — nomor, jam, dan estimasi dari PRD. */

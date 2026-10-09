@@ -5,21 +5,21 @@ import type { MenuItem } from '../../types'
 import { money } from '../../data/merchant'
 
 /**
- * Kartu promo beranda: tiga kartu yang bergeser sendiri, dengan latar gelombang.
+ * Kartu promo beranda: tiga kartu yang bergeser sendiri.
  *
  * Dua keputusan yang perlu dijelaskan:
  *
- * 1. **Gelombang, bukan lingkaran.** Dekorasi lama adalah tiga lingkaran
- *    sepusat yang keluar dari tepi kanan atas. Diganti karena bentuknya tidak
- *    terhubung ke apa pun di aplikasi ini, sementara gelombang sudah jadi
- *    bahasa visual hero beranda (`CustomerHomeHero`). Sekarang banner memakai
- *    motif yang sama, jadi seluruh beranda terbaca satu keluarga bentuk.
+ * 1. **Latar foto makanan, bukan gelombang saja.** Dekorasi lama cuma SVG
+ *    gelombang di atas oranye rata — terbaca sepi, bukan "promo". Sekarang
+ *    latarnya foto makanan yang cerah (aset lokal `promo/promo-spread.webp`),
+ *    ditimpa gradien gelap dari kiri supaya teks putihnya tetap terbaca.
+ *    Gelombangnya tetap ada sebagai tekstur halus di atasnya.
  *
  * 2. **Isinya dari data, bukan karangan.** PRD aktif tidak punya fitur promo
  *    atau voucher sama sekali, jadi tidak ada requirement yang bisa dikutip.
  *    Klaim promo yang boleh tampil karena itu hanya yang sudah ada di mock:
- *    satu dari notifikasi `n3` (diskon 30%, minimum Rp50.000), sisanya item
- *    katalog yang `discountPercent`-nya memang terisi. Tidak ada angka baru.
+ *    satu dari notifikasi `n3` (diskon 30%), sisanya item katalog yang
+ *    `discountPercent`-nya memang terisi. Tidak ada angka baru.
  *
  * Geraknya berhenti sendiri: `prefers-reduced-motion` mematikan pergeseran
  * otomatis, dan sentuhan pengguna menjeda. Carousel yang jalan terus sejak
@@ -28,26 +28,15 @@ import { money } from '../../data/merchant'
  */
 
 /** Satu kartu yang bisa tampil. `kind` menentukan gaya gelombangnya. */
-type PromoCard =
-  | {
-      id: string
-      kind: 'claim'
-      title: string
-      value: string
-      body: string
-      cta: string
-      to: string
-    }
-  | {
-      id: string
-      kind: 'deal'
-      title: string
-      value: string
-      body: string
-      cta: string
-      to: string
-      image?: string
-    }
+type PromoCard = {
+  id: string
+  kind: 'claim' | 'deal'
+  title: string
+  value: string
+  body: string
+  cta: string
+  to: string
+}
 
 /** Jeda antar-kartu. Cukup lama untuk dibaca, cukup pendek untuk terasa hidup. */
 const SLIDE_MS = 4200
@@ -76,21 +65,13 @@ function dealCards(deals: MenuItem[]): PromoCard[] {
     body: `Hemat dari ${money(food.price)}`,
     cta: 'Lihat Menu',
     to: `/menu-detail/${food.id}`,
-    image: food.image,
   }))
 }
 
 /**
- * Latar kartu. Tiga gelombang dari bawah (paling gelap di depan supaya terbaca
- * berlapis) plus tekstur titik di sudut kanan atas.
- *
- * Dua batas yang dipegang:
- *
- * 1. **Opasitas 4-14%.** Di atas oranye merek, lapisan di atas rentang itu
- *    menggeser warnanya ke pink atau salmon dan oranye mereknya rusak. Tiap
- *    pita dan titiknya di bawah 14%.
- * 2. **Tanpa gradient pada bentuk latar.** Kedalaman datang dari jumlah
- *    lapisan, bukan dari perpindahan warna — sama seperti dekorasi sebelumnya.
+ * Tekstur gelombang di atas latar foto. Tiga pita dari bawah (paling gelap di
+ * depan supaya terbaca berlapis) plus titik di sudut kanan atas, dijaga di
+ * opasitas 4-14% supaya tidak menutupi fotonya.
  *
  * `preserveAspectRatio="xMidYMid slice"`, bukan `none`: `none` meregang tidak
  * seragam, jadi lingkarannya jadi lonjong dan tebal garisnya tidak rata.
@@ -188,11 +169,6 @@ export function HomePromoCarousel({ deals }: HomePromoCarouselProps) {
                 </h3>
                 <p className="promo-slide__body">{card.body}</p>
               </div>
-              {'image' in card && card.image ? (
-                <div className="promo-slide__image">
-                  <img src={card.image} alt="" loading="lazy" width={200} height={200} />
-                </div>
-              ) : null}
             </div>
             <button
               type="button"

@@ -51,7 +51,7 @@ export default function AddProfilePhoto() {
             </main>
           </div>
           <div className="profile-modal-overlay " id="successModal">
-            <div className="profile-modal profile-modal-success">
+            <div className="profile-modal">
               <div className="profile-modal-icon success-icon">
                 <Check size={48} strokeWidth={1.75} />
               </div>
@@ -67,7 +67,7 @@ export default function AddProfilePhoto() {
             </div>
           </div>
           <div className="profile-modal-overlay " id="exitModal">
-            <div className="profile-modal profile-modal-exit">
+            <div className="profile-modal">
               <div className="profile-modal-icon exit-icon">
                 <TriangleAlert size={48} strokeWidth={1.75} />
               </div>

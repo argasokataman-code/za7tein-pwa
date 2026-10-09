@@ -136,8 +136,8 @@ export default function MerchantMenu() {
         description: data.description ?? '',
         rating: 5,
         reviewCount: 0,
-        deliveryTime: '20-30 min',
-        distance: '1.2 km',
+        deliveryTime: '20-30 menit',
+        distance: '1,2 km',
         available: true,
       }))
     }

@@ -106,7 +106,7 @@
 .btn-location-map,
 .map-header .btn-back,
 .add-form-cancel-btn {
-  color: #FFFFFF;
+  color: var(--on-brand);
   background: rgba(32, 32, 32, 0.55);
   border-radius: var(--radius-md);
 }

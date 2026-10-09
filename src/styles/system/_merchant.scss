@@ -256,13 +256,14 @@
   white-space: nowrap;
 }
 
-.merchant-badge-masuk,
+.merchant-badge-baru,
 .merchant-badge-diterima {
   background: var(--warning-soft);
   color: var(--warning-ink);
 }
 
-.merchant-badge-dimasak,
+.merchant-badge-disiapkan,
+.merchant-badge-siap,
 .merchant-badge-diantar,
 .merchant-badge-tiba,
 .merchant-badge-delivering {

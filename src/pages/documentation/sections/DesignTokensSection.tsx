@@ -16,6 +16,8 @@ const COLOR_GROUPS: { label: string; swatches: Swatch[] }[] = [
       { token: '--orange-soft', role: 'Latar oranye tipis: badge, callout' },
       { token: '--orange-ink', role: 'Teks oranye di latar terang (kontras AA)' },
       { token: '--orange-soft-ink', role: 'Teks oranye sekunder' },
+      { token: '--navy', role: 'Latar gelap navy (panel/hero)' },
+      { token: '--on-navy', role: 'Teks & ikon di atas navy' },
     ],
   },
   {
@@ -23,8 +25,10 @@ const COLOR_GROUPS: { label: string; swatches: Swatch[] }[] = [
     swatches: [
       { token: '--bg-warm', role: 'Latar halaman' },
       { token: '--surface', role: 'Permukaan kartu & panel' },
-      { token: '--text-primary', role: 'Teks utama' },
+      { token: '--text-primary', role: 'Teks utama (navy/700)' },
       { token: '--text-secondary', role: 'Teks sekunder / muted' },
+      { token: '--text-disabled', role: 'Teks kontrol nonaktif' },
+      { token: '--icon-decor', role: 'Ikon dekoratif (bukan teks penting)' },
       { token: '--border', role: 'Garis di dalam kartu' },
       { token: '--border-strong', role: 'Tepi kartu & input' },
     ],
@@ -41,6 +45,9 @@ const COLOR_GROUPS: { label: string; swatches: Swatch[] }[] = [
       { token: '--danger', role: 'Status bahaya / error' },
       { token: '--danger-ink', role: 'Teks bahaya' },
       { token: '--red-soft', role: 'Latar bahaya tipis' },
+      { token: '--info', role: 'Status informasi' },
+      { token: '--info-ink', role: 'Teks informasi di latar terang' },
+      { token: '--info-soft', role: 'Latar informasi tipis' },
       { token: '--star', role: 'Bintang rating' },
       { token: '--overlay', role: 'Latar gelap di belakang sheet & modal' },
       { token: '--overlay-strong', role: 'Overlay pekat elemen kecil di atas foto' },
@@ -57,6 +64,8 @@ const SPACING = [
   { token: '--space-6', px: '24px' },
   { token: '--space-7', px: '28px' },
   { token: '--space-8', px: '32px' },
+  { token: '--space-9', px: '48px' },
+  { token: '--space-10', px: '64px' },
 ]
 
 const RADIUS = [
@@ -69,19 +78,19 @@ const RADIUS = [
 ]
 
 const TYPE = [
-  { token: '--text-xs', value: 'clamp(11px, 0.4vw + 10px, 12px)' },
+  { token: '--text-xs', value: '12px' },
   { token: '--text-sm', value: 'clamp(13px, 0.5vw + 11px, 14px)' },
-  { token: '--text-base', value: 'clamp(14px, 0.6vw + 12px, 16px)' },
+  { token: '--text-base', value: '16px' },
   { token: '--text-lg', value: 'clamp(16px, 0.7vw + 14px, 18px)' },
   { token: '--text-xl', value: 'clamp(20px, 1.2vw + 16px, 24px)' },
   { token: '--text-2xl', value: 'clamp(26px, 1.5vw + 22px, 32px)' },
 ]
 
 const SHADOWS = [
-  { token: '--shadow-subtle', use: 'Kartu diam' },
-  { token: '--shadow-sm', use: 'Permukaan standar' },
+  { token: '--shadow-subtle', use: 'Kontrol aktif (bukan kartu)' },
+  { token: '--shadow-sm', use: 'Elemen terangkat: pin peta, pil onboarding' },
   { token: '--shadow-md', use: 'Elemen mengambang, sheet' },
-  { token: '--shadow-brand', use: 'Aksen oranye' },
+  { token: '--shadow-brand', use: 'Aksen oranye mengangkat' },
 ]
 
 export function DesignTokensSection() {
@@ -92,6 +101,8 @@ export function DesignTokensSection() {
         Jangan pernah menulis nilai mentah saat tokennya ada: <code className="doc-inline">color: #RRGGBB</code>
         salah, <code className="doc-inline">color: var(--sa7tein-orange)</code> benar. Satu warna
         satu peran — jangan menambah warna kelima ke palet yang sedang dirapikan.
+        Palet, tipografi, dan elevasi mengikuti <strong>EDISI 01</strong> (Figma
+        <code className="doc-inline">sa7tein / Foundations</code>); tipografi memakai Inter.
       </p>
 
       {COLOR_GROUPS.map((group) => (
@@ -111,7 +122,7 @@ export function DesignTokensSection() {
         </div>
       ))}
 
-      <h3 className="doc-h3">Spacing — --space-1..8</h3>
+      <h3 className="doc-h3">Spacing — --space-1..10</h3>
       <div className="doc-scale">
         {SPACING.map((s) => (
           <div key={s.token} className="doc-scale-row">
@@ -154,7 +165,7 @@ export function DesignTokensSection() {
         <div className="doc-specimen-row">
           <code className="doc-specimen-label">--font-sans</code>
           <span style={{ fontFamily: 'var(--font-sans)', color: 'var(--text)' }}>
-            Manrope, Inter, system-ui
+            Inter, Manrope, system-ui
           </span>
         </div>
       </div>

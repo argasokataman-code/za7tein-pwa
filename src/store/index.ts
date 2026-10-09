@@ -89,11 +89,18 @@ const migrations = {
    * bentuk yang dipakai kode. Keranjang, saldo, dan katalog tidak berubah bentuk.
    */
   5: (state: any) => ({ ...state, superAdmin: undefined }),
+  /**
+   * v6: `catalog` dibuang supaya di-seed ulang. `MenuItem` dapat field
+   * `merchantId` (katalog kini dikelompokkan per toko); state tersimpan dari
+   * versi lama tidak punya field itu, sehingga halaman toko selalu kosong.
+   * Keranjang/favorit memakai id menu yang sama, jadi tidak perlu ikut hilang.
+   */
+  6: (state: any) => ({ ...state, catalog: undefined }),
 }
 
 const persistConfig = {
   key: 'sa7tein',
-  version: 5,
+  version: 6,
   storage,
   whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth'],
   migrate: createMigrate(migrations, { debug: false }),

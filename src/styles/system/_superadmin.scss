@@ -203,6 +203,13 @@ body:has(.sa-root) {
   margin-bottom: var(--space-6);
 }
 
+/* Blok judul mengisi sisa baris; `min-width: 0` supaya judul panjang membungkus,
+   bukan mendorong badge keluar. Slot ini semula belum punya aturan sama sekali. */
+.sa-top-copy {
+  flex: 1;
+  min-width: 0;
+}
+
 .sa-top-eyebrow {
   font-size: var(--text-xs);
   font-weight: 700;

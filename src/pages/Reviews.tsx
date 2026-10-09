@@ -23,7 +23,7 @@ export default function Reviews() {
             <div className="overall-rating-section">
               <div className="rating-display">
                 <div className="average-rating">
-                  4.9
+                  4,9
                 </div>
                 <div className="stars-display">
                   <Star size={24} strokeWidth={1.75} fill="var(--star)" color="var(--star)" />
@@ -95,7 +95,7 @@ export default function Reviews() {
                     <div className="review-rating">
                       <Star size={16} strokeWidth={1.75} fill="var(--star)" color="var(--star)" />
                       <span className="rating-value">
-                        4.5
+                        4,5
                       </span>
                     </div>
                   </div>
@@ -114,7 +114,7 @@ export default function Reviews() {
                     <div className="review-rating">
                       <Star size={16} strokeWidth={1.75} fill="var(--star)" color="var(--star)" />
                       <span className="rating-value">
-                        4.4
+                        4,4
                       </span>
                     </div>
                   </div>
@@ -133,7 +133,7 @@ export default function Reviews() {
                     <div className="review-rating">
                       <Star size={16} strokeWidth={1.75} fill="var(--star)" color="var(--star)" />
                       <span className="rating-value">
-                        4.8
+                        4,8
                       </span>
                     </div>
                   </div>
@@ -152,7 +152,7 @@ export default function Reviews() {
                     <div className="review-rating">
                       <Star size={16} strokeWidth={1.75} fill="var(--star)" color="var(--star)" />
                       <span className="rating-value">
-                        4.4
+                        4,4
                       </span>
                     </div>
                   </div>
@@ -190,7 +190,7 @@ export default function Reviews() {
                     <div className="review-rating">
                       <Star size={16} strokeWidth={1.75} fill="var(--star)" color="var(--star)" />
                       <span className="rating-value">
-                        4.7
+                        4,7
                       </span>
                     </div>
                   </div>

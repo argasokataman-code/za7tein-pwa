@@ -17,8 +17,8 @@ const FOOD_CATEGORY: Record<string, string> = {
   minuman: 'Minuman',
 }
 
-/** Seed catalog — combined from foods.ts (customer-facing) + merchant menu items. */
-export const menuSeed: MenuItem[] = [
+/** Katalog ditulis datar; relasi ke toko ditambahkan di bawah (`MERCHANT_OF`). */
+const rawMenuSeed: MenuItem[] = [
   // ── foods.ts (5 items, spread modifierGroups) ──
   {
     ...foods[0],
@@ -64,7 +64,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.8,
     reviewCount: 67,
     deliveryTime: '15-25 menit',
-    distance: '1.2 km',
+    distance: '1,2 km',
     category: 'Makanan Utama',
     image: '/assets/img/menu/nasi-goreng.webp',
     description: 'Ayam goreng tepung dengan sambal geprek dan nasi putih hangat.',
@@ -79,7 +79,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.7,
     reviewCount: 43,
     deliveryTime: '15-25 menit',
-    distance: '1.1 km',
+    distance: '1,1 km',
     category: 'Makanan Utama',
     image: '/assets/img/menu/lontong.webp',
     description: 'Nasi uduk gurih dengan tempe orek, telur, dan kerupuk.',
@@ -94,7 +94,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.6,
     reviewCount: 38,
     deliveryTime: '15-25 menit',
-    distance: '1.3 km',
+    distance: '1,3 km',
     category: 'Makanan Utama',
     image: '/assets/img/menu/nasi-goreng.webp',
     description: 'Mie goreng kampung dengan sayur, telur, dan ayam suwir.',
@@ -108,7 +108,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.9,
     reviewCount: 112,
     deliveryTime: '20-30 menit',
-    distance: '1.2 km',
+    distance: '1,2 km',
     category: 'Makanan Utama',
     image: '/assets/img/menu/sate-ayam.webp',
     description: 'Sate ayam 10 tusuk porsi besar dengan bumbu kacang.',
@@ -124,7 +124,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.7,
     reviewCount: 95,
     deliveryTime: '10-15 menit',
-    distance: '1.1 km',
+    distance: '1,1 km',
     category: 'Minuman',
     image: '/assets/img/menu/es-teh-manis.webp',
     description: 'Teh tubruk manis dengan es batu segar.',
@@ -139,7 +139,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.6,
     reviewCount: 29,
     deliveryTime: '10-15 menit',
-    distance: '1.1 km',
+    distance: '1,1 km',
     category: 'Minuman',
     image: '/assets/img/menu/es-teh-manis.webp',
     description: 'Jeruk peras segar dengan es batu, manis alami.',
@@ -153,7 +153,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.8,
     reviewCount: 86,
     deliveryTime: '10-20 menit',
-    distance: '1.2 km',
+    distance: '1,2 km',
     category: 'Minuman',
     image: '/assets/img/menu/es-teh-manis.webp',
     description: 'Kopi robusta dengan susu segar dan gula aren asli.',
@@ -168,7 +168,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.7,
     reviewCount: 52,
     deliveryTime: '10-20 menit',
-    distance: '1.1 km',
+    distance: '1,1 km',
     category: 'Camilan',
     image: '/assets/img/menu/lontong.webp',
     description: 'Pisang goreng renyah tepung, porsi 5 potong.',
@@ -182,7 +182,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.6,
     reviewCount: 34,
     deliveryTime: '10-15 menit',
-    distance: '1.1 km',
+    distance: '1,1 km',
     category: 'Camilan',
     image: '/assets/img/menu/sate-kambing.webp',
     description: 'Tahu goreng crispy dengan bumbu racik pedas manis.',
@@ -196,7 +196,7 @@ export const menuSeed: MenuItem[] = [
     rating: 4.6,
     reviewCount: 21,
     deliveryTime: '10-15 menit',
-    distance: '1.1 km',
+    distance: '1,1 km',
     category: 'Camilan',
     image: '/assets/img/menu/sate-kambing.webp',
     description: 'Kerupuk udang renyah, pelengkap makan ideal.',
@@ -204,6 +204,35 @@ export const menuSeed: MenuItem[] = [
     available: true,
   },
 ]
+
+/**
+ * Peta menu -> toko. Katalog ditulis datar di atas; relasi ke merchant
+ * diberikan di sini supaya tidak perlu menyentuh 15 literal satu per satu dan
+ * supaya penugasan terlihat sekaligus. Id toko = `MerchantRecord.id`.
+ */
+const MERCHANT_OF: Record<string, string> = {
+  '1': 'am-1',
+  '2': 'am-1',
+  '3': 'am-1',
+  '4': 'am-1',
+  '5': 'am-1',
+  'mm-1': 'am-1',
+  'mm-2': 'am-1',
+  'mm-3': 'am-2',
+  'mm-4': 'am-1',
+  'mm-5': 'am-3',
+  'mm-6': 'am-3',
+  'mm-7': 'am-3',
+  'mm-8': 'am-2',
+  'mm-9': 'am-2',
+  'mm-10': 'am-2',
+}
+
+/** Katalog customer: item datar + pemiliknya. */
+export const menuSeed: MenuItem[] = rawMenuSeed.map((item) => ({
+  ...item,
+  merchantId: MERCHANT_OF[item.id],
+}))
 
 // ── Helpers ──
 
@@ -240,4 +269,24 @@ export function dealsFrom(items: MenuItem[]): MenuItem[] {
 /** Item populer yang bisa dipesan. */
 export function popularFrom(items: MenuItem[]): MenuItem[] {
   return items.filter((i) => i.isPopular && isOrderable(i))
+}
+
+/** Item milik satu toko. */
+export function itemsByMerchant(items: MenuItem[], merchantId: string): MenuItem[] {
+  return items.filter((item) => item.merchantId === merchantId)
+}
+
+/**
+ * Kategori yang dilayani satu toko — dipakai chip kategori di beranda untuk
+ * menyaring daftar toko. Dihitung dari item yang benar-benar bisa dipesan, bukan
+ * dari label toko, supaya toko tanpa stok kategori X tidak ikut muncul.
+ */
+export function merchantCategoryIds(items: MenuItem[], merchantId: string): string[] {
+  return [
+    ...new Set(
+      items
+        .filter((item) => item.merchantId === merchantId && isOrderable(item))
+        .map((item) => item.category),
+    ),
+  ]
 }

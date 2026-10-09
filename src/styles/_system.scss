@@ -13,6 +13,9 @@
 @use "./system/home";
 @use "./system/hero";
 @use "./system/menu";
+@use "./system/storefront";
+@use "./system/search";
+@use "./system/filter";
 @use "./system/tracking";
 @use "./system/map";
 @use "./system/cart";
@@ -50,6 +53,10 @@
 // setelah partial yang mendefinisikan kelas-kelas itu supaya menang pada
 // kekhususan yang sama (0-1-0).
 @use "./system/type";
+
+// Kartu menu (`FoodCard`). Setelah `type` supaya `.food-name` (h3) menang pada
+// kekhususan yang sama kalau `type` ikut menyetel ukuran heading.
+@use "./system/food-card";
 
 // Paling akhir: kontrak top bar (tinggi, inset, tombol kembali). Harus setelah
 // semua partial yang mendefinisikan header — merchant, kurir, admin, cart,

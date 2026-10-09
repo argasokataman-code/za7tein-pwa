@@ -233,21 +233,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-.modifier-box {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
-  border: 2px solid var(--border);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
-
-.modifier-box--multi {
-  border-radius: var(--radius-sm);
-}
-
-.modifier-box.active {
-  border-color: var(--sa7tein-orange);
-  background: var(--sa7tein-orange);
-}
+/* Kotak centang lama (`.modifier-box`) sudah dihapus: opsi modifier kini chip
+   pill, jadi keadaan terpilih ditandai oleh fill oranye, bukan kotak centang.
+   Markup-nya juga sudah tidak ada di `MenuDetail.tsx`. */

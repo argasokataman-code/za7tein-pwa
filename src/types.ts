@@ -33,11 +33,40 @@ export interface Food {
   isPopular?: boolean
   calories?: number
   modifierGroups?: ModifierGroup[]
+  /**
+   * Toko pemilik item ini (id sama dengan `MerchantRecord.id`). Ditambahkan
+   * supaya katalog bisa dikelompokkan per merchant; sebelumnya datar dan tiap
+   * item diperlakukan seolah milik satu toko.
+   */
+  merchantId?: string
 }
 
 export interface MenuItem extends Food {
   stock: number
   available: boolean
+}
+
+/**
+ * Proyeksi merchant untuk sisi customer: cukup untuk kartu daftar toko dan
+ * header halaman toko. Terpisah dari `Merchant` (profil operasional PWA
+ * merchant: rekening, kuota order) dan `MerchantRecord` (registri CS/SA) —
+ * customer hanya perlu identitas usaha + info jangkauan. Terhubung lewat `id`
+ * yang sama dengan `MenuItem.merchantId`.
+ */
+export interface Storefront {
+  id: string
+  name: string
+  /** Deskripsi singkat di bawah nama, mis. jenis masakan. */
+  tagline: string
+  logo: string
+  cover: string
+  rating: number
+  reviewCount: number
+  deliveryTime: string
+  distance: string
+  openTime: string
+  closeTime: string
+  isOpen: boolean
 }
 
 /** Filter yang diteruskan layar Filter ke Search (satu modul memproduksi, satu membaca). */
@@ -360,8 +389,11 @@ export interface CartItem {
   modifiers?: string
 }
 
-/** Empat tahap perjalanan pesanan, dipakai Sa7tein Journey Line. */
-export type OrderStage = 'diterima' | 'dimasak' | 'diantar' | 'tiba'
+/**
+ * Lima tahap perjalanan pesanan — model status Patterns EDISI 01
+ * (New → Preparing → Ready → Diantar → Delivered). Dipakai Sa7tein Journey Line.
+ */
+export type OrderStage = 'baru' | 'disiapkan' | 'siap' | 'diantar' | 'selesai'
 
 export type NotificationKind = 'order' | 'promo' | 'payment' | 'system'
 
@@ -391,8 +423,13 @@ export interface PushSubscriptionRecord {
   expiresAt: string
 }
 
-/** Status order dari sudut pandang merchant. Menumpang `OrderStage` yang sudah ada. */
-export type MerchantOrderStatus = 'masuk' | OrderStage | 'selesai' | 'ditolak' | 'batal'
+/**
+ * Status order dari sudut pandang merchant. Lima tahap kanonik (`OrderStage`)
+ * ditambah dua sub-state operasional dan dua status terminal: `diterima`
+ * (merchant menerima, sebelum dapur mulai) dan `tiba` (kurir sampai, menunggu
+ * OTP) bukan langkah Journey Line; `ditolak`/`batal` sudah keluar rel.
+ */
+export type MerchantOrderStatus = OrderStage | 'diterima' | 'tiba' | 'ditolak' | 'batal'
 
 export interface MerchantOrder {
   id: string

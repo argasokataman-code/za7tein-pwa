@@ -100,7 +100,7 @@ function checkClassNames() {
   const unknown = [...used].filter(([cls]) => !declared.has(cls))
   if (unknown.length) {
     warn.push(
-      `className tanpa aturan CSS: ${unknown.length} (${unknown.slice(0, 8).map(([c, f]) => `${c} @ ${f}`).join(', ')})`,
+      `className tanpa aturan CSS: ${unknown.length} (${unknown.slice(0, 20).map(([c, f]) => `${c} @ ${f}`).join(', ')})`,
     )
   } else {
     info.push('className: semua punya aturan CSS')
@@ -348,7 +348,40 @@ function checkManifestScope() {
   if (!fail.length) info.push('Manifest PWA: 4 peran saja, tanpa manifest umum')
 }
 
+// ── 11. Warna mentah di lapisan design system ─────────────────────────────
+// Aturan repo (AGENTS §3/§4): gaya baru tinggal di `src/styles/system/` dan
+// wajib memakai token (`var(--…)`). Warna heksadesimal mentah di sana berarti
+// nilai ad-hoc yang tidak ikut theme. `_tokens.scss` dikecualikan (ia memang
+// sumber token), begitu pula definisi custom property (`--x: #hex`) yang sah.
+function checkRawColors() {
+  const hits = []
+  for (const file of scssFiles().filter((f) => f.includes('system/') && !f.endsWith('_tokens.scss'))) {
+    const src = read(file)
+    const rawLines = src.split('\n')
+    // `token-ok` dibaca dari sumber MENTAH (komentarnya ikut; pengecualian
+    // beralasan tetap terlihat walau komentar lalu dibuang).
+    const okLines = new Set(rawLines.flatMap((l, i) => (/token-ok/.test(l) ? [i] : [])))
+    // Komentar blok dibuang tetapi barisnya dipertahankan (isi jadi spasi),
+    // supaya nomor baris tetap cocok dan hex di dalam prosa tidak ikut tertuduh.
+    const blanked = src
+      .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
+      .split('\n')
+    blanked.forEach((line, i) => {
+      if (okLines.has(i)) return
+      if (/--[\w-]+\s*:\s*#/.test(line)) return    // definisi custom property
+      const code = line.split('//')[0]             // buang komentar baris
+      if (/:\s*#[0-9a-fA-F]{3,8}\b/.test(code)) hits.push(`${file}:${i + 1}`)
+    })
+  }
+  if (hits.length) {
+    fail.push(`warna heks mentah di system/ (pakai token): ${hits.length} (${hits.slice(0, 6).join(', ')})`)
+  } else {
+    info.push('Design system: tanpa warna heks mentah di system/')
+  }
+}
+
 // ── jalankan ──────────────────────────────────────────────────────────────
+checkRawColors()
 checkTokens()
 checkClassNames()
 checkDeadControls()

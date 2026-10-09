@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { ChevronLeft, Clock3, Minus, Plus, ShoppingCart, Star } from 'lucide-react'
+import { ChevronLeft, Clock3, MapPin, Minus, Plus, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { modifierExtra, modifierSummary } from '../data/foods'
+import { formatRating, modifierExtra, modifierSummary } from '../data/foods'
 import { useCatalog } from '../hooks/useCatalog'
 import { menuDetailReviews } from '../data/reviews'
 import { useAppDispatch } from '../hooks/useAppStore'
@@ -104,20 +104,19 @@ export default function MenuDetail() {
                 >
                   <ChevronLeft size={24} strokeWidth={1.75} />
                 </button>
-                <h1 className="menu-detail-title">Menu Detail</h1>
                 <FavoriteButton id={food.id} name={food.name} className="favorite-header-btn" size={24} />
               </div>
             </div>
 
             <div className="menu-detail-content">
               <div className="menu-detail-name-price">
-                <h2 className="menu-detail-name">{food.name}</h2>
+                <h1 className="menu-detail-name">{food.name}</h1>
                 <span className="menu-detail-price">{money(unitPrice)}</span>
               </div>
 
               <div className="menu-info-badges" role="list" aria-label="Food details">
                 <div className="info-badge" role="listitem">
-                  <ShoppingCart size={22} strokeWidth={1.75} />
+                  <MapPin size={18} strokeWidth={1.75} />
                   <span>Ongkir per zona</span>
                 </div>
                 <div className="info-badge" role="listitem">
@@ -126,7 +125,7 @@ export default function MenuDetail() {
                 </div>
                 <div className="info-badge" role="listitem">
                   <Star size={16} strokeWidth={1.75} color="var(--star)" fill="var(--star)" />
-                  <span>{food.rating}</span>
+                  <span>{formatRating(food.rating)}</span>
                 </div>
               </div>
 
@@ -163,10 +162,9 @@ export default function MenuDetail() {
                         aria-pressed={active}
                         onClick={() => toggle(group, opt.id)}
                       >
-                        <span className={`modifier-box${group.type === 'multi' ? ' modifier-box--multi' : ''}${active ? ' active' : ''}`} />
                         <span className="modifier-option-label">{opt.label}</span>
                         {opt.extraPrice > 0 ? (
-                          <span className="modifier-option-price">+{money(opt.extraPrice)}</span>
+                          <span className="modifier-option-price">+{moneyPlain(opt.extraPrice)}</span>
                         ) : null}
                       </button>
                     )
@@ -176,7 +174,7 @@ export default function MenuDetail() {
 
               <div className="menu-reviews-section">
                 <div className="reviews-header">
-                  <h3 className="reviews-title s7-parallax--title">Reviews ({food.reviewCount})</h3>
+                  <h3 className="reviews-title s7-parallax--title">Ulasan ({food.reviewCount})</h3>
                   <Link className="see-all-link" to="/reviews">
                     See All
                   </Link>
@@ -211,7 +209,7 @@ export default function MenuDetail() {
               <div className="quantity-selector" role="group" aria-label="Select quantity">
                 <button
                   type="button"
-                  className="quantity-btn quantity-minus"
+                  className="quantity-btn"
                   disabled={quantity <= 1}
                   aria-label="Decrease quantity"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -223,7 +221,7 @@ export default function MenuDetail() {
                 </span>
                 <button
                   type="button"
-                  className="quantity-btn quantity-plus"
+                  className="quantity-btn"
                   aria-label="Increase quantity"
                   onClick={() => setQuantity((q) => q + 1)}
                 >
@@ -236,8 +234,7 @@ export default function MenuDetail() {
                 aria-label={`Tambah ${quantity} ${food.name} ke keranjang, total ${moneyPlain(unitPrice * quantity)}`}
                 onClick={addToCart}
               >
-                <ShoppingCart size={20} strokeWidth={1.75} />
-                <span>Tambah ke Keranjang — {money(unitPrice * quantity)}</span>
+                <span>Tambah · {moneyPlain(unitPrice * quantity)}</span>
               </button>
             </div>
           </div>

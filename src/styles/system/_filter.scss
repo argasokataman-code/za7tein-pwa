@@ -1,0 +1,83 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Halaman "Filter".
+//
+// Sama seperti Search: chrome datang dari stylesheet porting dengan warna
+// mentah (#FFF9F4, #202020, #F15A37, #C9431F, #EDE4DC). Partial ini
+// memetakannya ke token. Dua hal selain warna diperbaiki di akarnya:
+//
+// 1. Inset atas `.filter-sheet` masih 70px — sisa offset bilah status warisan,
+//    nilai yang justru disebut DNA sebagai anomali. Diganti pita setinggi
+//    `--nav-height` supaya kepala Filter sejajar dengan kepala Search.
+// 2. Baris radio (`label.radio-item`) tingginya hanya 18px mengikuti
+//    `.radio-dot`, jauh di bawah `--touch-min`. Seluruh baris dijadikan sasaran
+//    sentuh 44px.
+// ═══════════════════════════════════════════════════════════════════════════
+
+.filter-screen,
+.filter-sheet {
+  background: var(--bg-warm);
+  color: var(--text-primary);
+}
+
+.filter-sheet {
+  // Inset atas = safe-area (bilah status / punch-hole), bukan angka 70px
+  // yang dulu dituang begitu saja. `--space-5` tetap gutter kiri-kanan.
+  padding: env(safe-area-inset-top, 0px) var(--space-5) var(--space-6);
+}
+
+.filter-header {
+  min-height: var(--nav-height);
+  margin-bottom: var(--space-4);
+}
+
+.filter-header h1 {
+  color: var(--text-primary);
+}
+
+.filter-title {
+  color: var(--text-primary);
+}
+
+.price-range {
+  color: var(--text-primary);
+}
+
+// Nilai harga yang sedang dipilih. Sebelumnya warna mentah inline di TSX.
+.price-range__now {
+  color: var(--orange-ink);
+  font-weight: 600;
+}
+
+.range-input {
+  accent-color: var(--sa7tein-orange);
+}
+
+.radio-item {
+  min-height: var(--touch-min);
+  color: var(--text-primary);
+}
+
+// Cincin saat belum dipilih; `input:checked + .radio-dot` di stylesheet
+// porting sudah memakai oranye merek, di sini hanya cincinnya yang ditokenkan.
+.radio-dot {
+  border-color: var(--border-strong);
+}
+
+.radio-item input:checked + .radio-dot {
+  border-color: var(--sa7tein-orange);
+}
+
+.radio-item input:checked + .radio-dot::after {
+  background-color: var(--sa7tein-orange);
+}
+
+.rating-chip {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+}
+
+.rating-chip.active {
+  color: var(--orange-ink);
+  border-color: var(--sa7tein-orange);
+}

@@ -9,9 +9,17 @@ Milestone **M2–M5** (PRD aktif `irbid-mvp-v2-2026-09-21`).
 | `f1-order-lifecycle.html` | Artefak jadi |
 | `f1-order-lifecycle.visual-check.*` | Bukti visual-check |
 
+> **UNRESOLVED (keputusan UI, bukan requirement).** Langkah "pilih toko dulu,
+> baru menu" **tidak ada** di PRD aktif `irbid-mvp-v2-2026-09-21` — nol
+> requirement browse/beranda di tabel `analysis.md:11-24`. Satu-satunya rujukan
+> adalah repo referensi UI/UX (`repo-sa7tein-schema.md:5`, "referensi UI/UX
+> saja, bukan target implementasi"). Jadi titik masuk ini adalah **keputusan
+> showcase UI**; jika kelak jadi requirement produk, promosikan ke PRD +
+> `manifest.json` sebelum dianggap kontrak.
+
 ## Alur
 
-Pilih menu → Checkout (ongkir + fee 0,22 JOD) → **Keputusan metode bayar** (prepaid / COD / transfer):
+Pilih **toko** (beranda) → pilih **menu** dari toko itu (halaman toko) → Checkout (ongkir + fee 0,22 JOD) → **Keputusan metode bayar** (prepaid / COD / transfer):
 
 - **Prepaid (via wallet):** saldo dipotong segera saat order dibuat → gate saldo minimum 3,5 JOD untuk akun baru.
 - **COD via wallet:** hold saldo saat order → dipotong saat kurir match → settle saat OTP.

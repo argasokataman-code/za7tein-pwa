@@ -2214,6 +2214,3444 @@
         }
       ],
       "loc": "src/pages/CourierOnboarding.tsx:1"
+    },
+    {
+      "id": "TASK-9181",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "19:18:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/agent-setup.md (+74) — write via tool: # Setup agen di device baru",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/agent-setup.md"
+    },
+    {
+      "id": "TASK-9182",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "19:18:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/README.md (+6/-4) — edit via tool: ```bash",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/README.md"
+    },
+    {
+      "id": "TASK-9183",
+      "type": "task",
+      "status": "done",
+      "date": "2026-09-25",
+      "time": "19:19:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/agent-setup.md (+14/-5) — edit via tool: ## Yang perlu di-install & penggantinya ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/agent-setup.md"
+    },
+    {
+      "id": "TASK-9184",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:15:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+33/-28) — edit via tool: :root {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-9185",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:15:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DesignTokensSection.tsx (+13/-11) — edit via tool: tsx: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DesignTokensSection.tsx"
+    },
+    {
+      "id": "TASK-9186",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:16:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+3/-1) — edit via tool: **Pengecualian sadar, keputusan pemilik ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-9187",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:16:38",
+      "tags": [
+        "design",
+        "tokens",
+        "figma",
+        "edisi01"
+      ],
+      "summary": "Migrasi token palet+elevasi ke Figma EDISI 01 Foundations: orange #E8421A, navy text #1A3A5C, bg #F8F9F7, border #E7ECE7, info baru; shadow ",
+      "conn": [
+        {
+          "id": "DEC-1040",
+          "type": "relates",
+          "raw": "DEC-1040:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9188",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:21:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/count_tokens.sh (+12) — write via tool: #!/bin/bash",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/count_tokens.sh"
+    },
+    {
+      "id": "TASK-9189",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:24:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md (+107) — write via tool: # Plan — Design System EDISI ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md"
+    },
+    {
+      "id": "DEC-4001",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-09",
+      "time": "07:24:19",
+      "tags": [
+        "design",
+        "edisi01",
+        "milestone"
+      ],
+      "summary": "Plan design system EDISI 01 (Figma Foundations+Patterns) di docs/plan-design-system-edisi01.md: M0 token selesai, M1 token gap, M2 font Inte",
+      "conn": [
+        {
+          "id": "TASK-9187",
+          "type": "relates",
+          "raw": "TASK-9187:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9190",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:27:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+4/-2) — edit via tool: --space-7: 28px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-9191",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:27:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss (+1/-1) — edit via tool: .doc-root .doc-hero-tag { background: va",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
+    },
+    {
+      "id": "TASK-9192",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:28:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+3/-2) — edit via tool: --red-soft: #FCECEC;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-9193",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:28:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md (+1/-1) — edit via tool: **Status: M0–M1 selesai.** Si",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md"
+    },
+    {
+      "id": "TASK-9200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:28:37",
+      "tags": [
+        "design",
+        "tokens",
+        "edisi01",
+        "m1"
+      ],
+      "summary": "M1 rumah token: --space-9/10 48/64px, --navy/--on-navy, raw radius 20px di _docs.scss jadi --radius-pill. Token disabled/icon-decor/info dit",
+      "conn": [
+        {
+          "id": "DEC-4001",
+          "type": "implements",
+          "raw": "DEC-4001:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:29:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_fonts.scss (+19/-10) — edit via tool: // Inter is the Sa7tein typeface (EDISI",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_fonts.scss"
+    },
+    {
+      "id": "TASK-9202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:29:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+1/-1) — edit via tool: --font-sans: 'Inter', 'Manrope', system-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-9203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:29:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DesignTokensSection.tsx (+3/-3) — edit via tool: tsx: <s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DesignTokensSection.tsx"
+    },
+    {
+      "id": "TASK-9204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:29:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+1/-1) — edit via tool: Palet dan elevasi mengikuti **EDISI 01 (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-9205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:30:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md (+1/-1) — edit via tool: **Status: M0–M2 selesai.** Si",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md"
+    },
+    {
+      "id": "TASK-9210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:30:33",
+      "tags": [
+        "design",
+        "typography",
+        "edisi01",
+        "m2"
+      ],
+      "summary": "M2 tipografi: Inter self-host (inter.woff2 variable latin, precache PWA), --font-sans Inter first + Manrope fallback, docs+DNA sinkron. Gate",
+      "conn": [
+        {
+          "id": "DEC-4001",
+          "type": "implements",
+          "raw": "DEC-4001:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:31:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_mixins.scss (+5/-6) — edit via tool: @mixin card-surface {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_mixins.scss"
+    },
+    {
+      "id": "TASK-9212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:31:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss (+7/-8) — edit via tool: .merchant-menu-item {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss"
+    },
+    {
+      "id": "TASK-9213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:31:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+10/-11) — edit via tool: .merchant-courier {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-9214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:32:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md (+1/-1) — edit via tool: **Status: M0–M3 selesai.** Si",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md"
+    },
+    {
+      "id": "TASK-9220",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:32:46",
+      "tags": [
+        "design",
+        "elevation",
+        "edisi01",
+        "m3"
+      ],
+      "summary": "M3 kartu: @mixin card-surface jadi border-only (16 selector), merchant-menu-item + merchant-courier buang shadow-subtle. Shadow tetap untuk ",
+      "conn": [
+        {
+          "id": "DEC-4001",
+          "type": "implements",
+          "raw": "DEC-4001:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9221",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:33:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DesignTokensSection.tsx (+6/-4) — edit via tool: tsx: { ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/DesignTokensSection.tsx"
+    },
+    {
+      "id": "TASK-9222",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:33:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+1/-1) — edit via tool: Tipografi: **Inter** (self-host `public/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-9223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:34:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md (+1/-1) — edit via tool: **Status: M0–M4 selesai.** Si",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md"
+    },
+    {
+      "id": "TASK-9230",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:35:02",
+      "tags": [
+        "design",
+        "docs",
+        "edisi01",
+        "m4"
+      ],
+      "summary": "M4 dokumentasi: DesignTokensSection tambah swatch navy/on-navy, space-9/10, peran shadow kartu-tanpa-shadow, intro EDISI 01; DNA.md token ba",
+      "conn": [
+        {
+          "id": "DEC-4001",
+          "type": "implements",
+          "raw": "DEC-4001:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9231",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:42:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/foods.ts (+6/-1) — edit via tool: ts: import type { Food, ModifierGroup } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/foods.ts"
+    },
+    {
+      "id": "TASK-9232",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:42:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx (+2/-1) — edit via tool: tsx: import { money } from '../..",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-9233",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:42:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Favorites.tsx (+5/-5) — edit via tool: tsx: <h2>Belum ada favorit</h2>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Favorites.tsx"
+    },
+    {
+      "id": "TASK-9234",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:42:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+1/-1) — edit via tool: tsx: {formatRating(food.rating)} ({food.revie",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-9235",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:42:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+1/-1) — edit via tool: tsx: import { formatRating, modifierExt",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-9236",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:43:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx (+1/-1) — edit via tool: tsx: {formatRating(f.rating)} ({f.reviewCou",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx"
+    },
+    {
+      "id": "TASK-9237",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:43:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Reviews.tsx (+3/-3) — edit via tool: tsx: <span className=\"rating-value\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Reviews.tsx"
+    },
+    {
+      "id": "TASK-9238",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:43:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+2/-2) — edit via tool: tsx: deliveryTime: '20-30 menit',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-9239",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:43:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts (+1/-1) — edit via tool: ts: distance: '1,2 km',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts"
+    },
+    {
+      "id": "TASK-9240",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:51:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+7/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-9241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:51:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/JourneyLine.tsx (+1/-1) — edit via tool: tsx: import { Bike, ClipboardList",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/JourneyLine.tsx"
+    },
+    {
+      "id": "TASK-9242",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:52:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+8/-7) — edit via tool: ts: /** Urutan lima tahap perjalanan; satu ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-9243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:52:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchantOrders.ts (+11/-10) — edit via tool: ts: export const ORDER_STATUS_LABEL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchantOrders.ts"
+    },
+    {
+      "id": "TASK-9244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:52:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+1/-1) — edit via tool: tsx: : fixedStage ?? (sah(ra",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-9245",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:53:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOrders.tsx (+1/-1) — edit via tool: tsx: {order.status === 'baru' ? (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-9246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:53:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchantTrend.ts (+16/-16) — edit via tool: ts: * Komposisi status order untuk d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchantTrend.ts"
+    },
+    {
+      "id": "TASK-9247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:53:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+3/-3) — edit via tool: ts: // Order demo dimulai dari tah",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-9248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:53:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courier.ts (+3/-3) — edit via tool: ts: tip: 0,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courier.ts"
+    },
+    {
+      "id": "TASK-9249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:55:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+14/-13) — edit via tool: .merchant-badge-baru,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-9250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:55:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | grep -E \"error TS|src/.*\\.tsx?\" | head -50; echo \"---EXIT---\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:55:27",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:55:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+11/-10) — edit via tool: tsx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-9253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:57:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/README.md (+15/-1) — edit via tool: ## Peta tahap UI (J",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/README.md"
+    },
+    {
+      "id": "TASK-9254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "07:57:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md (+10/-3) — edit via tool: ## Riwayat keputusan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md"
+    },
+    {
+      "id": "TASK-9255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "08:00:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md (+1/-1) — edit via tool: | M5 | Patterns audit | **sel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-design-system-edisi01.md"
+    },
+    {
+      "id": "TASK-9260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "08:00:24",
+      "tags": [
+        "design",
+        "status",
+        "edisi01",
+        "m5"
+      ],
+      "summary": "M5: adopsi 5 tahap status Figma (OrderStage baru/disiapkan/siap/diantar/selesai), rating koma, empty search aksi Hapus filter, Favorites lok",
+      "conn": [
+        {
+          "id": "DEC-4001",
+          "type": "implements",
+          "raw": "DEC-4001:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "08:11:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/mobile-audit.mjs (+211) — write via tool: #!/usr/bin/env node",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/mobile-audit.mjs"
+    },
+    {
+      "id": "TASK-9262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "08:13:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/mobile-audit.mjs (+1/-1) — edit via tool: const low=leaves.filter(e=>!hasImg(e)).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/mobile-audit.mjs"
+    },
+    {
+      "id": "TASK-9263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "08:42:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.agent-browser/config.json (+1/-1) — edit via tool: \"executablePath\": \"/Users/vanviakingali/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.agent-browser/config.json"
+    },
+    {
+      "id": "TASK-9264",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:00:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.tsx (+19/-27) — edit via tool: tsx: import { useEffect, useState } from 'rea",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-9265",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:01:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.tsx (+22/-23) — edit via tool: tsx: type Props = {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-9266",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:02:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.tsx (+69/-63) — edit via tool: tsx: <header className=\"s7-hero__topbar\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-9267",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:04:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.tsx (+234) — write via tool: tsx: import { useEffect, useState } from 'rea",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-9268",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:04:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Home.tsx (+10/-11) — edit via tool: tsx: <CustomerHomeHero",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-9269",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:07:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.css (+263/-191) — edit via tool: /* ── Permukaan terang (role pelanggan) ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-9270",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:08:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.css (+4/-4) — edit via tool: border: 1px solid var(--border-strong);",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-9271",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:10:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.css (+12/-12) — edit via tool: .s7-hero.s7-hero--customer {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-9272",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:13:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.css (+7/-8) — edit via tool: /*",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-9273",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:16:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Home.tsx (+11/-10) — edit via tool: tsx: <CustomerHomeHero",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-9274",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:20:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.tsx (+241) — write via tool: tsx: import { useEffect, useState } from 'rea",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-9275",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:23:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/CustomerHomeHero.css (+516) — write via tool: /*",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-9276",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "09:49:59",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9277",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "10:42:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+27/-13) — edit via tool: .category-btn {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9278",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "10:50:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+61/-31) — edit via tool: .category-btn {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9279",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "11:15:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+2/-2) — edit via tool: padding: 10px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9280",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "11:17:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+21/-6) — edit via tool: // Aturan interaksi bersama menyalakan `",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9281",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:29:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+15/-8) — edit via tool: // Baris kategori: dengan sedikit katego",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9282",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:36:01",
+      "tags": [
+        "ui",
+        "home",
+        "categories"
+      ],
+      "summary": "Home kategori disamakan dgn sample: chip meregang sama besar mengisi lebar, chip 'Semua' (LayoutGrid) ditambah & aktif default",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-9283",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:40:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Home.tsx (+2/-3) — edit via tool: tsx: <div className=\"categories-section\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-9284",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:40:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+5/-5) — edit via tool: // Judul bagian dihapus — chip kategori ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9285",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:53:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_food-card.scss (+67) — write via tool: // ═════════════════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-9286",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:54:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_system.scss (+7/-3) — edit via tool: @use \"./system/type\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-9287",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:54:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/ui/FoodCard.tsx (+14/-12) — edit via tool: tsx: <div className=\"food-meta\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-9288",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "14:58:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_food-card.scss (+8/-6) — edit via tool: .food-meta {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-9289",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:15:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_food-card.scss (+97) — write via tool: // ═════════════════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-9290",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:17:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_food-card.scss (+14/-9) — edit via tool: .food-price {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-9291",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:29:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/ui/FoodCard.tsx (+1/-1) — edit via tool: tsx: <span className=\"rating-count\">({food.re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-9292",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:30:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_food-card.scss (+15/-13) — edit via tool: // Waktu/jarak + rating menyatu dalam SA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-9293",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:31:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_food-card.scss (+8/-7) — edit via tool: // Grid hasil pencarian/favorit di style",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-9294",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:36:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/ComponentsSection.tsx (+1/-1) — edit via tool: tsx: Renders image, name, price, delivery tim",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/ComponentsSection.tsx"
+    },
+    {
+      "id": "TASK-9295",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:38:46",
+      "tags": [
+        "ui",
+        "food-card",
+        "layout",
+        "senior-fe"
+      ],
+      "summary": "FoodCard redesign 1:1 mockup: nama/harga ditumpuk, meta 1 baris, tinggi tiap blok dikunci (foto180/nama2/price1/meta1), grid 1 kolom -> semu",
+      "conn": [
+        {
+          "id": "TASK-9294",
+          "type": "relates",
+          "raw": "TASK-9294:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9296",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:54:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/HomePromoCarousel.tsx (+10/-9) — edit via tool: tsx: | {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-9297",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:55:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/HomePromoCarousel.tsx (+12/-9) — edit via tool: tsx: const CLAIM_CARD: PromoCard = {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-9298",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:56:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/HomePromoCarousel.tsx (+22/-19) — edit via tool: tsx: <div",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-9299",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:58:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+28/-10) — edit via tool: .promo-slide {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9300",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "15:59:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+2/-15) — edit via tool: // Thumbnail 84px dihapus: foto makanan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9301",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:00:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+6/-11) — edit via tool: // Di layar sempit, padding konten dikec",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9302",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:03:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+6/-2) — edit via tool: .promo-slide {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9303",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:09:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+8/-8) — edit via tool: background-image:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9304",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:10:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+5/-5) — edit via tool: // Keterangan kecil. Sejak latar jadi fo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9305",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:18:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/HomePromoCarousel.tsx (+3/-3) — edit via tool: tsx: // Latar foto makanan — kartu klaim tida",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-9306",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:26:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/customer/HomePromoCarousel.tsx (+202) — write via tool: tsx: import { useEffect, useRef, useState } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-9307",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:27:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+4/-3) — edit via tool: // Latar foto makanan (aset lokal). Diba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9308",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:39:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+3/-3) — edit via tool: .promo-slide__title {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9309",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:40:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_home.scss (+5/-5) — edit via tool: color: var(--orange-ink);",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home.scss"
+    },
+    {
+      "id": "TASK-9310",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:51:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MenuDetail.tsx (+1/-1) — edit via tool: tsx: <span>Tambah · {moneyPlain(unitPrice * q",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-9311",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "16:51:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+16/-7) — edit via tool: // Teks tombol utama disamakan dengan si",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9312",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "17:00:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MenuDetail.tsx (+246) — write via tool: tsx: import { useState } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-9313",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "17:00:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+16/-11) — edit via tool: // Hierarki harga ala kartu promo: nama ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9314",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "17:02:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_rebrand.scss (+6/-25) — edit via tool: .modifier-option-label {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_rebrand.scss"
+    },
+    {
+      "id": "TASK-9315",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "17:06:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MenuDetail.tsx (+1/-1) — edit via tool: tsx: import { ChevronLeft, Clock3, MapPin, Mi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-9316",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "17:06:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_menu.scss (+25/-21) — edit via tool: // Chip info netral (model menu detail):",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-9317",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:42:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/types.ts (+38/-9) — edit via tool: ts: isPopular?: boolean",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/types.ts"
+    },
+    {
+      "id": "TASK-9318",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:42:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/storefronts.ts (+63) — write via tool: ts: import type { Storefront } from '../type",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/storefronts.ts"
+    },
+    {
+      "id": "TASK-9319",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:42:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/data/catalog.ts (+2/-2) — edit via tool: ts: /** Katalog ditulis datar; relasi ke tok",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/data/catalog.ts"
+    },
+    {
+      "id": "TASK-9320",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:42:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/components/ui/MerchantCard.tsx (+71) — write via tool: tsx: import type { CSSProperties } from 'reac",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/components/ui/MerchantCard.tsx"
+    },
+    {
+      "id": "TASK-9321",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:43:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Home.tsx (+107) — write via tool: tsx: import { LayoutGrid } from 'lucide-react",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-9322",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:43:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MerchantPage.tsx (+126) — write via tool: tsx: import { useMemo } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-9323",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:43:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_storefront.scss (+286) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-9324",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:44:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/menu\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-9325",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:44:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_storefront.scss (+3/-4) — edit via tool: .store-screen {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-9326",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:44:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/App.tsx (+3/-2) — edit via tool: tsx: import MerchantOrders from './pages/Merc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/App.tsx"
+    },
+    {
+      "id": "TASK-9327",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:44:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Home.tsx (+2/-2) — edit via tool: tsx: <div>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-9328",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:46:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/store/index.ts (+1/-1) — edit via tool: ts: version: 6,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/store/index.ts"
+    },
+    {
+      "id": "TASK-9329",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:46:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9330",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:48:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+2/-1) — edit via tool: { \"dot\": \"slate\", \"title\": \"Guard & Gate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-9331",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:48:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/README.md (+1/-1) — edit via tool: Pilih **toko** (beranda) → pilih **menu*",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-9332",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:49:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json (+1/-2) — edit via tool: { \"dot\": \"slate\", \"title\": \"Guard & Gate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f1-order-lifecycle/f1-order-lifecycle.json"
+    },
+    {
+      "id": "TASK-9501",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:49:46",
+      "tags": [
+        "customer",
+        "beranda",
+        "merchant",
+        "flow"
+      ],
+      "summary": "Beranda customer jadi daftar toko -> /merchant/:id -> menu -> detail. Katalog+merchantId, persist v6, flow f1 diupdate (UNRESOLVED).",
+      "conn": [
+        {
+          "id": "DEC-013",
+          "type": "relates",
+          "raw": "DEC-013:relates"
+        },
+        {
+          "id": "FEAT-9001",
+          "type": "relates",
+          "raw": "FEAT-9001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9502",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:54:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_storefront.scss (+3/-3) — edit via tool: flex-wrap: wrap;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-9503",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:54:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9504",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:57:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_storefront.scss (+297) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-9505",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:58:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MerchantPage.tsx (+20/-24) — edit via tool: tsx: <div className=\"store-meta\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-9506",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "18:59:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -3 && npm run scan 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9507",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:10:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_food-card.scss (+156) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-9508",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:10:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_storefront.scss (+8/-5) — edit via tool: .store-hero {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-9509",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:11:59",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9510",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:12:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: scripts/surface-scan.mjs (+26/-2) — edit via tool: // ── 11. Warna mentah di lapisan design",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "scripts/surface-scan.mjs"
+    },
+    {
+      "id": "TASK-9511",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:13:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: scripts/surface-scan.mjs (+18/-17) — edit via tool: function checkRawColors() {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "scripts/surface-scan.mjs"
+    },
+    {
+      "id": "TASK-9512",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:14:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_landing-refresh.scss (+1/-1) — edit via tool: border: 5px solid #262626; /* token-ok: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_landing-refresh.scss"
+    },
+    {
+      "id": "TASK-9513",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:14:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_buttons.scss (+2/-2) — edit via tool: color: var(--on-brand);",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_buttons.scss"
+    },
+    {
+      "id": "TASK-9514",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:14:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: scripts/surface-scan.mjs (+26/-18) — edit via tool: function checkRawColors() {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "scripts/surface-scan.mjs"
+    },
+    {
+      "id": "TASK-9520",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:34:52",
+      "tags": [
+        "customer",
+        "foodcard",
+        "design-system",
+        "scan"
+      ],
+      "summary": "FoodCard: permukaan token (--border), badge diskon AA, gap meta-tombol 12px; hero toko rounded 12px; scan FAIL warna heks mentah di system/.",
+      "conn": [
+        {
+          "id": "TASK-9501",
+          "type": "fixes",
+          "raw": "TASK-9501:fixes"
+        },
+        {
+          "id": "DEC-013",
+          "type": "relates",
+          "raw": "DEC-013:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9521",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:40:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: scripts/surface-scan.mjs (+1/-1) — edit via tool: `className tanpa aturan CSS: ${unknown.l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "scripts/surface-scan.mjs"
+    },
+    {
+      "id": "TASK-9522",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:45:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Profile.tsx (+1/-1) — edit via tool: tsx: <Link className=\"profile-header-block s7",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Profile.tsx"
+    },
+    {
+      "id": "TASK-9523",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:45:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/AddProfilePhoto.tsx (+1/-1) — edit via tool: tsx: <div className=\"profile-modal\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/AddProfilePhoto.tsx"
+    },
+    {
+      "id": "TASK-9524",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:45:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: <p className=\"doc-p\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-9525",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:45:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/documentation/sections/RouteProtectionSection.tsx (+1/-1) — edit via tool: tsx: <div className=\"doc-info\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/documentation/sections/RouteProtectionSection.tsx"
+    },
+    {
+      "id": "TASK-9526",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:45:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/MenuDetail.tsx (+1/-1) — edit via tool: tsx: className=\"quantity-btn\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-9527",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:45:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_superadmin.scss (+14/-7) — edit via tool: .sa-top {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_superadmin.scss"
+    },
+    {
+      "id": "TASK-9528",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:45:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_wallet.scss (+17/-11) — edit via tool: .wallet-gate {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_wallet.scss"
+    },
+    {
+      "id": "TASK-9529",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:46:15",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E \"className|heks|FAIL|WA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9530",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "19:46:58",
+      "tags": [
+        "design-system",
+        "cleanup",
+        "warn"
+      ],
+      "summary": "Bersihkan 10 WARN className: 7 kelas mati dibuang, doc-callout->doc-info, +2 slot BEM/flex (sa-top-copy, wallet-gate__text) pakai token.",
+      "conn": [
+        {
+          "id": "TASK-9520",
+          "type": "led_to",
+          "raw": "TASK-9520:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9531",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:24:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Search.tsx (+162) — write via tool: tsx: // Search finds a dish (menu-level). The",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Search.tsx"
+    },
+    {
+      "id": "TASK-9532",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:25:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_search.scss (+87) — write via tool: // ═════════════════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_search.scss"
+    },
+    {
+      "id": "TASK-9533",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:25:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/storefront\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-9534",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:25:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | grep -E \"heks|className|FAIL|WA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9540",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:27:12",
+      "tags": [
+        "customer",
+        "search",
+        "design-system"
+      ],
+      "summary": "Search: default jadi grid Rekomendasi (buang Hot Deals + See All mati), chrome ke token via system/_search.scss, .filter-link 44px.",
+      "conn": [
+        {
+          "id": "TASK-9530",
+          "type": "led_to",
+          "raw": "TASK-9530:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9541",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:33:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_filter.scss (+74) — write via tool: // ═════════════════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_filter.scss"
+    },
+    {
+      "id": "TASK-9542",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:33:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Filter.tsx (+3/-3) — edit via tool: tsx: <span aria-live=\"polite\" aria-atomic=\"tr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Filter.tsx"
+    },
+    {
+      "id": "TASK-9543",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:33:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/search\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-9544",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:34:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | grep -E \"heks|className|FAIL|WA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9545",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:34:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_filter.scss (+13/-5) — edit via tool: // Cincin saat belum dipilih; `input:che",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_filter.scss"
+    },
+    {
+      "id": "TASK-9546",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:35:23",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && node scripts/browser-gate.mjs --route /filter --pwa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9547",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:35:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_filter.scss (+5/-3) — edit via tool: .filter-sheet {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_filter.scss"
+    },
+    {
+      "id": "TASK-9548",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:36:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Favorites.tsx (+65) — write via tool: tsx: import { ChevronLeft, Heart } from 'luci",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Favorites.tsx"
+    },
+    {
+      "id": "TASK-9549",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:37:05",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -4 && npm run scan 2>&1 | grep -E \"heks|className|FAIL|WA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9550",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:37:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Favorites.tsx (+12/-11) — edit via tool: tsx: import { FoodCard } from '../components/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Favorites.tsx"
+    },
+    {
+      "id": "TASK-9551",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:37:23",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9560",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:39:19",
+      "tags": [
+        "customer",
+        "filter",
+        "favorites",
+        "design-system"
+      ],
+      "summary": "Filter: chrome ke token (_filter.scss), safe-area env ganti 70px, radio row 44px, harga ganda dibuang. Favorit: pakai FoodCard (buang markup",
+      "conn": [
+        {
+          "id": "TASK-9540",
+          "type": "led_to",
+          "raw": "TASK-9540:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9561",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:51:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_storefront.scss (+12/-9) — edit via tool: .store-missing {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-9562",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:51:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | tail -2 p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9563",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:58:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_topbar.scss (+15/-4) — edit via tool: .app-shell .payment-amount-content {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-9564",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "21:59:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | tail -2 &",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9565",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:03:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_topbar.scss (+11/-11) — edit via tool: // Judul halaman dipusatkan lewat `posit",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-9566",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:05:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/styles/system/_topbar.scss (+12/-11) — edit via tool: // Judul halaman dipusatkan lewat `posit",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-9567",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:05:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && pid=$(lsof -nP -iTCP:9359 -sTCP:LISTEN 2>/dev/null ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9570",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:06:45",
+      "tags": [
+        "customer",
+        "design-system",
+        "safe-area",
+        "gate"
+      ],
+      "summary": "Sweep gate customer --pwa --strict: 88/88. Fallback toko-hilang dapat place safe-area (env). Judul payment-selection digeser margin-top env/",
+      "conn": [
+        {
+          "id": "TASK-9560",
+          "type": "led_to",
+          "raw": "TASK-9560:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9571",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:09:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: src/pages/Documentation.tsx (+2/-2) — edit via tool: tsx: dan kurir punya layar onboarding sendiri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "src/pages/Documentation.tsx"
     }
   ]
 }

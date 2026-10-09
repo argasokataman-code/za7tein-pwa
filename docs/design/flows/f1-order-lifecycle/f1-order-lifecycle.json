@@ -24,7 +24,7 @@
     ]
   },
   "nodes": [
-    { "id": "browse", "lane": "customer", "col": 0, "type": "external", "label": "Pilih menu", "sublabel": "katalog + zona" },
+    { "id": "browse", "lane": "customer", "col": 0, "type": "external", "label": "Pilih toko → menu", "sublabel": "daftar merchant → menu + zona", "width": 152 },
     { "id": "checkout", "lane": "customer", "col": 1, "type": "external", "label": "Checkout", "sublabel": "ongkir + fee 0,22 JOD" },
     { "id": "payMethod", "lane": "customer", "col": 2, "type": "security", "label": "Pilih bayar", "sublabel": "prepaid / COD / transfer", "width": 112 },
     { "id": "order", "lane": "customer", "col": 3, "type": "backend", "label": "Order dibuat", "sublabel": "prepaid potong; COD hold", "width": 150 },
