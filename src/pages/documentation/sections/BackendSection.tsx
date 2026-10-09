@@ -69,7 +69,9 @@ export const foodApi = baseApi.injectEndpoints({
         <code className="doc-inline">close_time</code>); merchant orders carry the assigned{' '}
         <code className="doc-inline">orders.courier_id</code>. The merchant's own profile (name,
         phone, address, photo, opening hours, delivery config) is hydrated into the merchant slice
-        from the same table. The merchant incentive history is
+        from the same table. The full merchant registry (owner, city, tier, tenant/deposit
+        status, active zones, COD issues) is read into <code className="doc-inline">admin.merchants</code>{' '}
+        for the CS panel and SA console. The merchant incentive history is
         read from <code className="doc-inline">merchant_credit_events</code>. The merchant store
         open/close toggle writes back{' '}
         <code className="doc-inline">PATCH /rest/v1/merchants?id=eq.1</code>, and the customer

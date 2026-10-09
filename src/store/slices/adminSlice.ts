@@ -52,6 +52,14 @@ const adminSlice = createSlice({
   initialState,
   reducers: {
     /**
+     * API: ganti seluruh registri merchant dengan baris backend. Backend sudah
+     * menyediakan kolom registri lengkap (owner, city, tier, tenant/deposit,
+     * zona, codIssues), jadi tak ada field yang jatuh ke mock.
+     */
+    setMerchants(state, action: PayloadAction<MerchantRecord[]>) {
+      state.merchants = action.payload
+    },
+    /**
      * Approve deposit = verifikasi transfer masuk dulu: `unpaid → held`, baru
      * `tenantStatus: approved`. Merchant aktif lalu masuk daftar pantau.
      */
@@ -192,6 +200,7 @@ const adminSlice = createSlice({
 })
 
 export const {
+  setMerchants,
   approveDeposit,
   rejectOnboarding,
   suspendMerchant,

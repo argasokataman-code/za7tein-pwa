@@ -13,14 +13,17 @@
 import { jodToIdr } from '../data/currency'
 import type {
   Courier,
+  DepositStatus,
   MerchantCreditEvent,
   MerchantCreditEventName,
   MerchantCreditState,
   MerchantDeliveryConfig,
+  MerchantRecord,
   PlatformSwitches,
   RebateTier,
   SaOperator,
   SaRole,
+  TenantStatus,
   Wallet,
   ZoneGeometry,
 } from '../types'
@@ -101,6 +104,24 @@ interface MerchantRow {
   id: number
   store_status: string | null
   deposit_jod: number | null
+}
+interface RegistryRow {
+  id: number
+  store_name: string
+  owner: string | null
+  owner_phone: string | null
+  store_phone: string | null
+  city: string | null
+  tier: string | null
+  tenant_status: string | null
+  deposit_jod: number | null
+  deposit_status: string | null
+  is_active_hijazi: boolean | null
+  is_active_syimali: boolean | null
+  cod_issues: number | null
+  created_at: string
+  approved_at: string | null
+  status_reason: string | null
 }
 interface CreditEventRow {
   id: number
@@ -367,6 +388,33 @@ export async function fetchMerchantProfile(
         }
       : undefined,
   }
+}
+
+function toMerchantRecord(row: RegistryRow): MerchantRecord {
+  return {
+    id: String(row.id),
+    name: row.store_name,
+    owner: row.owner ?? '',
+    ownerPhone: row.owner_phone ?? row.store_phone ?? '',
+    city: row.city ?? '',
+    tier: row.tier === 'pro' ? 'pro' : 'free',
+    isActiveHijazi: row.is_active_hijazi ?? false,
+    isActiveSyimali: row.is_active_syimali ?? false,
+    tenantStatus: (row.tenant_status as TenantStatus | null) ?? 'pending',
+    deposit: row.deposit_jod ?? 0,
+    depositStatus: (row.deposit_status as DepositStatus | null) ?? 'unpaid',
+    codIssues: row.cod_issues ?? 0,
+    joinedAt: dayLabel(row.created_at),
+    approvedAt: row.approved_at ? dayLabel(row.approved_at) : null,
+    statusReason: row.status_reason,
+  }
+}
+
+/** Registri merchant platform (panel CS + konsol SA) — tabel `merchants` penuh. */
+export async function fetchMerchantRecords(): Promise<MerchantRecord[]> {
+  const token = await refToken()
+  const rows = await restWith<RegistryRow>(token, 'merchants', '?select=*&order=id.asc')
+  return rows.map(toMerchantRecord)
 }
 
 export { DEMO_MERCHANT_USER_ID }

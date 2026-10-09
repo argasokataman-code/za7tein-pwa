@@ -5,6 +5,7 @@ import {
   fetchCouriers,
   fetchMerchantCredit,
   fetchMerchantProfile,
+  fetchMerchantRecords,
   fetchStoreStatus,
   fetchSwitches,
   fetchWallet,
@@ -12,6 +13,7 @@ import {
   setStoreStatus,
 } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
+import { setMerchants } from '../store/slices/adminSlice'
 import { hydrateCredit, hydrateProfile, setCouriers, setStoreActive } from '../store/slices/merchantSlice'
 import { setBalance as setPayoutBalance } from '../store/slices/payoutSlice'
 import { setSwitches, setZones } from '../store/slices/superAdminSlice'
@@ -54,7 +56,6 @@ function useCouriers(): void {
     },
   )
 }
-
 /** Modal + rebate merchant → `merchant.credit`. */
 function useMerchantCredit(): void {
   useSyncOnce(
@@ -64,13 +65,21 @@ function useMerchantCredit(): void {
     },
   )
 }
-
 /** Profil toko (nama, kontak, foto, konfigurasi kirim) → `merchant`. */
 function useMerchantProfile(): void {
   useSyncOnce(
     () => fetchMerchantProfile(MERCHANT_ID),
     (profile, dispatch) => {
       if (profile) dispatch(hydrateProfile(profile))
+    },
+  )
+}
+/** Registri merchant platform → `admin.merchants` (panel CS + konsol SA). */
+function useMerchantRegistry(): void {
+  useSyncOnce(
+    () => fetchMerchantRecords(),
+    (rows, dispatch) => {
+      if (rows.length) dispatch(setMerchants(rows))
     },
   )
 }
@@ -85,11 +94,7 @@ function useWallet(userId: number, target: 'customer' | 'merchant'): void {
   )
 }
 
-/**
- * Status toko dua arah: baca `store_status` saat mount, tulis balik ke backend
- * tiap merchant menekan Buka/Tutup. `baseline` mencegah tulis saat pembacaan
- * pertama datang (tanpa itu, hasil baca ikut ditulis kembali).
- */
+/** Status toko dua arah: baca `store_status`, tulis balik saat Buka/Tutup ditekan. */
 function useStoreStatus(): void {
   const dispatch = useAppDispatch()
   const isActive = useAppSelector((s) => s.merchant.isActive)
@@ -136,6 +141,7 @@ export function useApiSync(): void {
   useCouriers()
   useMerchantCredit()
   useMerchantProfile()
+  useMerchantRegistry()
   useWallet(USER_CUSTOMER, 'customer')
   useWallet(USER_MERCHANT, 'merchant')
   useStoreStatus()
