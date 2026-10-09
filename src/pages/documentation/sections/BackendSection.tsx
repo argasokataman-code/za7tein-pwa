@@ -42,6 +42,18 @@ export const foodApi = baseApi.injectEndpoints({
 });`}
       </DocCode>
       <h3 className="doc-h3">
+        Orders — Supabase PostgREST
+      </h3>
+      <p className="doc-p">
+        Customer checkout writes an order (
+        <code className="doc-inline">POST /rest/v1/orders</code>) and the merchant queue reads it
+        back ({' '}
+        <code className="doc-inline">GET /rest/v1/orders?merchant_id=eq.1</code>) through
+        <code className="doc-inline">src/api/orders.ts</code>. Both are best-effort: if the API is
+        unreachable or RLS rejects, the mock list stays on screen (mock-first, API-override). Reads
+        re-login the demo merchant account so RLS returns the rows.
+      </p>
+      <h3 className="doc-h3">
         Order tracking — WebSocket
       </h3>
       <p className="doc-p">

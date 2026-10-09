@@ -8,6 +8,7 @@ import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { JourneyLine } from '../components/JourneyLine'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
+import { useMerchantOrdersSync } from '../hooks/useApiOrders'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { COURIER_STATUS_LABEL } from '../data/courier'
 import { HOLD_STATUS_COPY, formatDistance, money, zoneLabel } from '../data/merchant'
@@ -42,6 +43,7 @@ const DEFAULT_COOK_MINUTES = 25
 
 export default function MerchantOrders() {
   const dispatch = useAppDispatch()
+  useMerchantOrdersSync()
   const orders = useAppSelector((s) => s.merchant.orders)
   const couriers = useAppSelector((s) => s.merchant.couriers)
   const [params] = useSearchParams()

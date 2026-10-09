@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { formatRating, modifierExtra, modifierSummary } from '../data/foods'
 import { useCatalog } from '../hooks/useCatalog'
+import { useFood } from '../hooks/useApiCatalog'
 import { menuDetailReviews } from '../data/reviews'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { FavoriteButton } from '../components/ui/FavoriteButton'
@@ -24,7 +25,8 @@ export default function MenuDetail() {
   const [expanded, setExpanded] = useState(false)
   const [chosenByFood, setChosenByFood] = useState<Record<string, string[]>>({})
 
-  const food = getFood(id ?? '') ?? items[0]
+  // Menu: mock dulu, ditimpa katalog live bila API hidup.
+  const food = useFood(id ?? '', getFood(id ?? '') ?? items[0])
   const quantity = quantityByFood[food.id] ?? 1
   const defaults = food.modifierGroups
     ?.filter((group) => group.type === 'single')

@@ -103,6 +103,15 @@ const merchantSlice = createSlice({
       const order = state.orders.find((o) => o.id === action.payload.id)
       if (order) order.status = action.payload.status
     },
+    /**
+     * Gabung order live dari API ke depan seed. Seed yang tidak tertimpa tetap
+     * ada supaya "mock dulu, API menimpa" berlaku juga di tab (jumlah tak turun
+     * karena jaringan). Di-key per `id` agar sync berulang tidak menduplikasi.
+     */
+    mergeOrders(state, action: PayloadAction<MerchantOrder[]>) {
+      const liveIds = new Set(action.payload.map((o) => o.id))
+      state.orders = [...action.payload, ...state.orders.filter((o) => !liveIds.has(o.id))]
+    },
     setCookMinutes(state, action: PayloadAction<{ id: string; minutes: number }>) {
       const order = state.orders.find((o) => o.id === action.payload.id)
       if (order) order.cookMinutes = action.payload.minutes
@@ -239,6 +248,7 @@ const merchantSlice = createSlice({
 export const {
   toggleActive,
   setOrderStatus,
+  mergeOrders,
   setCookMinutes,
   addCourier,
   removeCourier,

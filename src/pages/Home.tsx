@@ -11,6 +11,7 @@ import { useCatalog } from '../hooks/useCatalog'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { merchantCategoryIds } from '../data/catalog'
 import { storefronts } from '../data/storefronts'
+import { useStorefronts } from '../hooks/useApiCatalog'
 
 /**
  * Beranda customer — langkah pertama alur belanja adalah memilih TOKO, bukan
@@ -25,6 +26,8 @@ export default function Home() {
   const locationLabel = useAppSelector((s) => s.ui.locationLabel)
   const [category, setCategory] = useState('all')
   const { items, categories } = useCatalog()
+  // Daftar toko: mock dulu, ditimpa katalog live bila API hidup.
+  const stores = useStorefronts(storefronts)
 
   // Chip "Semua" memimpin daftar dan aktif secara default.
   const chips = [{ id: 'all', label: 'Semua', icon: LayoutGrid }, ...categories]
@@ -33,8 +36,8 @@ export default function Home() {
   // kategori terpilih (dihitung dari menunya yang benar-benar bisa dipesan).
   const visibleStores =
     category === 'all'
-      ? storefronts
-      : storefronts.filter((store) => merchantCategoryIds(items, store.id).includes(category))
+      ? stores
+      : stores.filter((store) => merchantCategoryIds(items, store.id).includes(category))
 
   return (
     <div className="app-shell">

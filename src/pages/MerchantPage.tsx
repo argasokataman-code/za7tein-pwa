@@ -8,6 +8,7 @@ import { FoodCard } from '../components/ui/FoodCard'
 import { useCatalog } from '../hooks/useCatalog'
 import { dealsFrom, itemsByMerchant } from '../data/catalog'
 import { getStorefront } from '../data/storefronts'
+import { useMenuItems, useStorefront } from '../hooks/useApiCatalog'
 import { formatRating } from '../data/foods'
 
 /**
@@ -19,8 +20,10 @@ export default function MerchantPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { items } = useCatalog()
-  const store = getStorefront(id ?? '')
-  const menu = useMemo(() => (id ? itemsByMerchant(items, id) : []), [items, id])
+  // Store + menu: mock dulu, ditimpa katalog live bila API hidup.
+  const store = useStorefront(id ?? '', getStorefront(id ?? ''))
+  const fallbackMenu = useMemo(() => (id ? itemsByMerchant(items, id) : []), [items, id])
+  const menu = useMenuItems(id ?? '', fallbackMenu)
   const deals = useMemo(() => dealsFrom(menu), [menu])
 
   if (!store) {

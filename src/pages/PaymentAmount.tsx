@@ -6,6 +6,7 @@ import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
+import { createOrder, nextOrderCode } from '../api/orders'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
@@ -88,6 +89,16 @@ export default function PaymentAmount() {
       dispatch(createOrderHold({ amountIdr: total }))
       dispatch(applyHoldEvent({ event: 'hold_created', amountIdr: total }))
     }
+    // Tulis order ke backend (best-effort): UI tetap jalan sebagai mock kalau
+    // jaringan/RLS menolak, jadi kegagalan tidak menghalangi navigasi.
+    void createOrder({
+      code: nextOrderCode(),
+      subTotalIdr: subtotal,
+      deliveryFeeIdr: fee,
+      platformFeeIdr: PLATFORM_FEE_CUSTOMER_IDR,
+      totalIdr: total,
+      paymentMethod: method.id,
+    }).catch(() => {})
     navigate('/order-placed')
   }
 

@@ -92,5 +92,50 @@
     { "req": "R-ADDR-01", "flows": ["f16-merchant-onboarding:profil", "f20-address-zone"], "entities": ["addresses", "merchants", "orders"], "unresolved": ["master zona (f15)"], "note": "zona Hijazi/Syimali ≤2 km (C-13)" },
     { "req": "PRD §Registrasi (Level 1)", "flows": ["f21-account-auth:method", "f21-account-auth:phone", "f21-account-auth:verify"], "entities": ["users", "phone_verifications"], "unresolved": ["Google untuk merchant/kurir", "sesi/token & PIN", "verifikasi otomatis (Level 2)"], "note": "PO 2026-09-22: login Google + nomor WA wajib (validasi format); E.164 (source.md:727, :760)" },
     { "req": "PO 2026-09-23 (cakupan Super Admin)", "flows": ["f22-super-admin-sa:zone", "f22-super-admin-sa:roles", "f22-super-admin-sa:tax", "f22-super-admin-sa:profit", "f22-super-admin-sa:switch", "f22-super-admin-sa:audit", "f22-super-admin-sa:appeal"], "entities": ["zones", "roles", "operators", "audit_logs", "tax_reports", "platform_profit", "platform_switches"], "unresolved": ["tarif pajak final (OQ-2/3/4, OQ-17/18)", "jumlah operator konkret (OQ-30 sebagian)", "jadwal settlement liability"], "note": "tanpa R-* — dasar keputusan PO + C-12; SA bukan approver top-up/payout, dana user = liability" }
-  ]
+  ],
+  "contract": {
+    "$comment": "Pemetaan flow yang ada ke kontrak Sa7tein API v1. Sumber kebenaran kontrak: openapi.yaml (DRAFT 0.1.0). Repo ini front-end mock (AGENTS.md §1) — tabel ini dokumentasi penyelarasan, bukan implementasi. Item `status: unresolved` berarti kontrak sendiri belum memutuskan (lihat x-unresolved pada spec) dan tidak boleh ditebak.",
+    "api": "Sa7tein API — Irbid MVP",
+    "version": "0.1.0-draft",
+    "source": "https://sa7tein-api.vercel.app/openapi.yaml",
+    "servers": [
+      "https://api.sa7tein.app (produksi, belum dideploy)",
+      "http://localhost:8080 (dev, server demo repo backend)"
+    ],
+    "realtime": {
+      "transport": "websocket",
+      "auth": "token sesi via query `access_token`; topic ter-scope per peran",
+      "topics": ["orders", "wallet", "chat", "courier", "disputes", "tenant", "zone", "ratings", "platform"]
+    },
+    "endpoints": [
+      { "req": "R-COD-01", "flows": ["f1-order-lifecycle", "f2-cod-hold"], "operations": ["POST /orders", "POST /orders/{id}/otp/verify", "POST /orders/{id}/cancel", "GET /wallet/holds"], "events": ["reserve_created", "reserve_settled", "reserve_released", "payment_confirmed"] },
+      { "req": "R-TOPUP-01", "flows": ["f1-order-lifecycle:topUpGate", "f3-wallet-topup"], "operations": ["POST /wallet/topups", "GET /wallet/topups/{id}"], "events": ["top_up_completed", "topup_gate_pending"] },
+      { "req": "R-WALLET-01", "flows": ["f1-order-lifecycle:checkout", "f3-wallet-topup", "f4-fee-tax:tip", "f6-cashout-payout", "f19-rating-review:teks"], "operations": ["GET /wallet", "POST /wallet/cashouts"], "events": ["ledger_entry", "cashout_requested"] },
+      { "req": "R-FEE-01", "flows": ["f1-order-lifecycle:checkout", "f4-fee-tax"], "operations": ["POST /orders"], "events": ["fee_computed"], "unresolved": ["FEE-1"] },
+      { "req": "R-TAX-01", "flows": ["f4-fee-tax"], "operations": ["GET /superadmin/tax-reports"], "unresolved": ["TAX-1", "TAX-2"] },
+      { "req": "R-DELIV-01", "flows": ["f5-delivery-verification", "f13-courier-view"], "operations": ["POST /orders/{id}/courier/assign", "POST /orders/{id}/courier/accept", "POST /orders/{id}/checkpoints", "POST /orders/{id}/otp/verify"], "events": ["checkpoint_recorded", "courier_match", "otp_verified"], "unresolved": ["SLA-1"] },
+      { "req": "R-CASHOUT-01", "flows": ["f6-cashout-payout"], "operations": ["POST /wallet/cashouts"], "events": ["cashout_requested"], "unresolved": ["CO-1"] },
+      { "req": "R-LEDGER-01", "flows": ["f7-ledger-liability", "f17-payment-xendit:paid"], "operations": ["GET /ledger", "GET /admin/liability"], "events": ["ledger_entry", "ledger_monitored"] },
+      { "req": "R-DISPUTE-01", "flows": ["f8-dispute", "f15-super-admin:dispute", "f22-super-admin-sa:appeal"], "operations": ["POST /disputes", "POST /disputes/{id}/resolve", "POST /disputes/{id}/appeals"], "events": ["dispute_opened", "dispute_resolved", "verdict_appealed", "appeal_decided"], "unresolved": ["DSP-1", "APL-1"] },
+      { "req": "R-INCENTIVE-01", "flows": ["f9-incentive"], "operations": [], "events": ["fee_deducted_from_credit"], "unresolved": ["INC-1"] },
+      { "req": "R-CURR-01", "flows": ["f10-exchange-rate"], "operations": [], "events": ["rate_fetched"], "unresolved": ["FX-1"] },
+      { "req": "R-PUSH-01", "flows": ["f11-push-notification"], "operations": ["POST /push/subscriptions"], "events": ["push_sent", "wa_fallback_ready"] },
+      { "req": "R-RATE-01", "flows": ["f18-order-state:done", "f19-rating-review"], "operations": ["POST /orders/{id}/review", "POST /reviews/{id}/reply"], "events": ["review_prompt", "review_saved"], "unresolved": ["RATE-1", "RATE-2"] },
+      { "req": "R-ADDR-01", "flows": ["f16-merchant-onboarding:profil", "f20-address-zone"], "operations": ["POST /coverage/resolve", "POST /me/addresses"], "events": ["coverage_checked", "order_zone_snapshot", "zone_master_defined"], "unresolved": ["ZON-1"] },
+      { "req": "MERCHANT-CONSOLE", "flows": ["f12-merchant-console"], "operations": ["GET /orders?merchantId=", "POST /orders/{id}/accept", "POST /orders/{id}/reject", "POST /orders/{id}/prepare", "POST /orders/{id}/ready", "GET /merchants/{id}/couriers"], "events": ["order_accepted", "merchant_ready", "courier_match"] },
+      { "req": "C-18 (chat in-app)", "flows": ["f14-chat-order"], "operations": ["GET /orders/{id}/chat", "POST /orders/{id}/chat/messages"], "events": ["chat_opened", "courier_joined_chat", "message_created"] },
+      { "req": "C-01 + DEC-1039 (payment)", "flows": ["f17-payment-xendit"], "operations": ["POST /wallet/topups", "POST /webhooks/xendit"], "events": ["payment_confirmed"], "unresolved": ["WEB-1"] },
+      { "req": "C-17 (order state)", "flows": ["f1-order-lifecycle", "f18-order-state"], "operations": ["GET /orders", "GET /orders/{id}"], "events": ["order_status_changed"], "unresolved": ["OST-1"] },
+      { "req": "PRD §Registrasi (Level 1)", "flows": ["f21-account-auth"], "operations": ["POST /auth/google", "POST /auth/register", "POST /auth/login", "POST /auth/phone/verification", "POST /auth/phone/verify", "GET /auth/me"], "unresolved": ["AUT-1"] },
+      { "req": "PO 2026-09-23 (cakupan Super Admin)", "flows": ["f22-super-admin-sa"], "operations": ["GET/PATCH /superadmin/switches", "GET /superadmin/tax-reports", "GET /superadmin/platform-profit", "GET /superadmin/users", "GET /superadmin/users/merchant/{id}", "PATCH /superadmin/tenants/{id}/status"], "unresolved": ["TAX-1", "TAX-2", "AUD-1"] }
+    ],
+    "mismatches": [
+      { "id": "favorites-merchant", "status": "open", "topic": "Favorit: kontrak menyimpan merchant (GET/POST/DELETE /me/favorites -> MerchantSummary); demo menyimpan hidangan (id MenuItem).", "contract": "favorites = merchant", "demo": "src/store/slices/favoritesSlice.ts + src/pages/Favorites.tsx belum diputuskan PO untuk mengikuti kontrak." },
+      { "id": "menu-variants", "status": "open", "topic": "Menu: kontrak Menu + MenuVariant (name, maxSelect, options[].priceDeltaJod); demo Food.modifierGroups (single/multi, extraPrice).", "contract": "variant.maxSelect + priceDeltaJod", "demo": "src/types.ts ModifierGroup" },
+      { "id": "order-status-placed", "status": "unresolved", "ref": "OST-1", "topic": "Kontrak enum order.status tidak punya `placed` (draft BE: `quotation`); flow f1/f18 memakai `placed`. Menunggu keputusan PO, jangan ditebak." },
+      { "id": "discovery-flow", "status": "open", "topic": "Kontrak (x-realtime) menyebut flow `f23-customer-discovery` (merchant-first, DEC-1041); repo belum punya folder flow itu — merchant-first baru ada di kode (Home -> /merchant/:id).", "contract": "f23-customer-discovery", "demo": "src/pages/Home.tsx + src/pages/MerchantPage.tsx" },
+      { "id": "auth", "status": "open", "topic": "Kontrak: Google idToken + nomor WA E.164 (Level 1 tanpa OTP WA, fallback wa.me); demo auth masih mock tanpa guard rute.", "contract": "POST /auth/google + /auth/phone/*", "demo": "src/pages/SignIn.tsx" },
+      { "id": "money-unit", "status": "open", "topic": "Kontrak memisahkan JOD (display, `*Jod`) dan IDR (settlement, `*Idr`); demo menyimpan nominal IDR sebagai source of truth dengan JOD sebagai tampilan — arah selaras, penamaan field belum sama.", "contract": "amountJod / amountIdr", "demo": "src/data/merchant.ts money()" }
+    ]
+  }
 }
