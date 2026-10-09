@@ -13,6 +13,8 @@
 import { jodToIdr } from '../data/currency'
 import type {
   Courier,
+  MerchantCreditEvent,
+  MerchantCreditEventName,
   MerchantCreditState,
   PlatformSwitches,
   RebateTier,
@@ -99,6 +101,26 @@ interface MerchantRow {
   store_status: string | null
   deposit_jod: number | null
 }
+interface CreditEventRow {
+  id: number
+  event: string
+  amount_jod: number
+  at: string
+}
+interface ReviewRow {
+  merchant_id: number
+  menu_id: number | null
+  rating: number
+}
+
+/** Nama event kredit: backend memakai `credit_fee_deducted`, repo `merchant_credit_debited`. */
+const CREDIT_EVENT_NAME: Record<string, MerchantCreditEventName> = {
+  merchant_credit_granted: 'merchant_credit_granted',
+  credit_fee_deducted: 'merchant_credit_debited',
+  merchant_credit_debited: 'merchant_credit_debited',
+  rebate_tier_reached: 'rebate_tier_reached',
+  rebate_paid: 'rebate_paid',
+}
 
 const AVAILABILITY: Record<string, Courier['status']> = {
   available: 'at_store',
@@ -131,6 +153,15 @@ function toWallet(row: WalletRow): Wallet {
   const total = jodToIdr(row.balance_jod)
   const pending = jodToIdr(row.reserved_balance_jod)
   return { balance: total, available: Math.max(0, total - pending), pending }
+}
+
+function toCreditEvent(row: CreditEventRow): MerchantCreditEvent {
+  return {
+    id: `mce-${row.id}`,
+    event: CREDIT_EVENT_NAME[row.event] ?? 'merchant_credit_debited',
+    amountJod: row.amount_jod,
+    at: dayLabel(row.at),
+  }
 }
 
 function toRole(row: RoleRow): SaRole {
@@ -181,11 +212,14 @@ export async function fetchMerchantCredit(
   )
   const credit = credits[0]
   if (!credit) return undefined
-  const merchants = await restWith<MerchantRow>(
-    token,
-    'merchants',
-    `?select=id,deposit_jod&id=eq.${merchantId}&limit=1`,
-  )
+  const [merchants, events] = await Promise.all([
+    restWith<MerchantRow>(token, 'merchants', `?select=id,deposit_jod&id=eq.${merchantId}&limit=1`),
+    restWith<CreditEventRow>(
+      token,
+      'merchant_credit_events',
+      `?select=id,event,amount_jod,at&merchant_id=eq.${merchantId}&order=id.desc`,
+    ),
+  ])
   return {
     merchantCreditBalance: credit.balance_jod,
     rebatePeriod: credit.rebate_period ?? '',
@@ -193,6 +227,7 @@ export async function fetchMerchantCredit(
     rebateAmountJod: credit.rebate_amount_jod ?? 0,
     rebatePaidAt: credit.rebate_paid_at,
     depositBalanceJod: merchants[0]?.deposit_jod ?? 0,
+    events: events.map(toCreditEvent),
   }
 }
 
@@ -272,6 +307,31 @@ export async function fetchSwitches(): Promise<PlatformSwitches> {
     if (key) switches[key] = row.enabled
   }
   return switches
+}
+
+/**
+ * Rata-rata rating per merchant dari `rating_reviews` — dipakai storefront
+ * karena tabel `merchants` tidak menyimpan rating/jumlah ulasan.
+ */
+export interface RatingSummary {
+  byMerchant: Record<string, { avg: number; count: number }>
+}
+
+export async function fetchRatingSummary(): Promise<RatingSummary> {
+  const token = await refToken()
+  const rows = await restWith<ReviewRow>(token, 'rating_reviews', '?select=merchant_id,menu_id,rating')
+  const acc = new Map<number, { sum: number; count: number }>()
+  for (const row of rows) {
+    const cur = acc.get(row.merchant_id) ?? { sum: 0, count: 0 }
+    cur.sum += row.rating
+    cur.count += 1
+    acc.set(row.merchant_id, cur)
+  }
+  const byMerchant: RatingSummary['byMerchant'] = {}
+  for (const [id, value] of acc) {
+    byMerchant[String(id)] = { avg: Math.round((value.sum / value.count) * 10) / 10, count: value.count }
+  }
+  return { byMerchant }
 }
 
 export { DEMO_MERCHANT_USER_ID }

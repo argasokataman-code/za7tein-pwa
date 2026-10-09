@@ -10,6 +10,7 @@
 import { useEffect, useState } from 'react'
 
 import { fetchFood, fetchMenuItems, fetchStorefront, fetchStorefronts } from '../api/catalog'
+import { fetchRatingSummary } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import type { MenuItem, Storefront } from '../types'
 
@@ -19,9 +20,19 @@ export function useStorefronts(fallback: Storefront[]): Storefront[] {
     if (!apiEnabled) return
     let alive = true
     const load = () =>
-      fetchStorefronts()
-        .then((next) => {
-          if (alive) setRemote(next)
+      Promise.all([fetchStorefronts(), fetchRatingSummary().catch(() => null)])
+        .then(([stores, ratings]) => {
+          if (!alive) return
+          setRemote(
+            ratings
+              ? stores.map((store) => {
+                  const summary = ratings.byMerchant[store.id]
+                  return summary
+                    ? { ...store, rating: summary.avg, reviewCount: summary.count }
+                    : store
+                })
+              : stores,
+          )
         })
         .catch(() => {})
     load()
