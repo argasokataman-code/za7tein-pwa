@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * e2e-browsers.mjs — buka SATU browser TERPISAH per peran (customer,
+ * e2e-browsers.mjs — buka SATU **jendela PWA** per peran (customer,
  * merchant, courier, admin, superadmin) untuk testing flow e2e.
  *
  * Tiap peran = INSTANCE browser sendiri, bukan tab di browser yang sama.
@@ -8,6 +8,10 @@
  * berbagi `localStorage` (redux-persist: cart/favorites/accountSetup) dan sesi
  * bisa saling menimpa. Browser terpisah = profil + storage sendiri, seperti
  * beberapa pengguna di perangkat berbeda — itu yang membuat e2e jujur.
+ *
+ * WAJIB app-mode: tiap jendela dibuka `--app=<url>` (display-mode: standalone),
+ * bukan tab browser biasa. Script mendeteksi klon yang masih mode browser dan
+ * me-restart-nya ke PWA.
  *
  * PETA PORT TERKUNCI (biar tak bentrok ke depan):
  *   9355  klon kerja user (gambar/ChatGPT)     — JANGAN dipakai e2e
@@ -42,10 +46,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 const PORT_BASE = Number(process.env.E2E_PORT_BASE) || 9360
 const ROLE_DEFS = [
   { role: 'customer', path: '/customer/signin', pos: '20,40' },
-  { role: 'merchant', path: '/merchant/signin', pos: '860,40' },
-  { role: 'courier', path: '/courier/signin', pos: '1700,40' },
-  { role: 'admin', path: '/admin/', pos: '20,960' },
-  { role: 'superadmin', path: '/superadmin/', pos: '860,960' },
+  { role: 'merchant', path: '/merchant/signin', pos: '470,40' },
+  { role: 'courier', path: '/courier/signin', pos: '920,40' },
+  { role: 'admin', path: '/admin/', pos: '20,1000' },
+  { role: 'superadmin', path: '/superadmin/', pos: '470,1000' },
 ]
 
 const INSTANCES = ROLE_DEFS.map((def, i) => {
@@ -142,37 +146,105 @@ async function assertPortFree(inst) {
   }
 }
 
-function launchClone(inst) {
+/** Evaluasi JS via CDP mentah (WebSocket global). `null` kalau gagal/timeout. */
+function cdpEval(wsUrl, expression) {
+  return new Promise((resolve) => {
+    let settled = false
+    const done = (v) => {
+      if (settled) return
+      settled = true
+      try {
+        ws.close()
+      } catch {
+        // ws belum terbuka; abaikan
+      }
+      resolve(v)
+    }
+    let ws
+    try {
+      ws = new WebSocket(wsUrl)
+    } catch {
+      return done(null)
+    }
+    const timer = setTimeout(() => done(null), 2500)
+    ws.onerror = () => {
+      clearTimeout(timer)
+      done(null)
+    }
+    ws.onopen = () =>
+      ws.send(
+        JSON.stringify({ id: 1, method: 'Runtime.evaluate', params: { expression, returnByValue: true } }),
+      )
+    ws.onmessage = (e) => {
+      try {
+        const msg = JSON.parse(e.data)
+        if (msg.id === 1) {
+          clearTimeout(timer)
+          done(msg.result?.result?.value ?? null)
+        }
+      } catch {
+        // pesan non-JSON; abaikan
+      }
+    }
+  })
+}
+
+// Jendela PWA = ukuran ponsel; shell repo terkunci `--shell-max` 430px.
+const PWA_W = 430
+const PWA_H = 920
+
+/** Klon ini jendela PWA yang benar (standalone + lebar sesuai shell)? */
+async function isAppMode(tabs) {
+  for (const p of (tabs || []).filter((t) => t.type === 'page')) {
+    const r = await cdpEval(
+      p.webSocketDebuggerUrl,
+      "({ standalone: matchMedia('(display-mode: standalone)').matches, w: window.innerWidth })",
+    )
+    if (r && r.standalone === true && r.w && Math.abs(r.w - PWA_W) <= 16) return true
+  }
+  return false
+}
+
+function launchClone(inst, url) {
   if (!existsSync(LAUNCH_SH)) throw new Error(`launch.sh tidak ada di ${LAUNCH_SH}`)
   mkdirSync(inst.profile, { recursive: true })
-  process.stderr.write(`[${inst.role}] klon belum hidup — luncurkan klon Brave headed (port ${inst.port})\n`)
+  process.stderr.write(`[${inst.role}] luncurkan PWA app-mode (--app ${url}, port ${inst.port})\n`)
   execFileSync(LAUNCH_SH, ['--fresh'], {
     stdio: 'ignore',
     env: {
       ...process.env,
       BRAVE_CDP_PORT: String(inst.port),
       BRAVE_PROFILE: inst.profile,
+      // `--app=` = jendela PWA (tanpa chrome browser). Wajib PWA, bukan browser biasa.
       BRAVE_EXTRA_ARGS:
         process.env.E2E_EXTRA_ARGS ||
-        `--window-size=820,900 --window-position=${inst.pos} --touch-events=enabled`,
+        `--app=${url} --window-size=${PWA_W},${PWA_H} --window-position=${inst.pos} --touch-events=enabled`,
     },
   })
 }
 
 async function ensureInstance(base, inst) {
+  const url = inst.path.startsWith('http') ? inst.path : base + inst.path
+  const matcher = new URL(url).pathname
+
   let tabs = await cdpList(inst.port)
-  if (tabs === null) {
+  const appReady = tabs !== null && (await isAppMode(tabs))
+  if (!appReady) {
+    if (tabs !== null) {
+      process.stderr.write(`[${inst.role}] klon masih mode browser — restart ke PWA\n`)
+      stopClone(inst)
+      await sleep(800)
+    }
     await assertPortFree(inst)
-    launchClone(inst)
+    launchClone(inst, url)
     await sleep(2500)
     tabs = (await cdpList(inst.port)) || []
   }
-  const url = inst.path.startsWith('http') ? inst.path : base + inst.path
-  const matcher = new URL(url).pathname
-  let tab = (tabs || []).find((t) => t.type === 'page' && (t.url || '').includes(matcher))
+
+  const tab = (tabs || []).find((t) => t.type === 'page' && (t.url || '').includes(matcher))
   if (!tab) {
-    tab = await newTab(inst.port, url)
-    tabs = [...(tabs || []), tab]
+    const opened = await newTab(inst.port, url)
+    tabs = [...(tabs || []), opened]
   }
   await closeBlankTabs(inst.port, tabs)
   return url
@@ -201,7 +273,7 @@ async function main() {
     ready.push({ inst, url: await ensureInstance(base, inst) })
   }
 
-  process.stdout.write(`\nBrowser e2e siap — ${ready.length} INSTANCE TERPISAH (headed)\n`)
+  process.stdout.write(`\nBrowser e2e siap — ${ready.length} INSTANCE TERPISAH (PWA app-mode)\n`)
   process.stdout.write(`base: ${base}\n`)
   for (const { inst, url } of ready) {
     const { Browser } = await (await fetch(`${endpoint(inst.port)}/json/version`)).json()
