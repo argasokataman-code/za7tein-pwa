@@ -1,13 +1,10 @@
-/**
- * Sinkron data referensi dari API — **mock dulu, API menimpa** (pola sama
- * dengan `useApiCatalog`/`useApiOrders`). Dipanggil sekali dari `App` lewat
- * `ApiSync`: kalau API mati/kosong/error, seed Redux tetap tampil.
- */
+/** Sinkron data referensi — mock dulu, API menimpa; dipanggil sekali lewat `ApiSync`. */
 import { useEffect, useRef } from 'react'
 
 import {
   fetchCouriers,
   fetchMerchantCredit,
+  fetchMerchantProfile,
   fetchStoreStatus,
   fetchSwitches,
   fetchWallet,
@@ -15,7 +12,7 @@ import {
   setStoreStatus,
 } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
-import { hydrateCredit, setCouriers, setStoreActive } from '../store/slices/merchantSlice'
+import { hydrateCredit, hydrateProfile, setCouriers, setStoreActive } from '../store/slices/merchantSlice'
 import { setBalance as setPayoutBalance } from '../store/slices/payoutSlice'
 import { setSwitches, setZones } from '../store/slices/superAdminSlice'
 import { setBalance as setWalletBalance } from '../store/slices/walletSlice'
@@ -25,56 +22,67 @@ const MERCHANT_ID = 1
 const USER_CUSTOMER = 1
 const USER_MERCHANT = 2
 
-/** Kurir milik merchant demo → `merchant.couriers`. */
-function useCouriers(): void {
+/** Pola sinkron sekali: load saat mount, serahkan hasil ke `onData` bila masih hidup. */
+function useSyncOnce<T>(
+  load: () => Promise<T | undefined>,
+  onData: (data: T, dispatch: ReturnType<typeof useAppDispatch>) => void,
+): void {
   const dispatch = useAppDispatch()
+  const ref = useRef({ load, onData })
+  ref.current = { load, onData }
   useEffect(() => {
     if (!apiEnabled) return
     let alive = true
-    fetchCouriers(MERCHANT_ID)
-      .then((rows) => {
-        if (alive && rows.length) dispatch(setCouriers(rows))
+    ref.current
+      .load()
+      .then((data) => {
+        if (alive && data !== undefined) ref.current.onData(data, dispatch)
       })
       .catch(() => {})
     return () => {
       alive = false
     }
   }, [dispatch])
+}
+
+/** Kurir milik merchant demo → `merchant.couriers`. */
+function useCouriers(): void {
+  useSyncOnce(
+    () => fetchCouriers(MERCHANT_ID),
+    (rows, dispatch) => {
+      if (rows.length) dispatch(setCouriers(rows))
+    },
+  )
 }
 
 /** Modal + rebate merchant → `merchant.credit`. */
 function useMerchantCredit(): void {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    if (!apiEnabled) return
-    let alive = true
-    fetchMerchantCredit(MERCHANT_ID)
-      .then((credit) => {
-        if (alive && credit) dispatch(hydrateCredit(credit))
-      })
-      .catch(() => {})
-    return () => {
-      alive = false
-    }
-  }, [dispatch])
+  useSyncOnce(
+    () => fetchMerchantCredit(MERCHANT_ID),
+    (credit, dispatch) => {
+      if (credit) dispatch(hydrateCredit(credit))
+    },
+  )
+}
+
+/** Profil toko (nama, kontak, foto, konfigurasi kirim) → `merchant`. */
+function useMerchantProfile(): void {
+  useSyncOnce(
+    () => fetchMerchantProfile(MERCHANT_ID),
+    (profile, dispatch) => {
+      if (profile) dispatch(hydrateProfile(profile))
+    },
+  )
 }
 
 /** Saldo wallet live: customer → `wallet`, merchant → `payout`. */
 function useWallet(userId: number, target: 'customer' | 'merchant'): void {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    if (!apiEnabled) return
-    let alive = true
-    fetchWallet(userId)
-      .then((wallet) => {
-        if (!alive || !wallet) return
-        dispatch(target === 'customer' ? setWalletBalance(wallet) : setPayoutBalance(wallet))
-      })
-      .catch(() => {})
-    return () => {
-      alive = false
-    }
-  }, [dispatch, userId, target])
+  useSyncOnce(
+    () => fetchWallet(userId),
+    (wallet, dispatch) => {
+      dispatch(target === 'customer' ? setWalletBalance(wallet) : setPayoutBalance(wallet))
+    },
+  )
 }
 
 /**
@@ -107,31 +115,27 @@ function useStoreStatus(): void {
   }, [isActive])
 }
 
-/**
- * Konsol SA: zona + kill-switch. Role & operator **tidak** diambil dari
- * backend — vocabulary izinnya berbeda (`zone.write` vs `zone.edit`) dan
- * operator tak punya nama, jadi menimpanya mengunci seluruh konsol; keduanya
- * tetap mock sampai kontraknya diselaraskan.
- */
+/** Konsol SA: zona + kill-switch. Role & operator tetap mock (vocabulary izin beda, operator tanpa nama). */
 function useSuperAdmin(): void {
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    if (!apiEnabled) return
-    let alive = true
-    fetchZones().then((rows) => alive && rows.length && dispatch(setZones(rows))).catch(() => {})
-    fetchSwitches()
-      .then((switches) => alive && dispatch(setSwitches(switches)))
-      .catch(() => {})
-    return () => {
-      alive = false
-    }
-  }, [dispatch])
+  useSyncOnce(
+    () => fetchZones(),
+    (rows, dispatch) => {
+      if (rows.length) dispatch(setZones(rows))
+    },
+  )
+  useSyncOnce(
+    () => fetchSwitches(),
+    (switches, dispatch) => {
+      if (switches) dispatch(setSwitches(switches))
+    },
+  )
 }
 
 /** Panggil sekali di `App` (di dalam `StoreProvider`) — semua sinkron referensi. */
 export function useApiSync(): void {
   useCouriers()
   useMerchantCredit()
+  useMerchantProfile()
   useWallet(USER_CUSTOMER, 'customer')
   useWallet(USER_MERCHANT, 'merchant')
   useStoreStatus()

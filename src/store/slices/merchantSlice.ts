@@ -60,6 +60,9 @@ interface MerchantState {
    * `merchantDeliveryConfig`. Tidak dipersist.
    */
   deliveryConfig: MerchantDeliveryConfig
+  /** Jam operasional toko (dari `merchants.open_time`/`close_time`). */
+  openTime: string
+  closeTime: string
 }
 
 const initialState: MerchantState = {
@@ -75,6 +78,8 @@ const initialState: MerchantState = {
   storePhone: mockStoreProfile.phone,
   storeAddress: mockStoreProfile.address,
   deliveryConfig: merchantDeliveryConfig,
+  openTime: mockMerchant.openTime,
+  closeTime: mockMerchant.closeTime,
 }
 
 /** Entry insentif: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -107,6 +112,34 @@ const merchantSlice = createSlice({
     /** API: timpa sebagian state insentif (modal, tier, dompet deposit). */
     hydrateCredit(state, action: PayloadAction<Partial<MerchantCreditState>>) {
       state.credit = { ...state.credit, ...action.payload }
+    },
+    /**
+     * API: timpa sebagian profil toko dari `merchants` (nama, kontak, foto,
+     * konfigurasi pengiriman). `deliveryConfig` digabung supaya `ongkirIdr`
+     * yang tak ada di backend tetap dari seed.
+     */
+    hydrateProfile(
+      state,
+      action: PayloadAction<{
+        storeName?: string
+        storePhone?: string
+        storeAddress?: string
+        logo?: string
+        openTime?: string
+        closeTime?: string
+        deliveryConfig?: Partial<MerchantDeliveryConfig>
+      }>,
+    ) {
+      const patch = action.payload
+      if (patch.storeName !== undefined) state.storeName = patch.storeName
+      if (patch.storePhone !== undefined) state.storePhone = patch.storePhone
+      if (patch.storeAddress !== undefined) state.storeAddress = patch.storeAddress
+      if (patch.logo !== undefined) state.logo = patch.logo
+      if (patch.openTime !== undefined) state.openTime = patch.openTime
+      if (patch.closeTime !== undefined) state.closeTime = patch.closeTime
+      if (patch.deliveryConfig) {
+        state.deliveryConfig = { ...state.deliveryConfig, ...patch.deliveryConfig }
+      }
     },
     setOrderStatus(
       state,
@@ -262,6 +295,7 @@ export const {
   setStoreActive,
   setCouriers,
   hydrateCredit,
+  hydrateProfile,
   setOrderStatus,
   mergeOrders,
   setCookMinutes,

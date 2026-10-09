@@ -35,6 +35,8 @@ export default function MerchantSettings() {
   const storeName = useAppSelector((state) => state.merchant.storeName)
   const storePhone = useAppSelector((state) => state.merchant.storePhone)
   const storeAddress = useAppSelector((state) => state.merchant.storeAddress)
+  const openTime = useAppSelector((state) => state.merchant.openTime)
+  const closeTime = useAppSelector((state) => state.merchant.closeTime)
   const walletBalance = useAppSelector((state) => state.payout.balance)
   const primaryAccount = useAppSelector(
     (state) => state.payout.accounts.find((a) => a.isPrimary) ?? state.payout.accounts[0],
@@ -98,11 +100,18 @@ export default function MerchantSettings() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<MerchantStoreFormData>({
     resolver: zodResolver(merchantStoreSchema),
     defaultValues: { name: storeName, phone: storePhone, address: storeAddress },
   })
+
+  // Profil live tiba setelah render pertama (mock dulu, API menimpa). Tanpa ini
+  // form terkunci pada nilai mock yang dibaca saat mount.
+  useEffect(() => {
+    reset({ name: storeName, phone: storePhone, address: storeAddress })
+  }, [reset, storeName, storePhone, storeAddress])
 
   // Simpan benar-benar mengubah state, bukan cuma toast "berhasil" (dulu form
   // ini menampilkan sukses padahal tak ada satu pun nilai yang berubah).
@@ -241,7 +250,7 @@ export default function MerchantSettings() {
             <div>
               <p className="merchant-card-title">Jam operasional</p>
               <p className="merchant-card-sub">
-                {mockMerchant.openTime} – {mockMerchant.closeTime}
+                {openTime} – {closeTime}
               </p>
             </div>
           </div>

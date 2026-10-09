@@ -9,7 +9,7 @@ import { DonutChart } from '../components/ui/DonutChart'
 import { Sparkline } from '../components/ui/Sparkline'
 import { MerchantHomeHero } from '../components/merchant/MerchantHomeHero'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { mockMerchant, money } from '../data/merchant'
+import { money } from '../data/merchant'
 import { jodToIdr, moneyPlain } from '../data/currency'
 import { rebateProgress } from '../data/incentive'
 import { orderStatusLabel } from '../data/merchantOrders'
@@ -29,6 +29,7 @@ export default function MerchantDashboard() {
   const isActive = useAppSelector((s) => s.merchant.isActive)
   const logo = useAppSelector((s) => s.merchant.logo)
   const storeName = useAppSelector((s) => s.merchant.storeName)
+  const closeTime = useAppSelector((s) => s.merchant.closeTime)
   const [closeConfirmOpen, setCloseConfirmOpen] = useState(false)
   const orders = useAppSelector((s) => s.merchant.orders)
   const todayOrderCount = useAppSelector((s) => s.merchant.todayOrderCount)
@@ -67,7 +68,7 @@ export default function MerchantDashboard() {
           name={storeName}
           logo={logo}
           isActive={isActive}
-          closeTime={mockMerchant.closeTime}
+          closeTime={closeTime}
           todayOrderCount={todayOrderCount}
           dailyLimit={dailyLimit}
           // Buka cukup satu tap. Tutup menahan order baru, jadi minta konfirmasi

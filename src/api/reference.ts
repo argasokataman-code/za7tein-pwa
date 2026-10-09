@@ -16,6 +16,7 @@ import type {
   MerchantCreditEvent,
   MerchantCreditEventName,
   MerchantCreditState,
+  MerchantDeliveryConfig,
   PlatformSwitches,
   RebateTier,
   SaOperator,
@@ -302,6 +303,70 @@ export async function fetchSwitches(): Promise<PlatformSwitches> {
     if (key) switches[key] = row.enabled
   }
   return switches
+}
+
+/** Kolom profil toko yang ditampilkan PWA merchant (Setelan/beranda). */
+interface MerchantProfileRow {
+  store_name: string | null
+  store_phone: string | null
+  store_address: string | null
+  photo: string | null
+  open_time: string | null
+  close_time: string | null
+  delivery_config: {
+    mode?: string
+    activeZones?: string[]
+    radiusMeters?: number
+  } | null
+}
+
+export interface MerchantProfilePatch {
+  storeName?: string
+  storePhone?: string
+  storeAddress?: string
+  logo?: string
+  openTime?: string
+  closeTime?: string
+  deliveryConfig?: Partial<MerchantDeliveryConfig>
+}
+
+/** 'HH:MM:SS' dari backend → 'HH:MM' untuk tampilan. */
+function hhmm(value: string | null): string | undefined {
+  return value ? value.slice(0, 5) : undefined
+}
+
+/**
+ * Profil toko live: nama, kontak, foto, dan konfigurasi pengiriman. `ongkirIdr`
+ * tidak ada di backend (kontrak ongkir belum dipetakan) → dibiarkan dari seed.
+ */
+export async function fetchMerchantProfile(
+  merchantId = DEMO_MERCHANT_ID,
+): Promise<MerchantProfilePatch | undefined> {
+  const token = await refToken()
+  const rows = await restWith<MerchantProfileRow>(
+    token,
+    'merchants',
+    `?select=store_name,store_phone,store_address,photo,open_time,close_time,delivery_config&id=eq.${merchantId}&limit=1`,
+  )
+  const row = rows[0]
+  if (!row) return undefined
+  const cfg = row.delivery_config
+  return {
+    storeName: row.store_name ?? undefined,
+    storePhone: row.store_phone ?? undefined,
+    storeAddress: row.store_address ?? undefined,
+    logo: row.photo ?? undefined,
+    openTime: hhmm(row.open_time),
+    closeTime: hhmm(row.close_time),
+    deliveryConfig: cfg
+      ? {
+          mode: cfg.mode === 'area' ? 'area' : 'radius',
+          maxKm: cfg.radiusMeters ? Math.round((cfg.radiusMeters / 1000) * 10) / 10 : undefined,
+          isActiveHijazi: (cfg.activeZones ?? []).some((z) => /hijazi/i.test(z)),
+          isActiveSyimali: (cfg.activeZones ?? []).some((z) => /syimali/i.test(z)),
+        }
+      : undefined,
+  }
 }
 
 export { DEMO_MERCHANT_USER_ID }
