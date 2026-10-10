@@ -8,19 +8,25 @@ export function ComponentsSection() {
         BackButton
       </h3>
       <p className="doc-p">
-        <code className="doc-inline">
-          src/components/ui/BackButton.tsx
-        </code>
+        Satu-satunya tombol kembali di seluruh halaman.{' '}
+        <code className="doc-inline">src/components/ui/BackButton.tsx</code>: kotak 44px (
+        <code className="doc-inline">--touch-min</code>),{' '}
+        <code className="doc-inline">--radius-md</code>, permukaan{' '}
+        <code className="doc-inline">--surface</code> + tepi{' '}
+        <code className="doc-inline">--border-strong</code>, chevron 24px stroke 1,75, aria-label{' '}
+        <code className="doc-inline">Kembali</code>. Kontrak visualnya satu di{' '}
+        <code className="doc-inline">system/_topbar.scss</code>.
       </p>
       <DocCode lang="tsx">
-        {`<BackButton
-  to="/home"            // optional — navigate(to) when set
-  label="Kembali"       // optional — defaults to "Kembali"
-  className=""           // optional
-/>`}
+        {`<BackButton />                       // kembali satu langkah (navigate(-1))
+<BackButton to="/settings" />         // tujuan tetap -> render <Link>
+<BackButton className="track-back" /> // kelas tata letak opsional (diteruskan)
+<BackButton label="Kembali" />        // aria-label, default "Kembali"`}
       </DocCode>
       <p className="doc-p">
-        Calls <code className="doc-inline">navigate(to)</code> when <code className="doc-inline">to</code> is passed, otherwise <code className="doc-inline">navigate(-1)</code>.
+        Dengan <code className="doc-inline">to</code> ia jadi{' '}
+        <code className="doc-inline">&lt;Link&gt;</code> (bisa dibuka tab baru / klik tengah); tanpa{' '}
+        <code className="doc-inline">to</code> ia tombol <code className="doc-inline">navigate(-1)</code>.
       </p>
       <h3 className="doc-h3">
         FavoriteButton

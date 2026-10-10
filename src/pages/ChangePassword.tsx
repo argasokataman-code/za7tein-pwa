@@ -1,7 +1,8 @@
-import { ChevronLeft, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 
 const PASSWORD_FIELDS = [
   { id: 'currentPassword', label: 'Kata sandi saat ini', placeholder: 'Masukkan kata sandi saat ini' },
@@ -40,9 +41,7 @@ export default function ChangePassword() {
         <div className="profile-flow-page-scroll">
           <div className="profile-flow">
             <header className="profile-flow-header">
-              <button type="button" className="btn-back" aria-label="Kembali" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="profile-flow-title">Ubah kata sandi</h1>
             </header>
             <div className="profile-flow-main">

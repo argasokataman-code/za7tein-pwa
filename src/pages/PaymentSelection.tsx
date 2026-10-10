@@ -1,6 +1,6 @@
 // Metode bayar (PRD v2): saldo Sa7tein, COD, dan transfer manual legacy.
 import { useRef, useState, type KeyboardEvent } from 'react'
-import { ChevronLeft, CheckCircle2, Banknote, Landmark, Wallet } from 'lucide-react'
+import { CheckCircle2, Banknote, Landmark, Wallet } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -10,6 +10,7 @@ import { switchBlockCopy, switchIsDown } from '../data/superadmin'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setPayment } from '../store/slices/cartSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 const METHOD_ICONS: Record<string, typeof Wallet> = {
   wallet: Wallet,
@@ -68,9 +69,7 @@ export default function PaymentSelection() {
         <main>
           <div className="payment-selection-screen">
             <header className="payment-selection-header">
-              <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="payment-selection-title">
                 Metode Pembayaran
               </h1>

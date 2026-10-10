@@ -1,10 +1,11 @@
-import { ChevronLeft, Delete } from 'lucide-react'
+import { Delete } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import toast from 'react-hot-toast'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useOtpInput } from '../hooks/useOtpInput'
+import { BackButton } from '../components/ui/BackButton'
 
 const DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back']
 
@@ -19,9 +20,7 @@ export default function CreatePin() {
           <div className="wallet-page">
             <div className="wallet-flow">
               <header className="profile-flow-header ">
-                <Link className="back-btn-profile" aria-label="Go back" to="/security">
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </Link>
+                <BackButton className="back-btn-profile" to="/security" />
                 <h1 className="profile-flow-title">Create Pin</h1>
               </header>
               <main className="wallet-main verify-main">

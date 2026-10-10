@@ -1,4 +1,4 @@
-import { ChevronLeft, Coins, Info, Sparkles } from 'lucide-react'
+import { Coins, Info, Sparkles } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
@@ -8,6 +8,7 @@ import { CREDIT_EVENT_LABEL, MERCHANT_CREDIT_JOD, MERCHANT_CREDIT_ORDERS, REBATE
 import { money } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { payRebate, recordSettledOrder } from '../store/slices/merchantSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Rincian insentif merchant (R-INCENTIVE-01, flow F9, milestone M10). Layar ini
@@ -172,10 +173,7 @@ export default function MerchantRebate() {
           </p>
         </section>
 
-        <a className="merchant-back-link" href="/merchant">
-          <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          Kembali ke beranda dapur
-        </a>
+        <BackButton to="/" />
       </main>
       <MerchantBottomNav />
     </div>

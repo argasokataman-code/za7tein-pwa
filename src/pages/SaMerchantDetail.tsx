@@ -24,6 +24,7 @@ import {
 import { permissionLabel, roleForOperator, roleHasPermission } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { reinstateMerchant, suspendMerchant } from '../store/slices/adminSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Dossier satu merchant, plus kewenangan SA atas tenantnya.
@@ -92,10 +93,7 @@ export default function SaMerchantDetail() {
             Mungkin id-nya salah ketik, atau tenant-nya masih menunggu review sehingga belum masuk
             registri.
           </p>
-          <Link className="sa-link" to="/users">
-            <ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true" />
-            Kembali ke registri pengguna
-          </Link>
+          <BackButton to="/users" />
         </section>
       </SuperAdminShell>
     )

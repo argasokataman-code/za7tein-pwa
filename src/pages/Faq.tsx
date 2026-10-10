@@ -1,8 +1,9 @@
-import { ChevronLeft, Search as SearchIcon } from 'lucide-react'
+import { Search as SearchIcon } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
+
 
 const faq = [
   {
@@ -33,9 +34,7 @@ export default function Faq() {
         <div className="wallet-page">
           <div className="wallet-flow">
             <header className="profile-flow-header ">
-              <Link className="back-btn-profile" aria-label="Go back" to="/help-center">
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </Link>
+              <BackButton className="back-btn-profile" to="/help-center" />
               <h1 className="profile-flow-title">
                 FAQ
               </h1>

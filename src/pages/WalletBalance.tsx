@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronLeft, Download, Plus } from 'lucide-react'
+import { ArrowRight, Download, Plus } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
@@ -7,6 +7,7 @@ import { money } from '../data/currency'
 import { MIN_TOPUP_NEW_ACCOUNT_IDR, needsTopUpGate } from '../data/merchant'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppSelector } from '../hooks/useAppStore'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Saldo wallet customer (M3, flow F3): `available` + `pending`, plus pintu ke
@@ -28,9 +29,7 @@ export default function WalletBalance() {
           <div className="wallet-page">
             <div className="wallet-flow">
               <header className="profile-flow-header ">
-                <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </Link>
+                <BackButton className="back-btn-profile" to="/profile" />
                 <h1 className="profile-flow-title">Saldo Sa7tein</h1>
               </header>
               <main className="wallet-main">

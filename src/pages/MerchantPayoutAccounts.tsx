@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChevronLeft, Landmark, Pencil, Plus, Star, Trash2 } from 'lucide-react'
+import { Landmark, Pencil, Plus, Star, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { Link } from 'react-router-dom'
+
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
@@ -19,6 +19,7 @@ import {
   updateAccount,
 } from '../store/slices/payoutSlice'
 import type { PayoutAccount } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 const EMPTY_FORM: PayoutAccountFormData = { bankName: '', accountNumber: '', holderName: '' }
 
@@ -139,10 +140,7 @@ export default function MerchantPayoutAccounts() {
           </ul>
         )}
 
-        <Link className="merchant-back-link" to="/wallet">
-          <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          Kembali ke saldo
-        </Link>
+        <BackButton to="/wallet" />
       </main>
       <MerchantBottomNav />
 

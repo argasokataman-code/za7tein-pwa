@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { ChevronLeft, Clock, MapPin, Star } from 'lucide-react'
+import { Clock, MapPin, Star } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { BottomNav } from '../components/layout/BottomNav'
@@ -10,6 +10,7 @@ import { dealsFrom, itemsByMerchant } from '../data/catalog'
 import { getStorefront, swapBrokenImage } from '../data/storefronts'
 import { useMenuItems, useStorefront } from '../hooks/useApiCatalog'
 import { formatRating } from '../data/foods'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Halaman toko (sisi customer) — langkah kedua alur: setelah memilih toko di
@@ -48,14 +49,7 @@ export default function MerchantPage() {
           <img className="store-hero__cover" alt="" src={store.cover} onError={swapBrokenImage} />
           <div className="store-hero__scrim" aria-hidden="true" />
           <div className="store-hero__topbar">
-            <button
-              type="button"
-              className="btn-back"
-              aria-label="Kembali"
-              onClick={() => navigate(-1)}
-            >
-              <ChevronLeft size={24} strokeWidth={1.75} />
-            </button>
+            <BackButton className="btn-back" />
             <span className={`store-badge${store.isOpen ? ' store-badge--open' : ''}`}>
               {store.isOpen ? 'Buka' : 'Tutup'}
             </span>

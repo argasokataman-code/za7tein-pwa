@@ -6,7 +6,9 @@
    diatur global, di sini hanya jarak agar isi tidak tertutup bilah. */
 
 .courier-page {
-  padding: var(--space-5) var(--space-5) calc(var(--nav-height) + var(--space-6));
+  /* + safe-area: nav fixed ~113px di app-mode (safe-area 34); 88px kurang,
+     tombol kembali/konten terakhir tertutup bilah. */
+  padding: var(--space-5) var(--space-5) calc(var(--nav-height) + env(safe-area-inset-bottom, 0px) + var(--space-6));
 }
 
 .courier-header {

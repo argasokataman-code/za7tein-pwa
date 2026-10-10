@@ -1,4 +1,4 @@
-import { Check, ChevronLeft, ChevronRight, Plus, X } from 'lucide-react'
+import { Check, ChevronRight, Plus, X } from 'lucide-react'
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { toast } from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { DISPUTE_CATEGORIES, DEMO_DISPUTE_ORDER_IDR } from '../data/admin'
 import { idrToJod } from '../data/currency'
 import { mockUser } from '../data/user'
 import { fileDispute } from '../store/slices/adminSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 const MAX_PHOTOS = 3
 
@@ -143,14 +144,7 @@ export default function DisputeSubmit() {
             pengguna sebelum membaca apa pun. */}
         <header className="admin-header">
           <div className="admin-header-action">
-            <button
-              className="admin-back"
-              type="button"
-              aria-label="Kembali"
-              onClick={() => navigate(-1)}
-            >
-              <ChevronLeft size={22} strokeWidth={1.75} aria-hidden="true" />
-            </button>
+            <BackButton className="admin-back" />
           </div>
           <div className="admin-header-copy">
             <h1 className="admin-title">Ajukan Sengketa</h1>

@@ -1,4 +1,4 @@
-import { ChevronLeft, Crosshair, MapPin, MessageCircle, Phone, Scale, Star, Store, UserRound } from 'lucide-react'
+import { Crosshair, MapPin, MessageCircle, Phone, Scale, Star, Store, UserRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -36,6 +36,7 @@ import {
 import { requestAppeal } from '../store/slices/adminSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
 import type { OrderStage } from '../types'
+import { BackButton } from './ui/BackButton'
 
 /**
  * Layar tahap pesanan.
@@ -63,7 +64,6 @@ const IconPhone = () => <Phone size={16} strokeWidth={1.75} aria-hidden="true" /
 
 const IconChat = () => <MessageCircle size={16} strokeWidth={1.75} aria-hidden="true" />
 
-const IconBack = () => <ChevronLeft size={22} strokeWidth={1.75} aria-hidden="true" />
 
 const IconRecenter = () => <Crosshair size={20} strokeWidth={1.75} aria-hidden="true" />
 
@@ -271,14 +271,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
       <main>
         <div className="track-screen">
           <header className="track-header">
-            <button
-              className="track-back"
-              aria-label="Kembali"
-              type="button"
-              onClick={() => navigate(-1)}
-            >
-              <IconBack />
-            </button>
+            <BackButton className="track-back" />
             <div className="track-header-text">
               <h1 className="track-title">Pesanan</h1>
               <span className="track-ref">#{orderCode}</span>

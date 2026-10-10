@@ -285,6 +285,11 @@ export default function Documentation() {
               /merchant/insentif. Kartu &ldquo;Sisa modal&rdquo; di layar itu kini memakai bidang
               navy yang sama dengan kartu insentif beranda (token{' '}
               <code className="doc-inline">--navy</code> dan elevasi navy dari design system).
+              Tombol kembali kini satu komponen{' '}
+              <code className="doc-inline">BackButton</code> di seluruh halaman (kotak 44px, ikon
+              24/1,75, aria &ldquo;Kembali&rdquo;), menggantikan enam kelas ad-hoc; tautan teks di
+              merchant/kurir dan reload <code className="doc-inline">&lt;a href&gt;</code> sudah
+              dihapus.
               Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">

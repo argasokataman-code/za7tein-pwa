@@ -5,7 +5,7 @@
 //
 // Sekarang isinya dibaca dari store: daftar item, alamat antar, dan ringkasan
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
-import { Minus, Plus, ChevronLeft, ShoppingBag } from 'lucide-react'
+import { Minus, Plus, ShoppingBag } from 'lucide-react'
 
 import { useNavigate, Link } from 'react-router-dom'
 
@@ -31,6 +31,7 @@ import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function Checkout() {
   const navigate = useNavigate()
@@ -61,14 +62,7 @@ export default function Checkout() {
       <main>
         <div className="checkout-screen">
           <div className="checkout-header">
-            <button
-              type="button"
-              className="btn-back"
-              aria-label="Kembali"
-              onClick={() => navigate(-1)}
-            >
-              <ChevronLeft size={24} strokeWidth={1.75} aria-hidden="true" />
-            </button>
+            <BackButton className="btn-back" />
             <h1 className="checkout-page-title">Checkout</h1>
             <div className="header-spacer" />
           </div>

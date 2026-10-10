@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { ChevronLeft } from 'lucide-react'
-import { Link } from 'react-router-dom'
+
+
 import toast from 'react-hot-toast'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
@@ -10,6 +10,7 @@ import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { requestPayout } from '../store/slices/walletSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Tarik saldo (M3, flow F6). Fee penarikan belum final (OQ-22), jadi layar ini
@@ -48,9 +49,7 @@ export default function WalletPayout() {
           <div className="wallet-page">
             <div className="wallet-flow">
               <header className="profile-flow-header ">
-                <Link className="back-btn-profile" aria-label="Go back" to="/wallet">
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </Link>
+                <BackButton className="back-btn-profile" to="/wallet" />
                 <h1 className="profile-flow-title">Tarik Saldo</h1>
               </header>
               <main className="wallet-main">

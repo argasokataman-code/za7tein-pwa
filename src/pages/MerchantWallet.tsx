@@ -1,4 +1,4 @@
-import { ArrowDownLeft, ArrowUpRight, ChevronLeft, Landmark } from 'lucide-react'
+import { ArrowDownLeft, ArrowUpRight, Landmark } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
@@ -7,6 +7,7 @@ import { money, moneyPlain } from '../data/currency'
 import { accountLabel, PAYOUT_FEE_IDR } from '../data/payout'
 import { payoutStatusLabel } from '../data/wallet'
 import { useAppSelector } from '../hooks/useAppStore'
+import { BackButton } from '../components/ui/BackButton'
 
 const entryDate = (iso: string) =>
   new Date(iso).toLocaleString('id-ID', {
@@ -115,10 +116,7 @@ export default function MerchantWallet() {
           </p>
         </section>
 
-        <Link className="merchant-back-link" to="/settings">
-          <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          Kembali ke setelan
-        </Link>
+        <BackButton to="/settings" />
       </main>
       <MerchantBottomNav />
     </div>

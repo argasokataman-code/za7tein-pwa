@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChevronLeft, Landmark, Pencil, Plus, Star, Trash2 } from 'lucide-react'
+import { Landmark, Pencil, Plus, Star, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { Link } from 'react-router-dom'
+
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
@@ -19,6 +19,7 @@ import {
   updatePayoutAccount,
 } from '../store/slices/courierSlice'
 import type { PayoutAccount } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 const EMPTY_FORM: PayoutAccountFormData = { bankName: '', accountNumber: '', holderName: '' }
 
@@ -138,10 +139,7 @@ export default function CourierPayoutAccounts() {
           </ul>
         )}
 
-        <Link className="courier-back-link" to="/wallet">
-          <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          Kembali ke dompet
-        </Link>
+        <BackButton to="/wallet" />
       </main>
       <CourierBottomNav />
 

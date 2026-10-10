@@ -1,9 +1,10 @@
-import { ChevronLeft } from 'lucide-react'
+
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function Language() {
   const navigate = useNavigate()
@@ -14,9 +15,7 @@ export default function Language() {
         <div className="profile-flow-page">
           <div className="profile-flow">
             <header className="profile-flow-header ">
-              <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </Link>
+              <BackButton className="back-btn-profile" to="/profile" />
               <h1 className="profile-flow-title">
                 Language
               </h1>

@@ -1,4 +1,4 @@
-import { ChevronLeft } from 'lucide-react'
+
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { cardSchema, type CardFormData } from '../lib/schemas'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function AddNewCard() {
   const {
@@ -27,9 +28,7 @@ export default function AddNewCard() {
         <div className="wallet-page">
           <div className="wallet-flow">
             <header className="profile-flow-header">
-              <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="profile-flow-title">
                 Add New Card
               </h1>

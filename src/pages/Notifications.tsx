@@ -4,15 +4,16 @@
 // "3" membuka halaman yang tidak memuat satu pun notifikasi. Preferensinya
 // pindah ke /notification-settings, karena itu memang pengaturan dan ditautkan
 // dari menu Profil, bukan dari lonceng.
-import { Bell, Bike, Check, Truck, Tag, Wallet, type LucideIcon, ChevronLeft } from 'lucide-react'
+import { Bell, Bike, Check, Truck, Tag, Wallet, type LucideIcon } from 'lucide-react'
 
-import { useNavigate } from 'react-router-dom'
+
 
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { markNotificationRead, markNotificationsRead } from '../api/notifications'
 import { notificationAudienceFromPath } from '../data/notifications'
 import { markAllRead, markRead, selectUnreadCount } from '../store/slices/notificationsSlice'
 import type { AppNotification } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 const KIND_ICON: Record<AppNotification['kind'], LucideIcon> = {
   order: Bike,
@@ -23,7 +24,6 @@ const KIND_ICON: Record<AppNotification['kind'], LucideIcon> = {
 }
 
 export default function Notifications() {
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const items = useAppSelector((s) => s.notifications.items)
   const unread = selectUnreadCount(items)
@@ -34,14 +34,7 @@ export default function Notifications() {
         <div className="profile-flow-page">
           <div className="profile-flow">
             <header className="profile-flow-header">
-              <button
-                type="button"
-                className="back-btn-profile"
-                aria-label="Kembali"
-                onClick={() => navigate(-1)}
-              >
-                <ChevronLeft size={24} strokeWidth={1.75} aria-hidden="true" />
-              </button>
+              <BackButton className="back-btn-profile" />
               <h1 className="profile-flow-title">Notifikasi</h1>
             </header>
 

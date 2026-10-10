@@ -1,6 +1,6 @@
 // Ringkasan checkout: subtotal + ongkir zona, metode bayar PRD (COD / transfer),
 // dan unggah bukti transfer untuk pesanan transfer.
-import { ChevronLeft, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -31,6 +31,7 @@ import {
   setOrderStage,
 } from '../store/slices/cartSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function PaymentAmount() {
   const navigate = useNavigate()
@@ -139,9 +140,7 @@ export default function PaymentAmount() {
         <main>
           <div className="payment-amount-screen">
             <header className="payment-amount-header">
-              <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="payment-amount-title">
                 Checkout
               </h1>

@@ -1,4 +1,4 @@
-import { ChevronLeft, Clock3, Star } from 'lucide-react'
+import { Clock3, Star } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -10,6 +10,7 @@ import { money, moneyPlain } from '../data/currency'
 import { mockOrder } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { tipCourier } from '../store/slices/walletSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 const STARS = [1, 2, 3, 4, 5]
 
@@ -55,9 +56,7 @@ export default function RatingDriver() {
         <div className="rating-driver-page">
           <div className="rating-driver-screen">
             <header className="rating-driver-header">
-              <button type="button" className="btn-back" aria-label="Kembali" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="rating-driver-title">
                 Rating
               </h1>

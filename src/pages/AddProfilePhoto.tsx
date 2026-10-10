@@ -1,4 +1,4 @@
-import { ChevronLeft, Check, TriangleAlert } from 'lucide-react'
+import { Check, TriangleAlert } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { useRef, useState, type ChangeEvent } from 'react'
 import { mockUser } from '../data/user'
 
 import toast from 'react-hot-toast'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function AddProfilePhoto() {
   const navigate = useNavigate()
@@ -28,9 +29,7 @@ export default function AddProfilePhoto() {
         <div className="profile-flow-page">
           <div className="profile-flow">
             <header className="profile-flow-header">
-              <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="profile-flow-title">
                 Add Profile Photo
               </h1>

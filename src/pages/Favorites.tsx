@@ -1,10 +1,11 @@
-import { ChevronLeft, Heart } from 'lucide-react'
+import { Heart } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { FoodCard } from '../components/ui/FoodCard'
 import { useAppSelector } from '../hooks/useAppStore'
 import { useCatalog } from '../hooks/useCatalog'
 import type { MenuItem } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function Favorites() {
   const navigate = useNavigate()
@@ -20,14 +21,7 @@ export default function Favorites() {
         <main>
           <div className="favorites-screen">
             <header className="favorites-header">
-              <button
-                type="button"
-                className="btn-back"
-                aria-label="Go back"
-                onClick={() => navigate(-1)}
-              >
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="favorites-title">
                 Favorites{favorites.length > 0 ? ` (${favorites.length})` : ''}
               </h1>

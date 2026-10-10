@@ -1,7 +1,8 @@
-import { ChevronLeft } from 'lucide-react'
+
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function YourCard() {
   return (
@@ -11,9 +12,7 @@ export default function YourCard() {
         <div className="wallet-page">
           <div className="wallet-flow">
             <header className="profile-flow-header ">
-              <Link className="back-btn-profile" aria-label="Go back" to="/payment-account">
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </Link>
+              <BackButton className="back-btn-profile" to="/payment-account" />
               <h1 className="profile-flow-title">
                 Your Card
               </h1>

@@ -1,4 +1,4 @@
-import { ChevronLeft } from 'lucide-react'
+
 // Preferensi notifikasi. Dipindah dari /notifications, karena rute itu
 // seharusnya berarti kotak masuk — itulah yang dijanjikan tombol lonceng
 // berbadge. Halaman ini yang ditautkan dari menu Profil.
@@ -17,6 +17,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { clearPush, registerPush } from '../store/slices/notificationsSlice'
 import type { PushSubscriptionRecord } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 const TOGGLES = [
   { id: 'order', label: 'Status pesanan', on: true },
@@ -123,14 +124,7 @@ export default function NotificationSettings() {
         <div className="profile-flow-page">
           <div className="profile-flow">
             <header className="profile-flow-header">
-              <button
-                type="button"
-                className="back-btn-profile"
-                aria-label="Kembali"
-                onClick={() => navigate(-1)}
-              >
-                <ChevronLeft size={24} strokeWidth={1.75} aria-hidden="true" />
-              </button>
+              <BackButton className="back-btn-profile" />
               <h1 className="profile-flow-title">Pengaturan Notifikasi</h1>
             </header>
 

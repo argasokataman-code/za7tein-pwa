@@ -37,8 +37,8 @@ const BUTTON_ROWS: ButtonRow[] = [
   },
   {
     role: 'Tombol kembali',
-    sample: '.btn-back',
-    aliases: '.back-btn, .back-btn-profile, .back-button, .track-back, .courier-back, .admin-back',
+    sample: '.back-button',
+    aliases: '.btn-back, .back-btn-profile, .track-back, .courier-back, .admin-back, .back-btn',
   },
   {
     role: 'Overlay peta',
@@ -63,9 +63,12 @@ export function ButtonsSection() {
         Tombol kembali berdiri sebagai perannya sendiri (baris terakhir tabel di bawah): 44px,{' '}
         <code className="doc-inline">--radius-md</code>, permukaan <code className="doc-inline">--surface</code>{' '}
         + tepi <code className="doc-inline">--border-strong</code>, ikon 24px/{' '}
-        <code className="doc-inline">stroke-width</code> 1.75. Kontraknya ditulis sekali di{' '}
-        <code className="doc-inline">system/_topbar.scss</code> untuk tujuh kelas aliasnya — sebelum
-        itu terukur 36/40/44/48px dengan empat bentuk berbeda, dan{' '}
+        <code className="doc-inline">stroke-width</code> 1.75. Sejak semua halaman pindah ke
+        komponen <code className="doc-inline">&lt;BackButton&gt;</code>, kelas alias di bawah hanya
+        membawa tata letak (diteruskan lewat prop <code className="doc-inline">className</code>);
+        rupa kotaknya tetap dari <code className="doc-inline">.back-button</code>. Kontraknya
+        ditulis sekali di <code className="doc-inline">system/_topbar.scss</code> — sebelum itu
+        terukur 36/40/44/48px dengan empat bentuk berbeda, dan{' '}
         <code className="doc-inline">.back-btn-profile</code> bahkan 24&times;24 (hanya sebesar
         ikonnya). Pengecualiannya sadar dan tetap dikunci ukurannya:{' '}
         <code className="doc-inline">.auth-back</code> (hantu tanpa permukaan) serta varian di atas

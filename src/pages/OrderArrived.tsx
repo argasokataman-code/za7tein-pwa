@@ -1,13 +1,13 @@
-import { ChevronLeft, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { mockOrder } from '../data/merchant'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function OrderArrived() {
-  const navigate = useNavigate()
   const [params] = useSearchParams()
   // Kode order dibawa dari layar pelacakan supaya layar rating tahu order mana
   // yang dinilai (pola yang sama dengan /dispute, fallback ke order demo).
@@ -25,9 +25,7 @@ export default function OrderArrived() {
       <main>
         <div className="order-arrived-screen">
           <header className="order-arrived-header">
-            <button type="button" className="btn-back" aria-label="Kembali" onClick={() => navigate(-1)}>
-              <ChevronLeft size={24} strokeWidth={1.75} />
-            </button>
+            <BackButton className="btn-back" />
           </header>
           <div className="order-arrived-content">
             <div className="order-arrived-icon-wrapper">

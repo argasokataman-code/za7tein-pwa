@@ -3,13 +3,14 @@
 // beranda; the promo/deals now live on the store page, so the strip is gone and
 // the default is a single recommended grid that uses the same FoodCard as the
 // results. Classes match the stylesheet in src/styles/_app.scss + system/.
-import { ChevronLeft, SearchIcon, SlidersHorizontal } from 'lucide-react'
+import { SearchIcon, SlidersHorizontal } from 'lucide-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
 import { FoodCard } from '../components/ui/FoodCard'
 import { useCatalog } from '../hooks/useCatalog'
 import type { SearchFilters } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 const RECENT_SEARCHES = ['Pizza', 'Burger', 'Pastry', 'Cookies', 'Meat Church']
 
@@ -51,9 +52,7 @@ export default function Search() {
       <main>
         <div className="search-screen">
           <div className="search-header">
-            <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-              <ChevronLeft size={24} strokeWidth={1.75} />
-            </button>
+            <BackButton className="btn-back" />
             <h1>
               Search
             </h1>

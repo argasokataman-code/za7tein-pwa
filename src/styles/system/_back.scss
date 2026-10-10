@@ -19,6 +19,13 @@
   min-height: var(--touch-min);
 }
 
+// Komponen `BackButton` memakai kelas `.back-button`. Warisan porting
+// `app/part-02.scss` memberinya `margin-bottom: 20px` (dulu untuk tata letak
+// lain), kini tombol kembali dipasang inline di header, jadi nol-kan.
+.back-button {
+  margin-bottom: 0;
+}
+
 // `.back-btn-profile` (17 halaman profil) ditulis 40x40 di stylesheet porting
 // `app/part-15.scss`; sekarang ikut kontrak `_topbar.scss` (44px, --radius-md,
 // permukaan + tepi) seperti tombol kembali lain, jadi tidak ada lagi dua rupa

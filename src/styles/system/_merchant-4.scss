@@ -351,16 +351,6 @@
   margin-top: var(--space-2);
 }
 
-.merchant-back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  min-height: var(--touch-min);
-  color: var(--orange-ink);
-  font-size: var(--text-sm);
-  text-decoration: none;
-}
-
 /* Identitas toko di hero: foto + nama. Foto dibaca dari `merchantSlice.logo`,
    jadi unggahan di Setelan toko langsung tampil di beranda. */
 .merchant-hero__id {

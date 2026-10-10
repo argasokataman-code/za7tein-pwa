@@ -1,4 +1,4 @@
-import { Check, ChevronLeft, MoreVertical, Pencil, Plus, Star, Trash2 } from 'lucide-react'
+import { Check, MoreVertical, Pencil, Plus, Star, Trash2 } from 'lucide-react'
 // Alamat pengantaran. PRD mewajibkan gedung, lantai, dan unit, plus pin yang
 // masih dalam radius 2 km dari toko — di luar itu checkout diblokir.
 import { useEffect, useState } from 'react'
@@ -38,6 +38,7 @@ import {
 } from '../store/slices/cartSlice'
 import { setCustomerLocation } from '../store/slices/uiSlice'
 import type { Address } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function AddressSelection() {
   const navigate = useNavigate()
@@ -194,9 +195,7 @@ export default function AddressSelection() {
         <main>
           <div className="address-selection-screen">
             <header className="address-selection-header">
-              <button type="button" className="btn-back" aria-label="Kembali" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1 className="address-selection-title">
                 Alamat Pengantaran
               </h1>

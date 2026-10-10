@@ -1,4 +1,4 @@
-import { ChevronLeft, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useChipSet } from '../hooks/useToggleSet'
 import { money } from '../data/merchant'
 import type { SearchFilters } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 /** Batas slider harga; `PRICE_MAX` = tanpa filter harga. */
 const PRICE_MIN = 5000
@@ -39,9 +40,7 @@ export default function Filter() {
         <div className="filter-screen">
           <div className="filter-sheet">
             <div className="filter-header">
-              <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
               <h1>
                 Filter
               </h1>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { ChevronLeft, CheckCircle2 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { CheckCircle2 } from 'lucide-react'
+
 import toast from 'react-hot-toast'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
@@ -15,6 +15,7 @@ import {
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { requestTopUp, settleTopUp } from '../store/slices/walletSlice'
 import type { TopUpChannel } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Top-up saldo (M3, flow F3). Xendit tidak nyata: request membuat baris `pending`,
@@ -43,9 +44,7 @@ export default function WalletTopUp() {
           <div className="wallet-page">
             <div className="wallet-flow">
               <header className="profile-flow-header ">
-                <Link className="back-btn-profile" aria-label="Go back" to="/wallet">
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </Link>
+                <BackButton className="back-btn-profile" to="/wallet" />
                 <h1 className="profile-flow-title">Top-up Saldo</h1>
               </header>
               <main className="wallet-main">

@@ -1,10 +1,10 @@
-import { ChevronLeft, Activity, Box, Shield, ShieldCheck, Upload } from 'lucide-react'
+import { Activity, Box, Shield, ShieldCheck, Upload } from 'lucide-react'
+import { BackButton } from '../components/ui/BackButton'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
-import { useNavigate } from 'react-router-dom'
+
 
 export default function PrivacyPolicy() {
-  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -13,9 +13,7 @@ export default function PrivacyPolicy() {
           <div className="profile-flow-page-scroll">
             <div className="profile-flow">
               <header className="profile-flow-header">
-                <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </button>
+                <BackButton className="btn-back" />
                 <h1 className="profile-flow-title">
                   Privacy &amp; Policy
                 </h1>

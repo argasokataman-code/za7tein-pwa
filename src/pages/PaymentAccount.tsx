@@ -1,10 +1,11 @@
-import { ArrowRight, ChevronLeft, CreditCard } from 'lucide-react'
+import { ArrowRight, CreditCard } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 import toast from 'react-hot-toast'
+import { BackButton } from '../components/ui/BackButton'
 
 interface LinkedMethod {
   id: string
@@ -41,9 +42,7 @@ export default function PaymentAccount() {
         <div className="wallet-page">
           <div className="wallet-flow">
             <header className="profile-flow-header ">
-              <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </Link>
+              <BackButton className="back-btn-profile" to="/profile" />
               <h1 className="profile-flow-title">
                 Payment Account
               </h1>

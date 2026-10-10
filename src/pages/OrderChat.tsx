@@ -6,13 +6,14 @@
 // tidak punya backend, dan menyimpannya di store berarti percakapan ikut
 // tersimpan ke localStorage lewat redux-persist, yang justru bikin keadaan
 // aneh saat dibuka lagi berhari-hari kemudian.
-import { ArrowLeft, MessageCircle, Send } from 'lucide-react'
+import { MessageCircle, Send } from 'lucide-react'
 
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+
 
 import { mockCouriers, mockOrder } from '../data/merchant'
 import { waLink } from '../data/phone'
+import { BackButton } from '../components/ui/BackButton'
 
 type Pesan = {
   id: number
@@ -50,7 +51,6 @@ const BALASAN = [
 ]
 
 export default function OrderChat() {
-  const navigate = useNavigate()
   const courier = mockCouriers[0]
 
   const [pesan, setPesan] = useState<Pesan[]>(AWAL)
@@ -109,14 +109,7 @@ export default function OrderChat() {
       <main>
         <div className="chat-screen">
           <header className="chat-header">
-            <button
-              type="button"
-              className="btn-back"
-              aria-label="Kembali"
-              onClick={() => navigate(-1)}
-            >
-              <ArrowLeft size={20} strokeWidth={2} aria-hidden="true" />
-            </button>
+            <BackButton className="btn-back" />
 
             <div className="chat-header__who">
               <span className="chat-header__name">{courier.name}</span>

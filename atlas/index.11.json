@@ -3537,6 +3537,223 @@
         }
       ],
       "loc": "src/pages/MerchantRebate.tsx:40"
+    },
+    {
+      "id": "TASK-10225",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:20:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/BackButton.tsx (+35) — write via tool: tsx: import { ChevronLeft } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/BackButton.tsx"
+    },
+    {
+      "id": "TASK-10226",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:22:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | grep -E 'error TS|error' | head -n 60 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10227",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:22:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\npython3 - <<'PY'\nimport re, glob\nfiles = glob.glob('src/pages/*.tsx') + ['src/componen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10228",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:23:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+5/-15) — edit via tool: width: 100%;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10229",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:23:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss (+5/-15) — edit via tool: .courier-secondary-link.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss"
+    },
+    {
+      "id": "TASK-10230",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:23:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_back.scss (+12/-5) — edit via tool: .btn-back,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_back.scss"
+    },
+    {
+      "id": "TASK-10231",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:24:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+7/-2) — edit via tool: tsx: <code className=\"doc-inline\">--",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10232",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:24:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ButtonsSection.tsx (+5/-5) — edit via tool: tsx: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ButtonsSection.tsx"
+    },
+    {
+      "id": "TASK-10233",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:24:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx (+24/-18) — edit via tool: tsx: <h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx"
+    },
+    {
+      "id": "TASK-10234",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:25:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss (+5/-3) — edit via tool: .courier-page {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "DEC-1044",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:27:13",
+      "tags": [
+        "design",
+        "components",
+        "back",
+        "docs"
+      ],
+      "summary": "Unify back button: 40 halaman/42 titik pakai komponen BackButton (Link bila to) + docs; hapus kelas ad-hoc",
+      "conn": [
+        {
+          "id": "TASK-10218",
+          "type": "relates",
+          "raw": "TASK-10218:relates"
+        },
+        {
+          "id": "DEC-1043",
+          "type": "relates",
+          "raw": "DEC-1043:relates"
+        }
+      ],
+      "loc": "src/components/ui/BackButton.tsx:1"
     }
   ]
 }

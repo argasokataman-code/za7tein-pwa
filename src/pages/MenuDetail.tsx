@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { ChevronLeft, Clock3, MapPin, Minus, Plus, Star } from 'lucide-react'
+import { Clock3, MapPin, Minus, Plus, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { formatRating, modifierExtra, modifierSummary } from '../data/foods'
 import { useCatalog } from '../hooks/useCatalog'
@@ -12,12 +12,12 @@ import { addItem } from '../store/slices/cartSlice'
 import { money } from '../data/merchant'
 import { moneyPlain } from '../data/currency'
 import type { ModifierGroup } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 const TRUNCATE_AT = 96
 
 export default function MenuDetail() {
   const { id } = useParams()
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { getFood } = useCatalog()
   const [quantityByFood, setQuantityByFood] = useState<Record<string, number>>({})
@@ -40,14 +40,7 @@ export default function MenuDetail() {
             <span className="menu-detail-skeleton-sr">Memuat menu</span>
             <div className="menu-detail-hero skeleton-pulse menu-detail-skeleton-hero">
               <div className="menu-detail-header">
-                <button
-                  type="button"
-                  className="btn-back"
-                  aria-label="Kembali"
-                  onClick={() => navigate(-1)}
-                >
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </button>
+                <BackButton className="btn-back" />
               </div>
             </div>
             <div className="menu-detail-content">
@@ -85,14 +78,7 @@ export default function MenuDetail() {
         <main>
           <div className="menu-detail-screen">
             <header className="menu-detail-state-header">
-              <button
-                type="button"
-                className="btn-back"
-                aria-label="Kembali"
-                onClick={() => navigate(-1)}
-              >
-                <ChevronLeft size={24} strokeWidth={1.75} />
-              </button>
+              <BackButton className="btn-back" />
             </header>
             <p className="menu-detail-state">Menu tidak ditemukan</p>
           </div>
@@ -172,14 +158,7 @@ export default function MenuDetail() {
                 }}
               />
               <div className="menu-detail-header">
-                <button
-                  type="button"
-                  className="btn-back"
-                  aria-label="Kembali"
-                  onClick={() => navigate(-1)}
-                >
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </button>
+                <BackButton className="btn-back" />
                 <FavoriteButton id={food.id} name={food.name} className="favorite-header-btn" size={24} />
               </div>
             </div>

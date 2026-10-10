@@ -1,4 +1,4 @@
-import { ChevronLeft, MapPin, Phone } from 'lucide-react'
+import { MapPin, Phone } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -20,6 +20,7 @@ import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/cou
 import { insertNotification } from '../api/notifications'
 import { recordCheckpoint, updateOrderStatus } from '../api/orders'
 import type { MerchantOrderStatus } from '../types'
+import { BackButton } from '../components/ui/BackButton'
 
 /** Checkpoint kurir yang baru dimasuki → status order BE. */
 const NEXT_STATUS: Record<string, MerchantOrderStatus> = {
@@ -112,14 +113,7 @@ export default function CourierTaskDetail() {
           eyebrow="Detail tugas"
           title={`#${task.code}`}
           action={
-            <button
-              className="courier-back"
-              type="button"
-              aria-label="Kembali"
-              onClick={() => navigate(-1)}
-            >
-              <ChevronLeft size={22} strokeWidth={1.75} aria-hidden="true" />
-            </button>
+            <BackButton className="courier-back" />
           }
         />
 

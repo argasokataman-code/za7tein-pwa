@@ -1,4 +1,4 @@
-import { ArrowDownLeft, ArrowUpRight, ChevronLeft, Landmark, Lock } from 'lucide-react'
+import { ArrowDownLeft, ArrowUpRight, Landmark, Lock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
@@ -13,6 +13,7 @@ import {
 } from '../data/courierWallet'
 import { payoutStatusLabel } from '../data/wallet'
 import { useAppSelector } from '../hooks/useAppStore'
+import { BackButton } from '../components/ui/BackButton'
 
 const entryDate = (iso: string) =>
   new Date(iso).toLocaleString('id-ID', {
@@ -139,10 +140,7 @@ export default function CourierWallet() {
           </p>
         </section>
 
-        <Link className="courier-back-link" to="/tips">
-          <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          Kembali ke tips
-        </Link>
+        <BackButton to="/tips" />
       </main>
       <CourierBottomNav />
     </div>

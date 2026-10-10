@@ -1,4 +1,4 @@
-import { ChevronLeft, SquarePen } from 'lucide-react'
+import { SquarePen } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useEffect } from 'react'
@@ -12,6 +12,7 @@ import { updateCustomerAccount, updateCustomerContact } from '../api/profile'
 import { personalDataSchema, type PersonalDataFormData } from '../lib/schemas'
 import { updateUser } from '../store/slices/authSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { BackButton } from '../components/ui/BackButton'
 
 export default function PersonalData() {
   const navigate = useNavigate()
@@ -57,9 +58,7 @@ export default function PersonalData() {
           <div className="profile-flow-page-scroll">
             <div className="profile-flow">
               <header className="profile-flow-header ">
-                <Link className="back-btn-profile" aria-label="Go back" to="/profile">
-                  <ChevronLeft size={24} strokeWidth={1.75} />
-                </Link>
+                <BackButton className="back-btn-profile" to="/profile" />
                 <h1 className="profile-flow-title">
                   Personal Data
                 </h1>

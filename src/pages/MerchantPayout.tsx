@@ -1,4 +1,4 @@
-import { ChevronLeft, CreditCard, Landmark } from 'lucide-react'
+import { CreditCard, Landmark } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
@@ -9,6 +9,7 @@ import { money, moneyPlain } from '../data/currency'
 import { accountLabel, PAYOUT_FEE_IDR } from '../data/payout'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { requestPayout } from '../store/slices/payoutSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Pencairan merchant (R-WALLET-01, flow f6): pilih rekening tujuan + nominal,
@@ -134,10 +135,7 @@ export default function MerchantPayout() {
           </>
         )}
 
-        <Link className="merchant-back-link" to="/wallet">
-          <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          Kembali ke saldo
-        </Link>
+        <BackButton to="/wallet" />
       </main>
       <MerchantBottomNav />
     </div>

@@ -1,4 +1,4 @@
-import { ChevronLeft, CreditCard, Landmark } from 'lucide-react'
+import { CreditCard, Landmark } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
@@ -15,6 +15,7 @@ import {
 } from '../data/courierWallet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { requestCourierPayout } from '../store/slices/courierSlice'
+import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Pencairan tips kurir (R-WALLET-01, flow f6). Fee Rp2.500 ditanggung kurir —
@@ -139,10 +140,7 @@ export default function CourierPayout() {
           </>
         )}
 
-        <Link className="courier-back-link" to="/wallet">
-          <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
-          Kembali ke dompet
-        </Link>
+        <BackButton to="/wallet" />
       </main>
       <CourierBottomNav />
     </div>
