@@ -212,7 +212,8 @@ export default function Documentation() {
               memulihkan sendiri (naik kembali dari /offline + toast "Kembali online") sambil
               menyegarkan data referensi; foto toko dari backend yang menunjuk aset tak ada
               (mis. /assets/img/merchant/*.svg) kini jatuh ke gambar menu lewat onError, bukan
-              kotak rusak; toggle buka/tutup toko
+              kotak rusak; tombol lokasi di beranda membuka pemilih alamat dan labelnya ikut
+              berubah begitu alamat diganti; toggle buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend

@@ -1,7 +1,7 @@
 import { Check, ChevronLeft, MoreVertical, Pencil, Plus, Star, Trash2 } from 'lucide-react'
 // Alamat pengantaran. PRD mewajibkan gedung, lantai, dan unit, plus pin yang
 // masih dalam radius 2 km dari toko — di luar itu checkout diblokir.
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -29,6 +29,7 @@ import {
   setDefaultAddress,
   updateAddress,
 } from '../store/slices/cartSlice'
+import { setCustomerLocation } from '../store/slices/uiSlice'
 import type { Address } from '../types'
 
 export default function AddressSelection() {
@@ -60,6 +61,13 @@ export default function AddressSelection() {
     addresses.find((a) => a.id === selectedId) ??
     addresses.find((a) => a.isDefault) ??
     addresses[0]
+  // Pilihan alamat di sini harus ikut mengubah label lokasi di beranda
+  // (`ui.locationLabel`). Reducer cart murni (tidak menyentuh slice `ui`), jadi
+  // sinkronisasinya dilakukan di sini; `origin` dipakai menghitung jarak ke toko.
+  useEffect(() => {
+    if (!selected) return
+    dispatch(setCustomerLocation({ label: selected.name, lat: selected.lat, lng: selected.lng }))
+  }, [selected, dispatch])
   const deliverable = selected ? isDeliverable(selected) : false
   const menuAddress = addresses.find((a) => a.id === menuId) ?? null
 

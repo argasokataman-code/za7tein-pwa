@@ -1,6 +1,5 @@
 import { LayoutGrid } from 'lucide-react'
 import { useState } from 'react'
-import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import CustomerHomeHero from '../components/customer/CustomerHomeHero'
@@ -58,7 +57,7 @@ export default function Home() {
             location={locationLabel}
             notificationCount={unreadNotifications}
             onOpenProfile={() => navigate('/profile')}
-            onChangeLocation={() => toast.success('Change delivery location')}
+            onChangeLocation={() => navigate('/address-selection')}
             onOpenNotifications={() => navigate('/notifications')}
             onOpenFilters={() => navigate('/filter')}
             onSubmitSearch={() => navigate('/search')}
