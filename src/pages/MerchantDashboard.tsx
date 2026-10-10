@@ -239,7 +239,7 @@ export default function MerchantDashboard() {
         {/* Ringkasan insentif (M10, F9). Rincian, riwayat, dan aksi simulasi
             tinggal di /merchant/insentif — beranda dapur tidak boleh jadi
             tempat membaca 500px insentif. */}
-        <section className="merchant-card merchant-card--brand">
+        <section className="merchant-card merchant-card--navy">
           <div className="merchant-row">
             <Sparkles size={20} strokeWidth={1.75} />
             <div>

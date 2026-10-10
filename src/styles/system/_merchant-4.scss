@@ -174,31 +174,32 @@
   color: var(--on-brand);
 }
 
-/* Kartu insentif = kartu uang kedua, jadi memakai permukaan merek yang sama
-   dengan kartu Pendapatan (oranye penuh + teks putih 4,02:1, pengecualian DNA).
-   Anak-anaknya dinetralkan: defaultnya teks gelap dan ikon `.merchant-row`
-   oranye — keduanya tenggelam di atas oranye. */
-.merchant-card--brand {
-  background: var(--sa7tein-orange);
-  border-color: var(--sa7tein-orange);
-  color: var(--on-brand);
+/* Kartu insentif = kartu uang kedua, tapi permukaan gelap navy supaya punya
+   identitas sendiri di antara kartu putih: token `--navy` + `--on-navy` dari
+   design system ("navy juga dipakai sebagai latar gelap"). Teks putih 11,5:1 di
+   atas navy. Anak-anaknya dinetralkan: defaultnya teks gelap dan ikon
+   `.merchant-row` oranye — keduanya tenggelam di atas navy. */
+.merchant-card--navy {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--on-navy);
 
   .merchant-card-title,
   .merchant-card-sub,
   .merchant-row {
-    color: var(--on-brand);
+    color: var(--on-navy);
   }
 
   .merchant-quota {
-    background: color-mix(in srgb, var(--on-brand) 24%, transparent);
+    background: color-mix(in srgb, var(--on-navy) 24%, transparent);
   }
 
   .merchant-quota span {
-    background: var(--on-brand);
+    background: var(--on-navy);
   }
 }
 
-/* Aksi di dalam kartu warna: baris tap penuh ala aplikasi (label + chevron),
+/* Aksi di dalam kartu gelap: baris tap penuh ala aplikasi (label + chevron),
    bukan tombol outline ala web. Tap seluas baris, pemisah tipis dari isi. */
 .merchant-action-row {
   display: flex;
@@ -207,8 +208,8 @@
   gap: var(--space-3);
   min-height: var(--touch-min);
   padding-top: var(--space-3);
-  border-top: 1px solid color-mix(in srgb, var(--on-brand) 25%, transparent);
-  color: var(--on-brand);
+  border-top: 1px solid color-mix(in srgb, var(--on-navy) 25%, transparent);
+  color: var(--on-navy);
   font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: none;

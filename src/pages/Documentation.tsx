@@ -266,8 +266,8 @@ export default function Documentation() {
               <code className="doc-inline">.merchant-card</code>; kini kartu menumpuk dan teks utuh.
               Kartu &ldquo;Pendapatan&rdquo; juga menjadi bidang oranye merek supaya setingkat
               dengan hero, bukan kartu putih keempat. Kartu &ldquo;Modal &amp; insentif&rdquo; menyusul
-              (kartu uang kedua) dan aksinya jadi baris tap mobile dengan chevron. Rinciannya di
-              bagian Changelog.
+              sebagai bidang navy (token design system <code className="doc-inline">--navy</code>) dan aksinya
+              jadi baris tap mobile dengan chevron. Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (
