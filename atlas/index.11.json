@@ -3087,6 +3087,84 @@
           "raw": "DEC-915:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-10207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:21:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss (+14/-9) — edit via tool: /* `min-width: 0` menyamakan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss"
+    },
+    {
+      "id": "TASK-10208",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:25:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss (+14/-14) — edit via tool: .sheet-actions .btn { flex:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-2.scss"
+    },
+    {
+      "id": "TASK-10209",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:27:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-2) — edit via tool: tsx: lompatan nilai mock → data nyat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "DEC-917",
+      "type": "decision",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:28:32",
+      "tags": [
+        "merchant",
+        "ui",
+        "sheet",
+        "confirm"
+      ],
+      "summary": "Konfirmasi semua status jualan + samakan bentuk tombol ConfirmSheet (.sheet-cancel radius --radius-md + padding --space-5)",
+      "conn": [
+        {
+          "id": "DEC-916",
+          "type": "relates",
+          "raw": "DEC-916:relates"
+        }
+      ]
     }
   ]
 }
