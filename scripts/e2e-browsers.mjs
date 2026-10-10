@@ -279,8 +279,8 @@ async function assertPortFree(inst) {
  *
  * Dua hal disemai ke `Preferences` SEBELUM browser dibuka (kalau diset saat
  * browser hidup, nilainya ditimpa ketika browser keluar):
- *   1. `brave.enable_google_push_messaging` — Brave mematikan transport push
- *      Google secara default, sehingga `PushManager.subscribe` gagal dengan
+ *   1. `brave.gcm.channel_status` — Brave mematikan transport push Google
+ *      secara default, sehingga `PushManager.subscribe` gagal dengan
  *      "Registration failed - push service error". Hanya clone ini yang
  *      dinyalakan; profil kerja user tidak disentuh.
  *   2. izin notifikasi untuk origin server (pola `origin,*`) — supaya sakelar
@@ -300,7 +300,14 @@ function preparePushProfile(inst, url) {
   } catch {
     prefs = {}
   }
-  prefs.brave = { ...(prefs.brave || {}), enable_google_push_messaging: true }
+  const brave = prefs.brave && typeof prefs.brave === 'object' ? prefs.brave : {}
+  // Kunci asli (brave-core `components/constants/pref_names.h` → kBraveGCMChannelStatus):
+  // default false membuat `PushManager.subscribe` gagal "Registration failed -
+  // push service error". JANGAN pakai `enable_google_push_messaging` — bukan itu.
+  const gcm = brave.gcm && typeof brave.gcm === 'object' ? brave.gcm : {}
+  gcm.channel_status = true
+  brave.gcm = gcm
+  prefs.brave = brave
   const profile = prefs.profile && typeof prefs.profile === 'object' ? prefs.profile : {}
   const cs = profile.content_settings && typeof profile.content_settings === 'object' ? profile.content_settings : {}
   const exceptions = cs.exceptions && typeof cs.exceptions === 'object' ? cs.exceptions : {}
