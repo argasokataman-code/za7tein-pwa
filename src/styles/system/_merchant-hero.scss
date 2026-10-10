@@ -44,50 +44,69 @@
   color: var(--on-brand);
 }
 
-.merchant-hero__state {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
+.merchant-hero__status {
+  display: flex;
+  width: 100%;
+  gap: var(--space-1);
 
-  padding: 5px var(--space-3);
+  padding: 4px;
 
   border-radius: var(--radius-pill);
   background: color-mix(in srgb, var(--on-brand) 16%, transparent);
-
-  font-size: var(--text-sm);
-  font-weight: 600;
 }
 
-.merchant-hero__dot {
-  width: 8px;
-  height: 8px;
+.merchant-hero__status-option {
+  flex: 1;
 
-  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
 
-  background: var(--on-brand);
-}
-
-.merchant-hero__note {
-  font-size: var(--text-xs);
-}
-
-.merchant-hero__toggle {
-  width: 100%;
   min-height: var(--touch-min);
 
   border: 0;
   border-radius: var(--radius-pill);
 
-  background: var(--surface);
-  color: var(--orange-ink);
+  background: transparent;
+  color: var(--on-brand);
 
   font: inherit;
   font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.merchant-hero__status-option.is-active {
+  background: var(--surface);
+  color: var(--orange-ink);
   font-weight: 700;
 }
 
-.merchant-hero__toggle:active {
-  transform: translateY(1px);
+.merchant-hero__status-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: color-mix(in srgb, var(--on-brand) 70%, transparent);
+}
+
+/* Warna titik = status; hanya titik, latar tetap milik merek. */
+.merchant-hero__status-option--buka.is-active .merchant-hero__status-dot {
+  background: var(--success);
+}
+
+.merchant-hero__status-option--sibuk.is-active .merchant-hero__status-dot {
+  background: var(--warning);
+}
+
+.merchant-hero__status-option--tutup.is-active .merchant-hero__status-dot {
+  background: var(--danger);
+}
+
+.merchant-hero__note {
+  font-size: var(--text-xs);
 }
 
 .merchant-hero__quota {

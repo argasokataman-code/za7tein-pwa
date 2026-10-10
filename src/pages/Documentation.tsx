@@ -260,7 +260,9 @@ export default function Documentation() {
               dan meta jarak tak lagi menulis "0 m". Detail menu customer (audit 010) berhenti
               menampilkan data contoh: saat API hidup halaman menunggu data asli (splash skeleton,
               bukan menu mock "Sate Ayam"), id tak dikenal tampil kosong, dan halaman
-              ulasan tidak lagi di-hardcode. Rinciannya di bagian Changelog.
+              ulasan tidak lagi di-hardcode. Beranda dapur merchant kini memakai status jualan
+              tiga keadaan — Buka, Sibuk, Tutup — dalam satu kontrol segmented. Rinciannya di
+              bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (

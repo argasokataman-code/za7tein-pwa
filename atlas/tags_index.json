@@ -12371,6 +12371,42 @@
     {
       "id": "TASK-10151",
       "shard": 11
+    },
+    {
+      "id": "TASK-10152",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10153",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10154",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10155",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10156",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10157",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10158",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10159",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10160",
+      "shard": 11
     }
   ],
   "docs": [
@@ -12689,6 +12725,10 @@
     {
       "id": "BUG-9972",
       "shard": 10
+    },
+    {
+      "id": "TASK-011",
+      "shard": 11
     }
   ],
   "decision": [
@@ -14619,6 +14659,14 @@
     {
       "id": "TASK-10147",
       "shard": 11
+    },
+    {
+      "id": "TASK-10158",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10160",
+      "shard": 11
     }
   ],
   "scaffold": [
@@ -15418,6 +15466,10 @@
     },
     {
       "id": "BUG-9989",
+      "shard": 11
+    },
+    {
+      "id": "TASK-011",
       "shard": 11
     }
   ],
@@ -19236,6 +19288,12 @@
   "data-honesty": [
     {
       "id": "BUG-010",
+      "shard": 11
+    }
+  ],
+  "gemini": [
+    {
+      "id": "TASK-011",
       "shard": 11
     }
   ]

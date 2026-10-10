@@ -1886,6 +1886,197 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-010-fix-2026-10-10.md"
+    },
+    {
+      "id": "TASK-10152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:12:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/shot-full.mjs (+39) — write via tool: // Tangkap layar FULL PAGE (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/shot-full.mjs"
+    },
+    {
+      "id": "TASK-011",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:15:22",
+      "tags": [
+        "merchant",
+        "design",
+        "gemini"
+      ],
+      "summary": "SS full beranda merchant (/merchant) dikirim ke gemini-rs -i; hasil redesign mockup di temp",
+      "conn": [
+        {
+          "id": "FEAT-011",
+          "type": "relates",
+          "raw": "FEAT-011:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:34:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts (+8/-2) — edit via tool: ts: isActive: boolean",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-10154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:35:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+118) — write via tool: tsx: import { Store",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
+    },
+    {
+      "id": "TASK-10155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:35:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts (+3/-2) — edit via tool: ts: toggleActive,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-10156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:35:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+22/-20) — edit via tool: tsx: import { MerchantHomeHero",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-10157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:36:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-hero.scss (+64/-45) — edit via tool: .merchant-hero__status {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-hero.scss"
+    },
+    {
+      "id": "TASK-10158",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:36:24",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo \"lint-done\"; npm run build 2>&1 | tail -4; echo \"=== scan ===\"; npm run scan 2>&1 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10159",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:37:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-1) — edit via tool: tsx: ulasan tidak lagi di-hardcode. ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:37:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo lint-done; npm run build 2>&1 | tail -2; npm run scan 2>&1 | rtk grep -E \"FAIL|WAR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

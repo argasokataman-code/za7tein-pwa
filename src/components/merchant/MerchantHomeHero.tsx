@@ -2,45 +2,61 @@ import { Store } from 'lucide-react'
 
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 
+/** Status jualan toko: buka · sibuk (buka tapi menahan order) · tutup. */
+export type StoreStatus = 'buka' | 'sibuk' | 'tutup'
+
 interface MerchantHomeHeroProps {
   /** Nama toko yang tampil sebagai judul. */
   name: string
   /** Foto toko (f16 D1). `merchantSlice.logo`, sinkron dengan Setelan toko. */
   logo: string | null
-  /** Status jualan (`isActive` di `merchantSlice`). */
-  isActive: boolean
+  /** Status jualan: `isActive`/`isBusy` di `merchantSlice` dirangkum jadi satu. */
+  status: StoreStatus
   /** Jam tutup otomatis, ditampilkan sebagai keterangan saat toko buka. */
   closeTime: string
   /** Jumlah order hari ini (state tampilan, bukan counter). */
   todayOrderCount: number
   /** Batas order harian. */
   dailyLimit: number
-  onToggle: () => void
+  /** Pilih status baru. Tutup tetap dikonfirmasi oleh pemanggil. */
+  onSelectStatus: (status: StoreStatus) => void
+}
+
+const STATUS_ORDER: StoreStatus[] = ['buka', 'sibuk', 'tutup']
+
+const STATUS_LABEL: Record<StoreStatus, string> = {
+  buka: 'Buka',
+  sibuk: 'Sibuk',
+  tutup: 'Tutup',
 }
 
 /**
  * Hero beranda dapur.
  *
- * Menyatukan tiga hal yang sebelumnya tiga kartu terpisah: identitas toko,
- * status buka/tutup beserta tombolnya, dan kuota harian. Tiga-tiganya mengatur
- * hal yang sama — apakah toko menerima order — jadi satu bidang lebih jujur
- * daripada tiga kartu setara.
+ * Menggabungkan identitas toko, status jualan tiga keadaan (buka · sibuk ·
+ * tutup), dan kuota harian jadi satu bidang merek di puncak beranda. Kontrol
+ * status = segmented tiga pilihan; "sibuk" berarti toko masih buka tapi
+ * menahan order baru sebentar. Komponen ini tidak menyimpan state, hanya
+ * menampilkan nilai dan meneruskan aksi lewat `onSelectStatus`.
  *
- * Struktur dan tombolnya tetap milik halaman: komponen ini tidak menyimpan
- * state, hanya menampilkan nilai dan meneruskan aksi lewat `onToggle`. Bidang
- * oranye + pola gelombang berasal dari komponen bersama `Sa7teinHeroPattern`
- * dan `system/_hero.scss`, dipakai beranda pelanggan juga.
+ * Bidang oranye + pola gelombang dari komponen bersama `Sa7teinHeroPattern`.
  */
 export function MerchantHomeHero({
   name,
   logo,
-  isActive,
+  status,
   closeTime,
   todayOrderCount,
   dailyLimit,
-  onToggle,
+  onSelectStatus,
 }: MerchantHomeHeroProps) {
   const quotaRatio = dailyLimit > 0 ? Math.min(todayOrderCount / dailyLimit, 1) : 0
+  const note =
+    status === 'buka'
+      ? `Tutup otomatis pukul ${closeTime}`
+      : status === 'sibuk'
+        ? 'Masih buka, tapi order baru ditahan sebentar'
+        : 'Buka untuk mulai menerima order'
 
   return (
     <section className="s7-hero merchant-hero">
@@ -64,17 +80,25 @@ export function MerchantHomeHero({
           </div>
         </div>
 
-        <p className="merchant-hero__state">
-          <span className="merchant-hero__dot" aria-hidden="true" />
-          {isActive ? 'Buka — menerima order baru' : 'Tutup — order baru ditahan'}
-        </p>
-        <p className="merchant-hero__note">
-          {isActive ? `Tutup otomatis pukul ${closeTime}` : 'Buka untuk mulai menerima'}
-        </p>
+        <div className="merchant-hero__status" role="radiogroup" aria-label="Status toko">
+          {STATUS_ORDER.map((option) => (
+            <button
+              key={option}
+              type="button"
+              role="radio"
+              aria-checked={status === option}
+              className={`merchant-hero__status-option merchant-hero__status-option--${option}${
+                status === option ? ' is-active' : ''
+              }`}
+              onClick={() => onSelectStatus(option)}
+            >
+              <span className="merchant-hero__status-dot" aria-hidden="true" />
+              {STATUS_LABEL[option]}
+            </button>
+          ))}
+        </div>
 
-        <button type="button" className="merchant-hero__toggle" onClick={onToggle}>
-          {isActive ? 'Tutup toko' : 'Buka toko'}
-        </button>
+        <p className="merchant-hero__note">{note}</p>
 
         <div className="merchant-hero__quota">
           <p className="merchant-hero__quota-head">

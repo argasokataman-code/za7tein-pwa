@@ -36,6 +36,12 @@ interface MerchantState {
    */
   couriers: Courier[]
   isActive: boolean
+  /**
+   * Toko masih buka tapi menahan order baru sebentar — status ketiga di samping
+   * buka/tutup ("sibuk"). state tampilan saja: backend hanya punya
+   * `store_status` buka/tutup, jadi sibuk tidak disinkronkan.
+   */
+  isBusy: boolean
   todayOrderCount: number
   dailyLimit: number
   /** Balasan merchant per id ulasan. Tidak dipersist — reset saat reload. */
@@ -69,6 +75,7 @@ const initialState: MerchantState = {
   orders: seedOrders,
   couriers: mockCouriers,
   isActive: mockMerchant.isActive,
+  isBusy: false,
   todayOrderCount: mockMerchant.todayOrderCount,
   dailyLimit: mockMerchant.dailyLimit,
   reviewReplies: merchantReviewReplies,
@@ -104,6 +111,13 @@ const merchantSlice = createSlice({
     /** API: `merchants.store_status` → buka/tutup (dipakai sinkron store-status). */
     setStoreActive(state, action: PayloadAction<boolean>) {
       state.isActive = action.payload
+      // Tutup selalu mengakhiri "sibuk" — tak ada artinya sibuk saat toko tutup.
+      if (!action.payload) state.isBusy = false
+    },
+    /** Buka tapi menahan order baru (status ketiga, state tampilan). */
+    setStoreBusy(state, action: PayloadAction<boolean>) {
+      state.isBusy = action.payload
+      if (action.payload) state.isActive = true
     },
     /** API: ganti daftar kurir dengan baris backend. */
     setCouriers(state, action: PayloadAction<Courier[]>) {
@@ -293,6 +307,7 @@ const merchantSlice = createSlice({
 export const {
   toggleActive,
   setStoreActive,
+  setStoreBusy,
   setCouriers,
   hydrateCredit,
   hydrateProfile,

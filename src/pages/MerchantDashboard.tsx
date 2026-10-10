@@ -7,7 +7,7 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { DonutChart } from '../components/ui/DonutChart'
 import { Sparkline } from '../components/ui/Sparkline'
-import { MerchantHomeHero } from '../components/merchant/MerchantHomeHero'
+import { MerchantHomeHero, type StoreStatus } from '../components/merchant/MerchantHomeHero'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { money } from '../data/merchant'
 import { jodToIdr, moneyPlain } from '../data/currency'
@@ -22,11 +22,13 @@ import {
   trendTotals,
 } from '../data/merchantTrend'
 import { switchBlockCopy } from '../data/superadmin'
-import { toggleActive } from '../store/slices/merchantSlice'
+import { setStoreActive, setStoreBusy } from '../store/slices/merchantSlice'
 
 export default function MerchantDashboard() {
   const dispatch = useAppDispatch()
   const isActive = useAppSelector((s) => s.merchant.isActive)
+  const isBusy = useAppSelector((s) => s.merchant.isBusy)
+  const storeStatus: StoreStatus = isActive ? (isBusy ? 'sibuk' : 'buka') : 'tutup'
   const logo = useAppSelector((s) => s.merchant.logo)
   const storeName = useAppSelector((s) => s.merchant.storeName)
   const closeTime = useAppSelector((s) => s.merchant.closeTime)
@@ -67,13 +69,21 @@ export default function MerchantDashboard() {
         <MerchantHomeHero
           name={storeName}
           logo={logo}
-          isActive={isActive}
+          status={storeStatus}
           closeTime={closeTime}
           todayOrderCount={todayOrderCount}
           dailyLimit={dailyLimit}
-          // Buka cukup satu tap. Tutup menahan order baru, jadi minta konfirmasi
-          // dulu — salah sentuh di sini langsung menghentikan pemasukan.
-          onToggle={() => (isActive ? setCloseConfirmOpen(true) : dispatch(toggleActive()))}
+          // Buka/Sibuk cukup satu tap. Tutup menahan order baru, jadi minta
+          // konfirmasi dulu — salah sentuh di sini langsung menghentikan
+          // pemasukan.
+          onSelectStatus={(next) => {
+            if (next === 'tutup') {
+              setCloseConfirmOpen(true)
+              return
+            }
+            dispatch(setStoreBusy(next === 'sibuk'))
+            dispatch(setStoreActive(true))
+          }}
         />
 
         {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
@@ -352,7 +362,7 @@ export default function MerchantDashboard() {
           body="Order baru berhenti masuk sampai kamu buka lagi. Order yang sedang berjalan tetap lanjut."
           confirmLabel="Tutup toko"
           onConfirm={() => {
-            dispatch(toggleActive())
+            dispatch(setStoreActive(false))
             setCloseConfirmOpen(false)
           }}
           onClose={() => setCloseConfirmOpen(false)}
