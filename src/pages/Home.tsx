@@ -29,8 +29,17 @@ export default function Home() {
   // Daftar toko: mock dulu, ditimpa katalog live bila API hidup.
   const stores = useStorefronts(storefronts)
 
-  // Chip "Semua" memimpin daftar dan aktif secara default.
-  const chips = [{ id: 'all', label: 'Semua', icon: LayoutGrid }, ...categories]
+  // Chip "Semua" memimpin daftar dan aktif secara default. Kategori diambil dari
+  // item yang diketahui; backend belum mengisi `menus.category` (semua null),
+  // jadi saat toko live tak ada kategori yang bisa dipetakan → baris chip tidak
+  // dirender, bukan menyaring daftar jadi kosong.
+  const storeCategories = new Set(stores.flatMap((store) => merchantCategoryIds(items, store.id)))
+  const chips = storeCategories.size
+    ? [
+        { id: 'all', label: 'Semua', icon: LayoutGrid },
+        ...categories.filter((c) => storeCategories.has(c.id)),
+      ]
+    : []
 
   // Chip menyaring TOKO, bukan item: sebuah toko tampil kalau ia melayani
   // kategori terpilih (dihitung dari menunya yang benar-benar bisa dipesan).
@@ -56,26 +65,28 @@ export default function Home() {
           />
 
           <div className="home-content">
-            <div className="categories-section">
-              <div className="categories-scroll" role="list">
-                {chips.map((c) => {
-                  const Icon = c.icon
-                  return (
-                    <button
-                      key={c.id}
-                      type="button"
-                      role="listitem"
-                      className={`category-btn ${category === c.id ? 'active' : ''}`}
-                      aria-pressed={category === c.id}
-                      onClick={() => setCategory(c.id)}
-                    >
-                      {Icon ? <Icon size={16} strokeWidth={2} aria-hidden="true" /> : null}
-                      {c.label}
-                    </button>
-                  )
-                })}
+            {chips.length ? (
+              <div className="categories-section">
+                <div className="categories-scroll" role="list">
+                  {chips.map((c) => {
+                    const Icon = c.icon
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        role="listitem"
+                        className={`category-btn ${category === c.id ? 'active' : ''}`}
+                        aria-pressed={category === c.id}
+                        onClick={() => setCategory(c.id)}
+                      >
+                        {Icon ? <Icon size={16} strokeWidth={2} aria-hidden="true" /> : null}
+                        {c.label}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
-            </div>
+            ) : null}
 
             <div>
               <div className="section-header">

@@ -315,6 +315,17 @@ export function formatDistance(meters: number): string {
   return meters < 1000 ? `${meters} m` : `${(meters / 1000).toFixed(1).replace('.', ',')} km`
 }
 
+/**
+ * Estimasi waktu antar dari jarak — band tampilan, bukan SLA. Angka asli
+ * ditentukan kurir; ini hanya supaya kartu punya nilai saat backend tak
+ * menyimpannya. Batas band disesuaikan radius kirim merchant (≤2 km).
+ */
+export function estimateDeliveryTime(meters: number): string {
+  if (meters <= 900) return '10-20 menit'
+  if (meters <= 1600) return '15-30 menit'
+  return '25-45 menit'
+}
+
 /** Label zona untuk daftar (mis. `Zona Syimali`), aman kalau id tak dikenal. */
 export function zoneLabel(id: ZoneId): string {
   return DELIVERY_ZONES.find((z) => z.id === id)?.label ?? id

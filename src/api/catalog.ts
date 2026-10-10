@@ -7,8 +7,15 @@
  * (docs/design/flows/INDEX.json §contract).
  */
 import { jodToIdr } from '../data/currency'
+import { estimateDeliveryTime, formatDistance, haversineMeters } from '../data/merchant'
 import type { MenuItem, ModifierGroup, Storefront } from '../types'
 import { rest } from './supabase'
+
+/** Titik asal customer untuk menghitung jarak ke toko (alamat yang dipilih). */
+export interface Origin {
+  lat: number
+  lng: number
+}
 
 /** Foto pengganti bila backend belum punya gambar (tanpa URL eksternal). */
 const FALLBACK_IMAGE = '/assets/img/menu/nasi-goreng.webp'
@@ -29,6 +36,8 @@ export interface MerchantRow {
   rating_count: number | null
   open_time: string | null
   close_time: string | null
+  latitude: number | null
+  longitude: number | null
 }
 
 export interface MenuRow {
@@ -51,19 +60,25 @@ export interface VariantRow {
   options: Array<{ id: number; name: string; priceDeltaJod: number }>
 }
 
-function toStorefront(row: MerchantRow): Storefront {
+function toStorefront(row: MerchantRow, origin?: Origin): Storefront {
+  // Jarak/waktu antar dihitung dari titik asal customer, bukan disimpan BE.
+  const meters =
+    origin && row.latitude != null && row.longitude != null
+      ? haversineMeters(origin, { lat: row.latitude, lng: row.longitude })
+      : null
   return {
     id: String(row.id),
     name: row.store_name,
     tagline: row.description ?? '',
     logo: row.photo ?? FALLBACK_IMAGE,
     cover: row.photo ?? FALLBACK_IMAGE,
-    // Rating & jam buka kini tersedia langsung di `merchants` — tak perlu
-    // agregasi rating_reviews. Jarak/waktu antar tetap di luar repo.
+    // Rating & jam buka tersedia langsung di `merchants` — tak perlu agregasi
+    // rating_reviews. Jarak/waktu dihitung lokal; kosong bila asal tak diketahui
+    // (kartu menyembunyikan bagian itu, bukan menampilkan `—` menggantung).
     rating: row.rating_avg ?? 0,
     reviewCount: row.rating_count ?? 0,
-    deliveryTime: '—',
-    distance: '—',
+    deliveryTime: meters == null ? '' : estimateDeliveryTime(meters),
+    distance: meters == null ? '' : formatDistance(meters),
     openTime: hhmm(row.open_time),
     closeTime: hhmm(row.close_time),
     isOpen: row.store_status === 'open',
@@ -91,8 +106,8 @@ function toMenuItem(row: MenuRow, variants: VariantRow[]): MenuItem {
     price: jodToIdr(row.price_jod),
     rating: 0,
     reviewCount: 0,
-    deliveryTime: '—',
-    distance: '—',
+    deliveryTime: '',
+    distance: '',
     category: row.category ?? '',
     image: row.image ?? FALLBACK_IMAGE,
     description: row.description ?? '',
@@ -104,17 +119,17 @@ function toMenuItem(row: MenuRow, variants: VariantRow[]): MenuItem {
   }
 }
 
-export async function fetchStorefronts(): Promise<Storefront[]> {
+export async function fetchStorefronts(origin?: Origin): Promise<Storefront[]> {
   const rows = await rest<MerchantRow>('merchants', '?select=*&order=id.asc')
-  return rows.map(toStorefront)
+  return rows.map((row) => toStorefront(row, origin))
 }
 
-export async function fetchStorefront(id: string): Promise<Storefront | undefined> {
+export async function fetchStorefront(id: string, origin?: Origin): Promise<Storefront | undefined> {
   const rows = await rest<MerchantRow>(
     'merchants',
     `?select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
   )
-  return rows[0] ? toStorefront(rows[0]) : undefined
+  return rows[0] ? toStorefront(rows[0], origin) : undefined
 }
 
 export async function fetchMenuItems(merchantId: string): Promise<MenuItem[]> {

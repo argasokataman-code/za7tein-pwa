@@ -31,6 +31,7 @@ import { patch, restWith, signInToken } from './supabase'
 
 const DEMO_MERCHANT_ID = 1
 const DEMO_MERCHANT_USER_ID = 2
+const DEMO_CUSTOMER_USER_ID = 1
 
 const REF_EMAIL = (import.meta.env.VITE_DEMO_CS_EMAIL as string | undefined) || 'cs@sa7tein.app'
 const REF_PASSWORD = (import.meta.env.VITE_DEMO_CS_PASSWORD as string | undefined) || 'demo1234'
@@ -128,6 +129,13 @@ interface CreditEventRow {
   event: string
   amount_jod: number
   at: string
+}
+interface AddressRow {
+  label: string | null
+  address: string | null
+  city: string | null
+  latitude: number | null
+  longitude: number | null
 }
 
 /** Nama event kredit: backend memakai `credit_fee_deducted`, repo `merchant_credit_debited`. */
@@ -257,6 +265,24 @@ export async function fetchStoreStatus(merchantId = DEMO_MERCHANT_ID): Promise<b
     `?select=id,store_status&id=eq.${merchantId}&limit=1`,
   )
   return rows[0] ? rows[0].store_status === 'open' : undefined
+}
+
+/**
+ * Alamat default customer → titik asal jarak + label lokasi hero. Koordinat
+ * `null` (belum di-pin) dikembalikan sebagai `undefined` supaya jarak tak dihitung.
+ */
+export async function fetchCustomerAddress(
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<{ label: string; lat: number; lng: number } | undefined> {
+  const token = await refToken()
+  const rows = await restWith<AddressRow>(
+    token,
+    'addresses',
+    `?select=label,address,city,latitude,longitude&user_id=eq.${userId}&order=is_default.desc&limit=1`,
+  )
+  const row = rows[0]
+  if (!row || row.latitude == null || row.longitude == null) return undefined
+  return { label: row.city ?? row.address ?? 'Lokasi', lat: row.latitude, lng: row.longitude }
 }
 
 /** Tulis status toko. Merchant menulis barisnya sendiri (RLS) → token merchant. */

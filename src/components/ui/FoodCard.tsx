@@ -62,18 +62,30 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
         </div>
 
         <div className="food-meta">
-          <div className="food-delivery-info">
-            <Clock size={14} />
-            <span>{food.deliveryTime}</span>
-            <span className="separator">•</span>
-            <span>{food.distance}</span>
-          </div>
+          {food.deliveryTime || food.distance ? (
+            <div className="food-delivery-info">
+              {food.deliveryTime ? (
+                <>
+                  <Clock size={14} />
+                  <span>{food.deliveryTime}</span>
+                </>
+              ) : null}
+              {food.distance ? (
+                <>
+                  <span className="separator">•</span>
+                  <span>{food.distance}</span>
+                </>
+              ) : null}
+            </div>
+          ) : null}
 
-          <div className="food-rating">
-            <Star size={14} fill="currentColor" />
-            <span className="rating-value">{formatRating(food.rating)}</span>
-            <span className="rating-count">({food.reviewCount} ulasan)</span>
-          </div>
+          {food.rating > 0 || food.reviewCount > 0 ? (
+            <div className="food-rating">
+              <Star size={14} fill="currentColor" />
+              <span className="rating-value">{formatRating(food.rating)}</span>
+              <span className="rating-count">({food.reviewCount} ulasan)</span>
+            </div>
+          ) : null}
         </div>
 
         <AddToCartButton food={food} />

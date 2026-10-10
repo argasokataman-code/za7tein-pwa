@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 
 import {
   fetchCouriers,
+  fetchCustomerAddress,
   fetchMerchantCredit,
   fetchMerchantProfile,
   fetchMerchantRecords,
@@ -19,6 +20,7 @@ import { setMerchants } from '../store/slices/adminSlice'
 import { hydrateCredit, hydrateProfile, setCouriers, setStoreActive } from '../store/slices/merchantSlice'
 import { setBalance as setPayoutBalance } from '../store/slices/payoutSlice'
 import { setOperators, setRoles, setSwitches, setZones } from '../store/slices/superAdminSlice'
+import { setCustomerLocation } from '../store/slices/uiSlice'
 import { setBalance as setWalletBalance } from '../store/slices/walletSlice'
 import { useAppDispatch, useAppSelector } from './useAppStore'
 
@@ -69,7 +71,6 @@ function useMerchantProfile(): void {
     if (profile) d(hydrateProfile(profile))
   })
 }
-
 /** Registri merchant platform → `admin.merchants` (panel CS + konsol SA). */
 function useMerchantRegistry(): void {
   useSyncOnce(() => fetchMerchantRecords(), (rows, d) => {
@@ -82,6 +83,12 @@ function useWallet(userId: number, target: 'customer' | 'merchant'): void {
   useSyncOnce(() => fetchWallet(userId), (wallet, d) => {
     d(target === 'customer' ? setWalletBalance(wallet) : setPayoutBalance(wallet))
   })
+}
+/** Alamat default customer live → label hero + titik asal jarak ke toko. */
+function useCustomerLocation(): void {
+  useSyncOnce(() => fetchCustomerAddress(), (a, d) =>
+    d(setCustomerLocation({ label: a.label, lat: a.lat, lng: a.lng })),
+  )
 }
 
 /** Status toko dua arah: baca `store_status`, tulis balik saat Buka/Tutup ditekan. */
@@ -136,6 +143,7 @@ export function useApiSync(): void {
   useMerchantRegistry()
   useWallet(USER_CUSTOMER, 'customer')
   useWallet(USER_MERCHANT, 'merchant')
+  useCustomerLocation()
   useStoreStatus()
   useSuperAdmin()
 }

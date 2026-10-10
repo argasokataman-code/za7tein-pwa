@@ -54,15 +54,23 @@ export function MerchantCard({ store, onOpen, className = '', style }: MerchantC
             <Star size={13} fill="currentColor" aria-hidden="true" />
             {formatRating(store.rating)}
           </span>
-          <span className="merchant-card__sep" aria-hidden="true">
-            •
-          </span>
-          <Clock size={13} aria-hidden="true" />
-          {store.deliveryTime}
-          <span className="merchant-card__sep" aria-hidden="true">
-            •
-          </span>
-          {store.distance}
+          {store.deliveryTime ? (
+            <>
+              <span className="merchant-card__sep" aria-hidden="true">
+                •
+              </span>
+              <Clock size={13} aria-hidden="true" />
+              {store.deliveryTime}
+            </>
+          ) : null}
+          {store.distance ? (
+            <>
+              <span className="merchant-card__sep" aria-hidden="true">
+                •
+              </span>
+              {store.distance}
+            </>
+          ) : null}
         </span>
       </span>
     </button>

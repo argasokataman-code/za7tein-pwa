@@ -61,7 +61,8 @@ export const foodApi = baseApi.injectEndpoints({
         read from PostgREST in <code className="doc-inline">src/api/reference.ts</code> and synced
         into Redux once from <code className="doc-inline">App</code> (
         <code className="doc-inline">useApiSync</code>), mock-first: a failed call leaves the seed
-        in place. Storefront rating and opening hours come straight from{' '}        <code className="doc-inline">merchants</code> (
+        in place. Storefront rating and opening hours come straight from{' '}
+        <code className="doc-inline">merchants</code> (
         <code className="doc-inline">rating_avg</code>,{' '}
         <code className="doc-inline">rating_count</code>,{' '}
         <code className="doc-inline">open_time</code>,{' '}
@@ -75,7 +76,12 @@ export const foodApi = baseApi.injectEndpoints({
         read from <code className="doc-inline">merchant_credit_events</code>. The merchant store
         open/close toggle writes back{' '}
         <code className="doc-inline">PATCH /rest/v1/merchants?id=eq.1</code>, and the customer
-        storefront polls for changes. RLS guards the user tables, so reads sign in the demo
+        storefront polls for changes. The customer home reads the default address from{' '}
+        <code className="doc-inline">addresses</code> for the live location label and computes each
+        store's distance and delivery time locally (the backend stores no delivery time). The
+        category chips are hidden while <code className="doc-inline">menus.category</code> is empty
+        in the backend, instead of filtering the store list down to nothing. RLS guards the user
+        tables, so reads sign in the demo
         <code className="doc-inline">cs@</code> account (explicit token, never the global one).
       </p>
       <h3 className="doc-h3">

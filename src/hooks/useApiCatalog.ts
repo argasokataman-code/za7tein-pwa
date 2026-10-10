@@ -12,14 +12,21 @@ import { useEffect, useState } from 'react'
 import { fetchFood, fetchMenuItems, fetchStorefront, fetchStorefronts } from '../api/catalog'
 import { apiEnabled } from '../api/supabase'
 import type { MenuItem, Storefront } from '../types'
+import { useAppSelector } from './useAppStore'
+
+/** Titik asal customer dari store (alamat default live; `null` sebelum sync). */
+function useOrigin() {
+  return useAppSelector((s) => s.ui.origin)
+}
 
 export function useStorefronts(fallback: Storefront[]): Storefront[] {
   const [remote, setRemote] = useState<Storefront[] | null>(null)
+  const origin = useOrigin()
   useEffect(() => {
     if (!apiEnabled) return
     let alive = true
     const load = () =>
-      fetchStorefronts()
+      fetchStorefronts(origin ?? undefined)
         .then((next) => {
           if (alive) setRemote(next)
         })
@@ -33,16 +40,17 @@ export function useStorefronts(fallback: Storefront[]): Storefront[] {
       alive = false
       clearInterval(timer)
     }
-  }, [])
+  }, [origin])
   return remote ?? fallback
 }
 
 export function useStorefront(id: string, fallback: Storefront | undefined): Storefront | undefined {
   const [remote, setRemote] = useState<{ id: string; value: Storefront | undefined } | null>(null)
+  const origin = useOrigin()
   useEffect(() => {
     if (!apiEnabled || !id) return
     let alive = true
-    fetchStorefront(id)
+    fetchStorefront(id, origin ?? undefined)
       .then((next) => {
         if (alive) setRemote({ id, value: next })
       })
@@ -50,7 +58,7 @@ export function useStorefront(id: string, fallback: Storefront | undefined): Sto
     return () => {
       alive = false
     }
-  }, [id])
+  }, [id, origin])
   return remote && remote.id === id ? remote.value : fallback
 }
 
