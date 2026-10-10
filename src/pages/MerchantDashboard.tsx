@@ -88,6 +88,8 @@ export default function MerchantDashboard() {
   // dan profil mendarat sekali. API mati / gagal → tetap jalan dengan seed.
   const ordersHydrated = useAppSelector((s) => s.merchant.ordersHydrated)
   const profileHydrated = useAppSelector((s) => s.merchant.profileHydrated)
+  const ordersError = useAppSelector((s) => s.merchant.ordersError)
+  const profileError = useAppSelector((s) => s.merchant.profileError)
   // ponytail: fail-safe 4 dtk — jaringan menggantung tak boleh menahan kerangka
   // selamanya; kalau lewat, tampilkan seed apa adanya (normalnya 1,5–2 dtk).
   const [hydrateExpired, setHydrateExpired] = useState(false)
@@ -95,7 +97,11 @@ export default function MerchantDashboard() {
     const t = window.setTimeout(() => setHydrateExpired(true), 4000)
     return () => window.clearTimeout(t)
   }, [])
-  const ready = !apiEnabled || hydrateExpired || (ordersHydrated && profileHydrated)
+  // API gagal → tampilkan seed + banner, jangan menunggu kerangka sampai
+  // fail-safe 4 dtk (audit 012 #2).
+  const loadError = apiEnabled && (ordersError || profileError)
+  const ready =
+    !apiEnabled || hydrateExpired || loadError || (ordersHydrated && profileHydrated)
 
   if (!ready) {
     return (
@@ -139,6 +145,9 @@ export default function MerchantDashboard() {
         />
 
         {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
+        {loadError ? (
+          <PlatformNotice message="Gagal memuat data terbaru. Menampilkan data terakhir yang tersimpan." />
+        ) : null}
 
         {/* Kartu "Buka toko" dan "Kuota harian" dilebur ke hero di atas: ketiganya
             menjawab satu hal yang sama — apakah toko menerima order dan berapa
@@ -195,22 +204,28 @@ export default function MerchantDashboard() {
               {topMenu.orders} order.
             </p>
           ) : null}
-          <ul className="merchant-rank">
-            {menuSales.map((row, index) => (
-              <li key={row.id}>
-                <span className="merchant-rank-name">{row.name}</span>
-                <span className="merchant-rank-bar" aria-hidden="true">
-                  <span
-                    className={index === 0 ? 'chart-tone-bg--brand' : 'chart-tone-bg--muted'}
-                    style={{ width: `${(row.sold / topSold) * 100}%` }}
-                  />
-                </span>
-                <span className="merchant-rank-figures">
-                  <strong>{row.sold}</strong> porsi · {moneyPlain(row.revenueIdr)}
-                </span>
-              </li>
-            ))}
-          </ul>
+          {menuSales.length === 0 ? (
+            <p className="merchant-empty">
+              Belum ada order masuk. Penjualan menu muncul setelah order pertama.
+            </p>
+          ) : (
+            <ul className="merchant-rank">
+              {menuSales.map((row, index) => (
+                <li key={row.id}>
+                  <span className="merchant-rank-name">{row.name}</span>
+                  <span className="merchant-rank-bar" aria-hidden="true">
+                    <span
+                      className={index === 0 ? 'chart-tone-bg--brand' : 'chart-tone-bg--muted'}
+                      style={{ width: `${(row.sold / topSold) * 100}%` }}
+                    />
+                  </span>
+                  <span className="merchant-rank-figures">
+                    <strong>{row.sold}</strong> porsi · {moneyPlain(row.revenueIdr)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
 
         {/* Judulnya "Komposisi order", bukan "hari ini": mock tidak punya
@@ -223,69 +238,77 @@ export default function MerchantDashboard() {
               <p className="merchant-card-sub">{orders.length} order sedang dipantau</p>
             </div>
           </div>
-          <div className="chart-split">
-            <DonutChart
-              segments={orderMix}
-              ariaLabel="Komposisi status order"
-              centerValue={String(orders.length)}
-              centerLabel="order"
-            />            <ul className="chart-legend">
-              {orderMix.map((segment) => {
-                // Hanya potongan yang punya tab persis yang bisa ditekan.
-                // "Diantar" subset dari tab `diproses` (diterima/dimasak/diantar/
-                // tiba), jadi tautan ke sana akan mendarat di daftar yang lebih
-                // luas dari labelnya — lebih menyesatkan daripada tidak ada
-                // tautan sama sekali.
-                const isi = (
-                  <>
-                    <span className={`chart-legend-dot chart-tone-bg--${segment.tone}`} />
-                    <span className="chart-legend-label">{segment.label}</span>
-                    <span className="chart-legend-value">{segment.value} order</span>
-                  </>
-                )
-                return (
-                  <li key={segment.label}>
-                    {segment.tab ? (
-                      <Link className="chart-legend-link" to={`/orders?tab=${segment.tab}`}>
-                        {isi}
-                      </Link>
-                    ) : (
-                      <span className="chart-legend-link is-static">{isi}</span>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-          {/* COD vs transfer diganti bar perbandingan: split 4/4 = 50/50 tidak
-              butuh donut, dan donut kedua membuat kartu ini 468px
-              (audit-003 #5/#6). Angka tetap dari `paymentMix`. */}
-          <div
-            className="merchant-duo"
-            role="img"
-            aria-label={`Metode bayar: ${paymentCod} order COD, ${paymentTransfer} order transfer`}
-          >
-            <div className="merchant-duo-track">
-              <span
-                className="chart-tone-bg--brand"
-                style={{ width: `${(paymentCod / paymentTotal) * 100}%` }}
-              />
-              <span
-                className="chart-tone-bg--success"
-                style={{ width: `${(paymentTransfer / paymentTotal) * 100}%` }}
-              />
+          {orderMix.length === 0 ? (
+            <p className="merchant-empty">
+              Belum ada order untuk dipantau. Komposisi status muncul saat order masuk.
+            </p>
+          ) : (
+            <>
+            <div className="chart-split">
+              <DonutChart
+                segments={orderMix}
+                ariaLabel="Komposisi status order"
+                centerValue={String(orders.length)}
+                centerLabel="order"
+              />            <ul className="chart-legend">
+                {orderMix.map((segment) => {
+                  // Hanya potongan yang punya tab persis yang bisa ditekan.
+                  // "Diantar" subset dari tab `diproses` (diterima/dimasak/diantar/
+                  // tiba), jadi tautan ke sana akan mendarat di daftar yang lebih
+                  // luas dari labelnya — lebih menyesatkan daripada tidak ada
+                  // tautan sama sekali.
+                  const isi = (
+                    <>
+                      <span className={`chart-legend-dot chart-tone-bg--${segment.tone}`} />
+                      <span className="chart-legend-label">{segment.label}</span>
+                      <span className="chart-legend-value">{segment.value} order</span>
+                    </>
+                  )
+                  return (
+                    <li key={segment.label}>
+                      {segment.tab ? (
+                        <Link className="chart-legend-link" to={`/orders?tab=${segment.tab}`}>
+                          {isi}
+                        </Link>
+                      ) : (
+                        <span className="chart-legend-link is-static">{isi}</span>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
             </div>
-            <ul className="merchant-duo-legend">
-              <li>
-                <span className="chart-legend-dot chart-tone-bg--brand" />
-                COD (tunai) <strong>{paymentCod} order</strong>
-              </li>
-              <li>
-                <span className="chart-legend-dot chart-tone-bg--success" />
-                Transfer <strong>{paymentTransfer} order</strong>
-              </li>
-            </ul>
-          </div>
+            {/* COD vs transfer diganti bar perbandingan: split 4/4 = 50/50 tidak
+                butuh donut, dan donut kedua membuat kartu ini 468px
+                (audit-003 #5/#6). Angka tetap dari `paymentMix`. */}
+            <div
+              className="merchant-duo"
+              role="img"
+              aria-label={`Metode bayar: ${paymentCod} order COD, ${paymentTransfer} order transfer`}
+            >
+              <div className="merchant-duo-track">
+                <span
+                  className="chart-tone-bg--brand"
+                  style={{ width: `${(paymentCod / paymentTotal) * 100}%` }}
+                />
+                <span
+                  className="chart-tone-bg--success"
+                  style={{ width: `${(paymentTransfer / paymentTotal) * 100}%` }}
+                />
+              </div>
+              <ul className="merchant-duo-legend">
+                <li>
+                  <span className="chart-legend-dot chart-tone-bg--brand" />
+                  COD (tunai) <strong>{paymentCod} order</strong>
+                </li>
+                <li>
+                  <span className="chart-legend-dot chart-tone-bg--success" />
+                  Transfer <strong>{paymentTransfer} order</strong>
+                </li>
+              </ul>
+            </div>
+            </>
+          )}
         </section>
 
         {/* Ringkasan insentif (M10, F9). Rincian, riwayat, dan aksi simulasi
@@ -327,44 +350,48 @@ export default function MerchantDashboard() {
           <div className="merchant-section-head">
             <h2>Order terbaru</h2>            <Link to="/orders">Lihat semua</Link>
           </div>
-          {orders.slice(0, 3).map((order) => (
-            <Link key={order.id} to="/orders" className="merchant-order">
-              <div className="merchant-order-buyer">
-                <img
-                  className="merchant-buyer-avatar"
-                  src={order.buyerAvatar}
-                  alt={`Profil ${order.customerName}`}
-                  width={40}
-                  height={40}
-                />
-                <div>
-                  <p className="merchant-order-code">{order.code}</p>
-                  <p className="merchant-order-sub">
-                    {order.customerName} · {order.items.length} item
-                  </p>
+          {orders.length === 0 ? (
+            <p className="merchant-empty">Belum ada order masuk.</p>
+          ) : (
+            orders.slice(0, 3).map((order) => (
+              <Link key={order.id} to="/orders" className="merchant-order">
+                <div className="merchant-order-buyer">
+                  <img
+                    className="merchant-buyer-avatar"
+                    src={order.buyerAvatar}
+                    alt={`Profil ${order.customerName}`}
+                    width={40}
+                    height={40}
+                  />
+                  <div>
+                    <p className="merchant-order-code">{order.code}</p>
+                    <p className="merchant-order-sub">
+                      {order.customerName} · {order.items.length} item
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="merchant-order-head-right">
-                <div
-                  className="merchant-order-rating"
-                  aria-label={`Rating pembeli ${order.buyerRating} dari 5`}
-                >
-                  {Array.from({ length: 5 }, (_, i) => (
-                    <Star
-                      key={i}
-                      size={12}
-                      strokeWidth={1.75}
-                      color="var(--star)"
-                      fill={i < order.buyerRating ? 'var(--star)' : 'none'}
-                    />
-                  ))}
+                <div className="merchant-order-head-right">
+                  <div
+                    className="merchant-order-rating"
+                    aria-label={`Rating pembeli ${order.buyerRating} dari 5`}
+                  >
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star
+                        key={i}
+                        size={12}
+                        strokeWidth={1.75}
+                        color="var(--star)"
+                        fill={i < order.buyerRating ? 'var(--star)' : 'none'}
+                      />
+                    ))}
+                  </div>
+                  <span className={`merchant-badge merchant-badge-${order.status}`}>
+                    {orderStatusLabel(order.status)}
+                  </span>
                 </div>
-                <span className={`merchant-badge merchant-badge-${order.status}`}>
-                  {orderStatusLabel(order.status)}
-                </span>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          )}
         </section>
 
         <section className="merchant-section">

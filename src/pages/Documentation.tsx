@@ -273,7 +273,13 @@ export default function Documentation() {
               kini menahan angka seed di balik kerangka sampai data API mendarat, jadi tak ada
               lompatan nilai mock → data nyata, dan status &ldquo;Sibuk&rdquo; bertahan antar-reload.
               Tiap perubahan status jualan kini minta konfirmasi ketuk-kedua, dan tombol pop-up-nya
-              disamakan bentuknya dengan tombol utama.
+              disamakan bentuknya dengan tombol utama. Audit mobile beranda (012) memadatkan
+              permukaan oranye merchant (<code className="doc-inline">--merchant-brand</code>) agar
+              teks putih kecil di hero dan kartu &ldquo;Pendapatan&rdquo; lolos AA (terukur 4,73:1),
+              menambah state kosong terdesain dan banner &ldquo;data terakhir&rdquo; saat hidrasi API
+              gagal, memindahkan legenda &ldquo;Komposisi order&rdquo; ke samping donut sehingga kartunya
+              menyusut 554 &rarr; 414px, serta menyatukan sistem radius (lingkaran 50%, track/badge
+              --radius-xs) dan ritme jarak antar blok ke 16px.
               Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">

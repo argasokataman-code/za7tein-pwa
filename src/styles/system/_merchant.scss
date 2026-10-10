@@ -9,6 +9,9 @@
      ResizeObserver dan menimpa lewat inline style. Dipakai kepala grup sticky
      di _merchant-menu-polish.scss supaya tidak salah offset. */
   --menu-filter-h: 118px;
+  /* Nada merek merchant yang dipadatkan agar teks putih kecil di hero + kartu
+     pendapatan lolos AA 4,5:1 (oranye murni 4,02:1, audit 012 #1). */
+  --merchant-brand: color-mix(in srgb, var(--sa7tein-orange) 65%, var(--orange-deep));
   padding: var(--space-5) var(--space-5) calc(var(--nav-height) + var(--space-6));
 }
 
@@ -53,7 +56,7 @@
 .merchant-card {
   @include card-surface;
   padding: var(--space-4);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 
 .merchant-row {
@@ -93,7 +96,7 @@
 .merchant-quota {
   margin-top: var(--space-3);
   height: 6px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-xs);
   background: var(--border);
   overflow: hidden;
 }
@@ -250,7 +253,8 @@
 .merchant-badge {
   font-size: var(--text-sm);
   padding: 3px var(--space-2);
-  border-radius: var(--radius-pill);
+  /* Chip = kotak bertepi bulat, bukan pill (audit 012 #4 / QL-03). */
+  border-radius: var(--radius-xs);
   background: var(--border);
   color: var(--text-secondary);
   white-space: nowrap;
@@ -346,7 +350,8 @@
 .merchant-buyer-avatar {
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-pill);
+  /* Lingkaran pakai `50%`; `--radius-pill` disisakan untuk bentuk kapsul. */
+  border-radius: 50%;
   object-fit: cover;
   background: var(--border);
 }

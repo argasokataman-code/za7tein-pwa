@@ -49,6 +49,13 @@ interface MerchantState {
    */
   ordersHydrated: boolean
   profileHydrated: boolean
+  /**
+   * Hidrasi awal (refresh) gagal — API menolak / jaringan putus. Beranda
+   * menampilkan banner "data terakhir" alih-alih diam-diam menyuguhkan seed
+   * (audit 012 #2). Direset begitu hidrasi berikutnya berhasil.
+   */
+  ordersError: boolean
+  profileError: boolean
   todayOrderCount: number
   dailyLimit: number
   /** Balasan merchant per id ulasan. Tidak dipersist — reset saat reload. */
@@ -105,6 +112,8 @@ const initialState: MerchantState = {
   isBusy: readBusy(),
   ordersHydrated: false,
   profileHydrated: false,
+  ordersError: false,
+  profileError: false,
   todayOrderCount: mockMerchant.todayOrderCount,
   dailyLimit: mockMerchant.dailyLimit,
   reviewReplies: merchantReviewReplies,
@@ -155,10 +164,20 @@ const merchantSlice = createSlice({
     /** Order live dari API sudah mendarat sekali (lihat `useApiRealtime`). */
     markOrdersHydrated(state) {
       state.ordersHydrated = true
+      state.ordersError = false
+    },
+    /** Hidrasi order gagal — beranda menampilkan banner, bukan diam. */
+    markOrdersFailed(state) {
+      state.ordersError = true
     },
     /** Profil toko dari API sudah mendarat sekali (lihat `useMerchantProfile`). */
     markProfileHydrated(state) {
       state.profileHydrated = true
+      state.profileError = false
+    },
+    /** Hidrasi profil gagal — beranda menampilkan banner, bukan diam. */
+    markProfileFailed(state) {
+      state.profileError = true
     },
     /** API: ganti daftar kurir dengan baris backend. */
     setCouriers(state, action: PayloadAction<Courier[]>) {
@@ -350,7 +369,9 @@ export const {
   setStoreActive,
   setStoreBusy,
   markOrdersHydrated,
+  markOrdersFailed,
   markProfileHydrated,
+  markProfileFailed,
   setCouriers,
   hydrateCredit,
   hydrateProfile,

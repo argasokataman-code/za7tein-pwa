@@ -16,7 +16,11 @@
      hanya menggeser ke kiri, sehingga tepi kanan tetap menyisakan 20px. `auto`
      membuatnya benar-benar menyentuh kedua tepi kolom. */
   width: auto;
-  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-5);
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-4);
+  /* Bidang merek dipadatkan sedikit (lihat `--merchant-brand`) supaya teks putih
+     kecil di sini — "Dapur", catatan tutup otomatis, "Kuota harian" — lolos AA
+     4,5:1; di oranye murni cuma 4,02:1 (audit 012 #1). */
+  background: var(--merchant-brand);
 }
 
 .merchant-hero__content {
@@ -126,7 +130,7 @@
   margin-top: var(--space-2);
   height: 6px;
 
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-xs);
   background: color-mix(in srgb, var(--on-brand) 22%, transparent);
 
   overflow: hidden;

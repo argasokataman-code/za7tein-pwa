@@ -125,30 +125,33 @@
 
    Permukaannya oranye merek, mengikuti pola kartu ringkasan beranda Superadmin
    (`.sa-card--brand`): kartu uang tampil sebagai bidang merek, bukan kartu putih
-   keempat. Semua teks memakai `--on-brand` (putih) seperti hero — putih di atas
-   oranye = 4,02:1, pengecualian sadar DNA (2026-09-24). Tinta navy yang dipakai
-   `.sa-card--brand` diukur cuma 2,87:1 di sini, jadi tidak ditiru. */
+   keempat. Semua teks memakai `--on-brand` (putih) seperti hero. Putih di atas
+   `--sa7tein-orange` murni cuma 4,02:1 (gagal AA untuk teks kecil, audit 012 #1),
+   jadi permukaannya memakai `--merchant-brand` — nada merek yang dipadatkan
+   sedikit, terukur 4,70:1. Tinta navy yang dipakai `.sa-card--brand` diukur cuma
+   2,87:1 di sini, jadi tidak ditiru. */
 .merchant-revenue {
   @include card-surface;
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
   padding: var(--space-4);
 
-  background: var(--sa7tein-orange);
-  border-color: var(--sa7tein-orange);
+  background: var(--merchant-brand);
+  border-color: var(--merchant-brand);
   color: var(--on-brand);
 
   /* Sparkline ikut latar merek: garis/titik/isi putih — kalau dibiarkan oranye
-     ia hilang di atas oranye. Titik diberi cincin oranye, bukan `--surface`. */
+     ia hilang di atas oranye. Titik diberi cincin warna permukaan, bukan
+     `--surface`. */
   .chart-spark-line {
     stroke: var(--on-brand);
   }
 
   .chart-spark-dot {
     fill: var(--on-brand);
-    stroke: var(--sa7tein-orange);
+    stroke: var(--merchant-brand);
   }
 
   .chart-spark-fill {
@@ -223,25 +226,21 @@
   text-decoration: none;
 }
 
-/* Kartu "Komposisi order" di kolom 430px: donut 128px menyisakan ~212px untuk
-   legenda, dan tiap baris `.chart-legend-link` adalah satu anak grid di kolom
-   `auto` sehingga lebarnya ikut isi (terukur 59–82px → legenda bergerigi) dan
-   label+angka bertumpuk dua baris. Susunan mobile: donut di atas (tengah),
-   legenda jadi baris penuh satu-baris di bawahnya — titik · label … angka.
+/* Kartu "Komposisi order" di kolom 430px: donut di kiri, legenda jadi baris
+   penuh satu-baris di kanannya — titik · label … angka (angka rata kanan). Tiap
+   baris `.chart-legend-link` satu anak grid `auto minmax(0,1fr) auto` yang
+   lebarnya ikut KOLOM (bukan isi), jadi tidak bergerigi (dulu terukur 59–82px)
+   dan tak ada label bertumpuk. Sebelumnya donut + legenda bertumpuk vertikal
+   sampai kartu 554px (62% viewport, audit 012 #3); berdampingan memangkas ~200px.
    Di-scope ke merchant supaya admin/superadmin tidak ikut berubah. */
 .merchant-page .chart-split {
-  flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-3);
-}
-
-.merchant-page .chart-split .chart-donut {
-  align-self: center;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .merchant-page .chart-split .chart-legend {
-  flex: 1 1 auto;
-  width: 100%;
+  flex: 1 1 0;
+  min-width: 0;
   gap: 0;
 }
 
@@ -376,7 +375,8 @@
   width: 56px;
   height: 56px;
   flex-shrink: 0;
-  border-radius: var(--radius-pill);
+  /* Lingkaran pakai `50%` (audit 012 #4) — pill disisakan untuk bentuk kapsul. */
+  border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--on-brand);
   background: var(--border);
@@ -393,6 +393,13 @@
   flex-shrink: 0;
   border-radius: var(--radius-sm);
   background: var(--border);
+  color: var(--text-secondary);
+}
+
+/* State kosong terdesain (audit 012 #2): toko tanpa order tidak menampilkan
+   area kosong tanpa pesan. Satu paragraf tenang, bukan kerangka. */
+.merchant-empty {
+  font-size: var(--text-sm);
   color: var(--text-secondary);
 }
 

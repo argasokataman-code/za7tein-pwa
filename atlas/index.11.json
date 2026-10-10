@@ -3205,6 +3205,142 @@
           "raw": "DEC-917:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-10211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:57:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+5/-5) — edit via tool: .merchant-card {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-10212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:57:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+7/-5) — edit via tool: Permukaannya oranye merek, me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:58:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+17/-21) — edit via tool: /* Kartu \"Komposisi order\" ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:00:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -20; echo \"=== BUILD ===\"; npm run build 2>&1 | tail -25; echo \"=== SCAN ===\"; npm run scan 2>&1 | tail -40",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10215",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:02:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -E \"warning|error\" | rtk grep -v \"scripts/\"; echo \"=== SCAN ===\"; npm run scan 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10216",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:03:06",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -8 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10217",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:05:17",
+      "tags": [
+        "merchant",
+        "mobile",
+        "a11y",
+        "audit"
+      ],
+      "summary": "Audit 012 fix /merchant: kontras oranye 4,73:1, empty+error state, komposisi 554->414px, radius+ritme",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-012-fix-2026-10-10.md"
     }
   ]
 }
