@@ -4,20 +4,22 @@
 // tetap jalan sebagai jaring pengaman bila socket putus.
 import { useEffect } from 'react'
 
-import { fetchCourierOrders, fetchMerchantOrders } from '../api/orders'
+import { fetchCourierOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
 import { subscribeOrders } from '../api/realtime'
 import { fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
+import { setOrderStage } from '../store/slices/cartSlice'
 import { setTasks } from '../store/slices/courierSlice'
 import { mergeOrders } from '../store/slices/merchantSlice'
 import { setNotifications } from '../store/slices/notificationsSlice'
 import type { NotifAudience } from '../types'
-import { useAppDispatch } from './useAppStore'
+import { useAppDispatch, useAppSelector } from './useAppStore'
 
 const DEBOUNCE_MS = 250
 
 export function useApiRealtime(audience: NotifAudience): void {
   const dispatch = useAppDispatch()
+  const activeOrderId = useAppSelector((s) => s.cart.activeOrder?.id ?? null)
   useEffect(() => {
     if (!apiEnabled) return
     let alive = true
@@ -45,6 +47,13 @@ export function useApiRealtime(audience: NotifAudience): void {
             })
             .catch(() => {})
         }
+        if (audience === 'customer' && activeOrderId) {
+          fetchCustomerOrder(activeOrderId)
+            .then((order) => {
+              if (alive && order) dispatch(setOrderStage(order.stage))
+            })
+            .catch(() => {})
+        }
       }, DEBOUNCE_MS)
     }
 
@@ -55,5 +64,5 @@ export function useApiRealtime(audience: NotifAudience): void {
       if (timer) clearTimeout(timer)
       unsubscribe()
     }
-  }, [audience, dispatch])
+  }, [audience, activeOrderId, dispatch])
 }

@@ -102,6 +102,11 @@ export default function MerchantOrders() {
   const confirmDispatch = () => {
     if (!dispatchId) return
     const order = orders.find((o) => o.id === dispatchId)
+    if (!order?.courierId) {
+      toast.error('Assign kurir dulu sebelum serahkan pesanan')
+      setDispatchId(null)
+      return
+    }
     dispatch(setOrderStatus({ id: dispatchId, status: 'diantar' }))
     persistStatus(dispatchId, 'diantar')
     toast.success(`Order ${order?.code ?? ''} siap dan diserahkan ke kurir`)
@@ -380,16 +385,22 @@ export default function MerchantOrders() {
                 </p>
 
                 {detailOrder.status === 'siap' ? (
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => {
-                      setDetailId(null)
-                      setDispatchId(detailOrder.id)
-                    }}
-                  >
-                    Siap diantar
-                  </button>
+                  <>
+                    {!detailOrder.courierId ? (
+                      <p className="merchant-card-sub">Pilih kurir dulu sebelum serahkan pesanan.</p>
+                    ) : null}
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      disabled={!detailOrder.courierId}
+                      onClick={() => {
+                        setDetailId(null)
+                        setDispatchId(detailOrder.id)
+                      }}
+                    >
+                      Siap diantar
+                    </button>
+                  </>
                 ) : (
                   <button
                     type="button"

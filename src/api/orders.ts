@@ -18,7 +18,7 @@ import type {
   PaymentMethod,
   ZoneId,
 } from '../types'
-import { createWith, patch, restWith, signInToken } from './supabase'
+import { createWith, createWithReturn, patch, restWith, signInToken } from './supabase'
 
 const DEMO_CUSTOMER_ID = 1
 const DEMO_MERCHANT_ID = 1
@@ -61,6 +61,8 @@ export interface NewOrder {
   platformFeeIdr: number
   totalIdr: number
   paymentMethod: PaymentMethod['id']
+  /** Zona kirim (hijazi/syimali) — dibaca merchant/kurir sebagai alamat. */
+  zoneCode?: ZoneId
 }
 
 /**
@@ -84,10 +86,10 @@ export function nextOrderCode(): string {
   return `SA-${Date.now().toString(36).toUpperCase()}`
 }
 
-/** Tulis order baru. Detail item tidak dikirim: `order_items` belum dipetakan. */
-export async function createOrder(order: NewOrder): Promise<void> {
+/** Tulis order baru; kembalikan `{id, code}` baris BE untuk pelacakan customer. */
+export async function createOrder(order: NewOrder): Promise<{ id: string; code: string }> {
   const token = await ensureCustomerToken()
-  await createWith(token, 'orders', {
+  const rows = await createWithReturn<{ id: number; code: string }>(token, 'orders', {
     code: order.code,
     customer_id: DEMO_CUSTOMER_ID,
     merchant_id: DEMO_MERCHANT_ID,
@@ -97,7 +99,10 @@ export async function createOrder(order: NewOrder): Promise<void> {
     platform_fee_jod: idrToJod(order.platformFeeIdr),
     total_jod: idrToJod(order.totalIdr),
     payment_method: OUT_PAYMENT[order.paymentMethod] ?? 'cod',
+    zone_code: order.zoneCode ?? null,
   })
+  const row = rows[0]
+  return { id: String(row?.id ?? ''), code: row?.code ?? order.code }
 }
 
 /** `api-<n>` / `<n>` → id numerik; seed non-numerik → NaN. */
@@ -186,10 +191,14 @@ const STATUS_MAP: Record<string, MerchantOrderStatus> = {
   accepted: 'diterima',
   diterima: 'diterima',
   preparing: 'disiapkan',
+  prepare: 'disiapkan',
   disiapkan: 'disiapkan',
   ready: 'siap',
   siap: 'siap',
+  waitingCourier: 'siap',
+  waitingDelivery: 'siap',
   delivering: 'diantar',
+  delivery: 'diantar',
   diantar: 'diantar',
   arrived: 'tiba',
   tiba: 'tiba',
@@ -293,7 +302,7 @@ const CHECKPOINT_OF_STATUS: Record<string, CourierTask['checkpoint']> = {
 }
 
 /** OTP 4 digit deterministik dari kode order (backend belum memodelkan OTP). */
-function otpOf(code: string): string {
+export function otpOf(code: string): string {
   let sum = 0
   for (const ch of code) sum = (sum * 31 + ch.charCodeAt(0)) % 10000
   return String(sum).padStart(4, '0')
@@ -333,4 +342,31 @@ export async function fetchCourierOrders(courierId = DEMO_COURIER_ID): Promise<C
     `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,zone_code,created_at,placed_at,courier_id&courier_id=eq.${courierId}&order=created_at.desc`,
   )
   return rows.map(toCourierTask)
+}
+
+export interface CustomerOrderLive {
+  id: string
+  code: string
+  status: MerchantOrderStatus
+  stage: OrderStage
+}
+
+/** Order milik customer demo — dipelacak halaman order customer (live + realtime). */
+export async function fetchCustomerOrder(orderId: string): Promise<CustomerOrderLive | null> {
+  const oid = numericOrderId(orderId)
+  if (!Number.isFinite(oid)) return null
+  const token = await ensureCustomerToken()
+  const rows = await restWith<OrderRow>(
+    token,
+    'orders',
+    `?select=id,code,status&id=eq.${oid}&limit=1`,
+  )
+  const row = rows[0]
+  if (!row) return null
+  return {
+    id: String(row.id),
+    code: row.code,
+    status: STATUS_MAP[row.status] ?? 'baru',
+    stage: STAGE_OF_STATUS[row.status] ?? 'baru',
+  }
 }

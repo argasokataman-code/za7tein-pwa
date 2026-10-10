@@ -7,10 +7,8 @@ import { DeliveryActionCard, DeliveryStepper } from './DeliveryCheckpoints'
 import { JourneyLine } from './JourneyLine'
 import { insertNotification } from '../api/notifications'
 
-import {
-  DELIVERY_OTP_DEMO,
-  COURIER_ACTION_LABEL,
-} from '../data/courier'
+import { otpOf } from '../api/orders'
+import { COURIER_ACTION_LABEL, DELIVERY_OTP_DEMO } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import { BottomSheet } from './ui/BottomSheet'
 import {
@@ -135,11 +133,13 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const deliveryCheckpointAt = useAppSelector((s) => s.cart.deliveryCheckpointAt)
   const gpsSnapshot = useAppSelector((s) => s.cart.gpsSnapshot)
   const orderCompletedAt = useAppSelector((s) => s.cart.orderCompletedAt)
+  const activeOrder = useAppSelector((s) => s.cart.activeOrder)
+  const orderCode = activeOrder?.code ?? mockOrder.code
   // Sengketa hidup di `admin.disputes` — satu sumber untuk order yang sama,
   // dibaca juga oleh antrean panel CS. Jadi order detail tidak menyimpan
   // salinan status yang bisa berbeda dengan yang diputuskan CS.
   const disputes = useAppSelector((s) => s.admin.disputes)
-  const dispute = disputes.find((d) => d.orderCode === mockOrder.code)
+  const dispute = disputes.find((d) => d.orderCode === orderCode)
   const isDisputed = dispute?.status === 'open' || dispute?.status === 'investigating'
   const resolutionToken = dispute?.resolution ? resolvedOrderToken(dispute.resolution) : null
   const { now } = useTick()
@@ -240,7 +240,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
     // Pengiriman selesai = pesanan tiba: layar perayaan yang menyalurkan ke
     // rating kurir (F19). Sebelumnya tidak ada yang membuka rute ini. Kode order
     // ikut dibawa supaya layar rating dan tip terikat ke order yang sama.
-    navigate(`/order-arrived?order=${mockOrder.code}`)
+    navigate(`/order-arrived?order=${orderCode}`)
   }
 
   const mapBlock = (
@@ -281,7 +281,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
             </button>
             <div className="track-header-text">
               <h1 className="track-title">Pesanan</h1>
-              <span className="track-ref">#{mockOrder.code}</span>
+              <span className="track-ref">#{orderCode}</span>
             </div>
           </header>
 
@@ -435,7 +435,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 checkpoint={deliveryCheckpoint}
                 startedAt={deliveryCheckpointAt}
                 now={now}
-                otpDisplayCode={DELIVERY_OTP_DEMO}
+                otpDisplayCode={activeOrder ? otpOf(activeOrder.code) : DELIVERY_OTP_DEMO}
                 otpStep={deliveryCheckpoint === 'tiba' || courierArrived}
                 autoSettlePaused={isDisputed}
                 evidence={
@@ -536,7 +536,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                       className="track-action"
                       type="button"
                       disabled={!disputeWindowOpen}
-                      onClick={() => navigate(`/dispute?order=${mockOrder.code}&by=customer`)}
+                      onClick={() => navigate(`/dispute?order=${orderCode}&by=customer`)}
                     >
                       <IconScale />
                       {disputeWindowOpen ? 'Ajukan' : 'Window lewat'}

@@ -176,3 +176,26 @@ export async function createWith(
   })
   if (!res.ok) throw new Error(`[api] POST ${table} ${res.status}`)
 }
+
+/**
+ * POST yang **mengembalikan baris** (`Prefer: return=representation`) — dipakai
+ * saat id/code baris baru diperlukan (mis. `orders` setelah checkout).
+ */
+export async function createWithReturn<T>(
+  token: string,
+  table: string,
+  body: Record<string, unknown>,
+): Promise<T[]> {
+  const res = await fetch(`${url}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+      Prefer: 'return=representation',
+    },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) throw new Error(`[api] POST ${table} ${res.status}`)
+  return (await res.json()) as T[]
+}

@@ -61,6 +61,28 @@ export const foodApi = baseApi.injectEndpoints({
           transitions are persisted to <code className="doc-inline">orders.status</code> and courier
           checkpoints to <code className="doc-inline">checkpoints</code>.
         </li>
+        <li>
+          <strong>Status enum.</strong> The backend <code className="doc-inline">orders.status</code>{' '}
+          CHECK uses <code className="doc-inline">cart · quotation · canceled · prepare ·
+          waitingCourier · waitingDelivery · delivery · done</code>. The read map (
+          <code className="doc-inline">STATUS_MAP</code> / <code className="doc-inline">STAGE_OF_STATUS</code>{' '}
+          in <code className="doc-inline">src/api/orders.ts</code>) must cover every backend value, or the
+          order falls back to <code className="doc-inline">baru</code> on read even though the write
+          succeeded.
+        </li>
+        <li>
+          <strong>Customer tracking is live.</strong> The order-placed screen reads the active order (
+          <code className="doc-inline">cart.activeOrder</code>, set at checkout) and mirrors{' '}
+          <code className="doc-inline">orders.status</code> through the same realtime channel; the
+          journey stage and the OTP shown to the customer come from that order, not from a mock.
+        </li>
+        <li>
+          <strong>Courier OTP</strong> is derived deterministically from the order code (
+          <code className="doc-inline">otpOf</code>, same source on the customer and courier sides).
+          <strong>Assigned courier is required</strong> before the merchant can dispatch (
+          <code className="doc-inline">waitingCourier → delivery</code>): the button is disabled until
+          a courier is chosen.
+        </li>
       </ul>
       <h3 className="doc-h3">
         Reference data — live reads
@@ -97,11 +119,11 @@ export const foodApi = baseApi.injectEndpoints({
         Order tracking — WebSocket
       </h3>
       <p className="doc-p">
-        The tracking pages simulate GPS movement with
-        <code className="doc-inline">
-          setTimeout
-        </code>
-        . Replace with a WebSocket or polling endpoint from your delivery backend.
+        The customer order screen calls <code className="doc-inline">fetchCustomerOrder</code> and
+        replays <code className="doc-inline">orders.status</code> over the realtime channel, so
+        merchant and courier actions update the customer's stage with no reload. Courier GPS is still
+        simulated with <code className="doc-inline">setTimeout</code>; replace it with a live location
+        feed from your delivery backend.
       </p>
     </DocSection>
   )

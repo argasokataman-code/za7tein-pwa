@@ -23,7 +23,13 @@ import {
 import { mockMerchant } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { selectSubtotal, setTransferProof, createOrderHold } from '../store/slices/cartSlice'
+import {
+  selectSubtotal,
+  setTransferProof,
+  createOrderHold,
+  setActiveOrder,
+  setOrderStage,
+} from '../store/slices/cartSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
 
 export default function PaymentAmount() {
@@ -92,6 +98,8 @@ export default function PaymentAmount() {
     }
     // Tulis order ke backend (best-effort): UI tetap jalan sebagai mock kalau
     // jaringan/RLS menolak, jadi kegagalan tidak menghalangi navigasi.
+    // Sukses → simpan id/code order ke store supaya pelacakan customer membaca
+    // status live (`orders.status`) + realtime, bukan `mockOrder`.
     void createOrder({
       code: nextOrderCode(),
       subTotalIdr: subtotal,
@@ -99,7 +107,13 @@ export default function PaymentAmount() {
       platformFeeIdr: PLATFORM_FEE_CUSTOMER_IDR,
       totalIdr: total,
       paymentMethod: method.id,
-    }).catch(() => {})
+      zoneCode: zone?.id,
+    })
+      .then((created) => {
+        dispatch(setActiveOrder(created))
+        dispatch(setOrderStage('baru'))
+      })
+      .catch(() => {})
     // Emit notifikasi (best-effort): merchant dapat order baru; customer dapat
     // konfirmasi pembayaran untuk metode non-COD.
     void insertNotification({

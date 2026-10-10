@@ -96,6 +96,7 @@ const HERO_TAGS = [
   'React 19',
   'TypeScript',
   'Redux Toolkit',
+  'Supabase Realtime',
   'SCSS',
   'PWA',
   'Zod',

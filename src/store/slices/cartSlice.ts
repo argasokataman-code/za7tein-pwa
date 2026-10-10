@@ -24,6 +24,12 @@ interface CartState {
   /** Tahap berjalan; halaman pelacakan menyesuaikan tampilannya dari sini. */
   orderStage: OrderStage
   /**
+   * Order BE aktif (dibuat checkout). `id` numerik sebagai string, `code` =
+   * kode order. Dipakai pelacakan customer untuk membaca status live (`orders.status`)
+   * + menampilkan kode benar, bukan `mockOrder`.
+   */
+  activeOrder: { id: string; code: string } | null
+  /**
    * Hold COD via wallet (R-COD-01, F2). Satu urutan: none → held → cut →
    * settled, dengan jalur batal released/reversed. Nominalnya disimpan sekali
    * saat hold dibuat supaya transisi berikutnya tidak bisa memakai angka lain.
@@ -64,6 +70,7 @@ const initialState: CartState = {
   // Order demo dimulai dari tahap yang sama dengan yang dilihat merchant
   // ('baru' di `merchantOrders` SA-1041) dan kurir (checkpoint 'masuk', belum diambil).
   orderStage: 'baru',
+  activeOrder: null,
   holdStatus: 'none',
   holdAmountIdr: 0,
   holdLedger: [],
@@ -113,6 +120,10 @@ const cartSlice = createSlice({
     },
     setOrderStage(state, action: PayloadAction<OrderStage>) {
       state.orderStage = action.payload
+    },
+    /** Simpan order BE aktif (dipanggil setelah checkout menulis order). */
+    setActiveOrder(state, action: PayloadAction<{ id: string; code: string }>) {
+      state.activeOrder = action.payload
     },
     updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
       const item = state.items.find((i) => i.id === action.payload.id)
@@ -281,6 +292,8 @@ export const {
   advanceDelivery,
   completeDelivery,
   resetDelivery,
+  setOrderStage,
+  setActiveOrder,
 } = cartSlice.actions
 
 export const selectCartCount = (items: CartItem[]) =>
