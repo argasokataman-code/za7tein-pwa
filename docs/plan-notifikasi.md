@@ -5,10 +5,13 @@ Front-end showcase. Data mock, Redux; **baca live** dari PostgREST `notification
 Sumber: flow `f11-push-notification` (+ `f1-order-lifecycle`, `f8-dispute`),
 R-PUSH-01 / C-18, PRD aktif `irbid-mvp-v2-2026-09-21`.
 
-**Status: N0–N4 rencana.** Web Push asli (service worker, `PushManager`,
-`POST /push/subscriptions`) **tetap di luar scope** — repo ini tak punya SW push
-(AGENTS §1, R-PUSH-01 M8). Milestone ini mengurus **inbox + emit data**, bukan
-pengiriman ke perangkat.
+**Status: N0–N4 selesai.** Emit + inbox per audience + persist read terverifikasi
+live; flows-gate `f11` deliver 9/9 (err=0), `visual-check` ter-skip karena driver
+browser archify tak tersedia di sesi ini (bukan cacat flow).
+
+Web Push asli (service worker, `PushManager`, `POST /push/subscriptions`) **tetap
+di luar scope** — repo ini tak punya SW push (AGENTS §1, R-PUSH-01 M8). Milestone
+ini mengurus **inbox + emit data**, bukan pengiriman ke perangkat.
 
 ## Prinsip
 
