@@ -86,7 +86,7 @@ Repo 4 portal itu (`apps/{customer,merchant,courier,cs}`, JS + Zustand + Supabas
 | I-1 | Insentif: fee customer di ketentuan insentif tertulis 0,20 JOD, keputusan PO = 0,22 JOD | RESOLVED (PO 2026-09-22: 0,22 JOD) |
 | I-2 | Insentif: modal 5 JOD menggantikan atau menambah deposit COD 3,50 JOD (PRD aktif §5C) | RESOLVED (PO 2026-09-22: terpisah — kredit sistem non-tunai, bukan ganti/tambah deposit) |
 | I-3 | Insentif: cashback masuk dompet deposit merchant — non-withdrawal atau bisa ditarik | RESOLVED (PO 2026-09-23: non-withdrawal, hanya untuk pemakaian in-app) |
-| I-4 | Insentif: periode tier (bulan kalender?) + perlakuan naik tier di tengah bulan | UNRESOLVED |
+| I-4 | Insentif: periode tier (bulan kalender?) + perlakuan naik tier di tengah bulan | RESOLVED (PO 2026-10-10: bulan kalender; tier dinilai akhir bulan, tanpa proporsional) |
 | I-5 | Insentif: kuota Founding (dibatasi jumlah merchant?) dan durasi berlaku | UNRESOLVED |
 | I-6 | Insentif: sisa modal 5 JOD kalau merchant berhenti — hangus atau utang | RESOLVED (PO 2026-09-23: hangus) |
 

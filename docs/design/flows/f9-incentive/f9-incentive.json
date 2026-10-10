@@ -42,11 +42,11 @@
     { "id": "e-tier-pay", "from": "tier", "to": "pay", "label": "tercapai", "role": "main", "variant": "emphasis" },
     { "id": "e-pay-deposit", "from": "pay", "to": "deposit", "label": "kas keluar platform", "role": "main" },
     { "id": "e-debit-habis", "from": "debit", "to": "habis", "label": "≈33 order", "role": "branch" },
-    { "id": "e-tier-open", "from": "tier", "to": "open", "label": "periode & kuota?", "role": "error", "variant": "dashed" }
+    { "id": "e-tier-open", "from": "tier", "to": "open", "label": "kuota Founding?", "role": "error", "variant": "dashed" }
   ],
   "cards": [
     { "dot": "orange", "title": "Modal 5 JOD (I-2 RESOLVED)", "items": ["Kredit sistem non-tunai, non-withdrawal — hanya memotong fee 0,15; fee customer tetap 0,22 (I-1 RESOLVED)", "≈33 order pertama (5 ÷ 0,15 = 33,3); akun ledger merchant_credit", "TERPISAH dari deposit COD 3,50 JOD (PO 2026-09-22)"] },
     { "dot": "amber", "title": "Tier bulanan", "items": ["Tier 1: 500 order → 15 JOD (fee efektif 0,12/porsi)", "Tier 2: 1.000 → 40 JOD (0,11) · Tier 3: 1.250+ → 62,5 JOD (0,10)", "Cashback = arus kas keluar akhir bulan → dompet deposit dapur"] },
-    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-INCENTIVE-01 — analysis.md · M10 — milestones.md (deps M0, M3, M9)", "I-3: cashback withdrawable? · I-4: periode tier & naik di tengah bulan", "I-5: kuota Founding · I-6: sisa modal saat merchant berhenti"] }
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-INCENTIVE-01 — analysis.md · M10 — milestones.md (deps M0, M3, M9)", "I-3: cashback withdrawable? · I-5: kuota Founding · I-6: sisa modal saat merchant berhenti", "I-4 RESOLVED (PO 2026-10-10): periode bulan kalender, tier dinilai akhir bulan"] }
   ]
 }

@@ -13,6 +13,12 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 
 ## Riwayat keputusan
 
+### Periode tier insentif (I-4) — 2026-10-10 (keputusan PO)
+
+- **Periode tier = bulan kalender** (`rebate_period` `YYYY-MM`, `currentPeriod()`), dan **tier dinilai/dibuka tiap akhir bulan**.
+- **Naik tier di tengah bulan tidak proporsional**: yang berlaku adalah tier pada akhir bulan; ambang yang terlewati di tengah bulan tidak memberi cashback prorata.
+- Menutup **I-4** (di `source.md` §Belum final dan `analysis.md`). I-5 (kuota Founding) tetap UNRESOLVED.
+
 ### Model status pesanan 5 tahap (EDISI 01) — 2026-10-09 (keputusan PO)
 
 - **Journey pesanan memakai 5 tahap kanonik** dari Figma Patterns EDISI 01: `Baru → Disiapkan → Siap → Diantar → Selesai` (`OrderStage`). Ini **lapisan tampilan** di atas state machine backend `f18-order-state` (enum 8 state tetap): Baru=`quotation`, Disiapkan=`prepare`, Siap=`waitingCourier`, Diantar=`waitingDelivery`/`delivery`, Selesai=`done`.

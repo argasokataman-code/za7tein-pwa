@@ -37,7 +37,7 @@ Onboarding merchant: registrasi toko → approval Super Admin → deposit 3,50 J
 - `docs/product/schema-draft-v1.md` — entri 4 (`merchant.tenantStatus`, `depositStatus`, profil merchant, `deliveryConfig`) — **rancangan data**, hanya untuk nama field
 - `src/lib/schemas.ts` (`merchantSignInSchema`, `merchantSignUpSchema`); `src/data/merchant.ts` (`MAX_COURIERS_PER_MERCHANT`); `src/App.tsx` route `/merchant/signup`
 - `f15-super-admin` — sisi approval: queue `tenantStatus: pending`, deposit `unpaid → held`, blacklist `tenantStatus: blacklisted`; `f9-incentive` — kredit + cashback detail
-- **UNRESOLVED (jangan ditebak):** AUTH-1 — diputuskan (PO 2026-09-22): Google + nomor WA Level 1, tanpa OTP · mekanisme verifikasi deposit (cek mutasi bank manual? upload bukti transfer?) · dokumen legal merchant (NPWP/ID — ada di PRD?) · jadwal review SLA onboarding · I-3 cashback withdrawable? · I-4 periode tier · I-5 kuota Founding · I-6 sisa modal saat merchant berhenti
+- **UNRESOLVED (jangan ditebak):** AUTH-1 — diputuskan (PO 2026-09-22): Google + nomor WA Level 1, tanpa OTP · mekanisme verifikasi deposit (cek mutasi bank manual? upload bukti transfer?) · dokumen legal merchant (NPWP/ID — ada di PRD?) · jadwal review SLA onboarding · I-3 cashback withdrawable? · I-5 kuota Founding · I-6 sisa modal saat merchant berhenti
 
 ## Update
 

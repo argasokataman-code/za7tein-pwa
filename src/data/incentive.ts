@@ -9,9 +9,10 @@
  * 2. **Cashback tier** — dibayar akhir bulan kalau ambang order settled
  *    terlewati, dan masuk ke dompet **deposit**, bukan ke modal.
  *
- * I-3 (cashback withdrawable?), I-4 (periode & naik tier di tengah bulan),
- * I-5 (kuota Founding), dan I-6 (sisa modal kalau merchant berhenti) belum
- * final — jangan dianggap aturan terkunci.
+ * I-3 (cashback non-withdrawal, PO 2026-09-23), I-4 (periode bulan kalender,
+ * tier dinilai akhir bulan — naik tier di tengah bulan tidak proporsional,
+ * PO 2026-10-10), dan I-6 (sisa modal hangus, PO 2026-09-23) sudah diputuskan.
+ * I-5 (kuota Founding) belum final — jangan dianggap aturan terkunci.
  */
 import type { MerchantCreditEventName, MerchantCreditState, RebateTier } from '../types'
 

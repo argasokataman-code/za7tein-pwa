@@ -14,7 +14,7 @@ Workflow insentif merchant baru. Milestone **M10** (deps M0, M3, M9); PRD aktif 
 
 **Lane Cashback:** Volume settled (order/bulan) → Cek tier (500 / 1.000 / 1.250) → Cashback bulanan (15/40/62,5 JOD, arus kas keluar platform) → Dompet deposit merchant.
 
-**Lane UNRESOLVED:** guard dari Cek tier — periode & kuota (I-4/I-5).
+**Lane UNRESOLVED:** guard dari Cek tier — kuota Founding (I-5). Periode tier (I-4) resolved PO 2026-10-10: bulan kalender, tier dinilai akhir bulan.
 
 ## Angka
 
@@ -33,7 +33,7 @@ Volume dari `f2-cod-hold:cut->settled`; fee 0,15 ditahan mengikuti `f4-fee-tax`;
 ## Sumber (jangan dikarang)
 
 - `R-INCENTIVE-01` — `analysis.md` · Milestone M10 — `versions/irbid-mvp-v2-2026-09-21/milestones.md`
-- **UNRESOLVED (jangan ditebak):** I-3 cashback withdrawable? · I-4 periode tier & naik di tengah bulan · I-5 kuota Founding · I-6 sisa modal saat merchant berhenti
+- **UNRESOLVED (jangan ditebak):** I-3 cashback withdrawable? · I-5 kuota Founding · I-6 sisa modal saat merchant berhenti. I-4 RESOLVED (PO 2026-10-10): bulan kalender, tier dinilai akhir bulan.
 
 ## Update
 

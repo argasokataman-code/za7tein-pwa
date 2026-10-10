@@ -3341,6 +3341,103 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-012-fix-2026-10-10.md"
+    },
+    {
+      "id": "TASK-10218",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:38:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantRebate.tsx (+7/-3) — edit via tool: tsx: <p className=\"merchant-card-su",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantRebate.tsx"
+    },
+    {
+      "id": "TASK-10219",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:38:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/incentive.ts (+4/-3) — edit via tool: ts: * I-3 (cashback non-withdrawal, PO 202",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/incentive.ts"
+    },
+    {
+      "id": "TASK-10220",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:48:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+4/-2) — edit via tool: /* + safe-area: di app-mode (PW",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "DEC-1041",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-10",
+      "time": "19:49:09",
+      "tags": [
+        "incentive",
+        "prd",
+        "merchant"
+      ],
+      "summary": "I-4 resolved (PO 2026-10-10): periode tier bulan kalender; tier dinilai akhir bulan, tanpa proporsional. I-5 tetap UNRESOLVED",
+      "conn": [
+        {
+          "id": "TASK-10217",
+          "type": "relates",
+          "raw": "TASK-10217:relates"
+        }
+      ],
+      "loc": "src/data/incentive.ts:12"
+    },
+    {
+      "id": "TASK-10221",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:49:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+1/-2) — edit via tool: /* + safe-area: nav fixed ~113p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
     }
   ]
 }

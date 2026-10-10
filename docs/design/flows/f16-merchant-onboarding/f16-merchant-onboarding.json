@@ -271,7 +271,7 @@
       "title": "Sumber & UNRESOLVED",
       "items": [
         "Dasar: PRD §5C (deposit 3,50 JOD) + §Insentif Founding (kredit 5 JOD, cashback 15/40/62,5 JOD) + I-1/I-2 + `C-12` · schema-draft entri 4 hanya nama field · front-end saja (AGENTS.md §1)",
-        "UNRESOLVED: verifikasi deposit · I-3 cashback withdrawable · I-4 periode tier · I-5 kuota Founding · I-6 sisa modal",
+        "UNRESOLVED: verifikasi deposit · I-3 cashback withdrawable · I-5 kuota Founding · I-6 sisa modal",
         "UNRESOLVED: dokumen legal merchant · jadwal review SLA onboarding"
       ]
     }

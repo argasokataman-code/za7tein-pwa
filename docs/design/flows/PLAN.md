@@ -141,7 +141,7 @@ Urutan bangun = urutan milestone (M1 → M11), lalu nilai baca. Status: `todo` /
 ### F9 — Insentif Founding Merchant ✅ done
 - **Slug:** `f9-incentive` · **Type:** `workflow` · **Milestone:** M10
 - **Alur:** merchant baru dapat kredit 5 JOD (non-withdrawal) → fee 0,15 JOD dipotong dari kredit (~33 order) → ambang tier 500 / 1.000 / 1.250 order per periode → cashback 15 / 40 / 62,5 JOD ke dompet deposit
-- **UNRESOLVED:** withdrawability cashback (I-3), periode tier (I-4), kuota Founding (I-5), sisa modal saat berhenti (I-6)
+- **UNRESOLVED:** withdrawability cashback (I-3), kuota Founding (I-5), sisa modal saat berhenti (I-6) — I-4 resolved PO 2026-10-10: periode bulan kalender, tier dinilai akhir bulan
 - **Sumber:** R-INCENTIVE-01; M10
 
 ### F10 — Kurs IDR↔JOD ✅ done

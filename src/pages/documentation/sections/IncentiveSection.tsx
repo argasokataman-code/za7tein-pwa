@@ -53,18 +53,20 @@ export function IncentiveSection() {
       </p>
       <p className="doc-p">
         Alasannya juga soal proses. <code className="doc-inline">I-4</code> (periode tier +
-        perlakuan naik tier di tengah periode) dan <code className="doc-inline">I-5</code> (kuota
-        &amp; durasi Founding) masih <code className="doc-inline">UNRESOLVED</code> di PRD aktif,
-        dan flow <code className="doc-inline">F9</code> tidak punya node "operator mengubah
+        perlakuan naik tier di tengah periode) sudah diputuskan PO 2026-10-10 — periode{' '}
+        <strong>bulan kalender</strong>, <strong>tier dinilai/dibuka akhir bulan</strong>, naik tier
+        di tengah bulan tidak proporsional — sementara <code className="doc-inline">I-5</code>{' '}
+        (kuota &amp; durasi Founding) masih <code className="doc-inline">UNRESOLVED</code> di PRD
+        aktif. Flow <code className="doc-inline">F9</code> tetap tidak punya node "operator mengubah
         parameter" — node-nya murni perjalanan dana:{' '}
-        <code className="doc-inline">grant → debit → volume → tier → pay → deposit</code>. Kalau
-        nanti PO memutuskan I-4/I-5, jawabannya masuk PRD <em>dan</em> flow dulu, baru berubah di
-        kode. Layar konfigurasi yang bisa diubah kapan saja justru menyediakan jalan pintas untuk
-        melewati proses itu.
+        <code className="doc-inline">grant → debit → volume → tier → pay → deposit</code>. Tiap
+        keputusan PO masuk PRD <em>dan</em> flow dulu, baru berubah di kode. Layar konfigurasi yang
+        bisa diubah kapan saja justru menyediakan jalan pintas untuk melewati proses itu.
       </p>
       <p className="doc-p">
-        Di PWA merchant, kedua pertanyaan itu ditulis apa adanya sebagai "belum final" di{' '}
-        <code className="doc-inline">/merchant/insentif</code> — bukan dijawab dengan tebakan.
+        Di PWA merchant, pertanyaan yang belum final ditulis apa adanya sebagai "belum final" di{' '}
+        <code className="doc-inline">/merchant/insentif</code> — bukan dijawab dengan tebakan. I-4
+        kini keluar dari daftar itu dan dipajang sebagai aturan.
       </p>
       <DocCode lang="typescript">
         {`grantCredit()          // modal 5 JOD   → event merchant_credit_granted
@@ -96,8 +98,8 @@ payRebate()            // cashback ke dompet deposit → rebate_paid (simulasi p
       <p className="doc-p">
         Beranda dapur hanya memuat ringkasan 186&nbsp;px: sisa modal, progres tier, dan status
         cashback periode ini, dengan satu tautan <em>Lihat rincian &amp; riwayat</em>. Riwayat
-        append-only, daftar ambang, catatan <code className="doc-inline">I-4</code>/
-        <code className="doc-inline">I-5</code>, dan blok simulasi pindah ke{' '}
+        append-only, daftar ambang, catatan <code className="doc-inline">I-5</code>, dan blok
+        simulasi pindah ke{' '}
         <code className="doc-inline">/merchant/insentif</code> (
         <code className="doc-inline">MerchantRebate.tsx</code>, layar yang memang sudah disebut
         <code className="doc-inline">analysis.md:131</code>).
@@ -122,10 +124,10 @@ payRebate()            // cashback ke dompet deposit → rebate_paid (simulasi p
         <code className="doc-inline">I-3</code>) — masuk dompet deposit tapi hanya bisa dipakai di
         dalam aplikasi — dan <strong>sisa modal hangus</strong> kalau merchant berhenti (
         <code className="doc-inline">I-6</code>), karena modal adalah kredit digital yang memang
-        tidak bisa dicairkan. Jadi tidak ada jalur pencairan untuk modal maupun cashback; yang
-        belum final tinggal definisi periode &amp; naik tier di tengah bulan (
-        <code className="doc-inline">I-4</code>) dan kuota Founding merchant (
-        <code className="doc-inline">I-5</code>).
+        tidak bisa dicairkan. PO 2026-10-10 memutuskan periode tier (
+        <code className="doc-inline">I-4</code>): <strong>bulan kalender, tier dinilai akhir
+        bulan</strong>, tanpa proporsional. Yang belum final tinggal kuota &amp; durasi Founding
+        merchant (<code className="doc-inline">I-5</code>).
       </p>
     </DocSection>
   )

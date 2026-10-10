@@ -78,7 +78,7 @@
     { "req": "R-CASHOUT-01", "flows": ["f6-cashout-payout"], "entities": ["cashouts", "wallets"], "unresolved": ["OQ-16", "OQ-22"] },
     { "req": "R-LEDGER-01", "flows": ["f7-ledger-liability", "f17-payment-xendit:paid"], "entities": ["wallet_ledgers", "liabilities"] },
     { "req": "R-DISPUTE-01", "flows": ["f8-dispute", "f15-super-admin:dispute"], "entities": ["disputes", "protection_fund", "orders"], "unresolved": ["kategori & SLA dispute (OQ-29 sementara)"] },
-    { "req": "R-INCENTIVE-01", "flows": ["f9-incentive"], "entities": ["merchant_credit", "cashback_tiers"], "unresolved": ["I-4", "I-5"] },
+    { "req": "R-INCENTIVE-01", "flows": ["f9-incentive"], "entities": ["merchant_credit", "cashback_tiers"], "unresolved": ["I-5"] },
     { "req": "R-CURR-01", "flows": ["f10-exchange-rate"], "entities": ["exchange_rates"], "unresolved": ["OQ-26", "OQ-28"] },
     { "req": "R-PUSH-01", "flows": ["f11-push-notification"], "entities": ["push_subscriptions"], "unresolved": ["uji push di device"] },
     { "req": "MERCHANT-CONSOLE", "flows": ["f1-order-lifecycle:dapur", "f12-merchant-console"], "entities": ["orders", "couriers", "merchant_credit"], "unresolved": ["angka SLA (DEC-1037 sementara)"], "note": "tanpa R-* khusus — sumber plan-merchant.md M0-M7 + C-06/C-07" },

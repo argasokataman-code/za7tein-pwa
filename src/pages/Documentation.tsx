@@ -279,7 +279,10 @@ export default function Documentation() {
               menambah state kosong terdesain dan banner &ldquo;data terakhir&rdquo; saat hidrasi API
               gagal, memindahkan legenda &ldquo;Komposisi order&rdquo; ke samping donut sehingga kartunya
               menyusut 554 &rarr; 414px, serta menyatukan sistem radius (lingkaran 50%, track/badge
-              --radius-xs) dan ritme jarak antar blok ke 16px.
+              --radius-xs) dan ritme jarak antar blok ke 16px. Periode tier insentif kini
+              diputuskan (I-4): bulan kalender dengan tier dinilai akhir bulan — naik tier di
+              tengah bulan tidak proporsional — tertulis di PRD, flow F9/F16, dan layar
+              /merchant/insentif.
               Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">

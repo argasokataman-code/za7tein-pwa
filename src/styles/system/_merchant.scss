@@ -12,7 +12,8 @@
   /* Nada merek merchant yang dipadatkan agar teks putih kecil di hero + kartu
      pendapatan lolos AA 4,5:1 (oranye murni 4,02:1, audit 012 #1). */
   --merchant-brand: color-mix(in srgb, var(--sa7tein-orange) 65%, var(--orange-deep));
-  padding: var(--space-5) var(--space-5) calc(var(--nav-height) + var(--space-6));
+  /* + safe-area: nav fixed ~113px di app-mode (safe-area 34); 88px kurang. */
+  padding: var(--space-5) var(--space-5) calc(var(--nav-height) + env(safe-area-inset-bottom, 0px) + var(--space-6));
 }
 
 .merchant-header {

@@ -91,6 +91,10 @@ export default function MerchantRebate() {
 
           <p className="merchant-card-sub">{statusCashback}</p>
           <p className="merchant-card-sub">
+            Periode bulan kalender; tier dinilai akhir bulan, jadi naik tier di tengah bulan tidak
+            proporsional.
+          </p>
+          <p className="merchant-card-sub">
             Dompet deposit sekarang {money(jodToIdr(credit.depositBalanceJod))} (
             {jod(credit.depositBalanceJod)}).
           </p>
@@ -156,16 +160,13 @@ export default function MerchantRebate() {
           <p className="merchant-card-title">Yang belum final</p>
           <ul className="merchant-open-list">
             <li>
-              <strong>I-4</strong> — periode tier: bulan kalender, dan perlakuan naik tier di
-              tengah bulan (proporsional atau tier akhir bulan).
-            </li>
-            <li>
               <strong>I-5</strong> — kuota Founding: dibatasi jumlah merchant atau berlaku untuk
               semua merchant baru, dan berapa lama.
             </li>
           </ul>
           <p className="merchant-card-sub">
-            Dua yang sudah putus: cashback <strong>non-withdrawal</strong> (I-3) dan sisa modal{' '}
+            Yang sudah putus: cashback <strong>non-withdrawal</strong> (I-3), periode tier{' '}
+            <strong>bulan kalender dengan tier dinilai akhir bulan</strong> (I-4), dan sisa modal{' '}
             <strong>hangus</strong> kalau merchant berhenti (I-6). Angka di layar ini adalah state
             demo, bukan counter sungguhan.
           </p>
