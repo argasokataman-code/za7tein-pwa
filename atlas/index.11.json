@@ -1,0 +1,178 @@
+{
+  "shard": 11,
+  "nodes": [
+    {
+      "id": "TASK-10062",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:02:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-4) — edit via tool: tsx: registrasi push di Pengaturan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10063",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:02:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+8/-7) — edit via tool: tsx: <DocSectio",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-10064",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:03:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+38/-16) — edit via tool: tsx: <h3 clas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-10065",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:03:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/push.ts (+8/-5) — edit via tool: ts: export async function subscribePush(): P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/push.ts"
+    },
+    {
+      "id": "TASK-10066",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:03:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx (+5/-3) — edit via tool: tsx: const [pushId, setPushId",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx"
+    },
+    {
+      "id": "TASK-10067",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:03:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10068",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:04:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+1/-1) — edit via tool: tsx: <code clas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-10069",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:04:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run governance:check 2>&1 | tail -6; echo \"=== scan ===\"; npm run scan 2>&1 | tail -4; echo \"=== build ===\"; npm run build 2>&1 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-9984",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:15:05",
+      "tags": [
+        "push",
+        "vapid",
+        "pwa",
+        "notification"
+      ],
+      "summary": "Web Push VAPID nyata: SW push handler + PushManager.subscribe + sender scripts/send-push.mjs",
+      "conn": [
+        {
+          "id": "FEAT-9982",
+          "type": "relates",
+          "raw": "FEAT-9982:relates"
+        }
+      ]
+    }
+  ]
+}

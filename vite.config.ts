@@ -18,6 +18,10 @@ export default defineConfig({
       // diam-diam, dan offline mati. webp cukup ditambahkan ke globPatterns.
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,woff2}'],
+        // push-sw.js diimpor saat runtime (importScripts), jangan ikut precache:
+        // entri ganda bikin `add-to-cache-list-conflicting-entries`.
+        globIgnores: ['**/push-sw.js'],
+        importScripts: ['push-sw.js'],
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/api\//, /^\/$/, /^\/documentation/],
         runtimeCaching: [

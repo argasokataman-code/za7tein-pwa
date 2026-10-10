@@ -217,9 +217,11 @@ export default function Documentation() {
               ("44 Street Town") — placeholder "Lokasi" sampai alamat nyata termuat; kotak masuk
               notifikasi kini murni dari backend — seed mock + badge "3" dihapus, dan daftar
               dikosongkan bila API tak mengembalikan baris; registrasi push di Pengaturan
-              Notifikasi kini berupa sakelar "Notifikasi push" yang menyimpan baris ke tabel
+              Notifikasi kini berupa sakelar "Notifikasi push" yang berlangganan Web Push VAPID
+              sungguhan (endpoint dari push service peramban) dan menyimpan baris ke tabel
               push_subscriptions (dibaca kembali saat mount, detail teknis dipindah ke halaman
-              dokumentasi; pengirimannya tetap belum ada); toggle
+              dokumentasi; pemberitahuan diantar lewat service worker push, dikirim dari skrip
+              scripts/send-push.mjs); toggle
               buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko

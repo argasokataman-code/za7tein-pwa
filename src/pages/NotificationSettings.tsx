@@ -7,25 +7,22 @@ import { useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
+import { subscribePush, pushSupported, unsubscribePush } from '../api/push'
 import {
   deletePushSubscription,
   fetchPushSubscription,
   savePushSubscription,
   type PushRow,
 } from '../api/profile'
-import { mockPushSubscription } from '../data/notifications'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { clearPush, registerPush } from '../store/slices/notificationsSlice'
 import type { PushSubscriptionRecord } from '../types'
 
 const TOGGLES = [
-  { id: 'notifications', label: 'Notifikasi', on: true },
-  { id: 'sound', label: 'Suara', on: false },
-  { id: 'vibrate', label: 'Getar', on: false },
-  { id: 'offers', label: 'Promo & Penawaran', on: true },
-  { id: 'payments', label: 'Pembayaran', on: false },
-  { id: 'cashback', label: 'Cashback', on: false },
-  { id: 'updates', label: 'Pembaruan Aplikasi', on: true },
+  { id: 'order', label: 'Status pesanan', on: true },
+  { id: 'courier', label: 'Kurir & pengantaran', on: true },
+  { id: 'promo', label: 'Promo & Penawaran', on: true },
+  { id: 'payment', label: 'Pembayaran', on: false },
 ] as const
 
 /** Baris backend → record tampilan (platform dari UA, waktu dari `created_at`). */
@@ -39,11 +36,18 @@ function toRecord(row: PushRow): PushSubscriptionRecord {
   }
 }
 
+const platformLabel = () =>
+  navigator.userAgent.includes('Mobile') ? 'mobile-web' : 'web'
+
 export default function NotificationSettings() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const subscription = useAppSelector((s) => s.notifications.subscription)
   const [pushId, setPushId] = useState<string | null>(null)
+  const [busy, setBusy] = useState(false)
+  // Service worker hanya ada di build/preview, bukan dev — sejalan dengan
+  // pushSupported(); toggle dimatikan di dev supaya tidak menjanjikan hal salah.
+  const supported = import.meta.env.PROD && pushSupported()
 
   // Registrasi tersimpan di tabel `push_subscriptions` — muat saat mount supaya
   // status "aktif" bertahan lintas refresh, bukan hanya di store satu sesi.
@@ -66,24 +70,43 @@ export default function NotificationSettings() {
   }, [dispatch])
 
   const activate = async () => {
-    const sub = mockPushSubscription(
-      navigator.userAgent.includes('Mobile') ? 'mobile-web' : 'web',
-    )
+    setBusy(true)
     try {
-      const row = await savePushSubscription(sub.endpoint, sub.keys.p256dh, sub.keys.auth)
-      if (row) setPushId(String(row.id))
-    } catch {
-      toast.error('Gagal menyimpan registrasi')
+      // Langganan nyata: endpoint dari push service peramban (VAPID), bukan mock.
+      const keys = await subscribePush()
+      const row = await savePushSubscription(keys.endpoint, keys.p256dh, keys.auth)
+      setPushId(row ? String(row.id) : null)
+      dispatch(
+        registerPush({
+          subscription: {
+            id: row ? String(row.id) : undefined,
+            endpoint: keys.endpoint,
+            keys: { p256dh: keys.p256dh, auth: keys.auth },
+            platform: platformLabel(),
+            registeredAt: row?.created_at ?? new Date().toISOString(),
+          },
+        }),
+      )
+      toast.success('Push aktif di perangkat ini')
+    } catch (error) {
+      const denied = error instanceof Error && error.message === 'push-permission-denied'
+      toast.error(denied ? 'Izin notifikasi ditolak' : 'Push tidak bisa diaktifkan di sini')
+    } finally {
+      setBusy(false)
     }
-    dispatch(registerPush({ subscription: sub }))
-    toast.success('Push terdaftar')
   }
 
   const deactivate = async () => {
-    if (pushId) await deletePushSubscription(pushId).catch(() => {})
-    setPushId(null)
-    dispatch(clearPush())
-    toast.success('Registrasi push dimatikan')
+    setBusy(true)
+    try {
+      await unsubscribePush()
+      if (pushId) await deletePushSubscription(pushId).catch(() => {})
+      setPushId(null)
+      dispatch(clearPush())
+      toast.success('Push dimatikan')
+    } finally {
+      setBusy(false)
+    }
   }
 
   const registeredLabel = subscription
@@ -112,6 +135,8 @@ export default function NotificationSettings() {
             </header>
 
             <main className="profile-flow-main">
+              {/* Kategori = jenis notifikasi yang benar-benar dikirim (kolom
+                  `notifications.kind`: order, courier, promo, payment). */}
               <div className="notifications-list">
                 {TOGGLES.map((t) => (
                   <div className="notification-row" key={t.id}>
@@ -136,6 +161,7 @@ export default function NotificationSettings() {
                       type="checkbox"
                       aria-label="Notifikasi push"
                       checked={subscription !== null}
+                      disabled={!supported || busy}
                       onChange={(e) => {
                         if (e.target.checked) activate()
                         else deactivate()
@@ -146,10 +172,12 @@ export default function NotificationSettings() {
                 </div>
               </div>
               <p className="text-muted-profile">
-                {subscription
-                  ? `Perangkat terdaftar sejak ${registeredLabel}. `
-                  : 'Sakelar ini mendaftarkan perangkat ke server. '}
-                Pengiriman push belum aktif di versi ini.
+                {!supported
+                  ? 'Push butuh aplikasi terpasang (build/preview), tidak aktif di mode dev. '
+                  : subscription
+                    ? `Perangkat ini berlangganan push sejak ${registeredLabel}. `
+                    : 'Nyalakan untuk berlangganan push di perangkat ini. '}
+                Pengiriman dari server lewat skrip scripts/send-push.mjs.
               </p>
 
               <button

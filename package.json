@@ -13,6 +13,7 @@
     "scan": "node scripts/surface-scan.mjs",
     "scan:test": "node scripts/surface-scan.test.mjs",
     "browser:gate": "node scripts/browser-gate.mjs",
+    "push:send": "node --env-file=.env.local scripts/send-push.mjs",
     "e2e": "node scripts/e2e-browsers.mjs",
     "e2e:stop": "node scripts/e2e-browsers.mjs --stop"
   },
@@ -41,6 +42,7 @@
     "sass": "^1.104.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0",
-    "vite-plugin-pwa": "^1.3.0"
+    "vite-plugin-pwa": "^1.3.0",
+    "web-push": "^3.6.7"
   }
 }
