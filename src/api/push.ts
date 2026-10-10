@@ -7,7 +7,7 @@
  */
 const VAPID_PUBLIC_KEY =
   (import.meta.env.VITE_VAPID_PUBLIC_KEY as string | undefined) ||
-  'BKWCaAXObPvPcOI3H-TgixCL6ngktR2x3saHoc9S6I_bpPjvEmdloL--Vo62cYKmDFbk9GjYiQ2e-8bpjtC_pvA'
+  'BEGmjyRsl649TJi4Rhfs5dfbJjPaJyEL6zKNGO4BTAJ-88_lCzq64e7XCDChH1EwzyC80agWz4oD4QuDaAHIkWI'
 
 export interface PushKeys {
   endpoint: string

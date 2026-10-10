@@ -31,6 +31,8 @@ interface NotificationRecord {
   title: string
   body: string
   audience: string
+  /** Nada notifikasi (kolom `notifications.sound`). */
+  sound?: string | null
 }
 
 interface WebhookPayload {
@@ -89,6 +91,7 @@ Deno.serve(async (req) => {
     title: n.title,
     body: n.body,
     url: audienceUrl(n.audience),
+    sound: n.sound ?? 'default',
     tag: `notif-${n.id}`,
   })
 

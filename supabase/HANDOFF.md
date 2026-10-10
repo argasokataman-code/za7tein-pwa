@@ -66,7 +66,7 @@ belum link / akun salah. Ulangi setelah `supabase login`.
 Ada dua pilihan. **Pilih satu, jangan campur.**
 
 ### Opsi A — pakai pasangan demo repo (paling cepat, langsung nyambung)
-- Kunci **publik**: `BKWCaAXObPvPcOI3H-TgixCL6ngktR2x3saHoc9S6I_bpPjvEmdloL--Vo62cYKmDFbk9GjYiQ2e-8bpjtC_pvA`
+- Kunci **publik**: `BEGmjyRsl649TJi4Rhfs5dfbJjPaJyEL6zKNGO4BTAJ-88_lCzq64e7XCDChH1EwzyC80agWz4oD4QuDaAHIkWI`
 - Kunci **privat**: ada di berkas `.env.local` repo (di-.gitignore, **tidak ikut commit**).
   Minta ke pemilik repo. Kalau `.env.local` hilang → pakai Opsi B.
 - Klien sudah memakai kunci publik ini (`src/api/push.ts`), jadi **tidak perlu**

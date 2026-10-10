@@ -20,7 +20,12 @@ self.addEventListener('push', (event) => {
       icon: data.icon || '/icons/sa7tein-192x192.png',
       badge: data.badge || '/icons/sa7tein-96x96.png',
       tag: data.tag,
-      data: { url: data.url || '/customer/home' },
+      // R-PUSH-01: silent push dilarang. Web Notifications tak punya opsi
+      // `sound` kustom — nada = default OS, dan hanya berbunyi kalau TIDAK
+      // `silent`. `vibrate` = umpan getar Android (mis. FCM).
+      silent: false,
+      vibrate: [200, 100, 200],
+      data: { url: data.url || '/customer/home', sound: data.sound || 'default' },
     }),
   )
 })

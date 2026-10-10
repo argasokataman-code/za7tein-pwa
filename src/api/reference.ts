@@ -486,10 +486,11 @@ export async function fetchNotifications(
   audience: NotifAudience = 'customer',
 ): Promise<AppNotification[]> {
   const token = await refToken()
+  // `audience=all` = siaran ke semua peran (kontrak `Notification.audience`).
   const rows = await restWith<NotificationRow>(
     token,
     'notifications',
-    `?select=id,kind,title,body,read,created_at&audience=eq.${audience}&order=created_at.desc&limit=50`,
+    `?select=id,kind,title,body,read,created_at&audience=in.(${audience},all)&order=created_at.desc&limit=50`,
   )
   return rows.map(toNotification)
 }

@@ -23,6 +23,8 @@ export async function insertNotification(input: {
   kind: AppNotification['kind']
   title: string
   body: string
+  /** Nada notifikasi (kolom `notifications.sound`; kontrak `Notification.sound`). */
+  sound?: string
 }): Promise<void> {
   if (!apiEnabled) return
   const token = await refToken()
@@ -32,6 +34,7 @@ export async function insertNotification(input: {
     kind: input.kind,
     title: input.title,
     body: input.body,
+    sound: input.sound ?? 'default',
     read: false,
   })
 }

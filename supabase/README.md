@@ -29,7 +29,7 @@ supabase link --project-ref dwzxtnfesmpobnepilhl
 
 # 2. Rahasia VAPID (kunci privat TIDAK pernah masuk repo)
 supabase secrets set \
-  VAPID_PUBLIC_KEY=BKWCaAXObPvPcOI3H-TgixCL6ngktR2x3saHoc9S6I_bpPjvEmdloL--Vo62cYKmDFbk9GjYiQ2e-8bpjtC_pvA \
+  VAPID_PUBLIC_KEY=BEGmjyRsl649TJi4Rhfs5dfbJjPaJyEL6zKNGO4BTAJ-88_lCzq64e7XCDChH1EwzyC80agWz4oD4QuDaAHIkWI \
   VAPID_PRIVATE_KEY=<dari .env.local> \
   VAPID_SUBJECT=mailto:support@sa7tein.app
 
@@ -39,8 +39,10 @@ npm run push:deploy          # = supabase functions deploy send-push
 
 `SUPABASE_URL` dan `SUPABASE_SERVICE_ROLE_KEY` disuntik platform otomatis.
 
-> Kunci VAPID di atas = pasangan demo repo. **Ganti untuk produksi** dan samakan
-> dengan `VITE_VAPID_PUBLIC_KEY` yang dipakai klien (`src/api/push.ts`).
+> Kunci VAPID di atas = pasangan produksi repo. Kunci **privat** hanya di
+> `.env.local` (gitignored) dan sebagai secret server — **jangan pernah commit**.
+> Kunci **publik** di klien (`src/api/push.ts` / `VITE_VAPID_PUBLIC_KEY`) wajib
+> pasangan yang sama.
 
 ## Pasang webhook (Dashboard)
 

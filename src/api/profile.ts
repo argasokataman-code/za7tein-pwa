@@ -169,11 +169,32 @@ export async function deleteCustomerAddress(id: string): Promise<void> {
   await deleteWith(token, 'addresses', `?id=eq.${id}`)
 }
 
+/**
+ * `users.id` numerik pemilik token — `auth.uid()` (uuid) → `users.auth_user_id`.
+ * Baris `push_subscriptions` harus milik user yang menandatangani (RLS
+ * `push_owner`: `user_id = app_uid()`), jadi id ini yang dipakai saat menulis.
+ */
+export async function resolveUserId(token: string): Promise<number | null> {
+  const me = await authUser<{ id?: string }>(token)
+  if (!me?.id) return null
+  const rows = await restWith<{ id: number }>(
+    token,
+    'users',
+    `?select=id&auth_user_id=eq.${me.id}&limit=1`,
+  )
+  return rows[0]?.id ?? null
+}
+
+/** Sesi pemilik baris push: token customer demo + `users.id` (dari token, bukan hardcode). */
+async function pushOwner(): Promise<{ token: string; userId: number }> {
+  const token = await customerToken()
+  const userId = (await resolveUserId(token)) ?? DEMO_CUSTOMER_USER_ID
+  return { token, userId }
+}
+
 /** Registrasi push perangkat (endpoint + kunci), baris terbaru dulu. */
-export async function fetchPushSubscription(
-  userId = DEMO_CUSTOMER_USER_ID,
-): Promise<PushRow | undefined> {
-  const token = await refToken()
+export async function fetchPushSubscription(): Promise<PushRow | undefined> {
+  const { token, userId } = await pushOwner()
   const rows = await restWith<PushRow>(
     token,
     'push_subscriptions',
@@ -187,9 +208,8 @@ export async function savePushSubscription(
   endpoint: string,
   p256dh: string,
   auth: string,
-  userId = DEMO_CUSTOMER_USER_ID,
 ): Promise<PushRow | undefined> {
-  const token = await refToken()
+  const { token, userId } = await pushOwner()
   const rows = await createWithReturn<PushRow>(token, 'push_subscriptions', {
     user_id: userId,
     endpoint,
@@ -201,7 +221,7 @@ export async function savePushSubscription(
 
 export async function deletePushSubscription(id: string): Promise<void> {
   if (!/^\d+$/.test(id)) return
-  const token = await refToken()
+  const { token } = await pushOwner()
   await deleteWith(token, 'push_subscriptions', `?id=eq.${id}`)
 }
 
