@@ -1,14 +1,17 @@
 import { MapPin, Phone } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { toast } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { JourneyLine } from '../components/JourneyLine'
 import { DeliveryActionCard, DeliveryStepper } from '../components/DeliveryCheckpoints'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
+import { OrderCelebration } from '../components/ui/OrderCelebration'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
-import { formatDistance, money, zoneLabel } from '../data/merchant'
+import { formatDistance, zoneLabel } from '../data/merchant'
 import {
   COURIER_ACTION_LABEL,
   COURIER_GUARD_MINUTES,
@@ -29,12 +32,24 @@ const NEXT_STATUS: Record<string, MerchantOrderStatus> = {
 }
 
 export default function CourierTaskDetail() {
+  const { money } = useMoney()
   const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const tasks = useAppSelector((s) => s.courier.tasks)
   const { now } = useTick()
   const [otp, setOtp] = useState('')
+  const [showCelebration, setShowCelebration] = useState(false)
+
+  // Kunci gulir latar selama overlay perayaan terbuka.
+  useEffect(() => {
+    if (!showCelebration) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [showCelebration])
 
   const task = tasks.find((t) => t.id === id)
 
@@ -70,6 +85,7 @@ export default function CourierTaskDetail() {
     }
     dispatch(completeTask({ id: task.id }))
     toast.success('Pesanan selesai')
+    setShowCelebration(true)
     void recordCheckpoint(task.id, 'selesai').catch(() => {})
     void updateOrderStatus(task.id, 'selesai').catch(() => {})
     void insertNotification({
@@ -228,6 +244,38 @@ export default function CourierTaskDetail() {
           />
         )}
       </main>
+
+      {/* Perayaan selesai (paritas customer): overlay penuh di atas layar
+          detail, bukan halaman baru, supaya kurir tetap pada konteks tugas.
+          Di-portal ke body supaya `position: fixed` tak terjebak containing
+          block dari transform transisi halaman (alasan sama dengan BottomNav). */}
+      {showCelebration
+        ? createPortal(
+            <div
+              className="order-celebration-overlay"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Pesanan selesai"
+            >
+              <OrderCelebration
+                title="Pesanan selesai!"
+                message={`OTP terverifikasi. Tips kamu ${money(task.tip)} masuk dompet.`}
+              >
+                <button
+                  type="button"
+                  className="order-arrived-rate-btn"
+                  onClick={() => {
+                    setShowCelebration(false)
+                    navigate('/')
+                  }}
+                >
+                  Kembali ke daftar tugas
+                </button>
+              </OrderCelebration>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   )
 }

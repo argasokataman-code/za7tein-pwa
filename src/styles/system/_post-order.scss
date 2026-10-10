@@ -152,6 +152,25 @@ body.order-arrived-page,
   padding-inline: var(--space-5);
 }
 
+// ── Overlay perayaan (kurir) ────────────────────────────────────────────────
+// Blok `.order-arrived-*` yang sama dipakai kurir sebagai lapisan penuh di atas
+// layar detail, bukan halaman sendiri. Di-portal ke `body` dan dibatasi kolom
+// seperti bilah fixed lain. Tanpa header, jadi padding-atas 104px peninggalan
+// halaman dikurangi supaya konten tetap di tengah.
+.order-celebration-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  overscroll-behavior: contain;
+}
+
+.order-celebration-overlay .order-arrived-content {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-6);
+}
+
 // ── Header layar rating ─────────────────────────────────────────────────────
 // `max-width` + `margin-inline: auto` dari _cart-2.scss membuat item flex ini
 // menyusut selebar isinya: di dalam kolom flex, auto margin menang atas

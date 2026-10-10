@@ -317,7 +317,13 @@ export default function Documentation() {
               Kartu performa &ldquo;Tips 7 hari terakhir&rdquo; di beranda kurir kini bidang navy
               (<code className="doc-inline">--navy</code>/<code className="doc-inline">--on-navy</code>,
               pola sama dengan kartu insentif merchant) dengan elevasi navy supaya terbaca
-              mengambang, dan grafiknya ikut putih agar tidak tenggelam di atas navy.
+              mengambang, dan grafiknya ikut putih agar tidak tenggelam di atas navy. Kurir yang
+              menyelesaikan order kini dapat perayaan penuh seperti customer: blok centang + konfeti
+              yang sama (komponen bersama{' '}
+              <code className="doc-inline">OrderCelebration</code>, diekstrak dari{' '}
+              <code className="doc-inline">/order-arrived</code>) tampil sebagai overlay{' '}
+              <code className="doc-inline">.order-celebration-overlay</code> di atas layar detail,
+              bukan halaman baru, lalu tombolnya membawa kurir kembali ke daftar tugas.
               Manifest keempat peran kini hanya{' '}
               <code className="doc-inline">display: standalone</code> —{' '}
               <code className="doc-inline">fullscreen</code> dibuang dari{' '}

@@ -88,6 +88,21 @@ export function CourierDesignSection() {
         the code the courier was meant to enter — an inverted role; now only the courier
         form validates, and the customer card is read-only.
       </p>
+      <h3 className="doc-h3">Finishing an order gets the same celebration as the customer</h3>
+      <p className="doc-p">
+        When the courier enters the correct OTP and the task settles, the screen shows the
+        full-screen celebration the customer gets at "Tiba" (check circle + confetti). Both
+        roles render the same shared <code className="doc-inline">OrderCelebration</code>{' '}
+        component, extracted from{' '}
+        <code className="doc-inline">/order-arrived</code> so the markup lives in one place.
+        The customer uses it as a page; the courier uses it as an overlay (
+        <code className="doc-inline">.order-celebration-overlay</code>, portalled to{' '}
+        <code className="doc-inline">body</code>) on top of the task detail, so the courier
+        stays in context and returns to the task list from the button. The overlay only
+        appears on the transition into{' '}
+        <code className="doc-inline">selesai</code>, not when revisiting an already finished
+        task.
+      </p>
       <h3 className="doc-h3">The customer notification is wired, still a mock</h3>
       <p className="doc-p">
         Flow <code className="doc-inline">F13</code> promises a customer notification at

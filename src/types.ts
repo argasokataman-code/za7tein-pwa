@@ -306,6 +306,12 @@ export interface ExchangeRate {
   source: string
 }
 
+/**
+ * Mata uang tampilan yang dipilih pengguna. Preferensi klien saja (bukan DB):
+ * nominal tetap disimpan IDR, ini hanya memilih mana yang dirender.
+ */
+export type CurrencyCode = 'IDR' | 'JOD'
+
 export interface Merchant {
   id: string
   name: string
