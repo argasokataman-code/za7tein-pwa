@@ -39,14 +39,14 @@ export function useSyncOnce<T>(
   useEffect(() => {
     if (!apiEnabled) return
     let alive = true
-    ref.current
-      .load()
-      .then((data) => {
-        if (alive && data !== undefined) ref.current.onData(data, dispatch)
-      })
+    const run = () => ref.current.load()
+      .then((d) => { if (alive && d !== undefined) ref.current.onData(d, dispatch) })
       .catch(() => {})
+    run()
+    window.addEventListener('online', run)
     return () => {
       alive = false
+      window.removeEventListener('online', run)
     }
   }, [dispatch])
 }
@@ -117,11 +117,8 @@ function useStoreStatus(): void {
   }, [isActive])
 }
 
-/**
- * Konsol SA: zona, kill-switch, role, dan operator. Role + operator harus
- * diambil bersamaan — kalau role live tapi operator mock, `roleId` mock
- * (`owner`) tak ada di daftar role live (`sa_owner`) sehingga konsol terkunci.
- */
+/** Konsol SA: zona, kill-switch, role, operator. Role + operator harus
+ *  bersamaan — role live + operator mock membuat konsol terkunci. */
 function useSuperAdmin(): void {
   useSyncOnce(() => fetchZones(), (rows, d) => {
     if (rows.length) d(setZones(rows))

@@ -1,6 +1,6 @@
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import { useEffect, type ComponentType, type ReactNode } from 'react'
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import { StoreProvider } from './store/provider'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
@@ -313,14 +313,26 @@ interface RoleRouterProps {
  */
 function RoleChrome({ offlinePath, children }: { offlinePath?: string; children: ReactNode }) {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     if (!offlinePath) return
     const goOffline = () => navigate(offlinePath)
+    // Kembali online harus memulihkan sendiri: naikkan lagi layar yang tergeser
+    // ke /offline + beri tahu sekali. Data disegarkan oleh listener `online` di
+    // hook API (sync/polling/realtime), di sini cukup navigasi + toast.
+    const goOnline = () => {
+      toast.success('Kembali online')
+      if (pathname === offlinePath) navigate(-1)
+    }
     if (!navigator.onLine) goOffline()
     window.addEventListener('offline', goOffline)
-    return () => window.removeEventListener('offline', goOffline)
-  }, [navigate, offlinePath])
+    window.addEventListener('online', goOnline)
+    return () => {
+      window.removeEventListener('offline', goOffline)
+      window.removeEventListener('online', goOnline)
+    }
+  }, [navigate, offlinePath, pathname])
 
   return <AppErrorBoundary>{children}</AppErrorBoundary>
 }

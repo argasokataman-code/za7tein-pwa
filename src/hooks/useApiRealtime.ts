@@ -59,9 +59,13 @@ export function useApiRealtime(audience: NotifAudience): void {
 
     refresh()
     const unsubscribe = subscribeOrders(refresh)
+    // Socket mati selama offline; saat online lagi tarik kondisi terbaru dan
+    // pastikan langganan hidup kembali.
+    window.addEventListener('online', refresh)
     return () => {
       alive = false
       if (timer) clearTimeout(timer)
+      window.removeEventListener('online', refresh)
       unsubscribe()
     }
   }, [audience, activeOrderId, dispatch])

@@ -207,7 +207,10 @@ export default function Documentation() {
               ditulis balik ke orders.status (cart/prepare/waitingCourier/delivery/done) dan
               checkpoint kurir ke tabel checkpoints (picked_up/arrived/otp_verified); kotak masuk
               dan antrean diperbarui otomatis lewat WebSocket Supabase Realtime (kanal orders,
-              src/api/realtime.ts) tanpa refresh — polling 30s hanya jaring pengaman; toggle buka/tutup toko
+              src/api/realtime.ts) tanpa refresh — polling 30s hanya jaring pengaman; saat koneksi
+              putus tiap peran beralih ke layar /offline, dan begitu online kembali aplikasi
+              memulihkan sendiri (naik kembali dari /offline + toast "Kembali online") sambil
+              menyegarkan data referensi; toggle buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend

@@ -29,10 +29,13 @@ export function useApiNotifications(audience: NotifAudience): void {
       if (document.visibilityState === 'visible') load()
     }
     document.addEventListener('visibilitychange', onVisible)
+    // Segera saat koneksi kembali: polling 30s terasa lambat setelah offline.
+    window.addEventListener('online', load)
     return () => {
       alive = false
       clearInterval(timer)
       document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('online', load)
     }
   }, [audience, dispatch])
 }
