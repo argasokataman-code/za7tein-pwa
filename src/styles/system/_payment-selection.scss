@@ -1,0 +1,112 @@
+// ── /payment-selection (customer) ─────────────────────────────────────────
+// Audit 007 (anti-slop/audit-007-2026-10-10.md). Halaman ini masih memakai
+// stylesheet porting `app/part-11.scss`: warna mentah (oranye #F15A37, bukan
+// --sa7tein-orange), padding atas 104px sisa header `fixed`, penggulung
+// bersarang, dan teks abu #6B6865 di atas kartu terpilih (1,64:1). Blok ini
+// memetakan kelasnya ke token + invarian tata letak tanpa menyunting app/.
+// Angka kontras dihitung dari _tokens.scss; ukuran diverifikasi di jendela
+// customer 390px (jendela e2e).
+
+// ── Satu penggulung: dokumen (DNA §Scroll) ────────────────────────────────
+// Dulu `height: var(--app-vh); overflow: hidden` + anak `overflow-y: auto`.
+// Sekarang dokumen yang menggulir, header menempel, seperti halaman lain.
+.payment-selection-screen {
+  height: auto;
+  min-height: var(--app-vh);
+  overflow: visible;
+  background-color: var(--bg-warm);
+}
+
+.payment-selection-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-warm);
+  border-bottom: 1px solid var(--border);
+}
+
+.payment-selection-title {
+  color: var(--text-primary);
+}
+
+// 104px adalah sisa header `fixed`; header kini ikut aliran + sticky, jadi
+// konten mulai tepat di bawahnya. Bawah menyisakan ruang footer + safe area.
+.payment-selection-content {
+  overflow: visible;
+  padding: var(--space-5) var(--space-5) calc(100px + env(safe-area-inset-bottom));
+}
+
+.payment-selection-footer {
+  background-color: var(--bg-warm);
+  border-top: 1px solid var(--border);
+}
+
+// ── Kartu metode ──────────────────────────────────────────────────────────
+.payment-item {
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  transition:
+    background-color var(--motion-standard) var(--ease-out),
+    border-color var(--motion-standard) var(--ease-out);
+}
+
+// Sentuh tidak punya hover (PG-04); hover hanya untuk desktop.
+.payment-item:hover {
+  background-color: var(--bg-warm);
+  border-color: var(--border-strong);
+}
+
+// Terpilih = permukaan hangat + tepi merek. Isian oranye pekat lama
+// (#F15A37) menaruh teks abu di 1,64:1; di atas --orange-soft token lolos AA
+// (navy 10,2:1, sekunder 5,3:1).
+.payment-item.selected,
+.payment-item.selected:hover {
+  background-color: var(--orange-soft);
+  border-color: var(--sa7tein-orange);
+}
+
+.payment-name {
+  color: var(--text-primary);
+}
+
+.payment-number {
+  color: var(--text-secondary);
+}
+
+// Cip ikon: oranye lembut + ikon ink (5,3:1). Markup menulis
+// color="var(--on-brand)" sebagai atribut SVG, dan atribut presentasi tidak
+// menerima var() (ikon terukur hitam). Warna diatur di sini lewat `color`.
+.payment-icon {
+  background-color: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.payment-item.selected .payment-icon {
+  background-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+// Radio: oranye merek, bukan #F15A37.
+.radio-outer {
+  border-color: var(--border-strong);
+}
+
+.radio-outer--active {
+  border-color: var(--sa7tein-orange);
+}
+
+.radio-inner {
+  background: var(--sa7tein-orange);
+}
+
+// Fokus papan ketik terlihat (HG-05).
+.payment-item:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .payment-item {
+    transition: none;
+  }
+}

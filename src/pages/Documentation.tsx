@@ -247,6 +247,12 @@ export default function Documentation() {
               Buka UI langsung — tiap tautan membuka role di tab baru, tanpa login
               (semua data mock):
             </p>
+            <p className="doc-p">
+              Metode Pembayaran customer dirapikan di audit 007: kartu terpilih kini lolos AA
+              (permukaan <code className="doc-inline">--orange-soft</code>, bukan isian oranye pekat),
+              dokumen kembali jadi satu-satunya penggulung dengan header sticky, judul turun ke
+              langkah header, dan radiogroup dapat navigasi panah. Rinciannya di bagian Changelog.
+            </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (
                 <a key={s.role} className="doc-cta" href={s.url} target="_blank" rel="noreferrer">

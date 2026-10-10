@@ -642,6 +642,26 @@ export function ChangelogSection() {
                 Gate role merchant 24/24 PASS
               </td>
             </tr>
+            <tr>
+              <td>Metode Pembayaran: kontras kartu terpilih &amp; tata letak</td>
+              <td>
+                Kartu terpilih berlatar oranye pekat versi lama dengan deskripsi abu (kontras
+                1,64:1, gagal AA); padding atas 104px sisa header <code className="doc-inline">fixed</code>{' '}
+                padahal header relative 64px, jadi kartu pertama mulai 168px dari atas; penggulung
+                bersarang; ikon memakai atribut{' '}
+                <code className="doc-inline">color=&quot;var(--on-brand)&quot;</code> yang terukur
+                hitam; judul 28,45px/800 padahal sebaris tombol kembali 44px
+              </td>
+              <td>
+                Partial baru <code className="doc-inline">system/_payment-selection.scss</code>: warna
+                token, kartu terpilih permukaan <code className="doc-inline">--orange-soft</code> +
+                tepi merek (nama 10,2:1, deskripsi 5,3:1), dokumen satu-satunya penggulung + header
+                sticky, ikon diwarnai lewat CSS. <code className="doc-inline">_type.scss</code>{' '}
+                memindahkan judul ke langkah header (terukur 17,01px/700) dan aturan{' '}
+                <code className="doc-inline">body.payment-selection-page</code> yang mati dihapus.
+                Radiogroup dapat roving tabindex + navigasi panah. Gate /payment-selection 2/2 PASS
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

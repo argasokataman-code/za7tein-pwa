@@ -56,7 +56,6 @@
 .order-arrived-title,
 .success-title,
 .rating-driver-title,
-.payment-selection-title,
 .payment-amount-title,
 .verify-title-small,
 .admin-title,
@@ -76,7 +75,8 @@
 .favorites-title,
 .reviews-page-title,
 .checkout-page-title,
-.address-selection-title {
+.address-selection-title,
+.payment-selection-title {
   font-size: var(--text-lg);
   font-weight: 700;
   line-height: 1.25;

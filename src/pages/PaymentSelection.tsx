@@ -1,4 +1,5 @@
 // Metode bayar (PRD v2): saldo Sa7tein, COD, dan transfer manual legacy.
+import { useRef, useState, type KeyboardEvent } from 'react'
 import { ChevronLeft, CheckCircle2, Banknote, Landmark, Wallet } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
@@ -21,10 +22,18 @@ export default function PaymentSelection() {
   const dispatch = useAppDispatch()
   const selected = useAppSelector((s) => s.cart.selectedPaymentId)
   const switches = useAppSelector((s) => s.superAdmin.switches)
+  const listRef = useRef<HTMLDivElement>(null)
   // Kill switch platform: SA bisa menutup COD saja, atau seluruh order baru
   // (maintenance). Layar ini yang menegakkannya, bukan konsol SA.
   const maintenanceCopy = switchBlockCopy('maintenance', switches)
   const codCopy = switchBlockCopy('cod', switches)
+  const isBlocked = (id: string) => Boolean(maintenanceCopy ?? (id === 'cod' ? codCopy : null))
+  // Radiogroup asli: satu item bisa di-Tab, panah berpindah pilihan. Tanpa ini
+  // `role="radio"` menjanjikan perilaku papan ketik yang tidak ada.
+  const [focusIndex, setFocusIndex] = useState(() => {
+    const i = PAYMENT_METHODS.findIndex((m) => m.id === selected)
+    return i >= 0 ? i : Math.max(0, PAYMENT_METHODS.findIndex((m) => !isBlocked(m.id)))
+  })
 
   const choose = (id: string, label: string) => {
     if (switchIsDown('maintenance', switches)) return
@@ -32,6 +41,25 @@ export default function PaymentSelection() {
     dispatch(setPayment(id))
     toast.success(label, { icon: <CheckCircle2 size={18} aria-hidden="true" /> })
     navigate('/payment-amount')
+  }
+
+  const moveFocus = (dir: number) => {
+    const enabled = PAYMENT_METHODS.map((_, i) => i).filter((i) => !isBlocked(PAYMENT_METHODS[i].id))
+    if (enabled.length === 0) return
+    const at = enabled.indexOf(focusIndex)
+    const next = enabled[(at + dir + enabled.length) % enabled.length]
+    setFocusIndex(next)
+    listRef.current?.querySelectorAll<HTMLButtonElement>('.payment-item')[next]?.focus()
+  }
+
+  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      moveFocus(1)
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      moveFocus(-1)
+    }
   }
 
   return (
@@ -49,12 +77,16 @@ export default function PaymentSelection() {
             </header>
             <div className="payment-selection-content">
               {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}
-              <div className="payment-list" role="radiogroup" aria-label="Pilih metode pembayaran">
-                {PAYMENT_METHODS.map((m) => {
+              <div
+                className="payment-list"
+                role="radiogroup"
+                aria-label="Pilih metode pembayaran"
+                ref={listRef}
+                onKeyDown={onKeyDown}
+              >
+                {PAYMENT_METHODS.map((m, index) => {
                   const isSelected = selected === m.id
-                  const blocked = Boolean(
-                    maintenanceCopy ?? (m.id === 'cod' ? codCopy : null),
-                  )
+                  const blocked = isBlocked(m.id)
                   const reason = m.id === 'cod' ? codCopy : null
                   return (
                     <button
@@ -64,13 +96,15 @@ export default function PaymentSelection() {
                       aria-checked={isSelected}
                       aria-disabled={blocked}
                       disabled={blocked}
+                      tabIndex={!blocked && index === focusIndex ? 0 : -1}
+                      onFocus={() => setFocusIndex(index)}
                       className={`payment-item${isSelected ? ' selected' : ''}${blocked ? ' is-blocked' : ''}`}
                       onClick={() => choose(m.id, m.label)}
                     >
                       <div className="payment-icon">
                         {(() => {
                           const Icon = METHOD_ICONS[m.id] ?? Wallet
-                          return <Icon size={26} strokeWidth={1.75} color="var(--on-brand)" />
+                          return <Icon size={26} strokeWidth={1.75} aria-hidden="true" />
                         })()}
                       </div>
                       <div className="payment-info">
