@@ -2248,6 +2248,845 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10170",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:01:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+54/-30) — edit via tool: /* Kartu pendapatan: satu t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10171",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:01:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo lint-done; npm run build 2>&1 | tail -2; npm run scan 2>&1 | rtk grep -E \"FAIL|WAR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:04:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+17/-17) — edit via tool: .merchant-revenue-label {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:06:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: <code className=\"doc-inline\">.m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:06:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+3/-2) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "DEC-911",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-10",
+      "time": "15:07:27",
+      "tags": [
+        "merchant",
+        "ui",
+        "tokens"
+      ],
+      "summary": "Kartu Pendapatan merchant = permukaan oranye merek + teks putih (4,02:1 pengecualian DNA); tolak tinta navy .sa-card--brand (2,87:1 gagal AA",
+      "conn": [
+        {
+          "id": "FEAT-520",
+          "type": "relates",
+          "raw": "FEAT-520:relates"
+        }
+      ],
+      "commit": "8306e6b"
+    },
+    {
+      "id": "TASK-10175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:26:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+4/-3) — edit via tool: tsx: <Link className=\"merchant-a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-10176",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:26:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+44/-4) — edit via tool: .merchant-revenue-sub {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10177",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:26:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo lint-done; npm run build 2>&1 | tail -2; npm run scan 2>&1 | rtk grep -E \"FAIL|WAR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10178",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:28:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-2) — edit via tool: tsx: Kartu &ldquo;Pendapatan&rdquo; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10179",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:28:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+3/-2) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "DEC-912",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-10",
+      "time": "15:28:42",
+      "tags": [
+        "merchant",
+        "ui",
+        "tokens"
+      ],
+      "summary": "Kartu insentif merchant = bidang oranye merek (.merchant-card--brand) + aksi .merchant-action-row (baris tap 44px+chevron); tolak tombol out",
+      "conn": [
+        {
+          "id": "DEC-911",
+          "type": "relates",
+          "raw": "DEC-911:relates"
+        },
+        {
+          "id": "FEAT-520",
+          "type": "relates",
+          "raw": "FEAT-520:relates"
+        }
+      ],
+      "commit": "59f22a4"
+    },
+    {
+      "id": "TASK-10180",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:28:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo lint-done; npm run build 2>&1 | tail -2; npm run scan 2>&1 | grep -E \"FAIL|WARN\"; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10181",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:30:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+40/-39) — edit via tool: /* Kartu insentif = kartu u",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10182",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:30:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+1/-1) — edit via tool: tsx: .merchant-card--navy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-10183",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:31:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-3) — edit via tool: tsx: dengan hero, bukan kartu putih ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10184",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:31:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+3/-3) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "DEC-913",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-10",
+      "time": "15:32:04",
+      "tags": [
+        "merchant",
+        "ui",
+        "tokens"
+      ],
+      "summary": "Kartu insentif merchant = bidang navy (--navy/--on-navy), modifier .merchant-card--navy; teks putih 11,5:1. Bukan oranye",
+      "conn": [
+        {
+          "id": "DEC-912",
+          "type": "led_to",
+          "raw": "DEC-912:led_to"
+        }
+      ],
+      "commit": "ed9f3a5"
+    },
+    {
+      "id": "TASK-10185",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:33:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+8/-4) — edit via tool: .merchant-card--navy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10186",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:33:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -1; node scripts/e2e-browsers.mjs nav merchant /merchant >/dev/null 2>&1; sleep 1; node scripts/e2e-browse",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10187",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:34:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+7/-3) — edit via tool: /* Elevasi supaya kartu gelap",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10188",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:36:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo lint-done; npm run scan 2>&1 | rtk grep -E \"FAIL|WARN\"; npm run governance:check 2",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10189",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:36:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: sebagai bidang navy (token desi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10190",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:36:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+3/-2) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "DEC-914",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-10",
+      "time": "15:37:04",
+      "tags": [
+        "merchant",
+        "ui",
+        "tokens"
+      ],
+      "summary": "Kartu navy insentif pakai elevasi 2 lapis color-mix(--navy 18%+26%); token --shadow-md repo 0,10 alpha terlalu tipis",
+      "conn": [
+        {
+          "id": "DEC-913",
+          "type": "relates",
+          "raw": "DEC-913:relates"
+        }
+      ],
+      "commit": "0e64115"
+    },
+    {
+      "id": "TASK-10191",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:37:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -1; npm run scan 2>&1 | grep -E \"FAIL|WARN\"; wc -l src/pages/documentation/sections/ChangelogSection.tsx; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10192",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:40:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+61/-13) — edit via tool: .merchant-action-row {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10193",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:41:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo lint-done; npm run build 2>&1 | tail -1; npm run scan 2>&1 | rtk grep -E \"FAIL|WAR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10194",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:42:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: jadi baris tap mobile dengan ch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10195",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:42:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+3/-2) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "DEC-915",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-10",
+      "time": "15:43:02",
+      "tags": [
+        "merchant",
+        "ui",
+        "mobile"
+      ],
+      "summary": "Legenda komposisi merchant: donut center atas + baris legend penuh satu-baris (angka rata kanan), scope .merchant-page; admin/superadmin tet",
+      "conn": [
+        {
+          "id": "FEAT-520",
+          "type": "relates",
+          "raw": "FEAT-520:relates"
+        },
+        {
+          "id": "DEC-913",
+          "type": "relates",
+          "raw": "DEC-913:relates"
+        }
+      ],
+      "commit": "14e4680"
+    },
+    {
+      "id": "TASK-10196",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "15:43:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo lint-done; npm run build 2>&1 | tail -1; npm run scan 2>&1 | grep -E \"FAIL|WARN\"; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10197",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "16:57:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts (+27/-5) — edit via tool: ts: // Status \"sibuk\" cuma ta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-10198",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "16:58:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiReference.ts (+18/-15) — edit via tool: ts: /** Pola sinkron sekali: load",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiReference.ts"
+    },
+    {
+      "id": "TASK-10199",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "16:58:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts (+10/-7) — edit via tool: ts: if (audience === 'merchant') {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-10200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "16:58:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+33/-3) — edit via tool: tsx: const paymentTotal = payme",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-10201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "16:58:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+45/-10) — edit via tool: .merchant-logo-empty {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "16:59:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiReference.ts (+13/-15) — edit via tool: ts: onData: (data: T, dispatch: R",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiReference.ts"
+    },
+    {
+      "id": "TASK-10203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "17:00:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+2/-1) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-10204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "17:00:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-1) — edit via tool: tsx: ulang jadi baris penuh satu-bar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "17:04:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+14/-6) — edit via tool: .merchant-skeleton {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-10206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "17:04:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+1/-1) — edit via tool: tsx: import { useEffect, useStat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "DEC-916",
+      "type": "decision",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "17:07:05",
+      "tags": [
+        "merchant",
+        "ui",
+        "hydration",
+        "persist"
+      ],
+      "summary": "Beranda merchant: skeleton tahan sampai ordersHydrated+profileHydrated; isBusy di localStorage",
+      "conn": [
+        {
+          "id": "DEC-915",
+          "type": "relates",
+          "raw": "DEC-915:relates"
+        }
+      ]
     }
   ]
 }
