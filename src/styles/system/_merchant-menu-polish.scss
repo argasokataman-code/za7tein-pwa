@@ -371,3 +371,17 @@
     opacity: 1;
   }
 }
+
+/* Stepper di dalam form edit item rata kiri mengikuti kolom form, bukan tengah
+   seperti di stock sheet, supaya sebaris dengan label & kontrol lain (audit 013 #5). */
+.merchant-form .stock-stepper {
+  justify-content: flex-start;
+}
+
+/* Baris chip di dalam form (pemilih kategori): membungkus, jangan menggulir
+   mendatar seperti filter halaman — di sheet semua opsi harus terlihat utuh. */
+.merchant-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

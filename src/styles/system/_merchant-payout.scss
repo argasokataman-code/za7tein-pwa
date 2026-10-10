@@ -282,16 +282,40 @@
   white-space: nowrap;
 }
 
+/* Identitas rekening = baris utama kartu. Sebelumnya 13px/400, cuma sedikit di
+   atas sub 12px, jadi tak ada baris yang jadi fokus. Di-scope ke kartu rekening
+   supaya `.merchant-card-title` bersama (dipakai kartu lain) tidak ikut berubah. */
+.merchant-account-card .merchant-card-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+/* Aksi mengikuti lebar isinya, bukan dibagi rata. Dengan `flex: 1` label
+   terpanjang ("Jadikan utama") terukur pecah dua baris dan barisnya jadi tidak
+   rata; tiga tombol justru muat satu baris kalau lebarnya mengikuti teks. */
 .merchant-account-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap: var(--space-2);
   margin-top: var(--space-3);
 }
 
 .merchant-account-actions .merchant-btn-ghost {
-  flex: 1;
-  justify-content: center;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* Hapus = teks destruktif tanpa tepi. Dulu identik dengan Ubah (beda warna
+   saja), padahal keduanya bersebelahan dan yang satu membuang data. */
+.merchant-account-actions .merchant-btn-ghost.is-danger {
+  border-color: transparent;
+  background: transparent;
+  padding-inline: var(--space-2);
+}
+
+.merchant-account-actions .merchant-btn-ghost.is-danger:hover {
+  background: var(--red-soft);
 }
 
 .merchant-btn-ghost.is-danger {

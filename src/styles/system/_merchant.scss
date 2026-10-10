@@ -416,14 +416,12 @@
    dari Batal terbaca sebagai aksi utama, padahal ia yang membuang sesi. */
 .merchant-actions .merchant-btn-ghost {
   flex: 1;
-  /* Padding mendatar dipindahkan ke nol. Dengan flex-basis 0% + flex-grow 1,
-     ruang bebas dibagi SETELAH padding tiap tombol dihitung — dan mixin
-     .merchant-btn-ghost membawa `padding: 0 var(--space-5)` = 40px, sementara
-     .merchant-delete-confirm tidak punya padding mendatar. Itu sebabnya Batal
-     terukur 189px dan Keluar 153px walau keduanya flex: 1. box-sizing:
-     border-box tidak menolong; yang perlu hilang paddingnya. Teksnya sudah
-     terpusat lewat justify-content, jadi padding tidak dibutuhkan. */
-  padding-inline: 0;
+  /* Padding mendatar DISAMAKAN dengan `.btn` primer (s-btn-shape: `0 var(--space-5)`),
+     bukan dinolkan. Dengan flex-basis 0% + flex-grow 1 padding dibagi di luar
+     basis, jadi dua tombol hanya selebar sama kalau paddingnya sama: dulu Batal
+     0px vs primer 40px menghasilkan terukur 171px vs 211px (audit 013 #2).
+     Teks terpusat lewat justify-content; padding hanya untuk menyamakan kotak. */
+  padding-inline: var(--space-5);
 }
 
 .merchant-btn-ghost {
@@ -451,11 +449,17 @@
   margin-bottom: var(--space-3);
 }
 
+/* Aksi "tambah" adalah CTA badan halaman, bukan kontrol di bar judul: selebar
+   kartu supaya gampang dijangkau dan judul halaman tetap hero (di app-bar, CTA
+   bermerek bertabrakan dengan lonceng ikon dan mengecilkan judul). */
 .merchant-add-btn {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   align-items: center;
+  justify-content: center;
   gap: var(--space-1);
   min-height: var(--touch-min);
+  margin-bottom: var(--space-4);
   padding-inline: var(--space-4);
   /* Pill, sama dengan tombol aksi merek lain (btn-profile-primary, tombol
      onboarding, wallet-coupon). Sebelumnya --radius-md 10px sekaligus border

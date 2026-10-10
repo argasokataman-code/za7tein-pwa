@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ImagePlus, LayoutGrid, Minus, MoreVertical, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
@@ -81,6 +81,7 @@ export default function MerchantMenu() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<MerchantMenuItemFormData>({
     resolver: zodResolver(merchantMenuItemSchema),
@@ -191,12 +192,12 @@ export default function MerchantMenu() {
         <MerchantPageHeader
           eyebrow={storeName}
           title="Menu & Stok"
-          action={(
-            <button type="button" className="merchant-add-btn" onClick={openAdd}>
-              <Plus size={16} strokeWidth={1.75} /> Tambah Item
-            </button>
-          )}
         />
+
+        <button type="button" className="merchant-add-btn" onClick={openAdd}>
+          <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
+          Tambah Item
+        </button>
 
         <section className="merchant-menu-context" aria-label="Status katalog">
           <span className={`merchant-menu-context-status${isActive ? ' is-open' : ''}`}>
@@ -383,24 +384,60 @@ export default function MerchantMenu() {
             {errors.name && <span className="error-message">{errors.name.message}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="merchant-item-price" className="form-label">Harga</label>
-            <input id="merchant-item-price" type="number" min="0" className={`form-control${errors.price ? ' error' : ''}`} {...register('price', { valueAsNumber: true })} />
+            <label htmlFor="merchant-item-price" className="form-label">Harga (Rp)</label>
+            <input id="merchant-item-price" type="number" inputMode="numeric" min="0" className={`form-control${errors.price ? ' error' : ''}`} {...register('price', { valueAsNumber: true })} />
             {errors.price && <span className="error-message">{errors.price.message}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="merchant-item-category" className="form-label">Kategori</label>
-            <select id="merchant-item-category" className={`form-control${errors.category ? ' error' : ''}`} {...register('category')}>
-              <option value="">Pilih kategori</option>
-              {CATEGORIES.map((c) => (
-                <option key={c.id} value={c.id}>{c.label}</option>
-              ))}
-            </select>
+            <span className="form-label">Kategori</span>
+            {/* Picker chip, bukan `<select>` peramban: kontrol bawaan desktop
+                membuat sheet terbaca form web (audit 013 #8). Chip yang sama
+                dipakai filter kategori halaman ini. */}
+            <Controller
+              name="category"
+              control={control}
+              render={({ field }) => (
+                <div className="merchant-chip-row" role="radiogroup" aria-label="Kategori">
+                  {CATEGORIES.map((c) => {
+                    const Icon = c.icon
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        role="radio"
+                        aria-checked={field.value === c.id}
+                        className={`merchant-chip${field.value === c.id ? ' is-active' : ''}`}
+                        onClick={() => field.onChange(c.id)}
+                      >
+                        {Icon && <Icon size={15} strokeWidth={1.75} aria-hidden="true" />}
+                        {c.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            />
             {errors.category && <span className="error-message">{errors.category.message}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="merchant-item-stock" className="form-label">Stok</label>
-            <input id="merchant-item-stock" type="number" min="0" className={`form-control${errors.stock ? ' error' : ''}`} {...register('stock', { valueAsNumber: true })} />
-            {errors.stock && <span className="error-message">{errors.stock.message}</span>}
+            <span className="form-label">Stok</span>
+            {/* Satu nilai satu kontrol: stepper yang sama dipakai di stock sheet,
+                bukan input angka selebar penuh hanya untuk satu digit (audit 013 #5). */}
+            <Controller
+              name="stock"
+              control={control}
+              render={({ field }) => (
+                <div className="stock-stepper">
+                  <button type="button" aria-label="Kurangi stok" onClick={() => field.onChange(Math.max(0, Number(field.value) - 1))}>
+                    <Minus size={22} strokeWidth={1.75} aria-hidden="true" />
+                  </button>
+                  <span key={String(field.value)} className="stock-stepper-value">{field.value ?? 0}</span>
+                  <button type="button" aria-label="Tambah stok" onClick={() => field.onChange(Number(field.value) + 1)}>
+                    <Plus size={22} strokeWidth={1.75} aria-hidden="true" />
+                  </button>
+                </div>
+              )}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="merchant-item-description" className="form-label">Deskripsi</label>

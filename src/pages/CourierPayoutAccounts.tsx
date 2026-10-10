@@ -83,12 +83,12 @@ export default function CourierPayoutAccounts() {
           eyebrow="Penghasilan"
           title="Rekening pencairan"
           back="/wallet"
-          action={(
-            <button type="button" className="courier-add-btn" onClick={openAdd}>
-              <Plus size={16} strokeWidth={1.75} /> Tambah
-            </button>
-          )}
         />
+
+        <button type="button" className="courier-add-btn" onClick={openAdd}>
+          <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
+          Tambah rekening
+        </button>
 
         {accounts.length === 0 ? (
           <p className="courier-empty">Belum ada rekening. Tambahkan satu untuk bisa mencairkan tips.</p>

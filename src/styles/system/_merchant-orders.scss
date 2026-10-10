@@ -386,12 +386,13 @@
    di baris antrean yang padat 48px sudah di atas `--touch-min` dan jauh lebih
    ringan. Override dipasang di sini (spesifisitas 0-3-0) supaya tidak mengubah
    `.btn` di halaman lain yang memang ingin 56px. */
+/* Aksi tiket: baris antrean padat, jadi tinggi `.btn` legacy 56px dipangkas ke
+   48px (tetap di atas `--touch-min`). Bentuk (radius/tepi) tidak lagi ditulis di
+   sini — sudah satu nilai lewat `.merchant-actions` (audit 013 #2). */
 .merchant-ticket .merchant-actions .btn,
 .merchant-ticket .merchant-actions .merchant-btn-ghost {
   height: auto;
   min-height: 48px;
-  border-radius: var(--radius-md);
-  border-width: 1px;
 }
 
 /* Baris pilihan memakai pola `.sheet-menu` milik role customer. Item yang

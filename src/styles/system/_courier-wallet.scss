@@ -313,14 +313,19 @@
   margin-top: 0;
 }
 
+/* CTA badan halaman, selebar kartu — sejajar dengan `.merchant-add-btn`
+   (radius pill = bahasa tombol merek; lihat catatan di _merchant.scss). */
 .courier-add-btn {
-  display: inline-flex;
+  display: flex;
+  width: 100%;
   align-items: center;
+  justify-content: center;
   gap: var(--space-1);
   min-height: var(--touch-min);
+  margin-bottom: var(--space-4);
   padding-inline: var(--space-3);
   border: 0;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-pill);
   background: var(--sa7tein-orange);
   color: var(--on-brand);
   font-size: var(--text-sm);

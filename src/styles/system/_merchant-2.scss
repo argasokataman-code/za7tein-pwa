@@ -229,9 +229,12 @@
    yang standalone); kelas `merchant-delete-confirm` dulu cuma distyle di bawah
    `.merchant-actions`, sehingga di dalam sheet yang portal ke body aturannya
    tidak pernah kena. Sudah dihapus — jangan hidupkan lagi. */
+/* Geometri tidak lagi ditimpa di sini. Pacuan `pill` + tepi 2px dulu membuat
+   tombol Batal beda bentuk dari primer `s-btn-shape` di sebelahnya (terukur
+   radius 9999 vs 10, tepi 2px vs 1px) di SEMUA `.merchant-actions` — bukan cuma
+   tiket. Bentuk kini satu nilai (--radius-md + tepi 1px); yang disamakan di sini
+   tinggal tipografi (audit 013 #2, sekaligus akar BUG-9990). */
 .merchant-actions .merchant-btn-ghost {
-  border-width: 2px;
-  border-radius: var(--radius-pill);
   font-size: var(--text-base);
   font-weight: 600;
 }
@@ -460,6 +463,32 @@
   animation: sheet-rise var(--motion-emphasis) var(--ease-out);
 }
 
+/* Panel difokuskan programatik saat sheet dibuka (untuk trap fokus), bukan
+   kontrol interaktif — cincin fokus di kontainer bukan sinyal yang berguna. */
+.sheet-panel:focus {
+  outline: none;
+}
+
+/* Aksi utama sheet menempel di dasar panel, bukan ikut tergulir. Dengan
+   `max-height: 90vh`, isi yang panjang atau keyboard lunak yang terbuka bisa
+   mendorong Simpan/Batal keluar layar (audit 013 #4). Bar selebar panel dengan
+   latar `--surface` supaya isi yang lewat di belakangnya tidak tembus. */
+.sheet-panel .merchant-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  margin-inline: calc(-1 * var(--space-5));
+  padding: var(--space-3) var(--space-5);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+/* Isi sheet menggulir, jadi grip tarik-besar textarea hanya afordans desktop
+   yang tak punya arti di layar sentuh (audit 013 #3). */
+.sheet-panel textarea {
+  resize: none;
+}
+
 .sheet-overlay {
   animation: backdrop-in var(--motion-standard) var(--ease-out);
 }
@@ -487,7 +516,7 @@
   @include field-shape;
   min-height: 96px;
   padding-block: var(--space-3);
-  resize: vertical;
+  resize: none;
 }
 
 /* Dua tombol sheet sejajar `flex: 1`, sama dengan `.merchant-actions`,

@@ -84,15 +84,15 @@ export default function MerchantPayoutAccounts() {
           eyebrow="Keuangan"
           title="Rekening pencairan"
           back="/wallet"
-          action={(
-            <button type="button" className="merchant-add-btn" onClick={openAdd}>
-              <Plus size={16} strokeWidth={1.75} /> Tambah
-            </button>
-          )}
         />
 
+        <button type="button" className="merchant-add-btn" onClick={openAdd}>
+          <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
+          Tambah rekening
+        </button>
+
         {accounts.length === 0 ? (
-          <p className="merchant-menu-empty">Belum ada rekening. Tambahkan satu untuk bisa mencairkan saldo.</p>
+          <p className="merchant-empty">Belum ada rekening. Tambahkan satu untuk bisa mencairkan saldo.</p>
         ) : (
           <ul className="merchant-account-list">
             {accounts.map((account) => (
