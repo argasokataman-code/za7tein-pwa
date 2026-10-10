@@ -267,7 +267,8 @@ export default function Documentation() {
               Kartu &ldquo;Pendapatan&rdquo; juga menjadi bidang oranye merek supaya setingkat
               dengan hero, bukan kartu putih keempat. Kartu &ldquo;Modal &amp; insentif&rdquo; menyusul
               sebagai bidang navy (token design system <code className="doc-inline">--navy</code>) dan aksinya
-              jadi baris tap mobile dengan chevron. Rinciannya di bagian Changelog.
+              jadi baris tap mobile dengan chevron. Kartu navy-nya diberi elevasi (bayangan
+              bernuansa navy) supaya terbaca mengambang. Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (

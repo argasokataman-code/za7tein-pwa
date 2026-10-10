@@ -184,6 +184,14 @@
   border-color: var(--navy);
   color: var(--on-navy);
 
+  /* Elevasi supaya kartu gelap terbaca "mengambang" dari latar krem, bukan
+     menempel rata. `--shadow-md` bawaan repo cuma 0,10 alpha (tak terlihat);
+     lapisan ini menguatkan bayangan dari token `--navy` supaya kedalamannya
+     terbaca. */
+  box-shadow:
+    0 2px 6px color-mix(in srgb, var(--navy) 18%, transparent),
+    0 10px 28px color-mix(in srgb, var(--navy) 26%, transparent);
+
   .merchant-card-title,
   .merchant-card-sub,
   .merchant-row {
