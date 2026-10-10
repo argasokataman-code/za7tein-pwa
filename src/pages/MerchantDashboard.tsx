@@ -133,7 +133,7 @@ export default function MerchantDashboard() {
         <section className="merchant-card">
           <div className="merchant-card-head">
             <div>
-              <p className="merchant-card-title">Menu terjual</p>
+              <p className="merchant-card-title" role="heading" aria-level={2}>Menu terjual</p>
               <p className="merchant-card-sub">{orders.length} order terakhir</p>
             </div>
           </div>
@@ -167,7 +167,7 @@ export default function MerchantDashboard() {
         <section className="merchant-card">
           <div className="merchant-card-head">
             <div>
-              <p className="merchant-card-title">Komposisi order</p>
+              <p className="merchant-card-title" role="heading" aria-level={2}>Komposisi order</p>
               <p className="merchant-card-sub">{orders.length} order sedang dipantau</p>
             </div>
           </div>
@@ -243,7 +243,7 @@ export default function MerchantDashboard() {
           <div className="merchant-row">
             <Sparkles size={20} strokeWidth={1.75} />
             <div>
-              <p className="merchant-card-title">Modal &amp; insentif</p>
+              <p className="merchant-card-title" role="heading" aria-level={2}>Modal &amp; insentif</p>
               <p className="merchant-card-sub">
                 Sisa modal {money(jodToIdr(credit.merchantCreditBalance))} · non-withdrawal
               </p>

@@ -1,4 +1,5 @@
 import { Store } from 'lucide-react'
+import { useState } from 'react'
 
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 
@@ -51,6 +52,10 @@ export function MerchantHomeHero({
   onSelectStatus,
 }: MerchantHomeHeroProps) {
   const quotaRatio = dailyLimit > 0 ? Math.min(todayOrderCount / dailyLimit, 1) : 0
+  // URL foto bisa datang dari API dan rusak; tanpa penjagaan, avatar menampilkan
+  // ikon gambar pecah. Gagal muat → jatuh ke placeholder ikon toko.
+  const [logoFailed, setLogoFailed] = useState(false)
+  const showLogo = Boolean(logo) && !logoFailed
   const note =
     status === 'buka'
       ? `Tutup otomatis pukul ${closeTime}`
@@ -67,8 +72,15 @@ export function MerchantHomeHero({
           {/* Dekoratif: nama toko tepat di sebelahnya, jadi alt dikosongkan
               supaya pembaca layar tidak membacanya dua kali. Tanpa foto,
               placeholder ikon toko menjaga tata letak tetap sama. */}
-          {logo ? (
-            <img className="merchant-hero__avatar" src={logo} alt="" width={56} height={56} />
+          {showLogo ? (
+            <img
+              className="merchant-hero__avatar"
+              src={logo ?? undefined}
+              alt=""
+              width={56}
+              height={56}
+              onError={() => setLogoFailed(true)}
+            />
           ) : (
             <span className="merchant-hero__avatar" aria-hidden="true">
               <Store size={24} strokeWidth={1.75} />

@@ -261,8 +261,10 @@ export default function Documentation() {
               menampilkan data contoh: saat API hidup halaman menunggu data asli (splash skeleton,
               bukan menu mock "Sate Ayam"), id tak dikenal tampil kosong, dan halaman
               ulasan tidak lagi di-hardcode. Beranda dapur merchant kini memakai status jualan
-              tiga keadaan — Buka, Sibuk, Tutup — dalam satu kontrol segmented. Rinciannya di
-              bagian Changelog.
+              tiga keadaan — Buka, Sibuk, Tutup — dalam satu kontrol segmented. Audit mobile beranda
+              (011) menemukan kartunya berbaris lalu terpotong karena tabrakan kelas
+              <code className="doc-inline">.merchant-card</code>; kini kartu menumpuk dan teks utuh.
+              Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (

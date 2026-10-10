@@ -153,6 +153,20 @@
    sudah tampil sebagai pil merah di tab Order bawah, jadi beranda tidak perlu
    mengulangnya sebagai kartu. Tinggi tetap `--touch-min` supaya tetap bisa
    disentuh dan sejajar apa pun isinya. */
+/* Kartu isi di halaman merchant harus MENUMPUK, bukan berbaris. Kelas
+   `.merchant-card` bertabrakan dengan kartu storefront di `_storefront.scss`
+   yang menyetel `display:flex` arah baris; karena tak pernah dinetralkan, anak
+   kartu merchant (`.merchant-rank`, `.chart-split`, tombol "Lihat rincian") ikut
+   berbaris dan kolomnya menyusut sampai terpotong (terukur `.merchant-rank-name`
+   clientWidth 0). Aturan berspesifisitas lebih tinggi ini mengembalikannya ke
+   kolom, hanya di halaman merchant. */
+.merchant-page .merchant-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+}
+
 /* Peringkat menu: daftar, bukan grafik. Yang dibandingkan urutannya, jadi bar
    panjang relatif (8px) lebih terbaca daripada donut atau bar chart kolom.
    Satu aksen saja — peringkat 1 oranye, sisanya muted. */
