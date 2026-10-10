@@ -1,6 +1,7 @@
-// Lonceng notifikasi header (merchant/kurir/CS). Bukan gaya hero customer
-// (`.s7-notification` memakai `--hero-deep` yang hanya ada di dalam `.s7-hero`),
-// tapi tombol permukaan biasa supaya terbaca di latar `--bg-warm`.
+// Lonceng notifikasi header peran (merchant/kurir/CS) dan beranda dapur. Bukan
+// gaya hero customer (`.s7-notification` memakai `--hero-deep` yang hanya ada di
+// dalam `.s7-hero`), tapi tombol permukaan `--surface` supaya terbaca di latar
+// `--bg-warm` maupun di bidang merek oranye hero.
 .notif-bell {
   position: relative;
   display: grid;

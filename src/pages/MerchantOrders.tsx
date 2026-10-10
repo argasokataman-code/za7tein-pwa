@@ -10,7 +10,6 @@ import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { JourneyLine } from '../components/JourneyLine'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { NotificationBell } from '../components/ui/NotificationBell'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { moneyPlain } from '../data/currency'
@@ -153,7 +152,6 @@ export default function MerchantOrders() {
         <MerchantPageHeader
           eyebrow="Antrean dapur"
           title="Order"
-          action={<NotificationBell />}
         />
 
         <div className="merchant-tabs" role="tablist">

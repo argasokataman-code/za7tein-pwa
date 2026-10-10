@@ -357,6 +357,18 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  width: 100%;
+}
+
+/* Nama toko boleh menyusut supaya lonceng di kanan tetap di tempatnya. */
+.merchant-hero__id > div {
+  min-width: 0;
+}
+
+/* Lonceng inbox peran di beranda dapur. Lingkaran `--surface` terbaca di atas
+   bidang merek oranye; `margin-left: auto` mendorongnya ke tepi kanan baris. */
+.merchant-hero__id .notif-bell {
+  margin-left: auto;
 }
 
 .merchant-hero__avatar {

@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { BackButton } from './BackButton'
+import { NotificationBell } from './NotificationBell'
 
 export interface PageHeaderProps {
   /** Judul halaman. */
@@ -22,6 +23,14 @@ export interface PageHeaderProps {
   back?: string | boolean
   /** Kontrol di kanan baris judul: satu aksi utama (mis. "Tambah"). */
   action?: ReactNode
+  /**
+   * Lonceng notifikasi di kanan baris judul. Selubung peran (merchant/kurir/CS)
+   * menyalakannya secara default supaya tiap halaman konsol punya satu pintu ke
+   * inbox peran; halaman pra-konsol (onboarding) mematikannya. Lonceng adalah
+   * kontrol 44px, jadi kehadirannya juga mengecilkan judul ke langkah header —
+   * perilaku yang sama dengan `back`/`action`.
+   */
+  bell?: boolean
 }
 
 /**
@@ -46,8 +55,8 @@ export interface PageHeaderProps {
  * akan mendorong atau bersinggungan dengannya saat judulnya panjang. Tanpa
  * kontrol, judulnya tetap hero.
  */
-export function PageHeader({ title, prefix, eyebrow, back, action }: PageHeaderProps) {
-  const hasControl = Boolean(back) || Boolean(action)
+export function PageHeader({ title, prefix, eyebrow, back, action, bell = false }: PageHeaderProps) {
+  const hasControl = Boolean(back) || Boolean(action) || bell
   return (
     <header className={hasControl ? `${prefix}-header ${prefix}-header--has-control` : `${prefix}-header`}>
       {back ? (
@@ -57,7 +66,12 @@ export function PageHeader({ title, prefix, eyebrow, back, action }: PageHeaderP
         {eyebrow ? <p className={`${prefix}-eyebrow`}>{eyebrow}</p> : null}
         <h1 className={`${prefix}-title`}>{title}</h1>
       </div>
-      {action ? <div className={`${prefix}-header-action`}>{action}</div> : null}
+      {bell || action ? (
+        <div className={`${prefix}-header-action`}>
+          {bell ? <NotificationBell /> : null}
+          {action}
+        </div>
+      ) : null}
     </header>
   )
 }

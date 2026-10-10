@@ -2,6 +2,7 @@ import { Store } from 'lucide-react'
 import { useState } from 'react'
 
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
+import { NotificationBell } from '../ui/NotificationBell'
 
 /** Status jualan toko: buka · sibuk (buka tapi menahan order) · tutup. */
 export type StoreStatus = 'buka' | 'sibuk' | 'tutup'
@@ -90,6 +91,7 @@ export function MerchantHomeHero({
             <p className="merchant-eyebrow">Dapur</p>
             <h1 className="merchant-title">{name}</h1>
           </div>
+          <NotificationBell />
         </div>
 
         <div className="merchant-hero__status" role="radiogroup" aria-label="Status toko">

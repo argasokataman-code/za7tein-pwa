@@ -37,6 +37,9 @@
 }
 
 .merchant-header-action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
   flex-shrink: 0;
 }
 

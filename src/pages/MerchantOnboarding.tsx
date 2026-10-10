@@ -83,7 +83,7 @@ export default function MerchantOnboarding() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Langkah 2 dari 2" title="Profil toko" />
+        <MerchantPageHeader eyebrow="Langkah 2 dari 2" title="Profil toko" bell={false} />
 
         <form className="merchant-form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <section className="merchant-card">

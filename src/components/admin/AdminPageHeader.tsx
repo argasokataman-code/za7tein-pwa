@@ -7,12 +7,29 @@ interface AdminPageHeaderProps {
   eyebrow?: string
   back?: string | boolean
   action?: ReactNode
+  /** Lonceng inbox peran. Default nyala; `false` untuk halaman pra-konsol. */
+  bell?: boolean
 }
 
 /**
  * Header halaman panel CS. Selubung tipis di atas `PageHeader` — struktur dan
  * perilakunya sama dengan header merchant dan kurir.
  */
-export function AdminPageHeader({ title, eyebrow, back, action }: AdminPageHeaderProps) {
-  return <PageHeader prefix="admin" title={title} eyebrow={eyebrow} back={back} action={action} />
+export function AdminPageHeader({
+  title,
+  eyebrow,
+  back,
+  action,
+  bell = true,
+}: AdminPageHeaderProps) {
+  return (
+    <PageHeader
+      prefix="admin"
+      title={title}
+      eyebrow={eyebrow}
+      back={back}
+      action={action}
+      bell={bell}
+    />
+  )
 }

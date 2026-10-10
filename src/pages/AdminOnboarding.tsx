@@ -20,7 +20,7 @@ export default function AdminOnboarding() {
   return (
     <div className="app-shell">
       <main className="admin-page">
-        <AdminPageHeader eyebrow="Antrean tenant" title="Onboarding" />
+        <AdminPageHeader eyebrow="Antrean tenant" title="Onboarding" bell={false} />
 
         <section className="admin-card">
           <p className="admin-card-title">Aturan approve deposit</p>
