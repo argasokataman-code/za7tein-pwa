@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { createOrder, nextOrderCode } from '../api/orders'
+import { insertNotification } from '../api/notifications'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
@@ -99,6 +100,22 @@ export default function PaymentAmount() {
       totalIdr: total,
       paymentMethod: method.id,
     }).catch(() => {})
+    // Emit notifikasi (best-effort): merchant dapat order baru; customer dapat
+    // konfirmasi pembayaran untuk metode non-COD.
+    void insertNotification({
+      audience: 'merchant',
+      kind: 'order',
+      title: 'Order baru masuk',
+      body: 'Ada pesanan baru menunggu konfirmasi toko.',
+    }).catch(() => {})
+    if (method.id !== 'cod') {
+      void insertNotification({
+        audience: 'customer',
+        kind: 'payment',
+        title: 'Pembayaran diterima',
+        body: 'Pembayaran pesananmu sudah kami terima.',
+      }).catch(() => {})
+    }
     navigate('/order-placed')
   }
 

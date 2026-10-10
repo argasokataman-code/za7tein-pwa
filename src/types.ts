@@ -395,7 +395,10 @@ export interface CartItem {
  */
 export type OrderStage = 'baru' | 'disiapkan' | 'siap' | 'diantar' | 'selesai'
 
-export type NotificationKind = 'order' | 'promo' | 'payment' | 'system'
+export type NotificationKind = 'order' | 'promo' | 'payment' | 'courier' | 'system'
+
+/** Penerima notifikasi — sejajar kolom `notifications.audience` di BE. */
+export type NotifAudience = 'customer' | 'merchant' | 'courier' | 'cs'
 
 export interface AppNotification {
   id: string

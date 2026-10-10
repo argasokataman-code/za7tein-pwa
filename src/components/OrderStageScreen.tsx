@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { DeliveryActionCard, DeliveryStepper } from './DeliveryCheckpoints'
 import { JourneyLine } from './JourneyLine'
+import { insertNotification } from '../api/notifications'
 
 import {
   DELIVERY_OTP_DEMO,
@@ -230,6 +231,12 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
       dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
     }
     toast.success('OTP terverifikasi — pengiriman selesai (demo)')
+    void insertNotification({
+      audience: 'merchant',
+      kind: 'order',
+      title: 'Pesanan selesai',
+      body: 'Kurir menyelesaikan pengantaran. Hold dicairkan.',
+    }).catch(() => {})
     // Pengiriman selesai = pesanan tiba: layar perayaan yang menyalurkan ke
     // rating kurir (F19). Sebelumnya tidak ada yang membuka rute ini. Kode order
     // ikut dibawa supaya layar rating dan tip terikat ke order yang sama.

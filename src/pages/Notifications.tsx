@@ -4,11 +4,13 @@
 // "3" membuka halaman yang tidak memuat satu pun notifikasi. Preferensinya
 // pindah ke /notification-settings, karena itu memang pengaturan dan ditautkan
 // dari menu Profil, bukan dari lonceng.
-import { Bell, Bike, Check, Tag, Wallet, type LucideIcon, ChevronLeft } from 'lucide-react'
+import { Bell, Bike, Check, Truck, Tag, Wallet, type LucideIcon, ChevronLeft } from 'lucide-react'
 
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { markNotificationRead, markNotificationsRead } from '../api/notifications'
+import { notificationAudienceFromPath } from '../data/notifications'
 import { markAllRead, markRead, selectUnreadCount } from '../store/slices/notificationsSlice'
 import type { AppNotification } from '../types'
 
@@ -16,6 +18,7 @@ const KIND_ICON: Record<AppNotification['kind'], LucideIcon> = {
   order: Bike,
   promo: Tag,
   payment: Wallet,
+  courier: Truck,
   system: Bell,
 }
 
@@ -51,7 +54,12 @@ export default function Notifications() {
                   <button
                     type="button"
                     className="inbox-head__action"
-                    onClick={() => dispatch(markAllRead())}
+                    onClick={() => {
+                      dispatch(markAllRead())
+                      void markNotificationsRead(
+                        notificationAudienceFromPath(window.location.pathname),
+                      ).catch(() => {})
+                    }}
                   >
                     Tandai semua dibaca
                   </button>
@@ -67,7 +75,10 @@ export default function Notifications() {
                         type="button"
                         className={n.unread ? 'inbox-row inbox-row--unread' : 'inbox-row'}
                         aria-label={`${n.title}${n.unread ? ', belum dibaca' : ''}`}
-                        onClick={() => dispatch(markRead(n.id))}
+                        onClick={() => {
+                          dispatch(markRead(n.id))
+                          void markNotificationRead(n.id).catch(() => {})
+                        }}
                       >
                         <span className="inbox-row__icon" aria-hidden="true">
                           <Icon size={18} strokeWidth={1.75} />

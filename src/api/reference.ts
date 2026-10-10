@@ -20,6 +20,7 @@ import type {
   MerchantCreditState,
   MerchantDeliveryConfig,
   MerchantRecord,
+  NotifAudience,
   PlatformSwitches,
   RebateTier,
   SaOperator,
@@ -42,7 +43,7 @@ const MERCHANT_PASSWORD =
   (import.meta.env.VITE_DEMO_MERCHANT_PASSWORD as string | undefined) || 'demo1234'
 
 let refSession: Promise<string> | null = null
-function refToken(): Promise<string> {
+export function refToken(): Promise<string> {
   if (!refSession) refSession = signInToken(REF_EMAIL, REF_PASSWORD)
   return refSession
 }
@@ -449,6 +450,7 @@ const NOTIF_KIND: Record<string, AppNotification['kind']> = {
   order: 'order',
   promo: 'promo',
   payment: 'payment',
+  courier: 'courier',
   system: 'system',
 }
 
@@ -479,13 +481,15 @@ function toNotification(row: NotificationRow): AppNotification {
   }
 }
 
-/** Kotak masuk customer — tabel `notifications`, terbaru dulu. */
-export async function fetchNotifications(): Promise<AppNotification[]> {
+/** Kotak masuk satu audience — tabel `notifications`, terbaru dulu. */
+export async function fetchNotifications(
+  audience: NotifAudience = 'customer',
+): Promise<AppNotification[]> {
   const token = await refToken()
   const rows = await restWith<NotificationRow>(
     token,
     'notifications',
-    '?select=id,kind,title,body,read,created_at&audience=eq.customer&order=created_at.desc&limit=50',
+    `?select=id,kind,title,body,read,created_at&audience=eq.${audience}&order=created_at.desc&limit=50`,
   )
   return rows.map(toNotification)
 }

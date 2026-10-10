@@ -1,0 +1,37 @@
+// Lonceng notifikasi header (merchant/kurir/CS). Bukan gaya hero customer
+// (`.s7-notification` memakai `--hero-deep` yang hanya ada di dalam `.s7-hero`),
+// tapi tombol permukaan biasa supaya terbaca di latar `--bg-warm`.
+.notif-bell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform var(--motion-fast) ease-out;
+}
+
+.notif-bell:active {
+  transform: translateY(1px);
+}
+
+.notif-bell__badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1;
+}

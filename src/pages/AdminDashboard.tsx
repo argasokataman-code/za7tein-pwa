@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
+import { NotificationBell } from '../components/ui/NotificationBell'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { DonutChart } from '../components/ui/DonutChart'
@@ -58,7 +59,11 @@ export default function AdminDashboard() {
   return (
     <div className="app-shell">
       <main className="admin-page">
-        <AdminPageHeader eyebrow="Panel admin · CS" title="Ringkasan" />
+        <AdminPageHeader
+          eyebrow="Panel admin · CS"
+          title="Ringkasan"
+          action={<NotificationBell />}
+        />
 
         {/* 1 — Kartu liability: --surface (DNA baris 15); donut komposisi yang
             membawa warna, deret yang sama dengan konsol SA. Nilai segmen cukup

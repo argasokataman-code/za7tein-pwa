@@ -3,7 +3,7 @@
 // mendasarinya — sementara halaman /notifications ternyata berisi preferensi
 // toggle, bukan daftar notifikasi. Jadi lonceng berbadge "3" membuka halaman
 // yang tidak memuat satu pun notifikasi.
-import type { AppNotification, PushSubscriptionRecord } from '../types'
+import type { AppNotification, NotifAudience, PushSubscriptionRecord } from '../types'
 
 /** Tiga yang belum dibaca, supaya cocok dengan badge lonceng yang sudah ada. */
 export const mockNotifications: AppNotification[] = [
@@ -83,3 +83,11 @@ export function mockPushSubscription(platform = 'web'): PushSubscriptionRecord {
   }
 }
 
+
+/** Audience inbox dari prefix peran di URL (panel admin & konsol SA berbagi `cs`). */
+export function notificationAudienceFromPath(pathname: string): NotifAudience {
+  if (pathname.startsWith('/merchant')) return 'merchant'
+  if (pathname.startsWith('/courier')) return 'courier'
+  if (pathname.startsWith('/admin') || pathname.startsWith('/superadmin')) return 'cs'
+  return 'customer'
+}

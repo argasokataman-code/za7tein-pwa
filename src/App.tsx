@@ -10,6 +10,8 @@ import { useAppSelector } from './hooks/useAppStore'
 import { usePageTransition } from './hooks/usePageTransition'
 import { useApiSync } from './hooks/useApiReference'
 import { useApiNotifications } from './hooks/useApiNotifications'
+import { notificationAudienceFromPath } from './data/notifications'
+import type { NotifAudience } from './types'
 
 import AccountSetup from './pages/AccountSetup'
 import AddNewCard from './pages/AddNewCard'
@@ -185,6 +187,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/pending', MerchantPending],
   ['/', MerchantDashboard],
   ['/orders', MerchantOrders],
+  ['/notifications', Notifications],
   ['/menu', MerchantMenu],
   ['/insentif', MerchantRebate],
   ['/reviews', MerchantReviews],
@@ -206,6 +209,7 @@ const courierRoutes: [string, ComponentType][] = [
   ['/signin', CourierSignIn],
   ['/', CourierTasks],
   ['/task/:id', CourierTaskDetail],
+  ['/notifications', Notifications],
   ['/tips', CourierTips],
   ['/wallet', CourierWallet],
   ['/payout', CourierPayout],
@@ -220,6 +224,7 @@ const adminRoutes: [string, ComponentType][] = [
   ['/', AdminDashboard],
   ['/onboarding', AdminOnboarding],
   ['/disputes', AdminDisputes],
+  ['/notifications', Notifications],
   ['/merchants', AdminMerchants],
   ['/ledger', AdminLedger],
   ['/offline', Offline],
@@ -423,9 +428,9 @@ function LegacyAppRedirect() {
  * Sinkron data referensi live sekali di root. Di dalam `StoreProvider` karena
  * butuh store Redux (kurir, dompet, insentif, konsol SA).
  */
-function ApiSync() {
+function ApiSync({ audience }: { audience: NotifAudience }) {
   useApiSync()
-  useApiNotifications()
+  useApiNotifications(audience)
   return null
 }
 
@@ -433,6 +438,8 @@ export default function App() {
   const { pathname } = window.location
   const role = roleFromPath(pathname)
   const isSuperAdmin = pathname === '/superadmin' || pathname.startsWith('/superadmin/')
+  // Audience inbox mengikuti peran aktif (helper di data/notifications.ts).
+  const notificationAudience = notificationAudienceFromPath(pathname)
   // Jalur tanpa prefix peran, dipakai untuk memutuskan apakah modal pasang
   // aplikasi boleh tampil (lihat AUTH_FORM_PATHS).
   const rolePath = role ? pathname.slice(role.length) || '/' : pathname
@@ -451,7 +458,7 @@ export default function App() {
 
   return (
     <StoreProvider>
-      <ApiSync />
+      <ApiSync audience={notificationAudience} />
       {role === '/customer' ? (
         <RoleRouter
           basename="/customer"

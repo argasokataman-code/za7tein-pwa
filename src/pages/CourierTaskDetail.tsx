@@ -17,7 +17,7 @@ import {
   nextCheckpoint,
 } from '../data/courier'
 import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/courierSlice'
-import { pushNotification } from '../store/slices/notificationsSlice'
+import { insertNotification } from '../api/notifications'
 
 export default function CourierTaskDetail() {
   const { id } = useParams()
@@ -61,26 +61,31 @@ export default function CourierTaskDetail() {
     }
     dispatch(completeTask({ id: task.id }))
     toast.success('Pesanan selesai — hold settled')
+    void insertNotification({
+      audience: 'customer',
+      kind: 'order',
+      title: 'Pesanan selesai',
+      body: 'Pesananmu sudah diterima. Terima kasih!',
+    }).catch(() => {})
   }
 
-  // Maju satu checkpoint. Saat langkah berikutnya "Tiba", kirim satu notifikasi
-  // ke kotak masuk customer (mock, R-PUSH-01): satu store, pola sama seperti
-  // sengketa yang dibaca lintas peran. Web Push asli tetap di luar scope.
+  // Maju satu checkpoint. Tiap langkah memberi notifikasi ke customer
+  // (best-effort, R-PUSH-01). Web Push asli tetap di luar scope.
   function advance() {
     if (!task) return
     const next = nextCheckpoint(task.checkpoint)
     dispatch(advanceCheckpoint({ id: task.id }))
-    if (next === 'tiba') {
-      dispatch(
-        pushNotification({
-          id: `n-tiba-${task.id}`,
-          kind: 'order',
-          title: 'Kurir sudah sampai',
-          body: `${courierSelf.name} menunggu di depan. Siapkan kode OTP untuk serah terima.`,
-          time: 'Baru saja',
-          unread: true,
-        }),
-      )
+    const STAGE_NOTIF: Record<string, { title: string; body: string }> = {
+      ambil: { title: 'Kurir sedang mengambil pesanan', body: 'Kurir akan segera berangkat.' },
+      berangkat: { title: 'Kurir menuju lokasimu', body: 'Kurir sedang dalam perjalanan.' },
+      tiba: {
+        title: 'Kurir sudah sampai',
+        body: `${courierSelf.name} menunggu di depan. Siapkan kode OTP untuk serah terima.`,
+      },
+    }
+    const msg = STAGE_NOTIF[next ?? '']
+    if (msg) {
+      void insertNotification({ audience: 'customer', kind: 'order', ...msg }).catch(() => {})
     }
   }
 
@@ -195,7 +200,15 @@ export default function CourierTaskDetail() {
                       type="button"
                       className="courier-btn-ghost"
                       disabled={!canCancel}
-                      onClick={() => dispatch(cancelTask({ id: task.id }))}
+                      onClick={() => {
+                        dispatch(cancelTask({ id: task.id }))
+                        void insertNotification({
+                          audience: "customer",
+                          kind: "order",
+                          title: "Pesanan dibatalkan",
+                          body: "Pesanan dibatalkan karena customer tidak merespons.",
+                        }).catch(() => {})
+                      }}
                     >
                       {canCancel
                         ? 'Batal — customer lalai'

@@ -3,11 +3,13 @@ import { Check, ChevronRight, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
+import { insertNotification } from '../api/notifications'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { JourneyLine } from '../components/JourneyLine'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
+import { NotificationBell } from '../components/ui/NotificationBell'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { COURIER_STATUS_LABEL } from '../data/courier'
@@ -69,9 +71,15 @@ export default function MerchantOrders() {
   const detailCourier = detailOrder ? couriers.find((c) => c.id === detailOrder.courierId) : undefined
   const codeOf = (id: string | null) => orders.find((o) => o.id === id)?.code ?? ''
 
+  /** Emit notifikasi ke customer (best-effort — UI tidak menunggu jaringan). */
+  const notifyCustomer = (title: string, body: string) => {
+    void insertNotification({ audience: 'customer', kind: 'order', title, body }).catch(() => {})
+  }
+
   const receiveOrder = (id: string, code: string) => {
     dispatch(setOrderStatus({ id, status: 'diterima' }))
     toast.success(`Order ${code} diterima`)
+    notifyCustomer('Pesanan diterima', 'Toko menerima pesananmu dan mulai menyiapkannya.')
   }
 
   const confirmReject = () => {
@@ -79,6 +87,7 @@ export default function MerchantOrders() {
     const order = orders.find((o) => o.id === rejectId)
     dispatch(setOrderStatus({ id: rejectId, status: 'ditolak' }))
     toast.success(`Order ${order?.code ?? ''} ditolak`)
+    notifyCustomer('Pesanan ditolak', 'Maaf, toko tidak bisa menerima pesanan ini.')
     setRejectId(null)
   }
 
@@ -87,6 +96,7 @@ export default function MerchantOrders() {
     const order = orders.find((o) => o.id === dispatchId)
     dispatch(setOrderStatus({ id: dispatchId, status: 'diantar' }))
     toast.success(`Order ${order?.code ?? ''} siap dan diserahkan ke kurir`)
+    notifyCustomer('Kurir menuju lokasimu', 'Pesananmu sedang diantar oleh kurir.')
     setDispatchId(null)
   }
 
@@ -95,6 +105,7 @@ export default function MerchantOrders() {
     const order = orders.find((o) => o.id === cancelId)
     dispatch(setOrderStatus({ id: cancelId, status: 'batal' }))
     toast.success(`Order ${order?.code ?? ''} dibatalkan — dana hold dikembalikan`)
+    notifyCustomer('Pesanan dibatalkan', 'Pesanan dibatalkan dan dana hold dikembalikan.')
     setCancelId(null)
   }
 
@@ -106,7 +117,11 @@ export default function MerchantOrders() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Antrean dapur" title="Order" />
+        <MerchantPageHeader
+          eyebrow="Antrean dapur"
+          title="Order"
+          action={<NotificationBell />}
+        />
 
         <div className="merchant-tabs" role="tablist">
           {QUEUE_TABS.map((t) => (
@@ -304,7 +319,10 @@ export default function MerchantOrders() {
                         type="button"
                         className={active ? 'is-active' : ''}
                         aria-pressed={active}
-                        onClick={() => dispatch(setCookMinutes({ id: detailOrder.id, minutes }))}
+                        onClick={() => {
+                        dispatch(setCookMinutes({ id: detailOrder.id, minutes }))
+                        notifyCustomer('Pesanan sedang dimasak', 'Toko mulai memasak pesananmu.')
+                      }}
                       >
                         {minutes}
                       </button>
@@ -323,9 +341,15 @@ export default function MerchantOrders() {
                           type="button"
                           className={`sheet-menu__item${selected ? ' is-selected' : ''}`}
                           aria-current={selected}
-                          onClick={() =>
+                          onClick={() => {
                             dispatch(assignCourier({ orderId: detailOrder.id, courierId: item.id }))
-                          }
+                            void insertNotification({
+                              audience: 'courier',
+                              kind: 'courier',
+                              title: 'Tugas baru',
+                              body: `Kamu ditugaskan mengantar ${detailOrder.code}.`,
+                            }).catch(() => {})
+                          }}
                         >
                           <span>{item.name}</span>
                           <span className="sheet-menu__note">
@@ -359,9 +383,10 @@ export default function MerchantOrders() {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() =>
+                    onClick={() => {
                       dispatch(setOrderStatus({ id: detailOrder.id, status: 'siap' }))
-                    }
+                      notifyCustomer('Pesanan siap diantar', 'Pesananmu siap dan menunggu kurir.')
+                    }}
                   >
                     Tandai siap
                   </button>

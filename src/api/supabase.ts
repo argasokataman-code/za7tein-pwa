@@ -128,3 +128,25 @@ export async function create(table: string, body: Record<string, unknown>): Prom
   })
   if (!res.ok) throw new Error(`[api] POST ${table} ${res.status}`)
 }
+
+/**
+ * `create` dengan token eksplisit, untuk menulis dari sesi tertentu
+ * (notifikasi lewat sesi `reference.ts`) tanpa mengganggu token global `orders`.
+ */
+export async function createWith(
+  token: string,
+  table: string,
+  body: Record<string, unknown>,
+): Promise<void> {
+  const res = await fetch(`${url}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+      Prefer: 'return=minimal',
+    },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) throw new Error(`[api] POST ${table} ${res.status}`)
+}

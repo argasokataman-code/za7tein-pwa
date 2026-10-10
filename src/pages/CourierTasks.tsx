@@ -2,6 +2,7 @@ import { ChevronRight, Coins, Landmark, Power, UserRound, Wallet } from 'lucide-
 import { Link } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
+import { NotificationBell } from '../components/ui/NotificationBell'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { Sparkline } from '../components/ui/Sparkline'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -77,7 +78,11 @@ export default function CourierTasks() {
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Antar hari ini" title="Beranda" />
+        <CourierPageHeader
+          eyebrow="Antar hari ini"
+          title="Beranda"
+          action={<NotificationBell />}
+        />
 
         {/* Identitas + satu kontrol utama: siap atau jeda. Status dan tombolnya
             satu kartu supaya keputusan "bisa dihubungi atau tidak" ada di
