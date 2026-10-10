@@ -1,5 +1,5 @@
 import toast, { Toaster } from 'react-hot-toast'
-import { useEffect, type ComponentType, type ReactNode } from 'react'
+import { useEffect, useRef, type ComponentType, type ReactNode } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import { StoreProvider } from './store/provider'
@@ -314,16 +314,34 @@ interface RoleRouterProps {
 function RoleChrome({ offlinePath, children }: { offlinePath?: string; children: ReactNode }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  // Lokasi terakhir yang bukan layar offline (untuk memulihkan) + pathname kini.
+  // Dipakai lewat `ref` supaya effect utama tak menaruh `pathname` di deps: dulu
+  // begitu, sehingga tiap pathname berubah effect re-run dan `/offline` ke-push
+  // dua kali (`[/home, /offline, /offline]`) — lalu `navigate(-1)` hanya mundur
+  // ke `/offline` lagi, jadi layar tak pernah pulih saat online.
+  const lastPathRef = useRef<string | null>(null)
+  const pathnameRef = useRef(pathname)
+
+  useEffect(() => {
+    pathnameRef.current = pathname
+    if (pathname !== offlinePath) lastPathRef.current = pathname
+  }, [pathname, offlinePath])
 
   useEffect(() => {
     if (!offlinePath) return
-    const goOffline = () => navigate(offlinePath)
-    // Kembali online harus memulihkan sendiri: naikkan lagi layar yang tergeser
-    // ke /offline + beri tahu sekali. Data disegarkan oleh listener `online` di
-    // hook API (sync/polling/realtime), di sini cukup navigasi + toast.
+    const goOffline = () => {
+      if (pathnameRef.current === offlinePath) return
+      navigate(offlinePath)
+    }
+    // Kembali online memulihkan sendiri: kembali ke layar yang tergeser + beri
+    // tahu sekali. Data disegarkan oleh listener `online` di hook API
+    // (sync/polling/realtime); di sini cukup navigasi + toast. `replace` supaya
+    // `/offline` tak menumpuk di history.
     const goOnline = () => {
       toast.success('Kembali online')
-      if (pathname === offlinePath) navigate(-1)
+      if (pathnameRef.current === offlinePath) {
+        navigate(lastPathRef.current ?? '/', { replace: true })
+      }
     }
     if (!navigator.onLine) goOffline()
     window.addEventListener('offline', goOffline)
@@ -332,7 +350,7 @@ function RoleChrome({ offlinePath, children }: { offlinePath?: string; children:
       window.removeEventListener('offline', goOffline)
       window.removeEventListener('online', goOnline)
     }
-  }, [navigate, offlinePath, pathname])
+  }, [navigate, offlinePath])
 
   return <AppErrorBoundary>{children}</AppErrorBoundary>
 }

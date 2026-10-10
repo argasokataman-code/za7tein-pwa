@@ -3438,6 +3438,46 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-10222",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:55:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+40/-22) — edit via tool: tsx: function RoleChrome({ offlinePath, child",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "BUG-919",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "19:56:41",
+      "tags": [
+        "offline",
+        "pwa",
+        "router"
+      ],
+      "summary": "Offline->online tak memulihkan: RoleChrome push /offline 2x (pathname di deps), navigate(-1) balik ke /offline",
+      "conn": [
+        {
+          "id": "DEC-1041",
+          "type": "relates",
+          "raw": "DEC-1041:relates"
+        }
+      ],
+      "loc": "src/App.tsx:314"
     }
   ]
 }
