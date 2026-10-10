@@ -10,20 +10,36 @@ import { selectUnreadCount } from '../../store/slices/notificationsSlice'
  * bisa berbeda. Navigasi relatif terhadap basename router peran aktif, jadi
  * `/notifications` mengarah ke inbox peran itu.
  */
-export function NotificationBell() {
+interface NotificationBellProps {
+  /**
+   * `plain` — header konsol: ikon polos transparan (`.notif-bell`).
+   * `hero` — kontrol hero beranda (kelas `.s7-hero`): memakai resep
+   * `.s7-notification` yang **sama persis** dengan beranda pelanggan, bukan
+   * salinannya, supaya keduanya tak bisa melenceng.
+   */
+  variant?: 'plain' | 'hero'
+}
+
+export function NotificationBell({ variant = 'plain' }: NotificationBellProps) {
   const navigate = useNavigate()
   const unread = useAppSelector((s) => selectUnreadCount(s.notifications.items))
+  const hero = variant === 'hero'
 
   return (
     <button
       type="button"
-      className="notif-bell"
+      className={hero ? 's7-notification' : 'notif-bell'}
       aria-label={unread > 0 ? `Notifikasi, ${unread} belum dibaca` : 'Notifikasi'}
       onClick={() => navigate('/notifications')}
     >
-      <Bell size={22} strokeWidth={1.75} aria-hidden="true" />
+      <Bell
+        size={hero ? undefined : 22}
+        className={hero ? 's7-bell-icon' : undefined}
+        strokeWidth={1.75}
+        aria-hidden="true"
+      />
       {unread > 0 ? (
-        <span className="notif-bell__badge" aria-hidden="true">
+        <span className={hero ? 's7-notification__badge' : 'notif-bell__badge'} aria-hidden="true">
           {unread > 9 ? '9+' : unread}
         </span>
       ) : null}

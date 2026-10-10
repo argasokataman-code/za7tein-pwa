@@ -197,7 +197,7 @@ export default function Documentation() {
               merchant lengkap (pemilik/kota/tier/tenant/deposit/zona/COD) untuk panel CS & konsol SA,
               role & operator konsol SA (izinnya sudah sepadan dengan katalog UI), dan riwayat
               kredit dari merchant_credit_events, dan notifikasi live: inbox dibaca per audience
-              (customer/merchant/courier/cs) dengan lonceng+badge di header merchant/kurir/CS — kini otomatis di tiap halaman konsol (default selubung header peran, onboarding dikecualikan) dan di hero beranda dapur, bukan lagi ditempel per halaman — dengan gaya tombol ikon polos (transparan) di header dan cincin kaca di hero, tiap
+              (customer/merchant/courier/cs) dengan lonceng+badge di header merchant/kurir/CS — kini otomatis di tiap halaman konsol (default selubung header peran, onboarding dikecualikan) dan di hero beranda dapur, bukan lagi ditempel per halaman — dengan gaya tombol ikon polos (transparan) di header dan lonceng hero beranda dapur yang memakai kelas `.s7-notification` yang sama persis dengan beranda pelanggan, tiap
               transisi order (checkout, terima/tolak/siap/serahkan/batal, checkpoint kurir, OTP)
               mengemit notifikasi ke peran terkait, dan klik baris menulis balik
               notifications.read (kind tak dikenal jatuh ke system; mock tetap jadi fallback),

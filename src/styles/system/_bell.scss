@@ -1,8 +1,8 @@
 // Lonceng notifikasi header peran (merchant/kurir/CS). Tombol ikon polos:
 // latar transparan dan tanpa tepi, supaya menyatu dengan bar header alih-alih
-// jadi kotak putih bertepi yang menonjol. Beranda dapur menambahkan cincin kaca
-// sendiri di atas bidang oranye (lihat `_merchant-4.scss`), mengikuti gaya
-// `.s7-notification` milik pelanggan.
+// jadi kotak putih bertepi yang menonjol. Beranda dapur tidak memakai kelas ini:
+// lonceng hero-nya memakai `.s7-notification` milik pelanggan, kelas yang sama,
+// supaya tak ada dua resep yang bisa melenceng.
 .notif-bell {
   position: relative;
   display: grid;

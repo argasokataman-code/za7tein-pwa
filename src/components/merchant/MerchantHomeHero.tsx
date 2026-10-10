@@ -91,7 +91,7 @@ export function MerchantHomeHero({
             <p className="merchant-eyebrow">Dapur</p>
             <h1 className="merchant-title">{name}</h1>
           </div>
-          <NotificationBell />
+          <NotificationBell variant="hero" />
         </div>
 
         <div className="merchant-hero__status" role="radiogroup" aria-label="Status toko">
