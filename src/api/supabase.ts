@@ -178,6 +178,27 @@ export async function createWith(
 }
 
 /**
+ * DELETE baris PostgREST. `query` wajib berisi filter (mis. `?id=eq.7`) —
+ * tanpa filter PostgREST menolak agar tidak menghapus seluruh tabel.
+ */
+export async function deleteWith(
+  token: string,
+  table: string,
+  query: string,
+): Promise<void> {
+  const res = await fetch(`${url}/rest/v1/${table}${query}`, {
+    method: 'DELETE',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+      Prefer: 'return=minimal',
+    },
+  })
+  if (!res.ok) throw new Error(`[api] DELETE ${table} ${res.status}`)
+}
+
+/**
  * POST yang **mengembalikan baris** (`Prefer: return=representation`) — dipakai
  * saat id/code baris baru diperlukan (mis. `orders` setelah checkout).
  */

@@ -151,6 +151,16 @@ const cartSlice = createSlice({
     setTransferProof(state, action: PayloadAction<string | null>) {
       state.transferProof = action.payload
     },
+    /**
+     * Ganti seluruh daftar alamat (hasil sinkron BE). Pilihan yang menunjuk
+     * alamat hilang dipindah ke alamat utama, lalu yang pertama.
+     */
+    setAddresses(state, action: PayloadAction<Address[]>) {
+      state.addresses = action.payload
+      if (state.addresses.some((item) => item.id === state.selectedAddressId)) return
+      state.selectedAddressId =
+        state.addresses.find((item) => item.isDefault)?.id ?? state.addresses[0]?.id ?? null
+    },
     addAddress(state, action: PayloadAction<Address>) {
       // Alamat pertama otomatis jadi alamat utama.
       if (!state.addresses.some((item) => item.isDefault)) action.payload.isDefault = true
@@ -280,6 +290,7 @@ export const {
   setPayment,
   setTransferProof,
   addAddress,
+  setAddresses,
   updateAddress,
   removeAddress,
   setDefaultAddress,

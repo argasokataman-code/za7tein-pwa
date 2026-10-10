@@ -1,0 +1,224 @@
+/**
+ * Profil customer: identitas, alamat pengantaran, dan registrasi push.
+ *
+ * Backend yang tersedia hari ini: `users` (email/phone saja — tanpa nama/
+ * avatar), `addresses` (CRUD lengkap), `push_subscriptions` (endpoint + keys).
+ * Semua tulis bersifat best-effort seperti `orders`: kalau RLS/API menolak,
+ * pemanggil menangkapnya dan state lokal tetap jalan (mock-first).
+ */
+import { resolveCoverage } from '../data/zones'
+import type { Address, ZoneId } from '../types'
+import { refToken } from './reference'
+import { createWith, deleteWith, patch, restWith } from './supabase'
+
+/** User demo customer di backend (sama dengan `reference.ts`). */
+const DEMO_CUSTOMER_USER_ID = 1
+
+/** Zona master (bentuk argumen `resolveCoverage`) untuk hitung zona + jarak. */
+type Zones = Parameters<typeof resolveCoverage>[1]
+
+interface UserRow {
+  email: string | null
+  phone: string | null
+}
+
+export interface AddressRow {
+  id: number
+  name: string | null
+  label: string | null
+  building: string | null
+  floor: string | null
+  unit: string | null
+  notes: string | null
+  address: string | null
+  city: string | null
+  full_address: string | null
+  latitude: number | null
+  longitude: number | null
+  is_default: boolean | null
+}
+
+export interface PushRow {
+  id: number
+  endpoint: string
+  p256dh: string
+  auth: string
+}
+
+/** Identitas login customer (email + nomor HP). Nama/avatar belum ada di BE. */
+export async function fetchCustomerUser(
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<{ email: string; phone: string } | undefined> {
+  const token = await refToken()
+  const rows = await restWith<UserRow>(token, 'users', `?select=email,phone&id=eq.${userId}&limit=1`)
+  const row = rows[0]
+  if (!row) return undefined
+  return { email: row.email ?? '', phone: row.phone ?? '' }
+}
+
+/** Semua alamat customer, alamat utama lebih dulu. */
+export async function fetchCustomerAddresses(
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<AddressRow[]> {
+  const token = await refToken()
+  return restWith<AddressRow>(
+    token,
+    'addresses',
+    `?select=*&user_id=eq.${userId}&order=is_default.desc,id.asc`,
+  )
+}
+
+/** Bentuk tulis alamat (subset kolom `addresses`, tanpa `user_id`). */
+export interface AddressInput {
+  name: string
+  building: string
+  floor: string
+  unit: string
+  notes: string
+  address: string
+  city: string
+  fullAddress: string
+  lat: number
+  lng: number
+  isDefault: boolean
+}
+
+function rowBody(a: AddressInput): Record<string, unknown> {
+  return {
+    name: a.name,
+    building: a.building,
+    floor: a.floor,
+    unit: a.unit,
+    notes: a.notes,
+    address: a.address,
+    city: a.city,
+    full_address: a.fullAddress,
+    latitude: a.lat,
+    longitude: a.lng,
+    is_default: a.isDefault,
+  }
+}
+
+export async function createCustomerAddress(
+  input: AddressInput,
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<void> {
+  const token = await refToken()
+  await createWith(token, 'addresses', { user_id: userId, ...rowBody(input) })
+}
+
+export async function updateCustomerAddress(id: string, input: AddressInput): Promise<void> {
+  if (!/^\d+$/.test(id)) return // id lokal (belum tersinkron) → lewati
+  const token = await refToken()
+  await patch(token, 'addresses', `?id=eq.${id}`, rowBody(input))
+}
+
+/** `is_default` ditulis terpisah supaya hanya satu alamat utama. */
+export async function setDefaultCustomerAddress(
+  id: string,
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<void> {
+  if (!/^\d+$/.test(id)) return
+  const token = await refToken()
+  await patch(token, 'addresses', `?user_id=eq.${userId}`, { is_default: false })
+  await patch(token, 'addresses', `?id=eq.${id}`, { is_default: true })
+}
+
+export async function deleteCustomerAddress(id: string): Promise<void> {
+  if (!/^\d+$/.test(id)) return
+  const token = await refToken()
+  await deleteWith(token, 'addresses', `?id=eq.${id}`)
+}
+
+/** Registrasi push perangkat (endpoint + kunci), baris terbaru dulu. */
+export async function fetchPushSubscription(
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<PushRow | undefined> {
+  const token = await refToken()
+  const rows = await restWith<PushRow>(
+    token,
+    'push_subscriptions',
+    `?select=id,endpoint,p256dh,auth&user_id=eq.${userId}&order=id.desc&limit=1`,
+  )
+  return rows[0]
+}
+
+export async function savePushSubscription(
+  endpoint: string,
+  p256dh: string,
+  auth: string,
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<void> {
+  const token = await refToken()
+  await createWith(token, 'push_subscriptions', { user_id: userId, endpoint, p256dh, auth })
+}
+
+export async function deletePushSubscription(id: string): Promise<void> {
+  if (!/^\d+$/.test(id)) return
+  const token = await refToken()
+  await deleteWith(token, 'push_subscriptions', `?id=eq.${id}`)
+}
+
+/** Baris `addresses` → `Address` domain; zona + jarak dihitung dari poligon master. */
+export function toAddress(row: AddressRow, zones: Zones, kitchen?: { lat: number; lng: number }): Address {
+  const lat = row.latitude ?? 0
+  const lng = row.longitude ?? 0
+  const coverage = resolveCoverage({ lat, lng }, zones, kitchen)
+  return {
+    id: String(row.id),
+    name: row.name ?? row.label ?? 'Alamat',
+    isDefault: Boolean(row.is_default),
+    building: row.building ?? '',
+    floor: row.floor ?? '',
+    unit: row.unit ?? '',
+    notes: row.notes ?? '',
+    address: row.address ?? '',
+    city: row.city ?? '',
+    fullAddress: row.full_address ?? '',
+    lat,
+    lng,
+    distanceMeters: coverage.distanceMeters,
+    zone: coverage.zone as ZoneId | null,
+  }
+}
+
+/** Titik dapur merchant live (dipakai menghitung jarak alamat → toko). */
+export async function fetchMerchantLocation(
+  merchantId = 1,
+): Promise<{ lat: number; lng: number } | undefined> {
+  const token = await refToken()
+  const rows = await restWith<{ latitude: number | null; longitude: number | null }>(
+    token,
+    'merchants',
+    `?select=latitude,longitude&id=eq.${merchantId}&limit=1`,
+  )
+  const row = rows[0]
+  if (!row || row.latitude == null || row.longitude == null) return undefined
+  return { lat: row.latitude, lng: row.longitude }
+}
+
+/** Perbarui email / nomor HP di baris `users`. Nama & avatar belum ada kolomnya. */
+export async function updateCustomerContact(
+  input: { email?: string; phone?: string },
+  userId = DEMO_CUSTOMER_USER_ID,
+): Promise<void> {
+  const token = await refToken()
+  await patch(token, 'users', `?id=eq.${userId}`, input)
+}
+
+/** `Address` domain → bentuk tulis `addresses`. */
+export function addressInput(a: Address): AddressInput {
+  return {
+    name: a.name,
+    building: a.building,
+    floor: a.floor,
+    unit: a.unit,
+    notes: a.notes,
+    address: a.address,
+    city: a.city,
+    fullAddress: a.fullAddress,
+    lat: a.lat,
+    lng: a.lng,
+    isDefault: a.isDefault,
+  }
+}

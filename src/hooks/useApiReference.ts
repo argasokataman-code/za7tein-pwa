@@ -23,6 +23,7 @@ import { setOperators, setRoles, setSwitches, setZones } from '../store/slices/s
 import { setCustomerLocation } from '../store/slices/uiSlice'
 import { setBalance as setWalletBalance } from '../store/slices/walletSlice'
 import { useAppDispatch, useAppSelector } from './useAppStore'
+import { useApiProfile } from './useApiProfile'
 
 const MERCHANT_ID = 1
 const USER_CUSTOMER = 1
@@ -141,6 +142,7 @@ export function useApiSync(): void {
   useWallet(USER_CUSTOMER, 'customer')
   useWallet(USER_MERCHANT, 'merchant')
   useCustomerLocation()
+  useApiProfile()
   useStoreStatus()
   useSuperAdmin()
 }

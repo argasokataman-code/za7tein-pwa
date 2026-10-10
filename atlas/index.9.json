@@ -5652,6 +5652,143 @@
         }
       ],
       "loc": "src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-9572",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:09:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && git add -A && git commit -F - <<'EOF'\nfeat(customer",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9580",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:12:23",
+      "tags": [
+        "api",
+        "contract",
+        "backend"
+      ],
+      "summary": "Baca kontrak Sa7tein API v1 (openapi.yaml DRAFT 0.1.0): 40+ endpoint REST + WebSocket, JOD display/IDR settlement, merchant-first (DEC-1041)",
+      "conn": [
+        {
+          "id": "TASK-9570",
+          "type": "relates",
+          "raw": "TASK-9570:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9581",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:16:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+49/-4) — edit via tool: \"note\": \"tanpa R-* — dasar keputusan PO ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-9582",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:17:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/flows/INDEX.json (+48/-3) — edit via tool: dana user = liability\" }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-9590",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:17:19",
+      "tags": [
+        "api",
+        "flows",
+        "alignment"
+      ],
+      "summary": "Selaraskan flow yang ada ke kontrak API v1: tambah seksi contract di flows/INDEX.json (20 endpoint + events + realtime) + 6 mismatch (favori",
+      "conn": [
+        {
+          "id": "TASK-9580",
+          "type": "led_to",
+          "raw": "TASK-9580:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9600",
+      "type": "task",
+      "status": "archived",
+      "date": "2026-10-09",
+      "time": "22:28:56",
+      "tags": [
+        "api",
+        "contract",
+        "blocked"
+      ],
+      "summary": "BASKAN sebelumnya. API v1 TIDAK live. Digantikan TASK-9610.",
+      "conn": [
+        {
+          "id": "TASK-9590",
+          "type": "relates",
+          "raw": "TASK-9590:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-9610",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-09",
+      "time": "22:35:47",
+      "tags": [
+        "api",
+        "supabase",
+        "live"
+      ],
+      "summary": "API v1 CONSUMABLE: Supabase PostgREST https://dwzxtnfesmpobnepilhl.supabase.co. GET merchants/zones/menus/menu_variants 200; auth POST /auth",
+      "conn": [
+        {
+          "id": "TASK-9600",
+          "type": "led_to",
+          "raw": "TASK-9600:led_to"
+        }
+      ]
     }
   ]
 }

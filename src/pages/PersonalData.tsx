@@ -1,25 +1,51 @@
 import { ChevronLeft, SquarePen } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
+import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { updateCustomerContact } from '../api/profile'
 import { personalDataSchema, type PersonalDataFormData } from '../lib/schemas'
+import { updateUser } from '../store/slices/authSlice'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 
 export default function PersonalData() {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const user = useAppSelector((s) => s.auth.user)
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<PersonalDataFormData>({ resolver: zodResolver(personalDataSchema) })
-  const onSubmit = async () => {
-    await new Promise((r) => setTimeout(r, 500))
-    toast.success("Changes saved!"); navigate('/profile')
+  // Isi form dari sesi live (email/HP ditulis tabel `users`). Di-reset saat
+  // `auth.user` tiba dari sinkron API, bukan hanya di nilai awal mount.
+  useEffect(() => {
+    if (!user) return
+    reset((prev) => ({
+      ...prev,
+      fullName: user.name,
+      email: user.email,
+      phone: user.phone,
+      dob: user.dob,
+      gender: user.gender,
+    }))
+  }, [user, reset])
+  const onSubmit = async (data: PersonalDataFormData) => {
+    try {
+      await updateCustomerContact({ email: data.email, phone: data.phone })
+      dispatch(updateUser({ email: data.email, phone: data.phone }))
+      toast.success('Perubahan disimpan')
+    } catch {
+      toast.error('Gagal menyimpan perubahan')
+    }
+    navigate('/profile')
   }
-  const navigate = useNavigate()
   return (
     <>
     <div className="app-shell">
@@ -45,18 +71,22 @@ export default function PersonalData() {
                   </div>
                 </div>
                 <form className="personal-data-form" noValidate onSubmit={handleSubmit(onSubmit)}>
+                  <p className="addr-form-hint">
+                    Email dan nomor HP tersimpan ke server. Nama, tanggal lahir, dan jenis
+                    kelamin belum punya kolom di backend, jadi belum ikut tersimpan.
+                  </p>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Full Name
                     </label>
-                    <input className={`form-input-profile${errors.fullName ? " error" : ""}`} placeholder="Dimas Ardianto" type="text"  {...register("fullName")} />
+                    <input className={`form-input-profile${errors.fullName ? " error" : ""}`} placeholder="Nama lengkap" type="text"  {...register("fullName")} />
                       {errors.fullName ? (<span className="error-message">{errors.fullName.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Email
                     </label>
-                    <input className={`form-input-profile${errors.email ? " error" : ""}`} placeholder="dimas@sa7tein.id" type="email"  {...register("email")} />
+                    <input className={`form-input-profile${errors.email ? " error" : ""}`} placeholder="nama@email.com" type="email"  {...register("email")} />
                       {errors.email ? (<span className="error-message">{errors.email.message}</span>) : null}
                   </div>
                   <div className="form-group-profile">
@@ -92,7 +122,7 @@ export default function PersonalData() {
                       </option>
                     </select>
                   </div>
-                  <button type="submit" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }} disabled={isSubmitting}>
+                  <button type="submit" className="btn-profile-primary" disabled={isSubmitting}>
                     Save Changes
                   </button>
                 </form>

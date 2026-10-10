@@ -9,6 +9,13 @@ import toast from 'react-hot-toast'
 
 import { AddressMapPicker } from '../components/customer/AddressMapPicker'
 import { BottomSheet } from '../components/ui/BottomSheet'
+import {
+  addressInput,
+  createCustomerAddress,
+  deleteCustomerAddress,
+  setDefaultCustomerAddress,
+  updateCustomerAddress,
+} from '../api/profile'
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
 import {
   DEFAULT_NEW_ADDRESS_PIN,
@@ -131,6 +138,7 @@ export default function AddressSelection() {
         isDefault: Boolean(data.isDefault) || current.isDefault,
       }
       dispatch(updateAddress(next))
+      updateCustomerAddress(next.id, addressInput(next)).catch(() => {})
       toast.success('Alamat diperbarui')
     } else {
       // Id diturunkan dari daftar yang ada (murni), bukan dari jam — supaya
@@ -160,6 +168,7 @@ export default function AddressSelection() {
       dispatch(addAddress(next))
       if (data.isDefault) dispatch(setDefaultAddress(id))
       else dispatch(setAddress(id))
+      createCustomerAddress(addressInput(next)).catch(() => {})
       toast.success(
         result.zone ? 'Alamat ditambahkan' : 'Alamat ditambahkan, tapi di luar area antar',
       )
@@ -169,11 +178,13 @@ export default function AddressSelection() {
 
   const onDelete = (address: Address) => {
     dispatch(removeAddress(address.id))
+    deleteCustomerAddress(address.id).catch(() => {})
     toast.success(`Alamat ${address.name} dihapus`)
   }
 
   const onSetDefault = (address: Address) => {
     dispatch(setDefaultAddress(address.id))
+    setDefaultCustomerAddress(address.id).catch(() => {})
     toast.success('Alamat utama diperbarui')
   }
 
