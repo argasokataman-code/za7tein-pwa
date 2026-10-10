@@ -52,12 +52,6 @@
   line-height: 1.1;
 }
 
-.courier-performa-sub {
-  margin-bottom: var(--space-2);
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-}
-
 /* Kartu performa 7 hari sebagai satu-satunya bidang berwarna di beranda kurir:
    angka tips jadi titik fokus, bukan kartu putih keempat. Permukaan navy pakai
    token `--navy`/`--on-navy` (sama pola dengan kartu insentif merchant), teks
@@ -73,8 +67,7 @@
     0 10px 28px color-mix(in srgb, var(--navy) 26%, transparent);
 
   .courier-card-sub,
-  .courier-performa-value,
-  .courier-performa-sub {
+  .courier-performa-value {
     color: var(--on-navy);
   }
 

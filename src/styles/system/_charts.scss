@@ -108,6 +108,48 @@
   stroke: none;
 }
 
+/* ── Kepala kartu grafik ─────────────────────────────────────────────────
+   Motif satu baris: chip ikon + judul + keterangan, lalu seri data di
+   bawahnya. Dipakai kartu pendapatan (dapur) dan kartu tips (kurir) supaya
+   dua kartu grafik garis tampil sebagai satu bahasa.
+   Warna TIDAK diatur di sini: chip memakai `currentColor`, jadi di kartu
+   berlatar merek (oranye/navy) chip-nya otomatis putih-transparan tanpa
+   kelas nada tambahan; di kartu putih ia ikut warna teks induknya. */
+.chart-card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.chart-card-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  color: inherit;
+}
+
+.chart-card-heading {
+  min-width: 0;
+}
+
+.chart-card-title {
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.chart-card-desc {
+  font-size: var(--text-xs);
+  color: inherit;
+  opacity: 0.85;
+}
+
 /* ── Donut ─────────────────────────────────────────────────────────────── */
 
 .chart-donut {

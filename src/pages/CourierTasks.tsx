@@ -1,4 +1,4 @@
-import { ChevronRight, Coins, Landmark, Power, UserRound, Wallet } from 'lucide-react'
+import { ChevronRight, Coins, HandCoins, Landmark, Power, UserRound, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
@@ -135,13 +135,21 @@ export default function CourierTasks() {
             Sumbernya mock mingguan yang ditandai di data; PRD tak menetapkan
             laporan performa kurir, jadi ini tampilan tren, bukan aturan. */}
         <section className="courier-card courier-card--navy">
-          <p className="courier-card-sub">Tips 7 hari terakhir</p>
+          <div className="chart-card-head">
+            <span className="chart-card-icon" aria-hidden="true">
+              <HandCoins size={20} strokeWidth={1.75} />
+            </span>
+            <div className="chart-card-heading">
+              <p className="chart-card-title" role="heading" aria-level={2}>Tips 7 hari terakhir</p>
+              <p className="chart-card-desc">
+                {done.length} tugas selesai · {week.activeDays} hari ada tips · puncak {week.best.label}
+              </p>
+            </div>
+          </div>
           <p className="courier-performa-value">{money(week.total)}</p>
-          <p className="courier-performa-sub">
-            {done.length} tugas selesai · {week.activeDays} hari ada tips · puncak {week.best.label}
-          </p>
           <Sparkline
             data={week.bars}
+            height={48}
             ariaLabel={`Tips tujuh hari terakhir: ${week.total} rupiah, ${week.activeDays} hari ada tips, puncak ${week.best.label}`}
           />
         </section>

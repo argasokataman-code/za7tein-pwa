@@ -1,4 +1,4 @@
-import { Bike, ChevronRight, Clock, PlusCircle, Sparkles, Star } from 'lucide-react'
+import { Bike, ChevronRight, Clock, PlusCircle, Sparkles, Star, TrendingUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -160,13 +160,21 @@ export default function MerchantDashboard() {
             Sekarang uangnya jadi satu-satunya titik fokus, dan tiga angka
             sisanya turun pangkat jadi satu baris teks. */}
         <section className="merchant-revenue">
-          <p className="merchant-revenue-label">Pendapatan</p>
+          <div className="chart-card-head">
+            <span className="chart-card-icon" aria-hidden="true">
+              <TrendingUp size={20} strokeWidth={1.75} />
+            </span>
+            <div className="chart-card-heading">
+              <p className="chart-card-title" role="heading" aria-level={2}>Pendapatan</p>
+              <p className="chart-card-desc">
+                7 hari · {trend.orders} order jalan · puncak {trend.best?.label ?? '-'}
+              </p>
+            </div>
+          </div>
           <p className="merchant-revenue-value">{money(revenue)}</p>
-          <p className="merchant-revenue-sub">
-            7 hari · {trend.orders} order jalan · puncak {trend.best?.label ?? '-'}
-          </p>
           <Sparkline
             data={revenueTrendBars()}
+            height={48}
             ariaLabel={`Pendapatan tujuh hari terakhir dalam ribuan rupiah: ${trend.revenueIdr} total`}
           />
         </section>

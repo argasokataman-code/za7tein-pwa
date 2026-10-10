@@ -159,21 +159,11 @@
   }
 }
 
-.merchant-revenue-label {
-  font-size: var(--text-sm);
-  color: var(--on-brand);
-}
-
 .merchant-revenue-value {
   font-size: var(--text-2xl);
   font-weight: 800;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
-  color: var(--on-brand);
-}
-
-.merchant-revenue-sub {
-  font-size: var(--text-xs);
   color: var(--on-brand);
 }
 
