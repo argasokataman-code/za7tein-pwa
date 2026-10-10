@@ -28,13 +28,14 @@ waLink('+962791234567', 'Halo…')  // https://wa.me/962791234567?text=Halo…`}
       </DocCode>
       <h3 className="doc-h3">Registrasi push: tersimpan, pengirimannya belum</h3>
       <p className="doc-p">
-        Di Pengaturan Notifikasi ada kartu <strong>Notifikasi push</strong>. Tombolnya menyimpan
-        registrasi ke tabel backend <code className="doc-inline">push_subscriptions</code> —{' '}
+        Di Pengaturan Notifikasi ada baris <strong>Notifikasi push</strong> dengan sakelar. Saat
+        dinyalakan, registrasinya disimpan ke tabel backend{' '}
+        <code className="doc-inline">push_subscriptions</code> —{' '}
         <code className="doc-inline">endpoint</code>, <code className="doc-inline">keys</code>{' '}
-        (dipotong, karena bukan kunci nyata), dan waktu daftar — lalu membacanya kembali saat
-        halaman dimuat, jadi status aktif bertahan lintas refresh. Kartu menampilkannya bersama
-        ketentuan payload dari PRD: maks {4} KB, TTL wajib, dan{' '}
-        <code className="doc-inline">userVisibleOnly</code>.
+        (dipotong, karena bukan kunci nyata), dan waktu daftar — lalu dibaca kembali saat halaman
+        dimuat, jadi status aktif bertahan lintas refresh. Detail teknis (endpoint, kunci, kontrak
+        payload maks {4} KB, TTL wajib, <code className="doc-inline">userVisibleOnly</code>) ada di
+        halaman dokumentasi ini, bukan di layar pelanggan.
       </p>
       <p className="doc-p">
         Yang belum ada hanya pengirimannya: repo ini tak punya service worker push, jadi tidak ada

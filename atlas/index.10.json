@@ -5607,6 +5607,103 @@
           "raw": "FEAT-9981:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-10050",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:50:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx (+164) — write via tool: tsx: import { ChevronLeft } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx"
+    },
+    {
+      "id": "TASK-10051",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:50:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+16/-15) — edit via tool: tsx: <h3 clas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-10052",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:51:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx (+6/-6) — edit via tool: tsx: <p className=\"text-muted",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx"
+    },
+    {
+      "id": "TASK-10053",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:53:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+5/-4) — edit via tool: tsx: dikosongkan bila API tak mengem",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-9983",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:53:28",
+      "tags": [
+        "profile",
+        "ui",
+        "push",
+        "customer"
+      ],
+      "summary": "Kartu push pakai admin-card + bocorkan endpoint/keys/TTL ke layar customer. Diganti sakelar 'Notifikasi push' sejajar toggle lain; detail te",
+      "conn": [
+        {
+          "id": "FEAT-9982",
+          "type": "fixes",
+          "raw": "FEAT-9982:fixes"
+        }
+      ]
     }
   ]
 }

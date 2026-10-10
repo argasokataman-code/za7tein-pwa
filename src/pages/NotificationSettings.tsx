@@ -13,7 +13,7 @@ import {
   savePushSubscription,
   type PushRow,
 } from '../api/profile'
-import { PUSH_CONTRACT, mockPushSubscription } from '../data/notifications'
+import { mockPushSubscription } from '../data/notifications'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { clearPush, registerPush } from '../store/slices/notificationsSlice'
 import type { PushSubscriptionRecord } from '../types'
@@ -86,6 +86,14 @@ export default function NotificationSettings() {
     toast.success('Registrasi push dimatikan')
   }
 
+  const registeredLabel = subscription
+    ? new Date(subscription.registeredAt).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      })
+    : ''
+
   return (
     <div className="app-shell">
       <main>
@@ -119,47 +127,30 @@ export default function NotificationSettings() {
                     </label>
                   </div>
                 ))}
+                <div className="notification-row">
+                  <span className="notification-label">Notifikasi push</span>
+                  <label className="toggle-wrap" htmlFor="toggle-push">
+                    <input
+                      id="toggle-push"
+                      className="toggle-input"
+                      type="checkbox"
+                      aria-label="Notifikasi push"
+                      checked={subscription !== null}
+                      onChange={(e) => {
+                        if (e.target.checked) activate()
+                        else deactivate()
+                      }}
+                    />
+                    <span className="toggle-slider" />
+                  </label>
+                </div>
               </div>
-
-              {/* Push (M8). Registrasinya disimpan ke tabel `push_subscriptions`;
-                  yang belum ada hanya pengirimannya — repo ini tak punya service
-                  worker push, jadi tidak ada notifikasi yang benar-benar dikirim. */}
-              <section className="admin-card" aria-label="Registrasi push">
-                <p className="admin-card-title">Notifikasi push</p>
-                {subscription ? (
-                  <>
-                    <p className="admin-card-sub">
-                      Aktif · {subscription.platform} · terdaftar{' '}
-                      {new Date(subscription.registeredAt).toLocaleDateString('id-ID', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                      })}
-                    </p>
-                    <p className="admin-note">Endpoint {subscription.endpoint}</p>
-                    <p className="admin-note">
-                      Keys {subscription.keys.p256dh} · {subscription.keys.auth}
-                    </p>
-                    <p className="admin-note">
-                      Kontrak payload: maks {PUSH_CONTRACT.maxPayloadKb} KB, TTL wajib,{' '}
-                      userVisibleOnly.
-                    </p>
-                    <button type="button" className="admin-btn-ghost" onClick={deactivate}>
-                      Matikan push
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <p className="admin-note">
-                      Daftarkan perangkat untuk menerima update pesanan tanpa membuka aplikasi.
-                      Registrasi tersimpan di backend; pengiriman push belum ada di repo ini.
-                    </p>
-                    <button type="button" className="btn-profile-primary" onClick={activate}>
-                      Aktifkan push
-                    </button>
-                  </>
-                )}
-              </section>
+              <p className="text-muted-profile">
+                {subscription
+                  ? `Perangkat terdaftar sejak ${registeredLabel}. `
+                  : 'Sakelar ini mendaftarkan perangkat ke server. '}
+                Pengiriman push belum aktif di versi ini.
+              </p>
 
               <button
                 type="button"
