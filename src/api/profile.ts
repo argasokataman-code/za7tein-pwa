@@ -9,10 +9,21 @@
 import { resolveCoverage } from '../data/zones'
 import type { Address, ZoneId } from '../types'
 import { refToken } from './reference'
-import { createWith, deleteWith, patch, restWith } from './supabase'
+import { authUpdateUser, authUser, createWith, deleteWith, patch, restWith, signInToken } from './supabase'
 
 /** User demo customer di backend (sama dengan `reference.ts`). */
 const DEMO_CUSTOMER_USER_ID = 1
+const DEMO_CUSTOMER_EMAIL =
+  (import.meta.env.VITE_DEMO_CUSTOMER_EMAIL as string | undefined) || 'customer@sa7tein.app'
+const DEMO_CUSTOMER_PASSWORD =
+  (import.meta.env.VITE_DEMO_CUSTOMER_PASSWORD as string | undefined) || 'demo1234'
+
+/** Sesi auth milik customer demo — metadata akun (nama/avatar) hanya lewat sini. */
+let customerSession: Promise<string> | null = null
+function customerToken(): Promise<string> {
+  if (!customerSession) customerSession = signInToken(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
+  return customerSession
+}
 
 /** Zona master (bentuk argumen `resolveCoverage`) untuk hitung zona + jarak. */
 type Zones = Parameters<typeof resolveCoverage>[1]
@@ -54,6 +65,33 @@ export async function fetchCustomerUser(
   const row = rows[0]
   if (!row) return undefined
   return { email: row.email ?? '', phone: row.phone ?? '' }
+}
+
+/** Akun auth customer (metadata): nama + avatar. Sumber nama, karena tabel `users` tak punya kolomnya. */
+export interface CustomerAccount {
+  name: string
+  avatar: string
+}
+
+interface AuthAccount {
+  email?: string
+  user_metadata?: { name?: string; avatar?: string }
+}
+
+export async function fetchCustomerAccount(): Promise<CustomerAccount | undefined> {
+  const token = await customerToken()
+  const user = await authUser<AuthAccount>(token)
+  const meta = user.user_metadata ?? {}
+  return { name: meta.name ?? '', avatar: meta.avatar ?? '' }
+}
+
+/** Simpan nama / avatar ke `user_metadata` akun auth customer. */
+export async function updateCustomerAccount(input: {
+  name?: string
+  avatar?: string
+}): Promise<void> {
+  const token = await customerToken()
+  await authUpdateUser(token, input)
 }
 
 /** Semua alamat customer, alamat utama lebih dulu. */

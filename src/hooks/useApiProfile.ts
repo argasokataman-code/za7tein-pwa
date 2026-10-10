@@ -1,28 +1,28 @@
 /** Sinkron profil customer: identitas (`users`) + daftar alamat (`addresses`). */
 import { useEffect } from 'react'
 
-import { fetchCustomerAddresses, fetchCustomerUser, fetchMerchantLocation, toAddress } from '../api/profile'
+import { fetchCustomerAccount, fetchCustomerAddresses, fetchCustomerUser, fetchMerchantLocation, toAddress } from '../api/profile'
 import { apiEnabled } from '../api/supabase'
 import { updateUser } from '../store/slices/authSlice'
 import { setAddresses } from '../store/slices/cartSlice'
 import { useAppDispatch, useAppSelector } from './useAppStore'
 
-/** Identitas customer live (email + HP) → `auth.user`. Nama/avatar belum ada di BE. */
+/** Identitas customer live → `auth.user`: email/HP dari tabel `users`, nama/avatar dari metadata akun. */
 function useCustomerUser(): void {
   const dispatch = useAppDispatch()
   useEffect(() => {
     if (!apiEnabled) return
     let alive = true
     const run = () =>
-      fetchCustomerUser()
-        .then((u) => {
-          if (!alive || !u) return
-          // BE tak menyimpan nama; kosongkan agar tak ada identitas fabrikasi.
+      Promise.all([fetchCustomerUser(), fetchCustomerAccount()])
+        .then(([u, account]) => {
+          if (!alive) return
           dispatch(
             updateUser({
-              ...(u.email ? { email: u.email } : {}),
-              ...(u.phone ? { phone: u.phone } : {}),
-              name: '',
+              ...(account?.name ? { name: account.name } : {}),
+              ...(account?.avatar ? { avatar: account.avatar } : {}),
+              ...(u?.email ? { email: u.email } : {}),
+              ...(u?.phone ? { phone: u.phone } : {}),
             }),
           )
         })

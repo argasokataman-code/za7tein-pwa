@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { updateCustomerContact } from '../api/profile'
+import { updateCustomerAccount, updateCustomerContact } from '../api/profile'
 import { personalDataSchema, type PersonalDataFormData } from '../lib/schemas'
 import { updateUser } from '../store/slices/authSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -38,8 +38,11 @@ export default function PersonalData() {
   }, [user, reset])
   const onSubmit = async (data: PersonalDataFormData) => {
     try {
-      await updateCustomerContact({ email: data.email, phone: data.phone })
-      dispatch(updateUser({ email: data.email, phone: data.phone }))
+      await Promise.all([
+        updateCustomerContact({ email: data.email, phone: data.phone }),
+        updateCustomerAccount({ name: data.fullName }),
+      ])
+      dispatch(updateUser({ email: data.email, phone: data.phone, name: data.fullName }))
       toast.success('Perubahan disimpan')
     } catch {
       toast.error('Gagal menyimpan perubahan')
@@ -72,7 +75,7 @@ export default function PersonalData() {
                 </div>
                 <form className="personal-data-form" noValidate onSubmit={handleSubmit(onSubmit)}>
                   <p className="addr-form-hint">
-                    Email dan nomor HP tersimpan ke server. Nama, tanggal lahir, dan jenis
+                    Nama, email, dan nomor HP tersimpan ke server. Tanggal lahir dan jenis
                     kelamin belum punya kolom di backend, jadi belum ikut tersimpan.
                   </p>
                   <div className="form-group-profile">

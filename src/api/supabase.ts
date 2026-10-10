@@ -180,8 +180,7 @@ export async function createWith(
 /**
  * DELETE baris PostgREST. `query` wajib berisi filter (mis. `?id=eq.7`) —
  * tanpa filter PostgREST menolak agar tidak menghapus seluruh tabel.
- */
-export async function deleteWith(
+ */export async function deleteWith(
   token: string,
   table: string,
   query: string,
@@ -219,4 +218,28 @@ export async function createWithReturn<T>(
   })
   if (!res.ok) throw new Error(`[api] POST ${table} ${res.status}`)
   return (await res.json()) as T[]
+}
+
+/** Baca akun auth (metadata `user_metadata`: nama, avatar, peran) untuk token pengguna. */
+export async function authUser<T>(token: string): Promise<T> {
+  const res = await fetch(`${url}/auth/v1/user`, {
+    headers: { apikey: anonKey, Authorization: `Bearer ${token}` },
+  })
+  if (!res.ok) throw new Error(`[api] auth user ${res.status}`)
+  return (await res.json()) as T
+}
+
+/** Perbarui `user_metadata` akun auth (mis. nama/avatar) untuk token pengguna. */
+export async function authUpdateUser<T>(token: string, data: Record<string, unknown>): Promise<T> {
+  const res = await fetch(`${url}/auth/v1/user`, {
+    method: 'PUT',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ data }),
+  })
+  if (!res.ok) throw new Error(`[api] auth update ${res.status}`)
+  return (await res.json()) as T
 }

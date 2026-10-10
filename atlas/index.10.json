@@ -5273,6 +5273,123 @@
         }
       ],
       "loc": "src/api/profile.ts,src/hooks/useApiProfile.ts"
+    },
+    {
+      "id": "TASK-10035",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:38:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/supabase.ts (+27/-3) — edit via tool: ts: if (!res.ok) throw new Error(`[api] POS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/supabase.ts"
+    },
+    {
+      "id": "TASK-10036",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:39:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts (+16/-5) — edit via tool: ts: import { refToken } from './reference'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts"
+    },
+    {
+      "id": "TASK-10037",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:39:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiProfile.ts (+1/-1) — edit via tool: ts: import { fetchCustomerAccount, fe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiProfile.ts"
+    },
+    {
+      "id": "TASK-10038",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:39:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PersonalData.tsx (+1/-1) — edit via tool: tsx: import { updateCustomerAccount, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PersonalData.tsx"
+    },
+    {
+      "id": "TASK-10039",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:41:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: customer kini memakai identitas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "FEAT-9981",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:41:43",
+      "tags": [
+        "profile",
+        "integration",
+        "auth",
+        "api",
+        "customer"
+      ],
+      "summary": "Nama profil customer dari auth user_metadata (read+write PUT /auth/v1/user); email/HP dari tabel users. Foto butuh Storage bucket (belum ada",
+      "conn": [
+        {
+          "id": "FEAT-9980",
+          "type": "relates",
+          "raw": "FEAT-9980:relates"
+        }
+      ]
     }
   ]
 }
