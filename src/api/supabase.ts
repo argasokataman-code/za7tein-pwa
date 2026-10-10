@@ -111,6 +111,29 @@ export async function patch(
 }
 
 /**
+ * PATCH dengan token global (`bearer()`) — pasangan `patch` untuk tabel yang
+ * RLS-nya cukup dengan sesi aktif (mis. merchant mengubah `courier_id` order
+ * miliknya sendiri), tanpa mengoper token eksplisit.
+ */
+export async function patchRow(
+  table: string,
+  query: string,
+  body: Record<string, unknown>,
+): Promise<void> {
+  const res = await fetch(`${url}/rest/v1/${table}${query}`, {
+    method: 'PATCH',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${bearer()}`,
+      'content-type': 'application/json',
+      Prefer: 'return=minimal',
+    },
+    body: JSON.stringify(body),
+  })
+  if (!res.ok) throw new Error(`[api] PATCH ${table} ${res.status}`)
+}
+
+/**
  * POST satu baris ke PostgREST. `Prefer: return=minimal` supaya balasan 201
  * tanpa body. Lempar kalau bukan 2xx — pemanggil menangkapnya (tulis order
  * bersifat best-effort, UI tetap jalan sebagai mock).

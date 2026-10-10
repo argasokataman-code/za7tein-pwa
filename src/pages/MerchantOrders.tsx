@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { insertNotification } from '../api/notifications'
+import { assignOrderCourier } from '../api/orders'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { JourneyLine } from '../components/JourneyLine'
@@ -320,9 +321,9 @@ export default function MerchantOrders() {
                         className={active ? 'is-active' : ''}
                         aria-pressed={active}
                         onClick={() => {
-                        dispatch(setCookMinutes({ id: detailOrder.id, minutes }))
-                        notifyCustomer('Pesanan sedang dimasak', 'Toko mulai memasak pesananmu.')
-                      }}
+                          dispatch(setCookMinutes({ id: detailOrder.id, minutes }))
+                          notifyCustomer('Pesanan sedang dimasak', 'Toko mulai memasak pesananmu.')
+                        }}
                       >
                         {minutes}
                       </button>
@@ -343,6 +344,7 @@ export default function MerchantOrders() {
                           aria-current={selected}
                           onClick={() => {
                             dispatch(assignCourier({ orderId: detailOrder.id, courierId: item.id }))
+                            void assignOrderCourier(detailOrder.id, item.id).catch(() => {})
                             void insertNotification({
                               audience: 'courier',
                               kind: 'courier',

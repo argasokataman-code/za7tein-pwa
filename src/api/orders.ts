@@ -11,7 +11,7 @@
  */
 import { idrToJod, jodToIdr } from '../data/currency'
 import type { MerchantOrder, MerchantOrderStatus, PaymentMethod, ZoneId } from '../types'
-import { create, rest, signIn } from './supabase'
+import { create, patchRow, rest, signIn } from './supabase'
 
 const DEMO_CUSTOMER_ID = 1
 const DEMO_MERCHANT_ID = 1
@@ -85,6 +85,21 @@ export async function createOrder(order: NewOrder): Promise<void> {
     total_jod: idrToJod(order.totalIdr),
     payment_method: OUT_PAYMENT[order.paymentMethod] ?? 'cod',
   })
+}
+
+/**
+ * Persist penugasan kurir ke `orders.courier_id` (best-effort).
+ *
+ * Id dari state bisa `String(id)` hasil sync BE (numerik) atau seed `cr-*`
+ * (non-numerik). Hanya ditulis kalau keduanya numerik — seed offline tidak
+ * menulis id kurir palsu ke baris order live.
+ */
+export async function assignOrderCourier(orderId: string, courierId: string): Promise<void> {
+  const oid = Number(orderId)
+  const cid = Number(courierId)
+  if (!Number.isFinite(oid) || !Number.isFinite(cid)) return
+  await ensureMerchantSession()
+  await patchRow('orders', `?id=eq.${oid}`, { courier_id: cid })
 }
 
 /**
