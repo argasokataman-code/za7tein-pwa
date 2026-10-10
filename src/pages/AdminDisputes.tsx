@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast'
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { RESOLUTIONS, disputeStatusLabel, moneyFromJod } from '../data/admin'
 import { resolveDispute, startInvestigation } from '../store/slices/adminSlice'
@@ -99,16 +98,28 @@ function DisputeCard({
             <button
               key={item.id}
               type="button"
-              className={item.id === 'no_action' ? 'admin-btn-ghost' : 'btn btn-primary'}
+              // Satu tindakan dominan (refund sebagian, yang punya slider), sisanya
+              // outline; tolak tetap ghost (audit 015 #9).
+              className={
+                item.id === 'no_action'
+                  ? 'admin-btn-ghost'
+                  : item.id === 'refund_partial'
+                    ? 'btn btn-primary'
+                    : 'admin-btn-outline'
+              }
               onClick={() => setPending(item.id)}
             >
               {item.label}
-              <span className="admin-res-effect">{item.effect}</span>
+              <span className="admin-res-effect">
+                {item.id === 'refund_partial'
+                  ? `${percent}% ke customer, sisanya cair ke merchant`
+                  : item.effect}
+              </span>
             </button>
           ))}
           <p className="admin-note">
-            Persentase refund sebagian dan window 24 jam belum final (OQ-29): slider ini state
-            tampilan, bukan aturan yang dikunci.
+            Persentase refund sebagian dan window 24 jam belum final: slider ini tampilan,
+            bukan aturan yang dikunci.
           </p>
         </div>
       )}
@@ -164,11 +175,12 @@ export default function AdminDisputes() {
           ))}
         </section>
 
-        <p className="admin-note">
-          Form “Ajukan Sengketa” ada di sisi customer (layar pesanan tiba) dan merchant (order
-          selesai); kiriman masuk ke antrean ini.
-        </p>
-        <ExchangeRateNote />
+        <div className="admin-footnote">
+          <p className="admin-note">
+            Form “Ajukan Sengketa” ada di sisi customer (layar pesanan tiba) dan merchant (order
+            selesai); kiriman masuk ke antrean ini.
+          </p>
+        </div>
       </main>
       <AdminBottomNav />
     </div>

@@ -27,8 +27,8 @@ export default function CourierTips() {
         <section className="courier-card">
           <p className="courier-card-title">Hanya tips yang menjadi milik kurir</p>
           <p className="courier-card-sub">
-            Kurir adalah karyawan merchant — gaji dibayar merchant, dan platform tidak menahan dana
-            kurir (C-06). Ongkir bukan milik kurir, jadi tidak dihitung di sini.
+            Kurir adalah karyawan merchant: gaji dibayar merchant, dan platform tidak menahan dana
+            kurir. Ongkir bukan milik kurir, jadi tidak dihitung di sini.
           </p>
         </section>
 

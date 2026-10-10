@@ -129,28 +129,28 @@ html, body { font-family: var(--font-sans); }
 // yang diwarisi dari stylesheet hasil porting.
 :root {
   /* Lantai huruf isi 16px (G-08, body ≥16pt di mobile) dan caption 12px.
-     Clamp lama mulai dari 11px/14px sehingga di kolom 390px hasilnya
-     11,56px/14,34px — teks isi di bawah lantai mobile (audit 005 #3).
-     Angka atas tidak berubah, jadi lebar ≥667px hasilnya sama seperti
-     sebelumnya (xs memang sudah 12, base sudah 16 di situ). */
+     Skala ini DIPATOK px, tidak lagi pakai `clamp(…, vw, …)`.
+     Alasannya sama dengan `--text-bar-title`/`--text-field` di bawah: `vw`
+     mengikuti lebar JENDELA, padahal kolom aplikasi dikunci 430px (AGENTS §5).
+     Dulu `--text-sm..2xl` drift di band jendela 390-667px (mis. `--text-2xl`
+     27,85px di 390px vs 32px di 1440px) sehingga teks membesar di desktop
+     walau kolomnya sama. Nilai pin = nilai di kolom 390px, jadi ponsel tidak
+     berubah, desktop kini seragam. Batas: kalau nanti butuh tipe fluid lagi,
+     pakai `cqi` (container query) bukan `vw`, supaya ikut kolom. */
   --text-xs: 12px;
-  --text-sm: clamp(13px, 0.5vw + 11px, 14px);
+  --text-sm: 13px;
   --text-base: 16px;
-  --text-lg: clamp(16px, 0.7vw + 14px, 18px);
-  --text-xl: clamp(20px, 1.2vw + 16px, 24px);
-  --text-2xl: clamp(26px, 1.5vw + 22px, 32px);
-  /* Angka kuantitas di sheet satu-tugas (stock sheet merchant). Skalanya sengaja
-     tidak ikut clamp --text-2xl: di kolom 390px token itu mentok 27.85px, dan
-     angka ini bukan teks yang dibaca berderet — ia satu-satunya fokus layar,
-     jadi ukurannya tetap besar di lebar berapa pun. */
+  --text-lg: 17px;
+  --text-xl: 21px;
+  --text-2xl: 28px;
+  /* Angka kuantitas di sheet satu-tugas (stock sheet merchant). Sengaja tidak
+     ikut skala `--text-*`: angka ini bukan teks yang dibaca berderet — ia
+     satu-satunya fokus layar, jadi ukurannya tetap besar di lebar berapa pun. */
   --text-stepper: 44px;
 
-  /* Judul di dalam bar halaman (role merchant/kurir/admin). Dipatok, tidak ikut
-     clamp `--text-2xl`: token itu memakai `vw`, jadi ia mengikuti lebar JENDELA
-     sementara kolom aplikasi dikunci 430px (AGENTS §5). Untuk bar, judul yang
-     sama terukur 32px di jendela 390px dan 37px di 1440px — cukup untuk
-     mendorong tingginya. Nilainya sama dengan `--text-2xl` di kolom 390px
-     (27,85px), jadi tampilan di ponsel tidak berubah. */
+  /* Judul di dalam bar halaman (role merchant/kurir/admin). Dipatok px; nilainya
+     kini sama dengan `--text-2xl` (28px). Token ini tetap ada sebagai nama
+     semantik, bukan karena ukurannya berbeda. */
   --text-bar-title: 28px;
 
   /* Teks isian form dipatok 16px, tidak ikut clamp `--text-base` yang jatuh ke

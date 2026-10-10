@@ -251,6 +251,14 @@
   outline: none;
 }
 
+/* Input-nya telanjang (bukan `.form-control`), jadi ring fokus dipasang di
+   wadah. Tanpa ini fokus keyboard di field nominal tak terlihat sama sekali. */
+.courier-payout-amount:focus-within {
+  border-color: var(--sa7tein-orange);
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
 .courier-payout-amount button {
   min-width: var(--touch-min);
   min-height: var(--touch-min);

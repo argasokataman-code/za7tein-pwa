@@ -93,10 +93,13 @@ export function CourierDesignSection() {
         Flow <code className="doc-inline">F13</code> promises a customer notification at
         "Tiba". Web Push is not implemented in this repo (AGENTS.md §1,{' '}
         <code className="doc-inline">R-PUSH-01</code> is UNRESOLVED), so when the courier
-        taps "Tiba" the screen shows a mock receipt and dispatches one entry into the
-        customer inbox (<code className="doc-inline">pushNotification</code> in{' '}
+        taps "Tiba" the screen dispatches one entry into the customer inbox (
+        <code className="doc-inline">pushNotification</code> in{' '}
         <code className="doc-inline">notificationsSlice</code>) — "Kurir sudah sampai".
-        That is one store read across roles, the same pattern as disputes living in{' '}
+        The on-screen "receipt" banner that proved it is dev-only (
+        <code className="doc-inline">import.meta.env.DEV</code>), so a production build
+        never shows an internal mock to the courier. That is one store read across roles,
+        the same pattern as disputes living in{' '}
         <code className="doc-inline">adminSlice</code>. The customer's OTP card then
         appears on the order screen without pressing the demo buttons, because it also
         reads the courier checkpoint (<code className="doc-inline">otpStep</code>). It is
@@ -115,14 +118,15 @@ export function CourierDesignSection() {
         <code className="doc-inline">useTick</code> hook and{' '}
         <code className="doc-inline">slaRemainingMs()</code>.
       </p>
-      <h3 className="doc-h3">UNRESOLVED items stay visible, never guessed</h3>
+      <h3 className="doc-h3">UNRESOLVED items live in the PRD, not on the courier screen</h3>
       <p className="doc-p">
-        Two flow items are unresolved and are surfaced as text instead of invented
-        values: the customer-fault penalty (OQ-14 — 30% / 50% / full delivery fee) and
-        the temporary SLA of 15/30/10 minutes (OQ-13, PO 2026-09-22). The credential
-        mechanism itself (PIN or session/token) has no PRD basis either
-        (<code className="doc-inline">F21</code> marks it UNRESOLVED), so the sign-in
-        screen is a mock that verifies nothing and the note says so.
+        Two flow items are unresolved: the customer-fault penalty (OQ-14 — 30% / 50% /
+        full delivery fee) and the temporary SLA of 15/30/10 minutes (OQ-13, PO
+        2026-09-22). They are tracked in the PRD and flow docs, not repeated as
+        meta-paragraphs on the courier screens — the mobile screen carries only what the
+        courier needs to act. The credential mechanism itself (PIN or session/token) has
+        no PRD basis either (<code className="doc-inline">F21</code> marks it UNRESOLVED),
+        so the sign-in screen is a mock that verifies nothing.
       </p>
       <h3 className="doc-h3">Money: tips only, never the delivery fee</h3>
       <p className="doc-p">
@@ -162,13 +166,14 @@ export function CourierDesignSection() {
         before the courier confirms.
       </p>
       <p className="doc-p">
-        The accumulation threshold is a visible placeholder, never a guessed rule: PRD
+        The accumulation threshold is not a guessed rule: PRD
         gives an example (≥Rp50.000,{' '}
         <code className="doc-inline">source.md:83</code>) but{' '}
         <code className="doc-inline">f6-cashout-payout/README.md</code> marks it
         UNRESOLVED. It lives in one constant,{' '}
-        <code className="doc-inline">COURIER_TIPS_MIN_WITHDRAW_IDR</code>, and the wallet
-        says so on screen — change the constant when the PO decides. Below the threshold
+        <code className="doc-inline">COURIER_TIPS_MIN_WITHDRAW_IDR</code>; the wallet
+        shows the threshold figure and tracks the unresolved status in the flow doc, not
+        as an on-screen note. Change the constant when the PO decides. Below the threshold
         the withdraw action is disabled with a meter showing how far away it is, rather
         than silently allowing an uneconomical withdrawal. The two new payout screens reuse
         the merchant payout flow (account picker, amount,{' '}

@@ -63,6 +63,11 @@
     <link rel="icon" type="image/svg+xml" href="/icons/sa7tein-mark.svg" />
     <link rel="apple-touch-icon" href="/icons/sa7tein-192x192.png" />
     <link rel="apple-touch-icon" sizes="152x152" href="/icons/sa7tein-152x152.png" />
+    <!-- Preload font utama (Inter) supaya tidak ada FOUT: tanpa ini `@font-face`
+         baru ketemu setelah CSS di-download + di-parse, dan `font-display: swap`
+         sempat menampilkan fallback Manrope (metrik beda) lalu menukar — teks
+         tampak "berubah/bergeser" tiap cold load. `crossorigin` wajib untuk font. -->
+    <link rel="preload" href="/assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
     <style>
       #boot-splash[hidden] { display: none; }
       /* Splash ditutup lewat kelas ini, bukan `remove()`: kegagalan ikon di

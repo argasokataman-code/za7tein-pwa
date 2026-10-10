@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
 import { aggregateLiability, liabilityGap, ledgerTypeLabel, money, moneyFromJod, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
 import { disputeExposure, ledgerFlow, ledgerTypeBars, liabilitySegments } from '../data/dashboard'
-import { jod } from '../data/currency'
+import { jod, jodToIdr, moneyPlain } from '../data/currency'
 import { APP_VERSION } from '../data/appInfo'
 import { clearEscalation } from '../store/slices/adminSlice'
 import type { AdminEscalation } from '../types'
@@ -72,7 +72,8 @@ export default function AdminDashboard() {
             Rp·JOD tetap di angka total dan catatan kurs. */}
         <section className="admin-card">
           <p className="admin-card-sub">Kewajiban platform</p>
-          <p className="admin-liability-total">{moneyFromJod(total)}</p>
+          <p className="admin-liability-total">{moneyPlain(jodToIdr(total))}</p>
+          <p className="admin-liability-jod">± {jod(total)}</p>
           <p className="admin-card-sub">
             Saldo wallet yang belum di-payout: customer + merchant + tips kurir.
           </p>
@@ -80,8 +81,6 @@ export default function AdminDashboard() {
             <DonutChart
               segments={liabilitySplit}
               ariaLabel="Komposisi kewajiban platform"
-              centerValue={jod(total)}
-              centerLabel="total kewajiban"
             />
             <ul className="chart-legend">
               {liabilitySplit.map((segment) => (
@@ -105,13 +104,14 @@ export default function AdminDashboard() {
           </p>
         </section>
 
-        <p className="admin-note">
-          Gaji kurir tidak masuk hitungan ini: kurir digaji merchant, yang lewat platform hanya
-          tips (C-06). Porsi wallet customer diselaraskan dengan wallet demo yang sedang aktif
-          ({money(walletIdr)}), jadi top-up, hold, dan settlement ikut menggeser angka di
-          atas.
-        </p>
-        <ExchangeRateNote />
+        <div className="admin-footnote">
+          <p className="admin-note">
+            Kurir digaji merchant; yang lewat platform hanya tips. Porsi wallet customer ikut
+            saldo demo yang sedang aktif ({money(walletIdr)}), jadi top-up, hold, dan
+            settlement menggeser angka di atas.
+          </p>
+          <ExchangeRateNote />
+        </div>
 
         {/* 2 — Statline antrean menggantikan dua kartu statistik kotak lama:
             baris tanpa kotak, semua angka membuka halaman kerjanya. */}
@@ -231,11 +231,11 @@ export default function AdminDashboard() {
                 )}
               </span>
               <div className="admin-ledger-copy">
-                <p className="admin-card-title">
-                  {ledgerTypeLabel[entry.type]} · {entry.ref}
-                </p>
+                <p className="admin-card-title">{ledgerTypeLabel[entry.type]}</p>
                 <p className="admin-card-sub admin-ledger-memo">{entry.memo}</p>
-                <p className="admin-card-sub">{entry.at}</p>
+                <p className="admin-card-sub">
+                  {entry.ref} · {entry.at}
+                </p>
               </div>
               <span className={`admin-ledger-amount is-${entry.direction}`}>
                 {entry.direction === 'credit' ? '+' : '−'}

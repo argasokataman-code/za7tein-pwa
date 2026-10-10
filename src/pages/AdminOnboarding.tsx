@@ -3,7 +3,6 @@ import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
-import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { depositStatusLabel, moneyFromJod, tenantStatusLabel } from '../data/admin'
 import { activeZonesLabel } from '../data/merchant'
@@ -20,7 +19,7 @@ export default function AdminOnboarding() {
   return (
     <div className="app-shell">
       <main className="admin-page">
-        <AdminPageHeader eyebrow="Antrean tenant" title="Onboarding" bell={false} />
+        <AdminPageHeader eyebrow="Antrean tenant" title="Onboarding" />
 
         <section className="admin-card">
           <p className="admin-card-title">Aturan approve deposit</p>
@@ -66,7 +65,7 @@ export default function AdminOnboarding() {
                 </ul>
 
                 {tenant.depositStatus === 'unpaid' ? (
-                  <div className="admin-actions">
+                  <div className="admin-actions admin-actions--stack">
                     <button
                       type="button"
                       className="btn btn-primary"
@@ -117,11 +116,12 @@ export default function AdminOnboarding() {
           </section>
         ) : null}
 
-        <p className="admin-note">
-          Queue ini adalah feeder F16 (onboarding merchant). Repo ini front-end saja: approve di
-          sini hanya mengubah state tampilan.
-        </p>
-        <ExchangeRateNote />
+        <div className="admin-footnote">
+          <p className="admin-note">
+            Antrean ini memberi umpan ke onboarding merchant. Repo ini front-end saja, jadi
+            approve di sini hanya mengubah tampilan.
+          </p>
+        </div>
       </main>
       <AdminBottomNav />
     </div>

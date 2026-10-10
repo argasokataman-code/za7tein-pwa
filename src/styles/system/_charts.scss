@@ -321,6 +321,12 @@
   max-width: 128px;
 }
 
+/* Donut kecil berdampingan legenda: nilai tengah diturunkan satu langkah supaya
+   teksnya tidak menyeberang stroke cincin (audit 015 #2). */
+.chart-split .chart-donut-center strong {
+  font-size: var(--text-sm);
+}
+
 .chart-split .chart-legend {
   flex: 1 1 165px;
 }

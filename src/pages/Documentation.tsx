@@ -322,8 +322,19 @@ export default function Documentation() {
               <code className="doc-inline">display: standalone</code> —{' '}
               <code className="doc-inline">fullscreen</code> dibuang dari{' '}
               <code className="doc-inline">display_override</code> supaya status bar OS (jam,
-              baterai, sinyal) tetap tampil di app terpasang, bukan immersive. Rinciannya di
-              bagian Changelog.
+              baterai, sinyal) tetap tampil di app terpasang, bukan immersive.
+              Audit mobile panel admin (015) merapikan seluruh konsol{' '}
+              <code className="doc-inline">/admin</code>: kontras teks efek putusan dinaikkan
+              (<code className="doc-inline">opacity</code> dibuang), statline jadi grid 2×2,
+              pemilih customer merchant memakai bottom sheet (bukan{' '}
+              <code className="doc-inline">&lt;select&gt;</code> peramban), catatan internal pindah
+              ke dokumen ini, judul konsol seragam, putusan sengketa punya satu aksi dominan, badge
+              &ldquo;Baru&rdquo; dibedakan dari &ldquo;Investigasi&rdquo;, dan nominal JOD memakai
+              pemisah ribuan. Skala huruf{' '}
+              <code className="doc-inline">--text-sm..2xl</code> kini dipatok px — dulu{' '}
+              <code className="doc-inline">clamp(vw)</code> membuat tipe membesar mengikuti lebar
+              jendela padahal kolom aplikasi dikunci 430px — dan font Inter di-preload supaya tidak
+              ada kedipan swap. Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (

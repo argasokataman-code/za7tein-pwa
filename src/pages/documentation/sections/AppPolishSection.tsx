@@ -178,13 +178,15 @@ export function AppPolishSection() {
                 sebesar <code className="doc-inline">env(safe-area-inset-top)</code> di app-mode. Tombol
                 kembali: 44px, <code className="doc-inline">--radius-md</code>, permukaan + tepi
                 <code className="doc-inline">--border-strong</code>, ikon 24px/<code className="doc-inline">stroke-width</code>{' '}
-                1.75 dipatok lewat CSS. Judul hero di bar role dipatok ke token baru{' '}
-                <code className="doc-inline">--text-bar-title</code> 28px: <code className="doc-inline">--text-2xl</code>{' '}
-                memakai <code className="doc-inline">clamp(vw)</code> sehingga judul yang sama 32px di
-                jendela 390px dan 37px di 1440px &mdash; cukup untuk mendorong tingginya, dan itu satu-satunya
-                bar yang masih berbeda. Terukur gate <code className="doc-inline">--role all --pwa</code>:
-                <strong> 134/134 PASS, 10 kelas bar semuanya 123px</strong> (= 64px terlihat + 59px inset)
-                di 390px dan 1440px
+                1.75 dipatok lewat CSS. Judul hero di bar role dipatok ke token{' '}
+                <code className="doc-inline">--text-bar-title</code> 28px. Dulu{' '}
+                <code className="doc-inline">--text-2xl</code> memakai{' '}
+                <code className="doc-inline">clamp(vw)</code> sehingga judul yang sama 32px di
+                jendela 390px dan 37px di 1440px &mdash; itu sebabnya judul hero dipatok. Sekarang
+                seluruh skala <code className="doc-inline">--text-sm..2xl</code> ikut dipatok ke px
+                (nilai kolom 390px), jadi tipe tidak lagi membesar mengikuti lebar jendela
+                (AGENTS §5); <code className="doc-inline">--text-bar-title</code> kini bernilai sama
+                (28px) dengan <code className="doc-inline">--text-2xl</code>.
               </td>
             </tr>
             <tr>

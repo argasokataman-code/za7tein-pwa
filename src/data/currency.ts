@@ -37,9 +37,12 @@ export function jodToIdr(value: number): number {
   return Math.round(value * MOCK_EXCHANGE_RATE.rate)
 }
 
-/** Nominal JOD, mis. `1,09 JOD`. */
+/** Nominal JOD, mis. `100.223,71 JOD` — pemisah ribuan sama dengan `moneyPlain`. */
 export function jod(value: number): string {
-  return `${value.toFixed(2).replace('.', ',')} JOD`
+  return `${value.toLocaleString('id-ID', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })} JOD`
 }
 
 /**

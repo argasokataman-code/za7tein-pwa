@@ -1,11 +1,11 @@
-import { Ban, Store, TriangleAlert } from 'lucide-react'
+import { Ban, Check, ChevronRight, Store, TriangleAlert } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { moneyFromJod, tenantStatusLabel } from '../data/admin'
 import { findCustomer, customers } from '../data/people'
@@ -17,9 +17,16 @@ export default function AdminMerchants() {
   const riskFlags = useAppSelector((s) => s.admin.customerRiskFlags)
   const csActorId = useAppSelector((s) => s.superAdmin.csActorId)
   const [codCustomer, setCodCustomer] = useState<Record<string, string>>({})
+  // Sheet pemilih customer: id merchant yang membukanya, null = tertutup.
+  // Baris picker + bottom sheet, bukan `<select>` peramban (audit 015 #5).
+  const [customerSheet, setCustomerSheet] = useState<string | null>(null)
   // Blacklist menandai dua sisi (merchant + customer), jadi konfirmasi dulu
   // lewat sheet (audit 006 #4).
   const [confirmBlacklist, setConfirmBlacklist] = useState<string | null>(null)
+
+  const sheetMerchant = customerSheet
+    ? merchants.find((m) => m.id === customerSheet)
+    : undefined
 
   return (
     <div className="app-shell">
@@ -31,82 +38,83 @@ export default function AdminMerchants() {
           <p className="admin-card-sub">
             Merchant jadi <strong>blacklisted</strong> dan customer dapat{' '}
             <strong>riskFlag</strong>. Keduanya dibutuhkan supaya checkout COD benar-benar
-            terblokir (F15 → f2).
+            terblokir.
           </p>
         </section>
 
         <section className="admin-section">
           <h2 className="admin-section-title">Daftar merchant ({merchants.length})</h2>
-          {merchants.map((merchant) => (
-            <article key={merchant.id} className="admin-card">
-              <div className="admin-card-head">
-                <div className="admin-row">
-                  <Store size={20} strokeWidth={1.75} aria-hidden="true" />
-                  <div>
-                    <p className="admin-card-title">{merchant.name}</p>
-                    <p className="admin-card-sub">
-                      Deposit {moneyFromJod(merchant.deposit)} · COD bermasalah {merchant.codIssues}×
-                    </p>
+          {merchants.map((merchant) => {
+            const selectedId = codCustomer[merchant.id] ?? ''
+            return (
+              <article key={merchant.id} className="admin-card">
+                <div className="admin-card-head">
+                  <div className="admin-row">
+                    <Store size={20} strokeWidth={1.75} aria-hidden="true" />
+                    <div>
+                      <p className="admin-card-title">{merchant.name}</p>
+                      <p className="admin-card-sub">
+                        Deposit {moneyFromJod(merchant.deposit)} · COD bermasalah {merchant.codIssues}×
+                      </p>
+                    </div>
                   </div>
+                  <span className={`admin-badge admin-badge--${merchant.tenantStatus}`}>
+                    {tenantStatusLabel[merchant.tenantStatus]}
+                  </span>
                 </div>
-                <span className={`admin-badge admin-badge--${merchant.tenantStatus}`}>
-                  {tenantStatusLabel[merchant.tenantStatus]}
-                </span>
-              </div>
 
-              {merchant.tenantStatus === 'approved' || merchant.tenantStatus === 'suspended' ? (
-                <>
-                  <label className="admin-field" htmlFor={`cod-${merchant.id}`}>
-                    Customer yang terlibat COD bermasalah
-                  </label>
-                  <select
-                    id={`cod-${merchant.id}`}
-                    className="form-control"
-                    value={codCustomer[merchant.id] ?? ''}
-                    onChange={(event) =>
-                      setCodCustomer((prev) => ({ ...prev, [merchant.id]: event.target.value }))
-                    }
-                  >
-                    <option value="">Pilih customer…</option>
-                    {customers.map((customer) => (
-                      <option key={customer.id} value={customer.id}>
-                        {customer.name} · {customer.phone}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="admin-actions">
+                {merchant.tenantStatus === 'approved' || merchant.tenantStatus === 'suspended' ? (
+                  <>
+                    <label className="admin-field" htmlFor={`cod-${merchant.id}`}>
+                      Customer yang terlibat COD bermasalah
+                    </label>
                     <button
+                      id={`cod-${merchant.id}`}
                       type="button"
-                      className="admin-btn-ghost"
-                      onClick={() => {
-                        dispatch(suspendMerchant({ id: merchant.id }))
-                        toast.error('Merchant di-suspend')
-                      }}
+                      className={selectedId ? 'dispute-picker' : 'dispute-picker is-empty'}
+                      onClick={() => setCustomerSheet(merchant.id)}
                     >
-                      Suspend
+                      {findCustomer(selectedId)?.name ?? 'Pilih customer'}
+                      <ChevronRight
+                        size={18}
+                        strokeWidth={1.75}
+                        className="dispute-picker-chevron"
+                        aria-hidden="true"
+                      />
                     </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={() => {
-                        const customerId = codCustomer[merchant.id] ?? ''
-                        if (!customerId) {
-                          toast.error('Pilih customer dulu')
-                          return
-                        }
-                        setConfirmBlacklist(merchant.id)
-                      }}
-                    >
-                      <Ban size={16} strokeWidth={1.75} aria-hidden="true" />
-                      Blacklist COD
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <p className="admin-note">Merchant tidak aktif: tidak ada COD untuk diblokir.</p>
-              )}
-            </article>
-          ))}
+                    <div className="admin-actions">
+                      <button
+                        type="button"
+                        className="admin-btn-ghost"
+                        onClick={() => {
+                          dispatch(suspendMerchant({ id: merchant.id }))
+                          toast.error('Merchant di-suspend')
+                        }}
+                      >
+                        Suspend
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => {
+                          if (!selectedId) {
+                            toast.error('Pilih customer dulu')
+                            return
+                          }
+                          setConfirmBlacklist(merchant.id)
+                        }}
+                      >
+                        <Ban size={16} strokeWidth={1.75} aria-hidden="true" />
+                        Blacklist COD
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <p className="admin-note">Merchant tidak aktif: tidak ada COD untuk diblokir.</p>
+                )}
+              </article>
+            )
+          })}
         </section>
 
         {riskFlags.length > 0 ? (
@@ -131,10 +139,11 @@ export default function AdminMerchants() {
           </section>
         ) : null}
 
-        <p className="admin-note">
-          Suspend dan blacklist di sini hanya mengubah state tampilan (AGENTS.md §1).
-        </p>
-        <ExchangeRateNote />
+        <div className="admin-footnote">
+          <p className="admin-note">
+            Suspend dan blacklist di sini hanya mengubah tampilan, bukan data sungguhan.
+          </p>
+        </div>
 
         {confirmBlacklist ? (
           <ConfirmSheet
@@ -142,7 +151,7 @@ export default function AdminMerchants() {
             title="Blacklist COD?"
             body={`Merchant ${
               merchants.find((m) => m.id === confirmBlacklist)?.name ?? ''
-            } masuk blacklist dan customer terkait dapat riskFlag. Keduanya dipakai supaya checkout COD benar-benar terblokir (F15).`}
+            } masuk blacklist dan customer terkait dapat riskFlag. Keduanya dipakai supaya checkout COD benar-benar terblokir.`}
             confirmLabel="Blacklist COD"
             confirmClass="admin-btn-ghost"
             onConfirm={() => {
@@ -160,6 +169,38 @@ export default function AdminMerchants() {
             onClose={() => setConfirmBlacklist(null)}
           />
         ) : null}
+
+        <BottomSheet
+          open={customerSheet !== null}
+          title={sheetMerchant ? `Customer · ${sheetMerchant.name}` : 'Pilih customer'}
+          onClose={() => setCustomerSheet(null)}
+        >
+          <div className="sheet-menu">
+            {customers.map((customer) => {
+              const selected = customerSheet
+                ? codCustomer[customerSheet] === customer.id
+                : false
+              return (
+                <button
+                  key={customer.id}
+                  type="button"
+                  className={`sheet-menu__item${selected ? ' is-selected' : ''}`}
+                  aria-current={selected}
+                  onClick={() => {
+                    if (!customerSheet) return
+                    setCodCustomer((prev) => ({ ...prev, [customerSheet]: customer.id }))
+                    setCustomerSheet(null)
+                  }}
+                >
+                  <span>
+                    {customer.name} · {customer.phone}
+                  </span>
+                  {selected ? <Check size={18} strokeWidth={1.75} aria-hidden="true" /> : null}
+                </button>
+              )
+            })}
+          </div>
+        </BottomSheet>
       </main>
       <AdminBottomNav />
     </div>

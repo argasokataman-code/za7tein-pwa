@@ -114,7 +114,7 @@ export function DeliveryActionCard({
       {sla != null ? (
         <p className={`courier-timer ${overdue ? 'is-overdue' : ''}`}>
           {overdue
-            ? 'Lewat SLA — tim CS ditandai otomatis'
+            ? 'Lewat SLA, tim CS ditandai otomatis'
             : `Sisa waktu ${formatCountdown(sla)}`}
         </p>
       ) : null}
@@ -166,19 +166,14 @@ export function DeliveryActionCard({
           ada putusan (F8), jadi auto-settle dijeda. */}
       {autoSettle && autoSettlePaused ? (
         <p className="courier-sla-note">
-          Auto-settle dijeda — order sedang disputed sampai panel CS memutuskan (F8).
+          Auto-settle dijeda, order sedang disputed sampai panel CS memutuskan.
         </p>
       ) : autoSettle ? (
         <p className="courier-sla-note">
-          Customer lalai: window OTP {AUTO_SETTLE_MINUTES} menit lewat — order tetap auto-settle,
+          Customer lalai: window OTP {AUTO_SETTLE_MINUTES} menit lewat, order tetap auto-settle,
           tidak menggantung pending.
         </p>
       ) : null}
-
-      <p className="courier-sla-note">
-        SLA 15/30/10 menit masih sementara (PO 2026-09-22) — final menunggu data rute Irbid
-        (OQ-13).
-      </p>
     </section>
   )
 }

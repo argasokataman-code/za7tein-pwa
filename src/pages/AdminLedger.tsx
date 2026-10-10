@@ -43,11 +43,11 @@ export default function AdminLedger() {
                 )}
               </span>
               <div className="admin-ledger-copy">
-                <p className="admin-card-title">
-                  {ledgerTypeLabel[entry.type]} · {entry.ref}
-                </p>
+                <p className="admin-card-title">{ledgerTypeLabel[entry.type]}</p>
                 <p className="admin-card-sub admin-ledger-memo">{entry.memo}</p>
-                <p className="admin-card-sub">{entry.at}</p>
+                <p className="admin-card-sub">
+                  {entry.ref} · {entry.at}
+                </p>
               </div>
               <span className={`admin-ledger-amount is-${entry.direction}`}>
                 {entry.direction === 'credit' ? '+' : '−'}
@@ -57,10 +57,12 @@ export default function AdminLedger() {
           ))}
         </section>
 
-        <p className="admin-note">
-          Agregat liability di Ringkasan diturunkan dari saldo wallet, bukan dari layar ini (M9).
-        </p>
-        <ExchangeRateNote />
+        <div className="admin-footnote">
+          <p className="admin-note">
+            Angka kewajiban di Ringkasan datang dari saldo wallet, bukan dari layar ini.
+          </p>
+          <ExchangeRateNote />
+        </div>
 
         {holdLedger.length > 0 ? (
           <section className="admin-section">
@@ -87,9 +89,8 @@ export default function AdminLedger() {
               </div>
             ))}
             <p className="admin-note">
-              Tiap transisi = 1 entry append-only dan tidak bisa disunting. Arah debit-credit hold
-              belum diputuskan di mock ini, jadi hanya nominal dan waktunya yang ditampilkan,
-              bukan pasangan double-entry yang dikarang.
+              Tiap transisi tidak bisa disunting. Arah debit-credit hold belum diputuskan
+              di demo ini, jadi hanya nominal dan waktunya yang ditampilkan.
             </p>
           </section>
         ) : null}

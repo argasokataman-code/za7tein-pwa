@@ -37,7 +37,7 @@ export const COURIER_CHECKPOINT_LABEL: Record<CourierCheckpoint, string> = {
   berangkat: 'Dalam perjalanan',
   tiba: 'Menunggu OTP customer',
   selesai: 'Selesai',
-  batal: 'Batal — customer lalai',
+  batal: 'Batal: customer lalai',
 }
 
 /** Checkpoint berikutnya, atau null kalau sudah di ujung. */

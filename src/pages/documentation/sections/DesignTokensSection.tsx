@@ -79,11 +79,11 @@ const RADIUS = [
 
 const TYPE = [
   { token: '--text-xs', value: '12px' },
-  { token: '--text-sm', value: 'clamp(13px, 0.5vw + 11px, 14px)' },
+  { token: '--text-sm', value: '13px' },
   { token: '--text-base', value: '16px' },
-  { token: '--text-lg', value: 'clamp(16px, 0.7vw + 14px, 18px)' },
-  { token: '--text-xl', value: 'clamp(20px, 1.2vw + 16px, 24px)' },
-  { token: '--text-2xl', value: 'clamp(26px, 1.5vw + 22px, 32px)' },
+  { token: '--text-lg', value: '17px' },
+  { token: '--text-xl', value: '21px' },
+  { token: '--text-2xl', value: '28px' },
 ]
 
 const SHADOWS = [

@@ -134,8 +134,8 @@ export default function CourierWallet() {
             </ul>
           )}
           <p className="courier-hint-inline">
-            Ambang penarikan {moneyPlain(COURIER_TIPS_MIN_WITHDRAW_IDR)} masih contoh PRD, belum
-            final. Ongkir dan gaji bukan milik kurir, jadi tidak masuk dompet ini.
+            Ambang penarikan {moneyPlain(COURIER_TIPS_MIN_WITHDRAW_IDR)}. Ongkir dan gaji bukan
+            milik kurir, jadi tidak masuk dompet ini.
           </p>
         </section>
 

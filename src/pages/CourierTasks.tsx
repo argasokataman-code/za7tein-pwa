@@ -44,7 +44,7 @@ function TaskCard({ task }: { task: CourierTask }) {
       </div>
 
       <span className="courier-task-cta">
-        {task.paymentMethod === 'cod' ? 'COD — tagih tunai' : 'Transfer — cek bukti'}
+        {task.paymentMethod === 'cod' ? 'COD, tagih tunai' : 'Transfer, cek bukti'}
         <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
       </span>
     </Link>
@@ -134,7 +134,7 @@ export default function CourierTasks() {
         {/* Performa: satu angka fokus (tips tujuh hari) + bentuk harinya.
             Sumbernya mock mingguan yang ditandai di data; PRD tak menetapkan
             laporan performa kurir, jadi ini tampilan tren, bukan aturan. */}
-        <section className="courier-card">
+        <section className="courier-card courier-card--navy">
           <p className="courier-card-sub">Tips 7 hari terakhir</p>
           <p className="courier-performa-value">{money(week.total)}</p>
           <p className="courier-performa-sub">
@@ -215,17 +215,12 @@ export default function CourierTasks() {
                   </p>
                 </div>
                 <span className="courier-history-tip">
-                  {isDoneTask(task) ? `Tips ${money(task.tip)}` : '—'}
+                  {isDoneTask(task) ? `Tips ${money(task.tip)}` : 'Belum'}
                 </span>
               </Link>
             ))
           )}
         </section>
-
-        <p className="courier-note">
-          Tips selesai hari ini {money(totalTips(tasks))}. Kurir adalah karyawan merchant —
-          platform tidak menahan dana kurir (C-06).
-        </p>
       </main>
       <CourierBottomNav />
     </div>

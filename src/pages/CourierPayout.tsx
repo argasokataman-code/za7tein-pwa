@@ -40,7 +40,7 @@ export default function CourierPayout() {
   const submit = () => {
     if (!canSubmit) return
     dispatch(requestCourierPayout({ amount, accountId }))
-    toast.success(`Pencairan diminta — diterima ${moneyPlain(courierPayoutNet(amount))}`)
+    toast.success(`Pencairan diminta, diterima ${moneyPlain(courierPayoutNet(amount))}`)
     navigate('/wallet')
   }
 
@@ -72,7 +72,7 @@ export default function CourierPayout() {
             <p className="courier-card-title">Belum mencapai ambang penarikan</p>
             <p className="courier-card-sub">
               Kumpulkan minimal {moneyPlain(COURIER_TIPS_MIN_WITHDRAW_IDR)} dulu. Menarik tips kecil
-              setelah dipotong fee tidak ekonomis. Ambang ini masih contoh PRD, belum final.
+              setelah dipotong fee tidak ekonomis.
             </p>
           </section>
         ) : (
@@ -109,6 +109,8 @@ export default function CourierPayout() {
                 <input
                   id="courier-payout-amount"
                   type="number"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   min={0}
                   step={5000}
                   value={amount || ''}

@@ -69,7 +69,7 @@ export default function CourierTaskDetail() {
       return
     }
     dispatch(completeTask({ id: task.id }))
-    toast.success('Pesanan selesai — hold settled')
+    toast.success('Pesanan selesai')
     void recordCheckpoint(task.id, 'selesai').catch(() => {})
     void updateOrderStatus(task.id, 'selesai').catch(() => {})
     void insertNotification({
@@ -148,8 +148,9 @@ export default function CourierTaskDetail() {
         {/* Notif customer (flow F13: "Tiba → notif customer"). Web Push tidak
             diimplementasi di repo ini (AGENTS.md §1, R-PUSH-01), jadi ini bukti
             mock bahwa notifikasi terkirim saat kurir tiba dan saat selesai —
-            bukan klaim pengiriman sungguhan (HG-12). */}
-        {task.checkpoint === 'tiba' || task.checkpoint === 'selesai' ? (
+            bukan klaim pengiriman sungguhan (HG-12). Hanya tampil di mode dev;
+            bukti internal, bukan bagian dari layar kurir. */}
+        {import.meta.env.DEV && (task.checkpoint === 'tiba' || task.checkpoint === 'selesai') ? (
           <p className="courier-notif">
             {task.checkpoint === 'tiba'
               ? `Notif "Kurir sudah sampai" terkirim ke ${task.customerName} (mock).`
@@ -161,15 +162,13 @@ export default function CourierTaskDetail() {
           <section className="courier-card courier-settled">
             <p className="courier-card-title">Pesanan selesai</p>
             <p className="courier-card-sub">
-              OTP terverifikasi → hold settled. Tips kamu {money(task.tip)} masuk dompet.
+              OTP terverifikasi. Tips kamu {money(task.tip)} masuk dompet.
             </p>
           </section>
         ) : isCancelled ? (
           <section className="courier-card courier-settled">
             <p className="courier-card-title">Tugas dibatalkan</p>
-            <p className="courier-card-sub">
-              Customer tidak menyerahkan OTP. Penalti customer belum final (UNRESOLVED OQ-14).
-            </p>
+            <p className="courier-card-sub">Customer tidak menyerahkan OTP.</p>
           </section>
         ) : (
           <DeliveryActionCard
@@ -196,7 +195,7 @@ export default function CourierTaskDetail() {
                   <div className="courier-guard">
                     <p className="courier-card-sub">
                       {canCall
-                        ? 'Sudah lewat 5 menit — hubungi customer sekarang.'
+                        ? 'Sudah lewat 5 menit, hubungi customer sekarang.'
                         : `Hubungi customer bila menunggu lebih dari ${COURIER_GUARD_MINUTES.call} menit.`}
                     </p>
                     <a className="courier-guard-call" href={`tel:${task.customerPhone}`}>
@@ -219,7 +218,7 @@ export default function CourierTaskDetail() {
                       }}
                     >
                       {canCancel
-                        ? 'Batal — customer lalai'
+                        ? 'Batal: customer lalai'
                         : `Batal aktif setelah ${COURIER_GUARD_MINUTES.batal} menit`}
                     </button>
                   </div>

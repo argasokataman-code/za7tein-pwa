@@ -19,9 +19,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  min-height: 76px;
+  /* Tinggi lantai (`--nav-height`) dan padding vertikal datang dari kontrak
+     bar di `_topbar.scss` ($page-bars) — di sini hanya padding tepi kiri-kanan.
+     `min-height: 76px` lama ditimpa kontrak, jadi jangan ditulis ulang. */
   margin-inline: calc(-1 * var(--space-5));
-  padding: var(--space-3) var(--space-5);
+  padding-inline: var(--space-5);
   background: var(--bg-warm);
   border-bottom: 1px solid var(--border);
   margin-bottom: var(--space-4);
@@ -78,7 +80,8 @@
 }
 
 .courier-card-title {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
+  font-weight: 600;
   color: var(--text-primary);
 }
 
@@ -116,8 +119,8 @@
 }
 
 .courier-section-title {
-  font-size: var(--text-sm);
-  font-weight: 700;
+  font-size: var(--text-base);
+  font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: var(--space-2);
 }
@@ -252,6 +255,7 @@
 
 .courier-step {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -280,6 +284,7 @@
 
 .courier-step-label {
   font-size: var(--text-xs);
+  line-height: 1.25;
   color: var(--text-secondary);
 }
 
@@ -447,7 +452,6 @@
   display: inline-flex;
   align-items: baseline;
   gap: var(--space-1);
-  min-height: var(--touch-min);
 }
 
 .courier-statline strong {
