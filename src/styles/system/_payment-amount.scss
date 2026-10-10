@@ -1,0 +1,35 @@
+// ── /payment-amount (customer) — blok metode bayar ─────────────────────────
+// Audit 008 (anti-slop/audit-008-2026-10-10.md). Kartu metode jadi titik fokus
+// halaman: permukaan `--orange-soft` + tepi merek, seragam dengan kartu terpilih
+// di /payment-selection. Sebelumnya kartu putih di atas halaman hangat sehingga
+// tak terbaca sebagai kartu. Pembungkus kehilangan `padding: 20px` sisa
+// app/part-12 (gutter sudah datang dari .payment-amount-content), jadi kartu
+// memakai lebar penuh 390px, bukan 350px.
+
+.payment-method-display {
+  padding: 0;
+}
+
+// Titik fokus: satu-satunya kartu berwarna di halaman. Teks di atas --orange-soft
+// lolos AA (nama 10,2:1, catatan 5,3:1, tombol 5,3:1).
+.payment-method-card {
+  background-color: var(--orange-soft);
+  border: 1px solid var(--sa7tein-orange);
+}
+
+// Judul seksi mengikuti pola judul seksi halaman (ringkasan pesanan): satu
+// ukuran untuk peran yang sama, bukan 17px/600 sendiri. Warna token.
+.payment-method-display .section-title {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+// Label boleh menyusut; tombol "Ganti" tidak ikut terdesak label panjang.
+.payment-method-label {
+  min-width: 0;
+}
+
+.payment-method-row > .payment-change-btn {
+  flex: none;
+}

@@ -662,6 +662,25 @@ export function ChangelogSection() {
                 Radiogroup dapat roving tabindex + navigasi panah. Gate /payment-selection 2/2 PASS
               </td>
             </tr>
+            <tr>
+              <td>Kartu metode bayar /payment-amount: tak terbaca &amp; sempit (audit 008)</td>
+              <td>
+                Kartu putih di atas halaman hangat sehingga tidak terbaca sebagai kartu;
+                pembungkus menyisakan padding 20px sisa porting sampai kartu terukur 350 dari
+                390px; judul <code className="doc-inline">Payment Method</code> berbahasa Inggris
+                pada 17,01px/600 dengan warna mentah; label tanpa batas lebar
+              </td>
+              <td>
+                Kartu jadi titik fokus berwarna <code className="doc-inline">--orange-soft</code> +
+                tepi merek (nama 10,2:1, catatan 5,3:1), lebar penuh 390px, judul jadi{' '}
+                <code className="doc-inline">Metode Pembayaran</code> pada langkah{' '}
+                <code className="doc-inline">--text-sm</code>/700 warna token, label{' '}
+                <code className="doc-inline">min-width: 0</code>, tombol{' '}
+                <code className="doc-inline">flex: none</code>. Sibling kartu alamat ikut:
+                terpilih jadi <code className="doc-inline">--orange-soft</code> (dulu navy di atas
+                oranye merek 2,9:1). Gate /payment-amount 2/2 PASS
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

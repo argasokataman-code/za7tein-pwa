@@ -480,7 +480,7 @@ div[class*="-screen"] .container {
   font-weight: 600;
 }
 
-.address-item.selected .address-default-tag { border-color: var(--on-brand); }
+.address-item.selected .address-default-tag { border-color: var(--sa7tein-orange); }
 
 .address-notes {
   display: block;
@@ -519,11 +519,11 @@ div[class*="-screen"] .container {
   color: var(--orange-ink);
 }
 
-.address-item.selected ~ .address-menu-btn { color: var(--on-brand); }
+.address-item.selected ~ .address-menu-btn { color: var(--orange-ink); }
 
 .address-item.selected ~ .address-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: var(--on-brand);
+  background: var(--surface);
+  color: var(--orange-ink);
 }
 
 /* Hover: `--bg-warm` (#FFF9F4) di atas `--surface` (#FFFFFF) beda 4 satuan,
@@ -537,13 +537,14 @@ div[class*="-screen"] .container {
 
 .address-item.selected,
 .address-item.selected:hover {
-  background-color: var(--sa7tein-orange);
+  background-color: var(--orange-soft);
   border-color: var(--sa7tein-orange);
 }
 
-/* Teks kartu terpilih: `--text-primary` di atas oranye merek = 4,88:1 (lolos
-   AA). Putih (`--on-brand`) di atas oranye cuma 3,34:1, dan abu
-   `--text-secondary` 1,66:1 — keduanya gagal untuk teks 12-16px. */
+/* Teks kartu terpilih: `--text-primary` di atas `--orange-soft` = 10,2:1 (lolos
+   AA). Isian oranye merek penuh tidak bisa membawa teks isi yang lolos AA
+   (navy 2,9:1, putih 4,02:1), jadi permukaan terpilih memakai tint, sama
+   seperti kartu metode di /payment-selection. */
 .address-item.selected .address-name,
 .address-item.selected .address-text,
 .address-item.selected .address-notes,

@@ -205,7 +205,7 @@ export default function PaymentAmount() {
                 </div>
                 <div className="summary-item">
                   <span>
-                    Discount
+                    Diskon
                   </span>
                   <span>
                     {money(0)}
@@ -214,7 +214,7 @@ export default function PaymentAmount() {
                 <div className="summary-divider" />
                 <div className="summary-total">
                   <span>
-                    Total Payment
+                    Total Bayar
                   </span>
                   <span>
                     {money(total)}
@@ -225,7 +225,7 @@ export default function PaymentAmount() {
 
               <div className="payment-method-display">
                 <h2 className="section-title">
-                  Payment Method
+                  Metode Pembayaran
                 </h2>
                 <div className="payment-method-card">
                   <div className="payment-method-row">

@@ -251,7 +251,10 @@ export default function Documentation() {
               Metode Pembayaran customer dirapikan di audit 007: kartu terpilih kini lolos AA
               (permukaan <code className="doc-inline">--orange-soft</code>, bukan isian oranye pekat),
               dokumen kembali jadi satu-satunya penggulung dengan header sticky, judul turun ke
-              langkah header, dan radiogroup dapat navigasi panah. Rinciannya di bagian Changelog.
+              langkah header, dan radiogroup dapat navigasi panah. Kartu metode di /payment-amount
+              (audit 008) kini berwarna <code className="doc-inline">--orange-soft</code> bertopi
+              merek sebagai titik fokus, lebar penuh, judul Indonesia; warna terpilih yang sama
+              dipakai kartu alamat. Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (
