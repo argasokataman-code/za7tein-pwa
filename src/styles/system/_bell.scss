@@ -1,16 +1,18 @@
-// Lonceng notifikasi header peran (merchant/kurir/CS) dan beranda dapur. Bukan
-// gaya hero customer (`.s7-notification` memakai `--hero-deep` yang hanya ada di
-// dalam `.s7-hero`), tapi tombol permukaan `--surface` supaya terbaca di latar
-// `--bg-warm` maupun di bidang merek oranye hero.
+// Lonceng notifikasi header peran (merchant/kurir/CS). Tombol ikon polos:
+// latar transparan dan tanpa tepi, supaya menyatu dengan bar header alih-alih
+// jadi kotak putih bertepi yang menonjol. Beranda dapur menambahkan cincin kaca
+// sendiri di atas bidang oranye (lihat `_merchant-4.scss`), mengikuti gaya
+// `.s7-notification` milik pelanggan.
 .notif-bell {
   position: relative;
   display: grid;
   place-items: center;
   width: var(--touch-min);
   height: var(--touch-min);
-  border: 1px solid var(--border-strong);
+  padding: 0;
+  border: 0;
   border-radius: var(--radius-pill);
-  background: var(--surface);
+  background: transparent;
   color: var(--text-primary);
   cursor: pointer;
   transition: transform var(--motion-fast) ease-out;
@@ -22,8 +24,8 @@
 
 .notif-bell__badge {
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 4px;
+  right: 4px;
   display: grid;
   place-items: center;
   min-width: 16px;
