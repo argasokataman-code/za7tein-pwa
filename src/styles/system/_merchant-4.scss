@@ -223,6 +223,54 @@
   text-decoration: none;
 }
 
+/* Kartu "Komposisi order" di kolom 430px: donut 128px menyisakan ~212px untuk
+   legenda, dan tiap baris `.chart-legend-link` adalah satu anak grid di kolom
+   `auto` sehingga lebarnya ikut isi (terukur 59–82px → legenda bergerigi) dan
+   label+angka bertumpuk dua baris. Susunan mobile: donut di atas (tengah),
+   legenda jadi baris penuh satu-baris di bawahnya — titik · label … angka.
+   Di-scope ke merchant supaya admin/superadmin tidak ikut berubah. */
+.merchant-page .chart-split {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+}
+
+.merchant-page .chart-split .chart-donut {
+  align-self: center;
+}
+
+.merchant-page .chart-split .chart-legend {
+  flex: 1 1 auto;
+  width: 100%;
+  gap: 0;
+}
+
+.merchant-page .chart-legend li {
+  display: block;
+}
+
+.merchant-page .chart-legend-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto;
+  column-gap: var(--space-2);
+  align-items: center;
+  width: 100%;
+  margin-block: 0;
+  border-top: 1px solid var(--border);
+}
+
+.merchant-page .chart-legend li:first-child .chart-legend-link {
+  border-top: 0;
+}
+
+.merchant-page .chart-legend-value {
+  grid-column: 3;
+  grid-row: 1;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
 /* Baris teks untuk angka antrean. Tanpa kotak dan tanpa latar: dua di antaranya
    sudah tampil sebagai pil merah di tab Order bawah, jadi beranda tidak perlu
    mengulangnya sebagai kartu. Tinggi tetap `--touch-min` supaya tetap bisa

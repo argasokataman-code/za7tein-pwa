@@ -268,7 +268,8 @@ export default function Documentation() {
               dengan hero, bukan kartu putih keempat. Kartu &ldquo;Modal &amp; insentif&rdquo; menyusul
               sebagai bidang navy (token design system <code className="doc-inline">--navy</code>) dan aksinya
               jadi baris tap mobile dengan chevron. Kartu navy-nya diberi elevasi (bayangan
-              bernuansa navy) supaya terbaca mengambang. Rinciannya di bagian Changelog.
+              bernuansa navy) supaya terbaca mengambang. Legenda &ldquo;Komposisi order&rdquo; ditata
+              ulang jadi baris penuh satu-baris (angka rata kanan). Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (
