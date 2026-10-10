@@ -220,8 +220,9 @@ export default function Documentation() {
               Notifikasi kini berupa sakelar "Notifikasi push" yang berlangganan Web Push VAPID
               sungguhan (endpoint dari push service peramban) dan menyimpan baris ke tabel
               push_subscriptions (dibaca kembali saat mount, detail teknis dipindah ke halaman
-              dokumentasi; pemberitahuan diantar lewat service worker push, dikirim dari skrip
-              scripts/send-push.mjs); toggle
+              dokumentasi; pemberitahuan diantar lewat service worker push — pengirim produksi
+              adalah Edge Function Supabase send-push yang dipicu Database Webhook pada tabel
+              notifications, dengan skrip scripts/send-push.mjs untuk uji lokal); toggle
               buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko

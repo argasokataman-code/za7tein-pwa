@@ -14,6 +14,7 @@
     "scan:test": "node scripts/surface-scan.test.mjs",
     "browser:gate": "node scripts/browser-gate.mjs",
     "push:send": "node --env-file=.env.local scripts/send-push.mjs",
+    "push:deploy": "supabase functions deploy send-push",
     "e2e": "node scripts/e2e-browsers.mjs",
     "e2e:stop": "node scripts/e2e-browsers.mjs --stop"
   },

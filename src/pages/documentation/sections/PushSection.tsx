@@ -7,9 +7,9 @@ export function PushSection() {
       <p className="doc-p">
         R-PUSH-01 (milestone M8) menetapkan dua hal: identitas nomor WA yang tervalidasi, dan
         notifikasi push dengan fallback WhatsApp. Repo ini kini mengerjakan keduanya — nomor WA
-        tervalidasi dan <strong>Web Push VAPID yang benar-benar berlangganan & diantar</strong>,
-        dengan pengirim demo di sisi server (aplikasi ini tetap front-end; pengirimannya lewat
-        skrip dev, bukan backend produksi).
+        tervalidasi dan <strong>Web Push VAPID yang benar-benar berlangganan & diantar</strong>.
+        Pengirimnya dua: Edge Function Supabase yang selalu hidup (produksi) dan skrip dev lokal
+        (uji cepat).
       </p>
       <h3 className="doc-h3">Satu aturan nomor, satu tempat</h3>
       <p className="doc-p">
@@ -52,18 +52,32 @@ waLink('+962791234567', 'Halo…')  // https://wa.me/962791234567?text=Halo…`}
         ter-precache ganda.
       </p>
       <p className="doc-p">
-        Pengiriman ada di <code className="doc-inline">scripts/send-push.mjs</code> (dev tool,
+        Pengiriman produksi = Edge Function <code className="doc-inline">send-push</code>{' '}
+        (<code className="doc-inline">supabase/functions/send-push/index.ts</code>). Ia dipicu{' '}
+        <strong>Database Webhook</strong> pada tabel <code className="doc-inline">notifications</code>{' '}
+        (event Insert): tiap notifikasi yang ditulis aplikasi langsung memanggil function, yang
+        membaca <code className="doc-inline">push_subscriptions</code> milik{' '}
+        <code className="doc-inline">notifications.user_id</code>, menandatangani payload VAPID, lalu
+        mengantar lewat FCM — dan menghapus langganan mati (404/410). Karena dijalankan di server,
+        notifikasi tetap masuk saat aplikasi/ponsel tidak aktif. Langkah deploy + rahasia ada di{' '}
+        <code className="doc-inline">supabase/README.md</code>.
+      </p>
+      <p className="doc-p">
+        Pengujian cepat = <code className="doc-inline">scripts/send-push.mjs</code> (dev tool,
         dependency <code className="doc-inline">web-push</code>): membaca{' '}
-        <code className="doc-inline">push_subscriptions</code> dengan sesi demo, menandatangani
-        payload dengan kunci privat VAPID, lalu mengantarnya. Kunci privat{' '}
-        <strong>tidak ada di bundle</strong> — hanya di <code className="doc-inline">.env.local</code>{' '}
-        (di-gitignore) yang dibaca skrip. Berlangganan butuh service worker aktif, jadi baru jalan
-        pada build/preview, bukan <code className="doc-inline">npm run dev</code>.
+        <code className="doc-inline">push_subscriptions</code> dengan sesi demo dan mengantar sekali,
+        tanpa deploy. Kunci privat <strong>tidak ada di bundle</strong> — hanya di{' '}
+        <code className="doc-inline">.env.local</code> (di-gitignore); di server ia jadi secret Edge
+        Function. Berlangganan butuh service worker aktif, jadi baru jalan pada build/preview, bukan{' '}
+        <code className="doc-inline">npm run dev</code>.
       </p>
       <DocCode lang="bash">
-        {`# kunci di .env.local: VAPID_PUBLIC_KEY / VAPID_PRIVATE_KEY
-npm run build && npm run preview
-npm run push:send -- --title "Pesanan siap" --body "Sate Ayam sedang dimasak" --url /customer/orders`}
+        {`# dev (uji cepat) — kunci di .env.local
+npm run push:send -- --title "Pesanan siap" --body "Sate Ayam sedang dimasak" --url /customer/orders
+
+# produksi (selalu hidup) — sekali untuk setup
+npm run push:deploy                                   # supabase functions deploy send-push
+# lalu: Dashboard → Database Webhooks → notifications/Insert → send-push`}
       </DocCode>
       <h3 className="doc-h3">Fallback WA saat lawan offline</h3>
       <p className="doc-p">
@@ -74,8 +88,9 @@ npm run push:send -- --title "Pesanan siap" --body "Sate Ayam sedang dimasak" --
         <em>Simulasi: kurir offline</em>, karena tidak ada soket presence sungguhan.
       </p>
       <p className="doc-p">
-        Yang belum final: pengiriman dari backend produksi (bukan skrip dev), kebijakan retensi
-        subscription, dan validasi di perangkat fisik. Semuanya masih terbuka.
+        Yang belum final: retensi subscription jangka panjang, dan validasi di perangkat fisik
+        (Android/iOS). Pengirim produksinya sudah ada — Edge Function + webhook, lihat{' '}
+        <code className="doc-inline">supabase/README.md</code>.
       </p>
     </DocSection>
   )

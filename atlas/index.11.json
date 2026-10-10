@@ -173,6 +173,236 @@
           "raw": "FEAT-9982:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-10070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:23:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/e2e-browsers.mjs (+2/-2) — edit via tool: import { execFileSync } from 'node:chil",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/e2e-browsers.mjs"
+    },
+    {
+      "id": "TASK-10071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:24:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/e2e-browsers.mjs (+40/-1) — edit via tool: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/e2e-browsers.mjs"
+    },
+    {
+      "id": "TASK-10072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:24:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: node --check scripts/e2e-browsers.mjs && echo \"syntax OK\"; npm run lint 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:29:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/e2e-browsers.mjs (+8/-1) — edit via tool: const brave = prefs.brave && typeof pre",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/e2e-browsers.mjs"
+    },
+    {
+      "id": "BUG-9985",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-10",
+      "time": "12:30:45",
+      "tags": [
+        "push",
+        "brave",
+        "vapid",
+        "e2e"
+      ],
+      "summary": "Brave 'push service error': pref benar brave.gcm.channel_status (bukan enable_google_push_messaging); clone e2e kini bisa subscribe",
+      "conn": [
+        {
+          "id": "FEAT-9984",
+          "type": "fixes",
+          "raw": "FEAT-9984:fixes"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:34:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/supabase/functions/send-push/index.ts (+117) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/supabase/functions/send-push/index.ts"
+    },
+    {
+      "id": "TASK-10075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:34:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/supabase/README.md (+64) — write via tool: # Supabase — pengirim push yang selalu h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/supabase/README.md"
+    },
+    {
+      "id": "TASK-10076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:34:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/package.json (+2/-1) — edit via tool: \"push:send\": \"node --env-file=.env.local",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/package.json"
+    },
+    {
+      "id": "TASK-10077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:35:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+5/-5) — edit via tool: tsx: R-PUSH-01 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-10078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:35:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: dokumentasi; pemberitahuan dian",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:36:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -8; echo \"=== build ===\"; npm run build 2>&1 | tail -4; echo \"=== scan ===\"; npm run scan 2>&1 | tail -4; e",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:36:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/supabase/README.md (+12/-3) — edit via tool: `scripts/send-push.mjs` tetap ada sebaga",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/supabase/README.md"
     }
   ]
 }
