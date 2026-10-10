@@ -8,7 +8,7 @@ interface UiState {
 }
 
 const initialState: UiState = {
-  locationLabel: '44 Street Town',
+  locationLabel: '',
   cartBadgeCount: 1,
   origin: null,
 }

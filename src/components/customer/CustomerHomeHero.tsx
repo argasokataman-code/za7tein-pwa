@@ -118,7 +118,7 @@ type Props = {
 export default function CustomerHomeHero({
   avatarUrl,
   avatarAlt = '',
-  location = '44 Street Town',
+  location = '',
   notificationCount = 0,
   onOpenProfile,
   onChangeLocation,
@@ -129,6 +129,9 @@ export default function CustomerHomeHero({
   // Saran disembunyikan begitu kolom punya isi. `useState` lokal, bukan nilai
   // dari store: ini murni tampilan kolom pencarian di halaman ini.
   const [query, setQuery] = useState('')
+  // Label lokasi kosong sampai alamat nyata termuat (store/backend). Sebelumnya
+  // ada nilai contoh `'44 Street Town'` bawaan yang bocor sebagai data dummy.
+  const place = location || 'Lokasi'
 
   return (
     <section className="s7-hero s7-hero--customer s7-parallax--hero">
@@ -155,18 +158,18 @@ export default function CustomerHomeHero({
             <button
               type="button"
               className="s7-location"
-              aria-label={`Ubah alamat pengiriman. Sekarang: ${location}`}
+              aria-label={`Ubah alamat pengiriman. Sekarang: ${place}`}
               aria-haspopup="dialog"
               onClick={onChangeLocation}
             >
               <span className="s7-location__label">
-                Delivery location
+                Lokasi antar
                 <ChevronDownIcon />
               </span>
 
               <span className="s7-location__value">
                 <LocationPinIcon />
-                <span>{location}</span>
+                <span>{place}</span>
               </span>
             </button>
           </div>

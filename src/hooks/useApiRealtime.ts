@@ -30,7 +30,7 @@ export function useApiRealtime(audience: NotifAudience): void {
       timer = setTimeout(() => {
         fetchNotifications(audience)
           .then((items) => {
-            if (alive && items.length) dispatch(setNotifications(items))
+            if (alive) dispatch(setNotifications(items))
           })
           .catch(() => {})
         if (audience === 'merchant') {

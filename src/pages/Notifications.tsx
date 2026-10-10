@@ -66,6 +66,10 @@ export default function Notifications() {
                 ) : null}
               </div>
 
+              {items.length === 0 ? (
+                <p className="inbox-foot">Belum ada notifikasi.</p>
+              ) : null}
+
               <ul className="inbox-list">
                 {items.map((n) => {
                   const Icon = KIND_ICON[n.kind]
@@ -95,7 +99,7 @@ export default function Notifications() {
                 })}
               </ul>
 
-              {unread === 0 ? (
+              {items.length > 0 && unread === 0 ? (
                 <p className="inbox-foot">
                   <Check size={16} strokeWidth={2} aria-hidden="true" />
                   Semua notifikasi sudah dibaca.

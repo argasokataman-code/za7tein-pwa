@@ -19,7 +19,9 @@ export function useApiNotifications(audience: NotifAudience): void {
     const load = () => {
       fetchNotifications(audience)
         .then((items) => {
-          if (alive && items.length) dispatch(setNotifications(items))
+          // Ganti penuh, termasuk saat kosong: kalau tidak, daftar lama tetap
+          // tampil setelah API balik tanpa baris.
+          if (alive) dispatch(setNotifications(items))
         })
         .catch(() => {})
     }

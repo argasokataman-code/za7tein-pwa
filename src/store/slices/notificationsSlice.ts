@@ -3,7 +3,6 @@
 // pasti ikut menurunkan badge — angka dan daftarnya tidak bisa berbeda.
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import { mockNotifications } from '../../data/notifications'
 import type { AppNotification, PushSubscriptionRecord } from '../../types'
 
 interface NotificationsState {
@@ -13,7 +12,7 @@ interface NotificationsState {
 }
 
 const initialState: NotificationsState = {
-  items: mockNotifications,
+  items: [],
   subscription: null,
 }
 
@@ -30,7 +29,8 @@ const notificationsSlice = createSlice({
         n.unread = false
       })
     },
-    /** Isi kotak masuk dari API (mock menimpa hanya bila load sukses + berisi). */
+    /** Ganti seluruh kotak masuk dari API — termasuk saat kosong, agar daftar
+     *  lama tidak menetap. */
     setNotifications(state, action: PayloadAction<AppNotification[]>) {
       state.items = action.payload
     },

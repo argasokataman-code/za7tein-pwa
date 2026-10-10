@@ -213,7 +213,10 @@ export default function Documentation() {
               menyegarkan data referensi; foto toko dari backend yang menunjuk aset tak ada
               (mis. /assets/img/merchant/*.svg) kini jatuh ke gambar menu lewat onError, bukan
               kotak rusak; tombol lokasi di beranda membuka pemilih alamat dan labelnya ikut
-              berubah begitu alamat diganti; toggle buka/tutup toko
+              berubah begitu alamat diganti; label lokasi tak lagi memakai nilai contoh
+              ("44 Street Town") — placeholder "Lokasi" sampai alamat nyata termuat; kotak masuk
+              notifikasi kini murni dari backend — seed mock + badge "3" dihapus, dan daftar
+              dikosongkan bila API tak mengembalikan baris; toggle buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend
