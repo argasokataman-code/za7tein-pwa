@@ -3478,6 +3478,65 @@
         }
       ],
       "loc": "src/App.tsx:314"
+    },
+    {
+      "id": "TASK-10223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:03:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantRebate.tsx (+3/-3) — edit via tool: tsx: <section className=\"merchant-c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantRebate.tsx"
+    },
+    {
+      "id": "TASK-10224",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:03:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-2) — edit via tool: tsx: /merchant/insentif. Kartu &ldqu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "DEC-1043",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:05:01",
+      "tags": [
+        "merchant",
+        "design",
+        "tokens"
+      ],
+      "summary": "Kartu Sisa modal /merchant/insentif pakai .merchant-card--navy (--navy/--on-navy + elevasi); teks 11.64:1",
+      "conn": [
+        {
+          "id": "TASK-10217",
+          "type": "relates",
+          "raw": "TASK-10217:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantRebate.tsx:40"
     }
   ]
 }

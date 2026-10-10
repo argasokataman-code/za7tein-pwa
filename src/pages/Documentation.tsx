@@ -282,7 +282,9 @@ export default function Documentation() {
               --radius-xs) dan ritme jarak antar blok ke 16px. Periode tier insentif kini
               diputuskan (I-4): bulan kalender dengan tier dinilai akhir bulan — naik tier di
               tengah bulan tidak proporsional — tertulis di PRD, flow F9/F16, dan layar
-              /merchant/insentif.
+              /merchant/insentif. Kartu &ldquo;Sisa modal&rdquo; di layar itu kini memakai bidang
+              navy yang sama dengan kartu insentif beranda (token{' '}
+              <code className="doc-inline">--navy</code> dan elevasi navy dari design system).
               Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">

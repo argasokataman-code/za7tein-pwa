@@ -37,7 +37,7 @@ export default function MerchantRebate() {
       <main className="merchant-page">
         <MerchantPageHeader eyebrow="Insentif Founding" title="Modal & cashback" />
 
-        <section className="merchant-card">
+        <section className="merchant-card merchant-card--navy">
           <div className="merchant-row">
             <Coins size={20} strokeWidth={1.75} aria-hidden="true" />
             <div>
