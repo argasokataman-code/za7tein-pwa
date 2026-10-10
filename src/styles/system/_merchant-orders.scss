@@ -379,6 +379,21 @@
   margin-top: 0;
 }
 
+/* Aksi tiket diseragamkan. `.btn` legacy (`app/part-02.scss`) memaku
+   `height: 56px`, sementara ghost di `.merchant-actions` membawa `border-radius:
+   pill` + tepi 2px — dua tombol berdampingan jadi beda bentuk (terukur Terima
+   radius 10px, Tolak 9999px) dan terlalu tinggi. 56px = ukuran CTA layar penuh;
+   di baris antrean yang padat 48px sudah di atas `--touch-min` dan jauh lebih
+   ringan. Override dipasang di sini (spesifisitas 0-3-0) supaya tidak mengubah
+   `.btn` di halaman lain yang memang ingin 56px. */
+.merchant-ticket .merchant-actions .btn,
+.merchant-ticket .merchant-actions .merchant-btn-ghost {
+  height: auto;
+  min-height: 48px;
+  border-radius: var(--radius-md);
+  border-width: 1px;
+}
+
 /* Baris pilihan memakai pola `.sheet-menu` milik role customer. Item yang
    sedang terpilih ditandai warna merek + ikon centang. */
 .sheet-menu__item.is-selected {
