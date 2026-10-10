@@ -90,13 +90,16 @@ export async function createOrder(order: NewOrder): Promise<void> {
 /**
  * Persist penugasan kurir ke `orders.courier_id` (best-effort).
  *
- * Id dari state bisa `String(id)` hasil sync BE (numerik) atau seed `cr-*`
- * (non-numerik). Hanya ditulis kalau keduanya numerik — seed offline tidak
- * menulis id kurir palsu ke baris order live.
+ * Bentuk id di state: order = `api-<id>` hasil sync BE (atau numerik polos),
+ * kurir = `String(id)` BE (numerik) atau seed `cr-*`. Ditulis hanya kalau id
+ * benar-benar numerik (`api-N`/`N`, kurir `N`) — seed `cr-*` tak pernah menulis
+ * id kurir palsu ke baris order live.
  */
 export async function assignOrderCourier(orderId: string, courierId: string): Promise<void> {
-  const oid = Number(orderId)
-  const cid = Number(courierId)
+  const oidRaw = String(orderId)
+  const oid = Number(/^api-(\d+)$/.exec(oidRaw)?.[1] ?? (/^\d+$/.test(oidRaw) ? oidRaw : NaN))
+  const cidRaw = String(courierId)
+  const cid = /^\d+$/.test(cidRaw) ? Number(cidRaw) : NaN
   if (!Number.isFinite(oid) || !Number.isFinite(cid)) return
   await ensureMerchantSession()
   await patchRow('orders', `?id=eq.${oid}`, { courier_id: cid })

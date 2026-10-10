@@ -33,6 +33,7 @@
  * Pakai:
  *   npm run e2e                       # BUKA semua jendela (sekali, disengaja)
  *   npm run e2e -- --pwa              # pakai hasil build (localhost:4173)
+ *   npm run e2e -- --pwa --only=customer,merchant,courier   # hanya peran ini
  *   npm run e2e -- --list             # cetak peta port terkunci, tanpa buka apa pun
  *   npm run e2e -- --stop             # matikan semua klon e2e
  *   npm run e2e -- preflight          # WAJIB dulu: cek server + tiap jendela role & portnya
@@ -92,6 +93,16 @@ const fail = (msg) => {
   process.exit(1)
 }
 const byRole = (role) => INSTANCES.find((i) => i.role === role)
+
+// Filter peran opsional: `--only=customer,merchant,courier`. Hanya peran
+// terpilih yang dibuka/dimatikan/dicek; port tetap dari indeks ROLE_DEFS.
+const onlyArg = argv.find((a) => a.startsWith('--only='))?.slice('--only='.length)
+const onlyRoles = onlyArg ? onlyArg.split(',').map((s) => s.trim()).filter(Boolean) : null
+const TARGETS = onlyRoles ? INSTANCES.filter((i) => onlyRoles.includes(i.role)) : INSTANCES
+const unknownRoles = onlyRoles?.filter((r) => !byRole(r))
+if (unknownRoles?.length) {
+  fail(`role tak dikenal di --only: ${unknownRoles.join(', ')}. Pilih: ${INSTANCES.map((i) => i.role).join(', ')}`)
+}
 
 function printMap() {
   process.stdout.write('Peta port e2e terkunci (9355 kerja & 9359 gate dicadangkan untuk hal lain):\n')
@@ -331,7 +342,7 @@ async function requireTab(inst) {
 }
 
 async function runStatus() {
-  for (const inst of INSTANCES) {
+  for (const inst of TARGETS) {
     const tabs = await cdpList(inst.port)
     if (!tabs) {
       process.stdout.write(`  ${inst.role.padEnd(11)} port ${inst.port}  MATI\n`)
@@ -376,7 +387,7 @@ async function runPreflight() {
   )
   process.stdout.write(`  ${'role'.padEnd(11)}${'port'.padEnd(6)}${'jendela'.padEnd(17)}url\n`)
   let ok = 0
-  for (const inst of INSTANCES) {
+  for (const inst of TARGETS) {
     const tabs = await cdpList(inst.port)
     if (!tabs) {
       process.stdout.write(`  ${inst.role.padEnd(11)}${String(inst.port).padEnd(6)}MATI\n`)
@@ -390,7 +401,7 @@ async function runPreflight() {
       `  ${inst.role.padEnd(11)}${String(inst.port).padEnd(6)}${(app ? 'HIDUP app-mode' : 'bukan app-mode!').padEnd(17)}${tab ? tab.url : '— tak ada tab role'}\n`,
     )
   }
-  const total = INSTANCES.length
+  const total = TARGETS.length
   if (!server || ok < total) {
     process.stdout.write(
       `\nHASIL: ${ok}/${total} jendela siap, server ${server ? 'ada' : 'mati'}.\n` +
@@ -489,8 +500,8 @@ async function runShot() {
 async function main() {
   if (list) return printMap()
   if (stop) {
-    for (const inst of INSTANCES) stopClone(inst)
-    process.stdout.write('Semua klon e2e dimatikan.\n')
+    for (const inst of TARGETS) stopClone(inst)
+    process.stdout.write(onlyRoles ? 'Klon e2e terpilih dimatikan.\n' : 'Semua klon e2e dimatikan.\n')
     return
   }
   if (op === 'preflight') return runPreflight()
@@ -503,7 +514,7 @@ async function main() {
   // Tidak ada subcommand → mode BUKA (disengaja): launch semua jendela role.
   const base = await resolveBase()
   const ready = []
-  for (const inst of INSTANCES) {
+  for (const inst of TARGETS) {
     ready.push({ inst, url: await ensureInstance(base, inst) })
   }
 

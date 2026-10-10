@@ -200,7 +200,8 @@ export default function Documentation() {
               transisi order (checkout, terima/tolak/siap/serahkan/batal, checkpoint kurir, OTP)
               mengemit notifikasi ke peran terkait, dan klik baris menulis balik
               notifications.read (kind tak dikenal jatuh ke system; mock tetap jadi fallback),
-              penugasan kurir ditulis ke orders.courier_id; toggle buka/tutup toko
+              penugasan kurir ditulis ke orders.courier_id; kotak masuk diperbarui otomatis
+              tiap 8s tanpa refresh (polling); toggle buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend
