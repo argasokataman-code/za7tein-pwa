@@ -9,6 +9,7 @@ import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 import { useAppSelector } from './hooks/useAppStore'
 import { usePageTransition } from './hooks/usePageTransition'
 import { useApiSync } from './hooks/useApiReference'
+import { useApiNotifications } from './hooks/useApiNotifications'
 
 import AccountSetup from './pages/AccountSetup'
 import AddNewCard from './pages/AddNewCard'
@@ -424,6 +425,7 @@ function LegacyAppRedirect() {
  */
 function ApiSync() {
   useApiSync()
+  useApiNotifications()
   return null
 }
 

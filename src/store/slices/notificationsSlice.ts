@@ -30,6 +30,10 @@ const notificationsSlice = createSlice({
         n.unread = false
       })
     },
+    /** Isi kotak masuk dari API (mock menimpa hanya bila load sukses + berisi). */
+    setNotifications(state, action: PayloadAction<AppNotification[]>) {
+      state.items = action.payload
+    },
     /** Daftar push (mock): menyimpan subscription, bukan mengirim notifikasi. */
     registerPush(state, action: PayloadAction<{ subscription: PushSubscriptionRecord }>) {
       state.subscription = action.payload.subscription
@@ -48,7 +52,7 @@ const notificationsSlice = createSlice({
   },
 })
 
-export const { markRead, markAllRead, registerPush, clearPush, pushNotification } =
+export const { markRead, markAllRead, registerPush, clearPush, pushNotification, setNotifications } =
   notificationsSlice.actions
 
 export const selectUnreadCount = (items: AppNotification[]) =>

@@ -12,6 +12,7 @@
  */
 import { jodToIdr } from '../data/currency'
 import type {
+  AppNotification,
   Courier,
   DepositStatus,
   MerchantCreditEvent,
@@ -441,6 +442,52 @@ export async function fetchMerchantRecords(): Promise<MerchantRecord[]> {
   const token = await refToken()
   const rows = await restWith<RegistryRow>(token, 'merchants', '?select=*&order=id.asc')
   return rows.map(toMerchantRecord)
+}
+
+/** Kind backend tak selalu sama dengan union UI; tak dikenal → `system`. */
+const NOTIF_KIND: Record<string, AppNotification['kind']> = {
+  order: 'order',
+  promo: 'promo',
+  payment: 'payment',
+  system: 'system',
+}
+
+interface NotificationRow {
+  id: number
+  kind: string | null
+  title: string
+  body: string | null
+  read: boolean | null
+  created_at: string
+}
+
+/** Jam untuk hari ini (mis. `12.32`), selebihnya `dayLabel` (kemarin/N hari lalu). */
+function notifTime(iso: string): string {
+  const at = new Date(iso)
+  if (new Date().toDateString() !== at.toDateString()) return dayLabel(iso)
+  return `${String(at.getHours()).padStart(2, '0')}.${String(at.getMinutes()).padStart(2, '0')}`
+}
+
+function toNotification(row: NotificationRow): AppNotification {
+  return {
+    id: `ntf-${row.id}`,
+    kind: NOTIF_KIND[row.kind ?? ''] ?? 'system',
+    title: row.title,
+    body: row.body ?? '',
+    time: notifTime(row.created_at),
+    unread: !row.read,
+  }
+}
+
+/** Kotak masuk customer — tabel `notifications`, terbaru dulu. */
+export async function fetchNotifications(): Promise<AppNotification[]> {
+  const token = await refToken()
+  const rows = await restWith<NotificationRow>(
+    token,
+    'notifications',
+    '?select=id,kind,title,body,read,created_at&audience=eq.customer&order=created_at.desc&limit=50',
+  )
+  return rows.map(toNotification)
 }
 
 export { DEMO_MERCHANT_USER_ID }

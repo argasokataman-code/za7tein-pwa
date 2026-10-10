@@ -29,7 +29,7 @@ const USER_CUSTOMER = 1
 const USER_MERCHANT = 2
 
 /** Pola sinkron sekali: load saat mount, serahkan hasil ke `onData` bila masih hidup. */
-function useSyncOnce<T>(
+export function useSyncOnce<T>(
   load: () => Promise<T | undefined>,
   onData: (data: T, dispatch: ReturnType<typeof useAppDispatch>) => void,
 ): void {

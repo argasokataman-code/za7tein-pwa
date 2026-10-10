@@ -195,7 +195,8 @@ export default function Documentation() {
               toko dari kolom merchants, profil toko (nama/kontak/foto/config kirim), registri
               merchant lengkap (pemilik/kota/tier/tenant/deposit/zona/COD) untuk panel CS & konsol SA,
               role & operator konsol SA (izinnya sudah sepadan dengan katalog UI), dan riwayat
-              kredit dari merchant_credit_events; toggle buka/tutup toko
+              kredit dari merchant_credit_events, kotak masuk notifikasi dari notifications
+              (kind tak dikenal jatuh ke system; mock tetap jadi fallback); toggle buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend
