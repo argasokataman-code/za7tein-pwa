@@ -13,6 +13,7 @@ import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
 import { money } from '../data/currency'
+import { APP_VERSION } from '../data/appInfo'
 import { mockMerchant } from '../data/merchant'
 import { imageFileError } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
@@ -306,7 +307,7 @@ export default function MerchantSettings() {
             <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
             <div>
               <p className="merchant-card-title">Cek pembaruan</p>
-              <p className="merchant-card-sub">Pastikan aplikasi memakai versi terbaru</p>
+              <p className="merchant-card-sub">Versi {APP_VERSION}</p>
             </div>
           </div>
           <button

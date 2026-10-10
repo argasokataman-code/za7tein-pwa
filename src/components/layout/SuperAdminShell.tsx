@@ -23,6 +23,7 @@ import {
   saActors,
   saPermissions,
 } from '../../data/superadmin'
+import { APP_VERSION } from '../../data/appInfo'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import { useAppUpdate } from '../../hooks/useAppUpdate'
 import { setActiveOperator } from '../../store/slices/superAdminSlice'
@@ -159,7 +160,7 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
             Dokumentasi
           </Link>
           <button type="button" className="sa-side-link" onClick={checkForUpdate} disabled={checkingUpdate}>
-            {checkingUpdate ? 'Memeriksa…' : 'Cek pembaruan'}
+            {checkingUpdate ? 'Memeriksa…' : `Cek pembaruan (v${APP_VERSION})`}
           </button>
         </div>
       </aside>

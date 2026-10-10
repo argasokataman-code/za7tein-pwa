@@ -14,6 +14,7 @@ import { useAppUpdate } from '../hooks/useAppUpdate'
 import { aggregateLiability, liabilityGap, ledgerTypeLabel, money, moneyFromJod, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
 import { disputeExposure, ledgerFlow, ledgerTypeBars, liabilitySegments } from '../data/dashboard'
 import { jod } from '../data/currency'
+import { APP_VERSION } from '../data/appInfo'
 import { clearEscalation } from '../store/slices/adminSlice'
 import type { AdminEscalation } from '../types'
 
@@ -305,7 +306,7 @@ export default function AdminDashboard() {
             <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
             <div>
               <p className="admin-card-title">Cek pembaruan</p>
-              <p className="admin-card-sub">Pastikan aplikasi memakai versi terbaru</p>
+              <p className="admin-card-sub">Versi {APP_VERSION}</p>
             </div>
           </div>
           <button type="button" className="admin-link" onClick={checkForUpdate} disabled={checkingUpdate}>

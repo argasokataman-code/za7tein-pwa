@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { BottomNav } from '../components/layout/BottomNav'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { money } from '../data/currency'
+import { APP_VERSION } from '../data/appInfo'
 import { logout } from '../store/slices/authSlice'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -208,6 +209,7 @@ export default function Profile() {
                       </span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span className="update-check__ver">v{APP_VERSION}</span>
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </button>

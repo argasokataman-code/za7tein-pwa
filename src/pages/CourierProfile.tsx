@@ -11,6 +11,7 @@ import { useAppUpdate } from '../hooks/useAppUpdate'
 import { money, mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
 import { courierTipsAvailable } from '../data/courierWallet'
+import { APP_VERSION } from '../data/appInfo'
 import { toggleOnline } from '../store/slices/courierSlice'
 import { logout } from '../store/slices/authSlice'
 
@@ -111,7 +112,7 @@ export default function CourierProfile() {
             <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
             <div>
               <p className="courier-card-title">Cek pembaruan</p>
-              <p className="courier-card-sub">Pastikan aplikasi memakai versi terbaru</p>
+              <p className="courier-card-sub">Versi {APP_VERSION}</p>
             </div>
           </div>
           <button type="button" className="courier-toggle" onClick={checkForUpdate} disabled={checkingUpdate}>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { DOC_NAV } from './documentation/nav'
 import { DOC_SHELLS } from './documentation/routes'
+import { APP_VERSION } from '../data/appInfo'
 import { IntroductionSection } from './documentation/sections/IntroductionSection'
 import { WhatsNewSection } from './documentation/sections/WhatsNewSection'
 import { PagesRoutesSection } from './documentation/sections/PagesRoutesSection'
@@ -152,7 +153,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v3.4.0
+              v{APP_VERSION}
             </span>
             <span>
               React 19 · Vite · TypeScript

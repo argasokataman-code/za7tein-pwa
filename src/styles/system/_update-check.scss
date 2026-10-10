@@ -19,3 +19,10 @@ button.sa-side-link {
   font: inherit;
   cursor: pointer;
 }
+
+/* Teks versi di sisi kanan baris setelan (mis. "v3.4.1"). */
+.update-check__ver {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
