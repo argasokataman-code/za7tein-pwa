@@ -121,7 +121,13 @@
 /* Kartu pendapatan: satu titik fokus di beranda dapur. Sebelumnya kotak
    keempat dari grid 2×2 yang keempat kartunya seragam (73/73/99/99px, semua
    nilai 17,01px) sehingga uang dan jumlah porsi dicetak sama besar. Sekarang
-   angkanya 2xl dan tiga angka sisanya jadi baris teks di bawah. */
+   angkanya 2xl dan tiga angka sisanya jadi baris teks di bawah.
+
+   Permukaannya oranye merek, mengikuti pola kartu ringkasan beranda Superadmin
+   (`.sa-card--brand`): kartu uang tampil sebagai bidang merek, bukan kartu putih
+   keempat. Semua teks memakai `--on-brand` (putih) seperti hero — putih di atas
+   oranye = 4,02:1, pengecualian sadar DNA (2026-09-24). Tinta navy yang dipakai
+   `.sa-card--brand` diukur cuma 2,87:1 di sini, jadi tidak ditiru. */
 .merchant-revenue {
   @include card-surface;
   display: flex;
@@ -129,11 +135,30 @@
   gap: var(--space-1);
   margin-bottom: var(--space-3);
   padding: var(--space-4);
+
+  background: var(--sa7tein-orange);
+  border-color: var(--sa7tein-orange);
+  color: var(--on-brand);
+
+  /* Sparkline ikut latar merek: garis/titik/isi putih — kalau dibiarkan oranye
+     ia hilang di atas oranye. Titik diberi cincin oranye, bukan `--surface`. */
+  .chart-spark-line {
+    stroke: var(--on-brand);
+  }
+
+  .chart-spark-dot {
+    fill: var(--on-brand);
+    stroke: var(--sa7tein-orange);
+  }
+
+  .chart-spark-fill {
+    stop-color: var(--on-brand);
+  }
 }
 
 .merchant-revenue-label {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: var(--on-brand);
 }
 
 .merchant-revenue-value {
@@ -141,12 +166,12 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
-  color: var(--text-primary);
+  color: var(--on-brand);
 }
 
 .merchant-revenue-sub {
   font-size: var(--text-xs);
-  color: var(--text-secondary);
+  color: var(--on-brand);
 }
 
 /* Baris teks untuk angka antrean. Tanpa kotak dan tanpa latar: dua di antaranya

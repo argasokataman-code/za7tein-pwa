@@ -264,7 +264,8 @@ export default function Documentation() {
               tiga keadaan — Buka, Sibuk, Tutup — dalam satu kontrol segmented. Audit mobile beranda
               (011) menemukan kartunya berbaris lalu terpotong karena tabrakan kelas
               <code className="doc-inline">.merchant-card</code>; kini kartu menumpuk dan teks utuh.
-              Rinciannya di bagian Changelog.
+              Kartu &ldquo;Pendapatan&rdquo; juga menjadi bidang oranye merek supaya setingkat
+              dengan hero, bukan kartu putih keempat. Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (
