@@ -228,7 +228,7 @@ export default function Documentation() {
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend
               masih kosong, supaya tidak lagi menyaring daftar toko jadi kosong. Checkout customer menulis order ke API
-              (POST /orders) dan antrean merchant membacanya kembali (GET /orders). Halaman Profil
+              (POST /orders) dan antrean merchant membacanya kembali (GET /orders). Antrean merchant kini bergaya slip tiket dapur: nomor order jadi identitas yang dipindai cepat (angka tabular), chip umur menandai order yang menunggu diterima (kuning di 10 menit, merah di 20 menit), nama pelanggan naik jadi judul, dan nominal baris memakai Rupiah saja (padanan JOD tetap di sheet detail); tab aktif jadi segmented tinted supaya hanya satu aksen oranye dan count-nya lolos kontras, dan state kosong tiap tab kini berikon dan berkonteks. Halaman Profil
               customer kini memakai identitas sesi live — email/HP dari tabel users, nama dari
               user_metadata akun auth (keduanya bisa diedit di form Profil; tanggal lahir & jenis
               kelamin belum punya kolom, foto belum ada Storage bucket), badge lonceng

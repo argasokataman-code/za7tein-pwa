@@ -33,6 +33,14 @@ const items = {
   es: [{ id: 'es-teh', name: 'Es Teh Manis', price: 6000, quantity: 2, image: '' }],
 } satisfies Record<string, CartItem[]>
 
+/**
+ * Epoch "sekarang" untuk seed mock, dihitung sekali saat modul dimuat. Umur
+ * order ikut berjalan selama sesi, dan `placedAt` (teks) tetap sinkron karena
+ * keduanya berasal dari offset yang sama.
+ */
+const MOCK_NOW = Date.now()
+const minutesAgo = (minutes: number) => MOCK_NOW - minutes * 60_000
+
 export const merchantOrders: MerchantOrder[] = [
   {
     id: 'mo-1',
@@ -48,6 +56,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'hijazi',
     status: 'baru',
     placedAt: '2 menit lalu',
+    placedAtMs: minutesAgo(2),
     paymentMethod: 'cod',
   },
   {
@@ -64,6 +73,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'syimali',
     status: 'baru',
     placedAt: '5 menit lalu',
+    placedAtMs: minutesAgo(5),
     paymentMethod: 'transfer',
   },
   {
@@ -80,6 +90,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'syimali',
     status: 'disiapkan',
     placedAt: '14 menit lalu',
+    placedAtMs: minutesAgo(14),
     paymentMethod: 'cod',
     cookMinutes: 25,
   },
@@ -97,6 +108,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'hijazi',
     status: 'siap',
     placedAt: '18 menit lalu',
+    placedAtMs: minutesAgo(18),
     paymentMethod: 'transfer',
     cookMinutes: 25,
   },
@@ -114,6 +126,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'syimali',
     status: 'diantar',
     placedAt: '26 menit lalu',
+    placedAtMs: minutesAgo(26),
     paymentMethod: 'cod',
   },
   {
@@ -130,6 +143,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'hijazi',
     status: 'tiba',
     placedAt: '34 menit lalu',
+    placedAtMs: minutesAgo(34),
     paymentMethod: 'transfer',
   },
   {
@@ -146,6 +160,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'hijazi',
     status: 'selesai',
     placedAt: '1 jam lalu',
+    placedAtMs: minutesAgo(60),
     paymentMethod: 'cod',
   },
   {
@@ -162,6 +177,7 @@ export const merchantOrders: MerchantOrder[] = [
     zone: 'hijazi',
     status: 'ditolak',
     placedAt: '2 jam lalu',
+    placedAtMs: minutesAgo(120),
     paymentMethod: 'transfer',
   },
 ]
@@ -177,4 +193,34 @@ export function countByTab(orders: MerchantOrder[], tabId: QueueTabId): number {
   const tab = QUEUE_TABS.find((t) => t.id === tabId)
   if (!tab) return 0
   return ordersForStatuses(orders, tab.statuses).length
+}
+
+/** Umur order dalam menit, atau `null` kalau waktunya tak tersedia. */
+export function orderAgeMinutes(order: MerchantOrder, now = Date.now()): number | null {
+  if (order.placedAtMs === undefined) return null
+  return Math.max(0, Math.round((now - order.placedAtMs) / 60_000))
+}
+
+/** Label umur ringkas untuk chip tiket: `baru`, `12 mnt`, `1 j 20 m`. */
+export function orderAgeLabel(minutes: number): string {
+  if (minutes < 1) return 'baru'
+  if (minutes < 60) return `${minutes} mnt`
+  const hours = Math.floor(minutes / 60)
+  const rest = minutes % 60
+  return rest ? `${hours} j ${rest} m` : `${hours} j`
+}
+
+export type OrderUrgency = 'calm' | 'warning' | 'danger'
+
+/**
+ * Urgensi = berapa lama order menunggu **diterima**. Hanya `baru` yang punya
+ * tenggat yang merchant kendalikan; order yang sudah jalan atau selesai tidak
+ * diwarnai peringatan (umurnya wajar makin tua). Ambang 10/20 menit = keputusan
+ * dapur, bukan angka PRD.
+ */
+export function orderUrgency(order: MerchantOrder, minutes: number | null): OrderUrgency {
+  if (order.status !== 'baru' || minutes === null) return 'calm'
+  if (minutes >= 20) return 'danger'
+  if (minutes >= 10) return 'warning'
+  return 'calm'
 }

@@ -238,6 +238,7 @@ function toMerchantOrder(row: OrderRow): MerchantOrder {
     zone,
     status: STATUS_MAP[row.status] ?? 'baru',
     placedAt: relativeTime(row.placed_at ?? row.created_at),
+    placedAtMs: new Date(row.placed_at ?? row.created_at).getTime(),
     paymentMethod: (PAYMENT_IDS.includes(row.payment_method)
       ? row.payment_method
       : 'cod') as PaymentMethod['id'],

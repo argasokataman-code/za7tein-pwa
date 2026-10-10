@@ -442,7 +442,15 @@ export interface MerchantOrder {
   distanceMeters: number
   zone: ZoneId
   status: MerchantOrderStatus
+  /** Teks siap tampil, mis. "2 menit lalu" (`relativeTime`). */
   placedAt: string
+  /**
+   * Epoch ms dari `placed_at`/`created_at` — sumber numerik untuk umur order.
+   * `placedAt` sudah jadi teks, jadi kontrol urgensi (chip umur di tiket) butuh
+   * angka ini. Opsional: order dari jalur tanpa kolom waktu tetap render, hanya
+   * tanpa sinyal umur.
+   */
+  placedAtMs?: number
   paymentMethod: PaymentMethod['id']
   cookMinutes?: number
   /**

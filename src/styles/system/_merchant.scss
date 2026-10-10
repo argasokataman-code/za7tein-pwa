@@ -315,24 +315,18 @@
   white-space: nowrap;
 }
 
+/* Tab aktif = segmented tinted, bukan oranye solid: satu aksen kuat saja (aksi
+   utama), dan count di dalamnya lolos AA (`--orange-soft-ink` di `--orange-soft`,
+   pasangan yang sama dengan badge status) — dulu putih 80% di atas oranye. */
 .merchant-tab.active {
-  background: var(--sa7tein-orange);
-  border-color: var(--sa7tein-orange);
-  color: var(--on-brand);
+  background: var(--orange-soft);
+  border-color: var(--orange-ink);
+  color: var(--orange-soft-ink);
 }
 
 .merchant-tab-count {
   font-size: var(--text-xs);
-  opacity: 0.8;
-}
-
-.merchant-order-card {
-  @include card-surface;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-3);
-  margin-bottom: var(--space-2);
+  font-variant-numeric: tabular-nums;
 }
 
 .merchant-order-head {
@@ -391,13 +385,6 @@
   font-size: var(--text-sm);
   line-height: 1.5;
   color: var(--text-secondary);
-}
-
-/* Catatan hold di dalam kartu order: teks keterangan, bukan micro-copy 11,56px.
-   Kartu order adalah layar tugas dapur, jadi isinya naik satu langkah skala. */
-.merchant-order-card .merchant-card-sub {
-  font-size: var(--text-sm);
-  line-height: 1.5;
 }
 
 .merchant-order-total {

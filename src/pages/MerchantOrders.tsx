@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Check, ChevronRight, Circle, Star } from 'lucide-react'
+import { Check, ChevronRight, Circle, Inbox, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -13,9 +13,18 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { NotificationBell } from '../components/ui/NotificationBell'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { moneyPlain } from '../data/currency'
 import { COURIER_STATUS_LABEL } from '../data/courier'
 import { HOLD_STATUS_COPY, formatDistance, money, zoneLabel } from '../data/merchant'
-import { QUEUE_TABS, ordersForStatuses, orderStatusLabel, type QueueTabId } from '../data/merchantOrders'
+import {
+  QUEUE_TABS,
+  orderAgeLabel,
+  orderAgeMinutes,
+  orderStatusLabel,
+  orderUrgency,
+  ordersForStatuses,
+  type QueueTabId,
+} from '../data/merchantOrders'
 import { assignCourier, setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
 import type { MerchantOrderStatus, OrderStage } from '../types'
 
@@ -43,6 +52,15 @@ const JOURNEY_STAGE: Partial<Record<MerchantOrderStatus, OrderStage>> = {
    control adalah pola native untuk rentang kecil yang diskret. */
 const COOK_OPTIONS = [15, 25, 35] as const
 const DEFAULT_COOK_MINUTES = 25
+
+/* Empty state per tab memberi konteks, bukan sekadar "kosong": merchant tahu
+   kenapa tab ini belum berisi dan apa yang akan muncul. */
+const EMPTY_HINT: Record<QueueTabId, string> = {
+  masuk: 'Order baru muncul di sini begitu pelanggan memesan.',
+  diproses: 'Order yang sudah kamu terima sedang berjalan di sini.',
+  selesai: 'Order yang tuntas akan tersimpan di sini.',
+  batal: 'Order yang ditolak atau dibatalkan tampil di sini.',
+}
 
 export default function MerchantOrders() {
   const dispatch = useAppDispatch()
@@ -157,44 +175,66 @@ export default function MerchantOrders() {
         </div>
 
         {visible.length === 0 ? (
-          <p className="merchant-empty">Belum ada order di tab ini.</p>
+          <div className="merchant-ticket-empty">
+            <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
+            <p className="merchant-ticket-empty-title">Tidak ada order di tab ini</p>
+            <p className="merchant-ticket-empty-sub">{EMPTY_HINT[activeTab.id]}</p>
+          </div>
         ) : (
           visible.map((order) => {
+            const ageMinutes = orderAgeMinutes(order)
+            const urgency = orderUrgency(order, ageMinutes)
             return (
-              <article key={order.id} className="merchant-order-card">
-                {/* Baris antrean: satu baris yang dipindai cepat, bukan satu
-                    layar. Detail lengkap (journey, item, alamat) ada di sheet. */}
+              <article key={order.id} className="merchant-ticket">
+                {/* Slip tiket dua baris: kepala (nomor + umur + status) lalu
+                    badan (pelanggan, item, total). Seluruh slip bisa ditekan;
+                    aksi di bawahnya. Detail lengkap tetap di sheet. */}
                 <button
                   type="button"
-                  className="merchant-order-row"
+                  className="merchant-ticket-main"
                   onClick={() => setDetailId(order.id)}
                 >
-                  <img
-                    className="merchant-buyer-avatar"
-                    src={order.buyerAvatar}
-                    alt={`Profil ${order.customerName}`}
-                    width={40}
-                    height={40}
-                  />
-                  <span className="merchant-order-row-body">
-                    <span className="merchant-order-code">{order.code}</span>
-                    <span className="merchant-order-sub">
-                      {order.customerName} · {order.placedAt}
+                  <span className="merchant-ticket-stub">
+                    <span className="merchant-ticket-code">{order.code}</span>
+                    <span className="merchant-ticket-stub-end">
+                      {ageMinutes !== null ? (
+                        <span
+                          className={
+                            urgency === 'calm'
+                              ? 'merchant-ticket-age'
+                              : `merchant-ticket-age is-${urgency}`
+                          }
+                        >
+                          {orderAgeLabel(ageMinutes)}
+                        </span>
+                      ) : null}
+                      <span className={`merchant-badge merchant-badge-${order.status}`}>
+                        {orderStatusLabel(order.status)}
+                      </span>
                     </span>
-                    <span className="merchant-order-row-items">{itemSummary(order)}</span>
                   </span>
-                  <span className="merchant-order-row-end">
-                    <span className={`merchant-badge merchant-badge-${order.status}`}>
-                      {orderStatusLabel(order.status)}
+                  <span className="merchant-ticket-body">
+                    <img
+                      className="merchant-ticket-avatar"
+                      src={order.buyerAvatar}
+                      alt=""
+                      width={36}
+                      height={36}
+                    />
+                    <span className="merchant-ticket-copy">
+                      <span className="merchant-ticket-name">{order.customerName}</span>
+                      <span className="merchant-ticket-items">
+                        {itemSummary(order) || order.address}
+                      </span>
                     </span>
-                    <span className="merchant-order-row-total">{money(order.total)}</span>
+                    <span className="merchant-ticket-total">{moneyPlain(order.total)}</span>
+                    <ChevronRight
+                      size={18}
+                      strokeWidth={1.75}
+                      className="merchant-ticket-chevron"
+                      aria-hidden="true"
+                    />
                   </span>
-                  <ChevronRight
-                    size={18}
-                    strokeWidth={1.75}
-                    className="merchant-order-row-chevron"
-                    aria-hidden="true"
-                  />
                 </button>
 
                 {order.status === 'baru' ? (
