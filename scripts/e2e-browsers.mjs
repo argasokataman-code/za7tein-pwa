@@ -45,7 +45,7 @@
  *   npm run e2e -- shot customer /tmp/home.png
  */
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import net from 'node:net'
 import path from 'node:path'
 
@@ -274,9 +274,49 @@ async function assertPortFree(inst) {
   }
 }
 
+/**
+ * Setup khusus repo ini: clone e2e harus bisa menyalakan Web Push.
+ *
+ * Dua hal disemai ke `Preferences` SEBELUM browser dibuka (kalau diset saat
+ * browser hidup, nilainya ditimpa ketika browser keluar):
+ *   1. `brave.enable_google_push_messaging` — Brave mematikan transport push
+ *      Google secara default, sehingga `PushManager.subscribe` gagal dengan
+ *      "Registration failed - push service error". Hanya clone ini yang
+ *      dinyalakan; profil kerja user tidak disentuh.
+ *   2. izin notifikasi untuk origin server (pola `origin,*`) — supaya sakelar
+ *      "Notifikasi push" tidak berhenti di prompt.
+ *
+ * Catatan: langganan tetap butuh transport push Google terjangkau
+ * (`mtalk.google.com`). Di jaringan yang memblokirnya, subscribe tetap gagal
+ * meski profil sudah benar — itu batas jaringan, bukan setup repo.
+ */
+function preparePushProfile(inst, url) {
+  const dir = path.join(inst.profile, 'Default')
+  mkdirSync(dir, { recursive: true })
+  const file = path.join(dir, 'Preferences')
+  let prefs = {}
+  try {
+    prefs = JSON.parse(readFileSync(file, 'utf8'))
+  } catch {
+    prefs = {}
+  }
+  prefs.brave = { ...(prefs.brave || {}), enable_google_push_messaging: true }
+  const profile = prefs.profile && typeof prefs.profile === 'object' ? prefs.profile : {}
+  const cs = profile.content_settings && typeof profile.content_settings === 'object' ? profile.content_settings : {}
+  const exceptions = cs.exceptions && typeof cs.exceptions === 'object' ? cs.exceptions : {}
+  const notifications = exceptions.notifications && typeof exceptions.notifications === 'object' ? exceptions.notifications : {}
+  notifications[`${new URL(url).origin},*`] = { setting: 1, last_modified: '1' }
+  exceptions.notifications = notifications
+  cs.exceptions = exceptions
+  profile.content_settings = cs
+  prefs.profile = profile
+  writeFileSync(file, JSON.stringify(prefs))
+}
+
 function launchClone(inst, url) {
   if (!existsSync(LAUNCH_SH)) throw new Error(`launch.sh tidak ada di ${LAUNCH_SH}`)
   mkdirSync(inst.profile, { recursive: true })
+  preparePushProfile(inst, url)
   process.stderr.write(`[${inst.role}] luncurkan PWA app-mode (--app ${url}, port ${inst.port})\n`)
   execFileSync(LAUNCH_SH, ['--fresh'], {
     stdio: 'ignore',
