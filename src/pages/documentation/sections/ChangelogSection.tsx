@@ -681,6 +681,7 @@ export function ChangelogSection() {
                 oranye merek 2,9:1). Gate /payment-amount 2/2 PASS
               </td>
             </tr>
+            <tr><td>Alamat Pengantaran: warna mentah, tombol tak rata, status antar kontradiktif (audit 009)</td><td>Krem/abu/heading mentah dari stylesheet porting; tombol Batal 52px vs Simpan 44px karena margin warisan pada tombol utama; baris coverage bisa menandai zona sekaligus ongkir nol; meta menulis "0 m"</td><td>Warna ke token; margin tombol utama dibuang sehingga keduanya 44px sejajar; cabang coverage memakai kelayakan antar sebenarnya; meta jatuh ke "jarak belum dihitung" saat nol; aturan mati dan media 1024px dihapus. Gate 2/2 PASS</td></tr>
           </tbody>
         </table>
       </div>

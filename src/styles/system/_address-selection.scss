@@ -1,0 +1,43 @@
+// ── Alamat Pengantaran (customer) ──────────────────────────────────────────
+// Audit 009 (anti-slop/audit-009-2026-10-10.md). Halaman masih memakai krem,
+// abu, dan heading mentah dari stylesheet porting (#FFF9F4, #EDE4DC, #202020).
+// Dipetakan ke token peran di satu tempat, bukan disunting di app/.
+
+.address-selection-screen,
+.address-selection-header,
+.address-selection-footer {
+  background-color: var(--bg-warm);
+}
+
+.address-selection-header {
+  border-bottom-color: var(--border);
+}
+
+.address-selection-footer {
+  border-top-color: var(--border);
+}
+
+.address-selection-title,
+.addr-form-title,
+.addr-form .form-label {
+  color: var(--text-primary);
+}
+
+// Judul header sudah dipusatkan lewat `position: absolute` (system/_menu.scss),
+// jadi `padding-right: 40px` sisa tata letak lama hanya menggeser teksnya dari
+// sumbu tengah. Tanpa elemen di kanan header, padding itu tidak dibutuhkan.
+.address-selection-title {
+  padding-right: 0;
+}
+
+// Judul form ikut standar 700, bukan 800 (audit 009 #4).
+.addr-form-title {
+  font-weight: 700;
+}
+
+// Baris aksi: `.btn-profile-primary` membawa `margin-top: 8px` dari tata letak
+// satu kolom lama. Di baris flex, margin itu menggeser tombol utama 8px turun
+// dan menggemukkan baris ke 52px sementara tombol kiri 44px (audit 009 #2).
+.addr-form-actions > * {
+  margin-top: 0;
+}

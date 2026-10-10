@@ -254,7 +254,10 @@ export default function Documentation() {
               langkah header, dan radiogroup dapat navigasi panah. Kartu metode di /payment-amount
               (audit 008) kini berwarna <code className="doc-inline">--orange-soft</code> bertopi
               merek sebagai titik fokus, lebar penuh, judul Indonesia; warna terpilih yang sama
-              dipakai kartu alamat. Rinciannya di bagian Changelog.
+              dipakai kartu alamat. Halaman Alamat Pengantaran dirapikan di audit 009:
+              warna krem/abu mentah dipetakan ke token, tombol Batal dan Simpan kini rata
+              (margin warisan 8px dibuang), cabang status antar memakai kelayakan sebenarnya,
+              dan meta jarak tak lagi menulis "0 m". Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (

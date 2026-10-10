@@ -84,12 +84,6 @@
   transform:translateY(-1px)
 }
 
-@media (min-width:768px) {
-  .address-selection-screen {
-    max-width:1024px;
-    margin:0 auto
-  }}
-
 .payment-selection-screen {
   background-color:#FFF9F4;
   flex-direction:column;

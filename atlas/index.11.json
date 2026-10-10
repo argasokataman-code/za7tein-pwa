@@ -933,6 +933,263 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "BUG-9988",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-10",
+      "time": "13:08:02",
+      "tags": [
+        "design",
+        "customer",
+        "payment",
+        "mobile",
+        "a11y",
+        "audit",
+        "senior-fe"
+      ],
+      "summary": "Audit 008 /payment-amount: kartu metode jadi fokus --orange-soft, lebar penuh 390, copy ID, judul token; kartu alamat terpilih ikut (AA); ga",
+      "conn": [
+        {
+          "id": "FEAT-2005",
+          "type": "relates",
+          "raw": "FEAT-2005:relates"
+        },
+        {
+          "id": "BUG-9987",
+          "type": "relates",
+          "raw": "BUG-9987:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:22:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-009-2026-10-10.md (+114) — write via tool: # Audit 009, 2026-10-10: Alama",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-009-2026-10-10.md"
+    },
+    {
+      "id": "TASK-10107",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:28:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddressSelection.tsx (+3/-3) — edit via tool: tsx: {pinDeliverable",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddressSelection.tsx"
+    },
+    {
+      "id": "TASK-10108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:28:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_address-selection.scss (+44) — write via tool: // ── Alamat Pengantara",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_address-selection.scss"
+    },
+    {
+      "id": "TASK-10109",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:28:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/payment-amount\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-10110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:28:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-10.scss (+1/-6) — edit via tool: .address-selection-screen {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-10.scss"
+    },
+    {
+      "id": "TASK-10111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:29:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-11.scss (+1/-7) — edit via tool: .payment-selection-screen {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/app/part-11.scss"
+    },
+    {
+      "id": "TASK-10112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:29:22",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error|warning\" | head; echo \"lint-done\"; npm run build 2>&1 | tail -3; echo \"=== scan ===\"; npm run sc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:36:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-1) — edit via tool: tsx: dipakai kartu alamat. Halaman A",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:36:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-009-fix-2026-10-10.md (+66) — write via tool: # Audit 009 fix, 2026-10-10",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-009-fix-2026-10-10.md"
+    },
+    {
+      "id": "TASK-10115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:36:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-009-2026-10-10.md (+20/-17) — edit via tool: ## Catatan data (menjelaskan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-009-2026-10-10.md"
+    },
+    {
+      "id": "TASK-10116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:37:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"^.*error\" | head; echo \"lint-ok\"; npm run build 2>&1 | tail -2; echo \"=== scan ===\"; npm run scan 2>&1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "13:37:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+3/-22) — edit via tool: tsx: <tr>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
     }
   ]
 }

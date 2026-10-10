@@ -194,7 +194,7 @@ export default function AddressSelection() {
         <main>
           <div className="address-selection-screen">
             <header className="address-selection-header">
-              <button type="button" className="btn-back" aria-label="Go back" onClick={() => navigate(-1)}>
+              <button type="button" className="btn-back" aria-label="Kembali" onClick={() => navigate(-1)}>
                 <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
               <h1 className="address-selection-title">
@@ -253,7 +253,7 @@ export default function AddressSelection() {
                           <span className="address-meta">
                             {blocked
                               ? 'Di luar area antar'
-                              : `Zona ${zone!.label} · ${formatDistance(a.distanceMeters)} · ongkir ${money(fee)}`}
+                              : `Zona ${zone!.label} · ${a.distanceMeters > 0 ? formatDistance(a.distanceMeters) : 'jarak belum dihitung'} · ongkir ${money(fee)}`}
                           </span>
                         </div>
                       </label>
@@ -285,9 +285,9 @@ export default function AddressSelection() {
                     onMove={(lat, lng) => setPin({ lat, lng })}
                   />
                   <p className="addr-form-coverage" data-deliverable={pinDeliverable}>
-                    {coverage.zone
-                      ? `Zona ${zoneLabel(coverage.zone)} · ${formatDistance(coverage.distanceMeters)} dari toko · ongkir ${money(deliveryFeeFor(pinPoint))}`
-                      : 'Di luar area antar. Geser pin ke dalam poligon zona'}
+                    {pinDeliverable
+                      ? `Zona ${zoneLabel(coverage.zone!)} · ${formatDistance(coverage.distanceMeters)} dari toko · ongkir ${money(deliveryFeeFor(pinPoint))}`
+                      : 'Di luar area antar. Geser pin lebih dekat ke toko'}
                   </p>
                   <div className="form-group-profile">
                     <label htmlFor="building" className="form-label">Nama Gedung / Tower</label>
