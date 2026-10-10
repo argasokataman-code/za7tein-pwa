@@ -54,3 +54,84 @@
   font-size: var(--text-sm);
   line-height: 1.5;
 }
+
+// Splash skeleton detail menu: meniru kerangka hero/judul/badge/deskripsi/aksi
+// supaya saat katalog live termuat yang muncul kerangka halaman, bukan teks
+// kosong. Blok abu memakai `.skeleton-pulse` yang sudah ada di stylesheet.
+.menu-detail-skeleton-hero {
+  overflow: hidden;
+}
+
+// Teks status untuk pembaca layar (dan supaya halaman tak "kosong" saat kerangka
+// tampil). Disembunyikan secara visual, tanpa `display:none`.
+.menu-detail-skeleton-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.menu-detail-skeleton-line {
+  display: block;
+}
+
+.menu-detail-skeleton-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.menu-detail-skeleton-title {
+  width: 58%;
+  height: 22px;
+}
+
+.menu-detail-skeleton-price {
+  width: 26%;
+  height: 18px;
+}
+
+.menu-detail-skeleton-badge {
+  width: 96px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+}
+
+.menu-detail-skeleton-heading {
+  width: 34%;
+  height: 18px;
+}
+
+.menu-detail-skeleton-text {
+  width: 100%;
+  height: 14px;
+}
+
+.menu-detail-skeleton-text--short {
+  width: 58%;
+}
+
+.menu-detail-skeleton-qty {
+  width: 96px;
+  height: var(--touch-min);
+  border-radius: var(--radius-pill);
+}
+
+.menu-detail-skeleton-cta {
+  flex: 1;
+  height: var(--touch-min);
+  border-radius: var(--radius-lg);
+}
+
+// Hormati preferensi gerak: kerangka tetap tampil, denyutnya berhenti.
+@media (prefers-reduced-motion: reduce) {
+  .menu-detail-screen .skeleton-pulse {
+    animation: none;
+  }
+}

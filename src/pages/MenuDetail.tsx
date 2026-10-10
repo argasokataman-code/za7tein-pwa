@@ -30,7 +30,56 @@ export default function MenuDetail() {
   const catalogFood = getFood(id ?? '')
   const { food, loading } = useFood(id ?? '', catalogFood)
 
-  if (loading || !food) {
+  // Katalog live termuat: tampilkan kerangka halaman (splash skeleton) yang
+  // meniru hero/judul/badge/deskripsi/aksi, bukan teks kosong yang "burik".
+  if (loading) {
+    return (
+      <div className="app-shell">
+        <main>
+          <div className="menu-detail-screen" role="status" aria-busy="true">
+            <span className="menu-detail-skeleton-sr">Memuat menu</span>
+            <div className="menu-detail-hero skeleton-pulse menu-detail-skeleton-hero">
+              <div className="menu-detail-header">
+                <button
+                  type="button"
+                  className="btn-back"
+                  aria-label="Kembali"
+                  onClick={() => navigate(-1)}
+                >
+                  <ChevronLeft size={24} strokeWidth={1.75} />
+                </button>
+              </div>
+            </div>
+            <div className="menu-detail-content">
+              <div className="menu-detail-name-price">
+                <span className="skeleton-pulse menu-detail-skeleton-line menu-detail-skeleton-title" />
+                <span className="skeleton-pulse menu-detail-skeleton-line menu-detail-skeleton-price" />
+              </div>
+              <div className="menu-info-badges">
+                <span className="skeleton-pulse menu-detail-skeleton-badge" />
+                <span className="skeleton-pulse menu-detail-skeleton-badge" />
+              </div>
+              <div className="menu-description-section">
+                <div className="menu-detail-skeleton-stack">
+                  <span className="skeleton-pulse menu-detail-skeleton-line menu-detail-skeleton-heading" />
+                  <span className="skeleton-pulse menu-detail-skeleton-line menu-detail-skeleton-text" />
+                  <span className="skeleton-pulse menu-detail-skeleton-line menu-detail-skeleton-text" />
+                  <span className="skeleton-pulse menu-detail-skeleton-line menu-detail-skeleton-text menu-detail-skeleton-text--short" />
+                </div>
+              </div>
+            </div>
+            <div className="menu-detail-actions">
+              <span className="skeleton-pulse menu-detail-skeleton-qty" />
+              <span className="skeleton-pulse menu-detail-skeleton-cta" />
+            </div>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
+  // Id tak dikenal / API tak mengembalikan apa pun: kosong, bukan menu contoh.
+  if (!food) {
     return (
       <div className="app-shell">
         <main>
@@ -45,9 +94,7 @@ export default function MenuDetail() {
                 <ChevronLeft size={24} strokeWidth={1.75} />
               </button>
             </header>
-            <p className="menu-detail-state">
-              {loading ? 'Memuat menu…' : 'Menu tidak ditemukan'}
-            </p>
+            <p className="menu-detail-state">Menu tidak ditemukan</p>
           </div>
         </main>
       </div>

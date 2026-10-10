@@ -1618,6 +1618,274 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-010-fix-2026-10-10.md"
+    },
+    {
+      "id": "BUG-010",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-10",
+      "time": "14:01:25",
+      "tags": [
+        "customer",
+        "menu",
+        "data-honesty"
+      ],
+      "summary": "Refresh /menu-detail/:id tampil 'Sate Ayam' mock (fallback items[0]); useFood kini {food,loading}, mock tak dipakai saat API hidup",
+      "conn": [
+        {
+          "id": "TASK-010",
+          "type": "fixes",
+          "raw": "TASK-010:fixes"
+        }
+      ],
+      "commit": "3d2400f"
+    },
+    {
+      "id": "TASK-10139",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:03:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+69/-23) — edit via tool: tsx: // Katalog live termuat: tampilk",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-10140",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:03:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu-states.scss (+71/-5) — edit via tool: .reviews-empty-state span {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu-states.scss"
+    },
+    {
+      "id": "TASK-10141",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:03:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk wc -l src/styles/system/_menu-states.scss; npm run lint 2>&1 | grep -iE \"error\" | head; echo \"lint-done\"; npm run build 2>&1 | t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10142",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:04:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/skel-check.mjs (+51) — write via tool: // Diagnostik sekali pakai:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/skel-check.mjs"
+    },
+    {
+      "id": "TASK-10143",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:05:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/skel-check.mjs (+25/-16) — edit via tool: await send('Network.enab",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/skel-check.mjs"
+    },
+    {
+      "id": "TASK-10144",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:06:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/skel-check.mjs (+48) — write via tool: // Diagnostik sekali pakai:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/skel-check.mjs"
+    },
+    {
+      "id": "TASK-10145",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:06:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+3/-2) — edit via tool: tsx: <div className=\"menu-detail-screen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-10146",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:07:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu-states.scss (+18/-3) — edit via tool: .menu-detail-skeleton-hero ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu-states.scss"
+    },
+    {
+      "id": "TASK-10147",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:07:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -iE \"error\" | head; echo \"lint-done\"; npm run build 2>&1 | tail -2; npm run scan 2>&1 | rtk grep -E \"FAIL|W",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10148",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:07:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-2) — edit via tool: tsx: menampilkan data contoh: saat A",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-10149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:07:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: Denga",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-10150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:07:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-010-fix-2026-10-10.md (+4/-2) — edit via tool: - `useFood` mengembalikan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-010-fix-2026-10-10.md"
+    },
+    {
+      "id": "TASK-10151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "14:08:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-010-fix-2026-10-10.md (+3/-1) — edit via tool: - splash skeleton terverif",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-010-fix-2026-10-10.md"
     }
   ]
 }
