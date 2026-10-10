@@ -272,6 +272,8 @@ export default function Documentation() {
               ulang jadi baris penuh satu-baris (angka rata kanan). Saat refresh, beranda dapur
               kini menahan angka seed di balik kerangka sampai data API mendarat, jadi tak ada
               lompatan nilai mock → data nyata, dan status &ldquo;Sibuk&rdquo; bertahan antar-reload.
+              Tiap perubahan status jualan kini minta konfirmasi ketuk-kedua, dan tombol pop-up-nya
+              disamakan bentuknya dengan tombol utama.
               Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">

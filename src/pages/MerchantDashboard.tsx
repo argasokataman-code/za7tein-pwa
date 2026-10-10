@@ -25,6 +25,25 @@ import {
 import { switchBlockCopy } from '../data/superadmin'
 import { setStoreActive, setStoreBusy } from '../store/slices/merchantSlice'
 
+/** Copy konfirmasi per status — setiap perubahan status minta ketuk kedua. */
+const STATUS_CONFIRM: Record<StoreStatus, { title: string; body: string; confirmLabel: string }> = {
+  buka: {
+    title: 'Buka toko?',
+    body: 'Order baru mulai masuk lagi seperti biasa.',
+    confirmLabel: 'Buka toko',
+  },
+  sibuk: {
+    title: 'Tandai sibuk?',
+    body: 'Toko tetap buka, tapi order baru ditahan sebentar sampai kamu ubah lagi.',
+    confirmLabel: 'Tandai sibuk',
+  },
+  tutup: {
+    title: 'Tutup toko?',
+    body: 'Order baru berhenti masuk sampai kamu buka lagi. Order yang sedang berjalan tetap lanjut.',
+    confirmLabel: 'Tutup toko',
+  },
+}
+
 export default function MerchantDashboard() {
   const dispatch = useAppDispatch()
   const isActive = useAppSelector((s) => s.merchant.isActive)
@@ -33,7 +52,7 @@ export default function MerchantDashboard() {
   const logo = useAppSelector((s) => s.merchant.logo)
   const storeName = useAppSelector((s) => s.merchant.storeName)
   const closeTime = useAppSelector((s) => s.merchant.closeTime)
-  const [closeConfirmOpen, setCloseConfirmOpen] = useState(false)
+  const [pendingStatus, setPendingStatus] = useState<StoreStatus | null>(null)
   const orders = useAppSelector((s) => s.merchant.orders)
   const todayOrderCount = useAppSelector((s) => s.merchant.todayOrderCount)
   const dailyLimit = useAppSelector((s) => s.merchant.dailyLimit)
@@ -111,16 +130,11 @@ export default function MerchantDashboard() {
           closeTime={closeTime}
           todayOrderCount={todayOrderCount}
           dailyLimit={dailyLimit}
-          // Buka/Sibuk cukup satu tap. Tutup menahan order baru, jadi minta
-          // konfirmasi dulu — salah sentuh di sini langsung menghentikan
-          // pemasukan.
+          // Tiap perubahan status minta konfirmasi (ketuk kedua): salah sentuh
+          // langsung mengubah aliran order, jadi tak boleh satu tap.
           onSelectStatus={(next) => {
-            if (next === 'tutup') {
-              setCloseConfirmOpen(true)
-              return
-            }
-            dispatch(setStoreBusy(next === 'sibuk'))
-            dispatch(setStoreActive(true))
+            if (next === storeStatus) return
+            setPendingStatus(next)
           }}
         />
 
@@ -396,15 +410,21 @@ export default function MerchantDashboard() {
         </section>
 
         <ConfirmSheet
-          open={closeConfirmOpen}
-          title="Tutup toko?"
-          body="Order baru berhenti masuk sampai kamu buka lagi. Order yang sedang berjalan tetap lanjut."
-          confirmLabel="Tutup toko"
+          open={pendingStatus !== null}
+          title={pendingStatus ? STATUS_CONFIRM[pendingStatus].title : ''}
+          body={pendingStatus ? STATUS_CONFIRM[pendingStatus].body : ''}
+          confirmLabel={pendingStatus ? STATUS_CONFIRM[pendingStatus].confirmLabel : ''}
           onConfirm={() => {
-            dispatch(setStoreActive(false))
-            setCloseConfirmOpen(false)
+            if (!pendingStatus) return
+            if (pendingStatus === 'tutup') {
+              dispatch(setStoreActive(false))
+            } else {
+              dispatch(setStoreBusy(pendingStatus === 'sibuk'))
+              dispatch(setStoreActive(true))
+            }
+            setPendingStatus(null)
           }}
-          onClose={() => setCloseConfirmOpen(false)}
+          onClose={() => setPendingStatus(null)}
         />
       </main>
       <MerchantBottomNav />
