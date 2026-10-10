@@ -1,5 +1,5 @@
 import { Bike, ChevronRight, Clock, PlusCircle, Sparkles, Star } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
@@ -10,6 +10,7 @@ import { Sparkline } from '../components/ui/Sparkline'
 import { MerchantHomeHero, type StoreStatus } from '../components/merchant/MerchantHomeHero'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { money } from '../data/merchant'
+import { apiEnabled } from '../api/supabase'
 import { jodToIdr, moneyPlain } from '../data/currency'
 import { rebateProgress } from '../data/incentive'
 import { orderStatusLabel } from '../data/merchantOrders'
@@ -62,6 +63,43 @@ export default function MerchantDashboard() {
   const paymentCod = paymentByLabel('COD')
   const paymentTransfer = paymentByLabel('Transfer')
   const paymentTotal = paymentCod + paymentTransfer || 1
+
+  // Refresh menampilkan nilai seed dulu (~1,5 dtk) lalu melompat ke data API:
+  // "Rp256.000" → "Rp16.146.930", foto mock → ikon. Tahan render sampai order
+  // dan profil mendarat sekali. API mati / gagal → tetap jalan dengan seed.
+  const ordersHydrated = useAppSelector((s) => s.merchant.ordersHydrated)
+  const profileHydrated = useAppSelector((s) => s.merchant.profileHydrated)
+  // ponytail: fail-safe 4 dtk — jaringan menggantung tak boleh menahan kerangka
+  // selamanya; kalau lewat, tampilkan seed apa adanya (normalnya 1,5–2 dtk).
+  const [hydrateExpired, setHydrateExpired] = useState(false)
+  useEffect(() => {
+    const t = window.setTimeout(() => setHydrateExpired(true), 4000)
+    return () => window.clearTimeout(t)
+  }, [])
+  const ready = !apiEnabled || hydrateExpired || (ordersHydrated && profileHydrated)
+
+  if (!ready) {
+    return (
+      <div className="app-shell">
+        <main className="merchant-page">
+          <div
+            className="merchant-skeleton"
+            role="status"
+            aria-busy="true"
+            aria-label="Memuat beranda merchant"
+          >
+            <span className="sr-only">Memuat beranda merchant</span>
+            <div className="skeleton-pulse merchant-skel merchant-skel--hero" />
+            <div className="skeleton-pulse merchant-skel merchant-skel--revenue" />
+            <div className="skeleton-pulse merchant-skel merchant-skel--card" />
+            <div className="skeleton-pulse merchant-skel merchant-skel--card" />
+            <div className="skeleton-pulse merchant-skel merchant-skel--rows" />
+          </div>
+        </main>
+        <MerchantBottomNav />
+      </div>
+    )
+  }
 
   return (
     <div className="app-shell">

@@ -42,6 +42,13 @@ interface MerchantState {
    * `store_status` buka/tutup, jadi sibuk tidak disinkronkan.
    */
   isBusy: boolean
+  /**
+   * Penanda hidrasi awal (refresh). Beranda merchant menahan angka seed sampai
+   * order & profil dari API mendarat sekali, supaya tak ada lompatan
+   * "mock dulu" → data nyata saat halaman dibuka ulang.
+   */
+  ordersHydrated: boolean
+  profileHydrated: boolean
   todayOrderCount: number
   dailyLimit: number
   /** Balasan merchant per id ulasan. Tidak dipersist — reset saat reload. */
@@ -71,11 +78,33 @@ interface MerchantState {
   closeTime: string
 }
 
+// Status "sibuk" cuma tampilan (backend hanya punya `store_status` buka/tutup),
+// jadi ia tak punya tempat di server. ponytail: simpan di localStorage supaya
+// tak reset ke Buka tiap reload; kalau kelak backend punya kolomnya, pindah ke sana.
+const BUSY_KEY = 'sa7tein.merchant.busy'
+const readBusy = (): boolean => {
+  try {
+    return localStorage.getItem(BUSY_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+const writeBusy = (busy: boolean): void => {
+  try {
+    if (busy) localStorage.setItem(BUSY_KEY, '1')
+    else localStorage.removeItem(BUSY_KEY)
+  } catch {
+    /* penyimpanan diblokir (mode privat) — status sibuk cukup hilang saat reload */
+  }
+}
+
 const initialState: MerchantState = {
   orders: seedOrders,
   couriers: mockCouriers,
   isActive: mockMerchant.isActive,
-  isBusy: false,
+  isBusy: readBusy(),
+  ordersHydrated: false,
+  profileHydrated: false,
   todayOrderCount: mockMerchant.todayOrderCount,
   dailyLimit: mockMerchant.dailyLimit,
   reviewReplies: merchantReviewReplies,
@@ -112,12 +141,24 @@ const merchantSlice = createSlice({
     setStoreActive(state, action: PayloadAction<boolean>) {
       state.isActive = action.payload
       // Tutup selalu mengakhiri "sibuk" — tak ada artinya sibuk saat toko tutup.
-      if (!action.payload) state.isBusy = false
+      if (!action.payload) {
+        state.isBusy = false
+        writeBusy(false)
+      }
     },
     /** Buka tapi menahan order baru (status ketiga, state tampilan). */
     setStoreBusy(state, action: PayloadAction<boolean>) {
       state.isBusy = action.payload
       if (action.payload) state.isActive = true
+      writeBusy(action.payload)
+    },
+    /** Order live dari API sudah mendarat sekali (lihat `useApiRealtime`). */
+    markOrdersHydrated(state) {
+      state.ordersHydrated = true
+    },
+    /** Profil toko dari API sudah mendarat sekali (lihat `useMerchantProfile`). */
+    markProfileHydrated(state) {
+      state.profileHydrated = true
     },
     /** API: ganti daftar kurir dengan baris backend. */
     setCouriers(state, action: PayloadAction<Courier[]>) {
@@ -308,6 +349,8 @@ export const {
   toggleActive,
   setStoreActive,
   setStoreBusy,
+  markOrdersHydrated,
+  markProfileHydrated,
   setCouriers,
   hydrateCredit,
   hydrateProfile,

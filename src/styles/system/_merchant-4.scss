@@ -395,3 +395,46 @@
   background: var(--border);
   color: var(--text-secondary);
 }
+
+/* Kerangka beranda merchant saat hidrasi awal (refresh). Menahan angka seed
+   supaya tak ada lompatan mock → data nyata; pola `.skeleton-pulse` sudah umum
+   (lihat `app/part-01.scss`). Tingginya meniru hero + kartu agar tak melompat. */
+.merchant-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-block: var(--space-5);
+}
+
+/* Skeleton menggantikan hero yang menanggung inset safe-area
+   (`.merchant-hero__content`); tanpa ini tepi atas terukur 39px < 59px. */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .merchant-skeleton {
+    padding-top: calc(var(--space-5) + env(safe-area-inset-top));
+  }
+}
+
+.merchant-skel {
+  display: block;
+  width: 100%;
+}
+
+.merchant-skel--hero {
+  height: 168px;
+  border-radius: var(--radius-lg);
+}
+
+.merchant-skel--revenue {
+  height: 132px;
+  border-radius: var(--radius-lg);
+}
+
+.merchant-skel--card {
+  height: 150px;
+  border-radius: var(--radius-lg);
+}
+
+.merchant-skel--rows {
+  height: 120px;
+  border-radius: var(--radius-lg);
+}

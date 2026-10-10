@@ -10,7 +10,7 @@ import { fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { setOrderStage } from '../store/slices/cartSlice'
 import { setTasks } from '../store/slices/courierSlice'
-import { mergeOrders } from '../store/slices/merchantSlice'
+import { mergeOrders, markOrdersHydrated } from '../store/slices/merchantSlice'
 import { setNotifications } from '../store/slices/notificationsSlice'
 import type { NotifAudience } from '../types'
 import { useAppDispatch, useAppSelector } from './useAppStore'
@@ -39,6 +39,9 @@ export function useApiRealtime(audience: NotifAudience): void {
               if (alive && orders.length) dispatch(mergeOrders(orders))
             })
             .catch(() => {})
+            .finally(() => {
+              if (alive) dispatch(markOrdersHydrated())
+            })
         }
         if (audience === 'courier') {
           fetchCourierOrders()

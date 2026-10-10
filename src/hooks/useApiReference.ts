@@ -17,7 +17,7 @@ import {
 } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { setMerchants } from '../store/slices/adminSlice'
-import { hydrateCredit, hydrateProfile, setCouriers, setStoreActive } from '../store/slices/merchantSlice'
+import { hydrateCredit, hydrateProfile, markProfileHydrated, setCouriers, setStoreActive } from '../store/slices/merchantSlice'
 import { setBalance as setPayoutBalance } from '../store/slices/payoutSlice'
 import { setOperators, setRoles, setSwitches, setZones } from '../store/slices/superAdminSlice'
 import { setCustomerLocation } from '../store/slices/uiSlice'
@@ -33,16 +33,17 @@ const USER_MERCHANT = 2
 export function useSyncOnce<T>(
   load: () => Promise<T | undefined>,
   onData: (data: T, dispatch: ReturnType<typeof useAppDispatch>) => void,
+  onSettled?: (dispatch: ReturnType<typeof useAppDispatch>) => void,
 ): void {
   const dispatch = useAppDispatch()
-  const ref = useRef({ load, onData })
-  ref.current = { load, onData }
+  const ref = useRef({ load, onData, onSettled })
+  ref.current = { load, onData, onSettled }
   useEffect(() => {
     if (!apiEnabled) return
     let alive = true
     const run = () => ref.current.load()
       .then((d) => { if (alive && d !== undefined) ref.current.onData(d, dispatch) })
-      .catch(() => {})
+      .catch(() => {}).finally(() => { if (alive) ref.current.onSettled?.(dispatch) })
     run()
     window.addEventListener('online', run)
     return () => {
@@ -68,9 +69,9 @@ function useMerchantCredit(): void {
 
 /** Profil toko (nama, kontak, foto, jam, config kirim) → `merchant`. */
 function useMerchantProfile(): void {
-  useSyncOnce(() => fetchMerchantProfile(MERCHANT_ID), (profile, d) => {
-    if (profile) d(hydrateProfile(profile))
-  })
+  useSyncOnce(() => fetchMerchantProfile(MERCHANT_ID), (p, d) => {
+    if (p) d(hydrateProfile(p))
+  }, (d) => d(markProfileHydrated()))
 }
 /** Registri merchant platform → `admin.merchants` (panel CS + konsol SA). */
 function useMerchantRegistry(): void {
