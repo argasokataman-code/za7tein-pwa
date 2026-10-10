@@ -37,7 +37,7 @@ export function FileStructureSection() {
     │
     ├── hooks/                 # useAppStore, useCatalog, useFoodActions, useLeafletMap, useOtpInput, useToggleSet
     │
-    ├── data/                  # catalog, foods, merchant, merchantOrders, merchantReviews, notifications, reviews, user
+    ├── data/                  # catalog, foods, merchant, merchantOrders, merchantReviews, notifications, user
     │
     └── styles/
         ├── index.scss         # Urutan import (load-bearing)

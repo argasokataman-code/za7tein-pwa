@@ -6,7 +6,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { formatRating, modifierExtra, modifierSummary } from '../data/foods'
 import { useCatalog } from '../hooks/useCatalog'
 import { useFood } from '../hooks/useApiCatalog'
-import { menuDetailReviews } from '../data/reviews'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { FavoriteButton } from '../components/ui/FavoriteButton'
 import { addItem } from '../store/slices/cartSlice'
@@ -20,13 +19,41 @@ export default function MenuDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { items, getFood } = useCatalog()
+  const { getFood } = useCatalog()
   const [quantityByFood, setQuantityByFood] = useState<Record<string, number>>({})
   const [expanded, setExpanded] = useState(false)
   const [chosenByFood, setChosenByFood] = useState<Record<string, string[]>>({})
 
-  // Menu: mock dulu, ditimpa katalog live bila API hidup.
-  const food = useFood(id ?? '', getFood(id ?? '') ?? items[0])
+  // Menu: data katalog sesuai id yang diminta. Tanpa API = mock repo; dengan
+  // API, mock tak dipakai supaya halaman tak menampilkan menu contoh yang
+  // berbeda dari yang dibuka (dulu jatuh ke `items[0]`, mis. "Sate Ayam").
+  const catalogFood = getFood(id ?? '')
+  const { food, loading } = useFood(id ?? '', catalogFood)
+
+  if (loading || !food) {
+    return (
+      <div className="app-shell">
+        <main>
+          <div className="menu-detail-screen">
+            <header className="menu-detail-state-header">
+              <button
+                type="button"
+                className="btn-back"
+                aria-label="Kembali"
+                onClick={() => navigate(-1)}
+              >
+                <ChevronLeft size={24} strokeWidth={1.75} />
+              </button>
+            </header>
+            <p className="menu-detail-state">
+              {loading ? 'Memuat menu…' : 'Menu tidak ditemukan'}
+            </p>
+          </div>
+        </main>
+      </div>
+    )
+  }
+
   const quantity = quantityByFood[food.id] ?? 1
   const defaults = food.modifierGroups
     ?.filter((group) => group.type === 'single')
@@ -101,7 +128,7 @@ export default function MenuDetail() {
                 <button
                   type="button"
                   className="btn-back"
-                  aria-label="Go back"
+                  aria-label="Kembali"
                   onClick={() => navigate(-1)}
                 >
                   <ChevronLeft size={24} strokeWidth={1.75} />
@@ -116,23 +143,27 @@ export default function MenuDetail() {
                 <span className="menu-detail-price">{money(unitPrice)}</span>
               </div>
 
-              <div className="menu-info-badges" role="list" aria-label="Food details">
+              <div className="menu-info-badges" role="list" aria-label="Detail makanan">
                 <div className="info-badge" role="listitem">
                   <MapPin size={18} strokeWidth={1.75} />
                   <span>Ongkir per zona</span>
                 </div>
-                <div className="info-badge" role="listitem">
-                  <Clock3 size={18} strokeWidth={1.75} />
-                  <span>{food.deliveryTime}</span>
-                </div>
-                <div className="info-badge" role="listitem">
-                  <Star size={16} strokeWidth={1.75} color="var(--star)" fill="var(--star)" />
-                  <span>{formatRating(food.rating)}</span>
-                </div>
+                {food.deliveryTime ? (
+                  <div className="info-badge" role="listitem">
+                    <Clock3 size={18} strokeWidth={1.75} />
+                    <span>{food.deliveryTime}</span>
+                  </div>
+                ) : null}
+                {food.rating > 0 ? (
+                  <div className="info-badge" role="listitem">
+                    <Star size={16} strokeWidth={1.75} color="var(--star)" fill="var(--star)" />
+                    <span>{formatRating(food.rating)}</span>
+                  </div>
+                ) : null}
               </div>
 
               <div className="menu-description-section">
-                <h3 className="description-title s7-parallax--title">Description</h3>
+                <h3 className="description-title s7-parallax--title">Deskripsi</h3>
                 <div className="menu-description-wrapper">
                   <p className="menu-description">
                     <span className="description-bold">{food.name} </span>
@@ -145,7 +176,7 @@ export default function MenuDetail() {
                       aria-expanded={expanded}
                       onClick={() => setExpanded((v) => !v)}
                     >
-                      {expanded ? 'Show Less' : 'Read More...'}
+                      {expanded ? 'Tampilkan lebih sedikit' : 'Baca selengkapnya'}
                     </button>
                   ) : null}
                 </div>
@@ -177,43 +208,25 @@ export default function MenuDetail() {
               <div className="menu-reviews-section">
                 <div className="reviews-header">
                   <h3 className="reviews-title s7-parallax--title">Ulasan ({food.reviewCount})</h3>
-                  <Link className="see-all-link" to="/reviews">
-                    See All
-                  </Link>
+                  {food.reviewCount > 0 ? (
+                    <Link className="see-all-link" to="/reviews">
+                      Lihat semua
+                    </Link>
+                  ) : null}
                 </div>
-                <div className="reviews-list">
-                  {menuDetailReviews.map((review) => (
-                    <div className="review-card s7-parallax--card" key={review.id}>
-                      <img
-                        alt={review.name}
-                        width={52}
-                        height={52}
-                        className="reviewer-avatar"
-                        src={review.avatar}
-                      />
-                      <div className="review-content">
-                        <div className="reviewer-info">
-                          <span className="reviewer-name">{review.name}</span>
-                          <div className="review-rating">
-                            <Star size={16} strokeWidth={1.75} color="var(--star)" fill="var(--star)" />
-                            <span className="rating-value">{review.rating}</span>
-                          </div>
-                        </div>
-                        <p className="review-text">{review.text}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                {food.reviewCount > 0 ? null : (
+                  <p className="reviews-empty">Belum ada ulasan untuk menu ini.</p>
+                )}
               </div>
             </div>
 
             <div className="menu-detail-actions">
-              <div className="quantity-selector" role="group" aria-label="Select quantity">
+              <div className="quantity-selector" role="group" aria-label="Pilih jumlah">
                 <button
                   type="button"
                   className="quantity-btn"
                   disabled={quantity <= 1}
-                  aria-label="Decrease quantity"
+                  aria-label="Kurangi jumlah"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 >
                   <Minus size={24} strokeWidth={1.75} />
@@ -224,7 +237,7 @@ export default function MenuDetail() {
                 <button
                   type="button"
                   className="quantity-btn"
-                  aria-label="Increase quantity"
+                  aria-label="Tambah jumlah"
                   onClick={() => setQuantity((q) => q + 1)}
                 >
                   <Plus size={24} strokeWidth={1.75} />

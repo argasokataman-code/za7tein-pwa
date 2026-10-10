@@ -1,0 +1,56 @@
+// Keadaan kosong/muat halaman menu & ulasan customer. Dipisah dari `_menu.scss`
+// supaya berkasnya tetap di bawah batas 600 baris. Semua kelas di sini menang
+// atas aturan porting yang sama spesifisitasnya karena facade mengimpor akhir.
+
+// Ulasan: tak ada daftar palsu. Sumber ulasan per menu belum ada di API, jadi
+// saat `reviewCount` 0 tampilkan keterangan, bukan kartu contoh.
+.reviews-empty {
+  margin: var(--space-3) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+// Status halaman detail menu saat katalog live belum termuat atau id tak ada.
+// Dulu halaman jatuh ke item mock pertama ("Sate Ayam"); sekarang menampilkan
+// status, bukan menu contoh.
+.menu-detail-screen {
+  position: relative;
+}
+
+.menu-detail-state-header {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 2;
+}
+
+.menu-detail-state {
+  margin: 0;
+  padding: calc(var(--nav-height) + var(--space-5)) var(--space-5) var(--space-8);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+// Halaman /reviews: kosong sampai ada sumber ulasan sungguhan. Dulu seluruh
+// kartu, rata-rata, dan distribusi bintang di-hardcode.
+.reviews-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-9) var(--space-5);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.reviews-empty-state p {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.reviews-empty-state span {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}

@@ -86,14 +86,6 @@ export interface Category {
   icon?: LucideIcon
 }
 
-export interface Review {
-  id: string
-  name: string
-  avatar: string
-  rating: number
-  text: string
-}
-
 /**
  * Ulasan dari sudut pandang merchant — terikat ke satu hidangan katalog
  * supaya pemilik toko tahu menu mana yang dikomentari. Di luar PRD aktif:

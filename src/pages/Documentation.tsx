@@ -257,7 +257,10 @@ export default function Documentation() {
               dipakai kartu alamat. Halaman Alamat Pengantaran dirapikan di audit 009:
               warna krem/abu mentah dipetakan ke token, tombol Batal dan Simpan kini rata
               (margin warisan 8px dibuang), cabang status antar memakai kelayakan sebenarnya,
-              dan meta jarak tak lagi menulis "0 m". Rinciannya di bagian Changelog.
+              dan meta jarak tak lagi menulis "0 m". Detail menu customer (audit 010) berhenti
+              menampilkan data contoh: saat API hidup halaman menunggu data asli (status "Memuat
+              menu", bukan menu mock "Sate Ayam"), id tak dikenal tampil kosong, dan halaman
+              ulasan tidak lagi di-hardcode. Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (

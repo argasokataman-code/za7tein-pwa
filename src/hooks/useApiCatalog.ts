@@ -79,19 +79,37 @@ export function useMenuItems(merchantId: string, fallback: MenuItem[]): MenuItem
   return remote && remote.id === merchantId ? remote.items : fallback
 }
 
-export function useFood(id: string, fallback: MenuItem): MenuItem {
+export function useFood(
+  id: string,
+  fallback?: MenuItem,
+): { food: MenuItem | undefined; loading: boolean } {
   const [remote, setRemote] = useState<{ id: string; value: MenuItem | undefined } | null>(null)
+  const [loading, setLoading] = useState(apiEnabled && Boolean(id))
   useEffect(() => {
-    if (!apiEnabled || !id) return
+    if (!apiEnabled || !id) {
+      setLoading(false)
+      return
+    }
     let alive = true
+    setLoading(true)
     fetchFood(id)
       .then((next) => {
-        if (alive) setRemote({ id, value: next })
+        if (!alive) return
+        setRemote({ id, value: next })
+        setLoading(false)
       })
-      .catch(() => {})
+      .catch(() => {
+        if (alive) setLoading(false)
+      })
     return () => {
       alive = false
     }
   }, [id])
-  return remote && remote.id === id ? (remote.value ?? fallback) : fallback
+  // Tanpa API = mode mock repo (fallback dipakai). Dengan API, mock TIDAK
+  // dipakai: belum termuat tampilkan loading, tak ada hasil tampilkan kosong —
+  // dulu jatuh ke `items[0]` sehingga refresh menampilkan menu contoh yang
+  // berbeda dari yang dibuka (mis. "Sate Ayam").
+  if (!apiEnabled) return { food: fallback, loading: false }
+  if (remote && remote.id === id) return { food: remote.value, loading: false }
+  return { food: undefined, loading }
 }
