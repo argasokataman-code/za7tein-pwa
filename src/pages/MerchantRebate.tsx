@@ -8,7 +8,6 @@ import { CREDIT_EVENT_LABEL, MERCHANT_CREDIT_JOD, MERCHANT_CREDIT_ORDERS, REBATE
 import { money } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { payRebate, recordSettledOrder } from '../store/slices/merchantSlice'
-import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Rincian insentif merchant (R-INCENTIVE-01, flow F9, milestone M10). Layar ini
@@ -36,7 +35,7 @@ export default function MerchantRebate() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Insentif Founding" title="Modal & cashback" />
+        <MerchantPageHeader eyebrow="Insentif Founding" title="Modal & cashback" back="/" />
 
         <section className="merchant-card merchant-card--navy">
           <div className="merchant-row">
@@ -173,7 +172,6 @@ export default function MerchantRebate() {
           </p>
         </section>
 
-        <BackButton to="/" />
       </main>
       <MerchantBottomNav />
     </div>

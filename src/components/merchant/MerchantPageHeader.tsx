@@ -5,6 +5,7 @@ import { PageHeader } from '../ui/PageHeader'
 interface MerchantPageHeaderProps {
   title: string
   eyebrow?: string
+  back?: string | boolean
   action?: ReactNode
 }
 
@@ -13,6 +14,6 @@ interface MerchantPageHeaderProps {
  * perilakunya sama dengan header kurir dan panel CS, hanya kelasnya yang
  * berbeda. Sebelumnya ketiganya tiga salinan identik.
  */
-export function MerchantPageHeader({ title, eyebrow, action }: MerchantPageHeaderProps) {
-  return <PageHeader prefix="merchant" title={title} eyebrow={eyebrow} action={action} />
+export function MerchantPageHeader({ title, eyebrow, back, action }: MerchantPageHeaderProps) {
+  return <PageHeader prefix="merchant" title={title} eyebrow={eyebrow} back={back} action={action} />
 }

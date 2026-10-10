@@ -13,7 +13,6 @@ import {
 } from '../data/courierWallet'
 import { payoutStatusLabel } from '../data/wallet'
 import { useAppSelector } from '../hooks/useAppStore'
-import { BackButton } from '../components/ui/BackButton'
 
 const entryDate = (iso: string) =>
   new Date(iso).toLocaleString('id-ID', {
@@ -45,7 +44,7 @@ export default function CourierWallet() {
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Penghasilan" title="Dompet tips" />
+        <CourierPageHeader eyebrow="Penghasilan" title="Dompet tips" back="/tips" />
 
         <section className="courier-card courier-wallet-hero" aria-label="Saldo tips">
           <p className="courier-card-sub">Saldo tips bisa ditarik</p>
@@ -140,7 +139,6 @@ export default function CourierWallet() {
           </p>
         </section>
 
-        <BackButton to="/tips" />
       </main>
       <CourierBottomNav />
     </div>

@@ -1,4 +1,4 @@
-import { ArrowLeft, Ban, Bike, BookOpen, CheckCircle2, Clock, Scale, TriangleAlert } from 'lucide-react'
+import { Ban, Bike, BookOpen, CheckCircle2, Clock, Scale, TriangleAlert } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { Link, useParams } from 'react-router-dom'
@@ -116,10 +116,7 @@ export default function SaMerchantDetail() {
 
   return (
     <SuperAdminShell>
-      <Link className="sa-link" to="/users">
-        <ArrowLeft size={14} strokeWidth={1.75} aria-hidden="true" />
-        Registri pengguna
-      </Link>
+      <BackButton to="/users" />
 
       <section className="sa-hero sa-hero--money">
         <article className="sa-card">

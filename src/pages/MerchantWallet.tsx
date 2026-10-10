@@ -7,7 +7,6 @@ import { money, moneyPlain } from '../data/currency'
 import { accountLabel, PAYOUT_FEE_IDR } from '../data/payout'
 import { payoutStatusLabel } from '../data/wallet'
 import { useAppSelector } from '../hooks/useAppStore'
-import { BackButton } from '../components/ui/BackButton'
 
 const entryDate = (iso: string) =>
   new Date(iso).toLocaleString('id-ID', {
@@ -31,7 +30,7 @@ export default function MerchantWallet() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Keuangan" title="Saldo & pencairan" />
+        <MerchantPageHeader eyebrow="Keuangan" title="Saldo & pencairan" back="/settings" />
 
         <section className="merchant-card merchant-wallet-balance" aria-label="Saldo dompet">
           <span className="merchant-wallet-balance-label">Saldo tersedia</span>
@@ -116,7 +115,6 @@ export default function MerchantWallet() {
           </p>
         </section>
 
-        <BackButton to="/settings" />
       </main>
       <MerchantBottomNav />
     </div>

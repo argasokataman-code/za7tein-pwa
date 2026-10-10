@@ -287,9 +287,10 @@ export default function Documentation() {
               <code className="doc-inline">--navy</code> dan elevasi navy dari design system).
               Tombol kembali kini satu komponen{' '}
               <code className="doc-inline">BackButton</code> di seluruh halaman (kotak 44px, ikon
-              24/1,75, aria &ldquo;Kembali&rdquo;), menggantikan enam kelas ad-hoc; tautan teks di
-              merchant/kurir dan reload <code className="doc-inline">&lt;a href&gt;</code> sudah
-              dihapus.
+              24/1,75, aria &ldquo;Kembali&rdquo;), dan selalu di tepi kiri top bar lewat prop{' '}
+              <code className="doc-inline">back</code> pada header peran — bukan lagi tautan teks
+              di ujung konten, bukan pula <code className="doc-inline">&lt;a href&gt;</code> yang
+              reload.
               Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">

@@ -19,7 +19,6 @@ import {
   updatePayoutAccount,
 } from '../store/slices/courierSlice'
 import type { PayoutAccount } from '../types'
-import { BackButton } from '../components/ui/BackButton'
 
 const EMPTY_FORM: PayoutAccountFormData = { bankName: '', accountNumber: '', holderName: '' }
 
@@ -83,6 +82,7 @@ export default function CourierPayoutAccounts() {
         <CourierPageHeader
           eyebrow="Penghasilan"
           title="Rekening pencairan"
+          back="/wallet"
           action={(
             <button type="button" className="courier-add-btn" onClick={openAdd}>
               <Plus size={16} strokeWidth={1.75} /> Tambah
@@ -139,7 +139,6 @@ export default function CourierPayoutAccounts() {
           </ul>
         )}
 
-        <BackButton to="/wallet" />
       </main>
       <CourierBottomNav />
 

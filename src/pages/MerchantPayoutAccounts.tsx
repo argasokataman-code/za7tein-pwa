@@ -19,7 +19,6 @@ import {
   updateAccount,
 } from '../store/slices/payoutSlice'
 import type { PayoutAccount } from '../types'
-import { BackButton } from '../components/ui/BackButton'
 
 const EMPTY_FORM: PayoutAccountFormData = { bankName: '', accountNumber: '', holderName: '' }
 
@@ -84,6 +83,7 @@ export default function MerchantPayoutAccounts() {
         <MerchantPageHeader
           eyebrow="Keuangan"
           title="Rekening pencairan"
+          back="/wallet"
           action={(
             <button type="button" className="merchant-add-btn" onClick={openAdd}>
               <Plus size={16} strokeWidth={1.75} /> Tambah
@@ -140,7 +140,6 @@ export default function MerchantPayoutAccounts() {
           </ul>
         )}
 
-        <BackButton to="/wallet" />
       </main>
       <MerchantBottomNav />
 

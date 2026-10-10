@@ -9,7 +9,6 @@ import { money, moneyPlain } from '../data/currency'
 import { accountLabel, PAYOUT_FEE_IDR } from '../data/payout'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { requestPayout } from '../store/slices/payoutSlice'
-import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Pencairan merchant (R-WALLET-01, flow f6): pilih rekening tujuan + nominal,
@@ -40,7 +39,7 @@ export default function MerchantPayout() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Keuangan" title="Tarik saldo" />
+        <MerchantPageHeader eyebrow="Keuangan" title="Tarik saldo" back="/wallet" />
 
         <section className="merchant-card merchant-wallet-balance" aria-label="Saldo tersedia">
           <span className="merchant-wallet-balance-label">Saldo tersedia</span>
@@ -135,7 +134,6 @@ export default function MerchantPayout() {
           </>
         )}
 
-        <BackButton to="/wallet" />
       </main>
       <MerchantBottomNav />
     </div>

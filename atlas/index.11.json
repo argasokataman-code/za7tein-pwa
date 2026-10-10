@@ -3754,6 +3754,294 @@
         }
       ],
       "loc": "src/components/ui/BackButton.tsx:1"
+    },
+    {
+      "id": "TASK-10235",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:29:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaMerchantDetail.tsx (+1/-1) — edit via tool: tsx: import { Ban, Bike, BookOpen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaMerchantDetail.tsx"
+    },
+    {
+      "id": "TASK-10236",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:33:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantPageHeader.tsx (+15/-14) — edit via tool: tsx: interface ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantPageHeader.tsx"
+    },
+    {
+      "id": "TASK-10237",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:33:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx (+64) — write via tool: tsx: import type { ReactNode } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx"
+    },
+    {
+      "id": "TASK-10238",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:33:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/AdminPageHeader.tsx (+14/-13) — edit via tool: tsx: interface AdminP",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/AdminPageHeader.tsx"
+    },
+    {
+      "id": "TASK-10239",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:33:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierPageHeader.tsx (+14/-13) — edit via tool: tsx: interface Co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierPageHeader.tsx"
+    },
+    {
+      "id": "TASK-10240",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:33:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+7/-3) — edit via tool: .merchant-header-copy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-10241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:33:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss (+5/-3) — edit via tool: .courier-header-copy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-10242",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:33:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\npython3 - <<'PY'\nimport re\n\nedits = {\n 'MerchantRebate': [\n   ('<MerchantPageHeader ey",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:34:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\npython3 - <<'PY'\nimport re\nfor name in ['MerchantRebate','MerchantWallet','MerchantPay",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:35:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss (+3/-5) — edit via tool: .courier-header-copy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-10245",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:35:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+3/-7) — edit via tool: .merchant-header-copy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-10246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:35:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss (+18/-9) — edit via tool: #{$page-bars},",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-10247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:36:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx (+7/-4) — edit via tool: tsx: <cod",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx"
+    },
+    {
+      "id": "TASK-10248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:36:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-5) — edit via tool: tsx: Tombol kembali kini satu kompon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "DEC-1045",
+      "type": "decision",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "20:38:18",
+      "tags": [
+        "design",
+        "components",
+        "back",
+        "topbar"
+      ],
+      "summary": "BackButton di top bar kiri via prop back PageHeader; larang tombol kembali di ujung konten",
+      "conn": [
+        {
+          "id": "DEC-1044",
+          "type": "led_to",
+          "raw": "DEC-1044:led_to"
+        }
+      ],
+      "loc": "src/components/ui/PageHeader.tsx:40"
     }
   ]
 }

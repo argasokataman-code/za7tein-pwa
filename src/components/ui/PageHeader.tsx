@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 
+import { BackButton } from './BackButton'
+
 export interface PageHeaderProps {
   /** Judul halaman. */
   title: string
@@ -11,7 +13,14 @@ export interface PageHeaderProps {
   prefix: string
   /** Baris kecil di atas judul, mis. "Antrean dapur". Opsional. */
   eyebrow?: string
-  /** Kontrol di kanan baris judul: tombol kembali, atau satu aksi utama. */
+  /**
+   * Tombol kembali di tepi **kiri** bar. `true` kembali satu langkah
+   * (`navigate(-1)`); string = tujuan tetap. Ini kontrol 44px, jadi judulnya
+   * ikut turun ke langkah header. Tombol kembali **selalu** di sini — jangan
+   * ditaruh di ujung halaman; tepi kiri adalah tempat jempol mencarinya.
+   */
+  back?: string | boolean
+  /** Kontrol di kanan baris judul: satu aksi utama (mis. "Tambah"). */
   action?: ReactNode
 }
 
@@ -30,15 +39,20 @@ export interface PageHeaderProps {
  * di luar header. Yang disatukan di sini **struktur dan perilakunya**, bukan
  * namanya.
  *
- * Satu perilaku yang dibaca dari markup, bukan selera: begitu ada `action` di
- * baris judul, judulnya mengecil ke langkah header (`--text-lg`). Sebabnya sama
- * dengan judul yang berdampingan tombol kembali — kontrol 44px memakan ruang di
- * baris yang sama, dan judul hero `--text-2xl` akan mendorong atau bersinggungan
- * dengannya saat judulnya panjang. Tanpa `action`, judulnya tetap hero.
+ * Satu perilaku yang dibaca dari markup, bukan selera: begitu ada kontrol di
+ * baris judul (`back` atau `action`), judulnya mengecil ke langkah header
+ * (`--text-lg`). Sebabnya sama dengan judul yang berdampingan tombol kembali —
+ * kontrol 44px memakan ruang di baris yang sama, dan judul hero `--text-2xl`
+ * akan mendorong atau bersinggungan dengannya saat judulnya panjang. Tanpa
+ * kontrol, judulnya tetap hero.
  */
-export function PageHeader({ title, prefix, eyebrow, action }: PageHeaderProps) {
+export function PageHeader({ title, prefix, eyebrow, back, action }: PageHeaderProps) {
+  const hasControl = Boolean(back) || Boolean(action)
   return (
-    <header className={action ? `${prefix}-header ${prefix}-header--has-control` : `${prefix}-header`}>
+    <header className={hasControl ? `${prefix}-header ${prefix}-header--has-control` : `${prefix}-header`}>
+      {back ? (
+        <BackButton className={`${prefix}-back`} to={typeof back === 'string' ? back : undefined} />
+      ) : null}
       <div className={`${prefix}-header-copy`}>
         {eyebrow ? <p className={`${prefix}-eyebrow`}>{eyebrow}</p> : null}
         <h1 className={`${prefix}-title`}>{title}</h1>

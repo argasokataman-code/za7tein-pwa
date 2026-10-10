@@ -20,7 +20,6 @@ import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/cou
 import { insertNotification } from '../api/notifications'
 import { recordCheckpoint, updateOrderStatus } from '../api/orders'
 import type { MerchantOrderStatus } from '../types'
-import { BackButton } from '../components/ui/BackButton'
 
 /** Checkpoint kurir yang baru dimasuki → status order BE. */
 const NEXT_STATUS: Record<string, MerchantOrderStatus> = {
@@ -112,9 +111,7 @@ export default function CourierTaskDetail() {
         <CourierPageHeader
           eyebrow="Detail tugas"
           title={`#${task.code}`}
-          action={
-            <BackButton className="courier-back" />
-          }
+          back
         />
 
         <section className="courier-card">

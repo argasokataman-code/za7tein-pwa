@@ -15,7 +15,6 @@ import {
 } from '../data/courierWallet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { requestCourierPayout } from '../store/slices/courierSlice'
-import { BackButton } from '../components/ui/BackButton'
 
 /**
  * Pencairan tips kurir (R-WALLET-01, flow f6). Fee Rp2.500 ditanggung kurir —
@@ -48,7 +47,7 @@ export default function CourierPayout() {
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Penghasilan" title="Tarik tips" />
+        <CourierPageHeader eyebrow="Penghasilan" title="Tarik tips" back="/wallet" />
 
         <section className="courier-card courier-wallet-hero" aria-label="Saldo tips">
           <p className="courier-card-sub">Saldo tips bisa ditarik</p>
@@ -140,7 +139,6 @@ export default function CourierPayout() {
           </>
         )}
 
-        <BackButton to="/wallet" />
       </main>
       <CourierBottomNav />
     </div>

@@ -57,6 +57,15 @@ $page-bars:
   padding-bottom: 0;
 }
 
+// Judul mengisi ruang sisa supaya tombol kembali di tepi kiri menempel pada
+// judul dan aksi kanan tetap terdorong ke tepi. Tanpa ini `space-between`
+// melempar judul ke kanan begitu ada back. `.admin-header-copy` punya alasan
+// yang sama dan sudah menulisnya sendiri; dua role ini menyusul di kontrak.
+.merchant-header-copy,
+.courier-header-copy {
+  flex: 1;
+}
+
 // Judul hero di dalam bar role (merchant/kurir/admin) dipatok, tidak ikut clamp
 // `vw` milik `--text-2xl`: kolom aplikasi dikunci 430px, tapi tokennya
 // mengikuti lebar jendela, jadi bar yang sama terukur 123px di jendela 390px

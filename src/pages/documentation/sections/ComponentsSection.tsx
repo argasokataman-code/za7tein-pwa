@@ -15,7 +15,11 @@ export function ComponentsSection() {
         <code className="doc-inline">--surface</code> + tepi{' '}
         <code className="doc-inline">--border-strong</code>, chevron 24px stroke 1,75, aria-label{' '}
         <code className="doc-inline">Kembali</code>. Kontrak visualnya satu di{' '}
-        <code className="doc-inline">system/_topbar.scss</code>.
+        <code className="doc-inline">system/_topbar.scss</code>. Ia tidak ditaruh
+        langsung di halaman: header peran (<code className="doc-inline">PageHeader</code>,
+        prop <code className="doc-inline">back</code>) yang merendernya di tepi{' '}
+        <strong>kiri top bar</strong> — tombol kembali tidak pernah muncul di ujung
+        konten.
       </p>
       <DocCode lang="tsx">
         {`<BackButton />                       // kembali satu langkah (navigate(-1))
@@ -180,9 +184,12 @@ export function ComponentsSection() {
         <code className="doc-inline">src/components/merchant/MerchantPageHeader.tsx</code>
         {' '}menyatukan header sticky pada seluruh console merchant. Beri
         <code className="doc-inline">title</code>, optional
-        <code className="doc-inline"> eyebrow</code>, dan optional
+        <code className="doc-inline"> eyebrow</code>,{' '}
+        <code className="doc-inline">back</code> (tombol kembali di tepi kiri bar;{' '}
+        <code className="doc-inline">true</code> = kembali satu langkah, string = tujuan),
+        dan optional
         <code className="doc-inline"> action</code>; jangan membuat header merchant baru
-        per halaman.
+        per halaman, dan jangan menaruh tombol kembali di ujung konten.
       </p>
       <p className="doc-p">
         Saran pencarian yang bergantian di kolom search hero. Kata-katanya dari katalog
