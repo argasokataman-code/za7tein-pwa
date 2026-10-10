@@ -3165,6 +3165,46 @@
           "raw": "DEC-916:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-10210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "18:31:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-012-2026-10-10.md (+61) — write via tool: # Audit 012 — Beranda merchant ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-012-2026-10-10.md"
+    },
+    {
+      "id": "BUG-918",
+      "type": "bug",
+      "status": "open",
+      "date": "2026-10-10",
+      "time": "18:31:47",
+      "tags": [
+        "merchant",
+        "ui",
+        "a11y",
+        "audit"
+      ],
+      "summary": "Audit 012 /merchant: kontras label oranye 4,02:1 (HG-05), empty/error state absen, radius sprawl",
+      "conn": [
+        {
+          "id": "DEC-917",
+          "type": "relates",
+          "raw": "DEC-917:relates"
+        }
+      ]
     }
   ]
 }
