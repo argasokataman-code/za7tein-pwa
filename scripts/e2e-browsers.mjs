@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * e2e-browsers.mjs — buka SATU **jendela PWA** per peran (customer,
+ * e2e-browsers.mjs — kelola + pakai SATU **jendela PWA** per peran (customer,
  * merchant, courier, admin, superadmin) untuk testing flow e2e.
  *
  * Tiap peran = INSTANCE browser sendiri, bukan tab di browser yang sama.
@@ -10,8 +10,14 @@
  * beberapa pengguna di perangkat berbeda — itu yang membuat e2e jujur.
  *
  * WAJIB app-mode: tiap jendela dibuka `--app=<url>` (display-mode: standalone),
- * bukan tab browser biasa. Script mendeteksi klon yang masih mode browser dan
- * me-restart-nya ke PWA.
+ * bukan tab browser biasa.
+ *
+ * ── ATURAN KUNCI: subcommand aksi TIDAK PERNAH membuka jendela/tab baru ──
+ * `nav`/`eval`/`click`/`shot` hanya memakai ulang jendela role yang sudah
+ * hidup. Jendela role tidak ada → perintah GAGAL dengan pesan jelas, bukan
+ * diam-diam spawn browser baru. Membuka jendela hanya lewat `npm run e2e`
+ * (dijalankan sekali, disengaja). Ini yang menghentikan kebiasaan
+ * "tiap langkah buka browser baru".
  *
  * PETA PORT TERKUNCI (biar tak bentrok ke depan):
  *   9355  klon kerja user (gambar/ChatGPT)     — JANGAN dipakai e2e
@@ -25,14 +31,19 @@
  * Tambah peran baru di AKHIR daftar, jangan sisipkan di tengah.
  *
  * Pakai:
- *   npm run e2e                # buka semua (dev server 5173-5176)
- *   npm run e2e -- --pwa       # pakai hasil build (localhost:4173)
- *   npm run e2e -- --base http://localhost:5173
- *   npm run e2e -- --list      # cetak peta port terkunci, tanpa buka apa pun
- *   npm run e2e -- --stop      # matikan semua klon e2e
+ *   npm run e2e                       # BUKA semua jendela (sekali, disengaja)
+ *   npm run e2e -- --pwa              # pakai hasil build (localhost:4173)
+ *   npm run e2e -- --list             # cetak peta port terkunci, tanpa buka apa pun
+ *   npm run e2e -- --stop             # matikan semua klon e2e
+ *
+ *   npm run e2e -- status             # jendela role hidup/tidak + URL
+ *   npm run e2e -- nav customer /customer/home
+ *   npm run e2e -- eval customer "document.title"
+ *   npm run e2e -- click customer ".category-btn:nth-child(2)"
+ *   npm run e2e -- shot customer /tmp/home.png
  */
 import { execFileSync } from 'node:child_process'
-import { existsSync, mkdirSync } from 'node:fs'
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import net from 'node:net'
 import path from 'node:path'
 
@@ -56,6 +67,7 @@ const INSTANCES = ROLE_DEFS.map((def, i) => {
   const key = `E2E_${def.role.toUpperCase()}`
   return {
     role: def.role,
+    prefix: `/${def.role}`,
     port: Number(process.env[`${key}_PORT`]) || PORT_BASE + i,
     profile: path.join(BIN_DIR, process.env[`${key}_PROFILE`] || `profile-e2e-${def.role}`),
     path: process.env[`${key}_PATH`] || def.path,
@@ -63,13 +75,22 @@ const INSTANCES = ROLE_DEFS.map((def, i) => {
   }
 })
 
+const SUBCOMMANDS = ['status', 'nav', 'eval', 'click', 'shot']
+
 const argv = process.argv.slice(2)
+const op = SUBCOMMANDS.includes(argv[0]) ? argv[0] : null
+const opArgs = op ? argv.slice(1).filter((a) => !a.startsWith('--')) : []
 const pwa = argv.includes('--pwa')
 const stop = argv.includes('--stop')
 const list = argv.includes('--list')
 const baseArg = argv.find((a) => a.startsWith('--base='))?.slice('--base='.length)
 
 const endpoint = (port) => `http://127.0.0.1:${port}`
+const fail = (msg) => {
+  process.stderr.write(`${msg}\n`)
+  process.exit(1)
+}
+const byRole = (role) => INSTANCES.find((i) => i.role === role)
 
 function printMap() {
   process.stdout.write('Peta port e2e terkunci (9355 kerja & 9359 gate dicadangkan untuk hal lain):\n')
@@ -121,6 +142,101 @@ function tcpOpen(port, ms = 400) {
   })
 }
 
+// ── CDP mentah (WebSocket global) ──────────────────────────────────────────
+
+/** Kirim satu perintah CDP ke target, balikan `result` mentah. `null` kalau gagal. */
+function cdpSend(wsUrl, method, params) {
+  return new Promise((resolve) => {
+    let settled = false
+    const done = (v) => {
+      if (settled) return
+      settled = true
+      try {
+        ws.close()
+      } catch {
+        // ws belum terbuka; abaikan
+      }
+      resolve(v)
+    }
+    let ws
+    try {
+      ws = new WebSocket(wsUrl)
+    } catch {
+      return done(null)
+    }
+    const timer = setTimeout(() => done(null), 8000)
+    ws.onerror = () => {
+      clearTimeout(timer)
+      done(null)
+    }
+    ws.onopen = () => ws.send(JSON.stringify({ id: 1, method, params }))
+    ws.onmessage = (e) => {
+      try {
+        const msg = JSON.parse(e.data)
+        if (msg.id === 1) {
+          clearTimeout(timer)
+          done(msg.result ?? null)
+        }
+      } catch {
+        // pesan non-JSON; abaikan
+      }
+    }
+  })
+}
+
+/** Evaluasi JS via CDP, balikan nilai (by value). `null` kalau gagal/timeout. */
+async function cdpEval(wsUrl, expression) {
+  const r = await cdpSend(wsUrl, 'Runtime.evaluate', {
+    expression,
+    returnByValue: true,
+    awaitPromise: true,
+  })
+  return r?.result?.value ?? null
+}
+
+async function waitReady(wsUrl, timeout = 8000) {
+  const t0 = Date.now()
+  while (Date.now() - t0 < timeout) {
+    if ((await cdpEval(wsUrl, 'document.readyState')) === 'complete') return true
+    await sleep(150)
+  }
+  return false
+}
+
+/**
+ * Cari jendela app-mode milik role ini yang sudah hidup. TIDAK membuka baru.
+ * `null` kalau tidak ada → pemanggil gagal dengan pesan jelas.
+ */
+async function roleTab(inst) {
+  const tabs = await cdpList(inst.port)
+  if (!tabs) return null
+  const pages = tabs.filter((t) => t.type === 'page')
+  const mine = pages.filter((t) => {
+    try {
+      return new URL(t.url).pathname.startsWith(inst.prefix)
+    } catch {
+      return false
+    }
+  })
+  return mine[0] ?? null
+}
+
+// Jendela PWA = ukuran ponsel; shell repo terkunci `--shell-max` 430px.
+const PWA_W = 430
+const PWA_H = 920
+
+/** Klon ini jendela PWA yang benar (standalone + lebar sesuai shell)? */
+async function isAppMode(tabs) {
+  for (const p of (tabs || []).filter((t) => t.type === 'page')) {
+    const r = await cdpEval(
+      p.webSocketDebuggerUrl,
+      "({ standalone: matchMedia('(display-mode: standalone)').matches, w: window.innerWidth })",
+    )
+    if (r && r.standalone === true && r.w && Math.abs(r.w - PWA_W) <= 16) return true
+  }
+  return false
+}
+
 async function newTab(port, url) {
   const res = await fetch(`${endpoint(port)}/json/new?${encodeURIComponent(url)}`, { method: 'PUT' })
   if (!res.ok) throw new Error(`gagal buka tab ${url}: HTTP ${res.status}`)
@@ -146,65 +262,6 @@ async function assertPortFree(inst) {
   }
 }
 
-/** Evaluasi JS via CDP mentah (WebSocket global). `null` kalau gagal/timeout. */
-function cdpEval(wsUrl, expression) {
-  return new Promise((resolve) => {
-    let settled = false
-    const done = (v) => {
-      if (settled) return
-      settled = true
-      try {
-        ws.close()
-      } catch {
-        // ws belum terbuka; abaikan
-      }
-      resolve(v)
-    }
-    let ws
-    try {
-      ws = new WebSocket(wsUrl)
-    } catch {
-      return done(null)
-    }
-    const timer = setTimeout(() => done(null), 2500)
-    ws.onerror = () => {
-      clearTimeout(timer)
-      done(null)
-    }
-    ws.onopen = () =>
-      ws.send(
-        JSON.stringify({ id: 1, method: 'Runtime.evaluate', params: { expression, returnByValue: true } }),
-      )
-    ws.onmessage = (e) => {
-      try {
-        const msg = JSON.parse(e.data)
-        if (msg.id === 1) {
-          clearTimeout(timer)
-          done(msg.result?.result?.value ?? null)
-        }
-      } catch {
-        // pesan non-JSON; abaikan
-      }
-    }
-  })
-}
-
-// Jendela PWA = ukuran ponsel; shell repo terkunci `--shell-max` 430px.
-const PWA_W = 430
-const PWA_H = 920
-
-/** Klon ini jendela PWA yang benar (standalone + lebar sesuai shell)? */
-async function isAppMode(tabs) {
-  for (const p of (tabs || []).filter((t) => t.type === 'page')) {
-    const r = await cdpEval(
-      p.webSocketDebuggerUrl,
-      "({ standalone: matchMedia('(display-mode: standalone)').matches, w: window.innerWidth })",
-    )
-    if (r && r.standalone === true && r.w && Math.abs(r.w - PWA_W) <= 16) return true
-  }
-  return false
-}
-
 function launchClone(inst, url) {
   if (!existsSync(LAUNCH_SH)) throw new Error(`launch.sh tidak ada di ${LAUNCH_SH}`)
   mkdirSync(inst.profile, { recursive: true })
@@ -220,6 +277,14 @@ function launchClone(inst, url) {
         process.env.E2E_EXTRA_ARGS ||
         `--app=${url} --window-size=${PWA_W},${PWA_H} --window-position=${inst.pos} --touch-events=enabled`,
     },
+  })
+}
+
+function stopClone(inst) {
+  if (!existsSync(STOP_SH)) return
+  execFileSync(STOP_SH, [], {
+    stdio: 'ignore',
+    env: { ...process.env, BRAVE_CDP_PORT: String(inst.port), BRAVE_PROFILE: inst.profile },
   })
 }
 
@@ -250,23 +315,133 @@ async function ensureInstance(base, inst) {
   return url
 }
 
-function stopClone(inst) {
-  if (!existsSync(STOP_SH)) return
-  execFileSync(STOP_SH, [], {
-    stdio: 'ignore',
-    env: { ...process.env, BRAVE_CDP_PORT: String(inst.port), BRAVE_PROFILE: inst.profile },
+// ── subcommand aksi (reuse-only, TIDAK PERNAH buka jendela baru) ───────────
+
+/** Jendela role hidup? Kalau tidak, hentikan dengan pesan — jangan spawn. */
+async function requireTab(inst) {
+  const tab = await roleTab(inst)
+  if (!tab) {
+    fail(
+      `[${inst.role}] tidak ada jendela app-mode di port ${inst.port}. ` +
+        `Jalankan \`npm run e2e${pwa ? ' -- --pwa' : ''}\` SEKALI dulu (script ini tidak membuka browser baru).`,
+    )
+  }
+  return tab
+}
+
+async function runStatus() {
+  for (const inst of INSTANCES) {
+    const tabs = await cdpList(inst.port)
+    if (!tabs) {
+      process.stdout.write(`  ${inst.role.padEnd(11)} port ${inst.port}  MATI\n`)
+      continue
+    }
+    const app = await isAppMode(tabs)
+    const tab = await roleTab(inst)
+    process.stdout.write(
+      `  ${inst.role.padEnd(11)} port ${inst.port}  HIDUP${app ? ' app-mode' : ' (bukan app-mode!)'}` +
+        `  ${tab ? tab.url : '— tak ada tab role'}\n`,
+    )
+  }
+}
+
+async function runNav() {
+  const [role, target] = opArgs
+  const inst = byRole(role)
+  if (!inst) fail(`role tak dikenal: ${role}. Pilih: ${INSTANCES.map((i) => i.role).join(', ')}`)
+  if (!target) fail('pakai: nav <role> <path|url>')
+  const tab = await requireTab(inst)
+  // Base = origin jendela role itu sendiri (sudah pasti hidup & benar),
+  // bukan nebak port dev. `--base`/`--pwa` hanya relevan saat membuka jendela.
+  const url = /^https?:\/\//.test(target) ? target : new URL(tab.url).origin + target
+  const ws = tab.webSocketDebuggerUrl
+  await cdpSend(ws, 'Page.navigate', { url })
+  await waitReady(ws)
+  const title = await cdpEval(ws, 'document.title')
+  process.stdout.write(`${url}\n${title}\n`)
+}
+
+async function runEval() {
+  const [role, ...rest] = opArgs
+  const inst = byRole(role)
+  if (!inst) fail(`role tak dikenal: ${role}. Pilih: ${INSTANCES.map((i) => i.role).join(', ')}`)
+  const expression = rest.join(' ')
+  if (!expression) fail('pakai: eval <role> "<expr>"')
+  const tab = await requireTab(inst)
+  const value = await cdpEval(tab.webSocketDebuggerUrl, expression)
+  process.stdout.write(
+    typeof value === 'string' ? `${value}\n` : `${JSON.stringify(value, null, 2)}\n`,
+  )
+}
+
+async function runClick() {
+  const [role, selector] = opArgs
+  const inst = byRole(role)
+  if (!inst) fail(`role tak dikenal: ${role}. Pilih: ${INSTANCES.map((i) => i.role).join(', ')}`)
+  if (!selector) fail('pakai: click <role> "<selector>"')
+  const tab = await requireTab(inst)
+  const ws = tab.webSocketDebuggerUrl
+  // Titik tengah + hit-test: apa yang BENAR-BENAR kena di titik itu.
+  const hit = await cdpEval(
+    ws,
+    `(() => {
+      const el = document.querySelector(${JSON.stringify(selector)});
+      if (!el) return { error: 'selector tak ada' };
+      const r = el.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const top = document.elementFromPoint(x, y);
+      return { x, y, w: r.width, h: r.height,
+        self: el.contains(top), top: top ? (top.className || top.tagName) : null };
+    })()`,
+  )
+  if (!hit || hit.error) fail(`[${inst.role}] ${selector}: ${hit?.error ?? 'eval gagal'}`)
+  const { x, y } = hit
+  await cdpSend(ws, 'Input.dispatchMouseEvent', {
+    type: 'mousePressed',
+    x,
+    y,
+    button: 'left',
+    clickCount: 1,
   })
+  await cdpSend(ws, 'Input.dispatchMouseEvent', {
+    type: 'mouseReleased',
+    x,
+    y,
+    button: 'left',
+    clickCount: 1,
+  })
+  process.stdout.write(
+    `click ${selector} @ ${Math.round(x)},${Math.round(y)} (${Math.round(hit.w)}x${Math.round(hit.h)})` +
+      `${hit.self ? '' : ` ⚠ OVERLAY: yang kena <${hit.top}>`}\n`,
+  )
+}
+
+async function runShot() {
+  const [role, out] = opArgs
+  const inst = byRole(role)
+  if (!inst) fail(`role tak dikenal: ${role}. Pilih: ${INSTANCES.map((i) => i.role).join(', ')}`)
+  if (!out) fail('pakai: shot <role> <out.png>')
+  const tab = await requireTab(inst)
+  const r = await cdpSend(tab.webSocketDebuggerUrl, 'Page.captureScreenshot', { format: 'png' })
+  if (!r?.data) fail(`[${inst.role}] screenshot gagal`)
+  writeFileSync(out, Buffer.from(r.data, 'base64'))
+  process.stdout.write(`${out}\n`)
 }
 
 async function main() {
   if (list) return printMap()
-
   if (stop) {
     for (const inst of INSTANCES) stopClone(inst)
     process.stdout.write('Semua klon e2e dimatikan.\n')
     return
   }
+  if (op === 'status') return runStatus()
+  if (op === 'nav') return runNav()
+  if (op === 'eval') return runEval()
+  if (op === 'click') return runClick()
+  if (op === 'shot') return runShot()
 
+  // Tidak ada subcommand → mode BUKA (disengaja): launch semua jendela role.
   const base = await resolveBase()
   const ready = []
   for (const inst of INSTANCES) {
@@ -275,10 +450,10 @@ async function main() {
 
   process.stdout.write(`\nBrowser e2e siap — ${ready.length} INSTANCE TERPISAH (PWA app-mode)\n`)
   process.stdout.write(`base: ${base}\n`)
+  process.stdout.write(`Aksi pakai jendela ini (reuse-only): npm run e2e -- status|nav|eval|click|shot\n`)
   for (const { inst, url } of ready) {
-    const { Browser } = await (await fetch(`${endpoint(inst.port)}/json/version`)).json()
     process.stdout.write(`  • ${inst.role.padEnd(11)} ${url}\n`)
-    process.stdout.write(`      MCP brave-debug-${inst.role}  CDP ${endpoint(inst.port)}  ${Browser}\n`)
+    process.stdout.write(`      CDP ${endpoint(inst.port)}\n`)
   }
   process.stdout.write(`\nBiarkan jendela terbuka. Tutup: npm run e2e -- --stop\n`)
 }
