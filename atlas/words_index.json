@@ -11461,6 +11461,14 @@
     {
       "id": "TASK-10080",
       "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "sa7tein": [
@@ -12976,6 +12984,18 @@
     },
     {
       "id": "TASK-10075",
+      "shard": 11
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ],
@@ -16104,6 +16124,10 @@
     },
     {
       "id": "TASK-10075",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ],
@@ -20588,6 +20612,10 @@
     },
     {
       "id": "FEAT-9984",
+      "shard": 11
+    },
+    {
+      "id": "FEAT-9986",
       "shard": 11
     }
   ],
@@ -30839,6 +30867,14 @@
     {
       "id": "TASK-10080",
       "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -38876,6 +38912,10 @@
     },
     {
       "id": "TASK-10080",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ],
@@ -48679,6 +48719,14 @@
     {
       "id": "TASK-10080",
       "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "tool:": [
@@ -58396,6 +58444,14 @@
     },
     {
       "id": "TASK-10080",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ],
@@ -69871,6 +69927,14 @@
     {
       "id": "TASK-10080",
       "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "task-147": [
@@ -72446,6 +72510,10 @@
     },
     {
       "id": "TASK-10075",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10081",
       "shard": 11
     }
   ],
@@ -75952,6 +76020,14 @@
     },
     {
       "id": "TASK-10075",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ],
@@ -102149,6 +102225,10 @@
     {
       "id": "TASK-10065",
       "shard": 11
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
     }
   ],
   "useleafletmap(": [
@@ -126291,6 +126371,10 @@
     {
       "id": "BUG-9971",
       "shard": 10
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
     }
   ],
   "longer": [
@@ -135493,6 +135577,10 @@
     {
       "id": "FEAT-9984",
       "shard": 11
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
     }
   ],
   "whatsapp": [
@@ -140309,6 +140397,10 @@
     {
       "id": "BUG-1236",
       "shard": 2
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
     }
   ],
   "panjang": [
@@ -144399,6 +144491,10 @@
     {
       "id": "TASK-1351",
       "shard": 2
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
     }
   ],
   "**gener": [
@@ -158033,6 +158129,10 @@
     {
       "id": "TASK-9956",
       "shard": 10
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "superadminroutes:": [
@@ -175371,6 +175471,10 @@
     {
       "id": "TASK-4031",
       "shard": 6
+    },
+    {
+      "id": "TASK-10081",
+      "shard": 11
     }
   ],
   "task-4031": [
@@ -177362,6 +177466,10 @@
     },
     {
       "id": "TASK-10075",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ],
@@ -185319,6 +185427,10 @@
     {
       "id": "BUG-9974",
       "shard": 10
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
     }
   ],
   "cross-role": [
@@ -198885,6 +198997,14 @@
     {
       "id": "TASK-10075",
       "shard": 11
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "postgrest": [
@@ -201951,6 +202071,14 @@
     {
       "id": "TASK-10075",
       "shard": 11
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "task-9881": [
@@ -204901,6 +205029,10 @@
     {
       "id": "FEAT-9981",
       "shard": 10
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
     }
   ],
   "feat-9981": [
@@ -205365,6 +205497,10 @@
     {
       "id": "BUG-9985",
       "shard": 11
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
     }
   ],
   "nyata:": [
@@ -205529,11 +205665,23 @@
     {
       "id": "TASK-10080",
       "shard": 11
+    },
+    {
+      "id": "TASK-10082",
+      "shard": 11
     }
   ],
   "pengirim": [
     {
       "id": "TASK-10075",
+      "shard": 11
+    },
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    },
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ],
@@ -205618,6 +205766,108 @@
   "task-10080": [
     {
       "id": "TASK-10080",
+      "shard": 11
+    }
+  ],
+  "hidup:": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "send-push": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "database": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "webhook": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "insert;": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "deployable": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "deploy,": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "project": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "ac": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "edge-function": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "feat-9986": [
+    {
+      "id": "FEAT-9986",
+      "shard": 11
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/supabase/handoff.md": [
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    }
+  ],
+  "(+231)": [
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    }
+  ],
+  "handoff": [
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    }
+  ],
+  "hidupkan": [
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    }
+  ],
+  "task-10081": [
+    {
+      "id": "TASK-10081",
+      "shard": 11
+    }
+  ],
+  "task-10082": [
+    {
+      "id": "TASK-10082",
       "shard": 11
     }
   ]

@@ -1,5 +1,8 @@
 # Supabase — pengirim push yang selalu hidup
 
+> **Untuk tim BE:** ikuti panduan langkah-demi-langkah + troubleshooting di
+> [`HANDOFF.md`](./HANDOFF.md). Berkas ini = ringkasan arsitektur.
+
 Repo front-end ini tak punya server sendiri (AGENTS §1). Agar notifikasi tetap
 masuk saat aplikasi/ponsel tidak aktif, pengirimannya dijalankan di sisi Supabase:
 

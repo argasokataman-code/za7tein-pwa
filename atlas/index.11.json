@@ -403,6 +403,71 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/supabase/README.md"
+    },
+    {
+      "id": "FEAT-9986",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:36:59",
+      "tags": [
+        "push",
+        "vapid",
+        "supabase",
+        "edge-function",
+        "webhook"
+      ],
+      "summary": "Pengirim push selalu hidup: Edge Function send-push + Database Webhook notifications INSERT; deployable artefak (belum deploy, no project ac",
+      "conn": [
+        {
+          "id": "FEAT-9984",
+          "type": "relates",
+          "raw": "FEAT-9984:relates"
+        },
+        {
+          "id": "BUG-9985",
+          "type": "relates",
+          "raw": "BUG-9985:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-10081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:39:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/supabase/HANDOFF.md (+231) — write via tool: # HANDOFF — hidupkan push notification o",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/supabase/HANDOFF.md"
+    },
+    {
+      "id": "TASK-10082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "12:40:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/supabase/README.md (+6/-3) — edit via tool: # Supabase — pengirim push yang selalu h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/supabase/README.md"
     }
   ]
 }
