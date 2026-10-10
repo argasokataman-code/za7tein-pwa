@@ -5390,6 +5390,223 @@
           "raw": "FEAT-9980:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-10040",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:44:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+9/-7) — edit via tool: ts: export interface PushSubscriptionRecord ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-10041",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:44:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts (+13/-12) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts"
+    },
+    {
+      "id": "TASK-10042",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:44:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts (+7/-6) — edit via tool: ts: export interface PushRow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts"
+    },
+    {
+      "id": "TASK-10043",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:45:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts (+29/-22) — edit via tool: ts: /** Registrasi push perangkat (endpoint",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts"
+    },
+    {
+      "id": "TASK-10044",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:45:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx (+181) — write via tool: tsx: import { ChevronLeft } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/NotificationSettings.tsx"
+    },
+    {
+      "id": "TASK-10045",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:45:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/notificationsSlice.ts (+3/-3) — edit via tool: ts: /** Registrasi push a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/notificationsSlice.ts"
+    },
+    {
+      "id": "TASK-10046",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:45:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+9/-9) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-10047",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:46:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+15/-14) — edit via tool: tsx: <h3 clas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-10048",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:46:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ConsistencySection.tsx (+5/-5) — edit via tool: tsx: <co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ConsistencySection.tsx"
+    },
+    {
+      "id": "TASK-10049",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:46:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+5/-2) — edit via tool: tsx: notifikasi kini murni dari back",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "FEAT-9982",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-10-10",
+      "time": "11:47:38",
+      "tags": [
+        "profile",
+        "push",
+        "integration",
+        "api",
+        "customer"
+      ],
+      "summary": "Registrasi push (Pengaturan Notifikasi) tersimpan ke push_subscriptions + dibaca saat mount; aktifkan/matikan = insert/delete. Pengiriman te",
+      "conn": [
+        {
+          "id": "FEAT-9980",
+          "type": "relates",
+          "raw": "FEAT-9980:relates"
+        },
+        {
+          "id": "FEAT-9981",
+          "type": "relates",
+          "raw": "FEAT-9981:relates"
+        }
+      ]
     }
   ]
 }

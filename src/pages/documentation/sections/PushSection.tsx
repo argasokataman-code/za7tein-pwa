@@ -26,19 +26,20 @@ export function PushSection() {
 toE164('0812 3456 7890')          // '+6281234567890'
 waLink('+962791234567', 'Halo…')  // https://wa.me/962791234567?text=Halo…`}
       </DocCode>
-      <h3 className="doc-h3">Registrasi push: kontraknya yang ditampilkan</h3>
+      <h3 className="doc-h3">Registrasi push: tersimpan, pengirimannya belum</h3>
       <p className="doc-p">
         Di Pengaturan Notifikasi ada kartu <strong>Notifikasi push</strong>. Tombolnya menyimpan
-        subscription mock ke store — <code className="doc-inline">endpoint</code>,{' '}
-        <code className="doc-inline">keys</code> (dipotong, karena bukan kunci nyata),{' '}
-        <code className="doc-inline">platform</code>, dan <code className="doc-inline">expiresAt</code> —
-        lalu menampilkannya kembali bersama ketentuan payload dari PRD: maks{' '}
-        {4} KB, TTL wajib, dan <code className="doc-inline">userVisibleOnly</code>.
+        registrasi ke tabel backend <code className="doc-inline">push_subscriptions</code> —{' '}
+        <code className="doc-inline">endpoint</code>, <code className="doc-inline">keys</code>{' '}
+        (dipotong, karena bukan kunci nyata), dan waktu daftar — lalu membacanya kembali saat
+        halaman dimuat, jadi status aktif bertahan lintas refresh. Kartu menampilkannya bersama
+        ketentuan payload dari PRD: maks {4} KB, TTL wajib, dan{' '}
+        <code className="doc-inline">userVisibleOnly</code>.
       </p>
       <p className="doc-p">
-        Alasannya sederhana: menyembunyikan bahwa push belum berjalan akan membuat layar ini
-        berbohong. Yang diuji di sini adalah bentuk data dan janji kontraknya, sedangkan
-        pengirimannya menunggu backend.
+        Yang belum ada hanya pengirimannya: repo ini tak punya service worker push, jadi tidak ada
+        notifikasi yang benar-benar diantar. Menyembunyikan itu akan membuat layar ini berbohong;
+        yang diuji di sini bentuk data, penyimpanan, dan janji kontraknya.
       </p>
       <h3 className="doc-h3">Fallback WA saat lawan offline</h3>
       <p className="doc-p">

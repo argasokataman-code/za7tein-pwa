@@ -140,11 +140,11 @@ export function ConsistencySection() {
             <tr>
               <td>M8</td>
               <td>
-                <code className="doc-inline">subscription{'{endpoint,keys,platform,expiresAt}'}</code>, fallback{' '}
+                <code className="doc-inline">subscription{'{endpoint,keys,registeredAt}'}</code>, fallback{' '}
                 <code className="doc-inline">wa.me</code>
               </td>
-              <td>—</td>
-              <td>Device + backend push; nomor divalidasi UI (E.164)</td>
+              <td>Registrasi push → <code className="doc-inline">push_subscriptions</code></td>
+              <td>Pengiriman (service worker push) belum ada</td>
             </tr>
             <tr>
               <td>M9</td>

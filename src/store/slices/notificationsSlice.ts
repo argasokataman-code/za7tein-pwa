@@ -7,7 +7,7 @@ import type { AppNotification, PushSubscriptionRecord } from '../../types'
 
 interface NotificationsState {
   items: AppNotification[]
-  /** Subscription push aktif (mock, M8). Null = belum mendaftar. */
+  /** Registrasi push aktif (M8). Null = belum mendaftar. */
   subscription: PushSubscriptionRecord | null
 }
 
@@ -34,7 +34,7 @@ const notificationsSlice = createSlice({
     setNotifications(state, action: PayloadAction<AppNotification[]>) {
       state.items = action.payload
     },
-    /** Daftar push (mock): menyimpan subscription, bukan mengirim notifikasi. */
+    /** Registrasi push: simpan subscription (barisnya ditulis ke backend di halaman). */
     registerPush(state, action: PayloadAction<{ subscription: PushSubscriptionRecord }>) {
       state.subscription = action.payload.subscription
     },

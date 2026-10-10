@@ -18,15 +18,16 @@ export const PUSH_CONTRACT = {
 } as const
 
 /**
- * Subscription mock. Endpoint sengaja domain contoh supaya jelas tidak ada
- * server push yang menerima; kuncinya dipotong karena bukan kunci nyata.
+ * Subscription **placeholder**. Repo ini tak punya `PushManager` (service worker
+ * push tak dibuat), jadi endpoint/kunci di bawah bukan dari browser sungguhan —
+ * yang nyata adalah **barisnya disimpan** ke tabel `push_subscriptions`.
  */
 export function mockPushSubscription(platform = 'web'): PushSubscriptionRecord {
   return {
     endpoint: 'https://push.sa7tein.example/sub/9f2c1b',
     keys: { p256dh: 'BOr…mock…p256dh', auth: 'K7f…mock' },
     platform,
-    expiresAt: new Date(Date.now() + 30 * 24 * 3_600_000).toISOString(),
+    registeredAt: new Date().toISOString(),
   }
 }
 

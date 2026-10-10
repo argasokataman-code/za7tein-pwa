@@ -9,7 +9,7 @@
 import { resolveCoverage } from '../data/zones'
 import type { Address, ZoneId } from '../types'
 import { refToken } from './reference'
-import { authUpdateUser, authUser, createWith, deleteWith, patch, restWith, signInToken } from './supabase'
+import { authUpdateUser, authUser, createWith, createWithReturn, deleteWith, patch, restWith, signInToken } from './supabase'
 
 /** User demo customer di backend (sama dengan `reference.ts`). */
 const DEMO_CUSTOMER_USER_ID = 1
@@ -54,6 +54,7 @@ export interface PushRow {
   endpoint: string
   p256dh: string
   auth: string
+  created_at?: string
 }
 
 /** Identitas login customer (email + nomor HP). Nama/avatar belum ada di BE. */
@@ -176,19 +177,26 @@ export async function fetchPushSubscription(
   const rows = await restWith<PushRow>(
     token,
     'push_subscriptions',
-    `?select=id,endpoint,p256dh,auth&user_id=eq.${userId}&order=id.desc&limit=1`,
+    `?select=id,endpoint,p256dh,auth,created_at&user_id=eq.${userId}&order=id.desc&limit=1`,
   )
   return rows[0]
 }
 
+/** Simpan registrasi push → mengembalikan baris (beserta `id`) untuk dihapus nanti. */
 export async function savePushSubscription(
   endpoint: string,
   p256dh: string,
   auth: string,
   userId = DEMO_CUSTOMER_USER_ID,
-): Promise<void> {
+): Promise<PushRow | undefined> {
   const token = await refToken()
-  await createWith(token, 'push_subscriptions', { user_id: userId, endpoint, p256dh, auth })
+  const rows = await createWithReturn<PushRow>(token, 'push_subscriptions', {
+    user_id: userId,
+    endpoint,
+    p256dh,
+    auth,
+  })
+  return rows[0]
 }
 
 export async function deletePushSubscription(id: string): Promise<void> {
