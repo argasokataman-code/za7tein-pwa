@@ -254,6 +254,28 @@ node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap el
 - **Port e2e terkunci (jangan dipakai proses lain):** `9360` customer, `9361` merchant, `9362` courier, `9363` admin, `9364` superadmin. Dibuka dengan `npm run e2e` (tambahkan `-- --pwa` untuk build 4173, `-- --stop` menutup, `-- --list` mencetak peta). Tiap peran = **jendela PWA app-mode terpisah** (`--app=`, display-mode standalone; profil `profile-e2e-<role>`) supaya `localStorage`/sesi tak tercampur — bukan beberapa tab di satu browser. Jangan menggeser port ini. **Aksi per-peran WAJIB lewat tool repo `scripts/e2e-browsers.mjs` (reuse-only, ENFORCE): `node scripts/e2e-browsers.mjs status | nav <role> <path> | eval <role> "<expr>" | click <role> "<sel>" | shot <role> <out.png>`.** Tool ini **tidak pernah** membuka jendela/tab baru; jendela mati → error, jalankan `npm run e2e` sekali. MCP `brave-debug-<role>` sudah **dihapus** dari `opencode.json` (tiap langkah dulu spawn tab baru — itu yang dihentikan).
 - Selesai mengukur: matikan klon gate yang kamu hidupkan (`kill` PID proses utama `profile-gate`, terarah — bukan `pkill Brave`), supaya tak menumpuk. Klon kerja (9355) jangan disentuh.
 
+### Testing per-peran — PREFLIGHT WAJIB (jangan lupa port)
+
+Port tiap peran terkunci. Jangan menebak, jangan buka baru — **preflight dulu**:
+
+| role | port | profil |
+|---|---|---|
+| customer | 9360 | profile-e2e-customer |
+| merchant | 9361 | profile-e2e-merchant |
+| courier | 9362 | profile-e2e-courier |
+| admin | 9363 | profile-e2e-admin |
+| superadmin | 9364 | profile-e2e-superadmin |
+
+Dicadangkan (JANGAN dipakai e2e): `9355` klon kerja user (image-gen) · `9359` klon `browser-gate`.
+
+Urutan wajib, berurutan:
+1. **Preflight dulu** — `node scripts/e2e-browsers.mjs preflight`. Cetak server + tiap jendela role & portnya; keluar !=0 kalau ada yang kurang → **berhenti**, jangan lanjut.
+2. Ada role MATI → buka **sekali, disengaja**: `npm run e2e -- --pwa` (dev: `npm run e2e`).
+3. Aksi **reuse-only**: `nav` / `eval` / `click` / `shot` (tak pernah membuka jendela/tab baru; jendela mati = perintah gagal, bukan spawn).
+4. Selesai → `npm run e2e -- --stop`.
+
+Jangan menggeser port tanpa memperbarui `.rules.json` (`roleTesting`) dan config terkait. Port & aturan mesin: `.rules.json` → `roleTesting`.
+
 **Gate hanya untuk yang tidak bisa dilihat dari sumber.** Ini daftar pembagiannya:
 
 | Hanya bisa dari browser | Sudah cukup dari berkas (`grep`/`read`/`npm run scan`) |

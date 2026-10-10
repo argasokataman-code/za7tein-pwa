@@ -49,6 +49,7 @@
       "baca AGENTS.md",
       "baca .githooks/pre-commit",
       "kalau tugas menyentuh UI/UX/mobile/website: muat skill senior-fe dulu (lihat designReview)",
+      "testing per-peran: preflight dulu — node scripts/e2e-browsers.mjs preflight (lihat roleTesting)",
       "atlas query topik sebelum usul perubahan"
     ]
   },
@@ -67,6 +68,8 @@
     "build": "npm run build",
     "lint": "npm run lint",
     "preview": "npm run preview",
+    "e2e": "npm run e2e -- --pwa",
+    "e2e:preflight": "node scripts/e2e-browsers.mjs preflight",
     "browser:gate": "node scripts/browser-gate.mjs",
     "flows:gate": "./scripts/flows-gate.sh",
     "scan": "node scripts/surface-scan.mjs",
@@ -137,6 +140,38 @@
       "cara": "Jalankan di foreground, tunggu selesai, baru jalankan yang berikutnya. Berhenti pakai pkill -f \"browser-gate.mjs\" kalau ada yang tersisa.",
       "jangan": "Jangan memindahkan tab klon role 9355-9358 — biarkan jendela masing-masing role di tempatnya."
     }
+  },
+  "roleTesting": {
+    "aturan": "Testing per-peran (customer/merchant/courier/admin/superadmin) WAJIB preflight dulu, lalu aksi lewat tool repo scripts/e2e-browsers.mjs — BUKAN MCP per-peran (entri brave-debug-<role> sudah dihapus). Tool ini reuse-only: saat aksi TIDAK PERNAH membuka jendela/tab baru.",
+    "port_per_role": {
+      "customer": 9360,
+      "merchant": 9361,
+      "courier": 9362,
+      "admin": 9363,
+      "superadmin": 9364
+    },
+    "port_dicadangkan": {
+      "9355": "klon kerja user (image-gen/ChatGPT) — JANGAN dipakai e2e",
+      "9359": "klon pengukuran browser-gate — JANGAN dipakai e2e"
+    },
+    "urutan": [
+      "1. PREFLIGHT (wajib, jangan dilewati): node scripts/e2e-browsers.mjs preflight — cetak server + tiap jendela role & portnya; keluar !=0 kalau ada yang kurang",
+      "2. kalau ada role MATI: npm run e2e -- --pwa (buka SEKALI, disengaja; dev: npm run e2e)",
+      "3. aksi reuse-only: nav/eval/click/shot (lihat perintah)",
+      "4. selesai: npm run e2e -- --stop"
+    ],
+    "perintah": {
+      "preflight": "node scripts/e2e-browsers.mjs preflight",
+      "status": "node scripts/e2e-browsers.mjs status",
+      "nav": "node scripts/e2e-browsers.mjs nav <role> <path>",
+      "eval": "node scripts/e2e-browsers.mjs eval <role> \"<expr>\"",
+      "click": "node scripts/e2e-browsers.mjs click <role> \"<selector>\"",
+      "shot": "node scripts/e2e-browsers.mjs shot <role> <out.png>",
+      "buka_sekali": "npm run e2e -- --pwa",
+      "tutup": "npm run e2e -- --stop"
+    },
+    "syarat": "Jendela role mati → aksi GAGAL dengan pesan (bukan spawn browser). Jalan `npm run e2e` sekali dulu; preflight menunjukkan mana yang kurang.",
+    "klik": "click = hit-test titik tengah + input nyata (Input.dispatchMouseEvent). Lapor `⚠ OVERLAY` kalau ketutup. DILARANG menilai klik dari el.click()/dispatchEvent."
   },
   "layout_invariants": {
     "shell_max": "430px (kolom aplikasi terkunci, mobile-first)",

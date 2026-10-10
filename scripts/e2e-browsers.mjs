@@ -35,6 +35,7 @@
  *   npm run e2e -- --pwa              # pakai hasil build (localhost:4173)
  *   npm run e2e -- --list             # cetak peta port terkunci, tanpa buka apa pun
  *   npm run e2e -- --stop             # matikan semua klon e2e
+ *   npm run e2e -- preflight          # WAJIB dulu: cek server + tiap jendela role & portnya
  *
  *   npm run e2e -- status             # jendela role hidup/tidak + URL
  *   npm run e2e -- nav customer /customer/home
@@ -75,7 +76,7 @@ const INSTANCES = ROLE_DEFS.map((def, i) => {
   }
 })
 
-const SUBCOMMANDS = ['status', 'nav', 'eval', 'click', 'shot']
+const SUBCOMMANDS = ['preflight', 'status', 'nav', 'eval', 'click', 'shot']
 
 const argv = process.argv.slice(2)
 const op = SUBCOMMANDS.includes(argv[0]) ? argv[0] : null
@@ -345,6 +346,63 @@ async function runStatus() {
   }
 }
 
+async function portAlive(port) {
+  try {
+    return (await fetch(`http://localhost:${port}/`)).ok
+  } catch {
+    return false
+  }
+}
+
+/** Server mana yang hidup? preview 4173 diutamakan, lalu dev 5173–5176. */
+async function detectServer() {
+  if (await portAlive(4173)) return { label: 'preview', base: 'http://localhost:4173' }
+  for (const port of DEV_PORTS) {
+    if (await portAlive(port)) return { label: 'dev', base: `http://localhost:${port}` }
+  }
+  return null
+}
+
+/**
+ * Preflight WAJIB sebelum testing per-peran: server hidup + tiap jendela role
+ * ada di portnya (app-mode). TIDAK membuka apa pun — hanya memeriksa. Keluar
+ * non-nol kalau ada yang kurang, supaya agent berhenti, bukan spawn browser.
+ */
+async function runPreflight() {
+  const server = await detectServer()
+  process.stdout.write('PREFLIGHT e2e — server + jendela per role (port terkunci)\n')
+  process.stdout.write(
+    `  server : ${server ? `${server.base} (${server.label})` : 'TIDAK ADA — jalankan `npm run dev` atau `npm run preview`'}\n`,
+  )
+  process.stdout.write(`  ${'role'.padEnd(11)}${'port'.padEnd(6)}${'jendela'.padEnd(17)}url\n`)
+  let ok = 0
+  for (const inst of INSTANCES) {
+    const tabs = await cdpList(inst.port)
+    if (!tabs) {
+      process.stdout.write(`  ${inst.role.padEnd(11)}${String(inst.port).padEnd(6)}MATI\n`)
+      continue
+    }
+    const app = await isAppMode(tabs)
+    const tab = await roleTab(inst)
+    const ready = app && tab
+    if (ready) ok += 1
+    process.stdout.write(
+      `  ${inst.role.padEnd(11)}${String(inst.port).padEnd(6)}${(app ? 'HIDUP app-mode' : 'bukan app-mode!').padEnd(17)}${tab ? tab.url : '— tak ada tab role'}\n`,
+    )
+  }
+  const total = INSTANCES.length
+  if (!server || ok < total) {
+    process.stdout.write(
+      `\nHASIL: ${ok}/${total} jendela siap, server ${server ? 'ada' : 'mati'}.\n` +
+        `Perbaiki: \`npm run e2e${server?.label === 'preview' ? ' -- --pwa' : ''}\` SEKALI (buka jendela; tool aksi tidak membuka sendiri).\n`,
+    )
+    process.exit(2)
+  }
+  process.stdout.write(
+    `\nHASIL: ${ok}/${total} jendela siap, server ${server.label} ${server.base}. Lanjut aksi reuse-only.\n`,
+  )
+}
+
 async function runNav() {
   const [role, target] = opArgs
   const inst = byRole(role)
@@ -435,6 +493,7 @@ async function main() {
     process.stdout.write('Semua klon e2e dimatikan.\n')
     return
   }
+  if (op === 'preflight') return runPreflight()
   if (op === 'status') return runStatus()
   if (op === 'nav') return runNav()
   if (op === 'eval') return runEval()
