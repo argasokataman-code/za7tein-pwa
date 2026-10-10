@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react'
 import { Clock, Star } from 'lucide-react'
 
 import { formatRating } from '../../data/foods'
+import { swapBrokenImage } from '../../data/storefronts'
 import type { Storefront } from '../../types'
 
 interface MerchantCardProps {
@@ -34,6 +35,7 @@ export function MerchantCard({ store, onOpen, className = '', style }: MerchantC
           width={64}
           height={64}
           src={store.logo}
+          onError={swapBrokenImage}
         />
       </span>
 

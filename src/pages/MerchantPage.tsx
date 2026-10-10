@@ -7,7 +7,7 @@ import { HomePromoCarousel } from '../components/customer/HomePromoCarousel'
 import { FoodCard } from '../components/ui/FoodCard'
 import { useCatalog } from '../hooks/useCatalog'
 import { dealsFrom, itemsByMerchant } from '../data/catalog'
-import { getStorefront } from '../data/storefronts'
+import { getStorefront, swapBrokenImage } from '../data/storefronts'
 import { useMenuItems, useStorefront } from '../hooks/useApiCatalog'
 import { formatRating } from '../data/foods'
 
@@ -45,7 +45,7 @@ export default function MerchantPage() {
     <div className="app-shell">
       <div className="store-screen">
         <div className="store-hero">
-          <img className="store-hero__cover" alt="" src={store.cover} />
+          <img className="store-hero__cover" alt="" src={store.cover} onError={swapBrokenImage} />
           <div className="store-hero__scrim" aria-hidden="true" />
           <div className="store-hero__topbar">
             <button
@@ -62,7 +62,7 @@ export default function MerchantPage() {
           </div>
           <div className="store-hero__id">
             <span className="store-hero__logo">
-              <img alt="" width={56} height={56} src={store.logo} />
+              <img alt="" width={56} height={56} src={store.logo} onError={swapBrokenImage} />
             </span>
             <div className="store-hero__text">
               <h1 className="store-hero__name">{store.name}</h1>

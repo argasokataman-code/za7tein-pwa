@@ -8,6 +8,7 @@
  */
 import { jodToIdr } from '../data/currency'
 import { estimateDeliveryTime, formatDistance, haversineMeters } from '../data/merchant'
+import { IMAGE_FALLBACK } from '../data/storefronts'
 import type { MenuItem, ModifierGroup, Storefront } from '../types'
 import { rest } from './supabase'
 
@@ -16,9 +17,6 @@ export interface Origin {
   lat: number
   lng: number
 }
-
-/** Foto pengganti bila backend belum punya gambar (tanpa URL eksternal). */
-const FALLBACK_IMAGE = '/assets/img/menu/nasi-goreng.webp'
 
 /** 'HH:MM:SS' dari backend → 'HH:MM' untuk tampilan. */
 function hhmm(value: string | null): string {
@@ -70,8 +68,8 @@ function toStorefront(row: MerchantRow, origin?: Origin): Storefront {
     id: String(row.id),
     name: row.store_name,
     tagline: row.description ?? '',
-    logo: row.photo ?? FALLBACK_IMAGE,
-    cover: row.photo ?? FALLBACK_IMAGE,
+    logo: row.photo ?? IMAGE_FALLBACK,
+    cover: row.photo ?? IMAGE_FALLBACK,
     // Rating & jam buka tersedia langsung di `merchants` — tak perlu agregasi
     // rating_reviews. Jarak/waktu dihitung lokal; kosong bila asal tak diketahui
     // (kartu menyembunyikan bagian itu, bukan menampilkan `—` menggantung).
@@ -109,7 +107,7 @@ function toMenuItem(row: MenuRow, variants: VariantRow[]): MenuItem {
     deliveryTime: '',
     distance: '',
     category: row.category ?? '',
-    image: row.image ?? FALLBACK_IMAGE,
+    image: row.image ?? IMAGE_FALLBACK,
     description: row.description ?? '',
     merchantId: String(row.merchant_id),
     // `stock` null = tak dilacak; pakai nilai layak jual supaya tombol tambah hidup.

@@ -60,3 +60,18 @@ export const storefronts: Storefront[] = [
 export function getStorefront(id: string): Storefront | undefined {
   return storefronts.find((store) => store.id === id)
 }
+
+/**
+ * Foto pengganti bila backend menunjuk gambar yang tidak ada — mis. path
+ * `/assets/img/merchant/*.svg` yang tak pernah dikirim ke repo ini. Dipakai
+ * saat `photo` null (catalog.ts) maupun saat gambar gagal dimuat (`onError`).
+ */
+export const IMAGE_FALLBACK = '/assets/img/menu/nasi-goreng.webp'
+
+/** Handler `onError` `<img>`: ganti ke foto pengganti sekali, cegah loop. */
+export function swapBrokenImage(e: { currentTarget: HTMLImageElement }): void {
+  const img = e.currentTarget
+  img.onerror = null
+  if (img.getAttribute('src') === IMAGE_FALLBACK) return
+  img.src = IMAGE_FALLBACK
+}
