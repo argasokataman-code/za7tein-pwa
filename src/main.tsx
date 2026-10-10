@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import toast from 'react-hot-toast'
 
 import App from './App'
 import './styles/index.scss'
@@ -22,15 +23,34 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   })
 
   const hadController = navigator.serviceWorker.controller !== null
-  let reloading = false
+  let prompted = false
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     // Tanpa penjaga ini kunjungan pertama ikut memuat ulang (worker pertama
     // langsung `clientsClaim`) dan pengguna melihat halaman berkedip.
-    // ponytail: reload tanpa tanya; kalau nanti ada form panjang yang harus
-    // selamat, ganti jadi toast "versi baru siap" + tombol muat ulang.
-    if (!hadController || reloading) return
-    reloading = true
-    window.location.reload()
+    if (!hadController || prompted) return
+    prompted = true
+    // Versi baru sudah mengambil alih (`skipWaiting` + `clientsClaim`), tapi
+    // jangan reload diam-diam: beri tahu pengguna + tombol supaya isian form
+    // yang sedang diketik tidak hilang. Update PWA sendiri sudah di-cache
+    // service worker — tidak perlu unduh ulang aplikasi.
+    toast.custom(
+      (t) => (
+        <div className="update-toast" role="status">
+          <span className="update-toast__text">Versi baru siap.</span>
+          <button
+            type="button"
+            className="update-toast__action"
+            onClick={() => {
+              toast.dismiss(t.id)
+              window.location.reload()
+            }}
+          >
+            Muat ulang
+          </button>
+        </div>
+      ),
+      { id: 'app-update', duration: Infinity },
+    )
   })
 
   const checkForUpdate = () => {

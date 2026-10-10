@@ -1,0 +1,35 @@
+/* ── Toast "versi baru siap" ────────────────────────────────────────────────
+   Muncul saat service worker baru mengambil alih (update PWA terpasang).
+   Non-blocking: pengguna memutuskan kapan memuat ulang, jadi isian form yang
+   sedang diketik tidak hilang. Dirender lewat `toast.custom`, sehingga gaya
+   bawaan react-hot-toast (`toastOptions`) tidak diwarisi — kartunya berdiri
+   sendiri di sini. */
+
+.update-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-md);
+  font-size: var(--text-sm);
+}
+
+.update-toast__text {
+  flex: 1;
+}
+
+.update-toast__action {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}

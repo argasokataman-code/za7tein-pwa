@@ -68,6 +68,10 @@
 // tracking, post-order, checkout — supaya menang pada kekhususan yang sama.
 @use "./system/topbar";
 
+// Toast update PWA (`.update-toast`). Sebelum `interaction` supaya umpan balik
+// tekan tombol aksinya ikut aturan interaksi umum.
+@use "./system/update-toast";
+
 // Setelah top bar: primitif interaksi (umpan balik tekan, transisi halaman,
 // gerak masuk berurutan, reduced motion). Terakhir supaya `:active` di sini
 // tidak diratakan oleh aturan tekan warisan yang lebih awal.
