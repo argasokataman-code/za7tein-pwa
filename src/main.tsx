@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import toast from 'react-hot-toast'
 
 import App from './App'
+import { promptAppUpdate } from './lib/appUpdate'
 import './styles/index.scss'
 
 // Build sebelumnya mendaftarkan service worker berskala /app/. Sekarang worker
@@ -33,24 +33,7 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
     // jangan reload diam-diam: beri tahu pengguna + tombol supaya isian form
     // yang sedang diketik tidak hilang. Update PWA sendiri sudah di-cache
     // service worker — tidak perlu unduh ulang aplikasi.
-    toast.custom(
-      (t) => (
-        <div className="update-toast" role="status">
-          <span className="update-toast__text">Versi baru siap.</span>
-          <button
-            type="button"
-            className="update-toast__action"
-            onClick={() => {
-              toast.dismiss(t.id)
-              window.location.reload()
-            }}
-          >
-            Muat ulang
-          </button>
-        </div>
-      ),
-      { id: 'app-update', duration: Infinity },
-    )
+    promptAppUpdate()
   })
 
   const checkForUpdate = () => {

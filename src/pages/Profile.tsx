@@ -1,4 +1,4 @@
-import { ArrowRight, Bell, CircleHelp, CreditCard, FileText, Globe, LockKeyhole, MapPin, Shield, UserRound, Wallet } from 'lucide-react'
+import { ArrowRight, Bell, CircleHelp, CreditCard, FileText, Globe, LockKeyhole, MapPin, RefreshCw, Shield, UserRound, Wallet } from 'lucide-react'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useState } from 'react'
@@ -10,6 +10,7 @@ import { money } from '../data/currency'
 import { logout } from '../store/slices/authSlice'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useAppUpdate } from '../hooks/useAppUpdate'
 
 import toast from 'react-hot-toast'
 
@@ -20,6 +21,7 @@ export default function Profile() {
   const user = useAppSelector((s) => s.auth.user)
   const unread = useAppSelector((s) => selectUnreadCount(s.notifications.items))
   const [showLogout, setShowLogout] = useState(false)
+  const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
 
   // Identitas live dari sesi (`auth.user`, diisi dari tabel `users`). Nama
   // kosong (BE belum punya kolomnya) → tampilkan email sebagai identitas.
@@ -196,6 +198,19 @@ export default function Profile() {
                       <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
                     </div>
                   </Link>
+                  <button type="button" className="item-list" aria-label="Cek pembaruan" onClick={checkForUpdate} disabled={checkingUpdate}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div style={{ width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)' }}>
+                        <RefreshCw size={20} strokeWidth={1.75} />
+                      </div>
+                      <span className="edit-profile">
+                        {checkingUpdate ? 'Memeriksa…' : 'Cek pembaruan'}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <ArrowRight size={20} strokeWidth={1.75} className="arrow-right" />
+                    </div>
+                  </button>
                 </div>
               </section>
               <InstallAppCard />

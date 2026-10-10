@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, Store, Trash2, Wallet } from 'lucide-react'
+import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, RefreshCw, Store, Trash2, Wallet } from 'lucide-react'
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -11,6 +11,7 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useAppUpdate } from '../hooks/useAppUpdate'
 import { money } from '../data/currency'
 import { mockMerchant } from '../data/merchant'
 import { imageFileError } from '../lib/image'
@@ -27,6 +28,7 @@ const TIER_LABEL: Record<string, string> = { free: 'Gratis', pro: 'Pro' }
 export default function MerchantSettings() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
   const [coords, setCoords] = useState({ lat: mockMerchant.lat, lng: mockMerchant.lng })
   const [signOutOpen, setSignOutOpen] = useState(false)
   const [removePhotoOpen, setRemovePhotoOpen] = useState(false)
@@ -297,6 +299,24 @@ export default function MerchantSettings() {
           <Link className="merchant-btn-ghost merchant-wallet-manage" to="/payout-accounts">
             Kelola rekening
           </Link>
+        </section>
+
+        <section className="merchant-card">
+          <div className="merchant-row">
+            <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
+            <div>
+              <p className="merchant-card-title">Cek pembaruan</p>
+              <p className="merchant-card-sub">Pastikan aplikasi memakai versi terbaru</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            className="merchant-btn-ghost merchant-wallet-manage"
+            onClick={checkForUpdate}
+            disabled={checkingUpdate}
+          >
+            {checkingUpdate ? 'Memeriksa…' : 'Periksa sekarang'}
+          </button>
         </section>
 
         <InstallAppCard />

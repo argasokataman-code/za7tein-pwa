@@ -1,4 +1,4 @@
-import { Bike, Landmark, Store, UserRound } from 'lucide-react'
+import { Bike, Landmark, RefreshCw, Store, UserRound } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -7,6 +7,7 @@ import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useAppUpdate } from '../hooks/useAppUpdate'
 import { money, mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
 import { courierTipsAvailable } from '../data/courierWallet'
@@ -16,6 +17,7 @@ import { logout } from '../store/slices/authSlice'
 export default function CourierProfile() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
   const isOnline = useAppSelector((s) => s.courier.isOnline)
   const tasks = useAppSelector((s) => s.courier.tasks)
   const payouts = useAppSelector((s) => s.courier.payouts)
@@ -104,6 +106,19 @@ export default function CourierProfile() {
           </p>
         </section>
 
+        <section className="courier-card">
+          <div className="courier-row">
+            <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
+            <div>
+              <p className="courier-card-title">Cek pembaruan</p>
+              <p className="courier-card-sub">Pastikan aplikasi memakai versi terbaru</p>
+            </div>
+          </div>
+          <button type="button" className="courier-toggle" onClick={checkForUpdate} disabled={checkingUpdate}>
+            {checkingUpdate ? 'Memeriksa…' : 'Periksa sekarang'}
+          </button>
+        </section>
+
         <InstallAppCard />
 
         <div className="courier-logout">
@@ -111,12 +126,6 @@ export default function CourierProfile() {
             Keluar
           </button>
         </div>
-
-        <p className="courier-note">
-          Kurir masuk dengan nomor WA (E.164), dasar flow f21-account-auth + f16: kurir karyawan
-          merchant yang direkrut setelah toko aktif (C-06). Sesi masih mock, repo ini front-end
-          saja (AGENTS.md §1).
-        </p>
 
         <ConfirmSheet
           open={showLogout}

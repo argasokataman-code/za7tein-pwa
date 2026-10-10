@@ -1,0 +1,21 @@
+/* ── Baris "Cek pembaruan" ──────────────────────────────────────────────────
+   Tombol aksi yang meniru baris setelan native tiap peran (customer
+   `.item-list`, admin `.admin-link`, super admin `.sa-side-link`). Kelas peran
+   memberi tata letak dan warna; partial ini hanya mereset gaya bawaan
+   `<button>` supaya elemen tetap terbaca sebagai baris, bukan tombol peramban
+   kotak abu. */
+
+button.item-list {
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.admin-link,
+button.sa-side-link {
+  background: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}

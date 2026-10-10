@@ -24,6 +24,7 @@ import {
   saPermissions,
 } from '../../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
+import { useAppUpdate } from '../../hooks/useAppUpdate'
 import { setActiveOperator } from '../../store/slices/superAdminSlice'
 
 /**
@@ -62,6 +63,7 @@ interface SuperAdminShellProps {
 
 export function SuperAdminShell({ children }: SuperAdminShellProps) {
   const dispatch = useAppDispatch()
+  const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
   const { pathname } = useLocation()
   const operators = useAppSelector((s) => s.superAdmin.operators)
   const roles = useAppSelector((s) => s.superAdmin.roles)
@@ -156,6 +158,9 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
           <Link className="sa-side-link" to="/documentation">
             Dokumentasi
           </Link>
+          <button type="button" className="sa-side-link" onClick={checkForUpdate} disabled={checkingUpdate}>
+            {checkingUpdate ? 'Memeriksa…' : 'Cek pembaruan'}
+          </button>
         </div>
       </aside>
 

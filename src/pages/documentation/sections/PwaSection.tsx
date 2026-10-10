@@ -171,11 +171,22 @@ export function PwaSection() {
         ulang <code>sw.js</code> mengikuti cache HTTP, dan Chrome menahannya
         sampai 24 jam. <code>src/main.tsx</code> karena itu memaksa{' '}
         <code>registration.update()</code> saat aplikasi dibuka dan tiap kali
-        kembali ke depan, lalu memuat ulang halaman sekali ketika worker baru
-        mengambil alih (<code>controllerchange</code>). Hasilnya deploy baru
-        terpakai di aplikasi terinstal tanpa reinstall dan tanpa tutup-buka
-        manual. Yang tetap butuh reinstall hanya metadata manifest (mode{' '}
-        <code>display</code>, ikon, nama), karena dibaca saat pemasangan.
+        kembali ke depan, lalu menampilkan toast "Versi baru siap" dengan
+        tombol muat ulang ketika worker baru mengambil alih (
+        <code>controllerchange</code>). Bukan reload diam-diam: pengguna yang
+        sedang mengisi form tidak kehilangan isiannya. Yang tetap butuh
+        reinstall hanya metadata manifest (mode <code>display</code>, ikon,
+        nama), karena dibaca saat pemasangan.
+      </p>
+      <p className="doc-p">
+        Pemeriksaan yang sama bisa dipicu manual lewat baris <b>Cek pembaruan</b>{' '}
+        di halaman setelan atau profil tiap peran (customer, merchant, kurir,
+        panel CS, dan sidebar Super Admin). Logikanya tinggal di{' '}
+        <code>src/lib/appUpdate.tsx</code> dan hook{' '}
+        <code>src/hooks/useAppUpdate.ts</code>, jadi tiap peran hanya
+        menyisipkan satu baris dengan gaya native-nya sendiri. Kalau sudah versi
+        terbaru muncul toast "Kamu memakai versi terbaru"; kalau ada versi baru,
+        toast "Versi baru siap" yang sama seperti di atas.
       </p>
       <DocCode lang="typescript">{`// vite.config.ts — ringkasan VitePWA
 VitePWA({

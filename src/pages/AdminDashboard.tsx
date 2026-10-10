@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowDownLeft, ArrowUpRight, Lock, Scale, ShieldCheck, Signal, Store } from 'lucide-react'
+import { AlertTriangle, ArrowDownLeft, ArrowUpRight, Lock, RefreshCw, Scale, ShieldCheck, Signal, Store } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
@@ -10,6 +10,7 @@ import { DonutChart } from '../components/ui/DonutChart'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useAppUpdate } from '../hooks/useAppUpdate'
 import { aggregateLiability, liabilityGap, ledgerTypeLabel, money, moneyFromJod, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
 import { disputeExposure, ledgerFlow, ledgerTypeBars, liabilitySegments } from '../data/dashboard'
 import { jod } from '../data/currency'
@@ -31,6 +32,7 @@ import type { AdminEscalation } from '../types'
  */
 export default function AdminDashboard() {
   const dispatch = useAppDispatch()
+  const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
   const storedLiability = useAppSelector((s) => s.admin.liability)
   const walletIdr = useAppSelector((s) => s.wallet.balance.balance)
   const escalations = useAppSelector((s) => s.admin.escalations)
@@ -296,6 +298,19 @@ export default function AdminDashboard() {
               </p>
             </div>
           </div>
+        </section>
+
+        <section className="admin-card">
+          <div className="admin-row">
+            <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
+            <div>
+              <p className="admin-card-title">Cek pembaruan</p>
+              <p className="admin-card-sub">Pastikan aplikasi memakai versi terbaru</p>
+            </div>
+          </div>
+          <button type="button" className="admin-link" onClick={checkForUpdate} disabled={checkingUpdate}>
+            {checkingUpdate ? 'Memeriksa…' : 'Periksa sekarang'}
+          </button>
         </section>
 
         <InstallAppCard />

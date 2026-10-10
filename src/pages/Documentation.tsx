@@ -152,7 +152,7 @@ export default function Documentation() {
           </div>
           <div className="doc-sidebar-version">
             <span className="doc-version-badge">
-              v3.2.0
+              v3.4.0
             </span>
             <span>
               React 19 · Vite · TypeScript
@@ -303,6 +303,20 @@ export default function Documentation() {
               filter kategori halaman, serta memberi sheet perilaku modal sungguhan: back platform
               menutup sheet (entri history), fokus terkurung di dalam dialog, dan handle palsu yang
               tak pernah terender dihapus.
+              Audit mobile role kurir (014) merapikan seluruh konsol{' '}
+              <code className="doc-inline">/courier</code>: grid pintasan beranda kini dua kolom
+              sama lebar (<code className="doc-inline">repeat(2, minmax(0, 1fr))</code>, sebelumnya
+              terukur 256/158px karena sub <code className="doc-inline">nowrap</code> menggemukkan
+              min-content), judul kartu dan section naik ke 16px/600 supaya hierarki terbaca,
+              input nominal penarikan menerima keyboard numerik{' '}
+              (<code className="doc-inline">inputMode="numeric"</code>) dan punya cincin fokus lagi
+              lewat <code className="doc-inline">:focus-within</code>, tinggi tombol palsu pada
+              baris ringkasan dibuang, dan catatan proses internal (kode PRD/OQ, SLA sementara,
+              banner mock) tidak lagi tampil di layar kurir, pindah ke dokumen ini.
+              Kartu performa &ldquo;Tips 7 hari terakhir&rdquo; di beranda kurir kini bidang navy
+              (<code className="doc-inline">--navy</code>/<code className="doc-inline">--on-navy</code>,
+              pola sama dengan kartu insentif merchant) dengan elevasi navy supaya terbaca
+              mengambang, dan grafiknya ikut putih agar tidak tenggelam di atas navy.
               Rinciannya di bagian Changelog.
             </p>
             <div className="doc-cta-grid">
