@@ -53,6 +53,148 @@
   color: var(--text-secondary);
 }
 
+/* Pemilih kurir (F12 :assign). Kartu radio, bukan baris menu polos: nama +
+   status terbaca sekali lihat, pilihan terpilih ditandai border oranye + avatar
+   kontras. Wajib pilih satu sebelum pesanan diserahkan. */
+.merchant-assign-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.merchant-assign-req {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--orange-ink);
+}
+
+.courier-pick {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.courier-pick__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--ease-out),
+    background var(--motion-fast) var(--ease-out);
+}
+
+.courier-pick__item.is-selected {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+}
+
+.courier-pick__avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.courier-pick__item.is-selected .courier-pick__avatar {
+  background: var(--surface);
+}
+
+.courier-pick__dot {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--orange-soft);
+}
+
+.courier-pick__dot--success {
+  background: var(--success);
+}
+
+.courier-pick__dot--info {
+  background: var(--info);
+}
+
+.courier-pick__dot--muted {
+  background: var(--text-disabled);
+}
+
+.courier-pick__item.is-selected .courier-pick__dot {
+  border-color: var(--surface);
+}
+
+.courier-pick__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.courier-pick__name {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.courier-pick__meta {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.courier-pick__meta--success {
+  color: var(--success-ink);
+}
+
+.courier-pick__meta--info {
+  color: var(--info-ink);
+}
+
+.courier-pick__check {
+  display: inline-flex;
+  margin-left: auto;
+  color: var(--text-disabled);
+}
+
+.courier-pick__item.is-selected .courier-pick__check {
+  color: var(--orange-ink);
+}
+
+.courier-pick__hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.courier-pick__empty {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
 /* ── Baris antrean ───────────────────────────────────────────────────────────
    Antrean = daftar yang dipindai cepat, jadi tiap order satu baris (bukan satu
    kartu tinggi berisi semua). Detail lengkap dibuka lewat sheet. */

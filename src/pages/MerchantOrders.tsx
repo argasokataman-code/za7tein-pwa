@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Check, ChevronRight, Star } from 'lucide-react'
+import { Check, ChevronRight, Circle, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -346,16 +346,33 @@ export default function MerchantOrders() {
                 </div>
 
                 <div className="merchant-assign">
-                  <span className="merchant-assign-label">Kurir</span>
-                  <div className="sheet-menu">
+                  <div className="merchant-assign-head">
+                    <span className="merchant-assign-label">Kurir</span>
+                    <span className="merchant-assign-req">Wajib pilih satu</span>
+                  </div>
+                  <div className="courier-pick" aria-label="Pilih kurir">
+                    {couriers.length === 0 ? (
+                      <p className="courier-pick__empty">Belum ada kurir tersedia.</p>
+                    ) : null}
                     {couriers.map((item) => {
                       const selected = detailOrder.courierId === item.id
+                      const initials = item.name
+                        .split(' ')
+                        .map((word) => word[0])
+                        .slice(0, 2)
+                        .join('')
+                      const tone =
+                        item.status === 'at_store'
+                          ? 'success'
+                          : item.status === 'delivering'
+                            ? 'info'
+                            : 'muted'
                       return (
                         <button
                           key={item.id}
                           type="button"
-                          className={`sheet-menu__item${selected ? ' is-selected' : ''}`}
-                          aria-current={selected}
+                          aria-pressed={selected}
+                          className={`courier-pick__item${selected ? ' is-selected' : ''}`}
                           onClick={() => {
                             dispatch(assignCourier({ orderId: detailOrder.id, courierId: item.id }))
                             void assignOrderCourier(detailOrder.id, item.id).catch(() => {})
@@ -367,15 +384,33 @@ export default function MerchantOrders() {
                             }).catch(() => {})
                           }}
                         >
-                          <span>{item.name}</span>
-                          <span className="sheet-menu__note">
-                            {COURIER_STATUS_LABEL[item.status] ?? item.status}
+                          <span className="courier-pick__avatar" aria-hidden="true">
+                            {initials}
+                            <span className={`courier-pick__dot courier-pick__dot--${tone}`} />
                           </span>
-                          {selected ? <Check size={18} strokeWidth={1.75} aria-hidden="true" /> : null}
+                          <span className="courier-pick__body">
+                            <span className="courier-pick__name">{item.name}</span>
+                            <span className={`courier-pick__meta courier-pick__meta--${tone}`}>
+                              {COURIER_STATUS_LABEL[item.status] ?? item.status}
+                              {item.activeOrderCount ? ` · ${item.activeOrderCount} tugas aktif` : ''}
+                            </span>
+                          </span>
+                          <span className="courier-pick__check" aria-hidden="true">
+                            {selected ? (
+                              <Check size={18} strokeWidth={1.75} />
+                            ) : (
+                              <Circle size={18} strokeWidth={1.75} />
+                            )}
+                          </span>
                         </button>
                       )
                     })}
                   </div>
+                  {!detailOrder.courierId ? (
+                    <p className="courier-pick__hint">
+                      Pilih satu kurir sebelum pesanan diserahkan.
+                    </p>
+                  ) : null}
                 </div>
 
                 <p className="merchant-card-sub">
@@ -385,22 +420,17 @@ export default function MerchantOrders() {
                 </p>
 
                 {detailOrder.status === 'siap' ? (
-                  <>
-                    {!detailOrder.courierId ? (
-                      <p className="merchant-card-sub">Pilih kurir dulu sebelum serahkan pesanan.</p>
-                    ) : null}
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      disabled={!detailOrder.courierId}
-                      onClick={() => {
-                        setDetailId(null)
-                        setDispatchId(detailOrder.id)
-                      }}
-                    >
-                      Siap diantar
-                    </button>
-                  </>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    disabled={!detailOrder.courierId}
+                    onClick={() => {
+                      setDetailId(null)
+                      setDispatchId(detailOrder.id)
+                    }}
+                  >
+                    Siap diantar
+                  </button>
                 ) : (
                   <button
                     type="button"

@@ -201,7 +201,9 @@ export default function Documentation() {
               transisi order (checkout, terima/tolak/siap/serahkan/batal, checkpoint kurir, OTP)
               mengemit notifikasi ke peran terkait, dan klik baris menulis balik
               notifications.read (kind tak dikenal jatuh ke system; mock tetap jadi fallback),
-              penugasan kurir ditulis ke orders.courier_id; tiap transisi status order kini
+              penugasan kurir ditulis ke orders.courier_id (pemilih kurir di antrean merchant
+              berbentuk kartu terpilih: monogram + status live, dan wajib dipilih sebelum pesanan
+              diserahkan); tiap transisi status order kini
               ditulis balik ke orders.status (cart/prepare/waitingCourier/delivery/done) dan
               checkpoint kurir ke tabel checkpoints (picked_up/arrived/otp_verified); kotak masuk
               dan antrean diperbarui otomatis lewat WebSocket Supabase Realtime (kanal orders,

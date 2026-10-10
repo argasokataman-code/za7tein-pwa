@@ -81,7 +81,9 @@ export const foodApi = baseApi.injectEndpoints({
           <code className="doc-inline">otpOf</code>, same source on the customer and courier sides).
           <strong>Assigned courier is required</strong> before the merchant can dispatch (
           <code className="doc-inline">waitingCourier → delivery</code>): the button is disabled until
-          a courier is chosen.
+          a courier is chosen. The picker lists each courier as a selectable card (monogram, live
+          status dot, active-task count); the chosen one is marked and a hint stays until a courier
+          is picked.
         </li>
       </ul>
       <h3 className="doc-h3">
