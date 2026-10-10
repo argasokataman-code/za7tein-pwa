@@ -265,7 +265,9 @@ export default function Documentation() {
               (011) menemukan kartunya berbaris lalu terpotong karena tabrakan kelas
               <code className="doc-inline">.merchant-card</code>; kini kartu menumpuk dan teks utuh.
               Kartu &ldquo;Pendapatan&rdquo; juga menjadi bidang oranye merek supaya setingkat
-              dengan hero, bukan kartu putih keempat. Rinciannya di bagian Changelog.
+              dengan hero, bukan kartu putih keempat. Kartu &ldquo;Modal &amp; insentif&rdquo; menyusul
+              (kartu uang kedua) dan aksinya jadi baris tap mobile dengan chevron. Rinciannya di
+              bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (

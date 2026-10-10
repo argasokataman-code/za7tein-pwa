@@ -239,7 +239,7 @@ export default function MerchantDashboard() {
         {/* Ringkasan insentif (M10, F9). Rincian, riwayat, dan aksi simulasi
             tinggal di /merchant/insentif — beranda dapur tidak boleh jadi
             tempat membaca 500px insentif. */}
-        <section className="merchant-card">
+        <section className="merchant-card merchant-card--brand">
           <div className="merchant-row">
             <Sparkles size={20} strokeWidth={1.75} />
             <div>
@@ -265,8 +265,9 @@ export default function MerchantDashboard() {
                 : `Tier ${credit.rebateTier.replace('tier_', '')} tercapai — cashback ${money(jodToIdr(credit.rebateAmountJod))} menunggu dibayar platform akhir bulan.`
               : 'Belum ada ambang tier yang terlewati periode ini.'}
           </p>
-          <Link className="merchant-btn-ghost" to="/insentif">
-            Lihat rincian &amp; riwayat
+          <Link className="merchant-action-row" to="/insentif">
+            <span>Lihat rincian &amp; riwayat</span>
+            <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
           </Link>
         </section>
 
