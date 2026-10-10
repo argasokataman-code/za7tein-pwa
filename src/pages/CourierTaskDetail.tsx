@@ -18,6 +18,15 @@ import {
 } from '../data/courier'
 import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/courierSlice'
 import { insertNotification } from '../api/notifications'
+import { recordCheckpoint, updateOrderStatus } from '../api/orders'
+import type { MerchantOrderStatus } from '../types'
+
+/** Checkpoint kurir yang baru dimasuki → status order BE. */
+const NEXT_STATUS: Record<string, MerchantOrderStatus> = {
+  ambil: 'siap',
+  berangkat: 'diantar',
+  tiba: 'tiba',
+}
 
 export default function CourierTaskDetail() {
   const { id } = useParams()
@@ -61,6 +70,8 @@ export default function CourierTaskDetail() {
     }
     dispatch(completeTask({ id: task.id }))
     toast.success('Pesanan selesai — hold settled')
+    void recordCheckpoint(task.id, 'selesai').catch(() => {})
+    void updateOrderStatus(task.id, 'selesai').catch(() => {})
     void insertNotification({
       audience: 'customer',
       kind: 'order',
@@ -75,6 +86,11 @@ export default function CourierTaskDetail() {
     if (!task) return
     const next = nextCheckpoint(task.checkpoint)
     dispatch(advanceCheckpoint({ id: task.id }))
+    if (next) {
+      void recordCheckpoint(task.id, next).catch(() => {})
+      const status = NEXT_STATUS[next]
+      if (status) void updateOrderStatus(task.id, status).catch(() => {})
+    }
     const STAGE_NOTIF: Record<string, { title: string; body: string }> = {
       ambil: { title: 'Kurir sedang mengambil pesanan', body: 'Kurir akan segera berangkat.' },
       berangkat: { title: 'Kurir menuju lokasimu', body: 'Kurir sedang dalam perjalanan.' },
@@ -202,6 +218,7 @@ export default function CourierTaskDetail() {
                       disabled={!canCancel}
                       onClick={() => {
                         dispatch(cancelTask({ id: task.id }))
+                        void updateOrderStatus(task.id, 'batal').catch(() => {})
                         void insertNotification({
                           audience: "customer",
                           kind: "order",

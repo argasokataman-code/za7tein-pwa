@@ -10,8 +10,15 @@
  * dipatok. Saat auth nyata masuk, ketiganya berasal dari sesi.
  */
 import { idrToJod, jodToIdr } from '../data/currency'
-import type { MerchantOrder, MerchantOrderStatus, PaymentMethod, ZoneId } from '../types'
-import { create, patchRow, rest, signIn } from './supabase'
+import type {
+  CourierTask,
+  MerchantOrder,
+  MerchantOrderStatus,
+  OrderStage,
+  PaymentMethod,
+  ZoneId,
+} from '../types'
+import { createWith, patch, restWith, signInToken } from './supabase'
 
 const DEMO_CUSTOMER_ID = 1
 const DEMO_MERCHANT_ID = 1
@@ -26,6 +33,12 @@ const DEMO_CUSTOMER_EMAIL =
   (import.meta.env.VITE_DEMO_CUSTOMER_EMAIL as string | undefined) || 'customer@sa7tein.app'
 const DEMO_CUSTOMER_PASSWORD =
   (import.meta.env.VITE_DEMO_CUSTOMER_PASSWORD as string | undefined) || 'demo1234'
+/** Akun demo kurir (Budi, `couriers.id = 1`, `user_id = 3`). */
+const DEMO_COURIER_EMAIL =
+  (import.meta.env.VITE_DEMO_COURIER_EMAIL as string | undefined) || 'courier@sa7tein.app'
+const DEMO_COURIER_PASSWORD =
+  (import.meta.env.VITE_DEMO_COURIER_PASSWORD as string | undefined) || 'demo1234'
+const DEMO_COURIER_ID = Number(import.meta.env.VITE_DEMO_COURIER_ID ?? 1)
 
 interface OrderRow {
   id: number
@@ -73,8 +86,8 @@ export function nextOrderCode(): string {
 
 /** Tulis order baru. Detail item tidak dikirim: `order_items` belum dipetakan. */
 export async function createOrder(order: NewOrder): Promise<void> {
-  await ensureCustomerSession()
-  await create('orders', {
+  const token = await ensureCustomerToken()
+  await createWith(token, 'orders', {
     code: order.code,
     customer_id: DEMO_CUSTOMER_ID,
     merchant_id: DEMO_MERCHANT_ID,
@@ -87,6 +100,12 @@ export async function createOrder(order: NewOrder): Promise<void> {
   })
 }
 
+/** `api-<n>` / `<n>` → id numerik; seed non-numerik → NaN. */
+function numericOrderId(orderId: string): number {
+  const raw = String(orderId)
+  return Number(/^api-(\d+)$/.exec(raw)?.[1] ?? (/^\d+$/.test(raw) ? raw : NaN))
+}
+
 /**
  * Persist penugasan kurir ke `orders.courier_id` (best-effort).
  *
@@ -96,13 +115,62 @@ export async function createOrder(order: NewOrder): Promise<void> {
  * id kurir palsu ke baris order live.
  */
 export async function assignOrderCourier(orderId: string, courierId: string): Promise<void> {
-  const oidRaw = String(orderId)
-  const oid = Number(/^api-(\d+)$/.exec(oidRaw)?.[1] ?? (/^\d+$/.test(oidRaw) ? oidRaw : NaN))
+  const oid = numericOrderId(orderId)
   const cidRaw = String(courierId)
   const cid = /^\d+$/.test(cidRaw) ? Number(cidRaw) : NaN
   if (!Number.isFinite(oid) || !Number.isFinite(cid)) return
-  await ensureMerchantSession()
-  await patchRow('orders', `?id=eq.${oid}`, { courier_id: cid })
+  const token = await ensureMerchantToken()
+  await patch(token, 'orders', `?id=eq.${oid}`, { courier_id: cid })
+}
+
+/**
+ * Status app → nilai `orders_status_check` backend. Backend tak punya
+ * `diterima`/`tiba` (OST-1 unresolved), jadi `diterima`→`prepare`,
+ * `tiba`→`delivery`; `ditolak`/`batal` sama-sama `canceled`.
+ */
+const OUT_STATUS: Record<MerchantOrderStatus, string> = {
+  baru: 'cart',
+  diterima: 'prepare',
+  disiapkan: 'prepare',
+  siap: 'waitingCourier',
+  diantar: 'delivery',
+  tiba: 'delivery',
+  selesai: 'done',
+  ditolak: 'canceled',
+  batal: 'canceled',
+}
+
+/** Tulis status order ke `orders.status` (best-effort; id seed dilewati). */
+export async function updateOrderStatus(
+  orderId: string,
+  status: MerchantOrderStatus,
+): Promise<void> {
+  const oid = numericOrderId(orderId)
+  if (!Number.isFinite(oid)) return
+  const token = await ensureMerchantToken()
+  await patch(token, 'orders', `?id=eq.${oid}`, { status: OUT_STATUS[status] ?? 'cart' })
+}
+
+/** Titik verifikasi kurir — nilai `checkpoints.kind` backend. */
+export type CheckpointKind = 'at_store' | 'picked_up' | 'arrived' | 'otp_verified'
+
+const CHECKPOINT_KIND: Partial<Record<CourierTask['checkpoint'], CheckpointKind>> = {
+  ambil: 'picked_up',
+  berangkat: 'picked_up',
+  tiba: 'arrived',
+  selesai: 'otp_verified',
+}
+
+/** Catat checkpoint kurir ke tabel `checkpoints` (best-effort). */
+export async function recordCheckpoint(
+  orderId: string,
+  checkpoint: CourierTask['checkpoint'],
+): Promise<void> {
+  const oid = numericOrderId(orderId)
+  const kind = CHECKPOINT_KIND[checkpoint]
+  if (!Number.isFinite(oid) || !kind) return
+  const token = await ensureCourierToken()
+  await createWith(token, 'checkpoints', { order_id: oid, kind })
 }
 
 /**
@@ -168,27 +236,101 @@ function toMerchantOrder(row: OrderRow): MerchantOrder {
   }
 }
 
-let customerSession: Promise<void> | null = null
-let merchantSession: Promise<void> | null = null
+let customerToken: Promise<string> | null = null
+let merchantToken: Promise<string> | null = null
+let courierToken: Promise<string> | null = null
 
-/** Login sekali per sesi halaman; RLS `orders` menuntut token, bukan anon key. */
-function ensureCustomerSession(): Promise<void> {
-  if (!customerSession) customerSession = signIn(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
-  return customerSession
+/**
+ * Token per akun demo (login sekali per sesi halaman). Token eksplisit dipakai
+ * untuk tiap tulis — token global `supabase.ts` tak dipakai di sini supaya
+ * customer/merchant/courier tidak saling menimpa saat dipanggil bergantian.
+ */
+function ensureCustomerToken(): Promise<string> {
+  if (!customerToken) customerToken = signInToken(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
+  return customerToken
 }
 
-function ensureMerchantSession(): Promise<void> {
-  if (!merchantSession) {
-    merchantSession = signIn(DEMO_MERCHANT_EMAIL, DEMO_MERCHANT_PASSWORD)
-  }
-  return merchantSession
+function ensureMerchantToken(): Promise<string> {
+  if (!merchantToken) merchantToken = signInToken(DEMO_MERCHANT_EMAIL, DEMO_MERCHANT_PASSWORD)
+  return merchantToken
+}
+
+function ensureCourierToken(): Promise<string> {
+  if (!courierToken) courierToken = signInToken(DEMO_COURIER_EMAIL, DEMO_COURIER_PASSWORD)
+  return courierToken
 }
 
 export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promise<MerchantOrder[]> {
-  await ensureMerchantSession()
-  const rows = await rest<OrderRow>(
+  const token = await ensureMerchantToken()
+  const rows = await restWith<OrderRow>(
+    token,
     'orders',
     `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,zone_code,created_at,placed_at,courier_id&merchant_id=eq.${merchantId}&order=created_at.desc`,
   )
   return rows.map(toMerchantOrder)
+}
+
+/** `orders.status` → tahap kurir (Journey Line, `OrderStage`). */
+const STAGE_OF_STATUS: Record<string, OrderStage> = {
+  cart: 'baru',
+  quotation: 'baru',
+  prepare: 'disiapkan',
+  waitingCourier: 'siap',
+  waitingDelivery: 'siap',
+  delivery: 'diantar',
+  done: 'selesai',
+}
+
+/** `orders.status` → checkpoint yang sudah terlampaui (stepper kurir). */
+const CHECKPOINT_OF_STATUS: Record<string, CourierTask['checkpoint']> = {
+  cart: 'masuk',
+  quotation: 'masuk',
+  prepare: 'masuk',
+  waitingCourier: 'ambil',
+  waitingDelivery: 'berangkat',
+  delivery: 'tiba',
+  done: 'selesai',
+}
+
+/** OTP 4 digit deterministik dari kode order (backend belum memodelkan OTP). */
+function otpOf(code: string): string {
+  let sum = 0
+  for (const ch of code) sum = (sum * 31 + ch.charCodeAt(0)) % 10000
+  return String(sum).padStart(4, '0')
+}
+
+function toCourierTask(row: OrderRow): CourierTask {
+  const zone: ZoneId = row.zone_code === 'syimali' ? 'syimali' : 'hijazi'
+  return {
+    id: `api-${row.id}`,
+    code: row.code,
+    customerId: String(row.customer_id),
+    customerName: `Customer ${row.customer_id}`,
+    customerPhone: '-',
+    address: row.zone_code ? `Zona ${row.zone_code}` : 'Alamat belum tersedia',
+    floor: '-',
+    unit: '-',
+    items: [],
+    total: jodToIdr(row.total_jod),
+    distanceMeters: 0,
+    zone,
+    paymentMethod: (PAYMENT_IDS.includes(row.payment_method)
+      ? row.payment_method
+      : 'cod') as PaymentMethod['id'],
+    tip: 0,
+    orderStage: STAGE_OF_STATUS[row.status] ?? 'baru',
+    checkpoint: CHECKPOINT_OF_STATUS[row.status] ?? 'masuk',
+    otp: otpOf(row.code),
+  }
+}
+
+/** Tugas kurir live = order BE yang ditugaskan ke kurir demo (`courier_id`). */
+export async function fetchCourierOrders(courierId = DEMO_COURIER_ID): Promise<CourierTask[]> {
+  const token = await ensureCourierToken()
+  const rows = await restWith<OrderRow>(
+    token,
+    'orders',
+    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,zone_code,created_at,placed_at,courier_id&courier_id=eq.${courierId}&order=created_at.desc`,
+  )
+  return rows.map(toCourierTask)
 }

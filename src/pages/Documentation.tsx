@@ -200,8 +200,11 @@ export default function Documentation() {
               transisi order (checkout, terima/tolak/siap/serahkan/batal, checkpoint kurir, OTP)
               mengemit notifikasi ke peran terkait, dan klik baris menulis balik
               notifications.read (kind tak dikenal jatuh ke system; mock tetap jadi fallback),
-              penugasan kurir ditulis ke orders.courier_id; kotak masuk diperbarui otomatis
-              tiap 8s tanpa refresh (polling); toggle buka/tutup toko
+              penugasan kurir ditulis ke orders.courier_id; tiap transisi status order kini
+              ditulis balik ke orders.status (cart/prepare/waitingCourier/delivery/done) dan
+              checkpoint kurir ke tabel checkpoints (picked_up/arrived/otp_verified); kotak masuk
+              dan antrean diperbarui otomatis lewat WebSocket Supabase Realtime (kanal orders,
+              src/api/realtime.ts) tanpa refresh — polling 30s hanya jaring pengaman; toggle buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend

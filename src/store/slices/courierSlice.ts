@@ -50,6 +50,13 @@ const courierSlice = createSlice({
     completeOnboarding(state, action: PayloadAction<CourierOnboarding>) {
       state.onboarding = action.payload
     },
+    /** Tambah tugas live dari BE; tugas yang sudah ada dibiarkan (progres lokal menang). */
+    setTasks(state, action: PayloadAction<CourierTask[]>) {
+      const have = new Set(state.tasks.map((t) => t.id))
+      for (const task of action.payload) {
+        if (!have.has(task.id)) state.tasks.unshift(task)
+      }
+    },
     /** Maju satu checkpoint sesuai urutan flow F13, lalu mulai jeda SLA baru. */
     advanceCheckpoint(state, action: PayloadAction<{ id: string }>) {
       const task = state.tasks.find((t) => t.id === action.payload.id)
@@ -132,6 +139,7 @@ const courierSlice = createSlice({
 export const {
   toggleOnline,
   completeOnboarding,
+  setTasks,
   advanceCheckpoint,
   cancelTask,
   completeTask,

@@ -53,6 +53,15 @@ export const foodApi = baseApi.injectEndpoints({
         unreachable or RLS rejects, the mock list stays on screen (mock-first, API-override). Reads
         re-login the demo merchant account so RLS returns the rows.
       </p>
+      <ul className="doc-list">
+        <li>
+          <strong>Realtime</strong> uses a WebSocket (Supabase Realtime, channel{' '}
+          <code className="doc-inline">orders</code>, <code className="doc-inline">src/api/realtime.ts</code>):
+          an order change refreshes the inbox + merchant queue + courier tasks with no reload. Status
+          transitions are persisted to <code className="doc-inline">orders.status</code> and courier
+          checkpoints to <code className="doc-inline">checkpoints</code>.
+        </li>
+      </ul>
       <h3 className="doc-h3">
         Reference data — live reads
       </h3>

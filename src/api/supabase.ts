@@ -20,6 +20,9 @@ const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) |
 /** Aktif kalau URL + key ada. Hook jatuh ke data mock kalau ini false. */
 export const apiEnabled = Boolean(url && anonKey)
 
+/** URL + anon key untuk koneksi Realtime (WebSocket). Dipakai `realtime.ts`. */
+export const apiBase = { url, anonKey }
+
 /**
  * GET satu tabel PostgREST. `query` = string filter PostgREST mentah, mis.
  * `?select=*&merchant_id=eq.3&order=id.asc`. Lempar kalau status bukan 2xx —

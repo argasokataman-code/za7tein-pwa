@@ -1,8 +1,6 @@
-// Kotak masuk live per audience. Polling (bukan `useSyncOnce`) supaya notif baru
-// muncul tanpa refresh: repo ini memakai fetch mentah ke PostgREST (tanpa
-// `@supabase/supabase-js`), jadi channel Realtime websocket tak tersedia —
-// interval + refresh saat tab kembali fokus sudah memberi efek "langsung".
-// Mock tetap jadi fallback bila API mati/kosong.
+// Kotak masuk live per audience. Realtime websocket (`useApiRealtime`) yang
+// jadi jalur utama; polling ini jaring pengaman bila socket putus + refresh saat
+// tab kembali fokus. Mock tetap jadi fallback bila API mati/kosong.
 import { useEffect } from 'react'
 
 import { fetchNotifications } from '../api/reference'
@@ -11,7 +9,7 @@ import { setNotifications } from '../store/slices/notificationsSlice'
 import type { NotifAudience } from '../types'
 import { useAppDispatch } from './useAppStore'
 
-const POLL_MS = 8_000
+const POLL_MS = 30_000
 
 export function useApiNotifications(audience: NotifAudience): void {
   const dispatch = useAppDispatch()

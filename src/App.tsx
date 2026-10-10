@@ -10,6 +10,7 @@ import { useAppSelector } from './hooks/useAppStore'
 import { usePageTransition } from './hooks/usePageTransition'
 import { useApiSync } from './hooks/useApiReference'
 import { useApiNotifications } from './hooks/useApiNotifications'
+import { useApiRealtime } from './hooks/useApiRealtime'
 import { notificationAudienceFromPath } from './data/notifications'
 import type { NotifAudience } from './types'
 
@@ -431,6 +432,7 @@ function LegacyAppRedirect() {
 function ApiSync({ audience }: { audience: NotifAudience }) {
   useApiSync()
   useApiNotifications(audience)
+  useApiRealtime(audience)
   return null
 }
 
