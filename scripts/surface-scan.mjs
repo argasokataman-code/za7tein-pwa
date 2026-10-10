@@ -281,9 +281,9 @@ function checkDocsSync() {
 }
 
 // ── 10. Gerbang display-mode: standalone wajib ikut fullscreen ────────────
-// Manifest peran memakai `display_override` fullscreen, jadi app terinstal bisa
-// melaporkan mode itu, bukan `standalone`. Aturan safe-area yang cuma digerbang
-// `standalone` mati di sana dan header kembali terpotong status bar — bug ini
+// App terinstal bisa melaporkan `fullscreen` (Fullscreen API), bukan cuma
+// `standalone`. Aturan safe-area yang cuma digerbang `standalone` mati di sana
+// dan header kembali terpotong status bar — bug ini
 // pernah lolos sampai ke HP karena tak ada yang memeriksanya dari sumber.
 function checkDisplayModeGate() {
   const hits = []

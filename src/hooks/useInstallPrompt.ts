@@ -61,9 +61,9 @@ export function useInstallPrompt() {
   }, [promptEvent])
 
   // Sudah dibuka sebagai aplikasi terpasang → tak ada gunanya menawarkan pasang.
-  // `standalone` saja tidak cukup: manifest peran memakai `display_override`
-  // fullscreen, jadi app terinstal bisa melaporkan `fullscreen`. Tanpa daftar
-  // mode ini kartu pasang ikut muncul di dalam aplikasi yang sudah terpasang.
+  // `standalone` saja tidak cukup: app terinstal masih bisa melaporkan
+  // `fullscreen` (Fullscreen API) atau `minimal-ui`. Tanpa daftar mode ini kartu
+  // pasang ikut muncul di dalam aplikasi yang sudah terpasang.
   const installedMode =
     typeof window !== 'undefined' &&
     (['standalone', 'fullscreen', 'minimal-ui'].some((mode) =>

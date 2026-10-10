@@ -87,14 +87,15 @@ export function PwaSection() {
 
       <h3 className="doc-h3">Mode Tampilan</h3>
       <p className="doc-p">
-        Keempat manifest peran memakai{' '}
-        <code>display_override: [&quot;fullscreen&quot;, &quot;standalone&quot;]</code>.
-        Chromium Android yang mendukungnya membuka aplikasi terinstal dalam mode
-        layar penuh: status bar dan bilah sistem disembunyikan, kembali dengan
-        sapuan dari tepi. Browser yang tidak mengenal <code>fullscreen</code>{' '}
-        (iOS) jatuh ke <code>display: standalone</code> yang tetap tanpa
-        antarmuka peramban. Karena itu tidak ada warna status bar yang perlu
-        disetel per halaman. iOS memakai{' '}
+        Keempat manifest peran memakai <code>display: standalone</code>.
+        Aplikasi terinstal membuka jendela tanpa antarmuka peramban (tanpa
+        address bar), namun <strong>status bar OS tetap tampil</strong> — jam,
+        baterai, dan sinyal ponsel terlihat di atasnya. Status bar itu digambar
+        oleh sistem, bukan oleh app: web app tidak bisa menyembunyikan atau
+        memunculkannya sendiri, hanya mengatur warna latarnya lewat{' '}
+        <code>theme-color</code> (token <code>--sa7tein-orange</code>). Meminta{' '}
+        <code>fullscreen</code> justru membuang status bar di Android, jadi ia
+        sengaja tidak dipakai. iOS memakai{' '}
         <code>apple-mobile-web-app-status-bar-style: default</code> (ikon gelap
         di bar terang) supaya tetap terbaca di atas permukaan app yang terang;
         <code>black-translucent</code> akan memaksa ikon putih dan hilang di
@@ -103,8 +104,8 @@ export function PwaSection() {
 
       <h3 className="doc-h3">Status Bar di App-Mode</h3>
       <p className="doc-p">
-        Bila status bar OS tetap tampil (fallback <code>standalone</code>, notch
-        perangkat, atau iOS), konten naik ke bawahnya karena{' '}
+        Status bar OS selalu tampil di mode <code>standalone</code>, jadi konten
+        naik ke bawahnya karena{' '}
         <code>viewport-fit=cover</code> — dan di app terinstal yang menempati
         pita itu bukan cuma jam/baterai, tapi juga kamera punch-hole di tengah
         atas. Karena itu <strong>elemen berteks paling atas di tiap layar</strong>{' '}
@@ -126,9 +127,8 @@ export function PwaSection() {
         lain di <code>app/part-01</code>, <code>part-06</code>, dan{' '}
         <code>part-10</code> menanganinya sendiri. Gerbang media query-nya
         menyertakan <code>fullscreen</code>, bukan hanya{' '}
-        <code>standalone</code>: manifest peran memakai{' '}
-        <code>display_override</code> fullscreen, jadi app terinstal bisa
-        melaporkan mode itu, dan tanpa keduanya seluruh penyerapan inset mati —
+        <code>standalone</code>: app terinstal masih bisa masuk mode itu lewat
+        Fullscreen API, dan tanpa keduanya seluruh penyerapan inset mati —
         header kembali terpotong status bar.
       </p>
       <p className="doc-p">

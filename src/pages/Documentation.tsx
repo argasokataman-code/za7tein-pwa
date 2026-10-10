@@ -318,7 +318,12 @@ export default function Documentation() {
               (<code className="doc-inline">--navy</code>/<code className="doc-inline">--on-navy</code>,
               pola sama dengan kartu insentif merchant) dengan elevasi navy supaya terbaca
               mengambang, dan grafiknya ikut putih agar tidak tenggelam di atas navy.
-              Rinciannya di bagian Changelog.
+              Manifest keempat peran kini hanya{' '}
+              <code className="doc-inline">display: standalone</code> —{' '}
+              <code className="doc-inline">fullscreen</code> dibuang dari{' '}
+              <code className="doc-inline">display_override</code> supaya status bar OS (jam,
+              baterai, sinyal) tetap tampil di app terpasang, bukan immersive. Rinciannya di
+              bagian Changelog.
             </p>
             <div className="doc-cta-grid">
               {DOC_SHELLS.map((s) => (
