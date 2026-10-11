@@ -128,7 +128,7 @@ export default function AdminDashboard() {
             <strong>{investigating}</strong> Investigasi
           </Link>
           <Link to="/merchants">
-            <strong>{riskFlags.length}</strong> riskFlag
+            <strong>{riskFlags.length}</strong> Penanda risiko
           </Link>
         </nav>
 

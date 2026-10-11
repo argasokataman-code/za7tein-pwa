@@ -182,12 +182,88 @@
     min-width: 0;
   }
 
-  /* Konten melebar: batalkan kolom 430px milik `div[class*=-page]`
-     (app/part-01, kekhususan 0-1-1) — selector ini 0-2-0, jadi menang. */
+  /* Konten jadi dashboard, bukan kolom ponsel dilebarkan. `div[class*=-page]`
+     mengunci max-width 430px (app/part-01, 0-1-1) — selector ini 0-2-0, menang.
+     Alasan per pilihan (QL-01):
+     - kontainer max 1280px ditengahkan: dashboard bertabel tidak enak dibaca
+       melebar penuh di 2560px;
+     - satu grid auto-fill 340px: kartu mengalir 2-3 kolom tanpa satu pun
+       breakpoint tambahan;
+     - header/statline/section/footnote `grid-column: 1 / -1`: blok yang memang
+       selebar halaman tetap satu baris utuh, sisanya kartu;
+     - bottom nav disembunyikan, jadi ruang bawah ekstra miliknya dibuang. */
   .admin-console .admin-page {
-    max-width: none;
-    margin: 0;
-    padding-bottom: var(--space-8);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: var(--space-7) var(--space-7) var(--space-9);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-5);
+    align-content: start;
+    align-items: start;
+  }
+
+  .admin-console .admin-page > .admin-header,
+  .admin-console .admin-page > .admin-statline,
+  .admin-console .admin-page > .admin-section {
+    grid-column: 1 / -1;
+  }
+
+  /* Kartu pertama tiap halaman = banner/hero: dua kolom, bukan satu sel sempit. */
+  .admin-console .admin-page > .admin-card:first-of-type {
+    grid-column: span 2;
+  }
+
+  /* Footnote = prosa. Dua kolom (~800px) + ukuran baca dibatasi, supaya
+     barisnya tidak membentang 1240px dan melelahkan dibaca (HG-12). */
+  .admin-console .admin-footnote {
+    grid-column: span 2;
+  }
+
+  .admin-console .admin-footnote .admin-note {
+    max-width: 62ch;
+  }
+
+  /* Header tak lagi menempel & melebar ke tepi kolom ponsel: di desktop ia
+     judul halaman biasa di dalam kontainer, jadi tepinya sejajar konten. */
+  .admin-console .admin-header {
+    position: static;
+    margin-inline: 0;
+    padding-inline: 0;
+    margin-bottom: 0;
+    background: transparent;
+    border-bottom: 0;
+  }
+
+  /* Daftar bertitel (sengketa, merchant, onboarding, ledger) mengalir multi-kolom
+     dengan judul section membentang penuh. */
+  .admin-console .admin-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-5);
+    margin-bottom: 0;
+  }
+
+  .admin-console .admin-section > .admin-section-title {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  /* Gap grid yang mengatur jarak, bukan margin tiap kartu. */
+  .admin-console .admin-page > .admin-card,
+  .admin-console .admin-section > .admin-card {
+    margin-bottom: 0;
+  }
+
+  /* Statline antrean: satu baris empat, bukan 2×2 ponsel. */
+  .admin-console .admin-statline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 0;
+  }
+
+  /* Baris ledger lebih lapang di desktop (sebelah nominal rata kanan). */
+  .admin-console .admin-ledger-row {
+    padding: var(--space-4) 0;
   }
 
   /* Bottom nav portal-ke-body: sembunyikan hanya untuk rute panel CS, supaya

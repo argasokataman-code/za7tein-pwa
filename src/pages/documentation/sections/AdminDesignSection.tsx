@@ -32,6 +32,15 @@ export function AdminDesignSection() {
         at and above it, so there is no second layout path to maintain (see Layout
         Exceptions, section 14, and <code className="doc-inline">docs/plan-admin.md</code>).
       </p>
+      <p className="doc-p">
+        On desktop the page body is not the phone column stretched: it becomes a centered
+        1280px container whose cards flow in an auto-fill grid (2 to 3 columns). The first
+        card of each page (the intro banner) and the prose footnote span two columns, and
+        footnote text is capped at a readable measure so lines never run 1200px wide. The
+        titled lists (disputes, merchants, onboarding, ledger) grid their cards the same
+        way, and the queue statline shows four across instead of the phone 2×2. Below
+        901px nothing changes: the 430px column plus bottom nav stays.
+      </p>
       <h3 className="doc-h3">Hard rules as displayed state</h3>
       <p className="doc-p">
         Three PRD rules are modelled as state so the screens stay honest:
