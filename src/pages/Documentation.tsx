@@ -329,6 +329,12 @@ export default function Documentation() {
               <code className="doc-inline">/order-arrived</code>) tampil sebagai overlay{' '}
               <code className="doc-inline">.order-celebration-overlay</code> di atas layar detail,
               bukan halaman baru, lalu tombolnya membawa kurir kembali ke daftar tugas.
+              Pelacakan order customer kini memakai status backend live sebagai satu-satunya
+              penggerak (stepper dan rincian mengikuti tahap order, bukan tombol demo), dan
+              customer bisa membatalkan order COD sendiri — sebelum kurir ditugaskan hold{' '}
+              <code className="doc-inline">released</code>, sesudahnya{' '}
+              <code className="doc-inline">reversed</code>, sekaligus menulis{' '}
+              <code className="doc-inline">orders.status = canceled</code>.
               Manifest keempat peran kini hanya{' '}
               <code className="doc-inline">display: standalone</code> —{' '}
               <code className="doc-inline">fullscreen</code> dibuang dari{' '}

@@ -8,7 +8,7 @@ import { fetchCourierOrders, fetchCustomerOrder, fetchMerchantOrders } from '../
 import { subscribeOrders } from '../api/realtime'
 import { fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
-import { setOrderStage } from '../store/slices/cartSlice'
+import { markOrderCancelled, setOrderStage } from '../store/slices/cartSlice'
 import { setTasks } from '../store/slices/courierSlice'
 import { markOrdersFailed, markOrdersHydrated, mergeOrders } from '../store/slices/merchantSlice'
 import { setNotifications } from '../store/slices/notificationsSlice'
@@ -54,7 +54,11 @@ export function useApiRealtime(audience: NotifAudience): void {
         if (audience === 'customer' && activeOrderId) {
           fetchCustomerOrder(activeOrderId)
             .then((order) => {
-              if (alive && order) dispatch(setOrderStage(order.stage))
+              if (!alive || !order) return
+              // Terminal batal: status BE `canceled` tidak punya tahap (`stage`
+              // jatuh ke `baru`), jadi tandai batal alih-alih menyetel tahap.
+              if (order.status === 'batal') dispatch(markOrderCancelled())
+              else dispatch(setOrderStage(order.stage))
             })
             .catch(() => {})
         }

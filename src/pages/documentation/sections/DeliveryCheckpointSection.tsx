@@ -9,8 +9,8 @@ export function DeliveryCheckpointSection() {
         stepper checkpoint, timer SLA, dan form OTP ke detail order. Komponennya{' '}
         <code className="doc-inline">DeliveryStepper</code> +{' '}
         <code className="doc-inline">DeliveryActionCard</code> dipakai <strong>dua peran</strong> —
-        layar kurir (F13) dan detail order customer — supaya urutan langkah dan copy OTP tidak
-        pernah berbeda antar sisi.
+        layar kurir (F13, lengkap timer SLA + aksi) dan detail order customer (hanya stepper + kode
+        OTP serah terima) — supaya urutan langkah dan copy OTP tidak pernah berbeda antar sisi.
       </p>
       <div className="doc-table-wrap">
         <table className="doc-table">
@@ -47,16 +47,16 @@ export function DeliveryCheckpointSection() {
       </div>
       <h3 className="doc-h3">Timer dihitung dari kejadian, bukan angka karangan</h3>
       <p className="doc-p">
-        Saat checkpoint maju, waktu mulainya disimpan ISO di{' '}
-        <code className="doc-inline">cart.deliveryCheckpointAt</code>; hitung mundurnya berasal dari
-        selisih waktu nyata (<code className="doc-inline">useTick</code>), jadi halaman yang dibuka
-        lama benar-benar menunjukkan sisa waktu yang menyusut, dan lewat batas ditandai{' '}
-        <em>&ldquo;Lewat SLA — tim CS ditandai otomatis&rdquo;</em>. Tidak ada timer yang diputar
-        ulang tiap render.
+        Saat checkpoint kurir maju, waktu mulainya disimpan ISO di{' '}
+        <code className="doc-inline">courier.tasks[].checkpointStartedAt</code> (slice kurir);
+        hitung mundurnya berasal dari selisih waktu nyata (<code className="doc-inline">useTick</code>),
+        jadi halaman yang dibuka lama benar-benar menunjukkan sisa waktu yang menyusut, dan lewat
+        batas ditandai <em>&ldquo;Lewat SLA — tim CS ditandai otomatis&rdquo;</em>. Tidak ada timer
+        yang diputar ulang tiap render.
       </p>
       <DocCode lang="typescript">
-        {`advanceDelivery({ gps })   // masuk → ambil → berangkat → tiba (GPS disimpan sekali)
-completeDelivery()         // tiba → selesai, hanya setelah OTP benar`}
+        {`advanceCheckpoint({ id })   // kurir: masuk → ambil → berangkat → tiba
+completeTask({ id })       // tiba → selesai, hanya setelah OTP benar`}
       </DocCode>
       <h3 className="doc-h3">Auto-settle: order tidak boleh menggantung</h3>
       <p className="doc-p">
@@ -70,8 +70,10 @@ completeDelivery()         // tiba → selesai, hanya setelah OTP benar`}
         Angka 15/30/10 masih sementara (PO 2026-09-22) dan menunggu data rute Irbid —{' '}
         <code className="doc-inline">OQ-13</code>; penalti customer lalai juga belum final (
         <code className="doc-inline">OQ-14</code>), jadi tidak ada angka penalti yang dikarang.
-        Tombol checkpoint di sisi customer adalah <strong>aksi demo</strong>; di produksi aksi itu
-        milik kurir.
+        Aksi Ambil/Berangkat/Tiba milik <strong>kurir</strong> (F13); layar customer hanya
+        menampilkan progres + kode OTP serah terima (C-09) tanpa tombol aksi, dan checkpoint-nya
+        diturunkan dari tahap order yang live (realtime{' '}
+        <code className="doc-inline">orders.status</code>), bukan state lokal.
       </p>
     </DocSection>
   )

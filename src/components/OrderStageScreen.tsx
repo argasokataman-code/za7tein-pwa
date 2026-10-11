@@ -1,14 +1,14 @@
 import { Crosshair, MapPin, MessageCircle, Phone, Scale, Star, Store, UserRound } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { DeliveryActionCard, DeliveryStepper } from './DeliveryCheckpoints'
 import { JourneyLine } from './JourneyLine'
-import { insertNotification } from '../api/notifications'
 
-import { otpOf } from '../api/orders'
-import { COURIER_ACTION_LABEL, DELIVERY_OTP_DEMO } from '../data/courier'
+import { insertNotification } from '../api/notifications'
+import { otpOf, updateOrderStatus } from '../api/orders'
+import { DELIVERY_OTP_DEMO } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import { BottomSheet } from './ui/BottomSheet'
 import {
@@ -22,20 +22,21 @@ import {
   mockOrder,
   zoneFor,
 } from '../data/merchant'
+import { ORDER_STAGE_STATUS } from '../data/order-stage-copy'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
 import {
-  advanceDelivery,
   cancelOrder,
-  completeDelivery,
+  markOrderCancelled,
+  markOrderCompleted,
   matchCourier,
   settleOrderHold,
 } from '../store/slices/cartSlice'
 import { requestAppeal } from '../store/slices/adminSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
-import type { OrderStage } from '../types'
+import type { CourierCheckpoint, OrderStage } from '../types'
 import { BackButton } from './ui/BackButton'
 
 /**
@@ -69,44 +70,6 @@ const IconRecenter = () => <Crosshair size={20} strokeWidth={1.75} aria-hidden="
 
 const IconScale = () => <Scale size={16} strokeWidth={1.75} aria-hidden="true" />
 
-/* ── Teks per tahap ──────────────────────────────────────────────────────── */
-
-const STATUS: Record<
-  OrderStage,
-  { label: string; etaLabel: string; eta: string; courier: string }
-> = {
-  baru: {
-    label: 'Pesanan diterima',
-    etaLabel: 'Estimasi siap',
-    eta: mockOrder.readyEstimate,
-    courier: 'Menunggu konfirmasi toko',
-  },
-  disiapkan: {
-    label: 'Sedang disiapkan',
-    etaLabel: 'Estimasi siap',
-    eta: mockOrder.readyEstimate,
-    courier: 'Dapur menyiapkan pesananmu',
-  },
-  siap: {
-    label: 'Pesanan siap',
-    etaLabel: 'Estimasi siap',
-    eta: mockOrder.readyEstimate,
-    courier: 'Menunggu kurir mengambil',
-  },
-  diantar: {
-    label: 'Sedang diantar',
-    etaLabel: 'Estimasi tiba',
-    eta: mockOrder.arriveEstimate,
-    courier: 'Menuju alamatmu',
-  },
-  selesai: {
-    label: 'Pesanan selesai',
-    etaLabel: 'Tiba pukul',
-    eta: mockOrder.arriveEstimate,
-    courier: 'Pesanan sudah diterima',
-  },
-}
-
 type Props = {
   /**
    * Tahap yang ditampilkan rute ini. Kalau dikosongkan, tahapnya dibaca dari
@@ -130,10 +93,8 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const holdStatus = useAppSelector((s) => s.cart.holdStatus)
   const holdAmount = useAppSelector((s) => s.cart.holdAmountIdr)
   const holdLedger = useAppSelector((s) => s.cart.holdLedger)
-  const deliveryCheckpoint = useAppSelector((s) => s.cart.deliveryCheckpoint)
-  const deliveryCheckpointAt = useAppSelector((s) => s.cart.deliveryCheckpointAt)
-  const gpsSnapshot = useAppSelector((s) => s.cart.gpsSnapshot)
   const orderCompletedAt = useAppSelector((s) => s.cart.orderCompletedAt)
+  const orderCancelled = useAppSelector((s) => s.cart.orderCancelled)
   const activeOrder = useAppSelector((s) => s.cart.activeOrder)
   const orderCode = activeOrder?.code ?? mockOrder.code
   // Sengketa hidup di `admin.disputes` — satu sumber untuk order yang sama,
@@ -144,12 +105,6 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const isDisputed = dispute?.status === 'open' || dispute?.status === 'investigating'
   const resolutionToken = dispute?.resolution ? resolvedOrderToken(dispute.resolution) : null
   const { now } = useTick()
-  // Kurir sudah tiba? Itu checkpoint kurir (slice terpisah), dipakai supaya
-  // customer melihat kartu OTP tanpa harus menekan tombol demo dulu. Satu store,
-  // pola sama seperti sengketa yang dibaca lintas peran.
-  const courierArrived = useAppSelector((s) =>
-    s.courier.tasks.some((t) => t.checkpoint === 'tiba'),
-  )
   // Banding (F8 → F22): pihak yang mengajukan sengketa bisa meminta SA meninjau
   // putusan level-1 CS. Satu banding per sengketa.
   const appeal = dispute?.appeal
@@ -157,6 +112,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const canAppeal = Boolean(dispute && resolutionToken && !appeal)
   const [appealOpen, setAppealOpen] = useState(false)
   const [appealNote, setAppealNote] = useState('')
+  const [cancelOpen, setCancelOpen] = useState(false)
 
   // State tersimpan bisa berasal dari bentuk sebelum tahap pesanan ada, jadi
   // nilainya divalidasi di sini. Tanpa ini STATUS[undefined] melempar dan
@@ -170,13 +126,43 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
     ? override
     : fixedStage ?? (sah(rawStage) ? rawStage : 'disiapkan')
 
+  // Checkpoint kurir diturunkan dari tahap order yang LIVE (realtime
+  // `orders.status`), bukan state lokal. Customer tidak menggerakkan checkpoint
+  // — itu kerja kurir (F13); di sini progres sekadar ditampilkan. Backend belum
+  // membedakan "tiba" dari "diantar" untuk customer (OST-1), jadi `diantar`
+  // dipetakan ke `berangkat`; kartu OTP muncul selama pengantaran.
+  const customerCheckpoint: CourierCheckpoint =
+    stage === 'selesai'
+      ? 'selesai'
+      : stage === 'diantar'
+        ? 'berangkat'
+        : stage === 'siap'
+          ? 'ambil'
+          : 'masuk'
+
+  // Perayaan "pesanan selesai" dulu hanya terbuka lewat tombol demo di layar ini.
+  // Sekarang dipicu transisi tahap order → `selesai` (kurir merampungkan OTP →
+  // realtime menyetel tahap), jadi customer benar-benar dapat animasinya saat
+  // pesanan tuntas. Ref melacak tahap sebelumnya supaya kunjungan ulang ke order
+  // yang sudah selesai tidak memantul ke perayaan lagi.
+  const prevStageRef = useRef(stage)
+  useEffect(() => {
+    const justFinished = prevStageRef.current !== 'selesai' && stage === 'selesai'
+    prevStageRef.current = stage
+    if (orderCancelled || stage !== 'selesai') return
+    // Window sengketa 24 jam (M6) butuh titik selesai — catat sekali saat tahap
+    // pertama kali jadi `selesai`.
+    if (!orderCompletedAt) dispatch(markOrderCompleted(new Date().toISOString()))
+    if (justFinished) navigate(`/order-arrived?order=${orderCode}`)
+  }, [stage, orderCompletedAt, orderCancelled, dispatch, navigate, orderCode])
+
   // Pengantaran satu-satunya tahap di mana peta memang layak dominan.
   const isDelivery = stage === 'diantar'
   const { recenter } = useLeafletMap('order-map', isDelivery ? 'delivery' : 'preview')
 
   const address = addresses.find((a) => a.id === selectedAddressId) ?? addresses[0] ?? null
   const courier = mockCouriers[0]
-  const copy = STATUS[stage]
+  const copy = ORDER_STAGE_STATUS[stage]
   const zone = address ? zoneFor(address) : null
   // building menyimpan "Kompleks — Tower" dalam satu string; dipisah supaya
   // baris pertama menyebut kompleksnya dan baris kedua unitnya, seperti PRD.
@@ -184,36 +170,60 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
     ? address.building.split(' — ')
     : ['', '']
 
-  // Aksi mock lifecycle hold: satu tombol menggerakkan cartSlice (status +
-  // ledger) dan wallet (perpindahan dana) bersamaan, karena satu transisi PRD
-  // memang satu event status + satu entry ledger.
+  // Lifecycle hold COD digerakkan status order live (bukan tombol operator).
+  // Satu transisi PRD = satu event status + satu entry ledger, jadi kurir match
+  // (`cut`) dan order selesai (`settled`) berlaku juga di dompet & panel CS.
   const isCod = paymentId === 'cod'
   const holdCopy = HOLD_STATUS_COPY[holdStatus]
 
-  const advanceHold = () => {
-    if (holdStatus === 'held') {
-      dispatch(matchCourier())
-      dispatch(applyHoldEvent({ event: 'hold_cut', amountIdr: holdAmount }))
-    } else if (holdStatus === 'cut') {
-      dispatch(settleOrderHold())
-      dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
-    }
-  }
+  // Kurir ditugaskan (order masuk `siap`/`diantar`) → potongan dikunci.
+  useEffect(() => {
+    if (!isCod || holdStatus !== 'held') return
+    if (stage !== 'siap' && stage !== 'diantar' && stage !== 'selesai') return
+    dispatch(matchCourier())
+    dispatch(applyHoldEvent({ event: 'hold_cut', amountIdr: holdAmount }))
+  }, [isCod, stage, holdStatus, holdAmount, dispatch])
 
-  const cancelHold = () => {
-    if (holdStatus !== 'held' && holdStatus !== 'cut') return
+  // Order selesai → dana diteruskan ke merchant (event `hold_settled`).
+  useEffect(() => {
+    if (!isCod || stage !== 'selesai' || holdStatus !== 'cut') return
+    dispatch(settleOrderHold())
+    dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
+  }, [isCod, stage, holdStatus, holdAmount, dispatch])
+
+  // Batal order (F1/F2): aksi customer, bukan operator. Boleh selama order belum
+  // selesai — sebelum match (`held`) → `released`, sesudah match (`cut`) →
+  // `reversed`, semuanya lewat `cancelOrder()`.
+  const isCancelled = orderCancelled
+  const canCancel =
+    isCod &&
+    !isCancelled &&
+    !isDisputed &&
+    stage !== 'selesai' &&
+    (holdStatus === 'held' || holdStatus === 'cut')
+
+  const confirmCancel = () => {
+    if (!canCancel) return
     dispatch(cancelOrder())
     dispatch(
       applyHoldEvent({
-        event: holdStatus === 'held' ? 'hold_released' : 'hold_reversed',
+        event: holdStatus === 'cut' ? 'hold_reversed' : 'hold_released',
         amountIdr: holdAmount,
       }),
     )
+    dispatch(markOrderCancelled())
+    // Best-effort: backend menyimpan `orders.status = canceled` lewat jalur tulis
+    // yang sama dengan merchant/kurir; gagal koneksi tak menghalangi UI.
+    void updateOrderStatus(activeOrder?.id ?? '', 'batal').catch(() => {})
+    void insertNotification({
+      audience: 'merchant',
+      kind: 'order',
+      title: 'Pesanan dibatalkan',
+      body: 'Customer membatalkan pesanan. Hold dikembalikan.',
+    }).catch(() => {})
+    toast.success('Pesanan dibatalkan')
+    setCancelOpen(false)
   }
-
-  // OTP pengiriman (F5). Kode benar menutup pengiriman; kalau hold COD sudah
-  // di-cut, OTP yang sama juga menyelesaikan hold — satu serah terima fisik.
-  const deliveryAction = COURIER_ACTION_LABEL[deliveryCheckpoint]
 
   // Window sengketa 24 jam (M6) dihitung dari order selesai. Order yang belum
   // lewat alur checkpoint dianggap masih di dalam window — mock, bukan aturan
@@ -221,28 +231,6 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const disputeWindowOpen =
     !orderCompletedAt ||
     now - new Date(orderCompletedAt).getTime() < DISPUTE_WINDOW_HOURS * 3_600_000
-
-  // Sisi customer menampilkan OTP, kurir yang memasukkannya (C-09). Layar ini
-  // menyediakan aksi demo supaya alur bisa diselesaikan tanpa peran kurir —
-  // sama seperti tombol checkpoint lain di sini yang juga demo.
-  const completeDeliveryDemo = () => {
-    dispatch(completeDelivery())
-    if (holdStatus === 'cut') {
-      dispatch(settleOrderHold())
-      dispatch(applyHoldEvent({ event: 'hold_settled', amountIdr: holdAmount }))
-    }
-    toast.success('OTP terverifikasi — pengiriman selesai (demo)')
-    void insertNotification({
-      audience: 'merchant',
-      kind: 'order',
-      title: 'Pesanan selesai',
-      body: 'Kurir menyelesaikan pengantaran. Hold dicairkan.',
-    }).catch(() => {})
-    // Pengiriman selesai = pesanan tiba: layar perayaan yang menyalurkan ke
-    // rating kurir (F19). Sebelumnya tidak ada yang membuka rute ini. Kode order
-    // ikut dibawa supaya layar rating dan tip terikat ke order yang sama.
-    navigate(`/order-arrived?order=${orderCode}`)
-  }
 
   const mapBlock = (
     <div className={`track-map track-map--${isDelivery ? 'delivery' : 'preview'}`}>
@@ -282,9 +270,17 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
           {isDelivery ? mapBlock : null}
 
           <section className="track-status" aria-live="polite">
-            <p className="track-status-label">{copy.label}</p>
-            <p className="track-status-eta">{copy.etaLabel}</p>
-            <p className="track-status-time">{copy.eta}</p>
+            <p className="track-status-label">
+              {isCancelled ? 'Pesanan dibatalkan' : copy.label}
+            </p>
+            {isCancelled ? (
+              <p className="track-status-time">Pengiriman tidak dilanjutkan.</p>
+            ) : (
+              <>
+                <p className="track-status-eta">{copy.etaLabel}</p>
+                <p className="track-status-time">{copy.eta}</p>
+              </>
+            )}
           </section>
 
           <JourneyLine stage={stage} />
@@ -307,18 +303,15 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                     Hold dibekukan sampai panel CS memutuskan sengketa (F8).
                   </p>
                 ) : null}
-                {!isDisputed && (holdCopy.action || holdCopy.cancel) ? (
+                {canCancel ? (
                   <div className="hold-card__actions">
-                    {holdCopy.action ? (
-                      <button className="track-action" type="button" onClick={advanceHold}>
-                        {holdCopy.action}
-                      </button>
-                    ) : null}
-                    {holdCopy.cancel ? (
-                      <button className="track-action" type="button" onClick={cancelHold}>
-                        {holdCopy.cancel}
-                      </button>
-                    ) : null}
+                    <button
+                      className="track-action"
+                      type="button"
+                      onClick={() => setCancelOpen(true)}
+                    >
+                      Batalkan pesanan
+                    </button>
                   </div>
                 ) : null}
                 {holdLedger.length > 0 ? (
@@ -413,59 +406,37 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
             </section>
           ) : null}
 
-          {/* Checkpoint pengiriman (F5/M5). Tombolnya aksi demo supaya timer SLA
-              dan alur OTP bisa dilihat dari sisi customer; di produksi aksi ini
-              milik kurir (layar kurir memakai komponen yang sama). Customer
-              hanya menampilkan OTP, kurir yang memasukkannya (C-09). */}
+          {/* Checkpoint pengiriman (F5/M5): customer hanya menampilkan progres +
+              kode OTP serah terima (C-09). Aksi Ambil/Berangkat/Tiba milik kurir
+              (F13), bukan customer — jadi di sini tak ada tombol aksi. */}
           <section className="track-section">
             <h2 className="track-section-title">Checkpoint pengiriman</h2>
-            <DeliveryStepper checkpoint={deliveryCheckpoint} />
-            {deliveryCheckpoint === 'selesai' ? (
+            {isCancelled ? (
               <p className="track-row-note">
-                Pengiriman selesai — OTP terverifikasi, order tidak menggantung.
+                Pesanan dibatalkan, pengiriman tidak dilanjutkan.
               </p>
             ) : (
-              <DeliveryActionCard
-                checkpoint={deliveryCheckpoint}
-                startedAt={deliveryCheckpointAt}
-                now={now}
-                otpDisplayCode={activeOrder ? otpOf(activeOrder.code) : DELIVERY_OTP_DEMO}
-                otpStep={deliveryCheckpoint === 'tiba' || courierArrived}
-                autoSettlePaused={isDisputed}
-                evidence={
-                  deliveryCheckpoint === 'tiba' && gpsSnapshot ? (
-                    <p className="courier-card-sub">
-                      Bukti: GPS {gpsSnapshot.lat.toFixed(5)}, {gpsSnapshot.lng.toFixed(5)} · foto
-                      serah terima (mock)
-                    </p>
-                  ) : null
-                }
-                actions={
-                  deliveryAction ? (
-                    <button
-                      type="button"
-                      className="btn btn-primary courier-primary"
-                      onClick={() =>
-                        dispatch(
-                          advanceDelivery({
-                            gps: address ? { lat: address.lat, lng: address.lng } : undefined,
-                          }),
-                        )
-                      }
-                    >
-                      {deliveryAction}
-                    </button>
-                  ) : deliveryCheckpoint === 'tiba' ? (
-                    <button
-                      type="button"
-                      className="btn btn-primary courier-primary"
-                      onClick={completeDeliveryDemo}
-                    >
-                      Selesaikan (demo kurir)
-                    </button>
-                  ) : null
-                }
-              />
+              <>
+                <DeliveryStepper checkpoint={customerCheckpoint} />
+                {stage === 'selesai' ? (
+                  <p className="track-row-note">
+                    Pengiriman selesai — OTP terverifikasi, order tidak menggantung.
+                  </p>
+                ) : stage === 'diantar' ? (
+                  <DeliveryActionCard
+                    checkpoint={customerCheckpoint}
+                    startedAt={null}
+                    now={now}
+                    otpDisplayCode={activeOrder ? otpOf(activeOrder.code) : DELIVERY_OTP_DEMO}
+                    otpStep
+                    autoSettlePaused={isDisputed}
+                  />
+                ) : (
+                  <p className="track-row-note">
+                    Kurir belum berangkat. Progres muncul di sini otomatis.
+                  </p>
+                )}
+              </>
             )}
           </section>
 
@@ -584,6 +555,17 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
             }}
           >
             Kirim banding
+          </button>
+        </div>
+      </BottomSheet>
+
+      <BottomSheet open={cancelOpen} title="Batalkan pesanan" onClose={() => setCancelOpen(false)}>
+        <p className="sheet-field-label">
+          Pesanan dibatalkan dan hold COD dikembalikan. Tindakan ini tidak bisa dibatalkan.
+        </p>
+        <div className="sheet-actions">
+          <button type="button" className="btn btn-primary" onClick={confirmCancel}>
+            Ya, batalkan pesanan
           </button>
         </div>
       </BottomSheet>

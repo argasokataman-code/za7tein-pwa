@@ -691,9 +691,18 @@ const CLICKABLE = 'button, a[href], [role="radio"], [role="button"]'
 // Kontrol nonaktif tidak diklik (memang tidak boleh berefek) — dilaporkan
 // terpisah sebagai "dilewati", bukan sebagai klik mati.
 const CLICKABLE_VIS = `${VIS}
+// Tombol yang keluar app (WA/tel/mail/sms) tidak dites: kliknya memicu dialog
+// protokol eksternal atau navigasi keluar yang menggantung CDP tanpa balasan.
+const externalNav = (el) => {
+  const href = el.getAttribute('href') || ''
+  if (el.getAttribute('target') === '_blank') return true
+  if (/^(tel:|mailto:|sms:|whatsapp:)/i.test(href)) return true
+  return /wa\\.me|whatsapp\\.com|api\\.whatsapp\\.com/i.test(href)
+}
 const clickable = () => [...document.querySelectorAll('${CLICKABLE}')]
   .filter(vis)
-  .filter((el) => !el.disabled && el.getAttribute('aria-disabled') !== 'true')`
+  .filter((el) => !el.disabled && el.getAttribute('aria-disabled') !== 'true')
+  .filter((el) => !externalNav(el))`
 
 const TARGETS = `(() => { ${CLICKABLE_VIS}
   const all = [...document.querySelectorAll('${CLICKABLE}')].filter(vis)

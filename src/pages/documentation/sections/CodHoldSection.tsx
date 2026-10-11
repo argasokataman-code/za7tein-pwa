@@ -32,14 +32,14 @@ export function CodHoldSection() {
               <td>
                 <code className="doc-inline">cut</code>
               </td>
-              <td>Kurir match (aksi mock)</td>
+              <td>Kurir ditugaskan (status order live: siap/diantar)</td>
               <td>Tak berubah — potongan dikunci sampai OTP</td>
             </tr>
             <tr>
               <td>
                 <code className="doc-inline">settled</code>
               </td>
-              <td>OTP sukses (aksi mock)</td>
+              <td>Order selesai (OTP terverifikasi, live)</td>
               <td>
                 Dana keluar dari <strong>pending</strong>
               </td>
@@ -48,14 +48,14 @@ export function CodHoldSection() {
               <td>
                 <code className="doc-inline">released</code>
               </td>
-              <td>Batal sebelum match</td>
+              <td>Order dibatalkan sebelum kurir ditugaskan</td>
               <td>Kembali ke <strong>available</strong>, tanpa potongan</td>
             </tr>
             <tr>
               <td>
                 <code className="doc-inline">reversed</code>
               </td>
-              <td>Batal sesudah match</td>
+              <td>Order dibatalkan sesudah kurir ditugaskan</td>
               <td>Dikembalikan lewat entry reversal</td>
             </tr>
           </tbody>
@@ -72,11 +72,22 @@ export function CodHoldSection() {
         pernah diubah; pembatalan sesudah match bukan penghapusan, melainkan entry baru.
       </p>
       <DocCode lang="typescript">
-        {`createOrderHold({ amountIdr })  // none → held   (event hold_created)
-matchCourier()                  // held → cut    (event hold_cut)
-settleOrderHold()               // cut  → settled(event hold_settled)
-cancelOrder()                   // held → released / cut → reversed`}
+        {`createOrderHold({ amountIdr })  // none → held   (saat order COD dibuat)
+matchCourier()                  // held → cut    (status order → siap/diantar)
+settleOrderHold()               // cut  → settled(status order → selesai)
+cancelOrder()                   // held → released / cut → reversed (batal)`}
       </DocCode>
+      <p className="doc-p">
+        Di layar customer, transisi hold mengikuti status order yang live (realtime{' '}
+        <code className="doc-inline">orders.status</code>): kurir ditugaskan →{' '}
+        <code className="doc-inline">cut</code>, order selesai → <code className="doc-inline">settled</code>.
+        Customer tetap punya satu aksi sendiri, <strong>Batalkan pesanan</strong> (F1/F2): sebelum
+        kurir ditugaskan → <code className="doc-inline">released</code>, sesudahnya →{' '}
+        <code className="doc-inline">reversed</code>, sekaligus menulis{' '}
+        <code className="doc-inline">orders.status = canceled</code> lewat jalur tulis yang sama
+        dengan merchant/kurir. Gema realtime menandai terminal ini di layar customer (tahap BE tak
+        punya nilai batal untuk customer, jadi ditandai terpisah, bukan ditebak).
+      </p>
       <h3 className="doc-h3">Hold butuh saldo, bukan cuma gate</h3>
       <p className="doc-p">
         Gate 3,5 JOD cuma ambang akun baru. Karena COD mengambil dana dari wallet, tombol bayar
