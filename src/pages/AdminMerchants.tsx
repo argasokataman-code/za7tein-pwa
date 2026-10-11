@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { AdminShell } from '../components/layout/AdminShell'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -31,7 +31,7 @@ export default function AdminMerchants() {
     : undefined
 
   return (
-    <div className="app-shell">
+    <AdminShell>
       <main className="admin-page">
         <AdminPageHeader eyebrow="Master tenant" title="Merchant" />
 
@@ -204,7 +204,6 @@ export default function AdminMerchants() {
           </div>
         </BottomSheet>
       </main>
-      <AdminBottomNav />
-    </div>
+    </AdminShell>
   )
 }

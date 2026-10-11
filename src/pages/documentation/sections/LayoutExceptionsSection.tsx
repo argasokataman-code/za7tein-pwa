@@ -6,7 +6,7 @@ export function LayoutExceptionsSection() {
     <DocSection id="layout-exceptions" num="14" title="Layout Exceptions">
       <p className="doc-p">
         Layar tiap peran (<code>/customer/*</code>, <code>/merchant/*</code>,{' '}
-        <code>/courier/*</code>, <code>/admin/*</code>) tetap memakai shell maksimal 430px.
+        <code>/courier/*</code>) tetap memakai shell maksimal 430px.
         Saat dibuka pada lebar layar desktop, shell ini berada dalam simulator
         perangkat 462px agar seluruh preview aplikasi terbaca sebagai pengalaman
         ponsel. Simulator memiliki satu penggulung internal untuk meniru layar
@@ -34,14 +34,19 @@ div.sa-landing {
         360–430px, seluruh bagian disusun ulang secara vertikal.
       </p>
       <p className="doc-p">
-        Panel admin (CS) di <code>/admin</code> sengaja tetap memakai shell 430px seperti
-        role lain — CS memakainya dari ponsel. Yang akan menjadi pengecualian lebar
-        adalah <strong>Super Admin</strong>, role terpisah yang belum dibangun: menurut
-        keputusan PO 2026-09-23 ia berupa <strong>website penuh non-PWA</strong> untuk
-        owner/team (kontrol penuh platform). Prefix yang disiapkan <code>/superadmin</code>;
-        cakupan detailnya masih UNRESOLVED. Saat dibangun, pengecualian lebarnya wajib
-        didokumentasikan di sini seperti pengecualian landing di atas, bukan bocor
-        diam-diam.
+        Panel admin (CS) di <code>/admin</code> <strong>memakai dua shell</strong>. Di
+        ponsel ia tetap 430px seperti role lain — CS memakainya saat berkeliling. Dari lebar{' '}
+        <strong>901px</strong> ke atas (keputusan PO 2026-10-11) ia beralih ke layout
+        desktop: rail sidebar 248px + area konten selebar jendela, mengikuti pola konsol
+        Super Admin. Ini pengecualian lebar kedua yang didokumentasikan di sini setelah
+        landing <code>/</code>, dan alasannya setara: pekerjaan CS yang berat tabel
+        (antrean sengketa, ledger, master tenant) lebih terbaca di layar lebar, sementara
+        perangkatnya sendiri sering laptop. Satu pohon komponen melayani keduanya —
+        sidebar disembunyikan di bawah 901px, bottom nav disembunyikan di 901px ke atas.
+        Yang masih <strong>belum</strong> dibangun adalah <strong>Super Admin</strong>{' '}
+        sendiri: role terpisah, website penuh non-PWA (<code>/superadmin</code>) untuk
+        owner/team (keputusan PO 2026-09-23) yang mengontrol penuh platform termasuk pajak
+        dan dashboard. Prefix disiapkan, cakupan detailnya masih UNRESOLVED.
       </p>
     </DocSection>
   )

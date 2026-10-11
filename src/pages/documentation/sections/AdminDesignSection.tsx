@@ -19,15 +19,18 @@ export function AdminDesignSection() {
         UNRESOLVED — nothing is stubbed for it yet. See{' '}
         <code className="doc-inline">docs/product/prd/decision-irbid-mvp.md</code>.
       </p>
-      <h3 className="doc-h3">Shell: 430px panel, and why Super Admin is different</h3>
+      <h3 className="doc-h3">Shell: 430px phone column, desktop console from 901px</h3>
       <p className="doc-p">
         A wide table dashboard was the obvious guess for this console, and AGENTS §9
-        asked for a <em>documented</em> exception before any width change. Because this
-        shell is the CS panel and CS works on the go, it{' '}
-        <strong>keeps the 430px column</strong> like every other role, with lists rendered
-        as stacked cards. The width exception is therefore <em>not</em> applied here; it
-        belongs to the future Super Admin website, and must be documented here the same
-        way the landing page exception is (see Layout Exceptions) when that is built.
+        asked for a <em>documented</em> exception before any width change. On phones the
+        console <strong>keeps the 430px column</strong> like every other role, with lists
+        rendered as stacked cards and the bottom nav leading. From <strong>901px</strong>{' '}
+        up it now switches to a desktop shell — a 248px sidebar rail plus a full-width
+        content area — mirroring the Super Admin console, because on <em>2026-10-11 the
+        PO decided the CS panel needs a desktop view like Super Admin</em>. One component
+        tree renders both: the sidebar is hidden below 901px and the bottom nav is hidden
+        at and above it, so there is no second layout path to maintain (see Layout
+        Exceptions, section 14, and <code className="doc-inline">docs/plan-admin.md</code>).
       </p>
       <h3 className="doc-h3">Hard rules as displayed state</h3>
       <p className="doc-p">

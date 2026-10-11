@@ -336,7 +336,10 @@ export default function Documentation() {
               <code className="doc-inline">&lt;select&gt;</code> peramban), catatan internal pindah
               ke dokumen ini, judul konsol seragam, putusan sengketa punya satu aksi dominan, badge
               &ldquo;Baru&rdquo; dibedakan dari &ldquo;Investigasi&rdquo;, dan nominal JOD memakai
-              pemisah ribuan. Skala huruf{' '}
+              pemisah ribuan. Konsol ini kini juga punya layout desktop: dari 901px ia memakai
+              rail sidebar 248px + area konten selebar jendela (pola konsol Super Admin),
+              sementara di ponsel tetap 430px + bottom nav — keputusan PO 2026-10-11.
+              Skala huruf{' '}
               <code className="doc-inline">--text-sm..2xl</code> kini dipatok px — dulu{' '}
               <code className="doc-inline">clamp(vw)</code> membuat tipe membesar mengikuti lebar
               jendela padahal kolom aplikasi dikunci 430px — dan font Inter di-preload supaya tidak

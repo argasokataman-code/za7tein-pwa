@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { AdminShell } from '../components/layout/AdminShell'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { DonutChart } from '../components/ui/DonutChart'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
@@ -61,7 +61,7 @@ export default function AdminDashboard() {
   const investigating = disputes.filter((dispute) => dispute.status === 'investigating').length
 
   return (
-    <div className="app-shell">
+    <AdminShell>
       <main className="admin-page">
         <AdminPageHeader
           eyebrow="Panel admin · CS"
@@ -333,7 +333,6 @@ export default function AdminDashboard() {
           onClose={() => setCancelTarget(null)}
         />
       </main>
-      <AdminBottomNav />
-    </div>
+    </AdminShell>
   )
 }

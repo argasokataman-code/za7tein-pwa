@@ -1,7 +1,7 @@
 import { ArrowDownLeft, ArrowUpRight, Lock } from 'lucide-react'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { AdminShell } from '../components/layout/AdminShell'
 import { useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { HOLD_EVENT_LABEL } from '../data/merchant'
@@ -17,7 +17,7 @@ export default function AdminLedger() {
   const holdLedger = useAppSelector((s) => s.cart.holdLedger)
 
   return (
-    <div className="app-shell">
+    <AdminShell>
       <main className="admin-page">
         <AdminPageHeader eyebrow="Append-only" title="Ledger" />
 
@@ -97,7 +97,6 @@ export default function AdminLedger() {
           </section>
         ) : null}
       </main>
-      <AdminBottomNav />
-    </div>
+    </AdminShell>
   )
 }

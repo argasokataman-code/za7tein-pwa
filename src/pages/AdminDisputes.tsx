@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { AdminShell } from '../components/layout/AdminShell'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
@@ -148,7 +148,7 @@ export default function AdminDisputes() {
   const [percent, setPercent] = useState<Record<string, number>>({})
 
   return (
-    <div className="app-shell">
+    <AdminShell>
       <main className="admin-page">
         <AdminPageHeader eyebrow="Queue CS" title="Sengketa" />
 
@@ -184,7 +184,6 @@ export default function AdminDisputes() {
           </p>
         </div>
       </main>
-      <AdminBottomNav />
-    </div>
+    </AdminShell>
   )
 }

@@ -628,6 +628,13 @@ const MEASURE = `(async () => {
       topWho,
     },
     shell: { w: Math.round(sr.width), x: Math.round(sr.x) },
+    // Pengecualian lebar yang DIDOKUMENTASIKAN: konsol desktop (panel CS
+    // .admin-console, konsol SA .sa-root) sengaja tidak memakai kolom 430px di
+    // layar lebar (decision-irbid-mvp.md). Gerbang membacanya dari DOM supaya
+    // aturan kolom tetap berlaku untuk peran lain dan untuk konsol ini di bawah
+    // 901px.
+    wideShell: !!(shell && shell.classList
+      && (shell.classList.contains('admin-console') || shell.classList.contains('sa-root'))),
     col,
     overflowX: doc.scrollWidth - doc.clientWidth,
     controls: controls.length,
@@ -732,7 +739,12 @@ function judge(measured, tokens, strict, viewportWidth) {
   const warn = []
   const push = (bucket, msg) => bucket.push(msg)
   // Kolom = lebar viewport kalau viewport lebih sempit dari --shell-max.
-  const expectedShell = tokens.shellMax ? Math.min(viewportWidth, tokens.shellMax) : null
+  // Konsol desktop yang terdokumentasi (admin-console/sa-root) melebar penuh di
+  // ≥901px, jadi harapannya = lebar viewport, bukan 430px.
+  const wide = measured.wideShell && viewportWidth >= 901
+  const expectedShell = tokens.shellMax
+    ? wide ? viewportWidth : Math.min(viewportWidth, tokens.shellMax)
+    : null
 
   if (measured.crashed) push(fail, 'error boundary tampil (halaman crash)')
   if (measured.textLen === 0) push(fail, 'halaman kosong (tidak ada teks)')

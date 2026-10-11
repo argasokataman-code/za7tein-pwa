@@ -2,7 +2,7 @@ import { CheckCircle2, Image, MapPinned } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminBottomNav } from '../components/layout/AdminBottomNav'
+import { AdminShell } from '../components/layout/AdminShell'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { depositStatusLabel, tenantStatusLabel } from '../data/admin'
@@ -19,7 +19,7 @@ export default function AdminOnboarding() {
   const reviewed = tenants.filter((t) => t.tenantStatus !== 'pending')
 
   return (
-    <div className="app-shell">
+    <AdminShell>
       <main className="admin-page">
         <AdminPageHeader eyebrow="Antrean tenant" title="Onboarding" />
 
@@ -125,7 +125,6 @@ export default function AdminOnboarding() {
           </p>
         </div>
       </main>
-      <AdminBottomNav />
-    </div>
+    </AdminShell>
   )
 }

@@ -41,6 +41,13 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 - Nama field tetap mengikuti kontrak BE (`merchant_credit_balance`, `rebate_tier`, `rebate_period`, `rebate_amount_jod`, `rebate_paid_at`), jadi perpindahan ke backend tidak mengubah nama.
 - Kolom Mock state M10 di `milestones.md` sudah dikoreksi di commit yang sama; detailnya di `/documentation` bagian 31.
 
+### Panel CS dapat layout desktop — 2026-10-11 (keputusan PO)
+
+- Konsol `/admin/*` (panel CS) **tidak lagi phone-only**. PO memutuskan: "admin cs perlu dekstop juga seperti super admin" — CS memakai laptop untuk pekerjaan berat meja (antrean sengketa, ledger, master tenant).
+- **Bentuk:** dari lebar **901px** ke atas konsol beralih ke layout desktop — rail sidebar 248px + area konten selebar jendela — mengikuti pola konsol Super Admin. Di bawah 901px tak berubah: kolom 430px + bottom nav, murni PWA. Satu pohon komponen melayani keduanya (sidebar dan bottom nav saling menggantikan lewat media query), jadi tidak ada jalur layout kedua yang harus dijaga.
+- **Pengecualian lebar terdokumentasi.** Ini menyusul keputusan 2026-09-23 yang menahan shell lebar untuk panel ini: kini pengecualian itu **disetujui** dan dicatat di `docs/design/DNA.md` + `/documentation` §14, sesuai AGENTS §9. `docs/plan-admin.md` (prinsip "shell 430px") dan flow `f15-super-admin` diperbarui di commit yang sama.
+- **Bukan Super Admin.** Batas peran tidak berubah: layout desktop adalah kemasan, bukan penambahan kewenangan. CS tetap menjalankan approval tenant, putusan sengketa level-1, dan blacklist COD; master zona, role/permission, pajak, saldo keuntungan, dan kill switch tetap milik Super Admin (keputusan 2026-09-23).
+
 ### Klarifikasi peran konsol: Panel Admin (CS) vs Super Admin — 2026-09-23 (keputusan PO)
 
 - **Menggantikan sebagian `C-12`** (`analysis.md`): kalimat *"Portal keeps the name 'CS' and doubles as super admin"* **tidak lagi berlaku**. Konsol `/admin/*` adalah **panel admin platform yang dikelola CS** (approval tenant, deposit gate, dispute queue, liability, ledger, blacklist COD), dan **Super Admin adalah role terpisah**.

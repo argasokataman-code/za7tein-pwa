@@ -9,15 +9,19 @@ adalah role terpisah** (belum dibangun, kelak website penuh non-PWA) — keputus
 2026-09-23 di `docs/product/prd/decision-irbid-mvp.md`, menggantikan sebagian `C-12`.
 
 **Status: S0–S4 selesai.** Verifikasi: build 0 error, lint bersih, overflow
-horizontal 0 di 390px & 1440px, shell 430px terkunci.
+horizontal 0 di 390px & 1440px. Shell: 430px + bottom nav di ponsel; dari 901px ke
+atas layout desktop (rail sidebar 248px + konten selebar jendela) — keputusan PO
+2026-10-11, mengikuti pola konsol Super Admin.
 
 ## Prinsip
 
-- **Shell 430px, sama seperti role lain.** Panel ini dipakai CS dari ponsel. Yang
-  akan jadi pengecualian lebar adalah **Super Admin** (role terpisah, website penuh
-  non-PWA, prefix `/superadmin` disiapkan) — belum dibangun, cakupannya
-  `UNRESOLVED`. Saat dibangun, pengecualian lebar wajib didokumentasikan dulu, bukan
-  bocor diam-diam (AGENTS §9).
+- **Dua shell, satu komponen.** Ponsel: 430px + bottom nav, sama seperti role lain.
+  Dari 901px ke atas: rail sidebar 248px + konten selebar jendela, mengikuti pola
+  konsol Super Admin (keputusan PO 2026-10-11). Alasan: pekerjaan CS yang berat tabel
+  lebih terbaca di layar lebar, dan perangkatnya sering laptop. Pengecualian lebar ini
+  **didokumentasikan** di `DNA.md` + `/documentation` §14 (AGENTS §9), bukan bocor
+  diam-diam. **Super Admin** tetap role terpisah (website penuh non-PWA, prefix
+  `/superadmin` disiapkan) — belum dibangun, cakupannya `UNRESOLVED`.
 - Semua nominal konsol SA dalam **JOD** (PRD aktif). IDR→JOD di form sengketa
   memakai rate contoh M1 (Rp23.000) dan dilabeli sementara karena M1 belum ada.
 - Aksi SA = state yang ditampilkan: approve, suspend, blacklist, resolusi tidak
@@ -109,7 +113,8 @@ Form sengketa (F8) satu komponen, dipasang di dua peran:
 - `src/pages/DisputeSubmit.tsx` satu komponen untuk customer + merchant; masuk ke
   queue SA via `fileDispute`.
 - Titik masuk: layar pesanan tiba (customer) dan order selesai (merchant).
-- Responsif 390px & 1440px, overflow horizontal 0, shell 430px.
+- Responsif 390px & 1440px, overflow horizontal 0; ponsel 430px + bottom nav,
+  desktop (≥901px) rail sidebar + konten selebar jendela.
 - `npm run lint`, `npm run build`.
 - **Integrasi `/documentation`**: section "Admin Panel (CS)", baris route, dan
   catatan role Super Admin terpisah di Layout Exceptions.
@@ -140,3 +145,7 @@ Form sengketa (F8) satu komponen, dipasang di dua peran:
    tak ada yang dicatat (beda dari refund/release yang menambah 1 entry). ✅
 4. **CS ≠ Super Admin** (2026-09-23). Sebelumnya `C-12` menyebut portal CS "doubles
    as super admin" — kini dua role terpisah. ✅
+5. **Panel `/admin` dapat layout desktop (2026-10-11).** Ponsel tetap 430px + bottom nav;
+   dari 901px ke atas rail sidebar 248px + konten selebar jendela, pola konsol Super Admin.
+   Pengecualian lebar terdokumentasi (DNA baris "Lebar", `/documentation` §14). Menggantikan
+   sebagian keputusan #1. ✅
