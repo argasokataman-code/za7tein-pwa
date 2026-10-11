@@ -29,6 +29,20 @@
       // Dijalankan sebelum `<link rel="manifest">` ada di DOM, jadi tidak ada
       // jendela waktu di mana peramban sempat membaca manifest yang salah.
       (function () {
+        // Host peran ke entry peran. `vercel.json` sudah 307 untuk host ini, tapi
+        // service worker lama bisa menyajikan `index.html` dari cache untuk `/`
+        // sehingga 307 server tak pernah jalan dan app mendarat di Landing.
+        // Redirect ini jalan sebelum render, jadi menutup celah itu.
+        var hostEntry = {
+          'sa7tein-c.vercel.app': '/customer/home',
+          'sa7tein-m.vercel.app': '/merchant',
+          'sa7tein-k.vercel.app': '/courier',
+          'sa7tein-a.vercel.app': '/admin'
+        };
+        if (location.pathname === '/' && hostEntry[location.host]) {
+          location.replace(hostEntry[location.host]);
+          return;
+        }
         var names = { customer: 'Sa7tein', merchant: 'Sa7tein Merchant', courier: 'Sa7tein Kurir', admin: 'Sa7tein Admin' };
         // Judul jendela app-mode Chromium diambil dari `<title>` dokumen, bukan
         // `name` manifest — tanpa ini empat jendela tampil dengan judul identik

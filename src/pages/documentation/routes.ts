@@ -27,8 +27,13 @@ export const DOC_SHELLS: DocShell[] = [
   { role: 'Landing', url: '/', desc: 'Halaman publik' },
 ]
 
-/** Href CTA: host pendek peran kalau ada, selain itu path relatif. */
-export const docShellHref = (s: DocShell) => (s.host ? `https://${s.host}/` : s.url)
+/**
+ * Href CTA: host pendek peran kalau ada, selain itu path relatif. Diarahkan ke
+ * PATH entry peran (bukan root), supaya klik tak bergantung pada redirect server
+ * `vercel.json`: service worker lama bisa menyajikan `index.html` dari cache
+ * untuk `/` sehingga 307 server tak jalan dan app mendarat di Landing.
+ */
+export const docShellHref = (s: DocShell) => (s.host ? `https://${s.host}${s.url}` : s.url)
 
 /** Yang ditampilkan di kartu: URL host pendek, atau path relatif. */
 export const docShellLabel = (s: DocShell) => (s.host ? `https://${s.host}` : s.url)

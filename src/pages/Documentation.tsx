@@ -104,6 +104,11 @@ const HERO_TAGS = [
   'React Hook Form',
 ]
 
+// CTA per peran (`DocShellCtas`) menautkan host peran ke PATH entry perannya,
+// mis. `https://sa7tein-c.vercel.app/customer/home`, bukan root host. Root tetap
+// 307 di server lewat `vercel.json`, tapi service worker lama bisa menyajikan
+// `index.html` dari cache untuk `/` sehingga 307 tak jalan dan app mendarat di
+// Landing; menautkan path peran membuat klik selalu mendarat di peran yang benar.
 export default function Documentation() {
   const [active, setActive] = useState(0)
   // Sidebar di layar sempit tergeser keluar (`translateX(-100%)`) dan hanya
