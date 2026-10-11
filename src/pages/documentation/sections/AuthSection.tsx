@@ -85,6 +85,23 @@ export function AuthSection() {
         <code className="doc-inline">photo</code> kosong), bukan kerangka terpisah.
       </p>
 
+      <h3 className="doc-h3">Banner carousel janji produk</h3>
+      <p className="doc-p">
+        Layar masuk customer (
+        <code className="doc-inline">/customer/signin</code>) menyorot tiga janji produk lewat
+        carousel banner bergambar, menggantikan paragraf tagline dua baris yang dulu menumpuk. Tiap
+        slide satu gambar — komponen{' '}
+        <code className="doc-inline">src/components/ui/AuthBanner.tsx</code>, aset lokal{' '}
+        <code className="doc-inline">public/assets/img/auth/</code> (1000&times;410, webp) — dan
+        polanya meniru <code className="doc-inline">HomePromoCarousel</code>: satu interval, jeda
+        saat disentuh, mati saat <code className="doc-inline">prefers-reduced-motion</code>, titik
+        navigasi <code className="doc-inline">role=&quot;tab&quot;</code> dengan sasaran sentuh
+        penuh. Janjinya dari PRD aktif (estimasi masak 15/25/35 menit, ongkir ditanggung merchant,
+        COD), dan tiap gambar punya <em>alt</em> yang menyalin janjinya untuk pembaca layar.
+        Tinggi banner mengikuti rasio aset, bukan tinggi paku: teks janji menyatu di dalam gambar,
+        jadi <code className="doc-inline">cover</code> dengan tinggi tetap akan memotong tepinya.
+      </p>
+
       <h3 className="doc-h3">Kontrol palsu yang dibuang</h3>
       <p className="doc-p">
         Repo ini showcase front-end tanpa autentikasi sungguhan, jadi beberapa kontrol di layar lama

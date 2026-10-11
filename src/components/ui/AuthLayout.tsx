@@ -2,7 +2,8 @@ import { ArrowLeft } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import type { AuthPhoto } from '../../types'
+import { AuthBanner } from './AuthBanner'
+import type { AuthBannerSlide, AuthPhoto } from '../../types'
 
 /**
  * Satu kerangka untuk semua layar masuk/daftar.
@@ -34,6 +35,11 @@ export interface AuthLayoutProps {
   subtitle: string
   /** Kalimat kecil di bawah H1 — satu baris, bukan paragraf pemasaran. */
   tagline?: string
+  /**
+   * Slide banner yang bergilir. Bila diisi, banner menggantikan `tagline`
+   * supaya janji produk tampil sebagai gambar, bukan paragraf panjang.
+   */
+  banners?: readonly AuthBannerSlide[]
   /** Isi panel form: kontrol form atau konten layar status. */
   children: ReactNode
   /**
@@ -50,6 +56,7 @@ export function AuthLayout({
   title,
   subtitle,
   tagline,
+  banners,
   children,
   showBack = true,
 }: AuthLayoutProps) {
@@ -96,7 +103,11 @@ export function AuthLayout({
         <header className="auth-head">
           <h1 className="auth-h1">{title}</h1>
           <p className="auth-lede">{subtitle}</p>
-          {tagline ? <p className="auth-tagline">{tagline}</p> : null}
+          {banners && banners.length > 0 ? (
+            <AuthBanner slides={banners} />
+          ) : tagline ? (
+            <p className="auth-tagline">{tagline}</p>
+          ) : null}
         </header>
 
         {children}

@@ -371,6 +371,14 @@ export default function Documentation() {
               Admin tetap menampilkan pasangan dua baris. Kurs live diambil harian dari{' '}
               <code className="doc-inline">fawazahmed0/exchange-api</code> (tanpa API key, cache 24
               jam), dan label waktu sync-nya mengikuti locale + zona waktu device tiap user.
+              Layar masuk customer (<code className="doc-inline">/customer/signin</code>) kini
+              menyorot janji produk lewat carousel banner bergambar (komponen{' '}
+              <code className="doc-inline">AuthBanner</code>, aset lokal{' '}
+              <code className="doc-inline">public/assets/img/auth/</code>, 1000&times;410) yang
+              menggantikan paragraf tagline dua baris — tiap slide satu janji dari PRD aktif
+              (estimasi masak 15/25/35 menit, ongkir ditanggung merchant, COD), <em>alt</em> gambar
+              menyalin janjinya untuk pembaca layar, dan tinggi banner mengikuti rasio aset supaya
+              teks di dalam gambar tidak terpotong.
               Rinciannya di bagian Changelog.
             </p>
             <DocShellCtas />

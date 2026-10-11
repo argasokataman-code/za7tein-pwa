@@ -65,3 +65,98 @@
   outline: none;
   box-shadow: 0 0 0 3px var(--orange-soft);
 }
+
+// ── Banner carousel di layar masuk ─────────────────────────────────────────
+// Menggantikan paragraf `.auth-tagline`: tiap slide adalah gambar banner yang
+// memuat satu janji produk, jadi blok teks tidak menumpuk jadi paragraf dua
+// baris. Titik navigasinya satu aksen (oranye merek), mengikuti bahasa
+// `HomePromoCarousel`.
+
+.auth-banner {
+  position: relative;
+  margin-top: var(--space-4);
+  border-radius: var(--radius-lg);
+  // Oranye merek sebagai latar cadangan sebelum foto selesai dimuat — sama
+  // seperti kartu promo beranda.
+  background: var(--sa7tein-orange);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+// Slide bersebelahan, digeser `translate3d` supaya pergeserannya ditangani
+// compositor. Lebar jalur tetap 100% (tiap slide mengalir keluar), jadi
+// `-100%` persis menggeser satu slide.
+.auth-banner-track {
+  display: flex;
+  width: 100%;
+  transition: transform var(--motion-standard) var(--ease-standard);
+}
+
+.auth-banner-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  // Tinggi mengikuti rasio aset (1000x410). Ini penting: teks janji sudah
+  // menempel di dalam gambar, jadi kotak harus seiras gambarnya — kalau
+  // tingginya dipatok, `cover` akan memotong tepi dan memakan teksnya.
+  aspect-ratio: 1000 / 410;
+}
+
+.auth-banner-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.auth-banner-dots {
+  position: absolute;
+  // Kiri-bawah, di atas gradien gelap aset banner: titik oranye merek tetap
+  // terbaca, dan tingginya sasaran sentuh penuh seperti `.promo-dot`.
+  left: var(--space-3);
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  height: var(--touch-min);
+}
+
+// Sasaran sentuh penuh 44px, titik visualnya dari `::before` — sama seperti
+// `.promo-dot`, supaya jari tidak perlu tepat mengenai bulatan kecilnya.
+.auth-banner-dot {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.auth-banner-dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  // Oranye merek cerah (bukan `--orange-ink`) karena titiknya duduk di atas
+  // gradien gelap foto.
+  background: var(--sa7tein-orange);
+  opacity: 0.45;
+  transition: opacity var(--motion-fast) var(--ease-out);
+}
+
+.auth-banner-dot--active::before {
+  opacity: 1;
+}
+
+.auth-banner-dot:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-banner-track {
+    transition: none;
+  }
+}

@@ -902,3 +902,13 @@ export interface AuthPhoto {
   /** Tinggi asli berkas, dipakai atribut `height` <img>. */
   height: number
 }
+
+/**
+ * Satu slide banner carousel di layar auth. Gambarnya sudah memuat satu janji
+ * produk (teks besar di dalamnya), jadi `alt` menyalin janji itu supaya
+ * pembaca layar tetap menerima pesannya.
+ */
+export interface AuthBannerSlide {
+  src: string
+  alt: string
+}

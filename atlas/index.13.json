@@ -3358,6 +3358,540 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
+    },
+    {
+      "id": "TASK-13072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:16:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx (+74) — write via tool: tsx: import { useEffect, useStat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx"
+    },
+    {
+      "id": "TASK-13073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:17:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx (+4/-4) — edit via tool: tsx: {lines.map((_line, dotInde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx"
+    },
+    {
+      "id": "TASK-13074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:19:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+4/-3) — edit via tool: tsx: import { useNavigate } fro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-13075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:20:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+7/-2) — edit via tool: tsx: /** Kalimat kecil di bawah",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-13076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:21:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+6/-2) — edit via tool: tsx: <p className=\"auth-lede\">{",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-13077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:22:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/authCopy.ts (+19/-6) — edit via tool: ts: export const AUTH_FACTS = {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/authCopy.ts"
+    },
+    {
+      "id": "TASK-13078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:23:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+3/-2) — edit via tool: tsx: import { AuthLayout } from '../compone",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-13079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:24:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+4/-4) — edit via tool: tsx: title=\"Masuk\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-13080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:25:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+89/-5) — edit via tool: .auth-otp-box:focus {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-13081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "21:26:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+3/-3) — edit via tool: // Slide bersebelahan, digeser `t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-13082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:01:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+18/-8) — edit via tool: ts: export interface AuthPhoto {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-13083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:02:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts (+1/-1) — edit via tool: ts: import type { AuthBannerSlide, AuthPhoto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts"
+    },
+    {
+      "id": "TASK-13084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:04:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts (+27/-5) — edit via tool: ts: export const AUTH_ROLE_LABEL = {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts"
+    },
+    {
+      "id": "TASK-13085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:05:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/authCopy.ts (+6/-19) — edit via tool: ts: export const AUTH_FACTS = {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/authCopy.ts"
+    },
+    {
+      "id": "TASK-13086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:06:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx (+79) — write via tool: tsx: import { useEffect, useStat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx"
+    },
+    {
+      "id": "TASK-13087",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:07:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+2/-2) — edit via tool: tsx: import { AuthBanner } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-13088",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:08:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+5/-5) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-13089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:09:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+3/-3) — edit via tool: tsx: {banners && banners.length",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-13090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:10:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+2/-3) — edit via tool: tsx: import { AuthLayout } from '../compone",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-13091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:11:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+1/-1) — edit via tool: tsx: banners={AUTH_BANNER_SLIDES}",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-13092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:12:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+25/-19) — edit via tool: .auth-banner-slide {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-13093",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:13:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+5/-6) — edit via tool: // ── Banner carousel di layar ma",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-13094",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:24:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+10/-8) — edit via tool: .auth-banner {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-13095",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:24:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx (+2/-2) — edit via tool: tsx: width={1000}",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthBanner.tsx"
+    },
+    {
+      "id": "TASK-13096",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:29:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+15/-17) — edit via tool: .auth-banner-slide {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-13100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:33:45",
+      "tags": [
+        "ui",
+        "auth",
+        "carousel"
+      ],
+      "summary": "Login customer: carousel banner gambar full-bleed ala promo (3 webp 1000x410) ganti tagline statis",
+      "conn": [
+        {
+          "id": "TASK-13096",
+          "type": "relates",
+          "raw": "TASK-13096:relates"
+        }
+      ],
+      "loc": "src/components/ui/AuthBanner.tsx:1"
+    },
+    {
+      "id": "TASK-13101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:41:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+18/-10) — edit via tool: tsx: anda kedipan swap. Sakelar ma",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-13102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "22:41:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AuthSection.tsx (+18/-1) — edit via tool: tsx: <h3 class",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AuthSection.tsx"
     }
   ]
 }

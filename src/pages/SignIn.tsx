@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_BANNER_SLIDES, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { signInSchema, type SignInFormData } from '../lib/schemas'
 import { signIn } from '../store/slices/authSlice'
@@ -33,7 +33,7 @@ export default function SignIn() {
       role={AUTH_ROLE_LABEL.customer}
       title="Masuk"
       subtitle="Pesan dari dapur di sekitarmu dan ikuti perjalanannya sampai tiba."
-      tagline="Estimasi masak 15, 25, atau 35 menit, jelas sejak checkout. Ongkir ditanggung merchant, bukan ditambahkan ke pesananmu."
+      banners={AUTH_BANNER_SLIDES}
     >
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">

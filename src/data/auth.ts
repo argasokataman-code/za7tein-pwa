@@ -1,4 +1,4 @@
-import type { AuthPhoto } from '../types'
+import type { AuthBannerSlide, AuthPhoto } from '../types'
 
 /**
  * Foto per layar auth. Semuanya sudah ada di `public/assets/img/menu/` dan
@@ -51,3 +51,25 @@ export const AUTH_ROLE_LABEL = {
   merchant: 'Merchant',
   courier: 'Kurir',
 } as const
+
+/**
+ * Banner carousel layar masuk. Tiap gambar memuat satu janji produk sebagai
+ * teks besar di dalamnya, jadi `alt` menyalin janji itu (pembaca layar tidak
+ * melihat gambarnya). Isinya tetap dari PRD aktif `irbid-mvp-v2-2026-09-21`:
+ * estimasi masak 15/25/35 menit, ongkir ditanggung merchant, dan COD. Aset
+ * lokal di `public/assets/img/auth/`, dibuat untuk repo ini.
+ */
+export const AUTH_BANNER_SLIDES: AuthBannerSlide[] = [
+  {
+    src: '/assets/img/auth/auth-banner-estimasi.webp',
+    alt: 'Estimasi masak 15, 25, atau 35 menit, jelas sejak checkout.',
+  },
+  {
+    src: '/assets/img/auth/auth-banner-ongkir.webp',
+    alt: 'Ongkir ditanggung merchant, bukan ditambahkan ke pesananmu.',
+  },
+  {
+    src: '/assets/img/auth/auth-banner-cod.webp',
+    alt: 'Bayar di tempat (COD) saat pesanan tiba.',
+  },
+]
