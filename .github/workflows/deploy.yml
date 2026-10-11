@@ -12,6 +12,12 @@ name: Deploy production
 #
 # Semua project-domain (sa7tein-c/m/k/a/hub/pwa) ikut ter-assign otomatis oleh
 # `vercel --prod`, jadi tak ada langkah alias manual lagi.
+#
+# Versioning: setiap push yang mengubah file aplikasi (selain `.github/`) menaikkan
+# patch `BASE_VERSION` via `scripts/bump-version.mjs`, lalu commit balik ke `main`
+# dengan penanda `[skip ci]` supaya tidak memicu run kedua. Build/deploy memakai
+# pohon yang sudah dinaikkan, jadi versi di prod == versi di git. major/minor
+# tetap manual (keputusan rilis manusia).
 
 on:
   push:
@@ -27,11 +33,47 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # commit balik bump versi ke main
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # butuh HEAD~1 untuk cek file yang berubah
+
+      - name: Bump versi (kalau ada perubahan aplikasi)
+        id: bump
+        run: |
+          set -euo pipefail
+          last=$(git log -1 --pretty=%s)
+          if [[ "$last" == *"chore(release)"* ]]; then
+            echo "commit rilis terakhir; lewati bump"
+            exit 0
+          fi
+          if ! git rev-parse HEAD~1 >/dev/null 2>&1; then
+            echo "tanpa parent; lewati bump"
+            exit 0
+          fi
+          changed=$(git diff --name-only HEAD~1 HEAD -- . ':(exclude).github' | head -1)
+          if [ -z "$changed" ]; then
+            echo "tak ada perubahan aplikasi; lewati bump"
+            exit 0
+          fi
+          version=$(node scripts/bump-version.mjs)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "versi baru: $version"
+
+      - name: Commit & push bump versi
+        if: steps.bump.outputs.version != ''
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/appInfo.ts
+          git commit -m "chore(release): v${{ steps.bump.outputs.version }} [skip ci]"
+          git push
 
       - uses: actions/setup-node@v5
         with:
