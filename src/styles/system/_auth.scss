@@ -19,11 +19,11 @@
   min-height: var(--app-vh);
 }
 
-@media (min-width: 900px) {
-  .auth {
-    flex-direction: row;
-  }
-}
+// Tidak ada varian baris di desktop: shell dikunci `--shell-max` (430px) di
+// lebar berapa pun (DNA.md; hanya `/superadmin/*` yang lebar). Varian
+// `@media (min-width:900px)` yang dulu ada memecah kolom itu jadi foto 268px
+// + panel form 162px (input terukur ~130px). Foto tetap strip di atas, form
+// di bawah, sama seperti ponsel.
 
 // ── Panel foto ─────────────────────────────────────────────────────────────
 // Tingginya `clamp`, bukan persentase: di layar 390x844 ia mengambil porsi
@@ -39,14 +39,6 @@
   height: clamp(132px, 18dvh, 184px);
   overflow: hidden;
   background: var(--orange-soft);
-}
-
-@media (min-width: 900px) {
-  .auth-photo {
-    flex: 1 1 50%;
-    height: auto;
-    min-height: var(--app-vh);
-  }
 }
 
 // `> img`, bukan `img`: logo merek di dalam badge juga <img>, dan selector
@@ -117,18 +109,6 @@
   justify-content: flex-start;
   padding: var(--space-4) var(--space-5) var(--space-6);
   background: var(--surface);
-}
-
-@media (min-width: 900px) {
-  .auth-panel {
-    // Kolom ponsel tetap muncul di desktop: panel form sengaja dibatasi supaya
-    // baris isian tidak melebar sampai ~700px, yang membuat mata melompat jauh
-    // dari label ke nilai. Di desktop ruangnya panjang, jadi boleh ditengahkan.
-    width: min(100%, 420px);
-    margin-inline: auto;
-    justify-content: center;
-    border-left: 1px solid var(--border);
-  }
 }
 
 // Layar status tanpa foto: satu panel, di tengah.
@@ -411,7 +391,13 @@
   gap: var(--space-3);
   // Seluruh baris adalah target: menekan teksnya sudah mencentang, dan padding
   // vertikal membuat barisnya sendiri setinggi target sentuh.
+  //
+  // `padding-left` = kotak (20px) + jarak (--space-3): kotak centang digambar di
+  // `left: 0` secara absolut, dan input aslinya juga absolut, jadi `gap` tidak
+  // pernah memberi ruang — dulu kalimatnya mulai di x=0 dan 20px pertamanya
+  // tertutup kotak ("Saya" terbaca "a"). Indent ini yang memisahkannya.
   padding-block: var(--space-2);
+  padding-left: calc(20px + var(--space-3));
   cursor: pointer;
 }
 
@@ -570,13 +556,20 @@
   transition: border-color var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
 }
 
-.auth-zone.is-on {
+// Terpilih: `:has(input:checked)` supaya setiap pemakai dapat state terlihat
+// tanpa harus mencerminkan nilai ke state React. Label polos (mis. onboarding
+// kurir) dulu tak pernah menyetel `.is-on`, jadi memilih Motor/Mobil tak
+// mengubah apa pun — tombolnya terlihat sama saat terpilih. `is-on` tetap
+// didukung untuk layar yang sudah mencerminkannya (merchant sign up).
+.auth-zone.is-on,
+.auth-zone:has(input:checked) {
   border-color: var(--sa7tein-orange);
   background: var(--orange-soft);
   color: var(--orange-soft-ink);
 }
 
-.auth-zone.is-on::before {
+.auth-zone.is-on::before,
+.auth-zone:has(input:checked)::before {
   border-color: var(--sa7tein-orange);
   // Titik tengah lewat inset box-shadow, bukan pseudo-elemen kedua: satu
   // lingkaran sudah ada, ini hanya isiannya.
