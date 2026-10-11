@@ -3244,6 +3244,120 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-13066",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "20:47:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useNotificationSound.ts (+67) — write via tool: ts: // Nada notifikasi disintes",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useNotificationSound.ts"
+    },
+    {
+      "id": "TASK-13067",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "20:47:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts (+13/-12) — edit via tool: ts: import { useEffect, useRef } f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-13068",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "20:48:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts (+7/-3) — edit via tool: ts: const dispatch = useAppDispatch(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-13069",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "20:48:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useNotificationSound.ts (+2/-2) — edit via tool: ts: const w = window as typeof",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useNotificationSound.ts"
+    },
+    {
+      "id": "TASK-13070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "20:49:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-2) — edit via tool: tsx: <code className=\"doc-inline\">or",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-13071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "20:49:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx (+18/-5) — edit via tool: tsx: <p classN",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/PushSection.tsx"
     }
   ]
 }

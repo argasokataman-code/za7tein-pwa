@@ -335,6 +335,10 @@ export default function Documentation() {
               <code className="doc-inline">released</code>, sesudahnya{' '}
               <code className="doc-inline">reversed</code>, sekaligus menulis{' '}
               <code className="doc-inline">orders.status = canceled</code>.
+              Notifikasi yang masuk saat aplikasi terbuka kini berbunyi lewat Web Audio
+              (<code className="doc-inline">hooks/useNotificationSound.ts</code>, nada disintesis —
+              tanpa berkas audio di <code className="doc-inline">public/</code>), dipicu hanya saat
+              jumlah belum-dibaca naik.
               Manifest keempat peran kini hanya{' '}
               <code className="doc-inline">display: standalone</code> —{' '}
               <code className="doc-inline">fullscreen</code> dibuang dari{' '}

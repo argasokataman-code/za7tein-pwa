@@ -92,6 +92,19 @@ npm run push:deploy                                   # supabase functions deplo
         (Android/iOS). Pengirim produksinya sudah ada — Edge Function + webhook, lihat{' '}
         <code className="doc-inline">supabase/README.md</code>.
       </p>
+      <h3 className="doc-h3">Nada notifikasi in-app (Web Audio, tanpa berkas)</h3>
+      <p className="doc-p">
+        Selain push OS, notifikasi yang masuk saat aplikasi terbuka kini berbunyi lewat{' '}
+        <code className="doc-inline">hooks/useNotificationSound.ts</code> — nadanya disintesis Web
+        Audio (dua tone 880 &rarr; 1320 Hz), jadi <strong>tidak ada berkas audio</strong> di{' '}
+        <code className="doc-inline">public/</code> dan tak perlu dependency. Dipicu{' '}
+        <code className="doc-inline">useApiRealtime</code> hanya saat jumlah belum-dibaca{' '}
+        <strong>naik</strong> (muatan pertama jadi baseline, tak berbunyi untuk notifikasi lama).
+        Peramban memblok audio sebelum ada interaksi user, jadi{' '}
+        <code className="doc-inline">AudioContext</code> baru dibuat pada gesture pertama — sebelum
+        itu senyap, bukan galat. Suara push OS tetap nada bawaan sistem (Web Notifications tak punya
+        opsi nada kustom).
+      </p>
     </DocSection>
   )
 }
