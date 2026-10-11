@@ -203,7 +203,7 @@ export default function Documentation() {
               merchant lengkap (pemilik/kota/tier/tenant/deposit/zona/COD) untuk panel CS & konsol SA,
               role & operator konsol SA (izinnya sudah sepadan dengan katalog UI), dan riwayat
               kredit dari merchant_credit_events, dan notifikasi live: inbox dibaca per audience
-              (customer/merchant/courier/cs) dengan lonceng+badge di header merchant/kurir/CS — kini otomatis di tiap halaman konsol (default selubung header peran, onboarding dikecualikan) dan di hero beranda dapur, bukan lagi ditempel per halaman — dengan gaya tombol ikon polos (transparan) di header dan lonceng hero beranda dapur yang memakai kelas `.s7-notification` yang sama persis dengan beranda pelanggan, tiap
+              (customer/merchant/courier/cs) dengan lonceng+badge di header merchant/kurir/CS — kini otomatis di tiap halaman konsol (default selubung header peran, onboarding dikecualikan) dan di hero beranda dapur, bukan lagi ditempel per halaman — dengan gaya tombol ikon polos (transparan) di header dan lonceng hero beranda dapur yang memakai kelas `.s7-notification` yang sama persis dengan beranda pelanggan, di konsol web desktop (panel CS ≥901px) lonceng membuka popup daftar notifikasi di bawah header (tutup lewat klik luar/Escape) alih-alih pindah halaman penuh sementara di lebar ponsel tetap pindah ke kotak masuk, tiap
               transisi order (checkout, terima/tolak/siap/serahkan/batal, checkpoint kurir, OTP)
               mengemit notifikasi ke peran terkait, dan klik baris menulis balik
               notifications.read (kind tak dikenal jatuh ke system; mock tetap jadi fallback),
@@ -350,8 +350,10 @@ export default function Documentation() {
               pemisah ribuan. Konsol ini kini juga punya layout desktop: dari 901px ia memakai
               rail sidebar 248px + area konten selebar jendela (pola konsol Super Admin),
               sementara di ponsel tetap 430px + bottom nav — keputusan PO 2026-10-11
-              (tercatat juga sebagai entri di bagian Changelog). Di desktop kontennya jadi
-              grid kartu 2–3 kolom dalam kontainer 1280px, bukan kolom ponsel dilebarkan.
+              (tercatat juga sebagai entri di bagian Changelog). Komposisi desktop
+              disusun ulang mengikuti referensi dashboard: topbar (judul + sub + lonceng),
+              baris KPI empat kartu, lalu panel berdampingan dalam kontainer 1180px yang
+              beralih ke dua kolom dari 1150px, bukan grid kartu mengalir.
               Skala huruf{' '}
               <code className="doc-inline">--text-sm..2xl</code> kini dipatok px — dulu{' '}
               <code className="doc-inline">clamp(vw)</code> membuat tipe membesar mengikuti lebar

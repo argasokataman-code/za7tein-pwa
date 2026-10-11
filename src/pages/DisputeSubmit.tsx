@@ -238,7 +238,14 @@ export default function DisputeSubmit() {
             <div className="dispute-photos">
               {photos.map((url, index) => (
                 <div key={url} className="dispute-photo">
-                  <img src={url} alt={`Foto bukti ${index + 1}`} width={96} height={96} />
+                  <img
+                    src={url}
+                    alt={`Foto bukti ${index + 1}`}
+                    width={96}
+                    height={96}
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <button
                     type="button"
                     className="dispute-photo-remove"

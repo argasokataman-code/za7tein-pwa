@@ -14,6 +14,8 @@ export interface PageHeaderProps {
   prefix: string
   /** Baris kecil di atas judul, mis. "Antrean dapur". Opsional. */
   eyebrow?: string
+  /** Baris keterangan di bawah judul. Opsional; hanya dipakai header konsol desktop. */
+  subtitle?: string
   /**
    * Tombol kembali di tepi **kiri** bar. `true` kembali satu langkah
    * (`navigate(-1)`); string = tujuan tetap. Ini kontrol 44px, jadi judulnya
@@ -31,6 +33,12 @@ export interface PageHeaderProps {
    * perilaku yang sama dengan `back`/`action`.
    */
   bell?: boolean
+  /**
+   * Di konsol web desktop (≥901px) lonceng membuka popup daftar notifikasi
+   * alih-alih pindah halaman; di lebar ponsel tetap pindah ke inbox. Hanya
+   * selubung konsol desktop yang menyalakannya. Default mati.
+   */
+  bellPanel?: boolean
 }
 
 /**
@@ -55,7 +63,16 @@ export interface PageHeaderProps {
  * akan mendorong atau bersinggungan dengannya saat judulnya panjang. Tanpa
  * kontrol, judulnya tetap hero.
  */
-export function PageHeader({ title, prefix, eyebrow, back, action, bell = false }: PageHeaderProps) {
+export function PageHeader({
+  title,
+  prefix,
+  eyebrow,
+  subtitle,
+  back,
+  action,
+  bell = false,
+  bellPanel = false,
+}: PageHeaderProps) {
   const hasControl = Boolean(back) || Boolean(action) || bell
   return (
     <header className={hasControl ? `${prefix}-header ${prefix}-header--has-control` : `${prefix}-header`}>
@@ -65,10 +82,11 @@ export function PageHeader({ title, prefix, eyebrow, back, action, bell = false 
       <div className={`${prefix}-header-copy`}>
         {eyebrow ? <p className={`${prefix}-eyebrow`}>{eyebrow}</p> : null}
         <h1 className={`${prefix}-title`}>{title}</h1>
+        {subtitle ? <p className={`${prefix}-header-sub`}>{subtitle}</p> : null}
       </div>
       {bell || action ? (
         <div className={`${prefix}-header-action`}>
-          {bell ? <NotificationBell /> : null}
+          {bell ? <NotificationBell panel={bellPanel} /> : null}
           {action}
         </div>
       ) : null}

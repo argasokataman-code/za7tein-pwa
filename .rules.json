@@ -116,6 +116,19 @@
         "gesture perangkat keras"
       ]
     },
+    "mode_dual": {
+      "kenapa": "Panel CS /admin punya DUA mode: web desktop (>=901px) dan PWA (ponsel). Service worker terikat origin (port), jadi mode web WAJIB diukur di port sendiri; gate non-PWA mengunregister SW + menghapus cache, dan itu merusak state PWA kalau portnya sama.",
+      "port": {
+        "web": 4180,
+        "pwa": 4173,
+        "dev_non_pwa": "5173-5176 (dipakai browser-gate tanpa GATE_BASE)"
+      },
+      "perintah": {
+        "web": "npm run preview:web  ->  GATE_BASE=http://localhost:4180 node scripts/browser-gate.mjs --route /admin --strict --click",
+        "pwa": "npm run preview:pwa  ->  node scripts/browser-gate.mjs --route /admin --pwa --strict --click"
+      },
+      "aturan": "Satu server per mode, port beda. Jangan mengukur mode web di 4173 atau mode PWA di 4180."
+    },
     "severity": {
       "fail": [
         "overflow-x != 0",

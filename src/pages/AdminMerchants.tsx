@@ -2,6 +2,7 @@ import { Ban, Check, ChevronRight, Store, TriangleAlert } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
+import { AdminKpi } from '../components/admin/AdminKpi'
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminShell } from '../components/layout/AdminShell'
 import { BottomSheet } from '../components/ui/BottomSheet'
@@ -18,6 +19,9 @@ export default function AdminMerchants() {
   const merchants = useAppSelector((s) => s.admin.merchants)
   const riskFlags = useAppSelector((s) => s.admin.customerRiskFlags)
   const csActorId = useAppSelector((s) => s.superAdmin.csActorId)
+  const approved = merchants.filter((m) => m.tenantStatus === 'approved').length
+  const suspended = merchants.filter((m) => m.tenantStatus === 'suspended').length
+  const blacklisted = merchants.filter((m) => m.tenantStatus === 'blacklisted').length
   const [codCustomer, setCodCustomer] = useState<Record<string, string>>({})
   // Sheet pemilih customer: id merchant yang membukanya, null = tertutup.
   // Baris picker + bottom sheet, bukan `<select>` peramban (audit 015 #5).
@@ -25,6 +29,8 @@ export default function AdminMerchants() {
   // Blacklist menandai dua sisi (merchant + customer), jadi konfirmasi dulu
   // lewat sheet (audit 006 #4).
   const [confirmBlacklist, setConfirmBlacklist] = useState<string | null>(null)
+  // Suspend membekukan merchant dari berjualan, jadi konfirmasi dulu (audit 017 F-05).
+  const [pendingSuspend, setPendingSuspend] = useState<string | null>(null)
 
   const sheetMerchant = customerSheet
     ? merchants.find((m) => m.id === customerSheet)
@@ -33,9 +39,25 @@ export default function AdminMerchants() {
   return (
     <AdminShell>
       <main className="admin-page">
-        <AdminPageHeader eyebrow="Master tenant" title="Merchant" />
+        <AdminPageHeader
+          eyebrow="Master tenant"
+          title="Merchant"
+          subtitle="Registri tenant, suspend, dan penandaan blacklist COD."
+        />
 
-        <section className="admin-card">
+        <div className="admin-kpi">
+          <AdminKpi label="Total merchant" value={merchants.length} sub="Terdaftar" />
+          <AdminKpi label="Aktif" value={approved} sub="Boleh berjualan" />
+          <AdminKpi label="Suspended" value={suspended} sub="Dibekukan" tone={suspended > 0 ? 'warning' : undefined} />
+          <AdminKpi
+            label="Blacklist COD"
+            value={blacklisted}
+            sub={riskFlags.length > 0 ? `${riskFlags.length} risk flag` : 'Tanpa risk flag'}
+            tone={blacklisted > 0 ? 'danger' : undefined}
+          />
+        </div>
+
+        <section className="admin-card admin-card--wide">
           <p className="admin-card-title">Blacklist COD menandai dua sisi</p>
           <p className="admin-card-sub">
             Merchant jadi <strong>blacklisted</strong> dan customer dapat{' '}
@@ -46,7 +68,10 @@ export default function AdminMerchants() {
 
         <section className="admin-section">
           <h2 className="admin-section-title">Daftar merchant ({merchants.length})</h2>
-          {merchants.map((merchant) => {
+          {merchants.length === 0 ? (
+            <p className="admin-empty">Belum ada merchant terdaftar.</p>
+          ) : (
+          merchants.map((merchant) => {
             const selectedId = codCustomer[merchant.id] ?? ''
             return (
               <article key={merchant.id} className="admin-card">
@@ -88,10 +113,7 @@ export default function AdminMerchants() {
                       <button
                         type="button"
                         className="admin-btn-ghost"
-                        onClick={() => {
-                          dispatch(suspendMerchant({ id: merchant.id }))
-                          toast.error('Merchant di-suspend')
-                        }}
+                        onClick={() => setPendingSuspend(merchant.id)}
                       >
                         Suspend
                       </button>
@@ -116,7 +138,7 @@ export default function AdminMerchants() {
                 )}
               </article>
             )
-          })}
+          }))}
         </section>
 
         {riskFlags.length > 0 ? (
@@ -169,6 +191,25 @@ export default function AdminMerchants() {
               )
             }}
             onClose={() => setConfirmBlacklist(null)}
+          />
+        ) : null}
+
+        {pendingSuspend ? (
+          <ConfirmSheet
+            open
+            title="Suspend merchant?"
+            body={`${
+              merchants.find((m) => m.id === pendingSuspend)?.name ?? ''
+            } dibekukan dari berjualan. COD-nya juga berhenti sampai diaktifkan lagi.`}
+            confirmLabel="Suspend"
+            confirmClass="admin-btn-ghost"
+            onConfirm={() => {
+              const name = merchants.find((m) => m.id === pendingSuspend)?.name ?? ''
+              dispatch(suspendMerchant({ id: pendingSuspend }))
+              setPendingSuspend(null)
+              toast.error(`Merchant di-suspend: ${name}`)
+            }}
+            onClose={() => setPendingSuspend(null)}
           />
         ) : null}
 

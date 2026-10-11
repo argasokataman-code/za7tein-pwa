@@ -38,6 +38,8 @@
     display: grid;
     grid-template-columns: 248px minmax(0, 1fr);
     min-height: 100dvh;
+    background: var(--bg-warm);
+    color: var(--text-primary);
   }
 
   .admin-side {
@@ -130,6 +132,9 @@
     &.is-active {
       background: var(--orange-soft);
       color: var(--orange-soft-ink);
+      /* Batang penanda tepi kiri, penanda item aktif yang sama dengan rail
+         Super Admin — sinyal posisi tanpa menambah warna. */
+      box-shadow: inset 3px 0 0 var(--sa7tein-orange);
     }
   }
 
@@ -155,7 +160,7 @@
   }
 
   .admin-side-link {
-    min-height: 32px;
+    min-height: var(--touch-min);
     display: inline-flex;
     align-items: center;
     font-size: var(--text-sm);
@@ -178,61 +183,151 @@
     color: var(--text-secondary);
   }
 
+  /* Blok pengguna di kaki sidebar (referensi: avatar + nama). Nama peran sudah
+     ada di brand, jadi di sini hanya identitas operator CS. */
+  .admin-side-user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--bg-warm);
+  }
+
+  .admin-side-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: var(--radius-pill);
+    background: var(--orange-soft);
+    color: var(--orange-soft-ink);
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .admin-side-user-copy {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.25;
+
+    strong {
+      font-size: var(--text-sm);
+      font-weight: 700;
+    }
+
+    span {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+    }
+  }
+
   .admin-body {
     min-width: 0;
   }
 
   /* Konten jadi dashboard, bukan kolom ponsel dilebarkan. `div[class*=-page]`
      mengunci max-width 430px (app/part-01, 0-1-1) — selector ini 0-2-0, menang.
-     Alasan per pilihan (QL-01):
-     - kontainer max 1280px ditengahkan: dashboard bertabel tidak enak dibaca
+
+     flex-wrap, bukan grid: item grid dibatasi ke grid AREA-nya, sehingga header
+     satu baris tak punya ruang untuk menempel dan ikut tergulir saat halaman
+     digulir (terukur). Item flex dibatasi ke SELURUH kontainer, jadi
+     `position: sticky` header hidup. Alasan per pilihan (QL-01):
+     - kontainer max 1180px ditengahkan: dashboard bertabel tidak enak dibaca
        melebar penuh di 2560px;
-     - satu grid auto-fill 340px: kartu mengalir 2-3 kolom tanpa satu pun
-       breakpoint tambahan;
-     - header/statline/section/footnote `grid-column: 1 / -1`: blok yang memang
-       selebar halaman tetap satu baris utuh, sisanya kartu;
+     - satu kolom sampai 1150px, baru dua kolom (media query di bawah): panel
+       berdampingan baru masuk akal begitu tiap kolom punya ~440px, di bawah itu
+       donut + legenda jadi padat;
+     - blok selebar halaman (header, KPI, section, kartu `--wide`, footnote)
+       membentang penuh, sisanya kartu satu sel;
      - bottom nav disembunyikan, jadi ruang bawah ekstra miliknya dibuang. */
   .admin-console .admin-page {
-    max-width: 1280px;
+    max-width: 1180px;
     margin: 0 auto;
     padding: var(--space-7) var(--space-7) var(--space-9);
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-5);
     align-content: start;
-    align-items: start;
+    /* stretch: dua kartu berdampingan sama tinggi, jadi tepi bawahnya sejajar
+       walau isinya beda panjang (referensi: panel kiri/kanan berlatar utuh). */
+    align-items: stretch;
   }
 
-  .admin-console .admin-page > .admin-header,
-  .admin-console .admin-page > .admin-statline,
-  .admin-console .admin-page > .admin-section {
-    grid-column: 1 / -1;
+  /* Semua anak satu baris penuh di bawah 1150px; `min-width: 0` menahan
+     persentase agar tak meluber. */
+  .admin-console .admin-page > * {
+    flex: 0 1 100%;
+    min-width: 0;
   }
 
-  /* Kartu pertama tiap halaman = banner/hero: dua kolom, bukan satu sel sempit. */
-  .admin-console .admin-page > .admin-card:first-of-type {
-    grid-column: span 2;
-  }
-
-  /* Footnote = prosa. Dua kolom (~800px) + ukuran baca dibatasi, supaya
-     barisnya tidak membentang 1240px dan melelahkan dibaca (HG-12). */
-  .admin-console .admin-footnote {
-    grid-column: span 2;
-  }
-
+  /* Footnote = prosa: ukuran baca dibatasi supaya barisnya tidak membentang
+     selebar kontainer dan melelahkan dibaca (HG-12). */
   .admin-console .admin-footnote .admin-note {
     max-width: 62ch;
   }
 
-  /* Header tak lagi menempel & melebar ke tepi kolom ponsel: di desktop ia
-     judul halaman biasa di dalam kontainer, jadi tepinya sejajar konten. */
+  /* Header tetap menempel di desktop supaya judul + lonceng konteks halaman tak
+     hilang saat konten panjang digulir (DNA §1: `body { overflow: clip }` justru
+     supaya header sticky benar-benar menempel). Ia topbar — judul + sub di kiri,
+     lonceng di kanan — dengan latar opak + hairline yang memisahkannya dari
+     konten yang lewat di belakangnya. */
   .admin-console .admin-header {
-    position: static;
+    position: sticky;
+    top: 0;
+    z-index: 500;
     margin-inline: 0;
     padding-inline: 0;
     margin-bottom: 0;
-    background: transparent;
-    border-bottom: 0;
+    padding-block: var(--space-4);
+    background: var(--bg-warm);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Judul hero di desktop walau ada lonceng di barisnya: ruang cukup, dan
+     judul inilah jangkar halaman. Sub menyertainya di bawah. */
+  .admin-console .admin-header .admin-title {
+    font-size: var(--text-2xl);
+  }
+
+  .admin-console .admin-header-sub {
+    font-size: var(--text-base);
+  }
+
+  /* Lonceng topbar desktop: bukan tombol ikon polos bergaya PWA — ia kontrol
+     berpermukaan, latar `--surface` + tepi + hover memberi affordance pointer.
+     Ukuran tetap --touch-min (dari `_bell.scss`), jadi target sentuh tak
+     mengecil dan gerbang tak menandainya < 44px. */
+  .admin-console .admin-header .notif-bell {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text-secondary);
+
+    &:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--sa7tein-orange);
+      outline-offset: 2px;
+    }
+  }
+
+  /* Baris KPI: empat kartu sejajar di desktop (2 di ponsel, lihat
+     `_admin-2.scss`), dan angkanya naik satu langkah. */
+  .admin-console .admin-kpi {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 0;
+  }
+
+  .admin-console .admin-kpi-value {
+    font-size: var(--text-2xl);
   }
 
   /* Daftar bertitel (sengketa, merchant, onboarding, ledger) mengalir multi-kolom
@@ -255,20 +350,111 @@
     margin-bottom: 0;
   }
 
-  /* Statline antrean: satu baris empat, bukan 2×2 ponsel. */
-  .admin-console .admin-statline {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    margin-bottom: 0;
-  }
-
   /* Baris ledger lebih lapang di desktop (sebelah nominal rata kanan). */
   .admin-console .admin-ledger-row {
     padding: var(--space-4) 0;
+  }
+
+  /* Dialog jalur uang: di desktop ia dialog tengah, bukan lembar dari bawah
+     (pola ponsel). Mobile tidak tersentuh. Sama seperti scope SA
+     (`_superadmin-2.scss`), tapi dikunci ke panel CS (audit 017 F-01). */
+  body:has(.admin-console) .sheet-overlay {
+    max-width: none;
+    margin-inline: 0;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-5);
+  }
+
+  body:has(.admin-console) .sheet-panel {
+    max-width: 480px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    animation: backdrop-in var(--motion-standard) var(--ease-out);
+  }
+
+  /* Sengketa desktop: master-detail, antrean di kiri + detail terpilih di
+     kanan. Hanya dirender di >=901px (cabang render di `AdminDisputes.tsx`),
+     jadi aturannya tak menyentuh ponsel (audit 017 F-04). */
+  .admin-disputes {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .admin-disputes-queue {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .admin-disputes-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    min-height: var(--touch-min);
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .admin-disputes-item:hover {
+    border-color: var(--border-strong);
+  }
+
+  .admin-disputes-item.is-active {
+    border-color: var(--sa7tein-orange);
+    box-shadow: inset 3px 0 0 var(--sa7tein-orange);
+  }
+
+  .admin-disputes-item:focus-visible {
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+
+  .admin-disputes-item__code {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .admin-disputes-item__party {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .admin-disputes-detail .admin-card {
+    margin-bottom: 0;
   }
 
   /* Bottom nav portal-ke-body: sembunyikan hanya untuk rute panel CS, supaya
      rute peran lain tak terpengaruh. */
   body:has(.admin-console) .bottom-nav {
     display: none;
+  }
+}
+
+/* Dua kolom panel mulai 1150px: tiap kolom dapat ~440px (1180 − 56 padding −
+   20 gap, dibagi dua), cukup untuk donut 128px + legenda di barisnya. Di bawah
+   ini konten satu kolom — kartu tetap terbaca tanpa dipadatkan. */
+@media (min-width: 1150px) {
+  .admin-console .admin-page > * {
+    flex: 0 1 calc(50% - (var(--space-5) / 2));
+  }
+
+  /* Blok selebar halaman (header, KPI, section, kartu `--wide`, footnote) tetap
+     membentang penuh di dua kolom. */
+  .admin-console .admin-page > .admin-header,
+  .admin-console .admin-page > .admin-kpi,
+  .admin-console .admin-page > .admin-section,
+  .admin-console .admin-page > .admin-card--wide,
+  .admin-console .admin-page > .admin-disputes,
+  .admin-console .admin-footnote {
+    flex: 0 1 100%;
   }
 }

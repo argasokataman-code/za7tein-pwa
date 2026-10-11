@@ -163,6 +163,11 @@ export const adminTenants: AdminTenant[] = [
     city: 'Irbid, Al-Hashmi',
     submittedAt: '14 menit lalu',
     photoCount: 3,
+    photos: [
+      '/assets/img/menu/nasi-goreng.webp',
+      '/assets/img/menu/lontong.webp',
+      '/assets/img/menu-details/menu-details-thumb.png',
+    ],
     deliveryConfig: {
       mode: 'area',
       maxKm: 2,
@@ -181,6 +186,7 @@ export const adminTenants: AdminTenant[] = [
     city: 'Irbid, University St.',
     submittedAt: '1 jam lalu',
     photoCount: 2,
+    photos: ['/assets/img/menu/promo-spread.webp', '/assets/img/menu/sate-ayam.webp'],
     deliveryConfig: {
       mode: 'area',
       maxKm: 1.5,
@@ -199,6 +205,11 @@ export const adminTenants: AdminTenant[] = [
     city: 'Irbid, City Center',
     submittedAt: '3 jam lalu',
     photoCount: 3,
+    photos: [
+      '/assets/img/menu/nasi-goreng.webp',
+      '/assets/img/menu/sate-kambing.webp',
+      '/assets/img/menu/es-teh-manis.webp',
+    ],
     deliveryConfig: {
       mode: 'area',
       maxKm: 2,
@@ -232,6 +243,7 @@ export const adminDisputes: Dispute[] = [
     category: 'Pesanan tidak sesuai',
     reason: 'Sate yang datang tidak sesuai pesanan, bumbu kacang diganti kecap.',
     photoCount: 2,
+    photos: ['/assets/img/menu/sate-ayam.webp', '/assets/img/menu/sate-kambing.webp'],
     filedAt: '22 menit lalu',
     amount: 3.2,
     status: 'open',
@@ -248,6 +260,11 @@ export const adminDisputes: Dispute[] = [
     category: 'Bukti pengantaran tidak cocok',
     reason: 'Customer klaim pesanan tidak tiba, padahal foto kurir menunjukkan serah terima.',
     photoCount: 3,
+    photos: [
+      '/assets/img/menu/promo-spread.webp',
+      '/assets/img/menu/nasi-goreng.webp',
+      '/assets/img/menu-details/menu-details-thumb.png',
+    ],
     filedAt: '2 jam lalu',
     amount: 5.5,
     status: 'investigating',
@@ -264,6 +281,7 @@ export const adminDisputes: Dispute[] = [
     category: 'Jumlah atau item kurang',
     reason: 'Dua gelas hilang dari pesanan.',
     photoCount: 1,
+    photos: ['/assets/img/menu/es-teh-manis.webp'],
     filedAt: '1 hari lalu',
     amount: 2.8,
     status: 'resolved',
@@ -286,6 +304,7 @@ export const adminDisputes: Dispute[] = [
     category: 'Pesanan belum diterima',
     reason: 'Mengaku belum menerima, tetapi log OTP menunjukkan sudah diverifikasi.',
     photoCount: 0,
+    photos: [],
     filedAt: '2 hari lalu',
     amount: 1.1,
     status: 'rejected',

@@ -33,13 +33,39 @@ export function AdminDesignSection() {
         Exceptions, section 14, and <code className="doc-inline">docs/plan-admin.md</code>).
       </p>
       <p className="doc-p">
-        On desktop the page body is not the phone column stretched: it becomes a centered
-        1280px container whose cards flow in an auto-fill grid (2 to 3 columns). The first
-        card of each page (the intro banner) and the prose footnote span two columns, and
-        footnote text is capped at a readable measure so lines never run 1200px wide. The
-        titled lists (disputes, merchants, onboarding, ledger) grid their cards the same
-        way, and the queue statline shows four across instead of the phone 2×2. Below
+        On desktop the page body is not the phone column stretched. Each page opens with a
+        topbar (title and a one-line subtitle on the left, the notification bell on the
+        right), then a row of four KPI cards, then its panels. The body is a centered
+        1180px container that stays single-column until 1150px and switches to two columns
+        above it, so a donut plus its legend always have room; the blocks that are meant to
+        be full width (topbar, KPI row, titled sections, the wide ledger panel, the prose
+        footnote) span both columns. The KPI cards replace the older four-number statline:
+        the numbers now live in cards, and each card links to the page whose data it shows
+        (the headline liability figure has no page of its own, so it stays static). Below
         901px nothing changes: the 430px column plus bottom nav stays.
+      </p>
+      <h3 className="doc-h3">
+        Money-path dialogs, evidence, and list tools (CS audit 017, 2026-10-11)
+      </h3>
+      <p className="doc-p">
+        A CS-only UX pass (audit 017) closed the gap between &ldquo;has features&rdquo;
+        and &ldquo;reads like a web app&rdquo;. Money-path sheets now open as a{' '}
+        <strong>centered dialog on desktop</strong> (a scoped{' '}
+        <code className="doc-inline">body:has(.admin-console)</code> override from 901px)
+        instead of rising from the bottom like a phone sheet; below 901px the phone sheet
+        is untouched. The dispute verdict dialog now carries the partial-refund slider and
+        a <strong>required decision note</strong> (minimum 10 characters,{' '}
+        <code className="doc-inline">aria-invalid</code> plus a counter) that gates the
+        confirm button — the form shape only, since the exact percentages and the
+        24-hour window remain UNRESOLVED (OQ-29). Disputes and tenant onboarding now
+        render <strong>real evidence thumbnails</strong> that open a full-preview sheet,
+        where before the console only showed a photo count. From 901px the Sengketa queue
+        is a <strong>master-detail</strong> view (queue on the left, selected case on the
+        right) rendered by a real branch, not a CSS swap; the phone keeps stacked cards.
+        Destructive actions (reject onboarding, suspend merchant) confirm through{' '}
+        <code className="doc-inline">ConfirmSheet</code>, the ledger gained search, type
+        filter, sort, and a bounded list, and the dashboard and merchant list show empty
+        states instead of rendering nothing.
       </p>
       <h3 className="doc-h3">Hard rules as displayed state</h3>
       <p className="doc-p">

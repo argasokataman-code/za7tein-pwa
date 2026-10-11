@@ -535,6 +535,8 @@ export interface AdminTenant {
   submittedAt: string
   /** Jumlah foto tempat usaha yang diunggah merchant saat onboarding. */
   photoCount: number
+  /** URL foto tempat usaha (aset mock). `undefined` = hanya hitungan. */
+  photos?: string[]
   /** Konfigurasi pengantaran yang diajukan merchant. */
   deliveryConfig: MerchantDeliveryConfig
   deposit: number
@@ -569,6 +571,8 @@ export interface Dispute {
   category: string
   reason: string
   photoCount: number
+  /** URL foto bukti (aset mock). `undefined` = hanya hitungan, tanpa pratinjau. */
+  photos?: string[]
   filedAt: string
   /** Nilai order yang disengketakan, JOD. */
   amount: number

@@ -5,6 +5,7 @@ import { PageHeader } from '../ui/PageHeader'
 interface AdminPageHeaderProps {
   title: string
   eyebrow?: string
+  subtitle?: string
   back?: string | boolean
   action?: ReactNode
   /** Lonceng inbox peran. Default nyala; `false` untuk halaman pra-konsol. */
@@ -18,6 +19,7 @@ interface AdminPageHeaderProps {
 export function AdminPageHeader({
   title,
   eyebrow,
+  subtitle,
   back,
   action,
   bell = true,
@@ -27,9 +29,11 @@ export function AdminPageHeader({
       prefix="admin"
       title={title}
       eyebrow={eyebrow}
+      subtitle={subtitle}
       back={back}
       action={action}
       bell={bell}
+      bellPanel
     />
   )
 }

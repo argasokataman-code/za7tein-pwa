@@ -1,8 +1,12 @@
-import { CheckCircle2, Image, MapPinned } from 'lucide-react'
+import { CheckCircle2, MapPinned } from 'lucide-react'
+import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
+import { AdminKpi } from '../components/admin/AdminKpi'
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
+import { EvidencePhotos } from '../components/admin/EvidencePhotos'
 import { AdminShell } from '../components/layout/AdminShell'
+import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { depositStatusLabel, tenantStatusLabel } from '../data/admin'
@@ -14,16 +18,37 @@ export default function AdminOnboarding() {
   const { moneyFromJod } = useMoney()
   const dispatch = useAppDispatch()
   const tenants = useAppSelector((s) => s.admin.tenants)
+  // Tolak onboarding membatalkan pengajuan, jadi konfirmasi dulu (audit 017 F-05).
+  const [pendingReject, setPendingReject] = useState<string | null>(null)
 
   const pending = tenants.filter((t) => t.tenantStatus === 'pending')
   const reviewed = tenants.filter((t) => t.tenantStatus !== 'pending')
+  const active = tenants.filter((t) => t.tenantStatus === 'approved')
+  const inactive = tenants.filter((t) => t.tenantStatus === 'suspended' || t.tenantStatus === 'blacklisted')
+  const rejectTenant = pendingReject ? tenants.find((t) => t.id === pendingReject) : undefined
 
   return (
     <AdminShell>
       <main className="admin-page">
-        <AdminPageHeader eyebrow="Antrean tenant" title="Onboarding" />
+        <AdminPageHeader
+          eyebrow="Antrean tenant"
+          title="Onboarding"
+          subtitle="Persetujuan tenant baru sebelum merchant aktif berjualan."
+        />
 
-        <section className="admin-card">
+        <div className="admin-kpi">
+          <AdminKpi label="Total tenant" value={tenants.length} sub="Terdaftar" />
+          <AdminKpi label="Menunggu review" value={pending.length} sub="Perlu keputusan" />
+          <AdminKpi label="Aktif" value={active.length} sub="Deposit held" />
+          <AdminKpi
+            label="Tidak aktif"
+            value={inactive.length}
+            sub="Suspend / blacklist"
+            tone={inactive.length > 0 ? 'warning' : undefined}
+          />
+        </div>
+
+        <section className="admin-card admin-card--wide">
           <p className="admin-card-title">Aturan approve deposit</p>
           <p className="admin-card-sub">
             Verifikasi transfer masuk dulu, baru deposit jadi <strong>held</strong> dan merchant
@@ -57,14 +82,16 @@ export default function AdminOnboarding() {
                     {activeZonesLabel(tenant.deliveryConfig)}
                   </li>
                   <li>
-                    <Image size={16} strokeWidth={1.75} aria-hidden="true" />
-                    {tenant.photoCount} foto tempat usaha
-                  </li>
-                  <li>
                     <CheckCircle2 size={16} strokeWidth={1.75} aria-hidden="true" />
                     Deposit {moneyFromJod(tenant.deposit)} · {depositStatusLabel[tenant.depositStatus]}
                   </li>
                 </ul>
+
+                <EvidencePhotos
+                  photos={tenant.photos ?? []}
+                  emptyLabel="Tanpa foto tempat usaha"
+                  label="Foto tempat usaha"
+                />
 
                 {tenant.depositStatus === 'unpaid' ? (
                   <div className="admin-actions admin-actions--stack">
@@ -81,10 +108,7 @@ export default function AdminOnboarding() {
                     <button
                       type="button"
                       className="admin-btn-ghost"
-                      onClick={() => {
-                        dispatch(rejectOnboarding({ id: tenant.id }))
-                        toast.error('Onboarding ditolak')
-                      }}
+                      onClick={() => setPendingReject(tenant.id)}
                     >
                       Tolak onboarding
                     </button>
@@ -124,6 +148,22 @@ export default function AdminOnboarding() {
             approve di sini hanya mengubah tampilan.
           </p>
         </div>
+
+        {rejectTenant ? (
+          <ConfirmSheet
+            open
+            title="Tolak onboarding?"
+            body={`Pengajuan ${rejectTenant.name} ditolak. Deposit tetap unpaid dan merchant tidak diaktifkan.`}
+            confirmLabel="Tolak onboarding"
+            confirmClass="admin-btn-ghost"
+            onConfirm={() => {
+              dispatch(rejectOnboarding({ id: rejectTenant.id }))
+              setPendingReject(null)
+              toast.error('Onboarding ditolak')
+            }}
+            onClose={() => setPendingReject(null)}
+          />
+        ) : null}
       </main>
     </AdminShell>
   )

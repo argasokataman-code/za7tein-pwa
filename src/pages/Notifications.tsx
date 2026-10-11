@@ -1,27 +1,20 @@
-// Kotak masuk notifikasi — tujuan tombol lonceng di beranda.
+// Kotak masuk notifikasi — tujuan tombol lonceng di beranda dan konsol ponsel.
 //
 // Sebelumnya rute ini berisi halaman preferensi toggle, dan lonceng berbadge
 // "3" membuka halaman yang tidak memuat satu pun notifikasi. Preferensinya
 // pindah ke /notification-settings, karena itu memang pengaturan dan ditautkan
 // dari menu Profil, bukan dari lonceng.
-import { Bell, Bike, Check, Truck, Tag, Wallet, type LucideIcon } from 'lucide-react'
+//
+// Barisnya kini komponen bersama (`NotificationRow`) yang juga dipakai popup
+// lonceng konsol desktop, jadi kedua tampilan tak bisa melenceng.
+import { Check } from 'lucide-react'
 
-
-
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { markNotificationRead, markNotificationsRead } from '../api/notifications'
-import { notificationAudienceFromPath } from '../data/notifications'
-import { markAllRead, markRead, selectUnreadCount } from '../store/slices/notificationsSlice'
-import type { AppNotification } from '../types'
+import { markNotificationsRead } from '../api/notifications'
 import { BackButton } from '../components/ui/BackButton'
-
-const KIND_ICON: Record<AppNotification['kind'], LucideIcon> = {
-  order: Bike,
-  promo: Tag,
-  payment: Wallet,
-  courier: Truck,
-  system: Bell,
-}
+import { NotificationRow } from '../components/ui/NotificationRow'
+import { notificationAudienceFromPath } from '../data/notifications'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { markAllRead, selectUnreadCount } from '../store/slices/notificationsSlice'
 
 export default function Notifications() {
   const dispatch = useAppDispatch()
@@ -64,32 +57,9 @@ export default function Notifications() {
               ) : null}
 
               <ul className="inbox-list">
-                {items.map((n) => {
-                  const Icon = KIND_ICON[n.kind]
-                  return (
-                    <li key={n.id}>
-                      <button
-                        type="button"
-                        className={n.unread ? 'inbox-row inbox-row--unread' : 'inbox-row'}
-                        aria-label={`${n.title}${n.unread ? ', belum dibaca' : ''}`}
-                        onClick={() => {
-                          dispatch(markRead(n.id))
-                          void markNotificationRead(n.id).catch(() => {})
-                        }}
-                      >
-                        <span className="inbox-row__icon" aria-hidden="true">
-                          <Icon size={18} strokeWidth={1.75} />
-                        </span>
-
-                        <span className="inbox-row__text">
-                          <span className="inbox-row__title">{n.title}</span>
-                          <span className="inbox-row__body">{n.body}</span>
-                          <span className="inbox-row__time">{n.time}</span>
-                        </span>
-                      </button>
-                    </li>
-                  )
-                })}
+                {items.map((n) => (
+                  <NotificationRow key={n.id} notification={n} />
+                ))}
               </ul>
 
               {items.length > 0 && unread === 0 ? (

@@ -67,6 +67,18 @@ export function AdminShell({ children }: AdminShellProps) {
         </nav>
 
         <div className="admin-side-foot">
+          {/* Operator CS generik, bukan orang tertentu: panel ini mock tanpa
+              auth, jadi nama pribadi apa pun akan mengarang identitas
+              (HG-04). Perannya sudah disebut brand ("Panel CS"). */}
+          <div className="admin-side-user">
+            <span className="admin-side-avatar" aria-hidden="true">
+              CS
+            </span>
+            <span className="admin-side-user-copy">
+              <strong>Admin User</strong>
+              <span>Operator CS</span>
+            </span>
+          </div>
           <Link className="admin-side-link" to="/documentation">
             Dokumentasi
           </Link>

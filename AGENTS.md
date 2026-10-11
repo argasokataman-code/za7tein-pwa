@@ -31,6 +31,7 @@ Repo ini **showcase UI/UX**. Karena itu setiap tugas yang menyentuh tampilan **w
 - **Peka & proaktif.** Kalau tampilan "mlenceng" — hierarki kabur, dua aksen bersaing, elemen kepotong/ketimpa, target <44px, kontras <AA, overflow-x, atau pola slop tanpa alasan — **perbaiki di akarnya, jangan tunggu disuruh.** Satu masalah, satu akar, satu tempat.
 - **Bukti, bukan kesan.** Laporan menyebut angka/selector (`getBoundingClientRect`, `elementFromPoint`, rasio kontras). Yang mustahil dibaca dari sumber diukur lewat `browser-gate` (§8).
 - **Mode audit.** Kalau yang diminta review, pakai mode "After" skill: findings bernomor di `anti-slop/audit-NNN-YYYY-MM-DD.md`, dan **jangan ubah apa pun** sebelum itemnya disetujui.
+- **Mockup/gambar desain → skill `sa7tein-design-prompt`.** Kalau yang diminta adalah *gambar* mockup (bukan kode) — "bikin prompt desain", "minta desain dari Gemini", mockup dashboard/layar — muat `.opencode/skills/sa7tein-design-prompt/`. Promptnya bergaya art-direction: brand DNA + data asli **dikunci**, komposisi **dibebaskan** (menuliskan layout eksplisit = hasil kaku). Skill ini **milik repo ini saja** — jangan disalin ke global (`~/.config/opencode/skills/`) atau repo lain; tiap project punya DNA sendiri.
 
 Ringkasan mesin ada di `.rules.json` → `designReview`. Tidak ada cek pre-commit yang bisa membuktikan skill benar-benar dipakai; enforcement lewat protokol ini, dan commit yang menyentuh UI wajib menyebut ID temuan di laporannya.
 
@@ -248,7 +249,7 @@ node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap el
 **Satu gate pada satu waktu.** Klon pengukuran (9359) cuma punya satu tab; menjalankan beberapa `browser-gate` bersamaan membuatnya saling menunggu dan tampak menggantung, lalu menumpuk sebagai proses zombie. Jalankan di foreground, tunggu selesai, baru yang berikutnya. Kalau ada sisa, `pkill -f "browser-gate.mjs"`. Jangan memindahkan tab klon role (9355–9358) — biarkan tiap jendela role di tempatnya.
 
 **Server & klon: JANGAN PERNAH start yang baru.** Sebelum apa pun, cek yang sudah hidup:
-`lsof -nP -iTCP -sTCP:LISTEN | grep -E ':(5173|5174|5175|4173)'` dan `lsof -nP -iTCP -sTCP:LISTEN | grep 935`.
+`lsof -nP -iTCP -sTCP:LISTEN | grep -E ':(5173|5174|5175|4173|4180)'` dan `lsof -nP -iTCP -sTCP:LISTEN | grep 935`.
 - Dev server: pakai yang sudah jalan. `browser-gate` **mendeteksi sendiri** port 5173/5174/5175/5176 (mode biasa) atau 4173 (mode `--pwa`) dan berhenti dengan pesan kalau tak ada — gate tidak menghidupkan server. Kalau sudah ada yang melayani, `npm run dev` lagi hanya membuat Vite pindah ke port berikutnya dan menumpuk proses. Dilarang.
 - Klon Brave: `browser-gate` memakai ulang klon 9359 kalau hidup, dan hanya menghidupkannya sekali kalau benar-benar mati. Jangan buka tab/klon baru "untuk memastikan". `brave-debug` default 9355 = klon kerja user (pegang login) — biarkan.
 - **Port e2e terkunci (jangan dipakai proses lain):** `9360` customer, `9361` merchant, `9362` courier, `9363` admin, `9364` superadmin. Dibuka dengan `npm run e2e` (tambahkan `-- --pwa` untuk build 4173, `-- --stop` menutup, `-- --list` mencetak peta). Tiap peran = **jendela PWA app-mode terpisah** (`--app=`, display-mode standalone; profil `profile-e2e-<role>`) supaya `localStorage`/sesi tak tercampur — bukan beberapa tab di satu browser. Jangan menggeser port ini. **Aksi per-peran WAJIB lewat tool repo `scripts/e2e-browsers.mjs` (reuse-only, ENFORCE): `node scripts/e2e-browsers.mjs status | nav <role> <path> | eval <role> "<expr>" | click <role> "<sel>" | shot <role> <out.png>`.** Tool ini **tidak pernah** membuka jendela/tab baru; jendela mati → error, jalankan `npm run e2e` sekali. MCP `brave-debug-<role>` sudah **dihapus** dari `opencode.json` (tiap langkah dulu spawn tab baru — itu yang dihentikan).
@@ -324,6 +325,17 @@ node scripts/browser-gate.mjs --route /home --pwa --offline
 `--pwa` memakai input sentuh (`Input.dispatchTouchEvent`), memaksa safe-area, dan menuntut service worker **punya cache** — bukan sekadar terdaftar. SW yang terdaftar + `controlling` tapi cache-nya kosong adalah kegagalan nyata yang pernah terjadi (workbox `add-to-cache-list-conflicting-entries` ditelan diam-diam). Detail, angka, dan jebakannya: `docs/design/pwa-testing.md`.
 
 **`--pwa` hanya untuk rute yang bisa diinstal**, yaitu empat peran yang punya manifest sendiri: `customer`, `merchant`, `courier`, `admin`. `/`, `/documentation`, dan `/superadmin/*` bukan app terinstal — dua yang pertama ada di `navigateFallbackDenylist`, yang terakhir memang diputuskan sebagai website penuh non-PWA. `--role all --pwa` menyapu keempat peran app saja dan memberi tahu role yang dilewati; menyebut role non-app bersama `--pwa` keluar dengan error, bukan diam-diam mengukur halaman yang tidak pernah diinstal.
+
+### Dua mode panel CS `/admin` — port terpisah (jangan tabrakan)
+
+Panel CS `/admin` punya **dua mode** pada satu pohon komponen: web desktop (≥901px, rail 248px + konten selebar jendela) dan PWA (430px + bottom nav). Ukur keduanya di **server/port yang berbeda**:
+
+| mode | server | perintah ukur |
+|---|---|---|
+| **web desktop** | `npm run preview:web` → `:4180` | `GATE_BASE=http://localhost:4180 node scripts/browser-gate.mjs --route /admin --strict --click` |
+| **PWA** | `npm run preview:pwa` → `:4173` | `node scripts/browser-gate.mjs --route /admin --pwa --strict --click` |
+
+**Kenapa port beda, bukan cuma flag.** Service worker terikat **origin (skema+host+port)**. Gate mode web **mengunregister service worker + menghapus cache** (cabang non-`--pwa` di `browser-gate.mjs`); kalau diukur di `:4173` yang sama, state PWA ikut rusak. Satu server per mode. Jangan mengukur mode web di `:4173` atau mode PWA di `:4180`. Port & aturan mesin: `.rules.json` → `browserTesting.mode_dual`.
 
 ---
 

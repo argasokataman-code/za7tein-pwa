@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 import { BottomSheet } from './BottomSheet'
 
 interface ConfirmSheetProps {
@@ -7,6 +9,13 @@ interface ConfirmSheetProps {
   confirmLabel: string
   /** Kelas tombol konfirmasi; panel CS memakai `admin-btn-ghost` untuk aksi destruktif. */
   confirmClass?: string
+  /**
+   * Nonaktifkan tombol konfirmasi sampai syarat validasi terpenuhi (mis. catatan
+   * putusan jalur uang belum diisi). Default aktif.
+   */
+  confirmDisabled?: boolean
+  /** Field yang divalidasi, diletakkan di antara body dan tombol. Opsional. */
+  children?: ReactNode
   onConfirm: () => void
   onClose: () => void
 }
@@ -23,17 +32,25 @@ export function ConfirmSheet({
   body,
   confirmLabel,
   confirmClass = 'btn-primary',
+  confirmDisabled = false,
+  children,
   onConfirm,
   onClose,
 }: ConfirmSheetProps) {
   return (
     <BottomSheet open={open} title={title} onClose={onClose}>
       <p className="sheet-copy">{body}</p>
+      {children}
       <div className="sheet-actions">
         <button type="button" className="btn sheet-cancel" onClick={onClose}>
           Batal
         </button>
-        <button type="button" className={`btn ${confirmClass}`} onClick={onConfirm}>
+        <button
+          type="button"
+          className={`btn ${confirmClass}`}
+          onClick={onConfirm}
+          disabled={confirmDisabled}
+        >
           {confirmLabel}
         </button>
       </div>
