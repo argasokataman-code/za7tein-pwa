@@ -3,7 +3,6 @@ import { Search as SearchIcon } from 'lucide-react'
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { useState } from 'react'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 
 const faq = [
@@ -39,7 +38,6 @@ export default function Faq() {
               <h1 className="profile-flow-title">
                 FAQ
               </h1>
-              <CurrencyToggle />
             </header>
             <main className="wallet-main">
               <div className="help-search-wrap">

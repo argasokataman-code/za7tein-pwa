@@ -14,7 +14,6 @@ import { notificationAudienceFromPath } from '../data/notifications'
 import { markAllRead, markRead, selectUnreadCount } from '../store/slices/notificationsSlice'
 import type { AppNotification } from '../types'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const KIND_ICON: Record<AppNotification['kind'], LucideIcon> = {
   order: Bike,
@@ -37,7 +36,6 @@ export default function Notifications() {
             <header className="profile-flow-header">
               <BackButton className="back-btn-profile" />
               <h1 className="profile-flow-title">Notifikasi</h1>
-              <CurrencyToggle />
             </header>
 
             <main className="profile-flow-main">

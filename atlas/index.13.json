@@ -1,0 +1,497 @@
+{
+  "shard": 13,
+  "nodes": [
+    {
+      "id": "TASK-12076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:47:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+73/-69) — edit via tool: /* ── Baris mata uang di dala",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-12077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:47:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+8/-3) — edit via tool: tsx: </header>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:47:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx (+10/-9) — edit via tool: tsx: <div className=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:47:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+10/-9) — edit via tool: tsx: <div classNam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:47:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+12/-11) — edit via tool: tsx: <p c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "TASK-12081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:57:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+33/-15) — edit via tool: /* ── Baris mata uang di kaki",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-12082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:58:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+12/-4) — edit via tool: tsx: <FilterIcon /",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:58:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+13/-5) — edit via tool: tsx: <div classNam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:58:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx (+10/-2) — edit via tool: tsx: <p className=\"c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:58:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+15/-15) — edit via tool: .s7-hero__intro {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-12086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:59:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+3/-3) — edit via tool: .s7-hero__intro {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-12087",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:00:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+11/-11) — edit via tool: .s7-location__val",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-12088",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:01:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+12/-12) — edit via tool: tsx: <p c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "TASK-12089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:08:25",
+      "tags": [
+        "currency",
+        "ui",
+        "layout",
+        "hero"
+      ],
+      "summary": "Toggle+koin pindah ke kaki hero (.hero-currency-row + label 'Mata uang tampilan', garis pemisah); topbar balik avatar·lokasi·lonceng; headli",
+      "conn": [
+        {
+          "id": "TASK-12071",
+          "type": "relates",
+          "raw": "TASK-12071:relates"
+        },
+        {
+          "id": "FEAT-2004",
+          "type": "implements",
+          "raw": "FEAT-2004:implements"
+        }
+      ],
+      "loc": "src/styles/system/_currency.scss:92"
+    },
+    {
+      "id": "TASK-12090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:13:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.github/workflows/deploy.yml (+54) — write via tool: name: Deploy production",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.github/workflows/deploy.yml"
+    },
+    {
+      "id": "TASK-12091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:14:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx (+6/-11) — edit via tool: tsx: <div className=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:14:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+6/-11) — edit via tool: tsx: <div classNam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:17:00",
+      "tags": [
+        "ci",
+        "deploy",
+        "vercel"
+      ],
+      "summary": "GitHub Action deploy prod ke Vercel saat push main; role domains jadi project-domain (auto-follow)",
+      "conn": [
+        {
+          "id": "TASK-12071",
+          "type": "relates",
+          "raw": "TASK-12071:relates"
+        }
+      ],
+      "loc": ".github/workflows/deploy.yml:1",
+      "commit": "770a5e3"
+    },
+    {
+      "id": "BUG-12101",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-11",
+      "time": "10:17:58",
+      "tags": [
+        "currency",
+        "ui",
+        "layout",
+        "hero"
+      ],
+      "summary": "Bug: merchant & kurir punya 2 .hero-currency-row (duplikat sisa pindah), customer 1. Hapus yang nyangkut di bawah topbar; kini tepat 1 di ka",
+      "conn": [
+        {
+          "id": "TASK-12089",
+          "type": "fixes",
+          "raw": "TASK-12089:fixes"
+        }
+      ],
+      "loc": "src/components/merchant/MerchantHomeHero.tsx:98"
+    },
+    {
+      "id": "TASK-12102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:19:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.github/workflows/deploy.yml (+3/-3) — edit via tool: - uses: actions/checkout@v5",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.github/workflows/deploy.yml"
+    },
+    {
+      "id": "TASK-12103",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:24:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts (+15/-9) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts"
+    },
+    {
+      "id": "TASK-12104",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:24:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/bump-version.mjs (+24) — write via tool: #!/usr/bin/env node",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/bump-version.mjs"
+    },
+    {
+      "id": "TASK-12105",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:25:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.github/workflows/deploy.yml (+10/-4) — edit via tool: # Semua project-domain (sa7tein-c/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.github/workflows/deploy.yml"
+    },
+    {
+      "id": "TASK-12101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:29:19",
+      "tags": [
+        "ci",
+        "versioning",
+        "vercel"
+      ],
+      "summary": "CI auto-bump patch BASE_VERSION tiap perubahan aplikasi + commit balik skip-ci; versi prod==git",
+      "conn": [
+        {
+          "id": "TASK-12100",
+          "type": "relates",
+          "raw": "TASK-12100:relates"
+        }
+      ],
+      "loc": "scripts/bump-version.mjs:1",
+      "commit": "aafc55d"
+    },
+    {
+      "id": "TASK-12106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "10:31:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-5) — edit via tool: tsx: ada kedipan swap. Sakelar mata",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    }
+  ]
+}

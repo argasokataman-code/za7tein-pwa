@@ -8,7 +8,6 @@ import { mockUser } from '../data/user'
 
 import toast from 'react-hot-toast'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function AddProfilePhoto() {
   const navigate = useNavigate()
@@ -34,7 +33,6 @@ export default function AddProfilePhoto() {
               <h1 className="profile-flow-title">
                 Add Profile Photo
               </h1>
-              <CurrencyToggle />
             </header>
             <main className="profile-flow-main">
               <div className="add-photo-block">

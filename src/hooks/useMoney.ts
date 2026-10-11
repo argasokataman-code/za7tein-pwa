@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { idrToJod, jod, jodToIdr, moneyPlain } from '../data/currency'
 import type { CurrencyCode } from '../types'
 import { useAppSelector } from './useAppStore'
+import { useLiveRate } from './useLiveRate'
 
 /** Mata uang default saat peran belum pernah memilih. */
 export const DEFAULT_CURRENCY: CurrencyCode = 'JOD'
@@ -29,6 +30,9 @@ export function useDisplayCurrency(): CurrencyCode {
  */
 export function useMoney() {
   const currency = useDisplayCurrency()
+  // Berlangganan rate supaya nominal ikut berubah saat sync harian memperbarui
+  // kurs. Formatter membaca rate aktif dari `data/currency` (modul-level).
+  const { rate } = useLiveRate()
   return useMemo(() => {
     const format = (idr: number) =>
       currency === 'JOD' ? jod(idrToJod(idr)) : moneyPlain(idr)
@@ -38,5 +42,5 @@ export function useMoney() {
       moneyPlain: format,
       moneyFromJod: (valueJod: number) => format(jodToIdr(valueJod)),
     }
-  }, [currency])
+  }, [currency, rate.rate])
 }

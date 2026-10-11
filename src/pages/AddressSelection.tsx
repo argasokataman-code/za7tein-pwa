@@ -9,7 +9,6 @@ import toast from 'react-hot-toast'
 
 import { AddressMapPicker } from '../components/customer/AddressMapPicker'
 import { BottomSheet } from '../components/ui/BottomSheet'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 import {
   addressInput,
   createCustomerAddress,
@@ -201,7 +200,6 @@ export default function AddressSelection() {
               <h1 className="address-selection-title">
                 Alamat Pengantaran
               </h1>
-              <CurrencyToggle />
             </header>
             <div className="address-selection-content">
               {addresses.length === 0 ? (

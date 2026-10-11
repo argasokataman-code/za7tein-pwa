@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, UserRound } from 'lucide-react'
 
 import { CurrencyToggle } from '../ui/CurrencyToggle'
+import { LiveCurrencyButton } from '../ui/LiveCurrencyButton'
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 /**
  * Hero beranda pelanggan.
@@ -164,7 +165,7 @@ export default function CustomerHomeHero({
               onClick={onChangeLocation}
             >
               <span className="s7-location__label">
-                Lokasi antar
+                <span className="s7-location__label-text">Lokasi antar</span>
                 <ChevronDownIcon />
               </span>
 
@@ -174,8 +175,6 @@ export default function CustomerHomeHero({
               </span>
             </button>
           </div>
-
-          <CurrencyToggle className="currency-toggle--on-dark" />
 
           <button
             type="button"
@@ -199,9 +198,9 @@ export default function CustomerHomeHero({
 
         <div className="s7-hero__intro">
           <h1 className="s7-hero__headline">
-            What would you like
+            Mau makan apa
             <br />
-            to eat today?
+            hari ini?
           </h1>
         </div>
 
@@ -240,6 +239,14 @@ export default function CustomerHomeHero({
             <FilterIcon />
           </button>
         </form>
+
+        <div className="hero-currency-row">
+          <span className="hero-currency-row__label">Mata uang tampilan</span>
+          <div className="hero-currency-row__controls">
+            <CurrencyToggle className="currency-toggle--on-dark" />
+            <LiveCurrencyButton className="live-rate-button--on-dark" />
+          </div>
+        </div>
       </div>
     </section>
   )

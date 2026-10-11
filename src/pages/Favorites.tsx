@@ -6,7 +6,6 @@ import { useAppSelector } from '../hooks/useAppStore'
 import { useCatalog } from '../hooks/useCatalog'
 import type { MenuItem } from '../types'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function Favorites() {
   const navigate = useNavigate()
@@ -26,7 +25,6 @@ export default function Favorites() {
               <h1 className="favorites-title">
                 Favorites{favorites.length > 0 ? ` (${favorites.length})` : ''}
               </h1>
-              <CurrencyToggle />
             </header>
             <div className="favorites-content">
               {favorites.length === 0 ? (

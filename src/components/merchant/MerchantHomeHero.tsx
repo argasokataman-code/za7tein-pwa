@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 import { NotificationBell } from '../ui/NotificationBell'
 import { CurrencyToggle } from '../ui/CurrencyToggle'
+import { LiveCurrencyButton } from '../ui/LiveCurrencyButton'
 
 /** Status jualan toko: buka · sibuk (buka tapi menahan order) · tutup. */
 export type StoreStatus = 'buka' | 'sibuk' | 'tutup'
@@ -90,7 +91,6 @@ export function MerchantHomeHero({
           )}
 
           <div className="merchant-hero__controls">
-            <CurrencyToggle className="currency-toggle--on-dark" />
             <NotificationBell variant="hero" />
           </div>
         </div>
@@ -133,6 +133,14 @@ export function MerchantHomeHero({
           </p>
           <div className="merchant-hero__quota-track" role="presentation">
             <span style={{ width: `${quotaRatio * 100}%` }} />
+          </div>
+        </div>
+
+        <div className="hero-currency-row">
+          <span className="hero-currency-row__label">Mata uang tampilan</span>
+          <div className="hero-currency-row__controls">
+            <CurrencyToggle className="currency-toggle--on-dark" />
+            <LiveCurrencyButton className="live-rate-button--on-dark" />
           </div>
         </div>
       </div>

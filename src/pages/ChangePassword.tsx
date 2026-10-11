@@ -3,7 +3,6 @@ import { useState, type FormEvent } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const PASSWORD_FIELDS = [
   { id: 'currentPassword', label: 'Kata sandi saat ini', placeholder: 'Masukkan kata sandi saat ini' },
@@ -44,7 +43,6 @@ export default function ChangePassword() {
             <header className="profile-flow-header">
               <BackButton className="btn-back" />
               <h1 className="profile-flow-title">Ubah kata sandi</h1>
-              <CurrencyToggle />
             </header>
             <div className="profile-flow-main">
               <p className="text-muted-profile">Buat kata sandi baru untuk akunmu.</p>

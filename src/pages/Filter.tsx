@@ -8,7 +8,6 @@ import { useChipSet } from '../hooks/useToggleSet'
 import { useMoney } from '../hooks/useMoney'
 import type { SearchFilters } from '../types'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 /** Batas slider harga; `PRICE_MAX` = tanpa filter harga. */
 const PRICE_MIN = 5000
@@ -46,7 +45,6 @@ export default function Filter() {
               <h1>
                 Filter
               </h1>
-              <CurrencyToggle />
             </div>
             <div className="filter-block">
               <div className="filter-title">

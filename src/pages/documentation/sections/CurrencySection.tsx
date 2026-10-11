@@ -40,7 +40,7 @@ jod(1.09)         // "1,09 JOD"`}
       </p>
       <h3 className="doc-h3">Sakelar mata uang (IDR/JOD)</h3>
       <p className="doc-p">
-        Layar customer, merchant, kurir, dan panel CS menampilkan <strong>satu mata uang
+        Layar customer, merchant, dan kurir menampilkan <strong>satu mata uang
         saja</strong> sesuai pilihan pengguna, bukan pasangan IDR + JOD. Pilihannya{' '}
         <strong>per peran</strong> (kunci <code className="doc-inline">auth.role</code>) dan
         disimpan di <code className="doc-inline">localStorage</code> lewat slice{' '}
@@ -52,8 +52,41 @@ jod(1.09)         // "1,09 JOD"`}
         <code className="doc-inline">src/hooks/useMoney.ts</code>) yang mengembalikan{' '}
         <code className="doc-inline">money</code>, <code className="doc-inline">moneyPlain</code>,
         dan <code className="doc-inline">moneyFromJod</code> dengan nama sama seperti helper data,
-        jadi call-site cukup menukar impor + satu baris hook, bukan tiap pemanggilan. Tombolnya
-        komponen <code className="doc-inline">CurrencyToggle</code> di bar tiap peran.
+        jadi call-site cukup menukar impor + satu baris hook, bukan tiap pemanggilan.
+      </p>
+      <p className="doc-p">
+        Tombolnya komponen <code className="doc-inline">CurrencyToggle</code>, dan{' '}
+        <strong>hanya dipasang di hero beranda tiap peran</strong> (customer/merchant/kurir) —
+        satu sakelar mengatur semua halaman peran itu, karena nilainya dibaca lewat{' '}
+        <code className="doc-inline">useMoney()</code> di mana-mana. Jangan menanamnya di header
+        atau layar lain (dulu tersebar di ~30 titik, salah penempatan). Tiap perubahan memunculkan
+        toast konfirmasi bahwa pilihan tersimpan.
+      </p>
+      <h3 className="doc-h3">Kurs live, sehari sekali</h3>
+      <p className="doc-p">
+        Rate IDR↔JOD tidak lagi mock tetap. Sumber live:{' '}
+        <code className="doc-inline">fawazahmed0/exchange-api</code> — JSON statis di CDN
+        jsDelivr (mirror: <code className="doc-inline">latest.currency-api.pages.dev</code>),
+        tanpa API key dan tanpa backend. Ini menutup <code className="doc-inline">OQ-26</code>{' '}
+        (provider kurs). Sync berjalan <strong>sehari sekali</strong> (TTL 24 jam): hook{' '}
+        <code className="doc-inline">useLiveRate()</code> memicu{' '}
+        <code className="doc-inline">refreshLiveRate()</code> sekali per sesi; rate basi → fetch,
+        rate segar → tidak ada permintaan. Gagal fetch → <strong>rate terakhir dipakai</strong>{' '}
+        (cache <code className="doc-inline">localStorage</code> atau mock 1 JOD = Rp23.000),
+        transaksi tidak diblokir. Umur maksimal fallback masih{' '}
+        <code className="doc-inline">UNRESOLVED</code> (<code className="doc-inline">OQ-28</code>).
+      </p>
+      <p className="doc-p">
+        Tombol <code className="doc-inline">LiveCurrencyButton</code> (ikon koin) dan sakelar
+        IDR/JOD duduk di <strong>kaki hero</strong> tiap beranda (
+        <code className="doc-inline">.hero-currency-row</code>, dipisah garis tipis, berlabel
+        &ldquo;Mata uang tampilan&rdquo;), bukan di baris atas dan bukan baris mengambang di
+        tengah hero — baris atas tetap avatar · lokasi · lonceng. Menekan tombol koin membuka
+        bottom sheet <strong>&ldquo;Detail Kurs Live&rdquo;</strong>: pasangan IDR↔JOD, sumber,
+        waktu sync terakhir, jadwal pembaruan (otomatis tiap 24 jam), disclaimer, dan tombol{' '}
+        <strong>&ldquo;Perbarui sekarang&rdquo;</strong> untuk memaksa sync (memutar ikon + toast
+        hasil). Label di layar uang (checkout) menampilkan rate terkini + sync terakhir +{' '}
+        <code className="doc-inline">kurs estimasi, mengikuti kurs harian</code>.
       </p>
       <p className="doc-p">
         <strong>Konsol Super Admin tetap pasangan dua baris</strong> (
@@ -79,7 +112,12 @@ jod(1.09)         // "1,09 JOD"`}
                 <code className="doc-inline">moneyPlain</code>,{' '}
                 <code className="doc-inline">moneyFromJod</code>,{' '}
                 <code className="doc-inline">jod</code>,{' '}
-                <code className="doc-inline">idrToJod</code>) + disclaimer
+                <code className="doc-inline">idrToJod</code>) + disclaimer. Juga rate aktif live:{' '}
+                <code className="doc-inline">getExchangeRate</code>,{' '}
+                <code className="doc-inline">refreshLiveRate</code>,{' '}
+                <code className="doc-inline">fetchLiveRate</code>,{' '}
+                <code className="doc-inline">isRateStale</code> (fallback{' '}
+                <code className="doc-inline">MOCK_EXCHANGE_RATE</code>)
               </td>
             </tr>
             <tr>
@@ -87,7 +125,7 @@ jod(1.09)         // "1,09 JOD"`}
                 <code className="doc-inline">components/ui/ExchangeRateNote.tsx</code>
               </td>
               <td>
-                Widget kurs: 1 JOD = Rp23.000, waktu sync terakhir, disclaimer — dipasang di
+                Widget kurs: rate terkini, waktu sync terakhir, disclaimer — dipasang di
                 Checkout, Payment Amount, dan layar uang panel CS (Ringkasan, Ledger, Sengketa,
                 Merchant, Onboarding)
               </td>
@@ -108,8 +146,22 @@ jod(1.09)         // "1,09 JOD"`}
                 <code className="doc-inline">components/ui/CurrencyToggle.tsx</code>
               </td>
               <td>
-                Sakelar IDR/JOD per peran: hook memformat satu mata uang, tombol mengubahnya.
-                Slice <code className="doc-inline">preferences</code> menyimpan pilihannya.
+                Sakelar IDR/JOD per peran: hook memformat satu mata uang, tombol di{' '}
+                <strong>hero beranda</strong> (customer/merchant/kurir) mengubahnya + toast
+                konfirmasi. Slice <code className="doc-inline">preferences</code> menyimpan
+                pilihannya di localStorage.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code className="doc-inline">hooks/useLiveRate.ts</code> +{' '}
+                <code className="doc-inline">components/ui/LiveCurrencyButton.tsx</code>
+              </td>
+              <td>
+                Sync kurs live: hook berlangganan rate + memicu sync harian sekali per sesi,
+                tombol koin di hero beranda membuka bottom sheet detail kurs + tombol &ldquo;Perbarui
+                sekarang&rdquo;. Kontrak provider dicek{' '}
+                <code className="doc-inline">scripts/live-rate-check.mjs</code>.
               </td>
             </tr>
           </tbody>
@@ -119,12 +171,14 @@ jod(1.09)         // "1,09 JOD"`}
       <p className="doc-p">
         Setiap tempat yang menampilkan JOD wajib dekat dengan kalimat{' '}
         <em>&ldquo;kurs estimasi, mengikuti kurs harian&rdquo;</em> — itulah isi{' '}
-        <code className="doc-inline">RATE_DISCLAIMER</code>. Rate di repo ini mock (1 JOD =
-        Rp23.000, contoh yang disebut PRD), bukan rate live: sync 1×24 jam dari API kurs belum
-        ada, karena dua hal masih terbuka dan <strong>tidak boleh ditebak</strong> — provider
-        kurs (<code className="doc-inline">OQ-26</code>) dan umur maksimal fallback rate
-        (<code className="doc-inline">OQ-28</code>). Yang sudah pasti hanya perilaku
-        fallback-nya: kalau fetch gagal, pakai rate terakhir dan jangan blokir transaksi.
+        <code className="doc-inline">RATE_DISCLAIMER</code>. Rate kini live (sumber{' '}
+        <code className="doc-inline">fawazahmed0/exchange-api</code>, update harian), tapi tetap
+        ditandai sebagai <strong>estimasi</strong>: sync harian, bukan realtime, dan jangan
+        diperlakukan sebagai rate transaksi. Provider kurs kini{' '}
+        <strong>diputuskan</strong> (<code className="doc-inline">OQ-26</code> tertutup). Yang
+        masih terbuka dan <strong>tidak boleh ditebak</strong>: umur maksimal fallback rate (
+        <code className="doc-inline">OQ-28</code>). Perilaku fallback yang sudah pasti: kalau
+        fetch gagal, pakai rate terakhir (cache/mock), jangan blokir transaksi.
       </p>
     </DocSection>
   )

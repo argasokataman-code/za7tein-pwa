@@ -18,7 +18,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { clearPush, registerPush } from '../store/slices/notificationsSlice'
 import type { PushSubscriptionRecord } from '../types'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const TOGGLES = [
   { id: 'order', label: 'Status pesanan', on: true },
@@ -127,7 +126,6 @@ export default function NotificationSettings() {
             <header className="profile-flow-header">
               <BackButton className="back-btn-profile" />
               <h1 className="profile-flow-title">Pengaturan Notifikasi</h1>
-              <CurrencyToggle />
             </header>
 
             <main className="profile-flow-main">

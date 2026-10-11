@@ -11,7 +11,6 @@ import { otpOf } from '../api/orders'
 import { COURIER_ACTION_LABEL, DELIVERY_OTP_DEMO } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import { BottomSheet } from './ui/BottomSheet'
-import { CurrencyToggle } from './ui/CurrencyToggle'
 import {
   HOLD_EVENT_LABEL,
   HOLD_STATUS_COPY,
@@ -278,7 +277,6 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
               <h1 className="track-title">Pesanan</h1>
               <span className="track-ref">#{orderCode}</span>
             </div>
-            <CurrencyToggle />
           </header>
 
           {isDelivery ? mapBlock : null}

@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { tipCourier } from '../store/slices/walletSlice'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const STARS = [1, 2, 3, 4, 5]
 
@@ -62,7 +61,6 @@ export default function RatingDriver() {
               <h1 className="rating-driver-title">
                 Rating
               </h1>
-              <CurrencyToggle />
             </header>
             <div className="rating-driver-content">
               <div className="rating-order-info">

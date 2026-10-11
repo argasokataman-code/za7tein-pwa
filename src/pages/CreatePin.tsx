@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { useOtpInput } from '../hooks/useOtpInput'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back']
 
@@ -23,7 +22,6 @@ export default function CreatePin() {
               <header className="profile-flow-header ">
                 <BackButton className="back-btn-profile" to="/security" />
                 <h1 className="profile-flow-title">Create Pin</h1>
-                <CurrencyToggle />
               </header>
               <main className="wallet-main verify-main">
                 <h2 className="verify-heading">Please create your 4-digit Pin</h2>

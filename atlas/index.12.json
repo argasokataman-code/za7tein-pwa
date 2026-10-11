@@ -5064,6 +5064,746 @@
           "raw": "TASK-12020:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-12040",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "08:29:52",
+      "tags": [
+        "deploy",
+        "vercel"
+      ],
+      "summary": "Commit 74d4b32 (hero kurir+slip+tile, CurrencyToggle lintas halaman, SHA build) dipush ke main + deploy prod Vercel; 4 host peran redirect O",
+      "conn": [
+        {
+          "id": "TASK-12030",
+          "type": "relates",
+          "raw": "TASK-12030:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-12041",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "08:52:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+7/-7) — edit via tool: // Tidak ada varian baris di deskto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-12042",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "08:53:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss (+15/-8) — edit via tool: // Terpilih: `:has(input:checked)`",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-12043",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "08:55:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-016-2026-10-11.md (+65) — write via tool: # Audit 016 — Layar auth (onboa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-016-2026-10-11.md"
+    },
+    {
+      "id": "BUG-2017",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "08:55:28",
+      "tags": [
+        "ui",
+        "auth",
+        "desktop",
+        "layout"
+      ],
+      "summary": "Auth @900px memecah kolom 430 jadi form 162px; radio kurir tanpa state; teks consent tertutup kotak. Fix di _auth.scss.",
+      "conn": [
+        {
+          "id": "TASK-015",
+          "type": "relates",
+          "raw": "TASK-015:relates"
+        }
+      ],
+      "loc": "src/styles/system/_auth.scss:22"
+    },
+    {
+      "id": "TASK-12044",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:14:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyToggle.tsx (+9/-7) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyToggle.tsx"
+    },
+    {
+      "id": "TASK-12045",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:14:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx (+2/-3) — edit via tool: tsx: import { BackButton } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/PageHeader.tsx"
+    },
+    {
+      "id": "TASK-12046",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:14:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+2/-3) — edit via tool: tsx: import { BottomSheet } ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-12047",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:14:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+2/-3) — edit via tool: tsx: import { BackButton } from '../com",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-12048",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:16:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+14/-7) — edit via tool: tsx: Forma",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "TASK-12049",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:16:48",
+      "tags": [
+        "currency",
+        "ui",
+        "pitfall"
+      ],
+      "summary": "Sapu CurrencyToggle dari ~31 tempat non-beranda (28 halaman + PageHeader + OrderStageScreen + MenuDetail); sisakan 3 hero beranda + toast ko",
+      "conn": [
+        {
+          "id": "TASK-11100",
+          "type": "relates",
+          "raw": "TASK-11100:relates"
+        },
+        {
+          "id": "FEAT-2004",
+          "type": "relates",
+          "raw": "FEAT-2004:relates"
+        }
+      ],
+      "loc": "src/components/ui/CurrencyToggle.tsx:20"
+    },
+    {
+      "id": "TASK-12050",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:21:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts (+192) — write via tool: ts: import type { ExchangeRate } from '../t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/currency.ts"
+    },
+    {
+      "id": "TASK-12051",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx (+38) — write via tool: tsx: import { RefreshCw ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-12052",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLiveRate.ts (+45) — write via tool: ts: import { useCallback, useEffect, use",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLiveRate.ts"
+    },
+    {
+      "id": "TASK-12053",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+55/-3) — edit via tool: .currency-toggle--on-dark .cur",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-12054",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+3/-2) — edit via tool: tsx: import { Curre",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12055",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx (+3/-2) — edit via tool: tsx: import { Notific",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12056",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+3/-2) — edit via tool: tsx: import { Notif",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12057",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useMoney.ts (+6/-5) — edit via tool: ts: import { useMemo } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useMoney.ts"
+    },
+    {
+      "id": "TASK-12058",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/ExchangeRateNote.tsx (+22/-20) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/ExchangeRateNote.tsx"
+    },
+    {
+      "id": "TASK-12059",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/live-rate-check.mjs (+40) — write via tool: #!/usr/bin/env node",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/live-rate-check.mjs"
+    },
+    {
+      "id": "TASK-12060",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:22:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+23/-2) — edit via tool: tsx: toast",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "DEC-12061",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-11",
+      "time": "09:23:34",
+      "tags": [
+        "prd-v2",
+        "currency",
+        "officially-decided"
+      ],
+      "summary": "OQ-26 ditutup: provider kurs live = fawazahmed0/exchange-api (JSON statis jsDelivr CDN + mirror pages.dev, no key/backend); TTL 24 jam, fall",
+      "conn": [
+        {
+          "id": "FEAT-2004",
+          "type": "relates",
+          "raw": "FEAT-2004:relates"
+        },
+        {
+          "id": "DEC-2004",
+          "type": "relates",
+          "raw": "DEC-2004:relates"
+        },
+        {
+          "id": "TASK-12049",
+          "type": "relates",
+          "raw": "TASK-12049:relates"
+        }
+      ],
+      "loc": "src/data/currency.ts:31"
+    },
+    {
+      "id": "TASK-12062",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:23:35",
+      "tags": [
+        "currency",
+        "prd-v2",
+        "o-26",
+        "o-28"
+      ],
+      "summary": "Kurs live harian: getExchangeRate/subscribeRate/fetchLiveRate/refreshLiveRate di currency.ts, hook useLiveRate, tombol LiveCurrencyButton di",
+      "conn": [
+        {
+          "id": "TASK-12049",
+          "type": "relates",
+          "raw": "TASK-12049:relates"
+        },
+        {
+          "id": "FEAT-2004",
+          "type": "implements",
+          "raw": "FEAT-2004:implements"
+        }
+      ],
+      "loc": "src/hooks/useLiveRate.ts:17"
+    },
+    {
+      "id": "TASK-12063",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:32:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx (+97) — write via tool: tsx: import { useState }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-12064",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:32:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+169/-51) — edit via tool: /* ── Track gabungan sakelar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-12065",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:32:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+8/-6) — edit via tool: tsx: <div className",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12066",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:32:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx (+7/-5) — edit via tool: tsx: <div className=\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12067",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:32:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+7/-5) — edit via tool: tsx: <div className",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12068",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:33:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+17/-16) — edit via tool: .s7-hero__topbar ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-12069",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:33:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+4/-4) — edit via tool: tsx: <span classNam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:33:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+11/-7) — edit via tool: tsx: <p cl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "TASK-12071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:35:57",
+      "tags": [
+        "currency",
+        "ui",
+        "layout"
+      ],
+      "summary": "Revisi Live Currency: tombol ikon Coins + bottom sheet 'Detail Kurs Live' (pasangan IDR/JOD, sumber asli, sync, jadwal 24 jam, disclaimer, P",
+      "conn": [
+        {
+          "id": "TASK-12062",
+          "type": "relates",
+          "raw": "TASK-12062:relates"
+        },
+        {
+          "id": "FEAT-2004",
+          "type": "implements",
+          "raw": "FEAT-2004:implements"
+        }
+      ],
+      "loc": "src/components/ui/LiveCurrencyButton.tsx:30"
+    },
+    {
+      "id": "TASK-12072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:44:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+8/-9) — edit via tool: /* Track di semua hero memakai ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-12073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:44:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+4/-4) — edit via tool: tsx: <div className",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:44:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx (+5/-5) — edit via tool: tsx: <div className=\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx"
+    },
+    {
+      "id": "TASK-12075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-11",
+      "time": "09:44:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+5/-5) — edit via tool: tsx: <div className",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
     }
   ]
 }

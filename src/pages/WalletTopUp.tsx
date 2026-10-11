@@ -16,7 +16,6 @@ import { useMoney } from '../hooks/useMoney'
 import { requestTopUp, settleTopUp } from '../store/slices/walletSlice'
 import type { TopUpChannel } from '../types'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 /**
  * Top-up saldo (M3, flow F3). Xendit tidak nyata: request membuat baris `pending`,
@@ -48,7 +47,6 @@ export default function WalletTopUp() {
               <header className="profile-flow-header ">
                 <BackButton className="back-btn-profile" to="/wallet" />
                 <h1 className="profile-flow-title">Top-up Saldo</h1>
-                <CurrencyToggle />
               </header>
               <main className="wallet-main">
                 <section className="wallet-balance-card s7-parallax--card" aria-label="Saldo saat ini">

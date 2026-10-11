@@ -1,6 +1,5 @@
 import { Activity, Box, Shield, ShieldCheck, Upload } from 'lucide-react'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 // Ported from the original screen markup. Classes match the app stylesheet
 // in src/styles/_app.scss, so the styling is identical to the source site.
 
@@ -18,7 +17,6 @@ export default function PrivacyPolicy() {
                 <h1 className="profile-flow-title">
                   Privacy &amp; Policy
                 </h1>
-                <CurrencyToggle />
               </header>
               <main className="profile-flow-main privacy-main">
                 <div className="privacy-header-content">

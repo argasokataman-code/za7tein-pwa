@@ -1,6 +1,5 @@
 import { MessageSquare } from 'lucide-react'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 // Halaman ulasan customer. Sumber ulasan sungguhan belum ada di API (tabel
 // `reviews` tidak pernah di-fetch, lihat `src/api/catalog.ts` yang hanya pakai
 // agregat `rating_avg`/`rating_count` di `merchants`). Aturan: pakai data real,
@@ -16,7 +15,6 @@ export default function Reviews() {
             <BackButton className="btn-back" />
             <h1 className="reviews-page-title">Ulasan</h1>
             <div className="header-spacer" />
-            <CurrencyToggle />
           </div>
           <div className="reviews-content">
             <div className="reviews-empty-state">

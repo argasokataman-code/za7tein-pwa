@@ -12,7 +12,6 @@ import { addItem } from '../store/slices/cartSlice'
 import { useMoney } from '../hooks/useMoney'
 import type { ModifierGroup } from '../types'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const TRUNCATE_AT = 96
 
@@ -161,7 +160,6 @@ export default function MenuDetail() {
               <div className="menu-detail-header">
                 <BackButton className="btn-back" />
                 <FavoriteButton id={food.id} name={food.name} className="favorite-header-btn" size={24} />
-                <CurrencyToggle className="currency-toggle--on-dark" />
               </div>
             </div>
 

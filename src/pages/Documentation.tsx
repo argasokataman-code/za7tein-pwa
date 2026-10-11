@@ -340,11 +340,16 @@ export default function Documentation() {
               <code className="doc-inline">--text-sm..2xl</code> kini dipatok px — dulu{' '}
               <code className="doc-inline">clamp(vw)</code> membuat tipe membesar mengikuti lebar
               jendela padahal kolom aplikasi dikunci 430px — dan font Inter di-preload supaya tidak
-              ada kedipan swap. Sakelar mata uang IDR/JOD kini duduk di bilah tiap peran (plus
-              hero beranda pelanggan): nominal dirender sebagai <em>satu</em> mata uang sesuai
-              pilihan, disimpan per peran di <code className="doc-inline">localStorage</code> (slice{' '}
+              ada kedipan swap. Sakelar mata uang IDR/JOD kini duduk di <strong>kaki hero
+              beranda tiap peran</strong> — customer, dapur merchant, dan kurir — bersama tombol
+              kurs live berikon koin, bukan lagi di bilah tiap halaman: nominal dirender sebagai{' '}
+              <em>satu</em> mata uang sesuai pilihan, disimpan per peran di{' '}
+              <code className="doc-inline">localStorage</code> (slice{' '}
               <code className="doc-inline">preferences</code>, default JOD), sementara konsol Super
-              Admin tetap menampilkan pasangan dua baris. Rinciannya di bagian Changelog.
+              Admin tetap menampilkan pasangan dua baris. Kurs live diambil harian dari{' '}
+              <code className="doc-inline">fawazahmed0/exchange-api</code> (tanpa API key, cache 24
+              jam), dan label waktu sync-nya mengikuti locale + zona waktu device tiap user.
+              Rinciannya di bagian Changelog.
             </p>
             <DocShellCtas />
           </div>

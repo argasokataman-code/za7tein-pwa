@@ -1,3 +1,5 @@
+import toast from 'react-hot-toast'
+
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import { useDisplayCurrency } from '../../hooks/useMoney'
 import { setCurrency } from '../../store/slices/preferencesSlice'
@@ -13,8 +15,10 @@ interface CurrencyToggleProps {
 /**
  * Sakelar mata uang tampilan IDR/JOD — satu peran, disimpan lokal (bukan DB).
  *
- * Dua pilihan saja dan sengaja sempit supaya bisa duduk di baris judul tanpa
- * mendorong kontrol lain. Tidak dirender saat peran belum diketahui (layar
+ * **Hanya dirender di hero beranda** (customer/merchant/kurir). Satu sakelar
+ * mengatur semua halaman peran itu, karena nilainya dibaca lewat `useMoney`
+ * di mana-mana. Jangan taruh di header/layar lain — dulu tersebar di ~30 titik
+ * dan itu salah penempatan. Tidak dirender saat peran belum diketahui (layar
  * pra-masuk), karena preferensinya memang per peran.
  */
 export function CurrencyToggle({ className }: CurrencyToggleProps) {
@@ -41,7 +45,10 @@ export function CurrencyToggle({ className }: CurrencyToggleProps) {
               ? 'currency-toggle__option is-active'
               : 'currency-toggle__option'
           }
-          onClick={() => dispatch(setCurrency({ role, currency: code }))}
+          onClick={() => {
+            dispatch(setCurrency({ role, currency: code }))
+            toast.success(`Mata uang ${code} disimpan`)
+          }}
         >
           {code}
         </button>

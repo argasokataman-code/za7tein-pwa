@@ -3,6 +3,7 @@ import { UserRound } from 'lucide-react'
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 import { NotificationBell } from '../ui/NotificationBell'
 import { CurrencyToggle } from '../ui/CurrencyToggle'
+import { LiveCurrencyButton } from '../ui/LiveCurrencyButton'
 
 interface CourierHomeHeroProps {
   /** Nama kurir yang tampil sebagai judul. */
@@ -55,7 +56,6 @@ export function CourierHomeHero({
           </span>
 
           <div className="courier-hero__controls">
-            <CurrencyToggle className="currency-toggle--on-dark" />
             <NotificationBell variant="hero" />
           </div>
         </div>
@@ -104,6 +104,14 @@ export function CourierHomeHero({
         </div>
 
         <p className="courier-hero__note">{note}</p>
+
+        <div className="hero-currency-row">
+          <span className="hero-currency-row__label">Mata uang tampilan</span>
+          <div className="hero-currency-row__controls">
+            <CurrencyToggle className="currency-toggle--on-dark" />
+            <LiveCurrencyButton className="live-rate-button--on-dark" />
+          </div>
+        </div>
       </div>
     </section>
   )

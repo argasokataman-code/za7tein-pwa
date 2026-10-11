@@ -6,7 +6,6 @@ import { useState } from 'react'
 
 import toast from 'react-hot-toast'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 interface LinkedMethod {
   id: string
@@ -47,7 +46,6 @@ export default function PaymentAccount() {
               <h1 className="profile-flow-title">
                 Payment Account
               </h1>
-              <CurrencyToggle />
             </header>
             <main className="wallet-main">
               <Link className="wallet-item wallet-item-link" to="/your-card">

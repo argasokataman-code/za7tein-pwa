@@ -12,7 +12,6 @@ import { idrToJod } from '../data/currency'
 import { mockUser } from '../data/user'
 import { fileDispute } from '../store/slices/adminSlice'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const MAX_PHOTOS = 3
 
@@ -148,7 +147,6 @@ export default function DisputeSubmit() {
         <header className="admin-header">
           <div className="admin-header-action">
             <BackButton className="admin-back" />
-            <CurrencyToggle />
           </div>
           <div className="admin-header-copy">
             <h1 className="admin-title">Ajukan Sengketa</h1>

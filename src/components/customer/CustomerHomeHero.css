@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: space-between;
 
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .s7-profile-location {
@@ -30,6 +30,7 @@
 
   gap: var(--space-3);
 
+  flex: 1 1 auto;
   min-width: 0;
 }
 
@@ -86,6 +87,8 @@
   min-width: 0;
   min-height: 44px;
 
+  overflow: hidden;
+
   padding: 0;
 
   background: transparent;
@@ -106,10 +109,18 @@
 
   gap: var(--space-1);
 
+  min-width: 0;
+
   font-size: var(--text-sm);
   font-weight: 700;
 
   line-height: 1.15;
+}
+
+.s7-location__label-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .s7-location__value {
@@ -191,18 +202,18 @@
 /* ── Judul ──────────────────────────────────────────────────────────────── */
 
 .s7-hero__intro {
-  margin-top: 44px;
+  margin-top: var(--space-5);
 }
 
 .s7-hero__headline {
   margin: 0;
 
   /* Tanpa batas lebar di layar kecil: <br> yang menentukan kedua baris.
-     Batas 15ch sebelumnya lebih sempit daripada "What would you like",
+     Batas 15ch sebelumnya lebih sempit daripada "Mau makan apa",
      sehingga baris pertama pecah lagi dan judulnya jadi tiga baris. */
-  font-size: clamp(31px, 8.2vw, 44px);
+  font-size: clamp(26px, 6.8vw, 36px);
   font-weight: 800;
-  line-height: 1.02;
+  line-height: 1.05;
   letter-spacing: -0.03em;
 }
 
@@ -215,7 +226,7 @@
   width: 100%;
   min-height: 68px;
 
-  margin-top: var(--space-6);
+  margin-top: var(--space-5);
   padding: 0 var(--space-4);
 
   border: 2px solid transparent;
@@ -444,11 +455,11 @@
   }
 
   .s7-hero__intro {
-    margin-top: 38px;
+    margin-top: var(--space-4);
   }
 
   .s7-hero__headline {
-    font-size: 30px;
+    font-size: 24px;
   }
 
   .s7-search {
@@ -473,7 +484,7 @@
   }
 
   .s7-hero__intro {
-    margin-top: 52px;
+    margin-top: var(--space-6);
   }
 
   .s7-hero__headline {

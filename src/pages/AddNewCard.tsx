@@ -9,7 +9,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { cardSchema, type CardFormData } from '../lib/schemas'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function AddNewCard() {
   const {
@@ -33,7 +32,6 @@ export default function AddNewCard() {
               <h1 className="profile-flow-title">
                 Add New Card
               </h1>
-              <CurrencyToggle />
             </header>
             <main className="wallet-main add-card-main">
               <div className="add-card-preview">

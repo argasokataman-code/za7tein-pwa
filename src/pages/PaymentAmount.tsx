@@ -10,7 +10,6 @@ import { createOrder, nextOrderCode } from '../api/orders'
 import { insertNotification } from '../api/notifications'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 import {
   PAYMENT_METHODS,
   PLATFORM_FEE_CUSTOMER_IDR,
@@ -146,7 +145,6 @@ export default function PaymentAmount() {
               <h1 className="payment-amount-title">
                 Checkout
               </h1>
-              <CurrencyToggle />
             </header>
             <div className="payment-amount-content">
               {address ? (

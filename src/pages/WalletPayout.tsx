@@ -11,7 +11,6 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { requestPayout } from '../store/slices/walletSlice'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 /**
  * Tarik saldo (M3, flow F6). Fee penarikan belum final (OQ-22), jadi layar ini
@@ -53,7 +52,6 @@ export default function WalletPayout() {
               <header className="profile-flow-header ">
                 <BackButton className="back-btn-profile" to="/wallet" />
                 <h1 className="profile-flow-title">Tarik Saldo</h1>
-                <CurrencyToggle />
               </header>
               <main className="wallet-main">
                 <section className="wallet-balance-card" aria-label="Saldo tersedia">

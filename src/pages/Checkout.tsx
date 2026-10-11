@@ -10,7 +10,6 @@ import { Minus, Plus, ShoppingBag } from 'lucide-react'
 import { useNavigate, Link } from 'react-router-dom'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
   GST_FOOD_PERCENT,
@@ -66,7 +65,6 @@ export default function Checkout() {
             <BackButton className="btn-back" />
             <h1 className="checkout-page-title">Checkout</h1>
             <div className="header-spacer" />
-            <CurrencyToggle />
           </div>
 
           {items.length === 0 ? (

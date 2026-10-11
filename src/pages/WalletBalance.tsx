@@ -8,7 +8,6 @@ import { switchBlockCopy } from '../data/superadmin'
 import { useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 /**
  * Saldo wallet customer (M3, flow F3): `available` + `pending`, plus pintu ke
@@ -33,7 +32,6 @@ export default function WalletBalance() {
               <header className="profile-flow-header ">
                 <BackButton className="back-btn-profile" to="/profile" />
                 <h1 className="profile-flow-title">Saldo Sa7tein</h1>
-                <CurrencyToggle />
               </header>
               <main className="wallet-main">
                 <section className="wallet-balance-card" aria-label="Ringkasan saldo">

@@ -11,7 +11,6 @@ import { FoodCard } from '../components/ui/FoodCard'
 import { useCatalog } from '../hooks/useCatalog'
 import type { SearchFilters } from '../types'
 import { BackButton } from '../components/ui/BackButton'
-import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const RECENT_SEARCHES = ['Pizza', 'Burger', 'Pastry', 'Cookies', 'Meat Church']
 
@@ -57,7 +56,6 @@ export default function Search() {
             <h1>
               Search
             </h1>
-            <CurrencyToggle />
           </div>
           <div className="search-page-bar">
             <div className="search-bar">
