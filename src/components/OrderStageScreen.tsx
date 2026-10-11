@@ -11,6 +11,7 @@ import { otpOf } from '../api/orders'
 import { COURIER_ACTION_LABEL, DELIVERY_OTP_DEMO } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import { BottomSheet } from './ui/BottomSheet'
+import { CurrencyToggle } from './ui/CurrencyToggle'
 import {
   HOLD_EVENT_LABEL,
   HOLD_STATUS_COPY,
@@ -20,11 +21,11 @@ import {
   mockCouriers,
   mockMerchant,
   mockOrder,
-  money,
   zoneFor,
 } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useLeafletMap } from '../hooks/useLeafletMap'
+import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
 import {
   advanceDelivery,
@@ -117,6 +118,7 @@ type Props = {
 }
 
 export default function OrderStageScreen({ stage: fixedStage }: Props) {
+  const { money } = useMoney()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [params] = useSearchParams()
@@ -276,6 +278,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
               <h1 className="track-title">Pesanan</h1>
               <span className="track-ref">#{orderCode}</span>
             </div>
+            <CurrencyToggle />
           </header>
 
           {isDelivery ? mapBlock : null}

@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
-import { money, moneyPlain } from '../data/currency'
 import { accountLabel } from '../data/payout'
 import {
   COURIER_PAYOUT_FEE_IDR,
@@ -14,6 +13,7 @@ import {
   courierTipsAvailable,
 } from '../data/courierWallet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { requestCourierPayout } from '../store/slices/courierSlice'
 
 /**
@@ -22,6 +22,7 @@ import { requestCourierPayout } from '../store/slices/courierSlice'
  * Ambang minimum masih contoh PRD (`COURIER_TIPS_MIN_WITHDRAW_IDR`).
  */
 export default function CourierPayout() {
+  const { money, moneyPlain } = useMoney()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const tasks = useAppSelector((s) => s.courier.tasks)

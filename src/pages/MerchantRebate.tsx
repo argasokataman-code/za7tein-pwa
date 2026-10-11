@@ -5,8 +5,8 @@ import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { jod, jodToIdr } from '../data/currency'
 import { CREDIT_EVENT_LABEL, MERCHANT_CREDIT_JOD, MERCHANT_CREDIT_ORDERS, REBATE_TIERS, rebateProgress } from '../data/incentive'
-import { money } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { payRebate, recordSettledOrder } from '../store/slices/merchantSlice'
 
 /**
@@ -20,6 +20,7 @@ import { payRebate, recordSettledOrder } from '../store/slices/merchantSlice'
  * state demo supaya penanda tier dan event `rebate_paid` bisa diperiksa.
  */
 export default function MerchantRebate() {
+  const { money } = useMoney()
   const dispatch = useAppDispatch()
   const credit = useAppSelector((state) => state.merchant.credit)
 
@@ -28,8 +29,8 @@ export default function MerchantRebate() {
 
   const statusCashback = credit.rebateTier
     ? credit.rebatePaidAt
-      ? `Sudah masuk dompet deposit ${money(jodToIdr(credit.rebateAmountJod))} (${jod(credit.rebateAmountJod)})`
-      : `Menunggu dibayar platform akhir bulan: ${money(jodToIdr(credit.rebateAmountJod))} (${jod(credit.rebateAmountJod)})`
+      ? `Sudah masuk dompet deposit ${money(jodToIdr(credit.rebateAmountJod))}`
+      : `Menunggu dibayar platform akhir bulan: ${money(jodToIdr(credit.rebateAmountJod))}`
     : 'Belum ada ambang tier yang terlewati periode ini'
 
   return (
@@ -43,8 +44,8 @@ export default function MerchantRebate() {
             <div>
               <p className="merchant-card-title">Sisa modal</p>
               <p className="merchant-card-sub">
-                {money(jodToIdr(credit.merchantCreditBalance))} · {jod(credit.merchantCreditBalance)}{' '}
-                dari {jod(MERCHANT_CREDIT_JOD)} · non-withdrawal
+                {money(jodToIdr(credit.merchantCreditBalance))} dari {jod(MERCHANT_CREDIT_JOD)} ·
+                non-withdrawal
               </p>
             </div>
           </div>
@@ -95,8 +96,7 @@ export default function MerchantRebate() {
             proporsional.
           </p>
           <p className="merchant-card-sub">
-            Dompet deposit sekarang {money(jodToIdr(credit.depositBalanceJod))} (
-            {jod(credit.depositBalanceJod)}).
+            Dompet deposit sekarang {money(jodToIdr(credit.depositBalanceJod))}.
           </p>
         </section>
 

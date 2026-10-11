@@ -6,11 +6,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { useEffect, useState } from 'react'
 
-import { money, moneyPlain } from '../data/currency'
 import { mockOrder } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { tipCourier } from '../store/slices/walletSlice'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const STARS = [1, 2, 3, 4, 5]
 
@@ -22,6 +23,7 @@ const STARS = [1, 2, 3, 4, 5]
 const TIP_PRESETS_IDR = [0, 3_000, 5_000, 10_000]
 
 export default function RatingDriver() {
+  const { money, moneyPlain } = useMoney()
   const [rating, setRating] = useState(4)
   const [tip, setTip] = useState(0)
   const [params] = useSearchParams()
@@ -60,6 +62,7 @@ export default function RatingDriver() {
               <h1 className="rating-driver-title">
                 Rating
               </h1>
+              <CurrencyToggle />
             </header>
             <div className="rating-driver-content">
               <div className="rating-order-info">

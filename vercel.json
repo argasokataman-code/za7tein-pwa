@@ -1,3 +1,29 @@
 {
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "sa7tein-c.vercel.app" }],
+      "destination": "/customer/home",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "sa7tein-m.vercel.app" }],
+      "destination": "/merchant",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "sa7tein-k.vercel.app" }],
+      "destination": "/courier",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "sa7tein-a.vercel.app" }],
+      "destination": "/admin",
+      "permanent": false
+    }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

@@ -7,18 +7,31 @@ export interface DocShell {
   role: string
   url: string
   desc: string
+  /**
+   * Host pendek khusus peran (satu peran satu origin). Build-nya sama; root
+   * host diarahkan ke entry peran oleh `vercel.json`. Dipisah per origin supaya
+   * WebAPK/Chrome Android tidak mencampur pemasangan antar peran. Kosong untuk
+   * rute yang bukan app terinstal (Super Admin, Landing).
+   */
+  host?: string
 }
 
 // Entry points for each role shell — rendered as CTAs in the hero and in
 // section "Pages & Routes" so the team can open the live UI in one click.
 export const DOC_SHELLS: DocShell[] = [
-  { role: 'Customer', url: '/customer/home', desc: 'PWA pembeli' },
-  { role: 'Merchant', url: '/merchant', desc: 'Konsol merchant' },
-  { role: 'Courier', url: '/courier', desc: 'Tampilan kurir' },
-  { role: 'Admin (CS)', url: '/admin', desc: 'Panel CS' },
+  { role: 'Customer', url: '/customer/home', host: 'sa7tein-c.vercel.app', desc: 'PWA pembeli' },
+  { role: 'Merchant', url: '/merchant', host: 'sa7tein-m.vercel.app', desc: 'Konsol merchant' },
+  { role: 'Courier', url: '/courier', host: 'sa7tein-k.vercel.app', desc: 'Tampilan kurir' },
+  { role: 'Admin (CS)', url: '/admin', host: 'sa7tein-a.vercel.app', desc: 'Panel CS' },
   { role: 'Super Admin', url: '/superadmin', desc: 'Website penuh non-PWA' },
   { role: 'Landing', url: '/', desc: 'Halaman publik' },
 ]
+
+/** Href CTA: host pendek peran kalau ada, selain itu path relatif. */
+export const docShellHref = (s: DocShell) => (s.host ? `https://${s.host}/` : s.url)
+
+/** Yang ditampilkan di kartu: URL host pendek, atau path relatif. */
+export const docShellLabel = (s: DocShell) => (s.host ? `https://${s.host}` : s.url)
 
 export interface DocRoute {
   path: string

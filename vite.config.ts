@@ -1,8 +1,33 @@
 import react from '@vitejs/plugin-react'
+import { execSync } from 'node:child_process'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+/**
+ * SHA commit untuk versi build. Dipakai agar SEMUA target deploy dari commit
+ * yang sama menampilkan versi identik (main + 4 host peran). Urutan: env Vercel
+ * (deploy via Git / dashboard) → `APP_BUILD_SHA` (deploy CLI dengan --build-env)
+ * → git lokal → kosong (build tanpa repo, mis. CI arsip). Kosong = versi dasar
+ * saja tanpa sufiks.
+ */
+function resolveBuildSha() {
+  const fromEnv = process.env.VERCEL_GIT_COMMIT_SHA || process.env.APP_BUILD_SHA
+  if (fromEnv) return fromEnv.slice(0, 7)
+  try {
+    return execSync('git rev-parse --short=7 HEAD', {
+      stdio: ['ignore', 'pipe', 'ignore'],
+    })
+      .toString()
+      .trim()
+  } catch {
+    return ''
+  }
+}
+
+const BUILD_SHA = resolveBuildSha()
+
 export default defineConfig({
+  define: { __BUILD_SHA__: JSON.stringify(BUILD_SHA) },
   plugins: [
     react(),
     VitePWA({

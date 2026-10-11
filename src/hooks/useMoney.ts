@@ -11,7 +11,7 @@ export const DEFAULT_CURRENCY: CurrencyCode = 'JOD'
 export function useDisplayCurrency(): CurrencyCode {
   const role = useAppSelector((s) => s.auth.role)
   return useAppSelector(
-    (s) => (role ? s.preferences.currency[role] : undefined) ?? DEFAULT_CURRENCY,
+    (s) => (role ? s.preferences?.currency?.[role] : undefined) ?? DEFAULT_CURRENCY,
   )
 }
 

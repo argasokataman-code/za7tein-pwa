@@ -1,4 +1,5 @@
 import { DocSection } from '../DocSection'
+import { DocShellCtas } from '../DocShellCtas'
 
 export function IntroductionSection() {
   return (
@@ -81,6 +82,12 @@ export function IntroductionSection() {
           </div>
         </div>
       </div>
+      <p className="doc-p">
+        Empat peran PWA punya <strong>URL sendiri</strong> — satu origin per peran supaya
+        pemasangan app di Android tidak tertukar antar peran. Root tiap host diarahkan
+        otomatis ke entry perannya:
+      </p>
+      <DocShellCtas filter={(s) => !!s.host} />
     </DocSection>
   )
 }

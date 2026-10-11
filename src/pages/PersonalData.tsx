@@ -13,6 +13,7 @@ import { personalDataSchema, type PersonalDataFormData } from '../lib/schemas'
 import { updateUser } from '../store/slices/authSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function PersonalData() {
   const navigate = useNavigate()
@@ -62,6 +63,7 @@ export default function PersonalData() {
                 <h1 className="profile-flow-title">
                   Personal Data
                 </h1>
+                <CurrencyToggle />
               </header>
               <main className="profile-flow-main">
                 <div className="personal-data-avatar-wrap">

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { DOC_NAV } from './documentation/nav'
-import { DOC_SHELLS } from './documentation/routes'
+import { DocShellCtas } from './documentation/DocShellCtas'
 import { APP_VERSION } from '../data/appInfo'
 import { IntroductionSection } from './documentation/sections/IntroductionSection'
 import { WhatsNewSection } from './documentation/sections/WhatsNewSection'
@@ -340,17 +340,13 @@ export default function Documentation() {
               <code className="doc-inline">--text-sm..2xl</code> kini dipatok px — dulu{' '}
               <code className="doc-inline">clamp(vw)</code> membuat tipe membesar mengikuti lebar
               jendela padahal kolom aplikasi dikunci 430px — dan font Inter di-preload supaya tidak
-              ada kedipan swap. Rinciannya di bagian Changelog.
+              ada kedipan swap. Sakelar mata uang IDR/JOD kini duduk di bilah tiap peran (plus
+              hero beranda pelanggan): nominal dirender sebagai <em>satu</em> mata uang sesuai
+              pilihan, disimpan per peran di <code className="doc-inline">localStorage</code> (slice{' '}
+              <code className="doc-inline">preferences</code>, default JOD), sementara konsol Super
+              Admin tetap menampilkan pasangan dua baris. Rinciannya di bagian Changelog.
             </p>
-            <div className="doc-cta-grid">
-              {DOC_SHELLS.map((s) => (
-                <a key={s.role} className="doc-cta" href={s.url} target="_blank" rel="noreferrer">
-                  <span className="doc-cta-role">{s.role}</span>
-                  <span className="doc-cta-url">{s.url}</span>
-                  <span className="doc-card-sub">{s.desc}</span>
-                </a>
-              ))}
-            </div>
+            <DocShellCtas />
           </div>
           {SECTIONS.map((Section, index) => (
             <Section key={DOC_NAV[index].id} />

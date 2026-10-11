@@ -5,9 +5,9 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
-import { money, moneyPlain } from '../data/currency'
 import { accountLabel, PAYOUT_FEE_IDR } from '../data/payout'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { requestPayout } from '../store/slices/payoutSlice'
 
 /**
@@ -17,6 +17,7 @@ import { requestPayout } from '../store/slices/payoutSlice'
  * menampilkan info, tidak mengarang angka.
  */
 export default function MerchantPayout() {
+  const { money, moneyPlain } = useMoney()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const balance = useAppSelector((state) => state.payout.balance)

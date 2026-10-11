@@ -341,27 +341,9 @@
   margin-top: var(--space-2);
 }
 
-/* Identitas toko di hero: foto + nama. Foto dibaca dari `merchantSlice.logo`,
-   jadi unggahan di Setelan toko langsung tampil di beranda. */
-.merchant-hero__id {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  width: 100%;
-}
-
-/* Nama toko boleh menyusut supaya lonceng di kanan tetap di tempatnya. */
-.merchant-hero__id > div {
-  min-width: 0;
-}
-
-/* Lonceng inbox peran di beranda dapur memakai kontrol hero yang sama dengan
-   beranda pelanggan (`.s7-notification`, lihat `CustomerHomeHero.css`) — bukan
-   salinan nilainya. Di sini satu-satunya peran tambahan hanya mendorongnya ke
-   tepi kanan baris identitas. */
-.merchant-hero__id .s7-notification {
-  margin-left: auto;
-}
+/* Hero dapur: avatar, kontrol (mata uang + lonceng), dan identitas toko kini
+   tiga blok terpisah — tata letaknya di `system/_merchant-hero.scss`. Nama toko
+   dapat barisnya sendiri supaya tidak terpotong (audit-016). */
 
 .merchant-hero__avatar {
   display: grid;

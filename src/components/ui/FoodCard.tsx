@@ -1,8 +1,8 @@
 import type { CSSProperties } from 'react'
 import { Clock, Star } from 'lucide-react'
 
-import { money } from '../../data/merchant'
 import { formatRating } from '../../data/foods'
+import { useMoney } from '../../hooks/useMoney'
 import { AddToCartButton } from './AddToCartButton'
 import { FavoriteButton } from './FavoriteButton'
 import type { Food } from '../../types'
@@ -21,6 +21,7 @@ interface FoodCardProps {
 }
 
 export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps) {
+  const { money } = useMoney()
   return (
     <div
       className={`food-card ${className}`.trim()}

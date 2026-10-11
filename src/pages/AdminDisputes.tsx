@@ -6,7 +6,8 @@ import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { RESOLUTIONS, disputeStatusLabel, moneyFromJod } from '../data/admin'
+import { useMoney } from '../hooks/useMoney'
+import { RESOLUTIONS, disputeStatusLabel } from '../data/admin'
 import { resolveDispute, startInvestigation } from '../store/slices/adminSlice'
 import type { Dispute, DisputeResolution } from '../types'
 
@@ -21,6 +22,7 @@ function DisputeCard({
   onPercent: (value: number) => void
 }) {
   const dispatch = useAppDispatch()
+  const { moneyFromJod } = useMoney()
   const decided = dispute.status === 'resolved' || dispute.status === 'rejected'
   // Putusan menulis ledger, jadi ketuk kedua terjadi di sheet (audit 006 #4).
   const [pending, setPending] = useState<DisputeResolution | null>(null)

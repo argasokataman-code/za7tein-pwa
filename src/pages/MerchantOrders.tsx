@@ -12,9 +12,9 @@ import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { moneyPlain } from '../data/currency'
+import { useMoney } from '../hooks/useMoney'
 import { COURIER_STATUS_LABEL } from '../data/courier'
-import { HOLD_STATUS_COPY, formatDistance, money, zoneLabel } from '../data/merchant'
+import { HOLD_STATUS_COPY, formatDistance, zoneLabel } from '../data/merchant'
 import {
   QUEUE_TABS,
   orderAgeLabel,
@@ -62,6 +62,7 @@ const EMPTY_HINT: Record<QueueTabId, string> = {
 }
 
 export default function MerchantOrders() {
+  const { money, moneyPlain } = useMoney()
   const dispatch = useAppDispatch()
   useMerchantOrdersSync()
   const orders = useAppSelector((s) => s.merchant.orders)

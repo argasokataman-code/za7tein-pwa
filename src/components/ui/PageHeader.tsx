@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { BackButton } from './BackButton'
+import { CurrencyToggle } from './CurrencyToggle'
 import { NotificationBell } from './NotificationBell'
 
 export interface PageHeaderProps {
@@ -68,6 +69,9 @@ export function PageHeader({ title, prefix, eyebrow, back, action, bell = false 
       </div>
       {bell || action ? (
         <div className={`${prefix}-header-action`}>
+          {/* Sakelar mata uang duduk di klaster aksi kanan. Hanya di halaman
+              konsol (bell aktif); layar pra-konsol tidak menampilkannya. */}
+          {bell ? <CurrencyToggle /> : null}
           {bell ? <NotificationBell /> : null}
           {action}
         </div>

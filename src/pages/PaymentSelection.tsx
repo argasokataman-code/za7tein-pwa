@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import { PAYMENT_METHODS, mockMerchant } from '../data/merchant'
 import { switchBlockCopy, switchIsDown } from '../data/superadmin'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setPayment } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
@@ -73,6 +74,7 @@ export default function PaymentSelection() {
               <h1 className="payment-selection-title">
                 Metode Pembayaran
               </h1>
+              <CurrencyToggle />
             </header>
             <div className="payment-selection-content">
               {maintenanceCopy ? <PlatformNotice message={maintenanceCopy} /> : null}

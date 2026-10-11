@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
-import { money, moneyPlain } from '../data/currency'
 import { accountLabel, PAYOUT_FEE_IDR } from '../data/payout'
 import { payoutStatusLabel } from '../data/wallet'
 import { useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 
 const entryDate = (iso: string) =>
   new Date(iso).toLocaleString('id-ID', {
@@ -22,6 +22,7 @@ const entryDate = (iso: string) =>
  * non-withdrawal, rumahnya di `/merchant/insentif`.
  */
 export default function MerchantWallet() {
+  const { money, moneyPlain } = useMoney()
   const balance = useAppSelector((state) => state.payout.balance)
   const history = useAppSelector((state) => state.payout.history)
   const accounts = useAppSelector((state) => state.payout.accounts)

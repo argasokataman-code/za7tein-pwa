@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { useAppSelector } from '../hooks/useAppStore'
-import { money } from '../data/merchant'
+import { useMoney } from '../hooks/useMoney'
 import { isDoneTask, totalTips } from '../data/courier'
 
 export default function CourierTips() {
+  const { money } = useMoney()
   const tasks = useAppSelector((s) => s.courier.tasks)
   const done = tasks.filter(isDoneTask)
 

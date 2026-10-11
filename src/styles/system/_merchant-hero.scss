@@ -30,9 +30,41 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-3);
+  /* Jarak antar-blok ditulis per-blok (bukan `gap` seragam) supaya ritmenya
+     bergrup: identitas → [status + catatan] → kuota. `gap` seragam membuat
+     semua blok berbobot sama dan hero terasa rata (senior-fe: whitespace
+     sebagai struktur, bukan sisa). */
+  gap: 0;
 
   padding: var(--space-5) var(--space-5) var(--space-6);
+}
+
+/* Baris atas: avatar toko di kiri, kontrol (sakelar mata uang + lonceng) di
+   kanan — pola yang sama dengan baris atas beranda pelanggan
+   (`.s7-hero__topbar`). */
+.merchant-hero__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  gap: var(--space-3);
+}
+
+.merchant-hero__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Identitas toko di barisnya sendiri: nama dapat lebar penuh, tidak lagi
+   berebut ruang dengan dua kontrol lalu terpotong `text-overflow: ellipsis`
+   (audit-016). */
+.merchant-hero__identity {
+  width: 100%;
+  min-width: 0;
+
+  margin-top: var(--space-3);
 }
 
 /* Judul dan eyebrow memakai kelas `merchant-*` supaya skala hurufnya satu
@@ -46,6 +78,11 @@
 .merchant-hero .merchant-title {
   margin: 0;
   color: var(--on-brand);
+
+  /* Jaminan anti-klip (audit-016): `.s7-hero` punya `overflow: hidden`, jadi
+     satu kata tanpa spasi yang lebih lebar dari kolom (nama toko panjang,
+     URL tempel) akan meluber lalu dipotong. `anywhere` memaksa ia patah. */
+  overflow-wrap: anywhere;
 }
 
 .merchant-hero__status {
@@ -53,6 +90,7 @@
   width: 100%;
   gap: var(--space-1);
 
+  margin-top: var(--space-4);
   padding: 4px;
 
   border-radius: var(--radius-pill);
@@ -109,12 +147,19 @@
   background: var(--danger);
 }
 
+/* Catatan status = caption dari kontrol di atasnya, jadi rapat (8px); kuota
+   mulai grup baru (16px). */
 .merchant-hero__note {
+  margin-top: var(--space-2);
   font-size: var(--text-xs);
+
+  overflow-wrap: anywhere;
 }
 
 .merchant-hero__quota {
   width: 100%;
+
+  margin-top: var(--space-4);
 }
 
 .merchant-hero__quota-head {

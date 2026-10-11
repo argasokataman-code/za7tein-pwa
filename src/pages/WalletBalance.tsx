@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
-import { money } from '../data/currency'
 import { MIN_TOPUP_NEW_ACCOUNT_IDR, needsTopUpGate } from '../data/merchant'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 /**
  * Saldo wallet customer (M3, flow F3): `available` + `pending`, plus pintu ke
@@ -15,6 +16,7 @@ import { BackButton } from '../components/ui/BackButton'
  * kelihatan dari halaman saldo, bukan cuma saat checkout.
  */
 export default function WalletBalance() {
+  const { money } = useMoney()
   const balance = useAppSelector((s) => s.wallet.balance)
   const switches = useAppSelector((s) => s.superAdmin.switches)
   const gated = needsTopUpGate(balance.available)
@@ -31,6 +33,7 @@ export default function WalletBalance() {
               <header className="profile-flow-header ">
                 <BackButton className="back-btn-profile" to="/profile" />
                 <h1 className="profile-flow-title">Saldo Sa7tein</h1>
+                <CurrencyToggle />
               </header>
               <main className="wallet-main">
                 <section className="wallet-balance-card" aria-label="Ringkasan saldo">

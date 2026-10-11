@@ -3,11 +3,13 @@ import { ArrowDownLeft, ArrowUpRight, Lock } from 'lucide-react'
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { HOLD_EVENT_LABEL } from '../data/merchant'
-import { ledgerTypeLabel, money, moneyFromJod } from '../data/admin'
+import { ledgerTypeLabel } from '../data/admin'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 
 export default function AdminLedger() {
+  const { money, moneyFromJod } = useMoney()
   const ledger = useAppSelector((s) => s.admin.ledger)
   // Transisi hold order yang sedang berjalan ikut terlihat di sini: satu
   // transisi memang satu entry append-only (F2/M4), dan antrean CS perlu melihat

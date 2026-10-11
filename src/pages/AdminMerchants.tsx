@@ -7,11 +7,13 @@ import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { moneyFromJod, tenantStatusLabel } from '../data/admin'
+import { useMoney } from '../hooks/useMoney'
+import { tenantStatusLabel } from '../data/admin'
 import { findCustomer, customers } from '../data/people'
 import { blacklistCod, suspendMerchant } from '../store/slices/adminSlice'
 
 export default function AdminMerchants() {
+  const { moneyFromJod } = useMoney()
   const dispatch = useAppDispatch()
   const merchants = useAppSelector((s) => s.admin.merchants)
   const riskFlags = useAppSelector((s) => s.admin.customerRiskFlags)

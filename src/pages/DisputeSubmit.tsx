@@ -5,12 +5,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { mockMerchant, mockOrder, money } from '../data/merchant'
+import { useMoney } from '../hooks/useMoney'
+import { mockMerchant, mockOrder } from '../data/merchant'
 import { DISPUTE_CATEGORIES, DEMO_DISPUTE_ORDER_IDR } from '../data/admin'
 import { idrToJod } from '../data/currency'
 import { mockUser } from '../data/user'
 import { fileDispute } from '../store/slices/adminSlice'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const MAX_PHOTOS = 3
 
@@ -32,6 +34,7 @@ interface DisputeErrors {
  * kode order dibaca dari query (`?order=&by=`), sisanya dari store.
  */
 export default function DisputeSubmit() {
+  const { money } = useMoney()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [params] = useSearchParams()
@@ -145,6 +148,7 @@ export default function DisputeSubmit() {
         <header className="admin-header">
           <div className="admin-header-action">
             <BackButton className="admin-back" />
+            <CurrencyToggle />
           </div>
           <div className="admin-header-copy">
             <h1 className="admin-title">Ajukan Sengketa</h1>

@@ -6,16 +6,17 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { BottomNav } from '../components/layout/BottomNav'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
-import { money } from '../data/currency'
 import { APP_VERSION } from '../data/appInfo'
 import { logout } from '../store/slices/authSlice'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
+import { useMoney } from '../hooks/useMoney'
 
 import toast from 'react-hot-toast'
 
 export default function Profile() {
+  const { money } = useMoney()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const walletAvailable = useAppSelector((s) => s.wallet.balance.available)

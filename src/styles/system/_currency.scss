@@ -8,13 +8,21 @@
   color: var(--text-secondary);
 }
 
-/* Sakelar mata uang tampilan (IDR/JOD). Dua pilihan, sempit, supaya bisa duduk
+/* Sakelar mata uang tampilan (IDR/JOD). Dua pilihan, pil kecil supaya bisa duduk
    di baris judul tanpa mendorong kontrol lain. Bukan aktif = permukaan; aktif =
-   oranye merek. Tinggi tiap opsi = --touch-min supaya lolos target sentuh (HG-05). */
+   oranye merek.
+   Tinggi visual dijaga kecil (34px) tapi area sentuh tetap 44px (HG-05): tinggi
+   opsi = --touch-min dan melimpah keluar kotak, sementara pil warnanya digambar
+   oleh ::before setinggi 30px. Jadi kecil di mata, tetap 44px di jari. */
 .currency-toggle {
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  height: 34px;
+  /* Selalu ke kanan baris. Sebagian header customer menaruh judulnya
+     position:absolute (bukan flex:1), jadi tanpa ini toggle mendarat di sebelah
+     tombol kembali dan menimpa judul. */
+  margin-left: auto;
   padding: 2px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-pill);
@@ -22,14 +30,15 @@
 }
 
 .currency-toggle__option {
+  position: relative;
+  z-index: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: var(--touch-min);
-  min-height: var(--touch-min);
-  padding: 0 var(--space-2);
+  height: var(--touch-min);
+  padding: 0 10px;
   border: 0;
-  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--text-secondary);
   font-size: var(--text-xs);
@@ -38,9 +47,23 @@
   cursor: pointer;
 }
 
+/* Pil terlihat: 30px di tengah area sentuh 44px. z-index -1 supaya berada di
+   belakang teks label (teks tetap terbaca di atasnya). */
+.currency-toggle__option::before {
+  content: '';
+  position: absolute;
+  inset: calc((var(--touch-min) - 30px) / 2) 0;
+  z-index: -1;
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+
 .currency-toggle__option.is-active {
-  background: var(--sa7tein-orange);
   color: var(--on-brand);
+}
+
+.currency-toggle__option.is-active::before {
+  background: var(--sa7tein-orange);
 }
 
 /* Di atas hero/foto gelap (beranda customer) panel putih penuh terlalu kontras;
@@ -52,4 +75,16 @@
 
 .currency-toggle--on-dark .currency-toggle__option {
   color: var(--on-brand);
+}
+
+/* Aktif di atas hero oranye: pil oranye merek di atas bidang oranye tidak
+   terbaca, jadi sakelar tampak tanpa keadaan aktif (audit-016). Pil putih +
+   teks `--orange-ink` memakai bahasa yang sama dengan
+   `.merchant-hero__status-option.is-active` (latar `--surface`, teks oranye). */
+.currency-toggle--on-dark .currency-toggle__option.is-active {
+  color: var(--orange-ink);
+}
+
+.currency-toggle--on-dark .currency-toggle__option.is-active::before {
+  background: var(--surface);
 }

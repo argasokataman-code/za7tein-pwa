@@ -6,6 +6,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { mockOrder } from '../data/merchant'
 import { BackButton } from '../components/ui/BackButton'
 import { OrderCelebration } from '../components/ui/OrderCelebration'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function OrderArrived() {
   const [params] = useSearchParams()
@@ -28,6 +29,7 @@ export default function OrderArrived() {
           header={
             <header className="order-arrived-header">
               <BackButton className="btn-back" />
+              <CurrencyToggle />
             </header>
           }
         >

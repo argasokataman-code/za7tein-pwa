@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
-import { money, moneyPlain } from '../data/currency'
 import { accountLabel } from '../data/payout'
 import {
   COURIER_PAYOUT_FEE_IDR,
@@ -13,6 +12,7 @@ import {
 } from '../data/courierWallet'
 import { payoutStatusLabel } from '../data/wallet'
 import { useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 
 const entryDate = (iso: string) =>
   new Date(iso).toLocaleString('id-ID', {
@@ -27,6 +27,7 @@ const entryDate = (iso: string) =>
  * kurir (C-06). Saldo dihitung dari tips − pencairan, bukan state terpisah.
  */
 export default function CourierWallet() {
+  const { money, moneyPlain } = useMoney()
   const tasks = useAppSelector((s) => s.courier.tasks)
   const payouts = useAppSelector((s) => s.courier.payouts)
   const accounts = useAppSelector((s) => s.courier.payoutAccounts)

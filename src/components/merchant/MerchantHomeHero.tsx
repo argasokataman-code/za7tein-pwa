@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 import { NotificationBell } from '../ui/NotificationBell'
+import { CurrencyToggle } from '../ui/CurrencyToggle'
 
 /** Status jualan toko: buka · sibuk (buka tapi menahan order) · tutup. */
 export type StoreStatus = 'buka' | 'sibuk' | 'tutup'
@@ -69,8 +70,8 @@ export function MerchantHomeHero({
       <Sa7teinHeroPattern />
 
       <div className="merchant-hero__content">
-        <div className="merchant-hero__id">
-          {/* Dekoratif: nama toko tepat di sebelahnya, jadi alt dikosongkan
+        <div className="merchant-hero__topbar">
+          {/* Dekoratif: nama toko tepat di bawahnya, jadi alt dikosongkan
               supaya pembaca layar tidak membacanya dua kali. Tanpa foto,
               placeholder ikon toko menjaga tata letak tetap sama. */}
           {showLogo ? (
@@ -87,11 +88,20 @@ export function MerchantHomeHero({
               <Store size={24} strokeWidth={1.75} />
             </span>
           )}
-          <div>
-            <p className="merchant-eyebrow">Dapur</p>
-            <h1 className="merchant-title">{name}</h1>
+
+          <div className="merchant-hero__controls">
+            <CurrencyToggle className="currency-toggle--on-dark" />
+            <NotificationBell variant="hero" />
           </div>
-          <NotificationBell variant="hero" />
+        </div>
+
+        {/* Nama toko di barisnya sendiri, bukan berbagi baris dengan dua kontrol
+            (sakelar mata uang + lonceng). Berbagi baris membuat kolom nama cuma
+            ~157px sementara "Warung Sate Pak Ali" butuh ~268px pada langkah hero
+            (28px), sehingga selalu terpotong elipsis (audit-016). */}
+        <div className="merchant-hero__identity">
+          <p className="merchant-eyebrow">Dapur</p>
+          <h1 className="merchant-title">{name}</h1>
         </div>
 
         <div className="merchant-hero__status" role="radiogroup" aria-label="Status toko">

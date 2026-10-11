@@ -5,15 +5,17 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import { useChipSet } from '../hooks/useToggleSet'
-import { money } from '../data/merchant'
+import { useMoney } from '../hooks/useMoney'
 import type { SearchFilters } from '../types'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 /** Batas slider harga; `PRICE_MAX` = tanpa filter harga. */
 const PRICE_MIN = 5000
 const PRICE_MAX = 35000
 
 export default function Filter() {
+  const { money } = useMoney()
   const chips = useChipSet(["Sizzling"])
   const [maxPrice, setMaxPrice] = useState(PRICE_MAX)
   const navigate = useNavigate()
@@ -44,6 +46,7 @@ export default function Filter() {
               <h1>
                 Filter
               </h1>
+              <CurrencyToggle />
             </div>
             <div className="filter-block">
               <div className="filter-title">

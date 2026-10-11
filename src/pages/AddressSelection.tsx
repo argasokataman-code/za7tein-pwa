@@ -9,6 +9,7 @@ import toast from 'react-hot-toast'
 
 import { AddressMapPicker } from '../components/customer/AddressMapPicker'
 import { BottomSheet } from '../components/ui/BottomSheet'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 import {
   addressInput,
   createCustomerAddress,
@@ -22,12 +23,12 @@ import {
   deliveryFeeFor,
   formatDistance,
   isDeliverable,
-  money,
   zoneFor,
   zoneLabel,
 } from '../data/merchant'
 import { resolveCoverage } from '../data/zones'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { mockUser } from '../data/user'
 import {
   addAddress,
@@ -41,6 +42,7 @@ import type { Address } from '../types'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function AddressSelection() {
+  const { money } = useMoney()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const selectedId = useAppSelector((s) => s.cart.selectedAddressId)
@@ -199,6 +201,7 @@ export default function AddressSelection() {
               <h1 className="address-selection-title">
                 Alamat Pengantaran
               </h1>
+              <CurrencyToggle />
             </header>
             <div className="address-selection-content">
               {addresses.length === 0 ? (

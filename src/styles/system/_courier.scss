@@ -6,6 +6,9 @@
    diatur global, di sini hanya jarak agar isi tidak tertutup bilah. */
 
 .courier-page {
+  /* Nada merek kurir dipadatkan supaya teks putih kecil di hero lolos AA 4,5:1
+     (oranye murni 4,02:1, audit 012 #1) — nilai sama dengan `--merchant-brand`. */
+  --courier-brand: color-mix(in srgb, var(--sa7tein-orange) 65%, var(--orange-deep));
   /* + safe-area: nav fixed ~113px di app-mode (safe-area 34); 88px kurang,
      tombol kembali/konten terakhir tertutup bilah. */
   padding: var(--space-5) var(--space-5) calc(var(--nav-height) + env(safe-area-inset-bottom, 0px) + var(--space-6));
@@ -125,117 +128,6 @@
   margin-bottom: var(--space-2);
 }
 
-/* ── Kartu tugas ─────────────────────────────────────────────────────────── */
-
-.courier-task {
-  @include card-surface;
-  display: block;
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
-  color: inherit;
-  text-decoration: none;
-}
-
-.courier-task-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.courier-task-copy {
-  min-width: 0;
-}
-
-.courier-task-code {
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.courier-task-sub {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-}
-
-.courier-badge {
-  flex-shrink: 0;
-  border-radius: var(--radius-pill);
-  background: var(--orange-soft);
-  color: var(--orange-soft-ink);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  line-height: 1;
-  padding: var(--space-1) var(--space-3);
-}
-
-.courier-task-addr {
-  margin-top: var(--space-3);
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-}
-
-.courier-task-foot {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-top: var(--space-2);
-}
-
-.courier-task-meta {
-  font-size: var(--text-xs);
-  color: var(--text-secondary);
-}
-
-.courier-task-total {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.courier-task-cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--border);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--orange-ink);
-}
-
-/* ── Riwayat, catatan kosong ────────────────────────────────────────────── */
-
-.courier-history {
-  @include card-surface;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  margin-bottom: var(--space-2);
-  color: inherit;
-  text-decoration: none;
-}
-
-.courier-history-tip {
-  flex-shrink: 0;
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--success-ink);
-}
-
-.courier-empty {
-  padding: var(--space-4);
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius-lg);
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-  text-align: center;
-}
 
 .courier-note {
   margin-top: var(--space-4);
@@ -430,35 +322,6 @@
   border-radius: var(--radius-pill);
   background: var(--orange-soft);
   color: var(--orange-ink);
-}
-
-/* ── Ringkasan hari ini (dashboard) ─────────────────────────────────────── */
-
-/* Empat angka tanpa kotak: aktif, menunggu OTP, selesai, tips. Pola inline
-   seperti merchant-statline, namespace kurir. Tinggi tetap `--touch-min` supaya
-   sejajar dan bisa disentuh; `flex-wrap` menahan label panjang di kolom sempit
-   tanpa memaksa gulir mendatar. */
-.courier-statline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-1) var(--space-4);
-  margin-bottom: var(--space-4);
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-}
-
-.courier-statline span {
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--space-1);
-}
-
-.courier-statline strong {
-  font-size: var(--text-base);
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-primary);
 }
 
 /* ── Serah terima OTP (sisi customer) ───────────────────────────────────── */

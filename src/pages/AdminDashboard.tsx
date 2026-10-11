@@ -11,9 +11,10 @@ import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
-import { aggregateLiability, liabilityGap, ledgerTypeLabel, money, moneyFromJod, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
+import { useMoney } from '../hooks/useMoney'
+import { aggregateLiability, liabilityGap, ledgerTypeLabel, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
 import { disputeExposure, ledgerFlow, ledgerTypeBars, liabilitySegments } from '../data/dashboard'
-import { jod, jodToIdr, moneyPlain } from '../data/currency'
+import { jod, jodToIdr } from '../data/currency'
 import { APP_VERSION } from '../data/appInfo'
 import { clearEscalation } from '../store/slices/adminSlice'
 import type { AdminEscalation } from '../types'
@@ -32,6 +33,7 @@ import type { AdminEscalation } from '../types'
  * apa pun, tidak dipalsukan (HG-12).
  */
 export default function AdminDashboard() {
+  const { money, moneyPlain, moneyFromJod } = useMoney()
   const dispatch = useAppDispatch()
   const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
   const storedLiability = useAppSelector((s) => s.admin.liability)

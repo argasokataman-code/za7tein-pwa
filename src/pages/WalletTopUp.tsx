@@ -4,7 +4,6 @@ import { CheckCircle2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import { money } from '../data/currency'
 import { MIN_TOPUP_NEW_ACCOUNT_IDR } from '../data/merchant'
 import {
   TOP_UP_CHANNELS,
@@ -13,9 +12,11 @@ import {
   topUpStatusLabel,
 } from '../data/wallet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { requestTopUp, settleTopUp } from '../store/slices/walletSlice'
 import type { TopUpChannel } from '../types'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 /**
  * Top-up saldo (M3, flow F3). Xendit tidak nyata: request membuat baris `pending`,
@@ -23,6 +24,7 @@ import { BackButton } from '../components/ui/BackButton'
  * `top_up_completed` — saldo baru naik setelah itu, tidak saat request.
  */
 export default function WalletTopUp() {
+  const { money } = useMoney()
   const dispatch = useAppDispatch()
   const balance = useAppSelector((s) => s.wallet.balance)
   const history = useAppSelector((s) => s.wallet.topUpHistory)
@@ -46,6 +48,7 @@ export default function WalletTopUp() {
               <header className="profile-flow-header ">
                 <BackButton className="back-btn-profile" to="/wallet" />
                 <h1 className="profile-flow-title">Top-up Saldo</h1>
+                <CurrencyToggle />
               </header>
               <main className="wallet-main">
                 <section className="wallet-balance-card s7-parallax--card" aria-label="Saldo saat ini">

@@ -1,0 +1,180 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Hero beranda kurir.
+//
+// Menggabungkan dua blok yang sebelumnya terpisah — identitas kurir (nama +
+// nomor WA) dengan status siap/jeda, dan ringkasan hari ini (aktif · menunggu
+// OTP · selesai · tips) — jadi satu bidang merek di puncak beranda. Pola yang
+// sama dengan `system/_merchant-hero.scss`; bidang oranye dan polanya dipakai
+// bersama lewat `system/_hero.scss`.
+//
+// Full-bleed: `margin` negatif sebesar padding `.courier-page` supaya latar
+// oranye menyentuh tepi kolom; isi di dalamnya tetap memiliki gutter 20px.
+// ═══════════════════════════════════════════════════════════════════════════
+
+.courier-hero {
+  /* `width: auto` (bukan 100% dari basis bersama): dengan margin negatif di
+     kiri-kanan, `width: 100%` mengunci lebarnya ke lebar konten induk lalu
+     hanya menggeser ke kiri, sehingga tepi kanan menyisakan gutter. `auto`
+     membuatnya benar-benar menyentuh kedua tepi kolom. */
+  width: auto;
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-4);
+  background: var(--courier-brand);
+}
+
+.courier-hero__content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Jarak antar-blok ditulis per-blok (bukan `gap` seragam) supaya ritmenya
+     bergrup: identitas → [status + catatan] → ringkasan (senior-fe: whitespace
+     sebagai struktur, bukan sisa). */
+  gap: 0;
+
+  padding: var(--space-5) var(--space-5) var(--space-6);
+}
+
+/* Baris atas: avatar kurir di kiri, kontrol (sakelar mata uang + lonceng) di
+   kanan — pola yang sama dengan hero merchant/pelanggan. */
+.courier-hero__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  gap: var(--space-3);
+}
+
+.courier-hero__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.courier-hero__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+
+  border: 2px solid var(--on-brand);
+  border-radius: var(--radius-pill);
+
+  background: color-mix(in srgb, var(--on-brand) 24%, transparent);
+  color: var(--on-brand);
+}
+
+/* Identitas kurir di barisnya sendiri; `min-width: 0` mengizinkan nama panjang
+   mengecil lalu membungkus, bukan mendorong kontrol. */
+.courier-hero__identity {
+  width: 100%;
+  min-width: 0;
+
+  margin-top: var(--space-3);
+}
+
+/* Judul dan eyebrow memakai kelas `courier-*` supaya skala hurufnya satu
+   sumber dengan header role kurir (`system/_courier.scss` + `system/_type.scss`);
+   di sini hanya warnanya yang putih. */
+.courier-hero .courier-eyebrow {
+  margin-bottom: 0;
+  color: var(--on-brand);
+}
+
+.courier-hero .courier-title {
+  margin: 0;
+  color: var(--on-brand);
+
+  /* Jaminan anti-klip: `.s7-hero` punya `overflow: hidden`, jadi satu kata
+     tanpa spasi yang lebih lebar dari kolom (nama/URL tempel) akan meluber lalu
+     dipotong. `anywhere` memaksa ia patah. */
+  overflow-wrap: anywhere;
+}
+
+.courier-hero__phone {
+  margin-top: var(--space-1);
+
+  font-size: var(--text-xs);
+  color: var(--on-brand);
+
+  overflow-wrap: anywhere;
+}
+
+.courier-hero__status {
+  display: flex;
+  width: 100%;
+  gap: var(--space-1);
+
+  margin-top: var(--space-4);
+  padding: 4px;
+
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--on-brand) 16%, transparent);
+}
+
+.courier-hero__status-option {
+  flex: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  min-height: var(--touch-min);
+
+  border: 0;
+  border-radius: var(--radius-pill);
+
+  background: transparent;
+  color: var(--on-brand);
+
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.courier-hero__status-option.is-active {
+  background: var(--surface);
+  color: var(--orange-ink);
+  font-weight: 700;
+}
+
+.courier-hero__status-dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: color-mix(in srgb, var(--on-brand) 70%, transparent);
+}
+
+/* Warna titik = status; hanya titik, latar tetap milik merek. */
+.courier-hero__status-option--siap.is-active .courier-hero__status-dot {
+  background: var(--success);
+}
+
+.courier-hero__status-option--jeda.is-active .courier-hero__status-dot {
+  background: var(--warning);
+}
+
+/* Catatan status = caption dari kontrol di atasnya, jadi rapat (8px); ringkasan
+   mulai grup baru (16px). */
+.courier-hero__note {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+
+  overflow-wrap: anywhere;
+}
+
+/* Isi turun dari area kamera di app terinstal; latarnya tetap sampai tepi. */
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .courier-hero__content {
+    padding-top: calc(var(--space-5) + env(safe-area-inset-top));
+  }
+}

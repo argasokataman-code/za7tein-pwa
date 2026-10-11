@@ -12,7 +12,7 @@ import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
-import { money } from '../data/currency'
+import { useMoney } from '../hooks/useMoney'
 import { APP_VERSION } from '../data/appInfo'
 import { mockMerchant } from '../data/merchant'
 import { imageFileError } from '../lib/image'
@@ -27,6 +27,7 @@ import {
 const TIER_LABEL: Record<string, string> = { free: 'Gratis', pro: 'Pro' }
 
 export default function MerchantSettings() {
+  const { money } = useMoney()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()

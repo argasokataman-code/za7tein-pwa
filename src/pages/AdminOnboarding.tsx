@@ -4,12 +4,14 @@ import { toast } from 'react-hot-toast'
 import { AdminPageHeader } from '../components/admin/AdminPageHeader'
 import { AdminBottomNav } from '../components/layout/AdminBottomNav'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { depositStatusLabel, moneyFromJod, tenantStatusLabel } from '../data/admin'
+import { useMoney } from '../hooks/useMoney'
+import { depositStatusLabel, tenantStatusLabel } from '../data/admin'
 import { activeZonesLabel } from '../data/merchant'
 import { approveDeposit, rejectOnboarding } from '../store/slices/adminSlice'
 import type { AdminTenant } from '../types'
 
 export default function AdminOnboarding() {
+  const { moneyFromJod } = useMoney()
   const dispatch = useAppDispatch()
   const tenants = useAppSelector((s) => s.admin.tenants)
 

@@ -9,9 +9,9 @@ import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useCatalog } from '../hooks/useCatalog'
+import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
-import { money } from '../data/merchant'
 import { imageFileError } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import { addMenuItem, removeMenuItem, setStock, toggleAvailable, updateMenuItem } from '../store/slices/catalogSlice'
@@ -21,6 +21,7 @@ const EMPTY_FORM: MerchantMenuItemFormData = { name: '', price: 0, category: '',
 const FALLBACK_IMAGE = '/assets/img/menu-details/menu-details-thumb.png'
 
 export default function MerchantMenu() {
+  const { money } = useMoney()
   const dispatch = useAppDispatch()
   const { items } = useCatalog()
   const isActive = useAppSelector((state) => state.merchant.isActive)

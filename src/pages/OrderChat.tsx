@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react'
 import { mockCouriers, mockOrder } from '../data/merchant'
 import { waLink } from '../data/phone'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 type Pesan = {
   id: number
@@ -123,6 +124,7 @@ export default function OrderChat() {
             </div>
 
             <span className="chat-header__spacer" aria-hidden="true" />
+            <CurrencyToggle />
           </header>
 
           <div className="chat-thread" role="log" aria-live="polite" aria-label="Percakapan dengan kurir">

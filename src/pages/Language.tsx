@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function Language() {
   const navigate = useNavigate()
@@ -19,6 +20,7 @@ export default function Language() {
               <h1 className="profile-flow-title">
                 Language
               </h1>
+              <CurrencyToggle />
             </header>
             <main className="profile-flow-main">
               <div className="language-section">

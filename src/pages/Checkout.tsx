@@ -10,6 +10,7 @@ import { Minus, Plus, ShoppingBag } from 'lucide-react'
 import { useNavigate, Link } from 'react-router-dom'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
   GST_FOOD_PERCENT,
@@ -20,8 +21,6 @@ import {
   gstFoodIdr,
   isDeliverable,
   mockMerchant,
-  money,
-  moneyPlain,
   needsTopUpGate,
   platformGstIdr,
   zoneFor,
@@ -30,10 +29,12 @@ import { mockUser } from '../data/user'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import { selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function Checkout() {
+  const { money, moneyPlain } = useMoney()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -65,6 +66,7 @@ export default function Checkout() {
             <BackButton className="btn-back" />
             <h1 className="checkout-page-title">Checkout</h1>
             <div className="header-spacer" />
+            <CurrencyToggle />
           </div>
 
           {items.length === 0 ? (

@@ -40,6 +40,20 @@ export const COURIER_CHECKPOINT_LABEL: Record<CourierCheckpoint, string> = {
   batal: 'Batal: customer lalai',
 }
 
+/**
+ * Label pendek untuk badge status di daftar tugas. Sama artinya dengan
+ * `COURIER_CHECKPOINT_LABEL`, tapi muat sebagai chip sempit (`tiba` dan `batal`
+ * dipendekkan) supaya badge tidak mendorong nomor tugas di kepala slip.
+ */
+export const COURIER_CHECKPOINT_BADGE: Record<CourierCheckpoint, string> = {
+  masuk: 'Tugas baru',
+  ambil: 'Menunggu diambil',
+  berangkat: 'Dalam perjalanan',
+  tiba: 'Menunggu OTP',
+  selesai: 'Selesai',
+  batal: 'Batal',
+}
+
 /** Checkpoint berikutnya, atau null kalau sudah di ujung. */
 export function nextCheckpoint(checkpoint: CourierCheckpoint): CourierCheckpoint | null {
   const next = COURIER_CHECKPOINT_ORDER[COURIER_CHECKPOINT_ORDER.indexOf(checkpoint) + 1]

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import type { MenuItem } from '../../types'
-import { money } from '../../data/merchant'
+import { useMoney } from '../../hooks/useMoney'
 
 /**
  * Kartu promo beranda: tiga kartu yang bergeser sendiri.
@@ -55,8 +55,11 @@ const CLAIM_CARD: PromoCard = {
 /**
  * Ubah item berdiskon dari katalog jadi kartu promo. Persentase diambil apa
  * adanya dari `discountPercent`; tidak ada yang dibulatkan atau dikarang.
+ *
+ * `money` diterima sebagai argumen (bukan impor) karena helper ini di lingkup
+ * modul, sementara mata uang aktif hidup di hook per-komponen.
  */
-function dealCards(deals: MenuItem[]): PromoCard[] {
+function dealCards(deals: MenuItem[], money: (idr: number) => string): PromoCard[] {
   return deals.slice(0, 2).map((food) => ({
     id: `deal-${food.id}`,
     kind: 'deal',
@@ -122,11 +125,13 @@ interface HomePromoCarouselProps {
 
 export function HomePromoCarousel({ deals }: HomePromoCarouselProps) {
   const navigate = useNavigate()
+  const { money } = useMoney()
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
 
-  const cards: PromoCard[] = [CLAIM_CARD, ...dealCards(deals)]
+  // Kartu dibangun tiap render dengan `money` mata uang aktif.
+  const cards: PromoCard[] = [CLAIM_CARD, ...dealCards(deals, money)]
 
   // Satu timer untuk seluruh carousel, bukan satu per kartu. Dijeda saat
   // `paused` supaya sentuhan pengguna tidak dilawan.

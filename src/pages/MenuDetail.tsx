@@ -9,14 +9,15 @@ import { useFood } from '../hooks/useApiCatalog'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { FavoriteButton } from '../components/ui/FavoriteButton'
 import { addItem } from '../store/slices/cartSlice'
-import { money } from '../data/merchant'
-import { moneyPlain } from '../data/currency'
+import { useMoney } from '../hooks/useMoney'
 import type { ModifierGroup } from '../types'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 const TRUNCATE_AT = 96
 
 export default function MenuDetail() {
+  const { money, moneyPlain } = useMoney()
   const { id } = useParams()
   const dispatch = useAppDispatch()
   const { getFood } = useCatalog()
@@ -160,6 +161,7 @@ export default function MenuDetail() {
               <div className="menu-detail-header">
                 <BackButton className="btn-back" />
                 <FavoriteButton id={food.id} name={food.name} className="favorite-header-btn" size={24} />
+                <CurrencyToggle className="currency-toggle--on-dark" />
               </div>
             </div>
 

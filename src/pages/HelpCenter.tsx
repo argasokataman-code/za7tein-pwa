@@ -3,6 +3,7 @@ import { ArrowRight, Search as SearchIcon } from 'lucide-react'
 // in src/styles/_app.scss, so the styling is identical to the source site.
 import { Link } from 'react-router-dom'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function HelpCenter() {
   return (
@@ -16,6 +17,7 @@ export default function HelpCenter() {
               <h1 className="profile-flow-title">
                 Help Center
               </h1>
+              <CurrencyToggle />
             </header>
             <main className="wallet-main">
               <div className="help-search-wrap">

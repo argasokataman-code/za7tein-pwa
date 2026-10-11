@@ -1,9 +1,9 @@
 import { DocSection } from '../DocSection'
+import { DocShellCtas } from '../DocShellCtas'
 import {
   ADMIN_GROUP,
   COURIER_GROUP,
   CUSTOMER_GROUPS,
-  DOC_SHELLS,
   MERCHANT_GROUP,
   SUPERADMIN_GROUP,
   WEB_ROUTES,
@@ -65,17 +65,13 @@ export function PagesRoutesSection() {
         dipakai untuk <strong>uji UX</strong> tanpa menavigasi manual, sekaligus jadi
         <strong> peta rute</strong> untuk tim BE saat menyambungkan endpoint. Halaman ini
         tidak memverifikasi login: semua data mock, jadi rute bisa dibuka langsung.
+        Empat peran PWA punya <strong>host pendek sendiri</strong>{' '}
+        (<code className="doc-inline">sa7tein-c/m/k/a.vercel.app</code>) — satu origin per
+        peran supaya pemasangan app di Android tidak tertukar antar peran; root host
+        diarahkan otomatis ke entry perannya.
       </div>
       <h3 className="doc-h3">Akses cepat per role</h3>
-      <div className="doc-cta-grid">
-        {DOC_SHELLS.map((s) => (
-          <a key={s.role} className="doc-cta" href={s.url} target="_blank" rel="noreferrer">
-            <span className="doc-cta-role">{s.role}</span>
-            <span className="doc-cta-url">{s.url}</span>
-            <span className="doc-card-sub">{s.desc}</span>
-          </a>
-        ))}
-      </div>
+      <DocShellCtas />
       <p className="doc-p">
         Routes live in <code className="doc-inline">src/App.tsx</code> as flat{' '}
         <code className="doc-inline">[path, Component]</code> tuples. No route

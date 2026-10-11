@@ -1,14 +1,15 @@
-import { ChevronRight, Coins, HandCoins, Landmark, Power, UserRound, Wallet } from 'lucide-react'
+import { CheckCircle2, ChevronRight, Coins, HandCoins, Hourglass, Landmark, Truck, UserRound, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-import { CourierPageHeader } from '../components/courier/CourierPageHeader'
+import { CourierHomeHero } from '../components/courier/CourierHomeHero'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { Sparkline } from '../components/ui/Sparkline'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { formatDistance, money, zoneLabel } from '../data/merchant'
+import { useMoney } from '../hooks/useMoney'
+import { formatDistance, zoneLabel } from '../data/merchant'
 import { accountLabel } from '../data/payout'
 import {
-  COURIER_CHECKPOINT_LABEL,
+  COURIER_CHECKPOINT_BADGE,
   courierSelf,
   isActiveTask,
   isDoneTask,
@@ -18,34 +19,59 @@ import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { toggleOnline } from '../store/slices/courierSlice'
 import type { CourierTask } from '../types'
 
-/** Ringkasan satu tugas aktif; seluruh kartu adalah tautan ke detail checkpoint. */
+/** Ringkasan satu tugas aktif sebagai slip: nomor di kepala, isi di badan,
+ *  biaya dan pembayaran di kaki. Seluruh slip adalah tautan ke detail. */
 function TaskCard({ task }: { task: CourierTask }) {
+  const { money } = useMoney()
+  // Avatar slip = monogram inisial pelanggan (tugas kurir tak punya foto).
+  const initials = task.customerName
+    .split(' ')
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase()
+
   return (
-    <Link className="courier-task" to={`/task/${task.id}`}>
-      <div className="courier-task-head">
-        <div className="courier-task-copy">
-          <p className="courier-task-code">{task.code}</p>
-          <p className="courier-task-sub">
-            {task.customerName} · {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)}
-          </p>
-        </div>
-        <span className="courier-badge">{COURIER_CHECKPOINT_LABEL[task.checkpoint]}</span>
-      </div>
+    <Link className="courier-ticket" to={`/task/${task.id}`}>
+      <span className="courier-ticket-stub">
+        <span className="courier-task-code">{task.code}</span>
+        <span className="courier-ticket-stub-end">
+          <span className={`courier-badge courier-badge--${task.checkpoint}`}>
+            {COURIER_CHECKPOINT_BADGE[task.checkpoint]}
+          </span>
+        </span>
+      </span>
 
-      <p className="courier-task-addr">
+      <span className="courier-ticket-body">
+        <span className="courier-ticket-avatar" aria-hidden="true">
+          {initials}
+        </span>
+        <span className="courier-ticket-copy">
+          <span className="courier-ticket-name">{task.customerName}</span>
+          <span className="courier-task-sub">
+            {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)}
+          </span>
+        </span>
+        <span className="courier-task-total">{money(task.total)}</span>
+        <ChevronRight
+          size={18}
+          strokeWidth={1.75}
+          className="courier-ticket-chevron"
+          aria-hidden="true"
+        />
+      </span>
+
+      <span className="courier-task-addr">
         {task.address} · {task.floor} · {task.unit}
-      </p>
+      </span>
 
-      <div className="courier-task-foot">
+      <span className="courier-task-foot">
         <span className="courier-task-meta">
           {task.items.map((item) => `${item.quantity}× ${item.name}`).join(', ')}
         </span>
-        <span className="courier-task-total">{money(task.total)}</span>
-      </div>
-
-      <span className="courier-task-cta">
-        {task.paymentMethod === 'cod' ? 'COD, tagih tunai' : 'Transfer, cek bukti'}
-        <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
+        <span className="courier-task-cta">
+          {task.paymentMethod === 'cod' ? 'COD, tagih tunai' : 'Transfer, cek bukti'}
+        </span>
       </span>
     </Link>
   )
@@ -60,6 +86,7 @@ function TaskCard({ task }: { task: CourierTask }) {
  * state yang ada.
  */
 export default function CourierTasks() {
+  const { money } = useMoney()
   const dispatch = useAppDispatch()
   const isOnline = useAppSelector((s) => s.courier.isOnline)
   const tasks = useAppSelector((s) => s.courier.tasks)
@@ -77,59 +104,58 @@ export default function CourierTasks() {
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader
-          eyebrow="Antar hari ini"
-          title="Beranda"
+        {/* Identitas, status siap/jeda, dan ringkasan hari ini satu bidang
+            merek di puncak beranda (komponen `CourierHomeHero`), bukan lagi
+            tiga blok terpisah: kartu identitas + ringkasan statline. */}
+        <CourierHomeHero
+          name={courierSelf.name}
+          phone={courierSelf.phone}
+          online={isOnline}
+          onToggleOnline={() => dispatch(toggleOnline())}
         />
 
-        {/* Identitas + satu kontrol utama: siap atau jeda. Status dan tombolnya
-            satu kartu supaya keputusan "bisa dihubungi atau tidak" ada di
-            tempat yang sama, bukan terpisah. */}
-        <section className="courier-card">
-          <div className="courier-identity">
-            <span className="courier-avatar" aria-hidden="true">
-              <UserRound size={28} strokeWidth={1.75} />
+        {/* Ringkasan hari ini: empat angka dari `courierSlice` yang sama dengan
+            daftar di bawah, sebagai tile 2x2 (chip ikon berwarna + label +
+            angka). Warna chip satu bahasa dengan badge status tiket, jadi bisa
+            dipindai sekali lirik, bukan dibaca berderet. */}
+        <div className="courier-stats">
+          <div className="courier-stat">
+            <span className="courier-stat-icon" aria-hidden="true">
+              <Truck size={20} strokeWidth={1.75} />
             </span>
-            <div className="courier-hero-copy">
-              <p className="courier-card-title">{courierSelf.name}</p>
-              <p className="courier-card-sub">{courierSelf.phone}</p>
-            </div>
-            <span className={`courier-status${isOnline ? ' is-on' : ''}`}>
-              <span className="courier-status-dot" aria-hidden="true" />
-              {isOnline ? 'Siap' : 'Jeda'}
+            <span className="courier-stat-copy">
+              <span className="courier-stat-label">Aktif</span>
+              <span className="courier-stat-value">{active.length}</span>
             </span>
           </div>
-          <p className="courier-card-sub courier-hero-hint">
-            {isOnline
-              ? 'Tugas dari merchant masuk otomatis.'
-              : 'Tugas baru ditahan sampai kamu siap lagi.'}
-          </p>
-          <button
-            type="button"
-            className={`courier-toggle ${isOnline ? 'is-on' : ''}`}
-            onClick={() => dispatch(toggleOnline())}
-          >
-            <Power size={18} strokeWidth={1.75} aria-hidden="true" />
-            {isOnline ? 'Jeda dulu' : 'Siap sekarang'}
-          </button>
-        </section>
-
-        {/* Ringkasan hari ini: empat angka dari `courierSlice` yang sama dengan
-            daftar di bawah, bukan angka baru. */}
-        <nav className="courier-statline" aria-label="Ringkasan hari ini">
-          <span>
-            <strong>{active.length}</strong> Aktif
-          </span>
-          <span>
-            <strong>{waitingOtp}</strong> Menunggu OTP
-          </span>
-          <span>
-            <strong>{done.length}</strong> Selesai
-          </span>
-          <span>
-            <strong>{money(totalTips(tasks))}</strong> Tips
-          </span>
-        </nav>
+          <div className="courier-stat courier-stat--otp">
+            <span className="courier-stat-icon" aria-hidden="true">
+              <Hourglass size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-stat-copy">
+              <span className="courier-stat-label">Menunggu OTP</span>
+              <span className="courier-stat-value">{waitingOtp}</span>
+            </span>
+          </div>
+          <div className="courier-stat courier-stat--selesai">
+            <span className="courier-stat-icon" aria-hidden="true">
+              <CheckCircle2 size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-stat-copy">
+              <span className="courier-stat-label">Selesai</span>
+              <span className="courier-stat-value">{done.length}</span>
+            </span>
+          </div>
+          <div className="courier-stat courier-stat--tips">
+            <span className="courier-stat-icon" aria-hidden="true">
+              <Coins size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-stat-copy">
+              <span className="courier-stat-label">Tips</span>
+              <span className="courier-stat-value">{money(totalTips(tasks))}</span>
+            </span>
+          </div>
+        </div>
 
         {/* Performa: satu angka fokus (tips tujuh hari) + bentuk harinya.
             Sumbernya mock mingguan yang ditandai di data; PRD tak menetapkan
@@ -216,14 +242,17 @@ export default function CourierTasks() {
           ) : (
             history.map((task) => (
               <Link key={task.id} className="courier-history" to={`/task/${task.id}`}>
-                <div>
-                  <p className="courier-task-code">{task.code}</p>
-                  <p className="courier-task-sub">
-                    {task.customerName} · {COURIER_CHECKPOINT_LABEL[task.checkpoint]}
-                  </p>
-                </div>
-                <span className="courier-history-tip">
-                  {isDoneTask(task) ? `Tips ${money(task.tip)}` : 'Belum'}
+                <span className="courier-ticket-copy">
+                  <span className="courier-task-code">{task.code}</span>
+                  <span className="courier-task-sub">{task.customerName}</span>
+                </span>
+                <span className="courier-ticket-stub-end">
+                  <span className={`courier-badge courier-badge--${task.checkpoint}`}>
+                    {COURIER_CHECKPOINT_BADGE[task.checkpoint]}
+                  </span>
+                  <span className="courier-history-tip">
+                    {isDoneTask(task) ? `Tips ${money(task.tip)}` : 'Belum'}
+                  </span>
                 </span>
               </Link>
             ))

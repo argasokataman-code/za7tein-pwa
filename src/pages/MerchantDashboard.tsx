@@ -9,9 +9,9 @@ import { DonutChart } from '../components/ui/DonutChart'
 import { Sparkline } from '../components/ui/Sparkline'
 import { MerchantHomeHero, type StoreStatus } from '../components/merchant/MerchantHomeHero'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { money } from '../data/merchant'
+import { useMoney } from '../hooks/useMoney'
 import { apiEnabled } from '../api/supabase'
-import { jodToIdr, moneyPlain } from '../data/currency'
+import { jodToIdr } from '../data/currency'
 import { rebateProgress } from '../data/incentive'
 import { orderStatusLabel } from '../data/merchantOrders'
 import {
@@ -45,6 +45,7 @@ const STATUS_CONFIRM: Record<StoreStatus, { title: string; body: string; confirm
 }
 
 export default function MerchantDashboard() {
+  const { money, moneyPlain } = useMoney()
   const dispatch = useAppDispatch()
   const isActive = useAppSelector((s) => s.merchant.isActive)
   const isBusy = useAppSelector((s) => s.merchant.isBusy)

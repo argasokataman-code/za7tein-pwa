@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import toast from 'react-hot-toast'
 import { BackButton } from '../components/ui/BackButton'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 
 export default function Security() {
   const navigate = useNavigate()
@@ -19,6 +20,7 @@ export default function Security() {
               <h1 className="profile-flow-title">
                 Security
               </h1>
+              <CurrencyToggle />
             </header>
             <main className="wallet-main">
               <div className="security-list">

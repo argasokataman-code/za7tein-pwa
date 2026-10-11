@@ -10,19 +10,20 @@ import { createOrder, nextOrderCode } from '../api/orders'
 import { insertNotification } from '../api/notifications'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
+import { CurrencyToggle } from '../components/ui/CurrencyToggle'
 import {
   PAYMENT_METHODS,
   PLATFORM_FEE_CUSTOMER_IDR,
   deliveryFeeFor,
   formatDistance,
   isDeliverable,
-  money,
   needsTopUpGate,
   zoneFor,
 } from '../data/merchant'
 import { mockMerchant } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useMoney } from '../hooks/useMoney'
 import {
   selectSubtotal,
   setTransferProof,
@@ -34,6 +35,7 @@ import { applyHoldEvent } from '../store/slices/walletSlice'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function PaymentAmount() {
+  const { money } = useMoney()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const fileRef = useRef<HTMLInputElement>(null)
@@ -144,6 +146,7 @@ export default function PaymentAmount() {
               <h1 className="payment-amount-title">
                 Checkout
               </h1>
+              <CurrencyToggle />
             </header>
             <div className="payment-amount-content">
               {address ? (

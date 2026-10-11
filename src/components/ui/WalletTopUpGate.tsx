@@ -2,8 +2,8 @@ import { TriangleAlert } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { MIN_TOPUP_NEW_ACCOUNT_IDR, needsTopUpGate } from '../../data/merchant'
-import { money } from '../../data/currency'
 import { useAppSelector } from '../../hooks/useAppStore'
+import { useMoney } from '../../hooks/useMoney'
 
 /**
  * Gate saldo awal (R-TOPUP-01) — ditampilkan di checkout/pembayaran kalau saldo
@@ -12,6 +12,7 @@ import { useAppSelector } from '../../hooks/useAppStore'
  */
 export function WalletTopUpGate() {
   const available = useAppSelector((s) => s.wallet.balance.available)
+  const { money } = useMoney()
   if (!needsTopUpGate(available)) return null
 
   return (

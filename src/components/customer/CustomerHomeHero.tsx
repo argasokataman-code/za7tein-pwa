@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, UserRound } from 'lucide-react'
 
+import { CurrencyToggle } from '../ui/CurrencyToggle'
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
 /**
  * Hero beranda pelanggan.
@@ -173,6 +174,8 @@ export default function CustomerHomeHero({
               </span>
             </button>
           </div>
+
+          <CurrencyToggle className="currency-toggle--on-dark" />
 
           <button
             type="button"
