@@ -197,6 +197,18 @@ export interface CustomerRiskFlag {
 }
 
 /**
+ * Customer dari BE (`customers`) untuk panel CS. `id` diberi awalan `be-`
+ * supaya tidak bentrok dengan registri mock (`cus-N`, `data/people.ts`).
+ */
+export interface AdminCustomer {
+  id: string
+  name: string
+  phone: string
+  status: CustomerStatus
+  riskFlag: boolean
+}
+
+/**
  * Registri customer platform. Sebelum ini customer hanya hidup sebagai
  * `MerchantOrder.customerName` (string tanpa id), sehingga tidak ada satu pun
  * pertanyaan per-customer yang bisa dijawab — berapa order, kena berapa

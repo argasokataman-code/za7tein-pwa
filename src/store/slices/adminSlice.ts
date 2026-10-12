@@ -12,6 +12,7 @@ import {
 import { merchantFromTenant } from '../../data/merchant'
 import type {
   AdminEscalation,
+  AdminCustomer,
   AppealVerdict,
   AdminTenant,
   CustomerRiskFlag,
@@ -35,6 +36,8 @@ interface AdminState {
    * tidak bisa ditautkan ke akun customer mana pun.
    */
   customerRiskFlags: CustomerRiskFlag[]
+  /** Registri customer BE (`customers`) untuk picker blacklist COD; kosong = pakai mock. */
+  beCustomers: AdminCustomer[]
 }
 
 const initialState: AdminState = {
@@ -45,6 +48,7 @@ const initialState: AdminState = {
   liability: mockLiability,
   escalations: seedEscalations,
   customerRiskFlags: [],
+  beCustomers: [],
 }
 
 const adminSlice = createSlice({
@@ -58,6 +62,14 @@ const adminSlice = createSlice({
      */
     setMerchants(state, action: PayloadAction<MerchantRecord[]>) {
       state.merchants = action.payload
+    },
+    /** Registri customer BE → picker blacklist COD (panel CS). */
+    setBeCustomers(state, action: PayloadAction<AdminCustomer[]>) {
+      state.beCustomers = action.payload
+    },
+    /** Riwayat flag risiko BE → daftar `Customer riskFlag`. */
+    setCustomerRiskFlags(state, action: PayloadAction<CustomerRiskFlag[]>) {
+      state.customerRiskFlags = action.payload
     },
     /**
      * Approve deposit = verifikasi transfer masuk dulu: `unpaid → held`, baru
@@ -201,6 +213,8 @@ const adminSlice = createSlice({
 
 export const {
   setMerchants,
+  setBeCustomers,
+  setCustomerRiskFlags,
   approveDeposit,
   rejectOnboarding,
   suspendMerchant,

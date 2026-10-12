@@ -234,7 +234,7 @@ export default function Documentation() {
               Realtime), dibuka dari order aktif checkout atau tautan ?order=&lt;id&gt;, dengan
               percakapan mock lama tetap jadi fallback saat tak ada order; toggle
               buka/tutup toko
-              menulis balik merchants.store_status. Beranda customer memakai lokasi live
+              menulis balik merchants.store_status. Panel CS kini juga menandai risiko customer langsung ke backend: pemilih customer untuk blacklist COD memakai registri customers live, dan konfirmasi menulis riwayat customer_risk_flags + cermin customers.risk_flag lewat src/api/admin.ts (terverifikasi 2026-10-12: hanya sesi CS yang boleh menandai, customer/merchant/kurir ditolak RLS). Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
               secara lokal; chip kategori tidak dirender selama kolom menus.category backend
               masih kosong, supaya tidak lagi menyaring daftar toko jadi kosong. Checkout customer menulis order ke API

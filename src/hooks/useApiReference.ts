@@ -24,11 +24,10 @@ import { setCustomerLocation } from '../store/slices/uiSlice'
 import { setBalance as setWalletBalance } from '../store/slices/walletSlice'
 import { useAppDispatch, useAppSelector } from './useAppStore'
 import { useApiProfile } from './useApiProfile'
-
+import { useAdminCustomers } from './useApiAdmin'
 const MERCHANT_ID = 1
 const USER_CUSTOMER = 1
 const USER_MERCHANT = 2
-
 /** Pola sinkron sekali: load saat mount, serahkan hasil ke `onData` bila masih hidup. */
 export function useSyncOnce<T>(
   load: () => Promise<T | undefined>,
@@ -140,6 +139,7 @@ export function useApiSync(): void {
   useMerchantCredit()
   useMerchantProfile()
   useMerchantRegistry()
+  useAdminCustomers()
   useWallet(USER_CUSTOMER, 'customer')
   useWallet(USER_MERCHANT, 'merchant')
   useCustomerLocation()

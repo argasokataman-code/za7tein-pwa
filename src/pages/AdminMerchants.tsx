@@ -10,7 +10,8 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { tenantStatusLabel } from '../data/admin'
-import { findCustomer, customers } from '../data/people'
+import { customers } from '../data/people'
+import { flagCustomerRisk } from '../api/admin'
 import { blacklistCod, suspendMerchant } from '../store/slices/adminSlice'
 
 export default function AdminMerchants() {
@@ -18,6 +19,7 @@ export default function AdminMerchants() {
   const dispatch = useAppDispatch()
   const merchants = useAppSelector((s) => s.admin.merchants)
   const riskFlags = useAppSelector((s) => s.admin.customerRiskFlags)
+  const beCustomers = useAppSelector((s) => s.admin.beCustomers)
   const csActorId = useAppSelector((s) => s.superAdmin.csActorId)
   const approved = merchants.filter((m) => m.tenantStatus === 'approved').length
   const suspended = merchants.filter((m) => m.tenantStatus === 'suspended').length
@@ -35,6 +37,12 @@ export default function AdminMerchants() {
   const sheetMerchant = customerSheet
     ? merchants.find((m) => m.id === customerSheet)
     : undefined
+
+  // Direktori picker: customer BE bila termuat, fallback registri mock. Bentuk sama.
+  const directory = beCustomers.length
+    ? beCustomers.map((c) => ({ id: c.id, name: c.name, phone: c.phone }))
+    : customers.map((c) => ({ id: c.id, name: c.name, phone: c.phone }))
+  const nameOf = (id: string) => directory.find((c) => c.id === id)?.name
 
   return (
     <AdminShell>
@@ -101,7 +109,7 @@ export default function AdminMerchants() {
                       className={selectedId ? 'dispute-picker' : 'dispute-picker is-empty'}
                       onClick={() => setCustomerSheet(merchant.id)}
                     >
-                      {findCustomer(selectedId)?.name ?? 'Pilih customer'}
+                      {nameOf(selectedId) ?? 'Pilih customer'}
                       <ChevronRight
                         size={18}
                         strokeWidth={1.75}
@@ -150,7 +158,7 @@ export default function AdminMerchants() {
                   <TriangleAlert size={16} strokeWidth={1.75} aria-hidden="true" />
                   <div>
                     <p className="admin-card-title">
-                      {findCustomer(flag.customerId)?.name ?? flag.customerId}
+                      {nameOf(flag.customerId) ?? flag.customerId}
                     </p>
                     <p className="admin-card-sub">
                       {flag.reason} · {flag.at}
@@ -181,12 +189,15 @@ export default function AdminMerchants() {
             onConfirm={() => {
               const customerId = codCustomer[confirmBlacklist] ?? ''
               const merchant = merchants.find((m) => m.id === confirmBlacklist)
+              const reason = 'COD bermasalah bersama merchant ini'
               dispatch(blacklistCod({ id: confirmBlacklist, customerId, byOperatorId: csActorId }))
+              // Tulis nyata ke BE (best-effort): riwayat customer_risk_flags + cermin risk_flag.
+              flagCustomerRisk({ customerRef: customerId, reason }).catch(() => {})
               setCodCustomer((prev) => ({ ...prev, [confirmBlacklist]: '' }))
               setConfirmBlacklist(null)
               toast.success(
                 `Blacklist COD: ${merchant?.name ?? ''} + ${
-                  findCustomer(customerId)?.name ?? customerId
+                  nameOf(customerId) ?? customerId
                 } (riskFlag)`,
               )
             }}
@@ -219,7 +230,7 @@ export default function AdminMerchants() {
           onClose={() => setCustomerSheet(null)}
         >
           <div className="sheet-menu">
-            {customers.map((customer) => {
+            {directory.map((customer) => {
               const selected = customerSheet
                 ? codCustomer[customerSheet] === customer.id
                 : false
