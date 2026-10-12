@@ -33,6 +33,25 @@ Lane **Guard** (exception):
 - **Saldo kurang** → gate top-up kalau prepaid dan akun baru < 3,5 JOD.
 - **Batal sebelum match** → hold released (sesudah match = reversal append-only).
 
+## Notifikasi per langkah (R-NOTIF-01/02)
+
+Tiap transisi memancarkan notifikasi ke pihak berkepentingan (routing lengkap di `f11`):
+
+| Langkah | Customer | Merchant | Kurir | CS |
+|---|---|---|---|---|
+| `payment_confirmed` | pesanan diterima | **pesanan baru** | — | — |
+| `merchant_ready` | pesanan siap | — | — | — |
+| `courier_matched` | kurir ditugaskan | — | **tugas baru** | — |
+| `courier_picked_up` | kurir berjalan | kurir berangkat | — | — |
+| `arrived` | **tiba → siapkan OTP** | kurir tiba | — | — |
+| `otp_verified` | selesai | selesai, dana cair | selesai | — |
+| batal pre-match | dibatalkan | hold release | — | — |
+| batal post-match | dibatalkan | dibatalkan | tugas batal | **masalah** |
+| SLA lewat | — | peringatan | peringatan | **alert SLA** |
+| dispute | sengketa dibuka | sengketa dibuka | info | **sengketa baru** |
+
+CS **hanya** saat masalah; SA **hanya** eskalasi. Penanganan: `f24-cs-problem` + `f8-dispute`.
+
 ## Catatan desain
 
 - Kurir digabung ke lane **Merchant & Kurir** karena PRD v2: kurir = pegawai merchant.

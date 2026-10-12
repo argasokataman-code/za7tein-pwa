@@ -53,6 +53,16 @@
       "originalFilename": "brs-rating-review.md",
       "decisionRecord": "versions/rating-review-2026-09-22/analysis.md",
       "milestonePlan": "versions/rating-review-2026-09-22/milestones.md"
+    },
+    {
+      "id": "notif-order-e2e-2026-10-11",
+      "documentVersion": "UNVERIFIED",
+      "status": "proposed",
+      "source": "versions/notif-order-e2e-2026-10-11/source.md",
+      "sha256": "63129f28f610821640f5bb155197a1f9999556175c02e74c80c85d01bdbb3a0d",
+      "originalFilename": "brs-notif-order-e2e.md",
+      "decisionRecord": "versions/notif-order-e2e-2026-10-11/analysis.md",
+      "milestonePlan": "versions/notif-order-e2e-2026-10-11/milestones.md"
     }
   ]
 }

@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F24 — Penanganan Masalah Order oleh CS",
+    "quality_profile": "showcase"
+  },
+  "lanes": [
+    { "id": "pemicu", "label": "Pemicu Masalah" },
+    { "id": "cs", "label": "CS /admin — Queue & Triage" },
+    { "id": "aksi", "label": "Aksi & Putusan CS" },
+    { "id": "sistem", "label": "Sistem, Hold & Eskalasi" }
+  ],
+  "phases": [
+    { "id": "masuk", "label": "Masuk & Triage", "fromCol": 0, "toCol": 2 },
+    { "id": "selesai", "label": "Putusan & Tutup", "fromCol": 3, "toCol": 5, "variant": "emphasis" }
+  ],
+  "mainPath": ["dispute", "queue", "triage", "hubungi", "putusan", "apply", "tutup"],
+  "semanticChecks": {
+    "allowedRoots": ["dispute", "pemicuLain"],
+    "allowedTerminals": ["freeze", "tutup"],
+    "requiredEdges": [
+      { "from": "dispute", "to": "queue" },
+      { "from": "putusan", "to": "apply" },
+      { "from": "apply", "to": "tutup" }
+    ]
+  },
+  "nodes": [
+    { "id": "dispute", "lane": "pemicu", "col": 0, "type": "frontend", "label": "Sengketa diajukan", "sublabel": "customer/merchant · 1×/order", "width": 140 },
+    { "id": "pemicuLain", "lane": "pemicu", "col": 1, "type": "security", "label": "Batal post-match / SLA", "sublabel": "reversal · alert timer", "width": 150 },
+
+    { "id": "queue", "lane": "cs", "col": 1, "type": "backend", "label": "Queue masalah", "sublabel": "sengketa · batal · SLA", "width": 122 },
+    { "id": "triage", "lane": "cs", "col": 2, "type": "backend", "label": "Buka bukti", "sublabel": "OTP · foto · geo · waktu", "width": 128 },
+
+    { "id": "hubungi", "lane": "aksi", "col": 3, "type": "frontend", "label": "Hubungi pihak", "sublabel": "call guard 5m/batal 10m", "width": 128 },
+    { "id": "putusan", "lane": "aksi", "col": 4, "type": "security", "label": "Putusan CS", "sublabel": "4 resolusi / lepas / tandai", "width": 128 },
+    { "id": "eskalasi", "lane": "aksi", "col": 5, "type": "external", "label": "Eskalasi SA", "sublabel": "macet · fund · appeal", "width": 122 },
+
+    { "id": "freeze", "lane": "sistem", "col": 1, "type": "security", "label": "Bekukan hold", "sublabel": "pause auto-settle", "width": 122 },
+    { "id": "apply", "lane": "sistem", "col": 4, "type": "backend", "label": "Terapkan putusan", "sublabel": "hold release · 1 ledger", "width": 132 },
+    { "id": "tutup", "lane": "sistem", "col": 5, "type": "backend", "label": "Tutup + alasan", "sublabel": "resolved_*", "width": 118 }
+  ],
+  "edges": [
+    { "id": "e-dispute-queue", "from": "dispute", "to": "queue", "label": "dispute_filed", "role": "main", "variant": "emphasis" },
+    { "id": "e-batal-queue", "from": "pemicuLain", "to": "queue", "label": "order_canceled / sla_breached", "role": "branch" },
+    { "id": "e-queue-triage", "from": "queue", "to": "triage", "label": "CS buka", "role": "main" },
+    { "id": "e-queue-freeze", "from": "queue", "to": "freeze", "label": "order → disputed", "role": "branch" },
+    { "id": "e-triage-hubungi", "from": "triage", "to": "hubungi", "label": "perlu kontak", "role": "main" },
+    { "id": "e-triage-putusan", "from": "triage", "to": "putusan", "label": "periksa bukti", "role": "branch" },
+    { "id": "e-hubungi-putusan", "from": "hubungi", "to": "putusan", "label": "hasil call", "role": "main" },
+    { "id": "e-putusan-apply", "from": "putusan", "to": "apply", "label": "putusan", "role": "main" },
+    { "id": "e-apply-tutup", "from": "apply", "to": "tutup", "label": "selesai", "role": "main", "variant": "emphasis" },
+    { "id": "e-putusan-eskalasi", "from": "putusan", "to": "eskalasi", "label": "tak beres / fund", "variant": "dashed", "role": "branch" },
+    { "id": "e-eskalasi-apply", "from": "eskalasi", "to": "apply", "label": "putusan SA", "variant": "dashed", "role": "branch" }
+  ],
+  "cards": [
+    { "dot": "orange", "title": "Pemicu masalah (R-NOTIF-02)", "items": ["Sengketa customer/merchant (1×/order) · batal post-match · SLA lewat", "SLA: ambil>15m · berangkat>30m · tiba>10m · auto-settle>10m"] },
+    { "dot": "amber", "title": "Alur CS & batas peran", "items": ["Queue → triage bukti (OTP·foto·geo·waktu) → hubungi → putusan", "CS menangani; SA hanya eskalasi · hold dibekukan, auto-settle pause"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["BRS notif-order-e2e (proposed) · BUSINESS.md §2b · f8 · R-NOTIF-02/R-DISPUTE-01", "UNRESOLVED: SLA penanganan CS · ambang tolak berulang · fee post-match"] }
+  ]
+}

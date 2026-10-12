@@ -1,7 +1,7 @@
 # Rencana Diagram Flow Bisnis Sa7tein
 
 Dokumen perencanaan untuk diagram flow bisnis (archify). Peta arsitektur sudah jadi:
-`docs/design/app-map/`. **Status: 20 flow selesai (F1–F20), semua lolos gate** — lihat `INDEX.json` / `index.html`.
+`docs/design/app-map/`. **Status: 21 flow selesai (F1–F22 + F24), semua lolos gate** — lihat `INDEX.json` / `index.html`. F24 = penanganan masalah CS (bird's eye §5).
 
 Sumber: PRD aktif `irbid-mvp-v2-2026-09-21`
 (`docs/product/prd/versions/irbid-mvp-v2-2026-09-21/{source,analysis,milestones}.md`).

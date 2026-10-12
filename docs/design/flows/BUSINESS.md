@@ -62,6 +62,103 @@ Lapisan **bisnis** untuk semua flow di `docs/design/flows/`. Dibaca **sebelum** 
 
 ---
 
+## 2b. Journey order end-to-end + matriks notifikasi (`proposed`)
+
+> **Status `proposed` — belum ada `R-*` di PRD aktif.** Ini definisi bisnis usulan untuk memperbaiki dua hal yang sekarang bolong: (1) journey order belum end-to-end (tiap langkah belum memberi tahu ketiga pihak), dan (2) approve/reject/cancel belum punya aturan detail. **Jangan digambar/diimplementasikan sebagai "sudah diputuskan"** sampai lewat intake (§4 langkah 2).
+>
+> **Yang sudah pasti (bukan usulan):**
+> - State & event kanonik → `f18-order-state` (`cart → quotation → prepare → waitingCourier → waitingDelivery → delivery → done`, cabang `canceled`).
+> - Sengketa → `f8-dispute` + `R-DISPUTE-01` (4 resolusi, window 24 jam, protection fund 2%).
+> - SLA = keputusan PO **sementara** (OQ-13), sudah dipakai kode: `src/data/courier.ts` → `ambil 15m · berangkat 30m · tiba 10m` (dari `placedAt`), `AUTO_SETTLE_MINUTES = 10`, `COURIER_GUARD_MINUTES = { call: 5, batal: 10 }`. Bukan UNRESOLVED — angka sudah ada; yang belum: dihitung jadi alert nyata & bisa diubah dari UI.
+> - Notifikasi per langkah → derivasi `R-PUSH-01` (`f11`) diperluas; pemicu CS belum berdasar PRD.
+
+### A. Aktor & kanal
+
+| Aktor | Kanal notifikasi | Catatan |
+|---|---|---|
+| Customer | push + inbox in-app | event kritis (SLA/OOT) → fallback `wa.me` (`f11`) |
+| Merchant | push + inbox in-app | pemilik order; kurir = karyawannya (`C-06`) |
+| Kurir | push + inbox in-app | karyawan merchant, bukan mitra platform; wallet **hanya tips** |
+| **CS** (`/admin`) | inbox in-app (bell) | **hanya saat masalah** — dispute, cancel sesudah match, SLA lewat, eskalasi |
+| Super Admin | inbox in-app + queue | **hanya eskalasi** (dispute tak selesai, protection fund, appeal) |
+
+Audience sudah didukung: `src/api/notifications.ts` (`insertNotification`) punya `audience` `customer | merchant | courier | cs`, dan BE fan-out push per `user_id`. **Tidak ada satu pun pemanggil `insertNotification({audience:'cs'})` hari ini** → bell CS tak pernah menerima event order.
+
+### B. Journey → aksi → notifikasi
+
+Simbol: `✓` = notif masuk · `—` = tidak relevan · `▲` = **event kritis** (wajib fallback WA/SMS).
+
+| # | State/event (f18) | Aktor bertindak | Customer | Merchant | Kurir | CS | SA |
+|---|---|---|---|---|---|---|---|
+| 1 | `checkout_submitted` → `quotation` | customer | — | — | — | — | — |
+| 2 | `payment_confirmed` → `prepare` | customer (bayar) | ✓ "Pembayaran diterima" | ✓ "Pesanan baru masuk" | — | — | — |
+| 3 | `merchant_ready` → `waitingCourier` | merchant | ✓ "Pesanan siap, menunggu kurir" | — | — | — | — |
+| 4 | `courier_matched` → `waitingDelivery` | merchant (pilih kurir) | ✓ "Kurir ditugaskan" | — | ✓ "Tugas baru: order #" | — | — |
+| 5 | `courier_picked_up` → `delivery` ("Ambil"/"Berangkat") | kurir | ✓ "Kurir dalam perjalanan" | ✓ "Kurir berangkat" | — | — | — |
+| 6 | Tiba di lokasi (menuju OTP) | kurir | ▲ "Kurir sudah tiba, siapkan OTP" | ✓ "Kurir tiba" | — | — | — |
+| 7 | `otp_verified` → `done` (settle) | customer (ketik OTP) | ✓ "Pesanan selesai" | ✓ "Selesai — dana cair" | ✓ "Pengantaran selesai" | — | — |
+| 8 | `cancel_order` (sebelum match) | customer/merchant | ✓ "Dibatalkan" | ✓ "Dibatalkan — hold release" | — | — | — |
+| 9 | `order_canceled` / `merchant_rejected` (**sesudah match**) | merchant/kurir | ✓ "Dibatalkan setelah match" | ✓ | ✓ "Tugas dibatalkan" | **✓ (reversal + potensi fee)** | — |
+| 10 | `dispute_filed` → `disputed` | customer/merchant | ✓ | ✓ | ✓ (info) | **✓ "Sengketa baru"** | — (escalation) |
+| 11 | **SLA lewat** (ambil>15m · berangkat>30m · tiba>10m · auto-settle>10m) | sistem | — | ✓ | ✓ | **✓ "Alert SLA"** | — |
+| 12 | SLA lewat **& tak ditangani** / dispute macet / protection fund | sistem | — | — | — | — | **✓ eskalasi** |
+
+Catatan aturan:
+- **Setiap langkah order memberi tahu ketiga pihak** (customer, merchant, kurir) sesuai tabel — ini tujuan permintaan user; kurir masuk mulai langkah 4 (`courier_matched`).
+- **CS hanya pada masalah** (langkah 9–11, + dispute). **Super Admin hanya eskalasi** (langkah 12) — batas `DEC-2003`. Portal CS `/admin` merangkap Super Admin hari ini (`C-12`, `f15`), tapi pemisahannya tetap: CS menangani, SA mengawasi.
+- **"Kurir bersedia" = toggle online** (`courierSlice.ts:46`) tidak menghasilkan event apa pun hari ini — kalau mau tiap langkah memberi tahu, toggle ini perlu event (`courier_available`) atau dihapus dari narasi journey.
+
+### C. Cabang approve / reject / cancel (aturan bisnis)
+
+| Cabang | Siapa | Sebelum/sesudah match | Dampak dana | Notifikasi |
+|---|---|---|---|---|
+| **Terima order** (`payment_confirmed`) | merchant | sebelum | prepaid: saldo sudah dipotong · COD: hold | langkah 2 |
+| **Tolak order** (`merchant_rejected`) | merchant | sebelum match | prepaid → refund internal penuh · COD: hold release | langkah 8 |
+| **Batal oleh customer** | customer | window cancel **belum final** (`f18` UNRESOLVED, usul ≤10 mnt) | sama seperti tolak | langkah 8 |
+| **Batal sesudah match** (`order_canceled`) | customer/merchant | sesudah | **reversal append-only** (`f2`) — COD sudah potong saat match → kembalikan; potensi fee 0,15 sudah terlanjur? **UNRESOLVED** | langkah 9 + **CS** |
+| **Sengketa** (`dispute_filed`) | customer/merchant | sesudah settle | hold dibekukan, auto-settle pause (`f8`) | langkah 10 + CS |
+
+Aturan keras:
+- **Approve = `merchant_ready`**, bukan aksi terpisah. Reject/batal **selalu** menulis satu ledger entry (append-only, `f7`).
+- **Hold tidak boleh hilang** tanpa jejak; reversal = entry baru, bukan edit.
+- Window cancel & fee pada cancel sesudah match = **UNRESOLVED**, jangan dikarang.
+
+### D. Flow CS saat masalah (`f24-cs-problem` — sudah digambar)
+
+Pemicu (semua menuju queue CS `/admin`, **bukan** Super Admin kecuali escalasi):
+
+| Pemicu | Sumber | Aksi CS |
+|---|---|---|
+| Sengketa diajukan | `f8` (customer/merchant) | buka bukti (OTP · foto · geolocation · timestamp) → pilih 1 dari 4 resolusi |
+| Batal sesudah match | `f2` reversal | verifikasi reversal + fee; potensi kompensasi |
+| SLA lewat (ambil/berangkat/tiba/auto-settle) | timer dari `placedAt` | hubungi pihak (call guard 5m/batal 10m) → tandai ditangani |
+| Appeal | `f8` (belum ada di MVP) | eskalasi ke Super Admin |
+
+Alur: **masuk queue → triage (buka bukti) → aksi (putusan/hubungi/lepas) → tutup dengan alasan → (kalau perlu) eskalasi SA**. Jumlah/ambang & SLA penanganan CS = **UNRESOLVED** (`OQ-29`, `OQ-30`).
+
+### E. Yang sudah ada di BE vs gap
+
+| Kebutuhan flow ini | BE sekarang | Gap |
+|---|---|---|
+| Notif tiap langkah (customer/merchant/kurir) | ✅ `notifications` INSERT + push fan-out; 8 call-site belum lengkap | tambah emit di klien per langkah |
+| Notif ke **CS** saat masalah | ✅ audience `cs` valid | **0 pemanggil** → tambah emit |
+| Ubah status order (accept/reject/cancel) | ✅ PATCH `orders.status` | pemetaan cabang detail |
+| Checkpoint + `otp_verified` | ✅ insert `checkpoints` | — |
+| Batal sesudah match = reversal | ⚠️ ditulis klien/ledger mock | perlu jalur ledger nyata |
+| Sengketa | ❌ mock Redux (`adminSlice`) | butuh tabel `disputes` + `resolve`/`appeal` |
+| SLA → alert otomatis | ❌ seed statis (`adminEscalations`, `minutesLate` hardcode) | butuh hitung timer → emit alert |
+| Editor SLA | ❌ konstanta di `src/data/courier.ts` | keputusan: cukup konstanta PO, atau editor di CS/SA |
+
+### F. UNRESOLVED (jangan diisi tebakan)
+
+- **Window cancel** & **fee pada cancel sesudah match** (tidak ada di PRD aktif; usul ≤10 mnt).
+- **Ambang "tolak berulang"** yang memicu CS.
+- **Kanal** — push saja, atau push + fallback WA untuk semua langkah kritis.
+- **SLA penanganan CS** (berapa lama sebelum naik ke SA) & **pemilik alert SLA** (CS triage vs SA) — batas `DEC-2003`/`OQ-29`/`OQ-30`.
+- **Editor SLA** — apakah angka SLA bisa diubah dari panel.
+
+---
+
 ## 3. Koreksi yang harus dilakukan di flow (temuan dari peta ini)
 
 | Flow | Masalah | Perbaikan | Status |
@@ -94,4 +191,6 @@ Lapisan **bisnis** untuk semua flow di `docs/design/flows/`. Dibaca **sebelum** 
 
 Aturan keras: **flow tanpa baris bisnis = jangan digambar.** Kalau ketemu flow yang isinya cuma field tabel, berarti langkah 1 dilewati.
 
-Terakhir diperbarui: 2026-09-22 — audit bisnis + tip: f16 ditambah kredit Founding 5 JOD + cashback tiered; f6/f9 ditambah alasan bisnisnya; label `synthetic` diganti dasar keputusan; **tip kurir digabung ke prompt pasca-order `f19`** (PO 2026-09-22) dengan aturan withdraw di `f6`; trace INDEX dibersihkan dari key synthetic. Sisa: sweep node `backend` (ditunda) + aktivasi BRS rating.
+Terakhir diperbarui: 2026-10-11 — tambah **§2b Journey order end-to-end + matriks notifikasi** (`proposed`): tiap langkah order memberi tahu customer/merchant/kurir, CS hanya saat masalah, SA hanya eskalasi; cabang approve/reject/cancel dirinci; flow CS `f24-cs-problem` + diagram `f1`/`f11`/`f24` + daftar gap BE. Sebelumnya 2026-09-22 — audit bisnis + tip: f16 ditambah kredit Founding 5 JOD + cashback tiered; f6/f9 ditambah alasan bisnisnya; label `synthetic` diganti dasar keputusan; **tip kurir digabung ke prompt pasca-order `f19`** (PO 2026-09-22) dengan aturan withdraw di `f6`; trace INDEX dibersihkan dari key synthetic. Sisa: sweep node `backend` (ditunda) + aktivasi BRS rating.
+
+**Langkah berikutnya untuk §2b:** requirement lewat intake PRD (`R-NOTIF-01` + perluas `R-PUSH-01`/`R-DELIV-01`) — revisi `notif-order-e2e-2026-10-11` berstatus `proposed`. Diagram sudah digambar: `f1` (notifikasi tiap langkah + masalah→CS), `f11` (routing audience + fallback WA), `f24-cs-problem` (pemicu → triage → putusan → eskalasi), `f8` (README + banding). Terdaftar di `INDEX.json` + lolos `flows-gate`. Aktivasi manifest menunggu keputusan produk; BE baru (disputes, escalation, ledger) menyusul.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sa7tein — Peta Flow Bisnis (20 diagram)</title>
+<title>Sa7tein — Peta Flow Bisnis (23 diagram)</title>
 <style>
   :root{
     --bg:#faf7f2; --surface:#fff; --border:#e7e0d6; --text:#221c15; --muted:#6f675c;
@@ -53,7 +53,7 @@
 <body>
 
 <header>
-  <h1>Sa7tein — Peta Flow Bisnis <small>PRD aktif irbid-mvp-v2-2026-09-21 · 20 diagram · bisnis dulu: lihat <code>BUSINESS.md</code> · repo front-end saja: diagram = layar & state (AGENTS.md §1)</small></h1>
+  <h1>Sa7tein — Peta Flow Bisnis <small>PRD aktif irbid-mvp-v2-2026-09-21 · 23 diagram · bisnis dulu: lihat <code>BUSINESS.md</code> · repo front-end saja: diagram = layar & state (AGENTS.md §1)</small></h1>
 </header>
 
 <main id="home">
@@ -103,7 +103,9 @@ const FLOWS = [
   {slug:"f18-order-state",          title:"Order State Machine",            type:"lifecycle",role:"drilldown", ms:"M2–M5",  req:"C-17, DEC-1037", biz:"partial", basis:"C-17", open:["quotation vs placed"]},
   {slug:"f19-rating-review",        title:"Rating, Review & Tip",            type:"workflow", role:"drilldown", ms:"—",      req:"BRS rating-review-2026-09-22 + PRD §Tips", biz:"partial", basis:"BRS proposed + PO 2026-09-22 (tip gabung)", open:["jendela","tag","moderasi","tip (f6)"]},
   {slug:"f20-address-zone",         title:"Address & Zone (coverage)",      type:"workflow", role:"drilldown", ms:"M2",     req:"C-13, C-05, C-07", biz:"decided", basis:"C-13 (Hijazi/Syimali ≤2 km)", open:["master zona"]},
-  {slug:"f21-account-auth",         title:"Registrasi & Masuk Akun",        type:"workflow", role:"drilldown", ms:"M8",     req:"PRD §Registrasi + PO 2026-09-22", biz:"decided", basis:"PRD :760 + :727 + Google & nomor WA (Level 1)", open:["Google merchant?","sesi/token"]}
+  {slug:"f21-account-auth",         title:"Registrasi & Masuk Akun",        type:"workflow", role:"drilldown", ms:"M8",     req:"PRD §Registrasi + PO 2026-09-22", biz:"decided", basis:"PRD :760 + :727 + Google & nomor WA (Level 1)", open:["Google merchant?","sesi/token"]},
+  {slug:"f22-super-admin-sa",       title:"Super Admin (website penuh)",    type:"workflow", role:"drilldown", ms:"—",      req:"PO 2026-09-23 + C-12 + R-DISPUTE-01", biz:"partial", basis:"PO 2026-09-23 (SA terpisah, non-PWA) + C-12", open:["tarif pajak","audit trail"]},
+  {slug:"f24-cs-problem",           title:"Penanganan masalah order (CS)",  type:"workflow", role:"drilldown", ms:"M6, M8", req:"BRS notif-order-e2e (proposed) + R-NOTIF-02", biz:"proposed", basis:"BRS proposed + R-NOTIF-02/R-DISPUTE-01 + f8", open:["SLA penanganan CS","pemilik alert SLA","ambang tolak berulang"]}
 ];
 
 const LINKS = [
@@ -143,7 +145,15 @@ const LINKS = [
   ["f20-address-zone:order","f18-order-state:quotation","feeds","order_zone_snapshot","R-ADDR-01"],
   ["f21-account-auth:order","f3-wallet-topup","feeds","topup_gate_pending","R-TOPUP-01"],
   ["f21-account-auth:onboard","f16-merchant-onboarding","feeds","tenant_signup","PRD §5C"],
-  ["f21-account-auth:phone","f11-push-notification","feeds","wa_fallback_ready","R-PUSH-01"]
+  ["f21-account-auth:phone","f11-push-notification","feeds","wa_fallback_ready","R-PUSH-01"],
+  ["f20-address-zone:zone","f22-super-admin-sa:zone","reads","zone_master_defined","R-ADDR-01"],
+  ["f15-super-admin:dispute","f22-super-admin-sa:appeal","feeds","verdict_appealed","R-DISPUTE-01"],
+  ["f22-super-admin-sa:appeal","f8-dispute","drilldown","appeal_decided","R-DISPUTE-01"],
+  ["f7-ledger-liability:ledger","f22-super-admin-sa:ledger","feeds","ledger_monitored","R-LEDGER-01"],
+  ["f1-order-lifecycle","f11-push-notification","notifies","push_sent","R-NOTIF-01"],
+  ["f1-order-lifecycle:dapur|tiba","f24-cs-problem","drilldown","order_canceled|sla_breached","R-NOTIF-02"],
+  ["f8-dispute","f24-cs-problem","drilldown","dispute_filed","R-NOTIF-02"],
+  ["f24-cs-problem","f22-super-admin-sa:appeal","feeds","escalated_to_sa","R-NOTIF-02"]
 ];
 
 const TRACE = [
@@ -168,7 +178,10 @@ const TRACE = [
   ["C-17 (order state)","f1, f18","orders, batches","quotation vs placed"],
   ["R-RATE-01","f18:done, f19","rating_reviews, review_replies","jendela, edit/hapus, tag, batas balasan, moderasi, tip (f6)"],
   ["R-ADDR-01","f16:profil, f20","addresses, merchants, orders","master zona (f15)"],
-  ["PRD §Registrasi (Level 1)","f21:method|phone|verify","users, phone_verifications","Google merchant?, sesi/token, verifikasi Level 2"]
+  ["PRD §Registrasi (Level 1)","f21:method|phone|verify","users, phone_verifications","Google merchant?, sesi/token, verifikasi Level 2"],
+  ["PO 2026-09-23 (cakupan Super Admin)","f22:zone|roles|tax|profit|switch|audit|appeal","zones, roles, operators, audit_logs, platform_switch, tax_reports","tarif pajak (OQ-2/3/4), jumlah operator, jadwal liability"],
+  ["R-NOTIF-01","f1, f11","notifications, orders","kanal final (push vs push+WA), event 'kurir bersedia'"],
+  ["R-NOTIF-02","f1, f11, f24, f8","notifications, disputes, incident_resolutions","SLA penanganan CS, pemilik alert SLA, ambang tolak berulang"]
 ];
 
 const bySlug = Object.fromEntries(FLOWS.map(f => [f.slug, f]));

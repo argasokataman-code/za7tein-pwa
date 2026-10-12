@@ -2,7 +2,7 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "F1 — Order End-to-End (Prepaid vs COD via Wallet)",
+    "title": "F1 — Order End-to-End + Notifikasi tiap Langkah",
     "quality_profile": "showcase"
   },
   "lanes": [
@@ -53,8 +53,8 @@
     { "id": "e-order-batal", "from": "order", "to": "batal", "label": "batal", "variant": "dashed", "role": "error" }
   ],
   "cards": [
-    { "dot": "orange", "title": "Prepaid vs COD & tip", "items": ["Prepaid: saldo dipotong saat order; tip kurir opsional, 100% ke kurir, saat checkout / setelah terima", "COD via wallet: hold saat order → potong saat kurir match → settle saat OTP sukses", "Transfer manual kena fee flat 0,37 JOD (semua metode, PO 2026-09-22)"] },
-    { "dot": "amber", "title": "Waktu (SLA)", "items": ["Dapur (ambil → masak → match) → Berangkat 15m → Tiba 30m → OTP 10m → auto-settle 10m", "Sumber: R-DELIV-01, M5 (15/30/10 sementara)"] },
-    { "dot": "slate", "title": "Guard & Gate", "items": ["Di luar zona → checkout diblokir", "Akun baru top-up min 3,5 JOD sebelum order", "Batal sebelum match → hold released; sesudah match → reversal append-only"] }
+    { "dot": "orange", "title": "Prepaid vs COD & tip", "items": ["Prepaid potong saat order; COD via wallet: hold → potong saat match → settle saat OTP", "Transfer manual fee flat 0,37 JOD · guard: luar zona diblokir · akun baru top-up min 3,5 JOD"] },
+    { "dot": "amber", "title": "Waktu (SLA) & pembatalan", "items": ["Ambil 15m → Berangkat 30m → Tiba 10m → auto-settle 10m (sementara, OQ-13)", "Batal pre-match → hold released; post-match → reversal append-only"] },
+    { "dot": "slate", "title": "Notifikasi & Masalah (R-NOTIF-01/02)", "items": ["Tiap langkah notif ke customer+merchant+kurir; kurir mulai courier_matched", "CS hanya saat masalah (sengketa/batal post-match/SLA); SA eskalasi · routing f11 · penanganan f8/f24"] }
   ]
 }

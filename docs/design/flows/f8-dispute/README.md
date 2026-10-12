@@ -14,7 +14,7 @@ Workflow dispute = antrian kerja panel admin (CS), bukan portal sengketa. Milest
 
 **Lane Panel Admin (CS):** Queue Disputed (1× per order) → Buka bukti (log OTP, geolocation Tiba, foto kurir, timestamp checkpoint) → Pilih resolusi (4 aksi).
 
-**Lane Banding (baru, PO 2026-09-23):** setelah putusan level-1, pihak yang mengajukan sengketa bisa meminta SA meninjau ulang dari layar order (`Banding` di bagian Sengketa). Satu banding per sengketa; putusan CS tetap berlaku sampai SA memutuskan. Queue banding ada di konsol SA (`f22:appeal`), dan keputusan SA bisa memperkuat atau mengubah putusan (mengubah = 1 entry ledger baru, bukan menimpa yang lama).
+**Lane Banding (PO 2026-09-23).** Setelah putusan level-1, pihak pengaju bisa meminta SA meninjau ulang (`Banding` di layar order). Satu banding per sengketa; putusan CS tetap berlaku sampai SA memutuskan. **Banding digambar di `f22-super-admin-sa:appeal`** (plus `e-banding` di `INDEX.json`), bukan sebagai lane di diagram ini; keputusan SA yang mengubah putusan = 1 entry ledger baru, bukan menimpa yang lama.
 
 **Lane Sistem:** Queue masuk → **Bekukan hold** + pause auto-settle (order → `disputed`, tak boleh `settled` final) → putusan → **Terapkan** (hold di-release sesuai putusan) → `resolved_*` + **1 ledger entry baru** (append-only). Protection fund = sumber untuk kasus tanpa pihak bersalah.
 

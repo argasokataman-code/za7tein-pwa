@@ -2,27 +2,35 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "F11 — Push Notification & WhatsApp Fallback",
+    "title": "F11 — Push Notification, Routing Audience & Fallback WA",
     "quality_profile": "showcase",
+    "column_fit": "fixed",
     "viewBox": [1080, 540]
   },
   "participants": [
-    { "id": "server", "type": "backend", "label": "Server", "sublabel": "ubah status order" },
-    { "id": "push", "type": "messagebus", "label": "Web Push", "sublabel": "payload ≤4 KB" },
-    { "id": "app", "type": "frontend", "label": "App user", "sublabel": "tap → fetch detail" },
-    { "id": "ios", "type": "external", "label": "iOS 16.4+", "sublabel": "force-quit = bisu" },
-    { "id": "wa", "type": "external", "label": "WhatsApp", "sublabel": "wa.me Level 1" }
+    { "id": "customer", "type": "frontend", "label": "Customer", "sublabel": "pesan+OTP" },
+    { "id": "merchant", "type": "frontend", "label": "Merchant", "sublabel": "owner" },
+    { "id": "courier", "type": "frontend", "label": "Kurir", "sublabel": "karyawan" },
+    { "id": "server", "type": "backend", "label": "Server", "sublabel": "emit notif" },
+    { "id": "push", "type": "messagebus", "label": "Web Push", "sublabel": "≤4 KB" },
+    { "id": "cs", "type": "frontend", "label": "CS /admin", "sublabel": "masalah" },
+    { "id": "sa", "type": "frontend", "label": "Super Admin", "sublabel": "eskalasi" },
+    { "id": "wa", "type": "external", "label": "WhatsApp", "sublabel": "wa.me" }
   ],
   "messages": [
-    { "id": "m1", "from": "app", "to": "server", "y": 160, "label": "push_subscribe (endpoint+keys)" },
-    { "id": "m2", "from": "server", "to": "push", "y": 225, "label": "push_sent: order_id + teks", "variant": "emphasis", "note": "TTL wajib · silent dilarang · payload ≤4 KB" },
-    { "id": "m3", "from": "push", "to": "app", "y": 290, "label": "deliver · tap → fetch detail" },
-    { "id": "m4", "from": "push", "to": "ios", "y": 355, "label": "gagal (force-quit / ITP 7 hari)", "variant": "dashed" },
-    { "id": "m5", "from": "server", "to": "wa", "y": 420, "label": "fallback kritis: wa.me link", "variant": "security", "note": "event kritis wajib fallback WA/SMS · nomor E.164" }
+    { "id": "m01", "from": "customer", "to": "server", "y": 160, "label": "push_subscribe (endpoint+keys)" },
+    { "id": "m02", "from": "server", "to": "push", "y": 188, "label": "push_sent: order_id + event + teks", "variant": "emphasis", "note": "TTL wajib · silent dilarang" },
+    { "id": "m03", "from": "push", "to": "customer", "y": 216, "label": "notif: status order (tiba, dll)" },
+    { "id": "m04", "from": "push", "to": "merchant", "y": 244, "label": "notif: order baru / kurir berangkat / selesai" },
+    { "id": "m05", "from": "push", "to": "courier", "y": 272, "label": "notif: tugas baru / dibatalkan" },
+    { "id": "m06", "from": "push", "to": "cs", "y": 300, "label": "MASALAH: sengketa / batal post-match / SLA", "variant": "security" },
+    { "id": "m07", "from": "server", "to": "wa", "y": 328, "label": "fallback kritis: wa.me link", "variant": "dashed" },
+    { "id": "m08", "from": "push", "to": "sa", "y": 356, "label": "ESKALASI: dispute macet / protection fund", "variant": "dashed" },
+    { "id": "m09", "from": "cs", "to": "server", "y": 384, "label": "tandai ditangani → tutup + alasan", "variant": "return" }
   ],
   "cards": [
-    { "dot": "orange", "title": "Pola push (server-driven)", "items": ["Server ubah status → push ringkas (order_id + teks) → tap → app fetch", "Payload max 4 KB, TTL wajib, userVisibleOnly, silent push dilarang", "Event: push_subscribed, push_sent, push_delivery_confirmed"] },
-    { "dot": "amber", "title": "Event per alur", "items": ["Customer: \"Kurir sudah sampai\", \"Kurir sedang otw\" + estimasi", "Super admin: auto-alert SLA Ambil→Berangkat 15m & Berangkat→Tiba 30m", "Tiba di lokasi 5m → notif + call customer otomatis via app"] },
-    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-PUSH-01 — analysis.md · M8 — milestones.md (deps M0)", "WhatsApp fallback kritis: nomor WA wajib registrasi E.164 (+962/+62)", "OQ-24 RESOLVED (PO 2026-09-22): nomor WA wajib + validasi format E.164 (Level 1), tanpa OTP", "Status: push testing di device belum dilakukan; WA Business API L2 TIDAK dipakai di MVP (PO 2026-09-23) — fallback tetap `wa.me`"] }
+    { "dot": "orange", "title": "Routing audience (R-NOTIF-01/02)", "items": ["Push server-driven: status berubah → emit notif → push ringkas → tap → fetch detail", "Customer/merchant/kurir dapat tiap langkah; kurir masuk mulai courier_matched", "CS hanya saat masalah; SA hanya eskalasi"] },
+    { "dot": "amber", "title": "Event & fallback (R-PUSH-01)", "items": ["Event ikut f18: payment_confirmed · merchant_ready · courier_matched · courier_picked_up · arrived · otp_verified · order_canceled", "Kritis (tiba, SLA lewat) wajib fallback wa.me/SMS (E.164)", "iOS force-quit = bisu · WA Business API L2 tidak dipakai"] },
+    { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["BRS notif-order-e2e (proposed) · BUSINESS.md §2b · f18 · R-NOTIF-01/02, R-PUSH-01", "UNRESOLVED: kanal final (push vs push+WA), SLA penanganan CS, ambang tolak berulang", "Bell CS belum pernah menerima event order — 0 emit audience 'cs' di kode"] }
   ]
 }

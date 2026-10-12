@@ -101,6 +101,15 @@ if (!existsSync(resolve(flowsDir, 'INDEX.json'))) {
     if (!entry.type) errors.push(`Flow ${slug} has no diagram type in INDEX.json`)
     if (!entry.basis) errors.push(`Flow ${slug} has no requirement basis in INDEX.json`)
   }
+  // Galeri index.html adalah daftar tulis-tangan (bukan turunan INDEX.json), jadi
+  // gampang ketinggalan saat flow baru ditambah. Jaga tiap flow wajib muncul di sana.
+  const galleryPath = resolve(flowsDir, 'index.html')
+  if (existsSync(galleryPath)) {
+    const gallery = readFileSync(galleryPath, 'utf8')
+    for (const slug of new Set([...indexed, ...flowFolders])) {
+      if (!gallery.includes(slug)) errors.push(`Flow ${slug} missing from docs/design/flows/index.html gallery`)
+    }
+  }
   const flowPlan = resolve(flowsDir, 'PLAN.md')
   const planText = existsSync(flowPlan) ? readFileSync(flowPlan, 'utf8') : ''
   if (!readFileSync(resolve(flowsDir, 'INDEX.json'), 'utf8').includes(manifest.activeRevision) || !planText.includes(manifest.activeRevision)) {
