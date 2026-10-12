@@ -2,51 +2,53 @@
 // Dua lapis tiap warna: warna dasar untuk fill/dot/bar (non-text),
 // dan *-ink untuk teks & background tombol supaya lolos WCAG AA.
 :root {
-  // Palet EDISI 01 — peta primitive -> semantic Figma "sa7tein / Foundations":
-  // orange/500 = brand.primary, orange/700 = action.text, navy/700 = text.primary.
-  --sa7tein-orange: #E8421A;
+  // Palet EDISI 02 (UI v2 "Masakan Tetangga") — brand oranye #E44220 di atas
+  // kanvas netral dingin, teks navy pekat. Ink tetap versi gelap yang lolos
+  // WCAG AA untuk teks di latar terang (nilai fill boleh penuh).
+  --sa7tein-orange: #E44220;
   --orange-ink: #B83213;
   --orange-soft-ink: #9E3416;
-  --orange-deep: #A83818;
-  --orange-soft: #FDEDE8;
+  --orange-deep: #C9361A;
+  --orange-soft: #FFF0EB;
 
-  --bg-warm: #F8F9F7;
+  --bg-warm: #F4F4F6;
   --surface: #FFFFFF;
   --on-brand: #FFFFFF;
 
-  --text-primary: #1A3A5C;
-  --text-secondary: #59665F;
+  --text-primary: #172434;
+  --text-secondary: #64748B;
   // --text-disabled & --icon-decor: reserved, belum ada consumer. Dipakai saat
   // state kontrol nonaktif / ikon dekoratif dibangun (M2/M5).
-  --text-disabled: #A6AEA9;
-  --icon-decor: #7A857F;
+  --text-disabled: #94A3B8;
+  --icon-decor: #94A3B8;
 
   // Navy juga dipakai sebagai latar gelap (panel/hero/footer navy).
-  --navy: #1A3A5C;
+  --navy: #172434;
   --on-navy: #FFFFFF;
 
-  --success: #32765A;
-  --success-ink: #32765A;
-  --green-soft: #EAF4ED;
-  --warning: #9A631B;
-  --warning-ink: #9A631B;
-  --warning-soft: #FFF4DF;
-  --danger: #B93838;
-  --danger-ink: #B93838;
-  --red-soft: #FCECEC;
+  --success: #059669;
+  --success-ink: #047857;
+  --green-soft: #ECFDF5;
+  --warning: #D97706;
+  --warning-ink: #B45309;
+  --warning-soft: #FFF7ED;
+  --danger: #E11D48;
+  --danger-ink: #BE123C;
+  --red-soft: #FFF1F2;
   // Info: reserved untuk status "Disiapkan" (Figma status.info). Belum ada consumer.
-  --info: #487A9F;
-  --info-ink: #356282;
-  --info-soft: #ECF4FA;
+  --info: #0284C7;
+  --info-ink: #0369A1;
+  --info-soft: #F0F9FF;
 
-  --border: #E7ECE7;
-  --border-strong: #D6DDD6;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
 
-  --radius-xs: 6px;    /* badge, kontrol rapat */
-  --radius-sm: 8px;    /* input, kontrol kecil */
-  --radius-md: 10px;   /* tombol */
-  --radius-lg: 12px;   /* kartu, list item */
-  --radius-xl: 12px;   /* sheet, modal — brief menahan langit-langit di 12px */
+  --radius-xs: 8px;    /* badge, kontrol rapat */
+  --radius-sm: 10px;   /* chip, kontrol kecil */
+  --radius-md: 12px;   /* input, tombol */
+  --radius-lg: 16px;   /* kartu, list item, tombol besar */
+  --radius-xl: 24px;   /* banner, kartu besar */
+  --radius-2xl: 32px;  /* sheet, modal — UI v2, langit-langit dinaikkan dari 12px */
   --radius-pill: 9999px;
 
   /* Batas lebar kolom aplikasi. 430px adalah lebar mobile terlebar yang
@@ -67,10 +69,10 @@
   --space-9: 48px;
   --space-10: 64px;
 
-  --font-sans: 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
   --touch-min: 44px;
   --nav-height: 64px;
-  --shadow-subtle: 0 1px 2px rgba(26, 58, 92, 0.05);
+  --shadow-subtle: 0 1px 2px rgba(23, 36, 52, 0.06);
   --overlay: rgba(32, 32, 32, 0.4);
   /* Overlay pekat untuk elemen kecil di atas foto (mis. cakram hapus pratinjau):
      di atas foto yang tak diketahui, --overlay 0.4 bisa jatuh ke ~2.8:1 untuk
@@ -118,7 +120,7 @@
   --ease-inout: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* the recovered stylesheet references this variable for its font stack */
-  --font-plus-jakarta: 'Inter';
+  --font-plus-jakarta: 'Plus Jakarta Sans';
 }
 
 html, body { font-family: var(--font-sans); }
@@ -159,10 +161,10 @@ html, body { font-family: var(--font-sans); }
      selera ukuran huruf. */
   --text-field: 16px;
 
-  // Elevasi EDISI 01: bayangan bernuansa navy (rgba(26,58,92)), bukan abu netral.
-  --shadow-sm: 0 2px 8px rgba(26, 58, 92, 0.05);
-  --shadow-md: 0 8px 24px rgba(26, 58, 92, 0.10);
-  --shadow-brand: 0 8px 20px rgba(232, 66, 26, 0.28);
+  // Elevasi EDISI 02: bayangan navy pekat + tint oranye untuk elemen merek.
+  --shadow-sm: 0 2px 8px rgba(23, 36, 52, 0.06);
+  --shadow-md: 0 8px 24px rgba(23, 36, 52, 0.10);
+  --shadow-brand: 0 8px 20px rgba(228, 66, 32, 0.28);
 
   /* Gradient merek dihapus: brief melarang gradient, dan ketiga
      pemakaiannya sudah diganti warna solid. */

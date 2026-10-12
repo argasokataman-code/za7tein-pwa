@@ -383,7 +383,16 @@ export default function Documentation() {
               (estimasi masak 15/25/35 menit, ongkir ditanggung merchant, COD), <em>alt</em> gambar
               menyalin janjinya untuk pembaca layar, dan tinggi banner mengikuti rasio aset supaya
               teks di dalam gambar tidak terpotong.
-              Rinciannya di bagian Changelog.
+              Rinciannya di bagian Changelog. Versi desain kini bernama <strong>EDISI 02 (UI v2)</strong>:
+              brand <code className="doc-inline">--sa7tein-orange</code>, teks{' '}
+              <code className="doc-inline">--text-primary</code>, latar{' '}
+              <code className="doc-inline">--bg-warm</code>, font Plus Jakarta Sans (self-host,
+              variabel 400-800), dan langit-langit radius naik ke 32px (
+              <code className="doc-inline">--radius-2xl</code>). Fondasi token terpasang di branch{' '}
+              <code className="doc-inline">ui-v2</code>; versi lama (EDISI 01) tetap di{' '}
+              <code className="doc-inline">main</code> dan tag{' '}
+              <code className="doc-inline">ui-v1-stable</code>. Aturan v2, status migrasi, dan cara
+              menghapus/mengembalikannya ada di <code className="doc-inline">docs/design/ui-v2.md</code>.
             </p>
             <DocShellCtas />
           </div>

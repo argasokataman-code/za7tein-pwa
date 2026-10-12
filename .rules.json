@@ -11,6 +11,22 @@
     "flowsRule": "Perilaku wajib ikut PRD aktif DAN flow yang sudah ada. Kalau perubahan menyimpang dari flow, tandai UNRESOLVED (dengan sumber) dan update flow + PRD di commit yang sama. Regenerasi diagram: ./scripts/flows-gate.sh <slug>. Dienforce di governance:check (paritas folder<->INDEX, spec+README ada, terikat revisi PRD aktif)"
   },
   "designDNA": "docs/design/DNA.md",
+  "uiVersions": {
+    "current": "v2",
+    "doc": "docs/design/ui-v2.md",
+    "source": "docs/design/v2-source/ (snapshot prototype AI Studio, referensi saja, jangan di-build/import)",
+    "active": {
+      "v2": "EDISI 02 — branch ui-v2; brand #E44220, navy #172434, bg #F4F4F6, font Plus Jakarta Sans, radius cap 32, status emerald/amber/rose/blue. Fondasi terpasang, layar belum diport.",
+      "v1": "EDISI 01 — main + tag ui-v1-stable; brand #E8421A, navy #1A3A5C, bg #F8F9F7, font Inter, radius cap 12."
+    },
+    "rules": [
+      "Aturan repo tetap; v2 hanya mengubah pewarnaan/layout/animasi, 1:1 dengan prototype.",
+      "Token v2 global: mengganti token mengubah tema semua role (customer/merchant/kurir/admin).",
+      "Radius cap dinaikkan 12 -> 32 (keputusan pemilik 2026-10-12; DNA.md + AGENTS §4).",
+      "Tanpa emoji, tanpa URL gambar eksternal, ikon lucide-only (tetap berlaku)."
+    ],
+    "revert": "Belum merge: git switch main; git branch -D ui-v2; git push origin --delete ui-v2. Sudah merge: git checkout ui-v1-stable -- <berkas v2>. Detail: docs/design/ui-v2.md bagian 8."
+  },
   "designDebt": "docs/design/legacy-debt.json (inline SVG count per TSX file may only decrease without a recorded decorative exception)",
   "designReview": {
     "enforce": true,

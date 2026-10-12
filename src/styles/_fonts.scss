@@ -1,5 +1,16 @@
-// Inter is the Sa7tein typeface (EDISI 01). One variable file covers the
-// whole weight range; latin subset, self-hosted so the PWA keeps working offline.
+// Plus Jakarta Sans is the Sa7tein UI v2 typeface (EDISI 02). One variable
+// file covers the whole 400-800 range; latin subset, self-hosted so the PWA
+// keeps working offline. The upstream brand loaded the same weights via Google
+// Fonts; hosting it here keeps the runtime free of external requests.
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/assets/fonts/plus-jakarta-sans.woff2') format('woff2');
+}
+
+// Inter kept as a fallback face for surfaces not yet migrated to v2.
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -8,8 +19,7 @@
   src: url('/assets/fonts/inter.woff2') format('woff2');
 }
 
-// Manrope kept as a fallback face for surfaces not yet migrated.
-// Plus Jakarta Sans belonged to the Sa7tein legacy brand.
+// Manrope kept as a deeper fallback for the ported stylesheet.
 @font-face {
   font-family: 'Manrope';
   font-style: normal;

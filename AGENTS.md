@@ -132,7 +132,9 @@ Semuanya di `_tokens.scss`. **Jangan menulis nilai mentah** kalau tokennya ada.
 | teks | `--text-primary`, `--text-secondary` |
 | status | `--success`, `--warning`, `--danger` + varian `-ink` dan `-soft` |
 
-**Skala radius berhenti di 12px.** `--radius-xs` 6, `sm` 8, `md` 10, `lg` 12, `xl` 12 (langit-langit ditahan brief), `pill` 9999. Kalau butuh lebih bulat dari 12px untuk sebuah kontainer, itu tanda desainnya salah, bukan tokennya kurang.
+**Skala radius naik di UI v2: sampai 32px.** `--radius-xs` 8, `sm` 10, `md` 12, `lg` 16, `xl` 24, `2xl` 32, `pill` 9999. Langit-langit 12px lama (brief v1) diganti 32px, keputusan pemilik 2026-10-12. pill hanya untuk kontrol pill/badge, bukan kontainer besar.
+
+**Versi desain & revert:** v2 = EDISI 02, hidup di branch `ui-v2`; v1 = EDISI 01, di `main` + tag `ui-v1-stable`. Aturan v2, status migrasi, dan cara menghapus/mengembalikan ada di `docs/design/ui-v2.md` (ringkas mesin: `.rules.json` → `uiVersions`).
 
 Skala lain: `--space-1..8` (4→32px), `--text-xs..2xl`, `--touch-min` (44px), `--nav-height` (64px), `--motion-*` dan `--ease-*`.
 
