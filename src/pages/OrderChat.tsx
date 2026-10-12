@@ -2,17 +2,19 @@
 // memunculkan toast "Membuka chat dengan kurir" lalu tidak terjadi apa-apa,
 // dan tidak ada rutenya sama sekali. Layar ini yang menggantikannya.
 //
-// Percakapannya hidup di state lokal halaman, bukan di store: prototipe ini
-// tidak punya backend, dan menyimpannya di store berarti percakapan ikut
-// tersimpan ke localStorage lewat redux-persist, yang justru bikin keadaan
-// aneh saat dibuka lagi berhari-hari kemudian.
+// Saat ada order aktif (customer checkout), percakapan dibaca/ditulis ke
+// PostgREST lewat `useApiChat` (tabel `chats` + `chat_messages`). Tanpa order
+// aktif — atau bila API mati — layar jatuh ke percakapan mock lama, jadi tak
+// pernah kosong saat demo.
 import { MessageCircle, Send } from 'lucide-react'
 
 import { useEffect, useRef, useState } from 'react'
-
+import { useSearchParams } from 'react-router-dom'
 
 import { mockCouriers, mockOrder } from '../data/merchant'
 import { waLink } from '../data/phone'
+import { useApiChat } from '../hooks/useApiChat'
+import { useAppSelector } from '../hooks/useAppStore'
 import { BackButton } from '../components/ui/BackButton'
 
 type Pesan = {
@@ -24,6 +26,12 @@ type Pesan = {
 
 const jam = (offsetMenit = 0) => {
   const d = new Date(Date.now() + offsetMenit * 60_000)
+  return `${String(d.getHours()).padStart(2, '0')}.${String(d.getMinutes()).padStart(2, '0')}`
+}
+
+/** `HH.MM` dari stempel ISO backend. */
+const jamIso = (iso: string) => {
+  const d = new Date(iso)
   return `${String(d.getHours()).padStart(2, '0')}.${String(d.getMinutes()).padStart(2, '0')}`
 }
 
@@ -42,7 +50,7 @@ const SARAN = [
   'Tolong jangan pakai sambal',
 ]
 
-/** Balasan bergilir supaya mengirim pesan terasa ada yang menjawab. */
+/** Balasan bergilir supaya mengirim pesan terasa ada yang menjawab (mode mock). */
 const BALASAN = [
   'Siap, saya catat ya.',
   'Baik, sebentar lagi sampai.',
@@ -50,16 +58,30 @@ const BALASAN = [
   'Terima kasih, ditunggu ya.',
 ]
 
+/** `users.id` pengirim customer di backend (demo) — pembanding sisi "aku". */
+const CUSTOMER_USER_ID = 1
+
 export default function OrderChat() {
   const courier = mockCouriers[0]
+  // Order bisa datang dari order aktif (checkout customer) atau deep-link
+  // `?order=<id>` — rute chat tak punya segmen `:id`, dan kurir/merchant tak
+  // menyetel `cart.activeOrder`, jadi tanpa order mereka tetap pakai mock.
+  const [params] = useSearchParams()
+  const activeOrder = useAppSelector((s) => s.cart.activeOrder)
+  const queryOrder = params.get('order')
+  const orderId = queryOrder
+    ? Number(queryOrder)
+    : activeOrder
+      ? Number(activeOrder.id)
+      : null
+  const live = useApiChat(orderId)
 
   const [pesan, setPesan] = useState<Pesan[]>(AWAL)
   const [draf, setDraf] = useState('')
   const [menulis, setMenulis] = useState(false)
   /**
    * Lawan (kurir) offline → balasan otomatis berhenti dan tombol fallback WA
-   * muncul (M8). Awalnya online; tombol demo di bawah thread yang mematikan
-   * presence, karena mock ini tidak punya soket presence sungguhan.
+   * muncul (M8). Demo mock saja: chat live tak punya soket presence.
    */
   const [offline, setOffline] = useState(false)
   const nomorBalasan = useRef(0)
@@ -74,14 +96,30 @@ export default function OrderChat() {
     }
   }, [])
 
+  /** Pesan live dari backend dipetakan ke bentuk UI; pengirim 1 = customer (aku). */
+  const pesanLive: Pesan[] = live.lines.map((line) => ({
+    id: Number(line.id.replace('cm-', '')) || 0,
+    dari: line.senderId === CUSTOMER_USER_ID ? 'aku' : 'kurir',
+    teks: line.body,
+    jam: jamIso(line.at),
+  }))
+  const daftar = live.live ? pesanLive : pesan
+
   // Selalu tampilkan pesan terbaru.
   useEffect(() => {
     ujungDaftar.current?.scrollIntoView({ block: 'end' })
-  }, [pesan, menulis])
+  }, [daftar, menulis])
 
   const kirim = (teks: string) => {
     const isi = teks.trim()
     if (!isi) return
+
+    // Live: tulis ke BE; polling 5 dtk + fetch pasca-kirim yang menampilkannya.
+    if (live.live) {
+      setDraf('')
+      void live.send(isi)
+      return
+    }
 
     setPesan((lama) => [
       ...lama,
@@ -112,13 +150,13 @@ export default function OrderChat() {
             <BackButton className="btn-back" />
 
             <div className="chat-header__who">
-              <span className="chat-header__name">{courier.name}</span>
+              <span className="chat-header__name">{live.live ? 'Kurir' : courier.name}</span>
               <span className="chat-header__status">
-                {offline
+                {!live.live && offline
                   ? 'Kurir sedang offline'
                   : menulis
                     ? 'sedang menulis…'
-                    : 'Kurir · pesanan ' + mockOrder.code}
+                    : 'Kurir · pesanan ' + (live.live ? (activeOrder?.code ?? `#${orderId}`) : mockOrder.code)}
               </span>
             </div>
 
@@ -126,7 +164,7 @@ export default function OrderChat() {
           </header>
 
           <div className="chat-thread" role="log" aria-live="polite" aria-label="Percakapan dengan kurir">
-            {pesan.map((p) => (
+            {daftar.map((p) => (
               <div key={p.id} className={`chat-bubble chat-bubble--${p.dari}`}>
                 <p className="chat-bubble__text">{p.teks}</p>
                 <span className="chat-bubble__jam">{p.jam}</span>
@@ -146,7 +184,7 @@ export default function OrderChat() {
 
           {/* Fallback WA (M8): tampil hanya saat lawan offline, dengan deep link
               wa.me berisi nomor E.164 + teks order supaya konteksnya ikut. */}
-          {offline ? (
+          {!live.live && offline ? (
             <div className="chat-fallback" role="status">
               <p className="chat-fallback__text">
                 Kurir offline — balasan otomatis dimatikan. Lanjut lewat WhatsApp?
@@ -177,13 +215,15 @@ export default function OrderChat() {
                 {s}
               </button>
             ))}
-            <button
-              type="button"
-              className="chat-chip chat-chip--demo"
-              onClick={() => setOffline((v) => !v)}
-            >
-              {offline ? 'Kurir kembali online' : 'Simulasi: kurir offline'}
-            </button>
+            {live.live ? null : (
+              <button
+                type="button"
+                className="chat-chip chat-chip--demo"
+                onClick={() => setOffline((v) => !v)}
+              >
+                {offline ? 'Kurir kembali online' : 'Simulasi: kurir offline'}
+              </button>
+            )}
           </div>
 
           <form

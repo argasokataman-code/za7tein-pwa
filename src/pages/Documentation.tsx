@@ -228,7 +228,11 @@ export default function Documentation() {
               push_subscriptions (dibaca kembali saat mount, detail teknis dipindah ke halaman
               dokumentasi; pemberitahuan diantar lewat service worker push — pengirim produksi
               adalah Edge Function Supabase send-push yang dipicu Database Webhook pada tabel
-              notifications, dengan skrip scripts/send-push.mjs untuk uji lokal); toggle
+              notifications, dengan skrip scripts/send-push.mjs untuk uji lokal); chat order (customer ↔ kurir)
+              kini tersambung backend pula: percakapan dibaca/ditulis ke tabel chats + chat_messages
+              lewat src/api/chat.ts dan useApiChat (polling 5 dtk karena tabel chat tak di publication
+              Realtime), dibuka dari order aktif checkout atau tautan ?order=&lt;id&gt;, dengan
+              percakapan mock lama tetap jadi fallback saat tak ada order; toggle
               buka/tutup toko
               menulis balik merchants.store_status. Beranda customer memakai lokasi live
               (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
