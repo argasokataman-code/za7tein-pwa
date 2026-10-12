@@ -1,23 +1,22 @@
 name: Deploy production
 
-# Deploy otomatis ke Vercel tiap push ke `main`. Menggantikan `vercel --prod`
-# manual dari laptop (yang meng-upload working tree, termasuk berkas belum
-# ke-commit). Di sini yang ter-deploy adalah revisi commit yang sudah di-push,
-# jadi prod selalu cocok dengan `git`.
+# Verifikasi + bump versi tiap push ke `main`.
 #
-# Secret yang dibutuhkan (Settings → Secrets and variables → Actions):
-#   VERCEL_TOKEN       — token Vercel (Account → Tokens)
-#   VERCEL_ORG_ID      — ada di `.vercel/project.json`
-#   VERCEL_PROJECT_ID  — ada di `.vercel/project.json`
+# Deploy production dikerjakan **Git integration Vercel** (project `sa7tein-pwa`
+# ↔ repo `argasokataman-code/za7tein-pwa`): tiap push ke `main` memicu build &
+# promote otomatis, jadi revisi yang ter-deploy = commit yang di-push.
 #
-# Semua project-domain (sa7tein-c/m/k/a/hub/pwa) ikut ter-assign otomatis oleh
-# `vercel --prod`, jadi tak ada langkah alias manual lagi.
+# Workflow ini SENGAJA tidak lagi memakai `vercel --prod` / token apa pun.
+# Jalur `--token` pernah dipakai dan rapuh: token sesi CLI (`vca_…`) ikut
+# dirotasi tiap refresh login, dan token dashboard tipe `vcp_…` tak bisa
+# dipakai CLI (endpoint `/v2/user` 404) — deploy mati mendadak 2026-10-12.
+# Tanpa token, tak ada yang bisa kedaluwarsa.
 #
 # Versioning: setiap push yang mengubah file aplikasi (selain `.github/`) menaikkan
 # patch `BASE_VERSION` via `scripts/bump-version.mjs`, lalu commit balik ke `main`
-# dengan penanda `[skip ci]` supaya tidak memicu run kedua. Build/deploy memakai
-# pohon yang sudah dinaikkan, jadi versi di prod == versi di git. major/minor
-# tetap manual (keputusan rilis manusia).
+# dengan penanda `[skip ci]` supaya tidak memicu run Actions kedua. Commit bump itu
+# tetap memicu build Vercel, jadi versi di prod == versi di git. major/minor tetap
+# manual (keputusan rilis manusia).
 
 on:
   push:
@@ -35,9 +34,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # commit balik bump versi ke main
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -88,8 +84,3 @@ jobs:
 
       - name: Surface scan (statik)
         run: npm run scan
-
-      - name: Deploy ke Vercel (production)
-        run: npx --yes vercel@54 --prod --yes --token="$VERCEL_TOKEN"
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
