@@ -196,55 +196,11 @@ export default function Documentation() {
               Developer Guide
             </h1>
             <p className="doc-hero-desc">
-              Panduan PWA Sa7tein: data referensi (kurir, dompet, insentif merchant, zona/role/
-              operator SA, kill switch) kini dibaca live dari PostgREST lewat
-              src/api/reference.ts dan disinkronkan ke Redux di root — termasuk rating/jam buka
-              toko dari kolom merchants, profil toko (nama/kontak/foto/config kirim), registri
-              merchant lengkap (pemilik/kota/tier/tenant/deposit/zona/COD) untuk panel CS & konsol SA,
-              role & operator konsol SA (izinnya sudah sepadan dengan katalog UI), dan riwayat
-              kredit dari merchant_credit_events, dan notifikasi live: inbox dibaca per audience
-              (customer/merchant/courier/cs) dengan lonceng+badge di header merchant/kurir/CS — kini otomatis di tiap halaman konsol (default selubung header peran, onboarding dikecualikan) dan di hero beranda dapur, bukan lagi ditempel per halaman — dengan gaya tombol ikon polos (transparan) di header dan lonceng hero beranda dapur yang memakai kelas `.s7-notification` yang sama persis dengan beranda pelanggan, di konsol web desktop (panel CS ≥901px) lonceng membuka popup daftar notifikasi di bawah header (tutup lewat klik luar/Escape) alih-alih pindah halaman penuh sementara di lebar ponsel tetap pindah ke kotak masuk, tiap
-              transisi order (checkout, terima/tolak/siap/serahkan/batal, checkpoint kurir, OTP)
-              mengemit notifikasi ke peran terkait, dan klik baris menulis balik
-              notifications.read (kind tak dikenal jatuh ke system; mock tetap jadi fallback),
-              penugasan kurir ditulis ke orders.courier_id (pemilih kurir di antrean merchant
-              berbentuk kartu terpilih: monogram + status live, dan wajib dipilih sebelum pesanan
-              diserahkan); tiap transisi status order kini
-              ditulis balik ke orders.status (cart/prepare/waitingCourier/delivery/done) dan
-              checkpoint kurir ke tabel checkpoints (picked_up/arrived/otp_verified); kotak masuk
-              dan antrean diperbarui otomatis lewat WebSocket Supabase Realtime (kanal orders,
-              src/api/realtime.ts) tanpa refresh — polling 30s hanya jaring pengaman; saat koneksi
-              putus tiap peran beralih ke layar /offline, dan begitu online kembali aplikasi
-              memulihkan sendiri (naik kembali dari /offline + toast "Kembali online") sambil
-              menyegarkan data referensi; foto toko dari backend yang menunjuk aset tak ada
-              (mis. /assets/img/merchant/*.svg) kini jatuh ke gambar menu lewat onError, bukan
-              kotak rusak; tombol lokasi di beranda membuka pemilih alamat dan labelnya ikut
-              berubah begitu alamat diganti; label lokasi tak lagi memakai nilai contoh
-              ("44 Street Town") — placeholder "Lokasi" sampai alamat nyata termuat; kotak masuk
-              notifikasi kini murni dari backend — seed mock + badge "3" dihapus, dan daftar
-              dikosongkan bila API tak mengembalikan baris; registrasi push di Pengaturan
-              Notifikasi kini berupa sakelar "Notifikasi push" yang berlangganan Web Push VAPID
-              sungguhan (endpoint dari push service peramban) dan menyimpan baris ke tabel
-              push_subscriptions (dibaca kembali saat mount, detail teknis dipindah ke halaman
-              dokumentasi; pemberitahuan diantar lewat service worker push — pengirim produksi
-              adalah Edge Function Supabase send-push yang dipicu Database Webhook pada tabel
-              notifications, dengan skrip scripts/send-push.mjs untuk uji lokal); chat order (customer ↔ kurir)
-              kini tersambung backend pula: percakapan dibaca/ditulis ke tabel chats + chat_messages
-              lewat src/api/chat.ts dan useApiChat (polling 5 dtk karena tabel chat tak di publication
-              Realtime), dibuka dari order aktif checkout atau tautan ?order=&lt;id&gt;, dengan
-              percakapan mock lama tetap jadi fallback saat tak ada order; toggle
-              buka/tutup toko
-              menulis balik merchants.store_status. Panel CS kini juga menandai risiko customer langsung ke backend: pemilih customer untuk blacklist COD memakai registri customers live, dan konfirmasi menulis riwayat customer_risk_flags + cermin customers.risk_flag lewat src/api/admin.ts (terverifikasi 2026-10-12: hanya sesi CS yang boleh menandai, customer/merchant/kurir ditolak RLS). Beranda customer memakai lokasi live
-              (alamat default dari addresses) dan menghitung jarak/waktu antar ke tiap toko
-              secara lokal; chip kategori tidak dirender selama kolom menus.category backend
-              masih kosong, supaya tidak lagi menyaring daftar toko jadi kosong. Checkout customer menulis order ke API
-              (POST /orders) dan antrean merchant membacanya kembali (GET /orders). Antrean merchant kini bergaya slip tiket dapur: nomor order jadi identitas yang dipindai cepat (angka tabular), chip umur menandai order yang menunggu diterima (kuning di 10 menit, merah di 20 menit), nama pelanggan naik jadi judul, dan nominal baris memakai Rupiah saja (padanan JOD tetap di sheet detail); tab aktif jadi segmented tinted supaya hanya satu aksen oranye dan count-nya lolos kontras, dan state kosong tiap tab kini berikon dan berkonteks. Halaman Profil
-              customer kini memakai identitas sesi live — email/HP dari tabel users, nama dari
-              user_metadata akun auth (keduanya bisa diedit di form Profil; tanggal lahir & jenis
-              kelamin belum punya kolom, foto belum ada Storage bucket), badge lonceng
-              mengikuti jumlah notifikasi belum dibaca, dan daftar Alamat Pengantaran dibaca dari
-              tabel addresses lengkap dengan zona + jarak dari poligon master — tiap tambah/ubah/
-              hapus/jadikan-utama menulis balik ke backend (form Profil menyimpan nama/email/HP). Tiap peran punya prefix URL dan instalasi sendiri (/customer, /merchant, /courier, /admin — panel admin yang dikelola CS). Super Admin adalah role terpisah: website penuh non-PWA di /superadmin, dengan Ringkasan berupa dashboard chart tulis tangan (donut + bar, tanpa library). Landing dengan satu aksi utama per section, cache yang aman, scroll native, dan simulator desktop yang scroll-nya terkunci pada layar perangkat. Kartu promo beranda kini bergaya kartu (lingkaran sepusat di atas oranye merek, tanpa gradient) dengan bilah aksi selebar kartu. Beranda dapur merchant memakai hero oranye bergaya beranda pelanggan (bidang + pola gelombang bersama) yang menyatukan identitas toko, status buka/tutup, dan kuota harian; modal aplikasi di-portal ke body supaya tidak lagi tertutup bilah nav. Konfirmasi merchant kini seragam lewat ConfirmSheet dengan dua tombol sejajar, dan kepala tiap grup kategori di daftar menu menempel tepat di bawah bar filter (offset diukur runtime) sehingga label kategori tetap terbaca saat digulir. Menu merchant disaring per kategori (chip Makanan/Minuman/Camilan) plus status stok di satu bar sticky, dan daftar dikelompokkan per kategori. Dompet merchant kini ada: saldo dari order selesai, pencairan ke rekening (DANA payout, flow f6), plus CRUD rekening tujuan dengan satu rekening utama; daftar rekeningnya berupa baris beridentitas tegas (nama bank 16/600) dengan aksi rata kanan, Hapus bergaya teks destruktif, dan tombol yang lebarnya mengikuti labelnya. Dompet kurir menyusul dengan aturan yang berbeda: hanya menampung tips (ongkir dan gaji bukan milik kurir, C-06), saldonya diturunkan dari tips dikurangi pencairan, fee payout Rp2.500 ditanggung kurir dan dipotong dari nilai tarik, dengan ambang akumulasi yang masih contoh PRD (ditandai jelas, belum final) plus CRUD rekening tujuan. Beranda kurir kini berupa dashboard: identitas + status siap/jeda dalam satu kartu, ringkasan hari ini, kartu performa tujuh hari (sparkline tips) plus menu dua kolom berisi pintasan dompet tips, rekening, riwayat tips, dan profil, baru daftar tugas berjalan dan riwayat. Onboarding kini lengkap per peran (keputusan PO 2026-09-25): merchant mengisi form profil toko di /merchant/onboarding (identitas + foto + konfigurasi pengiriman) setelah daftar sebelum menunggu persetujuan, dan kurir punya layar onboarding sendiri di /courier/onboarding (nama, nomor WA, kendaraan) sebelum masuk. Di sisi pelanggan alur belanja kini toko-dulu: beranda menampilkan daftar toko, halaman toko (/customer/merchant/:id) memuat sampul, status buka/tutup, promo, dan menunya, baru detail menu per item; kepala halaman Filter dan Favorit kini mengikuti kontrak bar dan Favorit memakai kartu menu bersama. Dua kartu grafik garis, pendapatan beranda dapur dan tips beranda kurir, kini berbentuk chart card: chip ikon, judul, dan keterangan di atas angka, lalu garis tujuh hari yang lebih tinggi.
+              Referensi PWA Sa7tein: arsitektur tiap layar, kontrak backend, sistem
+              desain, dan riwayat perubahan per role. Data referensi (kurir, dompet,
+              insentif merchant, zona, operator SA) dibaca live dari PostgREST lewat{' '}
+              <code className="doc-inline">src/api/reference.ts</code> lalu disinkronkan ke
+              Redux di root. Repo ini front-end saja: seluruh data mock (AGENTS &sect;1).
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (
@@ -254,164 +210,44 @@ export default function Documentation() {
               ))}
             </div>
             <p className="doc-p">
-              Buka UI langsung — tiap tautan membuka role di tab baru, tanpa login
+              Buka UI langsung. Tiap tautan membuka role di tab baru, tanpa login
               (semua data mock):
             </p>
-            <p className="doc-p">
-              Metode Pembayaran customer dirapikan di audit 007: kartu terpilih kini lolos AA
-              (permukaan <code className="doc-inline">--orange-soft</code>, bukan isian oranye pekat),
-              dokumen kembali jadi satu-satunya penggulung dengan header sticky, judul turun ke
-              langkah header, dan radiogroup dapat navigasi panah. Kartu metode di /payment-amount
-              (audit 008) kini berwarna <code className="doc-inline">--orange-soft</code> bertopi
-              merek sebagai titik fokus, lebar penuh, judul Indonesia; warna terpilih yang sama
-              dipakai kartu alamat. Halaman Alamat Pengantaran dirapikan di audit 009:
-              warna krem/abu mentah dipetakan ke token, tombol Batal dan Simpan kini rata
-              (margin warisan 8px dibuang), cabang status antar memakai kelayakan sebenarnya,
-              dan meta jarak tak lagi menulis "0 m". Detail menu customer (audit 010) berhenti
-              menampilkan data contoh: saat API hidup halaman menunggu data asli (splash skeleton,
-              bukan menu mock "Sate Ayam"), id tak dikenal tampil kosong, dan halaman
-              ulasan tidak lagi di-hardcode. Beranda dapur merchant kini memakai status jualan
-              tiga keadaan — Buka, Sibuk, Tutup — dalam satu kontrol segmented. Audit mobile beranda
-              (011) menemukan kartunya berbaris lalu terpotong karena tabrakan kelas
-              <code className="doc-inline">.merchant-card</code>; kini kartu menumpuk dan teks utuh.
-              Kartu &ldquo;Pendapatan&rdquo; juga menjadi bidang oranye merek supaya setingkat
-              dengan hero, bukan kartu putih keempat. Kartu &ldquo;Modal &amp; insentif&rdquo; menyusul
-              sebagai bidang navy (token design system <code className="doc-inline">--navy</code>) dan aksinya
-              jadi baris tap mobile dengan chevron. Kartu navy-nya diberi elevasi (bayangan
-              bernuansa navy) supaya terbaca mengambang. Legenda &ldquo;Komposisi order&rdquo; ditata
-              ulang jadi baris penuh satu-baris (angka rata kanan). Saat refresh, beranda dapur
-              kini menahan angka seed di balik kerangka sampai data API mendarat, jadi tak ada
-              lompatan nilai mock → data nyata, dan status &ldquo;Sibuk&rdquo; bertahan antar-reload.
-              Tiap perubahan status jualan kini minta konfirmasi ketuk-kedua, dan tombol pop-up-nya
-              disamakan bentuknya dengan tombol utama. Audit mobile beranda (012) memadatkan
-              permukaan oranye merchant (<code className="doc-inline">--merchant-brand</code>) agar
-              teks putih kecil di hero dan kartu &ldquo;Pendapatan&rdquo; lolos AA (terukur 4,73:1),
-              menambah state kosong terdesain dan banner &ldquo;data terakhir&rdquo; saat hidrasi API
-              gagal, memindahkan legenda &ldquo;Komposisi order&rdquo; ke samping donut sehingga kartunya
-              menyusut 554 &rarr; 414px, serta menyatukan sistem radius (lingkaran 50%, track/badge
-              --radius-xs) dan ritme jarak antar blok ke 16px. Periode tier insentif kini
-              diputuskan (I-4): bulan kalender dengan tier dinilai akhir bulan — naik tier di
-              tengah bulan tidak proporsional — tertulis di PRD, flow F9/F16, dan layar
-              /merchant/insentif. Kartu &ldquo;Sisa modal&rdquo; di layar itu kini memakai bidang
-              navy yang sama dengan kartu insentif beranda (token{' '}
-              <code className="doc-inline">--navy</code> dan elevasi navy dari design system).
-              Tombol kembali kini satu komponen{' '}
-              <code className="doc-inline">BackButton</code> di seluruh halaman (kotak 44px, ikon
-              24/1,75, aria &ldquo;Kembali&rdquo;), dan selalu di tepi kiri top bar lewat prop{' '}
-              <code className="doc-inline">back</code> pada header peran — bukan lagi tautan teks
-              di ujung konten, bukan pula <code className="doc-inline">&lt;a href&gt;</code> yang
-              reload.
-              Aksi &ldquo;Tambah&rdquo; di konsol merchant dan dompet kurir pindah dari bilah
-              atas ke badan halaman sebagai tombol blok selebar kolom, jadi top bar tinggal
-              lonceng. Audit mobile form item menu (013) menyatukan bentuk dua tombol sheet —
-              Batal kini sepadan radius/tepi dengan Simpan (akar warisan <code className="doc-inline">pill</code>+tepi
-              2px di <code className="doc-inline">.merchant-actions</code> dibuang) dan sama lebar lewat
-              padding yang disamakan — menjadikan baris aksi <em>sticky</em> di dasar panel supaya
-              Simpan tak tergulir keluar layar, mematikan grip tarik-besar{' '}
-              <code className="doc-inline">textarea</code>, mengganti{' '}
-              <code className="doc-inline">&lt;select&gt;</code> Kategori dengan chip yang sama seperti
-              filter kategori halaman, serta memberi sheet perilaku modal sungguhan: back platform
-              menutup sheet (entri history), fokus terkurung di dalam dialog, dan handle palsu yang
-              tak pernah terender dihapus.
-              Audit mobile role kurir (014) merapikan seluruh konsol{' '}
-              <code className="doc-inline">/courier</code>: grid pintasan beranda kini dua kolom
-              sama lebar (<code className="doc-inline">repeat(2, minmax(0, 1fr))</code>, sebelumnya
-              terukur 256/158px karena sub <code className="doc-inline">nowrap</code> menggemukkan
-              min-content), judul kartu dan section naik ke 16px/600 supaya hierarki terbaca,
-              input nominal penarikan menerima keyboard numerik{' '}
-              (<code className="doc-inline">inputMode="numeric"</code>) dan punya cincin fokus lagi
-              lewat <code className="doc-inline">:focus-within</code>, tinggi tombol palsu pada
-              baris ringkasan dibuang, dan catatan proses internal (kode PRD/OQ, SLA sementara,
-              banner mock) tidak lagi tampil di layar kurir, pindah ke dokumen ini.
-              Kartu performa &ldquo;Tips 7 hari terakhir&rdquo; di beranda kurir kini bidang navy
-              (<code className="doc-inline">--navy</code>/<code className="doc-inline">--on-navy</code>,
-              pola sama dengan kartu insentif merchant) dengan elevasi navy supaya terbaca
-              mengambang, dan grafiknya ikut putih agar tidak tenggelam di atas navy. Kurir yang
-              menyelesaikan order kini dapat perayaan penuh seperti customer: blok centang + konfeti
-              yang sama (komponen bersama{' '}
-              <code className="doc-inline">OrderCelebration</code>, diekstrak dari{' '}
-              <code className="doc-inline">/order-arrived</code>) tampil sebagai overlay{' '}
-              <code className="doc-inline">.order-celebration-overlay</code> di atas layar detail,
-              bukan halaman baru, lalu tombolnya membawa kurir kembali ke daftar tugas.
-              Pelacakan order customer kini memakai status backend live sebagai satu-satunya
-              penggerak (stepper dan rincian mengikuti tahap order, bukan tombol demo), dan
-              customer bisa membatalkan order COD sendiri — sebelum kurir ditugaskan hold{' '}
-              <code className="doc-inline">released</code>, sesudahnya{' '}
-              <code className="doc-inline">reversed</code>, sekaligus menulis{' '}
-              <code className="doc-inline">orders.status = canceled</code>.
-              Notifikasi yang masuk saat aplikasi terbuka kini berbunyi lewat Web Audio
-              (<code className="doc-inline">hooks/useNotificationSound.ts</code>, nada disintesis —
-              tanpa berkas audio di <code className="doc-inline">public/</code>), dipicu hanya saat
-              jumlah belum-dibaca naik.
-              Manifest keempat peran kini hanya{' '}
-              <code className="doc-inline">display: standalone</code> —{' '}
-              <code className="doc-inline">fullscreen</code> dibuang dari{' '}
-              <code className="doc-inline">display_override</code> supaya status bar OS (jam,
-              baterai, sinyal) tetap tampil di app terpasang, bukan immersive.
-              Audit mobile panel admin (015) merapikan seluruh konsol{' '}
-              <code className="doc-inline">/admin</code>: kontras teks efek putusan dinaikkan
-              (<code className="doc-inline">opacity</code> dibuang), statline jadi grid 2×2,
-              pemilih customer merchant memakai bottom sheet (bukan{' '}
-              <code className="doc-inline">&lt;select&gt;</code> peramban), catatan internal pindah
-              ke dokumen ini, judul konsol seragam, putusan sengketa punya satu aksi dominan, badge
-              &ldquo;Baru&rdquo; dibedakan dari &ldquo;Investigasi&rdquo;, dan nominal JOD memakai
-              pemisah ribuan. Konsol ini kini juga punya layout desktop: dari 901px ia memakai
-              rail sidebar 248px + area konten selebar jendela (pola konsol Super Admin),
-              sementara di ponsel tetap 430px + bottom nav — keputusan PO 2026-10-11
-              (tercatat juga sebagai entri di bagian Changelog). Komposisi desktop
-              disusun ulang mengikuti referensi dashboard: topbar (judul + sub + lonceng),
-              baris KPI empat kartu, lalu panel berdampingan dalam kontainer 1180px yang
-              beralih ke dua kolom dari 1150px, bukan grid kartu mengalir.
-              Skala huruf{' '}
-              <code className="doc-inline">--text-sm..2xl</code> kini dipatok px — dulu{' '}
-              <code className="doc-inline">clamp(vw)</code> membuat tipe membesar mengikuti lebar
-              jendela padahal kolom aplikasi dikunci 430px — dan font Inter di-preload supaya tidak
-              ada kedipan swap. Sakelar mata uang IDR/JOD kini duduk di <strong>kaki hero
-              beranda tiap peran</strong> — customer, dapur merchant, dan kurir — bersama tombol
-              kurs live berikon koin, bukan lagi di bilah tiap halaman: nominal dirender sebagai{' '}
-              <em>satu</em> mata uang sesuai pilihan, disimpan per peran di{' '}
-              <code className="doc-inline">localStorage</code> (slice{' '}
-              <code className="doc-inline">preferences</code>, default JOD), sementara konsol Super
-              Admin tetap menampilkan pasangan dua baris. Kurs live diambil harian dari{' '}
-              <code className="doc-inline">fawazahmed0/exchange-api</code> (tanpa API key, cache 24
-              jam), dan label waktu sync-nya mengikuti locale + zona waktu device tiap user.
-              Layar masuk customer (<code className="doc-inline">/customer/signin</code>) kini
-              menyorot janji produk lewat carousel banner bergambar (komponen{' '}
-              <code className="doc-inline">AuthBanner</code>, aset lokal{' '}
-              <code className="doc-inline">public/assets/img/auth/</code>, 1000&times;410) yang
-              menggantikan paragraf tagline dua baris — tiap slide satu janji dari PRD aktif
-              (estimasi masak 15/25/35 menit, ongkir ditanggung merchant, COD), <em>alt</em> gambar
-              menyalin janjinya untuk pembaca layar, dan tinggi banner mengikuti rasio aset supaya
-              teks di dalam gambar tidak terpotong.
-              Rinciannya di bagian Changelog. Versi desain kini bernama <strong>EDISI 02 (UI v2)</strong>:
-              brand <code className="doc-inline">--sa7tein-orange</code>, teks{' '}
-              <code className="doc-inline">--text-primary</code>, latar{' '}
-              <code className="doc-inline">--bg-warm</code>, font Plus Jakarta Sans (self-host,
-              variabel 400-800), dan langit-langit radius naik ke 32px (
-              <code className="doc-inline">--radius-2xl</code>). Fondasi token terpasang di branch{' '}
-              <code className="doc-inline">ui-v2</code>; versi lama (EDISI 01) tetap di{' '}
-              <code className="doc-inline">main</code> dan tag{' '}
-              <code className="doc-inline">ui-v1-stable</code>. Aturan v2, status migrasi, dan cara
-              menghapus/mengembalikannya ada di <code className="doc-inline">docs/design/ui-v2.md</code>.
-              Beranda customer sudah diport ke EDISI 02: baris atas berisi alamat + satu kelompok kontrol
-              kaca (sakelar IDR/JOD, detail kurs, lonceng), sapaan bernama, kotak cari 48px dengan kursor
-              berkedip, <strong>banner promo</strong> yang menyorot toko sedang berdiskon
-              (<code className="doc-inline">dealsFrom</code>), chip kategori yang selalu tampil, kartu toko
-              bergaya daftar tetangga (foto 64px + panah kanan), dan bilah keranjang mengambang di atas bilah
-              bawah. Geraknya memakai token <code className="doc-inline">--motion-*</code>/<code className="doc-inline">--ease-*</code>:
-              umpan balik tekan, kotak ikon chip menskala (aktif 1.05 + <code className="doc-inline">--shadow-brand</code>),
-              kartu terangkat + foto zoom saat hover. Banner promo adalah <em>satu-satunya gradient</em> di repo
-              (token <code className="doc-inline">--promo-from</code>/<code className="doc-inline">--promo-to</code>),
-              keputusan desain EDISI 02 yang tercatat di DNA.md.
-              Metode bayar kini <strong>DANA</strong> (keputusan PO 2026-10-13): layar baru{' '}
-              <code className="doc-inline">/customer/payment-dana</code> menampilkan nomor Virtual
-              Account atau pola QRIS dengan hitung mundur, tombol salin, dan tiga state
-              (menunggu / dibayar / kedaluwarsa). Transfer manual legacy tidak lagi ditawarkan.
-              Semuanya masih <em>mock sandbox</em> — kode, pola QR, dan tombol simulasi tidak
-              memindahkan dana, dan kredensial DANA tidak pernah menyentuh browser (kontrak FE↔BE
-              di <code className="doc-inline">docs/integration/dana/be-contract.md</code>).
-            </p>
             <DocShellCtas />
+            <p className="doc-p">
+              Rincian tiap perubahan ada di bagian <strong>Changelog (36)</strong>, dan
+              tiap topik punya bagiannya sendiri di daftar isi. Sorotan terbaru:
+            </p>
+            <ul className="doc-list">
+              <li>
+                Metode bayar <strong>DANA</strong> (keputusan PO 2026-10-13): layar{' '}
+                <code className="doc-inline">/customer/payment-dana</code> menampilkan
+                nomor Virtual Account atau pola QRIS dengan hitung mundur dan tiga state
+                (menunggu / dibayar / kedaluwarsa). Masih mock sandbox; kredensial DANA
+                tidak pernah menyentuh browser (kontrak di{' '}
+                <code className="doc-inline">docs/integration/dana/be-contract.md</code>).
+              </li>
+              <li>
+                <strong>EDISI 02 (UI v2)</strong>: brand{' '}
+                <code className="doc-inline">--sa7tein-orange</code>, latar{' '}
+                <code className="doc-inline">--bg-warm</code>, font Plus Jakarta Sans,
+                langit-langit radius 32px. Aturan dan cara migrasi di{' '}
+                <code className="doc-inline">docs/design/ui-v2.md</code>.
+              </li>
+              <li>
+                Audit mobile 013 sampai 015 (form menu merchant, konsol kurir, panel CS):
+                baris aksi sheet jadi sticky, chip kategori menggantikan{' '}
+                <code className="doc-inline">&lt;select&gt;</code>, kontras dinaikkan, dan{' '}
+                <code className="doc-inline">/admin</code> punya layout desktop dari 901px.
+              </li>
+              <li>
+                Backend live: konsol CS menandai risiko customer lewat registri customers
+                dan <code className="doc-inline">customer_risk_flags</code>; checkout
+                menulis order lewat <code className="doc-inline">POST /orders</code> dan
+                antrean merchant membacanya kembali; notifikasi inbox per audience dengan
+                lonceng dan badge.
+              </li>
+            </ul>
           </div>
           {SECTIONS.map((Section, index) => (
             <Section key={DOC_NAV[index].id} />

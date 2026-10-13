@@ -5534,6 +5534,44 @@
         }
       ],
       "loc": "src/styles/system/_payment-dana.scss"
+    },
+    {
+      "id": "TASK-90338",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:39:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/fix-docs-hero.mjs (+83) — write via tool: import { readFileSync, w",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/fix-docs-hero.mjs"
+    },
+    {
+      "id": "TASK-90339",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:43:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss (+1/-1) — edit via tool: .doc-root .doc-preview { position: relat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
     }
   ]
 }

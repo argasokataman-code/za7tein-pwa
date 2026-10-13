@@ -15573,6 +15573,14 @@
     {
       "id": "TASK-90337",
       "shard": 14
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   "sa7tein": [
@@ -40363,6 +40371,14 @@
     {
       "id": "TASK-90337",
       "shard": 14
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -51336,6 +51352,10 @@
     },
     {
       "id": "TASK-90337",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
       "shard": 14
     }
   ],
@@ -64739,6 +64759,14 @@
     {
       "id": "TASK-90337",
       "shard": 14
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   "tool:": [
@@ -78016,6 +78044,14 @@
     },
     {
       "id": "TASK-90337",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
       "shard": 14
     }
   ],
@@ -93711,6 +93747,14 @@
     {
       "id": "TASK-90337",
       "shard": 14
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   "task-147": [
@@ -97102,6 +97146,10 @@
     },
     {
       "id": "TASK-90329",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90338",
       "shard": 14
     }
   ],
@@ -101337,6 +101385,14 @@
     {
       "id": "TASK-90337",
       "shard": 14
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   "task-149": [
@@ -104382,6 +104438,10 @@
     },
     {
       "id": "TASK-90336",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90339",
       "shard": 14
     }
   ],
@@ -112178,6 +112238,10 @@
     },
     {
       "id": "TASK-90297",
+      "shard": 14
+    },
+    {
+      "id": "TASK-90338",
       "shard": 14
     }
   ],
@@ -168135,6 +168199,10 @@
     {
       "id": "TASK-958",
       "shard": 1
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   "relative;": [
@@ -170007,6 +170075,10 @@
     {
       "id": "TASK-9191",
       "shard": 9
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   "(+20/-19)": [
@@ -170585,6 +170657,10 @@
     {
       "id": "TASK-9191",
       "shard": 9
+    },
+    {
+      "id": "TASK-90339",
+      "shard": 14
     }
   ],
   ".doc-section": [
@@ -189717,6 +189793,10 @@
     {
       "id": "TASK-13069",
       "shard": 13
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
     }
   ],
   "task-1371": [
@@ -202055,6 +202135,10 @@
     {
       "id": "TASK-9613",
       "shard": 10
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
     }
   ],
   "task-2828": [
@@ -277585,6 +277669,10 @@
     {
       "id": "TASK-90270",
       "shard": 14
+    },
+    {
+      "id": "TASK-90338",
+      "shard": 14
     }
   ],
   "writefile": [
@@ -279188,6 +279276,36 @@
   "bug-88037": [
     {
       "id": "BUG-88037",
+      "shard": 14
+    }
+  ],
+  "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/t/opencode/fix-docs-hero.mjs": [
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    }
+  ],
+  "task-90338": [
+    {
+      "id": "TASK-90338",
+      "shard": 14
+    }
+  ],
+  ".doc-preview": [
+    {
+      "id": "TASK-90339",
+      "shard": 14
+    }
+  ],
+  "relat": [
+    {
+      "id": "TASK-90339",
+      "shard": 14
+    }
+  ],
+  "task-90339": [
+    {
+      "id": "TASK-90339",
       "shard": 14
     }
   ]
