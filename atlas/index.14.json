@@ -5613,6 +5613,101 @@
         }
       ],
       "commit": "5295f1e"
+    },
+    {
+      "id": "TASK-90340",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:53:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss (+1/-1) — edit via tool: .doc-root .doc-p { font-size: var(--text",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
+    },
+    {
+      "id": "TASK-90341",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:55:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: public/icons/sa7tein-wordmark.svg (+27) — write via tool: <svg xmlns=\"http://www.w3.org/2000/svg\" ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "public/icons/sa7tein-wordmark.svg"
+    },
+    {
+      "id": "TASK-90342",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:56:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss (+2/-2) — edit via tool: .doc-root .doc-list li { position: relat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
+    },
+    {
+      "id": "TASK-90343",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:59:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss (+2/-1) — edit via tool: .doc-root .doc-section { margin-bottom: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
+    },
+    {
+      "id": "TASK-90344",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:00:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss (+2/-2) — edit via tool: .doc-root .doc-list { list-style: none; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
     }
   ]
 }

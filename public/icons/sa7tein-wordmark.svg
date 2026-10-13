@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 348" role="img" aria-label="Sa7tein">
+  <!-- bg = token --sa7tein-orange (#E44220) -->
+  <rect width="800" height="348" fill="#E44220"/>
+  <!-- white geometric-lettering, monoline -->
+  <g fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- s -->
+    <path d="M 116 150 C 110 132 88 127 72 137 C 58 146 62 160 80 167 C 98 174 118 179 118 196 C 118 213 97 221 79 214 C 66 209 57 199 55 188"/>
+    <!-- a -->
+    <path d="M 142 176 a 48 48 0 1 0 96 0 a 48 48 0 1 0 -96 0"/>
+    <path d="M 238 128 L 238 224"/>
+    <!-- t -->
+    <path d="M 447 140 L 447 200 C 447 216 456 224 470 223 C 480 222 486 216 489 208"/>
+    <path d="M 420 166 L 490 166"/>
+    <!-- e -->
+    <path d="M 592 176 C 592 150 574 130 550 130 C 522 130 504 152 504 178 C 504 204 524 222 552 222 C 572 222 586 214 592 202"/>
+    <path d="M 504 176 L 592 176"/>
+    <!-- i -->
+    <path d="M 630 128 L 630 224"/>
+    <path d="M 630 106 L 630 106"/>
+    <!-- n -->
+    <path d="M 676 224 L 676 128"/>
+    <path d="M 676 168 C 676 142 694 128 712 128 C 736 128 748 144 748 168 L 748 224"/>
+  </g>
+  <!-- 7 mark: navy, one step heavier than letters, overshoot balanced above/below -->
+  <path fill="none" stroke="#1F5E8C" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" d="M 278 146 C 306 108 366 100 392 118 C 399 123 398 134 390 146 C 374 174 344 200 318 218 C 310 224 306 232 310 240 C 314 248 326 250 342 246"/>
+</svg>
