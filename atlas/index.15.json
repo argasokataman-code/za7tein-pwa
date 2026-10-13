@@ -155,6 +155,29 @@
         }
       ],
       "loc": "public/__wm-test.html"
+    },
+    {
+      "id": "BUG-88045",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:34:57",
+      "tags": [
+        "css",
+        "ios",
+        "safe-area",
+        "cart"
+      ],
+      "summary": "Quick bar keranjang kepotong di iOS: bottom 76px statis, .bottom-nav tumbuh env(safe-area-inset-bottom) ~34px -> tertimpa (gap -25px). Fix: ",
+      "conn": [
+        {
+          "id": "BUG-88044",
+          "type": "relates",
+          "raw": "BUG-88044:relates"
+        }
+      ],
+      "loc": "src/styles/system/_home-v2.scss:207",
+      "commit": "0237fe6"
     }
   ]
 }
