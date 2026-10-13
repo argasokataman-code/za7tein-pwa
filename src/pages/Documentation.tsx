@@ -220,6 +220,14 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                Metode bayar di checkout kini <strong>dibaca dari BE</strong>: tabel publik{' '}
+                <code className="doc-inline">payment_methods</code> menyetir daftar, urutan, dan
+                status aktifnya (mock jadi cadangan). Label tetap teks kurasi karena kolom deskripsi
+                BE memuat kode internal; <code className="doc-inline">key</code> provider lama{' '}
+                <code className="doc-inline">xendit_*</code> dipetakan ke DANA di{' '}
+                <code className="doc-inline">src/api/payments.ts</code>.
+              </li>
+              <li>
                 Metode bayar <strong>DANA</strong> (keputusan PO 2026-10-13): layar{' '}
                 <code className="doc-inline">/customer/payment-dana</code> menampilkan
                 nomor Virtual Account atau pola QRIS dengan hitung mundur dan tiga state

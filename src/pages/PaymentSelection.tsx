@@ -5,9 +5,9 @@ import { CheckCircle2, Banknote, Landmark, QrCode, Wallet } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
-import { PAYMENT_METHODS } from '../data/merchant'
 import { switchBlockCopy, switchIsDown } from '../data/superadmin'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setPayment } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
@@ -25,6 +25,8 @@ export default function PaymentSelection() {
   const selected = useAppSelector((s) => s.cart.selectedPaymentId)
   const switches = useAppSelector((s) => s.superAdmin.switches)
   const listRef = useRef<HTMLDivElement>(null)
+  // Daftar + urutan metode datang dari BE (mock dulu, API menimpa).
+  const methods = useApiPaymentMethods()
   // Kill switch platform: SA bisa menutup COD saja, atau seluruh order baru
   // (maintenance). Layar ini yang menegakkannya, bukan konsol SA.
   const maintenanceCopy = switchBlockCopy('maintenance', switches)
@@ -33,8 +35,8 @@ export default function PaymentSelection() {
   // Radiogroup asli: satu item bisa di-Tab, panah berpindah pilihan. Tanpa ini
   // `role="radio"` menjanjikan perilaku papan ketik yang tidak ada.
   const [focusIndex, setFocusIndex] = useState(() => {
-    const i = PAYMENT_METHODS.findIndex((m) => m.id === selected)
-    return i >= 0 ? i : Math.max(0, PAYMENT_METHODS.findIndex((m) => !isBlocked(m.id)))
+    const i = methods.findIndex((m) => m.id === selected)
+    return i >= 0 ? i : Math.max(0, methods.findIndex((m) => !isBlocked(m.id)))
   })
 
   const choose = (id: string, label: string) => {
@@ -46,7 +48,7 @@ export default function PaymentSelection() {
   }
 
   const moveFocus = (dir: number) => {
-    const enabled = PAYMENT_METHODS.map((_, i) => i).filter((i) => !isBlocked(PAYMENT_METHODS[i].id))
+    const enabled = methods.map((_, i) => i).filter((i) => !isBlocked(methods[i].id))
     if (enabled.length === 0) return
     const at = enabled.indexOf(focusIndex)
     const next = enabled[(at + dir + enabled.length) % enabled.length]
@@ -84,7 +86,7 @@ export default function PaymentSelection() {
                 ref={listRef}
                 onKeyDown={onKeyDown}
               >
-                {PAYMENT_METHODS.map((m, index) => {
+                {methods.map((m, index) => {
                   const isSelected = selected === m.id
                   const blocked = isBlocked(m.id)
                   const reason = m.id === 'cod' ? codCopy : null

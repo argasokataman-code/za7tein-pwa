@@ -11,7 +11,6 @@ import { insertNotification } from '../api/notifications'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
-  PAYMENT_METHODS,
   PLATFORM_FEE_CUSTOMER_IDR,
   deliveryFeeFor,
   formatDistance,
@@ -21,6 +20,7 @@ import {
 } from '../data/merchant'
 import { mockMerchant } from '../data/merchant'
 import { mockUser } from '../data/user'
+import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import {
@@ -45,6 +45,8 @@ export default function PaymentAmount() {
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const proof = useAppSelector((s) => s.cart.transferProof)
+  // Daftar + urutan metode dari BE (mock dulu, API menimpa).
+  const methods = useApiPaymentMethods()
 
   const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
@@ -52,7 +54,7 @@ export default function PaymentAmount() {
   const deliverable = address ? isDeliverable(address) : false
   const fee = address ? deliveryFeeFor(address) : 0
   const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
-  const method = PAYMENT_METHODS.find((m) => m.id === paymentId) ?? PAYMENT_METHODS[0]
+  const method = methods.find((m) => m.id === paymentId) ?? methods[0]
   const needsProof = method.id === 'transfer'
   /** VA/QRIS (DANA): order dibuat di sini, pembayaran diselesaikan di layar berikutnya. */
   const isDana = method.id === 'dana_va' || method.id === 'dana_qris'

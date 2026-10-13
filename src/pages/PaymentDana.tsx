@@ -12,8 +12,9 @@ import { insertNotification } from '../api/notifications'
 import { BackButton } from '../components/ui/BackButton'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { formatCountdown } from '../data/courier'
-import { PAYMENT_METHODS, PLATFORM_FEE_CUSTOMER_IDR, deliveryFeeFor } from '../data/merchant'
+import { PLATFORM_FEE_CUSTOMER_IDR, deliveryFeeFor } from '../data/merchant'
 import { mockUser } from '../data/user'
+import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
@@ -69,7 +70,8 @@ export default function PaymentDana() {
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
 
-  const method = PAYMENT_METHODS.find((m) => m.id === paymentId)
+  const methods = useApiPaymentMethods()
+  const method = methods.find((m) => m.id === paymentId)
   const isVa = method?.id === 'dana_va'
   const isQris = method?.id === 'dana_qris'
 
