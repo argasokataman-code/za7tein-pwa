@@ -67,6 +67,15 @@ $press-scale: 0.97;
   }
 }
 
+// Chip kategori: legacy `app/part-07` memasang latar gelap (--overlay-strong)
+// di :hover. Di layar sentuh :hover lengket setelah tap, chip lalu menyisakan
+// kotak gelap di belakang ikon + teks. Umpan balik hover v2 sudah datang dari
+// skala kotak ikon, jadi latar hover lama dibuang.
+.category-btn:hover,
+.category-btn.active:hover {
+  background-color: transparent;
+}
+
 // Kartu yang bisa dibuka cukup berubah warna permukaannya: mengecilkan seluruh
 // kartu besar terasa berat, dan kartu berisi gambar akan tampak bergeser.
 .food-card:active {

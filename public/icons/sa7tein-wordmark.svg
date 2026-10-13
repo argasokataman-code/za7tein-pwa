@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 348" role="img" aria-label="Sa7tein">
-  <!-- bg = token --sa7tein-orange (#E44220) -->
-  <rect width="800" height="348" fill="#E44220"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 56 800 240" role="img" aria-label="Sa7tein">
+  <!-- bg = token --sa7tein-orange (#E44220); crop 0 56 800 240 = optical padding terbawah dilebihkan utk descender -->
+  <rect width="800" height="240" y="56" fill="#E44220"/>
   <!-- white geometric-lettering, monoline -->
   <g fill="none" stroke="#fff" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
     <!-- s -->
@@ -8,6 +8,8 @@
     <!-- a -->
     <path d="M 142 176 a 48 48 0 1 0 96 0 a 48 48 0 1 0 -96 0"/>
     <path d="M 238 128 L 238 224"/>
+    <!-- 7 mark: deep navy, one step heavier than letters, overshoot balanced above/below -->
+    <path stroke="#123A5E" stroke-width="28" d="M 272 144 C 300 106 360 98 386 116 C 393 121 392 132 384 144 C 368 172 338 198 312 216 C 304 222 300 230 304 238 C 308 246 320 248 336 244"/>
     <!-- t -->
     <path d="M 447 140 L 447 200 C 447 216 456 224 470 223 C 480 222 486 216 489 208"/>
     <path d="M 420 166 L 490 166"/>
@@ -21,6 +23,4 @@
     <path d="M 676 224 L 676 128"/>
     <path d="M 676 168 C 676 142 694 128 712 128 C 736 128 748 144 748 168 L 748 224"/>
   </g>
-  <!-- 7 mark: navy, one step heavier than letters, overshoot balanced above/below -->
-  <path fill="none" stroke="#1F5E8C" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" d="M 278 146 C 306 108 366 100 392 118 C 399 123 398 134 390 146 C 374 174 344 200 318 218 C 310 224 306 232 310 240 C 314 248 326 250 342 246"/>
 </svg>

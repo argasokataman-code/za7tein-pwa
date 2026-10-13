@@ -1,0 +1,81 @@
+{
+  "shard": 15,
+  "nodes": [
+    {
+      "id": "TASK-90349",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:20:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+12/-3) — edit via tool: // part-07 memasang latar GELAP (-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-90350",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:21:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+3/-12) — edit via tool: .category-btn:active {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-90351",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:21:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+15/-6) — edit via tool: &:active {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-90352",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:22:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: public/icons/sa7tein-wordmark.svg (+1/-1) — edit via tool: viewBox=\"0 56 800 240\" role=\"img\" aria-l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "public/icons/sa7tein-wordmark.svg"
+    }
+  ]
+}

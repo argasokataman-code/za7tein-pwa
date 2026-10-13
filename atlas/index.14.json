@@ -5750,6 +5750,82 @@
         }
       ],
       "commit": "bcfa31e"
+    },
+    {
+      "id": "TASK-90345",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:08:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: public/icons/sa7tein-wordmark.svg (+1/-1) — edit via tool: <rect width=\"800\" height=\"240\" y=\"56\" fi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "public/icons/sa7tein-wordmark.svg"
+    },
+    {
+      "id": "TASK-90346",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:10:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: index.html (+2/-3) — edit via tool: #boot-splash img { width: 240px; height:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "index.html"
+    },
+    {
+      "id": "TASK-90347",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:12:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: index.html (+1/-2) — edit via tool: <img src=\"/icons/sa7tein-wordmark.svg\" a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "index.html"
+    },
+    {
+      "id": "TASK-90348",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:14:17",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint && npm run build && rtk npm run scan passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
