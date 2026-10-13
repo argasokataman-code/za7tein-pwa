@@ -32,7 +32,7 @@ export function NotificationRow({ notification: n }: NotificationRowProps) {
     <li>
       <button
         type="button"
-        className={n.unread ? 'inbox-row inbox-row--unread' : 'inbox-row'}
+        className={`inbox-row inbox-row--${n.kind}${n.unread ? ' inbox-row--unread' : ''}`}
         aria-label={`${n.title}${n.unread ? ', belum dibaca' : ''}`}
         onClick={() => {
           dispatch(markRead(n.id))
@@ -44,9 +44,11 @@ export function NotificationRow({ notification: n }: NotificationRowProps) {
         </span>
 
         <span className="inbox-row__text">
-          <span className="inbox-row__title">{n.title}</span>
+          <span className="inbox-row__head">
+            <span className="inbox-row__title">{n.title}</span>
+            <span className="inbox-row__time">{n.time}</span>
+          </span>
           <span className="inbox-row__body">{n.body}</span>
-          <span className="inbox-row__time">{n.time}</span>
         </span>
       </button>
     </li>

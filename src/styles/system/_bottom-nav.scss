@@ -1,0 +1,56 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Bilah bawah (bottom nav) — EDISI 02 (UI v2).
+//
+// Bilahnya sendiri didefinisikan di `app/part-06.scss` dengan warna krem hangat
+// hardcoded (var(--bg-warm) / var(--border) / var(--text-secondary) / var(--orange-ink)). Berkas ini menggantinya
+// dengan permukaan netral v2 + aksen merek; ditulis di lapisan system (dimuat
+// terakhir) supaya menang pada kekhususan yang sama.
+//
+// Label aktif memakai `--orange-ink`, bukan `--sa7tein-orange` mentah: teks
+// 11px di atas putih butuh 4.5:1, dan oranye merek hanya ~3.6:1. Ikonnya boleh
+// oranye merek karena grafik hanya butuh 3:1 (DNA EDISI 02).
+// ═══════════════════════════════════════════════════════════════════════════
+
+.bottom-nav {
+  padding: var(--space-2) 0 calc(var(--space-2) + env(safe-area-inset-bottom));
+  /* Permukaan pekat TANPA `backdrop-filter` (audit 001 #6 / QL-05). Bilah ini
+     `position: fixed` dan selalu terlihat, jadi blur men-sampel ulang latar tiap
+     frame gulir. Dulu `rgba(…, 0.95)` + `blur(12px)`; opasitas dinaikkan ke 1
+     supaya konten yang lewat di belakangnya tidak tembus tanpa blur. */
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.nav-item {
+  gap: 2px;
+  padding: var(--space-1) var(--space-4);
+  color: var(--text-disabled);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+
+  transition: color var(--motion-fast) var(--ease-out);
+}
+
+/* Ikon berubah warna DAN menebal saat tab aktif — persis contoh v2
+   (`transition-colors`, stroke 1.8 → 2.4). Tanpa transisi, perpindahan tab
+   terasa sebagai kedipan, bukan gerakan. */
+.nav-item svg {
+  transition:
+    color var(--motion-fast) var(--ease-out),
+    stroke-width var(--motion-fast) var(--ease-out);
+}
+
+.nav-item.active {
+  color: var(--orange-ink);
+}
+
+.nav-item.active svg {
+  color: var(--sa7tein-orange);
+  stroke-width: 2.4;
+}
+
+.nav-cart-badge {
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+}

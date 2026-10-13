@@ -89,12 +89,17 @@ const cartSlice = createSlice({
         /** harga satuan setelah modifier, mis. Sate Ayam + Lontong */
         unitPrice?: number
         modifiers?: string
+        notes?: string
       }>,
     ) {
-      const { food, quantity = 1, unitPrice, modifiers } = action.payload
-      // Sate Ayam "Pedas" dan "Tidak Pedas" adalah baris terpisah di keranjang.
+      const { food, quantity = 1, unitPrice, modifiers, notes } = action.payload
+      // Sate Ayam "Pedas" dan "Tidak Pedas" adalah baris terpisah di keranjang;
+      // catatan beda juga jadi baris sendiri (dapurnya memasak beda).
       const existing = state.items.find(
-        (i) => i.id === food.id && (i.modifiers ?? '') === (modifiers ?? ''),
+        (i) =>
+          i.id === food.id &&
+          (i.modifiers ?? '') === (modifiers ?? '') &&
+          (i.notes ?? '') === (notes ?? ''),
       )
       if (existing) existing.quantity += quantity
       else
@@ -105,6 +110,7 @@ const cartSlice = createSlice({
           quantity,
           image: food.image,
           modifiers,
+          notes,
         })
     },
     setOrderStage(state, action: PayloadAction<OrderStage>) {

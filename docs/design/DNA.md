@@ -6,6 +6,16 @@ Dokumen ini berlaku untuk **fix, development, dan layar baru**. Sumber implement
 
 Sa7tein adalah antarmuka makanan hyperlocal yang hangat, jelas, dan cepat dipakai dengan satu tangan. Aksi utama terlihat pertama; status pesanan dan biaya dapat dipahami tanpa menebak. Copy menggunakan Bahasa Indonesia yang singkat dan spesifik. Nama zona, nominal, dan status harus berasal dari PRD aktif, bukan dari contoh layar lama.
 
+## Arah desain (dibaca sebelum menggambar)
+
+> Aplikasi pesan-antar makanan untuk pembeli hyperlocal, PWA mobile (mode native),
+> bahasa visual hangat-oranye, dial **ENERGY 2 / RHYTHM 2 / MOTION 1 / DENSITY 2 / FEEL 1**.
+
+Dial ini kontrak, bukan saran: layar baru mengikuti nilai ini, tidak menebak. MOTION **1** = hanya
+umpan mikro (tekan, hover ganti warna, chip). Parallax dipakai dengan izin tercatat (lihat di bawah),
+di luar itu gerak dekoratif tidak ditambah. DENSITY 2 = satu tugas primer per layar, tetap lega.
+FEEL 1 = tanpa haptic (PWA tidak punya jalur haptic yang konsisten).
+
 ## Aturan visual wajib
 
 | Dimensi | Kontrak | Sumber kode / verifikasi |
@@ -26,6 +36,25 @@ Sa7tein adalah antarmuka makanan hyperlocal yang hangat, jelas, dan cepat dipaka
 | PWA | Tiap prefix peran (`/customer/*`, `/merchant/*`, `/courier/*`, `/admin/*`) punya boot screen tanpa jeda buatan dan manifest sendiri; momentum gulir native dan safe area tetap hidup, tapi overscroll tidak memantul | `index.html`, manifest per peran, audit gestur |
 
 Gaya baru masuk `_system.scss`; jangan memperbesar stylesheet porting `_app.scss`. Ikon fungsi tidak memakai SVG inline. Foto dan ilustrasi dari `public/assets/`. Tanpa gradient, warna dekoratif baru, atau URL gambar eksternal tanpa keputusan desain tercatat.
+
+Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
+
+- **Lantai huruf mikro 12px** (`--text-xs`). Tidak ada lagi nilai 10px/11px untuk label kecil.
+- **Glow merek** (`--shadow-brand`) hanya menandai **aksi primer**, bukan umpan hover dan bukan
+  penanda status terpilih. Pemakaian lain dihapus di akarnya.
+- **Umpan hover** dibungkus `@media (hover: hover) and (pointer: fine)`; di layar sentuh ia tidak
+  pernah terlihat, jadi tidak ikut dimuat.
+- **Radius bersarang**: radius dalam = radius luar − padding. Bukan nilai terpisah.
+- **Permukaan `position: fixed` yang selalu terlihat tidak memakai `backdrop-filter`** (bilah bawah):
+  blur men-sampel ulang latar tiap frame gulir.
+- **Parallax** hanya lewat kelas `s7-parallax--*` dan lapisan otomatis di `_parallax.scss`
+  (satu properti `translate`, amplitudo 12-26px, `animation-timeline: view()`), dan mati total saat
+  `prefers-reduced-motion`. Tidak ada listener `scroll` baru untuk dekorasi.
+- **Easing `--ease-emphasized`** (overshoot melewati 1) hanya boleh di satu tempat sebagai motif
+  tanda tangan — sekarang `badge-pop` bilah bawah (diterima sebagai **CL-02**, alasan: badge butuh
+  "pasang" yang terbaca, bukan memantul). Transisi lain memakai `--ease-out`/`--ease-decelerate`.
+
+**Satu gradient tercatat, keputusan 2026-10-12:** banner promo beranda (`.home-promo`) memakai gradient biru `--promo-from` → `--promo-to` (`#175273` → `#1D648B`), warna diambil apa adanya dari prototype EDISI 02. Dipakai HANYA di komponen itu; aturan "tanpa gradient" tetap berlaku untuk elemen lain.
 
 **Pengecualian sadar, keputusan pemilik 2026-09-24 (diperbarui 2026-10-12):** teks putih (`--on-brand`) di atas `--sa7tein-orange` (`#E44220`) hanya mencapai kontras **4.12:1**, di bawah ambang WCAG AA 4.5:1 untuk teks normal. Ini dipertahankan karena identitas merek, bukan cacat yang menunggu diperbaiki. Pasangan yang lolos AA tetap dipakai untuk teks oranye di latar terang (`--orange-ink`, 5.99:1). Tombol berlabel 14px memakai `--orange-ink` sebagai latar bila target AA normal diwajibkan.
 

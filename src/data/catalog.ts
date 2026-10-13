@@ -1,60 +1,56 @@
-import { Cookie, CupSoda, UtensilsCrossed } from 'lucide-react'
+import { Cookie, CupSoda, Soup, UtensilsCrossed } from 'lucide-react'
 
 import type { Category, MenuItem } from '../types'
 import { foods } from './foods'
 
 export const MENU_LOW_STOCK_THRESHOLD = 5
 
+/**
+ * Taksonomi kategori customer (EDISI 02) — persis desain v2: `Semua` + empat
+ * kategori tetap (Nasi / Mie / Minuman / Camilan). Selalu tampil walau belum
+ * ada itemnya (seperti prototype), jadi barisnya tidak pernah menyusut jadi
+ * dua chip. Kolom `menus.category` BE terlalu kasar ("Makanan Utama" untuk
+ * nasi, sate, lontong sekaligus), jadi item dipetakan lewat `foodBucket`.
+ */
 export const CATEGORIES: Category[] = [
-  { id: 'Makanan Utama', label: 'Makanan', icon: UtensilsCrossed },
+  { id: 'Nasi', label: 'Nasi', icon: UtensilsCrossed },
+  { id: 'Mie', label: 'Mie', icon: Soup },
   { id: 'Minuman', label: 'Minuman', icon: CupSoda },
   { id: 'Camilan', label: 'Camilan', icon: Cookie },
 ]
 
-/** Override lowercase category values from foods.ts to match CATEGORIES ids. */
-const FOOD_CATEGORY: Record<string, string> = {
-  makanan: 'Makanan Utama',
-  minuman: 'Minuman',
+/**
+ * Aturan nama → salah satu dari empat kategori tetap. ponytail: heuristik nama,
+ * bukan kategori asli; kalau `menus.category` BE kelak cukup halus, buang
+ * fungsi ini dan pakai kolomnya. Urutan penting — "Sate Ayam"/"Lontong Sayur"
+ * masuk "Nasi" (kelompok makanan utama), bukan kategori sendiri.
+ */
+const BUCKET_BY_NAME: [RegExp, string][] = [
+  [/teh|jeruk|kopi|jus|susu|soda|minum/i, 'Minuman'],
+  [/mie|bakso|kwetiau|bihun/i, 'Mie'],
+  [/pisang|tahu|kerupuk|camilan|singkong|ubi|gorengan/i, 'Camilan'],
+  [/nasi|uduk|geprek|ayam|bebek|ikan|telur|sate|lontong|ketupat/i, 'Nasi'],
+]
+
+/** Bucket satu item dari nama + kategori BE. Tak dikenal → "Nasi". */
+export function foodBucket(category: string, name: string): string {
+  for (const [pattern, id] of BUCKET_BY_NAME) {
+    if (pattern.test(name)) return id
+  }
+  if (category === 'Minuman') return 'Minuman'
+  if (category === 'Camilan') return 'Camilan'
+  return 'Nasi'
 }
 
 /** Katalog ditulis datar; relasi ke toko ditambahkan di bawah (`MERCHANT_OF`). */
 const rawMenuSeed: MenuItem[] = [
   // ── foods.ts (5 items, spread modifierGroups) ──
-  {
-    ...foods[0],
-    category: FOOD_CATEGORY[foods[0].category] ?? foods[0].category,
-    modifierGroups: foods[0].modifierGroups,
-    stock: 3,
-    available: true,
-  },
-  {
-    ...foods[1],
-    category: FOOD_CATEGORY[foods[1].category] ?? foods[1].category,
-    modifierGroups: foods[1].modifierGroups,
-    stock: 25,
-    available: true,
-  },
-  {
-    ...foods[2],
-    category: FOOD_CATEGORY[foods[2].category] ?? foods[2].category,
-    modifierGroups: foods[2].modifierGroups,
-    stock: 0,
-    available: true,
-  },
-  {
-    ...foods[3],
-    category: FOOD_CATEGORY[foods[3].category] ?? foods[3].category,
-    modifierGroups: foods[3].modifierGroups,
-    stock: 18,
-    available: true,
-  },
-  {
-    ...foods[4],
-    category: FOOD_CATEGORY[foods[4].category] ?? foods[4].category,
-    modifierGroups: foods[4].modifierGroups,
-    stock: 40,
-    available: true,
-  },
+  { ...foods[0], stock: 3, available: true },
+  { ...foods[1], stock: 25, available: true },
+  { ...foods[2], stock: 0, available: true },
+  { ...foods[3], stock: 18, available: true },
+  { ...foods[4], stock: 40, available: true },
+
 
   // ── merchant menu items (10 items) ──
   {
@@ -228,9 +224,10 @@ const MERCHANT_OF: Record<string, string> = {
   'mm-10': 'am-2',
 }
 
-/** Katalog customer: item datar + pemiliknya. */
+/** Katalog customer: item datar + pemiliknya + bucket kategori dari nama. */
 export const menuSeed: MenuItem[] = rawMenuSeed.map((item) => ({
   ...item,
+  category: foodBucket(item.category, item.name),
   merchantId: MERCHANT_OF[item.id],
 }))
 

@@ -1,0 +1,384 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Detail menu — EDISI 02 (UI v2).
+//
+// Markup `/customer/menu/:id` ditulis ulang mengikuti sumber desain v2
+// (`docs/design/v2-source/src/components/FoodDetailModal.tsx`): judul di atas
+// foto, seksi berlabel huruf besar, pilihan modifier sebagai kartu bercentang,
+// catatan untuk dapur, dan bilah aksi bawah (kuantitas + tombol merek berisi
+// total). Kelas baru berawalan `mdd-*`; kelas lama `.menu-detail-*` tetap
+// dipakai oleh keadaan memuat (skeleton) dan "menu tidak ditemukan".
+//
+// Catatan quirk repo: `<button>` kena reset `border: 0` yang menang, jadi garis
+// tepi tombol ditulis sebagai `box-shadow: inset …`, bukan `border`.
+// ═══════════════════════════════════════════════════════════════════════════
+
+/* Foto hero: penuh, dengan judul di bagian bawah. */
+.menu-detail-hero-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* Tombol kembali & favorit jadi cakram putih di atas foto (gaya v2). */
+.menu-detail-header .btn-back,
+.menu-detail-header .favorite-header-btn {
+  border-radius: var(--radius-pill);
+
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-primary);
+
+  box-shadow: var(--shadow-md);
+}
+
+.mdd-hero-caption {
+  position: absolute;
+  right: var(--space-5);
+  bottom: var(--space-4);
+  left: var(--space-5);
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+}
+
+.mdd-hero-name {
+  margin: 0;
+
+  color: var(--on-brand);
+
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.mdd-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: var(--space-2) var(--space-3);
+
+  color: var(--on-brand);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.mdd-hero-store {
+  color: var(--on-brand);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.mdd-hero-stat {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+}
+
+/* ── Seksi berlabel ───────────────────────────────────────────────────────── */
+.mdd-section {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+}
+
+.mdd-label {
+  margin: 0;
+
+  color: var(--text-secondary);
+
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mdd-subhead {
+  margin: 0;
+
+  color: var(--text-primary);
+
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.mdd-text {
+  margin: 0;
+
+  color: var(--text-secondary);
+
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.mdd-readmore {
+  align-self: flex-start;
+
+  min-height: 0;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+  color: var(--sa7tein-orange);
+
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+/* ── Pilihan modifier ─────────────────────────────────────────────────────── */
+.mdd-choices {
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-2);
+
+  padding-top: var(--space-4);
+
+  border-top: 1px solid var(--border);
+}
+
+.mdd-choices__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-2);
+}
+
+.mdd-hint {
+  flex: 0 0 auto;
+
+  padding: 2px var(--space-2);
+
+  border-radius: var(--radius-pill);
+
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.mdd-hint--required {
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.mdd-choice {
+  display: flex;
+  align-items: center;
+
+  gap: var(--space-3);
+
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-3);
+
+  border: 0;
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+  color: var(--text-primary);
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  /* Garis tepi tombol lewat inset (lihat catatan quirk di atas). */
+  box-shadow: inset 0 0 0 1px var(--border);
+
+  transition:
+    background-color var(--motion-fast) var(--ease-out),
+    box-shadow var(--motion-fast) var(--ease-out);
+}
+
+.mdd-choice.is-active {
+  background: var(--orange-soft);
+  box-shadow: inset 0 0 0 1.5px var(--sa7tein-orange);
+}
+
+.mdd-choice__mark {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 22px;
+  height: 22px;
+
+  border-radius: var(--radius-sm);
+
+  color: var(--on-brand);
+
+  box-shadow: inset 0 0 0 1.5px var(--border-strong);
+}
+
+.mdd-choice__mark--radio {
+  border-radius: var(--radius-pill);
+}
+
+.mdd-choice.is-active .mdd-choice__mark {
+  background: var(--sa7tein-orange);
+  box-shadow: none;
+}
+
+.mdd-choice__label {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.mdd-choice__price {
+  flex: 0 0 auto;
+
+  color: var(--orange-ink);
+
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+/* ── Catatan untuk dapur ──────────────────────────────────────────────────── */
+.mdd-notes {
+  width: 100%;
+  padding: var(--space-3);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  background: var(--surface);
+  color: var(--text-primary);
+
+  font: inherit;
+  font-size: var(--text-sm);
+
+  resize: vertical;
+}
+
+.mdd-notes::placeholder {
+  color: var(--text-disabled);
+}
+
+.mdd-notes:focus-visible {
+  border-color: var(--sa7tein-orange);
+
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 1px;
+}
+
+/* ── Bilah aksi bawah ─────────────────────────────────────────────────────── */
+.mdd-qty {
+  display: inline-flex;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  flex: 0 0 auto;
+  padding: var(--space-1);
+
+  border-radius: var(--radius-lg);
+
+  background: var(--bg-warm);
+}
+
+.mdd-qty__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--touch-min);
+  height: var(--touch-min);
+
+  border: 0;
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+  color: var(--text-primary);
+
+  box-shadow: var(--shadow-sm);
+
+  cursor: pointer;
+
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.mdd-qty__btn:active {
+  transform: scale(0.92);
+}
+
+.mdd-qty__btn:disabled {
+  opacity: 0.4;
+
+  cursor: default;
+}
+
+.mdd-qty__value {
+  min-width: var(--space-5);
+
+  color: var(--text-primary);
+
+  font-size: var(--text-sm);
+  font-weight: 800;
+  text-align: center;
+}
+
+.mdd-add {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-2);
+
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+
+  border: 0;
+  border-radius: var(--radius-lg);
+
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+
+  box-shadow: var(--shadow-brand);
+
+  cursor: pointer;
+
+  transition: background-color var(--motion-fast) var(--ease-out);
+}
+
+.mdd-add:hover {
+  background: var(--orange-deep);
+}
+
+.mdd-add__label {
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mdd-add__total {
+  flex: 0 0 auto;
+}

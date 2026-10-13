@@ -10,6 +10,9 @@
   --orange-soft-ink: #9E3416;
   --orange-deep: #C9361A;
   --orange-soft: #FFF0EB;
+  /* Garis tepi kartu berlatar `--orange-soft` (mis. notifikasi belum dibaca).
+     Satu peran: jangan pakai untuk teks atau isian. */
+  --orange-border: #FED7AA;
 
   --bg-warm: #F4F4F6;
   --surface: #FFFFFF;
@@ -39,6 +42,13 @@
   --info: #0284C7;
   --info-ink: #0369A1;
   --info-soft: #F0F9FF;
+
+  // Banner promo beranda (keputusan desain UI v2, 2026-10-12). Satu-satunya
+  // gradient di repo: dipakai HANYA oleh `.home-promo`, dan warnanya diambil
+  // apa adanya dari prototype EDISI 02 — bukan warna dekoratif baru. Aturan
+  // "tanpa gradient" tetap berlaku untuk elemen lain (DNA.md §aturan visual).
+  --promo-from: #175273;
+  --promo-to: #1D648B;
 
   --border: #E2E8F0;
   --border-strong: #CBD5E1;

@@ -2,68 +2,72 @@
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Kartu menu (`FoodCard`) — dipakai di menu toko, hasil pencarian, favorit,
-// dan strip "Recommended" di Search. Redesign mengikuti mockup: foto → nama →
-// harga → satu baris meta (waktu · jarak · rating) → tombol lebar penuh.
+// dan strip "Recommended" di Search. Redesign mengikuti kartu v2: foto → nama →
+// satu baris meta (rating · waktu · jarak) → baris harga dengan tombol `+`.
 //
-// Masalah versi lama: nama dan harga berada di SATU baris (`space-between`),
-// dan tiap baris punya margin sendiri. Di kartu sempit harga "Rp28.000 · ±1,22
-// JOD" yang panjang memecah nama jadi tiga baris dan menyelip di tengahnya,
-// sementara isi kartu menumpuk ke bawah dengan jarak tak seragam.
-//
-// Aturan utama di sini: **setiap bagian tingginya dikunci** (nama 2 baris, meta
-// 2 baris, harga 1 baris, foto 180px, tombol 44px) dan tombol dipin ke dasar
-// kartu. Dengan begitu kartu berisi nama pendek maupun panjang tetap sama
-// tinggi dan tombolnya sejajar — tidak ada kartu yang beda ukuran.
+// EDISI 02: kartu dibuat lebih hidup — naik saat hover + bayangan, foto zoom
+// halus, pill diskon oranye "Hemat N%", bintang amber, dan tombol tambah jadi
+// lingkaran merek (dulu tombol lebar penuh "Tambah", datar).
 //
 // Permukaan kartu diambil dari `card-surface` (--surface + --border + radius-lg).
-// Sebelumnya tepinya datang dari stylesheet porting `#EDE4DC` — cokelat yang
-// tidak sama dengan `--border` dan tidak ikut apa pun saat token diubah.
 // ═══════════════════════════════════════════════════════════════════════════
 
 .food-card {
   @include card-surface;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   height: 100%;
+
+  transition:
+    box-shadow var(--motion-standard) var(--ease-out),
+    transform var(--motion-standard) var(--ease-out);
 }
 
-// Foto tinggi tetap supaya pita gambar identik di semua kartu.
+.food-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+// Foto tinggi tetap supaya pita gambar identik di semua kartu; `overflow: hidden`
+// yang menahan zoom hover di dalam tepi bersudut.
 .food-card-image {
   position: relative;
   flex: 0 0 auto;
+  overflow: hidden;
   height: 180px;
 }
 
-// Badge diskon: dulunya digayakan lewat `.deals-section` (strip Super Deals di
-// beranda). Strip itu kini ada di halaman toko, jadi gayanya diangkat ke sini
-// supaya berlaku di mana pun `FoodCard` dipakai. Charcoal di atas `--bg-warm`,
-// bukan putih di atas oranye: putih 3.36:1 gagal AA untuk teks 12px.
+.food-card-image img {
+  transition: transform var(--motion-emphasis) var(--ease-out);
+}
+
+.food-card:hover .food-card-image img {
+  transform: scale(1.05);
+}
+
+// Pill diskon: oranye merek, teks putih tebal ("Hemat N%") — sinyal yang jauh
+// lebih hidup daripada lencana krem-abu sebelumnya. Ditaruh kiri-bawah agar
+// tidak bertabrakan dengan tombol hati di kanan-atas.
 .discount-badge {
   position: absolute;
-  top: var(--space-3);
-  left: var(--space-3);
-  display: inline-flex;
-  align-items: baseline;
-  gap: 1px;
-  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-3);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  background: var(--bg-warm);
-  color: var(--text-primary);
-}
+  // `inset` (bukan `top`/`left` terpisah) supaya menimpa aturan lama di `app/`
+  // yang menyetel `top` — kalau tidak, `top` + `bottom` bareng = melar setinggi
+  // foto (bug: lencana jadi pilar oranye).
+  inset: auto auto var(--space-2) var(--space-2);
 
-.discount-badge__pct {
-  color: var(--text-primary);
-  font-size: var(--text-base);
-  font-weight: 800;
-  line-height: 1;
-}
+  padding: var(--space-1) var(--space-2);
 
-.discount-badge__off {
-  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+
+  background: var(--orange-ink);
+  color: var(--on-brand);
+
   font-size: var(--text-xs);
-  font-weight: 600;
-  line-height: 1;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .food-card-content {
@@ -71,11 +75,6 @@
   display: flex;
   flex-direction: column;
   padding: var(--space-4);
-}
-
-.food-name-price {
-  display: block;
-  margin: 0;
 }
 
 .food-name {
@@ -88,30 +87,35 @@
 
   margin: 0;
   font-size: var(--text-base);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.3;
   color: var(--text-primary);
+
+  transition: color var(--motion-fast) var(--ease-out);
 }
 
-.food-price {
-  display: block;
-  margin-top: var(--space-2);
+.food-card:hover .food-name {
+  color: var(--sa7tein-orange);
+}
 
-  // Satu baris dikunci — harga ber-JOD maupun "Rp0" sama tinggi.
-  white-space: nowrap;
+// Deskripsi singkat (BE `menus.description`) — satu baris, dikunci supaya
+// tinggi kartu tetap sebanding. Mengisi kartu menu toko yang sebelumnya cuma
+// nama + harga.
+.food-desc {
+  display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 
-  font-size: var(--text-sm);
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--orange-ink);
+  margin: var(--space-1) 0 0;
+
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.4;
 }
 
-// Waktu/jarak + rating menyatu dalam SATU baris yang dikunci (tidak membalut),
-// jadi kartu sempit dan lebar sama tinggi. `margin-bottom` memberi jarak minimum
-// ke tombol: di daftar satu kolom tidak ada ruang sisa, jadi `margin-top: auto`
-// pada tombol jatuh ke 0 dan tombol menempel ke baris meta.
+// Rating + waktu + jarak menyatu dalam SATU baris yang dikunci (tidak membalut),
+// jadi kartu sempit dan lebar sama tinggi.
 .food-meta {
   display: flex;
   flex-wrap: nowrap;
@@ -120,7 +124,6 @@
   overflow: hidden;
   min-height: calc(1.2em);
   margin-top: var(--space-2);
-  margin-bottom: var(--space-3);
 
   font-size: var(--text-xs);
   white-space: nowrap;
@@ -132,17 +135,83 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  margin-bottom: 0;
 }
 
-// Rating lebih tegas daripada info logistik — faktor keputusan utama.
+// Bintang amber — token --star, bukan mewarisi abu meta.
+.food-rating svg {
+  color: var(--star);
+}
+
 .food-rating .rating-value {
+  color: var(--text-primary);
   font-weight: 700;
 }
 
-// Tombol menempel di dasar kartu; jarak minimum dari meta dijaga `auto`.
-.food-card-content .buy-now-btn {
+.food-rating .rating-count {
+  color: var(--text-secondary);
+}
+
+// Waktu masak dari BE (`cook_minutes`) — ikon jam + "N mnt".
+.food-cook {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+/* Baris meta kosong (BE belum kirim rating/waktu) ditandai `-` supaya terlihat,
+   bukan bolong. */
+.food-meta__empty {
+  color: var(--text-disabled);
+  font-weight: 600;
+}
+
+.separator {
+  color: var(--text-disabled);
+}
+
+// Baris harga: harga di kiri, tombol `+` bulat di kanan, dipisah garis tipis —
+// dipin ke dasar kartu supaya sejajar antar kartu.
+.food-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
   margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.food-price {
+  // Satu baris dikunci — harga ber-JOD maupun "Rp0" sama tinggi.
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  font-size: var(--text-base);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--orange-ink);
+}
+
+.food-card-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  width: var(--touch-min);
+  height: var(--touch-min);
+
+  border-radius: var(--radius-pill);
+
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+
+  transition: background-color var(--motion-fast) var(--ease-out);
+}
+
+.food-card-add:hover {
+  background: var(--orange-deep);
 }
 
 // Grid hasil pencarian/favorit di stylesheet lama menyalakan kolom dari media
@@ -152,4 +221,25 @@
 // untuk satu baris meta seperti mockup, dan semua kartu sebangun.
 .favorites-grid {
   grid-template-columns: 1fr;
+  // Satu kolom: tiap kartu setinggi isinya sendiri (`start`), bukan ditarik
+  // setinggi kartu terpanjang. Stretch dulu meninggalkan ruang kosong besar di
+  // bawah baris harga pada kartu yang isinya lebih pendek.
+  align-items: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .food-card,
+  .food-card-image img,
+  .food-name,
+  .food-card-add {
+    transition: none;
+  }
+
+  .food-card:hover {
+    transform: none;
+  }
+
+  .food-card:hover .food-card-image img {
+    transform: none;
+  }
 }

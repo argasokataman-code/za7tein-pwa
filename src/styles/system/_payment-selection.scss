@@ -1,8 +1,8 @@
 // ── /payment-selection (customer) ─────────────────────────────────────────
 // Audit 007 (anti-slop/audit-007-2026-10-10.md). Halaman ini masih memakai
-// stylesheet porting `app/part-11.scss`: warna mentah (oranye #F15A37, bukan
+// stylesheet porting `app/part-11.scss`: warna mentah (oranye var(--sa7tein-orange), bukan
 // --sa7tein-orange), padding atas 104px sisa header `fixed`, penggulung
-// bersarang, dan teks abu #6B6865 di atas kartu terpilih (1,64:1). Blok ini
+// bersarang, dan teks abu var(--text-secondary) di atas kartu terpilih (1,64:1). Blok ini
 // memetakan kelasnya ke token + invarian tata letak tanpa menyunting app/.
 // Angka kontras dihitung dari _tokens.scss; ukuran diverifikasi di jendela
 // customer 390px (jendela e2e).
@@ -57,7 +57,7 @@
 }
 
 // Terpilih = permukaan hangat + tepi merek. Isian oranye pekat lama
-// (#F15A37) menaruh teks abu di 1,64:1; di atas --orange-soft token lolos AA
+// (var(--sa7tein-orange)) menaruh teks abu di 1,64:1; di atas --orange-soft token lolos AA
 // (navy 10,2:1, sekunder 5,3:1).
 .payment-item.selected,
 .payment-item.selected:hover {
@@ -86,7 +86,7 @@
   color: var(--on-brand);
 }
 
-// Radio: oranye merek, bukan #F15A37.
+// Radio: oranye merek, bukan var(--sa7tein-orange).
 .radio-outer {
   border-color: var(--border-strong);
 }

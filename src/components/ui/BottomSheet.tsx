@@ -4,6 +4,8 @@ import { createPortal } from 'react-dom'
 interface BottomSheetProps {
   open: boolean
   title?: string
+  /** Dipakai untuk `aria-label` saat panel membawa header sendiri (`title` kosong). */
+  ariaLabel?: string
   onClose: () => void
   children: ReactNode
 }
@@ -11,7 +13,7 @@ interface BottomSheetProps {
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-export function BottomSheet({ open, title, onClose, children }: BottomSheetProps) {
+export function BottomSheet({ open, title, ariaLabel, onClose, children }: BottomSheetProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const sheetKey = useId()
   /* `history.back()` yang kita picu sendiri memunculkan `popstate`; di dev
@@ -101,7 +103,7 @@ export function BottomSheet({ open, title, onClose, children }: BottomSheetProps
         className="sheet-panel"
         role="dialog"
         aria-modal="true"
-        aria-label={title}
+        aria-label={ariaLabel ?? title}
         ref={panelRef}
         tabIndex={-1}
         onKeyDown={onKeyDown}

@@ -1,14 +1,14 @@
 .wallet-badge.remove {
-  color:#202020;
-  background:#dc2626;
+  color:var(--text-primary);
+  background:var(--danger);
   text-decoration:none;
   transition:background .2s;
   display:inline-block
 }
 
 .wallet-badge.remove:hover {
-  color:#202020;
-  background:#b91c1c
+  color:var(--text-primary);
+  background:var(--danger)
 }
 
 .wallet-footer-btn {
@@ -137,7 +137,7 @@
 }
 
 .card-checkbox-custom {
-  border:2px solid #6B6865;
+  border:2px solid var(--text-secondary);
   border-radius:50%;
   flex-shrink:0;
   width:22px;
@@ -147,8 +147,8 @@
 }
 
 .card-radio:checked+.card-checkbox-custom {
-  background:#F15A37;
-  border-color:#F15A37
+  background:var(--sa7tein-orange);
+  border-color:var(--sa7tein-orange)
 }
 
 .card-radio:checked+.card-checkbox-custom:after {
@@ -164,7 +164,7 @@
 }
 
 .use-default-text {
-  color:#6B6865;
+  color:var(--text-secondary);
   font-size:var(--text-xs)
 }
 
@@ -226,7 +226,7 @@
   }}
 
 .card-radio {
-  accent-color:#F15A37;
+  accent-color:var(--sa7tein-orange);
   width:22px;
   height:22px
 }
@@ -242,7 +242,7 @@
 }
 
 .add-card-preview {
-  color:#202020;
+  color:var(--text-primary);
   background:var(--sa7tein-orange);
   border-radius:var(--radius-lg);
   flex-direction:column;
@@ -399,30 +399,30 @@
 }
 
 .verify-icon-email {
-  color:#C9431F
+  color:var(--orange-ink)
 }
 
 .verify-heading {
-  color:#202020;
+  color:var(--text-primary);
   margin:0 0 8px;
   font-size:var(--text-lg);
   font-weight:700
 }
 
 .verify-sub {
-  color:#6B6865;
+  color:var(--text-secondary);
   margin:0 0 24px;
   font-size:var(--text-sm)
 }
 
 .verify-resend {
-  color:#6B6865;
+  color:var(--text-secondary);
   margin:24px 0 0;
   font-size:var(--text-xs)
 }
 
 .resend-link {
-  color:#C9431F;
+  color:var(--orange-ink);
   text-decoration:none
 }
 
@@ -434,10 +434,10 @@
 }
 
 .otp-box {
-  color:#202020;
+  color:var(--text-primary);
   text-align:center;
   background:#FFFFFF;
-  border:2px solid #DFD2C6;
+  border:2px solid var(--border-strong);
   border-radius:var(--radius-md);
   width:48px;
   height:56px;
@@ -446,7 +446,7 @@
 }
 
 .otp-box:focus {
-  border-color:#F15A37;
+  border-color:var(--sa7tein-orange);
   outline:none
 }
 
@@ -472,10 +472,10 @@
 }
 
 .numpad-btn {
-  color:#202020;
+  color:var(--text-primary);
   cursor:pointer;
   background:#FFFFFF;
-  border:1px solid #DFD2C6;
+  border:1px solid var(--border-strong);
   border-radius:var(--radius-md);
   justify-content:center;
   align-items:center;
@@ -486,7 +486,7 @@
 }
 
 .numpad-btn:active {
-  background:#DFD2C6
+  background:var(--border-strong)
 }
 
 .numpad-empty {
@@ -496,7 +496,7 @@
 }
 
 .numpad-back {
-  color:#6B6865
+  color:var(--text-secondary)
 }
 
 .numpad-back svg {
@@ -514,7 +514,7 @@
 }
 
 .success-icon-circle {
-  background:#F15A37;
+  background:var(--sa7tein-orange);
   border-radius:50%;
   justify-content:center;
   align-items:center;
@@ -525,14 +525,14 @@
 }
 
 .success-title {
-  color:#202020;
+  color:var(--text-primary);
   margin:0 0 12px;
   font-size:var(--text-lg);
   font-weight:700
 }
 
 .success-text {
-  color:#6B6865;
+  color:var(--text-secondary);
   max-width:320px;
   margin:0 0 32px;
   font-size:var(--text-sm)
@@ -548,7 +548,7 @@
 }
 
 .security-row {
-  border-bottom:1px solid #DFD2C6;
+  border-bottom:1px solid var(--border-strong);
   justify-content:space-between;
   align-items:center;
   padding:16px 12px;
@@ -560,7 +560,7 @@
 }
 
 .security-row-label {
-  color:#6B6865;
+  color:var(--text-secondary);
   font-size:var(--text-sm);
   font-weight:500
 }
@@ -571,7 +571,7 @@
 }
 
 .security-row-link svg {
-  color:#6B6865
+  color:var(--text-secondary)
 }
 
 .help-search-wrap {
@@ -584,12 +584,12 @@
 }
 
 .help-search-wrap svg {
-  color:#6B6865;
+  color:var(--text-secondary);
   flex-shrink:0
 }
 
 .help-search-input {
-  color:#202020;
+  color:var(--text-primary);
   background:0 0;
   border:none;
   flex:1;

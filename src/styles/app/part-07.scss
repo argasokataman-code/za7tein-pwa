@@ -1,15 +1,15 @@
 .category-btn.active {
   color:#FFFFFF;
-  background-color:#F15A37;
-  border-color:#F15A37
+  background-color:var(--sa7tein-orange);
+  border-color:var(--sa7tein-orange)
 }
 
 .category-btn:hover {
-  background-color:#27272799
+  background-color:var(--overlay-strong)
 }
 
 .category-btn.active:hover {
-  background-color:#f94602
+  background-color:var(--sa7tein-orange)
 }
 
 .deals-section {
@@ -23,7 +23,7 @@
   }}
 
 .see-all-link {
-  color:#C9431F;
+  color:var(--orange-ink);
   font-size:var(--text-sm);
   font-weight:600;
   text-decoration:none;
@@ -51,7 +51,7 @@
 .food-card {
   scroll-snap-align:start;
   background-color:#FFFFFF;
-  border:1px solid #EDE4DC;
+  border:1px solid var(--border);
   border-radius:var(--radius-lg);
   flex-shrink:0;
   width:280px;
@@ -78,9 +78,9 @@
 }
 
 .discount-badge {
-  color:#202020;
+  color:var(--text-primary);
   z-index:2;
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   border-radius:var(--radius-sm);
   padding:4px 10px;
   font-size:var(--text-xs);
@@ -128,7 +128,7 @@
 }
 
 .food-name {
-  color:#202020;
+  color:var(--text-primary);
   flex:1;
   margin:0;
   font-size:var(--text-base);
@@ -136,13 +136,13 @@
 }
 
 .food-price {
-  color:#202020;
+  color:var(--text-primary);
   font-size:var(--text-base);
   font-weight:700
 }
 
 .food-delivery-info {
-  color:#6B6865;
+  color:var(--text-secondary);
   align-items:center;
   gap:6px;
   margin-bottom:8px;
@@ -151,13 +151,13 @@
 }
 
 .food-delivery-info svg {
-  color:#6B6865;
+  color:var(--text-secondary);
   width:14px;
   height:14px
 }
 
 .food-delivery-info .separator {
-  color:#6B6865;
+  color:var(--text-secondary);
   margin:0 4px
 }
 
@@ -174,20 +174,20 @@
 }
 
 .food-rating .rating-value {
-  color:#C9431F;
+  color:var(--orange-ink);
   font-size:var(--text-sm);
   font-weight:600
 }
 
 .food-rating .rating-count {
-  color:#6B6865;
+  color:var(--text-secondary);
   font-size:var(--text-xs)
 }
 
 .buy-now-btn {
   color:#FFFFFF;
   cursor:pointer;
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   border:none;
   border-radius:var(--radius-md);
   width:100%;
@@ -198,7 +198,7 @@
 }
 
 .buy-now-btn:hover {
-  background-color:#f94602;
+  background-color:var(--sa7tein-orange);
   transform:translateY(-2px);
   box-shadow:var(--shadow-brand)
 }
@@ -245,7 +245,7 @@
   }}
 
 .ad-title {
-  color:#202020;
+  color:var(--text-primary);
   flex:1;
   margin:0;
   font-size:var(--text-lg);
@@ -278,10 +278,10 @@
   }}
 
 .ad-cta {
-  color:#202020;
+  color:var(--text-primary);
   cursor:pointer;
   background-color:rgba(32, 32, 32, 0.45);
-  border:1px solid #EDE4DC;
+  border:1px solid var(--border);
   border-radius:var(--radius-lg);
   align-self:flex-start;
   padding:8px 16px;
@@ -339,7 +339,7 @@
 
 .hot-deal-card {
   background-color:#FFFFFF;
-  border:1px solid #EDE4DC;
+  border:1px solid var(--border);
   border-radius:var(--radius-lg);
   align-items:center;
   gap:12px;
@@ -364,7 +364,7 @@
 }
 
 .hot-deal-title {
-  color:#202020;
+  color:var(--text-primary);
   white-space:nowrap;
   text-overflow:ellipsis;
   font-size:var(--text-sm);
@@ -373,7 +373,7 @@
 }
 
 .hot-deal-meta,.hot-deal-rating {
-  color:#6B6865;
+  color:var(--text-secondary);
   white-space:nowrap;
   text-overflow:ellipsis;
   font-size:var(--text-xs);
@@ -381,7 +381,7 @@
 }
 
 .hot-deal-price {
-  color:#202020;
+  color:var(--text-primary);
   font-size:var(--text-sm);
   font-weight:600
 }
@@ -389,7 +389,7 @@
 .hot-deal-add {
   color:#FFFFFF;
   cursor:pointer;
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   border:none;
   border-radius:var(--radius-lg);
   padding:8px 14px;
@@ -431,7 +431,7 @@
   }}
 
 .search-screen,.filter-screen {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   flex-direction:column;
   height:var(--app-vh);
   padding-bottom:24px;
@@ -440,7 +440,7 @@
 }
 
 .search-header {
-  color:#202020;
+  color:var(--text-primary);
   align-items:center;
   gap:12px;
   padding:70px 20px 12px;
@@ -454,7 +454,7 @@
 }
 
 .back-btn {
-  color:#202020;
+  color:var(--text-primary);
   background-color:#FFFFFF;
   border-radius:50%;
   justify-content:center;
@@ -484,14 +484,14 @@
 }
 
 .search-section-header h2 {
-  color:#202020;
+  color:var(--text-primary);
   margin:0;
   font-size:var(--text-base);
   font-weight:600
 }
 
 .link-btn {
-  color:#C9431F;
+  color:var(--orange-ink);
   cursor:pointer;
   background:0 0;
   border:none;
@@ -507,10 +507,10 @@
 }
 
 .chip {
-  color:#202020;
+  color:var(--text-primary);
   cursor:pointer;
   background-color:#FFFFFF;
-  border:1px solid #EDE4DC;
+  border:1px solid var(--border);
   border-radius:var(--radius-lg);
   align-items:center;
   gap:6px;
@@ -521,12 +521,12 @@
 }
 
 .chip.active {
-  color:#C9431F;
-  border-color:#F15A37
+  color:var(--orange-ink);
+  border-color:var(--sa7tein-orange)
 }
 
 .filter-sheet {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   min-height:var(--app-vh);
   padding:70px 20px 24px
 }
@@ -539,14 +539,14 @@
 }
 
 .filter-header h1 {
-  color:#202020;
+  color:var(--text-primary);
   margin:0 auto;
   font-size:var(--text-lg);
   font-weight:700
 }
 
 .close-btn {
-  color:#202020;
+  color:var(--text-primary);
   background-color:#FFFFFF;
   border-radius:50%;
   justify-content:center;
@@ -564,14 +564,14 @@
 }
 
 .filter-title {
-  color:#202020;
+  color:var(--text-primary);
   margin-bottom:10px;
   font-size:var(--text-sm);
   font-weight:600
 }
 
 .price-range {
-  color:#202020;
+  color:var(--text-primary);
   justify-content:space-between;
   margin-bottom:8px;
   font-size:var(--text-xs);
@@ -579,12 +579,12 @@
 }
 
 .range-input {
-  accent-color:#F15A37;
+  accent-color:var(--sa7tein-orange);
   width:100%
 }
 
 .radio-item {
-  color:#202020;
+  color:var(--text-primary);
   align-items:center;
   gap:10px;
   margin:8px 0;

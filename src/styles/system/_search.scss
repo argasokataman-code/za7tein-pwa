@@ -2,7 +2,7 @@
 // Halaman "Search" (dan chip bersama yang dipakai Filter).
 //
 // Chrome layar ini masih datang dari stylesheet porting (`app/part-06/07`)
-// dengan warna mentah `#EDE4DC` / `#202020` / `#6B6865` / `#C9431F`. Partial ini
+// dengan warna mentah `var(--border)` / `var(--text-primary)` / `var(--text-secondary)` / `var(--orange-ink)`. Partial ini
 // memetakannya ke token design system — permukaan `--surface`, tepi `--border`,
 // teks `--text-primary` / `--text-secondary`, aksen `--orange-ink`. Tidak ada
 // nilai mentah di sini; `.chip` sengaja ikut ditata karena dipakai bersama oleh

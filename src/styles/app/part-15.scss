@@ -1,5 +1,5 @@
 .profile2.active .profile3 {
-  color:#C9431F
+  color:var(--orange-ink)
 }
 
 body.profile-flow-page {
@@ -19,7 +19,7 @@ body.profile-flow-page {
 }
 
 .profile-flow-page {
-  background:#FFF9F4;
+  background:var(--bg-warm);
   min-height:var(--app-vh);
   padding:0
 }
@@ -35,7 +35,7 @@ body.profile-flow-page {
 
 .profile-flow-header {
   z-index:5;
-  background:#FFF9F4;
+  background:var(--bg-warm);
   align-items:center;
   gap:16px;
   padding:12px 0 20px;
@@ -45,7 +45,7 @@ body.profile-flow-page {
 }
 
 .back-btn-profile {
-  color:#202020;
+  color:var(--text-primary);
   flex-shrink:0;
   justify-content:center;
   align-items:center;
@@ -56,7 +56,7 @@ body.profile-flow-page {
 }
 
 .profile-flow-title {
-  color:#202020;
+  color:var(--text-primary);
   text-align:center;
   flex:1;
   margin:0;
@@ -92,7 +92,7 @@ body.profile-flow-page {
 
 .avatar-edit-btn {
   color:#FFFFFF;
-  background:#F15A37;
+  background:var(--sa7tein-orange);
   border-radius:50%;
   justify-content:center;
   align-items:center;
@@ -119,16 +119,16 @@ body.profile-flow-page {
 }
 
 .form-label-profile {
-  color:#6B6865;
+  color:var(--text-secondary);
   font-family:var(--font-sans);
   font-size:var(--text-sm);
   font-weight:500
 }
 
 .form-input-profile {
-  color:#202020;
+  color:var(--text-primary);
   background:var(--surface);
-  border:1px solid #EDE4DC;
+  border:1px solid var(--border);
   border-radius:var(--radius-lg);
   width:100%;
   padding:16px 20px;
@@ -139,7 +139,7 @@ body.profile-flow-page {
 
 .form-input-profile:focus {
   background:rgba(32, 32, 32, 0.06);
-  border-color:#F15A37;
+  border-color:var(--sa7tein-orange);
   outline:none
 }
 
@@ -156,12 +156,12 @@ body.profile-flow-page {
 }
 
 .form-select-profile>option {
-  background-color:#FFF9F4
+  background-color:var(--bg-warm)
 }
 
 .phone-input-wrap {
   background:#FFFFFF;
-  border:1px solid #DFD2C6;
+  border:1px solid var(--border-strong);
   border-radius:var(--radius-md);
   align-items:center;
   gap:10px;
@@ -184,7 +184,7 @@ body.profile-flow-page {
   color:#FFFFFF;
   cursor:pointer;
   text-align:center;
-  background:#F15A37;
+  background:var(--sa7tein-orange);
   border:none;
   border-radius:var(--radius-pill);
   width:100%;
@@ -199,8 +199,8 @@ body.profile-flow-page {
 }
 
 .btn-profile-primary:hover {
-  color:#202020;
-  background:#e85a28
+  color:var(--text-primary);
+  background:var(--orange-deep)
 }
 
 .add-photo-block {
@@ -226,10 +226,10 @@ body.profile-flow-page {
 }
 
 .btn-upload-photo {
-  color:#C9431F;
+  color:var(--orange-ink);
   cursor:pointer;
   background:0 0;
-  border:2px solid #F15A37;
+  border:2px solid var(--sa7tein-orange);
   border-radius:var(--radius-pill);
   padding:12px 24px;
   font-family:var(--font-sans);
@@ -280,11 +280,11 @@ body.profile-flow-page {
 }
 
 .profile-modal-icon.success-icon,.profile-modal-icon.exit-icon {
-  background:#F15A37
+  background:var(--sa7tein-orange)
 }
 
 .profile-modal-title {
-  color:#202020;
+  color:var(--text-primary);
   text-align:center;
   margin:0 0 12px;
   font-family:var(--font-sans);
@@ -294,7 +294,7 @@ body.profile-flow-page {
 }
 
 .profile-modal-text {
-  color:#6B6865;
+  color:var(--text-secondary);
   text-align:center;
   margin:0 0 24px;
   font-size:var(--text-sm);
@@ -308,10 +308,10 @@ body.profile-flow-page {
 }
 
 .btn-profile-outline {
-  color:#C9431F;
+  color:var(--orange-ink);
   cursor:pointer;
   background:0 0;
-  border:2px solid #DFD2C6;
+  border:2px solid var(--border-strong);
   border-radius:var(--radius-pill);
   flex:1;
   padding:16px 24px;
@@ -336,7 +336,7 @@ body.profile-flow-page {
 }
 
 .language-section-label {
-  color:#202020;
+  color:var(--text-primary);
   margin-bottom:12px;
   font-family:var(--font-sans);
   font-size:var(--text-base);
@@ -354,7 +354,7 @@ body.profile-flow-page {
 
 .language-option {
   cursor:pointer;
-  border-bottom:1px solid #DFD2C6;
+  border-bottom:1px solid var(--border-strong);
   justify-content:space-between;
   align-items:center;
   padding:16px 12px;
@@ -366,7 +366,7 @@ body.profile-flow-page {
 }
 
 .language-name {
-  color:#6B6865;
+  color:var(--text-secondary);
   font-size:var(--text-sm);
   font-weight:500
 }
@@ -379,7 +379,7 @@ body.profile-flow-page {
 }
 
 .language-radio-ui {
-  border:2px solid #6B6865;
+  border:2px solid var(--text-secondary);
   border-radius:50%;
   flex-shrink:0;
   width:22px;
@@ -388,8 +388,8 @@ body.profile-flow-page {
 }
 
 .language-radio:checked+.language-radio-ui {
-  background:#F15A37;
-  border-color:#F15A37
+  background:var(--sa7tein-orange);
+  border-color:var(--sa7tein-orange)
 }
 
 .language-radio:checked+.language-radio-ui:after {
@@ -414,7 +414,7 @@ body.profile-flow-page {
 }
 
 .notification-row {
-  border-bottom:1px solid #DFD2C6;
+  border-bottom:1px solid var(--border-strong);
   justify-content:space-between;
   align-items:center;
   padding:16px 12px;
@@ -426,7 +426,7 @@ body.profile-flow-page {
 }
 
 .notification-label {
-  color:#6B6865;
+  color:var(--text-secondary);
   font-size:var(--text-sm);
   font-weight:500
 }
@@ -466,7 +466,7 @@ body.profile-flow-page {
 }
 
 .toggle-input:checked+.toggle-slider {
-  background:#F15A37
+  background:var(--sa7tein-orange)
 }
 
 .toggle-input:checked+.toggle-slider:before {
@@ -474,7 +474,7 @@ body.profile-flow-page {
 }
 
 .text-muted-profile {
-  color:#6B6865;
+  color:var(--text-secondary);
   margin-bottom:16px;
   font-size:var(--text-sm)
 }
@@ -487,7 +487,7 @@ body.wallet-page {
 }
 
 .wallet-page {
-  background:#FFF9F4;
+  background:var(--bg-warm);
   min-height:var(--app-vh);
   padding:0 20px 32px
 }
@@ -529,7 +529,7 @@ body.wallet-page {
 }
 
 .wallet-item-icon {
-  background:#DFD2C6;
+  background:var(--border-strong);
   border-radius:var(--radius-sm);
   flex-shrink:0;
   justify-content:center;
@@ -541,7 +541,7 @@ body.wallet-page {
 }
 
 .wallet-item-icon svg {
-  color:#202020
+  color:var(--text-primary)
 }
 
 .wallet-item-left {
@@ -551,18 +551,18 @@ body.wallet-page {
 }
 
 .wallet-item-title {
-  color:#202020;
+  color:var(--text-primary);
   font-size:var(--text-sm);
   font-weight:600
 }
 
 .wallet-item-sub {
-  color:#6B6865;
+  color:var(--text-secondary);
   font-size:var(--text-xs)
 }
 
 .wallet-item-link svg {
-  color:#6B6865
+  color:var(--text-secondary)
 }
 
 .wallet-badge {
@@ -573,13 +573,13 @@ body.wallet-page {
 }
 
 .wallet-badge.connected {
-  color:#C9431F;
-  background:#F7DED4
+  color:var(--orange-ink);
+  background:var(--orange-soft)
 }
 
 .wallet-badge.connect {
   color:#FFFFFF;
-  background:#F15A37;
+  background:var(--sa7tein-orange);
   text-decoration:none;
   display:inline-block
 }

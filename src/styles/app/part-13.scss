@@ -1,5 +1,5 @@
 .driver-action-btn:hover {
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   transform:scale(1.1)
 }
 
@@ -8,7 +8,7 @@
 }
 
 .driver-action-btn svg {
-  color:#202020
+  color:var(--text-primary)
 }
 
 @media (max-width:320px) {
@@ -53,7 +53,7 @@
 }
 
 .step-icon svg {
-  color:#8A8580;
+  color:var(--text-disabled);
   width:20px;
   height:20px
 }
@@ -71,38 +71,38 @@
   }}
 
 .progress-step.active .step-icon {
-  background-color:#FFF9F4;
-  border:1px solid #F15A37
+  background-color:var(--bg-warm);
+  border:1px solid var(--sa7tein-orange)
 }
 
 .progress-step.active .step-icon svg {
-  color:#202020
+  color:var(--text-primary)
 }
 
 .progress-step.completed .step-icon {
-  background-color:#F15A37;
-  border-color:#F15A37;
+  background-color:var(--sa7tein-orange);
+  border-color:var(--sa7tein-orange);
   border-radius:50%
 }
 
 .progress-step.completed .step-icon.first {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   border-color:#70093b
 }
 
 .icon-holder svg {
-  color:#C9431F
+  color:var(--orange-ink)
 }
 
 .step-label {
-  color:#6B6865;
+  color:var(--text-secondary);
   text-align:center;
   max-width:60px;
   font-size:var(--text-xs)
 }
 
 .progress-step.active .step-label {
-  color:#202020;
+  color:var(--text-primary);
   font-weight:600
 }
 
@@ -124,14 +124,14 @@
 }
 
 .status-title {
-  color:#202020;
+  color:var(--text-primary);
   margin:0 0 4px;
   font-size:var(--text-base);
   font-weight:600
 }
 
 .status-subtitle {
-  color:#6B6865;
+  color:var(--text-secondary);
   margin:0;
   font-size:var(--text-sm);
   line-height:1.4
@@ -144,13 +144,13 @@
   }}
 
 body.order-tracking-page {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   height:var(--app-vh);
   overflow:hidden
 }
 
 .order-tracking-screen {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   flex-direction:column;
   height:var(--app-vh);
   display:flex;
@@ -173,7 +173,7 @@ body.order-tracking-page {
 
 .order-tracking-title {
   text-align:center;
-  color:#202020;
+  color:var(--text-primary);
   flex:1;
   margin:0;
   padding-right:40px;
@@ -187,12 +187,12 @@ body.order-tracking-page {
 }
 
 .order-status-message.preparing-status {
-  background-color:#FFF9F4;
-  border:1px solid #f7cb98
+  background-color:var(--bg-warm);
+  border:1px solid var(--orange-border)
 }
 
 .status-icon.preparing-icon {
-  background-color:#F15A37
+  background-color:var(--sa7tein-orange)
 }
 
 @media (min-width:768px) {
@@ -202,13 +202,13 @@ body.order-tracking-page {
   }}
 
 body.order-delivery-page {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   height:var(--app-vh);
   overflow:hidden
 }
 
 .order-delivery-screen {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   flex-direction:column;
   height:var(--app-vh);
   display:flex;
@@ -231,7 +231,7 @@ body.order-delivery-page {
 
 .order-delivery-title {
   text-align:center;
-  color:#202020;
+  color:var(--text-primary);
   flex:1;
   margin:0;
   padding-right:40px;
@@ -265,13 +265,13 @@ body.order-delivery-page {
   }}
 
 body.order-delivered-page {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   height:var(--app-vh);
   overflow:hidden
 }
 
 .order-delivered-screen {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   flex-direction:column;
   height:var(--app-vh);
   display:flex;
@@ -294,7 +294,7 @@ body.order-delivered-page {
 
 .order-delivered-title {
   text-align:center;
-  color:#202020;
+  color:var(--text-primary);
   flex:1;
   margin:0;
   padding-right:40px;
@@ -308,13 +308,13 @@ body.order-delivered-page {
 }
 
 .progress-step.active .step-icon.delivered-step-icon {
-  background-color:#22c55e;
-  border-color:#22c55e
+  background-color:var(--success);
+  border-color:var(--success)
 }
 
 .order-status-message.delivered-status {
   background-color:#181818;
-  border:1px solid #b8ded0
+  border:1px solid var(--success)
 }
 
 .status-icon.delivered-status-icon {
@@ -324,7 +324,7 @@ body.order-delivered-page {
 .delivered-home-btn {
   color:#FFFFFF;
   text-align:center;
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   border:none;
   border-radius:var(--radius-md);
   padding:14px 20px;
@@ -335,7 +335,7 @@ body.order-delivered-page {
 }
 
 .delivered-home-btn:hover {
-  color:#202020;
+  color:var(--text-primary);
   opacity:.9
 }
 
@@ -346,13 +346,13 @@ body.order-delivered-page {
   }}
 
 body.order-arrived-page {
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   height:var(--app-vh);
   overflow:hidden
 }
 
 .order-arrived-screen {
-  background-color:#F15A37;
+  background-color:var(--sa7tein-orange);
   flex-direction:column;
   height:var(--app-vh);
   display:flex;
@@ -373,7 +373,7 @@ body.order-arrived-page {
 
 .back-btn--dark {
   cursor:pointer;
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   border:none;
   border-radius:50%;
   justify-content:center;
@@ -406,7 +406,7 @@ body.order-arrived-page {
 
 .order-arrived-icon-circle {
   z-index:2;
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   border-radius:50%;
   justify-content:center;
   align-items:center;
@@ -509,7 +509,7 @@ body.order-arrived-page {
 }
 
 .order-arrived-title {
-  color:#202020;
+  color:var(--text-primary);
   margin:0 0 12px;
   font-size:var(--text-2xl);
   font-weight:700;
@@ -525,15 +525,15 @@ body.order-arrived-page {
 }
 
 .status-bar--light .status-bar__left,.status-bar--light .status-bar__right {
-  color:#202020
+  color:var(--text-primary)
 }
 
 .status-bar--light .status-bar__right svg rect,.status-bar--light .status-bar__right svg path {
-  fill:#202020
+  fill:var(--text-primary)
 }
 
 .status-bar--light .status-bar__right svg path[stroke] {
-  stroke:#202020
+  stroke:var(--text-primary)
 }
 
 @media (min-width:768px) {
@@ -543,13 +543,13 @@ body.order-arrived-page {
   }}
 
 body.rating-driver-page {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   height:var(--app-vh);
   overflow:hidden
 }
 
 .rating-driver-screen {
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   flex-direction:column;
   height:var(--app-vh);
   display:flex;
@@ -558,7 +558,7 @@ body.rating-driver-page {
 
 .rating-driver-header {
   z-index:100;
-  background-color:#FFF9F4;
+  background-color:var(--bg-warm);
   align-items:center;
   height:60px;
   padding:0 20px;
@@ -571,7 +571,7 @@ body.rating-driver-page {
 
 .rating-driver-title {
   text-align:center;
-  color:#202020;
+  color:var(--text-primary);
   flex:1;
   margin:0;
   padding-right:40px;

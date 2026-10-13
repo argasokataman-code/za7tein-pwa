@@ -1,17 +1,16 @@
 /*
- * Hero beranda pelanggan.
+ * Hero beranda pelanggan — EDISI 02 (UI v2 "Masakan Tetangga").
  *
- * Warna dan jarak diambil dari token aplikasi (--sa7tein-orange, --bg-warm,
- * --text-primary, --space-*), bukan dari set variabel kedua. Hanya dua nada
- * oranye yang khas hero yang dideklarasikan di sini, dan scope-nya sengaja
- * di .s7-hero supaya tidak bocor ke komponen lain.
+ * Warna dan jarak diambil dari token aplikasi (--sa7tein-orange, --on-brand,
+ * --surface, --text-*, --radius-*, --space-*, --shadow-*), bukan dari set
+ * variabel kedua. Tidak ada nilai oranye mentah di sini.
  */
 
 .s7-hero__content {
   position: relative;
   z-index: 2;
 
-  padding: var(--space-5) var(--space-5) var(--space-6);
+  padding: var(--space-4) var(--space-5) var(--space-5);
 }
 
 /* ── Baris atas ─────────────────────────────────────────────────────────── */
@@ -24,17 +23,47 @@
   gap: var(--space-3);
 }
 
-.s7-profile-location {
+/* Kelompok kontrol kaca di kanan baris atas: tombol mata uang dan lonceng.
+   Satu tombol mata uang menggantikan pil IDR/JOD + koin yang dulu terpisah;
+   sakelar dan detail kurs kini di dalam sheet-nya. */
+.s7-hero__actions {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
 
-  gap: var(--space-3);
-
-  flex: 1 1 auto;
-  min-width: 0;
+  gap: var(--space-2);
 }
 
-.s7-avatar-button,
+/* Tombol mata uang v2: kaca 44×44, ikon tukar. Rambut kaca lewat inset shadow
+   (bukan `border` — elemen `<button>` di repo kena reset `border: 0` menang). */
+.s7-currency-button {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 44px;
+  height: 44px;
+
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--on-brand) 25%, transparent);
+  border-radius: var(--radius-lg);
+
+  background: color-mix(in srgb, var(--on-brand) 20%, transparent);
+  color: var(--on-brand);
+
+  transition: background var(--motion-fast) var(--ease-out);
+}
+
+/* Umpan hover hanya di perangkat berpenunjuk presisi; di sentuh ia tidak pernah
+   terlihat, jadi tidak perlu ikut dimuat (audit 001 #5). */
+@media (hover: hover) and (pointer: fine) {
+  .s7-currency-button:hover {
+    background: color-mix(in srgb, var(--on-brand) 30%, transparent);
+  }
+}
+
 .s7-location,
 .s7-notification,
 .s7-search__filter {
@@ -45,49 +74,15 @@
   cursor: pointer;
 }
 
-.s7-avatar-button {
-  flex: 0 0 auto;
-
-  /* 48px: di dalam rentang 44–52px yang diminta, dan tetap di bawah judul
-     dalam hierarki. */
-  width: 48px;
-  height: 48px;
-
-  padding: 0;
-
-  border-radius: 50%;
-  overflow: hidden;
-
-  background: rgba(255, 255, 255, 0.14);
-}
-
-.s7-avatar {
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-}
-
-.s7-avatar--kosong {
-  display: grid;
-  place-items: center;
-
-  color: rgba(255, 255, 255, 0.75);
-}
-
 .s7-location {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex: 1 1 auto;
+  align-items: center;
 
-  gap: 3px;
+  gap: var(--space-3);
 
   min-width: 0;
   min-height: 44px;
-
-  overflow: hidden;
 
   padding: 0;
 
@@ -100,25 +95,51 @@
 }
 
 .s7-location:active {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-.s7-location__label {
-  display: flex;
-  align-items: center;
+/* Kotak pin 40px, mengikuti desain v2 (kaca putih di atas oranye). */
+.s7-location__pin {
+  display: grid;
+  place-items: center;
 
-  gap: var(--space-1);
+  flex: 0 0 auto;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: var(--radius-lg);
+
+  background: color-mix(in srgb, var(--on-brand) 20%, transparent);
+  color: var(--on-brand);
+
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.s7-location:active .s7-location__pin {
+  transform: scale(0.95);
+}
+
+.s7-location__text {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
 
   min-width: 0;
-
-  font-size: var(--text-sm);
-  font-weight: 700;
-
-  line-height: 1.15;
 }
 
-.s7-location__label-text {
+.s7-location__eyebrow {
   overflow: hidden;
+
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+
+  color: color-mix(in srgb, var(--on-brand) 85%, transparent);
+
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -127,24 +148,20 @@
   display: flex;
   align-items: center;
 
-  gap: 6px;
+  gap: var(--space-1);
 
   min-width: 0;
 
-  color: var(--hero-muted);
-
-  font-size: var(--text-base);
-  font-weight: 500;
-
-  line-height: 1.2;
+  font-size: var(--text-sm);
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .s7-location__value > span {
-  max-width: 190px;
-
   overflow: hidden;
-  text-overflow: ellipsis;
+
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* ── Notifikasi ─────────────────────────────────────────────────────────── */
@@ -152,27 +169,28 @@
 .s7-notification {
   position: relative;
 
-  flex: 0 0 auto;
-
-  width: 48px;
-  height: 48px;
-
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 50%;
+  flex: 0 0 auto;
 
-  background: rgba(255, 255, 255, 0.05);
+  width: 44px;
+  height: 44px;
+
+  /* Rambut kaca lewat inset shadow, bukan `border`: elemen `<button>` di repo
+     kena reset `border: 0` dengan spesifisitas menang, jadi border tidak pernah
+     tampil di tombol. */
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--on-brand) 28%, transparent);
+  border-radius: var(--radius-lg);
+
+  background: color-mix(in srgb, var(--on-brand) 20%, transparent);
   color: var(--on-brand);
-
-  transition:
-    transform var(--motion-fast) ease-out,
-    background var(--motion-fast) ease-out;
 }
 
-.s7-notification:active {
-  transform: translateY(1px);
+@media (hover: hover) and (pointer: fine) {
+  .s7-notification:hover {
+    background: color-mix(in srgb, var(--on-brand) 30%, transparent);
+  }
 }
 
 .s7-notification__badge {
@@ -184,15 +202,15 @@
   display: grid;
   place-items: center;
 
-  min-width: 23px;
-  height: 23px;
+  min-width: 22px;
+  height: 22px;
 
   padding: 0 5px;
 
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
 
   background: var(--surface);
-  color: var(--hero-deep);
+  color: var(--orange-ink);
 
   font-size: 12px;
   font-weight: 800;
@@ -202,19 +220,33 @@
 /* ── Judul ──────────────────────────────────────────────────────────────── */
 
 .s7-hero__intro {
-  margin-top: var(--space-5);
+  margin-top: var(--space-4);
 }
 
 .s7-hero__headline {
   margin: 0;
 
-  /* Tanpa batas lebar di layar kecil: <br> yang menentukan kedua baris.
-     Batas 15ch sebelumnya lebih sempit daripada "Mau makan apa",
-     sehingga baris pertama pecah lagi dan judulnya jadi tiga baris. */
-  font-size: clamp(26px, 6.8vw, 36px);
+  /* Tanpa batas lebar: sapaan memakai nama pengguna dan bisa membungkus wajar.
+     Batas `ch` sebelumnya lebih sempit daripada kata-katanya sehingga baris
+     pertama pecah lagi dan judulnya jadi tiga baris. */
+  font-size: clamp(25px, 6.4vw, 27px);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+
+  text-shadow: 0 1px 3px color-mix(in srgb, var(--navy) 18%, transparent);
+
+  color: var(--on-brand);
+}
+
+.s7-hero__subtitle {
+  margin: var(--space-1) 0 0;
+
+  font-size: var(--text-xs);
+  font-weight: 500;
+  line-height: 1.3;
+
+  color: color-mix(in srgb, var(--on-brand) 85%, transparent);
 }
 
 /* ── Pencarian ──────────────────────────────────────────────────────────── */
@@ -223,35 +255,47 @@
   display: flex;
   align-items: center;
 
+  gap: var(--space-2);
+
   width: 100%;
-  min-height: 68px;
 
-  margin-top: var(--space-5);
-  padding: 0 var(--space-4);
+  margin-top: var(--space-4);
+}
 
-  border: 2px solid transparent;
+/* Kotak putih tinggi 48px mengikuti desain v2, terpisah dari tombol filter
+   supaya keduanya sama-sama 48px dan sejajar. */
+.s7-search__box {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+
+  min-width: 0;
+  height: 48px;
+
+  padding: 0 var(--space-3) 0 var(--space-4);
+
+  border: 1px solid color-mix(in srgb, var(--on-brand) 80%, transparent);
   border-radius: var(--radius-lg);
 
   background: var(--surface);
   color: var(--text-secondary);
+
+  box-shadow: var(--shadow-md);
 
   transition:
     border-color var(--motion-standard) ease-out,
     box-shadow var(--motion-standard) ease-out;
 }
 
-/* Fokus ditandai di pembungkusnya, bukan di input, supaya cincinnya mengelilingi
-   seluruh kotak termasuk ikon dan tombol filter. */
-.s7-search:focus-within {
-  border-color: rgba(217, 71, 39, 0.45);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.16);
+/* Fokus ditandai di kotaknya, bukan di input, supaya cincinnya mengelilingi
+   seluruh kotak termasuk ikon. */
+.s7-search__box:focus-within {
+  border-color: var(--on-brand);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--on-brand) 35%, transparent);
 }
 
 /* Pembungkus input + saran bergantian. Input dan overlay harus berbagi satu
-   kotak supaya teks sarannya duduk tepat di atas teks yang nanti diketik —
-   kalau overlay ditaruh langsung di `.s7-search` (yang flex), posisinya harus
-   menebak lebar ikon dan tombol filter, dan itu bergeser tiap kali salah satu
-   berubah. Di sini keduanya satu koordinat. */
+   kotak supaya teks sarannya duduk tepat di atas teks yang nanti diketik. */
 .s7-search__field {
   position: relative;
 
@@ -274,14 +318,14 @@
 
   font: inherit;
   font-size: var(--text-base);
-  font-weight: 500;
+  font-weight: 600;
 
   color: var(--text-primary);
 }
 
 /* Saran pencarian: teks yang bergantian, diposisikan tepat di atas input.
-   Inputnya sendiri `placeholder=""` — atribut tidak bisa dianimasikan
-   per-kata dan tetap terlihat saat `value` terisi, jadi teksnya elemen sendiri.
+   Inputnya sendiri `placeholder=""` — atribut tidak bisa dianimasikan per-kata
+   dan tetap terlihat saat `value` terisi, jadi teksnya elemen sendiri.
 
    `pointer-events: none` supaya ketukan di area itu tetap masuk ke input;
    `aria-hidden` di sisi React karena saran yang berubah sendiri bukan isi
@@ -300,7 +344,7 @@
   color: var(--text-secondary);
 
   font-size: var(--text-base);
-  font-weight: 500;
+  font-weight: 600;
 
   /* Satu kata terlihat sekaligus; yang lama keluar ke atas, yang baru masuk
      dari bawah. `overflow: hidden` di sumbu vertikal yang memotongnya. */
@@ -322,15 +366,9 @@
    headless, waktunya beku di frame 0 — yang terlihat cuma kotak kosong:
    sarannya hilang total, bukan sekadar tak bergerak.
 
-   Geserannya 9px, bukan persentase: kotak sarannya 44px dan tinggi katanya
-   24px, jadi ruang bebas di luar teks hanya (44-24)/2 = 10px. Geser 9px selalu
-   di dalam kotak, di posisi mana pun animasinya berhenti — sudah diukur
-   236.4/260.4 dengan translate 13.2px, yang melampaui kotak 213.2/257.2.
-
-   `opacity` juga tidak dianimasikan. Sempat ditulis `opacity: 0` di `from`,
-   dan itu membuat kata tak terlihat saat animasinya beku di frame 0 — persis
-   kegagalan yang mau dihindari. Dengan hanya `transform` yang bergerak, kata
-   selalu terbaca; kalau animasinya jalan, ia datang meluncur dari bawah. */
+   Geserannya 9px, bukan persentase: kotak sarannya 48px dan tinggi katanya
+   24px, jadi ruang bebas di luar teks hanya (48-24)/2 = 12px. Geser 9px selalu
+   di dalam kotak, di posisi mana pun animasinya berhenti. */
 @keyframes suggest-rise {
   from {
     transform: translateY(9px);
@@ -353,6 +391,40 @@
   animation: suggest-rise var(--motion-standard) var(--ease-decelerate);
 }
 
+/* Kursor berkedip di ujung teks saran (bahasa desain v2). Dibuat sebagai
+   pseudo-element supaya tidak perlu elemen tambahan di React; `steps(1)` bikin
+   kedipnya tegas, bukan memudar. */
+@keyframes s7-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.s7-search__suggest-word::after {
+  content: '';
+
+  display: inline-block;
+
+  width: 2px;
+  height: 16px;
+
+  margin-left: 2px;
+
+  border-radius: var(--radius-pill);
+
+  background: var(--sa7tein-orange);
+
+  vertical-align: -2px;
+
+  animation: s7-caret 1.1s steps(1, end) infinite;
+}
+
 /* Gerak dikurangi: kata tetap bergantian (itu informasi, bukan dekorasi), tapi
    tanpa meluncur — langsung tampil. */
 @media (prefers-reduced-motion: reduce) {
@@ -370,101 +442,81 @@
   appearance: none;
 }
 
-.s7-search__divider {
-  width: 1px;
-  height: 34px;
-
-  margin: 0 var(--space-2);
-
-  background: var(--border-strong);
-}
-
 .s7-search__filter {
   display: grid;
   place-items: center;
 
   flex: 0 0 auto;
 
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
 
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
 
-  background: transparent;
-  color: var(--text-secondary);
+  background: var(--surface);
+  color: var(--text-primary);
 
-  transition:
-    background var(--motion-fast) ease-out,
-    transform var(--motion-fast) ease-out;
+  box-shadow:
+    var(--shadow-md),
+    inset 0 0 0 1px color-mix(in srgb, var(--on-brand) 80%, transparent);
 }
 
-.s7-search__filter:hover {
-  background: var(--bg-warm);
-}
-
-.s7-search__filter:active {
-  transform: translateY(1px);
+@media (hover: hover) and (pointer: fine) {
+  .s7-search__filter:hover {
+    background: var(--bg-warm);
+  }
 }
 
 /* ── Ikon ───────────────────────────────────────────────────────────────── */
 
-.s7-icon {
+.s7-pin-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.s7-chevron {
+  width: 16px;
+  height: 16px;
+
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .s7-location:hover .s7-chevron {
+    transform: translateY(2px);
+  }
+}
+
+.s7-bell-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.s7-search-icon {
   flex: 0 0 auto;
 
   width: 20px;
   height: 20px;
 }
 
-.s7-chevron {
-  width: 17px;
-  height: 17px;
-}
-
-.s7-bell-icon {
-  width: 23px;
-  height: 23px;
-}
-
-.s7-search-icon {
-  flex: 0 0 auto;
-
-  width: 24px;
-  height: 24px;
-}
-
 .s7-filter-icon {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 
 /* ── Layar sempit ───────────────────────────────────────────────────────── */
 
 @media (max-width: 380px) {
   .s7-hero__content {
-    padding: 20px var(--space-5) 24px;
-  }
-
-  .s7-avatar-button,
-  .s7-notification {
-    width: 44px;
-    height: 44px;
-  }
-
-  .s7-location__value > span {
-    max-width: 132px;
-  }
-
-  .s7-hero__intro {
-    margin-top: var(--space-4);
+    padding: var(--space-4) var(--space-5) var(--space-5);
   }
 
   .s7-hero__headline {
     font-size: 24px;
   }
 
-  .s7-search {
-    min-height: 64px;
-    margin-top: var(--space-5);
+  .s7-location__value > span {
+    max-width: 150px;
   }
 }
 
@@ -480,15 +532,11 @@
 
     margin: 0 auto;
 
-    padding: 30px 36px 34px;
+    padding: var(--space-6) 36px var(--space-6);
   }
 
   .s7-hero__intro {
-    margin-top: var(--space-6);
-  }
-
-  .s7-hero__headline {
-    max-width: 20ch;
+    margin-top: var(--space-5);
   }
 
   .s7-search {
@@ -501,7 +549,8 @@
 @media (prefers-reduced-motion: reduce) {
   .s7-location,
   .s7-notification,
-  .s7-search,
+  .s7-currency-button,
+  .s7-search__box,
   .s7-search__filter {
     transition: none;
   }
@@ -514,13 +563,11 @@
 
 /* Di app terinstal hero melebar sampai tepi atas — itu desainnya, jadi latar
    oranyenya tetap sampai tepi; yang turun hanya isinya, supaya baris pertama
-   (avatar, lokasi, lonceng) tidak mendarat di area kamera. Terukur 42px vs
-   safe-area 59px.
+   (alamat, lonceng) tidak mendarat di area kamera.
    Sengaja paling bawah berkas: dua media query lebar di atas menyetel
-   `padding` (30px pada >=768px), dan pada kekhususan sama yang menang adalah
-   yang terakhir. */
+   `padding`, dan pada kekhususan sama yang menang adalah yang terakhir. */
 @media (display-mode: standalone), (display-mode: fullscreen) {
   .s7-hero__content {
-    padding-top: calc(var(--space-5) + env(safe-area-inset-top));
+    padding-top: calc(var(--space-4) + env(safe-area-inset-top));
   }
 }

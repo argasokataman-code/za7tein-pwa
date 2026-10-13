@@ -2,7 +2,7 @@
 // Halaman "Filter".
 //
 // Sama seperti Search: chrome datang dari stylesheet porting dengan warna
-// mentah (#FFF9F4, #202020, #F15A37, #C9431F, #EDE4DC). Partial ini
+// mentah (var(--bg-warm), var(--text-primary), var(--sa7tein-orange), var(--orange-ink), var(--border)). Partial ini
 // memetakannya ke token. Dua hal selain warna diperbaiki di akarnya:
 //
 // 1. Inset atas `.filter-sheet` masih 70px — sisa offset bilah status warisan,

@@ -32,6 +32,11 @@ export interface Food {
   description: string
   isPopular?: boolean
   calories?: number
+  /**
+   * Estimasi waktu masak dari BE (`menus.cook_minutes`). Ditampilkan di kartu
+   * menu toko menggantikan estimasi antar yang tidak dimiliki item tunggal.
+   */
+  cookMinutes?: number
   modifierGroups?: ModifierGroup[]
   /**
    * Toko pemilik item ini (id sama dengan `MerchantRecord.id`). Ditambahkan
@@ -397,6 +402,8 @@ export interface CartItem {
   image: string
   /** ringkasan modifier terpilih, mis. "Pedas Sedang, + Lontong" */
   modifiers?: string
+  /** catatan bebas customer untuk dapur (layar detail menu), mis. "sambal dipisah" */
+  notes?: string
 }
 
 /**

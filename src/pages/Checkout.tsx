@@ -108,7 +108,7 @@ export default function Checkout() {
                     {items.map((item) => (
                       <div
                         className="checkout-item"
-                        key={`${item.id}-${item.modifiers ?? ''}`}
+                        key={`${item.id}-${item.modifiers ?? ''}-${item.notes ?? ''}`}
                       >
                         <img
                           className="checkout-item__image"
@@ -122,6 +122,9 @@ export default function Checkout() {
                           <span className="checkout-item__name">{item.name}</span>
                           {item.modifiers ? (
                             <span className="checkout-item__modifier">{item.modifiers}</span>
+                          ) : null}
+                          {item.notes ? (
+                            <span className="checkout-item__modifier">Catatan: {item.notes}</span>
                           ) : null}
                           {/* Harga satuan hanya dicetak kalau kuantitasnya > 1.
                               Di kuantitas 1 angkanya identik dengan total baris

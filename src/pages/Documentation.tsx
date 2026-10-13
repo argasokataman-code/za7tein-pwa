@@ -393,6 +393,16 @@ export default function Documentation() {
               <code className="doc-inline">main</code> dan tag{' '}
               <code className="doc-inline">ui-v1-stable</code>. Aturan v2, status migrasi, dan cara
               menghapus/mengembalikannya ada di <code className="doc-inline">docs/design/ui-v2.md</code>.
+              Beranda customer sudah diport ke EDISI 02: baris atas berisi alamat + satu kelompok kontrol
+              kaca (sakelar IDR/JOD, detail kurs, lonceng), sapaan bernama, kotak cari 48px dengan kursor
+              berkedip, <strong>banner promo</strong> yang menyorot toko sedang berdiskon
+              (<code className="doc-inline">dealsFrom</code>), chip kategori yang selalu tampil, kartu toko
+              bergaya daftar tetangga (foto 64px + panah kanan), dan bilah keranjang mengambang di atas bilah
+              bawah. Geraknya memakai token <code className="doc-inline">--motion-*</code>/<code className="doc-inline">--ease-*</code>:
+              umpan balik tekan, kotak ikon chip menskala (aktif 1.05 + <code className="doc-inline">--shadow-brand</code>),
+              kartu terangkat + foto zoom saat hover. Banner promo adalah <em>satu-satunya gradient</em> di repo
+              (token <code className="doc-inline">--promo-from</code>/<code className="doc-inline">--promo-to</code>),
+              keputusan desain EDISI 02 yang tercatat di DNA.md.
             </p>
             <DocShellCtas />
           </div>

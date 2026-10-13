@@ -52,7 +52,9 @@ $press-scale: 0.97;
 .btn-profile-primary,
 .track-action,
 .wallet-item,
-.s7-avatar-button {
+.s7-avatar-button,
+.s7-notification,
+.s7-search__filter {
   transition:
     transform var(--motion-fast) var(--ease-out),
     background-color var(--motion-fast) var(--ease-out),
@@ -308,115 +310,6 @@ $press-scale: 0.97;
   }
 }
 
-// ── 5. Parallax saat menggulir ──────────────────────────────────────────────
-// Menggulir 1:1 membuat seluruh halaman bergerak sebagai satu bidang kaku:
-// semua berhenti seketika saat jari berhenti, tidak ada kedalaman. Yang
-// ditambahkan di sini adalah geseran kecil dan berbeda per lapisan, sehingga
-// saat jari menggulir, header (yang berdiri di belakang) bergerak sedikit
-// lebih lambat daripada isi — lalu judul bagian dan kartu menyusul dengan
-// kecepatan masing-masing. Beberapa lapis berbeda = halaman terasa punya
-// kedalaman, bukan satu gambar yang digeser.
-//
-// Dikerjakan dengan scroll timeline CSS (`animation-timeline: view()`), bukan
-// listener `scroll` + `requestAnimationFrame`. Alasannya bukan singkatnya kode:
-// timeline digerakkan kompositor, jadi tetap mulus saat utas utama sibuk, tidak
-// ada jeda satu frame di belakang jari, dan posisinya dihitung dari geometri
-// elemen — tidak ada angka offset yang perlu diperbarui saat tata letak berubah.
-//
-// Batas amannya:
-// - Satu properti saja: `translate`. Tidak ada `scale`/`rotate`/`blur` di sini,
-//   jadi tak ada yang bisa mendistorsi teks atau foto.
-// - `translate` TIDAK membuat containing block untuk `position: fixed` (beda
-//   dari `transform`), jadi bilah bawah, header menempel, dan bilah aksi tetap
-//   di tempatnya.
-// - Amplitudo 14-34px. Di atas ~40px geraknya terbaca sebagai "elemennya
-//   lepas", bukan kedalaman.
-//
-// Penopang: Chromium 115+ (`view()`), Android 16 / Safari 26 untuk iOS; di
-// peramban lama blok `@supports` tidak berlaku dan halaman kembali menggulir
-// 1:1 seperti sebelumnya — tanpa galat, tanpa JS.
-//
-// Dipakai sebagai kelas pada elemen yang sudah ada, bukan komponen baru:
-// `--hero` (header atas), `--media` (foto besar), `--title` (judul bagian),
-// `--card` (blok/kartu), `--decor` (dekorasi di dalam kartu).
-@supports (animation-timeline: view()) {
-  // Header atas bergerak SETENGAH kecepatan gulir: saat isi melaju naik, header
-  // tertinggal sedikit di belakangnya.
-  //
-  // `translate` tidak menggeser kotak layout, dan header bergerak naik bersama
-  // isi pada kecepatan gulir yang sama. Jadi jarak search-ke-isi = `translate(s)
-  // - 24px` (celah statis terukur: dasar search 269.2 vs puncak `.home-content`
-  // 293.2), sehingga amplitudo header tidak boleh melebihi 24px.
-  //
-  // Versi lama memakai 34px dengan `from 34px`, jadi di puncak halaman header
-  // ada di simpangan maksimumnya — tumpang terukur 10px, chip kategori menempel
-  // ke kotak pencarian. Akarnya amplitudo > celah, bukan arahnya. Mengarahkan
-  // ke atas (`to -34px`) menghapus tumpang itu tapi menaruh header di
-  // `top: -34px`, menembus tepi atas kolom. 20px + `reverse` memberi keduanya:
-  // di puncak header duduk di tempat, dan simpangan 4px tersisa di akhir gulir.
-  .s7-parallax--hero {
-    animation: parallax-lift linear both reverse;
-    animation-timeline: scroll(root block);
-    animation-range: 0 320px;
-    --parallax-lift: 20px;
-  }
-
-  // Foto besar (mis. hero menu-detail). Ia dinaikkan sedikit lebih lambat lalu
-  // tertinggal, dan TANDA-nya berlawanan dengan lapisan lain supaya fotonya
-  // terbaca "di belakang", bukan "mengambang di depan".
-  .s7-parallax--media {
-    animation: parallax-lift linear both;
-    animation-timeline: view(block);
-    animation-range: entry 0% cover 100%;
-    --parallax-lift: -16px;
-  }
-
-  // Judul bagian adalah "line" yang menahan dalam: naik lebih pendek dari isi,
-  // jadi saat menggulir ia terangkat dari isi yang melaju di bawahnya.
-  //
-  // `cover 100%` penting, dan sempat salah: dengan `cover 55%` sisa 45% gerakan
-  // terjadi saat judul sudah menempel di atas, sehingga judul diam berikutnya
-  // ikut tergeser dan jarak antar-judul bergoyang 10px selama menggulir.
-  // Dengan `cover 100%` judul berhenti tepat saat tepi atasnya mencapai layar
-  // (terukur 0px mulai scroll 240px), jadi jarak antar-judul tetap, dan yang
-  // bergerak hanya bagian 0-240px — justru bagian yang terlihat.
-  .s7-parallax--title {
-    animation: parallax-lift linear both;
-    animation-timeline: view(block);
-    animation-range: entry 0% cover 100%;
-    --parallax-lift: 14px;
-  }
-
-  // Kartu/blok besar. Menambah satu bidang gerak lagi, jadi halaman tidak
-  // terbaca sebagai satu lembar yang digeser.
-  .s7-parallax--card {
-    animation: parallax-lift linear both;
-    animation-timeline: view(block);
-    animation-range: entry 0% cover 100%;
-    --parallax-lift: 20px;
-  }
-
-  // Separate dekorasi di dalam kartu: lingkaran yang sama, tapi bergerak
-  // sendiri dari kartunya supaya terasa ada lapisan di belakang isi.
-  .s7-parallax--decor {
-    animation: parallax-lift linear both;
-    animation-timeline: view(block);
-    animation-range: entry 0% cover 100%;
-    --parallax-lift: 26px;
-  }
-}
-
-// Satu keyframe untuk semua lapisan; amplitudonya dari `--parallax-lift`, jadi
-// tidak ada lima keyframe yang isinya sama dan berbeda angka.
-@keyframes parallax-lift {
-  from {
-    translate: 0 var(--parallax-lift, 12px);
-  }
-  to {
-    translate: 0 0;
-  }
-}
-
 // ── 7. Tarik-untuk-menyegarkan ─────────────────────────────────────────────
 // Dipasang sekali di `PageTransition`, jadi keempat peran mendapatkannya tanpa
 // perubahan di tiap halaman.
@@ -537,19 +430,10 @@ $press-scale: 0.97;
     transform: none !important;
   }
 
-  // Parallax = gerak dekoratif, arahnya tak membawa informasi. M3 menyarankannya
-  // dimatikan, bukan diperhalus — jadi lapisannya hanya di-fade seperti bagian
-  // lain yang masuk.
-  .s7-parallax--hero,
-  .s7-parallax--media,
-  .s7-parallax--title,
-  .s7-parallax--card,
-  .s7-parallax--decor {
-    animation-name: reduced-fade;
-    animation-duration: var(--motion-standard) !important;
-    animation-range: normal;
-    translate: none !important;
-  }
+  // Parallax pindah ke `_parallax.scss` (berkas ini menembus batas 600 baris).
+  // Override reduced-motion untuk lapisan parallax tinggal di sana, tepat
+  // setelah definisinya, supaya `animation-name` tidak kalah oleh `@supports`
+  // yang datang belakangan.
 
   .nav-cart-badge {
     animation-name: reduced-fade;

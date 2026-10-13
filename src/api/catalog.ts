@@ -7,6 +7,7 @@
  * (docs/design/flows/INDEX.json §contract).
  */
 import { jodToIdr } from '../data/currency'
+import { foodBucket } from '../data/catalog'
 import { estimateDeliveryTime, formatDistance, haversineMeters } from '../data/merchant'
 import { IMAGE_FALLBACK } from '../data/storefronts'
 import type { MenuItem, ModifierGroup, Storefront } from '../types'
@@ -48,6 +49,11 @@ export interface MenuRow {
   image: string | null
   stock: number | null
   category: string | null
+  /** Ada di BE, dulu dibuang mapper — dipakai banner promo & kartu menu. */
+  discount_percent: number | null
+  is_popular: boolean | null
+  /** Estimasi waktu masak (menit) — ditampilkan di kartu menu toko. */
+  cook_minutes: number | null
 }
 
 export interface VariantRow {
@@ -106,13 +112,16 @@ function toMenuItem(row: MenuRow, variants: VariantRow[]): MenuItem {
     reviewCount: 0,
     deliveryTime: '',
     distance: '',
-    category: row.category ?? '',
+    category: foodBucket(row.category ?? '', row.name),
     image: row.image ?? IMAGE_FALLBACK,
     description: row.description ?? '',
     merchantId: String(row.merchant_id),
     // `stock` null = tak dilacak; pakai nilai layak jual supaya tombol tambah hidup.
     stock: row.stock ?? 99,
     available: row.available,
+    discountPercent: row.discount_percent ?? undefined,
+    isPopular: row.is_popular ?? undefined,
+    cookMinutes: row.cook_minutes ?? undefined,
     modifierGroups: variants.length ? toModifierGroups(variants) : undefined,
   }
 }
@@ -145,6 +154,16 @@ export async function fetchMenuItems(merchantId: string): Promise<MenuItem[]> {
     byMenu.set(variant.menu_id, list)
   }
   return menus.map((menu) => toMenuItem(menu, byMenu.get(menu.id) ?? []))
+}
+
+/**
+ * Seluruh menu (semua toko) sekali baca — dipakai beranda untuk menghitung
+ * promo per toko dan kategori yang benar-benar dilayani. Varian tidak diambil:
+ * ringkasan ini tak butuh modifier, hanya `discount_percent`/`category`.
+ */
+export async function fetchAllMenuItems(): Promise<MenuItem[]> {
+  const menus = await rest<MenuRow>('menus', '?select=*&order=id.asc')
+  return menus.map((menu) => toMenuItem(menu, []))
 }
 
 export async function fetchFood(id: string): Promise<MenuItem | undefined> {

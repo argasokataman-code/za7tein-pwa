@@ -1,53 +1,54 @@
 import { useEffect, useState } from 'react'
-import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal, UserRound } from 'lucide-react'
+import { Bell, ChevronDown, MapPin, Search, SlidersHorizontal } from 'lucide-react'
 
-import { CurrencyToggle } from '../ui/CurrencyToggle'
-import { LiveCurrencyButton } from '../ui/LiveCurrencyButton'
 import { Sa7teinHeroPattern } from '../ui/Sa7teinHeroPattern'
+import { CustomerCurrencyButton } from './CustomerCurrencyButton'
 /**
- * Hero beranda pelanggan.
+ * Hero beranda pelanggan — EDISI 02 (UI v2 "Masakan Tetangga").
  *
- * Arah desainnya mengikuti spesifikasi: baris atas (avatar, lokasi,
- * notifikasi), judul dua baris, lalu kotak pencarian putih yang tinggi.
+ * Susunannya mengikuti desain v2: baris atas berisi tombol alamat (kiri) dan
+ * lonceng notifikasi (kanan), lalu sapaan dua baris dengan subjudul, lalu baris
+ * pencarian putih di samping tombol filter. Semua warna dan jarak memakai token
+ * proyek (--sa7tein-orange, --on-brand, --space-*), bukan set variabel kedua.
  *
- * Tiga hal sengaja berbeda dari contoh kode, dan alasannya:
+ * Dua hal sengaja berbeda dari contoh kode desain, dan alasannya:
  *
- * 1. Warna. Contohnya mendeklarasikan set `--s7-*` sendiri di `:root`.
- *    Aplikasi ini sudah punya token oranye, ivory, dan charcoal, dan versi
- *    sebelumnya sempat punya dua skala radius yang saling menimpa karena
- *    hal serupa. Jadi di sini dipakai token proyek, dan dua nada oranye khas
- *    hero disimpan sebagai variabel lokal di `.s7-hero` supaya tidak bocor.
+ * 1. Avatar. Desain v2 tidak punya avatar di header (profil dijangkau lewat
+ *    bilah bawah), jadi tidak ada permintaan foto ke mana pun.
  *
- * 2. Avatar. Contohnya memakai layanan avatar eksternal sebagai nilai bawaan.
- *    Hero ini memakai foto dari store, dengan berkas lokal sebagai cadangan,
- *    sehingga tidak ada permintaan jaringan ke pihak ketiga.
- *
- * 3. Kolom pencarian. Contohnya adalah form yang tidak melakukan apa pun
+ * 2. Kolom pencarian. Contohnya adalah form yang tidak melakukan apa pun
  *    (`preventDefault`). Di sini ketikan tetap membawa ke layar pencarian,
  *    karena kolom yang bisa diketik tapi tidak bereaksi lebih buruk daripada
  *    tombol palsu yang digantikannya.
+ *
+ * 3. Baris atas. Contoh menaruh satu tombol kurs di kanan. Repo juga punya
+ *    lonceng notifikasi yang berfungsi, jadi keduanya duduk di kanan: satu
+ *    tombol mata uang (mengikuti contoh — ikon tukar) dan lonceng, dengan
+ *    material kaca yang sama. Sakelar IDR/JOD dan detail kurs tidak lagi
+ *    mengambang sebagai pil + koin terpisah di baris ini; keduanya pindah ke
+ *    dalam sheet tombol mata uang, jadi barisnya tetap seringkas contoh.
  */
 
 import './CustomerHomeHero.css'
 
+function BellIcon() {
+  return <Bell className="s7-bell-icon" strokeWidth={1.75} aria-hidden="true" />
+}
+
 function LocationPinIcon() {
-  return <MapPin className="s7-icon" strokeWidth={1.75} aria-hidden="true" />
+  return <MapPin className="s7-pin-icon" strokeWidth={2} aria-hidden="true" />
 }
 
 function ChevronDownIcon() {
   return <ChevronDown className="s7-chevron" strokeWidth={1.75} aria-hidden="true" />
 }
 
-function BellIcon() {
-  return <Bell className="s7-bell-icon" strokeWidth={1.75} aria-hidden="true" />
-}
-
 function SearchIcon() {
-  return <Search className="s7-search-icon" strokeWidth={1.75} aria-hidden="true" />
+  return <Search className="s7-search-icon" strokeWidth={2} aria-hidden="true" />
 }
 
 function FilterIcon() {
-  return <SlidersHorizontal className="s7-filter-icon" strokeWidth={1.75} aria-hidden="true" />
+  return <SlidersHorizontal className="s7-filter-icon" strokeWidth={2} aria-hidden="true" />
 }
 
 /**
@@ -106,11 +107,9 @@ function SearchSuggestions({ hidden }: { hidden: boolean }) {
 }
 
 type Props = {
-  avatarUrl?: string
-  avatarAlt?: string
+  userName?: string
   location?: string
   notificationCount?: number
-  onOpenProfile?: () => void
   onChangeLocation?: () => void
   onOpenNotifications?: () => void
   onOpenFilters?: () => void
@@ -118,11 +117,9 @@ type Props = {
 }
 
 export default function CustomerHomeHero({
-  avatarUrl,
-  avatarAlt = '',
+  userName,
   location = '',
   notificationCount = 0,
-  onOpenProfile,
   onChangeLocation,
   onOpenNotifications,
   onOpenFilters,
@@ -141,67 +138,55 @@ export default function CustomerHomeHero({
 
       <div className="s7-hero__content">
         <header className="s7-hero__topbar">
-          <div className="s7-profile-location">
-            <button
-              className="s7-avatar-button"
-              aria-label="Open profile"
-              type="button"
-              onClick={onOpenProfile}
-            >
-              {avatarUrl ? (
-                <img src={avatarUrl} alt={avatarAlt} className="s7-avatar" />
-              ) : (
-                <span className="s7-avatar s7-avatar--kosong" aria-hidden="true">
-                  <UserRound className="s7-icon" strokeWidth={1.75} aria-hidden="true" />
-                </span>
-              )}
-            </button>
-
-            <button
-              type="button"
-              className="s7-location"
-              aria-label={`Ubah alamat pengiriman. Sekarang: ${place}`}
-              aria-haspopup="dialog"
-              onClick={onChangeLocation}
-            >
-              <span className="s7-location__label">
-                <span className="s7-location__label-text">Lokasi antar</span>
-                <ChevronDownIcon />
-              </span>
-
-              <span className="s7-location__value">
-                <LocationPinIcon />
-                <span>{place}</span>
-              </span>
-            </button>
-          </div>
-
           <button
             type="button"
-            className="s7-notification"
-            aria-label={
-              notificationCount > 0
-                ? `Notifikasi, ${notificationCount} belum dibaca`
-                : 'Notifikasi'
-            }
-            onClick={onOpenNotifications}
+            className="s7-location"
+            aria-label={`Ubah alamat pengiriman. Sekarang: ${place}`}
+            aria-haspopup="dialog"
+            onClick={onChangeLocation}
           >
-            <BellIcon />
+            <span className="s7-location__pin" aria-hidden="true">
+              <LocationPinIcon />
+            </span>
 
-            {notificationCount > 0 ? (
-              <span className="s7-notification__badge" aria-hidden="true">
-                {notificationCount > 9 ? '9+' : notificationCount}
+            <span className="s7-location__text">
+              <span className="s7-location__eyebrow">Antar ke</span>
+              <span className="s7-location__value">
+                <span>{place}</span>
+                <ChevronDownIcon />
               </span>
-            ) : null}
+            </span>
           </button>
+
+          <div className="s7-hero__actions">
+            <CustomerCurrencyButton />
+
+            <button
+              type="button"
+              className="s7-notification"
+              aria-label={
+                notificationCount > 0
+                  ? `Notifikasi, ${notificationCount} belum dibaca`
+                  : 'Notifikasi'
+              }
+              onClick={onOpenNotifications}
+            >
+              <BellIcon />
+
+              {notificationCount > 0 ? (
+                <span className="s7-notification__badge" aria-hidden="true">
+                  {notificationCount > 9 ? '9+' : notificationCount}
+                </span>
+              ) : null}
+            </button>
+          </div>
         </header>
 
         <div className="s7-hero__intro">
           <h1 className="s7-hero__headline">
-            Mau makan apa
-            <br />
-            hari ini?
+            Mau makan apa{userName ? `, ${userName}` : ''}?
           </h1>
+          <p className="s7-hero__subtitle">Kuliner Nusantara di Bumi Syam</p>
         </div>
 
         <form
@@ -213,22 +198,22 @@ export default function CustomerHomeHero({
             onSubmitSearch?.(typeof value === 'string' ? value : '')
           }}
         >
-          <SearchIcon />
+          <span className="s7-search__box">
+            <SearchIcon />
 
-          <span className="s7-search__field">
-            <input
-              type="search"
-              name="q"
-              placeholder=""
-              aria-label="Cari menu atau restoran"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
+            <span className="s7-search__field">
+              <input
+                type="search"
+                name="q"
+                placeholder=""
+                aria-label="Cari menu atau restoran"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
 
-            <SearchSuggestions hidden={query.length > 0} />
+              <SearchSuggestions hidden={query.length > 0} />
+            </span>
           </span>
-
-          <span className="s7-search__divider" aria-hidden="true" />
 
           <button
             type="button"
@@ -239,14 +224,6 @@ export default function CustomerHomeHero({
             <FilterIcon />
           </button>
         </form>
-
-        <div className="hero-currency-row">
-          <span className="hero-currency-row__label">Mata uang tampilan</span>
-          <div className="hero-currency-row__controls">
-            <CurrencyToggle className="currency-toggle--on-dark" />
-            <LiveCurrencyButton className="live-rate-button--on-dark" />
-          </div>
-        </div>
       </div>
     </section>
   )

@@ -2,7 +2,7 @@
 
 Dokumen ini menjelaskan **apa itu UI v2**, **aturan v2**, dan **cara menghapus/mengembalikannya**. Ditulis supaya siapa pun (termasuk agent berikutnya) tidak bingung kalau v2 nanti dibatalkan.
 
-Status: **fondasi terpasang di branch `ui-v2`; layar belum diport.**
+Status: **fondasi + beranda customer terpasang di branch `ui-v2`; layar customer lain belum diport.**
 v1 utuh di `main` dan tag `ui-v1-stable`.
 
 ---
@@ -69,7 +69,7 @@ Pakai `--motion-*` dan `--ease-*` yang ada. Durasi masuk/keluar mengikuti token 
 ### Batasan yang TETAP berlaku (aturan repo, tidak berubah)
 - Tanpa emoji di UI; ikon `lucide-react`, `strokeWidth={1.75}`.
 - Tanpa URL gambar eksternal; aset dari `public/assets/`.
-- Tanpa gradient dekoratif atau warna di luar peran token.
+- Tanpa gradient dekoratif atau warna di luar peran token — **kecuali** gradient banner promo yang tercatat (§5.5).
 - Komponen/token existing dipakai sebelum menggambar ulang.
 - `npm run scan` 0 FAIL, `npm run lint`, `npm run build`, `governance:check` lulus.
 
@@ -98,17 +98,43 @@ Pakai `--motion-*` dan `--ease-*` yang ada. Durasi masuk/keluar mengikuti token 
 2. **Kontras teks putih di atas oranye = 4.12:1** (di bawah AA 4.5:1). Pengecualian identitas merek, dipertahankan sejak 2026-09-24; angkanya diperbarui di `DNA.md`. Pasangan AA tetap dipakai untuk teks oranye di latar terang (`--orange-ink`, 5.99:1).
 3. **Font swap Inter → Plus Jakarta Sans.** OFL, self-host, PWA tetap offline.
 4. **Token dipakai semua role.** Ganti token = merchant/kurir/admin ikut berganti tema. 1:1 hanya bisa diverifikasi di layar customer (prototype customer-only).
+5. **Gradient banner promo** (keputusan 2026-10-12). Alur repo tetap **pilih-toko dulu**; isi banner adalah **toko yang menunya sedang berdiskon** (`dealsFrom`), bukan kupon statis seperti contoh. Warna `--promo-from`/`--promo-to` (`#175273`/`#1D648B`) diambil apa adanya dari prototype; ini satu-satunya gradient di repo dan hanya dipakai `.home-promo`.
+6. **Alur tetap, komposisi menyusul.** Karena beranda memilih toko (bukan menu langsung), section menu-prototype (grid "Pilihan di dekatmu", "Tetangga favorit" sebagai section beranda) tidak dipindah ke beranda; bahasa visualnya dipakai di halaman toko saat masuk. Banner promo, chip, kartu toko, dan bilah keranjang tetap ada di beranda.
+7. **Kartu toko disamakan dengan daftar tetangga prototype** (foto 64px, satu baris tagline • jarak, baris promo, panah kanan). Badge buka/tutup dipertahankan karena repo menampilkan status toko nyata.
+8. **Parallax penuh lintas layar customer** (keputusan pemilik 2026-10-13). Prototype tidak punya parallax, jadi ini tambahan di luar 1:1 — dicatat sebagai pengecualian CL-01, bukan penyimpangan diam-diam. Batasnya: satu properti `translate`, amplitudo 12-26px, `animation-timeline: view()` (compositor, bukan listener `scroll`), hanya `@supports` saat fitur ada, dan **mati total** saat `prefers-reduced-motion`. Lapisan di luar kelas `s7-parallax--*` dipasang lewat selector di `_parallax.scss` supaya tidak menyentuh 15+ halaman.
 
 ---
 
 ## 6. Status migrasi
 
 - [x] Token EDISI 02 + font + `DNA.md` + AGENTS §4
-- [ ] Primitif `system/` (`_buttons`, `_cards`, `_forms`, `_badges`) ke radius/shadow v2
-- [ ] Layar customer 1:1 (beranda, 4 tab, 13 sheet)
+- [~] Primitif + motion v2: umpan balik tekan, chip (skala kotak ikon + glow), kartu toko (angkat + zoom foto), kursor cari, sheet (`sheet-rise`)
+- [~] Layar customer: **beranda** sudah diport — baris atas (alamat + kelompok kontrol kaca), banner promo toko berdiskon, chip selalu tampil, kartu toko gaya "tetangga favorit" (foto 64px + panah), bilah keranjang mengambang, bilah bawah
+- [ ] Layar customer lain (pencarian, favorit, profil, keranjang, sheet detail)
 - [ ] Role lain (merchant/kurir/admin) mewarisi token, verifikasi tidak pecah
 - [ ] Aset gambar lokal (prototype pakai Unsplash; ganti `public/assets/`)
 - [ ] Emoji toast di prototype diganti ikon lucide
+- [x] **Parallax penuh lintas layar customer** (CL-01, keputusan pemilik 2026-10-13): kelas `s7-parallax--*` + lapisan otomatis (hero toko, foto banner, header halaman) di `_parallax.scss`; `translate` saja; mati saat `prefers-reduced-motion`
+- [x] **Audit anti-slop 001** (`docs/design/anti-slop/audit-001-2026-10-13.md`) dikerjakan: lantai huruf mikro 12px, glow hanya untuk aksi primer, umpan hover dibungkus `@media (hover:hover)`, `backdrop-filter` bilah bawah dihapus
+
+### Bahasa gerak v2 (diextrak dari prototype)
+
+Prototype AI Studio memakai Tailwind v4 tanpa `@theme`, tanpa `@keyframes` custom, dan **tanpa plugin animasi** (`animate-in`/`slide-in-from-bottom` yang tertulis di kelasnya inert — tidak menghasilkan CSS). Jadi bahasa geraknya sangat ringkas; yang harus disalin:
+
+| Perilaku prototype | Nilai | Padanan repo |
+|---|---|---|
+| Umpan balik tekan | `active:scale-95`–`98` | `--motion-fast` + `scale(0.97)` di `_interaction.scss` |
+| Kotak ikon chip aktif | `scale-105` + glow oranye | `scale(1.05)` + `--shadow-brand` |
+| Kotak ikon chip ditekan | `scale-90` | `scale(0.9)` |
+| Kartu hover | `shadow-md` 200ms | `--shadow-md` + `--motion-standard` |
+| Foto kartu hover | `scale-105` 300ms | `scale(1.05)` + `--motion-standard` |
+| Varian tombol hero | `group-hover:scale-105`, chevron `translate-y-0.5` | transform di hero |
+| Sheet masuk | backdrop fade 200ms + sheet slide 300ms | `backdrop-in` + `sheet-rise` (token) |
+| Badge notifikasi/pesanan | `animate-pulse`/`bounce` (loop) | repo pakai `badge-pop` sekali (lebih tenang) |
+| Kursor pencarian | `animate-pulse` 2px oranye | `s7-caret` `steps(1)` 1.1s |
+| Parallax lapisan | tidak ada di prototype | `s7-parallax--hero/media/title/card/decor` + lapisan otomatis (CL-01, 12-26px, `translate` saja) |
+
+Easing prototype = default Tailwind `cubic-bezier(.4,0,.2,1)`; repo memakai `--ease-*` yang setara. Tidak ada spring/overshoot eksotis. Loop dekoratif prototype (pulse/bounce terus-menerus) sengaja diganti gerak sekali-jalan supaya tidak mengganggu; semua hormat `prefers-reduced-motion` lewat `_motion.scss`.
 
 ---
 
@@ -122,6 +148,10 @@ Pakai `--motion-*` dan `--ease-*` yang ada. Durasi masuk/keluar mengikuti token 
 | `docs/design/DNA.md` | kontrak visual (EDISI 02) |
 | `AGENTS.md` §4 | skala radius v2 |
 | `.rules.json` → `uiVersions` | status + aturan versi |
+| `src/styles/system/_home-v2.scss` | banner promo beranda + bilah keranjang mengambang |
+| `src/components/customer/HomePromoBanner.tsx` | banner promo (toko berdiskon) |
+| `src/components/customer/CartQuickBar.tsx` | bilah keranjang mengambang |
+| `src/api/catalog.ts` + `src/hooks/useApiCatalog.ts` | map `discount_percent`/`is_popular` + `useAllMenuItems` (banner akurat dari data live) |
 | `docs/design/v2-source/` | snapshot prototype (referensi) |
 | `docs/design/ui-v2.md` | dokumen ini |
 

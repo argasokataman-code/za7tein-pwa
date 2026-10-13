@@ -7,6 +7,10 @@
 //
 // Barisnya kini komponen bersama (`NotificationRow`) yang juga dipakai popup
 // lonceng konsol desktop, jadi kedua tampilan tak bisa melenceng.
+//
+// EDISI 02: kepala halaman memakai bar merek (oranye) dengan subjudul + pil
+// jumlah belum dibaca, seperti desain v2. Struktur alurnya tetap alur profil
+// repo (tombol kembali + gulir dokumen) — desainnya yang berubah, bukan IA-nya.
 import { Check } from 'lucide-react'
 
 import { markNotificationsRead } from '../api/notifications'
@@ -24,18 +28,20 @@ export default function Notifications() {
   return (
     <div className="app-shell">
       <main>
-        <div className="profile-flow-page">
+        <div className="profile-flow-page profile-flow-page--inbox">
           <div className="profile-flow">
-            <header className="profile-flow-header">
-              <BackButton className="back-btn-profile" />
-              <h1 className="profile-flow-title">Notifikasi</h1>
+            <header className="inbox-hero">
+              <BackButton className="back-btn-profile inbox-hero__back" />
+              <div className="inbox-hero__text">
+                <h1 className="inbox-hero__title">Notifikasi</h1>
+                <p className="inbox-hero__sub">Pemberitahuan &amp; promo terbaru</p>
+              </div>
+              {unread > 0 ? <span className="inbox-hero__pill">{unread} Baru</span> : null}
             </header>
 
             <main className="profile-flow-main">
               <div className="inbox-head">
-                <span className="inbox-head__count">
-                  {unread > 0 ? `${unread} belum dibaca` : 'Semua sudah dibaca'}
-                </span>
+                <span className="inbox-head__count">{items.length} Pemberitahuan</span>
                 {unread > 0 ? (
                   <button
                     type="button"

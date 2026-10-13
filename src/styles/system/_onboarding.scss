@@ -338,9 +338,8 @@
     transform var(--motion-fast) var(--ease-out);
 }
 
-.onboarding-cta:hover {
-  box-shadow: var(--shadow-brand);
-}
+/* Glow hover dihapus (audit 001 #6): `--shadow-brand` hanya untuk aksi primer
+   yang selalu terlihat, bukan umpan hover. */
 
 .onboarding-cta:active {
   transform: scale(0.985);

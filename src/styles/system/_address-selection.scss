@@ -1,6 +1,6 @@
 // ── Alamat Pengantaran (customer) ──────────────────────────────────────────
 // Audit 009 (anti-slop/audit-009-2026-10-10.md). Halaman masih memakai krem,
-// abu, dan heading mentah dari stylesheet porting (#FFF9F4, #EDE4DC, #202020).
+// abu, dan heading mentah dari stylesheet porting (var(--bg-warm), var(--border), var(--text-primary)).
 // Dipetakan ke token peran di satu tempat, bukan disunting di app/.
 
 .address-selection-screen,

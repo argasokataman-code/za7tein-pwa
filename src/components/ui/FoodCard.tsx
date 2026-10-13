@@ -22,6 +22,12 @@ interface FoodCardProps {
 
 export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps) {
   const { money } = useMoney()
+  const hasRating = food.rating > 0 || food.reviewCount > 0
+  const hasMeta =
+    hasRating ||
+    Boolean(food.cookMinutes) ||
+    Boolean(food.deliveryTime) ||
+    Boolean(food.distance)
   return (
     <div
       className={`food-card ${className}`.trim()}
@@ -45,51 +51,61 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
         />
         {food.discountPercent ? (
           <span className="discount-badge" aria-label={`Diskon ${food.discountPercent} persen`}>
-            <span className="discount-badge__pct" aria-hidden="true">
-              {food.discountPercent}%
-            </span>
-            <span className="discount-badge__off" aria-hidden="true">
-              Off
-            </span>
+            Hemat {food.discountPercent}%
           </span>
         ) : null}
         <FavoriteButton id={food.id} name={food.name} />
       </div>
 
       <div className="food-card-content">
-        <div className="food-name-price">
-          <h3 className="food-name">{food.name}</h3>
-          <span className="food-price">{money(food.price)}</span>
-        </div>
+        <h3 className="food-name">{food.name}</h3>
+
+        {food.description ? <p className="food-desc">{food.description}</p> : null}
 
         <div className="food-meta">
-          {food.deliveryTime || food.distance ? (
-            <div className="food-delivery-info">
-              {food.deliveryTime ? (
-                <>
-                  <Clock size={14} />
-                  <span>{food.deliveryTime}</span>
-                </>
-              ) : null}
-              {food.distance ? (
-                <>
-                  <span className="separator">•</span>
-                  <span>{food.distance}</span>
-                </>
-              ) : null}
-            </div>
-          ) : null}
-
-          {food.rating > 0 || food.reviewCount > 0 ? (
-            <div className="food-rating">
-              <Star size={14} fill="currentColor" />
+          {hasRating ? (
+            <span className="food-rating">
+              <Star size={14} fill="currentColor" aria-hidden="true" />
               <span className="rating-value">{formatRating(food.rating)}</span>
               <span className="rating-count">({food.reviewCount} ulasan)</span>
-            </div>
+            </span>
           ) : null}
+          {food.cookMinutes ? (
+            <span className="food-cook">
+              <Clock size={13} aria-hidden="true" />
+              {food.cookMinutes} mnt
+            </span>
+          ) : null}
+          {food.deliveryTime ? (
+            <>
+              <span className="separator" aria-hidden="true">
+                •
+              </span>
+              <span>{food.deliveryTime}</span>
+            </>
+          ) : null}
+          {food.distance ? (
+            <>
+              <span className="separator" aria-hidden="true">
+                •
+              </span>
+              <span>{food.distance}</span>
+            </>
+          ) : null}
+          {/* Data menu dari BE belum punya rating/waktu untuk semua toko. Baris
+              yang kosong diberi tanda `-` supaya tidak terlihat seperti kartu
+              gagal render, bukan dibiarkan bolong. */}
+          {hasMeta ? null : (
+            <span className="food-meta__empty" aria-label="Tanpa rating dan waktu">
+              -
+            </span>
+          )}
         </div>
 
-        <AddToCartButton food={food} />
+        <div className="food-price-row">
+          <span className="food-price">{money(food.price)}</span>
+          <AddToCartButton food={food} iconOnly className="food-card-add" />
+        </div>
       </div>
     </div>
   )

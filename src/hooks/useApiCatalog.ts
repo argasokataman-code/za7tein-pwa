@@ -9,7 +9,7 @@
  */
 import { useEffect, useState } from 'react'
 
-import { fetchFood, fetchMenuItems, fetchStorefront, fetchStorefronts } from '../api/catalog'
+import { fetchAllMenuItems, fetchFood, fetchMenuItems, fetchStorefront, fetchStorefronts } from '../api/catalog'
 import { apiEnabled } from '../api/supabase'
 import type { MenuItem, Storefront } from '../types'
 import { useAppSelector } from './useAppStore'
@@ -41,6 +41,28 @@ export function useStorefronts(fallback: Storefront[]): Storefront[] {
       clearInterval(timer)
     }
   }, [origin])
+  return remote ?? fallback
+}
+
+/**
+ * Seluruh menu (semua toko) sekali baca — dipakai beranda untuk menghitung
+ * promo per toko dan kategori. Varian diabaikan (ringkasan saja). Mock dipakai
+ * sampai API menjawab; API kosong tidak mengosongkan beranda.
+ */
+export function useAllMenuItems(fallback: MenuItem[]): MenuItem[] {
+  const [remote, setRemote] = useState<MenuItem[] | null>(null)
+  useEffect(() => {
+    if (!apiEnabled) return
+    let alive = true
+    fetchAllMenuItems()
+      .then((next) => {
+        if (alive && next.length) setRemote(next)
+      })
+      .catch(() => {})
+    return () => {
+      alive = false
+    }
+  }, [])
   return remote ?? fallback
 }
 

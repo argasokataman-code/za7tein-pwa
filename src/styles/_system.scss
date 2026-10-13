@@ -16,12 +16,14 @@
 @use "./system/menu";
 @use "./system/menu-states";
 @use "./system/storefront";
+@use "./system/home-v2";
 @use "./system/search";
 @use "./system/filter";
 @use "./system/tracking";
 @use "./system/map";
 @use "./system/cart";
 @use "./system/cart-2";
+@use "./system/bottom-nav";
 @use "./system/payment-selection";
 @use "./system/payment-amount";
 @use "./system/address-selection";
@@ -48,8 +50,11 @@
 @use "./system/auth-2";
 @use "./system/app-shell";
 @use "./system/currency";
+@use "./system/currency-converter";
 @use "./system/wallet";
 @use "./system/profile";
+@use "./system/profile-v2";
+@use "./system/notifications-v2";
 @use "./system/landing-refresh";
 @use "./system/superadmin";
 @use "./system/superadmin-2";
@@ -72,6 +77,10 @@
 // tracking, post-order, checkout — supaya menang pada kekhususan yang sama.
 @use "./system/topbar";
 
+// Detail menu EDISI 02 — setelah topbar supaya cakram `.btn-back` di atas
+// foto menang pada kekhususan yang sama.
+@use "./system/menu-detail-v2";
+
 // Toast update PWA (`.update-toast`) + baris "Cek pembaruan" (`.update-check`).
 // Sebelum `interaction` supaya umpan balik tekan tombol aksinya ikut aturan
 // interaksi umum.
@@ -82,3 +91,8 @@
 // gerak masuk berurutan, reduced motion). Terakhir supaya `:active` di sini
 // tidak diratakan oleh aturan tekan warisan yang lebih awal.
 @use "./system/interaction";
+
+// Lapisan parallax (kelas `s7-parallax--*` + lapisan otomatis hero toko, foto
+// banner promo, header halaman customer). Setelah `interaction` supaya override
+// reduced-motion untuk lapisan ini tidak kalah oleh aturan gerak umum di sana.
+@use "./system/parallax";

@@ -21,9 +21,12 @@ import type { Food } from '../../types'
 export function AddToCartButton({
   food,
   className = 'buy-now-btn',
+  iconOnly = false,
 }: {
   food: Food
   className?: string
+  /** Hanya ikon `+` (tanpa label) untuk tombol bulat ringkas di kartu makanan. */
+  iconOnly?: boolean
 }) {
   const dispatch = useAppDispatch()
 
@@ -42,7 +45,7 @@ export function AddToCartButton({
       }}
     >
       <Plus size={16} strokeWidth={2} aria-hidden="true" />
-      Tambah
+      {iconOnly ? null : 'Tambah'}
     </button>
   )
 }

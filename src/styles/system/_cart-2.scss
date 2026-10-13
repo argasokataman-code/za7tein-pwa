@@ -526,7 +526,7 @@ div[class*="-screen"] .container {
   color: var(--orange-ink);
 }
 
-/* Hover: `--bg-warm` (#FFF9F4) di atas `--surface` (#FFFFFF) beda 4 satuan,
+/* Hover: `--bg-warm` (var(--bg-warm)) di atas `--surface` (#FFFFFF) beda 4 satuan,
    tak terlihat; selektornya juga sama kuat dengan .selected tapi diimpor
    belakangan, sehingga hover menghapus latar oranye kartu terpilih. */
 .address-item:hover,
