@@ -5708,6 +5708,48 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
+    },
+    {
+      "id": "BUG-88042",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:01:46",
+      "tags": [
+        "docs",
+        "css",
+        "readability"
+      ],
+      "summary": "Dokumentasi tak kebaca: .doc-p tanpa max-width -> ~190 char/baris di 1920; .doc-list li display:flex bikin isi inline (<code>) jadi kolom se",
+      "conn": [
+        {
+          "id": "TASK-88040",
+          "type": "relates",
+          "raw": "TASK-88040:relates"
+        }
+      ],
+      "loc": "src/styles/_docs.scss:39"
+    },
+    {
+      "id": "TASK-88043",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:01:46",
+      "tags": [
+        "docs",
+        "css",
+        "readability"
+      ],
+      "summary": "Fix keterbacaan /documentation: measure 72ch untuk prosa/list/callout, cap kolom 900px, bullet list absolut (bukan flex)",
+      "conn": [
+        {
+          "id": "BUG-88042",
+          "type": "fixes",
+          "raw": "BUG-88042:fixes"
+        }
+      ],
+      "commit": "bcfa31e"
     }
   ]
 }
