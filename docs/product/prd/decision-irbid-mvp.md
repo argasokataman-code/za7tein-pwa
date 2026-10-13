@@ -13,6 +13,37 @@ Jika pemilik produk menyatakan dokumen lain lebih otoritatif, ubah manifest dan 
 
 ## Riwayat keputusan
 
+### Provider pembayaran & disbursement: DANA — 2026-10-13 (keputusan PO)
+
+- **DANA Enterprise menggantikan Xendit sebagai satu-satunya payment gateway + disbursement.** Midtrans
+  (revisi v1) dan Xendit (revisi v2) keluar dari rencana, begitu juga **transfer manual** (legacy
+  `radius-mvp-legacy`).
+- **Alasan:** onboarding sandbox sudah tuntas dan terverifikasi nyata, bukan asumsi — SNAP hidup,
+  Payment Gateway 49/49, Widget/IPG Cashier Pay (inti) lolos, Disbursement kasus positif lolos,
+  Merchant Management `queryShop`/`queryDivision` terverifikasi. Bukti mentah: `docs/integration/dana/`.
+- **Pemetaan produk DANA:** bayar pesanan → Payment Gateway (`createOrder`) + IPG Cashier Pay/Widget;
+  saldo & top-up → QRIS/VA/DANA balance; bayar merchant & kurir → Disbursement; data toko/divisi →
+  Merchant Management. Empat jalur ini menggantikan peran `PaymentMethodId`/`TopUpChannel`/`Payout`
+  yang sebelumnya menunjuk Xendit.
+- **Batas:** ini keputusan **rencana/kontrak**, bukan penambahan lapisan API di repo. Repo tetap UI mock;
+  DANA tidak menambah lapisan API di repo ini (AGENTS §1: ketiadaan integrasi itu keputusan sadar).
+- **UNRESOLVED:** **model settlement** — A satu merchant + Disbursement (Sa7tein kustodian) atau
+  B sub-merchant/split settlement (bukan kustodian); ini keputusan bisnis/regulasi, jangan dikarang
+  (analisis di `docs/integration/dana/README.md` §3).
+- **Nama Xendit dihapus (2026-10-13, lanjutan keputusan ini — menutup pertanyaan terbuka sebelumnya).**
+  Flow `f17-payment-xendit` → `f17-payment-dana`, dan penamaan di tipe/data/layar
+  (`PaymentMethodId`, `TopUpChannel` → `dana_va`/`dana_qris`, `xenditBalance` → `danaBalance`),
+  dokumentasi, dan `/documentation` berganti ke DANA. Satu-satunya sisa literal `xendit_*` adalah
+  **nilai string yang dikirim ke kolom backend** (`OUT_PAYMENT` di `src/api/orders.ts`) dan mapping
+  cart lama di `src/store/index.ts`, sampai BE memperbarui `orders_payment_method_check`
+  (`docs/integration/dana/be-contract.md` D2). Dokumen versi PRD
+  (`versions/irbid-mvp-v2-2026-09-21/*`, `source.md` ber-sha256) sengaja tidak disentuh — keputusan ini
+  yang berlaku untuk penamaan.
+- **Debt terkait (selesai di commit ini):** `docs/design/flows/f17-payment-dana/*` +
+  `flows/INDEX.json` + `flows/index.html` + `API-SPEC.md`, `src/types.ts`, `src/data/*`,
+  `src/api/orders.ts`, `src/pages/*` + `/documentation`, `docs/design/app-map/*`. Flow lolos
+  `./scripts/flows-gate.sh <slug>`.
+
 ### Periode tier insentif (I-4) — 2026-10-10 (keputusan PO)
 
 - **Periode tier = bulan kalender** (`rebate_period` `YYYY-MM`, `currentPeriod()`), dan **tier dinilai/dibuka tiap akhir bulan**.

@@ -83,7 +83,7 @@ pola slop kalau dibiarkan.
 2. **Data asli** — ambil dari `src/data/*` (label, nominal, badge, nama). Contoh
    panel CS: nav `Ringkasan · Onboarding(3) · Sengketa(2) · Merchant · Ledger`;
    liability `227.45 JOD` (customer 128.40 + merchant 86.75 + tips kurir 12.30),
-   saldo Xendit `210.00` → kurang `17.45 JOD`; ledger deposit hold/COD hold/fee/
+   saldo DANA `210.00` → kurang `17.45 JOD`; ledger deposit hold/COD hold/fee/
    settlement/refund. **Pakai nilai nyata**, jangan angka karangan.
 3. **Tujuan layar + peran** — dari `docs/plan-*.md` / flow. Sebut siapa pengguna & apa
    aksi utamanya.

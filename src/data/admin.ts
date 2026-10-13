@@ -122,7 +122,7 @@ export const mockLiability: LiabilitySummary = {
   customerWallets: 128.4,
   merchantWallets: 86.75,
   courierTips: 12.3,
-  xenditBalance: 210,
+  danaBalance: 210,
 }
 
 /** Kewajiban platform: saldo customer + merchant + tips kurir yang belum di-payout. */
@@ -150,9 +150,9 @@ export function aggregateLiability(
   }
 }
 
-/** Selisih saldo Xendit terhadap kewajiban; negatif = kurang (flag di dashboard). */
+/** Selisih saldo DANA terhadap kewajiban; negatif = kurang (flag di dashboard). */
 export function liabilityGap(liability: LiabilitySummary): number {
-  return liability.xenditBalance - totalLiability(liability)
+  return liability.danaBalance - totalLiability(liability)
 }
 
 export const adminTenants: AdminTenant[] = [

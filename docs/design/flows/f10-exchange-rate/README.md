@@ -16,7 +16,7 @@ Sequence sinkronisasi rate. Milestone **M1** (deps M0); PRD aktif `irbid-mvp-v2-
 
 ## Aturan (R-CURR-01, DECIDED)
 
-- Semua settlement = IDR lewat Xendit; **tidak ada uang menyentuh JOD**.
+- Semua settlement = IDR lewat DANA; **tidak ada uang menyentuh JOD**.
 - JOD display-only — harga/ongkir/fee/saldo disimpan IDR (source of truth).
 - Jangan simpan nominal JOD sebagai nilai transaksi (sumber drift & bug pembulatan).
 - Ledger tetap IDR utuh. Disclaimer wajib: *"kurs estimasi, mengikuti kurs harian"*.

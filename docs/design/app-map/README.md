@@ -31,7 +31,7 @@ Catatan:
 
 - **Aktor:** Customer, Merchant (sudah ada) · Kurir, Super Admin (planned)
 - **App:** Customer App, Merchant Console · Courier Console, Super Admin Console (planned)
-- **Fondasi:** Redux Store (8 slice · persist 4), Mock Data (`src/data`), Kontrak BE (Xendit/ledger/push), Web plain (Landing + Documentation)
+- **Fondasi:** Redux Store (8 slice · persist 4), Mock Data (`src/data`), Kontrak BE (DANA/ledger/push), Web plain (Landing + Documentation)
 - **Region:** `PWA /app — 53 rute`, `Belum dibangun (planned)`, `Web (plain)`
 
 Sumber kebenaran struktur: `src/App.tsx` (array `routes`), `src/store/`, `src/data/`. Perbarui peta kalau rute/slice/modul berubah.

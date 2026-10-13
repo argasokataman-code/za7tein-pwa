@@ -4094,6 +4094,1446 @@
           "raw": "TASK-88024:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-90273",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:29:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md (+29/-3) — edit via tool: ## Riwayat keputusan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md"
+    },
+    {
+      "id": "TASK-90274",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:29:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/README.md (+10/-4) — edit via tool: ## 1. Peran DANA di Sa7tein",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/README.md"
+    },
+    {
+      "id": "DEC-88010",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-13",
+      "time": "18:30:08",
+      "tags": [
+        "prd",
+        "dana",
+        "payment",
+        "integration"
+      ],
+      "summary": "DANA ganti Xendit jadi satu-satunya provider bayar+disbursement; Xendit/Midtrans/transfer manual keluar rencana; kode & flow belum migrasi",
+      "conn": [
+        {
+          "id": "INTG-001",
+          "type": "relates",
+          "raw": "INTG-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90275",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:32:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md (+155) — write via tool: # Kontrak FE ↔ BE — pembaya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md"
+    },
+    {
+      "id": "TASK-90276",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:32:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/README.md (+2/-1) — edit via tool: | `credentials-and-signing.md` |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/README.md"
+    },
+    {
+      "id": "TASK-88030",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:32:25",
+      "tags": [
+        "dana",
+        "integration",
+        "be-contract",
+        "docs"
+      ],
+      "summary": "Kontrak FE-BE DANA ditulis (docs/integration/dana/be-contract.md): endpoint B1-B7, field asli fixture UAT, webhook idempoten, state FE, 6 UN",
+      "conn": [
+        {
+          "id": "INTG-001",
+          "type": "relates",
+          "raw": "INTG-001:relates"
+        },
+        {
+          "id": "DEC-88010",
+          "type": "relates",
+          "raw": "DEC-88010:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90277",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:44:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+15/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-90278",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:44:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+27/-18) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-90279",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:44:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+17/-13) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-90280",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:45:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentSelection.tsx (+20/-19) — edit via tool: tsx: // Metode bayar (keputusan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentSelection.tsx"
+    },
+    {
+      "id": "TASK-90281",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:45:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx (+4/-2) — edit via tool: tsx: const method = PAYMENT_METHODS.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx"
+    },
+    {
+      "id": "TASK-90282",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:46:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+235) — write via tool: tsx: // Layar pembayaran DANA (VA / QR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90283",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:46:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss (+237) — write via tool: // ── /payment-dana (custom",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss"
+    },
+    {
+      "id": "TASK-90284",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:46:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss (+2/-1) — edit via tool: \".payment-amount-header\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-90285",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:46:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+3/-2) — edit via tool: tsx: import PaymentAmount from './pages/Payme",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-90286",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:46:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/routes.ts (+2/-1) — edit via tool: ts: { path: '/payment-amount',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/routes.ts"
+    },
+    {
+      "id": "TASK-90287",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:47:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+9/-2) — edit via tool: tsx: keputusan desain EDISI 02 yang ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-90288",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:47:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+2/-2) — edit via tool: tsx: import { useMemo, useState } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90289",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:48:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+18/-17) — edit via tool: tsx: const [deadline, setDeadline] =",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90290",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:55:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+27/-15) — edit via tool: * (`--role all` menyapu beberapa pera",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-90291",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:58:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+26/-24) — edit via tool: * `GATE_SEED_PAYMENT` memilih metode ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-90292",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:59:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+2/-2) — edit via tool: tsx: import { Component, useMemo, useS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90293",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "18:59:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnpm run build 2>&1 | tail -3\nGATE_SEED_PAYMENT=dana_va node scripts/browser-gate.mjs -",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90294",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:00:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+9/-1) — edit via tool: tsx: export default function PaymentDa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90295",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:00:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnode -e \"\nconst f='src/pages/PaymentDana.tsx';let s=require('fs').readFileSync(f,'utf8",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90296",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:03:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+17/-1) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-90297",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:03:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+2/-1) — edit via tool: ts: import { menuSeed } from '../data/catalo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-90298",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:03:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\n./scripts/verify.sh 2>&1 | grep -E \"PaymentDana|error|Error|✓ built|== \" | head -12\nec",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90299",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:04:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+3/-2) — edit via tool: ts: PaymentMethod,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-90300",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:06:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+11/-3) — edit via tool: ts: const meta = JSON.parse(outer._persist ?",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-90301",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:09:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+30/-2) — edit via tool: tsx: /** QR mock: 15x15 sel. Finders ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90302",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:10:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md (+16/-8) — edit via tool: | # | Hal | Sumber |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md"
+    },
+    {
+      "id": "TASK-90303",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:11:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md (+13/-7) — edit via tool: 1. **VA** — selesai: `/cus",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md"
+    },
+    {
+      "id": "BUG-88032",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:12:17",
+      "tags": [
+        "store",
+        "persist",
+        "payment"
+      ],
+      "summary": "repairPersistedCart allow-list hanya wallet/cod/transfer; pilihan VA/QRIS (xendit_va pun) dipaksa wallet tiap boot",
+      "conn": [
+        {
+          "id": "DEC-88010",
+          "type": "relates",
+          "raw": "DEC-88010:relates"
+        }
+      ],
+      "loc": "src/store/index.ts:140"
+    },
+    {
+      "id": "BUG-88033",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:12:17",
+      "tags": [
+        "store",
+        "persist",
+        "boot",
+        "white-screen"
+      ],
+      "summary": "repairPersistedCart tulis _persist.version=2 -> migrasi jalan -> slice undefined -> app blank saat boot untuk cart legacy apa pun",
+      "conn": [
+        {
+          "id": "BUG-88032",
+          "type": "relates",
+          "raw": "BUG-88032:relates"
+        }
+      ],
+      "loc": "src/store/index.ts:165"
+    },
+    {
+      "id": "TASK-88031",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:12:17",
+      "tags": [
+        "fe",
+        "dana",
+        "payment",
+        "ui"
+      ],
+      "summary": "FE layar bayar DANA (VA+QRIS) mock sandbox: PaymentDana.tsx + metode PAYMENT_METHODS; gate 390/1440 PASS",
+      "conn": [
+        {
+          "id": "DEC-88010",
+          "type": "implements",
+          "raw": "DEC-88010:implements"
+        },
+        {
+          "id": "BUG-88032",
+          "type": "relates",
+          "raw": "BUG-88032:relates"
+        },
+        {
+          "id": "BUG-88033",
+          "type": "relates",
+          "raw": "BUG-88033:relates"
+        }
+      ],
+      "loc": "src/pages/PaymentDana.tsx:1"
+    },
+    {
+      "id": "TASK-90304",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:23:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-dana/f17-payment-dana.json (+58) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-dana/f17-payment-dana.json"
+    },
+    {
+      "id": "TASK-90305",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:23:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-dana/README.md (+55) — write via tool: # F17 — Payment DANA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f17-payment-dana/README.md"
+    },
+    {
+      "id": "TASK-90306",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:23:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f17-payment-dana\": { \"type\": \"sequ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-90307",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:24:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+3/-3) — edit via tool: { \"from\": \"f1-order-lifecycle:check",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-90308",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:24:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html (+1/-1) — edit via tool: {slug:\"f17-payment-dana\",         t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-90309",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:24:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/README.md (+1/-1) — edit via tool: `f17-payment-dana` (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f18-order-state/README.md"
+    },
+    {
+      "id": "TASK-90310",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:25:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/BUSINESS.md (+1/-1) — edit via tool: | **f17 payment-dana** | Harus ada",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/BUSINESS.md"
+    },
+    {
+      "id": "TASK-90311",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:25:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+1/-1) — edit via tool: | Cash-out | `cashouts` ada (koson",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
+    },
+    {
+      "id": "TASK-90312",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:26:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+13/-15) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-90313",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:26:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+14/-17) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-90314",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:26:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts (+12/-15) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/merchant.ts"
+    },
+    {
+      "id": "TASK-90315",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:26:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+7/-1) — edit via tool: ts: const cart = JSON.parse(outer.cart ?? '{",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-90316",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:26:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/wallet.ts (+8/-8) — edit via tool: ts: channel: 'dana_va',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/wallet.ts"
+    },
+    {
+      "id": "TASK-90317",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:26:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts (+1/-1) — edit via tool: ts: danaBalance: 210,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/admin.ts"
+    },
+    {
+      "id": "TASK-90318",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:27:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/WalletTopUp.tsx (+1/-1) — edit via tool: tsx: const [channel, setChannel] = use",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/WalletTopUp.tsx"
+    },
+    {
+      "id": "TASK-90319",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:27:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: pencairan ke rekening (DANA pay",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-90320",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:27:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx (+1/-1) — edit via tool: tsx: * lalu `POST /wallet/cashouts`",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayout.tsx"
+    },
+    {
+      "id": "TASK-90321",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:27:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ConsistencySection.tsx (+1/-1) — edit via tool: tsx: <co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ConsistencySection.tsx"
+    },
+    {
+      "id": "TASK-90322",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:27:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f6-cashout-payout/f6-cashout-payout.json (+2/-2) — edit via tool: { \"id",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f6-cashout-payout/f6-cashout-payout.json"
+    },
+    {
+      "id": "TASK-90323",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:28:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f6-cashout-payout/README.md (+1/-1) — edit via tool: **Lane Customer:**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f6-cashout-payout/README.md"
+    },
+    {
+      "id": "TASK-90324",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:28:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/schema-draft-v1.md (+1/-1) — edit via tool: | Payment provider | **DANA dipa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/schema-draft-v1.md"
+    },
+    {
+      "id": "TASK-90325",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:28:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md (+22/-17) — edit via tool: - **Pemetaan produk DAN",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/decision-irbid-mvp.md"
+    },
+    {
+      "id": "TASK-90326",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:28:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md (+2/-2) — edit via tool: B7 (`POST /webhooks/dana`) ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md"
+    },
+    {
+      "id": "TASK-90327",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:29:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md (+9/-8) — edit via tool: **D2 — ditutup 2026-10-13 (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/be-contract.md"
+    },
+    {
+      "id": "TASK-88034",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:31:44",
+      "tags": [
+        "dana",
+        "rename",
+        "docs"
+      ],
+      "summary": "Hapus penamaan Xendit -> DANA: flow f17-payment-dana, INDEX, API-SPEC, tipe/data/layar/docs; sisa literal xendit_* hanya wire OUT_PAYMENT",
+      "conn": [
+        {
+          "id": "DEC-88010",
+          "type": "implements",
+          "raw": "DEC-88010:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90328",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:44:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+259) — write via tool: tsx: // Layar pembayaran DANA (VA / QR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90329",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:45:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss (+234) — write via tool: // ── /payment-dana (custom",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss"
+    },
+    {
+      "id": "TASK-90330",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:46:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+22/-25) — edit via tool: tsx: </section>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-90331",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:48:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss (+10/-8) — edit via tool: // ── Hitung mundur: sinya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss"
+    },
+    {
+      "id": "TASK-90332",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:50:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx (+9/-5) — edit via tool: tsx: )}",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentDana.tsx"
+    },
+    {
+      "id": "TASK-88035",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "19:51:24",
+      "tags": [
+        "ui",
+        "dana",
+        "layout"
+      ],
+      "summary": "Rapikan layout /payment-dana: satu kartu (nominal+kode), satu sumbu rata kiri, timer chip dalam kartu, footer tertambat dasar, oranye dibata",
+      "conn": [
+        {
+          "id": "TASK-88034",
+          "type": "relates",
+          "raw": "TASK-88034:relates"
+        }
+      ],
+      "loc": "src/pages/PaymentDana.tsx,src/styles/system/_payment-dana.scss"
+    },
+    {
+      "id": "TASK-90333",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "20:07:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_type.scss (+8/-7) — edit via tool: .address-selection-title,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_type.scss"
+    },
+    {
+      "id": "TASK-90334",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "20:07:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+4/-3) — edit via tool: .address-selection-title,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-90335",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "20:07:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss (+4/-3) — edit via tool: .app-shell .payment-selection-hea",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-90336",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "20:08:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+1/-1) — edit via tool: // Keenam belas judul ini sudah tex",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "BUG-88036",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "20:10:00",
+      "tags": [
+        "ui",
+        "dana",
+        "header"
+      ],
+      "summary": "Judul /payment-dana tak terpusat: .payment-dana-title tak terdaftar di grup judul-terpusat (_menu.scss) + tipografi header (_type.scss) + sa",
+      "conn": [
+        {
+          "id": "TASK-88035",
+          "type": "fixes",
+          "raw": "TASK-88035:fixes"
+        }
+      ],
+      "loc": "src/styles/system/_menu.scss,src/styles/system/_type.scss,src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-90337",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "20:17:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss (+14/-7) — edit via tool: .payment-dana-header {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_payment-dana.scss"
+    },
+    {
+      "id": "BUG-88037",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "20:18:59",
+      "tags": [
+        "ui",
+        "dana",
+        "header"
+      ],
+      "summary": "Tombol back /payment-dana nempel tepi kolom (x=745): kontrak bar _topbar.scss hanya atur padding vertikal, jarak tepi 20px datang dari legac",
+      "conn": [
+        {
+          "id": "BUG-88036",
+          "type": "relates",
+          "raw": "BUG-88036:relates"
+        }
+      ],
+      "loc": "src/styles/system/_payment-dana.scss"
     }
   ]
 }

@@ -5307,8 +5307,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <text data-detail="context" x="445" y="586" class="t-muted" font-size="9" text-anchor="middle">src/data · 8 modul</text>
         </g>
 
-        <g id="node-handoff" data-node-id="handoff" data-node-label="Kontrak BE" tabindex="0" role="button" aria-label="Focus Kontrak BE, Xendit, ledger, push, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Xendit, ledger, push" data-node-context="Architecture component">
-          <title>Kontrak BE · Xendit, ledger, push · Architecture component</title>
+        <g id="node-handoff" data-node-id="handoff" data-node-label="Kontrak BE" tabindex="0" role="button" aria-label="Focus Kontrak BE, DANA, ledger, push, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="DANA, ledger, push" data-node-context="Architecture component">
+          <title>Kontrak BE · DANA, ledger, push · Architecture component</title>
           <rect x="660" y="540" width="170" height="64" rx="6" class="c-mask"/>
           <rect x="660" y="540" width="170" height="64" rx="6" class="c-external" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(666 546) scale(0.6875)">
@@ -5316,7 +5316,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="745" y="570" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Kontrak BE</text>
-        <text data-detail="context" x="745" y="586" class="t-muted" font-size="9" text-anchor="middle">Xendit, ledger, push</text>
+        <text data-detail="context" x="745" y="586" class="t-muted" font-size="9" text-anchor="middle">DANA, ledger, push</text>
         </g>
 
         <g id="node-web" data-node-id="web" data-node-label="Web (plain)" tabindex="0" role="button" aria-label="Focus Web (plain), Landing, Documentation, Web (plain)" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="Landing, Documentation" data-node-context="Web (plain)">
@@ -11071,6 +11071,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var guided = shell && shell.querySelector('.guided-views');
       var cards = shell && shell.querySelector('.cards');
       var viewBox = svg && svg.viewBox && svg.viewBox.baseVal;
+      var unboundedWidth = Boolean(svg && svg.getAttribute('data-reader-width') === 'unbounded');
       var ratio = viewBox && viewBox.height > 0 ? viewBox.width / viewBox.height : 0;
       var frame = 0;
       var settleFrame = 0;
@@ -11100,7 +11101,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
       function eligible() {
         return Boolean(
-          shell && diagram && svg && ratio >= WIDE_RATIO &&
+          shell && diagram && svg && (ratio >= WIDE_RATIO || unboundedWidth) &&
           window.innerWidth >= MIN_DESKTOP_WIDTH &&
           html.getAttribute('data-embed') !== 'true' &&
           html.getAttribute('data-present') !== 'true' &&
@@ -11160,15 +11161,18 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
         var chrome = chromeMetrics();
         var viewportCap = Math.max(0, window.innerWidth - chrome.bodyX);
-        var minWidth = Math.min(MIN_READER_WIDTH, viewportCap);
-        var maxWidth = Math.min(MAX_READER_WIDTH, viewportCap);
+        // Unbounded diagrams opt out of the viewport/reader cap: the page may
+        // grow wider than the viewport and scroll horizontally so a detailed
+        // flow stays readable instead of being shrunk to fit.
+        var minWidth = unboundedWidth ? MIN_READER_WIDTH : Math.min(MIN_READER_WIDTH, viewportCap);
+        var maxWidth = unboundedWidth ? Number.MAX_SAFE_INTEGER : Math.min(MAX_READER_WIDTH, viewportCap);
         var fixedHeight = chrome.bodyY + chrome.diagramY + SAFE_BOTTOM_GAP +
           outerHeight(header) + outerHeight(guided) + outerHeight(cards);
         var availableSvgHeight = Math.max(1, window.innerHeight - fixedHeight);
         var desiredWidth = availableSvgHeight * ratio + chrome.diagramX;
         var width = Math.max(minWidth, Math.min(maxWidth, desiredWidth));
         applyWidth(width);
-        settleOverflow(minWidth);
+        if (!unboundedWidth) settleOverflow(minWidth);
         return {
           ratio: ratio,
           width: Math.round(width),

@@ -94,7 +94,7 @@ Urutan bangun = urutan milestone (M1 → M11), lalu nilai baca. Status: `todo` /
 
 ### F3 — Wallet & top-up ✅ done
 - **Slug:** `f3-wallet-topup` · **Type:** `workflow` · **Milestone:** M3
-- **Alur:** customer top-up (mock Xendit VA/QRIS) → `pending → completed` → saldo; gate top-up minimum 3,5 JOD untuk akun baru
+- **Alur:** customer top-up (mock DANA VA/QRIS) → `pending → completed` → saldo; gate top-up minimum 3,5 JOD untuk akun baru
 - **Wallet:** customer (top-up), merchant (auto-kredit saat settle), kurir (tips saja)
 - **Sumber:** R-WALLET-01, R-TOPUP-01; M0, M2, M3
 
@@ -129,7 +129,7 @@ Urutan bangun = urutan milestone (M1 → M11), lalu nilai baca. Status: `todo` /
 ### F7 — Ledger & liability ✅ done
 - **Slug:** `f7-ledger-liability` · **Type:** `dataflow` · **Milestone:** M9
 - **Aturan:** double-entry, append-only, kronologis; reversal hanya lewat entry baru; saldo wallet user = **liability** platform
-- **Metrik:** saldo Xendit ≥ total liability wallet, kalau kurang → flag
+- **Metrik:** saldo DANA ≥ total liability wallet, kalau kurang → flag
 - **Sumber:** R-LEDGER-01; M9
 
 ### F8 — Dispute ✅ done

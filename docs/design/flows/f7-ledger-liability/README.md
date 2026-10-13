@@ -10,7 +10,7 @@ Dataflow double-entry append-only + cek solvabilitas. Milestone **M9** (M0 BE co
 
 ## Alur data
 
-**Peristiwa uang** → **Entri double-entry** (1 peristiwa ≥ 2 baris) → **`wallet_ledgers`** (append-only, kronologis) → **Liability wallet** (saldo user = utang platform) → **Cek Xendit** (saldo ≥ total liability?) → **Flag** kalau kurang.
+**Peristiwa uang** → **Entri double-entry** (1 peristiwa ≥ 2 baris) → **`wallet_ledgers`** (append-only, kronologis) → **Liability wallet** (saldo user = utang platform) → **Cek DANA** (saldo ≥ total liability?) → **Flag** kalau kurang.
 
 Masukan: `top_up_completed` (F3), `hold/cut/settle` (F2), fee (F4). Reversal/batal = **entry baru, bukan edit baris** (dashed).
 
@@ -19,7 +19,7 @@ Masukan: `top_up_completed` (F3), `hold/cut/settle` (F2), fee (F4). Reversal/bat
 - Double-entry, append-only, kronologis.
 - Reversal hanya lewat entry baru.
 - Saldo wallet user = **liability** platform, bukan pendapatan.
-- Metrik: saldo Xendit ≥ total liability; kurang → flag dashboard Super Admin.
+- Metrik: saldo DANA ≥ total liability; kurang → flag dashboard Super Admin.
 
 ## Terhubung (lihat `../INDEX.json`)
 

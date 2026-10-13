@@ -1,6 +1,6 @@
 # F3 — Wallet & Top-up
 
-Alur top-up customer (mock Xendit VA/QRIS) + model tiga wallet closed-loop.
+Alur top-up customer (mock DANA VA/QRIS) + model tiga wallet closed-loop.
 Milestone **M3** (M0 tipe/walletSlice, M2 gate checkout; PRD aktif `irbid-mvp-v2-2026-09-21`).
 
 | Berkas | Isi |
@@ -11,9 +11,9 @@ Milestone **M3** (M0 tipe/walletSlice, M2 gate checkout; PRD aktif `irbid-mvp-v2
 
 ## Alur
 
-**Lane Customer (top-up):** Pilih nominal → Pilih channel (VA/QRIS) → Redirect Xendit (`idempotency-key` + `reference_id`) → TopUp `pending` → webhook → `completed` → kredit **Saldo wallet** (`available` + `pending`).
+**Lane Customer (top-up):** Pilih nominal → Pilih channel (VA/QRIS) → Redirect DANA (`idempotency-key` + `reference_id`) → TopUp `pending` → webhook → `completed` → kredit **Saldo wallet** (`available` + `pending`).
 
-**Lane Wallet & Internal Ledger:** Saldo → `bayar order` → internal ledger (antar-wallet instan, tanpa fee gateway) → `withdraw` → Xendit payout (detail di F6).
+**Lane Wallet & Internal Ledger:** Saldo → `bayar order` → internal ledger (antar-wallet instan, tanpa fee gateway) → `withdraw` → DANA payout (detail di F6).
 
 **Lane Guard:** nominal akun baru < 3,5 JOD → **gate** `MIN_TOPUP_NEW_ACCOUNT_JOD = 3.5` (berlaku semua metode, bukan cuma prepaid).
 
@@ -32,7 +32,7 @@ Drill-down dari `f1:topUpGate`; feed ke `f6-cashout-payout` (withdraw) dan `f7-l
 - `R-WALLET-01`, `R-TOPUP-01` — `analysis.md`
 - Milestone M0, M2, M3 — `versions/irbid-mvp-v2-2026-09-21/milestones.md`
 - Konstanta `MIN_TOPUP_NEW_ACCOUNT_JOD = 3.5` — `source.md` §Scope Sistem
-- **DEFERRED (BE, PO 2026-09-22):** OQ-5/7/8/23 — onboarding & fee Xendit
+- **DEFERRED (BE, PO 2026-09-22):** OQ-5/7/8/23 — onboarding & fee DANA
 - **UNRESOLVED (jangan ditebak):** OQ-15, OQ-19 — regulasi e-money & segregated account; timeout top-up pending tidak disebut PRD
 
 ## Update

@@ -22,14 +22,14 @@ export const mockTopUps: TopUp[] = [
   {
     id: 'tu-1',
     amount: AVAILABLE_IDR + PENDING_IDR, // = saldo terkredit; 23.000 di antaranya ter-hold
-    channel: 'xendit_va',
+    channel: 'dana_va',
     status: 'completed',
     createdAt: '2026-09-22T09:15:00+07:00',
   },
   {
     id: 'tu-2',
     amount: 50_000,
-    channel: 'xendit_qris',
+    channel: 'dana_qris',
     status: 'pending',
     createdAt: '2026-09-23T08:40:00+07:00',
   },
@@ -62,15 +62,15 @@ export const TOP_UP_PRESETS_IDR = TOP_UP_PRESETS_JOD.map((value) => jodToIdr(val
 /** Preset penarikan dalam IDR — batasnya saldo tersedia, bukan nominal JOD bulat. */
 export const PAYOUT_PRESETS_IDR = [25_000, 50_000]
 
-/** Kanal top-up Xendit (PRD §2). */
+/** Kanal top-up DANA (VA/QRIS). */
 export const TOP_UP_CHANNELS: { id: TopUpChannel; label: string; note: string }[] = [
   {
-    id: 'xendit_va',
+    id: 'dana_va',
     label: 'Virtual Account',
     note: 'Nomor VA dibuat per top-up, dibayar lewat m-banking.',
   },
   {
-    id: 'xendit_qris',
+    id: 'dana_qris',
     label: 'QRIS',
     note: 'Scan QR dari aplikasi bank atau e-wallet apa pun.',
   },

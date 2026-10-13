@@ -115,7 +115,7 @@ export default function SaDashboard() {
             <CountUp value={liabilityTotal} format={moneyFromJod} />
           </p>
           <p className="sa-card-sub">
-            Ini bukan milik SA. Selisih terhadap saldo Xendit{' '}
+            Ini bukan milik SA. Selisih terhadap saldo DANA{' '}
             {gap < 0 ? `kurang ${moneyFromJod(Math.abs(gap))}` : `sisa ${moneyFromJod(gap)}`}.
             Top-up dan payout jalan sendiri oleh sistem.
           </p>

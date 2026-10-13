@@ -18,7 +18,7 @@ import type { TopUpChannel } from '../types'
 import { BackButton } from '../components/ui/BackButton'
 
 /**
- * Top-up saldo (M3, flow F3). Xendit tidak nyata: request membuat baris `pending`,
+ * Top-up saldo (M3, flow F3). DANA tidak nyata: request membuat baris `pending`,
  * lalu tombol "Simulasi webhook" memanggil aksi yang sama dengan
  * `top_up_completed` — saldo baru naik setelah itu, tidak saat request.
  */
@@ -29,7 +29,7 @@ export default function WalletTopUp() {
   const history = useAppSelector((s) => s.wallet.topUpHistory)
 
   const [amount, setAmount] = useState<number>(TOP_UP_PRESETS_IDR[0])
-  const [channel, setChannel] = useState<TopUpChannel>('xendit_va')
+  const [channel, setChannel] = useState<TopUpChannel>('dana_va')
 
   const pending = history.filter((t) => t.status === 'pending')
 
@@ -139,7 +139,7 @@ export default function WalletTopUp() {
                   )}
                   {pending.length > 0 ? (
                     <p className="wallet-form-note">
-                      Mock: tidak ada Xendit sungguhan. Tombol simulasi mewakili webhook{' '}
+                      Mock: tidak ada DANA sungguhan. Tombol simulasi mewakili webhook{' '}
                       <code>top_up_completed</code> yang menaikkan saldo.
                     </p>
                   ) : null}

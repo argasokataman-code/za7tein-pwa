@@ -9,6 +9,7 @@ import type {
   MerchantRecord,
   OrderStage,
   PaymentMethod,
+  PaymentMethodId,
   ZoneId,
 } from '../types'
 
@@ -96,12 +97,16 @@ export const merchantDeliveryConfig: MerchantDeliveryConfig = {
   ongkirIdr: 5000,
 }
 
-/** Metode bayar PRD v2 — saldo wallet dulu; COD & transfer legacy tetap ada (OQ-25). */
+/**
+ * Metode bayar aktif (keputusan PO 2026-10-13): saldo Sa7tein + COD, VA & QRIS
+ * lewat DANA. Transfer manual legacy tidak lagi ditawarkan (keputusan itu sendiri
+ * ada di `docs/product/prd/decision-irbid-mvp.md`).
+ */
 export const PAYMENT_METHODS: PaymentMethod[] = [
   {
     id: 'wallet',
     label: 'Saldo Sa7tein',
-    description: 'Bayar dari saldo wallet Sa7tein — top-up lewat Xendit (VA/QRIS).',
+    description: 'Bayar dari saldo wallet Sa7tein — top-up lewat DANA (VA/QRIS).',
   },
   {
     id: 'cod',
@@ -109,10 +114,28 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
     description: 'Saldo dipotong (hold) saat kurir match, settle setelah OTP.',
   },
   {
-    id: 'transfer',
-    label: 'Transfer Manual (legacy)',
-    description: 'Transfer ke rekening toko, lalu unggah bukti transfer.',
+    id: 'dana_va',
+    label: 'DANA Virtual Account',
+    description: 'Nomor VA dibuat otomatis; bayar dari m-banking atau e-wallet apa pun.',
   },
+  {
+    id: 'dana_qris',
+    label: 'QRIS',
+    description: 'Scan kode QR pakai aplikasi e-wallet atau m-banking apa pun.',
+  },
+]
+
+/**
+ * Semua id metode bayar yang dikenali app, termasuk yang **legacy dan tidak lagi
+ * ditawarkan** (`transfer`). Dipakai `repairPersistedCart` di store: id di luar
+ * daftar ini (mis. state tersimpan versi lama) diganti `wallet`.
+ */
+export const KNOWN_PAYMENT_METHOD_IDS: PaymentMethodId[] = [
+  'wallet',
+  'cod',
+  'transfer',
+  'dana_va',
+  'dana_qris',
 ]
 
 /** Deposit COD merchant & tenant (3,50 JOD, PRD §5C). Approve = verifikasi transfer dulu. */

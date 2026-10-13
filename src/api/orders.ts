@@ -66,17 +66,18 @@ export interface NewOrder {
 }
 
 /**
- * Metode bayar app → kolom backend. Backend belum memodelkan pembayaran saldo
- * (`wallet`): check `orders_payment_method_check` hanya menerima
- * cod/transfer/xendit_va/xendit_qris, jadi saldo dipetakan ke VA sebagai proksi
- * (MISMATCH, menunggu keputusan kontrak). Nilai baca kembali lewat `PAYMENT_IDS`.
+ * Metode bayar app → kolom backend. Enum DB (`orders_payment_method_check`)
+ * masih `cod | transfer | xendit_va | xendit_qris` — nilainya milik BE dan belum
+ * diperbarui untuk DANA. Karena itu `wallet` dan `dana_va`/`dana_qris` dikirim
+ * sebagai proksi nilai lama (MISMATCH, menunggu kontrak; lihat
+ * `docs/integration/dana/be-contract.md` D2). Nilai baca kembali lewat `PAYMENT_IDS`.
  */
 const OUT_PAYMENT: Record<PaymentMethod['id'], string> = {
   wallet: 'xendit_va',
   cod: 'cod',
   transfer: 'transfer',
-  xendit_va: 'xendit_va',
-  xendit_qris: 'xendit_qris',
+  dana_va: 'xendit_va',
+  dana_qris: 'xendit_qris',
 }
 
 const PAYMENT_IDS: readonly string[] = ['cod', 'transfer', 'xendit_va', 'xendit_qris']

@@ -36,7 +36,7 @@ export function WalletSection() {
                 <code className="doc-inline">WalletTopUp</code>
               </td>
               <td>
-                Preset 3,5 / 5 / 10 JOD (diturunkan ke IDR), kanal Xendit VA atau QRIS, riwayat
+                Preset 3,5 / 5 / 10 JOD (diturunkan ke IDR), kanal DANA VA atau QRIS, riwayat
                 top-up + tombol simulasi webhook
               </td>
             </tr>
@@ -56,7 +56,7 @@ export function WalletSection() {
       <p className="doc-p">
         Top-up mengikuti state PRD, bukan langsung menambah saldo: request membuat baris{' '}
         <code className="doc-inline">pending</code>, dan saldo baru naik saat webhook{' '}
-        <code className="doc-inline">top_up_completed</code> datang. Karena Xendit tidak nyata,
+        <code className="doc-inline">top_up_completed</code> datang. Karena DANA tidak nyata,
         langkah itu diwakili tombol <em>Simulasi webhook</em> yang memanggil aksi{' '}
         <code className="doc-inline">settleTopUp</code>.
       </p>

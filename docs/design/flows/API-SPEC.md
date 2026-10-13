@@ -285,7 +285,7 @@ Sumber: `roles.permissions` (nyata) + batas peran `DEC-2003` (CS menangani, SA m
 | G8 | **`incident_resolutions` dibuat** (jejak tutup insiden CS) | f24, f15 | §2.3, §5.8 |
 | G9 | **`notifications` + `checkpoints` masuk publikasi Realtime** (atau setujui polling 5s) | f11 | §1, §5.7 |
 | G10 | **Geofence server.** `zones.polygon` ada (array `[lat,lng]`) → `POST /coverage/resolve` | f20, f16 | §5.2 |
-| G11 | **Webhook Xendit + idempotency** (`POST /webhooks/xendit`, retry, VA expiry) | f17 | §5.4 |
+| G11 | **Webhook DANA + idempotency** (`POST /webhooks/dana`, retry, VA expiry) | f17 | §5.4 |
 | G12 | **Auth level-1.** `phone_verifications` ada; tanpa OTP WA (validasi E.164), fallback `wa.me` | f21 | §5.1 |
 | G13 | **`notifications.order_id`** (atau `ref`) supaya tap notifikasi bisa membuka order | f11 | §2.4, §5.7 |
 | G14 | **`order_status_history`** (audit transisi status, event `order_status_changed`) | f18 | §2.4 |
@@ -394,8 +394,8 @@ Format: **PostgREST sekarang** → **kontrak target** → **wajib BE**.
 | Hold COD | klien **tidak** tulis `wallet_holds` (mock) | `GET /wallet/holds` | **belum** (G4); reserve saat order, **cut saat match**, settle saat OTP, release/reverse saat batal |
 | Ledger | klien tidak tulis | `GET /ledger` | **belum**; append-only, reversal = entry baru, **tanpa** UPDATE/DELETE |
 | Top-up | `topups` ada (kosong); klien hanya baca | `POST /wallet/topups` + `GET /wallet/topups/{id}` | **belum** |
-| Cash-out | `cashouts` ada (kosong) | `POST /wallet/cashouts` | **belum**; `f6`, Xendit `POST /v3/payouts` + webhook `v3_payout.*` |
-| Pembayaran | `orders.payment_method ∈ {cod, transfer, xendit_va, xendit_qris}`; `payment_status`, `paid_at` ada | `POST /webhooks/xendit` | **belum** (G11); idempotency, retry, VA expiry = **UNRESOLVED** (`WEB-1`) |
+| Cash-out | `cashouts` ada (kosong) | `POST /wallet/cashouts` | **belum**; `f6`, DANA Disbursement (`be-contract.md` B6) |
+| Pembayaran | `orders.payment_method ∈ {cod, transfer, xendit_va, xendit_qris}`; `payment_status`, `paid_at` ada | `POST /webhooks/dana` | **belum** (G11); idempotency, retry, VA expiry = **UNRESOLVED** (`WEB-1`) |
 | Liability | (tidak dipanggil) | `GET /admin/liability` | **belum**; `liabilities` 404, buat view dari `wallet_ledgers` |
 | Fee & pajak | `fees`/`taxes` kosong | `GET /superadmin/tax-reports` | fee flat **0,37 JOD** (PO 2026-09-22); pajak **UNRESOLVED** (`TAX-1/2`) |
 | Insentif | `merchant_credits` + `merchant_credit_events` ada | (tidak ada) | tulis event kredit (Founding 5 JOD, I-2); tier **UNRESOLVED** (`I-5`) |
@@ -609,7 +609,7 @@ Nama event dari kontrak (`INDEX.json`). Muatan **usulan** (BE boleh menyelaraska
 | **Hold/lifecycle** | transisi order | reserve saat order, cut saat `courier_matched`, settle saat OTP, release/reverse saat batal (append-only) |
 | **Chat retention** | cron harian | thread dengan order `done` + N hari → read-only (**N UNRESOLVED**) |
 | **Rating window** | cron harian | tutup `rating_reviews.window_closes_at` |
-| **Payout poll** | cron / on-demand | fallback bila webhook Xendit gagal (`f17` polling `GET status`) |
+| **Payout poll** | cron / on-demand | fallback bila webhook DANA gagal (`f17` polling `GET status`) |
 | **Liability refresh** | cron harian | segarkan view/agregat `liabilities` |
 
 ---
@@ -622,7 +622,7 @@ Nama event dari kontrak (`INDEX.json`). Muatan **usulan** (BE boleh menyelaraska
 | Timestamp | `timestamptz` UTC (contoh nyata `2026-10-12T11:56:19Z`); klien memformat lokal |
 | Paginasi | header `Range` + `Content-Range`; klien pakai `limit` (contoh `limit=50` inbox, `limit=100` chat) |
 | Soft delete | `rating_reviews.deleted_at`/`edited_at`; tabel lain belum punya → putuskan pola seragam |
-| Idempotency | wajib untuk `POST /wallet/topups`, `/wallet/cashouts`, `/webhooks/xendit` (**key belum ada**, UNRESOLVED `WEB-1`) |
+| Idempotency | wajib untuk `POST /wallet/topups`, `/wallet/cashouts`, `/webhooks/dana` (**key belum ada**, UNRESOLVED `WEB-1`) |
 | Uang | simpan sumber `*_idr`, tampilkan `*_jod` (`orders.total_idr` ada, `total_jod` ada) |
 | Bukti | `checkpoints.proof_photo`, `latitude`, `longitude` = bahan panel dispute; jangan hapus saat resolusi |
 
@@ -650,7 +650,7 @@ Pakai **slug penuh** dari `INDEX.json` supaya bisa di-grep.
 | `f14-chat-order` | `chats`, `chat_messages`, `chat_participants` | `GET/POST …/chat` | **RLS peserta belum** |
 | `f15-super-admin` | `merchants`, `deposits`, `wallet_ledgers` | approval/liability | sebagian |
 | `f16-merchant-onboarding` | `merchants`, `deposits`, `couriers` | `POST /coverage/resolve` | sebagian |
-| `f17-payment-xendit` | `topups`, `wallet_ledgers` | `POST /webhooks/xendit` | **belum** |
+| `f17-payment-dana` | `topups`, `wallet_ledgers` | `POST /webhooks/dana` | **belum** |
 | `f18-order-state` | `orders`, `batches` | `GET /orders` | status ada, riwayat belum |
 | `f19-rating-review` | `rating_reviews`, `review_replies` | `POST /orders/{id}/review` | tabel ada, tulis belum |
 | `f20-address-zone` | `addresses`, `zones` | `POST /coverage/resolve` | zona ada, resolve belum |
@@ -700,7 +700,7 @@ Klien **menulis** (`src/api/orders.ts:136-146`): `baru→cart`, `diterima→prep
 
 ⚠️ BE tak punya `diterima`/`tiba`; **OST-1 UNRESOLVED**. Enum kanonik flow: `cart → quotation → prepare → waitingCourier → waitingDelivery → delivery → done` (+ `canceled`, `disputed`).
 
-**`orders.payment_method`**: `cod | transfer | xendit_va | xendit_qris` (klien map `wallet→xendit_va`). **`checkpoints.kind`**: `at_store | picked_up | arrived | otp_verified`.
+**`orders.payment_method`**: `cod | transfer | xendit_va | xendit_qris` (enum DB belum berubah; klien memetakan `wallet`/`dana_va` → `xendit_va`, `dana_qris` → `xendit_qris` — MISMATCH menunggu update BE, `be-contract.md` D2). **`checkpoints.kind`**: `at_store | picked_up | arrived | otp_verified`.
 
 **Nilai enum nyata dari data (terverifikasi e2e 2026-10-12):** `orders.status ∈ cart|prepare|delivery|done` (subset; enum kanonik di atas belum semua muncul di data), `orders.payment_method ∈ cod|transfer|wallet|xendit_va|xendit_qris` (ada `wallet` di data, klien memetakannya ke `xendit_va`), `orders.hold_status ∈ none|settled`, `checkpoints.kind ∈ arrived|picked_up|otp_verified`, `users.role ∈ customer|merchant|courier|cs|superadmin`, `merchants.tenant_status='approved'`, `store_status='open'`, `deposit_status='held'`, `couriers.availability ∈ available|busy|unavailable`, `deposits.kind ∈ founding_credit|cod`, `deposits.status='held'`, `chat_messages.channel='courier-customer'`, `cashback_tiers.tier ∈ tier_1|tier_2|tier_3`, `platform_switches.key ∈ cod_enabled|payout_enabled|maintenance_mode`.
 
@@ -728,7 +728,7 @@ Dari `docs/design/flows/INDEX.json:117-140`.
 | R-ADDR-01 | f16, f20 | `POST /coverage/resolve` · `POST /me/addresses` | coverage_checked, order_zone_snapshot, zone_master_defined |
 | MERCHANT-CONSOLE | f12 | `GET /orders?merchantId=` · `POST /orders/{id}/accept\|reject\|prepare\|ready` · `GET /merchants/{id}/couriers` | order_accepted, merchant_ready, courier_match |
 | C-18 chat | f14 | `GET /orders/{id}/chat` · `POST /orders/{id}/chat/messages` | chat_opened, courier_joined_chat, message_created |
-| C-01+DEC-1039 | f17 | `POST /wallet/topups` · `POST /webhooks/xendit` | payment_confirmed |
+| C-01+DEC-1039 | f17 | `POST /wallet/topups` · `POST /webhooks/dana` | payment_confirmed |
 | C-17 | f1, f18 | `GET /orders` · `GET /orders/{id}` | order_status_changed |
 | PRD §Registrasi | f21 | `POST /auth/google` · `/auth/register` · `/auth/login` · `/auth/phone/verification` · `/auth/phone/verify` · `GET /auth/me` | (none) |
 | PO SA 2026-09-23 | f22 | `GET/PATCH /superadmin/switches` · `GET /superadmin/tax-reports` · `/superadmin/platform-profit` · `/superadmin/users` · `/superadmin/users/merchant/{id}` · `PATCH /superadmin/tenants/{id}/status` | (none) |
@@ -773,7 +773,7 @@ Dari `BUSINESS.md` §2b, `f11`, `f14`, `f17`, `f18`, `f8`, `f19`, `f22`:
 - **Editor SLA**: apakah angka SLA bisa diubah dari panel.
 - **Event "kurir bersedia"**: toggle online saat ini tak menghasilkan event.
 - **Retensi chat** (N hari setelah `done`), **media/gambar** di pesan, **notif push chat masuk**.
-- **Idempotency key, retry webhook, VA expiry** (Xendit, `f17`).
+- **Idempotency key, retry webhook, VA expiry** (DANA, `f17`).
 - **Tarif pajak final** (`TAX-1/2`), **fee cash-out** (`OQ-22`), **% penalti customer lalai** (`OQ-14`), **tipe cashback tier** (`I-5`), **kurs** (`OQ-26/28`).
 - **`quotation` vs `placed`** (`OST-1`) & mismatch enum §11.
 - **Google merchant/kurir** (`AUT-1`), **banding** siapa yang boleh & window (`APL-1`).
@@ -807,7 +807,7 @@ Diagram di bawah = **turunan dari flow yang sudah ada** (`docs/design/flows/*` +
 
 ```mermaid
 flowchart LR
-  F17["f17 payment xendit"] --> F7["f7 ledger & liability"]
+  F17["f17 payment dana"] --> F7["f7 ledger & liability"]
   F1["f1 order lifecycle"] --> F2["f2 cod hold"]
   F2 --> F7
   F7 --> F6["f6 cashout payout"]
@@ -959,17 +959,17 @@ flowchart TD
   C -.->|event| N["top_up_completed / topup_gate_pending"]
 ```
 
-### 16.6 Pembayaran Xendit (f17)
+### 16.6 Pembayaran DANA (f17)
 
 ```mermaid
 sequenceDiagram
   participant C as Customer
   participant B as BE
-  participant X as Xendit
+  participant X as DANA
   C->>B: pilih metode bayar
   B->>X: buat VA / QRIS
   X-->>C: instruksi bayar
-  X->>B: POST /webhooks/xendit (paid)
+  X->>B: POST /webhooks/dana (paid)
   Note over B: idempotency key wajib (UNRESOLVED)
   B->>B: orders.payment_status=paid, paid_at
   B->>B: ledger entry (cr topup | order) f7
@@ -985,8 +985,8 @@ flowchart LR
   B --> C["wallets.balance_jod / reserved_balance_jod"]
   B --> D["liabilities (view, belum ada tabel)"]
   E["ledger saldo tersedia"] --> F["POST /wallet/cashouts"]
-  F --> G["Xendit POST /v3/payouts"]
-  G --> H["webhook v3_payout.*"]
+  F --> G["DANA Disbursement (transfer-bank.htm)"]
+  G --> H["webhook payout DANA"]
   H --> I["cashouts settle + ledger db"]
   B -.->|reversal = entry baru| B
 ```

@@ -43,7 +43,7 @@ Sub-state operasional merchant (`diterima`, `tiba` di `MerchantOrderStatus`) dan
 
 ## Terhubung (lihat ../INDEX.json)
 
-`f1-order-lifecycle` (payung end-to-end; selisih bahasa `quotation` vs `placed` UNRESOLVED) · `f2-cod-hold` (drill-down hold: cancel `prepare` → release, OTP → `hold_settled`) · `f5-delivery-verification` (event `otp_verified`) · `f8-dispute` (batal di jalan, bukan state) · `f12-merchant-console` (`merchant_ready`, antrean masuk) · `f13-courier-view` (`courier_matched` C-06, `courier_picked_up`) · `f17-payment-xendit` (`payment_confirmed` paid|cod|transfer) · `f22-refund` (`refunded`, akan datang).
+`f1-order-lifecycle` (payung end-to-end; selisih bahasa `quotation` vs `placed` UNRESOLVED) · `f2-cod-hold` (drill-down hold: cancel `prepare` → release, OTP → `hold_settled`) · `f5-delivery-verification` (event `otp_verified`) · `f8-dispute` (batal di jalan, bukan state) · `f12-merchant-console` (`merchant_ready`, antrean masuk) · `f13-courier-view` (`courier_matched` C-06, `courier_picked_up`) · `f17-payment-dana` (`payment_confirmed` paid|cod) · `f22-refund` (`refunded`, akan datang).
 
 ## Sumber (jangan dikarang)
 

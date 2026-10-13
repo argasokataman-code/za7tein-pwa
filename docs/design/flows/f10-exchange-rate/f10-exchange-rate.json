@@ -21,7 +21,7 @@
     { "id": "m4", "from": "calc", "to": "rates", "y": 355, "label": "baca rate terakhir (server = IDR)" }
   ],
   "cards": [
-    { "dot": "orange", "title": "Aturan (R-CURR-01)", "items": ["Semua settlement = IDR lewat Xendit; tidak ada uang menyentuh JOD", "JOD display-only — harga/ongkir/fee/saldo disimpan IDR", "Rate sync 1×24 jam dari API eksternal; fetch gagal → pakai rate terakhir, jangan blokir transaksi"] },
+    { "dot": "orange", "title": "Aturan (R-CURR-01)", "items": ["Semua settlement = IDR lewat DANA; tidak ada uang menyentuh JOD", "JOD display-only — harga/ongkir/fee/saldo disimpan IDR", "Rate sync 1×24 jam dari API eksternal; fetch gagal → pakai rate terakhir, jangan blokir transaksi"] },
     { "dot": "amber", "title": "Pembulatan & UI", "items": ["Bulatkan JOD ke 2 desimal hanya di layer tampilan; ledger tetap IDR utuh", "Jangan simpan nominal JOD sebagai nilai transaksi (sumber drift)", "Widget kurs tampilkan waktu sync terakhir + disclaimer wajib"] },
     { "dot": "slate", "title": "Sumber & UNRESOLVED", "items": ["R-CURR-01 — analysis.md (DECIDED) · M1 — milestones.md (deps M0)", "UNRESOLVED: OQ-26 — provider IDR>JOD (bukan ECB-only)", "UNRESOLVED: OQ-28 — berapa lama fallback rate terakhir saat API mati", "Wise dibatalkan (R-CURR-01)"] }
   ]

@@ -14,13 +14,20 @@ Disbursement lolos uji otomatis.** Sisa yang mentok ada di `testing.md`.
 | `api-inventory.md` | Daftar endpoint + status uji (bisa dipakai / mentok) |
 | `testing.md` | Cara menjalankan UAT DANA + hasil + blocker |
 | `credentials-and-signing.md` | Env, dua skema tanda tangan, verifikasi webhook |
+| `be-contract.md` | **Kontrak FE ↔ BE** — endpoint, field asli DANA, webhook, state tampilan, `UNRESOLVED` |
 
 ---
 
 ## 1. Peran DANA di Sa7tein
 
 DANA menggantikan dua peran yang sebelumnya dipegang Xendit/skema manual di repo ini
-(lihat `src/types.ts`: `PaymentMethodId`, `TopUpChannel`, `Payout`):
+(lihat `src/types.ts`: `PaymentMethodId`, `TopUpChannel`, `Payout`).
+
+> **Keputusan PO 2026-10-13** menetapkan DANA sebagai **satu-satunya** provider pembayaran
+> dan disbursement (Xendit, Midtrans, dan transfer manual keluar dari rencana). Catatan
+> keputusan + `UNRESOLVED` (model settlement) + daftar utang kode/flow ada di
+> `docs/product/prd/decision-irbid-mvp.md` §*Provider pembayaran & disbursement: DANA*.
+> Ini keputusan rencana, bukan migrasi kode: repo tetap UI mock.
 
 | Kebutuhan Sa7tein | Produk DANA | Arah dana |
 |---|---|---|

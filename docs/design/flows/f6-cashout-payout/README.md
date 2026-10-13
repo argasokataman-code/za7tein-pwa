@@ -1,6 +1,6 @@
 # F6 — Cash-out & Payout
 
-Workflow tiga jalur keluar dana via Xendit payout. Milestone **M3** (fee cash-out UNRESOLVED = blocker); PRD aktif `irbid-mvp-v2-2026-09-21`.
+Workflow tiga jalur keluar dana via DANA payout. Milestone **M3** (fee cash-out UNRESOLVED = blocker); PRD aktif `irbid-mvp-v2-2026-09-21`.
 
 | Berkas | Isi |
 |---|---|
@@ -10,17 +10,17 @@ Workflow tiga jalur keluar dana via Xendit payout. Milestone **M3** (fee cash-ou
 
 ## Alur
 
-**Lane Customer:** Minta cash-out (nominal + rekening) → Fee cash-out (placeholder) → Ajukan payout (`POST /v3/payouts`) → Menunggu (webhook `v3_payout.*`) → Dana masuk (saldo berkurang).
+**Lane Customer:** Minta cash-out (nominal + rekening) → Fee cash-out (placeholder) → Ajukan payout (`POST /wallet/cashouts`) → Menunggu (webhook payout DANA) → Dana masuk (saldo berkurang).
 
-**Lane Sumber dana lain:** Merchant (kredit settle → withdraw) dan Kurir (tips saja → withdraw) masuk ke node payout yang sama — satu rail Xendit. **Tips kurir tidak bisa ditarik bebas:** payout Rp2.500/penarikan bisa makan tip kecil, jadi withdraw menunggu akumulasi (ambang minimum) atau digabung pola cash-out. **Fee payout ditanggung kurir sendiri** (keputusan PO 2026-09-22) — dipotong dari nilai withdraw, bukan beban platform.
+**Lane Sumber dana lain:** Merchant (kredit settle → withdraw) dan Kurir (tips saja → withdraw) masuk ke node payout yang sama — satu rail DANA. **Tips kurir tidak bisa ditarik bebas:** payout Rp2.500/penarikan bisa makan tip kecil, jadi withdraw menunggu akumulasi (ambang minimum) atau digabung pola cash-out. **Fee payout ditanggung kurir sendiri** (keputusan PO 2026-09-22) — dipotong dari nilai withdraw, bukan beban platform.
 
 **Lane UNRESOLVED:** Fee & flow tarik taruh sebagai terminal `feeOpen`.
 
 ## Mekanisme
 
-- Semua = Xendit payout: `POST /v3/payouts` + webhook `v3_payout.*`.
-- `idempotency-key` + `reference_id` wajib (anti duplikat).
-- Xendit hanya 2 titik: top-up masuk (F3) + payout keluar (sini).
+- Semua = Disbursement DANA (`POST /wallet/cashouts` → `transfer-bank.htm`).
+- `partnerReferenceNo` + `reference_id` wajib (anti duplikat).
+- DANA hanya 2 titik: top-up masuk (F3) + payout keluar (sini).
 - **Tips kurir:** 100% ke kurir, tanpa komisi platform; tidak bisa ditarik per tip kecil — withdraw menunggu akumulasi ambang minimum. Kalau tidak diakumulasi, asumsi biaya platform "payout amortized Rp2.500 ÷ ±20 order/withdraw" (`source.md:621`) jebol dan tip jadi titik boncos baru.
 - **Fee payout tips ditanggung kurir** (keputusan PO 2026-09-22): dipotong dari nilai withdraw kurir, **bukan** beban platform. Karena itu ambang akumulasi minimum wajib — menarik tip kecil setelah dipotong fee tidak masuk akal bagi kurir.
 

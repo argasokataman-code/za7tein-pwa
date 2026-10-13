@@ -2,7 +2,7 @@ import type { PayoutAccount, PayoutEntry, Wallet } from '../types'
 
 /**
  * Dompet merchant (R-WALLET-01, flow f6): saldo masuk otomatis dari order yang
- * selesai, keluar hanya lewat pencairan Xendit payout. Ini pot **berbeda** dari
+ * selesai, keluar hanya lewat pencairan DANA payout. Ini pot **berbeda** dari
  * modal/cashback Founding (`merchant.credit`, JOD, non-withdrawal) — dompet ini
  * IDR dan bisa ditarik, mengikuti `source.md:70`.
  *
@@ -70,7 +70,7 @@ export const BANK_OPTIONS = [
 ] as const
 
 /**
- * Fee payout Xendit **Rp2.500 per transfer**, dikenakan hanya saat pencairan
+ * Fee payout DANA **Rp2.500 per transfer**, dikenakan hanya saat pencairan
  * berhasil (`source.md:573`). Siapa yang menanggungnya untuk merchant belum
  * diputuskan di PRD (yang final baru kurir — PO 2026-09-22), jadi layar hanya
  * menampilkan info ini dan **tidak memotong** saldo. Jangan dikarang.

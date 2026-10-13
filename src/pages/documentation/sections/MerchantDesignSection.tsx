@@ -90,7 +90,7 @@ export function MerchantDesignSection() {
         <code className="doc-inline">/merchant/payout-accounts</code> (CRUD
         rekening). Ini lane merchant flow{' '}
         <code className="doc-inline">f6-cashout-payout</code> + R-WALLET-01:
-        order selesai → kredit otomatis, keluar hanya lewat Xendit payout. Potnya
+        order selesai → kredit otomatis, keluar hanya lewat DANA payout. Potnya
         IDR dan bisa ditarik, terpisah dari modal/cashback Founding (JOD,
         non-withdrawal, di <code className="doc-inline">/merchant/insentif</code>).
       </p>

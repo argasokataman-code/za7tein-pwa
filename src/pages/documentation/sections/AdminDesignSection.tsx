@@ -96,7 +96,7 @@ export function AdminDesignSection() {
         The dashboard total is customer wallets + merchant wallets + courier tips not
         yet paid out. Courier wages are <em>not</em> part of it: a courier is a merchant
         employee and the platform never holds courier funds (C-06) — only tips pass
-        through. The screen states this, and the Xendit-vs-liability comparison is a
+        through. The screen states this, and the DANA-vs-liability comparison is a
         mock flag, not reconciliation.
       </p>
       <h3 className="doc-h3">One dispute form, two roles</h3>

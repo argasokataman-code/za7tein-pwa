@@ -48,7 +48,7 @@ Yang **tidak** dikerjakan di repo ini, dan jangan dimulai di sini:
 - Pembayaran sungguhan — COD dan transfer manual hanya alur layar
 - Service worker untuk Web Push — PWA-nya jalan, tapi push tidak
 
-**Kontrak BE sudah dipetakan, bukan disembunyikan.** `docs/design/app-map/` punya node "Kontrak BE" (Xendit/ledger/push) sebagai rencana, dan repo ini tidak mengimplementasikannya. Jangan merasa ada yang kurang lalu mulai membuat lapisan API: ketiadaan integrasi itu keputusan sadar, bukan utang yang menunggu dibereskan.
+**Kontrak BE sudah dipetakan, bukan disembunyikan.** `docs/design/app-map/` punya node "Kontrak BE" (DANA/ledger/push) sebagai rencana, dan repo ini tidak mengimplementasikannya. Jangan merasa ada yang kurang lalu mulai membuat lapisan API: ketiadaan integrasi itu keputusan sadar, bukan utang yang menunggu dibereskan.
 
 **Semua data adalah mock.** Isinya di `src/data/`, state-nya di Redux. Kalau sebuah aturan bisnis dari PRD tampak butuh logika, di sini ia jadi **state yang ditampilkan**: kuota `7 / 10` bukan counter yang harus benar, "Ditugaskan otomatis" bukan algoritma.
 

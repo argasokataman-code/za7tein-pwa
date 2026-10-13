@@ -244,8 +244,19 @@ export interface Card {
   image: string
 }
 
-/** Metode bayar PRD v2: `wallet` (top-up Xendit) + channel VA/QRIS. `cod` & `transfer` legacy. */
-export type PaymentMethodId = 'cod' | 'transfer' | 'wallet' | 'xendit_va' | 'xendit_qris'
+/**
+ * Metode bayar (keputusan PO 2026-10-13): DANA jadi satu-satunya provider, jadi
+ * kanal VA/QRIS `dana_va`/`dana_qris`. `transfer` legacy juga tetap ada di tipe
+ * walau tidak lagi ditawarkan di layar. Kolom backend masih memakai nilai string
+ * lama sampai BE memperbarui `orders_payment_method_check` — pemetaannya di
+ * `src/api/orders.ts` (OUT_PAYMENT).
+ */
+export type PaymentMethodId =
+  | 'cod'
+  | 'transfer'
+  | 'wallet'
+  | 'dana_va'
+  | 'dana_qris'
 
 export interface PaymentMethod {
   id: PaymentMethodId
@@ -256,8 +267,8 @@ export interface PaymentMethod {
 /** Status transaksi uang (top-up, payout) — R-WALLET-01. */
 export type WalletTxStatus = 'pending' | 'processing' | 'completed' | 'failed'
 
-/** Channel top-up Xendit (PRD §2 Xendit). */
-export type TopUpChannel = 'xendit_va' | 'xendit_qris'
+/** Channel top-up DANA (VA/QRIS). */
+export type TopUpChannel = 'dana_va' | 'dana_qris'
 
 /**
  * Saldo satu wallet. `pending` = dana hold order berjalan, `available` = sisa yang
@@ -683,8 +694,8 @@ export interface LiabilitySummary {
   customerWallets: number
   merchantWallets: number
   courierTips: number
-  /** Saldo Xendit mock; dipakai membandingkan dengan total liability. */
-  xenditBalance: number
+  /** Saldo DANA mock; dipakai membandingkan dengan total liability. */
+  danaBalance: number
 }
 
 /** Tier rebate bulanan (R-INCENTIVE-01, F9). */

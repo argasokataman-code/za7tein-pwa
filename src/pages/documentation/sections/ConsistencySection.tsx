@@ -88,7 +88,7 @@ export function ConsistencySection() {
               <td>M2/M3</td>
               <td>
                 <code className="doc-inline">POST /topups</code>,{' '}
-                <code className="doc-inline">POST /v3/payouts</code>, webhook{' '}
+                <code className="doc-inline">POST /wallet/cashouts</code>, webhook{' '}
                 <code className="doc-inline">top_up_completed</code>
               </td>
               <td>
@@ -152,7 +152,7 @@ export function ConsistencySection() {
                 <code className="doc-inline">ledger_entries</code> (append-only, reversal = entry baru)
               </td>
               <td>—</td>
-              <td>Backend; rekonsiliasi harian Xendit vs ledger</td>
+              <td>Backend; rekonsiliasi harian DANA vs ledger</td>
             </tr>
             <tr>
               <td>M10</td>

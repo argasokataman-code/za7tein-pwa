@@ -1,5 +1,5 @@
-// Ringkasan checkout: subtotal + ongkir zona, metode bayar PRD (COD / transfer),
-// dan unggah bukti transfer untuk pesanan transfer.
+// Ringkasan checkout: subtotal + ongkir zona, metode bayar (saldo / COD / DANA
+// VA / QRIS), dan unggah bukti transfer untuk pesanan transfer legacy.
 import { Check } from 'lucide-react'
 
 import { useRef } from 'react'
@@ -54,6 +54,8 @@ export default function PaymentAmount() {
   const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
   const method = PAYMENT_METHODS.find((m) => m.id === paymentId) ?? PAYMENT_METHODS[0]
   const needsProof = method.id === 'transfer'
+  /** VA/QRIS (DANA): order dibuat di sini, pembayaran diselesaikan di layar berikutnya. */
+  const isDana = method.id === 'dana_va' || method.id === 'dana_qris'
   const walletAvailable = useAppSelector((s) => s.wallet.balance.available)
   const gated = needsTopUpGate(walletAvailable)
   /**
@@ -124,6 +126,19 @@ export default function PaymentAmount() {
       title: 'Order baru masuk',
       body: 'Ada pesanan baru menunggu konfirmasi toko.',
     }).catch(() => {})
+    // VA/QRIS DANA: order sudah dibuat, pembayaran belum lunas. Layar VA/QR yang
+    // menunggu konfirmasi; notifikasi "Pembayaran diterima" menyusul saat webhook
+    // DANA menandai `paid` (kontrak: docs/integration/dana/be-contract.md §4).
+    if (isDana) {
+      void insertNotification({
+        audience: 'customer',
+        kind: 'payment',
+        title: 'Menunggu pembayaran',
+        body: `Selesaikan pembayaran ${method.label} sebelum kode kedaluwarsa.`,
+      }).catch(() => {})
+      navigate('/payment-dana')
+      return
+    }
     if (method.id !== 'cod') {
       void insertNotification({
         audience: 'customer',
@@ -288,7 +303,9 @@ export default function PaymentAmount() {
                     ? 'Saldo kurang untuk hold COD'
                     : method.id === 'cod'
                       ? `Pesan — ${money(total)}`
-                      : `Bayar — ${money(total)}`}
+                      : isDana
+                        ? `Lanjut bayar · ${money(total)}`
+                        : `Bayar — ${money(total)}`}
               </button>
             </div>
           </div>

@@ -72,6 +72,7 @@ import OrderChat from './pages/OrderChat'
 import OrderPlaced from './pages/OrderPlaced'
 import PaymentAccount from './pages/PaymentAccount'
 import PaymentAmount from './pages/PaymentAmount'
+import PaymentDana from './pages/PaymentDana'
 import PaymentSelection from './pages/PaymentSelection'
 import PersonalData from './pages/PersonalData'
 import PinSuccess from './pages/PinSuccess'
@@ -152,6 +153,7 @@ const customerRoutes: [string, ComponentType][] = [
   ['/address-selection', AddressSelection],
   ['/payment-selection', PaymentSelection],
   ['/payment-amount', PaymentAmount],
+  ['/payment-dana', PaymentDana],
   ['/order-placed', OrderPlaced],
   ['/order-chat', OrderChat],
   ['/order-arrived', OrderArrived],

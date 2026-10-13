@@ -13,7 +13,7 @@
     { "label": "Liability & cek" }
   ],
   "nodes": [
-    { "id": "topupIn", "type": "external", "label": "Top-up Xendit", "sublabel": "top_up_completed (F3)", "stage": 0, "row": 0, "width": 132 },
+    { "id": "topupIn", "type": "external", "label": "Top-up DANA", "sublabel": "top_up_completed (F3)", "stage": 0, "row": 0, "width": 132 },
     { "id": "orderFlow", "type": "backend", "label": "Order & fee", "sublabel": "hold/cut/settle (F2, F4)", "stage": 0, "row": 1, "width": 140 },
     { "id": "reversal", "type": "backend", "label": "Reversal / batal", "sublabel": "released atau reversed", "stage": 0, "row": 2, "width": 140 },
 
@@ -22,7 +22,7 @@
     { "id": "ledger", "type": "database", "label": "wallet_ledgers", "sublabel": "append-only, kronologis", "stage": 2, "row": 0, "width": 140 },
 
     { "id": "liability", "type": "database", "label": "Liability wallet", "sublabel": "saldo user = utang platform", "stage": 3, "row": 0, "width": 148 },
-    { "id": "cek", "type": "security", "label": "Cek Xendit", "sublabel": "saldo ≥ total liability?", "stage": 3, "row": 1, "width": 148 },
+    { "id": "cek", "type": "security", "label": "Cek DANA", "sublabel": "saldo ≥ total liability?", "stage": 3, "row": 1, "width": 148 },
     { "id": "flag", "type": "security", "label": "Flag", "sublabel": "saldo kurang → alert", "stage": 3, "row": 2, "width": 132 }
   ],
   "flows": [
@@ -36,7 +36,7 @@
   ],
   "cards": [
     { "dot": "orange", "title": "Aturan buku besar", "items": ["Double-entry, append-only, kronologis (R-LEDGER-01)", "Reversal hanya lewat entry baru — tidak pernah edit/hapus baris", "Tiap transisi hold di F2 = 1 entri; fee F4 = entri sendiri"] },
-    { "dot": "amber", "title": "Metrik solvabilitas", "items": ["Saldo Xendit ≥ total liability wallet", "Kalau kurang → flag (dashboard Super Admin)", "Saldo wallet user = liability platform, bukan pendapatan"] },
+    { "dot": "amber", "title": "Metrik solvabilitas", "items": ["Saldo DANA ≥ total liability wallet", "Kalau kurang → flag (dashboard Super Admin)", "Saldo wallet user = liability platform, bukan pendapatan"] },
     { "dot": "slate", "title": "Sumber", "items": ["R-LEDGER-01 — analysis.md · M9 — milestones.md", "Ledger = backend only (M0 BE contract); repo ini mock tampilan", "Masukan: F3 top-up, F2 settle/batal, F4 fee · Keluaran: F6 cash-out"] }
   ]
 }

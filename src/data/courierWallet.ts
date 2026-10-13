@@ -19,7 +19,7 @@ import type { ChartBar, CourierTask, PayoutAccount, PayoutEntry } from '../types
 export const COURIER_TIPS_MIN_WITHDRAW_IDR = 50_000
 
 /**
- * Fee payout Xendit Rp2.500/transfer, **ditanggung kurir** (PO 2026-09-22,
+ * Fee payout DANA Rp2.500/transfer, **ditanggung kurir** (PO 2026-09-22,
  * `source.md:84`): dipotong dari nilai withdraw, bukan beban platform.
  */
 export const COURIER_PAYOUT_FEE_IDR = 2_500

@@ -15,7 +15,7 @@ Aturan main:
 
 | Topik | Keputusan | Sumber |
 |---|---|---|
-| Payment provider | **Xendit dipakai** (VA/QRIS). BE belum update implementasi, tapi keputusan sudah final. | user, 2026-09-22 — memperbarui catatan "ditunda" di DEC-1037 |
+| Payment provider | **DANA dipakai** (VA/QRIS + disbursement), menggantikan Xendit. BE belum update implementasi, tapi keputusan sudah final. | user, 2026-10-13 — keputusan PO (`decision-irbid-mvp.md`), menggantikan catatan 2026-09-22 |
 | Fee transfer manual | **Sesuai desain** — user bayar langsung ke merchant, platform tidak menahan. Flat 0,37 JOD tetap untuk metode lain. | user, 2026-09-22 + DEC-1037 |
 | PO fee | Flat 0,37 JOD semua metode | DEC-1037 |
 | I-1 fee customer | 0,22 JOD | DEC-1038 |
@@ -135,7 +135,7 @@ deliveryFee: number
 platformFee: number
 total: number
 // tambahan (money path + timer):
-paymentMethod: 'cod' | 'transfer' | 'xendit_va' | 'xendit_qris'
+paymentMethod: 'cod' | 'transfer' | 'xendit_va' | 'xendit_qris'  // enum DB; kanal DANA dipetakan klien — lihat docs/integration/dana/be-contract.md D2
 paymentStatus: 'unpaid' | 'pending' | 'paid' | 'failed' | 'refunded'
 paidAt: datetime | null
 createdAt: datetime

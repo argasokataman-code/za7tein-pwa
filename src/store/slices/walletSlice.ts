@@ -43,7 +43,7 @@ const walletSlice = createSlice({
         createdAt: new Date().toISOString(),
       })
     },
-    /** Pengganti webhook Xendit di demo: `top_up_completed` menaikkan saldo. */
+    /** Pengganti webhook DANA di demo: `top_up_completed` menaikkan saldo. */
     settleTopUp(state, action: PayloadAction<{ id: string }>) {
       const topUp = state.topUpHistory.find((t) => t.id === action.payload.id)
       if (!topUp || topUp.status !== 'pending') return

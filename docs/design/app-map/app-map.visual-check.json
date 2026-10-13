@@ -7,8 +7,8 @@
   "visualReview": "pending",
   "artifact": {
     "path": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/app-map/app-map.html",
-    "sha256": "e8f9a189324f6ac3fb976fa041584b02b4272a82af091403e408714a4237a52a",
-    "bytes": 815189
+    "sha256": "2b79736c1bbbd36d0d0ef1edabc2b939114a1720e6c12a40c591e3773139b124",
+    "bytes": 815619
   },
   "state": {
     "detail": "read",
@@ -16,7 +16,7 @@
   },
   "chrome": {
     "status": "available",
-    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+    "executable": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser"
   },
   "diagnostics": [],
   "containment": {

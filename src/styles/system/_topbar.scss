@@ -35,6 +35,7 @@ $page-bars:
   ".reviews-header",
   ".favorites-header",
   ".payment-amount-header",
+  ".payment-dana-header",
   ".order-arrived-header",
   ".add-card-header",
   ".search-header";
@@ -182,7 +183,8 @@ $back-overlay: ".back-btn-map", ".btn-back-map";
   // (terukur: `top` 0 vs 200px tidak menggeser) dan `env()` di dalam
   // `transform` tidak terbaca, jadi digeser lewat `margin-top`, yang ikut
   // menentukan posisi statis.
-  .app-shell .payment-selection-header .payment-selection-title {
+  .app-shell .payment-selection-header .payment-selection-title,
+  .app-shell .payment-dana-header .payment-dana-title {
     margin-top: calc(env(safe-area-inset-top) / 2);
   }
 }

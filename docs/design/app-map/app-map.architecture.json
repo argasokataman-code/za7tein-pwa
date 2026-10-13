@@ -18,7 +18,7 @@
 
     { "id": "store", "type": "database", "label": "Redux Store", "sublabel": "8 slice · persist 4", "pos": [60, 540], "size": [170, 64] },
     { "id": "data", "type": "database", "label": "Mock Data", "sublabel": "src/data · 8 modul", "pos": [360, 540], "size": [170, 64] },
-    { "id": "handoff", "type": "external", "label": "Kontrak BE", "sublabel": "Xendit, ledger, push", "pos": [660, 540], "size": [170, 64] },
+    { "id": "handoff", "type": "external", "label": "Kontrak BE", "sublabel": "DANA, ledger, push", "pos": [660, 540], "size": [170, 64] },
     { "id": "web", "type": "frontend", "label": "Web (plain)", "sublabel": "Landing, Documentation", "pos": [960, 540], "size": [170, 64] }
   ],
   "boundaries": [

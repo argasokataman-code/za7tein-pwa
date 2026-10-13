@@ -12,6 +12,7 @@ import {
 } from 'redux-persist'
 
 import { menuSeed } from '../data/catalog'
+import { KNOWN_PAYMENT_METHOD_IDS } from '../data/merchant'
 import { DISPUTE_RESOLUTION_LABEL } from '../data/admin'
 import { CS_CURRENT_ACTOR, SA_CURRENT_ACTOR } from '../data/superadmin'
 import { findCustomer } from '../data/people'
@@ -80,6 +81,9 @@ const rootReducer = combineReducers({
  * melempar error saat tabel ledger dirender. `admin` + `superAdmin` dibuang
  * supaya di-seed ulang; keranjang, saldo, dan katalog tidak berubah bentuk.
  */
+/** Versi skema state tersimpan. Naikkan saat bentuk slice berubah (lihat `migrations`). */
+const PERSIST_VERSION = 6
+
 const migrations = {
   3: (state: any) => ({ ...state, superAdmin: undefined }),
   4: (state: any) => ({ ...state, admin: undefined, superAdmin: undefined }),
@@ -102,7 +106,7 @@ const migrations = {
 
 const persistConfig = {
   key: 'sa7tein',
-  version: 6,
+  version: PERSIST_VERSION,
   storage,
   whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'preferences'],
   migrate: createMigrate(migrations, { debug: false }),
@@ -123,6 +127,12 @@ function repairPersistedCart() {
     if (!raw) return
     const outer = JSON.parse(raw)
     const cart = JSON.parse(outer.cart ?? '{}')
+    // Kanal VA/QRIS berganti nama saat provider pindah ke DANA (2026-10-13):
+    // cart tersimpan dari versi lama masih memakai id kanal lama. Dipetakan
+    // sebelum validasi, supaya pilihan metode tidak jatuh ke `wallet` hanya
+    // karena namanya berganti.
+    if (cart.selectedPaymentId === 'xendit_va') cart.selectedPaymentId = 'dana_va'
+    if (cart.selectedPaymentId === 'xendit_qris') cart.selectedPaymentId = 'dana_qris'
     const legacyItems = (cart.items ?? []).some((i: any) => {
       const food = menuSeed.find((f) => f.id === i.id)
       return !food || (!i.modifiers && i.price !== food.price)
@@ -137,7 +147,7 @@ function repairPersistedCart() {
       zonesOutdated ||
       cart.transferProof === undefined ||
       legacyItems ||
-      !['wallet', 'cod', 'transfer'].includes(cart.selectedPaymentId)
+      !KNOWN_PAYMENT_METHOD_IDS.includes(cart.selectedPaymentId)
 
     if (!needsRepair) return
 
@@ -157,12 +167,20 @@ function repairPersistedCart() {
       selectedAddressId: mockUser.addresses.some((a) => a.id === cart.selectedAddressId)
         ? cart.selectedAddressId
         : mockUser.addresses[0].id,
-      selectedPaymentId: ['wallet', 'cod', 'transfer'].includes(cart.selectedPaymentId)
+      selectedPaymentId: KNOWN_PAYMENT_METHOD_IDS.includes(cart.selectedPaymentId)
         ? cart.selectedPaymentId
         : 'wallet',
     })
     const meta = JSON.parse(outer._persist ?? '{}')
-    outer._persist = JSON.stringify({ ...meta, version: 2 })
+    // Slice yang bentuknya sudah tidak cocok dengan kode (sama seperti yang
+    // dibuang `migrations`) dibuang di sini juga — jangan menurunkan penanda
+    // versi ke angka lama: itu memaksa migrasi jalan, hasilnya slice
+    // `undefined`, dan render pertama app pecah (layar putih) sebelum
+    // rehydrate selesai.
+    delete outer.superAdmin
+    delete outer.admin
+    delete outer.catalog
+    outer._persist = JSON.stringify({ ...meta, version: PERSIST_VERSION })
     localStorage.setItem('persist:sa7tein', JSON.stringify(outer))
   } catch {
     // State rusak tidak boleh menghalangi app terbuka.

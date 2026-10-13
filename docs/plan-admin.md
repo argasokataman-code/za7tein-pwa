@@ -40,7 +40,7 @@ atas layout desktop (rail sidebar 248px + konten selebar jendela) — keputusan 
 
 | Route | Layar |
 |---|---|
-| `/admin` | Ringkasan — liability agregat, flag saldo Xendit, alert SLA |
+| `/admin` | Ringkasan — liability agregat, flag saldo DANA, alert SLA |
 | `/admin/onboarding` | Queue tenant — review, verifikasi deposit → held, tolak |
 | `/admin/disputes` | Queue sengketa — investigasi + 4 tombol resolusi |
 | `/admin/merchants` | Master tenant — suspend + blacklist COD (dua sisi) |
@@ -79,7 +79,7 @@ Form sengketa (F8) satu komponen, dipasang di dua peran:
 
 ## S1 — Ringkasan (`/admin`)
 
-- Liability: total + rincian customer/merchant/tips kurir + saldo Xendit mock.
+- Liability: total + rincian customer/merchant/tips kurir + saldo DANA mock.
 - **Visualisasi (2026-09-24):** donut komposisi liability + legenda JOD (reuse
   `liabilitySegments`, deret yang sama dengan konsol SA), statline antrean
   4 angka tanpa kotak, kartu Eksposur sengketa (donut nominal per status,
@@ -88,7 +88,7 @@ Form sengketa (F8) satu komponen, dipasang di dua peran:
   Semua fungsi murni di `data/dashboard.ts`, nol mock baru; kartu memakai
   `--surface` sesuai kontrak DNA. Data yang bukan milik CS (pajak, profit,
   audit trail, kill switch) tidak ditampilkan (HG-12).
-- Flag kalau saldo Xendit < total liability (M9).
+- Flag kalau saldo DANA < total liability (M9).
 - Catatan: gaji kurir tidak masuk hitungan (C-06).
 - Alert SLA masuk + aksi tindak/batalkan (batal order berkonfirmasi, audit-006 #4).
 

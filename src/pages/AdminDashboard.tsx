@@ -131,8 +131,8 @@ export default function AdminDashboard() {
           <p className={`admin-flag ${underFunded ? 'is-warning' : 'is-ok'}`}>
             {underFunded ? <AlertTriangle size={16} strokeWidth={1.75} aria-hidden="true" /> : <ShieldCheck size={16} strokeWidth={1.75} aria-hidden="true" />}
             {underFunded
-              ? `Saldo Xendit kurang ${moneyFromJod(Math.abs(gap))} dari total liability.`
-              : `Saldo Xendit cukup (sisa ${moneyFromJod(gap)}).`}
+              ? `Saldo DANA kurang ${moneyFromJod(Math.abs(gap))} dari total liability.`
+              : `Saldo DANA cukup (sisa ${moneyFromJod(gap)}).`}
           </p>
         </section>
 

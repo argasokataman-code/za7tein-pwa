@@ -12,7 +12,7 @@ import { requestPayout } from '../store/slices/payoutSlice'
 
 /**
  * Pencairan merchant (R-WALLET-01, flow f6): pilih rekening tujuan + nominal,
- * lalu `POST /v3/payouts` versi mock. Fee payout Rp2.500 belum dipotong dari
+ * lalu `POST /wallet/cashouts` versi mock (BE meneruskannya ke Disbursement DANA). Fee payout Rp2.500 belum dipotong dari
  * saldo karena penanggungnya untuk merchant belum diputuskan PRD — layar hanya
  * menampilkan info, tidak mengarang angka.
  */

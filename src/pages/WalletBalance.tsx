@@ -58,7 +58,7 @@ export default function WalletBalance() {
                   <div className="wallet-item-left">
                     <span className="wallet-item-title">Top-up Saldo</span>
                     <span className="wallet-item-sub">
-                      Xendit VA/QRIS (mock) · minimal {money(MIN_TOPUP_NEW_ACCOUNT_IDR)}
+                      DANA VA/QRIS (mock) · minimal {money(MIN_TOPUP_NEW_ACCOUNT_IDR)}
                     </span>
                   </div>
                   <ArrowRight size={20} strokeWidth={1.75} />

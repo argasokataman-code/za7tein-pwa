@@ -102,6 +102,7 @@ export const CUSTOMER_GROUPS: DocRouteGroup[] = [
       { path: '/address-selection', component: 'AddressSelection', desc: 'Pick delivery address' },
       { path: '/payment-selection', component: 'PaymentSelection', desc: 'Pick payment method' },
       { path: '/payment-amount', component: 'PaymentAmount', desc: 'Enter payment amount' },
+      { path: '/payment-dana', component: 'PaymentDana', desc: 'DANA VA/QRIS — kode bayar + hitung mundur (mock sandbox)' },
       { path: '/order-placed', component: 'OrderPlaced', desc: 'Order placed + Journey Line (tahap dari store)' },
       { path: '/order-chat', component: 'OrderChat', desc: 'Chat with merchant/driver' },
       { path: '/order-arrived', component: 'OrderArrived', desc: 'Pesanan tiba + confetti → rating kurir' },
@@ -115,7 +116,7 @@ export const CUSTOMER_GROUPS: DocRouteGroup[] = [
     base: '/customer',
     rows: [
       { path: '/wallet', component: 'WalletBalance', desc: 'Saldo available + pending' },
-      { path: '/wallet/top-up', component: 'WalletTopUp', desc: 'Top-up mock Xendit VA/QRIS' },
+      { path: '/wallet/top-up', component: 'WalletTopUp', desc: 'Top-up mock DANA VA/QRIS' },
       { path: '/wallet/payout', component: 'WalletPayout', desc: 'Riwayat payout' },
     ],
   },
@@ -195,7 +196,7 @@ export const ADMIN_GROUP: DocRouteGroup = {
   title: 'Admin Panel (CS)',
   base: '/admin',
   rows: [
-    { path: '/', component: 'AdminDashboard', desc: 'Ringkasan: liability agregat + flag saldo Xendit + alert SLA' },
+    { path: '/', component: 'AdminDashboard', desc: 'Ringkasan: liability agregat + flag saldo DANA + alert SLA' },
     { path: '/onboarding', component: 'AdminOnboarding', desc: 'Queue tenant: review data, verifikasi deposit, tolak' },
     { path: '/disputes', component: 'AdminDisputes', desc: 'Queue sengketa: investigasi + 4 tombol resolusi' },
     { path: '/merchants', component: 'AdminMerchants', desc: 'Master tenant: suspend + blacklist COD (dua sisi)' },

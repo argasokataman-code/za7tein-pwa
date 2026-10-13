@@ -1215,18 +1215,32 @@ async function warmUpShell(cdp, url) {
  * sudah masuk. Sesi dipisah per peran, jadi peran ikut dari rute yang diukur
  * (`--role all` menyapu beberapa peran dalam satu kali jalan). `user: null`
  * aman: `Home.tsx` membacanya dengan `?.`.
+ *
+ * `GATE_SEED_PAYMENT` memilih metode bayar di state cart sebelum halaman diukur.
+ * Dibutuhkan rute yang hanya untuk satu metode (`/payment-dana` memantul ke
+ * `/payment-selection` kalau metodenya bukan VA/QRIS). Nilai itu juga disuntik
+ * lewat `Page.addScriptToEvaluateOnNewDocument` — kalau hanya ditulis ke
+ * localStorage dari dokumen yang sedang hidup, store yang berjalan menimpanya
+ * pada aksi berikutnya dan seed-nya hilang.
  */
 async function seedSession(cdp, role) {
-  await evaluate(
-    cdp,
-    `(() => {
+  const payment = process.env.GATE_SEED_PAYMENT
+  const source = `(() => {
       const key = 'persist:sa7tein'
       const raw = JSON.parse(localStorage.getItem(key) || '{}')
       raw.auth = JSON.stringify({ user: null, isAuthenticated: true, role: ${JSON.stringify(role)}, isLoading: false })
-      raw._persist = JSON.stringify({ version: 5, rehydrated: true })
+      ${
+        payment
+          ? `const cart = JSON.parse(raw.cart || '{}')
+      cart.selectedPaymentId = ${JSON.stringify(payment)}
+      raw.cart = JSON.stringify(cart)`
+          : ''
+      }
+      raw._persist = JSON.stringify({ version: 6, rehydrated: true })
       localStorage.setItem(key, JSON.stringify(raw))
-    })()`,
-  )
+    })()`
+  if (payment) await cdp.send('Page.addScriptToEvaluateOnNewDocument', { source })
+  await evaluate(cdp, source)
 }
 
 main().catch((err) => {

@@ -15,7 +15,7 @@ export function LedgerSection() {
         Porsi customer-nya diselaraskan dengan wallet demo yang sedang aktif lewat{' '}
         <code className="doc-inline">aggregateLiability</code>: top-up, hold, settlement, dan
         payout menggeser angkanya dengan selisih yang sama seperti yang terlihat di layar wallet.
-        Sebelumnya angka itu statis, sehingga Ringkasan bisa bilang <em>&ldquo;Xendit
+        Sebelumnya angka itu statis, sehingga Ringkasan bisa bilang <em>&ldquo;DANA
         cukup&rdquo;</em> sementara saldo demo sudah berubah — bentuk kebohongan yang sama seperti
         tombol yang tidak melakukan apa-apa.
       </p>
@@ -23,10 +23,10 @@ export function LedgerSection() {
         {`aggregateLiability(base, liveWalletIdr)
   // customerWallets = base + (wallet demo − saldo awal demo)
   // totalLiability = customer + merchant + tips kurir
-  // liabilityGap  = saldo Xendit − total; negatif → flag kurang dana`}
+  // liabilityGap  = saldo DANA − total; negatif → flag kurang dana`}
       </DocCode>
       <p className="doc-p">
-        Flag-nya tetap perbandingan biasa: kalau saldo Xendit mock di bawah total kewajiban,
+        Flag-nya tetap perbandingan biasa: kalau saldo DANA mock di bawah total kewajiban,
         Ringkasan menandai kekurangannya beserta nominalnya. Gaji kurir tidak dihitung di sini —
         kurir digaji merchant, yang lewat platform hanya tips (C-06).
       </p>
@@ -44,7 +44,7 @@ export function LedgerSection() {
         entry itu tidak bisa disunting.
       </p>
       <p className="doc-p">
-        Belum ada di repo ini: rekonsiliasi harian Xendit vs ledger (butuh backend) dan pemisahan
+        Belum ada di repo ini: rekonsiliasi harian DANA vs ledger (butuh backend) dan pemisahan
         akun e-money (<code className="doc-inline">OQ-15</code>,{' '}
         <code className="doc-inline">OQ-19</code>).
       </p>
