@@ -1,0 +1,1 @@
+Audit anti-slop v2 mobile (skill senior-fe+mobile). 10 temuan: dial belum dideklarasikan, huruf mikro 10-11px < lantai, kontras tag promo, nilai mentah, hover-only, ornamen stacking. Belum ada yg diubah.

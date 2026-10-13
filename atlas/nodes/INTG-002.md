@@ -1,0 +1,1 @@
+DANA docs di docs/integration/dana/ (README, api-inventory, testing, credentials). Fund flow: customer->DANA->saldo merchant Sa7tein->disbursement. Kustodian tergantung model settlement (A single merchant=kustodian, B submerchant=not). UNRESOLVED.

@@ -1,8 +1,8 @@
 {
   "schema_version": 5,
-  "updated": "2026-10-11",
-  "active_shard": 13,
-  "node_count": 4100,
+  "updated": "2026-10-13",
+  "active_shard": 14,
+  "node_count": 4410,
   "seed_id": null,
-  "next_seq": 13102
+  "next_seq": 90272
 }

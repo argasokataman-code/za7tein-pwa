@@ -1,0 +1,4075 @@
+{
+  "shard": 14,
+  "nodes": [
+    {
+      "id": "TASK-90089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "21:26:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.oxlintrc.json (+5/-4) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.oxlintrc.json"
+    },
+    {
+      "id": "TASK-90090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "21:27:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '=== LINT (v2-source?) ==='; npm run lint 2>&1 | rtk grep -c \"docs/design/v2-sour",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88001",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-12",
+      "time": "21:27:36",
+      "tags": [
+        "ui-v2",
+        "design",
+        "edisi-02"
+      ],
+      "summary": "UI v2 = EDISI 02 Masakan Tetangga: rules repo tetap, visual 1:1 (warna/layout/animasi). Fondasi token+font di branch ui-v2; v1 di main + tag",
+      "conn": [
+        {
+          "id": "TASK-88001",
+          "type": "relates",
+          "raw": "TASK-88001:relates"
+        }
+      ],
+      "loc": "docs/design/ui-v2.md"
+    },
+    {
+      "id": "TASK-88002",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "21:27:36",
+      "tags": [
+        "ui-v2",
+        "design",
+        "tokens",
+        "font"
+      ],
+      "summary": "Fondasi UI v2: token EDISI 02 + font Plus Jakarta Sans self-host + radius cap 32; DNA/AGENTS/.rules.json diperbarui; snapshot prototype di d",
+      "conn": [
+        {
+          "id": "DEC-88001",
+          "type": "implements",
+          "raw": "DEC-88001:implements"
+        }
+      ],
+      "loc": "src/styles/_tokens.scss:1"
+    },
+    {
+      "id": "TASK-90091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:07:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+229) — write via tool: tsx: import { useEf",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-90092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:08:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+486) — write via tool: /*",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90093",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:08:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+3/-4) — edit via tool: tsx: <CustomerHomeHero",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-90094",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:08:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '=== SCAN ==='; npm run scan 2>&1 | grep -E \"FAIL|WARN|0 FAIL\" | head -20\necho '=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90095",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:09:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnpm run build 2>&1 | grep -E \"error TS|✓ built\" | tail -3\nnpm run lint 2>&1 | grep -E ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90096",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:10:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss (+47/-9) — edit via tool: .bottom-nav,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss"
+    },
+    {
+      "id": "TASK-90097",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:10:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+23/-3) — edit via tool: .home-content {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-90098",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:11:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss (+9/-47) — edit via tool: .bottom-nav,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-2.scss"
+    },
+    {
+      "id": "TASK-90099",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:11:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_bottom-nav.scss (+43) — write via tool: // ═══════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_bottom-nav.scss"
+    },
+    {
+      "id": "TASK-90100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:14:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+6/-6) — edit via tool: flex: 0 0 auto;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:20:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnpm run build 2>&1 | grep -E \"error TS|✓ built\" | tail -2\nnode scripts/e2e-browsers.mj",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:53:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_cookies.py (+64) — write via tool: #!/usr/bin/env python3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_cookies.py"
+    },
+    {
+      "id": "TASK-90103",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:54:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_cookies_json.py (+56) — write via tool: #!/usr/bin/env python3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_cookies_json.py"
+    },
+    {
+      "id": "TASK-90104",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:54:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/inject_cookies.mjs (+51) — write via tool: // Inject decrypted cookies into the CDP",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/inject_cookies.mjs"
+    },
+    {
+      "id": "TASK-90105",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:54:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+4/-2) — edit via tool: .wallet-item,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-90106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:54:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+10/-14) — edit via tool: border: 1px solid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90107",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:55:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+19/-13) — edit via tool: .category-btn svg {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-90108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:55:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss (+26/-19) — edit via tool: .merchant-card {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-90109",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:56:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '=== SCAN ==='; npm run scan 2>&1 | grep -E \"FAIL|WARN|0 FAIL\" | head\necho '=== B",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:56:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+8/-1) — edit via tool: tsx: menghapus/mengembalikannya ada ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-90111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:57:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md (+27/-8) — edit via tool: ## 6. Status migrasi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md"
+    },
+    {
+      "id": "TASK-90112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:58:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '=== SCAN ==='; npm run scan 2>&1 | grep -E \"FAIL|0 FAIL\" | head\necho '=== BUILD ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:58:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+5/-5) — edit via tool: color: color-mix(in",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "22:59:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnpm run governance:check 2>&1 | tail -3\necho '=== SCAN ==='; npm run scan 2>&1 | grep ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:00:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+8/-7) — edit via tool: border: 1px solid;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:00:36",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnpm run build 2>&1 | grep -E \"error TS|✓ built\" | tail -1\nnpm run governance:check 2>&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:01:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+16/-6) — edit via tool: .s7-hero__content ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:02:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+1/-2) — edit via tool: border: 1px solid v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90119",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:03:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+8/-5) — edit via tool: width: 44px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90120",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:03:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/export_cookies.mjs (+22) — write via tool: // Export dana cookies from the CDP brow",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/export_cookies.mjs"
+    },
+    {
+      "id": "INTG-001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:04:01",
+      "tags": [
+        "dana",
+        "sandbox",
+        "integration",
+        "credentials"
+      ],
+      "summary": "DANA Sandbox onboarded: Merchant ID + Client ID/Secret + RSA keypair issued; webhook URLs set (sa7tein.co)",
+      "conn": [
+        {
+          "id": "TASK-001",
+          "type": "relates",
+          "raw": "TASK-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.config/dana-sandbox/credentials.env"
+    },
+    {
+      "id": "TASK-90121",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:04:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+6/-16) — edit via tool: .s7-hero__content ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90122",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:05:17",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '--- leftover hero- vars? ---'; rtk grep -c '\\-\\-hero-' src/components/customer/C",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:05:28",
+      "tags": [
+        "ui-v2",
+        "motion",
+        "design"
+      ],
+      "summary": "Motion v2 beranda customer: press-feedback hero, chip skala kotak ikon + glow, kartu toko angkat + zoom foto, kursor cari, sheet-rise/backdr",
+      "conn": [
+        {
+          "id": "DEC-88001",
+          "type": "implements",
+          "raw": "DEC-88001:implements"
+        }
+      ],
+      "loc": "src/components/customer/CustomerHomeHero.css:1"
+    },
+    {
+      "id": "TASK-90123",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:08:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_test.mjs (+49) — write via tool: // DANA Sandbox integration test — SNAP ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_test.mjs"
+    },
+    {
+      "id": "TASK-90124",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:08:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_probe.mjs (+30) — write via tool: import fs from \"node:fs\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_probe.mjs"
+    },
+    {
+      "id": "TASK-90125",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:09:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_topup.mjs (+47) — write via tool: import fs from \"node:fs\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_topup.mjs"
+    },
+    {
+      "id": "TASK-90126",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:15:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+11/-4) — edit via tool: // Info: reserved untuk status \"Disiapk",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-90127",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:15:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+24/-19) — edit via tool: tsx: <div classNa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-90128",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:16:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+12/-5) — edit via tool: tsx: * 2. Kolom pe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-90129",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:16:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+31/-7) — edit via tool: .s7-hero__topbar {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90130",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:16:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx (+51) — write via tool: tsx: import { ArrowRi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx"
+    },
+    {
+      "id": "TASK-90131",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:17:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss (+316) — write via tool: // ═════════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss"
+    },
+    {
+      "id": "TASK-90132",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:17:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+3/-2) — edit via tool: @use \"./system/storefront\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-90133",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:17:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CartQuickBar.tsx (+48) — write via tool: tsx: import { ArrowRight",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CartQuickBar.tsx"
+    },
+    {
+      "id": "TASK-90134",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:17:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+150) — write via tool: tsx: import { LayoutGrid } from 'lucide-react",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-90135",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:17:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx (+93) — write via tool: tsx: import type { CSSProperti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx"
+    },
+    {
+      "id": "TASK-90136",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:18:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss (+56/-14) — edit via tool: /* Baris kedua kartu v2: ta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-90137",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:18:22",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '=== SCAN ==='; npm run scan 2>&1 | grep -E \"FAIL|WARN|token|kelas|kontrol|tautan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90138",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:18:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.tmp-eval.js (+21) — write via tool: js: JSON.stringify((() => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.tmp-eval.js"
+    },
+    {
+      "id": "TASK-90139",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:19:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/mkenv.mjs (+17) — write via tool: import fs from \"node:fs\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/mkenv.mjs"
+    },
+    {
+      "id": "TEST-001",
+      "type": "bug",
+      "status": "open",
+      "date": "2026-10-12",
+      "time": "23:20:19",
+      "tags": [
+        "dana",
+        "sandbox",
+        "integration",
+        "blocker"
+      ],
+      "summary": "DANA sandbox credential issued but all API calls return 500 (even wrong-signature expects 401); suspect provisioning window",
+      "conn": [
+        {
+          "id": "INTG-001",
+          "type": "relates",
+          "raw": "INTG-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90140",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:20:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/catalog.ts (+14/-11) — edit via tool: ts: export interface MenuRow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/catalog.ts"
+    },
+    {
+      "id": "TASK-90141",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:20:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiCatalog.ts (+1/-1) — edit via tool: ts: import { fetchAllMenuItems, fetch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiCatalog.ts"
+    },
+    {
+      "id": "TASK-90142",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:20:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_topup.mjs (+4/-3) — edit via tool: \"CHANNEL-ID\": \"95221\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_topup.mjs"
+    },
+    {
+      "id": "TASK-90143",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:21:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+6/-7) — edit via tool: tsx: import { useAppSelector } from '../hooks",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-90144",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:21:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '=== SCAN ==='; npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -20\necho '=== BUIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90145",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:22:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.tmp-eval.js (+18) — write via tool: js: JSON.stringify((() => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.tmp-eval.js"
+    },
+    {
+      "id": "TASK-90146",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:23:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.tmp-eval.js (+26) — write via tool: js: JSON.stringify((() => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.tmp-eval.js"
+    },
+    {
+      "id": "TASK-90147",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:24:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+11/-8) — edit via tool: tsx: menghapus/mengembalikannya ada",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-90148",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:24:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md (+2/-2) — edit via tool: Status: **fondasi + beranda customer ter",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md"
+    },
+    {
+      "id": "TASK-90149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:25:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\necho '=== SCAN ==='; npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head\necho '=== BUILD ==",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88007",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:25:42",
+      "tags": [
+        "ui-v2",
+        "home",
+        "promo"
+      ],
+      "summary": "Beranda v2 opsi B: banner promo toko berdiskon, chip selalu tampil, kartu toko gaya tetangga, bilah keranjang; kontrol kurs turun ke baris a",
+      "conn": [
+        {
+          "id": "DEC-88001",
+          "type": "implements",
+          "raw": "DEC-88001:implements"
+        }
+      ],
+      "loc": "src/pages/Home.tsx:1"
+    },
+    {
+      "id": "TASK-90150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:25:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnpm run lint >/dev/null 2>&1; echo \"lint exit=$?\"\nnpm run e2e -- --stop >/dev/null 2>&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-88011",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-12",
+      "time": "23:25:53",
+      "tags": [
+        "ui-v2",
+        "home",
+        "data"
+      ],
+      "summary": "Beranda gabung toko live (id numerik) dgn item mock (id am-*) -> promo & filter kategori selalu kosong. Fix: map discount_percent/is_popular",
+      "conn": [
+        {
+          "id": "TASK-88007",
+          "type": "fixes",
+          "raw": "TASK-88007:fixes"
+        }
+      ],
+      "loc": "src/api/catalog.ts:41"
+    },
+    {
+      "id": "TASK-90151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:28:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_probe2.mjs (+40) — write via tool: import fs from \"node:fs\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_probe2.mjs"
+    },
+    {
+      "id": "TASK-90152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:29:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_mm.mjs (+31) — write via tool: import fs from \"node:fs\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_mm.mjs"
+    },
+    {
+      "id": "TASK-90153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:29:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_mm2.mjs (+30) — write via tool: import fs from \"node:fs\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_mm2.mjs"
+    },
+    {
+      "id": "TEST-002",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:29:55",
+      "tags": [
+        "dana",
+        "sandbox",
+        "integration"
+      ],
+      "summary": "DANA Open API (Merchant Mgmt /dana/merchant/*.htm) consumable: queryShop+getDivisionList return SUCCESS. SNAP endpoints all 500",
+      "conn": [
+        {
+          "id": "INTG-001",
+          "type": "relates",
+          "raw": "INTG-001:relates"
+        },
+        {
+          "id": "TEST-001",
+          "type": "fixes",
+          "raw": "TEST-001:fixes"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:31:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx (+16/-15) — edit via tool: tsx: <div classNam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx"
+    },
+    {
+      "id": "TASK-90155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:32:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss (+22/-15) — edit via tool: .home-promo__body {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss"
+    },
+    {
+      "id": "TASK-90156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:32:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_bottom-nav.scss (+28/-16) — edit via tool: .nav-item {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_bottom-nav.scss"
+    },
+    {
+      "id": "TASK-90157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:32:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveRateDetails.tsx (+76) — write via tool: tsx: import { CalendarClock",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveRateDetails.tsx"
+    },
+    {
+      "id": "TASK-90158",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:32:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx (+39) — write via tool: tsx: import { useState }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-90159",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:32:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx (+50) — write via tool: tsx: import { ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-90160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:32:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx (+2/-3) — edit via tool: tsx: import { Sa7te",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.tsx"
+    },
+    {
+      "id": "TASK-90161",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:33:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+36/-23) — edit via tool: /* Kelompok kontr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90162",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:33:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+36/-4) — edit via tool: .live-rate__refresh:disabled {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-90163",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:33:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90164",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:33:44",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90165",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:33:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx (+3/-3) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-90166",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:35:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss (+5/-5) — edit via tool: gap: var(--space-2);",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss"
+    },
+    {
+      "id": "TASK-90167",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:36:06",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build >/dev/null 2>&1 && GATE_BASE=http://localhost:4173 node scripts/browser-gate.mjs --route /home --strict --click 2>&1 |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90168",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:36:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -12 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88012",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:36:27",
+      "tags": [
+        "ui-v2",
+        "customer",
+        "home"
+      ],
+      "summary": "Beranda v2: banner promo jadi 160px (judul dipendekkan), nav dapat transisi warna/stroke, kurs jadi 1 tombol sheet",
+      "conn": [
+        {
+          "id": "TASK-88007",
+          "type": "implements",
+          "raw": "TASK-88007:implements"
+        },
+        {
+          "id": "DEC-88001",
+          "type": "implements",
+          "raw": "DEC-88001:implements"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90169",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:42:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs (+45) — write via tool: import Dana from \"dana-node\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs"
+    },
+    {
+      "id": "TASK-90170",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:43:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs (+1/-1) — edit via tool: const base = sub(j.CreateOrder.CreateOrd",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs"
+    },
+    {
+      "id": "TASK-90171",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:43:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/dana_p3.mjs (+27) — write via tool: import fs from \"node:fs\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/dana_p3.mjs"
+    },
+    {
+      "id": "TASK-90172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:44:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx (+42/-50) — edit via tool: tsx: import",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-90173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:44:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+4/-36) — edit via tool: .live-rate__refresh:disabled {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-90174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:45:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs (+4/-6) — edit via tool: const variants = [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs"
+    },
+    {
+      "id": "TASK-90175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:45:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90176",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:46:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss (+18/-10) — edit via tool: .home-promo__media img {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss"
+    },
+    {
+      "id": "TASK-90177",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:47:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build >/dev/null 2>&1 && echo built passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90178",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:47:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run scan 2>&1 | tail -6 && npm run lint 2>&1 | rtk grep -c warning passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-88013",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:47:58",
+      "tags": [
+        "ui-v2",
+        "customer",
+        "banner"
+      ],
+      "summary": "Banner promo melar 263px: img di aliran normal mendikte tinggi kartu lewat rasio foto live (potret). Fix: img absolute inset:0",
+      "conn": [
+        {
+          "id": "TASK-88012",
+          "type": "fixes",
+          "raw": "TASK-88012:fixes"
+        }
+      ],
+      "loc": "src/styles/system/_home-v2.scss"
+    },
+    {
+      "id": "TASK-90179",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:49:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.config/dana-sandbox/watch_snap.mjs (+65) — write via tool: // Periodic SNAP health probe. Exits 0 a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.config/dana-sandbox/watch_snap.mjs"
+    },
+    {
+      "id": "TASK-90180",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:50:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs (+4/-3) — edit via tool: } catch (e) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/dana-uat/test/node/dana_co.mjs"
+    },
+    {
+      "id": "TASK-90181",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:51:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/BottomSheet.tsx (+8/-6) — edit via tool: tsx: interface BottomSheetProp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/BottomSheet.tsx"
+    },
+    {
+      "id": "TASK-90182",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:52:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyConverter.tsx (+234) — write via tool: tsx: import { useState }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyConverter.tsx"
+    },
+    {
+      "id": "TASK-90183",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:52:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx (+43/-42) — edit via tool: tsx: import",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx"
+    },
+    {
+      "id": "TEST-003",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-12",
+      "time": "23:53:20",
+      "tags": [
+        "dana",
+        "sandbox",
+        "integration"
+      ],
+      "summary": "Verified impl matches official dana-node SDK + uat-script: sig METHOD:path:hash:ts, RSA-SHA256 PKCS1, headers complete. SNAP 500 = DANA-side",
+      "conn": [
+        {
+          "id": "INTG-001",
+          "type": "relates",
+          "raw": "INTG-001:relates"
+        },
+        {
+          "id": "TEST-002",
+          "type": "relates",
+          "raw": "TEST-002:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90184",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:53:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+544/-98) — edit via tool: /* ── Konverter kurs JOD ⇄ I",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-90185",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:54:08",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -12 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90186",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:54:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyConverter.tsx (+4/-4) — edit via tool: tsx: <div className=\"cc_",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyConverter.tsx"
+    },
+    {
+      "id": "TASK-90187",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:54:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+183) — write via tool: /* ── Mata uang: IDR + padanan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-90188",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:54:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency-converter.scss (+546) — write via tool: /* ── Konverter kurs ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency-converter.scss"
+    },
+    {
+      "id": "TASK-90189",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:55:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/currency\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-90190",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:55:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -6 && echo '--- SCAN ---' && npm run scan 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90191",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:56:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | rtk grep -c warning passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88014",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:57:21",
+      "tags": [
+        "ui-v2",
+        "currency",
+        "customer"
+      ],
+      "summary": "Popup kurs = konverter v2 (CurrencyConverter): badge kurs, 2 field+swap, chip JOD, referensi Irbid, salin. Ganti LiveRateDetails; BottomShee",
+      "conn": [
+        {
+          "id": "TASK-88012",
+          "type": "relates",
+          "raw": "TASK-88012:relates"
+        },
+        {
+          "id": "DEC-88001",
+          "type": "implements",
+          "raw": "DEC-88001:implements"
+        }
+      ],
+      "loc": "src/components/ui/CurrencyConverter.tsx"
+    },
+    {
+      "id": "TASK-90192",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:59:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyExchangeIcon.tsx (+30) — write via tool: tsx: interface Currenc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyExchangeIcon.tsx"
+    },
+    {
+      "id": "TASK-90193",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:59:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx (+5/-5) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-90194",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:59:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx (+5/-5) — edit via tool: tsx: import { useState ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/LiveCurrencyButton.tsx"
+    },
+    {
+      "id": "TASK-90195",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:59:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyConverter.tsx (+6/-5) — edit via tool: tsx: import { useState }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/CurrencyConverter.tsx"
+    },
+    {
+      "id": "TASK-90196",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-12",
+      "time": "23:59:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -5 && echo '--- SCAN ---' && npm run scan 2>&1 | tail -16 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90197",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:00:36",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run e2e -- --stop 2>&1 | tail -1; npm run lint 2>&1 | rtk grep -c warning; node /Users/vanviakingali/.local/share/fnm/node-versi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88015",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:00:39",
+      "tags": [
+        "ui-v2",
+        "currency",
+        "icon"
+      ],
+      "summary": "Tombol+sheet kurs pakai ikon Material currency_exchange (CurrencyExchangeIcon), ganti ArrowRightLeft/Coins; pengecualian lucide tertulis",
+      "conn": [
+        {
+          "id": "TASK-88014",
+          "type": "relates",
+          "raw": "TASK-88014:relates"
+        }
+      ],
+      "loc": "src/components/ui/CurrencyExchangeIcon.tsx"
+    },
+    {
+      "id": "TASK-90198",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:04:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx (+207) — write via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx"
+    },
+    {
+      "id": "TASK-90199",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:05:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_profile-v2.scss (+257) — write via tool: // ══════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_profile-v2.scss"
+    },
+    {
+      "id": "TASK-90200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:05:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/profile\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-90201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:05:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -6 && echo '--- SCAN ---' && npm run scan 2>&1 | tail -16 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:06:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_profile-v2.scss (+8/-3) — edit via tool: .pf {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_profile-v2.scss"
+    },
+    {
+      "id": "TASK-90203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:07:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_profile-v2.scss (+10/-3) — edit via tool: .my-account .wallet-balance-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_profile-v2.scss"
+    },
+    {
+      "id": "TASK-90204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:07:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4 && echo '--- SCAN ---' && npm run scan 2>&1 | tail -4 && echo '--- LINT ---' && npm run lint 2>&1 | tai",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88016",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:10:49",
+      "tags": [
+        "ui-v2",
+        "profile"
+      ],
+      "summary": "Halaman /profile v2: kartu header (avatar+nama+edit), kartu grup Umum/Preferensi (ikon box+label+sub+chevron via ProfileRow), padding-bottom",
+      "conn": [
+        {
+          "id": "TASK-88015",
+          "type": "relates",
+          "raw": "TASK-88015:relates"
+        }
+      ],
+      "loc": "src/pages/Profile.tsx"
+    },
+    {
+      "id": "TASK-90205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:20:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx (+84) — write via tool: tsx: // Kotak masuk notifikasi — tuju",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx"
+    },
+    {
+      "id": "TASK-90206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:20:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/NotificationRow.tsx (+1/-1) — edit via tool: tsx: className={`inbox-row",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/NotificationRow.tsx"
+    },
+    {
+      "id": "TASK-90207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:20:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+5/-2) — edit via tool: --orange-deep: #C9361A;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-90208",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:20:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_notifications-v2.scss (+200) — write via tool: // ════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_notifications-v2.scss"
+    },
+    {
+      "id": "TASK-90209",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:20:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+3/-2) — edit via tool: @use \"./system/profile\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-90210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:20:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4 && echo '--- SCAN ---' && npm run scan 2>&1 | tail -18 && echo '--- LINT ---' && npm run lint 2>&1 | gr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:22:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/dana-uat/test/node/dana_tb.mjs (+33) — write via tool: import DanaPkg from \"dana-node\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/dana-uat/test/node/dana_tb.mjs"
+    },
+    {
+      "id": "TASK-90212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:23:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/legacy-debt.json (+7/-4) — edit via tool: \"src/pages/SaZones.tsx\": [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/legacy-debt.json"
+    },
+    {
+      "id": "TASK-88017",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:23:40",
+      "tags": [
+        "ui-v2",
+        "notifications"
+      ],
+      "summary": "Halaman /notifications v2: hero oranye (judul+subjudul+pil Baru), kartu unread soft-orange/garis, ikon amber+promo merek, judul+waktu sebari",
+      "conn": [
+        {
+          "id": "TASK-88016",
+          "type": "relates",
+          "raw": "TASK-88016:relates"
+        }
+      ],
+      "loc": "src/styles/system/_notifications-v2.scss"
+    },
+    {
+      "id": "TASK-90213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:25:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/dana-uat/test/node/dana_inq.mjs (+34) — write via tool: import DanaPkg from \"dana-node\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/dana-uat/test/node/dana_inq.mjs"
+    },
+    {
+      "id": "TEST-004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:26:18",
+      "tags": [
+        "dana",
+        "sandbox",
+        "checklist"
+      ],
+      "summary": "DANA checklist 83/88. Products complete: Disburse to Balance, IPG Cashier Pay, Payment Gateway (42/42). Disburse to Bank 13/18; sisa 5 = err",
+      "conn": [
+        {
+          "id": "TEST-003",
+          "type": "relates",
+          "raw": "TEST-003:relates"
+        },
+        {
+          "id": "INTG-001",
+          "type": "relates",
+          "raw": "INTG-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:42:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx (+91) — write via tool: tsx: import type { CSSProperties }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-90215",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:42:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AddToCartButton.tsx (+31/-28) — edit via tool: tsx: export function Add",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AddToCartButton.tsx"
+    },
+    {
+      "id": "TASK-90216",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:43:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss (+212) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-90217",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:43:41",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4 && echo '--- SCAN ---' && npm run scan 2>&1 | tail -16 && echo '--- LINT ---' && npm run lint 2>&1 | rt",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90218",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:45:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss (+20/-17) — edit via tool: .discount-badge {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-90219",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:45:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -2 && node scripts/e2e-browsers.mjs eval customer \"Promise.all([navigator.serviceWorker.getRegistrations()",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88018",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "00:47:55",
+      "tags": [
+        "ui-v2",
+        "food-card"
+      ],
+      "summary": "FoodCard v2: hover lift+zoom foto, pill diskon oranye 'Hemat N%', bintang amber, baris harga + tombol + bulat 44px (inset fix badge melar)",
+      "conn": [
+        {
+          "id": "TASK-88017",
+          "type": "relates",
+          "raw": "TASK-88017:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-90220",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:39:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx (+5/-3) — edit via tool: tsx: export function FoodCard({ f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-90221",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:39:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss (+10/-3) — edit via tool: .food-rating .rating-count {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-90222",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:40:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -3 && echo '--- SCAN ---' && npm run scan 2>&1 | tail -4 && echo '--- LINT ---' && npm run lint 2>&1 | rtk",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:41:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss (+2/-2) — edit via tool: background: var(--orange-ink);",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-90224",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:41:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -2 && npm run scan 2>&1 | tail -3 && node -e \"const L=c=>{c=c.replace('#','');const v=[0,2,4].map(i=>parse",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88019",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:42:24",
+      "tags": [
+        "ui-v2",
+        "food-card",
+        "a11y"
+      ],
+      "summary": "FoodCard: baris meta kosong diberi '-' placeholder; lencana diskon latar --orange-ink (putih 5.99:1 lolos AA, #E44220 cuma 4.12:1)",
+      "conn": [
+        {
+          "id": "TASK-88018",
+          "type": "relates",
+          "raw": "TASK-88018:relates"
+        }
+      ],
+      "loc": "src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-90225",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:46:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+7/-2) — edit via tool: ts: isPopular?: boolean",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-90226",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:46:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/catalog.ts (+7/-5) — edit via tool: ts: category: string | null",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/catalog.ts"
+    },
+    {
+      "id": "TASK-90227",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:46:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx (+2/-2) — edit via tool: tsx: import type { CSSProperties ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-90228",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:46:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss (+19/-3) — edit via tool: .food-card:hover .food-name {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-90229",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:47:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -3 && echo '--- SCAN ---' && npm run scan 2>&1 | grep -E 'FAIL|WARN' | tail -1 && echo '--- LINT ---' && n",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90230",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:48:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss (+7/-3) — edit via tool: .favorites-grid {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-90231",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:49:08",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E 'FAIL|WARN' | tail -1 && node scripts/e2e-browsers.mjs eval customer \"Pr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88020",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "07:50:10",
+      "tags": [
+        "ui-v2",
+        "food-card",
+        "data"
+      ],
+      "summary": "Kartu menu toko diisi: description + cook_minutes (dipetakan dari BE, dulu dibuang); grid align start (buang ruang kosong); tombol + oranye ",
+      "conn": [
+        {
+          "id": "TASK-88019",
+          "type": "relates",
+          "raw": "TASK-88019:relates"
+        }
+      ],
+      "loc": "src/api/catalog.ts"
+    },
+    {
+      "id": "TASK-90232",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:08:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu-detail-v2.scss (+385) — write via tool: // ══════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu-detail-v2.scss"
+    },
+    {
+      "id": "TASK-90233",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:09:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+321) — write via tool: tsx: import { useState } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-90234",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:09:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+5/-3) — edit via tool: ts: /** ringkasan modifier terpilih, mis. \"P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-90235",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:09:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+26/-20) — edit via tool: ts: /** harga satuan setelah mod",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-90236",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:09:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+3/-3) — edit via tool: tsx: className=\"checkout-item\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-90237",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:09:46",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -6 && echo '--- SCAN ---' && npm run scan 2>&1 | grep -E 'FAIL|WARN' | tail -3 && echo '--- LINT ---' && n",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90238",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:13:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+2/-2) — edit via tool: tsx: background:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-90239",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:13:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E 'FAIL|WARN' | tail -1 && npm run governance:check 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88021",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:14:25",
+      "tags": [
+        "ui-v2",
+        "menu-detail",
+        "a11y"
+      ],
+      "summary": "Menu detail EDISI 02: judul di atas foto + tautan toko, seksi berlabel, modifier kartu bercentang, catatan (notes CartItem baru), bilah bawa",
+      "conn": [
+        {
+          "id": "TASK-88020",
+          "type": "relates",
+          "raw": "TASK-88020:relates"
+        }
+      ],
+      "loc": "src/styles/system/_menu-detail-v2.scss"
+    },
+    {
+      "id": "TASK-90240",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:21:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/README.md (+85) — write via tool: # Integrasi DANA — Sa7tein",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/README.md"
+    },
+    {
+      "id": "TASK-90241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:22:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/api-inventory.md (+86) — write via tool: # Inventaris API DANA — st",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/api-inventory.md"
+    },
+    {
+      "id": "TASK-90242",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:22:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/testing.md (+85) — write via tool: # Testing DANA — cara jalan, has",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/testing.md"
+    },
+    {
+      "id": "TASK-90243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:22:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/credentials-and-signing.md (+100) — write via tool: # Kredensial & ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/dana/credentials-and-signing.md"
+    },
+    {
+      "id": "INTG-002",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-13",
+      "time": "08:22:36",
+      "tags": [
+        "dana",
+        "payment-gateway",
+        "disbursement",
+        "custodian"
+      ],
+      "summary": "DANA docs di docs/integration/dana/ (README, api-inventory, testing, credentials). Fund flow: customer->DANA->saldo merchant Sa7tein->disbur",
+      "conn": [
+        {
+          "id": "INTG-001",
+          "type": "relates",
+          "raw": "INTG-001:relates"
+        },
+        {
+          "id": "TEST-004",
+          "type": "relates",
+          "raw": "TEST-004:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:27:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/anti-slop/audit-001-2026-10-13.md (+120) — write via tool: # Audit anti-slop ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/anti-slop/audit-001-2026-10-13.md"
+    },
+    {
+      "id": "AUDIT-001",
+      "type": "task",
+      "status": "active",
+      "date": "2026-10-13",
+      "time": "08:27:47",
+      "tags": [
+        "ui-v2",
+        "design",
+        "senior-fe",
+        "mobile"
+      ],
+      "summary": "Audit anti-slop v2 mobile (skill senior-fe+mobile). 10 temuan: dial belum dideklarasikan, huruf mikro 10-11px < lantai, kontras tag promo, n",
+      "conn": [
+        {
+          "id": "INTG-002",
+          "type": "relates",
+          "raw": "INTG-002:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90245",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:40:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss (+9/-8) — edit via tool: .category-btn.active svg {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_menu.scss"
+    },
+    {
+      "id": "TASK-90246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:40:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_bottom-nav.scss (+9/-7) — edit via tool: .bottom-nav {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_bottom-nav.scss"
+    },
+    {
+      "id": "TASK-90247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:40:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss (+4/-5) — edit via tool: /* Glow hover dihapus (audit ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_onboarding.scss"
+    },
+    {
+      "id": "TASK-90248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:40:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css (+7/-3) — edit via tool: /* Umpan hover hany",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CustomerHomeHero.css"
+    },
+    {
+      "id": "TASK-90249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:41:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss (+12/-10) — edit via tool: padding: var(--space-1) var(--",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_home-v2.scss"
+    },
+    {
+      "id": "TASK-90250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:41:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+13/-10) — edit via tool: .s7-parallax--hero,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-90251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:41:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+15/-1) — edit via tool: Gaya baru masuk `_system.scss`; jangan m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-90252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:42:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md (+4/-2) — edit via tool: - [ ] Aset gambar lokal (prototype pakai",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md"
+    },
+    {
+      "id": "TASK-90253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:42:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss (+5/-17) — edit via tool: // Parallax pindah ke `_par",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_interaction.scss"
+    },
+    {
+      "id": "TASK-90254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:44:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_parallax.scss (+6/-1) — edit via tool: // ── Parallax saat menggulir ─",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_parallax.scss"
+    },
+    {
+      "id": "TASK-90255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:44:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+6/-1) — edit via tool: @use \"./system/interaction\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-90256",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:45:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+1/-1) — edit via tool: tsx: <h2 className=\"mdd-label s7-parall",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-90257",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:46:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E 'FAIL|WARN' | tail -1 && rtk npm run e2e -- --pwa --only=customer >/dev/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88022",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:46:24",
+      "tags": [
+        "ui-v2",
+        "menu-detail",
+        "motion"
+      ],
+      "summary": "MenuDetail: pulihkan parallax judul seksi (s7-parallax--title x5) di atas hero --media; scroll-driven CSS, bukan JS",
+      "conn": [
+        {
+          "id": "TASK-88021",
+          "type": "relates",
+          "raw": "TASK-88021:relates"
+        }
+      ],
+      "loc": "src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "DEC-88002",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-13",
+      "time": "08:48:59",
+      "tags": [
+        "ui-v2",
+        "parallax",
+        "design"
+      ],
+      "summary": "CL-01: parallax penuh seluruh layar customer disetujui pemilik; 1 properti translate, 12-26px, view(), mati saat reduce-motion",
+      "conn": [
+        {
+          "id": "AUDIT-001",
+          "type": "relates",
+          "raw": "AUDIT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88023",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:48:59",
+      "tags": [
+        "ui-v2",
+        "audit",
+        "parallax"
+      ],
+      "summary": "Audit 001 dikerjakan; parallax penuh dipisah ke _parallax.scss; browser-gate strict 88/88; scan 0 FAIL; build 0 error",
+      "conn": [
+        {
+          "id": "AUDIT-001",
+          "type": "fixes",
+          "raw": "AUDIT-001:fixes"
+        },
+        {
+          "id": "DEC-88002",
+          "type": "led_to",
+          "raw": "DEC-88002:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90258",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:49:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+6/-3) — edit via tool: - **Parallax** hanya lewat kelas `s7-par",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-90259",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:49:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md (+1/-1) — edit via tool: Lapisan di luar kelas `s7-parallax--*` d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/ui-v2.md"
+    },
+    {
+      "id": "TASK-90260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:49:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/anti-slop/audit-001-2026-10-13.md (+1/-1) — edit via tool: - **Status:** **di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/anti-slop/audit-001-2026-10-13.md"
+    },
+    {
+      "id": "TASK-90261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:57:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts (+54/-57) — edit via tool: ts: import { Beef, Cookie, CupSoda, Drumst",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts"
+    },
+    {
+      "id": "TASK-90262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:57:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/catalog.ts (+2/-1) — edit via tool: ts: import { jodToIdr } from '../data/curren",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/catalog.ts"
+    },
+    {
+      "id": "TASK-90263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "08:58:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -3 && npm run scan 2>&1 | grep -E 'FAIL|WARN' | tail -1 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90264",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:02:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts (+44/-45) — edit via tool: ts: import { Cookie, CupSoda, Soup, Utensi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalog.ts"
+    },
+    {
+      "id": "TASK-90265",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:02:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+1/-1) — edit via tool: tsx: import { CATEGORIES, dealsFrom, menuSeed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-90266",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:02:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E 'FAIL|WARN' | tail -1 && rtk npm run e2e -- --pwa --only=customer >/dev/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90267",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:04:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-018-2026-10-13.md (+60) — write via tool: # Audit 018 - Keseragaman DNA v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-018-2026-10-13.md"
+    },
+    {
+      "id": "TASK-90268",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:05:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/remap.mjs (+74) — write via tool: import { readFileSync, writeFile",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/remap.mjs"
+    },
+    {
+      "id": "TASK-90269",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:06:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && echo \"--- remaining raw hex in app/ ---\" && grep -rhoE '#[0-9a-fA-F]{3,8}' src/styl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90270",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:06:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/remap2.mjs (+35) — write via tool: import { readFileSync, writeFil",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/remap2.mjs"
+    },
+    {
+      "id": "TASK-90271",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:06:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && node /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/remap2.mjs &",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90272",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:11:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-018-2026-10-13.md (+23/-1) — edit via tool: ### Sisa hex yang sengaja dib",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-018-2026-10-13.md"
+    },
+    {
+      "id": "TASK-88024",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "09:11:35",
+      "tags": [
+        "ui-v2",
+        "customer",
+        "palette"
+      ],
+      "summary": "Remap 695 hex v1->token v2 di app/ + 18 lantai huruf; kanvas krem->bg-warm; 12 rute gate PASS; audit-018",
+      "conn": [
+        {
+          "id": "TASK-88023",
+          "type": "relates",
+          "raw": "TASK-88023:relates"
+        }
+      ],
+      "loc": "anti-slop/audit-018-2026-10-13.md"
+    }
+  ]
+}

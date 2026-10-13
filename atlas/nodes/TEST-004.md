@@ -1,0 +1,1 @@
+DANA checklist 83/88. Products complete: Disburse to Balance, IPG Cashier Pay, Payment Gateway (42/42). Disburse to Bank 13/18; sisa 5 = error-sim scenarios → sandbox balas 4034204 Activity Count Limit (fixture drift DANA-side).
