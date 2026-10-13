@@ -204,7 +204,7 @@
 .cart-quick-bar {
   position: fixed;
   right: 0;
-  bottom: calc(var(--nav-height) + var(--space-3));
+  bottom: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px) + var(--space-3));
   left: 0;
   z-index: 900;
 
