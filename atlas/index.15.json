@@ -76,6 +76,28 @@
         }
       ],
       "loc": "public/icons/sa7tein-wordmark.svg"
+    },
+    {
+      "id": "BUG-88044",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "22:26:22",
+      "tags": [
+        "css",
+        "chip",
+        "touch"
+      ],
+      "summary": "Chip kategori: .category-btn:hover bg gelap (--overlay-strong) lengket di layar sentuh -> kotak gelap setelah tap. Fix override system: hove",
+      "conn": [
+        {
+          "id": "TASK-88043",
+          "type": "relates",
+          "raw": "TASK-88043:relates"
+        }
+      ],
+      "loc": "src/styles/system/_interaction.scss:69",
+      "commit": "9f8c77e"
     }
   ]
 }
