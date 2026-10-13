@@ -5572,6 +5572,47 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_docs.scss"
+    },
+    {
+      "id": "BUG-88041",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:50:42",
+      "tags": [
+        "docs",
+        "css"
+      ],
+      "summary": "Spesimen .favorite-btn lolos dari .doc-preview (static) krn position:absolute top/right 12px -> ngambang di sudut dokumen (y=12)",
+      "conn": [
+        {
+          "id": "DEC-88002",
+          "type": "relates",
+          "raw": "DEC-88002:relates"
+        }
+      ],
+      "loc": "src/styles/_docs.scss:124"
+    },
+    {
+      "id": "TASK-88040",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-13",
+      "time": "21:50:42",
+      "tags": [
+        "docs",
+        "documentation",
+        "ui"
+      ],
+      "summary": "Rapikan /documentation: hero dump 164 baris jadi lead+sorotan, specimen favorite-btn terkurung, CTA 3x2, nav aktif berbilah",
+      "conn": [
+        {
+          "id": "BUG-88041",
+          "type": "fixes",
+          "raw": "BUG-88041:fixes"
+        }
+      ],
+      "commit": "5295f1e"
     }
   ]
 }
