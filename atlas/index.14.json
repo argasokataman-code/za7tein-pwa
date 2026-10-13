@@ -4070,6 +4070,30 @@
         }
       ],
       "loc": "anti-slop/audit-018-2026-10-13.md"
+    },
+    {
+      "id": "DEC-88003",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-13",
+      "time": "17:50:54",
+      "tags": [
+        "ui-v2",
+        "release"
+      ],
+      "summary": "ui-v2 jadi main (EDISI 02 resmi); rebase di atas release b913b37; main=ceccefd",
+      "conn": [
+        {
+          "id": "DEC-88002",
+          "type": "led_to",
+          "raw": "DEC-88002:led_to"
+        },
+        {
+          "id": "TASK-88024",
+          "type": "relates",
+          "raw": "TASK-88024:relates"
+        }
+      ]
     }
   ]
 }
