@@ -415,6 +415,162 @@
           "raw": "TASK-90357:relates"
         }
       ]
+    },
+    {
+      "id": "BUG-88012",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-14",
+      "time": "22:04:03",
+      "tags": [
+        "merchant",
+        "orders",
+        "persist"
+      ],
+      "summary": "Order seed (id mo-*) tak persist saat Terima: updateOrderStatus lewati id non-numerik, balik ke Antrean tiap reload. Bukan BE (PATCH 204).",
+      "conn": [
+        {
+          "id": "TASK-88024",
+          "type": "relates",
+          "raw": "TASK-88024:relates"
+        }
+      ],
+      "loc": "src/api/orders.ts:154"
+    },
+    {
+      "id": "TASK-90381",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "22:12:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiOrders.ts (+23/-23) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiOrders.ts"
+    },
+    {
+      "id": "TASK-90382",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "22:12:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts (+12/-9) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-90383",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "22:12:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts (+8/-6) — edit via tool: ts: fetchMerchantOrders()",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-90384",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "22:20:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts (+9/-3) — edit via tool: ts: const initialState: Mercha",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-90385",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "22:24:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx (+30/-4) — edit via tool: tsx:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/MerchantDesignSection.tsx"
+    },
+    {
+      "id": "TASK-90386",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "22:25:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88025",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "22:25:59",
+      "tags": [
+        "merchant",
+        "orders",
+        "realtime",
+        "be"
+      ],
+      "summary": "Antrean merchant BE-authoritative: state order mulai kosong, seed mo-* tak dirender; terima order live persist + realtime",
+      "conn": [
+        {
+          "id": "BUG-88012",
+          "type": "fixes",
+          "raw": "BUG-88012:fixes"
+        }
+      ]
     }
   ]
 }
