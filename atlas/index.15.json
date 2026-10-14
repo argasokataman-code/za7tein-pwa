@@ -571,6 +571,84 @@
           "raw": "BUG-88012:fixes"
         }
       ]
+    },
+    {
+      "id": "TASK-90387",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "23:04:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx (+26/-14) — edit via tool: tsx: // Satu kode untuk dua jalur ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx"
+    },
+    {
+      "id": "TASK-90388",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "23:04:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+15/-10) — edit via tool: ts: /** `orders.status` → tahap kurir (Journ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-90389",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "23:04:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+11/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88026",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "23:10:56",
+      "tags": [
+        "customer",
+        "orders",
+        "tracking",
+        "flow"
+      ],
+      "summary": "Fallback order lokal berkode sama + toast saat POST /orders gagal; peta placed/accepted/preparing ke stage customer (f18)",
+      "conn": [
+        {
+          "id": "BUG-88013",
+          "type": "fixes",
+          "raw": "BUG-88013:fixes"
+        }
+      ]
     }
   ]
 }
