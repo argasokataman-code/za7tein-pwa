@@ -464,6 +464,12 @@ export interface PushSubscriptionRecord {
  */
 export type MerchantOrderStatus = OrderStage | 'diterima' | 'tiba' | 'ditolak' | 'batal'
 
+/**
+ * `orders.payment_status` BE (f18). Gerbang konfirmasi merchant: prepaid harus
+ * `paid` dulu; COD lewat hold; transfer diverifikasi saat diterima.
+ */
+export type OrderPaymentStatus = 'unpaid' | 'pending' | 'paid' | 'failed' | 'refunded'
+
 export interface MerchantOrder {
   id: string
   code: string
@@ -488,6 +494,11 @@ export interface MerchantOrder {
    */
   placedAtMs?: number
   paymentMethod: PaymentMethod['id']
+  /**
+   * `orders.payment_status`. Kosong pada order seed (tak punya baris BE) —
+   * dianggap lunas supaya seed lama tetap bisa dikonfirmasi.
+   */
+  paymentStatus?: OrderPaymentStatus
   cookMinutes?: number
   /**
    * `Courier.id` yang dipilih merchant untuk order ini. Platform tidak pernah

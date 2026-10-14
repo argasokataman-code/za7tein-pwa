@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { insertNotification } from '../api/notifications'
-import { assignOrderCourier, updateOrderStatus } from '../api/orders'
+import { assignOrderCourier, markOrderPaid, updateOrderStatus } from '../api/orders'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { JourneyLine } from '../components/JourneyLine'
@@ -25,7 +25,7 @@ import {
   type QueueTabId,
 } from '../data/merchantOrders'
 import { assignCourier, setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
-import type { MerchantOrderStatus, OrderStage } from '../types'
+import type { MerchantOrder, MerchantOrderStatus, OrderStage } from '../types'
 
 /**
  * Status order merchant → tahap Journey Line.
@@ -59,6 +59,21 @@ const EMPTY_HINT: Record<QueueTabId, string> = {
   diproses: 'Order yang sudah kamu terima sedang berjalan di sini.',
   selesai: 'Order yang tuntas akan tersimpan di sini.',
   batal: 'Order yang ditolak atau dibatalkan tampil di sini.',
+}
+
+/**
+ * Gerbang konfirmasi merchant (f18). Merchant hanya boleh menerima order
+ * setelah pembayaran terkonfirmasi:
+ * - `cod` → `ready` (checkout menahan hold saldo, f2);
+ * - `paid` / tanpa status (seed) → `ready`;
+ * - `transfer` → `verify` (merchant memverifikasi bukti saat menerima);
+ * - sisanya (DANA VA/QRIS belum lunas) → `awaiting` (Terima nonaktif).
+ */
+function paymentGate(order: MerchantOrder): 'ready' | 'awaiting' | 'verify' {
+  if (order.paymentMethod === 'cod') return 'ready'
+  if (order.paymentStatus === undefined || order.paymentStatus === 'paid') return 'ready'
+  if (order.paymentMethod === 'transfer') return 'verify'
+  return 'awaiting'
 }
 
 export default function MerchantOrders() {
@@ -101,6 +116,11 @@ export default function MerchantOrders() {
   }
 
   const receiveOrder = (id: string, code: string) => {
+    const order = orders.find((o) => o.id === id)
+    // Transfer: verifikasi bukti transfer = konfirmasi pembayaran (f18).
+    if (order && paymentGate(order) === 'verify') {
+      void markOrderPaid(id, 'merchant').catch(() => {})
+    }
     dispatch(setOrderStatus({ id, status: 'diterima' }))
     persistStatus(id, 'diterima')
     toast.success(`Order ${code} diterima`)
@@ -183,6 +203,7 @@ export default function MerchantOrders() {
           visible.map((order) => {
             const ageMinutes = orderAgeMinutes(order)
             const urgency = orderUrgency(order, ageMinutes)
+            const gate = paymentGate(order)
             return (
               <article key={order.id} className="merchant-ticket">
                 {/* Slip tiket dua baris: kepala (nomor + umur + status) lalu
@@ -210,6 +231,9 @@ export default function MerchantOrders() {
                       <span className={`merchant-badge merchant-badge-${order.status}`}>
                         {orderStatusLabel(order.status)}
                       </span>
+                      {order.status === 'baru' && gate === 'awaiting' ? (
+                        <span className="merchant-badge">Menunggu bayar</span>
+                      ) : null}
                     </span>
                   </span>
                   <span className="merchant-ticket-body">
@@ -237,22 +261,30 @@ export default function MerchantOrders() {
                 </button>
 
                 {order.status === 'baru' ? (
-                  <div className="merchant-actions">
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={() => receiveOrder(order.id, order.code)}
-                    >
-                      Terima
-                    </button>
-                    <button
-                      type="button"
-                      className="merchant-btn-ghost"
-                      onClick={() => setRejectId(order.id)}
-                    >
-                      Tolak
-                    </button>
-                  </div>
+                  <>
+                    <div className="merchant-actions">
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        disabled={gate === 'awaiting'}
+                        onClick={() => receiveOrder(order.id, order.code)}
+                      >
+                        {gate === 'verify' ? 'Verifikasi & Terima' : 'Terima'}
+                      </button>
+                      <button
+                        type="button"
+                        className="merchant-btn-ghost"
+                        onClick={() => setRejectId(order.id)}
+                      >
+                        Tolak
+                      </button>
+                    </div>
+                    {gate === 'awaiting' ? (
+                      <p className="merchant-card-sub">
+                        Menunggu pembayaran — Terima aktif setelah pembayaran berhasil.
+                      </p>
+                    ) : null}
+                  </>
                 ) : null}
               </article>
             )
@@ -331,25 +363,33 @@ export default function MerchantOrders() {
             <p className="merchant-order-total">Total {money(detailOrder.total)}</p>
 
             {detailOrder.status === 'baru' ? (
-              <div className="merchant-actions">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={() => receiveOrder(detailOrder.id, detailOrder.code)}
-                >
-                  Terima
-                </button>
-                <button
-                  type="button"
-                  className="merchant-btn-ghost"
-                  onClick={() => {
-                    setDetailId(null)
-                    setRejectId(detailOrder.id)
-                  }}
-                >
-                  Tolak
-                </button>
-              </div>
+              <>
+                <div className="merchant-actions">
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    disabled={paymentGate(detailOrder) === 'awaiting'}
+                    onClick={() => receiveOrder(detailOrder.id, detailOrder.code)}
+                  >
+                    {paymentGate(detailOrder) === 'verify' ? 'Verifikasi & Terima' : 'Terima'}
+                  </button>
+                  <button
+                    type="button"
+                    className="merchant-btn-ghost"
+                    onClick={() => {
+                      setDetailId(null)
+                      setRejectId(detailOrder.id)
+                    }}
+                  >
+                    Tolak
+                  </button>
+                </div>
+                {paymentGate(detailOrder) === 'awaiting' ? (
+                  <p className="merchant-card-sub">
+                    Menunggu pembayaran — Terima aktif setelah pembayaran berhasil.
+                  </p>
+                ) : null}
+              </>
             ) : null}
 
             {detailOrder.status === 'diterima' ||

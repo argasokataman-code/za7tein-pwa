@@ -86,6 +86,15 @@ export const foodApi = baseApi.injectEndpoints({
           is picked.
         </li>
         <li>
+          <strong>Merchant confirm is gated on payment (f18).</strong> Checkout writes the order
+          immediately, so it shows up in the merchant Antrean right away, but <em>Terima</em> stays
+          disabled until payment is confirmed: <code className="doc-inline">payment_status = paid</code>{' '}
+          for wallet, DANA VA/QRIS after the payment screen succeeds, or the merchant verifying a
+          transfer proof (accept sets <code className="doc-inline">paid</code>). COD is confirmable at
+          once because checkout reserves a wallet hold (f2). A still-unpaid order carries a
+          &ldquo;Menunggu bayar&rdquo; chip and a note instead of an active Terima.
+        </li>
+        <li>
           <strong>Writes name their columns.</strong> A returning insert must list the columns it
           wants (<code className="doc-inline">createWithReturn(..., 'id,code')</code>):{' '}
           <code className="doc-inline">Prefer: return=representation</code> without a{' '}

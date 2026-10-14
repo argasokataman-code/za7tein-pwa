@@ -228,6 +228,14 @@ export default function Documentation() {
                 <strong>f1</strong> / <strong>f18</strong>).
               </li>
               <li>
+                Konfirmasi merchant kini <strong>tergerbang pembayaran</strong> (f18): order tetap
+                muncul di Antrean begitu checkout, tapi tombol <strong>Terima</strong> nonaktif sampai
+                pembayaran terkonfirmasi — DANA VA/QRIS dan saldo harus{' '}
+                <code className="doc-inline">paid</code>, COD lewat hold saldo (f2), transfer
+                diverifikasi merchant saat diterima. Order belum lunas membawa chip &ldquo;Menunggu
+                bayar&rdquo;.
+              </li>
+              <li>
                 Tulis order kini benar-benar sampai ke BE: <code className="doc-inline">createWithReturn</code>{' '}
                 meminta kolom eksplisit (<code className="doc-inline">select=id,code</code>) karena{' '}
                 <code className="doc-inline">return=representation</code> tanpa{' '}

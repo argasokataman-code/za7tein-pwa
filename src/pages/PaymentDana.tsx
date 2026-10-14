@@ -9,6 +9,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { insertNotification } from '../api/notifications'
+import { markOrderPaid } from '../api/orders'
 import { BackButton } from '../components/ui/BackButton'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { formatCountdown } from '../data/courier'
@@ -69,6 +70,7 @@ export default function PaymentDana() {
   const addresses = Array.isArray(stored) ? stored : mockUser.addresses
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
+  const activeOrderId = useAppSelector((s) => s.cart.activeOrder?.id)
 
   const methods = useApiPaymentMethods()
   const method = methods.find((m) => m.id === paymentId)
@@ -102,6 +104,9 @@ export default function PaymentDana() {
 
   const simulatePaid = () => {
     setStatus('dibayar')
+    // Sinkronkan order sampai pembayaran berhasil (f18): merchant baru boleh
+    // konfirmasi setelah `payment_status = paid`.
+    if (activeOrderId) void markOrderPaid(activeOrderId, 'customer').catch(() => {})
     toast.success('Pembayaran diterima (simulasi)')
     void insertNotification({
       audience: 'customer',

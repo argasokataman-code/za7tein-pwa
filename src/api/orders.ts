@@ -14,6 +14,7 @@ import type {
   CourierTask,
   MerchantOrder,
   MerchantOrderStatus,
+  OrderPaymentStatus,
   OrderStage,
   PaymentMethod,
   ZoneId,
@@ -48,6 +49,7 @@ interface OrderRow {
   merchant_id: number
   total_jod: number
   payment_method: string
+  payment_status?: string
   zone_code: string | null
   created_at: string
   placed_at: string | null
@@ -82,6 +84,19 @@ const OUT_PAYMENT: Record<PaymentMethod['id'], string> = {
 
 const PAYMENT_IDS: readonly string[] = ['cod', 'transfer', 'xendit_va', 'xendit_qris']
 
+/**
+ * `payment_status` awal saat checkout (f18). Wallet sudah terpotong (`paid`);
+ * DANA/transfer menunggu (`pending`); COD (`unpaid`) tetap boleh dikonfirmasi
+ * karena checkout menahan hold saldo (f2) — gerbang merchant memakai aturan ini.
+ */
+const INITIAL_PAYMENT_STATUS: Record<PaymentMethod['id'], OrderPaymentStatus> = {
+  cod: 'unpaid',
+  transfer: 'pending',
+  wallet: 'paid',
+  dana_va: 'pending',
+  dana_qris: 'pending',
+}
+
 /** `SA-` + epoch basis-36 — cukup unik untuk demo, tak menabrak kode seed `SA-10xx`. */
 export function nextOrderCode(): string {
   return `SA-${Date.now().toString(36).toUpperCase()}`
@@ -100,6 +115,7 @@ export async function createOrder(order: NewOrder): Promise<{ id: string; code: 
     platform_fee_jod: idrToJod(order.platformFeeIdr),
     total_jod: idrToJod(order.totalIdr),
     payment_method: OUT_PAYMENT[order.paymentMethod] ?? 'cod',
+    payment_status: INITIAL_PAYMENT_STATUS[order.paymentMethod] ?? 'unpaid',
     zone_code: order.zoneCode ?? null,
   }, 'id,code')
   const row = rows[0]
@@ -155,6 +171,21 @@ export async function updateOrderStatus(
   if (!Number.isFinite(oid)) return
   const token = await ensureMerchantToken()
   await patch(token, 'orders', `?id=eq.${oid}`, { status: OUT_STATUS[status] ?? 'cart' })
+}
+
+/**
+ * Tandai `orders.payment_status = 'paid'` — gerbang konfirmasi merchant (f18).
+ * Customer memakainya setelah pembayaran DANA/QRIS diterima; merchant memakainya
+ * saat memverifikasi bukti transfer. Best-effort (id seed non-numerik dilewati).
+ */
+export async function markOrderPaid(
+  orderId: string,
+  by: 'customer' | 'merchant' = 'customer',
+): Promise<void> {
+  const oid = numericOrderId(orderId)
+  if (!Number.isFinite(oid)) return
+  const token = by === 'merchant' ? await ensureMerchantToken() : await ensureCustomerToken()
+  await patch(token, 'orders', `?id=eq.${oid}`, { payment_status: 'paid' })
 }
 
 /** Titik verifikasi kurir — nilai `checkpoints.kind` backend. */
@@ -243,6 +274,7 @@ function toMerchantOrder(row: OrderRow): MerchantOrder {
     paymentMethod: (PAYMENT_IDS.includes(row.payment_method)
       ? row.payment_method
       : 'cod') as PaymentMethod['id'],
+    paymentStatus: (row.payment_status ?? 'unpaid') as OrderPaymentStatus,
     courierId: row.courier_id != null ? String(row.courier_id) : undefined,
   }
 }
@@ -276,7 +308,7 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
   const rows = await restWith<OrderRow>(
     token,
     'orders',
-    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,zone_code,created_at,placed_at,courier_id&merchant_id=eq.${merchantId}&order=created_at.desc`,
+    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,payment_status,zone_code,created_at,placed_at,courier_id&merchant_id=eq.${merchantId}&order=created_at.desc`,
   )
   return rows.map(toMerchantOrder)
 }
