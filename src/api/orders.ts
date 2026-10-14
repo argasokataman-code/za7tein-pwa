@@ -101,7 +101,7 @@ export async function createOrder(order: NewOrder): Promise<{ id: string; code: 
     total_jod: idrToJod(order.totalIdr),
     payment_method: OUT_PAYMENT[order.paymentMethod] ?? 'cod',
     zone_code: order.zoneCode ?? null,
-  })
+  }, 'id,code')
   const row = rows[0]
   return { id: String(row?.id ?? ''), code: row?.code ?? order.code }
 }

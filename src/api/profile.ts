@@ -215,7 +215,7 @@ export async function savePushSubscription(
     endpoint,
     p256dh,
     auth,
-  })
+  }, 'id,endpoint,p256dh,auth,created_at')
   return rows[0]
 }
 

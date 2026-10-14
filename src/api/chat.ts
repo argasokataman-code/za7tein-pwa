@@ -54,7 +54,7 @@ async function ensureChat(token: string, orderId: number): Promise<number | null
     `?select=id&order_id=eq.${orderId}&limit=1`,
   )
   if (found[0]?.id) return found[0].id
-  const created = await createWithReturn<{ id: number }>(token, 'chats', { order_id: orderId })
+  const created = await createWithReturn<{ id: number }>(token, 'chats', { order_id: orderId }, 'id')
   return created[0]?.id ?? null
 }
 

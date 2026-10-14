@@ -85,6 +85,19 @@ export const foodApi = baseApi.injectEndpoints({
           status dot, active-task count); the chosen one is marked and a hint stays until a courier
           is picked.
         </li>
+        <li>
+          <strong>Writes name their columns.</strong> A returning insert must list the columns it
+          wants (<code className="doc-inline">createWithReturn(..., 'id,code')</code>):{' '}
+          <code className="doc-inline">Prefer: return=representation</code> without a{' '}
+          <code className="doc-inline">select</code> makes PostgREST do{' '}
+          <code className="doc-inline">RETURNING *</code>, and any column whose{' '}
+          <code className="doc-inline">SELECT</code> is revoked from{' '}
+          <code className="doc-inline">authenticated</code> (e.g.{' '}
+          <code className="doc-inline">orders.otp</code>, exposed only via the{' '}
+          <code className="doc-inline">my_order_otp</code> RPC) fails the whole INSERT with{' '}
+          <code className="doc-inline">42501 permission denied</code> — even though the INSERT
+          privilege itself is granted.
+        </li>
       </ul>
       <h3 className="doc-h3">
         Reference data — live reads

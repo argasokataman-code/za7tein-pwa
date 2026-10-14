@@ -228,6 +228,17 @@ export default function Documentation() {
                 <strong>f1</strong> / <strong>f18</strong>).
               </li>
               <li>
+                Tulis order kini benar-benar sampai ke BE: <code className="doc-inline">createWithReturn</code>{' '}
+                meminta kolom eksplisit (<code className="doc-inline">select=id,code</code>) karena{' '}
+                <code className="doc-inline">return=representation</code> tanpa{' '}
+                <code className="doc-inline">select</code> menjalankan{' '}
+                <code className="doc-inline">RETURNING *</code> yang menyentuh{' '}
+                <code className="doc-inline">orders.otp</code> (SELECT-nya dicabut dari{' '}
+                <code className="doc-inline">authenticated</code>) — dulu itu membatalkan seluruh INSERT
+                dengan <code className="doc-inline">42501</code> dan checkout jatuh ke order lokal. Rincian
+                di bagian <strong>Connecting a Real Backend (12)</strong>.
+              </li>
+              <li>
                 Antrean merchant kini <strong>murni dari BE</strong>: state order mulai kosong,
                 seed demo <code className="doc-inline">mo-*</code> tak lagi dirender karena
                 id-nya non-numerik (Terima/Tolak tak bisa dipersist, kartu "hidup lagi" saat

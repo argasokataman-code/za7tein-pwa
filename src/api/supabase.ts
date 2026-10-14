@@ -200,13 +200,20 @@ export async function createWith(
 /**
  * POST yang **mengembalikan baris** (`Prefer: return=representation`) — dipakai
  * saat id/code baris baru diperlukan (mis. `orders` setelah checkout).
+ *
+ * `select` wajib menyebut kolom yang diminta. Tanpa itu PostgREST melakukan
+ * `RETURNING *`, dan satu kolom yang SELECT-nya sengaja dicabut dari
+ * `authenticated` (mis. `orders.otp`) membatalkan **seluruh** INSERT dengan
+ * `42501 permission denied` — padahal INSERT-nya sendiri berhak.
  */
 export async function createWithReturn<T>(
   token: string,
   table: string,
   body: Record<string, unknown>,
+  select?: string,
 ): Promise<T[]> {
-  const res = await fetch(`${url}/rest/v1/${table}`, {
+  const query = select ? `?select=${select}` : ''
+  const res = await fetch(`${url}/rest/v1/${table}${query}`, {
     method: 'POST',
     headers: {
       apikey: anonKey,

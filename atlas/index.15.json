@@ -670,6 +670,146 @@
           "raw": "BUG-88031:fixes"
         }
       ]
+    },
+    {
+      "id": "TASK-90390",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "00:31:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/supabase.ts (+17/-10) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/supabase.ts"
+    },
+    {
+      "id": "TASK-90391",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "00:31:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+12/-12) — edit via tool: ts: const rows = await createWithReturn<{ id",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-90392",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "00:31:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts (+6/-6) — edit via tool: ts: const rows = await createWithReturn<Push",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts"
+    },
+    {
+      "id": "TASK-90393",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "00:31:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/chat.ts (+1/-1) — edit via tool: ts: const created = await createWithReturn<{",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/chat.ts"
+    },
+    {
+      "id": "TASK-90394",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "00:35:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/BackendSection.tsx (+18/-5) — edit via tool: tsx: </li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/BackendSection.tsx"
+    },
+    {
+      "id": "BUG-90401",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-15",
+      "time": "00:36:33",
+      "tags": [
+        "customer",
+        "orders",
+        "postgrest"
+      ],
+      "summary": "createWithReturn RETURNING * kena orders.otp (SELECT dicabut) -> INSERT 42501; fix: select kolom eksplisit",
+      "conn": [
+        {
+          "id": "BUG-88031",
+          "type": "led_to",
+          "raw": "BUG-88031:led_to"
+        },
+        {
+          "id": "FEAT-9963",
+          "type": "relates",
+          "raw": "FEAT-9963:relates"
+        }
+      ],
+      "loc": "src/api/supabase.ts:204"
+    },
+    {
+      "id": "TASK-90402",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "00:37:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+13/-2) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }
