@@ -649,6 +649,27 @@
           "raw": "BUG-88013:fixes"
         }
       ]
+    },
+    {
+      "id": "BUG-88030",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-14",
+      "time": "23:11:38",
+      "tags": [
+        "customer",
+        "orders",
+        "tracking"
+      ],
+      "summary": "Tracking customer kosong: POST /orders ditolak BE (42501), createOrder gagal senyap, activeOrder null, layar jatuh ke mockOrder",
+      "conn": [
+        {
+          "id": "TASK-88026",
+          "type": "relates",
+          "raw": "TASK-88026:relates"
+        }
+      ],
+      "loc": "src/pages/PaymentAmount.tsx:122"
     }
   ]
 }
