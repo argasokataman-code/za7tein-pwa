@@ -281,11 +281,16 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
   return rows.map(toMerchantOrder)
 }
 
-/** `orders.status` → tahap kurir (Journey Line, `OrderStage`). */
+/** `orders.status` → tahap kurir (Journey Line, `OrderStage` — flow f18). */
 const STAGE_OF_STATUS: Record<string, OrderStage> = {
   cart: 'baru',
   quotation: 'baru',
+  placed: 'baru',
+  // Merchant menulis `prepare` saat Terima (`OUT_STATUS`), tapi kontrak draft
+  // (`POST /orders/{id}/accept`) memakai `accepted` — dua-duanya masuk dapur.
+  accepted: 'disiapkan',
   prepare: 'disiapkan',
+  preparing: 'disiapkan',
   waitingCourier: 'siap',
   waitingDelivery: 'siap',
   delivery: 'diantar',

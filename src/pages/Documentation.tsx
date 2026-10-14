@@ -220,6 +220,14 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}
+                <code className="doc-inline">POST /orders</code> ditolak BE, order dicatat lokal
+                dengan kode yang sama (bukan jatuh ke <code className="doc-inline">mockOrder</code>{' '}
+                yang tak nyambung) dan muncul peringatan. Pelacakan customer lalu menampilkan
+                pesanan itu; status live menyusul begitu BE menerima tulisannya (flow{' '}
+                <strong>f1</strong> / <strong>f18</strong>).
+              </li>
+              <li>
                 Antrean merchant kini <strong>murni dari BE</strong>: state order mulai kosong,
                 seed demo <code className="doc-inline">mo-*</code> tak lagi dirender karena
                 id-nya non-numerik (Terima/Tolak tak bisa dipersist, kartu "hidup lagi" saat

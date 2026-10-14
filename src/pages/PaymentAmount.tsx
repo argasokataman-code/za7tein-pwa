@@ -106,8 +106,13 @@ export default function PaymentAmount() {
     // jaringan/RLS menolak, jadi kegagalan tidak menghalangi navigasi.
     // Sukses → simpan id/code order ke store supaya pelacakan customer membaca
     // status live (`orders.status`) + realtime, bukan `mockOrder`.
+    // Satu kode untuk dua jalur (flow f1: `POST /orders` → `GET /orders/{id}`).
+    // BE menerima → kode itu dilacak live; BE menolak (RLS/jaringan) → order tetap
+    // dicatat lokal dengan kode yang sama supaya pelacakan menampilkan pesanan
+    // ini, bukan `mockOrder` yang tak nyambung dengan yang barusan dibuat.
+    const code = nextOrderCode()
     void createOrder({
-      code: nextOrderCode(),
+      code,
       subTotalIdr: subtotal,
       deliveryFeeIdr: fee,
       platformFeeIdr: PLATFORM_FEE_CUSTOMER_IDR,
@@ -119,7 +124,14 @@ export default function PaymentAmount() {
         dispatch(setActiveOrder(created))
         dispatch(setOrderStage('baru'))
       })
-      .catch(() => {})
+      .catch(() => {
+        // Best-effort (AGENTS.md §1): UI tetap jalan mock. `id` kosong → id
+        // non-numerik, jadi `useApiRealtime` tak memanggil `fetchCustomerOrder`
+        // (tak ada permintaan sia-sia); status live menyusul begitu BE pulih.
+        dispatch(setActiveOrder({ id: '', code }))
+        dispatch(setOrderStage('baru'))
+        toast.error('Order belum tersinkron ke server — pelacakan live menyusul.')
+      })
     // Emit notifikasi (best-effort): merchant dapat order baru; customer dapat
     // konfirmasi pembayaran untuk metode non-COD.
     void insertNotification({
