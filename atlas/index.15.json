@@ -630,11 +630,32 @@
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     },
     {
-      "id": "TASK-88026",
+      "id": "BUG-88031",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-14",
+      "time": "23:13:05",
+      "tags": [
+        "customer",
+        "orders",
+        "tracking"
+      ],
+      "summary": "Tracking customer kosong: POST /orders ditolak BE (42501), createOrder gagal senyap, activeOrder null, layar jatuh ke mockOrder",
+      "conn": [
+        {
+          "id": "BUG-88012",
+          "type": "relates",
+          "raw": "BUG-88012:relates"
+        }
+      ],
+      "loc": "src/pages/PaymentAmount.tsx:122"
+    },
+    {
+      "id": "TASK-88028",
       "type": "task",
       "status": "done",
       "date": "2026-10-14",
-      "time": "23:10:56",
+      "time": "23:13:05",
       "tags": [
         "customer",
         "orders",
@@ -644,32 +665,11 @@
       "summary": "Fallback order lokal berkode sama + toast saat POST /orders gagal; peta placed/accepted/preparing ke stage customer (f18)",
       "conn": [
         {
-          "id": "BUG-88013",
+          "id": "BUG-88031",
           "type": "fixes",
-          "raw": "BUG-88013:fixes"
+          "raw": "BUG-88031:fixes"
         }
       ]
-    },
-    {
-      "id": "BUG-88030",
-      "type": "bug",
-      "status": "fixed",
-      "date": "2026-10-14",
-      "time": "23:11:38",
-      "tags": [
-        "customer",
-        "orders",
-        "tracking"
-      ],
-      "summary": "Tracking customer kosong: POST /orders ditolak BE (42501), createOrder gagal senyap, activeOrder null, layar jatuh ke mockOrder",
-      "conn": [
-        {
-          "id": "TASK-88026",
-          "type": "relates",
-          "raw": "TASK-88026:relates"
-        }
-      ],
-      "loc": "src/pages/PaymentAmount.tsx:122"
     }
   ]
 }
