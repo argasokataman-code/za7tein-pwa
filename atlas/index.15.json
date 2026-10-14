@@ -375,6 +375,46 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-90369",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "20:24:26",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa\nnpm run lint >/dev/null 2>&1 && echo \"lint ok\" || echo \"LINT FAIL\"\nnpm run build 2>&1 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90380",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-14",
+      "time": "20:26:35",
+      "tags": [
+        "logo",
+        "icon",
+        "splash",
+        "brand"
+      ],
+      "summary": "App icon baru: tile oranye #E8441C + glyph navy #14496E (trace wordmark); regenerate 8 PNG + mark.svg",
+      "conn": [
+        {
+          "id": "TASK-90357",
+          "type": "relates",
+          "raw": "TASK-90357:relates"
+        }
+      ]
     }
   ]
 }
