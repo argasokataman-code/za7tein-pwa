@@ -1,8 +1,8 @@
 /**
- * Sinkron order merchant dari API — **mock dulu, API menimpa** (pola sama
- * dengan `useApiCatalog`). Kalau API mati/kosong/error, seed `merchant.orders`
- * tetap tampil; kalau ada order live, ia digabung ke depan seed lewat
- * `mergeOrders` supaya aksi Terima/Tolak tetap bekerja pada id yang ada.
+ * Sinkron order merchant dari API. Seed `merchant.orders` hanya tampil sebelum
+ * hidrasi pertama atau saat API error; begitu API menjawab (walau nol baris),
+ * `mergeOrders` menggantinya dengan order nyata supaya Terima/Tolak selalu
+ * bekerja pada id yang bisa dipersist ke BE (lihat komentar slice).
  */
 import { useEffect } from 'react'
 
@@ -18,7 +18,7 @@ export function useMerchantOrdersSync(): void {
     let alive = true
     fetchMerchantOrders()
       .then((orders) => {
-        if (alive && orders.length) dispatch(mergeOrders(orders))
+        if (alive) dispatch(mergeOrders(orders))
       })
       .catch(() => {})
     return () => {

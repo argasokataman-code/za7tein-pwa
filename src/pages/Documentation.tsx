@@ -220,6 +220,13 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                Antrean merchant kini <strong>murni dari BE</strong>: state order mulai kosong,
+                seed demo <code className="doc-inline">mo-*</code> tak lagi dirender karena
+                id-nya non-numerik (Terima/Tolak tak bisa dipersist, kartu "hidup lagi" saat
+                reload). Terima pada order nyata pindah ke Diproses dan tetap begitu. Rincian
+                di bagian <strong>Merchant Console (13)</strong>.
+              </li>
+              <li>
                 Metode bayar di checkout kini <strong>dibaca dari BE</strong>: tabel publik{' '}
                 <code className="doc-inline">payment_methods</code> menyetir daftar, urutan, dan
                 status aktifnya (mock jadi cadangan). Label tetap teks kurasi karena kolom deskripsi

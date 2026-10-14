@@ -1,6 +1,4 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-
-import { merchantOrders as seedOrders } from '../../data/merchantOrders'
 import { merchantReviewReplies } from '../../data/merchantReviews'
 import {
   MAX_COURIERS_PER_MERCHANT,
@@ -106,7 +104,13 @@ const writeBusy = (busy: boolean): void => {
 }
 
 const initialState: MerchantState = {
-  orders: seedOrders,
+  /**
+   * Kosong sampai order nyata dari BE mendarat (`useApiRealtime`/`useApiOrders`).
+   * Order demo `mo-*` sengaja TIDAK dipakai lagi: ia tak punya baris di BE,
+   * jadi tak bisa dipersist dan mengotori antrean dengan order palsu yang
+   * "hidup lagi" tiap reload — persis kebingungan yang dilaporkan merchant.
+   */
+  orders: [],
   couriers: mockCouriers,
   isActive: mockMerchant.isActive,
   isBusy: readBusy(),
@@ -223,13 +227,13 @@ const merchantSlice = createSlice({
       if (order) order.status = action.payload.status
     },
     /**
-     * Gabung order live dari API ke depan seed. Seed yang tidak tertimpa tetap
-     * ada supaya "mock dulu, API menimpa" berlaku juga di tab (jumlah tak turun
-     * karena jaringan). Di-key per `id` agar sync berulang tidak menduplikasi.
+     * Order live dari API mengisi antrean (satu sumber kebenaran). State mulai
+     * kosong, jadi ini penulis pertama `orders`; panggilan berikutnya (realtime)
+     * selalu menggantikan dengan kondisi BE terbaru sehingga pindahnya kartu
+     * Antrean → Diproses konsisten, bukan ilusi sesi.
      */
     mergeOrders(state, action: PayloadAction<MerchantOrder[]>) {
-      const liveIds = new Set(action.payload.map((o) => o.id))
-      state.orders = [...action.payload, ...state.orders.filter((o) => !liveIds.has(o.id))]
+      state.orders = action.payload
     },
     setCookMinutes(state, action: PayloadAction<{ id: string; minutes: number }>) {
       const order = state.orders.find((o) => o.id === action.payload.id)

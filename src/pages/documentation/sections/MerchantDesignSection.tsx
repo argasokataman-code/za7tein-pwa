@@ -604,6 +604,32 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         <code className="doc-inline">system/_merchant-orders.scss</code> (dipecah dari{' '}
         <code className="doc-inline">_merchant-2.scss</code> agar tetap di bawah batas baris).
       </p>
+      <h3 className="doc-h3">
+        Antrean order — sumber kebenaran backend, bukan seed
+      </h3>
+      <p className="doc-p">
+        State <code className="doc-inline">merchant.orders</code> mulai{' '}
+        <strong>kosong</strong> dan hanya diisi dari BE
+        (<code className="doc-inline">fetchMerchantOrders</code> lewat{' '}
+        <code className="doc-inline">useApiOrders</code> /
+        <code className="doc-inline">useApiRealtime</code>).{' '}
+        <code className="doc-inline">mergeOrders</code> <em>menggantikan</em> isi
+        antrean dengan baris BE, bukan menempelkan di depan seed. Order demo{' '}
+        <code className="doc-inline">mo-*</code> (
+        <code className="doc-inline">SA-104x</code>) sengaja tidak dipakai lagi:
+        id-nya non-numerik, jadi <code className="doc-inline">updateOrderStatus</code>{' '}
+        melewatinya, aksi Terima/Tolak tak bisa dipersist, dan kartunya "hidup
+        lagi" di Antrean tiap reload — kebingungan yang nyata dilaporkan merchant.
+        Konsekuensinya: dengan BE kosong/terputus, antrean memang <strong>kosong</strong>{' '}
+        (empty state), bukan diisi order palsu. Array{' '}
+        <code className="doc-inline">merchantOrders</code> di{' '}
+        <code className="doc-inline">src/data/merchantOrders.ts</code> tetap ada
+        untuk helper ({'{'} <code className="doc-inline">QUEUE_TABS</code>,{' '}
+        <code className="doc-inline">countByTab</code>,{' '}
+        <code className="doc-inline">orderStatusLabel</code>, dll{' '} {'}'}) dan
+        validator (<code className="doc-inline">registry.ts</code>), bukan lagi
+        sebagai data tampilan.
+      </p>
     </DocSection>
   )
 }

@@ -48,7 +48,9 @@ export function useApiRealtime(audience: NotifAudience): void {
           fetchMerchantOrders()
             .then((orders) => {
               if (!alive) return
-              if (orders.length) dispatch(mergeOrders(orders))
+              // Ganti penuh (bukan gabung seed): antrean = order BE, sumber
+              // tunggal kebenaran, supaya realtime & persistensi konsisten.
+              dispatch(mergeOrders(orders))
               dispatch(markOrdersHydrated())
             })
             .catch(() => {
