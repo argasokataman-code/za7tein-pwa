@@ -77,13 +77,32 @@ export const foodApi = baseApi.injectEndpoints({
           journey stage and the OTP shown to the customer come from that order, not from a mock.
         </li>
         <li>
-          <strong>Courier OTP</strong> is derived deterministically from the order code (
-          <code className="doc-inline">otpOf</code>, same source on the customer and courier sides).
-          <strong>Assigned courier is required</strong> before the merchant can dispatch (
+          <strong>Courier OTP is verified server-side.</strong> The code lives in{' '}
+          <code className="doc-inline">orders.otp</code> (revoked from{' '}
+          <code className="doc-inline">authenticated</code>). The customer reads it via the{' '}
+          <code className="doc-inline">my_order_otp</code> RPC and shows it; the courier never sees
+          it and verifies by calling <code className="doc-inline">verify_order_otp</code>, which
+          matches the code, sets <code className="doc-inline">otp_verified</code>, and writes the{' '}
+          <code className="doc-inline">otp_verified</code> checkpoint. The deterministic{' '}
+          <code className="doc-inline">otpOf</code> is only a mock fallback for orders without a BE
+          row. <strong>Assigned courier is required</strong> before the merchant can dispatch (
           <code className="doc-inline">waitingCourier → delivery</code>): the button is disabled until
           a courier is chosen. The picker lists each courier as a selectable card (monogram, live
           status dot, active-task count); the chosen one is marked and a hint stays until a courier
           is picked.
+        </li>
+        <li>
+          <strong>Courier tasks come from one RPC.</strong>{' '}
+          <code className="doc-inline">fetchCourierOrders()</code> calls{' '}
+          <code className="doc-inline">courier_orders()</code> (SECURITY DEFINER, scoped to the
+          caller's courier id), which joins the customer, delivery address, order items, tip, and
+          haversine distance in the database — the courier task no longer fills{' '}
+          <code className="doc-inline">Customer N</code>/<code className="doc-inline">-</code>{' '}
+          placeholders. RLS keeps <code className="doc-inline">customers</code>/
+          <code className="doc-inline">addresses</code> private, so the courier reads the address
+          through this RPC instead of a table grant. Courier status writes use the courier session (
+          <code className="doc-inline">updateOrderStatus(id, status, 'courier')</code>), not the
+          merchant token.
         </li>
         <li>
           <strong>Merchant confirm is gated on payment (f18).</strong> Checkout writes the order

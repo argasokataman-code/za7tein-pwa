@@ -91,6 +91,26 @@ export async function restWith<T>(token: string, table: string, query = ''): Pro
 }
 
 /**
+ * Panggil fungsi PostgREST (`POST /rest/v1/rpc/<fn>`) dengan token eksplisit.
+ * Dipakai untuk RPC yang menjaga aksesnya sendiri (`SECURITY DEFINER`) — mis.
+ * daftar tugas kurir dan verifikasi OTP — sehingga tak perlu grant tabel.
+ * `args` = parameter bernama; PostgREST memetakan ke argumen fungsi.
+ */
+export async function rpc<T>(token: string, fn: string, args: Record<string, unknown> = {}): Promise<T> {
+  const res = await fetch(`${url}/rest/v1/rpc/${fn}`, {
+    method: 'POST',
+    headers: {
+      apikey: anonKey,
+      Authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(args),
+  })
+  if (!res.ok) throw new Error(`[api] rpc ${fn} ${res.status}`)
+  return (await res.json()) as T
+}
+
+/**
  * PATCH satu baris (mis. `merchants.store_status`). Token eksplisit karena RLS
  * hanya mengizinkan pemilik baris — merchant menulis status tokonya sendiri.
  */

@@ -11,6 +11,7 @@
  */
 import { idrToJod, jodToIdr } from '../data/currency'
 import type {
+  CartItem,
   CourierTask,
   MerchantOrder,
   MerchantOrderStatus,
@@ -19,7 +20,7 @@ import type {
   PaymentMethod,
   ZoneId,
 } from '../types'
-import { createWith, createWithReturn, patch, restWith, signInToken } from './supabase'
+import { createWith, createWithReturn, patch, restWith, rpc, signInToken } from './supabase'
 
 const DEMO_CUSTOMER_ID = 1
 const DEMO_MERCHANT_ID = 1
@@ -39,7 +40,6 @@ const DEMO_COURIER_EMAIL =
   (import.meta.env.VITE_DEMO_COURIER_EMAIL as string | undefined) || 'courier@sa7tein.app'
 const DEMO_COURIER_PASSWORD =
   (import.meta.env.VITE_DEMO_COURIER_PASSWORD as string | undefined) || 'demo1234'
-const DEMO_COURIER_ID = Number(import.meta.env.VITE_DEMO_COURIER_ID ?? 1)
 
 interface OrderRow {
   id: number
@@ -69,20 +69,27 @@ export interface NewOrder {
 
 /**
  * Metode bayar app → kolom backend. Enum DB (`orders_payment_method_check`)
- * masih `cod | transfer | xendit_va | xendit_qris` — nilainya milik BE dan belum
- * diperbarui untuk DANA. Karena itu `wallet` dan `dana_va`/`dana_qris` dikirim
- * sebagai proksi nilai lama (MISMATCH, menunggu kontrak; lihat
- * `docs/integration/dana/be-contract.md` D2). Nilai baca kembali lewat `PAYMENT_IDS`.
+ * kini `cod | transfer | xendit_va | xendit_qris | wallet`. Dana VA/QRIS masih
+ * dikirim sebagai proksi `xendit_*` (kontrak DANA belum diperbarui; lihat
+ * `docs/integration/dana/be-contract.md` D2). Nilai baca kembali lewat
+ * `PAYMENT_IDS`.
  */
 const OUT_PAYMENT: Record<PaymentMethod['id'], string> = {
-  wallet: 'xendit_va',
+  wallet: 'wallet',
   cod: 'cod',
   transfer: 'transfer',
   dana_va: 'xendit_va',
   dana_qris: 'xendit_qris',
 }
 
-const PAYMENT_IDS: readonly string[] = ['cod', 'transfer', 'xendit_va', 'xendit_qris']
+/** Kolom backend → metode bayar app (kebalikan `OUT_PAYMENT`, termasuk proksi DANA `xendit_*`). */
+const IN_PAYMENT: Record<string, PaymentMethod['id']> = {
+  cod: 'cod',
+  transfer: 'transfer',
+  xendit_va: 'dana_va',
+  xendit_qris: 'dana_qris',
+  wallet: 'wallet',
+}
 
 /**
  * `payment_status` awal saat checkout (f18). Wallet sudah terpotong (`paid`);
@@ -166,10 +173,16 @@ const OUT_STATUS: Record<MerchantOrderStatus, string> = {
 export async function updateOrderStatus(
   orderId: string,
   status: MerchantOrderStatus,
+  by: 'merchant' | 'courier' | 'customer' = 'merchant',
 ): Promise<void> {
   const oid = numericOrderId(orderId)
   if (!Number.isFinite(oid)) return
-  const token = await ensureMerchantToken()
+  const token =
+    by === 'courier'
+      ? await ensureCourierToken()
+      : by === 'customer'
+        ? await ensureCustomerToken()
+        : await ensureMerchantToken()
   await patch(token, 'orders', `?id=eq.${oid}`, { status: OUT_STATUS[status] ?? 'cart' })
 }
 
@@ -192,10 +205,12 @@ export async function markOrderPaid(
 export type CheckpointKind = 'at_store' | 'picked_up' | 'arrived' | 'otp_verified'
 
 const CHECKPOINT_KIND: Partial<Record<CourierTask['checkpoint'], CheckpointKind>> = {
+  masuk: 'at_store',
   ambil: 'picked_up',
   berangkat: 'picked_up',
   tiba: 'arrived',
-  selesai: 'otp_verified',
+  // `selesai` tidak di sini: `verify_order_otp` sudah menulis `otp_verified`
+  // beserta cap waktunya, jadi mencatatnya lagi akan menggandakan checkpoint.
 }
 
 /** Catat checkpoint kurir ke tabel `checkpoints` (best-effort). */
@@ -208,6 +223,32 @@ export async function recordCheckpoint(
   if (!Number.isFinite(oid) || !kind) return
   const token = await ensureCourierToken()
   await createWith(token, 'checkpoints', { order_id: oid, kind })
+}
+
+/**
+ * Kode OTP order untuk **customer** pemiliknya (RPC `my_order_otp`,
+ * `SECURITY DEFINER`). Kolom `orders.otp` sengaja tak bisa dibaca langsung, jadi
+ * satu-satunya jalur sah adalah RPC ini.
+ */
+export async function fetchOrderOtp(orderId: string): Promise<string | null> {
+  const oid = numericOrderId(orderId)
+  if (!Number.isFinite(oid)) return null
+  const token = await ensureCustomerToken()
+  const code = await rpc<string | null>(token, 'my_order_otp', { p_order_id: oid })
+  return code || null
+}
+
+/**
+ * Verifikasi OTP oleh kurir (RPC `verify_order_otp`): BE mencocokkan kode,
+ * menandai `orders.otp_verified`, dan mencatat checkpoint `otp_verified`.
+ * Kembalikan `true` hanya saat kode benar — kurir tak pernah melihat OTP-nya.
+ */
+export async function verifyOrderOtp(orderId: string, code: string): Promise<boolean> {
+  const oid = numericOrderId(orderId)
+  if (!Number.isFinite(oid)) return false
+  const token = await ensureCourierToken()
+  const ok = await rpc<boolean>(token, 'verify_order_otp', { p_order_id: oid, p_code: code })
+  return ok === true
 }
 
 /**
@@ -271,9 +312,7 @@ function toMerchantOrder(row: OrderRow): MerchantOrder {
     status: STATUS_MAP[row.status] ?? 'baru',
     placedAt: relativeTime(row.placed_at ?? row.created_at),
     placedAtMs: new Date(row.placed_at ?? row.created_at).getTime(),
-    paymentMethod: (PAYMENT_IDS.includes(row.payment_method)
-      ? row.payment_method
-      : 'cod') as PaymentMethod['id'],
+    paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
     paymentStatus: (row.payment_status ?? 'unpaid') as OrderPaymentStatus,
     courierId: row.courier_id != null ? String(row.courier_id) : undefined,
   }
@@ -347,39 +386,84 @@ export function otpOf(code: string): string {
   return String(sum).padStart(4, '0')
 }
 
-function toCourierTask(row: OrderRow): CourierTask {
+/**
+ * Baris RPC `courier_orders()` — tugas kurir yang sudah diperkaya di BE (join
+ * customer, alamat, item, tip, jarak) dan dibatasi ke kurir pemanggil.
+ */
+interface CourierOrderRpcRow {
+  id: number
+  code: string
+  status: string
+  customer_id: number
+  customer_name: string | null
+  customer_phone: string | null
+  address_label: string | null
+  address_line: string | null
+  building: string | null
+  floor: string | null
+  unit: string | null
+  full_address: string | null
+  distance_m: number | null
+  total_jod: number
+  tip_jod: number | null
+  payment_method: string
+  payment_status: string | null
+  zone_code: string | null
+  otp_verified: boolean | null
+  created_at: string
+  placed_at: string | null
+  courier_id: number | null
+  checkpoint_at: string | null
+  items: { name: string; qty: number; line_total_jod: number; modifiers: string | null }[] | null
+}
+
+function toCourierTask(row: CourierOrderRpcRow): CourierTask {
   const zone: ZoneId = row.zone_code === 'syimali' ? 'syimali' : 'hijazi'
+  const items: CartItem[] = (row.items ?? []).map((it, index) => ({
+    id: `api-${row.id}-${index}`,
+    name: it.name,
+    price: jodToIdr(it.line_total_jod / Math.max(1, it.qty)),
+    quantity: it.qty,
+    image: '',
+    modifiers: it.modifiers ?? undefined,
+  }))
   return {
     id: `api-${row.id}`,
     code: row.code,
     customerId: String(row.customer_id),
-    customerName: `Customer ${row.customer_id}`,
-    customerPhone: '-',
-    address: row.zone_code ? `Zona ${row.zone_code}` : 'Alamat belum tersedia',
-    floor: '-',
-    unit: '-',
-    items: [],
+    customerName: row.customer_name ?? `Customer ${row.customer_id}`,
+    customerPhone: row.customer_phone ?? '-',
+    address:
+      row.full_address ??
+      row.address_line ??
+      (row.zone_code ? `Zona ${row.zone_code}` : 'Alamat belum tersedia'),
+    floor: row.floor ?? '-',
+    unit: row.unit ?? '-',
+    items,
     total: jodToIdr(row.total_jod),
-    distanceMeters: 0,
+    distanceMeters: row.distance_m ?? 0,
     zone,
-    paymentMethod: (PAYMENT_IDS.includes(row.payment_method)
-      ? row.payment_method
-      : 'cod') as PaymentMethod['id'],
-    tip: 0,
+    paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
+    tip: jodToIdr(row.tip_jod ?? 0),
     orderStage: STAGE_OF_STATUS[row.status] ?? 'baru',
     checkpoint: CHECKPOINT_OF_STATUS[row.status] ?? 'masuk',
-    otp: otpOf(row.code),
+    checkpointStartedAt: row.checkpoint_at ?? undefined,
+    // Kurir tidak pernah tahu OTP (customer yang menunjukkan); verifikasinya
+    // lewat RPC `verify_order_otp`, bukan perbandingan lokal.
+    otp: '',
+    otpVerified: row.otp_verified ?? false,
   }
 }
 
-/** Tugas kurir live = order BE yang ditugaskan ke kurir demo (`courier_id`). */
-export async function fetchCourierOrders(courierId = DEMO_COURIER_ID): Promise<CourierTask[]> {
+/**
+ * Tugas kurir live = order yang ditugaskan ke kurir pemanggil, diperkaya di BE
+ * lewat RPC `courier_orders()`. RPC-nya `SECURITY DEFINER` dan menyaring dengan
+ * `app_uid()`, jadi kurir hanya menerima order miliknya tanpa perlu grant tabel
+ * `customers`/`addresses` (yang menutup aksesnya lewat RLS).
+ */
+export async function fetchCourierOrders(): Promise<CourierTask[]> {
   const token = await ensureCourierToken()
-  const rows = await restWith<OrderRow>(
-    token,
-    'orders',
-    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,zone_code,created_at,placed_at,courier_id&courier_id=eq.${courierId}&order=created_at.desc`,
-  )
+  const rows = await rpc<CourierOrderRpcRow[]>(token, 'courier_orders')
   return rows.map(toCourierTask)
 }
 

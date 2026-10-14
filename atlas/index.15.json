@@ -1027,6 +1027,281 @@
         }
       ],
       "loc": "src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-90414",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:19:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/supabase.ts (+24/-4) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/supabase.ts"
+    },
+    {
+      "id": "TASK-90415",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:20:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+82/-35) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-90416",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:20:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+1/-1) — edit via tool: tsx: import { recordCheckpoint, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-90417",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:21:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+1/-1) — edit via tool: tsx: import { fetchOrderOtp,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-90418",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:23:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+16/-16) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-90419",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:23:49",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3\nfor r in customer merchant courier; do\n  node scripts/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-90420",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:29:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+2/-2) — edit via tool: tsx: const id = activeOrder?",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-90421",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:29:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+10/-1) — edit via tool: ts: const PAYMENT_IDS: readonly string[] = [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-90422",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:29:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+15/-9) — edit via tool: tsx: <p className=\"courier-task",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-90423",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:31:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/BackendSection.tsx (+28/-9) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/BackendSection.tsx"
+    },
+    {
+      "id": "TASK-90424",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:31:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+7/-3) — edit via tool: tsx: r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-90425",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:31:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+12/-2) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-90426",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:32:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/courier/be-contract.md (+117) — write via tool: # Kontrak BE — API kurir",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/courier/be-contract.md"
+    },
+    {
+      "id": "TASK-99001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "01:32:57",
+      "tags": [
+        "order",
+        "payment",
+        "merchant",
+        "courier",
+        "api"
+      ],
+      "summary": "API kurir diselaraskan: RPC courier_orders (nama/HP/alamat/item/tip/jarak dari BE), OTP server-side (my_order_otp/verify_order_otp), tulis s",
+      "conn": [
+        {
+          "id": "TASK-90413",
+          "type": "relates",
+          "raw": "TASK-90413:relates"
+        },
+        {
+          "id": "TASK-260",
+          "type": "relates",
+          "raw": "TASK-260:relates"
+        }
+      ],
+      "loc": "src/api/orders.ts"
     }
   ]
 }

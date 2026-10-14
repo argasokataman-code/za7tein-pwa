@@ -21,7 +21,7 @@ import {
 } from '../data/courier'
 import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/courierSlice'
 import { insertNotification } from '../api/notifications'
-import { recordCheckpoint, updateOrderStatus } from '../api/orders'
+import { recordCheckpoint, updateOrderStatus, verifyOrderOtp } from '../api/orders'
 import type { MerchantOrderStatus } from '../types'
 
 /** Checkpoint kurir yang baru dimasuki → status order BE. */
@@ -75,19 +75,26 @@ export default function CourierTaskDetail() {
   const isFinished = task.checkpoint === 'selesai'
   const isCancelled = task.checkpoint === 'batal'
 
-  // Tanpa OTP yang benar kurir tidak bisa settle (C-09) — validator ada di layar,
-  // reducer hanya menyelesaikan setelah kode cocok.
-  function submitOtp() {
+  // Tanpa OTP yang benar kurir tidak bisa settle (C-09). Order live diverifikasi
+  // di BE lewat RPC `verify_order_otp` (set `otp_verified` + checkpoint); tugas
+  // mock dicocokkan lokal. Kurir tak pernah melihat kode — customer yang
+  // menunjukkan (lihat `DeliveryActionCard` sisi customer).
+  async function submitOtp() {
     if (!task) return
-    if (otp !== task.otp) {
+    const isApi = /^api-\d+$/.test(task.id)
+    const ok = isApi
+      ? await verifyOrderOtp(task.id, otp).catch(() => false)
+      : otp === task.otp
+    if (!ok) {
       toast.error('Kode OTP tidak cocok')
       return
     }
     dispatch(completeTask({ id: task.id }))
     toast.success('Pesanan selesai')
     setShowCelebration(true)
-    void recordCheckpoint(task.id, 'selesai').catch(() => {})
-    void updateOrderStatus(task.id, 'selesai').catch(() => {})
+    // `verify_order_otp` sudah menandai `otp_verified` dan mencatat checkpoint,
+    // jadi di sini hanya status order yang disinkronkan.
+    void updateOrderStatus(task.id, 'selesai', 'courier').catch(() => {})
     void insertNotification({
       audience: 'customer',
       kind: 'order',
@@ -105,7 +112,7 @@ export default function CourierTaskDetail() {
     if (next) {
       void recordCheckpoint(task.id, next).catch(() => {})
       const status = NEXT_STATUS[next]
-      if (status) void updateOrderStatus(task.id, status).catch(() => {})
+      if (status) void updateOrderStatus(task.id, status, 'courier').catch(() => {})
     }
     const STAGE_NOTIF: Record<string, { title: string; body: string }> = {
       ambil: { title: 'Kurir sedang mengambil pesanan', body: 'Kurir akan segera berangkat.' },
@@ -142,12 +149,18 @@ export default function CourierTaskDetail() {
           </div>
           <p className="courier-task-meta">
             {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)} ·{' '}
-            {task.paymentMethod === 'cod' ? `COD ${money(task.total)}` : `Transfer ${money(task.total)}`}
+            {task.paymentMethod === 'cod'
+              ? `COD ${money(task.total)}`
+              : task.paymentMethod === 'transfer'
+                ? `Transfer ${money(task.total)}`
+                : `Sudah dibayar ${money(task.total)}`}
           </p>
           <p className="courier-task-meta">
             {task.paymentMethod === 'cod'
               ? 'Tagih tunai ke customer saat serah terima.'
-              : 'Cek bukti transfer customer sebelum serah terima.'}
+              : task.paymentMethod === 'transfer'
+                ? 'Cek bukti transfer customer sebelum serah terima.'
+                : 'Sudah dibayar — tidak ada tagihan saat serah terima.'}
           </p>
         </section>
 
@@ -194,7 +207,7 @@ export default function CourierTaskDetail() {
             otp={otp}
             onOtpChange={setOtp}
             onOtpSubmit={submitOtp}
-            otpHint={`Kode demo: ${task.otp}`}
+            otpHint={/^api-\d+$/.test(task.id) ? undefined : `Kode demo: ${task.otp}`}
             actions={
               <>
                 {actionLabel ? (
@@ -224,7 +237,7 @@ export default function CourierTaskDetail() {
                       disabled={!canCancel}
                       onClick={() => {
                         dispatch(cancelTask({ id: task.id }))
-                        void updateOrderStatus(task.id, 'batal').catch(() => {})
+                        void updateOrderStatus(task.id, 'batal', 'courier').catch(() => {})
                         void insertNotification({
                           audience: "customer",
                           kind: "order",

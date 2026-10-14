@@ -86,7 +86,11 @@ export function CourierDesignSection() {
         sees it as a display card (<code className="doc-inline">otpDisplayCode</code>) to
         read out at the door. Previously the customer screen asked the customer to type
         the code the courier was meant to enter — an inverted role; now only the courier
-        form validates, and the customer card is read-only.
+        form validates, and the customer card is read-only. The code is the real{' '}
+        <code className="doc-inline">orders.otp</code>, read by the customer through the{' '}
+        <code className="doc-inline">my_order_otp</code> RPC; the courier's entry is
+        checked server-side by <code className="doc-inline">verify_order_otp</code>, not
+        by a local string comparison.
       </p>
       <h3 className="doc-h3">Finishing an order gets the same celebration as the customer</h3>
       <p className="doc-p">

@@ -7,7 +7,7 @@ import { DeliveryActionCard, DeliveryStepper } from './DeliveryCheckpoints'
 import { JourneyLine } from './JourneyLine'
 
 import { insertNotification } from '../api/notifications'
-import { otpOf, updateOrderStatus } from '../api/orders'
+import { fetchOrderOtp, otpOf, updateOrderStatus } from '../api/orders'
 import { DELIVERY_OTP_DEMO } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import { BottomSheet } from './ui/BottomSheet'
@@ -114,6 +114,27 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const [appealNote, setAppealNote] = useState('')
   const [cancelOpen, setCancelOpen] = useState(false)
 
+  // OTP serah-terima dibaca dari sumber asli BE (RPC `my_order_otp`) untuk order
+  // live; `otpOf` hanya fallback mock saat order belum punya baris BE. Kurir yang
+  // memverifikasi kode ini (C-09), customer cuma menampilkannya.
+  const [otpCode, setOtpCode] = useState<string>(DELIVERY_OTP_DEMO)
+  useEffect(() => {
+    const id = activeOrder?.id
+    if (!id || !/^api-\d+$|^\d+$/.test(id)) {
+      setOtpCode(activeOrder ? otpOf(activeOrder.code) : DELIVERY_OTP_DEMO)
+      return
+    }
+    let alive = true
+    fetchOrderOtp(id)
+      .then((code) => {
+        if (alive && code) setOtpCode(code)
+      })
+      .catch(() => {})
+    return () => {
+      alive = false
+    }
+  }, [activeOrder])
+
   // State tersimpan bisa berasal dari bentuk sebelum tahap pesanan ada, jadi
   // nilainya divalidasi di sini. Tanpa ini STATUS[undefined] melempar dan
   // seluruh halaman gagal dirender. `?stage=` menang atas semuanya supaya
@@ -214,7 +235,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
     dispatch(markOrderCancelled())
     // Best-effort: backend menyimpan `orders.status = canceled` lewat jalur tulis
     // yang sama dengan merchant/kurir; gagal koneksi tak menghalangi UI.
-    void updateOrderStatus(activeOrder?.id ?? '', 'batal').catch(() => {})
+    void updateOrderStatus(activeOrder?.id ?? '', 'batal', 'customer').catch(() => {})
     void insertNotification({
       audience: 'merchant',
       kind: 'order',
@@ -427,7 +448,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                     checkpoint={customerCheckpoint}
                     startedAt={null}
                     now={now}
-                    otpDisplayCode={activeOrder ? otpOf(activeOrder.code) : DELIVERY_OTP_DEMO}
+                    otpDisplayCode={otpCode}
                     otpStep
                     autoSettlePaused={isDisputed}
                   />

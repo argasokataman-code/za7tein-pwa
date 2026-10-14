@@ -236,6 +236,16 @@ export default function Documentation() {
                 bayar&rdquo;.
               </li>
               <li>
+                Tugas kurir kini dari <strong>satu RPC BE</strong> (
+                <code className="doc-inline">courier_orders()</code>): nama/HP customer, alamat,
+                lantai/unit, item, dan tip ikut dari database (bukan lagi placeholder{' '}
+                <code className="doc-inline">Customer N</code>/<code className="doc-inline">-</code>).
+                OTP diverifikasi <strong>di server</strong> — customer membacanya lewat RPC{' '}
+                <code className="doc-inline">my_order_otp</code>, kurir lewat{' '}
+                <code className="doc-inline">verify_order_otp</code>; tulis status pakai sesi kurir,
+                bukan token merchant.
+              </li>
+              <li>
                 Tulis order kini benar-benar sampai ke BE: <code className="doc-inline">createWithReturn</code>{' '}
                 meminta kolom eksplisit (<code className="doc-inline">select=id,code</code>) karena{' '}
                 <code className="doc-inline">return=representation</code> tanpa{' '}
