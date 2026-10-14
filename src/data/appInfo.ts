@@ -7,7 +7,7 @@
  *  versi dasar saja. */
 declare const __BUILD_SHA__: string
 
-const BASE_VERSION = '3.4.28'
+const BASE_VERSION = '3.4.29'
 
 export const APP_VERSION =
   typeof __BUILD_SHA__ === 'string' && __BUILD_SHA__
