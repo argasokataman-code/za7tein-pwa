@@ -89,10 +89,6 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
 
   return (
     <div className="sa-root">
-      <a className="sa-skip" href="#sa-main">
-        Lompat ke konten
-      </a>
-
       <aside className="sa-side">
         <div className="sa-brand">
           <span className="sa-brand-mark">

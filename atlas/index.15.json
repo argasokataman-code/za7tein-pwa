@@ -1477,6 +1477,160 @@
         }
       ],
       "loc": "src/api/profile.ts"
+    },
+    {
+      "id": "TASK-99101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:51:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+11/-5) — edit via tool: // Konsol SA (`.sa-root`) adalah shell",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-99102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:51:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/SuperAdminShell.tsx (+2/-6) — edit via tool: tsx: <div className=\"s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/SuperAdminShell.tsx"
+    },
+    {
+      "id": "TASK-99103",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:51:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin.scss (+1/-23) — edit via tool: .sa-side {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin.scss"
+    },
+    {
+      "id": "TASK-99104",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:51:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin-2.scss (+5/-5) — edit via tool: select {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin-2.scss"
+    },
+    {
+      "id": "TASK-99105",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:52:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+6/-6) — edit via tool: // Konsol SA (.sa-root) adalah shell-ny",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-99106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:53:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx (+10/-4) — edit via tool: tsx: , p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-99107",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:54:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+9/-2) — edit via tool: tsx: <code className=\"doc-inline\">up",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-99150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:55:20",
+      "tags": [
+        "superadmin",
+        "ui",
+        "gate",
+        "a11y"
+      ],
+      "summary": "SA /superadmin/zones: hapus skip-link, target sentuh 44px, gate kenali .sa-root wideShell; gate PASS 2/2",
+      "conn": [
+        {
+          "id": "TASK-99100",
+          "type": "relates",
+          "raw": "TASK-99100:relates"
+        }
+      ]
     }
   ]
 }

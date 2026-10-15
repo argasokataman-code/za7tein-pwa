@@ -23,7 +23,13 @@ export function SuperAdminSection() {
         <code className="doc-inline">#root</code> memuat <code className="doc-inline">.sa-root</code>{' '}
        , pola yang sama dengan <code className="doc-inline">.doc-root</code>. Di bawah 900px
         sidebar berubah jadi bilah atas yang bisa digeser mendatar, jadi konsol tetap terpakai di
-        layar sempit.
+        layar sempit. Gerbang browser mengenali pengecualian ini lewat <code className="doc-inline">wideShell</code>{' '}
+        (<code className="doc-inline">scripts/browser-gate.mjs</code> membaca{' '}
+        <code className="doc-inline">.sa-root</code> sebagai shell), jadi rutenya diukur tanpa aturan
+        kolom 430px; target sentuh sidebar dipatok <code className="doc-inline">--touch-min</code>{' '}
+        (44px), dan tautan lompat-ke-konten dibuang seperti di panel CS (
+        <code className="doc-inline">_admin-console.scss</code>) karena nav-nya pendek dan selalu
+        terlihat.
       </p>
       <DocCode lang="text">
         {`/superadmin          konsol SA, sidebar + konten penuh (website, non-PWA)

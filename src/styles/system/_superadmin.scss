@@ -32,28 +32,6 @@ body:has(.sa-root) {
   color: var(--text-primary);
 }
 
-.sa-skip {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  padding: var(--space-3) var(--space-4);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  font-weight: 700;
-
-  &:focus-visible {
-    left: var(--space-4);
-    top: var(--space-4);
-    z-index: 10;
-    outline: 2px solid var(--sa7tein-orange);
-    outline-offset: 2px;
-  }
-}
-
-/* ── Sidebar ───────────────────────────────────────────────────────────── */
-
 .sa-side {
   position: sticky;
   top: 0;
@@ -174,7 +152,7 @@ body:has(.sa-root) {
   font-weight: 600;
   color: var(--orange-ink);
   text-decoration: none;
-  min-height: 32px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
 

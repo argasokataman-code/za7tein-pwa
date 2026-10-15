@@ -389,7 +389,13 @@ const MEASURE = `(async () => {
     touchMin: parseFloat(cs.getPropertyValue('--touch-min')) || null,
     space5: parseFloat(cs.getPropertyValue('--space-5')) || null,
   }
-  const shell = document.querySelector('.app-shell')
+  // Konsol SA (.sa-root) adalah shell-nya sendiri: root flex selebar jendela
+  // dengan sidebar + konten, bukan kolom 430px, dan bukan elemen main di
+  // dalamnya. Memilih .sa-root di sini membuat pengecualian lebar yang
+  // DIDOKUMENTASIKAN (AGENTS bagian 9, decision-irbid-mvp) benar-benar dikenali
+  // wideShell di bawah, bukan cuma disebut di komentar.
+  const shell = document.querySelector('.sa-root')
+    || document.querySelector('.app-shell')
     || document.querySelector('div[class*="-screen"]')
     || document.querySelector('div[class*="-page"]')
     || document.querySelector('main')

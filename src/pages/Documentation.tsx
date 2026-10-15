@@ -253,6 +253,13 @@ export default function Documentation() {
                 <code className="doc-inline">updateZonePolygon()</code>.
               </li>
               <li>
+                Konsol SA: pengecualian <strong>lebar penuh</strong> kini dikenali gerbang browser
+                (<code className="doc-inline">wideShell</code> membaca{' '}
+                <code className="doc-inline">.sa-root</code>), target sentuh sidebar dinaikkan ke{' '}
+                <code className="doc-inline">--touch-min</code> (44px, select operator + baris tautan),
+                dan tautan lompat-ke-konten dibuang mengikuti panel CS.
+              </li>
+              <li>
                 Tulis order kini benar-benar sampai ke BE: <code className="doc-inline">createWithReturn</code>{' '}
                 meminta kolom eksplisit (<code className="doc-inline">select=id,code</code>) karena{' '}
                 <code className="doc-inline">return=representation</code> tanpa{' '}

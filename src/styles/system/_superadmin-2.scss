@@ -540,7 +540,7 @@ body:has(.sa-root) .sheet-handle {
 
   select {
     @include field-shape;
-    min-height: 36px;
+    min-height: 44px;
     font-size: var(--text-xs);
   }
 }
