@@ -49,8 +49,10 @@ zoneFor(address) / deliveryFeeFor(address) / isDeliverable(address)`}
         Layar <code className="doc-inline">/customer/address-selection</code> menangani{' '}
         <strong>tambah, ubah, hapus, dan penunjukan alamat utama</strong>, plus peta pemilih titik
         (<code className="doc-inline">AddressMapPicker</code>, mode <code className="doc-inline">picker</code>)
-        yang menghitung ulang coverage lewat <code className="doc-inline">resolveCoverage()</code>{' '}
-        setiap pin digeser. Alamat utama (<code className="doc-inline">Address.isDefault</code>)
+        yang memperbarui pratinjau coverage lewat <code className="doc-inline">resolveCoverage()</code>{' '}
+        setiap pin digeser; angka otoritatif untuk alamat tersimpan datang dari RPC{' '}
+        <code className="doc-inline">resolve_coverage</code> di BE (poligon zona + radius merchant +
+        toggle zona aktif), bukan hitung poligon klien. Alamat utama (<code className="doc-inline">Address.isDefault</code>)
         dipilih otomatis saat checkout dan tidak bisa dicabut tanpa menunjuk pengganti. Layar ini
         bisa dibuka dari Profil → <em>Alamat Pengantaran</em> dan dari tombol <em>Ubah</em> di
         Checkout — sebelumnya rutenya hanya bisa dijangkau lewat URL langsung.

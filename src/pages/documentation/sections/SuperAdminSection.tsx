@@ -376,25 +376,31 @@ pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
       <p className="doc-p">
         Master zona menyimpan vertices sebagai <strong>lat/lng sungguhan</strong>, bukan koordinat
         gambar, karena gate coverage menguji "titik di dalam poligon" pada koordinat asli. Konsol SA
-        mengeditnya, dan gate membaca hasil editnya saat alamat disimpan lewat{' '}
+        mengeditnya dan menulis hasilnya ke tabel <code className="doc-inline">zones</code> lewat{' '}
+        <code className="doc-inline">updateZonePolygon()</code> — master zona hidup di BE, bukan
+        cuma di redux. Gate coverage alamat tersimpan membaca server lewat RPC{' '}
+        <code className="doc-inline">resolve_coverage(lat, lng, merchant_id)</code> yang menggabung
+        tiga syarat (poligon &le;2 km &amp; zona diaktifkan merchant), sedangkan{' '}
         <code className="doc-inline">resolveCoverage()</code> di{' '}
-        <code className="doc-inline">src/data/zones.ts</code>, stand-in server di repo ini, karena
-        di produksi zona dihitung backend (flow <code className="doc-inline">F20</code>). Jadi
-        mengecilkan poligon Hijazi sampai alamat demo keluar memang membuat alamat itu diblokir di
-        checkout, bukan sekadar mengubah gambar.
+        <code className="doc-inline">src/data/zones.ts</code> kini hanya pratinjau klien saat pin
+        digeser. Jadi mengecilkan poligon Hijazi sampai alamat demo keluar memang membuat alamat itu
+        diblokir di checkout, bukan sekadar mengubah gambar.
       </p>
       <DocCode lang="typescript">
-        {`pointInPolygon(point, vertices)     // ray casting, syarat pertama coverage
+        {`resolve_coverage(lat, lng, merchantId) // RPC BE: { covered, zone, distanceMeters, radiusMeters }
+pointInPolygon(point, vertices)     // ray casting, syarat pertama coverage (sisi klien)
 zoneForPoint(point, polygons)       // titik masuk zona mana, atau null
-resolveCoverage(point, polygons)    // { zone, distanceMeters } — dipakai saat alamat disimpan
+resolveCoverage(point, polygons)    // { zone, distanceMeters } — pratinjau klien (offline/mock)
+updateZonePolygon(id, vertices)     // tulis zones.polygon (SA/ops → BE)
 zoneAreaKm2(vertices)               // luas asli, dihitung di ruang meter
 zoneView() / projectPoint()         // lat/lng → kanvas; kanvas hanya cara menggambar`}
       </DocCode>
       <p className="doc-p">
-        Setelah poligon disimpan, alamat yang tersimpan <strong>divalidasi ulang</strong> terhadap
-        bentuk baru (<code className="doc-inline">revalidateAddress</code>), supaya daftar alamat
-        customer tidak memegang hasil validasi basi. Order yang sudah jalan tidak ikut berubah,
-        zonanya snapshot saat order dibuat, sesuai PRD.
+        Setelah poligon disimpan, poligon ditulis ke <code className="doc-inline">zones</code> (BE)
+        dan alamat yang tersimpan <strong>divalidasi ulang</strong> terhadap bentuk baru (
+        <code className="doc-inline">revalidateAddress</code>), supaya daftar alamat customer tidak
+        memegang hasil validasi basi. Order yang sudah jalan tidak ikut berubah, zonanya snapshot
+        saat order dibuat, sesuai PRD.
       </p>
 
       <h3 className="doc-h3">Kill switch menular ke role lain</h3>

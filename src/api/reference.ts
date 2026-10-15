@@ -15,6 +15,7 @@ import type {
   AppNotification,
   Courier,
   DepositStatus,
+  GeoPoint,
   MerchantCreditEvent,
   MerchantCreditEventName,
   MerchantCreditState,
@@ -305,6 +306,21 @@ export async function fetchZones(): Promise<ZoneGeometry[]> {
     note: row.code,
     vertices: (row.polygon ?? []).map(([lat, lng]) => ({ lat, lng })),
   }))
+}
+
+/**
+ * Tulis poligon master zona (SA/ops) → `zones.polygon`, array `[lat,lng]`.
+ * FE memakai `{lat,lng}`, jadi konversinya di sini. `zones_ops` RLS mewajibkan
+ * peran `cs`/`superadmin`; `refToken()` (akun cs demo) memenuhinya.
+ */
+export async function updateZonePolygon(
+  id: ZoneGeometry['id'],
+  vertices: GeoPoint[],
+): Promise<void> {
+  const token = await refToken()
+  await patch(token, 'zones', `?code=ilike.${id}`, {
+    polygon: vertices.map((v) => [v.lat, v.lng]),
+  })
 }
 
 export async function fetchRoles(): Promise<SaRole[]> {

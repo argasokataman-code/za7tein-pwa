@@ -1,7 +1,7 @@
 /** Sinkron profil customer: identitas (`users`) + daftar alamat (`addresses`). */
 import { useEffect } from 'react'
 
-import { fetchCustomerAccount, fetchCustomerAddresses, fetchCustomerUser, fetchMerchantLocation, toAddress } from '../api/profile'
+import { fetchCustomerAccount, fetchCustomerAddresses, fetchCustomerUser, fetchMerchantLocation, resolveAddressCoverage, toAddress } from '../api/profile'
 import { apiEnabled } from '../api/supabase'
 import { updateUser } from '../store/slices/authSlice'
 import { setAddresses } from '../store/slices/cartSlice'
@@ -36,7 +36,7 @@ function useCustomerUser(): void {
   }, [dispatch])
 }
 
-/** Alamat customer live → `cart.addresses`; zona + jarak dihitung dari poligon master. */
+/** Alamat customer live → `cart.addresses`; zona + jarak dari RPC `resolve_coverage`. */
 function useCustomerAddresses(): void {
   const dispatch = useAppDispatch()
   const zones = useAppSelector((s) => s.superAdmin.zones)
@@ -45,8 +45,19 @@ function useCustomerAddresses(): void {
     let alive = true
     const run = () =>
       Promise.all([fetchCustomerAddresses(), fetchMerchantLocation()])
-        .then(([rows, kitchen]) => {
-          if (alive && rows.length) dispatch(setAddresses(rows.map((r) => toAddress(r, zones, kitchen))))
+        .then(async ([rows, kitchen]) => {
+          if (!rows.length) return
+          // Coverage per alamat dari server (radius + toggle merchant). Gagal
+          // RPC → hitung poligon master di klien supaya daftar tetap tampil.
+          const mapped = await Promise.all(
+            rows.map(async (r) => {
+              const lat = r.latitude ?? 0
+              const lng = r.longitude ?? 0
+              const coverage = await resolveAddressCoverage(lat, lng).catch(() => undefined)
+              return toAddress(r, zones, kitchen, coverage)
+            }),
+          )
+          if (alive) dispatch(setAddresses(mapped))
         })
         .catch(() => {})
     run()

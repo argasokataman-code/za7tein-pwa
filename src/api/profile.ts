@@ -9,10 +9,12 @@
 import { resolveCoverage } from '../data/zones'
 import type { Address, ZoneId } from '../types'
 import { refToken } from './reference'
-import { authUpdateUser, authUser, createWith, createWithReturn, deleteWith, patch, restWith, signInToken } from './supabase'
+import { authUpdateUser, authUser, createWith, createWithReturn, deleteWith, patch, restWith, rpc, signInToken } from './supabase'
 
 /** User demo customer di backend (sama dengan `reference.ts`). */
 const DEMO_CUSTOMER_USER_ID = 1
+/** Merchant demo — coverage alamat dihitung relatif ke tokonya (`resolve_coverage`). */
+const DEMO_MERCHANT_ID = 1
 const DEMO_CUSTOMER_EMAIL =
   (import.meta.env.VITE_DEMO_CUSTOMER_EMAIL as string | undefined) || 'customer@sa7tein.app'
 const DEMO_CUSTOMER_PASSWORD =
@@ -225,11 +227,52 @@ export async function deletePushSubscription(id: string): Promise<void> {
   await deleteWith(token, 'push_subscriptions', `?id=eq.${id}`)
 }
 
-/** Baris `addresses` → `Address` domain; zona + jarak dihitung dari poligon master. */
-export function toAddress(row: AddressRow, zones: Zones, kitchen?: { lat: number; lng: number }): Address {
+/** Coverage alamat: zona server + jarak, plus flag `covered` dari RPC. */
+export interface AddressCoverage {
+  zone: ZoneId | null
+  distanceMeters: number
+  /** Lolos poligon zona **dan** ≤ radius **dan** zona diaktifkan merchant. */
+  covered: boolean
+}
+
+/**
+ * Coverage otoritatif dari server (RPC `resolve_coverage`): poligon zona +
+ * jarak ≤ radius + toggle zona aktif merchant. Ini keputusan "alamat bisa
+ * diantar" yang sebenarnya; `resolveCoverage()` di klien cuma poligon global
+ * tanpa radius/toggle, jadi dipakai hanya saat offline atau sebagai fallback.
+ */
+export async function resolveAddressCoverage(
+  lat: number,
+  lng: number,
+  merchantId = DEMO_MERCHANT_ID,
+): Promise<AddressCoverage> {
+  const token = await refToken()
+  const res = await rpc<{ covered: boolean; zone: string | null; distanceMeters: number | null }>(
+    token,
+    'resolve_coverage',
+    { p_lat: lat, p_lng: lng, p_merchant_id: merchantId },
+  )
+  return {
+    covered: Boolean(res.covered),
+    zone: res.covered && res.zone ? (res.zone.toLowerCase() as ZoneId) : null,
+    distanceMeters: res.distanceMeters ?? 0,
+  }
+}
+
+/**
+ * Baris `addresses` → `Address` domain. Zona + jarak idealnya dari server
+ * (`coverage`, hasil `resolveAddressCoverage`); kalau tidak diberi, jatuh ke
+ * hitung poligon master di klien (mock/offline).
+ */
+export function toAddress(
+  row: AddressRow,
+  zones: Zones,
+  kitchen?: { lat: number; lng: number },
+  coverage?: AddressCoverage,
+): Address {
   const lat = row.latitude ?? 0
   const lng = row.longitude ?? 0
-  const coverage = resolveCoverage({ lat, lng }, zones, kitchen)
+  const resolved = coverage ?? resolveCoverage({ lat, lng }, zones, kitchen)
   return {
     id: String(row.id),
     name: row.name ?? row.label ?? 'Alamat',
@@ -243,8 +286,8 @@ export function toAddress(row: AddressRow, zones: Zones, kitchen?: { lat: number
     fullAddress: row.full_address ?? '',
     lat,
     lng,
-    distanceMeters: coverage.distanceMeters,
-    zone: coverage.zone as ZoneId | null,
+    distanceMeters: resolved.distanceMeters,
+    zone: resolved.zone as ZoneId | null,
   }
 }
 

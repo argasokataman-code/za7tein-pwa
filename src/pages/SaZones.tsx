@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
+import { updateZonePolygon } from '../api/reference'
 import { zoneFor } from '../data/merchant'
 import { mockUser } from '../data/user'
 import {
@@ -293,6 +294,10 @@ export default function SaZones() {
                     onClick={() => {
                       dispatch(saveZone({ id: zone.id, vertices }))
                       revalidateAll(effectiveZones)
+                      // Master zona milik SA hidup di `zones` (BE), bukan cuma redux.
+                      void updateZonePolygon(zone.id, vertices).catch(() =>
+                        toast.error('Gagal menyimpan poligon ke server'),
+                      )
                       setDraft((prev) => {
                         const next = { ...prev }
                         delete next[zone.id]
@@ -316,6 +321,11 @@ export default function SaZones() {
                       )
                       dispatch(resetZone({ id: zone.id }))
                       revalidateAll(nextZones)
+                      if (seed) {
+                        void updateZonePolygon(zone.id, seed.vertices).catch(() =>
+                          toast.error('Gagal mengembalikan poligon di server'),
+                        )
+                      }
                       setDraft((prev) => {
                         const next = { ...prev }
                         delete next[zone.id]

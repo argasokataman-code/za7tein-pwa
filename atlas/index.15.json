@@ -1302,6 +1302,181 @@
         }
       ],
       "loc": "src/api/orders.ts"
+    },
+    {
+      "id": "TASK-99002",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:38:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts (+6/-4) — edit via tool: ts: import { authUpdateUser, authUser, creat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profile.ts"
+    },
+    {
+      "id": "TASK-99003",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:38:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts (+4/-3) — edit via tool: ts: Courier,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts"
+    },
+    {
+      "id": "TASK-99004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:38:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaZones.tsx (+3/-2) — edit via tool: tsx: import { zoneFor } from '../data/merc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaZones.tsx"
+    },
+    {
+      "id": "TASK-99005",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:39:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaZones.tsx (+8/-4) — edit via tool: tsx: onClick={() => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SaZones.tsx"
+    },
+    {
+      "id": "TASK-99006",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:41:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AddressZoneSection.tsx (+5/-3) — edit via tool: tsx: (<c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/AddressZoneSection.tsx"
+    },
+    {
+      "id": "TASK-99007",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:41:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx (+28/-22) — edit via tool: tsx: Ma",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/SuperAdminSection.tsx"
+    },
+    {
+      "id": "TASK-99008",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:41:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-3) — edit via tool: tsx: <code className=\"doc-inline\">v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-99009",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:41:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/zones/be-contract.md (+86) — write via tool: # Kontrak BE — Zona & cover",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/zones/be-contract.md"
+    },
+    {
+      "id": "TASK-99100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "07:42:22",
+      "tags": [
+        "zones",
+        "coverage",
+        "superadmin",
+        "api",
+        "geofence"
+      ],
+      "summary": "Zona: coverage alamat via RPC resolve_coverage (poligon+radius+toggle), tulis poligon SA ke tabel zones (updateZonePolygon, ops), doc kontra",
+      "conn": [
+        {
+          "id": "TASK-99001",
+          "type": "relates",
+          "raw": "TASK-99001:relates"
+        }
+      ],
+      "loc": "src/api/profile.ts"
     }
   ]
 }

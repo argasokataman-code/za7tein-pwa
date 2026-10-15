@@ -246,6 +246,13 @@ export default function Documentation() {
                 bukan token merchant.
               </li>
               <li>
+                Coverage alamat kini dari <strong>RPC BE</strong>{' '}
+                <code className="doc-inline">resolve_coverage</code> (poligon zona + radius merchant
+                + toggle zona aktif), bukan hitung poligon klien; konsol SA menulis master zona ke
+                tabel <code className="doc-inline">zones</code> lewat{' '}
+                <code className="doc-inline">updateZonePolygon()</code>.
+              </li>
+              <li>
                 Tulis order kini benar-benar sampai ke BE: <code className="doc-inline">createWithReturn</code>{' '}
                 meminta kolom eksplisit (<code className="doc-inline">select=id,code</code>) karena{' '}
                 <code className="doc-inline">return=representation</code> tanpa{' '}
