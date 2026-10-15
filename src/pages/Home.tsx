@@ -11,8 +11,15 @@ import { useAppSelector } from '../hooks/useAppStore'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { selectCartCount, selectSubtotal } from '../store/slices/cartSlice'
 import { CATEGORIES, dealsFrom, menuSeed, merchantCategoryIds } from '../data/catalog'
-import { storefronts } from '../data/storefronts'
+import { storefronts, groupStorefrontsByTag, isSelectable, visibleStorefronts, sortStorefronts, filterStorefronts, type MerchantSortKey } from '../data/storefronts'
 import { useAllMenuItems, useStorefronts } from '../hooks/useApiCatalog'
+
+/** Pilihan urutan daftar toko di beranda (PRD §6). */
+const SORTS: { id: MerchantSortKey; label: string }[] = [
+  { id: 'distance', label: 'Terdekat' },
+  { id: 'rating', label: 'Rating' },
+  { id: 'orders', label: 'Terlaris' },
+]
 
 /**
  * Beranda customer — langkah pertama alur belanja adalah memilih TOKO, bukan
@@ -29,6 +36,9 @@ export default function Home() {
   const locationLabel = useAppSelector((s) => s.ui.locationLabel)
   const cartItems = useAppSelector((s) => s.cart.items)
   const [category, setCategory] = useState('all')
+  // Urut/filter daftar toko (PRD §6). `distance` default: toko terdekat dulu.
+  const [sort, setSort] = useState<MerchantSortKey>('distance')
+  const [minRating, setMinRating] = useState(0)
   // Menu diambil lintas toko (bukan seed `catalog`), supaya promo dan kategori
   // dihitung dari toko yang benar-benar tampil — sebelumnya daftar memakai toko
   // live sementara item dari mock, sehingga `merchantId` tak pernah ketemu dan
@@ -55,10 +65,25 @@ export default function Home() {
 
   // Chip menyaring TOKO, bukan item: sebuah toko tampil kalau ia melayani
   // kategori terpilih (dihitung dari menunya yang benar-benar bisa dipesan).
-  const visibleStores =
+  // Toko yang memblokir kuota order (PRD §17) disembunyikan lebih dulu.
+  const categoryStores =
     category === 'all'
       ? stores
       : stores.filter((store) => merchantCategoryIds(items, store.id).includes(category))
+  // Toko yang memblokir kuota order (PRD §17) disembunyikan lebih dulu, lalu
+  // difilter (rating) dan diurutkan (jarak/rating/terlaris) — PRD §6.
+  const visibleStores = sortStorefronts(
+    filterStorefronts(
+      visibleStorefronts(categoryStores),
+      minRating ? { minRating } : {},
+    ),
+    sort,
+  )
+  // Grup hanya per tag (PRD §6). Kalau tak ada toko bertag, tampilkan daftar
+  // datar seperti sebelumnya supaya perilaku legacy tidak berubah.
+  const storeGroups = visibleStores.some((store) => store.tags?.length)
+    ? groupStorefrontsByTag(visibleStores)
+    : [{ tag: null as string | null, stores: visibleStores }]
 
   const cartCount = selectCartCount(cartItems)
   const cartSubtotal = selectSubtotal(cartItems)
@@ -113,23 +138,57 @@ export default function Home() {
                 <span className="section-count">{visibleStores.length} toko</span>
               </div>
 
-              {visibleStores.length ? (
-                <div className="merchants-list" role="list">
-                  {visibleStores.map((store, i) => (
-                    <MerchantCard
-                      key={store.id}
-                      store={store}
-                      promoText={
-                        promoByStore.has(store.id)
-                          ? `Promo hemat ${promoByStore.get(store.id)}%`
-                          : undefined
-                      }
-                      className="stagger-in"
-                      style={{ '--stagger-index': i }}
-                      onOpen={(s) => navigate(`/merchant/${s.id}`)}
-                    />
+              <div className="merchants-toolbar">
+                <div className="merchants-toolbar__group" role="group" aria-label="Urutkan toko">
+                  {SORTS.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      className={`sort-pill${sort === option.id ? ' is-active' : ''}`}
+                      aria-pressed={sort === option.id}
+                      onClick={() => setSort(option.id)}
+                    >
+                      {option.label}
+                    </button>
                   ))}
                 </div>
+                <div className="merchants-toolbar__group" role="group" aria-label="Filter toko">
+                  <button
+                    type="button"
+                    className={`sort-pill${minRating >= 4.5 ? ' is-on' : ''}`}
+                    aria-pressed={minRating >= 4.5}
+                    onClick={() => setMinRating((current) => (current ? 0 : 4.5))}
+                  >
+                    Rating 4,5+
+                  </button>
+                </div>
+              </div>
+
+              {visibleStores.length ? (
+                storeGroups.map((group) => (
+                  <div key={group.tag ?? '__untagged'} className="merchants-group">
+                    {group.tag ? (
+                      <h3 className="merchants-group__title">{group.tag}</h3>
+                    ) : null}
+                    <div className="merchants-list" role="list">
+                      {group.stores.map((store, i) => (
+                        <MerchantCard
+                          key={store.id}
+                          store={store}
+                          disabled={!isSelectable(store)}
+                          promoText={
+                            promoByStore.has(store.id)
+                              ? `Promo hemat ${promoByStore.get(store.id)}%`
+                              : undefined
+                          }
+                          className="stagger-in"
+                          style={{ '--stagger-index': i }}
+                          onOpen={(s) => navigate(`/merchant/${s.id}`)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))
               ) : (
                 <p className="merchants-empty">Belum ada toko untuk kategori ini.</p>
               )}

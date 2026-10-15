@@ -10,6 +10,11 @@ interface MerchantCardProps {
   onOpen: (store: Storefront) => void
   /** Baris promo singkat, mis. "Promo hemat 30%", dihitung dari menu berdiskon. */
   promoText?: string
+  /**
+   * Toko tampil tapi tak bisa dipilih (tutup / di luar coverage, PRD §6).
+   * Kartu tetap terlihat dan bisa dibaca, tapi tidak membuka halaman toko.
+   */
+  disabled?: boolean
   className?: string
   /** Variabel CSS tambahan, mis. `--stagger-index`. */
   style?: CSSProperties & Record<'--stagger-index', number>
@@ -25,16 +30,27 @@ export function MerchantCard({
   store,
   onOpen,
   promoText,
+  disabled = false,
   className = '',
   style,
 }: MerchantCardProps) {
+  const status = !store.isOpen ? 'Tutup' : store.outOfCoverage ? 'Di luar jangkauan' : 'Buka'
+  const reason = !store.isOpen
+    ? 'sedang tutup'
+    : store.outOfCoverage
+      ? 'di luar jangkauan'
+      : 'buka'
+
   return (
     <button
       type="button"
-      className={`merchant-card ${className}`.trim()}
+      className={`merchant-card ${className}${disabled ? ' merchant-card--disabled' : ''}`.trim()}
       style={style}
-      aria-label={`Buka ${store.name}, ${store.isOpen ? 'buka' : 'tutup'}`}
-      onClick={() => onOpen(store)}
+      disabled={disabled}
+      aria-label={`Buka ${store.name}, ${reason}`}
+      onClick={() => {
+        if (!disabled) onOpen(store)
+      }}
     >
       <span className="merchant-card__logo">
         <img
@@ -52,9 +68,9 @@ export function MerchantCard({
         <span className="merchant-card__top">
           <span className="merchant-card__name">{store.name}</span>
           <span
-            className={`merchant-card__status${store.isOpen ? ' merchant-card__status--open' : ''}`}
+            className={`merchant-card__status${store.isOpen && !store.outOfCoverage ? ' merchant-card__status--open' : ''}`}
           >
-            {store.isOpen ? 'Buka' : 'Tutup'}
+            {status}
           </span>
         </span>
 

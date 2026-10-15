@@ -46,6 +46,16 @@ interface CartState {
   orderCompletedAt: string | null
   /** Customer membatalkan order (F1/F2 terminal `batal`) — driver UI & hold. */
   orderCancelled: boolean
+  /**
+   * Keranjang ganda per toko (PRD §6/§11). `items` SELALU keranjang toko yang
+   * sedang aktif; `carts` menampung keranjang toko LAIN, supaya menambah menu
+   * dari toko berbeda tidak menghapus pilihan sebelumnya. `activeMerchantId`
+   * menandai pemilik keranjang aktif (`null` = belum ada).
+   */
+  activeMerchantId: string | null
+  carts: Record<string, CartItem[]>
+  /** Catatan tingkat pesanan (bukan per menu), dikirim ke dapur — PRD §11. */
+  orderNote: string
 }
 
 const initialState: CartState = {
@@ -74,6 +84,9 @@ const initialState: CartState = {
   holdLedger: [],
   orderCompletedAt: null,
   orderCancelled: false,
+  activeMerchantId: null,
+  carts: {},
+  orderNote: '',
 }
 
 /** Id entry hold: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -97,12 +110,25 @@ const cartSlice = createSlice({
         unitPrice?: number
         modifiers?: string
         notes?: string
+        /** Toko asal. Tanpa ini, item masuk keranjang aktif (perilaku lama). */
+        merchantId?: string
       }>,
     ) {
-      const { food, quantity = 1, unitPrice, modifiers, notes } = action.payload
+      const { food, quantity = 1, unitPrice, modifiers, notes, merchantId } = action.payload
+      // Keranjang milik toko mana? Keranjang toko lain disimpan di `carts`,
+      // tidak menimpa keranjang aktif (PRD §6 — satu keranjang per merchant).
+      const target = merchantId ?? state.activeMerchantId ?? 'default'
+      if (state.activeMerchantId === null) state.activeMerchantId = target
+      let bucket: CartItem[]
+      if (target === state.activeMerchantId) {
+        bucket = state.items
+      } else {
+        if (!state.carts[target]) state.carts[target] = []
+        bucket = state.carts[target]
+      }
       // Sate Ayam "Pedas" dan "Tidak Pedas" adalah baris terpisah di keranjang;
       // catatan beda juga jadi baris sendiri (dapurnya memasak beda).
-      const existing = state.items.find(
+      const existing = bucket.find(
         (i) =>
           i.id === food.id &&
           (i.modifiers ?? '') === (modifiers ?? '') &&
@@ -110,8 +136,9 @@ const cartSlice = createSlice({
       )
       if (existing) existing.quantity += quantity
       else
-        state.items.push({
+        bucket.push({
           id: food.id,
+          merchantId: target,
           name: food.name,
           price: unitPrice ?? food.price,
           quantity,
@@ -143,6 +170,31 @@ const cartSlice = createSlice({
     },
     clearCart(state) {
       state.items = []
+      state.activeMerchantId = null
+    },
+    /**
+     * Pindah keranjang aktif ke toko lain (PRD §6). Keranjang toko lama
+     * disimpan ke `carts`, keranjang toko tujuan (bila ada) diangkat ke `items`.
+     */
+    switchCart(state, action: PayloadAction<string>) {
+      const target = action.payload
+      if (target === state.activeMerchantId) return
+      const next = state.carts[target] ?? []
+      if (state.activeMerchantId && state.items.length) {
+        state.carts[state.activeMerchantId] = state.items
+      }
+      delete state.carts[target]
+      state.items = next
+      state.activeMerchantId = target
+    },
+    /** Buang satu keranjang toko lain (tanpa menyentuh keranjang aktif). */
+    removeCart(state, action: PayloadAction<string>) {
+      if (action.payload === state.activeMerchantId) return
+      delete state.carts[action.payload]
+    },
+    /** Catatan tingkat pesanan untuk seluruh order (PRD §11). */
+    setOrderNote(state, action: PayloadAction<string>) {
+      state.orderNote = action.payload
     },
     setAddress(state, action: PayloadAction<string>) {
       state.selectedAddressId = action.payload
@@ -283,6 +335,9 @@ export const {
   updateQuantity,
   removeItem,
   clearCart,
+  switchCart,
+  removeCart,
+  setOrderNote,
   setAddress,
   setPayment,
   setTransferProof,
@@ -309,5 +364,15 @@ export const selectCartCount = (items: CartItem[]) =>
 
 export const selectSubtotal = (items: CartItem[]) =>
   items.reduce((sum, i) => sum + i.price * i.quantity, 0)
+
+/** Keranjang toko lain (bukan yang aktif), siap ditampilkan untuk dipindah. */
+export const selectOtherCarts = (carts: Record<string, CartItem[]>) =>
+  Object.entries(carts)
+    .filter(([, items]) => items.length > 0)
+    .map(([merchantId, items]) => ({
+      merchantId,
+      count: items.reduce((sum, i) => sum + i.quantity, 0),
+      subtotal: items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+    }))
 
 export default cartSlice.reducer

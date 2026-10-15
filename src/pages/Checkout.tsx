@@ -5,7 +5,7 @@
 //
 // Sekarang isinya dibaca dari store: daftar item, alamat antar, dan ringkasan
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
-import { Minus, Plus, ShoppingBag } from 'lucide-react'
+import { Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react'
 
 import { useState } from 'react'
 
@@ -29,11 +29,12 @@ import {
   zoneFor,
 } from '../data/merchant'
 import { mockUser } from '../data/user'
+import { getStorefront } from '../data/storefronts'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
-import { selectSubtotal, setPromo, updateQuantity } from '../store/slices/cartSlice'
+import { selectOtherCarts, selectSubtotal, removeCart, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function Checkout() {
@@ -42,6 +43,15 @@ export default function Checkout() {
   const dispatch = useAppDispatch()
 
   const items = useAppSelector((s) => s.cart.items)
+  // Keranjang ganda per toko (PRD §6) + catatan tingkat pesanan (PRD §11).
+  const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
+  const otherCarts = useAppSelector((s) => selectOtherCarts(s.cart.carts))
+  const orderNote = useAppSelector((s) => s.cart.orderNote)
+  const activeStore = activeMerchantId ? getStorefront(activeMerchantId) : undefined
+  const storeName = activeStore?.name ?? mockMerchant.name
+  const storeHours = activeStore
+    ? `Buka ${activeStore.openTime}–${activeStore.closeTime}`
+    : `Buka ${mockMerchant.openTime}–${mockMerchant.closeTime}`
   const stored = useAppSelector((s) => s.cart.addresses)
   const addresses = Array.isArray(stored) ? stored : mockUser.addresses
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
@@ -127,11 +137,53 @@ export default function Checkout() {
                 <div className="checkout-section">
                   <h2 className="section-title s7-parallax--title">Pesanan dari</h2>
                   <div className="checkout-store s7-parallax--card">
-                    <span className="checkout-store__name">{mockMerchant.name}</span>
-                    <span className="checkout-store__hours">
-                      Buka {mockMerchant.openTime}–{mockMerchant.closeTime}
-                    </span>
+                    <span className="checkout-store__name">{storeName}</span>
+                    <span className="checkout-store__hours">{storeHours}</span>
                   </div>
+                </div>
+
+                {otherCarts.length ? (
+                  <div className="checkout-section">
+                    <h2 className="section-title s7-parallax--title">Keranjang lain</h2>
+                    <div className="checkout-other-carts">
+                      {otherCarts.map((cart) => (
+                        <div className="checkout-other-cart" key={cart.merchantId}>
+                          <button
+                            type="button"
+                            className="checkout-other-cart__open"
+                            onClick={() => dispatch(switchCart(cart.merchantId))}
+                          >
+                            <span className="checkout-other-cart__name">
+                              {getStorefront(cart.merchantId)?.name ?? 'Toko lain'}
+                            </span>
+                            <span className="checkout-other-cart__meta">
+                              {cart.count} item · {moneyPlain(cart.subtotal)}
+                            </span>
+                          </button>
+                          <button
+                            type="button"
+                            className="checkout-other-cart__drop"
+                            aria-label="Buang keranjang ini"
+                            onClick={() => dispatch(removeCart(cart.merchantId))}
+                          >
+                            <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {/* Catatan pesanan (PRD §11) — tingkat order, bukan per menu. */}
+                <div className="checkout-section">
+                  <h2 className="section-title s7-parallax--title">Catatan untuk pesanan</h2>
+                  <textarea
+                    className="checkout-note"
+                    value={orderNote}
+                    onChange={(e) => dispatch(setOrderNote(e.target.value))}
+                    placeholder="mis. jangan pakai bawang, antar ke resepsionis"
+                    rows={3}
+                  />
                 </div>
 
                 {/* Item — setiap baris bisa diubah jumlahnya atau dibuang. */}

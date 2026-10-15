@@ -1,5 +1,5 @@
 {
-  "$comment": "Peta integrasi antar flow. Satu baris = satu sambungan eksplisit antar folder flow. Sumber akhir: PRD irbid-mvp-v2-2026-09-21. ID pakai notasi <slug>:<node|transition|edge>. Untuk BE: dipakai baca event -> entity (bahan ERD, skema asli milik repo backend). Repo ini front-end saja — diagram menggambarkan layar & state, bukan implementasi backend (AGENTS.md §1).",
+  "$comment": "Peta integrasi antar flow. Satu baris = satu sambungan eksplisit antar folder flow. Sumber otoritatif: PRD sa7tein-mvp-2026-10-11 (aktif 2026-10-15); flow di bawah masih menggambarkan revisi lama irbid-mvp-v2-2026-09-21 (kini superseded), migrasi mengikuti M0-M11. ID pakai notasi <slug>:<node|transition|edge>. Untuk BE: dipakai baca event -> entity (bahan ERD, skema asli milik repo backend). Repo ini front-end saja — diagram menggambarkan layar & state, bukan implementasi backend (AGENTS.md §1).",
   "schema_version": 1,
   "flows": {
     "f1-order-lifecycle": { "type": "workflow", "status": "done", "role": "umbrella", "basis": "R-COD-01, R-DELIV-01, R-TOPUP-01, R-FEE-01", "biz": "decided" },

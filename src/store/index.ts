@@ -31,6 +31,10 @@ import admin from './slices/adminSlice'
 import superAdmin, { logAudit } from './slices/superAdminSlice'
 import notifications from './slices/notificationsSlice'
 import preferences from './slices/preferencesSlice'
+import batch from './slices/batchSlice'
+import partner from './slices/partnerSlice'
+import quota from './slices/quotaSlice'
+import marketing from './slices/marketingSlice'
 import ui from './slices/uiSlice'
 import type { AuditKind, DisputeResolution } from '../types'
 
@@ -55,6 +59,10 @@ const rootReducer = combineReducers({
   superAdmin,
   notifications,
   preferences,
+  batch,
+  partner,
+  quota,
+  marketing,
   ui,
   accountSetup,
 })
@@ -108,7 +116,7 @@ const persistConfig = {
   key: 'sa7tein',
   version: PERSIST_VERSION,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'preferences'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'preferences', 'batch', 'partner', 'quota', 'marketing'],
   migrate: createMigrate(migrations, { debug: false }),
 }
 
@@ -147,7 +155,11 @@ function repairPersistedCart() {
       zonesOutdated ||
       cart.transferProof === undefined ||
       legacyItems ||
-      !KNOWN_PAYMENT_METHOD_IDS.includes(cart.selectedPaymentId)
+      !KNOWN_PAYMENT_METHOD_IDS.includes(cart.selectedPaymentId) ||
+      // Keranjang ganda per toko (M1c): state lama belum punya tiga field ini.
+      cart.activeMerchantId === undefined ||
+      cart.carts === undefined ||
+      cart.orderNote === undefined
 
     if (!needsRepair) return
 
@@ -170,6 +182,9 @@ function repairPersistedCart() {
       selectedPaymentId: KNOWN_PAYMENT_METHOD_IDS.includes(cart.selectedPaymentId)
         ? cart.selectedPaymentId
         : 'wallet',
+      activeMerchantId: cart.activeMerchantId ?? null,
+      carts: cart.carts ?? {},
+      orderNote: cart.orderNote ?? '',
     })
     const meta = JSON.parse(outer._persist ?? '{}')
     // Slice yang bentuknya sudah tidak cocok dengan kode (sama seperti yang

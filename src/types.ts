@@ -72,6 +72,29 @@ export interface Storefront {
   openTime: string
   closeTime: string
   isOpen: boolean
+  /**
+   * Tag merchant untuk pengelompokan beranda (PRD §6: grup **hanya** per tag,
+   * bukan per kategori). Satu toko boleh punya beberapa tag, jadi ia muncul di
+   * beberapa grup. BE mengirim daftar ini; mock repo mengisinya eksplisit.
+   */
+  tags?: string[]
+  /**
+   * Jarak terukur dalam meter, untuk sort/filter "jarak" (PRD §6). `distance`
+   * tetap string tampilan ("420 m"); angka ini yang dibandingkan.
+   */
+  distanceMeters?: number
+  /** Jumlah order selesai (30 hari) untuk sort/filter "jumlah order" (PRD §6). */
+  orderCount?: number
+  /**
+   * Toko di luar coverage customer (PRD §6/§9.1): **tetap tampil** tapi tidak
+   * bisa dipilih. Di produksi dihitung dari `MerchantCoverage`; mock di sini.
+   */
+  outOfCoverage?: boolean
+  /**
+   * Merchant memblokir kuota order (PRD §17): tokonya **disembunyikan** dari
+   * daftar, bukan sekadar di-disable. Di produksi dihitung dari kuota aktif.
+   */
+  quotaBlocked?: boolean
 }
 
 /** Filter yang diteruskan layar Filter ke Search (satu modul memproduksi, satu membaca). */
@@ -415,6 +438,8 @@ export interface CartItem {
   modifiers?: string
   /** catatan bebas customer untuk dapur (layar detail menu), mis. "sambal dipisah" */
   notes?: string
+  /** Toko asal item — keranjang dipisah per merchant (PRD §6/§11). */
+  merchantId?: string
 }
 
 /**
@@ -953,3 +978,416 @@ export interface AuthBannerSlide {
   src: string
   alt: string
 }
+
+// ── Domain PRD sa7tein-mvp-2026-10-11 (marketplace + delivery) ───────────────
+// Tipe di bawah milik revisi aktif (aktif 2026-10-15), menggantikan model
+// `irbid-mvp-v2-2026-09-21` (COD hold, zona Hijazi/Syimali, kurir karyawan
+// merchant). Ditulis **aditif**: tipe lama tetap ada sampai bagiannya
+// dimigrasikan di M1-M11 (lihat versions/sa7tein-mvp-2026-10-11/milestones.md).
+// Semua nominal harga domain ini **JOD**; konversi ke IDR terjadi saat transaksi.
+
+// — Order & batch (PRD §7, §8) —
+
+/**
+ * Jenis pengiriman order (§6). `regular` lewat batch kurir inhouse; `quick`
+ * tanpa batch, satu order per kurir partner.
+ */
+export type OrderType = 'regular' | 'quick'
+
+/** Status batch (PRD §7.5, BR-B10/B11). */
+export type BatchStatus =
+  | 'countdown' // hitung mundur berjalan, menerima order baru
+  | 'closed' // ditutup lebih awal oleh merchant (BR-B08)
+  | 'awaiting_courier' // hitung mundur selesai, belum di-assign kurir
+  | 'assigned' // selesai, kurir di-assign, belum menekan mulai delivery
+  | 'delivering' // dalam pengantaran
+  | 'done' // semua order di dalamnya selesai
+
+/** Batch antrian order Regular kurir inhouse (§8). Maks 24 order (BR-B04). */
+export interface Batch {
+  id: string
+  merchantId: string
+  /** `Courier.id` kurir inhouse yang di-assign; `null` sebelum di-assign (BR-B07). */
+  courierId: string | null
+  orderIds: string[]
+  status: BatchStatus
+  /** Estimasi waktu masak (menit) yang diinput merchant saat membuat batch. */
+  estimateMinutes: number
+  /** Sisa hitung mundur (detik); 0 saat sudah selesai. */
+  countdownSeconds: number
+  /** Toggle auto-sort kurir (BR-B12). */
+  autoSort: boolean
+  /** Urutan pengantaran hasil auto-sort (id order); kosong saat OFF/manual. */
+  routeOrder: string[]
+  createdAt: string
+}
+
+// — Kurir partner & dispatch (PRD §7.3, §9.3, §9.4, §9.5) —
+
+/** Status kurir partner (§9.3). */
+export type CourierPartnerStatus = 'offline' | 'available' | 'reserved' | 'busy'
+
+/** Kurir partner aplikator: satu order per waktu, approve/reject assignment. */
+export interface CourierPartner {
+  id: string
+  name: string
+  phone: string
+  status: CourierPartnerStatus
+  /** Jumlah order selesai hari ini; tie-break dispatch (§9.4). */
+  completedToday: number
+  /** SP aktif; kelayakan antrian dispatch (OPEN-11). */
+  warningLetters: number
+  /** ISO; kesegaran lokasi untuk kandidat dispatch (§9.4). */
+  lastLocationAt: string | null
+  joinedAt: string
+}
+
+/** Assignment order ke kurir partner, menunggu approve/reject (§9.5). */
+export interface CourierAssignment {
+  id: string
+  orderId: string
+  partnerId: string
+  status: 'pending' | 'approved' | 'rejected' | 'expired'
+  /** Alasan reject (COU-18). */
+  rejectReason?: string
+  sentAt: string
+  respondedAt?: string
+}
+
+// — Katalog ala Odoo (§14) —
+
+/** `create_variant` Odoo: pola pembentukan variant dari attribute. */
+export type AttributeVariantMode = 'always' | 'dynamic' | 'no_variant'
+
+/** `display_type` Odoo; `multi` hanya untuk `no_variant` (§14). */
+export type AttributeDisplayType = 'radio' | 'pills' | 'select' | 'color' | 'multi'
+
+/** Nilai attribute global milik merchant (padanan `product.attribute.value`). */
+export interface CatalogAttributeValue {
+  id: string
+  name: string
+  /** Tambahan harga default (JOD). */
+  defaultExtraPrice: number
+  /** Customer mengisi teks bebas (mis. tulisan di kue). */
+  isCustom: boolean
+}
+
+/** Attribute milik merchant (padanan `product.attribute`, PRD membedakannya per merchant). */
+export interface CatalogAttribute {
+  id: string
+  merchantId: string
+  name: string
+  createVariant: AttributeVariantMode
+  displayType: AttributeDisplayType
+  values: CatalogAttributeValue[]
+}
+
+/** Attribute yang dipasang pada satu menu (padanan `product.template.attribute.line`). */
+export interface MenuAttributeLine {
+  menuId: string
+  attributeId: string
+  /** Id `CatalogAttributeValue` yang berlaku untuk menu ini. */
+  valueIds: string[]
+}
+
+/** Nilai attribute per menu: harga tambahan + pengecualian (§14). */
+export interface MenuAttributeValue {
+  menuId: string
+  attributeValueId: string
+  /** `price_extra` (JOD) menimpa default nilai. */
+  priceExtra: number
+  /** Flag ketersediaan per menu (terpisah dari arsip `ptav_active` Odoo). */
+  available: boolean
+  /** Nilai lain yang tidak boleh dipilih bersamaan. */
+  excludeValueIds: string[]
+}
+
+/** Kombinasi nilai yang dilarang (padanan `product.template.attribute.exclusion`). */
+export interface AttributeExclusion {
+  menuId: string
+  attributeValueIds: string[]
+}
+
+/** Variant menu: kombinasi nilai pembentuk variant (padanan `product.product`). */
+export interface MenuVariant {
+  id: string
+  menuId: string
+  attributeValueIds: string[]
+  /** Toggle ketersediaan level variant (§14). */
+  available: boolean
+}
+
+// — Program marketing ala Odoo (§15) —
+
+/** `program_type` Odoo 18 yang diadopsi (§15.1). */
+export type MarketingProgramType =
+  | 'promotion'
+  | 'promo_code'
+  | 'coupons'
+  | 'buy_x_get_y'
+  | 'next_order_coupons'
+  | 'loyalty'
+  | 'gift_card' // stored value, OPEN-10
+  | 'ewallet' // stored value, OPEN-10
+
+/** Pemilik program: aplikator (ops) atau merchant (loyalty merchant lokal). */
+export type ProgramOwner = 'platform' | 'merchant'
+
+/** `trigger` Odoo: otomatis atau dengan kode. */
+export type ProgramTrigger = 'auto' | 'with_code'
+
+/** `applies_on` Odoo: order saat ini, order berikutnya, atau keduanya. */
+export type ProgramAppliesOn = 'current' | 'future' | 'both'
+
+/** Jenis hadiah (§15.2). `shipping` dari modul sale_loyalty_delivery. */
+export type RewardType = 'discount' | 'product' | 'shipping'
+
+/** Mode diskon Odoo. */
+export type DiscountMode = 'percent' | 'per_order' | 'per_point'
+
+/** Sasaran diskon Odoo. */
+export type DiscountApplicability = 'order' | 'cheapest' | 'specific'
+
+/** Basis perolehan poin Odoo. */
+export type RewardPointMode = 'per_order' | 'per_currency' | 'per_unit'
+
+/** Program marketing (padanan `loyalty.program`). Mata uang JOD. */
+export interface MarketingProgram {
+  id: string
+  owner: ProgramOwner
+  /** `MerchantRecord.id` saat owner = merchant; `null` untuk aplikator. */
+  merchantId: string | null
+  type: MarketingProgramType
+  trigger: ProgramTrigger
+  appliesOn: ProgramAppliesOn
+  dateFrom: string
+  dateTo: string | null
+  limitUsage: number | null
+  maxUsage: number | null
+  /** Boleh digabung promo lain (OPEN-23 untuk semantiknya). */
+  isStackable: boolean
+}
+
+/** Syarat program (padanan `loyalty.rule`). */
+export interface ProgramRule {
+  id: string
+  programId: string
+  minimumQty: number
+  minimumAmountJod: number
+  /** Batas pada menu/kategori/tag tertentu; kosong = semua. */
+  menuIds: string[]
+  categoryIds: string[]
+  tagIds: string[]
+  rewardPointMode: RewardPointMode
+  rewardPointAmount: number
+}
+
+/** Hadiah program (padanan `loyalty.reward`). */
+export interface ProgramReward {
+  id: string
+  programId: string
+  rewardType: RewardType
+  discountMode?: DiscountMode
+  discountPercent?: number
+  discountApplicability?: DiscountApplicability
+  discountMaxAmountJod?: number
+  requiredPoints?: number
+  rewardMenuId?: string
+  rewardQty?: number
+}
+
+/** Kartu/kupon milik customer (padanan `loyalty.card`). */
+export interface LoyaltyCard {
+  id: string
+  programId: string
+  customerId: string
+  points: number
+  code: string | null
+  expiresAt: string | null
+}
+
+// — Langganan kuota (§17) —
+
+/** Jenis kuota: order online, atau order COD (online + COD, selalu lebih mahal). */
+export type QuotaKind = 'order' | 'cod'
+
+/** Langganan kuota merchant (§17). Kuota tersedia = paket - terpakai - ter-reserve. */
+export interface QuotaSubscription {
+  id: string
+  merchantId: string
+  kind: QuotaKind
+  /** Kuota paket untuk satu periode. */
+  quota: number
+  used: number
+  reserved: number
+  periodStart: string
+  periodEnd: string
+  active: boolean
+}
+
+/** Turunan ketersediaan kuota merchant untuk UI (§17). */
+export interface QuotaState {
+  /** Kuota order online tersedia. */
+  orderAvailable: number
+  /** Kuota COD tersedia. */
+  codAvailable: number
+  /** Setting boolean merchant; hanya bisa diubah saat tutup (§17). */
+  acceptWithoutQuota: boolean
+}
+
+// — Refund (§7.4, §16.6) —
+
+/** Tujuan refund; QRIS tanpa akun DANA = `bank` (BI-FAST, biaya Rp2.500 ditanggung aplikator). */
+export type RefundMethod = 'dana' | 'bank'
+
+/** Status refund. `pending_refund` = order customer tanpa akun DANA menunggu isi rekening. */
+export type RefundStatus = 'pending_refund' | 'processing' | 'completed' | 'failed'
+
+/** Refund satu order online yang batal/ditolak (§16.6). */
+export interface Refund {
+  id: string
+  orderId: string
+  /** Nominal IDR penuh yang dibayar (termasuk transaction fee + pembulatan). */
+  amountIdr: number
+  method: RefundMethod
+  status: RefundStatus
+  /** Diisi saat `method = bank`. */
+  bankName?: string
+  bankAccount?: string
+  createdAt: string
+  completedAt?: string
+}
+
+// — Coverage merchant (§9.1) —
+
+/** Mode coverage merchant: area (polygon) atau radius. */
+export type CoverageMode = 'area' | 'radius'
+
+/** Satu polygon coverage mode area; fee (JOD) melekat per polygon. */
+export interface CoveragePolygon {
+  id: string
+  vertices: GeoPoint[]
+  feeJod: number
+}
+
+/**
+ * Coverage merchant (§9.1). Mode area: beberapa polygon yang tidak boleh tumpang
+ * tindih. Mode radius: radius maksimum + fee per satuan jarak. Menggantikan
+ * `MerchantDeliveryConfig` zona global Hijazi/Syimali.
+ */
+export interface MerchantCoverage {
+  merchantId: string
+  mode: CoverageMode
+  polygons: CoveragePolygon[]
+  /** Mode radius: radius maksimum (meter). */
+  radiusMeters?: number
+  /** Mode radius: fee per satuan jarak (JOD). */
+  feePerUnitJod?: number
+  /** Satuan jarak pilihan merchant. */
+  unit?: 'meter' | 'km'
+}
+
+// — Dispute berbasis rule (§18) —
+
+/** Kategori insiden yang dipetakan ops ke rule (§18). */
+export interface IncidentCategory {
+  id: string
+  label: string
+}
+
+/** Rule (mitigasi/kompensasi/punishment) yang dikelola ops (§18). */
+export interface DisputeRule {
+  id: string
+  code: string
+  name: string
+  categoryId: string
+  /** Kondisi pemicu (teks), dievaluasi ops/sistem. */
+  trigger: string
+  /** Pihak penanggung jawab. */
+  responsibleParty: 'customer' | 'merchant' | 'courier'
+  mitigation: string
+  active: boolean
+  version: number
+}
+
+/** Kompensasi bagian dari rule. */
+export interface Compensation {
+  id: string
+  ruleId: string
+  recipient: 'customer' | 'merchant' | 'courier'
+  /** Bentuk (mis. "refund 50%") + formula nilai. */
+  form: string
+  formula: string
+}
+
+/** Punishment bagian dari rule; SP kurir partner salah satu bentuknya (§18). */
+export interface Punishment {
+  id: string
+  ruleId: string
+  subject: 'customer' | 'merchant' | 'courier'
+  form: string
+  /** Tingkat atau formula. */
+  level: string
+}
+
+/** Pilihan rule merchant (multi-select) + tanggal mulai berlaku (§18). */
+export interface MerchantRuleSelection {
+  merchantId: string
+  ruleIds: string[]
+  effectiveFrom: string
+}
+
+/** Status insiden/dispute berbasis rule. */
+export type IncidentStatus = 'open' | 'investigating' | 'resolved' | 'rejected'
+
+/** Insiden/dispute satu order (§18). */
+export interface Incident {
+  id: string
+  orderId: string
+  reporter: 'customer' | 'merchant' | 'courier'
+  reporterId: string
+  categoryId: string
+  description: string
+  photoCount: number
+  photos?: string[]
+  status: IncidentStatus
+  /** Rule yang diterapkan (snapshot saat order dibuat, usulan §18). */
+  ruleId?: string
+  decision?: string
+  decidedBy?: string
+  filedAt: string
+}
+
+// — Komponen harga & settlement (§16.3, §16.4) —
+
+/**
+ * Rincian harga satu order dalam JOD (§16.3). `total` = S - Dm - Da + F + Pc + Ft.
+ * `Ft` (transaction fee 1,5%) hanya untuk QRIS; 0 untuk saldo DANA dan COD.
+ */
+export interface PriceBreakdown {
+  /** Subtotal menu. */
+  subtotalJod: number
+  /** Diskon program merchant. */
+  discountMerchantJod: number
+  /** Diskon program aplikator. */
+  discountPlatformJod: number
+  /** Delivery fee (Regular: fee merchant; Quick: multiplier x fee merchant). */
+  deliveryFeeJod: number
+  /** Platform fee customer, flat per order (termasuk COD). */
+  platformFeeCustomerJod: number
+  /** Platform fee merchant, flat per order (hanya online tanpa kuota). */
+  platformFeeMerchantJod: number
+  /** Transaction fee 1,5% (QRIS saja). */
+  transactionFeeJod: number
+  totalJod: number
+}
+
+/** Pembagian settlement satu order online selesai (§16.4), dalam JOD. */
+export interface OrderSettlement {
+  merchantJod: number
+  courierJod: number
+  platformJod: number
+  /** Konteks kuota yang menentukan kolom pembagian. */
+  quota: 'none' | 'order' | 'cod'
+}
+

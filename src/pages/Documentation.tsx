@@ -220,6 +220,30 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>PRD aktif berganti</strong> ke{' '}
+                <code className="doc-inline">sa7tein-mvp-2026-10-11</code> (marketplace +
+                delivery), menggantikan <code className="doc-inline">irbid-mvp-v2-2026-09-21</code>{' '}
+                yang jadi <code className="doc-inline">superseded</code> (catatan keputusan di{' '}
+                <code className="doc-inline">docs/product/prd/decision-sa7tein-mvp.md</code>).
+                Migrasi M0–M11 masuk bertahap: M0 menambah tipe domain + konstanta uang
+                (Pc/Pm, multiplier Quick, Ft QRIS) dan slice{' '}
+                <code className="doc-inline">batch</code>/<code className="doc-inline">partner</code>/
+                <code className="doc-inline">quota</code>/<code className="doc-inline">marketing</code>;
+                M1 (discovery) menggrup toko per tag, menyembunyikan toko blok-kuota, menonaktifkan
+                toko tutup/luar-coverage, dan menambah bilah urut/filter di{' '}
+                <code className="doc-inline">/customer/home</code>. Milestone &amp; kriteria
+                penerimaan: <code className="doc-inline">docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md</code>.
+              </li>
+              <li>
+                <strong>Keranjang ganda per toko</strong> (M1c): menambah menu dari toko berbeda
+                tidak lagi menimpa keranjang sebelumnya — keranjang toko lain disimpan di{' '}
+                <code className="doc-inline">cart.carts</code> dan layar{' '}
+                <code className="doc-inline">/customer/checkout</code> menampilkan daftar
+                &ldquo;Keranjang lain&rdquo; untuk dipindah atau dibuang, plus kolom catatan
+                tingkat pesanan (<code className="doc-inline">cart.orderNote</code>); nama toko
+                pada checkout kini diambil dari merchant keranjang aktif.
+              </li>
+              <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}
                 <code className="doc-inline">POST /orders</code> ditolak BE, order dicatat lokal
                 dengan kode yang sama (bukan jatuh ke <code className="doc-inline">mockOrder</code>{' '}

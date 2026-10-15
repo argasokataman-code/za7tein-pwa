@@ -37,6 +37,16 @@ export interface MerchantRow {
   close_time: string | null
   latitude: number | null
   longitude: number | null
+  /**
+   * Jangkauan merchant dari BE (jsonb `delivery_config`). Mode radius punya
+   * `radiusMeters`; mode area memakai `activeZones`/polygon. Dipakai menghitung
+   * `outOfCoverage` (PRD §6/§9.1) — polygon penuh belum dikirim BE (OPEN-25).
+   */
+  delivery_config: {
+    mode?: 'radius' | 'area'
+    activeZones?: string[]
+    radiusMeters?: number
+  } | null
 }
 
 export interface MenuRow {
@@ -70,6 +80,15 @@ function toStorefront(row: MerchantRow, origin?: Origin): Storefront {
     origin && row.latitude != null && row.longitude != null
       ? haversineMeters(origin, { lat: row.latitude, lng: row.longitude })
       : null
+  // Di luar jangkauan (PRD §6/§9.1): hanya bisa dipastikan bila jangkauannya
+  // radius (meter > radiusMeters) DAN titik asal customer diketahui. Mode area
+  // butuh polygon yang belum dikirim BE → dibiarkan `false`, bukan ditebak.
+  const radius = row.delivery_config?.radiusMeters
+  const outOfCoverage =
+    meters != null &&
+    row.delivery_config?.mode === 'radius' &&
+    typeof radius === 'number' &&
+    meters > radius
   return {
     id: String(row.id),
     name: row.store_name,
@@ -83,9 +102,11 @@ function toStorefront(row: MerchantRow, origin?: Origin): Storefront {
     reviewCount: row.rating_count ?? 0,
     deliveryTime: meters == null ? '' : estimateDeliveryTime(meters),
     distance: meters == null ? '' : formatDistance(meters),
+    distanceMeters: meters ?? undefined,
     openTime: hhmm(row.open_time),
     closeTime: hhmm(row.close_time),
     isOpen: row.store_status === 'open',
+    outOfCoverage,
   }
 }
 

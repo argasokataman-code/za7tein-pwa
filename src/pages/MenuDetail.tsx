@@ -138,6 +138,7 @@ export default function MenuDetail() {
     dispatch(
       addItem({
         food,
+        merchantId: food.merchantId,
         quantity,
         unitPrice,
         modifiers: summary || undefined,

@@ -23,7 +23,8 @@ export function AddToCartButton({
   className = 'buy-now-btn',
   iconOnly = false,
 }: {
-  food: Food
+  /** `merchantId` opsional: keranjang dipisah per toko bila tersedia (PRD §6). */
+  food: Food & { merchantId?: string }
   className?: string
   /** Hanya ikon `+` (tanpa label) untuk tombol bulat ringkas di kartu makanan. */
   iconOnly?: boolean
@@ -40,7 +41,7 @@ export function AddToCartButton({
         // tanpa ini klik tombol ikut membuka halaman detail.
         e.preventDefault()
         e.stopPropagation()
-        dispatch(addItem({ food }))
+        dispatch(addItem({ food, merchantId: food.merchantId }))
         toast.success(`${food.name} masuk keranjang`)
       }}
     >
