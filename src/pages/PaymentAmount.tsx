@@ -26,6 +26,7 @@ import { useMoney } from '../hooks/useMoney'
 import {
   selectSubtotal,
   setTransferProof,
+  setPromo,
   createOrderHold,
   setActiveOrder,
   setOrderStage,
@@ -53,7 +54,11 @@ export default function PaymentAmount() {
   const zone = address ? zoneFor(address) : null
   const deliverable = address ? isDeliverable(address) : false
   const fee = address ? deliveryFeeFor(address) : 0
-  const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
+  // Promo terpasang di Checkout memotong total di sini juga — sumber yang sama
+  // (`cart.promo`), jadi ringkasan Checkout dan layar bayar tak bisa berbeda.
+  const promo = useAppSelector((s) => s.cart.promo)
+  const promoDiscountIdr = promo?.discountIdr ?? 0
+  const total = Math.max(0, subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR - promoDiscountIdr)
   const method = methods.find((m) => m.id === paymentId) ?? methods[0]
   const needsProof = method.id === 'transfer'
   /** VA/QRIS (DANA): order dibuat di sini, pembayaran diselesaikan di layar berikutnya. */
@@ -119,10 +124,15 @@ export default function PaymentAmount() {
       totalIdr: total,
       paymentMethod: method.id,
       zoneCode: zone?.id,
+      promoId: promo?.id ?? null,
+      promoDiscountIdr,
     })
       .then((created) => {
         dispatch(setActiveOrder(created))
         dispatch(setOrderStage('baru'))
+        // Promo sudah dipakai order ini — lepas supaya tak terpasang lagi di
+        // pesanan berikutnya (kuota `max_uses` dihitung server saat insert).
+        dispatch(setPromo(null))
       })
       .catch(() => {
         // Best-effort (AGENTS.md §1): UI tetap jalan mock. `id` kosong → id

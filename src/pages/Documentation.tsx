@@ -260,6 +260,19 @@ export default function Documentation() {
                 dan tautan lompat-ke-konten dibuang mengikuti panel CS.
               </li>
               <li>
+                <strong>Promo merchant</strong>: tabel{' '}
+                <code className="doc-inline">marketing</code> kini punya{' '}
+                <code className="doc-inline">merchant_id</code> + RLS{' '}
+                <code className="doc-inline">marketing_merchant</code>, dan validasi dikerjakan
+                server lewat RPC <code className="doc-inline">validate_promo</code>. Halaman{' '}
+                <code className="doc-inline">/merchant/promos</code> membuat/menghapus kode;
+                checkout customer memasangnya (<code className="doc-inline">cart.promo</code> →{' '}
+                <code className="doc-inline">orders.promo_id</code> /{' '}
+                <code className="doc-inline">promo_amount_jod</code>). Scope produk (MARK-1) masih
+                terbuka; kontrak di{' '}
+                <code className="doc-inline">docs/integration/promos/be-contract.md</code>.
+              </li>
+              <li>
                 Tulis order kini benar-benar sampai ke BE: <code className="doc-inline">createWithReturn</code>{' '}
                 meminta kolom eksplisit (<code className="doc-inline">select=id,code</code>) karena{' '}
                 <code className="doc-inline">return=representation</code> tanpa{' '}

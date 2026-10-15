@@ -65,6 +65,10 @@ export interface NewOrder {
   paymentMethod: PaymentMethod['id']
   /** Zona kirim (hijazi/syimali) — dibaca merchant/kurir sebagai alamat. */
   zoneCode?: ZoneId
+  /** Promo terpasang di checkout (`marketing.id`) — null kalau tanpa kode. */
+  promoId?: number | null
+  /** Nilai diskon promo (IDR) yang sudah dipotong dari total. */
+  promoDiscountIdr?: number
 }
 
 /**
@@ -124,6 +128,8 @@ export async function createOrder(order: NewOrder): Promise<{ id: string; code: 
     payment_method: OUT_PAYMENT[order.paymentMethod] ?? 'cod',
     payment_status: INITIAL_PAYMENT_STATUS[order.paymentMethod] ?? 'unpaid',
     zone_code: order.zoneCode ?? null,
+    promo_id: order.promoId ?? null,
+    promo_amount_jod: idrToJod(order.promoDiscountIdr ?? 0),
   }, 'id,code')
   const row = rows[0]
   return { id: String(row?.id ?? ''), code: row?.code ?? order.code }

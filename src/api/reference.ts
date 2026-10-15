@@ -32,7 +32,7 @@ import type {
 } from '../types'
 import { patch, restWith, signInToken } from './supabase'
 
-const DEMO_MERCHANT_ID = 1
+export const DEMO_MERCHANT_ID = 1
 const DEMO_MERCHANT_USER_ID = 2
 const DEMO_CUSTOMER_USER_ID = 1
 
@@ -49,7 +49,8 @@ export function refToken(): Promise<string> {
   return refSession
 }
 let merchantSession: Promise<string> | null = null
-function merchantToken(): Promise<string> {
+/** Sesi akun merchant demo — dipakai modul yang menulis baris milik merchant (RLS owner). */
+export function merchantToken(): Promise<string> {
   if (!merchantSession) merchantSession = signInToken(MERCHANT_EMAIL, MERCHANT_PASSWORD)
   return merchantSession
 }

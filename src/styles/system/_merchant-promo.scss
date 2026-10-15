@@ -1,0 +1,60 @@
+/* ── Merchant · Promo & diskon (halaman /merchant/promos) ─────────────────── */
+
+.merchant-promo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.merchant-promo-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.merchant-promo-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.merchant-promo-code {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+/* Status diturunkan dari jendela tanggal + kuota, bukan kolom DB. */
+.merchant-promo-badge {
+  flex: none;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  white-space: nowrap;
+
+  &.is-active {
+    color: var(--success-ink);
+    border-color: var(--success);
+  }
+
+  &.is-scheduled {
+    color: var(--warning-ink);
+    border-color: var(--warning);
+  }
+}
+
+.merchant-promo-delete {
+  align-self: flex-start;
+  min-height: var(--touch-min);
+  color: var(--danger-ink);
+}

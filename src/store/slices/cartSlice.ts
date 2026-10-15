@@ -19,6 +19,12 @@ interface CartState {
   selectedPaymentId: string | null
   /** Nama file bukti transfer; wajib ada sebelum pesanan transfer dikirim. */
   transferProof: string | null
+  /**
+   * Promo terpasang di checkout: id BE + kode + nominal diskon (IDR). Dibagi ke
+   * Checkout (tampil) dan PaymentAmount (dikirim sebagai `orders.promo_id` /
+   * `orders.promo_amount_jod`). `null` = tak ada kode terpasang.
+   */
+  promo: { id: number; code: string; discountIdr: number } | null
   /** Tahap berjalan; halaman pelacakan menyesuaikan tampilannya dari sini. */
   orderStage: OrderStage
   /**
@@ -58,6 +64,7 @@ const initialState: CartState = {
   selectedAddressId: 'tower-a',
   selectedPaymentId: 'wallet',
   transferProof: null,
+  promo: null,
   // Order demo dimulai dari tahap yang sama dengan yang dilihat merchant
   // ('baru' di `merchantOrders` SA-1041) dan kurir (checkpoint 'masuk', belum diambil).
   orderStage: 'baru',
@@ -147,6 +154,10 @@ const cartSlice = createSlice({
     },
     setTransferProof(state, action: PayloadAction<string | null>) {
       state.transferProof = action.payload
+    },
+    /** Pasang / lepas promo checkout (`null` = tak ada kode terpasang). */
+    setPromo(state, action: PayloadAction<{ id: number; code: string; discountIdr: number } | null>) {
+      state.promo = action.payload
     },
     /**
      * Ganti seluruh daftar alamat (hasil sinkron BE). Pilihan yang menunjuk
@@ -275,6 +286,7 @@ export const {
   setAddress,
   setPayment,
   setTransferProof,
+  setPromo,
   addAddress,
   setAddresses,
   updateAddress,

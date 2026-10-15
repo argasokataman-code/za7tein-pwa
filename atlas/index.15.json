@@ -1631,6 +1631,313 @@
           "raw": "TASK-99100:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-99151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:19:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts (+1/-1) — edit via tool: ts: export const DEMO_MERCHANT_ID = 1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts"
+    },
+    {
+      "id": "TASK-99152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:19:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/promos.ts (+168) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/promos.ts"
+    },
+    {
+      "id": "TASK-99153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:19:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+8/-2) — edit via tool: ts: /** Nama file bukti transfer; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-99154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:20:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+8/-4) — edit via tool: ts: paymentMethod: PaymentMethod['id']",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-99155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:20:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx (+8/-7) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/PaymentAmount.tsx"
+    },
+    {
+      "id": "TASK-99156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:20:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+7/-3) — edit via tool: tsx: import { Minus, Plus, ShoppingBag } ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-99157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:21:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+56/-2) — edit via tool: tsx: <div className=\"order-summary-secti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-99158",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:21:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx (+394) — write via tool: tsx: import { Info, Plus, TicketPer",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx"
+    },
+    {
+      "id": "TASK-99159",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:21:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+2/-1) — edit via tool: tsx: import MerchantRebate from './pages/Merc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-99160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:22:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+2/-1) — edit via tool: tsx: ['/menu', MerchantMenu],",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-99161",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:22:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss (+61) — write via tool: /* ── Merchant · Promo & d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss"
+    },
+    {
+      "id": "TASK-99162",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:22:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/merchant-reviews\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-99163",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:23:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+1/-1) — edit via tool: | `orders.promo_id`, `orders.promo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
+    },
+    {
+      "id": "TASK-99164",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:23:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/promos/be-contract.md (+138) — write via tool: # Kontrak BE — Promo & Di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/promos/be-contract.md"
+    },
+    {
+      "id": "TASK-99165",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:24:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+15/-2) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-99200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:28:28",
+      "tags": [
+        "promo",
+        "merchant",
+        "be",
+        "rls",
+        "checkout"
+      ],
+      "summary": "Promo merchant: marketing.merchant_id + RLS marketing_merchant + RPC validate_promo + trigger used_count; FE /merchant/promos + checkout car",
+      "conn": [
+        {
+          "id": "TASK-99150",
+          "type": "relates",
+          "raw": "TASK-99150:relates"
+        }
+      ]
     }
   ]
 }

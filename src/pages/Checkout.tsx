@@ -7,7 +7,11 @@
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
 import { Minus, Plus, ShoppingBag } from 'lucide-react'
 
+import { useState } from 'react'
+
 import { useNavigate, Link } from 'react-router-dom'
+
+import { validatePromo } from '../api/promos'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
@@ -29,7 +33,7 @@ import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
-import { selectSubtotal, updateQuantity } from '../store/slices/cartSlice'
+import { selectSubtotal, setPromo, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function Checkout() {
@@ -50,8 +54,40 @@ export default function Checkout() {
   const zone = address ? zoneFor(address) : null
   const deliverable = address ? isDeliverable(address) : false
   const fee = address ? deliveryFeeFor(address) : 0
+  // Promo terpasang (`cart.promo`) memotong total di sini dan di PaymentAmount —
+  // satu sumber, jadi dua layar tidak bisa menampilkan angka berbeda.
+  const promo = useAppSelector((s) => s.cart.promo)
+  const promoDiscountIdr = promo?.discountIdr ?? 0
   // Fee customer flat 0,22 JOD (R-FEE-01) — selalu ikut, berapa pun metodenya.
-  const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
+  const total = Math.max(0, subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR - promoDiscountIdr)
+
+  // Validasi kode dikerjakan server (`validate_promo`): jendela, kuota, dan
+  // kepemilikan merchant diperiksa di sana, bukan di klien.
+  const [promoCode, setPromoCode] = useState('')
+  const [promoBusy, setPromoBusy] = useState(false)
+  const [promoMsg, setPromoMsg] = useState<{ ok: boolean; text: string } | null>(null)
+  const applyPromo = async () => {
+    const code = promoCode.trim()
+    if (!code) return
+    setPromoBusy(true)
+    try {
+      const res = await validatePromo(code, subtotal)
+      if (res.valid && res.promoId) {
+        dispatch(
+          setPromo({ id: res.promoId, code: res.code ?? code, discountIdr: res.discountIdr }),
+        )
+        setPromoMsg({ ok: true, text: res.message })
+        setPromoCode('')
+      } else {
+        dispatch(setPromo(null))
+        setPromoMsg({ ok: false, text: res.message })
+      }
+    } catch {
+      setPromoMsg({ ok: false, text: 'Gagal memeriksa kode — coba lagi.' })
+    } finally {
+      setPromoBusy(false)
+    }
+  }
   // Kill switch platform: maintenance menutup semua order baru, jadi gate-nya
   // dipasang di sini juga, bukan hanya di layar SA.
   const switches = useAppSelector((s) => s.superAdmin.switches)
@@ -230,6 +266,56 @@ export default function Checkout() {
                 )}
 
                 <div className="order-summary-section s7-parallax--card">
+                  <h2 className="section-title s7-parallax--title">Kode promo</h2>
+                  {promo ? (
+                    <div className="summary-item">
+                      <span>
+                        <strong>{promo.code}</strong> terpasang
+                      </span>
+                      <button
+                        type="button"
+                        className="summary-change-link"
+                        onClick={() => {
+                          dispatch(setPromo(null))
+                          setPromoMsg(null)
+                        }}
+                      >
+                        Lepas
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="form-group">
+                        <label htmlFor="checkout-promo" className="form-label">
+                          Kode promo
+                        </label>
+                        <input
+                          id="checkout-promo"
+                          className="form-control"
+                          value={promoCode}
+                          onChange={(e) => setPromoCode(e.target.value)}
+                          placeholder="mis. HEMAT10"
+                          autoComplete="off"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        disabled={promoBusy || promoCode.trim().length === 0}
+                        onClick={() => void applyPromo()}
+                      >
+                        {promoBusy ? 'Memeriksa…' : 'Terapkan'}
+                      </button>
+                    </>
+                  )}
+                  {promoMsg ? (
+                    <p className={promoMsg.ok ? 'summary-info-note' : 'error-message'} role="status">
+                      {promoMsg.text}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div className="order-summary-section s7-parallax--card">
                   <h2 className="section-title s7-parallax--title">Ringkasan pesanan</h2>
                   <div className="summary-item">
                     <span>Subtotal</span>
@@ -267,6 +353,12 @@ export default function Checkout() {
                     Dua baris pajak di atas info-only dan belum masuk total. Tarif serta
                     kewajiban setornya belum final (menunggu konsultan pajak, OQ-17/18).
                   </p>
+                  {promo ? (
+                    <div className="summary-item">
+                      <span>Promo {promo.code}</span>
+                      <span>−{moneyPlain(promo.discountIdr)}</span>
+                    </div>
+                  ) : null}
                   <div className="summary-divider" />
                   <div className="summary-total">
                     <span>Total Bayar</span>

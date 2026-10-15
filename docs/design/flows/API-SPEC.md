@@ -174,7 +174,7 @@ phone_verifications (*)  -- ADA tapi kosong
 
 | kolom | seharusnya menunjuk | masalah |
 |---|---|---|
-| `orders.promo_id`, `orders.promo_amount_jod` | tabel promo/kupon | **tak ada tabel promo**; promo belum ada di flow mana pun. BE putuskan: buat tabel atau buang kolomnya (`UNRESOLVED`). |
+| `orders.promo_id`, `orders.promo_amount_jod` | tabel promo/kupon | **tabel `marketing` ada** (`id,type,value,code,active_from,active_to,max_uses,used_count,merchant_id`). `merchant_id` = promo milik satu merchant, `null` = promo platform. Validasi lewat RPC `validate_promo`. Sisa terbuka: scope produk (MARK-1) dan batas per-pelanggan. |
 | `orders.batch_id` | `batches` | tabel ada, kosong; `batches` ada di trace `C-17`. |
 | `orders.otp`, `orders.otp_verified` | kripto OTP | **predictable** (`1000 + 7*id`) & **terbaca kurir/merchant**; lihat §5.5.1 |
 | `notifications.order_id` (tidak ada) | tautan ke order | notifikasi **tak bisa** deep-link ke order; lihat §5.7 butir G3. |
@@ -289,7 +289,7 @@ Sumber: `roles.permissions` (nyata) + batas peran `DEC-2003` (CS menangani, SA m
 | G12 | **Auth level-1.** `phone_verifications` ada; tanpa OTP WA (validasi E.164), fallback `wa.me` | f21 | §5.1 |
 | G13 | **`notifications.order_id`** (atau `ref`) supaya tap notifikasi bisa membuka order | f11 | §2.4, §5.7 |
 | G14 | **`order_status_history`** (audit transisi status, event `order_status_changed`) | f18 | §2.4 |
-| G15 | **Tabel promo** atau buang `orders.promo_id`/`promo_amount_jod` | (tidak ada di kontrak) | §2.4 |
+| G15 | **Tabel promo** — **selesai (BE)**: tabel `marketing` (promo platform + milik merchant via `merchant_id`, RLS `marketing_merchant`) + RPC `validate_promo`. FE: halaman merchant `/promos` + input kode di checkout. Sisa: scope produk `MARK-1` (PRD belum memutuskan) | f1 (checkout) | §2.4, `docs/integration/promos/be-contract.md` |
 
 ### Target RLS per tabel (wajib)
 
