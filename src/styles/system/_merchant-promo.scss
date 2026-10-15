@@ -15,6 +15,45 @@
   gap: var(--space-2);
 }
 
+/* Kartu program = isian premium penuh: warna permukaan = jenis program, teks
+   putih, terangkat `--shadow-card` (permintaan pemilik 2026-10-15). Chip jenis
+   dan badge jadi permukaan putih/translucent supaya tetap terbaca di atas warna
+   pekat, bukan tenggelam. */
+.merchant-promo-item.tone-fill {
+  box-shadow: var(--shadow-card);
+}
+
+.merchant-promo-item.tone-fill .merchant-promo-kind .tone-chip {
+  background: var(--surface);
+  border-color: transparent;
+  color: var(--navy);
+}
+
+.merchant-promo-item.tone-fill .merchant-badge {
+  background: color-mix(in srgb, var(--on-navy) 14%, transparent);
+  color: var(--on-navy);
+}
+
+/* Baris sakelar di kartu pekat: label putih, bukan oranye merek. */
+.merchant-promo-item.tone-fill .merchant-row {
+  color: var(--on-navy);
+}
+
+/* Sakelar: trek oranye merek tenggelam di permukaan pekat (oranye di atas
+   oranye). Di kartu pekat trek jadi putih/translucent dan tombolnya navy,
+   supaya terbaca di warna apa pun. */
+.merchant-promo-item.tone-fill .toggle-slider {
+  background: color-mix(in srgb, var(--on-navy) 26%, transparent);
+}
+
+.merchant-promo-item.tone-fill .toggle-slider::before {
+  background: var(--navy);
+}
+
+.merchant-promo-item.tone-fill .toggle-input:checked + .toggle-slider {
+  background: var(--surface);
+}
+
 .merchant-promo-head {
   display: flex;
   align-items: flex-start;

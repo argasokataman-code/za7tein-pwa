@@ -290,7 +290,10 @@ export default function MerchantPromos() {
                 const summary = programSummary(program, rule, reward)
                 const KindIcon = PROGRAM_ICON[program.type]
                 return (
-                  <li key={program.id} className="merchant-card merchant-promo-item">
+                  <li
+                    key={program.id}
+                    className={`merchant-card merchant-promo-item tone-${PROGRAM_TONE[program.type]} tone-fill`}
+                  >
                     <div className="merchant-promo-head">
                       <div>
                         {/* Aksen jenis: chip bernada, bukan latar penuh — permukaan

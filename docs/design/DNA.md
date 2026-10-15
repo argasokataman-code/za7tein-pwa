@@ -52,15 +52,22 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
   (`npm run scan -- --update-design-debt` setelah utang benar-benar turun). Variasi warna kartu
   memakai **peran token yang sudah ada** — status soft/ink, `--orange-soft`, `--navy` — bukan
   warna baru.
-- **Nada kartu `.tone-*`** (`system/_tones.scss`): `tone-brand` · `tone-info` · `tone-success` ·
-  `tone-warning` · `tone-danger` · `tone-navy` **menyediakan warna** lewat tiga variabel
-  (`--tone-soft` / `--tone-ink` / `--tone-line`); komponen memutuskan seberapa banyak dipakai.
-  Default = **aksen chip** (`.tone-chip`) di atas permukaan kartu DNA (`--surface` + `--border-strong`):
-  warna **menandai jenis**, tidak membanjiri bidang. Kartu pastel pucat selebar kartu **ditolak**
-  (terbaca murah dan bukan bahasa app ini, revisi 2026-10-15). Latar penuh (`.tone-fill`) hanya
-  kalau **kartu itu sendiri adalah status** (kuota, sakelar menyala); teks di dalamnya mewarisi nada
-  supaya kontras ≥ AA. Pemetaan kategori → nada hidup di **data** (`PROGRAM_TONE`, `STATUS_TONE`),
-  CSS hanya menyimpan nada.
+- **Nada kartu `.tone-*`** (`system/_tones.scss`) **menyediakan warna** lewat variabel; komponen
+  memutuskan seberapa banyak dipakai:
+  - **Aksen** (`.tone-chip`): chip kecil berwarna di atas permukaan kartu DNA (`--surface` +
+    `--border-strong`) — untuk jenis/arti yang cukup ditandai, bukan diisi.
+  - **Isian premium penuh** (`.tone-fill`): permukaan pekat berteks putih, warna = jenis kartu
+    (kartu program marketing, kartu kuota). Pekatnya **diturunkan dari token peran** — dicampur ke
+    arah `--navy` — jadi tidak ada warna mentah baru, dan tiap isian **diukur lolos AA** dengan
+    `--on-navy` (4,9–15,7:1). Di kartu pekat, chip/badge jadi permukaan putih/translucent dan sakelar
+    memakai trek putih + tombol navy supaya tidak tenggelam.
+  Kartu isian premium terangkat `--shadow-card` (lihat di bawah). Pemetaan kategori → nada hidup di
+  **data** (`PROGRAM_TONE`, `STATUS_TONE`), CSS hanya menyimpan warna.
+- **`.merchant-card` itu kelas kartu BERSAMA** (konsol + daftar toko customer). Gaya interaktif daftar
+  toko (hover/active/logo-zoom) **wajib** menempel di `.merchant-store-card`, bukan `.merchant-card` —
+  dulu bocor: kartu konsol ikut `display:flex` baris dan `:hover`, dan ditambal per-halaman
+  (`.merchant-page .merchant-card { flex-direction: column }`, audit 011) alih-alih di akarnya.
+  Akar diperbaiki 2026-10-15: gaya storefront pindah ke kelasnya sendiri.
 - **Kartu kuota bertema jenis** (`/merchant/subscription`): **order** = `--orange-soft` (kanal
   merek), **COD** = `--navy` (permukaan premium) supaya dua jenis tidak tampil sama, dan keduanya
   terangkat dengan `--shadow-card` — keputusan pemilik 2026-10-15. Ini **pengecualian tercatat** dari
@@ -80,7 +87,7 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
   tanda tangan — sekarang `badge-pop` bilah bawah (diterima sebagai **CL-02**, alasan: badge butuh
   "pasang" yang terbaca, bukan memantul). Transisi lain memakai `--ease-out`/`--ease-decelerate`.
 
-**Satu gradient tercatat, keputusan 2026-10-12:** banner promo beranda (`.home-promo`) memakai gradient biru `--promo-from` → `--promo-to` (`#175273` → `#1D648B`), warna diambil apa adanya dari prototype EDISI 02. Dipakai HANYA di komponen itu; aturan "tanpa gradient" tetap berlaku untuk elemen lain.
+**Dua gradient tercatat.** (1) Banner promo beranda (`.home-promo`) memakai gradient biru `--promo-from` → `--promo-to` (`#175273` → `#1D648B`), warna diambil apa adanya dari prototype EDISI 02 — dipakai HANYA di komponen itu. (2) **Isian premium** (`.tone-fill`, kartu program marketing + kartu kuota, keputusan pemilik 2026-10-15): wash putih 12–16% dari tepi atas turun ke `transparent` sebagai **sorot material** di atas warna pekat, bukan hiasan — tanpa itu permukaan pekat terbaca seperti blok stiker. Selain kedua ini, aturan "tanpa gradient" tetap berlaku.
 
 **Pengecualian sadar, keputusan pemilik 2026-09-24 (diperbarui 2026-10-12):** teks putih (`--on-brand`) di atas `--sa7tein-orange` (`#E44220`) hanya mencapai kontras **4.12:1**, di bawah ambang WCAG AA 4.5:1 untuk teks normal. Ini dipertahankan karena identitas merek, bukan cacat yang menunggu diperbaiki. Pasangan yang lolos AA tetap dipakai untuk teks oranye di latar terang (`--orange-ink`, 5.99:1). Tombol berlabel 14px memakai `--orange-ink` sebagai latar bila target AA normal diwajibkan.
 

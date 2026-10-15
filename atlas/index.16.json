@@ -2700,6 +2700,424 @@
           "raw": "DEC-88092:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101947",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:46:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx (+1/-1) — edit via tool: tsx: className={`merchant-car",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx"
+    },
+    {
+      "id": "TASK-101948",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:47:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss (+56/-50) — edit via tool: /* ── Nada kartu ───────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss"
+    },
+    {
+      "id": "TASK-101949",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:47:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx (+4/-1) — edit via tool: tsx: <li",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx"
+    },
+    {
+      "id": "TASK-101950",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:47:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss (+30/-6) — edit via tool: /* Kartu program = isian",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss"
+    },
+    {
+      "id": "TASK-101951",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:47:53",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -3; npm run lint 2>&1 | rtk grep -cE",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101952",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:48:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss (+19/-4) — edit via tool: /* Baris sakelar di kart",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss"
+    },
+    {
+      "id": "TASK-101953",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:49:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -2; npm run build 2>&1 | tail -1; T=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101954",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:50:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+1/-1) — edit via tool: --shadow-card: 0 6px 18px rgba(23, 36, 5",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-101955",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:50:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+16/-9) — edit via tool: - **Nada kartu `.tone-*`** (`system/_ton",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-101956",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:51:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+25/-14) — edit via tool: tsx: <strong>Nada kartu (<code cla",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101957",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:51:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+2/-1) — edit via tool: tsx: Gate ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-101958",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:51:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && echo \"== ada box-shadow:none? ==\"; grep -rn \"box-shadow: *none\\|box-shadow:none\" sr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101959",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:52:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+4/-4) — edit via tool: /* Kartu bertema/terangkat (kuota, progr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-101960",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:53:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss (+19/-13) — edit via tool: /* Isian premium penuh: permukaa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss"
+    },
+    {
+      "id": "TASK-101961",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:53:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+17/-13) — edit via tool: .merchant-quota-card--order",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-101962",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:53:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -2; npm run build 2>&1 | tail -1; ec",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101963",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:54:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+1/-1) — edit via tool: **Dua gradient tercatat.** (1) Banner pr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-101964",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:54:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -3; npm run build 2>&1 | tail -1; T=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101965",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:55:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss (+8/-4) — edit via tool: border-color: var(--tone-fill);",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss"
+    },
+    {
+      "id": "TASK-101966",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:55:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+5/-3) — edit via tool: /* Kartu bertema diangkat dar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-101967",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:56:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -2; npm run lint 2>&1 | rtk grep -cE",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88094",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "21:57:41",
+      "tags": [
+        "design",
+        "systems"
+      ],
+      "summary": "Gaya interaktif storefront pindah ke .merchant-store-card (akar); isian premium .tone-fill pekat+gradasi+sorot+shadow 2 lapis",
+      "conn": [
+        {
+          "id": "DEC-88093",
+          "type": "relates",
+          "raw": "DEC-88093:relates"
+        }
+      ]
     }
   ]
 }

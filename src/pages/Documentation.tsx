@@ -337,13 +337,24 @@ export default function Documentation() {
                 <code className="doc-inline">tone-success</code>,{' '}
                 <code className="doc-inline">tone-warning</code>,{' '}
                 <code className="doc-inline">tone-danger</code>,{' '}
-                <code className="doc-inline">tone-navy</code> — yang hanya <em>menyediakan warna</em>{' '}
-                dari token peran. Default-nya aksen chip (<code className="doc-inline">.tone-chip</code>):
-                kartu program marketing tetap permukaan putih, dan warnanya menandai jenis program
-                (<code className="doc-inline">PROGRAM_TONE</code>). Latar penuh{' '}
-                (<code className="doc-inline">.tone-fill</code>) hanya untuk kartu yang memang statusnya
-                sendiri, seperti kartu kuota dan sakelar "terima order tanpa kuota" saat menyala. Kartu
-                pastel pucat selebar bidang tidak dipakai: terbaca murah, bukan bahasa app ini.
+                <code className="doc-inline">tone-navy</code> — yang <em>menyediakan warna</em> dari token
+                peran. Aksen kecil dipakai lewat chip (<code className="doc-inline">.tone-chip</code>);
+                kartu yang warnanya = jenis diisi penuh lewat{' '}
+                <code className="doc-inline">.tone-fill</code>: permukaan pekat berteks putih (kartu
+                program marketing), dengan pekatnya diturunkan dari token peran dicampur ke arah{' '}
+                <code className="doc-inline">--navy</code> sehingga tidak ada warna mentah baru, dan tiap
+                isian lolos AA (4,9–15,7:1). Kartu terisi itu terangkat{' '}
+                <code className="doc-inline">--shadow-card</code>, chip/badge-nya jadi permukaan putih,
+                dan sakelarnya memakai trek putih + tombol navy supaya tidak tenggelam di warna pekat.
+              </li>
+              <li>
+                <strong>Kelas kartu bersama tidak boleh diberi gaya interaktif.</strong>{' '}
+                <code className="doc-inline">.merchant-card</code> dipakai konsol merchant <em>dan</em>{' '}
+                daftar toko customer. Gaya daftar toko (hover, active, zoom logo) karena itu menempel di{' '}
+                <code className="doc-inline">.merchant-store-card</code>. Dulu ia menempel di{' '}
+                <code className="doc-inline">.merchant-card</code>, sehingga kartu konsol ikut{' '}
+                <code className="doc-inline">display:flex</code> baris dan <code className="doc-inline">:hover</code>{' '}
+                (kartu mobile yang berkedip saat disentuh mouse). Akarnya dibereskan 2026-10-15.
               </li>
               <li>
                 <strong>Kartu kuota bertema jenis.</strong> Di{' '}

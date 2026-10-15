@@ -28,7 +28,7 @@
   font-size: var(--text-sm);
 }
 
-.merchant-card {
+.merchant-store-card {
   @include card-surface;
   display: flex;
   align-items: center;
@@ -46,17 +46,17 @@
     background var(--motion-fast) var(--ease-out);
 }
 
-.merchant-card:hover {
+.merchant-store-card:hover {
   border-color: var(--border-strong);
   box-shadow: var(--shadow-md);
 }
 
-.merchant-card:active {
+.merchant-store-card:active {
   transform: scale(0.99);
 }
 
 // Fokus keyboard terlihat, kontrak yang sama dengan kontrol lain (`s-btn-shape`).
-.merchant-card:focus-visible {
+.merchant-store-card:focus-visible {
   outline: 2px solid var(--sa7tein-orange);
   outline-offset: 2px;
 }
@@ -79,7 +79,7 @@
   transition: transform var(--motion-standard) var(--ease-out);
 }
 
-.merchant-card:hover .merchant-card__logo img {
+.merchant-store-card:hover .merchant-card__logo img {
   transform: scale(1.05);
 }
 
@@ -123,26 +123,26 @@
 }
 
 /* Toko tutup / di luar jangkauan (PRD §6): kartu tetap tampil, tak bisa dipilih. */
-.merchant-card--disabled {
+.merchant-store-card--disabled {
   cursor: not-allowed;
   background: var(--bg-warm);
 }
 
-.merchant-card--disabled:hover {
+.merchant-store-card--disabled:hover {
   border-color: var(--border);
   box-shadow: none;
 }
 
-.merchant-card--disabled:hover .merchant-card__logo img {
+.merchant-store-card--disabled:hover .merchant-card__logo img {
   transform: none;
 }
 
-.merchant-card--disabled:hover .merchant-card__chevron {
+.merchant-store-card--disabled:hover .merchant-card__chevron {
   transform: none;
   color: var(--text-disabled);
 }
 
-.merchant-card--disabled .merchant-card__logo {
+.merchant-store-card--disabled .merchant-card__logo {
   opacity: 0.6;
 }
 
@@ -265,7 +265,7 @@
     transform var(--motion-fast) var(--ease-out);
 }
 
-.merchant-card:hover .merchant-card__chevron {
+.merchant-store-card:hover .merchant-card__chevron {
   transform: translateX(2px);
   color: var(--text-primary);
 }

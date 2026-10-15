@@ -1,13 +1,13 @@
 /* ── Nada kartu ─────────────────────────────────────────────────────────────
-   Satu kelas nada hanya **menyediakan warna** (tiga variabel dari token peran);
-   komponen yang memutuskan seberapa banyak dipakai:
+   Satu kelas nada menyediakan warna; komponen memutuskan seberapa banyak dipakai:
 
-   - **Aksen** (`.tone-chip`): chip kecil berwarna untuk jenis/arti. Ini
-     default-nya. Permukaan kartu tetap `--surface` + `--border-strong` — bahasa
-     kartu DNA. Warna menandai, bukan membanjiri; pastel pucat selebar kartu
-     terbaca murah dan bukan gaya app ini.
-   - **Latar penuh** (`.tone-fill`): hanya kalau kartu ITU SENDIRI adalah status
-     (kuota rendah/habis, sakelar menyala) — warna = isi kartu, bukan hiasan.
+   - **Aksen** (`.tone-chip`): chip kecil berwarna untuk jenis/arti di atas
+     permukaan kartu DNA (`--surface` + `--border-strong`).
+   - **Isian lembut** (`.tone-fill`) dan **isian premium pekat** (`.tone-fill`
+     + nada pekat) untuk kartu yang warnanya menyampaikan jenis/status.
+     Isian pekat diturunkan dari token peran — dicampur ke arah `--navy` —
+     sehingga **tidak ada warna mentah baru**, dan tiap isian lolos AA dengan
+     teks putih (`--on-navy`).
 
    "Satu warna satu peran" (DNA): pemetaan kategori → nada hidup di data
    (`PROGRAM_TONE`, `STATUS_TONE`), bukan di CSS. Nilai mentah dilarang di
@@ -17,36 +17,42 @@
   --tone-soft: var(--orange-soft);
   --tone-ink: var(--orange-soft-ink);
   --tone-line: var(--orange-border);
+  --tone-fill: color-mix(in srgb, var(--sa7tein-orange) 70%, var(--navy));
 }
 
 .tone-info {
   --tone-soft: var(--info-soft);
   --tone-ink: var(--info-ink);
   --tone-line: var(--info);
+  --tone-fill: color-mix(in srgb, var(--info) 55%, var(--navy));
 }
 
 .tone-success {
   --tone-soft: var(--green-soft);
   --tone-ink: var(--success-ink);
   --tone-line: var(--success);
+  --tone-fill: color-mix(in srgb, var(--success) 55%, var(--navy));
 }
 
 .tone-warning {
   --tone-soft: var(--warning-soft);
   --tone-ink: var(--warning-ink);
   --tone-line: var(--warning);
+  --tone-fill: color-mix(in srgb, var(--warning) 55%, var(--navy));
 }
 
 .tone-danger {
   --tone-soft: var(--red-soft);
   --tone-ink: var(--danger-ink);
   --tone-line: var(--danger);
+  --tone-fill: color-mix(in srgb, var(--danger) 55%, var(--navy));
 }
 
 .tone-navy {
   --tone-soft: var(--navy);
   --tone-ink: var(--on-navy);
   --tone-line: var(--navy);
+  --tone-fill: var(--navy);
 }
 
 /* Chip aksen: menandai jenis tanpa mengubah permukaan kartu. Pembungkusnya
@@ -70,13 +76,21 @@
   flex-shrink: 0;
 }
 
-/* Latar penuh: kartu itu sendiri adalah status. Teks di dalamnya mewarisi
-   warna nada supaya kontras tetap ≥ AA di atas latar berwarna; hierarki tetap
-   dari ukuran/berat, bukan dari warna kedua. */
+/* Isian premium penuh: permukaan pekat dengan KEDALAMAN — sorot tipis di tepi
+   atas (kesan material) + gradasi lembut ke bawah, lalu bayangan kartu. Blok
+   warna rata tanpa ini terbaca seperti stiker, bukan permukaan premium
+   (permintaan pemilik 2026-10-15; gradasi dicatat sebagai pengecualian DNA). */
 .tone-fill {
-  background: var(--tone-soft);
-  border-color: var(--tone-line);
-  color: var(--tone-ink);
+  background:
+    linear-gradient(168deg, color-mix(in srgb, var(--on-navy) 12%, transparent), transparent 52%),
+    var(--tone-fill);
+  border-color: var(--tone-fill);
+  color: var(--on-navy);
+  /* Bayangan kartu + garis sorot atas (inset) — tepi atas yang menangkap cahaya
+     adalah isyarat kedalaman yang paling terbaca pada permukaan pekat. */
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 color-mix(in srgb, var(--on-navy) 32%, transparent);
 }
 
 .tone-fill .merchant-card-title,

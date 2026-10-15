@@ -44,7 +44,7 @@ export function MerchantCard({
   return (
     <button
       type="button"
-      className={`merchant-card ${className}${disabled ? ' merchant-card--disabled' : ''}`.trim()}
+      className={`merchant-card merchant-store-card ${className}${disabled ? ' merchant-store-card--disabled' : ''}`.trim()}
       style={style}
       disabled={disabled}
       aria-label={`Buka ${store.name}, ${reason}`}

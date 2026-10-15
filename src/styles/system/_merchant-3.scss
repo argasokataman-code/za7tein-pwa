@@ -171,23 +171,29 @@
   gap: var(--space-2);
   padding: var(--space-4);
   margin-bottom: var(--space-3);
-  /* Kartu bertema diangkat dari latar (permintaan pemilik 2026-10-15).
-     `--shadow-sm` (6%) terukur terlalu halus dan tak terbaca; pakai `--shadow-card`. */
-  box-shadow: var(--shadow-card);
+  /* Kartu bertema diangkat dari latar (permintaan pemilik 2026-10-15): bayangan
+     dua lapis + garis sorot atas supaya terbaca, bukan blok rata. */
+  box-shadow:
+    var(--shadow-card),
+    inset 0 1px 0 color-mix(in srgb, var(--on-navy) 32%, transparent);
 }
 
 /* Tema = JENIS kanal (bukan status): order = merek, COD = navy premium. */
 .merchant-quota-card--order {
   --quota-ink: var(--orange-soft-ink);
   --quota-ink-soft: var(--orange-soft-ink);
-  background: var(--orange-soft);
+  background:
+    linear-gradient(168deg, color-mix(in srgb, var(--on-navy) 12%, transparent), transparent 52%),
+    var(--orange-soft);
   border-color: var(--orange-border);
 }
 
 .merchant-quota-card--cod {
   --quota-ink: var(--on-navy);
   --quota-ink-soft: color-mix(in srgb, var(--on-navy) 82%, var(--navy));
-  background: var(--navy);
+  background:
+    linear-gradient(168deg, color-mix(in srgb, var(--on-navy) 16%, transparent), transparent 52%),
+    var(--navy);
   border-color: var(--navy);
 }
 
