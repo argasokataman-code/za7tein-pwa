@@ -178,20 +178,7 @@ export default function MerchantPromos() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader
-          eyebrow="Marketing"
-          title="Promo & diskon"
-          back="/"
-          action={
-            <button
-              type="button"
-              className="merchant-btn-ghost"
-              onClick={() => setSheetOpen(true)}
-            >
-              <Plus size={16} strokeWidth={1.75} aria-hidden="true" /> Buat
-            </button>
-          }
-        />
+        <MerchantPageHeader eyebrow="Marketing" title="Promo & diskon" back="/" />
 
         <section className="merchant-card">
           <div className="merchant-row">
@@ -479,7 +466,22 @@ export default function MerchantPromos() {
           onConfirm={() => void confirmDelete()}
           onClose={() => setDeleteTarget(null)}
         />
+
+        {/* Ruang ekstra di ujung daftar supaya baris terakhir tidak tertutup FAB. */}
+        <div className="page-fab-spacer" aria-hidden="true" />
       </main>
+
+      {/* "Buat" pindah dari pojok kanan atas header ke zona jempol: pojok atas
+          adalah tempat mata, bukan tempat jempol (senior-fe mobile G-02/G-03). */}
+      <button
+        type="button"
+        className="page-fab"
+        aria-label="Buat kode promo"
+        onClick={() => setSheetOpen(true)}
+      >
+        <Plus size={22} strokeWidth={1.75} aria-hidden="true" />
+      </button>
+
       <MerchantBottomNav />
     </div>
   )

@@ -66,6 +66,7 @@
 @use "./system/platform-notice";
 @use "./system/post-order";
 @use "./system/checkout";
+@use "./system/actions";
 // Terakhir: menyatukan ukuran/bobot judul layar dari 16 kelas lama. Harus
 // setelah partial yang mendefinisikan kelas-kelas itu supaya menang pada
 // kekhususan yang sama (0-1-0).

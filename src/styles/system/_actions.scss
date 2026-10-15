@@ -1,0 +1,37 @@
+/* ── Aksi halaman di zona jempol ───────────────────────────────────────────────
+   Aksi utama halaman hidup di jangkauan jempol (kanan bawah, di atas bilah
+   navigasi), bukan di pojok kanan atas header: pojok atas adalah tempat mata,
+   bukan tempat jempol (senior-fe mobile G-02/G-03). Slot aksi di `PageHeader`
+   sudah dihapus supaya pola itu tidak kembali.
+
+   `position: fixed` mengikat elemen ke viewport, jadi tepinya dihitung dari
+   tepi kolom `--shell-max` yang ditengahkan — bukan dari tepi jendela
+   (AGENTS §5). `max()` memilih 20px di layar ponsel dan mengikuti tepi kolom di
+   jendela lebar, sehingga FAB-nya tidak pernah menyeberang keluar kolom. */
+.page-fab {
+  position: fixed;
+  z-index: 600;
+  right: max(var(--space-5), calc(50% - (var(--shell-max) / 2) + var(--space-5)));
+  bottom: calc(var(--nav-height) + var(--space-4) + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  box-shadow: var(--shadow-brand);
+  cursor: pointer;
+}
+
+.page-fab:hover {
+  background: var(--orange-deep);
+}
+
+/* Ruang cadangan di ujung daftar supaya baris terakhir tidak tertutup FAB;
+   tingginya = FAB 56px + jaraknya ke bilah bawah + sedikit udara. */
+.page-fab-spacer {
+  height: calc(88px + env(safe-area-inset-bottom, 0px));
+}

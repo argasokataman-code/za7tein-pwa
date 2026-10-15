@@ -339,6 +339,15 @@ export default function Documentation() {
                 membuat/mengubah program ditandai belum tersedia.
               </li>
               <li>
+                <strong>Aksi utama turun ke zona jempol, lonceng ke layar akar.</strong> Tombol
+                "Buat" tidak lagi di pojok kanan atas bar judul (pojok atas adalah tempat mata, bukan
+                tempat jempol): halaman promo memakai tombol melayang{' '}
+                <code className="doc-inline">.page-fab</code> di kanan bawah, di atas bilah
+                navigasi, dan slot aksi di <code className="doc-inline">PageHeader</code> dihapus
+                supaya pola lama tidak kembali. Lonceng notifikasi kini hanya di beranda akar peran
+                (beranda merchant/kurir sudah punya lonceng hero sendiri), bukan di 23 halaman anak.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
                 backend menandainya di muka: refund (§16.6) memakai flag{' '}
                 <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}

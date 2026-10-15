@@ -67,6 +67,7 @@ export default function AdminDashboard() {
           eyebrow="Panel admin · CS"
           title="Ringkasan"
           subtitle="Komposisi kewajiban, eksposur sengketa, dan arus buku besar platform."
+          bell
         />
 
         {/* Baris KPI: empat angka yang paling sering dipantau CS, dari state

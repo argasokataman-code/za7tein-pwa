@@ -159,7 +159,9 @@ max-width: var(--shell-max);
 margin-inline: auto;
 ```
 
-Elemen `fixed` diposisikan terhadap **viewport**, bukan induknya. Tanpa dua baris ini, bilahnya menyeberang seluruh jendela sementara kontennya terkunci di kolom 430px — pernah terjadi di ~24 bilah sekaligus.
+Elemen `fixed` diposisikan terhadap **viewport**, bukan induknya. Tanpa dua baris ini, bilahnya menyeberang seluruh jendela sementara kontennya terkunci di kolom 430px — pernah terjadi di ~24 bilah sekaligus. Untuk elemen yang menempel ke **tepi kanan** kolom (seperti `.page-fab`), gunakan `right: max(var(--space-5), calc(50% - (var(--shell-max) / 2) + var(--space-5)))`, bukan `right: 20px`.
+
+**Aksi utama halaman ada di zona jempol, bukan di header.** Tombol "Buat"/"Tambah" tidak ditaruh di pojok kanan atas bar judul: pojok atas adalah tempat mata, bukan tempat jempol. Pakai `.page-fab` (kanan bawah, di atas `--nav-height`, dibatasi kolom) atau bilah bawah. `PageHeader` sengaja **tidak punya slot `action`** — kehadirannya dulu mengundang pola yang salah. **Lonceng notifikasi hanya di layar akar peran**; halaman anak cukup tombol kembali + judul (selubung `*PageHeader` default `bell={false}`, hanya beranda CS yang menyalakannya). Aturan mobile-nya: `senior-fe` `G-02`/`G-03`.
 
 **Waspada spesifisitas.** Selector pembungkus di `_app.scss` bisa lebih kuat dari `.bottom-nav` (0-1-0). Kejadian nyata: `.home-screen-wrapper .bottom-nav` (0-2-0, di dalam `@media (min-width:768px)`) menang, bilah jadi `max-width: 1024px` dan menyeberang 297px di tiap sisi. Kalau `.bottom-nav`/bilah tetap melebar di layar lebar, **curigai aturan pembungkus di `_app.scss`, bukan tokennya**. Obatnya: tulis override dengan spesifisitas **setara atau lebih tinggi** di `_system.scss` (diimpor terakhir → menang pada kekhususan sama), dan set eksplisit `left: 0; right: 0; transform: none` supaya `left: 50% / translateX(-50%)` lama tidak ikut. Catatan lengkap: atlas `PF-147`.
 

@@ -26,8 +26,9 @@ FEEL 1 = tanpa haptic (PWA tidak punya jalur haptic yang konsisten).
 | Warna aksi | Brand `--sa7tein-orange`; teks oranye pada putih memakai `--orange-ink` | token dan kontras |
 | Radius | Kontainer maksimal 32px (UI v2); pill hanya untuk kontrol pill/badge | `--radius-*` |
 | Tipografi | `--font-sans`, skala `--text-xs` sampai `--text-2xl` | token, bukan angka baru |
-| Judul halaman | Dua jenis menurut markup: judul **header** (berbagi baris dengan kontrol 44px — tombol kembali atau tombol aksi) `--text-lg`/700; judul **hero** (barisnya tidak dibagi kontrol) `--text-2xl`/800. Tidak ada ukuran ketiga untuk peran yang setara | `system/_type.scss`; DOM |
-| Header halaman | Satu pola untuk semua role: judul + kontrol opsional (kembali atau aksi) + `eyebrow` opsional (`--text-xs`/700/uppercase), tinggi minimum `--nav-height`, latar `--bg-warm`, jarak tepi `--space-5`. Pola sama di dua role atau lebih memakai komponen bersama, bukan salinan kelas. Judulnya mengecil ke langkah header begitu ada kontrol di barisnya | source review; DOM |
+| Judul halaman | Dua jenis menurut markup: judul **header** (berbagi baris dengan tombol kembali 44px) `--text-lg`/700; judul **hero** (barisnya tidak dibagi kontrol) `--text-2xl`/800. Tidak ada ukuran ketiga untuk peran yang setara | `system/_type.scss`; DOM |
+| Header halaman | Satu pola untuk semua role: judul + tombol kembali opsional + `eyebrow` opsional (`--text-xs`/700/uppercase), tinggi minimum `--nav-height`, latar `--bg-warm`, jarak tepi `--space-5`. Pola sama di dua role atau lebih memakai komponen bersama, bukan salinan kelas. Judulnya mengecil ke langkah header begitu ada kontrol di barisnya. **Tidak ada slot aksi di kanan** (`PageHeader` sengaja tidak punya prop `action`), dan **lonceng hanya di layar akar peran** — selubung `*PageHeader` default `bell={false}`, hanya beranda CS yang menyalakannya | source review; DOM |
+| Aksi utama | Zona jempol: bilah bawah atau tombol melayang `.page-fab` (kanan bawah, di atas `--nav-height`, dibatasi kolom). Pojok kanan atas header bukan tempatnya | `system/_actions.scss`; DOM |
 | Spasi | `--space-1..8`; touch target minimal `--touch-min` | token; DOM |
 | Ikon | `lucide-react`, `strokeWidth={1.75}`, tanpa emoji | source review |
 | Motion | `--motion-*` dan `--ease-*`; hormati reduced motion | token; UI review |
