@@ -147,8 +147,14 @@
 .merchant-empty,
 .merchant-hint-inline {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: var(--text-secondary-strong);
   padding: var(--space-3) 0;
+}
+
+/* Baris sakelar = sasaran sentuh penuh, bukan switch 52×28 saja (audit 019 #1/#7).
+   `:has()` menjaga baris label/nilai lain tetap rapat. */
+.merchant-row:has(.toggle-wrap) {
+  min-height: 48px;
 }
 
 /* Tautan di tengah kalimat ("di halaman Order") tetap harus bisa ditekan,

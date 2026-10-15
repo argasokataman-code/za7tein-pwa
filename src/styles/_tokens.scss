@@ -20,6 +20,10 @@
 
   --text-primary: #172434;
   --text-secondary: #64748B;
+  /* Teks sekunder di atas permukaan berwarna (chip badge, keadaan kosong):
+     `--text-secondary` hanya 3,86:1 di `--border` dan 4,33:1 di `--bg-warm`,
+     gagal WCAG AA. Versi gelap ini lolos di keduanya (audit 019 #2/#3). */
+  --text-secondary-strong: #475569;
   // --text-disabled & --icon-decor: reserved, belum ada consumer. Dipakai saat
   // state kontrol nonaktif / ikon dekoratif dibangun (M2/M5).
   --text-disabled: #94A3B8;
@@ -140,7 +144,10 @@ html, body { font-family: var(--font-sans); }
 // Angka-angka ini menggantikan 33 nilai radius dan 40 ukuran huruf ad-hoc
 // yang diwarisi dari stylesheet hasil porting.
 :root {
-  /* Lantai huruf isi 16px (G-08, body ≥16pt di mobile) dan caption 12px.
+  /* Lantai huruf: isi/kalimat tidak di bawah 15px (G-08, body ≥15-16pt di
+     mobile), caption/meta 13px. `--text-sm` dinaikkan 13→15 dan `--text-xs`
+     12→13 oleh audit 019 #4: keduanya dulu dipakai untuk kalimat penuh dan
+     baris rincian uang, sehingga isi halaman jatuh ke 12-13px.
      Skala ini DIPATOK px, tidak lagi pakai `clamp(…, vw, …)`.
      Alasannya sama dengan `--text-bar-title`/`--text-field` di bawah: `vw`
      mengikuti lebar JENDELA, padahal kolom aplikasi dikunci 430px (AGENTS §5).
@@ -149,8 +156,8 @@ html, body { font-family: var(--font-sans); }
      walau kolomnya sama. Nilai pin = nilai di kolom 390px, jadi ponsel tidak
      berubah, desktop kini seragam. Batas: kalau nanti butuh tipe fluid lagi,
      pakai `cqi` (container query) bukan `vw`, supaya ikut kolom. */
-  --text-xs: 12px;
-  --text-sm: 13px;
+  --text-xs: 13px;
+  --text-sm: 15px;
   --text-base: 16px;
   --text-lg: 17px;
   --text-xl: 21px;

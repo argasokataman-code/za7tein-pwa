@@ -40,7 +40,12 @@ Gaya baru masuk `_system.scss`; jangan memperbesar stylesheet porting `_app.scss
 
 Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
 
-- **Lantai huruf mikro 12px** (`--text-xs`). Tidak ada lagi nilai 10px/11px untuk label kecil.
+- **Lantai huruf: caption 13px (`--text-xs`), isi 15px (`--text-sm`), body 16px (`--text-base`).**
+  Tidak ada nilai di bawah 13px, dan kalimat penuh tidak boleh turun ke caption (audit 019,
+  2026-10-15: dulu 12–13px dipakai untuk kalimat penjelas dan baris rincian uang).
+- **Teks sekunder di atas permukaan berwarna pakai `--text-secondary-strong`.** `--text-secondary`
+  hanya 3,86:1 di atas `--border` dan 4,33:1 di `--bg-warm`, gagal WCAG AA; versi gelapnya lolos di
+  keduanya (audit 019 #2/#3).
 - **Glow merek** (`--shadow-brand`) hanya menandai **aksi primer**, bukan umpan hover dan bukan
   penanda status terpilih. Pemakaian lain dihapus di akarnya.
 - **Umpan hover** dibungkus `@media (hover: hover) and (pointer: fine)`; di layar sentuh ia tidak

@@ -279,9 +279,10 @@ export default function MerchantPromos() {
                       {program.dateFrom} – {program.dateTo ?? 'tanpa batas akhir'}
                       {summary.requirement ? ` · ${summary.requirement}` : ''}
                     </p>
-                    <div className="merchant-row">
+                    {/* Seluruh baris jadi sasaran sentuh (audit 019 #1/#7). */}
+                    <label className="merchant-row">
                       <span>Boleh digabung promo lain</span>
-                      <label className="toggle-wrap">
+                      <span className="toggle-wrap">
                         <input
                           className="toggle-input"
                           type="checkbox"
@@ -297,8 +298,8 @@ export default function MerchantPromos() {
                           }
                         />
                         <span className="toggle-slider" />
-                      </label>
-                    </div>
+                      </span>
+                    </label>
                   </li>
                 )
               })}

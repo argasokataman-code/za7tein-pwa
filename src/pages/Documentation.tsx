@@ -317,6 +317,16 @@ export default function Documentation() {
                 tampil dengan alasan dan bernilai 0 — bukan hilang diam-diam.
               </li>
               <li>
+                <strong>Lantai huruf &amp; sasaran sentuh (audit 019).</strong> Isi/kalimat minimal{' '}
+                <code className="doc-inline">--text-sm</code> 15px dan caption{' '}
+                <code className="doc-inline">--text-xs</code> 13px — dulu kalimat penjelas dan baris
+                rincian uang turun ke 12–13px. Baris sakelar kini satu{' '}
+                <code className="doc-inline">&lt;label&gt;</code> setinggi 48px, jadi seluruh baris
+                dapat ditekan, bukan hanya switch 52×28 di ujungnya. Teks sekunder di atas permukaan
+                berwarna (chip status, keadaan kosong) memakai{' '}
+                <code className="doc-inline">--text-secondary-strong</code> agar lolos WCAG AA.
+              </li>
+              <li>
                 <strong>Kartu kode promo punya permukaan merek sendiri.</strong> Isinya satu aksi,
                 bukan baris struk, jadi kartunya memakai{' '}
                 <code className="doc-inline">--orange-soft</code> +{' '}

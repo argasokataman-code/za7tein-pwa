@@ -77,7 +77,7 @@ const INSTANCES = ROLE_DEFS.map((def, i) => {
   }
 })
 
-const SUBCOMMANDS = ['preflight', 'status', 'nav', 'eval', 'click', 'shot']
+const SUBCOMMANDS = ['preflight', 'status', 'nav', 'eval', 'click', 'shot', 'audit']
 
 const argv = process.argv.slice(2)
 const op = SUBCOMMANDS.includes(argv[0]) ? argv[0] : null
@@ -490,6 +490,74 @@ async function runEval() {
   )
 }
 
+/**
+ * Pengukuran mobile-friendliness halaman yang sedang terbuka di jendela role.
+ * Membaca DOM, bukan tangkapan layar: overflow, sasaran sentuh <44px, skala
+ * huruf, penggulung bersarang, elemen terpaku. Angka inilah bukti audit.
+ */
+const MEASURE = `(function(){
+  const r = (e) => e.getBoundingClientRect();
+  const vis = (e) => { const b = r(e); return b.width > 0 && b.height > 0; };
+  const cls = (e) => (typeof e.className === "string" ? e.className : "").slice(0, 40);
+  const sel = "a,button,input,select,textarea,[role='button'],[role='radio'],[role='switch'],[role='tab']";
+  const targets = Array.from(document.querySelectorAll(sel)).filter(vis);
+  const small = targets.filter((e) => Math.min(r(e).width, r(e).height) < 44);
+  const sizes = {};
+  let below15 = 0;
+  Array.from(document.querySelectorAll("p,span,div,li,h1,h2,h3,label,strong,td,button")).forEach((e) => {
+    if (!e.textContent.trim()) return;
+    const fs = parseFloat(getComputedStyle(e).fontSize);
+    if (!fs) return;
+    sizes[fs] = (sizes[fs] || 0) + 1;
+    if (fs < 15) below15 += 1;
+  });
+  const scrollers = Array.from(document.querySelectorAll("*")).filter((e) => {
+    if (e === document.documentElement || e === document.body) return false;
+    const oy = getComputedStyle(e).overflowY;
+    return (oy === "auto" || oy === "scroll") && e.scrollHeight - e.clientHeight > 4;
+  });
+  const hScrollers = Array.from(document.querySelectorAll("*")).filter((e) => {
+    if (e === document.documentElement || e === document.body) return false;
+    const ox = getComputedStyle(e).overflowX;
+    return (ox === "auto" || ox === "scroll") && e.scrollWidth - e.clientWidth > 4;
+  });
+  const pinned = Array.from(document.querySelectorAll("*")).filter((e) => {
+    const p = getComputedStyle(e).position;
+    return (p === "fixed" || p === "sticky") && vis(e);
+  }).map((e) => ({ c: cls(e), x: Math.round(r(e).x), w: Math.round(r(e).width) }));
+  const shellEl = document.querySelector(".app-shell");
+  return JSON.stringify({
+    url: location.pathname,
+    vw: innerWidth,
+    docH: Math.round(document.documentElement.scrollHeight),
+    overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+    shell: Math.round((shellEl || document.body).getBoundingClientRect().width),
+    targets: targets.length,
+    smallCount: small.length,
+    small: small.slice(0, 12).map((e) => ({ t: e.tagName, c: cls(e), w: Math.round(r(e).width), h: Math.round(r(e).height) })),
+    fontSizes: Object.keys(sizes).map(Number).sort((a, b) => a - b),
+    below15,
+    nestedScrollers: scrollers.length,
+    nestedScrollerClasses: scrollers.slice(0, 5).map(cls),
+    hScrollers: hScrollers.length,
+    hScrollerClasses: hScrollers.slice(0, 5).map(cls),
+    pinned: pinned.slice(0, 6),
+  });
+})()`
+
+/**
+ * `audit <role>`: cetak pengukuran mobile-friendliness halaman yang sedang
+ * terbuka di jendela role itu (lihat `MEASURE`). Hanya membaca.
+ */
+async function runAudit() {
+  const [role] = opArgs
+  const inst = byRole(role)
+  if (!inst) fail(`role tak dikenal: ${role}. Pilih: ${INSTANCES.map((i) => i.role).join(', ')}`)
+  const tab = await requireTab(inst)
+  const value = await cdpEval(tab.webSocketDebuggerUrl, MEASURE)
+  process.stdout.write(`${typeof value === 'string' ? value : JSON.stringify(value)}\n`)
+}
+
 async function runClick() {
   const [role, selector] = opArgs
   const inst = byRole(role)
@@ -536,12 +604,29 @@ async function runShot() {
   const [role, out] = opArgs
   const inst = byRole(role)
   if (!inst) fail(`role tak dikenal: ${role}. Pilih: ${INSTANCES.map((i) => i.role).join(', ')}`)
-  if (!out) fail('pakai: shot <role> <out.png>')
+  if (!out) fail('pakai: shot <role> <out.png> [--full]')
   const tab = await requireTab(inst)
-  const r = await cdpSend(tab.webSocketDebuggerUrl, 'Page.captureScreenshot', { format: 'png' })
+  // `--full`: seluruh tinggi dokumen, bukan cuma viewport. Dipakai untuk menilai
+  // halaman panjang (mis. Langganan) dalam satu gambar. Flag dibaca dari `argv`
+  // karena `opArgs` membuang semua `--flag`.
+  const full = argv.includes('--full')
+  let params = { format: 'png' }
+  if (full) {
+    const metrics = await cdpSend(tab.webSocketDebuggerUrl, 'Page.getLayoutMetrics')
+    const size = metrics.cssContentSize ?? metrics.contentSize
+    params = {
+      format: 'png',
+      captureBeyondViewport: true,
+      clip: { x: 0, y: 0, width: size.width, height: size.height, scale: 2 },
+    }
+  }
+  const r = await cdpSend(tab.webSocketDebuggerUrl, 'Page.captureScreenshot', params)
   if (!r?.data) fail(`[${inst.role}] screenshot gagal`)
   writeFileSync(out, Buffer.from(r.data, 'base64'))
-  process.stdout.write(`${out}\n`)
+  const extra = full
+    ? ` (full ${Math.round(params.clip.width)}x${Math.round(params.clip.height)} @2x)`
+    : ''
+  process.stdout.write(`${out}${extra}\n`)
 }
 
 async function main() {
@@ -555,6 +640,7 @@ async function main() {
   if (op === 'status') return runStatus()
   if (op === 'nav') return runNav()
   if (op === 'eval') return runEval()
+  if (op === 'audit') return runAudit()
   if (op === 'click') return runClick()
   if (op === 'shot') return runShot()
 

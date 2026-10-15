@@ -119,14 +119,16 @@ export default function MerchantSubscription() {
                 <span>Periode</span>
                 <span>{periode ? `${periode.periodStart} → ${periode.periodEnd}` : 'Belum ada'}</span>
               </div>
-              <p className="merchant-card-sub">
-                Sisa ≤ {Math.round(QUOTA_LOW_RATIO * 100)}% paket dihitung hampir habis. Saat kuota
-                order habis, toko disembunyikan dari beranda kecuali "terima order tanpa kuota"
-                menyala.
-              </p>
             </section>
           )
         })}
+
+        {/* Dulu diulang di tiap kartu (audit 019 #6) — satu kali saja di bawah
+            kedua kartu; kalimatnya memang sama untuk kuota order maupun COD. */}
+        <p className="merchant-card-sub">
+          Sisa ≤ {Math.round(QUOTA_LOW_RATIO * 100)}% paket dihitung hampir habis. Saat kuota order
+          habis, toko disembunyikan dari beranda kecuali "terima order tanpa kuota" menyala.
+        </p>
 
         <section className="merchant-section">
           <div className="merchant-section-head">
@@ -171,9 +173,11 @@ export default function MerchantSubscription() {
             Saat menyala, toko tetap tampil di beranda meski kuota order habis; order seperti itu
             tidak memotong kuota.
           </p>
-          <div className="merchant-row">
+          {/* Seluruh baris jadi sasaran sentuh (audit 019 #1/#7): dulu hanya
+              switch 52×28 di ujung yang bisa ditekan. Label membungkus input. */}
+          <label className="merchant-row">
             <span>Izinkan order tanpa kuota</span>
-            <label className="toggle-wrap">
+            <span className="toggle-wrap">
               <input
                 className="toggle-input"
                 type="checkbox"
@@ -182,8 +186,8 @@ export default function MerchantSubscription() {
                 onChange={(e) => dispatch(setAcceptWithoutQuota(e.target.checked))}
               />
               <span className="toggle-slider" />
-            </label>
-          </div>
+            </span>
+          </label>
           <p className="merchant-card-sub">
             {storeClosed
               ? 'Toko sedang tutup, setting ini boleh diubah.'
