@@ -36,6 +36,7 @@ import CourierTips from './pages/CourierTips'
 import CourierWallet from './pages/CourierWallet'
 import CreatePassword from './pages/CreatePassword'
 import CreatePin from './pages/CreatePin'
+import CustomerRefund from './pages/CustomerRefund'
 import DisputeSubmit from './pages/DisputeSubmit'
 import Documentation from './pages/Documentation'
 import Faq from './pages/Faq'
@@ -162,6 +163,7 @@ const customerRoutes: [string, ComponentType][] = [
   ['/rating-driver', RatingDriver],
   ['/profile', Profile],
   ['/wallet', WalletBalance],
+  ['/refund', CustomerRefund],
   ['/wallet/top-up', WalletTopUp],
   ['/wallet/payout', WalletPayout],
   ['/personal-data', PersonalData],

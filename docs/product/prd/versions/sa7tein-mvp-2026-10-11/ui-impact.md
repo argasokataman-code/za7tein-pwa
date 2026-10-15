@@ -158,7 +158,7 @@ Urutan flagship per layar miring: jangan sentuh flow di §2 sebelum M0 (tipe dom
 
 Pajak/GST (tak disebut PRD baru) · insentif Founding (f9) · peran admin/SA vs ops (f15/f22/f24) · cash-out customer · OPEN-01 DANA · OPEN-26 enum status/ERD · OPEN-11 dispatch · OPEN-23 isStackable · OPEN-25 Global Index DO · OPEN-27 legal.
 
-## 8. Dependency BE untuk discovery (temuan uji M1, 2026-10-15)
+## 8. Dependency BE (temuan uji M1 & M2, 2026-10-15)
 
 Diuji pada klon browser terhadap backend demo Supabase (`dwzxtnfesmpobnepilhl`):
 
@@ -166,5 +166,11 @@ Diuji pada klon browser terhadap backend demo Supabase (`dwzxtnfesmpobnepilhl`):
 - **`merchants` tak punya kolom `tags`** → grup-per-tag (PRD §6) jatuh ke daftar datar dengan data live. Butuh kolom tag atau tabel `merchant_tags` (OPEN-25).
 - **Tak ada sinyal "blok kuota order"** → aturan sembunyikan (PRD §17) tak berjalan dengan data live. Butuh tabel langganan kuota.
 - `orderCount` (jumlah order) belum ada di BE → sort/filter "jumlah order" menunggu.
+
+### Temuan M2 (uang, pembayaran, refund)
+
+- **Refund belum ada di BE**: tabel `refunds` / `order_refunds` → HTTP 404, dan `src/api/orders.ts` tak punya endpoint refund. Tabel `wallet_ledgers` + `disputes` ada. Karena itu layar refund customer (`/customer/refund`) menampilkan alur §16.6 (saldo DANA / BI-FAST / pilih) **ditandai "belum tersedia"** dan tidak menulis apa pun; flag `REFUND_AVAILABLE` di `src/data/marketplace.ts` menutup jalurnya sampai endpoint ada.
+- **`payment_methods` memakai key polos `qris`** (baris aktif, sort 4), bukan `xendit_qris`. Alias di `src/api/payments.ts` sudah ditambah (`qris → dana_qris`); sebelumnya baris itu dibuang sehingga QRIS hilang dari semua layar walau aktif di database.
+- **`payment_methods` belum punya kolom kuota COD** → gate kuota COD (`codQuotaStatus`) memakai langganan kuota mock; merchant tanpa catatan langganan diperlakukan `unknown` (tidak diblokir) supaya data yang memang tidak ada tidak memblokir order.
 
 Konsekuensi: `Home` tetap rapi dengan data live (9 kartu, `overflowX` 0, shell 430px, gate `--strict --click` lolos 390/1440), tetapi efek discovery baru **tidak terlihat** sampai kolom di atas ada. Logika murni (`groupStorefrontsByTag` / `isSelectable` / `visibleStorefronts`) terverifikasi lewat `node scripts/discovery-check.mjs` + mock fallback.

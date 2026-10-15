@@ -1,4 +1,4 @@
-import { ArrowRight, Download, Plus } from 'lucide-react'
+import { ArrowRight, Download, Plus, RefreshCw } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
@@ -89,6 +89,19 @@ export default function WalletBalance() {
                   </Link>
                 )}
                 {payoutCopy ? <PlatformNotice message={payoutCopy} /> : null}
+
+                {/* Refund penuh (§16.6) — bentuk alurnya ada, tapi ditandai belum
+                    tersedia selama BE belum punya endpoint refund. */}
+                <Link className="wallet-item wallet-item-link" to="/refund">
+                  <div className="wallet-item-icon">
+                    <RefreshCw size={24} strokeWidth={1.75} />
+                  </div>
+                  <div className="wallet-item-left">
+                    <span className="wallet-item-title">Refund pesanan</span>
+                    <span className="wallet-item-sub">Belum tersedia · menunggu backend</span>
+                  </div>
+                  <ArrowRight size={20} strokeWidth={1.75} />
+                </Link>
               </main>
             </div>
           </div>

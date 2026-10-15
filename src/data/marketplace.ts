@@ -49,6 +49,15 @@ export const PLATFORM_FEE_MERCHANT_DEFAULT_JOD = 0.25
 /** Biaya transfer BI-FAST per refund ke rekening bank; ditanggung aplikator (§16.6). */
 export const REFUND_BI_FAST_FEE_IDR = 2500
 
+/**
+ * Refund belum bisa dijalankan: BE demo belum punya tabel `refunds` (404) dan
+ * `src/api/orders.ts` belum punya endpoint refund. Selama ini `false`, layar
+ * refund menampilkan cabang §16.6 tapi menandainya "belum tersedia" dan tidak
+ * menulis apa pun — jangan sampai UI terlihat seperti memproses uang yang tak
+ * pernah diproses. Ubah ke `true` begitu BE menyediakan endpoint refund.
+ */
+export const REFUND_AVAILABLE = false
+
 // — Batch —
 
 export const mockBatches: Batch[] = [

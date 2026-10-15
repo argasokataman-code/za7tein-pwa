@@ -272,6 +272,18 @@ export default function Documentation() {
                 jadi QRIS hilang dari layar walau aktif di database).
               </li>
               <li>
+                <strong>Refund ditandai belum tersedia</strong> (M2c): layar{' '}
+                <code className="doc-inline">/customer/refund</code> menampilkan alur §16.6 lengkap —
+                saldo DANA (otomatis), rekening bank lewat BI-FAST (biaya{' '}
+                <code className="doc-inline">Rp2.500</code> ditanggung aplikator), dan pilihan
+                DANA/bank untuk QRIS + binding — tetapi <strong>nonaktif</strong>, karena BE demo
+                belum punya tabel <code className="doc-inline">refunds</code> (404) maupun endpoint
+                refund. Satu flag <code className="doc-inline">REFUND_AVAILABLE</code> membuka
+                jalurnya begitu BE siap. Nominal refund diambil dari{' '}
+                <code className="doc-inline">useChargedBreakdown()</code> — angka yang sama dengan
+                Checkout.
+              </li>
+              <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}
                 <code className="doc-inline">POST /orders</code> ditolak BE, order dicatat lokal
                 dengan kode yang sama (bukan jatuh ke <code className="doc-inline">mockOrder</code>{' '}
