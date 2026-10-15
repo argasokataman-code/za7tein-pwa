@@ -2271,7 +2271,7 @@
     {
       "id": "DEC-88091",
       "type": "decision",
-      "status": "active",
+      "status": "archived",
       "date": "2026-10-15",
       "time": "21:23:29",
       "tags": [
@@ -2289,6 +2289,163 @@
           "id": "DEC-88090",
           "type": "relates",
           "raw": "DEC-88090:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101928",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:28:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss (+88) — write via tool: /* ── Nada kartu ──────────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss"
+    },
+    {
+      "id": "TASK-101929",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:29:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx (+13/-1) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx"
+    },
+    {
+      "id": "TASK-101930",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:29:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss (+12/-6) — edit via tool: .merchant-promo-head {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss"
+    },
+    {
+      "id": "TASK-101931",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:29:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+4/-3) — edit via tool: tsx: {/* Nada kartu mengikuti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-101932",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:29:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+9/-5) — edit via tool: - **Nada kartu `.tone-*`** (`system/_ton",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-101933",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:30:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+15/-13) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101934",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:30:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"warning|error\"; npm run scan 2>&1 | grep -E \"FAIL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88092",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "21:32:49",
+      "tags": [
+        "design",
+        "systems"
+      ],
+      "summary": "Nada kartu = aksen chip default; latar penuh (.tone-fill) hanya kalau kartu itu sendiri status. Kartu pastel pucat ditolak",
+      "conn": [
+        {
+          "id": "DEC-88091",
+          "type": "led_to",
+          "raw": "DEC-88091:led_to"
+        },
+        {
+          "id": "TASK-101921",
+          "type": "relates",
+          "raw": "TASK-101921:relates"
         }
       ]
     }

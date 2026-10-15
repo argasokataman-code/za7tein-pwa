@@ -337,11 +337,13 @@ export default function Documentation() {
                 <code className="doc-inline">tone-success</code>,{' '}
                 <code className="doc-inline">tone-warning</code>,{' '}
                 <code className="doc-inline">tone-danger</code>,{' '}
-                <code className="doc-inline">tone-navy</code> — semuanya dari token peran. Kartu
-                memakainya kalau warna berarti: kartu kuota mengikuti status, kartu program marketing
-                mengikuti jenisnya (<code className="doc-inline">PROGRAM_TONE</code>), kartu sakelar
-                "terima order tanpa kuota" menghijau saat menyala. Pemetaan kategori → nada tinggal di
-                data, CSS hanya menyimpan nadanya, jadi tidak ada warna baru yang lahir per layar.
+                <code className="doc-inline">tone-navy</code> — yang hanya <em>menyediakan warna</em>{' '}
+                dari token peran. Default-nya aksen chip (<code className="doc-inline">.tone-chip</code>):
+                kartu program marketing tetap permukaan putih, dan warnanya menandai jenis program
+                (<code className="doc-inline">PROGRAM_TONE</code>). Latar penuh{' '}
+                (<code className="doc-inline">.tone-fill</code>) hanya untuk kartu yang memang statusnya
+                sendiri, seperti kartu kuota dan sakelar "terima order tanpa kuota" saat menyala. Kartu
+                pastel pucat selebar bidang tidak dipakai: terbaca murah, bukan bahasa app ini.
               </li>
               <li>
                 <strong>Kartu kode promo punya permukaan merek sendiri.</strong> Isinya satu aksi,

@@ -53,10 +53,14 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
   memakai **peran token yang sudah ada** — status soft/ink, `--orange-soft`, `--navy` — bukan
   warna baru.
 - **Nada kartu `.tone-*`** (`system/_tones.scss`): `tone-brand` · `tone-info` · `tone-success` ·
-  `tone-warning` · `tone-danger` · `tone-navy`. Dipakai kalau warna **menyampaikan arti** (status
-  kuota, jenis program, keadaan sakelar) — bukan hiasan. Pemetaan kategori → nada hidup di **data**
-  (`PROGRAM_TONE`, `STATUS_TONE`), CSS hanya menyimpan nada. Teks di dalam kartu bernada mewarisi
-  nada itu supaya kontras tetap ≥ AA; hierarki tetap dari ukuran/berat.
+  `tone-warning` · `tone-danger` · `tone-navy` **menyediakan warna** lewat tiga variabel
+  (`--tone-soft` / `--tone-ink` / `--tone-line`); komponen memutuskan seberapa banyak dipakai.
+  Default = **aksen chip** (`.tone-chip`) di atas permukaan kartu DNA (`--surface` + `--border-strong`):
+  warna **menandai jenis**, tidak membanjiri bidang. Kartu pastel pucat selebar kartu **ditolak**
+  (terbaca murah dan bukan bahasa app ini, revisi 2026-10-15). Latar penuh (`.tone-fill`) hanya
+  kalau **kartu itu sendiri adalah status** (kuota, sakelar menyala); teks di dalamnya mewarisi nada
+  supaya kontras ≥ AA. Pemetaan kategori → nada hidup di **data** (`PROGRAM_TONE`, `STATUS_TONE`),
+  CSS hanya menyimpan nada.
 - **Glow merek** (`--shadow-brand`) hanya menandai **aksi primer**, bukan umpan hover dan bukan
   penanda status terpilih. Pemakaian lain dihapus di akarnya.
 - **Umpan hover** dibungkus `@media (hover: hover) and (pointer: fine)`; di layar sentuh ia tidak

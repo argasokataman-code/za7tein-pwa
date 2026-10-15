@@ -22,6 +22,12 @@
   gap: var(--space-3);
 }
 
+/* Baris chip jenis program: warna datang dari nada chip (.tone-chip). */
+.merchant-promo-kind {
+  display: flex;
+  margin-bottom: var(--space-2);
+}
+
 .merchant-promo-code {
   margin: 0;
   font-size: var(--text-lg);

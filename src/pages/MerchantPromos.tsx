@@ -1,4 +1,16 @@
-import { Info, Plus, TicketPercent, Trash2 } from 'lucide-react'
+import {
+  Award,
+  CreditCard,
+  Gift,
+  Info,
+  Percent,
+  Plus,
+  Ticket,
+  TicketPercent,
+  Trash2,
+  Wallet,
+  type LucideIcon,
+} from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
@@ -22,6 +34,20 @@ import { jod } from '../data/currency'
 import { PROGRAM_EDIT_AVAILABLE, PROGRAM_TONE, merchantPrograms, programSummary } from '../data/marketing'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setStackable } from '../store/slices/marketingSlice'
+import type { MarketingProgramType } from '../types'
+
+/** Ikon jenis program (lucide) — melengkapi chip nada supaya jenisnya terbaca
+ *  sekilas tanpa mengeja teks. Warnanya dari `PROGRAM_TONE`, bukan dari sini. */
+const PROGRAM_ICON: Record<MarketingProgramType, LucideIcon> = {
+  promotion: Percent,
+  promo_code: Ticket,
+  coupons: Ticket,
+  buy_x_get_y: Gift,
+  next_order_coupons: TicketPercent,
+  loyalty: Award,
+  gift_card: CreditCard,
+  ewallet: Wallet,
+}
 
 /**
  * Promo & diskon merchant (tabel `marketing`). Layar ini milik merchant: kode
@@ -262,19 +288,21 @@ export default function MerchantPromos() {
             <ul className="merchant-promo-list">
               {ownedPrograms.map(({ program, rule, reward }) => {
                 const summary = programSummary(program, rule, reward)
-                // Nada kartu = jenis program (kategori → satu warna): daftar
-                // tidak jadi satu blok putih, jenisnya terbaca sekilas.
+                const KindIcon = PROGRAM_ICON[program.type]
                 return (
-                  <li
-                    key={program.id}
-                    className={`merchant-card merchant-promo-item tone-${PROGRAM_TONE[program.type]}`}
-                  >
+                  <li key={program.id} className="merchant-card merchant-promo-item">
                     <div className="merchant-promo-head">
                       <div>
-                        <p className="merchant-promo-code">{program.name}</p>
-                        <p className="merchant-card-sub">
-                          {summary.type} · {summary.reward}
+                        {/* Aksen jenis: chip bernada, bukan latar penuh — permukaan
+                            kartu tetap bahasa DNA (`--surface` + border). */}
+                        <p className="merchant-promo-kind">
+                          <span className={`tone-chip tone-${PROGRAM_TONE[program.type]}`}>
+                            <KindIcon size={14} strokeWidth={1.75} aria-hidden="true" />
+                            {summary.type}
+                          </span>
                         </p>
+                        <p className="merchant-promo-code">{program.name}</p>
+                        <p className="merchant-card-sub">{summary.reward}</p>
                       </div>
                       <span className="merchant-badge">
                         {program.isStackable ? 'Boleh digabung' : 'Berdiri sendiri'}
