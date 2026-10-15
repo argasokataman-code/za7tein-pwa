@@ -2448,6 +2448,258 @@
           "raw": "TASK-101921:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101935",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:36:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+17/-14) — edit via tool: /* ── Langganan kuota: tema",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-101936",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:36:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+4/-3) — edit via tool: tsx: {/* Satu kartu per jenis",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-101937",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:37:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+4/-1) — edit via tool: tsx: <section",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-101938",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:37:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+6/-1) — edit via tool: CSS hanya menyimpan nada.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-101939",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:37:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+11/-2) — edit via tool: tsx: pastel pucat selebar bidang ti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101940",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:37:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -3; npm run lint 2>&1 | rtk grep -cE",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101941",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:39:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+3/-2) — edit via tool: /* Kartu bertema diangkat dar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-101942",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:39:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && perl -0pi -e 's/terangkat dengan `--shadow-sm` — keputusan pemilik 2026-10-15/teran",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101943",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:41:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss (+6/-1) — edit via tool: --shadow-subtle: 0 1px 2px rgba(23, 36, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-101944",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:42:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && perl -0pi -e 's/box-shadow: var\\(--shadow-md\\);/box-shadow: var(--shadow-card);/; s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101945",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:42:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+2/-2) — edit via tool: /* Kartu bertema diangkat dar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-101946",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:43:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -1; T=/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x0000",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88093",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "21:43:16",
+      "tags": [
+        "design",
+        "systems"
+      ],
+      "summary": "Kartu kuota dibedakan per jenis kanal (warna), bukan status; token baru --shadow-card untuk kartu terangkat",
+      "conn": [
+        {
+          "id": "TASK-101922",
+          "type": "led_to",
+          "raw": "TASK-101922:led_to"
+        },
+        {
+          "id": "DEC-88092",
+          "type": "relates",
+          "raw": "DEC-88092:relates"
+        }
+      ]
     }
   ]
 }

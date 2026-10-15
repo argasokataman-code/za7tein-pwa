@@ -73,8 +73,9 @@ export default function MerchantSubscription() {
           }
         />
 
-        {/* Satu kartu per jenis kuota: angka sisa besar, warna = status. Dulu
-            angkanya kecil di atas lalu diulang sebagai baris tabel di bawah. */}
+        {/* Satu kartu per jenis kuota, **tema warna berbeda per jenis** (order =
+            merek, COD = navy premium, permintaan pemilik 2026-10-15); angka sisa
+            jadi fokus, status tetap lewat chip + bar. */}
         {QUOTA_KINDS.map((kind) => {
           const mine = subs.filter((s) => s.active && s.kind === kind && s.merchantId === merchantId)
           const quota = mine.reduce((sum, s) => sum + s.quota, 0)
@@ -85,7 +86,10 @@ export default function MerchantSubscription() {
           const tone = STATUS_TONE[status]
           const periode = mine[0]
           return (
-            <section key={kind} className={`merchant-quota-card merchant-quota-card--${tone}`}>
+            <section
+              key={kind}
+              className={`merchant-quota-card merchant-quota-card--${kind} merchant-quota-card--${tone}`}
+            >
               <div className="merchant-quota-card__head">
                 <span className="merchant-quota-card__label">
                   {kind === 'order' ? (

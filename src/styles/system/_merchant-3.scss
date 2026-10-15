@@ -157,12 +157,13 @@
   min-height: 48px;
 }
 
-/* ── Langganan kuota: pewarnaan status ───────────────────────────────────────
+/* ── Langganan kuota: tema per jenis kanal ───────────────────────────────────
    Halaman ini dulu terbaca seperti tabel web: dua blok angka kecil yang saling
    mengulang + dua kartu berisi empat baris "label … nilai" + lima baris list
-   paket abu. Sekarang satu kartu per jenis kuota, angka sisa jadi fokus, dan
-   warna menyampaikan status (hijau cukup · kuning hampir habis · merah habis).
-   Warna dari token status, bukan nilai baru. */
+   paket abu. Sekarang satu kartu per jenis kuota, dengan **tema warna berbeda
+   per jenis** supaya order dan COD tidak tampil sama: order = merek
+   (`--orange-soft`), COD = navy premium (`--navy`). STATUS tetap terbaca lewat
+   chip putih (teks berwarna status) + bar. Warna dari token, bukan nilai baru. */
 .merchant-quota-card {
   @include card-surface;
   display: flex;
@@ -170,21 +171,24 @@
   gap: var(--space-2);
   padding: var(--space-4);
   margin-bottom: var(--space-3);
+  /* Kartu bertema diangkat dari latar (permintaan pemilik 2026-10-15).
+     `--shadow-sm` (6%) terukur terlalu halus dan tak terbaca; pakai `--shadow-card`. */
+  box-shadow: var(--shadow-card);
 }
 
-.merchant-quota-card--ok {
-  background: var(--green-soft);
-  border-color: var(--success);
+/* Tema = JENIS kanal (bukan status): order = merek, COD = navy premium. */
+.merchant-quota-card--order {
+  --quota-ink: var(--orange-soft-ink);
+  --quota-ink-soft: var(--orange-soft-ink);
+  background: var(--orange-soft);
+  border-color: var(--orange-border);
 }
 
-.merchant-quota-card--low {
-  background: var(--warning-soft);
-  border-color: var(--warning);
-}
-
-.merchant-quota-card--out {
-  background: var(--red-soft);
-  border-color: var(--danger);
+.merchant-quota-card--cod {
+  --quota-ink: var(--on-navy);
+  --quota-ink-soft: color-mix(in srgb, var(--on-navy) 82%, var(--navy));
+  background: var(--navy);
+  border-color: var(--navy);
 }
 
 .merchant-quota-card__head {
@@ -200,32 +204,20 @@
   gap: var(--space-2);
   font-size: var(--text-base);
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--quota-ink);
 }
 
 .merchant-quota-card__value {
   font-size: var(--text-2xl);
   font-weight: 700;
   line-height: 1;
-  color: var(--text-primary);
-}
-
-.merchant-quota-card--ok .merchant-quota-card__value {
-  color: var(--success-ink);
-}
-
-.merchant-quota-card--low .merchant-quota-card__value {
-  color: var(--warning-ink);
-}
-
-.merchant-quota-card--out .merchant-quota-card__value {
-  color: var(--danger-ink);
+  color: var(--quota-ink);
 }
 
 .merchant-quota-card__unit,
 .merchant-quota-card__meta {
   font-size: var(--text-sm);
-  color: var(--text-secondary-strong);
+  color: var(--quota-ink-soft);
 }
 
 .merchant-quota-card__unit {

@@ -346,6 +346,15 @@ export default function Documentation() {
                 pastel pucat selebar bidang tidak dipakai: terbaca murah, bukan bahasa app ini.
               </li>
               <li>
+                <strong>Kartu kuota bertema jenis.</strong> Di{' '}
+                <code className="doc-inline">/merchant/subscription</code>, kuota order dan kuota COD
+                tidak lagi tampil sama: order memakai tema merek (<code className="doc-inline">--orange-soft</code>)
+                dan COD memakai permukaan navy premium (<code className="doc-inline">--navy</code>),
+                keduanya terangkat dengan <code className="doc-inline">--shadow-card</code> (keputusan
+                pemilik 2026-10-15). Status kuota tetap terbaca dari chip putih dan bar, bukan dari warna
+                permukaan kartu.
+              </li>
+              <li>
                 <strong>Kartu kode promo punya permukaan merek sendiri.</strong> Isinya satu aksi,
                 bukan baris struk, jadi kartunya memakai{' '}
                 <code className="doc-inline">--orange-soft</code> +{' '}

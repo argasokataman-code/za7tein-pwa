@@ -61,6 +61,11 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
   kalau **kartu itu sendiri adalah status** (kuota, sakelar menyala); teks di dalamnya mewarisi nada
   supaya kontras ≥ AA. Pemetaan kategori → nada hidup di **data** (`PROGRAM_TONE`, `STATUS_TONE`),
   CSS hanya menyimpan nada.
+- **Kartu kuota bertema jenis** (`/merchant/subscription`): **order** = `--orange-soft` (kanal
+  merek), **COD** = `--navy` (permukaan premium) supaya dua jenis tidak tampil sama, dan keduanya
+  terangkat dengan `--shadow-card` — keputusan pemilik 2026-10-15. Ini **pengecualian tercatat** dari
+  "kartu default tanpa shadow": yang terangkat adalah kartu yang membawa tema sendiri. Status tetap
+  terbaca lewat chip putih (teks berwarna status) + bar, bukan dari warna permukaan.
 - **Glow merek** (`--shadow-brand`) hanya menandai **aksi primer**, bukan umpan hover dan bukan
   penanda status terpilih. Pemakaian lain dihapus di akarnya.
 - **Umpan hover** dibungkus `@media (hover: hover) and (pointer: fine)`; di layar sentuh ia tidak
