@@ -2128,6 +2128,30 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-99250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:50:16",
+      "tags": [
+        "reviews",
+        "be",
+        "fe",
+        "merchant",
+        "customer"
+      ],
+      "summary": "Ulasan merchant+hidangan & balasan tersambung BE: /merchant/reviews baca rating_reviews+reply review_replies, /reviews kirim ulasan toko; in",
+      "conn": [
+        {
+          "id": "TASK-99200",
+          "type": "relates",
+          "raw": "TASK-99200:relates"
+        }
+      ],
+      "loc": "src/api/reviews.ts:1",
+      "commit": "52d1e2e"
     }
   ]
 }
