@@ -33,6 +33,8 @@ Repo ini **showcase UI/UX**. Karena itu setiap tugas yang menyentuh tampilan **w
 - **Mode audit.** Kalau yang diminta review, pakai mode "After" skill: findings bernomor di `anti-slop/audit-NNN-YYYY-MM-DD.md`, dan **jangan ubah apa pun** sebelum itemnya disetujui.
 - **Mockup/gambar desain → skill `sa7tein-design-prompt`.** Kalau yang diminta adalah *gambar* mockup (bukan kode) — "bikin prompt desain", "minta desain dari Gemini", mockup dashboard/layar — muat `.opencode/skills/sa7tein-design-prompt/`. Promptnya bergaya art-direction: brand DNA + data asli **dikunci**, komposisi **dibebaskan** (menuliskan layout eksplisit = hasil kaku). Skill ini **milik repo ini saja** — jangan disalin ke global (`~/.config/opencode/skills/`) atau repo lain; tiap project punya DNA sendiri.
 
+- **Gate mekanis (design system dipakai atau tidak).** `npm run scan` — kali ini **juga jalan di pre-commit** — menolak **nilai mentah baru** di `src/styles/system/**` (warna `rgba/rgb/hsl`, `font-size` px, `border-radius` px, jarak px ≥8) dan warna mentah di `style={{ … }}` TSX. Nilai baru harus token (`--text-*`, `--space-*`, `--radius-*`, warna peran). Sifatnya **ratchet**: baseline `docs/design/design-debt.json` hanya boleh turun, dan diperbarui hanya setelah utang benar-benar turun (`npm run scan -- --update-design-debt`). Untuk variasi warna kartu, **pakai peran token yang sudah ada** (status soft/ink, `--orange-soft`, `--navy`) — bukan warna baru. Aturan mesin: `.rules.json` → `designGate`.
+
 Ringkasan mesin ada di `.rules.json` → `designReview`. Tidak ada cek pre-commit yang bisa membuktikan skill benar-benar dipakai; enforcement lewat protokol ini, dan commit yang menyentuh UI wajib menyebut ID temuan di laporannya.
 
 ---

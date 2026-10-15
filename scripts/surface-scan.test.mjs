@@ -42,5 +42,31 @@ check('buttonx tidak dihitung', openingTags('<buttonx onClick={f}>', 'button').l
 const e = '<button type="button" className="merchant-signout">'
 check('tombol mati terdeteksi', openingTags(e, 'button')[0].attrs.includes('onClick'), false)
 
+// ── Design gate (ratchet nilai mentah) ────────────────────────────────────
+// 7. Counter ini yang menentukan gagal/lolos commit, jadi diuji langsung.
+const debtSrc = src.slice(src.indexOf('function stripComments'), src.indexOf('function designMetrics'))
+// eslint-disable-next-line no-new-func
+const { countScssDebt, countTsxDebt, debtGrowth } = new Function(
+  `${debtSrc}; return { countScssDebt, countTsxDebt, debtGrowth }`,
+)()
+
+check('font-size px dihitung', countScssDebt('a { font-size: 14px; }').fontSizePx, 1)
+check('font-size token tidak dihitung', countScssDebt('a { font-size: var(--text-sm); }').fontSizePx, 0)
+check('rgba dihitung', countScssDebt('a { background: rgba(0,0,0,.5); }').color, 1)
+check('radius token tidak dihitung', countScssDebt('a { border-radius: var(--radius-lg); }').radiusPx, 0)
+check('radius px besar dihitung', countScssDebt('a { border-radius: 12px; }').radiusPx, 1)
+check('radius mikro (3px) ditoleransi', countScssDebt('a { border-radius: 3px; }').radiusPx, 0)
+check('jarak token tidak dihitung', countScssDebt('a { padding: var(--space-4); }').spacePx, 0)
+check('nudge mikro (3px) ditoleransi', countScssDebt('a { padding: 3px var(--space-2); }').spacePx, 0)
+check('jarak px besar dihitung', countScssDebt('a { gap: 12px; }').spacePx, 1)
+check('komentar blok tidak dihitung', countScssDebt('/* #fff font-size: 12px */ a { color: red; }').fontSizePx, 0)
+check('komentar baris tidak dihitung', countScssDebt('a { // font-size: 12px\n}').fontSizePx, 0)
+check('token-ok melewati baris', countScssDebt('a { color: rgba(0,0,0,.2); } // token-ok').color, 0)
+check('style TSX mentah dihitung', countTsxDebt("<b style={{ color: '#fff', fontSize: 14 }} />").color, 1)
+check('style TSX token tidak dihitung', countTsxDebt("<b style={{ color: 'var(--text-primary)' }} />").color, 0)
+check('debt naik terdeteksi', debtGrowth({ a: { fontSizePx: 2 } }, { a: { fontSizePx: 1 } }).length, 1)
+check('debt turun bukan pelanggaran', debtGrowth({ a: { fontSizePx: 0 } }, { a: { fontSizePx: 1 } }).length, 0)
+check('berkas baru dgn nilai mentah terdeteksi', debtGrowth({ b: { color: 1 } }, {}).length, 1)
+
 console.log(failed ? `\n${failed} gagal` : '\nsemua lolos')
 process.exit(failed ? 1 : 0)

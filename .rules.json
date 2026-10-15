@@ -40,7 +40,16 @@
       "bukti angka/selector (rect, elementFromPoint, rasio kontras), bukan kesan; yang mustahil dibaca dari sumber diukur lewat browser-gate"
     ],
     "auditMode": "review pakai mode After skill: findings bernomor di anti-slop/audit-NNN-YYYY-MM-DD.md, jangan ubah apa pun sebelum item disetujui",
-    "catatan": "Tidak ada cek mekanis yang bisa membuktikan skill benar-benar dipakai; enforcement lewat startup protocol + review. Commit yang menyentuh UI wajib menyebut ID temuan di laporan."
+    "catatan": "Tidak ada cek mekanis yang bisa membuktikan skill benar-benar dipakai; enforcement lewat startup protocol + review. Yang BISA dicek mekanis: nilai mentah vs token di design system — lihat `designGate`. Commit yang menyentuh UI wajib menyebut ID temuan di laporan."
+  },
+  "designGate": {
+    "command": "npm run scan",
+    "selfTest": "npm run scan:test",
+    "baseline": "docs/design/design-debt.json",
+    "enforce": "pre-commit (Design gate) + langkah 2 alur AGENTS §0",
+    "measures": "nilai mentah di src/styles/system/** (warna rgba/rgb/hsl, font-size px, border-radius px, jarak px ≥8) dan warna/ukuran mentah di style={{ … }} TSX; warna heks mentah di system/ tetap FAIL keras",
+    "rule": "Design system wajib dipakai: nilai baru harus token (--text-*, --space-*, --radius-*, warna peran). Gate bersifat ratchet — menambah nilai mentah = FAIL, menurunkan = boleh. Perbarui baseline HANYA setelah utang benar-benar turun: npm run scan -- --update-design-debt",
+    "layoutRules": "kolom 430px, jarak tepi 20px, header, zona jempol, bilah fixed dibatasi kolom: docs/design/DNA.md + AGENTS §5; pelanggarannya ditangkap browser-gate, bukan scan"
   },
   "scope": {
     "is": [

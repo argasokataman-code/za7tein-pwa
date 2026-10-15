@@ -1,0 +1,116 @@
+{
+  "src/styles/system/_admin.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 1
+  },
+  "src/styles/system/_app-shell.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 1
+  },
+  "src/styles/system/_auth.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 4
+  },
+  "src/styles/system/_buttons.scss": {
+    "color": 1,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  },
+  "src/styles/system/_cards.scss": {
+    "color": 1,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  },
+  "src/styles/system/_cart-2.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 1
+  },
+  "src/styles/system/_cart.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 2
+  },
+  "src/styles/system/_home-v2.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 1
+  },
+  "src/styles/system/_home.scss": {
+    "color": 4,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 1
+  },
+  "src/styles/system/_landing-refresh.scss": {
+    "color": 7,
+    "fontSizePx": 42,
+    "radiusPx": 17,
+    "spacePx": 90
+  },
+  "src/styles/system/_map.scss": {
+    "color": 5,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  },
+  "src/styles/system/_menu-detail-v2.scss": {
+    "color": 2,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  },
+  "src/styles/system/_menu.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 2
+  },
+  "src/styles/system/_onboarding.scss": {
+    "color": 4,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  },
+  "src/styles/system/_payment-selection.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 1
+  },
+  "src/styles/system/_storefront.scss": {
+    "color": 3,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  },
+  "src/styles/system/_topbar.scss": {
+    "color": 0,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 2
+  },
+  "src/styles/system/_tracking.scss": {
+    "color": 2,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  },
+  "src/pages/Faq.tsx": {
+    "color": 2,
+    "fontSizePx": 0,
+    "radiusPx": 0,
+    "spacePx": 0
+  }
+}

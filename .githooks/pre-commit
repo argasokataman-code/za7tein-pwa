@@ -75,6 +75,15 @@ line_check "src/styles" "*.scss" 600 "Stylesheets" ""
 
 # ───────────── 3. LINT ─────────────
 check "PRD registry, flow specs and design tokens" "npm run governance:check"
+
+# ───────────── 3b. DESIGN GATE ─────────────
+# Statik & cepat. Menolak nilai mentah BARU (warna/ukuran/jarak) di
+# src/styles/system/** dan warna mentah di style={{ … }} TSX — design system
+# wajib dipakai. Ratchet: baseline docs/design/design-debt.json hanya boleh
+# turun. Aturan: .rules.json -> designGate.
+check "Design gate (surface scan)" "npm run scan"
+check "Scan self-check" "npm run scan:test"
+
 check "Linter (oxlint)" "npx oxlint --quiet"
 
 # ───────────── 4. BUILD ─────────────

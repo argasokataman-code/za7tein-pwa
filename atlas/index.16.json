@@ -1886,6 +1886,178 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101910",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:12:23",
+      "tags": [
+        "ui",
+        "merchant",
+        "kuota"
+      ],
+      "summary": "Langganan kuota: kartu berwarna status + grid paket; docH 1915->1699",
+      "conn": [
+        {
+          "id": "TASK-101900",
+          "type": "relates",
+          "raw": "TASK-101900:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88080",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "21:12:23",
+      "tags": [
+        "ui",
+        "color"
+      ],
+      "summary": "Status kuota pakai token status soft+ink (hijau/kuning/merah); oranye merek hanya untuk harga",
+      "conn": [
+        {
+          "id": "TASK-101910",
+          "type": "led_to",
+          "raw": "TASK-101910:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101911",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:14:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.mjs (+98/-2) — edit via tool: // ── Design-system ratchet ──────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.mjs"
+    },
+    {
+      "id": "TASK-101912",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:15:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.mjs (+85/-75) — edit via tool: /** Hitung nilai mentah dari teks SCS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.mjs"
+    },
+    {
+      "id": "TASK-101913",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:15:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.test.mjs (+32/-6) — edit via tool: // 6. Tag tanpa handler tetap dit",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/surface-scan.test.mjs"
+    },
+    {
+      "id": "TASK-101914",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:16:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit (+12/-3) — edit via tool: # ───────────── 3. LINT ─────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.githooks/pre-commit"
+    },
+    {
+      "id": "TASK-101915",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:16:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json (+11/-2) — edit via tool: \"catatan\": \"Tidak ada cek mekanis yang b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-101916",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:16:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+3/-1) — edit via tool: - **Gate mekanis (design system dipakai ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-101917",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:16:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+9/-3) — edit via tool: - **Teks sekunder di atas permukaan berw",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
     }
   ]
 }

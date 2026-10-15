@@ -46,6 +46,12 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
 - **Teks sekunder di atas permukaan berwarna pakai `--text-secondary-strong`.** `--text-secondary`
   hanya 3,86:1 di atas `--border` dan 4,33:1 di `--bg-warm`, gagal WCAG AA; versi gelapnya lolos di
   keduanya (audit 019 #2/#3).
+- **Design gate (`npm run scan`, jalan juga di pre-commit).** Nilai mentah baru di `system/**`
+  (warna `rgba/rgb/hsl`, `font-size`/`border-radius` px, jarak px ≥ 8) dan warna mentah di
+  `style={{ … }}` TSX **ditolak**; baseline `docs/design/design-debt.json` hanya boleh turun
+  (`npm run scan -- --update-design-debt` setelah utang benar-benar turun). Variasi warna kartu
+  memakai **peran token yang sudah ada** — status soft/ink, `--orange-soft`, `--navy` — bukan
+  warna baru.
 - **Glow merek** (`--shadow-brand`) hanya menandai **aksi primer**, bukan umpan hover dan bukan
   penanda status terpilih. Pemakaian lain dihapus di akarnya.
 - **Umpan hover** dibungkus `@media (hover: hover) and (pointer: fine)`; di layar sentuh ia tidak

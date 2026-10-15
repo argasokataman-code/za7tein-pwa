@@ -10,7 +10,7 @@
  * Jalankan: npm run scan
  */
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs'
+import { readFileSync, readdirSync, existsSync, writeFileSync } from 'node:fs'
 import { extname, join, resolve } from 'node:path'
 
 const ROOT = resolve(import.meta.dirname, '..')
@@ -380,7 +380,117 @@ function checkRawColors() {
   }
 }
 
+// ── Design-system ratchet ─────────────────────────────────────────────────
+// Proxy mekanis untuk pertanyaan "design system dipakai atau tidak": hitung
+// nilai mentah di system/ (warna rgba/rgb/hsl, font-size px, border-radius px,
+// jarak px ≥8) dan warna/ukuran mentah di `style={{ … }}` TSX. Utang lama
+// diukur sekali di `docs/design/design-debt.json`; gate MENOLAK kenaikan
+// (nilai mentah baru harus dijawab dengan token) dan menyambut penurunan.
+// Perbarui baseline hanya setelah menurunkan utang:
+//   npm run scan -- --update-design-debt
+const DESIGN_DEBT = 'docs/design/design-debt.json'
+
+/** Buang komentar blok + baris, pertahankan nomor baris. */
+function stripComments(src) {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
+    .split('\n')
+    .map((l) => l.split('//')[0])
+    .join('\n')
+}
+
+/** Hitung nilai mentah dari teks SCSS system/ (murni — dipakai uji). */
+function countScssDebt(text) {
+  const out = { color: 0, fontSizePx: 0, radiusPx: 0, spacePx: 0 }
+  const px = /(\d+(?:\.\d+)?)px/g
+  // Penanda `token-ok` dibaca dari sumber MENTAH: komentar dibuang sebelum
+  // baris diperiksa, jadi pengecualian yang ditulis sebagai komentar harus
+  // dikumpulkan lebih dulu.
+  const ok = new Set(text.split('\n').flatMap((l, i) => (/token-ok/.test(l) ? [i] : [])))
+  stripComments(text)
+    .split('\n')
+    .forEach((line, i) => {
+      if (ok.has(i)) return
+      for (const _ of line.matchAll(/\b(?:rgba?|hsla?)\(/g)) out.color += 1
+      for (const _ of line.matchAll(/font-size\s*:\s*\d/g)) out.fontSizePx += 1
+      for (const m of line.matchAll(/border-radius\s*:\s*([^;}]+)/g)) {
+        if ([...m[1].matchAll(px)].some((x) => Number(x[1]) >= 5)) out.radiusPx += 1
+      }
+      for (const m of line.matchAll(/\b(?:padding|margin|gap)(?:-[a-z]+)?\s*:\s*([^;}]+)/g)) {
+        if ([...m[1].matchAll(px)].some((x) => Number(x[1]) >= 8)) out.spacePx += 1
+      }
+    })
+  return out
+}
+
+/** Hitung warna/ukuran mentah di `style={{ … }}` teks TSX (murni). */
+function countTsxDebt(text) {
+  const out = { color: 0, fontSizePx: 0 }
+  for (const s of text.match(/style=\{\{[^}]*\}\}/g) || []) {
+    for (const _ of s.matchAll(/#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?)\(/g)) out.color += 1
+    if (/fontSize\s*:\s*\d/.test(s)) out.fontSizePx += 1
+  }
+  return out
+}
+
+/** Pertumbuhan utang design antara baseline dan keadaan sekarang (murni). */
+function debtGrowth(now, base) {
+  const growth = []
+  const keys = ['color', 'fontSizePx', 'radiusPx', 'spacePx']
+  for (const file of new Set([...Object.keys(now), ...Object.keys(base)])) {
+    for (const k of keys) {
+      const a = now[file]?.[k] || 0
+      const b = base[file]?.[k] || 0
+      if (a > b) growth.push(`${file} ${k} ${b}→${a}`)
+    }
+  }
+  return growth
+}
+
+function designMetrics() {
+  const out = {}
+  for (const file of walk('src/styles/system', ['.scss'])) out[file] = countScssDebt(read(file))
+  for (const file of tsxFiles()) {
+    const tsx = countTsxDebt(read(file))
+    if (tsx.color || tsx.fontSizePx) out[file] = { radiusPx: 0, spacePx: 0, ...tsx }
+  }
+  for (const k of Object.keys(out)) {
+    if (!Object.values(out[k]).some((v) => v > 0)) delete out[k]
+  }
+  return out
+}
+
+function checkDesignSystem() {
+  const now = designMetrics()
+  if (argv.includes('--update-design-debt')) {
+    writeFileSync(join(ROOT, DESIGN_DEBT), `${JSON.stringify(now, null, 2)}\n`)
+    info.push(`Design debt diperbarui: ${DESIGN_DEBT}`)
+    return
+  }
+  if (!exists(DESIGN_DEBT)) {
+    fail.push(`Design gate: ${DESIGN_DEBT} belum ada — jalankan: npm run scan -- --update-design-debt`)
+    return
+  }
+  const growth = debtGrowth(now, JSON.parse(read(DESIGN_DEBT)))
+  if (growth.length) {
+    fail.push(
+      `Design gate: nilai mentah bertambah — pakai token, jangan tambah utang: ${growth.join(', ')}`,
+    )
+  } else {
+    const left = Object.values(now).reduce(
+      (s, v) => s + Object.values(v).reduce((x, y) => x + y, 0),
+      0,
+    )
+    info.push(
+      left
+        ? `Design gate: tak ada utang baru; sisa ${left} nilai mentah di ${Object.keys(now).length} berkas`
+        : 'Design gate: tanpa nilai mentah (warna/ukuran/jarak) di system/ dan style TSX',
+    )
+  }
+}
+
 // ── jalankan ──────────────────────────────────────────────────────────────
+checkDesignSystem()
 checkRawColors()
 checkTokens()
 checkClassNames()
