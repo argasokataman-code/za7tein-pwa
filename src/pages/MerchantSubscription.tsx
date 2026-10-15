@@ -7,7 +7,11 @@
 // (`merchant_subscriptions`/`quota_subscriptions` → 404) dan `src/api/` tak punya
 // endpoint kuota, jadi paketnya ditampilkan apa adanya tetapi tombol beli mati
 // dengan alasan. Saldo kuota di bawah berasal dari state aplikasi, bukan backend.
-import { PackageCheck, ShoppingBag, Truck } from 'lucide-react'
+//
+// Tata letak: satu kartu per jenis kuota dengan **warna status** (hijau/kuning/
+// merah) dan angka sisa sebagai fokus, bukan empat baris key-value yang terbaca
+// seperti tabel. Paket ditampilkan sebagai grid kartu (dulu lima baris list).
+import { PackageCheck, ShoppingBag } from 'lucide-react'
 
 import { DEMO_MERCHANT_ID } from '../api/reference'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
@@ -28,8 +32,8 @@ const QUOTA_KINDS: QuotaKind[] = ['order', 'cod']
 
 /** Keterangan tiap jenis kuota (satu bahasa: lucide untuk ikonnya). */
 const KIND_COPY: Record<QuotaKind, { label: string; note: string }> = {
-  order: { label: 'Kuota order', note: 'Order online (bayar lewat aplikasi)' },
-  cod: { label: 'Kuota COD', note: 'Order bayar di tempat' },
+  order: { label: 'Kuota order', note: 'Order online' },
+  cod: { label: 'Kuota COD', note: 'Bayar di tempat' },
 }
 
 const STATUS_LABEL = {
@@ -37,6 +41,14 @@ const STATUS_LABEL = {
   low: 'Hampir habis',
   exhausted: 'Habis',
   unknown: 'Belum ada langganan',
+} as const
+
+/** Status → nada warna kartu. Satu nada satu kelas; warnanya dari token status. */
+const STATUS_TONE = {
+  available: 'ok',
+  low: 'low',
+  exhausted: 'out',
+  unknown: 'none',
 } as const
 
 export default function MerchantSubscription() {
@@ -61,20 +73,8 @@ export default function MerchantSubscription() {
           }
         />
 
-        {/* Dua jenis kuota berdampingan: angkanya dibaca lebih dulu. */}
-        <section className="merchant-stats">
-          {QUOTA_KINDS.map((kind) => (
-            <div key={kind} className="merchant-stat">
-              <span className="merchant-stat-value">
-                {subs
-                  .filter((s) => s.active && s.kind === kind && s.merchantId === merchantId)
-                  .reduce((sum, s) => sum + (s.quota - s.used - s.reserved), 0)}
-              </span>
-              <span className="merchant-stat-label">{KIND_COPY[kind].label} · sisa</span>
-            </div>
-          ))}
-        </section>
-
+        {/* Satu kartu per jenis kuota: angka sisa besar, warna = status. Dulu
+            angkanya kecil di atas lalu diulang sebagai baris tabel di bawah. */}
         {QUOTA_KINDS.map((kind) => {
           const mine = subs.filter((s) => s.active && s.kind === kind && s.merchantId === merchantId)
           const quota = mine.reduce((sum, s) => sum + s.quota, 0)
@@ -82,88 +82,79 @@ export default function MerchantSubscription() {
           const reserved = mine.reduce((sum, s) => sum + s.reserved, 0)
           const available = Math.max(0, quota - used - reserved)
           const status = quotaStatusFor(subs, merchantId, kind)
+          const tone = STATUS_TONE[status]
           const periode = mine[0]
           return (
-            <section key={kind} className="merchant-card">
-              <p className="merchant-card-title">
-                {kind === 'order' ? (
-                  <PackageCheck size={18} strokeWidth={1.75} aria-hidden="true" />
-                ) : (
-                  <ShoppingBag size={18} strokeWidth={1.75} aria-hidden="true" />
-                )}{' '}
-                {KIND_COPY[kind].label}
-              </p>
-              <p className="merchant-card-sub">{KIND_COPY[kind].note}</p>
-              <div className="merchant-row">
-                <span>Tersedia</span>
-                <span className="merchant-badge">{STATUS_LABEL[status]}</span>
+            <section key={kind} className={`merchant-quota-card merchant-quota-card--${tone}`}>
+              <div className="merchant-quota-card__head">
+                <span className="merchant-quota-card__label">
+                  {kind === 'order' ? (
+                    <PackageCheck size={18} strokeWidth={1.75} aria-hidden="true" />
+                  ) : (
+                    <ShoppingBag size={18} strokeWidth={1.75} aria-hidden="true" />
+                  )}
+                  {KIND_COPY[kind].label}
+                </span>
+                <span className="merchant-quota-chip">{STATUS_LABEL[status]}</span>
               </div>
-              <div className="merchant-quota" role="presentation">
+
+              <p className="merchant-quota-card__value">
+                {available}
+                <span className="merchant-quota-card__unit">
+                  {quota > 0 ? `/ ${quota} order` : 'belum ada paket'}
+                </span>
+              </p>
+
+              <div className={`merchant-quota merchant-quota--${tone}`} role="presentation">
                 <span
                   style={{ width: `${quota > 0 ? Math.round((available / quota) * 100) : 0}%` }}
                 />
               </div>
-              <div className="merchant-row">
-                <span>Paket periode ini</span>
-                <span>{quota} order</span>
-              </div>
-              <div className="merchant-row">
-                <span>Terpakai</span>
-                <span>{used} order</span>
-              </div>
-              <div className="merchant-row">
-                <span>Ter-reserve</span>
-                <span>{reserved} order</span>
-              </div>
-              <div className="merchant-row">
-                <span>Periode</span>
-                <span>{periode ? `${periode.periodStart} → ${periode.periodEnd}` : 'Belum ada'}</span>
-              </div>
+
+              <p className="merchant-quota-card__meta">
+                {KIND_COPY[kind].note} · terpakai {used} · ter-reserve {reserved}
+              </p>
+              <p className="merchant-quota-card__meta">
+                {periode ? `${periode.periodStart} → ${periode.periodEnd}` : 'Belum ada periode aktif'}
+              </p>
             </section>
           )
         })}
 
-        {/* Dulu diulang di tiap kartu (audit 019 #6) — satu kali saja di bawah
-            kedua kartu; kalimatnya memang sama untuk kuota order maupun COD. */}
         <p className="merchant-card-sub">
           Sisa ≤ {Math.round(QUOTA_LOW_RATIO * 100)}% paket dihitung hampir habis. Saat kuota order
-          habis, toko disembunyikan dari beranda kecuali "terima order tanpa kuota" menyala.
+          habis, toko disembunyikan dari beranda kecuali sakelar di bawah menyala.
         </p>
 
         <section className="merchant-section">
           <div className="merchant-section-head">
             <h2>Beli paket kuota</h2>
           </div>
-          {mockQuotaPackages.map((pkg) => (
-            <button
-              key={pkg.id}
-              type="button"
-              className="merchant-quick-action"
-              disabled={!QUOTA_PURCHASE_AVAILABLE}
-            >
-              <span className="merchant-quick-icon">
-                {pkg.kind === 'order' ? (
-                  <PackageCheck size={20} strokeWidth={1.75} />
-                ) : (
-                  <Truck size={20} strokeWidth={1.75} />
-                )}
-              </span>
-              <div>
-                <p className="merchant-quick-title">
-                  {pkg.units} {pkg.kind === 'order' ? 'order' : 'order COD'}
-                </p>
-                <p className="merchant-quick-sub">
-                  {pkg.days} hari · {money(jodToIdr(pkg.priceJod))}
-                </p>
-              </div>
-              <span className="merchant-badge">
-                {QUOTA_PURCHASE_AVAILABLE ? 'Beli' : 'Belum tersedia'}
-              </span>
-            </button>
-          ))}
+          <div className="merchant-quota-packages">
+            {mockQuotaPackages.map((pkg) => (
+              <button
+                key={pkg.id}
+                type="button"
+                className="merchant-quota-package"
+                disabled={!QUOTA_PURCHASE_AVAILABLE}
+              >
+                <span className="merchant-quota-package__kind">
+                  {pkg.kind === 'order' ? 'Order' : 'COD'}
+                </span>
+                <span className="merchant-quota-package__units">{pkg.units}</span>
+                <span className="merchant-quota-package__days">{pkg.days} hari</span>
+                <span className="merchant-quota-package__price">
+                  {money(jodToIdr(pkg.priceJod))}
+                </span>
+                <span className="merchant-quota-package__chip">
+                  {QUOTA_PURCHASE_AVAILABLE ? 'Beli' : 'Belum tersedia'}
+                </span>
+              </button>
+            ))}
+          </div>
           <p className="merchant-card-sub">
-            Pembelian = transaksi biasa: bayar QRIS kena biaya transaksi 1,5% (§16.2), saldo DANA
-            tidak. Periode dimulai saat paket aktif, sisa hangus di akhir periode.
+            Pembelian lewat QRIS dikenai biaya transaksi 1,5% (§16.2) — saldo DANA tidak. Sisa hangus
+            di akhir periode.
           </p>
         </section>
 
@@ -173,8 +164,7 @@ export default function MerchantSubscription() {
             Saat menyala, toko tetap tampil di beranda meski kuota order habis; order seperti itu
             tidak memotong kuota.
           </p>
-          {/* Seluruh baris jadi sasaran sentuh (audit 019 #1/#7): dulu hanya
-              switch 52×28 di ujung yang bisa ditekan. Label membungkus input. */}
+          {/* Seluruh baris jadi sasaran sentuh (audit 019): label membungkus input. */}
           <label className="merchant-row">
             <span>Izinkan order tanpa kuota</span>
             <span className="toggle-wrap">

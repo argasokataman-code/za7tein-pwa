@@ -325,6 +325,10 @@ export default function Documentation() {
                 dapat ditekan, bukan hanya switch 52×28 di ujungnya. Teks sekunder di atas permukaan
                 berwarna (chip status, keadaan kosong) memakai{' '}
                 <code className="doc-inline">--text-secondary-strong</code> agar lolos WCAG AA.
+                Halaman <code className="doc-inline">/merchant/subscription</code> juga turun dari
+                tumpukan baris tabel: satu kartu per jenis kuota dengan warna status (hijau / kuning /
+                merah dari token status), angka sisa sebagai fokus, dan paket sebagai grid kartu —
+                bukan lima baris list.
               </li>
               <li>
                 <strong>Kartu kode promo punya permukaan merek sendiri.</strong> Isinya satu aksi,

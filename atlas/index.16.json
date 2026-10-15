@@ -1727,6 +1727,165 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/anti-slop/audit-019-fix-2026-10-15.md"
+    },
+    {
+      "id": "TASK-101900",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:05:26",
+      "tags": [
+        "ui",
+        "audit",
+        "mobile"
+      ],
+      "summary": "Audit 019 mobile-friendliness: lantai huruf 13/15/16, kontras AA, sasaran sentuh sakelar 48px",
+      "conn": [
+        {
+          "id": "DEC-88050",
+          "type": "relates",
+          "raw": "DEC-88050:relates"
+        },
+        {
+          "id": "TASK-101800",
+          "type": "relates",
+          "raw": "TASK-101800:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88070",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "21:05:26",
+      "tags": [
+        "ui",
+        "typography",
+        "a11y"
+      ],
+      "summary": "Lantai huruf caption 13px / isi 15px / body 16px; teks sekunder di permukaan berwarna pakai --text-secondary-strong",
+      "conn": [
+        {
+          "id": "TASK-101900",
+          "type": "led_to",
+          "raw": "TASK-101900:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101901",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:08:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+192) — write via tool: tsx: // Langganan kuota merch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-101902",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:09:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+182/-6) — edit via tool: /* Baris sakelar = sasaran ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-101903",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:09:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN|ok \" | head -12; npm run lint 2>&1 | rtk gre",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101904",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:11:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+11/-4) — edit via tool: .merchant-quota-package__pri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-101905",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:11:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+7/-3) — edit via tool: tsx: berwarna (chip status, keadaan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101906",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:11:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -5; npm run lint 2>&1 | rtk grep -c ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
