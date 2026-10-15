@@ -294,6 +294,14 @@ export default function Documentation() {
                 <strong>disembunyikan dari beranda</strong>, bukan sekadar dikartu-abukan.
               </li>
               <li>
+                <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
+                backend menandainya di muka: refund (§16.6) memakai flag{' '}
+                <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}
+                (merchant) kini menyebut bahwa profil &amp; foto hanya berlaku selama sesi ini —
+                sebelumnya ia menampilkan "Setelan toko disimpan" padahal state-nya tidak pernah
+                dikirim ke server (dan tak ikut persist).
+              </li>
+              <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}
                 <code className="doc-inline">POST /orders</code> ditolak BE, order dicatat lokal
                 dengan kode yang sama (bukan jatuh ke <code className="doc-inline">mockOrder</code>{' '}

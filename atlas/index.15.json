@@ -5003,6 +5003,133 @@
           "raw": "DEC-88030:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "18:28:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+3/-2) — edit via tool: tsx: import { ConfirmSheet } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-101002",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "18:28:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-2) — edit via tool: tsx: <strong>disembunyikan dari ber",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101003",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "18:28:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md (+2/-1) — edit via tool: - ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
+    },
+    {
+      "id": "TASK-101004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "18:29:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2; npm run lint 2>&1 | rtk grep -cE \"warning|error\"; npm",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-91005",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-15",
+      "time": "18:29:44",
+      "tags": [
+        "honesty",
+        "merchant",
+        "settings",
+        "ui-copy"
+      ],
+      "summary": "MerchantSettings menampilkan 'Setelan toko disimpan' padahal tak ada write API + slice merchant tak persist -> pesan sukses palsu; kini noti",
+      "conn": [
+        {
+          "id": "DEC-88030",
+          "type": "relates",
+          "raw": "DEC-88030:relates"
+        },
+        {
+          "id": "TASK-101000",
+          "type": "relates",
+          "raw": "TASK-101000:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "18:29:44",
+      "tags": [
+        "audit",
+        "honesty",
+        "be-gap"
+      ],
+      "summary": "Audit marker 'belum tersedia': refund OK; kuota/marketing belum ada UI yang mengklaim; ketemu 1 pelanggar (MerchantSettings) lalu diperbaiki",
+      "conn": [
+        {
+          "id": "DEC-88030",
+          "type": "led_to",
+          "raw": "DEC-88030:led_to"
+        },
+        {
+          "id": "BUG-91005",
+          "type": "fixes",
+          "raw": "BUG-91005:fixes"
+        }
+      ]
     }
   ]
 }

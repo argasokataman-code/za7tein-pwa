@@ -9,6 +9,7 @@ import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
@@ -66,7 +67,7 @@ export default function MerchantSettings() {
     const url = URL.createObjectURL(file)
     logoUrlRef.current = url
     dispatch(setMerchantLogo(url))
-    toast.success('Foto toko diperbarui')
+    toast.success('Pratinjau foto diperbarui — belum diunggah')
   }
 
   const onLogoRemove = () => {
@@ -75,7 +76,7 @@ export default function MerchantSettings() {
       logoUrlRef.current = null
     }
     dispatch(removeMerchantLogo())
-    toast.success('Foto toko dihapus')
+    toast.success('Foto dihapus dari sesi ini')
   }
 
   const { setPosition } = useLeafletMap('merchant-map', 'picker', {
@@ -117,11 +118,13 @@ export default function MerchantSettings() {
     reset({ name: storeName, phone: storePhone, address: storeAddress })
   }, [reset, storeName, storePhone, storeAddress])
 
-  // Simpan benar-benar mengubah state, bukan cuma toast "berhasil" (dulu form
-  // ini menampilkan sukses padahal tak ada satu pun nilai yang berubah).
+  // Simpan mengubah state (bukan cuma toast "berhasil"), TAPI state itu hidup di
+  // memori sesi: `api/` belum punya penulisan profil toko, dan slice `merchant`
+  // tidak masuk whitelist persist. Karena itu toast-nya menyebut apa adanya —
+  // sebelumnya berbunyi "Setelan toko disimpan" seolah sudah tersimpan ke server.
   const onSubmit = (data: MerchantStoreFormData) => {
     dispatch(setStoreProfile(data))
-    toast.success('Setelan toko disimpan')
+    toast.success('Tersimpan di sesi ini — belum tersimpan ke server')
   }
 
   // Keluar = keluar dari akun toko lalu kembali ke layar masuk merchant.
@@ -141,6 +144,15 @@ export default function MerchantSettings() {
     <div className="app-shell">
       <main className="merchant-page">
         <MerchantPageHeader eyebrow="Profil & operasional" title="Setelan toko" />
+
+        {/* Profil & foto di halaman ini belum punya jalur tulis ke BE: yang
+            tersimpan cuma state sesi. Ditulis di muka supaya "Unggah foto" dan
+            tombol simpan tidak terbaca sebagai penyimpanan permanen. */}
+        <PlatformNotice
+          message={
+            'Profil toko (nama, nomor, alamat, foto) belum bisa disimpan ke server — backend belum punya endpoint tulisnya. Perubahan hanya berlaku selama sesi ini.'
+          }
+        />
 
         {/* Foto toko (field D1, f16). Unggah/Ganti/Hapus ditangani di sini dan
             langsung tersimpan ke store — tidak menunggu tombol simpan form teks. */}
