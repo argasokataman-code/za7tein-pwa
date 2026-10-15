@@ -110,23 +110,49 @@ export const mockAssignments: CourierAssignment[] = [
   },
 ]
 
-// — Langganan kuota —
+// — Langganan kuota (§17) —
 
+/**
+ * Sisa kuota dianggap **hampir habis** bila ≤ rasio ini dari total paket.
+ * Dipakai status `low` di `quotaSlice` (peringatan, bukan blokir).
+ */
+export const QUOTA_LOW_RATIO = 0.2
+
+/**
+ * `merchantId` memakai id toko mock (`storefronts.ts`), bukan `merchant-1`,
+ * supaya aturan blokir kuota benar-benar menggerakkan daftar beranda. Toko live
+ * (id UUID dari Supabase) sengaja tak cocok dengan seed ini → tak diblokir,
+ * karena BE belum punya tabel kuota (`ui-impact.md` §8).
+ */
 export const mockQuotaSubscriptions: QuotaSubscription[] = [
   {
+    // Hampir habis (sisa 17 dari 100) — masuk status `low`, bukan blokir.
     id: 'quota-order-1',
-    merchantId: 'merchant-1',
+    merchantId: 'am-1',
     kind: 'order',
     quota: 100,
-    used: 12,
+    used: 82,
     reserved: 1,
     periodStart: '2026-10-01',
     periodEnd: '2026-10-31',
     active: true,
   },
   {
+    // Habis (sisa 0) — tokonya disembunyikan dari daftar selama setting
+    // "terima order tanpa kuota" mati.
+    id: 'quota-order-2',
+    merchantId: 'am-4',
+    kind: 'order',
+    quota: 60,
+    used: 60,
+    reserved: 0,
+    periodStart: '2026-10-01',
+    periodEnd: '2026-10-31',
+    active: true,
+  },
+  {
     id: 'quota-cod-1',
-    merchantId: 'merchant-1',
+    merchantId: 'am-1',
     kind: 'cod',
     quota: 40,
     used: 3,
@@ -137,8 +163,12 @@ export const mockQuotaSubscriptions: QuotaSubscription[] = [
   },
 ]
 
-/** Setting "Terima order tanpa kuota order?" (§17). */
-export const mockAcceptWithoutQuota = true
+/**
+ * Setting "Terima order tanpa kuota order?" (§17) — hanya bisa diubah saat toko
+ * tutup. Default **mati**: kalau default-nya menyala, aturan kuota habis →
+ * toko disembunyikan tak akan pernah terlihat.
+ */
+export const mockAcceptWithoutQuota = false
 
 // — Program marketing —
 

@@ -8,6 +8,7 @@ import type {
   HoldEventName,
   HoldStatus,
   OrderStage,
+  QuotaKind,
   ZoneId,
 } from '../../types'
 
@@ -56,6 +57,12 @@ interface CartState {
   carts: Record<string, CartItem[]>
   /** Catatan tingkat pesanan (bukan per menu), dikirim ke dapur — PRD §11. */
   orderNote: string
+  /**
+   * Kolam kuota yang di-reserve order aktif (§17) — kuota order atau kuota COD,
+   * dipilih sekali saat order dibuat (`quotaKindForOrder`) lalu dipakai untuk
+   * mengonsumsi (selesai) atau mengembalikan (batal) di kolam yang sama.
+   */
+  quotaKind: QuotaKind | null
 }
 
 const initialState: CartState = {
@@ -87,8 +94,8 @@ const initialState: CartState = {
   activeMerchantId: null,
   carts: {},
   orderNote: '',
+  quotaKind: null,
 }
-
 /** Id entry hold: urutan + waktu, cukup unik untuk mock satu sesi. */
 const holdEvent = (event: HoldEventName, amountIdr: number, index: number): HoldEvent => ({
   id: `${event}-${index + 1}-${Date.now()}`,
@@ -155,6 +162,10 @@ const cartSlice = createSlice({
       state.activeOrder = action.payload
       // Order baru → bersihkan penanda batal dari order sebelumnya.
       state.orderCancelled = false
+    },
+    /** Kolam kuota yang di-reserve order ini (§17), dipilih saat order dibuat. */
+    setQuotaKind(state, action: PayloadAction<QuotaKind | null>) {
+      state.quotaKind = action.payload
     },
     updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
       const item = state.items.find((i) => i.id === action.payload.id)
@@ -361,6 +372,7 @@ export const {
   markOrderCancelled,
   setOrderStage,
   setActiveOrder,
+  setQuotaKind,
 } = cartSlice.actions
 
 export const selectCartCount = (items: CartItem[]) =>

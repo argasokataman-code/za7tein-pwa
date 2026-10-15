@@ -34,6 +34,7 @@ import {
   matchCourier,
   settleOrderHold,
 } from '../store/slices/cartSlice'
+import { useOrderQuota } from '../hooks/useOrderQuota'
 import { requestAppeal } from '../store/slices/adminSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
 import type { CourierCheckpoint, OrderStage } from '../types'
@@ -161,21 +162,22 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
           ? 'ambil'
           : 'masuk'
 
-  // Perayaan "pesanan selesai" dulu hanya terbuka lewat tombol demo di layar ini.
-  // Sekarang dipicu transisi tahap order → `selesai` (kurir merampungkan OTP →
-  // realtime menyetel tahap), jadi customer benar-benar dapat animasinya saat
-  // pesanan tuntas. Ref melacak tahap sebelumnya supaya kunjungan ulang ke order
-  // yang sudah selesai tidak memantul ke perayaan lagi.
+  // Perayaan "pesanan selesai" dipicu transisi tahap order → `selesai` (kurir
+  // merampungkan OTP). Ref melacak tahap sebelumnya supaya tak memantul lagi.
   const prevStageRef = useRef(stage)
+  const { consume: consumeOrderQuota, release: releaseOrderQuota } = useOrderQuota()
   useEffect(() => {
     const justFinished = prevStageRef.current !== 'selesai' && stage === 'selesai'
     prevStageRef.current = stage
     if (orderCancelled || stage !== 'selesai') return
-    // Window sengketa 24 jam (M6) butuh titik selesai — catat sekali saat tahap
-    // pertama kali jadi `selesai`.
-    if (!orderCompletedAt) dispatch(markOrderCompleted(new Date().toISOString()))
+    // Window sengketa 24 jam (M6) butuh titik selesai — catat sekali, sekalian
+    // konsumsi kuota yang di-reserve order ini (§17).
+    if (!orderCompletedAt) {
+      dispatch(markOrderCompleted(new Date().toISOString()))
+      consumeOrderQuota()
+    }
     if (justFinished) navigate(`/order-arrived?order=${orderCode}`)
-  }, [stage, orderCompletedAt, orderCancelled, dispatch, navigate, orderCode])
+  }, [stage, orderCompletedAt, orderCancelled, dispatch, navigate, orderCode, consumeOrderQuota])
 
   // Pengantaran satu-satunya tahap di mana peta memang layak dominan.
   const isDelivery = stage === 'diantar'
@@ -226,6 +228,8 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const confirmCancel = () => {
     if (!canCancel) return
     dispatch(cancelOrder())
+    // Batal → kuota ter-reserve dikembalikan (§17), bukan dikonsumsi.
+    releaseOrderQuota()
     dispatch(
       applyHoldEvent({
         event: holdStatus === 'cut' ? 'hold_reversed' : 'hold_released',

@@ -173,4 +173,10 @@ Diuji pada klon browser terhadap backend demo Supabase (`dwzxtnfesmpobnepilhl`):
 - **`payment_methods` memakai key polos `qris`** (baris aktif, sort 4), bukan `xendit_qris`. Alias di `src/api/payments.ts` sudah ditambah (`qris → dana_qris`); sebelumnya baris itu dibuang sehingga QRIS hilang dari semua layar walau aktif di database.
 - **`payment_methods` belum punya kolom kuota COD** → gate kuota COD (`codQuotaStatus`) memakai langganan kuota mock; merchant tanpa catatan langganan diperlakukan `unknown` (tidak diblokir) supaya data yang memang tidak ada tidak memblokir order.
 
+### Temuan M3 (kuota + marketing)
+
+- **Tak ada tabel kuota/langganan di BE**: `merchant_subscriptions`, `quota_subscriptions`, `subscriptions` → HTTP 404; `merchants` juga tak punya kolom kuota (`quota_order_balance`/`quota_cod_balance`) maupun `accept_without_quota`. Akibatnya model kuota §17 (reserve/consume/return + blokir browse) hanya hidup dari seed mock `mockQuotaSubscriptions` yang memakai **id toko mock** (`am-1`, `am-4`), sementara id merchant live berupa angka (`1`..`9`) — jadi **aturan blokir tidak aktif dengan data live**. Terverifikasi hanya lewat seed manual (9→8 kartu). Pembelian kuota (M3b) akan ditandai "belum tersedia" sampai tabelnya ada.
+- **Program marketing ala Odoo (§15) tak punya endpoint**: `loyalty_programs`, `marketing_programs` → 404; yang ada hanya tabel `marketing` (promo/diskon, dipakai `MerchantPromos` + `validatePromo`). Tipe domain program/rule/reward/card sudah ada di `src/types.ts`, tapi tanpa tabelnya program loyalty/promo-code per-merchant tak bisa disimpan — M3c ditandai sesuai ketersediaan.
+- **`merchants.tier` ada** (`free`/`pro`-style) tetapi tak dipakai untuk kuota; kuota §17 bukan tier.
+
 Konsekuensi: `Home` tetap rapi dengan data live (9 kartu, `overflowX` 0, shell 430px, gate `--strict --click` lolos 390/1440), tetapi efek discovery baru **tidak terlihat** sampai kolom di atas ada. Logika murni (`groupStorefrontsByTag` / `isSelectable` / `visibleStorefronts`) terverifikasi lewat `node scripts/discovery-check.mjs` + mock fallback.

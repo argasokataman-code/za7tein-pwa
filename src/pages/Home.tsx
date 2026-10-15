@@ -10,6 +10,7 @@ import { MerchantCard } from '../components/ui/MerchantCard'
 import { useAppSelector } from '../hooks/useAppStore'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { selectCartCount, selectSubtotal } from '../store/slices/cartSlice'
+import { merchantQuotaBlocked } from '../store/slices/quotaSlice'
 import { CATEGORIES, dealsFrom, menuSeed, merchantCategoryIds } from '../data/catalog'
 import { storefronts, groupStorefrontsByTag, isSelectable, visibleStorefronts, sortStorefronts, filterStorefronts, type MerchantSortKey } from '../data/storefronts'
 import { useAllMenuItems, useStorefronts } from '../hooks/useApiCatalog'
@@ -35,6 +36,10 @@ export default function Home() {
   const unreadNotifications = useAppSelector((s) => selectUnreadCount(s.notifications.items))
   const locationLabel = useAppSelector((s) => s.ui.locationLabel)
   const cartItems = useAppSelector((s) => s.cart.items)
+  // Kuota order (§17): toko yang kuotanya habis dan tidak mengizinkan order
+  // tanpa kuota disembunyikan dari daftar — bukan sekadar di-disable.
+  const quotaSubs = useAppSelector((s) => s.quota.subscriptions)
+  const acceptWithoutQuota = useAppSelector((s) => s.quota.acceptWithoutQuota)
   const [category, setCategory] = useState('all')
   // Urut/filter daftar toko (PRD §6). `distance` default: toko terdekat dulu.
   const [sort, setSort] = useState<MerchantSortKey>('distance')
@@ -74,7 +79,9 @@ export default function Home() {
   // difilter (rating) dan diurutkan (jarak/rating/terlaris) — PRD §6.
   const visibleStores = sortStorefronts(
     filterStorefronts(
-      visibleStorefronts(categoryStores),
+      visibleStorefronts(categoryStores).filter(
+        (store) => !merchantQuotaBlocked(quotaSubs, store.id, acceptWithoutQuota),
+      ),
       minRating ? { minRating } : {},
     ),
     sort,

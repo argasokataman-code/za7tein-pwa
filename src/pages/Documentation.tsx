@@ -284,6 +284,16 @@ export default function Documentation() {
                 Checkout.
               </li>
               <li>
+                <strong>Kuota order (§17) kini bergerak, bukan sekadar ditampilkan</strong> (M3a):
+                sisa kuota = paket − terpakai − ter-reserve, dengan status{' '}
+                <em>hampir habis</em> saat sisa ≤ 20% paket. Order meng-<em>reserve</em> kuota saat
+                dibuat, <em>mengonsumsi</em>-nya saat pesanan selesai, dan{' '}
+                <em>mengembalikan</em>-nya saat dibatalkan — kolam yang dipakai (kuota order atau
+                kuota COD) dipilih sekali lalu diingat, jadi COD tak pernah memakai kuota order.
+                Toko yang kuota ordernya habis dan belum mengizinkan order tanpa kuota{' '}
+                <strong>disembunyikan dari beranda</strong>, bukan sekadar dikartu-abukan.
+              </li>
+              <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}
                 <code className="doc-inline">POST /orders</code> ditolak BE, order dicatat lokal
                 dengan kode yang sama (bukan jatuh ke <code className="doc-inline">mockOrder</code>{' '}

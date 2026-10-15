@@ -30,7 +30,9 @@ import {
   createOrderHold,
   setActiveOrder,
   setOrderStage,
+  setQuotaKind,
 } from '../store/slices/cartSlice'
+import { quotaKindForOrder, reserveQuota } from '../store/slices/quotaSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
 import { BackButton } from '../components/ui/BackButton'
 
@@ -62,6 +64,8 @@ export default function PaymentAmount() {
   // dengan Checkout, jadi dua layar tak bisa berbeda angka.
   const charged = useChargedBreakdown()
   const total = charged.totalIdr
+  const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
+  const quotaSubs = useAppSelector((s) => s.quota.subscriptions)
   const method = methods.find((m) => m.id === paymentId) ?? methods[0]
   const needsProof = method.id === 'transfer'
   /** VA/QRIS (DANA): order dibuat di sini, pembayaran diselesaikan di layar berikutnya. */
@@ -110,6 +114,13 @@ export default function PaymentAmount() {
       dispatch(createOrderHold({ amountIdr: total }))
       dispatch(applyHoldEvent({ event: 'hold_created', amountIdr: total }))
     }
+    // Kuota order di-reserve saat order dibuat (§17): COD hanya kuota COD; order
+    // online memakai kuota order dulu, lalu kuota COD. Kolam yang dipakai
+    // disimpan di `cart.quotaKind` supaya konsumsi (selesai) dan pengembalian
+    // (batal) jatuh di kolam yang sama, bukan menebak ulang dari metode bayar.
+    const quotaKind = quotaKindForOrder(quotaSubs, activeMerchantId, method.id === 'cod')
+    if (quotaKind) dispatch(reserveQuota({ kind: quotaKind, merchantId: activeMerchantId }))
+    dispatch(setQuotaKind(quotaKind))
     // Tulis order ke backend (best-effort): UI tetap jalan sebagai mock kalau
     // jaringan/RLS menolak, jadi kegagalan tidak menghalangi navigasi.
     // Sukses → simpan id/code order ke store supaya pelacakan customer membaca
