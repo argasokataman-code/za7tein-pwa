@@ -3672,6 +3672,102 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-100602",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:25:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketplace.ts (+10/-8) — edit via tool: ts: MarketingProgram,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketplace.ts"
+    },
+    {
+      "id": "TASK-100603",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:25:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/money-check.mjs (+86) — write via tool: // Self-check uang (§16.2–§16.4): rincia",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/money-check.mjs"
+    },
+    {
+      "id": "TASK-100604",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:26:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -c warning; npm run build 2>&1 | tail -4; npm run scan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-100605",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:26:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-100700",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:26:37",
+      "tags": [
+        "m2a",
+        "money",
+        "prd-sa7tein-mvp"
+      ],
+      "summary": "M2a model uang: priceBreakdown (S-Dm-Da+F+Pc+Ft, Ft 1.5% QRIS), settlementFor 3 kolom = total, rounding tagihan atas/payout bawah, self-chec",
+      "conn": [
+        {
+          "id": "TASK-100600",
+          "type": "led_to",
+          "raw": "TASK-100600:led_to"
+        }
+      ]
     }
   ]
 }

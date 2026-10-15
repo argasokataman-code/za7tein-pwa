@@ -6,6 +6,8 @@ import type {
   MarketingProgram,
   MerchantCoverage,
   MerchantRuleSelection,
+  OrderSettlement,
+  PriceBreakdown,
   ProgramReward,
   ProgramRule,
   QuotaSubscription,
@@ -233,3 +235,102 @@ export const mockIncidents: Incident[] = [
     filedAt: '2026-10-15T07:35:00.000Z',
   },
 ]
+
+// ── Uang: rincian harga & settlement (§16.2–§16.4) ──────────────────────────
+// Fungsi murni, JOD. Layar tinggal menampilkan hasilnya — tidak menghitung ulang
+// (AGENTS §11: logika turunan tinggal di modul data).
+
+/** Metode bayar yang memengaruhi `Ft` dan kolom settlement (§16.2). */
+export type PayMethodKind = 'qris' | 'dana' | 'cod'
+
+/** Konteks kuota merchant pada satu order (§16.4, §17). */
+export type QuotaContext = 'none' | 'order' | 'cod'
+
+export interface PriceInput {
+  /** `S` — subtotal menu. */
+  subtotalJod: number
+  /** `Dm` — diskon program merchant (ditanggung merchant). */
+  discountMerchantJod?: number
+  /** `Da` — diskon program aplikator (ditanggung aplikator). */
+  discountPlatformJod?: number
+  /** Fee kurir **sebelum** pengali Quick. */
+  deliveryFeeJod?: number
+  /** `true` = order Quick; fee kurir dikali pengali. */
+  quick?: boolean
+  quickMultiplier?: number
+  /** `Pc` — platform fee customer, flat per order (termasuk COD). */
+  platformFeeCustomerJod?: number
+  /** `Pm` — platform fee merchant; hanya ditagih saat online tanpa kuota. */
+  platformFeeMerchantJod?: number
+  method: PayMethodKind
+}
+
+/**
+ * Rincian harga satu order (§16.3). `total = S − Dm − Da + F + Pc + Ft`.
+ *
+ * `Ft` = 1,5% × (S − Dm − Da + F + Pc) dan **hanya QRIS**; saldo DANA dan COD
+ * tidak kena transaction fee (§16.2). `Pm` tidak masuk total — ia dipotong dari
+ * bagian merchant di settlement.
+ */
+export function priceBreakdown(input: PriceInput): PriceBreakdown {
+  const subtotalJod = input.subtotalJod
+  const discountMerchantJod = input.discountMerchantJod ?? 0
+  const discountPlatformJod = input.discountPlatformJod ?? 0
+  const baseDelivery = Math.max(0, input.deliveryFeeJod ?? 0)
+  const deliveryFeeJod = input.quick
+    ? baseDelivery * (input.quickMultiplier ?? QUICK_MULTIPLIER_DEFAULT)
+    : baseDelivery
+  const platformFeeCustomerJod = input.platformFeeCustomerJod ?? PLATFORM_FEE_CUSTOMER_DEFAULT_JOD
+  const platformFeeMerchantJod = input.platformFeeMerchantJod ?? PLATFORM_FEE_MERCHANT_DEFAULT_JOD
+  const net =
+    subtotalJod - discountMerchantJod - discountPlatformJod + deliveryFeeJod + platformFeeCustomerJod
+  const transactionFeeJod = input.method === 'qris' ? TRANSACTION_FEE_RATE * net : 0
+  return {
+    subtotalJod,
+    discountMerchantJod,
+    discountPlatformJod,
+    deliveryFeeJod,
+    platformFeeCustomerJod,
+    platformFeeMerchantJod,
+    transactionFeeJod,
+    totalJod: net + transactionFeeJod,
+  }
+}
+
+/**
+ * Pembagian settlement tiga kolom (§16.4): merchant / kurir / aplikator,
+ * **selalu berjumlah `totalJod`** — sisa pembulatan jadi milik aplikator.
+ *
+ * - `quota: 'none'` → online tanpa kuota: `Pm` ditagih ke merchant.
+ * - `quota: 'order'` → kuota order menutup `Pm` (konsumsinya ditangani slice kuota).
+ * - `quota: 'cod'` → COD berkuota: `Pm` nol **dan** `Pc` jadi hak merchant.
+ *
+ * `Dm` ditanggung merchant (memotong bagiannya), `Da` ditanggung aplikator
+ * (tampil sebagai selisih di kolomnya).
+ */
+export function settlementFor(b: PriceBreakdown, quota: QuotaContext): OrderSettlement {
+  const courierJod = b.deliveryFeeJod
+  const merchantBase =
+    b.subtotalJod - b.discountMerchantJod - (quota === 'none' ? b.platformFeeMerchantJod : 0)
+  const merchantJod = quota === 'cod' ? merchantBase + b.platformFeeCustomerJod : merchantBase
+  return {
+    merchantJod,
+    courierJod,
+    platformJod: b.totalJod - merchantJod - courierJod,
+    quota,
+  }
+}
+
+/**
+ * Tagihan dibulatkan **ke atas** ke ratusan rupiah; sisa jadi milik aplikator
+ * (§16.2). Payout memakai arah sebaliknya — lihat `roundPayoutDownToRupiah`.
+ */
+export function roundBillUpToHundreds(idr: number): number {
+  return Math.ceil(idr / 100) * 100
+}
+
+/** Payout dibulatkan **ke bawah** ke rupiah penuh (§16.2). */
+export function roundPayoutDownToRupiah(idr: number): number {
+  return Math.floor(idr)
+}
+

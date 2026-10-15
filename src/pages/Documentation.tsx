@@ -244,6 +244,19 @@ export default function Documentation() {
                 pada checkout kini diambil dari merchant keranjang aktif.
               </li>
               <li>
+                <strong>Aturan uang PRD baru</strong> (M2a) jadi fungsi murni JOD di{' '}
+                <code className="doc-inline">src/data/marketplace.ts</code>:{' '}
+                <code className="doc-inline">priceBreakdown()</code> menurunkan{' '}
+                <code className="doc-inline">S − Dm − Da + F + Pc + Ft</code> dengan{' '}
+                <code className="doc-inline">Ft</code> = 1,5% hanya untuk QRIS,{' '}
+                <code className="doc-inline">settlementFor()</code> membelah tiga kolom
+                (merchant/kurir/aplikator) yang selalu berjumlah total — kuota{' '}
+                <code className="doc-inline">cod</code> memindahkan <code className="doc-inline">Pc</code>{' '}
+                ke merchant — dan pembulatan tagihan ke atas ratusan vs payout ke bawah rupiah
+                penuh. Diuji <code className="doc-inline">scripts/money-check.mjs</code>; pemasangan di
+                Checkout &amp; refund menyusul (M2b/M2c).
+              </li>
+              <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}
                 <code className="doc-inline">POST /orders</code> ditolak BE, order dicatat lokal
                 dengan kode yang sama (bukan jatuh ke <code className="doc-inline">mockOrder</code>{' '}
