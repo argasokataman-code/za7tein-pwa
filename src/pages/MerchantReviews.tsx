@@ -1,20 +1,23 @@
-import { useState, type CSSProperties } from 'react'
+import { useCallback, useEffect, useState, type CSSProperties } from 'react'
 import { MessageSquare, Pencil, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 
+import { fetchMerchantReviews, replyToReview, type ReviewItem } from '../api/reviews'
+import { apiEnabled } from '../api/supabase'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import {
-  averageRating,
-  merchantReviews,
-  ratingDistribution,
-  reviewFilters,
-  reviewsForFilter,
-} from '../data/merchantReviews'
-import { setReviewReply } from '../store/slices/merchantSlice'
-import type { MerchantReview } from '../types'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
+
+/**
+ * Ulasan toko + hidangan, dari `rating_reviews` (satu tabel, dua jenis baris:
+ * ulasan toko & ulasan hidangan — lihat `src/api/reviews.ts`). Balasan toko
+ * ditulis ke `review_replies` lewat sesi merchant.
+ *
+ * Agregat (rata-rata + sebaran bintang) dihitung dari daftar yang benar-benar
+ * dimuat, bukan dari kolom `merchants.rating_avg` — kalau tidak, angka ringkasan
+ * bisa berbeda dengan ulasan yang tampil di bawahnya.
+ */
 
 interface StarsProps {
   value: number
@@ -37,22 +40,74 @@ function Stars({ value, size = 14 }: StarsProps) {
   )
 }
 
+type FilterId = 'all' | 'store' | 'dish'
+
+const FILTERS: { id: FilterId; label: string }[] = [
+  { id: 'all', label: 'Semua' },
+  { id: 'store', label: 'Toko' },
+  { id: 'dish', label: 'Hidangan' },
+]
+
+function inFilter(review: ReviewItem, filter: FilterId): boolean {
+  if (filter === 'all') return true
+  return filter === 'store' ? review.kind === 'store' : review.kind === 'dish'
+}
+
+function averageOf(reviews: ReviewItem[]): number {
+  if (!reviews.length) return 0
+  return reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+}
+
+function distributionOf(
+  reviews: ReviewItem[],
+): { stars: number; count: number; percent: number }[] {
+  return [5, 4, 3, 2, 1].map((stars) => {
+    const count = reviews.filter((r) => r.rating === stars).length
+    return { stars, count, percent: reviews.length ? Math.round((count / reviews.length) * 100) : 0 }
+  })
+}
+
+function dateLabel(iso: string): string {
+  return new Date(iso).toLocaleDateString('id-ID', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
 export default function MerchantReviews() {
-  const dispatch = useAppDispatch()
-  const replies = useAppSelector((s) => s.merchant.reviewReplies)
-
-  const [filter, setFilter] = useState('all')
-  const [replyTarget, setReplyTarget] = useState<MerchantReview | null>(null)
+  const [reviews, setReviews] = useState<ReviewItem[]>([])
+  const [loading, setLoading] = useState(apiEnabled)
+  const [error, setError] = useState(false)
+  const [filter, setFilter] = useState<FilterId>('all')
+  const [replyTarget, setReplyTarget] = useState<ReviewItem | null>(null)
   const [draft, setDraft] = useState('')
+  const [busy, setBusy] = useState(false)
 
-  const filters = reviewFilters(merchantReviews)
-  const visible = reviewsForFilter(merchantReviews, filter)
-  const average = averageRating(merchantReviews)
-  const distribution = ratingDistribution(merchantReviews)
+  const load = useCallback(() => {
+    if (!apiEnabled) {
+      setLoading(false)
+      return
+    }
+    setLoading(true)
+    setError(false)
+    fetchMerchantReviews()
+      .then(setReviews)
+      .catch(() => setError(true))
+      .finally(() => setLoading(false))
+  }, [])
 
-  function openReply(review: MerchantReview) {
+  useEffect(() => {
+    load()
+  }, [load])
+
+  const average = averageOf(reviews)
+  const distribution = distributionOf(reviews)
+  const visible = reviews.filter((r) => inFilter(r, filter))
+
+  function openReply(review: ReviewItem) {
     setReplyTarget(review)
-    setDraft(replies[review.id] ?? '')
+    setDraft(review.reply?.body ?? '')
   }
 
   function closeReply() {
@@ -60,11 +115,33 @@ export default function MerchantReviews() {
     setDraft('')
   }
 
-  function saveReply() {
+  async function saveReply() {
     if (!replyTarget || draft.trim() === '') return
-    dispatch(setReviewReply({ id: replyTarget.id, text: draft.trim() }))
-    toast.success('Balasan tersimpan')
-    closeReply()
+    const target = replyTarget
+    setBusy(true)
+    try {
+      await replyToReview(target.id, draft)
+      setReviews((list) =>
+        list.map((r) =>
+          r.id === target.id
+            ? {
+                ...r,
+                reply: {
+                  id: r.reply?.id ?? `local-${r.id}`,
+                  body: draft.trim(),
+                  createdAt: new Date().toISOString(),
+                },
+              }
+            : r,
+        ),
+      )
+      toast.success('Balasan tersimpan')
+      closeReply()
+    } catch {
+      toast.error('Gagal menyimpan balasan')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -78,12 +155,12 @@ export default function MerchantReviews() {
             <div>
               <div
                 className="merchant-review-stars"
-                aria-label={`Rata-rata rating ${average} dari 5`}
+                aria-label={`Rata-rata rating ${average.toFixed(1)} dari 5`}
               >
                 <Stars value={average} size={16} />
               </div>
               <p className="merchant-review-count">
-                Berdasarkan {merchantReviews.length} ulasan pembeli
+                Berdasarkan {reviews.length} ulasan pembeli
               </p>
             </div>
           </div>
@@ -104,7 +181,7 @@ export default function MerchantReviews() {
         </section>
 
         <div className="merchant-tabs" role="tablist">
-          {filters.map((f) => (
+          {FILTERS.map((f) => (
             <button
               key={f.id}
               type="button"
@@ -115,20 +192,39 @@ export default function MerchantReviews() {
             >
               {f.label}
               <span className="merchant-tab-count">
-                {reviewsForFilter(merchantReviews, f.id).length}
+                {reviews.filter((r) => inFilter(r, f.id)).length}
               </span>
             </button>
           ))}
         </div>
 
-        {visible.length === 0 ? (
-          <p className="merchant-empty">Belum ada ulasan untuk hidangan ini.</p>
+        {!apiEnabled ? (
+          <PlatformNotice message="Backend belum tersambung — ulasan tidak bisa dimuat." />
+        ) : null}
+        {error ? (
+          <PlatformNotice message="Gagal memuat ulasan. Muat ulang halaman untuk mencoba lagi." />
+        ) : null}
+
+        {loading ? (
+          <p className="merchant-empty">Memuat ulasan…</p>
+        ) : visible.length === 0 ? (
+          <p className="merchant-empty">
+            {reviews.length === 0
+              ? 'Belum ada ulasan. Ulasan muncul setelah pembeli menyelesaikan pesanan.'
+              : 'Tidak ada ulasan di kategori ini.'}
+          </p>
         ) : (
           visible.map((review, index) => {
-            const reply = replies[review.id]
+            const reply = review.reply
+            const dishLabel =
+              review.kind === 'dish'
+                ? review.dishName ?? 'Hidangan'
+                : review.orderId != null
+                  ? `Order #${review.orderId}`
+                  : 'Ulasan toko'
             return (
               <article
-                key={`${filter}-${review.id}`}
+                key={review.id}
                 className="merchant-review-card stagger-in"
                 style={{ '--stagger-index': index } as CSSProperties}
               >
@@ -143,7 +239,7 @@ export default function MerchantReviews() {
                     />
                     <div>
                       <p className="merchant-review-name">{review.customerName}</p>
-                      <p className="merchant-review-date">{review.createdAt}</p>
+                      <p className="merchant-review-date">{dateLabel(review.createdAt)}</p>
                     </div>
                   </div>
                   <div
@@ -154,13 +250,13 @@ export default function MerchantReviews() {
                   </div>
                 </div>
 
-                <span className="merchant-review-dish">{review.foodName}</span>
-                <p className="merchant-review-text">{review.text}</p>
+                <span className="merchant-review-dish">{dishLabel}</span>
+                {review.text ? <p className="merchant-review-text">{review.text}</p> : null}
 
                 {reply ? (
                   <div className="merchant-review-reply">
                     <p className="merchant-review-reply-label">Balasan tokomu</p>
-                    <p className="merchant-review-reply-text">{reply}</p>
+                    <p className="merchant-review-reply-text">{reply.body}</p>
                     <button
                       type="button"
                       className="merchant-review-reply-edit"
@@ -195,7 +291,7 @@ export default function MerchantReviews() {
       >
         <p className="sheet-field-label">Balasan tampil publik di halaman tokomu.</p>
         <label className="merchant-review-field-label" htmlFor="review-reply">
-          Balasan untuk {replyTarget?.foodName}
+          Balasan untuk {replyTarget?.dishName ?? 'ulasan toko ini'}
         </label>
         <textarea
           id="review-reply"
@@ -209,10 +305,10 @@ export default function MerchantReviews() {
           <button
             type="button"
             className="btn btn-primary"
-            disabled={draft.trim() === ''}
-            onClick={saveReply}
+            disabled={draft.trim() === '' || busy}
+            onClick={() => void saveReply()}
           >
-            Simpan balasan
+            {busy ? 'Menyimpan…' : 'Simpan balasan'}
           </button>
         </div>
       </BottomSheet>

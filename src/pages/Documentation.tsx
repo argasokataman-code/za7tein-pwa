@@ -273,6 +273,21 @@ export default function Documentation() {
                 <code className="doc-inline">docs/integration/promos/be-contract.md</code>.
               </li>
               <li>
+                <strong>Ulasan merchant &amp; hidangan</strong>: tabel{' '}
+                <code className="doc-inline">rating_reviews</code> menyimpan ulasan toko
+                (<code className="doc-inline">merchant_id</code>) dan ulasan hidangan
+                (<code className="doc-inline">menu_id</code>) dalam satu baris — dipisah{' '}
+                <code className="doc-inline">check ((merchant_id is not null) &lt;&gt; (menu_id is not
+                null))</code>. Halaman <code className="doc-inline">/merchant/reviews</code> membaca
+                keduanya (ulasan hidangan lewat join{' '}
+                <code className="doc-inline">menus.merchant_id</code>) dan membalas ke{' '}
+                <code className="doc-inline">review_replies</code>; customer mengirim penilaian toko
+                dari <code className="doc-inline">/reviews</code>. Nama pemberi ulasan hanya terbaca
+                sesi ops (<code className="doc-inline">customers</code> RLS), jadi daftar dibaca lewat
+                sesi referensi. Kontrak di{' '}
+                <code className="doc-inline">docs/integration/reviews/be-contract.md</code>.
+              </li>
+              <li>
                 Tulis order kini benar-benar sampai ke BE: <code className="doc-inline">createWithReturn</code>{' '}
                 meminta kolom eksplisit (<code className="doc-inline">select=id,code</code>) karena{' '}
                 <code className="doc-inline">return=representation</code> tanpa{' '}

@@ -139,10 +139,12 @@ notifications (9)
 **Dispute, rating, platform**
 ```
 disputes (*)             -- ADA tapi kosong
-rating_reviews (11)
+rating_reviews (956)
   id, order_id, customer_id, merchant_id, menu_id, rating, review,
   window_closes_at, edited_at, deleted_at, created_at
-review_replies (*)       -- ADA tapi kosong
+  -- merchant_id terisi = ulasan toko; menu_id terisi = ulasan hidangan
+review_replies (0)
+  id, review_id, merchant_id, body, created_at   -- balasan toko (RLS owner merchant)
 zones (5)
   id, code, name, polygon, created_at
 roles (4)
@@ -159,7 +161,7 @@ phone_verifications (*)  -- ADA tapi kosong
 
 ### 2.2 Tabel kosong, kolom belum terbaca
 
-`order_items` · `batches` · `wallet_ledgers` · `wallet_holds` · `topups` · `cashouts` · `fees` · `taxes` · `exchange_rates` · `protection_fund` · `chat_participants` · `disputes` · `dispute_appeals` · `review_replies` · `audit_logs` · `tax_reports` · `platform_profit` · `phone_verifications` · `push_subscriptions`
+`order_items` · `batches` · `wallet_ledgers` · `wallet_holds` · `topups` · `cashouts` · `fees` · `taxes` · `exchange_rates` · `protection_fund` · `chat_participants` · `disputes` · `dispute_appeals` · `audit_logs` · `tax_reports` · `platform_profit` · `phone_verifications` · `push_subscriptions`
 
 **Aksi BE:** konfirmasi kolom final untuk tabel-tabel ini (spec kolom di §5 berdasarkan kebutuhan flow + nama yang dipakai klien; anggap **usulan**, bukan fakta). OpenAPI PostgREST hanya bisa dibaca `service_role`, jadi tak bisa ditarik dari sini.
 
@@ -290,6 +292,7 @@ Sumber: `roles.permissions` (nyata) + batas peran `DEC-2003` (CS menangani, SA m
 | G13 | **`notifications.order_id`** (atau `ref`) supaya tap notifikasi bisa membuka order | f11 | §2.4, §5.7 |
 | G14 | **`order_status_history`** (audit transisi status, event `order_status_changed`) | f18 | §2.4 |
 | G15 | **Tabel promo** — **selesai (BE)**: tabel `marketing` (promo platform + milik merchant via `merchant_id`, RLS `marketing_merchant`) + RPC `validate_promo`. FE: halaman merchant `/promos` + input kode di checkout. Sisa: scope produk `MARK-1` (PRD belum memutuskan) | f1 (checkout) | §2.4, `docs/integration/promos/be-contract.md` |
+| G16 | **Ulasan terpetakan** — `rating_reviews` (baca publik; tulis sesi customer) + `review_replies` (tulis sesi merchant, RLS owner). FE: `/merchant/reviews` baca + balas, `/customer/reviews` kirim ulasan toko. Sisa: ulasan **hidangan** dari customer butuh `order_items` (masih kosong) | f19 (`proposed`) | §2.1, `docs/integration/reviews/be-contract.md` |
 
 ### Target RLS per tabel (wajib)
 

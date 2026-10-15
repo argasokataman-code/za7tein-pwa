@@ -4,6 +4,8 @@
 
 Flow **layar** rating setelah order `done`: prompt penilaian → bintang merchant (wajib) → bintang kurir & per hidangan → teks & tag → kirim → ulasan tampil (rata-rata, distribusi, terbaru) dan bisa dibalas merchant. Repo ini front-end saja — semuanya layar mock (AGENTS.md §1).
 
+> **Catatan 2026-10-15.** Sebagian sudah tersambung BE (revisi PRD tetap `proposed`): `/merchant/reviews` membaca `rating_reviews` (ulasan toko + hidangan) dan membalas ke `review_replies`; `/reviews` (customer) mengirim penilaian **toko** untuk order `done` yang belum diulas. Aturan "satu penilaian per order" ditegakkan index unik parsial di BE. Ulasan **hidangan** dari customer belum bisa (butuh `order_items`, masih kosong), dan bintang kurir masih state tampilan. Kontrak: `docs/integration/reviews/be-contract.md`; API-SPEC §2.1/G16.
+
 | Berkas | Isi |
 |---|---|
 | `f19-rating-review.json` | Spec archify (workflow v2) — sumber yang diedit |

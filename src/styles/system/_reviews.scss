@@ -1,0 +1,87 @@
+/* ── Customer · Ulasan (halaman /customer/reviews) ────────────────────────── */
+
+.reviews-order-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.reviews-order {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: var(--space-4);
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--sa7tein-orange);
+  }
+}
+
+.reviews-order__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.reviews-order__code {
+  font-weight: 700;
+}
+
+.reviews-order__shop,
+.reviews-order__date {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.reviews-order__cta {
+  flex: none;
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.reviews-stars {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.reviews-star-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-min);
+  min-height: var(--touch-min);
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.reviews-field-label {
+  display: block;
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.reviews-field-note {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}

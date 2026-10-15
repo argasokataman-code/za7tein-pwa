@@ -22,7 +22,7 @@ import type {
 } from '../types'
 import { createWith, createWithReturn, patch, restWith, rpc, signInToken } from './supabase'
 
-const DEMO_CUSTOMER_ID = 1
+export const DEMO_CUSTOMER_ID = 1
 const DEMO_MERCHANT_ID = 1
 const DEMO_ADDRESS_ID = 1
 
@@ -333,7 +333,7 @@ let courierToken: Promise<string> | null = null
  * untuk tiap tulis — token global `supabase.ts` tak dipakai di sini supaya
  * customer/merchant/courier tidak saling menimpa saat dipanggil bergantian.
  */
-function ensureCustomerToken(): Promise<string> {
+export function ensureCustomerToken(): Promise<string> {
   if (!customerToken) customerToken = signInToken(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
   return customerToken
 }

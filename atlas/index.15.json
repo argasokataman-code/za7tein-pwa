@@ -1938,6 +1938,196 @@
           "raw": "TASK-99150:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-99201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:36:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+1/-1) — edit via tool: ts: export const DEMO_CUSTOMER_ID = 1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-99202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:37:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts (+210) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts"
+    },
+    {
+      "id": "TASK-99203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:37:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantReviews.tsx (+320) — write via tool: tsx: import { useCallback, useEffe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantReviews.tsx"
+    },
+    {
+      "id": "TASK-99204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:38:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Reviews.tsx (+183) — write via tool: tsx: import { MessageSquare, Star } from '",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Reviews.tsx"
+    },
+    {
+      "id": "TASK-99205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:38:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_reviews.scss (+88) — write via tool: /* ── Customer · Ulasan (halaman ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_reviews.scss"
+    },
+    {
+      "id": "TASK-99206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:38:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/merchant-promo\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-99207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:39:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+6/-4) — edit via tool: rating_reviews (956)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
+    },
+    {
+      "id": "TASK-99208",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:47:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/reviews/be-contract.md (+143) — write via tool: # Kontrak BE — Ulasan & ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/integration/reviews/be-contract.md"
+    },
+    {
+      "id": "TASK-99209",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:47:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+17/-2) — edit via tool: tsx: <code className=\"doc-inline\">d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-99210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "08:47:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/README.md (+3/-1) — edit via tool: Flow **layar** rat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/README.md"
     }
   ]
 }
