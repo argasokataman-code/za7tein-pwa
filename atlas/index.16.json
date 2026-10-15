@@ -1075,6 +1075,240 @@
           "raw": "DEC-88030:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101701",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:31:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx (+6/-7) — edit via tool: tsx: <div className",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantHomeHero.tsx"
+    },
+    {
+      "id": "TASK-101702",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:31:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx (+2/-3) — edit via tool: tsx: import { Notific",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/courier/CourierHomeHero.tsx"
+    },
+    {
+      "id": "TASK-101703",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:31:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+6/-5) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-101704",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:31:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useMoney.ts (+44) — write via tool: ts: import { useMemo } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useMoney.ts"
+    },
+    {
+      "id": "TASK-101705",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:32:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss (+4/-4) — edit via tool: /* ── Baris kurs di kaki hero ─",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_currency.scss"
+    },
+    {
+      "id": "TASK-101706",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:32:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+2/-3) — edit via tool: ts: notifications,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-101707",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:32:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx (+5/-5) — edit via tool: tsx: Tombol",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CurrencySection.tsx"
+    },
+    {
+      "id": "TASK-101708",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:33:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+11/-2) — edit via tool: tsx: (beranda merchant/kurir sudah ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101709",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:34:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"warning|error\"; npm run build 2>&1 | grep -E \"err",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101710",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:37:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/analysis.md (+1/-1) — edit via tool: | `",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/analysis.md"
+    },
+    {
+      "id": "TASK-101800",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "20:38:53",
+      "tags": [
+        "ui",
+        "currency",
+        "cleanup"
+      ],
+      "summary": "Hapus sakelar IDR/JOD: CurrencyToggle + slice preferences + CSS .currency-toggle*; useMoney tetap JOD; baris kaki hero jadi baris kurs",
+      "conn": [
+        {
+          "id": "TASK-101700",
+          "type": "relates",
+          "raw": "TASK-101700:relates"
+        },
+        {
+          "id": "TASK-11100",
+          "type": "relates",
+          "raw": "TASK-11100:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88060",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "20:38:54",
+      "tags": [
+        "currency",
+        "ui"
+      ],
+      "summary": "Mata uang tampilan layar peran tetap JOD; pemilih IDR/JOD dihapus, hanya tombol kurs live (konverter) yang tersisa",
+      "conn": [
+        {
+          "id": "TASK-101800",
+          "type": "led_to",
+          "raw": "TASK-101800:led_to"
+        }
+      ]
     }
   ]
 }

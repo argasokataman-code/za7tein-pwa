@@ -30,7 +30,6 @@ import payout from './slices/payoutSlice'
 import admin from './slices/adminSlice'
 import superAdmin, { logAudit } from './slices/superAdminSlice'
 import notifications from './slices/notificationsSlice'
-import preferences from './slices/preferencesSlice'
 import batch from './slices/batchSlice'
 import partner from './slices/partnerSlice'
 import quota from './slices/quotaSlice'
@@ -58,7 +57,6 @@ const rootReducer = combineReducers({
   admin,
   superAdmin,
   notifications,
-  preferences,
   batch,
   partner,
   quota,
@@ -116,7 +114,7 @@ const persistConfig = {
   key: 'sa7tein',
   version: PERSIST_VERSION,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'preferences', 'batch', 'partner', 'quota', 'marketing'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'batch', 'partner', 'quota', 'marketing'],
   migrate: createMigrate(migrations, { debug: false }),
 }
 

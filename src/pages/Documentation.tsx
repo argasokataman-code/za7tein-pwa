@@ -348,6 +348,15 @@ export default function Documentation() {
                 (beranda merchant/kurir sudah punya lonceng hero sendiri), bukan di 23 halaman anak.
               </li>
               <li>
+                <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan
+                (customer/merchant/kurir, disimpan per peran di slice{' '}
+                <code className="doc-inline">preferences</code>) tidak dipakai lagi: layar peran
+                selalu JOD dan nominal tetap IDR di state, sementara satu-satunya kontrol mata uang
+                yang tersisa adalah tombol kurs live di kaki hero. Slice{' '}
+                <code className="doc-inline">preferences</code> ikut gugur, jadi tak ada lagi state
+                tersimpan yang bisa menyimpang dari default.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
                 backend menandainya di muka: refund (§16.6) memakai flag{' '}
                 <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}

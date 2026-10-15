@@ -358,8 +358,9 @@ export interface ExchangeRate {
 }
 
 /**
- * Mata uang tampilan yang dipilih pengguna. Preferensi klien saja (bukan DB):
- * nominal tetap disimpan IDR, ini hanya memilih mana yang dirender.
+ * Kode mata uang. Nominal tetap disimpan IDR (source of truth); JOD hanya
+ * tampilan. Tidak ada lagi pemilih mata uang tampilan — layar peran selalu JOD
+ * (`useMoney`), dan konsol SA menampilkan pasangan lewat `data/currency`.
  */
 export type CurrencyCode = 'IDR' | 'JOD'
 

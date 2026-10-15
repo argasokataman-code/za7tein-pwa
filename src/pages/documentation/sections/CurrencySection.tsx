@@ -38,14 +38,14 @@ jod(1.09)         // "1,09 JOD"`}
         konsol ini JOD-only, yang menyalahi <code className="doc-inline">R-CURR-01</code>: IDR
         adalah source of truth dan JOD cuma tampilan.
       </p>
-      <h3 className="doc-h3">Sakelar mata uang (IDR/JOD)</h3>
+      <h3 className="doc-h3">Satu mata uang di layar peran: JOD</h3>
       <p className="doc-p">
-        Layar customer, merchant, dan kurir menampilkan <strong>satu mata uang
-        saja</strong> sesuai pilihan pengguna, bukan pasangan IDR + JOD. Pilihannya{' '}
-        <strong>per peran</strong> (kunci <code className="doc-inline">auth.role</code>) dan
-        disimpan di <code className="doc-inline">localStorage</code> lewat slice{' '}
-        <code className="doc-inline">preferences</code> (preferensi klien, tidak ada
-        padanannya di DB). Default <strong>JOD</strong>; peran yang belum memilih tetap JOD.
+        Layar customer, merchant, dan kurir menampilkan <strong>satu mata uang saja</strong>, bukan
+        pasangan IDR + JOD — dan mata uangnya kini <strong>tetap JOD</strong>. Sakelar IDR/JOD
+        pernah ada (pilihan per peran, disimpan di <code className="doc-inline">localStorage</code>{' '}
+        lewat slice <code className="doc-inline">preferences</code>), lalu <strong>dihapus</strong>{' '}
+        karena tidak dipakai: nominal tetap IDR di state, dan menampilkan satu mata uang yang bisa
+        berpindah hanya menambah state tersimpan yang bisa menyimpang dari default tanpa manfaat.
       </p>
       <p className="doc-p">
         Formatnya lewat hook <code className="doc-inline">useMoney()</code> (
@@ -53,14 +53,6 @@ jod(1.09)         // "1,09 JOD"`}
         <code className="doc-inline">money</code>, <code className="doc-inline">moneyPlain</code>,
         dan <code className="doc-inline">moneyFromJod</code> dengan nama sama seperti helper data,
         jadi call-site cukup menukar impor + satu baris hook, bukan tiap pemanggilan.
-      </p>
-      <p className="doc-p">
-        Tombolnya komponen <code className="doc-inline">CurrencyToggle</code>, dan{' '}
-        <strong>hanya dipasang di hero beranda tiap peran</strong> (customer/merchant/kurir) —
-        satu sakelar mengatur semua halaman peran itu, karena nilainya dibaca lewat{' '}
-        <code className="doc-inline">useMoney()</code> di mana-mana. Jangan menanamnya di header
-        atau layar lain (dulu tersebar di ~30 titik, salah penempatan). Tiap perubahan memunculkan
-        toast konfirmasi bahwa pilihan tersimpan.
       </p>
       <h3 className="doc-h3">Kurs live, sehari sekali</h3>
       <p className="doc-p">
@@ -77,10 +69,10 @@ jod(1.09)         // "1,09 JOD"`}
         <code className="doc-inline">UNRESOLVED</code> (<code className="doc-inline">OQ-28</code>).
       </p>
       <p className="doc-p">
-        Tombol <code className="doc-inline">LiveCurrencyButton</code> (ikon koin) dan sakelar
-        IDR/JOD duduk di <strong>kaki hero</strong> tiap beranda (
+        Tombol <code className="doc-inline">LiveCurrencyButton</code> (ikon koin) duduk di{' '}
+        <strong>kaki hero</strong> tiap beranda (
         <code className="doc-inline">.hero-currency-row</code>, dipisah garis tipis, berlabel
-        &ldquo;Mata uang tampilan&rdquo;), bukan di baris atas dan bukan baris mengambang di
+        &ldquo;Kurs IDR · JOD&rdquo;), bukan di baris atas dan bukan baris mengambang di
         tengah hero — baris atas tetap avatar · lokasi · lonceng. Menekan tombol koin membuka
         bottom sheet <strong>&ldquo;Detail Kurs Live&rdquo;</strong>: pasangan IDR↔JOD, sumber,
         waktu sync terakhir, jadwal pembaruan (otomatis tiap 24 jam), disclaimer, dan tombol{' '}
@@ -92,7 +84,7 @@ jod(1.09)         // "1,09 JOD"`}
         <strong>Konsol Super Admin tetap pasangan dua baris</strong> (
         <code className="doc-inline">MoneyPair</code> + <code className="doc-inline">money</code>{' '}
         dari <code className="doc-inline">data/currency.ts</code>): tabel pajak dan ledger butuh
-        kedua mata uang berdampingan, jadi sengaja tidak ikut sakelar.
+        kedua mata uang berdampingan, jadi ia satu-satunya tempat pasangan itu dirender.
       </p>
       <div className="doc-table-wrap">
         <table className="doc-table">
@@ -136,20 +128,20 @@ jod(1.09)         // "1,09 JOD"`}
               </td>
               <td>
                 Nominal panel admin (CS) lewat hook <code className="doc-inline">useMoney()</code>{' '}
-                (satu mata uang sesuai sakelar, default JOD), plus widget disclaimer di tiap
-                layar uang
+                (satu mata uang, JOD), plus widget disclaimer di tiap layar uang
               </td>
             </tr>
             <tr>
               <td>
-                <code className="doc-inline">hooks/useMoney.ts</code> +{' '}
-                <code className="doc-inline">components/ui/CurrencyToggle.tsx</code>
+                <code className="doc-inline">hooks/useMoney.ts</code>
               </td>
               <td>
-                Sakelar IDR/JOD per peran: hook memformat satu mata uang, tombol di{' '}
-                <strong>hero beranda</strong> (customer/merchant/kurir) mengubahnya + toast
-                konfirmasi. Slice <code className="doc-inline">preferences</code> menyimpan
-                pilihannya di localStorage.
+                Pemformat uang <strong>satu mata uang (JOD)</strong> untuk layar peran:{' '}
+                <code className="doc-inline">money</code>,{' '}
+                <code className="doc-inline">moneyPlain</code>,{' '}
+                <code className="doc-inline">moneyFromJod</code> dengan nama sama seperti helper
+                data. Tidak ada sakelar mata uang; pilihannya tetap, jadi tak ada preferensi
+                tersimpan yang bisa menyimpang.
               </td>
             </tr>
             <tr>
