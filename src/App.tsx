@@ -64,6 +64,7 @@ import MerchantReviews from './pages/MerchantReviews'
 import MerchantSettings from './pages/MerchantSettings'
 import MerchantSignIn from './pages/MerchantSignIn'
 import MerchantSignUp from './pages/MerchantSignUp'
+import MerchantSubscription from './pages/MerchantSubscription'
 import MerchantWallet from './pages/MerchantWallet'
 import NotificationSettings from './pages/NotificationSettings'
 import Notifications from './pages/Notifications'
@@ -197,6 +198,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/menu', MerchantMenu],
   ['/promos', MerchantPromos],
   ['/insentif', MerchantRebate],
+  ['/subscription', MerchantSubscription],
   ['/reviews', MerchantReviews],
   ['/couriers', MerchantCouriers],
   ['/settings', MerchantSettings],

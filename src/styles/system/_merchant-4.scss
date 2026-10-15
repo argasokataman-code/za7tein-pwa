@@ -421,3 +421,17 @@
   height: 120px;
   border-radius: var(--radius-lg);
 }
+
+/* Baris yang sama dipakai sebagai <button> (paket kuota §17): reset text-align
+   dan lebar bawaan tombol; keadaan mati harus terbaca mati. */
+button.merchant-quick-action {
+  width: 100%;
+  text-align: left;
+  font: inherit;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+

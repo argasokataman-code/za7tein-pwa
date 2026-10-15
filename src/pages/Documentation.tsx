@@ -294,6 +294,18 @@ export default function Documentation() {
                 <strong>disembunyikan dari beranda</strong>, bukan sekadar dikartu-abukan.
               </li>
               <li>
+                <strong>Layar langganan kuota (merchant).</strong> Halaman{' '}
+                <code className="doc-inline">/merchant/subscription</code> menampilkan dua jenis kuota
+                berdampingan — kuota <strong>order</strong> dan kuota <strong>COD</strong> — beserta
+                paket, terpakai, ter-reserve, periode, dan status (Cukup / Hampir habis / Habis /
+                Belum ada langganan), plus daftar paket yang bisa dibeli. Pembeliannya{' '}
+                <strong>ditandai belum tersedia</strong> (flag{' '}
+                <code className="doc-inline">QUOTA_PURCHASE_AVAILABLE</code>): BE belum punya tabel
+                langganan, jadi tombolnya mati dengan alasan. Setting "terima order tanpa kuota"
+                hanya bisa diubah <strong>saat toko tutup</strong> (§17) — saat toko buka, sakelarnya
+                mati dan sebabnya ditulis di tempat.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
                 backend menandainya di muka: refund (§16.6) memakai flag{' '}
                 <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}

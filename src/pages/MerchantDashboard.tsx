@@ -1,4 +1,4 @@
-import { Bike, ChevronRight, Clock, PlusCircle, Sparkles, Star, TicketPercent, TrendingUp } from 'lucide-react'
+import { Bike, ChevronRight, Clock, PackageCheck, PlusCircle, Sparkles, Star, TicketPercent, TrendingUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -434,6 +434,16 @@ export default function MerchantDashboard() {
             <div>
               <p className="merchant-quick-title">Ulasan Pembeli</p>
               <p className="merchant-quick-sub">Baca &amp; balas komentar soal menu</p>
+            </div>
+            <ChevronRight size={18} strokeWidth={1.75} className="merchant-quick-chevron" />
+          </Link>
+          <Link className="merchant-quick-action" to="/subscription">
+            <span className="merchant-quick-icon">
+              <PackageCheck size={20} strokeWidth={1.75} />
+            </span>
+            <div>
+              <p className="merchant-quick-title">Kuota &amp; Langganan</p>
+              <p className="merchant-quick-sub">Sisa kuota order &amp; COD, beli paket</p>
             </div>
             <ChevronRight size={18} strokeWidth={1.75} className="merchant-quick-chevron" />
           </Link>

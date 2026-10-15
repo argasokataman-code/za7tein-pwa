@@ -1235,6 +1235,20 @@ export interface QuotaState {
   acceptWithoutQuota: boolean
 }
 
+/**
+ * Paket kuota yang bisa dibeli merchant (§17). `priceJod` = harga paket;
+ * pembayarannya transaksi biasa, jadi QRIS kena `Ft` dan saldo DANA tidak.
+ */
+export interface QuotaPackage {
+  id: string
+  kind: QuotaKind
+  /** Jumlah order dalam paket ini. */
+  units: number
+  /** Masa berlaku paket, dalam hari. */
+  days: number
+  priceJod: number
+}
+
 // — Refund (§7.4, §16.6) —
 
 /** Tujuan refund; QRIS tanpa akun DANA = `bank` (BI-FAST, biaya Rp2.500 ditanggung aplikator). */

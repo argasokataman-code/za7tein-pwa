@@ -4,7 +4,7 @@
 // Tanpa framework: assert pertama yang gagal sudah menunjuk komponennya.
 import assert from 'node:assert/strict'
 
-import { QUOTA_LOW_RATIO, mockQuotaSubscriptions } from '../src/data/marketplace.ts'
+import { QUOTA_LOW_RATIO, QUOTA_PURCHASE_AVAILABLE, mockQuotaPackages, mockQuotaSubscriptions } from '../src/data/marketplace.ts'
 import quotaReducer, {
   codQuotaStatus,
   consumeQuota,
@@ -90,8 +90,23 @@ assert.equal(quotaAvailableFor(returned.subscriptions, 'am-1', 'order'), 90)
 const crossed = quotaReducer(stateOf(seeded), reserveQuota({ kind: 'order', merchantId: 'am-2' }))
 assert.equal(crossed.subscriptions[0].reserved, 0, 'merchant lain tak terpengaruh')
 
-// Seed repo konsisten dengan aturan yang dipakai Home.
+// Seed repo konsisten dengan aturan yang dipakai Home + layar langganan.
 assert.equal(merchantQuotaBlocked(mockQuotaSubscriptions, 'am-4', false), true)
-assert.equal(quotaStatusFor(mockQuotaSubscriptions, 'am-1', 'order'), 'low')
+assert.equal(quotaStatusFor(mockQuotaSubscriptions, '1', 'order'), 'low')
+assert.equal(quotaStatusFor(mockQuotaSubscriptions, '1', 'cod'), 'low')
+
+// Paket kuota: dua jenis tersedia (order & COD), harga masuk akal, dan pembelian
+// memang belum tersedia (flag) — supaya UI tak bisa menawarkan beli tanpa BE.
+assert.deepEqual(
+  [...new Set(mockQuotaPackages.map((p) => p.kind))].sort(),
+  ['cod', 'order'],
+  'paket harus mencakup kuota order dan kuota COD',
+)
+for (const pkg of mockQuotaPackages) {
+  assert.ok(pkg.units > 0, `paket ${pkg.id} harus berisi order`)
+  assert.ok(pkg.days > 0, `paket ${pkg.id} harus punya masa berlaku`)
+  assert.ok(pkg.priceJod > 0, `paket ${pkg.id} harus punya harga`)
+}
+assert.equal(QUOTA_PURCHASE_AVAILABLE, false, 'belum ada endpoint kuota di BE')
 
 console.log('quota-check OK')

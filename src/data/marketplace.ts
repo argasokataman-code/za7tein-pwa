@@ -10,6 +10,7 @@ import type {
   PriceBreakdown,
   ProgramReward,
   ProgramRule,
+  QuotaPackage,
   QuotaSubscription,
   Refund,
 } from '../types'
@@ -119,16 +120,18 @@ export const mockAssignments: CourierAssignment[] = [
 export const QUOTA_LOW_RATIO = 0.2
 
 /**
- * `merchantId` memakai id toko mock (`storefronts.ts`), bukan `merchant-1`,
- * supaya aturan blokir kuota benar-benar menggerakkan daftar beranda. Toko live
- * (id UUID dari Supabase) sengaja tak cocok dengan seed ini → tak diblokir,
- * karena BE belum punya tabel kuota (`ui-impact.md` §8).
+ * `merchantId` memakai id merchant seperti yang dipakai sisi lain: toko demo
+ * console merchant = `1` (`DEMO_MERCHANT_ID`, id live `merchants.id`), dan
+ * `am-4` (id toko mock `storefronts.ts`) untuk kasus blokir di jalur mock.
+ * Merchant live yang tak tercantum di sini → `unknown`, tidak diblokir — BE
+ * belum punya tabel kuota (`ui-impact.md` §8).
  */
 export const mockQuotaSubscriptions: QuotaSubscription[] = [
   {
-    // Hampir habis (sisa 17 dari 100) — masuk status `low`, bukan blokir.
+    // Hampir habis (sisa 17 dari 100) — status `low`, tampil sebagai peringatan
+    // di console merchant, bukan blokir di beranda.
     id: 'quota-order-1',
-    merchantId: 'am-1',
+    merchantId: '1',
     kind: 'order',
     quota: 100,
     used: 82,
@@ -151,11 +154,13 @@ export const mockQuotaSubscriptions: QuotaSubscription[] = [
     active: true,
   },
   {
+    // Kuota COD juga hampir habis (sisa 2 dari 40) supaya layar langganan punya
+    // dua keadaan nyata sekaligus: cukup dan hampir habis.
     id: 'quota-cod-1',
-    merchantId: 'am-1',
+    merchantId: '1',
     kind: 'cod',
     quota: 40,
-    used: 3,
+    used: 38,
     reserved: 0,
     periodStart: '2026-10-01',
     periodEnd: '2026-10-31',
@@ -169,6 +174,31 @@ export const mockQuotaSubscriptions: QuotaSubscription[] = [
  * toko disembunyikan tak akan pernah terlihat.
  */
 export const mockAcceptWithoutQuota = false
+
+/**
+ * Paket kuota yang bisa dibeli merchant (§17). Dua jenis bisa aktif bersamaan:
+ * kuota **order** (order online) dan kuota **COD** — order COD hanya memakai
+ * kuota COD. Harga mock JOD; pembeliannya transaksi biasa, jadi QRIS kena `Ft`
+ * 1,5% dan saldo DANA tidak. **Belum ada jalur beli ke BE** (tidak ada tabel
+ * langganan) — layar langganan menampilkan paketnya tapi menandai pembelian
+ * belum tersedia.
+ */
+export const mockQuotaPackages: QuotaPackage[] = [
+  { id: 'pkg-order-50', kind: 'order', units: 50, days: 30, priceJod: 1.5 },
+  { id: 'pkg-order-150', kind: 'order', units: 150, days: 30, priceJod: 3.9 },
+  { id: 'pkg-order-400', kind: 'order', units: 400, days: 30, priceJod: 9.5 },
+  { id: 'pkg-cod-30', kind: 'cod', units: 30, days: 30, priceJod: 1.2 },
+  { id: 'pkg-cod-100', kind: 'cod', units: 100, days: 30, priceJod: 3.4 },
+]
+
+/**
+ * Pembelian kuota belum bisa dijalankan: BE belum punya tabel langganan
+ * (`merchant_subscriptions`/`quota_subscriptions` → 404) dan `src/api/` tak
+ * punya endpoint kuota. Selama `false`, layar langganan menampilkan paket +
+ * saldo kuota apa adanya tetapi tombol belinya mati dan diberi alasan — jangan
+ * sampai UI terlihat seperti menerima uang yang tak pernah ditagih.
+ */
+export const QUOTA_PURCHASE_AVAILABLE = false
 
 // — Program marketing —
 
