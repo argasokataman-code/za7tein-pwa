@@ -50,6 +50,16 @@ assert.equal(s.carts.A.length, 1)
 s = cartReducer(s, removeCart('A'))
 assert.equal(s.carts.A, undefined)
 
+// Keranjang aktif tanpa `activeMerchantId` (state persist lama) tetap disimpan
+// saat pindah — dulu item itu ikut terbuang.
+let legacy = cartReducer(undefined, { type: '@@init' })
+legacy = cartReducer(legacy, clearCart())
+legacy = cartReducer(legacy, addItem({ food: food('m1', 'A'), merchantId: 'A' }))
+legacy = { ...legacy, activeMerchantId: null }
+legacy = cartReducer(legacy, switchCart('B'))
+assert.equal(legacy.activeMerchantId, 'B')
+assert.equal(legacy.carts.default.length, 1, 'keranjang lama tidak boleh hilang')
+
 s = cartReducer(s, setOrderNote('tanpa bawang'))
 assert.equal(s.orderNote, 'tanpa bawang')
 

@@ -37,6 +37,56 @@ import { useMoney } from '../hooks/useMoney'
 import { selectOtherCarts, selectSubtotal, removeCart, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
 
+/**
+ * Daftar keranjang toko lain (PRD §6). Dirender di dua tempat — keranjang aktif
+ * berisi maupun kosong — supaya isi keranjang lain tetap terjangkau walau
+ * keranjang aktif sedang kosong; setiap baris bisa dipindah atau dibuang.
+ */
+function OtherCarts({
+  carts,
+  formatAmount,
+  onSwitch,
+  onRemove,
+}: {
+  carts: ReturnType<typeof selectOtherCarts>
+  formatAmount: (idr: number) => string
+  onSwitch: (merchantId: string) => void
+  onRemove: (merchantId: string) => void
+}) {
+  if (carts.length === 0) return null
+  return (
+    <div className="checkout-section">
+      <h2 className="section-title s7-parallax--title">Keranjang lain</h2>
+      <div className="checkout-other-carts">
+        {carts.map((cart) => (
+          <div className="checkout-other-cart" key={cart.merchantId}>
+            <button
+              type="button"
+              className="checkout-other-cart__open"
+              onClick={() => onSwitch(cart.merchantId)}
+            >
+              <span className="checkout-other-cart__name">
+                {getStorefront(cart.merchantId)?.name ?? 'Toko lain'}
+              </span>
+              <span className="checkout-other-cart__meta">
+                {cart.count} item · {formatAmount(cart.subtotal)}
+              </span>
+            </button>
+            <button
+              type="button"
+              className="checkout-other-cart__drop"
+              aria-label="Buang keranjang ini"
+              onClick={() => onRemove(cart.merchantId)}
+            >
+              <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Checkout() {
   const { money, moneyPlain } = useMoney()
   const navigate = useNavigate()
@@ -48,7 +98,10 @@ export default function Checkout() {
   const otherCarts = useAppSelector((s) => selectOtherCarts(s.cart.carts))
   const orderNote = useAppSelector((s) => s.cart.orderNote)
   const activeStore = activeMerchantId ? getStorefront(activeMerchantId) : undefined
-  const storeName = activeStore?.name ?? mockMerchant.name
+  // Toko demo (keranjang lama tanpa merchantId) tetap memakai nama mock; toko
+  // yang idnya tak dikenal tampil sebagai "Toko lain" — jangan menamainya
+  // dengan toko lain yang kebetulan ada di mock.
+  const storeName = activeStore?.name ?? (activeMerchantId ? 'Toko lain' : mockMerchant.name)
   const storeHours = activeStore
     ? `Buka ${activeStore.openTime}–${activeStore.closeTime}`
     : `Buka ${mockMerchant.openTime}–${mockMerchant.closeTime}`
@@ -129,6 +182,12 @@ export default function Checkout() {
               >
                 Lihat Menu
               </button>
+              <OtherCarts
+                carts={otherCarts}
+                formatAmount={moneyPlain}
+                onSwitch={(id) => dispatch(switchCart(id))}
+                onRemove={(id) => dispatch(removeCart(id))}
+              />
             </div>
           ) : (
             <>
@@ -143,35 +202,12 @@ export default function Checkout() {
                 </div>
 
                 {otherCarts.length ? (
-                  <div className="checkout-section">
-                    <h2 className="section-title s7-parallax--title">Keranjang lain</h2>
-                    <div className="checkout-other-carts">
-                      {otherCarts.map((cart) => (
-                        <div className="checkout-other-cart" key={cart.merchantId}>
-                          <button
-                            type="button"
-                            className="checkout-other-cart__open"
-                            onClick={() => dispatch(switchCart(cart.merchantId))}
-                          >
-                            <span className="checkout-other-cart__name">
-                              {getStorefront(cart.merchantId)?.name ?? 'Toko lain'}
-                            </span>
-                            <span className="checkout-other-cart__meta">
-                              {cart.count} item · {moneyPlain(cart.subtotal)}
-                            </span>
-                          </button>
-                          <button
-                            type="button"
-                            className="checkout-other-cart__drop"
-                            aria-label="Buang keranjang ini"
-                            onClick={() => dispatch(removeCart(cart.merchantId))}
-                          >
-                            <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  <OtherCarts
+                    carts={otherCarts}
+                    formatAmount={moneyPlain}
+                    onSwitch={(id) => dispatch(switchCart(id))}
+                    onRemove={(id) => dispatch(removeCart(id))}
+                  />
                 ) : null}
 
                 {/* Catatan pesanan (PRD §11) — tingkat order, bukan per menu. */}

@@ -180,8 +180,12 @@ const cartSlice = createSlice({
       const target = action.payload
       if (target === state.activeMerchantId) return
       const next = state.carts[target] ?? []
-      if (state.activeMerchantId && state.items.length) {
-        state.carts[state.activeMerchantId] = state.items
+      // Keranjang aktif disimpan sebelum ditimpa. `activeMerchantId` bisa masih
+      // `null` (state persist lama yang belum pernah menambah item lewat
+      // `addItem`) — fallback `'default'` sama dengan yang dipakai `addItem`,
+      // supaya item itu tidak ikut terbuang saat pindah keranjang.
+      if (state.items.length) {
+        state.carts[state.activeMerchantId ?? 'default'] = state.items
       }
       delete state.carts[target]
       state.items = next

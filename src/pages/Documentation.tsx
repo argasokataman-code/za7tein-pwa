@@ -241,7 +241,10 @@ export default function Documentation() {
                 <code className="doc-inline">/customer/checkout</code> menampilkan daftar
                 &ldquo;Keranjang lain&rdquo; untuk dipindah atau dibuang, plus kolom catatan
                 tingkat pesanan (<code className="doc-inline">cart.orderNote</code>); nama toko
-                pada checkout kini diambil dari merchant keranjang aktif.
+                pada checkout kini diambil dari merchant keranjang aktif, daftar
+                &ldquo;Keranjang lain&rdquo; tetap tampil walau keranjang aktif kosong, dan
+                keranjang aktif disimpan lebih dulu sebelum ditimpa — item tidak hilang saat
+                pindah.
               </li>
               <li>
                 <strong>Aturan uang PRD baru</strong> (M2a) jadi fungsi murni JOD di{' '}

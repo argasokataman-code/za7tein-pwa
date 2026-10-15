@@ -3768,6 +3768,216 @@
           "raw": "TASK-100600:led_to"
         }
       ]
+    },
+    {
+      "id": "TASK-100701",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:30:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts (+15/-11) — edit via tool: ts: switchCart(state, action: Pa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-100702",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:30:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/cart-multicart-check.mjs (+11/-2) — edit via tool: s = cartReducer(s, removeCart(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/cart-multicart-check.mjs"
+    },
+    {
+      "id": "TASK-100703",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:32:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/cart-multicart-check.mjs (+3/-2) — edit via tool: let legacy = cartReducer(undefi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/cart-multicart-check.mjs"
+    },
+    {
+      "id": "TASK-100704",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:32:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+5/-2) — edit via tool: tsx: const activeStore = activeMerchantId",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-100705",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:33:37",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -c warning; npm run build 2>&1 | tail -3; npm run scan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-100706",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:34:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+7/-31) — edit via tool: tsx: {otherCarts.length ? (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-100707",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:34:57",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3; npm run scan 2>&1 | grep -E \"FAIL|WARN\" | tail -1 pas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-100708",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:35:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-3) — edit via tool: tsx: tingkat pesanan (<code classNam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-100709",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:35:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "BUG-91003",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-15",
+      "time": "17:35:56",
+      "tags": [
+        "m1c",
+        "cart",
+        "data-loss"
+      ],
+      "summary": "switchCart buang keranjang aktif saat activeMerchantId null (state persist lama); juga daftar Keranjang lain tersembunyi saat keranjang akti",
+      "conn": [
+        {
+          "id": "TASK-100600",
+          "type": "relates",
+          "raw": "TASK-100600:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-100710",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "17:36:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -c warning; npm run scan 2>&1 | grep -E \"FAIL|WARN\" | ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
