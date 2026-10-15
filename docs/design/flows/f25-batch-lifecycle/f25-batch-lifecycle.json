@@ -1,0 +1,265 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F25 — Siklus Batch Kurir Inhouse (Regular) vs Quick (Partner)",
+    "quality_profile": "showcase",
+    "reader_width": "unbounded"
+  },
+  "lanes": [
+    {
+      "id": "merchant",
+      "label": "Merchant — dapur & antrean"
+    },
+    {
+      "id": "batch",
+      "label": "Batch (order Regular)"
+    },
+    {
+      "id": "courier",
+      "label": "Kurir & cabang Quick"
+    }
+  ],
+  "phases": [
+    {
+      "id": "terima",
+      "label": "Terima order",
+      "fromCol": 0,
+      "toCol": 1,
+      "variant": "emphasis"
+    },
+    {
+      "id": "susun",
+      "label": "Susun batch",
+      "fromCol": 2,
+      "toCol": 5
+    },
+    {
+      "id": "antar",
+      "label": "Antar",
+      "fromCol": 6,
+      "toCol": 7
+    }
+  ],
+  "mainPath": [
+    "order_masuk",
+    "pilih_jenis",
+    "batch",
+    "packing",
+    "tutup_awal",
+    "assign",
+    "mulai_awal",
+    "selesai"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "order_masuk"
+    ],
+    "allowedTerminals": [
+      "selesai",
+      "quick_branch"
+    ],
+    "requiredEdges": [
+      {
+        "from": "order_masuk",
+        "to": "pilih_jenis"
+      },
+      {
+        "from": "pilih_jenis",
+        "to": "batch"
+      },
+      {
+        "from": "batch",
+        "to": "packing"
+      },
+      {
+        "from": "packing",
+        "to": "tutup_awal"
+      },
+      {
+        "from": "tutup_awal",
+        "to": "assign"
+      },
+      {
+        "from": "assign",
+        "to": "mulai_awal"
+      },
+      {
+        "from": "mulai_awal",
+        "to": "selesai"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "order_masuk",
+      "lane": "merchant",
+      "col": 0,
+      "type": "frontend",
+      "label": "Order baru",
+      "sublabel": "jumlah bebas",
+      "width": 132
+    },
+    {
+      "id": "pilih_jenis",
+      "lane": "merchant",
+      "col": 1,
+      "type": "frontend",
+      "label": "Terima order",
+      "sublabel": "Regular atau Quick",
+      "width": 134
+    },
+    {
+      "id": "batch",
+      "lane": "batch",
+      "col": 2,
+      "type": "frontend",
+      "label": "Batch Regular",
+      "sublabel": "baru atau gabung",
+      "width": 132
+    },
+    {
+      "id": "quick_branch",
+      "lane": "courier",
+      "col": 2,
+      "type": "security",
+      "label": "Estimasi prepare",
+      "sublabel": "kurir partner (M6)",
+      "tag": "open",
+      "width": 132
+    },
+    {
+      "id": "packing",
+      "lane": "merchant",
+      "col": 3,
+      "type": "frontend",
+      "label": "Tandai packing",
+      "sublabel": "MER-13",
+      "width": 132
+    },
+    {
+      "id": "tutup_awal",
+      "lane": "batch",
+      "col": 4,
+      "type": "frontend",
+      "label": "Tutup awal",
+      "sublabel": "BR-B08",
+      "width": 118
+    },
+    {
+      "id": "assign",
+      "lane": "courier",
+      "col": 5,
+      "type": "backend",
+      "label": "Assign 1 kurir",
+      "sublabel": "per batch (BR-B07)",
+      "width": 132
+    },
+    {
+      "id": "mulai_awal",
+      "lane": "courier",
+      "col": 6,
+      "type": "backend",
+      "label": "Mulai lebih awal",
+      "sublabel": "BR-B09",
+      "width": 124
+    },
+    {
+      "id": "selesai",
+      "lane": "merchant",
+      "col": 7,
+      "type": "backend",
+      "label": "Selesai",
+      "sublabel": "batch tuntas",
+      "width": 130
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-masuk",
+      "from": "order_masuk",
+      "to": "pilih_jenis",
+      "label": "order masuk",
+      "role": "main"
+    },
+    {
+      "id": "e-regular",
+      "from": "pilih_jenis",
+      "to": "batch",
+      "label": "Regular → batch",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-pack",
+      "from": "batch",
+      "to": "packing",
+      "label": "order masuk batch",
+      "role": "main"
+    },
+    {
+      "id": "e-close",
+      "from": "packing",
+      "to": "tutup_awal",
+      "label": "semua packing",
+      "role": "main"
+    },
+    {
+      "id": "e-assign",
+      "from": "tutup_awal",
+      "to": "assign",
+      "label": "hitung mundur stop",
+      "role": "main"
+    },
+    {
+      "id": "e-early",
+      "from": "assign",
+      "to": "mulai_awal",
+      "label": "kurir dipilih",
+      "role": "main"
+    },
+    {
+      "id": "e-done",
+      "from": "mulai_awal",
+      "to": "selesai",
+      "label": "batch diantar",
+      "role": "main"
+    },
+    {
+      "id": "e-quick",
+      "from": "pilih_jenis",
+      "to": "quick_branch",
+      "label": "Quick → partner",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Batch — wadah order Regular",
+      "items": [
+        "Batch lahir dari order Regular yang di-accept (BR-B01) — tak ada batch kosong",
+        "Maks 24 order (BR-B04) · order baru hanya selama hitung mundur (BR-B02)",
+        "Satu kurir inhouse per batch (BR-B07) — dipilih per batch, bukan per order"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Quick = kurir partner",
+      "items": [
+        "Order Quick tidak masuk batch — cukup estimasi prepare (MER-12)",
+        "Dispatch kurir partner (§9.4) belum ada: tombol serah-terima mati (M6)",
+        "COD bukan hold pada PRD aktif — tak ada lagi 'hold cut' di alur merchant"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "PRD §7.2/§7.3 (jenis pengantaran), §8 (batch), §11 (konsol merchant) — sa7tein-mvp-2026-10-11",
+        "Milestone M4 — milestones.md · C-01, C-02, C-03 — analysis.md",
+        "Kolom jenis pengantaran di `orders` BE belum ada → overlay demo (ui-impact.md §8); batch belum punya tabel di BE"
+      ]
+    }
+  ]
+}

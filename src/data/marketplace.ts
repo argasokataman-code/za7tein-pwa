@@ -56,22 +56,24 @@ export const REFUND_BI_FAST_FEE_IDR = 2500
  */
 export const REFUND_AVAILABLE = false
 
+/**
+ * Dispatch kurir partner (PRD §9.4/M6) belum ada: BE demo tak punya tabel
+ * `courier_partner`/assignment dan tak ada endpoint dispatch. Selama `false`,
+ * order Quick yang sudah diterima merchant menampilkan langkah serah-terima
+ * sebagai **belum tersedia** (tombol mati + alasan), bukan pura-pura mengirim
+ * assignment ke kurir yang tak ada.
+ */
+export const QUICK_DISPATCH_AVAILABLE = false
+
 // — Batch —
 
-export const mockBatches: Batch[] = [
-  {
-    id: 'batch-1',
-    merchantId: 'merchant-1',
-    courierId: 'courier-1',
-    orderIds: ['ord-1', 'ord-2'],
-    status: 'countdown',
-    estimateMinutes: 25,
-    countdownSeconds: 1500,
-    autoSort: true,
-    routeOrder: ['ord-1', 'ord-2'],
-    createdAt: '2026-10-15T08:00:00.000Z',
-  },
-]
+/**
+ * Tidak ada batch awal. PRD BR-B01: **batch lahir hanya dari order Regular yang
+ * di-accept** — batch kosong yang di-seed akan menampilkan hitung mundur tanpa
+ * order nyata, dan id order seed tak cocok dengan baris BE (order live ber-id
+ * `api-<n>`). Jadi konsol mulai kosong dan batch dibuat dari aksi merchant.
+ */
+export const mockBatches: Batch[] = []
 
 // — Kurir partner & assignment —
 

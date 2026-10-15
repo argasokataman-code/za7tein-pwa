@@ -19,10 +19,11 @@ import type { Courier } from '../types'
 const EMPTY_FORM: MerchantCourierFormData = { name: '', phone: '' }
 
 /**
- * Kelola kurir toko (M5). Kurir adalah karyawan merchant — platform tidak
- * pernah menugaskan (C-06) — jadi seluruh aksi di sini milik merchant:
- * daftar, jam tugas, hapus, dan memilih kurir untuk sebuah order (di halaman
- * Order, F12 `:assign` → `hold_cut`).
+ * Kelola kurir inhouse (MER-16). Kurir adalah karyawan merchant — platform tidak
+ * menugaskan order Regular (C-06) — jadi seluruh aksi di sini milik merchant:
+ * daftar, jam tugas, hapus. Penugasan kerja bukan di sini: satu kurir di-assign
+ * ke **satu batch** di `/merchant/orders` (BR-B07, flow `f25-batch-lifecycle`),
+ * jadi tak ada lagi assign per order.
  */
 export default function MerchantCouriers() {
   const dispatch = useAppDispatch()

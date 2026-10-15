@@ -24,7 +24,8 @@
     "f20-address-zone": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "C-13, C-05, C-07", "biz": "decided" },
     "f21-account-auth": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PRD §Registrasi (source.md:760) + E.164 (:727) + PO 2026-09-22 (Google + nomor WA, Level 1)", "biz": "decided" },
     "f22-super-admin-sa": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PO 2026-09-23 (cakupan Super Admin, decision-irbid-mvp.md) + C-12 + R-DISPUTE-01 + R-LEDGER-01 + C-13", "biz": "partial" },
-    "f24-cs-problem": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "BRS notif-order-e2e-2026-10-11 (proposed) + R-NOTIF-02 + R-DISPUTE-01 + C-12", "biz": "proposed" }
+    "f24-cs-problem": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "BRS notif-order-e2e-2026-10-11 (proposed) + R-NOTIF-02 + R-DISPUTE-01 + C-12", "biz": "proposed" },
+    "f25-batch-lifecycle": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-BATCH + C-01 + C-02 + C-03 (PRD §7.2/§7.3/§8/§11) — sa7tein-mvp-2026-10-11", "biz": "decided" }
   },
   "links": [
     { "from": "f1-order-lifecycle:order", "to": "f2-cod-hold:none->held", "as": "drilldown", "event": "hold_created", "req": "R-COD-01" },
@@ -71,7 +72,9 @@
     { "from": "f1-order-lifecycle", "to": "f11-push-notification", "as": "notifies", "event": "push_sent", "req": "R-NOTIF-01", "note": "matriks notifikasi tiap langkah order (customer/merchant/kurir)" },
     { "from": "f1-order-lifecycle:dapur|tiba", "to": "f24-cs-problem", "as": "drilldown", "event": "order_canceled|sla_breached", "req": "R-NOTIF-02", "note": "batal post-match + SLA lewat → queue CS" },
     { "from": "f8-dispute", "to": "f24-cs-problem", "as": "drilldown", "event": "dispute_filed", "req": "R-NOTIF-02", "note": "sengketa masuk queue CS (f8 = resolusi, f24 = penanganan masalah)" },
-    { "from": "f24-cs-problem", "to": "f22-super-admin-sa:appeal", "as": "feeds", "event": "escalated_to_sa", "req": "R-NOTIF-02", "note": "hanya eskalasi: dispute macet / protection fund / appeal" }
+    { "from": "f24-cs-problem", "to": "f22-super-admin-sa:appeal", "as": "feeds", "event": "escalated_to_sa", "req": "R-NOTIF-02", "note": "hanya eskalasi: dispute macet / protection fund / appeal" },
+    { "from": "f12-merchant-console:terima", "to": "f25-batch-lifecycle:order_masuk", "as": "drilldown", "event": "order_accepted", "req": "R-BATCH", "note": "accept terbelah: Regular → batch, Quick → kurir partner" },
+    { "from": "f25-batch-lifecycle:antar", "to": "f13-courier-view", "as": "feeds", "event": "batch_assigned", "req": "C-01", "note": "satu kurir inhouse mengantar satu batch" }
   ],
   "trace": [
     { "req": "R-COD-01", "flows": ["f1-order-lifecycle:order", "f2-cod-hold"], "entities": ["wallet_holds", "wallet_ledgers", "orders"] },

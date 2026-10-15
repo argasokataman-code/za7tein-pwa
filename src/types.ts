@@ -525,6 +525,17 @@ export interface MerchantOrder {
    * dianggap lunas supaya seed lama tetap bisa dikonfirmasi.
    */
   paymentStatus?: OrderPaymentStatus
+  /**
+   * Jenis pengantaran (PRD §7.2/§7.3). `regular` masuk **batch** kurir inhouse,
+   * `quick` ditangani satu kurir partner. Menentukan bentuk alur accept di
+   * konsol merchant. Kosong bila `orders` BE belum punya kolomnya — pakai
+   * `orderDeliveryType()` (`src/data/merchantOrders.ts`) untuk membacanya.
+   */
+  deliveryType?: OrderType
+  /** `Batch.id` tempat order Regular ini bergabung; kosong untuk Quick. */
+  batchId?: string
+  /** Ditandai selesai packing (MER-13). Batch boleh mulai lebih awal bila semua `packed`. */
+  packed?: boolean
   cookMinutes?: number
   /**
    * `Courier.id` yang dipilih merchant untuk order ini. Platform tidak pernah

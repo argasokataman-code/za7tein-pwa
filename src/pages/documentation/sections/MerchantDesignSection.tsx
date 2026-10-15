@@ -450,14 +450,14 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         bisa diubah dari sini karena datang dari checkpoint kurir sendiri (F13).
       </p>
       <p className="doc-p">
-        Order yang sudah diterima punya pemilih kurir di{' '}
-        <code className="doc-inline">/merchant/orders</code>. Memilih kurir mengisi{' '}
-        <code className="doc-inline">MerchantOrder.courierId</code> dan menambah hitungan
-        order aktif kurir itu — cermin <code className="doc-inline">C-06</code> (platform
-        tidak menugaskan kurir, merchant memilih sendiri) dan edge F12{' '}
-        <code className="doc-inline">:assign → hold_cut</code>. Copy status hold diambil dari{' '}
-        <code className="doc-inline">HOLD_STATUS_COPY</code>, jadi tidak ada kalimat
-        karangan tentang dana.
+        Penugasan kurir inhouse pindah ke{' '}
+        <code className="doc-inline">/merchant/orders</code>: satu kurir dipilih untuk{' '}
+        <strong>satu batch</strong> (BR-B07, flow <code className="doc-inline">f25-batch-lifecycle</code>),
+        bukan per order seperti alur lama. Karena itu daftar kurir di sini hanya mengurus
+        keanggotaan (tambah, jam tugas, hapus) — cermin <code className="doc-inline">C-06</code>{' '}
+        (platform tidak menugaskan order Regular, merchant memilih sendiri). Copy status
+        hold tidak lagi dipakai di layar order: COD bukan hold pada PRD aktif, dan
+        pengantaran dimulai saat kurir batch mulai.
       </p>
       <h3 className="doc-h3">
         Ulasan pembeli — di luar PRD aktif (UNRESOLVED)

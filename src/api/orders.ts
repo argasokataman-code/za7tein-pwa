@@ -10,6 +10,7 @@
  * dipatok. Saat auth nyata masuk, ketiganya berasal dari sesi.
  */
 import { idrToJod, jodToIdr } from '../data/currency'
+import { deliveryTypeFor } from '../data/merchantOrders'
 import type {
   CartItem,
   CourierTask,
@@ -320,6 +321,9 @@ function toMerchantOrder(row: OrderRow): MerchantOrder {
     placedAtMs: new Date(row.placed_at ?? row.created_at).getTime(),
     paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
     paymentStatus: (row.payment_status ?? 'unpaid') as OrderPaymentStatus,
+    // `orders` BE belum punya kolom jenis pengantaran → overlay demo per kode
+    // (ui-impact.md §8). Begitu kolomnya ada, ganti dengan `row.delivery_type`.
+    deliveryType: deliveryTypeFor(row.code),
     courierId: row.courier_id != null ? String(row.courier_id) : undefined,
   }
 }

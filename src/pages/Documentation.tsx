@@ -231,7 +231,11 @@ export default function Documentation() {
                 <code className="doc-inline">quota</code>/<code className="doc-inline">marketing</code>;
                 M1 (discovery) menggrup toko per tag, menyembunyikan toko blok-kuota, menonaktifkan
                 toko tutup/luar-coverage, dan menambah bilah urut/filter di{' '}
-                <code className="doc-inline">/customer/home</code>. Milestone &amp; kriteria
+                <code className="doc-inline">/customer/home</code>; M4 (konsol merchant) memecah
+                accept order jadi <strong>Regular → batch</strong> (baru/gabung, hitung mundur,
+                packing, tutup lebih awal, satu kurir inhouse) dan <strong>Quick → kurir partner</strong>{' '}
+                di <code className="doc-inline">/merchant/orders</code> (flow{' '}
+                <code className="doc-inline">f25-batch-lifecycle</code>). Milestone &amp; kriteria
                 penerimaan: <code className="doc-inline">docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md</code>.
               </li>
               <li>
@@ -426,9 +430,12 @@ export default function Documentation() {
                 Konfirmasi merchant kini <strong>tergerbang pembayaran</strong> (f18): order tetap
                 muncul di Antrean begitu checkout, tapi tombol <strong>Terima</strong> nonaktif sampai
                 pembayaran terkonfirmasi — DANA VA/QRIS dan saldo harus{' '}
-                <code className="doc-inline">paid</code>, COD lewat hold saldo (f2), transfer
+                <code className="doc-inline">paid</code>, <strong>COD dibayar tunai saat serah
+                terima</strong> (bukan hold — PRD aktif menggantikan alur hold saldo f2), transfer
                 diverifikasi merchant saat diterima. Order belum lunas membawa chip &ldquo;Menunggu
-                bayar&rdquo;.
+                bayar&rdquo;. Setelah diterima, order <strong>Regular</strong> masuk batch kurir
+                inhouse dan order <strong>Quick</strong> menunggu kurir partner (flow{' '}
+                <strong>f25</strong>).
               </li>
               <li>
                 Tugas kurir kini dari <strong>satu RPC BE</strong> (

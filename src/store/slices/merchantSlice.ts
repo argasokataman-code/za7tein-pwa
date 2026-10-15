@@ -239,6 +239,16 @@ const merchantSlice = createSlice({
       const order = state.orders.find((o) => o.id === action.payload.id)
       if (order) order.cookMinutes = action.payload.minutes
     },
+    /** Order Regular bergabung ke sebuah batch (BR-B01/B02). */
+    setOrderBatch(state, action: PayloadAction<{ id: string; batchId: string }>) {
+      const order = state.orders.find((o) => o.id === action.payload.id)
+      if (order) order.batchId = action.payload.batchId
+    },
+    /** Merchant menandai order selesai packing (MER-13). */
+    setOrderPacked(state, action: PayloadAction<{ id: string; packed: boolean }>) {
+      const order = state.orders.find((o) => o.id === action.payload.id)
+      if (order) order.packed = action.payload.packed
+    },
     /** Merchant mendaftarkan kurirnya sendiri — dibatasi kuota kurir per toko. */
     addCourier(state, action: PayloadAction<{ name: string; phone: string }>) {
       if (state.couriers.length >= MAX_COURIERS_PER_MERCHANT) return
@@ -382,6 +392,8 @@ export const {
   setOrderStatus,
   mergeOrders,
   setCookMinutes,
+  setOrderBatch,
+  setOrderPacked,
   addCourier,
   removeCourier,
   setCourierDuty,

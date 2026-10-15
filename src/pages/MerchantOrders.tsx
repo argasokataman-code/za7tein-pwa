@@ -1,31 +1,53 @@
 import { useState } from 'react'
-import { Check, ChevronRight, Circle, Inbox, Star } from 'lucide-react'
+import { ChevronRight, Inbox, PackageCheck, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
 import { insertNotification } from '../api/notifications'
-import { assignOrderCourier, markOrderPaid, updateOrderStatus } from '../api/orders'
+import { markOrderPaid, updateOrderStatus } from '../api/orders'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
+import { AcceptOrderSheet, type AcceptChoice } from '../components/merchant/AcceptOrderSheet'
+import { BatchPanel } from '../components/merchant/BatchPanel'
 import { JourneyLine } from '../components/JourneyLine'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
+import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
-import { COURIER_STATUS_LABEL } from '../data/courier'
-import { HOLD_STATUS_COPY, formatDistance, zoneLabel } from '../data/merchant'
+import { BATCH_COUNTDOWN_SECONDS, nextBatchId } from '../data/batch'
+import { QUICK_DISPATCH_AVAILABLE } from '../data/marketplace'
+import { formatDistance } from '../data/merchant'
 import {
+  DELIVERY_TYPE_LABEL,
+  DELIVERY_TYPE_SHORT,
   QUEUE_TABS,
   orderAgeLabel,
   orderAgeMinutes,
+  orderDeliveryType,
   orderStatusLabel,
   orderUrgency,
   ordersForStatuses,
   type QueueTabId,
 } from '../data/merchantOrders'
-import { assignCourier, setCookMinutes, setOrderStatus } from '../store/slices/merchantSlice'
+import {
+  addBatch,
+  addOrderToBatch,
+  approveEarlyStart,
+  assignBatchCourier,
+  closeBatchEarly,
+} from '../store/slices/batchSlice'
+import {
+  setCookMinutes,
+  setOrderBatch,
+  setOrderPacked,
+  setOrderStatus,
+} from '../store/slices/merchantSlice'
 import type { MerchantOrder, MerchantOrderStatus, OrderStage } from '../types'
+
+/** Tenant demo (satu toko). Saat auth nyata masuk, id ini berasal dari sesi. */
+const MERCHANT_ID = 'merchant-1'
 
 /**
  * Status order merchant → tahap Journey Line.
@@ -64,10 +86,10 @@ const EMPTY_HINT: Record<QueueTabId, string> = {
 /**
  * Gerbang konfirmasi merchant (f18). Merchant hanya boleh menerima order
  * setelah pembayaran terkonfirmasi:
- * - `cod` → `ready` (checkout menahan hold saldo, f2);
+ * - `cod` → `ready` (COD dibayar tunai saat serah terima, §16.5);
  * - `paid` / tanpa status (seed) → `ready`;
  * - `transfer` → `verify` (merchant memverifikasi bukti saat menerima);
- * - sisanya (DANA VA/QRIS belum lunas) → `awaiting` (Terima nonaktif).
+ * - sisanya (DANA/QRIS belum lunas) → `awaiting` (Terima nonaktif).
  */
 function paymentGate(order: MerchantOrder): 'ready' | 'awaiting' | 'verify' {
   if (order.paymentMethod === 'cod') return 'ready'
@@ -82,6 +104,7 @@ export default function MerchantOrders() {
   useMerchantOrdersSync()
   const orders = useAppSelector((s) => s.merchant.orders)
   const couriers = useAppSelector((s) => s.merchant.couriers)
+  const batches = useAppSelector((s) => s.batch.batches)
   const [params] = useSearchParams()
   /* Tab awal bisa datang dari tautan (?tab=batal), dipakai legenda donut di
      dashboard: potongan "Batal/tolak 1 order" harus mendarat di daftar yang
@@ -96,13 +119,13 @@ export default function MerchantOrders() {
      terjadi karena satu sentuhan salah (ConfirmSheet, pola yang sama dengan
      panel CS). Id disimpan, bukan objek, supaya tetap valid setelah re-render. */
   const [rejectId, setRejectId] = useState<string | null>(null)
-  const [dispatchId, setDispatchId] = useState<string | null>(null)
   const [cancelId, setCancelId] = useState<string | null>(null)
+  const [acceptId, setAcceptId] = useState<string | null>(null)
 
   const activeTab = QUEUE_TABS.find((t) => t.id === tab) ?? QUEUE_TABS[0]
   const visible = ordersForStatuses(orders, activeTab.statuses)
   const detailOrder = orders.find((o) => o.id === detailId) ?? null
-  const detailCourier = detailOrder ? couriers.find((c) => c.id === detailOrder.courierId) : undefined
+  const acceptOrder = orders.find((o) => o.id === acceptId) ?? null
   const codeOf = (id: string | null) => orders.find((o) => o.id === id)?.code ?? ''
 
   /** Emit notifikasi ke customer (best-effort — UI tidak menunggu jaringan). */
@@ -115,16 +138,45 @@ export default function MerchantOrders() {
     void updateOrderStatus(id, status).catch(() => {})
   }
 
-  const receiveOrder = (id: string, code: string) => {
-    const order = orders.find((o) => o.id === id)
-    // Transfer: verifikasi bukti transfer = konfirmasi pembayaran (f18).
-    if (order && paymentGate(order) === 'verify') {
-      void markOrderPaid(id, 'merchant').catch(() => {})
+  /**
+   * Terima order (MER-11/MER-12). Regular wajib masuk batch: gabung batch
+   * berjalan yang hitung mundurnya masih jalan, atau bikin batch baru. Quick
+   * tidak punya batch — cukup estimasi prepare.
+   */
+  const confirmAccept = (order: MerchantOrder, choice: AcceptChoice) => {
+    if (orderDeliveryType(order) === 'regular') {
+      const batchId = choice.batchId ?? nextBatchId(batches)
+      const exists = batches.some((b) => b.id === batchId)
+      if (exists) {
+        dispatch(addOrderToBatch({ batchId, orderId: order.id }))
+      } else {
+        dispatch(
+          addBatch({
+            id: batchId,
+            merchantId: MERCHANT_ID,
+            courierId: null,
+            orderIds: [order.id],
+            status: 'countdown',
+            estimateMinutes: choice.estimateMinutes,
+            countdownSeconds: BATCH_COUNTDOWN_SECONDS,
+            autoSort: true,
+            routeOrder: [],
+            createdAt: new Date().toISOString(),
+          }),
+        )
+      }
+      dispatch(setOrderBatch({ id: order.id, batchId }))
     }
-    dispatch(setOrderStatus({ id, status: 'diterima' }))
-    persistStatus(id, 'diterima')
-    toast.success(`Order ${code} diterima`)
+    dispatch(setCookMinutes({ id: order.id, minutes: choice.estimateMinutes }))
+    // Transfer: verifikasi bukti transfer = konfirmasi pembayaran (f18).
+    if (paymentGate(order) === 'verify') {
+      void markOrderPaid(order.id, 'merchant').catch(() => {})
+    }
+    dispatch(setOrderStatus({ id: order.id, status: 'diterima' }))
+    persistStatus(order.id, 'diterima')
+    toast.success(`Order ${order.code} diterima`)
     notifyCustomer('Pesanan diterima', 'Toko menerima pesananmu dan mulai menyiapkannya.')
+    setAcceptId(null)
   }
 
   const confirmReject = () => {
@@ -137,29 +189,25 @@ export default function MerchantOrders() {
     setRejectId(null)
   }
 
-  const confirmDispatch = () => {
-    if (!dispatchId) return
-    const order = orders.find((o) => o.id === dispatchId)
-    if (!order?.courierId) {
-      toast.error('Assign kurir dulu sebelum serahkan pesanan')
-      setDispatchId(null)
-      return
-    }
-    dispatch(setOrderStatus({ id: dispatchId, status: 'diantar' }))
-    persistStatus(dispatchId, 'diantar')
-    toast.success(`Order ${order?.code ?? ''} siap dan diserahkan ke kurir`)
-    notifyCustomer('Kurir menuju lokasimu', 'Pesananmu sedang diantar oleh kurir.')
-    setDispatchId(null)
-  }
-
   const confirmCancel = () => {
     if (!cancelId) return
     const order = orders.find((o) => o.id === cancelId)
     dispatch(setOrderStatus({ id: cancelId, status: 'batal' }))
     persistStatus(cancelId, 'batal')
-    toast.success(`Order ${order?.code ?? ''} dibatalkan — dana hold dikembalikan`)
-    notifyCustomer('Pesanan dibatalkan', 'Pesanan dibatalkan dan dana hold dikembalikan.')
+    toast.success(`Order ${order?.code ?? ''} dibatalkan`)
+    notifyCustomer('Pesanan dibatalkan', 'Pesanan dibatalkan dan dana dikembalikan ke pelanggan.')
     setCancelId(null)
+  }
+
+  /** Kurir mulai mengantar lebih awal (BR-B09) — semua order batch ikut jalan. */
+  const approveStart = (batchId: string) => {
+    const batch = batches.find((b) => b.id === batchId)
+    dispatch(approveEarlyStart({ batchId }))
+    batch?.orderIds.forEach((id) => {
+      dispatch(setOrderStatus({ id, status: 'diantar' }))
+      persistStatus(id, 'diantar')
+    })
+    toast.success('Kurir mulai mengantar lebih awal')
   }
 
   /* Ringkasan item untuk baris antrean: satu baris, dipotong dengan elipsis.
@@ -170,9 +218,18 @@ export default function MerchantOrders() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader
-          eyebrow="Antrean dapur"
-          title="Order"
+        <MerchantPageHeader eyebrow="Antrean dapur" title="Order" />
+
+        <BatchPanel
+          batches={batches}
+          orders={orders}
+          couriers={couriers}
+          onAssign={(batchId, courierId) => dispatch(assignBatchCourier({ batchId, courierId }))}
+          onCloseEarly={(batchId) => {
+            dispatch(closeBatchEarly({ batchId }))
+            toast.success('Batch ditutup — tidak menerima order baru')
+          }}
+          onApproveStart={approveStart}
         />
 
         <div className="merchant-tabs" role="tablist">
@@ -204,6 +261,7 @@ export default function MerchantOrders() {
             const ageMinutes = orderAgeMinutes(order)
             const urgency = orderUrgency(order, ageMinutes)
             const gate = paymentGate(order)
+            const kind = orderDeliveryType(order)
             return (
               <article key={order.id} className="merchant-ticket">
                 {/* Slip tiket dua baris: kepala (nomor + umur + status) lalu
@@ -228,6 +286,9 @@ export default function MerchantOrders() {
                           {orderAgeLabel(ageMinutes)}
                         </span>
                       ) : null}
+                      <span className="merchant-badge merchant-badge-soft">
+                        {DELIVERY_TYPE_SHORT[kind]}
+                      </span>
                       <span className={`merchant-badge merchant-badge-${order.status}`}>
                         {orderStatusLabel(order.status)}
                       </span>
@@ -267,7 +328,7 @@ export default function MerchantOrders() {
                         type="button"
                         className="btn btn-primary"
                         disabled={gate === 'awaiting'}
-                        onClick={() => receiveOrder(order.id, order.code)}
+                        onClick={() => setAcceptId(order.id)}
                       >
                         {gate === 'verify' ? 'Verifikasi & Terima' : 'Terima'}
                       </button>
@@ -357,8 +418,9 @@ export default function MerchantOrders() {
             </ul>
 
             <p className="merchant-order-meta">
-              {detailOrder.address} · {formatDistance(detailOrder.distanceMeters)} · Zona{' '}
-              {zoneLabel(detailOrder.zone)} · {detailOrder.paymentMethod === 'cod' ? 'COD' : 'Transfer'}
+              {detailOrder.address} · {formatDistance(detailOrder.distanceMeters)} ·{' '}
+              {DELIVERY_TYPE_LABEL[orderDeliveryType(detailOrder)]} ·{' '}
+              {detailOrder.paymentMethod === 'cod' ? 'COD' : 'Transfer'}
             </p>
             <p className="merchant-order-total">Total {money(detailOrder.total)}</p>
 
@@ -369,7 +431,10 @@ export default function MerchantOrders() {
                     type="button"
                     className="btn btn-primary"
                     disabled={paymentGate(detailOrder) === 'awaiting'}
-                    onClick={() => receiveOrder(detailOrder.id, detailOrder.code)}
+                    onClick={() => {
+                      setDetailId(null)
+                      setAcceptId(detailOrder.id)
+                    }}
                   >
                     {paymentGate(detailOrder) === 'verify' ? 'Verifikasi & Terima' : 'Terima'}
                   </button>
@@ -424,104 +489,44 @@ export default function MerchantOrders() {
                   })}
                 </div>
 
-                <div className="merchant-assign">
-                  <div className="merchant-assign-head">
-                    <span className="merchant-assign-label">Kurir</span>
-                    <span className="merchant-assign-req">Wajib pilih satu</span>
-                  </div>
-                  <div className="courier-pick" aria-label="Pilih kurir">
-                    {couriers.length === 0 ? (
-                      <p className="courier-pick__empty">Belum ada kurir tersedia.</p>
-                    ) : null}
-                    {couriers.map((item) => {
-                      const selected = detailOrder.courierId === item.id
-                      const initials = item.name
-                        .split(' ')
-                        .map((word) => word[0])
-                        .slice(0, 2)
-                        .join('')
-                      const tone =
-                        item.status === 'at_store'
-                          ? 'success'
-                          : item.status === 'delivering'
-                            ? 'info'
-                            : 'muted'
-                      return (
-                        <button
-                          key={item.id}
-                          type="button"
-                          aria-pressed={selected}
-                          className={`courier-pick__item${selected ? ' is-selected' : ''}`}
-                          onClick={() => {
-                            dispatch(assignCourier({ orderId: detailOrder.id, courierId: item.id }))
-                            void assignOrderCourier(detailOrder.id, item.id).catch(() => {})
-                            void insertNotification({
-                              audience: 'courier',
-                              kind: 'courier',
-                              title: 'Tugas baru',
-                              body: `Kamu ditugaskan mengantar ${detailOrder.code}.`,
-                            }).catch(() => {})
-                          }}
-                        >
-                          <span className="courier-pick__avatar" aria-hidden="true">
-                            {initials}
-                            <span className={`courier-pick__dot courier-pick__dot--${tone}`} />
-                          </span>
-                          <span className="courier-pick__body">
-                            <span className="courier-pick__name">{item.name}</span>
-                            <span className={`courier-pick__meta courier-pick__meta--${tone}`}>
-                              {COURIER_STATUS_LABEL[item.status] ?? item.status}
-                              {item.activeOrderCount ? ` · ${item.activeOrderCount} tugas aktif` : ''}
-                            </span>
-                          </span>
-                          <span className="courier-pick__check" aria-hidden="true">
-                            {selected ? (
-                              <Check size={18} strokeWidth={1.75} />
-                            ) : (
-                              <Circle size={18} strokeWidth={1.75} />
-                            )}
-                          </span>
-                        </button>
-                      )
-                    })}
-                  </div>
-                  {!detailOrder.courierId ? (
-                    <p className="courier-pick__hint">
-                      Pilih satu kurir sebelum pesanan diserahkan.
-                    </p>
-                  ) : null}
-                </div>
+                {/* Packing (MER-13): syarat kurir boleh mulai lebih awal saat batch
+                    ditutup lebih awal (BR-B09). Karena itu statusnya terlihat jelas
+                    di tiket packing, bukan tersembunyi di sheet. */}
+                <button
+                  type="button"
+                  className={`merchant-pack${detailOrder.packed ? ' is-packed' : ''}`}
+                  aria-pressed={Boolean(detailOrder.packed)}
+                  onClick={() => {
+                    const next = !detailOrder.packed
+                    dispatch(setOrderPacked({ id: detailOrder.id, packed: next }))
+                    notifyCustomer(
+                      next ? 'Pesanan selesai dipacking' : 'Pesanan kembali ke dapur',
+                      next
+                        ? 'Pesananmu sudah dikemas dan menunggu kurir.'
+                        : 'Packing pesananmu dibuka kembali.',
+                    )
+                  }}
+                >
+                  <PackageCheck size={18} strokeWidth={1.75} aria-hidden="true" />
+                  {detailOrder.packed ? 'Packing selesai' : 'Tandai packing selesai'}
+                </button>
 
-                <p className="merchant-card-sub">
-                  {detailCourier
-                    ? `Hold ${HOLD_STATUS_COPY.cut.label}: potongan dikunci sampai OTP`
-                    : HOLD_STATUS_COPY.held.note}
-                </p>
-
-                {detailOrder.status === 'siap' ? (
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    disabled={!detailOrder.courierId}
-                    onClick={() => {
-                      setDetailId(null)
-                      setDispatchId(detailOrder.id)
-                    }}
-                  >
-                    Siap diantar
-                  </button>
+                {detailOrder.batchId ? (
+                  <p className="merchant-card-sub">
+                    Order ini ada di batch kurir inhouse. Pengantaran dimulai saat kurir batch
+                    mulai, bukan per order.
+                  </p>
                 ) : (
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => {
-                      dispatch(setOrderStatus({ id: detailOrder.id, status: 'siap' }))
-                      persistStatus(detailOrder.id, 'siap')
-                      notifyCustomer('Pesanan siap diantar', 'Pesananmu siap dan menunggu kurir.')
-                    }}
-                  >
-                    Tandai siap
-                  </button>
+                  <>
+                    <PlatformNotice message="Penugasan kurir partner (dispatch §9.4) belum tersedia — masuk milestone M6." />
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      disabled={!QUICK_DISPATCH_AVAILABLE || !detailOrder.packed}
+                    >
+                      Serahkan ke kurir partner
+                    </button>
+                  </>
                 )}
 
                 <button
@@ -538,8 +543,8 @@ export default function MerchantOrders() {
             ) : null}
 
             {/* Lane guard (f12): order yang sudah di jalan bisa macet. Merchant
-                hanya punya dua jalan keluar — ganti kurir (di blok cook) atau
-                batalkan dan kembalikan dana hold. */}
+                hanya punya dua jalan keluar — ganti kurir (di blok batch) atau
+                batalkan dan kembalikan dana. */}
             {detailOrder.status === 'diantar' ? (
               <button
                 type="button"
@@ -568,6 +573,15 @@ export default function MerchantOrders() {
         ) : null}
       </BottomSheet>
 
+      {acceptOrder ? (
+        <AcceptOrderSheet
+          order={acceptOrder}
+          batches={batches}
+          onConfirm={(choice) => confirmAccept(acceptOrder, choice)}
+          onClose={() => setAcceptId(null)}
+        />
+      ) : null}
+
       {/* Konfirmasi 2-langkah untuk aksi yang keluar rel atau menahan uang. */}
       <ConfirmSheet
         open={rejectId !== null}
@@ -579,19 +593,10 @@ export default function MerchantOrders() {
       />
 
       <ConfirmSheet
-        open={dispatchId !== null}
-        title="Serahkan ke kurir?"
-        body={`Pesanan ${codeOf(dispatchId)} ditandai siap diantar. Kurir menerima tugas dan pelanggan melihat statusnya berjalan.`}
-        confirmLabel="Siap diantar"
-        onConfirm={confirmDispatch}
-        onClose={() => setDispatchId(null)}
-      />
-
-      <ConfirmSheet
         open={cancelId !== null}
         title="Batalkan pesanan?"
-        body={`Pesanan ${codeOf(cancelId)} dibatalkan dan dana hold dikembalikan ke pelanggan. Kamu tidak menerima pembayaran untuk order ini.`}
-        confirmLabel="Batalkan & refund"
+        body={`Pesanan ${codeOf(cancelId)} dibatalkan dan dana dikembalikan ke pelanggan. Kamu tidak menerima pembayaran untuk order ini.`}
+        confirmLabel="Batalkan pesanan"
         onConfirm={confirmCancel}
         onClose={() => setCancelId(null)}
       />

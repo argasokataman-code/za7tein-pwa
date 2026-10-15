@@ -105,7 +105,8 @@ const FLOWS = [
   {slug:"f20-address-zone",         title:"Address & Zone (coverage)",      type:"workflow", role:"drilldown", ms:"M2",     req:"C-13, C-05, C-07", biz:"decided", basis:"C-13 (Hijazi/Syimali ≤2 km)", open:["master zona"]},
   {slug:"f21-account-auth",         title:"Registrasi & Masuk Akun",        type:"workflow", role:"drilldown", ms:"M8",     req:"PRD §Registrasi + PO 2026-09-22", biz:"decided", basis:"PRD :760 + :727 + Google & nomor WA (Level 1)", open:["Google merchant?","sesi/token"]},
   {slug:"f22-super-admin-sa",       title:"Super Admin (website penuh)",    type:"workflow", role:"drilldown", ms:"—",      req:"PO 2026-09-23 + C-12 + R-DISPUTE-01", biz:"partial", basis:"PO 2026-09-23 (SA terpisah, non-PWA) + C-12", open:["tarif pajak","audit trail"]},
-  {slug:"f24-cs-problem",           title:"Penanganan masalah order (CS)",  type:"workflow", role:"drilldown", ms:"M6, M8", req:"BRS notif-order-e2e (proposed) + R-NOTIF-02", biz:"proposed", basis:"BRS proposed + R-NOTIF-02/R-DISPUTE-01 + f8", open:["SLA penanganan CS","pemilik alert SLA","ambang tolak berulang"]}
+  {slug:"f24-cs-problem",           title:"Penanganan masalah order (CS)",  type:"workflow", role:"drilldown", ms:"M6, M8", req:"BRS notif-order-e2e (proposed) + R-NOTIF-02", biz:"proposed", basis:"BRS proposed + R-NOTIF-02/R-DISPUTE-01 + f8", open:["SLA penanganan CS","pemilik alert SLA","ambang tolak berulang"]},
+  {slug:"f25-batch-lifecycle",      title:"Batch inhouse (Regular) vs Quick",type:"workflow", role:"drilldown", ms:"M4", req:"PRD §7.2/§7.3/§8/§11 (sa7tein-mvp-2026-10-11)", biz:"decided", basis:"R-BATCH + C-01 + C-02 + C-03", open:["kolom jenis pengantaran di BE","tabel batch di BE","dispatch kurir partner (M6)"]}
 ];
 
 const LINKS = [

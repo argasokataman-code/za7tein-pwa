@@ -41,6 +41,19 @@ const batchSlice = createSlice({
       const batch = state.batches.find((b) => b.id === action.payload.batchId)
       if (batch) batch.courierId = action.payload.courierId
     },
+    /** Merchant menutup batch lebih awal — tak ada order baru setelahnya (BR-B08). */
+    closeBatchEarly(state, action: PayloadAction<{ batchId: string }>) {
+      const batch = state.batches.find((b) => b.id === action.payload.batchId)
+      if (batch) batch.status = 'closed'
+    },
+    /**
+     * Merchant menyetujui kurir mulai lebih awal; batch masuk pengantaran
+     * (BR-B09). Syaratnya ditegakkan pemanggil lewat `canStartEarly()`.
+     */
+    approveEarlyStart(state, action: PayloadAction<{ batchId: string }>) {
+      const batch = state.batches.find((b) => b.id === action.payload.batchId)
+      if (batch) batch.status = 'delivering'
+    },
     /** Toggle auto-sort kurir (BR-B12); ON mengurutkan rute, OFF membiarkan manual. */
     setAutoSort(state, action: PayloadAction<{ batchId: string; autoSort: boolean }>) {
       const batch = state.batches.find((b) => b.id === action.payload.batchId)
@@ -61,6 +74,8 @@ export const {
   addOrderToBatch,
   setBatchStatus,
   assignBatchCourier,
+  closeBatchEarly,
+  approveEarlyStart,
   setAutoSort,
   setRouteOrder,
 } = batchSlice.actions

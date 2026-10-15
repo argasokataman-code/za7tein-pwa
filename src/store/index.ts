@@ -88,11 +88,28 @@ const rootReducer = combineReducers({
  * supaya di-seed ulang; keranjang, saldo, dan katalog tidak berubah bentuk.
  */
 /** Versi skema state tersimpan. Naikkan saat bentuk slice berubah (lihat `migrations`). */
-const PERSIST_VERSION = 6
+const PERSIST_VERSION = 7
+
+/**
+ * Buang slice dari state tersimpan supaya di-seed ulang.
+ *
+ * **Key-nya dihapus, bukan di-set `undefined`.** `autoMergeLevel1` menyalin tiap
+ * key yang ADA di state tersimpan menimpa initial state, jadi `{ batch: undefined }`
+ * membuat `state.batch` benar-benar `undefined` dan pembaca pertama
+ * (`s.batch.batches`) melempar error — halaman jadi "Terjadi kesalahan" persis
+ * sekali, pada boot pertama setelah upgrade, lalu sembuh sendiri di reload
+ * berikutnya (state sudah terversi baru). Dengan menghapus key, slice-nya jatuh
+ * kembali ke initial state di reducer.
+ */
+function dropPersisted(state: any, keys: string[]): any {
+  const next = { ...state }
+  for (const key of keys) delete next[key]
+  return next
+}
 
 const migrations = {
-  3: (state: any) => ({ ...state, superAdmin: undefined }),
-  4: (state: any) => ({ ...state, admin: undefined, superAdmin: undefined }),
+  3: (state: any) => dropPersisted(state, ['superAdmin']),
+  4: (state: any) => dropPersisted(state, ['admin', 'superAdmin']),
   /**
    * v5: `superAdmin` dibuang supaya di-seed ulang. Dipakai saat `superAdmin`
    * sempat dapat field `incentive` (master insentif di konsol SA) yang kemudian
@@ -100,14 +117,22 @@ const migrations = {
    * membiarkannya berarti `state.superAdmin` tidak pernah cocok lagi dengan
    * bentuk yang dipakai kode. Keranjang, saldo, dan katalog tidak berubah bentuk.
    */
-  5: (state: any) => ({ ...state, superAdmin: undefined }),
+  5: (state: any) => dropPersisted(state, ['superAdmin']),
   /**
    * v6: `catalog` dibuang supaya di-seed ulang. `MenuItem` dapat field
    * `merchantId` (katalog kini dikelompokkan per toko); state tersimpan dari
    * versi lama tidak punya field itu, sehingga halaman toko selalu kosong.
    * Keranjang/favorit memakai id menu yang sama, jadi tidak perlu ikut hilang.
    */
-  6: (state: any) => ({ ...state, catalog: undefined }),
+  6: (state: any) => dropPersisted(state, ['catalog']),
+  /**
+   * v7: `batch` dibuang supaya di-seed ulang. Batch berubah arti di M4: lahir
+   * **hanya** dari order Regular yang di-accept (BR-B01), jadi seed batch dulu
+   * (`ord-1`/`ord-2`, kurir tetap) menunjuk order yang tidak pernah ada di BE
+   * (`orders` ber-id `api-<n>`). Batch nyangkut itu tampil sebagai "Batch #1,
+   * 0/24 order" yang tak bisa dimengerti. Keranjang/saldo tidak berubah bentuk.
+   */
+  7: (state: any) => dropPersisted(state, ['batch']),
 }
 
 const persistConfig = {

@@ -1,4 +1,43 @@
-import type { CartItem, MerchantOrder, MerchantOrderStatus } from '../types'
+import type { CartItem, MerchantOrder, MerchantOrderStatus, OrderType } from '../types'
+
+/** Label jenis pengantaran (PRD §7.2 Regular/batch, §7.3 Quick/partner). */
+export const DELIVERY_TYPE_LABEL: Record<OrderType, string> = {
+  regular: 'Regular · batch',
+  quick: 'Quick · partner',
+}
+
+/** Versi pendek untuk chip di baris antrean (satu kata, muat di tiket). */
+export const DELIVERY_TYPE_SHORT: Record<OrderType, string> = {
+  regular: 'Regular',
+  quick: 'Quick',
+}
+
+/**
+ * `orders` di BE belum punya kolom jenis pengantaran, jadi demo memakai overlay
+ * per kode order supaya kedua cabang (Regular → batch, Quick → partner)
+ * benar-benar terlihat di konsol. Begitu kolomnya ada, `toMerchantOrder` memakai
+ * nilainya (`src/api/orders.ts`) — lihat `ui-impact.md` §8.
+ */
+export const MOCK_ORDER_DELIVERY_TYPE: Record<string, OrderType> = {
+  'SA-1041': 'quick',
+  'SA-1040': 'regular',
+  'SA-1039': 'regular',
+  'SA-1038': 'regular',
+  'SA-1037': 'quick',
+  'SA-1036': 'regular',
+  'SA-1035': 'regular',
+  'SA-1034': 'quick',
+}
+
+/** Jenis pengantaran order; default `regular` bila overlay tak mengenal kodenya. */
+export function deliveryTypeFor(code: string): OrderType {
+  return MOCK_ORDER_DELIVERY_TYPE[code] ?? 'regular'
+}
+
+/** Jenis pengantaran efektif sebuah order: nilai tersimpan menang, lalu overlay. */
+export function orderDeliveryType(order: Pick<MerchantOrder, 'deliveryType' | 'code'>): OrderType {
+  return order.deliveryType ?? deliveryTypeFor(order.code)
+}
 
 /** Tab antrean merchant — satu sumber untuk label dan status anggotanya. */
 export const QUEUE_TABS = [

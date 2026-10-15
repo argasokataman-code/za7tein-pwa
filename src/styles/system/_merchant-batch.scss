@@ -1,0 +1,207 @@
+/* ── Batch kurir inhouse (konsol merchant, PRD §8) ─────────────────────────
+   Satu batch = satu kurir inhouse, jadi kurir dipilih per **batch**, bukan per
+   order. Kartu batch memakai `<article class="merchant-card">` supaya bahannya
+   sama dengan kartu konsol lain (DNA: satu bahan kartu, warna dari nada);
+   kelas di bawah hanya mengatur susunan dalamnya. */
+
+.merchant-batch {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.merchant-batch-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.merchant-batch-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.merchant-batch-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.merchant-batch-name {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Chip waktu: jam berjalan = tekanan waktu, jadi memakai bahasa peringatan
+   (`--warning-*`), bukan warna merek yang dipesan untuk harga (DEC-88080). */
+.merchant-batch-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 3px var(--space-2);
+  border-radius: var(--radius-xs);
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.merchant-batch-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.merchant-batch-orders {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-batch-orders li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.merchant-batch-orders .is-packed {
+  color: var(--success-ink);
+  font-weight: 600;
+}
+
+.merchant-batch-courier {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-batch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Status batch belum punya nada sendiri di `_merchant.scss`; warnanya mengikuti
+   arti yang sama dengan status order (tunggu = peringatan, jalan = info). */
+.merchant-badge-countdown {
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+}
+
+.merchant-badge-closed {
+  background: var(--border);
+  color: var(--text-secondary-strong);
+}
+
+.merchant-badge-awaiting_courier,
+.merchant-badge-assigned {
+  background: var(--info-soft);
+  color: var(--info-ink);
+}
+
+.merchant-badge-done {
+  background: var(--success-soft);
+  color: var(--success-ink);
+}
+
+/* Chip jenis pengantaran (Regular/Quick): netral, karena status sudah membawa
+   warna — dua chip berwarna berdampingan bersaing (DL: satu aksen per baris). */
+.merchant-badge-soft {
+  background: var(--surface);
+  color: var(--text-secondary-strong);
+  border: 1px solid var(--border-strong);
+}
+
+/* Pilihan batch (sheet accept): baris radio besar, bukan select — pilihan
+   sedikit dan tiap baris membawa angka (jumlah order + sisa hitung mundur). */
+.merchant-option-list {
+  display: grid;
+  gap: var(--space-2);
+  margin-block: var(--space-3);
+}
+
+.merchant-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  text-align: start;
+  cursor: pointer;
+}
+
+.merchant-option.is-selected {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+}
+
+.merchant-option-body {
+  display: grid;
+  gap: 2px;
+  flex: 1;
+}
+
+.merchant-option-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.merchant-option-sub {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.merchant-option-check {
+  display: inline-flex;
+  color: var(--border-strong);
+  flex-shrink: 0;
+}
+
+.merchant-option.is-selected .merchant-option-check {
+  color: var(--orange-ink);
+}
+
+/* Tombol packing: statusnya harus terlihat dari tiket saat batch ditutup lebih
+   awal (BR-B09), jadi tombol ini membawa keadaannya sendiri (`.is-packed`). */
+.merchant-pack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-block: var(--space-3);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.merchant-pack.is-packed {
+  border-color: var(--success);
+  background: var(--success-soft);
+  color: var(--success-ink);
+}
