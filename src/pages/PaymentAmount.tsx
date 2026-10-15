@@ -11,7 +11,6 @@ import { insertNotification } from '../api/notifications'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
-  PLATFORM_FEE_CUSTOMER_IDR,
   deliveryFeeFor,
   formatDistance,
   isDeliverable,
@@ -22,6 +21,7 @@ import { mockMerchant } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useMoney } from '../hooks/useMoney'
 import {
   selectSubtotal,
@@ -58,7 +58,10 @@ export default function PaymentAmount() {
   // (`cart.promo`), jadi ringkasan Checkout dan layar bayar tak bisa berbeda.
   const promo = useAppSelector((s) => s.cart.promo)
   const promoDiscountIdr = promo?.discountIdr ?? 0
-  const total = Math.max(0, subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR - promoDiscountIdr)
+  // Rincian ditagih (Pc dari JOD, Ft QRIS, pembulatan tagihan) — sumber yang sama
+  // dengan Checkout, jadi dua layar tak bisa berbeda angka.
+  const charged = useChargedBreakdown()
+  const total = charged.totalIdr
   const method = methods.find((m) => m.id === paymentId) ?? methods[0]
   const needsProof = method.id === 'transfer'
   /** VA/QRIS (DANA): order dibuat di sini, pembayaran diselesaikan di layar berikutnya. */
@@ -120,7 +123,7 @@ export default function PaymentAmount() {
       code,
       subTotalIdr: subtotal,
       deliveryFeeIdr: fee,
-      platformFeeIdr: PLATFORM_FEE_CUSTOMER_IDR,
+      platformFeeIdr: charged.platformFeeCustomerIdr,
       totalIdr: total,
       paymentMethod: method.id,
       zoneCode: zone?.id,
@@ -236,18 +239,28 @@ export default function PaymentAmount() {
                 </div>
                 <div className="summary-item">
                   <span>
-                    Biaya Layanan
+                    Biaya layanan
                   </span>
                   <span>
-                    {money(PLATFORM_FEE_CUSTOMER_IDR)}
+                    {money(charged.platformFeeCustomerIdr)}
                   </span>
                 </div>
+                {charged.transactionFeeIdr > 0 ? (
+                  <div className="summary-item">
+                    <span>
+                      Biaya transaksi QRIS (1,5%)
+                    </span>
+                    <span>
+                      {money(charged.transactionFeeIdr)}
+                    </span>
+                  </div>
+                ) : null}
                 <div className="summary-item">
                   <span>
                     Diskon
                   </span>
                   <span>
-                    {money(0)}
+                    {charged.discountIdr > 0 ? `−${money(charged.discountIdr)}` : money(0)}
                   </span>
                 </div>
                 <div className="summary-divider" />

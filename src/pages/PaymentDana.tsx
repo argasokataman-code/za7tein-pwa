@@ -4,7 +4,7 @@
 // dana berpindah dan tidak ada kredensial DANA di sini (AGENTS §1). Kontrak
 // FE↔BE yang menggantikan mock ini: docs/integration/dana/be-contract.md.
 import { useState } from 'react'
-import { CheckCircle2, Copy, RefreshCw } from 'lucide-react'
+import { CheckCircle2, Copy, Download, RefreshCw } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -13,16 +13,19 @@ import { markOrderPaid } from '../api/orders'
 import { BackButton } from '../components/ui/BackButton'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { formatCountdown } from '../data/courier'
-import { PLATFORM_FEE_CUSTOMER_IDR, deliveryFeeFor } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppSelector } from '../hooks/useAppStore'
+import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
-import { selectSubtotal } from '../store/slices/cartSlice'
 
-/** Masa berlaku VA/QRIS (mock). Sandbox DANA memakai `validUpTo` dari createOrder. */
-const DANA_TTL_MS = 15 * 60 * 1000
+/**
+ * Masa berlaku kode pembayaran online: **30 menit** (§16.2 — dana ditahan di
+ * akun enterprise sampai selesai/batal/tolak). Sandbox DANA memakai `validUpTo`
+ * dari createOrder.
+ */
+const DANA_TTL_MS = 30 * 60 * 1000
 
 /** Nomor VA contoh. Sandbox asli menerima `paymentCode` dari DANA, bukan nilai ini. */
 const MOCK_VA = '8808 1234 5678 9012'
@@ -65,7 +68,6 @@ export default function PaymentDana() {
   const { money } = useMoney()
   const navigate = useNavigate()
 
-  const items = useAppSelector((s) => s.cart.items)
   const stored = useAppSelector((s) => s.cart.addresses)
   const addresses = Array.isArray(stored) ? stored : mockUser.addresses
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
@@ -77,10 +79,11 @@ export default function PaymentDana() {
   const isVa = method?.id === 'dana_va'
   const isQris = method?.id === 'dana_qris'
 
-  const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
-  const fee = address ? deliveryFeeFor(address) : 0
-  const total = subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR
+  // Total yang ditagih dari sumber yang sama dengan Checkout/PaymentAmount
+  // (termasuk `Ft` QRIS + pembulatan tagihan).
+  const charged = useChargedBreakdown()
+  const total = charged.totalIdr
 
   const [deadline, setDeadline] = useState(() => Date.now() + DANA_TTL_MS)
   const [status, setStatus] = useState<'menunggu' | 'dibayar'>('menunggu')
@@ -119,6 +122,48 @@ export default function PaymentDana() {
   const restart = () => {
     setDeadline(Date.now() + DANA_TTL_MS)
     setStatus('menunggu')
+  }
+
+  /**
+   * Simpan QR sebagai PNG (CUS-32). QR-nya digambar dari matriks yang sama
+   * dengan yang tampil, jadi yang diunduh bukan tangkapan layar: skala 12px per
+   * sel + margin 4 sel supaya tetap terbaca saat dibuka di galeri.
+   */
+  const saveQr = () => {
+    const scale = 12
+    const pad = 4
+    const size = (QR_SIDE + pad * 2) * scale
+    const canvas = document.createElement('canvas')
+    canvas.width = size
+    canvas.height = size
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    // Warna dari token desain (bukan heks mentah): QR = teks di atas permukaan.
+    const styles = getComputedStyle(document.documentElement)
+    const foreground = styles.getPropertyValue('--text-primary').trim() || 'black'
+    const surface = styles.getPropertyValue('--surface').trim() || 'white'
+    ctx.fillStyle = surface
+    ctx.fillRect(0, 0, size, size)
+    ctx.fillStyle = foreground
+    QR_CELLS.forEach((on, i) => {
+      if (!on) return
+      ctx.fillRect(
+        ((i % QR_SIDE) + pad) * scale,
+        (Math.floor(i / QR_SIDE) + pad) * scale,
+        scale,
+        scale,
+      )
+    })
+    canvas.toBlob((blob) => {
+      if (!blob) return
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'qris-sa7tein.png'
+      a.click()
+      URL.revokeObjectURL(url)
+      toast.success('Gambar QR disimpan')
+    }, 'image/png')
   }
 
   return (
@@ -178,6 +223,10 @@ export default function PaymentDana() {
                       <p className="dana-sheet__note">
                         Contoh pola, bukan kode yang bisa dipindai. QR asli dibuat DANA (paymentCode).
                       </p>
+                      <button type="button" className="dana-copy" onClick={saveQr}>
+                        <Download size={18} strokeWidth={1.75} aria-hidden="true" />
+                        Simpan QR
+                      </button>
                     </>
                   )}
                   <div className="dana-timer" role="status">
@@ -201,7 +250,7 @@ export default function PaymentDana() {
                 <div className="dana-sheet__state">
                   <h2 className="dana-sheet__title">Kode kedaluwarsa</h2>
                   <p className="dana-sheet__note">
-                    Kode berlaku 15 menit dan waktunya sudah habis. Buat kode baru atau ganti metode
+                    Kode berlaku 30 menit dan waktunya sudah habis. Buat kode baru atau ganti metode
                     pembayaran.
                   </p>
                 </div>

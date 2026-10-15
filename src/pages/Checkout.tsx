@@ -17,7 +17,6 @@ import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
   GST_FOOD_PERCENT,
-  PLATFORM_FEE_CUSTOMER_IDR,
   PLATFORM_GST_PERCENT,
   deliveryFeeFor,
   formatDistance,
@@ -33,6 +32,7 @@ import { getStorefront } from '../data/storefronts'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useMoney } from '../hooks/useMoney'
 import { selectOtherCarts, selectSubtotal, removeCart, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
@@ -120,9 +120,10 @@ export default function Checkout() {
   // Promo terpasang (`cart.promo`) memotong total di sini dan di PaymentAmount —
   // satu sumber, jadi dua layar tidak bisa menampilkan angka berbeda.
   const promo = useAppSelector((s) => s.cart.promo)
-  const promoDiscountIdr = promo?.discountIdr ?? 0
-  // Fee customer flat 0,22 JOD (R-FEE-01) — selalu ikut, berapa pun metodenya.
-  const total = Math.max(0, subtotal + fee + PLATFORM_FEE_CUSTOMER_IDR - promoDiscountIdr)
+  // Rincian yang ditagih: `Pc` dari JOD, `Ft` khusus QRIS, tagihan dibulatkan ke
+  // atas ratusan (§16.2/§16.3) — satu sumber yang sama dengan layar bayar.
+  const charged = useChargedBreakdown()
+  const total = charged.totalIdr
 
   // Validasi kode dikerjakan server (`validate_promo`): jendela, kuota, dan
   // kepemilikan merchant diperiksa di sana, bukan di klien.
@@ -414,9 +415,16 @@ export default function Checkout() {
                     <span>{deliverable ? moneyPlain(fee) : 'Tidak berlaku'}</span>
                   </div>
                   <div className="summary-item">
-                    <span>Biaya Layanan</span>
-                    <span>{moneyPlain(PLATFORM_FEE_CUSTOMER_IDR)}</span>
+                    <span>Biaya layanan</span>
+                    <span>{moneyPlain(charged.platformFeeCustomerIdr)}</span>
                   </div>
+                  {/* Ft = 1,5% untuk QRIS saja (§16.2); saldo DANA & COD tidak. */}
+                  {charged.transactionFeeIdr > 0 ? (
+                    <div className="summary-item">
+                      <span>Biaya transaksi QRIS (1,5%)</span>
+                      <span>{moneyPlain(charged.transactionFeeIdr)}</span>
+                    </div>
+                  ) : null}
                   {/* Pajak 2 lapis (R-TAX-01, F4) — info-only di MVP: tidak
                       menambah total, karena tarif & kewajiban setornya belum
                       final (OQ-2/3/4, OQ-17/18). */}
@@ -444,7 +452,7 @@ export default function Checkout() {
                   {promo ? (
                     <div className="summary-item">
                       <span>Promo {promo.code}</span>
-                      <span>−{moneyPlain(promo.discountIdr)}</span>
+                      <span>−{moneyPlain(charged.discountIdr)}</span>
                     </div>
                   ) : null}
                   <div className="summary-divider" />

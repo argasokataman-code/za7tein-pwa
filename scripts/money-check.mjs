@@ -8,11 +8,14 @@ import {
   PLATFORM_FEE_MERCHANT_DEFAULT_JOD,
   QUICK_MULTIPLIER_DEFAULT,
   TRANSACTION_FEE_RATE,
+  chargedBreakdown,
+  payMethodKind,
   priceBreakdown,
   roundBillUpToHundreds,
   roundPayoutDownToRupiah,
   settlementFor,
 } from '../src/data/marketplace.ts'
+import { idrToJod, jodToIdr } from '../src/data/currency.ts'
 
 const base = { subtotalJod: 10, deliveryFeeJod: 1.5 }
 
@@ -83,3 +86,27 @@ assert.equal(roundPayoutDownToRupiah(1234.9), 1234)
 assert.equal(roundBillUpToHundreds(1234) - roundPayoutDownToRupiah(1234.9), 66, 'sisa = aplikator')
 
 console.log('money-check OK')
+
+// — Jalur IDR yang ditagih (M2b) sepakat dengan jalur JOD (§16.3) ————
+const cQris = chargedBreakdown({ subtotalIdr: 30000, deliveryFeeIdr: 5000, method: 'qris' })
+const cCod = chargedBreakdown({ subtotalIdr: 30000, deliveryFeeIdr: 5000, method: 'cod' })
+assert.equal(cCod.transactionFeeIdr, 0, 'COD tidak kena Ft')
+assert.equal(
+  cQris.transactionFeeIdr,
+  Math.round((30000 + 5000 + cQris.platformFeeCustomerIdr) * TRANSACTION_FEE_RATE),
+)
+assert.equal(cQris.totalIdr % 100, 0, 'tagihan dibulatkan ke ratusan')
+assert.equal(
+  roundBillUpToHundreds(
+    jodToIdr(
+      priceBreakdown({ subtotalJod: idrToJod(30000), deliveryFeeJod: idrToJod(5000), method: 'qris' })
+        .totalJod,
+    ),
+  ),
+  cQris.totalIdr,
+  'jalur JOD dan IDR harus sepakat setelah pembulatan tagihan',
+)
+assert.equal(payMethodKind('dana_qris'), 'qris')
+assert.equal(payMethodKind('cod'), 'cod')
+assert.equal(payMethodKind('wallet'), 'dana')
+console.log('charged-check OK')

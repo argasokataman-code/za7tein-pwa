@@ -21,6 +21,20 @@ export const quotaAvailable = (subs: QuotaSubscription[], kind: QuotaKind) =>
     .reduce((sum, s) => sum + (s.quota - s.used - s.reserved), 0)
 
 /**
+ * Status kuota COD merchant (§17). `unknown` = belum ada catatan langganan untuk
+ * merchant itu (mis. data BE belum memuatnya) — jangan memblokir order karena
+ * data yang memang tidak ada.
+ */
+export function codQuotaStatus(
+  subs: QuotaSubscription[],
+  merchantId: string | null,
+): 'available' | 'exhausted' | 'unknown' {
+  const own = subs.filter((s) => s.active && s.kind === 'cod' && (!merchantId || s.merchantId === merchantId))
+  if (own.length === 0) return 'unknown'
+  return quotaAvailable(own, 'cod') > 0 ? 'available' : 'exhausted'
+}
+
+/**
  * Langganan kuota merchant (PRD §17). Kuota di-reserve saat customer membuat
  * order, dikonsumsi saat selesai, dikembalikan saat batal/tolak/gagal setelah
  * accept. Prioritas pemakaian: kuota order dulu, lalu kuota COD (online);

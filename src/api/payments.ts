@@ -29,6 +29,9 @@ const KEY_ALIAS: Record<string, PaymentMethodId> = {
   dana_qris: 'dana_qris',
   xendit_va: 'dana_va',
   xendit_qris: 'dana_qris',
+  // BE demo menyimpan baris QRIS dengan key polos `qris`; tanpa alias ini baris
+  // itu dibuang dan QRIS hilang dari layar padahal aktif di database.
+  qris: 'dana_qris',
 }
 
 /** Urutan id metode bayar aktif menurut BE. Kosong kalau tak ada yang dikenali. */

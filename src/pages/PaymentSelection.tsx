@@ -10,7 +10,11 @@ import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setPayment } from '../store/slices/cartSlice'
+import { codQuotaStatus } from '../store/slices/quotaSlice'
 import { BackButton } from '../components/ui/BackButton'
+
+/** Copy saat merchant tidak punya sisa kuota COD (§17). */
+const COD_QUOTA_COPY = 'Kuota COD toko habis — pilih metode lain.'
 
 const METHOD_ICONS: Record<string, typeof Wallet> = {
   wallet: Wallet,
@@ -31,7 +35,14 @@ export default function PaymentSelection() {
   // (maintenance). Layar ini yang menegakkannya, bukan konsol SA.
   const maintenanceCopy = switchBlockCopy('maintenance', switches)
   const codCopy = switchBlockCopy('cod', switches)
-  const isBlocked = (id: string) => Boolean(maintenanceCopy ?? (id === 'cod' ? codCopy : null))
+  // COD juga butuh kuota COD merchant (§17): tanpa sisa kuota, metode itu
+  // ditutup walau kill switch SA tidak aktif.
+  const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
+  const subscriptions = useAppSelector((s) => s.quota.subscriptions)
+  const codQuotaCopy =
+    codQuotaStatus(subscriptions, activeMerchantId) === 'exhausted' ? COD_QUOTA_COPY : null
+  const isBlocked = (id: string) =>
+    Boolean(maintenanceCopy ?? (id === 'cod' ? (codCopy ?? codQuotaCopy) : null))
   // Radiogroup asli: satu item bisa di-Tab, panah berpindah pilihan. Tanpa ini
   // `role="radio"` menjanjikan perilaku papan ketik yang tidak ada.
   const [focusIndex, setFocusIndex] = useState(() => {
@@ -41,7 +52,7 @@ export default function PaymentSelection() {
 
   const choose = (id: string, label: string) => {
     if (switchIsDown('maintenance', switches)) return
-    if (id === 'cod' && switchIsDown('cod', switches)) return
+    if (id === 'cod' && isBlocked('cod')) return
     dispatch(setPayment(id))
     toast.success(label, { icon: <CheckCircle2 size={18} aria-hidden="true" /> })
     navigate('/payment-amount')
@@ -89,7 +100,7 @@ export default function PaymentSelection() {
                 {methods.map((m, index) => {
                   const isSelected = selected === m.id
                   const blocked = isBlocked(m.id)
-                  const reason = m.id === 'cod' ? codCopy : null
+                  const reason = m.id === 'cod' ? (codCopy ?? codQuotaCopy) : null
                   return (
                     <button
                       key={m.id}

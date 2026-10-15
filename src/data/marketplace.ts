@@ -13,6 +13,7 @@ import type {
   QuotaSubscription,
   Refund,
 } from '../types'
+import { jodToIdr } from './currency'
 
 // ── Domain M0: PRD sa7tein-mvp-2026-10-11 (marketplace + delivery) ───────────
 // Konstanta + seed mock untuk slice batch, partner, kuota, marketing, refund,
@@ -332,5 +333,54 @@ export function roundBillUpToHundreds(idr: number): number {
 /** Payout dibulatkan **ke bawah** ke rupiah penuh (§16.2). */
 export function roundPayoutDownToRupiah(idr: number): number {
   return Math.floor(idr)
+}
+
+/** Petakan `PaymentMethodId` (kanal) ke jenis pembayaran PRD (§16.2). */
+export function payMethodKind(paymentMethodId: string): PayMethodKind {
+  if (paymentMethodId === 'dana_qris') return 'qris'
+  if (paymentMethodId === 'cod') return 'cod'
+  return 'dana'
+}
+
+/**
+ * Rincian **yang benar-benar ditagih** ke customer, dalam IDR (R-CURR-01: IDR
+ * sumber kebenaran, JOD hanya tampilan). Cerminan `priceBreakdown` dengan
+ * `Pc` dikonversi dari JOD pada kurs aktif dan `Ft` dihitung sebelum pembulatan
+ * tagihan. Dipakai checkout & layar bayar supaya keduanya tak bisa berbeda.
+ *
+ * `priceBreakdown` (JOD) tetap jadi acuan settlement/ops; `money-check`
+ * memastikan kedua jalur itu sepakat.
+ */
+export interface ChargedBreakdown {
+  subtotalIdr: number
+  deliveryFeeIdr: number
+  discountIdr: number
+  platformFeeCustomerIdr: number
+  transactionFeeIdr: number
+  totalIdr: number
+}
+
+export interface ChargedInput {
+  subtotalIdr: number
+  deliveryFeeIdr?: number
+  discountIdr?: number
+  method: PayMethodKind
+}
+
+export function chargedBreakdown(input: ChargedInput): ChargedBreakdown {
+  const subtotalIdr = input.subtotalIdr
+  const deliveryFeeIdr = Math.max(0, input.deliveryFeeIdr ?? 0)
+  const discountIdr = Math.min(input.discountIdr ?? 0, subtotalIdr + deliveryFeeIdr)
+  const platformFeeCustomerIdr = jodToIdr(PLATFORM_FEE_CUSTOMER_DEFAULT_JOD)
+  const net = subtotalIdr - discountIdr + deliveryFeeIdr + platformFeeCustomerIdr
+  const transactionFeeIdr = input.method === 'qris' ? Math.round(net * TRANSACTION_FEE_RATE) : 0
+  return {
+    subtotalIdr,
+    deliveryFeeIdr,
+    discountIdr,
+    platformFeeCustomerIdr,
+    transactionFeeIdr,
+    totalIdr: roundBillUpToHundreds(net + transactionFeeIdr),
+  }
 }
 

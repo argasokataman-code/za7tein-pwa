@@ -256,8 +256,20 @@ export default function Documentation() {
                 (merchant/kurir/aplikator) yang selalu berjumlah total — kuota{' '}
                 <code className="doc-inline">cod</code> memindahkan <code className="doc-inline">Pc</code>{' '}
                 ke merchant — dan pembulatan tagihan ke atas ratusan vs payout ke bawah rupiah
-                penuh. Diuji <code className="doc-inline">scripts/money-check.mjs</code>; pemasangan di
-                Checkout &amp; refund menyusul (M2b/M2c).
+                penuh. Diuji <code className="doc-inline">scripts/money-check.mjs</code>.
+              </li>
+              <li>
+                <strong>Rincian uang itu kini terpasang</strong> (M2b): Checkout, layar bayar, dan
+                layar DANA membaca satu hook{' '}
+                <code className="doc-inline">useChargedBreakdown()</code> — dulu rumus total disalin
+                di tiap layar. Baris <strong>Biaya transaksi QRIS (1,5%)</strong> hanya muncul untuk
+                QRIS, biaya layanan memakai <code className="doc-inline">Pc</code> (§16.2), dan
+                tagihan dibulatkan ke atas ratusan. Ditambah: masa berlaku kode pembayaran{' '}
+                <strong>30 menit</strong>, tombol <strong>Simpan QR</strong> (PNG dari matriks yang
+                tampil, warna dari token), dan gate <strong>kuota COD</strong> — COD nonaktif dengan
+                alasan saat kuota toko habis (§17). Baris BE berkey{' '}
+                <code className="doc-inline">qris</code> kini dipetakan ke QRIS (sebelumnya dibuang,
+                jadi QRIS hilang dari layar walau aktif di database).
               </li>
               <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}
