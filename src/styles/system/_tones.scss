@@ -3,11 +3,10 @@
 
    - **Aksen** (`.tone-chip`): chip kecil berwarna untuk jenis/arti di atas
      permukaan kartu DNA (`--surface` + `--border-strong`).
-   - **Isian lembut** (`.tone-fill`) dan **isian premium pekat** (`.tone-fill`
-     + nada pekat) untuk kartu yang warnanya menyampaikan jenis/status.
-     Isian pekat diturunkan dari token peran — dicampur ke arah `--navy` —
-     sehingga **tidak ada warna mentah baru**, dan tiap isian lolos AA dengan
-     teks putih (`--on-navy`).
+   - **Isian premium pekat** (`.tone-fill` + nada) untuk kartu yang warnanya
+     menyampaikan jenis/status. Warnanya token tetap `--premium-*` di
+     `_tokens.scss` — palet pekat & hangat (bukan warna mentah baru di sini) —
+     sehingga tiap isian lolos AA dengan teks putih (`--on-navy`).
 
    "Satu warna satu peran" (DNA): pemetaan kategori → nada hidup di data
    (`PROGRAM_TONE`, `STATUS_TONE`), bukan di CSS. Nilai mentah dilarang di
@@ -17,35 +16,35 @@
   --tone-soft: var(--orange-soft);
   --tone-ink: var(--orange-soft-ink);
   --tone-line: var(--orange-border);
-  --tone-fill: color-mix(in srgb, var(--sa7tein-orange) 70%, var(--navy));
+  --tone-fill: var(--premium-brand);
 }
 
 .tone-info {
   --tone-soft: var(--info-soft);
   --tone-ink: var(--info-ink);
   --tone-line: var(--info);
-  --tone-fill: color-mix(in srgb, var(--info) 55%, var(--navy));
+  --tone-fill: var(--premium-info);
 }
 
 .tone-success {
   --tone-soft: var(--green-soft);
   --tone-ink: var(--success-ink);
   --tone-line: var(--success);
-  --tone-fill: color-mix(in srgb, var(--success) 55%, var(--navy));
+  --tone-fill: var(--premium-success);
 }
 
 .tone-warning {
   --tone-soft: var(--warning-soft);
   --tone-ink: var(--warning-ink);
   --tone-line: var(--warning);
-  --tone-fill: color-mix(in srgb, var(--warning) 55%, var(--navy));
+  --tone-fill: var(--premium-warning);
 }
 
 .tone-danger {
   --tone-soft: var(--red-soft);
   --tone-ink: var(--danger-ink);
   --tone-line: var(--danger);
-  --tone-fill: color-mix(in srgb, var(--danger) 55%, var(--navy));
+  --tone-fill: var(--premium-danger);
 }
 
 .tone-navy {

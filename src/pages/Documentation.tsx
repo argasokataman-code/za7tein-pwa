@@ -341,9 +341,10 @@ export default function Documentation() {
                 peran. Aksen kecil dipakai lewat chip (<code className="doc-inline">.tone-chip</code>);
                 kartu yang warnanya = jenis diisi penuh lewat{' '}
                 <code className="doc-inline">.tone-fill</code>: permukaan pekat berteks putih (kartu
-                program marketing), dengan pekatnya diturunkan dari token peran dicampur ke arah{' '}
-                <code className="doc-inline">--navy</code> sehingga tidak ada warna mentah baru, dan tiap
-                isian lolos AA (4,9–15,7:1). Kartu terisi itu terangkat{' '}
+                program marketing), dengan warna dari token{' '}
+                <code className="doc-inline">--premium-*</code> (palet pekat &amp; hangat, disetujui
+                pemilik 2026-10-15) sehingga tidak ada warna mentah di CSS, dan tiap
+                isian lolos AA (5,4–14,0:1). Kartu terisi itu terangkat{' '}
                 <code className="doc-inline">--shadow-card</code>, chip/badge-nya jadi permukaan putih,
                 dan sakelarnya memakai trek putih + tombol navy supaya tidak tenggelam di warna pekat.
               </li>

@@ -47,6 +47,17 @@
   --info-ink: #0369A1;
   --info-soft: #F0F9FF;
 
+  // Isian premium: latar pekat untuk kartu penuh warna (`.tone-fill`) — kartu
+  // program marketing & kuota. Lebih dalam + hangat daripada warna peran mentah
+  // supaya terbaca "premium", bukan poster. Semua AA dengan teks putih
+  // (`--on-navy`): 5,4–14,0:1. Palet disetujui pemilik 2026-10-15 (konsultasi
+  // Gemini). Dipetakan ke peran lewat `--tone-fill` di `system/_tones.scss`.
+  --premium-brand: #C83212;
+  --premium-danger: #B81D13;
+  --premium-success: #1E6B38;
+  --premium-warning: #4A2012;
+  --premium-info: #4A154B;
+
   // Banner promo beranda (keputusan desain UI v2, 2026-10-12). Satu-satunya
   // gradient di repo: dipakai HANYA oleh `.home-promo`, dan warnanya diambil
   // apa adanya dari prototype EDISI 02 — bukan warna dekoratif baru. Aturan

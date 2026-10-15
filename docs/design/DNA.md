@@ -57,10 +57,13 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
   - **Aksen** (`.tone-chip`): chip kecil berwarna di atas permukaan kartu DNA (`--surface` +
     `--border-strong`) — untuk jenis/arti yang cukup ditandai, bukan diisi.
   - **Isian premium penuh** (`.tone-fill`): permukaan pekat berteks putih, warna = jenis kartu
-    (kartu program marketing, kartu kuota). Pekatnya **diturunkan dari token peran** — dicampur ke
-    arah `--navy` — jadi tidak ada warna mentah baru, dan tiap isian **diukur lolos AA** dengan
-    `--on-navy` (4,9–15,7:1). Di kartu pekat, chip/badge jadi permukaan putih/translucent dan sakelar
-    memakai trek putih + tombol navy supaya tidak tenggelam.
+    (kartu program marketing, kartu kuota). Warnanya token **`--premium-*`** di `_tokens.scss` —
+    palet pekat & hangat (bukan warna peran mentah, bukan nilai mentah di CSS) yang **disetujui
+    pemilik 2026-10-15** dari konsultasi Gemini: brand `#C83212`, success `#1E6B38`,
+    warning `#4A2012`, info `#4A154B`, danger `#B81D13`. Tiap isian **diukur lolos AA** dengan
+    `--on-navy` (5,4–14,0:1). Di kartu pekat, chip/badge jadi permukaan putih/translucent dan sakelar
+    memakai trek putih + tombol navy supaya tidak tenggelam. Palet `--premium-*` **hanya** untuk
+    `.tone-fill` — chip aksen tetap memakai token peran (`--*-soft`/`--*-ink`).
   Kartu isian premium terangkat `--shadow-card` (lihat di bawah). Pemetaan kategori → nada hidup di
   **data** (`PROGRAM_TONE`, `STATUS_TONE`), CSS hanya menyimpan warna.
 - **`.merchant-card` itu kelas kartu BERSAMA** (konsol + daftar toko customer). Gaya interaktif daftar
