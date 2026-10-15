@@ -330,6 +330,15 @@ export default function Documentation() {
                 diredupkan sampai terbaca seperti kolom kedua.
               </li>
               <li>
+                <strong>Program marketing dikelola di console merchant.</strong> Halaman{' '}
+                <code className="doc-inline">/merchant/promos</code> kini punya seksi "Program
+                marketing": program milik toko (promosi, beli X gratis Y, loyalty) beserta jenis,
+                hadiah, syarat, dan jendela tanggal, plus sakelar "boleh digabung" yang benar-benar
+                mengubah potongan yang dilihat pembeli di keranjang. Backend belum punya tabel
+                program (<code className="doc-inline">loyalty_programs</code> → 404), jadi
+                membuat/mengubah program ditandai belum tersedia.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
                 backend menandainya di muka: refund (§16.6) memakai flag{' '}
                 <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}

@@ -13,6 +13,8 @@ import {
   ruleSummary,
 } from '../src/data/marketing.ts'
 import {
+  PROGRAM_EDIT_AVAILABLE,
+  merchantPrograms,
   mockLoyaltyCards,
   mockMarketingPrograms,
   mockProgramRewards,
@@ -158,5 +160,22 @@ assert.deepEqual(listed.map((e) => e.program.id).sort(), ['prog-1', 'prog-2', 'p
 assert.equal(listedPrograms(mockMarketingPrograms, mockProgramRules, mockProgramRewards, '9', '2026-10-15').length, 1)
 assert.ok(mockLoyaltyCards.some((c) => c.points > 0))
 assert.match(ruleSummary(mockProgramRules[0]), /min\. belanja 5 JOD/)
+
+// Layar kelola merchant (§15): hanya program milik toko itu, dan jendela
+// tanggal TIDAK menyaring — program yang sudah berakhir tetap terlihat.
+const owned = merchantPrograms(mockMarketingPrograms, mockProgramRules, mockProgramRewards, '1')
+assert.deepEqual(owned.map((e) => e.program.id).sort(), ['prog-1', 'prog-3', 'prog-4'])
+assert.equal(owned.every((e) => e.program.owner === 'merchant'), true)
+assert.equal(
+  merchantPrograms(mockMarketingPrograms, mockProgramRules, mockProgramRewards, '9').length,
+  0,
+)
+// Satu program seed berdiri sendiri (loyalty), sisanya boleh digabung.
+assert.deepEqual(
+  owned.filter((e) => !e.program.isStackable).map((e) => e.program.id),
+  ['prog-4'],
+)
+// Flag jujur: BE belum punya tabel program → buat/ubah ditandai belum tersedia.
+assert.equal(PROGRAM_EDIT_AVAILABLE, false)
 
 console.log('marketing-check OK')

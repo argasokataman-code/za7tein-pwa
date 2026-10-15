@@ -60,6 +60,14 @@ export const PROGRAM_TYPE_LABEL: Record<MarketingProgramType, string> = {
 
 const OWNER_LABEL = { platform: 'Aplikator', merchant: 'Toko' } as const
 
+/**
+ * Membuat/mengubah program marketing belum tersedia: BE demo belum punya tabel
+ * program (`loyalty_programs`/`marketing_programs` → 404), yang ada hanya tabel
+ * `marketing` (kode promo, dikelola halaman Promo). Selama flag ini `false`,
+ * daftar dan sakelar di console merchant hidup di state aplikasi saja.
+ */
+export const PROGRAM_EDIT_AVAILABLE = false
+
 /** `YYYY-MM-DD` hari ini (jendela program dibandingkan sebagai string). */
 export function todayIso(now: Date = new Date()): string {
   return now.toISOString().slice(0, 10)
@@ -226,6 +234,27 @@ export function listedPrograms(
         p.appliesOn !== 'future' &&
         (p.owner === 'platform' || p.merchantId === merchantId),
     )
+    .map((program) => ({
+      program,
+      rule: rules.find((r) => r.programId === program.id) ?? null,
+      reward: rewards.find((r) => r.programId === program.id) ?? null,
+    }))
+}
+
+/**
+ * Program milik **satu merchant**, untuk layar kelola di console merchant (§15).
+ * Program aplikator tidak ikut — itu dikelola ops. Jendela tanggal **tidak**
+ * menyaring di sini: merchant perlu melihat program yang sudah berakhir, bukan
+ * menyangka programnya hilang.
+ */
+export function merchantPrograms(
+  programs: MarketingProgram[],
+  rules: ProgramRule[],
+  rewards: ProgramReward[],
+  merchantId: string,
+): { program: MarketingProgram; rule: ProgramRule | null; reward: ProgramReward | null }[] {
+  return programs
+    .filter((p) => p.owner === 'merchant' && p.merchantId === merchantId)
     .map((program) => ({
       program,
       rule: rules.find((r) => r.programId === program.id) ?? null,

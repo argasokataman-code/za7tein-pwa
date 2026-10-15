@@ -12,12 +12,16 @@ import {
   type PromoType,
 } from '../api/promos'
 import { apiEnabled } from '../api/supabase'
+import { DEMO_MERCHANT_ID } from '../api/reference'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { jod } from '../data/currency'
+import { PROGRAM_EDIT_AVAILABLE, merchantPrograms, programSummary } from '../data/marketing'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { setStackable } from '../store/slices/marketingSlice'
 
 /**
  * Promo & diskon merchant (tabel `marketing`). Layar ini milik merchant: kode
@@ -67,12 +71,26 @@ function todayPlus(days: number): string {
 }
 
 export default function MerchantPromos() {
+  const dispatch = useAppDispatch()
   const [promos, setPromos] = useState<MerchantPromo[]>([])
   const [loading, setLoading] = useState(apiEnabled)
   const [error, setError] = useState(false)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [busy, setBusy] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<MerchantPromo | null>(null)
+
+  // Program marketing (§15) hidup di state aplikasi, bukan tabel `marketing`
+  // seperti kode promo di atas. Hanya program milik toko ini yang dikelola di
+  // sini; program aplikator dikelola ops.
+  const programs = useAppSelector((s) => s.marketing.programs)
+  const programRules = useAppSelector((s) => s.marketing.rules)
+  const programRewards = useAppSelector((s) => s.marketing.rewards)
+  const ownedPrograms = merchantPrograms(
+    programs,
+    programRules,
+    programRewards,
+    String(DEMO_MERCHANT_ID),
+  )
 
   // Form create.
   const [code, setCode] = useState('')
@@ -239,6 +257,81 @@ export default function MerchantPromos() {
             </ul>
           )}
         </section>
+
+        {/* Program marketing (§15, ala Odoo): promosi, kupon, beli X gratis Y,
+            loyalty. Modelnya beda dari kode promo di atas — program dihitung
+            otomatis di keranjang (`useProgramDiscount`), jadi sakelar "boleh
+            digabung" di sini benar-benar mengubah potongan yang dilihat pembeli.
+            BE belum punya tabelnya, jadi daftar ini hidup di state aplikasi. */}
+        <section className="merchant-section">
+          <div className="merchant-section-head">
+            <h2>Program marketing</h2>
+            <span className="merchant-card-sub">{ownedPrograms.length} program</span>
+          </div>
+
+          {ownedPrograms.length === 0 ? (
+            <p className="merchant-empty">Belum ada program marketing untuk toko ini.</p>
+          ) : (
+            <ul className="merchant-promo-list">
+              {ownedPrograms.map(({ program, rule, reward }) => {
+                const summary = programSummary(program, rule, reward)
+                return (
+                  <li key={program.id} className="merchant-card merchant-promo-item">
+                    <div className="merchant-promo-head">
+                      <div>
+                        <p className="merchant-promo-code">{program.name}</p>
+                        <p className="merchant-card-sub">
+                          {summary.type} · {summary.reward}
+                        </p>
+                      </div>
+                      <span className="merchant-badge">
+                        {program.isStackable ? 'Boleh digabung' : 'Berdiri sendiri'}
+                      </span>
+                    </div>
+                    <p className="merchant-card-sub">
+                      {program.dateFrom} – {program.dateTo ?? 'tanpa batas akhir'}
+                      {summary.requirement ? ` · ${summary.requirement}` : ''}
+                    </p>
+                    <div className="merchant-row">
+                      <span>Boleh digabung promo lain</span>
+                      <label className="toggle-wrap">
+                        <input
+                          className="toggle-input"
+                          type="checkbox"
+                          checked={program.isStackable}
+                          aria-label={`Boleh digabung dengan promo lain: ${program.name}`}
+                          onChange={(e) =>
+                            dispatch(
+                              setStackable({
+                                programId: program.id,
+                                isStackable: e.target.checked,
+                              }),
+                            )
+                          }
+                        />
+                        <span className="toggle-slider" />
+                      </label>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+
+          <p className="merchant-card-sub">
+            Aturan gabungan masih terbuka (OPEN-23) dan di sini memakai aturan paling sederhana yang
+            bisa dibuktikan: program yang boleh digabung dijumlahkan, yang berdiri sendiri hanya
+            jalan sendirian, dan yang diskonnya lebih besar yang dipakai.
+          </p>
+        </section>
+
+        <PlatformNotice
+          message={
+            PROGRAM_EDIT_AVAILABLE
+              ? 'Program marketing bisa dibuat dan diubah dari sini.'
+              : 'Membuat atau mengubah program marketing belum tersedia. Backend belum punya tabel program (loyalty_programs), jadi daftar dan sakelar di atas hidup di state aplikasi dan belum tersimpan ke server.'
+          }
+        />
 
         <section className="merchant-card">
           <div className="merchant-row">
