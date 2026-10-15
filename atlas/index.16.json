@@ -466,6 +466,181 @@
           "raw": "TASK-101300:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101401",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:50:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+79/-43) — edit via tool: /* ── Kode promo ────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-101402",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:50:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+54/-49) — edit via tool: tsx: {/* Satu aksi, bukan baris struk: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-101403",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:51:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+14/-10) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101404",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:51:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -3; npm run scan 2>&1 | grep -E",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101405",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:52:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+6/-3) — edit via tool: tsx: const applyPromo = async () => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-101406",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:52:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+10/-10) — edit via tool: /* Tombol selalu aktif (solid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-101407",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:53:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+5/-6) — edit via tool: tsx: satu baris: dua kontrol yang di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101500",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:54:55",
+      "tags": [
+        "ui",
+        "checkout",
+        "promo",
+        "polish",
+        "mobile"
+      ],
+      "summary": "Kartu kode promo: permukaan merek --orange-soft sendiri, ikon Tag, tombol selalu solid oranye (kosong dijawab pesan, bukan state mati)",
+      "conn": [
+        {
+          "id": "TASK-101400",
+          "type": "relates",
+          "raw": "TASK-101400:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88040",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "19:54:55",
+      "tags": [
+        "ui",
+        "checkout",
+        "mobile"
+      ],
+      "summary": "Aksi utama (Terapkan) selalu aktif solid merek; input kosong dijawab pesan inline, bukan tombol mati yang diredupkan",
+      "conn": [
+        {
+          "id": "TASK-101500",
+          "type": "relates",
+          "raw": "TASK-101500:relates"
+        }
+      ]
     }
   ]
 }

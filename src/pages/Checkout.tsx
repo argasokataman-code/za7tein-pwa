@@ -5,7 +5,7 @@
 //
 // Sekarang isinya dibaca dari store: daftar item, alamat antar, dan ringkasan
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
-import { Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react'
+import { Minus, Plus, ShoppingBag, Tag, Trash2 } from 'lucide-react'
 
 import { useState } from 'react'
 
@@ -134,7 +134,10 @@ export default function Checkout() {
   const [promoMsg, setPromoMsg] = useState<{ ok: boolean; text: string } | null>(null)
   const applyPromo = async () => {
     const code = promoCode.trim()
-    if (!code) return
+    if (!code) {
+      setPromoMsg({ ok: false, text: 'Masukkan kode promo dulu.' })
+      return
+    }
     setPromoBusy(true)
     try {
       const res = await validatePromo(code, subtotal)
@@ -356,10 +359,16 @@ export default function Checkout() {
                   </div>
                 )}
 
-                <div className="order-summary-section s7-parallax--card">
-                  <h2 className="section-title s7-parallax--title">Kode promo</h2>
+                {/* Satu aksi, bukan baris struk: kartunya punya permukaan merek
+                    sendiri (.checkout-promo) supaya terbaca sebagai ajakan
+                    memasang potongan, bukan potongan yang sudah dihitung. */}
+                <div className="checkout-promo s7-parallax--card">
+                  <h2 className="checkout-promo__title">
+                    <Tag size={16} strokeWidth={1.75} aria-hidden="true" />
+                    Kode promo
+                  </h2>
                   {promo ? (
-                    <div className="summary-item">
+                    <div className="checkout-promo__applied">
                       <span>
                         <strong>{promo.code}</strong> terpasang
                       </span>
@@ -377,22 +386,26 @@ export default function Checkout() {
                   ) : (
                     /* Judul kartu di atas sudah berbunyi "Kode promo", jadi
                        tidak ada label kedua; input + tombol satu baris supaya
-                       terbaca sebagai satu kontrol (dulu ditumpuk: label
-                       mengulang judul, jarak 7px lalu 20px). */
+                       terbaca sebagai satu kontrol. */
                     <div className="checkout-promo-row">
                       <input
                         id="checkout-promo"
                         className="form-control"
                         aria-label="Kode promo"
                         value={promoCode}
-                        onChange={(e) => setPromoCode(e.target.value)}
+                        onChange={(e) => {
+                          setPromoCode(e.target.value)
+                          // Pesan lama ("kode kosong"/hasil sebelumnya) milik
+                          // percobaan sebelumnya; mengetik = niat baru.
+                          if (promoMsg) setPromoMsg(null)
+                        }}
                         placeholder="mis. HEMAT10"
                         autoComplete="off"
                       />
                       <button
                         type="button"
                         className="btn btn-primary"
-                        disabled={promoBusy || promoCode.trim().length === 0}
+                        disabled={promoBusy}
                         onClick={() => void applyPromo()}
                       >
                         {promoBusy ? 'Memeriksa…' : 'Terapkan'}

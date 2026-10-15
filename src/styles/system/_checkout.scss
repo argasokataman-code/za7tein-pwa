@@ -93,27 +93,46 @@
 }
 
 /* ── Kode promo ───────────────────────────────────────────────────────────── */
-/* Judul kartu sudah berbunyi "Kode promo", jadi label kedua dihapus (nama
-   aksesibel input lewat `aria-label`) dan input + tombol diletakkan satu baris:
-   saat ditumpuk, label mengulang judul dan jarak antar elemennya tidak seragam.
-   Karena kartu ringkasan ini bergaya invoice, padding dipindah dari kartu ke
-   tiap bagian, jadi baris ini membawa padding-nya sendiri seperti `.summary-item`
-   (tanpa itu barisnya nempel ke tepi kartu). Tombol tetap setinggi target
-   sentuh, dan sudut input & tombol sama-sama --radius-md sesuai kontrak token. */
+/* Kartu ini bukan baris struk: isinya satu aksi (memasang potongan), jadi ia
+   membawa permukaan mereknya sendiri — `--orange-soft` + `--orange-border`,
+   peran yang memang disediakan token untuk kartu berlatar oranye-soft — bukan
+   putih seperti kartu ringkasan. Satu aksen saja: ikon, judul, dan tombol
+   semuanya keluarga oranye, input tetap putih supaya terbaca sebagai kolom.
+   Padding mengikuti kontrak kartu biasa (`--space-4`), bukan kontrak invoice
+   yang menaruh padding di tiap bagian, karena kartu ini komponennya sendiri. */
+.checkout-promo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+  border: 1px solid var(--orange-border);
+  border-radius: var(--radius-lg);
+  background: var(--orange-soft);
+}
+
+.checkout-promo__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--orange-soft-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
 .checkout-promo-row {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
 }
 
 .checkout-promo-row .form-control {
   flex: 1;
   min-width: 0;
-  /* Ada di dalam kartu putih: tanpa batas yang lebih kuat kolomnya tenggelam
-     dan cuma terbaca dari placeholder-nya. Radius mengikuti kontrak token
-     (--radius-md untuk input & tombol) supaya sepasang dengan tombolnya. */
-  background: var(--surface);
+  /* Di atas latar oranye-soft: batas default `--border` nyaris hilang, jadi
+     kolomnya pakai `--border-strong`. Radius mengikuti kontrak token
+     (`--radius-md` untuk input & tombol) supaya sepasang dengan tombolnya. */
   border-color: var(--border-strong);
   border-radius: var(--radius-md);
 }
@@ -125,15 +144,32 @@
   padding-inline: var(--space-4);
 }
 
-/* Tombol mati harus terbaca "mati", bukan oranye yang dipudarkan: `opacity .45`
-   di atas oranye merek menghasilkan salmon kusam berkontras ~2:1 dan terbaca
-   seperti tombol rusak. Isian netral + teks sekunder: tetap terbaca sebagai
-   tombol (bukan kolom kedua), tapi jelas sedang menunggu isian. */
+/* Tombol selalu aktif (solid oranye): aksi utama harus terbaca satu tombol
+   jelas. Kode kosong dijawab pesan di bawahnya, bukan tombol mati yang warnanya
+   diredupkan sampai terbaca seperti kolom kedua. Nonaktif hanya sesaat saat
+   memeriksa, dan untuk status sekilas itu abu netral sudah cukup. */
 .checkout-promo-row .btn:disabled {
   opacity: 1;
   background: var(--border);
   color: var(--text-secondary);
   border-color: transparent;
+}
+
+.checkout-promo__applied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+/* Pesan status/kesalahan sudah punya gayanya sendiri; di sini margin/padding
+   invoice-nya dilepas supaya sejajar dengan tepi kartu. */
+.checkout-promo .summary-info-note,
+.checkout-promo .error-message {
+  margin: 0;
+  padding: 0;
 }
 
 /* ── Catatan pesanan (PRD §11) ────────────────────────────────────────────── */.checkout-note {
