@@ -306,6 +306,17 @@ export default function Documentation() {
                 mati dan sebabnya ditulis di tempat.
               </li>
               <li>
+                <strong>Program marketing ala Odoo (§15).</strong> Program punya tipe, pemilik (toko
+                / aplikator), pemicu (otomatis / kode), jendela tanggal, dan{' '}
+                <code className="doc-inline">isStackable</code>. Halaman toko menampilkan daftar
+                program beserta hadiah &amp; syaratnya; keranjang menghitung yang benar-benar
+                berlaku: program stackable digabung, program yang berdiri sendiri hanya sendiri —
+                yang paling menguntungkan yang dipakai (semantik kombinasi masih{' '}
+                <strong>OPEN-23</strong>, jadi aturannya ditulis di kode, bukan disembunyikan).
+                Hadiah yang belum dihitung (produk, gratis ongkir, item termurah, tukar poin) tetap
+                tampil dengan alasan dan bernilai 0 — bukan hilang diam-diam.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
                 backend menandainya di muka: refund (§16.6) memakai flag{' '}
                 <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}

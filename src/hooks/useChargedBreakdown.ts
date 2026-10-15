@@ -6,11 +6,13 @@ import { mockUser } from '../data/user'
 import { selectSubtotal } from '../store/slices/cartSlice'
 import { useAppSelector } from './useAppStore'
 import { useLiveRate } from './useLiveRate'
+import { useProgramDiscount } from './useProgramDiscount'
 
 /**
  * Rincian biaya yang ditagih ke customer — satu sumber untuk Checkout dan layar
  * bayar, supaya keduanya tidak bisa menampilkan total berbeda (dulu rumusnya
- * disalin di dua berkas). `Ft` hanya muncul untuk QRIS (§16.2).
+ * disalin di dua berkas). `Ft` hanya muncul untuk QRIS (§16.2). Diskon program
+ * marketing (§15) ikut di sini, bukan dihitung ulang di tiap layar.
  */
 export function useChargedBreakdown(): ChargedBreakdown {
   const items = useAppSelector((s) => s.cart.items)
@@ -18,6 +20,7 @@ export function useChargedBreakdown(): ChargedBreakdown {
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const promo = useAppSelector((s) => s.cart.promo)
+  const program = useProgramDiscount()
   // Berlangganan kurs: `Pc` dikonversi dari JOD, jadi total ikut berubah saat
   // sync harian memperbarui kurs.
   const { rate } = useLiveRate()
@@ -28,8 +31,8 @@ export function useChargedBreakdown(): ChargedBreakdown {
     return chargedBreakdown({
       subtotalIdr: selectSubtotal(items),
       deliveryFeeIdr: address ? deliveryFeeFor(address) : 0,
-      discountIdr: promo?.discountIdr ?? 0,
+      discountIdr: (promo?.discountIdr ?? 0) + program.discountIdr,
       method: payMethodKind(paymentId ?? 'wallet'),
     })
-  }, [items, stored, addressId, promo, paymentId, rate.rate])
+  }, [items, stored, addressId, promo, paymentId, rate.rate, program.discountIdr])
 }

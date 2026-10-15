@@ -5461,6 +5461,405 @@
           "raw": "DEC-88030:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:06:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts (+253) — write via tool: ts: // Program marketing ala Odoo (PRD §15",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts"
+    },
+    {
+      "id": "TASK-101202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:06:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+6/-4) — edit via tool: ts: /** Program marketing (padanan `loyalty.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-101203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:07:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketplace.ts (+187/-54) — edit via tool: ts: export const mockMarketingProgram",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketplace.ts"
+    },
+    {
+      "id": "TASK-101204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:07:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts (+27/-1) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts"
+    },
+    {
+      "id": "TASK-101205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:07:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts (+77) — write via tool: ts: import { useMemo } from 'reac",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts"
+    },
+    {
+      "id": "TASK-101206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:07:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useChargedBreakdown.ts (+38/-35) — edit via tool: ts: import { useMemo } from '",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useChargedBreakdown.ts"
+    },
+    {
+      "id": "TASK-101207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:07:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+32/-6) — edit via tool: tsx: {promo ? (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-101208",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:08:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx (+11/-1) — edit via tool: tsx: const deals = useMemo(() => dea",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-101209",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:08:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/marketing-check.mjs (+163) — write via tool: // Self-check program marketing (§15",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/marketing-check.mjs"
+    },
+    {
+      "id": "TASK-101210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:09:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -5; npm run lint 2>&1 | tail -5",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:11:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts (+1/-1) — edit via tool: ts: import { mockLoyaltyCards } ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts"
+    },
+    {
+      "id": "TASK-101212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:11:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/marketingSlice.ts (+1/-1) — edit via tool: ts: import { mockMarketingPro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/marketingSlice.ts"
+    },
+    {
+      "id": "TASK-101213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:11:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/marketing-check.mjs (+6/-6) — edit via tool: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/marketing-check.mjs"
+    },
+    {
+      "id": "TASK-101214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:11:26",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && node --import ./scripts/lib/ts-resolve.mjs scripts/marketing-check.mjs 2>&1 | tail ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101215",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:11:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+13/-2) — edit via tool: tsx: mati dan sebabnya ditulis di t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101216",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:11:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+3/-1) — edit via tool: P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-101217",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:11:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md (+1/-1) — edit via tool: - ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
+    },
+    {
+      "id": "TASK-101218",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:13:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx (+35/-25) — edit via tool: tsx: {programs.length ? (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-101219",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:13:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss (+75/-12) — edit via tool: .store-missing {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-101220",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:13:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+19/-12) — edit via tool: tsx: {program.infoRows.map((row) => (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-101221",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:14:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts (+1/-1) — edit via tool: ts: .map((m) => ({ id: m.program",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts"
     }
   ]
 }

@@ -1,0 +1,203 @@
+{
+  "shard": 16,
+  "nodes": [
+    {
+      "id": "TASK-101222",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:14:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+1/-1) — edit via tool: tsx: : 'Pembelian kuota belum",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-101223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:14:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -3; npm run lint 2>&1 | rtk gre",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101224",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:14:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx (+1/-1) — edit via tool: tsx: <section>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-101225",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:15:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -2; npm run scan 2>&1 | grep -E",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101226",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:17:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts (+4/-4) — edit via tool: ts: rejectedNote:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts"
+    },
+    {
+      "id": "TASK-101227",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:18:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -2; node scripts/e2e-browsers.m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101228",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:19:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts (+8/-8) — edit via tool: ts: export interface ProgramDisc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useProgramDiscount.ts"
+    },
+    {
+      "id": "TASK-101229",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:19:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+13/-19) — edit via tool: tsx: {program.infoRows.map((row) => (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-101230",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:19:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -2; npm run lint 2>&1 | rtk gre",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101300",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:20:30",
+      "tags": [
+        "m3c",
+        "marketing",
+        "program",
+        "ui",
+        "customer"
+      ],
+      "summary": "M3c: model program Odoo (marketing.ts) + diskon di keranjang (useProgramDiscount) + daftar program di halaman toko; kartu program pakai .pro",
+      "conn": [
+        {
+          "id": "TASK-101200",
+          "type": "led_to",
+          "raw": "TASK-101200:led_to"
+        },
+        {
+          "id": "DEC-88030",
+          "type": "relates",
+          "raw": "DEC-88030:relates"
+        }
+      ]
+    }
+  ]
+}

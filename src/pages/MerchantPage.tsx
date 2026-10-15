@@ -6,6 +6,8 @@ import { BottomNav } from '../components/layout/BottomNav'
 import { HomePromoCarousel } from '../components/customer/HomePromoCarousel'
 import { FoodCard } from '../components/ui/FoodCard'
 import { useCatalog } from '../hooks/useCatalog'
+import { useAppSelector } from '../hooks/useAppStore'
+import { listedPrograms, programSummary } from '../data/marketing'
 import { dealsFrom, itemsByMerchant } from '../data/catalog'
 import { getStorefront, swapBrokenImage } from '../data/storefronts'
 import { useMenuItems, useStorefront } from '../hooks/useApiCatalog'
@@ -26,6 +28,16 @@ export default function MerchantPage() {
   const fallbackMenu = useMemo(() => (id ? itemsByMerchant(items, id) : []), [items, id])
   const menu = useMenuItems(id ?? '', fallbackMenu)
   const deals = useMemo(() => dealsFrom(menu), [menu])
+  // Program marketing yang ditawarkan toko ini (§15) — daftar + syaratnya.
+  // Angka diskonnya baru muncul di keranjang, saat syaratnya terpenuhi.
+  const marketing = useAppSelector((s) => s.marketing)
+  const programs = useMemo(
+    () =>
+      listedPrograms(marketing.programs, marketing.rules, marketing.rewards, id ?? null).map(
+        (entry) => ({ ...entry, summary: programSummary(entry.program, entry.rule, entry.reward) }),
+      ),
+    [marketing, id],
+  )
 
   if (!store) {
     return (
@@ -88,6 +100,42 @@ export default function MerchantPage() {
           </div>
 
           {deals.length ? <HomePromoCarousel deals={deals} /> : null}
+
+          {programs.length ? (
+            <section>
+              <div className="section-header">
+                <h2 className="section-title s7-parallax--title">Program &amp; promo</h2>
+                <span className="section-count">{programs.length} aktif</span>
+              </div>
+              <div className="program-list">
+                {programs.map(({ program, summary }) => (
+                  <article className="program-card" key={program.id}>
+                    <div className="program-card__head">
+                      <h3 className="program-card__name">{program.name}</h3>
+                      <span className="program-card__chip">{summary.owner}</span>
+                      {/* Hanya pengecualian yang ditandai: stackable = bawaan,
+                          jadi tak perlu chip "boleh digabung" di tiap kartu. */}
+                      {program.isStackable ? null : (
+                        <span className="program-card__chip program-card__chip--alone">
+                          berdiri sendiri
+                        </span>
+                      )}
+                    </div>
+                    <p className="program-card__line">{summary.reward}</p>
+                    <p className="program-card__meta">
+                      {summary.type}
+                      {summary.requirement ? ` · ${summary.requirement}` : ''}
+                      {program.trigger === 'with_code' ? ' · pakai kodenya di checkout' : ''}
+                    </p>
+                  </article>
+                ))}
+              </div>
+              <p className="summary-info-note">
+                Program yang berdiri sendiri hanya berlaku kalau tak digabung; kalau ada beberapa,
+                yang paling menguntungkan yang dipakai (§15.3).
+              </p>
+            </section>
+          ) : null}
 
           <div className="section-header">
             <h2 className="section-title s7-parallax--title">Menu</h2>

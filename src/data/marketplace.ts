@@ -3,13 +3,10 @@ import type {
   CourierAssignment,
   CourierPartner,
   Incident,
-  MarketingProgram,
   MerchantCoverage,
   MerchantRuleSelection,
   OrderSettlement,
   PriceBreakdown,
-  ProgramReward,
-  ProgramRule,
   QuotaPackage,
   QuotaSubscription,
   Refund,
@@ -200,63 +197,8 @@ export const mockQuotaPackages: QuotaPackage[] = [
  */
 export const QUOTA_PURCHASE_AVAILABLE = false
 
-// — Program marketing —
-
-export const mockMarketingPrograms: MarketingProgram[] = [
-  {
-    id: 'prog-1',
-    owner: 'merchant',
-    merchantId: 'merchant-1',
-    type: 'promotion',
-    trigger: 'auto',
-    appliesOn: 'current',
-    dateFrom: '2026-10-01',
-    dateTo: '2026-12-31',
-    limitUsage: null,
-    maxUsage: null,
-    isStackable: true,
-  },
-  {
-    id: 'prog-2',
-    owner: 'platform',
-    merchantId: null,
-    type: 'promo_code',
-    trigger: 'with_code',
-    appliesOn: 'current',
-    dateFrom: '2026-10-01',
-    dateTo: null,
-    limitUsage: 1000,
-    maxUsage: null,
-    isStackable: false,
-  },
-]
-
-export const mockProgramRules: ProgramRule[] = [
-  {
-    id: 'rule-1',
-    programId: 'prog-1',
-    minimumQty: 0,
-    minimumAmountJod: 5,
-    menuIds: [],
-    categoryIds: [],
-    tagIds: [],
-    rewardPointMode: 'per_order',
-    rewardPointAmount: 1,
-  },
-]
-
-export const mockProgramRewards: ProgramReward[] = [
-  {
-    id: 'reward-1',
-    programId: 'prog-1',
-    rewardType: 'discount',
-    discountMode: 'percent',
-    discountPercent: 10,
-    discountApplicability: 'order',
-    discountMaxAmountJod: 1.5,
-  },
-]
-
+// Program marketing (§15) pindah ke `./marketing` — berkas ini menyentuh batas
+// 500 baris. Seed program, rule, reward, dan kartu loyalty ada di sana.
 // — Refund —
 
 export const mockRefunds: Refund[] = [

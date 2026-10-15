@@ -1154,6 +1154,8 @@ export type RewardPointMode = 'per_order' | 'per_currency' | 'per_unit'
 /** Program marketing (padanan `loyalty.program`). Mata uang JOD. */
 export interface MarketingProgram {
   id: string
+  /** Nama yang dibaca customer/merchant di daftar program. */
+  name: string
   owner: ProgramOwner
   /** `MerchantRecord.id` saat owner = merchant; `null` untuk aplikator. */
   merchantId: string | null

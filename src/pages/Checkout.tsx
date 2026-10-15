@@ -33,6 +33,7 @@ import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
+import { useProgramDiscount } from '../hooks/useProgramDiscount'
 import { useMoney } from '../hooks/useMoney'
 import { selectOtherCarts, selectSubtotal, removeCart, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
@@ -123,6 +124,7 @@ export default function Checkout() {
   // Rincian yang ditagih: `Pc` dari JOD, `Ft` khusus QRIS, tagihan dibulatkan ke
   // atas ratusan (§16.2/§16.3) — satu sumber yang sama dengan layar bayar.
   const charged = useChargedBreakdown()
+  const program = useProgramDiscount()
   const total = charged.totalIdr
 
   // Validasi kode dikerjakan server (`validate_promo`): jendela, kuota, dan
@@ -452,9 +454,36 @@ export default function Checkout() {
                   {promo ? (
                     <div className="summary-item">
                       <span>Promo {promo.code}</span>
-                      <span>−{moneyPlain(charged.discountIdr)}</span>
+                      <span>−{moneyPlain(promo.discountIdr)}</span>
                     </div>
                   ) : null}
+                  {/* Diskon program marketing (§15): yang dipakai lebih dulu,
+                      sisanya (belum didukung / kalah stacking) sebagai catatan
+                      — supaya angka total selalu bisa dijelaskan barisnya. */}
+                  {program.rows.map((row) => (
+                    <div className="summary-item" key={row.id}>
+                      <span>
+                        {row.name}
+                        <span className="summary-info-tag">
+                          {row.owner === 'merchant' ? 'toko' : 'aplikator'}
+                        </span>
+                      </span>
+                      <span>−{moneyPlain(row.discountIdr)}</span>
+                    </div>
+                  ))}
+                  {program.infoRows.map((row) => (
+                    <div className="summary-item summary-item--info" key={row.id}>
+                      <span>
+                        {row.name}
+                        <span className="summary-info-tag">belum dihitung</span>
+                      </span>
+                      {/* Bukan "0,00 JOD": angka nol di kolom nilai terbaca
+                          seperti potongan yang gagal. "Tidak berlaku" sudah jadi
+                          bahasa repo untuk baris yang tak menghitung apa pun. */}
+                      <span>Tidak berlaku</span>
+                    </div>
+                  ))}
+                  {program.note ? <p className="summary-info-note">{program.note}</p> : null}
                   <div className="summary-divider" />
                   <div className="summary-total">
                     <span>Total Bayar</span>

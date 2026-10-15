@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import { mockMarketingPrograms, mockProgramRewards, mockProgramRules } from '../../data/marketplace'
+import { mockMarketingPrograms, mockProgramRewards, mockProgramRules } from '../../data/marketing'
 import type { MarketingProgram, ProgramReward, ProgramRule } from '../../types'
 
 interface MarketingState {

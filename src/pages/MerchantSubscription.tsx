@@ -57,7 +57,7 @@ export default function MerchantSubscription() {
           message={
             QUOTA_PURCHASE_AVAILABLE
               ? 'Beli kuota order atau kuota COD. Sisa kuota hangus di akhir periode.'
-              : 'Pembelian kuota belum tersedia — backend belum punya tabel langganan. Saldo kuota di bawah berasal dari data aplikasi, dan setting di halaman ini belum tersimpan ke server.'
+              : 'Pembelian kuota belum tersedia. Backend belum punya tabel langganan, jadi saldo kuota di bawah berasal dari data aplikasi dan setting di halaman ini belum tersimpan ke server.'
           }
         />
 
@@ -117,7 +117,7 @@ export default function MerchantSubscription() {
               </div>
               <div className="merchant-row">
                 <span>Periode</span>
-                <span>{periode ? `${periode.periodStart} → ${periode.periodEnd}` : '—'}</span>
+                <span>{periode ? `${periode.periodStart} → ${periode.periodEnd}` : 'Belum ada'}</span>
               </div>
               <p className="merchant-card-sub">
                 Sisa ≤ {Math.round(QUOTA_LOW_RATIO * 100)}% paket dihitung hampir habis. Saat kuota
@@ -186,8 +186,8 @@ export default function MerchantSubscription() {
           </div>
           <p className="merchant-card-sub">
             {storeClosed
-              ? 'Toko sedang tutup — setting ini boleh diubah.'
-              : 'Toko sedang buka — tutup dulu untuk mengubah setting ini (§17).'}
+              ? 'Toko sedang tutup, setting ini boleh diubah.'
+              : 'Toko sedang buka, tutup dulu untuk mengubah setting ini (§17).'}
           </p>
         </section>
       </main>
