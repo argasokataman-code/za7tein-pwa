@@ -59,6 +59,12 @@ export const PROGRAM_TYPE_LABEL: Record<MarketingProgramType, string> = {
 }
 
 const OWNER_LABEL = { platform: 'Aplikator', merchant: 'Toko' } as const
+/** Nada kartu per jenis program (kategori → nada; tokennya di system/_tones.scss). */
+export const PROGRAM_TONE: Record<MarketingProgramType, string> = {
+  promotion: 'brand', promo_code: 'brand', coupons: 'brand',
+  buy_x_get_y: 'success', next_order_coupons: 'warning',
+  loyalty: 'info', gift_card: 'navy', ewallet: 'navy',
+}
 
 /**
  * Membuat/mengubah program marketing belum tersedia: BE demo belum punya tabel

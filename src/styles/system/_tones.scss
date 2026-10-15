@@ -1,0 +1,61 @@
+/* ── Nada kartu ─────────────────────────────────────────────────────────────
+   Satu kelas per peran warna. Dipakai kalau warna menyampaikan ARTI (status
+   kuota, jenis program, kepemilikan, keadaan sakelar), bukan hiasan: "satu
+   warna satu peran" (DNA). Karena itu nilainya hanya nama nada — pemetaan
+   kategori → nada hidup di data (`PROGRAM_TONE`, `STATUS_TONE`), bukan di CSS.
+
+   Semua warna dari token peran; kelas ini tidak boleh berisi nilai mentah
+   (dijaga design gate: `npm run scan`). Anak teks mewarisi nada kartu supaya
+   kontras tetap ≥AA di atas latar berwarna — hierarki tetap dari ukuran/berat,
+   bukan dari warna kedua. */
+
+.tone-brand {
+  background: var(--orange-soft);
+  border-color: var(--orange-border);
+  color: var(--orange-soft-ink);
+}
+
+.tone-info {
+  background: var(--info-soft);
+  border-color: var(--info);
+  color: var(--info-ink);
+}
+
+.tone-success {
+  background: var(--green-soft);
+  border-color: var(--success);
+  color: var(--success-ink);
+}
+
+.tone-warning {
+  background: var(--warning-soft);
+  border-color: var(--warning);
+  color: var(--warning-ink);
+}
+
+.tone-danger {
+  background: var(--red-soft);
+  border-color: var(--danger);
+  color: var(--danger-ink);
+}
+
+.tone-navy {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--on-navy);
+}
+
+/* Teks di dalam kartu bernada: ikut nada, jangan teks default gelap/abu. */
+.tone-brand,
+.tone-info,
+.tone-success,
+.tone-warning,
+.tone-danger,
+.tone-navy {
+  .merchant-card-title,
+  .merchant-card-sub,
+  .merchant-promo-code,
+  .merchant-quota-card__meta {
+    color: inherit;
+  }
+}

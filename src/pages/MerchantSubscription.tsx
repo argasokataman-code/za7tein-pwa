@@ -158,7 +158,9 @@ export default function MerchantSubscription() {
           </p>
         </section>
 
-        <section className="merchant-card">
+        {/* Nada kartu mengikuti keadaan sakelar: hijau saat "terima order tanpa
+            kuota" menyala, netral saat mati. */}
+        <section className={acceptWithoutQuota ? 'merchant-card tone-success' : 'merchant-card'}>
           <p className="merchant-card-title">Terima order tanpa kuota</p>
           <p className="merchant-card-sub">
             Saat menyala, toko tetap tampil di beranda meski kuota order habis; order seperti itu

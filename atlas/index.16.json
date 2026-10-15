@@ -2058,6 +2058,239 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-101918",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:18:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss (+62) — write via tool: /* ── Nada kartu ──────────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss"
+    },
+    {
+      "id": "TASK-101919",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:18:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts (+20/-1) — edit via tool: ts: const OWNER_LABEL = { platform: 'Apli",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts"
+    },
+    {
+      "id": "TASK-101920",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:19:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx (+1/-1) — edit via tool: tsx: import { PROGRAM_EDIT_AVAILABL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx"
+    },
+    {
+      "id": "TASK-101921",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:19:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+4/-2) — edit via tool: tsx: {/* Nada kartu mengikuti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-101922",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:19:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+5/-1) — edit via tool: @use \"./system/parallax\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-101923",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:19:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+15/-2) — edit via tool: tsx: bukan lima baris list.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101924",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:19:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+7/-2) — edit via tool: memakai **peran token yang sudah ada** —",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-101925",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:19:36",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN|Design gate\" | head -5; npm run lint 2>&1 | ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101926",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:20:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts (+6/-18) — edit via tool: ts: /** Nada kartu per jenis program (kat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/marketing.ts"
+    },
+    {
+      "id": "TASK-101927",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "21:20:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx (+8/-8) — edit via tool: tsx: const summary = programSummary",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx"
+    },
+    {
+      "id": "DEC-88090",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "21:23:29",
+      "tags": [
+        "design",
+        "systems"
+      ],
+      "summary": "Design system dipakai = cek mekanis: ratchet design-debt di npm run scan + pre-commit, baseline hanya turun",
+      "conn": [
+        {
+          "id": "TASK-101920",
+          "type": "led_to",
+          "raw": "TASK-101920:led_to"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88091",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-15",
+      "time": "21:23:29",
+      "tags": [
+        "design",
+        "systems"
+      ],
+      "summary": "Warna kartu = arti via .tone-* (brand/info/success/warning/danger/navy); peta kategori->nada di data",
+      "conn": [
+        {
+          "id": "TASK-101921",
+          "type": "led_to",
+          "raw": "TASK-101921:led_to"
+        },
+        {
+          "id": "DEC-88090",
+          "type": "relates",
+          "raw": "DEC-88090:relates"
+        }
+      ]
     }
   ]
 }

@@ -19,7 +19,7 @@ import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { jod } from '../data/currency'
-import { PROGRAM_EDIT_AVAILABLE, merchantPrograms, programSummary } from '../data/marketing'
+import { PROGRAM_EDIT_AVAILABLE, PROGRAM_TONE, merchantPrograms, programSummary } from '../data/marketing'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setStackable } from '../store/slices/marketingSlice'
 
@@ -262,8 +262,13 @@ export default function MerchantPromos() {
             <ul className="merchant-promo-list">
               {ownedPrograms.map(({ program, rule, reward }) => {
                 const summary = programSummary(program, rule, reward)
+                // Nada kartu = jenis program (kategori → satu warna): daftar
+                // tidak jadi satu blok putih, jenisnya terbaca sekilas.
                 return (
-                  <li key={program.id} className="merchant-card merchant-promo-item">
+                  <li
+                    key={program.id}
+                    className={`merchant-card merchant-promo-item tone-${PROGRAM_TONE[program.type]}`}
+                  >
                     <div className="merchant-promo-head">
                       <div>
                         <p className="merchant-promo-code">{program.name}</p>

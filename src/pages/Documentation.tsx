@@ -331,6 +331,19 @@ export default function Documentation() {
                 bukan lima baris list.
               </li>
               <li>
+                <strong>Nada kartu (<code className="doc-inline">.tone-*</code>).</strong> Design system
+                punya enam nada — <code className="doc-inline">tone-brand</code>,{' '}
+                <code className="doc-inline">tone-info</code>,{' '}
+                <code className="doc-inline">tone-success</code>,{' '}
+                <code className="doc-inline">tone-warning</code>,{' '}
+                <code className="doc-inline">tone-danger</code>,{' '}
+                <code className="doc-inline">tone-navy</code> — semuanya dari token peran. Kartu
+                memakainya kalau warna berarti: kartu kuota mengikuti status, kartu program marketing
+                mengikuti jenisnya (<code className="doc-inline">PROGRAM_TONE</code>), kartu sakelar
+                "terima order tanpa kuota" menghijau saat menyala. Pemetaan kategori → nada tinggal di
+                data, CSS hanya menyimpan nadanya, jadi tidak ada warna baru yang lahir per layar.
+              </li>
+              <li>
                 <strong>Kartu kode promo punya permukaan merek sendiri.</strong> Isinya satu aksi,
                 bukan baris struk, jadi kartunya memakai{' '}
                 <code className="doc-inline">--orange-soft</code> +{' '}

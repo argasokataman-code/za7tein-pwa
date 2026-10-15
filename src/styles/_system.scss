@@ -100,3 +100,7 @@
 // banner promo, header halaman customer). Setelah `interaction` supaya override
 // reduced-motion untuk lapisan ini tidak kalah oleh aturan gerak umum di sana.
 @use "./system/parallax";
+
+// Nada kartu (warna sebagai arti, bukan hiasan). Terakhir: kelas `.tone-*`
+// harus menang atas latar kartu yang lebih awal pada kekhususan yang sama.
+@use "./system/tones";

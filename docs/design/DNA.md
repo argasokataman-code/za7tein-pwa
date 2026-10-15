@@ -52,6 +52,11 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
   (`npm run scan -- --update-design-debt` setelah utang benar-benar turun). Variasi warna kartu
   memakai **peran token yang sudah ada** — status soft/ink, `--orange-soft`, `--navy` — bukan
   warna baru.
+- **Nada kartu `.tone-*`** (`system/_tones.scss`): `tone-brand` · `tone-info` · `tone-success` ·
+  `tone-warning` · `tone-danger` · `tone-navy`. Dipakai kalau warna **menyampaikan arti** (status
+  kuota, jenis program, keadaan sakelar) — bukan hiasan. Pemetaan kategori → nada hidup di **data**
+  (`PROGRAM_TONE`, `STATUS_TONE`), CSS hanya menyimpan nada. Teks di dalam kartu bernada mewarisi
+  nada itu supaya kontras tetap ≥ AA; hierarki tetap dari ukuran/berat.
 - **Glow merek** (`--shadow-brand`) hanya menandai **aksi primer**, bukan umpan hover dan bukan
   penanda status terpilih. Pemakaian lain dihapus di akarnya.
 - **Umpan hover** dibungkus `@media (hover: hover) and (pointer: fine)`; di layar sentuh ia tidak
