@@ -198,6 +198,274 @@
           "raw": "DEC-88030:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-101301",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:23:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+25/-25) — edit via tool: tsx: ) : (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-101302",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:23:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+23/-1) — edit via tool: /* ── Kode promo ─────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-101303",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:24:17",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -2; npm run scan 2>&1 | grep -E",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101304",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:24:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+6/-4) — edit via tool: .checkout-promo-row .btn {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-101305",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:25:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -1; node scripts/e2e-browsers.m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101306",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:29:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+9/-2) — edit via tool: tsx: tampil dengan alasan dan bernil",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101307",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:32:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+28/-11) — edit via tool: .checkout-promo-row .form-con",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-101308",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:33:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -1; npm run scan 2>&1 | grep -E",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101309",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:33:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+28/-28) — edit via tool: .checkout-promo-row .form-con",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-101310",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:33:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -1; node scripts/e2e-browsers.m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101311",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:35:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+13/-10) — edit via tool: /* Judul kartu sudah berbunyi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-101312",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:40:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-7) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-101313",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:41:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|✓ built\" | tail -1; npm run scan 2>&1 | grep -E",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-101400",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-15",
+      "time": "19:41:10",
+      "tags": [
+        "ui",
+        "checkout",
+        "promo",
+        "polish"
+      ],
+      "summary": "Kode promo checkout: satu baris, label duplikat dihapus (aria-label), padding invoice, radius-md, tombol mati netral (bukan opacity .45)",
+      "conn": [
+        {
+          "id": "TASK-101300",
+          "type": "relates",
+          "raw": "TASK-101300:relates"
+        }
+      ]
     }
   ]
 }

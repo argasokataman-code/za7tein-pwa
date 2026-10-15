@@ -375,20 +375,20 @@ export default function Checkout() {
                       </button>
                     </div>
                   ) : (
-                    <>
-                      <div className="form-group">
-                        <label htmlFor="checkout-promo" className="form-label">
-                          Kode promo
-                        </label>
-                        <input
-                          id="checkout-promo"
-                          className="form-control"
-                          value={promoCode}
-                          onChange={(e) => setPromoCode(e.target.value)}
-                          placeholder="mis. HEMAT10"
-                          autoComplete="off"
-                        />
-                      </div>
+                    /* Judul kartu di atas sudah berbunyi "Kode promo", jadi
+                       tidak ada label kedua; input + tombol satu baris supaya
+                       terbaca sebagai satu kontrol (dulu ditumpuk: label
+                       mengulang judul, jarak 7px lalu 20px). */
+                    <div className="checkout-promo-row">
+                      <input
+                        id="checkout-promo"
+                        className="form-control"
+                        aria-label="Kode promo"
+                        value={promoCode}
+                        onChange={(e) => setPromoCode(e.target.value)}
+                        placeholder="mis. HEMAT10"
+                        autoComplete="off"
+                      />
                       <button
                         type="button"
                         className="btn btn-primary"
@@ -397,7 +397,7 @@ export default function Checkout() {
                       >
                         {promoBusy ? 'Memeriksa…' : 'Terapkan'}
                       </button>
-                    </>
+                    </div>
                   )}
                   {promoMsg ? (
                     <p className={promoMsg.ok ? 'summary-info-note' : 'error-message'} role="status">

@@ -317,6 +317,16 @@ export default function Documentation() {
                 tampil dengan alasan dan bernilai 0 — bukan hilang diam-diam.
               </li>
               <li>
+                <strong>Kode promo jadi satu baris.</strong> Judul kartunya sudah berbunyi "Kode
+                promo", jadi label kedua dihapus (nama aksesibel input lewat{' '}
+                <code className="doc-inline">aria-label</code>) dan input + tombol diletakkan satu
+                baris: dua kontrol yang ditumpuk terbaca seperti dua hal terpisah, dan jaraknya tidak
+                seragam. Barisnya membawa padding sendiri seperti bagian lain di kartu ringkasan
+                (kartu itu bergaya invoice, padding ada di tiap bagian), sudut input &amp; tombol
+                sama-sama <code className="doc-inline">--radius-md</code>, dan tombol mati diberi
+                isian netral + teks sekunder, bukan oranye yang dipudarkan sampai berkontras ~2:1.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
                 backend menandainya di muka: refund (§16.6) memakai flag{' '}
                 <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}

@@ -92,8 +92,51 @@
   cursor: pointer;
 }
 
-/* ── Catatan pesanan (PRD §11) ────────────────────────────────────────────── */
-.checkout-note {
+/* ── Kode promo ───────────────────────────────────────────────────────────── */
+/* Judul kartu sudah berbunyi "Kode promo", jadi label kedua dihapus (nama
+   aksesibel input lewat `aria-label`) dan input + tombol diletakkan satu baris:
+   saat ditumpuk, label mengulang judul dan jarak antar elemennya tidak seragam.
+   Karena kartu ringkasan ini bergaya invoice, padding dipindah dari kartu ke
+   tiap bagian, jadi baris ini membawa padding-nya sendiri seperti `.summary-item`
+   (tanpa itu barisnya nempel ke tepi kartu). Tombol tetap setinggi target
+   sentuh, dan sudut input & tombol sama-sama --radius-md sesuai kontrak token. */
+.checkout-promo-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+}
+
+.checkout-promo-row .form-control {
+  flex: 1;
+  min-width: 0;
+  /* Ada di dalam kartu putih: tanpa batas yang lebih kuat kolomnya tenggelam
+     dan cuma terbaca dari placeholder-nya. Radius mengikuti kontrak token
+     (--radius-md untuk input & tombol) supaya sepasang dengan tombolnya. */
+  background: var(--surface);
+  border-color: var(--border-strong);
+  border-radius: var(--radius-md);
+}
+
+.checkout-promo-row .btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-4);
+}
+
+/* Tombol mati harus terbaca "mati", bukan oranye yang dipudarkan: `opacity .45`
+   di atas oranye merek menghasilkan salmon kusam berkontras ~2:1 dan terbaca
+   seperti tombol rusak. Isian netral + teks sekunder: tetap terbaca sebagai
+   tombol (bukan kolom kedua), tapi jelas sedang menunggu isian. */
+.checkout-promo-row .btn:disabled {
+  opacity: 1;
+  background: var(--border);
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+
+/* ── Catatan pesanan (PRD §11) ────────────────────────────────────────────── */.checkout-note {
   width: 100%;
   min-height: 88px;
   padding: var(--space-3);
