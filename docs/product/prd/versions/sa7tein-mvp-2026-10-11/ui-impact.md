@@ -96,7 +96,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | MerchantSettings | **UBAH** | MER-01..03, MER-17 | **M4d:** profil toko (nama/nomor/alamat/foto) + **tag toko** (multi-pilih, maks 4, tag baru perlu moderasi ops) — keduanya state sesi karena BE belum punya endpoint tulis; setting "terima order tanpa kuota" (hanya saat tutup); pintu ke coverage |
 | **Coverage editor** (baru) | **SELESAI** (M4b) | MER-04 | `/merchant/coverage` — polygon non-overlap ber-fee **atau** radius ≤2 km + fee/satuan; tulis BE belum ada (state aplikasi + notice). Flow `f28-coverage-editor` |
 | **Langganan kuota** (baru) | **TAMBAH** | MER-17,18,19 | Beli kuota order / kuota COD (QRIS+DANA) |
-| MerchantCouriers | **UBAH** | MER-16 | Kelola kurir **inhouse** + (ops buat partner) |
+| MerchantCouriers | **UBAH** | MER-16 | **M4e:** kelola kurir inhouse — tambah/ubah (nama+WA)/hapus, jam tugas, kuota `MAX_COURIERS_PER_MERCHANT`; hint bahwa ini kurir inhouse & penugasan per batch di Order. Rekrut partner oleh ops (M6) belum ada |
 | MerchantWallet, MerchantPayout* | **UBAH** | MER-20 | Payout ke DANA, saldo |
 | MerchantRebate | **REVIEW** | f9 | Insentif Founding `UNRESOLVED` |
 | MerchantOnboarding, MerchantPending | **UBAH** | OPS-01 | Verifikasi oleh ops + tag moderasi |

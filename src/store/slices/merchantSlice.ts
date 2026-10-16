@@ -272,6 +272,16 @@ const merchantSlice = createSlice({
       })
     },
     /**
+     * Ubah identitas kurir (nama + nomor WA). Status, jam tugas, dan penugasan
+     * tidak disentuh — masing-masing punya reducernya sendiri.
+     */
+    updateCourier(state, action: PayloadAction<{ id: string; name: string; phone: string }>) {
+      const courier = state.couriers.find((c) => c.id === action.payload.id)
+      if (!courier) return
+      courier.name = action.payload.name
+      courier.phone = toE164(action.payload.phone)
+    },
+    /**
      * Hapus kurir sekaligus lepas rujukannya di order — order tidak boleh
      * menyimpan `courierId` yang sudah tidak ada di registri.
      */
@@ -410,6 +420,7 @@ export const {
   setOrderBatch,
   setOrderPacked,
   addCourier,
+  updateCourier,
   removeCourier,
   setCourierDuty,
   assignCourier,

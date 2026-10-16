@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Bike, Phone, Plus, Power, Trash2 } from 'lucide-react'
+import { Bike, Pencil, Phone, Plus, Power, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
@@ -13,7 +13,7 @@ import { COURIER_STATUS_LABEL } from '../data/courier'
 import { MAX_COURIERS_PER_MERCHANT } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { merchantCourierSchema, type MerchantCourierFormData } from '../lib/schemas'
-import { addCourier, removeCourier, setCourierDuty } from '../store/slices/merchantSlice'
+import { addCourier, removeCourier, setCourierDuty, updateCourier } from '../store/slices/merchantSlice'
 import type { Courier } from '../types'
 
 const EMPTY_FORM: MerchantCourierFormData = { name: '', phone: '' }
@@ -30,6 +30,7 @@ export default function MerchantCouriers() {
   const couriers = useAppSelector((state) => state.merchant.couriers)
 
   const [sheetOpen, setSheetOpen] = useState(false)
+  const [editing, setEditing] = useState<Courier | null>(null)
   const [deleteTarget, setDeleteTarget] = useState<Courier | null>(null)
 
   const quotaFull = couriers.length >= MAX_COURIERS_PER_MERCHANT
@@ -46,12 +47,30 @@ export default function MerchantCouriers() {
 
   const closeSheet = () => {
     setSheetOpen(false)
+    setEditing(null)
     reset(EMPTY_FORM)
   }
 
+  const openAdd = () => {
+    setEditing(null)
+    reset(EMPTY_FORM)
+    setSheetOpen(true)
+  }
+
+  const openEdit = (courier: Courier) => {
+    setEditing(courier)
+    reset({ name: courier.name, phone: courier.phone })
+    setSheetOpen(true)
+  }
+
   const onSubmit = (data: MerchantCourierFormData) => {
-    dispatch(addCourier(data))
-    toast.success(`${data.name} terdaftar sebagai kurir`)
+    if (editing) {
+      dispatch(updateCourier({ id: editing.id, ...data }))
+      toast.success(`Data ${data.name} diperbarui`)
+    } else {
+      dispatch(addCourier(data))
+      toast.success(`${data.name} terdaftar sebagai kurir`)
+    }
     closeSheet()
   }
 
@@ -117,6 +136,15 @@ export default function MerchantCouriers() {
                   <button
                     type="button"
                     className="merchant-courier-action"
+                    onClick={() => openEdit(courier)}
+                    aria-label={`Ubah ${courier.name}`}
+                  >
+                    <Pencil size={16} strokeWidth={1.75} aria-hidden="true" />
+                    Ubah
+                  </button>
+                  <button
+                    type="button"
+                    className="merchant-courier-action"
                     onClick={() =>
                       dispatch(
                         setCourierDuty({ id: courier.id, onDuty: courier.status === 'offline' }),
@@ -142,14 +170,15 @@ export default function MerchantCouriers() {
         )}
 
         <p className="merchant-hint-inline">
-          Kamu yang memilih kurir untuk tiap order di{' '}
+          Kurir di sini adalah kurir <strong>inhouse</strong> (karyawan toko). Kamu menugaskan satu
+          kurir ke satu batch di{' '}
           <Link className="merchant-link" to="/orders">
             halaman Order
           </Link>
           .
         </p>
 
-        <BottomSheet open={sheetOpen} title="Tambah kurir" onClose={closeSheet}>
+        <BottomSheet open={sheetOpen} title={editing ? 'Ubah kurir' : 'Tambah kurir'} onClose={closeSheet}>
           <form className="merchant-form" noValidate onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
               <label htmlFor="merchant-courier-name" className="form-label">
@@ -204,7 +233,7 @@ export default function MerchantCouriers() {
         type="button"
         className="page-fab"
         aria-label="Tambah kurir"
-        onClick={() => setSheetOpen(true)}
+        onClick={openAdd}
         disabled={quotaFull}
       >
         <Plus size={22} strokeWidth={1.75} aria-hidden="true" />
