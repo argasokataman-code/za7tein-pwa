@@ -4416,6 +4416,48 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:49:12",
+      "tags": [
+        "courier",
+        "m6",
+        "prd"
+      ],
+      "summary": "Q06 kurir partner dibangun: expireAssignment (expired+off+pengganti) + SP via issueWarningLetter, tombol simulasi, partner-check",
+      "conn": [
+        {
+          "id": "BUG-88109",
+          "type": "relates",
+          "raw": "BUG-88109:relates"
+        }
+      ],
+      "loc": "src/store/slices/partnerSlice.ts:74",
+      "commit": "2c36c80"
+    },
+    {
+      "id": "DEC-88113",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "22:49:12",
+      "tags": [
+        "courier",
+        "m6",
+        "be"
+      ],
+      "summary": "SP tidak dijatuhkan di expireAssignment; pemicu expire=BE, penerbit SP ops (UNRESOLVED). Pengganti sementara: mitra non-offline/non-busy, si",
+      "conn": [
+        {
+          "id": "TASK-88112",
+          "type": "relates",
+          "raw": "TASK-88112:relates"
+        }
+      ]
     }
   ]
 }
