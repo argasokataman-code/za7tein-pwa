@@ -1,12 +1,14 @@
 import { MessageSquare, Star } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { useSearchParams } from 'react-router-dom'
 
 import { fetchReviewableOrders, submitOrderReview, type ReviewableOrder } from '../api/reviews'
 import { apiEnabled } from '../api/supabase'
 import { BackButton } from '../components/ui/BackButton'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { MENU_RATING_AVAILABLE } from '../data/rating'
 
 // Halaman ulasan customer. Sumbernya `rating_reviews` (RLS customer): daftar di
 // sini = pesanan yang sudah `done` tapi belum diulas, dan form di sheet menulis
@@ -23,6 +25,8 @@ export default function Reviews() {
   const [rating, setRating] = useState(5)
   const [note, setNote] = useState('')
   const [busy, setBusy] = useState(false)
+  const [params] = useSearchParams()
+  const wantedCode = params.get('order')
 
   const load = useCallback(() => {
     if (!apiEnabled) {
@@ -40,6 +44,16 @@ export default function Reviews() {
   useEffect(() => {
     load()
   }, [load])
+
+  // Deep link dari riwayat pesanan (§20.2: penilaian diisi di layar detail order
+  // yang dibuka lewat menu riwayat). Kode order dipakai, bukan id, supaya URL-nya
+  // sama dengan yang dibawa layar perayaan (`/order-arrived?order=...`).
+  useEffect(() => {
+    if (!wantedCode) return
+    const order = orders.find((item) => item.code === wantedCode)
+    if (order) open(order)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wantedCode, orders])
 
   function open(order: ReviewableOrder) {
     setTarget(order)
@@ -96,7 +110,7 @@ export default function Reviews() {
               <div className="reviews-empty-state">
                 <MessageSquare size={40} strokeWidth={1.5} aria-hidden="true" />
                 <p>Belum ada pesanan menunggu ulasan.</p>
-                <span>Ulasan bisa dikirim setelah pesanan selesai.</span>
+                <span>Ulasan bisa dikirim setelah pesanan selesai, tanpa batas waktu.</span>
               </div>
             ) : (
               <ul className="reviews-order-list">
@@ -165,6 +179,17 @@ export default function Reviews() {
           onChange={(e) => setNote(e.target.value)}
           placeholder="Ceritakan pengalamanmu..."
         />
+
+        {/* §20.2: rating menu item = bintang saja, tanpa review, dan tanpa rating
+            per variant. Bentuknya ditahan sampai BE mengirim daftar hidangan
+            pesanan; menampilkan bintang per hidangan tanpa nama hidangan berarti
+            mengarang isi form. */}
+        {MENU_RATING_AVAILABLE ? null : (
+          <p className="reviews-field-note">
+            Rating per menu (bintang saja, tanpa review) belum bisa diisi: backend belum mengirim
+            daftar hidangan pada pesanan ini.
+          </p>
+        )}
 
         <div className="sheet-actions">
           <button

@@ -151,10 +151,19 @@ interface OrderRow {
   created_at: string
 }
 
-/** Order customer yang selesai tapi belum diulas — bahan prompt pasca-order (f19). */
-export async function fetchReviewableOrders(
+/** Satu baris riwayat pesanan: order selesai + sudah dinilai atau belum (§20.2). */
+export interface OrderHistoryItem extends ReviewableOrder {
+  reviewed: boolean
+}
+
+/**
+ * Riwayat pesanan customer: order `done`, terbaru dulu, dengan penanda sudah
+ * dinilai. **Tanpa batas waktu** (§20.2 "tidak ada batas waktu pengisian"), jadi
+ * tidak ada penyaring tanggal di sini.
+ */
+export async function fetchOrderHistory(
   customerId = DEMO_CUSTOMER_ID,
-): Promise<ReviewableOrder[]> {
+): Promise<OrderHistoryItem[]> {
   const token = await ensureCustomerToken()
   const [orders, reviewed] = await Promise.all([
     restWith<OrderRow>(
@@ -168,24 +177,32 @@ export async function fetchReviewableOrders(
       `?select=order_id&customer_id=eq.${customerId}`,
     ),
   ])
-  const done = new Set(reviewed.map((r) => r.order_id))
-  const pending = orders.filter((o) => !done.has(o.id))
-  if (!pending.length) return []
+  if (!orders.length) return []
 
-  const merchantIds = [...new Set(pending.map((o) => o.merchant_id))]
+  const done = new Set(reviewed.map((r) => r.order_id))
+  const merchantIds = [...new Set(orders.map((o) => o.merchant_id))]
   const merchants = await restWith<{ id: number; store_name: string | null }>(
     token,
     'merchants',
     `?select=id,store_name&id=in.(${merchantIds.join(',')})`,
   )
   const byId = new Map(merchants.map((m) => [m.id, m.store_name ?? 'Toko']))
-  return pending.map((o) => ({
+  return orders.map((o) => ({
     id: o.id,
     code: o.code,
     merchantId: o.merchant_id,
     merchantName: byId.get(o.merchant_id) ?? 'Toko',
     createdAt: o.created_at,
+    reviewed: done.has(o.id),
   }))
+}
+
+/** Order customer yang selesai tapi belum diulas — bahan prompt pasca-order (f19). */
+export async function fetchReviewableOrders(
+  customerId = DEMO_CUSTOMER_ID,
+): Promise<ReviewableOrder[]> {
+  const history = await fetchOrderHistory(customerId)
+  return history.filter((order) => !order.reviewed)
 }
 
 /**

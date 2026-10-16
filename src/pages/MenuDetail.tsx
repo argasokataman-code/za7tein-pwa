@@ -380,11 +380,6 @@ export default function MenuDetail() {
               <section className="menu-reviews-section">
                 <div className="reviews-header">
                   <h3 className="reviews-title s7-parallax--title">Ulasan ({food.reviewCount})</h3>
-                  {food.reviewCount > 0 ? (
-                    <Link className="see-all-link" to="/reviews">
-                      Lihat semua
-                    </Link>
-                  ) : null}
                 </div>
                 {food.reviewCount > 0 ? null : (
                   <p className="reviews-empty">Belum ada ulasan untuk menu ini.</p>

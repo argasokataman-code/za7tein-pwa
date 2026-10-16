@@ -625,6 +625,22 @@ export default function Documentation() {
                 dalam 6 detik dan ETA ikut turun, tanpa overflow-x.
               </li>
               <li>
+                <strong>Rating: aturan §20.2 dikunci + menu riwayat pesanan (M8a, R-CUS-RATING).</strong>{' '}
+                PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}
+                <strong>menu riwayat order</strong>&rdquo;, tapi menu itu tidak ada: satu-satunya
+                pintu ke form rating adalah tautan &ldquo;Lihat semua&rdquo; di detail menu yang
+                artinya justru &ldquo;semua ulasan hidangan ini&rdquo;. Sekarang{' '}
+                <code className="doc-inline">/orders</code> memuat pesanan selesai dengan penanda
+                sudah dinilai atau belum (pintunya dari Profil), dan tiap baris membuka form lewat{' '}
+                <code className="doc-inline">/reviews?order=&lt;kode&gt;</code>. Aturan §20.2/§14
+                jadi fungsi murni di <code className="doc-inline">src/data/rating.ts</code>: skala
+                1&ndash;5, merchant <strong>butuh</strong> review sedangkan menu item{' '}
+                <strong>bintang saja</strong>, larangan rating per variant, tanpa batas waktu, tanpa
+                moderasi ops. Ditahan <code className="doc-inline">scripts/rating-check.mjs</code>.
+                Belum: jalur tulis rating menu item (BE belum mengirim daftar hidangan pesanan, dan
+                itu ditulis di form, bukan ditutupi bintang kosong).
+              </li>
+              <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}
                 <code className="doc-inline">mergeOrders</code> dulu mengganti seluruh antrean
                 dengan baris BE. Tiga kolom hanya hidup di klien (

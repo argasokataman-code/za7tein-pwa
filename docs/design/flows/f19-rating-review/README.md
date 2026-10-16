@@ -6,6 +6,8 @@ Flow **layar** rating setelah order `done`: prompt penilaian → bintang merchan
 
 > **Catatan 2026-10-15.** Sebagian sudah tersambung BE (revisi PRD tetap `proposed`): `/merchant/reviews` membaca `rating_reviews` (ulasan toko + hidangan) dan membalas ke `review_replies`; `/reviews` (customer) mengirim penilaian **toko** untuk order `done` yang belum diulas. Aturan "satu penilaian per order" ditegakkan index unik parsial di BE. Ulasan **hidangan** dari customer belum bisa (butuh `order_items`, masih kosong), dan bintang kurir masih state tampilan. Kontrak: `docs/integration/reviews/be-contract.md`; API-SPEC §2.1/G16.
 
+> Catatan 2026-10-17 (R-CUS-RATING, M8). Aturan revisi aktif §20.2/§14 dikunci di `src/data/rating.ts` + `scripts/rating-check.mjs` (merchant butuh review; menu item bintang saja; tanpa rating per variant; **tanpa batas waktu**; **tanpa moderasi ops**) dan ditulis di `features/R-CUS-RATING.md`. Menu riwayat ordernya kini ada: `/orders` (pesanan selesai + penanda sudah dinilai, pintu dari Profil) membuka form lewat `/reviews?order=<kode>`; tautan "Lihat semua" di detail menu dihapus karena menunjuk halaman form ulasan customer, bukan daftar ulasan hidangan. `fetchReviewableOrders` menurunkan diri dari `fetchOrderHistory`, jadi riwayat dan daftar "menunggu ulasan" tak bisa berbeda. Dua butir UNRESOLVED di bawah kini **terjawab** oleh revisi aktif: jendela pengisian ("tidak ada batas waktu") dan moderasi ("tidak dimoderasi ops"). Belum: jalur tulis rating menu item (`order_items` kosong → `MENU_RATING_AVAILABLE = false`, alasannya tertulis di form) dan daftar ulasan sisi customer (tidak diminta §20.2).
+
 | Berkas | Isi |
 |---|---|
 | `f19-rating-review.json` | Spec archify (workflow v2) — sumber yang diedit |

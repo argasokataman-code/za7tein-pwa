@@ -5,6 +5,7 @@ import {
   CreditCard,
   FileText,
   Globe,
+  History,
   LockKeyhole,
   MapPin,
   Pencil,
@@ -135,6 +136,7 @@ export default function Profile() {
                 <div className="pf-card">
                   <ProfileRow icon={UserRound} label="Edit Profil" sub="Nama & nomor WhatsApp" to="/personal-data" />
                   <ProfileRow icon={MapPin} label="Alamat Pengantaran" sub="Kelola lokasi antar dan titik peta" to="/address-selection" />
+                  <ProfileRow icon={History} label="Riwayat Pesanan" sub="Pesanan selesai & penilaian toko" to="/orders" />
                   <ProfileRow icon={LockKeyhole} label="Ganti Kata Sandi" sub="Perbarui kata sandi akun" to="/change-password" />
                   <ProfileRow
                     icon={Bell}
