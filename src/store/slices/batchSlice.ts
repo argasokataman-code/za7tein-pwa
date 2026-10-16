@@ -24,13 +24,14 @@ const batchSlice = createSlice({
     addBatch(state, action: PayloadAction<Batch>) {
       state.batches.unshift(action.payload)
     },
-    /** Merchant menambah order Regular ke batch yang hitung mundurnya berjalan (BR-B02). */
+    /** Tambah order Regular ke batch yang hitung mundurnya berjalan (BR-B02). */
     addOrderToBatch(state, action: PayloadAction<{ batchId: string; orderId: string }>) {
       const batch = state.batches.find((b) => b.id === action.payload.batchId)
       if (!batch) return
       if (batch.orderIds.includes(action.payload.orderId)) return
       batch.orderIds.push(action.payload.orderId)
-      if (batch.autoSort) batch.routeOrder = [...batch.orderIds]
+      // `routeOrder` hanya menyimpan urutan manual (auto-sort OFF). Saat ON,
+      // urutan diturunkan dari auto-sort, jadi tak ditulis mentah di sini.
     },
     setBatchStatus(state, action: PayloadAction<{ batchId: string; status: BatchStatus }>) {
       const batch = state.batches.find((b) => b.id === action.payload.batchId)
@@ -54,12 +55,16 @@ const batchSlice = createSlice({
       const batch = state.batches.find((b) => b.id === action.payload.batchId)
       if (batch) batch.status = 'delivering'
     },
-    /** Toggle auto-sort kurir (BR-B12); ON mengurutkan rute, OFF membiarkan manual. */
+    /**
+     * Toggle auto-sort kurir (BR-B12): `routeOrder` hanya menyimpan urutan
+     * manual. ON mengosongkannya (urutan diturunkan dari auto-sort); OFF
+     * membiarkan manual mulai dari urutan tersimpan.
+     */
     setAutoSort(state, action: PayloadAction<{ batchId: string; autoSort: boolean }>) {
       const batch = state.batches.find((b) => b.id === action.payload.batchId)
       if (!batch) return
       batch.autoSort = action.payload.autoSort
-      batch.routeOrder = action.payload.autoSort ? [...batch.orderIds] : []
+      batch.routeOrder = []
     },
     /** Urutan manual saat auto-sort OFF. */
     setRouteOrder(state, action: PayloadAction<{ batchId: string; orderIds: string[] }>) {

@@ -33,12 +33,15 @@ export const WALK_ROUTE_BETA_NOTE =
   'Rute berjalan kaki (WALK) masih beta — urutan bisa berubah saat rute jalan sungguhan (Google Routes) tersambung.'
 
 /**
- * Tugas milik batch, urut sesuai `routeOrder` (hasil auto-sort / manual), sisanya
- * ikut urutan `orderIds`. Order yang tak ada di `tasks` dilewati (batch bisa
- * menyebut id yang sudah hilang).
+ * Tugas milik batch dalam **urutan efektif** — satu sumber untuk daftar, peta,
+ * "berikutnya", dan panjang rute. Auto-sort ON → urutan diturunkan (nearest
+ * neighbour dari dapur); OFF → urutan manual `routeOrder`, sisanya `orderIds`.
+ * `routeOrder` **hanya** menyimpan urutan manual, jadi ON/OFF tak bisa berbeda
+ * pendapat soal urutan (BR-B12). Order yang tak ada di `tasks` dilewati.
  */
 export function courierBatchTasks(batch: Batch, tasks: CourierTask[]): CourierTask[] {
   const inBatch = tasks.filter((task) => batch.orderIds.includes(task.id))
+  if (batch.autoSort) return autoSortTasks(inBatch)
   const order = batch.routeOrder.length ? batch.routeOrder : batch.orderIds
   const rank = new Map(order.map((id, index) => [id, index]))
   return [...inBatch].sort((a, b) => (rank.get(a.id) ?? 1e9) - (rank.get(b.id) ?? 1e9))

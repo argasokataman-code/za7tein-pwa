@@ -101,6 +101,7 @@ const HERO_TAGS = [
   'SCSS',
   'PWA',
   'Leaflet',
+  'Google Routes (WALK)',
   'Zod',
   'React Hook Form',
 ]

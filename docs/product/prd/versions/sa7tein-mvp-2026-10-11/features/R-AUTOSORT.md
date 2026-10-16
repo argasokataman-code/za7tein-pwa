@@ -59,21 +59,19 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 
 | # | Kriteria | Cara ukur | Status |
 |---|---|---|---|
-| AC1 | Daftar "Urutan antar" saat ON = hasil auto-sort | nomor 1..n == `autoSortTasks`; assert di `scripts/courier-batch-check.mjs` | ❌ render `stops`, bukan `ordered` (`CourierBatch.tsx:158`) |
-| AC2 | Nomor daftar, nomor pin peta, dan "berikutnya" = satu urutan | banding daftar vs `mapStops` vs `nextBatchTask` | ❌ tiga sumber berbeda |
+| AC1 | Daftar "Urutan antar" saat ON = hasil auto-sort | nomor 1..n == `autoSortTasks` | ✅ `courierBatchTasks` menurunkan urutan saat ON (`src/data/courierBatch.ts:40`); satu sumber di `CourierBatch.tsx:40` |
+| AC2 | Nomor daftar, nomor pin peta, dan "berikutnya" = satu urutan | banding daftar vs `mapStops` vs `nextBatchTask` | ✅ ketiganya membaca `stops` yang sama |
 | AC3 | OFF → kurir bisa mengubah urutan, dan garis rute + nomor ikut | kontrol reorder ada + ubah `routeOrder` | ❌ tak ada kontrol; `courierSlice.setBatchRouteOrder:106` & `batchSlice.setRouteOrder:65` tanpa pemanggil |
 | AC4 | Urut berdasar waktu tempuh | BE (matriks WALK); mock sekarang haversine | ⚠️ mock jarak garis lurus |
 | AC5 | Heuristik NN + 2-opt | BE/mock | ⚠️ NN saja |
 | AC6 | Peringatan WALK ada di UI batch kurir | teks tampil (`WALK_ROUTE_BETA_NOTE`) | ✅ |
-| AC7 | UI customer tanpa garis rute | peta `OrderStageScreen` tanpa polyline | ❌ `useLeafletMap.ts:105` menggambar `ROUTE` |
+| AC7 | UI customer tanpa garis rute | peta tahap `diantar` tanpa polyline | ✅ `useLeafletMap.ts:98-118` (delivery = pin kurir + tujuan, tanpa garis); bukti DOM: `?stage=diantar` overlayPaths 0 vs `?stage=disiapkan` 1 |
 | AC8 | Maks 25 titik | `MAX_BATCH_ORDERS` + 1 | ✅ |
 | AC9 | Rute tak kembali ke merchant | panjang rute berakhir di stop terakhir | ✅ |
 | AC10 | Dipicu ulang saat order masuk | urutan berubah saat `addOrderToBatch` | ⚠️ belum tersimulasi/ditampilkan |
-
-| AC11 | Seed demo konsisten: `autoSort: true` ⇒ `routeOrder` terisi | cek `mockCourierBatch` | ❌ `routeOrder: []` walau `autoSort: true` (`src/data/courierBatch.ts:26-27`) |
-| AC12 | Peta membaca `routeOrder` tersimpan, tidak menghitung ulang sendiri | satu sumber urutan di layar | ❌ peta `ordered = autoSortTasks(stops)` (`CourierBatch.tsx:41`) mengabaikan `routeOrder` |
-
-| AC13 | `batchSlice.setAutoSort` (sisi merchant) ON juga menyimpan hasil sort | cek `batchSlice.ts:62` | ❌ mengisi `routeOrder = [...orderIds]` mentah, bukan `autoSortRoute` |
+| AC11 | ON tidak bergantung `routeOrder` (urutan diturunkan) | seed boleh `routeOrder: []` walau `autoSort: true` | ✅ `courierBatch.ts:27`; assert "ON mengabaikan routeOrder" di `scripts/courier-batch-check.mjs` |
+| AC12 | Peta & daftar membaca satu urutan, tak menghitung ulang sendiri | satu ekspresi urutan di layar | ✅ `CourierBatch.tsx:40` (`stops`) dipakai daftar, `mapStops`, dan panjang rute |
+| AC13 | `batchSlice.setAutoSort` ON tidak menulis `routeOrder` mentah | cek `batchSlice.ts` | ✅ `routeOrder = []` (urutan manual saja) |
 
 ## 8. UNRESOLVED
 
@@ -82,6 +80,6 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 
 ## 9. Bukti
 
-- Kode: `src/data/courierBatch.ts` (`autoSortTasks:93`, `autoSortRoute:122`, `routeDistanceMeters:133`, `courierBatchTasks:40`, `nextBatchTask:54`, `WALK_ROUTE_BETA_NOTE:32`, seed `mockCourierBatch:16`), `src/pages/CourierBatch.tsx:40-42,50,65,95,158`, `src/store/slices/courierSlice.ts:97-108` (`setBatchAutoSort` memanggil `autoSortRoute`; `setBatchRouteOrder` ada tapi tanpa pemanggil di UI), `src/hooks/useLeafletMap.ts:105-112` (polyline rute mode `delivery`).
+- Kode: `src/data/courierBatch.ts` (`autoSortTasks:93`, `autoSortRoute:122`, `routeDistanceMeters:133`, `courierBatchTasks:40`, `nextBatchTask:54`, `WALK_ROUTE_BETA_NOTE:32`, seed `mockCourierBatch:16`), `src/pages/CourierBatch.tsx:38-50,64-67,157`, `src/store/slices/courierSlice.ts:93-106`, `src/store/slices/batchSlice.ts:27-33,55-65`, `src/hooks/useLeafletMap.ts:91-119` (mode `delivery` tanpa garis rute).
 - Self-check: `scripts/courier-batch-check.mjs`.
 - Flow: `docs/design/flows/f25-batch-lifecycle/` (M08).

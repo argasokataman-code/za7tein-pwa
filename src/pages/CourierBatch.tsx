@@ -10,7 +10,6 @@ import { BATCH_STATUS_LABEL, batchCapacityLeft, countdownLabel } from '../data/b
 import { COURIER_CHECKPOINT_BADGE, isDoneTask } from '../data/courier'
 import {
   WALK_ROUTE_BETA_NOTE,
-  autoSortTasks,
   batchDisplayStatus,
   batchProgress,
   canStartBatch,
@@ -36,10 +35,10 @@ export default function CourierBatch() {
   const batch = useAppSelector((s) => s.courier.batch)
 
   // Hook peta harus dipanggil tanpa syarat (aturan hook React), jadi titik
-  // hentinya dihitung sebelum cabang "belum ada batch".
+  // hentinya dihitung sebelum cabang "belum ada batch". `courierBatchTasks`
+  // adalah **satu sumber urutan**: daftar, peta, dan "berikutnya" membacanya.
   const stops = batch ? courierBatchTasks(batch, tasks) : []
-  const ordered = batch?.autoSort ? autoSortTasks(stops) : stops
-  const mapStops = ordered
+  const mapStops = stops
     .filter((task) => task.latitude != null && task.longitude != null)
     .map((task) => ({
       lat: task.latitude!,
@@ -64,7 +63,7 @@ export default function CourierBatch() {
   const progress = batchProgress(batch, tasks)
   const next = nextBatchTask(batch, tasks)
   const status = batchDisplayStatus(batch, tasks)
-  const routeMeters = routeDistanceMeters(ordered)
+  const routeMeters = routeDistanceMeters(stops)
   const notStarted = status !== 'delivering' && status !== 'done'
   const startable = notStarted && canStartBatch(batch)
   const delivering = status === 'delivering'

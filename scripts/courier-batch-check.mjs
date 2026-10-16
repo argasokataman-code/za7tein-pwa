@@ -19,15 +19,32 @@ import { courierTasks } from '../src/data/courier.ts'
 // Batch demo mengikat tugas kurir yang ber-batchId (3 order aktif; ct-4 selesai).
 assert.deepEqual(mockCourierBatch.orderIds, ['ct-1', 'ct-2', 'ct-3'])
 
-// Urutan baca: `routeOrder` menang atas `orderIds`; sisanya ikut `orderIds`.
+// Manual (auto-sort OFF): `routeOrder` menang atas `orderIds`; sisanya ikut `orderIds`.
 const ranked = courierBatchTasks(
-  { ...mockCourierBatch, routeOrder: ['ct-3', 'ct-1'] },
+  { ...mockCourierBatch, autoSort: false, routeOrder: ['ct-3', 'ct-1'] },
   courierTasks,
 )
 assert.deepEqual(
   ranked.map((t) => t.id),
   ['ct-3', 'ct-1', 'ct-2'],
   'routeOrder menentukan dua teratas, sisa mengikuti orderIds',
+)
+
+// Satu sumber urutan (BR-B12): saat auto-sort ON, `routeOrder` manual diabaikan
+// supaya daftar, peta, dan "berikutnya" tak bisa berbeda pendapat.
+const onWithManual = courierBatchTasks(
+  { ...mockCourierBatch, autoSort: true, routeOrder: ['ct-3', 'ct-2', 'ct-1'] },
+  courierTasks,
+)
+assert.deepEqual(
+  onWithManual.map((t) => t.id),
+  ['ct-1', 'ct-2', 'ct-3'],
+  'auto-sort ON → urutan diturunkan, bukan dibaca dari routeOrder',
+)
+assert.equal(
+  nextBatchTask({ ...mockCourierBatch, autoSort: true, routeOrder: ['ct-3'] }, courierTasks)?.id,
+  onWithManual[0].id,
+  'elemen pertama urutan efektif = langkah berikutnya',
 )
 
 // Auto-sort: greedy nearest-neighbour dari dapur → ct-1 (terdekat), lalu ct-2, ct-3.

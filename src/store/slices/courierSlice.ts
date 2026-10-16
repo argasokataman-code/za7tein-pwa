@@ -2,7 +2,6 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { courierTasks as seedTasks, nextCheckpoint } from '../../data/courier'
 import {
-  autoSortRoute,
   courierBatchTasks,
   mockCourierBatch,
 } from '../../data/courierBatch'
@@ -91,16 +90,21 @@ const courierSlice = createSlice({
       task.checkpointStartedAt = undefined
     },
     /**
-     * Toggle auto-sort batch (M5, BR-B12). ON = urutkan rute nearest-neighbour
-     * dari dapur (mock, bukan Google Routes); OFF = manual, `routeOrder` kosong.
+     * Toggle auto-sort batch (M5, BR-B12). ON = urutan diturunkan (nearest
+     * neighbour dari dapur, mock); OFF = mulai manual dari urutan yang sedang
+     * terlihat. `routeOrder` hanya menyimpan urutan manual — saat ON dikosongkan
+     * supaya daftar, peta, dan "berikutnya" tak bisa berbeda pendapat.
      */
     setBatchAutoSort(state, action: PayloadAction<{ autoSort: boolean }>) {
       const batch = state.batch
       if (!batch) return
-      batch.autoSort = action.payload.autoSort
-      batch.routeOrder = action.payload.autoSort
-        ? autoSortRoute(courierBatchTasks(batch, state.tasks))
-        : []
+      if (action.payload.autoSort) {
+        batch.autoSort = true
+        batch.routeOrder = []
+        return
+      }
+      batch.routeOrder = courierBatchTasks(batch, state.tasks).map((task) => task.id)
+      batch.autoSort = false
     },
     /** Urutan antar manual saat auto-sort OFF. */
     setBatchRouteOrder(state, action: PayloadAction<{ orderIds: string[] }>) {
