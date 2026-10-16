@@ -2150,7 +2150,8 @@
       "date": "2026-10-16",
       "time": "13:31:20",
       "tags": [
-        "auto"
+        "auto",
+        "session"
       ],
       "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cards.scss (+43/-38) — edit via tool: // Kartu pasang aplikasi yang mu",
       "conn": [
@@ -2839,6 +2840,35 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-110101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:05:57",
+      "tags": [
+        "courier",
+        "partner",
+        "dispatch",
+        "flow",
+        "m6",
+        "curated"
+      ],
+      "summary": "Rencana M6: flow f26-quick-dispatch (dispatch+partner) digambar & lolos gate 9/9; kode belum; penerbit SP UNRESOLVED (PO)",
+      "conn": [
+        {
+          "id": "DEC-88105",
+          "type": "relates",
+          "raw": "DEC-88105:relates"
+        },
+        {
+          "id": "TASK-110001",
+          "type": "relates",
+          "raw": "TASK-110001:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.milestones.md:1"
     }
   ]
 }
