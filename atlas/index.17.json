@@ -874,6 +874,139 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102143",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:08:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: B",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "DEC-88103",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "09:08:33",
+      "tags": [
+        "catalog",
+        "odoo",
+        "merchant"
+      ],
+      "summary": "Katalog Odoo: slice catalogAttributes terpisah (kunci baru = initial dipakai, tanpa migrasi); ikon kategori dipetakan dari modul, bukan stat",
+      "conn": [
+        {
+          "id": "DEC-88101",
+          "type": "relates",
+          "raw": "DEC-88101:relates"
+        },
+        {
+          "id": "BUG-102016",
+          "type": "relates",
+          "raw": "BUG-102016:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:08:33",
+      "tags": [
+        "merchant",
+        "catalog",
+        "m4c"
+      ],
+      "summary": "M4c1: kategori menu (MER-06) di catalog.categories + toggle catatan per menu (MER-05); migrasi persist v8 buang catalog",
+      "conn": [
+        {
+          "id": "DEC-88103",
+          "type": "relates",
+          "raw": "DEC-88103:relates"
+        }
+      ],
+      "commit": "154bb4d"
+    },
+    {
+      "id": "TASK-102151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:08:34",
+      "tags": [
+        "merchant",
+        "catalog",
+        "m4c"
+      ],
+      "summary": "M4c2: attribute/varian Odoo (MER-07/08) — MenuAttributeEditor merchant + selector pelanggan, ketersediaan 3 level, catalog-check.mjs",
+      "conn": [
+        {
+          "id": "DEC-88103",
+          "type": "relates",
+          "raw": "DEC-88103:relates"
+        },
+        {
+          "id": "TASK-102150",
+          "type": "led_to",
+          "raw": "TASK-102150:led_to"
+        }
+      ],
+      "commit": "64ebf9e"
+    },
+    {
+      "id": "TASK-102152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:08:34",
+      "tags": [
+        "merchant",
+        "profile",
+        "m4d"
+      ],
+      "summary": "M4d: kartu tag toko di Setelan (maks 4) via merchantSlice.tags; tag baru perlu moderasi ops, BE tanpa kolom usulan tag",
+      "conn": [
+        {
+          "id": "DEC-88103",
+          "type": "relates",
+          "raw": "DEC-88103:relates"
+        }
+      ],
+      "commit": "4133ec7"
+    },
+    {
+      "id": "TASK-102153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:08:34",
+      "tags": [
+        "merchant",
+        "courier",
+        "m4e"
+      ],
+      "summary": "M4e: ubah kurir inhouse (nama+WA) via updateCourier; hint kurir inhouse + assign per batch. M4 tuntas",
+      "conn": [
+        {
+          "id": "TASK-102152",
+          "type": "relates",
+          "raw": "TASK-102152:relates"
+        }
+      ],
+      "commit": "9b2446b"
     }
   ]
 }
