@@ -467,12 +467,20 @@ export interface AppNotification {
   body: string
   time: string
   unread: boolean
+  /**
+   * Penerima baris ini (`all` = siaran). Opsional karena baris lama/tanpa kolom
+   * `audience` tak boleh hilang dari inbox; lihat `notifVisibleTo` di
+   * `src/data/notif.ts`.
+   */
+  audience?: NotifAudience | 'all'
 }
 
 /**
  * Subscription Web Push (R-PUSH-01, M8). Registrasinya **disimpan** ke tabel
- * `push_subscriptions` (endpoint + kunci + waktu daftar); yang belum ada adalah
- * pengirimannya — repo ini tak punya service worker push (AGENTS §1).
+ * `push_subscriptions` (endpoint + kunci + waktu daftar). Service worker push
+ * sudah ada di `public/push-sw.js` (diimpor `importScripts`, lihat `vite.config.ts`);
+ * yang belum ada adalah pengiriman otomatis dari BE (sekarang lewat
+ * `supabase/functions/send-push` secara manual).
  *
  * Namanya diberi akhiran `Record` supaya tidak bentrok dengan `PushSubscription`
  * milik DOM — kalau namanya sama, TypeScript diam-diam memakai tipe global dan

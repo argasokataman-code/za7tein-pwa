@@ -1,6 +1,6 @@
 # F11 — Push Notification, Routing Audience & Fallback WA
 
-Sequence transport push + **routing audience** tiap langkah order, plus fallback WA untuk event kritis. Rincian journey & matriks notifikasi: `f1-order-lifecycle` + `docs/design/flows/BUSINESS.md` §2b. Basis: **BRS `notif-order-e2e-2026-10-11` (`proposed`)** + `R-PUSH-01`. Milestone **M8** (deps M0); PRD aktif `irbid-mvp-v2-2026-09-21`.
+Sequence transport push + **routing audience** tiap langkah order, plus fallback WA untuk event kritis. Rincian journey & matriks notifikasi: `f1-order-lifecycle` + `docs/design/flows/BUSINESS.md` §2b. Basis: **BRS `notif-order-e2e-2026-10-11` (`proposed`)** + `R-PUSH-01`. Milestone **M8** (deps M0); PRD aktif `sa7tein-mvp-2026-10-11` (spec ini dulu ditulis terhadap `irbid-mvp-v2-2026-09-21`, kini `superseded`).
 
 | Berkas | Isi |
 |---|---|
@@ -23,6 +23,15 @@ Sequence transport push + **routing audience** tiap langkah order, plus fallback
 | **Super Admin** | **hanya eskalasi**: dispute macet, protection fund, appeal |
 
 Bell CS di `/admin` membaca `s.notifications.items`, tapi **0 emit `audience:'cs'`** di kode — audience-nya sudah valid, pemanggilnya belum ada.
+
+## Status UI (R-NOTIF, M7)
+
+- **Katalog emit.** `src/data/notif.ts` memetakan empat kanal customer §20.3 (status order, kurir hampir sampai, promo aplikator, toko baru menjangkau alamat default) ke `{audience, kind, title, body}` **plus penanda `emit: fe|be`** — supaya jalur yang belum ada tidak terlihat seolah ada. Promo & toko-baru ditandai `be` (butuh data lintas pengguna).
+- **Penjaga audience di klien.** `notificationsFor()` menyaring baris per peran di atas filter query PostgREST (`notifications.audience`); kolomnya kini ikut dibaca (`src/api/reference.ts`). Siaran `all` terlihat semua peran; baris tanpa kolom `audience` tidak disembunyikan (menyembunyikan data yang kepemilikannya tak terbukti bikin inbox kosong tanpa sebab).
+- **"Kurir hampir sampai" satu ambang dengan R-TRACK.** emit-nya memakai `ALMOST_ARRIVED_MINUTES` yang sama dengan label di layar, dikirim sekali per pengantaran dari `useCourierTracking`.
+- **Komentar usang diperbaiki.** Beberapa berkas masih menulis "repo tak punya SW push" padahal `public/push-sw.js` ada dan di-`importScripts` di `vite.config.ts`; yang belum adalah pengiriman otomatis dari BE.
+- **Belum:** pengiriman push otomatis dari BE, pengubah ambang dari panel ops (M10), emit CS (tetap 0 pemanggil).
+
 
 ## Aturan (R-PUSH-01)
 

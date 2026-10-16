@@ -7,9 +7,9 @@ import type { NotifAudience, PushSubscriptionRecord } from '../types'
 /* ── Push (R-PUSH-01, M8) ──────────────────────────────────────────────────── */
 
 /**
- * Ketentuan payload push dari PRD. Ditampilkan di layar pengaturan sebagai
- * kontrak, bukan diimplementasikan: repo ini tidak punya service worker push,
- * jadi tidak ada notifikasi yang benar-benar dikirim.
+ * Ketentuan payload push dari PRD, ditampilkan di layar pengaturan sebagai
+ * kontrak. Service workernya ada (`public/push-sw.js`); yang belum adalah
+ * pengiriman otomatis dari BE, jadi push masih dipicu manual (script/fungsi demo).
  */
 export const PUSH_CONTRACT = {
   maxPayloadKb: 4,
@@ -18,9 +18,10 @@ export const PUSH_CONTRACT = {
 } as const
 
 /**
- * Subscription **placeholder**. Repo ini tak punya `PushManager` (service worker
- * push tak dibuat), jadi endpoint/kunci di bawah bukan dari browser sungguhan —
- * yang nyata adalah **barisnya disimpan** ke tabel `push_subscriptions`.
+ * Subscription **placeholder**. `PushManager` sungguhan baru tersedia saat
+ * aplikasi di-install (khususnya iOS, §20.3 L2), jadi endpoint/kunci di bawah
+ * bukan dari browser — yang nyata adalah **barisnya disimpan** ke tabel
+ * `push_subscriptions`.
  */
 export function mockPushSubscription(platform = 'web'): PushSubscriptionRecord {
   return {

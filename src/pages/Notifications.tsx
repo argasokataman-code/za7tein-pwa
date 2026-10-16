@@ -17,12 +17,19 @@ import { markNotificationsRead } from '../api/notifications'
 import { BackButton } from '../components/ui/BackButton'
 import { NotificationRow } from '../components/ui/NotificationRow'
 import { notificationAudienceFromPath } from '../data/notifications'
+import { notificationsFor } from '../data/notif'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { markAllRead, selectUnreadCount } from '../store/slices/notificationsSlice'
 
 export default function Notifications() {
   const dispatch = useAppDispatch()
-  const items = useAppSelector((s) => s.notifications.items)
+  const audience = notificationAudienceFromPath(window.location.pathname)
+  // Penjaga kedua di klien: query BE sudah menyaring audience, tapi baris yang
+  // salah peran (sisa cache/siaran tanpa tanda) tak boleh tampil di sini.
+  const items = notificationsFor(
+    useAppSelector((s) => s.notifications.items),
+    audience,
+  )
   const unread = selectUnreadCount(items)
 
   return (
@@ -48,9 +55,7 @@ export default function Notifications() {
                     className="inbox-head__action"
                     onClick={() => {
                       dispatch(markAllRead())
-                      void markNotificationsRead(
-                        notificationAudienceFromPath(window.location.pathname),
-                      ).catch(() => {})
+                      void markNotificationsRead(audience).catch(() => {})
                     }}
                   >
                     Tandai semua dibaca

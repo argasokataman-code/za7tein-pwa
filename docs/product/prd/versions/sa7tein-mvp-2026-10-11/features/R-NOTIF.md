@@ -22,18 +22,19 @@ Perubahan status order harus sampai ke pihak yang berkepentingan tanpa harus mem
 
 | AC | Perilaku | Cara ukur | Status |
 |---|---|---|---|
-| AC1 | Inbox per peran (bell + daftar) hanya menampilkan audience miliknya | `notificationsFor(audience, role)` + assert silang peran | ⚠️ inbox ada, audience disaring di BE (`api/notifications.ts`) |
+| AC1 | Inbox per peran (bell + daftar) hanya menampilkan audience miliknya | `notificationsFor()` + `notifVisibleTo()`; assert silang peran di `scripts/notif-check.mjs` | ✅ penjaga di klien, di atas filter query BE |
 | AC2 | Badge jumlah belum dibaca akurat dan persist antar sesi | `selectUnreadCount` + baca ulang setelah reload | ⚠️ ada; persist lewat BE |
 | AC3 | Web push benar-benar terkirim ke perangkat kurir/customer | langganan `PushManager` + SW `push` handler | ⚠️ jalur ada (`api/push.ts`, `public/push-sw.js`); pengiriman masih manual/script |
-| AC4 | "Kurir hampir sampai" memakai **ambang ops** | satu sumber ambang bertanda ops, dipakai notif & R-TRACK | ❌ belum ada ambang |
-| AC5 | Keempat kanal daftar customer (§20.3) masing-masing punya jalur emit | daftar event → notif; assert tiap jenis punya pemetaan | ⚠️ status order ada; promo/merchant-baru belum pasti |
+| AC4 | "Kurir hampir sampai" memakai **ambang ops** | satu sumber ambang bertanda ops, dipakai notif & R-TRACK | ✅ `NOTIF_EMIT.courier_almost_arrived` memakai `ALMOST_ARRIVED_MINUTES` yang sama; diuji `notif-check` |
+| AC5 | Keempat kanal daftar customer (§20.3) masing-masing punya jalur emit | `NOTIF_EMIT` + penanda `emit: fe\|be`; assert tiap jenis punya pemetaan | ⚠️ 2 dari 4 punya pemanggil di repo (`order_status`, `courier_almost_arrived`); promo & toko-baru = job BE, ditandai `emit: 'be'` |
 
 ## 4. State & layar
 
 - Inbox: `src/pages/Notifications.tsx`, baris `components/ui/NotificationRow.tsx`, badge `components/ui/NotificationBell.tsx`.
 - Preferensi: `src/pages/NotificationSettings.tsx` (sakelar push hanya produksi).
-- Bentuk data: `AppNotification`, `NotificationKind`, `NotifAudience`, `PushSubscriptionRecord` (`src/types.ts`).
-- Seed mock app-side kosong (data datang dari BE `notifications`).
+- Bentuk data: `AppNotification` (+ kolom `audience`), `NotificationKind`, `NotifAudience`, `PushSubscriptionRecord` (`src/types.ts`).
+- Katalog emit + penjaga audience: `src/data/notif.ts` (fungsi murni, diuji `scripts/notif-check.mjs`).
+- Seed mock app-side kosong (data datang dari BE `notifications`, yang kini juga mengirim kolom `audience`).
 
 ## 5. Data & kontrak BE
 
@@ -44,7 +45,8 @@ Perubahan status order harus sampai ke pihak yang berkepentingan tanpa harus mem
 ## 6. Yang belum (blocked)
 
 - Pengiriman push otomatis dari BE (bukan script manual).
-- Ambang "kurir hampir sampai" milik ops (`R-OPS`, M10).
+- **Mengubah** ambang "kurir hampir sampai" dari panel ops (`R-OPS`, M10); nilainya kini konstanta bertanda di `src/data/tracking.ts` dan sudah dipakai bersama R-TRACK.
+- Jalur emit promo baru + toko baru menjangkau alamat default: dua-duanya job BE (butuh data lintas pengguna), ditandai `emit: 'be'` di katalog.
 
 ## 7. UNRESOLVED
 
@@ -54,6 +56,9 @@ Perubahan status order harus sampai ke pihak yang berkepentingan tanpa harus mem
 
 ## 8. Bukti
 
-- Kode saat ini: `src/store/slices/notificationsSlice.ts`, `src/hooks/useApiNotifications.ts`, `src/api/notifications.ts`, `src/api/realtime.ts`, `src/api/push.ts`, `public/push-sw.js`, `supabase/functions/send-push/`.
-- Kontradiksi yang harus dibereskan saat menyentuh berkas ini: komentar di `src/data/notifications.ts` + `src/types.ts` masih menulis "tak punya SW push" padahal `public/push-sw.js` ada.
+- Katalog + penjaga: `src/data/notif.ts` (`NOTIF_EMIT` empat kanal §20.3 dengan penanda `emit: fe|be` + baris sumber, `notifAudienceOf`, `notifVisibleTo`, `notificationsFor`); self-check `node --import ./scripts/lib/ts-resolve.mjs scripts/notif-check.mjs` (katalog lengkap, ambang = R-TRACK, silang peran, siaran `all`, nilai mentah tak dikenal → `undefined`).
+- Kolom `audience` kini ikut dibaca: `src/api/reference.ts` (`toNotification`, `select=...,audience`); tipe `AppNotification.audience` di `src/types.ts`; penjaga dipakai di `src/pages/Notifications.tsx`.
+- Emit "kurir hampir sampai": `src/hooks/useCourierTracking.ts` (sekali per pengantaran, ambang sama dengan label R-TRACK).
+- Komentar usang "repo tak punya SW push" **diperbaiki** di `src/types.ts` + `src/data/notifications.ts`; service workernya memang ada (`public/push-sw.js`, di-`importScripts` di `vite.config.ts`).
+- Kode lama: `src/store/slices/notificationsSlice.ts`, `src/hooks/useApiNotifications.ts`, `src/api/notifications.ts`, `src/api/realtime.ts`, `src/api/push.ts`, `supabase/functions/send-push/`.
 - Flow: `docs/design/flows/f11-push-notification/` (status `done`), `f24-cs-problem` (basis BRS proposed).

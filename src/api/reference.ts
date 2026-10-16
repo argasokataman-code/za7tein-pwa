@@ -11,6 +11,7 @@
  * konversi lewat `jodToIdr` sekali di sini.
  */
 import { jodToIdr } from '../data/currency'
+import { notifAudienceOf } from '../data/notif'
 import type {
   AppNotification,
   Courier,
@@ -478,6 +479,8 @@ interface NotificationRow {
   body: string | null
   read: boolean | null
   created_at: string
+  /** `all` = siaran (§20.3). Bisa null pada baris lama. */
+  audience: string | null
 }
 
 /** Jam untuk hari ini (mis. `12.32`), selebihnya `dayLabel` (kemarin/N hari lalu). */
@@ -495,6 +498,7 @@ function toNotification(row: NotificationRow): AppNotification {
     body: row.body ?? '',
     time: notifTime(row.created_at),
     unread: !row.read,
+    audience: notifAudienceOf(row.audience),
   }
 }
 
@@ -507,7 +511,7 @@ export async function fetchNotifications(
   const rows = await restWith<NotificationRow>(
     token,
     'notifications',
-    `?select=id,kind,title,body,read,created_at&audience=in.(${audience},all)&order=created_at.desc&limit=50`,
+    `?select=id,kind,title,body,read,created_at,audience&audience=in.(${audience},all)&order=created_at.desc&limit=50`,
   )
   return rows.map(toNotification)
 }

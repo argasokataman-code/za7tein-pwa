@@ -544,7 +544,7 @@ export default function Documentation() {
                 dibedakan, thread ditutup saat order selesai/batal (composer diganti notice,
                 riwayat tetap terbaca), dan lampiran gambar ditandai belum tersedia karena
                 butuh R2. Ditahan <code className="doc-inline">scripts/chat-check.mjs</code>.
-                Sisa M7: katalog event realtime dan kanal notifikasi.
+                Sisa M7: katalog event realtime.
               </li>
               <li>
                 <strong>Pin kurir bergerak + ambang hampir sampai (M7b, R-TRACK).</strong>{' '}
@@ -565,6 +565,26 @@ export default function Documentation() {
                 <code className="doc-inline">src/data/tracking.ts</code>, ditahan{' '}
                 <code className="doc-inline">scripts/tracking-check.mjs</code>. Belum: peta kurir di
                 konsol merchant dan ETA per urutan batch (id batch belum bergabung dengan id order).
+              </li>
+              <li>
+                <strong>Notifikasi: katalog emit + penjaga audience (M7c, R-NOTIF).</strong>{' '}
+                PRD &sect;20.3 menyebut empat kanal customer, tapi tak ada tempat di kode yang
+                memetakan &ldquo;event apa menjadi notifikasi apa, ke siapa&rdquo; &mdash; jadi jalur
+                yang belum ada tak bisa dibedakan dari yang sudah. Sekarang{' '}
+                <code className="doc-inline">src/data/notif.ts</code> memuat katalognya{' '}
+                <strong>dengan penanda</strong>{' '}
+                <code className="doc-inline">emit: fe|be</code>: promosi aplikator dan toko baru
+                yang menjangkau alamat default ditandai <code className="doc-inline">be</code>{' '}
+                (butuh data lintas pengguna), bukan diklaim ada. Inbox menyaring baris per peran di
+                klien (<code className="doc-inline">notificationsFor</code>) di atas filter query BE,
+                dan kolom <code className="doc-inline">notifications.audience</code> kini ikut
+                dibaca; siaran <code className="doc-inline">all</code> terlihat semua peran,
+                sedangkan baris tanpa kolom itu tidak disembunyikan. &ldquo;Kurir hampir
+                sampai&rdquo; memakai <strong>ambang yang sama</strong> dengan R-TRACK dan dikirim
+                sekali per pengantaran. Komentar usang &ldquo;repo tak punya SW push&rdquo;
+                diperbaiki: service workernya ada (<code className="doc-inline">public/push-sw.js</code>),
+                yang belum adalah pengiriman otomatis dari BE. Ditahan{' '}
+                <code className="doc-inline">scripts/notif-check.mjs</code>.
               </li>
               <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}
