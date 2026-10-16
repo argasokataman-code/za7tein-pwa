@@ -1,45 +1,49 @@
-# F13 — Tampilan Kurir (sisi pengantaran)
+# F13 — Tugas kurir inhouse (sisi pengantaran)
 
-Workflow sisi kurir: 4 checkpoint + SLA timer + OTP. Milestone **M4/M5** (deps M0); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop** — rencana & keputusan implementasi ada di `docs/plan-courier.md` (K0–K5); spec ini tetap sumber gambaran alur. K5 menambah masuk kurir (nomor WA), ringkasan dashboard, dan notif mock.
+Workflow sisi kurir **inhouse** pada PRD aktif `sa7tein-mvp-2026-10-11`: tugas datang **per batch**, order dikerjakan **satu per satu** (checkpoint), lokasi dipantau **live**, fee Regular online masuk **DANA**. Milestone **M4/M5**; rencana & keputusan implementasi ada di `docs/plan-courier.md` (K0–K5) — spec ini sumber gambaran alurnya. Pasangan sisi merchant: `f25-batch-lifecycle`.
 
 | Berkas | Isi |
 |---|---|
 | `f13-courier-view.json` | Spec archify (workflow v2) — sumber yang diedit |
 | `f13-courier-view.html` | Artefak jadi |
-| `f13-courier-view.visual-check.*` | Bukti visual-check |
+| `f13-courier-view.visual-check.*` | Bukti visual-check (gitignored) |
 
 ## Alur
 
-**Lane Ambil:** Order masuk (dari merchant) → Tap "Ambil" (2-way: merchant konfirmasi di app).
+**Lane Tugas & ambil:** tugas **batch** masuk (satu kurir per batch, BR-B07) → kurir tap **"Ambil"** per order (checkpoint, COU-13) → tap **"Berangkat"**: lokasi live mulai dipublikasikan (R-TRACK).
 
-**Lane Perjalanan:** Tap "Berangkat" (SLA 15m → auto-alert super admin) → Tap "Tiba" (geolocation + foto → notif customer). Guard: customer lalai → tap "Batal" (total 10 menit).
+**Lane Perjalanan:** lokasi kurir realtime (`courier_location`) → tap **"Tiba"** memicu notifikasi **"kurir hampir sampai"** (`courier_almost_arrived`). Cabang gagal: customer tidak menerima → masalah order ke **CS**, bukan aksi kurir.
 
-**Lane Serah terima:** Masuk OTP (4 digit dari customer) → Selesai (`otp_verified` → `hold_settled`).
+**Lane Serah terima:** verifikasi serah terima → **order selesai** (`order_completed`) → **fee Regular online masuk DANA kurir**. Order berikutnya dalam batch lanjut dari "Ambil".
 
 ## Aturan keras
 
-- **Tanpa OTP tidak bisa settle** — kurir tak dapat komisi (C-09: OTP = satu-satunya trigger settle).
-- **OTP ditampilkan customer, diketik kurir** (C-09) — layar customer memakai `otpDisplayCode`, form input hanya di layar kurir.
-- **Notif customer = mock tapi tersambung** — kurir tap Tiba → 1 notif masuk kotak masuk customer (`pushNotification`) + kartu OTP customer muncul; Web Push asli tidak diimplementasi (AGENTS.md §1, R-PUSH-01), bukan klaim kirim sungguhan.
-- **Masuk kurir pakai nomor WA (E.164)** — dasar flow `f21-account-auth` + `f16`; sesi mock, tanpa guard rute (AGENTS.md §1).
-- Timer: 15m Ambil→Berangkat · 30m Berangkat→Tiba · 10m Tiba→OTP auto-complete. 15/30/10 = sementara (PO 2026-09-22).
-- Tiba +5m: notif + call customer · +5m lagi: kurir boleh "Batal" · total maks 10m.
-- Kurir = karyawan merchant: **tips only** di wallet, platform tak pegang dana kurir (C-06). Tidak ada live GPS (C-10) — checkpoint + snapshot saja.
+- **Per batch, bukan per order.** Satu kurir inhouse ditunjuk untuk satu batch dan menerima **tanpa tolak** (BR-B07, COU-12); order diselesaikan **satu per satu** (COU-13).
+- **Urutan antar dari auto-sort batch** (BR-B12); ETA per order memperhitungkan urutan itu.
+- **Fee pindah penerima.** Fee Regular online → **DANA kurir** saat order selesai; Regular **COD dibayar merchant di luar aplikasi** (`deliveryFeeIdr = 0`) — bukan lagi `ongkirIdr` 100% merchant (C-07, R-DELIV-FEE).
+- **Lokasi live, bukan snapshot.** R-TRACK menggantikan model checkpoint+snapshot lama; **batasan PWA**: hanya andal saat app kurir terbuka dan layar menyala. Notifikasi "hampir sampai" berbasis waktu, ambangnya config ops (belum ada).
+- Notif customer = mock tapi tersambung (AGENTS.md §1, R-PUSH-01) — bukan klaim kirim Web Push sungguhan.
 
 ## Terhubung (lihat `../INDEX.json`)
 
-`f12 → f13:masuk` (tugas dari merchant); `f13:tiba → f5` (checkpoint lifecycle); `f13:otp → f1:otp` + `f2:cut->settled` (`hold_settled`); timer → `f11` (push).
+`f25-batch-lifecycle:assign → f13-courier-view:masuk` (`batch_assigned`); `f13:selesai → f25:fee_dana` (`order_completed`); `f13:selesai → f14-chat-order:courierjoin` (chat order).
 
 ## Sumber (jangan dikarang)
 
-- `R-DELIV-01` (DECIDED), `R-COD-01`, `C-06`..`C-11` — `analysis.md` · Milestone M4/M5/M11 — `versions/irbid-mvp-v2-2026-09-21/milestones.md`
-- **UNRESOLVED (jangan ditebak):** OQ-14 — % penalti customer lalai (30%/50%/full ongkir); OQ-13 — SLA 15/30/10 sementara, final = nunggu data rute Irbid
-- **UNRESOLVED-by-absence:** detail lantai/unit alamat & label tombol "Mulai Antar" tidak ada di PRD v2 (padanan resmi = "Ambil"/"Berangkat"; sumber lama di baseline `irbid-mvp-v2-2026-09-12`) — jangan diarang, tandai saat develop
+- PRD `sa7tein-mvp-2026-10-11` §7.2, §9.2, §9.7, §12 (COU-06, COU-11..13) — `analysis.md` baris 34–40 · Milestone **M4/M5** — `versions/sa7tein-mvp-2026-10-11/milestones.md`
+- Implementasi: `src/pages/CourierTaskDetail.tsx`, `src/data/courier.ts` (`COURIER_STEPS`), `src/api/orders.ts` (`recordCheckpoint`, `verifyOrderOtp`), `src/data/courierWallet.ts`
+- **UNRESOLVED (jangan ditebak):** OTP tidak disebut di alur baru PRD aktif (`analysis.md` C-11) padahal implementasi masih memakainya; nasib timer SLA lama (`COURIER_SLA_MINUTES`) belum diputuskan; ambang notifikasi "hampir sampai" = config ops.
+- **UNRESOLVED-by-absence:** layar kurir untuk melaporkan masalah order (BR-B10, keluhan/tidak menerima) belum ada di PRD aktif.
+
+## Catatan revisi
+
+Spec ini sebelumnya menggambarkan revisi **superseded** `irbid-mvp-v2-2026-09-21` (4 checkpoint + SLA timer + `hold_settled`, kurir "tips only" C-06). Basisnya kini diikat ke `sa7tein-mvp-2026-10-11`; istilah `hold_settled`/"hold cut" sudah keluar dari alur aktif.
 
 ## Update
 
 ```bash
-./scripts/flows-gate.sh f13-courier-view   # deliver + visual-check + buang PNG, satu baris output
+ARCHIFY_CHROME="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" \
+  ./scripts/flows-gate.sh f13-courier-view   # deliver + visual-check + buang PNG, satu baris output
 ```
 
-Wajib: validate **9/9, 0 error, 0 warning**; deliver exit 0; visual-check pass 4 viewport (light + dark).
+Wajib: validate 0 error; deliver exit 0; visual-check pass 4 viewport (light + dark).
