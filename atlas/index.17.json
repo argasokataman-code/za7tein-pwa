@@ -3519,6 +3519,139 @@
       ],
       "loc": "scripts/check-governance.mjs:120",
       "commit": "9289539"
+    },
+    {
+      "id": "TASK-110315",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:15:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md (+4/-1) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md"
+    },
+    {
+      "id": "TASK-110316",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:15:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-BATCH.md (+80) — write via to",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-BATCH.md"
+    },
+    {
+      "id": "TASK-110317",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:16:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-COU-INHOUSE.md (+75) — write ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-COU-INHOUSE.md"
+    },
+    {
+      "id": "TASK-110318",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:16:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-COU-PARTNER.md (+80) — write ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-COU-PARTNER.md"
+    },
+    {
+      "id": "TASK-110319",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:17:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-COU-DISPATCH.md (+70) — write",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-COU-DISPATCH.md"
+    },
+    {
+      "id": "TASK-110320",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:17:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json (+2/-5) — edit v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json"
+    },
+    {
+      "id": "TASK-110321",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:17:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+2/-1) — edit via tool: m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
     }
   ]
 }
