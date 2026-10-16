@@ -1,0 +1,36 @@
+{
+  "note": "Ratchet: HANYA boleh menyusut. undefinedRequirements = ID di tabel Requirement delta yang belum punya features/<id>.md. milestonesDoneWithGaps = milestone yang sudah 'done'/'selesai' sebelum gerbang definisi fitur berlaku. Hapus entri begitu file fitur dibuat, atau milestone diturunkan ke partial.",
+  "undefinedRequirements": [
+    "R-ACC-01",
+    "R-ARCH",
+    "R-BATCH",
+    "R-COU-DISPATCH",
+    "R-COU-INHOUSE",
+    "R-COU-PARTNER",
+    "R-CURRENCY",
+    "R-CUS-CART",
+    "R-CUS-CHAT",
+    "R-CUS-DISCOVERY",
+    "R-CUS-NOTE",
+    "R-CUS-ORDER",
+    "R-CUS-PAY",
+    "R-CUS-RATING",
+    "R-CUS-REFUND",
+    "R-DELIV-FEE",
+    "R-DISPUTE-RULE",
+    "R-MER-CATALOG",
+    "R-MER-COVERAGE",
+    "R-MER-PROMO",
+    "R-MER-QUOTA",
+    "R-MONEY",
+    "R-NFR",
+    "R-NOTIF",
+    "R-OPS",
+    "R-REALTIME",
+    "R-TRACK"
+  ],
+  "milestonesDoneWithGaps": [
+    "M0",
+    "M4"
+  ]
+}

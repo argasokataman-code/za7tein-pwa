@@ -33,6 +33,11 @@ if (existsSync(versionDir)) {
 }
 const sha256 = createHash('sha256').update(readFileSync(source)).digest('hex')
 mkdirSync(versionDir, { recursive: true })
+mkdirSync(resolve(versionDir, 'features'), { recursive: true })
+writeFileSync(
+  resolve(versionDir, 'features', '_baseline.json'),
+  JSON.stringify({ note: 'Ratchet: hanya boleh menyusut. Lihat docs/product/prd/README.md §5 dan .rules.json featureDefinitions.', undefinedRequirements: [], milestonesDoneWithGaps: [] }, null, 2) + '\n',
+)
 renameSync(source, resolve(versionDir, `source${extension}`))
 const record = {
   id,

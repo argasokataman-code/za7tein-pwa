@@ -117,6 +117,76 @@ if (!existsSync(resolve(flowsDir, 'INDEX.json'))) {
   }
 }
 
+// ── Feature definitions (versions/<rev>/features/R-*.md) ────────────────────
+// Milestone tidak boleh "selesai" kalau requirement rujukannya belum punya
+// definisi fitur ber-acceptance terukur. Definisi diturunkan dari tabel
+// Requirement delta di analysis.md, jadi tak ada requirement yang dikarang.
+// Ratchet: features/_baseline.json hanya boleh menyusut.
+if (active[0]) {
+  const versionDir = resolve(prd, 'versions', active[0].id)
+  const featuresDir = resolve(versionDir, 'features')
+  const reqRe = /\bR-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*/g
+  const analysisIds = new Set()
+  for (const line of readFileSync(resolve(prd, active[0].decisionRecord), 'utf8').split('\n')) {
+    const cell = line.match(/^\|\s*(R-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*)\s*\|/)
+    if (cell) analysisIds.add(cell[1])
+  }
+  const milestoneReqs = new Map()
+  const milestoneStatus = new Map()
+  for (const line of readFileSync(resolve(prd, active[0].milestonePlan), 'utf8').split('\n')) {
+    const row = line.match(/^\|\s*(M\d+)\s*\|(.*)\|\s*([a-z][a-z-]*)[^|]*\|$/)
+    if (!row) continue
+    milestoneReqs.set(row[1], new Set(row[2].match(reqRe) ?? []))
+    milestoneStatus.set(row[1], row[3])
+  }
+  if (analysisIds.size === 0) errors.push('Analysis has no Requirement delta rows; feature gate cannot verify coverage')
+  if (!existsSync(featuresDir)) {
+    errors.push(`Missing feature definitions dir: versions/${active[0].id}/features/ (see docs/product/prd/README.md §5)`)
+  } else {
+    const baselinePath = resolve(featuresDir, '_baseline.json')
+    const baseline = existsSync(baselinePath) ? JSON.parse(readFileSync(baselinePath, 'utf8')) : { undefinedRequirements: [], milestonesDoneWithGaps: [] }
+    const baselineUndefined = new Set(baseline.undefinedRequirements ?? [])
+    const baselineDone = new Set(baseline.milestonesDoneWithGaps ?? [])
+    const defined = new Set()
+    const featureStatus = new Map()
+    const sections = ['Aturan', 'Acceptance', 'UNRESOLVED', 'Bukti']
+    for (const name of readdirSync(featuresDir).filter((entry) => /^R-.+\.md$/.test(entry))) {
+      const id = name.replace(/\.md$/, '')
+      defined.add(id)
+      const text = readFileSync(resolve(featuresDir, name), 'utf8')
+      if (!analysisIds.has(id)) errors.push(`Feature ${id} has no Requirement delta row in analysis.md (do not invent requirements)`)
+      if (!new RegExp(`^#\\s+${id}\\b`, 'm').test(text)) errors.push(`Feature ${name}: first heading must be "# ${id} — <judul>"`)
+      if (!/^##[^\n]*Untuk apa\b/m.test(text)) errors.push(`Feature ${name}: missing section "Untuk apa"`)
+      for (const section of sections) {
+        if (!new RegExp(`^##[^\\n]*\\b${section}\\b`, 'm').test(text)) errors.push(`Feature ${name}: missing section "${section}"`)
+      }
+      const status = text.match(/^Status:\s*(complete|partial|blocked)\b/m)
+      if (!status) errors.push(`Feature ${name}: second line must be "Status: complete|partial|blocked"`)
+      else featureStatus.set(id, status[1])
+      if (!text.includes('§')) errors.push(`Feature ${name}: must cite at least one PRD source section (§)`)
+      if (!/^\|\s*AC\d+/m.test(text)) errors.push(`Feature ${name}: acceptance table needs AC-prefixed rows (AC1, AC2, ...)`)
+    }
+    for (const id of analysisIds) {
+      if (!defined.has(id) && !baselineUndefined.has(id)) {
+        errors.push(`Requirement ${id} has no feature definition (features/${id}.md) and is not in features/_baseline.json`)
+      }
+    }
+    for (const id of baselineUndefined) {
+      if (defined.has(id)) errors.push(`features/_baseline.json still lists ${id} but a definition now exists; remove it from the baseline`)
+    }
+    for (const [id, status] of milestoneStatus) {
+      if (!['done', 'selesai'].includes(status)) continue
+      const gaps = [...(milestoneReqs.get(id) ?? [])].filter((req) => featureStatus.get(req) !== 'complete')
+      if (gaps.length && !baselineDone.has(id)) {
+        errors.push(`Milestone ${id} is "${status}" but these requirements lack a complete feature definition: ${gaps.join(', ')}. Add features/, demote the milestone, or record it in features/_baseline.json`)
+      }
+    }
+    for (const id of baselineDone) {
+      if (!milestoneStatus.has(id)) errors.push(`features/_baseline.json lists milestone ${id} which no longer exists`)
+    }
+  }
+}
+
 if (errors.length) {
   console.error(errors.join('\n'))
   process.exit(1)

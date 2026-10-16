@@ -10,6 +10,28 @@
     "flowsPlan": "docs/design/flows/PLAN.md",
     "flowsRule": "Perilaku wajib ikut PRD aktif DAN flow yang sudah ada. Kalau perubahan menyimpang dari flow, tandai UNRESOLVED (dengan sumber) dan update flow + PRD di commit yang sama. Regenerasi diagram: ./scripts/flows-gate.sh <slug>. Dienforce di governance:check (paritas folder<->INDEX, spec+README ada, terikat revisi PRD aktif)"
   },
+  "featureDefinitions": {
+    "dir": "docs/product/prd/versions/<revisi-aktif>/features/",
+    "exemplar": "docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md",
+    "template": [
+      "# <R-ID> — <judul>",
+      "Status: complete|partial|blocked (baris mesin; dibaca governance:check)",
+      "## 1. Untuk apa",
+      "## 2. Aturan — tiap baris menyitir §sumber; requirement hanya disalin dari tabel delta analysis.md",
+      "## 3. Aktor & permukaan",
+      "## 4. Masukan → keluaran",
+      "## 5. State UI (belum-ada/ON/OFF/loading/error/degradasi)",
+      "## 6. Kontrak BE (handoff, repo ini mock)",
+      "## 7. Acceptance — baris AC<n> + kolom cara ukur + status; terukur, bukan kesan",
+      "## 8. UNRESOLVED — yang tak bisa dibuktikan di FE mock, sebut sumbernya",
+      "## 9. Bukti — file:line, self-check, flow"
+    ],
+    "rule": "Milestone tidak boleh 'done'/'selesai' kalau fitur rujukannya masih partial/blocked — turunkan status milestone. Acceptance milestone = gabungan acceptance fitur, bukan ringkasan bebas.",
+    "compareWithPrd": "Himpunan ID di features/ WAJIB sama dengan himpunan ID di tabel Requirement delta analysis.md. Requirement karangan = FAIL; requirement belum didefinisikan = FAIL.",
+    "gate": "scripts/check-governance.mjs (bagian feature definitions), jalan di pre-commit",
+    "ratchet": "features/_baseline.json (undefinedRequirements + milestonesDoneWithGaps) HANYA boleh menyusut; entri usang = FAIL",
+    "scaffold": "scripts/prd-intake.mjs membuat folder features/ + _baseline.json"
+  },
   "designDNA": "docs/design/DNA.md",
   "uiVersions": {
     "current": "v2",
@@ -296,7 +318,7 @@
       "line counts",
       "lint (oxlint)",
       "build (tsc -b && vite build)",
-      "PRD registry + flow specs + design tokens (governance:check)",
+      "PRD registry + flow specs + design tokens + definisi fitur (governance:check)",
       "atlas check",
       "documentation sync"
     ]
