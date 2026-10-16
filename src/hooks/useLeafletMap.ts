@@ -3,20 +3,17 @@ import type { Map as LeafletMap, Marker as LeafletMarker } from 'leaflet'
 
 import 'leaflet/dist/leaflet.css'
 
-import { mockMerchant } from '../data/merchant'
-import {
-  RESTAURANT, DESTINATION, ROUTE, COURIER,
-  PIN_MERCHANT, PIN_DESTINATION, PIN_COURIER, pin, drawBatchRoute,
-} from './leafletHelpers'
-import type { MapMode, MapStop, PickerOptions } from './leafletHelpers'
+import { DESTINATION, RESTAURANT, drawOrderMap, drawPickerMarker } from '../lib/leaflet-draw'
+import type { MapMode, MapStop, PickerOptions } from '../lib/leaflet-draw'
 
 /**
  * Mengisi `<div class="order-map-container" id=...>` dengan peta OpenStreetMap
  * dan menyediakan `recenter()`.
  *
  * `mode` menentukan bobotnya: `preview` untuk status awal, di mana peta hanya
- * pelengkap dan tidak boleh menguasai layar; `delivery` saat kurir berjalan,
- * di mana peta memang menjadi bagian utama dan rutenya digambar.
+ * pelengkap dan tidak boleh menguasai layar; `delivery` saat kurir berjalan, di
+ * mana peta memang menjadi bagian utama dan posisi kurir ditampilkan (tanpa garis
+ * rute, §9.6). Opsi `courier` memindahkan pin kurir tanpa membangun ulang peta.
  *
  * `single` hanya menampilkan pin toko — dipakai pratinjau lokasi di Setelan.
  * `stops` mengganti rute toko→alamat tunggal dengan rute bernomor berhenti
@@ -25,21 +22,43 @@ import type { MapMode, MapStop, PickerOptions } from './leafletHelpers'
 export function useLeafletMap(
   mapId: string,
   mode: MapMode = 'preview',
-  options: { single?: boolean; picker?: PickerOptions; stops?: MapStop[] } = {},
+  options: {
+    single?: boolean
+    picker?: PickerOptions
+    stops?: MapStop[]
+    /**
+     * Posisi kurir yang boleh berubah (mode `delivery`). Marker-nya dibuat sekali
+     * lalu digeser lewat `setLatLng`, jadi peta tidak dibangun ulang tiap detik.
+     */
+    courier?: [number, number]
+  } = {},
 ) {
   const mapRef = useRef<LeafletMap | null>(null)
   const markerRef = useRef<LeafletMarker | null>(null)
+  const courierRef = useRef<LeafletMarker | null>(null)
   const onMoveRef = useRef(options.picker?.onMove)
   const pickerInitialRef = useRef<[number, number]>(options.picker?.initial ?? RESTAURANT)
-  const pickerPopupRef = useRef(options.picker?.popup ?? 'Lokasi toko — geser untuk menyesuaikan')
+  const pickerPopupRef = useRef(options.picker?.popup ?? 'Lokasi toko, geser untuk menyesuaikan')
   const stopsRef = useRef(options.stops)
+  const courierStartRef = useRef(options.courier)
 
   useEffect(() => {
     onMoveRef.current = options.picker?.onMove
     pickerInitialRef.current = options.picker?.initial ?? RESTAURANT
-    pickerPopupRef.current = options.picker?.popup ?? 'Lokasi toko — geser untuk menyesuaikan'
+    pickerPopupRef.current = options.picker?.popup ?? 'Lokasi toko, geser untuk menyesuaikan'
     stopsRef.current = options.stops
+    courierStartRef.current = options.courier
   })
+
+  // Posisi kurir berubah tanpa membangun ulang peta: satu marker, digeser.
+  const courierLat = options.courier?.[0]
+  const courierLng = options.courier?.[1]
+
+  useEffect(() => {
+    if (courierRef.current == null) return
+    if (courierLat === undefined || courierLng === undefined) return
+    courierRef.current.setLatLng([courierLat, courierLng])
+  }, [courierLat, courierLng])
 
   const stopsKey = options.stops?.map((stop) => `${stop.lat},${stop.lng}`).join('|')
 
@@ -58,7 +77,6 @@ export function useLeafletMap(
       const L = module.default
 
       const isPicker = mode === 'picker'
-      const initial = pickerInitialRef.current
 
       const map = L.map(element, {
         zoomControl: false,
@@ -76,45 +94,22 @@ export function useLeafletMap(
       }).addTo(map)
 
       if (isPicker) {
-        const marker = L.marker(initial, {
-          icon: pin(L, PIN_MERCHANT),
-          draggable: true,
-        })
-          .addTo(map)
-          .bindPopup(pickerPopupRef.current)
-        marker.on('dragend', () => {
-          const p = marker.getLatLng()
-          onMoveRef.current?.(p.lat, p.lng)
-        })
-        markerRef.current = marker
-        map.setView(initial, 16)
+        markerRef.current = drawPickerMarker(
+          L,
+          map,
+          pickerInitialRef.current,
+          pickerPopupRef.current,
+          (lat, lng) => onMoveRef.current?.(lat, lng),
+        )
       } else {
-        L.marker(RESTAURANT, { icon: pin(L, PIN_MERCHANT) }).addTo(map).bindPopup(mockMerchant.name)
-
-        if (stopsRef.current?.length) {
-          drawBatchRoute(L, map, stopsRef.current)
-        } else if (options.single) {
-          map.setView(RESTAURANT, 16)
-        } else {
-          L.marker(DESTINATION, { icon: pin(L, PIN_DESTINATION) }).addTo(map).bindPopup('Alamat pengantaran')
-
-          if (mode === 'delivery') {
-            // PRD §9.6: peta customer hanya posisi kurir + ETA — **tanpa** garis
-            // rute jalan kaki. Garis rute hanya untuk peta kurir (mode `stops`).
-            L.marker(COURIER, { icon: pin(L, PIN_COURIER, true) }).addTo(map).bindPopup('Budi Santoso')
-            map.fitBounds([RESTAURANT, DESTINATION], { padding: [48, 48] })
-          } else {
-            L.polyline(ROUTE, {
-              color: PIN_MERCHANT,
-              weight: 3,
-              opacity: 0.6,
-              lineCap: 'round',
-              lineJoin: 'round',
-              className: 'sa7tein-route',
-            }).addTo(map)
-            map.setView([(RESTAURANT[0] + DESTINATION[0]) / 2, (RESTAURANT[1] + DESTINATION[1]) / 2], 15)
-          }
-        }
+        // Semua pin non-pemilih digambar di helper supaya hook tetap di bawah
+        // batas baris; helper mengembalikan marker kurir kalau memang digambar.
+        courierRef.current = drawOrderMap(L, map, {
+          mode,
+          single: options.single,
+          stops: stopsRef.current,
+          courier: courierStartRef.current,
+        })
       }
 
       mapRef.current = map
@@ -125,6 +120,7 @@ export function useLeafletMap(
       mapRef.current?.remove()
       mapRef.current = null
       markerRef.current = null
+      courierRef.current = null
     }
   }, [mapId, mode, options.single, stopsKey])
 

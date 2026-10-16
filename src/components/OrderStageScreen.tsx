@@ -24,6 +24,7 @@ import {
 } from '../data/merchant'
 import { ORDER_STAGE_STATUS } from '../data/order-stage-copy'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useCourierTracking } from '../hooks/useCourierTracking'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
@@ -39,6 +40,7 @@ import { requestAppeal } from '../store/slices/adminSlice'
 import { applyHoldEvent } from '../store/slices/walletSlice'
 import type { CourierCheckpoint, OrderStage } from '../types'
 import { BackButton } from './ui/BackButton'
+import { OrderStatusPanel } from './OrderStatusPanel'
 
 /**
  * Layar tahap pesanan.
@@ -181,7 +183,13 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
 
   // Pengantaran satu-satunya tahap di mana peta memang layak dominan.
   const isDelivery = stage === 'diantar'
-  const { recenter } = useLeafletMap('order-map', isDelivery ? 'delivery' : 'preview')
+  // Lokasi kurir di demo diturunkan dari waktu tempuh (§9.7) — event
+  // `courier_location` (§19) belum ada. Rule-nya di `data/tracking.ts`.
+  const tracking = useCourierTracking(stage)
+
+  const { recenter } = useLeafletMap('order-map', isDelivery ? 'delivery' : 'preview', {
+    courier: tracking.showsLocation ? tracking.courierPosition : undefined,
+  })
 
   const address = addresses.find((a) => a.id === selectedAddressId) ?? addresses[0] ?? null
   const courier = mockCouriers[0]
@@ -294,19 +302,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
 
           {isDelivery ? mapBlock : null}
 
-          <section className="track-status" aria-live="polite">
-            <p className="track-status-label">
-              {isCancelled ? 'Pesanan dibatalkan' : copy.label}
-            </p>
-            {isCancelled ? (
-              <p className="track-status-time">Pengiriman tidak dilanjutkan.</p>
-            ) : (
-              <>
-                <p className="track-status-eta">{copy.etaLabel}</p>
-                <p className="track-status-time">{copy.eta}</p>
-              </>
-            )}
-          </section>
+          <OrderStatusPanel stage={stage} cancelled={isCancelled} tracking={tracking} />
 
           <JourneyLine stage={stage} />
 

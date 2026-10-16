@@ -544,8 +544,27 @@ export default function Documentation() {
                 dibedakan, thread ditutup saat order selesai/batal (composer diganti notice,
                 riwayat tetap terbaca), dan lampiran gambar ditandai belum tersedia karena
                 butuh R2. Ditahan <code className="doc-inline">scripts/chat-check.mjs</code>.
-                Sisa M7: lokasi kurir bergerak, ambang &ldquo;kurir hampir sampai&rdquo;, dan
-                katalog event realtime.
+                Sisa M7: katalog event realtime dan kanal notifikasi.
+              </li>
+              <li>
+                <strong>Pin kurir bergerak + ambang hampir sampai (M7b, R-TRACK).</strong>{' '}
+                Peta customer dulu hanya menaruh pin kurir sekali di awal rute, jadi
+                &ldquo;lokasi live&rdquo; (&sect;9.7) tak bisa dibedakan dari gambar statis.
+                Sekarang satu marker <strong>digeser</strong> (<code className="doc-inline">useLeafletMap</code>{' '}
+                opsi <code className="doc-inline">courier</code> &rarr; <code className="doc-inline">setLatLng</code>,
+                peta tak dibangun ulang) mengikuti kemajuan waktu tempuh di demo karena event{' '}
+                <code className="doc-inline">courier_location</code> belum ada. Ambang
+                &ldquo;kurir hampir sampai&rdquo; <strong>berbasis waktu</strong> dan{' '}
+                <strong>bertanda konfigurasi ops</strong>{' '}
+                (<code className="doc-inline">ALMOST_ARRIVED_MINUTES</code> = 5,{' '}
+                <code className="doc-inline">ALMOST_ARRIVED_CONFIGURABLE = false</code> — panel ops
+                M10 belum ada, dan itu ditulis di baris ETA), labelnya berganti dengan{' '}
+                <code className="doc-inline">role=&quot;status&quot;</code>; siaran lokasi berhenti di
+                luar delivery aktif (<code className="doc-inline">diantar</code>/
+                <code className="doc-inline">tiba</code>). Aturan murni di{' '}
+                <code className="doc-inline">src/data/tracking.ts</code>, ditahan{' '}
+                <code className="doc-inline">scripts/tracking-check.mjs</code>. Belum: peta kurir di
+                konsol merchant dan ETA per urutan batch (id batch belum bergabung dengan id order).
               </li>
               <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}

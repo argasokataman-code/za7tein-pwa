@@ -22,18 +22,18 @@ Customer dan merchant berhak tahu kurir sudah di mana, tanpa menelepon. Pelacaka
 
 | AC | Perilaku | Cara ukur | Status |
 |---|---|---|---|
-| AC1 | Peta customer menampilkan posisi kurir **yang bergerak** selama tahap diantar | posisi marker berubah antar dua waktu; nilai turunan `courierPositionAt()` | ⚠️ pin ada tapi statis (`useLeafletMap` mode `delivery`) |
+| AC1 | Peta customer menampilkan posisi kurir **yang bergerak** selama tahap diantar | `useCourierTracking` menggeser marker tiap tick; `positionAlong()` diuji di `scripts/tracking-check.mjs` | ✅ pin bergerak (satu marker, `setLatLng`) |
 | AC2 | Peta merchant menampilkan posisi kurir untuk order yang sedang diantar | peta di konsol merchant / detail order | ❌ konsol merchant hanya `JourneyLine` |
-| AC3 | Notifikasi "kurir hampir sampai" muncul saat **ambang** terlewati, ambang = konfigurasi ops | ambang konstanta bertanda ops + `almostArrived()`; assert 2 sisi ambang | ❌ label tidak ada di kode |
-| AC4 | ETA per order memperhitungkan urutan antar dalam batch | ETA order ke-2 > order ke-1; `etaForStop()` | ⚠️ hanya teks statis dari `mockOrder` |
-| AC5 | Tidak ada siaran lokasi saat delivery tidak aktif | `tracksLocation(stage)`; assert stage non-diantar = false | ❌ belum ada |
+| AC3 | Notifikasi "kurir hampir sampai" muncul saat **ambang** terlewati, ambang = konfigurasi ops | `ALMOST_ARRIVED_MINUTES` bertanda ops + `almostArrived()`; assert 2 sisi ambang; label berganti + `role="status"` | ✅ label + ambang bertanda ops (kanal kirim = R-NOTIF) |
+| AC4 | ETA per order memperhitungkan urutan antar dalam batch | ETA order ke-2 > order ke-1 | ⚠️ ETA sisa dinamis ada; per-urutan batch belum bisa dipetakan (id batch `ct-*` ≠ id order `api-*`) |
+| AC5 | Tidak ada siaran lokasi saat delivery tidak aktif | `tracksLocation(stage)`; assert stage non-diantar = false | ✅ diuji (`diantar`/`tiba` = true, sisanya false) |
 
 ## 4. State & layar
 
 - Customer: `OrderStageScreen` (`#order-map`, mode `delivery`) — pin kurir + kartu tahap.
 - Kurir: `/courier/batch` (peta rute `stops`) + halaman tugas per order.
 - Merchant: belum ada peta; hanya `JourneyLine`.
-- Ambang ops: satu nilai, ditandai sebagai **konfigurasi ops** sampai panel ops (M10) berdiri.
+- Ambang ops: satu nilai (`ALMOST_ARRIVED_MINUTES`, `ALMOST_ARRIVED_CONFIGURABLE = false`), ditandai sebagai **konfigurasi ops** sampai panel ops (M10) berdiri.
 
 ## 5. Data & kontrak BE
 
@@ -46,6 +46,7 @@ Customer dan merchant berhak tahu kurir sudah di mana, tanpa menelepon. Pelacaka
 - GPS perangkat kurir nyata (BE + izin lokasi) — demo memakai posisi mock sepanjang rute batch.
 - Panel ops untuk **mengubah** ambang (M10, `R-OPS`); sampai itu, ambang = konstanta bertanda.
 - Peta merchant (AC2) baru punya data kalau batch/assignment demo berjalan.
+- ETA **per urutan batch** (AC4): id tugas batch (`ct-*`) tidak bergabung dengan id order (`api-*`), jadi order customer belum bisa dipetakan ke indeks henti. Butuh id bersama dari BE (`orders` ↔ `batches`).
 
 ## 7. UNRESOLVED
 
@@ -55,5 +56,6 @@ Customer dan merchant berhak tahu kurir sudah di mana, tanpa menelepon. Pelacaka
 
 ## 8. Bukti
 
-- Kode saat ini: `src/hooks/useLeafletMap.ts` (mode `preview|delivery|picker|stops`; pin kurir dibuat sekali), `src/hooks/leafletHelpers.ts` (`COURIER`, `drawBatchRoute`), `src/components/OrderStageScreen.tsx:262`, `src/data/order-stage-copy.ts`.
-- Flow: `docs/design/flows/f13-courier-view/` (status `partial`; node `berangkat` = "lokasi live mulai", `tiba` = "notif hampir sampai").
+- Kode: `src/data/tracking.ts` (aturan murni: `tracksLocation`, `ALMOST_ARRIVED_MINUTES` bertanda ops, `almostArrived`, `travelProgress`, `etaMinutesRemaining`, `positionAlong`, `walkMinutes`, `etaCopy`), `src/hooks/useCourierTracking.ts` (tick mock 1 menit/4 detik), `src/hooks/useLeafletMap.ts` (opsi `courier` → `setLatLng`, peta tidak dibangun ulang), `src/lib/leaflet-draw.ts` (`COURIER`, `drawBatchRoute`, `drawOrderMap`; pindah dari `src/hooks/leafletHelpers.ts` agar patuh batas 150 baris `src/hooks/`), `src/components/OrderStatusPanel.tsx`, `src/components/OrderStageScreen.tsx`.
+- Self-check: `node --import ./scripts/lib/ts-resolve.mjs scripts/tracking-check.mjs` (lokasi per tahap, dua sisi ambang, kemajuan terkurung, posisi di ujung rute).
+- Flow: `docs/design/flows/f13-courier-view/` (status `partial`; node `berangkat` = "lokasi live mulai", `tiba` = "notif hampir sampai"). Pin bergerak juga diukur di Chromium (lihat "Status UI" di README flow).

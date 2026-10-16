@@ -76,7 +76,7 @@ export function drawBatchRoute(
     points.push([stop.lat, stop.lng])
     L.marker([stop.lat, stop.lng], { icon: numberedPin(L, index + 1, stop.done) })
       .addTo(map)
-      .bindPopup(`${index + 1}. ${stop.label}${stop.done ? ' — selesai' : ''}`)
+      .bindPopup(`${index + 1}. ${stop.label}${stop.done ? ' (selesai)' : ''}`)
   })
   L.polyline(points, {
     color: PIN_MERCHANT,
@@ -90,6 +90,76 @@ export function drawBatchRoute(
 }
 
 export type MapMode = 'preview' | 'delivery' | 'picker'
+
+/**
+ * Marker pemilih lokasi (Setelan toko / alamat). Dipisah dari hook supaya hook
+ * tetap di bawah batas baris; `onMove` dipanggil saat pin digeser.
+ */
+export function drawPickerMarker(
+  L: typeof import('leaflet'),
+  map: import('leaflet').Map,
+  initial: [number, number],
+  popup: string,
+  onMove: (lat: number, lng: number) => void,
+): import('leaflet').Marker {
+  const marker = L.marker(initial, { icon: pin(L, PIN_MERCHANT), draggable: true })
+    .addTo(map)
+    .bindPopup(popup)
+  marker.on('dragend', () => {
+    const p = marker.getLatLng()
+    onMove(p.lat, p.lng)
+  })
+  map.setView(initial, 16)
+  return marker
+}
+
+/**
+ * Gambar peta non-pemilih: toko + (rute batch | pratinjau toko | tujuan + pin
+ * kurir). Mengembalikan marker kurir kalau memang digambar, supaya hook bisa
+ * menggesernya tanpa membangun ulang peta.
+ */
+export function drawOrderMap(
+  L: typeof import('leaflet'),
+  map: import('leaflet').Map,
+  options: { mode: MapMode; single?: boolean; stops?: MapStop[]; courier?: [number, number] },
+): import('leaflet').Marker | null {
+  L.marker(RESTAURANT, { icon: pin(L, PIN_MERCHANT) }).addTo(map).bindPopup(mockMerchant.name)
+
+  if (options.stops?.length) {
+    drawBatchRoute(L, map, options.stops)
+    return null
+  }
+  if (options.single) {
+    map.setView(RESTAURANT, 16)
+    return null
+  }
+
+  L.marker(DESTINATION, { icon: pin(L, PIN_DESTINATION) }).addTo(map).bindPopup('Alamat pengantaran')
+
+  if (options.mode === 'delivery') {
+    // PRD §9.6: peta customer hanya posisi kurir + ETA, **tanpa** garis rute
+    // jalan kaki. Garis rute hanya untuk peta kurir (mode `stops`).
+    const courier = L.marker(options.courier ?? COURIER, { icon: pin(L, PIN_COURIER, true) })
+      .addTo(map)
+      .bindPopup('Budi Santoso')
+    map.fitBounds([RESTAURANT, DESTINATION], { padding: [48, 48] })
+    return courier
+  }
+
+  L.polyline(ROUTE, {
+    color: PIN_MERCHANT,
+    weight: 3,
+    opacity: 0.6,
+    lineCap: 'round',
+    lineJoin: 'round',
+    className: 'sa7tein-route',
+  }).addTo(map)
+  map.setView(
+    [(RESTAURANT[0] + DESTINATION[0]) / 2, (RESTAURANT[1] + DESTINATION[1]) / 2],
+    15,
+  )
+  return null
+}
 
 export interface PickerOptions {
   initial: [number, number]

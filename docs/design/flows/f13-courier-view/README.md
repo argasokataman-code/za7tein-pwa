@@ -24,6 +24,14 @@ Workflow sisi kurir **inhouse** pada PRD aktif `sa7tein-mvp-2026-10-11`: tugas d
 - **Lokasi live, bukan snapshot.** R-TRACK menggantikan model checkpoint+snapshot lama; **batasan PWA**: hanya andal saat app kurir terbuka dan layar menyala. Notifikasi "hampir sampai" berbasis waktu, ambangnya config ops (belum ada).
 - Notif customer = mock tapi tersambung (AGENTS.md §1, R-PUSH-01) — bukan klaim kirim Web Push sungguhan.
 
+## Status UI (R-TRACK, M7)
+
+- **Pin kurir bergerak.** Sisi customer (`OrderStageScreen`, `#order-map` mode `delivery`) memakai opsi `courier` di `useLeafletMap`: satu marker, digeser `setLatLng` tiap tick — peta tidak dibangun ulang. Di demo posisinya diturunkan **waktu tempuh** (`useCourierTracking`, 1 tick = 1 menit mock), bukan event `courier_location` yang belum ada.
+- **Hampir sampai.** Ambang berbasis **waktu** (`ALMOST_ARRIVED_MINUTES` = 5) bertanda konfigurasi ops; sudah terlewati → label berganti "Kurir hampir sampai" + `role="status"`. Panel ops untuk mengubahnya (M10) belum ada, dan itu ditulis di baris ETA.
+- **Siaran berhenti di luar delivery.** `tracksLocation()` hanya benar untuk `diantar`/`tiba` (§9.7 "selama delivery aktif").
+- **Belum:** peta kurir di konsol merchant (AC2), ETA per urutan batch (AC4 — id batch `ct-*` belum bergabung dengan id order `api-*`), GPS perangkat nyata.
+
+
 ## Terhubung (lihat `../INDEX.json`)
 
 `f25-batch-lifecycle:assign → f13-courier-view:masuk` (`batch_assigned`); `f13:selesai → f25:fee_dana` (`order_completed`); `f13:selesai → f14-chat-order:courierjoin` (chat order).
