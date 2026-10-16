@@ -2,22 +2,29 @@ import { courierSelf, isDoneTask, totalTips } from './courier'
 import type { ChartBar, CourierTask, PayoutAccount, PayoutEntry } from '../types'
 
 /**
- * Dompet kurir (R-WALLET-01, flow f6). Sejak PRD `sa7tein-mvp-2026-10-11`
- * dompet menampung **dua** sumber: **fee pengantaran** order Regular online
- * (R-DELIV-FEE — penerima fee pindah dari merchant ke kurir) dan **tips**
- * customer. Gaji bulanan tetap dibayar merchant di luar aplikasi, dan COD tidak
- * masuk ke sini (dibayar merchant di luar aplikasi, R-COU-INHOUSE). Nominal IDR
+ * Dompet kurir (R-WALLET-01, flow f6). Dua sumber penghasilan kurir, dipisah
+ * tegas sejak keputusan PO **2026-10-16** (PRD §16.4):
+ *
+ * - **Fee pengantaran** order Regular online (R-DELIV-FEE) dikirim platform
+ *   **otomatis ke DANA kurir** begitu order selesai — ledger-nya
+ *   `courierFeeEntries`. Ia bukan saldo aplikasi, jadi tidak ikut ditarik dan
+ *   tidak ikut dihitung dalam saldo dompet.
+ * - **Tips** customer masuk saldo dompet aplikasi dan ditarik lewat f6.
+ *
+ * Gaji bulanan tetap dibayar merchant di luar aplikasi, dan COD tidak masuk ke
+ * sini (dibayar merchant di luar aplikasi, R-COU-INHOUSE). Nominal IDR
  * (R-CURR-01).
  *
- * Saldo = fee + tips − pencairan yang sudah diminta. Tips/fee dari tugas yang
- * belum selesai belum bisa ditarik.
+ * Saldo yang bisa ditarik = **tips − pencairan** yang sudah diminta. Tips dari
+ * tugas yang belum selesai belum bisa ditarik.
  */
 
 /**
- * Ambang minimum penarikan saldo. Angka **belum final di PRD** — `source.md:83`
- * menyebut contoh akumulasi ≥Rp50.000, dan `f6-cashout-payout/README.md:36`
- * menandainya UNRESOLVED. Dipakai sementara supaya aturan akumulasi punya
- * bentuk; kalau PO menetapkan angka lain, ganti di sini saja.
+ * Ambang minimum penarikan **saldo tips**. Angka **belum final di PRD** —
+ * `source.md:83` menyebut contoh akumulasi ≥Rp50.000, dan
+ * `f6-cashout-payout/README.md:36` menandainya UNRESOLVED. Dipakai sementara
+ * supaya aturan akumulasi punya bentuk; kalau PO menetapkan angka lain, ganti di
+ * sini saja.
  */
 export const COURIER_MIN_WITHDRAW_IDR = 50_000
 
@@ -74,9 +81,10 @@ export const mockCourierPayoutAccounts: PayoutAccount[] = [
 const FEE_SETTLED_AT = '2026-10-15T11:20:00+07:00'
 
 /**
- * Baris ledger **fee pengantaran** dari tugas yang sudah selesai dan ber-fee > 0
- * (Regular online → DANA kurir). COD selalu `deliveryFeeIdr` 0, jadi tak pernah
- * muncul di sini.
+ * Baris ledger **fee pengantaran** dari tugas yang sudah selesai dan ber-fee > 0.
+ * Fee order Regular online dikirim **otomatis ke DANA kurir** saat order
+ * selesai (PRD §16.4), jadi baris ini bukti penghasilan, bukan saldo yang bisa
+ * ditarik. COD selalu `deliveryFeeIdr` 0, jadi tak pernah muncul di sini.
  */
 export function courierFeeEntries(tasks: CourierTask[]): PayoutEntry[] {
   return tasks
@@ -91,26 +99,32 @@ export function courierFeeEntries(tasks: CourierTask[]): PayoutEntry[] {
     }))
 }
 
+/** Total fee pengantaran yang otomatis dikirim ke DANA kurir dari tugas selesai. */
+export function courierFeesPaid(tasks: CourierTask[]): number {
+  return courierFeeEntries(tasks).reduce((sum, entry) => sum + entry.amount, 0)
+}
+
 /**
- * Rincian saldo dompet: fee pengantaran + tips − pencairan. Tidak ada state
- * saldo tersendiri — semuanya diturunkan dari tugas dan riwayat pencairan, jadi
- * menuntaskan order langsung menaikkan saldo (satu rumus, dipakai semua layar).
+ * Rincian saldo dompet yang bisa ditarik: **tips − pencairan**. Fee pengantaran
+ * tidak ikut — ia otomatis ke DANA saat order selesai (§16.4), bukan saldo
+ * aplikasi. Tidak ada state saldo tersendiri: semuanya diturunkan dari tugas dan
+ * riwayat pencairan, jadi menuntaskan order langsung menaikkan saldo tips (satu
+ * rumus, dipakai semua layar).
  */
-export function courierWalletBreakdown(
+export function courierTipsBreakdown(
   tasks: CourierTask[],
   payouts: PayoutEntry[],
-): { tips: number; fees: number; withdrawn: number; available: number } {
+): { tips: number; withdrawn: number; available: number } {
   const tips = mockCourierTips.reduce((sum, entry) => sum + entry.amount, 0) + totalTips(tasks)
-  const fees = courierFeeEntries(tasks).reduce((sum, entry) => sum + entry.amount, 0)
   const withdrawn = payouts
     .filter((entry) => entry.kind === 'payout')
     .reduce((sum, entry) => sum + entry.amount, 0)
-  return { tips, fees, withdrawn, available: Math.max(0, tips + fees - withdrawn) }
+  return { tips, withdrawn, available: Math.max(0, tips - withdrawn) }
 }
 
-/** Saldo dompet yang bisa ditarik (fee pengantaran + tips − pencairan). */
-export function courierWalletAvailable(tasks: CourierTask[], payouts: PayoutEntry[]): number {
-  return courierWalletBreakdown(tasks, payouts).available
+/** Saldo dompet yang bisa ditarik (tips − pencairan). Fee tidak ikut. */
+export function courierTipsAvailable(tasks: CourierTask[], payouts: PayoutEntry[]): number {
+  return courierTipsBreakdown(tasks, payouts).available
 }
 
 /** Nilai bersih yang diterima kurir setelah fee payout dipotong. */

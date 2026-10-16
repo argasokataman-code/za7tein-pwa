@@ -133,10 +133,12 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
   semua order selesai (`batchDisplayStatus`), tanpa reducer kedua.
 - **Fee ke DANA** per order Regular online ditampilkan di daftar urutan; COD
   ditandai dibayar merchant di luar aplikasi (R-COU-INHOUSE). Fee order selesai
-  masuk **saldo dompet** (`courierWalletBreakdown` = fee + tips − pencairan;
-  dompet/beranda/profil/pencairan membaca angka yang sama), ditahan
-  `scripts/courier-wallet-check.mjs`. UNRESOLVED: auto-payout (§16.4) vs tarik
-  manual (`f6`).
+  **tidak masuk saldo tarik** — platform mengirimnya otomatis ke DANA kurir
+  (§16.4, keputusan PO 2026-10-16); saldo tarik = tips − pencairan
+  (`courierTipsBreakdown`/`courierTipsAvailable`), dompet/beranda/profil/
+  pencairan membaca angka yang sama. Fee tampil sebagai penghasilan terpisah
+  (`courierFeeEntries`/`courierFeesPaid`), ditahan
+  `scripts/courier-wallet-check.mjs`.
 - **Peta rute** (M5b): `useLeafletMap` opsi `stops` + `drawBatchRoute` —
   garis dari toko + pin bernomor urut auto-sort, di bawah peringatan WALK beta.
 - Pintu masuk: banner batch di beranda kurir saat batch ada.

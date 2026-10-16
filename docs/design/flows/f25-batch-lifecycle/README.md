@@ -12,7 +12,7 @@ Satu titik terima order di konsol merchant, dua jalur pengantaran: **Regular →
 ## Alur
 
 **Jalur A — kurir inhouse (`Regular`, sudah dibangun, M4 + M5).**
-Merchant menerima order → memilih **batch baru** (estimasi masak 15/25/35) atau **gabung batch berjalan** yang hitung mundurnya masih jalan (BR-B02) → menandai **packing** tiap order (MER-13) → menutup batch **lebih awal** (BR-B08) → meng-**assign satu kurir inhouse** (BR-B07) → kurir **mulai antar** — hanya bila batch ditutup **dan** semua order packing (BR-B09) → kurir mengatur urutan lewat **auto-sort** (BR-B12/B13) dengan **peta rute + pin bernomor** (peringatan WALK beta) → menyelesaikan order **satu per satu** (checkpoint + OTP) → **fee Regular online masuk saldo dompet kurir** saat selesai → batch tuntas.
+Merchant menerima order → memilih **batch baru** (estimasi masak 15/25/35) atau **gabung batch berjalan** yang hitung mundurnya masih jalan (BR-B02) → menandai **packing** tiap order (MER-13) → menutup batch **lebih awal** (BR-B08) → meng-**assign satu kurir inhouse** (BR-B07) → kurir **mulai antar** — hanya bila batch ditutup **dan** semua order packing (BR-B09) → kurir mengatur urutan lewat **auto-sort** (BR-B12/B13) dengan **peta rute + pin bernomor** (peringatan WALK beta) → menyelesaikan order **satu per satu** (checkpoint + OTP) → **fee Regular online dikirim otomatis ke DANA kurir** saat selesai (§16.4; tidak masuk saldo tarik) → batch tuntas.
 
 **Jalur B — kurir partner (`Quick`, M6 belum dibangun).**
 Merchant menerima order → mengisi **estimasi prepare** (MER-12), tanpa batch → aplikator **dispatch** kurir partner (antrian idle terlama + batas jarak) → kurir **approve**, atau **reject ber-alasan** → **pickup** di merchant (COD Quick: kurir menalangi tunai) → **antar satu order** → **100% fee Quick** ke partner. Cabang gagal: tak merespons sampai prepare selesai → **pengganti otomatis + SP + punishment + status off**; tak ada kandidat dalam batas jarak → **Quick tak tersedia**.
@@ -37,12 +37,12 @@ Merchant menerima order → mengisi **estimasi prepare** (MER-12), tanpa batch �
 - Milestone **M4** (batch merchant), **M5** (kurir inhouse), **M6** (kurir partner + dispatch) — `versions/sa7tein-mvp-2026-10-11/milestones.md` · dampak per layar — `ui-impact.md`
 - Implementasi batch merchant: `src/data/batch.ts` (+ `scripts/batch-check.mjs`), `batchSlice`, `src/components/merchant/{BatchPanel,AcceptOrderSheet}.tsx`
 - Implementasi sisi kurir (M5): `src/pages/CourierBatch.tsx`, `src/store/slices/courierSlice.ts` (`batch`), aturan murni `src/data/courierBatch.ts` (+ `scripts/courier-batch-check.mjs`); peta rute lewat `src/hooks/useLeafletMap.ts` (opsi `stops`) + `drawBatchRoute` (`src/hooks/leafletHelpers.ts`)
-- Fee & dompet: `src/data/courier.ts` (`deliveryFeeIdr`), `src/data/courierWallet.ts` (`courierFeeEntries`, `courierWalletBreakdown` — fee + tips − pencairan, + `scripts/courier-wallet-check.mjs`), `src/data/merchant.ts` (`deliveryFeeFor`)
+- Fee & dompet: `src/data/courier.ts` (`deliveryFeeIdr`), `src/data/courierWallet.ts` (`courierFeeEntries`/`courierFeesPaid` — fee → DANA otomatis; `courierTipsBreakdown`/`courierTipsAvailable` — saldo tarik = tips − pencairan, + `scripts/courier-wallet-check.mjs`), `src/data/merchant.ts` (`deliveryFeeFor`)
 
 ## UNRESOLVED (jangan ditebak)
 
 - `orders` BE belum punya kolom jenis pengantaran → demo memakai overlay per kode order (`MOCK_ORDER_DELIVERY_TYPE`, `ui-impact.md` §8); **batch belum punya tabel di BE**, dan `orders.courier_id` tetap `null` → assign per batch masih lokal.
-- **Fee vs tips belum diputuskan**: PRD §16.4 menyebut **payout otomatis** ke DANA merchant & kurir saat order selesai, sedangkan dompet kurir repo ini menaruh fee pengantaran di **saldo yang ditarik manual** (`f6`, `courierWalletBreakdown` = fee + tips − pencairan). Pemisahan fee vs tips menunggu PO.
+- **Fee vs tips sudah diputuskan (PO 2026-10-16):** mengikuti PRD §16.4, fee pengantaran dikirim platform **otomatis ke DANA kurir** saat order selesai, jadi ia **bukan** saldo yang ditarik manual (`f6`). Saldo tarik = tips − pencairan (`courierTipsBreakdown`/`courierTipsAvailable`); fee tampil sebagai penghasilan terpisah (`courierFeeEntries`/`courierFeesPaid`). Yang tersisa sebagai gap BE: ledger + disbursement DANA untuk fee belum ada di BE (demo: baris `settlement` di klien).
 - **OTP tidak disebut di alur baru PRD aktif** (`analysis.md` C-11); implementasi masih memakai checkpoint + OTP — jangan dianggap sudah diputuskan.
 - Live tracking (R-TRACK) hanya andal saat app kurir terbuka dan layar menyala; ambang notifikasi "kurir hampir sampai" = config ops (belum ada).
 - Handler **Quick tak tersedia** & **SP/punishment** butuh halaman ops (M6) yang belum dibangun; dispatch masih **usulan** (OPEN-11).

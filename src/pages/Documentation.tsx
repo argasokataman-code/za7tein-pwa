@@ -678,6 +678,19 @@ export default function Documentation() {
                 <code className="doc-inline">pointer-events: none</code> dan kartunya tetap di
                 dalam kolom 430px, jadi sisa halaman bisa dibaca dan diklik.
               </li>
+              <li>
+                <strong>Dompet kurir dipisah tegas</strong> (keputusan PO 2026-10-16, PRD §16.4):
+                fee pengantaran order Regular online dikirim platform <em>otomatis ke DANA kurir</em>{' '}
+                saat order selesai, jadi ia bukan saldo aplikasi. Saldo yang bisa ditarik lewat{' '}
+                <code className="doc-inline">/courier/payout</code> kini{' '}
+                <code className="doc-inline">courierTipsBreakdown</code> = tips − pencairan
+                (<code className="doc-inline">courierTipsAvailable</code>, menggantikan{' '}
+                <code className="doc-inline">courierWalletBreakdown</code> yang mencampur fee), dan
+                fee tampil sebagai seksi penghasilan terpisah (
+                <code className="doc-inline">courierFeeEntries</code>/
+                <code className="doc-inline">courierFeesPaid</code>). Dompet, beranda, profil, dan
+                pencairan tetap membaca satu fungsi, jadi angkanya tak bisa berbeda.
+              </li>
             </ul>
           </div>
           {SECTIONS.map((Section, index) => (

@@ -10,17 +10,19 @@ import {
   COURIER_MIN_WITHDRAW_IDR,
   COURIER_PAYOUT_FEE_IDR,
   courierPayoutNet,
-  courierWalletAvailable,
+  courierTipsAvailable,
 } from '../data/courierWallet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { requestCourierPayout } from '../store/slices/courierSlice'
 
 /**
- * Pencairan saldo dompet kurir (R-WALLET-01, flow f6). Fee Rp2.500 ditanggung
- * kurir — dipotong dari nilai withdraw, jadi layar menampilkan "diterima"
- * bersih. Saldo mencakup fee pengantaran + tips; ambang minimum masih contoh
- * PRD (`COURIER_MIN_WITHDRAW_IDR`).
+ * Pencairan saldo dompet kurir (R-WALLET-01, flow f6). Yang ditarik hanya
+ * **tips** — fee pengantaran dikirim platform otomatis ke DANA saat order
+ * selesai (PRD §16.4, PO 2026-10-16), jadi tak pernah lewat layar ini. Fee
+ * Rp2.500 ditanggung kurir, dipotong dari nilai withdraw, jadi layar
+ * menampilkan "diterima" bersih. Ambang minimum masih contoh PRD
+ * (`COURIER_MIN_WITHDRAW_IDR`).
  */
 export default function CourierPayout() {
   const { money, moneyPlain } = useMoney()
@@ -31,7 +33,7 @@ export default function CourierPayout() {
   const accounts = useAppSelector((s) => s.courier.payoutAccounts)
   const primary = accounts.find((a) => a.isPrimary) ?? accounts[0]
 
-  const available = courierWalletAvailable(tasks, payouts)
+  const available = courierTipsAvailable(tasks, payouts)
   const [accountId, setAccountId] = useState(primary?.id ?? '')
   const [amount, setAmount] = useState<number>(available)
 
@@ -52,7 +54,7 @@ export default function CourierPayout() {
         <CourierPageHeader eyebrow="Penghasilan" title="Tarik saldo" back="/wallet" />
 
         <section className="courier-card courier-wallet-hero" aria-label="Saldo dompet">
-          <p className="courier-card-sub">Saldo bisa ditarik</p>
+          <p className="courier-card-sub">Saldo tips bisa ditarik</p>
           <p className="courier-wallet-total">{money(available)}</p>
         </section>
 

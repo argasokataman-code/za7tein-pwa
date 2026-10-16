@@ -108,7 +108,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | CourierTasks, CourierTaskDetail | **UBAH BESAR** | COU-11..18 | **Batch** (inhouse) vs **single order** (partner); approve/reject ber-alasan; auto-sort toggle; live tracking |
 | **Batch view + auto-sort** | **TAMBAH** | BR-B12/B13, §9.6 | **M5 selesai:** `/courier/batch` + `courierSlice.batch` (lihat batch, auto-sort NN, mulai antar, urutan bernomor, **peta rute + pin bernomor** dengan peringatan WALK beta, fee ke DANA per order) |
 | **Assignment approve/reject** (baru) | **TAMBAH** | COU-18, §9.5 | Text area alasan, submit aktif setelah diisi |
-| CourierTips / CourierWallet / CourierPayout* | **UBAH** | COU-09,14,16 | Fee Regular online **masuk saldo dompet** (`courierWalletBreakdown` = fee + tips − pencairan); COD talangan & fee Quick 100% menunggu M6 |
+| CourierTips / CourierWallet / CourierPayout* | **UBAH** | COU-09,14,16 | **Keputusan PO 2026-10-16:** fee Regular online **tidak masuk saldo tarik** — dikirim otomatis ke DANA kurir saat order selesai (§16.4); saldo tarik = tips − pencairan (`courierTipsBreakdown`/`courierTipsAvailable`), fee tampil sebagai penghasilan terpisah (`courierFeesPaid`). COD talangan & fee Quick 100% menunggu M6 |
 | CourierProfile, CourierOnboarding, CourierSignIn | **UBAH** | ACC-03,04 | Partner daftar→verifikasi ops; inhouse dibuat merchant |
 | **Status kurir partner** (baru) | **TAMBAH** | COU-15, §9.3 | offline/available/reserved/busy |
 

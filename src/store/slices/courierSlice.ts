@@ -8,7 +8,7 @@ import {
 } from '../../data/courierBatch'
 import {
   COURIER_PAYOUT_FEE_IDR,
-  courierWalletAvailable,
+  courierTipsAvailable,
   mockCourierPayoutAccounts,
 } from '../../data/courierWallet'
 import type { Batch, CourierTask, PayoutAccount, PayoutEntry } from '../../types'
@@ -146,15 +146,17 @@ const courierSlice = createSlice({
       }
     },
     /**
-     * Pencairan saldo dompet (f6). Fee Rp2.500 ditanggung kurir dan dipotong
-     * dari nilai withdraw; saldo tidak disimpan, dihitung dari fee + tips −
-     * pencairan. Batas atas = saldo dompet, bukan tips saja.
+     * Pencairan saldo dompet (f6). Yang ditarik hanya **tips** — fee pengantaran
+     * dikirim platform otomatis ke DANA saat order selesai (PRD §16.4, PO
+     * 2026-10-16), jadi tidak lewat dompet ini. Fee Rp2.500 ditanggung kurir dan
+     * dipotong dari nilai withdraw; saldo tidak disimpan, dihitung dari
+     * tips − pencairan.
      */
     requestCourierPayout(state, action: PayloadAction<{ amount: number; accountId: string }>) {
       const { amount, accountId } = action.payload
       const account = state.payoutAccounts.find((a) => a.id === accountId)
       if (!account || amount <= 0) return
-      if (amount > courierWalletAvailable(state.tasks, state.payouts)) return
+      if (amount > courierTipsAvailable(state.tasks, state.payouts)) return
       state.payouts.unshift({
         id: makeId('cpo', state.payouts.length),
         kind: 'payout',

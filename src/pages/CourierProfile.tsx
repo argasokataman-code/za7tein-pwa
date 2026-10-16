@@ -11,7 +11,7 @@ import { useAppUpdate } from '../hooks/useAppUpdate'
 import { useMoney } from '../hooks/useMoney'
 import { mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
-import { courierWalletAvailable } from '../data/courierWallet'
+import { courierTipsAvailable } from '../data/courierWallet'
 import { APP_VERSION } from '../data/appInfo'
 import { toggleOnline } from '../store/slices/courierSlice'
 import { logout } from '../store/slices/authSlice'
@@ -25,7 +25,7 @@ export default function CourierProfile() {
   const tasks = useAppSelector((s) => s.courier.tasks)
   const payouts = useAppSelector((s) => s.courier.payouts)
   const onboarding = useAppSelector((s) => s.courier.onboarding)
-  const balanceAvailable = courierWalletAvailable(tasks, payouts)
+  const balanceAvailable = courierTipsAvailable(tasks, payouts)
   const active = tasks.filter(isActiveTask).length
   const [showLogout, setShowLogout] = useState(false)
 
@@ -86,7 +86,7 @@ export default function CourierProfile() {
             <Landmark size={20} strokeWidth={1.75} aria-hidden="true" />
             <div>
               <p className="courier-card-title">Dompet kurir</p>
-              <p className="courier-card-sub">{money(balanceAvailable)} bisa ditarik</p>
+              <p className="courier-card-sub">{money(balanceAvailable)} tips bisa ditarik</p>
             </div>
           </div>
           <Link className="btn btn-primary courier-wallet-cta" to="/wallet">

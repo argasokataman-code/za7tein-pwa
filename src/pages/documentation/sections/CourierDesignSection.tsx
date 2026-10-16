@@ -169,32 +169,37 @@ export function CourierDesignSection() {
         commission (PRD §Tips). Only the customer half is modelled there, so no credit is
         invented on the customer side; the courier wallet now models its own half (below).
       </p>
-      <h3 className="doc-h3">Courier wallet: delivery fee plus tips, fee on the courier</h3>
+      <h3 className="doc-h3">Courier wallet: tips are withdrawn, the delivery fee is paid to DANA</h3>
       <p className="doc-p">
-        The wallet (<code className="doc-inline">/courier/wallet</code>) is a separate IDR
-        pot holding two credits: the <em>delivery fee</em> of a completed Regular online
-        order (R-DELIV-FEE moved the recipient from the merchant to the courier) and
-        customer <em>tips</em>. The monthly salary is still paid by the merchant outside
-        the app, and COD never enters (paid by the merchant off-app, R-COU-INHOUSE). Its
-        balance is not a second state: it is derived as{' '}
-        <code className="doc-inline">courierWalletBreakdown</code> ={' '}
-        <code className="doc-inline">fee + tips − payouts</code> (
-        <code className="doc-inline">courierFeeEntries</code> +{' '}
-        <code className="doc-inline">courierWalletAvailable</code> in{' '}
-        <code className="doc-inline">src/data/courierWallet.ts</code>), so completing a
-        task raises it live and the <code className="doc-inline">/tips</code> page still
-        reads the same source. Every screen that shows a withdrawable balance — wallet,
-        courier home, profile, payout — calls that one function, so they can never
-        disagree. Payouts and payout accounts live in{' '}
-        <code className="doc-inline">courierSlice</code> (not persisted, matching the
-        slice). Withdraw reuses flow{' '}
-        <code className="doc-inline">f6-cashout-payout</code>; the payout fee of Rp2.500
-        per transfer is <em>borne by the courier</em> (PO 2026-09-22,{' '}
-        <code className="doc-inline">source.md:84</code>) and is deducted from the amount,
-        so <code className="doc-inline">/courier/payout</code> shows the net "diterima"
-        before the courier confirms. Whether the fee should instead be paid out
-        automatically by the platform (§16.4) rather than withdrawn through this flow is
-        UNRESOLVED.
+        The wallet (<code className="doc-inline">/courier/wallet</code>) holds <em>tips</em> only,
+        and its balance is not a second state: it is derived as{' '}
+        <code className="doc-inline">courierTipsBreakdown</code> ={' '}
+        <code className="doc-inline">tips − payouts</code> (
+        <code className="doc-inline">courierTipsAvailable</code> in{' '}
+        <code className="doc-inline">src/data/courierWallet.ts</code>), where <em>tips</em> is the
+        seeded history (<code className="doc-inline">mockCourierTips</code>) plus the tips of
+        completed tasks (<code className="doc-inline">totalTips</code>). Completing a task raises it
+        live and the <code className="doc-inline">/tips</code> page still reads the same source.
+        Every screen that shows a withdrawable balance (wallet, courier home, profile, payout) calls
+        that one function, so they can never disagree. Payouts and payout accounts live in{' '}
+        <code className="doc-inline">courierSlice</code> (not persisted, matching the slice).
+        Withdraw reuses flow <code className="doc-inline">f6-cashout-payout</code>; the payout fee of
+        Rp2.500 per transfer is <em>borne by the courier</em> (PO 2026-09-22,{' '}
+        <code className="doc-inline">source.md:84</code>) and is deducted from the amount, so{' '}
+        <code className="doc-inline">/courier/payout</code> shows the net "diterima" before the
+        courier confirms.
+      </p>
+      <p className="doc-p">
+        The <em>delivery fee</em> of a completed Regular online order (R-DELIV-FEE moved the
+        recipient from the merchant to the courier) is <strong>not</strong> part of that balance. PO
+        decision 2026-10-16 resolved the open question the other way, following PRD §16.4: the
+        platform pays the fee straight to the courier's DANA when the order settles, so it is never
+        withdrawn through this flow. The wallet therefore shows it as a separate read-only income
+        section (<code className="doc-inline">courierFeeEntries</code> /{' '}
+        <code className="doc-inline">courierFeesPaid</code>, ledger rows of kind{' '}
+        <code className="doc-inline">settlement</code>) instead of adding it to the withdrawable pot.
+        The monthly salary is still paid by the merchant outside the app, and COD never enters (paid
+        by the merchant off-app, R-COU-INHOUSE).
       </p>
       <p className="doc-p">
         The accumulation threshold is not a guessed rule: PRD
