@@ -564,8 +564,8 @@ export default function Documentation() {
                 luar delivery aktif (<code className="doc-inline">diantar</code>/
                 <code className="doc-inline">tiba</code>). Aturan murni di{' '}
                 <code className="doc-inline">src/data/tracking.ts</code>, ditahan{' '}
-                <code className="doc-inline">scripts/tracking-check.mjs</code>. Belum: peta kurir di
-                konsol merchant dan ETA per urutan batch (id batch belum bergabung dengan id order).
+                <code className="doc-inline">scripts/tracking-check.mjs</code>. Belum: ETA per urutan batch
+                (id batch belum bergabung dengan id order).
               </li>
               <li>
                 <strong>Notifikasi: katalog emit + penjaga audience (M7c, R-NOTIF).</strong>{' '}
@@ -606,6 +606,23 @@ export default function Documentation() {
                 per kolom, asersi pikap peran, versi kode &harr; dokumen, topik terdaftar).
                 Belum: feed event di layar karena publication BE masih hanya{' '}
                 <code className="doc-inline">orders</code>.
+              </li>
+              <li>
+                <strong>Posisi kurir terlihat merchant juga (M7e, R-TRACK AC2).</strong> PRD
+                &sect;9.7 memberi merchant hak tahu kurir sudah di mana tanpa menelepon, tapi
+                konsol merchant hanya punya <code className="doc-inline">JourneyLine</code> —
+                peta kurir cuma ada di sisi customer. Sheet detail order di{' '}
+                <code className="doc-inline">/merchant/orders</code> kini memasang{' '}
+                <code className="doc-inline">MerchantCourierMap</code> untuk order{' '}
+                <code className="doc-inline">diantar</code>/<code className="doc-inline">tiba</code>,
+                memakai <strong>aturan posisi dan ambang yang sama</strong> dengan sisi customer
+                (<code className="doc-inline">useCourierTracking</code> + ambang ops), sehingga
+                kedua sisi tak bisa melihat kurir di tempat berbeda. Sekalian diperbaiki: emit
+                notifikasi &ldquo;hampir sampai&rdquo; pindah ke{' '}
+                <code className="doc-inline">useAlmostArrivedNotice</code> yang hanya dipakai sisi
+                customer — sebelumnya menempel di hook pelacakan, jadi konsol merchant akan ikut
+                memancarkan notifikasi milik customer. Diukur di Chromium: marker kurir bergerak
+                dalam 6 detik dan ETA ikut turun, tanpa overflow-x.
               </li>
               <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}

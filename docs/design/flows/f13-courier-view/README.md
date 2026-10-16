@@ -22,14 +22,15 @@ Workflow sisi kurir **inhouse** pada PRD aktif `sa7tein-mvp-2026-10-11`: tugas d
 - **Urutan antar dari auto-sort batch** (BR-B12); ETA per order memperhitungkan urutan itu.
 - **Fee pindah penerima.** Fee Regular online → **DANA kurir** saat order selesai; Regular **COD dibayar merchant di luar aplikasi** (`deliveryFeeIdr = 0`) — bukan lagi `ongkirIdr` 100% merchant (C-07, R-DELIV-FEE).
 - **Lokasi live, bukan snapshot.** R-TRACK menggantikan model checkpoint+snapshot lama; **batasan PWA**: hanya andal saat app kurir terbuka dan layar menyala. Notifikasi "hampir sampai" berbasis waktu, ambangnya config ops (belum ada).
-- Notif customer = mock tapi tersambung (AGENTS.md §1, R-PUSH-01) — bukan klaim kirim Web Push sungguhan.
+- Notif customer = mock tapi tersambung (AGENTS.md §1, R-PUSH-01) — bukan klaim kirim Web Push sungguhan. Emit "hampir sampai" dipisah ke `useAlmostArrivedNotice` supaya konsol merchant (yang memakai pelacakan sama) tidak ikut mengirim notif milik customer.
 
 ## Status UI (R-TRACK, M7)
 
 - **Pin kurir bergerak.** Sisi customer (`OrderStageScreen`, `#order-map` mode `delivery`) memakai opsi `courier` di `useLeafletMap`: satu marker, digeser `setLatLng` tiap tick — peta tidak dibangun ulang. Di demo posisinya diturunkan **waktu tempuh** (`useCourierTracking`, 1 tick = 1 menit mock), bukan event `courier_location` yang belum ada.
 - **Hampir sampai.** Ambang berbasis **waktu** (`ALMOST_ARRIVED_MINUTES` = 5) bertanda konfigurasi ops; sudah terlewati → label berganti "Kurir hampir sampai" + `role="status"`. Panel ops untuk mengubahnya (M10) belum ada, dan itu ditulis di baris ETA.
 - **Siaran berhenti di luar delivery.** `tracksLocation()` hanya benar untuk `diantar`/`tiba` (§9.7 "selama delivery aktif").
-- **Belum:** peta kurir di konsol merchant (AC2), ETA per urutan batch (AC4 — id batch `ct-*` belum bergabung dengan id order `api-*`), GPS perangkat nyata.
+- **Sisi merchant ikut melihat kurir (AC2).** Sheet detail order di `/merchant/orders` memasang `MerchantCourierMap` untuk order `diantar`/`tiba` — peta + baris ETA memakai **aturan yang sama** (`useCourierTracking`, ambang ops yang sama), jadi merchant dan customer tak bisa melihat kurir di tempat berbeda. Notifikasi "hampir sampai" sengaja **tidak** dipancarkan dari konsol merchant (`useAlmostArrivedNotice` hanya dipakai sisi customer).
+- **Belum:** ETA per urutan batch (AC4 — id batch `ct-*` belum bergabung dengan id order `api-*`), GPS perangkat nyata.
 
 
 ## Terhubung (lihat `../INDEX.json`)

@@ -10,6 +10,7 @@ import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { AcceptOrderSheet, type AcceptChoice } from '../components/merchant/AcceptOrderSheet'
 import { BatchPanel } from '../components/merchant/BatchPanel'
 import { JourneyLine } from '../components/JourneyLine'
+import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
@@ -263,7 +264,7 @@ export default function MerchantOrders() {
             const gate = paymentGate(order)
             const kind = orderDeliveryType(order)
             return (
-              <article key={order.id} className="merchant-ticket">
+              <article key={order.id} className="merchant-ticket" data-order-status={order.status}>
                 {/* Slip tiket dua baris: kepala (nomor + umur + status) lalu
                     badan (pelanggan, item, total). Seluruh slip bisa ditekan;
                     aksi di bawahnya. Detail lengkap tetap di sheet. */}
@@ -404,6 +405,11 @@ export default function MerchantOrders() {
                 sudah keluar rel, jadi keduanya tidak menampilkan journey. */}
             {JOURNEY_STAGE[detailOrder.status] ? (
               <JourneyLine stage={JOURNEY_STAGE[detailOrder.status] as OrderStage} />
+            ) : null}
+
+            {/* Posisi kurir untuk order yang sedang diantar (R-TRACK AC2). */}
+            {detailOrder.status === 'diantar' || detailOrder.status === 'tiba' ? (
+              <MerchantCourierMap orderId={detailOrder.id} stage={detailOrder.status} />
             ) : null}
 
             <ul className="merchant-order-items">

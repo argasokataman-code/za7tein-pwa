@@ -24,6 +24,7 @@ import {
 } from '../data/merchant'
 import { ORDER_STAGE_STATUS } from '../data/order-stage-copy'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useAlmostArrivedNotice } from '../hooks/useAlmostArrivedNotice'
 import { useCourierTracking } from '../hooks/useCourierTracking'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useMoney } from '../hooks/useMoney'
@@ -186,6 +187,9 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   // Lokasi kurir di demo diturunkan dari waktu tempuh (§9.7) — event
   // `courier_location` (§19) belum ada. Rule-nya di `data/tracking.ts`.
   const tracking = useCourierTracking(stage)
+  // Hanya sisi customer yang memancarkan notifikasi "hampir sampai"; konsol
+  // merchant memakai posisi yang sama tanpa mengirim notif milik customer.
+  useAlmostArrivedNotice(tracking.almost)
 
   const { recenter } = useLeafletMap('order-map', isDelivery ? 'delivery' : 'preview', {
     courier: tracking.showsLocation ? tracking.courierPosition : undefined,
