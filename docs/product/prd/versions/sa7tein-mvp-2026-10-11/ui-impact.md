@@ -106,7 +106,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | Layar | Aksi | Requirement | Catatan |
 |---|---|---|---|
 | CourierTasks, CourierTaskDetail | **UBAH BESAR** | COU-11..18 | **Batch** (inhouse) vs **single order** (partner); approve/reject ber-alasan; auto-sort toggle; live tracking |
-| **Batch view + auto-sort** (baru) | **TAMBAH** | BR-B12/B13, §9.6 | Peta rute + **peringatan WALK (beta)** |
+| **Batch view + auto-sort** | **TAMBAH** | BR-B12/B13, §9.6 | **M5a selesai:** `/courier/batch` + `courierSlice.batch` (lihat batch, auto-sort NN, mulai antar, urutan bernomor, fee ke DANA per order). Sisa: **peta rute** + peringatan WALK (beta) |
 | **Assignment approve/reject** (baru) | **TAMBAH** | COU-18, §9.5 | Text area alasan, submit aktif setelah diisi |
 | CourierTips / CourierWallet / CourierPayout* | **UBAH** | COU-09,14,16 | Fee Quick 100%; COD talangan; payout DANA |
 | CourierProfile, CourierOnboarding, CourierSignIn | **UBAH** | ACC-03,04 | Partner daftar→verifikasi ops; inhouse dibuat merchant |

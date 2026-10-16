@@ -1,5 +1,5 @@
 import type { CartItem, Courier, CourierCheckpoint, CourierTask } from '../types'
-import { mockCouriers } from './merchant'
+import { merchantDeliveryConfig, mockCouriers } from './merchant'
 
 /**
  * Langkah yang tampil di stepper kurir. Urutannya cermin `mainPath` flow F13
@@ -113,6 +113,13 @@ export const DELIVERY_OTP_DEMO = '4821'
  */
 export const COURIER_GUARD_MINUTES = { call: 5, batal: 10 } as const
 
+/**
+ * Id batch demo kurir inhouse (M5). BE belum punya tabel `batches` (gap M4), jadi
+ * tugas demo diikat ke batch mock di `data/courierBatch.ts`. Di BE nanti batch
+ * lahir dari order Regular yang di-accept merchant dan kurir di-assign (BR-B07).
+ */
+export const COURIER_BATCH_DEMO_ID = 'cb-1'
+
 /** Kurir adalah karyawan merchant (C-06); platform tidak menahan dana kurir. */
 export const courierSelf: Courier = mockCouriers[0]
 
@@ -139,6 +146,10 @@ export const courierTasks: CourierTask[] = [
     total: 44000,
     distanceMeters: 480,
     zone: 'hijazi',
+    latitude: -6.2568,
+    longitude: 106.782,
+    batchId: COURIER_BATCH_DEMO_ID,
+    deliveryFeeIdr: 0, // COD Regular: dibayar merchant di luar aplikasi (R-COU-INHOUSE)
     paymentMethod: 'cod',
     tip: 0,
     orderStage: 'disiapkan',
@@ -158,6 +169,10 @@ export const courierTasks: CourierTask[] = [
     total: 18000,
     distanceMeters: 900,
     zone: 'syimali',
+    latitude: -6.2672,
+    longitude: 106.7856,
+    batchId: COURIER_BATCH_DEMO_ID,
+    deliveryFeeIdr: 0, // COD Regular: di luar aplikasi
     paymentMethod: 'cod',
     tip: 3000,
     orderStage: 'diantar',
@@ -178,6 +193,11 @@ export const courierTasks: CourierTask[] = [
     total: 60000,
     distanceMeters: 1300,
     zone: 'syimali',
+    latitude: -6.2476,
+    longitude: 106.7925,
+    batchId: COURIER_BATCH_DEMO_ID,
+    // Regular online (transfer): ongkir masuk DANA kurir saat order selesai.
+    deliveryFeeIdr: merchantDeliveryConfig.ongkirIdr,
     paymentMethod: 'transfer',
     tip: 5000,
     orderStage: 'diantar',
@@ -198,6 +218,9 @@ export const courierTasks: CourierTask[] = [
     total: 60000,
     distanceMeters: 540,
     zone: 'hijazi',
+    latitude: -6.2635,
+    longitude: 106.7752,
+    deliveryFeeIdr: 0,
     paymentMethod: 'cod',
     tip: 5000,
     orderStage: 'selesai',

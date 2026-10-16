@@ -589,6 +589,21 @@ export interface CourierTask {
   distanceMeters: number
   zone: ZoneId
   paymentMethod: PaymentMethod['id']
+  /**
+   * Koordinat tujuan (M5) — dasar auto-sort rute (§9.6) dan peta batch. Opsional:
+   * jalur BE (`courier_orders()`) belum mengirimnya, jadi auto-sort jatuh ke
+   * urutan `distanceMeters` saat kosong.
+   */
+  latitude?: number
+  longitude?: number
+  /** Batch kurir inhouse tempat tugas ini diantar (M5, BR-B07). Kosong = di luar batch. */
+  batchId?: string
+  /**
+   * Ongkir yang jadi hak kurir saat order selesai (R-COU-INHOUSE, R-DELIV-FEE).
+   * Diisi hanya untuk order **Regular online**; Regular COD dibayar merchant di
+   * luar aplikasi, jadi nol. IDR (R-CURR-01).
+   */
+  deliveryFeeIdr?: number
   /** Tips customer. Kurir karyawan merchant: hanya tips yang jadi miliknya (C-06). */
   tip: number
   /** Tahap order dari sisi customer/merchant, dipakai Journey Line. */

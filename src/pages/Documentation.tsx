@@ -488,6 +488,22 @@ export default function Documentation() {
                 kontrak desain <code className="doc-inline">docs/design/DNA.md</code>.
               </li>
               <li>
+                <strong>Batch kurir inhouse (M5).</strong> Kurir kini melihat{' '}
+                <strong>batch</strong> yang ditugaskan merchant di{' '}
+                <code className="doc-inline">/courier/batch</code>: kepala batch (status, hitung
+                mundur, panjang rute, sisa kapasitas), sakelar <strong>auto-sort</strong> (ON = rute
+                nearest-neighbour dari dapur, OFF = manual), tombol <em>Mulai antar</em> (aktif saat
+                hitung mundur habis atau merchant menutup batch lebih awal, BR-B09), dan daftar
+                urutan antar bernomor. Order diselesaikan satu per satu lewat halaman tugas
+                (checkpoint + OTP) yang sudah ada, lalu kemajuan batch dan penanda berikutnya ikut
+                bergeser. Ongkir order Regular online tampil sebagai <strong>fee ke DANA</strong>;
+                COD tetap dibayar merchant di luar aplikasi. Aturan murni di{' '}
+                <code className="doc-inline">src/data/courierBatch.ts</code> ditahan{' '}
+                <code className="doc-inline">scripts/courier-batch-check.mjs</code>. Catatan: rute
+                memakai jarak garis lurus (mock), bukan Google Routes (WALK), dan batch demo di-seed
+                karena BE belum punya tabel <code className="doc-inline">batches</code>.
+              </li>
+              <li>
                 <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan
                 (customer/merchant/kurir, disimpan per peran di slice{' '}
                 <code className="doc-inline">preferences</code>) tidak dipakai lagi: layar peran

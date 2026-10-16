@@ -4,8 +4,8 @@ Front-end showcase only. Mock data, Redux state, tanpa backend/API/auth/DB/payme
 Sumber: flow `docs/design/flows/f13-courier-view/` + milestone M4/M5 PRD aktif
 `irbid-mvp-v2-2026-09-21`.
 
-**Status: K0–K5 selesai.** Verifikasi: build 0 error, lint bersih, overflow
-horizontal 0 di 390px & 1440px, shell 430px terkunci.
+**Status: K0–K5 selesai, K6 (batch, M5a) selesai sebagian.** Verifikasi: build 0
+error, lint bersih, overflow horizontal 0 di 390px & 1440px, shell 430px terkunci.
 
 ## Prinsip
 
@@ -115,6 +115,27 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
 - Kurir "Tiba" → satu notif masuk kotak masuk customer (`pushNotification`), dan
   kartu OTP customer muncul tanpa klik demo (`otpStep` membaca checkpoint kurir).
   Satu store lintas peran; Web Push tetap di luar scope (R-PUSH-01).
+
+---
+
+## K6 — Batch kurir inhouse (M5a)
+
+- `/courier/batch` — batch yang ditugaskan merchant (seed `mockCourierBatch`; BE
+  belum punya tabel `batches`, jadi batch demo di-seed dari tugas ber-`batchId`).
+  Kepala batch: status, hitung mundur, panjang rute, sisa kapasitas 24.
+- **Auto-sort** (BR-B12): ON = `autoSortTasks()` greedy nearest-neighbour dari
+  dapur (`MERCHANT_KITCHEN`); OFF = manual. PRD memakai Google Route Optimization
+  + matriks 25×24 (WALK tak di-cache, biaya per panggilan R4) — di sini mock jarak
+  garis lurus, jadi peringatan **WALK beta** ditampilkan.
+- **Mulai antar** aktif saat hitung mundur habis atau merchant menutup batch lebih
+  awal (`canStartBatch`, BR-B09). Order diselesaikan satu per satu lewat
+  `/courier/task/:id` yang sudah ada (checkpoint + OTP); batch jadi `done` saat
+  semua order selesai (`batchDisplayStatus`), tanpa reducer kedua.
+- **Fee ke DANA** per order Regular online ditampilkan di daftar urutan; COD
+  ditandai dibayar merchant di luar aplikasi (R-COU-INHOUSE). Masuk saldo dompet =
+  sisa M5.
+- Pintu masuk: banner batch di beranda kurir saat batch ada.
+- Aturan murni di `src/data/courierBatch.ts`, ditahan `scripts/courier-batch-check.mjs`.
 
 ---
 

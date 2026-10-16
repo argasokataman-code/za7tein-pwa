@@ -1,4 +1,4 @@
-import { CheckCircle2, ChevronRight, Coins, HandCoins, Hourglass, Landmark, Truck, UserRound, Wallet } from 'lucide-react'
+import { CheckCircle2, ChevronRight, Coins, HandCoins, Hourglass, Landmark, Route, Truck, UserRound, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { CourierHomeHero } from '../components/courier/CourierHomeHero'
@@ -16,6 +16,8 @@ import {
   totalTips,
 } from '../data/courier'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
+import { BATCH_STATUS_LABEL } from '../data/batch'
+import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
 import { toggleOnline } from '../store/slices/courierSlice'
 import type { CourierTask } from '../types'
 
@@ -90,6 +92,7 @@ export default function CourierTasks() {
   const dispatch = useAppDispatch()
   const isOnline = useAppSelector((s) => s.courier.isOnline)
   const tasks = useAppSelector((s) => s.courier.tasks)
+  const batch = useAppSelector((s) => s.courier.batch)
   const payouts = useAppSelector((s) => s.courier.payouts)
   const accounts = useAppSelector((s) => s.courier.payoutAccounts)
   const primary = accounts.find((a) => a.isPrimary) ?? accounts[0]
@@ -100,6 +103,10 @@ export default function CourierTasks() {
   const done = tasks.filter(isDoneTask)
   const tipsAvailable = courierTipsAvailable(tasks, payouts)
   const week = courierWeeklyTips()
+  // Batch (M5): angka dihitung sekali, bukan diulang di JSX.
+  const batchDone = batch ? batchProgress(batch, tasks) : null
+  const batchStatus = batch ? batchDisplayStatus(batch, tasks) : null
+  const nextStop = batch ? nextBatchTask(batch, tasks) : null
 
   return (
     <div className="app-shell">
@@ -113,6 +120,27 @@ export default function CourierTasks() {
           online={isOnline}
           onToggleOnline={() => dispatch(toggleOnline())}
         />
+
+        {/* Batch kurir inhouse (M5): satu pintu ke urutan antar. Muncul hanya
+            saat merchant sudah menugaskan batch, jadi beranda kurir lepas tetap
+            bersih. */}
+        {batch && batchDone && batchStatus && (
+          <Link className="courier-batch-banner" to="/batch">
+            <span className="courier-menu-icon" aria-hidden="true">
+              <Route size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-batch-banner-copy">
+              <span className="courier-batch-banner-title">
+                Batch antar · {batchDone.done}/{batchDone.total} selesai
+              </span>
+              <span className="courier-task-sub">
+                {BATCH_STATUS_LABEL[batchStatus]}
+                {nextStop ? ` · berikutnya ${nextStop.code}` : ''}
+              </span>
+            </span>
+            <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
+          </Link>
+        )}
 
         {/* Ringkasan hari ini: empat angka dari `courierSlice` yang sama dengan
             daftar di bawah, sebagai tile 2x2 (chip ikon berwarna + label +

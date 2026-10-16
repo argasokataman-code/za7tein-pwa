@@ -2,16 +2,26 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { courierTasks as seedTasks, nextCheckpoint } from '../../data/courier'
 import {
+  autoSortRoute,
+  courierBatchTasks,
+  mockCourierBatch,
+} from '../../data/courierBatch'
+import {
   COURIER_PAYOUT_FEE_IDR,
   courierTipsAvailable,
   mockCourierPayoutAccounts,
 } from '../../data/courierWallet'
-import type { CourierTask, PayoutAccount, PayoutEntry } from '../../types'
+import type { Batch, CourierTask, PayoutAccount, PayoutEntry } from '../../types'
 
 interface CourierState {
   /** Kurir siap menerima tugas. Tidak dipersist — mock, reset saat reload. */
   isOnline: boolean
   tasks: CourierTask[]
+  /**
+   * Batch kurir inhouse yang ditugaskan merchant (M5, BR-B07). Null = kurir tak
+   * punya batch. Tidak dipersist — mock, reset saat reload (sama seperti `tasks`).
+   */
+  batch: Batch | null
   /** Rekening tujuan pencairan tips (R-WALLET-01, f6). */
   payoutAccounts: PayoutAccount[]
   /** Riwayat pencairan tips; saldo dihitung dari tips − pencairan. */
@@ -32,6 +42,7 @@ export interface CourierOnboarding {
 const initialState: CourierState = {
   isOnline: true,
   tasks: seedTasks,
+  batch: mockCourierBatch,
   payoutAccounts: mockCourierPayoutAccounts,
   payouts: [],
   onboarding: null,
@@ -78,6 +89,26 @@ const courierSlice = createSlice({
       task.otpVerified = true
       task.checkpoint = 'selesai'
       task.checkpointStartedAt = undefined
+    },
+    /**
+     * Toggle auto-sort batch (M5, BR-B12). ON = urutkan rute nearest-neighbour
+     * dari dapur (mock, bukan Google Routes); OFF = manual, `routeOrder` kosong.
+     */
+    setBatchAutoSort(state, action: PayloadAction<{ autoSort: boolean }>) {
+      const batch = state.batch
+      if (!batch) return
+      batch.autoSort = action.payload.autoSort
+      batch.routeOrder = action.payload.autoSort
+        ? autoSortRoute(courierBatchTasks(batch, state.tasks))
+        : []
+    },
+    /** Urutan antar manual saat auto-sort OFF. */
+    setBatchRouteOrder(state, action: PayloadAction<{ orderIds: string[] }>) {
+      if (state.batch) state.batch.routeOrder = action.payload.orderIds
+    },
+    /** Kurir menekan "Mulai antar" → batch masuk pengantaran (PRD §7.2). */
+    startBatchDelivery(state) {
+      if (state.batch) state.batch.status = 'delivering'
     },
     addPayoutAccount(
       state,
@@ -143,6 +174,9 @@ export const {
   advanceCheckpoint,
   cancelTask,
   completeTask,
+  setBatchAutoSort,
+  setBatchRouteOrder,
+  startBatchDelivery,
   addPayoutAccount,
   updatePayoutAccount,
   removePayoutAccount,

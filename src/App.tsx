@@ -32,6 +32,7 @@ import CourierOnboarding from './pages/CourierOnboarding'
 import CourierSignIn from './pages/CourierSignIn'
 import CourierTaskDetail from './pages/CourierTaskDetail'
 import CourierTasks from './pages/CourierTasks'
+import CourierBatch from './pages/CourierBatch'
 import CourierTips from './pages/CourierTips'
 import CourierWallet from './pages/CourierWallet'
 import CreatePassword from './pages/CreatePassword'
@@ -220,6 +221,7 @@ const courierRoutes: [string, ComponentType][] = [
   ['/signin', CourierSignIn],
   ['/', CourierTasks],
   ['/task/:id', CourierTaskDetail],
+  ['/batch', CourierBatch],
   ['/notifications', Notifications],
   ['/tips', CourierTips],
   ['/wallet', CourierWallet],

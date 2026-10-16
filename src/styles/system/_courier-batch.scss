@@ -1,0 +1,153 @@
+/* Batch kurir inhouse (M5). Satu bahasa dengan tiket tugas: permukaan kartu,
+   badge status, dan satu aksen merek hanya di tombol "Mulai antar" lewat
+   `.btn-primary`. Di sini hanya geometri khas batch: kepala, toggle berdampingan
+   catatan, dan daftar urutan antar bernomor. */
+
+/* Pintu masuk batch di beranda kurir: baris penuh dengan chevron, bukan kartu
+   kolom seperti `.courier-menu-item`. Ikon memakai chip `.courier-menu-icon`. */
+.courier-batch-banner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  margin-bottom: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.courier-batch-banner:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+.courier-batch-banner-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.courier-batch-banner-title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.courier-batch-head {
+  margin-bottom: var(--space-3);
+}
+
+.courier-batch-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.courier-batch-count {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.courier-batch-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-3) 0;
+}
+
+.courier-batch-metric {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Aksi utama berdiri sendiri (bukan di dalam sheet): beri napas di atasnya. */
+.courier-page .btn.courier-primary {
+  margin-top: var(--space-4);
+}
+
+.courier-batch-route {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.courier-batch-stop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Titik terdekat berikutnya: satu penanda, bukan warna baru. */
+.courier-batch-stop.is-next {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+}
+
+.courier-batch-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-warm);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.courier-batch-stop-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.courier-batch-stop-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.courier-batch-stop-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.courier-batch-fee {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: 600;
+  color: var(--success-ink);
+}
+
+.courier-batch-cod {
+  font-weight: 600;
+}

@@ -1154,44 +1154,6 @@
       "loc": "src/pages/MerchantMenu.tsx"
     },
     {
-      "id": "TASK-102176",
-      "type": "task",
-      "status": "done",
-      "date": "2026-10-16",
-      "time": "11:22:15",
-      "tags": [
-        "auto"
-      ],
-      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md (+7/-1) — edit via tool: Ko",
-      "conn": [
-        {
-          "id": "FEAT-001",
-          "type": "relates",
-          "raw": "FEAT-001:relates"
-        }
-      ],
-      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
-    },
-    {
-      "id": "TASK-102177",
-      "type": "task",
-      "status": "done",
-      "date": "2026-10-16",
-      "time": "11:23:24",
-      "tags": [
-        "auto"
-      ],
-      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+5/-3) — edit via tool: menu_variants (7)",
-      "conn": [
-        {
-          "id": "FEAT-001",
-          "type": "relates",
-          "raw": "FEAT-001:relates"
-        }
-      ],
-      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
-    },
-    {
       "id": "REQ-90002",
       "type": "requirement",
       "status": "active",
@@ -1211,6 +1173,54 @@
           "raw": "DEC-88104:relates"
         }
       ]
+    },
+    {
+      "id": "DEC-88105",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "11:53:41",
+      "tags": [
+        "courier",
+        "batch",
+        "scope",
+        "m5"
+      ],
+      "summary": "Batch kurir inhouse (M5) courier-native: pakai id tugas ct-*, belum menyatu dgn order merchant mo-*/api-*",
+      "conn": [
+        {
+          "id": "DEC-88103",
+          "type": "relates",
+          "raw": "DEC-88103:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102231",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "11:53:48",
+      "tags": [
+        "courier",
+        "batch",
+        "ui",
+        "m5"
+      ],
+      "summary": "M5a: halaman /courier/batch + auto-sort NN + mulai antar + fee ke DANA per order",
+      "conn": [
+        {
+          "id": "DEC-88105",
+          "type": "implements",
+          "raw": "DEC-88105:implements"
+        },
+        {
+          "id": "TASK-102175",
+          "type": "relates",
+          "raw": "TASK-102175:relates"
+        }
+      ],
+      "loc": "src/pages/CourierBatch.tsx"
     }
   ]
 }

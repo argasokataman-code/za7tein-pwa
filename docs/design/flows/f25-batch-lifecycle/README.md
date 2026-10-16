@@ -31,6 +31,7 @@ Cabang pengantaran order di konsol merchant (PRD aktif `sa7tein-mvp-2026-10-11`)
 - PRD `sa7tein-mvp-2026-10-11` §7.2/§7.3/§8/§11 — `docs/product/prd/versions/sa7tein-mvp-2026-10-11/`
 - Milestone **M4** — `versions/sa7tein-mvp-2026-10-11/milestones.md` · dampak per layar — `ui-impact.md` (§11, C-01/C-02/C-03)
 - Implementasi: `src/data/batch.ts` (+ self-check `scripts/batch-check.mjs`), `batchSlice`, `src/components/merchant/{BatchPanel,AcceptOrderSheet}.tsx`
+- **Sisi kurir (M5a):** `/courier/batch` + `courierSlice.batch`, aturan murni `src/data/courierBatch.ts` (+ `scripts/courier-batch-check.mjs`). Diagram tidak berubah (auto-sort BR-B12 sudah tergambar). Sisa M5: peta rute.
 - **UNRESOLVED (jangan ditebak):** `orders` BE belum punya kolom jenis pengantaran → demo memakai overlay per kode order (`MOCK_ORDER_DELIVERY_TYPE`), dicatat di `ui-impact.md` §8; batch belum punya tabel di BE.
 
 ## Update
