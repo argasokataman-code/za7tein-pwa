@@ -39,6 +39,7 @@ inhouse) ada di `../f25-batch-lifecycle/`.
 - Milestone **M6** (kurir partner + dispatch) — `versions/sa7tein-mvp-2026-10-11/milestones.md` · dampak per layar — `ui-impact.md:60` (`f26-quick-dispatch` dipesan di situ)
 - Flow saudara: `../f25-batch-lifecycle/` (Regular inhouse + gambaran dua jalur)
 - Bukti tiap langkah: `f26-quick-dispatch.milestones.md` (menunjuk `analysis.md:35/36/38/43/46/72`)
+- **Kontrak BE:** `docs/integration/courier-partner/be-contract.md` (tabel + RPC yang belum ada; SP & OPEN-11 UNRESOLVED)
 
 ## UNRESOLVED (jangan ditebak)
 
