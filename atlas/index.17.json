@@ -2076,6 +2076,53 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-102297",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:58:22",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && A=/Users/vanviakingali/.local/share/fnm/node-versions/v24.16.0/installation/lib/nod",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:58:42",
+      "tags": [
+        "courier",
+        "m5",
+        "wallet",
+        "map",
+        "docs"
+      ],
+      "summary": "M5 tutup: peta rute batch (drawBatchRoute + pin bernomor) + fee pengantaran masuk saldo dompet (courierWalletBreakdown = fee + tips - pencai",
+      "conn": [
+        {
+          "id": "TASK-102270",
+          "type": "relates",
+          "raw": "TASK-102270:relates"
+        },
+        {
+          "id": "DEC-88105",
+          "type": "relates",
+          "raw": "DEC-88105:relates"
+        }
+      ],
+      "loc": "src/data/courierWallet.ts:1"
     }
   ]
 }
