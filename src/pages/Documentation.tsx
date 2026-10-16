@@ -307,7 +307,9 @@ export default function Documentation() {
                 <code className="doc-inline">QUOTA_PURCHASE_AVAILABLE</code>): BE belum punya tabel
                 langganan, jadi tombolnya mati dengan alasan. Setting "terima order tanpa kuota"
                 hanya bisa diubah <strong>saat toko tutup</strong> (§17) — saat toko buka, sakelarnya
-                mati dan sebabnya ditulis di tempat.
+                mati dan sebabnya ditulis di tempat. Saat menyala, kartunya menjadi hijau penuh; di
+                atas permukaan pekat itu sakelar dan labelnya dinetralkan (trek translucent, tombol
+                navy) supaya oranye merek tidak bertabrakan dengan latar hijau.
               </li>
               <li>
                 <strong>Program marketing ala Odoo (§15).</strong> Program punya tipe, pemilik (toko

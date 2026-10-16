@@ -95,6 +95,22 @@
 .tone-fill .merchant-card-title,
 .tone-fill .merchant-card-sub,
 .tone-fill .merchant-promo-code,
-.tone-fill .merchant-quota-card__meta {
+.tone-fill .merchant-quota-card__meta,
+.tone-fill .merchant-row {
   color: inherit;
+}
+
+/* Sakelar di atas isian pekat: trek oranye merek tenggelam di warna apa pun
+   dan bersaing dengan nada kartu (oranye di atas hijau = dua peran berebut).
+   Aturan ini berlaku untuk semua kartu `.tone-fill`, bukan per komponen. */
+.tone-fill .toggle-slider {
+  background: color-mix(in srgb, var(--on-navy) 26%, transparent);
+}
+
+.tone-fill .toggle-slider::before {
+  background: var(--navy);
+}
+
+.tone-fill .toggle-input:checked + .toggle-slider {
+  background: var(--surface);
 }

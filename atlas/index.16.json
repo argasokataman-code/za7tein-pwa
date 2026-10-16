@@ -4145,6 +4145,132 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102019",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:07:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss (+23/-6) — edit via tool: .tone-fill .merchant-card-title,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_tones.scss"
+    },
+    {
+      "id": "TASK-102020",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:07:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss (+6/-26) — edit via tool: .merchant-promo-item.ton",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-promo.scss"
+    },
+    {
+      "id": "TASK-102021",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:07:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -5 && npm run build 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102022",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:08:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: AA te",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "BUG-102013",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:09:33",
+      "tags": [
+        "ui",
+        "tone",
+        "merchant"
+      ],
+      "summary": "Kartu tone-fill hijau: sakelar+label .merchant-row oranye bentrok latar hijau; aturan netral naik ke _tones.scss (generik)",
+      "conn": [
+        {
+          "id": "DEC-88095",
+          "type": "relates",
+          "raw": "DEC-88095:relates"
+        },
+        {
+          "id": "TASK-102019",
+          "type": "fixes",
+          "raw": "TASK-102019:fixes"
+        },
+        {
+          "id": "TASK-102020",
+          "type": "fixes",
+          "raw": "TASK-102020:fixes"
+        }
+      ],
+      "loc": "src/styles/system/_tones.scss"
+    },
+    {
+      "id": "TASK-102023",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:09:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-4) — edit via tool: tsx: langganan, jadi tombolnya mati ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

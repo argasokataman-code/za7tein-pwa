@@ -34,26 +34,6 @@
   color: var(--on-navy);
 }
 
-/* Baris sakelar di kartu pekat: label putih, bukan oranye merek. */
-.merchant-promo-item.tone-fill .merchant-row {
-  color: var(--on-navy);
-}
-
-/* Sakelar: trek oranye merek tenggelam di permukaan pekat (oranye di atas
-   oranye). Di kartu pekat trek jadi putih/translucent dan tombolnya navy,
-   supaya terbaca di warna apa pun. */
-.merchant-promo-item.tone-fill .toggle-slider {
-  background: color-mix(in srgb, var(--on-navy) 26%, transparent);
-}
-
-.merchant-promo-item.tone-fill .toggle-slider::before {
-  background: var(--navy);
-}
-
-.merchant-promo-item.tone-fill .toggle-input:checked + .toggle-slider {
-  background: var(--surface);
-}
-
 .merchant-promo-head {
   display: flex;
   align-items: flex-start;
