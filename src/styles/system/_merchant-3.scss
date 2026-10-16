@@ -157,6 +157,18 @@
   min-height: 48px;
 }
 
+/* Baris berikon: ikon memimpin baris pertama, bukan mengambang di tengah (ikon
+   20px di baris 116px terbaca kecil). Geser 2px agar sejajar huruf kapital
+   judul `--text-base` (line-height 24). */
+.merchant-row:has(> svg) {
+  align-items: flex-start;
+}
+
+.merchant-row > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 /* ── Langganan kuota: tema per jenis kanal ───────────────────────────────────
    Halaman ini dulu terbaca seperti tabel web: dua blok angka kecil yang saling
    mengulang + dua kartu berisi empat baris "label … nilai" + lima baris list

@@ -4271,6 +4271,160 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102024",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:10:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -4 && rtk git add -A && rtk git status --short passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102025",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:13:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+20/-6) — edit via tool: .merchant-row {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-102026",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:13:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102027",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:15:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+11/-13) — edit via tool: /* Baris berikon: ikon memimp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-102028",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:15:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+17/-5) — edit via tool: /* Baris sakelar = sasaran s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-102029",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:16:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102030",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:16:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+9/-5) — edit via tool: tsx: Halaman <code className=\"doc-in",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-102014",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:16:58",
+      "tags": [
+        "ui",
+        "merchant",
+        "row"
+      ],
+      "summary": "Baris .merchant-row berikon: ikon 20px mengambang di tengah blok panjang (48px di bawah judul) terbaca kecil; sejajar baris pertama",
+      "conn": [
+        {
+          "id": "BUG-102013",
+          "type": "relates",
+          "raw": "BUG-102013:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-3.scss"
     }
   ]
 }

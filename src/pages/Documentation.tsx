@@ -334,7 +334,11 @@ export default function Documentation() {
                 Halaman <code className="doc-inline">/merchant/subscription</code> juga turun dari
                 tumpukan baris tabel: satu kartu per jenis kuota dengan warna status (hijau / kuning /
                 merah dari token status), angka sisa sebagai fokus, dan paket sebagai grid kartu —
-                bukan lima baris list.
+                bukan lima baris list. Baris berikon (
+                <code className="doc-inline">.merchant-row</code> yang beranak{' '}
+                <code className="doc-inline">svg</code>) menyejajarkan ikon ke baris pertama judul,
+                bukan ke tengah blok: di kartu berparagraf panjang ikon 20px dulu terukur 48px di
+                bawah judul dan terbaca kecil.
               </li>
               <li>
                 <strong>Nada kartu (<code className="doc-inline">.tone-*</code>).</strong> Design system
