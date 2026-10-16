@@ -417,6 +417,19 @@ export default function Documentation() {
                 <code className="doc-inline">back=&quot;/&quot;</code>.
               </li>
               <li>
+                <strong>Dropdown sendiri, bukan <code className="doc-inline">&lt;select&gt;</code>{' '}
+                peramban.</strong> Pemilih bank di{' '}
+                <code className="doc-inline">/merchant/payout-accounts</code> dan{' '}
+                <code className="doc-inline">/courier/payout-accounts</code> memakai komponen{' '}
+                <code className="doc-inline">ui/SelectField.tsx</code>: trigger berbentuk field
+                (mixin <code className="doc-inline">field-shape</code>, jadi sama dengan{' '}
+                <code className="doc-inline">.form-control</code>) plus daftar opsi dari token
+                peran. Daftarnya dibuka <em>inline</em>, mengalir di bawah trigger — bukan{' '}
+                <code className="doc-inline">BottomSheet</code> kedua, karena panel sheet yang
+                menumpuk membuat satu tap menutup dua panel sekaligus, dan menu melayang akan
+                terpotong <code className="doc-inline">overflow: auto</code> panel form.
+              </li>
+              <li>
                 <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan
                 (customer/merchant/kurir, disimpan per peran di slice{' '}
                 <code className="doc-inline">preferences</code>) tidak dipakai lagi: layar peran

@@ -13,8 +13,74 @@ input[type='password'],
 input[type='number'],
 input[type='search'],
 textarea,
-select {
+select,
+.field-select {
   @include field-shape;
+}
+
+/* Trigger dropdown sendiri (ganti `<select>`): bentuk field sama, tapi
+   barisnya flex supaya teks + chevron sejajar. Dipakai `ui/SelectField.tsx`. */
+.field-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  text-align: left;
+  cursor: pointer;
+}
+
+.field-select.is-empty {
+  color: var(--text-secondary);
+}
+
+.field-select-chevron {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.field-select-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+/* Daftar opsi dropdown: mengalir di bawah trigger (bukan melayang), supaya
+   tidak terpotong `overflow: auto` panel sheet. */
+.field-select-menu {
+  margin-top: var(--space-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.field-select-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-4);
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-field);
+  text-align: left;
+  cursor: pointer;
+}
+
+.field-select-option + .field-select-option {
+  border-top: 1px solid var(--border);
+}
+
+.field-select-option:hover {
+  background: var(--bg-warm);
+}
+
+.field-select-option.is-active {
+  color: var(--orange-ink);
+  font-weight: 700;
 }
 
 /* ── Form alamat (flow f20) ────────────────────────────────────────────────

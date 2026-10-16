@@ -4732,6 +4732,371 @@
         }
       ],
       "loc": "src/pages/MerchantReviews.tsx:150"
+    },
+    {
+      "id": "TASK-102045",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:45:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx (+1/-1) — edit via tool: tsx: import { Controller, u",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102046",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:45:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayoutAccounts.tsx (+1/-1) — edit via tool: tsx: import { Controller, us",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102047",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:46:18",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102048",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:47:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx (+84) — write via tool: tsx: import { Check, ChevronDow",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx"
+    },
+    {
+      "id": "TASK-102049",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:47:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_forms.scss (+34/-13) — edit via tool: .form-control,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_forms.scss"
+    },
+    {
+      "id": "TASK-102050",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:47:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx (+24/-26) — edit via tool: tsx: <div className=\"form",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102051",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:48:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayoutAccounts.tsx (+24/-25) — edit via tool: tsx: <div className=\"form-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102052",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:48:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx (+3/-2) — edit via tool: tsx: import { ConfirmSheet ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102053",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:48:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"error\"; npm run build 2>&1 | tail -3 && npm run s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102054",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:48:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx (+1/-1) — edit via tool: tsx: <span>{value || placehold",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx"
+    },
+    {
+      "id": "TASK-102055",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:48:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | rtk grep -E \"FAIL|WARN\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102056",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:52:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx (+88) — write via tool: tsx: import { Check, ChevronDow",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx"
+    },
+    {
+      "id": "TASK-102057",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:52:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_forms.scss (+49/-4) — edit via tool: .field-select-chevron {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_forms.scss"
+    },
+    {
+      "id": "TASK-102058",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:52:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx (+3/-4) — edit via tool: tsx: placeholder=\"Pilih ban",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102059",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:52:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayoutAccounts.tsx (+3/-4) — edit via tool: tsx: placeholder=\"Pilih bank",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102060",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:52:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -2 && npm run",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102061",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:55:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+15/-2) — edit via tool: tsx: <code className=\"doc-inline\">b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "DEC-88101",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "07:55:47",
+      "tags": [
+        "ui",
+        "merchant",
+        "courier",
+        "form"
+      ],
+      "summary": "Pemilih bank pakai SelectField (dropdown sendiri), bukan select peramban",
+      "conn": [
+        {
+          "id": "DEC-88100",
+          "type": "relates",
+          "raw": "DEC-88100:relates"
+        }
+      ],
+      "loc": "src/components/ui/SelectField.tsx:1"
+    },
+    {
+      "id": "BUG-102016",
+      "type": "bug",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "07:55:47",
+      "tags": [
+        "ui",
+        "sheet"
+      ],
+      "summary": "BottomSheet bertumpuk: satu tap pilih opsi menutup dua panel sekaligus",
+      "conn": [
+        {
+          "id": "DEC-88101",
+          "type": "relates",
+          "raw": "DEC-88101:relates"
+        }
+      ],
+      "loc": "src/components/ui/SelectField.tsx:20"
     }
   ]
 }

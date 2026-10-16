@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Landmark, Pencil, Plus, Star, Trash2 } from 'lucide-react'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 
@@ -9,6 +9,7 @@ import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
+import { SelectField } from '../components/ui/SelectField'
 import { BANK_OPTIONS } from '../data/payout'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { payoutAccountSchema, type PayoutAccountFormData } from '../lib/schemas'
@@ -37,6 +38,7 @@ export default function MerchantPayoutAccounts() {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors },
@@ -158,18 +160,27 @@ export default function MerchantPayoutAccounts() {
       >
         <form className="merchant-form" noValidate onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
-            <label htmlFor="payout-bank" className="form-label">Bank</label>
-            <select
-              id="payout-bank"
-              className={`form-control${errors.bankName ? ' error' : ''}`}
-              {...register('bankName')}
-            >
-              <option value="">Pilih bank</option>
-              {BANK_OPTIONS.map((bank) => (
-                <option key={bank} value={bank}>{bank}</option>
-              ))}
-            </select>
-            {errors.bankName && <span className="error-message">{errors.bankName.message}</span>}
+            <span className="form-label">Bank</span>
+            <Controller
+              name="bankName"
+              control={control}
+              render={({ field }) => (
+                <SelectField
+                  label="Bank"
+                  options={BANK_OPTIONS}
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder="Pilih bank"
+                  invalid={Boolean(errors.bankName)}
+                  describedBy={errors.bankName ? 'payout-bank-error' : undefined}
+                />
+              )}
+            />
+            {errors.bankName && (
+              <span id="payout-bank-error" className="error-message">
+                {errors.bankName.message}
+              </span>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="payout-number" className="form-label">Nomor rekening</label>
