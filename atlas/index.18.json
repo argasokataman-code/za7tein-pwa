@@ -136,6 +136,351 @@
         }
       ],
       "commit": "e176800"
+    },
+    {
+      "id": "TASK-110430",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:38:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/rating.ts (+100) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/rating.ts"
+    },
+    {
+      "id": "TASK-110431",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:38:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts (+60/-43) — edit via tool: ts: interface OrderRow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts"
+    },
+    {
+      "id": "TASK-110432",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:39:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderHistory.tsx (+118) — write via tool: tsx: import { MessageSquare } from 'l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderHistory.tsx"
+    },
+    {
+      "id": "TASK-110433",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:39:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx (+3/-2) — edit via tool: tsx: FileText,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx"
+    },
+    {
+      "id": "TASK-110434",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:39:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+2/-1) — edit via tool: tsx: ['/order-arrived', OrderArrived],",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-110435",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:40:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Reviews.tsx (+15/-5) — edit via tool: tsx: useEffect(() => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Reviews.tsx"
+    },
+    {
+      "id": "TASK-110436",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:41:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/rating-check.mjs (+83) — write via tool: // Self-check aturan rating & review (M8",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/rating-check.mjs"
+    },
+    {
+      "id": "TASK-110437",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:41:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+8/-13) — edit via tool: tsx: <section className=\"menu-reviews-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-110438",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:41:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderHistory.tsx (+1/-1) — edit via tool: tsx: <span className=\"reviews-order\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderHistory.tsx"
+    },
+    {
+      "id": "TASK-110439",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:42:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-CUS-RATING.md (+69) — write v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-CUS-RATING.md"
+    },
+    {
+      "id": "TASK-110440",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:43:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json (+2/-3) — edit v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json"
+    },
+    {
+      "id": "TASK-110441",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:43:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-CUS-RATING.md (+1/-1) — edit ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-CUS-RATING.md"
+    },
+    {
+      "id": "TASK-110442",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:43:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: *",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-110443",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:43:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/README.md (+3/-1) — edit via tool: > Catatan 2026-10-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f19-rating-review/README.md"
+    },
+    {
+      "id": "TASK-110444",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:44:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: Diuku",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-110445",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:44:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+18/-2) — edit via tool: tsx: dalam 6 detik dan ETA ikut tur",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-110446",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:46:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderHistory.tsx (+5/-2) — edit via tool: tsx: // Isinya order `done` saja (yan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderHistory.tsx"
+    },
+    {
+      "id": "TASK-88120",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:47:18",
+      "tags": [
+        "m8",
+        "rating",
+        "r-cus-rating",
+        "ui"
+      ],
+      "summary": "M8a R-CUS-RATING: aturan 20.2 jadi fungsi murni (merchant+review, menu bintang saja, tanpa variant/batas waktu/moderasi), halaman riwayat or",
+      "conn": [
+        {
+          "id": "TASK-88119",
+          "type": "relates",
+          "raw": "TASK-88119:relates"
+        }
+      ],
+      "commit": "33fdabe"
     }
   ]
 }
