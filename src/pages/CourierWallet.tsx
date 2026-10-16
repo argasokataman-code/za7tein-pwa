@@ -1,13 +1,14 @@
-import { ArrowDownLeft, ArrowUpRight, Landmark, Lock } from 'lucide-react'
+import { ArrowDownLeft, ArrowUpRight, Coins, Landmark, Lock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { accountLabel } from '../data/payout'
 import {
+  COURIER_MIN_WITHDRAW_IDR,
   COURIER_PAYOUT_FEE_IDR,
-  COURIER_TIPS_MIN_WITHDRAW_IDR,
-  courierTipsAvailable,
+  courierFeeEntries,
+  courierWalletBreakdown,
   mockCourierTips,
 } from '../data/courierWallet'
 import { payoutStatusLabel } from '../data/wallet'
@@ -23,8 +24,10 @@ const entryDate = (iso: string) =>
   })
 
 /**
- * Dompet kurir (R-WALLET-01, flow f6). Hanya tips — gaji dan ongkir bukan milik
- * kurir (C-06). Saldo dihitung dari tips − pencairan, bukan state terpisah.
+ * Dompet kurir (R-WALLET-01, flow f6). Menampung **fee pengantaran** Regular
+ * online (R-DELIV-FEE, masuk DANA kurir saat order selesai) dan **tips**
+ * customer. Saldo diturunkan dari tugas + riwayat pencairan, bukan state
+ * terpisah, jadi menuntaskan order langsung menaikkan angka ini.
  */
 export default function CourierWallet() {
   const { money, moneyPlain } = useMoney()
@@ -33,29 +36,32 @@ export default function CourierWallet() {
   const accounts = useAppSelector((s) => s.courier.payoutAccounts)
   const primary = accounts.find((a) => a.isPrimary) ?? accounts[0]
 
-  const available = courierTipsAvailable(tasks, payouts)
-  const belowMin = available < COURIER_TIPS_MIN_WITHDRAW_IDR
-  const remaining = COURIER_TIPS_MIN_WITHDRAW_IDR - available
-  const ratio = Math.min(1, available / COURIER_TIPS_MIN_WITHDRAW_IDR)
+  const { tips, fees, available } = courierWalletBreakdown(tasks, payouts)
+  const belowMin = available < COURIER_MIN_WITHDRAW_IDR
+  const remaining = COURIER_MIN_WITHDRAW_IDR - available
+  const ratio = Math.min(1, available / COURIER_MIN_WITHDRAW_IDR)
 
-  const history = [...payouts, ...mockCourierTips].sort((a, b) =>
+  const history = [...payouts, ...mockCourierTips, ...courierFeeEntries(tasks)].sort((a, b) =>
     a.createdAt < b.createdAt ? 1 : -1,
   )
 
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Penghasilan" title="Dompet tips" back="/tips" />
+        <CourierPageHeader eyebrow="Penghasilan" title="Dompet kurir" back="/tips" />
 
-        <section className="courier-card courier-wallet-hero" aria-label="Saldo tips">
-          <p className="courier-card-sub">Saldo tips bisa ditarik</p>
+        <section className="courier-card courier-wallet-hero" aria-label="Saldo dompet">
+          <p className="courier-card-sub">Saldo bisa ditarik</p>
           <p className="courier-wallet-total">{money(available)}</p>
+          <p className="courier-card-sub">
+            Fee pengantaran {moneyPlain(fees)} · tips {moneyPlain(tips)}
+          </p>
           <div className="courier-wallet-meter" role="presentation">
             <span style={{ width: `${Math.round(ratio * 100)}%` }} />
           </div>
           <p className="courier-card-sub">
             {belowMin
-              ? `${moneyPlain(remaining)} lagi untuk mencapai ambang penarikan ${moneyPlain(COURIER_TIPS_MIN_WITHDRAW_IDR)}`
+              ? `${moneyPlain(remaining)} lagi untuk mencapai ambang penarikan ${moneyPlain(COURIER_MIN_WITHDRAW_IDR)}`
               : 'Sudah melewati ambang, siap ditarik ke rekening'}
           </p>
         </section>
@@ -68,7 +74,7 @@ export default function CourierWallet() {
         ) : (
           <Link className="btn btn-primary courier-wallet-cta" to="/payout">
             <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true" />
-            Tarik tips ke rekening
+            Tarik saldo ke rekening
           </Link>
         )}
 
@@ -98,20 +104,23 @@ export default function CourierWallet() {
           ) : (
             <ul className="courier-wallet-history">
               {history.map((entry) => {
-                const isTip = entry.kind === 'tip'
-                const Icon = isTip ? ArrowDownLeft : ArrowUpRight
+                const isPayout = entry.kind === 'payout'
+                const Icon = entry.kind === 'tip' ? Coins : isPayout ? ArrowUpRight : ArrowDownLeft
+                const title = isPayout
+                  ? 'Pencairan ke rekening'
+                  : entry.kind === 'tip'
+                    ? 'Tips masuk'
+                    : 'Fee pengantaran'
                 return (
                   <li key={entry.id}>
                     <span
-                      className={`courier-wallet-history-icon${isTip ? ' is-credit' : ''}`}
+                      className={`courier-wallet-history-icon${isPayout ? '' : ' is-credit'}`}
                       aria-hidden="true"
                     >
                       <Icon size={16} strokeWidth={1.75} />
                     </span>
                     <div className="courier-wallet-history-body">
-                      <span className="courier-wallet-history-title">
-                        {isTip ? 'Tips masuk' : 'Pencairan ke rekening'}
-                      </span>
+                      <span className="courier-wallet-history-title">{title}</span>
                       <span className="courier-wallet-history-sub">
                         {entryDate(entry.createdAt)}
                         {entry.destination ? ` · ${entry.destination}` : ''}
@@ -119,14 +128,12 @@ export default function CourierWallet() {
                       </span>
                     </div>
                     <div className="courier-wallet-history-right">
-                      <span
-                        className={`courier-wallet-history-amount${isTip ? ' is-credit' : ''}`}
-                      >
-                        {isTip ? '+' : '−'}
+                      <span className={`courier-wallet-history-amount${isPayout ? '' : ' is-credit'}`}>
+                        {isPayout ? '−' : '+'}
                         {moneyPlain(entry.amount)}
                       </span>
                       <span className="courier-wallet-history-status">
-                        {isTip ? 'Masuk saldo' : payoutStatusLabel(entry.status)}
+                        {isPayout ? payoutStatusLabel(entry.status) : 'Masuk saldo'}
                       </span>
                     </div>
                   </li>
@@ -135,8 +142,8 @@ export default function CourierWallet() {
             </ul>
           )}
           <p className="courier-hint-inline">
-            Ambang penarikan {moneyPlain(COURIER_TIPS_MIN_WITHDRAW_IDR)}. Ongkir dan gaji bukan
-            milik kurir, jadi tidak masuk dompet ini.
+            Ambang penarikan {moneyPlain(COURIER_MIN_WITHDRAW_IDR)}. Gaji bulanan bukan milik kurir,
+            jadi tidak masuk dompet ini.
           </p>
         </section>
 

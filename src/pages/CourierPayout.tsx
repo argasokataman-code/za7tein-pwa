@@ -7,19 +7,20 @@ import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { accountLabel } from '../data/payout'
 import {
+  COURIER_MIN_WITHDRAW_IDR,
   COURIER_PAYOUT_FEE_IDR,
-  COURIER_TIPS_MIN_WITHDRAW_IDR,
   courierPayoutNet,
-  courierTipsAvailable,
+  courierWalletAvailable,
 } from '../data/courierWallet'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { requestCourierPayout } from '../store/slices/courierSlice'
 
 /**
- * Pencairan tips kurir (R-WALLET-01, flow f6). Fee Rp2.500 ditanggung kurir —
- * dipotong dari nilai withdraw, jadi layar menampilkan "diterima" bersih.
- * Ambang minimum masih contoh PRD (`COURIER_TIPS_MIN_WITHDRAW_IDR`).
+ * Pencairan saldo dompet kurir (R-WALLET-01, flow f6). Fee Rp2.500 ditanggung
+ * kurir — dipotong dari nilai withdraw, jadi layar menampilkan "diterima"
+ * bersih. Saldo mencakup fee pengantaran + tips; ambang minimum masih contoh
+ * PRD (`COURIER_MIN_WITHDRAW_IDR`).
  */
 export default function CourierPayout() {
   const { money, moneyPlain } = useMoney()
@@ -30,11 +31,11 @@ export default function CourierPayout() {
   const accounts = useAppSelector((s) => s.courier.payoutAccounts)
   const primary = accounts.find((a) => a.isPrimary) ?? accounts[0]
 
-  const available = courierTipsAvailable(tasks, payouts)
+  const available = courierWalletAvailable(tasks, payouts)
   const [accountId, setAccountId] = useState(primary?.id ?? '')
   const [amount, setAmount] = useState<number>(available)
 
-  const belowMin = available < COURIER_TIPS_MIN_WITHDRAW_IDR
+  const belowMin = available < COURIER_MIN_WITHDRAW_IDR
   const tooMuch = amount > available
   const canSubmit = Boolean(accountId) && amount > 0 && !tooMuch && !belowMin
 
@@ -48,10 +49,10 @@ export default function CourierPayout() {
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Penghasilan" title="Tarik tips" back="/wallet" />
+        <CourierPageHeader eyebrow="Penghasilan" title="Tarik saldo" back="/wallet" />
 
-        <section className="courier-card courier-wallet-hero" aria-label="Saldo tips">
-          <p className="courier-card-sub">Saldo tips bisa ditarik</p>
+        <section className="courier-card courier-wallet-hero" aria-label="Saldo dompet">
+          <p className="courier-card-sub">Saldo bisa ditarik</p>
           <p className="courier-wallet-total">{money(available)}</p>
         </section>
 
@@ -61,7 +62,7 @@ export default function CourierPayout() {
               <CreditCard size={20} strokeWidth={1.75} aria-hidden="true" />
               <div>
                 <p className="courier-card-title">Belum ada rekening tujuan</p>
-                <p className="courier-card-sub">Tambahkan rekening dulu sebelum menarik tips.</p>
+                <p className="courier-card-sub">Tambahkan rekening dulu sebelum menarik saldo.</p>
               </div>
             </div>
             <Link className="btn btn-primary courier-wallet-cta" to="/payout-accounts">
@@ -72,7 +73,7 @@ export default function CourierPayout() {
           <section className="courier-card">
             <p className="courier-card-title">Belum mencapai ambang penarikan</p>
             <p className="courier-card-sub">
-              Kumpulkan minimal {moneyPlain(COURIER_TIPS_MIN_WITHDRAW_IDR)} dulu. Menarik tips kecil
+              Kumpulkan minimal {moneyPlain(COURIER_MIN_WITHDRAW_IDR)} dulu. Menarik saldo kecil
               setelah dipotong fee tidak ekonomis.
             </p>
           </section>

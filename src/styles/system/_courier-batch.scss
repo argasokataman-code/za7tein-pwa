@@ -140,6 +140,19 @@
   color: var(--text-secondary);
 }
 
+/* Peta rute batch (M5): tinggi tetap supaya daftar di bawahnya tidak melompat
+   saat ubin peta selesai dimuat; tepinya satu bahasa dengan kartu lain. */
+.courier-batch-mapwrap {
+  margin-bottom: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.courier-batch-map {
+  height: 200px;
+}
+
 .courier-batch-fee {
   display: inline-flex;
   align-items: center;

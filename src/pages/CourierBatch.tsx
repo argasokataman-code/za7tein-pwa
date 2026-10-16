@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
+import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { BATCH_STATUS_LABEL, batchCapacityLeft, countdownLabel } from '../data/batch'
@@ -34,6 +35,20 @@ export default function CourierBatch() {
   const tasks = useAppSelector((s) => s.courier.tasks)
   const batch = useAppSelector((s) => s.courier.batch)
 
+  // Hook peta harus dipanggil tanpa syarat (aturan hook React), jadi titik
+  // hentinya dihitung sebelum cabang "belum ada batch".
+  const stops = batch ? courierBatchTasks(batch, tasks) : []
+  const ordered = batch?.autoSort ? autoSortTasks(stops) : stops
+  const mapStops = ordered
+    .filter((task) => task.latitude != null && task.longitude != null)
+    .map((task) => ({
+      lat: task.latitude!,
+      lng: task.longitude!,
+      label: task.code,
+      done: isDoneTask(task),
+    }))
+  useLeafletMap('courier-batch-map', 'delivery', { stops: mapStops })
+
   if (!batch) {
     return (
       <div className="app-shell">
@@ -46,11 +61,10 @@ export default function CourierBatch() {
     )
   }
 
-  const stops = courierBatchTasks(batch, tasks)
   const progress = batchProgress(batch, tasks)
   const next = nextBatchTask(batch, tasks)
   const status = batchDisplayStatus(batch, tasks)
-  const routeMeters = routeDistanceMeters(batch.autoSort ? autoSortTasks(stops) : stops)
+  const routeMeters = routeDistanceMeters(ordered)
   const notStarted = status !== 'delivering' && status !== 'done'
   const startable = notStarted && canStartBatch(batch)
   const delivering = status === 'delivering'
@@ -103,6 +117,15 @@ export default function CourierBatch() {
           Auto-sort rute: {batch.autoSort ? 'ON' : 'OFF'}
         </button>
         <p className="courier-sla-note">{WALK_ROUTE_BETA_NOTE}</p>
+
+        {/* Peta rute (M5): garis dari toko + pin bernomor sesuai urutan antar.
+            Muncul hanya saat semua order punya koordinat; kalau tidak, daftar
+            bernomor di bawah tetap jadi acuan. */}
+        {mapStops.length > 0 && (
+          <div className="courier-batch-mapwrap">
+            <div id="courier-batch-map" className="courier-batch-map" />
+          </div>
+        )}
 
         {/* Aksi utama: mulai antar. Nonaktif sampai hitung mundur habis atau
             merchant menutup batch lebih awal (BR-B09). */}

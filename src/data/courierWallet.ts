@@ -1,22 +1,25 @@
-import { courierSelf, totalTips } from './courier'
+import { courierSelf, isDoneTask, totalTips } from './courier'
 import type { ChartBar, CourierTask, PayoutAccount, PayoutEntry } from '../types'
 
 /**
- * Dompet kurir (R-WALLET-01, flow f6): **hanya menampung tips**. Gaji kurir
- * dibayar merchant dan platform tidak menahan dana kurir (C-06), jadi ongkir
- * tidak pernah masuk ke sini. Semua nominal IDR (R-CURR-01).
+ * Dompet kurir (R-WALLET-01, flow f6). Sejak PRD `sa7tein-mvp-2026-10-11`
+ * dompet menampung **dua** sumber: **fee pengantaran** order Regular online
+ * (R-DELIV-FEE — penerima fee pindah dari merchant ke kurir) dan **tips**
+ * customer. Gaji bulanan tetap dibayar merchant di luar aplikasi, dan COD tidak
+ * masuk ke sini (dibayar merchant di luar aplikasi, R-COU-INHOUSE). Nominal IDR
+ * (R-CURR-01).
  *
- * Saldo = tips pengiriman sebelumnya (mock) + tips tugas yang sudah selesai −
- * pencairan yang sudah diminta. Tips dari tugas aktif belum bisa ditarik.
+ * Saldo = fee + tips − pencairan yang sudah diminta. Tips/fee dari tugas yang
+ * belum selesai belum bisa ditarik.
  */
 
 /**
- * Ambang minimum penarikan tips. Angka **belum final di PRD** — `source.md:83`
+ * Ambang minimum penarikan saldo. Angka **belum final di PRD** — `source.md:83`
  * menyebut contoh akumulasi ≥Rp50.000, dan `f6-cashout-payout/README.md:36`
  * menandainya UNRESOLVED. Dipakai sementara supaya aturan akumulasi punya
  * bentuk; kalau PO menetapkan angka lain, ganti di sini saja.
  */
-export const COURIER_TIPS_MIN_WITHDRAW_IDR = 50_000
+export const COURIER_MIN_WITHDRAW_IDR = 50_000
 
 /**
  * Fee payout DANA Rp2.500/transfer, **ditanggung kurir** (PO 2026-09-22,
@@ -63,13 +66,51 @@ export const mockCourierPayoutAccounts: PayoutAccount[] = [
   },
 ]
 
-/** Saldo tips yang bisa ditarik: tips lama + tips tugas selesai − pencairan. */
-export function courierTipsAvailable(tasks: CourierTask[], payouts: PayoutEntry[]): number {
-  const seed = mockCourierTips.reduce((sum, entry) => sum + entry.amount, 0)
+/**
+ * Waktu order contoh selesai. `CourierTask` tidak menyimpan waktu selesai, jadi
+ * baris ledger fee memakai satu cap tetap supaya urutan riwayat stabil; di BE
+ * nanti `createdAt` datang dari ledger (append-only, NFR-02).
+ */
+const FEE_SETTLED_AT = '2026-10-15T11:20:00+07:00'
+
+/**
+ * Baris ledger **fee pengantaran** dari tugas yang sudah selesai dan ber-fee > 0
+ * (Regular online → DANA kurir). COD selalu `deliveryFeeIdr` 0, jadi tak pernah
+ * muncul di sini.
+ */
+export function courierFeeEntries(tasks: CourierTask[]): PayoutEntry[] {
+  return tasks
+    .filter((task) => isDoneTask(task) && (task.deliveryFeeIdr ?? 0) > 0)
+    .map((task) => ({
+      id: `cfee-${task.id}`,
+      kind: 'settlement' as const,
+      amount: task.deliveryFeeIdr ?? 0,
+      status: 'completed' as const,
+      createdAt: FEE_SETTLED_AT,
+      destination: `${task.code} · ${task.address}`,
+    }))
+}
+
+/**
+ * Rincian saldo dompet: fee pengantaran + tips − pencairan. Tidak ada state
+ * saldo tersendiri — semuanya diturunkan dari tugas dan riwayat pencairan, jadi
+ * menuntaskan order langsung menaikkan saldo (satu rumus, dipakai semua layar).
+ */
+export function courierWalletBreakdown(
+  tasks: CourierTask[],
+  payouts: PayoutEntry[],
+): { tips: number; fees: number; withdrawn: number; available: number } {
+  const tips = mockCourierTips.reduce((sum, entry) => sum + entry.amount, 0) + totalTips(tasks)
+  const fees = courierFeeEntries(tasks).reduce((sum, entry) => sum + entry.amount, 0)
   const withdrawn = payouts
     .filter((entry) => entry.kind === 'payout')
     .reduce((sum, entry) => sum + entry.amount, 0)
-  return Math.max(0, seed + totalTips(tasks) - withdrawn)
+  return { tips, fees, withdrawn, available: Math.max(0, tips + fees - withdrawn) }
+}
+
+/** Saldo dompet yang bisa ditarik (fee pengantaran + tips − pencairan). */
+export function courierWalletAvailable(tasks: CourierTask[], payouts: PayoutEntry[]): number {
+  return courierWalletBreakdown(tasks, payouts).available
 }
 
 /** Nilai bersih yang diterima kurir setelah fee payout dipotong. */

@@ -8,7 +8,7 @@ import {
 } from '../../data/courierBatch'
 import {
   COURIER_PAYOUT_FEE_IDR,
-  courierTipsAvailable,
+  courierWalletAvailable,
   mockCourierPayoutAccounts,
 } from '../../data/courierWallet'
 import type { Batch, CourierTask, PayoutAccount, PayoutEntry } from '../../types'
@@ -24,7 +24,7 @@ interface CourierState {
   batch: Batch | null
   /** Rekening tujuan pencairan tips (R-WALLET-01, f6). */
   payoutAccounts: PayoutAccount[]
-  /** Riwayat pencairan tips; saldo dihitung dari tips − pencairan. */
+  /** Riwayat pencairan; saldo dihitung dari fee + tips − pencairan. */
   payouts: PayoutEntry[]
   /**
    * Profil hasil onboarding kurir (keputusan PO 2026-09-25). Tipe lokal karena
@@ -146,14 +146,15 @@ const courierSlice = createSlice({
       }
     },
     /**
-     * Pencairan tips (f6). Fee Rp2.500 ditanggung kurir dan dipotong dari nilai
-     * withdraw; saldo tidak disimpan, dihitung dari tips − pencairan.
+     * Pencairan saldo dompet (f6). Fee Rp2.500 ditanggung kurir dan dipotong
+     * dari nilai withdraw; saldo tidak disimpan, dihitung dari fee + tips −
+     * pencairan. Batas atas = saldo dompet, bukan tips saja.
      */
     requestCourierPayout(state, action: PayloadAction<{ amount: number; accountId: string }>) {
       const { amount, accountId } = action.payload
       const account = state.payoutAccounts.find((a) => a.id === accountId)
       if (!account || amount <= 0) return
-      if (amount > courierTipsAvailable(state.tasks, state.payouts)) return
+      if (amount > courierWalletAvailable(state.tasks, state.payouts)) return
       state.payouts.unshift({
         id: makeId('cpo', state.payouts.length),
         kind: 'payout',

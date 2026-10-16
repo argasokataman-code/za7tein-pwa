@@ -59,6 +59,25 @@
   animation: sa7tein-pin-pulse 1.8s var(--ease-out) infinite;
 }
 
+/* Pin bernomor rute batch (M5): nomor harus terbaca di atas warna pin, jadi
+   ukurannya lebih besar dari pin titik dan teksnya memakai warna di atas merek. */
+.sa7tein-pin--num {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  background: var(--sa7tein-orange);
+  border: 2px solid var(--surface);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--on-brand);
+}
+
+/* Henti yang sudah selesai dipudarkan, bukan diberi warna baru. */
+.sa7tein-pin--done {
+  opacity: 0.45;
+}
+
 @keyframes sa7tein-pin-pulse {
   0%,
   100% {

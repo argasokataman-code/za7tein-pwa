@@ -150,13 +150,13 @@ Bukan karangan: tiap milestone menunjuk `path:line` atau baris PRD.
 - action: delivery fee `F` order Regular masuk ke akun DANA kurir saat selesai
 - inputs: `deliveryFeeIdr` per order, metode bayar
 - outputs: saldo kurir + entri ledger; settlement 3 kolom (merchant/kurir/aplikator)
-- integration: DANA disbursement (BE; demo: `payouts` + tips saja)
+- integration: DANA disbursement (BE; demo: `courierWalletBreakdown` = fee + tips − pencairan)
 - direction / transport: async, HTTPS
 - edge label: fee → DANA
 - state transition: — (uang, bukan status order)
 - impact: **berubah dari legacy**: `ongkirIdr` dulu 100% merchant (C-07), di PRD aktif F milik **kurir**; COD Regular dibayar merchant **di luar aplikasi** (`deliveryFeeIdr = 0`)
 - branch / failure: bayar COD → tak ada entri DANA
-- evidence: `src/data/courier.ts:152,200` (`deliveryFeeIdr`), `src/data/courierWallet.ts:67` (`courierTipsAvailable` — masih tips-only, sisa M5); PRD §9.2, §16.3
+- evidence: `src/data/courier.ts:152,200` (`deliveryFeeIdr`), `src/data/courierWallet.ts` (`courierFeeEntries`, `courierWalletBreakdown` — fee order selesai masuk saldo dompet, M5b), `src/pages/CourierWallet.tsx`; PRD §9.2, §16.3
 - placement hint: workflow col 8 / lane `inhouse`
 
 ### M11 — Batch tuntas

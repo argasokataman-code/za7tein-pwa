@@ -220,8 +220,9 @@ export const courierTasks: CourierTask[] = [
     zone: 'hijazi',
     latitude: -6.2635,
     longitude: 106.7752,
-    deliveryFeeIdr: 0,
-    paymentMethod: 'cod',
+    // Regular online: fee pengantaran jadi hak kurir dan masuk dompet (R-DELIV-FEE).
+    deliveryFeeIdr: merchantDeliveryConfig.ongkirIdr,
+    paymentMethod: 'transfer',
     tip: 5000,
     orderStage: 'selesai',
     checkpoint: 'selesai',

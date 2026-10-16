@@ -38,6 +38,57 @@ export function pin(L: typeof import('leaflet'), color: string, pulse = false) {
   })
 }
 
+/** Satu perhentian rute batch untuk peta (M5). */
+export interface MapStop {
+  lat: number
+  lng: number
+  label: string
+  /** Sudah dituntaskan; ganti warna pin supaya sisa rute terbaca sekali lirik. */
+  done?: boolean
+}
+
+/**
+ * Pin bernomor untuk rute batch: urutan antar terbaca langsung di peta, bukan
+ * lewat tooltip. `done` memudarkan pin (bukan warna baru) supaya sisa rute yang
+ * masih terang.
+ */
+export function numberedPin(L: typeof import('leaflet'), order: number, done = false) {
+  return L.divIcon({
+    html: `<div class="sa7tein-pin sa7tein-pin--num${done ? ' sa7tein-pin--done' : ''}">${order}</div>`,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+    className: '',
+  })
+}
+
+/**
+ * Gambar rute batch di peta: titik toko + pin bernomor per henti + garis
+ * penghubung, lalu zoom ke seluruh rute. Dipisah dari hook supaya hook tetap
+ * di bawah batas baris dan geometri rute hidup di satu tempat.
+ */
+export function drawBatchRoute(
+  L: typeof import('leaflet'),
+  map: import('leaflet').Map,
+  stops: MapStop[],
+) {
+  const points: [number, number][] = [RESTAURANT]
+  stops.forEach((stop, index) => {
+    points.push([stop.lat, stop.lng])
+    L.marker([stop.lat, stop.lng], { icon: numberedPin(L, index + 1, stop.done) })
+      .addTo(map)
+      .bindPopup(`${index + 1}. ${stop.label}${stop.done ? ' — selesai' : ''}`)
+  })
+  L.polyline(points, {
+    color: PIN_MERCHANT,
+    weight: 4,
+    opacity: 0.95,
+    lineCap: 'round',
+    lineJoin: 'round',
+    className: 'sa7tein-route',
+  }).addTo(map)
+  map.fitBounds(L.latLngBounds(points), { padding: [40, 40] })
+}
+
 export type MapMode = 'preview' | 'delivery' | 'picker'
 
 export interface PickerOptions {

@@ -1243,6 +1243,839 @@
           "raw": "DEC-88105:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-102248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:25:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.milestones.md (+290) — write vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.milestones.md"
+    },
+    {
+      "id": "TASK-102249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:26:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json (+482) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json"
+    },
+    {
+      "id": "TASK-102250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:27:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json (+148) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json"
+    },
+    {
+      "id": "TASK-102251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:32:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json (+5/-4) — edit via tool: \"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json"
+    },
+    {
+      "id": "TASK-102252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:33:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json (+126) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json"
+    },
+    {
+      "id": "TASK-102253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:34:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html (+1/-1) — edit via tool: {slug:\"f25-batch-lifecycle\",      t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-102254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:35:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f25-batch-lifecycle\": { \"type\": \"w",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-102255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:35:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+4/-1) — edit via tool: { \"req\": \"R-BATCH + R-AUTOSORT (bat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-102256",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:35:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/README.md (+58) — write via tool: # F25 — Kurir Inh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-102260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:36:04",
+      "tags": [
+        "flow",
+        "f25",
+        "courier",
+        "docs"
+      ],
+      "summary": "F25 diperluas: dua jalur (inhouse Regular + partner Quick), 19 milestone, auto-sort/SP/dispatch tergambar",
+      "conn": [
+        {
+          "id": "DEC-88105",
+          "type": "relates",
+          "raw": "DEC-88105:relates"
+        },
+        {
+          "id": "BUG-88046",
+          "type": "relates",
+          "raw": "BUG-88046:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.json:1"
+    },
+    {
+      "id": "TASK-102261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:39:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/f13-courier-view.json (+54) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/f13-courier-view.json"
+    },
+    {
+      "id": "TASK-102262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:40:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/f13-courier-view.json (+4/-3) — edit via tool: \"title\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/f13-courier-view.json"
+    },
+    {
+      "id": "TASK-102263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:40:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md (+50) — write via tool: # F13 — Tugas kurir ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-102264",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:40:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f13-courier-view\": { \"type\": \"work",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-102265",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:41:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html (+1/-1) — edit via tool: {slug:\"f13-courier-view\",         t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-102266",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:41:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md (+1/-1) — edit via tool: `f25-batch-lifecycl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-102270",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:41:30",
+      "tags": [
+        "flow",
+        "f13",
+        "courier",
+        "docs"
+      ],
+      "summary": "f13 rebind ke PRD aktif: tugas batch, lokasi live R-TRACK, fee ke DANA; istilah hold_settled/OTP mutlak dikeluarkan",
+      "conn": [
+        {
+          "id": "TASK-102260",
+          "type": "relates",
+          "raw": "TASK-102260:relates"
+        },
+        {
+          "id": "DEC-88105",
+          "type": "relates",
+          "raw": "DEC-88105:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f13-courier-view/f13-courier-view.json:1"
+    },
+    {
+      "id": "TASK-102271",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:46:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierWallet.ts (+151) — write via tool: ts: import { courierSelf, isDoneTask, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierWallet.ts"
+    },
+    {
+      "id": "TASK-102272",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:47:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courier.ts (+7/-6) — edit via tool: ts: latitude: -6.2635,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courier.ts"
+    },
+    {
+      "id": "TASK-102273",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:47:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/courierSlice.ts (+5/-5) — edit via tool: ts: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/courierSlice.ts"
+    },
+    {
+      "id": "TASK-102274",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:47:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierWallet.tsx (+155) — write via tool: tsx: import { ArrowDownLeft, ArrowUp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierWallet.tsx"
+    },
+    {
+      "id": "TASK-102275",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:47:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayout.tsx (+6/-6) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPayout.tsx"
+    },
+    {
+      "id": "TASK-102276",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:48:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierProfile.tsx (+1/-1) — edit via tool: tsx: import { courierWalletAvailabl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierProfile.tsx"
+    },
+    {
+      "id": "TASK-102277",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:48:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTasks.tsx (+1/-1) — edit via tool: tsx: import { courierWalletAvailable,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierTasks.tsx"
+    },
+    {
+      "id": "TASK-102278",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:48:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts (+30/-8) — edit via tool: ts: export function pin(L: typeof i",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts"
+    },
+    {
+      "id": "TASK-102279",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:48:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts (+5/-5) — edit via tool: ts: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts"
+    },
+    {
+      "id": "TASK-102280",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:49:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx (+36/-23) — edit via tool: tsx: export default function Courie",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx"
+    },
+    {
+      "id": "TASK-102281",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:49:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_map.scss (+19/-3) — edit via tool: .sa7tein-pin--pulse {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_map.scss"
+    },
+    {
+      "id": "TASK-102282",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:49:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss (+22/-9) — edit via tool: .courier-batch-stop-foot ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss"
+    },
+    {
+      "id": "TASK-102283",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:49:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -20 && npm run build 2>&1 | tail -15 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102284",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:50:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts (+9/-7) — edit via tool: ts: const pickerPopupRef = useRef(opt",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts"
+    },
+    {
+      "id": "TASK-102285",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:50:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/courier-wallet-check.mjs (+42) — write via tool: // Self-check saldo dompet kurir",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/courier-wallet-check.mjs"
+    },
+    {
+      "id": "TASK-102286",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:50:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts (+41/-12) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts"
+    },
+    {
+      "id": "TASK-102287",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:50:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_map.scss (+22/-19) — edit via tool: .sa7tein-pin--pulse {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_map.scss"
+    },
+    {
+      "id": "TASK-102288",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:51:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run scan 2>&1 | tail -18 && npm run lint 2>&1 | grep -E \"useLeafletMap|leafletH",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102289",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:51:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -4 && lsof -nP -iTCP -sTCP:LISTEN | rtk grep -E ':(5173|5",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102290",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:55:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.milestones.md (+1/-1) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/f25-batch-lifecycle.milestones.md"
+    },
+    {
+      "id": "TASK-102291",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:55:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/README.md (+2/-2) — edit via tool: **Jalur A — kuri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-102292",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:56:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/README.md (+2/-2) — edit via tool: - Implementasi s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f25-batch-lifecycle/README.md"
+    },
+    {
+      "id": "TASK-102293",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:56:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-courier.md (+1/-1) — edit via tool: ## K6 — Batch kurir inhouse (M5)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/plan-courier.md"
+    },
+    {
+      "id": "TASK-102294",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:56:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+3/-2) — edit via tool: tsx: b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-102295",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:57:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+12/-11) — edit via tool: tsx: const HERO_TAGS = [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102296",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "12:57:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint >/tmp/lint.txt 2>&1; echo \"lint exit $?\"; grep -cE \"warning|error\" /tm",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

@@ -15,7 +15,7 @@ import {
   isDoneTask,
   totalTips,
 } from '../data/courier'
-import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
+import { courierWalletAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { BATCH_STATUS_LABEL } from '../data/batch'
 import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
 import { toggleOnline } from '../store/slices/courierSlice'
@@ -101,7 +101,7 @@ export default function CourierTasks() {
   const history = tasks.filter((task) => !isActiveTask(task))
   const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
   const done = tasks.filter(isDoneTask)
-  const tipsAvailable = courierTipsAvailable(tasks, payouts)
+  const balanceAvailable = courierWalletAvailable(tasks, payouts)
   const week = courierWeeklyTips()
   // Batch (M5): angka dihitung sekali, bukan diulang di JSX.
   const batchDone = batch ? batchProgress(batch, tasks) : null
@@ -217,8 +217,8 @@ export default function CourierTasks() {
               <Wallet size={20} strokeWidth={1.75} />
             </span>
             <span className="courier-menu-copy">
-              <span className="courier-menu-title">Dompet tips</span>
-              <span className="courier-menu-sub">{money(tipsAvailable)} bisa ditarik</span>
+              <span className="courier-menu-title">Dompet kurir</span>
+              <span className="courier-menu-sub">{money(balanceAvailable)} bisa ditarik</span>
             </span>
           </Link>
           <Link className="courier-menu-item" to="/payout-accounts">

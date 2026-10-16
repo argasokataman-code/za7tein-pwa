@@ -6,9 +6,9 @@ import 'leaflet/dist/leaflet.css'
 import { mockMerchant } from '../data/merchant'
 import {
   RESTAURANT, DESTINATION, ROUTE, COURIER,
-  PIN_MERCHANT, PIN_DESTINATION, PIN_COURIER, pin,
+  PIN_MERCHANT, PIN_DESTINATION, PIN_COURIER, pin, drawBatchRoute,
 } from './leafletHelpers'
-import type { MapMode, PickerOptions } from './leafletHelpers'
+import type { MapMode, MapStop, PickerOptions } from './leafletHelpers'
 
 /**
  * Mengisi `<div class="order-map-container" id=...>` dengan peta OpenStreetMap
@@ -19,23 +19,29 @@ import type { MapMode, PickerOptions } from './leafletHelpers'
  * di mana peta memang menjadi bagian utama dan rutenya digambar.
  *
  * `single` hanya menampilkan pin toko — dipakai pratinjau lokasi di Setelan.
+ * `stops` mengganti rute toko→alamat tunggal dengan rute bernomor berhenti
+ * (batch kurir, M5): titik toko tetap jadi asal, sisanya pin bernomor urut.
  */
 export function useLeafletMap(
   mapId: string,
   mode: MapMode = 'preview',
-  options: { single?: boolean; picker?: PickerOptions } = {},
+  options: { single?: boolean; picker?: PickerOptions; stops?: MapStop[] } = {},
 ) {
   const mapRef = useRef<LeafletMap | null>(null)
   const markerRef = useRef<LeafletMarker | null>(null)
   const onMoveRef = useRef(options.picker?.onMove)
   const pickerInitialRef = useRef<[number, number]>(options.picker?.initial ?? RESTAURANT)
   const pickerPopupRef = useRef(options.picker?.popup ?? 'Lokasi toko — geser untuk menyesuaikan')
+  const stopsRef = useRef(options.stops)
 
   useEffect(() => {
     onMoveRef.current = options.picker?.onMove
     pickerInitialRef.current = options.picker?.initial ?? RESTAURANT
     pickerPopupRef.current = options.picker?.popup ?? 'Lokasi toko — geser untuk menyesuaikan'
+    stopsRef.current = options.stops
   })
+
+  const stopsKey = options.stops?.map((stop) => `${stop.lat},${stop.lng}`).join('|')
 
   useEffect(() => {
     let cancelled = false
@@ -85,7 +91,9 @@ export function useLeafletMap(
       } else {
         L.marker(RESTAURANT, { icon: pin(L, PIN_MERCHANT) }).addTo(map).bindPopup(mockMerchant.name)
 
-        if (options.single) {
+        if (stopsRef.current?.length) {
+          drawBatchRoute(L, map, stopsRef.current)
+        } else if (options.single) {
           map.setView(RESTAURANT, 16)
         } else {
           L.marker(DESTINATION, { icon: pin(L, PIN_DESTINATION) }).addTo(map).bindPopup('Alamat pengantaran')
@@ -120,7 +128,7 @@ export function useLeafletMap(
       mapRef.current = null
       markerRef.current = null
     }
-  }, [mapId, mode, options.single])
+  }, [mapId, mode, options.single, stopsKey])
 
   return {
     recenter: () =>

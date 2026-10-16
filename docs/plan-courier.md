@@ -118,7 +118,7 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
 
 ---
 
-## K6 — Batch kurir inhouse (M5a)
+## K6 — Batch kurir inhouse (M5)
 
 - `/courier/batch` — batch yang ditugaskan merchant (seed `mockCourierBatch`; BE
   belum punya tabel `batches`, jadi batch demo di-seed dari tugas ber-`batchId`).
@@ -132,8 +132,13 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
   `/courier/task/:id` yang sudah ada (checkpoint + OTP); batch jadi `done` saat
   semua order selesai (`batchDisplayStatus`), tanpa reducer kedua.
 - **Fee ke DANA** per order Regular online ditampilkan di daftar urutan; COD
-  ditandai dibayar merchant di luar aplikasi (R-COU-INHOUSE). Masuk saldo dompet =
-  sisa M5.
+  ditandai dibayar merchant di luar aplikasi (R-COU-INHOUSE). Fee order selesai
+  masuk **saldo dompet** (`courierWalletBreakdown` = fee + tips − pencairan;
+  dompet/beranda/profil/pencairan membaca angka yang sama), ditahan
+  `scripts/courier-wallet-check.mjs`. UNRESOLVED: auto-payout (§16.4) vs tarik
+  manual (`f6`).
+- **Peta rute** (M5b): `useLeafletMap` opsi `stops` + `drawBatchRoute` —
+  garis dari toko + pin bernomor urut auto-sort, di bawah peringatan WALK beta.
 - Pintu masuk: banner batch di beranda kurir saat batch ada.
 - Aturan murni di `src/data/courierBatch.ts`, ditahan `scripts/courier-batch-check.mjs`.
 

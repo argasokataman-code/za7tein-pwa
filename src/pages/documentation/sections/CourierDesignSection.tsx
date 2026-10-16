@@ -71,8 +71,9 @@ export function CourierDesignSection() {
         for OTP, finished, tips, and the withdrawable balance all derive from{' '}
         <code className="doc-inline">courierSlice</code> and{' '}
         <code className="doc-inline">courierTipsAvailable</code>, the same source the task cards
-        below use. It also carries a seven-day performance card (tips only, since tips are the
-        courier's whole income here, C-06) and a two-column menu that shortcuts every courier
+        below use. It also carries a seven-day performance card (tips only — the
+        courier's income now also includes the delivery fee, but the weekly series
+        tracks tips alone) and a two-column menu that shortcuts every courier
         action, including the two tabs already in the bottom nav. The active PRD has no courier
         dashboard or performance-report requirement (UNRESOLVED-by-absence), so this screen only
         composes state that already exists; the weekly series is an explicitly marked mock
@@ -147,12 +148,14 @@ export function CourierDesignSection() {
         no PRD basis either (<code className="doc-inline">F21</code> marks it UNRESOLVED),
         so the sign-in screen is a mock that verifies nothing.
       </p>
-      <h3 className="doc-h3">Money: tips only, never the delivery fee</h3>
+      <h3 className="doc-h3">Money: tips on `/tips`, delivery fee in the wallet</h3>
       <p className="doc-p">
-        <code className="doc-inline">/courier/tips</code> totals only the{' '}
-        <code className="doc-inline">tip</code> field of finished tasks. The delivery
-        fee is not courier income, and the platform never holds courier funds (C-06) —
-        the screen states this directly. State lives in{' '}
+        <code className="doc-inline">/courier/tips</code> is the tips history view and
+        totals only the <code className="doc-inline">tip</code> field of finished tasks.
+        The delivery fee is now courier income: the active PRD moved the recipient from
+        the merchant to the courier (R-DELIV-FEE), so a completed Regular online order
+        credits the wallet — the legacy C-06 rule ("the delivery fee is not courier
+        income") is superseded. State lives in{' '}
         <code className="doc-inline">src/store/slices/courierSlice.ts</code> and is not
         persisted.
       </p>
@@ -166,23 +169,32 @@ export function CourierDesignSection() {
         commission (PRD §Tips). Only the customer half is modelled there, so no credit is
         invented on the customer side; the courier wallet now models its own half (below).
       </p>
-      <h3 className="doc-h3">Courier wallet: withdraw tips, fee on the courier</h3>
+      <h3 className="doc-h3">Courier wallet: delivery fee plus tips, fee on the courier</h3>
       <p className="doc-p">
         The wallet (<code className="doc-inline">/courier/wallet</code>) is a separate IDR
-        pot holding <em>tips only</em> — ongkir and salary never enter it (C-06). Its
+        pot holding two credits: the <em>delivery fee</em> of a completed Regular online
+        order (R-DELIV-FEE moved the recipient from the merchant to the courier) and
+        customer <em>tips</em>. The monthly salary is still paid by the merchant outside
+        the app, and COD never enters (paid by the merchant off-app, R-COU-INHOUSE). Its
         balance is not a second state: it is derived as{' '}
-        <code className="doc-inline">mockCourierTips + totalTips(tasks) − payouts</code>{' '}
-        (<code className="doc-inline">courierTipsAvailable</code> in{' '}
+        <code className="doc-inline">courierWalletBreakdown</code> ={' '}
+        <code className="doc-inline">fee + tips − payouts</code> (
+        <code className="doc-inline">courierFeeEntries</code> +{' '}
+        <code className="doc-inline">courierWalletAvailable</code> in{' '}
         <code className="doc-inline">src/data/courierWallet.ts</code>), so completing a
         task raises it live and the <code className="doc-inline">/tips</code> page still
-        reads the same source. Payouts and payout accounts live in{' '}
+        reads the same source. Every screen that shows a withdrawable balance — wallet,
+        courier home, profile, payout — calls that one function, so they can never
+        disagree. Payouts and payout accounts live in{' '}
         <code className="doc-inline">courierSlice</code> (not persisted, matching the
         slice). Withdraw reuses flow{' '}
         <code className="doc-inline">f6-cashout-payout</code>; the payout fee of Rp2.500
         per transfer is <em>borne by the courier</em> (PO 2026-09-22,{' '}
         <code className="doc-inline">source.md:84</code>) and is deducted from the amount,
         so <code className="doc-inline">/courier/payout</code> shows the net "diterima"
-        before the courier confirms.
+        before the courier confirms. Whether the fee should instead be paid out
+        automatically by the platform (§16.4) rather than withdrawn through this flow is
+        UNRESOLVED.
       </p>
       <p className="doc-p">
         The accumulation threshold is not a guessed rule: PRD
@@ -190,7 +202,7 @@ export function CourierDesignSection() {
         <code className="doc-inline">source.md:83</code>) but{' '}
         <code className="doc-inline">f6-cashout-payout/README.md</code> marks it
         UNRESOLVED. It lives in one constant,{' '}
-        <code className="doc-inline">COURIER_TIPS_MIN_WITHDRAW_IDR</code>; the wallet
+        <code className="doc-inline">COURIER_MIN_WITHDRAW_IDR</code>; the wallet
         shows the threshold figure and tracks the unresolved status in the flow doc, not
         as an on-screen note. Change the constant when the PO decides. Below the threshold
         the withdraw action is disabled with a meter showing how far away it is, rather
