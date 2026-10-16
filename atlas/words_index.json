@@ -18217,6 +18217,46 @@
     {
       "id": "TASK-110304",
       "shard": 17
+    },
+    {
+      "id": "TASK-110305",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110310",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "sa7tein": [
@@ -19109,6 +19149,10 @@
     {
       "id": "TASK-101821",
       "shard": 16
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
     }
   ],
   "apa": [
@@ -29117,6 +29161,10 @@
     {
       "id": "TASK-1360",
       "shard": 3
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "routes);": [
@@ -30192,6 +30240,10 @@
     },
     {
       "id": "TASK-110201",
+      "shard": 17
+    },
+    {
+      "id": "DEC-88107",
       "shard": 17
     }
   ],
@@ -46643,6 +46695,46 @@
     {
       "id": "TASK-110304",
       "shard": 17
+    },
+    {
+      "id": "TASK-110305",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110310",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -59644,6 +59736,34 @@
     },
     {
       "id": "TASK-110304",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
       "shard": 17
     }
   ],
@@ -75439,6 +75559,38 @@
     {
       "id": "TASK-110304",
       "shard": 17
+    },
+    {
+      "id": "TASK-110305",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "tool:": [
@@ -91076,6 +91228,34 @@
     },
     {
       "id": "TASK-110304",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
       "shard": 17
     }
   ],
@@ -109663,6 +109843,46 @@
     {
       "id": "TASK-110304",
       "shard": 17
+    },
+    {
+      "id": "TASK-110305",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110310",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "task-147": [
@@ -110431,6 +110651,10 @@
     {
       "id": "TASK-110304",
       "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "mock,": [
@@ -110759,6 +110983,10 @@
     {
       "id": "TASK-101915",
       "shard": 16
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
     }
   ],
   "(+96)": [
@@ -113630,6 +113858,18 @@
     },
     {
       "id": "TASK-110111",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110305",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110310",
       "shard": 17
     }
   ],
@@ -118473,6 +118713,10 @@
     {
       "id": "TASK-110204",
       "shard": 17
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
     }
   ],
   "task-149": [
@@ -119152,6 +119396,10 @@
     },
     {
       "id": "TASK-110302",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110306",
       "shard": 17
     }
   ],
@@ -122035,6 +122283,22 @@
     {
       "id": "TASK-110113",
       "shard": 17
+    },
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "\"useappstore(": [
@@ -123063,6 +123327,10 @@
     {
       "id": "TASK-110016",
       "shard": 17
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "domain": [
@@ -123851,6 +124119,10 @@
     {
       "id": "TASK-90413",
       "shard": 15
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "terintegrasi": [
@@ -159167,6 +159439,10 @@
     {
       "id": "TASK-110304",
       "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "z.object({": [
@@ -161812,6 +162088,10 @@
     },
     {
       "id": "TASK-110003",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110308",
       "shard": 17
     }
   ],
@@ -184795,6 +185075,14 @@
     {
       "id": "DEC-88106",
       "shard": 17
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "manifest": [
@@ -184957,6 +185245,10 @@
     {
       "id": "DEC-1040",
       "shard": 9
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "checks": [
@@ -185003,6 +185295,10 @@
     {
       "id": "TASK-12101",
       "shard": 13
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
     }
   ],
   "dec-014": [
@@ -188549,6 +188845,14 @@
     {
       "id": "TASK-90006",
       "shard": 13
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110310",
+      "shard": 17
     }
   ],
   "task-433": [
@@ -189112,6 +189416,10 @@
     },
     {
       "id": "TASK-110014",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
       "shard": 17
     }
   ],
@@ -192321,6 +192629,10 @@
     {
       "id": "TASK-101989",
       "shard": 16
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
     }
   ],
   "(full-wi": [
@@ -197689,6 +198001,10 @@
     {
       "id": "BUG-102014",
       "shard": 16
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "task-981": [
@@ -198183,6 +198499,10 @@
     {
       "id": "TASK-9880",
       "shard": 10
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "task-994": [
@@ -202229,6 +202549,10 @@
     {
       "id": "TASK-99265",
       "shard": 15
+    },
+    {
+      "id": "TASK-110306",
+      "shard": 17
     }
   ],
   "diregistrasi": [
@@ -205175,6 +205499,10 @@
     {
       "id": "TASK-110205",
       "shard": 17
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "showcase,": [
@@ -205195,6 +205523,10 @@
     {
       "id": "DEC-4001",
       "shard": 9
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "m1-m11": [
@@ -205755,6 +206087,10 @@
     {
       "id": "TASK-100908",
       "shard": 15
+    },
+    {
+      "id": "TASK-110312",
+      "shard": 17
     }
   ],
   "task-1083": [
@@ -210309,6 +210645,10 @@
     {
       "id": "TASK-1314",
       "shard": 2
+    },
+    {
+      "id": "TASK-110307",
+      "shard": 17
     }
   ],
   "[\"f1-or": [
@@ -211221,6 +211561,10 @@
     {
       "id": "DEC-88105",
       "shard": 17
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "implement;": [
@@ -211792,6 +212136,14 @@
     },
     {
       "id": "TASK-110018",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110310",
       "shard": 17
     }
   ],
@@ -215237,6 +215589,10 @@
     {
       "id": "TASK-1336",
       "shard": 2
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "baru,": [
@@ -215415,6 +215771,10 @@
     {
       "id": "TASK-99256",
       "shard": 15
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "diselaraskan;": [
@@ -218769,6 +219129,10 @@
     {
       "id": "TASK-101924",
       "shard": 16
+    },
+    {
+      "id": "TASK-110313",
+      "shard": 17
     }
   ],
   "task-1347": [
@@ -221419,6 +221783,14 @@
     {
       "id": "TASK-90028",
       "shard": 13
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110314",
+      "shard": 17
     }
   ],
   "specs": [
@@ -233459,6 +233831,10 @@
     {
       "id": "TASK-101991",
       "shard": 16
+    },
+    {
+      "id": "TASK-110305",
+      "shard": 17
     }
   ],
   "task-2828": [
@@ -255697,6 +256073,10 @@
     {
       "id": "FEAT-490",
       "shard": 5
+    },
+    {
+      "id": "TASK-110308",
+      "shard": 17
     }
   ],
   "feat-490": [
@@ -259070,6 +259450,10 @@
     },
     {
       "id": "DEC-88105",
+      "shard": 17
+    },
+    {
+      "id": "DEC-88107",
       "shard": 17
     }
   ],
@@ -267319,6 +267703,10 @@
     {
       "id": "DEC-88030",
       "shard": 15
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "jalan": [
@@ -307897,6 +308285,10 @@
     {
       "id": "TASK-9812",
       "shard": 13
+    },
+    {
+      "id": "DEC-88107",
+      "shard": 17
     }
   ],
   "g1-g15": [
@@ -317252,6 +317644,14 @@
     },
     {
       "id": "TASK-110034",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110312",
       "shard": 17
     }
   ],
@@ -327972,6 +328372,184 @@
   "task-110304": [
     {
       "id": "TASK-110304",
+      "shard": 17
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/r-autosort.md": [
+    {
+      "id": "TASK-110305",
+      "shard": 17
+    },
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    }
+  ],
+  "task-110305": [
+    {
+      "id": "TASK-110305",
+      "shard": 17
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/docs/product/prd/readme.md": [
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    }
+  ],
+  "task-110306": [
+    {
+      "id": "TASK-110306",
+      "shard": 17
+    }
+  ],
+  "(+26/-4)": [
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    }
+  ],
+  "\"docs/design/flows/index.json\",": [
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    }
+  ],
+  "task-110307": [
+    {
+      "id": "TASK-110307",
+      "shard": 17
+    }
+  ],
+  "(+76/-1)": [
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    }
+  ],
+  "definitions": [
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    }
+  ],
+  "(version": [
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    }
+  ],
+  "task-110308": [
+    {
+      "id": "TASK-110308",
+      "shard": 17
+    }
+  ],
+  "task-110309": [
+    {
+      "id": "TASK-110309",
+      "shard": 17
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json": [
+    {
+      "id": "TASK-110310",
+      "shard": 17
+    }
+  ],
+  "task-110310": [
+    {
+      "id": "TASK-110310",
+      "shard": 17
+    }
+  ],
+  "task-110311": [
+    {
+      "id": "TASK-110311",
+      "shard": 17
+    }
+  ],
+  "task-110312": [
+    {
+      "id": "TASK-110312",
+      "shard": 17
+    }
+  ],
+  "/users/vanviakingali/downloads/sa7tein-pwa/scripts/prd-intake.mjs": [
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    }
+  ],
+  "mkdirsync(versiondir,": [
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    }
+  ],
+  "recursive:": [
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    }
+  ],
+  "true": [
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    }
+  ],
+  "task-110313": [
+    {
+      "id": "TASK-110313",
+      "shard": 17
+    }
+  ],
+  "line.match(/^\\|\\s*(m\\d+": [
+    {
+      "id": "TASK-110314",
+      "shard": 17
+    }
+  ],
+  "task-110314": [
+    {
+      "id": "TASK-110314",
+      "shard": 17
+    }
+  ],
+  "intake:": [
+    {
+      "id": "DEC-88107",
+      "shard": 17
+    }
+  ],
+  "features/<r-id>.md": [
+    {
+      "id": "DEC-88107",
+      "shard": 17
+    }
+  ],
+  "menolak": [
+    {
+      "id": "DEC-88107",
+      "shard": 17
+    }
+  ],
+  "complete;": [
+    {
+      "id": "DEC-88107",
+      "shard": 17
+    }
+  ],
+  "m5->partial": [
+    {
+      "id": "DEC-88107",
+      "shard": 17
+    }
+  ],
+  "dec-88107": [
+    {
+      "id": "DEC-88107",
       "shard": 17
     }
   ]

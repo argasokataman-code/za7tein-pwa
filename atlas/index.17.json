@@ -3302,6 +3302,223 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/vite.config.ts"
+    },
+    {
+      "id": "TASK-110305",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:43:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md (+83) — write via",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md"
+    },
+    {
+      "id": "TASK-110306",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:51:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/README.md (+37) — write via tool: # PRD dan versioning produk",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/README.md"
+    },
+    {
+      "id": "TASK-110307",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:51:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json (+26/-4) — edit via tool: \"flows\": \"docs/design/flows/INDEX.json\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-110308",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:52:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/check-governance.mjs (+76/-1) — edit via tool: // ── Feature definitions (version",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/check-governance.mjs"
+    },
+    {
+      "id": "TASK-110309",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:52:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md (+1/-1) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md"
+    },
+    {
+      "id": "TASK-110310",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:52:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json (+37) — write vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json"
+    },
+    {
+      "id": "TASK-110311",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:52:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: D",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-110312",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:53:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: M",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-110313",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:53:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/prd-intake.mjs (+7/-2) — edit via tool: mkdirSync(versionDir, { recursive: true ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/prd-intake.mjs"
+    },
+    {
+      "id": "TASK-110314",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "19:53:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/check-governance.mjs (+1/-1) — edit via tool: const row = line.match(/^\\|\\s*(M\\d+",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/check-governance.mjs"
+    },
+    {
+      "id": "DEC-88107",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "19:55:04",
+      "tags": [
+        "prd",
+        "governance",
+        "intake"
+      ],
+      "summary": "Rule intake: wajib features/<R-ID>.md per requirement delta + gate menolak milestone done dgn fitur belum complete; M5->partial",
+      "conn": [
+        {
+          "id": "TASK-99256",
+          "type": "relates",
+          "raw": "TASK-99256:relates"
+        },
+        {
+          "id": "DEC-88106",
+          "type": "relates",
+          "raw": "DEC-88106:relates"
+        }
+      ],
+      "loc": "scripts/check-governance.mjs:120",
+      "commit": "9289539"
     }
   ]
 }
