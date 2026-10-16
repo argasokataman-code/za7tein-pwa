@@ -5815,6 +5815,63 @@
         }
       ],
       "commit": "f1ed550"
+    },
+    {
+      "id": "TASK-110421",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:20:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts (+7/-17) — edit via tool: ts: const progress = travelProg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts"
+    },
+    {
+      "id": "TASK-110422",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:20:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useAlmostArrivedNotice.ts (+27) — write via tool: ts: import { useEffect, useRe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useAlmostArrivedNotice.ts"
+    },
+    {
+      "id": "TASK-110423",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:20:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+3/-2) — edit via tool: tsx: import { useAppDispatch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
     }
   ]
 }

@@ -1,0 +1,141 @@
+{
+  "shard": 18,
+  "nodes": [
+    {
+      "id": "TASK-110424",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:20:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantCourierMap.tsx (+35) — write via tool: tsx: import { etaC",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MerchantCourierMap.tsx"
+    },
+    {
+      "id": "TASK-110425",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:20:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOrders.tsx (+9/-4) — edit via tool: tsx: {JOURNEY_STAGE[detailOrder.sta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-110426",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:21:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOrders.tsx (+2/-1) — edit via tool: tsx: import { JourneyLine } from '.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-110427",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:23:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-TRACK.md (+4/-3) — edit via t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-TRACK.md"
+    },
+    {
+      "id": "TASK-110428",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:24:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md (+1/-1) — edit via tool: - Notif customer = ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-110429",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:24:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+2/-2) — edit via tool: tsx: <code className=\"doc-inline\">sc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88119",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:25:57",
+      "tags": [
+        "m7",
+        "track",
+        "r-track",
+        "ui"
+      ],
+      "summary": "M7e R-TRACK AC2: MerchantCourierMap di sheet order merchant (aturan posisi+ambang sama dengan customer), emit notif hampir sampai dipisah ke",
+      "conn": [
+        {
+          "id": "TASK-88116",
+          "type": "relates",
+          "raw": "TASK-88116:relates"
+        }
+      ],
+      "commit": "e176800"
+    }
+  ]
+}
