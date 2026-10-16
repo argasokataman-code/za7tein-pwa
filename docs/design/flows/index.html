@@ -107,6 +107,7 @@ const FLOWS = [
   {slug:"f22-super-admin-sa",       title:"Super Admin (website penuh)",    type:"workflow", role:"drilldown", ms:"—",      req:"PO 2026-09-23 + C-12 + R-DISPUTE-01", biz:"partial", basis:"PO 2026-09-23 (SA terpisah, non-PWA) + C-12", open:["tarif pajak","audit trail"]},
   {slug:"f24-cs-problem",           title:"Penanganan masalah order (CS)",  type:"workflow", role:"drilldown", ms:"M6, M8", req:"BRS notif-order-e2e (proposed) + R-NOTIF-02", biz:"proposed", basis:"BRS proposed + R-NOTIF-02/R-DISPUTE-01 + f8", open:["SLA penanganan CS","pemilik alert SLA","ambang tolak berulang"]},
   {slug:"f25-batch-lifecycle",      title:"Kurir inhouse (Regular) vs kurir partner (Quick)",type:"workflow", role:"drilldown", ms:"M4, M5, M6", req:"PRD §7.2/§7.3, §8, §9.2–§9.7, §11–§13 (sa7tein-mvp-2026-10-11)", biz:"decided", basis:"R-BATCH + R-AUTOSORT + R-COU-INHOUSE + R-COU-PARTNER + R-COU-DISPATCH + R-DELIV-FEE", open:["kolom jenis pengantaran di BE","tabel batch di BE","endpoint assign per batch","kurir partner + dispatch belum dibangun (M6)","OTP tak disebut alur baru (C-11)"]},
+  {slug:"f26-quick-dispatch",       title:"Quick: dispatch & kurir partner",type:"workflow", role:"drilldown", ms:"M6",     req:"PRD §7.3, §9.3–§9.5, §12, §13 (sa7tein-mvp-2026-10-11)", biz:"decided", basis:"R-COU-PARTNER + R-COU-DISPATCH + R-DELIV-FEE", open:["kode kurir partner + dispatch belum dibangun","penerbit SP belum diputuskan PO","OPEN-11 algoritma dispatch masih usulan"]},
   {slug:"f28-coverage-editor",      title:"Editor coverage merchant",       type:"workflow", role:"drilldown", ms:"M4", req:"PRD §9.1/§11 + C-13 (sa7tein-mvp-2026-10-11)", biz:"decided", basis:"R-MER-COVERAGE + MER-04", open:["endpoint tulis delivery_config","fee dari rute WALK","kolom polygon di BE"]}
 ];
 
@@ -155,7 +156,8 @@ const LINKS = [
   ["f1-order-lifecycle","f11-push-notification","notifies","push_sent","R-NOTIF-01"],
   ["f1-order-lifecycle:dapur|tiba","f24-cs-problem","drilldown","order_canceled|sla_breached","R-NOTIF-02"],
   ["f8-dispute","f24-cs-problem","drilldown","dispute_filed","R-NOTIF-02"],
-  ["f24-cs-problem","f22-super-admin-sa:appeal","feeds","escalated_to_sa","R-NOTIF-02"]
+  ["f24-cs-problem","f22-super-admin-sa:appeal","feeds","escalated_to_sa","R-NOTIF-02"],
+  ["f25-batch-lifecycle:quick_estimasi","f26-quick-dispatch:q02","drilldown","assignment_sent","R-COU-DISPATCH"]
 ];
 
 const TRACE = [
@@ -166,6 +168,7 @@ const TRACE = [
   ["R-TAX-01","f4","taxes","OQ-2, OQ-3, OQ-4, OQ-17, OQ-18"],
   ["R-DELIV-01","f5","checkpoints, orders","OTP tak disebut alur baru (C-11)"],
   ["R-COU-INHOUSE + R-TRACK + R-DELIV-FEE","f25, f13","batches, couriers, wallet_ledgers","ledger + disbursement fee DANA belum ada di BE (demo: baris settlement di klien)"],
+  ["R-COU-PARTNER + R-COU-DISPATCH","f26, f25:quick_estimasi","couriers, orders, sp, wallet_ledgers","kode belum dibangun; penerbit SP belum diputuskan; OPEN-11 usulan"],
   ["R-CASHOUT-01","f6","cashouts, wallets","OQ-16, OQ-22"],
   ["R-LEDGER-01","f7","wallet_ledgers, liabilities",""],
   ["R-DISPUTE-01","f8","disputes, protection_fund, orders","OQ-29, OQ-30"],

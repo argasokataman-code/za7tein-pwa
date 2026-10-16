@@ -57,7 +57,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | Flow baru (usulan slug) | Requirement |
 |---|---|
 | f25-batch-lifecycle | BR-B01..13, §8 (hitung mundur, ≤24, assign, tutup, mulai lebih awal) |
-| f26-quick-dispatch | §7.3, §9.3, §9.4, §9.5 (reserve, approve/reject, cari pengganti, SP) |
+| f26-quick-dispatch | §7.3, §9.3, §9.4, §9.5 (reserve, approve/reject, cari pengganti, SP) — **digambar (rencana M6), lihat `docs/design/flows/f26-quick-dispatch/`** |
 | f27-auto-sort-route | §9.6, BR-B12/B13 (toggle, matriks 25×24, peringatan WALK) |
 | f28-coverage-editor | §9.1 (polygon non-overlap, radius, fee per unit) — **dibangun (M4b), lihat `docs/design/flows/f28-coverage-editor/`** |
 | f29-quota-subscription | §17 (kuota order + kuota COD, reserve/consume/prioritas, setting tanpa kuota) |

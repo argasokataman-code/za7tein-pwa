@@ -1,7 +1,7 @@
 # Rencana Diagram Flow Bisnis Sa7tein
 
 Dokumen perencanaan untuk diagram flow bisnis (archify). Peta arsitektur sudah jadi:
-`docs/design/app-map/`. **Status: 21 flow selesai (F1–F22 + F24), semua lolos gate** — lihat `INDEX.json` / `index.html`. F24 = penanganan masalah CS (bird's eye §5).
+`docs/design/app-map/`. **Status: 21 flow lama selesai (F1–F22 + F24), semua lolos gate** — lihat `INDEX.json` / `index.html`. F24 = penanganan masalah CS (bird's eye §5). Gelombang PRD aktif: `f25-batch-lifecycle` (Regular inhouse), `f26-quick-dispatch` (Quick: dispatch + kurir partner, rencana M6), `f28-coverage-editor`; slug lain (`f27`, `f29`–`f32`) direncanakan di `ui-impact.md`.
 
 Sumber otoritatif: PRD aktif `sa7tein-mvp-2026-10-11` (marketplace + delivery MVP; aktif 2026-10-15)
 (`docs/product/prd/versions/sa7tein-mvp-2026-10-11/{source.pdf,analysis.md,milestones.md}`, dampak flow di `ui-impact.md`).

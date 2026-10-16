@@ -26,6 +26,7 @@
     "f22-super-admin-sa": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PO 2026-09-23 (cakupan Super Admin, decision-irbid-mvp.md) + C-12 + R-DISPUTE-01 + R-LEDGER-01 + C-13", "biz": "partial" },
     "f24-cs-problem": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "BRS notif-order-e2e-2026-10-11 (proposed) + R-NOTIF-02 + R-DISPUTE-01 + C-12", "biz": "proposed" },
     "f25-batch-lifecycle": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-BATCH + R-AUTOSORT + R-COU-INHOUSE + R-COU-PARTNER + R-COU-DISPATCH + R-DELIV-FEE (PRD §7.2/§7.3, §8, §9.2–§9.7, §12, §13, §11) — sa7tein-mvp-2026-10-11", "biz": "decided" },
+    "f26-quick-dispatch": { "type": "workflow", "status": "proposed", "role": "drilldown", "basis": "R-COU-PARTNER + R-COU-DISPATCH + R-DELIV-FEE (PRD §7.3, §9.3–§9.5, §12, §13, §16.3) — sa7tein-mvp-2026-10-11", "biz": "decided" },
     "f28-coverage-editor": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "R-MER-COVERAGE + MER-04 + C-13 (PRD §9.1/§11) — sa7tein-mvp-2026-10-11", "biz": "decided" }
   },
   "links": [
@@ -75,6 +76,7 @@
     { "from": "f8-dispute", "to": "f24-cs-problem", "as": "drilldown", "event": "dispute_filed", "req": "R-NOTIF-02", "note": "sengketa masuk queue CS (f8 = resolusi, f24 = penanganan masalah)" },
     { "from": "f24-cs-problem", "to": "f22-super-admin-sa:appeal", "as": "feeds", "event": "escalated_to_sa", "req": "R-NOTIF-02", "note": "hanya eskalasi: dispute macet / protection fund / appeal" },
     { "from": "f12-merchant-console:terima", "to": "f25-batch-lifecycle:order_masuk", "as": "drilldown", "event": "order_accepted", "req": "R-BATCH", "note": "accept terbelah: Regular → batch, Quick → kurir partner" },
+    { "from": "f25-batch-lifecycle:quick_estimasi", "to": "f26-quick-dispatch:q02", "as": "drilldown", "event": "assignment_sent", "req": "R-COU-DISPATCH", "note": "jalur Quick didalami di f26 (dispatch + approve/reject + SP)" },
     { "from": "f28-coverage-editor:simpan", "to": "f20-address-zone:gate", "as": "feeds", "event": "delivery_config_set", "req": "R-MER-COVERAGE", "note": "coverage per merchant (polygon non-overlap / radius) menggantikan zona global Hijazi/Syimali" }
   ],
   "trace": [
@@ -105,7 +107,7 @@
     { "req": "R-NOTIF-01", "flows": ["f1-order-lifecycle", "f11-push-notification"], "entities": ["notifications", "orders"], "unresolved": ["kanal final (push vs push+WA)", "event 'kurir bersedia'"], "note": "matriks notifikasi tiap langkah; kurir masuk mulai courier_matched — BRS notif-order-e2e (proposed)" },
     { "req": "R-BATCH + R-AUTOSORT (batch Regular)", "flows": ["f12-merchant-console:terima", "f25-batch-lifecycle", "f13-courier-view"], "entities": ["batches", "orders", "couriers"], "unresolved": ["tabel batch di BE", "endpoint assign kurir per batch", "matriks waktu tempuh tak boleh disimpan (R4)"] },
     { "req": "R-COU-INHOUSE + R-DELIV-FEE", "flows": ["f25-batch-lifecycle:assign|antar|fee_dana", "f13-courier-view"], "entities": ["batches", "couriers", "wallet_ledgers"], "unresolved": ["penerima fee pindah dari merchant (C-07) ke kurir", "ledger + disbursement fee DANA belum ada di BE (demo: baris settlement di klien)"] },
-    { "req": "R-COU-PARTNER + R-COU-DISPATCH (Quick)", "flows": ["f25-batch-lifecycle:quick_estimasi|dispatch|partner_respon|sanksi_sp|partner_fee"], "entities": ["couriers", "orders", "sp", "wallet_ledgers"], "unresolved": ["kurir partner + halaman ops belum dibangun (M6)", "OPEN-11 dispatch masih usulan"] },
+    { "req": "R-COU-PARTNER + R-COU-DISPATCH", "flows": ["f26-quick-dispatch", "f25-batch-lifecycle:quick_estimasi"], "entities": ["couriers", "orders", "sp", "wallet_ledgers"], "unresolved": ["kode kurir partner + dispatch belum dibangun (baru rencana f26)", "penerbit SP belum diputuskan PO", "OPEN-11 algoritma dispatch masih usulan"] },
     { "req": "R-NOTIF-02", "flows": ["f1-order-lifecycle", "f11-push-notification", "f24-cs-problem", "f8-dispute"], "entities": ["notifications", "disputes", "incident_resolutions"], "unresolved": ["SLA penanganan CS", "pemilik alert SLA (CS vs SA)", "ambang tolak berulang"], "note": "CS hanya saat masalah; SA hanya eskalasi (DEC-2003) — 0 emit audience 'cs' di kode saat ini" }
   ],
   "contract": {

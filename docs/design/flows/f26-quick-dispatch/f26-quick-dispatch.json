@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F26 — Quick: dispatch & kurir partner (M6)",
+    "quality_profile": "showcase",
+    "reader_width": "unbounded",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    { "id": "merchant", "label": "Merchant" },
+    { "id": "dispatch", "label": "Dispatch (aplikator)" },
+    { "id": "partner", "label": "Kurir partner" },
+    { "id": "ops", "label": "Ops" }
+  ],
+  "phases": [
+    { "id": "terima", "label": "Terima / estimasi", "fromCol": 0, "toCol": 1, "variant": "emphasis" },
+    { "id": "dispatch", "label": "Dispatch & respons", "fromCol": 2, "toCol": 3 },
+    { "id": "jalan", "label": "Jalan", "fromCol": 4, "toCol": 5 },
+    { "id": "tuntas", "label": "Selesai & fee", "fromCol": 6, "toCol": 6, "variant": "emphasis" }
+  ],
+  "mainPath": ["q01", "q02", "q03", "q04", "q07", "q08", "q09"],
+  "semanticChecks": {
+    "allowedRoots": ["q01"],
+    "allowedTerminals": ["q09", "q10"],
+    "requiredEdges": [
+      { "from": "q01", "to": "q02" },
+      { "from": "q02", "to": "q03" },
+      { "from": "q03", "to": "q04" },
+      { "from": "q04", "to": "q07" },
+      { "from": "q07", "to": "q08" },
+      { "from": "q08", "to": "q09" }
+    ]
+  },
+  "nodes": [
+    { "id": "q01", "lane": "merchant", "col": 0, "type": "frontend", "label": "Terima Quick", "sublabel": "estimasi prepare · MER-12", "width": 152 },
+    { "id": "q02", "lane": "dispatch", "col": 1, "type": "backend", "label": "Pilih kandidat", "sublabel": "idle terlama + batas jarak", "tag": "open", "width": 168 },
+    { "id": "q03", "lane": "partner", "col": 2, "type": "backend", "label": "Assignment dikirim", "sublabel": "reserved · jendela prepare", "width": 172 },
+    { "id": "q10", "lane": "dispatch", "col": 2, "type": "security", "label": "Quick tak tersedia", "sublabel": "tak ada kandidat", "tag": "open", "width": 156 },
+    { "id": "q04", "lane": "partner", "col": 3, "type": "frontend", "label": "Approve / reject", "sublabel": "alasan wajib saat tolak", "width": 158 },
+    { "id": "q06", "lane": "ops", "col": 3, "type": "security", "label": "Pengganti + SP", "sublabel": "SP: siapa? UNRESOLVED", "tag": "open", "width": 170 },
+    { "id": "q07", "lane": "partner", "col": 4, "type": "frontend", "label": "Pickup", "sublabel": "COD Quick: talangi tunai", "width": 158 },
+    { "id": "q08", "lane": "partner", "col": 5, "type": "frontend", "label": "Antar 1 order", "sublabel": "satu order per waktu", "width": 152 },
+    { "id": "q09", "lane": "partner", "col": 6, "type": "backend", "label": "Order selesai", "sublabel": "100% fee Quick → partner", "width": 168 }
+  ],
+  "edges": [
+    { "id": "e-est", "from": "q01", "to": "q02", "label": "prepare siap", "role": "main" },
+    { "id": "e-assign", "from": "q02", "to": "q03", "label": "assignment_sent", "role": "main" },
+    { "id": "e-nocand", "from": "q02", "to": "q10", "label": "tak ada kandidat", "role": "branch" },
+    { "id": "e-approve", "from": "q03", "to": "q04", "label": "approved", "role": "main" },
+    { "id": "e-timeout", "from": "q03", "to": "q06", "label": "tanpa respons", "role": "branch" },
+    { "id": "e-reject", "from": "q04", "to": "q02", "label": "rejected{reason}", "role": "branch" },
+    { "id": "e-replace", "from": "q06", "to": "q02", "label": "pengganti", "role": "branch" },
+    { "id": "e-pick", "from": "q04", "to": "q07", "label": "pickup", "role": "main" },
+    { "id": "e-deliver", "from": "q07", "to": "q08", "label": "delivering", "role": "main" },
+    { "id": "e-done", "from": "q08", "to": "q09", "label": "order_completed", "role": "main", "variant": "emphasis" }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "R-COU-PARTNER — kurir partner (COU-15..18)",
+      "items": [
+        "Dikelola aplikator, satu order per waktu (COU-15)",
+        "Status offline / available / reserved / busy",
+        "Terima assignment lalu approve atau reject ber-alasan"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "R-COU-DISPATCH — usulan (OPEN-11)",
+      "items": [
+        "Antrian idle terlama dulu, dibatasi jarak",
+        "Tie-break: order selesai hari ini, lalu jarak terdekat",
+        "Kandidat wajib online, tidak busy, tidak suspend, lokasi segar"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Uang, SP & UNRESOLVED",
+      "items": [
+        "100% fee Quick ke partner (multiplier x fee merchant); COD Quick talangi tunai",
+        "SP = punishment rule ops §18; ambang jarak + kesegaran = config ops",
+        "UNRESOLVED: siapa penerbit SP belum diputuskan PO; OPEN-11 dispatch masih usulan"
+      ]
+    }
+  ]
+}
