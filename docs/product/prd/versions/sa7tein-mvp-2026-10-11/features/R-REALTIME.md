@@ -22,22 +22,22 @@ Semua perubahan status yang terlihat di layar harus datang sendiri ke client yan
 
 | AC | Perilaku | Cara ukur | Status |
 |---|---|---|---|
-| AC1 | Katalog event + audiens satu sumber, bisa diuji | fungsi murni `eventAudience(event)` + self-check seluruh baris §19 | ❌ belum ada katalog di FE |
-| AC2 | Kontrak ber-versi & topik terdaftar | konstanta versi + daftar topik di dokumen kontrak, diuji terhadap kode | ⚠️ `vsn=1.0.0` ada di `src/api/realtime.ts`; topik belum terdokumentasi ber-versi |
-| AC3 | Reconnect → resync state terlewat | status "menyambung ulang/tersinkron" berubah saat `offline`/`online` | ⚠️ resync jalan (`online` listener + retry 3 dtk) tapi tak terlihat di UI |
-| AC4 | Event yang tidak berhak tidak diterima peran itu | `eventAudience()` disaring per peran di layar | ❌ belum disaring di FE |
-| AC5 | Perubahan state terlihat tanpa reload | feed event di layar (bukan polling saja) | ❌ hanya tabel `orders` yang dilanggan |
+| AC1 | Katalog event + audiens satu sumber, bisa diuji | `eventAudience()`/`eventsFor()` + `scripts/realtime-check.mjs` (22 baris §19, jumlah per kolom) | ✅ katalog `src/data/realtime.ts` |
+| AC2 | Kontrak ber-versi & topik terdaftar | `WS_MESSAGE_VERSION` + `contract.realtime.message_version`; self-check membandingkan kode ⇄ dokumen | ✅ versi `1.0.0` di kode & INDEX.json, topik `orders` terdaftar |
+| AC3 | Reconnect → resync state terlewat | status "menyusulkan" berubah saat `online`/refresh; offline punya layar sendiri | ✅ indikator di kotak masuk (diukur di Chromium), offline = `/offline` |
+| AC4 | Event yang tidak berhak tidak diterima peran itu | `eventAudience()` disaring per peran; assert A6 di self-check | ✅ katalog + asersi (`SP diterbitkan` = kurir partner + ops saja) |
+| AC5 | Perubahan state terlihat tanpa reload | feed event di layar (bukan polling saja) | ❌ hanya tabel `orders` yang dilanggan BE; feed layar butuh publication lebih luas |
 
 ## 4. State & layar
 
-- Langganan saat ini: `realtime:public:orders` (protokol Phoenix, `vsn=1.0.0`, heartbeat 25 dtk, reconnect 3 dtk) — hanya tabel `orders`.
-- Konsumen: `useApiRealtime` → refresh inbox + merge order + set tahap order.
-- Topic PRD/kontrak: `orders`, `wallet`, `chat`, `courier`, `disputes`, `tenant`, `zone`, `ratings`, `platform`.
+- Langganan saat ini: `realtime:public:orders` (protokol Phoenix, `vsn` = `WS_MESSAGE_VERSION`, heartbeat 25 dtk, reconnect 3 dtk) — hanya tabel `orders`.
+- Konsumen: `useApiRealtime` → refresh inbox + merge order + set tahap order; indikator resync di kotak masuk (`useRealtimeResync`).
+- Topic PRD/kontrak: `orders`, `wallet`, `chat`, `courier`, `disputes`, `tenant`, `zone`, `ratings`, `platform` (terdaftar di `contract.realtime.topics`; kode menguji topik yang dilanggan ada di daftar itu).
 
 ## 5. Data & kontrak BE
 
-- PRD §19 tidak menetapkan nama event; nama event ada di kolom kontrak `analysis.md` (mis. `courier_location`, `chat_message`, `sp_issued`, `quota_*`).
-- Sumber kontrak terdekat: `docs/design/flows/INDEX.json` blok `contract.realtime` (transport + daftar topik, **tanpa field versi**) dan `docs/plan-notifikasi.md` N5.
+- PRD §19 tidak menetapkan nama event; nama event ada di kolom kontrak `analysis.md` (mis. `courier_location`, `chat_message`, `sp_issued`, `quota_*`). Katalog FE memakai **label §19** sebagai kunci dan hanya mengisi `kontrak` kalau namanya terdokumentasi.
+- Sumber kontrak terdekat: `docs/design/flows/INDEX.json` blok `contract.realtime` (transport + `message_version` + daftar topik, diuji terhadap kode) dan `docs/plan-notifikasi.md` N5.
 
 ## 6. Yang belum (blocked)
 
@@ -52,6 +52,8 @@ Semua perubahan status yang terlihat di layar harus datang sendiri ke client yan
 
 ## 8. Bukti
 
-- Kode saat ini: `src/api/realtime.ts`, `src/hooks/useApiRealtime.ts`, `src/api/notifications.ts`.
-- Dokumen: `docs/design/flows/INDEX.json` (`contract.realtime`), `docs/plan-notifikasi.md` (N5; basis revisi lama), `milestones.md:16` (M7).
-- Belum ada: katalog event + matriks audiens di FE, indikator sambungan, feed event di layar.
+- Katalog + matriks: `src/data/realtime.ts` (`REALTIME_ROWS` 22 baris §19 apa adanya, `eventAudience`, `eventsFor`, `WS_MESSAGE_VERSION`, `WS_SUBSCRIBED_TOPICS`, `WS_TOPIC_PREFIX`); self-check `node --import ./scripts/lib/ts-resolve.mjs scripts/realtime-check.mjs`.
+- Kontrak: `docs/design/flows/INDEX.json` blok `contract.realtime` (kini ber-`message_version` + `subscribed_now`, NFR-06); versi & topik dibandingkan otomatis dengan kode.
+- Socket: `src/api/realtime.ts` (topik & `vsn` dari katalog, bukan ditulis ulang; sinyal `onResync`/`notifyResync`), `src/hooks/useApiRealtime.ts` (kabarkan resync sebelum menyusul), `src/hooks/useRealtimeStatus.ts` (`useRealtimeResync`), indikator di `src/pages/Notifications.tsx` (kelas `inbox-foot` yang sudah ada, tanpa CSS baru).
+- Diukur di Chromium (PWA customer, 390px): dispatch `online` → kotak masuk menampilkan "Menyusulkan perubahan yang terlewat."; offline sudah punya layar `/offline` sendiri.
+- Flow: `docs/design/flows/f11-push-notification/` (bagian "Status UI (R-REALTIME, M7)"), `f1-order-lifecycle` (basis), `milestones.md` (M7).

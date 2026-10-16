@@ -5,7 +5,7 @@
 import { useEffect, useRef } from 'react'
 
 import { fetchCourierOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
-import { subscribeOrders } from '../api/realtime'
+import { notifyResync, subscribeOrders } from '../api/realtime'
 import { fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { markOrderCancelled, setOrderStage } from '../store/slices/cartSlice'
@@ -33,6 +33,8 @@ export function useApiRealtime(audience: NotifAudience): void {
     const refresh = () => {
       if (timer) clearTimeout(timer)
       timer = setTimeout(() => {
+        // Beri tahu indikator: muatan sedang disusulkan (NFR-05).
+        notifyResync()
         fetchNotifications(audience)
           .then((items) => {
             if (!alive) return

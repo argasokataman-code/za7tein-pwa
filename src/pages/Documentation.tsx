@@ -544,7 +544,8 @@ export default function Documentation() {
                 dibedakan, thread ditutup saat order selesai/batal (composer diganti notice,
                 riwayat tetap terbaca), dan lampiran gambar ditandai belum tersedia karena
                 butuh R2. Ditahan <code className="doc-inline">scripts/chat-check.mjs</code>.
-                Sisa M7: katalog event realtime.
+                Sisa M7: feed event realtime di layar (publication BE masih hanya tabel
+                <code className="doc-inline">orders</code>).
               </li>
               <li>
                 <strong>Pin kurir bergerak + ambang hampir sampai (M7b, R-TRACK).</strong>{' '}
@@ -585,6 +586,26 @@ export default function Documentation() {
                 diperbaiki: service workernya ada (<code className="doc-inline">public/push-sw.js</code>),
                 yang belum adalah pengiriman otomatis dari BE. Ditahan{' '}
                 <code className="doc-inline">scripts/notif-check.mjs</code>.
+              </li>
+              <li>
+                <strong>Realtime: matriks §19 utuh + kontrak ber-versi (M7d, R-REALTIME).</strong>{' '}
+                Langganan realtime cuma satu tabel (<code className="doc-inline">orders</code>) dan
+                matriks audiens PRD &sect;19 tak ada di kode, jadi &ldquo;event apa ke siapa&rdquo;
+                hanya bisa dijawab dengan membaca PDF; versi kontrak pesan (NFR-06) pun cuma
+                angka hardcode di URL socket, sedangkan dokumennya tak memuat versi sama sekali.
+                Sekarang <code className="doc-inline">src/data/realtime.ts</code> memuat{' '}
+                <strong>22 baris §19 apa adanya</strong> (label Indonesia, tanpa slug karangan;
+                nama snake_case hanya kalau terdokumentasi) dengan{' '}
+                <code className="doc-inline">eventAudience()</code>/
+                <code className="doc-inline">eventsFor()</code>, versi jadi satu konstanta{' '}
+                <code className="doc-inline">WS_MESSAGE_VERSION</code> yang dipakai socket{' '}
+                <em>dan</em> tertulis di <code className="doc-inline">contract.realtime.message_version</code>{' '}
+                pada <code className="doc-inline">INDEX.json</code>, serta muatan yang disusulkan
+                setelah kembali online kini terlihat di kotak masuk. Ditahan{' '}
+                <code className="doc-inline">scripts/realtime-check.mjs</code> (22 baris, jumlah
+                per kolom, asersi pikap peran, versi kode &harr; dokumen, topik terdaftar).
+                Belum: feed event di layar karena publication BE masih hanya{' '}
+                <code className="doc-inline">orders</code>.
               </li>
               <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}

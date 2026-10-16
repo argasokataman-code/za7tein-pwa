@@ -19,11 +19,13 @@ import { NotificationRow } from '../components/ui/NotificationRow'
 import { notificationAudienceFromPath } from '../data/notifications'
 import { notificationsFor } from '../data/notif'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useRealtimeResync } from '../hooks/useRealtimeStatus'
 import { markAllRead, selectUnreadCount } from '../store/slices/notificationsSlice'
 
 export default function Notifications() {
   const dispatch = useAppDispatch()
   const audience = notificationAudienceFromPath(window.location.pathname)
+  const resyncing = useRealtimeResync()
   // Penjaga kedua di klien: query BE sudah menyaring audience, tapi baris yang
   // salah peran (sisa cache/siaran tanpa tanda) tak boleh tampil di sini.
   const items = notificationsFor(
@@ -65,6 +67,14 @@ export default function Notifications() {
 
               {items.length === 0 ? (
                 <p className="inbox-foot">Belum ada notifikasi.</p>
+              ) : null}
+
+              {/* Muatan sedang disusulkan (R-REALTIME, NFR-05). Keadaan offline
+                  punya layarnya sendiri (`/offline`), jadi di sini cukup resync. */}
+              {resyncing ? (
+                <p className="inbox-foot" role="status">
+                  Menyusulkan perubahan yang terlewat.
+                </p>
               ) : null}
 
               <ul className="inbox-list">

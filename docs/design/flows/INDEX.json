@@ -122,6 +122,10 @@
     "realtime": {
       "transport": "websocket",
       "auth": "token sesi via query `access_token`; topic ter-scope per peran",
+      "message_version": "1.0.0",
+      "$comment_version": "Versi kontrak pesan WebSocket (NFR-06). Satu angka ini dipakai kode (`src/data/realtime.ts` WS_MESSAGE_VERSION, dikirim sebagai `vsn=` di URL socket) dan diuji `scripts/realtime-check.mjs` terhadap dokumen ini, supaya PWA dan aplikasi native bisa berjalan berdampingan tanpa menebak.",
+      "matrix": "§19 PRD aktif (22 baris, label Indonesia; ditulis sebagai Usulan untuk divalidasi bersama ERD). Katalog + matriks audiens yang bisa diuji: `src/data/realtime.ts` REALTIME_ROWS.",
+      "subscribed_now": ["orders"],
       "topics": ["orders", "wallet", "chat", "courier", "disputes", "tenant", "zone", "ratings", "platform"]
     },
     "endpoints": [

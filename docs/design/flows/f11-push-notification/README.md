@@ -32,6 +32,14 @@ Bell CS di `/admin` membaca `s.notifications.items`, tapi **0 emit `audience:'cs
 - **Komentar usang diperbaiki.** Beberapa berkas masih menulis "repo tak punya SW push" padahal `public/push-sw.js` ada dan di-`importScripts` di `vite.config.ts`; yang belum adalah pengiriman otomatis dari BE.
 - **Belum:** pengiriman push otomatis dari BE, pengubah ambang dari panel ops (M10), emit CS (tetap 0 pemanggil).
 
+## Status UI (R-REALTIME, M7)
+
+- **Matriks §19 satu sumber yang bisa diuji.** `src/data/realtime.ts` memuat 22 baris §19 apa adanya (label Indonesia; PRD tidak menetapkan nama event, jadi tak ada slug karangan) plus nama kontrak snake_case **hanya** untuk yang benar-benar terdokumentasi (`courier_location`, `chat_message`, `sp_issued`, `quota_consumed`). `eventAudience()` / `eventsFor()` diuji `scripts/realtime-check.mjs`, termasuk jumlah per kolom (customer 11, merchant 18, kurir 11, ops 9, customer lain 7) supaya transkripnya terbukti lengkap.
+- **Kontrak ber-versi (NFR-06).** Satu konstanta `WS_MESSAGE_VERSION` dikirim sebagai `vsn=` di URL socket, dan `contract.realtime.message_version` di `INDEX.json` sekarang memuatnya. Self-check menolak kalau versi kode ⇄ dokumen berbeda, dan memastikan topik yang dilanggan kode (`orders`) ada di daftar topik kontrak.
+- **Resync terlihat (NFR-05).** Muatan yang disusulkan setelah socket/tab kembali online sekarang ditandai di kotak masuk ("Menyusulkan perubahan yang terlewat."). Keadaan offline tidak digandakan di halaman, karena aplikasi sudah punya layar `/offline` sendiri.
+- **Belum:** feed event di layar (AC5) — publication BE masih hanya tabel `orders`; fan-out publik & nama event final masih urusan desain teknis BE.
+
+
 
 ## Aturan (R-PUSH-01)
 
