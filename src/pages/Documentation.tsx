@@ -259,7 +259,22 @@ export default function Documentation() {
                 hidup di state <code className="doc-inline">catalog.categories</code> (ikon dipetakan
                 dari modul, bukan state, karena komponen lucide tak selamat dari JSON persist) dan
                 migrasi persist <strong>v8</strong> membuang <code className="doc-inline">catalog</code>{' '}
-                lama. Model attribute/variant Odoo (MER-07/MER-08) menyusul.
+                lama. Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
+              </li>
+              <li>
+                <strong>Varian &amp; tambahan ala Odoo</strong> (M4c, MER-07/MER-08): model{' '}
+                <code className="doc-inline">CatalogAttribute</code>/
+                <code className="doc-inline">MenuAttributeLine</code>/
+                <code className="doc-inline">MenuAttributeValue</code>/{' '}
+                <code className="doc-inline">AttributeExclusion</code>/
+                <code className="doc-inline">MenuVariant</code> yang tadinya menganggur kini hidup di
+                slice <code className="doc-inline">catalogAttributes</code>. Di form item merchant
+                (<code className="doc-inline">MenuAttributeEditor</code>) merchant memasang atribut,
+                menulis tambahan harga (<code className="doc-inline">price_extra</code>) per nilai, dan
+                mematikan nilai atau kombinasi — ketersediaan tiga level. Pelanggan memilih di halaman
+                item: harga = dasar + Σ tambahan, nilai yang mati/di-exclude tak bisa dipilih. Aturan
+                murni di <code className="doc-inline">src/data/catalogOdoo.ts</code> ditahan{' '}
+                <code className="doc-inline">scripts/catalog-check.mjs</code>.
               </li>
               <li>
                 <strong>Keranjang ganda per toko</strong> (M1c): menambah menu dari toko berbeda

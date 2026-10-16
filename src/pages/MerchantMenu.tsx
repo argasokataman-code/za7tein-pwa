@@ -6,6 +6,7 @@ import toast from 'react-hot-toast'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
+import { MenuAttributeEditor } from '../components/merchant/MenuAttributeEditor'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useCatalog } from '../hooks/useCatalog'
@@ -524,6 +525,7 @@ export default function MerchantMenu() {
               dipisah”). Saat mati, kolom catatan tidak muncul.
             </p>
           </div>
+          {sheetMode === 'edit' && editing ? <MenuAttributeEditor menuId={editing.id} /> : null}
           <div className="form-group">
             <label htmlFor="merchant-item-description" className="form-label">Deskripsi</label>
             <textarea id="merchant-item-description" className="form-control" {...register('description')} />

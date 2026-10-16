@@ -304,6 +304,310 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:50:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalogOdoo.ts (+211) — write via tool: ts: import type {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalogOdoo.ts"
+    },
+    {
+      "id": "TASK-102114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:51:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalogOdoo.ts (+4/-13) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/catalogOdoo.ts"
+    },
+    {
+      "id": "TASK-102115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:51:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/catalogAttributesSlice.ts (+132) — write via tool: ts: import { createSl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/catalogAttributesSlice.ts"
+    },
+    {
+      "id": "TASK-102116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:51:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+3/-2) — edit via tool: ts: import coverage from './slices/coverageS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-102117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:51:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MenuAttributeEditor.tsx (+196) — write via tool: tsx: import { Tr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MenuAttributeEditor.tsx"
+    },
+    {
+      "id": "TASK-102118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:52:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MenuAttributeEditor.tsx (+3/-3) — edit via tool: tsx: <span class",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MenuAttributeEditor.tsx"
+    },
+    {
+      "id": "TASK-102119",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:52:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+2/-1) — edit via tool: tsx: import { MerchantPageHeader } fr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-102120",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:52:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+20/-6) — edit via tool: tsx: import { formatRating, modifierEx",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-102121",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:52:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/catalogAttributesSlice.ts (+4/-2) — edit via tool: ts: export const sele",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/catalogAttributesSlice.ts"
+    },
+    {
+      "id": "TASK-102122",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:53:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx (+4/-2) — edit via tool: tsx: const addToCart = () => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-102123",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:53:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+3/-2) — edit via tool: @use \"./system/merchant-batch\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-102124",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:53:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_catalog-odoo.scss (+97) — write via tool: // Katalog ala Odoo (§14, ME",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_catalog-odoo.scss"
+    },
+    {
+      "id": "TASK-102125",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:54:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/catalog-check.mjs (+102) — write via tool: // Self-check aturan katalog Odoo (§14",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/catalog-check.mjs"
+    },
+    {
+      "id": "TASK-102126",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:54:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error|MenuDetail|MenuAttribute|catalogAttributes|catal",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102127",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:59:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+18/-3) — edit via tool: tsx: migrasi persist <strong>v8</st",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102128",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:59:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && node --import ./scripts/lib/ts-resolve.mjs scripts/catalog-check.mjs && npm run lin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

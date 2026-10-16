@@ -1,0 +1,96 @@
+// Katalog ala Odoo (§14, MER-07/MER-08): editor attribute/varian di form menu
+// merchant dan selector attribute di halaman menu pelanggan.
+
+// ── Editor merchant (MenuAttributeEditor) ──
+
+.menu-attr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.menu-attr-line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.menu-attr-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.menu-attr-name {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.menu-attr-type {
+  margin-inline-end: auto;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.menu-attr-values {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.menu-attr-value {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+}
+
+.menu-attr-value-name {
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.menu-attr-extra {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.menu-attr-extra-label {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.menu-attr-extra-input {
+  width: 5rem;
+  min-height: var(--touch-min);
+  text-align: end;
+}
+
+.menu-attr-avail {
+  margin: 0;
+  min-height: var(--touch-min);
+}
+
+// ── Selector pelanggan (MenuDetail) ──
+
+.mdd-choice.is-disabled,
+.mdd-choice:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mdd-unavailable {
+  margin: 0 var(--space-5);
+  padding: var(--space-3);
+  border: 1px solid var(--warning-soft);
+  border-radius: var(--radius-md);
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+  font-size: var(--text-sm);
+}

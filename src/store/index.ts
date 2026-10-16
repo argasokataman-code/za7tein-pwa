@@ -35,6 +35,7 @@ import partner from './slices/partnerSlice'
 import quota from './slices/quotaSlice'
 import marketing from './slices/marketingSlice'
 import coverage from './slices/coverageSlice'
+import catalogAttributes from './slices/catalogAttributesSlice'
 import ui from './slices/uiSlice'
 import type { AuditKind, DisputeResolution } from '../types'
 
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
   quota,
   marketing,
   coverage,
+  catalogAttributes,
   ui,
   accountSetup,
 })
@@ -150,7 +152,7 @@ const persistConfig = {
   key: 'sa7tein',
   version: PERSIST_VERSION,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'batch', 'partner', 'quota', 'marketing', 'coverage'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'batch', 'partner', 'quota', 'marketing', 'coverage', 'catalogAttributes'],
   migrate: createMigrate(migrations, { debug: false }),
 }
 

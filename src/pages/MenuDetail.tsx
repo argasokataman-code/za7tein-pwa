@@ -4,14 +4,29 @@ import toast from 'react-hot-toast'
 import { Link, useParams } from 'react-router-dom'
 
 import { formatRating, modifierExtra, modifierSummary } from '../data/foods'
+import {
+  attributeById,
+  isCombinationExcluded,
+  isVariantAvailable,
+  linesForMenu,
+  menuValuesOf,
+  priceExtraFor,
+} from '../data/catalogOdoo'
 import { getStorefront } from '../data/storefronts'
 import { useCatalog } from '../hooks/useCatalog'
 import { useFood, useStorefront } from '../hooks/useApiCatalog'
-import { useAppDispatch } from '../hooks/useAppStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import {
+  selectAttributeExclusions,
+  selectCatalogAttributes,
+  selectMenuAttributeLines,
+  selectMenuAttributeValues,
+  selectMenuVariants,
+} from '../store/slices/catalogAttributesSlice'
 import { FavoriteButton } from '../components/ui/FavoriteButton'
 import { addItem } from '../store/slices/cartSlice'
 import { useMoney } from '../hooks/useMoney'
-import type { ModifierGroup } from '../types'
+import type { CatalogAttribute, MenuAttributeLine, ModifierGroup } from '../types'
 import { BackButton } from '../components/ui/BackButton'
 
 const TRUNCATE_AT = 96
@@ -21,9 +36,15 @@ export default function MenuDetail() {
   const { id } = useParams()
   const dispatch = useAppDispatch()
   const { getFood } = useCatalog()
+  const attributes = useAppSelector(selectCatalogAttributes)
+  const attrLines = useAppSelector(selectMenuAttributeLines)
+  const attrValues = useAppSelector(selectMenuAttributeValues)
+  const attrExclusions = useAppSelector(selectAttributeExclusions)
+  const variants = useAppSelector(selectMenuVariants)
   const [quantityByFood, setQuantityByFood] = useState<Record<string, number>>({})
   const [expanded, setExpanded] = useState(false)
   const [chosenByFood, setChosenByFood] = useState<Record<string, string[]>>({})
+  const [attrsByFood, setAttrsByFood] = useState<Record<string, string[]>>({})
   const [notesByFood, setNotesByFood] = useState<Record<string, string>>({})
 
   // Menu: data katalog sesuai id yang diminta. Tanpa API = mock repo; dengan
@@ -129,11 +150,54 @@ export default function MenuDetail() {
     })
   }
 
+  // Attribute ala Odoo (§14): default pilih nilai pertama yang tersedia untuk
+  // tipe pilih-satu; `multi` kosong. Nilai/kombinasi yang dimatikan merchant
+  // (ketersediaan 3 level, MER-08) tak bisa dipilih.
+  const menuAttrLines = linesForMenu(attrLines, food.id)
+  const attrDefaults = menuAttrLines.flatMap((line) => {
+    const attribute = attributeById(attributes, line.attributeId)
+    if (!attribute || attribute.displayType === 'multi') return []
+    const first = menuValuesOf(attrValues, line).find((value) => value.available)
+    return first ? [first.attributeValueId] : []
+  })
+  const selectedAttrs = attrsByFood[food.id] ?? attrDefaults
+  const attrExtra = priceExtraFor(attrValues, food.id, selectedAttrs)
+  const comboAvailable = isVariantAvailable(variants, food.id, selectedAttrs)
+
+  const toggleAttr = (line: MenuAttributeLine, attribute: CatalogAttribute, valueId: string) => {
+    setAttrsByFood((previous) => {
+      const prev = previous[food.id] ?? attrDefaults
+      if (attribute.displayType === 'multi') {
+        return {
+          ...previous,
+          [food.id]: prev.includes(valueId)
+            ? prev.filter((id) => id !== valueId)
+            : [...prev, valueId],
+        }
+      }
+      const cleared = prev.filter((id) => !line.valueIds.includes(id))
+      return { ...previous, [food.id]: [...cleared, valueId] }
+    })
+  }
+
+  // Kombinasi akan dilarang (exclusion) bila ditambah nilai ini.
+  const valueExcluded = (line: MenuAttributeLine, valueId: string) => {
+    const base = selectedAttrs.filter((id) => !line.valueIds.includes(id))
+    return isCombinationExcluded(attrExclusions, food.id, [...base, valueId])
+  }
+
+  const attrSummary = selectedAttrs
+    .map((id) => attributes.flatMap((a) => a.values).find((v) => v.id === id)?.name)
+    .filter((name): name is string => Boolean(name))
+    .join(', ')
+
   const extras = modifierExtra(food.modifierGroups, chosen)
-  const unitPrice = food.price + extras
+  const unitPrice = food.price + extras + attrExtra
 
   const addToCart = () => {
-    const summary = modifierSummary(food.modifierGroups, chosen)
+    const summary = [modifierSummary(food.modifierGroups, chosen), attrSummary]
+      .filter(Boolean)
+      .join(' · ')
     const note = notes.trim()
     dispatch(
       addItem({
@@ -252,6 +316,52 @@ export default function MenuDetail() {
                 </section>
               ))}
 
+              {menuAttrLines.map((line) => {
+                const attribute = attributeById(attributes, line.attributeId)
+                if (!attribute) return null
+                const multi = attribute.displayType === 'multi'
+                return (
+                  <section
+                    className="mdd-choices"
+                    key={line.attributeId}
+                    role="group"
+                    aria-label={attribute.name}
+                  >
+                    <div className="mdd-choices__head">
+                      <h3 className="mdd-subhead s7-parallax--title">{attribute.name}</h3>
+                      <span className={`mdd-hint${multi ? '' : ' mdd-hint--required'}`}>
+                        {multi ? 'Opsional' : 'Wajib pilih 1'}
+                      </span>
+                    </div>
+                    {menuValuesOf(attrValues, line).map((value) => {
+                      const meta = attribute.values.find((v) => v.id === value.attributeValueId)
+                      const active = selectedAttrs.includes(value.attributeValueId)
+                      const disabled = !value.available || valueExcluded(line, value.attributeValueId)
+                      return (
+                        <button
+                          key={value.attributeValueId}
+                          type="button"
+                          className={`mdd-choice${active ? ' is-active' : ''}${disabled ? ' is-disabled' : ''}`}
+                          aria-pressed={active}
+                          disabled={disabled}
+                          onClick={() => toggleAttr(line, attribute, value.attributeValueId)}
+                        >
+                          <span className={`mdd-choice__mark${multi ? '' : ' mdd-choice__mark--radio'}`}>
+                            {active ? <Check size={12} strokeWidth={3} aria-hidden="true" /> : null}
+                          </span>
+                          <span className="mdd-choice__label">
+                            {meta?.name ?? value.attributeValueId}
+                          </span>
+                          {value.priceExtra > 0 ? (
+                            <span className="mdd-choice__price">+{money(value.priceExtra)}</span>
+                          ) : null}
+                        </button>
+                      )
+                    })}
+                  </section>
+                )
+              })}
+
               {food.noteEnabled !== false ? (
                 <section className="mdd-section">
                   <h3 className="mdd-subhead s7-parallax--title">Catatan untuk Tetangga Masak</h3>
@@ -282,6 +392,12 @@ export default function MenuDetail() {
               </section>
             </div>
 
+            {comboAvailable ? null : (
+              <p className="mdd-unavailable" role="status">
+                Kombinasi pilihan sedang tidak tersedia. Pilih varian lain.
+              </p>
+            )}
+
             <div className="menu-detail-actions">
               <div className="mdd-qty" role="group" aria-label="Pilih jumlah">
                 <button
@@ -308,6 +424,7 @@ export default function MenuDetail() {
               <button
                 type="button"
                 className="mdd-add"
+                disabled={!comboAvailable}
                 aria-label={`Tambah ${quantity} ${food.name} ke keranjang, total ${money(unitPrice * quantity)}`}
                 onClick={addToCart}
               >
