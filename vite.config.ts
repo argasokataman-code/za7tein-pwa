@@ -1,6 +1,8 @@
 import react from '@vitejs/plugin-react'
 import { execSync } from 'node:child_process'
-import { defineConfig } from 'vite'
+import { cpSync, existsSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 /**
@@ -26,10 +28,31 @@ function resolveBuildSha() {
 
 const BUILD_SHA = resolveBuildSha()
 
+/**
+ * Salin peta flow archify (`docs/design/flows`) ke `dist/flows` supaya viewer-nya
+ * bisa dibuka dari prod di `/flows/index.html`. HTML diagram ikut di-commit
+ * (lihat .gitignore) karena Vercel build dari Git dan runner-nya tak punya
+ * archify/Chrome. Artefak `.visual-check.*` dilewati.
+ */
+function copyFlowViewer(): Plugin {
+  return {
+    name: 'copy-flow-viewer',
+    closeBundle() {
+      const src = resolve(process.cwd(), 'docs/design/flows')
+      if (!existsSync(src)) return
+      cpSync(src, resolve(process.cwd(), 'dist/flows'), {
+        recursive: true,
+        filter: (path) => !path.includes('.visual-check.'),
+      })
+    },
+  }
+}
+
 export default defineConfig({
   define: { __BUILD_SHA__: JSON.stringify(BUILD_SHA) },
   plugins: [
     react(),
+    copyFlowViewer(),
     VitePWA({
       strategies: 'generateSW',
       registerType: 'autoUpdate',
@@ -45,10 +68,11 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,webp,svg,woff2}'],
         // push-sw.js diimpor saat runtime (importScripts), jangan ikut precache:
         // entri ganda bikin `add-to-cache-list-conflicting-entries`.
-        globIgnores: ['**/push-sw.js'],
+        // dist/flows/** = viewer archify (~22 MB) — disajikan statis, bukan app.
+        globIgnores: ['**/push-sw.js', '**/flows/**'],
         importScripts: ['push-sw.js'],
         navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api\//, /^\/$/, /^\/documentation/],
+        navigateFallbackDenylist: [/^\/api\//, /^\/$/, /^\/documentation/, /^\/flows\//],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/[abc]\.tile\.openstreetmap\.org\/.*/i,

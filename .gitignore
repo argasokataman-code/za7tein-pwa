@@ -28,8 +28,9 @@ dev-dist
 .vercel
 .commandcode
 
-# Artefak flow archify (generated) — regenerasi: scripts/flows-gate.sh --all
-# Yang di-commit cuma spec JSON + README (sumber yang diedit).
-docs/design/flows/*/*.html
+# Artefak flow archify. HTML diagram ikut di-commit supaya viewer `/flows/`
+# bisa dibuild & disajikan dari prod (Vercel build dari Git, runner tak punya
+# archify/Chrome). Artefak verifikasi visual tetap dibuang.
+# Regenerasi: scripts/flows-gate.sh --all
 docs/design/flows/*/*.visual-check.*
 .env*
