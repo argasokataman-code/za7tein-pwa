@@ -16,6 +16,14 @@ Chat per order: layar chat dibuka saat order placed, bubble pesan antara custome
 
 **Lane Guard tampilan:** hanya peserta (≤3) yang melihat thread, `dispute_opened` dari F8 menandai thread priority, dan rate limit/abuse tampil sebagai pesan ditolak.
 
+## Status UI (per 2026-10-16)
+
+Revisi aktif kini `sa7tein-mvp-2026-10-11`; requirement chat-nya **`R-CUS-CHAT`** (PRD §20.1, CUS-26, COU-07) — lihat `../../product/prd/versions/sa7tein-mvp-2026-10-11/features/R-CUS-CHAT.md`.
+
+- **Berdiri**: peserta diturunkan dari state (`src/data/chat.ts`) — customer + merchant sejak order dibuat, kurir **hanya** setelah batch di-assign (inhouse) atau assignment di-approve (partner); gelembung tiga pihak dengan nama pengirim di atas pesan pihak lain; thread ditutup saat order selesai/batal (notice menggantikan composer, riwayat tetap terbaca); penanda akses non-peserta tetap seperti alur (layar hanya untuk peserta thread).
+- **Ditandai belum tersedia**: lampiran gambar (butuh R2, BE demo belum punya bucket/kolom lampiran) — `CHAT_MEDIA_AVAILABLE=false` + notice, bukan dipalsukan.
+- **Catatan**: "maksimal 3 peserta" di halaman ini adalah keputusan flow; PRD hanya menyebut **daftar** peserta, tidak menetapkan angka. Retensi (`N hari`) tetap UNRESOLVED (OPEN-20) — layar menulis "masa simpan berakhir" tanpa angka.
+
 ## Aturan keras (jangan dilupakan)
 
 - Thread dibuat saat order placed (keputusan HEBOH: simplify) — bukan menunggu tahap `prepare`; participants customer/merchant/courier, kurir masuk saat event `courier_match` bila belum match.

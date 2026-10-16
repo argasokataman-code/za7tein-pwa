@@ -534,6 +534,20 @@ export default function Documentation() {
                 Quick 100%, talangan COD Quick, dan dispatch nyata (OPEN-11).
               </li>
               <li>
+                <strong>Chat order jadi group per order (M7).</strong> Sebelumnya chat
+                hanya customer &harr; kurir walau PRD &sect;20.1 meminta group berisi
+                customer + merchant sejak order dibuat, dengan kurir masuk setelah batch
+                di-assign (inhouse) atau assignment di-approve (partner). Sekarang peserta
+                diturunkan dari state (<code className="doc-inline">src/data/chat.ts</code>),
+                chip peserta menandai yang <em>belum bergabung</em>, tiap gelembung pihak
+                lain membawa <strong>nama pengirim</strong> supaya toko dan kurir bisa
+                dibedakan, thread ditutup saat order selesai/batal (composer diganti notice,
+                riwayat tetap terbaca), dan lampiran gambar ditandai belum tersedia karena
+                butuh R2. Ditahan <code className="doc-inline">scripts/chat-check.mjs</code>.
+                Sisa M7: lokasi kurir bergerak, ambang &ldquo;kurir hampir sampai&rdquo;, dan
+                katalog event realtime.
+              </li>
+              <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}
                 <code className="doc-inline">mergeOrders</code> dulu mengganti seluruh antrean
                 dengan baris BE. Tiga kolom hanya hidup di klien (

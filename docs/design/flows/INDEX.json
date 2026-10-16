@@ -15,7 +15,7 @@
     "f11-push-notification": { "type": "sequence", "status": "done", "role": "support", "basis": "R-PUSH-01, C-18", "biz": "partial" },
     "f12-merchant-console": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "C-06, C-07, plan-merchant", "biz": "partial" },
     "f13-courier-view": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-COU-INHOUSE + R-TRACK + R-DELIV-FEE (PRD §7.2, §9.2, §9.7, §12 COU-06/COU-11..13) — sa7tein-mvp-2026-10-11", "biz": "decided" },
-    "f14-chat-order": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "C-18 (in-app chat), C-12", "biz": "decided" },
+    "f14-chat-order": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "R-CUS-CHAT (PRD sa7tein-mvp-2026-10-11 §20.1, CUS-26, COU-07) + C-18 (in-app chat), C-12", "biz": "decided" },
     "f15-super-admin": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "C-12, PRD 5C, R-DISPUTE-01", "biz": "partial" },
     "f16-merchant-onboarding": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PRD 5C deposit + Insentif Founding (5 JOD), I-1/I-2, C-12", "biz": "partial" },
     "f17-payment-dana": { "type": "sequence", "status": "done", "role": "support", "basis": "keputusan PO 2026-10-13 (DANA), DEC-1039, OQ-25", "biz": "decided" },

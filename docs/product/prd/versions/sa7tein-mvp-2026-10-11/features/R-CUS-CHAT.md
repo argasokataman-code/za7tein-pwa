@@ -22,18 +22,19 @@ Koordinasi saat permintaan customer tidak bisa dipenuhi apa adanya (mis. catatan
 
 | AC | Perilaku | Cara ukur | Status |
 |---|---|---|---|
-| AC1 | Thread ada untuk **setiap order yang sudah dibuat**, peserta awal customer + merchant | fungsi murni `chatParticipants()` + `chat-thread-check` | ❌ hari ini tanpa order: layar memakai mock kurir saja |
-| AC2 | Kurir muncul sebagai peserta **hanya** setelah batch di-assign (inhouse) / assignment di-approve (partner) | `chatParticipants()` atas state batch & assignment; assert untuk 4 kombinasi | ❌ peserta di-hardcode customer ↔ kurir |
-| AC3 | Kirim/terima **teks** pada thread order yang sama | kirim di UI + baris baru muncul dengan waktu | ⚠️ teks jalan, tapi 1:1 dan tanpa merchant |
-| AC4 | Lampiran **gambar** (R2) | — | ❌ `chat_messages` hanya `body: string`, R2 belum ada (lihat §6) |
-| AC5 | Thread **ditutup** saat order batal/ditolak, dan beberapa jam setelah selesai | status thread turunan `chatStatusFor()` | ❌ belum ada state tutup |
-| AC6 | Ragam peserta tampil (siapa di dalam thread), tidak ada thread kedua per order | header thread menampilkan daftar peserta; `threadsForOrder(orderId)` panjang = 1 | ❌ header hardcode satu nama |
+| AC1 | Thread ada untuk **setiap order yang sudah dibuat**, peserta awal customer + merchant | fungsi murni `chatParticipants()` + `chat-check` | ✅ `chatParticipants()` (`src/data/chat.ts:44-53`); chip peserta menampilkan Pembeli + Toko sejak awal, self-check `scripts/chat-check.mjs` |
+| AC2 | Kurir muncul sebagai peserta **hanya** setelah batch di-assign (inhouse) / assignment di-approve (partner) | `chatParticipants()` atas state batch & assignment; assert untuk 4 kombinasi | ✅ `courierJoinedInhouse`/`courierJoinedPartner` (`chat.ts:74-92`) + layar membaca `courier.batch` & `partner.assignments` (`OrderChat.tsx:125-127`); kurir belum gabung = chip putus-putus "belum bergabung" |
+| AC3 | Kirim/terima **teks** pada thread order yang sama | kirim di UI + baris baru muncul dengan waktu | ✅ terukur di Chromium asli: klik nyata tombol kirim 44×44 → gelembung `--aku` bertambah, lalu balasan + indikator "sedang menulis" |
+| AC4 | Lampiran **gambar** (R2) | — | ❌ `CHAT_MEDIA_AVAILABLE=false` + `PlatformNotice` di layar (`OrderChat.tsx:334-340`); BE demo belum punya bucket/kolom lampiran |
+| AC5 | Thread **ditutup** saat order batal/ditolak, dan beberapa jam setelah selesai | status thread turunan `chatStatusFor()` | ✅ `chatStatusFor()` (`chat.ts:60-66`); terukur: `orderStage=selesai` → "Chat ditutup setelah order selesai" (`OrderChat.tsx:304-309`) dan composer hilang, riwayat tetap terbaca |
+| AC6 | Ragam peserta tampil (siapa di dalam thread), tidak ada thread kedua per order | header thread menampilkan daftar peserta; `threadsForOrder(orderId)` panjang = 1 | ✅ daftar peserta (`OrderChat.tsx:240-254`, 3 chip) + nama pengirim per gelembung (`:259-263`) supaya toko dan kurir bisa dibedakan; satu thread tetap satu daftar peserta |
 
 ## 4. State & layar
 
 - Layar: `/order-chat` (`src/pages/OrderChat.tsx`), pintu masuk tombol Chat di `OrderStageScreen`.
-- Peserta: `customer` / `merchant` / `kurir`; kurir punya dua jalur masuk (`inhouse` = batch di-assign, `partner` = assignment `approved`).
-- Status thread: `open` / `closed` (alasan: `completed` / `cancelled` / `rejected`).
+- Peserta: `customer` / `merchant` / `kurir`; kurir punya dua jalur masuk (`inhouse` = batch di-assign, `partner` = assignment `approved`). Layar menampilkan daftar peserta (yang belum masuk ditandai "belum bergabung") dan nama pengirim di atas tiap gelembung pihak lain, karena nada warna saja tidak cukup membedakan toko dari kurir.
+- Status thread: `open` / `closed` (alasan: `completed` / `cancelled`). Saat `closed`, composer dan saran cepat diganti notice, riwayat tetap terbaca.
+- Mode demo (tanpa order aktif): percakapan contoh tetap tiga pihak, pesan kurir hanya ikut tampil kalau kurir sudah bergabung.
 
 ## 5. Data & kontrak BE
 
@@ -43,8 +44,8 @@ Koordinasi saat permintaan customer tidak bisa dipenuhi apa adanya (mis. catatan
 
 ## 6. Yang belum (blocked)
 
-- **Gambar (AC4)**: BE demo tak punya bucket R2 maupun kolom lampiran di `chat_messages`; jalurnya ditandai belum tersedia di UI, bukan dipalsukan.
-- **Kurir gabung otomatis (AC2)**: assignment/dispatch nyata belum ada (OPEN-11, `R-COU-DISPATCH`), jadi keanggotaan diturunkan dari **state demo** (batch & assignment slice), bukan event BE.
+- **Gambar (AC4)**: BE demo tak punya bucket R2 maupun kolom lampiran di `chat_messages`; layar menandai jalurnya belum tersedia (`CHAT_MEDIA_AVAILABLE`), bukan memalsukan unggahan.
+- **Kurir gabung otomatis (AC2)**: assignment/dispatch nyata belum ada (OPEN-11, `R-COU-DISPATCH`), jadi keanggotaan diturunkan dari **state demo** (batch ter-assign / assignment `approved`), bukan dari event BE `courier_joined_chat`. Jalur event-nya tetap tercatat sebagai kontrak.
 
 ## 7. UNRESOLVED
 
@@ -55,6 +56,8 @@ Koordinasi saat permintaan customer tidak bisa dipenuhi apa adanya (mis. catatan
 
 ## 8. Bukti
 
-- Kode saat ini: `src/pages/OrderChat.tsx` (1:1 customer ↔ kurir, percakapan mock inline), `src/api/chat.ts`, `src/hooks/useApiChat.ts` (polling 5 dtk).
+- Kode: `src/data/chat.ts` (`chatParticipants:44-53`, `chatStatusFor:60-66`, `courierJoinedInhouse:74-79`, `courierJoinedPartner:85-88`, `CHAT_MEDIA_AVAILABLE:98`), `src/pages/OrderChat.tsx` (derivasi peserta `:118-142`, daftar peserta `:240-254`, nama pengirim `:259-263`, penutupan thread `:304-309`, penanda lampiran `:334-340`), `src/styles/system/_order-chat.scss`, `src/styles/_system.scss` (facade).
+- Self-check: `scripts/chat-check.mjs` (peserta awal, kurir gabung per jalur, `courierId` null, order di luar batch, partner pending/rejected/approved, jalur masuk regular/quick, lifecycle buka/tutup, thread hanya bila order ada).
+- Terukur di Chromium asli (jendela PWA customer, `:4173`): 3 chip peserta, gelembung `--merchant`/`--aku`/`--kurir` dengan nama pengirim (toko ≠ kurir), kirim lewat klik nyata tombol 44×44 → gelembung bertambah + balasan, `orderStage=selesai` → notice tutup dan composer hilang, overflow-x 0, kolom 430.
 - Flow: `docs/design/flows/f14-chat-order/` (status `done` di `INDEX.json`, basis C-18 + C-12).
-- Belum ada: definisi peserta/lifecycle di `src/data/`, lampiran, status tutup.
+- Catatan jujur: keanggotaan kurir diturunkan dari "ada batch ter-assign / assignment approved di sesi ini", karena id tugas demo (`ct-*`) belum menyatu dengan order BE (`api-*`) — gap identitas lintas peran yang sudah tercatat di M5.

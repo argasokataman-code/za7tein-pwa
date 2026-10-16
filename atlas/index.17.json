@@ -4553,6 +4553,234 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/_baseline.json"
+    },
+    {
+      "id": "TASK-110362",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:11:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/chat.ts (+99) — write via tool: ts: import type { OrderType } from '../types",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/chat.ts"
+    },
+    {
+      "id": "TASK-110363",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:11:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+70/-36) — edit via tool: tsx: import { MessageCircle, Send } fr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-110364",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:12:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+4/-2) — edit via tool: tsx: const thread = chatStatusFor(orderS",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-110365",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:12:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+81) — write via tool: /* Group chat per order (M7, P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-110366",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:13:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/chat-check.mjs (+78) — write via tool: // Self-check aturan group chat per orde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/chat-check.mjs"
+    },
+    {
+      "id": "TASK-110367",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:17:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+6/-6) — edit via tool: tsx: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-110368",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:17:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+12/-4) — edit via tool: .chat-participant__role {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-110369",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:18:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-CUS-CHAT.md (+6/-6) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-CUS-CHAT.md"
+    },
+    {
+      "id": "TASK-110370",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:19:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f14-chat-order/README.md (+9/-1) — edit via tool: ## Status UI (per 202",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f14-chat-order/README.md"
+    },
+    {
+      "id": "TASK-110371",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:19:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"f14-chat-order\": { \"type\": \"workfl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-110372",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:19:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: Self-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-110373",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:19:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+16/-2) — edit via tool: tsx: Quick 100%, talangan COD Quick",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }
