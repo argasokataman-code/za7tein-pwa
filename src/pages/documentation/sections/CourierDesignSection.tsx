@@ -217,6 +217,19 @@ export function CourierDesignSection() {
         <code className="doc-inline">ConfirmSheet</code> delete) rather than inventing a
         second pattern.
       </p>
+      <h3 className="doc-h3">Courier partner: an assignment answered, not just shown</h3>
+      <p className="doc-p">
+        The partner screen (<code className="doc-inline">/courier/partner</code>) is the receiving end of
+        flow <code className="doc-inline">f26-quick-dispatch</code>: a partner works one order at a time
+        and answers an assignment with <strong>Terima</strong> or <strong>Tolak</strong>. Refusing is not
+        a dead-end button: it opens a <code className="doc-inline">ConfirmSheet</code> whose confirm stays
+        disabled until the reason is typed (COU-18), and the recorded reason is shown back in the history
+        list. Status (offline / available / reserved / busy) is a chip borrowing the existing status
+        tokens, not new colours, and the screen reads <code className="doc-inline">partnerSlice</code> so
+        the same state the merchant dispatch notice points at. Real dispatch (OPEN-11) and the SP penalty
+        are ops-side and not built, so a <code className="doc-inline">PlatformNotice</code> says the
+        assignments on screen are demo data instead of pretending a dispatcher sent them.
+      </p>
     </DocSection>
   )
 }

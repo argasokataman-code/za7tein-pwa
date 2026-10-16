@@ -16,6 +16,7 @@ import {
   totalTips,
 } from '../data/courier'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
+import { PARTNER_SELF_ID } from '../data/marketplace'
 import { BATCH_STATUS_LABEL } from '../data/batch'
 import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
 import { toggleOnline } from '../store/slices/courierSlice'
@@ -102,6 +103,9 @@ export default function CourierTasks() {
   const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
   const done = tasks.filter(isDoneTask)
   const balanceAvailable = courierTipsAvailable(tasks, payouts)
+  const partnerPending = useAppSelector(
+    (s) => s.partner.assignments.filter((a) => a.partnerId === PARTNER_SELF_ID && a.status === 'pending').length,
+  )
   const week = courierWeeklyTips()
   // Batch (M5): angka dihitung sekali, bukan diulang di JSX.
   const batchDone = batch ? batchProgress(batch, tasks) : null
@@ -239,6 +243,19 @@ export default function CourierTasks() {
             <span className="courier-menu-copy">
               <span className="courier-menu-title">Riwayat tips</span>
               <span className="courier-menu-sub">{money(totalTips(tasks))} dari tugas selesai</span>
+            </span>
+          </Link>
+          <Link className="courier-menu-item" to="/partner">
+            <span className="courier-menu-icon" aria-hidden="true">
+              <Truck size={20} strokeWidth={1.75} />
+            </span>
+            <span className="courier-menu-copy">
+              <span className="courier-menu-title">Tugas partner</span>
+              <span className="courier-menu-sub">
+                {partnerPending > 0
+                  ? `${partnerPending} menunggu respons`
+                  : 'Quick, satu order per waktu'}
+              </span>
             </span>
           </Link>
           <Link className="courier-menu-item" to="/profile">

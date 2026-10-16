@@ -100,6 +100,13 @@ export const mockCourierPartners: CourierPartner[] = [
   },
 ]
 
+/**
+ * Kurir partner yang dipakai sebagai "aku" di layar kurir partner (demo). BE
+ * belum punya sesi partner (M6); satu id tetap supaya assignment demo bisa
+ * di-approve/reject dari sisi kurir.
+ */
+export const PARTNER_SELF_ID = 'partner-1'
+
 export const mockAssignments: CourierAssignment[] = [
   {
     id: 'assign-1',

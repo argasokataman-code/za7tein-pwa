@@ -691,6 +691,15 @@ export default function Documentation() {
                 <code className="doc-inline">courierFeesPaid</code>). Dompet, beranda, profil, dan
                 pencairan tetap membaca satu fungsi, jadi angkanya tak bisa berbeda.
               </li>
+              <li>
+                <strong>Layar kurir partner</strong> (<code className="doc-inline">/courier/partner</code>)
+                dibangun dari <code className="doc-inline">partnerSlice</code> yang sudah ada tapi belum
+                berpenghuni: status offline/available/reserved/busy, plus assignment yang dijawab{' '}
+                <em>Terima</em> atau <em>Tolak ber-alasan</em> (submit mati sampai alasan diisi, COU-18).
+                Dispatch nyata (OPEN-11) dan SP ops belum ada, jadi halaman menandai assignment sebagai
+                data demo lewat <code className="doc-inline">PlatformNotice</code>. Alurnya
+                di <code className="doc-inline">f26-quick-dispatch</code>.
+              </li>
             </ul>
           </div>
           {SECTIONS.map((Section, index) => (

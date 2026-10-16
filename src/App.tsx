@@ -29,6 +29,7 @@ import CourierProfile from './pages/CourierProfile'
 import CourierPayout from './pages/CourierPayout'
 import CourierPayoutAccounts from './pages/CourierPayoutAccounts'
 import CourierOnboarding from './pages/CourierOnboarding'
+import CourierPartner from './pages/CourierPartner'
 import CourierSignIn from './pages/CourierSignIn'
 import CourierTaskDetail from './pages/CourierTaskDetail'
 import CourierTasks from './pages/CourierTasks'
@@ -222,6 +223,7 @@ const courierRoutes: [string, ComponentType][] = [
   ['/', CourierTasks],
   ['/task/:id', CourierTaskDetail],
   ['/batch', CourierBatch],
+  ['/partner', CourierPartner],
   ['/notifications', Notifications],
   ['/tips', CourierTips],
   ['/wallet', CourierWallet],

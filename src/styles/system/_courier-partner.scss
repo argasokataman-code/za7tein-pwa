@@ -1,0 +1,48 @@
+/* Kurir partner (M6, flow f26): status offline/available/reserved/busy dan
+   aksi approve/reject assignment. Kartunya memakai ulang `.courier-card`; di
+   sini hanya yang khas partner. Nilai memakai token peran yang sudah ada. */
+
+.courier-partner-status {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  color: var(--text-secondary);
+
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.courier-partner-status.is-available {
+  background: var(--success-soft);
+  color: var(--success-ink);
+}
+
+.courier-partner-status.is-reserved {
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+}
+
+.courier-partner-status.is-busy {
+  background: var(--info-soft);
+  color: var(--info-ink);
+}
+
+.courier-partner-status.is-off {
+  background: var(--border);
+  color: var(--text-secondary);
+}
+
+.courier-partner-actions {
+  display: flex;
+  gap: var(--space-2);
+
+  margin-top: var(--space-3);
+}
+
+.courier-partner-actions > * {
+  flex: 1;
+}
