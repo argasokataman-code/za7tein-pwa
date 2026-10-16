@@ -3680,6 +3680,262 @@
       ],
       "loc": "docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md:1",
       "commit": "4ae6fe7"
+    },
+    {
+      "id": "TASK-110322",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:20:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierBatch.ts (+14/-11) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierBatch.ts"
+    },
+    {
+      "id": "TASK-110323",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:20:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/courierSlice.ts (+17/-12) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/courierSlice.ts"
+    },
+    {
+      "id": "TASK-110324",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:20:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/batchSlice.ts (+9/-8) — edit via tool: ts: /** Tambah order Regular ke b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/batchSlice.ts"
+    },
+    {
+      "id": "TASK-110325",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:21:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx (+12/-12) — edit via tool: tsx: // Hook peta harus dipanggil t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx"
+    },
+    {
+      "id": "TASK-110326",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:21:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts (+20/-22) — edit via tool: ts: } else {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts"
+    },
+    {
+      "id": "TASK-110327",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:21:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/courier-batch-check.mjs (+27/-10) — edit via tool: // Manual (auto-sort OFF): `ro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/courier-batch-check.mjs"
+    },
+    {
+      "id": "TASK-110328",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:21:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && node --import ./scripts/lib/ts-resolve.mjs scripts/courier-batch-check.mjs && npm r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110329",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:21:49",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -4 && npm run scan 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110330",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:26:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md (+2/-2) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md"
+    },
+    {
+      "id": "TASK-110331",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:28:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+6/-5) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-110332",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:30:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build >/dev/null 2>&1 && (npm run preview:web >/tmp/pw.log 2>&1 & echo $! >",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110333",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:31:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: 'Leaflet',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-88109",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-16",
+      "time": "20:32:25",
+      "tags": [
+        "courier",
+        "batch",
+        "autosort",
+        "m5"
+      ],
+      "summary": "Auto-sort: daftar/peta/berikutnya beda urutan (routeOrder ganda) + peta customer menggambar garis rute (langgar 9.6)",
+      "conn": [
+        {
+          "id": "DEC-88107",
+          "type": "relates",
+          "raw": "DEC-88107:relates"
+        },
+        {
+          "id": "TASK-88108",
+          "type": "relates",
+          "raw": "TASK-88108:relates"
+        }
+      ],
+      "loc": "src/data/courierBatch.ts:40",
+      "commit": "97a203d"
     }
   ]
 }
