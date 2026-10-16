@@ -5508,6 +5508,313 @@
         }
       ],
       "commit": "3134bab"
+    },
+    {
+      "id": "TASK-110406",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:09:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/realtime.ts (+161) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/realtime.ts"
+    },
+    {
+      "id": "TASK-110407",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:09:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/realtime.ts (+30/-7) — edit via tool: ts: import { refToken } from './reference'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/realtime.ts"
+    },
+    {
+      "id": "TASK-110408",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:10:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/realtime.ts (+14/-11) — edit via tool: ts: const proto = apiBase.url.startsWith('",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/realtime.ts"
+    },
+    {
+      "id": "TASK-110409",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:10:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts (+18/-16) — edit via tool: ts: export function useApiRealtime",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-110410",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:10:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useRealtimeStatus.ts (+49) — write via tool: ts: import { useEffect, useState }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useRealtimeStatus.ts"
+    },
+    {
+      "id": "TASK-110411",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:10:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx (+8/-6) — edit via tool: tsx: import { useAppDispatch, useApp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx"
+    },
+    {
+      "id": "TASK-110412",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:10:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+9/-5) — edit via tool: \"realtime\": {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-110413",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:10:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/realtime-check.mjs (+79) — write via tool: // Self-check katalog event realtime +",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/realtime-check.mjs"
+    },
+    {
+      "id": "TASK-110414",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:11:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/realtime.ts (+2/-2) — edit via tool: ts: /** Kolom audiens §19. `others` = \"cust",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/realtime.ts"
+    },
+    {
+      "id": "TASK-110415",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:13:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useRealtimeStatus.ts (+35) — write via tool: ts: import { useEffect, useState }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useRealtimeStatus.ts"
+    },
+    {
+      "id": "TASK-110416",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:13:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx (+8/-8) — edit via tool: tsx: import { useAppDispatch, useApp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx"
+    },
+    {
+      "id": "TASK-110417",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:14:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f11-push-notification/README.md (+9/-1) — edit via tool: - **Belum:** p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f11-push-notification/README.md"
+    },
+    {
+      "id": "TASK-110418",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:14:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-REALTIME.md (+7/-7) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-REALTIME.md"
+    },
+    {
+      "id": "TASK-110419",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:15:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-REALTIME.md (+7/-5) — edit vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-REALTIME.md"
+    },
+    {
+      "id": "TASK-110420",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:15:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-3) — edit via tool: tsx: butuh R2. Ditahan <code classNa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:16:47",
+      "tags": [
+        "m7",
+        "realtime",
+        "r-realtime",
+        "ui"
+      ],
+      "summary": "M7d R-REALTIME: katalog 22 baris matriks 19 + eventAudience/eventsFor, WS_MESSAGE_VERSION satu sumber (kode & INDEX.json), indikator resync ",
+      "conn": [
+        {
+          "id": "TASK-88117",
+          "type": "relates",
+          "raw": "TASK-88117:relates"
+        }
+      ],
+      "commit": "f1ed550"
     }
   ]
 }
