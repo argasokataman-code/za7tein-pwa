@@ -3,10 +3,6 @@
   "undefinedRequirements": [
     "R-ACC-01",
     "R-ARCH",
-    "R-BATCH",
-    "R-COU-DISPATCH",
-    "R-COU-INHOUSE",
-    "R-COU-PARTNER",
     "R-CURRENCY",
     "R-CUS-CART",
     "R-CUS-CHAT",

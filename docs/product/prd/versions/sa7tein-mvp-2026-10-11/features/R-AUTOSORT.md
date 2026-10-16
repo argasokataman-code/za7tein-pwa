@@ -61,7 +61,7 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 |---|---|---|---|
 | AC1 | Daftar "Urutan antar" saat ON = hasil auto-sort | nomor 1..n == `autoSortTasks`; assert di `scripts/courier-batch-check.mjs` | ❌ render `stops`, bukan `ordered` (`CourierBatch.tsx:158`) |
 | AC2 | Nomor daftar, nomor pin peta, dan "berikutnya" = satu urutan | banding daftar vs `mapStops` vs `nextBatchTask` | ❌ tiga sumber berbeda |
-| AC3 | OFF → kurir bisa mengubah urutan, dan garis rute + nomor ikut | kontrol reorder ada + ubah `routeOrder` | ❌ tak ada kontrol; `setBatchRouteOrder` menganggur |
+| AC3 | OFF → kurir bisa mengubah urutan, dan garis rute + nomor ikut | kontrol reorder ada + ubah `routeOrder` | ❌ tak ada kontrol; `courierSlice.setBatchRouteOrder:106` & `batchSlice.setRouteOrder:65` tanpa pemanggil |
 | AC4 | Urut berdasar waktu tempuh | BE (matriks WALK); mock sekarang haversine | ⚠️ mock jarak garis lurus |
 | AC5 | Heuristik NN + 2-opt | BE/mock | ⚠️ NN saja |
 | AC6 | Peringatan WALK ada di UI batch kurir | teks tampil (`WALK_ROUTE_BETA_NOTE`) | ✅ |
@@ -70,6 +70,11 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 | AC9 | Rute tak kembali ke merchant | panjang rute berakhir di stop terakhir | ✅ |
 | AC10 | Dipicu ulang saat order masuk | urutan berubah saat `addOrderToBatch` | ⚠️ belum tersimulasi/ditampilkan |
 
+| AC11 | Seed demo konsisten: `autoSort: true` ⇒ `routeOrder` terisi | cek `mockCourierBatch` | ❌ `routeOrder: []` walau `autoSort: true` (`src/data/courierBatch.ts:26-27`) |
+| AC12 | Peta membaca `routeOrder` tersimpan, tidak menghitung ulang sendiri | satu sumber urutan di layar | ❌ peta `ordered = autoSortTasks(stops)` (`CourierBatch.tsx:41`) mengabaikan `routeOrder` |
+
+| AC13 | `batchSlice.setAutoSort` (sisi merchant) ON juga menyimpan hasil sort | cek `batchSlice.ts:62` | ❌ mengisi `routeOrder = [...orderIds]` mentah, bukan `autoSortRoute` |
+
 ## 8. UNRESOLVED
 
 - Nilai matriks waktu bergantung Google Routes (BE) — tidak ada di repo mock.
@@ -77,6 +82,6 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 
 ## 9. Bukti
 
-- Kode: `src/data/courierBatch.ts` (`autoSortTasks:93`, `autoSortRoute:122`, `routeDistanceMeters:133`, `WALK_ROUTE_BETA_NOTE:32`), `src/pages/CourierBatch.tsx:41,158`, `src/store/slices/courierSlice.ts:95-107`.
+- Kode: `src/data/courierBatch.ts` (`autoSortTasks:93`, `autoSortRoute:122`, `routeDistanceMeters:133`, `courierBatchTasks:40`, `nextBatchTask:54`, `WALK_ROUTE_BETA_NOTE:32`, seed `mockCourierBatch:16`), `src/pages/CourierBatch.tsx:40-42,50,65,95,158`, `src/store/slices/courierSlice.ts:97-108` (`setBatchAutoSort` memanggil `autoSortRoute`; `setBatchRouteOrder` ada tapi tanpa pemanggil di UI), `src/hooks/useLeafletMap.ts:105-112` (polyline rute mode `delivery`).
 - Self-check: `scripts/courier-batch-check.mjs`.
 - Flow: `docs/design/flows/f25-batch-lifecycle/` (M08).
