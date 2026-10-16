@@ -78,6 +78,8 @@ menus (14)
   category, created_at, cook_minutes, discount_percent, is_popular, calories
 menu_variants (7)
   id, menu_id, name, required, max_select, options, created_at
+menu_categories (*)      -- belum ada (usulan): taksonomi kategori menu (ops/BE)
+  usul: id, label, slug, icon, sort_order, is_active, created_at
 couriers (14)
   id, user_id, merchant_id, name, availability, latitude, longitude,
   last_seen_at, photo, vehicle, created_at, phone, phone_verified,
@@ -678,6 +680,8 @@ Hasil cross-check 2026-10-12 (tabel ↔ trace flow ↔ kode ↔ dokumen):
 | M8 | **Belum bisa dipetakan dari sini** | View, fungsi/RPC, trigger, **Edge Function**, storage bucket, dan daftar penuh publikasi Realtime. OpenAPI PostgREST dibatasi `service_role`; tabel di luar daftar probe (§2.1) mungkin ada. Konfirmasi ke BE. |
 | M9 | **Route front-end ↔ flow belum dipetakan** | Dokumen ini memetakan API, bukan `src/App.tsx` route ke flow. Bisa ditambah bila BE butuh. |
 | M10 | **Tabel di luar probe awal** | `customers` (7 kolom), `customer_risk_flags` (5), dan `dispute_appeals` (kosong) **ada** di BE tapi lolos dari probe 2026-10-12 awal. Enumerasi tabel tetap terbatas (M8); mungkin masih ada lain. Wajib BE: konfirmasi daftar lengkap. |
+
+| M11 | **Kategori menu belum jadi entitas** | `menus.category` masih **teks bebas** (dipetakan ke 4 id tetap lewat heuristik `foodBucket()` di `src/data/catalog.ts`). Kategori = taksonomi **ops/BE** (keputusan PO 2026-10-16, atlas `DEC-88104`): merchant hanya memilih, tak mengelola. Usulan kontrak: tabel `menu_categories` (usul kolom di §2) + `menus.category_id` (FK) menggantikan teks; `GET /menu-categories` dibaca merchant & customer, jalur tulis ops (`POST`/`PATCH`/`DELETE`) bila ops mengelolanya. Di FE, slice `catalog.categories` sudah baca-saja dan tinggal diganti sumbernya (UI tak berubah). |
 
 Angka: 23 flow di `INDEX.json` (f1–f22 + f24, **tanpa** f23); 22 grup kontrak, **44 operasi unik**; 42 tabel terjangkau (23 berisi + 19 kosong), 2 absen.
 

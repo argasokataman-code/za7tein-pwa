@@ -190,3 +190,9 @@ Diuji pada klon browser terhadap backend demo Supabase (`dwzxtnfesmpobnepilhl`):
 Konsekuensi: alur batch terverifikasi di browser (accept Regular → batch baru, packing, tutup lebih awal, assign kurir, mulai lebih awal; accept Quick → estimasi prepare) memakai respons `orders` yang disuntik di tab uji, karena BE menolak tulis dan tak punya kolom jenis pengantaran.
 
 Konsekuensi: `Home` tetap rapi dengan data live (9 kartu, `overflowX` 0, shell 430px, gate `--strict --click` lolos 390/1440), tetapi efek discovery baru **tidak terlihat** sampai kolom di atas ada. Logika murni (`groupStorefrontsByTag` / `isSelectable` / `visibleStorefronts`) terverifikasi lewat `node scripts/discovery-check.mjs` + mock fallback.
+
+### Temuan M4c (katalog + kategori) — bahan API spec
+
+- **Kategori menu belum punya tabel/endpoint di BE.** Kategori = **taksonomi ops/BE** (keputusan PO 2026-10-16, atlas `DEC-88104`): merchant tak mengelolanya, hanya memilih. Di BE saat ini `menus` hanya punya kolom **teks bebas** `category`, yang dipetakan ke 4 id tetap lewat heuristik `foodBucket()` (`src/data/catalog.ts`) — tak ada tabel entitas kategori maupun endpoint daftar. Karena itu `catalog.categories` **baca-saja** dari seed modul (`data/catalog`), tanpa CRUD.
+- **Yang perlu ditambah ke API spec:** `GET /menu-categories` (daftar taksonomi, dibaca merchant & customer untuk grouping) + jalur tulis **ops** (`POST`/`PATCH`/`DELETE`, mis. di konsol SA/CS) bila ops mengelola kategori. Merchant hanya **baca**. Sekaligus putuskan: `menus.category` pindah dari teks bebas ke **FK kategori** (`category_id`) supaya grouping tak lagi bergantung heuristik nama.
+- **Di FE:** begitu endpoint ada, ganti sumber seed di slice `catalog` (`categories`) dengan respons BE — UI tak berubah (dropdown item form + chip filter + grouping sudah membaca `selectCategories`).

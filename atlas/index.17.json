@@ -1152,6 +1152,65 @@
         }
       ],
       "loc": "src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-102176",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "11:22:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md (+7/-1) — edit via tool: Ko",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
+    },
+    {
+      "id": "TASK-102177",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "11:23:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+5/-3) — edit via tool: menu_variants (7)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
+    },
+    {
+      "id": "REQ-90002",
+      "type": "requirement",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "11:23:40",
+      "tags": [
+        "be",
+        "api-spec",
+        "menu",
+        "catalog"
+      ],
+      "summary": "BE: entitas+endpoint kategori menu (menu_categories, menus.category_id, GET /menu-categories + tulis ops) untuk API spec",
+      "conn": [
+        {
+          "id": "DEC-88104",
+          "type": "relates",
+          "raw": "DEC-88104:relates"
+        }
+      ]
     }
   ]
 }
