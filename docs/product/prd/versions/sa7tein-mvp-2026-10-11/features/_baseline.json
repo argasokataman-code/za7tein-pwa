@@ -5,7 +5,6 @@
     "R-ARCH",
     "R-CURRENCY",
     "R-CUS-CART",
-    "R-CUS-CHAT",
     "R-CUS-DISCOVERY",
     "R-CUS-NOTE",
     "R-CUS-ORDER",
@@ -20,10 +19,7 @@
     "R-MER-QUOTA",
     "R-MONEY",
     "R-NFR",
-    "R-NOTIF",
-    "R-OPS",
-    "R-REALTIME",
-    "R-TRACK"
+    "R-OPS"
   ],
   "milestonesDoneWithGaps": [
     "M0",
