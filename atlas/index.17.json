@@ -3127,6 +3127,124 @@
         }
       ],
       "loc": "src/pages/CourierPartner.tsx:1"
+    },
+    {
+      "id": "TASK-110202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "15:20:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPartner.tsx (+2/-2) — edit via tool: tsx: className=\"btn btn-primary\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierPartner.tsx"
+    },
+    {
+      "id": "TASK-110203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "15:31:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_platform-notice.scss (+12/-5) — edit via tool: .platform-notice {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_platform-notice.scss"
+    },
+    {
+      "id": "TASK-110204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "15:31:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss (+4/-5) — edit via tool: .checkout-screen {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss"
+    },
+    {
+      "id": "TASK-110205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "15:31:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+8/-6) — edit via tool: tsx: {/* Gate di dalam .checkout-content ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-110206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "15:33:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+14/-3) — edit via tool: tsx: di <code className=\"doc-inline",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-110301",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-16",
+      "time": "15:34:18",
+      "tags": [
+        "m6",
+        "kurir",
+        "css",
+        "polish"
+      ],
+      "summary": "Tombol 'Terima' partner pakai btn btn-primary; PlatformNotice margin-inline pindah ke induk (Checkout exception)",
+      "conn": [
+        {
+          "id": "TASK-110201",
+          "type": "relates",
+          "raw": "TASK-110201:relates"
+        }
+      ],
+      "loc": "src/pages/CourierPartner.tsx:123",
+      "commit": "aa5f128"
     }
   ]
 }
