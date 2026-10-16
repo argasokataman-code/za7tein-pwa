@@ -2592,6 +2592,253 @@
         }
       ],
       "loc": "src/data/courierWallet.ts:99"
+    },
+    {
+      "id": "TASK-110025",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "13:49:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md (+2/-1) — edit via tool: - ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
+    },
+    {
+      "id": "TASK-110026",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "13:49:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: S",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-110027",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "13:59:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.milestones.md (+177) — write via ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.milestones.md"
+    },
+    {
+      "id": "TASK-110028",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:00:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.json (+95) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.json"
+    },
+    {
+      "id": "TASK-110029",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:00:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/README.md (+53) — write via tool: # F26 — Quick: dis",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/README.md"
+    },
+    {
+      "id": "TASK-110030",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:01:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.json (+23/-25) — edit via tool: \"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.json"
+    },
+    {
+      "id": "TASK-110031",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:01:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.milestones.md (+8/-4) — edit via ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.milestones.md"
+    },
+    {
+      "id": "TASK-110032",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:02:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/PLAN.md (+1/-1) — edit via tool: `docs/design/app-map/`. **Status: 21 f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-110033",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:02:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.json (+18/-21) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f26-quick-dispatch/f26-quick-dispatch.json"
+    },
+    {
+      "id": "TASK-110034",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:02:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: `",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-110035",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:02:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md (+1/-1) — edit via tool: | ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
+    },
+    {
+      "id": "TASK-110036",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:02:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+2/-1) — edit via tool: { \"from\": \"f12-merchant-console:ter",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-110037",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "14:04:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html (+2/-1) — edit via tool: {slug:\"f26-quick-dispatch\",       t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html"
     }
   ]
 }
