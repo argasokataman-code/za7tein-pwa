@@ -1,14 +1,22 @@
-# API Spec: Sa7tein Irbid MVP (turunan flow)
+# API Spec: Sa7tein (turunan flow)
 
 Dokumen kebutuhan API untuk tim BE. Diturunkan dari **flow yang sudah digambar + matriks notifikasi + kode klien yang benar-benar jalan + skema backend live**, bukan karangan.
+
+**Revisi PRD aktif: `sa7tein-mvp-2026-10-11`** (aktif 2026-10-15). §1–§16 menggambarkan revisi **lama** (`irbid-mvp-v2-2026-09-21`, `superseded`) dan backend Supabase yang sedang jalan; **Bagian B (§17–§18) berisi delta revisi aktif** (marketplace + delivery, Cloudflare). Baca §17 lebih dulu kalau mengejar kontrak terbaru.
+
+**Dua lapisan (tetap).** Lapisan 1 = **backend live Supabase PostgREST** (yang klien panggil sekarang). Lapisan 2 = **kontrak target**; pada revisi aktif targetnya **Cloudflare Worker/DO/Queue/Workflow/RPC/WS/R2** (ARC-01..13). Tiap item di Bagian B ditandai `[ADA] [SEBAGIAN] [BELUM] [USULAN] [UNRESOLVED]` (legenda §17).
 
 | | |
 |---|---|
 | Sumber kebenaran kontrak | `openapi.yaml` (DRAFT 0.1.0): `https://sa7tein-api.vercel.app/openapi.yaml` |
 | Pemetaan flow ↔ endpoint/entity | `docs/design/flows/INDEX.json` §`contract` + §`trace` |
 | Journey + matriks notifikasi | `docs/design/flows/BUSINESS.md` §2b (status `proposed`) |
+| Revisi PRD aktif | `sa7tein-mvp-2026-10-11` (aktif 2026-10-15); `irbid-mvp-v2-2026-09-21` = `superseded` |
+| Arsitektur backend | Lapisan 1: Supabase PostgREST (live) · Lapisan 2: Cloudflare Worker/DO/Queue/Workflow/RPC/WS/R2 (ARC-01..13) |
 | Backend live | Supabase PostgREST `https://dwzxtnfesmpobnepilhl.supabase.co` |
 | Verifikasi skema | probe REST 2026-10-12 (anon + token CS, satu pass serial) |
+| Penandaan status | Bagian B pakai `[ADA]/[SEBAGIAN]/[BELUM]/[USULAN]/[UNRESOLVED]` (legenda §17) |
+| Delta revisi aktif | §17 (aktor, entitas, endpoint, uang, enum, job) + §18 (diagram) |
 | Status dokumen | draft kerja; item `UNRESOLVED` **jangan dikarang** |
 
 **Aturan baca:** yang belum diputuskan PRD/kontrak ditandai **UNRESOLVED** + sumber. Jangan tebak (AGENTS.md §1, `docs/product/prd/manifest.json`).
@@ -23,6 +31,8 @@ Ada **dua** definisi API yang hidup berdampingan:
 2. **Backend live: Supabase PostgREST.** Klien menembak tabel langsung (`{base}/rest/v1/<tabel>`), GoTrue untuk auth, Realtime untuk WS. Ini yang **sudah jalan di prod**.
 
 Tabel di §5 menyajikan keduanya: **"PostgREST sekarang"** (yang klien panggil), **"Kontrak target"**, **"Wajib BE"** (delta). Gateway boleh menyusul; yang wajib sekarang: **tabel + RLS + policy + job**.
+
+**Pembaruan revisi aktif (2026-10-15).** Lapisan 1 tetap Supabase (yang jalan). Lapisan 2 (target) kini **Cloudflare Worker/DO** (ARC-01..13), bukan sekadar gateway REST: satu Worker middleware, 1 class DO = 1 domain model, transaksi lintas DO via Workflows (dipicu Queue), RPC untuk ubah storage DO, WebSocket realtime, R2 untuk gambar. Delta lengkap + status per item ada di **§17**.
 
 ---
 
@@ -276,6 +286,8 @@ Sumber: `roles.permissions` (nyata) + batas peran `DEC-2003` (CS menangani, SA m
 ---
 
 ## 4. Yang WAJIB disediakan BE (ringkas: delta)
+
+Penandaan §17 dipakai juga di sini. Ringkas status per G: **G1–G14 = `[BELUM]`** (kolom "Wajib BE" menyebut rincinya); **G15 = `[ADA]`** (tabel `marketing` + RPC `validate_promo` sudah ada; sisa scope produk MARK-1); **G16 = `[SEBAGIAN]`** (baca publik + balas ada; ulasan **hidangan** menunggu `order_items` diisi). Catatan: G2/G3/G4/G7/G9/G13 = job/policy/isi tabel, bukan endpoint.
 
 | # | Wajib | Kenapa (flow) | Bagian |
 |---|---|---|---|
@@ -663,6 +675,9 @@ Pakai **slug penuh** dari `INDEX.json` supaya bisa di-grep.
 | `f22-super-admin-sa` | `zones`, `roles`, `operators`, `audit_logs` | `/superadmin/*` | baca ada, audit belum |
 | `f23-customer-discovery` | `merchants`, `menus`, `menu_variants`, `rating_reviews` | `GET /merchants`, `GET /menus` | **folder flow belum ada**; merchant-first baru ada di kode (`Home.tsx`, `MerchantPage.tsx`) |
 | `f24-cs-problem` | `disputes`, `incident_resolutions`, `notifications` | queue CS | **belum** |
+| `f25-batch-lifecycle` | `batches`, `orders`, `couriers` | `POST /batches`, assign kurir, auto-sort | **belum** (PRD aktif; `[BELUM]`) |
+| `f26-quick-dispatch` | `couriers` (partner), `orders`, `sp` | `POST /assignments/{id}/approve\|reject` | `[USULAN]` (OPEN-11; dispatch nyata ditahan) |
+| `f28-coverage-editor` | `merchants` (coverage) | `GET/PUT /merchants/{id}/coverage` | `[SEBAGIAN]` (tulis belum; route WALK belum) |
 
 ## 10b. Lubang mapping yang diketahui (jangan diklaim "semua termapping")
 
@@ -750,6 +765,8 @@ Realtime topics (kontrak): `orders`, `wallet`, `chat`, `courier`, `disputes`, `t
 
 `docs/design/flows/PLAN.md:194-209`; untuk BE ikuti alur uang dulu.
 
+> **Catatan revisi aktif.** Tabel di bawah ini milik revisi **lama** (`irbid-mvp-v2`). Urutan resmi revisi aktif ada di `versions/sa7tein-mvp-2026-10-11/milestones.md` (M0–M11), diringkas di **§17.7**. Arah dependensi baru: `M0 domain → M1 discovery/katalog → M2 uang → M3 kuota/marketing → M4 merchant+batch → M5 kurir inhouse+auto-sort → M6 partner+dispatch → M7 realtime/track/notif/chat → M8 rating → M9 dispute → M10 ops → M11 verifikasi lintas role`.
+
 | Milestone | Isi | Fokus |
 |---|---|---|
 | M0 model domain | skema + enum + **RLS dasar** | semua tabel §2; policy §4 |
@@ -790,6 +807,8 @@ Dari `BUSINESS.md` §2b, `f11`, `f14`, `f17`, `f18`, `f8`, `f19`, `f22`:
 - **Batching**: `orders.batch_id` + `batches` kosong; dipakai atau tidak (`C-17`).
 - **Kolom tabel kosong** (§2.2) menunggu konfirmasi BE (spec di §5 = usulan).
 
+**Daftar terbuka revisi aktif (`sa7tein-mvp`) lihat §17.9** (OPEN-01..30). Ini menambah yang di atas: kapabilitas DANA, provider kurs, dispatch partner, enum status final (OPEN-26), retensi chat, semantik isStackable, jalur ops ke Worker, skema Global Index DO, dsb.
+
 Mismatch kontrak↔demo (jangan diselaraskan diam-diam): `favorites-merchant`, `menu-variants`, `auth`, `money-unit`, `discovery-flow` (`INDEX.json:141-148`).
 
 ---
@@ -802,7 +821,10 @@ Mismatch kontrak↔demo (jangan diselaraskan diam-diam): `favorites-merchant`, `
 - Flow: `docs/design/flows/f1-order-lifecycle/` · `f11-push-notification/` · `f14-chat-order/` · `f24-cs-problem/` · `f8-dispute/`
 - Kode klien pemanggil BE: `src/api/{supabase,orders,profile,reference,catalog,notifications,chat,realtime,push}.ts`
 - Konstanta SLA: `src/data/courier.ts`
-- PRD aktif: `docs/product/prd/versions/irbid-mvp-v2-2026-09-21/`
+- Konstanta uang baru (Pc/Pm/F/Ft): `src/data/marketplace.ts`
+- **PRD aktif: `docs/product/prd/versions/sa7tein-mvp-2026-10-11/`** (`analysis.md`, `milestones.md`, `features/`); revisi lama `irbid-mvp-v2-2026-09-21` = `superseded`
+- Delta revisi aktif: **§17–§18** dokumen ini + `docs/design/flows/{f25-batch-lifecycle,f26-quick-dispatch,f28-coverage-editor}`
+- Kontrak DANA: `docs/integration/dana/be-contract.md`; coverage/zona: `docs/integration/zones/be-contract.md`
 
 ---
 
@@ -1192,3 +1214,343 @@ Catatan diagram:
 - `f23-customer-discovery` digambar (§16.15) meski **folder flow belum ada** (M1).
 - Diagram menggambarkan **layar/state + kebutuhan BE**; repo ini front-end (AGENTS.md §1).
 - Nama event & state diambil dari `INDEX.json` (§`links`/`contract`) dan README flow.
+
+---
+
+# Bagian B — Delta PRD aktif `sa7tein-mvp-2026-10-11`
+
+§1–§16 di atas diturunkan dari revisi **lama** (`irbid-mvp-v2-2026-09-21`, kini `superseded`) dan dari backend Supabase yang **sedang jalan**. Bagian B ini adalah kebutuhan revisi **aktif** (`sa7tein-mvp-2026-10-11`, aktif 2026-10-15): PRD **marketplace + delivery**, arsitektur Cloudflare. Delta-nya struktural (C-01..C-14 di `analysis.md`), bukan tambal.
+
+Sumber: `docs/product/prd/versions/sa7tein-mvp-2026-10-11/{analysis.md,milestones.md,features/}`; flow `f25-batch-lifecycle`, `f26-quick-dispatch`, `f28-coverage-editor`, `f17-payment-dana`.
+
+## 17. Penandaan status (baca ini dulu)
+
+Setiap baris di Bagian B ditandai satu token. Tujuannya: BE langsung tahu **mana yang sudah ada** dan **mana yang belum** tanpa menebak.
+
+| Tanda | Arti |
+|---|---|
+| `[ADA]` | Sudah jalan di backend live (Supabase PostgREST) atau sudah diputuskan dan tersedia |
+| `[SEBAGIAN]` | Ada sebagian saja; sisa disebut di kolom catatan |
+| `[BELUM]` | Belum ada, wajib dibuat BE |
+| `[USULAN]` | PRD menyebut sebagai usulan; jangan dianggap final |
+| `[UNRESOLVED]` | Sumber belum memutuskan; **jangan diisi tebakan** (AGENTS §1) |
+
+Aturan warna sama dengan §1–§16: kolom **"Backend live"** = Supabase PostgREST sekarang; kolom **"Target"** = kontrak yang dituju (Cloudflare Worker/DO, ARC-01..13). Tabel di Bagian B **tidak** menyentuh label `(N)` di §2.1.
+
+## 17.1 Aktor & autentikasi (R-ACC-01, §5)
+
+Revisi aktif mengubah aktor dan cara masuk. Lima peran tetap, tapi definisinya bergeser.
+
+| Aktor | Sebelum (revisi lama) | Revisi aktif | Status |
+|---|---|---|---|
+| Customer | Google/WA E.164 | login **email magic link**; akun DANA opsional | `[BELUM]` |
+| Merchant | Google/WA E.164 | email magic link; **wajib akun DANA**; di-onboard ops | `[BELUM]` |
+| Kurir **inhouse** | kurir = karyawan merchant | karyawan merchant, dibuatkan akun oleh merchant | `[SEBAGIAN]` |
+| Kurir **partner** | (tidak ada) | dikelola aplikator per order; status offline/available/reserved/busy | `[BELUM]` |
+| Ops | `/admin` panel CS + `/superadmin` | **PWA ops terpisah** di balik Cloudflare Access | `[BELUM]` |
+
+Constraint keras: **satu email = satu role**. Auth live sekarang = GoTrue password (`POST /auth/v1/token?grant_type=password`); magic link belum ada.
+
+| Endpoint target | Backend live | Status |
+|---|---|---|
+| `POST /auth/magic-link` (kirim tautan) | tidak ada | `[BELUM]` |
+| `POST /auth/verify` (tukar token → sesi) | `POST /auth/v1/token` (password) | `[BELUM]` |
+| `GET /auth/me` | `GET /auth/v1/user` | `[SEBAGIAN]` |
+| Pemetaan ke peran domain | `users.role` | `[ADA]` |
+
+`R-ACC-01` DECIDED (ACC-01..05). Google/WA E.164 lama = usang; `phone_verifications` tetap ada tapi bukan jalur utama lagi.
+
+## 17.2 Entitas baru vs backend live (§7.5, §8, §9, §14–§17)
+
+Semua entitas di bawah **belum ada** di Supabase (kecuali yang ditandai). BE harus membangunnya (DO per domain, ARC-02/03).
+
+| Entitas | Backend live | Target (Cloudflare) | Status | Sumber |
+|---|---|---|---|---|
+| `batches` + status §7.5 | tabel ada, **kosong** | DO Batch: `merchant_id`, `courier_id?`, `countdown`, `order_ids[]`, `status` | `[BELUM]` | R-BATCH, f25 |
+| kurir **partner** + status reservasi | tidak ada | `courier_partner.status: offline\|available\|reserved\|busy` | `[BELUM]` | R-COU-PARTNER, f26 |
+| assignment partner + SP/punishment | tidak ada | `assignment{order_id,partner_id,status,reason}` + riwayat SP | `[BELUM]` | R-COU-DISPATCH, §18 |
+| langganan kuota + paket | tidak ada (`quota_subscriptions` → 404) | kuota order + kuota COD; reserve/consume/return; periode | `[BELUM]` | R-MER-QUOTA, §17 |
+| program marketing Odoo | tabel `marketing` (kode promo saja) | `program`/`rule`/`reward`/`card` + `owner` + `isStackable` | `[SEBAGIAN]` | R-MER-PROMO, §15 |
+| katalog attribute/variant/exclusion | `menus` + `menu_variants` minimal | `product.attribute`, nilai, line `price_extra`/`exclude_for`, variant | `[SEBAGIAN]` | R-MER-CATALOG, §14 |
+| `refunds` (+ pending refund bank) | tidak ada (404) | refund DANA / BI-FAST; `refund_method`, `bank_name`, `bank_account` | `[BELUM]` | R-CUS-REFUND, §16.6 |
+| coverage per merchant (polygon/radius) | `zones` global + `delivery_config` | `coverage_mode`, `polygons[]` non-overlap, `radius_max`, `fee_per_unit`, `unit` | `[SEBAGIAN]` | R-MER-COVERAGE, f28 |
+| `order_status_history` | tidak ada | audit transisi status | `[BELUM]` | R-NFR, C-17 |
+| `incident_resolutions` | tidak ada (404) | jejak tutup insiden CS | `[BELUM]` | §2.3, f24 |
+| Ops PWA (analytics/logs) | tidak ada | Workers Analytics Engine + Logs | `[BELUM]` | R-OPS, M10 |
+| R2 bucket (logo/cover/menu/chat/bukti) | tidak ada | object storage | `[BELUM]` | ARC-09 |
+
+## 17.3 Endpoint per domain (delta terverifikasi)
+
+Format: **domain** · endpoint target · status BE · sumber. Endpoint §5 di atas tetap berlaku selama tidak bertentangan; baris di bawah **menggantikan/menambah**.
+
+### 17.3.1 Order & cart (R-CUS-CART, R-CUS-ORDER, R-CUS-NOTE)
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `POST /carts` / `PATCH /carts/{merchantId}` | `cartSlice` klien (1 cart) | `[BELUM]` | **beberapa cart** aktif, satu per merchant; event `cart_updated` |
+| `POST /orders` (multi order aktif) | `POST orders` | `[SEBAGIAN]` | dukung beberapa order aktif + `delivery_type: regular\|quick` |
+| `POST /orders/{id}/accept` | `PATCH orders.status` | `[SEBAGIAN]` | accept **terbelah**: Regular → wajib pilih batch; Quick → estimasi prepare |
+| `POST /orders/{id}/cancel` | `PATCH orders.status` | `[SEBAGIAN]` | customer batal **hanya sebelum merchant accept** |
+| catatan order/menu `order_note`/`item_note`+`note_enabled` | tidak ada | `[BELUM]` | catatan per menu hanya terlihat merchant |
+
+### 17.3.2 Batch & antrean (R-BATCH, BR-B01..13) — flow `f25-batch-lifecycle`
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `POST /batches` | `batches` kosong | `[BELUM]` | lahir **hanya** dari order Regular yang di-accept; maks **24 order** (BR-B04) |
+| `GET /batches?merchantId=` / `GET /batches/{id}` | — | `[BELUM]` | estimasi batch tampil ke customer (order belakangan lihat sisa hitung mundur) |
+| `PATCH /batches/{id}` (assign kurir, tutup lebih awal, setujui mulai lebih awal) | — | `[BELUM]` | wajib satu kurir inhouse/batch (BR-B07, BR-B08, BR-B09) |
+| auto-sort rute | — | `[BELUM]` | ON = waktu tempuh tercepat mulai merchant berakhir order terakhir; maks 25 titik |
+
+### 17.3.3 Kurir partner & dispatch (R-COU-PARTNER, R-COU-DISPATCH) — flow `f26-quick-dispatch`
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `GET /courier-partners` / `PATCH /courier-partners/{id}` | tidak ada | `[BELUM]` | status offline/available/reserved/busy |
+| `POST /assignments/{id}/approve` | tidak ada | `[BELUM]` | fee Quick **100% ke partner** saat selesai |
+| `POST /assignments/{id}/reject {reason}` | tidak ada | `[BELUM]` | submit aktif setelah alasan diisi |
+| `POST /assignments/{id}/sp` | tidak ada | `[BELUM]` | SP + punishment + status off bila tak merespons sampai prepare selesai |
+| dispatch (antrian + batas jarak) | tidak ada | `[USULAN]` | OPEN-11; antrian idle terlama + batas jarak, tie-break order selesai hari ini lalu jarak terdekat |
+
+### 17.3.4 Coverage editor (R-MER-COVERAGE, MER-04) — flow `f28-coverage-editor`
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `GET /merchants/{id}/coverage` | `merchants.delivery_config` | `[SEBAGIAN]` | mode **area** (polygon non-overlap, fee per polygon) atau **radius** (radius maks + fee/satuan) |
+| `PUT /merchants/{id}/coverage` | tidak ada (endpoint tulis belum) | `[BELUM]` | polygon tak boleh tumpang tindih; area lain terkunci saat menggambar |
+| `POST /coverage/resolve` | RPC `resolve_coverage` | `[SEBAGIAN]` | mode radius: cover garis lurus, fee dari **rute WALK** (Google Routes, tak boleh di-cache) |
+
+### 17.3.5 Langganan kuota (R-MER-QUOTA, §17)
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `GET /merchants/{id}/subscriptions` | tidak ada (404) | `[BELUM]` | kuota order & COD; tersedia = paket − terpakai − ter-reserve |
+| `POST /merchants/{id}/subscriptions` (beli paket) | tidak ada | `[BELUM]` | QRIS kena Ft 1,5%; DANA tidak; OPEN-29 (beli saat aktif) |
+| `PATCH /merchants/{id}` (`accept_without_quota`) | `PATCH merchants` | `[BELUM]` | hanya bisa diubah saat toko **tutup** |
+| event `quota_reserved` / `quota_consumed` / `quota_returned` | tidak ada | `[BELUM]` | prioritas: online → kuota order dulu, lalu kuota COD |
+
+### 17.3.6 Katalog atribut/variant (R-MER-CATALOG, §14)
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `GET/POST/PATCH /products` (+ attributes/values/lines/exclusions/variants) | `menus` + `menu_variants` minimal | `[SEBAGIAN]` | `create_variant: always\|dynamic\|no_variant`; `display_type: radio\|pills\|select\|color\|multi` |
+| toggle tersedia 3 level (menu/variant/nilai) | `menus.available` + `stock` | `[SEBAGIAN]` | `multi` hanya untuk `no_variant`; mode create_variant tak bisa diubah setelah dipakai |
+| kategori menu (taksonomi ops) | `menus.category` teks bebas | `[BELUM]` | DEC-88104: merchant hanya memilih; `menu_categories` + `menus.category_id` |
+
+### 17.3.7 Program marketing Odoo (R-MER-PROMO, §15)
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `GET/POST/PATCH /programs` (+ `/rules`, `/rewards`, `/cards`) | tabel `marketing` (kode promo) | `[BELUM]` | `program_type` 8 jenis; `owner` aplikator/merchant; `isStackable` |
+| `POST /promo/validate` | RPC `validate_promo` | `[SEBAGIAN]` | kode divalidasi jalur promo BE |
+| reward shipping = gratis/diskon delivery fee | tidak ada | `[BELUM]` | OPEN-23 (semantik isStackable) |
+
+### 17.3.8 Pembayaran, refund, payout (R-CUS-PAY, R-CUS-REFUND, R-MONEY)
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| `POST /orders/{id}/payments` (QRIS / saldo DANA / COD) | `orders.payment_method` | `[SEBAGIAN]` | bayar online **saat order dibuat**, batas **30 menit**; hold di akun enterprise |
+| `POST /webhooks/dana` | tidak ada | `[BELUM]` | idempotency, retry, VA expiry = `[UNRESOLVED]` (WEB-1) |
+| `POST /orders/{id}/refund` | tidak ada | `[BELUM]` | QRIS tanpa DANA → **pending refund** + isi rekening BI-FAST (Rp2.500 aplikator); DANA → otomatis; QRIS+binding → pilih |
+| `POST /wallet/cashouts` (payout) | `cashouts` kosong | `[BELUM]` | via DANA Enterprise/disbursement |
+| COD = tunai **offline** | `wallet_holds` (hold COD) | `[BELUM]` | COD bukan hold lagi; hanya merchant ber-kuota COD (C-09) |
+
+### 17.3.9 Realtime, tracking, notifikasi, chat (R-REALTIME, R-TRACK, R-NOTIF, R-CUS-CHAT, §19–§20)
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| WebSocket ber-versi (matriks audiens §19) | Supabase Realtime | `[SEBAGIAN]` | semua perubahan observable dipublikasikan; reconnect → resync (NFR-05/06) |
+| `courier_location` (posisi bergerak) | tidak ada (pin statis) | `[BELUM]` | andal hanya saat app kurir terbuka (L1) |
+| `courier_almost_arrived` | tidak ada | `[BELUM]` | ambang = config ops |
+| chat group per order (+ gambar R2) | `chats`/`chat_messages` 1:1-nya | `[SEBAGIAN]` | peserta: customer + merchant sejak order dibuat; kurir gabung setelah batch assign / assignment approve |
+| push fan-out web push | `push_subscriptions` | `[SEBAGIAN]` | iOS push hanya bila PWA di-install (L2) |
+
+### 17.3.10 Ops PWA (R-OPS, §13)
+
+| Endpoint target | Backend live | Status | Catatan |
+|---|---|---|---|
+| verifikasi onboarding merchant/partner, moderasi tag, multiplier Quick, ambang notif | tidak ada | `[BELUM]` | di balik **Cloudflare Access/Zero Trust** |
+| program marketing aplikator, rule dispute, tangani insiden, flat fee Pc/Pm, paket kuota, SP | tidak ada | `[BELUM]` | audit trail aksi ops (NFR-07) |
+| analytics + logs | tidak ada | `[BELUM]` | Workers Analytics Engine + Logs; OPEN-24 (jalur ops ke Worker) |
+
+## 17.4 Model uang (R-MONEY, R-CURRENCY, §16.1–§16.4)
+
+Menggantikan fee flat lama (0,15 merchant + 0,22 customer = 0,37 JOD). Rumus dipakai apa adanya.
+
+```
+total = S − Dm − Da + F + Pc + Ft
+Ft    = 1,5% × (S − Dm − Da + F + Pc)   // HANYA QRIS
+```
+
+| Simbol | Arti | Nilai contoh | Status |
+|---|---|---|---|
+| `S` | subtotal menu | — | `[ADA]` (klien) |
+| `Dm` | diskon program merchant | — | `[ADA]` (klien) |
+| `Da` | diskon program aplikator | — | `[ADA]` (klien) |
+| `F` | delivery fee | Regular = fee merchant; Quick = `F × 1,2` | `[BELUM]` (BE) |
+| `Pc` | platform fee customer (flat, termasuk COD) | 0,2 JOD | `[BELUM]` (BE) |
+| `Pm` | platform fee merchant (hanya online **tanpa kuota**) | 0,25 JOD | `[BELUM]` (BE) |
+| `Ft` | transaction fee QRIS 1,5% | — | `[BELUM]` (BE) |
+
+Aturan turunan:
+
+- **Settlement 3 kolom** (merchant / kurir / aplikator) **selalu = total dibayar**. Kuota `none` menagih `Pm` ke merchant; `cod` memindah `Pc` jadi hak merchant. `[ADA]` fungsi klien (`src/data/marketplace.ts:settlementFor`), `[BELUM]` di BE.
+- **Pembulatan berlawanan arah:** tagihan **ke atas** ke ratusan (sisa = aplikator), payout **ke bawah** ke rupiah penuh. `[ADA]` klien, `[BELUM]` BE.
+- **Kurs** JOD→IDR harian (semua harga diinput JOD, transaksi in-app IDR); JOD 3 desimal, IDR integer; waktu UTC / tampil Asia/Amman. `[BELUM]` provider kurs `[UNRESOLVED]` (OPEN-02).
+- **Ledger append-only** (NFR-02); reversal = entry baru, bukan edit. `[BELUM]`.
+- **Idempotency** untuk langkah uang (NFR-01). `[BELUM]`.
+
+## 17.5 Enum & state — OPEN-26 (ERD final belum)
+
+State order §7.5 (klien menampilkan; **enum final = `[UNRESOLVED]` OPEN-26**):
+
+```
+menunggu_pembayaran · dibatalkan_customer · ditolak_merchant · pending_refund · refund_selesai ·
+diterima (Regular ∈ batch / Quick punya kurir) · selesai_packing · dalam_pengantaran · selesai ·
+kadaluarsa · quick_cari_pengganti
+```
+
+| Entitas | Nilai | Status |
+|---|---|---|
+| `batches.status` (§7.5) | hitung mundur berjalan · ditutup lebih awal · selesai tanpa kurir · selesai kurir belum mulai · dalam pengantaran · selesai | `[UNRESOLVED]` (OPEN-26) |
+| `courier_partner.status` | offline · available · reserved · busy | `[BELUM]` |
+| `orders.payment_method` | `cod` · `qris` · `dana_balance` (nilai baru) | `[UNRESOLVED]` (`transfer` lama dibatasi) |
+| `checkpoints.kind` | `at_store` · `picked_up` · `arrived` · `otp_verified` | `[ADA]` (data live) |
+
+Catatan: state `quotation` vs `placed` = OST-1 `[UNRESOLVED]`; enum DB `xendit_*` masih dipakai klien (`be-contract.md` D2).
+
+## 17.6 Job / Workflow (Cloudflare ARC-05, §8–§9)
+
+Queue memicu Workflows; mutasi storage lintas DO lewat RPC (ARC-06, OPEN-24).
+
+| Job/Workflow | Pemicu | Tugas | Status |
+|---|---|---|---|
+| Hitung mundur batch | order Regular di-accept | tutup batch, `batch_all_packed`, izin mulai lebih awal | `[BELUM]` |
+| Auto-sort rute | toggle ON / order masuk selagi countdown | Compute Route Matrix (merchant + 24 order ≤ 25×24), nearest-neighbor + 2-opt | `[BELUM]` |
+| Dispatch partner | order Quick diterima | antrian idle + batas jarak → `assignment_sent` | `[USULAN]` (OPEN-11) |
+| Expire assignment | tak direspons sampai prepare selesai | order dicari pengganti + `sp_issued` + partner off | `[BELUM]` |
+| Payout disbursement | order online selesai | kirim fee ke DANA kurir/merchant | `[BELUM]` |
+| Refund | putusan CS / batal | DANA atau bank BI-FAST; 1 entry ledger | `[BELUM]` |
+| Rekonsiliasi DANA | harian | cocokkan ledger vs DANA (bukan saldo) | `[BELUM]` |
+| SLA watcher | cron | breaching `placed_at` → notif CS/merchant/kurir | `[BELUM]` (G2) |
+| Push fan-out | insert `notifications` | baca `push_subscriptions` → Web Push; kritis → fallback WA | `[BELUM]` |
+| Chat retention / rating window | cron harian | read-only setelah N hari; tutup window rating | `[BELUM]` (N = `[UNRESOLVED]`) |
+
+## 17.7 Matriks implementasi FE ↔ PRD (M0–M11)
+
+Dari `versions/sa7tein-mvp-2026-10-11/milestones.md`. Ini status **FE (mock)**, bukan BE — kolom "kontrak BE" tiap milestone = handoff, bukan implementasi.
+
+| Milestone | Isi | Status FE | Catatan |
+|---|---|---|---|
+| M0 | model domain + konstanta uang + slice batch/partner/quota/marketing | `[ADA]` | done |
+| M1 | discovery (grup per tag, sembunyi blok-kuota) + multi-cart + katalog Odoo | `[SEBAGIAN]` | filter favorit/jarak/order butuh kolom BE |
+| M2 | uang (S..Ft) + QRIS/DANA/COD + refund | `[SEBAGIAN]` | refund ditandai belum tersedia (BE belum punya `refunds`) |
+| M3 | kuota + marketing | `[SEBAGIAN]` | beli paket & buat program = belum tersedia (BE) |
+| M4 | merchant console + batch + coverage editor | `[ADA]` | selesai |
+| M5 | kurir inhouse + auto-sort | `[SEBAGIAN]` | auto-sort belum utuh (R-AUTOSORT AC1/2/3/7) |
+| M6 | kurir partner + dispatch | `[SEBAGIAN]` | dispatch nyata ditahan (`QUICK_DISPATCH_AVAILABLE=false`) |
+| M7 | realtime + tracking + notif + chat | `[SEBAGIAN]` | chat sudah group; tracking/notif/realtime feed belum |
+| M8 | rating merchant + menu item (tanpa variant) | `[USULAN]` | proposed |
+| M9 | dispute rule-based + SP | `[USULAN]` | proposed |
+| M10 | ops PWA + ARC + NFR | `[USULAN]` | proposed |
+| M11 | verifikasi lintas role | `[USULAN]` | proposed |
+
+## 17.8 Checklist kontrak delta (untuk BE)
+
+Baris = requirement revisi aktif; status kolom = kondisi **BE** (bukan FE). Semua `[BELUM]` = pekerjaan BE.
+
+| Req | Flow | Endpoint/entitas kunci | Event | Status |
+|---|---|---|---|---|
+| R-ACC-01 | f21 | magic link, 5 peran, 1 email = 1 role | — | `[BELUM]` |
+| R-CUS-DISCOVERY | f23 | `GET /merchants` (tag/sort/filter) lintas DO | — | `[BELUM]` (OPEN-25) |
+| R-CUS-CART | f1 | cart per merchant, `delivery_type` | `cart_updated` | `[BELUM]` |
+| R-CUS-PAY | f1, f17 | `POST /orders/{id}/payments`, timer 30 mnt | `order_created`, `payment_confirmed`, `payment_expired` | `[BELUM]` |
+| R-CUS-ORDER | f18 | multi order aktif, state §7.5 | `order_status_changed` | `[SEBAGIAN]` |
+| R-CUS-REFUND | f17 | `POST /orders/{id}/refund` | `refund_initiated`, `refund_completed`, `pending_refund_created` | `[BELUM]` |
+| R-CUS-RATING | f19 | rating merchant + menu item (tanpa variant) | `rating_submitted` | `[BELUM]` |
+| R-CUS-CHAT | f14 | group chat per order + gambar R2 | `chat_message`, `chat_opened`, `chat_closed` | `[SEBAGIAN]` |
+| R-MER-CATALOG | f12 | attribute/variant/exclusion, toggle 3 level | — | `[SEBAGIAN]` |
+| R-MER-COVERAGE | f28 | coverage polygon/radius; route WALK | `delivery_config_set` | `[SEBAGIAN]` |
+| R-MER-PROMO | f12 | program/rule/reward/card, isStackable | — | `[BELUM]` |
+| R-MER-QUOTA | f12 | langganan kuota order + COD | `quota_reserved`, `quota_consumed`, `quota_returned` | `[BELUM]` |
+| R-COU-INHOUSE | f13, f25 | batch assign, delivery mulai, selesai per order | `batch_assigned`, `delivery_started`, `order_completed` | `[BELUM]` |
+| R-COU-PARTNER | f26 | approve/reject{reason}, SP | `assignment_sent`, `approved`, `rejected`, `sp_issued` | `[BELUM]` |
+| R-COU-DISPATCH | f26 | antrian + batas jarak | — | `[USULAN]` (OPEN-11) |
+| R-BATCH | f25 | `POST /batches`, maks 24 order (BR-B04) | `batch_closed`, `batch_started` | `[BELUM]` |
+| R-AUTOSORT | f25, f13 | Compute Route Matrix 25×24, WALK | — | `[BELUM]` |
+| R-DELIV-FEE | f25, f26 | `F` → kurir (inhouse/partner); Quick = multiplier | — | `[BELUM]` |
+| R-TRACK | f13 | `courier_location`, ambang notif ops | `courier_location`, `courier_almost_arrived` | `[BELUM]` |
+| R-MONEY | f4, f17 | S/Dm/Da/F/Pc/Pm/Ft + settlement 3 kolom | `fee_computed`, `ledger_entry` | `[BELUM]` |
+| R-CURRENCY | f10 | kurs harian, pembulatan dua arah | `rate_fetched` | `[BELUM]` (OPEN-02) |
+| R-DISPUTE-RULE | f8, f24 | rule/kompensasi/punishment + snapshot ke order | `dispute_opened`, `dispute_resolved` | `[BELUM]` |
+| R-REALTIME | §19 | WS ber-versi + resync | (matriks audiens §19) | `[SEBAGIAN]` |
+| R-NOTIF | f11 | in-app + web push | `push_sent`, `wa_fallback_ready` | `[SEBAGIAN]` |
+| R-OPS | f15, f22, f24 | ops PWA + Cloudflare Access + analytics | — | `[BELUM]` |
+| R-ARCH | ARC-01..13 | Worker/DO/Queue/Workflow/RPC/WS/R2 | — | `[BELUM]` |
+| R-NFR | NFR-01..07 | idempotency, ledger append-only, audit trail | — | `[BELUM]` |
+
+## 17.9 UNRESOLVED revisi aktif (§23, jangan diisi tebakan)
+
+Terbuka: **OPEN-01** kapabilitas DANA · **OPEN-02** provider kurs & jam update/fallback · **OPEN-08** penarikan setelah payout · **OPEN-10** gift card/eWallet · **OPEN-11** algoritma dispatch · **OPEN-17** dispute otomatis vs manual · **OPEN-18** rule dasar wajib · **OPEN-19** batas waktu dispute & chat sbg bukti · **OPEN-20** durasi/retensi chat · **OPEN-23** semantik isStackable · **OPEN-24** jalur ops ke Worker · **OPEN-25** skema Global Index DO · **OPEN-26** enum status final order/batch · **OPEN-27** checklist legal · **OPEN-28** metrik keberhasilan · **OPEN-29** beli paket tambahan · **OPEN-30** tarif "Bayar pakai DANA".
+
+Batasan diterima: **L1** lokasi kurir andal hanya saat app terbuka & layar menyala · **L2** iOS web push hanya bila PWA di-install. Risiko material: R1 (DANA belum pasti = blocker uang), R3 (Global Index DO tunggal), R4 (biaya Google Routes), R8 (kurs gagal), R11 (talangan tunai Quick COD).
+
+## 18. Diagram delta sa7tein-mvp
+
+### 18.1 Order state — Regular (batch) & Quick (partner)
+
+```mermaid
+stateDiagram-v2
+  [*] --> menunggu_pembayaran
+  menunggu_pembayaran --> dibatalkan_customer : batal / 30 mnt kadaluarsa
+  menunggu_pembayaran --> diterima : payment_confirmed
+  diterima --> selesai_packing : Regular (masuk batch) / Quick (estimasi prepare)
+  selesai_packing --> dalam_pengantaran : batch mulai / assignment approve
+  dalam_pengantaran --> selesai : order tuntas satu per satu
+  diterima --> ditolak_merchant : reject
+  ditolak_merchant --> pending_refund : refund
+  [*] --> quick_cari_pengganti : partner tak merespons
+  quick_cari_pengganti --> diterima : partner pengganti approve
+```
+
+### 18.2 Peta flow revisi aktif (f25 / f26 / f28)
+
+```mermaid
+flowchart LR
+  F12["f12 merchant console"] -->|accept Regular| F25["f25 batch lifecycle"]
+  F12 -->|accept Quick| F26["f26 quick dispatch"]
+  F25 -->|batch_assigned| F13["f13 courier view (inhouse)"]
+  F26 -->|assignment approve| FP["kurir partner"]
+  F28["f28 coverage editor"] -->|delivery_config_set| F20["f20 address zone gate"]
+  F25 -->|order_completed| FEE["R-DELIV-FEE → DANA kurir"]
+  F26 -->|fee Quick 100%| FEE
+```
+
+### 18.3 Journey batch & Quick (f25 + f26)
+
+```mermaid
+sequenceDiagram
+  participant C as Customer
+  participant M as Merchant
+  participant KI as Kurir inhouse
+  participant B as BE (Worker/DO)
+  participant KP as Kurir partner
+  C->>B: POST /orders (Regular)
+  B-->>M: order baru (accept tanpa batas)
+  M->>B: accept → POST /batches
+  B->>B: hitung mundur batch (maks 24 order)
+  M->>B: assign batch ke 1 kurir inhouse (BR-B07)
+  B-->>KI: batch_assigned
+  KI->>B: auto-sort (WALK beta) + mulai antar
+  KI->>B: selesai order satu per satu → fee → DANA kurir
+  C->>B: POST /orders (Quick)
+  B-->>KP: assignment_sent
+  KP->>B: approve / reject{reason}
+  Note over B,KP: tak direspons sampai prepare selesai → SP + cari pengganti
+  B-->>C: dalam_pengantaran → selesai
+```
+
+Catatan Bagian B:
+- Semua tanda `[BELUM]` = pekerjaan BE; `[ADA]`/`[SEBAGIAN]` merujuk backend live (Supabase) atau klien.
+- Flow `f25`/`f26`/`f28` sudah ada di `docs/design/flows/` dan terdaftar di `INDEX.json`.
+- Enum state (§17.5) tetap `[UNRESOLVED]` (OPEN-26) sampai PO menutup ERD.
