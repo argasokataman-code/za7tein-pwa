@@ -1107,42 +1107,51 @@
       "loc": "src/components/merchant/MenuAttributeEditor.tsx"
     },
     {
-      "id": "TASK-102165",
-      "type": "task",
-      "status": "done",
+      "id": "DEC-88104",
+      "type": "decision",
+      "status": "active",
       "date": "2026-10-16",
-      "time": "10:49:02",
+      "time": "11:00:43",
       "tags": [
-        "auto"
+        "merchant",
+        "menu",
+        "catalog",
+        "scope"
       ],
-      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-3) — edit via tool: tsx: ikon dengan <code className=\"d",
+      "summary": "Kategori menu = taksonomi ops/BE baca-saja; CRUD kategori merchant dicabut (PO 2026-10-16)",
       "conn": [
         {
-          "id": "FEAT-001",
+          "id": "DEC-88103",
           "type": "relates",
-          "raw": "FEAT-001:relates"
-        }
-      ],
-      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
-    },
-    {
-      "id": "TASK-102166",
-      "type": "task",
-      "status": "done",
-      "date": "2026-10-16",
-      "time": "10:49:24",
-      "tags": [
-        "auto",
-        "verify"
-      ],
-      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -5 && rtk git diff --stat passed",
-      "conn": [
-        {
-          "id": "FEAT-001",
-          "type": "relates",
-          "raw": "FEAT-001:relates"
+          "raw": "DEC-88103:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-102175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "11:00:56",
+      "tags": [
+        "merchant",
+        "menu",
+        "ui"
+      ],
+      "summary": "Kunci kategori: buang tambah/hapus + sheet; form item pakai dropdown SelectField",
+      "conn": [
+        {
+          "id": "DEC-88104",
+          "type": "implements",
+          "raw": "DEC-88104:implements"
+        },
+        {
+          "id": "TASK-102164",
+          "type": "relates",
+          "raw": "TASK-102164:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantMenu.tsx"
     }
   ]
 }

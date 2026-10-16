@@ -5,7 +5,9 @@ import { CATEGORIES, menuSeed } from '../../data/catalog'
 interface CatalogState {
   items: MenuItem[]
   /**
-   * Kategori menu merchant (MER-06): bisa ditambah/dihapus, bukan lagi 4 tetap.
+   * Kategori menu (MER-06) — **taksonomi ops/BE, bukan dikelola merchant**.
+   * Daftar baca-saja: merchant memilihnya lewat dropdown di form item. Sumber
+   * sekarang konstanta modul `data/catalog`; kelak diisi dari BE.
    * **Tanpa ikon** — `Category.icon` adalah komponen React (lucide forwardRef),
    * dan slice ini ikut persist; JSON tidak menyimpan fungsi, jadi ikon yang
    * tersimpan jadi `{}` dan render melempar React #130. Ikon dipetakan dari
@@ -45,20 +47,6 @@ const catalogSlice = createSlice({
       const item = state.items.find((m) => m.id === action.payload)
       if (item) item.available = !item.available
     },
-    addCategory(state, action: PayloadAction<Category>) {
-      if (state.categories.some((c) => c.id === action.payload.id)) return
-      state.categories.push(action.payload)
-    },
-    /**
-     * Hapus kategori hanya bila tak ada item memakainya dan bukan kategori
-     * terakhir — kategori kosong boleh dihapus, kategori berisi item tidak
-     * (item akan kehilangan rumahnya).
-     */
-    removeCategory(state, action: PayloadAction<string>) {
-      if (state.categories.length <= 1) return
-      if (state.items.some((item) => item.category === action.payload)) return
-      state.categories = state.categories.filter((c) => c.id !== action.payload)
-    },
   },
 })
 
@@ -69,8 +57,6 @@ export const {
   adjustStock,
   setStock,
   toggleAvailable,
-  addCategory,
-  removeCategory,
 } = catalogSlice.actions
 
 export const selectCatalogItems = (state: { catalog: CatalogState }) =>

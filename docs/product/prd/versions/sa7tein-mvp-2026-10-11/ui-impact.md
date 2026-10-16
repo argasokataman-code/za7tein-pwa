@@ -91,7 +91,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 |---|---|---|---|
 | MerchantDashboard | **UBAH** | MER-10..15 | Tambah batch, estimasi, packing |
 | MerchantOrders | **UBAH BESAR** | MER-10..14 | Accept Regular → **pilih/ ciptakan batch**; accept Quick → **estimasi prepare**; packing; assign batch |
-| MerchantMenu | **UBAH BESAR** | MER-05..08 | **M4c selesai:** kategori menu (MER-06) + toggle catatan per menu (MER-05); model attribute/value/variant Odoo + `price_extra` + exclusion + toggle ketersediaan 3 level (menu/nilai/variant) (MER-07/MER-08) di slice `catalogAttributes`, editor `MenuAttributeEditor`, selector pelanggan di `MenuDetail`. Logika murni ditahan `scripts/catalog-check.mjs` |
+| MerchantMenu | **UBAH BESAR** | MER-05..08 | **M4c selesai:** kategori menu (MER-06, taksonomi ops/BE baca-saja, dipilih lewat dropdown) + toggle catatan per menu (MER-05); model attribute/value/variant Odoo + `price_extra` + exclusion + toggle ketersediaan 3 level (menu/nilai/variant) (MER-07/MER-08) di slice `catalogAttributes`, editor `MenuAttributeEditor`, selector pelanggan di `MenuDetail`. Logika murni ditahan `scripts/catalog-check.mjs` |
 | MerchantPromos | **UBAH BESAR** | MER-09, §15 | Semua tipe loyalty Odoo + isStackable |
 | MerchantSettings | **UBAH** | MER-01..03, MER-17 | **M4d:** profil toko (nama/nomor/alamat/foto) + **tag toko** (multi-pilih, maks 4, tag baru perlu moderasi ops) — keduanya state sesi karena BE belum punya endpoint tulis; setting "terima order tanpa kuota" (hanya saat tutup); pintu ke coverage |
 | **Coverage editor** (baru) | **SELESAI** (M4b) | MER-04 | `/merchant/coverage` — polygon non-overlap ber-fee **atau** radius ≤2 km + fee/satuan; tulis BE belum ada (state aplikasi + notice). Flow `f28-coverage-editor` |

@@ -251,15 +251,18 @@ export default function Documentation() {
                 <code className="doc-inline">f28-coverage-editor</code>.
               </li>
               <li>
-                <strong>Kategori &amp; catatan menu</strong> (M4c, MER-05/MER-06): di{' '}
-                <code className="doc-inline">/merchant/menu</code> kategori menu tidak lagi dipaku di
-                modul &mdash; merchant menambah/menghapus kategori lewat tombol <em>Kategori</em>, dan
-                item dikelompokkan per kategori. Form item punya <strong>toggle catatan per menu</strong>{' '}
-                (MER-05): kolom catatan pelanggan di halaman item hanya muncul bila menyala. Kategori
-                hidup di state <code className="doc-inline">catalog.categories</code> (ikon dipetakan
-                dari modul, bukan state, karena komponen lucide tak selamat dari JSON persist) dan
-                migrasi persist <strong>v8</strong> membuang <code className="doc-inline">catalog</code>{' '}
-                lama. Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
+                <strong>Kategori menu = taksonomi ops/BE (baca-saja)</strong> (M4c, MER-06):
+                kategori <em>tidak</em> dikelola merchant &mdash; daftarnya disediakan ops/BE dan
+                merchant hanya <strong>memilih</strong> lewat dropdown{' '}
+                (<code className="doc-inline">ui/SelectField</code>) di form item; item tetap
+                dikelompokkan per kategori. Alasan: CRUD kategori cuma hidup di browser (BE belum
+                punya endpoint tulis) dan taksonomi telusur lintas toko jadi pecah &mdash; sama
+                seperti tag toko yang ops-curated. Form item punya{' '}
+                <strong>toggle catatan per menu</strong> (MER-05): kolom catatan pelanggan di halaman
+                item hanya muncul bila menyala. Daftar kategori hidup di state{' '}
+                <code className="doc-inline">catalog.categories</code> (ikon dipetakan dari modul,
+                bukan state, karena komponen lucide tak selamat dari JSON persist; kelak diisi dari
+                BE). Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
               </li>
               <li>
                 <strong>Varian &amp; tambahan ala Odoo</strong> (M4c, MER-07/MER-08): model{' '}
@@ -622,12 +625,12 @@ export default function Documentation() {
               <li>
                 <strong>Rapi konsol menu merchant.</strong> Baris kategori di{' '}
                 <code className="doc-inline">/merchant/menu</code> kini memakai corak chip
-                kategori customer (kotak ikon + label, aktif oranye penuh) — bukan pil
-                filter; aksi <em>Kategori</em> jadi petak bergaris putus. Editor
-                varian/atribut dirapikan: tiap baris nilai jadi grid tiga kolom (nama,
-                tambahan harga, sakelar), satuan <code className="doc-inline">JOD</code> tak
-                lagi terlipat dua baris, input seragam 72px, dan <em>Lepas</em> jadi tombol
-                ikon dengan <code className="doc-inline">aria-label</code>.
+                kategori customer (kotak ikon + label, aktif oranye penuh), bukan pil
+                filter. Editor varian/atribut dirapikan: tiap baris nilai jadi grid tiga
+                kolom (nama, tambahan harga, sakelar), satuan{' '}
+                <code className="doc-inline">JOD</code> tak lagi terlipat dua baris, input
+                seragam 72px, dan <em>Lepas</em> jadi tombol ikon dengan{' '}
+                <code className="doc-inline">aria-label</code>.
               </li>
               <li>
                 Backend live: konsol CS menandai risiko customer lewat registri customers

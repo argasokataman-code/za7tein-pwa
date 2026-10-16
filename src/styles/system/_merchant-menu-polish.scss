@@ -120,19 +120,6 @@
   color: var(--on-brand);
 }
 
-/* Aksi "Kategori" di ujung baris chip: bentuknya chip kategori (kotak ikon +
-   label) seperti di layar customer, tapi bahasanya aksi — kotak ikon bergaris
-   putus + oranye tinta — bukan filter yang bisa dipilih. */
-.merchant-menu-chips .category-btn--action svg {
-  border: 1px dashed var(--orange-ink);
-  background: transparent;
-  color: var(--orange-ink);
-}
-
-.merchant-menu-chips .category-btn--action {
-  color: var(--orange-ink);
-}
-
 /* Chip tag yang kelebihan kuota: tetap terlihat, tapi tak bisa ditekan. */
 .merchant-chip:disabled {
   opacity: 0.45;
