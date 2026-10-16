@@ -42,6 +42,7 @@ Order **Quick** tidak lewat batch. Aplikator mengirim assignment ke **kurir mitr
 | tak ada assignment | "Belum ada assignment baru." |
 | riwayat | label status + waktu respons + alasan tolak |
 | tolak | sheet + textarea alasan; kirim **nonaktif** saat kosong |
+| tanpa respons (Q06) | riwayat "Kedaluwarsa · waktu" + "SP dicatat ke mitra (COU-17)" + "Diganti oleh \<nama>"; mitra `offline` (chip paling penting, kontras AA) |
 
 ## 6. Kontrak BE (handoff, repo ini mock)
 
@@ -59,8 +60,8 @@ Order **Quick** tidak lewat batch. Aplikator mengirim assignment ke **kurir mitr
 | AC4 | Satu order per waktu | mitra `busy` setelah approve; tak ada assignment kedua | ✅ (mock) |
 | AC5 | Reject melepas reservasi → `available` | reducer | ✅ `partnerSlice.ts:59-60` |
 | AC6 | Riwayat menampilkan alasan tolak | baris "Alasan: …" | ✅ `CourierPartner.tsx:156-158` |
-| AC7 | SP tercatat pada mitra | `issueWarningLetter` | ⚠️ reducer ada, **tanpa pemanggil UI**; penerbit UNRESOLVED |
-| AC8 | Tidak merespons → expire + pengganti + SP + off | alur `expire_assignments()` | ❌ tidak ada di FE |
+| AC7 | SP tercatat pada mitra | `issueWarningLetter` | ✅ dipanggil alur Q06 (`CourierPartner.tsx:92-95`); `warningLetters` tampil sebagai "N SP aktif" dan "SP dicatat ke mitra (COU-17)". Penerbitnya (ops manual vs otomatis) tetap UNRESOLVED |
+| AC8 | Tidak merespons → expire + pengganti + SP + off | alur `expire_assignments()` | ✅ `expireAssignment` (`partnerSlice.ts:74-94`) + `issueWarningLetter`; bukti Chromium asli (klik nyata 356×44): chip jadi `Offline, belum menerima assignment`, "1 SP aktif", riwayat "Kedaluwarsa · SP dicatat ke mitra (COU-17) · Diganti oleh Salim", daftar menunggu jadi "Belum ada assignment baru.", overflow-x 0. Pemicu di produksi = BE (tombol di layar ditandai simulasi) |
 | AC9 | 100% fee Quick ke mitra | entri fee Quick = fee penuh | ❌ belum ada (fee Quick belum dibedakan) |
 | AC10 | Quick COD talangi tunai ke merchant | alur talangan saat pickup | ❌ tidak ada |
 | AC11 | Assignment nyata dari dispatch, bukan demo | dispatch jalur BE | ❌ `sendAssignment` mock; `QUICK_DISPATCH_AVAILABLE=false` |
@@ -68,12 +69,13 @@ Order **Quick** tidak lewat batch. Aplikator mengirim assignment ke **kurir mitr
 
 ## 8. UNRESOLVED
 
-- **Penerbit SP**: ops manual vs trigger otomatis (§18, OPS-10) — jangan diisi tebakan.
+- **Penerbit SP**: ops manual vs trigger otomatis (§18, OPS-10) — jangan diisi tebakan. FE memainkan keduanya sebagai simulasi; pemicu produksi = `expire_assignments()` + ops.
 - Pemulihan "Quick tak tersedia" (batal/refund/ubah ke Regular) — `f26` Q10.
 - Model kurir ganda: `courier_partners` terpisah vs `couriers` + penanda jenis.
 
 ## 9. Bukti
 
-- Kode: `src/pages/CourierPartner.tsx`, `src/store/slices/partnerSlice.ts`, `src/data/marketplace.ts` (`mockCourierPartners`, `mockAssignments`, `PARTNER_SELF_ID`, `QUICK_DISPATCH_AVAILABLE`), `src/types.ts` (`CourierPartner`, `CourierAssignment`).
+- Kode: `src/pages/CourierPartner.tsx` (`simulateExpire:86-95`, tombol simulasi `:156-168`, riwayat kedaluwarsa `:192-201`), `src/store/slices/partnerSlice.ts` (`expireAssignment:74-94`, `issueWarningLetter:95-99`), `src/styles/system/_courier-partner.scss` (`.courier-partner-sim`, `.is-off` naik ke `--text-secondary-strong`), `src/data/marketplace.ts` (`mockCourierPartners`, `mockAssignments`, `PARTNER_SELF_ID`, `QUICK_DISPATCH_AVAILABLE`), `src/types.ts` (`CourierPartner`, `CourierAssignment.replacedBy`).
+- Self-check: `scripts/partner-check.mjs` (reject tanpa alasan, satu order per waktu, SP, expire + pengganti, tanpa kandidat, guard assignment final).
 - Kontrak BE: `docs/integration/courier-partner/be-contract.md`.
-- Flow: `docs/design/flows/f26-quick-dispatch/`.
+- Flow: `docs/design/flows/f26-quick-dispatch/` (Q06).

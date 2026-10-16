@@ -59,6 +59,39 @@ const partnerSlice = createSlice({
       const partner = state.partners.find((p) => p.id === assignment.partnerId)
       if (partner) partner.status = 'available'
     },
+    /**
+     * Prepare habis tanpa respons (COU-17, §9.5): assignment `expired`, mitra
+     * **offline**, dan order dilempar ke **pengganti**. Di produksi dipicu BE
+     * (`expire_assignments()`), bukan tombol kurir — layar kurir hanya
+     * menampilkan akibatnya. SP tidak dijatuhkan di sini: penerbitnya masih
+     * UNRESOLVED (OPS-10) sehingga pemanggil memakai `issueWarningLetter`
+     * terpisah, persis seperti dua aktor di flow `f26` Q06.
+     *
+     * ponytail: pemilihan pengganti di sini hanya "mitra lain yang tidak offline
+     * dan tidak busy". Aturan antrean (idle terlama, batas jarak, tie-break)
+     * milik `dispatch_courier()` (§9.4, OPEN-11) dan tidak boleh diputuskan FE.
+     */
+    expireAssignment(state, action: PayloadAction<{ id: string }>) {
+      const assignment = state.assignments.find((a) => a.id === action.payload.id)
+      if (!assignment || assignment.status !== 'pending') return
+      assignment.status = 'expired'
+      assignment.respondedAt = new Date().toISOString()
+      const partner = state.partners.find((p) => p.id === assignment.partnerId)
+      if (partner) partner.status = 'offline'
+      const replacement = state.partners.find(
+        (p) => p.id !== assignment.partnerId && p.status !== 'offline' && p.status !== 'busy',
+      )
+      if (!replacement) return
+      replacement.status = 'reserved'
+      assignment.replacedBy = replacement.id
+      state.assignments.unshift({
+        id: `assign-${state.assignments.length + 1}-${Date.now()}`,
+        orderId: assignment.orderId,
+        partnerId: replacement.id,
+        status: 'pending',
+        sentAt: new Date().toISOString(),
+      })
+    },
     /** SP kurir partner (COU-17, OPS-10); tercatat sebagai punishment (§18). */
     issueWarningLetter(state, action: PayloadAction<{ partnerId: string }>) {
       const partner = state.partners.find((p) => p.id === action.payload.partnerId)
@@ -72,6 +105,7 @@ export const {
   sendAssignment,
   approveAssignment,
   rejectAssignment,
+  expireAssignment,
   issueWarningLetter,
 } = partnerSlice.actions
 export default partnerSlice.reducer

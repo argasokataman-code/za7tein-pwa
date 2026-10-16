@@ -1085,6 +1085,12 @@ export interface CourierAssignment {
   rejectReason?: string
   sentAt: string
   respondedAt?: string
+  /**
+   * Mitra pengganti saat assignment kedaluwarsa (COU-17). Id mitra, bukan nama
+   * (nama bisa berubah). Pemilihan penggantinya milik `dispatch_courier()`
+   * (§9.4, OPEN-11); FE hanya menyimpan siapa yang menerima (mock).
+   */
+  replacedBy?: string
 }
 
 // — Katalog ala Odoo (§14) —

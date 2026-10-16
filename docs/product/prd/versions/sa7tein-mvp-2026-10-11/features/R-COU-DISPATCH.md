@@ -54,7 +54,7 @@ Saat merchant menerima order Quick, aplikator harus memilih **satu** kurir mitra
 | AC5 | Lokasi segar (ambang ops) | `lastLocationAt` vs ambang | ❌ tidak ada |
 | AC6 | Tanpa kandidat → Quick tak tersedia | pesan + jalur nonaktif | ⚠️ hanya flag `QUICK_DISPATCH_AVAILABLE=false` (`src/data/marketplace.ts`), bukan hasil evaluasi kandidat |
 | AC7 | Assignment terkirim ke mitra terpilih | `sendAssignment` dipanggil dispatch nyata | ❌ mock; `sendAssignment` hanya ada di slice |
-| AC8 | UI jujur menyatakan jalur belum ada | `PlatformNotice` di layar mitra | ✅ `src/pages/CourierPartner.tsx:102` |
+| AC8 | UI jujur menyatakan jalur belum ada | `PlatformNotice` di layar mitra | ✅ `src/pages/CourierPartner.tsx:122` (menyebut OPEN-11 + penerbit SP UNRESOLVED, bukan memura-purakan dispatch nyata) |
 
 ## 8. UNRESOLVED
 

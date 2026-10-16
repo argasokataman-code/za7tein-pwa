@@ -98,6 +98,16 @@ export const mockCourierPartners: CourierPartner[] = [
     lastLocationAt: '2026-10-15T07:58:00.000Z',
     joinedAt: '2026-09-25T00:00:00.000Z',
   },
+  {
+    id: 'partner-3',
+    name: 'Salim',
+    phone: '+962790000003',
+    status: 'available',
+    completedToday: 1,
+    warningLetters: 0,
+    lastLocationAt: '2026-10-15T08:02:00.000Z',
+    joinedAt: '2026-10-01T00:00:00.000Z',
+  },
 ]
 
 /**

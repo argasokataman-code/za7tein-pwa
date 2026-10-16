@@ -518,6 +518,22 @@ export default function Documentation() {
                 ditahan <code className="doc-inline">scripts/courier-batch-check.mjs</code>.
               </li>
               <li>
+                <strong>Kurir partner: cabang tanpa respons kini punya jalur (M6).</strong>{' '}
+                Kalau prepare habis tanpa respons (Q06, §9.5), assignment jadi{' '}
+                <em>Kedaluwarsa</em>, mitra turun ke <strong>offline</strong>, SP tercatat
+                (&ldquo;N SP aktif&rdquo; + &ldquo;SP dicatat ke mitra&rdquo;), dan order dilempar
+                ke <strong>pengganti</strong> (&ldquo;Diganti oleh &lt;nama&gt;&rdquo;) — aturan
+                murninya ditahan <code className="doc-inline">scripts/partner-check.mjs</code>.
+                Pemicunya BE (<code className="doc-inline">expire_assignments()</code>) dan
+                penerbit SP masih UNRESOLVED (OPS-10), jadi layar menyediakan tombol{' '}
+                <strong>simulasi</strong> setinggi 44px tanpa warna merek — bukan aksi yang
+                berpura-pura menjadi ops. Chip <code className="doc-inline">offline</code> (keadaan
+                paling penting bagi kurir) naik ke{' '}
+                <code className="doc-inline">--text-secondary-strong</code> karena versi lama
+                3,86:1 di atas <code className="doc-inline">--border</code> gagal AA. Sisa M6: fee
+                Quick 100%, talangan COD Quick, dan dispatch nyata (OPEN-11).
+              </li>
+              <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}
                 <code className="doc-inline">mergeOrders</code> dulu mengganti seluruh antrean
                 dengan baris BE. Tiga kolom hanya hidup di klien (

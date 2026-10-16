@@ -31,9 +31,12 @@
   color: var(--info-ink);
 }
 
+/* `offline` = keadaan paling penting bagi kurir (kenapa tidak dapat order).
+   --text-secondary hanya 3,86:1 di atas --border → gagal AA; versi kuat 6,15:1
+   dan sudah jadi peran token untuk "teks di atas permukaan berwarna". */
 .courier-partner-status.is-off {
   background: var(--border);
-  color: var(--text-secondary);
+  color: var(--text-secondary-strong);
 }
 
 .courier-partner-actions {
@@ -45,4 +48,29 @@
 
 .courier-partner-actions > * {
   flex: 1;
+}
+
+/* Pemicu simulasi cabang Q06 (prepare habis tanpa respons). Bukan aksi kurir di
+   produksi, jadi sengaja tanpa warna merek supaya tidak bersaing dengan
+   Terima/Tolak; tetap setinggi --touch-min agar bisa ditekan (HG-05). */
+.courier-partner-sim {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-top: var(--space-2);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.courier-partner-sim:active {
+  background: var(--bg-warm);
 }

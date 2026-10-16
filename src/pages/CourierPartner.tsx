@@ -1,4 +1,4 @@
-import { Bike, Clock, Route } from 'lucide-react'
+import { Bike, Clock, Route, Timer } from 'lucide-react'
 import { useState } from 'react'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
@@ -7,7 +7,12 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { PARTNER_SELF_ID } from '../data/marketplace'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { approveAssignment, rejectAssignment } from '../store/slices/partnerSlice'
+import {
+  approveAssignment,
+  expireAssignment,
+  issueWarningLetter,
+  rejectAssignment,
+} from '../store/slices/partnerSlice'
 import type { CourierPartnerStatus } from '../types'
 
 const STATUS_LABEL: Record<CourierPartnerStatus, string> = {
@@ -46,15 +51,16 @@ const stamp = (iso: string) =>
  * (COU-18, submit aktif setelah alasan diisi). Statusnya offline/available/
  * reserved/busy dan berubah mengikuti respons.
  *
- * Mock: penjadwalan dispatch nyata (OPEN-11) dan hukuman SP tidak dibangun di
- * sini, jadi assignment yang tampil adalah **data demo**, bukan kiriman dispatch
- * sungguhan. Itu ditandai lewat `PlatformNotice`, bukan dipura-purakan.
+ * Mock: penjadwalan dispatch nyata (OPEN-11) belum ada, jadi assignment yang
+ * tampil adalah **data demo**, bukan kiriman dispatch sungguhan — ditandai lewat
+ * `PlatformNotice`, bukan dipura-purakan. Cabang "tanpa respons" (Q06) bisa
+ * dilihat lewat tombol simulasi; di produksi ia dipicu BE dan SP-nya dijatuhkan
+ * ops (penerbit masih UNRESOLVED).
  */
 export default function CourierPartner() {
   const dispatch = useAppDispatch()
-  const partner = useAppSelector((s) =>
-    s.partner.partners.find((p) => p.id === PARTNER_SELF_ID),
-  )
+  const partners = useAppSelector((s) => s.partner.partners)
+  const partner = partners.find((p) => p.id === PARTNER_SELF_ID)
   const assignments = useAppSelector((s) =>
     s.partner.assignments.filter((a) => a.partnerId === PARTNER_SELF_ID),
   )
@@ -76,6 +82,20 @@ export default function CourierPartner() {
     dispatch(rejectAssignment({ id: rejectId, reason: reason.trim() }))
     closeReject()
   }
+
+  /**
+   * Q06: prepare habis tanpa respons. Dipicu **BE** (`expire_assignments()`),
+   * bukan aksi kurir, dan SP dijatuhkan **ops** (§18, penerbit UNRESOLVED) —
+   * demo memainkan keduanya supaya akibatnya terlihat: assignment kedaluwarsa,
+   * order pindah ke pengganti, mitra jadi offline, SP tercatat.
+   */
+  const simulateExpire = (id: string) => {
+    dispatch(expireAssignment({ id }))
+    if (partner) dispatch(issueWarningLetter({ partnerId: partner.id }))
+  }
+
+  const nameOf = (partnerId?: string) =>
+    partners.find((p) => p.id === partnerId)?.name ?? null
 
   return (
     <div className="app-shell">
@@ -99,7 +119,7 @@ export default function CourierPartner() {
           ) : null}
         </section>
 
-        <PlatformNotice message="Dispatch otomatis (OPEN-11) dan hukuman SP dikelola ops, belum dibangun. Assignment di layar ini data demo, bukan kiriman dispatch nyata." />
+        <PlatformNotice message="Dispatch otomatis (OPEN-11) belum dibangun dan penerbit SP belum diputuskan ops (§18). Assignment di layar ini data demo; akibat cabang tanpa respons bisa dipicu lewat tombol simulasi di kartu." />
 
         <section className="courier-section">
           <h2 className="courier-section-title">
@@ -133,6 +153,19 @@ export default function CourierPartner() {
                     Tolak
                   </button>
                 </div>
+                <p className="courier-sla-note">
+                  Jendela respons sepanjang estimasi prepare. Di produksi, prepare habis
+                  tanpa respons dipicu BE (expire_assignments()): order dicari pengganti,
+                  mitra jadi offline, dan ops menjatuhkan SP.
+                </p>
+                <button
+                  type="button"
+                  className="courier-partner-sim"
+                  onClick={() => simulateExpire(assignment.id)}
+                >
+                  <Timer size={16} strokeWidth={1.75} aria-hidden="true" />
+                  Simulasikan prepare habis
+                </button>
               </article>
             ))
           )}
@@ -155,6 +188,16 @@ export default function CourierPartner() {
                     </p>
                     {assignment.rejectReason ? (
                       <p className="courier-card-sub">Alasan: {assignment.rejectReason}</p>
+                    ) : null}
+                    {assignment.status === 'expired' ? (
+                      <>
+                        <p className="courier-card-sub">SP dicatat ke mitra (COU-17)</p>
+                        <p className="courier-card-sub">
+                          {nameOf(assignment.replacedBy)
+                            ? `Diganti oleh ${nameOf(assignment.replacedBy)}`
+                            : 'Belum ada pengganti'}
+                        </p>
+                      </>
                     ) : null}
                   </div>
                 </div>

@@ -29,6 +29,12 @@ inhouse) ada di `../f25-batch-lifecycle/`.
 - **100% delivery fee Quick** ke partner (multiplier × fee merchant); COD Quick **bukan hold** — kurir menalangi tunai ke merchant saat pickup.
 - Fee **Regular** tetap ke kurir **inhouse** lewat `f25: fee_dana`; Quick tidak lewat batch.
 
+## Status UI (mana yang sudah berdiri)
+
+- **Q01–Q05 berdiri**: `/merchant/orders` (estimasi prepare Quick) + `/courier/partner` (chip status, approve, reject ber-alasan).
+- **Q06 berdiri di sisi kurir**: `expireAssignment` menampilkan akibatnya (assignment `Kedaluwarsa`, "SP dicatat ke mitra", "Diganti oleh \<nama>", mitra `offline`). Pemicunya BE (`expire_assignments()`) dan SP dijatuhkan ops — dimainkan lewat tombol **simulasi** karena penerbit SP masih UNRESOLVED (OPS-10) dan halaman ops belum dibangun.
+- **Q02/Q07–Q09 belum**: pemilihan kandidat (`dispatch_courier()`, OPEN-11) dan talangan COD Quick belum dibangun; fee Quick belum dibedakan dari Regular.
+
 ## Terhubung (lihat `../INDEX.json`)
 
 `f12-merchant-console:terima → f26:prepare` (cabang Quick); `f25-batch-lifecycle:quick_estimasi → f26:dispatch` (jalur partner didalami di sini).
