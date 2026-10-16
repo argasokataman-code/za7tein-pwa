@@ -613,8 +613,13 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
         (<code className="doc-inline">fetchMerchantOrders</code> lewat{' '}
         <code className="doc-inline">useApiOrders</code> /
         <code className="doc-inline">useApiRealtime</code>).{' '}
-        <code className="doc-inline">mergeOrders</code> <em>menggantikan</em> isi
-        antrean dengan baris BE, bukan menempelkan di depan seed. Order demo{' '}
+        <code className="doc-inline">mergeOrders</code> <em>menggabungkan per id</em>{' '}
+        dan tetap bukan menempelkan di depan seed, tetapi kolom yang hanya hidup di
+        klien (<code className="doc-inline">packed</code>,{' '}
+        <code className="doc-inline">batchId</code>,{' '}
+        <code className="doc-inline">cookMinutes</code>) dibawa dari baris lama. Tanpa
+        itu, tiap refetch realtime menghapus tanda packing dan syarat BR-B09 lenyap
+        sendiri (<code className="doc-inline">BUG-88046</code>). Order demo{' '}
         <code className="doc-inline">mo-*</code> (
         <code className="doc-inline">SA-104x</code>) sengaja tidak dipakai lagi:
         id-nya non-numerik, jadi <code className="doc-inline">updateOrderStatus</code>{' '}

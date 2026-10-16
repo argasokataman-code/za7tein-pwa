@@ -239,8 +239,28 @@ const merchantSlice = createSlice({
      * selalu menggantikan dengan kondisi BE terbaru sehingga pindahnya kartu
      * Antrean → Diproses konsisten, bukan ilusi sesi.
      */
+    /**
+     * Gabung **per id**, bukan ganti seluruh array. Tiga kolom hidup hanya di
+     * klien (`packed` MER-13, `batchId`, `cookMinutes`) dan `orders` BE tidak
+     * punya kolomnya, jadi `state.orders = payload` menghapusnya di tiap
+     * refetch. Pernah kejadian (BUG-88046): merchant menandai packing lalu
+     * menyetujui mulai lebih awal; tulis status ke BE memicu realtime →
+     * refetch → `packed` hilang dan panel batch balik "Belum packing", padahal
+     * justru `packed` itu syarat BR-B09. Begitu BE punya kolomnya, penjagaan
+     * ini boleh dibuang.
+     */
     mergeOrders(state, action: PayloadAction<MerchantOrder[]>) {
-      state.orders = action.payload
+      const local = new Map(state.orders.map((order) => [order.id, order]))
+      state.orders = action.payload.map((row) => {
+        const prev = local.get(row.id)
+        if (!prev) return row
+        return {
+          ...row,
+          batchId: row.batchId ?? prev.batchId,
+          packed: row.packed ?? prev.packed,
+          cookMinutes: row.cookMinutes ?? prev.cookMinutes,
+        }
+      })
     },
     setCookMinutes(state, action: PayloadAction<{ id: string; minutes: number }>) {
       const order = state.orders.find((o) => o.id === action.payload.id)

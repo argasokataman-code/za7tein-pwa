@@ -1221,6 +1221,28 @@
         }
       ],
       "loc": "src/pages/CourierBatch.tsx"
+    },
+    {
+      "id": "BUG-88046",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-16",
+      "time": "12:01:03",
+      "tags": [
+        "courier",
+        "batch",
+        "packing",
+        "be",
+        "m4"
+      ],
+      "summary": "packed hilang saat mergeOrders (refetch BE) -> gate BR-B09 (approve mulai) bisa lenyap setelah approve",
+      "conn": [
+        {
+          "id": "DEC-88105",
+          "type": "relates",
+          "raw": "DEC-88105:relates"
+        }
+      ]
     }
   ]
 }

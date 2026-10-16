@@ -504,6 +504,19 @@ export default function Documentation() {
                 karena BE belum punya tabel <code className="doc-inline">batches</code>.
               </li>
               <li>
+                <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}
+                <code className="doc-inline">mergeOrders</code> dulu mengganti seluruh antrean
+                dengan baris BE. Tiga kolom hanya hidup di klien (
+                <code className="doc-inline">packed</code>, <code className="doc-inline">batchId</code>,{' '}
+                <code className="doc-inline">cookMinutes</code>) dan tak ada di{' '}
+                <code className="doc-inline">orders</code> BE, jadi tiap refetch realtime
+                menghapusnya. Nyata: setelah merchant menandai packing dan menyetujui mulai lebih
+                awal, tulis status ke BE memicu realtime, <code className="doc-inline">packed</code>{' '}
+                hilang, panel batch balik "Belum packing" padahal justru itu syarat BR-B09. Kini
+                merge <strong>per id</strong> dan membawa kolom klien dari baris lama; penjagaan ini
+                boleh dibuang begitu BE punya kolomnya.
+              </li>
+              <li>
                 <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan
                 (customer/merchant/kurir, disimpan per peran di slice{' '}
                 <code className="doc-inline">preferences</code>) tidak dipakai lagi: layar peran
