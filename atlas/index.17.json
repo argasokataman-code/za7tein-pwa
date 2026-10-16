@@ -4781,6 +4781,50 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:20:59",
+      "tags": [
+        "courier",
+        "customer",
+        "m7",
+        "chat",
+        "prd"
+      ],
+      "summary": "Group chat per order: peserta diturunkan (customer+merchant, kurir setelah assign/approve), lifecycle tutup, nama pengirim, lampiran R2 dita",
+      "conn": [
+        {
+          "id": "TASK-88112",
+          "type": "relates",
+          "raw": "TASK-88112:relates"
+        }
+      ],
+      "loc": "src/data/chat.ts:44",
+      "commit": "7947dba"
+    },
+    {
+      "id": "DEC-88115",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "23:21:00",
+      "tags": [
+        "m7",
+        "chat",
+        "be"
+      ],
+      "summary": "Keanggotaan kurir chat diturunkan dari state demo (batch ter-assign / assignment approved) karena id tugas ct-* belum menyatu dengan order B",
+      "conn": [
+        {
+          "id": "TASK-88114",
+          "type": "relates",
+          "raw": "TASK-88114:relates"
+        }
+      ]
     }
   ]
 }
