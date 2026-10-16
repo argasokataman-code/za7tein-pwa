@@ -73,6 +73,12 @@ interface MerchantState {
   storePhone: string
   storeAddress: string
   /**
+   * Tag toko (MER-03). Beranda pelanggan menggrup per tag; tag baru perlu
+   * moderasi ops sebelum tampil (§13). Tidak dipersist — BE belum punya kolom
+   * usulan tag, jadi sama seperti profil toko: hidup di sesi saja.
+   */
+  tags: string[]
+  /**
    * Konfigurasi pengiriman dari form profil toko (f16): mode jangkauan,
    * radius maksimum, zona aktif, dan ongkir. Menggantikan seed
    * `merchantDeliveryConfig`. Tidak dipersist.
@@ -126,6 +132,7 @@ const initialState: MerchantState = {
   storeName: mockStoreProfile.name,
   storePhone: mockStoreProfile.phone,
   storeAddress: mockStoreProfile.address,
+  tags: ['Sate', 'Rumahan'],
   deliveryConfig: merchantDeliveryConfig,
   openTime: mockMerchant.openTime,
   closeTime: mockMerchant.closeTime,
@@ -313,6 +320,14 @@ const merchantSlice = createSlice({
       state.storePhone = action.payload.phone
       state.storeAddress = action.payload.address
     },
+    /**
+     * Tag toko (MER-03). Batas `MAX_MERCHANT_TAGS` dijaga di layar (chip yang
+     * kelebihan jadi nonaktif), bukan di reducer — pesan ke pengguna butuh
+     * konteks yang cuma dimiliki layar.
+     */
+    setMerchantTags(state, action: PayloadAction<string[]>) {
+      state.tags = action.payload
+    },
     /** Konfigurasi pengiriman dari form profil toko onboarding (f16). */
     setDeliveryConfig(state, action: PayloadAction<MerchantDeliveryConfig>) {
       state.deliveryConfig = action.payload
@@ -402,6 +417,7 @@ export const {
   setMerchantLogo,
   removeMerchantLogo,
   setStoreProfile,
+  setMerchantTags,
   setDeliveryConfig,
   grantCredit,
   debitCredit,

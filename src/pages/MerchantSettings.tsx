@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, MapPinned, RefreshCw, Store, Trash2, Wallet } from 'lucide-react'
+import { Check, Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, MapPinned, RefreshCw, Store, Trash2, Wallet } from 'lucide-react'
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -15,13 +15,14 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
 import { useMoney } from '../hooks/useMoney'
 import { APP_VERSION } from '../data/appInfo'
-import { mockMerchant } from '../data/merchant'
+import { MAX_MERCHANT_TAGS, MERCHANT_TAG_OPTIONS, mockMerchant } from '../data/merchant'
 import { imageFileError } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import { logout } from '../store/slices/authSlice'
 import {
   removeMerchantLogo,
   setMerchantLogo,
+  setMerchantTags,
   setStoreProfile,
 } from '../store/slices/merchantSlice'
 
@@ -42,6 +43,7 @@ export default function MerchantSettings() {
   const storeAddress = useAppSelector((state) => state.merchant.storeAddress)
   const openTime = useAppSelector((state) => state.merchant.openTime)
   const closeTime = useAppSelector((state) => state.merchant.closeTime)
+  const tags = useAppSelector((state) => state.merchant.tags)
   const walletBalance = useAppSelector((state) => state.payout.balance)
   const coverage = useAppSelector((state) => state.coverage)
   const primaryAccount = useAppSelector(
@@ -134,6 +136,21 @@ export default function MerchantSettings() {
   // dengan `Profile.tsx` — `logout()` dari authSlice, bukan state lokal baru.
   // Konfirmasi lewat BottomSheet karena ini aksi yang membuang sesi, dan
   // akibatnya ditulis apa adanya supaya tidak mengejutkan.
+  // Tag toko (MER-03): dibatasi `MAX_MERCHANT_TAGS`. Tag yang belum ada di
+  // daftar ops belum bisa diajukan (BE tak punya kolom usulan tag), jadi yang
+  // bisa dipilih hanya tag yang sudah dikenal.
+  const toggleTag = (tag: string) => {
+    if (tags.includes(tag)) {
+      dispatch(setMerchantTags(tags.filter((t) => t !== tag)))
+      return
+    }
+    if (tags.length >= MAX_MERCHANT_TAGS) {
+      toast.error(`Maksimal ${MAX_MERCHANT_TAGS} tag`)
+      return
+    }
+    dispatch(setMerchantTags([...tags, tag]))
+  }
+
   const confirmSignOut = () => {
     dispatch(logout())
     setSignOutOpen(false)
@@ -248,6 +265,33 @@ export default function MerchantSettings() {
             Simpan perubahan
           </button>
         </form>
+
+        <section className="merchant-card">
+          <p className="merchant-card-title">Tag toko</p>
+          <p className="merchant-card-sub">
+            Pelanggan menemukan toko lewat tag ({tags.length}/{MAX_MERCHANT_TAGS}). Tag baru perlu
+            moderasi tim ops sebelum tampil ke pelanggan.
+          </p>
+          <div className="merchant-chip-row">
+            {MERCHANT_TAG_OPTIONS.map((tag) => {
+              const active = tags.includes(tag)
+              const blocked = !active && tags.length >= MAX_MERCHANT_TAGS
+              return (
+                <button
+                  key={tag}
+                  type="button"
+                  className={`merchant-chip${active ? ' is-active' : ''}`}
+                  aria-pressed={active}
+                  disabled={blocked}
+                  onClick={() => toggleTag(tag)}
+                >
+                  {active ? <Check size={14} strokeWidth={2.5} aria-hidden="true" /> : null}
+                  {tag}
+                </button>
+              )
+            })}
+          </div>
+        </section>
 
         <section className="merchant-card">
           <div className="merchant-row">

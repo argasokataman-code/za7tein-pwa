@@ -127,6 +127,12 @@
   color: var(--orange-ink);
 }
 
+/* Chip tag yang kelebihan kuota: tetap terlihat, tapi tak bisa ditekan. */
+.merchant-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .merchant-menu-stockfilter em {
   font-style: normal;
   font-weight: 700;

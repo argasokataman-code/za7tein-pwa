@@ -39,6 +39,26 @@ export const PLATFORM_FEE_MERCHANT_IDR = jodToIdr(PLATFORM_FEE_MERCHANT_JOD)
 export const PLATFORM_FEE_CUSTOMER_IDR = jodToIdr(PLATFORM_FEE_CUSTOMER_JOD)
 export const MIN_TOPUP_NEW_ACCOUNT_IDR = jodToIdr(MIN_TOPUP_NEW_ACCOUNT_JOD)
 
+/**
+ * Tag toko yang boleh dipilih merchant (MER-03, R-CUS-DISCOVERY). Beranda
+ * pelanggan menggrup toko **per tag**; tag baru yang diajukan merchant harus
+ * lewat moderasi ops dulu (§13 OPS) sebelum tampil — BE belum punya kolom
+ * usulan tag, jadi pilihan di sini hanya hidup di sesi (lihat MerchantSettings).
+ */
+export const MERCHANT_TAG_OPTIONS: string[] = [
+  'Sate',
+  'Bakso',
+  'Kopi',
+  'Ayam',
+  'Minuman',
+  'Rumahan',
+  'Halal',
+  'Cepat saji',
+]
+
+/** Batas tag per toko supaya grup beranda tidak pecah berkeping. */
+export const MAX_MERCHANT_TAGS = 4
+
 /* ── Pajak (R-TAX-01, F4) ────────────────────────────────────────────────────
  * Dua lapis: GST makanan (merchant yang menyetor, objek = penjualan) dan GST
  * atas fee platform (kewajiban platform, objek = fee 0,37 JOD per order).

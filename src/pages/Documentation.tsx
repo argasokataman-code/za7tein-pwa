@@ -277,6 +277,13 @@ export default function Documentation() {
                 <code className="doc-inline">scripts/catalog-check.mjs</code>.
               </li>
               <li>
+                <strong>Profil &amp; tag toko</strong> (M4d, MER-01..03): Setelan toko menyunting
+                nama/nomor/alamat/foto, dan kini kartu <strong>tag toko</strong> &mdash; multi-pilih
+                dari daftar tag yang dikenal ops (maks 4, chip kelebihan nonaktif). Beranda pelanggan
+                menggrup toko per tag; tag baru perlu moderasi ops, tapi BE belum punya kolom usulan
+                tag, jadi profil maupun tag hanya hidup di sesi (ditandai muka, tanpa endpoint tulis).
+              </li>
+              <li>
                 <strong>Keranjang ganda per toko</strong> (M1c): menambah menu dari toko berbeda
                 tidak lagi menimpa keranjang sebelumnya — keranjang toko lain disimpan di{' '}
                 <code className="doc-inline">cart.carts</code> dan layar{' '}
