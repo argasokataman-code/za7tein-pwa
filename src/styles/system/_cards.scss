@@ -61,39 +61,44 @@
   color: var(--text-secondary);
 }
 
-// Modal pasang aplikasi yang muncul sendiri di kunjungan pertama. Memakai
-// ulang kartu di atas; lapisan gelap menutupi layar penuh, kartunya di bawah.
+// Kartu pasang aplikasi yang muncul sendiri di kunjungan pertama. Kartunya
+// (`.install-app`) sudah punya permukaannya sendiri; pembungkus ini hanya bilah
+// bawah yang dibatasi kolom — `fixed` selalu relatif ke viewport, jadi
+// `max-width` + `margin-inline` wajib (AGENTS.md §5).
+//
+// Sengaja bukan modal: dulu `inset: 0` + latar gelap menangkap seluruh layar,
+// sehingga di /merchant/orders ia menutupi tombol "Terima" sampai "Nanti saja"
+// ditekan (terukur 390x844). Kini pembungkus tidak menangkap klik, jadi sisa
+// halaman tetap terbaca dan bisa diklik.
 .install-prompt {
   position: fixed;
-  inset: 0;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--nav-height) + var(--space-3) + env(safe-area-inset-bottom, 0px));
   z-index: 1200;
   display: flex;
-  align-items: flex-end;
   justify-content: center;
-  padding: var(--space-5);
-  padding-bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
-  background: rgba(32, 32, 32, 0.4);
-}
-
-// `hidden` HTML dimentahkan oleh `display: flex` di atas, jadi harus
-// dikembalikan di sini. Tanpa ini lapisan gelapnya tetap dirender walau
-// kartunya kosong — terukur 390x844 menutupi seluruh halaman.
-.install-prompt[hidden] {
-  display: none;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+  pointer-events: none;
 }
 
 .install-prompt-box {
   width: 100%;
-  max-width: var(--shell-max);
+  pointer-events: auto;
 }
 
+// Aksi sekunder di bawah kartu. Dulu teksnya `--on-brand` karena duduk di
+// lapisan gelap modal; tanpa lapisan itu putih tak terbaca, jadi permukaan
+// sendiri + teks sekunder.
 .install-prompt-later {
   width: 100%;
   min-height: var(--touch-min);
   border: 0;
   border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--on-brand);
+  background: var(--surface);
+  color: var(--text-secondary);
   font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 600;

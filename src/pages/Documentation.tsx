@@ -669,6 +669,15 @@ export default function Documentation() {
                 antrean merchant membacanya kembali; notifikasi inbox per audience dengan
                 lonceng dan badge.
               </li>
+              <li>
+                Kartu <strong>pasang aplikasi</strong> yang muncul sendiri kini bilah bawah yang
+                tidak menutup halaman, bukan modal. Dulu lapisan gelapnya{' '}
+                <code className="doc-inline">inset: 0</code> menangkap seluruh layar sehingga di{' '}
+                <code className="doc-inline">/merchant/orders</code> ia menutupi tombol "Terima"
+                sampai "Nanti saja" ditekan; sekarang pembungkusnya{' '}
+                <code className="doc-inline">pointer-events: none</code> dan kartunya tetap di
+                dalam kolom 430px, jadi sisa halaman bisa dibaca dan diklik.
+              </li>
             </ul>
           </div>
           {SECTIONS.map((Section, index) => (

@@ -11,13 +11,13 @@ import { useInstallPrompt } from '../../hooks/useInstallPrompt'
  * manualnya langsung — bukan tombol yang diam. Kartu ini menyembunyikan dirinya
  * sendiri saat aplikasi sudah terpasang.
  *
- * `forceVisible` dipakai oleh `InstallPromptSheet`: kalau kartu di dalam modal
- * ikut memutuskan sendiri, keputusannya diambil dari instance hook kedua, dan
- * dua instance itu bisa berbeda jawaban. Terukur: lapisan gelap modal dirender
+ * `forceVisible` dipakai oleh `InstallPromptSheet`: kalau kartu di dalam bilah
+ * itu ikut memutuskan sendiri, keputusannya diambil dari instance hook kedua,
+ * dan dua instance itu bisa berbeda jawaban. Terukur: pembungkusnya dirender
  * (`hidden: false` dari instance sheet) sementara kartunya mengembalikan `null`
- * (instance kartu) — hasilnya kotak gelap kosong menutupi seluruh layar. Yang
- * berhak memutuskan di dalam modal adalah modalnya, jadi keputusannya
- * diteruskan, bukan dihitung ulang.
+ * (instance kartu) — hasilnya kotak kosong menutupi seluruh layar. Yang berhak
+ * memutuskan di dalam bilah adalah bilahnya, jadi keputusannya diteruskan,
+ * bukan dihitung ulang.
  */
 export function InstallAppCard({ forceVisible = false }: { forceVisible?: boolean } = {}) {
   const { hidden, canPrompt, isIOS, install } = useInstallPrompt()
