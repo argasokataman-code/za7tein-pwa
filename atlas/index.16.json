@@ -5097,6 +5097,120 @@
         }
       ],
       "loc": "src/components/ui/SelectField.tsx:20"
+    },
+    {
+      "id": "TASK-102062",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:57:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/atlas/nodes/DEC-88101.md (+49) — write via tool: # SelectField — dropdown sendiri (ganti ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/atlas/nodes/DEC-88101.md"
+    },
+    {
+      "id": "TASK-102063",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:57:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md (+8/-1) — edit via tool: - **Kontrol pilih (dropdown) memakai `ui",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/DNA.md"
+    },
+    {
+      "id": "TASK-102064",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:57:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx (+43/-3) — edit via tool: tsx: <h3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx"
+    },
+    {
+      "id": "TASK-102065",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:57:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+2/-1) — edit via tool: - `src/components/ui/`: `FoodCard`, `Add",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-102066",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:57:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-4) — edit via tool: tsx: <code className=\"doc-inline\">Bo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102067",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:57:59",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -2 && npm run",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

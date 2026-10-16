@@ -397,7 +397,8 @@ Registry yang harus dipakai ulang:
 
 - `OrderStageScreen` — semua layar tahap order (diterima / dimasak / diantar / tiba). Empat halaman order dulu salinan kembar dan tiap perbaikan desain harus diulang empat kali.
 - **Journey Line / status pesanan** — merchant dan kurir memandang order yang sama dari sisi berbeda; turunkan dari komponen ini (`src/components/OrderStageScreen.tsx`).
-- `src/components/ui/`: `FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`.
+- `src/components/ui/`: `FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`, `SelectField`.
+- `SelectField` — dropdown pilih-satu, pengganti `<select>` peramban (trigger berbentuk `.form-control` + daftar opsi bertoken). Pakai untuk setiap pilihan dari daftar pendek. Daftarnya dibuka *inline*, **bukan** `BottomSheet` kedua (sheet bertumpuk menutup dua panel sekaligus — `BUG-102016`). Detail + cara pakai: `atlas/nodes/DEC-88101.md`, `docs/design/DNA.md`.
 - `src/components/customer/`: `CustomerHomeHero`; `src/components/layout/`: `BottomNav`, `HomeIndicator`.
 
 Konvensi kode:

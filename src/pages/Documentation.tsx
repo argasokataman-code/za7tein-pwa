@@ -427,7 +427,9 @@ export default function Documentation() {
                 peran. Daftarnya dibuka <em>inline</em>, mengalir di bawah trigger — bukan{' '}
                 <code className="doc-inline">BottomSheet</code> kedua, karena panel sheet yang
                 menumpuk membuat satu tap menutup dua panel sekaligus, dan menu melayang akan
-                terpotong <code className="doc-inline">overflow: auto</code> panel form.
+                terpotong <code className="doc-inline">overflow: auto</code> panel form. Tercatat
+                sebagai komponen bersama di bagian <strong>Key Components (11)</strong> dan di
+                kontrak desain <code className="doc-inline">docs/design/DNA.md</code>.
               </li>
               <li>
                 <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan

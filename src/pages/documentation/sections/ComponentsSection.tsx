@@ -178,6 +178,46 @@ export function ComponentsSection() {
         </li>
       </ul>
       <h3 className="doc-h3">
+        SelectField
+      </h3>
+      <p className="doc-p">
+        <code className="doc-inline">src/components/ui/SelectField.tsx</code> — dropdown
+        pilih-satu pengganti <code className="doc-inline">&lt;select&gt;</code> peramban.
+        Trigger-nya memakai bentuk field yang sama dengan{' '}
+        <code className="doc-inline">.form-control</code> (mixin{' '}
+        <code className="doc-inline">field-shape</code>), jadi satu bentuk dan satu focus ring
+        dengan input lain. Pakai ini untuk setiap pilihan dari daftar pendek (bank, jenis,
+        kategori datar); <strong>jangan</strong> pakai <code className="doc-inline">&lt;select&gt;</code>{' '}
+        bawaan — tampilannya lepas dari design system.
+      </p>
+      <DocCode lang="tsx">
+        {`<Controller
+  name="bankName"
+  control={control}
+  render={({ field }) => (
+    <SelectField
+      label="Bank"                    // aria-label trigger
+      options={BANK_OPTIONS}          // readonly string[]
+      value={field.value}
+      onChange={field.onChange}
+      placeholder="Pilih bank"
+      invalid={Boolean(errors.bankName)}
+      describedBy={errors.bankName ? "payout-bank-error" : undefined}
+    />
+  )}
+/>`}
+      </DocCode>
+      <div className="doc-info">
+        <strong>
+          Jangan
+        </strong>
+        {' '}menumpuk dua <code className="doc-inline">BottomSheet</code> untuk opsi: satu tap
+        pilih menutup <strong>dua</strong> panel sekaligus (BUG-102016). Karena itu daftar opsi
+        dibuka <em>inline</em>, mengalir di bawah trigger. Pemakai saat ini: pemilih bank di{' '}
+        <code className="doc-inline">/merchant/payout-accounts</code> dan{' '}
+        <code className="doc-inline">/courier/payout-accounts</code>.
+      </div>
+      <h3 className="doc-h3">
         MerchantPageHeader
       </h3>
       <p className="doc-p">

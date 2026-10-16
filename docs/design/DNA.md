@@ -76,6 +76,13 @@ Aturan yang berlaku lintas layar (audit 001, 2026-10-13):
   terangkat dengan `--shadow-card` — keputusan pemilik 2026-10-15. Ini **pengecualian tercatat** dari
   "kartu default tanpa shadow": yang terangkat adalah kartu yang membawa tema sendiri. Status tetap
   terbaca lewat chip putih (teks berwarna status) + bar, bukan dari warna permukaan.
+- **Kontrol pilih (dropdown) memakai `ui/SelectField.tsx`, bukan `<select>` peramban.**
+  Setiap field "pilih satu dari daftar pendek" (bank, jenis, kategori datar) memakai komponen ini:
+  trigger-nya memakai bentuk `.form-control` (mixin `field-shape`, jadi satu bentuk dengan input
+  lain) plus daftar opsi bertoken peran. `<select>` bawaan **dilarang** di layar peran — tampilannya
+  lepas dari design system (keputusan 2026-10-16). Daftarnya dibuka **inline** (mengalir di bawah
+  trigger), bukan `BottomSheet` kedua: sheet bertumpuk membuat satu tap menutup dua panel sekaligus
+  (`BUG-102016`). Baca `atlas/nodes/DEC-88101.md` untuk cara pakai.
 - **Glow merek** (`--shadow-brand`) hanya menandai **aksi primer**, bukan umpan hover dan bukan
   penanda status terpilih. Pemakaian lain dihapus di akarnya.
 - **Umpan hover** dibungkus `@media (hover: hover) and (pointer: fine)`; di layar sentuh ia tidak
@@ -105,7 +112,7 @@ Untuk rute peran `/customer/*`, `/merchant/*`, dan `/courier/*`: **satu mode saj
 ## Pola pengalaman wajib
 
 1. Setiap layar punya satu tujuan dan satu aksi primer yang jelas. Aksi destruktif atau penolakan diberi label yang menjelaskan akibatnya.
-2. Pakai komponen bersama sebelum membuat yang baru: `FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`, `BottomNav`, `MerchantBottomNav`, `OrderStageScreen`. Jika pola sama muncul dua kali, ekstrak komponen bersama.
+2. Pakai komponen bersama sebelum membuat yang baru: `FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`, `BottomNav`, `MerchantBottomNav`, `OrderStageScreen`, `SelectField` (dropdown pilih-satu, ganti `<select>` peramban). Jika pola sama muncul dua kali, ekstrak komponen bersama.
 3. Untuk setiap state domain, desain `default`, `loading`, `empty`, `error`, `disabled`, dan `success` bila relevan. Mock boleh mensimulasikan semua state, tetapi jangan memberi kesan transaksi sungguhan terjadi.
 4. Setiap biaya tampil dengan komponen dan mata uang yang jelas; jangan menyembunyikan buyer fee, ongkir, kurs, atau pembulatan yang diwajibkan PRD aktif.
 5. Status pesanan harus berasal dari satu model lintas pembeli, merchant, dan kurir. Journey Line tidak dibuat ulang per role.
