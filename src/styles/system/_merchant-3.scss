@@ -137,12 +137,8 @@
   outline-offset: 2px;
 }
 
-/* Tombol tambah tetap di tempatnya saat kuota penuh (disabled) supaya tidak ada
-   pergeseran tata letak, bukan menghilang dan diganti paragraf. */
-.merchant-add-btn:disabled {
-  background: var(--border);
-  color: var(--text-secondary);
-}
+/* Tombol `.page-fab` yang mati (kuota penuh) tetap di tempatnya; gayanya di
+   system/_actions.scss supaya satu tempat dengan FAB-nya. */
 
 .merchant-empty,
 .merchant-hint-inline {

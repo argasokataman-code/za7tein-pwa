@@ -195,11 +195,6 @@ export default function MerchantMenu() {
           title="Menu & Stok"
         />
 
-        <button type="button" className="merchant-add-btn" onClick={openAdd}>
-          <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
-          Tambah Item
-        </button>
-
         <section className="merchant-menu-context" aria-label="Status katalog">
           <span className={`merchant-menu-context-status${isActive ? ' is-open' : ''}`}>
             <span aria-hidden="true" />
@@ -346,7 +341,20 @@ export default function MerchantMenu() {
             </section>
           )
         })}
+        {/* Ruang ekstra di ujung daftar supaya baris terakhir tidak tertutup FAB. */}
+        <div className="page-fab-spacer" aria-hidden="true" />
       </main>
+
+      {/* "Tambah" pindah dari pil selebar halaman ke zona jempol: pojok atas
+          adalah tempat mata, bukan tempat jempol (senior-fe mobile G-02/G-03). */}
+      <button
+        type="button"
+        className="page-fab"
+        aria-label="Tambah item menu"
+        onClick={openAdd}
+      >
+        <Plus size={22} strokeWidth={1.75} aria-hidden="true" />
+      </button>
 
       <MerchantBottomNav />
 

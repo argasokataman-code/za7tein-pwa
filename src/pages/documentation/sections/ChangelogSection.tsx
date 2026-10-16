@@ -547,7 +547,7 @@ export function ChangelogSection() {
                 <code className="doc-inline">button</code>, jadi tombol yang tidak menulis
                 border sendiri mewarisi <code className="doc-inline">2px outset</code> dengan
                 warna teks tombol bawaan peramban. Terukur pada{' '}
-                <code className="doc-inline">.merchant-add-btn</code>: garis 2px hitam
+                <code className="doc-inline">.courier-add-btn</code>: garis 2px hitam
                 dengan radius 10px, sehingga satu-satunya tombol oranye merek yang kotak dan
                 berbingkai hitam di seluruh aplikasi
               </td>

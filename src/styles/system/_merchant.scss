@@ -451,33 +451,8 @@
   margin-bottom: var(--space-3);
 }
 
-/* Aksi "tambah" adalah CTA badan halaman, bukan kontrol di bar judul: selebar
-   kartu supaya gampang dijangkau dan judul halaman tetap hero (di app-bar, CTA
-   bermerek bertabrakan dengan lonceng ikon dan mengecilkan judul). */
-.merchant-add-btn {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  min-height: var(--touch-min);
-  margin-bottom: var(--space-4);
-  padding-inline: var(--space-4);
-  /* Pill, sama dengan tombol aksi merek lain (btn-profile-primary, tombol
-     onboarding, wallet-coupon). Sebelumnya --radius-md 10px sekaligus border
-     peramban 2px hitam, sehingga tombol ini satu-satunya tombol oranye yang
-     kotak dan berbingkai di seluruh aplikasi (senior-fe QL-03 satu sistem
-     radius). */
-  border-radius: var(--radius-pill);
-  background: var(--sa7tein-orange);
-  color: var(--on-brand);
-  font-size: var(--text-sm);
-  font-weight: 700;
-}
-
-.merchant-add-btn:hover {
-  background: var(--orange-deep);
-}
+/* Aksi "tambah" halaman kini `.page-fab` di zona jempol (system/_actions.scss);
+   pil selebar kartu `.merchant-add-btn` dihapus bersama ketiga pemakainya. */
 
 .merchant-summary {
   display: flex;

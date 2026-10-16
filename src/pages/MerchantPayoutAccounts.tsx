@@ -86,11 +86,6 @@ export default function MerchantPayoutAccounts() {
           back="/wallet"
         />
 
-        <button type="button" className="merchant-add-btn" onClick={openAdd}>
-          <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
-          Tambah rekening
-        </button>
-
         {accounts.length === 0 ? (
           <p className="merchant-empty">Belum ada rekening. Tambahkan satu untuk bisa mencairkan saldo.</p>
         ) : (
@@ -140,7 +135,20 @@ export default function MerchantPayoutAccounts() {
           </ul>
         )}
 
+        {/* Ruang ekstra di ujung daftar supaya baris terakhir tidak tertutup FAB. */}
+        <div className="page-fab-spacer" aria-hidden="true" />
       </main>
+
+      {/* "Tambah" ke zona jempol (senior-fe mobile G-02/G-03). */}
+      <button
+        type="button"
+        className="page-fab"
+        aria-label="Tambah rekening"
+        onClick={openAdd}
+      >
+        <Plus size={22} strokeWidth={1.75} aria-hidden="true" />
+      </button>
+
       <MerchantBottomNav />
 
       <BottomSheet

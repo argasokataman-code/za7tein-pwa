@@ -4425,6 +4425,235 @@
         }
       ],
       "loc": "src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-102031",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:20:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+6/-11) — edit via tool: tsx: <MerchantPageHeader",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-102032",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:20:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCouriers.tsx (+6/-16) — edit via tool: tsx: <MerchantPageHeader",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCouriers.tsx"
+    },
+    {
+      "id": "TASK-102033",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:21:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx (+7/-12) — edit via tool: tsx: <MerchantPageHeader",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPayoutAccounts.tsx"
+    },
+    {
+      "id": "TASK-102034",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:21:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_actions.scss (+16/-3) — edit via tool: .page-fab:hover {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_actions.scss"
+    },
+    {
+      "id": "TASK-102035",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:21:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss (+4/-29) — edit via tool: /* Aksi \"tambah\" halaman kini ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant.scss"
+    },
+    {
+      "id": "TASK-102036",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:21:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss (+5/-9) — edit via tool: /* Tombol `.page-fab` yang ma",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-102037",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:21:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_reboot.scss (+3/-3) — edit via tool: /* Border peramban dibuang. Tanpa ini, t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_reboot.scss"
+    },
+    {
+      "id": "TASK-102038",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:22:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_reboot.scss (+1/-1) — edit via tool: .courier-add-btn: border 2px solid rgb(0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_reboot.scss"
+    },
+    {
+      "id": "TASK-102039",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:22:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss (+2/-2) — edit via tool: /* CTA badan halaman, sel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-wallet.scss"
+    },
+    {
+      "id": "TASK-102040",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:23:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102041",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:26:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+11/-6) — edit via tool: tsx: tempat jempol): halaman promo ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "DEC-88100",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "07:26:40",
+      "tags": [
+        "ui",
+        "merchant",
+        "fab"
+      ],
+      "summary": "Semua aksi tambah merchant pakai .page-fab zona jempol; pil .merchant-add-btn dihapus (menu/kurir/rekening)",
+      "conn": [
+        {
+          "id": "DEC-88050",
+          "type": "relates",
+          "raw": "DEC-88050:relates"
+        }
+      ]
     }
   ]
 }

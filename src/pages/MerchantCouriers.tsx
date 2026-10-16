@@ -70,16 +70,6 @@ export default function MerchantCouriers() {
           title="Kurir"
         />
 
-        <button
-          type="button"
-          className="merchant-add-btn"
-          onClick={() => setSheetOpen(true)}
-          disabled={quotaFull}
-        >
-          <Plus size={16} strokeWidth={1.75} aria-hidden="true" />
-          Tambah kurir
-        </button>
-
         {quotaFull ? (
           <p className="merchant-hint-inline">
             Kuota penuh. Hapus satu kurir untuk mendaftarkan yang baru.
@@ -204,7 +194,22 @@ export default function MerchantCouriers() {
           onConfirm={confirmDelete}
           onClose={() => setDeleteTarget(null)}
         />
+
+        {/* Ruang ekstra di ujung daftar supaya baris terakhir tidak tertutup FAB. */}
+        <div className="page-fab-spacer" aria-hidden="true" />
       </main>
+
+      {/* "Tambah" ke zona jempol; mati saat kuota kurir penuh (senior-fe mobile G-02/G-03). */}
+      <button
+        type="button"
+        className="page-fab"
+        aria-label="Tambah kurir"
+        onClick={() => setSheetOpen(true)}
+        disabled={quotaFull}
+      >
+        <Plus size={22} strokeWidth={1.75} aria-hidden="true" />
+      </button>
+
       <MerchantBottomNav />
     </div>
   )

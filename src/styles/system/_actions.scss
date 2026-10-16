@@ -30,6 +30,19 @@
   background: var(--orange-deep);
 }
 
+/* FAB mati (mis. kuota kurir penuh) tetap di tempatnya supaya tak ada
+   pergeseran tata letak, tapi dinetralkan dan tak lagi mengundang sentuh. */
+.page-fab:disabled {
+  background: var(--border);
+  color: var(--text-secondary);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.page-fab:disabled:hover {
+  background: var(--border);
+}
+
 /* Ruang cadangan di ujung daftar supaya baris terakhir tidak tertutup FAB;
    tingginya = FAB 56px + jaraknya ke bilah bawah + sedikit udara. */
 .page-fab-spacer {

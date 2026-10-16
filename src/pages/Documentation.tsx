@@ -406,6 +406,11 @@ export default function Documentation() {
                 navigasi, dan slot aksi di <code className="doc-inline">PageHeader</code> dihapus
                 supaya pola lama tidak kembali. Lonceng notifikasi kini hanya di beranda akar peran
                 (beranda merchant/kurir sudah punya lonceng hero sendiri), bukan di 23 halaman anak.
+                Semua aksi "tambah" merchant kini memakai FAB yang sama — item (
+                <code className="doc-inline">/merchant/menu</code>), kurir (
+                <code className="doc-inline">/merchant/couriers</code>, mati saat kuota penuh), dan
+                rekening (<code className="doc-inline">/merchant/payout-accounts</code>) — menggantikan
+                pil selebar kartu <code className="doc-inline">.merchant-add-btn</code> yang dihapus.
               </li>
               <li>
                 <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan
