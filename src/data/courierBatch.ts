@@ -121,6 +121,28 @@ export function autoSortTasks(
   return ordered
 }
 
+/**
+ * Geser satu henti pada urutan manual (auto-sort OFF, BR-B12). Bertukar dengan
+ * tetangga **searah yang belum selesai**, supaya order yang sudah dituntaskan tak
+ * berpindah posisi. Balikan urutan id yang baru, siap disimpan ke `routeOrder`.
+ */
+export function moveBatchStop(
+  tasks: CourierTask[],
+  id: string,
+  direction: 'up' | 'down',
+): string[] {
+  const order = tasks.map((task) => task.id)
+  const from = order.indexOf(id)
+  if (from < 0) return order
+  const step = direction === 'up' ? -1 : 1
+  let to = from + step
+  while (to >= 0 && to < tasks.length && isDoneTask(tasks[to])) to += step
+  if (to < 0 || to >= tasks.length) return order
+  const [moved] = order.splice(from, 1)
+  order.splice(to, 0, moved)
+  return order
+}
+
 /** Id order hasil auto-sort, siap disimpan ke `batch.routeOrder`. */
 export function autoSortRoute(
   tasks: CourierTask[],

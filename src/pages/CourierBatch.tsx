@@ -1,4 +1,4 @@
-import { ArrowDownUp, Check, ChevronRight, Clock, Coins, PackageCheck, Play, Route } from 'lucide-react'
+import { ArrowDownUp, Check, ChevronDown, ChevronRight, ChevronUp, Clock, Coins, PackageCheck, Play, Route } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
@@ -14,11 +14,12 @@ import {
   batchProgress,
   canStartBatch,
   courierBatchTasks,
+  moveBatchStop,
   nextBatchTask,
   routeDistanceMeters,
 } from '../data/courierBatch'
 import { formatDistance } from '../data/merchant'
-import { setBatchAutoSort, startBatchDelivery } from '../store/slices/courierSlice'
+import { setBatchAutoSort, setBatchRouteOrder, startBatchDelivery } from '../store/slices/courierSlice'
 
 /**
  * Batch kurir inhouse (M5, PRD §8/§9.6). Kurir melihat batch yang ditugaskan
@@ -150,54 +151,95 @@ export default function CourierBatch() {
           <h2 className="courier-section-title">
             Urutan antar {batch.autoSort ? '(otomatis)' : '(manual)'}
           </h2>
+          {!batch.autoSort && (
+            <p className="courier-sla-note">
+              Auto-sort mati. Geser urutan dengan tombol naik/turun di kanan tiap henti;
+              henti teratas adalah yang diantar berikutnya.
+            </p>
+          )}
           {stops.length === 0 ? (
             <p className="courier-empty">Batch ini belum berisi order.</p>
           ) : (
             <ol className="courier-batch-route">
-              {stops.map((task, index) => (
-                <li key={task.id}>
-                  <Link
-                    className={`courier-batch-stop${!isDoneTask(task) && next?.id === task.id ? ' is-next' : ''}`}
-                    to={`/task/${task.id}`}
-                  >
-                    <span className="courier-batch-step" aria-hidden="true">
-                      {isDoneTask(task) ? (
-                        <Check size={16} strokeWidth={2.5} />
-                      ) : (
-                        index + 1
-                      )}
-                    </span>
-                    <span className="courier-batch-stop-copy">
-                      <span className="courier-batch-stop-top">
-                        <span className="courier-task-code">{task.code}</span>
-                        <span className={`courier-badge courier-badge--${task.checkpoint}`}>
-                          {COURIER_CHECKPOINT_BADGE[task.checkpoint]}
+              {stops.map((task, index) => {
+                const current = stops.map((item) => item.id).join()
+                const upOrder = moveBatchStop(stops, task.id, 'up')
+                const downOrder = moveBatchStop(stops, task.id, 'down')
+                return (
+                  <li key={task.id}>
+                    <div className="courier-batch-row">
+                      <Link
+                        className={`courier-batch-stop${!isDoneTask(task) && next?.id === task.id ? ' is-next' : ''}`}
+                        to={`/task/${task.id}`}
+                      >
+                        <span className="courier-batch-step" aria-hidden="true">
+                          {isDoneTask(task) ? (
+                            <Check size={16} strokeWidth={2.5} />
+                          ) : (
+                            index + 1
+                          )}
                         </span>
-                      </span>
-                      <span className="courier-task-sub">
-                        {task.customerName} · {task.address}
-                      </span>
-                      <span className="courier-batch-stop-foot">
-                        <span>{formatDistance(task.distanceMeters)} dari toko</span>
-                        {task.deliveryFeeIdr ? (
-                          <span className="courier-batch-fee">
-                            <Coins size={14} strokeWidth={1.75} aria-hidden="true" />
-                            Fee ke DANA {money(task.deliveryFeeIdr)}
+                        <span className="courier-batch-stop-copy">
+                          <span className="courier-batch-stop-top">
+                            <span className="courier-task-code">{task.code}</span>
+                            <span className={`courier-badge courier-badge--${task.checkpoint}`}>
+                              {COURIER_CHECKPOINT_BADGE[task.checkpoint]}
+                            </span>
                           </span>
-                        ) : (
-                          <span className="courier-batch-cod">COD, dibayar merchant</span>
-                        )}
-                      </span>
-                    </span>
-                    <ChevronRight
-                      size={18}
-                      strokeWidth={1.75}
-                      className="courier-ticket-chevron"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </li>
-              ))}
+                          <span className="courier-task-sub">
+                            {task.customerName} · {task.address}
+                          </span>
+                          <span className="courier-batch-stop-foot">
+                            <span>{formatDistance(task.distanceMeters)} dari toko</span>
+                            {task.deliveryFeeIdr ? (
+                              <span className="courier-batch-fee">
+                                <Coins size={14} strokeWidth={1.75} aria-hidden="true" />
+                                Fee ke DANA {money(task.deliveryFeeIdr)}
+                              </span>
+                            ) : (
+                              <span className="courier-batch-cod">COD, dibayar merchant</span>
+                            )}
+                          </span>
+                        </span>
+                        {/* Saat urutan manual, kolom kanan milik kontrol geser:
+                            panah "buka tiket" disembunyikan supaya tak ada tiga
+                            panah bersaing di satu baris (G-12). Kartunya sendiri
+                            tetap bisa ditekan untuk membuka halaman tugas. */}
+                        {batch.autoSort ? (
+                          <ChevronRight
+                            size={18}
+                            strokeWidth={1.75}
+                            className="courier-ticket-chevron"
+                            aria-hidden="true"
+                          />
+                        ) : null}
+                      </Link>
+                      {!batch.autoSort ? (
+                        <div className="courier-batch-move">
+                          <button
+                            type="button"
+                            className="courier-batch-move-btn"
+                            aria-label={`Geser ${task.code} naik`}
+                            disabled={upOrder.join() === current}
+                            onClick={() => dispatch(setBatchRouteOrder({ orderIds: upOrder }))}
+                          >
+                            <ChevronUp size={18} strokeWidth={1.75} aria-hidden="true" />
+                          </button>
+                          <button
+                            type="button"
+                            className="courier-batch-move-btn"
+                            aria-label={`Geser ${task.code} turun`}
+                            disabled={downOrder.join() === current}
+                            onClick={() => dispatch(setBatchRouteOrder({ orderIds: downOrder }))}
+                          >
+                            <ChevronDown size={18} strokeWidth={1.75} aria-hidden="true" />
+                          </button>
+                        </div>
+                      ) : null}
+                    </div>
+                  </li>
+                )
+              })}
             </ol>
           )}
         </section>

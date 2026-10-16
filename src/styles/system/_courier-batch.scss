@@ -83,22 +83,36 @@
   gap: var(--space-2);
 }
 
-.courier-batch-stop {
+/* Kartu henti pindah dari tautan ke barisnya: kolom geser naik/turun harus
+   berada DI DALAM kartu, kalau tidak tombolnya terbaca lepas dari baris yang
+   diatur (dan ada celah tap antara kartu dan tombol). Tautannya tetap sendiri
+   supaya tombol geser tidak bersarang di dalam <a>. */
+.courier-batch-row {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: var(--space-3);
-  min-height: var(--touch-min);
+  grid-template-columns: minmax(0, 1fr) auto;
+  /* stretch, bukan center: isi kartu rata atas supaya nomor henti duduk di
+     offset yang sama di semua baris walau tinggi alamat berbeda. */
+  align-items: stretch;
+  gap: var(--space-2);
   padding: var(--space-3);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
+}
+
+.courier-batch-stop {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-content: start;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
   color: inherit;
   text-decoration: none;
 }
 
-/* Titik terdekat berikutnya: satu penanda, bukan warna baru. */
-.courier-batch-stop.is-next {
+/* Titik terdekat berikutnya: satu penanda, bukan warna baru. Kartunya baris,
+   penandanya tetap kelas `is-next` pada tautan (satu sumber). */
+.courier-batch-row:has(.courier-batch-stop.is-next) {
   border-color: var(--sa7tein-orange);
   background: var(--orange-soft);
 }
@@ -130,11 +144,12 @@
   gap: var(--space-2);
 }
 
+/* Meta henti satu item per baris: sisi kiri (jarak) dan kanan (fee/COD) tidak
+   cukup muat berdampingan di kolom 260px, dan membiarkannya wrap membuat satu
+   baris jadi 2×2 yang tak terbaca. */
 .courier-batch-stop-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
+  display: grid;
+  gap: 2px;
   margin-top: var(--space-1);
   font-size: var(--text-xs);
   color: var(--text-secondary);
@@ -163,4 +178,44 @@
 
 .courier-batch-cod {
   font-weight: 600;
+}
+
+/* Urutan manual (auto-sort OFF, BR-B12): kolom geser naik/turun di kanan tiap
+   henti. Vertikal, bukan mendatar — mendatar menyita ~96px lebar dan alamat
+   customer yang panjang jadi terpotong. Tiap tombol --touch-min persegi dengan
+   jarak --space-2 (G-18: ≥8pt antar target berdampingan; HG-05 ≥44px). */
+.courier-batch-move {
+  display: grid;
+  /* Kolom geser duduk di tengah tinggi kartu, bukan menempel atas. */
+  align-content: center;
+  gap: var(--space-2);
+}
+
+/* Dua tombol terpisah (bukan satu segmented control) karena menurut G-18 jarak
+   antar target bersebelahan minimal 8pt — kontrol bersambung menyatukan dua
+   target tanpa jeda dan memperbesar salah-tekan. Yang menyatukan keduanya
+   adalah perlakuan sama: isian --bg-warm + tepi --border-strong. */
+.courier-batch-move-btn {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+/* Umpan balik ketuk harus instan: tanpa ini tombol terasa mati sampai daftar
+   beranimasi ulang. Aksen sesaat saja, bukan warna tetap. */
+.courier-batch-move-btn:active:not(:disabled) {
+  border-color: var(--sa7tein-orange);
+  color: var(--orange-ink);
+}
+
+.courier-batch-move-btn:disabled {
+  color: var(--text-secondary);
+  opacity: 0.35;
+  cursor: default;
 }

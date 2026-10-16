@@ -44,7 +44,7 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 |---|---|
 | belum ada batch | `Belum ada batch yang ditugaskan merchant.` |
 | auto-sort ON | daftar bernomor = hasil optimasi + label `(otomatis)` |
-| auto-sort OFF | kurir bisa geser urutan; label `(manual)` |
+| auto-sort OFF | tombol naik/turun pada tiap henti (target 44×44, jarak 8 px) menggeser urutan; label `(manual)` |
 | belum bisa mulai | catatan tunggu hitung mundur / izin merchant |
 | memperbarui (order masuk) | urutan + ETA ikut berubah |
 | koordinat tak lengkap | fallback urut `distanceMeters`, peta mungkin tak tampil |
@@ -61,7 +61,7 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 |---|---|---|---|
 | AC1 | Daftar "Urutan antar" saat ON = hasil auto-sort | nomor 1..n == `autoSortTasks` | ✅ `courierBatchTasks` menurunkan urutan saat ON (`src/data/courierBatch.ts:40`); satu sumber di `CourierBatch.tsx:40` |
 | AC2 | Nomor daftar, nomor pin peta, dan "berikutnya" = satu urutan | banding daftar vs `mapStops` vs `nextBatchTask` | ✅ ketiganya membaca `stops` yang sama |
-| AC3 | OFF → kurir bisa mengubah urutan, dan garis rute + nomor ikut | kontrol reorder ada + ubah `routeOrder` | ❌ tak ada kontrol; `courierSlice.setBatchRouteOrder:106` & `batchSlice.setRouteOrder:65` tanpa pemanggil |
+| AC3 | OFF → kurir bisa mengubah urutan, dan garis rute + nomor ikut | kontrol reorder ada + ubah `routeOrder` | ✅ tombol naik/turun per henti **di dalam kartu baris** (`CourierBatch.tsx:164-240`, gaya `_courier-batch.scss:86-221`) → `setBatchRouteOrder`, urutan dari `moveBatchStop` (`courierBatch.ts:129`). Bukti Chromium asli: geser SA-1039 naik → daftar `SA-1041, SA-1039, SA-1040`, "berikutnya" jadi `SA-1039`, panjang rute 4,0 → 4,7 km, naik nonaktif di puncak & turun nonaktif di ekor (opasitas 0,35), target 44×44 px, jarak antar target 8 px, baris seragam 122 px, overflow-x 0 |
 | AC4 | Urut berdasar waktu tempuh | BE (matriks WALK); mock sekarang haversine | ⚠️ mock jarak garis lurus |
 | AC5 | Heuristik NN + 2-opt | BE/mock | ⚠️ NN saja |
 | AC6 | Peringatan WALK ada di UI batch kurir | teks tampil (`WALK_ROUTE_BETA_NOTE`) | ✅ |
@@ -80,6 +80,6 @@ Auto-sort memilih **urutan singgah dengan total waktu tempuh paling kecil** dari
 
 ## 9. Bukti
 
-- Kode: `src/data/courierBatch.ts` (`autoSortTasks:93`, `autoSortRoute:122`, `routeDistanceMeters:133`, `courierBatchTasks:40`, `nextBatchTask:54`, `WALK_ROUTE_BETA_NOTE:32`, seed `mockCourierBatch:16`), `src/pages/CourierBatch.tsx:38-50,64-67,157`, `src/store/slices/courierSlice.ts:93-106`, `src/store/slices/batchSlice.ts:27-33,55-65`, `src/hooks/useLeafletMap.ts:91-119` (mode `delivery` tanpa garis rute).
-- Self-check: `scripts/courier-batch-check.mjs`.
+- Kode: `src/data/courierBatch.ts` (`autoSortTasks:93`, `autoSortRoute:122`, `moveBatchStop:129`, `routeDistanceMeters:133`, `courierBatchTasks:40`, `nextBatchTask:54`, `WALK_ROUTE_BETA_NOTE:32`, seed `mockCourierBatch:16`), `src/pages/CourierBatch.tsx:38-50,64-67,154-253`, `src/styles/system/_courier-batch.scss:86-221` (kartu `.courier-batch-row` + kolom geser `.courier-batch-move/-move-btn`, meta satu item per baris), `src/store/slices/courierSlice.ts:93-112`, `src/store/slices/batchSlice.ts:27-33,55-65`, `src/hooks/useLeafletMap.ts:91-119` (mode `delivery` tanpa garis rute).
+- Self-check: `scripts/courier-batch-check.mjs` (termasuk `moveBatchStop`: tepi, tetangga, henti selesai, id asing).
 - Flow: `docs/design/flows/f25-batch-lifecycle/` (M08).

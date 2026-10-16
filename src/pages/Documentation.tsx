@@ -506,6 +506,18 @@ export default function Documentation() {
                 karena BE belum punya tabel <code className="doc-inline">batches</code>.
               </li>
               <li>
+                <strong>Urutan antar bisa digeser saat auto-sort mati (M5).</strong> Sakelar OFF
+                tidak lagi cuma berlabel &ldquo;manual&rdquo;: tiap henti punya tombol naik/turun
+                (target 44&times;44, jarak 8px) yang menyusun ulang{' '}
+                <code className="doc-inline">batch.routeOrder</code> lewat{' '}
+                <code className="doc-inline">moveBatchStop</code>. Daftar, pin peta, dan
+                &ldquo;berikutnya&rdquo; tetap satu urutan, nomor serta panjang rute ikut berubah,
+                dan henti yang sudah selesai tidak ikut tergeser. Kartunya pindah dari tautan ke
+                baris supaya tombol geser terbaca milik baris itu (bukan kontrol melayang di
+                sampingnya), dan meta jarak/fee menjadi satu item per baris. Aturan murninya
+                ditahan <code className="doc-inline">scripts/courier-batch-check.mjs</code>.
+              </li>
+              <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}
                 <code className="doc-inline">mergeOrders</code> dulu mengganti seluruh antrean
                 dengan baris BE. Tiga kolom hanya hidup di klien (

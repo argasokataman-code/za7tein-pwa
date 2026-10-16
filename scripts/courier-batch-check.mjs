@@ -11,6 +11,7 @@ import {
   canStartBatch,
   courierBatchTasks,
   mockCourierBatch,
+  moveBatchStop,
   nextBatchTask,
   routeDistanceMeters,
 } from '../src/data/courierBatch.ts'
@@ -110,6 +111,30 @@ assert.ok(
     typeof shuffledLength === 'number' &&
     sortedLength <= shuffledLength,
   `auto-sort harus memendekkan rute (${sortedLength} ≤ ${shuffledLength})`,
+)
+
+// Geser manual (AC3): tukar tetangga searah; tepi tak bergerak.
+const manual = courierBatchTasks({ ...mockCourierBatch, autoSort: false }, courierTasks)
+const manualIds = manual.map((t) => t.id)
+assert.deepEqual(
+  moveBatchStop(manual, manualIds[0], 'down'),
+  [manualIds[1], manualIds[0], manualIds[2]],
+  'geser turun menukar dengan tetangga bawah',
+)
+assert.deepEqual(moveBatchStop(manual, manualIds[0], 'up'), manualIds, 'henti teratas tak bisa naik')
+assert.deepEqual(
+  moveBatchStop(manual, manualIds[manualIds.length - 1], 'down'),
+  manualIds,
+  'henti terbawah tak bisa turun',
+)
+assert.deepEqual(moveBatchStop(manual, 'tidak-ada', 'up'), manualIds, 'id asing → urutan utuh')
+
+// Order selesai tak ikut digeser: ct-2 selesai → ct-3 naik melewatinya (tetap di ekor).
+const doneMid = manual.map((t) => (t.id === 'ct-2' ? { ...t, checkpoint: 'selesai' } : t))
+assert.deepEqual(
+  moveBatchStop(doneMid, 'ct-3', 'up'),
+  ['ct-3', 'ct-1', 'ct-2'],
+  'henti selesai tetap di tempatnya saat tetangga digeser',
 )
 
 console.log('courier-batch-check: OK')
