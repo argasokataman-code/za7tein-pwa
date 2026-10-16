@@ -77,6 +77,14 @@
   );
 }
 
+/* Notice maintenance di Checkout diletakkan di luar .checkout-content (yang
+   ber-padding 20px), jadi gutter sampingnya tak dimiliki induk. Komponen
+   `.platform-notice` sengaja hanya punya margin blok (lihat _platform-notice);
+   di sini gutter 20px dikembalikan supaya sejajar kartu pesanan. */
+.checkout-screen > .platform-notice {
+  margin-inline: var(--space-5);
+}
+
 .checkout-header {
   position: sticky;
   top: 0;

@@ -700,6 +700,17 @@ export default function Documentation() {
                 data demo lewat <code className="doc-inline">PlatformNotice</code>. Alurnya
                 di <code className="doc-inline">f26-quick-dispatch</code>.
               </li>
+              <li>
+                <strong>Kelas aksi kurir partner diselaraskan</strong>: tombol{' '}
+                <em>Terima</em> memakai{' '}
+                <code className="doc-inline">btn btn-primary</code> seperti halaman kurir lain, jadi
+                tak lagi tampil tombol peramban polos. Gutter{' '}
+                <code className="doc-inline">PlatformNotice</code> kini milik induk (hanya{' '}
+                <code className="doc-inline">margin-block</code>) supaya sejajar kartu di semua
+                layar yang sudah ber-padding 20px; Checkout, satu-satunya pemakaian di luar konten
+                ber-padding, mengembalikan gutter itu lewat{' '}
+                <code className="doc-inline">.checkout-screen &gt; .platform-notice</code>.
+              </li>
             </ul>
           </div>
           {SECTIONS.map((Section, index) => (

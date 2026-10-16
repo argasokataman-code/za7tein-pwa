@@ -120,7 +120,7 @@ export default function CourierPartner() {
                 <div className="courier-partner-actions">
                   <button
                     type="button"
-                    className="courier-primary"
+                    className="btn btn-primary"
                     onClick={() => dispatch(approveAssignment({ id: assignment.id }))}
                   >
                     Terima

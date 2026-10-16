@@ -7,7 +7,14 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-2);
-  margin: var(--space-4) var(--space-5);
+  /* Gutter samping milik induk, bukan komponen: hampir semua pemakaian ada di
+     dalam container ber-padding `--space-5` (main.courier-page, .merchant-page,
+     .sheet-panel, .wallet-page). `margin-inline` di sini menumpuk jadi 40px dan
+     notice menjorok 20px dari kartu sebelahnya. Satu-satunya pemakaian di luar
+     container ber-padding (Checkout) mengembalikannya lewat
+     `.checkout-screen > .platform-notice` di _cart.scss. */
+  margin-block: var(--space-4);
+  margin-inline: 0;
   padding: var(--space-3) var(--space-4);
   border: 1px solid var(--warning);
   border-radius: var(--radius-md);

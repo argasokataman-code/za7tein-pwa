@@ -508,8 +508,10 @@ export default function Checkout() {
                 {/* Gate di dalam .checkout-content (audit 005 #1): sebagai
                     anak langsung .checkout-screen ia kehilangan padding 20px
                     dan terukur full-bleed x=0 w=390 / w=430 — kartu satu-satunya
-                    yang menempel tepi kolom. PlatformNotice tetap di luar karena
-                    margin-inline-nya sudah milik komponen itu sendiri. */}
+                    yang menempel tepi kolom. PlatformNotice tetap di luar; gutter
+                    sampingnya dikembalikan lewat
+                    `.checkout-screen > .platform-notice` (komponen hanya punya
+                    margin blok, lihat _platform-notice.scss). */}
                 <WalletTopUpGate />
               </div>
 
