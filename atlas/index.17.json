@@ -5296,6 +5296,218 @@
         }
       ],
       "commit": "bed5eb1"
+    },
+    {
+      "id": "TASK-110396",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:02:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notif.ts (+97) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notif.ts"
+    },
+    {
+      "id": "TASK-110397",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:02:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+14/-8) — edit via tool: ts: export interface AppNotification {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-110398",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:02:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts (+5/-5) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/notifications.ts"
+    },
+    {
+      "id": "TASK-110399",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:02:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts (+10/-8) — edit via tool: ts: interface NotificationRow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts"
+    },
+    {
+      "id": "TASK-110400",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:02:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx (+15/-8) — edit via tool: tsx: import { notificationAudienceF",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Notifications.tsx"
+    },
+    {
+      "id": "TASK-110401",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:03:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts (+41/-29) — edit via tool: ts: export function useCourier",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts"
+    },
+    {
+      "id": "TASK-110402",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:03:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/notif-check.mjs (+58) — write via tool: // Self-check katalog emit + penjaga aud",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/notif-check.mjs"
+    },
+    {
+      "id": "TASK-110403",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:03:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-NOTIF.md (+7/-7) — edit via t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-NOTIF.md"
+    },
+    {
+      "id": "TASK-110404",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:04:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f11-push-notification/README.md (+1/-1) — edit via tool: Sequence trans",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f11-push-notification/README.md"
+    },
+    {
+      "id": "TASK-110405",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:04:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+3/-3) — edit via tool: tsx: butuh R2. Ditahan <code classNa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "00:05:46",
+      "tags": [
+        "m7",
+        "notif",
+        "r-notif",
+        "ui"
+      ],
+      "summary": "M7c R-NOTIF: katalog emit 4 kanal (emit fe|be) + penjaga audience di klien + kolom notifications.audience dibaca; ambang hampir sampai satu ",
+      "conn": [
+        {
+          "id": "TASK-88116",
+          "type": "relates",
+          "raw": "TASK-88116:relates"
+        }
+      ],
+      "commit": "3134bab"
     }
   ]
 }
