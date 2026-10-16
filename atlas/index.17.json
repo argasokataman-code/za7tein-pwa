@@ -4825,6 +4825,477 @@
           "raw": "TASK-88114:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-110374",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:28:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+344/-4) — edit via tool: Catatan diagram:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
+    },
+    {
+      "id": "TASK-110375",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:29:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+7/-3) — edit via tool: # API Spec: Sa7tein (turunan flow)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
+    },
+    {
+      "id": "TASK-110376",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:30:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md (+5/-3) — edit via tool: - **Kolom tabel kosong** (§2.2) me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/API-SPEC.md"
+    },
+    {
+      "id": "TASK-110377",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:30:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+25/-2) — edit via tool: { \"req\": \"R-NOTIF-02\", \"flows\": [\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-91102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:32:29",
+      "tags": [
+        "api",
+        "be-contract",
+        "prd-delta"
+      ],
+      "summary": "API-SPEC Bagian B (S17-18): delta PRD aktif sa7tein-mvp untuk handoff BE; penandaan ADA/SEBAGIAN/BELUM/USULAN/UNRESOLVED per item; INDEX.jso",
+      "conn": [
+        {
+          "id": "TASK-9812",
+          "type": "relates",
+          "raw": "TASK-9812:relates"
+        },
+        {
+          "id": "DEC-88020",
+          "type": "relates",
+          "raw": "DEC-88020:relates"
+        }
+      ],
+      "loc": "docs/design/flows/API-SPEC.md:1"
+    },
+    {
+      "id": "TASK-110378",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:43:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/tracking.ts (+74) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/tracking.ts"
+    },
+    {
+      "id": "TASK-110379",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:43:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts (+22/-11) — edit via tool: ts: export function useLeafletMap(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts"
+    },
+    {
+      "id": "TASK-110380",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:43:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts (+1/-1) — edit via tool: ts: .bindPopup(`${index + 1}. ${stop",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts"
+    },
+    {
+      "id": "TASK-110381",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:44:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+14/-3) — edit via tool: tsx: import { ORDER_STAGE_S",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-110382",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:44:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/tracking-check.mjs (+65) — write via tool: // Self-check aturan pelacakan kurir (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/tracking-check.mjs"
+    },
+    {
+      "id": "TASK-110383",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:45:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/tracking.ts (+20/-8) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/tracking.ts"
+    },
+    {
+      "id": "TASK-110384",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:45:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts (+60) — write via tool: ts: import { useEffect, useState ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts"
+    },
+    {
+      "id": "TASK-110385",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:45:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts (+71/-1) — edit via tool: ts: export type MapMode = 'preview'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/leafletHelpers.ts"
+    },
+    {
+      "id": "TASK-110386",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:46:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts (+2/-6) — edit via tool: ts: import { RESTAURANT, drawOrderMap",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts"
+    },
+    {
+      "id": "TASK-110387",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:46:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+5/-14) — edit via tool: tsx: import { ORDER_STAGE_S",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-110388",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:48:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts (+2/-2) — edit via tool: ts: import { DESTINATION, RESTAURANT,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useLeafletMap.ts"
+    },
+    {
+      "id": "TASK-110389",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:48:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts (+1/-1) — edit via tool: ts: import { DESTINATION, RESTAU",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useCourierTracking.ts"
+    },
+    {
+      "id": "TASK-110390",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:49:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStatusPanel.tsx (+46) — write via tool: tsx: import type { OrderStage",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStatusPanel.tsx"
+    },
+    {
+      "id": "TASK-110391",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:49:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx (+2/-24) — edit via tool: tsx: <OrderStatusPanel stag",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-110392",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:50:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-TRACK.md (+7/-7) — edit via t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-TRACK.md"
+    },
+    {
+      "id": "TASK-110393",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:50:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md (+9/-1) — edit via tool: Notif customer = mo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-110394",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:51:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+2/-1) — edit via tool: S",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-110395",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:51:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+23/-4) — edit via tool: tsx: butuh R2. Ditahan <code classN",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "23:56:30",
+      "tags": [
+        "m7",
+        "track",
+        "r-track",
+        "ui"
+      ],
+      "summary": "M7b R-TRACK: pin kurir bergerak (setLatLng, opsi courier) + ambang 'hampir sampai' berbasis waktu bertanda konfigurasi ops; self-check track",
+      "conn": [
+        {
+          "id": "TASK-88114",
+          "type": "relates",
+          "raw": "TASK-88114:relates"
+        },
+        {
+          "id": "DEC-88115",
+          "type": "relates",
+          "raw": "DEC-88115:relates"
+        }
+      ],
+      "commit": "bed5eb1"
     }
   ]
 }
