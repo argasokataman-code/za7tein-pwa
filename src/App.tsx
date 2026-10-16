@@ -50,6 +50,7 @@ import Landing from './pages/Landing'
 import Language from './pages/Language'
 import MenuDetail from './pages/MenuDetail'
 import MerchantCouriers from './pages/MerchantCouriers'
+import MerchantCoverage from './pages/MerchantCoverage'
 import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantMenu from './pages/MerchantMenu'
 import MerchantOnboarding from './pages/MerchantOnboarding'
@@ -201,6 +202,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/subscription', MerchantSubscription],
   ['/reviews', MerchantReviews],
   ['/couriers', MerchantCouriers],
+  ['/coverage', MerchantCoverage],
   ['/settings', MerchantSettings],
   ['/wallet', MerchantWallet],
   ['/payout', MerchantPayout],

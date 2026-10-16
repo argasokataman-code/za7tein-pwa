@@ -25,7 +25,8 @@
     "f21-account-auth": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PRD §Registrasi (source.md:760) + E.164 (:727) + PO 2026-09-22 (Google + nomor WA, Level 1)", "biz": "decided" },
     "f22-super-admin-sa": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PO 2026-09-23 (cakupan Super Admin, decision-irbid-mvp.md) + C-12 + R-DISPUTE-01 + R-LEDGER-01 + C-13", "biz": "partial" },
     "f24-cs-problem": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "BRS notif-order-e2e-2026-10-11 (proposed) + R-NOTIF-02 + R-DISPUTE-01 + C-12", "biz": "proposed" },
-    "f25-batch-lifecycle": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-BATCH + C-01 + C-02 + C-03 (PRD §7.2/§7.3/§8/§11) — sa7tein-mvp-2026-10-11", "biz": "decided" }
+    "f25-batch-lifecycle": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-BATCH + C-01 + C-02 + C-03 (PRD §7.2/§7.3/§8/§11) — sa7tein-mvp-2026-10-11", "biz": "decided" },
+    "f28-coverage-editor": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "R-MER-COVERAGE + MER-04 + C-13 (PRD §9.1/§11) — sa7tein-mvp-2026-10-11", "biz": "decided" }
   },
   "links": [
     { "from": "f1-order-lifecycle:order", "to": "f2-cod-hold:none->held", "as": "drilldown", "event": "hold_created", "req": "R-COD-01" },
@@ -74,7 +75,8 @@
     { "from": "f8-dispute", "to": "f24-cs-problem", "as": "drilldown", "event": "dispute_filed", "req": "R-NOTIF-02", "note": "sengketa masuk queue CS (f8 = resolusi, f24 = penanganan masalah)" },
     { "from": "f24-cs-problem", "to": "f22-super-admin-sa:appeal", "as": "feeds", "event": "escalated_to_sa", "req": "R-NOTIF-02", "note": "hanya eskalasi: dispute macet / protection fund / appeal" },
     { "from": "f12-merchant-console:terima", "to": "f25-batch-lifecycle:order_masuk", "as": "drilldown", "event": "order_accepted", "req": "R-BATCH", "note": "accept terbelah: Regular → batch, Quick → kurir partner" },
-    { "from": "f25-batch-lifecycle:antar", "to": "f13-courier-view", "as": "feeds", "event": "batch_assigned", "req": "C-01", "note": "satu kurir inhouse mengantar satu batch" }
+    { "from": "f25-batch-lifecycle:antar", "to": "f13-courier-view", "as": "feeds", "event": "batch_assigned", "req": "C-01", "note": "satu kurir inhouse mengantar satu batch" },
+    { "from": "f28-coverage-editor:simpan", "to": "f20-address-zone:gate", "as": "feeds", "event": "delivery_config_set", "req": "R-MER-COVERAGE", "note": "coverage per merchant (polygon non-overlap / radius) menggantikan zona global Hijazi/Syimali" }
   ],
   "trace": [
     { "req": "R-COD-01", "flows": ["f1-order-lifecycle:order", "f2-cod-hold"], "entities": ["wallet_holds", "wallet_ledgers", "orders"] },
@@ -98,6 +100,7 @@
     { "req": "C-17 (order state)", "flows": ["f1-order-lifecycle", "f18-order-state"], "entities": ["orders", "batches"], "unresolved": ["quotation vs placed"], "note": "enum 9 status + hold_status + state dispute" },
     { "req": "R-RATE-01", "flows": ["f18-order-state:done", "f19-rating-review"], "entities": ["rating_reviews", "review_replies"], "unresolved": ["jendela pengisian", "edit/hapus", "tag cepat", "batas balasan", "moderasi", "ambang rata-rata"] },
     { "req": "R-ADDR-01", "flows": ["f16-merchant-onboarding:profil", "f20-address-zone"], "entities": ["addresses", "merchants", "orders"], "unresolved": ["master zona (f15)"], "note": "zona Hijazi/Syimali ≤2 km (C-13)" },
+    { "req": "R-MER-COVERAGE", "flows": ["f12-merchant-console", "f28-coverage-editor"], "entities": ["merchants"], "unresolved": ["endpoint tulis `delivery_config`", "fee dari rute WALK", "kolom polygon di BE"], "note": "coverage per merchant: polygon non-overlap ber-fee, atau radius fee per unit (§9.1, MER-04)" },
     { "req": "PRD §Registrasi (Level 1)", "flows": ["f21-account-auth:method", "f21-account-auth:phone", "f21-account-auth:verify"], "entities": ["users", "phone_verifications"], "unresolved": ["Google untuk merchant/kurir", "sesi/token & PIN", "verifikasi otomatis (Level 2)"], "note": "PO 2026-09-22: login Google + nomor WA wajib (validasi format); E.164 (source.md:727, :760)" },
     { "req": "PO 2026-09-23 (cakupan Super Admin)", "flows": ["f22-super-admin-sa:zone", "f22-super-admin-sa:roles", "f22-super-admin-sa:tax", "f22-super-admin-sa:profit", "f22-super-admin-sa:switch", "f22-super-admin-sa:audit", "f22-super-admin-sa:appeal"], "entities": ["zones", "roles", "operators", "audit_logs", "tax_reports", "platform_profit", "platform_switches"], "unresolved": ["tarif pajak final (OQ-2/3/4, OQ-17/18)", "jumlah operator konkret (OQ-30 sebagian)", "jadwal settlement liability"], "note": "tanpa R-* — dasar keputusan PO + C-12; SA bukan approver top-up/payout, dana user = liability" },
     { "req": "R-NOTIF-01", "flows": ["f1-order-lifecycle", "f11-push-notification"], "entities": ["notifications", "orders"], "unresolved": ["kanal final (push vs push+WA)", "event 'kurir bersedia'"], "note": "matriks notifikasi tiap langkah; kurir masuk mulai courier_matched — BRS notif-order-e2e (proposed)" },

@@ -5211,6 +5211,563 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-102068",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:08:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts (+3/-3) — edit via tool: ts: /** Meter per derajat, cukup akurat untu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts"
+    },
+    {
+      "id": "TASK-102069",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:09:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/coverage.ts (+239) — write via tool: ts: import type { CoveragePolygon, GeoPoint",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/coverage.ts"
+    },
+    {
+      "id": "TASK-102070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:10:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/coverage-check.mjs (+125) — write via tool: // Self-check aturan coverage merchan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/coverage-check.mjs"
+    },
+    {
+      "id": "TASK-102071",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:11:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/coverageSlice.ts (+90) — write via tool: ts: import { createSlice, type ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/coverageSlice.ts"
+    },
+    {
+      "id": "TASK-102072",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:11:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+3/-2) — edit via tool: ts: import quota from './slices/quotaSlice'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-102073",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:12:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_coverage.scss (+180) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_coverage.scss"
+    },
+    {
+      "id": "TASK-102074",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:13:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/merchant-batch\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-102075",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:13:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx (+409) — write via tool: tsx: import { AlertTriangle, Chec",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx"
+    },
+    {
+      "id": "TASK-102076",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:14:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx (+3/-2) — edit via tool: tsx: coverageAreaKm2,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx"
+    },
+    {
+      "id": "TASK-102077",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:14:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_coverage.scss (+7/-3) — edit via tool: .coverage-canvas-dot {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_coverage.scss"
+    },
+    {
+      "id": "TASK-102078",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:14:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+3/-2) — edit via tool: tsx: import MerchantCouriers from './pages/Me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-102079",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:16:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -20 && echo \"=== BUILD ===\" && npm run build 2>&1 | tail -",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102080",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:16:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx (+6/-1) — edit via tool: tsx: coverage.polygons.map((polyg",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx"
+    },
+    {
+      "id": "TASK-102081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:16:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -25 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102082",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:16:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts (+6/-6) — edit via tool: ts: /** Pandang yang memuat semua poligon da",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/zones.ts"
+    },
+    {
+      "id": "TASK-102083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:17:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx (+4/-4) — edit via tool: tsx: <div className=\"app-shell\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantCoverage.tsx"
+    },
+    {
+      "id": "TASK-102084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:21:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f28-coverage-editor/f28-coverage-editor.json (+226) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f28-coverage-editor/f28-coverage-editor.json"
+    },
+    {
+      "id": "TASK-102085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:21:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f28-coverage-editor/README.md (+38) — write via tool: # F28 — Editor Co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f28-coverage-editor/README.md"
+    },
+    {
+      "id": "TASK-102086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:22:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f28-coverage-editor/f28-coverage-editor.json (+4/-8) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/f28-coverage-editor/f28-coverage-editor.json"
+    },
+    {
+      "id": "TASK-102087",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:22:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json (+2/-1) — edit via tool: \"f25-batch-lifecycle\": { \"type\": \"w",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-102088",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:23:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/legacy-debt.json (+1/-1) — edit via tool: for the currency button and convert",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/legacy-debt.json"
+    },
+    {
+      "id": "TASK-102089",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:23:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html (+2/-1) — edit via tool: {slug:\"f25-batch-lifecycle\",      t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/flows/index.html"
+    },
+    {
+      "id": "TASK-102090",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:23:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+14/-2) — edit via tool: tsx: penerimaan: <code className=\"d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102091",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:23:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: 2/2 P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-102092",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:24:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: Rincian tiap perubahan ada di b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102093",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:24:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md (+1/-1) — edit via tool: F",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-102094",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:24:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md (+1/-1) — edit via tool: | ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
+    },
+    {
+      "id": "TASK-102095",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "08:24:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -4 && echo \"=== BUILD ===\" && npm run build 2>&1 | tail -4",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-88102",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "08:25:22",
+      "tags": [
+        "coverage",
+        "merchant",
+        "m4b"
+      ],
+      "summary": "MER-04 coverage: polygon non-overlap ber-fee atau radius <=2km fee/satuan; data/coverage.ts + slice; tulis BE belum ada -> lokal+notice",
+      "conn": [
+        {
+          "id": "TASK-2990",
+          "type": "relates",
+          "raw": "TASK-2990:relates"
+        },
+        {
+          "id": "DEC-88096",
+          "type": "relates",
+          "raw": "DEC-88096:relates"
+        }
+      ]
     }
   ]
 }

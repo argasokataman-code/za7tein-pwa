@@ -59,7 +59,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | f25-batch-lifecycle | BR-B01..13, §8 (hitung mundur, ≤24, assign, tutup, mulai lebih awal) |
 | f26-quick-dispatch | §7.3, §9.3, §9.4, §9.5 (reserve, approve/reject, cari pengganti, SP) |
 | f27-auto-sort-route | §9.6, BR-B12/B13 (toggle, matriks 25×24, peringatan WALK) |
-| f28-coverage-editor | §9.1 (polygon non-overlap, radius, fee per unit) |
+| f28-coverage-editor | §9.1 (polygon non-overlap, radius, fee per unit) — **dibangun (M4b), lihat `docs/design/flows/f28-coverage-editor/`** |
 | f29-quota-subscription | §17 (kuota order + kuota COD, reserve/consume/prioritas, setting tanpa kuota) |
 | f30-marketing-programs | §15 (loyalty Odoo, isStackable, pemilik program) |
 | f31-live-tracking | §9.7 (lokasi realtime, "hampir sampai", ETA per urutan) |
@@ -94,7 +94,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | MerchantMenu | **UBAH BESAR** | MER-05..08 | Katalog Odoo: attribute/value/variant/exclusion, toggle 3 level, toggle catatan per menu |
 | MerchantPromos | **UBAH BESAR** | MER-09, §15 | Semua tipe loyalty Odoo + isStackable |
 | MerchantSettings | **UBAH** | MER-03, MER-17 | Setting "terima order tanpa kuota" (hanya saat tutup), coverage |
-| **Coverage editor** (baru) | **TAMBAH** | MER-04 | Polygon/radius |
+| **Coverage editor** (baru) | **SELESAI** (M4b) | MER-04 | `/merchant/coverage` — polygon non-overlap ber-fee **atau** radius ≤2 km + fee/satuan; tulis BE belum ada (state aplikasi + notice). Flow `f28-coverage-editor` |
 | **Langganan kuota** (baru) | **TAMBAH** | MER-17,18,19 | Beli kuota order / kuota COD (QRIS+DANA) |
 | MerchantCouriers | **UBAH** | MER-16 | Kelola kurir **inhouse** + (ops buat partner) |
 | MerchantWallet, MerchantPayout* | **UBAH** | MER-20 | Payout ke DANA, saldo |
@@ -162,7 +162,7 @@ Pajak/GST (tak disebut PRD baru) · insentif Founding (f9) · peran admin/SA vs 
 
 Diuji pada klon browser terhadap backend demo Supabase (`dwzxtnfesmpobnepilhl`):
 
-- `merchants.delivery_config` (jsonb) **ada**: `{mode:"radius"|"area", activeZones, radiusMeters}`. Sudah dipetakan di `src/api/catalog.ts` → `distanceMeters` (Haversine dari `ui.origin`) dan `outOfCoverage` (mode radius: meter > radiusMeters). 9 merchant demo semuanya < 2000 m → tak ada yang nonaktif.
+- `merchants.delivery_config` (jsonb) **ada**: `{mode:"radius"|"area", activeZones, radiusMeters}`. Sudah dipetakan di `src/api/catalog.ts` → `distanceMeters` (Haversine dari `ui.origin`) dan `outOfCoverage` (mode radius: meter > radiusMeters). 9 merchant demo semuanya < 2000 m → tak ada yang nonaktif. **Tak ada endpoint tulis `delivery_config`** dan `activeZones` baru menyimpan nama zona (bukan polygon/`feePerUnit`), jadi editor coverage `/merchant/coverage` (f28, MER-04) menyimpan di aplikasi saja — tombol simpan ke server menunggu kolom polygon + izin RLS.
 - **`merchants` tak punya kolom `tags`** → grup-per-tag (PRD §6) jatuh ke daftar datar dengan data live. Butuh kolom tag atau tabel `merchant_tags` (OPEN-25).
 - **Tak ada sinyal "blok kuota order"** → aturan sembunyikan (PRD §17) tak berjalan dengan data live. Butuh tabel langganan kuota.
 - `orderCount` (jumlah order) belum ada di BE → sort/filter "jumlah order" menunggu.

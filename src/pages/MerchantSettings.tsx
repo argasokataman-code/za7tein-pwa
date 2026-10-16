@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, RefreshCw, Store, Trash2, Wallet } from 'lucide-react'
+import { Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, MapPinned, RefreshCw, Store, Trash2, Wallet } from 'lucide-react'
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -43,6 +43,7 @@ export default function MerchantSettings() {
   const openTime = useAppSelector((state) => state.merchant.openTime)
   const closeTime = useAppSelector((state) => state.merchant.closeTime)
   const walletBalance = useAppSelector((state) => state.payout.balance)
+  const coverage = useAppSelector((state) => state.coverage)
   const primaryAccount = useAppSelector(
     (state) => state.payout.accounts.find((a) => a.isPrimary) ?? state.payout.accounts[0],
   )
@@ -258,6 +259,23 @@ export default function MerchantSettings() {
               </p>
             </div>
           </div>
+        </section>
+
+        <section className="merchant-card">
+          <div className="merchant-row">
+            <MapPinned size={20} strokeWidth={1.75} aria-hidden="true" />
+            <div>
+              <p className="merchant-card-title">Area layanan</p>
+              <p className="merchant-card-sub">
+                {coverage.mode === 'radius'
+                  ? `Radius ${((coverage.radiusMeters ?? 0) / 1000).toFixed(1)} km`
+                  : `${coverage.polygons.length} area`}
+              </p>
+            </div>
+          </div>
+          <Link className="merchant-btn-ghost merchant-wallet-manage" to="/coverage">
+            Atur area layanan
+          </Link>
         </section>
 
         <section className="merchant-card">

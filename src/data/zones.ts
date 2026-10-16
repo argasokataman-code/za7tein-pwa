@@ -19,8 +19,8 @@ import { MAX_DELIVERY_METERS, haversineMeters, mockMerchant } from './merchant'
  */
 
 /** Meter per derajat, cukup akurat untuk area beberapa kilometer. */
-const M_PER_DEG_LAT = 110574
-const M_PER_DEG_LNG = 111320
+export const M_PER_DEG_LAT = 110574
+export const M_PER_DEG_LNG = 111320
 
 /** Dapur merchant contoh, pusat syarat "≤2 km" (`C-13`). */
 export const MERCHANT_KITCHEN: GeoPoint = { lat: mockMerchant.lat, lng: mockMerchant.lng }
@@ -146,7 +146,7 @@ export interface ZoneView {
 
 /** Pandang yang memuat semua poligon dan titik acuan (dapur + alamat demo). */
 export function zoneView(
-  polygons: ZoneGeometry[],
+  polygons: { vertices: GeoPoint[] }[],
   points: GeoPoint[] = [],
   padding = 1.3,
 ): ZoneView {

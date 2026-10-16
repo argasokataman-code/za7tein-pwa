@@ -215,7 +215,7 @@ export default function Documentation() {
             </p>
             <DocShellCtas />
             <p className="doc-p">
-              Rincian tiap perubahan ada di bagian <strong>Changelog (36)</strong>, dan
+              Rincian tiap perubahan ada di bagian <strong>Changelog (37)</strong>, dan
               tiap topik punya bagiannya sendiri di daftar isi. Sorotan terbaru:
             </p>
             <ul className="doc-list">
@@ -237,6 +237,18 @@ export default function Documentation() {
                 di <code className="doc-inline">/merchant/orders</code> (flow{' '}
                 <code className="doc-inline">f25-batch-lifecycle</code>). Milestone &amp; kriteria
                 penerimaan: <code className="doc-inline">docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md</code>.
+              </li>
+              <li>
+                <strong>Editor coverage merchant</strong> (M4b): Setelan toko &rarr;{' '}
+                <em>Atur area layanan</em> (<code className="doc-inline">/merchant/coverage</code>) &mdash;
+                merchant memilih <strong>mode area</strong> (beberapa polygon ber-fee yang tidak boleh
+                tumpang tindih) atau <strong>mode radius</strong> (&le;2&nbsp;km + fee per satuan
+                meter/km). Kanvas menggambar lat/lng hasil proyeksi seperti kanvas zona SA (tanpa tile
+                peta); aturan murni di <code className="doc-inline">src/data/coverage.ts</code> ditahan{' '}
+                <code className="doc-inline">scripts/coverage-check.mjs</code>. Tulis ke server belum
+                ada (<code className="doc-inline">delivery_config</code> tanpa endpoint tulis), jadi
+                perubahan hidup di aplikasi dan ditandai lewat notice. Flow{' '}
+                <code className="doc-inline">f28-coverage-editor</code>.
               </li>
               <li>
                 <strong>Keranjang ganda per toko</strong> (M1c): menambah menu dari toko berbeda

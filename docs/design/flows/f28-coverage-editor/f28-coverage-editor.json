@@ -1,0 +1,225 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F28 — Editor Coverage Merchant (Area vs Radius)",
+    "quality_profile": "showcase",
+    "reader_width": "unbounded"
+  },
+  "lanes": [
+    {
+      "id": "merchant",
+      "label": "Merchant — Setelan toko"
+    },
+    {
+      "id": "editor",
+      "label": "Editor coverage"
+    },
+    {
+      "id": "gate",
+      "label": "Gate checkout (customer)"
+    }
+  ],
+  "phases": [
+    {
+      "id": "buka",
+      "label": "Buka editor",
+      "fromCol": 0,
+      "toCol": 1,
+      "variant": "emphasis"
+    },
+    {
+      "id": "susun",
+      "label": "Susun bentuk",
+      "fromCol": 2,
+      "toCol": 4
+    },
+    {
+      "id": "pakai",
+      "label": "Dipakai gate",
+      "fromCol": 5,
+      "toCol": 6
+    }
+  ],
+  "mainPath": [
+    "buka",
+    "pilih_mode",
+    "gambar_area",
+    "fee_area",
+    "validasi",
+    "simpan",
+    "gate"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "buka"
+    ],
+    "allowedTerminals": [
+      "gate",
+      "radius_branch"
+    ],
+    "requiredEdges": [
+      { "from": "buka", "to": "pilih_mode" },
+      { "from": "pilih_mode", "to": "gambar_area" },
+      { "from": "gambar_area", "to": "fee_area" },
+      { "from": "fee_area", "to": "validasi" },
+      { "from": "validasi", "to": "simpan" },
+      { "from": "simpan", "to": "gate" }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "buka",
+      "lane": "merchant",
+      "col": 0,
+      "type": "frontend",
+      "label": "Buka Area layanan",
+      "sublabel": "Setelan → Atur area",
+      "width": 144
+    },
+    {
+      "id": "pilih_mode",
+      "lane": "editor",
+      "col": 1,
+      "type": "frontend",
+      "label": "Pilih mode",
+      "sublabel": "area atau radius",
+      "width": 118
+    },
+    {
+      "id": "gambar_area",
+      "lane": "editor",
+      "col": 2,
+      "type": "frontend",
+      "label": "Gambar polygon",
+      "sublabel": "≥3 titik, geser vertex",
+      "width": 140
+    },
+    {
+      "id": "radius_branch",
+      "lane": "merchant",
+      "col": 7,
+      "type": "security",
+      "label": "Radius + fee/satuan",
+      "sublabel": "meter / km",
+      "width": 134
+    },
+    {
+      "id": "fee_area",
+      "lane": "editor",
+      "col": 3,
+      "type": "frontend",
+      "label": "Fee per area",
+      "sublabel": "JOD, melekat polygon",
+      "width": 138
+    },
+    {
+      "id": "validasi",
+      "lane": "editor",
+      "col": 4,
+      "type": "backend",
+      "label": "Validasi bentuk",
+      "sublabel": "non-overlap · ≤2 km",
+      "width": 138
+    },
+    {
+      "id": "simpan",
+      "lane": "merchant",
+      "col": 5,
+      "type": "backend",
+      "label": "Simpan di aplikasi",
+      "sublabel": "BE tulis belum ada",
+      "width": 140
+    },
+    {
+      "id": "gate",
+      "lane": "gate",
+      "col": 6,
+      "type": "backend",
+      "label": "Gate checkout",
+      "sublabel": "di luar → tak bisa dipilih",
+      "width": 150
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-buka",
+      "from": "buka",
+      "to": "pilih_mode",
+      "label": "buka editor",
+      "role": "main"
+    },
+    {
+      "id": "e-area",
+      "from": "pilih_mode",
+      "to": "gambar_area",
+      "label": "mode area",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-radius",
+      "from": "pilih_mode",
+      "to": "radius_branch",
+      "label": "mode radius",
+      "role": "branch"
+    },
+    {
+      "id": "e-fee",
+      "from": "gambar_area",
+      "to": "fee_area",
+      "label": "bentuk tetap",
+      "role": "main"
+    },
+    {
+      "id": "e-valid",
+      "from": "fee_area",
+      "to": "validasi",
+      "label": "fee diisi",
+      "role": "main"
+    },
+    {
+      "id": "e-simpan",
+      "from": "validasi",
+      "to": "simpan",
+      "label": "bentuk sah",
+      "role": "main"
+    },
+    {
+      "id": "e-gate",
+      "from": "simpan",
+      "to": "gate",
+      "label": "coverage dipakai",
+      "role": "main"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Mode area — polygon ber-fee",
+      "items": [
+        "Beberapa polygon, tiap polygon punya fee sendiri (MER-04 / §9.1)",
+        "Polygon **tidak boleh tumpang tindih**; sisinya juga tak boleh bersilangan sendiri",
+        "Minimal 3 titik per area; vertex digeser di kanvas hasil proyeksi lat/lng"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Mode radius — fee per satuan",
+      "items": [
+        "Satu lingkaran dari dapur, radius maksimum 2 km (C-13 → `MAX_DELIVERY_METERS`)",
+        "Fee proporsional jarak, satuan meter atau km; produksi memakai rute jalan kaki (WALK)",
+        "Di repo ini jarak = garis lurus (Haversine sama dengan gate checkout), tanpa pembulatan satuan"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "PRD §9.1 (MER-04) + §11 — sa7tein-mvp-2026-10-11 · C-13 (≤2 km) — analysis.md",
+        "Milestone M4 — milestones.md · model `MerchantCoverage` — src/types.ts:1306 · logika — src/data/coverage.ts",
+        "`merchants.delivery_config` dibaca BE tapi **tak ada endpoint tulis** → simpan = state aplikasi saja (ui-impact.md §8)"
+      ]
+    }
+  ]
+}
