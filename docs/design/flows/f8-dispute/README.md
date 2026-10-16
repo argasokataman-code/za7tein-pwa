@@ -2,6 +2,8 @@
 
 Workflow dispute = antrian kerja panel admin (CS), bukan portal sengketa. Milestone **M6** (deps M0, M4, M5); PRD aktif `irbid-mvp-v2-2026-09-21`. **Sudah di-develop (basis UI)**: form "Ajukan Sengketa" di sisi customer (`/customer/dispute`) dan merchant (`/merchant/dispute`) + queue resolusi di `/admin/disputes` — lihat `docs/plan-admin.md`.
 
+> Catatan 2026-10-17 (R-DISPUTE-RULE, M9a). Antrian di flow ini menyelesaikan sengketa **satu per satu** oleh CS; §18 meminta lapisan di bawahnya — rule yang dibuat ops, dipilih merchant lewat multi-select, dan diikuti customer serta kurir pada order yang sama. Mesinnya sudah ada di `src/data/rules.ts` (katalog + `ruleForOrder()`/`compensationForRule()`/`punishmentForRule()`/`snapshotRule()`, ditahan `scripts/rule-check.mjs`), dan pilihannya di `/merchant/settings` seksi "Rule sengketa". Yang **belum** tersambung ke flow ini: putusan CS belum menunjuk rule yang diterapkan (field `ruleId`/`decision`/`decidedBy` sudah ada di tipe `Incident`, tapi antrian f8 masih menulis putusan pada `Dispute`), bukti gambar masih di sisi layar saja (R2 belum ada), dan eksekusi kompensasi → ledger belum ada.
+
 | Berkas | Isi |
 |---|---|
 | `f8-dispute.json` | Spec archify (workflow v2) — sumber yang diedit |

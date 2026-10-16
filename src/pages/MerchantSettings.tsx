@@ -16,6 +16,13 @@ import { useAppUpdate } from '../hooks/useAppUpdate'
 import { useMoney } from '../hooks/useMoney'
 import { APP_VERSION } from '../data/appInfo'
 import { MAX_MERCHANT_TAGS, MERCHANT_TAG_OPTIONS, mockMerchant } from '../data/merchant'
+import {
+  DISPUTE_RULES,
+  INCIDENT_CATEGORIES,
+  compensationForRule,
+  punishmentForRule,
+  rulesForMerchant,
+} from '../data/rules'
 import { imageFileError } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import { logout } from '../store/slices/authSlice'
@@ -25,8 +32,13 @@ import {
   setMerchantTags,
   setStoreProfile,
 } from '../store/slices/merchantSlice'
+import { toggleRule } from '../store/slices/rulesSlice'
 
 const TIER_LABEL: Record<string, string> = { free: 'Gratis', pro: 'Pro' }
+
+function categoryLabel(categoryId: string): string {
+  return INCIDENT_CATEGORIES.find((category) => category.id === categoryId)?.label ?? categoryId
+}
 
 export default function MerchantSettings() {
   const { money } = useMoney()
@@ -46,6 +58,8 @@ export default function MerchantSettings() {
   const tags = useAppSelector((state) => state.merchant.tags)
   const walletBalance = useAppSelector((state) => state.payout.balance)
   const coverage = useAppSelector((state) => state.coverage)
+  const ruleSelection = useAppSelector((state) => state.rules.selection)
+  const selectedRules = rulesForMerchant(ruleSelection)
   const primaryAccount = useAppSelector(
     (state) => state.payout.accounts.find((a) => a.isPrimary) ?? state.payout.accounts[0],
   )
@@ -291,6 +305,64 @@ export default function MerchantSettings() {
               )
             })}
           </div>
+        </section>
+
+        <section className="merchant-card">
+          <p className="merchant-card-title">Rule sengketa</p>
+          <p className="merchant-card-sub">
+            Pilih rule yang diikuti toko ({selectedRules.length}/{DISPUTE_RULES.length}). Menurut §18
+            pelanggan dan kurir pada order tokomu mengikuti rule yang sama, jadi pilihan ini berlaku
+            untuk ketiganya. Isi rule dibuat tim ops lewat aplikasi internal; katalog di demo ini
+            contoh bentuknya.
+          </p>
+          <div className="merchant-chip-row">
+            {DISPUTE_RULES.map((rule) => {
+              const active = ruleSelection.ruleIds.includes(rule.id)
+              return (
+                <button
+                  key={rule.id}
+                  type="button"
+                  data-rule-id={rule.id}
+                  className={`merchant-chip${active ? ' is-active' : ''}`}
+                  aria-pressed={active}
+                  onClick={() => dispatch(toggleRule(rule.id))}
+                >
+                  {active ? <Check size={14} strokeWidth={2.5} aria-hidden="true" /> : null}
+                  {rule.name}
+                </button>
+              )
+            })}
+          </div>
+          {selectedRules.length === 0 ? (
+            <p className="merchant-card-sub">
+              Belum ada rule dipilih. Insiden pada order tokomu belum punya rule yang berlaku.
+            </p>
+          ) : (
+            selectedRules.map((rule) => {
+              const compensation = compensationForRule(rule.id)
+              const punishment = punishmentForRule(rule.id)
+              return (
+                <div key={rule.id} className="merchant-row">
+                  <div>
+                    <p className="merchant-card-title">
+                      {rule.code} · {categoryLabel(rule.categoryId)}
+                    </p>
+                    <p className="merchant-card-sub">Mitigasi: {rule.mitigation}</p>
+                    <p className="merchant-card-sub">
+                      {compensation
+                        ? `Kompensasi ke ${compensation.recipient}: ${compensation.form} (${compensation.formula})`
+                        : 'Kompensasi: belum diatur ops'}
+                    </p>
+                    <p className="merchant-card-sub">
+                      {punishment
+                        ? `Punishment ke ${punishment.subject}: ${punishment.form} (${punishment.level})`
+                        : 'Punishment: tidak ada'}
+                    </p>
+                  </div>
+                </div>
+              )
+            })
+          )}
         </section>
 
         <section className="merchant-card">

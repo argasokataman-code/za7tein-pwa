@@ -641,6 +641,20 @@ export default function Documentation() {
                 itu ditulis di form, bukan ditutupi bintang kosong).
               </li>
               <li>
+                <strong>Rule sengketa: mesin §18 + pilihan merchant (M9a, R-DISPUTE-RULE).</strong>{' '}
+                PRD memisahkan <strong>model</strong> rule dari <strong>isinya</strong> (&ldquo;dibuat dan
+                dikelola ops&rdquo;), jadi yang dibangun mesinnya: katalog di{' '}
+                <code className="doc-inline">src/data/rules.ts</code> (5 kategori insiden, 7 rule,
+                kompensasi &amp; punishment sebagai bagian rule), pilihan <strong>multi-select</strong>{' '}
+                toko di <code className="doc-inline">/merchant/settings</code> seksi &ldquo;Rule
+                sengketa&rdquo;, dan <code className="doc-inline">ruleForOrder()</code> yang menentukan
+                rule berlaku pada satu order beserta konsekuensinya, bagi toko, pelanggan, dan kurir
+                sekaligus karena §18 menulis ketiganya mengikuti rule yang sama. Bila toko belum memilih
+                rule untuk sebuah kategori, hasilnya ditandai <strong>OPEN-18</strong>: rule dasar tidak
+                dikarang. Snapshot rule ke order (Usulan §18) sudah punya bentuknya, belum disimpan BE.
+                Sekalian dibereskan: seed rule lama menunjuk id yang tidak pernah ada di katalog.
+              </li>
+              <li>
                 <strong>Kolom klien tahan refetch (BUG-88046).</strong>{' '}
                 <code className="doc-inline">mergeOrders</code> dulu mengganti seluruh antrean
                 dengan baris BE. Tiga kolom hanya hidup di klien (

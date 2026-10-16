@@ -2,9 +2,7 @@ import type {
   Batch,
   CourierAssignment,
   CourierPartner,
-  Incident,
   MerchantCoverage,
-  MerchantRuleSelection,
   OrderSettlement,
   PriceBreakdown,
   QuotaPackage,
@@ -242,30 +240,8 @@ export const mockCoverage: MerchantCoverage = {
   unit: 'km',
 }
 
-// — Rule dispute —
-
-export const mockRuleSelections: MerchantRuleSelection[] = [
-  {
-    merchantId: 'merchant-1',
-    ruleIds: ['rule-late-1'],
-    effectiveFrom: '2026-10-01',
-  },
-]
-
-export const mockIncidents: Incident[] = [
-  {
-    id: 'incident-1',
-    orderId: 'ord-9',
-    reporter: 'customer',
-    reporterId: 'cus-1',
-    categoryId: 'cat-late',
-    description: 'Pesanan tiba lebih dari 20 menit dari estimasi.',
-    photoCount: 0,
-    status: 'investigating',
-    ruleId: 'rule-late-1',
-    filedAt: '2026-10-15T07:35:00.000Z',
-  },
-]
+// — Rule dispute & insiden pindah ke `src/data/rules.ts` (id-nya dulu menggantung
+//   ke `rule-late-1` / `cat-late` yang tidak pernah ada di katalog) —
 
 // ── Uang: rincian harga & settlement (§16.2–§16.4) ──────────────────────────
 // Fungsi murni, JOD. Layar tinggal menampilkan hasilnya — tidak menghitung ulang
