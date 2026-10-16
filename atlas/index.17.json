@@ -3652,6 +3652,34 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md"
+    },
+    {
+      "id": "TASK-88108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "20:18:59",
+      "tags": [
+        "prd",
+        "features",
+        "m5",
+        "m6"
+      ],
+      "summary": "Definisi fitur M5+M6 (R-BATCH, R-COU-INHOUSE, R-COU-PARTNER, R-COU-DISPATCH) + koreksi klaim R-AUTOSORT setelah verifikasi kode",
+      "conn": [
+        {
+          "id": "DEC-88107",
+          "type": "relates",
+          "raw": "DEC-88107:relates"
+        },
+        {
+          "id": "DEC-88105",
+          "type": "relates",
+          "raw": "DEC-88105:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-AUTOSORT.md:1",
+      "commit": "4ae6fe7"
     }
   ]
 }
