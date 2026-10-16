@@ -411,6 +411,10 @@ export default function Documentation() {
                 <code className="doc-inline">/merchant/couriers</code>, mati saat kuota penuh), dan
                 rekening (<code className="doc-inline">/merchant/payout-accounts</code>) — menggantikan
                 pil selebar kartu <code className="doc-inline">.merchant-add-btn</code> yang dihapus.
+                Halaman anak merchant selalu menyediakan tombol kembali;{' '}
+                <code className="doc-inline">/merchant/reviews</code> sempat jadi satu-satunya yang
+                tak punya (layar buntu) dan kini memakai{' '}
+                <code className="doc-inline">back=&quot;/&quot;</code>.
               </li>
               <li>
                 <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan

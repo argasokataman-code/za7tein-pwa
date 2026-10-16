@@ -147,7 +147,7 @@ export default function MerchantReviews() {
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Kualitas menu" title="Ulasan" />
+        <MerchantPageHeader eyebrow="Kualitas menu" title="Ulasan" back="/" />
 
         <section className="merchant-card merchant-review-summary">
           <div className="merchant-review-score">

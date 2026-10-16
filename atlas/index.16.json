@@ -4654,6 +4654,84 @@
           "raw": "DEC-88050:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-102042",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:38:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantReviews.tsx (+1/-1) — edit via tool: tsx: <MerchantPageHeader eyebrow=\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantReviews.tsx"
+    },
+    {
+      "id": "TASK-102043",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:38:27",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102044",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:39:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-2) — edit via tool: tsx: pil selebar kartu <code classNa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-102015",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "07:39:09",
+      "tags": [
+        "ui",
+        "merchant",
+        "nav"
+      ],
+      "summary": "/merchant/reviews layar buntu: MerchantPageHeader tanpa back (bukan root nav); fix back=/",
+      "conn": [
+        {
+          "id": "DEC-88050",
+          "type": "relates",
+          "raw": "DEC-88050:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantReviews.tsx:150"
     }
   ]
 }
