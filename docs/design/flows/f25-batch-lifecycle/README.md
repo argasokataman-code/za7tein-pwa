@@ -1,43 +1,57 @@
-# F25 — Siklus Batch Kurir Inhouse (Regular) vs Quick (Partner)
+# F25 — Kurir Inhouse (Regular) vs Kurir Partner (Quick)
 
-Cabang pengantaran order di konsol merchant (PRD aktif `sa7tein-mvp-2026-10-11`). Sumber gambarannya: PRD §7.2/§7.3 (jenis pengantaran), §8 (batch, BR-B01..B13), §11 (konsol merchant) + milestone **M4**.
+Satu titik terima order di konsol merchant, dua jalur pengantaran: **Regular → batch → kurir inhouse** dan **Quick → dispatch → kurir partner**. Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §7.2/§7.3 (jenis pengantaran), §8 (batch, BR-B01..B13), §9.2–§9.7 (fee, auto-sort, dispatch, tracking), §11 (konsol merchant), §12 (COU-06..18), §13 (OPS-13) + milestone **M4/M5/M6**.
 
 | Berkas | Isi |
 |---|---|
+| `f25-batch-lifecycle.milestones.md` | Rencana milestone (sumber kebenaran render, 19 langkah M01–M19) |
 | `f25-batch-lifecycle.json` | Spec archify (workflow v2) — sumber yang diedit |
 | `f25-batch-lifecycle.html` | Artefak jadi (deliver) |
-| `f25-batch-lifecycle.visual-check.*` | Bukti visual-check |
+| `f25-batch-lifecycle.visual-check.*` | Bukti visual-check (gitignored) |
 
 ## Alur
 
-**Regular (batch).** Merchant menerima order → memilih **batch baru** (input estimasi masak 15/25/35) atau **gabung batch berjalan** yang hitung mundurnya masih jalan (BR-B02) → menandai **packing** setiap order → menutup batch **lebih awal** (BR-B08) → meng-**assign satu kurir inhouse** (BR-B07) → **menyetujui mulai lebih awal** — hanya bila batch sudah ditutup **dan** semua order packing (BR-B09) → kurir mengantar batch (auto-sort rute, BR-B12) → semua order selesai.
+**Jalur A — kurir inhouse (`Regular`, sudah dibangun, M4 + M5a).**
+Merchant menerima order → memilih **batch baru** (estimasi masak 15/25/35) atau **gabung batch berjalan** yang hitung mundurnya masih jalan (BR-B02) → menandai **packing** tiap order (MER-13) → menutup batch **lebih awal** (BR-B08) → meng-**assign satu kurir inhouse** (BR-B07) → kurir **mulai antar** — hanya bila batch ditutup **dan** semua order packing (BR-B09) → kurir mengatur urutan lewat **auto-sort** (BR-B12/B13) → menyelesaikan order **satu per satu** (checkpoint + OTP) → **fee Regular online masuk DANA kurir** saat selesai → batch tuntas.
 
-**Quick (partner).** Merchant menerima order → mengisi **estimasi prepare** (MER-12), tanpa batch → serah terima ke kurir partner aplikator. **Dispatch partner (§9.4) belum ada**: tombolnya mati + alasan "belum tersedia" sampai M6.
+**Jalur B — kurir partner (`Quick`, M6 belum dibangun).**
+Merchant menerima order → mengisi **estimasi prepare** (MER-12), tanpa batch → aplikator **dispatch** kurir partner (antrian idle terlama + batas jarak) → kurir **approve**, atau **reject ber-alasan** → **pickup** di merchant (COD Quick: kurir menalangi tunai) → **antar satu order** → **100% fee Quick** ke partner. Cabang gagal: tak merespons sampai prepare selesai → **pengganti otomatis + SP + punishment + status off**; tak ada kandidat dalam batas jarak → **Quick tak tersedia**.
 
 ## Aturan keras (jangan dilupakan)
 
 - Batch lahir **hanya** dari order Regular yang di-accept (BR-B01) — tidak ada batch kosong yang di-seed.
 - Maks **24 order** per batch (`MAX_BATCH_ORDERS`, BR-B04); hanya batch `countdown` & belum penuh yang menerima order baru.
-- Kurir **per batch**, bukan per order — alur lama (assign kurir ke tiap order) sudah keluar.
+- Kurir **per batch**, bukan per order — alur lama (assign kurir ke tiap order) sudah keluar. Kurir inhouse menerima assignment **tanpa tolak** (COU-12).
+- Batas mulai lebih awal: `canStartEarly()` = batch `closed` + `batchAllPacked()` (`src/data/batch.ts`); di sisi kurir gerbang yang sama (`canStartBatch`, `src/data/courierBatch.ts`).
+- Auto-sort **wajib** menampilkan peringatan rute **WALK (beta)**; dipicu ulang tiap order masuk; matriks waktu tempuh **tidak boleh disimpan** (cost watch R4).
+- Kurir partner bekerja **satu order per waktu** (COU-15) — Quick tidak pernah masuk batch.
 - COD bukan hold: tidak ada lagi "hold cut" di alur merchant (PRD aktif menggantikan alur COD-hold revisi lama).
-- Batas mulai lebih awal: `canStartEarly()` = batch `closed` + `batchAllPacked()` (`src/data/batch.ts`).
 
 ## Terhubung (lihat `../INDEX.json`)
 
-`f12-merchant-console:terima → f25` (cabang Regular/Quick); `f25:antar → f13-courier-view` (tugas kurir inhouse); `f25:quick_estimasi → f6`/dispatch partner (M6, belum ada).
+`f12-merchant-console:terima → f25:order_masuk` (cabang Regular/Quick); `f25:antar → f13-courier-view` (tugas kurir inhouse); `f25:dispatch|partner_respon|partner_fee` = jalur partner (M6).
 
 ## Sumber (jangan dikarang)
 
-- PRD `sa7tein-mvp-2026-10-11` §7.2/§7.3/§8/§11 — `docs/product/prd/versions/sa7tein-mvp-2026-10-11/`
-- Milestone **M4** — `versions/sa7tein-mvp-2026-10-11/milestones.md` · dampak per layar — `ui-impact.md` (§11, C-01/C-02/C-03)
-- Implementasi: `src/data/batch.ts` (+ self-check `scripts/batch-check.mjs`), `batchSlice`, `src/components/merchant/{BatchPanel,AcceptOrderSheet}.tsx`
-- **Sisi kurir (M5a):** `/courier/batch` + `courierSlice.batch`, aturan murni `src/data/courierBatch.ts` (+ `scripts/courier-batch-check.mjs`). Diagram tidak berubah (auto-sort BR-B12 sudah tergambar). Sisa M5: peta rute.
-- **UNRESOLVED (jangan ditebak):** `orders` BE belum punya kolom jenis pengantaran → demo memakai overlay per kode order (`MOCK_ORDER_DELIVERY_TYPE`), dicatat di `ui-impact.md` §8; batch belum punya tabel di BE.
+- PRD `sa7tein-mvp-2026-10-11` §7.2/§7.3, §8, §9.2–§9.7, §11, §12, §13 — `docs/product/prd/versions/sa7tein-mvp-2026-10-11/` (`analysis.md` baris 34–45)
+- Milestone **M4** (batch merchant), **M5** (kurir inhouse), **M6** (kurir partner + dispatch) — `versions/sa7tein-mvp-2026-10-11/milestones.md` · dampak per layar — `ui-impact.md`
+- Implementasi batch merchant: `src/data/batch.ts` (+ `scripts/batch-check.mjs`), `batchSlice`, `src/components/merchant/{BatchPanel,AcceptOrderSheet}.tsx`
+- Implementasi sisi kurir (M5a): `src/pages/CourierBatch.tsx`, `src/store/slices/courierSlice.ts` (`batch`), aturan murni `src/data/courierBatch.ts` (+ `scripts/courier-batch-check.mjs`)
+- Fee: `src/data/courier.ts` (`deliveryFeeIdr`), `src/data/courierWallet.ts`, `src/data/merchant.ts` (`deliveryFeeFor`)
+
+## UNRESOLVED (jangan ditebak)
+
+- `orders` BE belum punya kolom jenis pengantaran → demo memakai overlay per kode order (`MOCK_ORDER_DELIVERY_TYPE`, `ui-impact.md` §8); **batch belum punya tabel di BE**, dan `orders.courier_id` tetap `null` → assign per batch masih lokal.
+- Fee kurir inhouse belum masuk saldo: `courierWallet` masih **tips-only** (sisa M5) — penerimaan fee pindah dari merchant (C-07) ke kurir.
+- **OTP tidak disebut di alur baru PRD aktif** (`analysis.md` C-11); implementasi masih memakai checkpoint + OTP — jangan dianggap sudah diputuskan.
+- Live tracking (R-TRACK) hanya andal saat app kurir terbuka dan layar menyala; ambang notifikasi "kurir hampir sampai" = config ops (belum ada).
+- Handler **Quick tak tersedia** & **SP/punishment** butuh halaman ops (M6) yang belum dibangun; dispatch masih **usulan** (OPEN-11).
 
 ## Update
 
 ```bash
-./scripts/flows-gate.sh f25-batch-lifecycle   # deliver + visual-check + buang PNG, satu baris output
+ARCHIFY_CHROME="/Applications/Brave Browser.app/Contents/MacOS/Brave Browser" \
+  ./scripts/flows-gate.sh f25-batch-lifecycle   # deliver + visual-check + buang PNG, satu baris output
 ```
 
-Wajib: validate **0 error**, deliver exit 0; visual-check pass di tiap viewport (light + dark).
+Wajib: validate **0 error**, deliver exit 0; visual-check pass di tiap viewport (light + dark). `ARCHIFY_CHROME` perlu diisi karena visual-check mencari Chrome/Chromium; tanpa itu statusnya `skipped` dan gerbang dianggap gagal.

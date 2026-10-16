@@ -106,7 +106,7 @@ const FLOWS = [
   {slug:"f21-account-auth",         title:"Registrasi & Masuk Akun",        type:"workflow", role:"drilldown", ms:"M8",     req:"PRD §Registrasi + PO 2026-09-22", biz:"decided", basis:"PRD :760 + :727 + Google & nomor WA (Level 1)", open:["Google merchant?","sesi/token"]},
   {slug:"f22-super-admin-sa",       title:"Super Admin (website penuh)",    type:"workflow", role:"drilldown", ms:"—",      req:"PO 2026-09-23 + C-12 + R-DISPUTE-01", biz:"partial", basis:"PO 2026-09-23 (SA terpisah, non-PWA) + C-12", open:["tarif pajak","audit trail"]},
   {slug:"f24-cs-problem",           title:"Penanganan masalah order (CS)",  type:"workflow", role:"drilldown", ms:"M6, M8", req:"BRS notif-order-e2e (proposed) + R-NOTIF-02", biz:"proposed", basis:"BRS proposed + R-NOTIF-02/R-DISPUTE-01 + f8", open:["SLA penanganan CS","pemilik alert SLA","ambang tolak berulang"]},
-  {slug:"f25-batch-lifecycle",      title:"Batch inhouse (Regular) vs Quick",type:"workflow", role:"drilldown", ms:"M4", req:"PRD §7.2/§7.3/§8/§11 (sa7tein-mvp-2026-10-11)", biz:"decided", basis:"R-BATCH + C-01 + C-02 + C-03", open:["kolom jenis pengantaran di BE","tabel batch di BE","dispatch kurir partner (M6)"]},
+  {slug:"f25-batch-lifecycle",      title:"Kurir inhouse (Regular) vs kurir partner (Quick)",type:"workflow", role:"drilldown", ms:"M4, M5, M6", req:"PRD §7.2/§7.3, §8, §9.2–§9.7, §11–§13 (sa7tein-mvp-2026-10-11)", biz:"decided", basis:"R-BATCH + R-AUTOSORT + R-COU-INHOUSE + R-COU-PARTNER + R-COU-DISPATCH + R-DELIV-FEE", open:["kolom jenis pengantaran di BE","tabel batch di BE","endpoint assign per batch","kurir partner + dispatch belum dibangun (M6)","OTP tak disebut alur baru (C-11)"]},
   {slug:"f28-coverage-editor",      title:"Editor coverage merchant",       type:"workflow", role:"drilldown", ms:"M4", req:"PRD §9.1/§11 + C-13 (sa7tein-mvp-2026-10-11)", biz:"decided", basis:"R-MER-COVERAGE + MER-04", open:["endpoint tulis delivery_config","fee dari rute WALK","kolom polygon di BE"]}
 ];
 
@@ -178,6 +178,9 @@ const TRACE = [
   ["PRD §5C + I-2 (merchant onboarding)","f16","merchants, deposits, couriers, merchant_credit","I-3, I-5"],
   ["C-01 + DEC-1039 (payment)","f1:checkout, f17","orders, wallet_ledgers, topups","idempotency, webhook retry, VA expiry"],
   ["C-17 (order state)","f1, f18","orders, batches","quotation vs placed"],
+  ["R-BATCH + R-AUTOSORT (batch Regular)","f12:terima, f25, f13","batches, orders, couriers","tabel batch di BE, endpoint assign per batch"],
+  ["R-COU-INHOUSE + R-DELIV-FEE (fee kurir)","f25, f13","batches, couriers, wallet_ledgers","penerima fee pindah dari merchant (C-07) ke kurir"],
+  ["R-COU-PARTNER + R-COU-DISPATCH (Quick)","f25:dispatch|partner_respon|partner_fee","couriers, orders, sp, wallet_ledgers","kurir partner + ops PWA belum ada (M6), OPEN-11"],
   ["R-RATE-01","f18:done, f19","rating_reviews, review_replies","jendela, edit/hapus, tag, batas balasan, moderasi, tip (f6)"],
   ["R-ADDR-01","f16:profil, f20","addresses, merchants, orders","master zona (f15)"],
   ["PRD §Registrasi (Level 1)","f21:method|phone|verify","users, phone_verifications","Google merchant?, sesi/token, verifikasi Level 2"],

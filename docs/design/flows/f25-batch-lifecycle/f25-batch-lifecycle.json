@@ -2,43 +2,60 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "F25 — Siklus Batch Kurir Inhouse (Regular) vs Quick (Partner)",
+    "title": "F25 — Kurir Inhouse (Regular) vs Kurir Partner (Quick)",
     "quality_profile": "showcase",
-    "reader_width": "unbounded"
+    "reader_width": "unbounded",
+    "legend": {
+      "mode": "hidden"
+    }
   },
   "lanes": [
     {
       "id": "merchant",
-      "label": "Merchant — dapur & antrean"
+      "label": "Merchant"
     },
     {
       "id": "batch",
-      "label": "Batch (order Regular)"
+      "label": "Batch Regular"
     },
     {
-      "id": "courier",
-      "label": "Kurir & cabang Quick"
+      "id": "inhouse",
+      "label": "Kurir inhouse"
+    },
+    {
+      "id": "partner",
+      "label": "Kurir partner (M6)"
+    },
+    {
+      "id": "ops",
+      "label": "Ops/aplikator"
     }
   ],
   "phases": [
     {
       "id": "terima",
-      "label": "Terima order",
+      "label": "Terima",
       "fromCol": 0,
       "toCol": 1,
       "variant": "emphasis"
     },
     {
       "id": "susun",
-      "label": "Susun batch",
+      "label": "Siapkan / dispatch",
       "fromCol": 2,
-      "toCol": 5
+      "toCol": 4
     },
     {
       "id": "antar",
       "label": "Antar",
-      "fromCol": 6,
+      "fromCol": 5,
       "toCol": 7
+    },
+    {
+      "id": "tuntas",
+      "label": "Selesai & fee",
+      "fromCol": 8,
+      "toCol": 8
     }
   ],
   "mainPath": [
@@ -48,7 +65,10 @@
     "packing",
     "tutup_awal",
     "assign",
-    "mulai_awal",
+    "mulai_antar",
+    "auto_sort",
+    "antar",
+    "fee_dana",
     "selesai"
   ],
   "semanticChecks": {
@@ -57,7 +77,8 @@
     ],
     "allowedTerminals": [
       "selesai",
-      "quick_branch"
+      "partner_fee",
+      "quick_unavailable"
     ],
     "requiredEdges": [
       {
@@ -67,6 +88,10 @@
       {
         "from": "pilih_jenis",
         "to": "batch"
+      },
+      {
+        "from": "pilih_jenis",
+        "to": "quick_estimasi"
       },
       {
         "from": "batch",
@@ -82,11 +107,59 @@
       },
       {
         "from": "assign",
-        "to": "mulai_awal"
+        "to": "mulai_antar"
       },
       {
-        "from": "mulai_awal",
+        "from": "mulai_antar",
+        "to": "auto_sort"
+      },
+      {
+        "from": "auto_sort",
+        "to": "antar"
+      },
+      {
+        "from": "antar",
+        "to": "fee_dana"
+      },
+      {
+        "from": "fee_dana",
         "to": "selesai"
+      },
+      {
+        "from": "quick_estimasi",
+        "to": "dispatch"
+      },
+      {
+        "from": "dispatch",
+        "to": "partner_respon"
+      },
+      {
+        "from": "partner_respon",
+        "to": "pickup_talangan"
+      },
+      {
+        "from": "pickup_talangan",
+        "to": "antar_single"
+      },
+      {
+        "from": "antar_single",
+        "to": "partner_fee"
+      },
+      {
+        "from": "partner_respon",
+        "to": "dispatch"
+      },
+      {
+        "from": "partner_respon",
+        "to": "sanksi_sp"
+      },
+      {
+        "from": "sanksi_sp",
+        "to": "dispatch"
+      },
+      {
+        "from": "dispatch",
+        "to": "quick_unavailable"
       }
     ]
   },
@@ -97,8 +170,8 @@
       "col": 0,
       "type": "frontend",
       "label": "Order baru",
-      "sublabel": "jumlah bebas",
-      "width": 132
+      "sublabel": "antrean merchant",
+      "width": 112
     },
     {
       "id": "pilih_jenis",
@@ -106,8 +179,8 @@
       "col": 1,
       "type": "frontend",
       "label": "Terima order",
-      "sublabel": "Regular atau Quick",
-      "width": 134
+      "sublabel": "Regular / Quick",
+      "width": 118
     },
     {
       "id": "batch",
@@ -115,63 +188,160 @@
       "col": 2,
       "type": "frontend",
       "label": "Batch Regular",
-      "sublabel": "baru atau gabung",
-      "width": 132
+      "sublabel": "BR-B01..B04",
+      "width": 106
     },
     {
-      "id": "quick_branch",
-      "lane": "courier",
+      "id": "quick_estimasi",
+      "lane": "partner",
       "col": 2,
       "type": "security",
-      "label": "Estimasi prepare",
-      "sublabel": "kurir partner (M6)",
-      "tag": "open",
-      "width": 132
+      "label": "Estimasi",
+      "sublabel": "Quick · M6",
+      "tag": "M6",
+      "width": 108
     },
     {
       "id": "packing",
       "lane": "merchant",
       "col": 3,
       "type": "frontend",
-      "label": "Tandai packing",
+      "label": "Packing",
       "sublabel": "MER-13",
-      "width": 132
+      "width": 96
     },
     {
       "id": "tutup_awal",
       "lane": "batch",
-      "col": 4,
+      "col": 3,
       "type": "frontend",
-      "label": "Tutup awal",
+      "label": "Tutup batch",
       "sublabel": "BR-B08",
-      "width": 118
+      "width": 104
     },
     {
-      "id": "assign",
-      "lane": "courier",
-      "col": 5,
+      "id": "dispatch",
+      "lane": "ops",
+      "col": 3,
       "type": "backend",
-      "label": "Assign 1 kurir",
-      "sublabel": "per batch (BR-B07)",
-      "width": 132
-    },
-    {
-      "id": "mulai_awal",
-      "lane": "courier",
-      "col": 6,
-      "type": "backend",
-      "label": "Mulai lebih awal",
-      "sublabel": "BR-B09",
+      "label": "Dispatch",
+      "sublabel": "COU-DISPATCH",
+      "tag": "M6",
       "width": 124
     },
     {
-      "id": "selesai",
-      "lane": "merchant",
+      "id": "assign",
+      "lane": "inhouse",
+      "col": 4,
+      "type": "backend",
+      "label": "Assign kurir",
+      "sublabel": "BR-B07",
+      "width": 112
+    },
+    {
+      "id": "partner_respon",
+      "lane": "partner",
+      "col": 4,
+      "type": "security",
+      "label": "Approve/reject",
+      "sublabel": "COU-16 · M6",
+      "tag": "M6",
+      "width": 124
+    },
+    {
+      "id": "quick_unavailable",
+      "lane": "ops",
+      "col": 4,
+      "type": "backend",
+      "label": "Quick n/a",
+      "sublabel": "OPEN-11",
+      "tag": "OPEN-11",
+      "width": 108
+    },
+    {
+      "id": "mulai_antar",
+      "lane": "inhouse",
+      "col": 5,
+      "type": "backend",
+      "label": "Mulai antar",
+      "sublabel": "BR-B09",
+      "width": 112
+    },
+    {
+      "id": "pickup_talangan",
+      "lane": "partner",
+      "col": 5,
+      "type": "security",
+      "label": "Pickup COD",
+      "sublabel": "talangi · M6",
+      "tag": "M6",
+      "width": 112
+    },
+    {
+      "id": "auto_sort",
+      "lane": "inhouse",
+      "col": 6,
+      "type": "frontend",
+      "label": "Auto-sort",
+      "sublabel": "BR-B12 · WALK",
+      "width": 118
+    },
+    {
+      "id": "antar_single",
+      "lane": "partner",
+      "col": 6,
+      "type": "security",
+      "label": "Antar 1 order",
+      "sublabel": "per waktu · M6",
+      "tag": "M6",
+      "width": 118
+    },
+    {
+      "id": "sanksi_sp",
+      "lane": "ops",
+      "col": 6,
+      "type": "security",
+      "label": "SP + pengganti",
+      "sublabel": "COU-16 · M6",
+      "tag": "M6",
+      "width": 124
+    },
+    {
+      "id": "antar",
+      "lane": "inhouse",
       "col": 7,
       "type": "backend",
-      "label": "Selesai",
-      "sublabel": "batch tuntas",
-      "width": 130
+      "label": "Antar 1 per 1",
+      "sublabel": "checkpoint + OTP",
+      "width": 124
+    },
+    {
+      "id": "partner_fee",
+      "lane": "partner",
+      "col": 7,
+      "type": "security",
+      "label": "Fee 100%",
+      "sublabel": "ke partner · M6",
+      "tag": "M6",
+      "width": 112
+    },
+    {
+      "id": "fee_dana",
+      "lane": "inhouse",
+      "col": 8,
+      "type": "backend",
+      "label": "Fee → DANA",
+      "sublabel": "R-DELIV-FEE",
+      "width": 112
+    },
+    {
+      "id": "selesai",
+      "lane": "batch",
+      "col": 8,
+      "type": "backend",
+      "label": "Batch tuntas",
+      "sublabel": "semua order",
+      "width": 118
     }
   ],
   "edges": [
@@ -186,7 +356,7 @@
       "id": "e-regular",
       "from": "pilih_jenis",
       "to": "batch",
-      "label": "Regular → batch",
+      "label": "Regular",
       "role": "main",
       "variant": "emphasis"
     },
@@ -194,7 +364,7 @@
       "id": "e-pack",
       "from": "batch",
       "to": "packing",
-      "label": "order masuk batch",
+      "label": "ke batch",
       "role": "main"
     },
     {
@@ -212,53 +382,128 @@
       "role": "main"
     },
     {
-      "id": "e-early",
+      "id": "e-batchassigned",
       "from": "assign",
-      "to": "mulai_awal",
-      "label": "kurir dipilih",
+      "to": "mulai_antar",
+      "label": "batch_assigned",
       "role": "main"
     },
     {
-      "id": "e-done",
-      "from": "mulai_awal",
+      "id": "e-early",
+      "from": "mulai_antar",
+      "to": "auto_sort",
+      "label": "mulai lebih awal",
+      "role": "main"
+    },
+    {
+      "id": "e-sort",
+      "from": "auto_sort",
+      "to": "antar",
+      "label": "auto-sort ON/OFF",
+      "role": "main"
+    },
+    {
+      "id": "e-complete",
+      "from": "antar",
+      "to": "fee_dana",
+      "label": "OTP + fee",
+      "role": "main"
+    },
+    {
+      "id": "e-fee",
+      "from": "fee_dana",
       "to": "selesai",
-      "label": "batch diantar",
+      "label": "fee → DANA",
       "role": "main"
     },
     {
       "id": "e-quick",
       "from": "pilih_jenis",
-      "to": "quick_branch",
-      "label": "Quick → partner",
+      "to": "quick_estimasi",
+      "label": "Quick",
+      "role": "branch"
+    },
+    {
+      "id": "e-prepare",
+      "from": "quick_estimasi",
+      "to": "dispatch",
+      "label": "prepare siap",
+      "role": "main"
+    },
+    {
+      "id": "e-dispatch",
+      "from": "dispatch",
+      "to": "partner_respon",
+      "label": "assignment_sent",
+      "role": "main"
+    },
+    {
+      "id": "e-approve",
+      "from": "partner_respon",
+      "to": "pickup_talangan",
+      "label": "approved",
+      "role": "main"
+    },
+    {
+      "id": "e-pickup",
+      "from": "pickup_talangan",
+      "to": "antar_single",
+      "label": "kurir_picked_up",
+      "role": "main"
+    },
+    {
+      "id": "e-single",
+      "from": "antar_single",
+      "to": "partner_fee",
+      "label": "fee Quick 100%",
+      "role": "main"
+    },
+    {
+      "id": "e-reject",
+      "from": "partner_respon",
+      "to": "dispatch",
+      "label": "reject ber-alasan",
+      "role": "return"
+    },
+    {
+      "id": "e-noresp",
+      "from": "partner_respon",
+      "to": "sanksi_sp",
+      "label": "tanpa respons",
+      "role": "error"
+    },
+    {
+      "id": "e-substitute",
+      "from": "sanksi_sp",
+      "to": "dispatch",
+      "label": "cari pengganti",
+      "role": "return"
+    },
+    {
+      "id": "e-nocand",
+      "from": "dispatch",
+      "to": "quick_unavailable",
+      "label": "tak ada kandidat",
       "role": "branch"
     }
   ],
   "cards": [
     {
       "dot": "orange",
-      "title": "Batch — wadah order Regular",
+      "title": "Jalur A — kurir inhouse (Regular, terpasang)",
       "items": [
-        "Batch lahir dari order Regular yang di-accept (BR-B01) — tak ada batch kosong",
-        "Maks 24 order (BR-B04) · order baru hanya selama hitung mundur (BR-B02)",
-        "Satu kurir inhouse per batch (BR-B07) — dipilih per batch, bukan per order"
+        "Batch hanya dari order Regular yang di-accept (BR-B01); maks 24 order (BR-B04)",
+        "Assign wajib 1 kurir inhouse per batch (BR-B07); kurir menerima tanpa tolak (COU-12)",
+        "Auto-sort ON = waktu tercepat, mulai merchant, akhir di order terakhir (BR-B12/B13); wajib peringatan rute WALK (beta)"
       ]
     },
     {
-      "dot": "amber",
-      "title": "Quick = kurir partner",
+      "dot": "violet",
+      "title": "Jalur B — kurir partner (Quick, M6 belum ada)",
       "items": [
-        "Order Quick tidak masuk batch — cukup estimasi prepare (MER-12)",
-        "Dispatch kurir partner (§9.4) belum ada: tombol serah-terima mati (M6)",
-        "COD bukan hold pada PRD aktif — tak ada lagi 'hold cut' di alur merchant"
-      ]
-    },
-    {
-      "dot": "slate",
-      "title": "Sumber & UNRESOLVED",
-      "items": [
-        "PRD §7.2/§7.3 (jenis pengantaran), §8 (batch), §11 (konsol merchant) — sa7tein-mvp-2026-10-11",
-        "Milestone M4 — milestones.md · C-01, C-02, C-03 — analysis.md",
-        "Kolom jenis pengantaran di `orders` BE belum ada → overlay demo (ui-impact.md §8); batch belum punya tabel di BE"
+        "Satu order per waktu; status offline / available / ter-reserve / busy (COU-15)",
+        "Approve atau reject ber-alasan; tanpa respons sampai prepare selesai → pengganti + SP + punishment + off (COU-16)",
+        "100% fee Quick ke partner; Quick COD ditanggung dulu kurir (COU-17/18); dispatch usulan OPEN-11"
       ]
     }
   ]
