@@ -14,16 +14,30 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
 import { imageFileError } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
-import { addMenuItem, removeMenuItem, setStock, toggleAvailable, updateMenuItem } from '../store/slices/catalogSlice'
+import {
+  addCategory,
+  addMenuItem,
+  removeCategory,
+  removeMenuItem,
+  selectCategories,
+  setStock,
+  toggleAvailable,
+  updateMenuItem,
+} from '../store/slices/catalogSlice'
 import type { MenuItem } from '../types'
 
 const EMPTY_FORM: MerchantMenuItemFormData = { name: '', price: 0, category: '', stock: 0 }
 const FALLBACK_IMAGE = '/assets/img/menu-details/menu-details-thumb.png'
 
+/* Ikon kategori TIDAK disimpan di state (tak bisa lewat JSON persist); dipetakan
+   dari modul berdasarkan id. Kategori buatan merchant belum tentu punya ikon. */
+const CATEGORY_ICON = new Map(CATEGORIES.map((c) => [c.id, c.icon]))
+
 export default function MerchantMenu() {
   const { money } = useMoney()
   const dispatch = useAppDispatch()
   const { items } = useCatalog()
+  const categories = useAppSelector(selectCategories)
   const isActive = useAppSelector((state) => state.merchant.isActive)
   const storeName = useAppSelector((state) => state.merchant.storeName)
 
@@ -39,10 +53,10 @@ export default function MerchantMenu() {
   )
   /* Daftar dikelompokkan per kategori (mock CATEGORIES), urutannya tetap;
      grup yang kosong setelah filter stok disembunyikan. */
-  const menuGroups = CATEGORIES
-    .map((category) => ({
-      category,
-      items: visibleItems.filter((item) => item.category === category.id),
+  const menuGroups = categories
+    .map((c) => ({
+      category: c,
+      items: visibleItems.filter((item) => item.category === c.id),
     }))
     .filter((group) => group.items.length > 0)
 
@@ -76,7 +90,13 @@ export default function MerchantMenu() {
   const [sheetMode, setSheetMode] = useState<'add' | 'edit' | null>(null)
   const [editing, setEditing] = useState<MenuItem | null>(null)
   const [formImage, setFormImage] = useState<string | null>(null)
+  /* Opsi catatan per menu (MER-05): `true` = pelanggan boleh menulis catatan. */
+  const [formNote, setFormNote] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+
+  /* ── kelola kategori (MER-06) ── */
+  const [categorySheet, setCategorySheet] = useState(false)
+  const [newCategory, setNewCategory] = useState('')
 
   const {
     register,
@@ -92,6 +112,7 @@ export default function MerchantMenu() {
   const openAdd = () => {
     reset(EMPTY_FORM)
     setFormImage(null)
+    setFormNote(true)
     setEditing(null)
     setSheetMode('add')
     setOverflowId(null)
@@ -106,6 +127,7 @@ export default function MerchantMenu() {
       description: item.description ?? '',
     })
     setFormImage(item.image)
+    setFormNote(item.noteEnabled !== false)
     setEditing(item)
     setSheetMode('edit')
   }
@@ -126,6 +148,7 @@ export default function MerchantMenu() {
         stock: data.stock,
         image: formImage || editing.image,
         description: data.description ?? editing.description,
+        noteEnabled: formNote,
       }))
     } else {
       dispatch(addMenuItem({
@@ -136,6 +159,7 @@ export default function MerchantMenu() {
         stock: data.stock,
         image: formImage || FALLBACK_IMAGE,
         description: data.description ?? '',
+        noteEnabled: formNote,
         rating: 5,
         reviewCount: 0,
         deliveryTime: '20-30 menit',
@@ -144,6 +168,31 @@ export default function MerchantMenu() {
       }))
     }
     closeSheet()
+  }
+
+  /* ── kelola kategori (MER-06) ── */
+  const submitCategory = () => {
+    const label = newCategory.trim()
+    if (label.length < 2) {
+      toast.error('Nama kategori minimal 2 karakter')
+      return
+    }
+    if (categories.some((c) => c.id === label)) {
+      toast.error('Kategori itu sudah ada')
+      return
+    }
+    dispatch(addCategory({ id: label, label }))
+    setNewCategory('')
+    toast.success(`Kategori ${label} ditambahkan`)
+  }
+
+  const deleteCategory = (id: string) => {
+    const used = items.filter((item) => item.category === id).length
+    if (used > 0) {
+      toast.error(`Masih ada ${used} item di kategori ini`)
+      return
+    }
+    dispatch(removeCategory(id))
   }
 
   const handleImagePick = () => {
@@ -221,8 +270,8 @@ export default function MerchantMenu() {
               <LayoutGrid size={15} strokeWidth={1.75} aria-hidden="true" />
               Semua
             </button>
-            {CATEGORIES.map((c) => {
-              const Icon = c.icon
+            {categories.map((c) => {
+              const Icon = CATEGORY_ICON.get(c.id)
               return (
                 <button
                   key={c.id}
@@ -240,6 +289,14 @@ export default function MerchantMenu() {
                 </button>
               )
             })}
+            <button
+              type="button"
+              className="merchant-chip merchant-chip--action"
+              onClick={() => setCategorySheet(true)}
+            >
+              <Plus size={15} strokeWidth={1.75} aria-hidden="true" />
+              Kategori
+            </button>
           </div>
           <div className="merchant-menu-stockfilter" role="group" aria-label="Filter status stok">
             <button type="button" aria-pressed={stockFilter === 'all'} className={stockFilter === 'all' ? 'is-active' : ''} onClick={() => setStockFilter('all')}>
@@ -258,7 +315,7 @@ export default function MerchantMenu() {
           <p className="merchant-menu-empty">Belum ada item dalam kategori ini.</p>
         )}
         {menuGroups.map((group) => {
-          const GroupIcon = group.category.icon
+          const GroupIcon = CATEGORY_ICON.get(group.category.id)
           return (
             <section
               key={group.category.id}
@@ -407,8 +464,8 @@ export default function MerchantMenu() {
               control={control}
               render={({ field }) => (
                 <div className="merchant-chip-row" role="radiogroup" aria-label="Kategori">
-                  {CATEGORIES.map((c) => {
-                    const Icon = c.icon
+                  {categories.map((c) => {
+                    const Icon = CATEGORY_ICON.get(c.id)
                     return (
                       <button
                         key={c.id}
@@ -447,6 +504,25 @@ export default function MerchantMenu() {
                 </div>
               )}
             />
+          </div>
+          <div className="form-group">
+            <span className="form-label">Catatan pelanggan</span>
+            <label className="merchant-row">
+              <span>Izinkan catatan khusus per item</span>
+              <span className="toggle-wrap">
+                <input
+                  className="toggle-input"
+                  type="checkbox"
+                  checked={formNote}
+                  onChange={(e) => setFormNote(e.target.checked)}
+                />
+                <span className="toggle-slider" />
+              </span>
+            </label>
+            <p className="merchant-card-sub">
+              Saat menyala, pelanggan boleh menulis catatan di halaman item (contoh: “sambal
+              dipisah”). Saat mati, kolom catatan tidak muncul.
+            </p>
           </div>
           <div className="form-group">
             <label htmlFor="merchant-item-description" className="form-label">Deskripsi</label>
@@ -495,6 +571,50 @@ export default function MerchantMenu() {
         }}
         onClose={() => setHideTarget(null)}
       />
+
+      {/* ── kelola kategori (MER-06) ── */}
+      <BottomSheet open={categorySheet} title="Kategori menu" onClose={() => setCategorySheet(false)}>
+        <p className="merchant-card-sub">
+          Kategori mengelompokkan menu di halaman ini dan di menu pelanggan. Kategori yang masih
+          berisi item tidak bisa dihapus — pindahkan itemnya dulu.
+        </p>
+        <div className="merchant-list">
+          {categories.map((c) => {
+            const used = items.filter((item) => item.category === c.id).length
+            return (
+              <div key={c.id} className="merchant-row">
+                <div>
+                  <p className="merchant-card-title">{c.label}</p>
+                  <p className="merchant-card-sub">{used} item</p>
+                </div>
+                <button
+                  type="button"
+                  className="merchant-btn-ghost"
+                  disabled={used > 0 || categories.length <= 1}
+                  onClick={() => deleteCategory(c.id)}
+                >
+                  <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" /> Hapus
+                </button>
+              </div>
+            )
+          })}
+        </div>
+        <div className="form-group">
+          <label htmlFor="new-category" className="form-label">Kategori baru</label>
+          <input
+            id="new-category"
+            className="form-control"
+            value={newCategory}
+            onChange={(e) => setNewCategory(e.target.value)}
+            placeholder="Contoh: Gorengan"
+          />
+        </div>
+        <div className="sheet-actions">
+          <button type="button" className="btn btn-primary" onClick={submitCategory}>
+            Tambah kategori
+          </button>
+        </div>
+      </BottomSheet>
     </div>
   )
 }

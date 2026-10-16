@@ -251,6 +251,17 @@ export default function Documentation() {
                 <code className="doc-inline">f28-coverage-editor</code>.
               </li>
               <li>
+                <strong>Kategori &amp; catatan menu</strong> (M4c, MER-05/MER-06): di{' '}
+                <code className="doc-inline">/merchant/menu</code> kategori menu tidak lagi dipaku di
+                modul &mdash; merchant menambah/menghapus kategori lewat tombol <em>Kategori</em>, dan
+                item dikelompokkan per kategori. Form item punya <strong>toggle catatan per menu</strong>{' '}
+                (MER-05): kolom catatan pelanggan di halaman item hanya muncul bila menyala. Kategori
+                hidup di state <code className="doc-inline">catalog.categories</code> (ikon dipetakan
+                dari modul, bukan state, karena komponen lucide tak selamat dari JSON persist) dan
+                migrasi persist <strong>v8</strong> membuang <code className="doc-inline">catalog</code>{' '}
+                lama. Model attribute/variant Odoo (MER-07/MER-08) menyusul.
+              </li>
+              <li>
                 <strong>Keranjang ganda per toko</strong> (M1c): menambah menu dari toko berbeda
                 tidak lagi menimpa keranjang sebelumnya — keranjang toko lain disimpan di{' '}
                 <code className="doc-inline">cart.carts</code> dan layar{' '}

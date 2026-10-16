@@ -120,6 +120,13 @@
   color: var(--on-brand);
 }
 
+/* Aksi "Kategori" di ujung baris chip: bentuknya chip, tapi bahasanya aksi
+   (garis putus + oranye tinta), bukan filter. */
+.merchant-chip--action {
+  border-style: dashed;
+  color: var(--orange-ink);
+}
+
 .merchant-menu-stockfilter em {
   font-style: normal;
   font-weight: 700;

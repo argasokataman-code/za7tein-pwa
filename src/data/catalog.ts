@@ -229,6 +229,9 @@ export const menuSeed: MenuItem[] = rawMenuSeed.map((item) => ({
   ...item,
   category: foodBucket(item.category, item.name),
   merchantId: MERCHANT_OF[item.id],
+  // Menu demo sudah mengizinkan catatan; merchant bisa mematikannya per item
+  // (MER-05) lewat "Menu & Stok".
+  noteEnabled: true,
 }))
 
 // ── Helpers ──

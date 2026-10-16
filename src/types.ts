@@ -49,6 +49,12 @@ export interface Food {
 export interface MenuItem extends Food {
   stock: number
   available: boolean
+  /**
+   * Opsi catatan per menu (MER-05): pelanggan boleh menulis catatan khusus untuk
+   * item ini di halaman detail. Merchant mengaturnya per item; `false` = textarea
+   * catatan disembunyikan.
+   */
+  noteEnabled?: boolean
 }
 
 /**

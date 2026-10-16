@@ -90,7 +90,7 @@ const rootReducer = combineReducers({
  * supaya di-seed ulang; keranjang, saldo, dan katalog tidak berubah bentuk.
  */
 /** Versi skema state tersimpan. Naikkan saat bentuk slice berubah (lihat `migrations`). */
-const PERSIST_VERSION = 7
+const PERSIST_VERSION = 8
 
 /**
  * Buang slice dari state tersimpan supaya di-seed ulang.
@@ -135,6 +135,15 @@ const migrations = {
    * 0/24 order" yang tak bisa dimengerti. Keranjang/saldo tidak berubah bentuk.
    */
   7: (state: any) => dropPersisted(state, ['batch']),
+  /**
+   * v8: `catalog` dibuang supaya di-seed ulang. M4c menambah `categories` (dulu
+   * 4 kategori tetap di modul) dan `MenuItem.noteEnabled` (MER-05, toggle catatan
+   * per menu). State tersimpan lama tak punya `categories` — `autoMergeLevel1`
+   * menyalin seluruh slice, jadi `state.catalog.categories` jadi `undefined` dan
+   * peta kategori langsung melempar error. Keranjang/favorit memakai id menu yang
+   * sama, jadi tidak perlu ikut hilang.
+   */
+  8: (state: any) => dropPersisted(state, ['catalog']),
 }
 
 const persistConfig = {

@@ -252,18 +252,20 @@ export default function MenuDetail() {
                 </section>
               ))}
 
-              <section className="mdd-section">
-                <h3 className="mdd-subhead s7-parallax--title">Catatan untuk Tetangga Masak</h3>
-                <textarea
-                  className="mdd-notes"
-                  rows={2}
-                  value={notes}
-                  placeholder="Contoh: Sambal dipisah ya Bu, jangan terlalu asin..."
-                  onChange={(event) =>
-                    setNotesByFood((previous) => ({ ...previous, [food.id]: event.target.value }))
-                  }
-                />
-              </section>
+              {food.noteEnabled !== false ? (
+                <section className="mdd-section">
+                  <h3 className="mdd-subhead s7-parallax--title">Catatan untuk Tetangga Masak</h3>
+                  <textarea
+                    className="mdd-notes"
+                    rows={2}
+                    value={notes}
+                    placeholder="Contoh: Sambal dipisah ya Bu, jangan terlalu asin..."
+                    onChange={(event) =>
+                      setNotesByFood((previous) => ({ ...previous, [food.id]: event.target.value }))
+                    }
+                  />
+                </section>
+              ) : null}
 
               <section className="menu-reviews-section">
                 <div className="reviews-header">
