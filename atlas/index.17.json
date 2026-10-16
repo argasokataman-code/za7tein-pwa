@@ -3936,6 +3936,258 @@
       ],
       "loc": "src/data/courierBatch.ts:40",
       "commit": "97a203d"
+    },
+    {
+      "id": "TASK-110334",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:05:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierBatch.ts (+23/-1) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/courierBatch.ts"
+    },
+    {
+      "id": "TASK-110335",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:05:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx (+90/-55) — edit via tool: tsx: <section className=\"courier-se",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx"
+    },
+    {
+      "id": "TASK-110336",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:06:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss (+34/-3) — edit via tool: .courier-batch-cod {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss"
+    },
+    {
+      "id": "TASK-110337",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:07:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/courier-batch-check.mjs (+6/-5) — edit via tool: courierBatchTasks,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/courier-batch-check.mjs"
+    },
+    {
+      "id": "TASK-110338",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:15:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss (+40/-30) — edit via tool: /* Urutan manual (auto-s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss"
+    },
+    {
+      "id": "TASK-110339",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:15:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx (+6/-6) — edit via tool: tsx: {!batch.autoSort && (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierBatch.tsx"
+    },
+    {
+      "id": "TASK-110340",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:18:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss (+33/-19) — edit via tool: /* Kartu henti pindah da",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss"
+    },
+    {
+      "id": "TASK-110341",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:19:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss (+6/-4) — edit via tool: .courier-batch-move {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss"
+    },
+    {
+      "id": "TASK-110342",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:20:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss (+22/-18) — edit via tool: .courier-batch-move {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_courier-batch.scss"
+    },
+    {
+      "id": "TASK-110343",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:22:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+4/-3) — edit via tool: tsx: <tr><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-110344",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:22:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+15/-3) — edit via tool: tsx: memakai jarak garis lurus (moc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-88110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "22:24:06",
+      "tags": [
+        "courier",
+        "batch",
+        "design",
+        "m5"
+      ],
+      "summary": "R-AUTOSORT AC3: kontrol geser naik/turun urutan batch kurir saat auto-sort OFF (44px, jarak 8px, kartu pindah ke baris)",
+      "conn": [
+        {
+          "id": "DEC-88107",
+          "type": "relates",
+          "raw": "DEC-88107:relates"
+        }
+      ],
+      "loc": "src/pages/CourierBatch.tsx:164",
+      "commit": "d66a7d4"
+    },
+    {
+      "id": "DEC-88111",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-16",
+      "time": "22:24:06",
+      "tags": [
+        "design",
+        "courier",
+        "batch"
+      ],
+      "summary": "Kolom geser batch vertikal di DALAM kartu baris (bukan mendatar/samping): menjaga lebar alamat + G-18/HG-05",
+      "conn": [
+        {
+          "id": "TASK-88110",
+          "type": "relates",
+          "raw": "TASK-88110:relates"
+        }
+      ]
     }
   ]
 }
