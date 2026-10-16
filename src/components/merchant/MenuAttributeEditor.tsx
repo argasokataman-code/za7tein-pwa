@@ -66,12 +66,13 @@ export function MenuAttributeEditor({ menuId }: MenuAttributeEditorProps) {
               <span className="menu-attr-type">{DISPLAY_LABEL[attribute.displayType]}</span>
               <button
                 type="button"
-                className="merchant-btn-ghost"
+                className="menu-attr-remove"
+                aria-label={`Lepas atribut ${attribute.name}`}
                 onClick={() =>
                   dispatch(removeMenuAttributeLine({ menuId, attributeId: line.attributeId }))
                 }
               >
-                <Trash2 size={15} strokeWidth={1.75} aria-hidden="true" /> Lepas
+                <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
               </button>
             </header>
             <div className="menu-attr-values">
@@ -81,7 +82,6 @@ export function MenuAttributeEditor({ menuId }: MenuAttributeEditorProps) {
                   <div className="menu-attr-value" key={value.attributeValueId}>
                     <span className="menu-attr-value-name">{meta?.name ?? value.attributeValueId}</span>
                     <label className="menu-attr-extra">
-                      <span className="menu-attr-extra-label">+ JOD</span>
                       <input
                         className="form-control menu-attr-extra-input"
                         type="number"
@@ -99,9 +99,9 @@ export function MenuAttributeEditor({ menuId }: MenuAttributeEditorProps) {
                           )
                         }
                       />
+                      <span className="menu-attr-extra-label">JOD</span>
                     </label>
-                    <label className="merchant-row menu-attr-avail">
-                      <span></span>
+                    <label className="menu-attr-avail">
                       <span className="toggle-wrap">
                         <input
                           className="toggle-input"
@@ -158,8 +158,7 @@ export function MenuAttributeEditor({ menuId }: MenuAttributeEditorProps) {
                   <span className="menu-attr-extra-label">
                     {money(priceExtraFor(values, menuId, variant.attributeValueIds))}
                   </span>
-                  <label className="merchant-row menu-attr-avail">
-                    <span></span>
+                  <label className="menu-attr-avail">
                     <span className="toggle-wrap">
                       <input
                         className="toggle-input"

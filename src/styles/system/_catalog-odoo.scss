@@ -12,7 +12,7 @@
 .menu-attr-line {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-3);
   padding: var(--space-3);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -30,10 +30,38 @@
   color: var(--text-primary);
 }
 
+/* Tipe atribut = metadata, bukan judul; chip kecil memisahkannya dari nama. */
 .menu-attr-type {
-  margin-inline-end: auto;
+  flex: 0 0 auto;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--bg-warm);
   color: var(--text-secondary);
   font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Lepas atribut: ikon saja, didorong ke tepi kanan. Kata "Lepas" dulu bentrok
+   dengan nama nilai di daftar; nama aksesibilitasnya lewat `aria-label`. */
+.menu-attr-remove {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  margin-inline-start: auto;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-out);
+}
+
+.menu-attr-remove:hover {
+  background: var(--bg-warm);
+  color: var(--danger-ink);
 }
 
 .menu-attr-values {
@@ -42,39 +70,55 @@
   gap: var(--space-2);
 }
 
+/* Satu baris nilai = tiga kolom tetap: nama (fleksibel), harga, sakelar. Dulu
+   flex dengan input `width: 100%` membuat label "+ JOD" terlipat dua baris dan
+   nama "Extra pedas" ikut membungkus; grid menjaga tiap kolom pada tempatnya. */
 .menu-attr-value {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   min-height: var(--touch-min);
 }
 
 .menu-attr-value-name {
-  flex: 1;
+  min-width: 0;
   color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
 }
 
 .menu-attr-extra {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
 }
 
 .menu-attr-extra-label {
   color: var(--text-secondary);
   font-size: var(--text-xs);
+  font-weight: 700;
+  white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.menu-attr-extra-input {
-  width: 5rem;
+.menu-attr-extra-input,
+input.menu-attr-extra-input {
+  width: 4.5rem;
   min-height: var(--touch-min);
+  padding-inline: var(--space-2);
   text-align: end;
+  font-variant-numeric: tabular-nums;
 }
 
+/* Sakelar ketersediaan: label penuh `--touch-min`, bukan cuma switch 52×28. */
 .menu-attr-avail {
-  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--touch-min);
   min-height: var(--touch-min);
+  cursor: pointer;
 }
 
 // ── Selector pelanggan (MenuDetail) ──

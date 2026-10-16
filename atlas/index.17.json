@@ -1007,6 +1007,142 @@
         }
       ],
       "commit": "9b2446b"
+    },
+    {
+      "id": "TASK-102154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:11:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+42/-42) — edit via tool: tsx: <div className=\"merchant-menu-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-102155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:11:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-menu-polish.scss (+9/-9) — edit via tool: .merchant-menu-chip",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-menu-polish.scss"
+    },
+    {
+      "id": "TASK-102156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:11:37",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint && npm run build && npm run scan 2>&1 | tail -30 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-102157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "09:18:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MenuAttributeEditor.tsx (+10/-9) — edit via tool: tsx: <button",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/MenuAttributeEditor.tsx"
+    },
+    {
+      "id": "TASK-102164",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "10:48:46",
+      "tags": [
+        "merchant",
+        "menu",
+        "ui",
+        "design"
+      ],
+      "summary": "Rapi UI konsol menu merchant: chip kategori corak customer + editor varian grid 3 kolom",
+      "conn": [
+        {
+          "id": "DEC-88103",
+          "type": "relates",
+          "raw": "DEC-88103:relates"
+        }
+      ],
+      "loc": "src/components/merchant/MenuAttributeEditor.tsx"
+    },
+    {
+      "id": "TASK-102165",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "10:49:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-3) — edit via tool: tsx: ikon dengan <code className=\"d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-102166",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "10:49:24",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -5 && rtk git diff --stat passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

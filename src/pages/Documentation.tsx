@@ -620,6 +620,16 @@ export default function Documentation() {
                 <code className="doc-inline">/admin</code> punya layout desktop dari 901px.
               </li>
               <li>
+                <strong>Rapi konsol menu merchant.</strong> Baris kategori di{' '}
+                <code className="doc-inline">/merchant/menu</code> kini memakai corak chip
+                kategori customer (kotak ikon + label, aktif oranye penuh) — bukan pil
+                filter; aksi <em>Kategori</em> jadi petak bergaris putus. Editor
+                varian/atribut dirapikan: tiap baris nilai jadi grid tiga kolom (nama,
+                tambahan harga, sakelar), satuan <code className="doc-inline">JOD</code> tak
+                lagi terlipat dua baris, input seragam 72px, dan <em>Lepas</em> jadi tombol
+                ikon dengan <code className="doc-inline">aria-label</code>.
+              </li>
+              <li>
                 Backend live: konsol CS menandai risiko customer lewat registri customers
                 dan <code className="doc-inline">customer_risk_flags</code>; checkout
                 menulis order lewat <code className="doc-inline">POST /orders</code> dan

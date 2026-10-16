@@ -257,18 +257,18 @@ export default function MerchantMenu() {
         </section>
 
         <div className="merchant-menu-filters" ref={filtersRef}>
-          <div className="merchant-menu-chips" role="tablist" aria-label="Filter kategori menu">
+          <div className="merchant-menu-chips categories-scroll" role="tablist" aria-label="Filter kategori menu">
             <button
               type="button"
               role="tab"
               aria-selected={category === 'all'}
-              className={`merchant-chip${category === 'all' ? ' is-active' : ''}`}
+              className={`category-btn${category === 'all' ? ' active' : ''}`}
               onClick={(e) => {
                 setCategory('all')
                 e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
               }}
             >
-              <LayoutGrid size={15} strokeWidth={1.75} aria-hidden="true" />
+              <LayoutGrid size={24} strokeWidth={2} aria-hidden="true" />
               Semua
             </button>
             {categories.map((c) => {
@@ -279,23 +279,23 @@ export default function MerchantMenu() {
                   type="button"
                   role="tab"
                   aria-selected={category === c.id}
-                  className={`merchant-chip${category === c.id ? ' is-active' : ''}`}
+                  className={`category-btn${category === c.id ? ' active' : ''}`}
                   onClick={(e) => {
                     setCategory(c.id)
                     e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
                   }}
                 >
-                  {Icon && <Icon size={15} strokeWidth={1.75} aria-hidden="true" />}
+                  {Icon && <Icon size={24} strokeWidth={2} aria-hidden="true" />}
                   {c.label}
                 </button>
               )
             })}
             <button
               type="button"
-              className="merchant-chip merchant-chip--action"
+              className="category-btn category-btn--action"
               onClick={() => setCategorySheet(true)}
             >
-              <Plus size={15} strokeWidth={1.75} aria-hidden="true" />
+              <Plus size={24} strokeWidth={2} aria-hidden="true" />
               Kategori
             </button>
           </div>
