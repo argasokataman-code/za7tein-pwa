@@ -3097,6 +3097,36 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/ui-impact.md"
+    },
+    {
+      "id": "TASK-110201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-16",
+      "time": "15:04:51",
+      "tags": [
+        "courier",
+        "partner",
+        "dispatch",
+        "ui",
+        "contract",
+        "m6",
+        "curated"
+      ],
+      "summary": "UI /courier/partner (status + approve/reject ber-alasan) + kontrak BE courier-partner; SP/OPEN-11 UNRESOLVED",
+      "conn": [
+        {
+          "id": "TASK-110101",
+          "type": "led_to",
+          "raw": "TASK-110101:led_to"
+        },
+        {
+          "id": "DEC-88105",
+          "type": "relates",
+          "raw": "DEC-88105:relates"
+        }
+      ],
+      "loc": "src/pages/CourierPartner.tsx:1"
     }
   ]
 }
