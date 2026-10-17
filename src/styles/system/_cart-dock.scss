@@ -154,11 +154,9 @@ body:has(.bottom-nav) .cart-quick-bar {
   margin-top: calc(-1 * var(--space-3));
 }
 
-/* Badan baris memakai primitif `list-row` (rel kanan lebar tetap) — lihat
-   `_mixins.scss`/MD-11 untuk alasan angkanya. */
+/* Badan baris memakai primitif `.list-row` (rel kanan lebar tetap) — kelas itu
+   juga MARKER gerbang browser (MD-11); jangan rakit grid sendiri. */
 .ck-row__line {
-  @include list-row;
-
   flex: 1;
 
   min-width: 0;

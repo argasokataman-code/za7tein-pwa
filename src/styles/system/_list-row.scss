@@ -1,0 +1,12 @@
+// Baris daftar rel tetap (MD-11) — sekaligus MARKER untuk gerbang browser.
+//
+// `browser-gate` mengelompokkan setiap `.list-row` menurut induknya lalu menuntut
+// lebar kolom 1 SATU nilai di seluruh kelompok. Itu yang membuktikan relnya tetap:
+// dengan `grid-template-columns: … auto`, track ke-1 mengikuti isi tiap baris dan
+// batas kolomnya bergerigi (nyata: 268/277) — himpunan >1 nilai = FAIL.
+// Karena itu setiap baris daftar WAJIB memakai kelas ini, bukan grid sendiri.
+@use "./mixins" as *;
+
+.list-row {
+  @include list-row;
+}

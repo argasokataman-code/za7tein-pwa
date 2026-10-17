@@ -284,6 +284,8 @@ node scripts/browser-gate.mjs --route /home --strict           # halaman yang ka
 node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap elemen dari depan
 ```
 
+**Gate mengukur DNA, bukan cuma lebar kolom.** Tiap baris laporan ditutup checklist butir yang benar-benar diperiksa — `DNA MD-01✓ MD-02✓ … MD-11✓` — dengan `✗` temuan (pesannya menyebut ID-nya), `—` bila butir itu tidak punya apa pun untuk diperiksa di halaman tersebut, dan `✓` bila diperiksa dan lolos. Dua hal yang membuatnya mungkin: gate **membuka panel sheet sendiri** lewat klik nyata pada bilah pemicu (MD-06/07/11 hidup di dalam panel; diukur ulang sebagai baris `(sheet terbuka)`), dan baris daftar wajib ber-kelas **`list-row`** (primitif `src/styles/system/_list-row.scss`) sebagai marker yang dibaca gate untuk MD-11. Pengecualian DNA ikut dihormati: scroller di dalam panel sheet sah (MD-03), dan MD-10 dilewati saat sheet terbuka. Rincian: `docs/design/mobile-dna.md`.
+
 **Satu gate pada satu waktu.** Klon pengukuran (9359) cuma punya satu tab; menjalankan beberapa `browser-gate` bersamaan membuatnya saling menunggu dan tampak menggantung, lalu menumpuk sebagai proses zombie. Jalankan di foreground, tunggu selesai, baru yang berikutnya. Kalau ada sisa, `pkill -f "browser-gate.mjs"`. Jangan memindahkan tab klon role (9355–9358) — biarkan tiap jendela role di tempatnya.
 
 **Server & klon: JANGAN PERNAH start yang baru.** Sebelum apa pun, cek yang sudah hidup:

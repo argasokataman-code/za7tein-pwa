@@ -77,6 +77,11 @@ const OPTS = {
   auditFrom: valueOf('--audit-from', 'top'),
 }
 
+// Butir DNA yang punya cek mekanis di gerbang ini (MD-04 zona jempol & MD-08/09
+// tipografi/bayangan dipegang `npm run scan` + review; dicetak apa adanya supaya
+// tidak ada butir yang tampak "lolos" padahal tidak pernah diperiksa).
+const DNA_IDS_GATE = ['MD-01', 'MD-02', 'MD-03', 'MD-05', 'MD-06', 'MD-07', 'MD-10', 'MD-11']
+
 if (has('--help') || has('-h')) {
   process.stdout.write(
     `browser-gate — ukur UI di klon Brave lewat CDP (${CDP})\n\n` +
@@ -90,6 +95,9 @@ if (has('--help') || has('-h')) {
       `  --offline         ukur juga saat offline.\n` +
       `  --json            keluarkan laporan JSON.\n` +
       `  --help            tampilkan bantuan ini (tidak mengukur apa pun).\n\n` +
+      `Tiap pengukuran mencetak checklist DNA (MD-01..MD-11) dengan ✗ temuan, — bila\n` +
+      `tidak ada yang diperiksa di halaman itu, dan ✓ bila lolos. Panel sheet dibuka\n` +
+      `otomatis (klik nyata bilah keranjang) supaya MD-06/07/11 diukur di dalamnya.\n\n` +
       `Klon direuse: gate memakai ulang klon/ tab yang sudah hidup, tidak menumpuk.\n`,
   )
   process.exit(0)
@@ -429,6 +437,32 @@ const MEASURE = `(async () => {
   }
   const name = (el) => (el.getAttribute('aria-label') || el.innerText || el.className || el.tagName)
     .trim().replace(/\\s+/g, ' ').slice(0, 40)
+  // Panel sheet yang terlihat: menempel tepi bawah, punya permukaan sendiri
+  // (bukan scrim gelap), lebar >= separuh viewport. Dua butir DNA bergantung
+  // padanya, dan keduanya adalah PENGECUALIAN yang ditulis di mobile-dna.md:
+  //   MD-03 — sheet adalah satu-satunya scroller bersarang yang sah
+  //           ("panel max-height + isi menggulir di dalam").
+  //   MD-10 — saat modal menutupi bilah bawah, titik tengah bilah memang
+  //           tertutup; memeriksanya di situ menghasilkan temuan palsu.
+  const sheetPanels = [...document.querySelectorAll('*')].filter((el) => {
+    const s = getComputedStyle(el)
+    if (s.display === 'none' || s.visibility === 'hidden') return false
+    const b = el.getBoundingClientRect()
+    if (b.height < 120 || b.width < window.innerWidth * 0.5) return false
+    if (Math.abs(b.bottom - window.innerHeight) > 4) return false
+    const mm = s.backgroundColor.match(/rgba?\(([^)]+)\)/)
+    const alpha = mm && mm[1].split(',').length === 4 ? parseFloat(mm[1].split(',')[3]) : 1
+    if (alpha < 0.5) return false
+    // Harus TERIKAT ke tepi bawah lewat leluhur fixed/absolute — kalau tidak,
+    // wadah halaman yang kebetulan berakhir di dasar viewport (halaman pendek)
+    // ikut terhitung sebagai sheet, dan MD-10 salah dilewati di semua halaman.
+    for (let n = el; n && n !== document.body; n = n.parentElement) {
+      const p = getComputedStyle(n).position
+      if (p === 'fixed' || p === 'absolute') return true
+    }
+    return false
+  })
+  const insideSheet = (el) => sheetPanels.some((p) => p === el || p.contains(el))
   // Tiga pengecualian, semuanya elemen yang tidak pernah jadi sasaran jari —
   // bukan pelonggaran aturan. Ditulis di luar blok yang dikirim ke halaman
   // supaya tidak ada backtick/tanda kutip yang mengganggu parser skrip ini.
@@ -463,6 +497,10 @@ const MEASURE = `(async () => {
       const oy = getComputedStyle(el).overflowY
       return (oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight + 1
     })
+    // MD-03: sheet adalah pengecualian tunggal yang ditulis di mobile-dna.md —
+    // daftarnya dibatasi tinggi lalu menggulir DI DALAM panel. Tanpa pengecualian
+    // ini, gerbang menghukum pola yang justru diperintahkan DNA.
+    .filter((el) => !insideSheet(el))
     .map(name)
   // Hanya elemen selebar bilah yang dinilai; scrim/toast mengambang bukan bilah.
   const fixed = [...document.querySelectorAll('*')]
@@ -529,6 +567,91 @@ const MEASURE = `(async () => {
   const ps = getComputedStyle(probe)
   const safe = { top: parseFloat(ps.paddingTop) || 0, bottom: parseFloat(ps.paddingBottom) || 0 }
   probe.remove()
+
+  // ── butir DNA yang hanya terbukti dari DOM (MD-06/07/10/11) ──────────────
+  // Sebelum ini gerbang cuma mengukur lebar kolom dan target sentuh, jadi ia
+  // meloloskan hal yang justru dilihat pemilik: rel kanan baris daftar yang
+  // bergerigi, panel sheet yang melar, nominal yang tidak sebaris judul. Tiap
+  // temuan menyebut ID DNA-nya supaya laporan langsung menunjuk aturannya.
+  const dnaFaults = []
+  // MD-11 — elemen ber-kelas .list-row adalah MARKER baris daftar (primitif
+  // src/styles/system/_list-row.scss). Baris sejenis dikelompokkan per induk,
+  // lalu lebar kolom 1-nya harus SATU nilai: dengan rel "auto", track pertama
+  // mengikuti isi tiap baris dan batas kolomnya bergerigi (nyata: 268/277).
+  const lrGroups = new Map()
+  for (const el of document.querySelectorAll('.list-row')) {
+    if (!vis(el) || !el.parentElement) continue
+    const k = String(el.parentElement.className || el.parentElement.tagName).split(' ')[0]
+    if (!lrGroups.has(k)) lrGroups.set(k, [])
+    lrGroups.get(k).push(el)
+  }
+  for (const [k, rows] of lrGroups) {
+    if (rows.length < 2) continue
+    const col1 = [...new Set(rows.map(
+      (r) => Math.round(parseFloat(getComputedStyle(r).gridTemplateColumns.split(' ')[0]) || 0),
+    ))]
+    if (col1.length > 1) {
+      dnaFaults.push('MD-11 rel kolom-1 bergeser antar baris (induk .' + k + '): ' + col1.join('/') + 'px')
+    }
+    const heights = new Map()
+    for (const r of rows) {
+      const kids = [...r.children]
+      for (const c of kids) {
+        const cs = getComputedStyle(c)
+        const key = cs.gridColumnStart + '/' + cs.gridRowStart + '/' + String(c.className).split(' ')[0]
+        if (!heights.has(key)) heights.set(key, new Set())
+        heights.get(key).add(Math.round(c.getBoundingClientRect().height))
+      }
+      // MD-07 — nominal (kolom 2 baris 1) rata kanan dan sebaris judul.
+      const title = kids.find((c) => getComputedStyle(c).gridColumnStart === '1'
+        && getComputedStyle(c).gridRowStart === '1')
+      const sum = kids.find((c) => getComputedStyle(c).gridColumnStart === '2'
+        && getComputedStyle(c).gridRowStart === '1')
+      if (title && sum) {
+        const tb = title.getBoundingClientRect()
+        const sb = sum.getBoundingClientRect()
+        const d = Math.round((tb.top + tb.height / 2) - (sb.top + sb.height / 2))
+        if (Math.abs(d) > 2.5) {
+          dnaFaults.push('MD-07 nominal tidak sebaris judul (.list-row): selisih ' + d + 'px')
+        }
+        if (getComputedStyle(sum).justifySelf !== 'end') {
+          dnaFaults.push('MD-07 nominal tidak rata kanan (.list-row)')
+        }
+      }
+    }
+    for (const [key, hs] of heights) {
+      if (hs.size > 1) {
+        dnaFaults.push('MD-11 tinggi ' + key + ' tidak seragam: ' + [...hs].join('/') + 'px (teks membungkus?)')
+      }
+    }
+  }
+  // MD-10 — titik tengah bilah bawah harus bilahnya sendiri: posisinya ditanya
+  // ke DOM, bukan ditebak dari pathname (pernah menimpa bilah di /merchant/:id).
+  // Dilewati saat sheet terbuka: modal memang menutupi bilahnya, jadi memeriksa
+  // di situ bukan temuan.
+  const nav = sheetPanels.length ? null : [...document.querySelectorAll('[class*="bottom-nav"]')].find(vis)
+  const hasNav = !!nav
+  if (nav) {
+    const nb = nav.getBoundingClientRect()
+    const hit = document.elementFromPoint(
+      Math.round(nb.left + nb.width / 2),
+      Math.round(nb.top + nb.height / 2),
+    )
+    if (!hit || !(hit === nav || nav.contains(hit))) {
+      dnaFaults.push('MD-10 titik tengah bilah bawah tertutup: '
+        + (hit ? String(hit.className || hit.tagName).slice(0, 40) : 'null'))
+    }
+  }
+  // MD-06 — panel yang menempel tepi bawah dan punya permukaan sendiri (bukan
+  // scrim gelap) tidak boleh melewati ~60% viewport; lebih dari itu ia berhenti
+  // menjadi sheet dan berubah jadi halaman yang menutupi layar.
+  const vh = window.innerHeight
+  for (const el of sheetPanels) {
+    const pct = Math.round((el.getBoundingClientRect().height / vh) * 100)
+    if (pct > 60) {
+      dnaFaults.push('MD-06 panel bawah ' + pct + '% viewport (>60%): ' + String(el.className).split(' ')[0])
+    }
+  }
 
   // Konten teratas harus turun melewati inset status bar di jendela app-mode;
   // kalau tidak, judulnya tertutup jam/baterai OS atau kamera punch-hole.
@@ -651,6 +774,20 @@ const MEASURE = `(async () => {
     gutters,
     crashed: !!document.querySelector('[data-app-error], .app-error-boundary, [data-error-boundary]'),
     textLen: document.body.innerText.trim().length,
+    // Butir DNA yang diukur di DOM. warn = MD-06 (ambang rasa, bukan batas
+    // keras): panel 61% masih mungkin disengaja, dan --strict yang memutuskan.
+    dna: {
+      fail: [...new Set(dnaFaults.filter((m) => !m.startsWith('MD-06')))].slice(0, 8),
+      warn: [...new Set(dnaFaults.filter((m) => m.startsWith('MD-06')))].slice(0, 4),
+      // Butir yang preconditions-nya tidak ada di halaman ini (tidak ada baris
+      // daftar, tidak ada sheet, tidak ada bilah bawah) tidak boleh dicetak "✓":
+      // itu mengklaim lolos untuk hal yang tidak pernah diperiksa.
+      checked: {
+        'MD-06': sheetPanels.length > 0,
+        'MD-10': hasNav,
+        'MD-11': lrGroups.size > 0,
+      },
+    },
   }
 })()`
 
@@ -826,14 +963,14 @@ function judge(measured, tokens, strict, viewportWidth) {
   }
   for (const key of ['shellMax', 'touchMin', 'space5']) {
     if (tokens[key] !== null && measured.runtime[key] !== tokens[key]) {
-      push(fail, `token --${key} runtime ${measured.runtime[key]} != sumber ${tokens[key]}px`)
+      push(fail, `MD-01 token --${key} runtime ${measured.runtime[key]} != sumber ${tokens[key]}px`)
     }
   }
   if (expectedShell && Math.abs(measured.shell.w - expectedShell) > 1) {
-    push(fail, `lebar kolom ${measured.shell.w}px != ${expectedShell}px (min(viewport, --shell-max))`)
+    push(fail, `MD-01 lebar kolom ${measured.shell.w}px != ${expectedShell}px (min(viewport, --shell-max))`)
   }
-  if (measured.overflowX !== 0) push(fail, `overflow-x ${measured.overflowX}px (harus 0)`)
-  if (measured.scrollers.length) push(fail, `scroller bersarang: ${measured.scrollers.join(', ')}`)
+  if (measured.overflowX !== 0) push(fail, `MD-01 overflow-x ${measured.overflowX}px (harus 0)`)
+  if (measured.scrollers.length) push(fail, `MD-03 scroller bersarang: ${measured.scrollers.join(', ')}`)
 
   // Gulir harus berangkat dari atas di setiap halaman baru, dan penggulungnya
   // tetap dokumen. Dua hal berbeda:
@@ -845,12 +982,12 @@ function judge(measured, tokens, strict, viewportWidth) {
   //     terbuka tepat di tengah — persis keluhan "harus scroll ke atas sendiri".
   if (measured.scroll) {
     if (measured.scroll.bodyIsScroller && !measured.scroll.htmlIsScroller) {
-      push(fail, 'body jadi scroll container: window.scrollTo tidak berpengaruh (lihat _app-shell.scss)')
+      push(fail, 'MD-03 body jadi scroll container: window.scrollTo tidak berpengaruh (lihat _app-shell.scss)')
     }
     if (measured.scroll.docScrollTop !== 0) {
       push(
         warn,
-        `gulir tidak mulai dari atas: scrollY ${measured.scroll.docScrollTop}px saat halaman dibuka`,
+        `MD-03 gulir tidak mulai dari atas: scrollY ${measured.scroll.docScrollTop}px saat halaman dibuka`,
       )
     }
   }
@@ -860,16 +997,19 @@ function judge(measured, tokens, strict, viewportWidth) {
     const left = measured.col.x - 2
     const right = measured.col.x + measured.col.w + 2
     if (f.x < left || f.x + f.w > right) {
-      push(warn, `fixed keluar kolom: "${f.label}" ${f.w}px @x${f.x} (kolom ${measured.col.w}px @x${measured.col.x})`)
+      push(warn, `MD-02 fixed keluar kolom: "${f.label}" ${f.w}px @x${f.x} (kolom ${measured.col.w}px @x${measured.col.x})`)
     }
   }
   for (const t of measured.smallTargets) {
-    push(warn, `target < --touch-min ${tokens.touchMin}px: "${t.label}" ${t.w}x${t.h}`)
+    push(warn, `MD-05 target < --touch-min ${tokens.touchMin}px: "${t.label}" ${t.w}x${t.h}`)
   }
   const badGutters = measured.gutters.filter((g) => tokens.space5 && g !== tokens.space5)
   if (badGutters.length) {
-    push(warn, `gutter != --space-5 (${tokens.space5}px): ${badGutters.join('px, ')}px`)
+    push(warn, `MD-01 gutter != --space-5 (${tokens.space5}px): ${badGutters.join('px, ')}px`)
   }
+  // Butir DNA yang diukur langsung di DOM (MD-06/07/10/11).
+  for (const m of measured.dna?.fail || []) push(fail, m)
+  for (const m of measured.dna?.warn || []) push(warn, m)
 
   if (strict) return { fail: [...fail, ...warn], warn: [] }
   return { fail, warn }
@@ -933,6 +1073,109 @@ async function clickSweep(cdp, url, errors, log) {
   if (vanished) {
     log(`    ${C.yellow}~${C.off} ${vanished} elemen hilang setelah klik sebelumnya (dilewati)`)
   }
+}
+
+// ── laporan per pengukuran ─────────────────────────────────────────────────
+/** Cetak satu verdict: baris status, temuan, dan checklist butir DNA. */
+function printVerdict(label, verdict, errors, measured) {
+  const bad = verdict.fail.length + errors.length
+  const mark = bad ? `${C.red}FAIL${C.off}` : verdict.warn.length ? `${C.yellow}WARN${C.off}` : `${C.green}PASS${C.off}`
+  const pwaInfo = OPTS.pwa ? ` · ${measured.pwa.displayMode} · sw ${measured.pwa.swCount}${measured.pwa.controlled ? '/ctrl' : ''}` : ''
+  const barInfo = measured.topbar ? ` · bar ${measured.topbar.h}px ${measured.topbar.cls}` : ''
+  const sc = measured.scroll
+  const scrollInfo = sc ? ` · gulir ${sc.docScrollTop}px${sc.bodyIsScroller ? ' body=scroller' : ''}` : ''
+  logLine(
+    `  ${mark} ${label}  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px` +
+      ` · overflow ${measured.overflowX}px · ${measured.controls} kontrol${barInfo}${scrollInfo}${pwaInfo}${C.off}`,
+  )
+  for (const m of verdict.fail) logLine(`      ${C.red}✗${C.off} ${m}`)
+  for (const m of errors) logLine(`      ${C.red}✗${C.off} ${m}`)
+  for (const m of verdict.warn.slice(0, 6)) logLine(`      ${C.yellow}!${C.off} ${m}`)
+  if (verdict.warn.length > 6) logLine(`      ${C.dim}+${verdict.warn.length - 6} peringatan lain${C.off}`)
+  // Bukti cek mana yang benar-benar jalan: tanpa baris ini, butir DNA yang tidak
+  // punya cek tampak "lolos" padahal tidak pernah diperiksa.
+  const seen = [...verdict.fail, ...verdict.warn].join(' ')
+  const checked = measured.dna?.checked || {}
+  logLine(
+    `      ${C.dim}DNA ${DNA_IDS_GATE.map((id) => {
+      if (checked[id] === false) return `${id}—`
+      return `${id}${seen.includes(id) ? '✗' : '✓'}`
+    }).join(' ')} · MD-04/MD-08/MD-09 lewat npm run scan + review` +
+      `${DNA_IDS_GATE.some((id) => checked[id] === false) ? ' · "—" = tak ada yang diperiksa di halaman ini' : ''}${C.off}`,
+  )
+}
+
+/**
+ * Buka panel mengambang lewat klik NYATA (bukan `el.click()`) kalau rute ini
+ * punya bilah pemicunya. Dipakai agar MD-06/07/11 diukur di panel terbuka —
+ * di halaman tertutup, butir-butir itu tidak punya apa pun untuk diukur.
+ */
+async function openFloatingPanel(cdp) {
+  const at = `(() => {
+    const el = [...document.querySelectorAll('.cart-quick-bar, [class*="quick-bar"]')].find((e) => {
+      const s = getComputedStyle(e)
+      const b = e.getBoundingClientRect()
+      return s.display !== 'none' && s.visibility !== 'hidden' && b.width > 0 && b.height > 0
+    })
+    if (!el) return null
+    el.scrollIntoView({ block: 'center' })
+    const b = el.getBoundingClientRect()
+    return { cx: Math.round(b.x + b.width / 2), cy: Math.round(b.y + b.height / 2) }
+  })()`
+  // Bilah pemicunya muncul setelah data (order aktif) sampai — bukan seketika
+  // setelah navigasi. Jadi dicari sampai ada, bukan sekali lihat.
+  let pos = null
+  for (let i = 0; i < 12 && !pos; i++) {
+    pos = await evaluate(cdp, at)
+    if (!pos) await sleep(250)
+  }
+  if (process.env.GATE_DEBUG) {
+    process.stderr.write(`${C.dim}  [sheet] pos=${JSON.stringify(pos)}${C.off}\n`)
+  }
+  if (!pos) return false
+  for (const type of ['mousePressed', 'mouseReleased']) {
+    await cdp.send('Input.dispatchMouseEvent', {
+      type,
+      x: pos.cx,
+      y: pos.cy,
+      button: 'left',
+      buttons: type === 'mousePressed' ? 1 : 0,
+      clickCount: 1,
+    })
+  }
+  await sleep(250)
+  // Panel punya animasi geser masuk; menunggu angka tetap gampang flaky. Poll
+  // sampai panel benar-benar terlihat (maks ~3s), bukan menebak satu durasi.
+  const visible = `(() => { ${VIS}
+    return [...document.querySelectorAll('.list-row, [class*="sheet-panel"]')].some(vis)
+        || [...document.querySelectorAll('[class*="sheet-panel"]')].some((e) => e.getBoundingClientRect().height > 0)
+  })()`
+  for (let i = 0; i < 12; i++) {
+    if (await evaluate(cdp, visible)) break
+    await sleep(250)
+  }
+  // Tunggu animasi geser-masuk SELESAI sebelum diukur: di tengah animasi panel
+  // masih tergeser turun sehingga tepi bawahnya belum jatuh di viewport, deteksi
+  // sheet gagal, dan MD-03/MD-10 melaporkan temuan palsu (pernah kejadian).
+  const settled = `(() => {
+    const ps = [...document.querySelectorAll('[class*="sheet-panel"]')].filter((e) => {
+      const s = getComputedStyle(e)
+      return s.display !== 'none' && s.visibility !== 'hidden' && e.getBoundingClientRect().height > 0
+    })
+    if (!ps.length) return false
+    return ps.every((e) => Math.abs(e.getBoundingClientRect().bottom - window.innerHeight) < 2)
+  })()`
+  for (let i = 0; i < 10; i++) {
+    if (await evaluate(cdp, settled)) break
+    await sleep(200)
+  }
+  const ok = await evaluate(cdp, visible)
+  if (process.env.GATE_DEBUG) {
+    const why = await evaluate(cdp,
+      `(() => { const b = document.querySelector('.cart-quick-bar'); return JSON.stringify({ path: location.pathname, bar: !!b, rows: document.querySelectorAll('.list-row').length }) })()`)
+    process.stderr.write(`${C.dim}  [sheet] ok=${ok} ${why}${C.off}\n`)
+  }
+  return ok
 }
 
 // ── jalankan ───────────────────────────────────────────────────────────────
@@ -1140,15 +1383,24 @@ async function main() {
           const bad = verdict.fail.length + errors.length
           const mark = bad ? `${C.red}FAIL${C.off}` : verdict.warn.length ? `${C.yellow}WARN${C.off}` : `${C.green}PASS${C.off}`
           const tag = pass === 'offline' ? ' offline' : ''
-          const pwaInfo = OPTS.pwa ? ` · ${measured.pwa.displayMode} · sw ${measured.pwa.swCount}${measured.pwa.controlled ? '/ctrl' : ''}` : ''
-          const barInfo = measured.topbar ? ` · bar ${measured.topbar.h}px ${measured.topbar.cls}` : ''
-          const sc = measured.scroll
-          const scrollInfo = sc ? ` · gulir ${sc.docScrollTop}px${sc.bodyIsScroller ? ' body=scroller' : ''}` : ''
-          logLine(`  ${mark} ${url} @${width}px${tag}  ${C.dim}inner ${measured.viewport.w}px · shell ${measured.shell.w}px · overflow ${measured.overflowX}px · ${measured.controls} kontrol${barInfo}${scrollInfo}${pwaInfo}${C.off}`)
-          for (const m of verdict.fail) logLine(`      ${C.red}✗${C.off} ${m}`)
-          for (const m of errors) logLine(`      ${C.red}✗${C.off} ${m}`)
-          for (const m of verdict.warn.slice(0, 6)) logLine(`      ${C.yellow}!${C.off} ${m}`)
-          if (verdict.warn.length > 6) logLine(`      ${C.dim}+${verdict.warn.length - 6} peringatan lain${C.off}`)
+          printVerdict(`${url} @${width}px${tag}`, verdict, errors, measured)
+          // Butir DNA MD-06/07/11 hidup DI DALAM panel mengambang (sheet
+          // keranjang): mengukurnya di halaman tertutup = tidak mengukurnya.
+          // Panel dibuka dengan klik nyata, lalu diukur sebagai laporan sendiri.
+          if (width === widths[0] && pass === 'online') {
+            const opened = await openFloatingPanel(cdp)
+            if (opened) {
+              const m2 = await evaluate(cdp, MEASURE)
+              const v2 = judge(m2, tokens, OPTS.strict, width)
+              failed += v2.fail.length ? 1 : 0
+              warned += v2.warn.length ? 1 : 0
+              report.push({
+                url: `${url} (sheet)`, width, pass, fail: v2.fail, warn: v2.warn,
+                clickErrors: [], measured: m2,
+              })
+              printVerdict(`${url} @${width}px (sheet terbuka)`, v2, [], m2)
+            }
+          }
         }
       }
     }

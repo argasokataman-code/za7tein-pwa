@@ -181,7 +181,7 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
                 <li key={order.id} className="ck-row">
                   <button
                     type="button"
-                    className="ck-row__line"
+                    className="ck-row__line list-row"
                     onClick={() => trackOrder(order.id, order.code, order.stage)}
                   >
                     <span className="ck-row__title">{order.merchantName}</span>
@@ -247,7 +247,7 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
               const confirming = pending?.kind === 'cart' && pending.id === store.merchantId
               return (
                 <li key={store.merchantId} className="ck-row">
-                  <span className="ck-row__line">
+                  <span className="ck-row__line list-row">
                     <span className="ck-row__title">
                       <Store size={15} strokeWidth={1.75} aria-hidden="true" />
                       {name}

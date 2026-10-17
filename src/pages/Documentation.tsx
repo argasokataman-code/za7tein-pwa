@@ -683,11 +683,33 @@ export default function Documentation() {
                 order ikut pecah, dan tepi kanan kiri bergerigi (268 vs 277) — relnya{' '}
                 <code className="doc-inline">auto</code> sehingga lebar kolom kiri ikut berubah tiap
                 baris. Sekarang barisnya grid dua kolom dengan rel kanan lebar tetap, dan polanya
-                menjadi primitif <code className="doc-inline">@include list-row</code> di{' '}
-                <code className="doc-inline">src/styles/system/_mixins.scss</code> — baris daftar
-                berikutnya memakai mixin itu, bukan dirakit ulang. Sesudah: satu nilai{' '}
+                menjadi primitif <code className="doc-inline">@include list-row</code> + kelas marker{' '}
+                <code className="doc-inline">.list-row</code> di{' '}
+                <code className="doc-inline">src/styles/system/_list-row.scss</code> — baris daftar
+                berikutnya memakai kelas itu, bukan dirakit ulang, dan kelas itulah yang dibaca
+                gerbang browser untuk memeriksa relnya. Sesudah: satu nilai{' '}
                 <code className="doc-inline">right</code> untuk kolom kiri, satu garis untuk nominal
                 dan chip, tinggi meta seragam.
+              </li>
+              <li>
+                <strong>Gerbang browser dibuat se-detail DNA.</strong> Gerbang dulu cuma mengukur
+                lebar kolom, overflow, target sentuh, scroller, dan bilah fixed — sehingga empat
+                butir DNA (MD-06 panel sheet, MD-07 nominal sebaris judul, MD-10 posisi bilah
+                ditanya DOM, MD-11 rel kanan) tidak pernah diperiksa, dan tiap temuan tidak menyebut
+                ID aturannya. Sekarang tiap pengukuran mencetak checklist{' '}
+                <code className="doc-inline">DNA MD-01 &hellip; MD-11</code>: tiap butir bertanda{' '}
+                <strong>lolos</strong>, <strong>temuan</strong>, atau <strong>tak diperiksa</strong>{' '}
+                (butir yang di halaman itu memang tidak punya apa pun untuk diukur). Dua hal yang
+                membuatnya mungkin: gerbang <strong>membuka panel sheetnya sendiri</strong> lewat
+                klik nyata lalu mengukur ulang sebagai baris{' '}
+                <code className="doc-inline">(sheet terbuka)</code> (MD-06/07/11 hidup di dalam
+                panel), dan baris daftar memakai kelas marker{' '}
+                <code className="doc-inline">list-row</code>. Pengecualian DNA juga dihormati:
+                scroller di dalam panel sheet tetap sah (MD-03), dan MD-10 dilewati saat sheet
+                terbuka karena modal memang menutupi bilah bawah. Dibuktikan dengan probe: rel
+                diubah ke <code className="doc-inline">auto</code> + nominal di-{' '}
+                <code className="doc-inline">start</code> membuat gerbang menandai MD-07 dan MD-11
+                sebagai temuan, lalu kembali hijau setelah dikembalikan.
               </li>
               <li>
                 <strong>Aksi keranjang &amp; pesanan di ringkasan (MD-06).</strong> Baris keranjang

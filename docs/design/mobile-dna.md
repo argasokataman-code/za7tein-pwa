@@ -15,12 +15,28 @@ yang mustahil dibaca dari berkas. Setiap klaim UI menyebut angka atau selector.
 | **MD-03** | **Satu penggulung**: dokumen. Jangan `overflow-y: auto` di dalam halaman. Pengecualian tunggal: sheet (panel `max-height` + isi menggulir di dalam) dan daftar panjang di dalam sheet yang dibatasi. | `browser-gate` cek scroller bersarang. |
 | **MD-04** | Aksi utama di **zona jempol** (FAB kanan bawah / bilah bawah), bukan pojok kanan atas header. | Gate `--touch-min` + hit-test. |
 | **MD-05** | Target sentuh ≥44px, jarak cukup antar target. | Gate hit-test, laporkan tinggi elemen. |
-| **MD-06** | Sheet: **satu daftar pada satu waktu** (segmented kalau dua kategori), **baris list bergaris rambut** — bukan kartu putih berulang; tinggi dibatasi lalu menggulir di dalam. | Ukur `getBoundingClientRect()` panel: ≤ ~60% viewport. |
-| **MD-07** | Status = **chip bertitik warna peran**, bukan kata abu di dalam string `a · b · c`. Angka `font-variant-numeric: tabular-nums`; nominal **rata kanan sebaris judul**. | Bandingkan `top` judul vs nominal; token peran saja. |
+| **MD-06** | Sheet: **satu daftar pada satu waktu** (segmented kalau dua kategori), **baris list bergaris rambut** — bukan kartu putih berulang; tinggi dibatasi lalu menggulir di dalam. | `browser-gate` membuka panelnya sendiri (klik nyata bilah keranjang) lalu mengukur panel yang menempel tepi bawah: WARN (`--strict` → FAIL) bila >~60% viewport. |
+| **MD-07** | Status = **chip bertitik warna peran**, bukan kata abu di dalam string `a · b · c`. Angka `font-variant-numeric: tabular-nums`; nominal **rata kanan sebaris judul**. | `browser-gate`: di dalam `.list-row`, nominal (kolom 2 baris 1) wajib `justify-self: end` dan berbeda ≤2.5px dari pusat judul. Chip bertitik: review + `npm run scan`. |
 | **MD-08** | Tipografi **kalimat**, bukan eyebrow: tak ada `text-transform: uppercase` untuk label seksi. | Ratchet `uppercase` di `npm run scan` (hanya boleh turun). |
 | **MD-09** | Bayangan/permukaan/tepi dari token (`--shadow-*`, `--surface`, `--border-strong`), bukan nilai karangan. | Ratchet `rawShadow` di `npm run scan`. |
-| **MD-10** | Posisi elemen `fixed` **ditanya ke DOM** (`body:has(.bottom-nav) …`), jangan ditebak dari `pathname`. `/merchant/:id` juga ber-bottom-nav. | Hit-test tengah bilah bawah = elemen nav-nya. |
-| **MD-11** | Baris daftar (nominal di kanan + status/aksi) memakai **satu rel kanan lebar tetap**, bukan `auto`: `.judul/.meta` di kolom 1, `.nominal/.chip/.cta` di kolom 2 (`justify-self: end`). Primitifnya `@include list-row` di `src/styles/system/_mixins.scss` — **jangan rakit flex/grid baris sendiri.** | Ukur `getBoundingClientRect().right` kolom kanan & `right` kolom kiri tiap baris: tiap himpunan harus **satu nilai**. Tinggi baris meta juga harus satu nilai (mis. 20), bukan campur (20/39). |
+| **MD-10** | Posisi elemen `fixed` **ditanya ke DOM** (`body:has(.bottom-nav) …`), jangan ditebak dari `pathname`. `/merchant/:id` juga ber-bottom-nav. | `browser-gate` hit-test titik tengah bilah bawah = elemen nav-nya (dilewati saat sheet terbuka, karena modal memang menutupinya). |
+| **MD-11** | Baris daftar (nominal di kanan + status/aksi) memakai **satu rel kanan lebar tetap**, bukan `auto`: `.judul/.meta` di kolom 1, `.nominal/.chip/.cta` di kolom 2 (`justify-self: end`). Primitifnya `@include list-row` / kelas `.list-row` di `src/styles/system/_list-row.scss` — **jangan rakit flex/grid baris sendiri.** | `browser-gate`: lebar kolom 1 semua `.list-row` seinduk harus **satu nilai**; tinggi sel sejenis seragam (bukan 20/39). Kelas `.list-row` itu marker yang dibaca gerbang. |
+
+## Gerbang mencetak checklist DNA, bukan cuma "PASS"
+
+Tiap pengukuran `browser-gate` mengakhiri barisnya dengan daftar butir yang benar-benar diperiksa:
+
+```
+DNA MD-01✓ MD-02✓ MD-03✓ MD-05✓ MD-06✓ MD-07✓ MD-10✓ MD-11✓ · MD-04/MD-08/MD-09 lewat npm run scan + review
+```
+
+- **✗** = temuan (pesannya menyebut ID aturannya di atasnya).
+- **—** = butir itu tidak punya apa pun untuk diperiksa di halaman itu (tak ada baris daftar / tak ada sheet / tak ada bilah bawah) — bukan "lolos".
+- **✓** = benar-benar diperiksa dan lolos.
+
+Dua hal yang membuat cek ini mungkin: (1) **panel dibuka otomatis** — MD-06/07/11 hidup di dalam sheet, jadi gerbang menekan bilah pemicunya dengan klik nyata lalu mengukur ulang sebagai baris `(sheet terbuka)`; (2) **marker `.list-row`** — kelas itu yang memberi tahu gerbang baris mana yang harus punya satu rel, sehingga tidak perlu menebak dari nama kelas per fitur.
+
+Pengecualian yang ditulis DNA juga dihormati gerbang: scroller **di dalam panel sheet** sah (MD-03), dan MD-10 dilewati saat sheet terbuka (modal memang menutupi bilah bawah).
 
 ## Yang TIDAK bisa di-lint — dan cara menutupnya
 
