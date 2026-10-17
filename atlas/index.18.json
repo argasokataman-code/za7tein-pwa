@@ -5492,6 +5492,56 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "DEC-110860",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "13:28:28",
+      "tags": [
+        "gate",
+        "dna",
+        "enforcement",
+        "mobile"
+      ],
+      "summary": "browser-gate = cek se-detail DNA: checklist MD per rute, panel sheet dibuka sendiri, marker .list-row",
+      "conn": [
+        {
+          "id": "DEC-110850",
+          "type": "led_to",
+          "raw": "DEC-110850:led_to"
+        },
+        {
+          "id": "BUG-110840",
+          "type": "relates",
+          "raw": "BUG-110840:relates"
+        }
+      ],
+      "loc": "scripts/browser-gate.mjs:1",
+      "commit": "9b19f09"
+    },
+    {
+      "id": "BUG-110870",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "13:28:28",
+      "tags": [
+        "gate",
+        "dna",
+        "false-positive"
+      ],
+      "summary": "Gate baru menghukum scroller dalam sheet (padahal MD-03 izinkan) & MD-10 saat modal terbuka; keduanya gate bug",
+      "conn": [
+        {
+          "id": "DEC-110860",
+          "type": "led_to",
+          "raw": "DEC-110860:led_to"
+        }
+      ],
+      "loc": "scripts/browser-gate.mjs:1",
+      "commit": "9b19f09"
     }
   ]
 }
