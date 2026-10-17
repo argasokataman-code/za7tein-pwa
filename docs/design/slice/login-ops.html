@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein · Masuk ops</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  PENTING — layar ini USULAN: `opsRoutes` (`src/App.tsx`) tidak punya entri auth.
+
+  Bentuk = acuan yang sudah disetujui (commit d0eaa47): kepala FOTO UTUH
+  (tidak diblur) + badge = tile ikon di sambungan foto/panel, berisi logo Sa7tein `/icons/sa7tein-mark.svg`, field
+  putih, tombol utama di dasar layar. Korsel parallax 4 foto.
+
+  Yang TIDAK dikarang: pesan salah dipakai ulang dari `src/lib/schemas.ts:31/32`;
+  label `Email` + `Kata sandi` sama seperti MerchantSignIn. Tanpa tab, penyedia,
+  `atau`, lupa sandi, atau tautan daftar.
+-->
+<link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Login — ops</strong><span>ops · /ops — USULAN, `opsRoutes` tanpa auth</span></p>
+
+<div class="frame">
+  <p class="caption"><strong>1 · kosong</strong><span>tombol `Masuk` aktif</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <p class="role">Ops</p>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="o-email">Email</label>
+          <input class="input" id="o-email" type="email" autocomplete="email" placeholder="nama@sa7tein.id" />
+        </div>
+        <div class="field">
+          <label for="o-pass">Kata sandi</label>
+          <input class="input" id="o-pass" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" />
+        </div>
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>2 · salah</strong><span>pesan dari <code>schemas.ts</code> yang sudah ada</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <p class="role">Ops</p>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="o-email-e">Email</label>
+          <input class="input is-error" id="o-email-e" type="email" autocomplete="email" value="ops.bagas" aria-invalid="true" aria-describedby="o-email-err" />
+          <span class="error" id="o-email-err" role="alert">Format email tidak valid</span>
+        </div>
+        <div class="field">
+          <label for="o-pass-e">Kata sandi</label>
+          <input class="input is-error" id="o-pass-e" type="password" autocomplete="current-password" value="123" aria-invalid="true" aria-describedby="o-pass-err" />
+          <span class="error" id="o-pass-err" role="alert">Kata sandi minimal 6 karakter</span>
+        </div>
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>3 · sedang mengirim</strong><span>`disabled={isSubmitting}`</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <p class="role">Ops</p>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="o-email-r">Email</label>
+          <input class="input" id="o-email-r" type="email" autocomplete="email" value="ops.bagas@sa7tein.id" />
+        </div>
+        <div class="field">
+          <label for="o-pass-r">Kata sandi</label>
+          <input class="input" id="o-pass-r" type="password" autocomplete="current-password" value="rahasia123" />
+        </div>
+        <button class="submit" type="submit" disabled>Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

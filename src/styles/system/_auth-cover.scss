@@ -1,0 +1,282 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Layar masuk customer, varian `brandLayout="cover"` (AuthLayout).
+//
+// Bentuknya dari irisan HTML yang disetujui pemilik (docs/design/slice/login-1to1.html):
+// kepala foto penuh 240px yang berganti sendiri, tile tanda merek di sambungan
+// foto/panel, tab garis-bawah, tombol penyedia bulat berlogo, dan field putih
+// yang terangkat. Gaya ini hanya hidup di dalam `.auth--cover`, jadi layar auth
+// lain (merchant, kurir, daftar) tidak ikut berubah.
+// ═══════════════════════════════════════════════════════════════════════════
+
+.auth-cover {
+  position: relative;
+  flex: 0 0 auto;
+  height: 240px;
+  overflow: hidden;
+  background: var(--bg-warm);
+  border-bottom-right-radius: var(--radius-2xl);
+  border-bottom-left-radius: var(--radius-2xl);
+}
+
+// Anti-kedip: slide baru memudar DI ATAS slide lama, dan slide lama tidak
+// pernah memudar sendirian. Foto pertama (yang selalu tampak) diduplikasi
+// sebagai anak terakhir oleh `AuthCoverHero`, jadi saat siklus selesai tidak
+// ada celah yang memperlihatkan dasar kepala.
+.auth-cover-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation:
+    auth-cover-fade 25s infinite,
+    auth-cover-drift 14s ease-in-out infinite alternate;
+}
+
+.auth-cover-slide:first-child {
+  opacity: 1;
+  animation: auth-cover-drift 14s ease-in-out infinite alternate;
+}
+
+.auth-cover-slide:nth-child(2) {
+  animation-delay: -21s, -4s;
+}
+
+.auth-cover-slide:nth-child(3) {
+  animation-delay: -16s, -8s;
+}
+
+.auth-cover-slide:nth-child(4) {
+  animation-delay: -11s, -12s;
+}
+
+.auth-cover-slide:nth-child(5) {
+  animation-delay: -6s, 0s;
+}
+
+@keyframes auth-cover-fade {
+  0% {
+    opacity: 0;
+  }
+
+  4% {
+    opacity: 1;
+  }
+
+  23.9% {
+    opacity: 1;
+  }
+
+  24% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+// Skala selalu di atas 1 supaya tidak ada tepi foto yang terbuka saat bergeser.
+@keyframes auth-cover-drift {
+  from {
+    transform: scale(1.02);
+  }
+
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-cover-slide,
+  .auth-cover-slide:first-child {
+    animation: none;
+  }
+
+  .auth-cover-slide:not(:first-child) {
+    opacity: 0;
+  }
+}
+
+// Tile merek: separuh badannya menimpa tepi bawah foto, jadi ia yang
+// menyambung dua bidang. Cincin putih memakai `border` (token warna), bukan
+// bayangan keempat, supaya tidak menambah nilai bayangan mentah.
+.auth-cover-mark {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: calc(-1 * var(--space-8) - var(--space-2)) auto var(--space-3);
+  border: 4px solid var(--surface);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+// Panel turun ke `--bg-warm` supaya field dan tombol penyedia yang putih
+// terbaca sebagai benda terangkat, bukan menempel di dinding.
+.auth--cover .auth-panel {
+  padding-top: 0;
+  padding-bottom: var(--space-4);
+  background: var(--bg-warm);
+}
+
+// Tab garis-bawah, bukan pil di rel abu: di acuan hanya ada satu penanda aktif,
+// dan rel abu itu membuat dua tab terbaca sebagai dua tombol.
+.auth--cover .auth-tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-3);
+  padding: 0 0 var(--space-2);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.auth--cover .auth-tab {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border-radius: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.auth--cover .auth-tab--active {
+  margin-bottom: -1px;
+  border-bottom: 2px solid var(--sa7tein-orange);
+  background: transparent;
+  color: var(--orange-ink);
+  box-shadow: none; /* token-ok: mematikan bayangan pil varian lain */
+}
+
+// Tombol penyedia: lingkaran putih berlogo. Logo pihak ketiga tidak punya
+// padanan lucide, jadi ia berkas di `public/icons/brand-*.svg` dan tombolnya
+// membawa `aria-label` sendiri.
+.auth--cover .auth-socials {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+
+.auth--cover .auth-social {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  min-height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.auth--cover .auth-social:hover {
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.auth--cover .auth-social img {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+// Field terangkat: di panel hangat, field putih dengan garis rambut saja
+// terbaca datar. Bayangannya token, bukan nilai karangan.
+.auth--cover .auth-input {
+  box-shadow: var(--shadow-md);
+}
+
+// Segmented switch jenis akun kurir. Dua pilihan setara di dalam satu rel
+// putih; yang aktif memakai `--orange-soft`, bukan oranye penuh, supaya CTA
+// tetap satu-satunya bidang oranye di layar. Jarak 12px ke tile sudah datang
+// dari `margin-bottom` tile, jadi di sini tidak ada margin atas tambahan.
+.auth--cover .auth-seg {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  margin-top: 0;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.auth--cover .auth-seg-item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--touch-min);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth--cover .auth-seg-item input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.auth--cover .auth-seg-item:has(input:checked) {
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.auth--cover .auth-seg-item:has(input:focus-visible) {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: -2px;
+}
+
+// Keterangan jenis akun menempel ke switch, lalu 12px ke field pertama.
+.auth--cover .auth-seg-hint {
+  margin: var(--space-2) 0 var(--space-3);
+}
+
+// Foto pengisi di antara field dan tombol (layar masuk merchant). `margin-top:
+// auto` menaruhnya di sisa ruang, dan tombol tetap menempel 16px dari dasar.
+.auth--cover .auth-slot-art {
+  width: 100%;
+  height: 210px;
+  margin: auto 0 0;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  object-position: 50% 60%;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+// CTA turun ke dasar layar: di acuan tombol "Masuk" duduk 16px dari tepi bawah,
+// dan sisa ruang di atasnya dipakai napas, bukan dibiarkan menggantung di
+// tengah. Form ikut mengisi panel supaya `margin-top: auto` punya ruang.
+// `part-02.scss` lama meninggalkan `margin-bottom: 24px` di `.auth-form`; di
+// varian ini margin itu menambah 24px kosong di bawah tombol dan membuat CTA
+// berhenti 40px dari dasar, bukan 16px seperti acuan.
+.auth--cover .auth-form {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.auth--cover .auth-submit {
+  margin-top: auto;
+}
+
+.auth--cover .auth-or {
+  margin-bottom: var(--space-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth--cover .auth-social:hover {
+    transform: none;
+  }
+}

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AuthBanner } from './AuthBanner'
+import { AuthCoverHero } from './AuthCoverHero'
 import type { AuthBannerSlide, AuthPhoto } from '../../types'
 
 /**
@@ -32,7 +33,7 @@ export interface AuthLayoutProps {
   role: string
   /** Judul layar. H1 halaman, jadi harus cocok dengan `<title>`. */
   title: string
-  subtitle: string
+  subtitle?: string
   /** Kalimat kecil di bawah H1 — satu baris, bukan paragraf pemasaran. */
   tagline?: string
   /**
@@ -54,8 +55,14 @@ export interface AuthLayoutProps {
    * membulat (tanda merek di cakram putih, nama, chip peran) mengikuti acuan
    * desain login baru; `/customer/signin` memakainya lebih dulu, layar lain
    * menyusul, jadi varian ini masih opt-in dan propnya hilang saat jadi bawaan.
+   * `'cover'` = foto penuh setinggi 240px yang berganti sendiri, dengan tanda
+   * merek sebagai tile di sambungan foto/panel. Dipakai `/customer/signin` sejak
+   * irisan HTML disetujui pemilik: tanpa nama merek sebagai teks dan tanpa chip
+   * peran di layar pembeli.
    */
-  brandLayout?: 'pill' | 'hero'
+  brandLayout?: 'pill' | 'hero' | 'cover'
+  /** Foto kepala untuk `brandLayout="cover"`. Diabaikan varian lain. */
+  photos?: readonly AuthPhoto[]
 }
 
 export function AuthLayout({
@@ -68,15 +75,23 @@ export function AuthLayout({
   children,
   showBack = true,
   brandLayout = 'pill',
+  photos,
 }: AuthLayoutProps) {
   const navigate = useNavigate()
   // Layar tanpa foto tidak punya kepala hero (mis. "menunggu persetujuan"):
   // varian ini turun jadi polos, bukan menggambar blok oranye kosong.
   const hero = Boolean(photo) && brandLayout === 'hero'
+  // `cover` butuh daftar foto; kalau hanya ada satu, ia turun jadi hero biasa
+  // supaya tidak ada kepala kosong saat prop lupa diisi.
+  const cover = brandLayout === 'cover' && Boolean(photos?.length)
 
   return (
-    <div className={`app-shell auth${photo ? '' : ' auth--plain'}${hero ? ' auth--hero' : ''}`}>
-      {hero && photo ? (
+    <div
+      className={`app-shell auth${photo || cover ? '' : ' auth--plain'}${hero ? ' auth--hero' : ''}${cover ? ' auth--cover' : ''}`}
+    >
+      {cover && photos ? <AuthCoverHero photos={photos} /> : null}
+
+      {!cover && hero && photo ? (
         <div className="auth-hero">
           <img
             className="auth-hero-art"
@@ -110,7 +125,7 @@ export function AuthLayout({
           <span className="auth-hero-name">Sa7tein</span>
           <span className="auth-hero-role">{role}</span>
         </div>
-      ) : photo ? (
+      ) : photo && !cover ? (
         <div className="auth-photo">
           <img
             src={photo.src}
@@ -135,7 +150,7 @@ export function AuthLayout({
       ) : null}
 
       <div className="auth-panel">
-        {showBack && !hero ? (
+        {showBack && !hero && !cover ? (
           <button
             type="button"
             className="auth-back"
@@ -146,15 +161,34 @@ export function AuthLayout({
           </button>
         ) : null}
 
-        <header className="auth-head">
-          <h1 className="auth-h1">{title}</h1>
-          <p className="auth-lede">{subtitle}</p>
-          {banners && banners.length > 0 ? (
-            <AuthBanner slides={banners} />
-          ) : tagline ? (
-            <p className="auth-tagline">{tagline}</p>
-          ) : null}
-        </header>
+        {cover ? (
+          <>
+            {/* Tile merek duduk di sambungan foto/panel: separuh badannya
+                menimpa tepi bawah foto, jadi ia yang menyambung dua bidang itu.
+                Nama merek tidak ditulis sebagai teks (arahan pemilik). */}
+            <img
+              className="auth-cover-mark"
+              src="/icons/sa7tein-mark.svg"
+              alt="Sa7tein"
+              width={80}
+              height={80}
+              decoding="async"
+            />
+            {/* Tab "Masuk" sudah jadi judul visual, tapi halaman tetap butuh
+                satu H1 untuk pembaca layar dan struktur dokumen. */}
+            <h1 className="sr-only">{title}</h1>
+          </>
+        ) : (
+          <header className="auth-head">
+            <h1 className="auth-h1">{title}</h1>
+            {subtitle ? <p className="auth-lede">{subtitle}</p> : null}
+            {banners && banners.length > 0 ? (
+              <AuthBanner slides={banners} />
+            ) : tagline ? (
+              <p className="auth-tagline">{tagline}</p>
+            ) : null}
+          </header>
+        )}
 
         {children}
       </div>

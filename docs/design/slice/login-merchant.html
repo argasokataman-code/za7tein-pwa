@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein · Masuk merchant</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Bentuk = acuan yang sudah disetujui (commit d0eaa47): kepala FOTO UTUH
+  (tidak diblur) + badge = tile ikon di sambungan foto/panel, berisi logo Sa7tein `/icons/sa7tein-mark.svg`, field
+  putih, tombol utama di dasar layar. Korsel parallax 4 foto.
+
+  Isi dari `src/pages/MerchantSignIn.tsx:31-37`: label `Email`
+  (placeholder `toko@contoh.com`) + `Kata sandi` (placeholder `Kata sandi
+  akun toko`), tombol `Masuk`. Tautan `Belum punya akun toko? Daftar` diganti
+  tab `Masuk | Daftar` seperti layar customer, jadi dua arah daftar/masuk
+  selalu bisa diklik. Kode TIDAK punya tombol penyedia, `atau`, maupun lupa
+  sandi.
+  Pesan salah `src/lib/schemas.ts:31`/`32` verbatim; `noValidate`
+  (MerchantSignIn.tsx:38). Toast `Masuk sebagai merchant` (MerchantSignIn.tsx:26).
+  Foto kepala: `lontong.webp` (AUTH_PHOTO.merchant).
+-->
+<link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Login — merchant</strong><span>merchant · /merchant/signin · MerchantSignIn.tsx:31</span></p>
+
+<div class="frame">
+  <p class="caption"><strong>1 · kosong</strong><span>tombol `Masuk` aktif</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab tab--active" href="login-merchant.html" aria-current="page">Masuk</a>
+        <a class="tab" href="signup-merchant.html">Daftar</a>
+      </nav>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="m-email">Email</label>
+          <input class="input" id="m-email" type="email" autocomplete="email" placeholder="toko@contoh.com" />
+        </div>
+        <div class="field">
+          <label for="m-pass">Kata sandi</label>
+          <input class="input" id="m-pass" type="password" autocomplete="current-password" placeholder="Kata sandi akun toko" />
+        </div>
+        <img class="slot-art" src="../../../public/assets/img/menu/merchant-sate.webp" alt="" aria-hidden="true" />
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>2 · salah</strong><span>pesan dari <code>src/lib/schemas.ts:31/32</code></span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab tab--active" href="login-merchant.html" aria-current="page">Masuk</a>
+        <a class="tab" href="signup-merchant.html">Daftar</a>
+      </nav>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="m-email-e">Email</label>
+          <input class="input is-error" id="m-email-e" type="email" autocomplete="email" value="sate.slamet" aria-invalid="true" aria-describedby="m-email-err" />
+          <span class="error" id="m-email-err" role="alert">Format email tidak valid</span>
+        </div>
+        <div class="field">
+          <label for="m-pass-e">Kata sandi</label>
+          <input class="input is-error" id="m-pass-e" type="password" autocomplete="current-password" value="123" aria-invalid="true" aria-describedby="m-pass-err" />
+          <span class="error" id="m-pass-err" role="alert">Kata sandi minimal 6 karakter</span>
+        </div>
+        <img class="slot-art" src="../../../public/assets/img/menu/merchant-sate.webp" alt="" aria-hidden="true" />
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>3 · sedang mengirim → berhasil</strong><span>`disabled={isSubmitting}`, lalu toast `Masuk sebagai merchant` (MerchantSignIn.tsx:26)</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab tab--active" href="login-merchant.html" aria-current="page">Masuk</a>
+        <a class="tab" href="signup-merchant.html">Daftar</a>
+      </nav>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="m-email-r">Email</label>
+          <input class="input" id="m-email-r" type="email" autocomplete="email" value="sate.slamet@sa7tein.id" />
+        </div>
+        <div class="field">
+          <label for="m-pass-r">Kata sandi</label>
+          <input class="input" id="m-pass-r" type="password" autocomplete="current-password" value="rahasia123" />
+        </div>
+        <img class="slot-art" src="../../../public/assets/img/menu/merchant-sate.webp" alt="" aria-hidden="true" />
+        <button class="submit" type="submit" disabled>Masuk</button>
+      </form>
+    </div>
+
+    <p class="toast" role="status">Masuk sebagai merchant</p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein · Daftar customer</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Layar daftar customer mengikuti bahasa visual login (`login-1to1.html`):
+  kepala foto utuh, badge merek sebagai tile, tab garis-bawah, field putih,
+  tombol utama di dasar layar.
+
+  Bedanya dari login, dan hanya ini:
+  - kepala 240px, tile merek, tab, ritme form (12px antar field, 4px di dalam
+    field), dan tombol 16px dari dasar: semuanya sama dengan login. Berpindah
+    tab tidak mengubah tinggi foto maupun jarak.
+  - tidak ada tiga tombol penyedia. `SignUp.tsx` tidak punya sosial login,
+    jadi tidak digambar (jangan mengarang kontrol yang tidak ada di repo).
+  - empat field + satu baris persetujuan butuh 62px lebih, jadi bingkainya
+    390x906. Di app halaman ini menggulir dokumen; jangan dirapatkan paksa.
+
+  Isi dari kode repo (`src/pages/SignUp.tsx:38-166`): `Nama`,
+  `Nomor WhatsApp` + petunjuk `WA_PHONE_HINT` (`src/data/phone.ts:35`),
+  `Email (untuk verifikasi)`, `Kata sandi` dengan tombol tampilkan,
+  persetujuan syarat & ketentuan, tombol `Buat akun`.
+  Pesan salah dari `src/lib/schemas.ts:14/15/19/31` verbatim; `noValidate`
+  (SignUp.tsx:46) → nol pesan bawaan peramban.
+  Toast `Akun dibuat. Lanjut verifikasi email.` (SignUp.tsx:31).
+-->
+<link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Daftar — customer</strong><span>customer · /signup · SignUp.tsx:38</span></p>
+
+<div class="frame">
+  <p class="caption"><strong>1 · kosong</strong><span>tombol `Buat akun` aktif, persetujuan belum dicentang</span></p>
+  <div class="phone phone--signup">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab" href="login-1to1.html">Masuk</a>
+        <a class="tab tab--active" href="signup-customer.html" aria-current="page">Daftar</a>
+      </nav>
+
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="s-name">Nama</label>
+          <input class="input" id="s-name" type="text" autocomplete="name" placeholder="Nama yang dipakai kurir" />
+        </div>
+        <div class="field">
+          <label for="s-phone">Nomor WhatsApp</label>
+          <input class="input" id="s-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890" />
+          <span class="hint">Nomor WhatsApp, format internasional: +62… (Indonesia) atau +962… (Jordan).</span>
+        </div>
+        <div class="field">
+          <label for="s-email">Email <span class="label-note">(untuk verifikasi)</span></label>
+          <input class="input" id="s-email" type="email" autocomplete="email" placeholder="nama@email.com" />
+        </div>
+        <div class="field">
+          <label for="s-pass">Kata sandi</label>
+          <div class="input-wrap">
+            <input class="input" id="s-pass" type="password" autocomplete="new-password" placeholder="Minimal 6 karakter" />
+            <button class="reveal" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" />
+          <span>Saya setuju pada syarat dan ketentuan serta pemberitahuan privasi Sa7tein. Isinya belum tersedia karena semua alur di repo ini masih mode demo.</span>
+        </label>
+
+        <button class="submit" type="submit">Buat akun</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>2 · salah</strong><span>empat pesan dari <code>src/lib/schemas.ts</code> — bukan gelembung peramban</span></p>
+  <div class="phone phone--signup">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab" href="login-1to1.html">Masuk</a>
+        <a class="tab tab--active" href="signup-customer.html" aria-current="page">Daftar</a>
+      </nav>
+
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="s-name-e">Nama</label>
+          <input class="input is-error" id="s-name-e" type="text" autocomplete="name" value="A" aria-invalid="true" aria-describedby="s-name-err" />
+          <span class="error" id="s-name-err" role="alert">Nama minimal 2 karakter</span>
+        </div>
+        <div class="field">
+          <label for="s-phone-e">Nomor WhatsApp</label>
+          <input class="input is-error" id="s-phone-e" type="tel" inputmode="tel" autocomplete="tel" value="08123456789" aria-invalid="true" aria-describedby="s-phone-err" />
+          <span class="error" id="s-phone-err" role="alert">Format nomor WA tidak valid (+62… atau +962…)</span>
+        </div>
+        <div class="field">
+          <label for="s-email-e">Email <span class="label-note">(untuk verifikasi)</span></label>
+          <input class="input is-error" id="s-email-e" type="email" autocomplete="email" value="bukan-email" aria-invalid="true" aria-describedby="s-email-err" />
+          <span class="error" id="s-email-err" role="alert">Format email tidak valid</span>
+        </div>
+        <div class="field">
+          <label for="s-pass-e">Kata sandi</label>
+          <div class="input-wrap">
+            <input class="input is-error" id="s-pass-e" type="password" autocomplete="new-password" value="123" aria-invalid="true" aria-describedby="s-pass-err" />
+            <button class="reveal" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+          <span class="error" id="s-pass-err" role="alert">Kata sandi minimal 6 karakter</span>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" />
+          <span>Saya setuju pada syarat dan ketentuan serta pemberitahuan privasi Sa7tein. Isinya belum tersedia karena semua alur di repo ini masih mode demo.</span>
+        </label>
+
+        <button class="submit" type="submit">Buat akun</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>3 · sedang mengirim → berhasil</strong><span>tombol `disabled={isSubmitting}`, lalu toast `Akun dibuat. Lanjut verifikasi email.` (SignUp.tsx:31)</span></p>
+  <div class="phone phone--signup">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+      </div>
+    </header>
+
+    <p class="toast" role="status">Akun dibuat. Lanjut verifikasi email.</p>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab" href="login-1to1.html">Masuk</a>
+        <a class="tab tab--active" href="signup-customer.html" aria-current="page">Daftar</a>
+      </nav>
+
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="s-name-ok">Nama</label>
+          <input class="input" id="s-name-ok" type="text" autocomplete="name" value="Aisyah" />
+        </div>
+        <div class="field">
+          <label for="s-phone-ok">Nomor WhatsApp</label>
+          <input class="input" id="s-phone-ok" type="tel" inputmode="tel" autocomplete="tel" value="+6281234567890" />
+        </div>
+        <div class="field">
+          <label for="s-email-ok">Email <span class="label-note">(untuk verifikasi)</span></label>
+          <input class="input" id="s-email-ok" type="email" autocomplete="email" value="aisyah@email.com" />
+        </div>
+        <div class="field">
+          <label for="s-pass-ok">Kata sandi</label>
+          <div class="input-wrap">
+            <input class="input" id="s-pass-ok" type="password" autocomplete="new-password" value="rahasia123" />
+            <button class="reveal" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" checked />
+          <span>Saya setuju pada syarat dan ketentuan serta pemberitahuan privasi Sa7tein. Isinya belum tersedia karena semua alur di repo ini masih mode demo.</span>
+        </label>
+
+        <button class="submit" type="submit" disabled>Membuat akun…</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

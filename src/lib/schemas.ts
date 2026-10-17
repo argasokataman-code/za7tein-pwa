@@ -11,25 +11,33 @@ import { isE164, toE164 } from '../data/phone'
  */
 export const phoneField = z
   .string()
-  .min(1, 'Nomor HP wajib diisi')
+  .min(1, 'Nomor WhatsApp wajib diisi')
   .refine((value) => isE164(toE164(value)), 'Format nomor WA tidak valid (+62… atau +962…)')
 
 export const signInSchema = z.object({
   phone: phoneField,
-  password: z.string().min(6, 'Password minimal 6 karakter'),
+  password: z.string().min(6, 'Kata sandi minimal 6 karakter'),
 })
 
 export const signUpSchema = z.object({
   name: z.string().min(2, 'Nama minimal 2 karakter'),
   phone: phoneField,
   email: z.string().email('Format email tidak valid').optional().or(z.literal('')),
-  password: z.string().min(6, 'Password minimal 6 karakter'),
+  password: z.string().min(6, 'Kata sandi minimal 6 karakter'),
 })
 
 // Merchant memakai email sebagai identitas, terpisah dari akun customer.
 export const merchantSignInSchema = z.object({
   email: z.string().email('Format email tidak valid'),
-  password: z.string().min(6, 'Password minimal 6 karakter'),
+  password: z.string().min(6, 'Kata sandi minimal 6 karakter'),
+})
+
+/**
+ * Masuk kurir memakai email magic link (PRD aktif R-ACC-01: login MVP hanya
+ * magic link, satu email = satu peran). Tidak ada kata sandi di layar ini.
+ */
+export const courierSignInSchema = z.object({
+  email: z.string().email('Format email tidak valid'),
 })
 
 export const merchantSignUpSchema = z.object({
@@ -37,7 +45,7 @@ export const merchantSignUpSchema = z.object({
   email: z.string().email('Format email tidak valid'),
   phone: phoneField.optional().or(z.literal('')),
   zone: z.string().min(1, 'Pilih zona pengantaran'),
-  password: z.string().min(6, 'Password minimal 6 karakter'),
+  password: z.string().min(6, 'Kata sandi minimal 6 karakter'),
 })
 
 // Item menu toko — halaman Menu & Stock.
@@ -97,7 +105,7 @@ export const forgotPasswordSchema = z.object({
 
 export const createPasswordSchema = z
   .object({
-    password: z.string().min(6, 'Password minimal 6 karakter'),
+    password: z.string().min(6, 'Kata sandi minimal 6 karakter'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -143,6 +151,7 @@ export const personalDataSchema = z.object({
 export type PhoneField = z.infer<typeof phoneField>
 export type SignInFormData = z.infer<typeof signInSchema>
 export type SignUpFormData = z.infer<typeof signUpSchema>
+export type CourierSignInFormData = z.infer<typeof courierSignInSchema>
 export type MerchantSignInFormData = z.infer<typeof merchantSignInSchema>
 export type MerchantSignUpFormData = z.infer<typeof merchantSignUpSchema>
 export type MerchantMenuItemFormData = z.infer<typeof merchantMenuItemSchema>

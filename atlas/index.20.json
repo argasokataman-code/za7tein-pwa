@@ -1,0 +1,2816 @@
+{
+  "shard": 20,
+  "nodes": [
+    {
+      "id": "TASK-111506",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:47:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html (+145) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html"
+    },
+    {
+      "id": "TASK-111507",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/slice/m-pending.html (+64) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/slice/m-pending.html"
+    },
+    {
+      "id": "TASK-111508",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/design/slice/m-onboarding.html (+78) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/design/slice/m-onboarding.html"
+    },
+    {
+      "id": "TASK-111509",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-dashboard.html (+91) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-dashboard.html"
+    },
+    {
+      "id": "TASK-111510",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-onboarding.html (+81) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-onboarding.html"
+    },
+    {
+      "id": "TASK-111511",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-offline.html (+31) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-offline.html"
+    },
+    {
+      "id": "TASK-111512",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-onboarding.html (+103) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-onboarding.html"
+    },
+    {
+      "id": "TASK-111513",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-signin.html (+47) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-signin.html"
+    },
+    {
+      "id": "TASK-111514",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-superadmin.html (+140) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-superadmin.html"
+    },
+    {
+      "id": "TASK-111515",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html (+138) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html"
+    },
+    {
+      "id": "TASK-111516",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html (+141) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html"
+    },
+    {
+      "id": "TASK-111517",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:48:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+7/-3) — edit via tool: // Yang diperiksa per berkas: stylesheet",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111518",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:49:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+1/-1) — edit via tool: for (const m of src.matchAll(/<input\\b[^",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111519",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:50:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md (+163) — write via tool: # Irisan HTML Sa7tein — login semua ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "DEC-111423",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "21:50:29",
+      "tags": [
+        "design",
+        "login",
+        "validation"
+      ],
+      "summary": "Login: validasi dirancang (3 bingkai/berkas), novalidate + pesan verbatim schemas.ts; slice-check menolak kata bawaan peramban",
+      "conn": [
+        {
+          "id": "DEC-111422",
+          "type": "led_to",
+          "raw": "DEC-111422:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111520",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:52:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-merchants.html (+82) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-merchants.html"
+    },
+    {
+      "id": "TASK-111521",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:52:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-disputes.html (+89) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-disputes.html"
+    },
+    {
+      "id": "TASK-111522",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:52:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-ledger.html (+81) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-ledger.html"
+    },
+    {
+      "id": "TASK-111523",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:52:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-offline.html (+31) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-offline.html"
+    },
+    {
+      "id": "TASK-111524",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "21:52:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-notifications.html (+55) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-notifications.html"
+    },
+    {
+      "id": "TASK-111525",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:13:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+5/-1) — edit via tool: --space-2: 8px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111526",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:13:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html (+1/-3) — edit via tool: <nav class=\"tabs\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html"
+    },
+    {
+      "id": "TASK-111527",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:13:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html (+1/-3) — edit via tool: <nav class=\"tabs\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html"
+    },
+    {
+      "id": "TASK-111528",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:13:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html (+1/-3) — edit via tool: <nav class=\"tabs\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html"
+    },
+    {
+      "id": "TASK-111529",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:13:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+19/-8) — edit via tool: for (const m of src.matchAll(/<input\\b[",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111530",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:14:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+6/-1) — edit via tool: * { box-sizing: border-box; }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111531",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:14:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-task-detail.html (+89) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-task-detail.html"
+    },
+    {
+      "id": "TASK-111532",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:14:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-tasks.html (+85) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-tasks.html"
+    },
+    {
+      "id": "TASK-111533",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:14:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-batch.html (+83) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-batch.html"
+    },
+    {
+      "id": "TASK-111534",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:14:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | toast berhasil: `--surface` + `bor",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-111535",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:15:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md (+5/-4) — edit via tool: 5. **Sentence case.** Tidak ada `tex",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "DEC-111424",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "22:15:05",
+      "tags": [
+        "design",
+        "login",
+        "toast"
+      ],
+      "summary": "Toast login = gaya toastOptions repo (App.tsx:593): surface+border+radius-lg+shadow-md+text-sm, top-center 8px anak .phone; bukan di .body",
+      "conn": [
+        {
+          "id": "DEC-111423",
+          "type": "led_to",
+          "raw": "DEC-111423:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111536",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:19:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+41/-27) — edit via tool: /* Lambang merek di atas foto. SAL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111537",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:19:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-partner.html (+71) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-partner.html"
+    },
+    {
+      "id": "TASK-111538",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:19:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-payout.html (+70) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-payout.html"
+    },
+    {
+      "id": "TASK-111539",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:19:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-wallet.html (+79) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-wallet.html"
+    },
+    {
+      "id": "TASK-111540",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:19:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-tips.html (+79) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-tips.html"
+    },
+    {
+      "id": "TASK-111541",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:19:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html (+5/-4) — edit via tool: <span class=\"auth-photo-brand\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html"
+    },
+    {
+      "id": "TASK-111542",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:19:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html (+5/-4) — edit via tool: <span class=\"auth-photo-br",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html"
+    },
+    {
+      "id": "TASK-111543",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:20:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html (+1/-1) — edit via tool: <header class=\"hero\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html"
+    },
+    {
+      "id": "TASK-111544",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:20:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html (+5/-4) — edit via tool: <span class=\"auth-photo-bra",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html"
+    },
+    {
+      "id": "TASK-111545",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:20:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html (+5/-4) — edit via tool: <span class=\"auth-photo-brand",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html"
+    },
+    {
+      "id": "TASK-111546",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:20:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html (+5/-4) — edit via tool: <span class=\"auth-photo-brand\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html"
+    },
+    {
+      "id": "TASK-111547",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:20:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-superadmin.html (+5/-4) — edit via tool: <span class=\"auth-photo-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-superadmin.html"
+    },
+    {
+      "id": "TASK-111548",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:20:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+14/-4) — edit via tool: if (/<p class=\"toast\"[^>]*>\\s*<i\\b/.tes",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111549",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:21:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-offline.html (+72) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-offline.html"
+    },
+    {
+      "id": "TASK-111550",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:21:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-profile.html (+78) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-profile.html"
+    },
+    {
+      "id": "TASK-111551",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:21:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-payout-accounts.html (+67) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-payout-accounts.html"
+    },
+    {
+      "id": "TASK-111552",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:21:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-notifications.html (+67) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-notifications.html"
+    },
+    {
+      "id": "TASK-111553",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:23:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-onboarding.html (+95) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-onboarding.html"
+    },
+    {
+      "id": "TASK-111554",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:23:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-signin.html (+57) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-signin.html"
+    },
+    {
+      "id": "TASK-111555",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:23:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-dashboard.html (+81) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/a-dashboard.html"
+    },
+    {
+      "id": "TASK-111556",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:23:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-onboarding.html (+80) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-onboarding.html"
+    },
+    {
+      "id": "TASK-111557",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:24:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-offline.html (+1/-1) — edit via tool: <span class=\"ico\" style=\"color:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-offline.html"
+    },
+    {
+      "id": "TASK-111558",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:24:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-profile.html (+1/-1) — edit via tool: <span class=\"row-ico\"><span cla",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-profile.html"
+    },
+    {
+      "id": "TASK-111559",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:24:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-task-detail.html (+1/-1) — edit via tool: <div class=\"between\"><stron",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/k-task-detail.html"
+    },
+    {
+      "id": "TASK-111560",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:25:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+562) — write via tool: /* =================================",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111561",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:26:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html (+191) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html"
+    },
+    {
+      "id": "TASK-0217",
+      "type": "bug",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "22:26:26",
+      "tags": [
+        "design",
+        "slice",
+        "conflict"
+      ],
+      "summary": "20 layar slice k-*/a-* ditulis 2x, diwipe berkali; slice-index.mjs (17 Okt) klaim owner minta hanya login — konflik perlu keputusan",
+      "conn": [
+        {
+          "id": "TASK-777",
+          "type": "relates",
+          "raw": "TASK-777:relates"
+        }
+      ],
+      "loc": "docs/design/slice:1"
+    },
+    {
+      "id": "TASK-111562",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:26:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html (+157) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html"
+    },
+    {
+      "id": "TASK-111563",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:27:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html (+153) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html"
+    },
+    {
+      "id": "TASK-111564",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:27:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html (+142) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html"
+    },
+    {
+      "id": "TASK-111565",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:27:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html (+140) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html"
+    },
+    {
+      "id": "TASK-111566",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:29:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+13/-10) — edit via tool: // Lambang: layar masuk wajib memakai ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111567",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:29:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md (+158) — write via tool: # Irisan HTML Sa7tein — login semua ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "DEC-111425",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "22:30:03",
+      "tags": [
+        "design",
+        "login",
+        "logo"
+      ],
+      "summary": "Login = salinan auth-redesign repo: .auth-hero + wordmark sa7tein-wordmark.svg di alas putih, panel bg-warm, tab segmented, sosial teks",
+      "conn": [
+        {
+          "id": "DEC-111424",
+          "type": "led_to",
+          "raw": "DEC-111424:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111568",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:41:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+472) — write via tool: /* =================================",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111569",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:41:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html (+216) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html"
+    },
+    {
+      "id": "TASK-111570",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:41:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html (+130) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-merchant.html"
+    },
+    {
+      "id": "TASK-111571",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:41:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html (+126) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html"
+    },
+    {
+      "id": "TASK-111572",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:42:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html (+124) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-admin.html"
+    },
+    {
+      "id": "TASK-111573",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:42:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html (+123) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-ops.html"
+    },
+    {
+      "id": "TASK-111574",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:42:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-superadmin.html (+125) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-superadmin.html"
+    },
+    {
+      "id": "TASK-111575",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:42:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+4/-4) — edit via tool: for (const m of src.matchAll(/<span clas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111576",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:43:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+23/-18) — edit via tool: /* Badge merek = cakram putih sepe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111577",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:43:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+10/-9) — edit via tool: // Badge merek: cakram putih di kepala ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111578",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:45:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md (+149) — write via tool: # Irisan HTML Sa7tein — login semua ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "BUG-111426",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:45:09",
+      "tags": [
+        "design",
+        "login",
+        "regression"
+      ],
+      "summary": "Hero login sempat diblur jadi tekstur 12% + badge jadi pelat wordmark; dibalikin ke foto utuh 322px + cakram putih berisi sa7tein-mark.svg",
+      "conn": [
+        {
+          "id": "DEC-111425",
+          "type": "led_to",
+          "raw": "DEC-111425:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111579",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:47:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+83/-73) — edit via tool: /* Korsel parallax: foto bergantia",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111580",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:47:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs (+13/-1) — edit via tool: // Korsel: 5 slide per kepala — 4 foto ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-111581",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:47:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md (+11/-3) — edit via tool: 1. **Korsel parallax** — 4 foto ber",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "BUG-111427",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:47:52",
+      "tags": [
+        "design",
+        "login",
+        "carousel"
+      ],
+      "summary": "Kepala berkedip oranye: slide lama pudar ke 0 sebelum ada pengganti. Fix: slide baru fade-in di atasnya + slide dasar opak + foto ke-5 dupli",
+      "conn": [
+        {
+          "id": "BUG-111426",
+          "type": "led_to",
+          "raw": "BUG-111426:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111582",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:48:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+30/-52) — edit via tool: /* Penanda korsel dibuang: acuan t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111583",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:49:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+12/-10) — edit via tool: .body {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111584",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:50:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+1/-1) — edit via tool: height: 300px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111585",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:51:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+2/-12) — edit via tool: /* Chip peran lama sudah dilebur ke",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "DEC-111428",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "22:51:53",
+      "tags": [
+        "design",
+        "login",
+        "badge"
+      ],
+      "summary": "Badge login = tile ikon 88px di sambungan foto/panel (cincin putih 4px), label peran jadi teks kecil, titik korsel dibuang",
+      "conn": [
+        {
+          "id": "BUG-111427",
+          "type": "led_to",
+          "raw": "BUG-111427:led_to"
+        }
+      ]
+    },
+    {
+      "id": "BUG-111429",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "22:56:24",
+      "tags": [
+        "design",
+        "login",
+        "layout"
+      ],
+      "summary": "Tombol terpotong: isi bingkai salah customer butuh tepat 844px (nol sisa). Kecilkan kepala 240, tile 80, jarak; sisa terketat kini 57px",
+      "conn": [
+        {
+          "id": "DEC-111428",
+          "type": "led_to",
+          "raw": "DEC-111428:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111586",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:00:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+8/-3) — edit via tool: border-radius: 30px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111587",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:01:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+7/-4) — edit via tool: width: 52px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "BUG-111430",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:02:14",
+      "tags": [
+        "design",
+        "login",
+        "shadow"
+      ],
+      "summary": "Kartu bingkai & tombol sosial terasa datar: bayangan satu lapis 60px blur terlalu difus di latar abu. Ganti 3 lapis + garis rambut; sosial d",
+      "conn": [
+        {
+          "id": "DEC-111428",
+          "type": "relates",
+          "raw": "DEC-111428:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111588",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:03:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+9/-1) — edit via tool: /* Geometri bayangan kartu di DALAM ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111589",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:07:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+11/-7) — edit via tool: .tabs {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "DEC-111431",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "23:09:46",
+      "tags": [
+        "design",
+        "login",
+        "customer"
+      ],
+      "summary": "Login customer tanpa label peran 'Pembeli'; peran lain tetap. Tab customer 12px di bawah tile logo via .brandmark + .tabs",
+      "conn": [
+        {
+          "id": "DEC-111428",
+          "type": "relates",
+          "raw": "DEC-111428:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111590",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:12:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+17/-1) — edit via tool: .brandmark + .tabs { margin-top: va",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111591",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:15:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+1/-1) — edit via tool: object-position: 50% 60%;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "DEC-111432",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "23:15:59",
+      "tags": [
+        "design",
+        "login",
+        "merchant",
+        "image"
+      ],
+      "summary": "Merchant login: foto sate 350x210 mengisi ruang 299px antara tautan daftar dan tombol; aset merchant-sate.webp dibuat via Gemini, terang, ta",
+      "conn": [
+        {
+          "id": "DEC-111428",
+          "type": "relates",
+          "raw": "DEC-111428:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111592",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:29:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+20/-10) — edit via tool: .slot-art {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "DEC-111433",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "23:29:49",
+      "tags": [
+        "design",
+        "login",
+        "cs",
+        "image"
+      ],
+      "summary": "Panel CS: objek transparan (kantong takeaway + printer struk) 350x236 tanpa kartu; latar dibuang rembg, bayangan kontak ikut di PNG",
+      "conn": [
+        {
+          "id": "DEC-111432",
+          "type": "relates",
+          "raw": "DEC-111432:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111593",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:33:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/assets/illustrations/courier-walk.svg (+40) — write via tool: <svg xmlns=\"http://w",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/assets/illustrations/courier-walk.svg"
+    },
+    {
+      "id": "TASK-111594",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:34:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/public/assets/illustrations/courier-walk.svg (+38) — write via tool: <svg xmlns=\"http://w",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/public/assets/illustrations/courier-walk.svg"
+    },
+    {
+      "id": "TASK-111595",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "23:35:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+10/-6) — edit via tool: .slot-object {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "DEC-111434",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "23:35:28",
+      "tags": [
+        "design",
+        "login",
+        "courier",
+        "illustration"
+      ],
+      "summary": "Login kurir: ilustrasi SVG tangan-sendiri (kurir jalan, tas bermarka), bukan foto/AI; 350x250 contain. Logo asli via data-URI",
+      "conn": [
+        {
+          "id": "DEC-111433",
+          "type": "relates",
+          "raw": "DEC-111433:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111596",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:03:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts (+18/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/auth.ts"
+    },
+    {
+      "id": "TASK-111597",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:03:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthCoverHero.tsx (+42) — write via tool: tsx: import type { AuthPhoto ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthCoverHero.tsx"
+    },
+    {
+      "id": "TASK-111598",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:04:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthCoverHero.tsx (+3/-2) — edit via tool: tsx: export function AuthCov",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthCoverHero.tsx"
+    },
+    {
+      "id": "TASK-111599",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:04:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+3/-2) — edit via tool: tsx: import { AuthBanner } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-111600",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:04:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+14/-9) — edit via tool: tsx: import { AuthLayout } from '../compon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-111601",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:04:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss (+204) — write via tool: // ══════════════════════════",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss"
+    },
+    {
+      "id": "TASK-111602",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:04:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && python3 - <<'PY'\nimport pathlib\np = pathlib.Path('src/styles/_system.scss')\ns = p.r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111603",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:05:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -12 && npm run scan 2>&1 | tail -12 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111604",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:06:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -4 && git status --short | head -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111605",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:07:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+2/-2) — edit via tool: tsx: ) : photo && !cover ? (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-111606",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:07:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111607",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:09:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+17/-17) — edit via tool: tsx: <p className=\"auth-or\">atau</p>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-111608",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:09:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss (+19/-8) — edit via tool: .auth--cover .auth-input {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss"
+    },
+    {
+      "id": "TASK-111609",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:09:40",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -E 'error|auth' | head -5; npm run build 2>&1 | tail -3 &&",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111610",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:10:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss (+5/-4) — edit via tool: .auth--cover .auth-panel {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss"
+    },
+    {
+      "id": "TASK-111611",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:11:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111612",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:12:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+19/-19) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111613",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:12:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -E ' error ' | head -3; npm run build 2>&1 | tail -2 && np",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111614",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:13:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts (+1/-1) — edit via tool: ts: .min(1, 'Nomor WhatsApp wajib diisi')",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-111615",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:13:51",
+      "tags": [
+        "ui",
+        "login",
+        "port"
+      ],
+      "summary": "Login customer diporting ke app: AuthLayout cover, hero foto 240px cross-fade, tile merek, tab garis bawah, sosial berlogo, CTA dasar",
+      "conn": [
+        {
+          "id": "DEC-111425",
+          "type": "implements",
+          "raw": "DEC-111425:implements"
+        },
+        {
+          "id": "DEC-111431",
+          "type": "implements",
+          "raw": "DEC-111431:implements"
+        },
+        {
+          "id": "DEC-111432",
+          "type": "relates",
+          "raw": "DEC-111432:relates"
+        }
+      ],
+      "loc": "src/styles/system/_auth-cover.scss:1"
+    },
+    {
+      "id": "TASK-111616",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:16:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/signup-customer.html (+221) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/signup-customer.html"
+    },
+    {
+      "id": "TASK-111617",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:16:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+87/-2) — edit via tool: /* ── Daftar customer (varian layar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111640",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:20:50",
+      "tags": [
+        "design",
+        "slice",
+        "signup"
+      ],
+      "summary": "Irisan daftar customer: signup-customer.html 3 bingkai, kepala 150px, 4 field + persetujuan, CTA 16px dasar, 0 cut/0 overflow",
+      "conn": [
+        {
+          "id": "TASK-111615",
+          "type": "relates",
+          "raw": "TASK-111615:relates"
+        },
+        {
+          "id": "DEC-111425",
+          "type": "implements",
+          "raw": "DEC-111425:implements"
+        }
+      ],
+      "loc": "docs/design/slice/login.css:486"
+    },
+    {
+      "id": "TASK-111641",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:26:35",
+      "tags": [
+        "design",
+        "slice",
+        "signup"
+      ],
+      "summary": "Signup disamakan dengan login: hero 240, tile/tab posisi sama, form gap 12/field 4, frame 906, CTA 16px dasar, 0 cut",
+      "conn": [
+        {
+          "id": "TASK-111640",
+          "type": "fixes",
+          "raw": "TASK-111640:fixes"
+        }
+      ],
+      "loc": "docs/design/slice/signup-customer.html:1"
+    },
+    {
+      "id": "TASK-111642",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:28:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/signup-merchant.html (+224) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/signup-merchant.html"
+    },
+    {
+      "id": "TASK-111660",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:29:22",
+      "tags": [
+        "design",
+        "slice",
+        "signup",
+        "merchant"
+      ],
+      "summary": "Irisan daftar merchant: 3 bingkai 390x926, zona radio 2 pilihan, ritme sama login merchant, CTA 16px dasar, 0 cut",
+      "conn": [
+        {
+          "id": "TASK-111641",
+          "type": "relates",
+          "raw": "TASK-111641:relates"
+        },
+        {
+          "id": "TASK-111640",
+          "type": "relates",
+          "raw": "TASK-111640:relates"
+        }
+      ],
+      "loc": "docs/design/slice/signup-merchant.html:1"
+    },
+    {
+      "id": "TASK-111661",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:31:40",
+      "tags": [
+        "design",
+        "slice",
+        "signup",
+        "merchant"
+      ],
+      "summary": "Daftar merchant pakai tab Masuk|Daftar seperti customer; label peran + tautan switch dilepas; frame 942; tab y292, gap16",
+      "conn": [
+        {
+          "id": "TASK-111660",
+          "type": "fixes",
+          "raw": "TASK-111660:fixes"
+        }
+      ],
+      "loc": "docs/design/slice/signup-merchant.html:1"
+    },
+    {
+      "id": "TASK-111663",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:36:15",
+      "tags": [
+        "design",
+        "slice",
+        "nav"
+      ],
+      "summary": "Tab Masuk|Daftar dipasang di login merchant + keempat layar saling taut; tab aktif menunjuk diri sendiri, klik terverifikasi 4 arah",
+      "conn": [
+        {
+          "id": "TASK-111661",
+          "type": "relates",
+          "raw": "TASK-111661:relates"
+        }
+      ],
+      "loc": "docs/design/slice/login-merchant.html:46"
+    },
+    {
+      "id": "TASK-111664",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:42:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html (+163) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-courier.html"
+    },
+    {
+      "id": "TASK-111665",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:43:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css (+4/-4) — edit via tool: /* Keterangan jenis akun: menempel k",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login.css"
+    },
+    {
+      "id": "TASK-111670",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:43:34",
+      "tags": [
+        "design",
+        "slice",
+        "courier"
+      ],
+      "summary": "Login kurir: switch Kurir toko/partner + email magic link (PRD), terukur switch y292 gap16 cut0; klik switch terverifikasi toggle",
+      "conn": [
+        {
+          "id": "TASK-111663",
+          "type": "relates",
+          "raw": "TASK-111663:relates"
+        }
+      ],
+      "loc": "docs/design/slice/login-courier.html:60"
+    },
+    {
+      "id": "TASK-111671",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:47:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/auth-redesign.md (+4/-2) — edit via tool: Status: **sliced + diporting** untu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/auth-redesign.md"
+    },
+    {
+      "id": "TASK-111672",
+      "type": "task",
+      "status": "open",
+      "date": "2026-10-18",
+      "time": "00:47:45",
+      "tags": [
+        "design",
+        "auth",
+        "porting"
+      ],
+      "summary": "Catatan porting auth: P1 daftar customer, P2 daftar merchant, P3 login merchant, P4 login kurir (magic link, tunggu keputusan)",
+      "conn": [
+        {
+          "id": "TASK-111670",
+          "type": "relates",
+          "raw": "TASK-111670:relates"
+        },
+        {
+          "id": "TASK-111663",
+          "type": "relates",
+          "raw": "TASK-111663:relates"
+        }
+      ],
+      "loc": "docs/design/auth-redesign.md:66"
+    },
+    {
+      "id": "TASK-111673",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:51:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-4) — edit via tool: tsx: batas ikon inline <code classN",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111680",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:54:52",
+      "tags": [
+        "design",
+        "auth",
+        "porting"
+      ],
+      "summary": "P1 diporting: /customer/signup pakai cover 240, tab Masuk|Daftar, CTA 16px; gate 2/2 klik 4/4, terukur tab y292",
+      "conn": [
+        {
+          "id": "TASK-111672",
+          "type": "relates",
+          "raw": "TASK-111672:relates"
+        },
+        {
+          "id": "TASK-111615",
+          "type": "relates",
+          "raw": "TASK-111615:relates"
+        }
+      ],
+      "loc": "src/pages/SignUp.tsx:34"
+    },
+    {
+      "id": "TASK-111681",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:57:08",
+      "tags": [
+        "design",
+        "auth",
+        "porting"
+      ],
+      "summary": "P2 diporting: /merchant/signup cover 240 + tab Masuk|Daftar, CTA 16px; gate 2/2, klik nyata 3/3",
+      "conn": [
+        {
+          "id": "TASK-111672",
+          "type": "relates",
+          "raw": "TASK-111672:relates"
+        },
+        {
+          "id": "TASK-111680",
+          "type": "relates",
+          "raw": "TASK-111680:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantSignUp.tsx:33"
+    },
+    {
+      "id": "TASK-111682",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "00:59:41",
+      "tags": [
+        "design",
+        "auth",
+        "porting"
+      ],
+      "summary": "P3 diporting: /merchant/signin cover + tab Masuk|Daftar + foto pengisi 350x210; CTA 16px, gate 2/2 klik 4/4",
+      "conn": [
+        {
+          "id": "TASK-111672",
+          "type": "relates",
+          "raw": "TASK-111672:relates"
+        },
+        {
+          "id": "TASK-111681",
+          "type": "relates",
+          "raw": "TASK-111681:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantSignIn.tsx:31"
+    },
+    {
+      "id": "TASK-111683",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:00:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierSignIn.tsx (+115) — write via tool: tsx: import { zodResolver } from '@h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/CourierSignIn.tsx"
+    },
+    {
+      "id": "TASK-111684",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:01:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss (+9/-8) — edit via tool: // Segmented switch jenis aku",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-cover.scss"
+    },
+    {
+      "id": "TASK-111700",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:03:59",
+      "tags": [
+        "design",
+        "auth",
+        "porting",
+        "courier"
+      ],
+      "summary": "P4 diporting: /courier/signin cover + switch toko/partner + email magic link; switch y292, CTA 16px, gate 2/2; demo tetap masuk",
+      "conn": [
+        {
+          "id": "TASK-111672",
+          "type": "relates",
+          "raw": "TASK-111672:relates"
+        },
+        {
+          "id": "TASK-111682",
+          "type": "relates",
+          "raw": "TASK-111682:relates"
+        },
+        {
+          "id": "TASK-111670",
+          "type": "relates",
+          "raw": "TASK-111670:relates"
+        }
+      ],
+      "loc": "src/pages/CourierSignIn.tsx:32"
+    }
+  ]
+}

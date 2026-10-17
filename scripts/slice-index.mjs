@@ -1,0 +1,79 @@
+#!/usr/bin/env node
+// Galeri irisan HTML: docs/design/slice/index.html
+//
+//   node scripts/slice-index.mjs
+//
+// Folder ini HANYA berisi halaman login. Layar lain sempat dibuat keliru dan
+// sudah dihapus atas permintaan pemilik (2026-10-17) — jangan didaftarkan lagi
+// di sini tanpa diminta.
+
+import { existsSync, writeFileSync } from 'node:fs'
+
+const DIR = 'docs/design/slice/'
+
+// [berkas, judul, rute asli, catatan]
+const SCREENS = [
+  ['login-1to1.html', 'Login — customer (pembeli)', '/customer/signin', 'ACUAN — reproduksi 1:1 mockup pemilik (teks Inggris sesuai mockup). Kode repo: SignIn.tsx:18 — teksnya Indonesia'],
+  ['signup-customer.html', 'Daftar — customer (pembeli)', '/signup', 'dari kode: SignUp.tsx:38 — Nama, Nomor WhatsApp, Email, Kata sandi, persetujuan, `Buat akun`'],
+  ['login-merchant.html', 'Login — penjual', '/merchant/signin', 'dari kode: MerchantSignIn.tsx:14 — Email + Kata sandi, `Masuk`; tab Masuk/Daftar ke signup-merchant.html'],
+  ['signup-merchant.html', 'Daftar — penjual', '/merchant/signup', 'dari kode: MerchantSignUp.tsx:39 — Nama toko, Email, Nomor HP opsional, zona, Kata sandi, `Kirim pendaftaran`; tab Masuk/Daftar'],
+  ['login-courier.html', 'Login — kurir (toko/partner)', '/courier/signin', 'USULAN: switch `Kurir toko`/`Kurir partner` + email magic link (PRD aktif); kode masih WA + kata sandi'],
+  ['login-admin.html', 'Login — panel CS', '/admin', 'USULAN — adminRoutes tanpa auth; isi minim (Email + Kata sandi + `Masuk`)'],
+  ['login-ops.html', 'Login — ops', '/ops', 'USULAN — opsRoutes tanpa auth; isi minim'],
+  ['login-superadmin.html', 'Login — super admin', '/superadmin', 'USULAN — superAdminRoutes tanpa auth; isi minim']
+]
+
+const rows = SCREENS.map(([file, title, route, note]) => {
+  const ok = existsSync(DIR + file)
+  const label = ok ? `<a href="${file}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
+  return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${file}</td></tr>`
+})
+
+const html = `<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Irisan HTML Sa7tein — login semua peran</title>
+<style>
+  :root { --merek: #E44220; --ink: #172434; --muted: #64748B; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px 24px 80px; background: #f7f7f2; color: var(--ink);
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.02em; }
+  .lead { margin: 0 0 22px; color: var(--muted); font-size: 15px; }
+  .bar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 0 0 28px; padding: 14px 18px;
+         border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(23,36,52,.06); font-size: 14px; }
+  .bar a { color: var(--merek); font-weight: 600; text-decoration: none; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden;
+          box-shadow: 0 2px 8px rgba(23,36,52,.06); }
+  td { padding: 12px 16px; border-top: 1px solid #ededed; font-size: 14px; vertical-align: top; }
+  tr:first-child td { border-top: 0; }
+  a { color: var(--ink); font-weight: 600; text-decoration: none; }
+  a:hover { color: var(--merek); }
+  .note { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+  .route, .file { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; width: 26%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Login &amp; daftar — semua peran</h1>
+  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi.</p>
+  <div class="bar">
+    <a href="login-1to1.html">customer (acuan)</a>
+    <a href="login-merchant.html">penjual</a>
+    <a href="login-courier.html">kurir</a>
+    <a href="login-admin.html">CS</a>
+    <a href="login-ops.html">ops</a>
+    <a href="login-superadmin.html">super admin</a>
+    <a href="README.md">cara kerja</a>
+  </div>
+  <table>${rows.join('\n')}</table>
+</div>
+</body>
+</html>
+`
+
+writeFileSync(DIR + 'index.html', html)
+console.log(`galeri ditulis: ${DIR}index.html · ${SCREENS.filter(([f]) => existsSync(DIR + f)).length}/${SCREENS.length} berkas login ada`)

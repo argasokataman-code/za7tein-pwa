@@ -230,22 +230,38 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
-                <strong>Layar masuk customer dislice ulang mengikuti acuan pemilik.</strong>{' '}
-                Kepalanya bukan lagi pita foto datar: sekarang blok oranye bersudut bawah membulat
-                berisi cakram putih, nama merek, dan chip peran, dengan foto makanan yang sudah ada
-                sebagai tekstur 12% (di atas ~28% oranye merek bergeser ke salmon). Varian ini masuk
-                lewat prop <code className="doc-inline">{'brandLayout="hero"'}</code> di{' '}
-                <code className="doc-inline">AuthLayout</code>, jadi layar auth lain tetap memakai
-                pita foto biasa (<code className="doc-inline">{'brandLayout="pill"'}</code>) sampai
-                keputusan menyeluruh diambil. Di bawah kepala: tab{' '}
-                <strong>Masuk / Daftar</strong> (pil aktif di rel abu), tiga tombol penyedia
-                (Google, Facebook, X) yang menjawab toast mode demo, lalu pembatas{' '}
-                <strong>atau</strong> bergaris. Tombol penyedia sengaja berlabel teks, bukan
-                logotype: lucide 1.45 tidak lagi punya ikon merek, dan repo ini hanya memakai satu
-                bahasa ikon. Panelnya turun ke <code className="doc-inline">--bg-warm</code> supaya
-                field putih menonjol. Gate{' '}
-                <code className="doc-inline">--strict --click</code> di /customer/signin lolos 2/2
-                dengan 9/9 kontrol bisa diklik.
+                <strong>Layar masuk customer kini foto penuh, bukan blok merek.</strong>{' '}
+                Kepalanya memakai varian baru{' '}
+                <code className="doc-inline">{'brandLayout="cover"'}</code>: foto makanan setinggi
+                240px yang berganti sendiri tiap 5 detik (empat foto repo, di-cross-fade bertumpuk
+                supaya dasar kepala tidak pernah berkedip), dengan tanda merek sebagai tile 80px di
+                sambungan foto dan panel. Nama merek tidak lagi ditulis sebagai teks dan chip peran
+                tidak dipasang di layar pembeli. Di bawahnya tab{' '}
+                <strong>Masuk / Daftar</strong> bergaris bawah, pembatas <strong>atau</strong>,
+                tiga tombol penyedia bulat berlogo (Google, Facebook, X) yang menjawab toast mode
+                demo, lalu field putih berbayang dengan tombol{' '}
+                <strong>Masuk</strong> turun ke dasar layar. Logo penyedia adalah berkas di{' '}
+                <code className="doc-inline">public/icons/brand-*.svg</code>, bukan SVG inline, jadi
+                batas ikon inline <code className="doc-inline">legacy-debt.json</code> tidak
+                bertambah. <code className="doc-inline">/customer/signup</code> menyusul memakai
+                varian yang sama &mdash; foto kepala 240px, tile di sambungan, tab{' '}
+                <strong>Masuk / Daftar</strong> (Daftar aktif, tautan silang ke masuk), empat field
+                dan persetujuan, tombol <strong>Buat akun</strong> berhenti 16px dari dasar
+                dokumen; halamannya menggulir, bukan memadatkan isi.{" "}
+                <code className="doc-inline">/merchant/signup</code> ikut varian cover dengan tab
+                yang sama (Daftar aktif, Masuk ke /merchant/signin) dan fieldset zona tetap radio
+                dua pilihan;{" "}
+                <code className="doc-inline">/merchant/signin</code> menutup pasangannya dengan tab
+                Masuk aktif dan foto pengisi 350x210 di antara dua field dan tombol (mencegah panel
+                kosong setengah layar).{" "}
+                <code className="doc-inline">/courier/signin</code> menutup rangkaian ini dengan
+                segmented switch <strong>Kurir toko / Kurir partner</strong> dan masuk lewat email
+                magic link (satu field email + tombol Kirim tautan masuk) sesuai PRD aktif; karena
+                belum ada BE magic link, demo menampilkan toast lalu membuka beranda kurir. Layar
+                status (verifikasi, pending) masih memakai pita foto biasa. Gate{' '}
+                <code className="doc-inline">--pwa --strict --click</code> di /customer/signin lolos
+                2/2 (390px dan 1440px) dengan 8/8 kontrol bisa diklik; /customer/signup lolos 2/2
+                dengan 4/4 kontrol.
               </li>
               <li>
                 <strong>Kotak cari beranda akhirnya menyampaikan kuerinya.</strong> Nilai yang

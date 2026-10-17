@@ -1,107 +1,112 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_COURIER_COVER_PHOTOS, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { useAppDispatch } from '../hooks/useAppStore'
-import { signInSchema, type SignInFormData } from '../lib/schemas'
+import { courierSignInSchema, type CourierSignInFormData } from '../lib/schemas'
 import { signIn } from '../store/slices/authSlice'
+
+type CourierKind = 'inhouse' | 'partner'
 
 /**
  * Masuk kurir (mock).
  *
- * Dasar: flow `f21-account-auth` + `f16-merchant-onboarding` — nomor WA wajib
- * untuk customer **dan** kurir/merchant, tersimpan ternormalisasi E.164
- * (`source.md:760`, `:727`), dan kurir adalah karyawan merchant yang direkrut
- * setelah toko aktif (C-06). Jadi kurir masuk dengan nomor HP, bukan email.
+ * Dua jenis akun, satu layar: `Kurir toko` (karyawan merchant, C-06) dan
+ * `Kurir partner` (direkrut tim ops, M6). Keduanya memakai form yang sama
+ * karena yang membedakan adalah akunnya, bukan cara masuk — jadi pilihannya
+ * segmented switch, bukan dua halaman kembar.
  *
- * Repo ini front-end saja: tidak ada sesi atau token sungguhan (AGENTS.md §1),
- * submit menandai sesi demo (`signIn()`) lalu membuka beranda kurir. Mekanisme
- * kredensial (PIN/sesi) belum punya dasar di PRD dan tidak dikarang di sini.
+ * Kredensial = email magic link, mengikuti PRD aktif R-ACC-01 ("login MVP
+ * hanya email magic link; satu email = satu role"). Ini MENDAHULUI kode lama:
+ * layar ini dulu memakai nomor WA + kata sandi, dan `docs/plan-courier.md` K5
+ * mencatat mekanisme kredensial sebagai `UNRESOLVED`.
+ *
+ * Repo ini front-end saja (AGENTS.md §1): tidak ada email yang benar-benar
+ * dikirim dan tidak ada token. Setelah toast "tautan dikirim", demo langsung
+ * menandai sesi (`signIn()`) lalu membuka beranda kurir — sama seperti layar
+ * masuk lain yang juga melewati langkah verifikasi. Tautan sungguhan baru ada
+ * kalau BE magic link dikerjakan.
  */
 export default function CourierSignIn() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const [showPassword, setShowPassword] = useState(false)
+  const [kind, setKind] = useState<CourierKind>('inhouse')
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignInFormData>({ resolver: zodResolver(signInSchema) })
+  } = useForm<CourierSignInFormData>({ resolver: zodResolver(courierSignInSchema) })
 
   const onSubmit = () => {
+    toast.success('Tautan masuk dikirim ke emailmu.')
     dispatch(signIn('/courier'))
-    toast.success('Masuk sebagai kurir (demo)')
     navigate('/')
   }
 
   return (
     <AuthLayout
       photo={AUTH_PHOTO.courier}
+      photos={AUTH_COURIER_COVER_PHOTOS}
       role={AUTH_ROLE_LABEL.courier}
-      title="Masuk kurir"
-      subtitle="Ambil tugas dari merchant dan antar sampai serah terima OTP."
-      tagline="Nomor WA dipakai sebagai identitas dan tujuan kontak customer. Kurir karyawan merchant: ongkir dan gaji diurus merchant, aplikasi ini hanya membawa tips (C-06)."
+      title="Masuk"
+      brandLayout="cover"
     >
+      {/* Dua pilihan setara, bukan tab navigasi: yang dipilih adalah jenis
+          akun, dan isi form tetap sama. Rel putih + pil aktif `--orange-soft`
+          supaya tombol utama tetap satu-satunya bidang oranye penuh. */}
+      <div className="auth-seg" role="group" aria-label="Jenis akun kurir">
+        <label className="auth-seg-item">
+          <input
+            type="radio"
+            name="courier-kind"
+            value="inhouse"
+            checked={kind === 'inhouse'}
+            onChange={() => setKind('inhouse')}
+          />
+          Kurir toko
+        </label>
+        <label className="auth-seg-item">
+          <input
+            type="radio"
+            name="courier-kind"
+            value="partner"
+            checked={kind === 'partner'}
+            onChange={() => setKind('partner')}
+          />
+          Kurir partner
+        </label>
+      </div>
+      <p className="auth-hint auth-seg-hint">Kurir toko dibuat merchant; kurir partner dibuat tim ops.</p>
+
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">
-          <label className="auth-label" htmlFor="phone">
-            Nomor WhatsApp
+          <label className="auth-label" htmlFor="email">
+            Email
           </label>
           <input
-            id="phone"
-            className={`auth-input${errors.phone ? ' is-error' : ''}`}
-            placeholder="0812 3456 7890"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            aria-invalid={errors.phone ? true : undefined}
-            {...register('phone')}
+            id="email"
+            className={`auth-input${errors.email ? ' is-error' : ''}`}
+            placeholder="nama@email.com"
+            type="email"
+            autoComplete="email"
+            aria-invalid={errors.email ? true : undefined}
+            {...register('email')}
           />
-          {errors.phone ? (
+          {errors.email ? (
             <span className="auth-error" role="alert">
-              {errors.phone.message}
+              {errors.email.message}
             </span>
-          ) : null}
-        </div>
-
-        <div className="auth-field">
-          <label className="auth-label" htmlFor="password">
-            Kata sandi
-          </label>
-          <div className="auth-input-wrap">
-            <input
-              id="password"
-              className={`auth-input${errors.password ? ' is-error' : ''}`}
-              placeholder="Kata sandi akun kurir"
-              type={showPassword ? 'text' : 'password'}
-              autoComplete="current-password"
-              aria-invalid={errors.password ? true : undefined}
-              {...register('password')}
-            />
-            <button
-              type="button"
-              className="auth-reveal"
-              aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
-              aria-pressed={showPassword}
-              onClick={() => setShowPassword((value) => !value)}
-            >
-              {showPassword ? <EyeOff size={20} strokeWidth={1.75} /> : <Eye size={20} strokeWidth={1.75} />}
-            </button>
-          </div>
-          {errors.password ? (
-            <span className="auth-error" role="alert">
-              {errors.password.message}
-            </span>
-          ) : null}
+          ) : (
+            <span className="auth-hint">Satu email hanya untuk satu peran. Tautan dikirim ke kotak masukmu.</span>
+          )}
         </div>
 
         <button type="submit" className="auth-submit" disabled={isSubmitting}>
-          Masuk
+          {isSubmitting ? 'Mengirim tautan…' : 'Kirim tautan masuk'}
         </button>
       </form>
     </AuthLayout>

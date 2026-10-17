@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_MERCHANT_COVER_PHOTOS, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { merchantSignInSchema, type MerchantSignInFormData } from '../lib/schemas'
 import { signIn } from '../store/slices/authSlice'
@@ -30,11 +30,20 @@ export default function MerchantSignIn() {
   return (
     <AuthLayout
       photo={AUTH_PHOTO.merchant}
+      photos={AUTH_MERCHANT_COVER_PHOTOS}
       role={AUTH_ROLE_LABEL.merchant}
-      title="Masuk merchant"
-      subtitle="Kelola order, menu, dan kurir tokomu dari satu tempat."
-      tagline="Fee merchant 0,15 JOD per porsi, ongkir 100% merchant. Merchant baru dapat modal saldo 5 JOD, non-tunai dan tidak bisa ditarik."
+      title="Masuk"
+      brandLayout="cover"
     >
+      <nav className="auth-tabs" aria-label="Pilih masuk atau daftar">
+        <Link className="auth-tab auth-tab--active" to="/signin" aria-current="page">
+          Masuk
+        </Link>
+        <Link className="auth-tab" to="/signup">
+          Daftar
+        </Link>
+      </nav>
+
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">
           <label className="auth-label" htmlFor="email">
@@ -87,14 +96,23 @@ export default function MerchantSignIn() {
           ) : null}
         </div>
 
+        {/* Pengisi ruang kosong di antara dua field dan tombol: layar masuk
+            merchant hanya punya dua field, jadi tanpa gambar ini panel terasa
+            kosong setengah layar. Dekoratif — `alt=""` dan tak bisa difokus. */}
+        <img
+          className="auth-slot-art"
+          src="/assets/img/menu/merchant-sate.webp"
+          alt=""
+          aria-hidden="true"
+          width={350}
+          height={210}
+          decoding="async"
+        />
+
         <button type="submit" className="auth-submit" disabled={isSubmitting}>
           Masuk
         </button>
       </form>
-
-      <p className="auth-switch">
-        Belum punya akun toko? <Link to="/signup">Daftar</Link>
-      </p>
     </AuthLayout>
   )
 }

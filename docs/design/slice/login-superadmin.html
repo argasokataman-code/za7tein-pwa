@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein · Masuk super admin</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  PENTING — layar ini USULAN: `superAdminRoutes` (`src/App.tsx`) tidak punya
+  entri auth. Di produk, super admin adalah website penuh non-PWA; di sini
+  dibingkai ponsel supaya satu bahasa dengan layar masuk lain.
+
+  Bentuk = acuan yang sudah disetujui (commit d0eaa47): kepala FOTO UTUH
+  (tidak diblur) + badge = tile ikon di sambungan foto/panel, berisi logo Sa7tein `/icons/sa7tein-mark.svg`, field
+  putih, tombol utama di dasar layar. Korsel parallax 4 foto.
+
+  Yang TIDAK dikarang: pesan salah dipakai ulang dari `src/lib/schemas.ts:31/32`;
+  label `Email` + `Kata sandi` sama seperti MerchantSignIn. Tanpa tab, penyedia,
+  `atau`, lupa sandi, tautan daftar, atau kode 2FA.
+-->
+<link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Login — super admin</strong><span>superadmin · /superadmin — USULAN, `superAdminRoutes` tanpa auth</span></p>
+
+<div class="frame">
+  <p class="caption"><strong>1 · kosong</strong><span>tombol `Masuk` aktif</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <p class="role">Super Admin</p>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="s-email">Email</label>
+          <input class="input" id="s-email" type="email" autocomplete="email" placeholder="nama@sa7tein.id" />
+        </div>
+        <div class="field">
+          <label for="s-pass">Kata sandi</label>
+          <input class="input" id="s-pass" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" />
+        </div>
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>2 · salah</strong><span>pesan dari <code>schemas.ts</code> yang sudah ada</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <p class="role">Super Admin</p>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="s-email-e">Email</label>
+          <input class="input is-error" id="s-email-e" type="email" autocomplete="email" value="owner" aria-invalid="true" aria-describedby="s-email-err" />
+          <span class="error" id="s-email-err" role="alert">Format email tidak valid</span>
+        </div>
+        <div class="field">
+          <label for="s-pass-e">Kata sandi</label>
+          <input class="input is-error" id="s-pass-e" type="password" autocomplete="current-password" value="123" aria-invalid="true" aria-describedby="s-pass-err" />
+          <span class="error" id="s-pass-err" role="alert">Kata sandi minimal 6 karakter</span>
+        </div>
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>3 · sedang mengirim</strong><span>`disabled={isSubmitting}`</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <p class="role">Super Admin</p>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="s-email-r">Email</label>
+          <input class="input" id="s-email-r" type="email" autocomplete="email" value="owner@sa7tein.id" />
+        </div>
+        <div class="field">
+          <label for="s-pass-r">Kata sandi</label>
+          <input class="input" id="s-pass-r" type="password" autocomplete="current-password" value="rahasia123" />
+        </div>
+        <button class="submit" type="submit" disabled>Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

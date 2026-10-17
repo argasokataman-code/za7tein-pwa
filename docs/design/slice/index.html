@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Irisan HTML Sa7tein — login semua peran</title>
+<style>
+  :root { --merek: #E44220; --ink: #172434; --muted: #64748B; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px 24px 80px; background: #f7f7f2; color: var(--ink);
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.02em; }
+  .lead { margin: 0 0 22px; color: var(--muted); font-size: 15px; }
+  .bar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 0 0 28px; padding: 14px 18px;
+         border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(23,36,52,.06); font-size: 14px; }
+  .bar a { color: var(--merek); font-weight: 600; text-decoration: none; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden;
+          box-shadow: 0 2px 8px rgba(23,36,52,.06); }
+  td { padding: 12px 16px; border-top: 1px solid #ededed; font-size: 14px; vertical-align: top; }
+  tr:first-child td { border-top: 0; }
+  a { color: var(--ink); font-weight: 600; text-decoration: none; }
+  a:hover { color: var(--merek); }
+  .note { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+  .route, .file { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; width: 26%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Login &amp; daftar — semua peran</h1>
+  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi.</p>
+  <div class="bar">
+    <a href="login-1to1.html">customer (acuan)</a>
+    <a href="login-merchant.html">penjual</a>
+    <a href="login-courier.html">kurir</a>
+    <a href="login-admin.html">CS</a>
+    <a href="login-ops.html">ops</a>
+    <a href="login-superadmin.html">super admin</a>
+    <a href="README.md">cara kerja</a>
+  </div>
+  <table><tr><td><a href="login-1to1.html">Login — customer (pembeli)</a><div class="note">ACUAN — reproduksi 1:1 mockup pemilik (teks Inggris sesuai mockup). Kode repo: SignIn.tsx:18 — teksnya Indonesia</div></td><td class="route">/customer/signin</td><td class="file">login-1to1.html</td></tr>
+<tr><td><a href="signup-customer.html">Daftar — customer (pembeli)</a><div class="note">dari kode: SignUp.tsx:38 — Nama, Nomor WhatsApp, Email, Kata sandi, persetujuan, `Buat akun`</div></td><td class="route">/signup</td><td class="file">signup-customer.html</td></tr>
+<tr><td><a href="login-merchant.html">Login — penjual</a><div class="note">dari kode: MerchantSignIn.tsx:14 — Email + Kata sandi, `Masuk`; tab Masuk/Daftar ke signup-merchant.html</div></td><td class="route">/merchant/signin</td><td class="file">login-merchant.html</td></tr>
+<tr><td><a href="signup-merchant.html">Daftar — penjual</a><div class="note">dari kode: MerchantSignUp.tsx:39 — Nama toko, Email, Nomor HP opsional, zona, Kata sandi, `Kirim pendaftaran`; tab Masuk/Daftar</div></td><td class="route">/merchant/signup</td><td class="file">signup-merchant.html</td></tr>
+<tr><td><a href="login-courier.html">Login — kurir (toko/partner)</a><div class="note">USULAN: switch `Kurir toko`/`Kurir partner` + email magic link (PRD aktif); kode masih WA + kata sandi</div></td><td class="route">/courier/signin</td><td class="file">login-courier.html</td></tr>
+<tr><td><a href="login-admin.html">Login — panel CS</a><div class="note">USULAN — adminRoutes tanpa auth; isi minim (Email + Kata sandi + `Masuk`)</div></td><td class="route">/admin</td><td class="file">login-admin.html</td></tr>
+<tr><td><a href="login-ops.html">Login — ops</a><div class="note">USULAN — opsRoutes tanpa auth; isi minim</div></td><td class="route">/ops</td><td class="file">login-ops.html</td></tr>
+<tr><td><a href="login-superadmin.html">Login — super admin</a><div class="note">USULAN — superAdminRoutes tanpa auth; isi minim</div></td><td class="route">/superadmin</td><td class="file">login-superadmin.html</td></tr></table>
+</div>
+</body>
+</html>

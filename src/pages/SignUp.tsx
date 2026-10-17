@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_ROLE_LABEL, AUTH_SIGNUP_COVER_PHOTOS, AUTH_PHOTO } from '../data/auth'
 import { WA_PHONE_HINT } from '../data/phone'
 import { signUpSchema, type SignUpFormData } from '../lib/schemas'
 
@@ -33,11 +33,20 @@ export default function SignUp() {
   return (
     <AuthLayout
       photo={AUTH_PHOTO.signup}
+      photos={AUTH_SIGNUP_COVER_PHOTOS}
       role={AUTH_ROLE_LABEL.customer}
-      title="Buat akun"
-      subtitle="Nomor WhatsApp jadi identitasmu. Kami pakai untuk kabar pesanan kalau notifikasi tidak sampai."
-      tagline="Minimal top-up akun baru 3,5 JOD, dan saldo bisa dipakai kapan saja. Untuk sekarang semua alur di sini masih mode demo."
+      title="Daftar"
+      brandLayout="cover"
     >
+      <nav className="auth-tabs" aria-label="Pilih masuk atau daftar">
+        <Link className="auth-tab" to="/signin">
+          Masuk
+        </Link>
+        <Link className="auth-tab auth-tab--active" to="/signup" aria-current="page">
+          Daftar
+        </Link>
+      </nav>
+
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">
           <label className="auth-label" htmlFor="fullname">
@@ -160,10 +169,6 @@ export default function SignUp() {
           Buat akun
         </button>
       </form>
-
-      <p className="auth-switch">
-        Sudah punya akun? <Link to="/signin">Masuk</Link>
-      </p>
     </AuthLayout>
   )
 }

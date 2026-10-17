@@ -41,6 +41,65 @@ export const AUTH_PHOTO: Record<'signin' | 'signup' | 'merchant' | 'courier', Au
 }
 
 /**
+ * Foto kepala layar masuk customer (varian `brandLayout="cover"`).
+ *
+ * Empat foto lama, bukan aset baru: kepala kini foto penuh, bukan tekstur 12%,
+ * jadi warnanya harus benar dan tidak ada lapisan oranye di atasnya. Urutannya
+ * ditentukan supaya dua foto bersambung tidak sama-sama bernuansa cokelat, dan
+ * foto pertama (yang selalu tampak saat animasi dimatikan) adalah yang paling
+ * jelas "makanan".
+ */
+export const AUTH_COVER_PHOTOS: readonly AuthPhoto[] = [
+  AUTH_PHOTO.signin,
+  AUTH_PHOTO.courier,
+  AUTH_PHOTO.signup,
+  AUTH_PHOTO.merchant,
+]
+
+/**
+ * Foto kepala layar daftar customer. Urutan mengikuti irisan
+ * `docs/design/slice/signup-customer.html`: foto yang paling menandai layar
+ * daftar (`signup` = nasi goreng) tampil lebih dulu, sama seperti layar masuk
+ * dimulai dari foto `signin`.
+ */
+export const AUTH_SIGNUP_COVER_PHOTOS: readonly AuthPhoto[] = [
+  AUTH_PHOTO.signup,
+  AUTH_PHOTO.signin,
+  AUTH_PHOTO.merchant,
+  AUTH_PHOTO.courier,
+]
+
+/**
+ * Foto kepala layar masuk kurir, urutan dari irisan
+ * `docs/design/slice/login-courier.html`: es teh dulu (foto layar kurir).
+ */
+export const AUTH_COURIER_COVER_PHOTOS: readonly AuthPhoto[] = [
+  AUTH_PHOTO.courier,
+  AUTH_PHOTO.signin,
+  AUTH_PHOTO.signup,
+  AUTH_PHOTO.merchant,
+]
+
+/**
+ * Foto kepala layar daftar toko. Urutan dari irisan
+ * `docs/design/slice/signup-merchant.html`: lontong dulu (foto layar merchant),
+ * lalu sate, nasi goreng, dan sate kambing. Foto terakhir belum ada di
+ * `AUTH_PHOTO` karena hanya dipakai irisan ini; dimensinya dibaca dari berkas
+ * (800x451, satu-satunya foto lanskap di kepala auth).
+ */
+export const AUTH_MERCHANT_COVER_PHOTOS: readonly AuthPhoto[] = [
+  AUTH_PHOTO.merchant,
+  AUTH_PHOTO.signin,
+  AUTH_PHOTO.signup,
+  {
+    src: '/assets/img/menu/sate-kambing.webp',
+    alt: 'Sate kambing di atas panggangan, ditata di piring saji',
+    width: 800,
+    height: 451,
+  },
+]
+
+/**
  * Pembeda peran. Ditampilkan di panel foto supaya pengguna tahu ia sedang
  * masuk ke aplikasi yang benar, bukan hanya di judul yang mudah terlewat.
  * Aplikasi ini punya manifest terpisah per peran, jadi dua role memang dua

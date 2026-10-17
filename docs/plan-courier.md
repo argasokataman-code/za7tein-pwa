@@ -36,11 +36,14 @@ error, lint bersih, overflow horizontal 0 di 390px & 1440px, shell 430px terkunc
 | `/courier/tips` | Tips — hanya tips yang jadi milik kurir (C-06) |
 | `/courier/profile` | Profil kurir + status + keluar |
 
-**Layar masuk (K5).** Kurir masuk dengan nomor WA (E.164) + kata sandi, mengikuti
-keputusan akun flow `f21-account-auth` (nomor WA wajib untuk customer & kurir,
-`source.md:760`) dan `f16` (kurir karyawan merchant, direkrut setelah toko aktif).
-Tanpa guard rute: repo ini tak punya sesi sungguhan (AGENTS.md §1), sama seperti
-`/merchant/signin`. Mekanisme kredensial (PIN/sesi) tetap `UNRESOLVED` (f21).
+**Layar masuk (K5).** Kurir masuk dengan **email magic link**, mengikuti PRD aktif
+R-ACC-01 ("login MVP hanya email magic link; satu email = satu role"). Layar
+memisahkan dua jenis akun lewat segmented switch: `Kurir toko` (karyawan
+merchant, direkrut setelah toko aktif — C-06) dan `Kurir partner` (direkrut tim
+ops — M6). Karena repo ini front-end saja (AGENTS.md §1), tidak ada email yang
+dikirim: submit menampilkan toast "Tautan masuk dikirim ke emailmu." lalu
+menandai sesi demo dan membuka beranda kurir. Kode dan irisan desainnya:
+`src/pages/CourierSignIn.tsx`, `docs/design/slice/login-courier.html`.
 
 ---
 
@@ -104,8 +107,9 @@ OTP benar menyelesaikan tugas, `JourneyLine` dipakai (bukan SVG baru).
 
 ## K5 — Masuk, ringkasan, notif mock
 
-- `/courier/signin` — `CourierSignIn` memakai `AuthLayout` + `signInSchema` yang
-  sudah ada (0 CSS baru); foto peran `AUTH_PHOTO.courier` + label "Kurir".
+- `/courier/signin` — `CourierSignIn` memakai `AuthLayout` varian `cover` +
+  `courierSignInSchema` (email). Segmented switch jenis akun bergaya
+  `.auth-seg` di `_auth-cover.scss`; foto kepala `AUTH_COURIER_COVER_PHOTOS`.
 - `/courier` — statline hari ini (aktif, menunggu OTP, selesai, tips) dari
   `courierSlice`; nol mock baru.
 - `/courier/task/:id` — bukti notif mock saat `tiba` dan `selesai` (Web Push di

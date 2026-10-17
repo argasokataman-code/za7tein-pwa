@@ -6,14 +6,19 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_COVER_PHOTOS, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { signInSchema, type SignInFormData } from '../lib/schemas'
 import { signIn } from '../store/slices/authSlice'
 
-// Label teks, bukan logotype pihak ketiga (lucide 1.45 tidak punya ikon merek).
-// Ketiganya mode demo, jadi tombolnya menjelaskannya sendiri saat ditekan.
-const SOCIAL_PROVIDERS = ['Google', 'Facebook', 'X'] as const
+// Logo merek sebagai berkas di `public/icons/`, bukan SVG inline: ikon inline
+// dibatasi `legacy-debt.json` per berkas, dan ini logo pihak ketiga, bukan ikon
+// fungsional yang bisa diganti lucide.
+const SOCIAL_PROVIDERS = [
+  { name: 'Google', icon: '/icons/brand-google.svg' },
+  { name: 'Facebook', icon: '/icons/brand-facebook.svg' },
+  { name: 'X', icon: '/icons/brand-x.svg' },
+] as const
 
 export default function SignIn() {
   const navigate = useNavigate()
@@ -34,10 +39,11 @@ export default function SignIn() {
   return (
     <AuthLayout
       photo={AUTH_PHOTO.signin}
+      photos={AUTH_COVER_PHOTOS}
       role={AUTH_ROLE_LABEL.customer}
       title="Masuk"
       subtitle="Pesan dari dapur di sekitarmu dan ikuti perjalanannya sampai tiba."
-      brandLayout="hero"
+      brandLayout="cover"
     >
       <nav className="auth-tabs" aria-label="Pilih masuk atau daftar">
         <Link className="auth-tab auth-tab--active" to="/signin" aria-current="page">
@@ -48,20 +54,21 @@ export default function SignIn() {
         </Link>
       </nav>
 
+      <p className="auth-or">atau</p>
+
       <div className="auth-socials">
         {SOCIAL_PROVIDERS.map((provider) => (
           <button
-            key={provider}
+            key={provider.name}
             type="button"
             className="auth-social"
-            onClick={() => toast(`Mode demo: masuk dengan ${provider} belum terhubung`)}
+            aria-label={`Masuk dengan ${provider.name}`}
+            onClick={() => toast(`Mode demo: masuk dengan ${provider.name} belum terhubung`)}
           >
-            {provider}
+            <img src={provider.icon} alt="" width={22} height={22} decoding="async" />
           </button>
         ))}
       </div>
-
-      <p className="auth-or">atau</p>
 
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">

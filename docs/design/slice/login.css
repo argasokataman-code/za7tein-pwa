@@ -1,0 +1,754 @@
+/* ============================================================================
+   Sa7tein — gaya LOGIN (satu bahasa untuk semua peran)
+   ----------------------------------------------------------------------------
+   ARSIP REVIEW, bukan kode produksi.
+
+   Bentuk = acuan pemilik yang sudah disetujui (commit d0eaa47,
+   `docs/design/slice/login-1to1.html`): blok kepala berisi FOTO UTUH, cakram
+   merek, tab garis-bawah, tiga tombol sosial berlogo, field putih, tautan lupa
+   sandi, tombol utama di dasar layar.
+
+   Yang ditambahkan di atas acuan itu, semuanya dari repo:
+     - korsel parallax: 4 foto bergantian + geser tipis (permintaan pemilik)
+     - badge merek = LOGO LENGKAP repo `/icons/sa7tein-wordmark.svg`
+     - tab `Masuk | Daftar` (bukan Login/Signup) + `atau`
+     - anatomi form + validasi `_auth.scss`, pesan `src/lib/schemas.ts`
+     - toast `toastOptions` `src/App.tsx:590-603`
+
+   PEWARNAAN = token repo (`src/styles/_tokens.scss`, EDISI 02), nilai salinan.
+   Tidak ada gradien.
+============================================================================ */
+
+:root {
+  /* ── Salinan token repo: src/styles/_tokens.scss, EDISI 02 ─────────────── */
+  --sa7tein-orange: #E44220;
+  --orange-ink: #B83213;
+  --orange-soft: #FFF0EB;
+  --orange-deep: #C9361A;
+
+  --bg-warm: #F4F4F6;
+  --surface: #FFFFFF;
+  --on-brand: #FFFFFF;
+
+  --text-primary: #172434;
+  --text-secondary: #64748B;
+  --text-secondary-strong: #475569;
+
+  --danger: #E11D48;
+  --danger-ink: #BE123C;
+  --red-soft: #FFF1F2;
+
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+
+  --radius-xs: 8px;
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 9999px;
+
+  --text-xs: 13px;
+  --text-sm: 15px;
+  --text-base: 16px;
+  /* Teks isian dipatok 16px: di bawah itu iOS men-zoom input saat fokus. */
+  --text-field: 16px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  --touch-min: 44px;
+
+  --motion-fast: 140ms;
+  --motion-standard: 200ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Geometri bayangan kartu di DALAM layar, disalin dari acuan yang disetujui
+     (`login-1to1.html`, commit d0eaa47): `0 10px 24px .10` untuk field dan
+     `0 10px 22px .12` untuk tombol sosial. Token `--shadow-sm` repo (`0 2px 8px`)
+     terlalu sempit untuk itu — bedanya bukan selera, blur 8 vs 24px membuat
+     kartunya terbaca datar. */
+  --shadow-card: 0 10px 24px rgba(23, 36, 52, 0.12);
+  --shadow-card-hover: 0 14px 30px rgba(23, 36, 52, 0.16);
+
+  --shadow-subtle: 0 1px 2px rgba(23, 36, 52, 0.06);
+  --shadow-sm: 0 2px 8px rgba(23, 36, 52, 0.10);
+  --shadow-md: 0 8px 24px rgba(23, 36, 52, 0.16);
+  --shadow-brand: 0 8px 20px rgba(228, 66, 32, 0.28);
+
+  /* ── Bingkai: milik lembar review ini, bukan token repo ────────────────── */
+  --phone-w: 390px;
+  --phone-h: 844px;
+  --gutter: 20px;
+}
+
+* { box-sizing: border-box; }
+
+/* Margin bawaan `<p>` (1em) tidak diinginkan: ia pernah mendorong toast 15px
+   dari tempat yang ditulis CSS (`top: 8px` jadi 23px). Jarak diatur eksplisit. */
+p { margin: 0; }
+
+body {
+  margin: 0;
+  padding: 32px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  /* Latar LEMBAR REVIEW (di luar bingkai ponsel), bukan layar aplikasi. */
+  background: #ececec;
+  font-family: 'Plus Jakarta Sans', 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
+}
+
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  max-width: var(--phone-w);
+  color: var(--text-secondary-strong);
+  font-size: 13px;
+}
+.caption strong { font-size: 14px; }
+.caption span { color: var(--text-secondary); }
+
+/* ── Bingkai ponsel ─────────────────────────────────────────────────────── */
+
+.frame { display: flex; flex-direction: column; gap: 10px; }
+
+.phone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--phone-w);
+  height: var(--phone-h);
+  overflow: hidden;
+  border-radius: 30px;
+  background: var(--bg-warm);
+  /* Tiga lapis: garis rambut (menahan tepi di latar abu), bayangan dekat
+     (kedalaman), lalu bayangan jauh (kartu terangkat dari halaman). */
+  box-shadow:
+    0 0 0 1px rgba(23, 36, 52, 0.10),
+    0 2px 6px rgba(23, 36, 52, 0.12),
+    0 20px 44px rgba(23, 36, 52, 0.30);
+}
+
+/* ── Kepala: foto utuh + korsel ─────────────────────────────────────────── */
+
+/* Foto MENGISI kepala (bukan diblur, bukan tekstur). Tinggi 38% seperti acuan
+   (`login-1to1.html`, commit d0eaa47); dipatok 322px supaya bingkai 390x844
+   tidak bergantung tinggi jendela peninjau. */
+.hero {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  height: 240px;
+  overflow: hidden;
+  background: var(--sa7tein-orange);
+  border-bottom-left-radius: var(--radius-2xl);
+  border-bottom-right-radius: var(--radius-2xl);
+}
+
+/* Korsel parallax: foto bergantian tiap 5 detik (siklus 25 detik) sambil
+   bergeser tipis. Permintaan pemilik; acuan memakai satu foto diam.
+
+   ATURAN ANTI-KEDIP (pernah salah): slide baru FADE IN DI ATAS slide lama, dan
+   slide lama baru di-reset setelah tertutup penuh. Slide lama TIDAK pernah
+   memudar ke transparan sendirian — kalau itu terjadi, dasar oranye kepala
+   menembus dan kepala berkedip oranye. Karena itu slide pertama punya
+   duplikatnya di urutan terakhir (anak ke-5): saat siklus selesai, duplikat itu
+   memudar di atas slide pertama yang identik, jadi tidak ada celah sama sekali. */
+.carousel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: cross-fade 25s infinite, ken-burns 14s ease-in-out infinite alternate;
+}
+
+/* Slide dasar: selalu tampak, tidak ikut memudar. Ini jaring pengaman kalau
+   animasi beku — kepalanya tetap foto, bukan blok oranye. */
+.carousel .slide:nth-child(1) {
+  opacity: 1;
+  animation: ken-burns 14s ease-in-out infinite alternate;
+}
+
+/* Fase tiap slide: mulai 1 detik sebelum jatahnya, penuh tepat di awal jatah,
+   lalu di-reset saat slide berikutnya sudah menutupi. */
+.carousel .slide:nth-child(2) { animation-delay: -21s, -4s; }
+.carousel .slide:nth-child(3) { animation-delay: -16s, -8s; }
+.carousel .slide:nth-child(4) { animation-delay: -11s, -12s; }
+.carousel .slide:nth-child(5) { animation-delay: -6s, 0s; }
+
+@keyframes cross-fade {
+  0%      { opacity: 0; }
+  4%      { opacity: 1; }
+  23.9%   { opacity: 1; }
+  24%     { opacity: 0; }
+  100%    { opacity: 0; }
+}
+
+/* Geser + zoom tipis: 1,02 -> 1,08. Skala selalu >1 supaya tidak ada tepi foto
+   yang terbuka. */
+@keyframes ken-burns {
+  from { transform: scale(1.02) translate3d(-0.6%, 0.4%, 0); }
+  to   { transform: scale(1.08) translate3d(0.6%, -0.4%, 0); }
+}
+
+/* Penanda korsel dibuang: acuan tidak punya, dan deretan titik di tengah foto
+   hanya menambah satu elemen dekoratif tanpa tugas. Geraknya tetap ada. */
+
+/* Badge merek = TILE IKON yang duduk di sambungan foto/panel, bukan cakram yang
+   melayang di tengah foto. Satu bentuk saja: pelat oranye logo
+   (`/icons/sa7tein-mark.svg`) dengan sudut membulat + cincin putih tipis supaya
+   tepinya terbaca di atas foto. Ia anak `.body` dengan `margin-top` negatif, jadi
+   separuh badannya menimpa tepi bawah foto — pola yang sama dipakai aplikasi
+   nyata untuk memasang identitas, bukan tempelan di tengah gambar. */
+.brandmark {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 80px;
+  height: 80px;
+  margin: -40px auto 0;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: 0 0 0 4px var(--surface), var(--shadow-md);
+}
+
+/* Peran: label kecil di bawah tile, bukan pil putih kedua. Satu chip saja di
+   layer atas foto sudah cukup (badge), dua = ramai. */
+.role {
+  position: relative;
+  z-index: 2;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Chip peran lama sudah dilebur ke `.role` di atas (label kecil, bukan pil). */
+
+/* ── Isi bawah ──────────────────────────────────────────────────────────── */
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  /* Tanpa padding atas: tile logo (`margin-top` negatif) yang menempati
+     sambungan foto/panel. Jarak isi diatur lewat margin tiap elemen. */
+  padding: 0 var(--gutter) var(--space-4);
+  background: var(--bg-warm);
+}
+
+/* Tab garis-bawah seperti acuan; teksnya milik repo (`Masuk | Daftar`). */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 44px;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Customer tanpa label peran: tab langsung menyusul tile logo, jadi butuh
+   jarak sendiri. Di peran lain label peran yang mengisi celah itu (12px). */
+.brandmark + .tabs { margin-top: var(--space-3); }
+
+/* Foto pengisi ruang kosong di layar merchant (tanpa tab/sosial, jadi ada
+   ~299px menganga di antara tautan daftar dan tombol). Kartu gambar selebar
+   field, radius `--radius-lg`, bayangan `--shadow-card` — sama bahasanya dengan
+   kartu lain di layar ini. `margin-top: auto` membuatnya turun mendekati tombol,
+   bukan menggantung di bawah field. */
+.slot-art {
+  width: 100%;
+  height: 210px;
+  margin: auto 0 var(--space-4);
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  object-position: 50% 60%;
+  box-shadow: var(--shadow-card);
+  background: var(--surface);
+}
+
+/* Objek transparan (panel CS): bukan kartu — tidak ada latar, radius, atau
+   bingkai. Bayangan kontak sudah menyatu di dalam PNG-nya, jadi jangan
+   ditambah `filter: drop-shadow` (hasilnya bayangan dobel). */
+.slot-object {
+  width: 100%;
+  height: 236px;
+  margin: auto 0 var(--space-3);
+  object-fit: contain;
+}
+
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tab--active {
+  color: var(--sa7tein-orange);
+  box-shadow: inset 0 -2px 0 var(--sa7tein-orange);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+/* `atau` seperti acuan (`or`), teks repo. */
+.or {
+  margin: var(--space-3) 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+/* Tiga tombol sosial berlogo, seperti acuan. Ukuran 52px dari acuan; `52` juga
+   di atas `--touch-min` jadi target sentuh aman. */
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: var(--space-4);
+}
+
+.social {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  /* Tanpa garis tepi, seperti acuan: yang mengangkatnya bayangan `--shadow-card`. */
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+.social:hover { box-shadow: var(--shadow-card-hover); }
+.social:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+.social svg { display: block; }
+
+/* ── Formulir & validasi ────────────────────────────────────────────────── */
+
+/* Salinan `_auth.scss`/`_mixins.scss`: `.auth-form` :187 (gap `--space-3`),
+   `.auth-field` :193 (gap `--space-1`), `.auth-input` :210 (`field-shape`),
+   `.auth-input.is-error` :215/219, `.auth-error` :284, `.auth-aside` :292,
+   `.auth-submit` :313. `flex: 1` + `margin-top: auto` pada tombol menaruhnya di
+   dasar layar seperti acuan — dan mencegah ruang kosong menganga di halaman
+   yang isinya pendek (merchant/kurir). */
+form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+label {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-field);
+}
+.input::placeholder { color: var(--text-secondary); }
+.input:focus,
+.input:focus-visible {
+  outline: none;
+  border-color: var(--sa7tein-orange);
+  box-shadow: 0 0 0 3px var(--orange-soft);
+}
+
+.input.is-error { border-color: var(--danger); }
+.input.is-error:focus,
+.input.is-error:focus-visible {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px var(--red-soft);
+}
+
+/* Pesan salah selalu `role="alert"` + `aria-invalid` di inputnya. */
+.error {
+  color: var(--danger-ink);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+}
+
+.forgot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: calc(-1 * var(--space-1));
+}
+.forgot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-1);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Aksi primer = oranye merek, teks `--on-brand`; `:disabled` opacity .45
+   seperti `s-btn-shape` (`_mixins.scss:25`). */
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-top: auto;
+  padding: 0 var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--sa7tein-orange);
+  box-shadow: var(--shadow-brand);
+  color: var(--on-brand);
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.submit:hover { background: var(--orange-deep); }
+.submit:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+.submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.switch {
+  color: var(--text-secondary-strong);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+.switch a {
+  color: var(--orange-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ── Segmented switch (jenis akun kurir) ────────────────────────────────── */
+
+/* Dua pilihan setara, bukan tab navigasi: `Kurir toko` dan `Kurir partner`
+   memilih jenis akun, dan isi form tetap sama. Rel putih + pil aktif
+   `--orange-soft`; tombol utama tetap satu-satunya bidang oranye penuh. */
+.seg {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  margin-top: var(--space-3);
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.seg-item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--touch-min);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.seg-item input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.seg-item:has(input:checked) {
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.seg-item:has(input:focus-visible) {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: -2px;
+}
+
+/* Keterangan jenis akun: menempel ke switch, lalu 12px ke field pertama. */
+.seg-hint {
+  margin: var(--space-2) 0 var(--space-3);
+}
+
+/* ── Daftar customer (varian layar yang lebih tinggi isinya) ─────────────── */
+
+/* Layar daftar memakai kepala 240px yang SAMA dengan login: berpindah tab
+   tidak boleh mengubah tinggi foto. Yang berbeda hanya isinya yang lebih
+   panjang (empat field + persetujuan), jadi ritme form-nya yang dirapatkan,
+   bukan kepalanya. */
+/* Layar daftar memakai ritme yang SAMA dengan login (form gap 12px, field gap
+   4px). Yang berbeda hanya panjangnya: empat field + persetujuan butuh 906px
+   pada bingkai "salah" (paling tinggi), jadi bingkai daftar memang lebih
+   panjang 62px. Jangan memaksa 844 dengan merapatkan jarak — itu yang membuat
+   layar daftar terasa bukan satu keluarga dengan login. */
+.phone--signup {
+  height: 906px;
+}
+
+/* Tab harus punya napas sebelum field pertama: di login celah itu diisi blok
+   `atau` + tombol sosial, di daftar tidak ada blok itu. 12px, sama dengan
+   jarak tile ke tab. */
+.phone--signup .tabs {
+  margin-bottom: var(--space-3);
+}
+
+/* Petunjuk format nomor (`WA_PHONE_HINT`). Bukan pesan salah: warnanya tenang
+   dan tidak membawa `role="alert"`. */
+.hint {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+/* Keterangan kecil di dalam label, mis. "(untuk verifikasi)". */
+.label-note {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Tombol tampilkan sandi menumpang di dalam field. Field diberi padding kanan
+   selebar target sentuh supaya teks tidak pernah masuk ke bawah tombol. */
+.input-wrap {
+  position: relative;
+}
+
+.input-wrap .input {
+  padding-right: calc(var(--touch-min) + var(--space-2));
+}
+
+.reveal {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 0;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.reveal:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: -2px;
+}
+
+/* Persetujuan syarat & ketentuan: checkbox ASLI (bisa dijangkau keyboard),
+   bukan kotak tiruan di atas input `display: none`. Seluruh baris jadi target
+   karena dibungkus `<label>`. */
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.consent input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 1px 0 0;
+  accent-color: var(--sa7tein-orange);
+}
+
+/* ── Daftar merchant ────────────────────────────────────────────────────── */
+
+/* Tab butuh napas sebelum field pertama, sama dengan daftar customer. */
+.phone--merchant-signup .tabs {
+  margin-bottom: var(--space-3);
+}
+
+/* Empat field + fieldset zona + tautan masuk. Tinggi bingkai diukur dari
+   bingkai "salah" (tiga pesan sekaligus); jangan dirapatkan untuk memaksa
+   844. Di app halaman ini menggulir dokumen. */
+.phone--merchant-signup {
+  height: 942px;
+}
+
+/* ── Zona pengantaran (daftar merchant) ─────────────────────────────────── */
+
+/* Salinan `_auth.scss` `.auth-fieldset` :496 / `.auth-zones` :507 /
+   `.auth-zone` :516. Dua pilihan saja (PRD aktif), jadi grid dua kolom —
+   bukan teks bebas. Seluruh kotak jadi target sentuh; radio aslinya
+   transparan menutupi kotak. */
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.fieldset legend {
+  margin-bottom: var(--space-2);
+  padding: 0;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.zones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+/* Petunjuk zona bukan pesan salah: ia menempel ke pilihannya, bukan ke field
+   berikutnya, jadi 4px cukup. Tanpa ini ia menempel langsung ke chip. */
+.fieldset .hint {
+  display: block;
+  margin-top: var(--space-1);
+}
+
+.zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.zone input {
+  position: absolute;
+  inset: -1px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Penanda pilihan 18px, digambar pada label. */
+.zone::before {
+  content: '';
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+}
+
+.zone:has(input:checked) {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.zone:has(input:checked)::before {
+  border-color: var(--sa7tein-orange);
+  box-shadow: inset 0 0 0 4px var(--sa7tein-orange);
+  background: var(--surface);
+}
+
+.zone:has(input:focus-visible) {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: 2px;
+}
+
+/* ── Toast "berhasil masuk" ─────────────────────────────────────────────── */
+
+/* Gaya = `toastOptions.style` repo (`src/App.tsx:593-601`): latar `--surface`,
+   `border: 1px solid --border`, `--radius-lg`, `--shadow-md`, `--text-sm`;
+   posisi = `position="top-center"` (`App.tsx:591`).
+
+   Toast MENGAPUNG di atas layar: ia anak `.phone`, bukan isi `.body` — di dalam
+   panel ia jatuh menimpa tab, dan `slice-check` menolak bentuk itu. Tanpa
+   titik/ikon karangan: repo tidak menyetel `iconTheme`. */
+.toast {
+  position: absolute;
+  top: var(--space-2);
+  left: 50%;
+  z-index: 6;
+  max-width: calc(100% - (2 * var(--gutter)));
+  padding: var(--space-2) var(--space-3);
+  transform: translateX(-50%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Hormati `prefers-reduced-motion`: hentikan geser+zoom, pergantian foto tetap
+   jalan supaya kepala tidak jadi foto diam. */
+@media (prefers-reduced-motion: reduce) {
+  .carousel .slide { animation: slide-fade 20s infinite; }
+}

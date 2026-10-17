@@ -3,339 +3,209 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Login page — slice 1:1</title>
+<title>Sa7tein · Masuk customer</title>
 <!--
   ARSIP REVIEW, bukan kode produksi.
-  Reproduksi 1:1 frame "Login page" dari mockup pemilik: blok oranye bersudut
-  bawah membulat + logo lingkaran putih (monogram) + nama merek, tab
-  Login/Signup, "or" polos, tiga tombol sosial berlogo, field putih tanpa
-  border (hanya bayangan), tautan Forgot Password, tombol Continue putih
-  berteks oranye yang menumpuk sebagian di depan foto, dan foto dekorasi yang
-  tumpah keluar sudut kanan-bawah.
 
-  Warna, ukuran, dan urutan di bawah ini menyalin acuan, jadi beberapa di
-  antaranya memang melanggar aturan repo (lihat daftar simpangan di
-  docs/design/auth-redesign.md): oranye acuan #F58220 (bukan --sa7tein-orange),
-  field tanpa garis, tombol utama putih, dan foto yang menabrak tombol.
+  Bentuk = acuan yang sudah disetujui (commit d0eaa47): kepala FOTO UTUH,
+  badge merek, tab garis-bawah, tiga tombol sosial berlogo, field putih,
+  tautan lupa sandi, tombol utama di dasar layar. Kepala diberi korsel
+  parallax (4 foto) sesuai permintaan pemilik — fotonya TIDAK diblur.
 
-  PENTING soal aset: berkas ini duduk tiga tingkat di bawah akar repo
-  (docs/design/slice/), jadi tiap `src` wajib `../../../public/assets/...`.
-  Dua tingkat (`../../`) menunjuk docs/public/ yang tidak ada, dan gambarnya
-  hilang tanpa pesan apa pun saat dibuka lewat file://.
+  Badge merek = logo repo `/icons/sa7tein-mark.svg` pada tile ikon, bukan nama
+  sebagai teks.
+
+  Isi dari kode repo (`src/pages/SignIn.tsx:35-49`): tab `Masuk | Daftar`,
+  tombol `Google | Facebook | X`, `atau`, label `Nomor WhatsApp` + `Kata sandi`,
+  `Lupa kata sandi?`, tombol `Masuk`. Pesan salah dari `src/lib/schemas.ts:14/15/19`
+  verbatim; `noValidate` (SignIn.tsx:66) → nol pesan bawaan peramban.
+  Toast `Mode demo: berhasil masuk` (SignIn.tsx:30).
 -->
-<style>
-  :root {
-    --acuan-orange: #f58220;
-    --acuan-bg: #f7f7f2;
-    --acuan-ink: #1a1a1a;
-    --acuan-muted: #8a8a8a;
-    --phone-w: 390px;
-    --phone-h: 844px;
-    --gutter: 22px;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    padding: 32px 16px 48px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    background: #ececec;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  }
-
-  .caption {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    color: #4a4a4a;
-    font-size: 13px;
-  }
-  .caption strong { font-size: 14px; }
-  .caption span { color: #8a8a8a; }
-
-  /* ── Bingkai ponsel ─────────────────────────────────────────────────── */
-
-  .phone {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: var(--phone-w);
-    height: var(--phone-h);
-    overflow: hidden;
-    border-radius: 30px;
-    background: var(--acuan-bg);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
-  }
-
-  /* ── Kepala oranye ──────────────────────────────────────────────────── */
-
-  .hero {
-    position: relative;
-    z-index: 1;
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    height: 38%;
-    background: var(--acuan-orange);
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-  }
-
-  .hero-logo {
-    display: grid;
-    place-items: center;
-    width: 76px;
-    height: 76px;
-    border: 2px solid rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    color: #fff;
-    font-size: 34px;
-    font-weight: 800;
-    line-height: 1;
-  }
-
-  .hero-brand {
-    margin: 0;
-    color: var(--acuan-ink);
-    font-size: 27px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-  }
-
-  /* Foto makanan di pojok kanan-atas: massa bulat yang menyembul keluar tepi
-     atas dan kanan blok oranye, jadi ia berada DI DEPAN blok oranye, bukan di
-     dalam kotaknya. Lebarnya ~49% lebar ponsel, sama dengan foto acuan.
-     `z-index: 0` menaruhnya di bawah cakram logo dan nama merek supaya keduanya
-     tetap terbaca. */
-  .hero-photo {
-    position: absolute;
-    z-index: 0;
-    top: -34px;
-    right: -46px;
-    width: 190px;
-    height: 190px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: 55% 45%;
-  }
-
-  /* Cakram, nama merek, dan chip peran wajib di atas foto pojok. */
-  .hero-logo,
-  .hero-brand {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ── Isi bawah ──────────────────────────────────────────────────────── */
-
-  .body {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    padding: 0 var(--gutter) 26px;
-  }
-
-  .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 44px;
-    margin-top: 26px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e2e2da;
-  }
-
-  .tab {
-    padding-bottom: 6px;
-    color: var(--acuan-muted);
-    font-size: 15px;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .tab--active {
-    color: var(--acuan-orange);
-    border-bottom: 2px solid var(--acuan-orange);
-  }
-
-  .or {
-    margin: 18px 0;
-    color: var(--acuan-muted);
-    font-size: 13px;
-    text-align: center;
-  }
-
-  .socials {
-    display: flex;
-    justify-content: center;
-    gap: 22px;
-    margin-bottom: 20px;
-  }
-
-  .social {
-    display: grid;
-    place-items: center;
-    width: 52px;
-    height: 52px;
-    border: 0;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
-    cursor: pointer;
-  }
-
-  .social:hover { box-shadow: 0 12px 26px rgba(0, 0, 0, 0.16); }
-
-  /* `flex: 1` wajib: `margin-top: auto` pada tombol hanya bekerja kalau induknya
-     flex, dan induknya di sini `<form>` — kalau tidak, tombolnya menggantung di
-     tengah, bukan di dasar layar seperti acuan. */
-  form {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-  }
-
-  .field {
-    width: 100%;
-    height: 54px;
-    margin-bottom: 16px;
-    padding: 0 18px;
-    border: 0;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
-    color: #333;
-    font-family: inherit;
-    font-size: 15px;
-  }
-
-  .field::placeholder { color: var(--acuan-muted); }
-  .field:focus { outline: 2px solid rgba(245, 130, 32, 0.45); }
-
-  /* Tautan ini bukan flex item (induknya <form> blok), jadi `align-self` tidak
-     berpengaruh apa pun: yang membuatnya rata kanan adalah block + text-align. */
-  .forgot {
-    display: block;
-    margin: -4px 2px 18px;
-    color: var(--acuan-orange);
-    font-size: 13px;
-    font-weight: 600;
-    text-align: right;
-    text-decoration: none;
-  }
-
-  /* Baris ini duduk DI ATAS foto, bukan di bawahnya (urutan yang sama dengan
-     acuan: teks "don't have an account" muncul sebelum tombol). Kalau ia di
-     bawah, teks kelabu 13px jatuh di atas foto makanan dan kontrasnya hilang. */
-  .foot {
-    position: relative;
-    z-index: 2;
-    margin: 0;
-    color: var(--acuan-muted);
-    font-size: 13px;
-    text-align: center;
-  }
-
-  .foot a {
-    color: var(--acuan-orange);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  /* Tombol utama: putih berteks oranye. `margin-top: auto` mendorongnya ke
-     dasar layar seperti acuan, dan itu menaruh satu-satunya bagian yang
-     menumpuk foto tepat di depan tombolnya (bukan di depan teks kecil). */
-  .cta {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 56px;
-    margin-top: auto;
-    border: 0;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
-    color: var(--acuan-orange);
-    font-family: inherit;
-    font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  /* Foto dekorasi: tumpah keluar sudut kanan-bawah, dan hanya tombol utama yang
-     menumpuknya (sesuai acuan). Sisi kiri-atasnya dibulatkan penuh supaya
-     terbaca sebagai massa yang menyembul dari sudut, bukan kotak foto. */
-  .art {
-    position: absolute;
-    z-index: 0;
-    right: -120px;
-    bottom: -276px;
-    width: 420px;
-    height: 420px;
-    border-top-left-radius: 100%;
-    object-fit: cover;
-  }
-</style>
+<link rel="stylesheet" href="login.css" />
 </head>
 <body>
 
-<p class="caption"><strong>Login page</strong><span>slice 1:1 dari mockup — "Mia Food Item" diganti Sa7tein</span></p>
+<p class="caption"><strong>Login — customer</strong><span>customer · /customer/signin · SignIn.tsx:35</span></p>
 
-<div class="phone">
+<div class="frame">
+  <p class="caption"><strong>1 · kosong</strong><span>tombol `Masuk` aktif</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+      </div>
+    </header>
 
-  <header class="hero">
-    <img class="hero-photo" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" aria-hidden="true" />
-    <span class="hero-logo" aria-hidden="true">S</span>
-    <h1 class="hero-brand">Sa7tein</h1>
-  </header>
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab tab--active" href="login-1to1.html" aria-current="page">Masuk</a>
+        <a class="tab" href="signup-customer.html">Daftar</a>
+      </nav>
 
-  <div class="body">
-    <nav class="tabs">
-      <a class="tab tab--active" href="#">Login</a>
-      <a class="tab" href="#">Signup</a>
-    </nav>
+      <p class="or">atau</p>
 
-    <p class="or">or</p>
+      <div class="socials">
+        <button class="social" type="button" aria-label="Masuk dengan Google">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#4285f4" d="M23.06 12.25c0-.85-.08-1.67-.22-2.45H12v4.63h6.2a5.3 5.3 0 0 1-2.3 3.48v2.9h3.72c2.18-2 3.44-4.96 3.44-8.56z"/>
+            <path fill="#34a853" d="M12 24c3.1 0 5.7-1.03 7.62-2.79l-3.72-2.9c-1.03.7-2.35 1.11-3.9 1.11-3 0-5.54-2.02-6.45-4.74H1.7v2.98A11.5 11.5 0 0 0 12 24z"/>
+            <path fill="#fbbc05" d="M5.55 14.68a6.9 6.9 0 0 1 0-4.37V7.33H1.7a11.5 11.5 0 0 0 0 10.34l3.85-2.99z"/>
+            <path fill="#ea4335" d="M12 4.75c1.68 0 3.2.58 4.4 1.72l3.28-3.28C17.7 1.22 15.1 0 12 0 7.7 0 3.98 2.47 1.7 7.33l3.85 2.98C6.46 6.77 9 4.75 12 4.75z"/>
+          </svg>
+        </button>
+        <button class="social" type="button" aria-label="Masuk dengan Facebook">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#1877f2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/>
+          </svg>
+        </button>
+        <button class="social" type="button" aria-label="Masuk dengan X">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#1da1f2" d="M23.95 4.57a10 10 0 0 1-2.82.77 4.96 4.96 0 0 0 2.16-2.72c-.95.56-2 1.03-3.13 1.25a4.92 4.92 0 0 0-8.38 4.48A13.94 13.94 0 0 1 1.64 3.16a4.92 4.92 0 0 0 1.52 6.57 4.9 4.9 0 0 1-2.23-.62v.06a4.92 4.92 0 0 0 3.95 4.83 4.96 4.96 0 0 1-2.22.08 4.93 4.93 0 0 0 4.6 3.42A9.87 9.87 0 0 1 0 19.54a13.94 13.94 0 0 0 7.55 2.21c9.05 0 14-7.5 14-14v-.64a10 10 0 0 0 2.4-2.54z"/>
+          </svg>
+        </button>
+      </div>
 
-    <div class="socials">
-      <button class="social" type="button" aria-label="Masuk dengan Google">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-          <path fill="#4285f4" d="M23.06 12.25c0-.85-.08-1.67-.22-2.45H12v4.63h6.2a5.3 5.3 0 0 1-2.3 3.48v2.9h3.72c2.18-2 3.44-4.96 3.44-8.56z"/>
-          <path fill="#34a853" d="M12 24c3.1 0 5.7-1.03 7.62-2.79l-3.72-2.9c-1.03.7-2.35 1.11-3.9 1.11-3 0-5.54-2.02-6.45-4.74H1.7v2.98A11.5 11.5 0 0 0 12 24z"/>
-          <path fill="#fbbc05" d="M5.55 14.68a6.9 6.9 0 0 1 0-4.37V7.33H1.7a11.5 11.5 0 0 0 0 10.34l3.85-2.99z"/>
-          <path fill="#ea4335" d="M12 4.75c1.68 0 3.2.58 4.4 1.72l3.28-3.28C17.7 1.22 15.1 0 12 0 7.7 0 3.98 2.47 1.7 7.33l3.85 2.98C6.46 6.77 9 4.75 12 4.75z"/>
-        </svg>
-      </button>
-      <button class="social" type="button" aria-label="Masuk dengan Facebook">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-          <path fill="#1877f2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/>
-        </svg>
-      </button>
-      <button class="social" type="button" aria-label="Masuk dengan Twitter">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-          <path fill="#1da1f2" d="M23.95 4.57a10 10 0 0 1-2.82.77 4.96 4.96 0 0 0 2.16-2.72c-.95.56-2 1.03-3.13 1.25a4.92 4.92 0 0 0-8.38 4.48A13.94 13.94 0 0 1 1.64 3.16a4.92 4.92 0 0 0 1.52 6.57 4.9 4.9 0 0 1-2.23-.62v.06a4.92 4.92 0 0 0 3.95 4.83 4.96 4.96 0 0 1-2.22.08 4.93 4.93 0 0 0 4.6 3.42A9.87 9.87 0 0 1 0 19.54a13.94 13.94 0 0 0 7.55 2.21c9.05 0 14-7.5 14-14v-.64a10 10 0 0 0 2.4-2.54z"/>
-        </svg>
-      </button>
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="c-phone">Nomor WhatsApp</label>
+          <input class="input" id="c-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890" />
+        </div>
+        <div class="field">
+          <label for="c-pass">Kata sandi</label>
+          <input class="input" id="c-pass" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" />
+        </div>
+        <div class="forgot"><a href="#">Lupa kata sandi?</a></div>
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>2 · salah</strong><span>pesan dari <code>src/lib/schemas.ts</code> — bukan gelembung peramban</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab tab--active" href="login-1to1.html" aria-current="page">Masuk</a>
+        <a class="tab" href="signup-customer.html">Daftar</a>
+      </nav>
+
+      <p class="or">atau</p>
+
+      <div class="socials">
+        <button class="social" type="button" aria-label="Masuk dengan Google">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#4285f4" d="M23.06 12.25c0-.85-.08-1.67-.22-2.45H12v4.63h6.2a5.3 5.3 0 0 1-2.3 3.48v2.9h3.72c2.18-2 3.44-4.96 3.44-8.56z"/>
+            <path fill="#34a853" d="M12 24c3.1 0 5.7-1.03 7.62-2.79l-3.72-2.9c-1.03.7-2.35 1.11-3.9 1.11-3 0-5.54-2.02-6.45-4.74H1.7v2.98A11.5 11.5 0 0 0 12 24z"/>
+            <path fill="#fbbc05" d="M5.55 14.68a6.9 6.9 0 0 1 0-4.37V7.33H1.7a11.5 11.5 0 0 0 0 10.34l3.85-2.99z"/>
+            <path fill="#ea4335" d="M12 4.75c1.68 0 3.2.58 4.4 1.72l3.28-3.28C17.7 1.22 15.1 0 12 0 7.7 0 3.98 2.47 1.7 7.33l3.85 2.98C6.46 6.77 9 4.75 12 4.75z"/>
+          </svg>
+        </button>
+        <button class="social" type="button" aria-label="Masuk dengan Facebook">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#1877f2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/>
+          </svg>
+        </button>
+        <button class="social" type="button" aria-label="Masuk dengan X">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#1da1f2" d="M23.95 4.57a10 10 0 0 1-2.82.77 4.96 4.96 0 0 0 2.16-2.72c-.95.56-2 1.03-3.13 1.25a4.92 4.92 0 0 0-8.38 4.48A13.94 13.94 0 0 1 1.64 3.16a4.92 4.92 0 0 0 1.52 6.57 4.9 4.9 0 0 1-2.23-.62v.06a4.92 4.92 0 0 0 3.95 4.83 4.96 4.96 0 0 1-2.22.08 4.93 4.93 0 0 0 4.6 3.42A9.87 9.87 0 0 1 0 19.54a13.94 13.94 0 0 0 7.55 2.21c9.05 0 14-7.5 14-14v-.64a10 10 0 0 0 2.4-2.54z"/>
+          </svg>
+        </button>
+      </div>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="c-phone-e">Nomor WhatsApp</label>
+          <input class="input is-error" id="c-phone-e" type="tel" inputmode="tel" autocomplete="tel" value="08123456789" aria-invalid="true" aria-describedby="c-phone-err" />
+          <span class="error" id="c-phone-err" role="alert">Format nomor WA tidak valid (+62… atau +962…)</span>
+        </div>
+        <div class="field">
+          <label for="c-pass-e">Kata sandi</label>
+          <input class="input is-error" id="c-pass-e" type="password" autocomplete="current-password" value="123" aria-invalid="true" aria-describedby="c-pass-err" />
+          <span class="error" id="c-pass-err" role="alert">Kata sandi minimal 6 karakter</span>
+        </div>
+        <div class="forgot"><a href="#">Lupa kata sandi?</a></div>
+        <button class="submit" type="submit">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>3 · sedang mengirim → berhasil</strong><span>tombol `disabled={isSubmitting}`, lalu toast `Mode demo: berhasil masuk` (SignIn.tsx:30)</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab tab--active" href="login-1to1.html" aria-current="page">Masuk</a>
+        <a class="tab" href="signup-customer.html">Daftar</a>
+      </nav>
+
+      <p class="or">atau</p>
+
+      <div class="socials">
+        <button class="social" type="button" aria-label="Masuk dengan Google">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#4285f4" d="M23.06 12.25c0-.85-.08-1.67-.22-2.45H12v4.63h6.2a5.3 5.3 0 0 1-2.3 3.48v2.9h3.72c2.18-2 3.44-4.96 3.44-8.56z"/>
+            <path fill="#34a853" d="M12 24c3.1 0 5.7-1.03 7.62-2.79l-3.72-2.9c-1.03.7-2.35 1.11-3.9 1.11-3 0-5.54-2.02-6.45-4.74H1.7v2.98A11.5 11.5 0 0 0 12 24z"/>
+            <path fill="#fbbc05" d="M5.55 14.68a6.9 6.9 0 0 1 0-4.37V7.33H1.7a11.5 11.5 0 0 0 0 10.34l3.85-2.99z"/>
+            <path fill="#ea4335" d="M12 4.75c1.68 0 3.2.58 4.4 1.72l3.28-3.28C17.7 1.22 15.1 0 12 0 7.7 0 3.98 2.47 1.7 7.33l3.85 2.98C6.46 6.77 9 4.75 12 4.75z"/>
+          </svg>
+        </button>
+        <button class="social" type="button" aria-label="Masuk dengan Facebook">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#1877f2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/>
+          </svg>
+        </button>
+        <button class="social" type="button" aria-label="Masuk dengan X">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+            <path fill="#1da1f2" d="M23.95 4.57a10 10 0 0 1-2.82.77 4.96 4.96 0 0 0 2.16-2.72c-.95.56-2 1.03-3.13 1.25a4.92 4.92 0 0 0-8.38 4.48A13.94 13.94 0 0 1 1.64 3.16a4.92 4.92 0 0 0 1.52 6.57 4.9 4.9 0 0 1-2.23-.62v.06a4.92 4.92 0 0 0 3.95 4.83 4.96 4.96 0 0 1-2.22.08 4.93 4.93 0 0 0 4.6 3.42A9.87 9.87 0 0 1 0 19.54a13.94 13.94 0 0 0 7.55 2.21c9.05 0 14-7.5 14-14v-.64a10 10 0 0 0 2.4-2.54z"/>
+          </svg>
+        </button>
+      </div>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="c-phone-r">Nomor WhatsApp</label>
+          <input class="input" id="c-phone-r" type="tel" inputmode="tel" autocomplete="tel" value="+62 812-3456-7890" />
+        </div>
+        <div class="field">
+          <label for="c-pass-r">Kata sandi</label>
+          <input class="input" id="c-pass-r" type="password" autocomplete="current-password" value="rahasia123" />
+        </div>
+        <div class="forgot"><a href="#">Lupa kata sandi?</a></div>
+        <button class="submit" type="submit" disabled>Masuk</button>
+      </form>
     </div>
 
-    <form onsubmit="return false">
-      <input class="field" type="text" placeholder="User Name" />
-      <input class="field" type="password" placeholder="Password" />
-      <a class="forgot" href="#">Forgot Password</a>
-      <p class="foot">don't have an account <a href="#">Sign Up</a></p>
-      <button class="cta" type="submit">Continue</button>
-    </form>
+    <p class="toast" role="status">Mode demo: berhasil masuk</p>
   </div>
-
-  <img class="art" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" aria-hidden="true" />
 </div>
 
 </body>

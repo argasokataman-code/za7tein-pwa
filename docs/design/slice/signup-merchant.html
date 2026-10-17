@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein · Daftar toko (merchant)</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Bentuk = sama dengan login merchant (`login-merchant.html`): kepala FOTO
+  UTUH 240px + korsel 4 foto, tile merek di sambungan foto/panel, field putih,
+  tombol di dasar layar. Ritme form sama dengan login (12px antar field, 4px di
+  dalam field), dan tab `Masuk | Daftar` sama dengan `signup-customer.html`.
+
+  Isi dari `src/pages/MerchantSignUp.tsx:39-186`: `Nama toko`, `Email`,
+  `Nomor HP (opsional)`, pilihan `Zona pengantaran` (radio Hijazi/Syimali +
+  petunjuk), `Kata sandi` dengan tombol tampilkan, `Kirim pendaftaran`.
+
+  Tautan "Sudah punya akun toko? Masuk" diganti tab `Masuk | Daftar` seperti
+  `signup-customer.html`: satu bahasa navigasi untuk semua layar daftar.
+  Label peran `Merchant` dilepas karena tab sudah menandai posisi layar.
+  Pesan salah dari `src/lib/schemas.ts:34-37` verbatim; `noValidate`
+  (MerchantSignUp.tsx:45) → nol pesan bawaan peramban.
+
+  Tidak ada toast: `MerchantSignUp.tsx:45` langsung `navigate('/onboarding')`
+  tanpa `toast(...)`. Bingkai 3 karena itu berhenti di tombol `disabled`.
+
+  Foto kepala: `lontong.webp` (AUTH_PHOTO.merchant). Slot foto pengisi
+  (`slot-art`) TIDAK dipakai di sini — layar daftar sudah penuh, gambar itu
+  hanya mengisi ruang kosong di layar masuk.
+-->
+<link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Daftar — merchant</strong><span>merchant · /merchant/signup · MerchantSignUp.tsx:39</span></p>
+
+<div class="frame">
+  <p class="caption"><strong>1 · kosong</strong><span>zona pertama terpilih (default `AUTH_FACTS.zones[0]`), tombol aktif</span></p>
+  <div class="phone phone--merchant-signup">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab" href="login-merchant.html">Masuk</a>
+        <a class="tab tab--active" href="signup-merchant.html" aria-current="page">Daftar</a>
+      </nav>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="ms-name">Nama toko</label>
+          <input class="input" id="ms-name" type="text" autocomplete="organization" placeholder="Warung Nusantara" />
+        </div>
+        <div class="field">
+          <label for="ms-email">Email</label>
+          <input class="input" id="ms-email" type="email" autocomplete="email" placeholder="toko@contoh.com" />
+        </div>
+        <div class="field">
+          <label for="ms-phone">Nomor HP <span class="label-note">(opsional)</span></label>
+          <input class="input" id="ms-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890" />
+        </div>
+
+        <fieldset class="fieldset">
+          <legend>Zona pengantaran</legend>
+          <div class="zones">
+            <label class="zone"><input type="radio" name="ms-zone" value="Hijazi" checked />Hijazi</label>
+            <label class="zone"><input type="radio" name="ms-zone" value="Syimali" />Syimali</label>
+          </div>
+          <span class="hint">Pesanan hanya jalan kalau alamat pembeli di dalam zona yang kamu aktifkan.</span>
+        </fieldset>
+
+        <div class="field">
+          <label for="ms-pass">Kata sandi</label>
+          <div class="input-wrap">
+            <input class="input" id="ms-pass" type="password" autocomplete="new-password" placeholder="Minimal 6 karakter" />
+            <button class="reveal" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button class="submit" type="submit">Kirim pendaftaran</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>2 · salah</strong><span>pesan dari <code>src/lib/schemas.ts:34-37</code> — bukan gelembung peramban</span></p>
+  <div class="phone phone--merchant-signup">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab" href="login-merchant.html">Masuk</a>
+        <a class="tab tab--active" href="signup-merchant.html" aria-current="page">Daftar</a>
+      </nav>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="ms-name-e">Nama toko</label>
+          <input class="input is-error" id="ms-name-e" type="text" autocomplete="organization" value="W" aria-invalid="true" aria-describedby="ms-name-err" />
+          <span class="error" id="ms-name-err" role="alert">Nama toko minimal 2 karakter</span>
+        </div>
+        <div class="field">
+          <label for="ms-email-e">Email</label>
+          <input class="input is-error" id="ms-email-e" type="email" autocomplete="email" value="toko.sate" aria-invalid="true" aria-describedby="ms-email-err" />
+          <span class="error" id="ms-email-err" role="alert">Format email tidak valid</span>
+        </div>
+        <div class="field">
+          <label for="ms-phone-e">Nomor HP <span class="label-note">(opsional)</span></label>
+          <input class="input is-error" id="ms-phone-e" type="tel" inputmode="tel" autocomplete="tel" value="0812" aria-invalid="true" aria-describedby="ms-phone-err" />
+          <span class="error" id="ms-phone-err" role="alert">Format nomor WA tidak valid (+62… atau +962…)</span>
+        </div>
+
+        <fieldset class="fieldset">
+          <legend>Zona pengantaran</legend>
+          <div class="zones">
+            <label class="zone"><input type="radio" name="ms-zone-e" value="Hijazi" checked />Hijazi</label>
+            <label class="zone"><input type="radio" name="ms-zone-e" value="Syimali" />Syimali</label>
+          </div>
+          <span class="hint">Pesanan hanya jalan kalau alamat pembeli di dalam zona yang kamu aktifkan.</span>
+        </fieldset>
+
+        <div class="field">
+          <label for="ms-pass-e">Kata sandi</label>
+          <div class="input-wrap">
+            <input class="input is-error" id="ms-pass-e" type="password" autocomplete="new-password" value="123" aria-invalid="true" aria-describedby="ms-pass-err" />
+            <button class="reveal" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+          <span class="error" id="ms-pass-err" role="alert">Kata sandi minimal 6 karakter</span>
+        </div>
+
+        <button class="submit" type="submit">Kirim pendaftaran</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>3 · sedang mengirim</strong><span>`disabled={isSubmitting}`; selesai → `navigate('/onboarding')` tanpa toast (MerchantSignUp.tsx:45)</span></p>
+  <div class="phone phone--merchant-signup">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <nav class="tabs" aria-label="Pilih masuk atau daftar">
+        <a class="tab" href="login-merchant.html">Masuk</a>
+        <a class="tab tab--active" href="signup-merchant.html" aria-current="page">Daftar</a>
+      </nav>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="ms-name-ok">Nama toko</label>
+          <input class="input" id="ms-name-ok" type="text" autocomplete="organization" value="Warung Nusantara" />
+        </div>
+        <div class="field">
+          <label for="ms-email-ok">Email</label>
+          <input class="input" id="ms-email-ok" type="email" autocomplete="email" value="toko@contoh.com" />
+        </div>
+        <div class="field">
+          <label for="ms-phone-ok">Nomor HP <span class="label-note">(opsional)</span></label>
+          <input class="input" id="ms-phone-ok" type="tel" inputmode="tel" autocomplete="tel" value="+6281234567890" />
+        </div>
+
+        <fieldset class="fieldset">
+          <legend>Zona pengantaran</legend>
+          <div class="zones">
+            <label class="zone"><input type="radio" name="ms-zone-ok" value="Hijazi" />Hijazi</label>
+            <label class="zone"><input type="radio" name="ms-zone-ok" value="Syimali" checked />Syimali</label>
+          </div>
+          <span class="hint">Pesanan hanya jalan kalau alamat pembeli di dalam zona yang kamu aktifkan.</span>
+        </fieldset>
+
+        <div class="field">
+          <label for="ms-pass-ok">Kata sandi</label>
+          <div class="input-wrap">
+            <input class="input" id="ms-pass-ok" type="password" autocomplete="new-password" value="rahasia123" />
+            <button class="reveal" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button class="submit" type="submit" disabled>Kirim pendaftaran</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

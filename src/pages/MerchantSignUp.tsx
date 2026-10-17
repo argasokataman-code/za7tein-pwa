@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_MERCHANT_COVER_PHOTOS, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { AUTH_FACTS } from '../data/authCopy'
 import { merchantSignUpSchema, type MerchantSignUpFormData } from '../lib/schemas'
 
@@ -32,11 +32,20 @@ export default function MerchantSignUp() {
   return (
     <AuthLayout
       photo={AUTH_PHOTO.merchant}
+      photos={AUTH_MERCHANT_COVER_PHOTOS}
       role={AUTH_ROLE_LABEL.merchant}
-      title="Daftar toko"
-      subtitle="Akun toko ditinjau tim CS sebelum bisa menerima order."
-      tagline={`Layanan berjalan di ${AUTH_FACTS.city}, dengan dua zona pengantaran. Ongkir ditanggung merchant, dan deposit COD merchant terpisah dari modal saldo 5 JOD.`}
+      title="Daftar"
+      brandLayout="cover"
     >
+      <nav className="auth-tabs" aria-label="Pilih masuk atau daftar">
+        <Link className="auth-tab" to="/signin">
+          Masuk
+        </Link>
+        <Link className="auth-tab auth-tab--active" to="/signup" aria-current="page">
+          Daftar
+        </Link>
+      </nav>
+
       <form className="auth-form" noValidate onSubmit={handleSubmit(() => navigate('/onboarding'))}>
         <div className="auth-field">
           <label className="auth-label" htmlFor="name">
@@ -159,10 +168,6 @@ export default function MerchantSignUp() {
           Kirim pendaftaran
         </button>
       </form>
-
-      <p className="auth-switch">
-        Sudah punya akun toko? <Link to="/signin">Masuk</Link>
-      </p>
     </AuthLayout>
   )
 }

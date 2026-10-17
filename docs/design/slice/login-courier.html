@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein · Masuk kurir</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Bentuk = acuan yang sudah disetujui (commit d0eaa47): kepala FOTO UTUH 240px
+  + korsel 4 foto, tile merek di sambungan foto/panel, field putih, tombol di
+  dasar layar. Ritme form sama dengan layar login lain (12px antar field).
+
+  DUA JENIS KURIR, satu layar (keputusan pemilik 2026-10-18): segmented switch
+  `Kurir toko` / `Kurir partner` tepat di bawah tile merek. Bukan tab
+  Masuk|Daftar: kurir tidak mendaftar sendiri — akun kurir toko dibuat merchant
+  (C-06), akun kurir partner dibuat tim ops (M6), jadi tidak ada halaman daftar
+  kurir untuk dituju.
+
+  KREDENSIAL = EMAIL MAGIC LINK, mengikuti PRD aktif `sa7tein-mvp-2026-10-11`
+  R-ACC-01 ("login MVP hanya email magic link; satu email = satu role").
+  Ini MENDAHULUI kode: `src/pages/CourierSignIn.tsx` sekarang masih nomor WA +
+  kata sandi, dan `docs/plan-courier.md` K5 mencatat mekanisme kredensial
+  `UNRESOLVED` di flow `f21-account-auth`. Karena itu teks keadaan berhasil di
+  bingkai 3 ditandai USULAN di caption — repo belum punya kalimatnya.
+
+  Pesan salah `Format email tidak valid` dari `src/lib/schemas.ts:31` verbatim.
+  Foto kepala: `es-teh-manis.webp` (AUTH_PHOTO.courier).
+-->
+<link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Masuk — kurir</strong><span>kurir · /courier/signin · CourierSignIn.tsx:26 · kredensial usulan PRD (magic link)</span></p>
+
+<div class="frame">
+  <p class="caption"><strong>1 · kosong</strong><span>`Kurir toko` terpilih, tombol `Kirim tautan masuk` aktif</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+
+      <div class="seg" role="group" aria-label="Jenis akun kurir">
+        <label class="seg-item">
+          <input type="radio" name="courier-kind" value="inhouse" checked />
+          Kurir toko
+        </label>
+        <label class="seg-item">
+          <input type="radio" name="courier-kind" value="partner" />
+          Kurir partner
+        </label>
+      </div>
+      <p class="hint seg-hint">Kurir toko dibuat merchant; kurir partner dibuat tim ops.</p>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="k-email">Email</label>
+          <input class="input" id="k-email" type="email" autocomplete="email" placeholder="nama@email.com" />
+          <span class="hint">Satu email hanya untuk satu peran. Tautan dikirim ke kotak masukmu.</span>
+        </div>
+
+        <button class="submit" type="submit">Kirim tautan masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>2 · salah</strong><span>pesan dari <code>src/lib/schemas.ts:31</code> — bukan gelembung peramban</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+      </div>
+    </header>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+
+      <div class="seg" role="group" aria-label="Jenis akun kurir">
+        <label class="seg-item">
+          <input type="radio" name="courier-kind-e" value="inhouse" checked />
+          Kurir toko
+        </label>
+        <label class="seg-item">
+          <input type="radio" name="courier-kind-e" value="partner" />
+          Kurir partner
+        </label>
+      </div>
+      <p class="hint seg-hint">Kurir toko dibuat merchant; kurir partner dibuat tim ops.</p>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="k-email-e">Email</label>
+          <input class="input is-error" id="k-email-e" type="email" autocomplete="email" value="kurir.sate" aria-invalid="true" aria-describedby="k-email-err" />
+          <span class="error" id="k-email-err" role="alert">Format email tidak valid</span>
+        </div>
+
+        <button class="submit" type="submit">Kirim tautan masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="frame">
+  <p class="caption"><strong>3 · sedang mengirim → berhasil</strong><span>`disabled={isSubmitting}`; toast USULAN (belum ada di repo, mengikuti PRD magic link)</span></p>
+  <div class="phone">
+    <header class="hero">
+      <div class="carousel" aria-hidden="true">
+        <img class="slide" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+        <img class="slide" src="../../../public/assets/img/menu/lontong.webp" alt="" />
+        <img class="slide" data-dup="1" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+      </div>
+    </header>
+
+    <p class="toast" role="status">Tautan masuk dikirim ke emailmu.</p>
+
+    <div class="body">
+      <img class="brandmark" src="../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+
+      <div class="seg" role="group" aria-label="Jenis akun kurir">
+        <label class="seg-item">
+          <input type="radio" name="courier-kind-ok" value="inhouse" />
+          Kurir toko
+        </label>
+        <label class="seg-item">
+          <input type="radio" name="courier-kind-ok" value="partner" checked />
+          Kurir partner
+        </label>
+      </div>
+      <p class="hint seg-hint">Kurir toko dibuat merchant; kurir partner dibuat tim ops.</p>
+
+      <form novalidate onsubmit="return false">
+        <div class="field">
+          <label for="k-email-ok">Email</label>
+          <input class="input" id="k-email-ok" type="email" autocomplete="email" value="rani@kurir.sa7tein.id" />
+          <span class="hint">Satu email hanya untuk satu peran. Tautan dikirim ke kotak masukmu.</span>
+        </div>
+
+        <button class="submit" type="submit" disabled>Mengirim tautan…</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
