@@ -6,7 +6,7 @@ import CustomerHomeHero from '../components/customer/CustomerHomeHero'
 import HomePromoBanner from '../components/customer/HomePromoBanner'
 import { BottomNav } from '../components/layout/BottomNav'
 import { MerchantCard } from '../components/ui/MerchantCard'
-import { BottomSheet } from '../components/ui/BottomSheet'
+import { StoreBlockedSheet } from '../components/customer/StoreBlockedSheet'
 import { useAppSelector } from '../hooks/useAppStore'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { selectCartCount } from '../store/slices/cartSlice'
@@ -109,7 +109,12 @@ export default function Home() {
             onChangeLocation={() => navigate('/address-selection')}
             onOpenNotifications={() => navigate('/notifications')}
             onOpenFilters={() => navigate('/filter')}
-            onSubmitSearch={() => navigate('/search')}
+            onSubmitSearch={(query) =>
+              // Kueri hero dulu dibuang (`() => navigate('/search')`), jadi
+              // halaman Cari selalu mulai kosong; sekarang ikut di URL supaya
+              // bisa dibagikan dan tahan refresh.
+              navigate(query.trim() ? `/search?q=${encodeURIComponent(query.trim())}` : '/search')
+            }
           />
 
           <div className={`home-content${cartCount > 0 ? ' home-content--cart' : ''}`}>
@@ -207,22 +212,7 @@ export default function Home() {
           </div>
         </div>
 
-        <BottomSheet
-          open={blockedStore !== null}
-          title={blockedStore?.isOpen ? 'Toko di luar jangkauan' : 'Maaf, toko sedang tutup'}
-          onClose={() => setBlockedStore(null)}
-        >
-          <p className="sheet-copy">
-            {blockedStore?.isOpen
-              ? `${blockedStore.name} belum bisa mengantar ke alamat kamu — tokonya di luar jangkauan.`
-              : `${blockedStore?.name} belum menerima pesanan sekarang. Buka lagi${blockedStore?.openTime ? ` jam ${blockedStore.openTime}–${blockedStore.closeTime}` : ''}.`}
-          </p>
-          <div className="sheet-actions">
-            <button type="button" className="btn btn-primary" onClick={() => setBlockedStore(null)}>
-              Mengerti
-            </button>
-          </div>
-        </BottomSheet>
+        <StoreBlockedSheet store={blockedStore} onClose={() => setBlockedStore(null)} />
 
         <BottomNav />
       </div>

@@ -230,6 +230,25 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Kotak cari beranda akhirnya menyampaikan kuerinya.</strong> Nilai yang
+                diketik dibaca lewat <code className="doc-inline">FormData</code> lalu{' '}
+                <em>dibuang</em> pemanggilnya (<code className="doc-inline">{'onSubmitSearch={() => navigate(\'/search\')}'}</code>), jadi mengetik &ldquo;bakso&rdquo; lalu Enter selalu
+                mendarat di halaman Cari yang kosong &mdash; kolomnya tampak rusak padahal
+                handler-nya jalan. Sekarang kuerinya ikut di URL (<code className="doc-inline">
+                /search?q=…</code>), jadi bisa dibagikan dan tahan refresh, dan halaman Cari
+                memakainya sebagai nilai awal kolom. Sekalian label kolom &ldquo;Cari menu atau
+                restoran&rdquo; dibuat benar: halaman Cari kini punya seksi <strong>Toko</strong>{' '}
+                (nama, tagline, tag) di atas seksi <strong>Menu</strong>, memakai{' '}
+                <code className="doc-inline">MerchantCard</code> yang sama dengan beranda &mdash;
+                termasuk kartu tutup monochrome dan sheet sebabnya (satu komponen{' '}
+                <code className="doc-inline">StoreBlockedSheet</code> untuk kedua halaman). Catatan
+                penting: <strong>BE belum punya endpoint cari</strong> (tak ada{' '}
+                <code className="doc-inline">ilike</code>/<code className="doc-inline">rpc</code> di{' '}
+                <code className="doc-inline">src/api/</code>); penyaringan toko dan menu dilakukan di
+                klien atas tabel yang sudah dibaca penuh. Ganti ke PostgREST{' '}
+                <code className="doc-inline">name=ilike.*x*</code> begitu katalognya membesar.
+              </li>
+              <li>
                 <strong>Toko tutup: kartu monochrome + sebabnya dijawab sheet.</strong> Kartu toko
                 yang <code className="doc-inline">isOpen: false</code> kini diredam{' '}
                 <code className="doc-inline">filter: grayscale(1)</code> — fotonya kehilangan warna,

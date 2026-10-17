@@ -1900,6 +1900,161 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-110994",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:23:30",
+      "tags": [
+        "ui",
+        "storefront",
+        "home"
+      ],
+      "summary": "Kartu toko tutup: monochrome (grayscale) + sheet 'Maaf, toko sedang tutup' lewat onBlocked (aria-disabled, bukan disabled)",
+      "conn": [
+        {
+          "id": "TASK-110982",
+          "type": "relates",
+          "raw": "TASK-110982:relates"
+        }
+      ],
+      "loc": "src/components/ui/MerchantCard.tsx:23",
+      "commit": "e9b9bf4"
+    },
+    {
+      "id": "TASK-110995",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:28:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/StoreBlockedSheet.tsx (+35) — write via tool: tsx: import { Botto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/StoreBlockedSheet.tsx"
+    },
+    {
+      "id": "TASK-110996",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:28:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+3/-3) — edit via tool: tsx: import { MerchantCard } from '../compone",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-110997",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:28:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx (+30/-17) — edit via tool: tsx: import { SearchIcon, SlidersHorizont",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Search.tsx"
+    },
+    {
+      "id": "TASK-110998",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:29:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -4 && npm run scan 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110999",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:32:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+23/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111000",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:32:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:33:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -E \"^src/.*error|error:\" | head -5; npm run build 2>&1 | t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

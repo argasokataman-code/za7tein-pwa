@@ -4,22 +4,35 @@
 // the default is a single recommended grid that uses the same FoodCard as the
 // results. Classes match the stylesheet in src/styles/_app.scss + system/.
 import { SearchIcon, SlidersHorizontal } from 'lucide-react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import { useMemo, useState } from 'react'
 
 import { FoodCard } from '../components/ui/FoodCard'
+import { MerchantCard } from '../components/ui/MerchantCard'
+import { StoreBlockedSheet } from '../components/customer/StoreBlockedSheet'
 import { useCatalog } from '../hooks/useCatalog'
-import type { SearchFilters } from '../types'
+import { useStorefronts } from '../hooks/useApiCatalog'
+import { isSelectable, storefronts } from '../data/storefronts'
+import type { SearchFilters, Storefront } from '../types'
 import { BackButton } from '../components/ui/BackButton'
 
 const RECENT_SEARCHES = ['Pizza', 'Burger', 'Pastry', 'Cookies', 'Meat Church']
 
 export default function Search() {
-  const [query, setQuery] = useState('')
+  // Kueri datang dari beranda lewat `?q=` (dulu dibuang di pemanggilnya, jadi
+  // halaman ini selalu mulai kosong). URL jadi sumber awalnya, bukan satu-satunya
+  // — mengetik di sini tetap mengubah state lokal tanpa menulis ulang URL.
+  const [params] = useSearchParams()
+  const [query, setQuery] = useState(params.get('q') ?? '')
   const [recent, setRecent] = useState(RECENT_SEARCHES)
+  const [blockedStore, setBlockedStore] = useState<Storefront | null>(null)
   const navigate = useNavigate()
   const location = useLocation()
   const { items, popular } = useCatalog()
+  // Toko disaring di klien dari daftar yang sudah dibaca: BE belum punya endpoint
+  // cari (`ilike`), dan katalognya masih utuh di memori. Ganti ke PostgREST
+  // `name=ilike.*x*` begitu tabelnya membesar.
+  const stores = useStorefronts(storefronts)
 
   // Filter dari layar Filter (location.state). `null` = tidak sedang memfilter,
   // jadi grid "Rekomendasi" yang tampil.
@@ -43,6 +56,20 @@ export default function Search() {
       return true
     })
   }, [items, query, filters])
+
+  // Hasil toko: nama, tagline, atau tag. Ini yang membuat label kolom
+  // ("Cari menu atau restoran") benar — sebelumnya halaman ini hanya mencari
+  // menu, jadi mengetik nama toko tidak menemukan apa pun.
+  const storeResults = useMemo(() => {
+    const needle = query.trim().toLowerCase()
+    if (!needle) return []
+    return stores.filter(
+      (store) =>
+        store.name.toLowerCase().includes(needle) ||
+        store.tagline?.toLowerCase().includes(needle) ||
+        store.tags?.some((tag) => tag.toLowerCase().includes(needle)),
+    )
+  }, [stores, query])
 
   const openMenu = (id: string) => navigate(`/menu-detail/${id}`)
 
@@ -102,9 +129,31 @@ export default function Search() {
             ) : null}
             {results !== null ? (
               <>
+                {storeResults.length > 0 ? (
+                  <>
+                    <div className="section-header">
+                      <h2 className="section-title s7-parallax--title">
+                        Toko ({storeResults.length})
+                      </h2>
+                    </div>
+                    <div className="merchants-list" role="list">
+                      {storeResults.map((store) => (
+                        <MerchantCard
+                          key={store.id}
+                          store={store}
+                          disabled={!isSelectable(store)}
+                          onBlocked={setBlockedStore}
+                          onOpen={(s) => navigate(`/merchant/${s.id}`)}
+                        />
+                      ))}
+                    </div>
+                  </>
+                ) : null}
                 <div className="section-header">
                   <h2 className="section-title s7-parallax--title">
-                    Hasil ({results.length})
+                    {storeResults.length > 0
+                      ? `Menu (${results.length})`
+                      : `Hasil (${results.length})`}
                   </h2>
                 </div>
                 {results.length > 0 ? (
@@ -119,7 +168,11 @@ export default function Search() {
                   </div>
                 ) : (
                   <>
-                    <p className="search-empty">Tidak ada menu yang cocok.</p>
+                    <p className="search-empty">
+                      {storeResults.length > 0
+                        ? 'Tidak ada menu yang cocok.'
+                        : 'Tidak ada toko atau menu yang cocok.'}
+                    </p>
                     <button
                       type="button"
                       className="link-btn"
@@ -154,6 +207,7 @@ export default function Search() {
           </div>
         </div>
       </main>
+      <StoreBlockedSheet store={blockedStore} onClose={() => setBlockedStore(null)} />
     </div>
     </>
   )
