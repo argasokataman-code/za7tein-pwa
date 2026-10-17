@@ -1,10 +1,9 @@
-import { Store, Trash2, X } from 'lucide-react'
+import { Store, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { BottomSheet } from '../ui/BottomSheet'
 import { getStorefront } from '../../data/storefronts'
-import { orderStatusLabel } from '../../data/merchantOrders'
 import { updateOrderStatus, type CustomerActiveOrder } from '../../api/orders'
 import { useMoney } from '../../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
@@ -18,35 +17,8 @@ import {
 } from '../../store/slices/cartSlice'
 import { dropActiveOrder } from '../../store/slices/customerOrdersSlice'
 import type { OrderStage } from '../../types'
-
-/** Item yang diringkas ke satu baris sebelum ditulis "+N". */
-const ITEMS_SHOWN = 3
-
-/** Warna titik status: selesai/hampir tiba, dibatalkan, baru, atau sedang jalan. */
-type StatusTone = 'new' | 'run' | 'done' | 'bad'
-
-function statusTone(status: string): StatusTone {
-  if (status === 'tiba' || status === 'selesai') return 'done'
-  if (status === 'ditolak' || status === 'batal') return 'bad'
-  if (status === 'baru') return 'new'
-  return 'run'
-}
-
-/**
- * Order masih boleh dibatalkan customer selama merchant belum menerimanya:
- * `cart` (draft) dan `quotation` (sudah dikirim, belum dijawab). `prepare` ke
- * atas = dapur sudah mulai, jalurnya refund lewat CS, bukan tombol batal.
- */
-function canCancelOrder(order: CustomerActiveOrder): boolean {
-  return order.dbStatus === 'cart' || order.dbStatus === 'quotation'
-}
-
-/** Label baris: draft dan "menunggu toko" tidak boleh menyamar jadi "Baru". */
-function statusLabelOf(order: CustomerActiveOrder): string {
-  if (order.dbStatus === 'cart') return 'Draft'
-  if (order.dbStatus === 'quotation') return 'Menunggu toko'
-  return orderStatusLabel(order.status)
-}
+import { ActiveOrderRow } from './ActiveOrderRow'
+import { itemsLine } from './orderStatus'
 
 interface CartSummarySheetProps {
   open: boolean
@@ -131,19 +103,6 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
     void updateOrderStatus(order.id, 'batal', 'customer').catch(() => {})
   }
 
-  const itemsLine = (items: { name: string; qty?: number; quantity?: number }[]) => {
-    const shownItems = items.slice(0, ITEMS_SHOWN)
-    const rest = items.length - shownItems.length
-    return (
-      shownItems
-        .map((it) => {
-          const qty = it.qty ?? it.quantity ?? 1
-          return `${qty}× ${it.name}`
-        })
-        .join(' · ') + (rest > 0 ? ` · +${rest}` : '')
-    )
-  }
-
   const title = hasOrders && hasCart ? 'Keranjang & pesanan' : hasCart ? 'Keranjang' : 'Pesanan berjalan'
 
   return (
@@ -174,70 +133,20 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
 
         {shown === 'orders' ? (
           <ul className="ck-list ck-list--scroll">
-            {activeOrders.map((order) => {
-              const cancelable = canCancelOrder(order)
-              const confirming = pending?.kind === 'order' && pending.id === order.id
-              return (
-                <li key={order.id} className="ck-row">
-                  <button
-                    type="button"
-                    className="ck-row__line list-row"
-                    onClick={() => trackOrder(order.id, order.code, order.stage)}
-                  >
-                    <span className="ck-row__title">{order.merchantName}</span>
-                    <span className="ck-row__sum">{money(order.totalIdr)}</span>
-                    <span className="ck-row__meta">
-                      <span className="ck-row__code">{order.code}</span>
-                      <span className="ck-row__sep" aria-hidden="true">·</span>
-                      <span className="ck-row__ago">{order.placedAt}</span>
-                    </span>
-                    <span className="ck-chip ck-chip--end">
-                      <span
-                        className={`ck-chip__dot ck-chip__dot--${statusTone(order.status)}`}
-                        aria-hidden="true"
-                      />
-                      {statusLabelOf(order)}
-                    </span>
-                    {order.items.length ? (
-                      <span className="ck-row__sub">{itemsLine(order.items)}</span>
-                    ) : null}
-                  </button>
-                  {/* Kolom aksi selalu ada (lebar tetap) supaya tepi kanan nominal
-                      jatuh di x yang sama di setiap baris — bukan ragged. */}
-                  <span className="ck-row__act">
-                    {cancelable && !confirming ? (
-                      <button
-                        type="button"
-                        className="ck-icon"
-                        aria-label={`Batalkan pesanan ${order.code}`}
-                        onClick={() => setPending({ kind: 'order', id: order.id })}
-                      >
-                        <X size={16} strokeWidth={2.25} aria-hidden="true" />
-                      </button>
-                    ) : null}
-                  </span>
-                  {confirming ? (
-                    <span className="ck-confirm">
-                      <span className="ck-confirm__q">Batalkan {order.code}?</span>
-                      <button
-                        type="button"
-                        className="ck-confirm__btn"
-                        onClick={() => setPending(null)}
-                      >
-                        Batal
-                      </button>
-                      <button
-                        type="button"
-                        className="ck-confirm__btn ck-confirm__btn--danger"
-                        onClick={() => cancelOrder(order)}
-                      >
-                        Batalkan
-                      </button>
-                    </span>
-                  ) : null}
-                </li>
-              )
-            })}
+            {activeOrders.map((order) => (
+              <ActiveOrderRow
+                key={order.id}
+                order={order}
+                confirming={pending?.kind === 'order' && pending.id === order.id}
+                onTrack={(o) => trackOrder(o.id, o.code, o.stage)}
+                onToggleConfirm={(o) =>
+                  setPending((cur) =>
+                    cur?.kind === 'order' && cur.id === o.id ? null : { kind: 'order', id: o.id },
+                  )
+                }
+                onCancel={cancelOrder}
+              />
+            ))}
           </ul>
         ) : (
           <ul className="ck-list">

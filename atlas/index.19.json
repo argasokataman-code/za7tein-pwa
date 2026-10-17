@@ -420,6 +420,424 @@
         }
       ],
       "loc": "src/styles/system/_bottom-nav.scss:24"
+    },
+    {
+      "id": "TASK-110918",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:59:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts (+10/-8) — edit via tool: ts: /** Satu hidangan yang bisa dinilai pada",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts"
+    },
+    {
+      "id": "TASK-110919",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:59:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/orderStatus.ts (+52) — write via tool: ts: import type { Customer",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/orderStatus.ts"
+    },
+    {
+      "id": "TASK-110920",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:59:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/ActiveOrderRow.tsx (+86) — write via tool: tsx: import { X } from",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/ActiveOrderRow.tsx"
+    },
+    {
+      "id": "TASK-110921",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:00:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/ActiveOrderRow.tsx (+9/-8) — edit via tool: tsx: interface Active",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/ActiveOrderRow.tsx"
+    },
+    {
+      "id": "TASK-110922",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:00:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx (+21/-20) — edit via tool: tsx: import { Sto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx"
+    },
+    {
+      "id": "TASK-110923",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:01:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx (+349) — write via tool: tsx: import { Package, ReceiptText, Rotate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-110924",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:01:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+1/-1) — edit via tool: tsx: import MyOrder from './pages/MyOrder'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-110925",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:01:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/BottomNav.tsx (+1/-1) — edit via tool: tsx: { to: '/orders', label:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/layout/BottomNav.tsx"
+    },
+    {
+      "id": "TASK-110926",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:01:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx (+1/-1) — edit via tool: tsx: <ProfileRow icon={History} label=\"Riw",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Profile.tsx"
+    },
+    {
+      "id": "TASK-110927",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:02:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_my-order.scss (+255) — write via tool: // Pesanan Saya (`/orders`) — d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_my-order.scss"
+    },
+    {
+      "id": "TASK-110928",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:02:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/checkout\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-110929",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:02:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss (+2/-1) — edit via tool: \".checkout-header\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_topbar.scss"
+    },
+    {
+      "id": "TASK-110930",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:02:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110931",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:02:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -25 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110932",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:02:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx (+1/-1) — edit via tool: tsx: import { addItem, selectSubtotal, set",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-110933",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:02:46",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -8 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110934",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:08:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx (+4/-3) — edit via tool: tsx: import { ActiveOrderRow } from '../co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-110935",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:10:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx (+40/-45) — edit via tool: tsx: <span className=\"ck-row__line list-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-110936",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:11:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_my-order.scss (+24/-25) — edit via tool: .my-order-rate,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_my-order.scss"
+    },
+    {
+      "id": "TASK-110937",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:21:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+22/-3) — edit via tool: tsx: Belum: jalur tulis rating menu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-110938",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:21:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: overf",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-110939",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:22:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: </td>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
     }
   ]
 }

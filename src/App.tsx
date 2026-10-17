@@ -76,7 +76,7 @@ import Offline from './pages/Offline'
 import Onboarding from './pages/Onboarding'
 import OrderArrived from './pages/OrderArrived'
 import OrderChat from './pages/OrderChat'
-import OrderHistory from './pages/OrderHistory'
+import MyOrder from './pages/MyOrder'
 import OrderPlaced from './pages/OrderPlaced'
 import PaymentAccount from './pages/PaymentAccount'
 import PaymentAmount from './pages/PaymentAmount'
@@ -175,7 +175,7 @@ const customerRoutes: [string, ComponentType][] = [
   ['/order-placed', OrderPlaced],
   ['/order-chat', OrderChat],
   ['/order-arrived', OrderArrived],
-  ['/orders', OrderHistory],
+  ['/orders', MyOrder],
   ['/dispute', DisputeSubmit],
   ['/rating-driver', RatingDriver],
   ['/profile', Profile],

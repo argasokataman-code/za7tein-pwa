@@ -17,7 +17,7 @@ export interface BottomNavItem {
 
 const defaultItems: BottomNavItem[] = [
   { to: '/home', label: 'Home', Icon: House },
-  { to: '/checkout', label: 'My Order', Icon: ShoppingBag },
+  { to: '/orders', label: 'My Order', Icon: ShoppingBag },
   { to: '/favorites', label: 'Favorites', Icon: Heart },
   { to: '/profile', label: 'Profile', Icon: User },
 ]
@@ -28,7 +28,7 @@ export function BottomNav({ items: propItems }: { items?: BottomNavItem[] }) {
   const items =
     propItems ??
     defaultItems.map((item) =>
-      item.to === '/checkout'
+      item.to === '/orders'
         ? {
             ...item,
             badge: cartCount,

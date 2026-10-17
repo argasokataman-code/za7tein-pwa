@@ -649,6 +649,25 @@ export default function Documentation() {
                 itu ditulis di form, bukan ditutupi bintang kosong).
               </li>
               <li>
+                <strong>Pesanan Saya: satu menu dua tab + &ldquo;Pesan lagi&rdquo;.</strong> Menu{' '}
+                &ldquo;My Order&rdquo; di bilah bawah dulu membuka halaman checkout, sementara
+                riwayat pesanan hidup di halaman terpisah yang hanya bisa dicapai dari Profil —
+                dua menu mirip, dan tak ada jalan memesan ulang. Kini{' '}
+                <code className="doc-inline">/orders</code> jadi <strong>Pesanan Saya</strong>: tab{' '}
+                <strong>Aktif</strong> (kartu keranjang + pesanan berjalan) dan{' '}
+                <strong>Riwayat</strong> (pesanan selesai). Baris pesanan berjalan turun dari
+                komponen bersama <code className="doc-inline">ActiveOrderRow</code> yang dipakai
+                juga oleh sheet dok keranjang — dua daftar tak lagi menyalin baris. Tiap riwayat
+                dapat tombol <strong>Pesan lagi</strong> yang memetakan nama hidangan ke katalog dan
+                mengisi keranjang dengan harga sekarang (bukan harga arsip), berdampingan dengan
+                pintasan <code className="doc-inline">Beri rating</code>. Bilah bawah ikut tampil di
+                halaman ini — sebelumnya destinasi nav justru tanpa nav. Terukur: rel kanan baris
+                satu nilai (410px), tombol aksi 44px seragam, tak ada elemen di bawah nav; gate{' '}
+                <code className="doc-inline">/orders</code> +
+                <code className="doc-inline">/orders?tab=history</code> 2/2 PASS, sapuan customer
+                94/94 PASS.
+              </li>
+              <li>
                 <strong>Rule sengketa: mesin §18 + pilihan merchant (M9a, R-DISPUTE-RULE).</strong>{' '}
                 PRD memisahkan <strong>model</strong> rule dari <strong>isinya</strong> (&ldquo;dibuat dan
                 dikelola ops&rdquo;), jadi yang dibangun mesinnya: katalog di{' '}

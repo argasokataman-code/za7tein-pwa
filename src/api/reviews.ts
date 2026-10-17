@@ -14,6 +14,7 @@
  */
 import { DEMO_MERCHANT_ID, merchantToken, refToken } from './reference'
 import { DEMO_CUSTOMER_ID, ensureCustomerToken } from './orders'
+import { jodToIdr } from '../data/currency'
 import { createWith, restWith } from './supabase'
 
 export interface ReviewReply {
@@ -44,6 +45,8 @@ export interface RateableDish {
   /** `menus.id` sasaran rating; `null` bila item tak tertaut menu. */
   menuId: number | null
   name: string
+  /** Jumlah porsi — dasar "Pesan lagi" mengisi keranjang dengan angka yang sama. */
+  qty?: number
 }
 
 /** Order customer yang sudah selesai dan belum diulas. */
@@ -160,6 +163,7 @@ interface OrderRow {
   code: string
   merchant_id: number
   created_at: string
+  total_jod?: number
 }
 
 /** Baris `order_items` saat dibaca bersama nama hidangannya. */
@@ -167,6 +171,7 @@ interface OrderItemRow {
   id: number
   order_id: number
   menu_id: number | null
+  qty?: number
   menus?: { name: string } | null
 }
 
@@ -186,7 +191,7 @@ async function fetchOrderDishes(
     const rows = await restWith<OrderItemRow>(
       token,
       'order_items',
-      `?select=id,order_id,menu_id,menus(name)&order_id=in.(${orderIds.join(',')})`,
+      `?select=id,order_id,menu_id,qty,menus(name)&order_id=in.(${orderIds.join(',')})`,
     )
     for (const row of rows) {
       const list = byOrder.get(row.order_id) ?? []
@@ -194,6 +199,7 @@ async function fetchOrderDishes(
         id: String(row.id),
         menuId: row.menu_id,
         name: row.menus?.name ?? `Menu ${row.menu_id ?? row.id}`,
+        qty: row.qty ?? undefined,
       })
       byOrder.set(row.order_id, list)
     }
@@ -206,6 +212,8 @@ async function fetchOrderDishes(
 /** Satu baris riwayat pesanan: order selesai + sudah dinilai atau belum (§20.2). */
 export interface OrderHistoryItem extends ReviewableOrder {
   reviewed: boolean
+  /** Nominal order (IDR) — baris riwayat memberi total, bukan hanya tanggal. */
+  totalIdr: number
 }
 
 /**
@@ -221,7 +229,7 @@ export async function fetchOrderHistory(
     restWith<OrderRow>(
       token,
       'orders',
-      `?select=id,code,merchant_id,created_at&customer_id=eq.${customerId}&status=eq.done&order=created_at.desc`,
+      `?select=id,code,merchant_id,created_at,total_jod&customer_id=eq.${customerId}&status=eq.done&order=created_at.desc`,
     ),
     restWith<{ order_id: number }>(
       token,
@@ -249,6 +257,7 @@ export async function fetchOrderHistory(
     merchantName: byId.get(o.merchant_id) ?? 'Toko',
     createdAt: o.created_at,
     reviewed: done.has(o.id),
+    totalIdr: jodToIdr(o.total_jod ?? 0),
     items: dishes.get(o.id) ?? [],
   }))
 }
