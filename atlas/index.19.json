@@ -838,6 +838,28 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-110940",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "15:25:01",
+      "tags": [
+        "customer",
+        "ui",
+        "orders"
+      ],
+      "summary": "Hub Pesanan Saya /orders: tab Aktif/Riwayat + Pesan lagi; nav My Order pindah dari /checkout; baris pesanan pakai ActiveOrderRow bersama",
+      "conn": [
+        {
+          "id": "FEAT-110760",
+          "type": "relates",
+          "raw": "FEAT-110760:relates"
+        }
+      ],
+      "loc": "src/pages/MyOrder.tsx:1",
+      "commit": "390a49c"
     }
   ]
 }
