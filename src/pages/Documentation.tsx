@@ -238,7 +238,10 @@ export default function Documentation() {
                 permukaan oranye (kontras AA), dan saran + catatan lampiran + composer jadi satu
                 bilah lengket — sebelumnya composer menutupi baris saran 30px. Pengirim
                 <code className="doc-inline">sender_id</code> 2 dan 3 kini dipetakan ke Toko/Kurir;
-                dulu semua non-customer dilabeli kurir. Thread dibuka di pesan terbaru dengan
+                dulu semua non-customer dilabeli kurir. Latar thread memakai pola titik halus
+                (2px, jarak 28px, turunan <code className="doc-inline">--border-strong</code>) supaya
+                kanvas tidak kosong; gelembung tetap opak sehingga kontras teks tidak berubah. Thread
+                dibuka di pesan terbaru dengan
                 penanda <code className="doc-inline">data-open-at="latest"</code> supaya gerbang
                 membedakannya dari gulir warisan halaman (MD-03). Terukur: peran peserta sejajar
                 (y 144,5 di 390px), tidak ada pesan tertutup dock, gate{' '}
