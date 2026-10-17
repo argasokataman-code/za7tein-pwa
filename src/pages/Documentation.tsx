@@ -230,6 +230,17 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Baris pesanan berjalan rata kiri-kanan.</strong> Kolom aksi 44px dulu
+                selalu disediakan meski daftar tidak punya tombol batal/buang, jadi nominal
+                berakhir 76px dari tepi kanan sementara judul mulai 20px dari kiri. Sekarang
+                kolom itu hanya ada bila minimal satu baris memuat aksi (atau konfirmasi
+                terbuka); daftar tanpa aksi memakai gutter penuh. Rel status juga dilebarkan
+                ke 128px dan chip-nya direntangkan, sehingga titik status jatuh di x yang sama
+                di semua baris — bukan bergerigi mengikuti panjang label ("Siap" vs
+                "Disiapkan"). Terukur: judul 20px, nominal & chip berakhir 370px, titik status
+                seragam 250px, gate <code className="doc-inline">/orders</code> 2/2 PASS.
+              </li>
+              <li>
                 <strong>Chip kategori beranda memakai foto transparan.</strong> Lima potongan
                 makanan (Semua, Nasi, Mie, Minuman, Camilan) menggantikan ikon lucide di baris
                 kategori customer — foto 224px di <code className="doc-inline">

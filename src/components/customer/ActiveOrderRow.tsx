@@ -52,8 +52,9 @@ export function ActiveOrderRow({
         </span>
         {order.items.length ? <span className="ck-row__sub">{itemsLine(order.items)}</span> : null}
       </button>
-      {/* Kolom aksi selalu ada (lebar tetap) supaya tepi kanan nominal jatuh di
-          x yang sama di setiap baris — bukan ragged. */}
+      {/* Kolom aksi selebar tetap; CSS menyembunyikannya untuk seluruh daftar
+          bila tak ada satu pun baris beraksi, supaya gutter kanan tidak
+          menyisakan 44px kosong. Bila ada aksi, semua baris tetap satu rel. */}
       <span className="ck-row__act">
         {cancelable && !confirming ? (
           <button

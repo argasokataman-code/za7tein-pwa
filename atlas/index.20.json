@@ -2851,6 +2851,63 @@
         }
       ],
       "loc": "src/data/catalog.ts:15"
+    },
+    {
+      "id": "TASK-111721",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:49:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-dock.scss (+9/-4) — edit via tool: /* Satu baris punya persis dua",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart-dock.scss"
+    },
+    {
+      "id": "TASK-111722",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:51:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+14/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111723",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:51:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/ActiveOrderRow.tsx (+3/-2) — edit via tool: tsx: {/* Kolom aksi s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/ActiveOrderRow.tsx"
     }
   ]
 }

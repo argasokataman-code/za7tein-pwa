@@ -139,8 +139,13 @@ body:has(.bottom-nav) .cart-quick-bar {
 }
 
 /* Satu baris punya persis dua kolom kanan: nominal (di dalam garis tap) dan
-   kolom aksi selebar `--touch-min` yang SELALU ada, terisi atau kosong. Itu yang
-   membuat tepi kanan nominal jatuh di x yang sama di setiap baris. */
+   kolom aksi selebar `--touch-min`. Kolom itu disediakan untuk SEMUA baris
+   selama ada minimal satu baris yang beraksi — itulah yang membuat tepi kanan
+   nominal jatuh di x yang sama. Bila tak satu pun baris punya aksi (mis. semua
+   order sudah lewat tahap batal), kolom kosong 44px hanya menyisakan margin
+   kanan 76px sementara kiri 20px: baris terbaca jomplang. Jadi seluruh kolom
+   disembunyikan sekaligus di tingkat daftar, bukan per baris — campuran
+   terisi/kosong tetap satu rel. */
 .ck-row__act {
   display: flex;
   flex: 0 0 auto;
@@ -154,10 +159,22 @@ body:has(.bottom-nav) .cart-quick-bar {
   margin-top: calc(-1 * var(--space-3));
 }
 
+/* Tak ada satu pun aksi di daftar ini (`ck-icon` = tombol batal/buang) dan tak
+   ada konfirmasi terbuka: kolom aksi tidak perlu makan 44px di kanan. Baris
+   memakai gutter penuh, jadi margin kiri dan kanan sama lebar. */
+.ck-list:not(:has(.ck-row__act .ck-icon, .ck-confirm)) .ck-row__act {
+  display: none;
+}
+
 /* Badan baris memakai primitif `.list-row` (rel kanan lebar tetap) — kelas itu
    juga MARKER gerbang browser (MD-11); jangan rakit grid sendiri. */
 .ck-row__line {
   flex: 1;
+
+  /* Rel kanan lebih lebar dari default 96px: label status terpanjang
+     ("Menunggu toko") butuh ~116px termasuk titik & padding, dan chip yang
+     lebih lebar dari relnya akan menyeberang ke kolom judul. */
+  grid-template-columns: minmax(0, 1fr) calc(var(--space-8) * 4);
 
   min-width: 0;
   min-height: var(--touch-min);
@@ -254,6 +271,14 @@ span.ck-row__line {
   grid-column: 2;
   grid-row: 2;
   justify-self: end;
+}
+
+/* Status duduk di rel kanan yang sama lebar di semua baris, bukan mengikuti
+   panjang labelnya. Tanpa ini titik status bergerigi (210/230/252px) karena
+   "Siap" lebih pendek dari "Disiapkan" — mata membacanya sebagai kolom yang
+   tidak lurus. `stretch` membuat titik & label mulai di x yang sama. */
+.ck-chip--end {
+  justify-self: stretch;
 }
 
 /* Status = info terpenting tiap baris pesanan, jadi ia dapat titik berwarna,
