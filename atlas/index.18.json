@@ -5037,6 +5037,62 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-110840",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "13:08:19",
+      "tags": [
+        "customer",
+        "sheet",
+        "layout",
+        "symmetry"
+      ],
+      "summary": "Baris daftar: 9/13 meta membungkus (39 vs 28px), tepi kanan 268 vs 277. Rel kanan auto -> tetap",
+      "conn": [
+        {
+          "id": "BUG-110820",
+          "type": "relates",
+          "raw": "BUG-110820:relates"
+        },
+        {
+          "id": "FEAT-110740",
+          "type": "relates",
+          "raw": "FEAT-110740:relates"
+        }
+      ],
+      "loc": "src/styles/system/_cart-dock.scss:160",
+      "commit": "f25e49b"
+    },
+    {
+      "id": "DEC-110850",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "13:08:20",
+      "tags": [
+        "design",
+        "enforcement",
+        "primitive",
+        "process"
+      ],
+      "summary": "Defect desain berulang dipromosikan jadi aturan MD-11 + primitif @include list-row, bukan catatan",
+      "conn": [
+        {
+          "id": "BUG-110840",
+          "type": "led_to",
+          "raw": "BUG-110840:led_to"
+        },
+        {
+          "id": "DEC-110800",
+          "type": "relates",
+          "raw": "DEC-110800:relates"
+        }
+      ],
+      "loc": "docs/design/mobile-dna.md:1",
+      "commit": "f25e49b"
     }
   ]
 }
