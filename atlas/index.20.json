@@ -3026,6 +3026,413 @@
         }
       ],
       "loc": "src/pages/Reviews.tsx:80"
+    },
+    {
+      "id": "TASK-111741",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:04:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+20/-21) — edit via tool: tsx: import { Info, MessageCircle, Sen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-111742",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:04:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss (+8/-7) — edit via tool: .chat-thread {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss"
+    },
+    {
+      "id": "TASK-111743",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:05:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+210) — write via tool: /* Group chat per order (M7, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-111744",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:05:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss (+20/-12) — edit via tool: .chat-compose__send {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss"
+    },
+    {
+      "id": "TASK-111745",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:06:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+17/-14) — edit via tool: .chat-person__name {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-111746",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:07:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+21/-7) — edit via tool: /* Pesan beruntun dari sisi ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-111747",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:10:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+7/-4) — edit via tool: tsx: // Selalu tampilkan pesan terbaru. ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-111748",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:10:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss (+8/-12) — edit via tool: .chat-compose {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_cart.scss"
+    },
+    {
+      "id": "TASK-111749",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:10:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+24/-7) — edit via tool: /* ── Dock bawah ───────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-111750",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:11:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+10/-7) — edit via tool: tsx: // Selalu tampilkan pesan terbaru ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-111751",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:12:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+12/-6) — edit via tool: tsx: useEffect(() => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-111752",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:15:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+4/-1) — edit via tool: tsx: {/* `data-open-at=\"latest\"`: chat m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-111753",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:15:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+8/-5) — edit via tool: // Bila body yang menggulir, dokumen be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-111754",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:15:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/mobile-dna.md (+1/-1) — edit via tool: | **MD-03** | **Satu penggulung**: dok",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/mobile-dna.md"
+    },
+    {
+      "id": "TASK-111755",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:17:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+12/-8) — edit via tool: .chat-people {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-111756",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:19:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+8/-6) — edit via tool: /* ── Peserta: tiga orang, ti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-111757",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:19:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+18/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111758",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:19:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/chat.ts (+2/-1) — edit via tool: ts: const SENDER_USER: Record<ChatSender, nu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/chat.ts"
+    },
+    {
+      "id": "TASK-111759",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:19:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+4/-3) — edit via tool: tsx: import { useApiChat } from '../hook",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-111760",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:20:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+5/-2) — edit via tool: tsx: /** `users.id` pengirim lain per pe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-111761",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "02:21:27",
+      "tags": [
+        "chat",
+        "ui",
+        "gate"
+      ],
+      "summary": "Chat group order dirapikan: peserta 3 kolom avatar, dock lengket, waktu AA, sender 2/3 -> Toko/Kurir; gate 2/2 PASS",
+      "conn": [
+        {
+          "id": "TASK-88114",
+          "type": "relates",
+          "raw": "TASK-88114:relates"
+        },
+        {
+          "id": "TASK-9777",
+          "type": "relates",
+          "raw": "TASK-9777:relates"
+        }
+      ],
+      "loc": "src/pages/OrderChat.tsx:231",
+      "commit": "b2c5be1"
     }
   ]
 }
