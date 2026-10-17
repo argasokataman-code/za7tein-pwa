@@ -13,10 +13,20 @@ export const MENU_LOW_STOCK_THRESHOLD = 5
  * nasi, sate, lontong sekaligus), jadi item dipetakan lewat `foodBucket`.
  */
 export const CATEGORIES: Category[] = [
-  { id: 'Nasi', label: 'Nasi', icon: UtensilsCrossed },
-  { id: 'Mie', label: 'Mie', icon: Soup },
-  { id: 'Minuman', label: 'Minuman', icon: CupSoda },
-  { id: 'Camilan', label: 'Camilan', icon: Cookie },
+  {
+    id: 'Nasi',
+    label: 'Nasi',
+    icon: UtensilsCrossed,
+    image: '/assets/img/categories/nasi.webp',
+  },
+  { id: 'Mie', label: 'Mie', icon: Soup, image: '/assets/img/categories/mie.webp' },
+  {
+    id: 'Minuman',
+    label: 'Minuman',
+    icon: CupSoda,
+    image: '/assets/img/categories/minuman.webp',
+  },
+  { id: 'Camilan', label: 'Camilan', icon: Cookie, image: '/assets/img/categories/camilan.webp' },
 ]
 
 /**

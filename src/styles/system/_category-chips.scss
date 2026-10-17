@@ -1,0 +1,143 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// Chip kategori (baris horizontal di beranda customer)
+// ═══════════════════════════════════════════════════════════════════════════
+// Dipisah dari `_menu.scss` supaya berkas itu tetap di bawah batas 600 baris.
+// Isinya dua jalur: ikon lucide (konsol merchant) dan foto transparan
+// (chip customer, keputusan pemilik 2026-10-18).
+// Emoji diganti ikon Lucide. Emoji punya ukuran, warna, dan gaya sendiri di
+// tiap platform sehingga tidak bisa diseragamkan; ikon Lucide mewarisi
+// currentColor, jadi otomatis putih di chip aktif dan gelap di chip biasa.
+.category-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  // Pola aplikasi mobile: ikon di dalam kotak berwarna, label di bawahnya.
+  // Chip-nya sendiri transparan (tanpa border/pill) — latarnya dipegang oleh
+  // kotak ikon, bukan tombol.
+  gap: var(--space-2);
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+
+  color: var(--text-secondary);
+
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+// Kotak ikon. `box-sizing` supaya 44px termasuk padding, jadi gambarnya
+// tinggal 20px di tengah dan kotaknya tetap 44px di semua ikon.
+.category-btn svg {
+  flex: 0 0 auto;
+
+  box-sizing: border-box;
+  width: 56px;
+  height: 56px;
+
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+
+  background: var(--orange-soft);
+  color: var(--sa7tein-orange);
+
+  transition:
+    transform var(--motion-standard) var(--ease-out),
+    background-color var(--motion-fast) var(--ease-out),
+    color var(--motion-fast) var(--ease-out),
+    box-shadow var(--motion-standard) var(--ease-out);
+}
+
+// Varian foto (keputusan pemilik 2026-10-18): potongan transparan 56px tanpa
+// kotak latar — "varian B" di docs/design/preview-categories. Chip tetap
+// transparan; status terpilih dibaca dari label oranye + foto yang membesar.
+.category-btn img {
+  flex: 0 0 auto;
+
+  width: 56px;
+  height: 56px;
+
+  object-fit: contain;
+
+  transition: transform var(--motion-standard) var(--ease-out);
+}
+
+.category-btn.active {
+  background: transparent;
+  border-color: transparent;
+
+  color: var(--orange-ink);
+}
+
+.category-btn.active img {
+  transform: scale(1.06);
+}
+
+.category-btn.active svg {
+  transform: scale(1.05);
+
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+
+  /* Glow merek dihapus di sini (audit 001 #6): `--shadow-brand` kini hanya
+     menandai AKSI PRIMER, bukan status terpilih. */
+}
+
+// Desain v2 menskalakan KOTAK IKON saat ditekan, bukan seluruh chip (labelnya
+// ikut bergeser kalau chip yang menskala). Selector `.categories-scroll …`
+// (0-3-0) menang atas umpan balik tekan umum `.category-btn:active` (0-2-0)
+// yang di-@use setelah partial ini.
+.categories-scroll .category-btn:active {
+  transform: none;
+}
+
+.categories-scroll .category-btn:active svg,
+.categories-scroll .category-btn:active img {
+  transform: scale(0.9);
+}
+
+// Hover chip non-aktif: kotak ikon menguat sedikit, mengikuti v2.
+.categories-scroll .category-btn:not(.active):hover svg,
+.categories-scroll .category-btn:not(.active):hover img {
+  transform: scale(1.05);
+}
+
+// Aturan interaksi bersama menyalakan `background-color: var(--orange-soft)`
+// saat ditekan; di chip transparan itu muncul sebagai pil di belakang label.
+// Dimatikan — umpan balik tekan datang dari `scale` bersama.
+.category-btn:active {
+  background-color: transparent;
+}
+
+// Baris kategori: dengan sedikit kategori ia menggantung di kiri dan separuh
+// kanan kosong; dengan `space-between` malah jomplang ke tepi. Jadi tiap chip
+// meregang sama besar (satu bagian) supaya mengisi lebar secara merata, berapa
+// pun jumlahnya. `min-width` cuma lantai, bukan lebar tetap: lima kategori
+// plus gap harus muat di 350px gutter, kalau tidak "Camilan" terpotong di tepi
+// kanan. Saat kategori bertambah, `min-content` label + lantai ini yang
+// membuat barisnya menggeser, bukan memampatkan teks.
+.categories-scroll {
+  gap: var(--space-2);
+  justify-content: flex-start;
+  margin-inline: 0;
+}
+
+.categories-scroll .category-btn {
+  flex: 1 1 0;
+  min-width: var(--space-8);
+}
+
+// Judul bagian dihapus — chip kategori berdiri sendiri tanpa heading; beri
+// sedikit napas di atas dari hero.
+.categories-section {
+  margin-top: var(--space-3);
+}

@@ -230,6 +230,18 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Chip kategori beranda memakai foto transparan.</strong> Lima potongan
+                makanan (Semua, Nasi, Mie, Minuman, Camilan) menggantikan ikon lucide di baris
+                kategori customer — foto 224px di <code className="doc-inline">
+                public/assets/img/categories/</code>, dirender 56px tanpa kotak latar (varian B
+                dari preview). Status terpilih dibaca dari label oranye + foto yang membesar
+                1,06x; konsol merchant tetap memakai ikon garis lewat <code className="doc-inline">
+                Category.icon</code>. Baris chip juga dirapatkan (gap 8px, lantai 32px) supaya
+                kelima label muat tanpa terpotong di gutter 350px. Opsi lain — foto di dalam tile
+                lembut dan versi SVG — disimpan sebagai pembanding di{' '}
+                <code className="doc-inline">docs/design/preview-categories/</code>.
+              </li>
+              <li>
                 <strong>Layar masuk customer kini foto penuh, bukan blok merek.</strong>{' '}
                 Kepalanya memakai varian baru{' '}
                 <code className="doc-inline">{'brandLayout="cover"'}</code>: foto makanan setinggi

@@ -118,6 +118,12 @@ export interface Category {
    * masuk sistem ikon yang strokenya seragam.
    */
   icon?: LucideIcon
+  /**
+   * Foto potongan transparan untuk chip kategori customer (keputusan pemilik
+   * 2026-10-18). Berkas di `public/assets/img/categories/`, 224px (2x kotak
+   * 112px). `icon` tetap dipakai konsol merchant yang butuh ikon garis.
+   */
+  image?: string
 }
 
 /**

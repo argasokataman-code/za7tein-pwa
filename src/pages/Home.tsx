@@ -70,7 +70,10 @@ export default function Home() {
   // Chip kategori tetap (Semua + 4) — selalu tampil, seperti prototype v2.
   // Menyaring TOKO, bukan item: sebuah toko tampil kalau ia melayani kategori
   // terpilih (dihitung dari menunya yang benar-benar bisa dipesan).
-  const chips = [{ id: 'all', label: 'Semua', icon: LayoutGrid }, ...CATEGORIES]
+  const chips = [
+    { id: 'all', label: 'Semua', icon: LayoutGrid, image: '/assets/img/categories/semua.webp' },
+    ...CATEGORIES,
+  ]
 
   // Chip menyaring TOKO, bukan item: sebuah toko tampil kalau ia melayani
   // kategori terpilih (dihitung dari menunya yang benar-benar bisa dipesan).
@@ -139,7 +142,11 @@ export default function Home() {
                       aria-pressed={category === c.id}
                       onClick={() => setCategory(c.id)}
                     >
-                      {Icon ? <Icon size={16} strokeWidth={2} aria-hidden="true" /> : null}
+                      {c.image ? (
+                        <img src={c.image} alt="" width={56} height={56} decoding="async" />
+                      ) : Icon ? (
+                        <Icon size={16} strokeWidth={2} aria-hidden="true" />
+                      ) : null}
                       {c.label}
                     </button>
                   )

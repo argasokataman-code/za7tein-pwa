@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein · Preview kategori (foto transparan)</title>
+<!--
+  PREVIEW, bukan produksi. Bandingkan chip kategori yang sekarang memakai ikon
+  lucide dengan versi foto transparan hasil generate Gemini + rembg.
+
+  Berkas gambar:
+    *-224.png   = 224x224 (2x dari kotak 112px), alpha asli
+    *-224.webp  = format sama, terkompresi
+    *-icon.svg  = SVG pembungkus raster (base64 di dalam <image>) — lihat
+                  catatan format di bawah; ini BUKAN vektor.
+-->
+<style>
+  :root {
+    --orange: #e44220;
+    --orange-ink: #b83213;
+    --orange-soft: #fdece7;
+    --bg: #f4f4f6;
+    --surface: #ffffff;
+    --border: #e6e6ea;
+    --text: #1c1c22;
+    --muted: #6b6b76;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 20px 64px;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { margin: 0 0 4px; font-size: 24px; letter-spacing: -0.02em; }
+  h2 { margin: 40px 0 4px; font-size: 17px; }
+  p.lede { margin: 0 0 24px; color: var(--muted); }
+  p.note { margin: 6px 0 16px; color: var(--muted); font-size: 13px; }
+  .row {
+    display: flex;
+    gap: 4px;
+    padding: 16px;
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+  .chip {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 74px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .chip img { display: block; width: 56px; height: 56px; object-fit: contain; }
+  .chip.tile img {
+    padding: 10px;
+    border-radius: 16px;
+    background: var(--orange-soft);
+  }
+  .chip.on { color: var(--orange-ink); font-weight: 600; }
+  .chip.on.tile img { background: var(--orange); }
+  .chip.on.plain img { transform: scale(1.06); }
+  .zoom { gap: 28px; align-items: flex-end; }
+  .zoom img { width: 112px; height: 112px; }
+  .zoom .chip img { padding: 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  code { font-size: 12.5px; }
+  .badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--orange-soft);
+    color: var(--orange-ink);
+    font-size: 11px;
+    font-weight: 700;
+    vertical-align: 2px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Chip kategori — foto transparan</h1>
+  <p class="lede">Bandingkan dengan chip ikon lucide yang dipakai sekarang. Semua gambar 224×224 (2× dari kotak 112px), latar sudah dibuang.</p>
+
+  <h2>1 · Ukuran asli (56px), foto di dalam tile lembut <span class="badge">rekomendasi A</span></h2>
+  <p class="note">Tile <code>--orange-soft</code> dipertahankan supaya chip tetap punya bentuk yang sama dengan versi ikon; yang aktif jadi tile oranye penuh.</p>
+  <div class="row">
+    <button class="chip tile on"><img src="semua-224.webp" alt="" />Semua</button>
+    <button class="chip tile"><img src="nasi-224.webp" alt="" />Nasi</button>
+    <button class="chip tile"><img src="mie-224.webp" alt="" />Mie</button>
+    <button class="chip tile"><img src="minuman-224.webp" alt="" />Minuman</button>
+    <button class="chip tile"><img src="camilan-224.webp" alt="" />Camilan</button>
+  </div>
+
+  <h2>2 · Ukuran asli (56px), foto polos tanpa tile <span class="badge">varian B</span></h2>
+  <p class="note">Lebih lapang dan “food-forward”, tapi tanpa bidang latar chip jadi kurang terbaca sebagai kontrol saat deretan memanjang.</p>
+  <div class="row">
+    <button class="chip plain on"><img src="semua-224.webp" alt="" />Semua</button>
+    <button class="chip plain"><img src="nasi-224.webp" alt="" />Nasi</button>
+    <button class="chip plain"><img src="mie-224.webp" alt="" />Mie</button>
+    <button class="chip plain"><img src="minuman-224.webp" alt="" />Minuman</button>
+    <button class="chip plain"><img src="camilan-224.webp" alt="" />Camilan</button>
+  </div>
+
+  <h2>3 · Zoom 112px — cek detail potongan</h2>
+  <p class="note">Di ukuran segini terlihat apakah tepi cutout bersih (tidak ada sisa putih/halo).</p>
+  <div class="row zoom">
+    <button class="chip plain"><img src="semua-224.webp" alt="" />Semua</button>
+    <button class="chip plain"><img src="nasi-224.webp" alt="" />Nasi</button>
+    <button class="chip plain"><img src="mie-224.webp" alt="" />Mie</button>
+    <button class="chip plain"><img src="minuman-224.webp" alt="" />Minuman</button>
+    <button class="chip plain"><img src="camilan-224.webp" alt="" />Camilan</button>
+  </div>
+
+  <h2>4 · Kalau tetap mau berkas SVG</h2>
+  <p class="note">SVG di sini hanya <strong>pembungkus</strong>: foto tetap raster, ditanam sebagai <code>base64</code> di dalam <code>&lt;image&gt;</code>. Tidak ada keuntungan ketajaman, malah lebih besar dari WebP — dan tanpa alpha-WebP yang lebih kecil. Vektor asli (trace) akan menghancurkan detail foto.</p>
+  <table>
+    <tr><th>format</th><th class="num">per ikon</th><th class="num">5 ikon</th></tr>
+    <tr><td>WebP 224px (rekomendasi)</td><td class="num">5–18 KB</td><td class="num">67 KB</td></tr>
+    <tr><td>PNG 224px</td><td class="num">40–112 KB</td><td class="num">403 KB</td></tr>
+    <tr><td>SVG pembungkus (base64 PNG)</td><td class="num">53–149 KB</td><td class="num">538 KB</td></tr>
+  </table>
+  <p class="note">Contoh SVG: <a href="nasi-icon.svg">nasi-icon.svg</a> · <a href="mie-icon.svg">mie-icon.svg</a> · <a href="minuman-icon.svg">minuman-icon.svg</a> · <a href="camilan-icon.svg">camilan-icon.svg</a> · <a href="semua-icon.svg">semua-icon.svg</a></p>
+
+  <h2>5 · Catatan</h2>
+  <p class="note">
+    · Gambar dibuat dengan Gemini (satu subjek, latar putih), lalu latar dibuang <code>rembg</code>, di-trim, dan di-resize.<br />
+    · “Camilan” keluar sebagai gorengan (bukan pisang goreng) — masih benar secara kategori, gampang diganti kalau mau versi lain.<br />
+    · “Semua” memakai satu komposisi berisi beberapa hidangan; alternatifnya tetap ikon grid seperti sekarang.<br />
+    · Belum ada yang diubah di aplikasi — ini preview untuk disetujui dulu.
+  </p>
+</main>
+</body>
+</html>
