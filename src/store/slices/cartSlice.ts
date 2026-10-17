@@ -8,6 +8,7 @@ import type {
   HoldEventName,
   HoldStatus,
   OrderStage,
+  OrderType,
   QuotaKind,
   ZoneId,
 } from '../../types'
@@ -58,6 +59,13 @@ interface CartState {
   /** Catatan tingkat pesanan (bukan per menu), dikirim ke dapur — PRD §11. */
   orderNote: string
   /**
+   * Mode pengantaran pilihan customer (§6): `regular` lewat batch kurir inhouse,
+   * `quick` satu order per kurir partner (tarif dikali pengali Quick). Dipilih
+   * di checkout, disimpan bersama keranjang supaya layar bayar memakai nilai
+   * yang sama.
+   */
+  deliveryType: OrderType
+  /**
    * Kolam kuota yang di-reserve order aktif (§17) — kuota order atau kuota COD,
    * dipilih sekali saat order dibuat (`quotaKindForOrder`) lalu dipakai untuk
    * mengonsumsi (selesai) atau mengembalikan (batal) di kolam yang sama.
@@ -94,6 +102,7 @@ const initialState: CartState = {
   activeMerchantId: null,
   carts: {},
   orderNote: '',
+  deliveryType: 'regular',
   quotaKind: null,
 }
 /** Id entry hold: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -210,6 +219,11 @@ const cartSlice = createSlice({
     /** Catatan tingkat pesanan untuk seluruh order (PRD §11). */
     setOrderNote(state, action: PayloadAction<string>) {
       state.orderNote = action.payload
+    },
+    setDeliveryType(state, action: PayloadAction<OrderType>) {
+      state.deliveryType = action.payload
+      // Ongkir Quick = tarif dasar × pengali; nilai ini dihitung ulang di
+      // `useChargedBreakdown`, jadi tak ada angka turunan yang disimpan.
     },
     setAddress(state, action: PayloadAction<string>) {
       state.selectedAddressId = action.payload
@@ -353,6 +367,7 @@ export const {
   switchCart,
   removeCart,
   setOrderNote,
+  setDeliveryType,
   setAddress,
   setPayment,
   setTransferProof,

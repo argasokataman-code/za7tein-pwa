@@ -92,6 +92,83 @@
   cursor: pointer;
 }
 
+/* ── Jenis pengantaran (PRD §6) ───────────────────────────────────────────── */
+/* Dua pilihan, bukan dropdown: hanya ada dua cabang dan bedanya adalah
+   konsekuensi (kurir toko vs partner + tarif), jadi keduanya harus terbaca
+   sekaligus. Kartu memakai kontrak permukaan yang sama dengan ringkasan
+   (`--surface` + `--border-strong`); yang terpilih ditandai batas merek +
+   `--orange-soft`, bukan warna teks baru. */
+.delivery-mode {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.delivery-mode__option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 104px;
+  padding: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+}
+
+.delivery-mode__option.is-selected {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+}
+
+.delivery-mode__option:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.delivery-mode__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+/* Penanda pilihan eksplisit: kartu terpilih hanya beda latar + batas, dan itu
+   terlalu halus untuk dibaca sebagai radio. Lingkaran kosong/centang adalah
+   pola seleksi yang sudah dikenal, tanpa menambah state baru. */
+.delivery-mode__mark {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  color: var(--on-brand);
+}
+
+.delivery-mode__option.is-selected .delivery-mode__mark {
+  border-color: var(--sa7tein-orange);
+  background: var(--sa7tein-orange);
+}
+
+.delivery-mode__sub {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.35;
+}
+
+.delivery-mode__fee {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
 /* ── Kode promo ───────────────────────────────────────────────────────────── */
 /* Kartu ini bukan baris struk: isinya satu aksi (memasang potongan), jadi ia
    membawa permukaan mereknya sendiri — `--orange-soft` + `--orange-border`,

@@ -20,6 +20,9 @@ export function useChargedBreakdown(): ChargedBreakdown {
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const promo = useAppSelector((s) => s.cart.promo)
+  const deliveryType = useAppSelector((s) => s.cart.deliveryType)
+  /** Pengali tarif Quick = knob ops (§13), bukan konstanta di layar checkout. */
+  const quickMultiplier = useAppSelector((s) => s.ops.config.quickMultiplier)
   const program = useProgramDiscount()
   // Berlangganan kurs: `Pc` dikonversi dari JOD, jadi total ikut berubah saat
   // sync harian memperbarui kurs.
@@ -28,11 +31,23 @@ export function useChargedBreakdown(): ChargedBreakdown {
   return useMemo(() => {
     const addresses = Array.isArray(stored) ? stored : mockUser.addresses
     const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
+    const baseDeliveryFeeIdr = address ? deliveryFeeFor(address) : 0
     return chargedBreakdown({
       subtotalIdr: selectSubtotal(items),
-      deliveryFeeIdr: address ? deliveryFeeFor(address) : 0,
+      deliveryFeeIdr:
+        deliveryType === 'quick' ? baseDeliveryFeeIdr * quickMultiplier : baseDeliveryFeeIdr,
       discountIdr: (promo?.discountIdr ?? 0) + program.discountIdr,
       method: payMethodKind(paymentId ?? 'wallet'),
     })
-  }, [items, stored, addressId, promo, paymentId, rate.rate, program.discountIdr])
+  }, [
+    items,
+    stored,
+    addressId,
+    promo,
+    paymentId,
+    rate.rate,
+    program.discountIdr,
+    deliveryType,
+    quickMultiplier,
+  ])
 }

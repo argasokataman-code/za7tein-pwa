@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Check, Circle } from 'lucide-react'
 
 import { countdownLabel, joinableBatches } from '../../data/batch'
-import { DELIVERY_TYPE_LABEL } from '../../data/merchantOrders'
+import { DELIVERY_TYPE_LABEL, orderDeliveryType } from '../../data/merchantOrders'
 import { BottomSheet } from '../ui/BottomSheet'
 import type { Batch, MerchantOrder } from '../../types'
 
@@ -38,7 +38,7 @@ export function AcceptOrderSheet({
   onConfirm,
   onClose,
 }: AcceptOrderSheetProps) {
-  const isQuick = order.deliveryType === 'quick'
+  const isQuick = orderDeliveryType(order) === 'quick'
   const options = joinableBatches(batches)
   const [batchId, setBatchId] = useState<string | null>(options.length ? options[0].id : null)
   const [estimate, setEstimate] = useState<number>(DEFAULT_ESTIMATE)

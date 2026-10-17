@@ -29,9 +29,38 @@ export const MOCK_ORDER_DELIVERY_TYPE: Record<string, OrderType> = {
   'SA-1034': 'quick',
 }
 
-/** Jenis pengantaran order; default `regular` bila overlay tak mengenal kodenya. */
+/**
+ * Pilihan mode yang dibuat customer saat checkout. `orders` BE belum punya
+ * kolom jenis pengantaran (ui-impact.md §8), jadi pilihan itu disimpan di
+ * localStorage dengan kode order sebagai kunci — jembatan demo yang sama
+ * sifatnya dengan overlay di atas. Begitu kolomnya ada, `toMerchantOrder`
+ * membaca `row.delivery_type` dan lapisan ini dihapus.
+ */
+const DELIVERY_TYPE_KEY = 'sa7tein:order-delivery-type'
+
+function storedDeliveryTypes(): Record<string, OrderType> {
+  try {
+    return JSON.parse(localStorage.getItem(DELIVERY_TYPE_KEY) ?? '{}') as Record<string, OrderType>
+  } catch {
+    return {}
+  }
+}
+
+export function rememberDeliveryType(code: string, type: OrderType): void {
+  try {
+    localStorage.setItem(
+      DELIVERY_TYPE_KEY,
+      JSON.stringify({ ...storedDeliveryTypes(), [code]: type }),
+    )
+  } catch {
+    // localStorage penuh/diblokir — mode tetap benar untuk sesi merchant yang
+    // sedang terbuka lewat overlay; tak ada yang perlu dihentikan.
+  }
+}
+
+/** Jenis pengantaran order; default `regular` bila belum ada yang menyimpannya. */
 export function deliveryTypeFor(code: string): OrderType {
-  return MOCK_ORDER_DELIVERY_TYPE[code] ?? 'regular'
+  return storedDeliveryTypes()[code] ?? MOCK_ORDER_DELIVERY_TYPE[code] ?? 'regular'
 }
 
 /** Jenis pengantaran efektif sebuah order: nilai tersimpan menang, lalu overlay. */

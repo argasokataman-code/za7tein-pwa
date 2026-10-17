@@ -550,12 +550,7 @@ export default function MerchantOrders() {
                   {detailOrder.packed ? 'Packing selesai' : 'Tandai packing selesai'}
                 </button>
 
-                {detailOrder.batchId ? (
-                  <p className="merchant-card-sub">
-                    Order ini ada di batch kurir inhouse. Pengantaran dimulai saat kurir batch
-                    mulai, bukan per order.
-                  </p>
-                ) : (
+                {orderDeliveryType(detailOrder) === 'quick' ? (
                   <>
                     <p className="merchant-card-sub">
                       Order Quick ditangani satu kurir partner. Kirim penugasan setelah packing
@@ -573,6 +568,16 @@ export default function MerchantOrders() {
                       Serahkan ke kurir partner
                     </button>
                   </>
+                ) : detailOrder.batchId ? (
+                  <p className="merchant-card-sub">
+                    Order ini ada di batch kurir inhouse. Pengantaran dimulai saat kurir batch
+                    mulai, bukan per order.
+                  </p>
+                ) : (
+                  <p className="merchant-card-sub">
+                    Order Regular diantar satu kurir inhouse bersama order lain di batch; kurir
+                    ditugaskan di panel Batch, bukan lewat kurir partner.
+                  </p>
                 )}
 
                 <button

@@ -5,7 +5,7 @@
 //
 // Sekarang isinya dibaca dari store: daftar item, alamat antar, dan ringkasan
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
-import { Minus, Plus, ShoppingBag, Tag, Trash2 } from 'lucide-react'
+import { Check, Minus, Plus, ShoppingBag, Tag, Trash2 } from 'lucide-react'
 
 import { useState } from 'react'
 
@@ -29,13 +29,14 @@ import {
 } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { getStorefront } from '../data/storefronts'
+import { QUICK_DISPATCH_AVAILABLE } from '../data/marketplace'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useProgramDiscount } from '../hooks/useProgramDiscount'
 import { useMoney } from '../hooks/useMoney'
-import { selectOtherCarts, selectSubtotal, removeCart, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
+import { selectOtherCarts, selectSubtotal, removeCart, setDeliveryType, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
 
 /**
@@ -118,6 +119,9 @@ export default function Checkout() {
   const zone = address ? zoneFor(address) : null
   const deliverable = address ? isDeliverable(address) : false
   const fee = address ? deliveryFeeFor(address) : 0
+  const deliveryType = useAppSelector((s) => s.cart.deliveryType)
+  const quickMultiplier = useAppSelector((s) => s.ops.config.quickMultiplier)
+  const quickFee = Math.round(fee * quickMultiplier)
   // Promo terpasang (`cart.promo`) memotong total di sini dan di PaymentAmount —
   // satu sumber, jadi dua layar tidak bisa menampilkan angka berbeda.
   const promo = useAppSelector((s) => s.cart.promo)
@@ -205,6 +209,66 @@ export default function Checkout() {
                     <span className="checkout-store__name">{storeName}</span>
                     <span className="checkout-store__hours">{storeHours}</span>
                   </div>
+                </div>
+
+                {/* Mode pengantaran (PRD §6, CUS-14..20): Regular lewat batch
+                    kurir inhouse, Quick satu order per kurir partner. Ongkir
+                    Quick = tarif zona × pengali ops, jadi angkanya tampil di
+                    opsi — bukan kejutan di ringkasan. */}
+                <div className="checkout-section">
+                  <h2 className="section-title s7-parallax--title">Jenis pengantaran</h2>
+                  <div
+                    className="delivery-mode"
+                    role="radiogroup"
+                    aria-label="Jenis pengantaran"
+                  >
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={deliveryType === 'regular'}
+                      className={`delivery-mode__option${
+                        deliveryType === 'regular' ? ' is-selected' : ''
+                      }`}
+                      onClick={() => dispatch(setDeliveryType('regular'))}
+                    >
+                      <span className="delivery-mode__title">
+                        Regular
+                        <span className="delivery-mode__mark" aria-hidden="true">
+                          {deliveryType === 'regular' ? <Check size={14} strokeWidth={2.5} /> : null}
+                        </span>
+                      </span>
+                      <span className="delivery-mode__sub">
+                        Kurir toko mengantar bersama order lain.
+                      </span>
+                      <span className="delivery-mode__fee">{moneyPlain(fee)}</span>
+                    </button>
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={deliveryType === 'quick'}
+                      className={`delivery-mode__option${
+                        deliveryType === 'quick' ? ' is-selected' : ''
+                      }`}
+                      disabled={!QUICK_DISPATCH_AVAILABLE}
+                      onClick={() => dispatch(setDeliveryType('quick'))}
+                    >
+                      <span className="delivery-mode__title">
+                        Quick
+                        <span className="delivery-mode__mark" aria-hidden="true">
+                          {deliveryType === 'quick' ? <Check size={14} strokeWidth={2.5} /> : null}
+                        </span>
+                      </span>
+                      <span className="delivery-mode__sub">
+                        Kurir partner antar langsung, satu order.
+                      </span>
+                      <span className="delivery-mode__fee">{moneyPlain(quickFee)}</span>
+                    </button>
+                  </div>
+                  {!QUICK_DISPATCH_AVAILABLE ? (
+                    <p className="summary-info-note">
+                      Quick belum tersedia — belum ada kurir partner di area ini.
+                    </p>
+                  ) : null}
                 </div>
 
                 {otherCarts.length ? (
@@ -426,8 +490,12 @@ export default function Checkout() {
                     <span>{moneyPlain(subtotal)}</span>
                   </div>
                   <div className="summary-item">
-                    <span>Ongkir {deliverable && zone ? `(Zona ${zone.label})` : ''}</span>
-                    <span>{deliverable ? moneyPlain(fee) : 'Tidak berlaku'}</span>
+                    <span>
+                      Ongkir {deliverable && zone ? `(Zona ${zone.label}` : ''}
+                      {deliverable && zone && deliveryType === 'quick' ? ' · Quick' : ''}
+                      {deliverable && zone ? ')' : ''}
+                    </span>
+                    <span>{deliverable ? moneyPlain(charged.deliveryFeeIdr) : 'Tidak berlaku'}</span>
                   </div>
                   <div className="summary-item">
                     <span>Biaya layanan</span>

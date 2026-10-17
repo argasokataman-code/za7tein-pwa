@@ -11,13 +11,13 @@ import { insertNotification } from '../api/notifications'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
-  deliveryFeeFor,
   formatDistance,
   isDeliverable,
   needsTopUpGate,
   zoneFor,
 } from '../data/merchant'
 import { mockMerchant } from '../data/merchant'
+import { rememberDeliveryType } from '../data/merchantOrders'
 import { mockUser } from '../data/user'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -48,6 +48,7 @@ export default function PaymentAmount() {
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const proof = useAppSelector((s) => s.cart.transferProof)
+  const deliveryType = useAppSelector((s) => s.cart.deliveryType)
   // Daftar + urutan metode dari BE (mock dulu, API menimpa).
   const methods = useApiPaymentMethods()
 
@@ -55,7 +56,6 @@ export default function PaymentAmount() {
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
   const zone = address ? zoneFor(address) : null
   const deliverable = address ? isDeliverable(address) : false
-  const fee = address ? deliveryFeeFor(address) : 0
   // Promo terpasang di Checkout memotong total di sini juga — sumber yang sama
   // (`cart.promo`), jadi ringkasan Checkout dan layar bayar tak bisa berbeda.
   const promo = useAppSelector((s) => s.cart.promo)
@@ -130,10 +130,13 @@ export default function PaymentAmount() {
     // dicatat lokal dengan kode yang sama supaya pelacakan menampilkan pesanan
     // ini, bukan `mockOrder` yang tak nyambung dengan yang barusan dibuat.
     const code = nextOrderCode()
+    // `orders` BE belum punya kolom jenis pengantaran; simpan pilihan customer
+    // per kode supaya konsol merchant membaca cabang yang benar (ui-impact §8).
+    rememberDeliveryType(code, deliveryType)
     void createOrder({
       code,
       subTotalIdr: subtotal,
-      deliveryFeeIdr: fee,
+      deliveryFeeIdr: charged.deliveryFeeIdr,
       platformFeeIdr: charged.platformFeeCustomerIdr,
       totalIdr: total,
       paymentMethod: method.id,
@@ -242,10 +245,12 @@ export default function PaymentAmount() {
                 </div>
                 <div className="summary-item">
                   <span>
-                    Ongkir {deliverable && zone ? `(Zona ${zone.label})` : ''}
+                    Ongkir {deliverable && zone ? `(Zona ${zone.label}` : ''}
+                    {deliverable && zone && deliveryType === 'quick' ? ' · Quick' : ''}
+                    {deliverable && zone ? ')' : ''}
                   </span>
                   <span>
-                    {deliverable ? money(fee) : '—'}
+                    {deliverable ? money(charged.deliveryFeeIdr) : '—'}
                   </span>
                 </div>
                 <div className="summary-item">
