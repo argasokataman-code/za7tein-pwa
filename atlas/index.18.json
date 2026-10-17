@@ -4511,6 +4511,57 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "BUG-110820",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "11:53:31",
+      "tags": [
+        "customer",
+        "cart",
+        "orders",
+        "ux",
+        "be"
+      ],
+      "summary": "Sheet tak punya aksi buang/batal; checkout lahir draft (status default cart). Fix + E2E",
+      "conn": [
+        {
+          "id": "FEAT-110740",
+          "type": "relates",
+          "raw": "FEAT-110740:relates"
+        },
+        {
+          "id": "DEC-110800",
+          "type": "relates",
+          "raw": "DEC-110800:relates"
+        }
+      ],
+      "loc": "src/components/customer/CartSummarySheet.tsx:1",
+      "commit": "a79c1f7"
+    },
+    {
+      "id": "DEC-110830",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "11:53:31",
+      "tags": [
+        "customer",
+        "orders",
+        "be",
+        "contract"
+      ],
+      "summary": "Checkout menulis status=quotation + placed_at; enum BE tak punya 'placed'. Batal hanya sebelum prepare",
+      "conn": [
+        {
+          "id": "BUG-110820",
+          "type": "led_to",
+          "raw": "BUG-110820:led_to"
+        }
+      ],
+      "commit": "a79c1f7"
     }
   ]
 }
