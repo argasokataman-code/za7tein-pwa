@@ -22,7 +22,7 @@ import { apiEnabled, createWith, createWithReturn, restWith } from './supabase'
 export type ChatSender = 'customer' | 'merchant' | 'courier'
 
 /** `users.id` pengirim per peran (demo) — sejajar `notifications.AUDIENCE_USER`. */
-const SENDER_USER: Record<ChatSender, number> = { customer: 1, merchant: 2, courier: 3 }
+export const SENDER_USER: Record<ChatSender, number> = { customer: 1, merchant: 2, courier: 3 }
 
 /** Kanal percakapan (PRD `CHAT_CHANNELS`); layar ini selalu customer ↔ kurir. */
 const CHANNEL: Record<ChatSender, string> = {

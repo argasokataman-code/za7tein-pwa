@@ -230,6 +230,21 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Chat group order dirapikan untuk tiga pihak.</strong> Daftar peserta
+                yang dulu tiga pil bergaris (106px, pil ketiga membungkus) kini grid tiga kolom:
+                avatar inisial 32px berwarna peran (oranye pembeli, navy toko, hijau kurir), nama
+                maksimal dua baris, dan label peran sejajar di satu garis. Di dalam thread, nama +
+                avatar 20px muncul sekali per giliran, waktu pindah ke bawah gelembung di luar
+                permukaan oranye (kontras AA), dan saran + catatan lampiran + composer jadi satu
+                bilah lengket — sebelumnya composer menutupi baris saran 30px. Pengirim
+                <code className="doc-inline">sender_id</code> 2 dan 3 kini dipetakan ke Toko/Kurir;
+                dulu semua non-customer dilabeli kurir. Thread dibuka di pesan terbaru dengan
+                penanda <code className="doc-inline">data-open-at="latest"</code> supaya gerbang
+                membedakannya dari gulir warisan halaman (MD-03). Terukur: peran peserta sejajar
+                (y 144,5 di 390px), tidak ada pesan tertutup dock, gate{' '}
+                <code className="doc-inline">/order-chat</code> 2/2 PASS <code className="doc-inline">--strict --click</code>.
+              </li>
+              <li>
                 <strong>Form ulasan bisa melampirkan foto.</strong> Sheet "Beri ulasan" menambah
                 dua tombol sumber: <strong>Kamera</strong> (<code className="doc-inline">
                 capture="environment"</code>) dan <strong>Pilih file</strong> (multi). Maksimal

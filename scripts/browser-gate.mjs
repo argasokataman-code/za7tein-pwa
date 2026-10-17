@@ -577,6 +577,9 @@ const MEASURE = `(async () => {
       // gulirnya nyangkut di body dan window.scrollTo tidak berpengaruh.
       htmlScrollable: html.scrollHeight > html.clientHeight + 1,
       docScrollTop: Math.round(window.scrollY),
+      // Permukaan yang memang dibuka di konten terbaru (thread chat). Gulirnya
+      // disengaja, bukan warisan halaman sebelumnya — lihat MD-03.
+      openAtLatest: !!document.querySelector('[data-open-at="latest"]'),
     }
   })()
 
@@ -1111,7 +1114,7 @@ function judge(measured, tokens, strict, viewportWidth) {
     if (measured.scroll.bodyIsScroller && !measured.scroll.htmlIsScroller) {
       push(fail, 'MD-03 body jadi scroll container: window.scrollTo tidak berpengaruh (lihat _app-shell.scss)')
     }
-    if (measured.scroll.docScrollTop !== 0) {
+    if (measured.scroll.docScrollTop !== 0 && !measured.scroll.openAtLatest) {
       push(
         warn,
         `MD-03 gulir tidak mulai dari atas: scrollY ${measured.scroll.docScrollTop}px saat halaman dibuka`,

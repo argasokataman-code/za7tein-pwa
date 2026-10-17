@@ -6,7 +6,7 @@
 // PostgREST lewat `useApiChat` (tabel `chats` + `chat_messages`). Tanpa order
 // aktif — atau bila API mati — layar jatuh ke percakapan mock lama, jadi tak
 // pernah kosong saat demo.
-import { MessageCircle, Send } from 'lucide-react'
+import { Info, MessageCircle, Send } from 'lucide-react'
 
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
@@ -25,8 +25,8 @@ import { mockUser } from '../data/user'
 import { waLink } from '../data/phone'
 import { useApiChat } from '../hooks/useApiChat'
 import { useAppSelector } from '../hooks/useAppStore'
+import { SENDER_USER } from '../api/chat'
 import { BackButton } from '../components/ui/BackButton'
-import { PlatformNotice } from '../components/ui/PlatformNotice'
 
 type PesanDari = 'kurir' | 'merchant' | 'aku'
 
@@ -41,6 +41,15 @@ const ROLE_LABEL: Record<ChatRole, string> = {
   customer: 'Pembeli',
   merchant: 'Toko',
   kurir: 'Kurir',
+}
+
+/** Inisial untuk avatar peserta: huruf pertama kata pertama. */
+const initialOf = (name: string) => name.trim().charAt(0).toUpperCase() || '?'
+
+/** `users.id` pengirim lain per peran (sumber: `api/chat.ts`). */
+const SENDER_ROLE: Record<number, PesanDari> = {
+  [SENDER_USER.merchant]: 'merchant',
+  [SENDER_USER.courier]: 'kurir',
 }
 
 const jam = (offsetMenit = 0) => {
@@ -91,9 +100,6 @@ const BALASAN = [
   'Sudah masuk gerbang, tinggal cari tower A.',
   'Terima kasih, ditunggu ya.',
 ]
-
-/** `users.id` pengirim customer di backend (demo) — pembanding sisi "aku". */
-const CUSTOMER_USER_ID = 1
 
 export default function OrderChat() {
   const courier = mockCouriers[0]
@@ -152,7 +158,6 @@ export default function OrderChat() {
    */
   const [offline, setOffline] = useState(false)
   const nomorBalasan = useRef(0)
-  const ujungDaftar = useRef<HTMLDivElement>(null)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -163,10 +168,10 @@ export default function OrderChat() {
     }
   }, [])
 
-  /** Pesan live dari backend dipetakan ke bentuk UI; pengirim 1 = customer (aku). */
+  /** Pesan live dari backend dipetakan ke bentuk UI; `sender_id` menandai peran. */
   const pesanLive: Pesan[] = live.lines.map((line) => ({
     id: Number(line.id.replace('cm-', '')) || 0,
-    dari: line.senderId === CUSTOMER_USER_ID ? 'aku' : 'kurir',
+    dari: line.senderId === SENDER_USER.customer ? 'aku' : (SENDER_ROLE[line.senderId] ?? 'kurir'),
     teks: line.body,
     jam: jamIso(line.at),
   }))
@@ -174,10 +179,22 @@ export default function OrderChat() {
     ? pesanLive
     : pesan.filter((p) => p.dari !== 'kurir' || courierJoined)
 
-  // Selalu tampilkan pesan terbaru.
+  // Selalu tampilkan pesan terbaru saat pesan bertambah — kecuali pengguna
+  // sedang membaca riwayat jauh di atas (jangan ditarik paksa oleh polling).
+  // Dock lengket membuat `scrollIntoView` tidak bergerak (penandanya sudah
+  // menempel di dasar viewport), jadi gulir dokumen ke dasar secara eksplisit.
   useEffect(() => {
-    ujungDaftar.current?.scrollIntoView({ block: 'end' })
-  }, [daftar, menulis])
+    // Satu frame ditunda: `usePageTransition` memulihkan gulir ke 0 di efek
+    // induk yang berjalan SESUDAH efek anak, jadi gulir di sini harus menang
+    // belakangan, bukan kalah urutan.
+    const frame = requestAnimationFrame(() => {
+      const doc = document.documentElement
+      const nearBottom = window.scrollY + window.innerHeight >= doc.scrollHeight - 200
+      if (!nearBottom) return
+      window.scrollTo({ top: doc.scrollHeight, behavior: 'auto' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [daftar.length, menulis])
 
   const kirim = (teks: string) => {
     const isi = teks.trim()
@@ -215,7 +232,10 @@ export default function OrderChat() {
   return (
     <div className="app-shell">
       <main>
-        <div className="chat-screen">
+        {/* `data-open-at="latest"`: chat memang dibuka di pesan terbaru. Gerbang
+            memakai penanda ini untuk membedakan gulir yang disengaja dari gulir
+            warisan halaman sebelumnya (lihat MD-03 di mobile-dna.md). */}
+        <div className="chat-screen" data-open-at="latest">
           <header className="chat-header">
             <BackButton className="btn-back" />
 
@@ -237,31 +257,44 @@ export default function OrderChat() {
             <span className="chat-header__spacer" aria-hidden="true" />
           </header>
 
-          <ul className="chat-participants" aria-label="Peserta chat order">
+          <ul className="chat-people" aria-label="Peserta chat order">
             {peserta.map((p) => (
-              <li
-                key={p.role}
-                className={`chat-participant${p.joined ? '' : ' chat-participant--muted'}`}
-              >
-                <span className="chat-participant__name">
+              <li key={p.role} className={`chat-person${p.joined ? '' : ' chat-person--muted'}`}>
+                <span className={`chat-avatar chat-avatar--${p.role}`} aria-hidden="true">
+                  {p.joined ? initialOf(p.name) : '?'}
+                </span>
+                <span className="chat-person__name">
                   {p.joined ? p.name : ROLE_LABEL[p.role]}
                 </span>
-                <span className="chat-participant__role">
-                  {p.joined ? ROLE_LABEL[p.role] : 'belum bergabung'}
+                <span className="chat-person__role">
+                  {p.joined ? ROLE_LABEL[p.role] : 'Belum gabung'}
                 </span>
               </li>
             ))}
           </ul>
 
           <div className="chat-thread" role="log" aria-live="polite" aria-label="Percakapan group order">
+            {daftar.length === 0 ? (
+              <div className="chat-empty">
+                <MessageCircle size={32} strokeWidth={1.5} aria-hidden="true" />
+                <p>Belum ada pesan. Mulai koordinasi soal pesanan ini.</p>
+              </div>
+            ) : null}
+
             {daftar.map((p) => (
-              <div key={p.id} className={`chat-bubble chat-bubble--${p.dari}`}>
-                {p.dari === 'aku' ? null : (
-                  <span className="chat-bubble__from">
-                    {p.dari === 'merchant' ? mockMerchant.name : courier.name}
-                  </span>
-                )}
-                <p className="chat-bubble__text">{p.teks}</p>
+              <div key={p.id} className={`chat-msg chat-msg--${p.dari}`}>
+                <div className={`chat-bubble chat-bubble--${p.dari}`}>
+                  {p.dari === 'aku' ? null : (
+                    <span className="chat-bubble__from">
+                      <span className={`chat-avatar chat-avatar--${p.dari}`} aria-hidden="true">
+                        {initialOf(p.dari === 'merchant' ? mockMerchant.name : courier.name)}
+                      </span>
+                      {p.dari === 'merchant' ? mockMerchant.name : courier.name}
+                      <span className="chat-bubble__role">{ROLE_LABEL[p.dari]}</span>
+                    </span>
+                  )}
+                  <p className="chat-bubble__text">{p.teks}</p>
+                </div>
                 <span className="chat-bubble__jam">{p.jam}</span>
               </div>
             ))}
@@ -273,8 +306,6 @@ export default function OrderChat() {
                 <span className="chat-typing__dot" />
               </div>
             ) : null}
-
-            <div ref={ujungDaftar} />
           </div>
 
           {/* Fallback WA (M8): tampil hanya saat lawan offline, dengan deep link
@@ -308,7 +339,7 @@ export default function OrderChat() {
                 : 'Chat ditutup setelah order selesai. Riwayatnya tetap bisa dibaca sampai masa simpan berakhir.'}
             </p>
           ) : (
-            <>
+            <div className="chat-dock">
               <div className="chat-suggestions">
                 {SARAN.map((s) => (
                   <button
@@ -332,11 +363,13 @@ export default function OrderChat() {
               </div>
 
               {/* Lampiran gambar (§20.1) butuh R2; BE demo belum punya bucket
-                  maupun kolom lampiran. Ditandai, bukan dipalsukan. */}
+                  maupun kolom lampiran. Ditandai, bukan dipalsukan. Satu baris
+                  tenang: ini batas demo, bukan galat yang harus berteriak. */}
               {CHAT_MEDIA_AVAILABLE ? null : (
-                <div className="chat-media-note">
-                  <PlatformNotice message="Lampiran gambar belum tersedia: gambar chat disimpan di R2 dan penyimpanannya belum ada di BE demo." />
-                </div>
+                <p className="chat-media-note">
+                  <Info size={14} strokeWidth={1.75} aria-hidden="true" />
+                  Lampiran gambar belum tersedia di demo ini.
+                </p>
               )}
 
               <form
@@ -363,7 +396,7 @@ export default function OrderChat() {
                   <Send size={18} strokeWidth={2} aria-hidden="true" />
                 </button>
               </form>
-            </>
+            </div>
           )}
         </div>
       </main>

@@ -3,55 +3,171 @@
    header, thread, dan composer tetap di `_cart.scss` supaya tidak ada dua
    sumber untuk bentuk yang sama. Nilai hanya token peran. */
 
-.chat-participants {
-  display: flex;
-  flex-wrap: wrap;
+/* ── Peserta: tiga orang, tiga kolom ────────────────────────────────────────
+   Sebelumnya tiga pil bergaris dengan nama + peran bertumpuk; di 390px pil
+   ketiga membungkus ke baris kedua dan tinggi totalnya 106px, mendorong thread
+   turun. Grid tiga kolom dengan avatar membuat ketiganya terbaca sekali lihat
+   tanpa kotak: identitas dibawa inisial berwarna peran, peran ditulis di bawah
+   nama. Barisnya lengket di bawah header (64px) supaya saat percakapan
+   digulir, label peran tidak menggantung setengah tertutup header — dulu sisa
+   28px-nya terlihat seperti baris tab. */
+.chat-people {
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 90;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-2);
   margin: 0;
-  padding: var(--space-3) var(--space-5) 0;
+  padding: var(--space-3) var(--space-5) var(--space-2);
+  background-color: var(--bg-warm);
   list-style: none;
 }
 
-.chat-participant {
-  display: inline-flex;
+.chat-person {
+  display: flex;
   flex-direction: column;
-  gap: 1px;
-  padding: var(--space-1) var(--space-3);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-pill);
-  background-color: var(--surface);
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  text-align: center;
 }
 
-.chat-participant__name {
+.chat-person__name {
+  display: -webkit-box;
+  overflow: hidden;
+  max-width: 100%;
+  /* Dua baris selalu disediakan: nama toko yang panjang tidak boleh mendorong
+     label perannya turun sendirian, karena itu membuat baris peran bergerigi. */
+  min-height: 2.5em;
+
   color: var(--text-primary);
-  font-size: var(--text-sm);
-  font-weight: 600;
+
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.25;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-.chat-participant__role {
+.chat-person__role {
   color: var(--text-secondary-strong);
   font-size: var(--text-xs);
+  line-height: 1.2;
 }
 
-/* Nama pengirim di atas teks, hanya untuk gelembung pihak lain. Tiga peserta di
-   satu thread tidak bisa dibedakan dari nada warna saja. */
-.chat-bubble__from {
-  color: var(--text-secondary-strong);
+/* Avatar inisial, warna per peran yang sudah ada. Satu bahasa dengan avatar
+   gelembung; ukuran beda, warna sama. */
+.chat-avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--space-8);
+  height: var(--space-8);
+
+  border-radius: var(--radius-pill);
+
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.chat-avatar--customer {
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+.chat-avatar--merchant {
+  background: var(--navy);
+  color: var(--on-navy);
+}
+
+.chat-avatar--kurir {
+  background: var(--green-soft);
+  color: var(--success-ink);
 }
 
 /* Belum bergabung (kurir baru masuk setelah batch di-assign / assignment
-   di-approve): tepi putus-putus + nada redup supaya beda dari yang sudah di
-   dalam thread, tanpa warna baru. */
-.chat-participant--muted {
-  border-style: dashed;
-  background-color: transparent;
+   di-approve): cincin putus-putus + nada redup, tanpa warna baru. */
+.chat-person--muted .chat-avatar {
+  border: 1px dashed var(--border-strong);
+  background: transparent;
+  color: var(--text-secondary-strong);
 }
 
-.chat-participant--muted .chat-participant__name,
-.chat-participant--muted .chat-participant__role {
+.chat-person--muted .chat-person__name,
+.chat-person--muted .chat-person__role {
   color: var(--text-secondary-strong);
+}
+
+/* ── Gelembung ──────────────────────────────────────────────────────────────
+   Satu pembungkus per pesan: gelembung + waktu di bawahnya. Sisi pembungkus
+   yang menentukan kiri/kanan, jadi waktu ikut rata tanpa masuk ke permukaan
+   berwarna. */
+.chat-msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 78%;
+}
+
+.chat-msg--aku {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.chat-msg--kurir,
+.chat-msg--merchant {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+/* Pesan beruntun dari sisi yang sama dirapatkan (12 → 4px), supaya blok
+   pembicara terbaca sebagai satu giliran. */
+.chat-msg--aku + .chat-msg--aku,
+.chat-msg--kurir + .chat-msg--kurir,
+.chat-msg--merchant + .chat-msg--merchant {
+  margin-top: calc(-1 * var(--space-2));
+}
+
+/* Dalam satu giliran, nama + avatar hanya muncul sekali di pesan pertama dan
+   waktu hanya di pesan terakhir. Kalau diulang tiap gelembung, tiga peserta
+   berubah jadi deretan label yang bersaing dengan isi pesannya. */
+.chat-msg--kurir + .chat-msg--kurir .chat-bubble__from,
+.chat-msg--merchant + .chat-msg--merchant .chat-bubble__from {
+  display: none;
+}
+
+.chat-msg--aku:has(+ .chat-msg--aku) .chat-bubble__jam,
+.chat-msg--kurir:has(+ .chat-msg--kurir) .chat-bubble__jam,
+.chat-msg--merchant:has(+ .chat-msg--merchant) .chat-bubble__jam {
+  display: none;
+}
+
+/* Nama pengirim di atas teks, hanya untuk gelembung pihak lain. Tiga peserta di
+   satu thread tidak bisa dibedakan dari nada warna saja; avatar kecil 20px
+   memberi identitas yang sama dengan daftar peserta. */
+.chat-bubble__from {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.chat-bubble__from .chat-avatar {
+  width: var(--space-5);
+  height: var(--space-5);
+}
+
+.chat-bubble__role {
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
+  font-weight: 600;
 }
 
 /* Pesan pihak toko: sejajar kiri seperti kurir, tapi nadanya beda supaya tiga
@@ -64,9 +180,24 @@
   border-bottom-left-radius: var(--radius-xs);
 }
 
-.chat-bubble--merchant .chat-bubble__jam {
+/* Thread kosong: beri satu kalimat, bukan bidang kosong tanpa keterangan. */
+.chat-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+
+  margin: auto;
+  padding: var(--space-5);
+
   color: var(--text-secondary-strong);
-  opacity: 1;
+  text-align: center;
+}
+
+.chat-empty p {
+  max-width: 28ch;
+  margin: 0;
+  font-size: var(--text-sm);
 }
 
 /* Thread ditutup: order batal/ditolak, atau beberapa jam setelah selesai
@@ -81,8 +212,46 @@
   font-size: var(--text-sm);
 }
 
-/* Penanda lampiran gambar belum tersedia (R2). Pembungkus hanya memberi jarak;
-   bentuk peringatannya milik `.platform-notice` supaya teksnya seragam. */
+/* Penanda lampiran gambar belum tersedia (R2). Satu baris tenang di atas
+   composer: ini batas demo, bukan galat yang perlu kotak peringatan. */
 .chat-media-note {
-  padding: 0 var(--space-5) var(--space-2);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+
+  margin: 0 var(--space-5) var(--space-2);
+
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
+  line-height: 1.35;
+}
+
+.chat-media-note svg {
+  flex: none;
+  margin-top: 1px;
+}
+
+/* ── Dock bawah ─────────────────────────────────────────────────────────────
+   Saran cepat, catatan lampiran, dan composer adalah satu bilah lengket.
+   Sebelumnya hanya composer yang lengket; saat percakapan lebih tinggi dari
+   viewport ia terangkat dan menutupi baris saran di atasnya (terukur 30px
+   tumpang tindih). Satu pembungkus = satu bidang, tidak ada yang tertutup. */
+.chat-dock {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  background-color: var(--bg-warm);
+  border-top: 1px solid var(--border);
+}
+
+.chat-dock .chat-suggestions {
+  padding-top: var(--space-3);
+}
+
+/* Tombol kirim mati jangan menyamar jadi tombol merek: oranye pudar terbaca
+   seperti tombol aktif yang redup, padahal belum ada isi untuk dikirim. */
+.chat-compose__send:disabled {
+  background-color: var(--border-strong);
+  color: var(--text-disabled);
+  cursor: default;
 }
