@@ -230,6 +230,19 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Kartu menu: baris meta rata + data BE yang tadi dibuang.</strong> Baris
+                rating/waktu/jarak mewarisi <code className="doc-inline">margin-bottom: 12px</code> dari
+                CSS lama pada <code className="doc-inline">.food-rating</code>, sehingga bintangnya
+                terukur 7px lebih tinggi dari pemisah dan kotak baris jadi 30px untuk teks 16px.
+                Sekarang satu <code className="doc-inline">line-height</code> dipaku di barisnya,
+                margin anak dinolkan, dan bintang digeser 1px — baris jadi 18px dan semua item duduk di
+                satu garis optik. Sekalian ditampilkan data yang sudah dikirim BE tapi tak pernah
+                muncul: lencana navy <strong>Populer</strong> (<code className="doc-inline">is_popular</code>,
+                kiri-atas foto) dan kalori (<code className="doc-inline">520 kkal</code>); waktu masak
+                (<code className="doc-inline">cook_minutes</code>) hanya jadi cadangan estimasi antar,
+                supaya dua waktu tidak menumpuk lalu terpotong.
+              </li>
+              <li>
                 <strong>PRD aktif berganti</strong> ke{' '}
                 <code className="doc-inline">sa7tein-mvp-2026-10-11</code> (marketplace +
                 delivery), menggantikan <code className="doc-inline">irbid-mvp-v2-2026-09-21</code>{' '}

@@ -78,6 +78,9 @@ export function ComponentsSection() {
       <p className="doc-p">
         Renders image, name, price, delivery time, distance, rating, discount badge (if present), FavoriteButton, and AddToCartButton. The entire card is clickable via <code className="doc-inline">onOpen</code>. Layout is uniform: the photo (180px) and the name (2 lines), price (1 line) and meta (1 line) blocks have locked heights, so every card is the same size regardless of content length. In grids, <code className="doc-inline">.favorites-grid</code> is pinned to a single column.
       </p>
+      <p className="doc-p">
+        From BE: a navy <code className="doc-inline">Populer</code> badge (top-left, <code className="doc-inline">is_popular</code>), calories (<code className="doc-inline">520 kkal</code>) when <code className="doc-inline">calories</code> exists, and the meta row shows either the store's delivery estimate or the item's <code className="doc-inline">cook_minutes</code> — never both. Every meta item (star, separator, time, distance, kcal) shares one <code className="doc-inline">line-height</code> and zero margin so they sit on one optical line; the star is nudged 1px down to center on the text.
+      </p>
       <h3 className="doc-h3">
         AddToCartButton
       </h3>

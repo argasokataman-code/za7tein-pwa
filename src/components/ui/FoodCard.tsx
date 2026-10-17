@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { Fragment, type CSSProperties, type ReactNode } from 'react'
 import { Clock, Star } from 'lucide-react'
 
 import { formatRating } from '../../data/foods'
@@ -23,11 +23,30 @@ interface FoodCardProps {
 export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps) {
   const { money } = useMoney()
   const hasRating = food.rating > 0 || food.reviewCount > 0
-  const hasMeta =
-    hasRating ||
-    Boolean(food.cookMinutes) ||
-    Boolean(food.deliveryTime) ||
-    Boolean(food.distance)
+
+  // Waktu: estimasi antar toko kalau ada; kalau tidak, waktu masak item
+  // (`cook_minutes`) yang menggantikannya. Dua-duanya tidak pernah tampil
+  // sekaligus — keduanya "waktu" dan menampilkannya dobel bikin baris meta
+  // sesak lalu terpotong.
+  const timeNode: ReactNode = food.deliveryTime ? (
+    food.deliveryTime
+  ) : food.cookMinutes ? (
+    <>
+      <Clock size={13} aria-hidden="true" />
+      {food.cookMinutes} mnt
+    </>
+  ) : null
+
+  // Fakta pendamping rating, satu format satu pemisah — `isPopular`/`calories`
+  // ikut kalau BE mengirimnya (dulu keduanya dibuang).
+  const facts: Array<{ key: string; className?: string; content: ReactNode }> = []
+  if (timeNode) facts.push({ key: 'time', className: 'food-time', content: timeNode })
+  if (food.distance) facts.push({ key: 'distance', content: food.distance })
+  if (food.calories) {
+    facts.push({ key: 'kcal', className: 'food-kcal', content: `${food.calories} kkal` })
+  }
+  const hasMeta = hasRating || facts.length > 0
+
   return (
     <div
       className={`food-card ${className}`.trim()}
@@ -49,6 +68,7 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
             objectFit: 'cover',
           }}
         />
+        {food.isPopular ? <span className="food-badge food-badge--popular">Populer</span> : null}
         {food.discountPercent ? (
           <span className="discount-badge" aria-label={`Diskon ${food.discountPercent} persen`}>
             Hemat {food.discountPercent}%
@@ -70,28 +90,14 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
               <span className="rating-count">({food.reviewCount} ulasan)</span>
             </span>
           ) : null}
-          {food.cookMinutes ? (
-            <span className="food-cook">
-              <Clock size={13} aria-hidden="true" />
-              {food.cookMinutes} mnt
-            </span>
-          ) : null}
-          {food.deliveryTime ? (
-            <>
+          {facts.map((fact) => (
+            <Fragment key={fact.key}>
               <span className="separator" aria-hidden="true">
                 •
               </span>
-              <span>{food.deliveryTime}</span>
-            </>
-          ) : null}
-          {food.distance ? (
-            <>
-              <span className="separator" aria-hidden="true">
-                •
-              </span>
-              <span>{food.distance}</span>
-            </>
-          ) : null}
+              <span className={fact.className}>{fact.content}</span>
+            </Fragment>
+          ))}
           {/* Data menu dari BE belum punya rating/waktu untuk semua toko. Baris
               yang kosong diberi tanda `-` supaya tidak terlihat seperti kartu
               gagal render, bukan dibiarkan bolong. */}

@@ -70,6 +70,31 @@
   white-space: nowrap;
 }
 
+// Lencana "Populer" (`menus.is_popular` dari BE) — kiri-ATAS, berseberangan
+// dengan pill diskon di kiri-bawah dan tombol hati di kanan-atas, jadi ketiganya
+// tidak pernah saling menimpa.
+.food-badge {
+  position: absolute;
+
+  padding: var(--space-1) var(--space-2);
+
+  border-radius: var(--radius-sm);
+
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.food-badge--popular {
+  inset: var(--space-2) auto auto var(--space-2);
+
+  background: var(--navy);
+  color: var(--on-brand);
+
+  font-weight: 700;
+}
+
 .food-card-content {
   flex: 1;
   display: flex;
@@ -126,8 +151,20 @@
   margin-top: var(--space-2);
 
   font-size: var(--text-xs);
+  // `line-height` dipaku di barisnya dan diwarisi tiap anak — tanpa ini kotak
+  // meta jadi ~35px untuk teks 20px (garis dasar flex + ikon bintang menaikkan
+  // tinggi), dan jarak ke baris harga terlihat longgar.
+  line-height: 1.2;
   white-space: nowrap;
   color: var(--text-secondary);
+}
+
+// Semua anak baris meta satu tinggi (`1.2em`) dan tanpa margin warisan: CSS lama
+// (`app/`) memberi `.food-rating` `margin-bottom: 12px`, yang menaikkan garis
+// dasarnya di atas pemisah lalu melebihkan tinggi baris 12px.
+.food-meta > * {
+  margin: 0;
+  line-height: inherit;
 }
 
 .food-meta .food-delivery-info,
@@ -137,8 +174,11 @@
   gap: var(--space-1);
 }
 
-// Bintang amber — token --star, bukan mewarisi abu meta.
+// Bintang amber — token --star, bukan mewarisi abu meta. Digeser 1px turun supaya
+// optiknya duduk di tengah teks (ikon 14px rata-tengah kotak garis sedikit naik).
 .food-rating svg {
+  position: relative;
+  top: 1px;
   color: var(--star);
 }
 
