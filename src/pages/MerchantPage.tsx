@@ -206,15 +206,20 @@ export default function MerchantPage() {
                           type="button"
                           className="coupon__claim"
                           aria-pressed={claimed}
+                          aria-label={
+                            claimed
+                              ? `Batalkan klaim ${program.name}`
+                              : `Klaim ${program.name}`
+                          }
                           onClick={() => onClaim(program.id, program.name, claimed)}
                         >
-                          {claimed ? (
-                            <>
-                              <Check size={16} strokeWidth={1.75} aria-hidden="true" /> Diklaim
-                            </>
-                          ) : (
-                            'Klaim'
-                          )}
+                          <span className="coupon__claim-pill">
+                            {claimed ? (
+                              <Check size={16} strokeWidth={1.75} aria-hidden="true" />
+                            ) : (
+                              'Klaim'
+                            )}
+                          </span>
                         </button>
                       </div>
                     </article>
@@ -238,30 +243,8 @@ export default function MerchantPage() {
                 </div>
               ) : null}
 
-              {/* Daftar rincian semua program (info, bukan aksi). */}
-              <div className="program-list">
-                {programs.map(({ program, summary }) => (
-                  <article className="program-card" key={program.id}>
-                    <div className="program-card__head">
-                      <h3 className="program-card__name">{program.name}</h3>
-                      <span className="program-card__chip">{summary.owner}</span>
-                      {/* Hanya pengecualian yang ditandai: stackable = bawaan. */}
-                      {program.isStackable ? null : (
-                        <span className="program-card__chip program-card__chip--alone">
-                          berdiri sendiri
-                        </span>
-                      )}
-                    </div>
-                    <p className="program-card__line">{summary.reward}</p>
-                    <p className="program-card__meta">
-                      {summary.type}
-                      {summary.requirement ? ` · ${summary.requirement}` : ''}
-                      {program.trigger === 'with_code' ? ' · pakai kodenya di checkout' : ''}
-                    </p>
-                  </article>
-                ))}
-              </div>
-
+              {/* Kupon di atas sudah menampilkan tiap program; tak ada daftar
+                  kartu ulang (informasi sama, tampil dua kali = sampah visual). */}
               <p className="summary-info-note">
                 Program yang berdiri sendiri hanya berlaku kalau tak digabung; kalau ada beberapa,
                 yang paling menguntungkan yang dipakai (§15.3).

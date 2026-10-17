@@ -1320,6 +1320,158 @@
           "raw": "TASK-110963:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-110965",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:44:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_program-ticket.scss (+221) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_program-ticket.scss"
+    },
+    {
+      "id": "TASK-110966",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:44:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx (+16/-14) — edit via tool: tsx: <button",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-110967",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:44:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+14/-13) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-110968",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:45:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110969",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:48:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_program-ticket.scss (+4/-4) — edit via tool: gap: 2px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_program-ticket.scss"
+    },
+    {
+      "id": "TASK-110970",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:48:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx (+19/-16) — edit via tool: tsx: <button",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-110971",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:49:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_program-ticket.scss (+26/-24) — edit via tool: // Dua takik di tepi ki",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_program-ticket.scss"
+    },
+    {
+      "id": "TASK-110972",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "17:50:27",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -1 && GATE_BASE=http://localhost:4173 node scripts/browse",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
