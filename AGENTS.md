@@ -55,6 +55,10 @@ Yang paling sering dilanggar, ulang tiap kali menggambar UI mobile:
 - **MD-08 Sentence case**: tak ada `text-transform: uppercase` untuk label seksi.
 - **MD-09 Bayangan dari token** (`--shadow-*`), bukan nilai karangan.
 - **MD-10 Posisi `fixed` ditanya ke DOM** (`body:has(.bottom-nav) …`) — jangan ditebak dari `pathname`.
+- **MD-11 Satu rel kanan per baris**: baris daftar (nominal kanan + status/aksi) pakai
+  `@include list-row` dari `src/styles/system/_mixins.scss` — rel kanan **lebar tetap**, bukan
+  `auto`. Jangan rakit flex/grid baris sendiri; ukur `rect.right` semua baris: harus satu nilai,
+  dan tinggi baris meta harus seragam (bukan 20/39).
 
 **Dua butir terakhir (MD-08, MD-09) sekarang BERGERBANG mekanis.** `npm run scan` (jalan di pre-commit)
 menghitung `uppercase` dan `rawShadow` di `src/styles/system/**` dan **MENOLAK kenaikan** lewat ratchet

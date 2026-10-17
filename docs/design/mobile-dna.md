@@ -20,6 +20,7 @@ yang mustahil dibaca dari berkas. Setiap klaim UI menyebut angka atau selector.
 | **MD-08** | Tipografi **kalimat**, bukan eyebrow: tak ada `text-transform: uppercase` untuk label seksi. | Ratchet `uppercase` di `npm run scan` (hanya boleh turun). |
 | **MD-09** | Bayangan/permukaan/tepi dari token (`--shadow-*`, `--surface`, `--border-strong`), bukan nilai karangan. | Ratchet `rawShadow` di `npm run scan`. |
 | **MD-10** | Posisi elemen `fixed` **ditanya ke DOM** (`body:has(.bottom-nav) …`), jangan ditebak dari `pathname`. `/merchant/:id` juga ber-bottom-nav. | Hit-test tengah bilah bawah = elemen nav-nya. |
+| **MD-11** | Baris daftar (nominal di kanan + status/aksi) memakai **satu rel kanan lebar tetap**, bukan `auto`: `.judul/.meta` di kolom 1, `.nominal/.chip/.cta` di kolom 2 (`justify-self: end`). Primitifnya `@include list-row` di `src/styles/system/_mixins.scss` — **jangan rakit flex/grid baris sendiri.** | Ukur `getBoundingClientRect().right` kolom kanan & `right` kolom kiri tiap baris: tiap himpunan harus **satu nilai**. Tinggi baris meta juga harus satu nilai (mis. 20), bukan campur (20/39). |
 
 ## Yang TIDAK bisa di-lint — dan cara menutupnya
 
@@ -43,3 +44,4 @@ mentah), bukan "jelek". Tiga langkah penutupnya:
 | Label `PESANAN BERJALAN` + dua heading tumpang tindih | eyebrow uppercase | **MD-08** |
 | Kartu putih polos berjarak longgar jadi "generik" | bayangan/permukaan karangan, bukan token | **MD-09** |
 | Nama toko sama tak bisa dibedakan; harga bertingkat tak sebaris | tak ada pembeda waktu; nominal tak sejajar judul | **MD-07** |
+| Sheet ringkasan: 9 dari 13 baris meta membungkus (tinggi 39 vs 28), kode ikut terpotong, tepi kanan kiri bergerigi (268 vs 277) — pemilik: "gak simetris" | nominal + chip + kode + waktu dijejalkan ke satu kolom kiri; rel kanan lebarnya `auto` sehingga mengikuti isi | **MD-11** |

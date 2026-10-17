@@ -676,6 +676,20 @@ export default function Documentation() {
                 boleh dibuang begitu BE punya kolomnya.
               </li>
               <li>
+                <strong>Satu rel kanan per baris daftar (MD-11).</strong> Baris ringkasan dulu
+                menaruh nominal di kolom kanan baris pertama, sementara chip status, kode, dan waktu
+                dijejalkan di kolom kiri baris kedua. Akibatnya (terukur, bukan kesan):{' '}
+                <strong>9 dari 13 baris</strong> meta membungkus ke dua baris (39px vs 28px), kode
+                order ikut pecah, dan tepi kanan kiri bergerigi (268 vs 277) — relnya{' '}
+                <code className="doc-inline">auto</code> sehingga lebar kolom kiri ikut berubah tiap
+                baris. Sekarang barisnya grid dua kolom dengan rel kanan lebar tetap, dan polanya
+                menjadi primitif <code className="doc-inline">@include list-row</code> di{' '}
+                <code className="doc-inline">src/styles/system/_mixins.scss</code> — baris daftar
+                berikutnya memakai mixin itu, bukan dirakit ulang. Sesudah: satu nilai{' '}
+                <code className="doc-inline">right</code> untuk kolom kiri, satu garis untuk nominal
+                dan chip, tinggi meta seragam.
+              </li>
+              <li>
                 <strong>Aksi keranjang &amp; pesanan di ringkasan (MD-06).</strong> Baris keranjang
                 dan pesanan di sheet <code className="doc-inline">CartSummarySheet</code> kini membawa
                 aksinya sendiri: keranjang toko bisa dibuang (<code className="doc-inline">clearCart</code>{' '}

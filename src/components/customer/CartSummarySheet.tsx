@@ -1,4 +1,4 @@
-import { ChevronRight, Store, Trash2, X } from 'lucide-react'
+import { Store, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -181,46 +181,41 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
                 <li key={order.id} className="ck-row">
                   <button
                     type="button"
-                    className="ck-row__main-btn"
+                    className="ck-row__line"
                     onClick={() => trackOrder(order.id, order.code, order.stage)}
                   >
-                    <span className="ck-row__main">
-                      <span className="ck-row__title">{order.merchantName}</span>
-                      <span className="ck-row__meta">
-                        <span className="ck-chip">
-                          <span
-                            className={`ck-chip__dot ck-chip__dot--${statusTone(order.status)}`}
-                            aria-hidden="true"
-                          />
-                          {statusLabelOf(order)}
-                        </span>
-                        <span className="ck-row__code">{order.code}</span>
-                        <span className="ck-row__ago">{order.placedAt}</span>
-                      </span>
-                      {order.items.length ? (
-                        <span className="ck-row__sub">{itemsLine(order.items)}</span>
-                      ) : null}
+                    <span className="ck-row__title">{order.merchantName}</span>
+                    <span className="ck-row__sum">{money(order.totalIdr)}</span>
+                    <span className="ck-row__meta">
+                      <span className="ck-row__code">{order.code}</span>
+                      <span className="ck-row__sep" aria-hidden="true">·</span>
+                      <span className="ck-row__ago">{order.placedAt}</span>
                     </span>
-                    <span className="ck-row__side">
-                      <span className="ck-row__sum">{money(order.totalIdr)}</span>
-                      <ChevronRight
-                        size={16}
-                        strokeWidth={2.25}
+                    <span className="ck-chip ck-chip--end">
+                      <span
+                        className={`ck-chip__dot ck-chip__dot--${statusTone(order.status)}`}
                         aria-hidden="true"
-                        className="ck-row__go"
                       />
+                      {statusLabelOf(order)}
                     </span>
+                    {order.items.length ? (
+                      <span className="ck-row__sub">{itemsLine(order.items)}</span>
+                    ) : null}
                   </button>
-                  {cancelable && !confirming ? (
-                    <button
-                      type="button"
-                      className="ck-icon"
-                      aria-label={`Batalkan pesanan ${order.code}`}
-                      onClick={() => setPending({ kind: 'order', id: order.id })}
-                    >
-                      <X size={16} strokeWidth={2.25} aria-hidden="true" />
-                    </button>
-                  ) : null}
+                  {/* Kolom aksi selalu ada (lebar tetap) supaya tepi kanan nominal
+                      jatuh di x yang sama di setiap baris — bukan ragged. */}
+                  <span className="ck-row__act">
+                    {cancelable && !confirming ? (
+                      <button
+                        type="button"
+                        className="ck-icon"
+                        aria-label={`Batalkan pesanan ${order.code}`}
+                        onClick={() => setPending({ kind: 'order', id: order.id })}
+                      >
+                        <X size={16} strokeWidth={2.25} aria-hidden="true" />
+                      </button>
+                    ) : null}
+                  </span>
                   {confirming ? (
                     <span className="ck-confirm">
                       <span className="ck-confirm__q">Batalkan {order.code}?</span>
@@ -252,34 +247,34 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
               const confirming = pending?.kind === 'cart' && pending.id === store.merchantId
               return (
                 <li key={store.merchantId} className="ck-row">
-                  <span className="ck-row__main">
+                  <span className="ck-row__line">
                     <span className="ck-row__title">
                       <Store size={15} strokeWidth={1.75} aria-hidden="true" />
                       {name}
                     </span>
-                    <span className="ck-row__meta">{count} menu</span>
-                    <span className="ck-row__sub">{itemsLine(store.items)}</span>
-                  </span>
-                  <span className="ck-row__side">
                     <span className="ck-row__sum">{money(selectSubtotal(store.items))}</span>
+                    <span className="ck-row__meta">{count} menu</span>
                     <button
                       type="button"
-                      className="ck-go"
+                      className="ck-go ck-go--end"
                       onClick={() => openCheckout(store.merchantId, store.isActive)}
                     >
                       Checkout
                     </button>
+                    <span className="ck-row__sub">{itemsLine(store.items)}</span>
                   </span>
-                  {confirming ? null : (
-                    <button
-                      type="button"
-                      className="ck-icon"
-                      aria-label={`Buang keranjang ${name}`}
-                      onClick={() => setPending({ kind: 'cart', id: store.merchantId })}
-                    >
-                      <Trash2 size={16} strokeWidth={2} aria-hidden="true" />
-                    </button>
-                  )}
+                  <span className="ck-row__act">
+                    {confirming ? null : (
+                      <button
+                        type="button"
+                        className="ck-icon"
+                        aria-label={`Buang keranjang ${name}`}
+                        onClick={() => setPending({ kind: 'cart', id: store.merchantId })}
+                      >
+                        <Trash2 size={16} strokeWidth={2} aria-hidden="true" />
+                      </button>
+                    )}
+                  </span>
                   {confirming ? (
                     <span className="ck-confirm">
                       <span className="ck-confirm__q">Buang keranjang {name}?</span>

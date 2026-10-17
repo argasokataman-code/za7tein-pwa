@@ -35,6 +35,24 @@
   border-radius: var(--radius-lg);
 }
 
+/* Baris daftar dua kolom dengan **rel kanan lebar tetap** (MD-11).
+   Isi di kolom 1; kolom 2 untuk nominal (baris 1) dan chip status / CTA
+   (baris 2). Relnya `$rail` tetap, bukan `auto`, karena kalau lebarnya
+   mengikuti isi: (a) kolom kiri jadi selebar beda tiap baris sehingga titik
+   potong judul bergeser, dan (b) item yang seharusnya satu baris terjejal
+   sampai membungkus. Nyata di sheet keranjang: 9 dari 13 baris meta membungkus
+   (tinggi 39 vs 28) dan tepi kanannya bergerigi (268 vs 277).
+   Pakai: `@include list-row;` lalu tempatkan anaknya dengan
+   `.judul/.meta { grid-column: 1 }` dan `.nominal/.chip { grid-column: 2; justify-self: end }`. */
+@mixin list-row($rail: calc(var(--space-8) * 3)) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) $rail;
+  align-items: center;
+
+  column-gap: var(--space-3);
+  row-gap: var(--space-1);
+}
+
 /* Filter daftar yang menempel tepat di bawah header halaman.
    Dua halaman merchant punya daftar panjang (menu 15 item = 2265px, ulasan
    8 kartu = 1704px) dengan kontrol filternya di atas; begitu digulir,

@@ -1,6 +1,7 @@
 // Dok keranjang customer (`CustomerCartDock`): bilah mengambang di layar belanja
 // + sheet ringkasan (keranjang per toko & pesanan berjalan). Nilai memakai token
 // saja — warna/ukuran mentah ditolak gate desain.
+@use "./mixins" as *;
 
 /* Bilah duduk di dasar kolom; naik hanya kalau layar itu memang punya bottom
    nav. Dulu ini prop per-halaman (`aboveNav`) dan salah tebak: `/merchant/:id`
@@ -118,10 +119,10 @@ body:has(.bottom-nav) .cart-quick-bar {
 .ck-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 
-  gap: var(--space-3);
+  gap: var(--space-2) var(--space-3);
 
   width: 100%;
   min-height: var(--touch-min);
@@ -137,15 +138,28 @@ body:has(.bottom-nav) .cart-quick-bar {
   text-align: left;
 }
 
-/* Seluruh badan baris jadi satu target ketuk (judul + nominal + chevron);
-   tombol aksi sekunder duduk di luarnya supaya tak ada button di dalam button. */
-.ck-row__main-btn {
+/* Satu baris punya persis dua kolom kanan: nominal (di dalam garis tap) dan
+   kolom aksi selebar `--touch-min` yang SELALU ada, terisi atau kosong. Itu yang
+   membuat tepi kanan nominal jatuh di x yang sama di setiap baris. */
+.ck-row__act {
   display: flex;
-  flex: 1;
+  flex: 0 0 auto;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
 
-  gap: var(--space-3);
+  width: var(--touch-min);
+
+  /* Kotak sentuh 44px digeser naik selebar padding baris supaya pusat glyph-nya
+     sebaris judul & nominal — bukan mengapung di tengah baris dua-baris. */
+  margin-top: calc(-1 * var(--space-3));
+}
+
+/* Badan baris memakai primitif `list-row` (rel kanan lebar tetap) — lihat
+   `_mixins.scss`/MD-11 untuk alasan angkanya. */
+.ck-row__line {
+  @include list-row;
+
+  flex: 1;
 
   min-width: 0;
   min-height: var(--touch-min);
@@ -163,13 +177,10 @@ body:has(.bottom-nav) .cart-quick-bar {
   cursor: pointer;
 }
 
-.ck-row__main {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-
-  gap: var(--space-1);
-  min-width: 0;
+/* Baris keranjang bukan tombol (di dalamnya ada tombol Checkout sendiri), jadi
+   kursor tangan di seluruh baris akan berbohong. */
+span.ck-row__line {
+  cursor: default;
 }
 
 .ck-row__title {
@@ -177,7 +188,11 @@ body:has(.bottom-nav) .cart-quick-bar {
   align-items: center;
   overflow: hidden;
 
+  grid-column: 1;
+  grid-row: 1;
+
   gap: var(--space-2);
+  min-width: 0;
 
   font-size: var(--text-sm);
   font-weight: 700;
@@ -190,22 +205,57 @@ body:has(.bottom-nav) .cart-quick-bar {
   display: inline-flex;
   align-items: center;
 
+  grid-column: 1;
+  grid-row: 2;
+
   gap: var(--space-2);
+  min-width: 0;
 
   font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
   color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 .ck-row__sub {
   overflow: hidden;
 
-  margin-top: var(--space-1);
+  grid-column: 1 / -1;
 
   font-size: var(--text-xs);
   color: var(--text-secondary);
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Kolom kanan: nominal di baris 1, chip/CTA di baris 2 — satu rel, rata kanan. */
+.ck-row__sum {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+
+  font-size: var(--text-sm);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.ck-row__meta {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.ck-row__title {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.ck-chip--end,
+.ck-go--end {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
 }
 
 /* Status = info terpenting tiap baris pesanan, jadi ia dapat titik berwarna,
@@ -264,9 +314,9 @@ body:has(.bottom-nav) .cart-quick-bar {
   background: var(--danger);
 }
 
-.ck-row__go {
-  flex: 0 0 auto;
-
+/* Pemisah tipis antar-meta (kode vs waktu) supaya keduanya tidak terbaca
+   sebagai satu string. */
+.ck-row__sep {
   color: var(--text-disabled);
 }
 
