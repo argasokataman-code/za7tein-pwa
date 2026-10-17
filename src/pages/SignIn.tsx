@@ -6,10 +6,14 @@ import toast from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_BANNER_SLIDES, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { signInSchema, type SignInFormData } from '../lib/schemas'
 import { signIn } from '../store/slices/authSlice'
+
+// Label teks, bukan logotype pihak ketiga (lucide 1.45 tidak punya ikon merek).
+// Ketiganya mode demo, jadi tombolnya menjelaskannya sendiri saat ditekan.
+const SOCIAL_PROVIDERS = ['Google', 'Facebook', 'X'] as const
 
 export default function SignIn() {
   const navigate = useNavigate()
@@ -33,8 +37,32 @@ export default function SignIn() {
       role={AUTH_ROLE_LABEL.customer}
       title="Masuk"
       subtitle="Pesan dari dapur di sekitarmu dan ikuti perjalanannya sampai tiba."
-      banners={AUTH_BANNER_SLIDES}
+      brandLayout="hero"
     >
+      <nav className="auth-tabs" aria-label="Pilih masuk atau daftar">
+        <Link className="auth-tab auth-tab--active" to="/signin" aria-current="page">
+          Masuk
+        </Link>
+        <Link className="auth-tab" to="/signup">
+          Daftar
+        </Link>
+      </nav>
+
+      <div className="auth-socials">
+        {SOCIAL_PROVIDERS.map((provider) => (
+          <button
+            key={provider}
+            type="button"
+            className="auth-social"
+            onClick={() => toast(`Mode demo: masuk dengan ${provider} belum terhubung`)}
+          >
+            {provider}
+          </button>
+        ))}
+      </div>
+
+      <p className="auth-or">atau</p>
+
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">
           <label className="auth-label" htmlFor="phone">

@@ -230,6 +230,24 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Layar masuk customer dislice ulang mengikuti acuan pemilik.</strong>{' '}
+                Kepalanya bukan lagi pita foto datar: sekarang blok oranye bersudut bawah membulat
+                berisi cakram putih, nama merek, dan chip peran, dengan foto makanan yang sudah ada
+                sebagai tekstur 12% (di atas ~28% oranye merek bergeser ke salmon). Varian ini masuk
+                lewat prop <code className="doc-inline">{'brandLayout="hero"'}</code> di{' '}
+                <code className="doc-inline">AuthLayout</code>, jadi layar auth lain tetap memakai
+                pita foto biasa (<code className="doc-inline">{'brandLayout="pill"'}</code>) sampai
+                keputusan menyeluruh diambil. Di bawah kepala: tab{' '}
+                <strong>Masuk / Daftar</strong> (pil aktif di rel abu), tiga tombol penyedia
+                (Google, Facebook, X) yang menjawab toast mode demo, lalu pembatas{' '}
+                <strong>atau</strong> bergaris. Tombol penyedia sengaja berlabel teks, bukan
+                logotype: lucide 1.45 tidak lagi punya ikon merek, dan repo ini hanya memakai satu
+                bahasa ikon. Panelnya turun ke <code className="doc-inline">--bg-warm</code> supaya
+                field putih menonjol. Gate{' '}
+                <code className="doc-inline">--strict --click</code> di /customer/signin lolos 2/2
+                dengan 9/9 kontrol bisa diklik.
+              </li>
+              <li>
                 <strong>Kotak cari beranda akhirnya menyampaikan kuerinya.</strong> Nilai yang
                 diketik dibaca lewat <code className="doc-inline">FormData</code> lalu{' '}
                 <em>dibuang</em> pemanggilnya (<code className="doc-inline">{'onSubmitSearch={() => navigate(\'/search\')}'}</code>), jadi mengetik &ldquo;bakso&rdquo; lalu Enter selalu

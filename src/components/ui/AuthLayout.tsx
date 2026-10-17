@@ -45,9 +45,17 @@ export interface AuthLayoutProps {
   /**
    * `true` (bawaan) merender tombol kembali bulat di atas H1. Layar pertama
    * yang dibuka dari luar app (mis. `/merchant/pending` tanpa riwayat) tidak
-   * punya tempat kembali, jadi tidak perlu tombol yang tidak melakukan apa pun.
+   * punya tempat kembali, jadi tidak perlu tombol yang tidak melakukan apa apa.
    */
   showBack?: boolean
+  /**
+   * Susunan kepala layar. `'pill'` (bawaan) = pita foto dengan pil merek kecil
+   * di kiri-atas, dipakai layar auth lain. `'hero'` = blok merek oranye bersudut
+   * membulat (tanda merek di cakram putih, nama, chip peran) mengikuti acuan
+   * desain login baru; `/customer/signin` memakainya lebih dulu, layar lain
+   * menyusul, jadi varian ini masih opt-in dan propnya hilang saat jadi bawaan.
+   */
+  brandLayout?: 'pill' | 'hero'
 }
 
 export function AuthLayout({
@@ -59,12 +67,50 @@ export function AuthLayout({
   banners,
   children,
   showBack = true,
+  brandLayout = 'pill',
 }: AuthLayoutProps) {
   const navigate = useNavigate()
+  // Layar tanpa foto tidak punya kepala hero (mis. "menunggu persetujuan"):
+  // varian ini turun jadi polos, bukan menggambar blok oranye kosong.
+  const hero = Boolean(photo) && brandLayout === 'hero'
 
   return (
-    <div className={`app-shell auth${photo ? '' : ' auth--plain'}`}>
-      {photo ? (
+    <div className={`app-shell auth${photo ? '' : ' auth--plain'}${hero ? ' auth--hero' : ''}`}>
+      {hero && photo ? (
+        <div className="auth-hero">
+          <img
+            className="auth-hero-art"
+            src={photo.src}
+            alt=""
+            aria-hidden="true"
+            width={photo.width}
+            height={photo.height}
+            decoding="async"
+          />
+          {showBack ? (
+            <button
+              type="button"
+              className="auth-hero-back"
+              aria-label="Kembali"
+              onClick={() => navigate(-1)}
+            >
+              <ArrowLeft size={20} strokeWidth={1.75} />
+            </button>
+          ) : null}
+          <span className="auth-hero-disc">
+            <img
+              className="auth-brand-mark"
+              src="/icons/sa7tein-96x96.png"
+              alt=""
+              width={40}
+              height={40}
+              decoding="async"
+            />
+          </span>
+          <span className="auth-hero-name">Sa7tein</span>
+          <span className="auth-hero-role">{role}</span>
+        </div>
+      ) : photo ? (
         <div className="auth-photo">
           <img
             src={photo.src}
@@ -89,7 +135,7 @@ export function AuthLayout({
       ) : null}
 
       <div className="auth-panel">
-        {showBack ? (
+        {showBack && !hero ? (
           <button
             type="button"
             className="auth-back"

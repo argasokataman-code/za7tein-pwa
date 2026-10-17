@@ -2055,6 +2055,399 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "BUG-110995",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:33:36",
+      "tags": [
+        "ui",
+        "search",
+        "customer"
+      ],
+      "summary": "Kotak cari beranda: nilai FormData dibuang pemanggil (onSubmitSearch={() => navigate('/search')}) -> halaman Cari selalu kosong",
+      "conn": [
+        {
+          "id": "TASK-110994",
+          "type": "relates",
+          "raw": "TASK-110994:relates"
+        }
+      ],
+      "loc": "src/pages/Home.tsx:112",
+      "commit": "5bd8624"
+    },
+    {
+      "id": "TASK-111200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:33:43",
+      "tags": [
+        "ui",
+        "search",
+        "customer"
+      ],
+      "summary": "Search: kueri lewat /search?q= + seksi Toko (MerchantCard) di atas Menu; StoreBlockedSheet dipakai beranda & cari",
+      "conn": [
+        {
+          "id": "BUG-110995",
+          "type": "fixes",
+          "raw": "BUG-110995:fixes"
+        }
+      ],
+      "loc": "src/pages/Search.tsx:17",
+      "commit": "5bd8624"
+    },
+    {
+      "id": "TASK-111201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:52:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/auth-redesign.md (+207) — write via tool: # Redesign layar masuk (login)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/auth-redesign.md"
+    },
+    {
+      "id": "TASK-111202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:02:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+40/-37) — edit via tool: tsx: export function AuthLayo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-111203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:04:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+63/-5) — edit via tool: @media (prefers-reduced-motion: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-111204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:05:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+11/-7) — edit via tool: tsx: <button type=\"submit\" className=\"auth",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-111205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:06:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | grep -E \"FAIL|WARN|✗\" | head pa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:14:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+9/-9) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-111207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:15:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx (+67/-32) — edit via tool: tsx: const navigate = useNavi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/AuthLayout.tsx"
+    },
+    {
+      "id": "TASK-111208",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:15:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+182/-57) — edit via tool: // ── Kepala varian \"hero\" ───",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-111209",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:15:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx (+11/-7) — edit via tool: tsx: import { AuthLayout } from '../compon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/SignIn.tsx"
+    },
+    {
+      "id": "TASK-111210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:15:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -5 && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:16:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+3/-3) — edit via tool: // Batas 272px: kepala ini dekora",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-111212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:16:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build >/dev/null 2>&1 && node scripts/e2e-browsers.mjs eval customer \"(asyn",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:18:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss (+9/-7) — edit via tool: .auth-or::before,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_auth-2.scss"
+    },
+    {
+      "id": "TASK-111214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:19:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build >/dev/null 2>&1 && echo BUILD_OK && GATE_BASE=http://localhost:4173 n",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111215",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:19:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+21/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111216",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:19:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/auth-redesign.md (+65) — write via tool: # Redesign kepala layar masuk (login",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/auth-redesign.md"
+    },
+    {
+      "id": "TASK-111217",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:19:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error|Error\" | head -5; npm run build 2>&1 | tail -2 &",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-111260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:19:53",
+      "tags": [
+        "ui",
+        "auth",
+        "design"
+      ],
+      "summary": "Slice ulang kepala layar masuk customer: hero oranye membulat, tab Masuk/Daftar, tombol penyedia, varian opt-in brandLayout=hero",
+      "conn": [
+        {
+          "id": "TASK-111200",
+          "type": "relates",
+          "raw": "TASK-111200:relates"
+        },
+        {
+          "id": "TASK-110994",
+          "type": "relates",
+          "raw": "TASK-110994:relates"
+        }
+      ],
+      "loc": "src/components/ui/AuthLayout.tsx:51"
     }
   ]
 }
