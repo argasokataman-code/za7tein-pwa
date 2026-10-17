@@ -1,0 +1,425 @@
+{
+  "shard": 19,
+  "nodes": [
+    {
+      "id": "TASK-110894",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:03:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/adminNav.ts (+4/-4) — edit via tool: ts: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/admin/adminNav.ts"
+    },
+    {
+      "id": "TASK-110895",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:03:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_admin.scss (+16/-9) — edit via tool: .admin-history {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_admin.scss"
+    },
+    {
+      "id": "TASK-110896",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:03:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin-2.scss (+34/-31) — edit via tool: .sa-search {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin-2.scss"
+    },
+    {
+      "id": "TASK-110897",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:05:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && node --check scripts/browser-gate.mjs && npm run build >/dev/null 2>&1 && for r in ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110898",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:07:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePageTransition.ts (+40/-16) — edit via tool: ts: export function usePageTran",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/usePageTransition.ts"
+    },
+    {
+      "id": "TASK-110899",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:07:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+13/-3) — edit via tool: const smallTargets = controls",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-110900",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:08:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && node --check scripts/browser-gate.mjs && npm run build 2>&1 | tail -3 && for r in a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110901",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:08:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+1/-1) — edit via tool: // Kotak centang/radio kecil di dalam l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-110902",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:15:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin-2.scss (+10/-8) — edit via tool: .sa-perm {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_superadmin-2.scss"
+    },
+    {
+      "id": "TASK-110903",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:16:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build >/dev/null 2>&1 && GATE_BASE=http://localhost:4173 node scripts/brows",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110904",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:28:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+9/-3) — edit via tool: return {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-110905",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:29:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+7/-3) — edit via tool: const seen = [...verdict.fail, ...verdi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-110906",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:30:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+1/-2) — edit via tool: appRoute,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-110907",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:41:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs (+4/-2) — edit via tool: if (measured.overflowX !== 0) push(fail",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-110908",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:51:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/mobile-dna.md (+1/-1) — edit via tool: | **MD-12** | **Konten tidak keluar da",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/mobile-dna.md"
+    },
+    {
+      "id": "TASK-110909",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:52:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/mobile-dna.md (+5/-3) — edit via tool: Pengecualian yang ditulis DNA juga dih",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/mobile-dna.md"
+    },
+    {
+      "id": "TASK-110910",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:52:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md (+6/-6) — edit via tool: - **MD-12 Konten keluar kotak / terpoton",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-110911",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:52:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+26/-2) — edit via tool: tsx: sebagai temuan, lalu kembali h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-110880",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-17",
+      "time": "14:53:25",
+      "tags": [
+        "gate",
+        "dna",
+        "md-12"
+      ],
+      "summary": "Gate cuma cek overflow halaman; chip slip merchant meluber 89px lalu dipangkas clip lolos",
+      "conn": [
+        {
+          "id": "DEC-110850",
+          "type": "relates",
+          "raw": "DEC-110850:relates"
+        },
+        {
+          "id": "BUG-110870",
+          "type": "relates",
+          "raw": "BUG-110870:relates"
+        }
+      ],
+      "loc": "scripts/browser-gate.mjs:664"
+    },
+    {
+      "id": "DEC-110890",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-17",
+      "time": "14:53:25",
+      "tags": [
+        "gate",
+        "dna",
+        "md-12"
+      ],
+      "summary": "MD-12 dua arah = FAIL; rute non-app tak dicetak DNA; gerbang tunggu halaman diam",
+      "conn": [
+        {
+          "id": "BUG-110880",
+          "type": "led_to",
+          "raw": "BUG-110880:led_to"
+        },
+        {
+          "id": "DEC-110850",
+          "type": "relates",
+          "raw": "DEC-110850:relates"
+        }
+      ],
+      "loc": "docs/design/mobile-dna.md:25"
+    },
+    {
+      "id": "TASK-110917",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "14:53:37",
+      "tags": [
+        "gate",
+        "dna",
+        "fix"
+      ],
+      "summary": "Betulkan warisan MD-12/MD-05/MD-03: nav label, admin-history, sa-search, sa-perm, gulir muat-ulang",
+      "conn": [
+        {
+          "id": "BUG-110880",
+          "type": "fixes",
+          "raw": "BUG-110880:fixes"
+        },
+        {
+          "id": "DEC-110890",
+          "type": "implements",
+          "raw": "DEC-110890:implements"
+        }
+      ],
+      "loc": "src/styles/system/_bottom-nav.scss:24"
+    }
+  ]
+}

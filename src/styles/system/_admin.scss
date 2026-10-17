@@ -403,6 +403,13 @@
   margin-bottom: var(--space-2);
 }
 
+/* Isi baris boleh menyusut sampai lebar yang tersedia. Tanpa `min-width: 0`
+   sebuah flex item tak turun di bawah lebar min-content-nya, sehingga teks yang
+   panjang mendorong badge di kanan keluar tepi kartu (MD-12). */
+.admin-history > * {
+  min-width: 0;
+}
+
 .admin-field {
   display: block;
   margin: var(--space-3) 0 var(--space-1);

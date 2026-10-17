@@ -23,13 +23,29 @@
 
 .nav-item {
   gap: 2px;
-  padding: var(--space-1) var(--space-4);
+  min-width: 0;
+  /* Padding horizontal dikecilkan dari --space-4 (16px) ke --space-2 (8px):
+     lima item di 390px menyisakan 78px per item, dan 16px di kiri-kanan
+     memangkas lebar isi jadi 46px sehingga label seperti "Onboarding" meluber
+     keluar kotaknya (MD-12). Jangan dinaikkan lagi tanpa mengukur ulang. */
+  padding: var(--space-1) var(--space-2);
   color: var(--text-disabled);
   font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: -0.01em;
 
   transition: color var(--motion-fast) var(--ease-out);
+}
+
+/* Label tidak boleh melewati lebar itemnya: flex item tak menyusut di bawah
+   lebar isinya (`min-width: auto`), jadi tanpa penjaga ini teks yang panjang
+   menembus tepi kotak dan menimpa tetangganya (MD-12). */
+.nav-label {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* Ikon berubah warna DAN menebal saat tab aktif — persis contoh v2

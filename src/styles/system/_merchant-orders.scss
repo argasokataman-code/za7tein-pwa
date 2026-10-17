@@ -235,6 +235,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
+  /* Badge boleh turun baris, jangan keluar kotak (MD-12): sebelumnya baris
+     code+badge dipaksa satu baris, dan 4 chip di layar 390 meluber 89px lalu
+     dipangkas diam-diam oleh clip di level shell. */
+  flex-wrap: wrap;
+  row-gap: var(--space-1);
   padding-bottom: var(--space-2);
   border-bottom: 1px dashed var(--border-strong);
 }
@@ -272,6 +277,11 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+  /* `min-width: 0` + wrap: flex item tidak menyusut di bawah lebar isinya, jadi
+     tanpa ini chip-nya meluber ke luar slip alih-alih turun baris. */
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  min-width: 0;
 }
 
 .merchant-ticket-age {

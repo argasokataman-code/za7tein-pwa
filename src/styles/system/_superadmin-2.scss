@@ -230,7 +230,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 32px;
+  /* 44px: seluruh baris izin adalah target sentuh (kotak centangnya sendiri
+     18px), bukan hanya kotaknya (MD-05). */
+  min-height: var(--touch-min);
   font-size: var(--text-sm);
   color: var(--text-primary);
   cursor: pointer;
@@ -340,7 +342,10 @@
   border-radius: var(--radius-md);
   background: var(--surface);
   color: var(--text-secondary);
-  flex-shrink: 0;
+  /* Boleh menyusut: di kepala kartu yang sempit (judul + pencarian berdampingan)
+     `flex-shrink: 0` + `input min-width: 180px` mendorong kolom pencarian 24px
+     keluar tepi kartu (MD-12). Di layar lebar tidak ada yang berubah. */
+  min-width: 0;
 
   &:focus-within {
     border-color: var(--sa7tein-orange);
@@ -353,7 +358,7 @@
     font-family: var(--font-sans);
     font-size: var(--text-sm);
     color: var(--text-primary);
-    min-width: 180px;
+    min-width: 0;
     min-height: var(--touch-min);
 
     &:focus {

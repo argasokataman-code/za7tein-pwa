@@ -712,6 +712,30 @@ export default function Documentation() {
                 sebagai temuan, lalu kembali hijau setelah dikembalikan.
               </li>
               <li>
+                <strong>Gerbang menangkap konten yang keluar dari kotaknya (MD-12).</strong> Gerbang
+                hanya melihat overflow tingkat <em>halaman</em>, jadi baris badge slip order merchant
+                yang meluber <strong>89px</strong> lalu dipangkas <code className="doc-inline">overflow: clip</code>{' '}
+                di level shell lolos tanpa suara — chip-nya hilang dan pemilik yang menemukannya.
+                Halaman juga diukur sebelum data BE mendarat. Sekarang <strong>MD-12</strong> memeriksa
+                dua arah (kontrol yang terpotong; anak yang melewati content-box induknya) dan
+                <strong> selalu FAIL</strong> — pengecualian sahnya hanya carousel/rail geser, art yang
+                sengaja dipangkas di tepi membulat, dan bleed margin negatif. Gerbang juga{' '}
+                <strong>menunggu halaman diam</strong> (tiga sampel DOM identik) sebelum mengukur.
+                Temuan warisan yang muncul <strong>dibetulkan, bukan dimaafkan</strong>: slip merchant
+                dapat <code className="doc-inline">flex-wrap</code> +{' '}
+                <code className="doc-inline">min-width: 0</code>, label nav dapat penjaga{' '}
+                <code className="doc-inline">.nav-label</code> ber-ellipsis (dan &ldquo;Onboarding&rdquo;
+                jadi &ldquo;Tenant&rdquo;), <code className="doc-inline">.admin-history &gt; *</code> dan{' '}
+                <code className="doc-inline">.sa-search</code> boleh menyusut, baris izin SA naik ke{' '}
+                <code className="doc-inline">--touch-min</code>, dan halaman tak lagi membuka di tengah
+                saat dimuat ulang (<code className="doc-inline">history.scrollRestoration = manual</code>{' '}
+                + posisi per rute untuk tombol kembali). Rute non-app (
+                <code className="doc-inline">/</code>, <code className="doc-inline">/documentation</code>)
+                tidak dicetak DNA-nya — keduanya website penuh, bukan shell PWA — hanya overflow-x.
+                Sapuan penuh: 200/200 PASS di 390 dan 1440, semua role,{' '}
+                <code className="doc-inline">--strict</code>.
+              </li>
+              <li>
                 <strong>Aksi keranjang &amp; pesanan di ringkasan (MD-06).</strong> Baris keranjang
                 dan pesanan di sheet <code className="doc-inline">CartSummarySheet</code> kini membawa
                 aksinya sendiri: keranjang toko bisa dibuang (<code className="doc-inline">clearCart</code>{' '}

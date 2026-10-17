@@ -80,7 +80,7 @@ const OPTS = {
 // Butir DNA yang punya cek mekanis di gerbang ini (MD-04 zona jempol & MD-08/09
 // tipografi/bayangan dipegang `npm run scan` + review; dicetak apa adanya supaya
 // tidak ada butir yang tampak "lolos" padahal tidak pernah diperiksa).
-const DNA_IDS_GATE = ['MD-01', 'MD-02', 'MD-03', 'MD-05', 'MD-06', 'MD-07', 'MD-10', 'MD-11']
+const DNA_IDS_GATE = ['MD-01', 'MD-02', 'MD-03', 'MD-05', 'MD-06', 'MD-07', 'MD-10', 'MD-11', 'MD-12']
 
 if (has('--help') || has('-h')) {
   process.stdout.write(
@@ -95,9 +95,11 @@ if (has('--help') || has('-h')) {
       `  --offline         ukur juga saat offline.\n` +
       `  --json            keluarkan laporan JSON.\n` +
       `  --help            tampilkan bantuan ini (tidak mengukur apa pun).\n\n` +
-      `Tiap pengukuran mencetak checklist DNA (MD-01..MD-11) dengan ✗ temuan, — bila\n` +
+      `Tiap pengukuran mencetak checklist DNA (MD-01..MD-12) dengan ✗ temuan, — bila\n` +
       `tidak ada yang diperiksa di halaman itu, dan ✓ bila lolos. Panel sheet dibuka\n` +
-      `otomatis (klik nyata bilah keranjang) supaya MD-06/07/11 diukur di dalamnya.\n\n` +
+      `otomatis (klik nyata bilah keranjang) supaya MD-06/07/11 diukur di dalamnya.\n` +
+      `Rute non-app (/ dan /documentation) tidak dicetak DNA-nya: keduanya website\n` +
+      `penuh, bukan permukaan app (lihat AGENTS.md §1).\n\n` +
       `Klon direuse: gate memakai ulang klon/ tab yang sudah hidup, tidak menumpuk.\n`,
   )
   process.exit(0)
@@ -437,6 +439,15 @@ const MEASURE = `(async () => {
   }
   const name = (el) => (el.getAttribute('aria-label') || el.innerText || el.className || el.tagName)
     .trim().replace(/\\s+/g, ' ').slice(0, 40)
+  // Kelas pertama yang aman dibaca: elemen SVG menyimpan kelas di
+  // className.baseVal, sehingga String(el.className) jadi "[object SVGAnimatedString]"
+  // dan pesan temuan tak bisa dipakai.
+  const cls1 = (el) => {
+    const c = typeof el.className === 'string'
+      ? el.className
+      : (el.className && el.className.baseVal) || ''
+    return (String(c).split(' ')[0] || el.tagName)
+  }
   // Panel sheet yang terlihat: menempel tepi bawah, punya permukaan sendiri
   // (bukan scrim gelap), lebar >= separuh viewport. Dua butir DNA bergantung
   // padanya, dan keduanya adalah PENGECUALIAN yang ditulis di mobile-dna.md:
@@ -487,7 +498,17 @@ const MEASURE = `(async () => {
     return true
   })
   const smallTargets = controls
-    .map((el) => ({ label: name(el), ...box(el) }))
+    .map((el) => {
+      const b = box(el)
+      if (b.w >= runtime.touchMin && b.h >= runtime.touchMin) return { label: name(el), ...b }
+      // Kotak centang/radio kecil di dalam label: yang benar-benar disentuh
+      // adalah labelnya, bukan kotak 18px-nya. Ukur target efektif itu — kalau
+      // labelnya cukup besar, kontrolnya memang bisa ditepuk.
+      const wrap = el.closest('label')
+      if (!wrap) return { label: name(el), ...b }
+      const wb = box(wrap)
+      return { label: name(el), ...(wb.w >= runtime.touchMin && wb.h >= runtime.touchMin ? wb : b) }
+    })
     .filter((b) => b.w < runtime.touchMin || b.h < runtime.touchMin)
   // Dokumen (html/body) memang scroller yang sah — yang dilarang scroller
   // bersarang DI DALAM halaman.
@@ -581,7 +602,7 @@ const MEASURE = `(async () => {
   const lrGroups = new Map()
   for (const el of document.querySelectorAll('.list-row')) {
     if (!vis(el) || !el.parentElement) continue
-    const k = String(el.parentElement.className || el.parentElement.tagName).split(' ')[0]
+    const k = cls1(el.parentElement)
     if (!lrGroups.has(k)) lrGroups.set(k, [])
     lrGroups.get(k).push(el)
   }
@@ -649,8 +670,102 @@ const MEASURE = `(async () => {
   for (const el of sheetPanels) {
     const pct = Math.round((el.getBoundingClientRect().height / vh) * 100)
     if (pct > 60) {
-      dnaFaults.push('MD-06 panel bawah ' + pct + '% viewport (>60%): ' + String(el.className).split(' ')[0])
+      dnaFaults.push('MD-06 panel bawah ' + pct + '% viewport (>60%): ' + cls1(el))
     }
+  }
+  // MD-12 — konten tak boleh keluar dari kotak induknya, dan tak boleh terpotong
+  // diam-diam. Gerbang lama cuma melihat overflow tingkat HALAMAN
+  // (documentElement), sehingga baris badge yang dipangkas overflow: clip di
+  // level shell lolos tanpa suara — persis "ada yang keluar dari card".
+  const skipBox = (el) => {
+    if (el.closest('[aria-hidden="true"]')) return true
+    const s = getComputedStyle(el)
+    if (s.display === 'none' || s.visibility === 'hidden') return true
+    if (el.classList.contains('sr-only') || el.classList.contains('visually-hidden')) return true
+    if (el.closest('.leaflet-container, .leaflet-pane')) return true
+    if (s.clipPath === 'inset(50%)') return true
+    return false
+  }
+  // Permukaan app = empat peran PWA + konsol SA. Landing dan /documentation
+  // adalah website penuh yang didokumentasikan bukan app (navigateFallbackDenylist),
+  // jadi kontrak DNA mobile (kolom 430px, target sentuh, kotak kartu) tidak
+  // berlaku di sana. Yang tetap berlaku di semua halaman: overflow-x + penggulung.
+  const appRoute = ['/customer/', '/merchant/', '/courier/', '/admin/', '/superadmin/']
+    .some((p) => location.pathname === p.slice(0, -1) || location.pathname.startsWith(p))
+  const boxFail = []
+  if (appRoute) {
+  // Rail geser (carousel): induk yang menghela dua anak atau lebih selebar
+  // hampir-penuh ke samping memang sengaja lebih lebar dari kotaknya, dan itu
+  // pola sah (banner /customer/signin). Kalau tidak dikecualikan, carousel jadi
+  // temuan palsu dan gerbangnya berisik.
+  const isRail = (el) => {
+    const kids = [...el.children].filter((c) => c.getBoundingClientRect().width > 0)
+    if (kids.length < 2) return false
+    const pw = el.getBoundingClientRect().width
+    if (pw <= 0) return false
+    return kids.filter((c) => c.getBoundingClientRect().width >= pw * 0.8).length >= 2
+  }
+  const containsRail = (el) => {
+    if (isRail(el)) return true
+    for (const c of el.querySelectorAll('*')) {
+      if (isRail(c)) return true
+    }
+    return false
+  }
+  const hasControl = (el) => !!el.querySelector('button, a[href], input, select, textarea, [role="button"]')
+  // (a) TERPOTONG — kotak memangkas isinya (hidden/clip). Kalau yang terpotong
+  // sebuah KONTROL, itu isi yang hilang, selalu FAIL. Art dekoratif yang
+  // dipangkas (kartu, preview) memang begitu desainnya, dan text-overflow:
+  // ellipsis sengaja memangkas, jadi keduanya bukan temuan.
+  for (const el of document.querySelectorAll('body *')) {
+    if (skipBox(el)) continue
+    const s = getComputedStyle(el)
+    if (s.overflowX !== 'hidden' && s.overflowX !== 'clip') continue
+    if (s.textOverflow === 'ellipsis') continue
+    const over = el.scrollWidth - el.clientWidth
+    if (over <= 1 || el.clientWidth <= 0) continue
+    if (!hasControl(el) || containsRail(el)) continue
+    boxFail.push('MD-12 isi terpotong ' + over + 'px: .' + cls1(el))
+  }
+  // (b) KELUAR KOTAK — anak melewati content-box induk yang overflow-nya
+  // terlihat. Selalu FAIL: isinya benar-benar lari keluar dari kotaknya (nyata:
+  // .merchant-ticket-stub-end meluber 89px lalu dipangkas clip di level shell;
+  // label nav admin melebar 9px). Bleed sengaja (header margin negatif,
+  // dekorasi position absolute) dan rail geser dilewati.
+  for (const el of document.querySelectorAll('body *')) {
+    if (skipBox(el)) continue
+    const p = el.parentElement
+    if (!p) continue
+    const ps = getComputedStyle(p)
+    if (ps.overflowX !== 'visible') continue
+    if (isRail(p)) continue
+    const s = getComputedStyle(el)
+    if (parseFloat(s.marginLeft) < 0 || parseFloat(s.marginRight) < 0) continue
+    if (s.position === 'absolute' || s.position === 'fixed') continue
+    const r = el.getBoundingClientRect()
+    if (r.width === 0) continue
+    const pr = p.getBoundingClientRect()
+    const innerLeft = pr.left + parseFloat(ps.paddingLeft)
+    const innerRight = pr.right - parseFloat(ps.paddingRight)
+    const overR = r.right - innerRight
+    const overL = innerLeft - r.left
+    if (overR > 2.5 || overL > 2.5) {
+      const d = Math.round(Math.max(overR, overL))
+      // Sebut kalau ada leluhur yang memangkasnya: itu yang membuat isinya
+      // benar-benar HILANG, bukan sekadar menonjol.
+      let clipper = null
+      for (let n = p; n; n = n.parentElement) {
+        const ns = getComputedStyle(n)
+        if (ns.overflowX !== 'hidden' && ns.overflowX !== 'clip') continue
+        const nb = n.getBoundingClientRect()
+        const nl = nb.left + parseFloat(ns.paddingLeft)
+        const nr = nb.right - parseFloat(ns.paddingRight)
+        if (r.right > nr + 0.5 || r.left < nl - 0.5) { clipper = cls1(n); break }
+      }
+      boxFail.push('MD-12 keluar kotak ' + d + 'px: .' + cls1(el) + ' di dalam .' + cls1(p)
+        + (clipper ? ' (dipangkas .' + clipper + ')' : ''))
+    }
+  }
   }
 
   // Konten teratas harus turun melewati inset status bar di jendela app-mode;
@@ -717,7 +832,7 @@ const MEASURE = `(async () => {
     const r = el.getBoundingClientRect()
     const cs = getComputedStyle(el)
     return {
-      cls: String(el.className).split(' ')[0].slice(0, 32),
+      cls: cls1(el).slice(0, 32),
       h: Math.round(r.height),
       top: Math.round(r.top),
       pad: [Math.round(parseFloat(cs.paddingTop)), Math.round(parseFloat(cs.paddingBottom))],
@@ -737,6 +852,12 @@ const MEASURE = `(async () => {
 
   return {
     path: location.pathname,
+    // Permukaan app = empat peran PWA + konsol SA. Landing dan /documentation
+    // adalah website penuh yang didokumentasikan bukan app
+    // (navigateFallbackDenylist), jadi kontrak DNA mobile — kolom 430px, target
+    // sentuh, kotak kartu — tidak berlaku di sana. Yang tetap berlaku di semua
+    // halaman: overflow-x dan aturan penggulung.
+    appRoute,
     manifestHref,
     runtime,
     topbar,
@@ -777,16 +898,20 @@ const MEASURE = `(async () => {
     // Butir DNA yang diukur di DOM. warn = MD-06 (ambang rasa, bukan batas
     // keras): panel 61% masih mungkin disengaja, dan --strict yang memutuskan.
     dna: {
-      fail: [...new Set(dnaFaults.filter((m) => !m.startsWith('MD-06')))].slice(0, 8),
+      fail: [...new Set([
+        ...dnaFaults.filter((m) => !m.startsWith('MD-06')),
+        ...boxFail,
+      ])].slice(0, 8),
       warn: [...new Set(dnaFaults.filter((m) => m.startsWith('MD-06')))].slice(0, 4),
       // Butir yang preconditions-nya tidak ada di halaman ini (tidak ada baris
       // daftar, tidak ada sheet, tidak ada bilah bawah) tidak boleh dicetak "✓":
       // itu mengklaim lolos untuk hal yang tidak pernah diperiksa.
-      checked: {
+      checked: appRoute ? {
         'MD-06': sheetPanels.length > 0,
         'MD-10': hasNav,
         'MD-11': lrGroups.size > 0,
-      },
+        'MD-12': true,
+      } : {},
     },
   }
 })()`
@@ -966,11 +1091,13 @@ function judge(measured, tokens, strict, viewportWidth) {
       push(fail, `MD-01 token --${key} runtime ${measured.runtime[key]} != sumber ${tokens[key]}px`)
     }
   }
-  if (expectedShell && Math.abs(measured.shell.w - expectedShell) > 1) {
+  if (expectedShell && measured.appRoute && Math.abs(measured.shell.w - expectedShell) > 1) {
     push(fail, `MD-01 lebar kolom ${measured.shell.w}px != ${expectedShell}px (min(viewport, --shell-max))`)
   }
   if (measured.overflowX !== 0) push(fail, `MD-01 overflow-x ${measured.overflowX}px (harus 0)`)
-  if (measured.scrollers.length) push(fail, `MD-03 scroller bersarang: ${measured.scrollers.join(', ')}`)
+  if (measured.scrollers.length && measured.appRoute) {
+    push(fail, `MD-03 scroller bersarang: ${measured.scrollers.join(', ')}`)
+  }
 
   // Gulir harus berangkat dari atas di setiap halaman baru, dan penggulungnya
   // tetap dokumen. Dua hal berbeda:
@@ -993,23 +1120,27 @@ function judge(measured, tokens, strict, viewportWidth) {
   }
 
   // Invarian bilah fixed: tidak menyeberang keluar kolom visual.
-  for (const f of measured.fixed) {
-    const left = measured.col.x - 2
-    const right = measured.col.x + measured.col.w + 2
-    if (f.x < left || f.x + f.w > right) {
-      push(warn, `MD-02 fixed keluar kolom: "${f.label}" ${f.w}px @x${f.x} (kolom ${measured.col.w}px @x${measured.col.x})`)
+  if (measured.appRoute) {
+    for (const f of measured.fixed) {
+      const left = measured.col.x - 2
+      const right = measured.col.x + measured.col.w + 2
+      if (f.x < left || f.x + f.w > right) {
+        push(warn, `MD-02 fixed keluar kolom: "${f.label}" ${f.w}px @x${f.x} (kolom ${measured.col.w}px @x${measured.col.x})`)
+      }
+    }
+    for (const t of measured.smallTargets) {
+      push(warn, `MD-05 target < --touch-min ${tokens.touchMin}px: "${t.label}" ${t.w}x${t.h}`)
     }
   }
-  for (const t of measured.smallTargets) {
-    push(warn, `MD-05 target < --touch-min ${tokens.touchMin}px: "${t.label}" ${t.w}x${t.h}`)
-  }
   const badGutters = measured.gutters.filter((g) => tokens.space5 && g !== tokens.space5)
-  if (badGutters.length) {
+  if (badGutters.length && measured.appRoute) {
     push(warn, `MD-01 gutter != --space-5 (${tokens.space5}px): ${badGutters.join('px, ')}px`)
   }
-  // Butir DNA yang diukur langsung di DOM (MD-06/07/10/11).
-  for (const m of measured.dna?.fail || []) push(fail, m)
-  for (const m of measured.dna?.warn || []) push(warn, m)
+  // Butir DNA yang diukur langsung di DOM (MD-06/07/10/11/12).
+  if (measured.appRoute) {
+    for (const m of measured.dna?.fail || []) push(fail, m)
+    for (const m of measured.dna?.warn || []) push(warn, m)
+  }
 
   if (strict) return { fail: [...fail, ...warn], warn: [] }
   return { fail, warn }
@@ -1096,6 +1227,10 @@ function printVerdict(label, verdict, errors, measured) {
   // punya cek tampak "lolos" padahal tidak pernah diperiksa.
   const seen = [...verdict.fail, ...verdict.warn].join(' ')
   const checked = measured.dna?.checked || {}
+  if (!measured.appRoute) {
+    logLine(`      ${C.dim}DNA dilewati: ${measured.path} bukan permukaan app (website penuh, bukan shell PWA) · yang tetap diperiksa: overflow-x${C.off}`)
+    return
+  }
   logLine(
     `      ${C.dim}DNA ${DNA_IDS_GATE.map((id) => {
       if (checked[id] === false) return `${id}—`
@@ -1103,6 +1238,29 @@ function printVerdict(label, verdict, errors, measured) {
     }).join(' ')} · MD-04/MD-08/MD-09 lewat npm run scan + review` +
       `${DNA_IDS_GATE.some((id) => checked[id] === false) ? ' · "—" = tak ada yang diperiksa di halaman ini' : ''}${C.off}`,
   )
+}
+
+/**
+ * Tunggu halaman "diam" sebelum diukur. Data daftar mendarat dari BE SETELAH
+ * render pertama; mengukur terlalu cepat = mengukur layar loading, dan gerbang
+ * melaporkan "lolos" untuk DOM yang belum ada (nyata: kartu /merchant/orders
+ * belum ter-render saat diukur, sehingga temuan overflow mana pun lolos).
+ * Dua sampel berturut-turut sama = render stabil.
+ */
+async function settlePage(cdp, stableNeeded = 3, tries = 20) {
+  const sig = `document.body.innerText.length + '|' + document.querySelectorAll('*').length`
+  let prev = null
+  let same = 0
+  for (let i = 0; i < tries; i++) {
+    const now = await evaluate(cdp, sig)
+    // Butuh BEBERAPA sampel sama berturut-turut, bukan dua: layar loading pun
+    // "diam" selama ratusan milidetik, dan dua sampel sebelum data mendarat
+    // membuat gerbang mengukur kerangka, bukan halaman.
+    same = now === prev ? same + 1 : 0
+    prev = now
+    if (same >= stableNeeded) return
+    await sleep(350)
+  }
 }
 
 /**
@@ -1361,6 +1519,7 @@ async function main() {
 
         const errors = []
         await goto(cdp, abs)
+        await settlePage(cdp)
         const measured = await evaluate(cdp, MEASURE)
         const verdict = judge(measured, tokens, OPTS.strict, width)
         if (pass === 'offline') {

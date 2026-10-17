@@ -69,7 +69,7 @@ export function BottomNav({ items: propItems }: { items?: BottomNavItem[] }) {
               </span>
             ) : null}
           </span>
-          <span>{label}</span>
+          <span className="nav-label">{label}</span>
           {srText && badge != null && badge > 0 ? (
             <span className="sr-only">{srText}</span>
           ) : null}

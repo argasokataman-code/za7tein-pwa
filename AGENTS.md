@@ -43,7 +43,7 @@ Ringkasan mesin ada di `.rules.json` → `designReview`. Tidak ada cek pre-commi
 
 Repo ini **PWA mobile-first di dalam kolom ponsel**, bukan website yang menyusut. Skill `senior-fe`
 adalah tier web dan cuma ada kalau dipanggil; karena itu aturan mobile hidup di `docs/design/mobile-dna.md`
-(10 butir, `MD-01…MD-10`, tiap butir punya cara memeriksa) dan ringkasannya **selalu** ikut di sini.
+(12 butir, `MD-01…MD-12`, tiap butir punya cara memeriksa) dan ringkasannya **selalu** ikut di sini.
 
 Yang paling sering dilanggar, ulang tiap kali menggambar UI mobile:
 
@@ -59,6 +59,12 @@ Yang paling sering dilanggar, ulang tiap kali menggambar UI mobile:
   `@include list-row` dari `src/styles/system/_mixins.scss` — rel kanan **lebar tetap**, bukan
   `auto`. Jangan rakit flex/grid baris sendiri; ukur `rect.right` semua baris: harus satu nilai,
   dan tinggi baris meta harus seragam (bukan 20/39).
+- **MD-12 Konten keluar kotak / terpotong**: anak tidak boleh melewati content-box induknya, dan isi
+  tidak boleh dipangkas diam-diam — keduanya FAIL. Kalau baris `code + badge` dipaksa satu baris, chip
+  meluber lalu dipangkas `overflow: clip` leluhur dan **hilang** tanpa suara; beri `flex-wrap` +
+  `min-width: 0`, jangan biarkan flex item menyusut di bawah isinya. `browser-gate` mengenali pola
+  sahnya (carousel/rail geser, art yang sengaja dipangkas di tepi membulat, bleed margin negatif).
+  Rute non-app (`/`, `/documentation`) tidak dicetak DNA-nya — keduanya website penuh, bukan app.
 
 **Dua butir terakhir (MD-08, MD-09) sekarang BERGERBANG mekanis.** `npm run scan` (jalan di pre-commit)
 menghitung `uppercase` dan `rawShadow` di `src/styles/system/**` dan **MENOLAK kenaikan** lewat ratchet
@@ -284,7 +290,7 @@ node scripts/browser-gate.mjs --route /home --strict           # halaman yang ka
 node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap elemen dari depan
 ```
 
-**Gate mengukur DNA, bukan cuma lebar kolom.** Tiap baris laporan ditutup checklist butir yang benar-benar diperiksa — `DNA MD-01✓ MD-02✓ … MD-11✓` — dengan `✗` temuan (pesannya menyebut ID-nya), `—` bila butir itu tidak punya apa pun untuk diperiksa di halaman tersebut, dan `✓` bila diperiksa dan lolos. Dua hal yang membuatnya mungkin: gate **membuka panel sheet sendiri** lewat klik nyata pada bilah pemicu (MD-06/07/11 hidup di dalam panel; diukur ulang sebagai baris `(sheet terbuka)`), dan baris daftar wajib ber-kelas **`list-row`** (primitif `src/styles/system/_list-row.scss`) sebagai marker yang dibaca gate untuk MD-11. Pengecualian DNA ikut dihormati: scroller di dalam panel sheet sah (MD-03), dan MD-10 dilewati saat sheet terbuka. Rincian: `docs/design/mobile-dna.md`.
+**Gate mengukur DNA, bukan cuma lebar kolom.** Tiap baris laporan ditutup checklist butir yang benar-benar diperiksa — `DNA MD-01✓ MD-02✓ … MD-12✓` — dengan `✗` temuan (pesannya menyebut ID-nya), `—` bila butir itu tidak punya apa pun untuk diperiksa di halaman tersebut, dan `✓` bila diperiksa dan lolos. Dua hal yang membuatnya mungkin: gate **membuka panel sheet sendiri** lewat klik nyata pada bilah pemicu (MD-06/07/11 hidup di dalam panel; diukur ulang sebagai baris `(sheet terbuka)`), dan baris daftar wajib ber-kelas **`list-row`** (primitif `src/styles/system/_list-row.scss`) sebagai marker yang dibaca gate untuk MD-11. **Gerbang juga menunggu halaman diam** (3 sampel identik) sebelum mengukur, sebab daftar dari BE mendarat setelah render pertama dan mengukur terlalu cepat = mengukur layar loading. MD-12 FAIL untuk konten yang keluar dari kotak maupun kontrol yang terpotong, dan mengenali pola sahnya (carousel, art di tepi membulat, bleed margin negatif). Rute non-app (`/`, `/documentation`) tidak dicetak DNA-nya — keduanya website penuh, bukan app; yang tetap diperiksa overflow-x. Pengecualian DNA ikut dihormati: scroller di dalam panel sheet sah (MD-03), dan MD-10 dilewati saat sheet terbuka. Rincian: `docs/design/mobile-dna.md`.
 
 **Satu gate pada satu waktu.** Klon pengukuran (9359) cuma punya satu tab; menjalankan beberapa `browser-gate` bersamaan membuatnya saling menunggu dan tampak menggantung, lalu menumpuk sebagai proses zombie. Jalankan di foreground, tunggu selesai, baru yang berikutnya. Kalau ada sisa, `pkill -f "browser-gate.mjs"`. Jangan memindahkan tab klon role (9355–9358) — biarkan tiap jendela role di tempatnya.
 

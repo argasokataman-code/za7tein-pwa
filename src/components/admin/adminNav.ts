@@ -19,7 +19,7 @@ export function useAdminNavItems(): BottomNavItem[] {
     { to: '/', label: 'Ringkasan', Icon: LayoutDashboard, end: true },
     {
       to: '/onboarding',
-      label: 'Onboarding',
+      label: 'Tenant',
       Icon: ListChecks,
       end: false,
       badge: pending,
