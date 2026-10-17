@@ -2830,6 +2830,27 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/preview-categories/index.html"
+    },
+    {
+      "id": "TASK-111720",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:45:15",
+      "tags": [
+        "design",
+        "home",
+        "assets"
+      ],
+      "summary": "Chip kategori home pakai foto transparan Gemini+rembg (varian B), 224px webp 5 file 67KB; chip fit 350px, gate 2/2",
+      "conn": [
+        {
+          "id": "TASK-111700",
+          "type": "relates",
+          "raw": "TASK-111700:relates"
+        }
+      ],
+      "loc": "src/data/catalog.ts:15"
     }
   ]
 }
