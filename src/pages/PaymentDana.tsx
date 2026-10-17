@@ -4,6 +4,7 @@
 // dana berpindah dan tidak ada kredensial DANA di sini (AGENTS §1). Kontrak
 // FE↔BE yang menggantikan mock ini: docs/integration/dana/be-contract.md.
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { CheckCircle2, Copy, Download, RefreshCw } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -11,6 +12,7 @@ import toast from 'react-hot-toast'
 import { insertNotification } from '../api/notifications'
 import { markOrderPaid } from '../api/orders'
 import { BackButton } from '../components/ui/BackButton'
+import { OrderCelebration } from '../components/ui/OrderCelebration'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { formatCountdown } from '../data/courier'
 import { mockUser } from '../data/user'
@@ -87,6 +89,8 @@ export default function PaymentDana() {
 
   const [deadline, setDeadline] = useState(() => Date.now() + DANA_TTL_MS)
   const [status, setStatus] = useState<'menunggu' | 'dibayar'>('menunggu')
+  /** Splash perayaan sekali jalan saat pembayaran berhasil (sebelum ke pelacakan). */
+  const [celebrate, setCelebrate] = useState(false)
   const { now } = useTick(1000)
   const remaining = Math.max(0, deadline - now)
   // Kedaluwarsa DITURUNKAN dari sisa waktu, bukan disimpan lewat effect: satu
@@ -107,6 +111,7 @@ export default function PaymentDana() {
 
   const simulatePaid = () => {
     setStatus('dibayar')
+    setCelebrate(true)
     // Sinkronkan order sampai pembayaran berhasil (f18): merchant baru boleh
     // konfirmasi setelah `payment_status = paid`.
     if (activeOrderId) void markOrderPaid(activeOrderId, 'customer').catch(() => {})
@@ -301,6 +306,38 @@ export default function PaymentDana() {
           </div>
         </div>
       </main>
+
+      {/* Splash perayaan pembayaran berhasil: blok `.order-arrived-*` yang sama
+          dengan `/order-arrived` + kurir (centang + konfeti, gerakan di
+          `_post-order.scss`), jadi tak ada CSS baru. Di-portal ke body supaya
+          `position: fixed` tak terjebak containing block transisi halaman. */}
+      {celebrate
+        ? createPortal(
+            <div
+              className="order-celebration-overlay"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Pembayaran berhasil"
+            >
+              <OrderCelebration
+                title="Pembayaran berhasil"
+                message={`${method?.label ?? 'Pembayaran'} diterima. Pesananmu sedang diteruskan ke toko.`}
+              >
+                <button
+                  type="button"
+                  className="order-arrived-rate-btn"
+                  onClick={() => {
+                    setCelebrate(false)
+                    navigate('/order-placed')
+                  }}
+                >
+                  Lihat pesanan
+                </button>
+              </OrderCelebration>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   )
 }

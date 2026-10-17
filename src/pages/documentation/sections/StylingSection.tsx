@@ -6,6 +6,11 @@ export function StylingSection() {
     <DocSection id="styling" num="09" title="Styling System">
       <p className="doc-p">
         Sa7tein UI/UX DNA lives in <code className="doc-inline">docs/design/DNA.md</code>.
+        The mobile DNA (this is a mobile-first PWA in a phone column, not a shrunken website) lives in
+        <code className="doc-inline">docs/design/mobile-dna.md</code> with rules <code className="doc-inline">MD-01</code>…<code className="doc-inline">MD-10</code>,
+        each stating how it is checked. Two of them are enforced mechanically by <code className="doc-inline">npm run scan</code>:
+        uppercase eyebrow labels and non-token shadows may only go down (ratchet baseline
+        <code className="doc-inline">docs/design/design-debt.json</code>).
         New styles belong in a domain partial under <code className="doc-inline">src/styles/system/</code>;
         design values come from <code className="doc-inline">src/styles/_tokens.scss</code>.
         The recovered port is split into ordered partials under

@@ -97,6 +97,10 @@ const partnerSlice = createSlice({
       const partner = state.partners.find((p) => p.id === action.payload.partnerId)
       if (partner) partner.warningLetters += 1
     },
+    /** Ganti daftar mitra dengan kurir partner BE (API menimpa mock bila ada). */
+    replacePartners(state, action: PayloadAction<CourierPartner[]>) {
+      state.partners = action.payload
+    },
   },
 })
 
@@ -107,5 +111,6 @@ export const {
   rejectAssignment,
   expireAssignment,
   issueWarningLetter,
+  replacePartners,
 } = partnerSlice.actions
 export default partnerSlice.reducer

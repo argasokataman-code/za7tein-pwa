@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ChevronRight, Inbox, PackageCheck, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
+import { fetchPartnerCouriers } from '../api/dispatch'
 import { insertNotification } from '../api/notifications'
-import { markOrderPaid, updateOrderStatus } from '../api/orders'
+import { assignOrderCourier, markOrderPaid, updateOrderStatus } from '../api/orders'
+import { apiEnabled } from '../api/supabase'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { AcceptOrderSheet, type AcceptChoice } from '../components/merchant/AcceptOrderSheet'
@@ -13,7 +15,6 @@ import { JourneyLine } from '../components/JourneyLine'
 import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
@@ -39,6 +40,7 @@ import {
   assignBatchCourier,
   closeBatchEarly,
 } from '../store/slices/batchSlice'
+import { replacePartners, sendAssignment } from '../store/slices/partnerSlice'
 import {
   setCookMinutes,
   setOrderBatch,
@@ -103,9 +105,19 @@ export default function MerchantOrders() {
   const { money, moneyPlain } = useMoney()
   const dispatch = useAppDispatch()
   useMerchantOrdersSync()
+  // Kandidat dispatch live (§9.3): kurir partner BE (bukan inhouse) menimpa mock.
+  useEffect(() => {
+    if (!apiEnabled) return
+    fetchPartnerCouriers()
+      .then((list) => {
+        if (list.length) dispatch(replacePartners(list))
+      })
+      .catch(() => {})
+  }, [dispatch])
   const orders = useAppSelector((s) => s.merchant.orders)
   const couriers = useAppSelector((s) => s.merchant.couriers)
   const batches = useAppSelector((s) => s.batch.batches)
+  const partners = useAppSelector((s) => s.partner.partners)
   const [params] = useSearchParams()
   /* Tab awal bisa datang dari tautan (?tab=batal), dipakai legenda donut di
      dashboard: potongan "Batal/tolak 1 order" harus mendarat di daftar yang
@@ -122,6 +134,8 @@ export default function MerchantOrders() {
   const [rejectId, setRejectId] = useState<string | null>(null)
   const [cancelId, setCancelId] = useState<string | null>(null)
   const [acceptId, setAcceptId] = useState<string | null>(null)
+  /* Dispatch Quick (§9.4): pilih kurir partner lalu kirim assignment. */
+  const [dispatchId, setDispatchId] = useState<string | null>(null)
 
   const activeTab = QUEUE_TABS.find((t) => t.id === tab) ?? QUEUE_TABS[0]
   const visible = ordersForStatuses(orders, activeTab.statuses)
@@ -209,6 +223,25 @@ export default function MerchantOrders() {
       persistStatus(id, 'diantar')
     })
     toast.success('Kurir mulai mengantar lebih awal')
+  }
+
+  /* Dispatch Quick (§9.4, M6): kirim assignment ke kurir partner terpilih.
+     Antrean kandidat (idle terlama, batas jarak, tie-break) milik
+     `dispatch_courier()` (OPEN-11) — di sini merchant memilih dari daftar yang
+     tersedia, bukan mengarang algoritmanya. */
+  const dispatchOrder = orders.find((o) => o.id === dispatchId) ?? null
+  const dispatchCandidates = partners.filter((p) => p.status !== 'busy' && p.status !== 'reserved')
+
+  const dispatchToPartner = (partnerId: string, partnerName: string) => {
+    if (!dispatchId) return
+    const code = dispatchOrder?.code ?? ''
+    dispatch(sendAssignment({ orderId: dispatchId, partnerId }))
+    // Persist penugasan ke `orders.courier_id` (best-effort; id seed dilewati).
+    // Baris `dispatch_assignments` ditulis BE saat mitra merespons (OPEN-11).
+    void assignOrderCourier(dispatchId, partnerId).catch(() => {})
+    toast.success(`Order ${code} dikirim ke ${partnerName}`)
+    notifyCustomer('Kurir ditugaskan', 'Pesananmu sedang dicarikan kurir.')
+    setDispatchId(null)
   }
 
   /* Ringkasan item untuk baris antrean: satu baris, dipotong dengan elipsis.
@@ -524,11 +557,18 @@ export default function MerchantOrders() {
                   </p>
                 ) : (
                   <>
-                    <PlatformNotice message="Penugasan kurir partner (dispatch §9.4) belum tersedia — masuk milestone M6." />
+                    <p className="merchant-card-sub">
+                      Order Quick ditangani satu kurir partner. Kirim penugasan setelah packing
+                      selesai; kurir menerima atau menolak dengan alasan (§9.4/§9.5).
+                    </p>
                     <button
                       type="button"
                       className="btn btn-primary"
                       disabled={!QUICK_DISPATCH_AVAILABLE || !detailOrder.packed}
+                      onClick={() => {
+                        setDetailId(null)
+                        setDispatchId(detailOrder.id)
+                      }}
                     >
                       Serahkan ke kurir partner
                     </button>
@@ -587,6 +627,45 @@ export default function MerchantOrders() {
           onClose={() => setAcceptId(null)}
         />
       ) : null}
+
+      {/* Dispatch Quick (§9.4): pilih kurir partner untuk satu order yang sudah
+          dipacking. Daftar kandidat = mitra yang tidak busy/reserved. */}
+      <BottomSheet
+        open={dispatchId !== null}
+        title="Pilih kurir partner"
+        onClose={() => setDispatchId(null)}
+      >
+        {dispatchOrder ? (
+          <>
+            <p className="merchant-order-sub">
+              {dispatchOrder.code} · {dispatchOrder.customerName}
+            </p>
+            {dispatchCandidates.length === 0 ? (
+              <p className="merchant-empty">Tidak ada kurir partner tersedia saat ini.</p>
+            ) : (
+              <div className="payment-list" role="list" aria-label="Kurir partner tersedia">
+                {dispatchCandidates.map((partner) => (
+                  <button
+                    key={partner.id}
+                    type="button"
+                    role="listitem"
+                    className="payment-item"
+                    onClick={() => dispatchToPartner(partner.id, partner.name)}
+                  >
+                    <div className="payment-info">
+                      <h3 className="payment-name">{partner.name}</h3>
+                      <p className="payment-number">
+                        {partner.completedToday} order hari ini ·{' '}
+                        {partner.status === 'available' ? 'siap menerima' : 'offline'}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
+        ) : null}
+      </BottomSheet>
 
       {/* Konfirmasi 2-langkah untuk aksi yang keluar rel atau menahan uang. */}
       <ConfirmSheet

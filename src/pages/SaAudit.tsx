@@ -1,9 +1,11 @@
 import { Search } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
+import { fetchAudit } from '../api/audit'
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { auditKindLabel } from '../data/superadmin'
-import { useAppSelector } from '../hooks/useAppStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { hydrateAudit } from '../store/slices/superAdminSlice'
 import type { AuditKind } from '../types'
 
 const KINDS = Object.keys(auditKindLabel) as AuditKind[]
@@ -12,12 +14,20 @@ const KINDS = Object.keys(auditKindLabel) as AuditKind[]
  * Audit trail. Read-only dan append-only: tidak ada tombol hapus atau edit, dan
  * itu disengaja, audit yang bisa diubah bukan audit. Aksi CS ikut masuk lewat
  * jembatan audit di `src/store/index.ts`, jadi satu tabel ini memuat kerja SA
- * maupun CS.
+ * maupun CS. Baris dibaca dari `audit_logs` (append-only di BE); kosong → seed
+ * mock dipertahankan.
  */
 export default function SaAudit() {
+  const dispatch = useAppDispatch()
   const audit = useAppSelector((s) => s.superAdmin.audit)
   const [kind, setKind] = useState<AuditKind | 'all'>('all')
   const [query, setQuery] = useState('')
+
+  useEffect(() => {
+    void fetchAudit()
+      .then((rows) => dispatch(hydrateAudit(rows)))
+      .catch(() => {})
+  }, [dispatch])
 
   const rows = useMemo(() => {
     const needle = query.trim().toLowerCase()

@@ -149,6 +149,10 @@ const courierSlice = createSlice({
         account.isPrimary = account.id === action.payload.id
       }
     },
+    /** API: rekening pencairan kurir live menimpa mock (`payout_accounts`). */
+    replacePayoutAccounts(state, action: PayloadAction<PayoutAccount[]>) {
+      state.payoutAccounts = action.payload
+    },
     /**
      * Pencairan saldo dompet (f6). Yang ditarik hanya **tips** — fee pengantaran
      * dikirim platform otomatis ke DANA saat order selesai (PRD §16.4, PO
@@ -188,6 +192,7 @@ export const {
   updatePayoutAccount,
   removePayoutAccount,
   setPrimaryPayoutAccount,
+  replacePayoutAccounts,
   requestCourierPayout,
 } = courierSlice.actions
 export default courierSlice.reducer

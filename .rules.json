@@ -56,22 +56,22 @@
     "trigger": "tugas apa pun yang menyentuh UI/UX, tampilan, tata letak, mobile, atau website: minta desain, bikin UI/UX, rapikan tampilan, layout, komponen visual, warna, tipografi, spacing, animasi, atau review desain",
     "wajib": [
       "muat skill senior-fe sebelum menulis atau menilai tampilan (skill({name:'senior-fe'}) atau /senior-fe)",
-      "mobile: ikuti routing stack di skill (SwiftUI/Compose/Flutter/RN appendix)",
-      "jalankan sampai Delivery Gate; tiap temuan cites HG-xx / PG-xx / QL-xx + alasan satu baris",
+      "mobile: ikuti routing stack di skill (SwiftUI/Compose/Flutter/RN appendix); repo ini PWA mobile-first di kolom ponsel, jadi tier mobile + docs/design/mobile-dna.md (MD-01..MD-10) SELALU berlaku",
+      "jalankan sampai Delivery Gate; tiap temuan cites HG-xx / PG-xx / QL-xx / SM-xx / MD-xx + alasan satu baris",
       "peka & proaktif: tampilan mlenceng (hierarki kabur, dua aksen bersaing, elemen kepotong/ketimpa, target <44px, kontras <AA, overflow-x, pola slop tanpa alasan) WAJIB diperbaiki di akarnya, tidak menunggu disuruh",
       "bukti angka/selector (rect, elementFromPoint, rasio kontras), bukan kesan; yang mustahil dibaca dari sumber diukur lewat browser-gate"
     ],
     "auditMode": "review pakai mode After skill: findings bernomor di anti-slop/audit-NNN-YYYY-MM-DD.md, jangan ubah apa pun sebelum item disetujui",
-    "catatan": "Tidak ada cek mekanis yang bisa membuktikan skill benar-benar dipakai; enforcement lewat startup protocol + review. Yang BISA dicek mekanis: nilai mentah vs token di design system — lihat `designGate`. Commit yang menyentuh UI wajib menyebut ID temuan di laporan."
+    "catatan": "Skill cuma ada kalau dipanggil, jadi aturan mobile hidup juga di docs/design/mobile-dna.md + ringkasan AGENTS §0c (selalu ikut konteks). Enforcement mekanis: (a) ratchet designGate (nilai mentah, uppercase, rawShadow), (b) browser-gate untuk layout/hit-test. Rasa tak bisa di-lint — 'gede banget/slop' hanya tertangkap pengukuran + visi (gdescrib), dan temuan visi wajib diverifikasi angka dulu. Commit yang menyentuh UI wajib menyebut ID temuan di laporan."
   },
   "designGate": {
     "command": "npm run scan",
     "selfTest": "npm run scan:test",
     "baseline": "docs/design/design-debt.json",
     "enforce": "pre-commit (Design gate) + langkah 2 alur AGENTS §0",
-    "measures": "nilai mentah di src/styles/system/** (warna rgba/rgb/hsl, font-size px, border-radius px, jarak px ≥8) dan warna/ukuran mentah di style={{ … }} TSX; warna heks mentah di system/ tetap FAIL keras",
-    "rule": "Design system wajib dipakai: nilai baru harus token (--text-*, --space-*, --radius-*, warna peran). Gate bersifat ratchet — menambah nilai mentah = FAIL, menurunkan = boleh. Perbarui baseline HANYA setelah utang benar-benar turun: npm run scan -- --update-design-debt",
-    "layoutRules": "kolom 430px, jarak tepi 20px, header, zona jempol, bilah fixed dibatasi kolom: docs/design/DNA.md + AGENTS §5; pelanggarannya ditangkap browser-gate, bukan scan"
+    "measures": "nilai mentah di src/styles/system/** (warna rgba/rgb/hsl, font-size px, border-radius px, jarak px ≥8) + tell slop (text-transform uppercase = eyebrow, box-shadow non-token) + warna/ukuran mentah di style={{ … }} TSX; warna heks mentah di system/ tetap FAIL keras",
+    "rule": "Design system wajib dipakai: nilai baru harus token (--text-*, --space-*, --radius-*, --shadow-*, warna peran). Gate bersifat ratchet — menambah nilai mentah/eyebrow/bayangan karangan = FAIL, menurunkan = boleh. Perbarui baseline HANYA setelah utang benar-benar turun: npm run scan -- --update-design-debt",
+    "layoutRules": "kolom 430px, jarak tepi 20px, header, zona jempol, bilah fixed dibatasi kolom: docs/design/DNA.md + docs/design/mobile-dna.md (MD-01..MD-10) + AGENTS §5; pelanggarannya ditangkap browser-gate, bukan scan"
   },
   "scope": {
     "is": [
@@ -95,7 +95,7 @@
       "baca .rules.json dulu",
       "baca AGENTS.md",
       "baca .githooks/pre-commit",
-      "kalau tugas menyentuh UI/UX/mobile/website: muat skill senior-fe dulu (lihat designReview)",
+      "kalau tugas menyentuh UI/UX/mobile/website: muat skill senior-fe dulu + baca docs/design/mobile-dna.md (MD-01..MD-10, repo ini PWA mobile-first) — lihat designReview",
       "testing per-peran: preflight dulu — node scripts/e2e-browsers.mjs preflight (lihat roleTesting)",
       "atlas query topik sebelum usul perubahan"
     ]

@@ -141,9 +141,19 @@ const quotaSlice = createSlice({
     purchaseSubscription(state, action: PayloadAction<QuotaSubscription>) {
       state.subscriptions.unshift(action.payload)
     },
+    /** Ganti seluruh langganan dengan data BE (API menimpa mock). */
+    replaceQuotaSubscriptions(state, action: PayloadAction<QuotaSubscription[]>) {
+      state.subscriptions = action.payload
+    },
   },
 })
 
-export const { reserveQuota, consumeQuota, returnQuota, setAcceptWithoutQuota, purchaseSubscription } =
-  quotaSlice.actions
+export const {
+  reserveQuota,
+  consumeQuota,
+  returnQuota,
+  setAcceptWithoutQuota,
+  purchaseSubscription,
+  replaceQuotaSubscriptions,
+} = quotaSlice.actions
 export default quotaSlice.reducer

@@ -1,10 +1,19 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Landmark, Pencil, Plus, Star, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
 
+import {
+  createPayoutAccount,
+  deletePayoutAccount,
+  fetchPayoutAccounts,
+  PAYOUT_MERCHANT_USER_ID,
+  setPrimaryPayoutAccount,
+  updatePayoutAccount,
+} from '../api/payout'
+import { apiEnabled } from '../api/supabase'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { BottomSheet } from '../components/ui/BottomSheet'
@@ -16,6 +25,7 @@ import { payoutAccountSchema, type PayoutAccountFormData } from '../lib/schemas'
 import {
   addAccount,
   removeAccount,
+  replaceAccounts,
   setPrimaryAccount,
   updateAccount,
 } from '../store/slices/payoutSlice'
@@ -35,6 +45,16 @@ export default function MerchantPayoutAccounts() {
   const [sheetMode, setSheetMode] = useState<'add' | 'edit' | null>(null)
   const [editing, setEditing] = useState<PayoutAccount | null>(null)
   const [deleteTarget, setDeleteTarget] = useState<PayoutAccount | null>(null)
+
+  // Baca live; mock tetap kalau merchant belum punya rekening di BE.
+  useEffect(() => {
+    if (!apiEnabled) return
+    fetchPayoutAccounts(PAYOUT_MERCHANT_USER_ID)
+      .then((list) => {
+        if (list.length) dispatch(replaceAccounts(list))
+      })
+      .catch(() => {})
+  }, [dispatch])
 
   const {
     register,
@@ -71,9 +91,11 @@ export default function MerchantPayoutAccounts() {
   const onSubmit = (data: PayoutAccountFormData) => {
     if (sheetMode === 'edit' && editing) {
       dispatch(updateAccount({ id: editing.id, ...data }))
+      void updatePayoutAccount(editing.id, data).catch(() => {})
       toast.success('Rekening diperbarui')
     } else {
       dispatch(addAccount(data))
+      void createPayoutAccount(PAYOUT_MERCHANT_USER_ID, data).catch(() => {})
       toast.success('Rekening ditambahkan')
     }
     closeSheet()
@@ -115,6 +137,7 @@ export default function MerchantPayoutAccounts() {
                       className="merchant-btn-ghost"
                       onClick={() => {
                         dispatch(setPrimaryAccount({ id: account.id }))
+                        void setPrimaryPayoutAccount(PAYOUT_MERCHANT_USER_ID, account.id).catch(() => {})
                         toast.success('Rekening utama diperbarui')
                       }}
                     >
@@ -216,7 +239,10 @@ export default function MerchantPayoutAccounts() {
         body={`${deleteTarget?.bankName ?? ''} · ${deleteTarget?.accountNumber ?? ''} akan dihapus dari daftar tujuan pencairan.`}
         confirmLabel="Hapus rekening"
         onConfirm={() => {
-          if (deleteTarget) dispatch(removeAccount({ id: deleteTarget.id }))
+          if (deleteTarget) {
+            dispatch(removeAccount({ id: deleteTarget.id }))
+            void deletePayoutAccount(deleteTarget.id).catch(() => {})
+          }
           setDeleteTarget(null)
         }}
         onClose={() => setDeleteTarget(null)}

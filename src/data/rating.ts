@@ -37,11 +37,12 @@ export const RATING_FROM_HISTORY = true
 export const RATING_EVENT = 'rating_submitted'
 
 /**
- * Rating **menu item** belum bisa ditulis dari repo ini: form butuh daftar item
- * yang dipesan, dan `order_items` di BE masih kosong. Selama itu, layar
- * menampilkan alasannya, bukan kolom bintang palsu.
+ * Rating menu item kini bisa diisi: form membaca daftar hidangan order dari
+ * `order_items` (`fetchOrderDishes`, best-effort) dan menulis baris rating
+ * ber-`menu_id`. Tabel `order_items` di BE demo masih kosong, jadi blok bintang
+ * per hidangan hanya muncul saat barisnya tersedia — tanpa mengarang nama menu.
  */
-export const MENU_RATING_AVAILABLE = false
+export const MENU_RATING_AVAILABLE = true
 
 export interface RateableOrderLine {
   id: string

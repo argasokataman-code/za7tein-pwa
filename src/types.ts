@@ -1454,3 +1454,53 @@ export interface OrderSettlement {
   quota: 'none' | 'order' | 'cod'
 }
 
+// — Panel ops (M10, R-OPS) —
+
+/**
+ * Konfigurasi platform yang diubah ops, bukan developer. Nilai-nilainya
+ * menyalin konstanta yang sudah dipakai kode (`QUICK_MULTIPLIER_DEFAULT`,
+ * `ALMOST_ARRIVED_MINUTES`, `PLATFORM_FEE_JOD`) supaya panel ops ini terlihat
+ * sebagai pemiliknya — panel ini mock, jadi mengubah di sini tidak (belum)
+ * mengubah konstanta sumber.
+ */
+export interface OpsPlatformConfig {
+  /** Multiplier tarif delivery Quick atas fee merchant (§13). */
+  quickMultiplier: number
+  /** Ambang notifikasi "kurir hampir sampai", menit (R-TRACK). */
+  almostArrivedMinutes: number
+  /** Pc — platform fee customer, flat per order (§16.3). */
+  platformFeeCustomerJod: number
+  /** Pm — platform fee merchant, hanya saat online tanpa kuota (§16.3). */
+  platformFeeMerchantJod: number
+}
+
+/** Status usulan tag merchant (moderasi ops, R-OPS). */
+export type OpsTagStatus = 'pending' | 'approved' | 'rejected'
+
+/** Usulan tag yang menunggu moderasi ops. */
+export interface OpsTag {
+  id: string
+  label: string
+  merchantName: string
+  status: OpsTagStatus
+  submittedAt: string
+}
+
+/** Status surat peringatan (SP) yang diterbitkan ops — bentuk punishment §18. */
+export type OpsPenaltyStatus = 'issued' | 'revoked'
+
+/**
+ * SP yang sudah diterbitkan ops ke satu pihak. Terpisah dari `Punishment`
+ * (bagian dari rule §18): ini catatan penerbitan nyata dengan pelaku & alasan.
+ */
+export interface OpsPenalty {
+  id: string
+  subject: 'customer' | 'merchant' | 'courier'
+  subjectName: string
+  form: string
+  level: string
+  reason: string
+  status: OpsPenaltyStatus
+  issuedAt: string
+}
+

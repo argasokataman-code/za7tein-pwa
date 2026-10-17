@@ -4,11 +4,12 @@
 // tetap jalan sebagai jaring pengaman bila socket putus.
 import { useEffect, useRef } from 'react'
 
-import { fetchCourierOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
+import { fetchCourierOrders, fetchCustomerActiveOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
 import { notifyResync, subscribeOrders } from '../api/realtime'
 import { fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { markOrderCancelled, setOrderStage } from '../store/slices/cartSlice'
+import { hydrateActiveOrders } from '../store/slices/customerOrdersSlice'
 import { setTasks } from '../store/slices/courierSlice'
 import { markOrdersFailed, markOrdersHydrated, mergeOrders } from '../store/slices/merchantSlice'
 import { selectUnreadCount, setNotifications } from '../store/slices/notificationsSlice'
@@ -74,6 +75,16 @@ export function useApiRealtime(audience: NotifAudience): void {
               // jatuh ke `baru`), jadi tandai batal alih-alih menyetel tahap.
               if (order.status === 'batal') dispatch(markOrderCancelled())
               else dispatch(setOrderStage(order.stage))
+            })
+            .catch(() => {})
+        }
+        if (audience === 'customer') {
+          // Daftar semua order berjalan (boleh beberapa, lintas toko) untuk
+          // ringkasan keranjang/pesanan. Satu event realtime `orders` sudah
+          // memicu `refresh` ini, jadi tak perlu langganan kedua.
+          fetchCustomerActiveOrders()
+            .then((orders) => {
+              if (alive) dispatch(hydrateActiveOrders(orders))
             })
             .catch(() => {})
         }

@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSearchParams } from 'react-router-dom'
 
-import { fetchReviewableOrders, submitOrderReview, type ReviewableOrder } from '../api/reviews'
+import { fetchReviewableOrders, submitDishReview, submitOrderReview, type ReviewableOrder } from '../api/reviews'
 import { apiEnabled } from '../api/supabase'
 import { BackButton } from '../components/ui/BackButton'
 import { BottomSheet } from '../components/ui/BottomSheet'
@@ -24,6 +24,8 @@ export default function Reviews() {
   const [target, setTarget] = useState<ReviewableOrder | null>(null)
   const [rating, setRating] = useState(5)
   const [note, setNote] = useState('')
+  /** Bintang per hidangan (id baris `order_items` → nilai). */
+  const [dishRatings, setDishRatings] = useState<Record<string, number>>({})
   const [busy, setBusy] = useState(false)
   const [params] = useSearchParams()
   const wantedCode = params.get('order')
@@ -59,11 +61,13 @@ export default function Reviews() {
     setTarget(order)
     setRating(5)
     setNote('')
+    setDishRatings(Object.fromEntries(order.items.map((dish) => [dish.id, 5])))
   }
 
   function close() {
     setTarget(null)
     setNote('')
+    setDishRatings({})
   }
 
   async function submit() {
@@ -77,6 +81,19 @@ export default function Reviews() {
         rating,
         text: note,
       })
+      // Rating menu item (§20.2): bintang saja, tanpa review. Best-effort per
+      // hidangan — satu gagal tidak membatalkan ulasan toko yang sudah terkirim.
+      await Promise.allSettled(
+        order.items
+          .filter((dish) => dish.menuId !== null)
+          .map((dish) =>
+            submitDishReview({
+              orderId: order.id,
+              menuId: dish.menuId as number,
+              rating: dishRatings[dish.id] ?? 5,
+            }),
+          ),
+      )
       toast.success('Ulasan terkirim. Terima kasih!')
       setOrders((list) => list.filter((o) => o.id !== order.id))
       close()
@@ -181,15 +198,51 @@ export default function Reviews() {
         />
 
         {/* §20.2: rating menu item = bintang saja, tanpa review, dan tanpa rating
-            per variant. Bentuknya ditahan sampai BE mengirim daftar hidangan
-            pesanan; menampilkan bintang per hidangan tanpa nama hidangan berarti
-            mengarang isi form. */}
-        {MENU_RATING_AVAILABLE ? null : (
+            per variant. Sasarannya hidangan yang benar-benar dipesan
+            (`order.items`); bila BE belum mengirim daftar hidangan, blok ini tidak
+            muncul sama sekali alih-alih mengarang nama hidangan. */}
+        {MENU_RATING_AVAILABLE && target && target.items.length > 0 ? (
+          <>
+            <span className="reviews-field-label">Nilai hidangan (bintang saja)</span>
+            {target.items.map((dish) => (
+              <div key={dish.id}>
+                <p className="reviews-field-note">{dish.name}</p>
+                <div
+                  className="reviews-stars"
+                  role="radiogroup"
+                  aria-label={`Beri bintang untuk ${dish.name}`}
+                >
+                  {STARS.map((value) => {
+                    const current = dishRatings[dish.id] ?? 5
+                    const active = current >= value
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        role="radio"
+                        aria-checked={current === value}
+                        aria-label={`${dish.name}: ${value} bintang`}
+                        className="reviews-star-btn"
+                        onClick={() => setDishRatings((prev) => ({ ...prev, [dish.id]: value }))}
+                      >
+                        <Star
+                          size={26}
+                          strokeWidth={1.75}
+                          color={active ? 'var(--star)' : 'var(--text-secondary)'}
+                          fill={active ? 'var(--star)' : 'none'}
+                        />
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            ))}
+          </>
+        ) : !MENU_RATING_AVAILABLE ? (
           <p className="reviews-field-note">
-            Rating per menu (bintang saja, tanpa review) belum bisa diisi: backend belum mengirim
-            daftar hidangan pada pesanan ini.
+            Rating per menu (bintang saja, tanpa review) belum bisa diisi di sini.
           </p>
-        )}
+        ) : null}
 
         <div className="sheet-actions">
           <button

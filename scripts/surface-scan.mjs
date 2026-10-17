@@ -401,7 +401,7 @@ function stripComments(src) {
 
 /** Hitung nilai mentah dari teks SCSS system/ (murni — dipakai uji). */
 function countScssDebt(text) {
-  const out = { color: 0, fontSizePx: 0, radiusPx: 0, spacePx: 0 }
+  const out = { color: 0, fontSizePx: 0, radiusPx: 0, spacePx: 0, uppercase: 0, rawShadow: 0 }
   const px = /(\d+(?:\.\d+)?)px/g
   // Penanda `token-ok` dibaca dari sumber MENTAH: komentar dibuang sebelum
   // baris diperiksa, jadi pengecualian yang ditulis sebagai komentar harus
@@ -418,6 +418,13 @@ function countScssDebt(text) {
       }
       for (const m of line.matchAll(/\b(?:padding|margin|gap)(?:-[a-z]+)?\s*:\s*([^;}]+)/g)) {
         if ([...m[1].matchAll(px)].some((x) => Number(x[1]) >= 8)) out.spacePx += 1
+      }
+      // Tell "template AI": label huruf besar ber-tracking (eyebrow) untuk teks
+      // yang dibaca sebagai kalimat, dan bayangan karangan di luar token
+      // `--shadow-*`. Keduanya hanya boleh TURUN lewat ratchet.
+      if (/text-transform\s*:\s*uppercase/.test(line)) out.uppercase += 1
+      for (const m of line.matchAll(/box-shadow\s*:\s*([^;}]+)/g)) {
+        if (!/var\(--shadow/.test(m[1])) out.rawShadow += 1
       }
     })
   return out
@@ -436,7 +443,7 @@ function countTsxDebt(text) {
 /** Pertumbuhan utang design antara baseline dan keadaan sekarang (murni). */
 function debtGrowth(now, base) {
   const growth = []
-  const keys = ['color', 'fontSizePx', 'radiusPx', 'spacePx']
+  const keys = ['color', 'fontSizePx', 'radiusPx', 'spacePx', 'uppercase', 'rawShadow']
   for (const file of new Set([...Object.keys(now), ...Object.keys(base)])) {
     for (const k of keys) {
       const a = now[file]?.[k] || 0
@@ -452,7 +459,8 @@ function designMetrics() {
   for (const file of walk('src/styles/system', ['.scss'])) out[file] = countScssDebt(read(file))
   for (const file of tsxFiles()) {
     const tsx = countTsxDebt(read(file))
-    if (tsx.color || tsx.fontSizePx) out[file] = { radiusPx: 0, spacePx: 0, ...tsx }
+    if (tsx.color || tsx.fontSizePx)
+      out[file] = { radiusPx: 0, spacePx: 0, uppercase: 0, rawShadow: 0, ...tsx }
   }
   for (const k of Object.keys(out)) {
     if (!Object.values(out[k]).some((v) => v > 0)) delete out[k]

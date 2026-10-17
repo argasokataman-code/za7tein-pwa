@@ -2,14 +2,13 @@ import { LayoutGrid } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import CartQuickBar from '../components/customer/CartQuickBar'
 import CustomerHomeHero from '../components/customer/CustomerHomeHero'
 import HomePromoBanner from '../components/customer/HomePromoBanner'
 import { BottomNav } from '../components/layout/BottomNav'
 import { MerchantCard } from '../components/ui/MerchantCard'
 import { useAppSelector } from '../hooks/useAppStore'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
-import { selectCartCount, selectSubtotal } from '../store/slices/cartSlice'
+import { selectCartCount } from '../store/slices/cartSlice'
 import { merchantQuotaBlocked } from '../store/slices/quotaSlice'
 import { CATEGORIES, dealsFrom, menuSeed, merchantCategoryIds } from '../data/catalog'
 import { storefronts, groupStorefrontsByTag, isSelectable, visibleStorefronts, sortStorefronts, filterStorefronts, type MerchantSortKey } from '../data/storefronts'
@@ -93,7 +92,6 @@ export default function Home() {
     : [{ tag: null as string | null, stores: visibleStores }]
 
   const cartCount = selectCartCount(cartItems)
-  const cartSubtotal = selectSubtotal(cartItems)
 
   return (
     <div className="app-shell">
@@ -202,14 +200,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {cartCount > 0 ? (
-          <CartQuickBar
-            count={cartCount}
-            subtotal={cartSubtotal}
-            onOpen={() => navigate('/checkout')}
-          />
-        ) : null}
 
         <BottomNav />
       </div>

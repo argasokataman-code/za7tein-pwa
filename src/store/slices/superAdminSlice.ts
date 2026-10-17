@@ -16,6 +16,7 @@ import type {
   AuditKind,
   PlatformSwitches,
   ProfitState,
+  ProfitWithdrawal,
   SaOperator,
   SaRole,
   ZoneGeometry,
@@ -115,6 +116,32 @@ const superAdminSlice = createSlice({
     },
     setSwitches(state, action: PayloadAction<PlatformSwitches>) {
       state.switches = action.payload
+    },
+    /**
+     * API: timpa angka keuntungan dengan baris `platform_profit` + riwayat
+     * `profit_withdrawals`. Hanya kolom yang **ada di BE** yang ditimpa; PPh
+     * final tetap dihitung `data/superadmin.ts` (BE tak punya kolomnya). Riwayat
+     * hanya ditimpa bila BE mengembalikan baris — tabel kosong tetap pakai mock.
+     */
+    hydrateProfit(
+      state,
+      action: PayloadAction<{
+        feeGrossJod?: number
+        costJod?: number
+        withdrawals?: ProfitWithdrawal[]
+      }>,
+    ) {
+      const { feeGrossJod, costJod, withdrawals } = action.payload
+      if (feeGrossJod !== undefined) state.profit.feeGrossJod = feeGrossJod
+      if (costJod !== undefined) state.profit.costJod = costJod
+      if (withdrawals && withdrawals.length) state.profit.withdrawals = withdrawals
+    },
+    /**
+     * API: timpa audit trail dengan baris `audit_logs` (append-only di BE).
+     * Kosong → seed mock dipertahankan.
+     */
+    hydrateAudit(state, action: PayloadAction<AuditEntry[]>) {
+      if (action.payload.length) state.audit = action.payload
     },
     /** Ganti operator yang sedang memakai konsol (demo pengganti sesi auth). */
     setActiveOperator(state, action: PayloadAction<{ id: string }>) {
@@ -240,6 +267,8 @@ export const {
   setRoles,
   setOperators,
   setSwitches,
+  hydrateProfit,
+  hydrateAudit,
   setActiveOperator,
   setCsActor,
   saveZone,

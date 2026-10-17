@@ -67,12 +67,11 @@ export const PROGRAM_TONE: Record<MarketingProgramType, string> = {
 }
 
 /**
- * Membuat/mengubah program marketing belum tersedia: BE demo belum punya tabel
- * program (`loyalty_programs`/`marketing_programs` → 404), yang ada hanya tabel
- * `marketing` (kode promo, dikelola halaman Promo). Selama flag ini `false`,
- * daftar dan sakelar di console merchant hidup di state aplikasi saja.
+ * Program marketing dibuat/diubah di klien dengan slice `marketing` (mock): satu
+ * program = satu rule + satu reward. BE demo tak punya tabel program
+ * (`loyalty_programs` → 404), jadi program tersimpan di state aplikasi.
  */
-export const PROGRAM_EDIT_AVAILABLE = false
+export const PROGRAM_EDIT_AVAILABLE = true
 
 /** `YYYY-MM-DD` hari ini (jendela program dibandingkan sebagai string). */
 export function todayIso(now: Date = new Date()): string {

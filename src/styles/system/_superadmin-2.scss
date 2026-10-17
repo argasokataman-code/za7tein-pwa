@@ -90,7 +90,7 @@
 }
 
 .sa-btn--small {
-  min-height: 32px;
+  min-height: var(--touch-min);
   padding-inline: var(--space-3);
   font-size: var(--text-xs);
 }
@@ -316,7 +316,7 @@
 
 .sa-filter {
   @include s-btn-shape;
-  min-height: 32px;
+  min-height: var(--touch-min);
   padding-inline: var(--space-3);
   font-size: var(--text-xs);
   background: var(--surface);
@@ -354,7 +354,7 @@
     font-size: var(--text-sm);
     color: var(--text-primary);
     min-width: 180px;
-    min-height: 40px;
+    min-height: var(--touch-min);
 
     &:focus {
       outline: none;

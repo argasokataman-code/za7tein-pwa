@@ -44,8 +44,15 @@ const marketingSlice = createSlice({
     addReward(state, action: PayloadAction<ProgramReward>) {
       state.rewards.push(action.payload)
     },
+    /** Ganti seluruh program dengan data BE (API menimpa mock bila ada baris). */
+    replaceMarketing(state, action: PayloadAction<MarketingState>) {
+      state.programs = action.payload.programs
+      state.rules = action.payload.rules
+      state.rewards = action.payload.rewards
+    },
   },
 })
 
-export const { addProgram, removeProgram, setStackable, addRule, addReward } = marketingSlice.actions
+export const { addProgram, removeProgram, setStackable, addRule, addReward, replaceMarketing } =
+  marketingSlice.actions
 export default marketingSlice.reducer

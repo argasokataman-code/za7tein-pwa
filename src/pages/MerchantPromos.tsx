@@ -23,17 +23,19 @@ import {
   type NewPromoInput,
   type PromoType,
 } from '../api/promos'
+import { fetchMerchantPrograms } from '../api/programs'
 import { apiEnabled } from '../api/supabase'
 import { DEMO_MERCHANT_ID } from '../api/reference'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
+import { ProgramFormSheet } from '../components/merchant/ProgramFormSheet'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { jod } from '../data/currency'
 import { PROGRAM_EDIT_AVAILABLE, PROGRAM_TONE, merchantPrograms, programSummary } from '../data/marketing'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { setStackable } from '../store/slices/marketingSlice'
+import { removeProgram, replaceMarketing, setStackable } from '../store/slices/marketingSlice'
 import type { MarketingProgramType } from '../types'
 
 /** Ikon jenis program (lucide) — melengkapi chip nada supaya jenisnya terbaca
@@ -126,6 +128,9 @@ export default function MerchantPromos() {
   const [to, setTo] = useState(todayPlus(30))
   const [maxUses, setMaxUses] = useState('')
 
+  // Form program marketing (§15) dipisah ke `ProgramFormSheet`.
+  const [programSheet, setProgramSheet] = useState(false)
+
   const load = useCallback(() => {
     if (!apiEnabled) {
       setLoading(false)
@@ -142,6 +147,20 @@ export default function MerchantPromos() {
   useEffect(() => {
     load()
   }, [load])
+
+  // Program marketing live (§15): menimpa mock hanya kalau BE punya barisnya.
+  const loadPrograms = useCallback(() => {
+    if (!apiEnabled) return
+    fetchMerchantPrograms(String(DEMO_MERCHANT_ID))
+      .then((bundle) => {
+        if (bundle.programs.length) dispatch(replaceMarketing(bundle))
+      })
+      .catch(() => {})
+  }, [dispatch])
+
+  useEffect(() => {
+    loadPrograms()
+  }, [loadPrograms])
 
   const resetForm = () => {
     setCode('')
@@ -199,6 +218,11 @@ export default function MerchantPromos() {
     } finally {
       setDeleteTarget(null)
     }
+  }
+
+  const removeOwnedProgram = (programId: string, name: string) => {
+    dispatch(removeProgram(programId))
+    toast.success(`Program ${name} dihapus`)
   }
 
   return (
@@ -279,7 +303,13 @@ export default function MerchantPromos() {
         <section className="merchant-section">
           <div className="merchant-section-head">
             <h2>Program marketing</h2>
-            <span className="merchant-card-sub">{ownedPrograms.length} program</span>
+            <button
+              type="button"
+              className="merchant-btn-ghost"
+              onClick={() => setProgramSheet(true)}
+            >
+              <Plus size={16} strokeWidth={1.75} aria-hidden="true" /> Buat program
+            </button>
           </div>
 
           {ownedPrograms.length === 0 ? (
@@ -336,6 +366,13 @@ export default function MerchantPromos() {
                         <span className="toggle-slider" />
                       </span>
                     </label>
+                    <button
+                      type="button"
+                      className="merchant-btn-ghost merchant-promo-delete"
+                      onClick={() => removeOwnedProgram(program.id, program.name)}
+                    >
+                      <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" /> Hapus
+                    </button>
                   </li>
                 )
               })}
@@ -494,6 +531,12 @@ export default function MerchantPromos() {
             </div>
           </form>
         </BottomSheet>
+
+        <ProgramFormSheet
+          open={programSheet}
+          onClose={() => setProgramSheet(false)}
+          onCreated={loadPrograms}
+        />
 
         <ConfirmSheet
           open={deleteTarget !== null}

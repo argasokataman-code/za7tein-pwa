@@ -74,23 +74,26 @@ export interface NewOrder {
 
 /**
  * Metode bayar app → kolom backend. Enum DB (`orders_payment_method_check`)
- * kini `cod | transfer | xendit_va | xendit_qris | wallet`. Dana VA/QRIS masih
- * dikirim sebagai proksi `xendit_*` (kontrak DANA belum diperbarui; lihat
- * `docs/integration/dana/be-contract.md` D2). Nilai baca kembali lewat
- * `PAYMENT_IDS`.
+ * dan RPC `create_order` sama-sama hanya menerima `qris | dana_balance | cod`.
+ * VA/QRIS DANA sama-sama online → `qris`; saldo app → `dana_balance`.
  */
 const OUT_PAYMENT: Record<PaymentMethod['id'], string> = {
-  wallet: 'wallet',
+  wallet: 'dana_balance',
   cod: 'cod',
-  transfer: 'transfer',
-  dana_va: 'xendit_va',
-  dana_qris: 'xendit_qris',
+  // ponytail: `transfer` legacy, tak lagi ditawarkan (PAYMENT_METHODS); BE tak
+  // punya enum-nya. Fallback `cod` bila state lama masih menyimpannya.
+  transfer: 'cod',
+  dana_va: 'qris',
+  dana_qris: 'qris',
 }
 
-/** Kolom backend → metode bayar app (kebalikan `OUT_PAYMENT`, termasuk proksi DANA `xendit_*`). */
+/** Kolom backend → metode bayar app (kebalikan `OUT_PAYMENT`, termasuk nilai DANA lama). */
 const IN_PAYMENT: Record<string, PaymentMethod['id']> = {
   cod: 'cod',
   transfer: 'transfer',
+  qris: 'dana_qris',
+  dana_balance: 'wallet',
+  // Nilai lama (pra-alignment) tetap dibaca agar order seed tetap tampil benar.
   xendit_va: 'dana_va',
   xendit_qris: 'dana_qris',
   wallet: 'wallet',
@@ -502,4 +505,81 @@ export async function fetchCustomerOrder(orderId: string): Promise<CustomerOrder
     status: STATUS_MAP[row.status] ?? 'baru',
     stage: STAGE_OF_STATUS[row.status] ?? 'baru',
   }
+}
+
+/** Status `orders` yang masih berjalan (belum `done`/`canceled`). */
+const ACTIVE_DB_STATUSES = [
+  'cart',
+  'quotation',
+  'placed',
+  'prepare',
+  'waitingCourier',
+  'waitingDelivery',
+  'delivery',
+]
+
+/** Satu order customer yang masih berjalan — satu baris di ringkasan pesanan. */
+export interface CustomerActiveOrder {
+  id: string
+  code: string
+  merchantId: string
+  merchantName: string
+  status: MerchantOrderStatus
+  stage: OrderStage
+  totalIdr: number
+  /** Waktu relatif order dibuat ("12 menit lalu") — pembeda saat satu toko
+      punya beberapa order, memakai format yang sama dengan konsol merchant. */
+  placedAt: string
+  items: { name: string; qty: number }[]
+}
+
+/**
+ * Semua order customer yang masih berjalan, satu baris per order. Customer boleh
+ * punya beberapa order dari toko berbeda sekaligus (§6 multi-order), jadi ini
+ * daftar, bukan satu `activeOrder`. RLS `orders_participant` membatasi ke order
+ * milik pemanggil; join nama toko + rincian item gagal-per-bagian (catch) supaya
+ * ringkasan tetap tampil walau salah satu tabel tak terbaca.
+ */
+export async function fetchCustomerActiveOrders(
+  customerId = DEMO_CUSTOMER_ID,
+): Promise<CustomerActiveOrder[]> {
+  const token = await ensureCustomerToken()
+  const rows = await restWith<OrderRow>(
+    token,
+    'orders',
+    `?select=id,code,status,merchant_id,total_jod,created_at&customer_id=eq.${customerId}&status=in.(${ACTIVE_DB_STATUSES.join(',')})&order=created_at.desc`,
+  )
+  if (!rows.length) return []
+
+  const merchantIds = [...new Set(rows.map((r) => r.merchant_id))]
+  const orderIds = rows.map((r) => r.id)
+  const [merchants, dishes] = await Promise.all([
+    restWith<{ id: number; store_name: string | null }>(
+      token,
+      'merchants',
+      `?select=id,store_name&id=in.(${merchantIds.join(',')})`,
+    ).catch(() => []),
+    restWith<{ order_id: number; name: string; qty: number }>(
+      token,
+      'order_items',
+      `?select=order_id,name,qty&order_id=in.(${orderIds.join(',')})`,
+    ).catch(() => []),
+  ])
+
+  const byId = new Map(merchants.map((m) => [m.id, m.store_name ?? 'Toko']))
+  const itemsBy = new Map<number, { name: string; qty: number }[]>()
+  for (const dish of dishes) {
+    itemsBy.set(dish.order_id, [...(itemsBy.get(dish.order_id) ?? []), { name: dish.name, qty: dish.qty }])
+  }
+  return rows.map((r) => ({
+    id: String(r.id),
+    code: r.code,
+    merchantId: String(r.merchant_id),
+    merchantName: byId.get(r.merchant_id) ?? 'Toko',
+    status: STATUS_MAP[r.status] ?? 'baru',
+    stage: STAGE_OF_STATUS[r.status] ?? 'baru',
+    totalIdr: jodToIdr(r.total_jod),
+    placedAt: relativeTime(r.created_at),
+    items: itemsBy.get(r.id) ?? [],
+  }))
 }

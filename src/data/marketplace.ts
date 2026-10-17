@@ -46,22 +46,21 @@ export const PLATFORM_FEE_MERCHANT_DEFAULT_JOD = 0.25
 export const REFUND_BI_FAST_FEE_IDR = 2500
 
 /**
- * Refund belum bisa dijalankan: BE demo belum punya tabel `refunds` (404) dan
- * `src/api/orders.ts` belum punya endpoint refund. Selama ini `false`, layar
- * refund menampilkan cabang §16.6 tapi menandainya "belum tersedia" dan tidak
- * menulis apa pun — jangan sampai UI terlihat seperti memproses uang yang tak
- * pernah diproses. Ubah ke `true` begitu BE menyediakan endpoint refund.
+ * Refund dijalankan penuh di klien dengan tabel refund **mock**. BE demo belum
+ * punya tabel `refunds` (404) dan `src/api/orders.ts` belum punya endpoint
+ * refund, jadi status refund maju sendiri (`pending_refund → processing →
+ * completed`) di layar. Begitu BE menyediakan endpoint, ganti timer mock
+ * dengan polling endpoint itu.
  */
-export const REFUND_AVAILABLE = false
+export const REFUND_AVAILABLE = true
 
 /**
- * Dispatch kurir partner (PRD §9.4/M6) belum ada: BE demo tak punya tabel
- * `courier_partner`/assignment dan tak ada endpoint dispatch. Selama `false`,
- * order Quick yang sudah diterima merchant menampilkan langkah serah-terima
- * sebagai **belum tersedia** (tombol mati + alasan), bukan pura-pura mengirim
- * assignment ke kurir yang tak ada.
+ * Dispatch kurir partner (PRD §9.4/M6) dijalankan di klien dengan `partnerSlice`
+ * (mock): merchant memilih mitra yang tersedia dan assignment dikirim ke state
+ * aplikasi. BE demo belum punya tabel `courier_partner`/assignment maupun
+ * endpoint dispatch (OPEN-11), jadi antrean kandidat nyata belum dihitung.
  */
-export const QUICK_DISPATCH_AVAILABLE = false
+export const QUICK_DISPATCH_AVAILABLE = true
 
 // — Batch —
 
@@ -206,13 +205,12 @@ export const mockQuotaPackages: QuotaPackage[] = [
 ]
 
 /**
- * Pembelian kuota belum bisa dijalankan: BE belum punya tabel langganan
- * (`merchant_subscriptions`/`quota_subscriptions` → 404) dan `src/api/` tak
- * punya endpoint kuota. Selama `false`, layar langganan menampilkan paket +
- * saldo kuota apa adanya tetapi tombol belinya mati dan diberi alasan — jangan
- * sampai UI terlihat seperti menerima uang yang tak pernah ditagih.
+ * Pembelian kuota dijalankan penuh di klien dengan slice kuota (mock). BE belum
+ * punya tabel langganan (`merchant_subscriptions`/`quota_subscriptions` → 404),
+ * jadi paket yang dibeli menambah langganan di state aplikasi sampai endpoint
+ * kuota tersedia.
  */
-export const QUOTA_PURCHASE_AVAILABLE = false
+export const QUOTA_PURCHASE_AVAILABLE = true
 
 // Program marketing (§15) pindah ke `./marketing` — berkas ini menyentuh batas
 // 500 baris. Seed program, rule, reward, dan kartu loyalty ada di sana.

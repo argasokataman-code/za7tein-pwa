@@ -72,6 +72,15 @@ const coverageSlice = createSlice({
       state.feePerUnitJod = seed.feePerUnitJod
       state.unit = seed.unit
     },
+    /** Ganti coverage dengan data BE (API menimpa mock bila merchant punya zona). */
+    replaceCoverage(state, action: PayloadAction<MerchantCoverage>) {
+      const next = cloneCoverage(action.payload)
+      state.mode = next.mode
+      state.polygons = next.polygons
+      state.radiusMeters = next.radiusMeters
+      state.feePerUnitJod = next.feePerUnitJod
+      state.unit = next.unit
+    },
   },
 })
 
@@ -85,5 +94,6 @@ export const {
   setUnit,
   setFeePerUnitJod,
   resetCoverage,
+  replaceCoverage,
 } = coverageSlice.actions
 export default coverageSlice.reducer

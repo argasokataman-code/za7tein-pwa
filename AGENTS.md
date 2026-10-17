@@ -39,6 +39,34 @@ Ringkasan mesin ada di `.rules.json` → `designReview`. Tidak ada cek pre-commi
 
 ---
 
+## 0c. DNA mobile — aturan yang ditegakkan mesin, bukan diingat
+
+Repo ini **PWA mobile-first di dalam kolom ponsel**, bukan website yang menyusut. Skill `senior-fe`
+adalah tier web dan cuma ada kalau dipanggil; karena itu aturan mobile hidup di `docs/design/mobile-dna.md`
+(10 butir, `MD-01…MD-10`, tiap butir punya cara memeriksa) dan ringkasannya **selalu** ikut di sini.
+
+Yang paling sering dilanggar, ulang tiap kali menggambar UI mobile:
+
+- **MD-06 Sheet**: satu daftar pada satu waktu (segmented bila dua kategori), baris list bergaris rambut,
+  **bukan** kartu putih berulang; tinggi dibatasi lalu menggulir di dalam. Panel ≤ ~60% viewport —
+  ukur `getBoundingClientRect()`.
+- **MD-07 Status & angka**: status = chip bertitik warna peran (bukan kata abu di dalam string
+  `a · b · c`); `font-variant-numeric: tabular-nums`; nominal rata kanan **sebaris** judul.
+- **MD-08 Sentence case**: tak ada `text-transform: uppercase` untuk label seksi.
+- **MD-09 Bayangan dari token** (`--shadow-*`), bukan nilai karangan.
+- **MD-10 Posisi `fixed` ditanya ke DOM** (`body:has(.bottom-nav) …`) — jangan ditebak dari `pathname`.
+
+**Dua butir terakhir (MD-08, MD-09) sekarang BERGERBANG mekanis.** `npm run scan` (jalan di pre-commit)
+menghitung `uppercase` dan `rawShadow` di `src/styles/system/**` dan **MENOLAK kenaikan** lewat ratchet
+`docs/design/design-debt.json` — menambah eyebrow huruf besar atau bayangan karangan = commit gagal,
+tidak peduli ingat atau tidak. Turunkan utang, lalu `npm run scan -- --update-design-debt`.
+
+Batasnya jujur: ratchet menangkap **tell**, bukan rasa. "Gede banget / slop" hanya tertangkap
+**pengukuran** (`browser-gate --strict --click`) dan **visi** (`gdescrib`), dan temuan visi wajib
+diverifikasi angka dulu sebelum disebut bug.
+
+---
+
 ## 1. Repo ini apa, dan apa batasnya
 
 **Showcase UI/UX dan design system.** Semua yang ada di sini adalah **front-end**.

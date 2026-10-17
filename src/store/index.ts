@@ -29,6 +29,7 @@ import wallet from './slices/walletSlice'
 import payout from './slices/payoutSlice'
 import admin from './slices/adminSlice'
 import superAdmin, { logAudit } from './slices/superAdminSlice'
+import ops from './slices/opsSlice'
 import notifications from './slices/notificationsSlice'
 import batch from './slices/batchSlice'
 import partner from './slices/partnerSlice'
@@ -37,6 +38,7 @@ import rules from './slices/rulesSlice'
 import marketing from './slices/marketingSlice'
 import coverage from './slices/coverageSlice'
 import catalogAttributes from './slices/catalogAttributesSlice'
+import customerOrders from './slices/customerOrdersSlice'
 import ui from './slices/uiSlice'
 import type { AuditKind, DisputeResolution } from '../types'
 
@@ -59,6 +61,7 @@ const rootReducer = combineReducers({
   payout,
   admin,
   superAdmin,
+  ops,
   notifications,
   batch,
   partner,
@@ -67,6 +70,7 @@ const rootReducer = combineReducers({
   coverage,
   rules,
   catalogAttributes,
+  customerOrders,
   ui,
   accountSetup,
 })
@@ -154,7 +158,7 @@ const persistConfig = {
   key: 'sa7tein',
   version: PERSIST_VERSION,
   storage,
-  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'auth', 'batch', 'partner', 'quota', 'marketing', 'coverage', 'rules', 'catalogAttributes'],
+  whitelist: ['cart', 'favorites', 'accountSetup', 'catalog', 'wallet', 'payout', 'admin', 'superAdmin', 'ops', 'auth', 'batch', 'partner', 'quota', 'marketing', 'coverage', 'rules', 'catalogAttributes'],
   migrate: createMigrate(migrations, { debug: false }),
 }
 

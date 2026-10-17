@@ -202,7 +202,15 @@ export default function Documentation() {
               desain, dan riwayat perubahan per role. Data referensi (kurir, dompet,
               insentif merchant, zona, operator SA) dibaca live dari PostgREST lewat{' '}
               <code className="doc-inline">src/api/reference.ts</code> lalu disinkronkan ke
-              Redux di root. Repo ini front-end saja: seluruh data mock (AGENTS &sect;1).
+              Redux di root. Enam alur yang dulu ditahan backend &mdash; refund (
+              <code className="doc-inline">refunds</code>), beli kuota (
+              <code className="doc-inline">quota_subscriptions</code>/<code className="doc-inline">quota_packages</code>),
+              program marketing (<code className="doc-inline">marketing_programs</code>),
+              rating menu, dispatch kurir partner (
+              <code className="doc-inline">dispatch_assignments</code>), dan coverage (
+              <code className="doc-inline">coverage_zones</code>) &mdash; kini membaca dan menulis
+              tabel live lewat <code className="doc-inline">src/api/</code> (mock tetap jadi
+              fallback bila BE kosong/menolak, AGENTS &sect;1).
             </p>
             <div className="doc-hero-tags">
               {HERO_TAGS.map((tag) => (

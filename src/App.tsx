@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from
 
 import { StoreProvider } from './store/provider'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
+import { CustomerCartDock } from './components/customer/CustomerCartDock'
 import { PullToRefreshIndicator } from './components/layout/PullToRefreshIndicator'
 import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 import { useAppSelector } from './hooks/useAppStore'
@@ -98,6 +99,16 @@ import SaSwitches from './pages/SaSwitches'
 import SaUsers from './pages/SaUsers'
 import SaTax from './pages/SaTax'
 import SaZones from './pages/SaZones'
+import OpsAnalytics from './pages/ops/OpsAnalytics'
+import OpsDashboard from './pages/ops/OpsDashboard'
+import OpsIncidents from './pages/ops/OpsIncidents'
+import OpsModeration from './pages/ops/OpsModeration'
+import OpsOnboarding from './pages/ops/OpsOnboarding'
+import OpsPenalties from './pages/ops/OpsPenalties'
+import OpsPrograms from './pages/ops/OpsPrograms'
+import OpsQuotas from './pages/ops/OpsQuotas'
+import OpsRules from './pages/ops/OpsRules'
+import OpsSettings from './pages/ops/OpsSettings'
 import Search from './pages/Search'
 import Security from './pages/Security'
 import SignIn from './pages/SignIn'
@@ -279,6 +290,37 @@ function SuperAdminRouter() {
   )
 }
 
+// Panel ops (M10, R-OPS) — website penuh non-PWA, prefix `/ops/*`. Lebar penuh
+// seperti konsol Super Admin (keputusan PO: ops = desktop penuh, bukan kolom
+// 430px). Tanpa auth: PRD aktif belum punya requirementnya (UNRESOLVED).
+const opsRoutes: [string, ComponentType][] = [
+  ['/', OpsDashboard],
+  ['/onboarding', OpsOnboarding],
+  ['/rules', OpsRules],
+  ['/incidents', OpsIncidents],
+  ['/moderation', OpsModeration],
+  ['/penalties', OpsPenalties],
+  ['/programs', OpsPrograms],
+  ['/quotas', OpsQuotas],
+  ['/settings', OpsSettings],
+  ['/analytics', OpsAnalytics],
+]
+
+function OpsRouter() {
+  return (
+    <BrowserRouter basename="/ops">
+      <AppErrorBoundary>
+        <Routes>
+          {opsRoutes.map(([path, Component]) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AppErrorBoundary>
+    </BrowserRouter>
+  )
+}
+
 /**
  * Gerbang sesi per peran. Isinya hanya layar sebelum "sudah masuk" menurut flow
  * `f21-account-auth` (onboarding → masuk → nomor WA → verifikasi), plus layar
@@ -418,6 +460,7 @@ function RoleRouter({ basename, routes, home, offlinePath, entry, publicPaths = 
             <Route path="*" element={<Navigate to={home} replace />} />
           </Routes>
         </PageTransition>
+        {basename === '/customer' ? <CustomerCartDock /> : null}
       </RoleChrome>
     </BrowserRouter>
   )
@@ -486,6 +529,7 @@ export default function App() {
   const { pathname } = window.location
   const role = roleFromPath(pathname)
   const isSuperAdmin = pathname === '/superadmin' || pathname.startsWith('/superadmin/')
+  const isOps = pathname === '/ops' || pathname.startsWith('/ops/')
   // Audience inbox mengikuti peran aktif (helper di data/notifications.ts).
   const notificationAudience = notificationAudienceFromPath(pathname)
   // Jalur tanpa prefix peran, dipakai untuk memutuskan apakah modal pasang
@@ -538,6 +582,8 @@ export default function App() {
         <RoleRouter basename="/admin" routes={adminRoutes} home="/" offlinePath="/offline" />
       ) : isSuperAdmin ? (
         <SuperAdminRouter />
+      ) : isOps ? (
+        <OpsRouter />
       ) : (
         <WebsiteRouter />
       )}

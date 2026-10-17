@@ -37,6 +37,15 @@ export interface ReviewItem {
   reply: ReviewReply | null
 }
 
+/** Satu hidangan yang bisa dinilai pada sebuah order (§20.2: bintang, tanpa review). */
+export interface RateableDish {
+  /** Id baris `order_items` — kunci daftar/UI. */
+  id: string
+  /** `menus.id` sasaran rating; `null` bila item tak tertaut menu. */
+  menuId: number | null
+  name: string
+}
+
 /** Order customer yang sudah selesai dan belum diulas. */
 export interface ReviewableOrder {
   id: number
@@ -44,6 +53,8 @@ export interface ReviewableOrder {
   merchantId: number
   merchantName: string
   createdAt: string
+  /** Hidangan yang dipesan — sasaran rating menu item. Kosong bila BE belum mengirimnya. */
+  items: RateableDish[]
 }
 
 interface ReviewRow {
@@ -151,6 +162,47 @@ interface OrderRow {
   created_at: string
 }
 
+/** Baris `order_items` saat dibaca bersama nama hidangannya. */
+interface OrderItemRow {
+  id: number
+  order_id: number
+  menu_id: number | null
+  menus?: { name: string } | null
+}
+
+/**
+ * Hidangan per order untuk rating menu item (§20.2). **Best-effort**: tabel
+ * `order_items` di BE demo masih kosong dan bentuk kolomnya belum final, jadi
+ * kegagalan apa pun dikembalikan sebagai peta kosong — riwayat pesanan tidak
+ * boleh ikut gagal hanya karena hidangan belum tersedia.
+ */
+async function fetchOrderDishes(
+  token: string,
+  orderIds: number[],
+): Promise<Map<number, RateableDish[]>> {
+  const byOrder = new Map<number, RateableDish[]>()
+  if (!orderIds.length) return byOrder
+  try {
+    const rows = await restWith<OrderItemRow>(
+      token,
+      'order_items',
+      `?select=id,order_id,menu_id,menus(name)&order_id=in.(${orderIds.join(',')})`,
+    )
+    for (const row of rows) {
+      const list = byOrder.get(row.order_id) ?? []
+      list.push({
+        id: String(row.id),
+        menuId: row.menu_id,
+        name: row.menus?.name ?? `Menu ${row.menu_id ?? row.id}`,
+      })
+      byOrder.set(row.order_id, list)
+    }
+  } catch {
+    // Hidangan belum tersedia di BE; menu item tetap bisa dinilai begitu ada.
+  }
+  return byOrder
+}
+
 /** Satu baris riwayat pesanan: order selesai + sudah dinilai atau belum (§20.2). */
 export interface OrderHistoryItem extends ReviewableOrder {
   reviewed: boolean
@@ -181,11 +233,14 @@ export async function fetchOrderHistory(
 
   const done = new Set(reviewed.map((r) => r.order_id))
   const merchantIds = [...new Set(orders.map((o) => o.merchant_id))]
-  const merchants = await restWith<{ id: number; store_name: string | null }>(
-    token,
-    'merchants',
-    `?select=id,store_name&id=in.(${merchantIds.join(',')})`,
-  )
+  const [merchants, dishes] = await Promise.all([
+    restWith<{ id: number; store_name: string | null }>(
+      token,
+      'merchants',
+      `?select=id,store_name&id=in.(${merchantIds.join(',')})`,
+    ),
+    fetchOrderDishes(token, orders.map((o) => o.id)),
+  ])
   const byId = new Map(merchants.map((m) => [m.id, m.store_name ?? 'Toko']))
   return orders.map((o) => ({
     id: o.id,
@@ -194,6 +249,7 @@ export async function fetchOrderHistory(
     merchantName: byId.get(o.merchant_id) ?? 'Toko',
     createdAt: o.created_at,
     reviewed: done.has(o.id),
+    items: dishes.get(o.id) ?? [],
   }))
 }
 
@@ -224,5 +280,26 @@ export async function submitOrderReview(input: {
     menu_id: null,
     rating: input.rating,
     review: input.text?.trim() ? input.text.trim() : null,
+  })
+}
+
+/**
+ * Kirim rating **menu item** untuk sebuah order (§20.2): bintang saja, tanpa
+ * review, dan tanpa rating per variant. `menu_id` ditulis, `merchant_id` null —
+ * kebalikan baris ulasan toko.
+ */
+export async function submitDishReview(input: {
+  orderId: number
+  menuId: number
+  rating: number
+}): Promise<void> {
+  const token = await ensureCustomerToken()
+  await createWith(token, 'rating_reviews', {
+    order_id: input.orderId,
+    customer_id: DEMO_CUSTOMER_ID,
+    merchant_id: null,
+    menu_id: input.menuId,
+    rating: input.rating,
+    review: null,
   })
 }

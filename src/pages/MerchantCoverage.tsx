@@ -1,7 +1,10 @@
 import { AlertTriangle, Check, Plus, RotateCcw, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
+import { fetchMerchantCoverage, saveMerchantCoverage } from '../api/coverage'
+import { DEMO_MERCHANT_ID } from '../api/reference'
+import { apiEnabled } from '../api/supabase'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
@@ -26,6 +29,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import {
   addPolygon,
   removePolygon,
+  replaceCoverage,
   resetCoverage,
   setFeePerUnitJod,
   setMode,
@@ -57,8 +61,8 @@ const cornersAround = (center: GeoPoint, meters: number): GeoPoint[] => {
  * Semua jarak memakai Haversine yang sama dengan gate checkout, jadi bentuk yang
  * terlihat di sini persis yang dipakai menentukan alamat bisa diantar.
  *
- * Tulis ke BE **belum ada** (lihat `ui-impact.md` §8): perubahan hidup di Redux
- * (ikut persist) dan ditandai lewat notice, bukan diam-diam dianggap tersimpan.
+ * Coverage tersambung ke tabel `coverage_zones` (`src/api/coverage.ts`): dibaca
+ * saat halaman dibuka dan ditulis saat "Simpan". Redux tetap sumber tampilan.
  */
 export default function MerchantCoverage() {
   const dispatch = useAppDispatch()
@@ -68,6 +72,16 @@ export default function MerchantCoverage() {
   const [selectedId, setSelectedId] = useState<string | null>(coverage.polygons[0]?.id ?? null)
   const [dragging, setDragging] = useState<{ id: string; index: number } | null>(null)
   const [addingPoint, setAddingPoint] = useState(false)
+
+  // Baca live; mock tetap kalau merchant belum punya zona (demo merchant punya).
+  useEffect(() => {
+    if (!apiEnabled) return
+    fetchMerchantCoverage(String(DEMO_MERCHANT_ID))
+      .then((live) => {
+        if (live) dispatch(replaceCoverage(live))
+      })
+      .catch(() => {})
+  }, [dispatch])
 
   const issues = validateCoverage(coverage)
   const areaKm2 = coverageAreaKm2(coverage)
@@ -123,7 +137,7 @@ export default function MerchantCoverage() {
       <MerchantPageHeader eyebrow="Pengiriman" title="Area layanan" back="/" />
 
       <main className="merchant-page">
-        <PlatformNotice message="Penyimpanan area layanan ke server belum tersedia — API tulis `delivery_config` belum ada. Perubahan di halaman ini hidup di aplikasi (ikut tersimpan di perangkat) agar bentuknya bisa disusun lebih dulu." />
+        <PlatformNotice message="Area layanan disimpan ke `coverage_zones` di server saat tombol Simpan ditekan. Bentuk juga ikut tersimpan di perangkat." />
 
         <div className="merchant-chip-row" role="group" aria-label="Mode area layanan">
           {(['area', 'radius'] as const).map((mode) => (
@@ -394,6 +408,19 @@ export default function MerchantCoverage() {
             >
               <RotateCcw size={16} strokeWidth={1.75} aria-hidden="true" />
               Bentuk awal
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              disabled={issues.length > 0}
+              onClick={() => {
+                void saveMerchantCoverage(coverage)
+                  .then(() => toast.success('Area layanan disimpan ke server'))
+                  .catch(() => toast.error('Gagal menyimpan ke server — tersimpan di perangkat'))
+              }}
+            >
+              <Check size={16} strokeWidth={1.75} aria-hidden="true" />
+              Simpan area layanan
             </button>
           </div>
         </div>

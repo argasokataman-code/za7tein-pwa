@@ -31,6 +31,10 @@ const payoutSlice = createSlice({
     setBalance(state, action: PayloadAction<Wallet>) {
       state.balance = action.payload
     },
+    /** API: rekening pencairan live menimpa mock (`payout_accounts`). */
+    replaceAccounts(state, action: PayloadAction<PayoutAccount[]>) {
+      state.accounts = action.payload
+    },
     addAccount(
       state,
       action: PayloadAction<{ bankName: string; accountNumber: string; holderName: string }>,
@@ -86,6 +90,7 @@ const payoutSlice = createSlice({
 
 export const {
   setBalance,
+  replaceAccounts,
   addAccount,
   updateAccount,
   removeAccount,

@@ -3,17 +3,16 @@
 // order online memakai kuota order dulu lalu jatuh ke kuota COD. Kuota tersedia
 // = paket − terpakai − ter-reserve; sisa hangus di akhir periode.
 //
-// **Pembelian belum tersedia.** BE belum punya tabel langganan
-// (`merchant_subscriptions`/`quota_subscriptions` → 404) dan `src/api/` tak punya
-// endpoint kuota, jadi paketnya ditampilkan apa adanya tetapi tombol beli mati
-// dengan alasan. Saldo kuota di bawah berasal dari state aplikasi, bukan backend.
-//
-// Tata letak: satu kartu per jenis kuota dengan **warna status** (hijau/kuning/
-// merah) dan angka sisa sebagai fokus, bukan empat baris key-value yang terbaca
-// seperti tabel. Paket ditampilkan sebagai grid kartu (dulu lima baris list).
+// **Pembelian tersambung live.** Tabel `quota_subscriptions` + `quota_packages`
+// ada di BE (`src/api/quota.ts`), jadi paket dibaca dari server dan pembelian
+// menulis satu baris langganan baru. Nama jenis BE `order_cod` ↔ UI `cod`.
+import { useEffect, useState } from 'react'
 import { PackageCheck, ShoppingBag } from 'lucide-react'
+import toast from 'react-hot-toast'
 
+import { fetchQuotaPackages, fetchQuotaSubscriptions, purchaseQuotaPackage } from '../api/quota'
 import { DEMO_MERCHANT_ID } from '../api/reference'
+import { apiEnabled } from '../api/supabase'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
@@ -25,8 +24,13 @@ import {
 } from '../data/marketplace'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
-import { quotaStatusFor, setAcceptWithoutQuota } from '../store/slices/quotaSlice'
-import type { QuotaKind } from '../types'
+import {
+  purchaseSubscription,
+  quotaStatusFor,
+  replaceQuotaSubscriptions,
+  setAcceptWithoutQuota,
+} from '../store/slices/quotaSlice'
+import type { QuotaKind, QuotaPackage } from '../types'
 
 const QUOTA_KINDS: QuotaKind[] = ['order', 'cod']
 
@@ -51,6 +55,14 @@ const STATUS_TONE = {
   unknown: 'none',
 } as const
 
+/** Periode langganan baru: mulai hari ini, berakhir `days` hari kemudian (YYYY-MM-DD). */
+function periodFrom(days: number): { periodStart: string; periodEnd: string } {
+  const start = new Date()
+  const end = new Date(start.getTime() + days * 24 * 60 * 60 * 1000)
+  const iso = (d: Date) => d.toISOString().slice(0, 10)
+  return { periodStart: iso(start), periodEnd: iso(end) }
+}
+
 export default function MerchantSubscription() {
   const dispatch = useAppDispatch()
   const { money } = useMoney()
@@ -59,6 +71,60 @@ export default function MerchantSubscription() {
   // §17: setting "terima order tanpa kuota" hanya bisa diubah saat toko tutup.
   const storeClosed = useAppSelector((s) => !s.merchant.isActive)
   const merchantId = String(DEMO_MERCHANT_ID)
+  const [packages, setPackages] = useState<QuotaPackage[]>(mockQuotaPackages)
+
+  // Baca live: langganan menimpa mock hanya kalau merchant punya barisnya
+  // (merchant demo tak punya — paket tetap tampil supaya pembelian bisa dicoba).
+  useEffect(() => {
+    if (!apiEnabled) return
+    fetchQuotaSubscriptions(merchantId)
+      .then((subs) => {
+        if (subs.length) dispatch(replaceQuotaSubscriptions(subs))
+      })
+      .catch(() => {})
+    fetchQuotaPackages()
+      .then((list) => {
+        if (list.length) setPackages(list)
+      })
+      .catch(() => {})
+  }, [dispatch, merchantId])
+
+  // Beli: tulis langganan live; kalau BE menolak/enol, tetap tambah lokal.
+  const buy = async (pkg: QuotaPackage) => {
+    if (apiEnabled) {
+      try {
+        const saved = await purchaseQuotaPackage({
+          merchantId,
+          packageId: pkg.id,
+          kind: pkg.kind,
+          units: pkg.units,
+          days: pkg.days,
+        })
+        if (saved) {
+          dispatch(purchaseSubscription(saved))
+          toast.success(`Paket ${pkg.units} ${pkg.kind === 'order' ? 'order' : 'COD'} ditambahkan.`)
+          return
+        }
+      } catch {
+        // jatuh ke jalur lokal di bawah
+      }
+    }
+    const { periodStart, periodEnd } = periodFrom(pkg.days)
+    dispatch(
+      purchaseSubscription({
+        id: `quota-${pkg.kind}-${pkg.id}-${Date.now()}`,
+        merchantId,
+        kind: pkg.kind,
+        quota: pkg.units,
+        used: 0,
+        reserved: 0,
+        periodStart,
+        periodEnd,
+        active: true,
+      }),
+    )
+    toast.success(`Paket ${pkg.units} ${pkg.kind === 'order' ? 'order' : 'COD'} ditambahkan.`)
+  }
 
   return (
     <div className="app-shell">
@@ -135,12 +201,13 @@ export default function MerchantSubscription() {
             <h2>Beli paket kuota</h2>
           </div>
           <div className="merchant-quota-packages">
-            {mockQuotaPackages.map((pkg) => (
+            {packages.map((pkg) => (
               <button
                 key={pkg.id}
                 type="button"
                 className="merchant-quota-package"
                 disabled={!QUOTA_PURCHASE_AVAILABLE}
+                onClick={() => void buy(pkg)}
               >
                 <span className="merchant-quota-package__kind">
                   {pkg.kind === 'order' ? 'Order' : 'COD'}

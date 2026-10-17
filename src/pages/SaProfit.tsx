@@ -1,14 +1,15 @@
 import { ArrowDownToLine, Lock } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
+import { createWithdrawal, fetchPlatformProfit, fetchWithdrawals } from '../api/profit'
 import { SuperAdminShell } from '../components/layout/SuperAdminShell'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { aggregateLiability, moneyFromJod, totalLiability } from '../data/admin'
 import { profitBalance, roleForOperator, roleHasPermission, withdrawnTotal } from '../data/superadmin'
 import { jod } from '../data/currency'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { withdrawProfit } from '../store/slices/superAdminSlice'
+import { hydrateProfit, withdrawProfit } from '../store/slices/superAdminSlice'
 
 const METHODS = ['Rekening platform · IDR', 'Rekening platform · JOD', 'Kartu korporat']
 
@@ -37,6 +38,14 @@ export default function SaProfit() {
   const canWithdraw = roleHasPermission(activeRole, 'profit.withdraw')
   const [amount, setAmount] = useState('')
   const [method, setMethod] = useState(METHODS[0])
+
+  // Hydrate dari BE: riwayat `profit_withdrawals` + agregat `platform_profit`.
+  // Tabel kosong → `hydrateProfit` tak menimpa mock (pola API lain repo ini).
+  useEffect(() => {
+    void Promise.all([fetchWithdrawals(), fetchPlatformProfit()])
+      .then(([withdrawals, summary]) => dispatch(hydrateProfit({ ...summary, withdrawals })))
+      .catch(() => {})
+  }, [dispatch])
 
   const balance = profitBalance(profit)
   const liability = aggregateLiability(storedLiability, walletIdr)
@@ -83,6 +92,8 @@ export default function SaProfit() {
             event.preventDefault()
             if (invalidReason) return
             dispatch(withdrawProfit({ amountJod: Number(parsed.toFixed(2)), method }))
+            // Catat juga ke BE (best-effort); kolom `profit_withdrawals` lengkap.
+            void createWithdrawal({ amountJod: Number(parsed.toFixed(2)), method }).catch(() => {})
             toast.success(`Penarikan ${jod(parsed)} dicatat sebagai processing`)
             setAmount('')
           }}
