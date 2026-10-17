@@ -21,9 +21,17 @@ const customerOrdersSlice = createSlice({
       state.active = action.payload
       state.hydrated = true
     },
+    /**
+     * Buang satu order dari daftar tanpa menunggu BE — dipakai setelah customer
+     * membatalkan, supaya barisnya hilang seketika. Kalau BE menolak, gelembung
+     * realtime `orders` akan menariknya kembali.
+     */
+    dropActiveOrder(state, action: PayloadAction<string>) {
+      state.active = state.active.filter((order) => order.id !== action.payload)
+    },
   },
 })
 
-export const { hydrateActiveOrders } = customerOrdersSlice.actions
+export const { hydrateActiveOrders, dropActiveOrder } = customerOrdersSlice.actions
 
 export default customerOrdersSlice.reducer

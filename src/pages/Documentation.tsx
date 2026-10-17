@@ -676,6 +676,34 @@ export default function Documentation() {
                 boleh dibuang begitu BE punya kolomnya.
               </li>
               <li>
+                <strong>Aksi keranjang &amp; pesanan di ringkasan (MD-06).</strong> Baris keranjang
+                dan pesanan di sheet <code className="doc-inline">CartSummarySheet</code> kini membawa
+                aksinya sendiri: keranjang toko bisa dibuang (<code className="doc-inline">clearCart</code>{' '}
+                untuk yang aktif, <code className="doc-inline">removeCart</code> untuk toko lain) dan
+                order yang belum diterima toko bisa dibatalkan customer. Konfirmasinya{' '}
+                <strong>inline di baris itu</strong> — bukan sheet kedua bertumpuk — dengan tombol{' '}
+                <code className="doc-inline">Batal</code>/<code className="doc-inline">Buang</code>{' '}
+                setinggi 44px. Pembatalan menulis{' '}
+                <code className="doc-inline">orders.status = &#39;canceled&#39;</code>; trigger BE{' '}
+                <code className="doc-inline">orders_validate_transition</code> mengisi{' '}
+                <code className="doc-inline">cancel_by = customer</code>. Baris hilang seketika dan
+                gelembung realtime menariknya kembali bila BE menolak transisi.
+              </li>
+              <li>
+                <strong>Checkout tak lagi lahir sebagai draft.</strong> Default kolom{' '}
+                <code className="doc-inline">orders.status</code> adalah{' '}
+                <code className="doc-inline">&#39;cart&#39;</code> (draft), dan{' '}
+                <code className="doc-inline">createOrder</code> dulu tidak menulis kolom itu — jadi
+                setiap pesanan yang sudah dibayar tetap berstatus draft selamanya dan tak pernah masuk
+                sebagai pesanan toko. Enum BE tak punya <code className="doc-inline">&#39;placed&#39;</code>;
+                tahap &ldquo;sudah dikirim, menunggu toko menerima&rdquo; adalah{' '}
+                <code className="doc-inline">&#39;quotation&#39;</code> (transisi berikutnya{' '}
+                <code className="doc-inline">prepare</code>). Kini checkout menulis{' '}
+                <code className="doc-inline">status: &#39;quotation&#39;</code> +{' '}
+                <code className="doc-inline">placed_at</code>, dan baris lama yang masih draft tampil
+                sebagai chip <strong>Draft</strong> — bukan menyamar jadi &ldquo;Baru&rdquo;.
+              </li>
+              <li>
                 <strong>Sakelar mata uang IDR/JOD dihapus.</strong> Pemilih mata uang tampilan
                 (customer/merchant/kurir, disimpan per peran di slice{' '}
                 <code className="doc-inline">preferences</code>) tidak dipakai lagi: layar peran

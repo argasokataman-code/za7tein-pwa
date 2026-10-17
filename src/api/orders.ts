@@ -117,11 +117,22 @@ export function nextOrderCode(): string {
   return `SA-${Date.now().toString(36).toUpperCase()}`
 }
 
-/** Tulis order baru; kembalikan `{id, code}` baris BE untuk pelacakan customer. */
+/**
+ * Tulis order baru; kembalikan `{id, code}` baris BE untuk pelacakan customer.
+ *
+ * `status` wajib ditulis eksplisit. Default kolom `orders.status` adalah
+ * `'cart'` — nilai itu **draft** (keranjang), jadi checkout tanpa `status`
+ * meninggalkan order yang tak pernah jadi pesanan dan tak muncul di antrean
+ * sebagai order sungguhan. Enum DB tak punya `'placed'`; tahap "sudah dikirim
+ * ke toko, menunggu diterima" adalah `'quotation'` (transisi berikutnya
+ * `prepare` saat merchant menerima).
+ */
 export async function createOrder(order: NewOrder): Promise<{ id: string; code: string }> {
   const token = await ensureCustomerToken()
   const rows = await createWithReturn<{ id: number; code: string }>(token, 'orders', {
     code: order.code,
+    status: 'quotation',
+    placed_at: new Date().toISOString(),
     customer_id: DEMO_CUSTOMER_ID,
     merchant_id: DEMO_MERCHANT_ID,
     delivery_address_id: DEMO_ADDRESS_ID,
@@ -524,6 +535,13 @@ export interface CustomerActiveOrder {
   code: string
   merchantId: string
   merchantName: string
+  /**
+   * Status mentah `orders.status`. Dua nilai artinya beda UX: `cart` = draft
+   * (belum pernah dikirim ke toko), `quotation` = menunggu toko menerima.
+   * Keduanya dipetakan ke `status: 'baru'`, jadi tanpa kolom ini baris draft
+   * tak bisa dibedakan dari pesanan sungguhan.
+   */
+  dbStatus: string
   status: MerchantOrderStatus
   stage: OrderStage
   totalIdr: number
@@ -576,6 +594,7 @@ export async function fetchCustomerActiveOrders(
     code: r.code,
     merchantId: String(r.merchant_id),
     merchantName: byId.get(r.merchant_id) ?? 'Toko',
+    dbStatus: r.status,
     status: STATUS_MAP[r.status] ?? 'baru',
     stage: STAGE_OF_STATUS[r.status] ?? 'baru',
     totalIdr: jodToIdr(r.total_jod),

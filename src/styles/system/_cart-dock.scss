@@ -98,6 +98,13 @@ body:has(.bottom-nav) .cart-quick-bar {
   border-top: 1px solid var(--border);
 }
 
+/* Daftar memakai flex kolom; tanpa ini barisnya ikut menyusut saat daftar
+   dibatasi tinggi (flex-shrink default 1) sehingga isi baris — mis. strip
+   konfirmasi — tumpah keluar kotaknya. Baris harus setinggi isinya. */
+.ck-list > li {
+  flex: 0 0 auto;
+}
+
 /* Daftar pesanan bisa panjang; dibatasi tinggi dan menggulir di dalam sheet
    supaya panelnya tetap pendek — bukan melar setinggi layar. */
 .ck-list--scroll {
@@ -106,9 +113,12 @@ body:has(.bottom-nav) .cart-quick-bar {
   overscroll-behavior: contain;
 }
 
+/* Satu baris = satu entri daftar. Flex-nya membungkus supaya konfirmasi inline
+   bisa turun ke baris kedua tanpa membuat struktur li bertingkat. */
 .ck-row {
   display: flex;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
 
   gap: var(--space-3);
@@ -125,16 +135,37 @@ body:has(.bottom-nav) .cart-quick-bar {
 
   font: inherit;
   text-align: left;
+}
+
+/* Seluruh badan baris jadi satu target ketuk (judul + nominal + chevron);
+   tombol aksi sekunder duduk di luarnya supaya tak ada button di dalam button. */
+.ck-row__main-btn {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: var(--space-3);
+
+  min-width: 0;
+  min-height: var(--touch-min);
+
+  padding: 0;
+
+  border: 0;
+
+  background: none;
+  color: inherit;
+
+  font: inherit;
+  text-align: left;
 
   cursor: pointer;
 }
 
-.ck-row--cart {
-  cursor: default;
-}
-
 .ck-row__main {
   display: flex;
+  flex: 1;
   flex-direction: column;
 
   gap: var(--space-1);
@@ -276,6 +307,80 @@ body:has(.bottom-nav) .cart-quick-bar {
 
 .ck-go:active {
   transform: scale(0.98);
+}
+
+/* Aksi sekunder per baris (buang keranjang / batalkan pesanan). Ikon saja,
+   tapi kotaknya tetap 44px supaya bisa kena jempol. */
+.ck-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--touch-min);
+  height: var(--touch-min);
+
+  border: 0;
+  border-radius: var(--radius-md);
+
+  background: transparent;
+  color: var(--text-secondary);
+
+  cursor: pointer;
+}
+
+.ck-icon:active {
+  background: var(--bg-warm);
+  color: var(--text-primary);
+}
+
+/* Konfirmasi dua langkah tumbuh di bawah baris yang bersangkutan, bukan sheet
+   kedua yang menutupi daftar (BUG-102016: sheet bertumpuk). */
+.ck-confirm {
+  display: flex;
+  flex: 1 0 100%;
+  align-items: center;
+
+  gap: var(--space-2);
+
+  margin-bottom: var(--space-1);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3);
+
+  border-radius: var(--radius-md);
+
+  background: var(--red-soft);
+}
+
+.ck-confirm__q {
+  flex: 1;
+
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.ck-confirm__btn {
+  min-height: var(--touch-min);
+
+  padding-inline: var(--space-3);
+
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+
+  background: var(--surface);
+  color: var(--text-primary);
+
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.ck-confirm__btn--danger {
+  border-color: transparent;
+
+  background: var(--danger);
+  color: var(--on-brand);
 }
 
 .ck-empty {
