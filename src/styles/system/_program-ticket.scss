@@ -1,0 +1,272 @@
+@use "./mixins" as *;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Kupon program toko (halaman toko customer, §15).
+//
+// Mengikuti mockup pemilik: voucher bergaya sobek — stub oranye 38% di kiri
+// (badge pemilik + angka hadiah), perforasi putus, badan putih 62% berisi
+// judul + rincian + tombol "Klaim" soft-pill. Dua takik setengah lingkaran di
+// tepi kiri/kanan (dipotong `overflow: hidden`). Kartu berikutnya mengintip di
+// tepi kanan (flex 88%), titik navigasi di bawah.
+//
+// Semua warna/ukuran dari token; tidak ada nilai mentah baru (gerbang desain).
+// ═══════════════════════════════════════════════════════════════════════════
+
+.coupon-rail {
+  display: flex;
+  gap: var(--space-3);
+
+  // Bleed ke tepi kolom; tepi kiri tetap sejajar gutter halaman.
+  margin-inline: calc(-1 * var(--space-5));
+  padding-inline: var(--space-5);
+  padding-block: var(--space-2);
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.coupon-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.coupon {
+  position: relative;
+  display: flex;
+  flex: 0 0 74%;
+  scroll-snap-align: start;
+  overflow: hidden;
+
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+// Dua takik di tepi kiri & kanan, setengah tinggi kartu. `overflow: hidden`
+// memotongnya jadi setengah lingkaran — cukup elemen ini, tanpa markup tambahan.
+.coupon::before,
+.coupon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50%;
+  background: var(--bg-warm);
+}
+
+.coupon::before {
+  left: -8px;
+}
+
+.coupon::after {
+  right: -8px;
+}
+
+.coupon__stub {
+  position: relative;
+  display: flex;
+  flex: 0 0 34%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  padding: var(--space-2) var(--space-2);
+
+  color: var(--on-brand);
+  background-image: linear-gradient(135deg, var(--sa7tein-orange), var(--orange-deep));
+}
+
+.coupon__owner {
+  position: absolute;
+  top: var(--space-1);
+
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.coupon__value {
+  font-size: var(--text-lg);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.coupon__unit {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--on-brand);
+  opacity: 0.9;
+}
+
+.coupon__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  // Perforasi: garis putus oranye di tepi kiri badan (perbatasan dengan stub).
+  border-left: 2px dashed var(--sa7tein-orange);
+}
+
+.coupon__name {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 800;
+}
+
+.coupon__reward {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.coupon__meta {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.coupon__claim {
+  @include s-btn-shape;
+
+  align-self: flex-start;
+  margin-top: 0;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--orange-soft);
+  border-color: transparent;
+  color: var(--orange-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.coupon.is-claimed {
+  box-shadow:
+    0 0 0 2px var(--success),
+    var(--shadow-sm);
+}
+
+.coupon.is-claimed .coupon__claim {
+  background: var(--green-soft);
+  color: var(--success-ink);
+}
+
+// Titik navigasi: target 44px penuh, penanda di dalamnya. Aktif memanjang
+// jadi pil oranye.
+.coupon-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  margin-block: var(--space-1) var(--space-3);
+}
+
+.coupon-dot {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.coupon-dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sa7tein-orange);
+  opacity: 0.35;
+  transition:
+    width var(--motion-fast) var(--ease-out),
+    opacity var(--motion-fast) var(--ease-out);
+}
+
+.coupon-dot--active::before {
+  width: 24px;
+  border-radius: var(--radius-pill);
+  opacity: 1;
+}
+
+// ── Daftar rincian program ────────────────────────────────────────────────
+.program-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.program-card {
+  @include card-surface;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+}
+
+// Judul + badge satu baris; boleh membalut (MD-12) supaya nama panjang tidak
+// mendorong chip keluar kartu.
+.program-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.program-card__name {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.program-card__chip {
+  padding: 2px var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+// Chip aksen hanya untuk pengecualian (program yang tak bisa digabung).
+.program-card__chip--alone {
+  border-color: transparent;
+  background: var(--orange-soft);
+  color: var(--orange-soft-ink);
+}
+
+.program-card__line {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.program-card__meta {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}

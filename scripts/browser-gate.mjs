@@ -1549,6 +1549,14 @@ async function main() {
           if (width === widths[0] && pass === 'online') {
             const opened = await openFloatingPanel(cdp)
             if (opened) {
+              // MD-03 mengukur "gulir saat halaman DIBUKA". Baris ini datang
+              // setelah sweep klik + membuka panel, yang keduanya menggulir
+              // halaman (tiap target di-scrollIntoView). Tanpa memulihkan ke
+              // atas, baris sheet melaporkan gulir buatan gate sendiri sebagai
+              // "gulir warisan" — temuan palsu yang bergantung pada target
+              // terakhir sweep, bukan pada halaman.
+              await evaluate(cdp, "window.scrollTo(0, 0); 'ok'")
+              await sleep(100)
               const m2 = await evaluate(cdp, MEASURE)
               const v2 = judge(m2, tokens, OPTS.strict, width)
               failed += v2.fail.length ? 1 : 0

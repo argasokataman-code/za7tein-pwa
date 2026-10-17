@@ -389,6 +389,19 @@ export default function Documentation() {
                 tampil dengan alasan dan bernilai 0 — bukan hilang diam-diam.
               </li>
               <li>
+                <strong>Program toko jadi kupon yang bisa diklaim.</strong> Halaman toko (§15)
+                menampilkan program dua lapis: <em>carousel kupon</em> — satu tiket per layar
+                (kartu berikut mengintip di tepi kanan) dengan titik navigasi, tiket bergaya sobek
+                (stub oranye berisi pemilik + angka hadiah besar di kiri, perforasi putus, badan
+                putih berisi rincian + tombol <code className="doc-inline">Klaim</code>) — lalu
+                <em>daftar rincian</em> semua program sebagai kartu putih. Tombol Klaim menandai
+                kupon "punyaku" (state <code className="doc-inline">marketing.claimedProgramIds</code>,
+                ikut persist / reload); header menghitungnya ("N aktif · M diklaim") dan di checkout
+                baris program yang diklaim diberi label <em>kupon kamu</em>. Klaim sengaja{' '}
+                <strong>tidak mengubah hitungan</strong>: diskon tetap otomatis dari §15.3, jadi
+                urutan program tidak bisa membuat total berbeda dari yang dihitung keranjang.
+              </li>
+              <li>
                 <strong>Lantai huruf &amp; sasaran sentuh (audit 019).</strong> Isi/kalimat minimal{' '}
                 <code className="doc-inline">--text-sm</code> 15px dan caption{' '}
                 <code className="doc-inline">--text-xs</code> 13px — dulu kalimat penjelas dan baris

@@ -12,6 +12,8 @@ export interface ProgramRow {
   name: string
   owner: 'platform' | 'merchant'
   discountIdr: number
+  /** Customer sudah menekan "Klaim" di halaman toko (tampilan, bukan hitungan). */
+  claimed: boolean
 }
 
 /** Program yang muncul di keranjang tapi belum dihitung, beserta sebabnya. */
@@ -41,6 +43,7 @@ export function useProgramDiscount(): ProgramDiscount {
   const programs = useAppSelector((s) => s.marketing.programs)
   const rules = useAppSelector((s) => s.marketing.rules)
   const rewards = useAppSelector((s) => s.marketing.rewards)
+  const claimedProgramIds = useAppSelector((s) => s.marketing.claimedProgramIds)
 
   return useMemo(() => {
     const subtotalIdr = selectSubtotal(items)
@@ -77,9 +80,10 @@ export function useProgramDiscount(): ProgramDiscount {
         name: m.program.name,
         owner: m.program.owner,
         discountIdr: Math.round(jodToIdr(m.discountJod)),
+        claimed: claimedProgramIds.includes(m.program.id),
       })),
       infoRows,
       note: note.length ? note : null,
     }
-  }, [items, merchantId, programs, rules, rewards])
+  }, [items, merchantId, programs, rules, rewards, claimedProgramIds])
 }

@@ -478,7 +478,7 @@ export default function Checkout() {
                       <span>
                         {row.name}
                         <span className="summary-info-tag">
-                          {row.owner === 'merchant' ? 'toko' : 'aplikator'}
+                          {row.claimed ? 'kupon kamu' : row.owner === 'merchant' ? 'toko' : 'aplikator'}
                         </span>
                       </span>
                       <span>−{moneyPlain(row.discountIdr)}</span>
