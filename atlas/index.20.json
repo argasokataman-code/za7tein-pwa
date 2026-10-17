@@ -2908,6 +2908,27 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/ActiveOrderRow.tsx"
+    },
+    {
+      "id": "TASK-111730",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "01:52:16",
+      "tags": [
+        "design",
+        "orders",
+        "list-row"
+      ],
+      "summary": "Rel kanan baris order: kolom aksi kosong disembunyikan, rel status 128px + chip stretch; titik status 250px seragam, nominal 370px",
+      "conn": [
+        {
+          "id": "TASK-111720",
+          "type": "relates",
+          "raw": "TASK-111720:relates"
+        }
+      ],
+      "loc": "src/styles/system/_cart-dock.scss:141"
     }
   ]
 }
