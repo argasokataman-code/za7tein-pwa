@@ -230,6 +230,17 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Form ulasan bisa melampirkan foto.</strong> Sheet "Beri ulasan" menambah
+                dua tombol sumber: <strong>Kamera</strong> (<code className="doc-inline">
+                capture="environment"</code>) dan <strong>Pilih file</strong> (multi). Maksimal
+                3 foto, tipe & ukuran disaring <code className="doc-inline">imageFileError</code>
+                (gambar, 2 MB), pratinjau 96px dengan tombol hapus 44px. PRD aktif §20.2 hanya
+                meminta bintang + review teks dan <code className="doc-inline">rating_reviews</code>
+                belum punya kolom media, jadi foto hanya pratinjau lokal dan tidak ikut terkirim;
+                helper di form menyebutkannya, statusnya <strong>UNRESOLVED</strong> di
+                R-CUS-RATING §7 dan flow f19.
+              </li>
+              <li>
                 <strong>Baris pesanan berjalan rata kiri-kanan.</strong> Kolom aksi 44px dulu
                 selalu disediakan meski daftar tidak punya tombol batal/buang, jadi nominal
                 berakhir 76px dari tepi kanan sementara judul mulai 20px dari kiri. Sekarang

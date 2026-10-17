@@ -54,6 +54,8 @@ Penilaian adalah satu-satunya umpan balik yang tersisa setelah uang berpindah. K
 
 ## 7. UNRESOLVED
 
+- **Foto pada ulasan** — tidak disebut §20.2 (PRD hanya meminta bintang + review teks). Form `/reviews` menampilkan pemilih **Kamera** dan **Pilih file** (maks 3 foto, `imageFileError` 2 MB) sebagai **tambahan tampilan**: berkas hanya dipratinjau lokal lewat object URL dan tidak ikut `submitOrderReview`, karena `rating_reviews` belum punya kolom foto. Bila PRD/ BE menambahkan media, alurnya harus ditulis di sini dan di flow `f19` dulu.
+
 - **Ambil-ulang/penghapusan penilaian** setelah dikirim — tidak disebut PRD (§20.2 hanya menolak moderasi dan batas waktu).
 - **Ambang jumlah ulasan sebelum rata-rata layak tampil** — tidak disebut PRD; sekarang angka BE ditampilkan apa adanya.
 - **Tag cepat ulasan** (daftar tag) — disebut di BRS `rating-review-2026-09-22` (`proposed`), tidak ada di revisi aktif; jangan dikarang.

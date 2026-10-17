@@ -1,5 +1,5 @@
-import { MessageSquare, Star } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
+import { Camera, ImagePlus, MessageSquare, Star, X } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSearchParams } from 'react-router-dom'
 
@@ -9,6 +9,7 @@ import { BackButton } from '../components/ui/BackButton'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { MENU_RATING_AVAILABLE } from '../data/rating'
+import { imageFileError } from '../lib/image'
 
 // Halaman ulasan customer. Sumbernya `rating_reviews` (RLS customer): daftar di
 // sini = pesanan yang sudah `done` tapi belum diulas, dan form di sheet menulis
@@ -16,6 +17,16 @@ import { MENU_RATING_AVAILABLE } from '../data/rating'
 // masih kosong di BE, jadi untuk sekarang satu ulasan = satu bintang toko.
 
 const STARS = [1, 2, 3, 4, 5]
+
+/**
+ * Foto ulasan: maksimal tiga, sama dengan bukti sengketa. PRD aktif §20.2 tidak
+ * menyebut foto pada review (lihat R-CUS-RATING §7), jadi ini tambahan tampilan:
+ * berkas hanya dipratinjau lokal dan tidak ikut dikirim, karena
+ * `rating_reviews` belum punya kolom foto. Kamera & pemilih berkas dipisah
+ * supaya di ponsel keduanya terlihat sebagai pilihan, bukan tersembunyi di dalam
+ * satu dialog peramban.
+ */
+const MAX_REVIEW_PHOTOS = 3
 
 export default function Reviews() {
   const [orders, setOrders] = useState<ReviewableOrder[]>([])
@@ -27,6 +38,11 @@ export default function Reviews() {
   /** Bintang per hidangan (id baris `order_items` → nilai). */
   const [dishRatings, setDishRatings] = useState<Record<string, number>>({})
   const [busy, setBusy] = useState(false)
+  const [photos, setPhotos] = useState<string[]>([])
+  const [photoError, setPhotoError] = useState<string | null>(null)
+  const photoUrls = useRef<string[]>([])
+  const cameraRef = useRef<HTMLInputElement>(null)
+  const fileRef = useRef<HTMLInputElement>(null)
   const [params] = useSearchParams()
   const wantedCode = params.get('order')
 
@@ -62,12 +78,55 @@ export default function Reviews() {
     setRating(5)
     setNote('')
     setDishRatings(Object.fromEntries(order.items.map((dish) => [dish.id, 5])))
+    clearPhotos()
   }
 
   function close() {
     setTarget(null)
     setNote('')
     setDishRatings({})
+    clearPhotos()
+  }
+
+  function clearPhotos() {
+    photoUrls.current.forEach((url) => URL.revokeObjectURL(url))
+    photoUrls.current = []
+    setPhotos([])
+    setPhotoError(null)
+  }
+
+  /** Object URL dibuang saat komponen dilepas supaya blob tidak menumpuk. */
+  useEffect(() => () => photoUrls.current.forEach((url) => URL.revokeObjectURL(url)), [])
+
+  function addPhotos(files: FileList | null) {
+    const picked = Array.from(files ?? [])
+    if (picked.length === 0) return
+
+    const valid: File[] = []
+    let error: string | null = null
+    for (const file of picked) {
+      const message = imageFileError(file)
+      if (message) error ??= message
+      else valid.push(file)
+    }
+
+    const room = MAX_REVIEW_PHOTOS - photos.length
+    if (valid.length > room) error ??= `Maksimal ${MAX_REVIEW_PHOTOS} foto`
+    const added = valid.slice(0, Math.max(0, room)).map((file) => URL.createObjectURL(file))
+    photoUrls.current = [...photoUrls.current, ...added]
+    if (added.length > 0) setPhotos((prev) => [...prev, ...added])
+    setPhotoError(error)
+
+    // Isian dikosongkan supaya berkas yang sama bisa dipilih lagi.
+    if (cameraRef.current) cameraRef.current.value = ''
+    if (fileRef.current) fileRef.current.value = ''
+  }
+
+  function removePhoto(url: string) {
+    URL.revokeObjectURL(url)
+    photoUrls.current = photoUrls.current.filter((item) => item !== url)
+    setPhotos((prev) => prev.filter((item) => item !== url))
+    setPhotoError(null)
   }
 
   async function submit() {
@@ -196,6 +255,77 @@ export default function Reviews() {
           onChange={(e) => setNote(e.target.value)}
           placeholder="Ceritakan pengalamanmu..."
         />
+
+        <span className="reviews-field-label">Foto (opsional)</span>
+        {photos.length > 0 ? (
+          <div className="reviews-photos">
+            {photos.map((url, index) => (
+              <div key={url} className="reviews-photo">
+                <img
+                  src={url}
+                  alt={`Foto ulasan ${index + 1}`}
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <button
+                  type="button"
+                  className="reviews-photo-remove"
+                  aria-label={`Hapus foto ${index + 1}`}
+                  onClick={() => removePhoto(url)}
+                >
+                  <X size={16} strokeWidth={2.5} aria-hidden="true" />
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : null}
+        {photos.length < MAX_REVIEW_PHOTOS ? (
+          <div className="reviews-photo-actions">
+            <button
+              type="button"
+              className="reviews-photo-btn"
+              onClick={() => cameraRef.current?.click()}
+            >
+              <Camera size={18} strokeWidth={1.75} aria-hidden="true" />
+              Kamera
+            </button>
+            <button
+              type="button"
+              className="reviews-photo-btn"
+              onClick={() => fileRef.current?.click()}
+            >
+              <ImagePlus size={18} strokeWidth={1.75} aria-hidden="true" />
+              Pilih file
+            </button>
+          </div>
+        ) : null}
+        <input
+          ref={cameraRef}
+          className="d-none"
+          type="file"
+          accept="image/*"
+          capture="environment"
+          onChange={(event) => addPhotos(event.target.files)}
+        />
+        <input
+          ref={fileRef}
+          className="d-none"
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={(event) => addPhotos(event.target.files)}
+        />
+        {photoError ? (
+          <p className="reviews-photo-error" role="alert">
+            {photoError}
+          </p>
+        ) : null}
+        <p className="reviews-field-note">
+          {photos.length > 0 ? `${photos.length} dari ${MAX_REVIEW_PHOTOS} foto. ` : ''}
+          Pratinjau lokal, foto belum disimpan server.
+        </p>
 
         {/* §20.2: rating menu item = bintang saja, tanpa review, dan tanpa rating
             per variant. Sasarannya hidangan yang benar-benar dipesan

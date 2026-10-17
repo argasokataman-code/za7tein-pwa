@@ -10,6 +10,8 @@ Flow **layar** rating setelah order `done`: prompt penilaian → bintang merchan
 
 > Catatan 2026-10-17b (Pesanan Saya). Menu riwayat yang sama sekarang jadi **satu pintu "Pesanan Saya"** di `/orders`: dua tab — **Aktif** (kartu keranjang + pesanan berjalan) dan **Riwayat** (order selesai yang sama seperti di atas, plus tombol **Pesan lagi** yang mengisi ulang keranjang dari katalog dengan harga sekarang). Item nav "My Order" pindah dari `/checkout` ke `/orders` (badge tetap jumlah keranjang) dan deep link `?tab=history` dipakai tautan Profil; `/checkout` tetap halaman editor keranjangnya. Tidak ada layar atau state rating yang berubah — pintu `Beri rating` per baris tetap `/reviews?order=<kode>`. Alasan UX: ia destinasi bilah bawah, jadi halaman ini ikut memakai bottom nav (sebelumnya destinasi nav tanpa nav).
 
+> Catatan 2026-10-18 (foto ulasan). Form `/reviews` kini punya pemilih **Kamera** (`capture="environment"`) dan **Pilih file** (maks 3 foto, validasi `imageFileError`, pratinjau object URL). PRD aktif §20.2 tidak menyebut foto, dan `rating_reviews` belum punya kolom media, jadi ini **tambahan tampilan**: foto tidak ikut `submitOrderReview` dan helper di form menyebutnya. Status `UNRESOLVED` tercatat di `features/R-CUS-RATING.md` §7.
+
 | Berkas | Isi |
 |---|---|
 | `f19-rating-review.json` | Spec archify (workflow v2) — sumber yang diedit |
