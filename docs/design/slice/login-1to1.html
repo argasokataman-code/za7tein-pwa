@@ -17,6 +17,11 @@
   antaranya memang melanggar aturan repo (lihat daftar simpangan di
   docs/design/auth-redesign.md): oranye acuan #F58220 (bukan --sa7tein-orange),
   field tanpa garis, tombol utama putih, dan foto yang menabrak tombol.
+
+  PENTING soal aset: berkas ini duduk tiga tingkat di bawah akar repo
+  (docs/design/slice/), jadi tiap `src` wajib `../../../public/assets/...`.
+  Dua tingkat (`../../`) menunjuk docs/public/ yang tidak ada, dan gambarnya
+  hilang tanpa pesan apa pun saat dibuka lewat file://.
 -->
 <style>
   :root {
@@ -287,7 +292,7 @@
 <div class="phone">
 
   <header class="hero">
-    <img class="hero-photo" src="../../public/assets/img/menu/nasi-goreng.webp" alt="" aria-hidden="true" />
+    <img class="hero-photo" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" aria-hidden="true" />
     <span class="hero-logo" aria-hidden="true">S</span>
     <h1 class="hero-brand">Sa7tein</h1>
   </header>
@@ -330,7 +335,7 @@
     </form>
   </div>
 
-  <img class="art" src="../../public/assets/img/menu/sate-ayam.webp" alt="" aria-hidden="true" />
+  <img class="art" src="../../../public/assets/img/menu/sate-ayam.webp" alt="" aria-hidden="true" />
 </div>
 
 </body>
