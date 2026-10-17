@@ -104,6 +104,30 @@
     letter-spacing: -0.02em;
   }
 
+  /* Foto makanan di pojok kanan-atas: massa bulat yang menyembul keluar tepi
+     atas dan kanan blok oranye, jadi ia berada DI DEPAN blok oranye, bukan di
+     dalam kotaknya. Lebarnya ~49% lebar ponsel, sama dengan foto acuan.
+     `z-index: 0` menaruhnya di bawah cakram logo dan nama merek supaya keduanya
+     tetap terbaca. */
+  .hero-photo {
+    position: absolute;
+    z-index: 0;
+    top: -34px;
+    right: -46px;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 55% 45%;
+  }
+
+  /* Cakram, nama merek, dan chip peran wajib di atas foto pojok. */
+  .hero-logo,
+  .hero-brand {
+    position: relative;
+    z-index: 1;
+  }
+
   /* ── Isi bawah ──────────────────────────────────────────────────────── */
 
   .body {
@@ -263,6 +287,7 @@
 <div class="phone">
 
   <header class="hero">
+    <img class="hero-photo" src="../../public/assets/img/menu/nasi-goreng.webp" alt="" aria-hidden="true" />
     <span class="hero-logo" aria-hidden="true">S</span>
     <h1 class="hero-brand">Sa7tein</h1>
   </header>
