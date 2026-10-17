@@ -15,6 +15,13 @@ interface MerchantCardProps {
    * Kartu tetap terlihat dan bisa dibaca, tapi tidak membuka halaman toko.
    */
   disabled?: boolean
+  /**
+   * Sebab kenapa kartu tak bisa dibuka, bila pemanggil mau memberitahunya.
+   * Bila diisi, kartu yang `disabled` tetap bisa difokus dan diketuk
+   * (`aria-disabled`, bukan atribut `disabled`) supaya ketukan dijawab
+   * penjelasan — ketukan mati tanpa jawaban adalah kontrol rusak.
+   */
+  onBlocked?: (store: Storefront) => void
   className?: string
   /** Variabel CSS tambahan, mis. `--stagger-index`. */
   style?: CSSProperties & Record<'--stagger-index', number>
@@ -31,6 +38,7 @@ export function MerchantCard({
   onOpen,
   promoText,
   disabled = false,
+  onBlocked,
   className = '',
   style,
 }: MerchantCardProps) {
@@ -40,16 +48,21 @@ export function MerchantCard({
     : store.outOfCoverage
       ? 'di luar jangkauan'
       : 'buka'
+  // Ketukan dijawab hanya kalau pemanggil punya penjelasan; kalau tidak, tombol
+  // benar-benar mati seperti sebelumnya.
+  const canExplain = disabled && Boolean(onBlocked)
 
   return (
     <button
       type="button"
-      className={`merchant-card merchant-store-card ${className}${disabled ? ' merchant-store-card--disabled' : ''}`.trim()}
+      className={`merchant-card merchant-store-card ${className}${disabled ? ' merchant-store-card--disabled' : ''}${store.isOpen ? '' : ' merchant-store-card--closed'}`.trim()}
       style={style}
-      disabled={disabled}
+      disabled={disabled && !canExplain}
+      aria-disabled={disabled || undefined}
       aria-label={`Buka ${store.name}, ${reason}`}
       onClick={() => {
         if (!disabled) onOpen(store)
+        else onBlocked?.(store)
       }}
     >
       <span className="merchant-card__logo">

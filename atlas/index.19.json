@@ -1643,6 +1643,263 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-110965",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:08:31",
+      "tags": [
+        "ui",
+        "food-card",
+        "css"
+      ],
+      "summary": "Baris meta FoodCard: margin-bottom 12px warisan CSS lama di .food-rating -> bintang 7px lebih tinggi, baris 30px buat teks 16px",
+      "conn": [
+        {
+          "id": "DEC-110964",
+          "type": "relates",
+          "raw": "DEC-110964:relates"
+        }
+      ],
+      "loc": "src/styles/system/_food-card.scss:141",
+      "commit": "a3f73bf"
+    },
+    {
+      "id": "TASK-110982",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:08:38",
+      "tags": [
+        "ui",
+        "food-card"
+      ],
+      "summary": "FoodCard: baris meta rata 18px + lencana Populer (is_popular) + kalori (N kkal); cook_minutes cuma cadangan estimasi antar",
+      "conn": [
+        {
+          "id": "BUG-110965",
+          "type": "fixes",
+          "raw": "BUG-110965:fixes"
+        },
+        {
+          "id": "TASK-110963",
+          "type": "relates",
+          "raw": "TASK-110963:relates"
+        }
+      ],
+      "loc": "src/components/ui/FoodCard.tsx:11",
+      "commit": "a3f73bf"
+    },
+    {
+      "id": "TASK-110983",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:14:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx (+12/-5) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx"
+    },
+    {
+      "id": "TASK-110984",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:15:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx (+32/-26) — edit via tool: tsx: export function Mercha",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/MerchantCard.tsx"
+    },
+    {
+      "id": "TASK-110985",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:15:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx (+4/-1) — edit via tool: tsx: const [minRating, setMinRating] = useSta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-110986",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:15:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss (+12/-3) — edit via tool: .merchant-store-card--disabl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-110987",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:15:22",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && grep -rn \"MerchantCard\" src --include=*.tsx | rtk grep -v \"components/ui/MerchantCa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110988",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:15:44",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && grep -rn \"MerchantCard\" src | rtk grep -v \"ui/MerchantCard.tsx\"; npm run build 2>&1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110989",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:20:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss (+9/-3) — edit via tool: .merchant-store-card--closed ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-110990",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:21:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build >/dev/null 2>&1 && npm run scan 2>&1 | tail -2 && node scripts/e2e-br",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110991",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:21:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss (+3/-9) — edit via tool: .merchant-store-card--closed ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_storefront.scss"
+    },
+    {
+      "id": "TASK-110992",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:22:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build >/dev/null 2>&1 && GATE_BASE=http://localhost:4173 node scripts/brows",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-110993",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "18:22:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+20/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

@@ -6,6 +6,7 @@ import CustomerHomeHero from '../components/customer/CustomerHomeHero'
 import HomePromoBanner from '../components/customer/HomePromoBanner'
 import { BottomNav } from '../components/layout/BottomNav'
 import { MerchantCard } from '../components/ui/MerchantCard'
+import { BottomSheet } from '../components/ui/BottomSheet'
 import { useAppSelector } from '../hooks/useAppStore'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { selectCartCount } from '../store/slices/cartSlice'
@@ -13,6 +14,7 @@ import { merchantQuotaBlocked } from '../store/slices/quotaSlice'
 import { CATEGORIES, dealsFrom, menuSeed, merchantCategoryIds } from '../data/catalog'
 import { storefronts, groupStorefrontsByTag, isSelectable, visibleStorefronts, sortStorefronts, filterStorefronts, type MerchantSortKey } from '../data/storefronts'
 import { useAllMenuItems, useStorefronts } from '../hooks/useApiCatalog'
+import type { Storefront } from '../types'
 
 /** Pilihan urutan daftar toko di beranda (PRD §6). */
 const SORTS: { id: MerchantSortKey; label: string }[] = [
@@ -43,6 +45,9 @@ export default function Home() {
   // Urut/filter daftar toko (PRD §6). `distance` default: toko terdekat dulu.
   const [sort, setSort] = useState<MerchantSortKey>('distance')
   const [minRating, setMinRating] = useState(0)
+  // Toko yang diketuk padahal tutup / di luar jangkauan. Kartunya tetap bisa
+  // diketuk (bukan ketukan mati) dan sebabnya dijawab sheet.
+  const [blockedStore, setBlockedStore] = useState<Storefront | null>(null)
   // Menu diambil lintas toko (bukan seed `catalog`), supaya promo dan kategori
   // dihitung dari toko yang benar-benar tampil — sebelumnya daftar memakai toko
   // live sementara item dari mock, sehingga `merchantId` tak pernah ketemu dan
@@ -181,6 +186,7 @@ export default function Home() {
                           key={store.id}
                           store={store}
                           disabled={!isSelectable(store)}
+                          onBlocked={setBlockedStore}
                           promoText={
                             promoByStore.has(store.id)
                               ? `Promo hemat ${promoByStore.get(store.id)}%`
@@ -200,6 +206,23 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <BottomSheet
+          open={blockedStore !== null}
+          title={blockedStore?.isOpen ? 'Toko di luar jangkauan' : 'Maaf, toko sedang tutup'}
+          onClose={() => setBlockedStore(null)}
+        >
+          <p className="sheet-copy">
+            {blockedStore?.isOpen
+              ? `${blockedStore.name} belum bisa mengantar ke alamat kamu — tokonya di luar jangkauan.`
+              : `${blockedStore?.name} belum menerima pesanan sekarang. Buka lagi${blockedStore?.openTime ? ` jam ${blockedStore.openTime}–${blockedStore.closeTime}` : ''}.`}
+          </p>
+          <div className="sheet-actions">
+            <button type="button" className="btn btn-primary" onClick={() => setBlockedStore(null)}>
+              Mengerti
+            </button>
+          </div>
+        </BottomSheet>
 
         <BottomNav />
       </div>

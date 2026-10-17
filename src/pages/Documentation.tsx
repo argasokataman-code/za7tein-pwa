@@ -230,6 +230,23 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Toko tutup: kartu monochrome + sebabnya dijawab sheet.</strong> Kartu toko
+                yang <code className="doc-inline">isOpen: false</code> kini diredam{' '}
+                <code className="doc-inline">filter: grayscale(1)</code> — fotonya kehilangan warna,
+                jadi tak lagi terbaca &ldquo;bisa dipesan&rdquo;, sementara luminansinya tetap
+                sehingga teks masih lolos AA. Sebelum ini kartunya memakai atribut{' '}
+                <code className="doc-inline">disabled</code>, jadi diketuk pun tak ada jawaban
+                (ketukan mati). Sekarang <code className="doc-inline">MerchantCard</code> menerima{' '}
+                <code className="doc-inline">onBlocked</code>: kartu yang tak bisa dibuka tetap
+                dapat difokus dan diketuk (<code className="doc-inline">aria-disabled</code>, bukan{' '}
+                <code className="doc-inline">disabled</code>), lalu beranda menjawab dengan sheet{' '}
+                <em>Maaf, toko sedang tutup</em> beserta jam buka. Jalur yang sama dipakai toko di
+                luar jangkauan (<em>Toko di luar jangkauan</em>). Lencana status juga dinaikkan ke{' '}
+                <code className="doc-inline">--text-secondary-strong</code> karena{' '}
+                <code className="doc-inline">--text-secondary</code> di atas{' '}
+                <code className="doc-inline">--border</code> cuma ~4,3:1.
+              </li>
+              <li>
                 <strong>Kartu menu: baris meta rata + data BE yang tadi dibuang.</strong> Baris
                 rating/waktu/jarak mewarisi <code className="doc-inline">margin-bottom: 12px</code> dari
                 CSS lama pada <code className="doc-inline">.food-rating</code>, sehingga bintangnya
