@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login page — slice 1:1</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+  Reproduksi 1:1 frame "Login page" dari mockup pemilik: blok oranye bersudut
+  bawah membulat + logo lingkaran putih (monogram) + nama merek, tab
+  Login/Signup, "or" polos, tiga tombol sosial berlogo, field putih tanpa
+  border (hanya bayangan), tautan Forgot Password, tombol Continue putih
+  berteks oranye yang menumpuk sebagian di depan foto, dan foto dekorasi yang
+  tumpah keluar sudut kanan-bawah.
+
+  Warna, ukuran, dan urutan di bawah ini menyalin acuan, jadi beberapa di
+  antaranya memang melanggar aturan repo (lihat daftar simpangan di
+  docs/design/auth-redesign.md): oranye acuan #F58220 (bukan --sa7tein-orange),
+  field tanpa garis, tombol utama putih, dan foto yang menabrak tombol.
+-->
+<style>
+  :root {
+    --acuan-orange: #f58220;
+    --acuan-bg: #f7f7f2;
+    --acuan-ink: #1a1a1a;
+    --acuan-muted: #8a8a8a;
+    --phone-w: 390px;
+    --phone-h: 844px;
+    --gutter: 22px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 32px 16px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    background: #ececec;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .caption {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    color: #4a4a4a;
+    font-size: 13px;
+  }
+  .caption strong { font-size: 14px; }
+  .caption span { color: #8a8a8a; }
+
+  /* ── Bingkai ponsel ─────────────────────────────────────────────────── */
+
+  .phone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: var(--phone-w);
+    height: var(--phone-h);
+    overflow: hidden;
+    border-radius: 30px;
+    background: var(--acuan-bg);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+  }
+
+  /* ── Kepala oranye ──────────────────────────────────────────────────── */
+
+  .hero {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    height: 38%;
+    background: var(--acuan-orange);
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+
+  .hero-logo {
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .hero-brand {
+    margin: 0;
+    color: var(--acuan-ink);
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── Isi bawah ──────────────────────────────────────────────────────── */
+
+  .body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 0 var(--gutter) 26px;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 44px;
+    margin-top: 26px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e2da;
+  }
+
+  .tab {
+    padding-bottom: 6px;
+    color: var(--acuan-muted);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .tab--active {
+    color: var(--acuan-orange);
+    border-bottom: 2px solid var(--acuan-orange);
+  }
+
+  .or {
+    margin: 18px 0;
+    color: var(--acuan-muted);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    margin-bottom: 20px;
+  }
+
+  .social {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.09);
+    cursor: pointer;
+  }
+
+  /* `flex: 1` wajib: `margin-top: auto` pada tombol hanya bekerja kalau induknya
+     flex, dan induknya di sini `<form>` — kalau tidak, tombolnya menggantung di
+     tengah, bukan di dasar layar seperti acuan. */
+  form {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .field {
+    width: 100%;
+    height: 54px;
+    margin-bottom: 16px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+    color: #333;
+    font-family: inherit;
+    font-size: 15px;
+  }
+
+  .field::placeholder { color: var(--acuan-muted); }
+  .field:focus { outline: 2px solid rgba(245, 130, 32, 0.45); }
+
+  /* Tautan ini bukan flex item (induknya <form> blok), jadi `align-self` tidak
+     berpengaruh apa pun: yang membuatnya rata kanan adalah block + text-align. */
+  .forgot {
+    display: block;
+    margin: -4px 2px 20px;
+    color: var(--acuan-orange);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    text-decoration: none;
+  }
+
+  /* Tombol utama: putih berteks oranye, mengambang di depan foto. `margin-top:
+     auto` mendorongnya ke dasar layar seperti acuan (bukan menggantung di
+     tengah kolom). */
+  .cta {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 56px;
+    margin-top: auto;
+    border: 0;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.14);
+    color: var(--acuan-orange);
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .foot {
+    position: relative;
+    z-index: 2;
+    margin: 18px 0 0;
+    color: var(--acuan-muted);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .foot a {
+    color: var(--acuan-orange);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Foto dekorasi: tumpah keluar sudut kanan-bawah, di belakang tombol.
+     Ditarik turun supaya tidak menabrak tautan "Forgot Password" yang juga
+     rata kanan; sisi kiri-atasnya dibulatkan penuh agar terbaca sebagai massa
+     yang menyembul dari sudut, bukan kotak foto. */
+  .art {
+    position: absolute;
+    z-index: 0;
+    right: -70px;
+    bottom: -140px;
+    width: 300px;
+    height: 300px;
+    border-top-left-radius: 100%;
+    object-fit: cover;
+  }
+</style>
+</head>
+<body>
+
+<p class="caption"><strong>Login page</strong><span>slice 1:1 dari mockup — "Mia Food Item" diganti Sa7tein</span></p>
+
+<div class="phone">
+
+  <header class="hero">
+    <span class="hero-logo" aria-hidden="true">S</span>
+    <h1 class="hero-brand">Sa7tein</h1>
+  </header>
+
+  <div class="body">
+    <nav class="tabs">
+      <a class="tab tab--active" href="#">Login</a>
+      <a class="tab" href="#">Signup</a>
+    </nav>
+
+    <p class="or">or</p>
+
+    <div class="socials">
+      <button class="social" type="button" aria-label="Masuk dengan Google">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path fill="#4285f4" d="M23.06 12.25c0-.85-.08-1.67-.22-2.45H12v4.63h6.2a5.3 5.3 0 0 1-2.3 3.48v2.9h3.72c2.18-2 3.44-4.96 3.44-8.56z"/>
+          <path fill="#34a853" d="M12 24c3.1 0 5.7-1.03 7.62-2.79l-3.72-2.9c-1.03.7-2.35 1.11-3.9 1.11-3 0-5.54-2.02-6.45-4.74H1.7v2.98A11.5 11.5 0 0 0 12 24z"/>
+          <path fill="#fbbc05" d="M5.55 14.68a6.9 6.9 0 0 1 0-4.37V7.33H1.7a11.5 11.5 0 0 0 0 10.34l3.85-2.99z"/>
+          <path fill="#ea4335" d="M12 4.75c1.68 0 3.2.58 4.4 1.72l3.28-3.28C17.7 1.22 15.1 0 12 0 7.7 0 3.98 2.47 1.7 7.33l3.85 2.98C6.46 6.77 9 4.75 12 4.75z"/>
+        </svg>
+      </button>
+      <button class="social" type="button" aria-label="Masuk dengan Facebook">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path fill="#1877f2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/>
+        </svg>
+      </button>
+      <button class="social" type="button" aria-label="Masuk dengan Twitter">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path fill="#1da1f2" d="M23.95 4.57a10 10 0 0 1-2.82.77 4.96 4.96 0 0 0 2.16-2.72c-.95.56-2 1.03-3.13 1.25a4.92 4.92 0 0 0-8.38 4.48A13.94 13.94 0 0 1 1.64 3.16a4.92 4.92 0 0 0 1.52 6.57 4.9 4.9 0 0 1-2.23-.62v.06a4.92 4.92 0 0 0 3.95 4.83 4.96 4.96 0 0 1-2.22.08 4.93 4.93 0 0 0 4.6 3.42A9.87 9.87 0 0 1 0 19.54a13.94 13.94 0 0 0 7.55 2.21c9.05 0 14-7.5 14-14v-.64a10 10 0 0 0 2.4-2.54z"/>
+        </svg>
+      </button>
+    </div>
+
+    <form onsubmit="return false">
+      <input class="field" type="text" placeholder="User Name" />
+      <input class="field" type="password" placeholder="Password" />
+      <a class="forgot" href="#">Forgot Password</a>
+      <button class="cta" type="submit">Continue</button>
+    </form>
+
+    <p class="foot">don't have an account <a href="#">Sign Up</a></p>
+  </div>
+
+  <img class="art" src="../../public/assets/img/menu/sate-ayam.webp" alt="" aria-hidden="true" />
+</div>
+
+</body>
+</html>

@@ -2448,6 +2448,65 @@
         }
       ],
       "loc": "src/components/ui/AuthLayout.tsx:51"
+    },
+    {
+      "id": "TASK-111261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:26:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html (+289) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html"
+    },
+    {
+      "id": "TASK-111262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:28:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html (+28/-25) — edit via tool: .phone {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/design/slice/login-1to1.html"
+    },
+    {
+      "id": "TASK-111320",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-17",
+      "time": "19:30:58",
+      "tags": [
+        "ui",
+        "auth",
+        "design"
+      ],
+      "summary": "Slice 1:1 halaman login sebagai HTML mandiri di docs/design/slice/login-1to1.html untuk perbandingan dengan mockup",
+      "conn": [
+        {
+          "id": "TASK-111260",
+          "type": "relates",
+          "raw": "TASK-111260:relates"
+        }
+      ],
+      "loc": "docs/design/slice/login-1to1.html:1"
     }
   ]
 }
