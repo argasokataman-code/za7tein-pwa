@@ -52,6 +52,13 @@ export default function MerchantPage() {
   const fallbackMenu = useMemo(() => (id ? itemsByMerchant(items, id) : []), [items, id])
   const menu = useMenuItems(id ?? '', fallbackMenu)
   const deals = useMemo(() => dealsFrom(menu), [menu])
+  // Slide carousel yang dikurasi merchant. Hanya milik toko ini dan yang
+  // sakelarnya hidup; urutannya sudah urutan state.
+  const allSlides = useAppSelector((s) => s.marketing.slides)
+  const slides = useMemo(
+    () => allSlides.filter((slide) => slide.merchantId === id && slide.active),
+    [allSlides, id],
+  )
   // Program marketing yang ditawarkan toko ini (§15) — daftar + syaratnya.
   // Angka diskonnya baru muncul di keranjang, saat syaratnya terpenuhi.
   const marketing = useAppSelector((s) => s.marketing)
@@ -161,7 +168,9 @@ export default function MerchantPage() {
             </span>
           </div>
 
-          {deals.length ? <HomePromoCarousel deals={deals} /> : null}
+          {deals.length || slides.length ? (
+            <HomePromoCarousel deals={deals} slides={slides} items={menu} />
+          ) : null}
 
           {programs.length ? (
             <section>

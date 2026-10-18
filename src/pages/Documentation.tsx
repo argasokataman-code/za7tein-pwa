@@ -230,6 +230,19 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Carousel promo beranda kini dikurasi merchant.</strong> Halaman{' '}
+                <code className="doc-inline">/merchant/promos/carousel</code> mengelola slide
+                (banner, menu tertaut, urutan naik/turun, dan status tampil) sampai lima slide.
+                Penyuntingan slide punya halaman sendiri di{' '}
+                <code className="doc-inline">/merchant/promos/carousel/new</code> dan{' '}
+                <code className="doc-inline">/merchant/promos/carousel/:id</code>, bukan sheet 60%
+                yang memotong field di balik bar aksi. Slide aktif menang atas menu berdiskon
+                otomatis, sementara toko tanpa slide tetap memakai carousel lama supaya halaman
+                customer tidak kosong. Data hidup di slice{' '}
+                <code className="doc-inline">marketing</code> yang sudah persist, dengan normalisasi
+                untuk state lama yang belum punya daftar slide.
+              </li>
+              <li>
                 <strong>Setelan merchant tidak lagi terasa seperti halaman web.</strong> Tautan
                 bergaya tombol ("Atur area layanan", "Buka dompet", "Kelola rekening") kehilangan
                 garis bawah bawaan peramban lewat satu aturan di{' '}

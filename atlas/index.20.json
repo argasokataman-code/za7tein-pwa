@@ -4244,6 +4244,624 @@
       ],
       "loc": "src/styles/system/_merchant-4.scss:377",
       "commit": "dd8c997"
+    },
+    {
+      "id": "TASK-112146",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:03:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts (+20/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-112147",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:03:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/marketingSlice.ts (+32/-25) — edit via tool: ts: import { mockMarketingP",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/marketingSlice.ts"
+    },
+    {
+      "id": "TASK-112148",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:03:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/image.ts (+43/-6) — edit via tool: ts: /** Pesan galat untuk berkas yang tidak ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/image.ts"
+    },
+    {
+      "id": "TASK-112149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:03:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx (+11/-5) — edit via tool: tsx: /** Opsi dengan nilai da",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/SelectField.tsx"
+    },
+    {
+      "id": "TASK-112150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:04:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx (+6/-5) — edit via tool: tsx: import { useE",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-112151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:04:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx (+9/-2) — edit via tool: tsx: const menu = useMenuItems(id ?? ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-112152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:04:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx (+400) — write via tool: tsx: import { ArrowDown, Arr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-112153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:04:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+2/-1) — edit via tool: tsx: import MerchantPromos from './pages/Merc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-112154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:04:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx (+16/-14) — edit via tool: tsx: Award,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx"
+    },
+    {
+      "id": "TASK-112155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:05:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx (+2/-1) — edit via tool: tsx: import { PROGRAM_EDIT_AVAILABL",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromos.tsx"
+    },
+    {
+      "id": "TASK-112156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:05:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+1/-1) — edit via tool: tsx: <p className=\"merchant-quic",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-112157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:05:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss (+141) — write via tool: /* ── Merchant · Carou",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss"
+    },
+    {
+      "id": "TASK-112158",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:05:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+12/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-112159",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:06:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx (+10/-6) — edit via tool: tsx: /* Hanya menu milik to",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-112160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:08:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss (+10/-8) — edit via tool: .promo-slide-live {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss"
+    },
+    {
+      "id": "TASK-112161",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:09:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx (+3/-3) — edit via tool: tsx: <form",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-112162",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:09:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss (+9/-2) — edit via tool: /* Form slide punya ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss"
+    },
+    {
+      "id": "TASK-112163",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:11:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx (+208) — write via tool: tsx: import { ArrowDown, Arr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-112164",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:12:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/promoSlides.ts (+8) — write via tool: ts: /** Aturan tampilan carousel promo ber",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/promoSlides.ts"
+    },
+    {
+      "id": "TASK-112165",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:12:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx (+3/-2) — edit via tool: tsx: import { isOrderable } ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-112166",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:12:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx (+236) — write via tool: tsx: import { ImagePlus, Im",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx"
+    },
+    {
+      "id": "TASK-112167",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:12:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx (+2/-1) — edit via tool: tsx: import MerchantPromoCarousel from './pag",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-112168",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:12:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss (+2/-9) — edit via tool: /* Pratinjau banner 16",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss"
+    },
+    {
+      "id": "TASK-112169",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:13:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run build >/dev/null 2>&1 && printf 'built\\n' passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-112170",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:14:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx (+31/-30) — edit via tool: tsx: <input",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx"
+    },
+    {
+      "id": "TASK-112171",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:14:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss (+44/-17) — edit via tool: /* Pratinjau banner ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss"
+    },
+    {
+      "id": "TASK-112172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:17:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx (+4/-4) — edit via tool: tsx: <h2>Slide carousel</h2>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoCarousel.tsx"
+    },
+    {
+      "id": "TASK-112173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:17:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss (+14/-8) — edit via tool: .promo-slide-thumb {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-carousel.scss"
+    },
+    {
+      "id": "TASK-112174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:18:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+11/-7) — edit via tool: tsx: <strong>Carousel promo beranda",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-112175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:37:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx (+5/-5) — edit via tool: tsx: * 2. **Isinya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/customer/HomePromoCarousel.tsx"
+    },
+    {
+      "id": "FEAT-120001",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-10-18",
+      "time": "11:38:17",
+      "tags": [
+        "merchant",
+        "promo",
+        "carousel",
+        "ui"
+      ],
+      "summary": "Carousel promo beranda merchant: CRUD slide (banner, menu, urutan, aktif), halaman form, persist marketing, fallback menu berdiskon",
+      "conn": [
+        {
+          "id": "TASK-101600",
+          "type": "relates",
+          "raw": "TASK-101600:relates"
+        },
+        {
+          "id": "TASK-13100",
+          "type": "relates",
+          "raw": "TASK-13100:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantPromoCarousel.tsx:1"
+    },
+    {
+      "id": "DEC-120002",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-18",
+      "time": "11:38:18",
+      "tags": [
+        "merchant",
+        "carousel",
+        "ui"
+      ],
+      "summary": "Editor slide carousel pakai halaman penuh, bukan BottomSheet 60%, karena banner+menu terpotong di balik bar aksi",
+      "conn": [
+        {
+          "id": "FEAT-120001",
+          "type": "led_to",
+          "raw": "FEAT-120001:led_to"
+        }
+      ],
+      "loc": "src/pages/MerchantPromoSlideForm.tsx:1"
     }
   ]
 }

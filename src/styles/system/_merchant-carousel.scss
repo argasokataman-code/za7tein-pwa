@@ -1,0 +1,212 @@
+/* ── Merchant · Carousel promo beranda (/merchant/promos/carousel) ──────────
+   Daftar slide = kartu, bukan tabel: tiap slide punya banner, status, dan
+   kontrol urutan sendiri. Rel aksi dibuat satu baris supaya tinggi kartu
+   seragam dan tombol naik/turun tidak melompat saat judul memanjang. */
+
+.promo-slide-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.promo-slide-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.promo-slide-main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.promo-slide-thumb {
+  width: 72px;
+  height: 54px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  background: var(--border);
+}
+
+.promo-slide-count {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.promo-slide-copy {
+  min-width: 0;
+}
+
+.promo-slide-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 700;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.promo-slide-meta {
+  margin: var(--space-1) 0 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.promo-slide-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.promo-slide-action {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  flex: none;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.promo-slide-action:disabled {
+  color: var(--text-disabled);
+  cursor: default;
+}
+
+.promo-slide-action.is-danger {
+  margin-left: var(--space-1);
+  color: var(--danger-ink);
+}
+
+/* Status dan sakelar jadi satu kontrol: teks "Tampil"/"Nonaktif" terbaca tanpa
+   mengandalkan warna saja (MD-07). */
+.promo-slide-live {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.promo-slide-live.is-active {
+  border-color: var(--success);
+  background: var(--green-soft);
+  color: var(--success-ink);
+}
+
+.promo-slide-live-dot {
+  width: var(--space-2);
+  height: var(--space-2);
+  flex: none;
+  border-radius: var(--radius-pill);
+  background: currentColor;
+}
+
+.promo-slide-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  color: var(--orange-ink);
+}
+
+.promo-slide-empty .merchant-card-title {
+  color: var(--text-primary);
+}
+
+.promo-slide-empty .merchant-btn-ghost {
+  margin-top: var(--space-2);
+}
+
+/* Pratinjau banner 16:9 sekaligus tombol: seluruh gambar jadi target sentuh,
+   bukan cuma tombol kecil di bawahnya. Rasio sama dengan kartu customer supaya
+   crop yang dilihat merchant adalah crop yang tampil. */
+.promo-banner-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-2);
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--orange-soft);
+  cursor: pointer;
+}
+
+.promo-banner-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.promo-banner-button img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.promo-banner-overlay {
+  position: absolute;
+  left: var(--space-3);
+  bottom: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.promo-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Ringkasan kartu customer sebelum disimpan, memakai tint brand supaya terbaca
+   sebagai pratinjau, bukan peringatan. */
+.promo-slide-preview {
+  margin: 0;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+@media (max-width: 360px) {
+  .promo-slide-actions {
+    gap: 0;
+  }
+}

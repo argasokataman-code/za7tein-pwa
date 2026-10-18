@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import type { MenuItem } from '../../types'
+import type { MenuItem, PromoSlide } from '../../types'
+import { isOrderable } from '../../data/catalog'
 import { useMoney } from '../../hooks/useMoney'
 
 /**
@@ -15,11 +16,11 @@ import { useMoney } from '../../hooks/useMoney'
  *    ditimpa gradien gelap dari kiri supaya teks putihnya tetap terbaca.
  *    Gelombangnya tetap ada sebagai tekstur halus di atasnya.
  *
- * 2. **Isinya dari data, bukan karangan.** PRD aktif tidak punya fitur promo
- *    atau voucher sama sekali, jadi tidak ada requirement yang bisa dikutip.
- *    Klaim promo yang boleh tampil karena itu hanya yang sudah ada di mock:
- *    satu dari notifikasi `n3` (diskon 30%), sisanya item katalog yang
- *    `discountPercent`-nya memang terisi. Tidak ada angka baru.
+ * 2. **Isinya dari data, bukan karangan.** Kalau merchant punya slide aktif,
+ *    yang tampil hanya slide itu (diatur di `/merchant/promos/carousel`).
+ *    Kalau belum, carousel jatuh ke data lama: klaim dari notifikasi `n3`
+ *    (diskon 30%) plus item katalog yang `discountPercent`-nya memang terisi.
+ *    Tidak ada angka baru di kedua jalur.
  *
  * Geraknya berhenti sendiri: `prefers-reduced-motion` mematikan pergeseran
  * otomatis, dan sentuhan pengguna menjeda. Carousel yang jalan terus sejak
@@ -36,6 +37,8 @@ type PromoCard = {
   body: string
   cta: string
   to: string
+  /** Latar banner unggahan merchant; kosong = latar promo bawaan. */
+  image?: string
 }
 
 /** Jeda antar-kartu. Cukup lama untuk dibaca, cukup pendek untuk terasa hidup. */
@@ -69,6 +72,34 @@ function dealCards(deals: MenuItem[], money: (idr: number) => string): PromoCard
     cta: 'Lihat Menu',
     to: `/menu-detail/${food.id}`,
   }))
+}
+
+/**
+ * Slide kurasi merchant. Slide yang menunjuk menu tak tersedia dilewati, bukan
+ * ditampilkan sebagai tautan mati. Judul kosong memakai nama menu.
+ */
+function slideCards(
+  slides: PromoSlide[],
+  items: MenuItem[],
+  money: (idr: number) => string,
+): PromoCard[] {
+  return slides.flatMap((slide) => {
+    const food = items.find((item) => item.id === slide.menuItemId && isOrderable(item))
+    if (!food) return []
+    const discount = food.discountPercent
+    return [
+      {
+        id: `slide-${slide.id}`,
+        kind: 'deal',
+        title: slide.title.trim() || food.name,
+        value: discount != null ? `${discount}%` : '',
+        body: discount != null ? `Hemat dari ${money(food.price)}` : money(food.price),
+        cta: 'Lihat Menu',
+        to: `/menu-detail/${food.id}`,
+        image: slide.image ?? undefined,
+      },
+    ]
+  })
 }
 
 /**
@@ -121,17 +152,32 @@ function PromoBackdrop() {
 
 interface HomePromoCarouselProps {
   deals: MenuItem[]
+  /** Slide kurasi merchant; menang atas `deals` bila ada yang valid. */
+  slides?: PromoSlide[]
+  /** Katalog toko, untuk mengambil nama/harga menu yang ditautkan slide. */
+  items?: MenuItem[]
 }
 
-export function HomePromoCarousel({ deals }: HomePromoCarouselProps) {
+export function HomePromoCarousel({ deals, slides = [], items = [] }: HomePromoCarouselProps) {
   const navigate = useNavigate()
   const { money } = useMoney()
   const [index, setIndex] = useState(0)
   const [paused, setPaused] = useState(false)
   const trackRef = useRef<HTMLDivElement>(null)
 
-  // Kartu dibangun tiap render dengan `money` mata uang aktif.
-  const cards: PromoCard[] = [CLAIM_CARD, ...dealCards(deals, money)]
+  // Kartu dibangun tiap render dengan `money` mata uang aktif. Slide merchant
+  // yang belum diisi tidak menghapus carousel lama: kalau tak ada slide valid,
+  // jatuh ke menu berdiskon otomatis seperti sebelumnya.
+  const curated = slideCards(slides, items, money)
+  const cards: PromoCard[] = curated.length
+    ? curated
+    : [CLAIM_CARD, ...dealCards(deals, money)]
+
+  // Jumlah kartu bisa berubah saat merchant menyunting slide. Indeks lama bisa
+  // melewati ujung dan membuat jalur berhenti di ruang kosong.
+  useEffect(() => {
+    setIndex((current) => (current < cards.length ? current : 0))
+  }, [cards.length])
 
   // Satu timer untuk seluruh carousel, bukan satu per kartu. Dijeda saat
   // `paused` supaya sentuhan pengguna tidak dilawan.
@@ -164,13 +210,24 @@ export function HomePromoCarousel({ deals }: HomePromoCarouselProps) {
           <div
             className={`promo-slide${slideIndex === index ? ' promo-slide--active' : ''}`}
             key={card.id}
+            style={
+              card.image
+                ? ({ '--promo-photo': `url("${card.image}")` } as CSSProperties)
+                : undefined
+            }
           >
             <PromoBackdrop />
             <div className="promo-slide__content">
               <div className="promo-slide__text">
                 <h3 className="promo-slide__title">
-                  {card.title} <span className="promo-slide__value">{card.value}</span>
-                  {card.kind === 'claim' ? '' : ' off'}
+                  {card.title}
+                  {card.value ? (
+                    <>
+                      {' '}
+                      <span className="promo-slide__value">{card.value}</span>
+                      {card.kind === 'claim' ? '' : ' off'}
+                    </>
+                  ) : null}
                 </h3>
                 <p className="promo-slide__body">{card.body}</p>
               </div>

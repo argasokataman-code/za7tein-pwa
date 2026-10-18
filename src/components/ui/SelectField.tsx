@@ -1,9 +1,15 @@
 import { Check, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 
+/** Opsi dengan nilai dan label berbeda (mis. id menu + nama menu). */
+export interface SelectOption {
+  value: string
+  label: string
+}
+
 interface SelectFieldProps {
-  /** Daftar opsi (label = nilai). */
-  options: readonly string[]
+  /** Daftar opsi; string berarti label = nilai. */
+  options: readonly (string | SelectOption)[]
   value: string
   onChange: (value: string) => void
   /** Teks saat belum ada pilihan. */
@@ -37,6 +43,10 @@ export function SelectField({
   describedBy,
 }: SelectFieldProps) {
   const [open, setOpen] = useState(false)
+  const items = options.map((option) =>
+    typeof option === 'string' ? { value: option, label: option } : option,
+  )
+  const selectedLabel = items.find((option) => option.value === value)?.label
 
   return (
     <>
@@ -50,7 +60,7 @@ export function SelectField({
         aria-describedby={describedBy}
         onClick={() => setOpen((prev) => !prev)}
       >
-        <span>{value || placeholder}</span>
+        <span>{selectedLabel || placeholder}</span>
         <ChevronDown
           size={18}
           strokeWidth={1.75}
@@ -61,21 +71,21 @@ export function SelectField({
 
       {open && (
         <div className="field-select-menu" role="listbox" aria-label={label}>
-          {options.map((option) => {
-            const selected = option === value
+          {items.map((option) => {
+            const selected = option.value === value
             return (
               <button
-                key={option}
+                key={option.value}
                 type="button"
                 role="option"
                 aria-selected={selected}
                 className={`field-select-option${selected ? ' is-active' : ''}`}
                 onClick={() => {
-                  onChange(option)
+                  onChange(option.value)
                   setOpen(false)
                 }}
               >
-                <span>{option}</span>
+                <span>{option.label}</span>
                 {selected ? <Check size={18} strokeWidth={1.75} aria-hidden="true" /> : null}
               </button>
             )

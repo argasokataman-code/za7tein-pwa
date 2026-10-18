@@ -1223,6 +1223,24 @@ export interface MarketingProgram {
   isStackable: boolean
 }
 
+/**
+ * Slide carousel promo beranda toko. Dikelola merchant; customer melihat
+ * slide aktif milik toko itu, berurutan sesuai posisi di state.
+ *
+ * `image` opsional (data URL hasil unggah). Tanpa gambar, kartu memakai latar
+ * promo bawaan yang sama dengan carousel lama.
+ */
+export interface PromoSlide {
+  id: string
+  /** `MerchantRecord.id` pemilik slide. */
+  merchantId: string
+  menuItemId: string
+  /** Judul kartu. Kosong = pakai nama menu saat dirender. */
+  title: string
+  image: string | null
+  active: boolean
+}
+
 /** Syarat program (padanan `loyalty.rule`). */
 export interface ProgramRule {
   id: string

@@ -2,6 +2,7 @@ import {
   Award,
   CreditCard,
   Gift,
+  Images,
   Info,
   Percent,
   Plus,
@@ -13,6 +14,7 @@ import {
 } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { Link } from 'react-router-dom'
 
 import {
   PROMO_TYPES,
@@ -34,6 +36,7 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { jod } from '../data/currency'
 import { PROGRAM_EDIT_AVAILABLE, PROGRAM_TONE, merchantPrograms, programSummary } from '../data/marketing'
+import { mockMerchant } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { removeProgram, replaceMarketing, setStackable } from '../store/slices/marketingSlice'
 import type { MarketingProgramType } from '../types'
@@ -118,6 +121,9 @@ export default function MerchantPromos() {
     programRules,
     programRewards,
     String(DEMO_MERCHANT_ID),
+  )
+  const carouselSlides = useAppSelector((s) => s.marketing.slides).filter(
+    (slide) => slide.merchantId === mockMerchant.id,
   )
 
   // Form create.
@@ -229,6 +235,23 @@ export default function MerchantPromos() {
     <div className="app-shell">
       <main className="merchant-page">
         <MerchantPageHeader eyebrow="Marketing" title="Promo & diskon" back="/" />
+
+        <section className="merchant-card">
+          <div className="merchant-row">
+            <Images size={20} strokeWidth={1.75} aria-hidden="true" />
+            <div>
+              <p className="merchant-card-title">Carousel beranda</p>
+              <p className="merchant-card-sub">
+                {carouselSlides.length
+                  ? `${carouselSlides.length} slide dikelola. Atur banner, menu, dan urutannya.`
+                  : 'Belum ada slide. Customer masih melihat menu berdiskon otomatis.'}
+              </p>
+            </div>
+          </div>
+          <Link className="merchant-btn-ghost merchant-wallet-manage" to="/promos/carousel">
+            Kelola carousel
+          </Link>
+        </section>
 
         <section className="merchant-card">
           <div className="merchant-row">

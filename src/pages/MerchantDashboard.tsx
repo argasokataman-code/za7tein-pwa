@@ -423,7 +423,7 @@ export default function MerchantDashboard() {
             </span>
             <div>
               <p className="merchant-quick-title">Promo &amp; Diskon</p>
-              <p className="merchant-quick-sub">Atur kode potongan untuk toko ini</p>
+              <p className="merchant-quick-sub">Atur kode promo dan carousel beranda</p>
             </div>
             <ChevronRight size={18} strokeWidth={1.75} className="merchant-quick-chevron" />
           </Link>

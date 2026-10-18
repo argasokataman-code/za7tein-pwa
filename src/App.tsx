@@ -64,6 +64,8 @@ import MerchantPayoutAccounts from './pages/MerchantPayoutAccounts'
 import MerchantPending from './pages/MerchantPending'
 import MerchantRebate from './pages/MerchantRebate'
 import MerchantPromos from './pages/MerchantPromos'
+import MerchantPromoCarousel from './pages/MerchantPromoCarousel'
+import MerchantPromoSlideForm from './pages/MerchantPromoSlideForm'
 import MerchantReviews from './pages/MerchantReviews'
 import MerchantSettings from './pages/MerchantSettings'
 import MerchantSignIn from './pages/MerchantSignIn'
@@ -213,6 +215,9 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/notifications', Notifications],
   ['/menu', MerchantMenu],
   ['/promos', MerchantPromos],
+  ['/promos/carousel', MerchantPromoCarousel],
+  ['/promos/carousel/new', MerchantPromoSlideForm],
+  ['/promos/carousel/:slideId', MerchantPromoSlideForm],
   ['/insentif', MerchantRebate],
   ['/subscription', MerchantSubscription],
   ['/reviews', MerchantReviews],
