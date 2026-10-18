@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Check, Circle } from 'lucide-react'
 
-import { fetchOrderHistory, statusLabelOf } from '../../api/orders'
+import { fetchOrderCheckpoints, fetchOrderHistory, statusLabelOf } from '../../api/orders'
 import { apiEnabled } from '../../api/supabase'
 import { batchNumber } from '../../data/batch'
 import { orderDeliveryType } from '../../data/merchantOrders'
@@ -19,6 +19,22 @@ interface HistoryStep {
   reached: boolean
 }
 
+/** Langkah + waktu mentah untuk mengurutkan gabungan dua sumber. */
+interface MergedStep extends HistoryStep {
+  ms: number
+}
+
+/**
+ * Tonggak kurir (`checkpoints.kind`) → label lini masa. Nilai tak dikenal
+ * ditampilkan apa adanya, bukan disembunyikan.
+ */
+const CHECKPOINT_LABEL: Record<string, string> = {
+  at_store: 'Kurir tiba di toko',
+  picked_up: 'Pesanan diambil kurir',
+  arrived: 'Kurir tiba di lokasi',
+  otp_verified: 'OTP terverifikasi',
+}
+
 /** `HH:MM` lokal dari stempel ISO; kosong bila tak valid. */
 function clock(iso: string): string {
   const t = new Date(iso)
@@ -30,9 +46,11 @@ function clock(iso: string): string {
 /**
  * Riwayat perjalanan satu order.
  *
- * Sumber utama: `order_status_history` D1 (satu baris per transisi, berwaktu) —
- * tabel ini sudah diekspos Worker. Kalau baris BE belum ada (order mock/luring),
- * jatuh ke riwayat yang disusun dari keadaan order (status, packing, batch).
+ * Dua sumber BE digabung dan diurutkan waktu — keduanya sudah diekspos Worker:
+ * `order_status_history` (satu baris per transisi status) dan `checkpoints`
+ * (tonggak fisik kurir: diambil, tiba, OTP terverifikasi). Kalau keduanya belum
+ * ada barisnya (order mock/luring), jatuh ke riwayat yang disusun dari keadaan
+ * order (status, packing, batch).
  */
 function historySteps(order: MerchantOrder): HistoryStep[] {
   const number = batchNumber(order.batchId)
@@ -64,10 +82,31 @@ export function OrderTimeline({ order }: OrderTimelineProps) {
       return
     }
     let alive = true
-    fetchOrderHistory(order.id)
-      .then((rows) => {
-        if (!alive || rows.length === 0) return
-        setEvents(rows.map((row) => ({ label: statusLabelOf(row.to_status), at: clock(row.at), reached: true })))
+    // Dua sumber, satu lini masa: transisi status + tonggak kurir, urut waktu.
+    Promise.all([
+      fetchOrderHistory(order.id).catch(() => []),
+      fetchOrderCheckpoints(order.id).catch(() => []),
+    ])
+      .then(([history, checkpoints]) => {
+        if (!alive) return
+        const merged: MergedStep[] = [
+          ...history.map((row) => ({
+            label: statusLabelOf(row.to_status),
+            at: clock(row.at),
+            reached: true,
+            ms: new Date(row.at).getTime(),
+          })),
+          ...checkpoints.map((row) => ({
+            label: CHECKPOINT_LABEL[row.kind] ?? `Checkpoint ${row.kind}`,
+            at: clock(row.at),
+            reached: true,
+            ms: new Date(row.at).getTime(),
+          })),
+        ]
+        // Kosong = biarkan `historySteps(order)` yang menggambar keadaan order.
+        if (merged.length === 0) return
+        merged.sort((a, b) => a.ms - b.ms)
+        setEvents(merged.map(({ label, at, reached }) => ({ label, at, reached })))
       })
       .catch(() => {})
     return () => {

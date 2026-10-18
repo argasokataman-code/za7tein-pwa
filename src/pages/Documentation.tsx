@@ -947,7 +947,32 @@ export default function Documentation() {
                 (sebelumnya jatuh ke <em>offline</em>).
               </li>
               <li>
-                <strong>Rating: aturan §20.2 dikunci + menu riwayat pesanan (M8a, R-CUS-RATING).</strong>{' '}
+                <strong>Audit integrasi + tiga tabel BE yang tadinya belum dibaca.</strong>{' '}
+                <code className="doc-inline">scripts/be-audit.mjs</code> mengekstrak setiap query{' '}
+                <code className="doc-inline">/rest/v1/…</code> dari{' '}
+                <code className="doc-inline">src/api/*.ts</code> dan menembaknya ke Worker (baca
+                publik): hasil terukur <strong>89 query, 0 gagal</strong>,{' '}
+                <strong>40 dari 64 tabel</strong> D1 tersentuh. Dari sisa tabel yang ternyata sudah
+                berisi data, tiga kini dibaca: <em>checkpoint kurir</em> —{' '}
+                <code className="doc-inline">checkpoints</code> (
+                <code className="doc-inline">picked_up</code>/<code className="doc-inline">arrived</code>/
+                <code className="doc-inline">otp_verified</code> + <code className="doc-inline">at</code>)
+                digabung ke lini masa merchant (<code className="doc-inline">fetchOrderCheckpoints</code>,
+                diurutkan bersama <code className="doc-inline">order_status_history</code>);{' '}
+                <em>peserta chat</em> — <code className="doc-inline">chat_participants</code> (
+                <code className="doc-inline">role</code> + <code className="doc-inline">joined_at</code>)
+                jadi sumber keanggotaan nyata di <code className="doc-inline">OrderChat</code>, bukan
+                tebakan (kurir tetap diturunkan dari batch/assignment karena BE belum mencatatnya);{' '}
+                <em>setoran deposit</em> — <code className="doc-inline">deposits</code> (
+                <code className="doc-inline">kind</code>/<code className="doc-inline">amount_jod</code>/
+                <code className="doc-inline">status</code>) tampil sebagai riwayat di{' '}
+                <code className="doc-inline">/merchant/rebate</code>. Tabel{' '}
+                <code className="doc-inline">menu_categories</code> dan{' '}
+                <code className="doc-inline">product_attributes</code> belum disambung: keduanya
+                bersinggungan dengan taksonomi kategori customer yang sengaja berbeda (
+                <code className="doc-inline">foodBucket</code>), jadi butuh keputusan dulu.
+              </li>
+              <li>
                 PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}
                 <strong>menu riwayat order</strong>&rdquo;, tapi menu itu tidak ada: satu-satunya
                 pintu ke form rating adalah tautan &ldquo;Lihat semua&rdquo; di detail menu yang

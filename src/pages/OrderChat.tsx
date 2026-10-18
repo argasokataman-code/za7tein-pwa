@@ -17,6 +17,7 @@ import {
   chatStatusFor,
   courierJoinedInhouse,
   courierJoinedPartner,
+  type ChatParticipant,
   type ChatRole,
 } from '../data/chat'
 import { mockCouriers, mockMerchant, mockOrder } from '../data/merchant'
@@ -158,14 +159,45 @@ export default function OrderChat() {
       ? 'done'
       : 'active'
 
-  const peserta = chatParticipants({
-    customerName: mockUser.name,
-    merchantName: mockMerchant.name,
-    courierName: courier.name,
-    batchAssigned,
-    partnerApproved,
-    orderState,
-  })
+  /**
+   * Keanggotaan peserta: **BE yang menentukan** bila barisnya ada —
+   * `chat_participants` mencatat customer + merchant sejak order dibuat, lengkap
+   * dengan waktu bergabung sungguhan. Kurir belum pernah ditulis BE, jadi jalur
+   * kurir tetap diturunkan dari state demo (batch ter-assign / assignment
+   * di-approve), bukan dipaksa "belum gabung" padahal ia memegang order.
+   */
+  const liveParticipants = live.live && live.participants.length ? live.participants : null
+  const beJoined = (role: ChatSender) => liveParticipants?.some((p) => p.role === role)
+  const joinedAtOf = (role: ChatSender) => liveParticipants?.find((p) => p.role === role)?.joinedAt
+  const peserta: ChatParticipant[] = liveParticipants
+    ? [
+        {
+          role: 'customer',
+          name: mockUser.name,
+          joined: beJoined('customer') ?? true,
+          joinedAt: joinedAtOf('customer'),
+        },
+        {
+          role: 'merchant',
+          name: mockMerchant.name,
+          joined: beJoined('merchant') ?? true,
+          joinedAt: joinedAtOf('merchant'),
+        },
+        {
+          role: 'kurir',
+          name: courier.name,
+          joined: beJoined('courier') === true || courierJoined,
+          joinedAt: joinedAtOf('courier'),
+        },
+      ]
+    : chatParticipants({
+        customerName: mockUser.name,
+        merchantName: mockMerchant.name,
+        courierName: courier.name,
+        batchAssigned,
+        partnerApproved,
+        orderState,
+      })
   const thread = chatStatusFor(orderState)
   /** Nama pembicara per sisi gelembung, dari sudut pandang pembaca mana pun. */
   const nameForDari = (dari: PesanDari) =>
@@ -344,7 +376,11 @@ export default function OrderChat() {
                   {p.joined ? p.name : ROLE_LABEL[p.role]}
                 </span>
                 <span className="chat-person__role">
-                  {p.joined ? ROLE_LABEL[p.role] : 'Belum gabung'}
+                  {p.joined
+                    ? p.joinedAt
+                      ? `${ROLE_LABEL[p.role]} · ${jamIso(p.joinedAt)}`
+                      : ROLE_LABEL[p.role]
+                    : 'Belum gabung'}
                 </span>
               </li>
             ))}

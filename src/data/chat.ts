@@ -12,6 +12,8 @@ export interface ChatParticipant {
   name: string
   /** false = belum bergabung (kurir masuk belakangan, bukan sejak order dibuat). */
   joined: boolean
+  /** Waktu bergabung dari `chat_participants` BE (mock tak punya nilainya). */
+  joinedAt?: string
 }
 
 export type ChatThreadStatus = 'open' | 'closed'

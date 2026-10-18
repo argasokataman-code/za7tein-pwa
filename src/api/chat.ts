@@ -47,15 +47,59 @@ export interface ChatLine {
 }
 
 /** Cari id `chats` untuk order; buat bila belum ada. `null` bila gagal. */
-async function ensureChat(token: string, orderId: number): Promise<number | null> {
+async function findChat(token: string, orderId: number): Promise<number | null> {
   const found = await restWith<{ id: number }>(
     token,
     'chats',
     `?select=id&order_id=eq.${orderId}&limit=1`,
   )
-  if (found[0]?.id) return found[0].id
+  return found[0]?.id ?? null
+}
+
+/** Id chat order, dibuat kalau belum ada (jalur tulis). */
+async function ensureChat(token: string, orderId: number): Promise<number | null> {
+  const existing = await findChat(token, orderId)
+  if (existing) return existing
   const created = await createWithReturn<{ id: number }>(token, 'chats', { order_id: orderId }, 'id')
   return created[0]?.id ?? null
+}
+
+/** `chat_participants.role` → peran chat FE. `kurir` diterima sebagai alias. */
+const PARTICIPANT_ROLE: Record<string, ChatSender> = {
+  customer: 'customer',
+  merchant: 'merchant',
+  courier: 'courier',
+  kurir: 'courier',
+}
+
+/** Satu peserta thread dari BE, lengkap dengan waktu bergabungnya. */
+export interface ChatParticipantLive {
+  role: ChatSender
+  userId: number
+  joinedAt: string
+}
+
+/**
+ * Peserta satu chat dari `chat_participants` D1. BE mencatat customer + merchant
+ * sejak order dibuat (kurir belum pernah ditulis saat ini), dengan `joined_at`
+ * sungguhan — jadi UI tak perlu lagi menebak siapa yang sudah bergabung.
+ */
+export async function fetchChatParticipants(orderId: number): Promise<ChatParticipantLive[]> {
+  if (!apiEnabled) return []
+  const token = await refToken()
+  const chatId = await findChat(token, orderId)
+  if (!chatId) return []
+  const rows = await restWith<{ user_id: number; role: string; joined_at: string }>(
+    token,
+    'chat_participants',
+    `?select=user_id,role,joined_at&chat_id=eq.${chatId}&order=joined_at.asc`,
+  )
+  const out: ChatParticipantLive[] = []
+  for (const row of rows) {
+    const role = PARTICIPANT_ROLE[row.role]
+    if (role) out.push({ role, userId: row.user_id, joinedAt: row.joined_at })
+  }
+  return out
 }
 
 /** Pesan satu order, terlama dulu. Kosong bila API mati / belum ada chat. */

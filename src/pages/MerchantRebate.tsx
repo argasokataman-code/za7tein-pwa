@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { jod, jodToIdr } from '../data/currency'
-import { CREDIT_EVENT_LABEL, MERCHANT_CREDIT_JOD, MERCHANT_CREDIT_ORDERS, REBATE_TIERS, rebateProgress } from '../data/incentive'
+import { CREDIT_EVENT_LABEL, DEPOSIT_KIND_LABEL, DEPOSIT_STATUS_LABEL, MERCHANT_CREDIT_JOD, MERCHANT_CREDIT_ORDERS, REBATE_TIERS, rebateProgress } from '../data/incentive'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { payRebate, recordSettledOrder } from '../store/slices/merchantSlice'
@@ -115,6 +115,32 @@ export default function MerchantRebate() {
           </ul>
           <p className="merchant-hint-inline">
             Urut dari yang terbaru. Daftar ini bertambah, tidak pernah disunting.
+          </p>
+        </section>
+
+        <section className="merchant-section">
+          <div className="merchant-section-head">
+            <h2>Setoran dompet deposit</h2>
+          </div>
+          {credit.deposits.length === 0 ? (
+            <p className="merchant-card-sub">Belum ada setoran tercatat.</p>
+          ) : (
+            <ul className="merchant-event-list">
+              {credit.deposits.map((dep) => (
+                <li key={dep.id}>
+                  <span className="merchant-event-label">
+                    {DEPOSIT_KIND_LABEL[dep.kind]} ·{' '}
+                    {DEPOSIT_STATUS_LABEL[dep.status] ?? dep.status}
+                  </span>
+                  <span className="merchant-event-amount">{jod(dep.amountJod)}</span>
+                  <span className="merchant-event-at">{dep.at}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="merchant-hint-inline">
+            Sumber: tabel deposits BE. Dana COD ditahan platform sampai diverifikasi; kredit
+            Founding masuk sebagai modal awal dompet.
           </p>
         </section>
 

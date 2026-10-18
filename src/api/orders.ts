@@ -466,6 +466,27 @@ export function statusLabelOf(dbStatus: string): string {
   return orderStatusLabel(STATUS_MAP[dbStatus] ?? 'baru')
 }
 
+/** Baris `checkpoints` — tonggak fisik kurir, sumber lini masa kedua. */
+export interface OrderCheckpointRow {
+  kind: string
+  at: string
+}
+
+/**
+ * Checkpoint kurir satu order dari tabel `checkpoints` D1 (`picked_up` /
+ * `arrived` / `otp_verified`, ber-cap waktu). Melengkapi `order_status_history`:
+ * riwayat status mencatat transisi status, ini mencatat tonggak pengantaran
+ * kurir yang tidak selalu memindahkan status order. Tabelnya diekspos Worker.
+ */
+export async function fetchOrderCheckpoints(orderId: string): Promise<OrderCheckpointRow[]> {
+  const numeric = numericOrderId(orderId)
+  if (!Number.isFinite(numeric)) return []
+  return rest<OrderCheckpointRow>(
+    'checkpoints',
+    `?select=kind,at&order_id=eq.${numeric}&order=at.asc`,
+  )
+}
+
 /** `orders.status` → tahap kurir (Journey Line, `OrderStage` — flow f18). */
 const STAGE_OF_STATUS: Record<string, OrderStage> = {
   cart: 'baru',

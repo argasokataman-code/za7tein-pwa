@@ -36,15 +36,22 @@ Yang ditemukan dan diperbaiki:
   400) → join manual dengan `in.(…)` di: `order_items` + `customers` (order
   merchant), `users.phone` (panel CS), `menus` (nama hidangan di ulasan).
 
-## BE sudah punya data, FE belum membaca (14 tabel)
+## Sudah disambung (2026-10-18, lanjutan)
+
+Tiga tabel berisi data kini **dibaca** FE:
+
+| Tabel | Dipakai di | Cara |
+|---|---|---|
+| `checkpoints` | lini masa order merchant | `fetchOrderCheckpoints` digabung dengan `order_status_history`, urut `at` |
+| `chat_participants` | peserta `OrderChat` | `fetchChatParticipants` (role + `joined_at`); kurir masih turunan demo |
+| `deposits` | riwayat setoran `/merchant/insentif` | `fetchMerchantCredit` → `MerchantCreditState.deposits` |
+
+## BE sudah punya data, FE belum membaca (11 tabel)
 
 Prioritas dari yang paling kentara di produk:
 
 | Tabel | Baris | Yang hilang di FE |
 |---|---|---|
-| `checkpoints` | 20 | bukti perjalanan kurir: `kind`, `latitude/longitude`, `proof_photo`, `note`, `at` |
-| `chat_participants` | 28 | daftar peserta + peran chat (`role`, `joined_at`) |
-| `deposits` | 18 | setoran merchant (`kind`, `amount_jod`, `status`, `verified_by/at`) |
 | `enterprise_ledger` | 9 | ledger platform per order (`entry_type`, `party`, `amount_jod/idr`) |
 | `product_attributes` / `product_attribute_values` | 2 / 5 | atribut produk + nilainya (`display_type`, `html_color`, `price_extra`) |
 | `menu_categories` | 3 | kategori menu (`slug`, `icon`, `sort_order`) |

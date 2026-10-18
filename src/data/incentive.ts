@@ -14,7 +14,12 @@
  * PO 2026-10-10), dan I-6 (sisa modal hangus, PO 2026-09-23) sudah diputuskan.
  * I-5 (kuota Founding) belum final — jangan dianggap aturan terkunci.
  */
-import type { MerchantCreditEventName, MerchantCreditState, RebateTier } from '../types'
+import type {
+  MerchantCreditEventName,
+  MerchantCreditState,
+  MerchantDepositKind,
+  RebateTier,
+} from '../types'
 
 /** Modal awal merchant baru (I-1/I-2 resolved). */
 export const MERCHANT_CREDIT_JOD = 5
@@ -66,6 +71,19 @@ export const CREDIT_EVENT_LABEL: Record<MerchantCreditEventName, string> = {
   rebate_paid: 'Cashback dibayar ke dompet deposit',
 }
 
+/** Label jenis setoran deposit (`deposits.kind`). */
+export const DEPOSIT_KIND_LABEL: Record<MerchantDepositKind, string> = {
+  cod: 'Dana COD ditahan',
+  founding_credit: 'Kredit Founding',
+}
+
+/** Status setoran deposit (`deposits.status`) → label Indonesia. */
+export const DEPOSIT_STATUS_LABEL: Record<string, string> = {
+  held: 'Ditahan platform',
+  verified: 'Terverifikasi',
+  released: 'Dilepas',
+}
+
 /** `YYYY-MM` untuk field `rebate_period`. */
 export function currentPeriod(date = new Date()): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`
@@ -84,6 +102,10 @@ export const mockMerchantCredit: MerchantCreditState = {
   rebateAmountJod: 15,
   rebatePaidAt: null,
   depositBalanceJod: 12.5,
+  deposits: [
+    { id: 'dep-1', kind: 'founding_credit', amountJod: 5, status: 'held', at: '1 Sep' },
+    { id: 'dep-2', kind: 'cod', amountJod: 3.5, status: 'held', at: '18 Sep' },
+  ],
   events: [
     { id: 'mc-1', event: 'merchant_credit_granted', amountJod: MERCHANT_CREDIT_JOD, at: '1 Sep' },
     { id: 'mc-2', event: 'merchant_credit_debited', amountJod: 1.95, at: '18 Sep' },

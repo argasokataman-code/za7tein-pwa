@@ -800,6 +800,22 @@ export interface MerchantCreditEvent {
   at: string
 }
 
+/** Jenis setoran deposit merchant (kontrak BE `deposits.kind`). */
+export type MerchantDepositKind = 'cod' | 'founding_credit'
+
+/**
+ * Satu setoran ke dompet deposit merchant (`deposits` BE) — inilah yang membuat
+ * dompet deposit bertambah, termasuk dana COD yang ditahan platform.
+ */
+export interface MerchantDeposit {
+  id: string
+  kind: MerchantDepositKind
+  amountJod: number
+  /** Status verifikasi BE (`held` = ditahan platform, belum diverifikasi). */
+  status: string
+  at: string
+}
+
 /**
  * State insentif merchant (M10). Semua nominal JOD karena kontraknya JOD
  * (`merchant_credit_balance`, `rebate_amount_jod`); padanan IDR dihitung di
@@ -818,6 +834,8 @@ export interface MerchantCreditState {
   rebatePaidAt: string | null
   /** Dompet deposit merchant; cashback masuk ke sini, bukan ke modal. */
   depositBalanceJod: number
+  /** Riwayat setoran ke dompet deposit (BE `deposits`), terbaru dulu. */
+  deposits: MerchantDeposit[]
   /** Riwayat event modal & cashback, append-only. */
   events: MerchantCreditEvent[]
 }

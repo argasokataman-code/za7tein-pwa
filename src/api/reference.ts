@@ -21,6 +21,8 @@ import type {
   MerchantCreditEventName,
   MerchantCreditState,
   MerchantDeliveryConfig,
+  MerchantDeposit,
+  MerchantDepositKind,
   MerchantRecord,
   NotifAudience,
   PlatformSwitches,
@@ -135,6 +137,13 @@ interface CreditEventRow {
   amount_jod: number
   at: string
 }
+interface DepositRow {
+  id: number
+  kind: string
+  amount_jod: number
+  status: string
+  created_at: string
+}
 interface AddressRow {
   label: string | null
   address: string | null
@@ -196,6 +205,22 @@ function toCreditEvent(row: CreditEventRow): MerchantCreditEvent {
   }
 }
 
+/** `deposits.kind` BE → jenis FE. Nilai asing jatuh ke `cod` (jenis paling umum). */
+const DEPOSIT_KIND: Record<string, MerchantDepositKind> = {
+  cod: 'cod',
+  founding_credit: 'founding_credit',
+}
+
+function toDeposit(row: DepositRow): MerchantDeposit {
+  return {
+    id: `dep-${row.id}`,
+    kind: DEPOSIT_KIND[row.kind] ?? 'cod',
+    amountJod: row.amount_jod,
+    status: row.status,
+    at: dayLabel(row.created_at),
+  }
+}
+
 function toRole(row: RoleRow): SaRole {
   return {
     id: row.key,
@@ -244,12 +269,17 @@ export async function fetchMerchantCredit(
   )
   const credit = credits[0]
   if (!credit) return undefined
-  const [merchants, events] = await Promise.all([
+  const [merchants, events, deposits] = await Promise.all([
     restWith<MerchantRow>(token, 'merchants', `?select=id,deposit_jod&id=eq.${merchantId}&limit=1`),
     restWith<CreditEventRow>(
       token,
       'merchant_credit_events',
       `?select=id,event,amount_jod,at&merchant_id=eq.${merchantId}&order=id.desc`,
+    ),
+    restWith<DepositRow>(
+      token,
+      'deposits',
+      `?select=id,kind,amount_jod,status,created_at&merchant_id=eq.${merchantId}&order=id.desc`,
     ),
   ])
   return {
@@ -259,6 +289,7 @@ export async function fetchMerchantCredit(
     rebateAmountJod: credit.rebate_amount_jod ?? 0,
     rebatePaidAt: credit.rebate_paid_at,
     depositBalanceJod: merchants[0]?.deposit_jod ?? 0,
+    deposits: deposits.map(toDeposit),
     events: events.map(toCreditEvent),
   }
 }
