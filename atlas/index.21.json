@@ -513,6 +513,215 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-130110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:03:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/scripts/d1-check.sh (+38) — write via tool: #!/usr/bin/env bash",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/scripts/d1-check.sh"
+    },
+    {
+      "id": "TASK-130111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:07:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/batches.ts (+92) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-130112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:07:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+2/-2) — edit via tool: ts: export const DEMO_CUSTOMER_ID = 1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-130113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:07:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/batchSlice.ts (+31/-18) — edit via tool: ts: /** Urutan manual saat auto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/batchSlice.ts"
+    },
+    {
+      "id": "TASK-130114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:07:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiOrders.ts (+37/-28) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/hooks/useApiOrders.ts"
+    },
+    {
+      "id": "TASK-130115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:09:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/batches.ts (+22/-11) — edit via tool: ts: /** `route` D1 = JSON array id order nu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-130116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:10:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+10/-4) — edit via tool: tsx: <code className=\"doc-inline\">f",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:10:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -6 && echo \"--- build ---\" && npm run build 2>&1 | tail -4",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-130118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:11:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/batch.ts (+21/-10) — edit via tool: ts: /** Order batch yang benar-benar ada di ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/batch.ts"
+    },
+    {
+      "id": "TASK-130119",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:11:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/BatchPanel.tsx (+8/-8) — edit via tool: tsx: {list.map((order) =>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/BatchPanel.tsx"
+    },
+    {
+      "id": "TASK-130120",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:12:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -ciE \"error\"; echo \"err-count-above\"; npm run build 2>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
