@@ -4938,6 +4938,27 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130000",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:49:13",
+      "tags": [
+        "merchant",
+        "carousel",
+        "mock"
+      ],
+      "summary": "Seed 2 slide mock + migrasi persist v9; carousel customer langsung tampil, slides:[] merchant tetap dihormati",
+      "conn": [
+        {
+          "id": "FEAT-120001",
+          "type": "relates",
+          "raw": "FEAT-120001:relates"
+        }
+      ],
+      "loc": "src/data/promoSlides.ts:18"
     }
   ]
 }
