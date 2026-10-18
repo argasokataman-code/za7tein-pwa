@@ -22,12 +22,17 @@ const DEFAULT_ANON_KEY =
  *   hampir semua RPC belum ada di Worker (404/501) → pemanggil jatuh ke mock.
  * - kosong → Supabase PostgREST (default demo repo).
  */
-const workerUrl = ((import.meta.env.VITE_API_BASE_URL as string | undefined) || '').replace(/\/+$/, '')
+const envSupabaseUrl = (import.meta.env.VITE_SUPABASE_URL as string | undefined) || ''
+const envApiBase = (import.meta.env.VITE_API_BASE_URL as string | undefined) || ''
+// Dua cara menyalakan backend Worker, keduanya sah:
+// - `VITE_API_BASE_URL` (eksplisit), atau
+// - arahkan `VITE_SUPABASE_URL` ke host `*.workers.dev` (drop-in sesuai kontrak
+//   `docs/backend/CONSUME-cloudflare.md` — anon key tak dipakai Worker).
+const supabaseIsWorker = /^https?:\/\/[^/]*\.workers\.dev/i.test(envSupabaseUrl)
+const workerUrl = (envApiBase || (supabaseIsWorker ? envSupabaseUrl : '')).replace(/\/+$/, '')
 const useWorker = Boolean(workerUrl)
 
-const url = useWorker
-  ? workerUrl
-  : (import.meta.env.VITE_SUPABASE_URL as string | undefined) || DEFAULT_URL
+const url = useWorker ? workerUrl : envSupabaseUrl || DEFAULT_URL
 const anonKey = useWorker
   ? ''
   : (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || DEFAULT_ANON_KEY
@@ -75,18 +80,14 @@ export async function signInToken(email: string, password: string): Promise<stri
   return data.access_token ?? ''
 }
 
-/** Peran default dari alamat email demo (Worker magic-link butuh `role`). */
+/** Peran dari alamat email demo (Worker magic-link butuh `role`). Vocab D1:
+ * `customer`, `merchant`, `courier`, `cs` (+ `superadmin` untuk owner). */
 function workerRole(email: string): string {
   const local = email.split('@')[0].toLowerCase()
+  if (local.startsWith('superadmin') || local.startsWith('sa')) return 'superadmin'
   if (local.startsWith('merchant')) return 'merchant'
-  if (local.startsWith('courier')) return 'courier_inhouse'
-  if (
-    local.startsWith('cs') ||
-    local.startsWith('ops') ||
-    local.startsWith('admin') ||
-    local.startsWith('sa')
-  )
-    return 'ops'
+  if (local.startsWith('courier')) return 'courier'
+  if (local.startsWith('cs')) return 'cs'
   return 'customer'
 }
 

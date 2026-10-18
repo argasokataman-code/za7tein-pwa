@@ -5073,6 +5073,28 @@
         }
       ],
       "loc": "src/api/supabase.ts:25"
+    },
+    {
+      "id": "TASK-130030",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "12:59:02",
+      "tags": [
+        "api",
+        "cloudflare",
+        "backend",
+        "auth"
+      ],
+      "summary": "Selaras kontrak Worker: role vocab cs/courier (bukan ops), deteksi Worker dari VITE_SUPABASE_URL; RPC live terbukti (price_order 200)",
+      "conn": [
+        {
+          "id": "TASK-130027",
+          "type": "led_to",
+          "raw": "TASK-130027:led_to"
+        }
+      ],
+      "loc": "src/api/supabase.ts:30"
     }
   ]
 }
