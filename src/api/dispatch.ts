@@ -34,6 +34,7 @@ const STATUS: Record<string, CourierPartnerStatus> = {
   available: 'available',
   busy: 'busy',
   on_delivery: 'busy',
+  unavailable: 'offline',
   offline: 'offline',
 }
 

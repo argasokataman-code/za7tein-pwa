@@ -68,7 +68,6 @@ interface ReviewRow {
   rating: number
   review: string | null
   created_at: string
-  menus?: { name: string; merchant_id: number } | null
 }
 
 interface ReplyRow {
@@ -84,13 +83,24 @@ interface CustomerRow {
   avatar: string | null
 }
 
-const STORE_SELECT = 'id,order_id,customer_id,menu_id,rating,review,created_at'
-const DISH_SELECT = `${STORE_SELECT},menus!inner(name,merchant_id)`
+/** `menus` di-join manual: embed `menus!inner(...)` ditolak Worker (400). */
+interface MenuNameRow {
+  id: number
+  name: string | null
+}
 
-/** Satu ulasan → bentuk tampilan; `menus` hanya ada di query hidangan. */
-function toReview(row: ReviewRow, customers: Map<number, CustomerRow>, replies: Map<number, ReplyRow>): ReviewItem {
+const STORE_SELECT = 'id,order_id,customer_id,menu_id,rating,review,created_at'
+
+/** Satu ulasan → bentuk tampilan; `dishName` diisi dari peta `menus`. */
+function toReview(
+  row: ReviewRow,
+  customers: Map<number, CustomerRow>,
+  replies: Map<number, ReplyRow>,
+  menus: Map<number, MenuNameRow>,
+): ReviewItem {
   const customer = row.customer_id != null ? customers.get(row.customer_id) : undefined
   const reply = replies.get(row.id)
+  const dish = row.menu_id != null ? menus.get(row.menu_id) : undefined
   return {
     id: String(row.id),
     kind: row.menu_id != null ? 'dish' : 'store',
@@ -99,7 +109,7 @@ function toReview(row: ReviewRow, customers: Map<number, CustomerRow>, replies: 
     createdAt: row.created_at,
     customerName: customer?.name ?? 'Pelanggan',
     avatar: customer?.avatar ?? '/assets/img/profile.png',
-    dishName: row.menus?.name ?? null,
+    dishName: dish?.name ?? null,
     orderId: row.order_id,
     reply: reply ? { id: String(reply.id), body: reply.body, createdAt: reply.created_at } : null,
   }
@@ -122,25 +132,32 @@ export async function fetchMerchantReviews(
     restWith<ReviewRow>(
       token,
       'rating_reviews',
-      `?select=${DISH_SELECT}&menu_id=not.is.null&deleted_at=is.null&menus.merchant_id=eq.${merchantId}&order=created_at.desc`,
+      `?select=${STORE_SELECT}&merchant_id=eq.${merchantId}&menu_id=not.is.null&deleted_at=is.null&order=created_at.desc`,
     ),
     restWith<ReplyRow>(token, 'review_replies', '?select=id,review_id,body,created_at'),
   ])
 
   const rows = [...store, ...dish]
   const customerIds = [...new Set(rows.flatMap((r) => (r.customer_id != null ? [r.customer_id] : [])))]
-  const customers = customerIds.length
-    ? await restWith<CustomerRow>(
-        token,
-        'customers',
-        `?select=id,name,avatar&id=in.(${customerIds.join(',')})`,
-      )
-    : []
+  const menuIds = [...new Set(rows.flatMap((r) => (r.menu_id != null ? [r.menu_id] : [])))]
+  const [customers, menus] = await Promise.all([
+    customerIds.length
+      ? restWith<CustomerRow>(
+          token,
+          'customers',
+          `?select=id,name,avatar&id=in.(${customerIds.join(',')})`,
+        )
+      : Promise.resolve([]),
+    menuIds.length
+      ? restWith<MenuNameRow>(token, 'menus', `?select=id,name&id=in.(${menuIds.join(',')})`)
+      : Promise.resolve([]),
+  ])
   const byCustomer = new Map(customers.map((c) => [c.id, c]))
+  const byMenu = new Map(menus.map((m) => [m.id, m]))
   const byReview = new Map(replies.map((r) => [r.review_id, r]))
 
   return rows
-    .map((row) => toReview(row, byCustomer, byReview))
+    .map((row) => toReview(row, byCustomer, byReview, byMenu))
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 }
 

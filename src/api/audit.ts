@@ -32,7 +32,8 @@ interface AuditRow {
   actor_id: number | null
   actor_role: string | null
   action: string
-  target: string | null
+  /** D1 memakai `target_id` (bukan `target`); ditampilkan sebagai teks. */
+  target_id: string | number | null
   kind: string | null
   at: string
 }
@@ -60,7 +61,7 @@ export async function fetchAudit(): Promise<AuditEntry[]> {
   const rows = await restWith<AuditRow>(
     token,
     'audit_logs',
-    '?select=id,actor_id,actor_role,action,target,kind,at&order=at.desc&limit=200',
+    '?select=id,actor_id,actor_role,action,target_id,kind,at&order=at.desc&limit=200',
   )
   if (!rows.length) return []
   const ids = [...new Set(rows.map((r) => r.actor_id).filter((v): v is number => v !== null))]
@@ -80,7 +81,7 @@ export async function fetchAudit(): Promise<AuditEntry[]> {
       // ponytail: baris lama tanpa `kind` (pra-migrasi) masuk ember `operator`.
       kind: (KINDS.has(row.kind ?? '') ? row.kind : 'operator') as AuditKind,
       action: row.action,
-      target: row.target ?? '',
+      target: row.target_id != null ? String(row.target_id) : '',
     }
   })
 }

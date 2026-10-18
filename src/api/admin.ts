@@ -19,7 +19,12 @@ interface CustomerRow {
   name: string
   risk_flag: boolean | null
   status: string | null
-  users: { phone: string | null } | null
+  /** Join `users(phone)` tak didukung Worker → phone diambil lewat query kedua. */
+  user_id: number | null
+}
+interface UserPhoneRow {
+  id: number
+  phone: string | null
 }
 interface FlagRow {
   id: number
@@ -35,12 +40,19 @@ export async function fetchAdminCustomers(): Promise<AdminCustomer[]> {
   const rows = await restWith<CustomerRow>(
     token,
     'customers',
-    '?select=id,name,risk_flag,status,users(phone)&order=id.asc',
+    '?select=id,name,risk_flag,status,user_id&order=id.asc',
   )
+  // Telepon tinggal di `users`; embed `users(phone)` dibuang Worker, jadi join
+  // manual (pola yang sama dipakai audit.ts untuk email aktor).
+  const userIds = [...new Set(rows.flatMap((r) => (r.user_id != null ? [r.user_id] : [])))]
+  const users = userIds.length
+    ? await restWith<UserPhoneRow>(token, 'users', `?select=id,phone&id=in.(${userIds.join(',')})`)
+    : []
+  const phoneById = new Map(users.map((u) => [u.id, u.phone]))
   return rows.map((r) => ({
     id: `be-${r.id}`,
     name: r.name,
-    phone: r.users?.phone ?? '-',
+    phone: (r.user_id != null ? phoneById.get(r.user_id) : null) ?? '-',
     status: (r.status as CustomerStatus) ?? 'active',
     riskFlag: Boolean(r.risk_flag),
   }))

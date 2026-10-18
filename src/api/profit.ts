@@ -29,8 +29,10 @@ interface WithdrawalRow {
 }
 interface ProfitRow {
   period: string
-  gross_jod: number
-  cost_jod: number
+  /** D1 punya `amount_jod`; `gross_jod`/`cost_jod` ditambahkan agar cocok kontrak. */
+  amount_jod?: number | null
+  gross_jod?: number | null
+  cost_jod?: number | null
 }
 
 /** Waktu relatif singkat (menit/jam/hari) — cukup untuk kolom riwayat. */
@@ -48,7 +50,7 @@ function toWithdrawal(row: WithdrawalRow): ProfitWithdrawal {
     id: `pw-${row.id}`,
     at: relativeTime(row.created_at),
     amountJod: row.amount_jod,
-    method: row.method,
+    method: row.method ?? '',
     status: row.status === 'paid' ? 'settled' : 'processing',
   }
 }
@@ -79,7 +81,8 @@ export async function fetchPlatformProfit(): Promise<{ feeGrossJod?: number; cos
   )
   const row = rows[0]
   if (!row) return {}
-  return { feeGrossJod: row.gross_jod, costJod: row.cost_jod }
+  const gross = row.gross_jod ?? row.amount_jod
+  return { feeGrossJod: gross ?? undefined, costJod: row.cost_jod ?? undefined }
 }
 
 /**

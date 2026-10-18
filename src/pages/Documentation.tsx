@@ -924,6 +924,29 @@ export default function Documentation() {
                 numerik dipetakan ke id kurir FE (<code className="doc-inline">cr-N</code>).
               </li>
               <li>
+                <strong>Kolom FE ↔ D1 disamakan (join manual, kolom nyata).</strong> Worker
+                menolak nama kolom yang tidak ada (<code className="doc-inline">400 no such column</code>),
+                jadi <em>select</em> yang menyebut kolom fiktif mematikan seluruh daftar, bukan
+                sekadar mengosongkan satu sel: <code className="doc-inline">audit_logs.kind</code> dan{' '}
+                <code className="doc-inline">platform_params.almost_arrived_minutes</code> (ada di
+                migrasi repo, belum di D1), <code className="doc-inline">payout_accounts.holder_name</code>,
+                serta <code className="doc-inline">profit_withdrawals.period</code>/
+                <code className="doc-inline">method</code> dan <code className="doc-inline">platform_profit.gross_jod</code>/
+                <code className="doc-inline">cost_jod</code> — semuanya ditambahkan ke D1 secara{' '}
+                <em>additive</em> (tidak ada <code className="doc-inline">rename</code>, jadi penulis BE
+                lama aman). Sebaliknya <code className="doc-inline">audit_logs</code> tak punya{' '}
+                <code className="doc-inline">target</code> — FE membaca{' '}
+                <code className="doc-inline">target_id</code> yang memang ada. Embed PostgREST
+                (<code className="doc-inline">users(phone)</code>,{' '}
+                <code className="doc-inline">menus!inner(…)</code>) dibuang atau ditolak Worker, jadi
+                join dikerjakan manual dengan <code className="doc-inline">in.(…)</code>: nama/avatar
+                pembeli + rincian item di order merchant (<code className="doc-inline">order_items</code>,{' '}
+                <code className="doc-inline">customers</code>), telepon customer panel CS, dan nama
+                hidangan di ulasan. <code className="doc-inline">couriers.availability</code> D1
+                bernilai <code className="doc-inline">unavailable</code> — sekarang dipetakan
+                (sebelumnya jatuh ke <em>offline</em>).
+              </li>
+              <li>
                 <strong>Rating: aturan §20.2 dikunci + menu riwayat pesanan (M8a, R-CUS-RATING).</strong>{' '}
                 PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}
                 <strong>menu riwayat order</strong>&rdquo;, tapi menu itu tidak ada: satu-satunya

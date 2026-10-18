@@ -319,19 +319,50 @@ function relativeTime(iso: string): string {
   return `${Math.round(hours / 24)} hari lalu`
 }
 
-function toMerchantOrder(row: OrderRow): MerchantOrder {
+/** Baris `order_items` (nama barang sudah didenormalisasi di BE). */
+interface OrderItemRow {
+  order_id: number
+  name: string
+  qty: number
+  line_total_jod: number
+  modifiers: string | null
+}
+
+/** Baris `customers` — nama/avatar pembeli, join manual (embed dibuang Worker). */
+interface CustomerNameRow {
+  id: number
+  name: string | null
+  avatar: string | null
+}
+
+function toCartItems(orderId: number, rows: OrderItemRow[]): CartItem[] {
+  return rows.map((row, index) => ({
+    id: `api-${orderId}-${index}`,
+    name: row.name,
+    price: jodToIdr(row.line_total_jod / Math.max(1, row.qty)),
+    quantity: row.qty,
+    image: '',
+    modifiers: row.modifiers ?? undefined,
+  }))
+}
+
+function toMerchantOrder(
+  row: OrderRow,
+  items: OrderItemRow[] = [],
+  customer?: CustomerNameRow,
+): MerchantOrder {
   const zone: ZoneId = row.zone_code === 'syimali' ? 'syimali' : 'hijazi'
   return {
     id: `api-${row.id}`,
     code: row.code,
     customerId: String(row.customer_id),
-    // Backend belum menyediakan join nama/alamat/item untuk baris `orders`
-    // (tabel `order_items` masih kosong) — kolom yang tak ada diisi netral.
-    customerName: `Customer ${row.customer_id}`,
-    buyerAvatar: '/assets/img/reviewer/user1.png',
+    // `order_items` & `customers` di-join manual di `fetchMerchantOrders`
+    // (embed PostgREST tak didukung Worker) — kalau kosong, tetap netral.
+    customerName: customer?.name ?? `Customer ${row.customer_id}`,
+    buyerAvatar: customer?.avatar ?? '/assets/img/reviewer/user1.png',
     buyerRating: 0,
     address: row.zone_code ? `Zona ${row.zone_code}` : 'Alamat belum tersedia',
-    items: [],
+    items: toCartItems(row.id, items),
     total: jodToIdr(row.total_jod),
     distanceMeters: 0,
     zone,
@@ -380,7 +411,33 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
     'orders',
     `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,payment_status,zone_code,created_at,placed_at,courier_id,batch_id,delivery_type,cook_minutes&merchant_id=eq.${merchantId}&order=created_at.desc`,
   )
-  return rows.map(toMerchantOrder)
+  if (!rows.length) return []
+  // Embed PostgREST tak didukung Worker → item & pembeli di-join manual dengan
+  // `in.(...)` (didukung), satu query per tabel, bukan per order.
+  const orderIds = rows.map((row) => row.id)
+  const customerIds = [...new Set(rows.map((row) => row.customer_id))]
+  const [items, customers] = await Promise.all([
+    restWith<OrderItemRow>(
+      token,
+      'order_items',
+      `?select=order_id,name,qty,line_total_jod,modifiers&order_id=in.(${orderIds.join(',')})`,
+    ),
+    restWith<CustomerNameRow>(
+      token,
+      'customers',
+      `?select=id,name,avatar&id=in.(${customerIds.join(',')})`,
+    ),
+  ])
+  const itemsByOrder = new Map<number, OrderItemRow[]>()
+  for (const item of items) {
+    const list = itemsByOrder.get(item.order_id)
+    if (list) list.push(item)
+    else itemsByOrder.set(item.order_id, [item])
+  }
+  const customerById = new Map(customers.map((c) => [c.id, c]))
+  return rows.map((row) =>
+    toMerchantOrder(row, itemsByOrder.get(row.id) ?? [], customerById.get(row.customer_id)),
+  )
 }
 
 export interface OrderHistoryRow {

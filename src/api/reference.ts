@@ -152,10 +152,12 @@ const CREDIT_EVENT_NAME: Record<string, MerchantCreditEventName> = {
   rebate_paid: 'rebate_paid',
 }
 
+/** `couriers.availability` D1 → status FE. `unavailable` = sedang tidak siap. */
 const AVAILABILITY: Record<string, Courier['status']> = {
   available: 'at_store',
   busy: 'delivering',
   on_delivery: 'delivering',
+  unavailable: 'offline',
   offline: 'offline',
 }
 
