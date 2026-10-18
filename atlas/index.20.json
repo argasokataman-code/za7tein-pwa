@@ -3896,6 +3896,122 @@
       ],
       "loc": "src/pages/Checkout.tsx:238",
       "commit": "ef9d7ca"
+    },
+    {
+      "id": "TASK-111811",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:36:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+8/-1) — edit via tool: .delivery-mode__option--quick {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-111812",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:36:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+5/-2) — edit via tool: tsx: untuk pesananmu\" — Regular tida",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111820",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:37:48",
+      "tags": [
+        "checkout",
+        "ui"
+      ],
+      "summary": "Kartu Quick pakai border --orange-border permanen; isi oranye + centang tetap penanda terpilih",
+      "conn": [
+        {
+          "id": "TASK-111810",
+          "type": "relates",
+          "raw": "TASK-111810:relates"
+        }
+      ],
+      "loc": "src/styles/system/_checkout.scss:120",
+      "commit": "8d2b2cf"
+    },
+    {
+      "id": "TASK-111821",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:38:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+5/-4) — edit via tool: tsx: (+0,04 JOD) supaya fitur terasa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111822",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:38:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+8/-6) — edit via tool: .delivery-mode__option--quick {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-111823",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:39:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+13/-9) — edit via tool: .delivery-mode__delta {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
     }
   ]
 }
