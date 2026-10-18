@@ -51,7 +51,7 @@ Catatan `menu_categories`: kolom `is_active` bertipe **integer 0/1**, dan Worker
 tak meng-coerce — filter harus `is_active=eq.1` (`eq.true` mengembalikan daftar
 kosong tanpa error).
 
-## BE sudah punya data, FE belum membaca (10 tabel)
+## BE sudah punya data, FE belum membaca (9 tabel)
 
 Prioritas dari yang paling kentara di produk:
 
