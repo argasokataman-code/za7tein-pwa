@@ -10,25 +10,19 @@ import { MenuAttributeEditor } from '../components/merchant/MenuAttributeEditor'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { SelectField } from '../components/ui/SelectField'
-import { useCatalog } from '../hooks/useCatalog'
+import { useMerchantMenu } from '../hooks/useMerchantMenu'
 import { useMoney } from '../hooks/useMoney'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, categoryIcon, countLowStock, countOutOfStock, foodBucket } from '../data/catalog'
+import { useAppSelector } from '../hooks/useAppStore'
+import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, categoryIcon, countLowStock, countOutOfStock } from '../data/catalog'
 import { useMenuCategories } from '../hooks/useMenuCategories'
 import { merchantToken } from '../api/reference'
+import { DEMO_MERCHANT_ID } from '../api/orders'
+import { createMenu, deleteMenu, patchMenu, updateMenu } from '../api/catalog'
 import { imageFileError, uploadImage } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
-import {
-  addMenuItem,
-  removeMenuItem,
-  setStock,
-  toggleAvailable,
-  updateMenuItem,
-} from '../store/slices/catalogSlice'
 import type { MenuItem } from '../types'
 
 const EMPTY_FORM: MerchantMenuItemFormData = { name: '', price: 0, category: '', stock: 0 }
-const FALLBACK_IMAGE = '/assets/img/menu-details/menu-details-thumb.png'
 
 /* Fallback kategori = taksonomi tampilan customer, dipakai hanya saat API mati.
    Saat API hidup, daftar datang dari `menu_categories` BE (`useMenuCategories`). */
@@ -36,8 +30,7 @@ const FALLBACK_CATEGORIES = CATEGORIES.map(({ id, label }) => ({ id, label }))
 
 export default function MerchantMenu() {
   const { money } = useMoney()
-  const dispatch = useAppDispatch()
-  const { items } = useCatalog()
+  const { items, loading, error, reload } = useMerchantMenu(String(DEMO_MERCHANT_ID))
   // Kategori = taksonomi ops/BE (`menu_categories`), baca-saja bagi merchant.
   const categories = useMenuCategories(FALLBACK_CATEGORIES)
   const isActive = useAppSelector((state) => state.merchant.isActive)
@@ -67,11 +60,6 @@ export default function MerchantMenu() {
   const categoryLabel = (item: MenuItem) =>
     categories.find((c) => c.id === item.categoryId)?.label ?? item.category
 
-  /* Kategori yang dipilih = id BE; `Food.category` (tampilan customer) tetap
-     diisi bucket supaya bentuk tipe utuh. */
-  const categoryBucket = (data: MerchantMenuItemFormData) =>
-    foodBucket(categories.find((c) => c.id === data.category)?.label ?? '', data.name)
-
   const [overflowId, setOverflowId] = useState<string | null>(null)
   const [deleteItem, setDeleteItem] = useState<MenuItem | null>(null)
   /* Menyembunyikan item menghilangkannya dari menu pelanggan; salah sentuh di
@@ -93,9 +81,40 @@ export default function MerchantMenu() {
     setStockDraft(0)
   }
 
-  const saveStock = () => {
-    if (stockItem) dispatch(setStock({ id: stockItem.id, stock: stockDraft }))
+  const saveStock = async () => {
+    const target = stockItem
+    if (!target) return
     closeStock()
+    try {
+      await patchMenu(await merchantToken(), target.id, { stock: Math.max(0, stockDraft) })
+      await reload()
+      toast.success('Stok diperbarui')
+    } catch {
+      toast.error('Gagal simpan stok')
+    }
+  }
+
+  /* Ubah ketersediaan di BE — sembunyikan/tampilkan item (MER, PATCH `menus`). */
+  const setAvailable = async (item: MenuItem, available: boolean) => {
+    try {
+      await patchMenu(await merchantToken(), item.id, { available: available ? 1 : 0 })
+      await reload()
+      toast.success(
+        available ? `${item.name} tampil lagi di menu` : `${item.name} disembunyikan dari menu`,
+      )
+    } catch {
+      toast.error('Gagal ubah ketersediaan')
+    }
+  }
+
+  const removeItem = async (item: MenuItem) => {
+    try {
+      await deleteMenu(await merchantToken(), item.id)
+      await reload()
+      toast.success(`${item.name} dihapus`)
+    } catch {
+      toast.error('Gagal hapus item')
+    }
   }
 
   /* ── add/edit sheet ── */
@@ -146,38 +165,33 @@ export default function MerchantMenu() {
     setFormImage(null)
   }
 
-  const onSubmit = (data: MerchantMenuItemFormData) => {
-    if (sheetMode === 'edit' && editing) {
-      dispatch(updateMenuItem({
-        ...editing,
-        name: data.name,
-        price: data.price,
-        category: categoryBucket(data),
-        categoryId: data.category,
-        stock: data.stock,
-        image: formImage || editing.image,
-        description: data.description ?? editing.description,
-        noteEnabled: formNote,
-      }))
-    } else {
-      dispatch(addMenuItem({
-        id: crypto.randomUUID(),
-        name: data.name,
-        price: data.price,
-        category: categoryBucket(data),
-        categoryId: data.category,
-        stock: data.stock,
-        image: formImage || FALLBACK_IMAGE,
-        description: data.description ?? '',
-        noteEnabled: formNote,
-        rating: 5,
-        reviewCount: 0,
-        deliveryTime: '20-30 menit',
-        distance: '1,2 km',
-        available: true,
-      }))
+  const onSubmit = async (data: MerchantMenuItemFormData) => {
+    const isEdit = sheetMode === 'edit' && Boolean(editing)
+    const picked = categories.find((c) => c.id === data.category)
+    const write = {
+      merchantId: String(DEMO_MERCHANT_ID),
+      name: data.name,
+      description: data.description ?? '',
+      priceIdr: data.price,
+      categoryId: data.category || null,
+      category: picked?.label ?? '',
+      stock: data.stock,
+      available: editing?.available ?? true,
+      image: formImage || editing?.image || null,
+      discountPercent: editing?.discountPercent,
+      isPopular: editing?.isPopular,
+      cookMinutes: editing?.cookMinutes,
+      noteEnabled: formNote,
     }
-    closeSheet()
+    try {
+      if (isEdit && editing) await updateMenu(await merchantToken(), editing.id, write)
+      else await createMenu(await merchantToken(), write)
+      closeSheet()
+      await reload()
+      toast.success(isEdit ? 'Item diperbarui' : 'Item ditambahkan')
+    } catch {
+      toast.error('Gagal menyimpan item')
+    }
   }
 
   const handleImagePick = () => {
@@ -293,7 +307,13 @@ export default function MerchantMenu() {
         </div>
 
         {visibleItems.length === 0 && (
-          <p className="merchant-menu-empty">Belum ada item dalam kategori ini.</p>
+          <p className="merchant-menu-empty">
+            {error
+              ? 'Gagal memuat menu dari server.'
+              : loading
+                ? 'Memuat menu…'
+                : 'Belum ada item dalam kategori ini.'}
+          </p>
         )}
         {menuGroups.map((group) => {
           const GroupIcon = categoryIcon(group.category.label)
@@ -364,8 +384,7 @@ export default function MerchantMenu() {
                           if (item.available) {
                             setHideTarget(item)
                           } else {
-                            dispatch(toggleAvailable(item.id))
-                            toast.success(`${item.name} tampil lagi di menu`)
+                            void setAvailable(item, true)
                           }
                         }}
                       >
@@ -529,7 +548,7 @@ export default function MerchantMenu() {
         body={`${deleteItem?.name ?? ''} akan hilang dari daftar merchant dan menu pelanggan.`}
         confirmLabel="Hapus item"
         onConfirm={() => {
-          if (deleteItem) dispatch(removeMenuItem(deleteItem.id))
+          if (deleteItem) void removeItem(deleteItem)
           setDeleteItem(null)
         }}
         onClose={() => setDeleteItem(null)}
@@ -541,10 +560,7 @@ export default function MerchantMenu() {
         body="Item ini hilang dari menu pelanggan sampai kamu tampilkan lagi. Stok dan datanya tetap tersimpan."
         confirmLabel="Sembunyikan"
         onConfirm={() => {
-          if (hideTarget) {
-            dispatch(toggleAvailable(hideTarget.id))
-            toast.success(`${hideTarget.name} disembunyikan dari menu`)
-          }
+          if (hideTarget) void setAvailable(hideTarget, false)
           setHideTarget(null)
         }}
         onClose={() => setHideTarget(null)}

@@ -523,7 +523,13 @@ export default function Documentation() {
                 telusur customer. Ikon dipetakan dari label di modul (
                 <code className="doc-inline">categoryIcon</code>), bukan state, karena komponen lucide
                 tak selamat dari JSON persist. Saat API mati, daftar jatuh balik ke empat kategori
-                tampilan. Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
+                tampilan. <strong>Daftar item konsol ini juga live</strong>: hook{' '}
+                <code className="doc-inline">useMerchantMenu</code> membaca{' '}
+                <code className="doc-inline">menus</code> milik merchant sendiri, tanpa fallback mock
+                &mdash; dan tambah/ubah/stok/hapus menulis balik ke Worker (
+                <code className="doc-inline">POST</code>/<code className="doc-inline">PATCH</code>/
+                <code className="doc-inline">DELETE /rest/v1/menus</code> dengan JWT merchant), lalu
+                memuat ulang. Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
               </li>
               <li>
                 <strong>Varian &amp; tambahan ala Odoo</strong> (M4c, MER-07/MER-08): model{' '}

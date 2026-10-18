@@ -6,12 +6,12 @@
  * di sini. Tabel `menus`/`menu_variants` = kontrak `Menu`/`MenuVariant`
  * (docs/design/flows/INDEX.json §contract).
  */
-import { jodToIdr } from '../data/currency'
+import { idrToJod, jodToIdr } from '../data/currency'
 import { foodBucket } from '../data/catalog'
 import { estimateDeliveryTime, formatDistance, haversineMeters } from '../data/merchant'
 import { IMAGE_FALLBACK } from '../data/storefronts'
 import type { Category, MenuItem, ModifierGroup, Storefront } from '../types'
-import { rest } from './supabase'
+import { createWith, deleteWith, patch, rest } from './supabase'
 
 /** Titik asal customer untuk menghitung jarak ke toko (alamat yang dipilih). */
 export interface Origin {
@@ -66,6 +66,8 @@ export interface MenuRow {
   is_popular: boolean | null
   /** Estimasi waktu masak (menit) — ditampilkan di kartu menu toko. */
   cook_minutes: number | null
+  /** MER-05: pelanggan boleh menulis catatan per item. Integer 0/1 di BE. */
+  note_enabled: number | null
 }
 
 export interface VariantRow {
@@ -146,6 +148,7 @@ function toMenuItem(row: MenuRow, variants: VariantRow[]): MenuItem {
     discountPercent: row.discount_percent ?? undefined,
     isPopular: row.is_popular ?? undefined,
     cookMinutes: row.cook_minutes ?? undefined,
+    noteEnabled: row.note_enabled == null ? undefined : Boolean(row.note_enabled),
     modifierGroups: variants.length ? toModifierGroups(variants) : undefined,
   }
 }
@@ -192,7 +195,12 @@ export async function fetchMenuItems(merchantId: string): Promise<MenuItem[]> {
   )
   if (!menus.length) return []
   const ids = menus.map((m) => m.id).join(',')
-  const variants = await rest<VariantRow>('menu_variants', `?select=*&menu_id=in.(${ids})`)
+  // Varian bersifat pelengkap: kalau tabelnya ditolak (mis. kuota baca D1 habis),
+  // menu tetap tampil tanpa modifier — jangan mengosongkan seluruh halaman.
+  const variants = await rest<VariantRow>(
+    'menu_variants',
+    `?select=*&menu_id=in.(${ids})`,
+  ).catch(() => [] as VariantRow[])
   const byMenu = new Map<number, VariantRow[]>()
   for (const variant of variants) {
     const list = byMenu.get(variant.menu_id) ?? []
@@ -216,6 +224,70 @@ export async function fetchFood(id: string): Promise<MenuItem | undefined> {
   const rows = await rest<MenuRow>('menus', `?select=*&id=eq.${encodeURIComponent(id)}&limit=1`)
   const menu = rows[0]
   if (!menu) return undefined
-  const variants = await rest<VariantRow>('menu_variants', `?select=*&menu_id=eq.${menu.id}`)
+  const variants = await rest<VariantRow>('menu_variants', `?select=*&menu_id=eq.${menu.id}`).catch(
+    () => [] as VariantRow[],
+  )
   return toMenuItem(menu, variants)
+}
+
+// ── Tulis menu (konsol merchant) ─────────────────────────────────────────────
+// Harga FE dalam IDR (source of truth R-CURR-01) → `price_jod` sekali di sini.
+
+/** Nilai tulis menu dari form merchant. `category` = teks ops, `categoryId` = `menu_categories.id`. */
+export interface MenuWrite {
+  merchantId: string
+  name: string
+  description: string
+  priceIdr: number
+  categoryId: string | null
+  category: string
+  stock: number
+  available: boolean
+  image: string | null
+  discountPercent?: number
+  isPopular?: boolean
+  cookMinutes?: number
+  noteEnabled?: boolean
+}
+
+function toMenuRow(input: MenuWrite): Record<string, unknown> {
+  return {
+    merchant_id: Number(input.merchantId),
+    name: input.name,
+    description: input.description || null,
+    price_jod: idrToJod(input.priceIdr),
+    available: input.available ? 1 : 0,
+    image: input.image,
+    stock: input.stock,
+    category: input.category,
+    category_id: input.categoryId ? Number(input.categoryId) : null,
+    discount_percent: input.discountPercent ?? null,
+    is_popular: input.isPopular ? 1 : 0,
+    cook_minutes: input.cookMinutes ?? null,
+    note_enabled: input.noteEnabled ? 1 : 0,
+  }
+}
+
+/** Tambah menu ke BE (butuh JWT merchant). */
+export async function createMenu(token: string, input: MenuWrite): Promise<void> {
+  await createWith(token, 'menus', toMenuRow(input))
+}
+
+/** Ubah seluruh field menu di BE. */
+export async function updateMenu(token: string, id: string, input: MenuWrite): Promise<void> {
+  await patch(token, 'menus', `?id=eq.${encodeURIComponent(id)}`, toMenuRow(input))
+}
+
+/** Patch satu field saja — dipakai stok dan sembunyikan/tampilkan. */
+export async function patchMenu(
+  token: string,
+  id: string,
+  body: Record<string, unknown>,
+): Promise<void> {
+  await patch(token, 'menus', `?id=eq.${encodeURIComponent(id)}`, body)
+}
+
+/** Hapus menu di BE. */
+export async function deleteMenu(token: string, id: string): Promise<void> {
+  await deleteWith(token, 'menus', `?id=eq.${encodeURIComponent(id)}`)
 }
