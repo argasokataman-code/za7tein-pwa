@@ -5095,6 +5095,29 @@
         }
       ],
       "loc": "src/api/supabase.ts:30"
+    },
+    {
+      "id": "TASK-130036",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "13:07:47",
+      "tags": [
+        "api",
+        "cloudflare",
+        "worker",
+        "rpc",
+        "read"
+      ],
+      "summary": "Petakan RPC baca FE->Worker: resolve_coverage->check_coverage (boolean), validate_promo->baca tabel marketing; live check_coverage 200",
+      "conn": [
+        {
+          "id": "TASK-130030",
+          "type": "led_to",
+          "raw": "TASK-130030:led_to"
+        }
+      ],
+      "loc": "src/api/profile.ts:244"
     }
   ]
 }

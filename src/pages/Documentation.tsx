@@ -230,6 +230,25 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Kontrak backend Worker Cloudflare (v2) mulai dikonsumsi klien.</strong>{' '}
+                <code className="doc-inline">src/api/supabase.ts</code> memilih backend dari env:{' '}
+                <code className="doc-inline">VITE_API_BASE_URL</code> (atau{' '}
+                <code className="doc-inline">VITE_SUPABASE_URL</code> ber-host{' '}
+                <code className="doc-inline">*.workers.dev</code>) memindahkannya ke Worker (D1 + R2)
+                &mdash; baca tetap <code className="doc-inline">GET /rest/v1/{'{table}'}</code>, auth
+                jadi magic-link &rarr; verify &rarr; JWT, media di{' '}
+                <code className="doc-inline">/media/{'{bucket}/{key}'}</code>. Tulis tabel &amp;
+                mayoritas RPC lama belum ada di Worker (404/501), jadi pemanggil tetap jatuh ke mock.
+                Dua baca dipetakan ke nama Worker: coverage memanggil{' '}
+                <code className="doc-inline">check_coverage</code> (balikan boolean &mdash; zona +
+                jarak dari poligon klien) dan validasi promo membaca tabel{' '}
+                <code className="doc-inline">marketing</code> langsung menggantikan RPC{' '}
+                <code className="doc-inline">validate_promo</code>. Terverifikasi live: beranda
+                customer memuat <code className="doc-inline">merchants</code>+
+                <code className="doc-inline">menus</code> dari D1, dan{' '}
+                <code className="doc-inline">check_coverage</code> balas 200.
+              </li>
+              <li>
                 <strong>Carousel promo beranda kini dikurasi merchant.</strong> Halaman{' '}
                 <code className="doc-inline">/merchant/promos/carousel</code> mengelola slide
                 (banner, menu tertaut, urutan naik/turun, dan status tampil) sampai lima slide.

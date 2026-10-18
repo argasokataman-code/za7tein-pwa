@@ -159,6 +159,27 @@ export const foodApi = baseApi.injectEndpoints({
         <code className="doc-inline">cs@</code> account (explicit token, never the global one).
       </p>
       <h3 className="doc-h3">
+        Cloudflare Worker backend (v2)
+      </h3>
+      <p className="doc-p">
+        The client picks its backend by env: setting{' '}
+        <code className="doc-inline">VITE_API_BASE_URL</code> — or pointing{' '}
+        <code className="doc-inline">VITE_SUPABASE_URL</code> at a{' '}
+        <code className="doc-inline">*.workers.dev</code> host — switches{' '}
+        <code className="doc-inline">src/api/supabase.ts</code> to the Cloudflare Worker (D1 +
+        R2). Reads stay <code className="doc-inline">GET /rest/v1/{'{table}'}</code>, auth becomes
+        magic-link → verify → JWT (<code className="doc-inline">/auth/magic-link</code>,{' '}
+        <code className="doc-inline">/auth/verify</code>, <code className="doc-inline">/auth/me</code>),
+        and media lives at <code className="doc-inline">/media/{'{bucket}/{key}'}</code>. Table writes
+        (POST/PATCH/DELETE) and most older RPCs are not implemented on the Worker yet (404/501), so
+        those callers keep falling back to mock. Two reads were remapped to the Worker's names:
+        coverage now calls <code className="doc-inline">check_coverage</code> (returns a boolean —
+        zone + distance come from the client polygon via <code className="doc-inline">resolveCoverage</code>)
+        and promo validation reads the <code className="doc-inline">marketing</code> table directly
+        (window, quota, merchant scope) instead of the <code className="doc-inline">validate_promo</code>{' '}
+        RPC.
+      </p>
+      <h3 className="doc-h3">
         Order tracking — WebSocket
       </h3>
       <p className="doc-p">

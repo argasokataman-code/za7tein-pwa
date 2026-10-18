@@ -13,9 +13,9 @@
  * Nilai backend dalam JOD (`marketing.value`, `orders.*_jod`); repo menyimpan
  * IDR (R-CURR-01) — konversi sekali di sini, seperti `reference.ts`.
  */
-import { idrToJod, jodToIdr } from '../data/currency'
+import { jodToIdr } from '../data/currency'
 import { DEMO_MERCHANT_ID, merchantToken, refToken } from './reference'
-import { createWith, deleteWith, restWith, rpc } from './supabase'
+import { createWith, deleteWith, restWith } from './supabase'
 
 export type PromoType = 'discount_pct' | 'discount_fixed' | 'promo_delivery'
 
@@ -128,40 +128,52 @@ export interface PromoCheck {
   message: string
 }
 
-interface PromoCheckRow {
-  valid?: boolean
-  promoId?: number
-  code?: string
-  type?: string
-  discount?: number
-  message?: string
-}
-
 /**
- * Validasi kode untuk sebuah order. `amountIdr` = subtotal yang jadi dasar
- * potongan persen. Kode milik merchant lain / kedaluwarsa / kuota habis →
- * `valid: false` dengan pesan dari server.
+ * Validasi kode untuk sebuah order. Worker v2 belum punya RPC `validate_promo`,
+ * jadi kode dibaca langsung dari tabel `marketing` (baca publik) lalu jendela,
+ * kuota, dan scope merchant diperiksa di klien. `amountIdr` = subtotal yang jadi
+ * dasar potongan persen. Kode milik merchant lain / kedaluwarsa / kuota habis →
+ * `valid: false` dengan pesan.
  */
 export async function validatePromo(
   code: string,
   amountIdr: number,
   merchantId = DEMO_MERCHANT_ID,
 ): Promise<PromoCheck> {
-  // Kode promo boleh dibaca siapa saja (`marketing_public_read`); RPC-nya
-  // SECURITY DEFINER, jadi sesi mana pun cukup. Dipakai sesi referensi supaya
-  // tak menambah login baru.
   const token = await refToken()
-  const res = await rpc<PromoCheckRow>(token, 'validate_promo', {
-    p_code: code,
-    p_amount: idrToJod(amountIdr),
-    p_merchant_id: merchantId,
-  })
+  const wanted = code.trim().toUpperCase()
+  const rows = await restWith<PromoRow>(
+    token,
+    'marketing',
+    `?select=${PROMO_SELECT}&code=eq.${encodeURIComponent(wanted)}&limit=20`,
+  )
+  // Promo platform (`merchant_id` null) berlaku di mana saja; promo merchant
+  // hanya di tokonya sendiri.
+  const row = rows.find((r) => r.merchant_id == null || r.merchant_id === merchantId)
+  if (!row) return { valid: false, discountIdr: 0, message: 'Kode promo tidak valid.' }
+  const status = promoStatus(row)
+  if (status === 'expired') {
+    return { valid: false, discountIdr: 0, message: 'Kode promo sudah kedaluwarsa.' }
+  }
+  if (status === 'scheduled') {
+    return { valid: false, discountIdr: 0, message: 'Kode promo belum berlaku.' }
+  }
+  if (status === 'used_up') {
+    return { valid: false, discountIdr: 0, message: 'Kuota kode promo habis.' }
+  }
+  const type = asType(row.type)
+  const discountIdr =
+    type === 'discount_pct'
+      ? Math.round((amountIdr * row.value) / 100)
+      : type === 'discount_fixed'
+        ? jodToIdr(row.value)
+        : 0 // promo_delivery = gratis ongkir, bukan potongan item
   return {
-    valid: Boolean(res?.valid),
-    promoId: res?.promoId,
-    code: res?.code,
-    type: res?.type ? asType(res.type) : undefined,
-    discountIdr: jodToIdr(res?.discount ?? 0),
-    message: res?.message ?? 'Kode promo tidak valid.',
+    valid: true,
+    promoId: row.id,
+    code: row.code ?? wanted,
+    type,
+    discountIdr,
+    message: `Kode ${row.code ?? wanted} berhasil dipakai.`,
   }
 }

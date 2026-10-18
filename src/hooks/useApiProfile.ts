@@ -47,14 +47,15 @@ function useCustomerAddresses(): void {
       Promise.all([fetchCustomerAddresses(), fetchMerchantLocation()])
         .then(async ([rows, kitchen]) => {
           if (!rows.length) return
-          // Coverage per alamat dari server (radius + toggle merchant). Gagal
-          // RPC → hitung poligon master di klien supaya daftar tetap tampil.
+          // Zona + jarak dari poligon klien; flag "bisa diantar" dari server
+          // (`check_coverage`). RPC gagal → pakai hasil klien apa adanya.
           const mapped = await Promise.all(
             rows.map(async (r) => {
               const lat = r.latitude ?? 0
               const lng = r.longitude ?? 0
-              const coverage = await resolveAddressCoverage(lat, lng).catch(() => undefined)
-              return toAddress(r, zones, kitchen, coverage)
+              const addr = toAddress(r, zones, kitchen)
+              const covered = await resolveAddressCoverage(lat, lng).catch(() => undefined)
+              return covered === false ? { ...addr, zone: null } : addr
             }),
           )
           if (alive) dispatch(setAddresses(mapped))

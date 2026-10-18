@@ -236,27 +236,20 @@ export interface AddressCoverage {
 }
 
 /**
- * Coverage otoritatif dari server (RPC `resolve_coverage`): poligon zona +
- * jarak ≤ radius + toggle zona aktif merchant. Ini keputusan "alamat bisa
- * diantar" yang sebenarnya; `resolveCoverage()` di klien cuma poligon global
- * tanpa radius/toggle, jadi dipakai hanya saat offline atau sebagai fallback.
+ * Coverage otoritatif dari server (RPC `check_coverage`): poligon zona +
+ * jarak ≤ radius + toggle zona aktif merchant. Worker v2 mengembalikan
+ * **boolean** saja; zona + jarak dihitung klien (`resolveCoverage`) di
+ * `toAddress`. `undefined` (RPC gagal) = jangan ubah hasil klien.
  */
 export async function resolveAddressCoverage(
   lat: number,
   lng: number,
   merchantId = DEMO_MERCHANT_ID,
-): Promise<AddressCoverage> {
+): Promise<boolean> {
   const token = await refToken()
-  const res = await rpc<{ covered: boolean; zone: string | null; distanceMeters: number | null }>(
-    token,
-    'resolve_coverage',
-    { p_lat: lat, p_lng: lng, p_merchant_id: merchantId },
+  return Boolean(
+    await rpc<boolean>(token, 'check_coverage', { p_lat: lat, p_lng: lng, p_merchant: merchantId }),
   )
-  return {
-    covered: Boolean(res.covered),
-    zone: res.covered && res.zone ? (res.zone.toLowerCase() as ZoneId) : null,
-    distanceMeters: res.distanceMeters ?? 0,
-  }
 }
 
 /**
