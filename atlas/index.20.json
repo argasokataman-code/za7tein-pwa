@@ -5051,6 +5051,28 @@
       ],
       "loc": "scripts/be-check.sh:1",
       "commit": "470205f"
+    },
+    {
+      "id": "TASK-130027",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "12:55:13",
+      "tags": [
+        "api",
+        "cloudflare",
+        "backend",
+        "d1"
+      ],
+      "summary": "FE konsumsi API v2: mode Worker di supabase.ts (read /rest/v1, auth magic-link->JWT, media R2); tulis/RPC 404/501 -> mock",
+      "conn": [
+        {
+          "id": "TASK-130021",
+          "type": "relates",
+          "raw": "TASK-130021:relates"
+        }
+      ],
+      "loc": "src/api/supabase.ts:25"
     }
   ]
 }

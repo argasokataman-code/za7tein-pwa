@@ -1,24 +1,42 @@
 /**
- * Klien tipis Supabase PostgREST — satu-satunya jalur HTTP repo ini.
+ * Klien HTTP tipis — satu-satunya jalur HTTP repo ini.
  *
- * Backend live = Supabase PostgREST (bukan gateway REST `api.sa7tein.app` yang
- * belum dibangun). Tabel = nama resource: `{base}/rest/v1/<tabel>`. Anon key
- * memang publik (dipasang di bundle klien portal `sa7tein-*`); yang membatasi
- * data adalah RLS, bukan kerahasiaan key.
+ * Dua backend, dipilih lewat env (lihat blok `useWorker` di bawah):
+ * - **Worker Cloudflare** (`VITE_API_BASE_URL`) — D1 + R2. Baca `/rest/v1/{table}`,
+ *   auth `magic-link` → JWT, media `/media/{bucket}/{key}`. Tulis tabel & RPC
+ *   mayoritas belum ada → pemanggil jatuh ke mock.
+ * - **Supabase PostgREST** (default demo) — `{base}/rest/v1/<tabel>` + `auth/v1`.
  *
- * Nilai default menunjuk backend demo repo `baihaqybeki/sa7tein`; timpa lewat
- * env Vite `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` bila backend pindah.
+ * Anon key Supabase memang publik (RLS yang membatasi). URL Worker juga publik.
  * Pemetaan endpoint ↔ flow ada di `docs/design/flows/INDEX.json` §contract.
  */
 const DEFAULT_URL = 'https://dwzxtnfesmpobnepilhl.supabase.co'
 const DEFAULT_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR3enh0bmZlc21wb2JuZXBpbGhsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc1OTk4NjgsImV4cCI6MjEwMzE3NTg2OH0.HFHrFYuq3l6B4mcqJy13-Loat0-36KenQ8feBCKWqAE'
 
-const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined) || DEFAULT_URL
-const anonKey = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || DEFAULT_ANON_KEY
+/**
+ * Backend dipilih lewat env:
+ * - `VITE_API_BASE_URL` diisi → **Worker Cloudflare** (D1 + R2). Baca lewat
+ *   `/rest/v1/{table}` (subset PostgREST; 35 tabel hidup), auth `magic-link` →
+ *   JWT, media `/media/{bucket}/{key}`. Tulis tabel (POST/PATCH/DELETE) dan
+ *   hampir semua RPC belum ada di Worker (404/501) → pemanggil jatuh ke mock.
+ * - kosong → Supabase PostgREST (default demo repo).
+ */
+const workerUrl = ((import.meta.env.VITE_API_BASE_URL as string | undefined) || '').replace(/\/+$/, '')
+const useWorker = Boolean(workerUrl)
 
-/** Aktif kalau URL + key ada. Hook jatuh ke data mock kalau ini false. */
-export const apiEnabled = Boolean(url && anonKey)
+const url = useWorker
+  ? workerUrl
+  : (import.meta.env.VITE_SUPABASE_URL as string | undefined) || DEFAULT_URL
+const anonKey = useWorker
+  ? ''
+  : (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || DEFAULT_ANON_KEY
+
+/** Aktif kalau backend tersedia. Hook jatuh ke data mock kalau ini false. */
+export const apiEnabled = useWorker || Boolean(url && anonKey)
+
+/** Backend yang sedang dipakai (dibaca modul lain, mis. media). */
+export const backend = { worker: useWorker, url, anonKey }
 
 /** URL + anon key untuk koneksi Realtime (WebSocket). Dipakai `realtime.ts`. */
 export const apiBase = { url, anonKey }
@@ -46,6 +64,7 @@ function bearer(): string {
  * merchant) saling menimpa.
  */
 export async function signInToken(email: string, password: string): Promise<string> {
+  if (useWorker) return workerToken(email)
   const res = await fetch(`${url}/auth/v1/token?grant_type=password`, {
     method: 'POST',
     headers: { apikey: anonKey, 'content-type': 'application/json' },
@@ -53,6 +72,44 @@ export async function signInToken(email: string, password: string): Promise<stri
   })
   if (!res.ok) throw new Error(`[api] auth ${res.status}`)
   const data = (await res.json()) as { access_token?: string }
+  return data.access_token ?? ''
+}
+
+/** Peran default dari alamat email demo (Worker magic-link butuh `role`). */
+function workerRole(email: string): string {
+  const local = email.split('@')[0].toLowerCase()
+  if (local.startsWith('merchant')) return 'merchant'
+  if (local.startsWith('courier')) return 'courier_inhouse'
+  if (
+    local.startsWith('cs') ||
+    local.startsWith('ops') ||
+    local.startsWith('admin') ||
+    local.startsWith('sa')
+  )
+    return 'ops'
+  return 'customer'
+}
+
+/**
+ * Token Worker: `magic-link` (stub dev — email tidak benar-benar dikirim) →
+ * `verify` → JWT. Password diabaikan; backend v2 belum punya login password.
+ */
+async function workerToken(email: string): Promise<string> {
+  const ml = await fetch(`${url}/auth/magic-link`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ email, role: workerRole(email) }),
+  })
+  if (!ml.ok) throw new Error(`[api] magic-link ${ml.status}`)
+  const { token } = (await ml.json()) as { token?: string }
+  if (!token) throw new Error('[api] magic-link tanpa token')
+  const vf = await fetch(`${url}/auth/verify`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ token }),
+  })
+  if (!vf.ok) throw new Error(`[api] verify ${vf.status}`)
+  const data = (await vf.json()) as { access_token?: string }
   return data.access_token ?? ''
 }
 
@@ -249,6 +306,7 @@ export async function createWithReturn<T>(
 
 /** Baca akun auth (metadata `user_metadata`: nama, avatar, peran) untuk token pengguna. */
 export async function authUser<T>(token: string): Promise<T> {
+  if (useWorker) return (await workerUser(token)) as T
   const res = await fetch(`${url}/auth/v1/user`, {
     headers: { apikey: anonKey, Authorization: `Bearer ${token}` },
   })
@@ -256,8 +314,30 @@ export async function authUser<T>(token: string): Promise<T> {
   return (await res.json()) as T
 }
 
+/**
+ * Worker v2 tidak punya `/auth/v1/user`. `/auth/me` hanya `{ id, role, email }`;
+ * bentuk Supabase (`user_metadata.name/avatar`) dilengkapi dari tabel `users`.
+ */
+async function workerUser(token: string): Promise<Record<string, unknown>> {
+  const me = await fetch(`${url}/auth/me`, { headers: { Authorization: `Bearer ${token}` } })
+  if (!me.ok) throw new Error(`[api] auth/me ${me.status}`)
+  const u = (await me.json()) as { id?: number; role?: string; email?: string }
+  let name = ''
+  let avatar = ''
+  if (u.email) {
+    const rows = (await rest<{ name?: string; avatar?: string }>(
+      'users',
+      `?email=eq.${encodeURIComponent(u.email)}&select=name,avatar&limit=1`,
+    )) as { name?: string; avatar?: string }[]
+    name = rows[0]?.name ?? ''
+    avatar = rows[0]?.avatar ?? ''
+  }
+  return { id: u.id, email: u.email, role: u.role, user_metadata: { name, avatar } }
+}
+
 /** Perbarui `user_metadata` akun auth (mis. nama/avatar) untuk token pengguna. */
 export async function authUpdateUser<T>(token: string, data: Record<string, unknown>): Promise<T> {
+  if (useWorker) throw new Error('[api] worker v2 belum punya endpoint ubah profil')
   const res = await fetch(`${url}/auth/v1/user`, {
     method: 'PUT',
     headers: {
@@ -269,4 +349,35 @@ export async function authUpdateUser<T>(token: string, data: Record<string, unkn
   })
   if (!res.ok) throw new Error(`[api] auth update ${res.status}`)
   return (await res.json()) as T
+}
+
+/** Bucket R2 yang didukung Worker v2. */
+export type MediaBucket = 'menu-images' | 'merchant-photos' | 'avatars'
+
+/** URL publik objek R2 lewat Worker (`GET /media/{bucket}/{key}`). */
+export function mediaUrl(bucket: MediaBucket, key: string): string {
+  return `${url}/media/${bucket}/${key}`
+}
+
+/**
+ * Unggah objek ke R2 lewat Worker (`PUT /media/{bucket}/{key}`; 201).
+ * Hanya untuk backend Worker — Supabase Storage bukan bentuk yang sama.
+ */
+export async function uploadMedia(
+  bucket: MediaBucket,
+  key: string,
+  blob: Blob,
+  token?: string,
+): Promise<{ ok: boolean; key: string; bucket: string }> {
+  if (!useWorker) throw new Error('[api] uploadMedia butuh VITE_API_BASE_URL (Worker)')
+  const res = await fetch(mediaUrl(bucket, key), {
+    method: 'PUT',
+    headers: {
+      'content-type': blob.type || 'application/octet-stream',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: blob,
+  })
+  if (!res.ok) throw new Error(`[api] media PUT ${res.status}`)
+  return (await res.json()) as { ok: boolean; key: string; bucket: string }
 }
