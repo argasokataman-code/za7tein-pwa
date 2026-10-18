@@ -90,14 +90,14 @@ export default function MerchantPromoCarousel() {
                   (item) => item.id === slide.menuItemId && item.merchantId === mockMerchant.id,
                 )
                 return (
-                  <li className="merchant-card promo-slide-item" key={slide.id}>
+                  <li className="promo-slide-item" key={slide.id}>
                     <div className="promo-slide-main">
                       <img
                         className="promo-slide-thumb"
                         src={slide.image ?? DEFAULT_PROMO_BANNER}
                         alt=""
-                        width={64}
-                        height={48}
+                        width={72}
+                        height={54}
                       />
                       <div className="promo-slide-copy">
                         <p className="promo-slide-title">
@@ -145,6 +145,8 @@ export default function MerchantPromoCarousel() {
                         <span className="promo-slide-live-dot" aria-hidden="true" />
                         {slide.active ? 'Tampil' : 'Nonaktif'}
                       </button>
+
+                      <span className="promo-slide-actions__spacer" aria-hidden="true" />
 
                       <button
                         type="button"

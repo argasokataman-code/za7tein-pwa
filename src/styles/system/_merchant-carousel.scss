@@ -1,21 +1,29 @@
 /* ── Merchant · Carousel promo beranda (/merchant/promos/carousel) ──────────
-   Daftar slide = kartu, bukan tabel: tiap slide punya banner, status, dan
-   kontrol urutan sendiri. Rel aksi dibuat satu baris supaya tinggi kartu
-   seragam dan tombol naik/turun tidak melompat saat judul memanjang. */
+   Satu permukaan untuk seluruh daftar, baris dipisah garis rambut. Kartu
+   berwarna per item adalah slop (PG-10/PG-17): variasi datang dari isi
+   (thumbnail, judul, status), bukan dari latar pastel yang bergilir. Satu
+   shadow di grup, bukan di tiap baris (PG-08). */
 
 .promo-slide-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
 
 .promo-slide-item {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.promo-slide-item + .promo-slide-item {
+  border-top: 1px solid var(--border);
 }
 
 .promo-slide-main {
@@ -29,9 +37,10 @@
   width: 72px;
   height: 54px;
   flex: none;
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   object-fit: cover;
-  background: var(--border);
+  background: var(--surface);
 }
 
 .promo-slide-count {
@@ -67,6 +76,12 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+}
+
+/* Kontrol urutan/status di kiri, ubah/hapus didorong ke kanan supaya baris
+   tidak terbaca satu deret tombol yang sama pentingnya. */
+.promo-slide-actions__spacer {
+  flex: 1;
 }
 
 .promo-slide-action {

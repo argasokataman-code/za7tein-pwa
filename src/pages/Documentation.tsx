@@ -241,7 +241,10 @@ export default function Documentation() {
                 customer tidak kosong. Data hidup di slice{' '}
                 <code className="doc-inline">marketing</code> yang sudah persist, dengan normalisasi
                 untuk state lama yang belum punya daftar slide dan migrasi persist v9 yang mengisi
-                dua slide contoh sekali jalan supaya carousel langsung terlihat.
+                dua slide contoh sekali jalan supaya carousel langsung terlihat. Daftar slide
+                memakai satu permukaan dengan pemisah garis rambut seperti daftar lain, bukan
+                kartu berwarna-warni per item; warna hanya dipakai chip status, dan bayangan
+                dipasang sekali di grup.
               </li>
               <li>
                 <strong>Setelan merchant tidak lagi terasa seperti halaman web.</strong> Tautan
