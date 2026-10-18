@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { BottomSheet } from '../ui/BottomSheet'
 import { getStorefront } from '../../data/storefronts'
-import { updateOrderStatus, type CustomerActiveOrder } from '../../api/orders'
+import type { CustomerActiveOrder } from '../../api/orders'
+import { useCancelOrder } from '../../hooks/useCancelOrder'
 import { useMoney } from '../../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import {
@@ -15,10 +16,10 @@ import {
   setOrderStage,
   switchCart,
 } from '../../store/slices/cartSlice'
-import { dropActiveOrder } from '../../store/slices/customerOrdersSlice'
 import type { OrderStage } from '../../types'
 import { ActiveOrderRow } from './ActiveOrderRow'
 import { itemsLine } from './orderStatus'
+import { OrderRefundCelebration } from './OrderRefundCelebration'
 
 interface CartSummarySheetProps {
   open: boolean
@@ -92,15 +93,15 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
     setPending(null)
   }
 
+  const { cancel, refundedCode, dismissRefund } = useCancelOrder()
+
   /**
-   * Batalkan order. Baris langsung dibuang supaya terasa responsif; kalau BE
-   * menolak, gelembung realtime akan memunculkannya lagi — jadi kegagalan
-   * memulihkan dirinya sendiri, tak perlu layar error.
+   * Batalkan order lewat jalur bersama (`useCancelOrder`): baris dibuang
+   * optimistik + splash "dana dikembalikan" muncul di atas panel ini.
    */
   const cancelOrder = (order: CustomerActiveOrder) => {
-    dispatch(dropActiveOrder(order.id))
     setPending(null)
-    void updateOrderStatus(order.id, 'batal', 'customer').catch(() => {})
+    cancel(order)
   }
 
   const title = hasOrders && hasCart ? 'Keranjang & pesanan' : hasCart ? 'Keranjang' : 'Pesanan berjalan'
@@ -108,6 +109,9 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
   return (
     <BottomSheet open={open} onClose={closeSheet} title={title}>
       <div className="ck-sheet">
+        {refundedCode ? (
+          <OrderRefundCelebration code={refundedCode} onClose={dismissRefund} />
+        ) : null}
         {hasOrders && hasCart ? (
           <div className="ck-seg" role="tablist" aria-label="Pilih daftar">
             {(['orders', 'cart'] as const).map((id) => (

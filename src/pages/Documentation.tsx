@@ -1136,6 +1136,24 @@ export default function Documentation() {
                 gelembung realtime menariknya kembali bila BE menolak transisi.
               </li>
               <li>
+                <strong>Batal hanya 1 menit sejak checkout</strong> (keputusan produk 2026-10-18).
+                Baris pesanan menampilkan sisa jendela (<code className="doc-inline">cancelWindowRemainingMs</code>,
+                teks <code className="doc-inline">Batal dalam mm:ss</code>, lebar dikunci{' '}
+                <code className="doc-inline">tabular-nums</code>) dan tombol X hilang begitu jendela
+                habis; sesudahnya jalurnya refund lewat CS, bukan tombol batal. Waktu dibaca dari{' '}
+                <code className="doc-inline">created_at</code> D1 dalam milidetik lewat{' '}
+                <code className="doc-inline">dbTimeMs</code> — string D1 tanpa offset dinormalkan ke
+                UTC dulu, sebab <code className="doc-inline">new Date()</code> mentah menebaknya
+                sebagai waktu lokal (selisih 7 jam di Jakarta) dan jendela 1 menit akan lahir sudah
+                lewat; self-check <code className="doc-inline">npm run check:db-time</code>. Sesudah
+                batal, splash <code className="doc-inline">OrderRefundCelebration</code> memakai blok{' '}
+                <code className="doc-inline">order-arrived-*</code> yang sama dengan perayaan
+                pembayaran (centang + konfeti, tanpa CSS/animasi baru) berjudul &ldquo;Dana anda
+                dikembalikan&rdquo;, tutup otomatis 3,2 detik atau lewat tombol Tutup. Jalur batal
+                dipusatkan di <code className="doc-inline">useCancelOrder</code> supaya sheet
+                keranjang dan Pesanan Saya tak pernah berbeda perilaku.
+              </li>
+              <li>
                 <strong>Checkout tak lagi lahir sebagai draft.</strong> Default kolom{' '}
                 <code className="doc-inline">orders.status</code> adalah{' '}
                 <code className="doc-inline">&#39;cart&#39;</code> (draft), dan{' '}

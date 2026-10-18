@@ -18,12 +18,30 @@ export function statusTone(status: string): StatusTone {
 }
 
 /**
- * Order masih boleh dibatalkan customer selama merchant belum menerimanya:
- * `cart` (draft) dan `quotation` (sudah dikirim, belum dijawab). `prepare` ke
- * atas = dapur sudah mulai, jalurnya refund lewat CS, bukan tombol batal.
+ * Jendela batal customer: **1 menit sejak checkout** (keputusan produk
+ * 2026-10-18). Merchant belum menerima order, jadi membatalkan tidak merugikan
+ * siapa pun; lewat jendela ini jalurnya refund lewat CS, bukan tombol batal.
  */
-export function canCancelOrder(order: CustomerActiveOrder): boolean {
-  return order.dbStatus === 'cart' || order.dbStatus === 'quotation'
+export const CANCEL_WINDOW_MS = 60_000
+
+/**
+ * Sisa jendela batal dalam milidetik (0 = sudah lewat / memang tak bisa batal).
+ * Waktu dibaca dari `createdAtMs`, bukan teks `placedAt` yang dibulatkan ke
+ * menit — itu selalu tampak "1 menit lalu" bahkan saat baru 3 detik.
+ */
+export function cancelWindowRemainingMs(order: CustomerActiveOrder, now = Date.now()): number {
+  if (order.dbStatus !== 'cart' && order.dbStatus !== 'quotation') return 0
+  return Math.max(0, order.createdAtMs + CANCEL_WINDOW_MS - now)
+}
+
+/**
+ * Order masih boleh dibatalkan customer selama merchant belum menerimanya:
+ * `cart` (draft) dan `quotation` (sudah dikirim, belum dijawab) — **dan** masih
+ * di dalam jendela 1 menit. `prepare` ke atas = dapur sudah mulai, jalurnya
+ * refund lewat CS, bukan tombol batal.
+ */
+export function canCancelOrder(order: CustomerActiveOrder, now = Date.now()): boolean {
+  return cancelWindowRemainingMs(order, now) > 0
 }
 
 /** Label baris: draft dan "menunggu toko" tidak boleh menyamar jadi "Baru". */

@@ -31,7 +31,7 @@ Setelah order dibuat → **Dapur** (ambil → masak → kurir match) → Berangk
 Lane **Guard** (exception):
 - **Di luar zona** → checkout diblokir sebelum payment.
 - **Saldo kurang** → gate top-up kalau prepaid dan akun baru < 3,5 JOD.
-- **Batal sebelum match** → hold released (sesudah match = reversal append-only).
+- **Batal sebelum match** hanya dalam **1 menit sejak checkout** → hold released + splash "dana dikembalikan" (`OrderRefundCelebration`); lewat 1 menit jalurnya CS. Sesudah match = reversal append-only.
 
 ## Notifikasi per langkah (R-NOTIF-01/02)
 

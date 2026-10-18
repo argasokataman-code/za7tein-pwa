@@ -326,6 +326,14 @@ span.ck-row__line {
   color: var(--text-secondary);
 }
 
+/* Sisa jendela batal (1 menit). Angka berganti tiap detik, jadi lebar dikunci
+   `tabular-nums` supaya baris tidak bergoyang (MD-07); warna peran warning
+   menandai tenggat tanpa teks tambahan. */
+.ck-row__win {
+  color: var(--warning-ink);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Kode order dipindai mata satu per satu — monospace menyamakan lebar karakter
    sehingga dua kode mirip lebih mudah dibandingkan (pola yang sama di /docs). */
 .ck-row__code {

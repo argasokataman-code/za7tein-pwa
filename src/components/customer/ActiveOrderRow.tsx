@@ -1,8 +1,16 @@
 import { X } from 'lucide-react'
 
 import type { CustomerActiveOrder } from '../../api/orders'
+import { formatCountdown } from '../../data/courier'
 import { useMoney } from '../../hooks/useMoney'
-import { canCancelOrder, itemsLine, statusLabelOf, statusTone } from './orderStatus'
+import { useTick } from '../../hooks/useTick'
+import {
+  cancelWindowRemainingMs,
+  canCancelOrder,
+  itemsLine,
+  statusLabelOf,
+  statusTone,
+} from './orderStatus'
 
 interface ActiveOrderRowProps {
   order: CustomerActiveOrder
@@ -29,7 +37,11 @@ export function ActiveOrderRow({
   onCancel,
 }: ActiveOrderRowProps) {
   const { money } = useMoney()
-  const cancelable = canCancelOrder(order)
+  // Detak 1 detik untuk jendela batal; baris yang statusnya di luar jendela
+  // tetap diam (remaining = 0).
+  const { now } = useTick()
+  const remaining = cancelWindowRemainingMs(order, now)
+  const cancelable = canCancelOrder(order, now)
 
   return (
     <li className="ck-row">
@@ -42,6 +54,19 @@ export function ActiveOrderRow({
             ·
           </span>
           <span className="ck-row__ago">{order.placedAt}</span>
+          {remaining > 0 ? (
+            <>
+              <span className="ck-row__sep" aria-hidden="true">
+                ·
+              </span>
+              {/* Angka berdenyut tiap detik: `aria-live` sengaja mati supaya
+                  pembaca layar tidak membacakan tiap detik (tombol X sudah
+                  punya label sendiri). */}
+              <span className="ck-row__win" role="timer" aria-live="off">
+                Batal dalam {formatCountdown(remaining)}
+              </span>
+            </>
+          ) : null}
         </span>
         <span className="ck-chip ck-chip--end">
           <span

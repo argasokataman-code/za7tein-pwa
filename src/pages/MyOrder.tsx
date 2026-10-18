@@ -4,19 +4,20 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { fetchOrderHistory, type OrderHistoryItem } from '../api/reviews'
-import { updateOrderStatus, type CustomerActiveOrder } from '../api/orders'
+import type { CustomerActiveOrder } from '../api/orders'
 import { apiEnabled } from '../api/supabase'
 import { ActiveOrderRow } from '../components/customer/ActiveOrderRow'
 import { itemsLine } from '../components/customer/orderStatus'
+import { OrderRefundCelebration } from '../components/customer/OrderRefundCelebration'
 import { BottomNav } from '../components/layout/BottomNav'
 import { BackButton } from '../components/ui/BackButton'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { foods } from '../data/foods'
 import { getStorefront, storefronts } from '../data/storefronts'
+import { useCancelOrder } from '../hooks/useCancelOrder'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { addItem, selectSubtotal, setActiveOrder, setOrderStage, switchCart } from '../store/slices/cartSlice'
-import { dropActiveOrder } from '../store/slices/customerOrdersSlice'
 
 /**
  * Pesanan Saya — satu menu untuk dua keadaan pesanan (PRD §6/§20.2):
@@ -93,15 +94,15 @@ export default function MyOrder() {
     navigate('/order-placed')
   }
 
+  const { cancel, refundedCode, dismissRefund } = useCancelOrder()
+
   /**
-   * Batalkan order. Baris langsung dibuang supaya terasa responsif; kalau BE
-   * menolak, gelembung realtime akan memunculkannya lagi (pola yang sama dengan
-   * sheet dok keranjang).
+   * Batalkan order lewat jalur bersama (`useCancelOrder`) — sama dengan sheet
+   * dok keranjang, termasuk splash "dana dikembalikan".
    */
   const cancelOrder = (order: CustomerActiveOrder) => {
-    dispatch(dropActiveOrder(order.id))
     setPendingId(null)
-    void updateOrderStatus(order.id, 'batal', 'customer').catch(() => {})
+    cancel(order)
   }
 
   /**
@@ -133,6 +134,9 @@ export default function MyOrder() {
     <div className="app-shell">
       <main>
         <div className="my-order-screen">
+          {refundedCode ? (
+            <OrderRefundCelebration code={refundedCode} onClose={dismissRefund} />
+          ) : null}
           <header className="my-order-header">
             <BackButton className="btn-back" />
             <h1 className="my-order-title">Pesanan Saya</h1>

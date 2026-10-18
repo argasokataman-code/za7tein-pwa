@@ -311,8 +311,10 @@ const STATUS_MAP: Record<string, MerchantOrderStatus> = {
   batal: 'batal',
 }
 
+import { dbTimeMs } from '../data/dbTime'
+
 function relativeTime(iso: string): string {
-  const minutes = Math.max(1, Math.round((Date.now() - new Date(iso).getTime()) / 60000))
+  const minutes = Math.max(1, Math.round((Date.now() - dbTimeMs(iso)) / 60000))
   if (minutes < 60) return `${minutes} menit lalu`
   const hours = Math.round(minutes / 60)
   if (hours < 24) return `${hours} jam lalu`
@@ -659,6 +661,9 @@ export interface CustomerActiveOrder {
   /** Waktu relatif order dibuat ("12 menit lalu") — pembeda saat satu toko
       punya beberapa order, memakai format yang sama dengan konsol merchant. */
   placedAt: string
+  /** `created_at` dalam milidetik epoch — dipakai jendela batal 1 menit
+      (`cancelWindowRemainingMs`); `placedAt` teks tak bisa dihitung mundur. */
+  createdAtMs: number
   items: { name: string; qty: number }[]
 }
 
@@ -710,6 +715,7 @@ export async function fetchCustomerActiveOrders(
     stage: STAGE_OF_STATUS[r.status] ?? 'baru',
     totalIdr: jodToIdr(r.total_jod),
     placedAt: relativeTime(r.created_at),
+    createdAtMs: dbTimeMs(r.created_at),
     items: itemsBy.get(r.id) ?? [],
   }))
 }

@@ -35,7 +35,7 @@
 
     { "id": "zonablock", "lane": "caveat", "col": 0, "type": "security", "label": "Di luar zona", "sublabel": "checkout diblokir", "tag": "guard" },
     { "id": "topUpGate", "lane": "caveat", "col": 1, "type": "security", "label": "Saldo kurang", "sublabel": "akun baru < 3,5 JOD", "tag": "gate" },
-    { "id": "batal", "lane": "caveat", "col": 3, "type": "security", "label": "Batal", "sublabel": "sebelum match" }
+    { "id": "batal", "lane": "caveat", "col": 3, "type": "security", "label": "Batal", "sublabel": "≤1 menit" }
   ],
   "edges": [
     { "id": "e-browse-checkout", "from": "browse", "to": "checkout", "label": "pilih", "role": "main" },
@@ -54,7 +54,7 @@
   ],
   "cards": [
     { "dot": "orange", "title": "Prepaid vs COD & tip", "items": ["Prepaid potong saat order; COD via wallet: hold → potong saat match → settle saat OTP", "Transfer manual fee flat 0,37 JOD · guard: luar zona diblokir · akun baru top-up min 3,5 JOD"] },
-    { "dot": "amber", "title": "Waktu (SLA) & pembatalan", "items": ["Ambil 15m → Berangkat 30m → Tiba 10m → auto-settle 10m (sementara, OQ-13)", "Batal pre-match → hold released; post-match → reversal append-only"] },
+    { "dot": "amber", "title": "Waktu (SLA) & pembatalan", "items": ["Ambil 15m → Berangkat 30m → Tiba 10m → auto-settle 10m (sementara, OQ-13)", "Batal hanya ≤1 menit sejak checkout → hold released + splash dana kembali", "Post-match → reversal append-only"] },
     { "dot": "slate", "title": "Notifikasi & Masalah (R-NOTIF-01/02)", "items": ["Tiap langkah notif ke customer+merchant+kurir; kurir mulai courier_matched", "CS hanya saat masalah (sengketa/batal post-match/SLA); SA eskalasi · routing f11 · penanganan f8/f24"] }
   ]
 }
