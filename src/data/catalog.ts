@@ -1,4 +1,4 @@
-import { Cookie, CupSoda, Soup, UtensilsCrossed } from 'lucide-react'
+import { Cookie, CupSoda, Soup, UtensilsCrossed, type LucideIcon } from 'lucide-react'
 
 import type { Category, MenuItem } from '../types'
 import { foods } from './foods'
@@ -28,6 +28,32 @@ export const CATEGORIES: Category[] = [
   },
   { id: 'Camilan', label: 'Camilan', icon: Cookie, image: '/assets/img/categories/camilan.webp' },
 ]
+
+/**
+ * Ikon untuk kategori **ops/BE** (`menu_categories`). Kategori BE tak punya
+ * ikon (JSON hanya menyimpan teks), jadi ikon dipetakan dari labelnya di sini —
+ * bukan disimpan di state (fungsi React tak bisa lewat persist, lihat
+ * `catalogSlice`).
+ */
+export function categoryIcon(label: string): LucideIcon {
+  const key = label.toLowerCase()
+  if (key.includes('minum')) return CupSoda
+  if (key.includes('camil') || key.includes('snack')) return Cookie
+  if (key.includes('mie') || key.includes('noodle')) return Soup
+  return UtensilsCrossed
+}
+
+/**
+ * Peta bucket tampilan customer → id kategori ops/BE, untuk item demo
+ * (`menuSeed`) yang tak punya `category_id` asli. Item dari BE memakai kolom
+ * `menus.category_id` langsung.
+ */
+const BE_CATEGORY_ID: Record<string, string> = {
+  Nasi: '1',
+  Mie: '1',
+  Minuman: '2',
+  Camilan: '3',
+}
 
 /**
  * Aturan nama → salah satu dari empat kategori tetap. ponytail: heuristik nama,
@@ -235,14 +261,20 @@ const MERCHANT_OF: Record<string, string> = {
 }
 
 /** Katalog customer: item datar + pemiliknya + bucket kategori dari nama. */
-export const menuSeed: MenuItem[] = rawMenuSeed.map((item) => ({
-  ...item,
-  category: foodBucket(item.category, item.name),
-  merchantId: MERCHANT_OF[item.id],
-  // Menu demo sudah mengizinkan catatan; merchant bisa mematikannya per item
-  // (MER-05) lewat "Menu & Stok".
-  noteEnabled: true,
-}))
+export const menuSeed: MenuItem[] = rawMenuSeed.map((item) => {
+  const bucket = foodBucket(item.category, item.name)
+  return {
+    ...item,
+    category: bucket,
+    // Item demo: kategori ops/BE diturunkan dari bucket (katalog BE asli
+    // memakai kolom `menus.category_id`). Lihat `BE_CATEGORY_ID`.
+    categoryId: BE_CATEGORY_ID[bucket],
+    merchantId: MERCHANT_OF[item.id],
+    // Menu demo sudah mengizinkan catatan; merchant bisa mematikannya per item
+    // (MER-05) lewat "Menu & Stok".
+    noteEnabled: true,
+  }
+})
 
 // ── Helpers ──
 

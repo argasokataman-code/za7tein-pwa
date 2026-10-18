@@ -511,10 +511,19 @@ export default function Documentation() {
                 punya endpoint tulis) dan taksonomi telusur lintas toko jadi pecah &mdash; sama
                 seperti tag toko yang ops-curated. Form item punya{' '}
                 <strong>toggle catatan per menu</strong> (MER-05): kolom catatan pelanggan di halaman
-                item hanya muncul bila menyala. Daftar kategori hidup di state{' '}
-                <code className="doc-inline">catalog.categories</code> (ikon dipetakan dari modul,
-                bukan state, karena komponen lucide tak selamat dari JSON persist; kelak diisi dari
-                BE). Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
+                item hanya muncul bila menyala. Daftar kategori kini <strong>dibaca dari BE</strong>:
+                hook <code className="doc-inline">useMenuCategories</code> mengambil{' '}
+                <code className="doc-inline">menu_categories</code> (aktif, urut{' '}
+                <code className="doc-inline">sort_order</code>); tiap item ditandai{' '}
+                <code className="doc-inline">categoryId</code> = kolom{' '}
+                <code className="doc-inline">menus.category_id</code>. Ini taksonomi <em>ops</em>,
+                sengaja terpisah dari kategori tampilan customer (<code className="doc-inline">Food.category</code>:
+                Nasi/Mie/Minuman/Camilan) yang tetap dihitung dari nama lewat{' '}
+                <code className="doc-inline">foodBucket</code> &mdash; kolom BE terlalu kasar untuk
+                telusur customer. Ikon dipetakan dari label di modul (
+                <code className="doc-inline">categoryIcon</code>), bukan state, karena komponen lucide
+                tak selamat dari JSON persist. Saat API mati, daftar jatuh balik ke empat kategori
+                tampilan. Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
               </li>
               <li>
                 <strong>Varian &amp; tambahan ala Odoo</strong> (M4c, MER-07/MER-08): model{' '}

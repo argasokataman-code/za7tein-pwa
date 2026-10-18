@@ -50,6 +50,14 @@ export interface MenuItem extends Food {
   stock: number
   available: boolean
   /**
+   * Id kategori **ops/BE** (`menus.category_id` → `menu_categories.id`), yang
+   * dipakai konsol merchant untuk mengelompokkan item. Berbeda dari `Food.category`
+   * yang merupakan taksonomi **tampilan customer** (Nasi/Mie/Minuman/Camilan):
+   * kategori BE terlalu kasar ("Makanan Utama" untuk nasi dan mie sekaligus), jadi
+   * keduanya sengaja dipisah.
+   */
+  categoryId?: string
+  /**
    * Opsi catatan per menu (MER-05): pelanggan boleh menulis catatan khusus untuk
    * item ini di halaman detail. Merchant mengaturnya per item; `false` = textarea
    * catatan disembunyikan.

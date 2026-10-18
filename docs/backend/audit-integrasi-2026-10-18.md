@@ -38,15 +38,20 @@ Yang ditemukan dan diperbaiki:
 
 ## Sudah disambung (2026-10-18, lanjutan)
 
-Tiga tabel berisi data kini **dibaca** FE:
+Empat tabel berisi data kini **dibaca** FE:
 
 | Tabel | Dipakai di | Cara |
 |---|---|---|
 | `checkpoints` | lini masa order merchant | `fetchOrderCheckpoints` digabung dengan `order_status_history`, urut `at` |
 | `chat_participants` | peserta `OrderChat` | `fetchChatParticipants` (role + `joined_at`); kurir masih turunan demo |
 | `deposits` | riwayat setoran `/merchant/insentif` | `fetchMerchantCredit` → `MerchantCreditState.deposits` |
+| `menu_categories` | kategori menu konsol merchant (`/merchant/menu`) | `fetchMenuCategories` + hook `useMenuCategories`; item ditandai `menus.category_id` (`MenuItem.categoryId`) |
 
-## BE sudah punya data, FE belum membaca (11 tabel)
+Catatan `menu_categories`: kolom `is_active` bertipe **integer 0/1**, dan Worker
+tak meng-coerce — filter harus `is_active=eq.1` (`eq.true` mengembalikan daftar
+kosong tanpa error).
+
+## BE sudah punya data, FE belum membaca (10 tabel)
 
 Prioritas dari yang paling kentara di produk:
 
@@ -54,7 +59,6 @@ Prioritas dari yang paling kentara di produk:
 |---|---|---|
 | `enterprise_ledger` | 9 | ledger platform per order (`entry_type`, `party`, `amount_jod/idr`) |
 | `product_attributes` / `product_attribute_values` | 2 / 5 | atribut produk + nilainya (`display_type`, `html_color`, `price_extra`) |
-| `menu_categories` | 3 | kategori menu (`slug`, `icon`, `sort_order`) |
 | `courier_types` | 3 | jenis kurir (`code`, `label`) |
 | `dispute_rules` | 3 | aturan sengketa (`trigger_condition`, `responsible_party`, `mitigation`, `compensation`, `punishment`) |
 | `cashback_tiers` | 3 | tangga cashback (`tier`, `min_volume_jod`, `pct`, …) |

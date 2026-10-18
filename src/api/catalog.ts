@@ -10,7 +10,7 @@ import { jodToIdr } from '../data/currency'
 import { foodBucket } from '../data/catalog'
 import { estimateDeliveryTime, formatDistance, haversineMeters } from '../data/merchant'
 import { IMAGE_FALLBACK } from '../data/storefronts'
-import type { MenuItem, ModifierGroup, Storefront } from '../types'
+import type { Category, MenuItem, ModifierGroup, Storefront } from '../types'
 import { rest } from './supabase'
 
 /** Titik asal customer untuk menghitung jarak ke toko (alamat yang dipilih). */
@@ -59,6 +59,8 @@ export interface MenuRow {
   image: string | null
   stock: number | null
   category: string | null
+  /** Kategori ops/BE (`menu_categories.id`) — dipakai konsol merchant. */
+  category_id: number | null
   /** Ada di BE, dulu dibuang mapper — dipakai banner promo & kartu menu. */
   discount_percent: number | null
   is_popular: boolean | null
@@ -134,6 +136,7 @@ function toMenuItem(row: MenuRow, variants: VariantRow[]): MenuItem {
     deliveryTime: '',
     distance: '',
     category: foodBucket(row.category ?? '', row.name),
+    categoryId: row.category_id != null ? String(row.category_id) : undefined,
     image: row.image ?? IMAGE_FALLBACK,
     description: row.description ?? '',
     merchantId: String(row.merchant_id),
@@ -145,6 +148,28 @@ function toMenuItem(row: MenuRow, variants: VariantRow[]): MenuItem {
     cookMinutes: row.cook_minutes ?? undefined,
     modifierGroups: variants.length ? toModifierGroups(variants) : undefined,
   }
+}
+
+/**
+ * Baris `menu_categories` BE — taksonomi kategori **ops** yang dipakai konsol
+ * merchant. Tanpa ikon: `Category.icon` adalah komponen React dan tak muat di
+ * JSON; ikon dipetakan dari label di `data/catalog` (`categoryIcon`).
+ */
+export interface MenuCategoryRow {
+  id: number
+  label: string
+  slug: string | null
+  sort_order: number | null
+}
+
+export async function fetchMenuCategories(): Promise<Category[]> {
+  // `is_active` di BE bertipe integer (0/1); Worker tak meng-coerce `true`, jadi
+  // filter pakai `eq.1` — `eq.true` mengembalikan daftar kosong.
+  const rows = await rest<MenuCategoryRow>(
+    'menu_categories',
+    '?select=id,label,slug,sort_order&is_active=eq.1&order=sort_order.asc,id.asc',
+  )
+  return rows.map((row) => ({ id: String(row.id), label: row.label }))
 }
 
 export async function fetchStorefronts(origin?: Origin): Promise<Storefront[]> {

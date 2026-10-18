@@ -99,7 +99,7 @@ const rootReducer = combineReducers({
  * supaya di-seed ulang; keranjang, saldo, dan katalog tidak berubah bentuk.
  */
 /** Versi skema state tersimpan. Naikkan saat bentuk slice berubah (lihat `migrations`). */
-const PERSIST_VERSION = 9
+const PERSIST_VERSION = 10
 
 /**
  * Buang slice dari state tersimpan supaya di-seed ulang.
@@ -165,6 +165,15 @@ const migrations = {
     if (Array.isArray(marketing.slides) && marketing.slides.length > 0) return state
     return { ...state, marketing: { ...marketing, slides: mockPromoSlides } }
   },
+  /**
+   * v10: `catalog` dibuang supaya di-seed ulang. Kategori ops pindah dari state
+   * (`catalog.categories`) ke BE (`menu_categories`), dan `MenuItem` dapat
+   * `categoryId` (`menus.category_id`) yang dipakai konsol merchant untuk
+   * mengelompokkan item. State tersimpan lama tak punya field itu sehingga
+   * setiap item jatuh ke grup "tak berkategori" dan halaman menu tampak kosong.
+   * Keranjang/favorit memakai id menu yang sama, jadi tidak perlu ikut hilang.
+   */
+  10: (state: any) => dropPersisted(state, ['catalog']),
 }
 
 const persistConfig = {

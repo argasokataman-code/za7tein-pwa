@@ -13,14 +13,14 @@ import { SelectField } from '../components/ui/SelectField'
 import { useCatalog } from '../hooks/useCatalog'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
+import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, categoryIcon, countLowStock, countOutOfStock, foodBucket } from '../data/catalog'
+import { useMenuCategories } from '../hooks/useMenuCategories'
 import { merchantToken } from '../api/reference'
 import { imageFileError, uploadImage } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import {
   addMenuItem,
   removeMenuItem,
-  selectCategories,
   setStock,
   toggleAvailable,
   updateMenuItem,
@@ -30,15 +30,16 @@ import type { MenuItem } from '../types'
 const EMPTY_FORM: MerchantMenuItemFormData = { name: '', price: 0, category: '', stock: 0 }
 const FALLBACK_IMAGE = '/assets/img/menu-details/menu-details-thumb.png'
 
-/* Ikon kategori TIDAK disimpan di state (tak bisa lewat JSON persist); dipetakan
-   dari modul berdasarkan id. Kategori = taksonomi ops/BE (baca-saja). */
-const CATEGORY_ICON = new Map(CATEGORIES.map((c) => [c.id, c.icon]))
+/* Fallback kategori = taksonomi tampilan customer, dipakai hanya saat API mati.
+   Saat API hidup, daftar datang dari `menu_categories` BE (`useMenuCategories`). */
+const FALLBACK_CATEGORIES = CATEGORIES.map(({ id, label }) => ({ id, label }))
 
 export default function MerchantMenu() {
   const { money } = useMoney()
   const dispatch = useAppDispatch()
   const { items } = useCatalog()
-  const categories = useAppSelector(selectCategories)
+  // Kategori = taksonomi ops/BE (`menu_categories`), baca-saja bagi merchant.
+  const categories = useMenuCategories(FALLBACK_CATEGORIES)
   const isActive = useAppSelector((state) => state.merchant.isActive)
   const storeName = useAppSelector((state) => state.merchant.storeName)
 
@@ -48,18 +49,28 @@ export default function MerchantMenu() {
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'out'>('all')
   const [category, setCategory] = useState<'all' | string>('all')
   const visibleItems = items.filter((item) =>
-    (category === 'all' || item.category === category) &&
+    (category === 'all' || item.categoryId === category) &&
     (stockFilter === 'out' ? item.stock <= 0 :
       stockFilter === 'low' ? item.stock > 0 && item.stock <= MENU_LOW_STOCK_THRESHOLD : true),
   )
-  /* Daftar dikelompokkan per kategori (mock CATEGORIES), urutannya tetap;
-     grup yang kosong setelah filter stok disembunyikan. */
+  /* Daftar dikelompokkan per kategori ops/BE (`menu_categories`), urutannya
+     tetap; grup yang kosong setelah filter stok disembunyikan. */
   const menuGroups = categories
     .map((c) => ({
       category: c,
-      items: visibleItems.filter((item) => item.category === c.id),
+      items: visibleItems.filter((item) => item.categoryId === c.id),
     }))
     .filter((group) => group.items.length > 0)
+
+  /* Label kategori ops item; jatuh balik ke bucket customer bila kategori BE
+     tak dikenal (mis. saat API mati). */
+  const categoryLabel = (item: MenuItem) =>
+    categories.find((c) => c.id === item.categoryId)?.label ?? item.category
+
+  /* Kategori yang dipilih = id BE; `Food.category` (tampilan customer) tetap
+     diisi bucket supaya bentuk tipe utuh. */
+  const categoryBucket = (data: MerchantMenuItemFormData) =>
+    foodBucket(categories.find((c) => c.id === data.category)?.label ?? '', data.name)
 
   const [overflowId, setOverflowId] = useState<string | null>(null)
   const [deleteItem, setDeleteItem] = useState<MenuItem | null>(null)
@@ -119,7 +130,7 @@ export default function MerchantMenu() {
     reset({
       name: item.name,
       price: item.price,
-      category: item.category,
+      category: item.categoryId ?? '',
       stock: item.stock,
       description: item.description ?? '',
     })
@@ -141,7 +152,8 @@ export default function MerchantMenu() {
         ...editing,
         name: data.name,
         price: data.price,
-        category: data.category,
+        category: categoryBucket(data),
+        categoryId: data.category,
         stock: data.stock,
         image: formImage || editing.image,
         description: data.description ?? editing.description,
@@ -152,7 +164,8 @@ export default function MerchantMenu() {
         id: crypto.randomUUID(),
         name: data.name,
         price: data.price,
-        category: data.category,
+        category: categoryBucket(data),
+        categoryId: data.category,
         stock: data.stock,
         image: formImage || FALLBACK_IMAGE,
         description: data.description ?? '',
@@ -247,7 +260,7 @@ export default function MerchantMenu() {
               Semua
             </button>
             {categories.map((c) => {
-              const Icon = CATEGORY_ICON.get(c.id)
+              const Icon = categoryIcon(c.label)
               return (
                 <button
                   key={c.id}
@@ -283,7 +296,7 @@ export default function MerchantMenu() {
           <p className="merchant-menu-empty">Belum ada item dalam kategori ini.</p>
         )}
         {menuGroups.map((group) => {
-          const GroupIcon = CATEGORY_ICON.get(group.category.id)
+          const GroupIcon = categoryIcon(group.category.label)
           return (
             <section
               key={group.category.id}
@@ -308,7 +321,7 @@ export default function MerchantMenu() {
                       <img className="merchant-menu-thumb" src={item.image} alt={item.name} width={64} height={64} loading="lazy" decoding="async" />
                       <div className="merchant-menu-body">
                         <p className="merchant-menu-row-name">{item.name}</p>
-                        <p className="merchant-menu-row-meta">{item.category}</p>
+                        <p className="merchant-menu-row-meta">{categoryLabel(item)}</p>
                         <p className="merchant-menu-row-price">{money(item.price)}</p>
                       </div>
                       <div className="merchant-menu-more-wrap">

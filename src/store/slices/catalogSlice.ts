@@ -1,24 +1,13 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { Category, MenuItem } from '../../types'
-import { CATEGORIES, menuSeed } from '../../data/catalog'
+import type { MenuItem } from '../../types'
+import { menuSeed } from '../../data/catalog'
 
 interface CatalogState {
   items: MenuItem[]
-  /**
-   * Kategori menu (MER-06) — **taksonomi ops/BE, bukan dikelola merchant**.
-   * Daftar baca-saja: merchant memilihnya lewat dropdown di form item. Sumber
-   * sekarang konstanta modul `data/catalog`; kelak diisi dari BE.
-   * **Tanpa ikon** — `Category.icon` adalah komponen React (lucide forwardRef),
-   * dan slice ini ikut persist; JSON tidak menyimpan fungsi, jadi ikon yang
-   * tersimpan jadi `{}` dan render melempar React #130. Ikon dipetakan dari
-   * modul `data/catalog` di layar, bukan dari state.
-   */
-  categories: Category[]
 }
 
 const initialState: CatalogState = {
   items: menuSeed,
-  categories: CATEGORIES.map(({ id, label }) => ({ id, label })),
 }
 
 const catalogSlice = createSlice({
@@ -61,8 +50,5 @@ export const {
 
 export const selectCatalogItems = (state: { catalog: CatalogState }) =>
   state.catalog.items
-
-export const selectCategories = (state: { catalog: CatalogState }) =>
-  state.catalog.categories
 
 export default catalogSlice.reducer
