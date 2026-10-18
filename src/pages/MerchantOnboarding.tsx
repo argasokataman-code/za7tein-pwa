@@ -6,9 +6,10 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
+import { merchantToken } from '../api/reference'
 import { DELIVERY_ZONES, zoneLabel } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { imageFileError } from '../lib/image'
+import { imageFileError, uploadImage } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import {
   removeMerchantLogo,
@@ -38,19 +39,26 @@ export default function MerchantOnboarding() {
   const logoUrlRef = useRef<string | null>(null)
   useEffect(() => () => { if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current) }, [])
 
-  const onLogoPick = (event: ChangeEvent<HTMLInputElement>) => {
+  // Unggah ke R2 (URL publik). Fallback ke object URL lokal bila R2 gagal /
+  // backend bukan Worker supaya pratinjau tetap ada (mock-first).
+  const onLogoPick = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
+    event.target.value = ''
     if (!file) return
     const error = imageFileError(file)
     if (error) {
       toast.error(error)
-      event.target.value = ''
       return
     }
     if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current)
-    const url = URL.createObjectURL(file)
-    logoUrlRef.current = url
-    dispatch(setMerchantLogo(url))
+    logoUrlRef.current = null
+    try {
+      dispatch(setMerchantLogo(await uploadImage('merchant-photos', 'merchant', file, await merchantToken())))
+    } catch {
+      const url = URL.createObjectURL(file)
+      logoUrlRef.current = url
+      dispatch(setMerchantLogo(url))
+    }
   }
 
   const {
@@ -95,7 +103,7 @@ export default function MerchantOnboarding() {
                 type="file"
                 accept="image/*"
                 className="d-none"
-                onChange={onLogoPick}
+                onChange={(event) => void onLogoPick(event)}
               />
               {logo ? (
                 <img className="merchant-form-thumb" src={logo} alt="Foto toko" width={64} height={64} />

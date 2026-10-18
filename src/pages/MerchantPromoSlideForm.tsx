@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { SelectField } from '../components/ui/SelectField'
+import { merchantToken } from '../api/reference'
 import { isOrderable } from '../data/catalog'
 import { mockMerchant } from '../data/merchant'
 import { DEFAULT_PROMO_BANNER, MAX_PROMO_SLIDES } from '../data/promoSlides'
@@ -59,7 +60,7 @@ export default function MerchantPromoSlideForm() {
     try {
       // Unggah ke R2 (URL publik); kalau bukan Worker / R2 gagal, simpan data
       // URL lokal supaya carousel tetap punya banner (mock-first).
-      setImage(await uploadImage('merchant-photos', `merchant/${mockMerchant.id}/promo`, file))
+      setImage(await uploadImage('merchant-photos', `merchant/${mockMerchant.id}/promo`, file, await merchantToken()))
     } catch {
       try {
         setImage(await imageToDataUrl(file))

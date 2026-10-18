@@ -79,11 +79,12 @@ export function courierJoinedPartner(assignments: { status: string }[]): boolean
 }
 
 /**
- * Lampiran gambar (AC4) butuh penyimpanan R2; BE demo hanya punya
- * `chat_messages.body: string` tanpa bucket ataupun kolom lampiran. Selama itu
- * layar menandai jalurnya belum tersedia, bukan memalsukan unggahan.
+ * Lampiran gambar (AC4): klien mengunggah ke R2 lalu mengirim URL-nya sebagai
+ * `chat_messages.body` (teks) — dirender jadi gambar di thread. BE belum punya
+ * bucket khusus chat, jadi sementara menumpang bucket `menu-images`; ganti
+ * begitu BE menyediakan bucket sendiri (REQUEST-FE-ke-BE §8).
  */
-export const CHAT_MEDIA_AVAILABLE = false
+export const CHAT_MEDIA_AVAILABLE = true
 
 /** Ada thread untuk order ini? Chat dibuka saat order dibuat (§20.1). */
 export function hasChatThread(order: { id: string } | null, orderId: number | null): boolean {

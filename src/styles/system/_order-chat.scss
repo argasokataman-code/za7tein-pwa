@@ -271,3 +271,31 @@
   color: var(--text-disabled);
   cursor: default;
 }
+
+/* Lampiran chat: gelembung berisi gambar (URL R2). Lebar dibatasi kontainer
+   supaya bubble tidak melewati kolom; sudut mengikuti radius bubble. */
+.chat-bubble__image {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* Tombol lampirkan gambar: nada netral, bukan merek — satu-satunya merek di
+   baris ini adalah tombol kirim. */
+.chat-compose__attach {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary-strong);
+  cursor: pointer;
+}
+
+.chat-compose__attach:disabled {
+  color: var(--text-disabled);
+  cursor: default;
+}

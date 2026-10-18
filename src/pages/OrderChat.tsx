@@ -6,13 +6,13 @@
 // PostgREST lewat `useApiChat` (tabel `chats` + `chat_messages`). Tanpa order
 // aktif — atau bila API mati — layar jatuh ke percakapan mock lama, jadi tak
 // pernah kosong saat demo.
-import { Info, MessageCircle, Send } from 'lucide-react'
+import { ImagePlus, MessageCircle, Send } from 'lucide-react'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent } from 'react'
+import toast from 'react-hot-toast'
 import { useSearchParams } from 'react-router-dom'
 
 import {
-  CHAT_MEDIA_AVAILABLE,
   chatParticipants,
   chatStatusFor,
   courierJoinedInhouse,
@@ -26,6 +26,8 @@ import { waLink } from '../data/phone'
 import { useApiChat } from '../hooks/useApiChat'
 import { useAppSelector } from '../hooks/useAppStore'
 import { SENDER_USER } from '../api/chat'
+import { ensureCustomerToken } from '../api/orders'
+import { imageFileError, uploadImage } from '../lib/image'
 import { BackButton } from '../components/ui/BackButton'
 
 type PesanDari = 'kurir' | 'merchant' | 'aku'
@@ -62,6 +64,9 @@ const jamIso = (iso: string) => {
   const d = new Date(iso)
   return `${String(d.getHours()).padStart(2, '0')}.${String(d.getMinutes()).padStart(2, '0')}`
 }
+
+/** Pesan lampiran dikirim sebagai URL gambar (body teks) — dirender jadi gambar. */
+const isImageUrl = (teks: string) => /^https?:\/\/\S+\.(jpe?g|png|gif|webp)$/i.test(teks)
 
 /**
  * Percakapan pembuka menggambarkan **tujuan** chat §20.1: koordinasi dengan toko
@@ -159,6 +164,8 @@ export default function OrderChat() {
   const [offline, setOffline] = useState(false)
   const nomorBalasan = useRef(0)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const attachRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     document.body.className = 'sa7tein-track-page'
@@ -229,6 +236,36 @@ export default function OrderChat() {
     }, 1200)
   }
 
+  /**
+   * Lampirkan foto ke chat: unggah ke R2, lalu kirim URL-nya sebagai body pesan
+   * (persist sebagai teks; dirender jadi gambar). BE belum punya bucket khusus
+   * chat — sementara pakai `menu-images` (tercatat di REQUEST-FE-ke-BE §8).
+   */
+  const lampirkan = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    event.target.value = ''
+    if (!file) return
+    const error = imageFileError(file)
+    if (error) {
+      toast.error(error)
+      return
+    }
+    setUploading(true)
+    try {
+      const url = await uploadImage(
+        'menu-images',
+        `chat/${orderId ?? 'demo'}`,
+        file,
+        await ensureCustomerToken(),
+      )
+      kirim(url)
+    } catch {
+      toast.error('Gagal mengunggah gambar')
+    } finally {
+      setUploading(false)
+    }
+  }
+
   return (
     <div className="app-shell">
       <main>
@@ -293,7 +330,17 @@ export default function OrderChat() {
                       <span className="chat-bubble__role">{ROLE_LABEL[p.dari]}</span>
                     </span>
                   )}
-                  <p className="chat-bubble__text">{p.teks}</p>
+                  {isImageUrl(p.teks) ? (
+                    <img
+                      className="chat-bubble__image"
+                      src={p.teks}
+                      alt="Lampiran chat"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <p className="chat-bubble__text">{p.teks}</p>
+                  )}
                 </div>
                 <span className="chat-bubble__jam">{p.jam}</span>
               </div>
@@ -362,16 +409,6 @@ export default function OrderChat() {
                 )}
               </div>
 
-              {/* Lampiran gambar (§20.1) butuh R2; BE demo belum punya bucket
-                  maupun kolom lampiran. Ditandai, bukan dipalsukan. Satu baris
-                  tenang: ini batas demo, bukan galat yang harus berteriak. */}
-              {CHAT_MEDIA_AVAILABLE ? null : (
-                <p className="chat-media-note">
-                  <Info size={14} strokeWidth={1.75} aria-hidden="true" />
-                  Lampiran gambar belum tersedia di demo ini.
-                </p>
-              )}
-
               <form
                 className="chat-compose"
                 onSubmit={(e) => {
@@ -386,6 +423,22 @@ export default function OrderChat() {
                   onChange={(e) => setDraf(e.target.value)}
                   placeholder="Tulis pesan…"
                   aria-label="Tulis pesan ke group order"
+                />
+                <button
+                  type="button"
+                  className="chat-compose__attach"
+                  aria-label="Lampirkan gambar"
+                  disabled={uploading}
+                  onClick={() => attachRef.current?.click()}
+                >
+                  <ImagePlus size={18} strokeWidth={2} aria-hidden="true" />
+                </button>
+                <input
+                  ref={attachRef}
+                  className="d-none"
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => void lampirkan(event)}
                 />
                 <button
                   type="submit"

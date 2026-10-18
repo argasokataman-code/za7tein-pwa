@@ -25,7 +25,7 @@
 | Tulis tabel `POST/PATCH/DELETE /rest/v1/{table}` | ❌ `404 Not Found` | `POST /rest/v1/marketing` → `404` |
 | Auth magic-link → JWT | ✅ | `POST /auth/magic-link` `200`, `/auth/verify` `200`, `/auth/me` `200` |
 | Auth password (`/auth/v1/*`) | ❌ | tidak dilayani |
-| Media R2 `PUT/GET` | ✅ (tapi **tanpa auth** ⚠) | `PUT /media/menu-images/x` → `201` |
+| Media R2 `PUT/GET` | ✅ PUT wajib JWT (401 tanpa token) | `PUT /media/menu-images/x` tanpa JWT → `401`; dengan JWT merchant → `201` |
 | RPC baca | ✅ | `check_coverage`, `price_order`, `browse_merchants`, `search_merchants`, `fx_rate_latest` → `200` |
 | RPC tulis (authz) | ✅ gerbang jalan | tanpa JWT → `401` |
 | RPC FE lama | ❌ `501` | `my_order_otp`, `verify_order_otp`, `courier_orders`, `ops_set_platform_params` |
@@ -41,7 +41,7 @@
 3. **Spek RPC** (arg `p_*` + bentuk balikan) untuk semua RPC tulis — §5.0.
 4. **Tabel hilang** `payout_accounts`, `payment_methods`, `platform_profit`, `profit_withdrawals` — §3.
 5. **Auth produksi** (magic-link kirim email + endpoint profil) — §6.
-6. **Media: auth pada PUT** + `DELETE` — §8 (celah keamanan).
+6. **Media: bucket `chat-media`/`review-media` + kolom media** — auth PUT & `DELETE` sudah beres; §8.
 
 ## 3. Tabel D1 yang belum ada
 
@@ -167,10 +167,11 @@ Dipakai: daftar customer panel CS (f24), rincian item order (f1/f19).
 
 | Butir | Sekarang | Minta |
 |---|---|---|
-| `PUT /media/{bucket}/{key}` | **`201` tanpa JWT** ⚠ | **gerbang auth** (JWT + peran pemilik). Siapa pun yang tahu URL bisa unggah/timpa objek. |
-| `DELETE /media/{bucket}/{key}` | tak ada | tambahkan (hapus banner/menu/bukti). |
-| Izin per bucket | `?` | konfirmasi aturan `menu-images`, `merchant-photos`, `avatars`. |
+| `PUT /media/{bucket}/{key}` | ✅ **wajib JWT** — tanpa token `401`, dengan JWT `201` | terima (sudah beres). Konfirmasi apakah authz per-peran selain sekadar "ada token". |
+| `DELETE /media/{bucket}/{key}` | ✅ ada (`204`) | terima (sudah beres). |
+| Daftar bucket | hanya `menu-images`, `merchant-photos`, `avatars` — `chat-media`/`review-media` → **`404`** | **tambah bucket** `chat-media` (lampiran chat §20.1) dan `review-media` (foto ulasan §20.2). Sementara FE menumpang `menu-images` untuk lampiran chat, dan foto ulasan tetap lokal. |
 | `GET` publik | `200` | konfirmasi tetap anonim, atau presigned bila perlu privat. |
+| Kolom media | `chat_messages` tanpa kolom media (FE kirim URL di `body`) ; `rating_reviews` tanpa kolom media | tambah kolom lampiran (mis. `chat_messages.media jsonb`, `rating_reviews.photos jsonb`) supaya lampiran tidak menumpang teks. |
 
 FE sudah punya helper `uploadMedia()` (`src/api/supabase.ts`) yang menembak URL ini; tinggal dipakai UI begitu auth jelas.
 
@@ -248,9 +249,12 @@ curl -s -w '\n%{http_code}\n' -X POST "$W/rest/v1/rpc/courier_orders" \
 curl -s -o /dev/null -w '%{http_code}\n' \
   "$W/rest/v1/customers?select=id,name,users(phone)&limit=1"                     # 400
 
-# media PUT tanpa auth (sekarang 201 — seharusnya 401)
+# media PUT: tanpa JWT 401, dengan JWT 201; DELETE 204
 curl -s -o /dev/null -w '%{http_code}\n' -X PUT "$W/media/menu-images/probe.txt" \
-  -H 'Content-Type: text/plain' --data 'x'                                       # 201
+  -H 'Content-Type: text/plain' --data 'x'                                       # 401
+# bucket di luar allowlist → 404
+curl -s -o /dev/null -w '%{http_code}\n' -X PUT "$W/media/chat-media/probe.txt" \
+  -H 'Content-Type: text/plain' --data 'x'                                       # 404
 ```
 
 Skrip cek ringkas yang sudah ada di repo: `./scripts/be-check.sh` (health/version/rest) dan `./scripts/r2-check.sh` (R2 SigV4).
@@ -273,7 +277,7 @@ Skrip cek ringkas yang sudah ada di repo: `./scripts/be-check.sh` (health/versio
 4. `openapi.yaml`/`schema.sql` memuat arg `p_*` + bentuk balikan tiap RPC.
 5. Embed §7 balas `200` (atau diganti RPC view).
 6. `PATCH /auth/me` + magic-link kirim email.
-7. `PUT /media` balas `401` tanpa JWT; `DELETE /media` ada.
+7. ✅ `PUT /media` balas `401` tanpa JWT (dengan JWT `201`); `DELETE /media` ada (`204`). Sisa: bucket `chat-media`/`review-media` + kolom media untuk lampiran chat/ulasan.
 8. Realtime menyiarkan perubahan baris minimal untuk `orders`, `notifications`, `checkpoints`, `chats`.
 9. `Prefer: count=exact` mengembalikan total.
 

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRef, useState, type ChangeEvent } from 'react'
 
 import { mockUser } from '../data/user'
+import { ensureCustomerToken } from '../api/orders'
 import { imageFileError, uploadImage } from '../lib/image'
 
 import toast from 'react-hot-toast'
@@ -28,7 +29,7 @@ export default function AddProfilePhoto() {
       return
     }
     try {
-      setPreview(await uploadImage('avatars', 'user', file))
+      setPreview(await uploadImage('avatars', 'user', file, await ensureCustomerToken()))
       toast.success('Foto diunggah ke R2')
     } catch {
       setPreview(URL.createObjectURL(file))

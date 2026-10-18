@@ -242,7 +242,12 @@ export default function Documentation() {
                 diam-diam kelihatan. Picker yang tersambung: foto toko &amp; banner promo
                 (<code className="doc-inline">merchant-photos</code>), item menu (
                 <code className="doc-inline">menu-images</code>), dan avatar (
-                <code className="doc-inline">avatars</code>).
+                <code className="doc-inline">avatars</code>). Lampiran chat aktif: tombol
+                gambar di composer mengunggah ke R2 lalu mengirim URL-nya sebagai body pesan
+                (dirender jadi gambar) — bucket chat khusus belum ada, jadi sementara
+                menumpang <code className="doc-inline">menu-images</code>. Foto ulasan tetap
+                pratinjau lokal karena <code className="doc-inline">rating_reviews</code> belum
+                punya kolom media. Unggah media kini wajib JWT (PUT tanpa token → 401).
               </li>
               <li>
                 <strong>Kontrak backend Worker Cloudflare (v2) mulai dikonsumsi klien.</strong>{' '}

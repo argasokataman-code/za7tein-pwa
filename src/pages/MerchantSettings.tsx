@@ -23,6 +23,7 @@ import {
   punishmentForRule,
   rulesForMerchant,
 } from '../data/rules'
+import { merchantToken } from '../api/reference'
 import { imageFileError, uploadImage } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import { logout } from '../store/slices/authSlice'
@@ -87,7 +88,7 @@ export default function MerchantSettings() {
     if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current)
     logoUrlRef.current = null
     try {
-      dispatch(setMerchantLogo(await uploadImage('merchant-photos', 'merchant', file)))
+      dispatch(setMerchantLogo(await uploadImage('merchant-photos', 'merchant', file, await merchantToken())))
       toast.success('Foto toko diunggah ke R2')
     } catch {
       const url = URL.createObjectURL(file)

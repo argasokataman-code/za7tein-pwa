@@ -14,6 +14,7 @@ import { useCatalog } from '../hooks/useCatalog'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
+import { merchantToken } from '../api/reference'
 import { imageFileError, uploadImage } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import {
@@ -181,7 +182,7 @@ export default function MerchantMenu() {
     }
     // Unggah ke R2; jatuh balik ke data URL lokal kalau R2 tak terjangkau.
     try {
-      setFormImage(await uploadImage('menu-images', 'menu', file))
+      setFormImage(await uploadImage('menu-images', 'menu', file, await merchantToken()))
     } catch {
       const reader = new FileReader()
       reader.onload = () => setFormImage(String(reader.result))
