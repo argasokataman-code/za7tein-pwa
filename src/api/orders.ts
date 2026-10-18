@@ -24,7 +24,7 @@ import type {
 import { createWith, createWithReturn, patch, rest, restWith, rpc, signInToken } from './supabase'
 
 export const DEMO_CUSTOMER_ID = 1
-const DEMO_MERCHANT_ID = 1
+export const DEMO_MERCHANT_ID = 1
 const DEMO_ADDRESS_ID = 1
 
 /** Akun demo — RLS `orders` menuntut sesi login (anon ditolak), jadi login dulu. */

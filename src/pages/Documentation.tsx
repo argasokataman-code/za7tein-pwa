@@ -915,7 +915,13 @@ export default function Documentation() {
                 (satu baris per transisi + <code className="doc-inline">at</code>) lewat{' '}
                 <code className="doc-inline">fetchOrderHistory</code> — jadi jam tiap kejadian
                 nyata, bukan dikarang; riwayat turunan tetap dipakai sebagai cadangan bila BE
-                kosong.
+                kosong. Batch yang sudah ada di D1 ikut dihidrasi lewat tabel{' '}
+                <code className="doc-inline">batches</code> (
+                <code className="doc-inline">fetchMerchantBatches</code> →{' '}
+                <code className="doc-inline">mergeBatches</code>) — baca saja: hanya{' '}
+                <em>menambah</em>, tidak menimpa batch lokal yang sudah diubah merchant, sebab
+                endpoint tulis batch belum ada; <code className="doc-inline">courier_id</code>{' '}
+                numerik dipetakan ke id kurir FE (<code className="doc-inline">cr-N</code>).
               </li>
               <li>
                 <strong>Rating: aturan §20.2 dikunci + menu riwayat pesanan (M8a, R-CUS-RATING).</strong>{' '}

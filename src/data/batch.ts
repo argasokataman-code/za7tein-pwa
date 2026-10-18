@@ -52,10 +52,21 @@ export function batchOrders(batch: Batch, orders: MerchantOrder[]): MerchantOrde
   return orders.filter((order) => batch.orderIds.includes(order.id))
 }
 
+/**
+ * Order dianggap sudah packing bila merchant menandainya (`packed`, toggle lokal)
+ * **atau** statusnya sudah melewati dapur. BE tidak menyimpan `packed`, tapi order
+ * yang sudah `diantar`/`tiba`/`selesai` mustahil tidak dipacking — tanpa turunan
+ * ini, order tuntas dari BE tertulis "Belum packing" di kartu batch.
+ */
+export function orderPacked(order: MerchantOrder): boolean {
+  if (order.packed) return true
+  return order.status === 'diantar' || order.status === 'tiba' || order.status === 'selesai'
+}
+
 /** Semua order batch sudah ditandai packing (syarat mulai lebih awal, BR-B09). */
 export function batchAllPacked(batch: Batch, orders: MerchantOrder[]): boolean {
   const list = batchOrders(batch, orders)
-  return list.length > 0 && list.every((order) => order.packed)
+  return list.length > 0 && list.every((order) => orderPacked(order))
 }
 
 /**

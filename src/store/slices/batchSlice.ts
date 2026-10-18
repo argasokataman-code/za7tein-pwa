@@ -71,6 +71,18 @@ const batchSlice = createSlice({
       const batch = state.batches.find((b) => b.id === action.payload.batchId)
       if (batch) batch.routeOrder = action.payload.orderIds
     },
+    /**
+     * Hidrasi batch dari BE: tambah yang belum ada, **jangan** menimpa yang sudah
+     * ada. Batch lokal mungkin sudah diubah merchant (tutup/assign) sementara tulis
+     * tabel belum ada di Worker; menimpa akan menghapus perubahan itu di tiap refetch
+     * (pola sama dengan `mergeOrders`, BUG-88046).
+     */
+    mergeBatches(state, action: PayloadAction<Batch[]>) {
+      const known = new Set(state.batches.map((batch) => batch.id))
+      for (const batch of action.payload) {
+        if (!known.has(batch.id)) state.batches.push(batch)
+      }
+    },
   },
 })
 
@@ -83,5 +95,6 @@ export const {
   approveEarlyStart,
   setAutoSort,
   setRouteOrder,
+  mergeBatches,
 } = batchSlice.actions
 export default batchSlice.reducer

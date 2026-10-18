@@ -9,6 +9,7 @@ import {
   batchOrders,
   canStartEarly,
   countdownLabel,
+  orderPacked,
 } from '../../data/batch'
 import { COURIER_STATUS_LABEL } from '../../data/courier'
 import type { Batch, Courier, MerchantOrder } from '../../types'
@@ -75,8 +76,8 @@ export function BatchPanel({
           {list.map((order) => (
             <li key={order.id}>
               <span>{order.code}</span>
-              <span className={order.packed ? 'is-packed' : ''}>
-                {order.packed ? 'Packing selesai' : 'Belum packing'}
+              <span className={orderPacked(order) ? 'is-packed' : ''}>
+                {orderPacked(order) ? 'Packing selesai' : 'Belum packing'}
               </span>
             </li>
           ))}
