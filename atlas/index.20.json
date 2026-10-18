@@ -5829,6 +5829,29 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-130081",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:10:50",
+      "tags": [
+        "chat",
+        "merchant",
+        "ui",
+        "fe",
+        "order"
+      ],
+      "summary": "Chat group order per-order dari merchant: OrderChat perspektif ?as=peran, OrderChatLink di detail order, route merchantRoutes; gate 2/2 PASS",
+      "conn": [
+        {
+          "id": "TASK-130070",
+          "type": "led_to",
+          "raw": "TASK-130070:led_to"
+        }
+      ],
+      "loc": "src/pages/OrderChat.tsx:126"
     }
   ]
 }
