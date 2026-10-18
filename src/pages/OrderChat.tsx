@@ -25,12 +25,12 @@ import { mockUser } from '../data/user'
 import { waLink } from '../data/phone'
 import { useApiChat } from '../hooks/useApiChat'
 import { useAppSelector } from '../hooks/useAppStore'
-import { SENDER_USER } from '../api/chat'
+import { SENDER_USER, type ChatSender } from '../api/chat'
 import { ensureCustomerToken } from '../api/orders'
 import { imageFileError, uploadImage } from '../lib/image'
 import { BackButton } from '../components/ui/BackButton'
 
-type PesanDari = 'kurir' | 'merchant' | 'aku'
+type PesanDari = 'kurir' | 'merchant' | 'customer' | 'aku'
 
 type Pesan = {
   id: number
@@ -48,10 +48,18 @@ const ROLE_LABEL: Record<ChatRole, string> = {
 /** Inisial untuk avatar peserta: huruf pertama kata pertama. */
 const initialOf = (name: string) => name.trim().charAt(0).toUpperCase() || '?'
 
-/** `users.id` pengirim lain per peran (sumber: `api/chat.ts`). */
-const SENDER_ROLE: Record<number, PesanDari> = {
+/** `users.id` pengirim → peran (sumber: `api/chat.ts`). */
+const SENDER_ROLE: Record<number, ChatSender> = {
+  [SENDER_USER.customer]: 'customer',
   [SENDER_USER.merchant]: 'merchant',
-  [SENDER_USER.courier]: 'kurir',
+  [SENDER_USER.courier]: 'courier',
+}
+
+/** Peran → label sisi gelembung pembaca (`aku` = pembaca sendiri). */
+const DARI_OF: Record<ChatSender, PesanDari> = {
+  customer: 'customer',
+  merchant: 'merchant',
+  courier: 'kurir',
 }
 
 const jam = (offsetMenit = 0) => {
@@ -123,7 +131,12 @@ export default function OrderChat() {
     : activeOrder
       ? Number(activeOrder.id)
       : null
-  const live = useApiChat(orderId)
+  // Sudut pandang pembaca: `?as=merchant|courier`; default customer. Rute chat
+  // dipakai tiga peran (PRD §20.1 group order), jadi sisi "aku" mengikuti.
+  const viewerParam = params.get('as')
+  const viewer: ChatSender =
+    viewerParam === 'merchant' || viewerParam === 'courier' ? viewerParam : 'customer'
+  const live = useApiChat(orderId, viewer)
   const threadAda = hasChatThread(activeOrder, orderId)
 
   /**
@@ -151,10 +164,33 @@ export default function OrderChat() {
     orderState,
   })
   const thread = chatStatusFor(orderState)
-  /** Siapa yang "menjawab" di mode mock: kurir bila sudah bergabung, bila belum dari toko. */
-  const balasDari: PesanDari = courierJoined ? 'kurir' : 'merchant'
+  /** Nama pembicara per sisi gelembung, dari sudut pandang pembaca mana pun. */
+  const nameForDari = (dari: PesanDari) =>
+    dari === 'customer' ? mockUser.name : dari === 'merchant' ? mockMerchant.name : courier.name
+  /** Siapa yang "menjawab" di mode mock: lawan dari pembaca. */
+  const balasDari: PesanDari =
+    viewer === 'merchant'
+      ? courierJoined
+        ? 'kurir'
+        : 'customer'
+      : viewer === 'courier'
+        ? 'merchant'
+        : courierJoined
+          ? 'kurir'
+          : 'merchant'
 
-  const [pesan, setPesan] = useState<Pesan[]>(AWAL)
+  /** Mock digambar dari sudut customer; balik 'aku' ↔ peran pembaca. */
+  const awalView: Pesan[] =
+    viewer === 'customer'
+      ? AWAL
+      : AWAL.map((p) => {
+          const lawan = DARI_OF[viewer]
+          if (p.dari === 'aku') return { ...p, dari: lawan }
+          if (p.dari === lawan) return { ...p, dari: 'aku' as PesanDari }
+          return p
+        })
+
+  const [pesan, setPesan] = useState<Pesan[]>(awalView)
   const [draf, setDraf] = useState('')
   const [menulis, setMenulis] = useState(false)
   /**
@@ -176,12 +212,15 @@ export default function OrderChat() {
   }, [])
 
   /** Pesan live dari backend dipetakan ke bentuk UI; `sender_id` menandai peran. */
-  const pesanLive: Pesan[] = live.lines.map((line) => ({
-    id: Number(line.id.replace('cm-', '')) || 0,
-    dari: line.senderId === SENDER_USER.customer ? 'aku' : (SENDER_ROLE[line.senderId] ?? 'kurir'),
-    teks: line.body,
-    jam: jamIso(line.at),
-  }))
+  const pesanLive: Pesan[] = live.lines.map((line) => {
+    const pengirim = SENDER_ROLE[line.senderId] ?? 'courier'
+    return {
+      id: Number(line.id.replace('cm-', '')) || 0,
+      dari: pengirim === viewer ? 'aku' : DARI_OF[pengirim],
+      teks: line.body,
+      jam: jamIso(line.at),
+    }
+  })
   const daftar = live.live
     ? pesanLive
     : pesan.filter((p) => p.dari !== 'kurir' || courierJoined)
@@ -324,9 +363,9 @@ export default function OrderChat() {
                   {p.dari === 'aku' ? null : (
                     <span className="chat-bubble__from">
                       <span className={`chat-avatar chat-avatar--${p.dari}`} aria-hidden="true">
-                        {initialOf(p.dari === 'merchant' ? mockMerchant.name : courier.name)}
+                        {initialOf(nameForDari(p.dari))}
                       </span>
-                      {p.dari === 'merchant' ? mockMerchant.name : courier.name}
+                      {nameForDari(p.dari)}
                       <span className="chat-bubble__role">{ROLE_LABEL[p.dari]}</span>
                     </span>
                   )}

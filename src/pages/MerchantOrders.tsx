@@ -13,6 +13,7 @@ import { AcceptOrderSheet, type AcceptChoice } from '../components/merchant/Acce
 import { BatchPanel } from '../components/merchant/BatchPanel'
 import { JourneyLine } from '../components/JourneyLine'
 import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
+import { OrderChatLink } from '../components/merchant/OrderChatLink'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
@@ -462,6 +463,7 @@ export default function MerchantOrders() {
               {detailOrder.paymentMethod === 'cod' ? 'COD' : 'Transfer'}
             </p>
             <p className="merchant-order-total">Total {money(detailOrder.total)}</p>
+            <OrderChatLink orderId={detailOrder.id} />
 
             {detailOrder.status === 'baru' ? (
               <>

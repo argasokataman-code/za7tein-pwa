@@ -230,6 +230,19 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Chat group order per pesanan kini bisa dibuka merchant.</strong> Detail
+                pesanan (<code className="doc-inline">/merchant/orders</code>) punya tombol{' '}
+                <em>Chat pesanan</em> → <code className="doc-inline">
+                /merchant/order-chat?order=&lt;id&gt;&amp;as=merchant</code>. Halaman{' '}
+                <code className="doc-inline">OrderChat</code> sekarang sadar peran lewat param{' '}
+                <code className="doc-inline">?as=customer|merchant|courier</code> (default
+                customer): sisi &ldquo;aku&rdquo;, nama pembicara, dan pengirim saat mengirim
+                (<code className="doc-inline">sendChatMessage({'{from}'})</code>) mengikuti peran;
+                percakapan mock dibalik agar sudut pandangnya benar. Route{' '}
+                <code className="doc-inline">/order-chat</code> didaftarkan di{' '}
+                <code className="doc-inline">merchantRoutes</code>.
+              </li>
+              <li>
                 <strong>Media naik ke R2 + chip status backend.</strong> Pickers gambar (foto toko,
                 item menu, banner promo, avatar, lampiran chat &amp; ulasan) kini memanggil{' '}
                 <code className="doc-inline">uploadImage(bucket, prefix, file)</code> di{' '}

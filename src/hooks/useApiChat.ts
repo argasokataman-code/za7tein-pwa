@@ -4,12 +4,15 @@
 // tak di-publish. Polling berhenti saat API mati / belum ada order aktif.
 import { useCallback, useEffect, useState } from 'react'
 
-import { fetchChatMessages, sendChatMessage, type ChatLine } from '../api/chat'
+import { fetchChatMessages, sendChatMessage, type ChatLine, type ChatSender } from '../api/chat'
 import { apiEnabled } from '../api/supabase'
 
 const POLL_MS = 5_000
 
-export function useApiChat(orderId: number | null): {
+export function useApiChat(
+  orderId: number | null,
+  viewer: ChatSender = 'customer',
+): {
   live: boolean
   lines: ChatLine[]
   send: (body: string) => Promise<void>
@@ -45,11 +48,11 @@ export function useApiChat(orderId: number | null): {
   const send = useCallback(
     async (body: string) => {
       if (!live || orderId === null) return
-      await sendChatMessage({ orderId, from: 'customer', body }).catch(() => {})
+      await sendChatMessage({ orderId, from: viewer, body }).catch(() => {})
       const items = await fetchChatMessages(orderId).catch(() => [])
       setLines(items)
     },
-    [live, orderId],
+    [live, orderId, viewer],
   )
 
   return { live, lines, send }

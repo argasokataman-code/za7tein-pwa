@@ -213,6 +213,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/', MerchantDashboard],
   ['/orders', MerchantOrders],
   ['/notifications', Notifications],
+  ['/order-chat', OrderChat],
   ['/menu', MerchantMenu],
   ['/promos', MerchantPromos],
   ['/promos/carousel', MerchantPromoCarousel],
