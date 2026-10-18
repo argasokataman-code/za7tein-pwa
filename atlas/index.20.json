@@ -5004,6 +5004,29 @@
       ],
       "loc": "scripts/surface-scan.mjs:447",
       "commit": "c635889"
+    },
+    {
+      "id": "TASK-130018",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "12:27:02",
+      "tags": [
+        "r2",
+        "be",
+        "env",
+        "storage"
+      ],
+      "summary": "Kredensial R2 -> .env.local + r2-check.sh; token API aktif, S3 tanda tangan sah tapi ListBuckets AccessDenied (bucket belum ditentukan)",
+      "conn": [
+        {
+          "id": "FEAT-9981",
+          "type": "relates",
+          "raw": "FEAT-9981:relates"
+        }
+      ],
+      "loc": "scripts/r2-check.sh:1",
+      "commit": "3238a85"
     }
   ]
 }
