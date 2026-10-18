@@ -1,0 +1,81 @@
+{
+  "shard": 21,
+  "nodes": [
+    {
+      "id": "TASK-130083",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:15:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/OrderChatLink.tsx (+1/-1) — edit via tool: tsx: <Link className=\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/merchant/OrderChatLink.tsx"
+    },
+    {
+      "id": "TASK-130084",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:15:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+15/-5) — edit via tool: .merchant-photo-upload {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-130085",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:15:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+8/-4) — edit via tool: tsx: percakapan mock dibalik agar su",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130086",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:15:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -iE \"error\" | head; echo \"--- build ---\"; npm run build 2>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    }
+  ]
+}
