@@ -5141,6 +5141,504 @@
         }
       ],
       "loc": "docs/backend/REQUEST-FE-ke-BE.md:1"
+    },
+    {
+      "id": "TASK-130039",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:48:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/image.ts (+10/-8) — edit via tool: ts: // Validasi berkas gambar yang dipilih d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/lib/image.ts"
+    },
+    {
+      "id": "TASK-130040",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:48:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/BackendStatusBadge.tsx (+29) — write via tool: tsx: import { Cloud, Clo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/components/ui/BackendStatusBadge.tsx"
+    },
+    {
+      "id": "TASK-130041",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:48:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/BackendSection.tsx (+10/-9) — edit via tool: tsx: import",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/documentation/sections/BackendSection.tsx"
+    },
+    {
+      "id": "TASK-130042",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:48:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+15/-3) — edit via tool: tsx: <ul className=\"doc-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130043",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:48:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | tail -20 && npm run build 2>&1 | tail -15 && npm run scan 2>&1 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-130044",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:50:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx (+1/-1) — edit via tool: tsx: import { imageFileErro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx"
+    },
+    {
+      "id": "TASK-130045",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:51:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx (+15/-9) — edit via tool: tsx: setSavingBanner(true)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx"
+    },
+    {
+      "id": "TASK-130046",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:51:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+1/-1) — edit via tool: tsx: import { imageFileError, uploadI",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-130047",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:51:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+1/-1) — edit via tool: tsx: import { imageFileError, upl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-130048",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:51:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddProfilePhoto.tsx (+30/-17) — edit via tool: tsx: import { mockUser } from '.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddProfilePhoto.tsx"
+    },
+    {
+      "id": "TASK-130049",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:51:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+6/-3) — edit via tool: tsx: menyatakan backend aktif (Worke",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130050",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:52:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error|✗\" | head -20; npm run build 2>&1 | tail -4 pass",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-130051",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:57:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx (+4/-3) — edit via tool: tsx: import { MerchantBotto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantPromoSlideForm.tsx"
+    },
+    {
+      "id": "TASK-130052",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:57:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx (+2/-1) — edit via tool: tsx: import { merchantToken } from '.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-130053",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:57:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+2/-1) — edit via tool: tsx: import { merchantToken } fro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-130054",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:57:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddProfilePhoto.tsx (+3/-2) — edit via tool: tsx: import { mockUser } from '../",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/AddProfilePhoto.tsx"
+    },
+    {
+      "id": "TASK-130055",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:57:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOnboarding.tsx (+5/-4) — edit via tool: tsx: import { MerchantPageHeade",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantOnboarding.tsx"
+    },
+    {
+      "id": "TASK-130056",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "16:59:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+5/-4) — edit via tool: tsx: import { ImagePlus, Info, MessageCi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-130057",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:00:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx (+8/-5) — edit via tool: tsx: /** `HH.MM` dari stempel ISO backen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/OrderChat.tsx"
+    },
+    {
+      "id": "TASK-130058",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:00:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/chat.ts (+7/-6) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/chat.ts"
+    },
+    {
+      "id": "TASK-130059",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:00:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss (+35/-7) — edit via tool: /* Tombol kirim mati jangan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_order-chat.scss"
+    },
+    {
+      "id": "TASK-130060",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:00:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+8/-3) — edit via tool: tsx: (<code className=\"doc-inline\">m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130061",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:01:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+7/-2) — edit via tool: tsx: <code className=\"doc-inline\">av",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130062",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:01:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/docs/backend/REQUEST-FE-ke-BE.md (+1/-1) — edit via tool: | Media R2 `PUT/GET` | ✅ PUT wa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/docs/backend/REQUEST-FE-ke-BE.md"
+    },
+    {
+      "id": "TASK-130063",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:01:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | grep -iE \"error|warning.*(OrderChat|MerchantMenu|MerchantSettin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-130070",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "17:03:15",
+      "tags": [
+        "media",
+        "r2",
+        "cloudflare",
+        "ui",
+        "fe"
+      ],
+      "summary": "FE media ke R2: helper uploadImage + token JWT, picker toko/menu/banner/avatar/onboarding, lampiran chat (menu-images), chip status backend;",
+      "conn": [
+        {
+          "id": "TASK-130038",
+          "type": "relates",
+          "raw": "TASK-130038:relates"
+        }
+      ],
+      "loc": "src/lib/image.ts:60"
     }
   ]
 }
