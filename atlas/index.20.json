@@ -4959,6 +4959,28 @@
         }
       ],
       "loc": "src/data/promoSlides.ts:18"
+    },
+    {
+      "id": "TASK-130001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "12:06:05",
+      "tags": [
+        "merchant",
+        "design",
+        "carousel"
+      ],
+      "summary": "Rapi kan daftar slide: satu permukaan + pemisah rambut, buang kartu pastel & shadow per baris (PG-08/10/17)",
+      "conn": [
+        {
+          "id": "FEAT-120001",
+          "type": "relates",
+          "raw": "FEAT-120001:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-carousel.scss:1",
+      "commit": "8ba68af"
     }
   ]
 }
