@@ -4164,6 +4164,86 @@
         }
       ],
       "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-111832",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:53:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx (+2/-2) — edit via tool: tsx: className=\"merchant-btn-ghos",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-111833",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:54:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss (+13/-3) — edit via tool: /* Unggah/ganti foto adalah ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-111834",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:54:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-2) — edit via tool: tsx: <code className=\"doc-inline\">en",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-112145",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:55:40",
+      "tags": [
+        "merchant",
+        "settings",
+        "ui",
+        "tokens"
+      ],
+      "summary": "Ganti foto di Setelan merchant memakai tint brand orange-soft/ink; aksi utama tetap tombol Simpan",
+      "conn": [
+        {
+          "id": "TASK-111830",
+          "type": "relates",
+          "raw": "TASK-111830:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-4.scss:377",
+      "commit": "dd8c997"
     }
   ]
 }
