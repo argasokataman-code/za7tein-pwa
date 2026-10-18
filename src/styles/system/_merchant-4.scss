@@ -372,6 +372,18 @@
   color: var(--text-secondary);
 }
 
+/* Hapus foto bukan aksi utama kartu: cukup selebar isinya dan berwarna
+   bahaya, supaya tidak mengalahkan "Ganti foto" yang selebar penuh. */
+.merchant-photo-remove {
+  width: auto;
+  align-self: flex-start;
+  margin-top: var(--space-3);
+  /* Aksi destruktif tidak boleh setara visual dengan "Ganti foto": teks saja,
+     tanpa kotak, supaya yang menonjol tetap aksi mengganti. */
+  border-color: transparent;
+  background: transparent;
+}
+
 /* State kosong terdesain (audit 012 #2): toko tanpa order tidak menampilkan
    area kosong tanpa pesan. Satu paragraf tenang, bukan kerangka. */
 .merchant-empty {

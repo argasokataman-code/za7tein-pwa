@@ -230,6 +230,16 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Setelan merchant tidak lagi terasa seperti halaman web.</strong> Tautan
+                bergaya tombol ("Atur area layanan", "Buka dompet", "Kelola rekening") kehilangan
+                garis bawah bawaan peramban lewat satu aturan di{' '}
+                <code className="doc-inline">.merchant-btn-ghost</code>. Foto toko yang gagal dimuat
+                (path BE yang berkasnya tak ada di repo) jatuh ke placeholder ikon toko, bukan ikon
+                gambar rusak; banner memakai bahasa merchant, bukan istilah{' '}
+                <code className="doc-inline">endpoint</code>; dan "Hapus foto" tidak lagi selebar
+                aksi utama, cukup selebar isinya dengan warna bahaya.
+              </li>
+              <li>
                 <strong>Mode pengantaran dipilih customer, bukan ditebak merchant.</strong> Checkout
                 kini punya dua kartu <strong>Regular</strong> (kurir toko, batch) dan{' '}
                 <strong>Quick</strong> (kurir partner, satu order). Tarif Quick memakai pengali ops

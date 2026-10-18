@@ -437,6 +437,10 @@
   border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text-primary);
+  /* Tautan yang memakai kelas tombol harus kehilangan garis bawah bawaan
+     peramban; kalau tidak, "Atur area layanan" di Setelan tampil seperti
+     tautan dokumen, bukan tombol. */
+  text-decoration: none;
   font-size: var(--text-sm);
 }
 

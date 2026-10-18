@@ -48,6 +48,7 @@ export default function MerchantSettings() {
   const [coords, setCoords] = useState({ lat: mockMerchant.lat, lng: mockMerchant.lng })
   const [signOutOpen, setSignOutOpen] = useState(false)
   const [removePhotoOpen, setRemovePhotoOpen] = useState(false)
+  const [logoFailed, setLogoFailed] = useState(false)
 
   const logo = useAppSelector((state) => state.merchant.logo)
   const storeName = useAppSelector((state) => state.merchant.storeName)
@@ -68,6 +69,9 @@ export default function MerchantSettings() {
   // supaya blob tidak menumpuk.
   const logoUrlRef = useRef<string | null>(null)
   useEffect(() => () => { if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current) }, [])
+  // Foto dari BE bisa menunjuk berkas yang tak ada di repo. Gagal muat =
+  // tampilkan placeholder toko, bukan ikon gambar rusak.
+  useEffect(() => setLogoFailed(false), [logo])
 
   // Pratinjau lokal dari berkas yang dipilih. Tidak ada unggahan sungguhan —
   // repo ini front-end saja (AGENTS.md §1).
@@ -182,7 +186,7 @@ export default function MerchantSettings() {
             tombol simpan tidak terbaca sebagai penyimpanan permanen. */}
         <PlatformNotice
           message={
-            'Profil toko (nama, nomor, alamat, foto) belum bisa disimpan ke server — backend belum punya endpoint tulisnya. Perubahan hanya berlaku selama sesi ini.'
+            'Perubahan nama, nomor, alamat, dan foto hanya berlaku sementara. Profil belum tersimpan permanen.'
           }
         />
 
@@ -199,8 +203,15 @@ export default function MerchantSettings() {
               className="d-none"
               onChange={onLogoPick}
             />
-            {logo ? (
-              <img className="merchant-form-thumb" src={logo} alt="Foto toko" width={64} height={64} />
+            {logo && !logoFailed ? (
+              <img
+                className="merchant-form-thumb"
+                src={logo}
+                alt="Foto toko"
+                width={64}
+                height={64}
+                onError={() => setLogoFailed(true)}
+              />
             ) : (
               <span className="merchant-logo-empty" aria-hidden="true">
                 <Store size={24} strokeWidth={1.75} />
@@ -218,7 +229,7 @@ export default function MerchantSettings() {
           {logo ? (
             <button
               type="button"
-              className="merchant-btn-ghost merchant-signout"
+              className="merchant-btn-ghost is-danger merchant-photo-remove"
               onClick={() => setRemovePhotoOpen(true)}
             >
               <Trash2 size={16} strokeWidth={1.75} />
