@@ -722,6 +722,219 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-130121",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:17:13",
+      "tags": [
+        "api",
+        "worker",
+        "v2",
+        "e2e",
+        "coverage"
+      ],
+      "summary": "Probe Worker api v2: auth JWT OK, tulis REST/media 401->204/201, RPC subset OK; gap logout/refresh//me/joins/contract /orders/{id}/*",
+      "conn": [
+        {
+          "id": "TASK-130120",
+          "type": "relates",
+          "raw": "TASK-130120:relates"
+        }
+      ],
+      "loc": "docs/backend/REQUEST-FE-ke-BE.md:1"
+    },
+    {
+      "id": "TASK-130122",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:26:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/audit.ts (+1/-1) — edit via tool: ts: '?select=id,actor_id,actor_role,action,t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/audit.ts"
+    },
+    {
+      "id": "TASK-130123",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:26:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/dispatch.ts (+7/-6) — edit via tool: ts: const STATUS: Record<string, CourierPart",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/dispatch.ts"
+    },
+    {
+      "id": "TASK-130124",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:26:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts (+8/-6) — edit via tool: ts: /** `couriers.availability` D1 → status",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reference.ts"
+    },
+    {
+      "id": "TASK-130125",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:26:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/admin.ts (+12/-7) — edit via tool: ts: interface CustomerRow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/admin.ts"
+    },
+    {
+      "id": "TASK-130126",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:26:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts (+31/-20) — edit via tool: ts: /** `menus` di-join manual: embed `menu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/reviews.ts"
+    },
+    {
+      "id": "TASK-130127",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:26:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+45/-14) — edit via tool: ts: /** Baris `order_items` (nama barang sud",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-130128",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:27:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts (+35/-9) — edit via tool: ts: export async function fetchMerchantOrder",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-130129",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:27:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profit.ts (+7/-5) — edit via tool: ts: interface ProfitRow {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/api/profit.ts"
+    },
+    {
+      "id": "TASK-130130",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:27:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+25/-2) — edit via tool: tsx: numerik dipetakan ke id kurir ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-130131",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "19:27:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Downloads/sa7tein-pwa && npm run lint 2>&1 | rtk grep -ciE \" error \"; echo \"err-count-above\"; npm run build ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
