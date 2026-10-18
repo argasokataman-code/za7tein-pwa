@@ -5118,6 +5118,29 @@
         }
       ],
       "loc": "src/api/profile.ts:244"
+    },
+    {
+      "id": "TASK-130038",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "13:19:29",
+      "tags": [
+        "docs",
+        "backend",
+        "api",
+        "cloudflare",
+        "handoff"
+      ],
+      "summary": "Dokumen permintaan FE->BE (docs/backend/REQUEST-FE-ke-BE.md): tabel hilang, tulis 404, RPC 501+spek, embed, auth, media, realtime, peta flow",
+      "conn": [
+        {
+          "id": "TASK-130036",
+          "type": "led_to",
+          "raw": "TASK-130036:led_to"
+        }
+      ],
+      "loc": "docs/backend/REQUEST-FE-ke-BE.md:1"
     }
   ]
 }
