@@ -401,7 +401,17 @@ function stripComments(src) {
 
 /** Hitung nilai mentah dari teks SCSS system/ (murni — dipakai uji). */
 function countScssDebt(text) {
-  const out = { color: 0, fontSizePx: 0, radiusPx: 0, spacePx: 0, uppercase: 0, rawShadow: 0 }
+  const out = {
+    color: 0,
+    fontSizePx: 0,
+    radiusPx: 0,
+    spacePx: 0,
+    uppercase: 0,
+    rawShadow: 0,
+    toneCycle: 0,
+    decorativeStripe: 0,
+    slopFx: 0,
+  }
   const px = /(\d+(?:\.\d+)?)px/g
   // Penanda `token-ok` dibaca dari sumber MENTAH: komentar dibuang sebelum
   // baris diperiksa, jadi pengecualian yang ditulis sebagai komentar harus
@@ -419,13 +429,28 @@ function countScssDebt(text) {
       for (const m of line.matchAll(/\b(?:padding|margin|gap)(?:-[a-z]+)?\s*:\s*([^;}]+)/g)) {
         if ([...m[1].matchAll(px)].some((x) => Number(x[1]) >= 8)) out.spacePx += 1
       }
-      // Tell "template AI": label huruf besar ber-tracking (eyebrow) untuk teks
-      // yang dibaca sebagai kalimat, dan bayangan karangan di luar token
-      // `--shadow-*`. Keduanya hanya boleh TURUN lewat ratchet.
+      // Tell "template AI": huruf besar ber-tracking (eyebrow) dan bayangan
+      // karangan di luar token `--shadow-*`. Hanya boleh TURUN lewat ratchet.
       if (/text-transform\s*:\s*uppercase/.test(line)) out.uppercase += 1
       for (const m of line.matchAll(/box-shadow\s*:\s*([^;}]+)/g)) {
         if (!/var\(--shadow/.test(m[1])) out.rawShadow += 1
       }
+      // Slop tells: palet warna bergilir per item (varian **numerik**
+      // `tone-0/1/2`; nama semantik `tone-info/success` sengaja lewat — itu
+      // peran, bukan siklus), garis aksen berwarna di tepi kartu (stripe
+      // dekoratif), teks gradien, dan kaca (glassmorphism). Yang sudah ada
+      // boleh turun lewat ratchet; yang baru ditolak. Baris ber-`token-ok`
+      // adalah pengecualian yang disengaja (mis. gradien terukur).
+      for (const _ of line.matchAll(/(?<![\w])tone-\d+\b/gi)) out.toneCycle += 1
+      for (const m of line.matchAll(
+        /border-(?:left|right|inline-start|inline-end)(?:-width)?\s*:\s*([^;}]+)/g,
+      )) {
+        const thick =
+          /var\(--space-|var\(--radius-/.test(m[1]) ||
+          [...m[1].matchAll(px)].some((x) => Number(x[1]) >= 2)
+        if (thick) out.decorativeStripe += 1
+      }
+      if (/background-clip\s*:\s*text\b|backdrop-filter\s*:/.test(line)) out.slopFx += 1
     })
   return out
 }
@@ -441,11 +466,27 @@ function countTsxDebt(text) {
 }
 
 /** Pertumbuhan utang design antara baseline dan keadaan sekarang (murni). */
-function debtGrowth(now, base) {
+function debtGrowth(now, base, { onlyKnownKeys = false } = {}) {
   const growth = []
-  const keys = ['color', 'fontSizePx', 'radiusPx', 'spacePx', 'uppercase', 'rawShadow']
+  const keys = [
+    'color',
+    'fontSizePx',
+    'radiusPx',
+    'spacePx',
+    'uppercase',
+    'rawShadow',
+    'toneCycle',
+    'decorativeStripe',
+    'slopFx',
+  ]
+  // Kunci yang sudah ada di baseline (pernah di-seed). Detektor yang baru
+  // ditambahkan belum ada di baseline mana pun; ia baru di-ratchet setelah
+  // `--update-design-debt` dijalankan sekali. `onlyKnownKeys` dipakai saat
+  // itu supaya penyemaian pertama tak menolak dirinya sendiri.
+  const known = new Set(Object.values(base).flatMap((v) => Object.keys(v || {})))
   for (const file of new Set([...Object.keys(now), ...Object.keys(base)])) {
     for (const k of keys) {
+      if (onlyKnownKeys && !known.has(k)) continue
       const a = now[file]?.[k] || 0
       const b = base[file]?.[k] || 0
       if (a > b) growth.push(`${file} ${k} ${b}→${a}`)
@@ -460,7 +501,16 @@ function designMetrics() {
   for (const file of tsxFiles()) {
     const tsx = countTsxDebt(read(file))
     if (tsx.color || tsx.fontSizePx)
-      out[file] = { radiusPx: 0, spacePx: 0, uppercase: 0, rawShadow: 0, ...tsx }
+      out[file] = {
+        radiusPx: 0,
+        spacePx: 0,
+        uppercase: 0,
+        rawShadow: 0,
+        toneCycle: 0,
+        decorativeStripe: 0,
+        slopFx: 0,
+        ...tsx,
+      }
   }
   for (const k of Object.keys(out)) {
     if (!Object.values(out[k]).some((v) => v > 0)) delete out[k]
@@ -471,6 +521,20 @@ function designMetrics() {
 function checkDesignSystem() {
   const now = designMetrics()
   if (argv.includes('--update-design-debt')) {
+    // Ratchet hanya boleh turun. Menulis baseline yang lebih tinggi harus
+    // disengaja (`--force`), bukan efek samping menjalankan flag ini.
+    if (exists(DESIGN_DEBT)) {
+      const base = JSON.parse(read(DESIGN_DEBT))
+      const growth = debtGrowth(now, base, { onlyKnownKeys: true })
+      if (growth.length && !argv.includes('--force')) {
+        fail.push(
+          `Design gate: baseline ditolak — utang NAIK, bukan turun: ${growth.slice(0, 6).join(', ')}${
+            growth.length > 6 ? ' …' : ''
+          }. Turunkan dulu, atau tambahkan --force bila memang disengaja.`,
+        )
+        return
+      }
+    }
     writeFileSync(join(ROOT, DESIGN_DEBT), `${JSON.stringify(now, null, 2)}\n`)
     info.push(`Design debt diperbarui: ${DESIGN_DEBT}`)
     return

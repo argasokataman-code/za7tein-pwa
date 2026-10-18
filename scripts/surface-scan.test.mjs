@@ -74,5 +74,21 @@ check('debt naik terdeteksi', debtGrowth({ a: { fontSizePx: 2 } }, { a: { fontSi
 check('debt turun bukan pelanggaran', debtGrowth({ a: { fontSizePx: 0 } }, { a: { fontSizePx: 1 } }).length, 0)
 check('berkas baru dgn nilai mentah terdeteksi', debtGrowth({ b: { color: 1 } }, {}).length, 1)
 
+// ── Detektor slop (stripe, palet tone, fx) ────────────────────────────────
+check('kelas tone bergilir dihitung', countScssDebt('.x--tone-0 { background: var(--orange-soft); }').toneCycle, 1)
+check('tone ganda dihitung', countScssDebt('.a--tone-0 {} .b--tone-1 {}').toneCycle, 2)
+check('kata mengandung tone bukan hitungan', countScssDebt('.stone-ax { color: var(--text-primary); }').toneCycle, 0)
+check('tone semantik bernama tidak dihitung', countScssDebt('.tone-info { --tone-soft: var(--info-soft); }').toneCycle, 0)
+check('stripe var space dihitung', countScssDebt('.x { border-left: var(--space-1) solid var(--orange-ink); }').decorativeStripe, 1)
+check('stripe px tebal dihitung', countScssDebt('.x { border-left: 4px solid var(--danger); }').decorativeStripe, 1)
+check('garis rambut 1px ditoleransi', countScssDebt('.x { border-left: 1px solid var(--border); }').decorativeStripe, 0)
+check('border-left-color bukan stripe', countScssDebt('.x { border-left-color: var(--sa7tein-orange); }').decorativeStripe, 0)
+check('teks gradien dihitung', countScssDebt('.x { -webkit-background-clip: text; }').slopFx, 1)
+check('glassmorphism dihitung', countScssDebt('.x { backdrop-filter: blur(8px); }').slopFx, 1)
+check('gradien dgn token-ok diizinkan', countScssDebt('.x { background-clip: text; } /* token-ok */').slopFx, 0)
+check('kunci detektor baru ikut ratchet', debtGrowth({ a: { toneCycle: 1 } }, { a: { color: 0 } }).length, 1)
+check('detektor baru diabaikan saat hanya kunci dikenal', debtGrowth({ a: { toneCycle: 1 } }, { a: { color: 0 } }, { onlyKnownKeys: true }).length, 0)
+check('kunci dikenal tetap dijaga saat onlyKnownKeys', debtGrowth({ a: { color: 1 } }, { a: { color: 0 } }, { onlyKnownKeys: true }).length, 1)
+
 console.log(failed ? `\n${failed} gagal` : '\nsemua lolos')
 process.exit(failed ? 1 : 0)

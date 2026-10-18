@@ -5,7 +5,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_admin-console.scss": {
     "color": 0,
@@ -13,7 +16,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 2
+    "rawShadow": 2,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_admin.scss": {
     "color": 0,
@@ -21,7 +27,10 @@
     "radiusPx": 0,
     "spacePx": 1,
     "uppercase": 1,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_app-shell.scss": {
     "color": 0,
@@ -29,7 +38,10 @@
     "radiusPx": 0,
     "spacePx": 1,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_auth-2.scss": {
     "color": 0,
@@ -37,7 +49,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_auth.scss": {
     "color": 0,
@@ -45,7 +60,10 @@
     "radiusPx": 0,
     "spacePx": 4,
     "uppercase": 0,
-    "rawShadow": 2
+    "rawShadow": 2,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_buttons.scss": {
     "color": 1,
@@ -53,7 +71,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_cart-2.scss": {
     "color": 0,
@@ -61,7 +82,10 @@
     "radiusPx": 0,
     "spacePx": 1,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 1,
+    "slopFx": 0
   },
   "src/styles/system/_cart.scss": {
     "color": 0,
@@ -69,7 +93,10 @@
     "radiusPx": 0,
     "spacePx": 2,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_courier-wallet.scss": {
     "color": 0,
@@ -77,7 +104,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_courier.scss": {
     "color": 0,
@@ -85,7 +115,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 1,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_coverage.scss": {
     "color": 0,
@@ -93,7 +126,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_currency-converter.scss": {
     "color": 0,
@@ -101,7 +137,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 3,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_home-v2.scss": {
     "color": 0,
@@ -109,7 +148,10 @@
     "radiusPx": 0,
     "spacePx": 1,
     "uppercase": 1,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_home.scss": {
     "color": 4,
@@ -117,7 +159,10 @@
     "radiusPx": 0,
     "spacePx": 1,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 2
   },
   "src/styles/system/_landing-refresh.scss": {
     "color": 6,
@@ -125,7 +170,10 @@
     "radiusPx": 15,
     "spacePx": 89,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_map.scss": {
     "color": 5,
@@ -133,7 +181,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_menu-detail-v2.scss": {
     "color": 2,
@@ -141,15 +192,21 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 1,
-    "rawShadow": 4
+    "rawShadow": 4,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_menu.scss": {
     "color": 0,
     "fontSizePx": 0,
     "radiusPx": 0,
-    "spacePx": 2,
+    "spacePx": 1,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_merchant-2.scss": {
     "color": 0,
@@ -157,7 +214,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 3
+    "rawShadow": 3,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_merchant-3.scss": {
     "color": 0,
@@ -165,7 +225,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 1,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_merchant-payout.scss": {
     "color": 0,
@@ -173,7 +236,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_merchant.scss": {
     "color": 0,
@@ -181,7 +247,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 2,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_mixins.scss": {
     "color": 0,
@@ -189,7 +258,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_onboarding.scss": {
     "color": 4,
@@ -197,7 +269,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_payment-selection.scss": {
     "color": 0,
@@ -205,7 +280,10 @@
     "radiusPx": 0,
     "spacePx": 1,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_profile-v2.scss": {
     "color": 0,
@@ -213,7 +291,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 1,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_storefront.scss": {
     "color": 3,
@@ -221,7 +302,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 1,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_superadmin-2.scss": {
     "color": 0,
@@ -229,7 +313,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 2,
-    "rawShadow": 1
+    "rawShadow": 1,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_superadmin.scss": {
     "color": 0,
@@ -237,7 +324,10 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 3,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_topbar.scss": {
     "color": 0,
@@ -245,7 +335,10 @@
     "radiusPx": 0,
     "spacePx": 2,
     "uppercase": 0,
-    "rawShadow": 0
+    "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/styles/system/_tracking.scss": {
     "color": 2,
@@ -253,13 +346,19 @@
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 2,
-    "rawShadow": 2
+    "rawShadow": 2,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0
   },
   "src/pages/Faq.tsx": {
     "radiusPx": 0,
     "spacePx": 0,
     "uppercase": 0,
     "rawShadow": 0,
+    "toneCycle": 0,
+    "decorativeStripe": 0,
+    "slopFx": 0,
     "color": 2,
     "fontSizePx": 0
   }

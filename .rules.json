@@ -69,8 +69,8 @@
     "selfTest": "npm run scan:test",
     "baseline": "docs/design/design-debt.json",
     "enforce": "pre-commit (Design gate) + langkah 2 alur AGENTS §0",
-    "measures": "nilai mentah di src/styles/system/** (warna rgba/rgb/hsl, font-size px, border-radius px, jarak px ≥8) + tell slop (text-transform uppercase = eyebrow, box-shadow non-token) + warna/ukuran mentah di style={{ … }} TSX; warna heks mentah di system/ tetap FAIL keras",
-    "rule": "Design system wajib dipakai: nilai baru harus token (--text-*, --space-*, --radius-*, --shadow-*, warna peran). Gate bersifat ratchet — menambah nilai mentah/eyebrow/bayangan karangan = FAIL, menurunkan = boleh. Perbarui baseline HANYA setelah utang benar-benar turun: npm run scan -- --update-design-debt",
+    "measures": "nilai mentah di src/styles/system/** (warna rgba/rgb/hsl, font-size px, border-radius px, jarak px ≥8) + tell slop: text-transform uppercase (eyebrow), box-shadow non-token (rawShadow), palet warna bergilir per item (toneCycle: varian numerik `tone-0`, nama semantik `tone-info` lewat), garis aksen berwarna tepi kartu (decorativeStripe: border-left/right ≥2px atau var(--space-*)), teks gradien & kaca (slopFx: background-clip:text, backdrop-filter) + warna/ukuran mentah di style={{ … }} TSX; warna heks mentah di system/ tetap FAIL keras. Pengecualian sengaja (mis. gradien terukur) ditandai `// token-ok` di baris itu.",
+    "rule": "Design system wajib dipakai: nilai baru harus token (--text-*, --space-*, --radius-*, --shadow-*, warna peran). Gate bersifat ratchet — menambah nilai mentah atau tell slop = FAIL, menurunkan = boleh. `npm run scan -- --update-design-debt` MENOLAK baseline yang naik (harus diakui dgn --force bila memang disengaja), jadi bypass tak sengaja tertutup; perbarui baseline hanya setelah utang benar-benar turun.",
     "layoutRules": "kolom 430px, jarak tepi 20px, header, zona jempol, bilah fixed dibatasi kolom: docs/design/DNA.md + docs/design/mobile-dna.md (MD-01..MD-11) + AGENTS §5; pelanggarannya ditangkap browser-gate, bukan scan"
   },
   "scope": {

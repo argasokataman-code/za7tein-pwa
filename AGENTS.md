@@ -71,6 +71,19 @@ menghitung `uppercase` dan `rawShadow` di `src/styles/system/**` dan **MENOLAK k
 `docs/design/design-debt.json` — menambah eyebrow huruf besar atau bayangan karangan = commit gagal,
 tidak peduli ingat atau tidak. Turunkan utang, lalu `npm run scan -- --update-design-debt`.
 
+**Tell slop lain juga bergerbang.** `npm run scan` menolak **kenaikan** (ratchet sama) untuk tiga pola
+paling sering muncul saat desain ditulis ngasal: palet warna **bergilir per item** (`toneCycle` — varian
+numerik `--tone-0/1/2`; nama semantik `--tone-info` sengaja lewat karena itu peran, bukan siklus),
+**garis aksen berwarna di tepi kartu** (`decorativeStripe` — `border-left/right` ≥2px atau `var(--space-*)`,
+seperti garis kiri 3px gaya lama), dan **teks gradien / kaca** (`slopFx` — `background-clip:text`,
+`backdrop-filter`). Penilaian: variasi kartu harus datang dari **isi** (thumbnail, judul, status/chip),
+bukan dari latar pastel yang berputar atau garis dekoratif. Pengecualian yang disengaja (mis. gradien
+angka terukur di `_home.scss`) ditandai komentar `// token-ok` di baris itu.
+
+**`--update-design-debt` tidak lagi jalan pintas.** Ia **menolak** menulis baseline yang lebih tinggi
+(harus diakui eksplisit dengan `--force`), jadi menambah slop lalu "memperbarui baseline" bukan bypass
+diam-diam lagi. Alur tetap: turunkan utang dulu, baru perbarui baseline.
+
 Batasnya jujur: ratchet menangkap **tell**, bukan rasa. "Gede banget / slop" hanya tertangkap
 **pengukuran** (`browser-gate --strict --click`) dan **visi** (`gdescrib`), dan temuan visi wajib
 diverifikasi angka dulu sebelum disebut bug.
