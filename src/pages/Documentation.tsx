@@ -536,6 +536,15 @@ export default function Documentation() {
                 attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
               </li>
               <li>
+                <strong>Kurs: tabel BE jadi sumber prioritas</strong> (OQ-26):{" "}
+                <code className="doc-inline">refreshLiveRate</code> kini mencoba{' '}
+                <code className="doc-inline">exchange_rates</code> D1 lebih dulu
+                (<code className="doc-inline">fetchExchangeRate</code>); provider pihak ketiga
+                (<code className="doc-inline">fawazahmed0/exchange-api</code>) tinggal fallback.
+                Rate ditolak kalau kosong/≤0, dan rate lama tetap dipakai bila keduanya gagal —
+                transaksi tidak pernah diblokir kurs.
+              </li>
+              <li>
                 <strong>Varian &amp; tambahan ala Odoo</strong> (M4c, MER-07/MER-08): model{' '}
                 <code className="doc-inline">CatalogAttribute</code>/
                 <code className="doc-inline">MenuAttributeLine</code>/

@@ -14,9 +14,9 @@
  * `app_is_ops()`. Baca mengembalikan `[]` kalau tabel kosong; pemanggil
  * mempertahankan mock (pola modul API lain).
  */
-import type { OpsPlatformConfig, OpsTag, OpsTagStatus } from '../types'
+import type { ExchangeRate, OpsPlatformConfig, OpsTag, OpsTagStatus } from '../types'
 import { refToken } from './reference'
-import { apiEnabled, patch, restWith, rpc } from './supabase'
+import { apiEnabled, patch, rest, restWith, rpc } from './supabase'
 
 interface ParamsRow {
   quick_multiplier: number
@@ -123,4 +123,34 @@ export async function decideOpsTag(id: string, status: OpsTagStatus): Promise<vo
     proposed: false,
     approved: status === 'approved',
   })
+}
+
+interface ExchangeRateRow {
+  base?: string | null
+  quote?: string | null
+  rate?: number | null
+  /** Tanggal berlaku (kolom BE); nama lain dipakai sebagai fallback. */
+  effective_on?: string | null
+  fetched_at?: string | null
+}
+
+/**
+ * Kurs terbaru dari tabel BE `exchange_rates` — sumber prioritas
+ * (`refreshLiveRate` di `data/currency`); provider pihak ketiga tetap fallback.
+ * `select=*`: menyebut satu kolom yang tak ada mematikan seluruh query (400).
+ */
+export async function fetchExchangeRate(): Promise<ExchangeRate> {
+  const rows = await rest<ExchangeRateRow>('exchange_rates', '?select=*&order=id.desc&limit=1')
+  const row = rows[0]
+  const rate = Number(row?.rate)
+  if (!row || !Number.isFinite(rate) || rate <= 0) {
+    throw new Error('[api] exchange_rates kosong/tak valid')
+  }
+  return {
+    base: row.base ?? 'JOD',
+    quote: row.quote ?? 'IDR',
+    rate,
+    fetchedAt: row.effective_on ?? row.fetched_at ?? new Date().toISOString(),
+    source: 'BE D1',
+  }
 }

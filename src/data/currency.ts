@@ -1,4 +1,6 @@
 import type { ExchangeRate } from '../types'
+import { apiEnabled } from '../api/supabase'
+import { fetchExchangeRate } from '../api/ops'
 
 /**
  * Fallback kurs IDR→JOD — dipakai sebelum sync live pertama berhasil, atau
@@ -122,7 +124,7 @@ let inFlight: Promise<ExchangeRate> | null = null
 export function refreshLiveRate(force = false): Promise<ExchangeRate> {
   if (inFlight) return inFlight
   if (!force && !isRateStale()) return Promise.resolve(activeRate)
-  inFlight = fetchLiveRate()
+  inFlight = loadFreshRate()
     .then((next) => {
       setExchangeRate(next)
       return next
@@ -131,6 +133,22 @@ export function refreshLiveRate(force = false): Promise<ExchangeRate> {
       inFlight = null
     })
   return inFlight
+}
+
+/**
+ * Sumber kurs berurutan: tabel BE `exchange_rates` dulu (D1 adalah sumber
+ * kebenaran), provider pihak ketiga sebagai fallback. Gagal dua-duanya → lempar;
+ * pemanggil membiarkan rate lama (`refreshLiveRate`).
+ */
+async function loadFreshRate(): Promise<ExchangeRate> {
+  if (apiEnabled) {
+    try {
+      return await fetchExchangeRate()
+    } catch {
+      // BE kosong/mati — lanjut provider.
+    }
+  }
+  return fetchLiveRate()
 }
 
 /** IDR saja — untuk tempat sempit (label tombol, aria-label) yang tak muat pasangan. */
