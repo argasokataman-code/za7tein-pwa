@@ -230,6 +230,18 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Media naik ke R2 + chip status backend.</strong> Pickers gambar (foto toko,
+                item menu, banner promo, avatar, lampiran chat &amp; ulasan) kini memanggil{' '}
+                <code className="doc-inline">uploadImage(bucket, prefix, file)</code> di{' '}
+                <code className="doc-inline">src/lib/image.ts</code>: perkecil 1200&nbsp;px JPEG →
+                <code className="doc-inline">PUT /media/{'{bucket}/{key}'}</code> → simpan URL di
+                slice Redux (dari data URL localStorage). Kalau R2 tak terjangkau, jatuh balik ke
+                pratinjau lokal, jadi demo tak pernah pecah. Chip{' '}
+                <code className="doc-inline">BackendStatusBadge</code> (bagian Backend §12)
+                menyatakan backend aktif (Worker D1 + R2 / Supabase / mock) supaya fallback
+                diam-diam kelihatan.
+              </li>
+              <li>
                 <strong>Kontrak backend Worker Cloudflare (v2) mulai dikonsumsi klien.</strong>{' '}
                 <code className="doc-inline">src/api/supabase.ts</code> memilih backend dari env:{' '}
                 <code className="doc-inline">VITE_API_BASE_URL</code> (atau{' '}

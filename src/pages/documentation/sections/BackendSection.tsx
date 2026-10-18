@@ -1,5 +1,6 @@
 import { DocCode } from '../DocCode'
 import { DocSection } from '../DocSection'
+import { BackendStatusBadge } from '../../../components/ui/BackendStatusBadge'
 
 export function BackendSection() {
   return (
@@ -178,6 +179,22 @@ export const foodApi = baseApi.injectEndpoints({
         and promo validation reads the <code className="doc-inline">marketing</code> table directly
         (window, quota, merchant scope) instead of the <code className="doc-inline">validate_promo</code>{' '}
         RPC.
+      </p>
+      <p className="doc-p">
+        <BackendStatusBadge /> — the active backend right now, read from{' '}
+        <code className="doc-inline">apiEnabled</code>/<code className="doc-inline">backend</code> in{' '}
+        <code className="doc-inline">src/api/supabase.ts</code>. Because every caller is mock-first,
+        a dead API degrades silently; this chip is the one place the UI says so.
+      </p>
+      <p className="doc-p">
+        <strong>Media upload is wired to R2.</strong>{' '}
+        <code className="doc-inline">uploadImage(bucket, prefix, file)</code> in{' '}
+        <code className="doc-inline">src/lib/image.ts</code> downscales a picked photo (1200&nbsp;px
+        JPEG) and <code className="doc-inline">PUT</code>s it to{' '}
+        <code className="doc-inline">/media/{'{bucket}/{key}'}</code>, returning the public URL.
+        Image pickers in the merchant console (store photo, menu item, promo banner) and the
+        customer profile avatar call it and keep the returned URL in their Redux slice; if R2 is
+        unreachable they fall back to the local data-URL preview, so the demo never breaks.
       </p>
       <h3 className="doc-h3">
         Order tracking — WebSocket
