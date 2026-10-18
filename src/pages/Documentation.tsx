@@ -529,7 +529,10 @@ export default function Documentation() {
                 &mdash; dan tambah/ubah/stok/hapus menulis balik ke Worker (
                 <code className="doc-inline">POST</code>/<code className="doc-inline">PATCH</code>/
                 <code className="doc-inline">DELETE /rest/v1/menus</code> dengan JWT merchant), lalu
-                memuat ulang. Model attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
+                memuat ulang. Sumber live yang sama dipakai <strong>Search</strong> pelanggan (
+                <code className="doc-inline">useAllMenuItems</code>, semua toko) dan pemilih menu pada
+                slide promo merchant (<code className="doc-inline">useMerchantMenu</code>). Model
+                attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
               </li>
               <li>
                 <strong>Varian &amp; tambahan ala Odoo</strong> (M4c, MER-07/MER-08): model{' '}

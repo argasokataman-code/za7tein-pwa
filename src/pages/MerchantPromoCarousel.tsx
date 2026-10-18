@@ -7,10 +7,11 @@ import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { DEMO_MERCHANT_ID } from '../api/orders'
 import { isOrderable } from '../data/catalog'
 import { mockMerchant } from '../data/merchant'
 import { DEFAULT_PROMO_BANNER, MAX_PROMO_SLIDES } from '../data/promoSlides'
-import { useCatalog } from '../hooks/useCatalog'
+import { useMerchantMenu } from '../hooks/useMerchantMenu'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { movePromoSlide, removePromoSlide, setPromoSlideActive } from '../store/slices/marketingSlice'
@@ -24,7 +25,7 @@ import type { PromoSlide } from '../types'
 export default function MerchantPromoCarousel() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { items } = useCatalog()
+  const { items } = useMerchantMenu(String(DEMO_MERCHANT_ID))
   const { money } = useMoney()
   const allSlides = useAppSelector((s) => s.marketing.slides)
   const slides = allSlides.filter((slide) => slide.merchantId === mockMerchant.id)
@@ -87,7 +88,7 @@ export default function MerchantPromoCarousel() {
             <ul className="promo-slide-list">
               {slides.map((slide, index) => {
                 const food = items.find(
-                  (item) => item.id === slide.menuItemId && item.merchantId === mockMerchant.id,
+                  (item) => item.id === slide.menuItemId && item.merchantId === String(DEMO_MERCHANT_ID),
                 )
                 return (
                   <li className="promo-slide-item" key={slide.id}>

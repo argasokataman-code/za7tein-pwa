@@ -10,9 +10,9 @@ import { useMemo, useState } from 'react'
 import { FoodCard } from '../components/ui/FoodCard'
 import { MerchantCard } from '../components/ui/MerchantCard'
 import { StoreBlockedSheet } from '../components/customer/StoreBlockedSheet'
-import { useCatalog } from '../hooks/useCatalog'
-import { useStorefronts } from '../hooks/useApiCatalog'
+import { useAllMenuItems, useStorefronts } from '../hooks/useApiCatalog'
 import { isSelectable, storefronts } from '../data/storefronts'
+import { menuSeed, popularFrom } from '../data/catalog'
 import type { SearchFilters, Storefront } from '../types'
 import { BackButton } from '../components/ui/BackButton'
 
@@ -28,7 +28,10 @@ export default function Search() {
   const [blockedStore, setBlockedStore] = useState<Storefront | null>(null)
   const navigate = useNavigate()
   const location = useLocation()
-  const { items, popular } = useCatalog()
+  // Katalog menu live (BE `menus`); `menuSeed` hanya tampilan sementara sebelum
+  // Api menjawab, sama seperti beranda (`useAllMenuItems`).
+  const items = useAllMenuItems(menuSeed)
+  const popular = useMemo(() => popularFrom(items), [items])
   // Toko disaring di klien dari daftar yang sudah dibaca: BE belum punya endpoint
   // cari (`ilike`), dan katalognya masih utuh di memori. Ganti ke PostgREST
   // `name=ilike.*x*` begitu tabelnya membesar.

@@ -7,10 +7,11 @@ import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { SelectField } from '../components/ui/SelectField'
 import { merchantToken } from '../api/reference'
+import { DEMO_MERCHANT_ID } from '../api/orders'
 import { isOrderable } from '../data/catalog'
 import { mockMerchant } from '../data/merchant'
 import { DEFAULT_PROMO_BANNER, MAX_PROMO_SLIDES } from '../data/promoSlides'
-import { useCatalog } from '../hooks/useCatalog'
+import { useMerchantMenu } from '../hooks/useMerchantMenu'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { imageFileError, imageToDataUrl, uploadImage } from '../lib/image'
@@ -25,14 +26,15 @@ export default function MerchantPromoSlideForm() {
   const { slideId } = useParams<{ slideId: string }>()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { items } = useCatalog()
+  // Menu live milik merchant (BE `menus`) — pilihan slide promo.
+  const { items } = useMerchantMenu(String(DEMO_MERCHANT_ID))
   const { money } = useMoney()
   const allSlides = useAppSelector((s) => s.marketing.slides)
   const slides = allSlides.filter((slide) => slide.merchantId === mockMerchant.id)
   const existing = slides.find((slide) => slide.id === slideId)
   const isNew = !slideId || slideId === 'new'
 
-  const merchantMenu = items.filter((item) => item.merchantId === mockMerchant.id)
+  const merchantMenu = items.filter((item) => item.merchantId === String(DEMO_MERCHANT_ID))
   const menuOptions = merchantMenu.map((item) => ({
     value: item.id,
     label: isOrderable(item) ? item.name : `${item.name} (stok habis)`,
