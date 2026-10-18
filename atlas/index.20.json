@@ -3722,6 +3722,180 @@
       ],
       "loc": "src/pages/Checkout.tsx:219",
       "commit": "d6e5cb1"
+    },
+    {
+      "id": "TASK-111801",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:25:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+49/-41) — edit via tool: tsx: <button",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-111802",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:25:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+26/-8) — edit via tool: /* Quick adalah fitur, bukan o",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-111803",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:27:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+11/-7) — edit via tool: .delivery-mode__fee {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-111804",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:27:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+1/-1) — edit via tool: tsx: <Bike size={18} strokeWidth={1.75} a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-111805",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:28:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+4/-8) — edit via tool: tsx: <span className=\"delivery-mode__fee\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-111806",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:28:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss (+5/-5) — edit via tool: .delivery-mode__option {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-111807",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:32:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx (+3/-3) — edit via tool: tsx: <span className=\"delivery-mode__sub\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-111808",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:33:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+5/-2) — edit via tool: tsx: order (kolom jenis pengantaran ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-111810",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "10:34:15",
+      "tags": [
+        "checkout",
+        "copy",
+        "ui"
+      ],
+      "summary": "Copy kartu Regular/Quick dinetralkan (siapa mengantar + cakupan rute); delta Quick tetap",
+      "conn": [
+        {
+          "id": "TASK-111800",
+          "type": "relates",
+          "raw": "TASK-111800:relates"
+        }
+      ],
+      "loc": "src/pages/Checkout.tsx:238",
+      "commit": "ef9d7ca"
     }
   ]
 }
