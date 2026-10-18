@@ -889,6 +889,35 @@ export default function Documentation() {
                 dalam 6 detik dan ETA ikut turun, tanpa overflow-x.
               </li>
               <li>
+                <strong>Batch terlihat per order + riwayatnya (M?, PRD §8).</strong> Order Regular
+                melewati <strong>batch</strong> kurir inhouse, tapi di konsol merchant hal itu tak
+                terbaca: baris antrean cuma menampilkan chip &ldquo;Regular&rdquo;, nomor batch
+                tidak ada, dan status <code className="doc-inline">done</code> tak punya penulis
+                (batch menumpuk bersama yang aktif). Sekarang{' '}
+                <code className="doc-inline">/merchant/orders</code> punya tiga penanda: chip jenis
+                jadi <code className="doc-inline">Regular · #2</code> (
+                <code className="doc-inline">deliveryBadge</code>), penyaring{' '}
+                <code className="doc-inline">BatchFilter</code> (chip &ldquo;Semua&rdquo; + tiap
+                batch) menyaring daftar per <code className="doc-inline">order.batchId</code>, dan
+                sheet detail memasang <code className="doc-inline">OrderTimeline</code> — riwayat
+                kejadian termasuk &ldquo;Masuk batch #n&rdquo;. Batch yang semua ordernya selesai
+                dipindah <code className="doc-inline">BatchPanel</code> ke bagian{' '}
+                <em>Riwayat batch</em>; status <code className="doc-inline">done</code> dihitung{' '}
+                <code className="doc-inline">batchIsDone()</code>, bukan kolom. Nomor batch dibaca
+                dari id (<code className="doc-inline">batchNumber()</code>, pola{' '}
+                <code className="doc-inline">batch-N</code>) supaya stabil walau urutan array
+                berubah (id numerik D1 juga diterima). Sumbernya kini data nyata: kolom{' '}
+                <code className="doc-inline">orders.batch_id</code>,{' '}
+                <code className="doc-inline">delivery_type</code>, dan{' '}
+                <code className="doc-inline">cook_minutes</code> ikut di-<em>select</em> dan
+                dipetakan (<code className="doc-inline">toMerchantOrder</code>), dan timeline
+                membaca <code className="doc-inline">order_status_history</code> D1
+                (satu baris per transisi + <code className="doc-inline">at</code>) lewat{' '}
+                <code className="doc-inline">fetchOrderHistory</code> — jadi jam tiap kejadian
+                nyata, bukan dikarang; riwayat turunan tetap dipakai sebagai cadangan bila BE
+                kosong.
+              </li>
+              <li>
                 <strong>Rating: aturan §20.2 dikunci + menu riwayat pesanan (M8a, R-CUS-RATING).</strong>{' '}
                 PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}
                 <strong>menu riwayat order</strong>&rdquo;, tapi menu itu tidak ada: satu-satunya

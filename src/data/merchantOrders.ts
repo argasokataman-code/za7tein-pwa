@@ -1,4 +1,5 @@
 import type { CartItem, MerchantOrder, MerchantOrderStatus, OrderType } from '../types'
+import { batchNumber } from './batch'
 
 /** Label jenis pengantaran (PRD §7.2 Regular/batch, §7.3 Quick/partner). */
 export const DELIVERY_TYPE_LABEL: Record<OrderType, string> = {
@@ -66,6 +67,19 @@ export function deliveryTypeFor(code: string): OrderType {
 /** Jenis pengantaran efektif sebuah order: nilai tersimpan menang, lalu overlay. */
 export function orderDeliveryType(order: Pick<MerchantOrder, 'deliveryType' | 'code'>): OrderType {
   return order.deliveryType ?? deliveryTypeFor(order.code)
+}
+
+/**
+ * Chip jenis pengantaran di tiket antrean. Order Regular yang sudah masuk batch
+ * menyertakan nomornya (`Regular · #2`) supaya merchant langsung tahu order ini
+ * di batch mana — sebelumnya info batch hanya ada di dalam sheet detail.
+ */
+export function deliveryBadge(
+  order: Pick<MerchantOrder, 'deliveryType' | 'code' | 'batchId'>,
+): string {
+  const type = orderDeliveryType(order)
+  const number = batchNumber(order.batchId)
+  return number === null ? DELIVERY_TYPE_SHORT[type] : `${DELIVERY_TYPE_SHORT[type]} · #${number}`
 }
 
 /** Tab antrean merchant — satu sumber untuk label dan status anggotanya. */

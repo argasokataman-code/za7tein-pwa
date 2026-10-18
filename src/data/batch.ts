@@ -67,6 +67,26 @@ export function canStartEarly(batch: Batch, orders: MerchantOrder[]): boolean {
   return batch.status === 'closed' && batchAllPacked(batch, orders)
 }
 
+/**
+ * Nomor tampilan batch, dibaca dari idnya (`batch-3` atau `3` → `3`) supaya
+ * stabil walau urutan array berubah. D1 memakai id numerik, state lokal memakai
+ * `batch-N`; keduanya harus terbaca. `null` bila id bukan angka.
+ */
+export function batchNumber(batchId: string | undefined): number | null {
+  const match = /^(?:batch-)?(\d+)$/.exec(String(batchId ?? ''))
+  return match ? Number(match[1]) : null
+}
+
+/**
+ * Batch selesai = semua ordernya sudah `selesai`. Status tersimpan batch berhenti
+ * di `delivering` (tidak ada penulis `done` di slice merchant), jadi keadaan
+ * selesai ini **turunan** dari order, bukan kolom.
+ */
+export function batchIsDone(batch: Batch, orders: MerchantOrder[]): boolean {
+  const list = batchOrders(batch, orders)
+  return list.length > 0 && list.every((order) => order.status === 'selesai')
+}
+
 /** Id batch baru: nomor bebas terkecil, supaya tak menabrak batch yang ada. */
 export function nextBatchId(batches: Batch[]): string {
   const taken = new Set(batches.map((batch) => batch.id))

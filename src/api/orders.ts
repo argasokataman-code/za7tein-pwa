@@ -10,7 +10,7 @@
  * dipatok. Saat auth nyata masuk, ketiganya berasal dari sesi.
  */
 import { idrToJod, jodToIdr } from '../data/currency'
-import { deliveryTypeFor } from '../data/merchantOrders'
+import { deliveryTypeFor, orderStatusLabel } from '../data/merchantOrders'
 import type {
   CartItem,
   CourierTask,
@@ -21,7 +21,7 @@ import type {
   PaymentMethod,
   ZoneId,
 } from '../types'
-import { createWith, createWithReturn, patch, restWith, rpc, signInToken } from './supabase'
+import { createWith, createWithReturn, patch, rest, restWith, rpc, signInToken } from './supabase'
 
 export const DEMO_CUSTOMER_ID = 1
 const DEMO_MERCHANT_ID = 1
@@ -55,6 +55,11 @@ interface OrderRow {
   created_at: string
   placed_at: string | null
   courier_id: number | null
+  /** Kolom nyata di D1 (`orders.batch_id`) — batch kurir inhouse order Regular. */
+  batch_id?: number | null
+  /** `regular` | `quick` (PRD §7). Sebelumnya overlay demo per kode. */
+  delivery_type?: string | null
+  cook_minutes?: number | null
 }
 
 export interface NewOrder {
@@ -335,9 +340,11 @@ function toMerchantOrder(row: OrderRow): MerchantOrder {
     placedAtMs: new Date(row.placed_at ?? row.created_at).getTime(),
     paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
     paymentStatus: (row.payment_status ?? 'unpaid') as OrderPaymentStatus,
-    // `orders` BE belum punya kolom jenis pengantaran → overlay demo per kode
-    // (ui-impact.md §8). Begitu kolomnya ada, ganti dengan `row.delivery_type`.
-    deliveryType: deliveryTypeFor(row.code),
+    // Kolom nyata D1: `delivery_type` menentukan cabang alur terima (Regular →
+    // batch, Quick → partner). Overlay per-kode hanya cadangan kalau BE kosong.
+    deliveryType: row.delivery_type === 'quick' ? 'quick' : row.delivery_type === 'regular' ? 'regular' : deliveryTypeFor(row.code),
+    batchId: row.batch_id != null ? String(row.batch_id) : undefined,
+    cookMinutes: row.cook_minutes ?? undefined,
     courierId: row.courier_id != null ? String(row.courier_id) : undefined,
   }
 }
@@ -371,9 +378,35 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
   const rows = await restWith<OrderRow>(
     token,
     'orders',
-    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,payment_status,zone_code,created_at,placed_at,courier_id&merchant_id=eq.${merchantId}&order=created_at.desc`,
+    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,payment_status,zone_code,created_at,placed_at,courier_id,batch_id,delivery_type,cook_minutes&merchant_id=eq.${merchantId}&order=created_at.desc`,
   )
   return rows.map(toMerchantOrder)
+}
+
+export interface OrderHistoryRow {
+  from_status: string | null
+  to_status: string
+  actor_id: number | null
+  at: string
+}
+
+/**
+ * Riwayat status satu order dari `order_status_history` D1 — satu baris per
+ * transisi, lengkap dengan waktunya. Inilah sumber lini masa yang selama ini
+ * tidak ada di FE (tabelnya sudah diekspos Worker, `GET /rest/v1/order_status_history`).
+ */
+export async function fetchOrderHistory(orderId: string): Promise<OrderHistoryRow[]> {
+  const numeric = Number(orderId.replace(/^api-/, ''))
+  if (!Number.isFinite(numeric)) return []
+  return rest<OrderHistoryRow>(
+    'order_status_history',
+    `?select=from_status,to_status,actor_id,at&order_id=eq.${numeric}&order=at.asc`,
+  )
+}
+
+/** Label Indonesia dari status DB (untuk baris riwayat). */
+export function statusLabelOf(dbStatus: string): string {
+  return orderStatusLabel(STATUS_MAP[dbStatus] ?? 'baru')
 }
 
 /** `orders.status` → tahap kurir (Journey Line, `OrderStage` — flow f18). */

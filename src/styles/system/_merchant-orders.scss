@@ -411,3 +411,45 @@
   color: var(--orange-ink);
   font-weight: 600;
 }
+
+/* Riwayat perjalanan order di sheet detail: tanda centang + label + jam. Langkah
+   yang belum dilewati tampil redup; kolom kiri & kanan lebar tetap supaya semua
+   baris rata (bukan lebar mengikuti isi). Jam hanya terisi bila waktunya memang
+   dikirim BE — lihat catatan di `OrderTimeline.tsx`. */
+.merchant-history {
+  display: grid;
+  gap: var(--space-2);
+  margin-block: var(--space-4);
+}
+
+.merchant-history-row {
+  display: grid;
+  grid-template-columns: var(--space-4) 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-history-row.is-reached {
+  color: var(--text-primary);
+}
+
+.merchant-history-label {
+  min-width: 0;
+}
+
+.merchant-history-mark {
+  display: inline-flex;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.merchant-history-row.is-reached .merchant-history-mark {
+  color: var(--success);
+}
+
+.merchant-history-time {
+  font-variant-numeric: tabular-nums;
+}
