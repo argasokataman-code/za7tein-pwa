@@ -138,6 +138,13 @@
   gap: var(--space-1);
 }
 
+.delivery-mode__option--quick {
+  /* Fitur Quick tetap terbaca sebagai fitur walau belum dipilih: batasnya
+     memakai `--orange-border` permanen. Penanda "terpilih" tetap terpisah —
+     isi `--orange-soft` + centang — jadi batas tidak pernah berarti state. */
+  border-color: var(--orange-border);
+}
+
 .delivery-mode__option--quick .delivery-mode__name svg {
   color: var(--orange-ink);
 }
