@@ -4862,6 +4862,82 @@
         }
       ],
       "loc": "src/pages/MerchantPromoSlideForm.tsx:1"
+    },
+    {
+      "id": "TASK-120003",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:44:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/data/promoSlides.ts (+33/-7) — edit via tool: ts: /** Aturan tampilan carousel promo ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/data/promoSlides.ts"
+    },
+    {
+      "id": "TASK-120004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:44:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/marketingSlice.ts (+3/-2) — edit via tool: ts: import { mockMarketingPro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/slices/marketingSlice.ts"
+    },
+    {
+      "id": "TASK-120005",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:44:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts (+3/-2) — edit via tool: ts: import { menuSeed } from '../data/catalo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-120006",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-18",
+      "time": "11:47:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx (+4/-3) — edit via tool: tsx: customer tidak kosong. Data hid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Downloads/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

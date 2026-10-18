@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { mockMarketingPrograms, mockProgramRewards, mockProgramRules } from '../../data/marketing'
+import { mockPromoSlides } from '../../data/promoSlides'
 import type { MarketingProgram, ProgramReward, ProgramRule, PromoSlide } from '../../types'
 
 interface MarketingState {
@@ -29,7 +30,7 @@ const initialState: MarketingState = {
   programs: mockMarketingPrograms,
   rules: mockProgramRules,
   rewards: mockProgramRewards,
-  slides: [],
+  slides: mockPromoSlides,
   claimedProgramIds: [],
 }
 
@@ -130,7 +131,10 @@ const marketingSlice = createSlice({
     builder.addCase('persist/REHYDRATE', (state, action) => {
       const payload = (action as { payload?: { marketing?: Partial<MarketingState> } }).payload
       if (!Array.isArray(payload?.marketing?.claimedProgramIds)) state.claimedProgramIds = []
-      if (!Array.isArray(payload?.marketing?.slides)) state.slides = []
+      // State lama belum punya daftar slide; isi dengan contoh mock supaya
+      // carousel tetap tampil. `slides: []` yang memang disimpan merchant tetap
+      // dihormati karena bentuknya array.
+      if (!Array.isArray(payload?.marketing?.slides)) state.slides = mockPromoSlides
     })
   },
 })

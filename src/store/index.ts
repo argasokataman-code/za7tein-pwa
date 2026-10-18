@@ -12,6 +12,7 @@ import {
 } from 'redux-persist'
 
 import { menuSeed } from '../data/catalog'
+import { mockPromoSlides } from '../data/promoSlides'
 import { KNOWN_PAYMENT_METHOD_IDS } from '../data/merchant'
 import { DISPUTE_RESOLUTION_LABEL } from '../data/admin'
 import { CS_CURRENT_ACTOR, SA_CURRENT_ACTOR } from '../data/superadmin'
@@ -98,7 +99,7 @@ const rootReducer = combineReducers({
  * supaya di-seed ulang; keranjang, saldo, dan katalog tidak berubah bentuk.
  */
 /** Versi skema state tersimpan. Naikkan saat bentuk slice berubah (lihat `migrations`). */
-const PERSIST_VERSION = 8
+const PERSIST_VERSION = 9
 
 /**
  * Buang slice dari state tersimpan supaya di-seed ulang.
@@ -152,6 +153,18 @@ const migrations = {
    * sama, jadi tidak perlu ikut hilang.
    */
   8: (state: any) => dropPersisted(state, ['catalog']),
+  /**
+   * v9: `marketing.slides` kosong/hilang diisi slide contoh. Fitur carousel
+   * baru punya `slides`, jadi state tersimpan lama tidak punya field itu dan
+   * carousel customer kosong. Migrasi sekali jalan: setelah merchant menghapus
+   * semua slide, `slides: []` yang ia simpan tetap dihormati di versi 9.
+   */
+  9: (state: any) => {
+    const marketing = state?.marketing
+    if (!marketing) return state
+    if (Array.isArray(marketing.slides) && marketing.slides.length > 0) return state
+    return { ...state, marketing: { ...marketing, slides: mockPromoSlides } }
+  },
 }
 
 const persistConfig = {

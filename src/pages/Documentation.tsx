@@ -240,7 +240,8 @@ export default function Documentation() {
                 otomatis, sementara toko tanpa slide tetap memakai carousel lama supaya halaman
                 customer tidak kosong. Data hidup di slice{' '}
                 <code className="doc-inline">marketing</code> yang sudah persist, dengan normalisasi
-                untuk state lama yang belum punya daftar slide.
+                untuk state lama yang belum punya daftar slide dan migrasi persist v9 yang mengisi
+                dua slide contoh sekali jalan supaya carousel langsung terlihat.
               </li>
               <li>
                 <strong>Setelan merchant tidak lagi terasa seperti halaman web.</strong> Tautan
