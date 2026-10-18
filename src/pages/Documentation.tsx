@@ -236,8 +236,10 @@ export default function Documentation() {
                 <code className="doc-inline">.merchant-btn-ghost</code>. Foto toko yang gagal dimuat
                 (path BE yang berkasnya tak ada di repo) jatuh ke placeholder ikon toko, bukan ikon
                 gambar rusak; banner memakai bahasa merchant, bukan istilah{' '}
-                <code className="doc-inline">endpoint</code>; dan "Hapus foto" tidak lagi selebar
-                aksi utama, cukup selebar isinya dengan warna bahaya.
+                <code className="doc-inline">endpoint</code>; "Ganti foto" memakai tint oranye
+                (<code className="doc-inline">--orange-soft</code>/<code className="doc-inline">--orange-ink</code>)
+                supaya terbaca sebagai aksi brand; dan "Hapus foto" tidak lagi selebar aksi utama,
+                cukup selebar isinya dengan warna bahaya.
               </li>
               <li>
                 <strong>Mode pengantaran dipilih customer, bukan ditebak merchant.</strong> Checkout

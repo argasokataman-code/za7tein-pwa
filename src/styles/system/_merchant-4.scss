@@ -372,6 +372,16 @@
   color: var(--text-secondary);
 }
 
+/* Unggah/ganti foto adalah aksi konstruktif di kartu ini. Diberi tint brand
+   supaya terbaca sebagai aksi Sa7tein, bukan tombol netral yang menyatu
+   dengan kartu putih. Tetap tint, bukan isi oranye penuh: aksi utama
+   halaman tetap "Simpan perubahan". */
+.merchant-photo-upload {
+  border-color: var(--orange-border);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
 /* Hapus foto bukan aksi utama kartu: cukup selebar isinya dan berwarna
    bahaya, supaya tidak mengalahkan "Ganti foto" yang selebar penuh. */
 .merchant-photo-remove {

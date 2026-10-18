@@ -219,7 +219,7 @@ export default function MerchantSettings() {
             )}
             <button
               type="button"
-              className="merchant-btn-ghost"
+              className="merchant-btn-ghost merchant-photo-upload"
               onClick={() => logoInputRef.current?.click()}
             >
               <ImagePlus size={16} strokeWidth={1.75} />
