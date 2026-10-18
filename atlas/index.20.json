@@ -4981,6 +4981,29 @@
       ],
       "loc": "src/styles/system/_merchant-carousel.scss:1",
       "commit": "8ba68af"
+    },
+    {
+      "id": "DEC-130017",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-18",
+      "time": "12:20:19",
+      "tags": [
+        "design",
+        "gate",
+        "scan",
+        "dna"
+      ],
+      "summary": "Tell slop masuk ratchet scan (tone numerik, stripe aksen, gradien/kaca); --update-design-debt tolak baseline naik tanpa --force",
+      "conn": [
+        {
+          "id": "DEC-88090",
+          "type": "relates",
+          "raw": "DEC-88090:relates"
+        }
+      ],
+      "loc": "scripts/surface-scan.mjs:447",
+      "commit": "c635889"
     }
   ]
 }
