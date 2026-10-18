@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRef, useState, type ChangeEvent } from 'react'
 
 import { mockUser } from '../data/user'
+import { imageFileError, uploadImage } from '../lib/image'
 
 import toast from 'react-hot-toast'
 import { BackButton } from '../components/ui/BackButton'
@@ -14,12 +15,24 @@ export default function AddProfilePhoto() {
   const fileRef = useRef<HTMLInputElement>(null)
   const [preview, setPreview] = useState(mockUser.avatar)
 
-  // Pratinjau lokal dari berkas yang dipilih. Tidak ada unggahan sungguhan —
-  // repo ini front-end saja (AGENTS.md §1).
-  const onPick = (event: ChangeEvent<HTMLInputElement>) => {
+  // Unggah ke R2 (URL publik). Kalau backend bukan Worker / R2 gagal, pakai
+  // object URL lokal supaya pratinjau tetap ada (mock-first). Penyimpanan ke
+  // `users.avatar` belum ada endpoint-nya (Worker /auth/me read-only).
+  const onPick = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
+    event.target.value = ''
     if (!file) return
-    setPreview(URL.createObjectURL(file))
+    const error = imageFileError(file)
+    if (error) {
+      toast.error(error)
+      return
+    }
+    try {
+      setPreview(await uploadImage('avatars', 'user', file))
+      toast.success('Foto diunggah ke R2')
+    } catch {
+      setPreview(URL.createObjectURL(file))
+    }
   }
 
   return (
@@ -42,7 +55,7 @@ export default function AddProfilePhoto() {
                 <button type="button" className="btn-upload-photo" onClick={() => fileRef.current?.click()}>
                   Upload New Photo
                 </button>
-                <input accept="image/*" className="d-none" type="file" ref={fileRef} onChange={onPick} />
+                <input accept="image/*" className="d-none" type="file" ref={fileRef} onChange={(event) => void onPick(event)} />
               </div>
               <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
                 Save Changes

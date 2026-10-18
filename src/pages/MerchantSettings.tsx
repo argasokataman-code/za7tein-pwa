@@ -23,7 +23,7 @@ import {
   punishmentForRule,
   rulesForMerchant,
 } from '../data/rules'
-import { imageFileError } from '../lib/image'
+import { imageFileError, uploadImage } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import { logout } from '../store/slices/authSlice'
 import {
@@ -73,22 +73,28 @@ export default function MerchantSettings() {
   // tampilkan placeholder toko, bukan ikon gambar rusak.
   useEffect(() => setLogoFailed(false), [logo])
 
-  // Pratinjau lokal dari berkas yang dipilih. Tidak ada unggahan sungguhan —
-  // repo ini front-end saja (AGENTS.md §1).
-  const onLogoPick = (event: ChangeEvent<HTMLInputElement>) => {
+  // Unggah ke R2 (URL publik). Kalau backend bukan Worker / R2 gagal, pakai
+  // object URL lokal supaya pratinjau tetap ada (mock-first).
+  const onLogoPick = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
+    event.target.value = ''
     if (!file) return
     const error = imageFileError(file)
     if (error) {
       toast.error(error)
-      event.target.value = ''
       return
     }
     if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current)
-    const url = URL.createObjectURL(file)
-    logoUrlRef.current = url
-    dispatch(setMerchantLogo(url))
-    toast.success('Pratinjau foto diperbarui — belum diunggah')
+    logoUrlRef.current = null
+    try {
+      dispatch(setMerchantLogo(await uploadImage('merchant-photos', 'merchant', file)))
+      toast.success('Foto toko diunggah ke R2')
+    } catch {
+      const url = URL.createObjectURL(file)
+      logoUrlRef.current = url
+      dispatch(setMerchantLogo(url))
+      toast.success('Pratinjau foto diperbarui — belum diunggah')
+    }
   }
 
   const onLogoRemove = () => {
@@ -201,7 +207,7 @@ export default function MerchantSettings() {
               type="file"
               accept="image/*"
               className="d-none"
-              onChange={onLogoPick}
+              onChange={(event) => void onLogoPick(event)}
             />
             {logo && !logoFailed ? (
               <img

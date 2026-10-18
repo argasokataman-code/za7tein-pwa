@@ -239,7 +239,10 @@ export default function Documentation() {
                 pratinjau lokal, jadi demo tak pernah pecah. Chip{' '}
                 <code className="doc-inline">BackendStatusBadge</code> (bagian Backend §12)
                 menyatakan backend aktif (Worker D1 + R2 / Supabase / mock) supaya fallback
-                diam-diam kelihatan.
+                diam-diam kelihatan. Picker yang tersambung: foto toko &amp; banner promo
+                (<code className="doc-inline">merchant-photos</code>), item menu (
+                <code className="doc-inline">menu-images</code>), dan avatar (
+                <code className="doc-inline">avatars</code>).
               </li>
               <li>
                 <strong>Kontrak backend Worker Cloudflare (v2) mulai dikonsumsi klien.</strong>{' '}

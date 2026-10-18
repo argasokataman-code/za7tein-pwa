@@ -12,7 +12,7 @@ import { DEFAULT_PROMO_BANNER, MAX_PROMO_SLIDES } from '../data/promoSlides'
 import { useCatalog } from '../hooks/useCatalog'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { imageFileError, imageToDataUrl } from '../lib/image'
+import { imageFileError, imageToDataUrl, uploadImage } from '../lib/image'
 import { addPromoSlide, updatePromoSlide } from '../store/slices/marketingSlice'
 import type { PromoSlide } from '../types'
 
@@ -57,9 +57,15 @@ export default function MerchantPromoSlideForm() {
     }
     setSavingBanner(true)
     try {
-      setImage(await imageToDataUrl(file))
+      // Unggah ke R2 (URL publik); kalau bukan Worker / R2 gagal, simpan data
+      // URL lokal supaya carousel tetap punya banner (mock-first).
+      setImage(await uploadImage('merchant-photos', `merchant/${mockMerchant.id}/promo`, file))
     } catch {
-      toast.error('Gambar tidak bisa dibaca')
+      try {
+        setImage(await imageToDataUrl(file))
+      } catch {
+        toast.error('Gambar tidak bisa dibaca')
+      }
     } finally {
       setSavingBanner(false)
     }

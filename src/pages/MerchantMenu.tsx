@@ -14,7 +14,7 @@ import { useCatalog } from '../hooks/useCatalog'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, countLowStock, countOutOfStock } from '../data/catalog'
-import { imageFileError } from '../lib/image'
+import { imageFileError, uploadImage } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import {
   addMenuItem,
@@ -170,19 +170,23 @@ export default function MerchantMenu() {
     fileRef.current?.click()
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
+    e.target.value = ''
     if (!file) return
     const error = imageFileError(file)
     if (error) {
       toast.error(error)
-      e.target.value = ''
       return
     }
-    const reader = new FileReader()
-    reader.onload = () => setFormImage(String(reader.result))
-    reader.readAsDataURL(file)
-    e.target.value = ''
+    // Unggah ke R2; jatuh balik ke data URL lokal kalau R2 tak terjangkau.
+    try {
+      setFormImage(await uploadImage('menu-images', 'menu', file))
+    } catch {
+      const reader = new FileReader()
+      reader.onload = () => setFormImage(String(reader.result))
+      reader.readAsDataURL(file)
+    }
   }
 
   /* ── close overflow on outside click ── */
@@ -491,7 +495,7 @@ export default function MerchantMenu() {
           <div className="form-group">
             <span className="form-label">Gambar</span>
             <div className="merchant-image-field">
-              <input ref={fileRef} type="file" accept="image/*" className="d-none" onChange={handleFileChange} />
+              <input ref={fileRef} type="file" accept="image/*" className="d-none" onChange={(e) => void handleFileChange(e)} />
               {formImage && <img className="merchant-form-thumb" src={formImage} alt="Pratinjau gambar" width={64} height={64} loading="lazy" decoding="async" />}
               <button type="button" className="merchant-btn-ghost" onClick={handleImagePick}>
                 <ImagePlus size={16} strokeWidth={1.75} /> {formImage ? 'Ganti gambar' : 'Gambar'}
