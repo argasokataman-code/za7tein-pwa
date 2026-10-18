@@ -240,9 +240,10 @@ export default function Documentation() {
                 cakupan rutenya: "Kurir toko, berbagi rute antar pesanan" dan "Kurir partner, khusus
                 untuk pesananmu" — Regular tidak direndahkan, Quick tetap mencetak delta biayanya
                 (+0,04 JOD) supaya fitur terasa istimewa tanpa mengaburkan harga. Kartu Quick juga
-                memakai batas <code className="doc-inline">--orange-border</code> permanen, jadi
-                fiturnya terbaca sebelum dipilih; isi oranye + centang tetap satu-satunya penanda
-                "terpilih". Bug yang dilaporkan ikut diperbaiki: detail order Regular dulu
+                memakai latar oranye muda permanen + batas <code className="doc-inline">
+                --orange-border</code>, jadi fiturnya terbaca sebelum dipilih; isi{' '}
+                <code className="doc-inline">--orange-soft</code> penuh + centang tetap satu-satunya
+                penanda "terpilih". Bug yang dilaporkan ikut diperbaiki: detail order Regular dulu
                 menampilkan "Serahkan ke kurir partner" setiap kali <code className="doc-inline">
                 batchId</code> kosong — termasuk order dari BE yang belum masuk batch. Sekarang cabang
                 ditentukan <code className="doc-inline">orderDeliveryType()</code>: Regular hanya

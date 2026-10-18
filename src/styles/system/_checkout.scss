@@ -120,7 +120,9 @@
 
 .delivery-mode__option.is-selected {
   border-color: var(--sa7tein-orange);
-  background: var(--orange-soft);
+  /* Terpilih harus lebih kuat dari warna fitur Quick: kalau hanya border yang
+     berubah, kartu yang bertint oranye terbaca "aktif" juga. */
+  background: color-mix(in srgb, var(--orange-soft) 75%, var(--sa7tein-orange));
 }
 
 .delivery-mode__option:disabled {
@@ -139,10 +141,12 @@
 }
 
 .delivery-mode__option--quick {
-  /* Fitur Quick tetap terbaca sebagai fitur walau belum dipilih: batasnya
-     memakai `--orange-border` permanen. Penanda "terpilih" tetap terpisah —
-     isi `--orange-soft` + centang — jadi batas tidak pernah berarti state. */
+  /* Fitur Quick membawa warnanya sendiri walau belum dipilih: latar oranye
+     muda permanen + batas `--orange-border`. Penanda "terpilih" tetap
+     terpisah — isi `--orange-soft` penuh + centang — jadi warna kartu tidak
+     pernah berarti state. */
   border-color: var(--orange-border);
+  background: var(--orange-soft);
 }
 
 .delivery-mode__option--quick .delivery-mode__name svg {
@@ -197,10 +201,14 @@
   /* Tinggi baris dikunci di kedua kartu; Regular memakai baris kosong supaya
      harga tidak turun satu baris hanya karena Quick punya keterangan. */
   min-height: 1.4em;
-  color: var(--orange-soft-ink);
+  color: var(--text-secondary);
   font-size: var(--text-xs);
   line-height: 1.4;
   font-weight: 400;
+}
+
+.delivery-mode__option.is-selected .delivery-mode__delta {
+  color: var(--orange-soft-ink);
 }
 
 /* ── Kode promo ───────────────────────────────────────────────────────────── */
