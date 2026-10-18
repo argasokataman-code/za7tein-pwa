@@ -236,7 +236,10 @@ export default function Documentation() {
                 dari setelan platform, bukan konstanta layar: terukur ongkir zona Hijazi 0,20 → 0,24
                 JOD (×1,2) dan total ikut naik 0,04 JOD saat Quick dipilih. Pilihan disimpan per kode
                 order (kolom jenis pengantaran belum ada di BE), sehingga konsol merchant membaca
-                cabang yang benar. Bug yang dilaporkan ikut diperbaiki: detail order Regular dulu
+                cabang yang benar. Copy kedua kartu memakai pola yang sama, siapa mengantar lalu
+                cakupan rutenya: "Kurir toko, berbagi rute antar pesanan" dan "Kurir partner, khusus
+                untuk pesananmu" — Regular tidak direndahkan, Quick tetap mencetak delta biayanya
+                (+0,04 JOD) supaya fitur terasa istimewa tanpa mengaburkan harga. Bug yang dilaporkan ikut diperbaiki: detail order Regular dulu
                 menampilkan "Serahkan ke kurir partner" setiap kali <code className="doc-inline">
                 batchId</code> kosong — termasuk order dari BE yang belum masuk batch. Sekarang cabang
                 ditentukan <code className="doc-inline">orderDeliveryType()</code>: Regular hanya

@@ -5,7 +5,7 @@
 //
 // Sekarang isinya dibaca dari store: daftar item, alamat antar, dan ringkasan
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
-import { Check, Minus, Plus, ShoppingBag, Tag, Trash2 } from 'lucide-react'
+import { Bike, Check, Minus, Plus, ShoppingBag, Tag, Trash2 } from 'lucide-react'
 
 import { useState } from 'react'
 
@@ -238,30 +238,39 @@ export default function Checkout() {
                         </span>
                       </span>
                       <span className="delivery-mode__sub">
-                        Kurir toko mengantar bersama order lain.
+                        Kurir toko, berbagi rute antar pesanan.
                       </span>
                       <span className="delivery-mode__fee">{moneyPlain(fee)}</span>
+                      {/* Baris delta selalu ada di kedua kartu supaya baris harga
+                          Quick dan Regular duduk di garis yang sama. */}
+                      <span className="delivery-mode__delta" aria-hidden="true" />
                     </button>
                     <button
                       type="button"
                       role="radio"
                       aria-checked={deliveryType === 'quick'}
-                      className={`delivery-mode__option${
+                      className={`delivery-mode__option delivery-mode__option--quick${
                         deliveryType === 'quick' ? ' is-selected' : ''
                       }`}
                       disabled={!QUICK_DISPATCH_AVAILABLE}
                       onClick={() => dispatch(setDeliveryType('quick'))}
                     >
                       <span className="delivery-mode__title">
-                        Quick
+                        <span className="delivery-mode__name">
+                          <Bike size={18} strokeWidth={1.75} aria-hidden="true" />
+                          Quick
+                        </span>
                         <span className="delivery-mode__mark" aria-hidden="true">
                           {deliveryType === 'quick' ? <Check size={14} strokeWidth={2.5} /> : null}
                         </span>
                       </span>
                       <span className="delivery-mode__sub">
-                        Kurir partner antar langsung, satu order.
+                        Kurir partner, khusus untuk pesananmu.
                       </span>
                       <span className="delivery-mode__fee">{moneyPlain(quickFee)}</span>
+                      <span className="delivery-mode__delta">
+                        {quickFee > fee ? `+${moneyPlain(quickFee - fee)} dari Regular` : ''}
+                      </span>
                     </button>
                   </div>
                   {!QUICK_DISPATCH_AVAILABLE ? (
