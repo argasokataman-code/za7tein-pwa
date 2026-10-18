@@ -17,7 +17,6 @@ import {
   chatStatusFor,
   courierJoinedInhouse,
   courierJoinedPartner,
-  hasChatThread,
   type ChatRole,
 } from '../data/chat'
 import { mockCouriers, mockMerchant, mockOrder } from '../data/merchant'
@@ -137,7 +136,11 @@ export default function OrderChat() {
   const viewer: ChatSender =
     viewerParam === 'merchant' || viewerParam === 'courier' ? viewerParam : 'customer'
   const live = useApiChat(orderId, viewer)
-  const threadAda = hasChatThread(activeOrder, orderId)
+  /** Kembali ke halaman daftar peran — bukan `navigate(-1)`, yang keluar app
+   *  saat layar dibuka lewat deep-link tanpa riwayat. */
+  const backTo = viewer === 'merchant' ? '/orders' : viewer === 'courier' ? '/' : '/order-placed'
+  /** Judul memakai order nyata; `queryOrder` mentah menutup id BE non-numerik. */
+  const pesananLabel = activeOrder?.code ?? (queryOrder ? `#${queryOrder}` : null)
 
   /**
    * Keanggotaan kurir diturunkan dari state demo: batch sudah di-assign (§20.1
@@ -313,13 +316,11 @@ export default function OrderChat() {
             warisan halaman sebelumnya (lihat MD-03 di mobile-dna.md). */}
         <div className="chat-screen" data-open-at="latest">
           <header className="chat-header">
-            <BackButton className="btn-back" />
+            <BackButton className="btn-back" to={backTo} />
 
             <div className="chat-header__who">
               <span className="chat-header__name">
-                {threadAda
-                  ? `Pesanan ${live.live ? (activeOrder?.code ?? `#${orderId}`) : mockOrder.code}`
-                  : 'Contoh group chat'}
+                {pesananLabel ? `Pesanan ${pesananLabel}` : 'Chat pesanan'}
               </span>
               <span className="chat-header__status">
                 {!live.live && offline

@@ -13,7 +13,7 @@ interface OrderChatLinkProps {
  */
 export function OrderChatLink({ orderId }: OrderChatLinkProps) {
   return (
-    <Link className="merchant-btn-ghost" to={`/order-chat?order=${orderId}&as=merchant`}>
+    <Link className="merchant-btn-ghost merchant-chat-link" to={`/order-chat?order=${orderId}&as=merchant`}>
       <MessageCircle size={16} strokeWidth={1.75} aria-hidden="true" />
       Chat pesanan
     </Link>

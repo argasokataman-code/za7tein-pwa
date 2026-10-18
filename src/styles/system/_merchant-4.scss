@@ -382,6 +382,16 @@
   color: var(--orange-ink);
 }
 
+/* "Chat pesanan" di detail order: aksi brand non-utama, selebar kartu supaya
+   jadi sasaran jelas — bukan ghost putih yang menyatu dengan sheet. */
+.merchant-chat-link {
+  width: 100%;
+  margin-top: var(--space-4);
+  border-color: var(--orange-border);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
 /* Hapus foto bukan aksi utama kartu: cukup selebar isinya dan berwarna
    bahaya, supaya tidak mengalahkan "Ganti foto" yang selebar penuh. */
 .merchant-photo-remove {

@@ -240,7 +240,11 @@ export default function Documentation() {
                 (<code className="doc-inline">sendChatMessage({'{from}'})</code>) mengikuti peran;
                 percakapan mock dibalik agar sudut pandangnya benar. Route{' '}
                 <code className="doc-inline">/order-chat</code> didaftarkan di{' '}
-                <code className="doc-inline">merchantRoutes</code>.
+                <code className="doc-inline">merchantRoutes</code>. Judul memakai kode pesanan
+                nyata (<em>Pesanan #…</em>, bukan &ldquo;Contoh group chat&rdquo;); tombol kembali
+                bertarget tetap per peran (<code className="doc-inline">/orders</code> untuk
+                merchant) supaya tidak keluar app saat dibuka lewat deep-link; tombol{' '}
+                <em>Chat pesanan</em> bertint merek selebar kartu.
               </li>
               <li>
                 <strong>Media naik ke R2 + chip status backend.</strong> Pickers gambar (foto toko,
