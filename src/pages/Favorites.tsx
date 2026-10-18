@@ -3,14 +3,17 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { FoodCard } from '../components/ui/FoodCard'
 import { useAppSelector } from '../hooks/useAppStore'
-import { useCatalog } from '../hooks/useCatalog'
+import { useAllMenuItems } from '../hooks/useApiCatalog'
+import { menuSeed } from '../data/catalog'
 import type { MenuItem } from '../types'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function Favorites() {
   const navigate = useNavigate()
   const ids = useAppSelector((s) => s.favorites.ids)
-  const { items } = useCatalog()
+  // Id favorit berasal dari kartu menu live (BE), jadi resolusi pun live:
+  // `menuSeed` cuma tampilan sementara sebelum API menjawab.
+  const items = useAllMenuItems(menuSeed)
   const favorites = ids
     .map((id) => items.find((f) => f.id === id))
     .filter((f): f is MenuItem => Boolean(f))
