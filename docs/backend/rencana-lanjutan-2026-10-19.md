@@ -69,7 +69,16 @@ dispute_rules` 204, `POST punishments` 201, `DELETE` 204 (baris probe dihapus).
 |---|---|
 | Nonaktifkan/aktifkan rule (`/ops/rules`) | `PATCH dispute_rules?code=eq.<code>` `{active}` |
 | Terbitkan SP (`/ops/penalties`) | `POST punishments` — nama diketik bebas, diresolusi ke `subject_id` (couriers/merchants/customers); tak ketemu → entri lokal + toast |
-| Cabut SP | **lokal saja** — `punishments` belum punya kolom status (dicatat UNRESOLVED di dokumen ini) |
+| Cabut SP | `PATCH punishments?id=eq.<n>` `{status:'revoked'}` — baris tidak dihapus (riwayat tetap) |
+
+**Skema D1 disamakan (2026-10-19).** Migrasi Supabase
+(`supabase/migrations/2026-10-17-ops-sa-columns.sql`) sudah punya `status`,
+`subject_name`, `form`, `level_label`, tapi D1 belum. Ditambahkan additive
+(`ALTER TABLE punishments ADD COLUMN …`, default `status = 'issued'`), lalu
+dibuktikan: `POST` 201 menyimpan keempat kolom, `PATCH` 204 mengubah
+`status → revoked`, baris probe `DELETE` 204 (sisa satu baris asli).
+`fetchPenalties` membaca kolom itu (join nama tetap cadangan baris lama),
+`POST` menyimpan bentuk/tingkat bebas-ketik, tombol Cabut menulis balik.
 
 **Verifikasi live commit lama (B, 2026-10-19)** — sesi `cs@`, semua HTTP 200:
 

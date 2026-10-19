@@ -143,6 +143,11 @@ interface PenaltyRow {
   level: number | null
   reason: string | null
   created_at: string
+  /** Kolom additive (sama dengan migrasi Supabase): null di baris lama. */
+  status: string | null
+  subject_name: string | null
+  form: string | null
+  level_label: string | null
 }
 
 /**
@@ -169,7 +174,7 @@ export async function fetchPenalties(): Promise<OpsPenalty[]> {
   const rows = await restWith<PenaltyRow>(
     token,
     'punishments',
-    '?select=id,subject_type,subject_id,kind,level,reason,created_at&order=id.desc',
+    '?select=id,subject_type,subject_id,kind,level,reason,created_at,status,subject_name,form,level_label&order=id.desc',
   )
   if (!rows.length) return []
   const ids = (subject: string) =>
@@ -207,11 +212,15 @@ export async function fetchPenalties(): Promise<OpsPenalty[]> {
     return {
       id: `sp-${row.id}`,
       subject,
-      subjectName: nameOf.get(`${subject}-${row.subject_id}`) ?? `#${row.subject_id}`,
-      form: PUNISHMENT_FORM[row.kind] ?? row.kind,
-      level: row.level ? `SP-${row.level}` : '—',
+      // Nama bebas-ketik tersimpan apa adanya; join jadi cadangan baris lama.
+      subjectName:
+        row.subject_name ??
+        nameOf.get(`${subject}-${row.subject_id}`) ??
+        `#${row.subject_id}`,
+      form: row.form ?? PUNISHMENT_FORM[row.kind] ?? row.kind,
+      level: row.level_label ?? (row.level ? `SP-${row.level}` : '—'),
       reason: row.reason ?? '—',
-      status: 'issued',
+      status: row.status === 'revoked' ? 'revoked' : 'issued',
       issuedAt: dayLabel(row.created_at),
     }
   })
@@ -268,8 +277,27 @@ export async function issuePenaltyRemote(input: {
     kind: penaltyKind(input.form),
     level: penaltyLevel(input.level),
     reason: input.reason,
+    // Kolom additive: bentuk/tingkat bebas ketik + nama, supaya riwayat tak
+    // bergantung pada join (dan baris baru bisa dicabut lewat `status`).
+    subject_name: input.subjectName,
+    form: input.form,
+    level_label: input.level,
+    status: 'issued',
   })
   return true
+}
+
+/**
+ * Cabut SP: `PATCH punishments?id=eq.<n>` `{status:'revoked'}`. Baris tidak
+ * dihapus — riwayat tetap, sama seperti aturan FE. Id mock (`sp-N` bawaan
+ * `data/ops.ts`) punya bentuk sama tapi tak ada di BE, jadi tak berefek.
+ */
+export async function revokePenaltyRemote(id: string): Promise<void> {
+  if (!apiEnabled) return
+  const m = /^sp-(\d+)$/.exec(id)
+  if (!m) return
+  const token = await refToken()
+  await patch(token, 'punishments', `?id=eq.${m[1]}`, { status: 'revoked' })
 }
 
 interface ExchangeRateRow {

@@ -1034,7 +1034,15 @@ export default function Documentation() {
                 <code className="doc-inline">PATCH dispute_rules</code>, terbitkan SP →{' '}
                 <code className="doc-inline">POST punishments</code> (nama pihak bebas-ketik
                 diresolusi ke <code className="doc-inline">subject_id</code>; tidak ketemu = entri
-                lokal disertai toast). Pencabutan SP tetap lokal karena BE belum punya kolom status.
+                lokal disertai toast). Cabut SP ikut menulis balik:{' '}
+                <code className="doc-inline">PATCH punishments</code>{' '}
+                <code className="doc-inline">{'{status:&quot;revoked&quot;}'}</code> — baris tetap,
+                riwayat tidak dihapus. Kolom <code className="doc-inline">status</code>/
+                <code className="doc-inline">subject_name</code>/<code className="doc-inline">form</code>/
+                <code className="doc-inline">level_label</code> ditambahkan ke D1 secara{' '}
+                <em>additive</em> supaya sama dengan migrasi Supabase (default{' '}
+                <code className="doc-inline">issued</code>), jadi bentuk &amp; tingkat yang diketik
+                ops tersimpan apa adanya, bukan dipaksa ke label katalog.
               </li>
               <li>
                 PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}

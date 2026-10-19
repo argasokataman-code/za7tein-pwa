@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 
 import { OpsShell } from '../../components/layout/OpsShell'
 import { OPS_PENALTY_STATUS_LABEL, OPS_SUBJECT_LABEL } from '../../data/ops'
-import { issuePenaltyRemote } from '../../api/ops'
+import { issuePenaltyRemote, revokePenaltyRemote } from '../../api/ops'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import { issuePenalty, revokePenalty } from '../../store/slices/opsSlice'
 import type { OpsPenalty } from '../../types'
@@ -135,6 +135,8 @@ export default function OpsPenalties() {
                         className="sa-btn sa-btn--small"
                         onClick={() => {
                           dispatch(revokePenalty({ id: penalty.id }))
+                          // Tulis balik best-effort; baris mock (`sp-N` lokal) tak ada di BE.
+                          revokePenaltyRemote(penalty.id).catch(() => {})
                           toast.success('SP dicabut')
                         }}
                       >
