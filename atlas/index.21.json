@@ -4790,6 +4790,27 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-140511",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:59:52",
+      "tags": [
+        "merchant",
+        "dashboard",
+        "data-viz"
+      ],
+      "summary": "Menu terjual: group per menu_id + grafik 5 batang + sheet detail (dulu 87 baris dari 98 order)",
+      "conn": [
+        {
+          "id": "TASK-140260",
+          "type": "relates",
+          "raw": "TASK-140260:relates"
+        }
+      ],
+      "loc": "src/data/merchantTrend.ts:135"
     }
   ]
 }
