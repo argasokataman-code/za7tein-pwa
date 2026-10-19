@@ -1,7 +1,7 @@
 # R-CUS-RATING — Rating merchant & menu item
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §20.2, §10 (CUS-27, CUS-28), §14 · flow `f19-rating-review` · milestone **M8**.
-Status: partial · terakhir ditinjau: 2026-10-17.
+Status: partial · terakhir ditinjau: 2026-10-19.
 
 ## 1. Untuk apa
 
@@ -25,7 +25,7 @@ Penilaian adalah satu-satunya umpan balik yang tersisa setelah uang berpindah. K
 | AC | Perilaku | Cara ukur | Status |
 |---|---|---|---|
 | AC1 | Merchant dinilai bintang 1–5 + review, satu penilaian per order | form `/reviews` (sheet) → `rating_reviews`; index unik parsial BE | ✅ sudah tersambung BE |
-| AC2 | Menu item dinilai **bintang saja**, tanpa review, **tanpa** sasaran varian | `ratingTargetsFor()` + `VARIANT_RATING_SUPPORTED=false`; assert di `scripts/rating-check.mjs` | ⚠️ aturan + bentuk sasaran sudah pasti; jalur tulis ditahan BE (`order_items` kosong) |
+| AC2 | Menu item dinilai **bintang saja**, tanpa review, **tanpa** sasaran varian | `ratingTargetsFor()` + `VARIANT_RATING_SUPPORTED=false`; assert di `scripts/rating-check.mjs` | ✅ `submitDishReview` menulis `rating_reviews` ber-`menu_id` (`src/api/reviews.ts:317`, dipanggil `Reviews.tsx:149`), daftar hidangan dari `order_items` live (`fetchOrderDishes`, `reviews.ts:201`), `MENU_RATING_AVAILABLE=true` |
 | AC3 | Diisi dari detail order via **menu riwayat**, **tanpa batas waktu** | `/orders` (riwayat) → deep link `/reviews?order=<kode>`; `RATING_WINDOW_DAYS === null`; `fetchOrderHistory` tanpa penyaring tanggal | ✅ halaman riwayat baru + deep link; menu riwayat sebelumnya **tidak ada** |
 | AC4 | Skala bintang 1–5 untuk merchant maupun menu item | `RATING_SCALE` + `isValidRating()`; radiogroup di form | ✅ diuji |
 | AC5 | Review tidak dimoderasi ops; rating tidak mengalir ke sengketa | `RATING_MODERATED=false`; tidak ada layar moderasi; `DisputeSubmit` tak memakai rating | ✅ diuji |

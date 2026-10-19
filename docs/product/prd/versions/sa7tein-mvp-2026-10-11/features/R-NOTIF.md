@@ -1,7 +1,7 @@
 # R-NOTIF — In-app + web push per peran
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §20.3, §10 (CUS-29), §11 (MER-23), §12 (COU-10), §19 · flow `f11-push-notification` · milestone **M7**.
-Status: partial · terakhir ditinjau: 2026-10-16.
+Status: partial · terakhir ditinjau: 2026-10-19.
 
 ## 1. Untuk apa
 
@@ -23,7 +23,7 @@ Perubahan status order harus sampai ke pihak yang berkepentingan tanpa harus mem
 | AC | Perilaku | Cara ukur | Status |
 |---|---|---|---|
 | AC1 | Inbox per peran (bell + daftar) hanya menampilkan audience miliknya | `notificationsFor()` + `notifVisibleTo()`; assert silang peran di `scripts/notif-check.mjs` | ✅ penjaga di klien, di atas filter query BE |
-| AC2 | Badge jumlah belum dibaca akurat dan persist antar sesi | `selectUnreadCount` + baca ulang setelah reload | ⚠️ ada; persist lewat BE |
+| AC2 | Badge jumlah belum dibaca akurat dan persist antar sesi | `selectUnreadCount` + baca ulang setelah reload | ✅ `markNotificationRead`/`markNotificationsRead` menulis tabel `notifications` (`src/api/notifications.ts:53,60`, dipanggil `NotificationRow.tsx:39`, `Notifications.tsx:60`, `NotificationBell.tsx:119`); badge dibaca dari `unread: !row.read` BE (`reference.ts:581`) + poll `useApiNotifications.ts:20` |
 | AC3 | Web push benar-benar terkirim ke perangkat kurir/customer | langganan `PushManager` + SW `push` handler | ⚠️ jalur ada (`api/push.ts`, `public/push-sw.js`); pengiriman masih manual/script |
 | AC4 | "Kurir hampir sampai" memakai **ambang ops** | satu sumber ambang bertanda ops, dipakai notif & R-TRACK | ✅ `NOTIF_EMIT.courier_almost_arrived` memakai `ALMOST_ARRIVED_MINUTES` yang sama; diuji `notif-check` |
 | AC5 | Keempat kanal daftar customer (§20.3) masing-masing punya jalur emit | `NOTIF_EMIT` + penanda `emit: fe\|be`; assert tiap jenis punya pemetaan | ⚠️ 2 dari 4 punya pemanggil di repo (`order_status`, `courier_almost_arrived`); promo & toko-baru = job BE, ditandai `emit: 'be'` |

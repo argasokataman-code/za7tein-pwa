@@ -22713,6 +22713,30 @@
     {
       "id": "TASK-140265",
       "shard": 21
+    },
+    {
+      "id": "TASK-140266",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140267",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140269",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140270",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140271",
+      "shard": 21
     }
   ],
   "sa7tein": [
@@ -57135,6 +57159,30 @@
     {
       "id": "TASK-140265",
       "shard": 21
+    },
+    {
+      "id": "TASK-140266",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140267",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140269",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140270",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140271",
+      "shard": 21
     }
   ],
   "/users/vanviakingali/downloads/sa7tein-pwa/agents.md": [
@@ -73128,6 +73176,30 @@
     },
     {
       "id": "TASK-140265",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140266",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140267",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140269",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140270",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140271",
       "shard": 21
     }
   ],
@@ -93062,6 +93134,14 @@
     },
     {
       "id": "TASK-140265",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140271",
       "shard": 21
     }
   ],
@@ -136019,6 +136099,30 @@
     {
       "id": "TASK-140265",
       "shard": 21
+    },
+    {
+      "id": "TASK-140266",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140267",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140269",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140270",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140271",
+      "shard": 21
     }
   ],
   "task-147": [
@@ -151374,6 +151478,30 @@
     },
     {
       "id": "TASK-140265",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140266",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140267",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140269",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140270",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140271",
       "shard": 21
     }
   ],
@@ -256105,6 +256233,10 @@
     {
       "id": "TASK-130082",
       "shard": 20
+    },
+    {
+      "id": "TASK-140267",
+      "shard": 21
     }
   ],
   "task-1190": [
@@ -301532,6 +301664,10 @@
     },
     {
       "id": "TASK-140011",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140266",
       "shard": 21
     }
   ],
@@ -401817,6 +401953,10 @@
     {
       "id": "TASK-140010",
       "shard": 21
+    },
+    {
+      "id": "TASK-140269",
+      "shard": 21
     }
   ],
   "task-140010": [
@@ -402154,6 +402294,82 @@
   "task-140265": [
     {
       "id": "TASK-140265",
+      "shard": 21
+    }
+  ],
+  "/users/vanviakingali/project/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/r-cou-inhouse.md": [
+    {
+      "id": "TASK-140266",
+      "shard": 21
+    }
+  ],
+  "task-140266": [
+    {
+      "id": "TASK-140266",
+      "shard": 21
+    }
+  ],
+  "/users/vanviakingali/project/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/r-cus-rating.md": [
+    {
+      "id": "TASK-140267",
+      "shard": 21
+    }
+  ],
+  "task-140267": [
+    {
+      "id": "TASK-140267",
+      "shard": 21
+    }
+  ],
+  "/users/vanviakingali/project/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/r-notif.md": [
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    }
+  ],
+  "too": [
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    },
+    {
+      "id": "TASK-140271",
+      "shard": 21
+    }
+  ],
+  "task-140268": [
+    {
+      "id": "TASK-140268",
+      "shard": 21
+    }
+  ],
+  "task-140269": [
+    {
+      "id": "TASK-140269",
+      "shard": 21
+    }
+  ],
+  "/users/vanviakingali/project/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/r-dispute-rule.md": [
+    {
+      "id": "TASK-140270",
+      "shard": 21
+    }
+  ],
+  "task-140270": [
+    {
+      "id": "TASK-140270",
+      "shard": 21
+    }
+  ],
+  "/users/vanviakingali/project/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/r-batch.md": [
+    {
+      "id": "TASK-140271",
+      "shard": 21
+    }
+  ],
+  "task-140271": [
+    {
+      "id": "TASK-140271",
       "shard": 21
     }
   ]

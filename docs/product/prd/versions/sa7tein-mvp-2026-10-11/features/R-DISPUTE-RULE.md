@@ -1,7 +1,7 @@
 # R-DISPUTE-RULE — Rule dispute berbasis katalog (§18)
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §18 (+ flow `f8-dispute`) · milestone **M9**.
-Status: partial · terakhir ditinjau: 2026-10-17.
+Status: partial · terakhir ditinjau: 2026-10-19.
 
 ## 1. Untuk apa
 
@@ -32,7 +32,7 @@ PRD memisahkan **model** rule dari **isinya**: "Rule (mitigasi, kompensasi, puni
 | AC3 | Rule yang berlaku pada satu order = pilihan merchant; customer & kurir ikut | `ruleForOrder(selection, categoryId)`; assert: kategori terpilih → `source: 'merchant'`, kategori tak terpilih → `unresolved` | ✅ mesin; permukaan insiden belum |
 | AC4 | SP kurir partner tercatat sebagai bentuk punishment | `RULE_PUNISHMENTS` (`rule-noshow` → subjek `courier`, bentuk "Surat peringatan (SP)") | ✅ |
 | AC5 | Snapshot rule ke order | `snapshotRule()` membekukan `ruleId`/`code`/`version`/`mitigasi` + penanda `usulan: true` | ⚠️ bentuk usulan; BE belum menyimpan |
-| AC6 | Insiden punya bukti gambar (R2) | tipe `Incident.photoCount`/`photos`; belum ada layar insiden maupun unggahan R2 | ⚠️ ditahan BE (R2) |
+| AC6 | Insiden punya bukti gambar (R2) | tipe `Incident.photoCount`/`photos`; layar insiden + unggahan R2 | ⚠️ layar insiden ada (`/incidents` → `OpsIncidents.tsx:68`, menampilkan `photoCount`) dan unggah bukti ada di pengajuan sengketa (`DisputeSubmit.tsx:133`); unggah foto **dari layar insiden** masih seed (`data/admin.ts`) |
 | AC7 | Katalog tidak menunjuk id yang tidak ada | self-check menolak rule → kategori asing, kompensasi/punishment → rule asing, insiden → rule asing | ✅ |
 
 ## 4. State & layar

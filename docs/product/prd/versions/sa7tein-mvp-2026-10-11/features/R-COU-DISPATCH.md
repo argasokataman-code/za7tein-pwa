@@ -1,7 +1,7 @@
 # R-COU-DISPATCH — Penjadwalan kurir mitra untuk Quick
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §9.4 (**usulan**), §13 OPS-13, §22.2 R5 · flow `f26-quick-dispatch` · milestone **M6**.
-Status: blocked · terakhir ditinjau: 2026-10-16.
+Status: blocked · terakhir ditinjau: 2026-10-19.
 
 ## 1. Untuk apa
 
@@ -47,7 +47,7 @@ Saat merchant menerima order Quick, aplikator harus memilih **satu** kurir mitra
 
 | # | Kriteria | Cara ukur | Status |
 |---|---|---|---|
-| AC1 | Kandidat = online, tidak busy, tidak suspend | filter kandidat | ❌ tidak ada |
+| AC1 | Kandidat = online, tidak busy, tidak suspend | filter kandidat | ⚠️ filter parsial: `busy`/`reserved` dibuang (`MerchantOrders.tsx:240`); `offline` dan status suspend belum disaring — urutan/ambang tetap OPEN-11 |
 | AC2 | Idle terlama didahulukan | urut by waktu tunggu | ❌ tidak ada |
 | AC3 | Batas jarak diterapkan | banding jarak vs `dispatch_max_kms` | ❌ tidak ada |
 | AC4 | Tie-break `completedToday` lalu jarak | urutan deterministik | ❌ tidak ada |

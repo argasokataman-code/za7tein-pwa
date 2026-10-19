@@ -1,7 +1,7 @@
 # R-COU-INHOUSE — Kurir karyawan merchant (kerja per batch)
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §7.2, §12 (COU-11..14), §9.6 · flow `f13-courier-view`, `f25-batch-lifecycle` · milestone **M5**.
-Status: partial · terakhir ditinjau: 2026-10-16.
+Status: partial · terakhir ditinjau: 2026-10-19.
 
 ## 1. Untuk apa
 
@@ -58,7 +58,7 @@ Kurir **inhouse** adalah karyawan merchant (bukan mitra aplikator). Ia mengantar
 | AC6 | Settle hanya lewat OTP | `completeTask` (dipanggil setelah OTP benar) | ✅ `courierSlice.ts:86` |
 | AC7 | Fee online ke DANA, bukan saldo tarik | `courierFeeEntries`/`courierFeesPaid`; payout hanya tips | ✅ `src/data/courierWallet.ts` |
 | AC8 | COD ditandai dibayar merchant, bukan ke DANA | label "COD, dibayar merchant" | ✅ `CourierBatch.tsx:189` |
-| AC9 | Akun kurir dibuat merchant, bukan daftar mandiri | alur auth inhouse | ⚠️ auth mock (`f21`), belum ada pembuatan akun oleh merchant |
+| AC9 | Akun kurir dibuat merchant, bukan daftar mandiri | alur auth inhouse | ✅ form pendaftaran kurir ada di konsol merchant (`MerchantCouriers.tsx:71` → `merchantSlice.addCourier`, cek kuota + `toE164`); catatan: kredensial/login inhouse masih mock (`f21`) |
 | AC10 | Identitas order sama dengan batch merchant | id order kurir == id order merchant | ❌ kurir `ct-*`, merchant `mo-*`/`api-*` |
 | AC11 | Order berikutnya = urutan antar efektif | `nextBatchTask` = order pertama belum selesai | ✅ `courierBatch.ts:54`, dipakai `CourierBatch.tsx:65` |
 

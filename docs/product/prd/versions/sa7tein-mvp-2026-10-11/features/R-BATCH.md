@@ -1,7 +1,7 @@
 # R-BATCH — Batch order Regular satu kurir inhouse
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §8 (BR-B01..B13), §7.2, §22.2 R7 · flow `f25-batch-lifecycle` · milestone **M4** (+ dipakai M5).
-Status: partial · terakhir ditinjau: 2026-10-16.
+Status: partial · terakhir ditinjau: 2026-10-19.
 
 ## 1. Untuk apa
 
@@ -63,7 +63,7 @@ Order Regular (bukan Quick) tidak diantar satu-satu. Beberapa order satu merchan
 | AC7 | Mulai lebih awal butuh ditutup + semua packing | `canStartEarly(batch, orders)` = `closed` && `batchAllPacked` | ✅ `src/data/batch.ts:56-68` |
 | AC8 | Status `done` turunan saat semua order selesai | `batchDisplayStatus` | ✅ `src/data/courierBatch.ts:67` |
 | AC9 | Estimasi batch tampil ke customer | customer melihat estimasi dari batch | ⚠️ customer masih memakai ETA statis `mockOrder.readyEstimate` |
-| AC10 | State batch satu sumber lintas peran (merchant & kurir) | id order sama di kedua layar | ❌ kurir pakai `ct-*`, merchant `mo-*`/`api-*`; BE tanpa tabel `batches` |
+| AC10 | State batch satu sumber lintas peran (merchant & kurir) | id order sama di kedua layar | ❌ kurir pakai `ct-*`, merchant `mo-*`/`api-*`; tabel `batches` sudah ada dan dibaca (`api/batches.ts`, `useApiOrders.ts:29`) — gap-nya pemisahan store, bukan tabel |
 | AC11 | Hitung mundur nyata | penghitung berjalan | ⚠️ nilai demo (`BATCH_COUNTDOWN_SECONDS`), AGENTS §1 |
 
 ## 8. UNRESOLVED
