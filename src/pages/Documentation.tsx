@@ -972,7 +972,14 @@ export default function Documentation() {
                 <code className="doc-inline">customers</code>), telepon customer panel CS, dan nama
                 hidangan di ulasan. <code className="doc-inline">couriers.availability</code> D1
                 bernilai <code className="doc-inline">unavailable</code> — sekarang dipetakan
-                (sebelumnya jatuh ke <em>offline</em>).
+                (sebelumnya jatuh ke <em>offline</em>). Satu lagi dari keluarga yang sama:{' '}
+                <code className="doc-inline">zones.polygon</code> disimpan sebagai{' '}
+                <strong>TEXT berisi JSON</strong>, bukan array, jadi{' '}
+                <code className="doc-inline">fetchZones</code> yang memanggil{' '}
+                <code className="doc-inline">.map()</code> langsung ke string selalu gagal —
+                sinkronisasi zona reject, poligon tetap mock (Jakarta), dan setiap alamat BE
+                yang sah (Irbid) dinilai &ldquo;di luar area antar&rdquo;. Sekarang poligon
+                di-parse lebih dulu (<code className="doc-inline">polygonVertices</code>).
               </li>
               <li>
                 <strong>Audit integrasi + tiga tabel BE yang tadinya belum dibaca.</strong>{' '}

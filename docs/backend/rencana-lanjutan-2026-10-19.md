@@ -132,4 +132,8 @@ dari `ApiSync` (`App.tsx`).
 - Worker tak meng-coerce: `is_active` integer → `eq.1` (bukan `eq.true`); kena di
   `menu_categories`.
 - Kolom asing di `select` → 400 mematikan seluruh daftar.
+- **`zones.polygon` (D1) = TEXT berisi JSON, bukan array.** `fetchZones` dulu
+  `.map()` langsung ke string → reject → zona tetap mock Jakarta → semua alamat
+  BE (Irbid) tampak "di luar area antar". Di-parse dulu (`polygonVertices`).
+  Pelajaran: kolom JSON di D1 selalu datang sebagai string.
 - `rtk` lint/tsc rusak di repo ini → selalu `./scripts/verify.sh`.

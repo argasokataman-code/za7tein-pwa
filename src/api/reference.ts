@@ -91,7 +91,8 @@ interface ZoneRow {
   id: number
   code: string
   name: string
-  polygon: Array<[number, number]> | null
+  /** D1 menyimpan JSON sebagai TEXT; PostgREST kadang sudah mem-parse jadi array. */
+  polygon: Array<[number, number]> | string | null
 }
 interface RoleRow {
   id: number
@@ -353,7 +354,13 @@ export async function setStoreStatus(open: boolean, merchantId = DEMO_MERCHANT_I
   })
 }
 
-/** Poligon zona master SA (`zones.polygon` = array [lat,lng]). */
+/** Poligon zona master SA (`zones.polygon` = array [lat,lng]).
+ *
+ * D1 menyimpan kolomnya sebagai TEXT berisi JSON (`"[[32.52,35.82],…]"`), jadi
+ * harus di-parse dulu. Dulu `.map()` dipanggil langsung ke string → TypeError,
+ * promise `useSyncOnce` reject, dan `superAdmin.zones` tetap poligon mock
+ * (Jakarta) sementara alamat BE di Irbid → semua alamat jadi "di luar area".
+ */
 export async function fetchZones(): Promise<ZoneGeometry[]> {
   const token = await refToken()
   const rows = await restWith<ZoneRow>(token, 'zones', '?select=*&order=id.asc')
@@ -361,8 +368,27 @@ export async function fetchZones(): Promise<ZoneGeometry[]> {
     id: row.code.toLowerCase() as ZoneGeometry['id'],
     label: row.name,
     note: row.code,
-    vertices: (row.polygon ?? []).map(([lat, lng]) => ({ lat, lng })),
+    vertices: polygonVertices(row.polygon),
   }))
+}
+
+/** `[[lat,lng], …]` (array atau JSON teks) → `{lat,lng}[]`; rusak → `[]`. */
+function polygonVertices(raw: ZoneRow['polygon']): { lat: number; lng: number }[] {
+  let value: unknown = raw
+  if (typeof raw === 'string') {
+    try {
+      value = JSON.parse(raw)
+    } catch {
+      return []
+    }
+  }
+  if (!Array.isArray(value)) return []
+  return value.flatMap((pair) => {
+    if (!Array.isArray(pair) || pair.length < 2) return []
+    const [lat, lng] = pair
+    if (typeof lat !== 'number' || typeof lng !== 'number') return []
+    return [{ lat, lng }]
+  })
 }
 
 /**
