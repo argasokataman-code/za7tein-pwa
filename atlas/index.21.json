@@ -3914,6 +3914,139 @@
         }
       ],
       "commit": "6c31284"
+    },
+    {
+      "id": "TASK-140222",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:50:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CustomerRefund.tsx (+15/-12) — edit via tool: tsx: const saved = await createRefu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CustomerRefund.tsx"
+    },
+    {
+      "id": "TASK-140223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:50:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/refunds.ts (+12/-11) — edit via tool: ts: * Kontrak live (diverifikasi 2026-10-19)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/refunds.ts"
+    },
+    {
+      "id": "TASK-140224",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:51:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CustomerRefund.tsx (+2/-2) — edit via tool: tsx: const existing = await fetchOrde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CustomerRefund.tsx"
+    },
+    {
+      "id": "TASK-140225",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:51:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/refund.ts (+15) — write via tool: ts: import type { RefundStatus } from '../ty",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/refund.ts"
+    },
+    {
+      "id": "TASK-140226",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:51:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/refund-check.mjs (+22) — write via tool: // Self-check logika status refund tanpa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/refund-check.mjs"
+    },
+    {
+      "id": "TASK-140227",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:51:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+8/-4) — edit via tool: tsx: <code className=\"doc-inline\">POST",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-140228",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:51:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run check:self 2>&1 | tail -6; npm run lint 2>&1 | grep -E \"error|warning.*(refund|CustomerRefund)\" | head; npm run build 2>&1 |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

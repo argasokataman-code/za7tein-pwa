@@ -1,16 +1,17 @@
 /**
  * Refund penuh satu order online (§16.6) ↔ tabel `refunds`.
  *
- * Kontrak live (diverifikasi 2026-10-17): `id, order_id, amount_idr, method,
- * status, bank_name, account_number, created_at, completed_at`. Nominalnya
- * **IDR** (bukan JOD seperti tabel uang lain) — README R-CURR-01 tetap berlaku,
- * tak ada konversi di sini.
+ * Kontrak live (diverifikasi 2026-10-19): `id, order_id, amount_idr, method,
+ * status, bank_name, account_number, idempotency_key, created_at, completed_at`.
+ * Nominalnya **IDR** (bukan JOD seperti tabel uang lain) — README R-CURR-01 tetap
+ * berlaku, tak ada konversi di sini.
  *
  * Baca/tulis memakai sesi **CS** (`refToken`): RLS `refunds` hanya membuka tulis
  * untuk peran ops (customer & merchant ditolak 403). Nominal di BE **IDR**.
- * Enum BE sempit: `status` = `pending|processing|completed|failed`, dan `method`
- * yang diterima baru `dana` — cabang BI-FAST ditulis apa adanya lalu gagal
- * (ditandai UNRESOLVED, tak diklaim tersimpan). Semua tulis best-effort.
+ * `method` dan `status` di D1 bertipe TEXT tanpa CHECK: probe `POST /rest/v1/refunds`
+ * ber-`method:'bank'` menjawab 201, jadi cabang BI-FAST tersimpan apa adanya.
+ * `idempotency_key` unik per order+metode+nominal supaya retry tak menambah baris.
+ * Semua tulis best-effort.
  */
 import { jodToIdr } from '../data/currency'
 import { DEMO_CUSTOMER_ID, ensureCustomerToken } from './orders'

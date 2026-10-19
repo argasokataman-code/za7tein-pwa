@@ -3,8 +3,8 @@
 // bank (BI-FAST, biaya Rp2.500 ditanggung aplikator).
 //
 // Tersambung ke tabel `refunds` live (`src/api/refunds.ts`): permintaan dikirim
-// ke BE, status dibaca ulang dari baris tersimpan. Kalau BE menolak (mis. enum
-// `method` belum pasti) UI tetap menampilkan langkahnya — repo ini mock-first.
+// ke BE, status dibaca ulang dari baris tersimpan. Kalau BE menolak, UI tetap
+// menampilkan langkahnya — repo ini mock-first.
 // ponytail: kalau layar tidak diberi id order, sasaran = order online terbaru
 // customer demo; begitu tautan refund membawa `?order=`, ganti jalur itu.
 import { useEffect, useRef, useState } from 'react'
@@ -16,6 +16,7 @@ import { apiEnabled } from '../api/supabase'
 import { BackButton } from '../components/ui/BackButton'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { REFUND_AVAILABLE, REFUND_BI_FAST_FEE_IDR } from '../data/marketplace'
+import { savedRefundStatus } from '../data/refund'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useMoney } from '../hooks/useMoney'
 import type { RefundMethod, RefundStatus } from '../types'
@@ -75,7 +76,7 @@ export default function CustomerRefund() {
         if (!active || !order) return
         setLiveOrder({ id: order.id, amountIdr: order.amountIdr })
         const existing = await fetchOrderRefund(order.id)
-        if (active && existing) setStatus(existing.status)
+        if (active && existing) setStatus(savedRefundStatus(existing.status))
       })
       .catch(() => {})
     return () => {
@@ -106,9 +107,12 @@ export default function CustomerRefund() {
           bankName,
           bankAccount,
         })
-        setStatus(saved?.status ?? 'completed')
+        // BE menyimpan status `pending` = permintaan sudah terkirim. Status
+        // `pending_refund` di layar berarti BELUM dikirim, jadi jangan dipakai
+        // balik: kalau begitu form terbuka lagi dan refund bisa di-submit dua kali.
+        setStatus(saved ? savedRefundStatus(saved.status) : 'processing')
       } catch {
-        // BE menolak (RLS/enum) — UI tetap menyelesaikan langkahnya (mock-first).
+        // BE menolak / jaringan putus — UI tetap menyelesaikan langkahnya (mock-first).
         setStatus('completed')
       }
       return

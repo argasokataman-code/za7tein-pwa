@@ -620,8 +620,12 @@ export default function Documentation() {
                 <code className="doc-inline">src/api/refunds.ts</code> (
                 <code className="doc-inline">POST refunds</code> + baca baris), dengan kunci
                 idempoten satu refund per order+metode+nominal supaya tap ganda tidak menambah baris.
-                Kalau BE mati, status refund tetap maju di layar secara demo — mock-first, bukan
-                penanda &ldquo;belum tersedia&rdquo;. Nominal refund diambil dari{' '}
+                Baris yang sudah tersimpan ditampilkan sebagai <em>Diproses</em> — bukan membuka form
+                lagi — dan <code className="doc-inline">method: bank</code> tersimpan apa adanya (D1
+                TEXT tanpa CHECK; probe <code className="doc-inline">POST</code> menjawab 201). Aturan
+                murninya ditahan <code className="doc-inline">scripts/refund-check.mjs</code>. Kalau BE
+                mati, status refund tetap maju di layar secara demo — mock-first, bukan penanda
+                &ldquo;belum tersedia&rdquo;. Nominal refund diambil dari{' '}
                 <code className="doc-inline">useChargedBreakdown()</code> — angka yang sama dengan
                 Checkout.
               </li>
