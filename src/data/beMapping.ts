@@ -149,6 +149,23 @@ export function toDisputeCatalog(rows: DisputeRuleRow[]): {
 }
 
 /**
+ * Label bentuk punishment FE → `punishments.kind` (kebalikannya
+ * `PUNISHMENT_FORM`). Form bebas ketik, jadi cocokkan kata kuncinya.
+ */
+export function penaltyKind(form: string): string {
+  const value = form.toLowerCase()
+  if (value.includes('denda')) return 'fine'
+  if (value.includes('suspend')) return 'suspend'
+  return 'sp'
+}
+
+/** `SP-1` / `tingkat 2` → angka level; tanpa angka → `null`. */
+export function penaltyLevel(level: string): number | null {
+  const match = /\d+/.exec(level)
+  return match ? Number(match[0]) : null
+}
+
+/**
  * `enterprise_ledger` → `LedgerEntry`. Nominal BE JOD bisa negatif (`fee`), jadi
  * `direction` diturunkan dari tandanya dan `amount` disimpan absolut.
  */

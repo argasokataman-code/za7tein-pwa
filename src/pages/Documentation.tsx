@@ -1025,7 +1025,12 @@ export default function Documentation() {
                 Odoo FE; <code className="doc-inline">wallet_ledgers</code> hanya satu baris dengan
                 kolom <code className="doc-inline">direction</code> NULL (dompet FE memakai saldo{' '}
                 <code className="doc-inline">wallets</code>);{' '}
-                <code className="doc-inline">courier_types</code> belum punya layar.
+                <code className="doc-inline">courier_types</code> belum punya layar. Kini panel ops juga{' '}
+                <strong>menulis balik</strong>: sakelar rule →{' '}
+                <code className="doc-inline">PATCH dispute_rules</code>, terbitkan SP →{' '}
+                <code className="doc-inline">POST punishments</code> (nama pihak bebas-ketik
+                diresolusi ke <code className="doc-inline">subject_id</code>; tidak ketemu = entri
+                lokal disertai toast). Pencabutan SP tetap lokal karena BE belum punya kolom status.
               </li>
               <li>
                 PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}

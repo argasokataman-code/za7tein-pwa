@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 
 import { OpsShell } from '../../components/layout/OpsShell'
 import { OPS_PENALTY_STATUS_LABEL, OPS_SUBJECT_LABEL } from '../../data/ops'
+import { issuePenaltyRemote } from '../../api/ops'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import { issuePenalty, revokePenalty } from '../../store/slices/opsSlice'
 import type { OpsPenalty } from '../../types'
@@ -32,6 +33,12 @@ export default function OpsPenalties() {
       return
     }
     dispatch(issuePenalty({ ...draft, subjectName: draft.subjectName.trim() }))
+    // Tulis balik best-effort; nama bebas harus ketemu di BE dulu (subject_id).
+    void issuePenaltyRemote({ ...draft, subjectName: draft.subjectName.trim() })
+      .then((written) => {
+        if (!written) toast('Tercatat lokal — nama itu tidak ada di data BE')
+      })
+      .catch(() => {})
     toast.success(`SP diterbitkan ke ${draft.subjectName}`)
     setDraft(EMPTY)
   }

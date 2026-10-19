@@ -23,10 +23,10 @@ import type {
   OpsTagStatus,
   Punishment,
 } from '../types'
-import { PUNISHMENT_FORM, asRuleSubject, toDisputeCatalog } from '../data/beMapping'
+import { PUNISHMENT_FORM, asRuleSubject, penaltyKind, penaltyLevel, toDisputeCatalog } from '../data/beMapping'
 import type { DisputeRuleRow } from '../data/beMapping'
 import { refToken } from './reference'
-import { apiEnabled, patch, rest, restWith, rpc } from './supabase'
+import { apiEnabled, createWith, patch, rest, restWith, rpc } from './supabase'
 
 interface ParamsRow {
   quick_multiplier: number
@@ -215,6 +215,61 @@ export async function fetchPenalties(): Promise<OpsPenalty[]> {
       issuedAt: dayLabel(row.created_at),
     }
   })
+}
+
+/**
+ * Aktif/nonaktif satu rule di `dispute_rules` (kunci `code`, bukan id numerik —
+ * `code` satu-satunya kunci yang juga ada di mock). Best-effort: pemanggil
+ * `.catch`, state lokal tetap berubah.
+ */
+export async function setDisputeRuleActive(code: string, active: boolean): Promise<void> {
+  if (!apiEnabled) return
+  const token = await refToken()
+  await patch(token, 'dispute_rules', `?code=eq.${encodeURIComponent(code)}`, {
+    active: active ? 1 : 0,
+  })
+}
+
+/** Tabel + kolom nama pihak, per jenis subjek (untuk resolusi nama → id). */
+const SUBJECT_NAME: Record<string, [string, string]> = {
+  courier: ['couriers', 'name'],
+  merchant: ['merchants', 'store_name'],
+  customer: ['customers', 'name'],
+}
+
+/**
+ * Terbitkan SP ke `punishments`. BE menyimpan `subject_id`, sedangkan form ops
+ * mengetik nama bebas — jadi nama diresolusi dulu; tidak ketemu = **tidak
+ * ditulis** (`false`), dan pemanggil memberi tahu bahwa entrinya lokal.
+ * Pencabutan tetap lokal karena BE belum punya kolom status.
+ */
+export async function issuePenaltyRemote(input: {
+  subject: OpsPenalty['subject']
+  subjectName: string
+  form: string
+  level: string
+  reason: string
+}): Promise<boolean> {
+  if (!apiEnabled) return false
+  const entry = SUBJECT_NAME[input.subject]
+  if (!entry) return false
+  const [table, column] = entry
+  const token = await refToken()
+  const rows = await restWith<{ id: number }>(
+    token,
+    table,
+    `?select=id&${column}=eq.${encodeURIComponent(input.subjectName)}&limit=1`,
+  )
+  const subjectId = rows[0]?.id
+  if (!subjectId) return false
+  await createWith(token, 'punishments', {
+    subject_type: input.subject,
+    subject_id: subjectId,
+    kind: penaltyKind(input.form),
+    level: penaltyLevel(input.level),
+    reason: input.reason,
+  })
+  return true
 }
 
 interface ExchangeRateRow {

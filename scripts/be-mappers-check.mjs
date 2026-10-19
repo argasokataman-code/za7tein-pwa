@@ -7,6 +7,8 @@ import assert from 'node:assert/strict'
 
 import {
   parsePunishment,
+  penaltyKind,
+  penaltyLevel,
   toDisputeCatalog,
   toLedgerEntry,
   toRebateTiers,
@@ -93,5 +95,14 @@ assert.equal(payout.direction, 'credit')
 assert.equal(payout.type, 'settlement')
 assert.equal(payout.ref, 'order-838')
 assert.equal(payout.memo, 'settle')
+
+// Form bebas ketik → kind BE; level apa pun → angka atau null.
+assert.equal(penaltyKind('Surat peringatan (SP)'), 'sp')
+assert.equal(penaltyKind('Denda'), 'fine')
+assert.equal(penaltyKind('Suspend sementara bila berulang'), 'suspend')
+assert.equal(penaltyKind('apa saja'), 'sp')
+assert.equal(penaltyLevel('SP-2'), 2)
+assert.equal(penaltyLevel('tingkat 3'), 3)
+assert.equal(penaltyLevel('ringan'), null)
 
 console.log('be-mappers: ok')

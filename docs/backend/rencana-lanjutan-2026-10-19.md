@@ -62,6 +62,29 @@ mematikan seluruh query). Baca kolom → tulis mapper + hook **pola mock-first**
 | `wallet_ledgers` | ⏸️ **ditunda** | 1 baris, kolom `ref_type/ref_id/direction` semuanya NULL; dompet FE = saldo (`wallets`), bukan daftar ledger. Bentuk tak nyambung. |
 | `courier_types` | ⏸️ **ditunda** | FE belum punya rumah (cuma `Courier`/`CourierPartner`). Perlu keputusan tampilannya dulu. |
 
+**Tulis balik (A, 2026-10-19):** izin Worker dibuktikan dulu — `PATCH
+dispute_rules` 204, `POST punishments` 201, `DELETE` 204 (baris probe dihapus).
+
+| Aksi FE | Tulis BE |
+|---|---|
+| Nonaktifkan/aktifkan rule (`/ops/rules`) | `PATCH dispute_rules?code=eq.<code>` `{active}` |
+| Terbitkan SP (`/ops/penalties`) | `POST punishments` — nama diketik bebas, diresolusi ke `subject_id` (couriers/merchants/customers); tak ketemu → entri lokal + toast |
+| Cabut SP | **lokal saja** — `punishments` belum punya kolom status (dicatat UNRESOLVED di dokumen ini) |
+
+**Verifikasi live commit lama (B, 2026-10-19)** — sesi `cs@`, semua HTTP 200:
+
+| Tabel | Baris | Commit |
+|---|---|---|
+| `menus` | 30 | `15155bf` |
+| `menu_categories` | 3 | `bcacaee` |
+| `checkpoints` | 20 | `c358a99` |
+| `chat_participants` | 28 | `c358a99` |
+| `deposits` | 18 | `c358a99` |
+| `exchange_rates` | 1 (rate 23000) | `f704a27` |
+
+Bukti UI (`/ops/rules`, `/ops/penalties`): baris `DR-LATE`… dan `Budi Santoso`
+(join nama) ter-render dari BE, bukan mock.
+
 Mapper murni dipindah ke `src/data/beMapping.ts`; self-check `npm run
 check:be-mappers` (baris contoh dari D1 nyata). Wiring: `useApiOps` dipanggil
 dari `ApiSync` (`App.tsx`). Tulis (POST/PATCH) belum — panel ops masih mock.

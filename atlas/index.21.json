@@ -2956,6 +2956,139 @@
           "raw": "TASK-130209:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-130235",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "19:12:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/beMapping.ts (+19/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/beMapping.ts"
+    },
+    {
+      "id": "TASK-130236",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "19:12:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/ops.ts (+3/-2) — edit via tool: ts: import { PUNISHMENT_FORM, asRuleSubject,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/ops.ts"
+    },
+    {
+      "id": "TASK-130237",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "19:13:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/ops/OpsRules.tsx (+4/-3) — edit via tool: tsx: import { OpsShell } from '../../co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/ops/OpsRules.tsx"
+    },
+    {
+      "id": "TASK-130238",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "19:13:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/ops/OpsPenalties.tsx (+9/-3) — edit via tool: tsx: dispatch(issuePenalty({ ...dra",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/ops/OpsPenalties.tsx"
+    },
+    {
+      "id": "TASK-130239",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "19:13:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs (+8/-6) — edit via tool: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs"
+    },
+    {
+      "id": "TASK-130240",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "19:17:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/backend/rencana-lanjutan-2026-10-19.md (+25/-2) — edit via tool: | `courier_types` | ⏸",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/backend/rencana-lanjutan-2026-10-19.md"
+    },
+    {
+      "id": "TASK-130241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "19:17:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+8/-3) — edit via tool: tsx: <code className=\"doc-inline\">cour",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

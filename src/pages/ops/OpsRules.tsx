@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { OpsShell } from '../../components/layout/OpsShell'
 import { INCIDENT_CATEGORIES } from '../../data/rules'
 import { compensationsForRule } from '../../data/ops'
+import { setDisputeRuleActive } from '../../api/ops'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import { toggleRuleActive } from '../../store/slices/opsSlice'
 
@@ -77,6 +78,8 @@ export default function OpsRules() {
                         className="sa-btn sa-btn--small"
                         onClick={() => {
                           dispatch(toggleRuleActive({ id: rule.id }))
+                          // Tulis balik best-effort: state lokal tetap berubah.
+                          setDisputeRuleActive(rule.code, !rule.active).catch(() => {})
                           toast.success(
                             rule.active ? `${rule.code} dinonaktifkan` : `${rule.code} diaktifkan`,
                           )
