@@ -584,7 +584,10 @@ export default function Documentation() {
                 pada checkout kini diambil dari merchant keranjang aktif, daftar
                 &ldquo;Keranjang lain&rdquo; tetap tampil walau keranjang aktif kosong, dan
                 keranjang aktif disimpan lebih dulu sebelum ditimpa — item tidak hilang saat
-                pindah.
+                pindah. Seksinya kini satu permukaan bergaris rambut (bukan kartu putih berulang
+                per baris): logo toko 44px, nama + jumlah item, nominal rata kanan ber-
+                <code className="doc-inline">tabular-nums</code> di rel lebar tetap, dan tombol
+                buang ghost 44px; focus ring memakai <code className="doc-inline">--orange-ink</code>.
               </li>
               <li>
                 <strong>Aturan uang PRD baru</strong> (M2a) jadi fungsi murni JOD di{' '}

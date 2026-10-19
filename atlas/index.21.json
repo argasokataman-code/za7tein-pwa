@@ -4277,6 +4277,177 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-mvp-2026-10-11/features/R-BATCH.md"
+    },
+    {
+      "id": "TASK-140272",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:29:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Checkout.tsx (+1/-1) — edit via tool: tsx: import { getStorefront, swapBrokenImag",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-140273",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:29:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss (+133/-56) — edit via tool: /* ── Keranjang ganda per toko",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-140274",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:30:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss (+6/-5) — edit via tool: .checkout-other-cart__open {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-140275",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:30:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+10/-7) — edit via tool: tsx: <code className=\"doc-inline\">/cu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-140276",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:30:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -E \"error|Checkout\" | head -10; npm run build 2>&1 | tail -3; npm run scan 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-140277",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:32:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss (+5/-6) — edit via tool: .checkout-other-cart__open {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-140278",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:34:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss (+17/-16) — edit via tool: .checkout-other-cart__rail {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss"
+    },
+    {
+      "id": "TASK-140279",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:35:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: node scripts/e2e-browsers.mjs shot customer /tmp/other-carts3.png >/dev/null 2>&1; node scripts/e2e-browsers.mjs eval customer '(()=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-140280",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "21:37:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss (+7/-4) — edit via tool: .checkout-other-cart__drop {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_checkout.scss"
     }
   ]
 }

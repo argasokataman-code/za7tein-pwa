@@ -5,7 +5,7 @@
 //
 // Sekarang isinya dibaca dari store: daftar item, alamat antar, dan ringkasan
 // biaya dengan ongkir zona yang sama seperti halaman pembayaran.
-import { Bike, Check, Minus, Plus, ShoppingBag, Tag, Trash2 } from 'lucide-react'
+import { Bike, Check, Minus, Plus, ShoppingBag, Store, Tag, Trash2 } from 'lucide-react'
 
 import { useState } from 'react'
 
@@ -28,7 +28,7 @@ import {
   zoneFor,
 } from '../data/merchant'
 import { mockUser } from '../data/user'
-import { getStorefront } from '../data/storefronts'
+import { getStorefront, swapBrokenImage } from '../data/storefronts'
 import { QUICK_DISPATCH_AVAILABLE } from '../data/marketplace'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
@@ -60,30 +60,49 @@ function OtherCarts({
     <div className="checkout-section">
       <h2 className="section-title s7-parallax--title">Keranjang lain</h2>
       <div className="checkout-other-carts">
-        {carts.map((cart) => (
-          <div className="checkout-other-cart" key={cart.merchantId}>
-            <button
-              type="button"
-              className="checkout-other-cart__open"
-              onClick={() => onSwitch(cart.merchantId)}
-            >
-              <span className="checkout-other-cart__name">
-                {getStorefront(cart.merchantId)?.name ?? 'Toko lain'}
+        {carts.map((cart) => {
+          const store = getStorefront(cart.merchantId)
+          const name = store?.name ?? 'Toko lain'
+          return (
+            <div className="checkout-other-cart list-row" key={cart.merchantId}>
+              <button
+                type="button"
+                className="checkout-other-cart__open"
+                aria-label={`Buka keranjang ${name}`}
+                onClick={() => onSwitch(cart.merchantId)}
+              >
+                <span className="checkout-other-cart__thumb" aria-hidden="true">
+                  {store?.logo ? (
+                    <img
+                      src={store.logo}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      onError={swapBrokenImage}
+                    />
+                  ) : (
+                    <Store size={18} strokeWidth={1.75} />
+                  )}
+                </span>
+                <span className="checkout-other-cart__text">
+                  <span className="checkout-other-cart__name">{name}</span>
+                  <span className="checkout-other-cart__meta">{cart.count} item</span>
+                </span>
+              </button>
+              <span className="checkout-other-cart__rail">
+                <span className="checkout-other-cart__total">{formatAmount(cart.subtotal)}</span>
+                <button
+                  type="button"
+                  className="checkout-other-cart__drop"
+                  aria-label={`Buang keranjang ${name}`}
+                  onClick={() => onRemove(cart.merchantId)}
+                >
+                  <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
+                </button>
               </span>
-              <span className="checkout-other-cart__meta">
-                {cart.count} item · {formatAmount(cart.subtotal)}
-              </span>
-            </button>
-            <button
-              type="button"
-              className="checkout-other-cart__drop"
-              aria-label="Buang keranjang ini"
-              onClick={() => onRemove(cart.merchantId)}
-            >
-              <Trash2 size={16} strokeWidth={1.75} aria-hidden="true" />
-            </button>
-          </div>
-        ))}
+            </div>
+          )
+        })}
       </div>
     </div>
   )
