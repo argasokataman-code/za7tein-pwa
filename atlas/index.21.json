@@ -3874,6 +3874,46 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/marketplace.ts"
+    },
+    {
+      "id": "TASK-140014",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:47:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -3; rtk git add -A && git commit -m \"chore(be): sync stale unavailable flags with live BE tables\n\nRefund, q",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-140221",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:47:56",
+      "tags": [
+        "be",
+        "drift",
+        "self-check"
+      ],
+      "summary": "Verifikasi tabel BE (refunds, quota_subscriptions, order_items, batches, marketing_programs) sudah ada; FE sudah tersambung. Bersihkan klaim",
+      "conn": [
+        {
+          "id": "DEC-130212",
+          "type": "relates",
+          "raw": "DEC-130212:relates"
+        }
+      ],
+      "commit": "6c31284"
     }
   ]
 }
