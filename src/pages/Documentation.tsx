@@ -765,6 +765,15 @@ export default function Documentation() {
                 <code className="doc-inline">marketing</code> (mock) tetap jalan.
               </li>
               <li>
+                <strong>Peringkat "Menu terjual" jadi grafik + sheet detail, dan satu menu dihitung sekali.</strong> Daftar itu dulu bisa mencapai 87 &ldquo;menu&rdquo; dari 98 order karena
+                peringkat dikelompokkan per <code className="doc-inline">CartItem.id</code>, padahal id itu unik per baris order, jadi tidak pernah bertemu. Item order merchant kini membawa{' '}
+                <code className="doc-inline">menuId</code> (<code className="doc-inline">order_items.menu_id</code>) dan peringkat dikelompokkan per identitas itu (mundur ke{' '}
+                <code className="doc-inline">id</code> kalau BE tidak mengirimnya). Kartu beranda menampilkan grafik batang horizontal 5 menu teratas dengan satu aksen{' '}
+                <code className="doc-inline">chart-tone-bg--brand</code> (bukan warna bergilir per item) dan tanpa garis pemisah karena ini grafik, bukan daftar; batangnya disembunyikan saat menunya cuma satu (batang 100% tidak membandingkan apa pun). Tombol{' '}
+                <code className="doc-inline">Lihat detail N menu</code> membuka <code className="doc-inline">BottomSheet</code> berisi seluruh menu (qty, omzet, jumlah order) yang menggulir di dalam panel. Self-check-nya{' '}
+                <code className="doc-inline">scripts/merchant-rank-check.mjs</code>.
+              </li>
+              <li>
                 <strong>Aksi utama turun ke zona jempol, lonceng ke layar akar.</strong> Tombol
                 "Buat" tidak lagi di pojok kanan atas bar judul (pojok atas adalah tempat mata, bukan
                 tempat jempol): halaman promo memakai tombol melayang{' '}

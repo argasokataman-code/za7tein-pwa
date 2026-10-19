@@ -324,6 +324,7 @@ function relativeTime(iso: string): string {
 /** Baris `order_items` (nama barang sudah didenormalisasi di BE). */
 interface OrderItemRow {
   order_id: number
+  menu_id: number | null
   name: string
   qty: number
   line_total_jod: number
@@ -340,6 +341,10 @@ interface CustomerNameRow {
 function toCartItems(orderId: number, rows: OrderItemRow[]): CartItem[] {
   return rows.map((row, index) => ({
     id: `api-${orderId}-${index}`,
+    // `menu_id` yang stabil lintas order; dipakai peringkat menu supaya satu
+    // menu tidak muncul sekali per order (id baris di atas memang unik per
+    // baris, itu yang membuat daftar "Menu terjual" membengkak).
+    menuId: row.menu_id != null ? String(row.menu_id) : undefined,
     name: row.name,
     price: jodToIdr(row.line_total_jod / Math.max(1, row.qty)),
     quantity: row.qty,
@@ -422,7 +427,7 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
     restWith<OrderItemRow>(
       token,
       'order_items',
-      `?select=order_id,name,qty,line_total_jod,modifiers&order_id=in.(${orderIds.join(',')})`,
+      `?select=order_id,menu_id,name,qty,line_total_jod,modifiers&order_id=in.(${orderIds.join(',')})`,
     ),
     restWith<CustomerNameRow>(
       token,

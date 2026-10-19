@@ -461,6 +461,12 @@ export interface CartItem {
   notes?: string
   /** Toko asal item — keranjang dipisah per merchant (PRD §6/§11). */
   merchantId?: string
+  /**
+   * Identitas menu dari BE (`order_items.menu_id`). `id` adalah kunci unik
+   * per baris order (aman untuk React key), jadi peringkat penjualan harus
+   * memakai field ini supaya satu menu tidak terhitung sekali per order.
+   */
+  menuId?: string
 }
 
 /**

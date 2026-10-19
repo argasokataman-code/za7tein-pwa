@@ -125,8 +125,10 @@ export interface MenuSalesRow {
  *
  * `MerchantOrder.items` sudah membawa `CartItem.quantity` dan `price`, jadi
  * "menu apa yang paling disukai" bisa diturunkan tanpa menambah data apa pun.
- * Dikelompokkan per `CartItem.id`, bukan per nama: dua item dengan nama sama
- * tapi id berbeda adalah dua baris menu yang berbeda.
+ * Dikelompokkan per identitas menu (`CartItem.menuId` kalau ada, kalau tidak
+ * `CartItem.id`), bukan per baris order: baris order punya id unik per order,
+ * jadi memakai `id` saja membuat satu menu muncul sekali untuk tiap order yang
+ * memuatnya (terukur: 87 "menu" dari 98 order padahal menunya belasan).
  *
  * **Rentangnya sempit dan labelnya harus jujur.** Delapan order mock adalah
  * sekitar setengah jam terakhir, bukan "sepanjang masa"; bisa saja satu kantor
@@ -138,8 +140,9 @@ export function menuSalesRanking(orders: MerchantOrder[] = merchantOrders): Menu
     // Order yang ditolak/batal tidak pernah jadi penjualan.
     if (order.status === 'ditolak' || order.status === 'batal') continue
     for (const item of order.items) {
-      const row = byId.get(item.id) ?? {
-        id: item.id,
+      const key = item.menuId ?? item.id
+      const row = byId.get(key) ?? {
+        id: key,
         name: item.name,
         sold: 0,
         revenueIdr: 0,
@@ -148,7 +151,7 @@ export function menuSalesRanking(orders: MerchantOrder[] = merchantOrders): Menu
       row.sold += item.quantity
       row.revenueIdr += item.quantity * item.price
       row.orders += 1
-      byId.set(item.id, row)
+      byId.set(key, row)
     }
   }
   return [...byId.values()].sort((a, b) => b.sold - a.sold || b.revenueIdr - a.revenueIdr)

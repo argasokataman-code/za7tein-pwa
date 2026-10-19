@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
+import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { DonutChart } from '../components/ui/DonutChart'
@@ -21,9 +22,57 @@ import {
   revenueTrendBars,
   topMenuShare,
   trendTotals,
+  type MenuSalesRow,
 } from '../data/merchantTrend'
 import { switchBlockCopy } from '../data/superadmin'
 import { setStoreActive, setStoreBusy } from '../store/slices/merchantSlice'
+
+/** Baris peringkat yang tampil sebelum daftar dibuka. */
+const TOP_MENU_ROWS = 5
+
+/**
+ * Satu batang grafik "Menu terjual". Satu aksen saja (`chart-tone-bg--brand`)
+ * untuk semua batang — variasi warna per item hanya mengulang urutan yang sudah
+ * terbaca dari panjang batang. Omzet & jumlah order ikut ditampilkan di sheet
+ * detail, bukan di kartu beranda, supaya kartunya tetap satu ide.
+ */
+function MenuSalesBar({
+  row,
+  max,
+  revenue,
+  showMeta,
+  showBar,
+}: {
+  row: MenuSalesRow
+  max: number
+  revenue: string
+  showMeta: boolean
+  showBar: boolean
+}) {
+  return (
+    <li className="menu-chart__item">
+      <span className="menu-chart__head">
+        <span className="menu-chart__name">{row.name}</span>
+        <span className="menu-chart__value">
+          <strong>{row.sold}</strong> porsi
+        </span>
+      </span>
+      {showBar ? (
+        <span className="menu-chart__track" aria-hidden="true">
+          <span
+            className="menu-chart__fill chart-tone-bg--brand"
+            style={{ width: `${Math.max(4, (row.sold / max) * 100)}%` }}
+          />
+        </span>
+      ) : null}
+      {showMeta ? (
+        <span className="menu-chart__meta">
+          {revenue} · {row.orders} order
+        </span>
+      ) : null}
+    </li>
+  )
+}
 
 /** Copy konfirmasi per status — setiap perubahan status minta ketuk kedua. */
 const STATUS_CONFIRM: Record<StoreStatus, { title: string; body: string; confirmLabel: string }> = {
@@ -54,6 +103,7 @@ export default function MerchantDashboard() {
   const storeName = useAppSelector((s) => s.merchant.storeName)
   const closeTime = useAppSelector((s) => s.merchant.closeTime)
   const [pendingStatus, setPendingStatus] = useState<StoreStatus | null>(null)
+  const [menuDetailOpen, setMenuDetailOpen] = useState(false)
   const orders = useAppSelector((s) => s.merchant.orders)
   const todayOrderCount = useAppSelector((s) => s.merchant.todayOrderCount)
   const dailyLimit = useAppSelector((s) => s.merchant.dailyLimit)
@@ -76,6 +126,7 @@ export default function MerchantDashboard() {
   const menuSales = menuSalesRanking(orders)
   const topMenu = topMenuShare(menuSales)
   const topSold = menuSales[0]?.sold ?? 1
+  const menuRows = menuSales.slice(0, TOP_MENU_ROWS)
   const orderMix = orderMixSegments(orders)
   const paymentMix = paymentMixSegments(orders)
   const paymentByLabel = (prefix: string) =>
@@ -199,41 +250,44 @@ export default function MerchantDashboard() {
             memberi tahu apa yang sedang terjadi; ini memberi tahu menu mana yang
             layak diperhatikan. Diturunkan dari `CartItem` di order yang sudah
             ada — nol mock baru. Rentangnya WAJIB disebut, karena delapan order
-            ini sekitar setengah jam terakhir, bukan sepanjang masa. */}
+            ini sekitar setengah jam terakhir, bukan sepanjang masa. Kartu hanya
+            memuat 5 batang teratas (grafik, bukan daftar); sisa menu dibuka di
+            sheet "Lihat detail" supaya kartu lain tidak terdorong jauh ke bawah. */}
         <section className="merchant-card">
           <div className="merchant-card-head">
             <div>
               <p className="merchant-card-title" role="heading" aria-level={2}>Menu terjual</p>
-              <p className="merchant-card-sub">{orders.length} order terakhir</p>
+              <p className="merchant-card-sub">
+                {menuSales.length} menu dari {orders.length} order terakhir
+              </p>
             </div>
           </div>
-          {topMenu ? (
-            <p className="merchant-card-sub">
-              {topMenu.name} menyumbang {Math.round(topMenu.share * 100)}% porsi terjual dari{' '}
-              {topMenu.orders} order.
-            </p>
-          ) : null}
           {menuSales.length === 0 ? (
             <p className="merchant-empty">
               Belum ada order masuk. Penjualan menu muncul setelah order pertama.
             </p>
           ) : (
-            <ul className="merchant-rank">
-              {menuSales.map((row, index) => (
-                <li key={row.id}>
-                  <span className="merchant-rank-name">{row.name}</span>
-                  <span className="merchant-rank-bar" aria-hidden="true">
-                    <span
-                      className={index === 0 ? 'chart-tone-bg--brand' : 'chart-tone-bg--muted'}
-                      style={{ width: `${(row.sold / topSold) * 100}%` }}
-                    />
-                  </span>
-                  <span className="merchant-rank-figures">
-                    <strong>{row.sold}</strong> porsi · {moneyPlain(row.revenueIdr)}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <>
+              <ul className="menu-chart">
+                {menuRows.map((row) => (
+                  <MenuSalesBar
+                    key={row.id}
+                    row={row}
+                    max={topSold}
+                    revenue={moneyPlain(row.revenueIdr)}
+                    showMeta={false}
+                    showBar={menuSales.length > 1}
+                  />
+                ))}
+              </ul>
+              <button
+                type="button"
+                className="menu-chart-more"
+                onClick={() => setMenuDetailOpen(true)}
+              >
+                Lihat detail {menuSales.length} menu
+              </button>
+            </>
           )}
         </section>
 
@@ -482,6 +536,31 @@ export default function MerchantDashboard() {
           }}
           onClose={() => setPendingStatus(null)}
         />
+
+        <BottomSheet
+          open={menuDetailOpen}
+          title="Menu terjual"
+          onClose={() => setMenuDetailOpen(false)}
+        >
+          <p className="merchant-card-sub">
+            {menuSales.length} menu dari {orders.length} order terakhir.
+            {topMenu
+              ? ` ${topMenu.name} menyumbang ${Math.round(topMenu.share * 100)}% porsi terjual dari ${topMenu.orders} order.`
+              : ''}
+          </p>
+          <ul className="menu-chart menu-chart--detail">
+            {menuSales.map((row) => (
+              <MenuSalesBar
+                key={row.id}
+                row={row}
+                max={topSold}
+                revenue={moneyPlain(row.revenueIdr)}
+                showMeta
+                showBar={menuSales.length > 1}
+              />
+            ))}
+          </ul>
+        </BottomSheet>
       </main>
       <MerchantBottomNav />
     </div>

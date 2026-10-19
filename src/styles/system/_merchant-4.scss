@@ -278,62 +278,105 @@
   gap: var(--space-3);
 }
 
-/* Peringkat menu: daftar, bukan grafik. Yang dibandingkan urutannya, jadi bar
-   panjang relatif (8px) lebih terbaca daripada donut atau bar chart kolom.
-   Satu aksen saja — peringkat 1 oranye, sisanya muted. */
-.merchant-rank {
+/* Menu terjual: grafik batang horizontal, bukan daftar. Bentuk horizontal
+   dipilih karena yang dibandingkan adalah panjang relatif per menu — batang
+   vertikal akan memaksa nama menu miring atau terpotong. Satu aksen saja
+   (`chart-tone-bg--brand` untuk semua batang, bukan warna bergilir per item:
+   panjang batang sudah membawa urutannya). Kartu beranda memuat 5 teratas;
+   sisanya di sheet detail. */
+.menu-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+
   list-style: none;
-  margin: var(--space-3) 0 0;
+  margin: 0;
   padding: 0;
-
-  li {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      'name figures'
-      'bar bar';
-    gap: var(--space-1) var(--space-3);
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  li:last-child {
-    border-bottom: none;
-  }
 }
 
-.merchant-rank-name {
-  grid-area: name;
+.menu-chart__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.menu-chart__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.menu-chart__name {
+  overflow: hidden;
+
+  color: var(--text-primary);
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--text-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.merchant-rank-figures {
-  grid-area: figures;
+.menu-chart__value {
+  flex: 0 0 auto;
+
+  color: var(--text-secondary);
   font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
-  color: var(--text-secondary);
   white-space: nowrap;
 
   strong {
     color: var(--text-primary);
+    font-size: var(--text-sm);
   }
 }
 
-.merchant-rank-bar {
-  grid-area: bar;
+.menu-chart__track {
   display: block;
-  height: 8px;
-  border-radius: var(--radius-xs);
-  background: var(--border);
+  height: var(--space-1);
   overflow: hidden;
 
-  > span {
-    display: block;
-    height: 100%;
-    border-radius: var(--radius-xs);
-  }
+  border-radius: var(--radius-pill);
+  background: var(--border);
+}
+
+.menu-chart__fill {
+  display: block;
+  height: 100%;
+
+  border-radius: var(--radius-pill);
+}
+
+.menu-chart__meta {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sheet detail memuat seluruh menu, jadi jaraknya dirapatkan supaya daftar
+   panjang tidak menggulir berlebihan. */
+.menu-chart--detail {
+  gap: var(--space-3);
+}
+
+.menu-chart-more {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: none;
+  color: var(--orange-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-chart-more:focus-visible {
+  outline: 2px solid var(--orange-ink);
+  outline-offset: -2px;
 }
 
 .merchant-sim-btn {
