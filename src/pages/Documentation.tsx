@@ -1025,7 +1025,11 @@ export default function Documentation() {
                 Odoo FE; <code className="doc-inline">wallet_ledgers</code> hanya satu baris dengan
                 kolom <code className="doc-inline">direction</code> NULL (dompet FE memakai saldo{' '}
                 <code className="doc-inline">wallets</code>);{' '}
-                <code className="doc-inline">courier_types</code> belum punya layar. Kini panel ops juga{' '}
+                <code className="doc-inline">courier_types</code> tak punya rumah: FE memodelkan jenis
+                kurir sebagai tipe terpisah (<code className="doc-inline">Courier</code> = inhouse,{' '}
+                <code className="doc-inline">CourierPartner</code> = partner), bukan satu field, dan
+                kontrak <code className="doc-inline">couriers.courier_type</code> sudah dipakai di
+                pemilih dispatch. Kini panel ops juga{' '}
                 <strong>menulis balik</strong>: sakelar rule →{' '}
                 <code className="doc-inline">PATCH dispute_rules</code>, terbitkan SP →{' '}
                 <code className="doc-inline">POST punishments</code> (nama pihak bebas-ketik
@@ -1057,8 +1061,12 @@ export default function Documentation() {
                 <strong>Riwayat</strong> (pesanan selesai). Baris pesanan berjalan turun dari
                 komponen bersama <code className="doc-inline">ActiveOrderRow</code> yang dipakai
                 juga oleh sheet dok keranjang — dua daftar tak lagi menyalin baris. Tiap riwayat
-                dapat tombol <strong>Pesan lagi</strong> yang memetakan nama hidangan ke katalog dan
-                mengisi keranjang dengan harga sekarang (bukan harga arsip), berdampingan dengan
+                dapat tombol <strong>Pesan lagi</strong> yang mencocokkan nama hidangan ke{' '}
+                <strong>katalog live</strong> (<code className="doc-inline">useAllMenuItems</code>/
+                <code className="doc-inline">useStorefronts</code>, mock <code className="doc-inline">menuSeed</code>{' '}
+                sebagai fallback — dulu daftar mock statis, jadi menu yang berubah di BE tak
+                terbaca) dan mengisi keranjang dengan harga sekarang (bukan harga arsip),
+                berdampingan dengan
                 pintasan <code className="doc-inline">Beri rating</code>. Bilah bawah ikut tampil di
                 halaman ini — sebelumnya destinasi nav justru tanpa nav. Terukur: rel kanan baris
                 satu nilai (410px), tombol aksi 44px seragam, tak ada elemen di bawah nav; gate{' '}

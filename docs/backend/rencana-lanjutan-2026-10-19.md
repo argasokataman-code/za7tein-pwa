@@ -87,29 +87,35 @@ Bukti UI (`/ops/rules`, `/ops/penalties`): baris `DR-LATE`… dan `Budi Santoso`
 
 Mapper murni dipindah ke `src/data/beMapping.ts`; self-check `npm run
 check:be-mappers` (baris contoh dari D1 nyata). Wiring: `useApiOps` dipanggil
-dari `ApiSync` (`App.tsx`). Tulis (POST/PATCH) belum — panel ops masih mock.
-
-| Tabel | Rumah di FE | Catatan mapping |
-|---|---|---|
-| `product_attributes` + `product_attribute_values` | `catalogAttributesSlice` (`mockCatalogAttributes` `data/catalogOdoo.ts:19`), dipakai `MenuAttributeEditor` + `MenuDetail` | `display_type`→`displayType`, `price_extra`→`defaultExtraPrice`; join via `attribute_id` |
-| `cashback_tiers` | `REBATE_TIERS` `data/incentive.ts:34` → `MerchantRebate.tsx` | perlu baca bentuk tier FE dulu |
-| `dispute_rules` | `DISPUTE_RULES` `data/rules.ts:33` → `ops/OpsRules.tsx` | BE punya `compensation`/`punishment`, tipe FE tak ada → putuskan |
-| `punishments` | `RULE_PUNISHMENTS` `data/rules.ts:153`, riwayat `data/ops.ts:67` → `ops/OpsPenalties.tsx` | `subject_type`→`subject`, `kind`→`form`, `dispute_id`→`ruleId` |
-| `enterprise_ledger` | `adminLedger` `data/admin.ts:322` → `SaLedger.tsx`/`AdminLedger.tsx` | `party` BE string? vs `LedgerParty` objek |
-| `wallet_ledgers` | `mockWallet`/`PayoutEntry` `data/wallet.ts:15` | `ref_type`/`direction` vs `kind` FE |
-| `courier_types` | **belum ada rumah** — FE cuma punya `Courier`/`CourierPartner` | putuskan dulu: tampilkan di mana (Setelan kurir? konsol CS?) |
+dari `ApiSync` (`App.tsx`).
 
 ### 3c. Verifikasi (wajib, angka bukan kesan)
 - `./scripts/verify.sh` (lint+build) · `npm run scan` (0 FAIL)
-- Gate: `GATE_BASE=http://localhost:4174 node scripts/browser-gate.mjs --route <rute> --strict --click`
-  — server yang sudah hidup: `:4173` preview PWA, `:4174` preview. **Jangan start baru.**
+- Gate: `node scripts/browser-gate.mjs --route <rute> --strict --click` di dev
+  server repo ini (`:5173`). Preview `:4173`/`:4174` milik salinan lain (404) —
+  **jangan dipakai, jangan start server baru.**
 - Per tabel: `curl` endpoint Worker + cek 200 + jumlah baris.
-- Bukti tulis: `POST`→201, `PATCH`→204, `DELETE`→204 (pola `menus`).
+- Bukti tulis: `POST`→201, `PATCH`→204, `DELETE`→204.
 
-### 3d. Sisa mock non-katalog (opsional, beda ranah)
-`mockMerchant`/`mockUser` (identitas, jam, alamat) di MerchantSettings,
-CourierProfile, OrderChat, OrderStageScreen, PaymentAmount. `foods.find` di
-`MyOrder.tsx:118` (harga). Belum diputuskan mau di-live-kan atau tidak.
+### 3d. Keputusan sisa tabel + mock non-katalog (C, 2026-10-19)
+- **`product_attributes`/`product_attribute_values`** — tetap ditunda:
+  `menu_attribute_lines` kosong dan `menu_variants.options` beda model. Dibuka
+  saat BE punya ikatan atribut→menu yang bisa dipetakan.
+- **`wallet_ledgers`** — tetap ditunda: 1 baris, `direction`/`ref_type`/`ref_id`
+  NULL. Dibuka saat `direction` terisi → tampilkan sebagai riwayat saldo
+  (`PayoutEntry`) di dompet merchant.
+- **`courier_types`** — tetap ditunda: FE memodelkan jenis kurir sebagai tipe
+  terpisah (`Courier` = inhouse, `CourierPartner` = partner), bukan field;
+  `courier_types` cuma label. Kontrak `couriers.courier_type` sudah dipakai di
+  `api/dispatch.ts`. Label keras ("Kurir inhouse") tidak diganti lookup — tak
+  menambah nilai.
+- **Mock identitas** (`mockMerchant`/`mockUser` di MerchantSettings,
+  CourierProfile, OrderChat, OrderStageScreen, PaymentAmount) — **dibiarkan**:
+  itu pola *mock-first* repo ini (fallback saat BE belum menghidrasi), bukan
+  kebocoran.
+- **`foods.find` di MyOrder** — **diperbaiki**: "Pesan lagi" mencocokkan ke
+  katalog live (`useAllMenuItems`/`useStorefronts`, fallback `menuSeed`), bukan
+  mock statis; harga tetap harga sekarang.
 
 ## 4. Jebakan yang sudah digigit (jangan ulang)
 - **`src/api/ops.ts` sudah ada** (ops tag + platform params). Cek dulu sebelum

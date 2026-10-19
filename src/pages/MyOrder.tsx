@@ -12,8 +12,9 @@ import { OrderRefundCelebration } from '../components/customer/OrderRefundCelebr
 import { BottomNav } from '../components/layout/BottomNav'
 import { BackButton } from '../components/ui/BackButton'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
-import { foods } from '../data/foods'
+import { menuSeed } from '../data/catalog'
 import { getStorefront, storefronts } from '../data/storefronts'
+import { useAllMenuItems, useStorefronts } from '../hooks/useApiCatalog'
 import { useCancelOrder } from '../hooks/useCancelOrder'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -84,7 +85,13 @@ export default function MyOrder() {
 
   const cartStores = Object.values(otherCarts).filter((items) => items.length > 0).length
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
-  const activeStore = activeMerchantId ? getStorefront(activeMerchantId) : undefined
+  // Katalog + toko live (mock sebagai fallback) — dipakai tombol "Pesan lagi"
+  // supaya menu yang sudah berubah di BE ikut terbaca, bukan daftar mock statis.
+  const liveStores = useStorefronts(storefronts)
+  const liveItems = useAllMenuItems(menuSeed)
+  const activeStore =
+    liveStores.find((s) => s.id === activeMerchantId) ??
+    (activeMerchantId ? getStorefront(activeMerchantId) : undefined)
   const activeCount = activeOrders.length + (cartItems.length ? 1 : 0)
   const unreviewed = history.filter((order) => !order.reviewed).length
 
@@ -107,16 +114,21 @@ export default function MyOrder() {
 
   /**
    * Pesan lagi: pasang ulang hidangan lama ke keranjang. Nama menu dari BE
-   * dipetakan ke katalog (`foods`) — harga yang dipakai harga **sekarang**, bukan
-   * harga arsip. Toko dicocokkan lewat nama supaya keranjangnya jatuh di toko
-   * yang benar; hidangan yang tak lagi ada di katalog dilewati, dan kalau tak ada
-   * satu pun yang cocok kita bilang terus terang.
+   * dicocokkan ke **katalog live** (BE, mock sebagai fallback) — harga yang
+   * dipakai harga **sekarang**, bukan harga arsip. Toko dicocokkan lewat nama
+   * supaya keranjangnya jatuh di toko yang benar; hidangan yang tak lagi ada di
+   * katalog dilewati, dan kalau tak ada satu pun yang cocok kita bilang terus
+   * terang.
    */
   const reorder = (order: OrderHistoryItem) => {
-    const store = storefronts.find((s) => s.name === order.merchantName)
+    const store = liveStores.find((s) => s.name === order.merchantName)
+    // Utamakan menu milik toko itu; kalau `merchantId` tak nyambung (mock vs BE),
+    // jatuh ke seluruh katalog supaya "Pesan lagi" tak mati karena id.
+    const inStore = liveItems.filter((item) => item.merchantId === store?.id)
+    const pool = inStore.length ? inStore : liveItems
     let added = 0
     for (const dish of order.items) {
-      const food = foods.find((f) => dish.name.includes(f.name) || f.name.includes(dish.name))
+      const food = pool.find((f) => dish.name.includes(f.name) || f.name.includes(dish.name))
       if (!food) continue
       dispatch(addItem({ food, quantity: dish.qty ?? 1, merchantId: store?.id }))
       added += 1
