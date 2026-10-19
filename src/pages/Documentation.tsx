@@ -612,14 +612,16 @@ export default function Documentation() {
                 jadi QRIS hilang dari layar walau aktif di database).
               </li>
               <li>
-                <strong>Refund ditandai belum tersedia</strong> (M2c): layar{' '}
+                <strong>Refund jalan ke BE (M2c, §16.6).</strong> Layar{' '}
                 <code className="doc-inline">/customer/refund</code> menampilkan alur §16.6 lengkap —
                 saldo DANA (otomatis), rekening bank lewat BI-FAST (biaya{' '}
                 <code className="doc-inline">Rp2.500</code> ditanggung aplikator), dan pilihan
-                DANA/bank untuk QRIS + binding — tetapi <strong>nonaktif</strong>, karena BE demo
-                belum punya tabel <code className="doc-inline">refunds</code> (404) maupun endpoint
-                refund. Satu flag <code className="doc-inline">REFUND_AVAILABLE</code> membuka
-                jalurnya begitu BE siap. Nominal refund diambil dari{' '}
+                DANA/bank untuk QRIS + binding. Jalur tulisnya di{' '}
+                <code className="doc-inline">src/api/refunds.ts</code> (
+                <code className="doc-inline">POST refunds</code> + baca baris), dengan kunci
+                idempoten satu refund per order+metode+nominal supaya tap ganda tidak menambah baris.
+                Kalau BE mati, status refund tetap maju di layar secara demo — mock-first, bukan
+                penanda &ldquo;belum tersedia&rdquo;. Nominal refund diambil dari{' '}
                 <code className="doc-inline">useChargedBreakdown()</code> — angka yang sama dengan
                 Checkout.
               </li>
@@ -639,9 +641,13 @@ export default function Documentation() {
                 berdampingan — kuota <strong>order</strong> dan kuota <strong>COD</strong> — beserta
                 paket, terpakai, ter-reserve, periode, dan status (Cukup / Hampir habis / Habis /
                 Belum ada langganan), plus daftar paket yang bisa dibeli. Pembeliannya{' '}
-                <strong>ditandai belum tersedia</strong> (flag{' '}
-                <code className="doc-inline">QUOTA_PURCHASE_AVAILABLE</code>): BE belum punya tabel
-                langganan, jadi tombolnya mati dengan alasan. Setting "terima order tanpa kuota"
+                <strong>jalan ke BE</strong> (flag{' '}
+                <code className="doc-inline">QUOTA_PURCHASE_AVAILABLE</code>):{' '}
+                <code className="doc-inline">src/api/quota.ts</code> menulis baris{' '}
+                <code className="doc-inline">quota_subscriptions</code> dari paket{' '}
+                <code className="doc-inline">quota_packages</code>; kalau BE mati, slice kuota
+                (mock) tetap jalan. Pengurangan saldo &amp; pencatatan pembayaran paket belum ada di
+                BE. Setting "terima order tanpa kuota"
                 hanya bisa diubah <strong>saat toko tutup</strong> (§17) — saat toko buka, sakelarnya
                 mati dan sebabnya ditulis di tempat. Saat menyala, kartunya menjadi hijau penuh; di
                 atas permukaan pekat itu sakelar dan labelnya dinetralkan (trek translucent, tombol
@@ -744,9 +750,12 @@ export default function Documentation() {
                 <code className="doc-inline">/merchant/promos</code> kini punya seksi "Program
                 marketing": program milik toko (promosi, beli X gratis Y, loyalty) beserta jenis,
                 hadiah, syarat, dan jendela tanggal, plus sakelar "boleh digabung" yang benar-benar
-                mengubah potongan yang dilihat pembeli di keranjang. Backend belum punya tabel
-                program (<code className="doc-inline">loyalty_programs</code> → 404), jadi
-                membuat/mengubah program ditandai belum tersedia.
+                mengubah potongan yang dilihat pembeli di keranjang. Pembuatan/pengubahan program
+                lewat <code className="doc-inline">src/api/programs.ts</code> (
+                <code className="doc-inline">marketing_programs</code> +{' '}
+                <code className="doc-inline">marketing_rewards</code> +{' '}
+                <code className="doc-inline">marketing_rules</code>); kalau BE mati, slice{' '}
+                <code className="doc-inline">marketing</code> (mock) tetap jalan.
               </li>
               <li>
                 <strong>Aksi utama turun ke zona jempol, lonceng ke layar akar.</strong> Tombol
@@ -795,7 +804,9 @@ export default function Documentation() {
                 <code className="doc-inline">src/data/courierBatch.ts</code> ditahan{' '}
                 <code className="doc-inline">scripts/courier-batch-check.mjs</code>. Catatan: rute
                 memakai jarak garis lurus (mock), bukan Google Routes (WALK), dan batch demo di-seed
-                karena BE belum punya tabel <code className="doc-inline">batches</code>.
+                karena penugasan kurir&harr;batch di BE masih OPEN-11 — tabel{' '}
+                <code className="doc-inline">batches</code> sendiri sudah ada dan batch merchant
+                disinkron read-only (<code className="doc-inline">src/api/batches.ts</code>).
               </li>
               <li>
                 <strong>Urutan antar bisa digeser saat auto-sort mati (M5).</strong> Sakelar OFF
@@ -834,8 +845,9 @@ export default function Documentation() {
                 chip peserta menandai yang <em>belum bergabung</em>, tiap gelembung pihak
                 lain membawa <strong>nama pengirim</strong> supaya toko dan kurir bisa
                 dibedakan, thread ditutup saat order selesai/batal (composer diganti notice,
-                riwayat tetap terbaca), dan lampiran gambar ditandai belum tersedia karena
-                butuh R2. Ditahan <code className="doc-inline">scripts/chat-check.mjs</code>.
+                riwayat tetap terbaca), dan lampiran gambar aktif (unggah R2 lewat Worker,
+                bucket menumpang <code className="doc-inline">menu-images</code>). Ditahan{' '}
+                <code className="doc-inline">scripts/chat-check.mjs</code>.
                 Sisa M7: feed event realtime di layar (publication BE masih hanya tabel
                 <code className="doc-inline">orders</code>).
               </li>
@@ -1233,11 +1245,12 @@ export default function Documentation() {
               </li>
               <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
-                backend menandainya di muka: refund (§16.6) memakai flag{' '}
-                <code className="doc-inline">REFUND_AVAILABLE</code>, dan <strong>Setelan toko</strong>{' '}
-                (merchant) kini menyebut bahwa profil &amp; foto hanya berlaku selama sesi ini —
-                sebelumnya ia menampilkan "Setelan toko disimpan" padahal state-nya tidak pernah
-                dikirim ke server (dan tak ikut persist).
+                backend menandainya di muka: <strong>Setelan toko</strong> (merchant) kini menyebut
+                bahwa profil &amp; foto hanya berlaku selama sesi ini — sebelumnya ia menampilkan
+                "Setelan toko disimpan" padahal state-nya tidak pernah dikirim ke server (dan tak ikut
+                persist). Refund (§16.6) sudah punya jalur tulis (
+                <code className="doc-inline">src/api/refunds.ts</code>), jadi ia tidak lagi berflag
+                &ldquo;belum tersedia&rdquo;.
               </li>
               <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}

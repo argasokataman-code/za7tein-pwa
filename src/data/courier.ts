@@ -114,9 +114,11 @@ export const DELIVERY_OTP_DEMO = '4821'
 export const COURIER_GUARD_MINUTES = { call: 5, batal: 10 } as const
 
 /**
- * Id batch demo kurir inhouse (M5). BE belum punya tabel `batches` (gap M4), jadi
- * tugas demo diikat ke batch mock di `data/courierBatch.ts`. Di BE nanti batch
- * lahir dari order Regular yang di-accept merchant dan kurir di-assign (BR-B07).
+ * Id batch demo kurir inhouse (M5). Tabel `batches` sudah ada di BE dan batch
+ * merchant disinkronkan read-only (`src/api/batches.ts` → `mergeBatches`), tapi
+ * penugasan kurir↔batch di BE masih OPEN-11, jadi tugas demo tetap diikat ke
+ * batch seed `data/courierBatch.ts`. Di BE batch lahir dari order Regular yang
+ * di-accept merchant dan kurir di-assign (BR-B07).
  */
 export const COURIER_BATCH_DEMO_ID = 'cb-1'
 

@@ -39,8 +39,9 @@ export const RATING_EVENT = 'rating_submitted'
 /**
  * Rating menu item kini bisa diisi: form membaca daftar hidangan order dari
  * `order_items` (`fetchOrderDishes`, best-effort) dan menulis baris rating
- * ber-`menu_id`. Tabel `order_items` di BE demo masih kosong, jadi blok bintang
- * per hidangan hanya muncul saat barisnya tersedia — tanpa mengarang nama menu.
+ * ber-`menu_id` lewat `submitDishReview`. Blok bintang per hidangan hanya
+ * muncul bila order itu memang punya baris `order_items` — tanpa mengarang
+ * nama menu.
  */
 export const MENU_RATING_AVAILABLE = true
 

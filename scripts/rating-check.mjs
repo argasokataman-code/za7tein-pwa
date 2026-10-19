@@ -36,8 +36,8 @@ assert.equal(RATING_FROM_HISTORY, true)
 // Nama event dari analysis.md (PRD tidak menamainya) — pastikan tidak berubah diam-diam.
 assert.equal(RATING_EVENT, 'rating_submitted')
 
-// Rating menu ditahan sampai BE mengirim daftar hidangan pesanan.
-assert.equal(MENU_RATING_AVAILABLE, false)
+// Rating menu aktif: `order_items` ada di BE dan tulisnya lewat submitDishReview.
+assert.equal(MENU_RATING_AVAILABLE, true)
 
 // Sasaran penilaian: toko + tiap menu yang dipesan, dan TIDAK ada sasaran varian.
 const targets = ratingTargetsFor({

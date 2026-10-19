@@ -1,7 +1,7 @@
 # R-CUS-CHAT — Group chat per order
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §20.1, §10 (CUS-26), §12 (COU-07), §19 · flow `f14-chat-order` · milestone **M7**.
-Status: partial · terakhir ditinjau: 2026-10-16.
+Status: partial · terakhir ditinjau: 2026-10-19.
 
 ## 1. Untuk apa
 
@@ -25,7 +25,7 @@ Koordinasi saat permintaan customer tidak bisa dipenuhi apa adanya (mis. catatan
 | AC1 | Thread ada untuk **setiap order yang sudah dibuat**, peserta awal customer + merchant | fungsi murni `chatParticipants()` + `chat-check` | ✅ `chatParticipants()` (`src/data/chat.ts:44-53`); chip peserta menampilkan Pembeli + Toko sejak awal, self-check `scripts/chat-check.mjs` |
 | AC2 | Kurir muncul sebagai peserta **hanya** setelah batch di-assign (inhouse) / assignment di-approve (partner) | `chatParticipants()` atas state batch & assignment; assert untuk 4 kombinasi | ✅ `courierJoinedInhouse`/`courierJoinedPartner` (`chat.ts:74-92`) + layar membaca `courier.batch` & `partner.assignments` (`OrderChat.tsx:125-127`); kurir belum gabung = chip putus-putus "belum bergabung" |
 | AC3 | Kirim/terima **teks** pada thread order yang sama | kirim di UI + baris baru muncul dengan waktu | ✅ terukur di Chromium asli: klik nyata tombol kirim 44×44 → gelembung `--aku` bertambah, lalu balasan + indikator "sedang menulis" |
-| AC4 | Lampiran **gambar** (R2) | — | ❌ `CHAT_MEDIA_AVAILABLE=false` + `PlatformNotice` di layar (`OrderChat.tsx:334-340`); BE demo belum punya bucket/kolom lampiran |
+| AC4 | Lampiran **gambar** (R2) | unggah nyata di layar: berkas divalidasi `imageFileError`, diunggah `uploadMedia` ke Worker (R2), URL dikirim sebagai `body` dan dirender jadi gambar | ✅ tombol lampiran 44×44 + input `image/*` (`OrderChat.tsx:503-518`) → `uploadImage` (`src/lib/image.ts` → `uploadMedia`, `src/api/supabase.ts`) → URL di `body`, dirender sebagai gambar (`OrderChat.tsx:76`); bucket khusus chat belum ada, menumpang `menu-images` |
 | AC5 | Thread **ditutup** saat order batal/ditolak, dan beberapa jam setelah selesai | status thread turunan `chatStatusFor()` | ✅ `chatStatusFor()` (`chat.ts:60-66`); terukur: `orderStage=selesai` → "Chat ditutup setelah order selesai" (`OrderChat.tsx:304-309`) dan composer hilang, riwayat tetap terbaca |
 | AC6 | Ragam peserta tampil (siapa di dalam thread), tidak ada thread kedua per order | header thread menampilkan daftar peserta; `threadsForOrder(orderId)` panjang = 1 | ✅ daftar peserta (`OrderChat.tsx:240-254`, 3 chip) + nama pengirim per gelembung (`:259-263`) supaya toko dan kurir bisa dibedakan; satu thread tetap satu daftar peserta |
 
@@ -44,8 +44,8 @@ Koordinasi saat permintaan customer tidak bisa dipenuhi apa adanya (mis. catatan
 
 ## 6. Yang belum (blocked)
 
-- **Gambar (AC4)**: BE demo tak punya bucket R2 maupun kolom lampiran di `chat_messages`; layar menandai jalurnya belum tersedia (`CHAT_MEDIA_AVAILABLE`), bukan memalsukan unggahan.
 - **Kurir gabung otomatis (AC2)**: assignment/dispatch nyata belum ada (OPEN-11, `R-COU-DISPATCH`), jadi keanggotaan diturunkan dari **state demo** (batch ter-assign / assignment `approved`), bukan dari event BE `courier_joined_chat`. Jalur event-nya tetap tercatat sebagai kontrak.
+- **Gambar (AC4)**: jalur unggah sudah jalan, tetapi bucket khusus chat belum ada — menumpang `menu-images`. Ganti begitu BE menyediakan bucket/kolom lampiran sendiri (REQUEST-FE-ke-BE §8).
 
 ## 7. UNRESOLVED
 
@@ -56,7 +56,7 @@ Koordinasi saat permintaan customer tidak bisa dipenuhi apa adanya (mis. catatan
 
 ## 8. Bukti
 
-- Kode: `src/data/chat.ts` (`chatParticipants:44-53`, `chatStatusFor:60-66`, `courierJoinedInhouse:74-79`, `courierJoinedPartner:85-88`, `CHAT_MEDIA_AVAILABLE:98`), `src/pages/OrderChat.tsx` (derivasi peserta `:118-142`, daftar peserta `:240-254`, nama pengirim `:259-263`, penutupan thread `:304-309`, penanda lampiran `:334-340`), `src/styles/system/_order-chat.scss`, `src/styles/_system.scss` (facade).
+- Kode: `src/data/chat.ts` (`chatParticipants:44-53`, `chatStatusFor:60-66`, `courierJoinedInhouse:74-79`, `courierJoinedPartner:85-88`), `src/pages/OrderChat.tsx` (derivasi peserta `:118-142`, daftar peserta `:240-254`, nama pengirim `:259-263`, penutupan thread `:304-309`, lampiran gambar `:503-518`), `src/lib/image.ts` (`uploadImage`), `src/styles/system/_order-chat.scss`, `src/styles/_system.scss` (facade).
 - Self-check: `scripts/chat-check.mjs` (peserta awal, kurir gabung per jalur, `courierId` null, order di luar batch, partner pending/rejected/approved, jalur masuk regular/quick, lifecycle buka/tutup, thread hanya bila order ada).
 - Terukur di Chromium asli (jendela PWA customer, `:4173`): 3 chip peserta, gelembung `--merchant`/`--aku`/`--kurir` dengan nama pengirim (toko ≠ kurir), kirim lewat klik nyata tombol 44×44 → gelembung bertambah + balasan, `orderStage=selesai` → notice tutup dan composer hilang, overflow-x 0, kolom 430.
 - Flow: `docs/design/flows/f14-chat-order/` (status `done` di `INDEX.json`, basis C-18 + C-12).

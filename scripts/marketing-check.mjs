@@ -175,7 +175,7 @@ assert.deepEqual(
   owned.filter((e) => !e.program.isStackable).map((e) => e.program.id),
   ['prog-4'],
 )
-// Flag jujur: BE belum punya tabel program → buat/ubah ditandai belum tersedia.
-assert.equal(PROGRAM_EDIT_AVAILABLE, false)
+// Flag jujur: BE sudah punya `marketing_programs` → buat/ubah aktif.
+assert.equal(PROGRAM_EDIT_AVAILABLE, true)
 
 console.log('marketing-check OK')

@@ -107,6 +107,6 @@ for (const pkg of mockQuotaPackages) {
   assert.ok(pkg.days > 0, `paket ${pkg.id} harus punya masa berlaku`)
   assert.ok(pkg.priceJod > 0, `paket ${pkg.id} harus punya harga`)
 }
-assert.equal(QUOTA_PURCHASE_AVAILABLE, false, 'belum ada endpoint kuota di BE')
+assert.equal(QUOTA_PURCHASE_AVAILABLE, true, 'pembelian kuota aktif lewat api/quota.ts')
 
 console.log('quota-check OK')

@@ -212,25 +212,6 @@
   font-size: var(--text-sm);
 }
 
-/* Penanda lampiran gambar belum tersedia (R2). Satu baris tenang di atas
-   composer: ini batas demo, bukan galat yang perlu kotak peringatan. */
-.chat-media-note {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-
-  margin: 0 var(--space-5) var(--space-2);
-
-  color: var(--text-secondary-strong);
-  font-size: var(--text-xs);
-  line-height: 1.35;
-}
-
-.chat-media-note svg {
-  flex: none;
-  margin-top: 1px;
-}
-
 /* ── Latar thread: pola titik, bukan bidang kosong ──────────────────────────
    Kanvas `--bg-warm` polos membuat percakapan terasa seperti halaman kosong.
    Pola titik 2px berjarak 24px memberi tekstur "kertas" tanpa menggeser

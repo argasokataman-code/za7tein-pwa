@@ -67,9 +67,9 @@ export const PROGRAM_TONE: Record<MarketingProgramType, string> = {
 }
 
 /**
- * Program marketing dibuat/diubah di klien dengan slice `marketing` (mock): satu
- * program = satu rule + satu reward. BE demo tak punya tabel program
- * (`loyalty_programs` → 404), jadi program tersimpan di state aplikasi.
+ * Program marketing dibuat/diubah lewat BE: `marketing_programs` +
+ * `marketing_rewards` + `marketing_rules` (`src/api/programs.ts`). Kalau BE mati,
+ * slice `marketing` (mock) tetap jalan — mock-first, bukan penanda belum tersedia.
  */
 export const PROGRAM_EDIT_AVAILABLE = true
 

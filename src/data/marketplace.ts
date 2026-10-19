@@ -46,19 +46,17 @@ export const PLATFORM_FEE_MERCHANT_DEFAULT_JOD = 0.25
 export const REFUND_BI_FAST_FEE_IDR = 2500
 
 /**
- * Refund dijalankan penuh di klien dengan tabel refund **mock**. BE demo belum
- * punya tabel `refunds` (404) dan `src/api/orders.ts` belum punya endpoint
- * refund, jadi status refund maju sendiri (`pending_refund → processing →
- * completed`) di layar. Begitu BE menyediakan endpoint, ganti timer mock
- * dengan polling endpoint itu.
+ * Refund aktif: `refunds` ada di BE dan jalur tulisnya di
+ * `src/api/refunds.ts` (`POST` + baca baris). Kalau BE mati, layar tetap maju
+ * dalam mode demo — mock-first, bukan penanda "belum tersedia" lagi.
  */
 export const REFUND_AVAILABLE = true
 
 /**
- * Dispatch kurir partner (PRD §9.4/M6) dijalankan di klien dengan `partnerSlice`
- * (mock): merchant memilih mitra yang tersedia dan assignment dikirim ke state
- * aplikasi. BE demo belum punya tabel `courier_partner`/assignment maupun
- * endpoint dispatch (OPEN-11), jadi antrean kandidat nyata belum dihitung.
+ * Dispatch kurir partner (PRD §9.4/M6): kandidat mitra dibaca live dari
+ * `couriers` non-inhouse (`src/api/dispatch.ts`), dan penugasan kurir menulis
+ * `orders.courier_id`. Yang belum: penjadwalan `dispatch_courier()` + evaluasi
+ * kandidat (OPEN-11) serta talangan COD Quick.
  */
 export const QUICK_DISPATCH_AVAILABLE = true
 
@@ -205,10 +203,9 @@ export const mockQuotaPackages: QuotaPackage[] = [
 ]
 
 /**
- * Pembelian kuota dijalankan penuh di klien dengan slice kuota (mock). BE belum
- * punya tabel langganan (`merchant_subscriptions`/`quota_subscriptions` → 404),
- * jadi paket yang dibeli menambah langganan di state aplikasi sampai endpoint
- * kuota tersedia.
+ * Pembelian kuota aktif: `quota_packages` + `quota_subscriptions` ada di BE dan
+ * jalur tulisnya di `src/api/quota.ts` (`purchaseQuotaPackage`). Pengurangan
+ * saldo & pencatatan pembayaran paket belum ada di BE.
  */
 export const QUOTA_PURCHASE_AVAILABLE = true
 

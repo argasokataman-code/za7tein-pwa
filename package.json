@@ -16,6 +16,7 @@
     "scan:test": "node scripts/surface-scan.test.mjs",
     "check:db-time": "node scripts/db-time-check.mjs",
     "check:be-mappers": "node --import ./scripts/lib/ts-resolve.mjs scripts/be-mappers-check.mjs",
+    "check:self": "node scripts/check-self.mjs",
     "browser:gate": "node scripts/browser-gate.mjs",
     "push:send": "node --env-file=.env.local scripts/send-push.mjs",
     "push:deploy": "supabase functions deploy send-push",

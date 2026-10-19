@@ -64,7 +64,7 @@ Order **Quick** tidak lewat batch. Aplikator mengirim assignment ke **kurir mitr
 | AC8 | Tidak merespons → expire + pengganti + SP + off | alur `expire_assignments()` | ✅ `expireAssignment` (`partnerSlice.ts:74-94`) + `issueWarningLetter`; bukti Chromium asli (klik nyata 356×44): chip jadi `Offline, belum menerima assignment`, "1 SP aktif", riwayat "Kedaluwarsa · SP dicatat ke mitra (COU-17) · Diganti oleh Salim", daftar menunggu jadi "Belum ada assignment baru.", overflow-x 0. Pemicu di produksi = BE (tombol di layar ditandai simulasi) |
 | AC9 | 100% fee Quick ke mitra | entri fee Quick = fee penuh | ❌ belum ada (fee Quick belum dibedakan) |
 | AC10 | Quick COD talangi tunai ke merchant | alur talangan saat pickup | ❌ tidak ada |
-| AC11 | Assignment nyata dari dispatch, bukan demo | dispatch jalur BE | ❌ `sendAssignment` mock; `QUICK_DISPATCH_AVAILABLE=false` |
+| AC11 | Assignment nyata dari dispatch, bukan demo | dispatch jalur BE | ❌ `sendAssignment` mock; `QUICK_DISPATCH_AVAILABLE=true` hanya membuka pilihan Quick di checkout, bukan evaluasi kandidat |
 | AC12 | Login mitra WA E.164 | halaman masuk mitra | ⚠️ mock (`f21`) |
 
 ## 8. UNRESOLVED

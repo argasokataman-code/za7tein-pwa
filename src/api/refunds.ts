@@ -90,6 +90,9 @@ export async function createRefund(input: {
     status: 'pending',
     bank_name: input.method === 'bank' ? (input.bankName ?? null) : null,
     account_number: input.method === 'bank' ? (input.bankAccount ?? null) : null,
+    // Kunci idempoten: satu refund per order+metode+nominal, jadi tap ganda
+    // atau retry setelah offline tidak menambah baris kedua (NFR-01).
+    idempotency_key: `refund-${oid}-${OUT_METHOD[input.method]}-${input.amountIdr}`,
   })
   return fetchOrderRefund(input.orderId)
 }

@@ -4,12 +4,13 @@ import { MERCHANT_KITCHEN } from './zones'
 import type { Batch, CourierTask, GeoPoint } from '../types'
 
 /**
- * Batch kurir inhouse (M5, PRD §8/§9.6, BR-B07/B12). BE belum punya tabel
- * `batches` (gap M4), jadi batch demo ini mock: tugas kurir yang ber-`batchId`
- * dikelompokkan di sini, dan kurir dianggap sudah di-assign (`courierId`).
- * Di BE nanti batch lahir dari order Regular yang di-accept merchant, kurir
- * dipilih merchant lewat `assignBatchCourier` — halaman kurir tinggal membaca
- * batch yang `courierId === courierSelf.id`.
+ * Batch kurir inhouse (M5, PRD §8/§9.6, BR-B07/B12). Tabel `batches` sudah ada di
+ * BE dan batch merchant dibaca read-only (`src/api/batches.ts`), tetapi penugasan
+ * kurir↔batch di BE masih OPEN-11 — jadi tugas demo dikelompokkan di sini dan
+ * kurir dianggap sudah di-assign (`courierId`).
+ * Di BE batch lahir dari order Regular yang di-accept merchant, kurir dipilih
+ * merchant lewat `assignBatchCourier` — halaman kurir tinggal membaca batch yang
+ * `courierId === courierSelf.id`.
  */
 const demoTasks = courierTasks.filter((task) => task.batchId === COURIER_BATCH_DEMO_ID)
 
