@@ -4047,6 +4047,122 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-140260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:52:31",
+      "tags": [
+        "refund",
+        "be",
+        "bug"
+      ],
+      "summary": "refunds.method/status TEXT tanpa CHECK; probe POST bank=201. Baris tersimpan dipetakan ke processing supaya form refund tidak terbuka lagi (",
+      "conn": [
+        {
+          "id": "TASK-140221",
+          "type": "led_to",
+          "raw": "TASK-140221:led_to"
+        }
+      ],
+      "commit": "d1a711e"
+    },
+    {
+      "id": "TASK-140261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:52:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/.githooks/pre-commit (+8/-2) — edit via tool: # ───────────── 4. BUILD ─────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/.githooks/pre-commit"
+    },
+    {
+      "id": "TASK-140262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:52:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/check-self.mjs (+5/-2) — edit via tool: const here = path.dirname(fileURLToPath(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/check-self.mjs"
+    },
+    {
+      "id": "TASK-140263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:52:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/.rules.json (+3/-2) — edit via tool: \"scan\": \"node scripts/surface-scan.mjs\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-140264",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:53:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/.rules.json (+4/-3) — edit via tool: \"scan\": \"node scripts/surface-scan.mjs\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-140265",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-19",
+      "time": "20:53:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+1/-1) — edit via tool: | **4** | **VERIFIKASI** | `npm run lint",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
     }
   ]
 }

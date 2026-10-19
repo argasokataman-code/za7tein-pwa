@@ -13,7 +13,7 @@ Empat langkah, **berurutan**. Jangan lompat ke kode, jangan lompat ke browser. U
 | **1** | **PETA** | Baca `docs/design/app-map/` (peta komponen, role, kontrak BE), `docs/design/DNA.md`, dan `src/components/`. Cari yang bisa **dipakai ulang sebelum menggambar apa pun**. | Mulai menulis kode tanpa tahu komponen yang sudah ada. Contoh nyata: `.app-shell` adalah kontrak shell repo ini, tapi baru ketahuan setelah gerbang mengeluh "kolom 0px" — padahal ada di peta dan di `src/styles/system/_app-shell.scss`. |
 | **2** | **AUDIT SURFACE** | `npm run scan`. Statik, nol server, selesai dalam ratusan milidetik: token tak terdefinisi, kelas tanpa aturan CSS, kontrol mati, tautan mati. | Menjalankan browser untuk mencari hal yang bisa dibaca dari berkas. |
 | **3** | **UBAH** | Tulis memakai komponen + token hasil langkah 1. Gaya baru ke `src/styles/system/`, token dari `_tokens.scss`. Perubahan sekecil mungkin, di akarnya. | Menambah komponen/dependency padahal yang ada bisa dipakai; menyalin pola yang sama ke beberapa berkas. |
-| **4** | **VERIFIKASI** | `npm run lint && npm run build && npm run scan`, lalu `browser-gate` **hanya** untuk yang tidak bisa dilihat dari sumber (§8). | Mengklaim "sudah benar" tanpa angka. |
+| **4** | **VERIFIKASI** | `npm run lint && npm run build && npm run scan && npm run check:self`, lalu `browser-gate` **hanya** untuk yang tidak bisa dilihat dari sumber (§8). | Mengklaim "sudah benar" tanpa angka. |
 
 **Temuan alat wajib diverifikasi dengan mata sebelum disebut bug.** Alat bisa salah: parser tag di `surface-scan` pernah berhenti di `>` dalam ekspresi `rating >= 1`, lalu melaporkan lima tombol ber-`onClick` sebagai kontrol mati. Baca kodenya, baru simpulkan. Yang benar adalah DOM dan source, bukan keluaran alat.
 

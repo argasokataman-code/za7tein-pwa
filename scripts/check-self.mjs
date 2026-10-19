@@ -13,7 +13,10 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
-const SKIP = new Set(['api-spec-check.mjs'])
+// `--offline` dipakai pre-commit: `live-rate-check` memanggil API kurs, dan
+// commit tak boleh gagal hanya karena jaringan mati.
+const OFFLINE = process.argv.includes('--offline')
+const SKIP = new Set(['api-spec-check.mjs', ...(OFFLINE ? ['live-rate-check.mjs'] : [])])
 const checks = readdirSync(here)
   .filter((f) => f.endsWith('-check.mjs') && !SKIP.has(f))
   .sort()

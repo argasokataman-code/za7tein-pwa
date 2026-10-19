@@ -120,7 +120,8 @@
     "browser:gate": "node scripts/browser-gate.mjs",
     "flows:gate": "./scripts/flows-gate.sh",
     "scan": "node scripts/surface-scan.mjs",
-    "scan:test": "node scripts/surface-scan.test.mjs"
+    "scan:test": "node scripts/surface-scan.test.mjs",
+    "check:self": "node scripts/check-self.mjs"
   },
   "browserTesting": {
     "wajib": "Setiap fix atau fitur yang menyentuh UI wajib lewat gerbang browser sebelum commit. Tidak ada 'sudah kelihatan benar'.",
@@ -328,6 +329,7 @@
     "checks": [
       "forbidden patterns",
       "line counts",
+      "self-checks murni (scripts/*-check.mjs via check:self --offline)",
       "lint (oxlint)",
       "build (tsc -b && vite build)",
       "PRD registry + flow specs + design tokens + definisi fitur (governance:check)",

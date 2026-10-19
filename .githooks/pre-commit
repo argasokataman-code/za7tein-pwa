@@ -89,6 +89,12 @@ check "Linter (oxlint)" "npx oxlint --quiet"
 # ───────────── 4. BUILD ─────────────
 check "Build (tsc -b && vite build)" "npm run build"
 
+# ───────────── 4b. SELF-CHECK MURNI ─────────────
+# Assertion logika (urutan, kuota, refund, dispatch, dsb.) tanpa browser.
+# Tanpa ini assert-nya basi diam-diam: flag "belum tersedia" pernah tertinggal
+# bertahun setelah tabel BE-nya ada. `--offline` melewati cek yang butuh jaringan.
+check "Self-checks (pure)" "node scripts/check-self.mjs --offline"
+
 # ───────────── 5. ATLAS INTEGRITY ─────────────
 ATLAS="$HOME/.config/opencode/skills/atlas-owner/scripts/atlas.mjs"
 if [ -d atlas ] && [ -f "$ATLAS" ]; then
