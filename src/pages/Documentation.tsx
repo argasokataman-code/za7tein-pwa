@@ -1001,6 +1001,33 @@ export default function Documentation() {
                 <code className="doc-inline">foodBucket</code>), jadi butuh keputusan dulu.
               </li>
               <li>
+                <strong>Empat tabel BE lain disambung ke layar ops/CS.</strong> Setelah kuota baca
+                D1 pulih, integrasi lanjut ke tabel yang sudah berisi data:{' '}
+                <em>tier cashback</em> — <code className="doc-inline">cashback_tiers</code> (
+                <code className="doc-inline">threshold_orders</code>/
+                <code className="doc-inline">amount_jod</code>) menimpa daftar tier di{' '}
+                <code className="doc-inline">/merchant/insentif</code>;{' '}
+                <em>katalog rule dispute</em> — <code className="doc-inline">dispute_rules</code>{' '}
+                (termasuk <code className="doc-inline">punishment</code> JSON) mengisi tabel{' '}
+                <code className="doc-inline">/ops/rules</code>;{' '}
+                <em>riwayat SP</em> — <code className="doc-inline">punishments</code> dengan nama
+                pihak di-join manual ke <code className="doc-inline">/ops/penalties</code>;{' '}
+                <em>ledger platform</em> — <code className="doc-inline">enterprise_ledger</code> (
+                <code className="doc-inline">entry_type</code>/<code className="doc-inline">party</code>/
+                <code className="doc-inline">amount_jod</code>) menimpa buku besar{' '}
+                <code className="doc-inline">/admin/ledger</code>. Pemetaan baris→tipe domain ditarik
+                ke <code className="doc-inline">src/data/beMapping.ts</code> supaya murni dan diuji{' '}
+                <code className="doc-inline">npm run check:be-mappers</code> (baris contoh disalin
+                apa adanya dari D1). Tiga tabel sengaja <strong>belum</strong> disambung karena
+                BE-nya belum punya bentuk yang cocok:{' '}
+                <code className="doc-inline">menu_attribute_lines</code> kosong dan{' '}
+                <code className="doc-inline">menu_variants.options</code> beda model dari atribut
+                Odoo FE; <code className="doc-inline">wallet_ledgers</code> hanya satu baris dengan
+                kolom <code className="doc-inline">direction</code> NULL (dompet FE memakai saldo{' '}
+                <code className="doc-inline">wallets</code>);{' '}
+                <code className="doc-inline">courier_types</code> belum punya layar.
+              </li>
+              <li>
                 PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}
                 <strong>menu riwayat order</strong>&rdquo;, tapi menu itu tidak ada: satu-satunya
                 pintu ke form rating adalah tautan &ldquo;Lihat semua&rdquo; di detail menu yang

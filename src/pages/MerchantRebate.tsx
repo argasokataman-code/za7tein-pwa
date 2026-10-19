@@ -4,9 +4,10 @@ import { toast } from 'react-hot-toast'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { jod, jodToIdr } from '../data/currency'
-import { CREDIT_EVENT_LABEL, DEPOSIT_KIND_LABEL, DEPOSIT_STATUS_LABEL, MERCHANT_CREDIT_JOD, MERCHANT_CREDIT_ORDERS, REBATE_TIERS, rebateProgress } from '../data/incentive'
+import { CREDIT_EVENT_LABEL, DEPOSIT_KIND_LABEL, DEPOSIT_STATUS_LABEL, MERCHANT_CREDIT_JOD, MERCHANT_CREDIT_ORDERS, rebateProgress } from '../data/incentive'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
+import { useRebateTiers } from '../hooks/useRebateTiers'
 import { payRebate, recordSettledOrder } from '../store/slices/merchantSlice'
 
 /**
@@ -23,6 +24,7 @@ export default function MerchantRebate() {
   const { money } = useMoney()
   const dispatch = useAppDispatch()
   const credit = useAppSelector((state) => state.merchant.credit)
+  const tiers = useRebateTiers()
 
   const progress = rebateProgress(credit.settledThisPeriod)
   const creditUsedRatio = 1 - credit.merchantCreditBalance / MERCHANT_CREDIT_JOD
@@ -79,7 +81,7 @@ export default function MerchantRebate() {
           </div>
 
           <ul className="merchant-tier-list">
-            {REBATE_TIERS.map((tier) => {
+            {tiers.map((tier) => {
               const tercapai = credit.settledThisPeriod >= tier.threshold
               return (
                 <li key={tier.id} className={tercapai ? 'is-reached' : undefined}>

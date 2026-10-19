@@ -71,6 +71,10 @@ const adminSlice = createSlice({
     setCustomerRiskFlags(state, action: PayloadAction<CustomerRiskFlag[]>) {
       state.customerRiskFlags = action.payload
     },
+    /** API: timpa ledger dengan `enterprise_ledger`. Kosong → mock. */
+    setLedger(state, action: PayloadAction<LedgerEntry[]>) {
+      if (action.payload.length) state.ledger = action.payload
+    },
     /**
      * Approve deposit = verifikasi transfer masuk dulu: `unpaid → held`, baru
      * `tenantStatus: approved`. Merchant aktif lalu masuk daftar pantau.
@@ -215,6 +219,7 @@ export const {
   setMerchants,
   setBeCustomers,
   setCustomerRiskFlags,
+  setLedger,
   approveDeposit,
   rejectOnboarding,
   suspendMerchant,

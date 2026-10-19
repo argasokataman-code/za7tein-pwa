@@ -10,6 +10,7 @@ import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 import { useAppSelector } from './hooks/useAppStore'
 import { usePageTransition } from './hooks/usePageTransition'
 import { useApiSync } from './hooks/useApiReference'
+import { useApiOps } from './hooks/useApiOps'
 import { useApiNotifications } from './hooks/useApiNotifications'
 import { useApiRealtime } from './hooks/useApiRealtime'
 import { notificationAudienceFromPath } from './data/notifications'
@@ -526,6 +527,7 @@ function LegacyAppRedirect() {
  */
 function ApiSync({ audience }: { audience: NotifAudience }) {
   useApiSync()
+  useApiOps()
   useApiNotifications(audience)
   useApiRealtime(audience)
   return null

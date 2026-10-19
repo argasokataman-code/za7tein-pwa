@@ -5,6 +5,7 @@ import {
   MOCK_OPS_TAGS,
   MOCK_PLATFORM_CONFIG,
   OPS_INCIDENTS,
+  OPS_PUNISHMENTS,
   OPS_RULES,
 } from '../../data/ops'
 import { CS_CURRENT_ACTOR } from '../../data/superadmin'
@@ -14,6 +15,7 @@ import type {
   OpsPenalty,
   OpsPlatformConfig,
   OpsTag,
+  Punishment,
 } from '../../types'
 
 /**
@@ -27,6 +29,8 @@ interface OpsState {
   penalties: OpsPenalty[]
   incidents: Incident[]
   rules: DisputeRule[]
+  /** Template punishment per rule — ikut katalog BE saat `hydrateDisputeCatalog`. */
+  rulePunishments: Punishment[]
 }
 
 const initialState: OpsState = {
@@ -35,6 +39,7 @@ const initialState: OpsState = {
   penalties: MOCK_OPS_PENALTIES,
   incidents: OPS_INCIDENTS,
   rules: OPS_RULES,
+  rulePunishments: OPS_PUNISHMENTS,
 }
 
 /** Id mock unik walau beberapa aksi terjadi di detik yang sama. */
@@ -58,6 +63,22 @@ const opsSlice = createSlice({
     /** API: timpa antrean tag dengan `merchant_tags`. Kosong → mock. */
     hydrateTags(state, action: PayloadAction<OpsTag[]>) {
       if (action.payload.length) state.tags = action.payload
+    },
+    /**
+     * API: timpa katalog rule + template punishment dengan `dispute_rules`.
+     * Kosong → mock; keduanya diganti bersamaan supaya `ruleId` tetap nyambung.
+     */
+    hydrateDisputeCatalog(
+      state,
+      action: PayloadAction<{ rules: DisputeRule[]; punishments: Punishment[] }>,
+    ) {
+      if (!action.payload.rules.length) return
+      state.rules = action.payload.rules
+      state.rulePunishments = action.payload.punishments
+    },
+    /** API: timpa riwayat SP dengan `punishments`. Kosong → mock. */
+    hydratePenalties(state, action: PayloadAction<OpsPenalty[]>) {
+      if (action.payload.length) state.penalties = action.payload
     },
     /** Setujui / tolak usulan tag merchant. */
     decideTag(state, action: PayloadAction<{ id: string; status: OpsTag['status'] }>) {
@@ -104,6 +125,8 @@ export const {
   setConfig,
   hydrateConfig,
   hydrateTags,
+  hydrateDisputeCatalog,
+  hydratePenalties,
   decideTag,
   issuePenalty,
   revokePenalty,

@@ -14,7 +14,17 @@
  * `app_is_ops()`. Baca mengembalikan `[]` kalau tabel kosong; pemanggil
  * mempertahankan mock (pola modul API lain).
  */
-import type { ExchangeRate, OpsPlatformConfig, OpsTag, OpsTagStatus } from '../types'
+import type {
+  DisputeRule,
+  ExchangeRate,
+  OpsPenalty,
+  OpsPlatformConfig,
+  OpsTag,
+  OpsTagStatus,
+  Punishment,
+} from '../types'
+import { PUNISHMENT_FORM, asRuleSubject, toDisputeCatalog } from '../data/beMapping'
+import type { DisputeRuleRow } from '../data/beMapping'
 import { refToken } from './reference'
 import { apiEnabled, patch, rest, restWith, rpc } from './supabase'
 
@@ -122,6 +132,88 @@ export async function decideOpsTag(id: string, status: OpsTagStatus): Promise<vo
   await patch(token, 'merchant_tags', `?id=eq.${m[1]}`, {
     proposed: false,
     approved: status === 'approved',
+  })
+}
+
+interface PenaltyRow {
+  id: number
+  subject_type: string
+  subject_id: number
+  kind: string
+  level: number | null
+  reason: string | null
+  created_at: string
+}
+
+/**
+ * Katalog rule dispute + punishment templatenya dari `dispute_rules`. Kosong =
+ * mock dipertahankan. Pemetaan baris ada di `data/beMapping.ts` (murni, diuji).
+ */
+export async function fetchDisputeRules(): Promise<{
+  rules: DisputeRule[]
+  punishments: Punishment[]
+}> {
+  if (!apiEnabled) return { rules: [], punishments: [] }
+  const token = await refToken()
+  const rows = await restWith<DisputeRuleRow>(token, 'dispute_rules', '?select=*&order=id.asc')
+  return toDisputeCatalog(rows)
+}
+
+/**
+ * Riwayat SP yang benar-benar diterbitkan (`punishments`). Nama pihak di-join
+ * manual karena Worker tak mendukung embed relasi. `[]` = tabel kosong.
+ */
+export async function fetchPenalties(): Promise<OpsPenalty[]> {
+  if (!apiEnabled) return []
+  const token = await refToken()
+  const rows = await restWith<PenaltyRow>(
+    token,
+    'punishments',
+    '?select=id,subject_type,subject_id,kind,level,reason,created_at&order=id.desc',
+  )
+  if (!rows.length) return []
+  const ids = (subject: string) =>
+    [...new Set(rows.filter((r) => r.subject_type === subject).map((r) => r.subject_id))]
+  const [couriers, merchants, customers] = await Promise.all([
+    ids('courier').length
+      ? restWith<{ id: number; name: string | null }>(
+          token,
+          'couriers',
+          `?select=id,name&id=in.(${ids('courier').join(',')})`,
+        )
+      : [],
+    ids('merchant').length
+      ? restWith<{ id: number; store_name: string | null }>(
+          token,
+          'merchants',
+          `?select=id,store_name&id=in.(${ids('merchant').join(',')})`,
+        )
+      : [],
+    ids('customer').length
+      ? restWith<{ id: number; name: string | null }>(
+          token,
+          'customers',
+          `?select=id,name&id=in.(${ids('customer').join(',')})`,
+        )
+      : [],
+  ])
+  const nameOf = new Map<string, string>()
+  for (const c of couriers) nameOf.set(`courier-${c.id}`, c.name ?? `Kurir ${c.id}`)
+  for (const m of merchants) nameOf.set(`merchant-${m.id}`, m.store_name ?? `Merchant ${m.id}`)
+  for (const c of customers) nameOf.set(`customer-${c.id}`, c.name ?? `Customer ${c.id}`)
+
+  return rows.map((row) => {
+    const subject = asRuleSubject(row.subject_type)
+    return {
+      id: `sp-${row.id}`,
+      subject,
+      subjectName: nameOf.get(`${subject}-${row.subject_id}`) ?? `#${row.subject_id}`,
+      form: PUNISHMENT_FORM[row.kind] ?? row.kind,
+      level: row.level ? `SP-${row.level}` : '—',
+      reason: row.reason ?? '—',
+      status: 'issued',
+      issuedAt: dayLabel(row.created_at),
+    }
   })
 }
 

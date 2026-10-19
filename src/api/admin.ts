@@ -8,7 +8,14 @@
  *
  * Semua tulis best-effort: pemanggil `.catch(() => {})`, UI tetap jalan.
  */
-import type { AdminCustomer, CustomerRiskFlag, CustomerStatus } from '../types'
+import type {
+  AdminCustomer,
+  CustomerRiskFlag,
+  CustomerStatus,
+  LedgerEntry,
+} from '../types'
+import { toLedgerEntry } from '../data/beMapping'
+import type { LedgerRow } from '../data/beMapping'
 import { apiEnabled, createWith, patch, restWith } from './supabase'
 import { refToken } from './reference'
 
@@ -73,6 +80,22 @@ export async function fetchCustomerRiskFlags(): Promise<CustomerRiskFlag[]> {
     at: r.at,
     byOperatorId: r.by_operator_id === null ? '' : String(r.by_operator_id),
   }))
+}
+
+/**
+ * Ledger platform dari `enterprise_ledger` (terbaru dulu). Nominal BE JOD dan
+ * bisa negatif (`fee`), jadi `direction` diturunkan dari tandanya dan `amount`
+ * disimpan absolut seperti tipe `LedgerEntry`. `[]` = tabel kosong (mock tetap).
+ */
+export async function fetchEnterpriseLedger(): Promise<LedgerEntry[]> {
+  if (!apiEnabled) return []
+  const token = await refToken()
+  const rows = await restWith<LedgerRow>(
+    token,
+    'enterprise_ledger',
+    '?select=id,order_id,entry_type,party,amount_jod,idempotency_key,note,created_at&order=id.desc',
+  )
+  return rows.map(toLedgerEntry)
 }
 
 /** `users.id` operator CS (`cs@sa7tein.app`) — untuk kolom `by_operator_id`. */

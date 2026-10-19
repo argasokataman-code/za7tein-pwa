@@ -2,7 +2,7 @@ import toast from 'react-hot-toast'
 
 import { OpsShell } from '../../components/layout/OpsShell'
 import { INCIDENT_CATEGORIES } from '../../data/rules'
-import { compensationsForRule, punishmentsForRule } from '../../data/ops'
+import { compensationsForRule } from '../../data/ops'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import { toggleRuleActive } from '../../store/slices/opsSlice'
 
@@ -18,6 +18,7 @@ import { toggleRuleActive } from '../../store/slices/opsSlice'
 export default function OpsRules() {
   const dispatch = useAppDispatch()
   const rules = useAppSelector((s) => s.ops.rules)
+  const rulePunishments = useAppSelector((s) => s.ops.rulePunishments)
 
   const categoryLabel = (categoryId: string) =>
     INCIDENT_CATEGORIES.find((c) => c.id === categoryId)?.label ?? categoryId
@@ -50,7 +51,7 @@ export default function OpsRules() {
             <tbody>
               {rules.map((rule) => {
                 const comp = compensationsForRule(rule.id)
-                const pun = punishmentsForRule(rule.id)
+                const pun = rulePunishments.filter((p) => p.ruleId === rule.id)
                 return (
                   <tr key={rule.id}>
                     <td>

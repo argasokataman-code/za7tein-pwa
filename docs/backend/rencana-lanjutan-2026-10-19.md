@@ -50,6 +50,22 @@ Aturan: **`select=*` dulu, jangan sebut kolom** (satu kolom asing = 400 yang
 mematikan seluruh query). Baca kolom → tulis mapper + hook **pola mock-first**
 (`useApiCatalog`/`useMerchantMenu`: API menimpa mock, gagal → mock tetap).
 
+**Status 2026-10-19 (selesai sebagian):**
+
+| Tabel | Status | Isi |
+|---|---|---|
+| `cashback_tiers` | ✅ | `fetchRebateTiers` (`api/reference.ts`) + `useRebateTiers` → `MerchantRebate` |
+| `dispute_rules` | ✅ | `fetchDisputeRules` (`api/ops.ts`) → `opsSlice.hydrateDisputeCatalog` + template punishment |
+| `punishments` | ✅ | `fetchPenalties` (join nama kurir/merchant/customer manual) → `opsSlice.hydratePenalties` |
+| `enterprise_ledger` | ✅ | `fetchEnterpriseLedger` (`api/admin.ts`) → `adminSlice.setLedger` |
+| `product_attributes` + `product_attribute_values` | ⏸️ **ditunda** | BE tak punya ikatan atribut→menu yang bisa dipetakan: `menu_attribute_lines` **kosong**, dan `menu_variants.options` (JSON) beda model dari atribut Odoo FE. Memetakan akan memutus `curated` slice. |
+| `wallet_ledgers` | ⏸️ **ditunda** | 1 baris, kolom `ref_type/ref_id/direction` semuanya NULL; dompet FE = saldo (`wallets`), bukan daftar ledger. Bentuk tak nyambung. |
+| `courier_types` | ⏸️ **ditunda** | FE belum punya rumah (cuma `Courier`/`CourierPartner`). Perlu keputusan tampilannya dulu. |
+
+Mapper murni dipindah ke `src/data/beMapping.ts`; self-check `npm run
+check:be-mappers` (baris contoh dari D1 nyata). Wiring: `useApiOps` dipanggil
+dari `ApiSync` (`App.tsx`). Tulis (POST/PATCH) belum — panel ops masih mock.
+
 | Tabel | Rumah di FE | Catatan mapping |
 |---|---|---|
 | `product_attributes` + `product_attribute_values` | `catalogAttributesSlice` (`mockCatalogAttributes` `data/catalogOdoo.ts:19`), dipakai `MenuAttributeEditor` + `MenuDetail` | `display_type`→`displayType`, `price_extra`→`defaultExtraPrice`; join via `attribute_id` |

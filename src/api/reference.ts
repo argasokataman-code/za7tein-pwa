@@ -10,6 +10,7 @@
  * Nilai backend dalam JOD (`*_jod`); repo ini menyimpan IDR (R-CURR-01), jadi
  * konversi lewat `jodToIdr` sekali di sini.
  */
+import { toRebateTiers } from '../data/beMapping'
 import { jodToIdr } from '../data/currency'
 import { notifAudienceOf } from '../data/notif'
 import type {
@@ -27,6 +28,7 @@ import type {
   NotifAudience,
   PlatformSwitches,
   RebateTier,
+  RebateTierDef,
   SaOperator,
   SaRole,
   TenantStatus,
@@ -143,6 +145,11 @@ interface DepositRow {
   amount_jod: number
   status: string
   created_at: string
+}
+interface CashbackTierRow {
+  tier: string
+  threshold_orders: number
+  amount_jod: number
 }
 interface AddressRow {
   label: string | null
@@ -292,6 +299,21 @@ export async function fetchMerchantCredit(
     deposits: deposits.map(toDeposit),
     events: events.map(toCreditEvent),
   }
+}
+
+/**
+ * Tier cashback bulanan dari `cashback_tiers` (F9). Baris dengan `tier` di luar
+ * `tier_1..tier_3` dilewati — tipe FE tertutup, dan satu nilai asing membuat
+ * perbandingan tier di UI salah tanpa suara. Kosong = pemanggil pakai mock.
+ */
+export async function fetchRebateTiers(): Promise<RebateTierDef[]> {
+  const token = await refToken()
+  const rows = await restWith<CashbackTierRow>(
+    token,
+    'cashback_tiers',
+    '?select=tier,threshold_orders,amount_jod&order=threshold_orders.asc',
+  )
+  return toRebateTiers(rows)
 }
 
 /** `merchants.store_status` → buka/tutup. */

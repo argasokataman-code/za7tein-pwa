@@ -19,6 +19,7 @@ import type {
   MerchantCreditState,
   MerchantDepositKind,
   RebateTier,
+  RebateTierDef,
 } from '../types'
 
 /** Modal awal merchant baru (I-1/I-2 resolved). */
@@ -31,7 +32,7 @@ export const MERCHANT_CREDIT_FEE_JOD = 0.15
 export const MERCHANT_CREDIT_ORDERS = Math.floor(MERCHANT_CREDIT_JOD / MERCHANT_CREDIT_FEE_JOD)
 
 /** Ambang tier bulanan + cashbacknya (F9). */
-export const REBATE_TIERS: { id: RebateTier; threshold: number; amountJod: number }[] = [
+export const REBATE_TIERS: RebateTierDef[] = [
   { id: 'tier_1', threshold: 500, amountJod: 15 },
   { id: 'tier_2', threshold: 1000, amountJod: 40 },
   { id: 'tier_3', threshold: 1250, amountJod: 62.5 },

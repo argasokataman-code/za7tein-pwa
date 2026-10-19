@@ -792,6 +792,13 @@ export interface LiabilitySummary {
 /** Tier rebate bulanan (R-INCENTIVE-01, F9). */
 export type RebateTier = 'tier_1' | 'tier_2' | 'tier_3'
 
+/** Definisi satu tier rebate: ambang order settled + nominal cashback (JOD). */
+export interface RebateTierDef {
+  id: RebateTier
+  threshold: number
+  amountJod: number
+}
+
 /** Event modal/rebate merchant — sama dengan kontrak BE (M10). */
 export type MerchantCreditEventName =
   | 'merchant_credit_granted'
