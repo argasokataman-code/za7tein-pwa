@@ -278,6 +278,57 @@
   gap: var(--space-3);
 }
 
+/* Kartu "Menu terjual" saat hanya ada satu menu: tidak ada pembanding, jadi
+   tidak ada batang. Yang ditonjolkan angka porsinya (28px, tabular), nama menu
+   jadi label di atasnya, omzet + jumlah order jadi konteks di bawah. */
+.menu-leader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.menu-leader__name {
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.menu-leader__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.menu-leader__figure {
+  color: var(--text-primary);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.menu-leader__figure span {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+.menu-leader__meta {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.menu-leader__meta strong {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
 /* Menu terjual: grafik batang horizontal, bukan daftar. Bentuk horizontal
    dipilih karena yang dibandingkan adalah panjang relatif per menu — batang
    vertikal akan memaksa nama menu miring atau terpotong. Satu aksen saja

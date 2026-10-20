@@ -41,13 +41,11 @@ function MenuSalesBar({
   max,
   revenue,
   showMeta,
-  showBar,
 }: {
   row: MenuSalesRow
   max: number
   revenue: string
   showMeta: boolean
-  showBar: boolean
 }) {
   return (
     <li className="menu-chart__item">
@@ -57,14 +55,12 @@ function MenuSalesBar({
           <strong>{row.sold}</strong> porsi
         </span>
       </span>
-      {showBar ? (
-        <span className="menu-chart__track" aria-hidden="true">
-          <span
-            className="menu-chart__fill chart-tone-bg--brand"
-            style={{ width: `${Math.max(4, (row.sold / max) * 100)}%` }}
-          />
-        </span>
-      ) : null}
+      <span className="menu-chart__track" aria-hidden="true">
+        <span
+          className="menu-chart__fill chart-tone-bg--brand"
+          style={{ width: `${Math.max(4, (row.sold / max) * 100)}%` }}
+        />
+      </span>
       {showMeta ? (
         <span className="menu-chart__meta">
           {revenue} · {row.orders} order
@@ -266,6 +262,23 @@ export default function MerchantDashboard() {
             <p className="merchant-empty">
               Belum ada order masuk. Penjualan menu muncul setelah order pertama.
             </p>
+          ) : menuSales.length === 1 ? (
+            /* Satu menu = tidak ada yang dibandingkan: batang 100% hanya dekorasi
+               dan sheet satu baris tidak menambah informasi. Kartu jadi blok
+               angka: nama menu sebagai label, porsi sebagai angka utama, omzet
+               + jumlah order sebagai konteks. */
+            <div className="menu-leader">
+              <p className="menu-leader__name">{menuSales[0].name}</p>
+              <div className="menu-leader__row">
+                <p className="menu-leader__figure">
+                  <strong>{menuSales[0].sold}</strong> <span>porsi</span>
+                </p>
+                <p className="menu-leader__meta">
+                  <strong>{moneyPlain(menuSales[0].revenueIdr)}</strong>
+                  <span> · {menuSales[0].orders} order</span>
+                </p>
+              </div>
+            </div>
           ) : (
             <>
               <ul className="menu-chart">
@@ -276,7 +289,6 @@ export default function MerchantDashboard() {
                     max={topSold}
                     revenue={moneyPlain(row.revenueIdr)}
                     showMeta={false}
-                    showBar={menuSales.length > 1}
                   />
                 ))}
               </ul>
@@ -556,7 +568,6 @@ export default function MerchantDashboard() {
                 max={topSold}
                 revenue={moneyPlain(row.revenueIdr)}
                 showMeta
-                showBar={menuSales.length > 1}
               />
             ))}
           </ul>

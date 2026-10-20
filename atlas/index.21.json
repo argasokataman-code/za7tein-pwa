@@ -4811,6 +4811,215 @@
         }
       ],
       "loc": "src/data/merchantTrend.ts:135"
+    },
+    {
+      "id": "TASK-140512",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:21:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+41/-27) — edit via tool: tsx: {menuSales.length === 0 ? (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-140513",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:22:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+3/-4) — edit via tool: tsx: revenue={moneyPlain(row.reven",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-140514",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:22:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss (+35/-1) — edit via tool: /* Kartu \"Menu terjual\" saat h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-140515",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:22:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: batangnya disembunyikan saat menu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-140516",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:23:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -E \"error\" | head -3; npm run build 2>&1 | tail -2; npm run scan 2>&1 | grep -E \"[0-9]+ FAIL\" | tail -1 pas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-140517",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:24:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+4/-3) — edit via tool: tsx: <p className=\"menu-leader__me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-140518",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:24:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss (+31/-24) — edit via tool: .menu-leader__name {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-140519",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:25:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+12/-10) — edit via tool: tsx: <div className=\"menu-leader",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-140520",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:25:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss (+41/-31) — edit via tool: .menu-leader__name {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-140521",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:25:42",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -1; node scripts/e2e-browsers.mjs nav merchant /merchant >/dev",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-140522",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "08:26:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+1/-1) — edit via tool: tsx: kartu berubah jadi blok angka: na",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

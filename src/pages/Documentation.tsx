@@ -769,7 +769,7 @@ export default function Documentation() {
                 peringkat dikelompokkan per <code className="doc-inline">CartItem.id</code>, padahal id itu unik per baris order, jadi tidak pernah bertemu. Item order merchant kini membawa{' '}
                 <code className="doc-inline">menuId</code> (<code className="doc-inline">order_items.menu_id</code>) dan peringkat dikelompokkan per identitas itu (mundur ke{' '}
                 <code className="doc-inline">id</code> kalau BE tidak mengirimnya). Kartu beranda menampilkan grafik batang horizontal 5 menu teratas dengan satu aksen{' '}
-                <code className="doc-inline">chart-tone-bg--brand</code> (bukan warna bergilir per item) dan tanpa garis pemisah karena ini grafik, bukan daftar; batangnya disembunyikan saat menunya cuma satu (batang 100% tidak membandingkan apa pun). Tombol{' '}
+                <code className="doc-inline">chart-tone-bg--brand</code> (bukan warna bergilir per item) dan tanpa garis pemisah karena ini grafik, bukan daftar; batangnya disembunyikan saat menunya cuma satu (batang 100% tidak membandingkan apa pun), dan pada kasus satu menu kartu berubah jadi blok angka: nama menu, porsi 21px tabular di kiri dan omzet + jumlah order rata kanan pada baseline yang sama, tanpa tombol detail karena sheet satu baris tidak menambah informasi. Tombol{' '}
                 <code className="doc-inline">Lihat detail N menu</code> membuka <code className="doc-inline">BottomSheet</code> berisi seluruh menu (qty, omzet, jumlah order) yang menggulir di dalam panel. Self-check-nya{' '}
                 <code className="doc-inline">scripts/merchant-rank-check.mjs</code>.
               </li>
