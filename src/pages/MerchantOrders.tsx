@@ -661,7 +661,7 @@ export default function MerchantOrders() {
                     <div className="payment-info">
                       <h3 className="payment-name">{partner.name}</h3>
                       <p className="payment-number">
-                        {partner.completedToday} order hari ini ·{' '}
+                        {partner.activeOrders} order aktif ·{' '}
                         {partner.status === 'available' ? 'siap menerima' : 'offline'}
                       </p>
                     </div>

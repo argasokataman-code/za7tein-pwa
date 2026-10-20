@@ -22,6 +22,7 @@ import type {
   ZoneId,
 } from '../types'
 import { createWith, createWithReturn, patch, rest, restWith, rpc, signInToken } from './supabase'
+import { refToken } from './reference'
 
 export const DEMO_CUSTOMER_ID = 1
 export const DEMO_MERCHANT_ID = 1
@@ -176,6 +177,27 @@ export async function assignOrderCourier(orderId: string, courierId: string): Pr
   if (!Number.isFinite(oid) || !Number.isFinite(cid)) return
   const token = await ensureMerchantToken()
   await patch(token, 'orders', `?id=eq.${oid}`, { courier_id: cid })
+  // Assignment milik **aplikator** (PRD P1), bukan merchant: RLS menolak tulis
+  // `dispatch_assignments`/`couriers` dari sesi merchant (403), jadi penjadwalan
+  // memakai sesi CS. Default BE `reserved` = menunggu respons.
+  const dispatchToken = await refToken()
+  // Guard agar menekan tombol dua kali tidak membuat dua assignment untuk order
+  // yang sama.
+  const pending = await restWith<{ id: number }>(
+    dispatchToken,
+    'dispatch_assignments',
+    `?select=id&order_id=eq.${oid}&status=eq.reserved&limit=1`,
+  ).catch(() => [] as { id: number }[])
+  if (!pending.length) {
+    await createWith(dispatchToken, 'dispatch_assignments', {
+      order_id: oid,
+      courier_id: cid,
+    }).catch(() => {})
+  }
+  // Reservasi mitra (PRD P3).
+  await patch(dispatchToken, 'couriers', `?id=eq.${cid}`, { availability: 'reserved' }).catch(
+    () => {},
+  )
 }
 
 /**

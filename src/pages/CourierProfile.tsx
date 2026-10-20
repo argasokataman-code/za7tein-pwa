@@ -27,12 +27,18 @@ export default function CourierProfile() {
   const onboarding = useAppSelector((s) => s.courier.onboarding)
   const balanceAvailable = courierTipsAvailable(tasks, payouts)
   const active = tasks.filter(isActiveTask).length
+  const courierKind = useAppSelector((s) => s.auth.courierKind)
+  const isPartner = courierKind === 'partner'
+  const partners = useAppSelector((s) => s.partner.partners)
+  const selfId = useAppSelector((s) => s.partner.selfId)
+  const partner = partners.find((p) => p.id === selfId)
   const [showLogout, setShowLogout] = useState(false)
 
   // Profil dari onboarding kurir menang atas data contoh, supaya isian
-  // pengguna benar-benar terpakai (bukan form mati).
-  const name = onboarding?.name || courierSelf.name
-  const phone = onboarding?.phone || courierSelf.phone
+  // pengguna benar-benar terpakai (bukan form mati). Mitra memakai identitas
+  // dari `couriers` (bukan kurir toko demo).
+  const name = isPartner ? (partner?.name ?? 'Kurir partner') : onboarding?.name || courierSelf.name
+  const phone = isPartner ? (partner?.phone ?? '') : onboarding?.phone || courierSelf.phone
   const vehicleLabel = onboarding?.vehicle === 'mobil' ? 'Mobil' : 'Motor'
 
   // Keluar = keluar dari akun lalu kembali ke layar masuk kurir. Memakai
@@ -47,7 +53,7 @@ export default function CourierProfile() {
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Akun" title="Profil" />
+        <CourierPageHeader eyebrow={isPartner ? 'Akun mitra' : 'Akun'} title="Profil" />
 
         <section className="courier-card courier-identity">
           <span className="courier-avatar" aria-hidden="true">
@@ -62,6 +68,8 @@ export default function CourierProfile() {
           </div>
         </section>
 
+        {!isPartner ? (
+          <>
         <section className="courier-card">
           <div className="courier-row">
             <Bike size={20} strokeWidth={1.75} aria-hidden="true" />
@@ -108,6 +116,8 @@ export default function CourierProfile() {
             Kurir toko ini eksklusif milik satu merchant (PRD bab 04).
           </p>
         </section>
+          </>
+        ) : null}
 
         <section className="courier-card">
           <div className="courier-row">

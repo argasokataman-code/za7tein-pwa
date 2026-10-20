@@ -1,17 +1,22 @@
 import { Bike, Clock, Route, Timer } from 'lucide-react'
 import { useState } from 'react'
 
+import {
+  respondPartnerAssignment,
+  setPartnerAvailability,
+} from '../api/partner'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
-import { PARTNER_SELF_ID } from '../data/marketplace'
+import { useApiPartner } from '../hooks/useApiPartner'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import {
   approveAssignment,
   expireAssignment,
   issueWarningLetter,
   rejectAssignment,
+  setPartnerStatus,
 } from '../store/slices/partnerSlice'
 import type { CourierPartnerStatus } from '../types'
 
@@ -59,10 +64,12 @@ const stamp = (iso: string) =>
  */
 export default function CourierPartner() {
   const dispatch = useAppDispatch()
+  useApiPartner()
   const partners = useAppSelector((s) => s.partner.partners)
-  const partner = partners.find((p) => p.id === PARTNER_SELF_ID)
+  const selfId = useAppSelector((s) => s.partner.selfId)
+  const partner = partners.find((p) => p.id === selfId)
   const assignments = useAppSelector((s) =>
-    s.partner.assignments.filter((a) => a.partnerId === PARTNER_SELF_ID),
+    s.partner.assignments.filter((a) => a.partnerId === selfId),
   )
 
   const pending = assignments.filter((a) => a.status === 'pending')
@@ -77,10 +84,34 @@ export default function CourierPartner() {
     setReason('')
   }
 
+  /** BE dulu best-effort, state lokal tetap jadi tampilan (mock-first repo). */
+  const accept = (id: string) => {
+    dispatch(approveAssignment({ id }))
+    if (!partner) return
+    void respondPartnerAssignment(id, 'approved')
+      .then(() => setPartnerAvailability(partner.id, 'busy'))
+      .catch(() => {})
+  }
+
   const confirmReject = () => {
     if (!rejectId || !reason.trim()) return
-    dispatch(rejectAssignment({ id: rejectId, reason: reason.trim() }))
+    const id = rejectId
+    dispatch(rejectAssignment({ id, reason: reason.trim() }))
+    if (partner) {
+      void respondPartnerAssignment(id, 'rejected', reason.trim())
+        .then(() => setPartnerAvailability(partner.id, 'available'))
+        .catch(() => {})
+    }
     closeReject()
+  }
+
+  /** Hanya saat tidak memegang order: reserved/busy berarti ada order berjalan. */
+  const canToggle = status === 'offline' || status === 'available'
+  const toggleAvailability = () => {
+    if (!partner || !canToggle) return
+    const next: CourierPartnerStatus = status === 'offline' ? 'available' : 'offline'
+    dispatch(setPartnerStatus({ partnerId: partner.id, status: next }))
+    void setPartnerAvailability(partner.id, next).catch(() => {})
   }
 
   /**
@@ -100,7 +131,7 @@ export default function CourierPartner() {
   return (
     <div className="app-shell">
       <main className="courier-page">
-        <CourierPageHeader eyebrow="Kurir partner" title="Tugas partner" back="/" />
+        <CourierPageHeader eyebrow="Kurir partner" title="Tugas partner" />
 
         <section className="courier-card" aria-label="Status kurir partner">
           <div className="courier-row">
@@ -111,15 +142,24 @@ export default function CourierPartner() {
             </div>
           </div>
           <p className={`courier-partner-status ${STATUS_TONE[status]}`}>{STATUS_LABEL[status]}</p>
+          {canToggle ? (
+            <button
+              type="button"
+              className="courier-partner-availability"
+              onClick={toggleAvailability}
+            >
+              {status === 'offline' ? 'Masuk antrean' : 'Istirahat'}
+            </button>
+          ) : null}
           {partner ? (
             <p className="courier-card-sub">
-              {partner.completedToday} order selesai hari ini
+              {partner.activeOrders} order aktif
               {partner.warningLetters > 0 ? ` · ${partner.warningLetters} SP aktif` : ''}
             </p>
           ) : null}
         </section>
 
-        <PlatformNotice message="Dispatch otomatis (OPEN-11) belum dibangun dan penerbit SP belum diputuskan ops (§18). Assignment di layar ini data demo; akibat cabang tanpa respons bisa dipicu lewat tombol simulasi di kartu." />
+        <PlatformNotice message="Status dan assignment mitra disimpan ke BE (couriers + dispatch_assignments). Dispatch otomatis (OPEN-11) dan penerbit SP belum diputuskan ops (§18); tombol simulasi hanya memainkan akibat cabang tanpa respons di layar ini." />
 
         <section className="courier-section">
           <h2 className="courier-section-title">
@@ -141,7 +181,7 @@ export default function CourierPartner() {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => dispatch(approveAssignment({ id: assignment.id }))}
+                    onClick={() => accept(assignment.id)}
                   >
                     Terima
                   </button>

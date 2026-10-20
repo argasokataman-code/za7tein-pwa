@@ -1,4 +1,4 @@
-import { Home, UserRound, Wallet } from 'lucide-react'
+import { Bike, Home, UserRound, Wallet } from 'lucide-react'
 
 import { useAppSelector } from '../../hooks/useAppStore'
 import { isActiveTask } from '../../data/courier'
@@ -9,6 +9,27 @@ import type { BottomNavItem } from './BottomNav'
 export function CourierBottomNav() {
   const tasks = useAppSelector((s) => s.courier.tasks)
   const active = tasks.filter(isActiveTask).length
+  const courierKind = useAppSelector((s) => s.auth.courierKind)
+  const selfId = useAppSelector((s) => s.partner.selfId)
+  const pending = useAppSelector(
+    (s) => s.partner.assignments.filter((a) => a.partnerId === selfId && a.status === 'pending').length,
+  )
+
+  // Partner tidak punya batch/tips/dompet toko — hanya tawaran Quick dan akun.
+  if (courierKind === 'partner') {
+    const partnerItems: BottomNavItem[] = [
+      {
+        to: '/partner',
+        label: 'Tugas',
+        Icon: Bike,
+        end: true,
+        badge: pending,
+        srText: pending > 0 ? `${pending} tawaran menunggu` : undefined,
+      },
+      { to: '/profile', label: 'Profil', Icon: UserRound, end: false },
+    ]
+    return <BottomNav items={partnerItems} />
+  }
 
   const items: BottomNavItem[] = [
     {

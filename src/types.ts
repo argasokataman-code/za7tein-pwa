@@ -1119,8 +1119,8 @@ export interface CourierPartner {
   name: string
   phone: string
   status: CourierPartnerStatus
-  /** Jumlah order selesai hari ini; tie-break dispatch (§9.4). */
-  completedToday: number
+  /** Order yang sedang dipegang; tie-break dispatch (§9.4). */
+  activeOrders: number
   /** SP aktif; kelayakan antrian dispatch (OPEN-11). */
   warningLetters: number
   /** ISO; kesegaran lokasi untuk kandidat dispatch (§9.4). */

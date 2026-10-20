@@ -8,7 +8,7 @@ import { AuthLayout } from '../components/ui/AuthLayout'
 import { AUTH_COURIER_COVER_PHOTOS, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { courierSignInSchema, type CourierSignInFormData } from '../lib/schemas'
-import { signIn } from '../store/slices/authSlice'
+import { signIn, setCourierKind } from '../store/slices/authSlice'
 
 type CourierKind = 'inhouse' | 'partner'
 
@@ -43,8 +43,10 @@ export default function CourierSignIn() {
 
   const onSubmit = () => {
     toast.success('Tautan masuk dikirim ke emailmu.')
+    dispatch(setCourierKind(kind))
     dispatch(signIn('/courier'))
-    navigate('/')
+    // Partner punya permukaan sendiri: satu order per waktu, tanpa batch.
+    navigate(kind === 'partner' ? '/partner' : '/')
   }
 
   return (

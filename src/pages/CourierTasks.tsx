@@ -1,5 +1,5 @@
 import { CheckCircle2, ChevronRight, Coins, HandCoins, Hourglass, Landmark, Route, Truck, UserRound, Wallet } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 import { CourierHomeHero } from '../components/courier/CourierHomeHero'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
@@ -16,7 +16,6 @@ import {
   totalTips,
 } from '../data/courier'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
-import { PARTNER_SELF_ID } from '../data/marketplace'
 import { BATCH_STATUS_LABEL } from '../data/batch'
 import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
 import { toggleOnline } from '../store/slices/courierSlice'
@@ -103,14 +102,16 @@ export default function CourierTasks() {
   const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
   const done = tasks.filter(isDoneTask)
   const balanceAvailable = courierTipsAvailable(tasks, payouts)
-  const partnerPending = useAppSelector(
-    (s) => s.partner.assignments.filter((a) => a.partnerId === PARTNER_SELF_ID && a.status === 'pending').length,
-  )
+  const courierKind = useAppSelector((s) => s.auth.courierKind)
   const week = courierWeeklyTips()
   // Batch (M5): angka dihitung sekali, bukan diulang di JSX.
   const batchDone = batch ? batchProgress(batch, tasks) : null
   const batchStatus = batch ? batchDisplayStatus(batch, tasks) : null
   const nextStop = batch ? nextBatchTask(batch, tasks) : null
+
+  // Partner bukan karyawan merchant: tidak ada batch, tips, atau dompet toko.
+  // Permukaannya satu layar `/partner` (COU-15 satu order per waktu).
+  if (courierKind === 'partner') return <Navigate to="/partner" replace />
 
   return (
     <div className="app-shell">
@@ -243,19 +244,6 @@ export default function CourierTasks() {
             <span className="courier-menu-copy">
               <span className="courier-menu-title">Riwayat tips</span>
               <span className="courier-menu-sub">{money(totalTips(tasks))} dari tugas selesai</span>
-            </span>
-          </Link>
-          <Link className="courier-menu-item" to="/partner">
-            <span className="courier-menu-icon" aria-hidden="true">
-              <Truck size={20} strokeWidth={1.75} />
-            </span>
-            <span className="courier-menu-copy">
-              <span className="courier-menu-title">Tugas partner</span>
-              <span className="courier-menu-sub">
-                {partnerPending > 0
-                  ? `${partnerPending} menunggu respons`
-                  : 'Quick, satu order per waktu'}
-              </span>
             </span>
           </Link>
           <Link className="courier-menu-item" to="/profile">

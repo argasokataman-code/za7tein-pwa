@@ -850,7 +850,10 @@ export default function Documentation() {
                 paling penting bagi kurir) naik ke{' '}
                 <code className="doc-inline">--text-secondary-strong</code> karena versi lama
                 3,86:1 di atas <code className="doc-inline">--border</code> gagal AA. Sisa M6: fee
-                Quick 100%, talangan COD Quick, dan dispatch nyata (OPEN-11).
+                Quick 100%, talangan COD Quick, dan pemilihan kandidat dispatch (OPEN-11). Yang
+                sudah nyata: merchant menugaskan mitra menulis baris{' '}
+                <code className="doc-inline">dispatch_assignments</code> berstatus{' '}
+                <code className="doc-inline">reserved</code>, dan respons mitra tersimpan.
               </li>
               <li>
                 <strong>Chat order jadi group per order (M7).</strong> Sebelumnya chat
@@ -1427,12 +1430,25 @@ export default function Documentation() {
               </li>
               <li>
                 <strong>Layar kurir partner</strong> (<code className="doc-inline">/courier/partner</code>)
-                dibangun dari <code className="doc-inline">partnerSlice</code> yang sudah ada tapi belum
-                berpenghuni: status offline/available/reserved/busy, plus assignment yang dijawab{' '}
-                <em>Terima</em> atau <em>Tolak ber-alasan</em> (submit mati sampai alasan diisi, COU-18).
-                Dispatch nyata (OPEN-11) dan SP ops belum ada, jadi halaman menandai assignment sebagai
-                data demo lewat <code className="doc-inline">PlatformNotice</code>. Alurnya
-                di <code className="doc-inline">f26-quick-dispatch</code>.
+                kini membaca dan menulis BE lewat <code className="doc-inline">src/api/partner.ts</code>:
+                identitas mitra dari <code className="doc-inline">couriers</code> (sesi akun mitra),
+                assignment dari <code className="doc-inline">dispatch_assignments</code>, dan SP aktif
+                dari <code className="doc-inline">punishments</code> (mock tetap fallback). Tab{' '}
+                <em>Menunggu respons</em> = baris <code className="doc-inline">status=&apos;reserved&apos;</code>;
+                <em>Terima</em>/<em>Tolak ber-alasan</em> menulis <code className="doc-inline">approved</code>/
+                <code className="doc-inline">rejected</code> + <code className="doc-inline">responded_at</code>{' '}
+                dan status mitra (busy/available), sedangkan tombol <em>Istirahat</em>/<em>Masuk antrean</em>{' '}
+                menulis <code className="doc-inline">couriers.availability</code>. Dispatch otomatis
+                (OPEN-11) dan penjatuhan SP tetap belum ada, jadi tombol simulasi hanya memainkan
+                akibat cabang tanpa respons. Alurnya di{' '}
+                <code className="doc-inline">f26-quick-dispatch</code>. Mitra punya permukaan
+                sendiri: pilihan <em>Kurir partner</em> di layar masuk menyimpan{' '}
+                <code className="doc-inline">auth.courierKind</code> dan mendarat di{' '}
+                <code className="doc-inline">/partner</code>; rute beranda kurir{' '}
+                <code className="doc-inline">/</code> me-redirect ke sana, jadi batch, tips, dan dompet
+                kurir toko tidak pernah tampil untuk mitra. Nav mitra hanya{' '}
+                <em>Tugas</em> + <em>Profil</em>, dan Profil mitra memakai identitas{' '}
+                <code className="doc-inline">couriers</code> (bukan kurir toko demo).
               </li>
               <li>
                 <strong>Kelas aksi kurir partner diselaraskan</strong>: tombol{' '}

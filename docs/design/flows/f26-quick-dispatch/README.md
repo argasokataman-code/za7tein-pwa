@@ -31,9 +31,10 @@ inhouse) ada di `../f25-batch-lifecycle/`.
 
 ## Status UI (mana yang sudah berdiri)
 
-- **Q01–Q05 berdiri**: `/merchant/orders` (estimasi prepare Quick) + `/courier/partner` (chip status, approve, reject ber-alasan).
-- **Q06 berdiri di sisi kurir**: `expireAssignment` menampilkan akibatnya (assignment `Kedaluwarsa`, "SP dicatat ke mitra", "Diganti oleh \<nama>", mitra `offline`). Pemicunya BE (`expire_assignments()`) dan SP dijatuhkan ops — dimainkan lewat tombol **simulasi** karena penerbit SP masih UNRESOLVED (OPS-10) dan halaman ops belum dibangun.
-- **Q02/Q07–Q09 belum**: pemilihan kandidat (`dispatch_courier()`, OPEN-11) dan talangan COD Quick belum dibangun; fee Quick belum dibedakan dari Regular.
+- **Q01–Q05 berdiri**: `/merchant/orders` (estimasi prepare Quick) + `/courier/partner` (chip status, approve, reject ber-alasan). Sejak 2026-10-20 status mitra dan assignment **tersimpan di BE**: `couriers.availability`, `dispatch_assignments` (`reserved` = menunggu respons → `approved`/`rejected` + `responded_at`), SP aktif dibaca dari `punishments`; mock hanya fallback (`src/api/partner.ts`, `src/hooks/useApiPartner.ts`). Penugasan manual merchant menulis baris `reserved` + `couriers.availability='reserved'` (`assignOrderCourier`, sesi CS karena RLS merchant menolak).
+- **Permukaan mitra terpisah**: pilihan *Kurir partner* di layar masuk menyimpan `auth.courierKind='partner'` dan mendarat di `/partner`; `/` me-redirect ke sana, jadi batch/tips/dompet kurir toko tidak tampil. Nav mitra: Tugas + Profil.
+- **Q06 berdiri di sisi kurir**: `expireAssignment` menampilkan akibatnya (assignment `Kedaluwarsa`, "SP dicatat ke mitra", "Diganti oleh \<nama>", mitra `offline`). Pemicunya BE (`expire_assignments()`) dan SP dijatuhkan ops — dimainkan lewat tombol **simulasi** karena penerbit SP masih UNRESOLVED (OPS-10) dan halaman ops belum dibangun. Baris BE **tidak** berubah pada simulasi.
+- **Q02/Q07–Q09 belum**: pemilihan kandidat (`dispatch_courier()`, OPEN-11) belum dibangun, jadi merchant memilih mitra manual; talangan COD Quick dan fee Quick juga belum.
 
 ## Terhubung (lihat `../INDEX.json`)
 

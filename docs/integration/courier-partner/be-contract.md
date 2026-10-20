@@ -1,135 +1,87 @@
 # Kontrak BE — API kurir partner & dispatch (M6)
 
-Repo ini front-end (AGENTS.md §1). Dokumen ini mencatat jalur data yang **belum
-ada** di BE untuk jalur Quick (kurir partner + dispatch), plus yang perlu
-ditambahkan supaya UI yang sudah dibangun (`/courier/partner`, layar dispatch
-merchant) berhenti memakai mock.
+Repo ini front-end (AGENTS.md §1). Dokumen ini mencatat jalur data kurir partner /
+Quick, mana yang **sudah dipakai** dan mana yang masih usulan. Rujukan: PRD aktif
+`sa7tein-mvp-2026-10-11` §7.3, §9.3, §9.4 (usulan), §9.5, §13 (OPS-10/OPS-13),
+§16.3, §18; flow `docs/design/flows/f26-quick-dispatch/`; gap per layar
+`ui-impact.md` §8.
 
-Rujukan: PRD aktif `sa7tein-mvp-2026-10-11` §7.3, §9.3, §9.4 (usulan), §9.5,
-§13 (OPS-10/OPS-13), §16.3, §18; flow `docs/design/flows/f26-quick-dispatch/`;
-gap per layar `ui-impact.md` §8.
-
-## 0. Ringkas kondisi sekarang
+## 0. Ringkas kondisi sekarang (2026-10-20)
 
 | Hal | Keadaan |
 |---|---|
-| Sumber state | 100% klien: `partnerSlice` (`src/store/slices/partnerSlice.ts`), mock `mockCourierPartners`/`mockAssignments` (`src/data/marketplace.ts`), dipersist (whitelist `partner`) |
-| Tabel BE | **tidak ada**: tak ada `courier_partners`, tak ada `courier_assignments` |
-| `orders` | **tak punya** kolom jenis pengantaran (Regular/Quick) maupun tautan assignment |
-| Endpoint dispatch | **tidak ada** (OPEN-11 masih usulan algoritma) |
-| Flag | `QUICK_DISPATCH_AVAILABLE = false` (`src/data/marketplace.ts`) menahan tombol dispatch merchant; layar kurir partner tetap dibangun terhadap mock |
-| SP | **tidak ada**; **UNRESOLVED: siapa penerbit SP belum diputuskan PO** (`analysis.md:43/46`) |
+| Tabel BE | `couriers` (`courier_type='partner'`, `user_id`, `availability`), `dispatch_assignments` (`status` default `reserved`, `reject_reason`, `reserved_at`, `responded_at`), `punishments` |
+| Baca/tulis FE | `src/api/partner.ts`: board mitra (identitas + assignment + SP), tulis `availability`, respons assignment. Mock tetap fallback |
+| Penugasan | `assignOrderCourier` menulis `orders.courier_id` + baris `dispatch_assignments` `reserved` + `couriers.availability='reserved'`. Sesi **CS** (aplikator) karena RLS merchant menolak tulis tabel ini (403) |
+| Sesi mitra | akun demo `partner@sa7tein.app`; login WA E.164 (f21) belum ada |
+| Endpoint dispatch | **belum ada** RPC `dispatch_courier()` (OPEN-11); merchant memilih mitra manual |
+| Expire | **belum ada** `expire_assignments()`; akibat Q06 hanya dimainkan di layar (tidak menulis BE) |
+| SP | dibaca dari `punishments` `status='issued'`; **penulisan** milik ops — **UNRESOLVED: penerbit SP** (`analysis.md:43/46`) |
+| Fee Quick / COD Quick | belum ada; fee belum dibedakan dari Regular |
 
-Tabel `couriers` yang sudah ada (`docs/integration/courier/be-contract.md`) adalah
-**kurir karyawan merchant** (inhouse). PRD memodelkan **dua jenis kurir**; apakah
-partner masuk ke `couriers` dengan penanda jenis, atau tabel sendiri, **belum
-diputuskan** (lihat §5).
+Tabel `couriers` yang sudah ada (`docs/integration/courier/be-contract.md`) semula
+**kurir karyawan merchant** (inhouse). PRD memodelkan **dua jenis kurir**; implementasi
+sekarang memakai `couriers` + penanda `courier_type` sebagai pilihan sementara, bukan
+keputusan final (lihat §5).
 
-## 1. Skema yang diusulkan
+## 1. Skema yang dipakai vs diusulkan
 
-### 1.1 `courier_partners`
+### 1.1 Dipakai sekarang
 
-Kurir partner yang dikelola aplikator (bukan karyawan merchant).
+- `couriers`: `user_id` (akun mitra), `courier_type='partner'`, `availability` (`available|reserved|busy|offline|unavailable`), `active_order_count`, `last_seen_at`.
+- `dispatch_assignments`: `order_id`, `courier_id`, `status` (`reserved` = menunggu respons, `approved|rejected|expired`), `reject_reason`, `reserved_at`, `responded_at`.
+- `punishments`: `subject_type='courier'`, `subject_id=couriers.id`, `status='issued'`.
 
-| kolom | tipe | catatan |
+### 1.2 Masih diusulkan
+
+- `courier_partners` terpisah + `courier_assignments` (§5, model kurir ganda belum diputuskan).
+- `orders.delivery_kind` (`regular|quick`) dan `orders.courier_partner_id`.
+- Tabel/endpoint SP khusus partner — cukup `punishments` selama penerbitnya belum diputuskan.
+- Config ops: `dispatch_max_kms`, `location_freshness_seconds`, `quick_fee_multiplier` (parameter, bukan konstanta FE).
+
+## 2. Endpoint
+
+| endpoint | bentuk | status |
 |---|---|---|
-| `id` | bigint pk | |
-| `user_id` | uuid → `auth.users` | auth nomor WA E.164 (f21), sama pola `couriers.user_id` |
-| `status` | text check | `offline \| available \| reserved \| busy` (§9.3) |
-| `completed_today` | int | tie-break dispatch (§9.4) |
-| `warning_letters` | int | SP aktif; kelayakan antrian (OPEN-11) |
-| `last_location_at` | timestamptz null | kesegaran lokasi kandidat (§9.4) |
-| `joined_at` | timestamptz | |
-
-### 1.2 `courier_assignments`
-
-| kolom | tipe | catatan |
-|---|---|---|
-| `id` | bigint pk | |
-| `order_id` | bigint → `orders` | |
-| `partner_id` | bigint → `courier_partners` | |
-| `status` | text check | `pending \| approved \| rejected \| expired` |
-| `reject_reason` | text null | wajib saat `rejected` (COU-18) |
-| `sent_at` | timestamptz | |
-| `responded_at` | timestamptz null | |
-| `responded_by` | uuid null | `app_uid()` saat approve/reject (audit) |
-
-Constraint: `check (status <> 'rejected' or coalesce(btrim(reject_reason),'') <> '')`
-supaya alasan tak bisa kosong walau RPC dilewati.
-
-### 1.3 `orders` (tambahan)
-
-| kolom | tipe | catatan |
-|---|---|---|
-| `delivery_kind` | text check | `regular \| quick`; sekarang jenis pengantaran hidup di klien |
-| `courier_partner_id` | bigint null → `courier_partners` | tautan assignment aktif |
-
-Kolom jenis pengantaran ini **sudah tercatat sebagai gap** di `ui-impact.md` §8
-(bersama `packed`/`batch_id`).
-
-### 1.4 SP / punishment
-
-Tabel diusulkan: `courier_partner_sp` (`id`, `partner_id`, `kind`, `reason`,
-`issued_by`, `issued_at`). **`issued_by` sengaja tidak dikunci** karena PO belum
-memutuskan penerbitnya (ops §18 manual vs trigger otomatis). Jangan diisi tebakan.
-
-### 1.5 Config ops (parameter, bukan nilai tetap)
-
-`platform_config` (atau setara): `dispatch_max_kms` (batas jarak kandidat),
-`location_freshness_seconds` (kesegaran lokasi), `quick_fee_multiplier`
-(OPS-13). Nilainya **config ops**, bukan konstanta FE.
-
-## 2. Endpoint yang perlu ada
-
-Semua lewat PostgREST + RPC `SECURITY DEFINER` dengan penjaga `public.app_uid()`,
-mengikuti pola `courier_orders()` yang sudah dipakai (partner tak boleh membaca
-`customers`/`addresses` langsung karena RLS-nya milik pemilik baris).
-
-| endpoint | bentuk | aturan |
-|---|---|---|
-| `my_partner_assignments()` | RPC, tanpa arg | semua assignment milik partner `app_uid()`, diperkaya ringkasan order (nama customer, alamat, jenis, estimasi prepare) |
-| `dispatch_courier(p_order_id)` | RPC | pilih kandidat (**idle terlama + batas jarak**, tie-break `completed_today` lalu jarak), set `reserved`, insert assignment `pending`, balikan assignment. **Algoritma OPEN-11 masih usulan** |
-| `approve_assignment(p_id)` | RPC | hanya partner pemilik; `status pending` → `approved`, partner → `busy` |
-| `reject_assignment(p_id, p_reason)` | RPC | hanya partner pemilik; alasan wajib; `pending` → `rejected`, partner → `available`, reservasi lepas (§9.5) |
-| `expire_assignments()` | `pg_cron` | `pending` lewat tenggat prepare → `expired`; partner → `offline`; cari pengganti; **SP** (penerbit UNRESOLVED) |
-| `issue_sp(p_partner_id, p_reason, p_issued_by)` | RPC | **bentuk menunggu keputusan siapa penerbit** (§18) |
+| board mitra | `GET couriers?user_id=eq.<auth id>` + `GET dispatch_assignments?courier_id=eq.<id>` + `GET punishments?...` | ✅ dipakai (`fetchPartnerBoard`) |
+| set availability | `PATCH couriers?id=eq.<id> {availability}` | ✅ dipakai |
+| approve/reject | `PATCH dispatch_assignments?id=eq.<id> {status, responded_at, reject_reason}` | ✅ dipakai (REST langsung; RPC belum) |
+| kirim assignment | `POST dispatch_assignments {order_id, courier_id}` (default `reserved`) | ✅ dipakai saat merchant menugaskan |
+| `dispatch_courier(p_order_id)` | RPC pilih kandidat (**idle terlama + batas jarak**, tie-break, OPEN-11) | ❌ usulan |
+| `expire_assignments()` | `pg_cron`: `reserved` lewat tenggat → `expired`, mitra `offline`, pengganti, SP | ❌ usulan |
+| `issue_sp(...)` | RPC | ❌ menunggu keputusan penerbit |
 
 ### Event (realtime / notifikasi)
 
 `courier_assignment_sent`, `courier_assignment_approved`,
-`courier_assignment_rejected`, `courier_sp_issued`. Nama ini sudah dipakai di
-`f26-quick-dispatch.milestones.md` (Q03, Q04, Q06) dan `INDEX.json`
-(`R-COU-PARTNER + R-COU-DISPATCH`).
+`courier_assignment_rejected`, `courier_sp_issued` — belum ada; nama dipakai di
+`f26-quick-dispatch.milestones.md`.
 
 ## 3. Pemetaan FE ↔ BE
 
-| FE sekarang | BE nanti |
+| FE | BE |
 |---|---|
-| `partnerSlice.partners[]` | `courier_partners` |
-| `partnerSlice.assignments[]` | `courier_assignments` |
-| `PARTNER_SELF_ID` (`marketplace.ts`) | sesi partner (`app_uid()`), bukan id tetap |
-| `CourierPartner.status` | `courier_partners.status` |
-| `CourierAssignment.status/rejectReason` | `courier_assignments.status/reject_reason` |
-| `sendAssignment` (reducer) | `dispatch_courier()` |
-| `approveAssignment` / `rejectAssignment` | `approve_assignment()` / `reject_assignment()` |
-| `issueWarningLetter` (reducer) | `issue_sp()` (bentuk menunggu keputusan) |
-| `QUICK_DISPATCH_AVAILABLE = false` (merchant) | ubah `true` setelah `dispatch_courier()` ada |
+| `partnerSlice.selfId` | `couriers.user_id` = id akun sesi mitra |
+| `CourierPartner.status` | turunan: ada assignment `reserved` → `reserved`; selain itu `couriers.availability` |
+| `CourierPartner.activeOrders` | `couriers.active_order_count` (order aktif, bukan selesai hari ini) |
+| `CourierPartner.warningLetters` | jumlah `punishments` `issued` |
+| `CourierAssignment.status` | `reserved` → `pending`; `approved|rejected|expired` apa adanya |
+| `sendAssignment` (reducer) | `POST dispatch_assignments` (manual pick; `dispatch_courier()` belum) |
+| `approveAssignment` / `rejectAssignment` | `PATCH dispatch_assignments` + `PATCH couriers.availability` |
+| `expireAssignment` / `issueWarningLetter` | belum ada padanan BE (simulasi layar) |
 
-Layar `/courier/partner` (`src/pages/CourierPartner.tsx`) sudah menghormati
-batas: `PlatformNotice` menyatakan assignment adalah data demo selama jalur ini
-belum ada.
+## 4. Urutan pengerjaan
 
-## 4. Urutan pengerjaan yang disarankan
-
-1. `courier_partners` + `courier_assignments` + `orders.delivery_kind/courier_partner_id`.
-2. `my_partner_assignments()` + `approve_assignment()` + `reject_assignment()` (partner bisa bekerja end-to-end).
-3. `dispatch_courier()` (butuh keputusan OPEN-11) + event realtime; baru ubah `QUICK_DISPATCH_AVAILABLE`.
-4. `expire_assignments()` + `issue_sp()` setelah PO memutuskan penerbit SP.
+1. ✅ `couriers` partner + `dispatch_assignments` + baca/tulis board mitra.
+2. ✅ Approve/reject + availability tersimpan.
+3. ⏳ `dispatch_courier()` (butuh keputusan OPEN-11) + event realtime.
+4. ⏳ `expire_assignments()` + `issue_sp()` setelah PO memutuskan penerbit SP.
+5. ⏳ Fee Quick 100% + talangan COD Quick (ranah uang, terpisah).
 
 ## 5. UNRESOLVED (jangan diisi tebakan)
 
-- **Penerbit SP** (§18, OPS-10): ops manual vs trigger otomatis. `issued_by` dan `issue_sp()` sengaja dibiarkan terbuka.
-- **Algoritma dispatch** (OPEN-11): dokumen ini menuliskan **usulan** PRD apa adanya (idle terlama + batas jarak + tie-break).
-- **Tabel partner**: `courier_partners` terpisah vs `couriers` + penanda jenis (PRD "model kurir ganda").
+- **Penerbit SP** (§18, OPS-10): ops manual vs trigger otomatis. Implementasi membaca `punishments`, tidak menulis.
+- **Algoritma dispatch** (OPEN-11): dokumen ini menuliskan **usulan** PRD apa adanya.
+- **Tabel partner**: `courier_partners` terpisah vs `couriers` + penanda jenis. Kode memakai yang kedua sementara; keputusan PO masih terbuka.
 - **Parameter ops** (`dispatch_max_kms`, `location_freshness_seconds`, `quick_fee_multiplier`): config ops, belum ada angkanya.
 - **Pemulihan "Quick tak tersedia"** (`f26` Q10): batal / refund / ubah ke Regular belum diputuskan.

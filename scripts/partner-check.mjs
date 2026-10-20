@@ -6,10 +6,17 @@ import assert from 'node:assert/strict'
 import reducer, {
   approveAssignment,
   expireAssignment,
+  hydratePartnerBoard,
   issueWarningLetter,
   rejectAssignment,
 } from '../src/store/slices/partnerSlice.ts'
 import { PARTNER_SELF_ID, mockAssignments, mockCourierPartners } from '../src/data/marketplace.ts'
+import {
+  sqlIso,
+  toAssignment,
+  toAssignmentStatus,
+  toPartner,
+} from '../src/api/partner.ts'
 
 const seed = () => ({ partners: mockCourierPartners, assignments: mockAssignments })
 const self = PARTNER_SELF_ID
@@ -75,5 +82,72 @@ assert.equal(partnerOf(noCandidate).status, 'offline')
 // Assignment yang sudah direspons tak bisa kedaluwarsa lagi (guard).
 const twice = reducer(approved, expireAssignment({ id: 'assign-1' }))
 assert.equal(twice.assignments[0].status, 'approved', 'assignment final tak berubah')
+
+// — Pemetaan BE ↔ layar (src/api/partner.ts) —
+// `reserved` = menunggu respons; status asing tidak ditampilkan sebagai pending.
+assert.equal(toAssignmentStatus('reserved'), 'pending')
+assert.equal(toAssignmentStatus('approved'), 'approved')
+assert.equal(toAssignmentStatus('lain'), null)
+assert.equal(sqlIso('2026-10-20 01:38:44'), '2026-10-20T01:38:44Z')
+assert.equal(sqlIso(null), null)
+assert.equal(sqlIso('2026-10-20T01:38:44.000Z'), '2026-10-20T01:38:44.000Z')
+
+const beRow = {
+  id: 7,
+  user_id: 28,
+  name: 'Rani Saputra',
+  phone: '+962790000001',
+  availability: 'unavailable',
+  active_order_count: 2,
+  last_seen_at: '2026-10-20 01:00:00',
+  created_at: '2026-10-01 00:00:00',
+}
+const mappedPartner = toPartner(beRow, 2, true)
+assert.equal(mappedPartner.id, '7')
+assert.equal(mappedPartner.status, 'reserved', 'ada assignment menunggu → reserved')
+assert.equal(mappedPartner.activeOrders, 2, 'active_order_count = order aktif, bukan selesai')
+assert.equal(mappedPartner.warningLetters, 2, 'SP aktif dari punishments')
+assert.equal(toPartner(beRow, 0, false).status, 'offline', 'unavailable → offline')
+
+const mappedAssignment = toAssignment({
+  id: 9,
+  order_id: 42,
+  courier_id: 7,
+  status: 'rejected',
+  reject_reason: 'di luar radius',
+  reserved_at: '2026-10-20 01:00:00',
+  responded_at: '2026-10-20 01:02:00',
+})
+assert.deepEqual(mappedAssignment, {
+  id: '9',
+  orderId: '42',
+  partnerId: '7',
+  status: 'rejected',
+  sentAt: '2026-10-20T01:00:00Z',
+  respondedAt: '2026-10-20T01:02:00Z',
+  rejectReason: 'di luar radius',
+})
+assert.equal(
+  toAssignment({
+    id: 1,
+    order_id: 1,
+    courier_id: 7,
+    status: 'aneh',
+    reject_reason: null,
+    reserved_at: null,
+    responded_at: null,
+  }),
+  null,
+)
+
+// Board BE menimpa mock: identitas sesi + assignment nyata, mock dibuang.
+const hydrated = reducer(
+  seed(),
+  hydratePartnerBoard({ partner: mappedPartner, assignments: [mappedAssignment] }),
+)
+assert.equal(hydrated.selfId, '7')
+assert.equal(hydrated.assignments.length, 1)
+assert.equal(hydrated.assignments[0].orderId, '42')
+assert.equal(partnerOf(hydrated, '7').status, 'reserved')
 
 console.log('partner-check: OK')

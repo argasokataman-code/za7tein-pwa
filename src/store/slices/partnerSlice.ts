@@ -1,16 +1,19 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import { mockAssignments, mockCourierPartners } from '../../data/marketplace'
+import { mockAssignments, mockCourierPartners, PARTNER_SELF_ID } from '../../data/marketplace'
 import type { CourierAssignment, CourierPartner, CourierPartnerStatus } from '../../types'
 
 interface PartnerState {
   partners: CourierPartner[]
   assignments: CourierAssignment[]
+  /** Id mitra milik sesi ini; mock `partner-1` sampai API menimpa. */
+  selfId: string
 }
 
 const initialState: PartnerState = {
   partners: mockCourierPartners,
   assignments: mockAssignments,
+  selfId: PARTNER_SELF_ID,
 }
 
 /**
@@ -101,6 +104,22 @@ const partnerSlice = createSlice({
     replacePartners(state, action: PayloadAction<CourierPartner[]>) {
       state.partners = action.payload
     },
+    /**
+     * Board mitra dari BE: identitas sesi sendiri + assignment-nya. Mock
+     * assignment dibuang supaya layar tidak mencampur tawaran demo dengan
+     * assignment nyata.
+     */
+    hydratePartnerBoard(
+      state,
+      action: PayloadAction<{ partner: CourierPartner; assignments: CourierAssignment[] }>,
+    ) {
+      const { partner, assignments } = action.payload
+      state.selfId = partner.id
+      const index = state.partners.findIndex((p) => p.id === partner.id)
+      if (index >= 0) state.partners[index] = partner
+      else state.partners.unshift(partner)
+      state.assignments = assignments
+    },
   },
 })
 
@@ -112,5 +131,6 @@ export const {
   expireAssignment,
   issueWarningLetter,
   replacePartners,
+  hydratePartnerBoard,
 } = partnerSlice.actions
 export default partnerSlice.reducer

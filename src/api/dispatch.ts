@@ -2,13 +2,11 @@
  * Dispatch kurir partner (§9.3–§9.5) ↔ `dispatch_assignments` + `couriers`.
  *
  * Kontrak live (diverifikasi 2026-10-17):
- *  - `dispatch_assignments`: `id, order_id, courier_id, status, responded_at`;
- *    `status` hanya `approved | rejected | expired` — **tak ada** keadaan
- *    "menunggu respons". Barisnya adalah **catatan hasil** yang ditulis saat
- *    mitra merespons, bukan pesanan yang dikirim merchant. Karena itu FE tak
- *    menulis tabel ini (penjadwalan + waktu kirim milik `dispatch_courier()`,
- *    OPEN-11); FE hanya menugaskan kurir ke order (`orders.courier_id`, lihat
- *    `assignOrderCourier`).
+ *  - `dispatch_assignments`: `id, order_id, courier_id, status, reject_reason,
+ *    reserved_at, responded_at`; `status` default `reserved` = **menunggu
+ *    respons**, lalu `approved | rejected` (ditulis saat mitra merespons) atau
+ *    `expired` (milik BE, OPEN-11). Merchant menulis baris `reserved` lewat
+ *    `assignOrderCourier`; mitra merespons di `src/api/partner.ts`.
  *  - `couriers`: `courier_type` berisi kode `courier_types` (`inhouse`,
  *    `partner`, `partner_ondemand`); `availability` = available/busy/offline.
  *
@@ -32,6 +30,7 @@ interface CourierRow {
 
 const STATUS: Record<string, CourierPartnerStatus> = {
   available: 'available',
+  reserved: 'reserved',
   busy: 'busy',
   on_delivery: 'busy',
   unavailable: 'offline',
@@ -52,7 +51,7 @@ export async function fetchPartnerCouriers(): Promise<CourierPartner[]> {
     name: row.name,
     phone: row.phone ?? '',
     status: STATUS[row.availability ?? ''] ?? 'offline',
-    completedToday: row.active_order_count ?? 0,
+    activeOrders: row.active_order_count ?? 0,
     warningLetters: 0,
     lastLocationAt: row.last_seen_at,
     joinedAt: row.created_at,

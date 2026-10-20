@@ -12,6 +12,11 @@ interface AuthState {
    * app yang baru dipasang tidak menampilkan layar masuk sama sekali.
    */
   role: string | null
+  /**
+   * Jenis akun kurir. `partner` bukan karyawan merchant: tidak punya batch,
+   * tips, atau dompet inhouse — permukaannya `/partner` (satu order per waktu).
+   */
+  courierKind: 'inhouse' | 'partner' | null
   isLoading: boolean
 }
 
@@ -24,6 +29,7 @@ const initialState: AuthState = {
   user: mockUser,
   isAuthenticated: false,
   role: null,
+  courierKind: null,
   isLoading: false,
 }
 
@@ -55,6 +61,11 @@ const authSlice = createSlice({
       state.user = null
       state.isAuthenticated = false
       state.role = null
+      state.courierKind = null
+    },
+    /** Dipilih di layar masuk kurir; menentukan permukaan (batch vs partner). */
+    setCourierKind(state, action: PayloadAction<AuthState['courierKind']>) {
+      state.courierKind = action.payload
     },
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload
@@ -62,5 +73,5 @@ const authSlice = createSlice({
   },
 })
 
-export const { setUser, updateUser, signIn, logout, setLoading } = authSlice.actions
+export const { setUser, updateUser, signIn, logout, setCourierKind, setLoading } = authSlice.actions
 export default authSlice.reducer
