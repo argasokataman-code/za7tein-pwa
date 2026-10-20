@@ -9,7 +9,7 @@
  */
 import { refToken } from './reference'
 import { WS_MESSAGE_VERSION, WS_SUBSCRIBED_TOPICS, WS_TOPIC_PREFIX } from '../data/realtime'
-import { apiBase, apiEnabled } from './supabase'
+import { apiBase, apiEnabled, backend } from './supabase'
 
 type RealtimeHandler = (payload: unknown) => void
 
@@ -40,7 +40,12 @@ export function onResync(fn: ResyncListener): () => void {
 
 /** Langganan `orders` (semua event). Balikan fungsi untuk melepas. */
 export function subscribeOrders(onChange: RealtimeHandler): () => void {
-  if (!apiEnabled || typeof WebSocket === 'undefined') return () => {}
+  // Worker belum punya endpoint Phoenix: `/realtime/v1/websocket` = 404, jadi
+  // mencoba menyambung hanya menghasilkan error merah tiap 3 detik di console.
+  // Jalur hidup sementara = polling `useApiNotifications` (30 detik) + refresh
+  // saat `online`; event per-baris masih diminta ke BE di
+  // docs/backend/REQUEST-FE-ke-BE.md §Realtime.
+  if (!apiEnabled || backend.worker || typeof WebSocket === 'undefined') return () => {}
 
   let ws: WebSocket | null = null
   let heartbeat: ReturnType<typeof setInterval> | null = null
