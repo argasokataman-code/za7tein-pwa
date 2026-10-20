@@ -490,19 +490,24 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
       </h3>
       <p className="doc-p">
         Beranda dapur punya <strong>satu titik fokus uang</strong>: kartu pendapatan lebar penuh
-        dengan angka <code className="doc-inline">--text-2xl</code> dan sparkline tujuh hari, lalu
+        dengan angka <code className="doc-inline">--text-2xl</code> dan batang tujuh hari, lalu
         tiga angka antrean turun pangkat jadi satu baris teks 44px. Sebelumnya keempatnya kotak
         seragam di grid 2×2 (terukur 73/73/99/99px dengan semua nilai 17,01px), jadi "Rp256.000"
         dan "2 order" tercetak sama besar dan uangnya tidak menonjol.
       </p>
       <p className="doc-p">
         Komponen{' '}
-        <code className="doc-inline">Sparkline</code> ({'{'}komponen ui{'}'}) menggambar satu seri
-        sebagai garis di SVG: yang perlu terlihat cuma bentuk harinya, bukan angka tiap titik,
-        dan angkanya tetap tersedia lewat <code className="doc-inline">aria-label</code>. Ini
-        <strong> menggantikan</strong> bar chart "Tren 7 hari" (371px) yang lalu dihapus: bentuk
-        harinya sudah tampil di kartu pendapatan, jadi menampilkannya dua kali bukan kelengkapan.
-        Tidak ada library chart baru, dan nada warnanya token yang sama dengan donut/bar.
+        <code className="doc-inline">TrendBars</code> ({'{'}komponen ui{'}'}) menggambar tujuh
+        batang HTML/CSS, satu per hari, dengan baseline nol dan angka per hari di atas batang.
+        Sparkline garis yang lama diganti karena kemiringannya bergantung pada min/max dan tidak
+        punya baseline: hari tanpa nilai tak terlihat berbeda dari hari bernilai kecil, dan
+        &ldquo;puncak&rdquo; di subjudul tidak bisa diverifikasi dari bentuknya. Batang hari
+        terakhir ditebalkan sebagai penanda hari berjalan; total dan ringkasan tetap di kartu
+        induk, dan angka lengkapnya tersedia lewat <code className="doc-inline">aria-label</code>.
+        Ini <strong> menggantikan</strong> bar chart &ldquo;Tren 7 hari&rdquo; (371px) yang lalu
+        dihapus: bentuk harinya sudah tampil di kartu pendapatan, jadi menampilkannya dua kali
+        bukan kelengkapan. Tidak ada library chart baru, dan warnanya mewarisi
+        <code className="doc-inline">currentColor</code> kartu.
       </p>
       <p className="doc-p">
         <strong>Menu terjual</strong> adalah blok peringkat menu dari{' '}

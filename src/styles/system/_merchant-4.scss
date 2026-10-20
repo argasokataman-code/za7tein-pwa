@@ -66,7 +66,7 @@
   margin-bottom: var(--space-3);
 }
 
-.merchant-revenue .chart-spark {
+.merchant-revenue .chart-bars {
   margin-top: var(--space-2);
 }
 
@@ -141,22 +141,6 @@
   background: var(--merchant-brand);
   border-color: var(--merchant-brand);
   color: var(--on-brand);
-
-  /* Sparkline ikut latar merek: garis/titik/isi putih — kalau dibiarkan oranye
-     ia hilang di atas oranye. Titik diberi cincin warna permukaan, bukan
-     `--surface`. */
-  .chart-spark-line {
-    stroke: var(--on-brand);
-  }
-
-  .chart-spark-dot {
-    fill: var(--on-brand);
-    stroke: var(--merchant-brand);
-  }
-
-  .chart-spark-fill {
-    stop-color: var(--on-brand);
-  }
 }
 
 .merchant-revenue-value {

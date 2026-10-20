@@ -37,75 +37,65 @@
   background: var(--text-secondary);
 }
 
-/* ── Sparkline ─────────────────────────────────────────────────────────── */
+/* ── Batang tren harian ────────────────────────────────────────────────── */
 
-/* Satu seri sebagai garis; dipakai di kartu pendapatan beranda dapur. Nada
-   warnanya ikut token yang sama dengan donut/bar di atas, jadi tidak menambah
-   warna baru. `vector-effect` menjaga garis tetap 2px walau viewBox-nya
-   diregangkan lebar penuh. */
-.chart-spark {
+/* Tujuh batang, satu per hari. Menggantikan sparkline: batang punya baseline
+   nol yang nyata (garis tipis di bawah), jadi hari tanpa nilai terlihat kosong
+   dan tinggi tiap batang bisa dibandingkan tanpa distortion min/max. Warna
+   memakai `currentColor`; kartu berlatar merek (oranye/navy) tak perlu aturan
+   warna kedua. */
+.chart-bars {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.chart-bars-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.chart-bars-value {
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  text-align: center;
+  opacity: 0.8;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-bars-track {
+  display: flex;
+  align-items: flex-end;
+  height: 48px;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+}
+
+.chart-bars-bar {
   display: block;
   width: 100%;
-  overflow: visible;
+  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+  background: currentColor;
+  opacity: 0.72;
 }
 
-/* `vector-effect` tidak dipakai di sini: garis data boleh diskalakan bersama
-   viewBox-nya, karena rasionya sudah nyata (bukan viewBox 0..100 yang
-   diregangkan), dan menambah `vector-effect` membuat tebal garis berbeda dengan
-   yang lain saat kartu menyempit.
-
-   Garisnya menggambar dari kiri ke kanan saat kartu masuk, sama seperti cincin
-   donut di kartu lain. Sebelumnya hanya donutnya yang bergerak dan sparkline
-   muncul beku, jadi dua grafik di satu halaman terbaca sebagai dua bahasa.
-   `pathLength="1"` di komponennya membuat `dasharray` tidak perlu tahu panjang
-   path sebenarnya; tanpa itu nilainya harus diukur per data. */
-.chart-spark-line {
-  fill: none;
-  stroke: var(--sa7tein-orange);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1;
-  animation: spark-draw var(--motion-journey) var(--ease-decelerate) 120ms both;
+/* Hari terakhir = satu-satunya yang ditebalkan; bukan hiasan, ia menandai
+   "ini hari berjalan" tanpa perlu legenda tambahan. */
+.chart-bars-bar.is-current {
+  opacity: 1;
 }
 
-@keyframes spark-draw {
-  from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* Titik ujung muncul setelah garisnya sampai, bukan ikut berjalan. */
-.chart-spark-dot {
-  fill: var(--sa7tein-orange);
-  stroke: var(--surface);
-  stroke-width: 1.5;
-  animation: spark-dot-in var(--motion-standard) var(--ease-decelerate) 620ms both;
-}
-
-@keyframes spark-dot-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.chart-spark-fill {
-  stop-color: var(--sa7tein-orange);
-}
-
-/* Area di bawah garis. `fill` sengaja **tidak** diatur di sini: komponennya
-   sudah memasang gradien lewat atribut (`fill="url(#…)"`), dan aturan CSS
-   `fill` akan mengalahkan atribut itu sehingga gradiennya hilang. Kelas ini
-   sempat dipakai di `Sparkline.tsx` tanpa aturan apa pun — ditemukan lewat
-   surface scan, bukan lewat browser. */
-.chart-spark-area {
-  stroke: none;
+.chart-bars-label {
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  text-align: center;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ── Kepala kartu grafik ─────────────────────────────────────────────────
@@ -382,17 +372,5 @@
 
   .chart-bar-fill {
     animation: none;
-  }
-
-  /* Garis dan titiknya langsung tampil utuh. Tanpa ini keduanya tetap berakhir
-     di keadaan akhir, tapi selama 650ms grafiknya kosong — pembaca yang meminta
-     gerak dikurangi justru menunggu lebih lama daripada yang tidak. */
-  .chart-spark-line,
-  .chart-spark-dot {
-    animation: none;
-  }
-
-  .chart-spark-line {
-    stroke-dashoffset: 0;
   }
 }

@@ -41,6 +41,9 @@ import { AuthSection } from './documentation/sections/AuthSection'
 import { AppPolishSection } from './documentation/sections/AppPolishSection'
 import { ChangelogSection } from './documentation/sections/ChangelogSection'
 
+// Grafik tren harian (`TrendBars`: merchant + kurir) didokumentasikan di
+// MerchantDesignSection dan CourierDesignSection; halaman ini hanya merangkai
+// section, jadi jangan menambah entri chart di sini.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,

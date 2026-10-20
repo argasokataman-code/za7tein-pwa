@@ -87,7 +87,7 @@ Target implementasi: repo ini (`sa7tein-pwa`) — Vite + TS + React 19 + Redux T
 | Shell & navigasi | `.app-shell` (`--shell-max 430px`), `BottomNav`/`MerchantBottomNav`/`CourierBottomNav`/`AdminBottomNav`, `AdminShell`, `SuperAdminShell`, `PageHeader` | Kontrak tata letak wajib dipakai (AGENTS §5) |
 | Order | `OrderStageScreen`, `JourneyLine`, `DeliveryCheckpoints`, `OrderStage` 5 tahap | Journey Line = komponen bersama; PRD baru menambah state (batch/Quick) → turunkan dari sini |
 | Uang | `Wallet`, `TopUp`, `Payout`, `HoldStatus`, `LedgerEntry`, `LiabilitySummary`, `Currency*` | Sebagian besar tetap; hold COD jadi tak relevan (C-09) |
-| UI kit | `FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`, `BottomSheet`, `ConfirmSheet`, `MerchantCard`, `DonutChart`/`BarChart`/`Sparkline`, `WalletTopUpGate` | Reuse |
+| UI kit | `FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`, `BottomSheet`, `ConfirmSheet`, `MerchantCard`, `DonutChart`/`BarChart`/`TrendBars`, `WalletTopUpGate` | Reuse |
 | Role & panel | 5 role + 92 rute (`src/App.tsx`), `adminSlice`, `superAdminSlice` | Perlu peta ulang ke "ops PWA" (C-12) |
 | Flow & kontrak | `docs/design/flows/INDEX.json` (24 flow) + `contract.mismatches` | 6 mismatch terdokumentasi; PRD baru menambah mismatch baru |
 | Rating, chat, dispute | `merchantReviews`, `OrderChat.tsx`, `adminSlice.disputes`, `SaAppeals` | Perlu perluasan (menu rating, rule-based dispute) |

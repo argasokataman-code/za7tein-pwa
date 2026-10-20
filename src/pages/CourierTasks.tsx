@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom'
 
 import { CourierHomeHero } from '../components/courier/CourierHomeHero'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
-import { Sparkline } from '../components/ui/Sparkline'
+import { TrendBars } from '../components/ui/TrendBars'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { formatDistance, zoneLabel } from '../data/merchant'
@@ -201,14 +201,15 @@ export default function CourierTasks() {
             <div className="chart-card-heading">
               <p className="chart-card-title" role="heading" aria-level={2}>Tips 7 hari terakhir</p>
               <p className="chart-card-desc">
-                {done.length} tugas selesai · {week.activeDays} hari ada tips · puncak {week.best.label}
+                {done.length} tugas selesai · {week.activeDays} hari ada tips (ribu rupiah) · puncak{' '}
+                {week.best.label}
               </p>
             </div>
           </div>
           <p className="courier-performa-value">{money(week.total)}</p>
-          <Sparkline
+          <TrendBars
             data={week.bars}
-            height={48}
+            formatValue={(value) => String(Math.round(value / 1000))}
             ariaLabel={`Tips tujuh hari terakhir: ${week.total} rupiah, ${week.activeDays} hari ada tips, puncak ${week.best.label}`}
           />
         </section>

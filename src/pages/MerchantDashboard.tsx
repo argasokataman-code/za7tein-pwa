@@ -7,7 +7,7 @@ import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { DonutChart } from '../components/ui/DonutChart'
-import { Sparkline } from '../components/ui/Sparkline'
+import { TrendBars } from '../components/ui/TrendBars'
 import { MerchantHomeHero, type StoreStatus } from '../components/merchant/MerchantHomeHero'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
@@ -201,7 +201,7 @@ export default function MerchantDashboard() {
             menjawab satu hal yang sama — apakah toko menerima order dan berapa
             jatahnya hari ini. Menampilkannya sekali, bukan dua kali. */}
 
-        {/* Kartu pendapatan: satu kartu lebar penuh dengan angka 2xl + sparkline
+        {/* Kartu pendapatan: satu kartu lebar penuh dengan angka 2xl + batang
             tujuh hari. Sebelumnya ini kotak keempat dari grid 2×2 yang keempat
             kartunya seragam — terukur 73/73/99/99px dan SEMUA nilai 17,01px,
             jadi "Rp256.000" dan "2 order" dicetak sama besar (audit-002 #2/#3).
@@ -215,15 +215,16 @@ export default function MerchantDashboard() {
             <div className="chart-card-heading">
               <p className="chart-card-title" role="heading" aria-level={2}>Pendapatan</p>
               <p className="chart-card-desc">
-                7 hari · {trend.orders} order jalan · puncak {trend.best?.label ?? '-'}
+                7 hari (ribu rupiah) · {trend.orders} order jalan · puncak{' '}
+                {trend.best?.label ?? '-'}
               </p>
             </div>
           </div>
           <p className="merchant-revenue-value">{money(revenue)}</p>
-          <Sparkline
+          <TrendBars
             data={revenueTrendBars()}
-            height={48}
-            ariaLabel={`Pendapatan tujuh hari terakhir dalam ribuan rupiah: ${trend.revenueIdr} total`}
+            formatValue={(value) => String(value)}
+            ariaLabel={`Pendapatan tujuh hari terakhir dalam ribuan rupiah: ${trend.revenueIdr} total, puncak ${trend.best?.label ?? '-'}`}
           />
         </section>
 
@@ -238,10 +239,10 @@ export default function MerchantDashboard() {
             berpindah ke tempat angkanya memang dibaca. */}
 
         {/* Konsekuensi kartu pendapatan: bar chart "Tren 7 hari" 371px dihapus.
-            Bentuk harinya sudah ada di sparkline, dan dua kali menunjukkan hal
-            yang sama bukan kelengkapan. Angka yang menjaganya tetap konsisten:
-            `merchantTrend` adalah sumber yang sama untuk kartu, sparkline, dan
-            baris di atasnya. */}
+            Bentuk harinya sudah ada di batang tujuh hari, dan dua kali
+            menunjukkan hal yang sama bukan kelengkapan. Angka yang menjaganya
+            tetap konsisten: `merchantTrend` adalah sumber yang sama untuk kartu,
+            batang, dan baris di atasnya. */}
         {/* Peringkat menu: `decision data`, bukan laporan. Ember statistik cuma
             memberi tahu apa yang sedang terjadi; ini memberi tahu menu mana yang
             layak diperhatikan. Diturunkan dari `CartItem` di order yang sudah

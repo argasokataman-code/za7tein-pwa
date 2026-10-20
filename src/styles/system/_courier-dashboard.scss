@@ -104,21 +104,6 @@
   .courier-performa-value {
     color: var(--on-navy);
   }
-
-  /* Sparkline ikut latar: garis/titik/isi putih. Dibiarkan oranye ia tenggelam
-     di atas navy; titiknya diberi cincin warna permukaan, bukan `--surface`. */
-  .chart-spark-line {
-    stroke: var(--on-navy);
-  }
-
-  .chart-spark-dot {
-    fill: var(--on-navy);
-    stroke: var(--navy);
-  }
-
-  .chart-spark-fill {
-    stop-color: var(--on-navy);
-  }
 }
 
 /* ── Menu beranda ────────────────────────────────────────────────────────── */

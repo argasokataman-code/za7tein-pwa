@@ -152,7 +152,7 @@ Urutan flagship per layar miring: jangan sentuh flow di §2 sebelum M0 (tipe dom
 
 ## 6. Yang TIDAK berubah (reuse wajib — jangan gambar ulang)
 
-`OrderStageScreen` / `JourneyLine` (turunkan state batch/Quick), UI kit (`FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`, `BottomSheet`, `ConfirmSheet`, `MerchantCard`, `DonutChart`/`BarChart`/`Sparkline`), shell 430px, `Wallet`/`Ledger`/`Currency*`, `AppErrorBoundary`, halaman pendukung (Profile, FAQ, HelpCenter, PrivacyPolicy, Security, Language).
+`OrderStageScreen` / `JourneyLine` (turunkan state batch/Quick), UI kit (`FoodCard`, `AddToCartButton`, `FavoriteButton`, `BackButton`, `BottomSheet`, `ConfirmSheet`, `MerchantCard`, `DonutChart`/`BarChart`/`TrendBars`), shell 430px, `Wallet`/`Ledger`/`Currency*`, `AppErrorBoundary`, halaman pendukung (Profile, FAQ, HelpCenter, PrivacyPolicy, Security, Language).
 
 ## 7. `UNRESOLVED` yang menahan pekerjaan (jangan diisi tebakan)
 
