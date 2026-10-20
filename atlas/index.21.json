@@ -5648,6 +5648,120 @@
           "raw": "TASK-130234:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141531",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:00:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx (+21/-16) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx"
+    },
+    {
+      "id": "TASK-141532",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:02:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx (+28/-6) — edit via tool: tsx: const confirmDelete = () => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx"
+    },
+    {
+      "id": "TASK-141533",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:02:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-3.scss (+138/-133) — edit via tool: /* Daftar kurir: satu permu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-141534",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:03:22",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -5; npm run build 2>&1 | grep -E \"error TS|built in\" | tail ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141535",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:04:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-3.scss (+18/-9) — edit via tool: .merchant-courier-sheet-action",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-3.scss"
+    },
+    {
+      "id": "TASK-141536",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:06:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx (+4/-4) — edit via tool: tsx: <MerchantPageHeader",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx"
     }
   ]
 }

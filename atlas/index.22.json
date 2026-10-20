@@ -1,0 +1,158 @@
+{
+  "shard": 22,
+  "nodes": [
+    {
+      "id": "TASK-141537",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:10:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx (+112/-95) — edit via tool: tsx: {/* Satu sheet untuk tiga k",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx"
+    },
+    {
+      "id": "TASK-141538",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:11:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx (+19/-5) — edit via tool: tsx: const deleteAction = () => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCouriers.tsx"
+    },
+    {
+      "id": "TASK-141539",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:11:36",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | tail -3; npm run lint 2>&1 | grep ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141540",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:12:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/BottomSheet.tsx (+14/-7) — edit via tool: tsx: const panelRef = useRef<HT",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/BottomSheet.tsx"
+    },
+    {
+      "id": "TASK-141541",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:13:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/BottomSheet.tsx (+1/-1) — edit via tool: tsx: }, [open, sheetKey])",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/BottomSheet.tsx"
+    },
+    {
+      "id": "TASK-141542",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:13:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | tail -3; sleep 3; node scripts/e2e",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141543",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:19:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+9/-8) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-141602",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:20:16",
+      "tags": [
+        "merchant",
+        "couriers",
+        "ui"
+      ],
+      "summary": "Daftar kurir merchant: baris berambut + sheet aksi; BottomSheet onClose pakai ref (history tak terbuang)",
+      "conn": [
+        {
+          "id": "TASK-141530",
+          "type": "relates",
+          "raw": "TASK-141530:relates"
+        }
+      ]
+    }
+  ]
+}
