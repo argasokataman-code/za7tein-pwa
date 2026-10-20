@@ -153,6 +153,121 @@
           "raw": "TASK-141530:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141603",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:31:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/beMapping.ts (+35/-1) — edit via tool: ts: /** Opsi satu varian menu. `options` di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/beMapping.ts"
+    },
+    {
+      "id": "TASK-141604",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:31:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/catalog.ts (+2/-1) — edit via tool: ts: import { idrToJod, jodToIdr } from '../d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/catalog.ts"
+    },
+    {
+      "id": "TASK-141605",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:31:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs (+9/-8) — edit via tool: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs"
+    },
+    {
+      "id": "TASK-141606",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:32:01",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | tail -3; node --import ./scripts/l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141607",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:34:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+7/-3) — edit via tool: tsx: <code className=\"doc-inline\">menu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-141720",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:35:55",
+      "tags": [
+        "menu",
+        "mapper",
+        "d1"
+      ],
+      "summary": "menu_variants.options dari D1 berupa teks JSON; .map melempar, seluruh menu merchant jadi error",
+      "conn": [
+        {
+          "id": "TASK-141602",
+          "type": "relates",
+          "raw": "TASK-141602:relates"
+        }
+      ]
     }
   ]
 }
