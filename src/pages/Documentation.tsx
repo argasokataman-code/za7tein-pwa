@@ -568,11 +568,12 @@ export default function Documentation() {
               </li>
               <li>
                 <strong>Kelola kurir inhouse</strong> (M4e, MER-16): di{' '}
-                <code className="doc-inline">/merchant/couriers</code> tiap kurir kini bisa{' '}
-                <strong>diubah</strong> (nama + nomor WA) lewat sheet yang sama dengan tambah; halaman
-                menegaskan kurir di sini adalah kurir <em>inhouse</em> (karyawan toko) dan satu kurir
-                ditugaskan ke satu batch di halaman Order. Rekrut kurir partner oleh tim ops (M6) belum
-                ada.
+                <code className="doc-inline">/merchant/couriers</code> daftar kurir berupa satu
+                permukaan berisi baris berambut, bukan kartu per orang: tiap baris memasang nama,
+                nomor WA, dan chip status bertitik di rel kanan tetap, lalu membuka sheet aksi
+                (ubah data / aktifkan-nonaktifkan / hapus). Halaman menegaskan kurir di sini adalah
+                kurir <em>inhouse</em> (karyawan toko) dan satu kurir ditugaskan ke satu batch di
+                halaman Order. Rekrut kurir partner oleh tim ops (M6) belum ada.
               </li>
               <li>
                 <strong>Keranjang ganda per toko</strong> (M1c): menambah menu dari toko berbeda

@@ -3,42 +3,49 @@
 // Kurir toko: kartu daftar kurir + salinan sekunder daftar kosong.
 // Dipecah dari _merchant-2.scss saat file itu menyentuh batas 600 baris.
 
-/* Kartu kurir: kepala (ikon · identitas · status) lalu baris kontrol.
-   Sebelumnya flex-row dengan badge mengambang di tengah vertikal dan status
-   tertulis dua kali (sub "Di toko · 0 order aktif" + badge "Di toko"). Sekarang
-   status hanya di badge, jumlah order hanya muncul saat ada (`> 0`), dan aksi
-   jadi teks polos selebar 44px seperti kontrol menu — bukan dua tombol berbingkai
-   yang membuat kartu 176px. */
-.merchant-courier {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  margin-bottom: var(--space-3);
+/* Daftar kurir: satu permukaan berisi baris berambut, bukan kartu per kurir.
+   Tiap baris adalah tombol penuh yang membuka sheet aksi. Sebelumnya tiap kurir
+   punya kartu sendiri (ikon peach 40px + badge + toolbar tiga aksi), sehingga
+   daftar terbaca sebagai deretan toolbar dan separuh bawah kartu menganggur. */
+.merchant-courier-list {
+  list-style: none;
+  margin: 0 0 var(--space-4);
+  padding: 0;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
   background: var(--surface);
+  overflow: hidden;
 }
 
-.merchant-courier-head {
+.merchant-courier-list > li + li {
+  border-top: 1px solid var(--border);
+}
+
+/* `list-row` = marker gerbang MD-11; rel kanan tetap 112px (chip + chevron). */
+.merchant-courier-row.list-row {
+  @include list-row(calc(var(--space-8) * 3 + var(--space-4)));
+  width: 100%;
+  min-height: 64px;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.merchant-courier-row.list-row:active {
+  background: var(--bg-warm);
+}
+
+.merchant-courier-row.list-row:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: -2px;
+}
+
+.merchant-courier-copy {
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.merchant-courier-icon {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  background: var(--orange-soft);
-  color: var(--orange-soft-ink);
-  flex-shrink: 0;
-}
-
-.merchant-courier-ident {
-  flex: 1;
+  flex-direction: column;
+  gap: 2px;
   min-width: 0;
 }
 
@@ -51,90 +58,97 @@
   white-space: nowrap;
 }
 
-.merchant-courier-side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-1);
-  flex-shrink: 0;
-}
-
-.merchant-courier-count {
+/* MD-07: angka tabular, status bukan kata abu di dalam rangkaian `a · b · c`. */
+.merchant-courier-meta {
   font-size: var(--text-xs);
-  color: var(--text-secondary);
+  color: var(--text-secondary-strong);
+  font-variant-numeric: tabular-nums;
 }
 
-/* Tautan telepon 44px tanpa menggeser aliran teks: elemennya tetap setinggi
-   barisnya, area sentuh dibentangkan lewat pseudo-element `absolute` yang tidak
-   ikut perhitungan baris (pola sama dengan `.merchant-link` di bawah). */
-.merchant-courier-phone {
-  position: relative;
+.merchant-courier-rail {
+  grid-column: 2;
+  justify-self: end;
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  margin-top: 2px;
-  font-size: var(--text-sm);
-  color: var(--orange-ink);
+  color: var(--text-secondary);
 }
 
-.merchant-courier-phone::after {
-  content: '';
-  position: absolute;
-  inset-block: -12px;
-  inset-inline: calc(-1 * var(--space-2)) 0;
-}
-
-/* Chip peringatan, bukan baris status: ia hanya muncul saat ada masalah. */
-.merchant-courier-warn {
-  align-self: flex-start;
-  padding: 2px var(--space-2);
-  border-radius: var(--radius-pill);
-  background: var(--warning-soft);
-  color: var(--warning-ink);
+.merchant-courier-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.merchant-courier-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.merchant-courier-status.is-at_store {
+  color: var(--success-ink);
+}
+
+.merchant-courier-status.is-delivering {
+  color: var(--warning-ink);
+}
+
+.merchant-courier-status.is-offline {
+  color: var(--text-secondary-strong);
+}
+
+.merchant-courier-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  color: var(--orange-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.merchant-courier-sheet-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.merchant-courier-sheet-actions {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.merchant-courier-sheet-actions > * {
+  width: 100%;
+}
+
+/* Destruktif dipisah dari dua aksi netral: warnanya saja tidak cukup saat
+   ketiganya bertumpuk selebar panel. */
+.merchant-courier-sheet-actions .merchant-btn-ghost.is-danger {
+  background: var(--red-soft);
+  border-color: transparent;
 }
 
 /* Kurir yang sedang mengantar tidak bisa diubah toko — statusnya milik
-   checkpoint kurir. Satu kalimat menggantikan baris kontrol. */
+   checkpoint kurir. Satu kalimat menggantikan aksi di sheet. */
 .merchant-courier-note {
+  margin-top: var(--space-3);
   font-size: var(--text-sm);
   color: var(--text-secondary);
-}
-
-.merchant-courier-controls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-/* Aksi teks polos, bukan tombol berbingkai: 44px penuh untuk jari, tapi tanpa
-   kotak yang membuat tiap kartu punya toolbar sendiri. */
-.merchant-courier-action {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-  min-height: var(--touch-min);
-  padding: 0 var(--space-2);
-  border: 0;
-  background: transparent;
-  color: var(--orange-ink);
-  font-size: var(--text-sm);
-  font-weight: 700;
-}
-
-.merchant-courier-action:first-child {
-  margin-left: calc(-1 * var(--space-2));
-}
-
-.merchant-courier-action.is-danger {
-  margin-left: auto;
-  margin-right: calc(-1 * var(--space-2));
-  color: var(--danger-ink);
-}
-
-.merchant-courier-action:focus-visible {
-  outline: 2px solid var(--sa7tein-orange);
-  outline-offset: 2px;
 }
 
 /* Tombol `.page-fab` yang mati (kuota penuh) tetap di tempatnya; gayanya di

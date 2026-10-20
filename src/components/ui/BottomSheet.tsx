@@ -16,6 +16,13 @@ const FOCUSABLE =
 export function BottomSheet({ open, title, ariaLabel, onClose, children }: BottomSheetProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const sheetKey = useId()
+  /* `onClose` sering berupa arrow function baru tiap render. Kalau ia jadi
+     dependency effect, setiap render (mis. dispatch saat submit form) menjalankan
+     cleanup yang memanggil `history.back()`, sehingga entri history sheet bisa
+     terbuang dan halaman ikut berpindah. Simpan di ref; effect cukup bergantung
+     pada `open` + key. */
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
   /* `history.back()` yang kita picu sendiri memunculkan `popstate`; di dev
      StrictMode effect berjalan dua kali sehingga listener baru bisa sempat
      menangkapnya. Penghitung ini membuat pop yang kita sebabkan sendiri
@@ -37,10 +44,10 @@ export function BottomSheet({ open, title, ariaLabel, onClose, children }: Botto
         suppressPop.current -= 1
         return
       }
-      onClose()
+      onCloseRef.current()
     }
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') onCloseRef.current()
     }
     window.addEventListener('popstate', onPop)
     document.addEventListener('keydown', onKey)
@@ -56,7 +63,7 @@ export function BottomSheet({ open, title, ariaLabel, onClose, children }: Botto
         history.back()
       }
     }
-  }, [open, onClose, sheetKey])
+  }, [open, sheetKey])
 
   if (!open) return null
 
