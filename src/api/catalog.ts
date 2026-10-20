@@ -7,6 +7,7 @@
  * (docs/design/flows/INDEX.json §contract).
  */
 import { idrToJod, jodToIdr } from '../data/currency'
+import { parseVariantOptions, type VariantOptionRow } from '../data/beMapping'
 import { foodBucket } from '../data/catalog'
 import { estimateDeliveryTime, formatDistance, haversineMeters } from '../data/merchant'
 import { IMAGE_FALLBACK } from '../data/storefronts'
@@ -75,7 +76,8 @@ export interface VariantRow {
   menu_id: number
   name: string
   max_select: number
-  options: Array<{ id: number; name: string; priceDeltaJod: number }>
+  /** Worker/D1 mengirim teks JSON; PostgREST mengirim array. */
+  options: VariantOptionRow[] | string | null
 }
 
 function toStorefront(row: MerchantRow, origin?: Origin): Storefront {
@@ -119,7 +121,7 @@ function toModifierGroups(rows: VariantRow[]): ModifierGroup[] {
     id: String(variant.id),
     name: variant.name,
     type: variant.max_select > 1 ? 'multi' : 'single',
-    options: variant.options.map((option) => ({
+    options: parseVariantOptions(variant.options).map((option) => ({
       // Id opsi unik lintas varian (backend mengulang id 1,2,3 per varian).
       id: `${variant.id}-${option.id}`,
       label: option.name,

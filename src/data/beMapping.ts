@@ -102,6 +102,40 @@ export function parsePunishment(
   }
 }
 
+/** Opsi satu varian menu. `options` di D1 tersimpan sebagai teks JSON. */
+export interface VariantOptionRow {
+  id: number
+  name: string
+  priceDeltaJod: number
+}
+
+/**
+ * `menu_variants.options` datang sebagai **string JSON** dari Worker/D1 (bukan
+ * array seperti PostgREST Supabase). Memanggil `.map` langsung di situ pernah
+ * mengosongkan seluruh halaman menu ("Gagal memuat menu dari server") karena satu
+ * varian melempar TypeError. Terima array (PostgREST), string JSON, null, dan
+ * bentuk rusak — yang rusak jadi daftar kosong, bukan kegagalan halaman.
+ */
+export function parseVariantOptions(raw: unknown): VariantOptionRow[] {
+  const value =
+    typeof raw === 'string'
+      ? (() => {
+          try {
+            return JSON.parse(raw) as unknown
+          } catch {
+            return []
+          }
+        })()
+      : raw
+  if (!Array.isArray(value)) return []
+  return value.flatMap((option) => {
+    if (!option || typeof option !== 'object') return []
+    const row = option as Partial<VariantOptionRow>
+    if (typeof row.id !== 'number' || typeof row.name !== 'string') return []
+    return [{ id: row.id, name: row.name, priceDeltaJod: Number(row.priceDeltaJod) || 0 }]
+  })
+}
+
 /** Tier cashback (urut ambang naik); `tier` asing dilewati, bukan diteruskan. */
 export function toRebateTiers(rows: CashbackTierRow[]): RebateTierDef[] {
   return rows.flatMap((row) => {

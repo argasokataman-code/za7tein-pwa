@@ -7,12 +7,32 @@ import assert from 'node:assert/strict'
 
 import {
   parsePunishment,
+  parseVariantOptions,
   penaltyKind,
   penaltyLevel,
   toDisputeCatalog,
   toLedgerEntry,
   toRebateTiers,
 } from '../src/data/beMapping.ts'
+
+// Opsi varian: D1 menyimpan teks JSON, PostgREST mengirim array. Bentuk rusak
+// jadi daftar kosong — satu varian cacat tidak boleh mengosongkan seluruh menu.
+assert.deepEqual(
+  parseVariantOptions(
+    '[{"id":1,"name":"Tidak pedas","priceDeltaJod":0},{"id":3,"name":"Sangat pedas","priceDeltaJod":0.25}]',
+  ),
+  [
+    { id: 1, name: 'Tidak pedas', priceDeltaJod: 0 },
+    { id: 3, name: 'Sangat pedas', priceDeltaJod: 0.25 },
+  ],
+)
+assert.deepEqual(
+  parseVariantOptions([{ id: 2, name: 'Jumbo', priceDeltaJod: 1 }]),
+  [{ id: 2, name: 'Jumbo', priceDeltaJod: 1 }],
+)
+assert.deepEqual(parseVariantOptions(null), [])
+assert.deepEqual(parseVariantOptions('{bukan json'), [])
+assert.deepEqual(parseVariantOptions('[{"id":"x"}]'), [])
 
 // Tier: nilai asing dilewati (tipe FE tertutup), urutan kolom dipertahankan.
 assert.deepEqual(toRebateTiers([

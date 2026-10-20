@@ -1061,7 +1061,11 @@ export default function Documentation() {
                 BE-nya belum punya bentuk yang cocok:{' '}
                 <code className="doc-inline">menu_attribute_lines</code> kosong dan{' '}
                 <code className="doc-inline">menu_variants.options</code> beda model dari atribut
-                Odoo FE; <code className="doc-inline">wallet_ledgers</code> hanya satu baris dengan
+                Odoo FE — varian tetap dibaca konsumen menu sebagai modifier, dan karena Worker/D1
+                mengirim <code className="doc-inline">options</code> sebagai teks JSON (bukan array
+                seperti PostgREST), mapper mem-parse-nya defensif di{' '}
+                <code className="doc-inline">parseVariantOptions</code>; satu varian rusak tidak
+                boleh mengosongkan seluruh halaman menu; <code className="doc-inline">wallet_ledgers</code> hanya satu baris dengan
                 kolom <code className="doc-inline">direction</code> NULL (dompet FE memakai saldo{' '}
                 <code className="doc-inline">wallets</code>);{' '}
                 <code className="doc-inline">courier_types</code> tak punya rumah: FE memodelkan jenis
