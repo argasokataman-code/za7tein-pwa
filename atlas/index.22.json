@@ -268,6 +268,102 @@
           "raw": "TASK-141602:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141721",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:38:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/realtime.ts (+3/-3) — edit via tool: ts: import { refToken } from './reference'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/realtime.ts"
+    },
+    {
+      "id": "TASK-141722",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:39:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/realtime.ts (+8/-3) — edit via tool: ts: /** Langganan `orders` (semua event). Ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/realtime.ts"
+    },
+    {
+      "id": "TASK-141723",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:39:46",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | tail -2; node --input-type=module ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141724",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:40:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run scan 2>&1 | grep -E \"[0-9]+ FAIL\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-141803",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-10-20",
+      "time": "19:41:12",
+      "tags": [
+        "realtime",
+        "worker",
+        "console"
+      ],
+      "summary": "Worker tak punya endpoint Phoenix; retry WS 3s membanjiri console. Gate dengan backend.worker, polling 30s jadi fallback",
+      "conn": [
+        {
+          "id": "BUG-141720",
+          "type": "relates",
+          "raw": "BUG-141720:relates"
+        }
+      ]
     }
   ]
 }
