@@ -783,6 +783,216 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-141826",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:00:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierOnboarding.tsx (+2/-2) — edit via tool: tsx: subtitle=\"Diisi sekali sebelu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierOnboarding.tsx"
+    },
+    {
+      "id": "TASK-141827",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:00:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/courierSlice.ts (+4/-5) — edit via tool: ts: export interface CourierOnboa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/courierSlice.ts"
+    },
+    {
+      "id": "TASK-141828",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:00:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/lib/schemas.ts (+5/-6) — edit via tool: ts: export const courierOnboardingSchema = z",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-141829",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:00:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierProfile.tsx (+1/-2) — edit via tool: tsx: const phone = isPartner ? (partn",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierProfile.tsx"
+    },
+    {
+      "id": "TASK-141830",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:01:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f21-account-auth/README.md (+1/-1) — edit via tool: **Lane Merchant & kur",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f21-account-auth/README.md"
+    },
+    {
+      "id": "TASK-141831",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:01:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md (+1/-1) — edit via tool: - Onboarding k",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f16-merchant-onboarding/README.md"
+    },
+    {
+      "id": "TASK-141832",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:01:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_auth.scss (+3/-5) — edit via tool: // Terpilih: `:has(input:checked)` su",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "TASK-141833",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:01:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/lib/schemas.ts (+4/-3) — edit via tool: ts: // Onboarding kurir (keputusan PO 2026-0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-141834",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:04:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+5/-4) — edit via tool: tsx: // Grafik tren harian (`TrendBars",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-141835",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:04:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+10/-3) — edit via tool: tsx: da",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "DEC-141840",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-21",
+      "time": "20:07:33",
+      "tags": [
+        "courier",
+        "onboarding",
+        "walking"
+      ],
+      "summary": "Onboarding kurir inhouse tanpa pilihan kendaraan: semua kurir jalan kaki (PRD §9); field vehicle dibuang dari form, schema, slice, profil.",
+      "conn": [
+        {
+          "id": "FEAT-3004",
+          "type": "relates",
+          "raw": "FEAT-3004:relates"
+        }
+      ]
     }
   ]
 }

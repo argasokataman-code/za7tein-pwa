@@ -557,10 +557,8 @@
 }
 
 // Terpilih: `:has(input:checked)` supaya setiap pemakai dapat state terlihat
-// tanpa harus mencerminkan nilai ke state React. Label polos (mis. onboarding
-// kurir) dulu tak pernah menyetel `.is-on`, jadi memilih Motor/Mobil tak
-// mengubah apa pun — tombolnya terlihat sama saat terpilih. `is-on` tetap
-// didukung untuk layar yang sudah mencerminkannya (merchant sign up).
+// tanpa harus mencerminkan nilai ke state React. `is-on` tetap didukung untuk
+// layar yang sudah mencerminkannya (merchant sign up).
 .auth-zone.is-on,
 .auth-zone:has(input:checked) {
   border-color: var(--sa7tein-orange);

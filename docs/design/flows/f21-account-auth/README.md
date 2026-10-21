@@ -18,7 +18,7 @@ Workflow pendaftaran akun customer + merchant/kurir: **login Google → nomor WA
 
 **Lane Customer:** Onboarding → **Login Google** (menggantikan sandi) → **Nomor WA** (wajib, dinormalisasi E.164) → **Verifikasi nomor** (format + E.164) → profil & PIN → **Boleh order** (gate top-up 3,5 JOD, `f3`).
 
-**Lane Merchant & kurir:** Daftar toko (nama, email, telepon) → Nomor WA toko (E.164) → **Onboarding merchant** (`f16`: form profil toko `/merchant/onboarding`, deposit 3,50 JOD, approval SA, `deliveryConfig`). **Kurir** (PO 2026-09-25): onboarding sendiri `/courier/onboarding` (nama, nomor WA, kendaraan) → masuk `/courier/signin`; rekrutmen tetap milik merchant (C-06).
+**Lane Merchant & kurir:** Daftar toko (nama, email, telepon) → Nomor WA toko (E.164) → **Onboarding merchant** (`f16`: form profil toko `/merchant/onboarding`, deposit 3,50 JOD, approval SA, `deliveryConfig`). **Kurir** (PO 2026-09-25): onboarding sendiri `/courier/onboarding` (nama, nomor WA; tanpa pilihan kendaraan karena semua kurir inhouse berjalan kaki) → masuk `/courier/signin`; rekrutmen tetap milik merchant (C-06).
 
 **Lane Guard:** bukan E.164 / nomor sudah dipakai — tampil sebagai penolakan, bukan jalur lanjut.
 

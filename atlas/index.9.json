@@ -2205,7 +2205,7 @@
         "courier",
         "onboarding"
       ],
-      "summary": "Courier /courier/onboarding: nama + WA + kendaraan, tersimpan di courierSlice.onboarding, dipakai profil",
+      "summary": "Courier /courier/onboarding: nama + WA tanpa kendaraan (kurir inhouse jalan kaki), tersimpan di courierSlice.onboarding, dipakai profil",
       "conn": [
         {
           "id": "DEC-4000",

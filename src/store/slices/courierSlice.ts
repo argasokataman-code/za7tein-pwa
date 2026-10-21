@@ -35,7 +35,6 @@ interface CourierState {
 export interface CourierOnboarding {
   name: string
   phone: string
-  vehicle: 'motor' | 'mobil'
 }
 
 const initialState: CourierState = {

@@ -25,11 +25,10 @@ export default function CourierOnboarding() {
     formState: { errors, isSubmitting },
   } = useForm<CourierOnboardingFormData>({
     resolver: zodResolver(courierOnboardingSchema),
-    defaultValues: { vehicle: 'motor' },
   })
 
   const onSubmit = (data: CourierOnboardingFormData) => {
-    dispatch(completeOnboarding({ name: data.name, phone: data.phone, vehicle: data.vehicle }))
+    dispatch(completeOnboarding({ name: data.name, phone: data.phone }))
     toast.success('Profil kurir tersimpan. Lanjut masuk.')
     navigate('/signin')
   }
@@ -40,7 +39,7 @@ export default function CourierOnboarding() {
       role={AUTH_ROLE_LABEL.courier}
       title="Lengkapi profil kurir"
       subtitle="Diisi sekali sebelum mulai. Merchant yang merekrutmu sudah mendaftarkan akun toko."
-      tagline="Kurir karyawan merchant: ongkir dan gaji diurus merchant, aplikasi ini hanya membawa tips. Nomor WA dipakai sebagai identitas dan tujuan kontak customer."
+      tagline="Kurir karyawan merchant: ongkir dan gaji diurus merchant, aplikasi ini hanya membawa tips. Semua kurir berjalan kaki, tanpa pilihan kendaraan. Nomor WA dipakai sebagai identitas dan tujuan kontak customer."
     >
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">
@@ -85,20 +84,6 @@ export default function CourierOnboarding() {
             <span className="auth-hint">{WA_PHONE_HINT}</span>
           )}
         </div>
-
-        <fieldset className="auth-fieldset">
-          <legend className="auth-label">Kendaraan</legend>
-          <div className="auth-zones">
-            <label className="auth-zone">
-              <input type="radio" value="motor" {...register('vehicle')} />
-              Motor
-            </label>
-            <label className="auth-zone">
-              <input type="radio" value="mobil" {...register('vehicle')} />
-              Mobil
-            </label>
-          </div>
-        </fieldset>
 
         <label className="auth-consent">
           <input

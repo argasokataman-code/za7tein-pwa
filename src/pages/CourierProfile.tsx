@@ -39,7 +39,6 @@ export default function CourierProfile() {
   // dari `couriers` (bukan kurir toko demo).
   const name = isPartner ? (partner?.name ?? 'Kurir partner') : onboarding?.name || courierSelf.name
   const phone = isPartner ? (partner?.phone ?? '') : onboarding?.phone || courierSelf.phone
-  const vehicleLabel = onboarding?.vehicle === 'mobil' ? 'Mobil' : 'Motor'
 
   // Keluar = keluar dari akun lalu kembali ke layar masuk kurir. Memakai
   // `logout()` dari authSlice, sama seperti Profil customer dan Setelan merchant,
@@ -62,9 +61,6 @@ export default function CourierProfile() {
           <div>
             <p className="courier-card-title">{name}</p>
             <p className="courier-card-sub">{phone}</p>
-            {onboarding ? (
-              <p className="courier-card-sub">Kendaraan: {vehicleLabel}</p>
-            ) : null}
           </div>
         </section>
 
