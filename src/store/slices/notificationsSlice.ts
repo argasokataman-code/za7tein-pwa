@@ -9,11 +9,18 @@ interface NotificationsState {
   items: AppNotification[]
   /** Registrasi push aktif (M8). Null = belum mendaftar. */
   subscription: PushSubscriptionRecord | null
+  /**
+   * Alarm tugas kurir yang sedang berbunyi. Null = tidak ada. Tidak ikut
+   * persist: alarm yang tertinggal setelah reload akan berbunyi untuk tugas
+   * lama yang mungkin sudah selesai.
+   */
+  alarm: AppNotification | null
 }
 
 const initialState: NotificationsState = {
   items: [],
   subscription: null,
+  alarm: null,
 }
 
 const notificationsSlice = createSlice({
@@ -49,11 +56,26 @@ const notificationsSlice = createSlice({
     pushNotification(state, action: PayloadAction<AppNotification>) {
       state.items.unshift(action.payload)
     },
+    /** Bunyikan alarm takeover untuk satu notifikasi tugas kurir. */
+    raiseNotificationAlarm(state, action: PayloadAction<AppNotification>) {
+      state.alarm = action.payload
+    },
+    clearNotificationAlarm(state) {
+      state.alarm = null
+    },
   },
 })
 
-export const { markRead, markAllRead, registerPush, clearPush, pushNotification, setNotifications } =
-  notificationsSlice.actions
+export const {
+  markRead,
+  markAllRead,
+  registerPush,
+  clearPush,
+  pushNotification,
+  setNotifications,
+  raiseNotificationAlarm,
+  clearNotificationAlarm,
+} = notificationsSlice.actions
 
 export const selectUnreadCount = (items: AppNotification[]) =>
   items.filter((n) => n.unread).length

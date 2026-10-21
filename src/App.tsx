@@ -5,6 +5,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from
 import { StoreProvider } from './store/provider'
 import { AppErrorBoundary } from './components/AppErrorBoundary'
 import { CustomerCartDock } from './components/customer/CustomerCartDock'
+import { CourierDispatchAlarm } from './components/courier/CourierDispatchAlarm'
 import { PullToRefreshIndicator } from './components/layout/PullToRefreshIndicator'
 import { InstallPromptSheet } from './components/ui/InstallPromptSheet'
 import { useAppSelector } from './hooks/useAppStore'
@@ -468,6 +469,7 @@ function RoleRouter({ basename, routes, home, offlinePath, entry, publicPaths = 
           </Routes>
         </PageTransition>
         {basename === '/customer' ? <CustomerCartDock /> : null}
+        {basename === '/courier' ? <CourierDispatchAlarm /> : null}
       </RoleChrome>
     </BrowserRouter>
   )

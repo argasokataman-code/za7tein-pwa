@@ -60,6 +60,18 @@ export function CourierDesignSection() {
         courier slice, and the profile card no longer carry a vehicle field; the ledger
         and fee engine keep using walking distance.
       </p>
+      <h3 className="doc-h3">A new task is an alarm, not a badge</h3>
+      <p className="doc-p">
+        Courier notifications poll every 15 seconds while other audiences stay at 30. A new
+        unread <code className="doc-inline">kind: courier</code> raises{' '}
+        <code className="doc-inline">CourierDispatchAlarm</code>: a centered alertdialog with
+        the task title, body and one primary action to the task list. It chimes through the
+        existing Web Audio hook every three seconds and vibrates where supported, stops after
+        30 seconds, and never opens over sign-in, onboarding or the partner board. Closing it
+        leaves the notification unread, so the bell badge still tells the truth. Background
+        dispatch still depends on the system push notification; there is no reliable custom
+        alarm sound once the PWA is closed.
+      </p>
       <h3 className="doc-h3">The dashboard reads the slice it already has</h3>
       <p className="doc-p">
         The tasks screen opens with a statline (active, waiting for OTP, finished, tips).

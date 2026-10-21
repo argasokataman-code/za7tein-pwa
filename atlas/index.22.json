@@ -1128,6 +1128,274 @@
           "raw": "FEAT-3004:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141847",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:36:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/notificationsSlice.ts (+23/-8) — edit via tool: ts: pushNotification(state",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/notificationsSlice.ts"
+    },
+    {
+      "id": "TASK-141848",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:36:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiNotifications.ts (+46/-26) — edit via tool: ts: import { useEffect, useRef ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiNotifications.ts"
+    },
+    {
+      "id": "TASK-141849",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:37:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx (+124) — write via tool: tsx: import { Bell",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx"
+    },
+    {
+      "id": "TASK-141850",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:37:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/App.tsx (+2/-1) — edit via tool: tsx: {basename === '/customer' ? <CustomerCar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/App.tsx"
+    },
+    {
+      "id": "TASK-141851",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:37:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/courier-dashboard\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-141852",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:37:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+110) — write via tool: /* Alarm tugas baru kurir: t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141853",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:37:57",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | tail -3 && npm run lint 2>&1 | tai",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141854",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:39:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+48/-41) — edit via tool: .courier-alarm-meta {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141855",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:39:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx (+16/-12) — edit via tool: tsx: <div classN",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx"
+    },
+    {
+      "id": "TASK-141856",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:40:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+120/-74) — edit via tool: .courier-alarm {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141857",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:41:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+13/-5) — edit via tool: .courier-alarm-primary:focu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141858",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:42:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+13/-1) — edit via tool: tsx: <h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-141859",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:42:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+5/-4) — edit via tool: tsx: // Grafik tren harian (`TrendBars",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "DEC-141850",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-21",
+      "time": "20:45:09",
+      "tags": [
+        "courier",
+        "dispatch",
+        "alarm",
+        "notification"
+      ],
+      "summary": "Alarm tugas kurir: alertdialog tengah, bunyi 3 dtk max 30 dtk + getar, polling kurir 15 dtk; tutup tetap unread.",
+      "conn": [
+        {
+          "id": "FEAT-3001",
+          "type": "relates",
+          "raw": "FEAT-3001:relates"
+        }
+      ]
     }
   ]
 }

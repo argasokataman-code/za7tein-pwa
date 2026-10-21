@@ -44,7 +44,8 @@ import { ChangelogSection } from './documentation/sections/ChangelogSection'
 // Grafik tren harian (`TrendBars`: merchant + kurir) didokumentasikan di
 // MerchantDesignSection dan CourierDesignSection; halaman ini hanya merangkai
 // section, jadi jangan menambah entri chart di sini. Onboarding kurir (cover
-// login yang sama, tanpa kendaraan, semua jalan kaki) juga di CourierDesignSection.
+// login yang sama, tanpa kendaraan, semua jalan kaki) dan alarm tugas baru
+// juga di CourierDesignSection.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,
