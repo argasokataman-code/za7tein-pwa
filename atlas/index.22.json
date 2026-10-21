@@ -1388,7 +1388,7 @@
         "alarm",
         "notification"
       ],
-      "summary": "Alarm tugas kurir: alertdialog tengah, bunyi 3 dtk max 30 dtk + getar, polling kurir 15 dtk; tutup tetap unread.",
+      "summary": "Alarm tugas kurir: kartu dispatch (ilustrasi, order+waktu), bunyi 3 dtk maks 30 dtk, polling 15 dtk; tutup tetap unread.",
       "conn": [
         {
           "id": "FEAT-3001",
