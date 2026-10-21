@@ -493,6 +493,12 @@ export interface AppNotification {
    * `src/data/notif.ts`.
    */
   audience?: NotifAudience | 'all'
+  /**
+   * Order yang memicu notifikasi dispatch, bila ada. Kolom `notifications.order_id`;
+   * dipakai alarm kurir untuk menampilkan nomor order, bukan alamat (kontrak BE
+   * belum punya alamat di baris notifikasi).
+   */
+  orderId?: string | null
 }
 
 /**

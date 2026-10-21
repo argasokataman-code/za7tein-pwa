@@ -45,7 +45,8 @@ import { ChangelogSection } from './documentation/sections/ChangelogSection'
 // MerchantDesignSection dan CourierDesignSection; halaman ini hanya merangkai
 // section, jadi jangan menambah entri chart di sini. Onboarding kurir (cover
 // login yang sama, tanpa kendaraan, semua jalan kaki) dan alarm tugas baru
-// juga di CourierDesignSection.
+// (kartu dispatch: ilustrasi toko→kurir, order + waktu masuk) juga di
+// CourierDesignSection.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,

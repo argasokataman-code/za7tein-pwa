@@ -64,13 +64,19 @@ export function CourierDesignSection() {
       <p className="doc-p">
         Courier notifications poll every 15 seconds while other audiences stay at 30. A new
         unread <code className="doc-inline">kind: courier</code> raises{' '}
-        <code className="doc-inline">CourierDispatchAlarm</code>: a centered alertdialog with
-        the task title, body and one primary action to the task list. It chimes through the
-        existing Web Audio hook every three seconds and vibrates where supported, stops after
-        30 seconds, and never opens over sign-in, onboarding or the partner board. Closing it
-        leaves the notification unread, so the bell badge still tells the truth. Background
-        dispatch still depends on the system push notification; there is no reliable custom
-        alarm sound once the PWA is closed.
+        <code className="doc-inline">CourierDispatchAlarm</code>: a white card over a navy
+        scrim, headed by the store-to-courier illustration
+        (<code className="doc-inline">dispatch-courier.webp</code>, blended onto the surface),
+        then the task title and body. The order row shows{' '}
+        <code className="doc-inline">notifications.order_id</code> beside the received time,
+        because that is the only dispatch fact the row carries; the card never invents a
+        merchant or an address. It chimes through the existing Web Audio hook every three
+        seconds and vibrates where supported, stops after 30 seconds, and never opens over
+        sign-in, onboarding or the partner board. The close control and "Tutup" both leave
+        the notification unread, so the bell badge still tells the truth; the primary action
+        marks it read and opens the task list. Background dispatch still depends on the
+        system push notification; there is no reliable custom alarm sound once the PWA is
+        closed.
       </p>
       <h3 className="doc-h3">The dashboard reads the slice it already has</h3>
       <p className="doc-p">

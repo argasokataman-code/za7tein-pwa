@@ -1396,6 +1396,234 @@
           "raw": "FEAT-3001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141860",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:46:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx (+60/-44) — edit via tool: tsx: return (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx"
+    },
+    {
+      "id": "TASK-141861",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:46:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+256) — write via tool: /* Alarm tugas baru kurir: t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141862",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:06:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/reference.ts (+6/-4) — edit via tool: ts: created_at: string",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/reference.ts"
+    },
+    {
+      "id": "TASK-141863",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:06:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/types.ts (+15/-9) — edit via tool: ts: time: string",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-141864",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:07:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/notifications.ts (+3/-2) — edit via tool: ts: read: false,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/notifications.ts"
+    },
+    {
+      "id": "TASK-141865",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:11:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+1/-1) — edit via tool: box-shadow: var(--shadow-car",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141866",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:14:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+7/-6) — edit via tool: .courier-alarm-body {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141867",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:20:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+3/-2) — edit via tool: tsx: // login yang sama, tanpa kendara",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-141868",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:20:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+16/-10) — edit via tool: tsx: C",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-141869",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:22:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss (+1/-1) — edit via tool: padding-left: calc(var(--spa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-alarm.scss"
+    },
+    {
+      "id": "TASK-141870",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:33:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+1/-1) — edit via tool: tsx: (<c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-141871",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "21:33:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx (+1/-1) — edit via tool: tsx: src=\"/assets/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx"
     }
   ]
 }

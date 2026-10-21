@@ -1,4 +1,4 @@
-import { BellRing, ChevronRight } from 'lucide-react'
+import { ArrowRight, Clock, ShoppingBag, Store, X } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ import {
  *
  * Kenapa takeover, bukan sekadar badge: dispatch datang saat makanan sudah
  * matang, dan lonceng kecil di header kalah oleh layar tugas yang sedang
- * dibuka. Panel ini menutup layar sampai kurir mengakuinya, dengan bunyi
+ * dibuka. Kartu ini menutup layar sampai kurir mengakuinya, dengan bunyi
  * berulang dari `useNotificationSound` (Web Audio, tanpa berkas audio) dan
  * getar di perangkat yang mendukung. Bunyi berhenti sendiri setelah 30 detik
  * supaya tidak jadi teror kalau ponsel ditinggal, dan tidak pernah berbunyi
@@ -90,37 +90,77 @@ export function CourierDispatchAlarm() {
       aria-describedby="courier-alarm-body"
     >
       <div className="courier-alarm-panel">
-        <div className="courier-alarm-meta">
-          <span className="courier-alarm-icon" aria-hidden="true">
-            <BellRing size={24} strokeWidth={1.75} />
-          </span>
-          <div>
-            <p className="courier-alarm-kicker">Tugas baru</p>
-            <p className="courier-alarm-time">{alarm.time}</p>
-          </div>
-        </div>
-        <h2 className="courier-alarm-title" id="courier-alarm-title">
-          {alarm.title}
-        </h2>
-        <p className="courier-alarm-body" id="courier-alarm-body">
-          {alarm.body}
-        </p>
-        <button
-          ref={primaryRef}
-          type="button"
-          className="courier-alarm-primary"
-          onClick={openTasks}
-        >
-          Lihat tugas
-          <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
-        </button>
         <button
           type="button"
-          className="courier-alarm-dismiss"
+          className="courier-alarm-close"
+          aria-label="Tutup alarm"
           onClick={() => dispatch(clearNotificationAlarm())}
         >
-          Tutup
+          <X size={20} strokeWidth={1.75} aria-hidden="true" />
         </button>
+
+        <img
+          className="courier-alarm-art"
+          src="/assets/illustrations/dispatch-courier.webp"
+          alt=""
+          width={670}
+          height={215}
+          decoding="async"
+        />
+
+        <div className="courier-alarm-content">
+          <div className="courier-alarm-head">
+            <span className="courier-alarm-badge" aria-hidden="true">
+              <Store size={24} strokeWidth={1.75} />
+            </span>
+            <div className="courier-alarm-heading">
+              <p className="courier-alarm-kicker">Tugas baru</p>
+              <h2 className="courier-alarm-title" id="courier-alarm-title">
+                {alarm.title}
+              </h2>
+            </div>
+          </div>
+
+          <p className="courier-alarm-body" id="courier-alarm-body">
+            {alarm.body}
+          </p>
+
+          <div className="courier-alarm-info">
+            {alarm.orderId ? (
+              <div className="courier-alarm-cell">
+                <ShoppingBag size={20} strokeWidth={1.75} aria-hidden="true" />
+                <div>
+                  <strong>Order #{alarm.orderId}</strong>
+                  <span>Pesanan</span>
+                </div>
+              </div>
+            ) : null}
+            <div className="courier-alarm-cell">
+              <Clock size={20} strokeWidth={1.75} aria-hidden="true" />
+              <div>
+                <strong>Masuk</strong>
+                <span>{alarm.time}</span>
+              </div>
+            </div>
+          </div>
+
+          <button
+            ref={primaryRef}
+            type="button"
+            className="courier-alarm-primary"
+            onClick={openTasks}
+          >
+            Lihat tugas
+            <ArrowRight size={18} strokeWidth={1.75} aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className="courier-alarm-dismiss"
+            onClick={() => dispatch(clearNotificationAlarm())}
+          >
+            Tutup
+          </button>
+        </div>
       </div>
     </div>
   )

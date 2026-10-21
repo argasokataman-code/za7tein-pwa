@@ -25,6 +25,8 @@ export async function insertNotification(input: {
   body: string
   /** Nada notifikasi (kolom `notifications.sound`; kontrak `Notification.sound`). */
   sound?: string
+  /** Order pemicu; dipakai alarm kurir untuk menampilkan nomor order. */
+  orderId?: string
 }): Promise<void> {
   if (!apiEnabled) return
   const token = await refToken()
@@ -36,6 +38,7 @@ export async function insertNotification(input: {
     body: input.body,
     sound: input.sound ?? 'default',
     read: false,
+    order_id: input.orderId ?? null,
   })
 }
 

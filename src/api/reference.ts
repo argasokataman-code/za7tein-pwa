@@ -562,6 +562,8 @@ interface NotificationRow {
   created_at: string
   /** `all` = siaran (§20.3). Bisa null pada baris lama. */
   audience: string | null
+  /** Order pemicu (nullable; notifikasi promo/sistem tidak punya order). */
+  order_id: string | null
 }
 
 /** Jam untuk hari ini (mis. `12.32`), selebihnya `dayLabel` (kemarin/N hari lalu). */
@@ -580,6 +582,7 @@ function toNotification(row: NotificationRow): AppNotification {
     time: notifTime(row.created_at),
     unread: !row.read,
     audience: notifAudienceOf(row.audience),
+    orderId: row.order_id,
   }
 }
 
@@ -592,7 +595,7 @@ export async function fetchNotifications(
   const rows = await restWith<NotificationRow>(
     token,
     'notifications',
-    `?select=id,kind,title,body,read,created_at,audience&audience=in.(${audience},all)&order=created_at.desc&limit=50`,
+    `?select=id,kind,title,body,read,created_at,audience,order_id&audience=in.(${audience},all)&order=created_at.desc&limit=50`,
   )
   return rows.map(toNotification)
 }
