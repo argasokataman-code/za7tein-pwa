@@ -52,7 +52,9 @@ export function CourierDesignSection() {
         dashboard.
       </p>
       <p className="doc-p">
-        Courier onboarding asks for name, WhatsApp number, and consent only. There is no
+        Courier onboarding asks for name, WhatsApp number, and consent only, and now uses the
+        same cover head as the courier sign-in screen (photo, brand tile, title, one-line
+        lede) instead of the old pill photo strip and three-sentence tagline. There is no
         vehicle choice: the active PRD has every inhouse courier on foot (§9), so
         &ldquo;Motor/Mobil&rdquo; was a leftover from the old PO note. The schema, the
         courier slice, and the profile card no longer carry a vehicle field; the ledger

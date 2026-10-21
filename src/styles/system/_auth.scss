@@ -276,7 +276,10 @@
 }
 
 .auth-hint {
-  color: var(--text-secondary);
+  // `--text-secondary` cuma 4,33:1 di `--bg-warm` (gagal AA untuk 13px);
+  // versi strong lolos. Hint dan teks persetujuan adalah informasi, bukan
+  // dekorasi, jadi keduanya memakai nada yang terbaca.
+  color: var(--text-secondary-strong);
   font-size: var(--text-xs);
   line-height: 1.5;
 }
@@ -389,6 +392,7 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
+  color: var(--text-secondary-strong);
   // Seluruh baris adalah target: menekan teksnya sudah mencentang, dan padding
   // vertikal membuat barisnya sendiri setinggi target sentuh.
   //

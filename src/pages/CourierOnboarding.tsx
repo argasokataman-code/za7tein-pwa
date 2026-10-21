@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
-import { AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { AUTH_COURIER_COVER_PHOTOS, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
 import { WA_PHONE_HINT } from '../data/phone'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { courierOnboardingSchema, type CourierOnboardingFormData } from '../lib/schemas'
@@ -36,11 +36,20 @@ export default function CourierOnboarding() {
   return (
     <AuthLayout
       photo={AUTH_PHOTO.courier}
+      photos={AUTH_COURIER_COVER_PHOTOS}
       role={AUTH_ROLE_LABEL.courier}
       title="Lengkapi profil kurir"
-      subtitle="Diisi sekali sebelum mulai. Merchant yang merekrutmu sudah mendaftarkan akun toko."
-      tagline="Kurir karyawan merchant: ongkir dan gaji diurus merchant, aplikasi ini hanya membawa tips. Semua kurir berjalan kaki, tanpa pilihan kendaraan. Nomor WA dipakai sebagai identitas dan tujuan kontak customer."
+      brandLayout="cover"
     >
+      {/* Kepala cover menyembunyikan H1 secara visual (judul biasanya datang
+          dari tab Masuk/Daftar). Onboarding tidak punya tab, jadi judul yang
+          sama ditulis ulang di panel memakai kelas tipografi auth yang sudah
+          ada; H1 asli tetap satu-satunya heading yang dibaca layar pembaca. */}
+      <header className="auth-head">
+        <p className="auth-h1" aria-hidden="true">Lengkapi profil kurir</p>
+        <p className="auth-lede">Sekali isi sebelum mulai. Akun toko sudah dibuat merchant.</p>
+      </header>
+
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">
           <label className="auth-label" htmlFor="courier-name">
@@ -91,16 +100,15 @@ export default function CourierOnboarding() {
             aria-invalid={errors.agree ? true : undefined}
             {...register('agree')}
           />
-          <span>
-            Saya setuju pada ketentuan layanan Sa7tein. Isinya belum tersedia karena semua alur di
-            repo ini masih mode demo.
-          </span>
+          <span>Saya setuju pada ketentuan layanan Sa7tein.</span>
         </label>
         {errors.agree ? (
           <span className="auth-error" role="alert">
             {errors.agree.message}
           </span>
-        ) : null}
+        ) : (
+          <span className="auth-hint">Mode demo: ketentuan lengkap belum tersedia.</span>
+        )}
 
         <button type="submit" className="auth-submit" disabled={isSubmitting}>
           Simpan &amp; lanjut masuk

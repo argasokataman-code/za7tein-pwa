@@ -993,6 +993,141 @@
           "raw": "FEAT-3004:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141841",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:17:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierOnboarding.tsx (+17/-8) — edit via tool: tsx: <AuthLayout",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierOnboarding.tsx"
+    },
+    {
+      "id": "TASK-141842",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:18:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | tail -2; node scripts/e2e-browsers",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141843",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:18:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx (+7/-5) — edit via tool: tsx: Cou",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CourierDesignSection.tsx"
+    },
+    {
+      "id": "TASK-141844",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:18:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+4/-4) — edit via tool: tsx: // Grafik tren harian (`TrendBars",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-141845",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:18:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierOnboarding.tsx (+4/-4) — edit via tool: tsx: <header className=\"auth-head\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierOnboarding.tsx"
+    },
+    {
+      "id": "TASK-141846",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-21",
+      "time": "20:21:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_auth.scss (+6/-5) — edit via tool: .auth-consent {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_auth.scss"
+    },
+    {
+      "id": "DEC-141845",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-21",
+      "time": "20:23:01",
+      "tags": [
+        "courier",
+        "onboarding",
+        "auth",
+        "theme"
+      ],
+      "summary": "Onboarding kurir pakai head cover login (foto, tile merek, judul pendek); hint/consent naik ke text-secondary-strong (6,9:1).",
+      "conn": [
+        {
+          "id": "FEAT-3004",
+          "type": "relates",
+          "raw": "FEAT-3004:relates"
+        }
+      ]
     }
   ]
 }
