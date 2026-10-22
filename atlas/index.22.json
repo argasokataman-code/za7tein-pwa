@@ -1738,6 +1738,47 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-141878",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-22",
+      "time": "22:10:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && rtk git add -A && git commit -m \"feat(customer): use a two-column menu grid\n\nSingle-c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-141851",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-22",
+      "time": "22:10:40",
+      "tags": [
+        "customer",
+        "menu",
+        "grid",
+        "foodcard",
+        "design"
+      ],
+      "summary": "Grid menu customer 2 kolom: foto 4:3, tanpa deskripsi, meta rating+waktu; kartu 189x279, overflow 0.",
+      "conn": [
+        {
+          "id": "TASK-9520",
+          "type": "relates",
+          "raw": "TASK-9520:relates"
+        }
+      ]
     }
   ]
 }
