@@ -1001,7 +1001,11 @@ const AIM = (t) => `(() => { ${CLICKABLE_VIS}
     norm(e.getAttribute('aria-label') || e.innerText || e.tagName) === want.label &&
     (e.getAttribute('href') || null) === (want.href || null))
   if (!el) return null
-  el.scrollIntoView({ block: 'center' })
+  // behavior 'instant' penting: html memakai smooth scroll, jadi
+  // scrollIntoView mengembalikan posisi lama kalau animasinya belum jalan.
+  // Rail horizontal (mis. kupon) jadi dilaporkan OVERLAY padahal cuma belum
+  // tergeser. Klik nyata tetap di titik tengah setelah elemen benar-benar pas.
+  el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'instant' })
   const b = el.getBoundingClientRect()
   const cx = Math.round(b.x + b.width / 2)
   const cy = Math.round(b.y + b.height / 2)

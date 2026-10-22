@@ -1624,6 +1624,120 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/courier/CourierDispatchAlarm.tsx"
+    },
+    {
+      "id": "TASK-141872",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-22",
+      "time": "21:56:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/FoodCard.tsx (+13/-8) — edit via tool: tsx: {facts.map((fact, index) => (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/FoodCard.tsx"
+    },
+    {
+      "id": "TASK-141873",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-22",
+      "time": "21:56:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_food-card.scss (+14/-6) — edit via tool: .food-meta .food-delivery-info,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_food-card.scss"
+    },
+    {
+      "id": "TASK-141874",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-22",
+      "time": "21:57:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx (+1/-1) — edit via tool: tsx: Render",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ComponentsSection.tsx"
+    },
+    {
+      "id": "TASK-141875",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-22",
+      "time": "21:57:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+7/-2) — edit via tool: tsx: // CourierDesignSection.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-141876",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-22",
+      "time": "22:06:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/browser-gate.mjs (+1/-1) — edit via tool: el.scrollIntoView({ block: 'center', inl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/browser-gate.mjs"
+    },
+    {
+      "id": "TASK-141877",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-22",
+      "time": "22:07:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/browser-gate.mjs (+6/-2) — edit via tool: if (!el) return null",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/browser-gate.mjs"
     }
   ]
 }

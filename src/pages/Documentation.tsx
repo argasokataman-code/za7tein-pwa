@@ -47,6 +47,11 @@ import { ChangelogSection } from './documentation/sections/ChangelogSection'
 // login yang sama, tanpa kendaraan, semua jalan kaki) dan alarm tugas baru
 // (kartu dispatch: ilustrasi toko→kurir, order + waktu masuk) juga di
 // CourierDesignSection.
+//
+// Grid menu customer (`.favorites-grid`) dua kolom dijelaskan di
+// ComponentsSection bersama FoodCard: foto 4:3, padding 12px, deskripsi
+// disembunyikan, meta rating + waktu. Halaman ini tetap hanya merangkai
+// section.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,

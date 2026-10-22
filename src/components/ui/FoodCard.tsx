@@ -1,4 +1,4 @@
-import { Fragment, type CSSProperties, type ReactNode } from 'react'
+import { type CSSProperties, type ReactNode } from 'react'
 import { Clock, Star } from 'lucide-react'
 
 import { formatRating } from '../../data/foods'
@@ -41,7 +41,7 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
   // ikut kalau BE mengirimnya (dulu keduanya dibuang).
   const facts: Array<{ key: string; className?: string; content: ReactNode }> = []
   if (timeNode) facts.push({ key: 'time', className: 'food-time', content: timeNode })
-  if (food.distance) facts.push({ key: 'distance', content: food.distance })
+  if (food.distance) facts.push({ key: 'distance', className: 'food-distance', content: food.distance })
   if (food.calories) {
     facts.push({ key: 'kcal', className: 'food-kcal', content: `${food.calories} kkal` })
   }
@@ -90,13 +90,18 @@ export function FoodCard({ food, onOpen, className = '', style }: FoodCardProps)
               <span className="rating-count">({food.reviewCount} ulasan)</span>
             </span>
           ) : null}
-          {facts.map((fact) => (
-            <Fragment key={fact.key}>
-              <span className="separator" aria-hidden="true">
-                •
-              </span>
-              <span className={fact.className}>{fact.content}</span>
-            </Fragment>
+          {facts.map((fact, index) => (
+            <span
+              key={fact.key}
+              className={`food-fact${fact.className ? ` ${fact.className}` : ''}`}
+            >
+              {hasRating || index > 0 ? (
+                <span className="separator" aria-hidden="true">
+                  •
+                </span>
+              ) : null}
+              {fact.content}
+            </span>
           ))}
           {/* Data menu dari BE belum punya rating/waktu untuk semua toko. Baris
               yang kosong diberi tanda `-` supaya tidak terlihat seperti kartu

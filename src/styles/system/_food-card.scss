@@ -174,6 +174,14 @@
   gap: var(--space-1);
 }
 
+/* Satu fakta + pemisahnya jadi satu unit, supaya menyembunyikan "jarak" di
+   grid rapat tidak meninggalkan bullet menggantung. */
+.food-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
 // Bintang amber — token --star, bukan mewarisi abu meta. Digeser 1px turun supaya
 // optiknya duduk di tengah teks (ikon 14px rata-tengah kotak garis sedikit naik).
 .food-rating svg {
@@ -254,17 +262,57 @@
   background: var(--orange-deep);
 }
 
-// Grid hasil pencarian/favorit di stylesheet lama menyalakan kolom dari media
-// query **lebar jendela** (`repeat(3,1fr)` di ≥768px, `1fr` di ≤360px). Karena
-// kolom aplikasi dipaku 430px, jendela lebar menghasilkan tiga kolom ~119px dan
-// kartu gepeng. Dipaku SATU kolom berapa pun lebar jendela: kartu cukup lebar
-// untuk satu baris meta seperti mockup, dan semua kartu sebangun.
+// Grid menu dua kolom di dalam kolom 430px. Dulu dipaku SATU kolom karena
+// stylesheet lama menyalakan tiga kolom dari lebar jendela (kartu jadi ~119px),
+// tapi satu kolom membuat 15 menu memakan ±5000px: foto 180px + deskripsi +
+// meta selebar layar. Dua kolom tetap aman di shell 430 (tiap kartu ~187px) dan
+// memangkas tinggi daftar lebih dari separuh, jadi lebih banyak menu terlihat
+// tanpa menggulir.
+//
+// Kartu rapat punya aturan sendiri: foto 4:3 (bukan 180px tetap), padding 12px,
+// deskripsi disembunyikan (nama + harga + rating sudah cukup), dan meta hanya
+// rating + waktu. Jarak toko dibuang karena sama untuk semua item di satu toko.
 .favorites-grid {
-  grid-template-columns: 1fr;
-  // Satu kolom: tiap kartu setinggi isinya sendiri (`start`), bukan ditarik
-  // setinggi kartu terpanjang. Stretch dulu meninggalkan ruang kosong besar di
-  // bawah baris harga pada kartu yang isinya lebih pendek.
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  align-items: stretch;
+}
+
+.favorites-grid .food-card-image {
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+
+.favorites-grid .food-card-content {
+  padding: var(--space-3);
+}
+
+.favorites-grid .food-name {
+  min-height: calc(2 * 1.35em);
+  font-size: var(--text-sm);
+  line-height: 1.35;
+}
+
+.favorites-grid .food-desc {
+  display: none;
+}
+
+.favorites-grid .food-meta {
+  margin-top: var(--space-1);
+}
+
+.favorites-grid .food-meta .food-distance,
+.favorites-grid .food-meta .food-kcal,
+.favorites-grid .food-meta .rating-count {
+  display: none;
+}
+
+.favorites-grid .food-price-row {
+  padding-top: var(--space-2);
+}
+
+.favorites-grid .food-price {
+  font-size: var(--text-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {
