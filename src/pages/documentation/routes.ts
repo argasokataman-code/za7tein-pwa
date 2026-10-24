@@ -22,7 +22,7 @@ export const DOC_SHELLS: DocShell[] = [
   { role: 'Customer', url: '/customer/home', host: 'sa7tein-c.vercel.app', desc: 'PWA pembeli' },
   { role: 'Merchant', url: '/merchant', host: 'sa7tein-m.vercel.app', desc: 'Konsol merchant' },
   { role: 'Courier', url: '/courier', host: 'sa7tein-k.vercel.app', desc: 'Tampilan kurir' },
-  { role: 'Admin (CS)', url: '/admin', host: 'sa7tein-a.vercel.app', desc: 'Panel CS' },
+  { role: 'Ops', url: '/ops', host: 'sa7tein-a.vercel.app', desc: 'Backoffice kanonik (desktop)' },
   { role: 'Super Admin', url: '/superadmin', desc: 'Website penuh non-PWA' },
   { role: 'Landing', url: '/', desc: 'Halaman publik' },
 ]
@@ -191,16 +191,25 @@ export const COURIER_GROUP: DocRouteGroup = {
   ],
 }
 
-export const ADMIN_GROUP: DocRouteGroup = {
-  id: 'admin',
-  title: 'Admin Panel (CS)',
-  base: '/admin',
+export const OPS_GROUP: DocRouteGroup = {
+  id: 'ops',
+  title: 'Panel Ops — backoffice kanonik (website penuh non-PWA)',
+  base: '/ops',
   rows: [
-    { path: '/', component: 'AdminDashboard', desc: 'Ringkasan: liability agregat + flag saldo DANA + alert SLA' },
-    { path: '/onboarding', component: 'AdminOnboarding', desc: 'Queue tenant: review data, verifikasi deposit, tolak' },
-    { path: '/disputes', component: 'AdminDisputes', desc: 'Queue sengketa: investigasi + 4 tombol resolusi' },
-    { path: '/merchants', component: 'AdminMerchants', desc: 'Master tenant: suspend + blacklist COD (dua sisi)' },
-    { path: '/ledger', component: 'AdminLedger', desc: 'Entry ledger append-only, tanpa edit/hapus' },
+    { path: '/', component: 'OpsDashboard', desc: 'Ringkasan: antrean kerja ops hari ini' },
+    { path: '/liability', component: 'OpsLiability', desc: 'Kewajiban, saldo DANA, eksposur sengketa, arus ledger' },
+    { path: '/onboarding', component: 'OpsOnboarding', desc: 'Queue tenant: review data, verifikasi deposit, tolak' },
+    { path: '/disputes', component: 'OpsDisputes', desc: 'Queue sengketa: investigasi + 4 tombol resolusi' },
+    { path: '/merchants', component: 'OpsMerchants', desc: 'Master tenant: suspend + blacklist COD (dua sisi)' },
+    { path: '/ledger', component: 'OpsLedger', desc: 'Entry ledger append-only, tanpa edit/hapus' },
+    { path: '/rules', component: 'OpsRules', desc: 'Katalog rule sengketa: mitigasi, kompensasi, punishment' },
+    { path: '/incidents', component: 'OpsIncidents', desc: 'Insiden per order + tindakan ops' },
+    { path: '/moderation', component: 'OpsModeration', desc: 'Moderasi tag merchant' },
+    { path: '/penalties', component: 'OpsPenalties', desc: 'Surat peringatan & punishment' },
+    { path: '/programs', component: 'OpsPrograms', desc: 'Program aplikator lintas merchant' },
+    { path: '/quotas', component: 'OpsQuotas', desc: 'Paket kuota order & COD' },
+    { path: '/settings', component: 'OpsSettings', desc: 'Aturan platform: multiplier, ambang notif, flat fee' },
+    { path: '/analytics', component: 'OpsAnalytics', desc: 'Analytics platform + audit log' },
   ],
 }
 

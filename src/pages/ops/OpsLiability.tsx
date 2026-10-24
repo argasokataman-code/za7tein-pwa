@@ -1,27 +1,23 @@
-import { AlertTriangle, ArrowDownLeft, ArrowUpRight, Lock, RefreshCw, Scale, ShieldCheck, Signal, Store } from 'lucide-react'
+import { AlertTriangle, ArrowDownLeft, ArrowUpRight, Lock, Scale, ShieldCheck, Signal, Store } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
 
-import { AdminKpi } from '../components/admin/AdminKpi'
-import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminShell } from '../components/layout/AdminShell'
-import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { DonutChart } from '../components/ui/DonutChart'
-import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import { InstallAppCard } from '../components/ui/InstallAppCard'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { useAppUpdate } from '../hooks/useAppUpdate'
-import { useMoney } from '../hooks/useMoney'
-import { aggregateLiability, liabilityGap, ledgerTypeLabel, openDisputeCount, pendingTenantCount, totalLiability } from '../data/admin'
-import { disputeExposure, ledgerFlow, ledgerTypeBars, liabilitySegments } from '../data/dashboard'
-import { jod, jodToIdr } from '../data/currency'
-import { APP_VERSION } from '../data/appInfo'
-import { clearEscalation } from '../store/slices/adminSlice'
-import type { AdminEscalation } from '../types'
+import { AdminKpi } from '../../components/admin/AdminKpi'
+import { OpsShell } from '../../components/layout/OpsShell'
+import { ConfirmSheet } from '../../components/ui/ConfirmSheet'
+import { DonutChart } from '../../components/ui/DonutChart'
+import { ExchangeRateNote } from '../../components/ui/ExchangeRateNote'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
+import { useMoney } from '../../hooks/useMoney'
+import { aggregateLiability, liabilityGap, ledgerTypeLabel, openDisputeCount, pendingTenantCount, totalLiability } from '../../data/admin'
+import { disputeExposure, ledgerFlow, ledgerTypeBars, liabilitySegments } from '../../data/dashboard'
+import { jod, jodToIdr } from '../../data/currency'
+import { clearEscalation } from '../../store/slices/adminSlice'
+import type { AdminEscalation } from '../../types'
 
 /**
- * Ringkasan panel CS.
+ * Ringkasan kewajiban panel ops.
  *
  * Bacaan: konsol operasi CS untuk platform ops, native mode, utility style,
  * dial ENERGY 1 / RHYTHM 2 / MOTION 1 / DENSITY 3 / FEEL 1. Di ponsel satu
@@ -33,10 +29,9 @@ import type { AdminEscalation } from '../types'
  * profit/penarikan, audit trail, kill switch; milik SA) tidak ditampilkan
  * apa pun, tidak dipalsukan (HG-12).
  */
-export default function AdminDashboard() {
+export default function OpsLiability() {
   const { money, moneyPlain, moneyFromJod } = useMoney()
   const dispatch = useAppDispatch()
-  const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
   const storedLiability = useAppSelector((s) => s.admin.liability)
   const walletIdr = useAppSelector((s) => s.wallet.balance.balance)
   const escalations = useAppSelector((s) => s.admin.escalations)
@@ -61,16 +56,9 @@ export default function AdminDashboard() {
   const investigating = disputes.filter((dispute) => dispute.status === 'investigating').length
 
   return (
-    <AdminShell>
-      <main className="admin-page">
-        <AdminPageHeader
-          eyebrow="Panel admin · CS"
-          title="Ringkasan"
-          subtitle="Komposisi kewajiban, eksposur sengketa, dan arus buku besar platform."
-          bell
-        />
-
-        {/* Baris KPI: empat angka yang paling sering dipantau CS, dari state
+    <OpsShell>
+      <div className="admin-page">
+        {/* Baris KPI: empat angka yang paling sering dipantau ops, dari state
             yang sama dengan kartu/panel di bawahnya. Tiap angka membuka
             halaman kerjanya — kecuali total kewajiban, metrik halaman ini. */}
         <div className="admin-kpi">
@@ -328,21 +316,6 @@ export default function AdminDashboard() {
           </div>
         </section>
 
-        <section className="admin-card">
-          <div className="admin-row">
-            <RefreshCw size={20} strokeWidth={1.75} aria-hidden="true" />
-            <div>
-              <p className="admin-card-title">Cek pembaruan</p>
-              <p className="admin-card-sub">Versi {APP_VERSION}</p>
-            </div>
-          </div>
-          <button type="button" className="admin-link" onClick={checkForUpdate} disabled={checkingUpdate}>
-            {checkingUpdate ? 'Memeriksa…' : 'Periksa sekarang'}
-          </button>
-        </section>
-
-        <InstallAppCard />
-
         <ConfirmSheet
           open={cancelTarget !== null}
           title="Batalkan order?"
@@ -357,7 +330,7 @@ export default function AdminDashboard() {
           }}
           onClose={() => setCancelTarget(null)}
         />
-      </main>
-    </AdminShell>
+      </div>
+    </OpsShell>
   )
 }

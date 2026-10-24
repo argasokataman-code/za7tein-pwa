@@ -92,7 +92,7 @@ const adminSlice = createSlice({
       if (tenant) tenant.tenantStatus = 'suspended'
     },
     /**
-     * Suspend merchant. Dipanggil dua konsol: panel CS (`/admin/merchants`) dan
+     * Suspend merchant. Dipanggil dua konsol: panel ops (`/ops/merchants`) dan
      * dossier SA (`/superadmin/users/merchant/:id`). `by` hanya untuk atribusi —
      * jembatan audit memakainya supaya aksi SA tidak tercatat atas nama CS, dan
      * alasan yang ditulis ikut menyebut pelakunya.

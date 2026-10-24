@@ -10,17 +10,6 @@
     "decorativeStripe": 0,
     "slopFx": 0
   },
-  "src/styles/system/_admin-console.scss": {
-    "color": 0,
-    "fontSizePx": 0,
-    "radiusPx": 0,
-    "spacePx": 0,
-    "uppercase": 0,
-    "rawShadow": 2,
-    "toneCycle": 0,
-    "decorativeStripe": 0,
-    "slopFx": 0
-  },
   "src/styles/system/_admin.scss": {
     "color": 0,
     "fontSizePx": 0,

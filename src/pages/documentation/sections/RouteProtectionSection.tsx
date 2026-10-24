@@ -19,8 +19,7 @@ export function RouteProtectionSection() {
         <code className="doc-inline">App.tsx</code> checks the URL at mount time. Each role
         prefix (<code className="doc-inline">/customer</code>,{' '}
         <code className="doc-inline">/merchant</code>,{' '}
-        <code className="doc-inline">/courier</code>,{' '}
-        <code className="doc-inline">/admin</code>) renders its own{' '}
+        <code className="doc-inline">/courier</code>) renders its own{' '}
         <code className="doc-inline">RoleRouter</code> &mdash; a{' '}
         <code className="doc-inline">BrowserRouter</code> with that prefix as{' '}
         <code className="doc-inline">basename</code> and an error boundary + offline
@@ -29,7 +28,7 @@ export function RouteProtectionSection() {
         <code className="doc-inline">BrowserRouter</code>).
       </p>
       <DocCode lang="typescript">
-        <code>{`const ROLE_BASES = ['/customer', '/merchant', '/courier', '/admin'] as const
+        <code>{`const ROLE_BASES = ['/customer', '/merchant', '/courier'] as const
 
 // App.tsx — mount-time decision
 const role = ROLE_BASES.find(
@@ -97,12 +96,12 @@ return role ? (
             </tr>
             <tr>
               <td>
-                <code className="doc-inline">/admin</code>,{' '}
+                <code className="doc-inline">/ops</code>,{' '}
                 <code className="doc-inline">/superadmin</code>
               </td>
               <td>&mdash;</td>
               <td>
-                Not gated. The CS panel is documented as having no auth, and Super Admin is a
+                Not gated. Ops is documented as having no auth, and Super Admin is a
                 full website rather than an installable app.
               </td>
             </tr>

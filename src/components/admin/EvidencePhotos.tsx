@@ -17,8 +17,8 @@ interface EvidencePhotosProps {
  * memutuskan sengketa tanpa pernah melihat buktinya (audit 017 F-02).
  *
  * Viewer memakai `BottomSheet` yang sudah ada (satu-satunya modal repo) supaya
- * tak lahir dialog kedua; di desktop modal itu ditengahkan lewat override panel
- * CS di `_admin-console.scss`.
+ * tak lahir dialog kedua; di desktop modal itu ditengahkan oleh aturan
+ * `body:has(.sa-root)` milik konsol ops/Super Admin.
  */
 export function EvidencePhotos({ photos, emptyLabel, label }: EvidencePhotosProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)

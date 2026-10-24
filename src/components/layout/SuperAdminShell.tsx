@@ -149,8 +149,8 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
           <p className="sa-side-role">
             {actorRole} · {activeRole?.permissionIds.length ?? 0} izin
           </p>
-          <Link className="sa-side-link" to="/admin">
-            Buka panel CS
+          <Link className="sa-side-link" to="/ops">
+            Buka panel ops
           </Link>
           <Link className="sa-side-link" to="/documentation">
             Dokumentasi

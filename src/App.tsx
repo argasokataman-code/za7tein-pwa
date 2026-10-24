@@ -21,11 +21,6 @@ import AccountSetup from './pages/AccountSetup'
 import AddNewCard from './pages/AddNewCard'
 import AddProfilePhoto from './pages/AddProfilePhoto'
 import AddressSelection from './pages/AddressSelection'
-import AdminDashboard from './pages/AdminDashboard'
-import AdminDisputes from './pages/AdminDisputes'
-import AdminLedger from './pages/AdminLedger'
-import AdminMerchants from './pages/AdminMerchants'
-import AdminOnboarding from './pages/AdminOnboarding'
 import ChangePassword from './pages/ChangePassword'
 import Checkout from './pages/Checkout'
 import CourierProfile from './pages/CourierProfile'
@@ -105,7 +100,11 @@ import SaTax from './pages/SaTax'
 import SaZones from './pages/SaZones'
 import OpsAnalytics from './pages/ops/OpsAnalytics'
 import OpsDashboard from './pages/ops/OpsDashboard'
+import OpsDisputes from './pages/ops/OpsDisputes'
 import OpsIncidents from './pages/ops/OpsIncidents'
+import OpsLedger from './pages/ops/OpsLedger'
+import OpsLiability from './pages/ops/OpsLiability'
+import OpsMerchants from './pages/ops/OpsMerchants'
 import OpsModeration from './pages/ops/OpsModeration'
 import OpsOnboarding from './pages/ops/OpsOnboarding'
 import OpsPenalties from './pages/ops/OpsPenalties'
@@ -125,7 +124,7 @@ import YourCard from './pages/YourCard'
 
 // Tiap peran punya prefix URL sendiri dan BrowserRouter basename sendiri, jadi
 // satu deployment bisa melayani beberapa PWA yang diinstall terpisah.
-const ROLE_BASES = ['/customer', '/merchant', '/courier', '/admin'] as const
+const ROLE_BASES = ['/customer', '/merchant', '/courier'] as const
 type RoleBase = (typeof ROLE_BASES)[number]
 
 function roleFromPath(pathname: string): RoleBase | null {
@@ -254,18 +253,6 @@ const courierRoutes: [string, ComponentType][] = [
   ['/offline', Offline],
 ]
 
-// Panel admin (CS) — dipasang di /admin/*. Shell-nya sama dengan role lain (430px).
-// Super Admin BUKAN ini: ia role terpisah, website penuh non-PWA.
-const adminRoutes: [string, ComponentType][] = [
-  ['/', AdminDashboard],
-  ['/onboarding', AdminOnboarding],
-  ['/disputes', AdminDisputes],
-  ['/notifications', Notifications],
-  ['/merchants', AdminMerchants],
-  ['/ledger', AdminLedger],
-  ['/offline', Offline],
-]
-
 // Konsol Super Admin — role terpisah, dipasang di /superadmin/* (keputusan PO
 // 2026-09-23: website penuh non-PWA, prefix disiapkan). Lebar penuh karena
 // dashboard bertabel, bukan kolom PWA 430px.
@@ -303,7 +290,11 @@ function SuperAdminRouter() {
 // 430px). Tanpa auth: PRD aktif belum punya requirementnya (UNRESOLVED).
 const opsRoutes: [string, ComponentType][] = [
   ['/', OpsDashboard],
+  ['/liability', OpsLiability],
   ['/onboarding', OpsOnboarding],
+  ['/disputes', OpsDisputes],
+  ['/merchants', OpsMerchants],
+  ['/ledger', OpsLedger],
   ['/rules', OpsRules],
   ['/incidents', OpsIncidents],
   ['/moderation', OpsModeration],
@@ -335,8 +326,8 @@ function OpsRouter() {
  * offline. Layar kegagalan (`/account-setup`) ikut dibuka tanpa sesi: layar yang
  * menangani error tidak boleh ikut terkurung di balik gerbang.
  *
- * `/admin` sengaja tidak ada di peta ini — panel CS memang tanpa auth
- * (AGENTS.md §9), sama seperti `/superadmin` yang bukan PWA.
+ * `/ops` dan `/superadmin` tidak ada di peta ini: keduanya website penuh non-PWA
+ * tanpa auth (AGENTS.md §9).
  */
 const authGate: Partial<Record<RoleBase, { entry: string; publicPaths: string[] }>> = {
   '/customer': {
@@ -366,7 +357,7 @@ interface RoleRouterProps {
   home: string
   /** Rute layar "tidak ada koneksi" role ini; hanya customer yang punya. */
   offlinePath?: string
-  /** Tujuan saat belum masuk; tanpa ini role tidak dijaga (panel CS). */
+  /** Tujuan saat belum masuk; tanpa ini role tidak dijaga (backoffice). */
   entry?: string
   /** Rute yang boleh dibuka tanpa sesi. */
   publicPaths?: string[]
@@ -501,6 +492,8 @@ function WebsiteRouter() {
           ))}
           <Route path="/app" element={<LegacyAppRedirect />} />
           <Route path="/app/*" element={<LegacyAppRedirect />} />
+          <Route path="/admin" element={<LegacyAdminRedirect />} />
+          <Route path="/admin/*" element={<LegacyAdminRedirect />} />
           {customerRoutes.map(([path]) => (
             <Route key={`legacy-${path}`} path={path} element={<LegacyAppRedirect />} />
           ))}
@@ -518,6 +511,28 @@ function LegacyAppRedirect() {
     const target = pathname.startsWith('/app')
       ? pathname.replace(/^\/app\/merchant/, '/merchant').replace(/^\/app/, '/customer')
       : `/customer${pathname}`
+    window.location.replace(`${target}${search}${hash}`)
+  }, [])
+  return null
+}
+
+/**
+ * Panel CS `/admin/*` sudah dipensiunkan (PO 2026-10-24). URL lama diarahkan ke
+ * layar ops yang setara supaya bookmark dan tautan dokumentasi lama tidak
+ * mendarat di landing. Tiga layar pindah apa adanya; sisanya ke ringkasan ops.
+ */
+const ADMIN_TO_OPS: Record<string, string> = {
+  '/admin': '/ops',
+  '/admin/onboarding': '/ops/onboarding',
+  '/admin/disputes': '/ops/disputes',
+  '/admin/merchants': '/ops/merchants',
+  '/admin/ledger': '/ops/ledger',
+}
+
+function LegacyAdminRedirect() {
+  useEffect(() => {
+    const { pathname, search, hash } = window.location
+    const target = ADMIN_TO_OPS[pathname.replace(/\/$/, '') || '/admin'] ?? '/ops'
     window.location.replace(`${target}${search}${hash}`)
   }, [])
   return null
@@ -588,8 +603,6 @@ export default function App() {
           entry={authGate['/courier']?.entry}
           publicPaths={authGate['/courier']?.publicPaths}
         />
-      ) : role === '/admin' ? (
-        <RoleRouter basename="/admin" routes={adminRoutes} home="/" offlinePath="/offline" />
       ) : isSuperAdmin ? (
         <SuperAdminRouter />
       ) : isOps ? (
@@ -611,10 +624,10 @@ export default function App() {
           },
         }}
       />
-      {/* Modal pasang aplikasi untuk URL yang memang bisa diinstal (keempat
-          peran + halaman promosi). Konsol Super Admin dan /documentation
-          sengaja bukan PWA, jadi tidak ditawari. Layar form masuk dikecualikan
-          supaya modalnya tidak menutupi tombol masuk. */}
+      {/* Modal pasang aplikasi untuk URL yang memang bisa diinstal (tiga
+          peran + halaman promosi). Backoffice dan /documentation sengaja bukan
+          PWA, jadi tidak ditawari. Layar form masuk dikecualikan supaya
+          modalnya tidak menutupi tombol masuk. */}
       {(role !== null && !AUTH_FORM_PATHS.has(rolePath)) || pathname === '/' ? (
         <InstallPromptSheet />
       ) : null}

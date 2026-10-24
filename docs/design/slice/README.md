@@ -12,7 +12,7 @@ Arsip review, **bukan** kode produksi. Dibuka langsung lewat peramban, tanpa bui
 | `signup-customer.html` | daftar customer — isi `SignUp.tsx` |
 | `signup-merchant.html` | daftar toko — isi `MerchantSignUp.tsx` |
 | `login-{merchant,courier}.html` | login merchant (tab ke daftar) & kurir (switch jenis akun) |
-| `login-{admin,ops,superadmin}.html` | **USULAN** — repo tidak punya auth untuk tiga peran ini (dinyatakan di caption tiap berkas) |
+| `login-{ops,superadmin}.html` | **USULAN** — repo tidak punya auth untuk dua peran ini (dinyatakan di caption tiap berkas) |
 | `login.css` | satu-satunya stylesheet login |
 | `index.html` | galeri: satu tautan per halaman login |
 
@@ -140,7 +140,7 @@ hanya di dalam logotype tombol sosial — itu ikon merek, bukan warna tema.
 | bingkai | `390x844`, overflow-x `0` |
 | kepala | `240px` (foto, tanpa lapisan teks di atasnya) |
 | badge | tile `80x80`, menimpa foto `40px`, `8px` di atas label peran |
-| label peran | teks `13px/700`, tanpa latar. Hanya dipakai tiga layar USULAN (admin, ops, superadmin). **Customer, merchant, kurir tanpa label**: tab/switch langsung `12px` di bawah tile logo |
+| label peran | teks `13px/700`, tanpa latar. Hanya dipakai dua layar USULAN (ops, superadmin). **Customer, merchant, kurir tanpa label**: tab/switch langsung `12px` di bawah tile logo |
 | tab | tinggi baris `44px`, indikator `inset 0 -2px` oranye |
 | titik korsel | **tidak ada** — acuan pun tidak punya; gerak tetap dari cross-fade |
 | tombol `Masuk` | `44px`, dasar `828`, **`16px` dari dasar layar** di semua bingkai |
@@ -185,7 +185,7 @@ diklik ke berkas seberangnya:
 | `login-merchant.html` | aktif | → `signup-merchant.html` |
 | `signup-merchant.html` | → `login-merchant.html` | aktif |
 
-Tiga layar USULAN (`admin`, `ops`, `superadmin`) **tidak** memasang tab: repo
+Dua layar USULAN (`ops`, `superadmin`) **tidak** memasang tab: repo
 tidak punya rute daftar untuk peran itu (`App.tsx` hanya punya `/signup` dan
 `/merchant/signup`), jadi tab `Daftar` di sana akan jadi kontrol mati. Tab yang
 aktif menunjuk halamannya sendiri, bukan `href="#"`.

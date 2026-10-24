@@ -34,19 +34,16 @@ div.sa-landing {
         360–430px, seluruh bagian disusun ulang secara vertikal.
       </p>
       <p className="doc-p">
-        Panel admin (CS) di <code>/admin</code> <strong>memakai dua shell</strong>. Di
-        ponsel ia tetap 430px seperti role lain — CS memakainya saat berkeliling. Dari lebar{' '}
-        <strong>901px</strong> ke atas (keputusan PO 2026-10-11) ia beralih ke layout
-        desktop: rail sidebar 248px + area konten selebar jendela, mengikuti pola konsol
-        Super Admin. Ini pengecualian lebar kedua yang didokumentasikan di sini setelah
-        landing <code>/</code>, dan alasannya setara: pekerjaan CS yang berat tabel
-        (antrean sengketa, ledger, master tenant) lebih terbaca di layar lebar, sementara
-        perangkatnya sendiri sering laptop. Satu pohon komponen melayani keduanya —
-        sidebar disembunyikan di bawah 901px, bottom nav disembunyikan di 901px ke atas.
-        Yang masih <strong>belum</strong> dibangun adalah <strong>Super Admin</strong>{' '}
-        sendiri: role terpisah, website penuh non-PWA (<code>/superadmin</code>) untuk
-        owner/team (keputusan PO 2026-09-23) yang mengontrol penuh platform termasuk pajak
-        dan dashboard. Prefix disiapkan, cakupan detailnya masih UNRESOLVED.
+        Panel ops di <code>/ops</code> memakai <strong>satu shell desktop</strong>: rail
+        sidebar 248px + area konten maksimal 1180px, pola yang sama dengan konsol Super
+        Admin. Ini pengecualian lebar kedua yang didokumentasikan di sini setelah landing{' '}
+        <code>/</code>, dan alasannya setara: pekerjaan backoffice yang berat tabel
+        (antrean sengketa, ledger, master tenant) lebih terbaca di layar lebar.
+        Keputusan PO 2026-10-24 menjadikan ops backoffice kanonik; panel CS{' '}
+        <code>/admin</code> yang dulu memakai kolom 430px sudah dipensiunkan dan URL-nya
+        dialihkan. Ops <strong>bukan PWA</strong> — tidak ada manifest, tidak ada bottom
+        nav. Super Admin (<code>/superadmin</code>) tetap role terpisah, website penuh
+        non-PWA, dan memakai shell yang sama.
       </p>
     </DocSection>
   )

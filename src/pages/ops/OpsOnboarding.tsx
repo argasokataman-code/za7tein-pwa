@@ -10,7 +10,7 @@ import { approveDeposit, rejectOnboarding } from '../../store/slices/adminSlice'
  * Verifikasi onboarding tenant (M10). Ops meninjau pengajuan merchant dan
  * memverifikasi deposit COD (3,50 JOD) sebelum toko aktif.
  *
- * Memakai **slice admin yang sama** dengan panel CS — bukan menyalin antrean.
+ * Memakai **slice admin yang sama** dengan layar ops lain — bukan menyalin antrean.
  * Approve/reject menulis lewat aksi yang sudah ada, sehingga jembatan audit
  * (aksi CS/ops tercatat di audit trail SA) tetap berlaku tanpa duplikasi.
  */

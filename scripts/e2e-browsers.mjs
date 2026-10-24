@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * e2e-browsers.mjs — kelola + pakai SATU **jendela PWA** per peran (customer,
- * merchant, courier, admin, superadmin) untuk testing flow e2e.
+ * merchant, courier, ops, superadmin) untuk testing flow e2e.
  *
  * Tiap peran = INSTANCE browser sendiri, bukan tab di browser yang sama.
  * Keempat PWA berbagi satu origin, jadi beberapa tab di browser yang sama
@@ -25,7 +25,7 @@
  *   9360  customer     profil profile-e2e-customer
  *   9361  merchant     profil profile-e2e-merchant
  *   9362  courier      profil profile-e2e-courier
- *   9363  admin        profil profile-e2e-admin
+ *   9363  ops          profil profile-e2e-ops
  *   9364  superadmin   profil profile-e2e-superadmin
  * Port e2e = E2E_PORT_BASE + indeks urutan di ROLE_DEFS (default base 9360).
  * Tambah peran baru di AKHIR daftar, jangan sisipkan di tengah.
@@ -61,7 +61,7 @@ const ROLE_DEFS = [
   { role: 'customer', path: '/customer/signin', pos: '20,40' },
   { role: 'merchant', path: '/merchant/signin', pos: '470,40' },
   { role: 'courier', path: '/courier/signin', pos: '920,40' },
-  { role: 'admin', path: '/admin/', pos: '20,1000' },
+  { role: 'ops', path: '/ops/', pos: '20,1000' },
   { role: 'superadmin', path: '/superadmin/', pos: '470,1000' },
 ]
 

@@ -43,7 +43,7 @@ export interface PageHeaderProps {
  * Header halaman untuk merchant, kurir, dan panel CS.
  *
  * Menggantikan isi tiga komponen yang sama persis — `MerchantPageHeader`,
- * `CourierPageHeader`, dan `AdminPageHeader` — yang berbeda hanya pada awalan
+ * `CourierPageHeader` — yang berbeda hanya pada awalan
  * kelas. Prop dan markup-nya identik, jadi tiga salinan itu tidak menambah
  * kemampuan apa pun; ia hanya membuat satu perbaikan harus diulang tiga kali,
  * persis pola yang dilarang DNA ("pola sama muncul dua kali, ekstrak komponen

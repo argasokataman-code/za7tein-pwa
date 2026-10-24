@@ -53,9 +53,9 @@ import { ChangelogSection } from './documentation/sections/ChangelogSection'
 // disembunyikan, meta rating + waktu. Halaman ini tetap hanya merangkai
 // section.
 //
-// Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` dan `/superadmin`
-// berstatus legacy sampai merge; AdminDesignSection + SuperAdminSection
-// menandainya, rincian di decision-ops-canonical.md.
+// Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
+// (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
+// menandai SA legacy. Rincian di decision-ops-canonical.md.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,
@@ -1069,7 +1069,7 @@ export default function Documentation() {
                 <em>ledger platform</em> — <code className="doc-inline">enterprise_ledger</code> (
                 <code className="doc-inline">entry_type</code>/<code className="doc-inline">party</code>/
                 <code className="doc-inline">amount_jod</code>) menimpa buku besar{' '}
-                <code className="doc-inline">/admin/ledger</code>. Pemetaan baris→tipe domain ditarik
+                <code className="doc-inline">/ops/ledger</code>. Pemetaan baris→tipe domain ditarik
                 ke <code className="doc-inline">src/data/beMapping.ts</code> supaya murni dan diuji{' '}
                 <code className="doc-inline">npm run check:be-mappers</code> (baris contoh disalin
                 apa adanya dari D1). Tiga tabel sengaja <strong>belum</strong> disambung karena
@@ -1404,10 +1404,10 @@ export default function Documentation() {
                 <code className="doc-inline">docs/design/ui-v2.md</code>.
               </li>
               <li>
-                Audit mobile 013 sampai 015 (form menu merchant, konsol kurir, panel CS):
+                Audit mobile 013 sampai 015 (form menu merchant, konsol kurir, panel ops):
                 baris aksi sheet jadi sticky, chip kategori menggantikan{' '}
                 <code className="doc-inline">&lt;select&gt;</code>, kontras dinaikkan, dan{' '}
-                <code className="doc-inline">/admin</code> punya layout desktop dari 901px.
+                <code className="doc-inline">/ops</code> punya layout desktop dari 901px.
               </li>
               <li>
                 <strong>Rapi konsol menu merchant.</strong> Baris kategori di{' '}

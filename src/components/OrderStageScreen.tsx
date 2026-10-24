@@ -96,7 +96,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const holdStatus = useAppSelector((s) => s.cart.holdStatus)
   const holdAmount = useAppSelector((s) => s.cart.holdAmountIdr)
-  const holdLedger = useAppSelector((s) => s.cart.holdLedger)
+  const holdLedger = useAppSelector((s) => s.cart.holdLedger ?? [])
   const orderCompletedAt = useAppSelector((s) => s.cart.orderCompletedAt)
   const orderCancelled = useAppSelector((s) => s.cart.orderCancelled)
   const activeOrder = useAppSelector((s) => s.cart.activeOrder)

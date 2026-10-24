@@ -53,11 +53,11 @@ export function ConsistencySection() {
               <td>Stepper checkpoint (Ambil → Berangkat → Tiba → OTP) + SLA</td>
             </tr>
             <tr>
-              <td>CS</td>
+              <td>Ops</td>
               <td>
-                <code className="doc-inline">/admin</code> +{' '}
-                <code className="doc-inline">/admin/ledger</code> +{' '}
-                <code className="doc-inline">/admin/disputes</code>
+                <code className="doc-inline">/ops/liability</code> +{' '}
+                <code className="doc-inline">/ops/ledger</code> +{' '}
+                <code className="doc-inline">/ops/disputes</code>
               </td>
               <td>Kewajiban platform, entry ledger append-only, antrean sengketa</td>
             </tr>
@@ -68,7 +68,7 @@ export function ConsistencySection() {
         Yang memindahkan uang selalu satu jalur: <code className="doc-inline">walletSlice.applyHoldEvent</code>{' '}
         untuk hold COD, <code className="doc-inline">merchantSlice</code> untuk modal &amp;
         cashback, dan <code className="doc-inline">adminSlice</code> untuk putusan sengketa.
-        Agregat di panel CS mengikuti wallet demo lewat{' '}
+        Agregat di panel ops mengikuti wallet demo lewat{' '}
         <code className="doc-inline">aggregateLiability</code>, jadi angkanya tidak bisa basi.
       </p>
 

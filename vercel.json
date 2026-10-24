@@ -21,7 +21,7 @@
     {
       "source": "/",
       "has": [{ "type": "host", "value": "sa7tein-a.vercel.app" }],
-      "destination": "/admin",
+      "destination": "/ops",
       "permanent": false
     }
   ],

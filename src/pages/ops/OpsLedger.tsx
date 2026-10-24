@@ -1,28 +1,28 @@
 import { ArrowDownLeft, ArrowUpRight, Lock } from 'lucide-react'
 import { useMemo, useState } from 'react'
 
-import { AdminKpi } from '../components/admin/AdminKpi'
-import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminShell } from '../components/layout/AdminShell'
-import { useAppSelector } from '../hooks/useAppStore'
-import { useMoney } from '../hooks/useMoney'
-import { HOLD_EVENT_LABEL } from '../data/merchant'
-import { ledgerTypeLabel } from '../data/admin'
-import { ledgerFlow } from '../data/dashboard'
-import { jod } from '../data/currency'
-import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
-import type { LedgerEntryType } from '../types'
+import { AdminKpi } from '../../components/admin/AdminKpi'
+import { OpsShell } from '../../components/layout/OpsShell'
+import { useAppSelector } from '../../hooks/useAppStore'
+import { useMoney } from '../../hooks/useMoney'
+import { HOLD_EVENT_LABEL } from '../../data/merchant'
+import { ledgerTypeLabel } from '../../data/admin'
+import { ledgerFlow } from '../../data/dashboard'
+import { jod } from '../../data/currency'
+import { ExchangeRateNote } from '../../components/ui/ExchangeRateNote'
+import type { LedgerEntryType } from '../../types'
 
 /** Berapa baris ledger ditampilkan sekaligus; sisanya lewat "Muat lebih banyak". */
 const LEDGER_PAGE = 20
 
-export default function AdminLedger() {
+export default function OpsLedger() {
   const { money, moneyFromJod } = useMoney()
   const ledger = useAppSelector((s) => s.admin.ledger)
   // Transisi hold order yang sedang berjalan ikut terlihat di sini: satu
   // transisi memang satu entry append-only (F2/M4), dan antrean CS perlu melihat
   // order berjalan sebelum saldonya pindah.
-  const holdLedger = useAppSelector((s) => s.cart.holdLedger)
+  // `?? []`: state `cart` dipersist, jadi sesi lama bisa belum punya kunci ini.
+  const holdLedger = useAppSelector((s) => s.cart.holdLedger ?? [])
   const flow = ledgerFlow(ledger)
 
   // Alat kerja ledger (audit 017 F-08): saring + cari + urut. Tanpa ini konsol
@@ -52,14 +52,8 @@ export default function AdminLedger() {
   }
 
   return (
-    <AdminShell>
-      <main className="admin-page">
-        <AdminPageHeader
-          eyebrow="Append-only"
-          title="Ledger"
-          subtitle="Buku besar yang tidak bisa diubah; koreksi lewat entry baru."
-        />
-
+    <OpsShell>
+      <div className="admin-page">
         <div className="admin-kpi">
           <AdminKpi label="Total entry" value={ledger.length} sub="Append-only" />
           <AdminKpi label="Masuk" value={jod(flow.credit)} sub="Credit" />
@@ -201,7 +195,7 @@ export default function AdminLedger() {
             </p>
           </section>
         ) : null}
-      </main>
-    </AdminShell>
+      </div>
+    </OpsShell>
   )
 }

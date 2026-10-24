@@ -1,6 +1,8 @@
 import {
   AlertTriangle,
   BadgeCheck,
+  BookOpen,
+  Gavel,
   Gift,
   LayoutDashboard,
   Package,
@@ -8,6 +10,7 @@ import {
   ScrollText,
   ShieldAlert,
   SlidersHorizontal,
+  Store,
   Tags,
 } from 'lucide-react'
 import type { ReactNode } from 'react'
@@ -23,12 +26,16 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
  * stylesheet baru. Pengecualian lebar ini tercatat di `/documentation`.
  *
  * Tanpa auth (PRD aktif belum punya requirement auth ops → `UNRESOLVED`),
- * jadi tidak ada penjaga rute; lihat AGENTS §9 soal panel CS tanpa auth.
+ * jadi tidak ada penjaga rute; lihat AGENTS §9 soal akses backoffice.
  */
 
 const NAV = [
   { to: '/', label: 'Ringkasan', icon: LayoutDashboard, hint: 'Antrean & beban kerja ops' },
+  { to: '/liability', label: 'Kewajiban & ledger', icon: Scale, hint: 'Komposisi kewajiban, eksposur sengketa, arus dana' },
   { to: '/onboarding', label: 'Verifikasi onboarding', icon: BadgeCheck, hint: 'Setujui / tolak tenant baru' },
+  { to: '/disputes', label: 'Sengketa', icon: Gavel, hint: 'Putusan level-1 + entry ledger' },
+  { to: '/merchants', label: 'Merchant', icon: Store, hint: 'Registri tenant, suspend, blacklist COD' },
+  { to: '/ledger', label: 'Ledger', icon: BookOpen, hint: 'Buku besar append-only' },
   { to: '/rules', label: 'Rule sengketa', icon: Scale, hint: 'Katalog mitigasi, kompensasi, punishment' },
   { to: '/incidents', label: 'Insiden', icon: ShieldAlert, hint: 'Tangani insiden per order' },
   { to: '/moderation', label: 'Moderasi tag', icon: Tags, hint: 'Setujui / tolak tag merchant' },
@@ -83,12 +90,6 @@ export function OpsShell({ children }: OpsShellProps) {
 
         <div className="sa-side-foot">
           <p className="sa-side-role">Operator ops · di balik Cloudflare Access (mock)</p>
-          <Link className="sa-side-link" to="/admin">
-            Panel CS (legacy)
-          </Link>
-          <Link className="sa-side-link" to="/superadmin">
-            Super Admin (legacy)
-          </Link>
           <Link className="sa-side-link" to="/documentation">
             Dokumentasi
           </Link>

@@ -404,8 +404,8 @@ export default function SaMerchantDetail() {
 
       <p className="sa-note">
         Setiap perubahan status dari konsol ini tercatat di audit trail atas nama operator yang
-        sedang aktif. Blacklist COD dan approval onboarding tenant tetap kerja panel CS di{' '}
-        <code className="sa-code">/admin/merchants</code>.
+        sedang aktif. Blacklist COD dan approval onboarding tenant tetap kerja panel ops di{' '}
+        <code className="sa-code">/ops/merchants</code>.
       </p>
       <div className="sa-actions">
         <Link className="sa-link" to="/audit">

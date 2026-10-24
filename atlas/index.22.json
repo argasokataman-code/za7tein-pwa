@@ -1899,6 +1899,141 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141895",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:13:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141896",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:14:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -25 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141897",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:14:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/OrderStageScreen.tsx (+1/-2) — edit via tool: tsx: const holdLedger = useApp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/OrderStageScreen.tsx"
+    },
+    {
+      "id": "TASK-141898",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:14:38",
+      "tags": [
+        "ops",
+        "admin",
+        "migration",
+        "backoffice"
+      ],
+      "summary": "Migrasi /admin ke /ops selesai: 4 layar pindah, URL lama redirect, shell+manifest admin dihapus; gate ops 28/28.",
+      "conn": [
+        {
+          "id": "DEC-141852",
+          "type": "relates",
+          "raw": "DEC-141852:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141899",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:15:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-index.mjs (+1/-2) — edit via tool: <a href=\"login-ops.html\">ops</a>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-index.mjs"
+    },
+    {
+      "id": "TASK-141900",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:15:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | `login-{ops,superadmin}.html` | **US",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141901",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:16:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: Dua layar USULAN (`ops`, `superadmin`)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
     }
   ]
 }

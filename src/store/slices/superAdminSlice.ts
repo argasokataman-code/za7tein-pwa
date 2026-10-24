@@ -235,7 +235,7 @@ const superAdminSlice = createSlice({
       )
     },
     /**
-     * Dipakai jembatan audit untuk aksi panel CS (`/admin/*`), supaya kerja CS
+     * Dipakai jembatan audit untuk aksi panel ops (`/ops/*`), supaya kerja CS
      * ikut terekam tanpa mengubah satu per satu halaman CS. `role` diisi `sa`
      * untuk aksi yang dijalankan SA lewat slice CS (mis. putusan banding).
      */

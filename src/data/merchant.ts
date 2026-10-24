@@ -197,7 +197,7 @@ export const mockStoreProfile = {
  * record. Ini yang dibaca konsol SA dan panel CS.
  *
  * Tenant yang masih `pending` **tidak** ada di sini: ia belum merchant, dan
- * antreannya ada di panel CS (`adminTenants`, `/admin/onboarding`).
+ * antreannya ada di panel ops (`adminTenants`, `/ops/onboarding`).
  */
 export const merchants: MerchantRecord[] = [
   {

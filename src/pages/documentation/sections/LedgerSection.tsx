@@ -6,8 +6,8 @@ export function LedgerSection() {
     <DocSection id="ledger" num="30" title="Ledger & Liability">
       <p className="doc-p">
         R-LEDGER-01 (milestone M9, flow <code className="doc-inline">F7</code>) punya dua sisi di
-        panel CS: <strong>ledger</strong> (<code className="doc-inline">/admin/ledger</code>) dan{' '}
-        <strong>agregat kewajiban</strong> (<code className="doc-inline">/admin</code>).
+        panel ops: <strong>ledger</strong> (<code className="doc-inline">/ops/ledger</code>) dan{' '}
+        <strong>agregat kewajiban</strong> (<code className="doc-inline">/ops/liability</code>).
       </p>
       <h3 className="doc-h3">Agregat yang ikut bergerak</h3>
       <p className="doc-p">

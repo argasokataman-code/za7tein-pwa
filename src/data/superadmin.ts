@@ -40,7 +40,7 @@ export const PPH_FINAL_PERCENT = 0.5
 export const SA_CURRENT_ACTOR = { name: 'Nadia Haddad', role: 'sa' as const }
 
 /**
- * Operator CS yang menjalankan panel `/admin/*`. Dipakai jembatan audit:
+ * Operator CS yang menjalankan panel `/ops/*`. Dipakai jembatan audit:
  * aksi CS ikut tercatat di audit trail SA tanpa mengubah halaman CS satu per
  * satu. Sama seperti SA, ini mock, repo ini tanpa auth (AGENTS.md §1).
  */

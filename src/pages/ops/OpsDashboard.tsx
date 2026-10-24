@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { OpsShell } from '../../components/layout/OpsShell'
-import { pendingTenantCount } from '../../data/admin'
+import { openDisputeCount, pendingTenantCount } from '../../data/admin'
 import {
   activePenaltyCount,
   openIncidentCount,
@@ -16,6 +16,7 @@ import { useAppSelector } from '../../hooks/useAppStore'
  */
 export default function OpsDashboard() {
   const tenants = useAppSelector((s) => s.admin.tenants)
+  const disputes = useAppSelector((s) => s.admin.disputes)
   const incidents = useAppSelector((s) => s.ops.incidents)
   const tags = useAppSelector((s) => s.ops.tags)
   const penalties = useAppSelector((s) => s.ops.penalties)
@@ -26,6 +27,7 @@ export default function OpsDashboard() {
       label: 'Tenant menunggu verifikasi',
       value: pendingTenantCount(tenants),
     },
+    { to: '/disputes', label: 'Sengketa terbuka', value: openDisputeCount(disputes) },
     { to: '/incidents', label: 'Insiden belum selesai', value: openIncidentCount(incidents) },
     { to: '/moderation', label: 'Tag menunggu moderasi', value: pendingTagCount(tags) },
     { to: '/penalties', label: 'SP berlaku', value: activePenaltyCount(penalties) },
@@ -53,6 +55,18 @@ export default function OpsDashboard() {
       <section className="sa-card">
         <p className="sa-card-label">Yang dikelola ops</p>
         <ul className="sa-kv">
+          <li>
+            <span>Kewajiban &amp; ledger</span>
+            <Link className="sa-link" to="/liability">
+              Saldo DANA, eksposur sengketa, arus dana
+            </Link>
+          </li>
+          <li>
+            <span>Merchant</span>
+            <Link className="sa-link" to="/merchants">
+              Registri tenant, suspend, blacklist COD
+            </Link>
+          </li>
           <li>
             <span>Rule sengketa</span>
             <Link className="sa-link" to="/rules">

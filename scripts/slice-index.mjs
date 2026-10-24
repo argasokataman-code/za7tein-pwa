@@ -18,8 +18,7 @@ const SCREENS = [
   ['login-merchant.html', 'Login — penjual', '/merchant/signin', 'dari kode: MerchantSignIn.tsx:14 — Email + Kata sandi, `Masuk`; tab Masuk/Daftar ke signup-merchant.html'],
   ['signup-merchant.html', 'Daftar — penjual', '/merchant/signup', 'dari kode: MerchantSignUp.tsx:39 — Nama toko, Email, Nomor HP opsional, zona, Kata sandi, `Kirim pendaftaran`; tab Masuk/Daftar'],
   ['login-courier.html', 'Login — kurir (toko/partner)', '/courier/signin', 'USULAN: switch `Kurir toko`/`Kurir partner` + email magic link (PRD aktif); kode masih WA + kata sandi'],
-  ['login-admin.html', 'Login — panel CS', '/admin', 'USULAN — adminRoutes tanpa auth; isi minim (Email + Kata sandi + `Masuk`)'],
-  ['login-ops.html', 'Login — ops', '/ops', 'USULAN — opsRoutes tanpa auth; isi minim'],
+  ['login-ops.html', 'Login — panel ops', '/ops', 'USULAN — halaman login ops belum ada; PRD belum menurunkan requirement auth ke layar'],
   ['login-superadmin.html', 'Login — super admin', '/superadmin', 'USULAN — superAdminRoutes tanpa auth; isi minim']
 ]
 
@@ -64,7 +63,6 @@ const html = `<!doctype html>
     <a href="login-1to1.html">customer (acuan)</a>
     <a href="login-merchant.html">penjual</a>
     <a href="login-courier.html">kurir</a>
-    <a href="login-admin.html">CS</a>
     <a href="login-ops.html">ops</a>
     <a href="login-superadmin.html">super admin</a>
     <a href="README.md">cara kerja</a>

@@ -1,7 +1,7 @@
 # F24 — Penanganan Masalah Order oleh CS
 
 > **Status 2026-10-24 — pindah ke ops.** Penanganan masalah order menjadi kerja
-> `/ops` setelah merge; alur CS di `/admin` berstatus legacy. Lihat
+> `/ops`; alur CS di `/admin` sudah dihapus. Lihat
 > `docs/product/prd/versions/sa7tein-mvp-2026-10-11/decision-ops-canonical.md`.
 > BRS sumbernya (`notif-order-e2e-2026-10-11`) masih `proposed`.
 

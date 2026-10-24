@@ -12,7 +12,7 @@ interface AdminKpiProps {
 }
 
 /**
- * Satu kartu KPI baris ringkasan panel CS: label → angka besar → sub. Dengan
+ * Satu kartu KPI baris ringkasan panel ops: label → angka besar → sub. Dengan
  * `to` ia dirender sebagai `<Link>` supaya angkanya membuka halaman yang
  * datanya ia tunjukkan; tanpa `to` ia kartu statis. Dipakai Ringkasan dan tiap
  * halaman admin supaya baris ringkasan seragam — satu komponen, bukan lima

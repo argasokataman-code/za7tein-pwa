@@ -1,10 +1,10 @@
 import { DocSection } from '../DocSection'
 import { DocShellCtas } from '../DocShellCtas'
 import {
-  ADMIN_GROUP,
   COURIER_GROUP,
   CUSTOMER_GROUPS,
   MERCHANT_GROUP,
+  OPS_GROUP,
   SUPERADMIN_GROUP,
   WEB_ROUTES,
   type DocRoute,
@@ -79,17 +79,18 @@ export function PagesRoutesSection() {
         Daftar di halaman ini mengikuti tabel rute di file itu — perbarui keduanya bersamaan.
       </p>
       <p className="doc-p">
-        Empat router berbagi file ini. Mount-time, <code className="doc-inline">App</code>
+        Empat router peran berbagi file ini. Mount-time, <code className="doc-inline">App</code>
         {' '}membaca pathname dan memilih router: <code className="doc-inline">/customer</code>
         {' '}(<code className="doc-inline">RoleRouter</code>, home <code className="doc-inline">/home</code>),
         {' '}<code className="doc-inline">/merchant</code> (<code className="doc-inline">RoleRouter</code>,
         home <code className="doc-inline">/</code>), <code className="doc-inline">/courier</code>
-        {' '}dan <code className="doc-inline">/admin</code>{' '}
+        {' '}dan <code className="doc-inline">/ops</code>{' '}
         (<code className="doc-inline">RoleRouter</code>, home <code className="doc-inline">/</code>),
         {' '}plus <code className="doc-inline">/superadmin</code>{' '}
         (<code className="doc-inline">SuperAdminRouter</code>, website penuh non-PWA). Selain itu,
         {' '}<code className="doc-inline">WebsiteRouter</code> melayani web routes dan
-        mengalihkan jalur lama lewat <code className="doc-inline">LegacyAppRedirect</code>.
+        mengalihkan jalur lama lewat <code className="doc-inline">LegacyAppRedirect</code> +
+        <code className="doc-inline">LegacyAdminRedirect</code>.
       </p>
 
       <h3 className="doc-h3">Website Routes</h3>
@@ -143,12 +144,15 @@ export function PagesRoutesSection() {
         <code className="doc-inline">UNRESOLVED</code> (OQ-14) dan ditampilkan sebagai state, bukan tebakan.
       </p>
 
-      <RouteTable group={ADMIN_GROUP} />
+      <RouteTable group={OPS_GROUP} />
       <p className="doc-p">
-        Shell keempat (<code className="doc-inline">/admin</code>), dijalankan <strong>CS</strong> —
-        bukan Super Admin. Dibangun dari flow <code className="doc-inline">F15</code> +{' '}
-        <code className="doc-inline">F8</code> dan milestone M6/M9. Form sengketa adalah satu
-        halaman bersama yang dipasang di <code className="doc-inline">/customer/dispute</code> dan{' '}
+        Backoffice kanonik sejak keputusan PO 2026-10-24: <code className="doc-inline">/ops</code>{' '}
+        (website penuh non-PWA, rail desktop) menggantikan panel CS{' '}
+        <code className="doc-inline">/admin</code> yang sudah dipensiunkan. Tiga layar CS pindah
+        apa adanya — sengketa, merchant, ledger — dan dashboard kewajibannya menjadi{' '}
+        <code className="doc-inline">/ops/liability</code>. URL lama{' '}
+        <code className="doc-inline">/admin/*</code> diarahkan ke layar ops yang setara. Form sengketa
+        tetap satu halaman bersama di <code className="doc-inline">/customer/dispute</code> dan{' '}
         <code className="doc-inline">/merchant/dispute</code>, sehingga customer dan merchant
         bermuara ke queue yang sama. Data seed:{' '}
         <code className="doc-inline">src/data/admin.ts</code>; state:{' '}
@@ -158,7 +162,7 @@ export function PagesRoutesSection() {
       <RouteTable group={SUPERADMIN_GROUP} />
       <p className="doc-p">
         Role terpisah sejak keputusan PO 2026-09-23 — website penuh non-PWA, bukan bagian dari
-        empat shell 430px. Konsol CS tetap menjalankan approval tenant, putusan sengketa level-1,
+        tiga shell PWA 430px. Panel ops menjalankan approval tenant, putusan sengketa level-1,
         dan blacklist COD; SA mengaudit + menangani banding. Kontrak BE per milestone
         dikonsolidasikan di bagian <strong>Konsistensi Lintas Role &amp; Kontrak BE</strong>.
       </p>

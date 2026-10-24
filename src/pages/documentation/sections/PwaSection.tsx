@@ -7,7 +7,7 @@ export function PwaSection() {
       <p className="doc-p">
         Halaman promosi berada di <code>/</code>; tiap peran punya prefix URL sendiri:
         <code> /customer/*</code> (pelanggan), <code>/merchant/*</code> (merchant),
-        <code> /courier/*</code> (kurir), dan <code>/admin/*</code> (panel admin, dikelola CS). Tiap prefix
+        <code> /courier/*</code> (kurir). Tiap prefix
         memuat manifest sendiri lewat script kecil di <code>index.html</code>, jadi
         tiap peran bisa diinstall sebagai aplikasi terpisah. Tautan lama seperti
         <code> /home</code>, <code>/app/home</code>, dan{' '}
@@ -87,7 +87,7 @@ export function PwaSection() {
 
       <h3 className="doc-h3">Mode Tampilan</h3>
       <p className="doc-p">
-        Keempat manifest peran memakai <code>display: standalone</code>.
+        Ketiga manifest peran memakai <code>display: standalone</code>.
         Aplikasi terinstal membuka jendela tanpa antarmuka peramban (tanpa
         address bar), namun <strong>status bar OS tetap tampil</strong> — jam,
         baterai, dan sinyal ponsel terlihat di atasnya. Status bar itu digambar
@@ -114,7 +114,7 @@ export function PwaSection() {
         (<code>padding-top: calc(var(--space-3) + env(safe-area-inset-top))</code>),
         jadi latarnya tetap menutupi area status bar pada semua posisi gulir,
         bukan hanya saat di puncak. Aturannya satu tempat di{' '}
-        <code>_app-shell.scss</code>: header peran (courier, merchant, admin,
+        <code>_app-shell.scss</code>: header peran (courier, merchant,
         track, chat), header layar warisan (<code>.checkout-header</code>,{' '}
         <code>.profile-flow-header</code>, <code>.rating-driver-header</code>,{' '}
         <code>.address-selection-header</code>,{' '}
@@ -181,7 +181,7 @@ export function PwaSection() {
       <p className="doc-p">
         Pemeriksaan yang sama bisa dipicu manual lewat baris <b>Cek pembaruan</b>{' '}
         di halaman setelan atau profil tiap peran (customer, merchant, kurir,
-        panel CS, dan sidebar Super Admin). Logikanya tinggal di{' '}
+        panel ops, dan sidebar Super Admin). Logikanya tinggal di{' '}
         <code>src/lib/appUpdate.tsx</code> dan hook{' '}
         <code>src/hooks/useAppUpdate.ts</code>, jadi tiap peran hanya
         menyisipkan satu baris dengan gaya native-nya sendiri. Kalau sudah versi
@@ -213,7 +213,7 @@ VitePWA({
 
       <h3 className="doc-h3">Scope dan Registrasi</h3>
       <p className="doc-p">
-        Satu worker memakai <code>scope: &apos;/&apos;</code> supaya mencakup keempat
+        Satu worker memakai <code>scope: &apos;/&apos;</code> supaya mencakup ketiga
         prefix peran. Halaman promosi di <code>/</code> dan{' '}
         <code>/documentation</code> dikecualikan dari <code>navigateFallback</code>.
         Registrasi bersifat <code>autoUpdate</code> &mdash; worker baru diaktifkan
@@ -264,18 +264,13 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
               <td><code className="doc-inline">/courier</code></td>
               <td><code className="doc-inline">/courier/</code></td>
             </tr>
-            <tr>
-              <td><code className="doc-inline">/manifest-admin.json</code></td>
-              <td><code className="doc-inline">/admin</code></td>
-              <td><code className="doc-inline">/admin/</code></td>
-            </tr>
           </tbody>
         </table>
       </div>
       <p className="doc-p">
-        Empat manifest, tidak lebih. <code className="doc-inline">/</code> (landing),
-        <code className="doc-inline">/documentation</code>, dan{' '}
-        <code className="doc-inline">/superadmin</code> <strong>tidak punya manifest
+        Tiga manifest, tidak lebih. <code className="doc-inline">/</code> (landing),
+        <code className="doc-inline">/documentation</code>, <code className="doc-inline">/ops</code>,
+        dan <code className="doc-inline">/superadmin</code> <strong>tidak punya manifest
         sama sekali</strong>, jadi peramban tidak menawarkan pasang di sana dan tidak
         ada app dengan scope yang menelan prefix peran.
       </p>
@@ -284,14 +279,14 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
         <code> location.pathname</code>. Elemennya <strong>dibuat</strong> hanya saat
         rute cocok, bukan ditulis di HTML lalu href-nya diganti — versi lama menulis
         <code> &lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;</code>{' '}
-        di HTML statis dan hanya mengganti href untuk empat peran, sehingga landing dan
+        di HTML statis dan hanya mengganti href untuk tiga peran, sehingga landing dan
         dokumentasi tetap memakai manifest umum itu (<code>id</code>{' '}
         <code className="doc-inline">&quot;/&quot;</code>, <code>scope</code>{' '}
         <code className="doc-inline">&quot;/&quot;</code>) dan benar-benar bisa
         diinstal:</p>
       <DocCode lang="html">{`<script>
   (function () {
-    var roles = ['customer', 'merchant', 'courier', 'admin'];
+    var roles = ['customer', 'merchant', 'courier'];
     var matched = null;
     for (var i = 0; i < roles.length; i++) {
       if (location.pathname === '/' + roles[i] ||

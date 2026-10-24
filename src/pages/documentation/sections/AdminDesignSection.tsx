@@ -2,79 +2,51 @@ import { DocSection } from '../DocSection'
 
 export function AdminDesignSection() {
   return (
-    <DocSection id="admin-design" num="21" title="Admin Panel (CS) — Design Decisions">
+    <DocSection id="admin-design" num="21" title="Panel Ops (backoffice) — Design Decisions">
       <p className="doc-p">
-        The console at <code className="doc-inline">/admin</code> is the{' '}
-        <strong>platform admin panel, operated by CS</strong> — the fourth role shell in
-        this PWA. Its sources are flow <code className="doc-inline">F15</code> (onboarding,
-        liability, escalation, guard actions) and flow <code className="doc-inline">F8</code>{' '}
-        (dispute queue), plus milestones M6/M9 of the active PRD.
-      </p>
-      <p className="doc-p">
-        <strong>Status 2026-10-24: legacy.</strong> The canonical backoffice is{' '}
-        <code className="doc-inline">/ops</code>. <code className="doc-inline">/admin</code>{' '}
-        stays until the merge so the dispute, merchant and ledger screens do not disappear,
-        then those screens move to ops or retire following PRD §13. Do not add new features
-        here. Detail:{' '}
+        The canonical backoffice is <code className="doc-inline">/ops</code>, a full-width
+        non-PWA website operated by ops. It replaced the CS panel{' '}
+        <code className="doc-inline">/admin</code> on 2026-10-24; the old URLs redirect to
+        their ops equivalents, and the screens for disputes, merchants, ledger and
+        liability moved here rather than being rebuilt. Detail:{' '}
         <code className="doc-inline">decision-ops-canonical.md</code>.
       </p>
       <p className="doc-p">
-        <strong>Super Admin is a different role</strong>, deliberately not built here.
-        The PO decision of 2026-09-23 split them: the console that PRD C-12 called
-        &quot;CS, doubling as super admin&quot; is the CS admin panel above, while Super
-        Admin becomes a <strong>separate full-website console (non-PWA)</strong> for the
-        owner/team with full platform control. Its detailed scope and prefix are
-        UNRESOLVED — nothing is stubbed for it yet. See{' '}
-        <code className="doc-inline">docs/product/prd/decision-irbid-mvp.md</code>.
+        <strong>Super Admin is a different role.</strong> The PO decision of 2026-09-23
+        split the console PRD C-12 called &quot;CS, doubling as super admin&quot; from a
+        separate Super Admin console for the owner/team. Super Admin remains a full-website
+        console at <code className="doc-inline">/superadmin</code>; ops audits its actions
+        through the same audit trail.
       </p>
-      <h3 className="doc-h3">Shell: 430px phone column, desktop console from 901px</h3>
+
+      <h3 className="doc-h3">Shell: desktop rail, no phone column</h3>
       <p className="doc-p">
-        A wide table dashboard was the obvious guess for this console, and AGENTS §9
-        asked for a <em>documented</em> exception before any width change. On phones the
-        console <strong>keeps the 430px column</strong> like every other role, with lists
-        rendered as stacked cards and the bottom nav leading. From <strong>901px</strong>{' '}
-        up it now switches to a desktop shell — a 248px sidebar rail plus a full-width
-        content area — mirroring the Super Admin console, because on <em>2026-10-11 the
-        PO decided the CS panel needs a desktop view like Super Admin</em>. One component
-        tree renders both: the sidebar is hidden below 901px and the bottom nav is hidden
-        at and above it, so there is no second layout path to maintain (see Layout
-        Exceptions, section 14, and <code className="doc-inline">docs/plan-admin.md</code>).
+        Ops reuses the <code className="doc-inline">.sa-*</code> shell from Super Admin: a
+        248px sidebar rail plus a content area capped at 1180px. It is deliberately not
+        the 430px PWA column — backoffice work is tables and queues on a laptop. The
+        exception is documented in the Layout Exceptions section. On screens below 901px
+        the rail collapses with the same shell rules as SA; it is not an installable app.
       </p>
       <p className="doc-p">
-        On desktop the page body is not the phone column stretched. Each page opens with a
-        topbar (title and a one-line subtitle on the left, the notification bell on the
-        right), then a row of four KPI cards, then its panels. The body is a centered
-        1180px container that stays single-column until 1150px and switches to two columns
-        above it, so a donut plus its legend always have room; the blocks that are meant to
-        be full width (topbar, KPI row, titled sections, the wide ledger panel, the prose
-        footnote) span both columns. The KPI cards replace the older four-number statline:
-        the numbers now live in cards, and each card links to the page whose data it shows
-        (the headline liability figure has no page of its own, so it stays static). Below
-        901px nothing changes: the 430px column plus bottom nav stays.
+        Each page opens with a title and one-line subtitle, then KPI cards and its panels.
+        The migrated CS pages keep their content classes inside{' '}
+        <code className="doc-inline">.sa-main</code>: four KPI columns from 901px, the
+        dispute queue as a <strong>master-detail</strong> view, and money-path sheets as
+        centered dialogs instead of phone bottom sheets.
       </p>
-      <h3 className="doc-h3">
-        Money-path dialogs, evidence, and list tools (CS audit 017, 2026-10-11)
-      </h3>
+
+      <h3 className="doc-h3">Money path, evidence, and list tools</h3>
       <p className="doc-p">
-        A CS-only UX pass (audit 017) closed the gap between &ldquo;has features&rdquo;
-        and &ldquo;reads like a web app&rdquo;. Money-path sheets now open as a{' '}
-        <strong>centered dialog on desktop</strong> (a scoped{' '}
-        <code className="doc-inline">body:has(.admin-console)</code> override from 901px)
-        instead of rising from the bottom like a phone sheet; below 901px the phone sheet
-        is untouched. The dispute verdict dialog now carries the partial-refund slider and
-        a <strong>required decision note</strong> (minimum 10 characters,{' '}
+        The dispute verdict dialog carries the partial-refund slider and a{' '}
+        <strong>required decision note</strong> (minimum 10 characters,{' '}
         <code className="doc-inline">aria-invalid</code> plus a counter) that gates the
-        confirm button — the form shape only, since the exact percentages and the
-        24-hour window remain UNRESOLVED (OQ-29). Disputes and tenant onboarding now
-        render <strong>real evidence thumbnails</strong> that open a full-preview sheet,
-        where before the console only showed a photo count. From 901px the Sengketa queue
-        is a <strong>master-detail</strong> view (queue on the left, selected case on the
-        right) rendered by a real branch, not a CSS swap; the phone keeps stacked cards.
-        Destructive actions (reject onboarding, suspend merchant) confirm through{' '}
-        <code className="doc-inline">ConfirmSheet</code>, the ledger gained search, type
-        filter, sort, and a bounded list, and the dashboard and merchant list show empty
-        states instead of rendering nothing.
+        confirm button — the form shape only, since the exact percentages and the 24-hour
+        window remain UNRESOLVED (OQ-29). Disputes and tenant onboarding render{' '}
+        <strong>real evidence thumbnails</strong> that open a full-preview sheet.
+        Destructive actions confirm through <code className="doc-inline">ConfirmSheet</code>;
+        the ledger has search, type filter, sort and a bounded list.
       </p>
+
       <h3 className="doc-h3">Hard rules as displayed state</h3>
       <p className="doc-p">
         Three PRD rules are modelled as state so the screens stay honest:
@@ -84,66 +56,35 @@ export function AdminDesignSection() {
         <code className="doc-inline">depositStatus</code> is not{' '}
         <code className="doc-inline">unpaid</code>, and only then flips it to{' '}
         <code className="doc-inline">held</code> and the tenant to{' '}
-        <code className="doc-inline">approved</code> — a merchant is never activated
-        while the deposit is unpaid.
+        <code className="doc-inline">approved</code>.
         <br />
         <strong>Blacklist marks two sides.</strong>{' '}
         <code className="doc-inline">blacklistCod</code> sets{' '}
         <code className="doc-inline">merchant.tenantStatus: blacklisted</code> and pushes a
-        customer <code className="doc-inline">riskFlag</code> in the same action, because
-        blocking COD checkout needs both.
+        customer <code className="doc-inline">riskFlag</code> in the same action.
         <br />
         <strong>Dispute resolution writes ledger.</strong> Every money-moving resolution
-        (refund full/partial, release) appends exactly one ledger entry;{' '}
-        <code className="doc-inline">no_action</code> appends none because it does not
-        change a balance. This mirrors F8&apos;s &quot;one entry per resolution&quot; and
-        M9&apos;s append-only ledger.
+        appends exactly one ledger entry; <code className="doc-inline">no_action</code>{' '}
+        appends none because it does not change a balance.
       </p>
+
       <h3 className="doc-h3">Liability excludes courier wages</h3>
       <p className="doc-p">
-        The dashboard total is customer wallets + merchant wallets + courier tips not
-        yet paid out. Courier wages are <em>not</em> part of it: a courier is a merchant
-        employee and the platform never holds courier funds (C-06) — only tips pass
-        through. The screen states this, and the DANA-vs-liability comparison is a
-        mock flag, not reconciliation.
+        The <code className="doc-inline">/ops/liability</code> total is customer wallets +
+        merchant wallets + courier tips not yet paid out. Courier wages are <em>not</em>{' '}
+        part of it: a courier is a merchant employee and the platform never holds courier
+        funds (C-06) — only tips pass through. The DANA-vs-liability comparison is a mock
+        flag, not reconciliation.
       </p>
+
       <h3 className="doc-h3">One dispute form, two roles</h3>
       <p className="doc-p">
         The submit form is a single page mounted at{' '}
         <code className="doc-inline">/customer/dispute</code> and{' '}
         <code className="doc-inline">/merchant/dispute</code>, reading the order code and
         filer from query params and writing into the shared{' '}
-        <code className="doc-inline">adminSlice</code>. One component means the two
-        submission paths can never drift apart, and both land in the same SA queue.
-        The order amount is shown in JOD using the M1 example rate (Rp23.000), labelled
-        as a temporary rate because M1 is not implemented. The form itself speaks app, not
-        browser: the category is a plain row that opens a bottom sheet list (not a native
-        <code className="doc-inline"> &lt;select&gt;</code>), proof photos are preview tiles
-        with a 44px remove button (not a browser "Choose Files" input), and the written
-        reason is required only for the &ldquo;Lainnya&rdquo; category, which is the one
-        choice that cannot explain itself.
-      </p>
-      <h3 className="doc-h3">CS panel vs Super Admin</h3>
-      <p className="doc-p">
-        This console is the <strong>CS panel</strong>, and its powers are deliberately
-        bounded. CS runs tenant approval, level-1 dispute verdicts and COD blacklisting
-        — all built here. CS does <em>not</em> configure the platform: master delivery
-        zones, roles and permissions, app tax reports, the platform profit balance and
-        the kill switch belong to <strong>Super Admin</strong>, a separate full website
-        (non-PWA, prefix <code className="doc-inline">/superadmin</code>) that is built as
-        its own console (section 34). SA supervises CS through the audit trail and
-        handles appeals.
-        Top-up and payout stay self-service for customer and merchant — never an
-        approval step here.
-      </p>
-      <h3 className="doc-h3">What is deliberately not built</h3>
-      <p className="doc-p">
-        Tier-quota configuration has no schema field, so it is not built
-        (UNRESOLVED). Dispute categories and the 24-hour window are placeholders —
-        accepted as-is until dispute volume passes 5/month (OQ-29), and labelled as
-        such on screen. There is no admin auth in this console: the CS panel is a mock
-        surface (AGENTS.md §1), while the audit trail is part of the Super Admin scope
-        above rather than invented here.
+        <code className="doc-inline">adminSlice</code>. Both submission paths land in the
+        same ops queue.
       </p>
     </DocSection>
   )

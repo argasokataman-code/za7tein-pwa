@@ -115,13 +115,86 @@
 /* ── 15d. Baris KPI dashboard (kartu ringkasan) ─────────────────────────────
    Menggantikan statline angka-tanpa-kotak lama: referensi komposisi dashboard
    memakai kartu KPI (label → angka besar → sub). 2 kolom di ponsel, 4 di
-   desktop (lihat `_admin-console.scss`). Kartu = `--surface` + `--border-strong`
+   desktop (lihat `.sa-main .admin-kpi` di bawah). Kartu = `--surface` + `--border-strong`
    (DNA baris 15), warna aksen hanya pada angka yang memang mendesak. */
 .admin-kpi {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
   margin-bottom: var(--space-4);
+}
+
+/* Migrasi /admin → /ops: layar CS hidup di dalam `.sa-main` (1180px), bukan
+   `.admin-console` lagi. Aturan shell global `div[class*="-page"]` masih
+   mengunci `.admin-page` ke 430px; di dalam ops lebar milik `.sa-body`.
+   Dua aturan desktop yang tak dibawa shell ops: KPI empat kolom dan sengketa
+   master-detail. Sisanya mengikuti `.sa-*`. */
+.sa-main .admin-page {
+  max-width: none;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+}
+
+@media (min-width: 901px) {
+  .sa-main .admin-kpi {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 0;
+  }
+
+  .sa-main .admin-disputes {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .sa-main .admin-disputes-queue {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .sa-main .admin-disputes-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    min-height: var(--touch-min);
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .sa-main .admin-disputes-item:hover {
+    border-color: var(--border-strong);
+  }
+
+  .sa-main .admin-disputes-item.is-active {
+    border-color: var(--sa7tein-orange);
+  }
+
+  .sa-main .admin-disputes-detail .admin-card {
+    margin-bottom: 0;
+  }
+}
+
+.admin-card--wide {
+  width: 100%;
+}
+
+.admin-disputes-item__code {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.admin-disputes-item__party {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
 }
 
 .admin-kpi-item {

@@ -2,19 +2,18 @@ import { Ban, Check, ChevronRight, Store, TriangleAlert } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-import { AdminKpi } from '../components/admin/AdminKpi'
-import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { AdminShell } from '../components/layout/AdminShell'
-import { BottomSheet } from '../components/ui/BottomSheet'
-import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { useMoney } from '../hooks/useMoney'
-import { tenantStatusLabel } from '../data/admin'
-import { customers } from '../data/people'
-import { flagCustomerRisk } from '../api/admin'
-import { blacklistCod, suspendMerchant } from '../store/slices/adminSlice'
+import { AdminKpi } from '../../components/admin/AdminKpi'
+import { OpsShell } from '../../components/layout/OpsShell'
+import { BottomSheet } from '../../components/ui/BottomSheet'
+import { ConfirmSheet } from '../../components/ui/ConfirmSheet'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
+import { useMoney } from '../../hooks/useMoney'
+import { tenantStatusLabel } from '../../data/admin'
+import { customers } from '../../data/people'
+import { flagCustomerRisk } from '../../api/admin'
+import { blacklistCod, suspendMerchant } from '../../store/slices/adminSlice'
 
-export default function AdminMerchants() {
+export default function OpsMerchants() {
   const { moneyFromJod } = useMoney()
   const dispatch = useAppDispatch()
   const merchants = useAppSelector((s) => s.admin.merchants)
@@ -45,14 +44,8 @@ export default function AdminMerchants() {
   const nameOf = (id: string) => directory.find((c) => c.id === id)?.name
 
   return (
-    <AdminShell>
-      <main className="admin-page">
-        <AdminPageHeader
-          eyebrow="Master tenant"
-          title="Merchant"
-          subtitle="Registri tenant, suspend, dan penandaan blacklist COD."
-        />
-
+    <OpsShell>
+      <div className="admin-page">
         <div className="admin-kpi">
           <AdminKpi label="Total merchant" value={merchants.length} sub="Terdaftar" />
           <AdminKpi label="Aktif" value={approved} sub="Boleh berjualan" />
@@ -255,7 +248,7 @@ export default function AdminMerchants() {
             })}
           </div>
         </BottomSheet>
-      </main>
-    </AdminShell>
+      </div>
+    </OpsShell>
   )
 }

@@ -2,17 +2,16 @@ import { FileSearch, ShieldQuestion } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-import { AdminKpi } from '../components/admin/AdminKpi'
-import { AdminPageHeader } from '../components/admin/AdminPageHeader'
-import { EvidencePhotos } from '../components/admin/EvidencePhotos'
-import { AdminShell } from '../components/layout/AdminShell'
-import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { useMediaQuery } from '../hooks/useMediaQuery'
-import { useMoney } from '../hooks/useMoney'
-import { RESOLUTIONS, disputeStatusLabel } from '../data/admin'
-import { resolveDispute, startInvestigation } from '../store/slices/adminSlice'
-import type { Dispute, DisputeResolution } from '../types'
+import { AdminKpi } from '../../components/admin/AdminKpi'
+import { EvidencePhotos } from '../../components/admin/EvidencePhotos'
+import { OpsShell } from '../../components/layout/OpsShell'
+import { ConfirmSheet } from '../../components/ui/ConfirmSheet'
+import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
+import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { useMoney } from '../../hooks/useMoney'
+import { RESOLUTIONS, disputeStatusLabel } from '../../data/admin'
+import { resolveDispute, startInvestigation } from '../../store/slices/adminSlice'
+import type { Dispute, DisputeResolution } from '../../types'
 
 /**
  * Panjang minimum catatan putusan. Ini **bentuk** validasi, bukan aturan bisnis:
@@ -183,7 +182,7 @@ function DisputeCard({
   )
 }
 
-export default function AdminDisputes() {
+export default function OpsDisputes() {
   const disputes = useAppSelector((s) => s.admin.disputes)
   const [percent, setPercent] = useState<Record<string, number>>({})
   const isDesktop = useMediaQuery('(min-width: 901px)')
@@ -204,14 +203,8 @@ export default function AdminDisputes() {
   )
 
   return (
-    <AdminShell>
-      <main className="admin-page">
-        <AdminPageHeader
-          eyebrow="Queue CS"
-          title="Sengketa"
-          subtitle="Putusan level-1 CS; tiap putusan menulis satu entry ledger."
-        />
-
+    <OpsShell>
+      <div className="admin-page">
         <div className="admin-kpi">
           <AdminKpi label="Baru" value={open} sub="Belum ditangani" tone={open > 0 ? 'warning' : undefined} />
           <AdminKpi label="Investigasi" value={investigating} sub="Hold dibekukan" />
@@ -283,7 +276,7 @@ export default function AdminDisputes() {
             selesai); kiriman masuk ke antrean ini.
           </p>
         </div>
-      </main>
-    </AdminShell>
+      </div>
+    </OpsShell>
   )
 }

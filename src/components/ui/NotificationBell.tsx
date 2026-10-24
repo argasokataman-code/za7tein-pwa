@@ -9,8 +9,8 @@ import { markAllRead, selectUnreadCount } from '../../store/slices/notifications
 import { NotificationRow } from './NotificationRow'
 
 /**
- * Batas lebar konsol desktop — harus sama dengan breakpoint
- * `src/styles/system/_admin-console.scss`. Di bawahnya popup tidak dibuka.
+ * Batas lebar konsol desktop — konsol ops memakai rail `.sa-root` yang sama
+ * dengan Super Admin. Di bawahnya popup tidak dibuka.
  */
 const DESKTOP_QUERY = '(min-width: 901px)'
 /** Baris maksimum di popup. Sisanya lewat tautan inbox — tanpa gulir bersarang. */

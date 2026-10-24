@@ -271,7 +271,7 @@ repairPersistedCart()
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 /**
- * Jembatan audit: tiap aksi panel CS (`admin/*`) menulis satu baris ke audit
+ * Jembatan audit: tiap aksi panel ops (`admin/*`) menulis satu baris ke audit
  * trail SA. Ditaruh di middleware, bukan di 8 reducer/halaman CS, supaya tidak
  * ada aksi CS yang lolos pengawasan dan halaman CS tidak perlu disentuh.
  */

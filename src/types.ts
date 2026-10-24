@@ -910,7 +910,7 @@ export interface SaPermission {
 
 /**
  * Role operator. `scope: 'sa'` = konsol ini; `scope: 'cs'` = panel CS
- * (`/admin/*`). Akun CS dibuat SA (OQ-30, PO 2026-09-23), bukan self-service.
+ * (`/ops/*`). Akun CS dibuat SA (OQ-30, PO 2026-09-23), bukan self-service.
  */
 export interface SaRole {
   id: string

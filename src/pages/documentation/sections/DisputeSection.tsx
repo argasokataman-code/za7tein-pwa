@@ -8,9 +8,9 @@ export function DisputeSection() {
         Sengketa (milestone M6, flow <code className="doc-inline">F8</code>) punya dua sisi:{' '}
         <strong>pengajuan</strong> dari detail order (customer dan merchant memakai form yang
         sama, <code className="doc-inline">/dispute</code>) dan{' '}
-        <strong>putusan</strong> di panel CS (<code className="doc-inline">/admin/disputes</code>
-        ). Aktornya panel CS — konsol <code className="doc-inline">/admin</code> adalah panel admin
-        platform (keputusan PO 2026-09-23), bukan konsol Super Admin terpisah.
+        <strong>putusan</strong> di panel ops (<code className="doc-inline">/ops/disputes</code>
+        ). Aktornya panel ops — konsol <code className="doc-inline">/ops</code> adalah backoffice
+        kanonik platform (keputusan PO 2026-10-24), bukan konsol Super Admin terpisah.
       </p>
       <h3 className="doc-h3">Satu sumber, bukan dua salinan</h3>
       <p className="doc-p">

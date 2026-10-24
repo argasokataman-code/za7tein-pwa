@@ -202,12 +202,12 @@ export default function SaDashboard() {
           <span className="sa-stat-value">{activeOperators}</span>
           <span className="sa-stat-label">Operator aktif</span>
         </Link>
-        <Link className="sa-stat" to="/admin">
+        <Link className="sa-stat" to="/ops">
           <ShieldAlert size={18} strokeWidth={1.75} aria-hidden="true" />
           <span className="sa-stat-value">
             {pendingTenantCount(tenants)} · {openDisputeCount(disputes)}
           </span>
-          <span className="sa-stat-label">Antrean CS: tenant · sengketa</span>
+          <span className="sa-stat-label">Antrean ops: tenant · sengketa</span>
         </Link>
       </section>
 

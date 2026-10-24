@@ -42,7 +42,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | f12-merchant-console | C-06, C-07 | **UBAH BESAR** | Batch, coverage polygon/radius, kuota, katalog Odoo, marketing Odoo, kelola kurir inhouse (§11) |
 | f13-courier-view | C-06, R-DELIV-01 | **UBAH BESAR** | Batch + **auto-sort** + pisah **inhouse vs partner** + approve/reject ber-alasan (§12) |
 | f14-chat-order | C-18, C-12 | **UBAH** | Peserta dinamis (kurir gabung: partner setelah approve / inhouse setelah batch assign), gambar di R2 (§20.1) |
-| f15-super-admin | C-12, R-DISPUTE-01 | **LEGACY** | PO 2026-10-24: `/ops` kanonik. `/admin` CS dipertahankan sampai merge, lalu layarnya dipetakan ke ops atau dipensiunkan (§13). Lihat `decision-ops-canonical.md` |
+| f15-super-admin | C-12, R-DISPUTE-01 | **LEGACY** | PO 2026-10-24: `/ops` kanonik. Layar CS sudah pindah ke `/ops`; `/admin` dihapus dan URL lama dialihkan. Lihat `decision-ops-canonical.md` |
 | f16-merchant-onboarding | PRD 5C deposit + Insentif | **UBAH** | Verifikasi merchant & kurir partner oleh **ops**; moderasi tag; akun DANA wajib (§5, §11) |
 | f17-payment-dana | PO 2026-10-13, DEC-1039 | **UBAH** | Tambah **QRIS**, COD, **timer 30 menit**, tombol **simpan QR** (CUS-32), refund BI-FAST (§16.2, §7.4) |
 | f18-order-state | C-17, DEC-1037 | **UBAH** | Enum status §7.5 + status **batch** + **pending refund** + state Quick (reject/cari pengganti) (OPEN-26) |
@@ -50,7 +50,7 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | f20-address-zone | C-13, C-05, C-07 | **UBAH BESAR** | Zona global Hijazi/Syimali → **coverage per merchant** (polygon non-overlap **atau** radius, fee per unit) (§9.1) |
 | f21-account-auth | source.md E.164, PO | **UBAH** | **Magic link saja**, satu email satu peran, **5 peran** (tambah kurir partner) (§5) |
 | f22-super-admin-sa | PO 2026-09-23 | **LEGACY** | PRD aktif tak menyebut Super Admin; `/superadmin` dipertahankan sampai merge, tidak dijadikan acuan peran baru (§13) |
-| f24-cs-problem | BRS notif-order-e2e (proposed) | **UBAH** | Penanganan masalah order pindah ke `/ops`; alur CS `/admin` legacy. BRS sumbernya masih `proposed` |
+| f24-cs-problem | BRS notif-order-e2e (proposed) | **UBAH** | Penanganan masalah order pindah ke `/ops`; alur CS `/admin` sudah dihapus. BRS sumbernya masih `proposed` |
 | f23-customer-discovery | *(tidak ada folder)* | **TAMBAH** | Discovery merchant-first + group per tag/filter/sort + sembunyi kuota (CUS-04..11) |
 
 ### Flow baru yang diminta PRD
@@ -112,12 +112,12 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 | CourierProfile, CourierOnboarding, CourierSignIn | **UBAH** | ACC-03,04 | Partner daftar→verifikasi ops; inhouse dibuat merchant |
 | **Status kurir partner** (baru) | **TAMBAH** | COU-15, §9.3 | offline/available/reserved/busy |
 
-### 3.4 Panel CS /admin (5) + Super Admin (11) + ops
+### 3.4 Panel ops (14) + Super Admin (11)
 | Layar | Aksi | Requirement | Catatan |
 |---|---|---|---|
-| Admin* (Dashboard, Onboarding, Disputes, Merchants, Ledger) | **LEGACY** | §13, §18 | PO 2026-10-24: ops kanonik. Dipertahankan sampai merge; layar sengketa/merchant/ledger dipetakan ke ops lalu `/admin` dipensiunkan |
-| SuperAdmin* (11) | **LEGACY** | §13, ARC-10 | PRD tak sebut Super Admin; dipertahankan sampai merge, bukan acuan peran baru |
-| **Aplikasi ops** (sudah ada di `/ops/*`) | **SESUAIKAN** | OPS-01..15 | Verifikasi, moderasi tag, multiplier Quick, ambang notif, program aplikator, **rule dispute**, flat fee, paket kuota, **SP**, analytics. Sisa: sengketa/ledger, auth Cloudflare Access, bentuk shell (PWA vs desktop) |
+| Admin* (Dashboard, Onboarding, Disputes, Merchants, Ledger) | **DIHAPUS** | §13, §18 | PO 2026-10-24: ops kanonik. Layar sudah pindah ke `/ops/liability`, `/ops/onboarding`, `/ops/disputes`, `/ops/merchants`, `/ops/ledger`; `/admin` dihapus, URL lama dialihkan |
+| SuperAdmin* (11) | **LEGACY** | §13, ARC-10 | PRD tak sebut Super Admin; dipertahankan, bukan acuan peran baru |
+| **Aplikasi ops** (`/ops/*`, 14 layar) | **SESUAIKAN** | OPS-01..15 | Verifikasi, sengketa, merchant, ledger, kewajiban, moderasi tag, multiplier Quick, ambang notif, program aplikator, **rule dispute**, flat fee, paket kuota, **SP**, analytics. Sisa: auth Cloudflare Access, bentuk shell (PWA vs desktop) |
 
 ### 3.5 Web plain
 | Layar | Aksi |
@@ -130,8 +130,8 @@ Pendorong perubahan terbesar (dari `analysis.md`):
 
 | Aspek | Sekarang | Sesudah | File kunci |
 |---|---|---|---|
-| Peran | customer/merchant/courier/admin/SA | + **kurir partner**, **ops kanonik** (admin/SA legacy sampai merge) | `src/App.tsx`, `App.tsx:107 ROLE_BASES`, slice baru |
-| Shell | 430px per role | + shell ops | `_app-shell.scss`, `BottomNav*`, `AdminShell` |
+| Peran | customer/merchant/courier/ops/SA | + **kurir partner**; admin dihapus, ops kanonik | `src/App.tsx`, `ROLE_BASES`, slice baru |
+| Shell | 430px per role PWA | + shell ops/SA desktop penuh; shell admin dihapus | `_app-shell.scss`, `BottomNav*`, `.sa-root` |
 | Auth | Google/WA mock | **magic link** | `authSlice`, halaman Sign* |
 | State | 14 slice | + batch, partner, quota, marketing, (refund) | `src/store/index.ts` (combineReducers + persist) |
 | Uang | fee 0,15/0,22, ongkir→merchant | Pc+Pm+Ft, delivery fee→kurir, settlement 3 kolom | `src/types.ts`, `src/data/merchant.ts`, `Checkout` |
@@ -156,7 +156,7 @@ Urutan flagship per layar miring: jangan sentuh flow di §2 sebelum M0 (tipe dom
 
 ## 7. `UNRESOLVED` yang menahan pekerjaan (jangan diisi tebakan)
 
-Pajak/GST (tak disebut PRD baru) · insentif Founding (f9) · nasib akhir layar admin/SA setelah migrasi ke ops (f15/f22/f24; arah sudah diputuskan, rincian per layar terbuka) · cash-out customer · OPEN-01 DANA · OPEN-26 enum status/ERD · OPEN-11 dispatch · OPEN-23 isStackable · OPEN-25 Global Index DO · OPEN-27 legal.
+Pajak/GST (tak disebut PRD baru) · insentif Founding (f9) · nasib akhir Super Admin (f22; arah sudah diputuskan, rincian per layar terbuka) · cash-out customer · OPEN-01 DANA · OPEN-26 enum status/ERD · OPEN-11 dispatch · OPEN-23 isStackable · OPEN-25 Global Index DO · OPEN-27 legal.
 
 ## 8. Dependency BE (temuan uji M1 & M2, 2026-10-15)
 

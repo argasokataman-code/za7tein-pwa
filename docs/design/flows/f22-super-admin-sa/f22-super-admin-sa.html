@@ -11104,6 +11104,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var guided = shell && shell.querySelector('.guided-views');
       var cards = shell && shell.querySelector('.cards');
       var viewBox = svg && svg.viewBox && svg.viewBox.baseVal;
+      var unboundedWidth = Boolean(svg && svg.getAttribute('data-reader-width') === 'unbounded');
       var ratio = viewBox && viewBox.height > 0 ? viewBox.width / viewBox.height : 0;
       var frame = 0;
       var settleFrame = 0;
@@ -11133,7 +11134,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
       function eligible() {
         return Boolean(
-          shell && diagram && svg && ratio >= WIDE_RATIO &&
+          shell && diagram && svg && (ratio >= WIDE_RATIO || unboundedWidth) &&
           window.innerWidth >= MIN_DESKTOP_WIDTH &&
           html.getAttribute('data-embed') !== 'true' &&
           html.getAttribute('data-present') !== 'true' &&
@@ -11193,15 +11194,18 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
         var chrome = chromeMetrics();
         var viewportCap = Math.max(0, window.innerWidth - chrome.bodyX);
-        var minWidth = Math.min(MIN_READER_WIDTH, viewportCap);
-        var maxWidth = Math.min(MAX_READER_WIDTH, viewportCap);
+        // Unbounded diagrams opt out of the viewport/reader cap: the page may
+        // grow wider than the viewport and scroll horizontally so a detailed
+        // flow stays readable instead of being shrunk to fit.
+        var minWidth = unboundedWidth ? MIN_READER_WIDTH : Math.min(MIN_READER_WIDTH, viewportCap);
+        var maxWidth = unboundedWidth ? Number.MAX_SAFE_INTEGER : Math.min(MAX_READER_WIDTH, viewportCap);
         var fixedHeight = chrome.bodyY + chrome.diagramY + SAFE_BOTTOM_GAP +
           outerHeight(header) + outerHeight(guided) + outerHeight(cards);
         var availableSvgHeight = Math.max(1, window.innerHeight - fixedHeight);
         var desiredWidth = availableSvgHeight * ratio + chrome.diagramX;
         var width = Math.max(minWidth, Math.min(maxWidth, desiredWidth));
         applyWidth(width);
-        settleOverflow(minWidth);
+        if (!unboundedWidth) settleOverflow(minWidth);
         return {
           ratio: ratio,
           width: Math.round(width),

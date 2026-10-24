@@ -5,7 +5,7 @@ export function SuperAdminSection() {
   return (
     <DocSection id="superadmin" num="34" title="Konsol Super Admin (SA), Website Penuh">
       <p className="doc-p">
-        <strong>Super Admin adalah role terpisah</strong>, bukan halaman di dalam panel CS.
+        <strong>Super Admin adalah role terpisah</strong>, bukan halaman di dalam panel ops.
         Keputusan PO 2026-09-23 (<code className="doc-inline">decision-irbid-mvp.md</code>)
         menetapkannya sebagai <strong>website penuh non-PWA</strong> dengan prefix{' '}
         <code className="doc-inline">/superadmin</code>, dipakai owner &amp; team dari desktop.
@@ -34,20 +34,20 @@ export function SuperAdminSection() {
         (<code className="doc-inline">scripts/browser-gate.mjs</code> membaca{' '}
         <code className="doc-inline">.sa-root</code> sebagai shell), jadi rutenya diukur tanpa aturan
         kolom 430px; target sentuh sidebar dipatok <code className="doc-inline">--touch-min</code>{' '}
-        (44px), dan tautan lompat-ke-konten dibuang seperti di panel CS (
-        <code className="doc-inline">_admin-console.scss</code>) karena nav-nya pendek dan selalu
+        (44px), dan tautan lompat-ke-konten dibuang seperti di panel ops (
+        <code className="doc-inline">.sa-root</code> bersama) karena nav-nya pendek dan selalu
         terlihat.
       </p>
       <DocCode lang="text">
         {`/superadmin          konsol SA, sidebar + konten penuh (website, non-PWA)
-/admin               panel CS , PWA 430px, tetap seperti role lain
-manifest             dilepas di /superadmin (non-PWA, tidak ditawarkan untuk install)`}
+/ops                 panel ops, sidebar + konten penuh (website, non-PWA)
+manifest             dilepas di /ops dan /superadmin (non-PWA, tidak ditawarkan untuk install)`}
       </DocCode>
 
-      <h3 className="doc-h3">Batas CS dan SA</h3>
+      <h3 className="doc-h3">Batas ops dan SA</h3>
       <p className="doc-p">
-        CS <strong>menjalankan</strong> operasi harian: approval tenant, putusan sengketa level-1,
-        dan blacklist COD, semuanya di <code className="doc-inline">/admin/*</code>. SA{' '}
+        Ops <strong>menjalankan</strong> operasi harian: approval tenant, putusan sengketa level-1,
+        dan blacklist COD, semuanya di <code className="doc-inline">/ops/*</code>. SA{' '}
         <strong>mengonfigurasi platform dan mengawasi</strong>: master zona, role &amp; permission,
         registri pengguna, audit trail, laporan pajak, saldo keuntungan, kill switch, dan banding
         sengketa. Top-up dan payout customer/merchant berjalan <em>self-service</em> oleh sistem, SA
@@ -182,7 +182,7 @@ pphFinalFor(fee)        // 0,5%, PPH_FINAL_PERCENT (placeholder, OQ-17/18)`}
           <code className="doc-inline">user.read</code>) menampilkan customer, merchant, dan kurir{' '}
           <strong>read-only</strong> — angkanya turunan dari modul lain lewat{' '}
           <code className="doc-inline">src/data/registry.ts</code>, bukan angka baru. Mengubah
-          status pengguna tetap kerja panel CS; SA mengawasi.
+          status pengguna tetap kerja panel ops; SA mengawasi.
         </li>
         <li>
           <strong>Dossier per merchant, dengan kewenangan status tenant.</strong> Tiap baris merchant
@@ -474,7 +474,7 @@ zoneView() / projectPoint()         // lat/lng → kanvas; kanvas hanya cara men
       <h3 className="doc-h3">Siapa yang tercatat di audit trail</h3>
       <p className="doc-p">
         Nama di audit trail dibaca dari operator yang sedang bertugas, bukan konstanta. Aksi konsol
-        SA memakai operator aktif di sidebar; aksi panel CS memakai operator CS yang ditetapkan di
+        SA memakai operator aktif di sidebar; aksi panel ops memakai operator CS yang ditetapkan di
         halaman Role. Tanpa auth, penetapan itu memang pengganti sesi, dan itu ditulis di layarnya,
         bukan disembunyikan.
       </p>
@@ -486,7 +486,7 @@ zoneView() / projectPoint()         // lat/lng → kanvas; kanvas hanya cara men
         siapa pun. Sekarang jalurnya ada di layar order, di bagian Sengketa:
       </p>
       <DocCode lang="text">
-        {`customer/merchant ajukan sengketa   → panel CS putuskan level-1
+        {`customer/merchant ajukan sengketa   → panel ops putuskan level-1
 layar order pihak pengaju            → tombol "Banding" (muncul setelah ada putusan)
 konsol SA /superadmin/appeals        → perkuat, atau ubah jadi resolusi lain
 layar order lagi                     → "Banding ditinjau SA: diperkuat / diubah"`}
@@ -513,7 +513,7 @@ layar order lagi                     → "Banding ditinjau SA: diperkuat / diuba
         <li>
           <strong>Tanpa auth.</strong> Tidak ada login di <code className="doc-inline">/superadmin</code>:
           siapa pun yang membuka URL-nya bisa mengubah kill switch dan menarik saldo keuntungan.
-          Ini mengikuti pola repo (autentikasi sungguhan di luar lingkup, panel CS juga tanpa auth),
+          Ini mengikuti pola repo (autentikasi sungguhan di luar lingkup, panel ops juga tanpa auth),
           tapi konsekuensinya lebih berat karena konsol ini memegang kontrol platform. Penggantinya
           di demo hanya pemilih <em>Bertindak sebagai</em>, yang menentukan izin dan nama di audit
           trail, bukan mengamankan akses. Di produksi wajib ada auth + audit login

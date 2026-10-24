@@ -37,6 +37,6 @@ export function mockPushSubscription(platform = 'web'): PushSubscriptionRecord {
 export function notificationAudienceFromPath(pathname: string): NotifAudience {
   if (pathname.startsWith('/merchant')) return 'merchant'
   if (pathname.startsWith('/courier')) return 'courier'
-  if (pathname.startsWith('/admin') || pathname.startsWith('/superadmin')) return 'cs'
+  if (pathname.startsWith('/ops') || pathname.startsWith('/admin') || pathname.startsWith('/superadmin')) return 'cs'
   return 'customer'
 }

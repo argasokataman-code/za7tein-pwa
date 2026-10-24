@@ -86,7 +86,7 @@ if (has('--help') || has('-h')) {
   process.stdout.write(
     `browser-gate — ukur UI di klon Brave lewat CDP (${CDP})\n\n` +
       `  node scripts/browser-gate.mjs --route <path> [--strict] [--click]\n` +
-      `  node scripts/browser-gate.mjs --role <customer|merchant|courier|admin|superadmin|web>\n\n` +
+      `  node scripts/browser-gate.mjs --role <customer|merchant|courier|ops|superadmin|web>\n\n` +
       `  --route <path>    rute (boleh diulang). Tanpa ini, SATU role default diukur.\n` +
       `  --role <nama>     role yang diukur (default customer).\n` +
       `  --strict          promosikan WARN jadi FAIL.\n` +
@@ -180,7 +180,7 @@ const ROUTE_TABLES = {
   // `pwa: true` = rute yang benar-benar bisa diinstal: punya manifest sendiri
   // (public/manifest-<peran>.json) dan jadi sasaran mode PWA. `/` dan
   // `/documentation` ada di `navigateFallbackDenylist` vite.config.ts, dan
-  // /superadmin memang diputuskan sebagai website penuh non-PWA (2026-09-23) —
+  // /ops + /superadmin memang diputuskan sebagai website penuh non-PWA —
   // mengukurnya dengan safe-area paksa + syarat service worker hanya
   // menghasilkan angka palsu dan mengaburkan batas produk.
   // `startUrl` = `start_url` manifest peran (`public/manifest-<role>.json`).
@@ -189,7 +189,7 @@ const ROUTE_TABLES = {
   customer: { base: '/customer', table: 'customerRoutes', pwa: true, startUrl: '/customer/home' },
   merchant: { base: '/merchant', table: 'merchantRoutes', pwa: true, startUrl: '/merchant' },
   courier: { base: '/courier', table: 'courierRoutes', pwa: true, startUrl: '/courier' },
-  admin: { base: '/admin', table: 'adminRoutes', pwa: true, startUrl: '/admin' },
+  ops: { base: '/ops', table: 'opsRoutes', pwa: false },
   superadmin: { base: '/superadmin', table: 'superAdminRoutes', pwa: false },
   web: { base: '', table: 'webRoutes', pwa: false },
 }
@@ -689,11 +689,11 @@ const MEASURE = `(async () => {
     if (s.clipPath === 'inset(50%)') return true
     return false
   }
-  // Permukaan app = empat peran PWA + konsol SA. Landing dan /documentation
+  // Permukaan app = tiga peran PWA + konsol backoffice. Landing dan /documentation
   // adalah website penuh yang didokumentasikan bukan app (navigateFallbackDenylist),
   // jadi kontrak DNA mobile (kolom 430px, target sentuh, kotak kartu) tidak
   // berlaku di sana. Yang tetap berlaku di semua halaman: overflow-x + penggulung.
-  const appRoute = ['/customer/', '/merchant/', '/courier/', '/admin/', '/superadmin/']
+  const appRoute = ['/customer/', '/merchant/', '/courier/', '/ops/', '/superadmin/']
     .some((p) => location.pathname === p.slice(0, -1) || location.pathname.startsWith(p))
   const boxFail = []
   if (appRoute) {
@@ -733,7 +733,7 @@ const MEASURE = `(async () => {
   // (b) KELUAR KOTAK — anak melewati content-box induk yang overflow-nya
   // terlihat. Selalu FAIL: isinya benar-benar lari keluar dari kotaknya (nyata:
   // .merchant-ticket-stub-end meluber 89px lalu dipangkas clip di level shell;
-  // label nav admin melebar 9px). Bleed sengaja (header margin negatif,
+  // label nav ops melebar 9px). Bleed sengaja (header margin negatif,
   // dekorasi position absolute) dan rail geser dilewati.
   for (const el of document.querySelectorAll('body *')) {
     if (skipBox(el)) continue
@@ -844,8 +844,8 @@ const MEASURE = `(async () => {
   })()
 
   // Manifest yang BENAR-BENAR dibaca peramban di halaman ini. Aturan produk:
-  // hanya empat prefix peran yang boleh punya manifest. Rute lain (landing,
-  // /documentation, /superadmin) harus null — kalau tidak, peramban menawarkan
+  // hanya tiga prefix peran yang boleh punya manifest. Rute lain (landing,
+  // /documentation, /ops, /superadmin) harus null — kalau tidak, peramban menawarkan
   // pasang untuk halaman yang bukan app, dan scope manifestnya bisa menelan
   // prefix peran. Diukur dari DOM, bukan dari komentar atau niat.
   const manifestHref = (() => {
@@ -881,13 +881,12 @@ const MEASURE = `(async () => {
       topWho,
     },
     shell: { w: Math.round(sr.width), x: Math.round(sr.x) },
-    // Pengecualian lebar yang DIDOKUMENTASIKAN: konsol desktop (panel CS
-    // .admin-console, konsol SA .sa-root) sengaja tidak memakai kolom 430px di
-    // layar lebar (decision-irbid-mvp.md). Gerbang membacanya dari DOM supaya
-    // aturan kolom tetap berlaku untuk peran lain dan untuk konsol ini di bawah
-    // 901px.
+    // Pengecualian lebar yang DIDOKUMENTASIKAN: konsol desktop (ops + SA
+    // .sa-root) sengaja tidak memakai kolom 430px di layar lebar
+    // (decision-ops-canonical.md). Gerbang membacanya dari DOM supaya aturan
+    // kolom tetap berlaku untuk peran lain dan untuk konsol ini di bawah 901px.
     wideShell: !!(shell && shell.classList
-      && (shell.classList.contains('admin-console') || shell.classList.contains('sa-root'))),
+      && shell.classList.contains('sa-root')),
     col,
     overflowX: doc.scrollWidth - doc.clientWidth,
     controls: controls.length,
@@ -1023,7 +1022,7 @@ function judge(measured, tokens, strict, viewportWidth) {
   const warn = []
   const push = (bucket, msg) => bucket.push(msg)
   // Kolom = lebar viewport kalau viewport lebih sempit dari --shell-max.
-  // Konsol desktop yang terdokumentasi (admin-console/sa-root) melebar penuh di
+  // Konsol desktop yang terdokumentasi (sa-root) melebar penuh di
   // ≥901px, jadi harapannya = lebar viewport, bukan 430px.
   const wide = measured.wideShell && viewportWidth >= 901
   const expectedShell = tokens.shellMax
@@ -1062,12 +1061,12 @@ function judge(measured, tokens, strict, viewportWidth) {
       )
     }
   }
-  // Manifest: hanya empat prefix peran yang boleh punya. Kalau rute non-app
+  // Manifest: hanya tiga prefix peran yang boleh punya. Kalau rute non-app
   // mendapat manifest, peramban menawarkan pasang di halaman yang bukan app —
   // dan manifest ber-scope "/" bahkan menelan seluruh prefix peran. Gerbang
   // ini yang menahannya kalau `index.html` kembali memasang manifest statis.
   if (measured.manifestHref) {
-    const rolePath = measured.path.match(/^\/(customer|merchant|courier|admin)(\/|$)/)
+    const rolePath = measured.path.match(/^\/(customer|merchant|courier)(\/|$)/)
     if (!rolePath) {
       push(fail, `manifest di rute non-app: ${measured.path} memakai ${measured.manifestHref}`)
     } else if (measured.manifestHref !== `/manifest-${rolePath[1]}.json`) {
@@ -1351,9 +1350,9 @@ async function main() {
 
   const tokens = tokensFromSource()
   // Mode PWA cuma untuk rute yang bisa diinstal. `--role all --pwa` menyapu
-  // keempat peran app saja; memaksa PWA ke landing/dokumentasi/superadmin berarti
-  // mengukur halaman yang tidak pernah diinstal (dan /superadmin memang dashboard
-  // lebar non-PWA). Menyebut role non-app secara eksplisit = error, bukan diam.
+  // tiga peran app saja; memaksa PWA ke landing/dokumentasi/ops/superadmin berarti
+  // mengukur halaman yang tidak pernah diinstal (dan /ops + /superadmin memang
+  // dashboard lebar non-PWA). Menyebut role non-app secara eksplisit = error, bukan diam.
   let roles = OPTS.role === 'all' ? Object.keys(ROUTE_TABLES) : [OPTS.role]
   if (OPTS.pwa) {
     const nonPwa = roles.filter((r) => !ROUTE_TABLES[r].pwa)
@@ -1373,7 +1372,7 @@ async function main() {
     }
   }
   let urls = OPTS.routes.length
-    ? OPTS.routes.map((r) => r.startsWith('/') && !r.startsWith('/customer') && !r.startsWith('/merchant') && !r.startsWith('/courier') && !r.startsWith('/admin') && OPTS.role !== 'web' ? ROUTE_TABLES[OPTS.role].base + r : r)
+    ? OPTS.routes.map((r) => r.startsWith('/') && !r.startsWith('/customer') && !r.startsWith('/merchant') && !r.startsWith('/courier') && !r.startsWith('/ops') && !r.startsWith('/superadmin') && OPTS.role !== 'web' ? ROUTE_TABLES[OPTS.role].base + r : r)
     : roles.flatMap((r) => routesFromSource(r))
 
   // DNA: ukur di 390px DAN 1440px. Dua-duanya, bukan salah satu.
@@ -1499,7 +1498,7 @@ async function main() {
 
   for (const url of urls) {
     const abs = url.startsWith('http') ? url : BASE + url
-    const urlRole = (abs.match(/\/(customer|merchant|courier|admin)(?:\/|$)/) || [])[1]
+    const urlRole = (abs.match(/\/(customer|merchant|courier)(?:\/|$)/) || [])[1]
     if (urlRole && urlRole !== seededRole) {
       await seedSession(cdp, `/${urlRole}`)
       seededRole = urlRole

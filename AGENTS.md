@@ -311,7 +311,7 @@ node scripts/browser-gate.mjs --route /home --strict --click    # + klik tiap el
 `lsof -nP -iTCP -sTCP:LISTEN | grep -E ':(5173|5174|5175|4173|4180)'` dan `lsof -nP -iTCP -sTCP:LISTEN | grep 935`.
 - Dev server: pakai yang sudah jalan. `browser-gate` **mendeteksi sendiri** port 5173/5174/5175/5176 (mode biasa) atau 4173 (mode `--pwa`) dan berhenti dengan pesan kalau tak ada — gate tidak menghidupkan server. Kalau sudah ada yang melayani, `npm run dev` lagi hanya membuat Vite pindah ke port berikutnya dan menumpuk proses. Dilarang.
 - Klon Brave: `browser-gate` memakai ulang klon 9359 kalau hidup, dan hanya menghidupkannya sekali kalau benar-benar mati. Jangan buka tab/klon baru "untuk memastikan". `brave-debug` default 9355 = klon kerja user (pegang login) — biarkan.
-- **Port e2e terkunci (jangan dipakai proses lain):** `9360` customer, `9361` merchant, `9362` courier, `9363` admin, `9364` superadmin. Dibuka dengan `npm run e2e` (tambahkan `-- --pwa` untuk build 4173, `-- --stop` menutup, `-- --list` mencetak peta). Tiap peran = **jendela PWA app-mode terpisah** (`--app=`, display-mode standalone; profil `profile-e2e-<role>`) supaya `localStorage`/sesi tak tercampur — bukan beberapa tab di satu browser. Jangan menggeser port ini. **Aksi per-peran WAJIB lewat tool repo `scripts/e2e-browsers.mjs` (reuse-only, ENFORCE): `node scripts/e2e-browsers.mjs status | nav <role> <path> | eval <role> "<expr>" | click <role> "<sel>" | shot <role> <out.png>`.** Tool ini **tidak pernah** membuka jendela/tab baru; jendela mati → error, jalankan `npm run e2e` sekali. MCP `brave-debug-<role>` sudah **dihapus** dari `opencode.json` (tiap langkah dulu spawn tab baru — itu yang dihentikan).
+- **Port e2e terkunci (jangan dipakai proses lain):** `9360` customer, `9361` merchant, `9362` courier, `9363` ops, `9364` superadmin. Dibuka dengan `npm run e2e` (tambahkan `-- --pwa` untuk build 4173, `-- --stop` menutup, `-- --list` mencetak peta). Tiap peran = **jendela PWA app-mode terpisah** (`--app=`, display-mode standalone; profil `profile-e2e-<role>`) supaya `localStorage`/sesi tak tercampur — bukan beberapa tab di satu browser. Jangan menggeser port ini. **Aksi per-peran WAJIB lewat tool repo `scripts/e2e-browsers.mjs` (reuse-only, ENFORCE): `node scripts/e2e-browsers.mjs status | nav <role> <path> | eval <role> "<expr>" | click <role> "<sel>" | shot <role> <out.png>`.** Tool ini **tidak pernah** membuka jendela/tab baru; jendela mati → error, jalankan `npm run e2e` sekali. MCP `brave-debug-<role>` sudah **dihapus** dari `opencode.json` (tiap langkah dulu spawn tab baru — itu yang dihentikan).
 - Selesai mengukur: matikan klon gate yang kamu hidupkan (`kill` PID proses utama `profile-gate`, terarah — bukan `pkill Brave`), supaya tak menumpuk. Klon kerja (9355) jangan disentuh.
 
 ### Testing per-peran — PREFLIGHT WAJIB (jangan lupa port)
@@ -323,7 +323,7 @@ Port tiap peran terkunci. Jangan menebak, jangan buka baru — **preflight dulu*
 | customer | 9360 | profile-e2e-customer |
 | merchant | 9361 | profile-e2e-merchant |
 | courier | 9362 | profile-e2e-courier |
-| admin | 9363 | profile-e2e-admin |
+| ops | 9363 | profile-e2e-ops |
 | superadmin | 9364 | profile-e2e-superadmin |
 
 Dicadangkan (JANGAN dipakai e2e): `9355` klon kerja user (image-gen) · `9359` klon `browser-gate`.
@@ -383,18 +383,20 @@ node scripts/browser-gate.mjs --route /home --pwa --offline
 
 `--pwa` memakai input sentuh (`Input.dispatchTouchEvent`), memaksa safe-area, dan menuntut service worker **punya cache** — bukan sekadar terdaftar. SW yang terdaftar + `controlling` tapi cache-nya kosong adalah kegagalan nyata yang pernah terjadi (workbox `add-to-cache-list-conflicting-entries` ditelan diam-diam). Detail, angka, dan jebakannya: `docs/design/pwa-testing.md`.
 
-**`--pwa` hanya untuk rute yang bisa diinstal**, yaitu empat peran yang punya manifest sendiri: `customer`, `merchant`, `courier`, `admin`. `/`, `/documentation`, dan `/superadmin/*` bukan app terinstal — dua yang pertama ada di `navigateFallbackDenylist`, yang terakhir memang diputuskan sebagai website penuh non-PWA. `--role all --pwa` menyapu keempat peran app saja dan memberi tahu role yang dilewati; menyebut role non-app bersama `--pwa` keluar dengan error, bukan diam-diam mengukur halaman yang tidak pernah diinstal.
+**`--pwa` hanya untuk rute yang bisa diinstal**, yaitu tiga peran yang punya manifest sendiri: `customer`, `merchant`, `courier`. `/`, `/documentation`, `/ops/*`, dan `/superadmin/*` bukan app terinstal — dua yang pertama ada di `navigateFallbackDenylist`, dua konsol terakhir memang website penuh non-PWA. `--role all --pwa` menyapu ketiga peran app saja dan memberi tahu role yang dilewati; menyebut role non-app bersama `--pwa` keluar dengan error, bukan diam-diam mengukur halaman yang tidak pernah diinstal.
 
-### Dua mode panel CS `/admin` — port terpisah (jangan tabrakan)
+### Panel ops `/ops` — satu mode, website desktop
 
-Panel CS `/admin` punya **dua mode** pada satu pohon komponen: web desktop (≥901px, rail 248px + konten selebar jendela) dan PWA (430px + bottom nav). Ukur keduanya di **server/port yang berbeda**:
+Panel ops **bukan PWA** dan tidak punya mode ponsel 430px. Ukur sebagai website penuh, satu server saja:
 
 | mode | server | perintah ukur |
 |---|---|---|
-| **web desktop** | `npm run preview:web` → `:4180` | `GATE_BASE=http://localhost:4180 node scripts/browser-gate.mjs --route /admin --strict --click` |
-| **PWA** | `npm run preview:pwa` → `:4173` | `node scripts/browser-gate.mjs --route /admin --pwa --strict --click` |
+| **dev** | `npm run dev` → `:5173` | `node scripts/browser-gate.mjs --role ops --strict --click` |
+| **hasil build** | `npm run preview:web` → `:4180` | `GATE_BASE=http://localhost:4180 node scripts/browser-gate.mjs --route /ops --strict --click` |
 
-**Kenapa port beda, bukan cuma flag.** Service worker terikat **origin (skema+host+port)**. Gate mode web **mengunregister service worker + menghapus cache** (cabang non-`--pwa` di `browser-gate.mjs`); kalau diukur di `:4173` yang sama, state PWA ikut rusak. Satu server per mode. Jangan mengukur mode web di `:4173` atau mode PWA di `:4180`. Port & aturan mesin: `.rules.json` → `browserTesting.mode_dual`.
+Gunakan satu server pada satu waktu; jangan mengukur ops dengan `--pwa` (tidak punya manifest/cache). Port PWA `:4173` tetap untuk tiga peran app.
+
+Port `:4173` tetap untuk tiga peran app; jangan mengukur ops di sana dengan `--pwa`. Aturan mesin: `.rules.json` → `browserTesting.ops`.
 
 ---
 
@@ -406,15 +408,15 @@ Panel CS `/admin` punya **dua mode** pada satu pohon komponen: web desktop (≥9
 
 1. **Merchant console** — selesai. Lihat `docs/plan-merchant.md` (M0–M7).
 2. **Tampilan kurir** — selesai. Lihat `docs/plan-courier.md` (K0–K5), dibangun dari flow `f13-courier-view`. Detail tugas menampilkan dua sumbu berdampingan (Journey Line untuk order, stepper checkpoint untuk kurir). **Masuk kurir** (K5) memakai nomor WA (E.164) + kata sandi, mengikuti flow `f21-account-auth` + `f16` (kurir karyawan merchant, direkrut setelah toko aktif); sesi masih mock tanpa guard rute (AGENTS.md §1). Customer menampilkan OTP (`otpDisplayCode`), kurir yang mengetiknya (C-09). Label aksi resmi "Ambil"/"Berangkat"/"Tiba"; "Mulai Antar" tidak ada di PRD v2.
-3. **Panel admin (CS)** — **legacy.** Lihat `docs/plan-admin.md` (S0–S4), flow `f15-super-admin` + `f8-dispute`. Sejak PO 2026-10-24, `/ops` adalah backoffice kanonik; `/admin` dipertahankan sampai merge supaya layar sengketa/merchant/ledger tidak hilang, lalu dipetakan ke ops atau dipensiunkan. Jangan menambah fitur baru di sini. Tanpa auth dan tanpa audit trail — PRD aktif tak punya requirementnya (`UNRESOLVED-by-absence`).
-4. **Super Admin** — **legacy.** Konsol `/superadmin` (website penuh non-PWA) ada di kode, tetapi PRD aktif `sa7tein-mvp-2026-10-11` tidak menyebut peran ini; §13 hanya menyebut aplikasi ops. Dipertahankan sampai merge, bukan acuan peran baru. Rujukan: `docs/product/prd/decision-irbid-mvp.md`.
-5. **Panel ops `/ops/*`** — **backoffice kanonik** (PO 2026-10-24). Website penuh non-PWA, 10 layar (ringkasan, onboarding, rule sengketa, insiden, moderasi, SP, program, kuota, setelan, analytics). Sisa: memindahkan sengketa/merchant/ledger dari `/admin`, auth Cloudflare Access, dan penyelarasan bentuk shell dengan PRD §13. Rincian: `versions/sa7tein-mvp-2026-10-11/decision-ops-canonical.md`.
+3. **Panel admin (CS) `/admin`** — **dihapus 2026-10-24.** Backoffice kanonik adalah `/ops`; layar sengketa, merchant, ledger, dan dashboard kewajiban sudah pindah, dan URL `/admin/*` diarahkan ke layar ops yang setara. Jangan membuat rute atau komponen `/admin` baru. Catatan historis: `docs/plan-admin.md` (S0–S4), flow `f15-super-admin` + `f8-dispute`. Tanpa auth dan tanpa audit trail — PRD aktif tak punya requirementnya (`UNRESOLVED-by-absence`).
+4. **Super Admin** — **legacy.** Konsol `/superadmin` (website penuh non-PWA) ada di kode, tetapi PRD aktif `sa7tein-mvp-2026-10-11` tidak menyebut peran ini; §13 hanya menyebut aplikasi ops. Dipertahankan sebagai alat audit sampai keputusan lanjutan, bukan acuan peran baru. Rujukan: `docs/product/prd/decision-irbid-mvp.md`.
+5. **Panel ops `/ops/*`** — **backoffice kanonik** (PO 2026-10-24). Website penuh non-PWA, 14 layar: ringkasan, kewajiban & ledger, onboarding, sengketa, merchant, ledger, rule sengketa, insiden, moderasi, SP, program, kuota, setelan, analytics. Sisa: auth Cloudflare Access dan penyelarasan bentuk shell dengan PRD §13 (PRD menyebut ops sebagai PWA; implementasi desktop penuh — deviasi tercatat). Rincian: `docs/product/prd/versions/sa7tein-mvp-2026-10-11/decision-ops-canonical.md`.
 
 **Tiga hal yang harus dijaga saat menambah role:**
 
 - **Journey Line dan status pesanan sudah jadi komponen.** Merchant dan kurir memandang pesanan yang sama dari sisi berbeda — turunkan dari komponen yang ada, jangan menggambar ulang.
 - **Shell 430px kemungkinan salah untuk backoffice.** SA dan ops adalah dashboard bertabel. Kalau perlu lebar penuh, jadikan pengecualian yang **didokumentasikan di `/documentation`** sebagai keputusan sadar — bukan kebocoran seperti yang dulu terjadi.
-- **Satu backoffice, bukan tiga.** Jangan membuat layar baru di `/admin` atau `/superadmin`; tambahkan ke `/ops` dan ikuti PRD aktif.
+- **Satu backoffice, bukan dua.** Jangan membuat layar baru di `/superadmin`; tambahkan ke `/ops` dan ikuti PRD aktif. `/admin` sudah tidak ada.
 
 ---
 

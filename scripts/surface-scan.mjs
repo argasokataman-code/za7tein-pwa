@@ -251,7 +251,7 @@ function checkLineCaps() {
 // Rute yang salah daftar = halaman 404 padahal kodenya ada.
 function checkRoutes() {
   const app = read('src/App.tsx')
-  const tables = ['webRoutes', 'customerRoutes', 'merchantRoutes', 'courierRoutes', 'adminRoutes', 'superAdminRoutes']
+  const tables = ['webRoutes', 'customerRoutes', 'merchantRoutes', 'courierRoutes', 'opsRoutes', 'superAdminRoutes']
   const registered = new Set()
   for (const t of tables) {
     const m = app.match(new RegExp(`const ${t}[^=]*=\\s*\\[([\\s\\S]*?)\\n\\]`))
@@ -299,7 +299,7 @@ function checkDisplayModeGate() {
   else info.push('Gerbang display-mode: standalone + fullscreen')
 }
 
-// ── 10b. Manifest PWA hanya untuk empat prefix peran ──────────────────────
+// ── 10b. Manifest PWA hanya untuk tiga prefix peran ───────────────────────
 // `rel="manifest"` pernah ditulis statis di index.html sehingga landing dan
 // /documentation memakai manifest umum (id "/", scope "/") dan benar-benar
 // bisa diinstal, padahal AGENTS.md §8, `navigateFallbackDenylist`,
@@ -309,7 +309,7 @@ function checkDisplayModeGate() {
 // ada di public/. Dua-duanya diperiksa dari sumber.
 function checkManifestScope() {
   const html = read('index.html')
-  const roles = ['customer', 'merchant', 'courier', 'admin']
+  const roles = ['customer', 'merchant', 'courier']
 
   // Tidak boleh ada <link rel="manifest" ...> statis di HTML. Komentar dimatikan
   // lebih dulu: penjelasan di index.html menyebut bentuk lama itu apa adanya,
@@ -338,14 +338,14 @@ function checkManifestScope() {
     fail.push('public/manifest.json masih ada: manifest umum ber-scope "/" yang menelan prefix peran')
   }
 
-  // Empat manifest saja, tidak lebih — manifest yatim menandakan jalur install
-  // yang tidak diakui peta rute.
+  // Tiga manifest saja, tidak lebih — manifest yatim menandakan jalur install
+  // yang tidak diakui peta rute. Backoffice (`/ops`, `/superadmin`) website penuh.
   const extra = walk('public', ['.json'])
     .filter((f) => /manifest/.test(f))
     .filter((f) => !roles.some((r) => f === `public/manifest-${r}.json`))
   if (extra.length) fail.push(`manifest tak terpakai di public/: ${extra.join(', ')}`)
 
-  if (!fail.length) info.push('Manifest PWA: 4 peran saja, tanpa manifest umum')
+  if (!fail.length) info.push('Manifest PWA: 3 peran saja, tanpa manifest umum')
 }
 
 // ── 11. Warna mentah di lapisan design system ─────────────────────────────

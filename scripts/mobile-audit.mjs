@@ -40,7 +40,6 @@ const ROLES = {
   customer: { base: '/customer', table: 'customerRoutes' },
   merchant: { base: '/merchant', table: 'merchantRoutes' },
   courier: { base: '/courier', table: 'courierRoutes' },
-  admin: { base: '/admin', table: 'adminRoutes' },
   web: { base: '', table: 'webRoutes' },
 }
 
@@ -53,7 +52,7 @@ function routesFromSource(role) {
   return [...mm[1].matchAll(/\[\s*'([^']+)'/g)].map((x) => m.base + x[1])
 }
 
-const roleOf = (url) => (url.match(/\/(customer|merchant|courier|admin)(?:\/|$)/) || [])[1] || 'web'
+const roleOf = (url) => (url.match(/\/(customer|merchant|courier)(?:\/|$)/) || [])[1] || 'web'
 
 class Cdp {
   constructor(ws) {

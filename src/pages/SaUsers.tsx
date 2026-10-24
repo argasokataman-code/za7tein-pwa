@@ -39,7 +39,7 @@ type UserTab = 'customer' | 'merchant' | 'courier'
  *
  * Semua angkanya turunan dari data yang sudah ada (`src/data/registry.ts`), bukan
  * angka baru. Halaman ini **read-only**: tidak ada aksi di sini, karena mengubah
- * status pengguna adalah kerja panel CS (`/admin/*`) dan SA mengawasinya lewat
+ * status pengguna adalah kerja panel ops (`/ops/*`) dan SA mengawasinya lewat
  * audit trail.
  */
 export default function SaUsers() {
@@ -255,7 +255,7 @@ export default function SaUsers() {
             )}
             <p className="sa-note">
               Tenant yang masih menunggu review belum masuk registri — ia belum merchant.
-              Antreannya ada di panel CS (<code className="sa-code">/admin/onboarding</code>) dan
+              Antreannya ada di panel ops (<code className="sa-code">/ops/onboarding</code>) dan
               terlihat di sini lewat audit trail.
             </p>
           </>

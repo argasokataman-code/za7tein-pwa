@@ -43,7 +43,7 @@
     },
     "rules": [
       "Aturan repo tetap; v2 hanya mengubah pewarnaan/layout/animasi, 1:1 dengan prototype.",
-      "Token v2 global: mengganti token mengubah tema semua role (customer/merchant/kurir/admin).",
+      "Token v2 global: mengganti token mengubah tema semua role (customer/merchant/kurir/ops).",
       "Radius cap dinaikkan 12 -> 32 (keputusan pemilik 2026-10-12; DNA.md + AGENTS §4).",
       "Tanpa emoji, tanpa URL gambar eksternal, ikon lucide-only (tetap berlaku)."
     ],
@@ -145,8 +145,8 @@
       "pengecualian_dna": "MD-03: scroller DI DALAM panel sheet sah (pengecualian mobile-dna.md) — gerbang mengenali panel sheet dan tidak menghukumnya. MD-10 dilewati saat sheet terbuka (modal memang menutupi bilah).",
       "checklist": "Tiap pengukuran mencetak DNA MD-01✓ ... dengan ✗ temuan, — tidak ada yang diperiksa di halaman itu, ✓ diperiksa & lolos. MD-04/MD-08/MD-09 dipegang npm run scan + review.",
       "tunggu_halaman_diam": "Gerbang menunggu 3 sampel DOM identik berturut-turut sebelum mengukur. Daftar dari BE mendarat setelah render pertama; mengukur terlalu cepat = mengukur layar loading, dan gerbang melaporkan lolos untuk DOM yang belum ada (nyata: kartu /merchant/orders belum ter-render saat diukur, temuan overflow lolos).",
-      "md12_dua_arah": "(a) kotak ber-overflow hidden/clip dengan scrollWidth > clientWidth yang memangkas KONTROL; (b) anak melewati content-box induk ber-overflow visible >2,5px. Keduanya FAIL — escape tanpa pangkas pun dibetulkan (label nav admin 5-9px, badge 3px, sa-search 24px). Pengecualian sah: rail geser/carousel (>=2 anak selebar hampir-penuh), art yang sengaja dipangkas di tepi membulat, bleed margin negatif header, dekorasi position absolute, text-overflow: ellipsis, .sr-only, .leaflet-*.",
-      "rute_non_app": "Landing (/) dan /documentation adalah website penuh, bukan permukaan app (navigateFallbackDenylist), jadi DNA mobile tidak berlaku: gate mencetak satu baris 'DNA dilewati' dan tetap memeriksa overflow-x. Empat peran PWA + konsol SA diperiksa penuh.",
+      "md12_dua_arah": "(a) kotak ber-overflow hidden/clip dengan scrollWidth > clientWidth yang memangkas KONTROL; (b) anak melewati content-box induk ber-overflow visible >2,5px. Keduanya FAIL — escape tanpa pangkas pun dibetulkan (label nav ops 5-9px, badge 3px, sa-search 24px). Pengecualian sah: rail geser/carousel (>=2 anak selebar hampir-penuh), art yang sengaja dipangkas di tepi membulat, bleed margin negatif header, dekorasi position absolute, text-overflow: ellipsis, .sr-only, .leaflet-*.",
+      "rute_non_app": "Landing (/) dan /documentation adalah website penuh, bukan permukaan app (navigateFallbackDenylist), jadi DNA mobile tidak berlaku: gate mencetak satu baris 'DNA dilewati' dan tetap memeriksa overflow-x. Tiga peran PWA + konsol ops/SA diperiksa penuh.",
       "target_sentuh_label": "MD-05 mengukur target efektif: kontrol kecil (checkbox/radio) yang dibungkus label diukur pada label-nya, bukan kotak 18px-nya. Label yang tetap < 44px dibetulkan (mis. baris izin SA dinaikkan ke --touch-min)."
     },
     "viewport": "Selalu ukur pada emulasi 390x844 @2 dan 1440x900 — jangan dari jendela klon apa adanya (pernah 500x600 dan angkanya tidak sah).",
@@ -176,18 +176,17 @@
         "gesture perangkat keras"
       ]
     },
-    "mode_dual": {
-      "kenapa": "Panel CS /admin punya DUA mode: web desktop (>=901px) dan PWA (ponsel). Service worker terikat origin (port), jadi mode web WAJIB diukur di port sendiri; gate non-PWA mengunregister SW + menghapus cache, dan itu merusak state PWA kalau portnya sama.",
+    "ops": {
+      "kenapa": "Panel ops /ops adalah website penuh non-PWA tanpa mode ponsel 430px. Tidak ada manifest/cache, jadi tidak diukur dengan --pwa; satu server pada satu waktu.",
       "port": {
-        "web": 4180,
-        "pwa": 4173,
-        "dev_non_pwa": "5173-5176 (dipakai browser-gate tanpa GATE_BASE)"
+        "build": 4180,
+        "dev": "5173-5176 (dipakai browser-gate tanpa GATE_BASE)"
       },
       "perintah": {
-        "web": "npm run preview:web  ->  GATE_BASE=http://localhost:4180 node scripts/browser-gate.mjs --route /admin --strict --click",
-        "pwa": "npm run preview:pwa  ->  node scripts/browser-gate.mjs --route /admin --pwa --strict --click"
+        "dev": "node scripts/browser-gate.mjs --role ops --strict --click",
+        "build": "npm run preview:web  ->  GATE_BASE=http://localhost:4180 node scripts/browser-gate.mjs --route /ops --strict --click"
       },
-      "aturan": "Satu server per mode, port beda. Jangan mengukur mode web di 4173 atau mode PWA di 4180."
+      "aturan": "Jangan mengukur /ops dengan --pwa atau di port PWA 4173. Port 4173 tetap untuk tiga peran app."
     },
     "severity": {
       "fail": [
@@ -215,12 +214,12 @@
     }
   },
   "roleTesting": {
-    "aturan": "Testing per-peran (customer/merchant/courier/admin/superadmin) WAJIB preflight dulu, lalu aksi lewat tool repo scripts/e2e-browsers.mjs — BUKAN MCP per-peran (entri brave-debug-<role> sudah dihapus). Tool ini reuse-only: saat aksi TIDAK PERNAH membuka jendela/tab baru.",
+    "aturan": "Testing per-peran (customer/merchant/courier/ops/superadmin) WAJIB preflight dulu, lalu aksi lewat tool repo scripts/e2e-browsers.mjs — BUKAN MCP per-peran (entri brave-debug-<role> sudah dihapus). Tool ini reuse-only: saat aksi TIDAK PERNAH membuka jendela/tab baru.",
     "port_per_role": {
       "customer": 9360,
       "merchant": 9361,
       "courier": 9362,
-      "admin": 9363,
+      "ops": 9363,
       "superadmin": 9364
     },
     "port_dicadangkan": {
