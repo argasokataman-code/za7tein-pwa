@@ -1,5 +1,10 @@
 # F24 — Penanganan Masalah Order oleh CS
 
+> **Status 2026-10-24 — pindah ke ops.** Penanganan masalah order menjadi kerja
+> `/ops` setelah merge; alur CS di `/admin` berstatus legacy. Lihat
+> `docs/product/prd/versions/sa7tein-mvp-2026-10-11/decision-ops-canonical.md`.
+> BRS sumbernya (`notif-order-e2e-2026-10-11`) masih `proposed`.
+
 Workflow jalur masalah order: dari pemicu → queue CS → triage → putusan → tutup (atau eskalasi ke SA). Pelengkap `f8-dispute` (fokus pada resolusi sengketa) dan `f11-push-notification` (routing audience). Basis: **BRS `notif-order-e2e-2026-10-11` (`proposed`)** + `R-DISPUTE-01`/`C-12`. PRD aktif `irbid-mvp-v2-2026-09-21`.
 
 | Berkas | Isi |

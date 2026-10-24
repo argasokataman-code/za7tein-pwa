@@ -1811,6 +1811,94 @@
           "raw": "FEAT-2002:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-141891",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "22:41:10",
+      "tags": [
+        "ops",
+        "admin",
+        "prd",
+        "merge"
+      ],
+      "summary": "Kunci /ops sebagai backoffice kanonik di PRD impact, milestone M10, flow f15/f22/f24, AGENTS, dokumentasi; kode legacy menunggu merge.",
+      "conn": [
+        {
+          "id": "DEC-141852",
+          "type": "implements",
+          "raw": "DEC-141852:implements"
+        },
+        {
+          "id": "DEC-2003",
+          "type": "relates",
+          "raw": "DEC-2003:relates"
+        },
+        {
+          "id": "TASK-110580",
+          "type": "relates",
+          "raw": "TASK-110580:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141892",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "22:41:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/layout/OpsShell.tsx (+6/-6) — edit via tool: tsx: <Link className=\"sa-side-l",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/layout/OpsShell.tsx"
+    },
+    {
+      "id": "TASK-141893",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "22:41:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error|Found\" | tail -5; echo \"lint-exit:$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-141894",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "22:42:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

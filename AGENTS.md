@@ -406,13 +406,15 @@ Panel CS `/admin` punya **dua mode** pada satu pohon komponen: web desktop (≥9
 
 1. **Merchant console** — selesai. Lihat `docs/plan-merchant.md` (M0–M7).
 2. **Tampilan kurir** — selesai. Lihat `docs/plan-courier.md` (K0–K5), dibangun dari flow `f13-courier-view`. Detail tugas menampilkan dua sumbu berdampingan (Journey Line untuk order, stepper checkpoint untuk kurir). **Masuk kurir** (K5) memakai nomor WA (E.164) + kata sandi, mengikuti flow `f21-account-auth` + `f16` (kurir karyawan merchant, direkrut setelah toko aktif); sesi masih mock tanpa guard rute (AGENTS.md §1). Customer menampilkan OTP (`otpDisplayCode`), kurir yang mengetiknya (C-09). Label aksi resmi "Ambil"/"Berangkat"/"Tiba"; "Mulai Antar" tidak ada di PRD v2.
-3. **Panel admin (CS)** — selesai. Lihat `docs/plan-admin.md` (S0–S4), dibangun dari flow `f15-super-admin` + `f8-dispute` dan milestone M6/M9. Shell 430px sama seperti role lain. Tanpa auth dan tanpa audit trail — PRD aktif tak punya requirementnya (`UNRESOLVED-by-absence`).
-4. **Super Admin** — **role terpisah, belum dibangun.** Keputusan PO 2026-09-23: konsol `/admin` adalah panel CS (bukan Super Admin), dan Super Admin kelak berupa **website penuh non-PWA** untuk owner/team (kontrol penuh platform, termasuk pajak dan dashboard). Prefix disiapkan `/superadmin`; cakupan detail `UNRESOLVED`. Rujukan: `docs/product/prd/decision-irbid-mvp.md`.
+3. **Panel admin (CS)** — **legacy.** Lihat `docs/plan-admin.md` (S0–S4), flow `f15-super-admin` + `f8-dispute`. Sejak PO 2026-10-24, `/ops` adalah backoffice kanonik; `/admin` dipertahankan sampai merge supaya layar sengketa/merchant/ledger tidak hilang, lalu dipetakan ke ops atau dipensiunkan. Jangan menambah fitur baru di sini. Tanpa auth dan tanpa audit trail — PRD aktif tak punya requirementnya (`UNRESOLVED-by-absence`).
+4. **Super Admin** — **legacy.** Konsol `/superadmin` (website penuh non-PWA) ada di kode, tetapi PRD aktif `sa7tein-mvp-2026-10-11` tidak menyebut peran ini; §13 hanya menyebut aplikasi ops. Dipertahankan sampai merge, bukan acuan peran baru. Rujukan: `docs/product/prd/decision-irbid-mvp.md`.
+5. **Panel ops `/ops/*`** — **backoffice kanonik** (PO 2026-10-24). Website penuh non-PWA, 10 layar (ringkasan, onboarding, rule sengketa, insiden, moderasi, SP, program, kuota, setelan, analytics). Sisa: memindahkan sengketa/merchant/ledger dari `/admin`, auth Cloudflare Access, dan penyelarasan bentuk shell dengan PRD §13. Rincian: `versions/sa7tein-mvp-2026-10-11/decision-ops-canonical.md`.
 
-**Dua hal yang harus dijaga saat menambah role:**
+**Tiga hal yang harus dijaga saat menambah role:**
 
 - **Journey Line dan status pesanan sudah jadi komponen.** Merchant dan kurir memandang pesanan yang sama dari sisi berbeda — turunkan dari komponen yang ada, jangan menggambar ulang.
-- **Shell 430px kemungkinan salah untuk Super Admin.** Ia dashboard dengan tabel. Kalau memang perlu lebar penuh, jadikan pengecualian yang **didokumentasikan di `/documentation`** sebagai keputusan sadar — bukan kebocoran seperti yang dulu terjadi.
+- **Shell 430px kemungkinan salah untuk backoffice.** SA dan ops adalah dashboard bertabel. Kalau perlu lebar penuh, jadikan pengecualian yang **didokumentasikan di `/documentation`** sebagai keputusan sadar — bukan kebocoran seperti yang dulu terjadi.
+- **Satu backoffice, bukan tiga.** Jangan membuat layar baru di `/admin` atau `/superadmin`; tambahkan ke `/ops` dan ikuti PRD aktif.
 
 ---
 

@@ -84,10 +84,10 @@ export function OpsShell({ children }: OpsShellProps) {
         <div className="sa-side-foot">
           <p className="sa-side-role">Operator ops · di balik Cloudflare Access (mock)</p>
           <Link className="sa-side-link" to="/admin">
-            Buka panel CS
+            Panel CS (legacy)
           </Link>
           <Link className="sa-side-link" to="/superadmin">
-            Buka konsol Super Admin
+            Super Admin (legacy)
           </Link>
           <Link className="sa-side-link" to="/documentation">
             Dokumentasi

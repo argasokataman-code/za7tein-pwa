@@ -11,6 +11,13 @@ export function SuperAdminSection() {
         <code className="doc-inline">/superadmin</code>, dipakai owner &amp; team dari desktop.
         Flow-nya <code className="doc-inline">F22</code>.
       </p>
+      <p className="doc-p">
+        <strong>Status 2026-10-24: legacy.</strong> The canonical backoffice is{' '}
+        <code className="doc-inline">/ops</code>. The active PRD does not mention Super
+        Admin; §13 only names the ops application. This console stays until the merge but
+        is no longer the reference for new role work. Detail:{' '}
+        <code className="doc-inline">decision-ops-canonical.md</code>.
+      </p>
 
       <h3 className="doc-h3">Pengecualian lebar yang disengaja</h3>
       <p className="doc-p">

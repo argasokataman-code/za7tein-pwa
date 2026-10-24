@@ -52,6 +52,10 @@ import { ChangelogSection } from './documentation/sections/ChangelogSection'
 // ComponentsSection bersama FoodCard: foto 4:3, padding 12px, deskripsi
 // disembunyikan, meta rating + waktu. Halaman ini tetap hanya merangkai
 // section.
+//
+// Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` dan `/superadmin`
+// berstatus legacy sampai merge; AdminDesignSection + SuperAdminSection
+// menandainya, rincian di decision-ops-canonical.md.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,

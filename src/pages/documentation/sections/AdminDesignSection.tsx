@@ -11,6 +11,14 @@ export function AdminDesignSection() {
         (dispute queue), plus milestones M6/M9 of the active PRD.
       </p>
       <p className="doc-p">
+        <strong>Status 2026-10-24: legacy.</strong> The canonical backoffice is{' '}
+        <code className="doc-inline">/ops</code>. <code className="doc-inline">/admin</code>{' '}
+        stays until the merge so the dispute, merchant and ledger screens do not disappear,
+        then those screens move to ops or retire following PRD §13. Do not add new features
+        here. Detail:{' '}
+        <code className="doc-inline">decision-ops-canonical.md</code>.
+      </p>
+      <p className="doc-p">
         <strong>Super Admin is a different role</strong>, deliberately not built here.
         The PO decision of 2026-09-23 split them: the console that PRD C-12 called
         &quot;CS, doubling as super admin&quot; is the CS admin panel above, while Super

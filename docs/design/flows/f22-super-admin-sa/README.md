@@ -1,5 +1,10 @@
 # F22 — Konsol Super Admin (SA)
 
+> **Status 2026-10-24 — legacy.** `/ops` adalah backoffice kanonik. PRD aktif
+> `sa7tein-mvp-2026-10-11` tidak menyebut Super Admin; §13 hanya menyebut aplikasi
+> ops. Konsol `/superadmin` dipertahankan sampai merge, bukan acuan peran baru.
+> Lihat `docs/product/prd/versions/sa7tein-mvp-2026-10-11/decision-ops-canonical.md`.
+
 Konsol **Super Admin**: website penuh **non-PWA** di prefix `/superadmin`, dipakai owner & team untuk mengonfigurasi platform (master zona, role & permission, kill switch) dan mengawasinya (registri pengguna, audit trail, laporan pajak, saldo keuntungan, ledger, banding sengketa). Dasar: keputusan PO **2026-09-23** di `docs/product/prd/decision-irbid-mvp.md` (cakupan SA + registri pengguna) + `C-12` (panel CS kini role terpisah) + `R-DISPUTE-01` + `R-LEDGER-01` + `C-13` (zona). Repo ini front-end saja — konsol dan angkanya adalah tampilan mock (AGENTS.md §1).
 
 | Berkas | Isi |

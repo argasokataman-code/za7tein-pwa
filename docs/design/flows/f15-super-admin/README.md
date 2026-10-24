@@ -1,5 +1,11 @@
 # F15 — Panel Admin (CS)
 
+> **Status 2026-10-24 — legacy.** Backoffice kanonik adalah `/ops/*` (lihat
+> `docs/product/prd/versions/sa7tein-mvp-2026-10-11/decision-ops-canonical.md`).
+> Flow ini dipertahankan sampai merge supaya layar sengketa/merchant/ledger tidak
+> hilang; setelah itu layarnya dipetakan ke ops atau dipensiunkan mengikuti PRD §13.
+> Jangan menambah fitur baru di `/admin`.
+
 Panel admin platform yang **dikelola CS** — role ke-4 di repo ini (slug flow tetap `f15-super-admin` untuk kesinambungan). **Sudah di-develop (basis UI)**: konsol `/admin/*` — PWA 430px + bottom nav di ponsel, dan dari 901px ke atas layout desktop (rail sidebar 248px + konten selebar jendela) mengikuti pola konsol Super Admin (keputusan PO 2026-10-11). Rencana & keputusan implementasi ada di `docs/plan-admin.md`; spec ini tetap sumber gambaran alur. **Super Admin adalah role terpisah** (website penuh non-PWA, belum dibangun) menurut keputusan PO 2026-09-23 — sebagian `C-12` ("portal CS merangkap super admin") digantikan, lihat `docs/product/prd/decision-irbid-mvp.md`. **Cakupan SA sudah ditetapkan PO 2026-09-23** (master zona, role & permission, audit trail, laporan pajak, saldo keuntungan platform, kill switch, monitoring ledger detail) — tapi route-nya belum dibuat (keputusan PO: dokumen dulu). Panel CS tetap menjalankan approval tenant, putusan sengketa level-1, dan blacklist COD; SA mengaudit + menangani banding. PRD meminta approval tenant, konfigurasi kuota tier, dan master zona (AGENTS.md §9); skema draft menambah deposit approval, blacklist COD, liability dashboard, SLA escalation, dan dispute queue. Sumber gambaran: `docs/product/schema-draft-v1.md` + PRD `irbid-mvp-v2-2026-09-21`. Repo ini front-end saja — konsol dan aksinya adalah layar mock (AGENTS.md §1).
 
 | Berkas | Isi |
