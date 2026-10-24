@@ -1779,6 +1779,38 @@
           "raw": "TASK-9520:relates"
         }
       ]
+    },
+    {
+      "id": "DEC-141852",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-24",
+      "time": "22:31:40",
+      "tags": [
+        "ops",
+        "admin",
+        "backoffice",
+        "prd",
+        "merge"
+      ],
+      "summary": "Backoffice canonical = /ops; /admin CS dipertahankan sampai merge, lalu disesuaikan ke PRD latest (R-OPS, f15/f22/f24).",
+      "conn": [
+        {
+          "id": "DEC-2003",
+          "type": "relates",
+          "raw": "DEC-2003:relates"
+        },
+        {
+          "id": "TASK-110580",
+          "type": "relates",
+          "raw": "TASK-110580:relates"
+        },
+        {
+          "id": "FEAT-2002",
+          "type": "relates",
+          "raw": "FEAT-2002:relates"
+        }
+      ]
     }
   ]
 }
