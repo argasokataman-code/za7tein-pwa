@@ -9,7 +9,8 @@
 
 import { existsSync, writeFileSync } from 'node:fs'
 
-const DIR = 'docs/design/slice/'
+const ROOT = 'docs/design/slice/'
+const AUTH = ROOT + 'auth/'
 
 // [berkas, judul, rute asli, catatan]
 const SCREENS = [
@@ -23,9 +24,10 @@ const SCREENS = [
 ]
 
 const rows = SCREENS.map(([file, title, route, note]) => {
-  const ok = existsSync(DIR + file)
-  const label = ok ? `<a href="${file}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
-  return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${file}</td></tr>`
+  const ok = existsSync(AUTH + file)
+  const href = `auth/${file}`
+  const label = ok ? `<a href="${href}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
+  return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${href}</td></tr>`
 })
 
 const html = `<!doctype html>
@@ -60,12 +62,12 @@ const html = `<!doctype html>
   <h1>Login, daftar &amp; panel ops</h1>
   <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi. Panel ops: 14 layar, mulai dari dashboard.</p>
   <div class="bar">
-    <a href="login-1to1.html">customer (acuan)</a>
-    <a href="login-merchant.html">penjual</a>
-    <a href="login-courier.html">kurir</a>
-    <a href="login-ops.html">ops</a>
-    <a href="login-superadmin.html">super admin</a>
-    <a href="ops-dashboard.html">panel ops (14 layar)</a>
+    <a href="auth/login-1to1.html">customer (acuan)</a>
+    <a href="auth/login-merchant.html">penjual</a>
+    <a href="auth/login-courier.html">kurir</a>
+    <a href="auth/login-ops.html">ops</a>
+    <a href="auth/login-superadmin.html">super admin</a>
+    <a href="ops/ops-dashboard.html">panel ops (14 layar)</a>
     <a href="README.md">cara kerja</a>
   </div>
   <table>${rows.join('\n')}</table>
@@ -74,5 +76,5 @@ const html = `<!doctype html>
 </html>
 `
 
-writeFileSync(DIR + 'index.html', html)
-console.log(`galeri ditulis: ${DIR}index.html · ${SCREENS.filter(([f]) => existsSync(DIR + f)).length}/${SCREENS.length} berkas login ada`)
+writeFileSync(ROOT + 'index.html', html)
+console.log(`galeri ditulis: ${ROOT}index.html · ${SCREENS.filter(([f]) => existsSync(AUTH + f)).length}/${SCREENS.length} berkas login ada`)

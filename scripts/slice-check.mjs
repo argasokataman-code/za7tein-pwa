@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-// Gerbang statik irisan HTML: docs/design/slice/*.html
+// Gerbang statik irisan HTML login/daftar: docs/design/slice/auth/*.html
 //
 //   node scripts/slice-check.mjs
 //
-// Yang diperiksa per berkas: stylesheet terpasang, bingkai ada, kelas yang dipakai
-// benar-benar ada di login.css, token `var(--x)` terdefinisi, path aset
-// menunjuk ke akar repo, tanpa <script>, tanpa emoji — plus aturan validasi:
+// Panel ops punya stylesheet sendiri (`ops.css`) dan tidak memakai aturan
+// validasi login, jadi tidak diperiksa di sini. Yang diperiksa per berkas auth:
+// stylesheet terpasang, bingkai ada, kelas yang dipakai benar-benar ada di
+// login.css, token `var(--x)` terdefinisi, path aset menunjuk ke akar repo,
+// tanpa <script>, tanpa emoji — plus aturan validasi:
 // setiap <form> wajib `novalidate`, tanpa `required`/`pattern`/`minlength`
 // (pesan bawaan peramban dilarang), setiap input punya `<label for>`, dan setiap
 // state salah membawa `role="alert"` + `aria-invalid` + `aria-describedby` yang
@@ -16,11 +18,7 @@
 
 import { readdirSync, readFileSync, existsSync } from 'node:fs'
 
-const DIR = 'docs/design/slice/'
-// `index.html` = galeri. Semua `ops-*.html` = irisan panel ops mandiri dengan
-// `ops.css` sendiri (permintaan pemilik 2026-10-25); aturan validasi login
-// (satu `login.css`, tiga bingkai, badge wordmark) tidak berlaku untuk panel ops.
-const SKIP = new Set(['index.html'])
+const DIR = 'docs/design/slice/auth/'
 // Satu stylesheet: `login.css` (satu bahasa login untuk semua peran).
 const css = readFileSync(DIR + 'login.css', 'utf8')
 
@@ -35,7 +33,7 @@ const IGNORE_CLASSES = new Set([])
 
 const fails = []
 const warns = []
-const files = readdirSync(DIR).filter(f => f.endsWith('.html') && !SKIP.has(f) && !f.startsWith('ops-')).sort()
+const files = readdirSync(DIR).filter(f => f.endsWith('.html')).sort()
 
 for (const file of files) {
   const src = readFileSync(DIR + file, 'utf8')
@@ -64,8 +62,8 @@ for (const file of files) {
   for (const m of src.matchAll(/(?:src|href)="([^"]+)"/g)) {
     const v = m[1]
     if (/^(https?:)?\/\//.test(v)) fail(`aset eksternal: ${v}`)
-    if (/\.(webp|png|jpe?g|svg)$/.test(v) && !/^(\.\.\/){3}public\/[a-z]/.test(v)) {
-      fail(`path aset salah (harus ../../../public/…): ${v}`)
+    if (/\.(webp|png|jpe?g|svg)$/.test(v) && !/^(\.\.\/){4}public\/[a-z]/.test(v)) {
+      fail(`path aset salah (harus ../../../../public/…): ${v}`)
     }
   }
 

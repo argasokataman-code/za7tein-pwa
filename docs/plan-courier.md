@@ -43,7 +43,7 @@ merchant, direkrut setelah toko aktif — C-06) dan `Kurir partner` (direkrut ti
 ops — M6). Karena repo ini front-end saja (AGENTS.md §1), tidak ada email yang
 dikirim: submit menampilkan toast "Tautan masuk dikirim ke emailmu." lalu
 menandai sesi demo dan membuka beranda kurir. Kode dan irisan desainnya:
-`src/pages/CourierSignIn.tsx`, `docs/design/slice/login-courier.html`.
+`src/pages/CourierSignIn.tsx`, `docs/design/slice/auth/login-courier.html`.
 
 ---
 

@@ -2,8 +2,9 @@
 
 Status: **sliced + diporting** untuk empat layar auth beralur penuh:
 `/customer/signin`, `/customer/signup`, `/merchant/signin`, `/merchant/signup`,
-dan `/courier/signin` (varian `brandLayout="cover"`). Irisan HTML untuk 8 layar
-ada di `docs/design/slice/` (6 login + 2 daftar). Layar status (verifikasi,
+dan `/courier/signin` (varian `brandLayout="cover"`). Irisan HTML untuk 7 layar
+auth ada di `docs/design/slice/auth/` (5 masuk + 2 daftar); 14 layar panel ops
+ada di `docs/design/slice/ops/`. Layar status (verifikasi,
 pending, dsb.) dan layar USULAN (admin/ops/superadmin) tetap memakai pita foto
 lama (`brandLayout="pill"`) atau irisan saja.
 
@@ -77,10 +78,10 @@ diakhiri `verify.sh` + `browser-gate --route <path> --strict --click`.
 
 | # | target | acuan irisan | yang berubah di app | penghalang |
 |---|---|---|---|---|
-| P1 | `/signup` (customer) — **selesai 2026-10-18** | `slice/signup-customer.html` | kepala 240 `cover`, tab `Masuk \| Daftar`, ritme `12/4`, halaman menggulir | terukur: tile `y 200` (overlap 40), tab `y 292` (h 53), CTA `16px` dari dasar dokumen, `overflow-x 0`; gate 2/2, klik 4/4 |
-| P2 | `/merchant/signup` — **selesai 2026-10-18** | `slice/signup-merchant.html` | tab `Masuk \| Daftar` menggantikan tautan "Sudah punya akun toko?", kepala `cover` | terukur: tile `y 200`, tab `y 292`, CTA `16px` dari dasar dokumen, `overflow-x 0`; gate 2/2, klik nyata 3/3 (zona, reveal, tab) |
-| P3 | `/merchant/signin` — **selesai 2026-10-18** | `slice/login-merchant.html` | tab `Masuk \| Daftar` menggantikan label peran `Merchant` + tautan daftar, foto pengisi 350x210 | terukur: tab `y 292`, CTA `16px` dari dasar (dokumen pas 844), `overflow-x 0`; gate 2/2, klik 4/4 + tab dua arah |
-| P4 | `/courier/signin` — **selesai 2026-10-18** | `slice/login-courier.html` | switch `Kurir toko \| Kurir partner` + field **email** + `Kirim tautan masuk` | terukur: switch `y 292` (sama dengan tab layar lain), hint→field `12px`, CTA `16px` dari dasar (dokumen pas 844), `overflow-x 0`; gate 2/2, klik switch + submit terverifikasi |
+| P1 | `/signup` (customer) — **selesai 2026-10-18** | `slice/auth/signup-customer.html` | kepala 240 `cover`, tab `Masuk \| Daftar`, ritme `12/4`, halaman menggulir | terukur: tile `y 200` (overlap 40), tab `y 292` (h 53), CTA `16px` dari dasar dokumen, `overflow-x 0`; gate 2/2, klik 4/4 |
+| P2 | `/merchant/signup` — **selesai 2026-10-18** | `slice/auth/signup-merchant.html` | tab `Masuk \| Daftar` menggantikan tautan "Sudah punya akun toko?", kepala `cover` | terukur: tile `y 200`, tab `y 292`, CTA `16px` dari dasar dokumen, `overflow-x 0`; gate 2/2, klik nyata 3/3 (zona, reveal, tab) |
+| P3 | `/merchant/signin` — **selesai 2026-10-18** | `slice/auth/login-merchant.html` | tab `Masuk \| Daftar` menggantikan label peran `Merchant` + tautan daftar, foto pengisi 350x210 | terukur: tab `y 292`, CTA `16px` dari dasar (dokumen pas 844), `overflow-x 0`; gate 2/2, klik 4/4 + tab dua arah |
+| P4 | `/courier/signin` — **selesai 2026-10-18** | `slice/auth/login-courier.html` | switch `Kurir toko \| Kurir partner` + field **email** + `Kirim tautan masuk` | terukur: switch `y 292` (sama dengan tab layar lain), hint→field `12px`, CTA `16px` dari dasar (dokumen pas 844), `overflow-x 0`; gate 2/2, klik switch + submit terverifikasi |
 
 Yang **tidak** ikut diporting: `login-admin`, `login-ops`, `login-superadmin`
 (tiga layar USULAN, repo tak punya rute/auth untuk peran itu), dan tab `Daftar`

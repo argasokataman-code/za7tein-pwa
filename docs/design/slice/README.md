@@ -8,34 +8,45 @@ diminta.
 
 Arsip review, **bukan** kode produksi. Dibuka langsung lewat peramban, tanpa build.
 
+## Struktur folder
+
+```
+slice/
+├─ index.html          galeri
+├─ README.md
+├─ auth/               login + daftar (satu login.css)
+└─ ops/                14 layar panel ops (satu ops.css)
+   └─ reference/       gambar acuan dashboard
+```
+
 | berkas | isi |
 |---|---|
-| `login-1to1.html` | **ACUAN** bentuk login (customer) |
-| `signup-customer.html` | daftar customer — isi `SignUp.tsx` |
-| `signup-merchant.html` | daftar toko — isi `MerchantSignUp.tsx` |
-| `login-{merchant,courier}.html` | login merchant (tab ke daftar) & kurir (switch jenis akun) |
-| `login-{ops,superadmin}.html` | **USULAN** — repo tidak punya auth untuk dua peran ini (dinyatakan di caption tiap berkas) |
-| `ops-dashboard.html` | irisan `Sa7tein Ops Dashboard Overview.png` — desktop fluid 1440–1920px (acuan 1536×1024), skala teks 11–13px agar terbaca |
-| `ops-liability.html` | Kewajiban & ledger — komposisi kewajiban, payout/pending refund, rekonsiliasi DANA, eksposur sengketa |
-| `ops-onboarding.html` | Verifikasi onboarding — merchant + kurir partner, akun DANA, area layanan |
-| `ops-disputes.html` | Sengketa — antrean + detail, bukti foto, rule-based decision |
-| `ops-merchants.html` | Merchant — registri, suspend, kuota COD, SP |
-| `ops-ledger.html` | Ledger — buku besar append-only, arah dana, filter |
-| `ops-rules.html` | Rule sengketa — form buat/edit, katalog mitigasi, kompensasi, punishment |
-| `ops-incidents.html` | Insiden — detail per order, rule berlaku, tinjauan reject kurir partner |
-| `ops-moderation.html` | Moderasi tag — antrean tag + riwayat keputusan |
-| `ops-penalties.html` | Surat peringatan — form SP + riwayat sanksi berbasis rule |
-| `ops-programs.html` | Program aplikator — form program platform + program berlaku |
-| `ops-quotas.html` | Paket kuota — kelola paket order/COD + pemakaian subscription |
-| `ops-settings.html` | Aturan platform — multiplier, ambang notif, flat fee, dispatch, kurs harian |
-| `ops-analytics.html` | Analytics & log — fee platform, aksi ops, audit trail |
-| `login.css` | satu-satunya stylesheet login |
-| `ops.css` | satu-satunya stylesheet panel ops (14 layar) |
+| `auth/login-1to1.html` | **ACUAN** bentuk login (customer) |
+| `auth/signup-customer.html` | daftar customer — isi `SignUp.tsx` |
+| `auth/signup-merchant.html` | daftar toko — isi `MerchantSignUp.tsx` |
+| `auth/login-{merchant,courier}.html` | login merchant (tab ke daftar) & kurir (switch jenis akun) |
+| `auth/login-{ops,superadmin}.html` | **USULAN** — repo tidak punya auth untuk dua peran ini (dinyatakan di caption tiap berkas) |
+| `ops/ops-dashboard.html` | irisan `ops/reference/Sa7tein Ops Dashboard Overview.png` — desktop fluid 1440–1920px (acuan 1536×1024), skala teks 11–13px agar terbaca |
+| `ops/ops-liability.html` | Kewajiban & ledger — komposisi kewajiban, payout/pending refund, rekonsiliasi DANA, eksposur sengketa |
+| `ops/ops-onboarding.html` | Verifikasi onboarding — merchant + kurir partner, akun DANA, area layanan |
+| `ops/ops-disputes.html` | Sengketa — antrean + detail, bukti foto, rule-based decision |
+| `ops/ops-merchants.html` | Merchant — registri, suspend, kuota COD, SP |
+| `ops/ops-ledger.html` | Ledger — buku besar append-only, arah dana, filter |
+| `ops/ops-rules.html` | Rule sengketa — form buat/edit, katalog mitigasi, kompensasi, punishment |
+| `ops/ops-incidents.html` | Insiden — detail per order, rule berlaku, tinjauan reject kurir partner |
+| `ops/ops-moderation.html` | Moderasi tag — antrean tag + riwayat keputusan |
+| `ops/ops-penalties.html` | Surat peringatan — form SP + riwayat sanksi berbasis rule |
+| `ops/ops-programs.html` | Program aplikator — form program platform + program berlaku |
+| `ops/ops-quotas.html` | Paket kuota — kelola paket order/COD + pemakaian subscription |
+| `ops/ops-settings.html` | Aturan platform — multiplier, ambang notif, flat fee, dispatch, kurs harian |
+| `ops/ops-analytics.html` | Analytics & log — fee platform, aksi ops, audit trail |
+| `auth/login.css` | satu-satunya stylesheet login |
+| `ops/ops.css` | satu-satunya stylesheet panel ops (14 layar) |
 | `index.html` | galeri: tautan halaman login + panel ops |
 
 ## Panel ops — 14 layar, satu stylesheet
 
-Semua `ops-*.html` memakai `ops.css` dan shell yang sama: sidebar `236px`,
+Semua `ops/ops-*.html` memakai `ops/ops.css` dan shell yang sama: sidebar `236px`,
 topbar, judul halaman, dan area konten fluid `1440–1920px` (acuan
 `1536×1024`). Dashboard memakai rel kanan `335px`; layar menu lain memakai
 grid internal agar tabel dan form tidak terjepit.
@@ -59,20 +70,20 @@ harus sama dengan jumlah fungsi.
 
 | fungsi PRD | layar |
 |---|---|
-| OPS-01 onboarding merchant + kurir partner | `ops-onboarding.html` |
-| OPS-02 moderasi tag | `ops-moderation.html` |
-| OPS-03 multiplier Quick · OPS-04 ambang notif | `ops-settings.html` |
-| OPS-05 program marketing | `ops-programs.html` |
-| OPS-06 rule dispute/kompensasi/punishment | `ops-rules.html`, `ops-disputes.html` |
-| OPS-07 insiden & sengketa | `ops-incidents.html`, `ops-disputes.html` |
-| OPS-08 flat fee Pc/Pm | `ops-settings.html` |
-| OPS-09 paket kuota order/COD | `ops-quotas.html` |
-| OPS-10 SP kurir partner | `ops-penalties.html` |
-| OPS-11 analitik + log | `ops-analytics.html` |
-| OPS-12 payout, pending refund, rekonsiliasi DANA | `ops-liability.html` |
-| OPS-13 parameter dispatch | `ops-settings.html` |
-| OPS-14 kurs harian + kegagalan update | `ops-settings.html`, `ops-ledger.html` |
-| OPS-15 tinjauan alasan reject partner | `ops-incidents.html` |
+| OPS-01 onboarding merchant + kurir partner | `ops/ops-onboarding.html` |
+| OPS-02 moderasi tag | `ops/ops-moderation.html` |
+| OPS-03 multiplier Quick · OPS-04 ambang notif | `ops/ops-settings.html` |
+| OPS-05 program marketing | `ops/ops-programs.html` |
+| OPS-06 rule dispute/kompensasi/punishment | `ops/ops-rules.html`, `ops/ops-disputes.html` |
+| OPS-07 insiden & sengketa | `ops/ops-incidents.html`, `ops/ops-disputes.html` |
+| OPS-08 flat fee Pc/Pm | `ops/ops-settings.html` |
+| OPS-09 paket kuota order/COD | `ops/ops-quotas.html` |
+| OPS-10 SP kurir partner | `ops/ops-penalties.html` |
+| OPS-11 analitik + log | `ops/ops-analytics.html` |
+| OPS-12 payout, pending refund, rekonsiliasi DANA | `ops/ops-liability.html` |
+| OPS-13 parameter dispatch | `ops/ops-settings.html` |
+| OPS-14 kurs harian + kegagalan update | `ops/ops-settings.html`, `ops/ops-ledger.html` |
+| OPS-15 tinjauan alasan reject partner | `ops/ops-incidents.html` |
 
 Istilah legacy yang sudah dihapus dari irisan ini: deposit COD, COD hold,
 blacklist COD, `riskFlag` customer, putusan level-1, dan urutan tetap SP-1/2/3.
@@ -90,7 +101,7 @@ field putih, tautan lupa sandi, tombol utama di dasar layar.
 
 | bagian | sumber |
 |---|---|
-| kepala foto utuh | `login-1to1.html` (commit `d0eaa47`), dipatok `240px` |
+| kepala foto utuh | `auth/login-1to1.html` (commit `d0eaa47`), dipatok `240px` |
 | badge = tile ikon 80px di sambungan foto/panel | acuan (posisi badge) + **logo repo** `/icons/sa7tein-mark.svg` |
 | tab garis-bawah `Masuk | Daftar` | acuan (bentuk) + `SignIn.tsx:42-49` (teks) |
 | `atau` | acuan (`or`) + repo (`atau`) |
@@ -161,12 +172,12 @@ Tiga layar USULAN sengaja **tanpa toast** — repo tidak punya kalimatnya.
 
 ## Aturan
 
-1. **Satu perubahan di `login.css` mengubah semua login; satu perubahan di
-   `ops.css` mengubah semua layar panel ops.** Jangan menyalin gaya ops ke
+1. **Satu perubahan di `auth/login.css` mengubah semua login; satu perubahan di
+   `ops/ops.css` mengubah semua layar panel ops.** Jangan menyalin gaya ops ke
    berkas lain.
 2. **Pesan validasi hanya dari `src/lib/schemas.ts`.** Butuh pesan baru? Tambahkan
    dulu di schema repo.
-3. **Foto & logo hanya dari aset repo** (`../../../public/…`). Tanpa aset baru,
+3. **Foto & logo hanya dari aset repo** (`../../../../public/…`). Tanpa aset baru,
    tanpa gambar eksternal.
 4. **Tanpa skrip.** Satu-satunya JS adalah `onsubmit="return false"` supaya
    halaman tidak berpindah saat tombol ditekan.
@@ -182,7 +193,7 @@ Tiga layar USULAN sengaja **tanpa toast** — repo tidak punya kalimatnya.
 
 ## Pewarnaan — token DNA repo
 
-Nilai di `login.css` adalah **salinan** token `src/styles/_tokens.scss` (EDISI 02):
+Nilai di `auth/login.css` adalah **salinan** token `src/styles/_tokens.scss` (EDISI 02):
 
 | bagian | token |
 |---|---|
@@ -245,17 +256,17 @@ diklik ke berkas seberangnya:
 
 | layar | `Masuk` | `Daftar` |
 |---|---|---|
-| `login-1to1.html` | aktif | → `signup-customer.html` |
-| `signup-customer.html` | → `login-1to1.html` | aktif |
-| `login-merchant.html` | aktif | → `signup-merchant.html` |
-| `signup-merchant.html` | → `login-merchant.html` | aktif |
+| `auth/login-1to1.html` | aktif | → `auth/signup-customer.html` |
+| `auth/signup-customer.html` | → `auth/login-1to1.html` | aktif |
+| `auth/login-merchant.html` | aktif | → `auth/signup-merchant.html` |
+| `auth/signup-merchant.html` | → `auth/login-merchant.html` | aktif |
 
 Dua layar USULAN (`ops`, `superadmin`) **tidak** memasang tab: repo
 tidak punya rute daftar untuk peran itu (`App.tsx` hanya punya `/signup` dan
 `/merchant/signup`), jadi tab `Daftar` di sana akan jadi kontrol mati. Tab yang
 aktif menunjuk halamannya sendiri, bukan `href="#"`.
 
-`login-courier.html` juga tanpa tab, tapi dengan alasan berbeda: kurir tidak
+`auth/login-courier.html` juga tanpa tab, tapi dengan alasan berbeda: kurir tidak
 mendaftar sendiri (akun kurir toko dibuat merchant, akun partner dibuat tim
 ops), jadi tidak ada halaman daftar kurir untuk dituju.
 
@@ -284,8 +295,8 @@ dengan tab di layar lain), `gap 16`, `cut 0`, `overflow-x 0`.
 ## Layar daftar merchant — bedanya dari login merchant
 
 Kepala `240px`, tile merek, tab `Masuk | Daftar` (Daftar aktif), ritme form
-`12px`/`4px`, dan tombol `16px` dari dasar: sama dengan `login-merchant.html`
-dan `signup-customer.html`. Tab di posisi yang sama di ketiga layar (`y 292`),
+`12px`/`4px`, dan tombol `16px` dari dasar: sama dengan `auth/login-merchant.html`
+dan `auth/signup-customer.html`. Tab di posisi yang sama di ketiga layar (`y 292`),
 jadi pindah layar tidak menggeser navigasi.
 
 | bagian | nilai | alasan |
@@ -293,7 +304,7 @@ jadi pindah layar tidak menggeser navigasi.
 | bingkai | **390 x 942** (login merchant 844) | empat field + fieldset zona; di app halaman ini menggulir dokumen |
 | field | Nama toko, Email, Nomor HP (opsional), Zona, Kata sandi | `MerchantSignUp.tsx:53-139` |
 | zona | dua kotak radio 1:1 (Hijazi, Syimali) + petunjuk, terpilih = border oranye + `--orange-soft` | `MerchantSignUp.tsx:110-127`; PRD hanya punya dua zona, jangan diganti teks bebas |
-| tab | `Masuk` → `login-merchant.html`, `Daftar` aktif | menggantikan tautan `Sudah punya akun toko? Masuk`; label peran `Merchant` dilepas karena tab sudah menandai posisi layar |
+| tab | `Masuk` → `auth/login-merchant.html`, `Daftar` aktif | menggantikan tautan `Sudah punya akun toko? Masuk`; label peran `Merchant` dilepas karena tab sudah menandai posisi layar |
 | tombol | `Kirim pendaftaran`, `16px` dari dasar ketiga bingkai | sama dengan login |
 | foto pengisi | **tidak ada** (`slot-art` hanya dipakai login merchant saat ada ruang kosong) | layar daftar sudah penuh |
 | toast | **tidak ada** | `MerchantSignUp.tsx:45` langsung `navigate('/onboarding')` |
@@ -305,7 +316,7 @@ ketat (tiga pesan sekaligus).
 ## Memeriksa
 
 ```bash
-node scripts/slice-check.mjs    # kelas, token, aset, emoji, <script>, validasi, badge (login; ops-* dilewati)
+node scripts/slice-check.mjs    # kelas, token, aset, emoji, <script>, validasi, badge (folder auth/)
 node scripts/slice-index.mjs    # tulis ulang galeri index.html
 ```
 
