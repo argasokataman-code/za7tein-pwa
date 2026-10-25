@@ -2865,7 +2865,7 @@
         "rebrand",
         "pwa"
       ],
-      "summary": "purge Delivo identity from repo: package name, SW cache, persist key, comments, docs, atlas",
+      "summary": "purge legacy template identity from repo: package name, SW cache, persist key, comments, docs, atlas",
       "conn": [
         {
           "id": "FEAT-003",
@@ -5473,7 +5473,7 @@
         "merchant",
         "ui"
       ],
-      "summary": "Restore root manifest identity so legacy Delivo installs update in place as Sa7tein while the service worker remains scoped to /app; refine ",
+      "summary": "Restore root manifest identity so installs of older builds update in place as Sa7tein; SW stays scoped to /app.",
       "conn": [
         {
           "id": "TASK-253",

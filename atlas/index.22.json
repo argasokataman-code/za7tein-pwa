@@ -2034,6 +2034,2863 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141902",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:36:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/anti-slop/audit-020-2026-10-24.md (+224) — write via tool: # Audit 020 — /ops: tembok kartu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/anti-slop/audit-020-2026-10-24.md"
+    },
+    {
+      "id": "TASK-141903",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:55:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+787) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141904",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:56:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+6/-6) — edit via tool: .table-card { height: 341px; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141905",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:57:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: .kpi { padding: 11px 15px 0; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141906",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-24",
+      "time": "23:59:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+11/-11) — edit via tool: .sidebar {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141907",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:00:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: .page-foot { padding: 6px 4px",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141908",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:02:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+5/-5) — edit via tool: .tip {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141909",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:03:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs (+5/-2) — edit via tool: const DIR = 'docs/design/slice/'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-141910",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:03:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+6/-5) — edit via tool: # Irisan HTML Sa7tein — login, daftar,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141911",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:06:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: <meta name=\"viewport\" content",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141912",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:07:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: min-height: 100vh;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141913",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:07:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | `ops-dashboard.html` | irisan 1:1 `S",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141914",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:08:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+4/-3) — edit via tool: Irisan HTML 1:1 — docs/design",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141915",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:09:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: td { height: 48px; padding: 0",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141916",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:11:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+9/-9) — edit via tool: min-height: 36px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141917",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:12:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+3/-3) — edit via tool: font-size: 13px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141918",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:13:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+3/-3) — edit via tool: .kpi-label { font-size: 12.5p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141919",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:14:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+3/-3) — edit via tool: font-size: 11px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141920",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:15:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: .badge { display: inline-flex",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141921",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:17:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+4/-1) — edit via tool: .charts { display: grid; grid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141922",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:18:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+4/-4) — edit via tool: min-width: 86px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141923",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:18:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | `ops-dashboard.html` | irisan `Sa7te",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141924",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:27:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css (+218/-2) — edit via tool: .page-foot { padding: 6px 4px 0 0; col",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css"
+    },
+    {
+      "id": "TASK-141925",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:27:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+20/-20) — edit via tool: <a class=\"nav-item is-activ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141926",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:28:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css (+14/-1) — edit via tool: .review-list { display: flex; flex-dire",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css"
+    },
+    {
+      "id": "TASK-141927",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:29:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/build-ops-pages.mjs (+897) — write via tool: import fs from 'node:fs'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/build-ops-pages.mjs"
+    },
+    {
+      "id": "TASK-141928",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:33:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css (+1/-1) — edit via tool: .rank-fill { display: block; height: 100",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css"
+    },
+    {
+      "id": "TASK-141929",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:35:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css (+6/-4) — edit via tool: @media (max-width: 1500px) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css"
+    },
+    {
+      "id": "TASK-141930",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:37:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs (+4/-4) — edit via tool: // `index.html` = galeri. Semua `ops-*.h",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-141931",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:37:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+7/-6) — edit via tool: # Irisan HTML Sa7tein — login, daftar,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141932",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:38:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+3/-1) — edit via tool: 1. **Satu perubahan di `login.css` men",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141933",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:39:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | `index.html` | galeri: tautan halama",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141934",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:41:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css (+2/-2) — edit via tool: .kpis.generic { height: 108px; margin-bo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css"
+    },
+    {
+      "id": "TASK-141935",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:41:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html (+28/-3) — edit via tool: </aside>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html"
+    },
+    {
+      "id": "TASK-141936",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:41:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-incidents.html (+26/-3) — edit via tool: </aside>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-incidents.html"
+    },
+    {
+      "id": "TASK-141937",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:41:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-moderation.html (+23/-3) — edit via tool: <div class=\"table-foot\"><sp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-moderation.html"
+    },
+    {
+      "id": "TASK-141938",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:42:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-quotas.html (+28/-3) — edit via tool: </aside>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-quotas.html"
+    },
+    {
+      "id": "TASK-141939",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:42:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css (+1/-1) — edit via tool: .kpis.generic { height: 118px; margin-bo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css"
+    },
+    {
+      "id": "TASK-141940",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:45:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-programs.html (+15/-6) — edit via tool: </div>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-programs.html"
+    },
+    {
+      "id": "TASK-141941",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "00:45:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-onboarding.html (+12/-3) — edit via tool: <div class=\"tl-row\"><i clas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-onboarding.html"
+    },
+    {
+      "id": "TASK-141942",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:12:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css (+20/-16) — edit via tool: position: relative;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops.css"
+    },
+    {
+      "id": "TASK-141943",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:13:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+6/-4) — edit via tool: - **Navigasi nyata:** semua tautan sid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141944",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:30:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-onboarding.html (+1/-1) — edit via tool: <p class=\"page-sub\">Verifika",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-onboarding.html"
+    },
+    {
+      "id": "TASK-141945",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:30:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html (+4/-1) — edit via tool: <div class=\"field\"><label for=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html"
+    },
+    {
+      "id": "TASK-141946",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:31:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-disputes.html (+1/-1) — edit via tool: <p class=\"page-sub\">Putusan be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-disputes.html"
+    },
+    {
+      "id": "TASK-141947",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:31:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-rules.html (+17/-3) — edit via tool: </section>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-rules.html"
+    },
+    {
+      "id": "TASK-141948",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:32:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-rules.html (+1/-1) — edit via tool: <button class=\"btn btn-sm btn-gho",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-rules.html"
+    },
+    {
+      "id": "TASK-141949",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:32:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-quotas.html (+25/-14) — edit via tool: <p class=\"kpi-value\">3</p>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-quotas.html"
+    },
+    {
+      "id": "TASK-141950",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:32:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-incidents.html (+21/-7) — edit via tool: <div class=\"kv-row\"><span>St",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-incidents.html"
+    },
+    {
+      "id": "TASK-141951",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:33:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-liability.html (+3/-3) — edit via tool: <div class=\"kpi-top\"><span cl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-liability.html"
+    },
+    {
+      "id": "TASK-141952",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:33:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-ledger.html (+1/-1) — edit via tool: <select class=\"tool-select\" aria",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-ledger.html"
+    },
+    {
+      "id": "TASK-141953",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:33:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-merchants.html (+1/-1) — edit via tool: <p class=\"page-sub\">Registri ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-merchants.html"
+    },
+    {
+      "id": "TASK-141954",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:34:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-merchants.html (+9/-9) — edit via tool: <div class=\"card-head\"><div><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-merchants.html"
+    },
+    {
+      "id": "TASK-141955",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:34:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+4/-4) — edit via tool: <span class=\"kpi-label\">SP ak",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141956",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:35:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-penalties.html (+3/-3) — edit via tool: <div class=\"kpi-top\"><span cl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-penalties.html"
+    },
+    {
+      "id": "TASK-141957",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:35:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-analytics.html (+3/-3) — edit via tool: <tr><td class=\"muted\">Hari in",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-analytics.html"
+    },
+    {
+      "id": "TASK-141958",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:35:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html (+1/-1) — edit via tool: <p class=\"page-sub\">Multiplier",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html"
+    },
+    {
+      "id": "TASK-141959",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:36:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-onboarding.html (+2/-2) — edit via tool: <p class=\"kpi-value\">1</p>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-onboarding.html"
+    },
+    {
+      "id": "TASK-141960",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:37:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/measure-ops.mjs (+53) — write via tool: // ponytail: one-off measurement harness",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/measure-ops.mjs"
+    },
+    {
+      "id": "TASK-141961",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:37:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/measure-ops-1440.mjs (+54) — write via tool: // ponytail: one-off measurement harness",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/measure-ops-1440.mjs"
+    },
+    {
+      "id": "TASK-141962",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:38:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/shot-ops.mjs (+44) — write via tool: // ponytail: one-off screenshot capture ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/shot-ops.mjs"
+    },
+    {
+      "id": "TASK-141963",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:38:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+13/-13) — edit via tool: | `ops-liability.html` | Kewajiban &",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141964",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:39:14",
+      "tags": [
+        "design",
+        "ops",
+        "prd",
+        "slice"
+      ],
+      "summary": "14 ops HTML aligned to active PRD: partner onboarding, dispatch, rule create/edit, rule-based dispute, quota manage, payout/recon, reject re",
+      "conn": [
+        {
+          "id": "DEC-141852",
+          "type": "relates",
+          "raw": "DEC-141852:relates"
+        }
+      ],
+      "loc": "docs/design/slice/README.md:54"
+    },
+    {
+      "id": "TASK-141965",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:39:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: <a class=\"link\" href=\"ops-mer",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141966",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:39:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-quotas.html (+4/-3) — edit via tool: <div class=\"kv-row\"><span>Kuota ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-quotas.html"
+    },
+    {
+      "id": "TASK-141967",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:39:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html (+1/-1) — edit via tool: <div class=\"field\"><label for=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html"
+    },
+    {
+      "id": "TASK-141968",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:40:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html (+6/-5) — edit via tool: <div class=\"kv-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-settings.html"
+    },
+    {
+      "id": "TASK-141969",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:40:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-merchants.html (+1/-1) — edit via tool: <thead><tr><th>Merchant</th><",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-merchants.html"
+    },
+    {
+      "id": "TASK-141970",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:40:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html (+1/-1) — edit via tool: <th class=\"c-cod\">Order COD <",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops-dashboard.html"
+    },
+    {
+      "id": "TASK-141971",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:45:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs (+2/-6) — edit via tool: const DIR = 'docs/design/slice/auth/'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-141972",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:45:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-index.mjs (+5/-4) — edit via tool: const ROOT = 'docs/design/slice/'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-index.mjs"
+    },
+    {
+      "id": "TASK-141973",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:45:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+2/-2) — edit via tool: node scripts/slice-check.mjs    # kela",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141974",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:47:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/plan-courier.md (+1/-1) — edit via tool: `src/pages/CourierSignIn.tsx`, `docs/des",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/plan-courier.md"
+    },
+    {
+      "id": "TASK-141975",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:47:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/auth-redesign.md (+4/-4) — edit via tool: | P1 | `/signup` (customer) — **seles",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/auth-redesign.md"
+    },
+    {
+      "id": "TASK-141976",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:54:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+89/-11) — edit via tool: @media (max-width: 1500px) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-141977",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:54:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+472) — write via tool: js: /* Sa7tein Ops — interaksi mock.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-141978",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-programs.html (+1/-1) — edit via tool: <div class=\"field\"><label ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-programs.html"
+    },
+    {
+      "id": "TASK-141979",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-penalties.html (+5/-5) — edit via tool: <div class=\"field\"><label",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-penalties.html"
+    },
+    {
+      "id": "TASK-141980",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-ledger.html (+1/-1) — edit via tool: <div class=\"select select--c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-ledger.html"
+    },
+    {
+      "id": "TASK-141981",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-quotas.html (+4/-4) — edit via tool: <div class=\"field\"><label fo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-quotas.html"
+    },
+    {
+      "id": "TASK-141982",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-disputes.html (+1/-1) — edit via tool: <div class=\"field\"><label ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-disputes.html"
+    },
+    {
+      "id": "TASK-141983",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-rules.html (+7/-7) — edit via tool: <div class=\"field\"><label for",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-rules.html"
+    },
+    {
+      "id": "TASK-141984",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-settings.html (+4/-4) — edit via tool: <div class=\"field\"><label ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-settings.html"
+    },
+    {
+      "id": "TASK-141985",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:55:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+1/-1) — edit via tool: js: const invalid = button.hasAttribu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-141986",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:56:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+5/-6) — edit via tool: .input, .textarea {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-141987",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:56:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+10/-10) — edit via tool: js: if (key === 'beri sp' || key ==",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-141988",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:56:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+7/-2) — edit via tool: - **Navigasi nyata:** semua tautan sid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-141989",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "09:59:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+18/-9) — edit via tool: js: function initSelect(root) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-141990",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:03:59",
+      "tags": [
+        "design",
+        "ops",
+        "ui"
+      ],
+      "summary": "Ops slice: dropdown Sa7tein tanpa <select> + dialog validasi/konfirmasi untuk semua tombol aksi (ops.js)",
+      "conn": [
+        {
+          "id": "TASK-141964",
+          "type": "relates",
+          "raw": "TASK-141964:relates"
+        }
+      ],
+      "loc": "docs/design/slice/ops/ops.js:1"
+    },
+    {
+      "id": "TASK-141991",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:24:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+48/-3) — edit via tool: @media (prefers-reduced-motion: red",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-141992",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:31:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+7/-3) — edit via tool: .review-meta {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-141993",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:35:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-rules.html (+127/-14) — edit via tool: <div class=\"rule-list\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-rules.html"
+    },
+    {
+      "id": "TASK-141994",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:36:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+86/-2) — edit via tool: .rail > .card + .card,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-141995",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:36:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+6/-5) — edit via tool: js: const scope = button.closest('tr'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-141996",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:38:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-rules.html (+1/-1) — edit via tool: <div class=\"rule-fact\"><span>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-rules.html"
+    },
+    {
+      "id": "TASK-141997",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:41:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+1/-1) — edit via tool: grid-template-columns: minmax(104px,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-141998",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:45:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+6/-2) — edit via tool: .rail > .card + .card,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-141999",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:47:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-quotas.html (+2/-2) — edit via tool: <div class=\"grid-main sectio",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-quotas.html"
+    },
+    {
+      "id": "TASK-142000",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "10:53:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-settings.html (+4/-3) — edit via tool: <div class=\"kv-row\"><span>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-settings.html"
+    },
+    {
+      "id": "TASK-142001",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:00:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-settings.html (+8/-19) — edit via tool: <article class=\"card rail",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-settings.html"
+    },
+    {
+      "id": "TASK-142002",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:00:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+5/-3) — edit via tool: /* Baris kartu: margin `.panel + .pa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142003",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:06:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+13/-5) — edit via tool: js: const ICONS = {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-142004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:07:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+113/-1) — edit via tool: /* ── Toast Sa7tein ──────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142005",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:07:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html (+1/-1) — edit via tool: <title>Sa7tein Ops · ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html"
+    },
+    {
+      "id": "TASK-142006",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:08:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html (+151/-33) — edit via tool: <div class=\"grid-m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html"
+    },
+    {
+      "id": "TASK-142007",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:09:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+6/-6) — edit via tool: .toast-region {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142008",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:11:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+6/-5) — edit via tool: Folder ini berisi desain halaman login",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-142009",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:11:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/index.html (+1/-1) — edit via tool: <p class=\"lead\">Satu berkas per layar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/index.html"
+    },
+    {
+      "id": "TASK-142010",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:14:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+3/-3) — edit via tool: .btn:focus-visible, .mini-btn:focus-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142011",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:15:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html (+15/-9) — edit via tool: <article class=\"card",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html"
+    },
+    {
+      "id": "TASK-142012",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:15:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+1/-3) — edit via tool: .notif-empty { margin-top: 8px; }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142013",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:15:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+1/-13) — edit via tool: js: /* ── Notifikasi ───────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-142014",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:16:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html (+2/-2) — edit via tool: <div class=\"timeline ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html"
+    },
+    {
+      "id": "TASK-142015",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:16:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+2/-1) — edit via tool: .notif-empty { margin-top: 8px; }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142016",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:16:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | `ops/ops-notifications.html` | Notif",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-142017",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:18:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html (+2/-2) — edit via tool: <article class=\"notif",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html"
+    },
+    {
+      "id": "TASK-142018",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:18:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+41/-2) — edit via tool: /* ── Popover lonceng ─────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142019",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:19:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+84/-3) — edit via tool: js: function initBellPopover() {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-142020",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:20:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+3/-2) — edit via tool: - **Navigasi nyata:** semua tautan sid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-142021",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:24:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+37/-3) — edit via tool: .avatar { width: 34px; height: 34px",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142022",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:25:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css (+118) — write via tool: /* Login desktop panel ops. Me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css"
+    },
+    {
+      "id": "TASK-142023",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:25:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.html (+79) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.html"
+    },
+    {
+      "id": "TASK-142024",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:25:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js (+167/-1) — edit via tool: js: function initAccountMenu() {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.js"
+    },
+    {
+      "id": "TASK-142025",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:26:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+8/-6) — edit via tool: Folder ini berisi desain halaman login",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-142026",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:26:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/index.html (+12/-11) — edit via tool: <p class=\"lead\">Satu berkas per lay",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/index.html"
+    },
+    {
+      "id": "TASK-142027",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:27:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.html (+1/-1) — edit via tool: <button class=\"btn btn-primar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.html"
+    },
+    {
+      "id": "TASK-142028",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:29:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css (+2/-1) — edit via tool: body.login-page { overflow-x: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css"
+    },
+    {
+      "id": "TASK-142029",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:30:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css (+1/-1) — edit via tool: .login-eyebrow { margin: 0; co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css"
+    },
+    {
+      "id": "TASK-142030",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:32:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/pwa-experience-2026-09-13.md (+1/-1) — edit via tool: Tidak ada indikator cold ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/pwa-experience-2026-09-13.md"
+    },
+    {
+      "id": "TASK-142031",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:32:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/WhatsNewSection.tsx (+1/-1) — edit via tool: tsx: \"Nama la",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/WhatsNewSection.tsx"
+    },
+    {
+      "id": "TASK-142032",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:33:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/atlas/nodes/TASK-254.md (+1/-1) — edit via tool: Restore root manifest identity so instal",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/atlas/nodes/TASK-254.md"
+    },
+    {
+      "id": "TASK-142033",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:33:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddNewCard.tsx (+1/-1) — edit via tool: tsx: <img alt=\"Visa Debit\" width={50} hei",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddNewCard.tsx"
+    },
+    {
+      "id": "TASK-142034",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:33:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run scan 2>&1 | tail -15 && npm run lint 2>&1 | tail -8 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142035",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:33:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.html (+4/-4) — edit via tool: <div class=\"login-brand-top\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.html"
+    },
+    {
+      "id": "TASK-142036",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:33:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+3/-3) — edit via tool: .brand { display: flex; align-items:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142037",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:34:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css (+3/-3) — edit via tool: .login-brand-top { display: fl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-login.css"
+    },
+    {
+      "id": "TASK-142038",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:34:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142039",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:34:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+7/-4) — edit via tool: - **Menu akun:** klik avatar/nama di t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-142040",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:36:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/gen-own-assets.py (+107) — write via tool: \"\"\"Generate original pl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/gen-own-assets.py"
+    },
+    {
+      "id": "TASK-142041",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:37:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAccount.tsx (+3/-3) — edit via tool: tsx: { id: 'apple-pay', label: 'Apple",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAccount.tsx"
+    },
+    {
+      "id": "TASK-142042",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:37:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/public/assets/fonts/OFL.txt (+101) — write via tool: Fonts bundled in this directory are li",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/public/assets/fonts/OFL.txt"
+    },
+    {
+      "id": "TASK-142043",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:38:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && git grep -n \"PaymentAccount\\|AddNewCard\" src/App.tsx && echo \"--- refs ke file yang d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142044",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:39:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html (+16/-14) — edit via tool: <div class=\"notif-s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops-notifications.html"
+    },
+    {
+      "id": "TASK-142045",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:39:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css (+13/-7) — edit via tool: .topbar {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/ops/ops.css"
+    },
+    {
+      "id": "TASK-142046",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:39:27",
+      "tags": [
+        "rebrand",
+        "assets",
+        "licensing"
+      ],
+      "summary": "Replace template-derived assets with locally generated originals; drop dead files; add OFL license text",
+      "conn": [
+        {
+          "id": "TASK-930",
+          "type": "relates",
+          "raw": "TASK-930:relates"
+        }
+      ],
+      "loc": "public/assets/img/reviewer/user1.png"
+    },
+    {
+      "id": "TASK-142047",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:39:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+6/-3) — edit via tool: - **Logo asli:** sidebar dan login mem",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-142048",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:40:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/AssetsLicensingSection.tsx (+78) — write via tool: tsx: im",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/AssetsLicensingSection.tsx"
+    },
+    {
+      "id": "TASK-142049",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:40:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: import { ChangelogSection } from ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-142050",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:40:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/nav.ts (+2/-1) — edit via tool: ts: { num: '38', id: 'assets-licens",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/nav.ts"
+    },
+    {
+      "id": "TASK-142051",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-25",
+      "time": "11:50:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && git add docs/design/slice anti-slop/audit-020-2026-10-24.md && git commit -F - <<'MSG",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
