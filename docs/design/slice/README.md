@@ -1,8 +1,10 @@
-# Irisan HTML Sa7tein — login & daftar semua peran
+# Irisan HTML Sa7tein — login, daftar, dan panel ops
 
-Folder ini **hanya** berisi desain halaman login dan daftar customer. Layar
-aplikasi lain sempat dibuat keliru (65 berkas) dan sudah **dihapus** atas
-permintaan pemilik 2026-10-17 — jangan dibuat lagi tanpa diminta.
+Folder ini berisi desain halaman login dan daftar customer, plus **14 layar
+panel ops** atas permintaan pemilik (2026-10-25): dashboard dan 13 menu
+sidebar. Layar aplikasi lain sempat dibuat keliru (65 berkas) dan sudah
+**dihapus** atas permintaan pemilik 2026-10-17 — jangan dibuat lagi tanpa
+diminta.
 
 Arsip review, **bukan** kode produksi. Dibuka langsung lewat peramban, tanpa build.
 
@@ -13,10 +15,71 @@ Arsip review, **bukan** kode produksi. Dibuka langsung lewat peramban, tanpa bui
 | `signup-merchant.html` | daftar toko — isi `MerchantSignUp.tsx` |
 | `login-{merchant,courier}.html` | login merchant (tab ke daftar) & kurir (switch jenis akun) |
 | `login-{ops,superadmin}.html` | **USULAN** — repo tidak punya auth untuk dua peran ini (dinyatakan di caption tiap berkas) |
+| `ops-dashboard.html` | irisan `Sa7tein Ops Dashboard Overview.png` — desktop fluid 1440–1920px (acuan 1536×1024), skala teks 11–13px agar terbaca |
+| `ops-liability.html` | Kewajiban & ledger — komposisi kewajiban, payout/pending refund, rekonsiliasi DANA, eksposur sengketa |
+| `ops-onboarding.html` | Verifikasi onboarding — merchant + kurir partner, akun DANA, area layanan |
+| `ops-disputes.html` | Sengketa — antrean + detail, bukti foto, rule-based decision |
+| `ops-merchants.html` | Merchant — registri, suspend, kuota COD, SP |
+| `ops-ledger.html` | Ledger — buku besar append-only, arah dana, filter |
+| `ops-rules.html` | Rule sengketa — form buat/edit, katalog mitigasi, kompensasi, punishment |
+| `ops-incidents.html` | Insiden — detail per order, rule berlaku, tinjauan reject kurir partner |
+| `ops-moderation.html` | Moderasi tag — antrean tag + riwayat keputusan |
+| `ops-penalties.html` | Surat peringatan — form SP + riwayat sanksi berbasis rule |
+| `ops-programs.html` | Program aplikator — form program platform + program berlaku |
+| `ops-quotas.html` | Paket kuota — kelola paket order/COD + pemakaian subscription |
+| `ops-settings.html` | Aturan platform — multiplier, ambang notif, flat fee, dispatch, kurs harian |
+| `ops-analytics.html` | Analytics & log — fee platform, aksi ops, audit trail |
 | `login.css` | satu-satunya stylesheet login |
-| `index.html` | galeri: satu tautan per halaman login |
+| `ops.css` | satu-satunya stylesheet panel ops (14 layar) |
+| `index.html` | galeri: tautan halaman login + panel ops |
 
-Tiap berkas memuat **tiga bingkai** — itulah tiga keadaan yang dirancang:
+## Panel ops — 14 layar, satu stylesheet
+
+Semua `ops-*.html` memakai `ops.css` dan shell yang sama: sidebar `236px`,
+topbar, judul halaman, dan area konten fluid `1440–1920px` (acuan
+`1536×1024`). Dashboard memakai rel kanan `335px`; layar menu lain memakai
+grid internal agar tabel dan form tidak terjepit.
+
+- **Skala teks terbaca:** minimum `11px`, body/label `12–13px`, tabel `12.5px`,
+  KPI `28px`. Merchant thumbnail `42px`, tinggi baris tabel `56px`.
+- **Data dari repo:** angka, nama merchant, order, tag, SP, program, kuota, dan
+  audit mengikuti `src/data/`. Tidak ada aturan bisnis baru.
+- **Navigasi nyata:** semua tautan sidebar menuju berkas ops yang ada.
+  Tombol aksi/form tetap mock (tanpa JS); irisan ini untuk review rupa.
+- **Sidebar seragam:** `sticky` setinggi viewport dan tidak ikut memanjang
+  mengikuti panjang halaman; isinya bisa digulir sendiri di layar pendek.
+- **Terukur:** `docW == vw` di 1440, 1536, dan 1920; tidak ada overflow
+  horizontal atau konten terpotong.
+
+### Selaras PRD aktif (`sa7tein-mvp-2026-10-11`)
+
+14 layar ini menutup fungsi ops OPS-01…OPS-15 tanpa menambah aturan bisnis
+baru. Satu fungsi bisa tinggal di satu layar yang sudah ada; jumlah layar tidak
+harus sama dengan jumlah fungsi.
+
+| fungsi PRD | layar |
+|---|---|
+| OPS-01 onboarding merchant + kurir partner | `ops-onboarding.html` |
+| OPS-02 moderasi tag | `ops-moderation.html` |
+| OPS-03 multiplier Quick · OPS-04 ambang notif | `ops-settings.html` |
+| OPS-05 program marketing | `ops-programs.html` |
+| OPS-06 rule dispute/kompensasi/punishment | `ops-rules.html`, `ops-disputes.html` |
+| OPS-07 insiden & sengketa | `ops-incidents.html`, `ops-disputes.html` |
+| OPS-08 flat fee Pc/Pm | `ops-settings.html` |
+| OPS-09 paket kuota order/COD | `ops-quotas.html` |
+| OPS-10 SP kurir partner | `ops-penalties.html` |
+| OPS-11 analitik + log | `ops-analytics.html` |
+| OPS-12 payout, pending refund, rekonsiliasi DANA | `ops-liability.html` |
+| OPS-13 parameter dispatch | `ops-settings.html` |
+| OPS-14 kurs harian + kegagalan update | `ops-settings.html`, `ops-ledger.html` |
+| OPS-15 tinjauan alasan reject partner | `ops-incidents.html` |
+
+Istilah legacy yang sudah dihapus dari irisan ini: deposit COD, COD hold,
+blacklist COD, `riskFlag` customer, putusan level-1, dan urutan tetap SP-1/2/3.
+Punishment tetap boleh menyasar merchant, kurir, **atau customer** karena §18
+PRD memang menyebut ketiganya; bentuk dan levelnya mengikuti rule.
+
+Tiap berkas login memuat **tiga bingkai** — itulah tiga keadaan yang dirancang:
 `1 · kosong`, `2 · salah`, `3 · sedang mengirim → berhasil`.
 
 ## Bentuk = acuan pemilik, bukan tafsiran baru
@@ -98,7 +161,9 @@ Tiga layar USULAN sengaja **tanpa toast** — repo tidak punya kalimatnya.
 
 ## Aturan
 
-1. **Satu perubahan di `login.css` mengubah semua login.**
+1. **Satu perubahan di `login.css` mengubah semua login; satu perubahan di
+   `ops.css` mengubah semua layar panel ops.** Jangan menyalin gaya ops ke
+   berkas lain.
 2. **Pesan validasi hanya dari `src/lib/schemas.ts`.** Butuh pesan baru? Tambahkan
    dulu di schema repo.
 3. **Foto & logo hanya dari aset repo** (`../../../public/…`). Tanpa aset baru,
@@ -240,7 +305,7 @@ ketat (tiga pesan sekaligus).
 ## Memeriksa
 
 ```bash
-node scripts/slice-check.mjs    # kelas, token, aset, emoji, <script>, validasi, badge
+node scripts/slice-check.mjs    # kelas, token, aset, emoji, <script>, validasi, badge (login; ops-* dilewati)
 node scripts/slice-index.mjs    # tulis ulang galeri index.html
 ```
 

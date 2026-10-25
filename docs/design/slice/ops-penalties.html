@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein Ops · Surat peringatan</title>
+<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Tanpa JS. -->
+<link rel="stylesheet" href="ops.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+    <symbol id="i-badge-check" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-gavel" viewBox="0 0 24 24"><path d="m14 13-7.5 7.5a2.12 2.12 0 0 1-3-3L11 10"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></symbol>
+    <symbol id="i-shield-alert" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+    <symbol id="i-package" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M2 14h4"/><path d="M10 8h4"/><path d="M18 16h4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-1a8 8 0 0 1-8-8v-1a2 2 0 0 1 4 0"/></symbol>
+
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-file-search" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><circle cx="11.5" cy="14.5" r="2.5"/><path d="m13.3 16.3 2.2 2.2"/></symbol>
+    <symbol id="i-arrow-down-left" viewBox="0 0 24 24"><path d="M17 7 7 17"/><path d="M17 17H7V7"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5"/><path d="M16 12h.01"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M6 8h12"/><path d="M6 12h12"/><path d="M6 16h8"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></symbol>
+    <symbol id="i-percent" viewBox="0 0 24 24"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+    <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2a2 2 0 0 0 2-2V2"/><path d="M5 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Z"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></symbol>
+    <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-circle-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+  </defs>
+</svg>
+
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="side-inner">
+      <div class="brand">
+        <span class="brand-name">Sa7tein</span>
+        <span class="brand-role">Ops</span>
+      </div>
+
+      <nav class="nav" aria-label="Menu panel ops">
+        
+        <a class="nav-item" href="ops-dashboard.html"><svg class="icon"><use href="#i-home"/></svg>Ringkasan</a>
+
+        <p class="nav-section">OPERASIONAL</p>
+        <a class="nav-item" href="ops-liability.html"><svg class="icon"><use href="#i-scale"/></svg>Kewajiban & ledger</a>
+        <a class="nav-item" href="ops-onboarding.html"><svg class="icon"><use href="#i-badge-check"/></svg>Verifikasi onboarding</a>
+        <a class="nav-item" href="ops-disputes.html"><svg class="icon"><use href="#i-gavel"/></svg>Sengketa</a>
+        <a class="nav-item" href="ops-merchants.html"><svg class="icon"><use href="#i-store"/></svg>Merchant</a>
+        <a class="nav-item" href="ops-ledger.html"><svg class="icon"><use href="#i-book"/></svg>Ledger</a>
+        <a class="nav-item" href="ops-rules.html"><svg class="icon"><use href="#i-scale"/></svg>Rule sengketa</a>
+
+        <p class="nav-section">KEPATUHAN & RISIKO</p>
+        <a class="nav-item" href="ops-incidents.html"><svg class="icon"><use href="#i-shield-alert"/></svg>Insiden</a>
+        <a class="nav-item" href="ops-moderation.html"><svg class="icon"><use href="#i-tag"/></svg>Moderasi tag</a>
+        <a class="nav-item is-active" href="ops-penalties.html"><svg class="icon"><use href="#i-alert"/></svg>Surat peringatan</a>
+        <a class="nav-item" href="ops-programs.html"><svg class="icon"><use href="#i-gift"/></svg>Program aplikator</a>
+        <a class="nav-item" href="ops-quotas.html"><svg class="icon"><use href="#i-package"/></svg>Paket kuota</a>
+        <a class="nav-item" href="ops-settings.html"><svg class="icon"><use href="#i-sliders"/></svg>Aturan platform</a>
+
+        <p class="nav-section">ANALYTICS</p>
+        <a class="nav-item" href="ops-analytics.html"><svg class="icon"><use href="#i-chart"/></svg>Analytics & log</a>
+      </nav>
+
+      <div class="side-foot">
+        <div class="side-status"><span class="dot"></span><span><strong>Operator ops · di balik</strong></span></div>
+        <div class="side-status"><span class="dot"></span><span>Cloudflare Access (mock)</span></div>
+        <a class="docs" href="#">Dokumentasi <svg class="icon"><use href="#i-external"/></svg></a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <div class="search"><svg class="icon"><use href="#i-search"/></svg><span>Cari kode, nama, atau ID...</span></div>
+      <div class="top-actions">
+        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
+        <span class="avatar">AO</span>
+        <span class="admin-name">Admin Ops</span>
+        <span class="demo">Demo</span>
+      </div>
+    </header>
+
+    <div class="content single">
+      <main class="main-col">
+        <div class="page-head">
+          <div class="eyebrow">Panel Ops</div>
+          <h1 class="page-title">Surat peringatan</h1>
+          <p class="page-sub">SP & punishment tercatat</p>
+          <div class="head-meta">
+            <strong>Data demo · bukan transaksi sungguhan</strong>
+            <div class="stamp"><svg class="icon"><use href="#i-clock"/></svg>18 Okt 2026, 14:32</div>
+          </div>
+        </div>
+        <section class="kpis generic">
+          <article class="card kpi">
+            <div class="kpi-top"><span class="kpi-icon amber"><svg class="icon"><use href="#i-alert"/></svg></span><span class="kpi-label">SP berlaku</span></div>
+            <p class="kpi-value">2</p>
+            <p class="kpi-sub">tercatat di riwayat</p>
+          </article>
+          <article class="card kpi">
+            <div class="kpi-top"><span class="kpi-icon "><svg class="icon"><use href="#i-flag"/></svg></span><span class="kpi-label">SP kurir partner</span></div>
+            <p class="kpi-value">1</p>
+            <p class="kpi-sub">Budi Santoso</p>
+          </article>
+          <article class="card kpi">
+            <div class="kpi-top"><span class="kpi-icon blue"><svg class="icon"><use href="#i-truck"/></svg></span><span class="kpi-label">Pihak kurir</span></div>
+            <p class="kpi-value">1</p>
+            <p class="kpi-sub">Budi Santoso</p>
+          </article>
+          <article class="card kpi">
+            <div class="kpi-top"><span class="kpi-icon "><svg class="icon"><use href="#i-store"/></svg></span><span class="kpi-label">Pihak merchant</span></div>
+            <p class="kpi-value">1</p>
+            <p class="kpi-sub">Warung Bu Tini</p>
+          </article>
+        </section>
+
+        <div class="grid-main form">
+          <article class="card panel">
+            <div class="panel-head"><div><h2 class="panel-title">Terbitkan SP</h2><p class="panel-sub">SP langsung tercatat dan masuk ke audit trail.</p></div></div>
+            <div class="form-grid">
+              <div class="field"><label for="party">Pihak</label><select class="select" id="party"><option>Customer</option><option selected>Merchant</option><option>Kurir</option></select></div>
+              <div class="field"><label for="name">Nama</label><input class="input" id="name" placeholder="mis. nama pihak" /></div>
+              <div class="field"><label for="form">Bentuk</label><select class="select" id="form"><option selected>Surat peringatan</option><option>Penurunan peringkat</option><option>Suspend sementara</option></select></div>
+              <div class="field"><label for="level">Tingkat</label><select class="select" id="level"><option selected>SP-1</option><option>SP-2</option><option>SP-3</option><option>ringan</option></select></div>
+              <div class="field span-2"><label for="reason">Alasan</label><textarea class="textarea" id="reason" placeholder="mis. Tolak order berulang di jam sibuk"></textarea><span class="field-hint">Tulis alasan yang bisa dibaca pihak terkait.</span></div>
+            </div>
+            <div class="form-actions"><span class="form-note">SP tidak bisa dihapus, hanya dicabut.</span><button class="btn btn-primary" type="button"><svg class="icon"><use href="#i-alert"/></svg>Terbitkan SP</button></div>
+          </article>
+
+          <aside class="page-stack">
+            <article class="card rail-card">
+              <div class="rail-title"><svg class="icon"><use href="#i-flag"/></svg>Bentuk punishment</div>
+              <div class="list-stack">
+                <div class="sla-card"><span class="sla-ico"><svg class="icon"><use href="#i-alert"/></svg></span><div class="sla-copy"><strong>Surat peringatan (SP)</strong><span>Salah satu bentuk; level mengikuti rule.</span></div></div>
+                <div class="sla-card"><span class="sla-ico"><svg class="icon"><use href="#i-truck"/></svg></span><div class="sla-copy"><strong>Prioritas assignment turun</strong><span>Untuk kurir partner; order lebih jarang.</span></div></div>
+                <div class="sla-card"><span class="sla-ico"><svg class="icon"><use href="#i-pause"/></svg></span><div class="sla-copy"><strong>Suspend sementara</strong><span>Butuh keputusan ops dan tercatat.</span></div></div>
+              </div>
+              <div class="inline-note" style="margin-top: 12px;"><svg class="icon"><use href="#i-info"/></svg><span>Bentuk dan tingkat mengikuti rule yang dipilih merchant. Bukan urutan tetap SP-1/2/3.</span></div>
+            </article>
+          </aside>
+        </div>
+
+        <article class="card table-panel section-gap">
+          <div class="card-head"><div><h2 class="card-title">Riwayat SP</h2><p class="card-sub">2 SP aktif · urut terbaru.</p></div></div>
+          <div class="table-wrap">
+            <table class="table-compact">
+              <thead><tr><th>Pihak</th><th>Bentuk</th><th>Rule</th><th>Alasan</th><th>Status</th><th>Aksi</th></tr></thead>
+              <tbody>
+                <tr><td><span class="cell-title">Budi Santoso</span><span class="sub">Kurir partner · 16 Okt 2026</span></td><td>Surat peringatan</td><td><span class="rule-code">LATE-COU-01</span></td><td><span class="reason">Tidak merespons assignment Quick sampai kedaluwarsa</span></td><td><span class="chip warn">Berlaku</span></td><td><button class="btn btn-sm btn-ghost" type="button">Cabut</button></td></tr>
+                <tr><td><span class="cell-title">Warung Bu Tini</span><span class="sub">Merchant · 12 Okt 2026</span></td><td>Penurunan peringkat</td><td><span class="rule-code">RUDE-GEN-01</span></td><td><span class="reason">Tolak order berulang di jam sibuk</span></td><td><span class="chip warn">Berlaku</span></td><td><button class="btn btn-sm btn-ghost" type="button">Cabut</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-foot"><span>2 SP aktif</span><span class="muted">SP tercatat · data demo</span></div>
+        </article>
+        <footer class="page-foot">Sa7tein Ops · Operational Command Center · <span>Data demo</span></footer>
+      </main>
+      
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

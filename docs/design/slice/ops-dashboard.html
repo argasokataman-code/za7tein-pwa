@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein Ops · Dashboard</title>
+<!--
+  Irisan HTML 1:1 — docs/design/slice/Sa7tein Ops Dashboard Overview.png
+  Arsip review, bukan kode produksi. Tanpa JS. Semua ikon inline SVG.
+  Acuan 1536×1024; layout desktop fluid 1440–1920px (rail 335, sidebar 236,
+  kolom utama 1fr). Aset makanan memakai file repo di public/assets/img/menu/.
+-->
+<link rel="stylesheet" href="ops.css" />
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+    <symbol id="i-badge-check" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-gavel" viewBox="0 0 24 24"><path d="m14 13-7.5 7.5a2.12 2.12 0 0 1-3-3L11 10"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></symbol>
+    <symbol id="i-shield-alert" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+    <symbol id="i-package" viewBox="0 0 24 24"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><path d="M2 14h4"/><path d="M10 8h4"/><path d="M18 16h4"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.6 5.6 12.8 12.8"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-1a8 8 0 0 1-8-8v-1a2 2 0 0 1 4 0"/></symbol>
+  </defs>
+</svg>
+
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="side-inner">
+      <div class="brand">
+        <span class="brand-name">Sa7tein</span>
+        <span class="brand-role">Ops</span>
+      </div>
+
+      <nav class="nav" aria-label="Menu panel ops">
+        <a class="nav-item is-active" href="ops-dashboard.html"><svg class="icon"><use href="#i-home"/></svg>Ringkasan</a>
+
+        <p class="nav-section">OPERASIONAL</p>
+        <a class="nav-item" href="ops-liability.html"><svg class="icon"><use href="#i-scale"/></svg>Kewajiban &amp; ledger</a>
+        <a class="nav-item" href="ops-onboarding.html"><svg class="icon"><use href="#i-badge-check"/></svg>Verifikasi onboarding</a>
+        <a class="nav-item" href="ops-disputes.html"><svg class="icon"><use href="#i-gavel"/></svg>Sengketa</a>
+        <a class="nav-item" href="ops-merchants.html"><svg class="icon"><use href="#i-store"/></svg>Merchant</a>
+        <a class="nav-item" href="ops-ledger.html"><svg class="icon"><use href="#i-book"/></svg>Ledger</a>
+        <a class="nav-item" href="ops-rules.html"><svg class="icon"><use href="#i-scale"/></svg>Rule sengketa</a>
+
+        <p class="nav-section">KEPATUHAN &amp; RISIKO</p>
+        <a class="nav-item" href="ops-incidents.html"><svg class="icon"><use href="#i-shield-alert"/></svg>Insiden</a>
+        <a class="nav-item" href="ops-moderation.html"><svg class="icon"><use href="#i-tag"/></svg>Moderasi tag</a>
+        <a class="nav-item" href="ops-penalties.html"><svg class="icon"><use href="#i-alert"/></svg>Surat peringatan</a>
+        <a class="nav-item" href="ops-programs.html"><svg class="icon"><use href="#i-gift"/></svg>Program aplikator</a>
+        <a class="nav-item" href="ops-quotas.html"><svg class="icon"><use href="#i-package"/></svg>Paket kuota</a>
+        <a class="nav-item" href="ops-settings.html"><svg class="icon"><use href="#i-sliders"/></svg>Aturan platform</a>
+
+        <p class="nav-section">ANALYTICS</p>
+        <a class="nav-item" href="ops-analytics.html"><svg class="icon"><use href="#i-chart"/></svg>Analytics &amp; log</a>
+      </nav>
+
+      <div class="side-foot">
+        <div class="side-status">
+          <span class="dot"></span>
+          <span><strong>Operator ops · di balik</strong></span>
+        </div>
+        <div class="side-status">
+          <span class="dot"></span>
+          <span>Cloudflare Access (mock)</span>
+        </div>
+        <a class="docs" href="#">Dokumentasi <svg class="icon"><use href="#i-external"/></svg></a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <div class="search">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <span>Cari merchant, nama, atau ID merchant...</span>
+      </div>
+      <div class="top-actions">
+        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
+        <span class="avatar">AO</span>
+        <span class="admin-name">Admin Ops</span>
+        <span class="demo">Demo</span>
+      </div>
+    </header>
+
+    <div class="content">
+      <main class="main-col">
+        <div class="page-head">
+          <div class="eyebrow">Dashboard</div>
+          <h1 class="page-title">Selamat datang, Admin Ops<svg class="wave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><use href="#i-hand"/></svg></h1>
+          <p class="page-sub">Pantau kondisi platform, kelola risiko, dan pastikan operasional berjalan lancar.</p>
+          <div class="head-meta">
+            <strong>7 tenant/insiden diperbarui</strong>
+            <div class="stamp"><svg class="icon"><use href="#i-clock"/></svg>18 Okt 2026, 14:32</div>
+          </div>
+        </div>
+
+        <section class="kpis" aria-label="Ringkasan merchant">
+          <article class="card kpi">
+            <div class="kpi-top">
+              <span class="kpi-icon"><svg class="icon"><use href="#i-store"/></svg></span>
+              <span class="kpi-label">Total Merchant</span>
+            </div>
+            <p class="kpi-value">9</p>
+            <p class="kpi-sub"><span class="up">↑ +2</span> minggu ini</p>
+            <div class="spark">
+              <svg viewBox="0 0 190 45" aria-hidden="true">
+                <defs><linearGradient id="spark-orange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F36B45" stop-opacity=".20"/><stop offset="1" stop-color="#F36B45" stop-opacity="0"/></linearGradient></defs>
+                <path d="M1 36 C14 35 18 31 31 32 S50 34 61 29 S78 20 91 23 S106 28 118 23 S135 17 147 20 S170 14 189 12 L189 44 L1 44 Z" fill="url(#spark-orange)"/>
+                <path d="M1 36 C14 35 18 31 31 32 S50 34 61 29 S78 20 91 23 S106 28 118 23 S135 17 147 20 S170 14 189 12" fill="none" stroke="#F0683F" stroke-width="1.6"/>
+              </svg>
+            </div>
+          </article>
+
+          <article class="card kpi">
+            <div class="kpi-top">
+              <span class="kpi-icon green"><svg class="icon"><use href="#i-check"/></svg></span>
+              <span class="kpi-label">Aktif</span>
+            </div>
+            <p class="kpi-value">9</p>
+            <p class="kpi-sub">100% dari total</p>
+            <div class="spark">
+              <svg viewBox="0 0 190 45" aria-hidden="true">
+                <defs><linearGradient id="spark-green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10B981" stop-opacity=".18"/><stop offset="1" stop-color="#10B981" stop-opacity="0"/></linearGradient></defs>
+                <path d="M1 38 C14 39 20 35 32 36 S50 35 62 33 S80 29 92 30 S111 24 123 26 S141 20 151 22 S171 19 189 10 L189 44 L1 44 Z" fill="url(#spark-green)"/>
+                <path d="M1 38 C14 39 20 35 32 36 S50 35 62 33 S80 29 92 30 S111 24 123 26 S141 20 151 22 S171 19 189 10" fill="none" stroke="#15B57D" stroke-width="1.6"/>
+              </svg>
+            </div>
+          </article>
+
+          <article class="card kpi">
+            <div class="kpi-top">
+              <span class="kpi-icon"><svg class="icon"><use href="#i-pause"/></svg></span>
+              <span class="kpi-label">Suspended</span>
+            </div>
+            <p class="kpi-value">0</p>
+            <p class="kpi-sub">0% dari total</p>
+            <div class="spark">
+              <svg viewBox="0 0 190 45" aria-hidden="true">
+                <defs><linearGradient id="spark-flat" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F36B45" stop-opacity=".12"/><stop offset="1" stop-color="#F36B45" stop-opacity="0"/></linearGradient></defs>
+                <path d="M1 36 C26 36 41 35 62 36 S92 36 116 35 S148 36 189 34 L189 44 L1 44 Z" fill="url(#spark-flat)"/>
+                <path d="M1 36 C26 36 41 35 62 36 S92 36 116 35 S148 36 189 34" fill="none" stroke="#F4A08B" stroke-width="1.6"/>
+              </svg>
+            </div>
+          </article>
+
+          <article class="card kpi">
+            <div class="kpi-top">
+              <span class="kpi-icon"><svg class="icon"><use href="#i-alert"/></svg></span>
+              <span class="kpi-label">SP aktif</span>
+            </div>
+            <p class="kpi-value">2</p>
+            <p class="kpi-sub">22% dari total</p>
+            <div class="spark">
+              <svg viewBox="0 0 190 45" aria-hidden="true">
+                <defs><linearGradient id="spark-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E84E68" stop-opacity=".18"/><stop offset="1" stop-color="#E84E68" stop-opacity="0"/></linearGradient></defs>
+                <path d="M1 35 C14 35 25 36 38 34 S58 33 72 34 S91 34 104 31 S121 27 134 29 S150 22 163 21 S178 13 189 12 L189 44 L1 44 Z" fill="url(#spark-red)"/>
+                <path d="M1 35 C14 35 25 36 38 34 S58 33 72 34 S91 34 104 31 S121 27 134 29 S150 22 163 21 S178 13 189 12" fill="none" stroke="#E24A66" stroke-width="1.6"/>
+              </svg>
+            </div>
+          </article>
+        </section>
+
+        <section class="charts">
+          <article class="card activity">
+            <div class="card-head">
+              <div>
+                <h2 class="card-title">Aktivitas Merchant</h2>
+                <p class="card-sub">Registrasi &amp; status dalam 7 hari terakhir</p>
+              </div>
+              <div class="legend">
+                <span><i class="dot orange"></i>Terdaftar</span>
+                <span><i class="dot green"></i>Aktif</span>
+              </div>
+            </div>
+
+            <div class="plot">
+              <div class="y-labels"><span>12</span><span>9</span><span>6</span><span>3</span><span>0</span></div>
+              <div class="x-labels"><span>7 Okt</span><span>8 Okt</span><span>9 Okt</span><span>10 Okt</span><span>11 Okt</span><span>12 Okt</span><span>13 Okt</span></div>
+              <svg viewBox="0 0 470 174" preserveAspectRatio="xMidYMid meet" aria-label="Grafik aktivitas merchant 7 sampai 13 Oktober">
+                <defs>
+                  <linearGradient id="area-green" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10B981" stop-opacity=".16"/><stop offset="1" stop-color="#10B981" stop-opacity="0"/></linearGradient>
+                  <linearGradient id="area-orange" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F36B45" stop-opacity=".11"/><stop offset="1" stop-color="#F36B45" stop-opacity="0"/></linearGradient>
+                </defs>
+                <g stroke="#EDF2F8" stroke-width="1">
+                  <line x1="0" y1="10" x2="470" y2="10"/>
+                  <line x1="0" y1="48" x2="470" y2="48"/>
+                  <line x1="0" y1="86" x2="470" y2="86"/>
+                  <line x1="0" y1="124" x2="470" y2="124"/>
+                  <line x1="0" y1="162" x2="470" y2="162"/>
+                </g>
+                <path d="M0 95 C40 92 62 86 88 86 S132 88 162 81 S207 77 238 86 S284 74 314 78 S354 82 388 78 S432 70 470 66 L470 162 L0 162 Z" fill="url(#area-orange)"/>
+                <path d="M0 118 C42 118 65 112 91 112 S136 110 166 107 S211 101 242 102 S288 92 318 94 S360 86 393 88 S436 78 470 75 L470 162 L0 162 Z" fill="url(#area-green)"/>
+                <path d="M0 95 C40 92 62 86 88 86 S132 88 162 81 S207 77 238 86 S284 74 314 78 S354 82 388 78 S432 70 470 66" fill="none" stroke="#F26B3A" stroke-width="1.6"/>
+                <path d="M0 118 C42 118 65 112 91 112 S136 110 166 107 S211 101 242 102 S288 92 318 94 S360 86 393 88 S436 78 470 75" fill="none" stroke="#12B67F" stroke-width="1.7"/>
+                <g fill="#fff" stroke="#F26B3A" stroke-width="1.4">
+                  <circle cx="0" cy="95" r="2.6"/><circle cx="88" cy="86" r="2.6"/><circle cx="162" cy="81" r="2.6"/><circle cx="238" cy="86" r="2.6"/><circle cx="314" cy="78" r="2.6"/><circle cx="388" cy="78" r="2.6"/><circle cx="470" cy="66" r="2.6"/>
+                </g>
+                <g fill="#fff" stroke="#12B67F" stroke-width="1.4">
+                  <circle cx="0" cy="118" r="2.6"/><circle cx="91" cy="112" r="2.6"/><circle cx="166" cy="107" r="2.6"/><circle cx="242" cy="102" r="2.6"/><circle cx="318" cy="94" r="2.6"/><circle cx="393" cy="88" r="2.6"/><circle cx="470" cy="75" r="2.6"/>
+                </g>
+              </svg>
+              <div class="tip">
+                <b>13 Okt</b>
+                <span><i><i class="dot orange" style="display:inline-block;margin-right:4px"></i>Terdaftar</i><i>9</i></span>
+                <span><i><i class="dot green" style="display:inline-block;margin-right:4px"></i>Aktif</i><i>9</i></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card status-card">
+            <div class="card-head">
+              <h2 class="card-title">Status Merchant</h2>
+            </div>
+            <div class="donut-row">
+              <div class="donut"><div class="donut-center"><strong>9</strong><span>Merchant</span></div></div>
+              <div class="status-legend">
+                <div class="row"><i class="dot green"></i><span><b>Aktif</b> 9</span><em>100%</em></div>
+                <div class="row"><i class="dot orange"></i><span><b>Suspended</b> 0</span><em>0%</em></div>
+                <div class="row"><i class="dot red"></i><span><b>SP aktif</b> 2</span><em>22%</em></div>
+              </div>
+            </div>
+            <div class="note">
+              <svg class="icon"><use href="#i-info"/></svg>
+              <div>
+                <div class="note-head"><b>SP adalah punishment berbasis rule</b><span class="note-tag"><svg class="icon"><use href="#i-eye"/></svg>SP</span></div>
+                Merchant dan kurir partner mengikuti rule yang dipilih merchant; bentuk sanksi ditentukan rule, bukan daftar tetap. <a href="ops-penalties.html">Buka SP &amp; punishment →</a>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="card table-card">
+          <div class="card-head">
+            <h2 class="card-title">Merchant bermasalah &amp; tindakan cepat</h2>
+            <a class="link" href="ops-merchants.html">Lihat semua merchant <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th class="c-merchant">Merchant</th>
+                  <th class="c-deposit">Saldo DANA <span class="sort">↕</span></th>
+                  <th class="c-cod">Order COD <span class="sort">↕</span></th>
+                  <th class="c-status">Status <span class="sort">↕</span></th>
+                  <th class="c-actions">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="merchant-cell">
+                      <img src="../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+                      <div><strong>Warung Nasi Goreng Mas Budi</strong><span>ID · MRC-006</span></div>
+                    </div>
+                  </td>
+                  <td>3,50 JOD</td>
+                  <td><span class="cod-count">2×</span></td>
+                  <td><span class="badge">Aktif</span></td>
+                  <td><div class="row-actions"><button class="mini-btn"><svg class="icon"><use href="#i-pause"/></svg>Suspend</button><button class="mini-btn"><svg class="icon"><use href="#i-alert"/></svg>Beri SP</button></div></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="merchant-cell">
+                      <img src="../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+                      <div><strong>Sate &amp; Kambing Haji Umar</strong><span>ID · MRC-002</span></div>
+                    </div>
+                  </td>
+                  <td>3,50 JOD</td>
+                  <td><span class="cod-count">1×</span></td>
+                  <td><span class="badge">Aktif</span></td>
+                  <td><div class="row-actions"><button class="mini-btn"><svg class="icon"><use href="#i-pause"/></svg>Suspend</button><button class="mini-btn"><svg class="icon"><use href="#i-alert"/></svg>Beri SP</button></div></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="merchant-cell">
+                      <img src="../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+                      <div><strong>Warung Sate Pak Ali</strong><span>ID · MRC-001</span></div>
+                    </div>
+                  </td>
+                  <td>8,50 JOD</td>
+                  <td><span class="cod-zero">0×</span></td>
+                  <td><span class="badge">Aktif</span></td>
+                  <td><div class="row-actions"><button class="mini-btn"><svg class="icon"><use href="#i-pause"/></svg>Suspend</button><button class="mini-btn"><svg class="icon"><use href="#i-alert"/></svg>Beri SP</button></div></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="merchant-cell">
+                      <img src="../../../public/assets/img/menu/lontong.webp" alt="" />
+                      <div><strong>Lontong Sayur Mak Cik</strong><span>ID · MRC-004</span></div>
+                    </div>
+                  </td>
+                  <td>3,50 JOD</td>
+                  <td><span class="cod-zero">0×</span></td>
+                  <td><span class="badge">Aktif</span></td>
+                  <td><div class="row-actions"><button class="mini-btn"><svg class="icon"><use href="#i-pause"/></svg>Suspend</button><button class="mini-btn"><svg class="icon"><use href="#i-alert"/></svg>Beri SP</button></div></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="merchant-cell">
+                      <img src="../../../public/assets/img/menu/es-teh-manis.webp" alt="" />
+                      <div><strong>Teahouse Segar Irbid</strong><span>ID · MRC-008</span></div>
+                    </div>
+                  </td>
+                  <td>3,50 JOD</td>
+                  <td><span class="cod-zero">0×</span></td>
+                  <td><span class="badge">Aktif</span></td>
+                  <td><div class="row-actions"><button class="mini-btn"><svg class="icon"><use href="#i-pause"/></svg>Suspend</button><button class="mini-btn"><svg class="icon"><use href="#i-alert"/></svg>Beri SP</button></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-foot">
+            <span>Menampilkan 1–5 dari 9 merchant</span>
+            <div class="pager">
+              <span class="muted">‹</span>
+              <span class="is-current">1</span>
+              <span>2</span>
+              <span>›</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="rail">
+        <a class="alert" href="ops-merchants.html">
+          <span class="alert-icon"><svg class="icon"><use href="#i-alert"/></svg></span>
+          <div>
+            <strong>2 Merchant perlu tindakan</strong>
+            <p>Perlu perhatian: 1 suspended, 1 kuota COD menipis.</p>
+          </div>
+          <span class="chev"><svg class="icon"><use href="#i-chevron"/></svg></span>
+        </a>
+
+        <section class="card rail-card risk-card">
+          <div class="card-head">
+            <span class="rail-title"><svg class="icon"><use href="#i-store"/></svg>Merchant perlu tindakan</span>
+            <a class="link" href="ops-merchants.html">Lihat semua <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="risk-list">
+            <div class="risk-row">
+              <span class="risk-ava navy">BK</span>
+              <div class="risk-body">
+                <div class="risk-name"><strong>Bakso Pak Kumis</strong><span class="risk-badge">Suspended</span></div>
+                <p class="risk-note">Menunggu konfirmasi sebelum aktif kembali</p>
+                <span class="risk-time">Hari ini 09:12</span>
+              </div>
+            </div>
+            <div class="risk-row">
+              <span class="risk-ava orange">KK</span>
+              <div class="risk-body">
+                <div class="risk-name"><strong>Kopi Kenangan Kecil</strong><span class="risk-badge">Kuota COD</span></div>
+                <p class="risk-note">Sisa 2 dari 40 order COD</p>
+                <span class="risk-time">Kemarin 18:02</span>
+              </div>
+            </div>
+          </div>
+          <div class="note">
+            <svg class="icon"><use href="#i-info"/></svg>
+            <div>Suspend dan SP di sini hanya mengubah tampilan, bukan data sungguhan.</div>
+          </div>
+        </section>
+
+        <section class="card rail-card incident-card">
+          <div class="card-head">
+            <span class="rail-title"><svg class="icon"><use href="#i-info"/></svg>Insiden terbaru</span>
+            <a class="link" href="ops-disputes.html">Lihat semua <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="feed">
+            <div class="feed-row">
+              <span class="feed-ico red"><svg class="icon"><use href="#i-alert"/></svg></span>
+              <div class="feed-copy"><strong>Sengketa pesanan #57241</strong><span>Warung Nasi Goreng Mas Budi</span></div>
+              <span class="feed-time">2 jam lalu</span>
+            </div>
+            <div class="feed-row">
+              <span class="feed-ico red"><svg class="icon"><use href="#i-alert"/></svg></span>
+              <div class="feed-copy"><strong>Kuota COD menipis</strong><span>Sate &amp; Kambing Haji Umar</span></div>
+              <span class="feed-time">5 jam lalu</span>
+            </div>
+            <div class="feed-row">
+              <span class="feed-ico orange"><svg class="icon"><use href="#i-badge-check"/></svg></span>
+              <div class="feed-copy"><strong>Verifikasi onboarding tertunda</strong><span>Dapur Nusantara Irbid</span></div>
+              <span class="feed-time">7 jam lalu</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card rail-card activity-card">
+          <div class="card-head">
+            <span class="rail-title"><svg class="icon"><use href="#i-clock"/></svg>Aktivitas terbaru</span>
+            <a class="link" href="ops-analytics.html">Lihat semua <svg class="icon"><use href="#i-arrow"/></svg></a>
+          </div>
+          <div class="timeline">
+            <div class="tl-row">
+              <i class="tl-dot" style="background:#F26B3A"></i>
+              <div class="tl-copy"><strong>Admin Ops men-suspend merchant</strong><span>Kedai Sate Pak Tono</span></div>
+              <span class="tl-time">3 jam lalu</span>
+            </div>
+            <div class="tl-row">
+              <i class="tl-dot" style="background:#F26B3A"></i>
+              <div class="tl-copy"><strong>SP merchant diterbitkan</strong><span>Warung Nasi Goreng Mas Budi</span></div>
+              <span class="tl-time">6 jam lalu</span>
+            </div>
+            <div class="tl-row">
+              <i class="tl-dot" style="background:#3B82F6"></i>
+              <div class="tl-copy"><strong>Merchant baru terdaftar</strong><span>Teahouse Segar Irbid</span></div>
+              <span class="tl-time">8 jam lalu</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="page-foot">Sa7tein Ops · <span>Operational Command Center</span> · Demo data</div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

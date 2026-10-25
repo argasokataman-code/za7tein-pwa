@@ -17,6 +17,9 @@
 import { readdirSync, readFileSync, existsSync } from 'node:fs'
 
 const DIR = 'docs/design/slice/'
+// `index.html` = galeri. Semua `ops-*.html` = irisan panel ops mandiri dengan
+// `ops.css` sendiri (permintaan pemilik 2026-10-25); aturan validasi login
+// (satu `login.css`, tiga bingkai, badge wordmark) tidak berlaku untuk panel ops.
 const SKIP = new Set(['index.html'])
 // Satu stylesheet: `login.css` (satu bahasa login untuk semua peran).
 const css = readFileSync(DIR + 'login.css', 'utf8')
@@ -32,7 +35,7 @@ const IGNORE_CLASSES = new Set([])
 
 const fails = []
 const warns = []
-const files = readdirSync(DIR).filter(f => f.endsWith('.html') && !SKIP.has(f)).sort()
+const files = readdirSync(DIR).filter(f => f.endsWith('.html') && !SKIP.has(f) && !f.startsWith('ops-')).sort()
 
 for (const file of files) {
   const src = readFileSync(DIR + file, 'utf8')

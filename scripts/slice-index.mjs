@@ -3,9 +3,9 @@
 //
 //   node scripts/slice-index.mjs
 //
-// Folder ini HANYA berisi halaman login. Layar lain sempat dibuat keliru dan
-// sudah dihapus atas permintaan pemilik (2026-10-17) — jangan didaftarkan lagi
-// di sini tanpa diminta.
+// Folder ini berisi halaman login + 14 layar panel ops (permintaan pemilik
+// 2026-10-25). Layar aplikasi lain sempat dibuat keliru dan sudah dihapus
+// (2026-10-17) — jangan didaftarkan lagi di sini tanpa diminta.
 
 import { existsSync, writeFileSync } from 'node:fs'
 
@@ -33,7 +33,7 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Irisan HTML Sa7tein — login semua peran</title>
+<title>Irisan HTML Sa7tein — login &amp; panel ops</title>
 <style>
   :root { --merek: #E44220; --ink: #172434; --muted: #64748B; }
   * { box-sizing: border-box; }
@@ -57,14 +57,15 @@ const html = `<!doctype html>
 </head>
 <body>
 <div class="wrap">
-  <h1>Login &amp; daftar — semua peran</h1>
-  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi.</p>
+  <h1>Login, daftar &amp; panel ops</h1>
+  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi. Panel ops: 14 layar, mulai dari dashboard.</p>
   <div class="bar">
     <a href="login-1to1.html">customer (acuan)</a>
     <a href="login-merchant.html">penjual</a>
     <a href="login-courier.html">kurir</a>
     <a href="login-ops.html">ops</a>
     <a href="login-superadmin.html">super admin</a>
+    <a href="ops-dashboard.html">panel ops (14 layar)</a>
     <a href="README.md">cara kerja</a>
   </div>
   <table>${rows.join('\n')}</table>
