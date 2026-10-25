@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sa7tein Ops · Rule sengketa</title>
-<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Tanpa JS. -->
+<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Interaksi mock memakai ops.js. -->
 <link rel="stylesheet" href="ops.css" />
 </head>
 <body>
@@ -69,7 +69,7 @@
   <aside class="sidebar">
     <div class="side-inner">
       <div class="brand">
-        <span class="brand-name">Sa7tein</span>
+        <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
         <span class="brand-role">Ops</span>
       </div>
 
@@ -109,9 +109,8 @@
     <header class="topbar">
       <div class="search"><svg class="icon"><use href="#i-search"/></svg><span>Cari kode, nama, atau ID...</span></div>
       <div class="top-actions">
-        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
-        <span class="avatar">AO</span>
-        <span class="admin-name">Admin Ops</span>
+        <button class="bell" type="button" aria-label="Notifikasi" aria-haspopup="dialog" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg></button>
+        <button class="account" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Menu akun Admin Ops"><span class="avatar">AO</span><span class="admin-name">Admin Ops</span><svg class="icon account-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <span class="demo">Demo</span>
       </div>
     </header>
@@ -153,32 +152,145 @@
         <article class="card panel section-gap">
           <div class="panel-head"><div><h2 class="panel-title">Buat rule baru</h2><p class="panel-sub">Rule dibuat ops. Merchant memilih rule lewat multi-select; versi naik saat isi berubah.</p></div><span class="chip plain neutral">Draf</span></div>
           <div class="form-grid">
-            <div class="field"><label for="rule-code">Kode rule</label><input class="input" id="rule-code" type="text" placeholder="LATE-COU-02" /></div>
-            <div class="field"><label for="rule-name">Nama rule</label><input class="input" id="rule-name" type="text" placeholder="Kurir terlambat antar" /></div>
-            <div class="field"><label for="rule-category">Kategori insiden</label><select class="select" id="rule-category"><option>Tiba terlambat</option><option>Item kurang atau salah</option><option>Kemasan rusak atau tumpah</option><option>Kurir tidak datang</option><option>Tidak sopan (bukti chat)</option></select></div>
-            <div class="field"><label for="rule-party">Pihak bertanggung jawab</label><select class="select" id="rule-party"><option>Kurir</option><option>Merchant</option><option>Customer</option></select></div>
-            <div class="field span-2"><label for="rule-trigger">Kondisi pemicu</label><textarea class="textarea" id="rule-trigger" placeholder="Contoh: tiba > 20 menit dari estimasi setelah kurir mulai antar"></textarea><span class="field-hint">Tulis kondisi yang bisa dibuktikan dari log order.</span></div>
-            <div class="field"><label for="rule-comp">Kompensasi</label><select class="select" id="rule-comp"><option>Tanpa kompensasi</option><option>Refund penuh</option><option>Potongan ongkir 50%</option><option>Nilai item dikembalikan</option></select></div>
-            <div class="field"><label for="rule-punish">Punishment</label><select class="select" id="rule-punish"><option>Tanpa punishment</option><option>Surat peringatan (SP)</option><option>Prioritas assignment diturunkan</option><option>Suspend sementara</option></select></div>
+            <div class="field"><label for="rule-code">Kode rule</label><input class="input" id="rule-code" type="text" placeholder="LATE-COU-02" data-required data-label="Kode rule" /></div>
+            <div class="field"><label for="rule-name">Nama rule</label><input class="input" id="rule-name" type="text" placeholder="Kurir terlambat antar" data-required data-label="Nama rule" /></div>
+            <div class="field"><label for="rule-category">Kategori insiden</label><div class="select" data-select><button class="select-trigger" id="rule-category" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>Tiba terlambat</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="rule-category"><li class="select-option" role="option" aria-selected="true" data-value="Tiba terlambat">Tiba terlambat</li><li class="select-option" role="option" aria-selected="false" data-value="Item kurang atau salah">Item kurang atau salah</li><li class="select-option" role="option" aria-selected="false" data-value="Kemasan rusak atau tumpah">Kemasan rusak atau tumpah</li><li class="select-option" role="option" aria-selected="false" data-value="Kurir tidak datang">Kurir tidak datang</li><li class="select-option" role="option" aria-selected="false" data-value="Tidak sopan (bukti chat)">Tidak sopan (bukti chat)</li></ul><input type="hidden" name="rule-category" value="Tiba terlambat" /></div></div>
+            <div class="field"><label for="rule-party">Pihak bertanggung jawab</label><div class="select" data-select><button class="select-trigger" id="rule-party" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>Kurir</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="rule-party"><li class="select-option" role="option" aria-selected="true" data-value="Kurir">Kurir</li><li class="select-option" role="option" aria-selected="false" data-value="Merchant">Merchant</li><li class="select-option" role="option" aria-selected="false" data-value="Customer">Customer</li></ul><input type="hidden" name="rule-party" value="Kurir" /></div></div>
+            <div class="field span-2"><label for="rule-trigger">Kondisi pemicu</label><textarea class="textarea" id="rule-trigger" placeholder="Contoh: tiba > 20 menit dari estimasi setelah kurir mulai antar" data-required data-label="Kondisi pemicu"></textarea><span class="field-hint">Tulis kondisi yang bisa dibuktikan dari log order.</span></div>
+            <div class="field"><label for="rule-comp">Kompensasi</label><div class="select" data-select><button class="select-trigger" id="rule-comp" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>Tanpa kompensasi</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="rule-comp"><li class="select-option" role="option" aria-selected="true" data-value="Tanpa kompensasi">Tanpa kompensasi</li><li class="select-option" role="option" aria-selected="false" data-value="Refund penuh">Refund penuh</li><li class="select-option" role="option" aria-selected="false" data-value="Potongan ongkir 50%">Potongan ongkir 50%</li><li class="select-option" role="option" aria-selected="false" data-value="Nilai item dikembalikan">Nilai item dikembalikan</li></ul><input type="hidden" name="rule-comp" value="Tanpa kompensasi" /></div></div>
+            <div class="field"><label for="rule-punish">Punishment</label><div class="select" data-select><button class="select-trigger" id="rule-punish" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>Tanpa punishment</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="rule-punish"><li class="select-option" role="option" aria-selected="true" data-value="Tanpa punishment">Tanpa punishment</li><li class="select-option" role="option" aria-selected="false" data-value="Surat peringatan (SP)">Surat peringatan (SP)</li><li class="select-option" role="option" aria-selected="false" data-value="Prioritas assignment diturunkan">Prioritas assignment diturunkan</li><li class="select-option" role="option" aria-selected="false" data-value="Suspend sementara">Suspend sementara</li></ul><input type="hidden" name="rule-punish" value="Tanpa punishment" /></div></div>
           </div>
-          <div class="form-actions"><span class="form-note">Rule baru berstatus draf sampai diterbitkan.</span><button class="btn btn-ghost" type="button">Simpan draf</button><button class="btn btn-primary" type="button"><svg class="icon"><use href="#i-check"/></svg>Terbitkan rule</button></div>
+          <div class="form-actions"><span class="form-note">Rule baru berstatus draf sampai diterbitkan.</span><button class="btn btn-ghost" type="button" data-skip-validation>Simpan draf</button><button class="btn btn-primary" type="button"><svg class="icon"><use href="#i-check"/></svg>Terbitkan rule</button></div>
         </article>
 
         <article class="card table-panel section-gap">
           <div class="card-head"><div><h2 class="card-title">Katalog rule dispute</h2><p class="card-sub">Rule dipakai saat order dibuat; perubahan tidak berlaku surut.</p></div><a class="link" href="ops-incidents.html">Lihat insiden<svg class="icon"><use href="#i-arrow"/></svg></a></div>
-          <div class="table-wrap">
-            <table class="table-compact">
-              <thead><tr><th>Kode</th><th>Rule</th><th>Kategori</th><th>PJ</th><th>Kompensasi / punishment</th><th>Status</th><th>Aksi</th></tr></thead>
-              <tbody>
-                <tr><td><span class="rule-code">LATE-COU-01</span></td><td><span class="cell-title">Kurir lambat antar</span><span class="sub">Tiba > 20 menit dari estimasi setelah kurir mulai antar</span></td><td>Tiba terlambat</td><td>Kurir</td><td>1 kompensasi · 1 punishment</td><td><span class="chip ok">Aktif</span></td><td><button class="btn btn-sm btn-ghost" type="button">Edit</button></td></tr>
-                <tr><td><span class="rule-code">LATE-MER-01</span></td><td><span class="cell-title">Masak melewati estimasi</span><span class="sub">Waktu masak terlampaui > 15 menit dari estimasi toko</span></td><td>Tiba terlambat</td><td>Merchant</td><td>1 kompensasi · 1 punishment</td><td><span class="chip ok">Aktif</span></td><td><button class="btn btn-sm btn-ghost" type="button">Edit</button></td></tr>
-                <tr><td><span class="rule-code">LATE-CUS-01</span></td><td><span class="cell-title">Pelanggan tidak menjawab</span><span class="sub">Kurir tiba dan pelanggan tidak menjawab > 10 menit</span></td><td>Tiba terlambat</td><td>Customer</td><td>1 kompensasi · 0 punishment</td><td><span class="chip ok">Aktif</span></td><td><button class="btn btn-sm btn-ghost" type="button">Edit</button></td></tr>
-                <tr><td><span class="rule-code">ITEM-MER-01</span></td><td><span class="cell-title">Item kurang dari pesanan</span><span class="sub">Item tidak ada di paket, dibandingkan daftar pesanan</span></td><td>Item kurang atau salah</td><td>Merchant</td><td>1 kompensasi · 0 punishment</td><td><span class="chip ok">Aktif</span></td><td><button class="btn btn-sm btn-ghost" type="button">Edit</button></td></tr>
-                <tr><td><span class="rule-code">DAMAGE-COU-01</span></td><td><span class="cell-title">Kemasan rusak saat tiba</span><span class="sub">Laporan kerusakan dengan bukti foto saat diterima</span></td><td>Kemasan rusak atau tumpah</td><td>Kurir</td><td>1 kompensasi · 0 punishment</td><td><span class="chip ok">Aktif</span></td><td><button class="btn btn-sm btn-ghost" type="button">Edit</button></td></tr>
-                <tr><td><span class="rule-code">NOSHOW-COU-01</span></td><td><span class="cell-title">Kurir tidak datang</span><span class="sub">Kurir tidak tiba > 15 menit setelah jadwal ambil</span></td><td>Kurir tidak datang</td><td>Kurir</td><td>1 kompensasi · 1 punishment</td><td><span class="chip ok">Aktif</span></td><td><button class="btn btn-sm btn-ghost" type="button">Edit</button></td></tr>
-                <tr><td><span class="rule-code">RUDE-GEN-01</span></td><td><span class="cell-title">Tidak sopan dengan bukti</span><span class="sub">Laporan percakapan tidak sopan dengan bukti chat</span></td><td>Tidak sopan (bukti chat)</td><td>Merchant</td><td>0 kompensasi · 1 punishment</td><td><span class="chip ok">Aktif</span></td><td><button class="btn btn-sm btn-ghost" type="button">Edit</button></td></tr>
-              </tbody>
-            </table>
+          <div class="rule-list">
+            <details class="rule-item" name="rule-catalog" open>
+              <summary class="rule-summary">
+                <span class="rule-code">LATE-COU-01</span>
+                <span class="cell-title">Kurir lambat antar</span>
+                <span class="rule-summary-meta"><span class="chip plain neutral">Kurir</span><span class="chip ok">Aktif</span></span>
+                <svg class="icon rule-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="rule-body">
+                <p class="rule-desc">Tiba &gt; 20 menit dari estimasi setelah kurir mulai antar.</p>
+                <div class="rule-facts">
+                  <div class="rule-fact"><span>Kategori</span><strong>Tiba terlambat</strong></div>
+                  <div class="rule-fact"><span>Penanggung jawab</span><strong>Kurir</strong></div>
+                  <div class="rule-fact"><span>Kompensasi / punishment</span><strong>1 kompensasi · 1 punishment</strong></div>
+                </div>
+                <div class="rule-body-foot"><span class="rule-hint">Perubahan tidak berlaku surut ke order lama.</span><button class="btn btn-sm btn-ghost" type="button">Edit rule</button></div>
+              </div>
+            </details>
+
+            <details class="rule-item" name="rule-catalog">
+              <summary class="rule-summary">
+                <span class="rule-code">LATE-MER-01</span>
+                <span class="cell-title">Masak melewati estimasi</span>
+                <span class="rule-summary-meta"><span class="chip plain neutral">Merchant</span><span class="chip ok">Aktif</span></span>
+                <svg class="icon rule-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="rule-body">
+                <p class="rule-desc">Waktu masak terlampaui &gt; 15 menit dari estimasi toko.</p>
+                <div class="rule-facts">
+                  <div class="rule-fact"><span>Kategori</span><strong>Tiba terlambat</strong></div>
+                  <div class="rule-fact"><span>Penanggung jawab</span><strong>Merchant</strong></div>
+                  <div class="rule-fact"><span>Kompensasi / punishment</span><strong>1 kompensasi · 1 punishment</strong></div>
+                </div>
+                <div class="rule-body-foot"><span class="rule-hint">Perubahan tidak berlaku surut ke order lama.</span><button class="btn btn-sm btn-ghost" type="button">Edit rule</button></div>
+              </div>
+            </details>
+
+            <details class="rule-item" name="rule-catalog">
+              <summary class="rule-summary">
+                <span class="rule-code">LATE-CUS-01</span>
+                <span class="cell-title">Pelanggan tidak menjawab</span>
+                <span class="rule-summary-meta"><span class="chip plain neutral">Customer</span><span class="chip ok">Aktif</span></span>
+                <svg class="icon rule-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="rule-body">
+                <p class="rule-desc">Kurir tiba dan pelanggan tidak menjawab &gt; 10 menit.</p>
+                <div class="rule-facts">
+                  <div class="rule-fact"><span>Kategori</span><strong>Tiba terlambat</strong></div>
+                  <div class="rule-fact"><span>Penanggung jawab</span><strong>Customer</strong></div>
+                  <div class="rule-fact"><span>Kompensasi / punishment</span><strong>1 kompensasi · 0 punishment</strong></div>
+                </div>
+                <div class="rule-body-foot"><span class="rule-hint">Perubahan tidak berlaku surut ke order lama.</span><button class="btn btn-sm btn-ghost" type="button">Edit rule</button></div>
+              </div>
+            </details>
+
+            <details class="rule-item" name="rule-catalog">
+              <summary class="rule-summary">
+                <span class="rule-code">ITEM-MER-01</span>
+                <span class="cell-title">Item kurang dari pesanan</span>
+                <span class="rule-summary-meta"><span class="chip plain neutral">Merchant</span><span class="chip ok">Aktif</span></span>
+                <svg class="icon rule-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="rule-body">
+                <p class="rule-desc">Item tidak ada di paket, dibandingkan daftar pesanan.</p>
+                <div class="rule-facts">
+                  <div class="rule-fact"><span>Kategori</span><strong>Item kurang atau salah</strong></div>
+                  <div class="rule-fact"><span>Penanggung jawab</span><strong>Merchant</strong></div>
+                  <div class="rule-fact"><span>Kompensasi / punishment</span><strong>1 kompensasi · 0 punishment</strong></div>
+                </div>
+                <div class="rule-body-foot"><span class="rule-hint">Perubahan tidak berlaku surut ke order lama.</span><button class="btn btn-sm btn-ghost" type="button">Edit rule</button></div>
+              </div>
+            </details>
+
+            <details class="rule-item" name="rule-catalog">
+              <summary class="rule-summary">
+                <span class="rule-code">DAMAGE-COU-01</span>
+                <span class="cell-title">Kemasan rusak saat tiba</span>
+                <span class="rule-summary-meta"><span class="chip plain neutral">Kurir</span><span class="chip ok">Aktif</span></span>
+                <svg class="icon rule-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="rule-body">
+                <p class="rule-desc">Laporan kerusakan dengan bukti foto saat diterima.</p>
+                <div class="rule-facts">
+                  <div class="rule-fact"><span>Kategori</span><strong>Kemasan rusak atau tumpah</strong></div>
+                  <div class="rule-fact"><span>Penanggung jawab</span><strong>Kurir</strong></div>
+                  <div class="rule-fact"><span>Kompensasi / punishment</span><strong>1 kompensasi · 0 punishment</strong></div>
+                </div>
+                <div class="rule-body-foot"><span class="rule-hint">Perubahan tidak berlaku surut ke order lama.</span><button class="btn btn-sm btn-ghost" type="button">Edit rule</button></div>
+              </div>
+            </details>
+
+            <details class="rule-item" name="rule-catalog">
+              <summary class="rule-summary">
+                <span class="rule-code">NOSHOW-COU-01</span>
+                <span class="cell-title">Kurir tidak datang</span>
+                <span class="rule-summary-meta"><span class="chip plain neutral">Kurir</span><span class="chip ok">Aktif</span></span>
+                <svg class="icon rule-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="rule-body">
+                <p class="rule-desc">Kurir tidak tiba &gt; 15 menit setelah jadwal ambil.</p>
+                <div class="rule-facts">
+                  <div class="rule-fact"><span>Kategori</span><strong>Kurir tidak datang</strong></div>
+                  <div class="rule-fact"><span>Penanggung jawab</span><strong>Kurir</strong></div>
+                  <div class="rule-fact"><span>Kompensasi / punishment</span><strong>1 kompensasi · 1 punishment</strong></div>
+                </div>
+                <div class="rule-body-foot"><span class="rule-hint">Perubahan tidak berlaku surut ke order lama.</span><button class="btn btn-sm btn-ghost" type="button">Edit rule</button></div>
+              </div>
+            </details>
+
+            <details class="rule-item" name="rule-catalog">
+              <summary class="rule-summary">
+                <span class="rule-code">RUDE-GEN-01</span>
+                <span class="cell-title">Tidak sopan dengan bukti</span>
+                <span class="rule-summary-meta"><span class="chip plain neutral">Merchant</span><span class="chip ok">Aktif</span></span>
+                <svg class="icon rule-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </summary>
+              <div class="rule-body">
+                <p class="rule-desc">Laporan percakapan tidak sopan dengan bukti chat.</p>
+                <div class="rule-facts">
+                  <div class="rule-fact"><span>Kategori</span><strong>Tidak sopan (bukti chat)</strong></div>
+                  <div class="rule-fact"><span>Penanggung jawab</span><strong>Merchant</strong></div>
+                  <div class="rule-fact"><span>Kompensasi / punishment</span><strong>0 kompensasi · 1 punishment</strong></div>
+                </div>
+                <div class="rule-body-foot"><span class="rule-hint">Perubahan tidak berlaku surut ke order lama.</span><button class="btn btn-sm btn-ghost" type="button">Edit rule</button></div>
+              </div>
+            </details>
           </div>
           <div class="table-foot"><span>7 rule · versi aktif</span><span class="muted">Terakhir diubah 1 Okt 2026</span></div>
         </article>
@@ -194,5 +306,6 @@
   </div>
 </div>
 
+<script src="ops.js" defer></script>
 </body>
 </html>

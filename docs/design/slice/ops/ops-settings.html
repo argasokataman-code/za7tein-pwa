@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sa7tein Ops · Aturan platform</title>
-<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Tanpa JS. -->
+<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Interaksi mock memakai ops.js. -->
 <link rel="stylesheet" href="ops.css" />
 </head>
 <body>
@@ -69,7 +69,7 @@
   <aside class="sidebar">
     <div class="side-inner">
       <div class="brand">
-        <span class="brand-name">Sa7tein</span>
+        <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
         <span class="brand-role">Ops</span>
       </div>
 
@@ -109,9 +109,8 @@
     <header class="topbar">
       <div class="search"><svg class="icon"><use href="#i-search"/></svg><span>Cari kode, nama, atau ID...</span></div>
       <div class="top-actions">
-        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
-        <span class="avatar">AO</span>
-        <span class="admin-name">Admin Ops</span>
+        <button class="bell" type="button" aria-label="Notifikasi" aria-haspopup="dialog" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg></button>
+        <button class="account" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Menu akun Admin Ops"><span class="avatar">AO</span><span class="admin-name">Admin Ops</span><svg class="icon account-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <span class="demo">Demo</span>
       </div>
     </header>
@@ -131,13 +130,13 @@
           <article class="card panel">
             <div class="panel-head"><div><h2 class="panel-title">Aturan yang dimiliki ops</h2><p class="panel-sub">Nilai ini dipakai lintas peran. Perubahan langsung memengaruhi estimasi dan checkout.</p></div><span class="chip ok">Berlaku</span></div>
             <div class="form-grid">
-              <div class="field"><label for="quick">Multiplier Quick</label><input class="input" id="quick" type="number" step="0.05" value="1.2" /><span class="field-hint">Pengali estimasi untuk layanan Quick.</span></div>
-              <div class="field"><label for="arrive">Ambang “hampir sampai”</label><input class="input" id="arrive" type="number" step="1" value="5" /><span class="field-hint">Menit sebelum status hampir sampai muncul.</span></div>
-              <div class="field"><label for="pc">Pc · platform fee customer</label><input class="input" id="pc" type="number" step="0.01" value="0.22" /><span class="field-hint">Flat fee yang dibayar customer saat checkout.</span></div>
-              <div class="field"><label for="pm">Pm · platform fee merchant</label><input class="input" id="pm" type="number" step="0.01" value="0.15" /><span class="field-hint">Dipotong dari payout order tanpa kuota; order berkuota tidak dipotong.</span></div>
+              <div class="field"><label for="quick">Multiplier Quick</label><input class="input" id="quick" type="number" step="0.05" value="1.2" data-required data-min="1" data-label="Multiplier Quick" /><span class="field-hint">Pengali estimasi untuk layanan Quick.</span></div>
+              <div class="field"><label for="arrive">Ambang “hampir sampai”</label><input class="input" id="arrive" type="number" step="1" value="5" data-required data-min="1" data-label="Ambang hampir sampai" /><span class="field-hint">Menit sebelum status hampir sampai muncul.</span></div>
+              <div class="field"><label for="pc">Pc · platform fee customer</label><input class="input" id="pc" type="number" step="0.01" value="0.22" data-required data-min="0" data-label="Pc" /><span class="field-hint">Flat fee yang dibayar customer saat checkout.</span></div>
+              <div class="field"><label for="pm">Pm · platform fee merchant</label><input class="input" id="pm" type="number" step="0.01" value="0.15" data-required data-min="0" data-label="Pm" /><span class="field-hint">Dipotong dari payout order tanpa kuota; order berkuota tidak dipotong.</span></div>
               <div class="field span-2" style="padding-top:6px;border-top:1px solid var(--line);"><strong style="display:block;font-size:12px;color:var(--navy);">Dispatch kurir partner</strong><span class="field-hint">Dipakai saat sistem mencari kurir Quick. Di luar batas atau lokasi basi = tidak di-assign.</span></div>
-              <div class="field"><label for="dispatch-km">Batas jarak dispatch</label><input class="input" id="dispatch-km" type="number" step="0.5" value="3" /><span class="field-hint">Kilometer dari merchant ke lokasi kurir.</span></div>
-              <div class="field"><label for="dispatch-fresh">Kesegaran lokasi</label><input class="input" id="dispatch-fresh" type="number" step="15" value="120" /><span class="field-hint">Detik; lokasi lebih lama dari ini dianggap basi.</span></div>
+              <div class="field"><label for="dispatch-km">Batas jarak dispatch</label><input class="input" id="dispatch-km" type="number" step="0.5" value="3" data-required data-min="0.5" data-label="Batas jarak dispatch" /><span class="field-hint">Kilometer dari merchant ke lokasi kurir.</span></div>
+              <div class="field"><label for="dispatch-fresh">Kesegaran lokasi</label><input class="input" id="dispatch-fresh" type="number" step="15" value="120" data-required data-min="15" data-label="Kesegaran lokasi" /><span class="field-hint">Detik; lokasi lebih lama dari ini dianggap basi.</span></div>
             </div>
             <div class="form-actions"><span class="form-note">Terakhir diubah 12 Okt 2026 oleh Rami Odeh.</span><button class="btn btn-primary" type="button"><svg class="icon"><use href="#i-check"/></svg>Simpan aturan</button></div>
           </article>
@@ -156,21 +155,10 @@
               <div class="rail-title"><svg class="icon"><use href="#i-info"/></svg>Catatan</div>
               <p class="panel-sub">Nilai fee disimpan dalam JOD. Tampilan rupiah mengikuti kurs, bukan nilai ledger.</p>
             </article>
-            <article class="card rail-card">
-              <div class="rail-title"><svg class="icon"><use href="#i-wallet"/></svg>Kurs harian</div>
-              <div class="kv-list">
-                <div class="kv-row"><span>1 JOD</span><strong>Rp23.000</strong></div>
-                <div class="kv-row"><span>Diperbarui</span><strong>23 Sep 06:00</strong></div>
-                <div class="kv-row"><span>Sumber</span><strong>Mock</strong></div>
-                <div class="kv-row"><span>Gagal 24 jam</span><strong>0</strong></div>
-              </div>
-              <div class="divider"></div>
-              <div class="inline-note"><svg class="icon"><use href="#i-info"/></svg><span>Bila provider gagal, tampilan memakai rate terakhir. Tidak memblokir transaksi.</span></div>
-            </article>
           </aside>
         </div>
 
-        <div class="grid-2 section-gap">
+        <div class="grid-3 section-gap">
           <article class="card panel">
             <div class="panel-head"><div><h2 class="panel-title">Pratinjau checkout</h2><p class="panel-sub">Contoh order Quick dengan nilai saat ini.</p></div><span class="chip plain neutral">Contoh</span></div>
             <div class="kv-list">
@@ -189,9 +177,22 @@
               <div class="kv-row"><span>Merchant</span><strong>Settlement</strong></div>
               <div class="kv-row"><span>Kurir</span><strong>Tarif tetap</strong></div>
               <div class="kv-row"><span>Ops</span><strong>Audit trail</strong></div>
+              <div class="kv-row total"><span>Berlaku</span><strong>Order berikutnya</strong></div>
             </div>
             <div class="divider"></div>
             <p class="panel-sub">Perubahan aturan tidak mengubah order yang sudah dibuat. Nilai baru dipakai pada order berikutnya.</p>
+          </article>
+          <article class="card panel">
+            <div class="panel-head"><div><h2 class="panel-title">Kurs harian</h2><p class="panel-sub">Rate acuan tampilan rupiah.</p></div></div>
+            <div class="kv-list">
+              <div class="kv-row"><span>1 JOD</span><strong>Rp23.000</strong></div>
+              <div class="kv-row"><span>Diperbarui</span><strong>23 Sep 06:00</strong></div>
+              <div class="kv-row"><span>Sumber</span><strong>Mock</strong></div>
+              <div class="kv-row"><span>Gagal 24 jam</span><strong>0</strong></div>
+              <div class="kv-row total"><span>Jika provider gagal</span><strong>Rate terakhir</strong></div>
+            </div>
+            <div class="divider"></div>
+            <div class="inline-note"><svg class="icon"><use href="#i-info"/></svg><span>Bila provider gagal, tampilan memakai rate terakhir. Tidak memblokir transaksi.</span></div>
           </article>
         </div>
         <footer class="page-foot">Sa7tein Ops · Operational Command Center · <span>Data demo</span></footer>
@@ -201,5 +202,6 @@
   </div>
 </div>
 
+<script src="ops.js" defer></script>
 </body>
 </html>

@@ -1,9 +1,12 @@
 # Irisan HTML Sa7tein — login, daftar, dan panel ops
 
 Folder ini berisi desain halaman login dan daftar customer, plus **14 layar
-panel ops** atas permintaan pemilik (2026-10-25): dashboard dan 13 menu
-sidebar. Layar aplikasi lain sempat dibuat keliru (65 berkas) dan sudah
-**dihapus** atas permintaan pemilik 2026-10-17 — jangan dibuat lagi tanpa
+menu panel ops + 1 kotak masuk notifikasi** atas permintaan pemilik
+(2026-10-25): dashboard, 13 menu sidebar, dan notifikasi yang dibuka dari
+lonceng topbar. Login desktop panel ops dan alur keluar ditambahkan
+(2026-10-25) agar sesi punya layar masuk dan keluar yang jelas. Layar aplikasi
+lain sempat dibuat keliru (65 berkas) dan sudah
+**dihapus** atas permintaan pemilik 2026-10-17, jangan dibuat lagi tanpa
 diminta.
 
 Arsip review, **bukan** kode produksi. Dibuka langsung lewat peramban, tanpa build.
@@ -15,7 +18,7 @@ slice/
 ├─ index.html          galeri
 ├─ README.md
 ├─ auth/               login + daftar (satu login.css)
-└─ ops/                14 layar panel ops (satu ops.css)
+└─ ops/                15 layar panel ops + login desktop (ops.css + ops-login.css)
    └─ reference/       gambar acuan dashboard
 ```
 
@@ -25,7 +28,8 @@ slice/
 | `auth/signup-customer.html` | daftar customer — isi `SignUp.tsx` |
 | `auth/signup-merchant.html` | daftar toko — isi `MerchantSignUp.tsx` |
 | `auth/login-{merchant,courier}.html` | login merchant (tab ke daftar) & kurir (switch jenis akun) |
-| `auth/login-{ops,superadmin}.html` | **USULAN** — repo tidak punya auth untuk dua peran ini (dinyatakan di caption tiap berkas) |
+| `auth/login-{ops,superadmin}.html` | **USULAN** — bingkai ponsel; repo tidak punya auth untuk dua peran ini (dinyatakan di caption tiap berkas) |
+| `ops/ops-login.html` | login desktop panel ops — email + kata sandi, state kosong/validasi/loading, pesan sesi berakhir |
 | `ops/ops-dashboard.html` | irisan `ops/reference/Sa7tein Ops Dashboard Overview.png` — desktop fluid 1440–1920px (acuan 1536×1024), skala teks 11–13px agar terbaca |
 | `ops/ops-liability.html` | Kewajiban & ledger — komposisi kewajiban, payout/pending refund, rekonsiliasi DANA, eksposur sengketa |
 | `ops/ops-onboarding.html` | Verifikasi onboarding — merchant + kurir partner, akun DANA, area layanan |
@@ -39,12 +43,15 @@ slice/
 | `ops/ops-programs.html` | Program aplikator — form program platform + program berlaku |
 | `ops/ops-quotas.html` | Paket kuota — kelola paket order/COD + pemakaian subscription |
 | `ops/ops-settings.html` | Aturan platform — multiplier, ambang notif, flat fee, dispatch, kurs harian |
+| `ops/ops-notifications.html` | Notifikasi — kotak masuk, filter, tandai baca, ringkasan, preferensi, aktivitas |
 | `ops/ops-analytics.html` | Analytics & log — fee platform, aksi ops, audit trail |
 | `auth/login.css` | satu-satunya stylesheet login |
-| `ops/ops.css` | satu-satunya stylesheet panel ops (14 layar) |
+| `ops/ops.css` | gaya panel ops (15 layar) |
+| `ops/ops-login.css` | gaya login desktop ops (memakai token `ops.css`) |
+| `ops/ops.js` | interaksi mock panel ops: dropdown Sa7tein, dialog validasi/konfirmasi, toast, popover lonceng, menu akun, login |
 | `index.html` | galeri: tautan halaman login + panel ops |
 
-## Panel ops — 14 layar, satu stylesheet
+## Panel ops — 15 layar, satu stylesheet
 
 Semua `ops/ops-*.html` memakai `ops/ops.css` dan shell yang sama: sidebar `236px`,
 topbar, judul halaman, dan area konten fluid `1440–1920px` (acuan
@@ -56,7 +63,29 @@ grid internal agar tabel dan form tidak terjepit.
 - **Data dari repo:** angka, nama merchant, order, tag, SP, program, kuota, dan
   audit mengikuti `src/data/`. Tidak ada aturan bisnis baru.
 - **Navigasi nyata:** semua tautan sidebar menuju berkas ops yang ada.
-  Tombol aksi/form tetap mock (tanpa JS); irisan ini untuk review rupa.
+  Lonceng topbar membuka popover berisi 3 notifikasi terbaru, lalu tautan
+  `Lihat semua notifikasi` menuju kotak masuk di semua layar.
+- **Menu akun:** klik avatar/nama di topbar membuka menu akun. `Keluar`
+  memakai dialog konfirmasi Sa7tein, lalu menuju `ops-login.html?keluar=1`
+  yang menampilkan toast sesi berakhir. Login desktop ada di
+  `ops/ops-login.html`.
+- **Logo asli:** sidebar dan login memakai
+  `public/icons/sa7tein-mark.svg` (aset repo), bukan teks `Sa7tein`.
+  Label peran `Ops` tetap teks di samping logo.
+- **Header beku:** topbar ops menempel saat halaman digulir. Di kotak masuk
+  notifikasi, judul `Kotak masuk` + filter ikut menempel di bawah topbar,
+  jadi filter tetap terjangkau saat membaca notifikasi panjang.
+- **Dropdown Sa7tein:** tidak ada `<select>` peramban di 15 layar. Semua pilihan
+  memakai tombol + listbox sendiri (`ops.js`), lengkap dengan keyboard.
+- **Dialog Sa7tein:** setiap tombol aksi membuka dialog validasi atau
+  konfirmasi. Field wajib yang kosong ditampilkan sebagai daftar di dialog,
+  bukan pesan `alert()` peramban. Tidak ada `confirm()` / `alert()`.
+- **Toast Sa7tein:** aksi yang berhasil ditutup dengan toast, bukan dialog
+  sukses kedua. Empat nada (sukses, info, peringatan, gagal), maksimal tiga
+  toast bertumpuk, progress, jeda saat disentuh, dan tombol tutup.
+- **Notifikasi:** kotak masuk dengan filter nyata (semua, belum dibaca, butuh
+  tindakan, sistem), tandai satu/semua dibaca, ringkasan, preferensi, dan
+  aktivitas. Semua status hanya mock di DOM.
 - **Sidebar seragam:** `sticky` setinggi viewport dan tidak ikut memanjang
   mengikuti panjang halaman; isinya bisa digulir sendiri di layar pendek.
 - **Terukur:** `docW == vw` di 1440, 1536, dan 1920; tidak ada overflow
@@ -64,9 +93,10 @@ grid internal agar tabel dan form tidak terjepit.
 
 ### Selaras PRD aktif (`sa7tein-mvp-2026-10-11`)
 
-14 layar ini menutup fungsi ops OPS-01…OPS-15 tanpa menambah aturan bisnis
-baru. Satu fungsi bisa tinggal di satu layar yang sudah ada; jumlah layar tidak
-harus sama dengan jumlah fungsi.
+14 layar menu ini menutup fungsi ops OPS-01…OPS-15 tanpa menambah aturan
+bisnis baru; kotak masuk notifikasi adalah permukaan pendukung, bukan fungsi
+PRD baru. Satu fungsi bisa tinggal di satu layar yang sudah ada; jumlah layar
+tidak harus sama dengan jumlah fungsi.
 
 | fungsi PRD | layar |
 |---|---|
@@ -179,8 +209,10 @@ Tiga layar USULAN sengaja **tanpa toast** — repo tidak punya kalimatnya.
    dulu di schema repo.
 3. **Foto & logo hanya dari aset repo** (`../../../../public/…`). Tanpa aset baru,
    tanpa gambar eksternal.
-4. **Tanpa skrip.** Satu-satunya JS adalah `onsubmit="return false"` supaya
-   halaman tidak berpindah saat tombol ditekan.
+4. **Auth tanpa skrip.** Satu-satunya JS di halaman auth adalah
+   `onsubmit="return false"` supaya halaman tidak berpindah saat tombol ditekan.
+   Panel ops memakai satu `ops/ops.js` untuk dropdown dan dialog; tanpa
+   penyimpanan, tanpa dependensi.
 5. **Toast mengapung, teks saja.** Anak `.phone`, gaya `toastOptions` repo.
    Jangan taruh di dalam `.body` (jatuh menimpa tab) dan jangan tambah
    titik/ikon karangan.

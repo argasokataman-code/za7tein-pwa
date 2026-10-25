@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sa7tein Ops · Paket kuota</title>
-<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Tanpa JS. -->
+<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Interaksi mock memakai ops.js. -->
 <link rel="stylesheet" href="ops.css" />
 </head>
 <body>
@@ -69,7 +69,7 @@
   <aside class="sidebar">
     <div class="side-inner">
       <div class="brand">
-        <span class="brand-name">Sa7tein</span>
+        <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
         <span class="brand-role">Ops</span>
       </div>
 
@@ -109,9 +109,8 @@
     <header class="topbar">
       <div class="search"><svg class="icon"><use href="#i-search"/></svg><span>Cari kode, nama, atau ID...</span></div>
       <div class="top-actions">
-        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
-        <span class="avatar">AO</span>
-        <span class="admin-name">Admin Ops</span>
+        <button class="bell" type="button" aria-label="Notifikasi" aria-haspopup="dialog" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg></button>
+        <button class="account" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Menu akun Admin Ops"><span class="avatar">AO</span><span class="admin-name">Admin Ops</span><svg class="icon account-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <span class="demo">Demo</span>
       </div>
     </header>
@@ -148,15 +147,15 @@
         <article class="card panel section-gap">
           <div class="panel-head"><div><h2 class="panel-title">Atur paket kuota</h2><p class="panel-sub">Kuota, periode, dan harga ditentukan ops. Harga kuota COD wajib lebih mahal dari kuota order.</p></div><span class="chip ok">Berlaku</span></div>
           <div class="form-grid">
-            <div class="field"><label for="quota-type">Jenis kuota</label><select class="select" id="quota-type"><option>Kuota order</option><option>Kuota COD</option></select></div>
-            <div class="field"><label for="quota-count">Jumlah order</label><input class="input" id="quota-count" type="number" value="50" /></div>
-            <div class="field"><label for="quota-period">Masa berlaku</label><select class="select" id="quota-period"><option>30 hari</option><option>60 hari</option><option>90 hari</option></select></div>
-            <div class="field"><label for="quota-price">Harga</label><input class="input" id="quota-price" type="number" step="0.10" value="1.50" /><span class="field-hint">JOD; belum termasuk fee QRIS 1,5%.</span></div>
+            <div class="field"><label for="quota-type">Jenis kuota</label><div class="select" data-select><button class="select-trigger" id="quota-type" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>Kuota order</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="quota-type"><li class="select-option" role="option" aria-selected="true" data-value="Kuota order">Kuota order</li><li class="select-option" role="option" aria-selected="false" data-value="Kuota COD">Kuota COD</li></ul><input type="hidden" name="quota-type" value="Kuota order" /></div></div>
+            <div class="field"><label for="quota-count">Jumlah order</label><input class="input" id="quota-count" type="number" value="50" data-required data-min="1" data-label="Jumlah order" /></div>
+            <div class="field"><label for="quota-period">Masa berlaku</label><div class="select" data-select><button class="select-trigger" id="quota-period" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>30 hari</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="quota-period"><li class="select-option" role="option" aria-selected="true" data-value="30 hari">30 hari</li><li class="select-option" role="option" aria-selected="false" data-value="60 hari">60 hari</li><li class="select-option" role="option" aria-selected="false" data-value="90 hari">90 hari</li></ul><input type="hidden" name="quota-period" value="30 hari" /></div></div>
+            <div class="field"><label for="quota-price">Harga</label><input class="input" id="quota-price" type="number" step="0.10" value="1.50" data-required data-min="0.01" data-label="Harga" /><span class="field-hint">JOD; belum termasuk fee QRIS 1,5%.</span></div>
           </div>
           <div class="form-actions"><span class="form-note">Paket baru langsung tampil di katalog merchant.</span><button class="btn btn-primary" type="button"><svg class="icon"><use href="#i-check"/></svg>Simpan paket</button></div>
         </article>
 
-        <div class="grid-main">
+        <div class="grid-main section-gap">
           <article class="card table-panel">
             <div class="card-head"><div><h2 class="card-title">Katalog paket kuota</h2><p class="card-sub">Kuota order dipakai merchant untuk menerima pesanan.</p></div><span class="chip ok">Kelola</span></div>
             <div class="table-wrap">
@@ -222,5 +221,6 @@
   </div>
 </div>
 
+<script src="ops.js" defer></script>
 </body>
 </html>

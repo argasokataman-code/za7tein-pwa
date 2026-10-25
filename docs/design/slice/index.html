@@ -28,14 +28,16 @@
 <body>
 <div class="wrap">
   <h1>Login, daftar &amp; panel ops</h1>
-  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi. Panel ops: 14 layar, mulai dari dashboard.</p>
+  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi. Panel ops: 14 layar menu + kotak masuk notifikasi, mulai dari dashboard; login desktop ops dan alur keluar ditambahkan.</p>
   <div class="bar">
     <a href="auth/login-1to1.html">customer (acuan)</a>
     <a href="auth/login-merchant.html">penjual</a>
     <a href="auth/login-courier.html">kurir</a>
-    <a href="auth/login-ops.html">ops</a>
+    <a href="auth/login-ops.html">ops (ponsel, usulan)</a>
     <a href="auth/login-superadmin.html">super admin</a>
+    <a href="ops/ops-login.html">login ops desktop</a>
     <a href="ops/ops-dashboard.html">panel ops (14 layar)</a>
+    <a href="ops/ops-notifications.html">notifikasi</a>
     <a href="README.md">cara kerja</a>
   </div>
   <table><tr><td><a href="auth/login-1to1.html">Login — customer (pembeli)</a><div class="note">ACUAN — reproduksi 1:1 mockup pemilik (teks Inggris sesuai mockup). Kode repo: SignIn.tsx:18 — teksnya Indonesia</div></td><td class="route">/customer/signin</td><td class="file">auth/login-1to1.html</td></tr>
@@ -43,7 +45,8 @@
 <tr><td><a href="auth/login-merchant.html">Login — penjual</a><div class="note">dari kode: MerchantSignIn.tsx:14 — Email + Kata sandi, `Masuk`; tab Masuk/Daftar ke signup-merchant.html</div></td><td class="route">/merchant/signin</td><td class="file">auth/login-merchant.html</td></tr>
 <tr><td><a href="auth/signup-merchant.html">Daftar — penjual</a><div class="note">dari kode: MerchantSignUp.tsx:39 — Nama toko, Email, Nomor HP opsional, zona, Kata sandi, `Kirim pendaftaran`; tab Masuk/Daftar</div></td><td class="route">/merchant/signup</td><td class="file">auth/signup-merchant.html</td></tr>
 <tr><td><a href="auth/login-courier.html">Login — kurir (toko/partner)</a><div class="note">USULAN: switch `Kurir toko`/`Kurir partner` + email magic link (PRD aktif); kode masih WA + kata sandi</div></td><td class="route">/courier/signin</td><td class="file">auth/login-courier.html</td></tr>
-<tr><td><a href="auth/login-ops.html">Login — panel ops</a><div class="note">USULAN — halaman login ops belum ada; PRD belum menurunkan requirement auth ke layar</div></td><td class="route">/ops</td><td class="file">auth/login-ops.html</td></tr>
+<tr><td><a href="ops/ops-login.html">Login — panel ops (desktop)</a><div class="note">email + kata sandi, validasi inline, state memeriksa, toast sesi berakhir setelah keluar; auth Cloudflare Access tetap mock</div></td><td class="route">/ops</td><td class="file">ops/ops-login.html</td></tr>
+<tr><td><a href="auth/login-ops.html">Login — panel ops</a><div class="note">USULAN — bingkai ponsel; halaman login ops desktop ada di `ops/ops-login.html`</div></td><td class="route">/ops</td><td class="file">auth/login-ops.html</td></tr>
 <tr><td><a href="auth/login-superadmin.html">Login — super admin</a><div class="note">USULAN — superAdminRoutes tanpa auth; isi minim</div></td><td class="route">/superadmin</td><td class="file">auth/login-superadmin.html</td></tr></table>
 </div>
 </body>

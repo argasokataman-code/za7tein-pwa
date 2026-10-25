@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sa7tein Ops · Ledger</title>
-<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Tanpa JS. -->
+<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Interaksi mock memakai ops.js. -->
 <link rel="stylesheet" href="ops.css" />
 </head>
 <body>
@@ -69,7 +69,7 @@
   <aside class="sidebar">
     <div class="side-inner">
       <div class="brand">
-        <span class="brand-name">Sa7tein</span>
+        <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
         <span class="brand-role">Ops</span>
       </div>
 
@@ -109,9 +109,8 @@
     <header class="topbar">
       <div class="search"><svg class="icon"><use href="#i-search"/></svg><span>Cari kode, nama, atau ID...</span></div>
       <div class="top-actions">
-        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
-        <span class="avatar">AO</span>
-        <span class="admin-name">Admin Ops</span>
+        <button class="bell" type="button" aria-label="Notifikasi" aria-haspopup="dialog" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg></button>
+        <button class="account" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Menu akun Admin Ops"><span class="avatar">AO</span><span class="admin-name">Admin Ops</span><svg class="icon account-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <span class="demo">Demo</span>
       </div>
     </header>
@@ -154,8 +153,8 @@
           <div class="card-head"><div><h2 class="card-title">Entry terbaru</h2><p class="card-sub">8 dari 8 entry · urut terbaru dulu.</p></div><span class="chip blue">Append-only</span></div>
           <div class="toolbar" style="margin-top: 14px;">
             <input class="tool-input" type="search" placeholder="Cari memo, ref, atau jenis..." aria-label="Cari entry" />
-            <select class="tool-select" aria-label="Jenis entry"><option>Semua jenis</option><option>Dana order masuk</option><option>Payout</option><option>Settlement</option><option>Pm merchant</option><option>Pc customer</option><option>Refund</option><option>Kompensasi</option><option>Fee QRIS</option></select>
-            <button class="btn btn-ghost btn-sm" type="button"><svg class="icon"><use href="#i-filter"/></svg>Terbaru dulu</button>
+            <div class="select select--compact" data-select><button class="select-trigger" type="button" aria-label="Jenis entry" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>Semua jenis</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-label="Jenis entry"><li class="select-option" role="option" aria-selected="true" data-value="Semua jenis">Semua jenis</li><li class="select-option" role="option" aria-selected="false" data-value="Dana order masuk">Dana order masuk</li><li class="select-option" role="option" aria-selected="false" data-value="Payout">Payout</li><li class="select-option" role="option" aria-selected="false" data-value="Settlement">Settlement</li><li class="select-option" role="option" aria-selected="false" data-value="Pm merchant">Pm merchant</li><li class="select-option" role="option" aria-selected="false" data-value="Pc customer">Pc customer</li><li class="select-option" role="option" aria-selected="false" data-value="Refund">Refund</li><li class="select-option" role="option" aria-selected="false" data-value="Kompensasi">Kompensasi</li><li class="select-option" role="option" aria-selected="false" data-value="Fee QRIS">Fee QRIS</li></ul><input type="hidden" name="entry-type" value="Semua jenis" /></div>
+            <button class="btn btn-ghost btn-sm" type="button" data-plain><svg class="icon"><use href="#i-filter"/></svg>Terbaru dulu</button>
             <button class="btn btn-ghost btn-sm" type="button"><svg class="icon"><use href="#i-download"/></svg>Ekspor</button>
           </div>
           <div class="inline-note" style="margin-top: 12px;"><svg class="icon"><use href="#i-lock"/></svg><span><b>Entry tidak bisa diubah atau dihapus.</b> Koreksi dilakukan dengan entry baru.</span></div>
@@ -183,5 +182,6 @@
   </div>
 </div>
 
+<script src="ops.js" defer></script>
 </body>
 </html>

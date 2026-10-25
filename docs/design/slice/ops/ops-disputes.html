@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sa7tein Ops · Sengketa</title>
-<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Tanpa JS. -->
+<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Interaksi mock memakai ops.js. -->
 <link rel="stylesheet" href="ops.css" />
 </head>
 <body>
@@ -69,7 +69,7 @@
   <aside class="sidebar">
     <div class="side-inner">
       <div class="brand">
-        <span class="brand-name">Sa7tein</span>
+        <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
         <span class="brand-role">Ops</span>
       </div>
 
@@ -109,9 +109,8 @@
     <header class="topbar">
       <div class="search"><svg class="icon"><use href="#i-search"/></svg><span>Cari kode, nama, atau ID...</span></div>
       <div class="top-actions">
-        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
-        <span class="avatar">AO</span>
-        <span class="admin-name">Admin Ops</span>
+        <button class="bell" type="button" aria-label="Notifikasi" aria-haspopup="dialog" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg></button>
+        <button class="account" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Menu akun Admin Ops"><span class="avatar">AO</span><span class="admin-name">Admin Ops</span><svg class="icon account-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <span class="demo">Demo</span>
       </div>
     </header>
@@ -201,13 +200,13 @@
             <div class="divider"></div>
             <h3 class="panel-title">Rule yang diterapkan</h3>
             <p class="panel-sub">Merchant memilih rule lewat multi-select; customer dan kurir mengikuti rule order ini.</p>
-            <div class="field"><label for="rule">Rule</label><select class="select" id="rule"><option selected>DAMAGE-COU-01 · Kemasan rusak saat tiba</option><option>ITEM-MER-01 · Item kurang dari pesanan</option><option>LATE-COU-01 · Kurir lambat antar</option></select><span class="field-hint">Rule menentukan kompensasi dan punishment secara otomatis.</span></div>
+            <div class="field"><label for="rule">Rule</label><div class="select" data-select><button class="select-trigger" id="rule" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>DAMAGE-COU-01 · Kemasan rusak saat tiba</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="rule"><li class="select-option" role="option" aria-selected="true" data-value="DAMAGE-COU-01">DAMAGE-COU-01 · Kemasan rusak saat tiba</li><li class="select-option" role="option" aria-selected="false" data-value="ITEM-MER-01">ITEM-MER-01 · Item kurang dari pesanan</li><li class="select-option" role="option" aria-selected="false" data-value="LATE-COU-01">LATE-COU-01 · Kurir lambat antar</li></ul><input type="hidden" name="rule" value="DAMAGE-COU-01" /></div><span class="field-hint">Rule menentukan kompensasi dan punishment secara otomatis.</span></div>
             <div class="grid-2" style="margin-top:12px;">
               <div class="kv-list"><div class="kv-row"><span>Kompensasi</span><strong>Refund penuh</strong></div><div class="kv-row"><span>Penerima</span><strong>Customer</strong></div><div class="kv-row"><span>Formula</span><strong>S + F</strong></div></div>
               <div class="kv-list"><div class="kv-row"><span>Punishment</span><strong>Tidak ada</strong></div><div class="kv-row"><span>Pihak</span><strong>Kurir</strong></div><div class="kv-row"><span>Status</span><strong>Rule v1</strong></div></div>
             </div>
-            <div class="field" style="margin-top: 12px;"><label for="reason">Alasan putusan</label><textarea class="textarea" id="reason" placeholder="Tulis alasan minimal 10 karakter..."></textarea><span class="field-hint">Alasan masuk ke audit trail dan terlihat oleh kedua pihak.</span></div>
-            <div class="form-actions"><span class="form-note">Rule di-snapshot ke order · putusan tidak bisa diedit setelah dikirim</span><button class="btn btn-ghost" type="button">Simpan draf</button><button class="btn btn-primary" type="button"><svg class="icon"><use href="#i-gavel"/></svg>Terapkan rule</button></div>
+            <div class="field" style="margin-top: 12px;"><label for="reason">Alasan putusan</label><textarea class="textarea" id="reason" placeholder="Tulis alasan minimal 10 karakter..." data-required data-label="Alasan putusan"></textarea><span class="field-hint">Alasan masuk ke audit trail dan terlihat oleh kedua pihak.</span></div>
+            <div class="form-actions"><span class="form-note">Rule di-snapshot ke order · putusan tidak bisa diedit setelah dikirim</span><button class="btn btn-ghost" type="button" data-skip-validation>Simpan draf</button><button class="btn btn-primary" type="button"><svg class="icon"><use href="#i-gavel"/></svg>Terapkan rule</button></div>
           </article>
         </div>
         <footer class="page-foot">Sa7tein Ops · Operational Command Center · <span>Data demo</span></footer>
@@ -217,5 +216,6 @@
   </div>
 </div>
 
+<script src="ops.js" defer></script>
 </body>
 </html>

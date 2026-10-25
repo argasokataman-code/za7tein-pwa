@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sa7tein Ops · Program aplikator</title>
-<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Tanpa JS. -->
+<!-- Irisan HTML desain panel ops. Arsip review, bukan kode produksi. Interaksi mock memakai ops.js. -->
 <link rel="stylesheet" href="ops.css" />
 </head>
 <body>
@@ -69,7 +69,7 @@
   <aside class="sidebar">
     <div class="side-inner">
       <div class="brand">
-        <span class="brand-name">Sa7tein</span>
+        <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
         <span class="brand-role">Ops</span>
       </div>
 
@@ -109,9 +109,8 @@
     <header class="topbar">
       <div class="search"><svg class="icon"><use href="#i-search"/></svg><span>Cari kode, nama, atau ID...</span></div>
       <div class="top-actions">
-        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
-        <span class="avatar">AO</span>
-        <span class="admin-name">Admin Ops</span>
+        <button class="bell" type="button" aria-label="Notifikasi" aria-haspopup="dialog" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg></button>
+        <button class="account" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Menu akun Admin Ops"><span class="avatar">AO</span><span class="admin-name">Admin Ops</span><svg class="icon account-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <span class="demo">Demo</span>
       </div>
     </header>
@@ -149,11 +148,11 @@
           <article class="card panel">
             <div class="panel-head"><div><h2 class="panel-title">Buat program</h2><p class="panel-sub">Program platform berlaku lintas merchant. Bukan promo merchant.</p></div></div>
             <div class="form-grid">
-              <div class="field span-2"><label for="program-name">Nama program</label><input class="input" id="program-name" placeholder="mis. Diskon Aplikator 0,3 JOD" /></div>
-              <div class="field"><label for="program-type">Bentuk diskon</label><select class="select" id="program-type"><option selected>Nominal tetap (JOD)</option><option>Persen (%)</option></select></div>
-              <div class="field"><label for="program-value">Nilai</label><input class="input" id="program-value" placeholder="mis. 0,3" /></div>
+              <div class="field span-2"><label for="program-name">Nama program</label><input class="input" id="program-name" placeholder="mis. Diskon Aplikator 0,3 JOD" data-required data-label="Nama program" /></div>
+              <div class="field"><label for="program-type">Bentuk diskon</label><div class="select" data-select><button class="select-trigger" id="program-type" type="button" aria-haspopup="listbox" aria-expanded="false"><span data-select-value>Nominal tetap (JOD)</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="select-menu" role="listbox" aria-labelledby="program-type"><li class="select-option" role="option" aria-selected="true" data-value="Nominal tetap (JOD)">Nominal tetap (JOD)</li><li class="select-option" role="option" aria-selected="false" data-value="Persen (%)">Persen (%)</li></ul><input type="hidden" name="program-type" value="Nominal tetap (JOD)" /></div></div>
+              <div class="field"><label for="program-value">Nilai</label><input class="input" id="program-value" placeholder="mis. 0,3" data-required data-min="0.01" data-label="Nilai" /></div>
               <div class="field"><label for="program-min">Min. belanja</label><input class="input" id="program-min" placeholder="mis. 10 JOD" /></div>
-              <div class="field"><label for="program-code">Kode</label><input class="input" id="program-code" placeholder="mis. HEMAT10" /></div>
+              <div class="field"><label for="program-code">Kode</label><input class="input" id="program-code" placeholder="mis. HEMAT10" data-required data-label="Kode" /></div>
               <div class="field"><label for="program-start">Mulai</label><input class="input" id="program-start" type="date" value="2026-10-01" /></div>
               <div class="field"><label for="program-end">Berakhir</label><input class="input" id="program-end" type="date" /></div>
               <div class="field span-2"><label class="check-row"><input type="checkbox" /> Bisa digabung dengan program merchant</label><span class="field-hint">Program platform tetap didanai platform meski digabung.</span></div>
@@ -204,5 +203,6 @@
   </div>
 </div>
 
+<script src="ops.js" defer></script>
 </body>
 </html>

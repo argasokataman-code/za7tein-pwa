@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein Ops · Masuk</title>
+<link rel="stylesheet" href="ops.css" />
+<link rel="stylesheet" href="ops-login.css" />
+</head>
+<body class="login-page">
+
+<main class="login-shell">
+  <section class="login-brand" aria-label="Sa7tein Ops">
+    <div class="login-brand-top">
+      <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+      <span class="brand-role">Ops</span>
+    </div>
+
+    <div class="login-brand-copy">
+      <p class="login-eyebrow">Panel internal</p>
+      <h1 class="login-title">Operasional harian, satu pintu.</h1>
+      <p class="login-lead">Kewajiban, sengketa, onboarding, dan aturan platform. Setiap tindakan tercatat di audit trail.</p>
+      <ul class="login-points">
+        <li><span class="login-point-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg></span>Kewajiban &amp; ledger</li>
+        <li><span class="login-point-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg></span>Sengketa &amp; insiden</li>
+        <li><span class="login-point-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg></span>Aturan &amp; kuota</li>
+      </ul>
+    </div>
+
+    <div class="login-brand-foot">
+      <span class="login-status">Cloudflare Access (mock)</span>
+      <span>Data demo</span>
+    </div>
+  </section>
+
+  <section class="login-panel">
+    <div>
+      <p class="login-eyebrow">Masuk</p>
+      <h2 class="login-heading">Masuk ke panel ops</h2>
+      <p class="login-sub">Gunakan akun operator yang terdaftar.</p>
+    </div>
+
+    <form class="login-form" novalidate>
+      <div class="login-field">
+        <label for="login-email">Email operator</label>
+        <div class="login-control">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <input id="login-email" name="email" type="email" inputmode="email" autocomplete="username" placeholder="nama@sa7tein.id" aria-describedby="login-email-error" required />
+        </div>
+        <p class="login-error" id="login-email-error" aria-live="polite" hidden></p>
+      </div>
+
+      <div class="login-field">
+        <label for="login-password">Kata sandi</label>
+        <div class="login-control">
+          <svg class="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Kata sandi" aria-describedby="login-password-error" required />
+          <button class="login-reveal" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.06 12.35a1 1 0 0 1 0-.7C3.66 7.6 7.5 4.5 12 4.5s8.34 3.1 9.94 7.15a1 1 0 0 1 0 .7C20.34 16.4 16.5 19.5 12 19.5s-8.34-3.1-9.94-7.15Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+        <p class="login-error" id="login-password-error" aria-live="polite" hidden></p>
+      </div>
+
+      <button class="btn btn-primary login-submit" type="submit" data-plain>Masuk</button>
+      <p class="login-hint">Data demo · kredensial apa pun diterima.</p>
+    </form>
+
+    <div class="login-panel-foot">
+      <span>Bukan autentikasi sungguhan.</span>
+      <a href="../index.html">Kembali ke galeri</a>
+    </div>
+  </section>
+</main>
+
+<script src="ops.js" defer></script>
+</body>
+</html>

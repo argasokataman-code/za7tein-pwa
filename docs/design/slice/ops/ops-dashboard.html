@@ -6,7 +6,7 @@
 <title>Sa7tein Ops · Dashboard</title>
 <!--
   Irisan HTML 1:1 — docs/design/slice/Sa7tein Ops Dashboard Overview.png
-  Arsip review, bukan kode produksi. Tanpa JS. Semua ikon inline SVG.
+  Arsip review, bukan kode produksi. Interaksi mock memakai ops.js. Semua ikon inline SVG.
   Acuan 1536×1024; layout desktop fluid 1440–1920px (rail 335, sidebar 236,
   kolom utama 1fr). Aset makanan memakai file repo di public/assets/img/menu/.
 -->
@@ -49,7 +49,7 @@
   <aside class="sidebar">
     <div class="side-inner">
       <div class="brand">
-        <span class="brand-name">Sa7tein</span>
+        <img class="brand-mark" src="../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
         <span class="brand-role">Ops</span>
       </div>
 
@@ -97,9 +97,8 @@
         <span>Cari merchant, nama, atau ID merchant...</span>
       </div>
       <div class="top-actions">
-        <a class="bell" href="#" aria-label="Notifikasi"><svg class="icon"><use href="#i-bell"/></svg></a>
-        <span class="avatar">AO</span>
-        <span class="admin-name">Admin Ops</span>
+        <button class="bell" type="button" aria-label="Notifikasi" aria-haspopup="dialog" aria-expanded="false"><svg class="icon"><use href="#i-bell"/></svg></button>
+        <button class="account" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Menu akun Admin Ops"><span class="avatar">AO</span><span class="admin-name">Admin Ops</span><svg class="icon account-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <span class="demo">Demo</span>
       </div>
     </header>
@@ -438,5 +437,6 @@
   </div>
 </div>
 
+<script src="ops.js" defer></script>
 </body>
 </html>
