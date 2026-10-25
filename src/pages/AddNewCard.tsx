@@ -45,7 +45,7 @@ export default function AddNewCard() {
                     </div>
                   </div>
                   <div className="add-card-logo-container">
-                    <img alt="Visa Debit" width={50} height={16} className="add-card-logo" src="/_next/static/media/visa.4c91c8bb.png" style={{ color: "transparent" }} />
+                    <img alt="Visa Debit" width={50} height={16} className="add-card-logo" src="/assets/img/card/visa.png" style={{ color: "transparent" }} />
                     <span className="add-card-debit">
                       Debit
                     </span>

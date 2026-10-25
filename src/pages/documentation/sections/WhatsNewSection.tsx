@@ -146,7 +146,7 @@ export function WhatsNewSection() {
                 Brand identity
               </td>
               <td>
-                "Delivo" — package, service worker cache, redux-persist keys
+                "Nama lama" — package, service worker cache, redux-persist keys
               </td>
               <td>
                 "Sa7tein" — package renamed, cache "sa7tein-static", persist prefix "sa7tein:"

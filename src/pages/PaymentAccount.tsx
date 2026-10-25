@@ -1,6 +1,4 @@
-import { ArrowRight, CreditCard } from 'lucide-react'
-// Ported from the original screen markup. Classes match the app stylesheet
-// in src/styles/_app.scss, so the styling is identical to the source site.
+import { ArrowRight, CreditCard, Globe, Smartphone, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
@@ -10,14 +8,14 @@ import { BackButton } from '../components/ui/BackButton'
 interface LinkedMethod {
   id: string
   label: string
-  icon: string
+  Icon: typeof CreditCard
   connected: boolean
 }
 
 const INITIAL_METHODS: LinkedMethod[] = [
-  { id: 'apple-pay', label: 'Apple Pay', icon: '/assets/img/icon/icon1.png', connected: true },
-  { id: 'google-pay', label: 'Google Pay', icon: '/assets/img/icon/icon2.png', connected: true },
-  { id: 'paypal', label: 'PayPal', icon: '/assets/img/icon/icon3.png', connected: false },
+  { id: 'apple-pay', label: 'Apple Pay', Icon: Smartphone, connected: true },
+  { id: 'google-pay', label: 'Google Pay', Icon: Wallet, connected: true },
+  { id: 'paypal', label: 'PayPal', Icon: Globe, connected: false },
 ]
 
 export default function PaymentAccount() {
@@ -65,7 +63,7 @@ export default function PaymentAccount() {
               {methods.map((method) => (
                 <div className="wallet-item" key={method.id}>
                   <div className="wallet-item-icon">
-                    <img alt={method.label} width={24} height={24} src={method.icon} style={{ color: "transparent" }} />
+                    <method.Icon size={24} strokeWidth={1.75} />
                   </div>
                   <div className="wallet-item-left">
                     <span className="wallet-item-title">

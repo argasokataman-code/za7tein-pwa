@@ -40,6 +40,7 @@ import { MotionIconsSection } from './documentation/sections/MotionIconsSection'
 import { AuthSection } from './documentation/sections/AuthSection'
 import { AppPolishSection } from './documentation/sections/AppPolishSection'
 import { ChangelogSection } from './documentation/sections/ChangelogSection'
+import { AssetsLicensingSection } from './documentation/sections/AssetsLicensingSection'
 
 // Grafik tren harian (`TrendBars`: merchant + kurir) didokumentasikan di
 // MerchantDesignSection dan CourierDesignSection; halaman ini hanya merangkai
@@ -94,6 +95,7 @@ const SECTIONS = [
   AuthSection,
   ChangelogSection,
   AppPolishSection,
+  AssetsLicensingSection,
 ]
 
 // `SECTIONS` dan `DOC_NAV` (src/pages/documentation/nav.ts) dipakai berpasangan:
