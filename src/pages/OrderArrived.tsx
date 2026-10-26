@@ -27,7 +27,9 @@ export default function OrderArrived() {
           message="Selamat makan. Terima kasih sudah pesan lewat Sa7tein."
           header={
             <header className="order-arrived-header">
-              <BackButton className="btn-back" />
+              {/* Pesanan selesai = akhir alur. Kembali ke beranda, bukan ke
+                  layar bayar/pelacakan yang sudah tidak relevan. */}
+              <BackButton className="btn-back" to="/home" />
             </header>
           }
         >

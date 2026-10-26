@@ -14,6 +14,8 @@ Diagram lifecycle tunggal untuk `order.status` (8 state sesuai skema) — selama
 
 **Jalur pembatalan (semua bawa `cancelBy` customer|merchant|system + `cancelReason`):** `quotation → canceled` (jendela cancel), `prepare → canceled` (merchant tolak — feeds F2 release/reverse hold), `waitingCourier → canceled`, `waitingDelivery → canceled`. **Tidak ada `delivery → canceled`** di skema — batal di jalan = incident, edge catatan ke `f8-dispute`, bukan state baru.
 
+Di FE, aksi batal customer kini mengirim keduanya: `PATCH orders` membawa `status=canceled`, `cancel_by`, dan `cancel_reason` (pilihan opsional di panel konfirmasi baris pesanan: "Salah pesan", "Toko terlalu lama", "Berubah pikiran"). Alasan boleh kosong, tetapi kolomnya selalu ikut terkirim saat customer membatalkan.
+
 **Sinkronisasi `paymentStatus` (bukan `order.status`):** `unpaid` (cart/quotation) → `pending` → `paid` (prepare+); `failed` → boleh retry kembali ke `quotation`; `refunded` (post-done dispute, F22) = catatan saja, jangan dijadikan state.
 
 Root = `cart`; terminal = `done`, `canceled`.
@@ -40,6 +42,7 @@ Sub-state operasional merchant (`diterima`, `tiba` di `MerchantOrderStatus`) dan
 - `payment_confirmed` adalah gerbang SLA: `placedAt` terisi di `prepare`, angka SLA mengikuti DEC-1037 (sementara).
 - `delivery` hanya bisa berakhir `done` (OTP 4-digit, `f5-delivery-verification`) — tidak ada cabang cancel; batal di jalan = incident ke `f8-dispute`.
 - `paymentStatus` (unpaid/pending/paid/failed/refunded) disinkronkan dengan `order.status`, bukan menjadi state-nya; `refunded` jangan dimasukkan ke diagram.
+- **Bukti transfer (legacy)**: `transfer` → `verify`. Merchant melihat bukti di detail order sebelum `payment_confirmed`; bila bukti tidak tersedia, label tombol berbunyi "Terima tanpa bukti" (bukan klaim bahwa bukti sudah diperiksa). R-CUS-PAY meminta `transfer` dibuang/dibatasi → **UNRESOLVED**, lihat `docs/product/prd/versions/sa7tein-mvp-2026-10-11/decision-legacy-transfer-proof.md`. Tidak ada state baru ditambahkan.
 
 ## Terhubung (lihat ../INDEX.json)
 
@@ -66,3 +69,5 @@ Wajib: validate **9/9, 0 error, 0 warning**; deliver exit 0; visual-check pass 4
 Terakhir diperbarui: 2026-09-22 — label `R-STATE-01 synthetic` diganti dasar **`C-17`** (enum 9 status + `hold_status` + state dispute) + `DEC-1037` (SLA sementara). Validate 9/9 pass, deliver exit 0 (spec `65d63d3a`, artifact `85b41cb7`), visual-check pass (1440x900, 2048x1320 light + dark, overflow 0).
 
 Diperbarui 2026-10-09: ditambah bagian **Peta tahap UI (Journey Line, EDISI 01)** — 5 tahap tampilan dipetakan ke 8 state backend, tanpa mengubah state machine (keputusan PO 2026-10-09).
+
+Diperbarui 2026-10-25: catatan **bukti transfer legacy** di bagian Aturan keras (permukaan UI merchant + UNRESOLVED R-CUS-PAY). State machine tidak berubah.

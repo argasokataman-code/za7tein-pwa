@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { BottomSheet } from '../ui/BottomSheet'
+import { BottomSheet } from './BottomSheet'
 
 interface EvidencePhotosProps {
   /** URL foto (aset mock di `public/assets/`). Kosong = tampilkan `emptyLabel`. */
@@ -12,9 +12,10 @@ interface EvidencePhotosProps {
 }
 
 /**
- * Bukti foto untuk konsol CS: petak thumbnail yang bisa dibuka menjadi pratinjau
- * penuh. Sebelumnya konsol hanya menampilkan jumlah foto sebagai angka, jadi CS
- * memutuskan sengketa tanpa pernah melihat buktinya (audit 017 F-02).
+ * Bukti foto (sengketa CS, bukti transfer merchant): petak thumbnail yang bisa
+ * dibuka menjadi pratinjau penuh. Sebelumnya konsol hanya menampilkan jumlah
+ * foto sebagai angka, jadi CS memutuskan sengketa tanpa pernah melihat
+ * buktinya (audit 017 F-02).
  *
  * Viewer memakai `BottomSheet` yang sudah ada (satu-satunya modal repo) supaya
  * tak lahir dialog kedua; di desktop modal itu ditengahkan oleh aturan

@@ -14,6 +14,7 @@ import type {
 } from '../types'
 
 import { jodToIdr } from './currency'
+import { mockOperatingHours } from './operatingHours'
 
 /** Batas keras PRD: alamat >2 km Haversine dari dapur tidak dilayani (`C-13`). */
 export const MAX_DELIVERY_METERS = 2000
@@ -131,7 +132,7 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
   {
     id: 'cod',
     label: 'COD — Bayar di Tempat',
-    description: 'Saldo dipotong (hold) saat kurir match, settle setelah OTP.',
+    description: 'Bayar tunai saat pesanan diterima. Siapkan uang pas atau lihat kembaliannya di ringkasan.',
   },
   {
     id: 'dana_va',
@@ -176,6 +177,7 @@ export const mockMerchant: Merchant = {
   isActive: true,
   openTime: '07:00',
   closeTime: '22:00',
+  operatingHours: mockOperatingHours,
   // Foto contoh: memakai ulang aset menu yang sudah ada (tanpa aset baru).
   logo: '/assets/img/menu/sate-ayam.webp',
   bank: { name: 'BCA', account: '8830 1122 3344', holder: 'Ali Santoso' },

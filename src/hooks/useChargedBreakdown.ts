@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
-import { deliveryFeeFor } from '../data/merchant'
 import { chargedBreakdown, payMethodKind, type ChargedBreakdown } from '../data/marketplace'
 import { mockUser } from '../data/user'
 import { selectSubtotal } from '../store/slices/cartSlice'
 import { useAppSelector } from './useAppStore'
+import { useDeliveryQuote } from './useDeliveryQuote'
 import { useLiveRate } from './useLiveRate'
 import { useProgramDiscount } from './useProgramDiscount'
 
@@ -27,11 +27,13 @@ export function useChargedBreakdown(): ChargedBreakdown {
   // Berlangganan kurs: `Pc` dikonversi dari JOD, jadi total ikut berubah saat
   // sync harian memperbarui kurs.
   const { rate } = useLiveRate()
+  const quoteFor = useDeliveryQuote()
 
   return useMemo(() => {
     const addresses = Array.isArray(stored) ? stored : mockUser.addresses
     const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
-    const baseDeliveryFeeIdr = address ? deliveryFeeFor(address) : 0
+    // Fee dari coverage merchant (§9.1); alamat di luar coverage tidak diantar.
+    const baseDeliveryFeeIdr = address ? quoteFor(address).feeIdr : 0
     return chargedBreakdown({
       subtotalIdr: selectSubtotal(items),
       deliveryFeeIdr:
@@ -49,5 +51,6 @@ export function useChargedBreakdown(): ChargedBreakdown {
     program.discountIdr,
     deliveryType,
     quickMultiplier,
+    quoteFor,
   ])
 }

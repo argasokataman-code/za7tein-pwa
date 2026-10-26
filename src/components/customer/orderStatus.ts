@@ -25,6 +25,13 @@ export function statusTone(status: string): StatusTone {
 export const CANCEL_WINDOW_MS = 60_000
 
 /**
+ * Alasan batal yang bisa dipilih customer. Opsional, tapi `f18-order-state`
+ * mewajibkan transisi cancel membawa `cancelReason` — tanpa ini merchant/ops
+ * tak punya bahan untuk sengketa maupun perbaikan layanan.
+ */
+export const CANCEL_REASONS = ['Salah pesan', 'Toko terlalu lama', 'Berubah pikiran'] as const
+
+/**
  * Sisa jendela batal dalam milidetik (0 = sudah lewat / memang tak bisa batal).
  * Waktu dibaca dari `createdAtMs`, bukan teks `placedAt` yang dibulatkan ke
  * menit — itu selalu tampak "1 menit lalu" bahkan saat baru 3 detik.

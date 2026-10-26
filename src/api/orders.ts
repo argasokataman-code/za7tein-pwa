@@ -52,6 +52,8 @@ interface OrderRow {
   total_jod: number
   payment_method: string
   payment_status?: string
+  /** Kolom masa depan untuk bukti transfer legacy (belum ada di BE). */
+  payment_proof_url?: string | null
   zone_code: string | null
   created_at: string
   placed_at: string | null
@@ -217,11 +219,18 @@ const OUT_STATUS: Record<MerchantOrderStatus, string> = {
   batal: 'canceled',
 }
 
-/** Tulis status order ke `orders.status` (best-effort; id seed dilewati). */
+/**
+ * Tulis status order ke `orders.status` (best-effort; id seed dilewati).
+ *
+ * `extra` menampung kolom yang menyertai sebuah transisi. Untuk pembatalan
+ * customer, `f18-order-state` mewajibkan `cancel_by` + `cancel_reason` ikut
+ * terkirim, jadi alasan yang dipilih customer tidak berhenti di layar.
+ */
 export async function updateOrderStatus(
   orderId: string,
   status: MerchantOrderStatus,
   by: 'merchant' | 'courier' | 'customer' = 'merchant',
+  extra?: { cancelReason?: string },
 ): Promise<void> {
   const oid = numericOrderId(orderId)
   if (!Number.isFinite(oid)) return
@@ -231,7 +240,12 @@ export async function updateOrderStatus(
       : by === 'customer'
         ? await ensureCustomerToken()
         : await ensureMerchantToken()
-  await patch(token, 'orders', `?id=eq.${oid}`, { status: OUT_STATUS[status] ?? 'cart' })
+  await patch(token, 'orders', `?id=eq.${oid}`, {
+    status: OUT_STATUS[status] ?? 'cart',
+    ...(status === 'batal' || status === 'ditolak'
+      ? { cancel_by: by, ...(extra?.cancelReason ? { cancel_reason: extra.cancelReason } : {}) }
+      : {}),
+  })
 }
 
 /**
@@ -400,6 +414,9 @@ function toMerchantOrder(
     placedAtMs: new Date(row.placed_at ?? row.created_at).getTime(),
     paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
     paymentStatus: (row.payment_status ?? 'unpaid') as OrderPaymentStatus,
+    // BE belum punya kolom bukti transfer; kalau nanti ada, UI merchant sudah
+    // membaca field ini tanpa perubahan lain.
+    paymentProof: row.payment_proof_url ?? undefined,
     // Kolom nyata D1: `delivery_type` menentukan cabang alur terima (Regular →
     // batch, Quick → partner). Overlay per-kode hanya cadangan kalau BE kosong.
     deliveryType: row.delivery_type === 'quick' ? 'quick' : row.delivery_type === 'regular' ? 'regular' : deliveryTypeFor(row.code),

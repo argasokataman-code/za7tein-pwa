@@ -6,6 +6,12 @@ import { OrderCelebration } from '../ui/OrderCelebration'
 interface OrderRefundCelebrationProps {
   /** Kode order yang dibatalkan, ditampilkan di pesan. */
   code: string
+  /**
+   * Ada dana yang benar-benar ditahan untuk order ini. Draft/quotation belum
+   * memotong saldo, jadi kalimat "dana dikembalikan" hanya boleh muncul saat
+   * `refunded` — bukan untuk setiap pembatalan.
+   */
+  refunded: boolean
   onClose: () => void
 }
 
@@ -13,15 +19,15 @@ interface OrderRefundCelebrationProps {
 const AUTO_CLOSE_MS = 3200
 
 /**
- * Splash "dana dikembalikan" setelah customer membatalkan order di dalam jendela
- * 1 menit. Blok `.order-arrived-*` yang sama dengan `/order-arrived` dan splash
- * pembayaran, jadi tak ada CSS/animasi baru — cuma judul dan pesannya beda.
+ * Splash setelah customer membatalkan order di dalam jendela 1 menit. Blok
+ * `.order-arrived-*` yang sama dengan `/order-arrived` dan splash pembayaran,
+ * jadi tak ada CSS/animasi baru — cuma judul dan pesannya beda.
  *
  * Di-portal ke body supaya `position: fixed` tak terjebak containing block
  * transisi halaman atau panel sheet yang menggulir. Tutup otomatis, dan tombol
  * "Tutup" tetap ada supaya bisa dipercepat (juga jalur keyboard).
  */
-export function OrderRefundCelebration({ code, onClose }: OrderRefundCelebrationProps) {
+export function OrderRefundCelebration({ code, refunded, onClose }: OrderRefundCelebrationProps) {
   useEffect(() => {
     const id = window.setTimeout(onClose, AUTO_CLOSE_MS)
     return () => window.clearTimeout(id)
@@ -32,11 +38,15 @@ export function OrderRefundCelebration({ code, onClose }: OrderRefundCelebration
       className="order-celebration-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label="Pesanan dibatalkan, dana dikembalikan"
+      aria-label={refunded ? 'Pesanan dibatalkan, dana dikembalikan' : 'Pesanan dibatalkan'}
     >
       <OrderCelebration
-        title="Dana anda dikembalikan"
-        message={`Pesanan ${code} dibatalkan. Dana yang ditahan platform dilepas kembali ke saldo kamu.`}
+        title={refunded ? 'Dana kamu dikembalikan' : 'Pesanan dibatalkan'}
+        message={
+          refunded
+            ? `Pesanan ${code} dibatalkan. Dana yang ditahan platform dilepas kembali ke saldo kamu.`
+            : `Pesanan ${code} dibatalkan. Belum ada dana yang dipotong, jadi tidak ada pengembalian.`
+        }
       >
         <button type="button" className="order-arrived-rate-btn" onClick={onClose}>
           Tutup

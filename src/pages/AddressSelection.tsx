@@ -17,16 +17,10 @@ import {
   updateCustomerAddress,
 } from '../api/profile'
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
-import {
-  DEFAULT_NEW_ADDRESS_PIN,
-  deliveryFeeFor,
-  formatDistance,
-  isDeliverable,
-  zoneFor,
-  zoneLabel,
-} from '../data/merchant'
+import { DEFAULT_NEW_ADDRESS_PIN, formatDistance } from '../data/merchant'
 import { resolveCoverage } from '../data/zones'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useMoney } from '../hooks/useMoney'
 import { mockUser } from '../data/user'
 import {
@@ -57,6 +51,7 @@ export default function AddressSelection() {
   })
   const stored = useAppSelector((s) => s.cart.addresses)
   const zones = useAppSelector((s) => s.superAdmin.zones)
+  const quoteFor = useDeliveryQuote()
   const addresses = Array.isArray(stored) ? stored : mockUser.addresses
 
   const {
@@ -77,15 +72,17 @@ export default function AddressSelection() {
     if (!selected) return
     dispatch(setCustomerLocation({ label: selected.name, lat: selected.lat, lng: selected.lng }))
   }, [selected, dispatch])
-  const deliverable = selected ? isDeliverable(selected) : false
+  const deliverable = selected ? quoteFor(selected).covered : false
   const menuAddress = addresses.find((a) => a.id === menuId) ?? null
 
   // Zona & jarak dihitung dari poligon master SA, bukan angka tetap: di produksi
   // ini hasil server (F20), di repo ini `resolveCoverage` jadi stand-in-nya. Jadi
   // kalau SA menggeser poligon, titik pin di form ikut berubah statusnya.
   const coverage = resolveCoverage({ lat: pin.lat, lng: pin.lng }, zones)
-  const pinPoint = { zone: coverage.zone, distanceMeters: coverage.distanceMeters }
-  const pinDeliverable = isDeliverable(pinPoint)
+  // Gate & ongkir dari coverage merchant (§9.1); `resolveCoverage` hanya
+  // menyimpan snapshot jarak/zona legacy untuk metadata alamat.
+  const pinQuote = quoteFor(pin)
+  const pinDeliverable = pinQuote.covered
 
   const openAdd = () => {
     setEditingId(null)
@@ -172,7 +169,7 @@ export default function AddressSelection() {
       else dispatch(setAddress(id))
       createCustomerAddress(addressInput(next)).catch(() => {})
       toast.success(
-        result.zone ? 'Alamat ditambahkan' : 'Alamat ditambahkan, tapi di luar area antar',
+        pinQuote.covered ? 'Alamat ditambahkan' : 'Alamat ditambahkan, tapi di luar jangkauan toko',
       )
     }
     closeForm()
@@ -209,9 +206,9 @@ export default function AddressSelection() {
               ) : null}
               <div className="address-list" role="radiogroup" aria-label="Pilih alamat pengantaran">
                 {addresses.map((a) => {
-                  const zone = zoneFor(a)
-                  const blocked = zone === null
-                  const fee = deliveryFeeFor(a)
+                  const quote = quoteFor(a)
+                  const blocked = !quote.covered
+                  const fee = quote.feeIdr
                   const isSelected = a.id === selected?.id
                   return (
                     <div className="address-row" key={a.id}>
@@ -252,8 +249,8 @@ export default function AddressSelection() {
                               + teks ongkir menumpuk jadi dua pil. */}
                           <span className="address-meta">
                             {blocked
-                              ? 'Di luar area antar'
-                              : `Zona ${zone!.label} · ${a.distanceMeters > 0 ? formatDistance(a.distanceMeters) : 'jarak belum dihitung'} · ongkir ${money(fee)}`}
+                              ? 'Di luar jangkauan toko'
+                              : `${a.distanceMeters > 0 ? formatDistance(a.distanceMeters) : 'jarak belum dihitung'} · ongkir ${money(fee)}`}
                           </span>
                         </div>
                       </label>
@@ -286,8 +283,8 @@ export default function AddressSelection() {
                   />
                   <p className="addr-form-coverage" data-deliverable={pinDeliverable}>
                     {pinDeliverable
-                      ? `Zona ${zoneLabel(coverage.zone!)} · ${formatDistance(coverage.distanceMeters)} dari toko · ongkir ${money(deliveryFeeFor(pinPoint))}`
-                      : 'Di luar area antar. Geser pin lebih dekat ke toko'}
+                      ? `Dalam jangkauan · ${formatDistance(coverage.distanceMeters)} dari toko · ongkir ${money(pinQuote.feeIdr)}`
+                      : 'Di luar jangkauan toko. Geser pin lebih dekat ke toko'}
                   </p>
                   <div className="form-group-profile">
                     <label htmlFor="building" className="form-label">Nama Gedung / Tower</label>

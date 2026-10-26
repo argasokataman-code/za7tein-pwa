@@ -347,3 +347,13 @@
 .hold-ledger__row span:first-child {
   min-width: 0;
 }
+
+/* Kegagalan refund: warna peran danger, bukan catatan netral. Permintaan uang
+   yang gagal harus terbaca sebagai kegagalan, bukan info. */
+.refund-error {
+  margin: 0;
+
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--danger-ink);
+}

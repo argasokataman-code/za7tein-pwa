@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
+import { BottomSheet } from '../components/ui/BottomSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useLeafletMap } from '../hooks/useLeafletMap'
@@ -17,13 +18,20 @@ import { useMoney } from '../hooks/useMoney'
 import { APP_VERSION } from '../data/appInfo'
 import { MAX_MERCHANT_TAGS, MERCHANT_TAG_OPTIONS, mockMerchant } from '../data/merchant'
 import {
+  WEEKDAY_LABELS,
+  WEEKDAY_ORDER,
+  hoursForDay,
+  invalidHoursRows,
+} from '../data/operatingHours'
+import type { OperatingHoursDay } from '../types'
+import {
   DISPUTE_RULES,
   INCIDENT_CATEGORIES,
   compensationForRule,
   punishmentForRule,
   rulesForMerchant,
 } from '../data/rules'
-import { merchantToken } from '../api/reference'
+import { merchantToken, setStoreHours } from '../api/reference'
 import { imageFileError, uploadImage } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import { logout } from '../store/slices/authSlice'
@@ -31,6 +39,7 @@ import {
   removeMerchantLogo,
   setMerchantLogo,
   setMerchantTags,
+  setOperatingHours,
   setStoreProfile,
 } from '../store/slices/merchantSlice'
 import { toggleRule } from '../store/slices/rulesSlice'
@@ -50,13 +59,14 @@ export default function MerchantSettings() {
   const [signOutOpen, setSignOutOpen] = useState(false)
   const [removePhotoOpen, setRemovePhotoOpen] = useState(false)
   const [logoFailed, setLogoFailed] = useState(false)
+  const [hoursOpen, setHoursOpen] = useState(false)
 
   const logo = useAppSelector((state) => state.merchant.logo)
   const storeName = useAppSelector((state) => state.merchant.storeName)
   const storePhone = useAppSelector((state) => state.merchant.storePhone)
   const storeAddress = useAppSelector((state) => state.merchant.storeAddress)
-  const openTime = useAppSelector((state) => state.merchant.openTime)
-  const closeTime = useAppSelector((state) => state.merchant.closeTime)
+  const operatingHours = useAppSelector((state) => state.merchant.operatingHours)
+  const [hoursDraft, setHoursDraft] = useState<OperatingHoursDay[]>(operatingHours)
   const tags = useAppSelector((state) => state.merchant.tags)
   const walletBalance = useAppSelector((state) => state.payout.balance)
   const coverage = useAppSelector((state) => state.coverage)
@@ -146,6 +156,12 @@ export default function MerchantSettings() {
     reset({ name: storeName, phone: storePhone, address: storeAddress })
   }, [reset, storeName, storePhone, storeAddress])
 
+  // Jadwal dari API bisa mendarat setelah panel dibuka. Selama panel tertutup,
+  // draf ikut nilai terbaru supaya simpan tidak menulis jam lama.
+  useEffect(() => {
+    if (!hoursOpen) setHoursDraft(operatingHours)
+  }, [operatingHours, hoursOpen])
+
   // Simpan mengubah state (bukan cuma toast "berhasil"), TAPI state itu hidup di
   // memori sesi: `api/` belum punya penulisan profil toko, dan slice `merchant`
   // tidak masuk whitelist persist. Karena itu toast-nya menyebut apa adanya —
@@ -182,6 +198,33 @@ export default function MerchantSettings() {
     toast.success('Kamu sudah keluar dari akun toko')
     navigate('/signin')
   }
+
+  // Jam operasional: suntingan ditahan di draf sampai "Simpan", supaya satu
+  // baris yang salah tidak langsung mengubah tampilan toko.
+  const openHours = () => {
+    setHoursDraft(operatingHours)
+    setHoursOpen(true)
+  }
+
+  const patchHours = (day: number, patch: Partial<OperatingHoursDay>) => {
+    setHoursDraft((rows) => rows.map((row) => (row.day === day ? { ...row, ...patch } : row)))
+  }
+
+  const saveHours = () => {
+    const invalid = invalidHoursRows(hoursDraft)
+    if (invalid.length > 0) {
+      toast.error(`${WEEKDAY_LABELS[invalid[0].day]}: jam tutup harus setelah jam buka`)
+      return
+    }
+    dispatch(setOperatingHours(hoursDraft))
+    // Sisi pelanggan hanya membaca satu pasang kolom: kirim jam hari ini.
+    const today = hoursForDay(hoursDraft)
+    if (!today.closed) void setStoreHours(today.open, today.close).catch(() => {})
+    toast.success('Jam operasional disimpan')
+    setHoursOpen(false)
+  }
+
+  const todayHours = hoursForDay(operatingHours)
 
   return (
     <div className="app-shell">
@@ -418,10 +461,19 @@ export default function MerchantSettings() {
             <div>
               <p className="merchant-card-title">Jam operasional</p>
               <p className="merchant-card-sub">
-                {openTime} – {closeTime}
+                {todayHours.closed
+                  ? 'Tutup hari ini'
+                  : `Hari ini ${todayHours.open} – ${todayHours.close}`}
               </p>
             </div>
           </div>
+          <button
+            type="button"
+            className="merchant-btn-ghost merchant-wallet-manage"
+            onClick={openHours}
+          >
+            Atur jam
+          </button>
         </section>
 
         <section className="merchant-card">
@@ -494,6 +546,62 @@ export default function MerchantSettings() {
         >
           Keluar
         </button>
+
+        <BottomSheet open={hoursOpen} title="Jam operasional" onClose={() => setHoursOpen(false)}>
+          <div className="merchant-hours">
+            {WEEKDAY_ORDER.map((day) => {
+              const row = hoursDraft.find((r) => r.day === day) ?? hoursForDay(hoursDraft, day)
+              return (
+                <div className="merchant-hours-row" key={day}>
+                  <span className="merchant-hours-day">{WEEKDAY_LABELS[day]}</span>
+                  {row.closed ? (
+                    <span className="merchant-hours-off">Tutup</span>
+                  ) : (
+                    <>
+                      <input
+                        className="merchant-hours-input"
+                        type="time"
+                        value={row.open}
+                        aria-label={`Jam buka ${WEEKDAY_LABELS[day]}`}
+                        onChange={(event) => patchHours(day, { open: event.target.value })}
+                      />
+                      <input
+                        className="merchant-hours-input"
+                        type="time"
+                        value={row.close}
+                        aria-label={`Jam tutup ${WEEKDAY_LABELS[day]}`}
+                        onChange={(event) => patchHours(day, { close: event.target.value })}
+                      />
+                    </>
+                  )}
+                  <button
+                    type="button"
+                    className={row.closed ? 'merchant-hours-off-btn is-on' : 'merchant-hours-off-btn'}
+                    aria-pressed={row.closed}
+                    onClick={() => patchHours(day, { closed: !row.closed })}
+                  >
+                    Libur
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+          <p className="merchant-hours-note">
+            Jadwal per hari hanya di sesi ini. Server menyimpan jam hari ini untuk pelanggan.
+          </p>
+          <div className="merchant-actions">
+            <button type="button" className="btn btn-primary" onClick={saveHours}>
+              Simpan
+            </button>
+            <button
+              type="button"
+              className="merchant-btn-ghost"
+              onClick={() => setHoursOpen(false)}
+            >
+              Batal
+            </button>
+          </div>
+        </BottomSheet>
 
         <ConfirmSheet
           open={signOutOpen}

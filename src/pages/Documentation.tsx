@@ -31,6 +31,9 @@ import { TaxSection } from './documentation/sections/TaxSection'
 import { WalletSection } from './documentation/sections/WalletSection'
 import { BackendSection } from './documentation/sections/BackendSection'
 import { MerchantDesignSection } from './documentation/sections/MerchantDesignSection'
+import { MerchantFlowDetailSection } from './documentation/sections/MerchantFlowDetailSection'
+import { InvoiceSection } from './documentation/sections/InvoiceSection'
+import { CodLoyaltySection } from './documentation/sections/CodLoyaltySection'
 import { LayoutExceptionsSection } from './documentation/sections/LayoutExceptionsSection'
 import { LandingSection } from './documentation/sections/LandingSection'
 import { DesignTokensSection } from './documentation/sections/DesignTokensSection'
@@ -96,6 +99,9 @@ const SECTIONS = [
   ChangelogSection,
   AppPolishSection,
   AssetsLicensingSection,
+  MerchantFlowDetailSection,
+  InvoiceSection,
+  CodLoyaltySection,
 ]
 
 // `SECTIONS` dan `DOC_NAV` (src/pages/documentation/nav.ts) dipakai berpasangan:
@@ -516,7 +522,10 @@ export default function Documentation() {
                 peta); aturan murni di <code className="doc-inline">src/data/coverage.ts</code> ditahan{' '}
                 <code className="doc-inline">scripts/coverage-check.mjs</code>. Tulis ke server belum
                 ada (<code className="doc-inline">delivery_config</code> tanpa endpoint tulis), jadi
-                perubahan hidup di aplikasi dan ditandai lewat notice. Flow{' '}
+                perubahan hidup di aplikasi dan ditandai lewat notice. Sejak M4b, <strong>checkout,
+                pemilihan alamat, dan layar bayar memakai coverage ini</strong> untuk gate &amp;
+                ongkir (~<code className="doc-inline">useDeliveryQuote</code>), bukan zona legacy
+                Hijazi/Syimali — keduanya kini hanya metadata alamat. Flow{' '}
                 <code className="doc-inline">f28-coverage-editor</code>.
               </li>
               <li>
@@ -628,7 +637,9 @@ export default function Documentation() {
                 tagihan dibulatkan ke atas ratusan. Ditambah: masa berlaku kode pembayaran{' '}
                 <strong>30 menit</strong>, tombol <strong>Simpan QR</strong> (PNG dari matriks yang
                 tampil, warna dari token), dan gate <strong>kuota COD</strong> — COD nonaktif dengan
-                alasan saat kuota toko habis (§17). Baris BE berkey{' '}
+                alasan saat kuota toko habis (§17). Saat batas 30 menit habis, order otomatis
+                dibatalkan dan kuota yang ter-reserve dilepas (§7.5); tombolnya menjadi{' '}
+                <strong>Pesan ulang</strong>, bukan memperpanjang kode yang sudah mati. Baris BE berkey{' '}
                 <code className="doc-inline">qris</code> kini dipetakan ke QRIS (sebelumnya dibuang,
                 jadi QRIS hilang dari layar walau aktif di database).
               </li>
@@ -741,12 +752,14 @@ export default function Documentation() {
               </li>
               <li>
                 <strong>Kelas kartu bersama tidak boleh diberi gaya interaktif.</strong>{' '}
-                <code className="doc-inline">.merchant-card</code> dipakai konsol merchant <em>dan</em>{' '}
-                daftar toko customer. Gaya daftar toko (hover, active, zoom logo) karena itu menempel di{' '}
-                <code className="doc-inline">.merchant-store-card</code>. Dulu ia menempel di{' '}
-                <code className="doc-inline">.merchant-card</code>, sehingga kartu konsol ikut{' '}
+                <code className="doc-inline">.merchant-card</code> milik konsol merchant. Ubin daftar toko
+                customer (<code className="doc-inline">.merchant-store-card</code>) sengaja tidak lagi
+                memakai kelas itu: ia ubin sendiri (foto 16:9 di kepala, nama + rating/jarak di bawah),
+                jadi gaya konsol tidak bisa bocor ke beranda dan sebaliknya. Dulu gaya daftar toko
+                menempel di <code className="doc-inline">.merchant-card</code>, sehingga kartu konsol ikut{' '}
                 <code className="doc-inline">display:flex</code> baris dan <code className="doc-inline">:hover</code>{' '}
-                (kartu mobile yang berkedip saat disentuh mouse). Akarnya dibereskan 2026-10-15.
+                (kartu mobile yang berkedip saat disentuh mouse). Akarnya dibereskan 2026-10-15, dan
+                pemisahan kelasnya dituntaskan saat daftar toko dijadikan kisi dua kolom.
               </li>
               <li>
                 <strong>Kartu kuota bertema jenis.</strong> Di{' '}
@@ -1235,31 +1248,39 @@ export default function Documentation() {
                 aksinya sendiri: keranjang toko bisa dibuang (<code className="doc-inline">clearCart</code>{' '}
                 untuk yang aktif, <code className="doc-inline">removeCart</code> untuk toko lain) dan
                 order yang belum diterima toko bisa dibatalkan customer. Konfirmasinya{' '}
-                <strong>inline di baris itu</strong> — bukan sheet kedua bertumpuk — dengan tombol{' '}
-                <code className="doc-inline">Batal</code>/<code className="doc-inline">Buang</code>{' '}
-                setinggi 44px. Pembatalan menulis{' '}
-                <code className="doc-inline">orders.status = &#39;canceled&#39;</code>; trigger BE{' '}
-                <code className="doc-inline">orders_validate_transition</code> mengisi{' '}
-                <code className="doc-inline">cancel_by = customer</code>. Baris hilang seketika dan
-                gelembung realtime menariknya kembali bila BE menolak transisi.
+                <strong>inline di baris itu</strong> — bukan sheet kedua bertumpuk — dengan tombol
+                <code className="doc-inline">Simpan keranjang</code>/
+                <code className="doc-inline">Buang</code> setinggi 44px. Tombol aman sengaja tidak
+                berlabel &ldquo;Batal&rdquo;: kata itu berarti tindakan membatalkan, jadi labelnya
+                menunjuk aksi yang salah. Pembatalan menulis{' '}
+                <code className="doc-inline">orders.status = &#39;canceled&#39;</code> +{' '}
+                <code className="doc-inline">cancel_reason</code> (alasan opsional dari customer);
+                trigger BE <code className="doc-inline">orders_validate_transition</code> mengisi{' '}
+                <code className="doc-inline">cancel_by = customer</code>. Baris baru hilang{' '}
+                <strong>setelah</strong> BE menerima transisi — kegagalan tampil sebagai pesan di baris
+                dengan tombol kirim ulang, bukan splash sukses.
               </li>
               <li>
                 <strong>Batal hanya 1 menit sejak checkout</strong> (keputusan produk 2026-10-18).
-                Baris pesanan menampilkan sisa jendela (<code className="doc-inline">cancelWindowRemainingMs</code>,
-                teks <code className="doc-inline">Batal dalam mm:ss</code>, lebar dikunci{' '}
-                <code className="doc-inline">tabular-nums</code>) dan tombol X hilang begitu jendela
-                habis; sesudahnya jalurnya refund lewat CS, bukan tombol batal. Waktu dibaca dari{' '}
-                <code className="doc-inline">created_at</code> D1 dalam milidetik lewat{' '}
-                <code className="doc-inline">dbTimeMs</code> — string D1 tanpa offset dinormalkan ke
-                UTC dulu, sebab <code className="doc-inline">new Date()</code> mentah menebaknya
-                sebagai waktu lokal (selisih 7 jam di Jakarta) dan jendela 1 menit akan lahir sudah
-                lewat; self-check <code className="doc-inline">npm run check:db-time</code>. Sesudah
-                batal, splash <code className="doc-inline">OrderRefundCelebration</code> memakai blok{' '}
+                Baris pesanan menampilkan sisa jendela sebagai <strong>chip bertitik</strong>{' '}
+                (<code className="doc-inline">cancelWindowRemainingMs</code>, teks{' '}
+                <code className="doc-inline">Batal mm:ss</code>, lebar dikunci{' '}
+                <code className="doc-inline">tabular-nums</code>) — tenggat tidak lagi terkubur di
+                string meta. Waktu dibaca dari <code className="doc-inline">created_at</code> D1 dalam
+                milidetik lewat <code className="doc-inline">dbTimeMs</code> — string D1 tanpa offset
+                dinormalkan ke UTC dulu, sebab <code className="doc-inline">new Date()</code> mentah
+                menebaknya sebagai waktu lokal (selisih 7 jam di Jakarta) dan jendela 1 menit akan
+                lahir sudah lewat; self-check <code className="doc-inline">npm run check:db-time</code>.
+                Begitu jendela tutup, kolom aksi tidak kosong: tautan{' '}
+                <code className="doc-inline">/dispute?order=&amp;by=customer</code> membawa kode order
+                ke CS, jadi layar tidak menjadi jalan buntu. Sesudah batal, splash{' '}
+                <code className="doc-inline">OrderRefundCelebration</code> memakai blok{' '}
                 <code className="doc-inline">order-arrived-*</code> yang sama dengan perayaan
-                pembayaran (centang + konfeti, tanpa CSS/animasi baru) berjudul &ldquo;Dana anda
-                dikembalikan&rdquo;, tutup otomatis 3,2 detik atau lewat tombol Tutup. Jalur batal
-                dipusatkan di <code className="doc-inline">useCancelOrder</code> supaya sheet
-                keranjang dan Pesanan Saya tak pernah berbeda perilaku.
+                pembayaran, tetapi kalimatnya <strong>mengikuti keadaan hold</strong>: dana hanya
+                disebut kembali bila memang ada hold (COD/online), sedangkan draft dan quotation
+                berbunyi &ldquo;Pesanan dibatalkan&rdquo; tanpa klaim uang. Jalur batal dipusatkan di{' '}
+                <code className="doc-inline">useCancelOrder</code> supaya sheet keranjang dan Pesanan
+                Saya tak pernah berbeda perilaku.
               </li>
               <li>
                 <strong>Checkout tak lagi lahir sebagai draft.</strong> Default kolom{' '}
@@ -1291,7 +1312,15 @@ export default function Documentation() {
                 "Setelan toko disimpan" padahal state-nya tidak pernah dikirim ke server (dan tak ikut
                 persist). Refund (§16.6) sudah punya jalur tulis (
                 <code className="doc-inline">src/api/refunds.ts</code>), jadi ia tidak lagi berflag
-                &ldquo;belum tersedia&rdquo;.
+                &ldquo;belum tersedia&rdquo;. Tujuan refund kini mengikuti metode bayar: saldo/VA
+                DANA hanya ke DANA, QRIS dengan akun DANA ter-binding boleh pilih DANA atau bank,
+                QRIS tanpa binding wajib bank. Tautannya muncul di detail order yang dibatalkan
+                (bukan untuk COD) dan membawa kode order lewat{' '}
+                <code className="doc-inline">?order=</code>, jadi refund tidak jatuh ke order lain.
+                Kalau BE menolak permintaan refund, layar <strong>tidak</strong> lagi berpindah ke
+                &ldquo;Refund selesai&rdquo;: form tetap terbuka dengan pesan gagal dan tombol kirim
+                ulang (idempotency key mencegah baris ganda). Flag binding masih mock (
+                <code className="doc-inline">danaBound</code>).
               </li>
               <li>
                 Checkout kini <strong>tak lagi menelan kegagalan diam-diam</strong>: kalau{' '}

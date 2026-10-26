@@ -1,0 +1,121 @@
+// Uang tunai COD: kartu ringkasan tagihan/kembalian dan chip nominal.
+// Dipakai layar bayar customer, layar pesanan, dan detail tugas kurir.
+//
+// Angka memakai `tabular-nums` (MD-07); chip setinggi target sentuh dan
+// membungkus, bukan deretan horizontal yang meluber di 390px.
+
+.cod-cash {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.cod-cash-title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cod-cash-card {
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.cod-cash-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.cod-cash-chip {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.cod-cash-chip.is-active {
+  border-color: var(--sa7tein-orange);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+  font-weight: 600;
+}
+
+.cod-cash-chip:focus-visible,
+.cod-cash-cancel:focus-visible,
+.cod-cash-field input:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+.cod-cash-field {
+  display: grid;
+  gap: var(--space-1);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.cod-cash-field input {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-warm);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-base);
+  font-variant-numeric: tabular-nums;
+}
+
+.cod-cash-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.cod-cash-row--total {
+  border-top-color: var(--border-strong);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.cod-cash-amount {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.cod-cash-hint {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.cod-cash-cancel {
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-top: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--danger-ink, var(--text-primary));
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}

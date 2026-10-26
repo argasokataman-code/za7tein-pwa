@@ -18,14 +18,11 @@ import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import {
   GST_FOOD_PERCENT,
   PLATFORM_GST_PERCENT,
-  deliveryFeeFor,
   formatDistance,
   gstFoodIdr,
-  isDeliverable,
   mockMerchant,
   needsTopUpGate,
   platformGstIdr,
-  zoneFor,
 } from '../data/merchant'
 import { mockUser } from '../data/user'
 import { getStorefront, swapBrokenImage } from '../data/storefronts'
@@ -34,6 +31,7 @@ import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
+import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useProgramDiscount } from '../hooks/useProgramDiscount'
 import { useMoney } from '../hooks/useMoney'
 import { selectOtherCarts, selectSubtotal, removeCart, setDeliveryType, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
@@ -135,9 +133,10 @@ export default function Checkout() {
 
   const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
-  const zone = address ? zoneFor(address) : null
-  const deliverable = address ? isDeliverable(address) : false
-  const fee = address ? deliveryFeeFor(address) : 0
+  const quoteFor = useDeliveryQuote()
+  const quote = address ? quoteFor(address) : null
+  const deliverable = quote?.covered ?? false
+  const fee = quote?.feeIdr ?? 0
   const deliveryType = useAppSelector((s) => s.cart.deliveryType)
   const quickMultiplier = useAppSelector((s) => s.ops.config.quickMultiplier)
   const quickFee = Math.round(fee * quickMultiplier)
@@ -428,14 +427,12 @@ export default function Checkout() {
                           deliverable ? 'zone-badge' : 'zone-badge zone-badge--blocked'
                         }
                       >
-                        {deliverable
-                          ? `Zona ${zone!.label} · ${zone!.area}`
-                          : 'Di luar area antar'}
+                        {deliverable ? 'Dalam jangkauan toko' : 'Di luar jangkauan toko'}
                       </span>
                       <span className="zone-fee">
                         {deliverable
-                          ? `${formatDistance(address.distanceMeters)} dari toko`
-                          : `${formatDistance(address.distanceMeters)}, di luar area antar`}
+                          ? `${formatDistance(address.distanceMeters)} dari toko · ongkir ${money(fee)}`
+                          : `${formatDistance(address.distanceMeters)}, di luar jangkauan toko`}
                       </span>
                     </div>
                   </div>
@@ -519,9 +516,7 @@ export default function Checkout() {
                   </div>
                   <div className="summary-item">
                     <span>
-                      Ongkir {deliverable && zone ? `(Zona ${zone.label}` : ''}
-                      {deliverable && zone && deliveryType === 'quick' ? ' · Quick' : ''}
-                      {deliverable && zone ? ')' : ''}
+                      Ongkir {deliverable && deliveryType === 'quick' ? '(Quick)' : ''}
                     </span>
                     <span>{deliverable ? moneyPlain(charged.deliveryFeeIdr) : 'Tidak berlaku'}</span>
                   </div>

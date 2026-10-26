@@ -16,10 +16,14 @@
 }
 
 // ── Daftar toko (beranda) ────────────────────────────────────────────────
+// Kisi dua kolom berisi ubin berfoto: fotonya yang membawa identitas toko,
+// nama + fakta di bawahnya. Sengaja TANPA kartu putih berbingkai per sel —
+// kotak putih berulang dengan logo 64px membuat daftar terasa formulir, bukan
+// katalog makanan, dan itu tell slop paling kentara di sini (senior-fe PG-10).
 .merchants-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-3);
 }
 
 .merchants-empty {
@@ -28,13 +32,17 @@
   font-size: var(--text-sm);
 }
 
+// Ubin toko dua kolom: foto 16:9 menempel di kepala kartu (cukup besar untuk
+// mengenali makanan, tidak setinggi 4:3 sehingga daftar tak jadi galeri), lalu
+// nama + satu baris fakta di permukaan kartu. Tinggi kartu ~186px, jadi satu
+// baris kisi tetap menyajikan dua toko sekaligus.
 .merchant-store-card {
   @include card-surface;
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  flex-direction: column;
+  overflow: hidden;
   width: 100%;
-  padding: var(--space-3);
+  padding: 0;
   text-align: left;
   cursor: pointer;
   font-family: var(--font-sans);
@@ -42,8 +50,7 @@
   transition:
     border-color var(--motion-fast) var(--ease-out),
     box-shadow var(--motion-standard) var(--ease-out),
-    transform var(--motion-fast) var(--ease-out),
-    background var(--motion-fast) var(--ease-out);
+    transform var(--motion-fast) var(--ease-out);
 }
 
 .merchant-store-card:hover {
@@ -61,16 +68,15 @@
   outline-offset: 2px;
 }
 
-.merchant-card__logo {
-  flex: 0 0 auto;
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-lg);
+.merchant-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--bg-warm);
 }
 
-.merchant-card__logo img {
+.merchant-card__media img {
   display: block;
   width: 100%;
   height: 100%;
@@ -79,8 +85,8 @@
   transition: transform var(--motion-standard) var(--ease-out);
 }
 
-.merchant-store-card:hover .merchant-card__logo img {
-  transform: scale(1.05);
+.merchant-store-card:hover .merchant-card__media img {
+  transform: scale(1.04);
 }
 
 .merchant-card__body {
@@ -89,71 +95,93 @@
   flex-direction: column;
   gap: var(--space-1);
   min-width: 0;
+  padding: var(--space-3);
 }
 
-.merchant-card__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
+// Dua baris tetap: nama toko di kolom ~165px butuh dua baris, dan tinggi yang
+// dipatok min-height menjaga baris kisi tetap rata.
 .merchant-card__name {
+  display: -webkit-box;
   overflow: hidden;
-  color: var(--text-primary);
-  font-size: var(--text-base);
+  min-height: calc(2 * 1.3em);
+  font-size: var(--text-sm);
   font-weight: 700;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  line-height: 1.3;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-.merchant-card__status {
-  flex: 0 0 auto;
+.merchant-card__facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+// Waktu antar jadi chip di pojok foto (pola yang sudah dikenal di aplikasi
+// antar makanan). Kalau ia ditaruh di baris fakta, baris itu membalut di kolom
+// ~163px dan tinggi kartu melonjak ~30px.
+.merchant-card__eta {
+  position: absolute;
+  right: var(--space-2);
+  bottom: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   padding: 2px var(--space-2);
   border-radius: var(--radius-pill);
-  background: var(--border);
-  /* `--text-secondary` di atas `--border` hanya ~4,3:1; lencana "Tutup" adalah
-     satu-satunya penanda status toko, jadi dinaikkan ke varian kuat (#475569)
-     yang lolos AA. Lencana "Buka" menimpa warnanya sendiri. */
-  color: var(--text-secondary-strong);
+  background: var(--overlay-strong);
+  color: var(--on-brand);
   font-size: var(--text-xs);
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.merchant-card__status--open {
-  background: var(--green-soft);
-  color: var(--success-ink);
+// Lencana status hanya muncul kalau tokonya TIDAK bisa dipesan. Menempelkan
+// kata "Buka" di tiap ubin hanya menambah derau: ubin yang bisa diketuk memang
+// sudah berarti buka. Titik warnanya yang membawa arti (MD-07). Sudut kiri-bawah
+// dipakai status, kanan-bawah chip waktu antar, kiri-atas promo.
+.merchant-card__status {
+  position: absolute;
+  bottom: var(--space-2);
+  left: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--red-soft);
+  color: var(--danger-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-/* Toko tutup / di luar jangkauan (PRD §6): kartu tetap tampil, tak bisa dipilih. */
+.merchant-card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--danger);
+}
+
+/* Toko tutup / di luar jangkauan (PRD §6): ubin tetap tampil, tak bisa dipilih. */
 .merchant-store-card--disabled {
   cursor: not-allowed;
-  background: var(--bg-warm);
 }
 
-.merchant-store-card--disabled:hover {
-  border-color: var(--border);
-  box-shadow: none;
-}
-
-.merchant-store-card--disabled:hover .merchant-card__logo img {
-  transform: none;
-}
-
-.merchant-store-card--disabled:hover .merchant-card__chevron {
-  transform: none;
-  color: var(--text-disabled);
-}
-
-.merchant-store-card--disabled .merchant-card__logo {
+.merchant-store-card--disabled .merchant-card__media img {
   opacity: 0.6;
 }
 
-/* Toko TUTUP diredam sampai monochrome: seluruh kartu `grayscale`, jadi foto
-   toko, tombol, dan lencana promo kehilangan warnanya dan tak lagi terbaca
-   "bisa dipesan". Luminansinya tetap, jadi teks tetap kontras (AA); yang hilang
-   hanya warna. Kartunya jadi bisa dibedakan dari toko yang cuma di luar
-   jangkauan — yang tetap berwarna, sebab tokonya memang buka. */
+/* Toko TUTUP diredam sampai monochrome: seluruh ubin `grayscale`, jadi logo dan
+   lencana promo kehilangan warnanya dan tak lagi terbaca "bisa dipesan".
+   Luminansinya tetap, jadi teks tetap kontras (AA); yang hilang hanya warna.
+   Ubin jadi bisa dibedakan dari toko yang cuma di luar jangkauan — yang tetap
+   berwarna, sebab tokonya memang buka. */
 .merchant-store-card--closed {
   filter: grayscale(1);
 }
@@ -225,61 +253,22 @@
   font-weight: 700;
 }
 
-/* Baris kedua kartu v2: tagline • jarak, satu baris terpotong. */
-.merchant-card__sub {
-  overflow: hidden;
-
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-  font-weight: 500;
-
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-/* Baris promo toko — biru info, sejajar dengan contoh. */
+/* Promo jadi chip di pojok foto: tetap terbaca sebagai alasan memilih toko,
+   tanpa menambah baris yang membuat tinggi kartu tak seragam. */
 .merchant-card__promo {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  max-width: calc(100% - 2 * var(--space-2));
   overflow: hidden;
-
-  color: var(--info-ink);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
   font-size: var(--text-xs);
   font-weight: 700;
-
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.merchant-card__meta {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-1);
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-/* Panah kanan: lingkaran yang menguat + bergeser saat hover. */
-.merchant-card__chevron {
-  display: grid;
-  place-items: center;
-
-  flex: 0 0 auto;
-
-  width: 32px;
-  height: 32px;
-
-  border-radius: var(--radius-pill);
-
-  color: var(--text-disabled);
-
-  transition:
-    color var(--motion-fast) var(--ease-out),
-    transform var(--motion-fast) var(--ease-out);
-}
-
-.merchant-store-card:hover .merchant-card__chevron {
-  transform: translateX(2px);
-  color: var(--text-primary);
 }
 
 .merchant-card__rating {

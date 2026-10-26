@@ -43,4 +43,7 @@ export const DOC_NAV: DocNavItem[] = [
   { num: '36', id: 'changelog', label: 'Perbaikan Integrasi & CRUD' },
   { num: '37', id: 'app-polish', label: 'Perbaikan Bentuk App' },
   { num: '38', id: 'assets-licensing', label: 'Aset & Lisensi' },
+  { num: '39', id: 'merchant-flow-detail', label: 'Jam Operasional & Bukti Transfer' },
+  { num: '40', id: 'invoice', label: 'Invoice & Rincian Pendapatan' },
+  { num: '41', id: 'cod-loyalty', label: 'COD Tunai & Pelanggan Setia' },
 ]

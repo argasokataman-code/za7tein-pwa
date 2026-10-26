@@ -354,6 +354,22 @@ export async function setStoreStatus(open: boolean, merchantId = DEMO_MERCHANT_I
   })
 }
 
+/**
+ * Tulis jam buka/tutup. Server hanya punya satu pasang kolom, jadi pemanggil
+ * mengirim jam **hari berjalan**; jadwal 7 hari sendiri hidup di state sesi.
+ */
+export async function setStoreHours(
+  openTime: string,
+  closeTime: string,
+  merchantId = DEMO_MERCHANT_ID,
+): Promise<void> {
+  const token = await merchantToken()
+  await patch(token, 'merchants', `?id=eq.${merchantId}`, {
+    open_time: openTime,
+    close_time: closeTime,
+  })
+}
+
 /** Poligon zona master SA (`zones.polygon` = array [lat,lng]).
  *
  * D1 menyimpan kolomnya sebagai TEXT berisi JSON (`"[[32.52,35.82],…]"`), jadi

@@ -8,6 +8,7 @@ import {
   mockStoreProfile,
 } from '../../data/merchant'
 import { toE164 } from '../../data/phone'
+import { hoursForDay, mockOperatingHours } from '../../data/operatingHours'
 import {
   MERCHANT_CREDIT_FEE_JOD,
   MERCHANT_CREDIT_JOD,
@@ -24,6 +25,7 @@ import type {
   MerchantDeliveryConfig,
   MerchantOrder,
   MerchantOrderStatus,
+  OperatingHoursDay,
 } from '../../types'
 
 interface MerchantState {
@@ -87,6 +89,13 @@ interface MerchantState {
   /** Jam operasional toko (dari `merchants.open_time`/`close_time`). */
   openTime: string
   closeTime: string
+  /**
+   * Jadwal buka per hari (setelan merchant). Sumber di server baru satu pasang
+   * jam, jadi jadwal ini hidup di sesi; `hoursEdited` menandai merchant sudah
+   * mengubahnya supaya hidrasi profil tidak menimpanya kembali.
+   */
+  operatingHours: OperatingHoursDay[]
+  hoursEdited: boolean
 }
 
 // Status "sibuk" cuma tampilan (backend hanya punya `store_status` buka/tutup),
@@ -136,6 +145,8 @@ const initialState: MerchantState = {
   deliveryConfig: merchantDeliveryConfig,
   openTime: mockMerchant.openTime,
   closeTime: mockMerchant.closeTime,
+  operatingHours: mockMerchant.operatingHours ?? mockOperatingHours,
+  hoursEdited: false,
 }
 
 /** Entry insentif: urutan + waktu, cukup unik untuk mock satu sesi. */
@@ -222,9 +233,30 @@ const merchantSlice = createSlice({
       if (patch.logo !== undefined) state.logo = patch.logo
       if (patch.openTime !== undefined) state.openTime = patch.openTime
       if (patch.closeTime !== undefined) state.closeTime = patch.closeTime
+      // Server hanya menyimpan satu pasang jam: pakai untuk semua hari, kecuali
+      // merchant sudah menyunting jadwal per hari di sesi ini.
+      if (!state.hoursEdited && (patch.openTime !== undefined || patch.closeTime !== undefined)) {
+        state.operatingHours = state.operatingHours.map((row) => ({
+          ...row,
+          open: patch.openTime ?? row.open,
+          close: patch.closeTime ?? row.close,
+        }))
+      }
       if (patch.deliveryConfig) {
         state.deliveryConfig = { ...state.deliveryConfig, ...patch.deliveryConfig }
       }
+    },
+    /**
+     * Jadwal buka per hari dari Setelan. Pasangan jam hari berjalan ikut
+     * ditulis ke `openTime`/`closeTime` — dua kolom itulah yang dibaca sisi
+     * pelanggan dan beranda toko.
+     */
+    setOperatingHours(state, action: PayloadAction<OperatingHoursDay[]>) {
+      state.operatingHours = action.payload
+      state.hoursEdited = true
+      const today = hoursForDay(action.payload)
+      state.openTime = today.open
+      state.closeTime = today.close
     },
     setOrderStatus(
       state,
@@ -434,6 +466,7 @@ export const {
   setCouriers,
   hydrateCredit,
   hydrateProfile,
+  setOperatingHours,
   setOrderStatus,
   mergeOrders,
   setCookMinutes,

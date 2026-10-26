@@ -8,7 +8,7 @@
 // ponytail: kalau layar tidak diberi id order, sasaran = order online terbaru
 // customer demo; begitu tautan refund membawa `?order=`, ganti jalur itu.
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { CheckCircle2, Landmark, Loader2, RefreshCw, Wallet } from 'lucide-react'
 
 import { createRefund, fetchLatestRefundableOrder, fetchOrderRefund } from '../api/refunds'
@@ -17,6 +17,8 @@ import { BackButton } from '../components/ui/BackButton'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { REFUND_AVAILABLE, REFUND_BI_FAST_FEE_IDR } from '../data/marketplace'
 import { savedRefundStatus } from '../data/refund'
+import { mockUser } from '../data/user'
+import { useAppSelector } from '../hooks/useAppStore'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useMoney } from '../hooks/useMoney'
 import type { RefundMethod, RefundStatus } from '../types'
@@ -44,7 +46,7 @@ const REFUND_BRANCHES: {
 
 /** Urutan status refund yang ditampilkan di panel status. */
 const STATUS_STEPS: { id: RefundStatus; label: string; note: string }[] = [
-  { id: 'pending_refund', label: 'Pending refund', note: 'Menunggu permintaan dikirim' },
+  { id: 'pending_refund', label: 'Menunggu dikirim', note: 'Permintaan belum dikirim' },
   { id: 'processing', label: 'Diproses', note: 'Dana sedang dikembalikan' },
   { id: 'completed', label: 'Selesai', note: 'Dana sudah kembali' },
 ]
@@ -56,38 +58,69 @@ export default function CustomerRefund() {
   const charged = useChargedBreakdown()
 
   const [method, setMethod] = useState<RefundMethod>('dana')
+  const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
+  /** `?order=` = order yang dimaksud tautan. Tanpa itu, layar memakai order terbaru. */
+  const [params] = useSearchParams()
+  const orderCode = params.get('order')
+  /**
+   * Tujuan refund mengikuti metode bayar order (§16.6):
+   * - saldo/VA DANA → kembali ke saldo DANA;
+   * - QRIS + akun DANA ter-binding → customer memilih DANA atau bank;
+   * - QRIS tanpa binding → bank saja (pending refund).
+   * `danaBound` masih mock: BE belum mengirim status binding.
+   */
+  const allowedMethods: RefundMethod[] =
+    paymentId === 'dana_qris' ? (mockUser.danaBound ? ['dana', 'bank'] : ['bank']) : ['dana']
+  const activeMethod = allowedMethods.includes(method) ? method : allowedMethods[0]
   const [bankName, setBankName] = useState('')
   const [bankAccount, setBankAccount] = useState('')
   const [status, setStatus] = useState<RefundStatus>('pending_refund')
   const [error, setError] = useState<string | null>(null)
-  const [liveOrder, setLiveOrder] = useState<{ id: string; amountIdr: number } | null>(null)
+  const [liveOrder, setLiveOrder] = useState<{ id: string; code: string; amountIdr: number } | null>(
+    null,
+  )
+  /** `?order=` menyebut order yang tak ditemukan: jangan menebak order lain. */
+  const [orderMissing, setOrderMissing] = useState(false)
   const timer = useRef<number | null>(null)
 
   useEffect(() => () => {
     if (timer.current !== null) window.clearTimeout(timer.current)
   }, [])
 
-  // Sasaran refund live: order online terbaru + refund-nya kalau sudah ada.
+  // Sasaran refund: order yang disebut tautan (`?order=`), atau order online
+  // terbaru bila layar dibuka tanpa konteks.
   useEffect(() => {
     if (!apiEnabled) return
     let active = true
-    fetchLatestRefundableOrder()
+    setOrderMissing(false)
+    fetchLatestRefundableOrder(orderCode ?? undefined)
       .then(async (order) => {
-        if (!active || !order) return
-        setLiveOrder({ id: order.id, amountIdr: order.amountIdr })
+        if (!active) return
+        if (!order) {
+          if (orderCode) setOrderMissing(true)
+          return
+        }
+        setLiveOrder({ id: order.id, code: order.code, amountIdr: order.amountIdr })
         const existing = await fetchOrderRefund(order.id)
-        if (active && existing) setStatus(savedRefundStatus(existing.status))
+        if (active && existing) {
+          setStatus(savedRefundStatus(existing.status))
+          if (existing.status === 'failed') {
+            setError('Refund sebelumnya gagal. Kirim ulang permintaannya.')
+          }
+        }
       })
       .catch(() => {})
     return () => {
       active = false
     }
-  }, [])
+  }, [orderCode])
 
-  const needsBank = method === 'bank'
+  const needsBank = activeMethod === 'bank'
   const bankComplete = bankName.trim() !== '' && bankAccount.trim() !== ''
-  const submitted = status !== 'pending_refund'
-  const canSubmit = REFUND_AVAILABLE && !submitted && (!needsBank || bankComplete)
+  /** Permintaan sudah terkirim dan belum gagal, jadi form tidak boleh dikirim ulang. */
+  const submitted = status === 'processing' || status === 'completed'
+  const canSubmit =
+    REFUND_AVAILABLE && !submitted && !orderMissing && (!needsBank || bankComplete)
   // Nominal live dari order tersimpan bila ada; kalau tidak, tagihan di keranjang.
   const refundIdr = liveOrder?.amountIdr ?? charged.totalIdr
 
@@ -103,7 +136,7 @@ export default function CustomerRefund() {
         const saved = await createRefund({
           orderId: liveOrder.id,
           amountIdr: refundIdr,
-          method,
+          method: activeMethod,
           bankName,
           bankAccount,
         })
@@ -112,8 +145,10 @@ export default function CustomerRefund() {
         // balik: kalau begitu form terbuka lagi dan refund bisa di-submit dua kali.
         setStatus(saved ? savedRefundStatus(saved.status) : 'processing')
       } catch {
-        // BE menolak / jaringan putus — UI tetap menyelesaikan langkahnya (mock-first).
-        setStatus('completed')
+        // BE menolak / jaringan putus: jangan klaim selesai. Form dibuka lagi
+        // supaya customer bisa mengirim ulang (idempotency key menjaga ganda).
+        setStatus('pending_refund')
+        setError('Permintaan refund gagal dikirim. Periksa koneksi lalu coba lagi.')
       }
       return
     }
@@ -133,6 +168,13 @@ export default function CustomerRefund() {
               <h1 className="profile-flow-title">Refund pesanan</h1>
             </header>
             <main className="wallet-main">
+              {liveOrder ? <p className="summary-info-note">Pesanan {liveOrder.code}</p> : null}
+              {orderMissing ? (
+                <p className="refund-error" role="alert">
+                  Pesanan yang diminta tidak ditemukan. Buka refund dari pesanan yang benar di
+                  Riwayat.
+                </p>
+              ) : null}
               <PlatformNotice
                 message={
                   REFUND_AVAILABLE
@@ -167,8 +209,8 @@ export default function CustomerRefund() {
               <section className="order-summary-section" aria-label="Tujuan pengembalian">
                 <h2 className="section-title">Tujuan pengembalian</h2>
                 <div className="payment-list" role="radiogroup" aria-label="Tujuan pengembalian dana">
-                  {REFUND_BRANCHES.map((branch) => {
-                    const isSelected = method === branch.id
+                  {REFUND_BRANCHES.filter((branch) => allowedMethods.includes(branch.id)).map((branch) => {
+                    const isSelected = activeMethod === branch.id
                     return (
                       <button
                         key={branch.id}
@@ -264,7 +306,7 @@ export default function CustomerRefund() {
                         ) : null}{' '}
                         {step.label}
                       </span>
-                      <span>{reached ? step.note : 'Belum'}</span>
+                      <span>{reached ? step.note : ''}</span>
                     </div>
                   )
                 })}
@@ -275,7 +317,11 @@ export default function CustomerRefund() {
                 ) : null}
               </section>
 
-              {error ? <p className="summary-info-note">{error}</p> : null}
+              {error ? (
+                <p className="refund-error" role="alert">
+                  {error}
+                </p>
+              ) : null}
 
               <button
                 type="button"
@@ -287,7 +333,9 @@ export default function CustomerRefund() {
                   ? 'Refund selesai'
                   : status === 'processing'
                     ? 'Memproses refund…'
-                    : 'Kirim permintaan refund'}
+                    : error
+                      ? 'Coba kirim lagi'
+                      : 'Kirim permintaan refund'}
               </button>
 
               <p className="summary-info-note">

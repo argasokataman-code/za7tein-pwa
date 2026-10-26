@@ -1,34 +1,62 @@
 import { useCallback, useState } from 'react'
 
 import { updateOrderStatus, type CustomerActiveOrder } from '../api/orders'
+import { cancelOrder as releaseHold } from '../store/slices/cartSlice'
 import { dropActiveOrder } from '../store/slices/customerOrdersSlice'
-import { useAppDispatch } from './useAppStore'
+import { useAppDispatch, useAppSelector } from './useAppStore'
+
+/** Hasil satu pembatalan: dipakai splash, dan apakah ada dana yang benar-benar ditahan. */
+export interface CancelDone {
+  code: string
+  refunded: boolean
+}
 
 /**
- * Batalkan order customer + penanda refund untuk splash "dana dikembalikan".
+ * Batalkan order customer + penanda hasil untuk splash setelahnya.
  *
  * Dua tempat memakai jalur yang sama (sheet dok keranjang dan tab "Aktif" di
- * Pesanan Saya) dan dulu keduanya menyalin tiga baris yang identik. Dipusatkan
- * di sini supaya splash tak pernah muncul di satu layar saja kalau jalurnya
- * berubah lagi.
+ * Pesanan Saya), jadi penulisan status, pelepasan hold, dan splash tak boleh
+ * disalin ke dua layar.
  *
- * Baris dibuang optimistik: kalau BE menolak, gelembung realtime memunculkannya
- * lagi — kegagalan memulihkan dirinya sendiri, jadi tak perlu layar error.
+ * Baris baru dibuang **setelah** BE menerima status. Sebelumnya baris hilang
+ * lebih dulu dan kegagalan ditelan `catch`, sehingga customer melihat splash
+ * sukses untuk pembatalan yang tidak pernah tersimpan.
  */
 export function useCancelOrder() {
   const dispatch = useAppDispatch()
-  const [refundedCode, setRefundedCode] = useState<string | null>(null)
+  const holdStatus = useAppSelector((s) => s.cart.holdStatus)
+  const [done, setDone] = useState<CancelDone | null>(null)
+  /** Order yang pembatalannya sedang dikirim; tombolnya menunggu, bukan pura-pura selesai. */
+  const [pendingId, setPendingId] = useState<string | null>(null)
+  const [error, setError] = useState<{ id: string; message: string } | null>(null)
 
   const cancel = useCallback(
-    (order: CustomerActiveOrder) => {
-      dispatch(dropActiveOrder(order.id))
-      void updateOrderStatus(order.id, 'batal', 'customer').catch(() => {})
-      setRefundedCode(order.code)
+    async (order: CustomerActiveOrder, reason?: string) => {
+      setPendingId(order.id)
+      setError(null)
+      // Hold hanya lahir dari pembayaran yang benar-benar terjadi (COD/online).
+      // Draft dan quotation belum memotong apa pun, jadi splash tak boleh
+      // menjanjikan uang kembali untuk keduanya.
+      const refunded = holdStatus === 'held' || holdStatus === 'cut'
+      try {
+        await updateOrderStatus(order.id, 'batal', 'customer', { cancelReason: reason })
+        if (refunded) dispatch(releaseHold())
+        dispatch(dropActiveOrder(order.id))
+        setDone({ code: order.code, refunded })
+      } catch {
+        setError({
+          id: order.id,
+          message: 'Pembatalan gagal dikirim. Periksa koneksi lalu coba lagi.',
+        })
+      } finally {
+        setPendingId(null)
+      }
     },
-    [dispatch],
+    [dispatch, holdStatus],
   )
 
-  const dismissRefund = useCallback(() => setRefundedCode(null), [])
+  const dismissDone = useCallback(() => setDone(null), [])
+  const clearError = useCallback(() => setError(null), [])
 
-  return { cancel, refundedCode, dismissRefund }
+  return { cancel, done, dismissDone, pendingId, error, clearError }
 }

@@ -142,6 +142,28 @@ export function coverageFeeJod(
   return polygonForPoint(coverage, point)?.feeJod ?? 0
 }
 
+export interface DeliveryQuote {
+  /** Alamat di dalam coverage merchant (§9.1) — di luar berarti order ditolak. */
+  covered: boolean
+  /** Ongkir (JOD). Nol saat di luar coverage. */
+  feeJod: number
+}
+
+/**
+ * Satu jawaban untuk checkout: boleh antar atau tidak, dan berapa ongkirnya.
+ * Dua nilai ini **selalu** dari coverage yang sama supaya gate dan angka di
+ * layar tidak bisa berbeda tafsir (dulu `isDeliverable` dan `deliveryFeeFor`
+ * memakai zona legacy, bukan coverage merchant).
+ */
+export function deliveryQuote(
+  coverage: MerchantCoverage,
+  point: GeoPoint,
+  kitchen: GeoPoint,
+): DeliveryQuote {
+  if (!coverageContainsPoint(coverage, point, kitchen)) return { covered: false, feeJod: 0 }
+  return { covered: true, feeJod: coverageFeeJod(coverage, point, kitchen) }
+}
+
 /** Luas seluruh area (km²) — mode radius dihitung sebagai lingkaran. */
 export function coverageAreaKm2(coverage: MerchantCoverage): number {
   if (coverage.mode === 'radius') {

@@ -10,30 +10,28 @@ import { createOrder, nextOrderCode } from '../api/orders'
 import { insertNotification } from '../api/notifications'
 import { ExchangeRateNote } from '../components/ui/ExchangeRateNote'
 import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
-import {
-  formatDistance,
-  isDeliverable,
-  needsTopUpGate,
-  zoneFor,
-} from '../data/merchant'
+import { formatDistance, needsTopUpGate } from '../data/merchant'
 import { mockMerchant } from '../data/merchant'
+import { customerInvoiceRows } from '../data/invoice'
+import { codCashHint, codCashOptions } from '../data/codCash'
 import { rememberDeliveryType } from '../data/merchantOrders'
 import { mockUser } from '../data/user'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
+import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useMoney } from '../hooks/useMoney'
 import {
   selectSubtotal,
   setTransferProof,
   setPromo,
-  createOrderHold,
   setActiveOrder,
+  setLastReceipt,
+  setCodCash,
   setOrderStage,
   setQuotaKind,
 } from '../store/slices/cartSlice'
-import { quotaKindForOrder, reserveQuota } from '../store/slices/quotaSlice'
-import { applyHoldEvent } from '../store/slices/walletSlice'
+import { quotaKindForOrder, codQuotaStatus, reserveQuota } from '../store/slices/quotaSlice'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function PaymentAmount() {
@@ -54,8 +52,8 @@ export default function PaymentAmount() {
 
   const subtotal = selectSubtotal(items)
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
-  const zone = address ? zoneFor(address) : null
-  const deliverable = address ? isDeliverable(address) : false
+  const quoteFor = useDeliveryQuote()
+  const deliverable = address ? quoteFor(address).covered : false
   // Promo terpasang di Checkout memotong total di sini juga — sumber yang sama
   // (`cart.promo`), jadi ringkasan Checkout dan layar bayar tak bisa berbeda.
   const promo = useAppSelector((s) => s.cart.promo)
@@ -67,19 +65,26 @@ export default function PaymentAmount() {
   const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
   const quotaSubs = useAppSelector((s) => s.quota.subscriptions)
   const method = methods.find((m) => m.id === paymentId) ?? methods[0]
+  // COD hanya tersedia bila merchant punya sisa kuota COD (§17, MER-19).
+  // PaymentSelection sudah menutup opsinya; di sini dijaga lagi karena layar ini
+  // bisa dibuka langsung dari riwayat/URL dengan metode tersimpan.
+  const codBlocked = method.id === 'cod' && codQuotaStatus(quotaSubs, activeMerchantId) === 'exhausted'
   const needsProof = method.id === 'transfer'
   /** VA/QRIS (DANA): order dibuat di sini, pembayaran diselesaikan di layar berikutnya. */
   const isDana = method.id === 'dana_va' || method.id === 'dana_qris'
   const walletAvailable = useAppSelector((s) => s.wallet.balance.available)
   const gated = needsTopUpGate(walletAvailable)
-  /**
-   * COD memakai hold dari saldo wallet (R-COD-01), jadi nominal order harus
-   * benar-benar tersedia. Gate 3,5 JOD cuma ambang akun baru — bukan jaminan
-   * saldo cukup untuk order ini.
-   */
-  const holdShort = method.id === 'cod' && walletAvailable < total
+  const codCashIdr = useAppSelector((s) => s.cart.codCashIdr)
+  const cashOptions = method.id === 'cod' ? codCashOptions(total) : []
+  // Nominal tersimpan hanya dipakai kalau masih cocok dengan tagihan sekarang;
+  // sisa pilihan order lama tidak boleh menghasilkan kembalian palsu.
+  const cashSelection =
+    codCashIdr !== null && cashOptions.some((option) => option.receivedIdr === codCashIdr)
+      ? codCashIdr
+      : null
+  const cashReceived = cashSelection ?? total
   const canPay =
-    deliverable && items.length > 0 && (!needsProof || proof !== null) && !gated && !holdShort
+    deliverable && items.length > 0 && (!needsProof || proof !== null) && !gated && !codBlocked
 
   const pickProof = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -105,20 +110,16 @@ export default function PaymentAmount() {
       toast.error('Saldo di bawah 3,5 JOD — top-up dulu')
       return
     }
-    if (holdShort) {
-      toast.error('Saldo tidak cukup untuk hold COD')
-      return
-    }
-    if (method.id === 'cod') {
-      // Order COD dibuat → saldo ditahan. Satu transisi = satu entry hold.
-      dispatch(createOrderHold({ amountIdr: total }))
-      dispatch(applyHoldEvent({ event: 'hold_created', amountIdr: total }))
-    }
+    // COD dibayar tunai saat serah terima (PRD §16.5), bukan hold saldo.
     // Kuota order di-reserve saat order dibuat (§17): COD hanya kuota COD; order
     // online memakai kuota order dulu, lalu kuota COD. Kolam yang dipakai
     // disimpan di `cart.quotaKind` supaya konsumsi (selesai) dan pengembalian
     // (batal) jatuh di kolam yang sama, bukan menebak ulang dari metode bayar.
     const quotaKind = quotaKindForOrder(quotaSubs, activeMerchantId, method.id === 'cod')
+    if (method.id === 'cod' && !quotaKind) {
+      toast.error('Kuota COD toko habis — pilih metode lain')
+      return
+    }
     if (quotaKind) dispatch(reserveQuota({ kind: quotaKind, merchantId: activeMerchantId }))
     dispatch(setQuotaKind(quotaKind))
     // Tulis order ke backend (best-effort): UI tetap jalan sebagai mock kalau
@@ -130,6 +131,19 @@ export default function PaymentAmount() {
     // dicatat lokal dengan kode yang sama supaya pelacakan menampilkan pesanan
     // ini, bukan `mockOrder` yang tak nyambung dengan yang barusan dibuat.
     const code = nextOrderCode()
+    // Snapshot invoice: rincian yang benar-benar ditagih saat checkout disimpan
+    // sekali. `orders` BE hanya menyimpan total, jadi tanpa snapshot ini layar
+    // setelah bayar tidak bisa menampilkan pecahan biaya tanpa mengarang.
+    dispatch(
+      setLastReceipt({
+        code,
+        methodLabel: method.label,
+        rows: customerInvoiceRows(charged),
+        totalIdr: total,
+        at: new Date().toISOString(),
+        cashIdr: method.id === 'cod' ? cashReceived : undefined,
+      }),
+    )
     // `orders` BE belum punya kolom jenis pengantaran; simpan pilihan customer
     // per kode supaya konsol merchant membaca cabang yang benar (ui-impact §8).
     rememberDeliveryType(code, deliveryType)
@@ -140,7 +154,6 @@ export default function PaymentAmount() {
       platformFeeIdr: charged.platformFeeCustomerIdr,
       totalIdr: total,
       paymentMethod: method.id,
-      zoneCode: zone?.id,
       promoId: promo?.id ?? null,
       promoDiscountIdr,
     })
@@ -212,12 +225,12 @@ export default function PaymentAmount() {
                   </div>
                   <div className="summary-item">
                     <span className={deliverable ? 'zone-badge' : 'zone-badge zone-badge--blocked'}>
-                      {deliverable ? `Zona ${zone!.label} · ${zone!.area}` : 'Di luar area antar'}
+                      {deliverable ? 'Dalam jangkauan toko' : 'Di luar jangkauan toko'}
                     </span>
                     <span className="zone-fee">
                       {deliverable
                         ? `${formatDistance(address.distanceMeters)} dari toko`
-                        : `${formatDistance(address.distanceMeters)}, di luar area antar`}
+                        : `${formatDistance(address.distanceMeters)}, di luar jangkauan toko`}
                     </span>
                   </div>
                 </div>
@@ -245,9 +258,7 @@ export default function PaymentAmount() {
                 </div>
                 <div className="summary-item">
                   <span>
-                    Ongkir {deliverable && zone ? `(Zona ${zone.label}` : ''}
-                    {deliverable && zone && deliveryType === 'quick' ? ' · Quick' : ''}
-                    {deliverable && zone ? ')' : ''}
+                    Ongkir {deliverable && deliveryType === 'quick' ? '(Quick)' : ''}
                   </span>
                   <span>
                     {deliverable ? money(charged.deliveryFeeIdr) : '—'}
@@ -308,6 +319,12 @@ export default function PaymentAmount() {
                       : method.description}
                   </p>
 
+                  {codBlocked ? (
+                    <p className="payment-method-note" role="status">
+                      Kuota COD toko habis — pilih metode lain.
+                    </p>
+                  ) : null}
+
                   {needsProof ? (
                     <>
                       <input
@@ -338,24 +355,45 @@ export default function PaymentAmount() {
                       </p>
                     </>
                   ) : null}
+
+                  {method.id === 'cod' ? (
+                    <div className="cod-cash">
+                      <p className="cod-cash-title">Uang tunai yang disiapkan</p>
+                      <div className="cod-cash-options" role="radiogroup" aria-label="Nominal uang tunai">
+                        {cashOptions.map((option) => (
+                          <button
+                            key={option.id}
+                            type="button"
+                            role="radio"
+                            aria-checked={cashReceived === option.receivedIdr}
+                            className={
+                              cashReceived === option.receivedIdr
+                                ? 'cod-cash-chip is-active'
+                                : 'cod-cash-chip'
+                            }
+                            onClick={() => dispatch(setCodCash(option.receivedIdr))}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="cod-cash-hint" role="status">
+                        {codCashHint(total, cashReceived, money)}
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>
             <WalletTopUpGate />
-            {holdShort ? (
-              <p className="wallet-warning" role="status">
-                Saldo tersedia {money(walletAvailable)} — kurang dari {money(total)} yang perlu
-                di-hold untuk COD.
-              </p>
-            ) : null}
             <div className="payment-amount-footer">
               <button className="btn btn-primary pay-btn" disabled={!canPay} onClick={pay}>
                 {gated
                   ? 'Top-up dulu · saldo kurang'
-                  : holdShort
-                    ? 'Saldo kurang untuk hold COD'
+                  : codBlocked
+                    ? 'Kuota COD habis'
                     : method.id === 'cod'
-                      ? `Pesan — ${money(total)}`
+                      ? `Pesan — ${money(total)}, bayar tunai`
                       : isDana
                         ? `Lanjut bayar · ${money(total)}`
                         : `Bayar — ${money(total)}`}

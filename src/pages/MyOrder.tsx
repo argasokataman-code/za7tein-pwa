@@ -101,15 +101,22 @@ export default function MyOrder() {
     navigate('/order-placed')
   }
 
-  const { cancel, refundedCode, dismissRefund } = useCancelOrder()
+  const {
+    cancel,
+    done,
+    dismissDone,
+    pendingId: cancelPendingId,
+    error: cancelError,
+  } = useCancelOrder()
 
   /**
    * Batalkan order lewat jalur bersama (`useCancelOrder`) — sama dengan sheet
-   * dok keranjang, termasuk splash "dana dikembalikan".
+   * dok keranjang, termasuk splash yang menyesuaikan ada/tidaknya dana ditahan.
+   * Panel konfirmasi sengaja tetap terbuka selama permintaan berjalan; baru
+   * ditutup saat barisnya hilang (berhasil) atau user memilih simpan.
    */
-  const cancelOrder = (order: CustomerActiveOrder) => {
-    setPendingId(null)
-    cancel(order)
+  const cancelOrder = (order: CustomerActiveOrder, reason?: string) => {
+    void cancel(order, reason)
   }
 
   /**
@@ -146,8 +153,12 @@ export default function MyOrder() {
     <div className="app-shell">
       <main>
         <div className="my-order-screen">
-          {refundedCode ? (
-            <OrderRefundCelebration code={refundedCode} onClose={dismissRefund} />
+          {done ? (
+            <OrderRefundCelebration
+              code={done.code}
+              refunded={done.refunded}
+              onClose={dismissDone}
+            />
           ) : null}
           <header className="my-order-header">
             <BackButton className="btn-back" />
@@ -234,6 +245,8 @@ export default function MyOrder() {
                         key={order.id}
                         order={order}
                         confirming={pendingId === order.id}
+                        pending={cancelPendingId === order.id}
+                        error={cancelError?.id === order.id ? cancelError.message : null}
                         onTrack={trackOrder}
                         onToggleConfirm={(o) =>
                           setPendingId((cur) => (cur === o.id ? null : o.id))
@@ -294,9 +307,6 @@ export default function MyOrder() {
                           <span className="ck-row__sum">{moneyPlain(order.totalIdr)}</span>
                           <span className="ck-row__meta">
                             <span className="ck-row__code">{order.code}</span>
-                            <span className="ck-row__sep" aria-hidden="true">
-                              ·
-                            </span>
                             <span className="ck-row__ago">
                               {new Date(order.createdAt).toLocaleDateString('id-ID', DATE_FORMAT)}
                             </span>

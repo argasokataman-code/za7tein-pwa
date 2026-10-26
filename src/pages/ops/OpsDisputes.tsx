@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 import { AdminKpi } from '../../components/admin/AdminKpi'
-import { EvidencePhotos } from '../../components/admin/EvidencePhotos'
+import { EvidencePhotos } from '../../components/ui/EvidencePhotos'
 import { OpsShell } from '../../components/layout/OpsShell'
 import { ConfirmSheet } from '../../components/ui/ConfirmSheet'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'

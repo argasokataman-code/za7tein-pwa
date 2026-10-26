@@ -3,20 +3,21 @@
 // Mode sandbox: nomor VA, pola QR, dan tombol "Simulasi" adalah mock; tidak ada
 // dana berpindah dan tidak ada kredensial DANA di sini (AGENTS §1). Kontrak
 // FE↔BE yang menggantikan mock ini: docs/integration/dana/be-contract.md.
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { CheckCircle2, Copy, Download, RefreshCw } from 'lucide-react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
 import { insertNotification } from '../api/notifications'
-import { markOrderPaid } from '../api/orders'
+import { markOrderPaid, updateOrderStatus } from '../api/orders'
 import { BackButton } from '../components/ui/BackButton'
 import { OrderCelebration } from '../components/ui/OrderCelebration'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { formatCountdown } from '../data/courier'
 import { mockUser } from '../data/user'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
+import { useOrderQuota } from '../hooks/useOrderQuota'
 import { useAppSelector } from '../hooks/useAppStore'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useMoney } from '../hooks/useMoney'
@@ -87,7 +88,7 @@ export default function PaymentDana() {
   const charged = useChargedBreakdown()
   const total = charged.totalIdr
 
-  const [deadline, setDeadline] = useState(() => Date.now() + DANA_TTL_MS)
+  const [deadline] = useState(() => Date.now() + DANA_TTL_MS)
   const [status, setStatus] = useState<'menunggu' | 'dibayar'>('menunggu')
   /** Splash perayaan sekali jalan saat pembayaran berhasil (sebelum ke pelacakan). */
   const [celebrate, setCelebrate] = useState(false)
@@ -98,6 +99,26 @@ export default function PaymentDana() {
   const phase: DanaStatus = status === 'menunggu' && remaining === 0 ? 'kedaluwarsa' : status
 
   const qrCells = QR_CELLS
+  const { release: releaseQuota } = useOrderQuota()
+  const expiredHandled = useRef(false)
+
+  /**
+   * Kedaluwarsa = order otomatis batal + kuota dilepas (§7.5, §R-CUS-PAY).
+   * Dijalankan sekali; `Buat kode baru` diganti `Pesan ulang` karena ordernya
+   * sudah tidak ada lagi di BE (bukan memperpanjang kode yang sama).
+   */
+  useEffect(() => {
+    if (phase !== 'kedaluwarsa' || expiredHandled.current) return
+    expiredHandled.current = true
+    releaseQuota()
+    if (activeOrderId) void updateOrderStatus(activeOrderId, 'batal', 'customer').catch(() => {})
+    void insertNotification({
+      audience: 'customer',
+      kind: 'payment',
+      title: 'Pembayaran kedaluwarsa',
+      body: 'Batas 30 menit habis, pesanan dibatalkan. Kuota yang ter-reserve sudah dilepas.',
+    }).catch(() => {})
+  }, [phase, releaseQuota, activeOrderId])
 
   // Layar ini hanya untuk VA/QRIS. Metode lain (atau belum dipilih) kembali ke pemilihan.
   if (!isVa && !isQris) return <Navigate to="/payment-selection" replace />
@@ -122,11 +143,6 @@ export default function PaymentDana() {
       title: 'Pembayaran diterima',
       body: 'Pembayaran pesananmu sudah kami terima.',
     }).catch(() => {})
-  }
-
-  const restart = () => {
-    setDeadline(Date.now() + DANA_TTL_MS)
-    setStatus('menunggu')
   }
 
   /**
@@ -176,7 +192,9 @@ export default function PaymentDana() {
       <main>
         <div className="payment-dana-screen">
           <header className="payment-dana-header">
-            <BackButton className="btn-back" />
+            {/* Setelah dibayar, alur bayar sudah selesai: kembali ke beranda,
+                bukan mengulang layar ini dari riwayat. */}
+            <BackButton className="btn-back" to={phase === 'dibayar' ? '/home' : undefined} />
             <h1 className="payment-dana-title">
               {phase === 'dibayar' ? 'Pembayaran Berhasil' : 'Pembayaran'}
             </h1>
@@ -255,8 +273,8 @@ export default function PaymentDana() {
                 <div className="dana-sheet__state">
                   <h2 className="dana-sheet__title">Kode kedaluwarsa</h2>
                   <p className="dana-sheet__note">
-                    Kode berlaku 30 menit dan waktunya sudah habis. Buat kode baru atau ganti metode
-                    pembayaran.
+                    Kode berlaku 30 menit dan waktunya sudah habis, jadi pesanan dibatalkan dan
+                    kuota yang ter-reserve dilepas. Pesan ulang untuk membuat kode baru.
                   </p>
                 </div>
               ) : null}
@@ -291,8 +309,12 @@ export default function PaymentDana() {
 
             {phase === 'kedaluwarsa' ? (
               <>
-                <button type="button" className="btn btn-primary dana-cta" onClick={restart}>
-                  Buat kode baru
+                <button
+                  type="button"
+                  className="btn btn-primary dana-cta"
+                  onClick={() => navigate('/checkout')}
+                >
+                  Pesan ulang
                 </button>
                 <button
                   type="button"
@@ -332,6 +354,16 @@ export default function PaymentDana() {
                   }}
                 >
                   Lihat pesanan
+                </button>
+                <button
+                  type="button"
+                  className="order-arrived-secondary-btn"
+                  onClick={() => {
+                    setCelebrate(false)
+                    navigate('/home')
+                  }}
+                >
+                  Ke beranda
                 </button>
               </OrderCelebration>
             </div>,

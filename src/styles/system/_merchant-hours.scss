@@ -1,0 +1,91 @@
+// Jadwal operasional (Setelan merchant): satu daftar tujuh baris, tiap baris
+// = nama hari + dua input jam native + tombol Libur. Native `type="time"`
+// dipakai supaya ponsel membuka pemilih jam sistem, bukan dropdown karangan.
+// Baris mengikuti satu rel: nama hari melebar, kontrol kanan lebar tetap.
+
+.merchant-hours {
+  display: flex;
+  flex-direction: column;
+  /* MD-06: panel sheet tidak boleh memakan hampir seluruh layar. Daftar
+     dibatasi lalu menggulir di dalam; tombol Simpan tetap di luar daftar. */
+  max-height: 30vh;
+  overflow-y: auto;
+  margin-bottom: var(--space-4);
+}
+
+.merchant-hours-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  border-bottom: 1px solid var(--border);
+}
+
+.merchant-hours-row:last-child {
+  border-bottom: 0;
+}
+
+.merchant-hours-day {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.merchant-hours-input {
+  flex: 0 0 auto;
+  width: 5.75rem;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.merchant-hours-input:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+.merchant-hours-off {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* Tombol "Libur" = sakelar per hari. Saat aktif (libur) latarnya lembut,
+   bukan warna merek: ini keadaan normal, bukan aksi utama. */
+.merchant-hours-off-btn {
+  flex: 0 0 auto;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.merchant-hours-off-btn.is-on {
+  border-color: var(--warning);
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+}
+
+/* Catatan batas penyimpanan: lebih rapat dari `.merchant-hint-inline` supaya
+   panel tetap di bawah 60% viewport (MD-06). */
+.merchant-hours-note {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--text-secondary-strong);
+}
+
+.merchant-hours-off-btn:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}

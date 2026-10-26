@@ -100,14 +100,17 @@ export async function createRefund(input: {
 
 /**
  * Order online terbaru milik customer demo — sasaran refund kalau layar tak
- * diberi `?order=`. ponytail: demo shortcut; begitu tautan refund membawa id
- * order, hapus jalur ini dan baca dari query.
+ * diberi `?order=`. `code` mempersempit ke satu order yang disebut tautan, jadi
+ * refund tidak jatuh ke order lain saat customer punya beberapa order.
+ * ponytail: demo shortcut; begitu semua tautan refund membawa kode order, jalur
+ * "terbaru" bisa dihapus.
  */
-export async function fetchLatestRefundableOrder(): Promise<
+export async function fetchLatestRefundableOrder(code?: string): Promise<
   { id: string; code: string; amountIdr: number; method: RefundMethod | null } | undefined
 > {
   if (!apiEnabled) return undefined
   const token = await ensureCustomerToken()
+  const filter = code ? `&code=eq.${encodeURIComponent(code)}` : ''
   const rows = await restWith<{
     id: number
     code: string
@@ -117,7 +120,7 @@ export async function fetchLatestRefundableOrder(): Promise<
   }>(
     token,
     'orders',
-    `?select=id,code,total_jod,payment_method,payment_status&customer_id=eq.${DEMO_CUSTOMER_ID}&order=created_at.desc&limit=1`,
+    `?select=id,code,total_jod,payment_method,payment_status&customer_id=eq.${DEMO_CUSTOMER_ID}${filter}&order=created_at.desc&limit=1`,
   )
   const row = rows[0]
   if (!row) return undefined

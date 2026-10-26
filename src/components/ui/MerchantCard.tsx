@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import { ChevronRight, Clock, Star } from 'lucide-react'
+import { Clock, Star } from 'lucide-react'
 
 import { formatRating } from '../../data/foods'
 import { swapBrokenImage } from '../../data/storefronts'
@@ -28,10 +28,12 @@ interface MerchantCardProps {
 }
 
 /**
- * Kartu toko di beranda customer — mengikuti daftar "Tetangga favorit" v2:
- * foto 64px, nama + badge buka/tutup, satu baris tagline • jarak, lalu baris
- * promo (bila menunya berdiskon) atau baris rating, dan tanda panah di kanan.
- * Seluruh kartu adalah satu tombol, jadi bisa diaktifkan keyboard.
+ * Ubin toko di beranda customer, dua kolom: foto 16:9 di kepala kartu (cukup
+ * besar untuk mengenali makanannya), lalu nama (maks 2 baris) dan satu baris
+ * fakta rating • jarak • waktu antar. Info tetap permukaan kartu, bukan teks di
+ * atas foto: teks menimpa foto membuat daftar toko terasa galeri gambar.
+ * Promo jadi chip kecil di pojok foto supaya tinggi kartu tetap seragam.
+ * Seluruh ubin satu tombol.
  */
 export function MerchantCard({
   store,
@@ -55,7 +57,7 @@ export function MerchantCard({
   return (
     <button
       type="button"
-      className={`merchant-card merchant-store-card ${className}${disabled ? ' merchant-store-card--disabled' : ''}${store.isOpen ? '' : ' merchant-store-card--closed'}`.trim()}
+      className={`merchant-store-card ${className}${disabled ? ' merchant-store-card--disabled' : ''}${store.isOpen ? '' : ' merchant-store-card--closed'}`.trim()}
       style={style}
       disabled={disabled && !canExplain}
       aria-disabled={disabled || undefined}
@@ -65,56 +67,49 @@ export function MerchantCard({
         else onBlocked?.(store)
       }}
     >
-      <span className="merchant-card__logo">
+      <span className="merchant-card__media">
         <img
           alt=""
           loading="lazy"
           decoding="async"
-          width={64}
-          height={64}
-          src={store.logo}
+          width={378}
+          height={213}
+          src={store.cover}
           onError={swapBrokenImage}
         />
-      </span>
-
-      <span className="merchant-card__body">
-        <span className="merchant-card__top">
-          <span className="merchant-card__name">{store.name}</span>
-          <span
-            className={`merchant-card__status${store.isOpen && !store.outOfCoverage ? ' merchant-card__status--open' : ''}`}
-          >
-            {status}
+        {promoText ? <span className="merchant-card__promo">{promoText}</span> : null}
+        {store.deliveryTime ? (
+          <span className="merchant-card__eta">
+            <Clock size={12} aria-hidden="true" />
+            {store.deliveryTime}
           </span>
-        </span>
-
-        <span className="merchant-card__sub">
-          {store.tagline}
-          {store.distance ? ` • ${store.distance}` : ''}
-        </span>
-
-        {promoText ? (
-          <span className="merchant-card__promo">{promoText}</span>
-        ) : (
-          <span className="merchant-card__meta">
-            <span className="merchant-card__rating">
-              <Star size={13} fill="currentColor" aria-hidden="true" />
-              {formatRating(store.rating)}
-            </span>
-            {store.deliveryTime ? (
-              <>
-                <span className="merchant-card__sep" aria-hidden="true">
-                  •
-                </span>
-                <Clock size={13} aria-hidden="true" />
-                {store.deliveryTime}
-              </>
-            ) : null}
+        ) : null}
+        {/* "Buka" tidak dilabeli: ubin yang bisa diketuk memang sudah berarti buka. */}
+        {status === 'Buka' ? null : (
+          <span className="merchant-card__status">
+            <span className="merchant-card__dot" aria-hidden="true" />
+            {status}
           </span>
         )}
       </span>
 
-      <span className="merchant-card__chevron" aria-hidden="true">
-        <ChevronRight size={20} strokeWidth={2} />
+      <span className="merchant-card__body">
+        <span className="merchant-card__name">{store.name}</span>
+
+        <span className="merchant-card__facts">
+          <span className="merchant-card__rating">
+            <Star size={12} fill="currentColor" aria-hidden="true" />
+            {formatRating(store.rating)}
+          </span>
+          {store.distance ? (
+            <>
+              <span className="merchant-card__sep" aria-hidden="true">
+                •
+              </span>
+              <span>{store.distance}</span>
+            </>
+          ) : null}
+        </span>
       </span>
     </button>
   )

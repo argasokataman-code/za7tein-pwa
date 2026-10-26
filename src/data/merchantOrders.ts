@@ -264,6 +264,23 @@ export const merchantOrders: MerchantOrder[] = [
   },
 ]
 
+/**
+ * Gerbang konfirmasi merchant (f18). Merchant hanya boleh menerima order
+ * setelah pembayaran terkonfirmasi:
+ * - `cod` → `ready` (COD dibayar tunai saat serah terima, §16.5);
+ * - `paid` / tanpa status (seed) → `ready`;
+ * - `transfer` → `verify` (merchant memverifikasi bukti saat menerima);
+ * - sisanya (DANA/QRIS belum lunas) → `awaiting` (Terima nonaktif).
+ */
+export type PaymentGate = 'ready' | 'awaiting' | 'verify'
+
+export function paymentGate(order: MerchantOrder): PaymentGate {
+  if (order.paymentMethod === 'cod') return 'ready'
+  if (order.paymentStatus === undefined || order.paymentStatus === 'paid') return 'ready'
+  if (order.paymentMethod === 'transfer') return 'verify'
+  return 'awaiting'
+}
+
 export function ordersForStatuses(
   orders: MerchantOrder[],
   statuses: readonly MerchantOrderStatus[],

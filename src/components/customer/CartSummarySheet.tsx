@@ -93,15 +93,15 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
     setPending(null)
   }
 
-  const { cancel, refundedCode, dismissRefund } = useCancelOrder()
+  const { cancel, done, dismissDone, pendingId: cancelPendingId, error } = useCancelOrder()
 
   /**
-   * Batalkan order lewat jalur bersama (`useCancelOrder`): baris dibuang
-   * optimistik + splash "dana dikembalikan" muncul di atas panel ini.
+   * Batalkan order lewat jalur bersama (`useCancelOrder`): status ditulis dulu,
+   * lalu baris dibuang dan splash muncul (isinya menyesuaikan ada/tidaknya dana
+   * yang ditahan). Panel konfirmasi tetap terbuka selama permintaan berjalan.
    */
-  const cancelOrder = (order: CustomerActiveOrder) => {
-    setPending(null)
-    cancel(order)
+  const cancelOrder = (order: CustomerActiveOrder, reason?: string) => {
+    void cancel(order, reason)
   }
 
   const title = hasOrders && hasCart ? 'Keranjang & pesanan' : hasCart ? 'Keranjang' : 'Pesanan berjalan'
@@ -109,8 +109,8 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
   return (
     <BottomSheet open={open} onClose={closeSheet} title={title}>
       <div className="ck-sheet">
-        {refundedCode ? (
-          <OrderRefundCelebration code={refundedCode} onClose={dismissRefund} />
+        {done ? (
+          <OrderRefundCelebration code={done.code} refunded={done.refunded} onClose={dismissDone} />
         ) : null}
         {hasOrders && hasCart ? (
           <div className="ck-seg" role="tablist" aria-label="Pilih daftar">
@@ -142,6 +142,8 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
                 key={order.id}
                 order={order}
                 confirming={pending?.kind === 'order' && pending.id === order.id}
+                pending={cancelPendingId === order.id}
+                error={error?.id === order.id ? error.message : null}
                 onTrack={(o) => trackOrder(o.id, o.code, o.stage)}
                 onToggleConfirm={(o) =>
                   setPending((cur) =>
@@ -191,20 +193,22 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
                   {confirming ? (
                     <span className="ck-confirm">
                       <span className="ck-confirm__q">Buang keranjang {name}?</span>
-                      <button
-                        type="button"
-                        className="ck-confirm__btn"
-                        onClick={() => setPending(null)}
-                      >
-                        Batal
-                      </button>
-                      <button
-                        type="button"
-                        className="ck-confirm__btn ck-confirm__btn--danger"
-                        onClick={() => discardCart(store.merchantId, store.isActive)}
-                      >
-                        Buang
-                      </button>
+                      <span className="ck-confirm__actions">
+                        <button
+                          type="button"
+                          className="ck-confirm__btn"
+                          onClick={() => setPending(null)}
+                        >
+                          Simpan keranjang
+                        </button>
+                        <button
+                          type="button"
+                          className="ck-confirm__btn ck-confirm__btn--danger"
+                          onClick={() => discardCart(store.merchantId, store.isActive)}
+                        >
+                          Buang
+                        </button>
+                      </span>
                     </span>
                   ) : null}
                 </li>

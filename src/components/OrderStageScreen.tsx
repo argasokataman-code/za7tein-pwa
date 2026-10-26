@@ -5,6 +5,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { DeliveryActionCard, DeliveryStepper } from './DeliveryCheckpoints'
 import { JourneyLine } from './JourneyLine'
+import { OrderInvoice } from './customer/OrderInvoice'
+import { CodCashSection } from './customer/CodCashSection'
 
 import { insertNotification } from '../api/notifications'
 import { fetchOrderOtp, otpOf, updateOrderStatus } from '../api/orders'
@@ -12,19 +14,16 @@ import { DELIVERY_OTP_DEMO } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import { BottomSheet } from './ui/BottomSheet'
 import {
-  HOLD_EVENT_LABEL,
-  HOLD_STATUS_COPY,
   ORDER_STAGES,
   formatDistance,
-  merchantDeliveryConfig,
   mockCouriers,
   mockMerchant,
   mockOrder,
-  zoneFor,
 } from '../data/merchant'
 import { ORDER_STAGE_STATUS } from '../data/order-stage-copy'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAlmostArrivedNotice } from '../hooks/useAlmostArrivedNotice'
+import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useCourierTracking } from '../hooks/useCourierTracking'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useMoney } from '../hooks/useMoney'
@@ -85,6 +84,7 @@ type Props = {
 
 export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const { money } = useMoney()
+  const quoteFor = useDeliveryQuote()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [params] = useSearchParams()
@@ -96,7 +96,6 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const holdStatus = useAppSelector((s) => s.cart.holdStatus)
   const holdAmount = useAppSelector((s) => s.cart.holdAmountIdr)
-  const holdLedger = useAppSelector((s) => s.cart.holdLedger ?? [])
   const orderCompletedAt = useAppSelector((s) => s.cart.orderCompletedAt)
   const orderCancelled = useAppSelector((s) => s.cart.orderCancelled)
   const activeOrder = useAppSelector((s) => s.cart.activeOrder)
@@ -198,7 +197,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const address = addresses.find((a) => a.id === selectedAddressId) ?? addresses[0] ?? null
   const courier = mockCouriers[0]
   const copy = ORDER_STAGE_STATUS[stage]
-  const zone = address ? zoneFor(address) : null
+  const quote = address ? quoteFor(address) : null
   // building menyimpan "Kompleks — Tower" dalam satu string; dipisah supaya
   // baris pertama menyebut kompleksnya dan baris kedua unitnya, seperti PRD.
   const [alamatKompleks, alamatTower] = address
@@ -209,7 +208,6 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   // Satu transisi PRD = satu event status + satu entry ledger, jadi kurir match
   // (`cut`) dan order selesai (`settled`) berlaku juga di dompet & panel CS.
   const isCod = paymentId === 'cod'
-  const holdCopy = HOLD_STATUS_COPY[holdStatus]
 
   // Kurir ditugaskan (order masuk `siap`/`diantar`) → potongan dikunci.
   useEffect(() => {
@@ -230,24 +228,24 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   // selesai — sebelum match (`held`) → `released`, sesudah match (`cut`) →
   // `reversed`, semuanya lewat `cancelOrder()`.
   const isCancelled = orderCancelled
-  const canCancel =
-    isCod &&
-    !isCancelled &&
-    !isDisputed &&
-    stage !== 'selesai' &&
-    (holdStatus === 'held' || holdStatus === 'cut')
+  // COD tunai tidak punya hold, jadi syarat batal tidak boleh bergantung pada
+  // status hold — kalau tidak, order tunai kehilangan tombol batalnya.
+  const canCancel = isCod && !isCancelled && !isDisputed && stage !== 'selesai'
 
   const confirmCancel = () => {
     if (!canCancel) return
     dispatch(cancelOrder())
     // Batal → kuota ter-reserve dikembalikan (§17), bukan dikonsumsi.
     releaseOrderQuota()
-    dispatch(
-      applyHoldEvent({
-        event: holdStatus === 'cut' ? 'hold_reversed' : 'hold_released',
-        amountIdr: holdAmount,
-      }),
-    )
+    // Hold hanya ada di sesi lama; order tunai baru tidak punya saldo tertahan.
+    if (holdStatus !== 'none') {
+      dispatch(
+        applyHoldEvent({
+          event: holdStatus === 'cut' ? 'hold_reversed' : 'hold_released',
+          amountIdr: holdAmount,
+        }),
+      )
+    }
     dispatch(markOrderCancelled())
     // Best-effort: backend menyimpan `orders.status = canceled` lewat jalur tulis
     // yang sama dengan merchant/kurir; gagal koneksi tak menghalangi UI.
@@ -256,7 +254,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
       audience: 'merchant',
       kind: 'order',
       title: 'Pesanan dibatalkan',
-      body: 'Customer membatalkan pesanan. Hold dikembalikan.',
+      body: 'Customer membatalkan pesanan.',
     }).catch(() => {})
     toast.success('Pesanan dibatalkan')
     setCancelOpen(false)
@@ -297,7 +295,9 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
       <main>
         <div className="track-screen">
           <header className="track-header">
-            <BackButton className="track-back" />
+            {/* Order sudah dibuat: kembali ke beranda, bukan mundur ke alur
+                checkout yang bisa membuat order kedua. */}
+            <BackButton className="track-back" to="/home" />
             <div className="track-header-text">
               <h1 className="track-title">Pesanan</h1>
               <span className="track-ref">#{orderCode}</span>
@@ -310,53 +310,11 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
 
           <JourneyLine stage={stage} />
 
-          {/* Hold COD via wallet (R-COD-01, F2). Muncul di detail order supaya
-              transisinya terlihat di tempat orang mencari status pesanan. */}
-          {isCod ? (
-            <section className="track-section">
-              <h2 className="track-section-title">Hold COD</h2>
-              <div className="hold-card" data-hold-status={holdStatus}>
-                <div className="hold-card__head">
-                  <span className={`hold-status hold-status--${holdStatus}`}>
-                    {holdCopy.label}
-                  </span>
-                  <span className="hold-card__amount">{money(holdAmount)}</span>
-                </div>
-                <p className="hold-card__note">{holdCopy.note}</p>
-                {isDisputed && (holdStatus === 'held' || holdStatus === 'cut') ? (
-                  <p className="hold-card__note">
-                    Hold dibekukan sampai panel CS memutuskan sengketa (F8).
-                  </p>
-                ) : null}
-                {canCancel ? (
-                  <div className="hold-card__actions">
-                    <button
-                      className="track-action"
-                      type="button"
-                      onClick={() => setCancelOpen(true)}
-                    >
-                      Batalkan pesanan
-                    </button>
-                  </div>
-                ) : null}
-                {holdLedger.length > 0 ? (
-                  <ol className="hold-ledger" aria-label="Ledger hold">
-                    {holdLedger.map((entry) => (
-                      <li key={entry.id} className="hold-ledger__row">
-                        <span>{HOLD_EVENT_LABEL[entry.event]}</span>
-                        <span>
-                          {new Date(entry.at).toLocaleTimeString('id-ID', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                ) : null}
-              </div>
-            </section>
-          ) : null}
+          <CodCashSection
+            orderCode={orderCode}
+            canCancel={canCancel}
+            onCancel={() => setCancelOpen(true)}
+          />
 
           {isDelivery ? null : mapBlock}
 
@@ -422,24 +380,37 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                   </p>
                   <p className="track-row-meta">
                     {address.address} · {formatDistance(address.distanceMeters)}
-                    {zone
-                      ? ` · Zona ${zone.label} · ongkir ${money(merchantDeliveryConfig.ongkirIdr)}`
+                    {quote?.covered
+                      ? ` · ongkir ${money(quote.feeIdr)}`
                       : ' · di luar jangkauan'}
                   </p>
                 </div>
               </div>
             </section>
           ) : null}
-
-          {/* Checkpoint pengiriman (F5/M5): customer hanya menampilkan progres +
-              kode OTP serah terima (C-09). Aksi Ambil/Berangkat/Tiba milik kurir
-              (F13), bukan customer — jadi di sini tak ada tombol aksi. */}
+          <OrderInvoice orderCode={orderCode} />
+          {/* Checkpoint pengiriman (F5/M5): customer hanya progres + kode OTP
+              serah terima (C-09). Aksi Ambil/Berangkat/Tiba milik kurir (F13). */}
           <section className="track-section">
             <h2 className="track-section-title">Checkpoint pengiriman</h2>
             {isCancelled ? (
-              <p className="track-row-note">
-                Pesanan dibatalkan, pengiriman tidak dilanjutkan.
-              </p>
+              <>
+                <p className="track-row-note">
+                  Pesanan dibatalkan, pengiriman tidak dilanjutkan.
+                </p>
+                {/* Refund online (§16.6): COD tidak butuh refund karena tidak ada
+                    dana aplikator yang ditahan. Layar refund mengisi rekening
+                    untuk QRIS tanpa akun DANA. */}
+                {paymentId !== 'cod' ? (
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => navigate(`/refund?order=${encodeURIComponent(orderCode)}`)}
+                  >
+                    Atur refund
+                  </button>
+                ) : null}
+              </>
             ) : (
               <>
                 <DeliveryStepper checkpoint={customerCheckpoint} />

@@ -65,6 +65,33 @@ export interface MenuItem extends Food {
   noteEnabled?: boolean
 }
 
+/** Satu baris invoice (label + nominal rupiah). */
+export interface InvoiceRow {
+  label: string
+  amountIdr: number
+  /** `discount` = potongan; ditampilkan dengan tanda minus. */
+  kind?: 'discount'
+}
+
+/**
+ * Snapshot invoice satu order yang dibuat di sesi ini. `orders` BE belum punya
+ * kolom pecahan biaya, jadi setelah dibayar rincian hanya bisa diputar ulang
+ * dari snapshot yang disimpan saat checkout — bukan dihitung ulang dari total.
+ */
+export interface OrderReceipt {
+  code: string
+  methodLabel: string
+  rows: InvoiceRow[]
+  totalIdr: number
+  at: string
+  /**
+   * Uang tunai yang disiapkan customer untuk order COD (IDR). Kosong = bukan
+   * COD atau customer tidak memilih nominal. Kembalian dihitung dari selisihnya,
+   * bukan disimpan terpisah.
+   */
+  cashIdr?: number
+}
+
 /**
  * Proyeksi merchant untuk sisi customer: cukup untuk kartu daftar toko dan
  * header halaman toko. Terpisah dari `Merchant` (profil operasional PWA
@@ -225,6 +252,12 @@ export interface User {
   gender: string
   avatar: string
   addresses: Address[]
+  /**
+   * Akun DANA sudah ter-binding (mock; BE belum punya flag-nya). Menentukan
+   * pilihan refund QRIS: binding → boleh pilih DANA atau bank; tanpa binding →
+   * bank saja (§16.6).
+   */
+  danaBound?: boolean
 }
 
 export type CustomerStatus = 'active' | 'suspended' | 'blacklisted'
@@ -276,6 +309,12 @@ export interface Customer {
   addressCount: number
   status: CustomerStatus
   joinedAt: string
+  /**
+   * Jumlah order selesai seumur akun. Dipakai label "Pelanggan Setia"; daftar
+   * order yang sedang berjalan tidak cukup jadi dasarnya karena isinya order
+   * aktif saja. Mock: server belum punya kolom agregat ini.
+   */
+  lifetimeOrders: number
 }
 
 export interface Card {
@@ -384,6 +423,19 @@ export interface ExchangeRate {
  */
 export type CurrencyCode = 'IDR' | 'JOD'
 
+/**
+ * Satu baris jadwal buka toko. `day` memakai `Date#getDay()` (0 = Minggu,
+ * 6 = Sabtu) supaya cocok langsung dengan `new Date().getDay()`.
+ */
+export interface OperatingHoursDay {
+  day: number
+  /** `HH:MM` 24 jam — format yang sama dengan `merchants.open_time`. */
+  open: string
+  close: string
+  /** Tutup sepanjang hari (libur); `open`/`close` diabaikan saat `true`. */
+  closed: boolean
+}
+
 export interface Merchant {
   id: string
   name: string
@@ -395,6 +447,11 @@ export interface Merchant {
   isActive: boolean
   openTime: string
   closeTime: string
+  /**
+   * Jadwal per hari. `undefined` = belum diatur; tampilan jatuh ke pasangan
+   * `openTime`/`closeTime` (satu jam untuk semua hari).
+   */
+  operatingHours?: OperatingHoursDay[]
   /** Foto toko (field `photo` D1, f16). Path aset atau object URL sesi unggah. */
   logo: string
   bank: { name: string; account: string; holder: string }
@@ -565,6 +622,12 @@ export interface MerchantOrder {
    * dianggap lunas supaya seed lama tetap bisa dikonfirmasi.
    */
   paymentStatus?: OrderPaymentStatus
+  /**
+   * URL bukti transfer (metode legacy `transfer`). BE belum punya kolomnya,
+   * jadi `undefined` berarti merchant tidak punya bukti untuk dilihat, bukan
+   * berarti pelanggan belum membayar.
+   */
+  paymentProof?: string
   /**
    * Jenis pengantaran (PRD §7.2/§7.3). `regular` masuk **batch** kurir inhouse,
    * `quick` ditangani satu kurir partner. Menentukan bentuk alur accept di

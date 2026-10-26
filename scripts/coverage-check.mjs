@@ -10,6 +10,7 @@ import {
   coverageAreaKm2,
   coverageContainsPoint,
   coverageFeeJod,
+  deliveryQuote,
   nextPolygonId,
   polygonAround,
   polygonSelfIntersects,
@@ -79,6 +80,16 @@ const areaCoverage = {
 assert.equal(coverageContainsPoint(areaCoverage, KITCHEN, KITCHEN), true, 'dapur harus di dalam polygon bawaannya')
 assert.equal(coverageFeeJod(areaCoverage, KITCHEN, KITCHEN), DEFAULT_POLYGON_FEE_JOD)
 assert.equal(coverageContainsPoint(areaCoverage, { lat: -6.30, lng: 106.78 }, KITCHEN), false)
+
+// Satu jawaban gate + ongkir: di luar coverage fee nol, di dalam fee proporsional.
+assert.deepEqual(deliveryQuote(radiusCoverage, { lat: -6.30, lng: 106.78 }, KITCHEN), {
+  covered: false,
+  feeJod: 0,
+})
+const nearQuote = deliveryQuote(radiusCoverage, near, KITCHEN)
+assert.equal(nearQuote.covered, true)
+assert.ok(Math.abs(nearQuote.feeJod - feeKm) < 1e-9)
+assert.equal(deliveryQuote(areaCoverage, KITCHEN, KITCHEN).feeJod, DEFAULT_POLYGON_FEE_JOD)
 
 // Luas: radius = lingkaran, area = jumlah polygon.
 assert.ok(Math.abs(coverageAreaKm2(radiusCoverage) - Math.PI * 4) < 0.01, 'radius 2 km = π·2² km²')

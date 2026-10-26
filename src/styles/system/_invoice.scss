@@ -1,0 +1,115 @@
+// Invoice bersama (customer setelah bayar + rincian pendapatan merchant).
+// Baris label–nominal memakai rel kanan lebar tetap (MD-11) dan angka tabular
+// (MD-07). Aksi utamanya "bagikan/salin" lewat Web Share API, bukan dialog
+// printer: di ponsel bukti transaksi dikirim ke chat atau disimpan, tidak dicetak.
+
+.invoice-card {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.invoice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.invoice-title {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.invoice-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.invoice-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--border);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.invoice-row:first-child {
+  border-top: 0;
+}
+
+.invoice-label {
+  min-width: 0;
+}
+
+.invoice-amount {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.invoice-amount.is-discount {
+  color: var(--text-secondary);
+}
+
+.invoice-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--border-strong);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.invoice-total .invoice-amount {
+  font-size: var(--text-base);
+}
+
+.invoice-note {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+// Satu aksi sekunder selebar kartu: target 44px, ikon + label (bukan ikon saja),
+// dan warna tepi yang sama dengan kontrol sekunder lain di app.
+.invoice-share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-top: var(--space-3);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.invoice-share-btn:active {
+  background: var(--bg-warm);
+}
+
+.invoice-share-btn:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}

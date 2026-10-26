@@ -12,6 +12,7 @@ export const mockUser: User = {
   dob: 'November 24, 2000',
   gender: 'male',
   avatar: '/assets/img/profile.png',
+  danaBound: true,
   addresses: [
     {
       id: 'tower-a',

@@ -34,6 +34,7 @@ export const customers: Customer[] = [
     addressCount: 1,
     status: 'active',
     joinedAt: '3 bulan lalu',
+    lifetimeOrders: 9,
   },
   {
     id: 'cus-2',
@@ -44,6 +45,7 @@ export const customers: Customer[] = [
     addressCount: 2,
     status: 'active',
     joinedAt: '2 bulan lalu',
+    lifetimeOrders: 2,
   },
   {
     id: 'cus-3',
@@ -54,6 +56,7 @@ export const customers: Customer[] = [
     addressCount: 1,
     status: 'active',
     joinedAt: '6 minggu lalu',
+    lifetimeOrders: 4,
   },
   {
     id: 'cus-4',
@@ -64,6 +67,7 @@ export const customers: Customer[] = [
     addressCount: 1,
     status: 'active',
     joinedAt: '5 minggu lalu',
+    lifetimeOrders: 1,
   },
   {
     id: 'cus-5',
@@ -74,6 +78,7 @@ export const customers: Customer[] = [
     addressCount: 3,
     status: 'active',
     joinedAt: '1 bulan lalu',
+    lifetimeOrders: 6,
   },
   {
     id: 'cus-6',
@@ -84,6 +89,7 @@ export const customers: Customer[] = [
     addressCount: 3,
     status: 'active',
     joinedAt: '1 bulan lalu',
+    lifetimeOrders: 12,
   },
   {
     id: 'cus-7',
@@ -94,6 +100,7 @@ export const customers: Customer[] = [
     addressCount: 2,
     status: 'active',
     joinedAt: '3 minggu lalu',
+    lifetimeOrders: 3,
   },
   {
     id: 'cus-8',
@@ -104,6 +111,7 @@ export const customers: Customer[] = [
     addressCount: 1,
     status: 'active',
     joinedAt: '2 minggu lalu',
+    lifetimeOrders: 1,
   },
 ]
 
@@ -117,4 +125,16 @@ export const customerStatusLabel: Record<CustomerStatus, string> = {
 /** Cari satu customer dari registri. `undefined` = id menggantung. */
 export function findCustomer(id: string): Customer | undefined {
   return customers.find((customer) => customer.id === id)
+}
+
+/**
+ * Ambang "Pelanggan Setia". Angka ini keputusan produk (PRD aktif belum
+ * mengatur loyalitas), jadi ditaruh di satu konstanta dan dipakai badge, bukan
+ * ditulis ulang di JSX.
+ */
+export const LOYAL_ORDER_MIN = 5
+
+/** Customer dianggap setia kalau sudah menyelesaikan cukup banyak order. */
+export function isLoyalCustomer(customer: Customer | undefined): boolean {
+  return Boolean(customer && customer.lifetimeOrders >= LOYAL_ORDER_MIN)
 }

@@ -15,7 +15,10 @@ import { BatchPanel } from '../components/merchant/BatchPanel'
 import { JourneyLine } from '../components/JourneyLine'
 import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { OrderChatLink } from '../components/merchant/OrderChatLink'
+import { MerchantEarnings } from '../components/merchant/MerchantEarnings'
+import { LoyalBadge } from '../components/ui/LoyalBadge'
 import { OrderTimeline } from '../components/merchant/OrderTimeline'
+import { OrderPaymentProof } from '../components/merchant/OrderPaymentProof'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
@@ -34,6 +37,7 @@ import {
   orderStatusLabel,
   orderUrgency,
   ordersForStatuses,
+  paymentGate,
   type QueueTabId,
 } from '../data/merchantOrders'
 import {
@@ -90,19 +94,9 @@ const EMPTY_HINT: Record<QueueTabId, string> = {
 }
 
 /**
- * Gerbang konfirmasi merchant (f18). Merchant hanya boleh menerima order
- * setelah pembayaran terkonfirmasi:
- * - `cod` → `ready` (COD dibayar tunai saat serah terima, §16.5);
- * - `paid` / tanpa status (seed) → `ready`;
- * - `transfer` → `verify` (merchant memverifikasi bukti saat menerima);
- * - sisanya (DANA/QRIS belum lunas) → `awaiting` (Terima nonaktif).
+ * Gerbang konfirmasi merchant (f18) ada di `data/merchantOrders.ts`
+ * (`paymentGate`) — dipakai juga oleh komponen bukti bayar.
  */
-function paymentGate(order: MerchantOrder): 'ready' | 'awaiting' | 'verify' {
-  if (order.paymentMethod === 'cod') return 'ready'
-  if (order.paymentStatus === undefined || order.paymentStatus === 'paid') return 'ready'
-  if (order.paymentMethod === 'transfer') return 'verify'
-  return 'awaiting'
-}
 
 export default function MerchantOrders() {
   const { money, moneyPlain } = useMoney()
@@ -414,7 +408,8 @@ export default function MerchantOrders() {
                 <div>
                   <p className="merchant-order-code">{detailOrder.code}</p>
                   <p className="merchant-order-sub">
-                    {detailOrder.customerName} · {detailOrder.placedAt}
+                    {detailOrder.customerName} · {detailOrder.placedAt}{' '}
+                    <LoyalBadge customerId={detailOrder.customerId} />
                   </p>
                 </div>
               </div>
@@ -469,9 +464,11 @@ export default function MerchantOrders() {
             <p className="merchant-order-meta">
               {detailOrder.address} · {formatDistance(detailOrder.distanceMeters)} ·{' '}
               {DELIVERY_TYPE_LABEL[orderDeliveryType(detailOrder)]} ·{' '}
-              {detailOrder.paymentMethod === 'cod' ? 'COD' : 'Transfer'}
+              {detailOrder.paymentMethod === 'cod' ? 'COD tunai · ditagih kurir' : 'Transfer'}
             </p>
             <p className="merchant-order-total">Total {money(detailOrder.total)}</p>
+            <MerchantEarnings order={detailOrder} />
+            <OrderPaymentProof order={detailOrder} />
             <OrderChatLink orderId={detailOrder.id} />
 
             {detailOrder.status === 'baru' ? (
@@ -486,7 +483,11 @@ export default function MerchantOrders() {
                       setAcceptId(detailOrder.id)
                     }}
                   >
-                    {paymentGate(detailOrder) === 'verify' ? 'Verifikasi & Terima' : 'Terima'}
+                    {paymentGate(detailOrder) === 'verify'
+                      ? detailOrder.paymentProof
+                        ? 'Verifikasi & Terima'
+                        : 'Terima tanpa bukti'
+                      : 'Terima'}
                   </button>
                   <button
                     type="button"

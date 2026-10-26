@@ -7,6 +7,7 @@ import type {
   HoldEvent,
   HoldEventName,
   HoldStatus,
+  OrderReceipt,
   OrderStage,
   OrderType,
   QuotaKind,
@@ -71,6 +72,18 @@ interface CartState {
    * mengonsumsi (selesai) atau mengembalikan (batal) di kolam yang sama.
    */
   quotaKind: QuotaKind | null
+  /**
+   * Invoice order terakhir, diambil saat checkout. `orders` BE belum menyimpan
+   * pecahan biaya, jadi rincian setelah bayar diputar dari snapshot ini —
+   * bukan dihitung ulang dari total (yang akan mengarang angka).
+   */
+  lastReceipt: OrderReceipt | null
+  /**
+   * Uang tunai yang disiapkan customer untuk COD (IDR). `null` = uang pas.
+   * Dibaca ringkasan bayar, layar pesanan, dan invoice supaya kembalian yang
+   * ditampilkan customer sama dengan yang ditagih kurir.
+   */
+  codCashIdr: number | null
 }
 
 const initialState: CartState = {
@@ -104,6 +117,8 @@ const initialState: CartState = {
   orderNote: '',
   deliveryType: 'regular',
   quotaKind: null,
+  lastReceipt: null,
+  codCashIdr: null,
 }
 /** Id entry hold: urutan + waktu, cukup unik untuk mock satu sesi. */
 const holdEvent = (event: HoldEventName, amountIdr: number, index: number): HoldEvent => ({
@@ -171,6 +186,14 @@ const cartSlice = createSlice({
       state.activeOrder = action.payload
       // Order baru → bersihkan penanda batal dari order sebelumnya.
       state.orderCancelled = false
+    },
+    /** Snapshot invoice order yang baru dibuat — dasar layar invoice setelah bayar. */
+    setLastReceipt(state, action: PayloadAction<OrderReceipt>) {
+      state.lastReceipt = action.payload
+    },
+    /** Nominal tunai yang disiapkan customer untuk COD (IDR). */
+    setCodCash(state, action: PayloadAction<number | null>) {
+      state.codCashIdr = action.payload
     },
     /** Kolam kuota yang di-reserve order ini (§17), dipilih saat order dibuat. */
     setQuotaKind(state, action: PayloadAction<QuotaKind | null>) {
@@ -387,6 +410,8 @@ export const {
   markOrderCancelled,
   setOrderStage,
   setActiveOrder,
+  setLastReceipt,
+  setCodCash,
   setQuotaKind,
 } = cartSlice.actions
 

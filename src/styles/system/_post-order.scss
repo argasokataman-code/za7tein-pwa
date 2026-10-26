@@ -38,6 +38,20 @@ body.order-arrived-page,
   background: var(--orange-soft);
 }
 
+// Aksi kedua di perayaan: jalan keluar ke beranda. Teks saja supaya tidak
+// bersaing dengan aksi utama; tetap 44px dan kontras teks di atas oranye.
+.order-arrived-secondary-btn {
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-top: var(--space-3);
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
 .order-arrived-confetti .confetti-dot,
 .order-arrived-confetti .confetti-x:before,
 .order-arrived-confetti .confetti-x:after {
@@ -140,6 +154,10 @@ body.order-arrived-page,
 
 .order-arrived-rate-btn {
   animation: celebrate-rise 520ms var(--ease-out) 600ms both;
+}
+
+.order-arrived-secondary-btn {
+  animation: celebrate-rise 520ms var(--ease-out) 660ms both;
 }
 
 // ── Jarak tepi halaman ──────────────────────────────────────────────────────

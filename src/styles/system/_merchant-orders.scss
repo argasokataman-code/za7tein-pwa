@@ -453,3 +453,18 @@
 .merchant-history-time {
   font-variant-numeric: tabular-nums;
 }
+
+/* Bukti transfer di detail order (metode legacy `transfer`). Keadaan "belum
+   ada bukti" ditandai lembut kuning, bukan abu: merchant perlu tahu bahwa ia
+   diminta memutuskan tanpa melihat apa pun. */
+.merchant-order-proof {
+  margin-top: var(--space-3);
+}
+
+.merchant-order-proof-empty {
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+  font-size: var(--text-sm);
+}

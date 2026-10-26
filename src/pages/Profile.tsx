@@ -19,7 +19,10 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { BottomNav } from '../components/layout/BottomNav'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
+import { LoyalBadge } from '../components/ui/LoyalBadge'
 import { APP_VERSION } from '../data/appInfo'
+import { mockUser } from '../data/user'
+import { findCustomer } from '../data/people'
 import { logout } from '../store/slices/authSlice'
 import { selectUnreadCount } from '../store/slices/notificationsSlice'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -92,6 +95,9 @@ export default function Profile() {
   // kosong (BE belum punya kolomnya) → tampilkan email sebagai identitas.
   const displayName = user?.name?.trim() || user?.email || 'Akun'
   const displaySub = user?.name?.trim() ? user.email : user?.phone ?? ''
+  // Registri menilai loyalitas; id sesi BE (uuid) tak ada di registry mock,
+  // jadi jatuh ke customer demo supaya label tetap punya dasar yang nyata.
+  const loyaltyCustomerId = user?.id && findCustomer(user.id) ? user.id : mockUser.id
 
   const handleLogout = () => {
     dispatch(logout())
@@ -113,6 +119,7 @@ export default function Profile() {
                 />
                 <span className="pf-header__text">
                   <span className="pf-header__name">{displayName}</span>
+                  <LoyalBadge customerId={loyaltyCustomerId} />
                   {displaySub ? <span className="pf-header__sub">{displaySub}</span> : null}
                 </span>
                 <span className="pf-header__edit" aria-hidden="true">

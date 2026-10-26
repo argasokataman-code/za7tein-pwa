@@ -258,46 +258,6 @@ a.admin-kpi-item {
   color: var(--text-secondary);
 }
 
-/* Bukti foto di konsol CS (audit 017 F-02): petak thumbnail yang bisa dibuka
-   menjadi pratinjau penuh lewat BottomSheet. Sebelumnya konsol hanya memuat
-   jumlah foto sebagai angka. */
-.evidence-photos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-.evidence-photo {
-  width: 72px;
-  height: 72px;
-  padding: 0;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  background: var(--bg-warm);
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.evidence-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.evidence-photo:focus-visible {
-  outline: 2px solid var(--sa7tein-orange);
-  outline-offset: 2px;
-}
-
-.evidence-photo-full {
-  display: block;
-  width: 100%;
-  max-height: 60vh;
-  object-fit: contain;
-  border-radius: var(--radius-md);
-}
-
 /* Field di dialog putusan (audit 017 F-03): catatan wajib dengan validasi.
    Slider memakai `.admin-range` (gaya di `_admin.scss`). */
 .admin-textarea {

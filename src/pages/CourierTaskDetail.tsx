@@ -12,6 +12,8 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
 import { formatDistance, zoneLabel } from '../data/merchant'
+import { codCashOptions, codChangeIdr } from '../data/codCash'
+import { jodToIdr } from '../data/currency'
 import {
   COURIER_ACTION_LABEL,
   COURIER_GUARD_MINUTES,
@@ -39,6 +41,8 @@ export default function CourierTaskDetail() {
   const tasks = useAppSelector((s) => s.courier.tasks)
   const { now } = useTick()
   const [otp, setOtp] = useState('')
+  const [cashInput, setCashInput] = useState('')
+  const [cashChosenIdr, setCashChosenIdr] = useState<number | null>(null)
   const [showCelebration, setShowCelebration] = useState(false)
 
   // Kunci gulir latar selama overlay perayaan terbuka.
@@ -74,6 +78,13 @@ export default function CourierTaskDetail() {
   const canCancel = isGuard && elapsed >= COURIER_GUARD_MINUTES.batal
   const isFinished = task.checkpoint === 'selesai'
   const isCancelled = task.checkpoint === 'batal'
+  // COD: uang tunai yang benar-benar diterima kurir. Chip memakai pembulatan
+  // yang sama dengan customer, input bebas menampung nominal lain (JOD).
+  const cashOptions = task.paymentMethod === 'cod' ? codCashOptions(task.total) : []
+  const customCashIdr = cashInput.trim() ? jodToIdr(Number(cashInput.replace(',', '.'))) : 0
+  const cashReceivedIdr = cashChosenIdr ?? (customCashIdr || task.total)
+  const cashChangeIdr = codChangeIdr(task.total, cashReceivedIdr)
+  const showCash = task.paymentMethod === 'cod' && task.checkpoint === 'tiba'
 
   // Tanpa OTP yang benar kurir tidak bisa settle (C-09). Order live diverifikasi
   // di BE lewat RPC `verify_order_otp` (set `otp_verified` + checkpoint); tugas
@@ -81,6 +92,11 @@ export default function CourierTaskDetail() {
   // menunjukkan (lihat `DeliveryActionCard` sisi customer).
   async function submitOtp() {
     if (!task) return
+    // COD tunai: serah terima tidak boleh selesai sebelum uang cukup diterima.
+    if (task.paymentMethod === 'cod' && cashReceivedIdr < task.total) {
+      toast.error('Uang diterima kurang dari tagihan')
+      return
+    }
     const isApi = /^api-\d+$/.test(task.id)
     const ok = isApi
       ? await verifyOrderOtp(task.id, otp).catch(() => false)
@@ -163,6 +179,55 @@ export default function CourierTaskDetail() {
                 : 'Sudah dibayar — tidak ada tagihan saat serah terima.'}
           </p>
         </section>
+
+        {showCash ? (
+          <section className="courier-section">
+            <h2 className="courier-section-title">Uang tunai</h2>
+            <div className="cod-cash-card">
+              <div className="cod-cash-options" role="radiogroup" aria-label="Nominal uang diterima">
+                {cashOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={cashChosenIdr === option.receivedIdr}
+                    className={
+                      cashChosenIdr === option.receivedIdr
+                        ? 'cod-cash-chip is-active'
+                        : 'cod-cash-chip'
+                    }
+                    onClick={() => {
+                      setCashChosenIdr(option.receivedIdr)
+                      setCashInput('')
+                    }}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+              <label className="cod-cash-field">
+                <span>Uang diterima (JOD)</span>
+                <input
+                  inputMode="decimal"
+                  value={cashInput}
+                  placeholder="0,00"
+                  onChange={(event) => {
+                    setCashInput(event.target.value)
+                    setCashChosenIdr(null)
+                  }}
+                />
+              </label>
+              <div className="cod-cash-row">
+                <span>Tagihan</span>
+                <span className="cod-cash-amount">{money(task.total)}</span>
+              </div>
+              <div className="cod-cash-row cod-cash-row--total">
+                <span>Kembalian</span>
+                <span className="cod-cash-amount">{money(cashChangeIdr)}</span>
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         <section className="courier-section">
           <h2 className="courier-section-title">Status pesanan</h2>
