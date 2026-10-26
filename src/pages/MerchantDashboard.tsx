@@ -14,7 +14,7 @@ import { useMoney } from '../hooks/useMoney'
 import { apiEnabled } from '../api/supabase'
 import { jodToIdr } from '../data/currency'
 import { rebateProgress } from '../data/incentive'
-import { orderStatusLabel } from '../data/merchantOrders'
+import { orderStatusLabel, isOrderToday } from '../data/merchantOrders'
 import {
   menuSalesRanking,
   orderMixSegments,
@@ -111,11 +111,11 @@ export default function MerchantDashboard() {
 
   const progress = rebateProgress(credit.settledThisPeriod)
 
-  // Pendapatan = order yang benar-benar berjalan. Order `ditolak`/`batal` tidak
-  // pernah jadi uang, dan sebelumnya kartu ini hanya menghitung `selesai`
-  // sehingga angkanya jauh lebih kecil dari total yang tampil di grafik tren.
+  // Pendapatan hari ini = penjualan hari kalender berjalan saja. Sebelumnya
+  // kartu ini menjumlah SEMUA order yang tersimpan (lintas hari), jadi angka
+  // besar dari order lama ikut terbaca sebagai omzet kasir hari ini.
   const revenue = orders
-    .filter((o) => o.status !== 'ditolak' && o.status !== 'batal')
+    .filter((o) => o.status !== 'ditolak' && o.status !== 'batal' && isOrderToday(o))
     .reduce((sum, o) => sum + o.total, 0)
 
   const trend = trendTotals()
@@ -213,9 +213,9 @@ export default function MerchantDashboard() {
               <TrendingUp size={20} strokeWidth={1.75} />
             </span>
             <div className="chart-card-heading">
-              <p className="chart-card-title" role="heading" aria-level={2}>Pendapatan</p>
+              <p className="chart-card-title" role="heading" aria-level={2}>Pendapatan hari ini</p>
               <p className="chart-card-desc">
-                7 hari (ribu rupiah) · {trend.orders} order jalan · puncak{' '}
+                Penjualan hari ini · batang 7 hari (ribu rupiah) · puncak{' '}
                 {trend.best?.label ?? '-'}
               </p>
             </div>

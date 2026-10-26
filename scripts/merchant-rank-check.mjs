@@ -4,6 +4,7 @@
 import assert from 'node:assert/strict'
 
 import { menuSalesRanking, topMenuShare } from '../src/data/merchantTrend.ts'
+import { QUEUE_TABS, isOrderToday } from '../src/data/merchantOrders.ts'
 
 const item = (menuId, name, quantity, price) => ({
   id: `api-line-${Math.random().toString(36).slice(2, 8)}`,
@@ -61,5 +62,25 @@ assert.equal(
 const share = topMenuShare(collapsed)
 assert.deepEqual(share, { name: 'Lontong Sayur', share: 4 / 6, orders: 2 })
 assert.equal(topMenuShare([]), null)
+
+// Pendapatan dashboard = hari kalender berjalan saja, bukan seluruh riwayat.
+const siang = new Date('2026-10-26T12:00:00+07:00').getTime()
+assert.equal(
+  isOrderToday({ placedAtMs: new Date('2026-10-26T01:00:00+07:00').getTime() }, siang),
+  true,
+  'order pagi ini dihitung',
+)
+assert.equal(
+  isOrderToday({ placedAtMs: new Date('2026-10-25T23:59:00+07:00').getTime() }, siang),
+  false,
+  'order kemarin tidak dihitung',
+)
+assert.equal(isOrderToday({}, siang), true, 'seed tanpa tanggal tetap terhitung')
+
+// Tab antrean memecah proses dapur: Disiapkan, Siap, Diantar (bukan satu tab).
+assert.deepEqual(
+  QUEUE_TABS.filter((t) => ['disiapkan', 'siap', 'diantar'].includes(t.id)).map((t) => t.label),
+  ['Disiapkan', 'Siap', 'Diantar'],
+)
 
 console.log('merchant-rank-check: OK')

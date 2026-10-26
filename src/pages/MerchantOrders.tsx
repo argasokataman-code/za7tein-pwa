@@ -88,15 +88,14 @@ const DEFAULT_COOK_MINUTES = 25
    kenapa tab ini belum berisi dan apa yang akan muncul. */
 const EMPTY_HINT: Record<QueueTabId, string> = {
   masuk: 'Order baru muncul di sini begitu pelanggan memesan.',
-  diproses: 'Order yang sudah kamu terima sedang berjalan di sini.',
+  disiapkan: 'Order yang sudah kamu terima dan sedang dimasak ada di sini.',
+  siap: 'Order yang selesai dimasak dan menunggu kurir ada di sini.',
+  diantar: 'Order yang sedang dibawa kurir ke pelanggan ada di sini.',
   selesai: 'Order yang tuntas akan tersimpan di sini.',
   batal: 'Order yang ditolak atau dibatalkan tampil di sini.',
 }
 
-/**
- * Gerbang konfirmasi merchant (f18) ada di `data/merchantOrders.ts`
- * (`paymentGate`) — dipakai juga oleh komponen bukti bayar.
- */
+/** Gerbang konfirmasi merchant (f18) ada di `data/merchantOrders.ts`. */
 
 export default function MerchantOrders() {
   const { money, moneyPlain } = useMoney()

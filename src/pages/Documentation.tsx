@@ -1180,7 +1180,10 @@ export default function Documentation() {
                 awal, tulis status ke BE memicu realtime, <code className="doc-inline">packed</code>{' '}
                 hilang, panel batch balik "Belum packing" padahal justru itu syarat BR-B09. Kini
                 merge <strong>per id</strong> dan membawa kolom klien dari baris lama; penjagaan ini
-                boleh dibuang begitu BE punya kolomnya.
+                boleh dibuang begitu BE punya kolomnya. Bedanya dengan estimasi masak{' '}
+                <strong>per menu</strong>: yang itu kolom nyata <code className="doc-inline">menus.cook_minutes</code>{' '}
+                dan sekarang diisi merchant di form item (1&ndash;120 menit, default 25), bukan hanya
+                diteruskan dari data lama.
               </li>
               <li>
                 <strong>Satu rel kanan per baris daftar (MD-11).</strong> Baris ringkasan dulu

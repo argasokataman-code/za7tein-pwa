@@ -22,7 +22,7 @@ import { imageFileError, uploadImage } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import type { MenuItem } from '../types'
 
-const EMPTY_FORM: MerchantMenuItemFormData = { name: '', price: 0, category: '', stock: 0 }
+const EMPTY_FORM: MerchantMenuItemFormData = { name: '', price: 0, category: '', stock: 0, cookMinutes: 25 }
 
 /* Fallback kategori = taksonomi tampilan customer, dipakai hanya saat API mati.
    Saat API hidup, daftar datang dari `menu_categories` BE (`useMenuCategories`). */
@@ -151,6 +151,7 @@ export default function MerchantMenu() {
       price: item.price,
       category: item.categoryId ?? '',
       stock: item.stock,
+      cookMinutes: item.cookMinutes ?? 25,
       description: item.description ?? '',
     })
     setFormImage(item.image)
@@ -180,7 +181,7 @@ export default function MerchantMenu() {
       image: formImage || editing?.image || null,
       discountPercent: editing?.discountPercent,
       isPopular: editing?.isPopular,
-      cookMinutes: editing?.cookMinutes,
+      cookMinutes: data.cookMinutes,
       noteEnabled: formNote,
     }
     try {
@@ -500,6 +501,23 @@ export default function MerchantMenu() {
                 </div>
               )}
             />
+          </div>
+          <div className="form-group">
+            <label htmlFor="merchant-item-cook" className="form-label">Estimasi masak (menit)</label>
+            {/* Waktu masak per menu, bukan per order: pelanggan melihatnya di
+                kartu menu sebelum memesan (FoodCard/MenuDetail). */}
+            <input
+              id="merchant-item-cook"
+              type="number"
+              inputMode="numeric"
+              min="1"
+              max="120"
+              className={`form-control${errors.cookMinutes ? ' error' : ''}`}
+              {...register('cookMinutes', { valueAsNumber: true })}
+            />
+            {errors.cookMinutes && (
+              <span className="error-message">{errors.cookMinutes.message}</span>
+            )}
           </div>
           <div className="form-group">
             <span className="form-label">Catatan pelanggan</span>

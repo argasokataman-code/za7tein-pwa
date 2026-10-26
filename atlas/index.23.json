@@ -3827,6 +3827,237 @@
           "raw": "BUG-142427:fixes"
         }
       ]
+    },
+    {
+      "id": "TASK-142437",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:22:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantMenu.tsx (+1/-1) — edit via tool: tsx: const EMPTY_FORM: MerchantMenuItem",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantMenu.tsx"
+    },
+    {
+      "id": "TASK-142438",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:22:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/lib/schemas.ts (+8/-2) — edit via tool: ts: stock: z.number().min(0, 'Stok tidak bol",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/lib/schemas.ts"
+    },
+    {
+      "id": "TASK-142439",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:22:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx (+9/-7) — edit via tool: tsx: const EMPTY_HINT: Record<QueueTa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-142440",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:22:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantOrders.ts (+12/-8) — edit via tool: ts: /** Tab antrean merchant — satu su",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantOrders.ts"
+    },
+    {
+      "id": "TASK-142441",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:22:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantTrend.ts (+19/-18) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantTrend.ts"
+    },
+    {
+      "id": "TASK-142442",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:22:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+1/-1) — edit via tool: tsx: import { orderStatusLabel, is",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-142443",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:23:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/merchant-rank-check.mjs (+24/-4) — edit via tool: assert.equal(topMenuShare([]), nu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/merchant-rank-check.mjs"
+    },
+    {
+      "id": "TASK-142444",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:23:37",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -2 && npm run build 2>&1 | tail -4 && npm run scan 2>&1 | tail -3 && node --import ./scripts/lib/ts-resolve",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142445",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:23:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx (+2/-5) — edit via tool: tsx: /** Gerbang konfirmasi merchant ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-142446",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:24:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -2 && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | tail -12 && npm run check:self 2>&1 | tail -6 pas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142447",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:29:59",
+      "tags": [
+        "merchant",
+        "dashboard",
+        "menu",
+        "orders",
+        "feedback"
+      ],
+      "summary": "Demo feedback: revenue today-only, per-menu cookMinutes in item form, queue tabs split into Disiapkan/Siap/Diantar",
+      "conn": [
+        {
+          "id": "BUG-142427",
+          "type": "relates",
+          "raw": "BUG-142427:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142448",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:32:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+6/-3) — edit via tool: tsx: merge <strong>per id</strong> dan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

@@ -54,6 +54,12 @@ export const merchantMenuItemSchema = z.object({
   price: z.number().min(1000, 'Harga minimal Rp1.000'),
   category: z.string().min(2, 'Kategori wajib diisi'),
   stock: z.number().min(0, 'Stok tidak boleh negatif'),
+  // Estimasi masak per menu (menit). Diisi bersamaan dengan harga & stok di
+  // form item, lalu dibaca kartu menu customer + estimasi order.
+  cookMinutes: z
+    .number({ message: 'Estimasi masak wajib diisi' })
+    .min(1, 'Minimal 1 menit')
+    .max(120, 'Maksimal 120 menit'),
   image: z.string().optional(),
   description: z.string().optional(),
   available: z.boolean().optional(),

@@ -85,7 +85,11 @@ export function deliveryBadge(
 /** Tab antrean merchant — satu sumber untuk label dan status anggotanya. */
 export const QUEUE_TABS = [
   { id: 'masuk', label: 'Antrean', statuses: ['baru'] },
-  { id: 'diproses', label: 'Diproses', statuses: ['diterima', 'disiapkan', 'siap', 'diantar', 'tiba'] },
+  // Proses dapur dipecah per tahap yang merchant kendalikan, bukan satu tab
+  // "Diproses" yang mencampur disiapkan, siap, dan diantar.
+  { id: 'disiapkan', label: 'Disiapkan', statuses: ['diterima', 'disiapkan'] },
+  { id: 'siap', label: 'Siap', statuses: ['siap'] },
+  { id: 'diantar', label: 'Diantar', statuses: ['diantar', 'tiba'] },
   { id: 'selesai', label: 'Selesai', statuses: ['selesai'] },
   { id: 'batal', label: 'Batal', statuses: ['ditolak', 'batal'] },
 ] as const
@@ -298,6 +302,22 @@ export function countByTab(orders: MerchantOrder[], tabId: QueueTabId): number {
 export function orderAgeMinutes(order: MerchantOrder, now = Date.now()): number | null {
   if (order.placedAtMs === undefined) return null
   return Math.max(0, Math.round((now - order.placedAtMs) / 60_000))
+}
+
+/**
+ * Order dibuat pada hari kalender yang sama dengan `now` (waktu lokal kasir).
+ * Order seed tanpa `placedAtMs` dianggap hari ini supaya mode mock tetap terisi.
+ * Dipakai kartu pendapatan: angka "hari ini" tidak boleh menjumlah order lama.
+ */
+export function isOrderToday(order: Pick<MerchantOrder, 'placedAtMs'>, now = Date.now()): boolean {
+  if (order.placedAtMs === undefined) return true
+  const placed = new Date(order.placedAtMs)
+  const today = new Date(now)
+  return (
+    placed.getFullYear() === today.getFullYear() &&
+    placed.getMonth() === today.getMonth() &&
+    placed.getDate() === today.getDate()
+  )
 }
 
 /** Label umur ringkas untuk chip tiket: `baru`, `12 mnt`, `1 j 20 m`. */

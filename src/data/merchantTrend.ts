@@ -79,17 +79,18 @@ export function revenueTrendBars(points: TrendPoint[] = merchantTrend): ChartBar
 }
 
 /**
- * Komposisi status order untuk donut. Menumpang `MerchantOrderStatus` yang ada;
- * sub-state `diterima` digabung ke "Diproses" dan `tiba` ke "Diantar" supaya
- * donutnya tidak terpecah jadi potongan yang tidak terbaca di lebar 430px.
+ * Komposisi status order untuk donut. Satu potongan per tab antrean merchant
+ * (Antrean/Disiapkan/Siap/Diantar/Selesai/Batal) supaya tiap potongan bisa
+ * ditekan dan mendarat di daftar yang isinya persis sama.
  */
 export function orderMixSegments(orders: MerchantOrder[] = merchantOrders): ChartSegment[] {
   const count = (statuses: string[]) =>
     orders.filter((order) => statuses.includes(order.status)).length
   const segments: ChartSegment[] = [
     { label: 'Baru', value: count(['baru']), tone: 'warning', tab: 'masuk' },
-    { label: 'Diproses', value: count(['diterima', 'disiapkan', 'siap']), tone: 'brand', tab: 'diproses' },
-    { label: 'Diantar', value: count(['diantar', 'tiba']), tone: 'success' },
+    { label: 'Disiapkan', value: count(['diterima', 'disiapkan']), tone: 'brand', tab: 'disiapkan' },
+    { label: 'Siap', value: count(['siap']), tone: 'brand', tab: 'siap' },
+    { label: 'Diantar', value: count(['diantar', 'tiba']), tone: 'success', tab: 'diantar' },
     { label: 'Selesai', value: count(['selesai']), tone: 'muted', tab: 'selesai' },
     { label: 'Batal/tolak', value: count(['ditolak', 'batal']), tone: 'danger', tab: 'batal' },
   ]
