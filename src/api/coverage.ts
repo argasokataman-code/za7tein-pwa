@@ -40,10 +40,15 @@ export async function fetchMerchantCoverage(
   )
   if (!rows.length) return undefined
   const area = rows.filter((r) => r.mode === 'area' && Array.isArray(r.polygon))
+  const centerOf = (row: ZoneRow): GeoPoint => ({
+    lat: row.center_lat ?? MERCHANT_KITCHEN.lat,
+    lng: row.center_lng ?? MERCHANT_KITCHEN.lng,
+  })
   if (area.length) {
     return {
       merchantId,
       mode: 'area',
+      origin: centerOf(area[0]),
       polygons: area.map((r) => ({
         id: `be-cz-${r.id}`,
         vertices: (r.polygon ?? []).map(([lat, lng]) => ({ lat, lng })),
@@ -56,6 +61,7 @@ export async function fetchMerchantCoverage(
   return {
     merchantId,
     mode: 'radius',
+    origin: centerOf(radius),
     polygons: [],
     radiusMeters: radius.radius_m ?? 0,
     feePerUnitJod: radius.delivery_fee_jod ?? 0,
@@ -80,14 +86,15 @@ export async function saveMerchantCoverage(coverage: MerchantCoverage): Promise<
   )
 
   const rows: { body: Record<string, unknown>; id?: number }[] = []
+  const center = coverage.origin ?? MERCHANT_KITCHEN
   if (coverage.mode === 'radius') {
     rows.push({
       id: existing[0]?.id,
       body: {
         merchant_id: merchantId,
         mode: 'radius',
-        center_lat: MERCHANT_KITCHEN.lat,
-        center_lng: MERCHANT_KITCHEN.lng,
+        center_lat: center.lat,
+        center_lng: center.lng,
         radius_m: coverage.radiusMeters ?? 0,
         polygon: null,
         delivery_fee_jod: coverage.feePerUnitJod ?? 0,
@@ -101,8 +108,8 @@ export async function saveMerchantCoverage(coverage: MerchantCoverage): Promise<
         body: {
           merchant_id: merchantId,
           mode: 'area',
-          center_lat: MERCHANT_KITCHEN.lat,
-          center_lng: MERCHANT_KITCHEN.lng,
+          center_lat: center.lat,
+          center_lng: center.lng,
           radius_m: null,
           polygon: polygon.vertices.map((v: GeoPoint) => [v.lat, v.lng]),
           delivery_fee_jod: polygon.feeJod,

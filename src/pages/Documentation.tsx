@@ -1042,6 +1042,15 @@ export default function Documentation() {
                 sinkronisasi zona reject, poligon tetap mock (Jakarta), dan setiap alamat BE
                 yang sah (Irbid) dinilai &ldquo;di luar area antar&rdquo;. Sekarang poligon
                 di-parse lebih dulu (<code className="doc-inline">polygonVertices</code>).
+                Sisa akar yang sama: gate checkout masih membandingkan alamat ke{' '}
+                <code className="doc-inline">MERCHANT_KITCHEN</code> mock Jakarta
+                (&minus;6,26 / 106,78), jadi alamat Irbid yang lolos RPC
+                <code className="doc-inline">check_coverage</code> tetap ditolak radius dan
+                tampil &ldquo;0 m, di luar jangkauan toko&rdquo;. Sekarang{' '}
+                <code className="doc-inline">coverage.origin</code> diisi dari
+                <code className="doc-inline">coverage_zones.center_lat/lng</code> (cadangan:{' '}
+                <code className="doc-inline">merchants.latitude/longitude</code>) dan dipakai
+                quote, kanvas area layanan, serta tulisan balik coverage.
               </li>
               <li>
                 <strong>Audit integrasi + tiga tabel BE yang tadinya belum dibaca.</strong>{' '}

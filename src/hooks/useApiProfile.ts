@@ -5,6 +5,7 @@ import { fetchCustomerAccount, fetchCustomerAddresses, fetchCustomerUser, fetchM
 import { apiEnabled } from '../api/supabase'
 import { updateUser } from '../store/slices/authSlice'
 import { setAddresses } from '../store/slices/cartSlice'
+import { setOrigin } from '../store/slices/coverageSlice'
 import { useAppDispatch, useAppSelector } from './useAppStore'
 
 /** Identitas customer live → `auth.user`: email/HP dari tabel `users`, nama/avatar dari metadata akun. */
@@ -46,6 +47,7 @@ function useCustomerAddresses(): void {
     const run = () =>
       Promise.all([fetchCustomerAddresses(), fetchMerchantLocation()])
         .then(async ([rows, kitchen]) => {
+          if (kitchen) dispatch(setOrigin(kitchen))
           if (!rows.length) return
           // Zona + jarak dari poligon klien; flag "bisa diantar" dari server
           // (`check_coverage`). RPC gagal → pakai hasil klien apa adanya.

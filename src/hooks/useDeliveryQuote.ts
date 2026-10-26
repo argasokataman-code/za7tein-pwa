@@ -25,7 +25,8 @@ export function useDeliveryQuote() {
 
   return useMemo(() => {
     return (address: Pick<Address, 'lat' | 'lng'>): DeliveryQuoteIdr => {
-      const quote = deliveryQuote(coverage, { lat: address.lat, lng: address.lng }, MERCHANT_KITCHEN)
+      const kitchen = coverage.origin ?? MERCHANT_KITCHEN
+      const quote = deliveryQuote(coverage, { lat: address.lat, lng: address.lng }, kitchen)
       return { covered: quote.covered, feeIdr: jodToIdr(quote.feeJod) }
     }
   }, [coverage])

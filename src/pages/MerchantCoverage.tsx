@@ -67,7 +67,7 @@ const cornersAround = (center: GeoPoint, meters: number): GeoPoint[] => {
 export default function MerchantCoverage() {
   const dispatch = useAppDispatch()
   const coverage = useAppSelector((state) => state.coverage)
-  const kitchen = MERCHANT_KITCHEN
+  const kitchen = coverage.origin ?? MERCHANT_KITCHEN
 
   const [selectedId, setSelectedId] = useState<string | null>(coverage.polygons[0]?.id ?? null)
   const [dragging, setDragging] = useState<{ id: string; index: number } | null>(null)

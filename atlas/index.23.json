@@ -4058,6 +4058,217 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-142449",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:42:10",
+      "tags": [
+        "e2e",
+        "prod",
+        "merchant",
+        "headed"
+      ],
+      "summary": "Headed prod e2e on Vercel: revenue today, 6 queue tabs, cook-time validation, customer back-to-home all pass",
+      "conn": [
+        {
+          "id": "TASK-142447",
+          "type": "relates",
+          "raw": "TASK-142447:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142450",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:53:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/types.ts (+11/-4) — edit via tool: ts: export interface MerchantCoverage {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-142451",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:54:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/coverage.ts (+27/-21) — edit via tool: ts: const centerOf = (row: ZoneRow): GeoPoin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/coverage.ts"
+    },
+    {
+      "id": "TASK-142452",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:55:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/coverage.ts (+3/-3) — edit via tool: ts: mode: 'area',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/coverage.ts"
+    },
+    {
+      "id": "TASK-142453",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:55:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/coverageSlice.ts (+7/-3) — edit via tool: ts: setFeePerUnitJod(state, acti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/coverageSlice.ts"
+    },
+    {
+      "id": "TASK-142454",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:55:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useDeliveryQuote.ts (+7/-6) — edit via tool: ts: return useMemo(() => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useDeliveryQuote.ts"
+    },
+    {
+      "id": "TASK-142455",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:55:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCoverage.tsx (+1/-1) — edit via tool: tsx: const kitchen = coverage.origi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantCoverage.tsx"
+    },
+    {
+      "id": "TASK-142456",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:55:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiProfile.ts (+3/-2) — edit via tool: ts: import { updateUser } from '../stor",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiProfile.ts"
+    },
+    {
+      "id": "TASK-142457",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:58:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: ls scripts | head -40; echo ---; npm run lint 2>&1 | tail -5; npm run build 2>&1 | tail -8 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142458",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:58:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/coverage-check.mjs (+14/-4) — edit via tool: assert.equal(nextPolygonId([]), 'area-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/coverage-check.mjs"
+    },
+    {
+      "id": "TASK-142459",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-26",
+      "time": "23:58:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+12/-3) — edit via tool: tsx: yang sah (Irbid) dinilai &ldquo;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

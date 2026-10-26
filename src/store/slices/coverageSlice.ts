@@ -64,9 +64,14 @@ const coverageSlice = createSlice({
     setFeePerUnitJod(state, action: PayloadAction<number>) {
       state.feePerUnitJod = action.payload
     },
+    /** Titik dapur live dari BE; dipakai menghitung jarak & gate coverage. */
+    setOrigin(state, action: PayloadAction<GeoPoint>) {
+      state.origin = action.payload
+    },
     resetCoverage(state) {
       const seed = cloneCoverage(initialState)
       state.mode = seed.mode
+      state.origin = seed.origin
       state.polygons = seed.polygons
       state.radiusMeters = seed.radiusMeters
       state.feePerUnitJod = seed.feePerUnitJod
@@ -76,6 +81,7 @@ const coverageSlice = createSlice({
     replaceCoverage(state, action: PayloadAction<MerchantCoverage>) {
       const next = cloneCoverage(action.payload)
       state.mode = next.mode
+      state.origin = next.origin
       state.polygons = next.polygons
       state.radiusMeters = next.radiusMeters
       state.feePerUnitJod = next.feePerUnitJod
@@ -95,5 +101,6 @@ export const {
   setFeePerUnitJod,
   resetCoverage,
   replaceCoverage,
+  setOrigin,
 } = coverageSlice.actions
 export default coverageSlice.reducer

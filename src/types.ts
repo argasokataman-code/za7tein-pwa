@@ -1474,6 +1474,13 @@ export interface MerchantCoverage {
   merchantId: string
   mode: CoverageMode
   polygons: CoveragePolygon[]
+  /**
+   * Titik dapur merchant. Diisi dari `coverage_zones.center_*` (atau
+   * `merchants.latitude/longitude`). Tanpa ini jarak dihitung dari
+   * `MERCHANT_KITCHEN` mock Jakarta, yang membuat alamat live (Irbid) selalu
+   * dianggap di luar jangkauan.
+   */
+  origin?: GeoPoint
   /** Mode radius: radius maksimum (meter). */
   radiusMeters?: number
   /** Mode radius: fee per satuan jarak (JOD). */

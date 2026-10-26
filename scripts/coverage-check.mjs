@@ -132,4 +132,13 @@ assert.equal(MIN_POLYGON_VERTICES, 3)
 assert.equal(nextPolygonId([]), 'area-1')
 assert.equal(nextPolygonId([{ id: 'area-1' }, { id: 'area-2' }]), 'area-3')
 
+// Regresi produksi: dapur & alamat live sama-sama di Irbid (32.555, 35.85).
+// Titik dapur WAJIB ikut `coverage.origin` dari BE; memakai konstanta mock
+// Jakarta membuat semua alamat live dianggap "di luar jangkauan".
+const IRBID = { lat: 32.555, lng: 35.85 }
+const liveCoverage = { ...radiusCoverage, origin: IRBID }
+const livePoint = { lat: 32.5559, lng: 35.8509 }
+assert.equal(deliveryQuote(liveCoverage, livePoint, liveCoverage.origin).covered, true, 'alamat Irbid harus masuk radius dapur Irbid')
+assert.equal(deliveryQuote(liveCoverage, livePoint, KITCHEN).covered, false, 'dapur mock Jakarta memang menolak alamat Irbid — bukan yang dipakai kalau origin ada')
+
 console.log('coverage-check: OK')
