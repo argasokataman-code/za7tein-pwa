@@ -21,6 +21,7 @@ import {
 import { formatDistance } from '../data/merchant'
 import { setBatchAutoSort, setBatchRouteOrder, startBatchDelivery } from '../store/slices/courierSlice'
 import { startBatchOnBe } from '../api/batches'
+import { updateOrderStatus } from '../api/orders'
 
 /**
  * Batch kurir inhouse (M5, PRD §8/§9.6). Kurir melihat batch yang ditugaskan
@@ -139,6 +140,13 @@ export default function CourierBatch() {
               // Status batch ikut ditulis ke BE supaya merchant & perangkat lain
               // melihat pengantaran dimulai, bukan tetap "ditutup lebih awal".
               void startBatchOnBe(batch.id).catch(() => {})
+              // Order di dalam batch juga harus pindah ke Diantar — kalau tidak,
+              // merchant melihat tiketnya masih di Siap padahal kurirnya jalan.
+              for (const stop of stops) {
+                if (!isDoneTask(stop) && stop.checkpoint !== 'batal') {
+                  void updateOrderStatus(stop.id, 'diantar', 'courier').catch(() => {})
+                }
+              }
             }}
           >
             <Play size={18} strokeWidth={1.75} aria-hidden="true" />

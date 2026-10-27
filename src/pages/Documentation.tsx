@@ -858,8 +858,10 @@ export default function Documentation() {
                 dipetakan dari <code className="doc-inline">couriers.user_id</code> ={' '}
                 <code className="doc-inline">sub</code> token. Batch seed hanya dipakai sebelum BE
                 menjawab. Tombol <em>Mulai antar</em> ikut menulis status batch (
-                <code className="doc-inline">startBatchOnBe</code>), jadi merchant melihat
-                pengantaran dimulai dari perangkat mana pun.
+                <code className="doc-inline">startBatchOnBe</code>) <strong>dan</strong> memindahkan
+                setiap order batch ke <code className="doc-inline">orders.status = delivery</code>{' '}
+                lewat sesi kurir — tanpa itu tiket tetap di tab <em>Siap</em> merchant padahal
+                kurirnya sudah jalan.
               </li>
               <li>
                 <strong>OTP lahir bersama order.</strong> Serah terima dikunci kode 4 digit, tapi{' '}
