@@ -74,6 +74,11 @@ const courierSlice = createSlice({
     setTasks(state, action: PayloadAction<CourierTask[]>) {
       if (!action.payload.length) return
       const local = new Map(state.tasks.map((task) => [task.id, task]))
+      // Order selesai tidak lagi dikirim RPC kurir; kalau dibuang, riwayat sesi
+      // ini ikut hilang padahal kurir baru saja menuntaskannya.
+      const finished = state.tasks.filter(
+        (task) => task.checkpoint === 'selesai' && !action.payload.some((row) => row.id === task.id),
+      )
       state.tasks = action.payload.map((task) => {
         const mine = local.get(task.id)
         return mine
@@ -85,6 +90,7 @@ const courierSlice = createSlice({
             }
           : task
       })
+      state.tasks.push(...finished)
     },
     /** Maju satu checkpoint sesuai urutan flow F13, lalu mulai jeda SLA baru. */
     advanceCheckpoint(state, action: PayloadAction<{ id: string }>) {

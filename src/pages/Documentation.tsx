@@ -867,7 +867,9 @@ export default function Documentation() {
                 batch, bukan &ldquo;dalam pengantaran&rdquo; selamanya. Daftar tugas kurir sekarang
                 <strong> menggantikan</strong> seed begitu BE mengirim tugas (progres checkpoint
                 lokal dibawa untuk id yang sama), sehingga tidak ada lagi 12 tugas campuran seed +
-                order nyata.
+                order nyata. Order yang baru dituntaskan tetap di daftar sebagai riwayat walau RPC
+                kurir tak lagi mengirimnya; riwayat lintas-perangkat masih terbatas karena RPC
+                hanya mengirim order berjalan — itu urusan BE, bukan layar.
               </li>
               <li>
                 <strong>OTP lahir bersama order.</strong> Serah terima dikunci kode 4 digit, tapi{' '}

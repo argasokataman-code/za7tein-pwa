@@ -5560,6 +5560,44 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-144305",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:44:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/courier-tasks-check.mjs (+63) — write via tool: // Self-check reducer daftar tugas ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/courier-tasks-check.mjs"
+    },
+    {
+      "id": "TASK-144306",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:45:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/Documentation.tsx'\ns=open(p).read()\nold=\"\"\"                lokal dibawa untuk id yang sama), sehingga",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
