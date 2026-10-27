@@ -19,9 +19,11 @@ import {
   COURIER_GUARD_MINUTES,
   courierSelf,
   elapsedMinutes,
+  isDoneTask,
   nextCheckpoint,
 } from '../data/courier'
 import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/courierSlice'
+import { finishBatchOnBe } from '../api/batches'
 import { insertNotification } from '../api/notifications'
 import { recordCheckpoint, updateOrderStatus, verifyOrderOtp } from '../api/orders'
 import type { MerchantOrderStatus } from '../types'
@@ -39,6 +41,7 @@ export default function CourierTaskDetail() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const tasks = useAppSelector((s) => s.courier.tasks)
+  const batch = useAppSelector((s) => s.courier.batch)
   const { now } = useTick()
   const [otp, setOtp] = useState('')
   const [cashInput, setCashInput] = useState('')
@@ -106,6 +109,15 @@ export default function CourierTaskDetail() {
       return
     }
     dispatch(completeTask({ id: task.id }))
+    // Order terakhir di batch menutup batch-nya juga di BE, supaya merchant dan
+    // perangkat lain melihat batch tuntas — bukan menggantung "dalam pengantaran".
+    // Order yang sudah tuntas tidak lagi dikirim RPC kurir, jadi yang dihitung
+    // hanya sisa tugas batch yang masih ada di daftar; yang tak ada = sudah
+    // selesai. Tanpa ini batch tak pernah ditutup.
+    const remaining = tasks.filter((t) => batch?.orderIds.includes(t.id))
+    if (batch && remaining.every((t) => t.id === task.id || isDoneTask(t))) {
+      void finishBatchOnBe(batch.id).catch(() => {})
+    }
     toast.success('Pesanan selesai')
     setShowCelebration(true)
     // `verify_order_otp` sudah menandai `otp_verified` dan mencatat checkpoint,

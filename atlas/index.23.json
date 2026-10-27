@@ -5458,6 +5458,108 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-144300",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:30:50",
+      "tags": [
+        "courier",
+        "batch",
+        "otp",
+        "flow"
+      ],
+      "summary": "Kurir baca batch nyata dari BE (fetchCourierBatch), Mulai antar menulis batch+order, OTP dibuat saat checkout; order 816 tembus Siap→Diantar",
+      "conn": [
+        {
+          "id": "TASK-143110",
+          "type": "relates",
+          "raw": "TASK-143110:relates"
+        },
+        {
+          "id": "BUG-142900",
+          "type": "relates",
+          "raw": "BUG-142900:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-144301",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:35:39",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cat >> src/api/batches.ts <<'EOF'\n\n/** Semua order batch selesai → batch ditutup di BE (bukan hanya di layar). */\nexport async funct",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-144302",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:36:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/CourierTaskDetail.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"  courierSelf,\n  elapsedMinutes,\n  nextCheckpo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-144303",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:36:49",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/Documentation.tsx'\ns=open(p).read()\nold=\"\"\"                lewat sesi kurir — tanpa itu tiket tetap d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-144304",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:38:19",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/CourierTaskDetail.tsx'\ns=open(p).read()\nold=\"\"\"    if (batch && batch.orderIds.every((oid) => oid ===",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

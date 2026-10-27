@@ -862,7 +862,12 @@ export default function Documentation() {
                 <code className="doc-inline">startBatchOnBe</code>) <strong>dan</strong> memindahkan
                 setiap order batch ke <code className="doc-inline">orders.status = delivery</code>{' '}
                 lewat sesi kurir — tanpa itu tiket tetap di tab <em>Siap</em> merchant padahal
-                kurirnya sudah jalan.
+                kurirnya sudah jalan. Setelah order terakhir batch tuntas, batch ditutup di BE
+                (<code className="doc-inline">finishBatchOnBe</code>), jadi merchant melihat riwayat
+                batch, bukan &ldquo;dalam pengantaran&rdquo; selamanya. Daftar tugas kurir sekarang
+                <strong> menggantikan</strong> seed begitu BE mengirim tugas (progres checkpoint
+                lokal dibawa untuk id yang sama), sehingga tidak ada lagi 12 tugas campuran seed +
+                order nyata.
               </li>
               <li>
                 <strong>OTP lahir bersama order.</strong> Serah terima dikunci kode 4 digit, tapi{' '}

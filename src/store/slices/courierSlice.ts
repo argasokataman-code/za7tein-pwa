@@ -65,12 +65,26 @@ const courierSlice = createSlice({
     setBatch(state, action: PayloadAction<Batch | null>) {
       state.batch = action.payload
     },
-    /** Tambah tugas live dari BE; tugas yang sudah ada dibiarkan (progres lokal menang). */
+    /**
+     * Daftar tugas = BE begitu BE punya tugas. Seed hanya jaring sebelum muatan
+     * pertama; sebelumnya seed ikut menumpuk selamanya sehingga kurir melihat
+     * 12 tugas padahal order nyata cuma beberapa. Progres lokal (checkpoint,
+     * OTP) dibawa untuk id yang sama supaya realtime tidak memundurkan langkah.
+     */
     setTasks(state, action: PayloadAction<CourierTask[]>) {
-      const have = new Set(state.tasks.map((t) => t.id))
-      for (const task of action.payload) {
-        if (!have.has(task.id)) state.tasks.unshift(task)
-      }
+      if (!action.payload.length) return
+      const local = new Map(state.tasks.map((task) => [task.id, task]))
+      state.tasks = action.payload.map((task) => {
+        const mine = local.get(task.id)
+        return mine
+          ? {
+              ...task,
+              checkpoint: mine.checkpoint,
+              checkpointStartedAt: mine.checkpointStartedAt,
+              otpVerified: mine.otpVerified,
+            }
+          : task
+      })
     },
     /** Maju satu checkpoint sesuai urutan flow F13, lalu mulai jeda SLA baru. */
     advanceCheckpoint(state, action: PayloadAction<{ id: string }>) {

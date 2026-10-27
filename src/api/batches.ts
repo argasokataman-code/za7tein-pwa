@@ -223,3 +223,15 @@ export async function startBatchOnBe(batchId: string): Promise<void> {
     /* best-effort */
   }
 }
+
+/** Semua order batch selesai → batch ditutup di BE (bukan hanya di layar). */
+export async function finishBatchOnBe(batchId: string): Promise<void> {
+  const token = await ensureCourierToken()
+  const id = numericOrderId(batchId)
+  if (!Number.isFinite(id)) return
+  try {
+    await patch(token, 'batches', `?id=eq.${id}`, { status: BATCH_STATUS_TO_DB.done })
+  } catch {
+    /* best-effort */
+  }
+}
