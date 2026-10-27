@@ -246,6 +246,12 @@ export default function MerchantOrders() {
     batch?.orderIds.forEach((id) => {
       dispatch(setOrderStatus({ id, status: 'diantar' }))
       persistStatus(id, 'diantar')
+      // Kurir inhouse dipilih per batch di layar (batch milik state FE), jadi
+      // penugasannya ikut ditulis ke `orders.courier_id` supaya peran kurir dan
+      // ops melihat kurir yang sama, bukan `null`. Id kurir seed FE (`cr-1`)
+      // memuat angka yang sama dengan id di BE, jadi angkanya yang dikirim.
+      const cid = batch.courierId?.replace(/\D/g, '')
+      if (cid) void assignOrderCourier(id, cid).catch(() => {})
     })
     toast.success('Kurir mulai mengantar lebih awal')
   }

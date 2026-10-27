@@ -1074,7 +1074,11 @@ export default function Documentation() {
                 (status lanjut <code className="doc-inline">diantar</code>), Regular memilih kurir
                 inhouse lalu menyetujui mulai antar di panel Batch kurir. Order Regular yang datang
                 dari BE tanpa batch dibuatkan batch saat packing atau saat aksi kurir dibuka, supaya
-                panel itu tidak pernah kosong untuk tiket yang menunjuk ke sana.
+                panel itu tidak pernah kosong untuk tiket yang menunjuk ke sana. Centang
+                &ldquo;packing&rdquo; tidak disimpan BE, jadi ia diturunkan dari status saat sync
+                (<code className="doc-inline">packed = siap/diantar/tiba/selesai</code>); dulu sync
+                menghapus centang itu dan panel Batch kurir menolak &ldquo;Setujui mulai&rdquo;
+                dengan alasan &ldquo;Belum packing&rdquo; padahal tiket sudah di tab Siap.
               </li>
               <li>
                 <strong>Kartu &ldquo;Pasang aplikasi&rdquo; menutup FAB.</strong> Kartu itu duduk di

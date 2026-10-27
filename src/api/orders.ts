@@ -396,6 +396,7 @@ function toMerchantOrder(
   customer?: CustomerNameRow,
 ): MerchantOrder {
   const zone: ZoneId = row.zone_code === 'syimali' ? 'syimali' : 'hijazi'
+  const status: MerchantOrderStatus = STATUS_MAP[row.status] ?? 'baru'
   return {
     id: `api-${row.id}`,
     code: row.code,
@@ -410,7 +411,13 @@ function toMerchantOrder(
     total: jodToIdr(row.total_jod),
     distanceMeters: 0,
     zone,
-    status: STATUS_MAP[row.status] ?? 'baru',
+    status,
+    // `packed` bukan kolom BE, jadi tiap sync dari BE dulu menghapus centang
+    // merchant: status `siap` (waitingCourier) tampil benar di tiket, tapi panel
+    // Batch kurir membaca `packed` dan menolak "Setujui mulai lebih awal"
+    // dengan alasan "Belum packing" — order 839 (SA-114C6EC2) macet di situ.
+    // Status adalah sumber kebenaran; centang lokal hanya untuk dapur.
+    packed: status === 'siap' || status === 'diantar' || status === 'tiba' || status === 'selesai',
     placedAt: relativeTime(row.placed_at ?? row.created_at),
     placedAtMs: new Date(row.placed_at ?? row.created_at).getTime(),
     paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
