@@ -5598,6 +5598,25 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-144307",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:49:26",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/store/slices/courierSlice.ts'\ns=open(p).read()\ns=s.replace(\"\"\"      // Order selesai tidak lagi dikirim RPC",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

@@ -75,9 +75,13 @@ const courierSlice = createSlice({
       if (!action.payload.length) return
       const local = new Map(state.tasks.map((task) => [task.id, task]))
       // Order selesai tidak lagi dikirim RPC kurir; kalau dibuang, riwayat sesi
-      // ini ikut hilang padahal kurir baru saja menuntaskannya.
+      // ini ikut hilang padahal kurir baru saja menuntaskannya. Hanya order BE
+      // (`api-…`) yang dipertahankan — riwayat seed ikut dibuang bersama seed.
       const finished = state.tasks.filter(
-        (task) => task.checkpoint === 'selesai' && !action.payload.some((row) => row.id === task.id),
+        (task) =>
+          task.checkpoint === 'selesai' &&
+          task.id.startsWith('api-') &&
+          !action.payload.some((row) => row.id === task.id),
       )
       state.tasks = action.payload.map((task) => {
         const mine = local.get(task.id)

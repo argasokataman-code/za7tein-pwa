@@ -39,10 +39,9 @@ const apiTask = (id, checkpoint = 'ambil') => ({
 let state = reducer(undefined, { type: '@@init' })
 const seedCount = state.tasks.length
 assert.ok(seedCount > 0)
-// Seed yang sudah selesai boleh bertahan sebagai riwayat; sisanya hilang.
-const doneSeed = state.tasks.filter((task) => task.checkpoint === 'selesai').length
+// Seed hilang seluruhnya (termasuk riwayat seed); daftar = muatan BE.
 state = reducer(state, setTasks([apiTask(1), apiTask(2)]))
-assert.equal(state.tasks.length, 2 + doneSeed)
+assert.equal(state.tasks.length, 2)
 assert.ok(state.tasks.some((task) => task.id === 'api-1'))
 assert.ok(state.tasks.some((task) => task.id === 'api-2'))
 assert.ok(!state.tasks.some((task) => task.checkpoint !== 'selesai' && !task.id.startsWith('api-')))
