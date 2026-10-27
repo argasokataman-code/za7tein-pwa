@@ -4715,6 +4715,82 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-142517",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "09:09:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantOrders.ts (+5/-2) — edit via tool: ts: /** Estimasi masak default saat ord",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantOrders.ts"
+    },
+    {
+      "id": "TASK-142518",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "09:10:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useOrderHandoff.ts (+84) — write via tool: ts: import { useCallback } from 'react",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useOrderHandoff.ts"
+    },
+    {
+      "id": "TASK-142519",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "09:10:48",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/MerchantOrders.tsx'\ns=open(p).read()\ns=s.replace(\"  const { ensureBatch, readyHint, showBatchPanel, o",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142520",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "09:12:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+3/-1) — edit via tool: tsx: inhouse lalu menyetujui mulai ant",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

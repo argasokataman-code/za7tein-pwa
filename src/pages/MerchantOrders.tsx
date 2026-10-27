@@ -15,7 +15,7 @@ import { BatchPanel } from '../components/merchant/BatchPanel'
 import { JourneyLine } from '../components/JourneyLine'
 import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { OrderChatLink } from '../components/merchant/OrderChatLink'
-import { DEFAULT_COOK_MINUTES, MerchantCookPanel } from '../components/merchant/MerchantCookPanel'
+import { MerchantCookPanel } from '../components/merchant/MerchantCookPanel'
 import { MerchantEarnings } from '../components/merchant/MerchantEarnings'
 import { LoyalBadge } from '../components/ui/LoyalBadge'
 import { OrderTimeline } from '../components/merchant/OrderTimeline'
@@ -131,7 +131,7 @@ export default function MerchantOrders() {
   const [acceptId, setAcceptId] = useState<string | null>(null)
   /* Dispatch Quick (§9.4): pilih kurir partner lalu kirim assignment. */
   const [dispatchId, setDispatchId] = useState<string | null>(null)
-  const { batchOf, readyHint, showBatchPanel } = useOrderHandoff(batches, couriers)
+  const { ensureBatch, readyHint, openBatch } = useOrderHandoff(batches, couriers)
 
   const activeTab = QUEUE_TABS.find((t) => t.id === tab) ?? QUEUE_TABS[0]
   const visible = ordersForStatuses(orders, activeTab.statuses)
@@ -225,27 +225,9 @@ export default function MerchantOrders() {
       dispatch(setOrderStatus({ id: order.id, status: next ? 'siap' : 'disiapkan' }))
       persistStatus(order.id, next ? 'siap' : 'disiapkan')
     }
-    // Order Regular lama (dari BE, bukan hasil "Terima" di sesi ini) belum punya
-    // batch, jadi panel Batch kurir tak punya tempat memilih kurir untuknya.
-    // Packing membuat batch kalau belum ada, supaya langkah kurir punya rumah.
-    if (next && orderDeliveryType(order) === 'regular' && !batchOf(order.id)) {
-      const batchId = nextBatchId(batches)
-      dispatch(
-        addBatch({
-          id: batchId,
-          merchantId: MERCHANT_ID,
-          courierId: null,
-          orderIds: [order.id],
-          status: 'countdown',
-          estimateMinutes: order.cookMinutes ?? DEFAULT_COOK_MINUTES,
-          countdownSeconds: BATCH_COUNTDOWN_SECONDS,
-          autoSort: true,
-          routeOrder: [],
-          createdAt: new Date().toISOString(),
-        }),
-      )
-      dispatch(setOrderBatch({ id: order.id, batchId }))
-    }
+    // Order Regular dari BE bisa datang tanpa batch; tanpa batch panel kurir
+    // tidak punya tempat memilih kurir. `ensureBatch` membuatnya sekali.
+    if (next) ensureBatch(order)
     toast.success(
       next ? `${order.code} siap — menunggu kurir` : `${order.code} kembali ke dapur`,
     )
@@ -436,11 +418,7 @@ export default function MerchantOrders() {
                   hint={order.status === 'siap' ? readyHint(order) : ''}
                   onPacked={() => togglePacked(order)}
                   onDispatch={() => setDispatchId(order.id)}
-                  onOpenBatch={() =>
-                    document
-                      .querySelector('.merchant-batch')
-                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }
+                  onOpenBatch={() => openBatch(order)}
                 />
               </article>
             )
@@ -584,7 +562,7 @@ export default function MerchantOrders() {
                 }}
                 onOpenBatch={() => {
                   setDetailId(null)
-                  showBatchPanel()
+                  openBatch(detailOrder)
                 }}
                 onCancel={() => {
                   setDetailId(null)

@@ -1,7 +1,14 @@
 import { useCallback } from 'react'
 
-import { orderDeliveryType } from '../data/merchantOrders'
+import { BATCH_COUNTDOWN_SECONDS, nextBatchId } from '../data/batch'
+import { DEFAULT_COOK_MINUTES, orderDeliveryType } from '../data/merchantOrders'
+import { useAppDispatch } from './useAppStore'
+import { addBatch } from '../store/slices/batchSlice'
+import { setOrderBatch } from '../store/slices/merchantSlice'
 import type { Batch, Courier, MerchantOrder } from '../types'
+
+/** Tenant demo (satu toko) — sama dengan yang dipakai halaman antrean. */
+const MERCHANT_ID = 'merchant-1'
 
 /**
  * Langkah setelah packing untuk satu order.
@@ -15,10 +22,37 @@ import type { Batch, Courier, MerchantOrder } from '../types'
  * setujui mulai antar). Quick: satu kurir partner per order.
  */
 export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
+  const dispatch = useAppDispatch()
+
   const batchOf = useCallback(
     (orderId: string) => batches.find((b) => b.orderIds.includes(orderId)) ?? null,
     [batches],
   )
+
+  /**
+   * Order Regular bisa datang dari BE tanpa batch (di luar sesi "Terima" ini).
+   * Tanpa batch, panel Batch kurir tidak punya tempat memilih kurir, jadi
+   * packing/aksi kurir membuatkan batch lebih dulu.
+   */
+  const ensureBatch = (order: MerchantOrder) => {
+    if (orderDeliveryType(order) !== 'regular' || batchOf(order.id)) return
+    const batchId = nextBatchId(batches)
+    dispatch(
+      addBatch({
+        id: batchId,
+        merchantId: MERCHANT_ID,
+        courierId: null,
+        orderIds: [order.id],
+        status: 'countdown',
+        estimateMinutes: order.cookMinutes ?? DEFAULT_COOK_MINUTES,
+        countdownSeconds: BATCH_COUNTDOWN_SECONDS,
+        autoSort: true,
+        routeOrder: [],
+        createdAt: new Date().toISOString(),
+      }),
+    )
+    dispatch(setOrderBatch({ id: order.id, batchId }))
+  }
 
   const readyHint = (order: MerchantOrder) => {
     if (orderDeliveryType(order) === 'quick') {
@@ -39,5 +73,11 @@ export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
     document.querySelector('.merchant-batch')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
-  return { batchOf, readyHint, showBatchPanel }
+  /** Aksi "Pilih kurir batch": pastikan batch ada dulu, baru gulir ke panel. */
+  const openBatch = (order: MerchantOrder) => {
+    ensureBatch(order)
+    showBatchPanel()
+  }
+
+  return { batchOf, ensureBatch, readyHint, showBatchPanel, openBatch }
 }

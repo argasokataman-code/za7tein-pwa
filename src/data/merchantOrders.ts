@@ -82,6 +82,9 @@ export function deliveryBadge(
   return number === null ? DELIVERY_TYPE_SHORT[type] : `${DELIVERY_TYPE_SHORT[type]} · #${number}`
 }
 
+/** Estimasi masak default saat order diterima (menit). */
+export const DEFAULT_COOK_MINUTES = 25
+
 /** Tab antrean merchant — satu sumber untuk label dan status anggotanya. */
 export const QUEUE_TABS = [
   { id: 'masuk', label: 'Antrean', statuses: ['baru'] },

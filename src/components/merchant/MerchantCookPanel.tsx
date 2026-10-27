@@ -1,14 +1,13 @@
 import { PackageCheck } from 'lucide-react'
 
 import { QUICK_DISPATCH_AVAILABLE } from '../../data/marketplace'
-import { orderDeliveryType } from '../../data/merchantOrders'
+import { DEFAULT_COOK_MINUTES, orderDeliveryType } from '../../data/merchantOrders'
 import type { MerchantOrder } from '../../types'
 
 /* Estimasi masak sebagai pilihan tetap, bukan slider. Slider adalah kontrol
    desktop (tarik presisi) dan di ponsel terasa seperti form web; segmented
    control adalah pola native untuk rentang kecil yang diskret. */
 const COOK_OPTIONS = [15, 25, 35] as const
-export const DEFAULT_COOK_MINUTES = 25
 
 interface MerchantCookPanelProps {
   order: MerchantOrder

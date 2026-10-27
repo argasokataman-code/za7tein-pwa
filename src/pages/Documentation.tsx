@@ -1072,7 +1072,9 @@ export default function Documentation() {
                 <code className="doc-inline">merchant_ready</code> di flow f18), tiket pindah ke tab
                 Siap, dan tiket itu menyebut langkah kurir: Quick menyerahkan ke kurir partner
                 (status lanjut <code className="doc-inline">diantar</code>), Regular memilih kurir
-                inhouse lalu menyetujui mulai antar di panel Batch kurir.
+                inhouse lalu menyetujui mulai antar di panel Batch kurir. Order Regular yang datang
+                dari BE tanpa batch dibuatkan batch saat packing atau saat aksi kurir dibuka, supaya
+                panel itu tidak pernah kosong untuk tiket yang menunjuk ke sana.
               </li>
               <li>
                 <strong>Kartu &ldquo;Pasang aplikasi&rdquo; menutup FAB.</strong> Kartu itu duduk di
