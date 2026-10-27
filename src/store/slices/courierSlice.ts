@@ -1,10 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 import { courierTasks as seedTasks, nextCheckpoint } from '../../data/courier'
-import {
-  courierBatchTasks,
-  mockCourierBatch,
-} from '../../data/courierBatch'
+import { courierBatchTasks } from '../../data/courierBatch'
 import {
   COURIER_PAYOUT_FEE_IDR,
   courierTipsAvailable,
@@ -17,8 +14,10 @@ interface CourierState {
   isOnline: boolean
   tasks: CourierTask[]
   /**
-   * Batch kurir inhouse yang ditugaskan merchant (M5, BR-B07). Null = kurir tak
-   * punya batch. Tidak dipersist — mock, reset saat reload (sama seperti `tasks`).
+   * Batch kurir inhouse yang ditugaskan merchant (M5, BR-B07), diisi dari BE
+   * (`fetchCourierBatch`). Null = belum ada penugasan — sengaja **bukan** batch
+   * seed: batch palsu sempat tampil sebelum BE menjawab, dan tombol "Mulai
+   * antar" di batch palsu itu menulis ke baris BE yang salah.
    */
   batch: Batch | null
   /** Rekening tujuan pencairan tips (R-WALLET-01, f6). */
@@ -40,7 +39,7 @@ export interface CourierOnboarding {
 const initialState: CourierState = {
   isOnline: true,
   tasks: seedTasks,
-  batch: mockCourierBatch,
+  batch: null,
   payoutAccounts: mockCourierPayoutAccounts,
   payouts: [],
   onboarding: null,

@@ -856,8 +856,9 @@ export default function Documentation() {
                 membacanya lewat <code className="doc-inline">fetchCourierBatch</code> — baris
                 dengan <code className="doc-inline">courier_id</code> milik kurir yang masuk,
                 dipetakan dari <code className="doc-inline">couriers.user_id</code> ={' '}
-                <code className="doc-inline">sub</code> token. Batch seed hanya dipakai sebelum BE
-                menjawab. Tombol <em>Mulai antar</em> ikut menulis status batch (
+                <code className="doc-inline">sub</code> token. Slice kurir mulai dari batch kosong —
+                <code className="doc-inline">mockCourierBatch</code> tinggal contoh untuk self-check —
+                supaya batch palsu tak sempat tampil (dan tak bisa ditekan) sebelum BE menjawab. Tombol <em>Mulai antar</em> ikut menulis status batch (
                 <code className="doc-inline">startBatchOnBe</code>) <strong>dan</strong> memindahkan
                 setiap order batch ke <code className="doc-inline">orders.status = delivery</code>{' '}
                 lewat sesi kurir — tanpa itu tiket tetap di tab <em>Siap</em> merchant padahal

@@ -114,8 +114,15 @@ const BATCH_STATUS_TO_DB: Record<BatchStatus, string> = {
   done: 'done',
 }
 
-/** `api-839` → `839`; id seed non-numerik → `NaN` (dilewati). */
-const numericOrderId = (id: string) => Number(String(id).replace(/\D/g, ''))
+/**
+ * `api-839` → `839`, id numerik apa adanya. Id seed non-numerik (`ct-1`, `cb-1`,
+ * `batch-3`) → `NaN` supaya tombol pada data demo tidak menulis baris BE yang
+ * kebetulan ber-id angka yang sama.
+ */
+const numericOrderId = (id: string) => {
+  const raw = String(id)
+  return Number(/^api-(\d+)$/.exec(raw)?.[1] ?? (/^\d+$/.test(raw) ? raw : NaN))
+}
 
 export interface NewBatchInput {
   orderIds: string[]

@@ -5420,6 +5420,44 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-143121",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:25:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/api/batches.ts'\ns=open(p).read()\ns=s.replace(\"/** `api-839` → `839`; id seed non-numerik → `NaN` (dilewati)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-143122",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:25:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/Documentation.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"<code className=\"doc-inline\">sub</code> token. Bat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
