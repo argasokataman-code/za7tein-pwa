@@ -6,6 +6,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { fetchPartnerCouriers } from '../api/dispatch'
 import { insertNotification } from '../api/notifications'
 import { assignOrderCourier, markOrderPaid, updateOrderStatus } from '../api/orders'
+import { createBatchOnBe, patchBatchOnBe } from '../api/batches'
 import { apiEnabled } from '../api/supabase'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
@@ -156,13 +157,21 @@ export default function MerchantOrders() {
    * berjalan yang hitung mundurnya masih jalan, atau bikin batch baru. Quick
    * tidak punya batch — cukup estimasi prepare.
    */
-  const confirmAccept = (order: MerchantOrder, choice: AcceptChoice) => {
+  const confirmAccept = async (order: MerchantOrder, choice: AcceptChoice) => {
     if (orderDeliveryType(order) === 'regular') {
-      const batchId = choice.batchId ?? nextBatchId(batches)
-      const exists = batches.some((b) => b.id === batchId)
-      if (exists) {
-        dispatch(addOrderToBatch({ batchId, orderId: order.id }))
+      const target = choice.batchId ? batches.find((b) => b.id === choice.batchId) : undefined
+      if (target) {
+        dispatch(addOrderToBatch({ batchId: target.id, orderId: order.id }))
+        // Keanggotaan batch ikut ditulis ke BE (`route`), bukan hanya ke Redux.
+        void patchBatchOnBe(target.id, { orderIds: [...target.orderIds, order.id] })
+        dispatch(setOrderBatch({ id: order.id, batchId: target.id }))
       } else {
+        // Batch baru dibuat di BE dulu supaya id-nya sama di semua perangkat.
+        const beId = await createBatchOnBe({
+          orderIds: [order.id],
+          estimateMinutes: choice.estimateMinutes,
+        })
+        const batchId = beId !== null ? String(beId) : nextBatchId(batches)
         dispatch(
           addBatch({
             id: batchId,
@@ -177,8 +186,8 @@ export default function MerchantOrders() {
             createdAt: new Date().toISOString(),
           }),
         )
+        dispatch(setOrderBatch({ id: order.id, batchId }))
       }
-      dispatch(setOrderBatch({ id: order.id, batchId }))
     }
     dispatch(setCookMinutes({ id: order.id, minutes: choice.estimateMinutes }))
     // Transfer: verifikasi bukti transfer = konfirmasi pembayaran (f18).
@@ -227,7 +236,7 @@ export default function MerchantOrders() {
     }
     // Order Regular dari BE bisa datang tanpa batch; tanpa batch panel kurir
     // tidak punya tempat memilih kurir. `ensureBatch` membuatnya sekali.
-    if (next) ensureBatch(order)
+    if (next) void ensureBatch(order)
     toast.success(
       next ? `${order.code} siap — menunggu kurir` : `${order.code} kembali ke dapur`,
     )
@@ -243,6 +252,7 @@ export default function MerchantOrders() {
   const approveStart = (batchId: string) => {
     const batch = batches.find((b) => b.id === batchId)
     dispatch(approveEarlyStart({ batchId }))
+    void patchBatchOnBe(batchId, { status: 'delivering' })
     batch?.orderIds.forEach((id) => {
       dispatch(setOrderStatus({ id, status: 'diantar' }))
       persistStatus(id, 'diantar')
@@ -293,9 +303,13 @@ export default function MerchantOrders() {
           batches={batches}
           orders={orders}
           couriers={couriers}
-          onAssign={(batchId, courierId) => dispatch(assignBatchCourier({ batchId, courierId }))}
+          onAssign={(batchId, courierId) => {
+            dispatch(assignBatchCourier({ batchId, courierId }))
+            void patchBatchOnBe(batchId, { courierId })
+          }}
           onCloseEarly={(batchId) => {
             dispatch(closeBatchEarly({ batchId }))
+            void patchBatchOnBe(batchId, { status: 'closed' })
             toast.success('Batch ditutup — tidak menerima order baru')
           }}
           onApproveStart={approveStart}

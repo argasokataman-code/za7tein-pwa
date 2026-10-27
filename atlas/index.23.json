@@ -4912,6 +4912,298 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "BUG-142900",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-27",
+      "time": "09:29:11",
+      "tags": [
+        "merchant",
+        "packing",
+        "batch",
+        "sync"
+      ],
+      "summary": "Order macet waitingCourier: packed FE terhapus tiap sync BE sehingga batch panel bilang 'Belum packing' dan start disabled; packed kini turu",
+      "conn": [
+        {
+          "id": "TASK-142730",
+          "type": "fixes",
+          "raw": "TASK-142730:fixes"
+        },
+        {
+          "id": "BUG-142460",
+          "type": "relates",
+          "raw": "BUG-142460:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142901",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:45:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+5/-4) — edit via tool: ts: /** Sesi merchant demo — dipakai juga ol",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-142902",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:45:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts (+13/-12) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-142903",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:46:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/api/batches.ts'\ns=open(p).read()\ns=s.replace(\"import { createWith, patch, rest } from './supabase'\",\"import",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142904",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:46:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/api/batches.ts'\ns=open(p).read()\ns=s.replace(\"\"\"  awaiting_courier: 'prepare',\n  closed: 'closed',\"\"\",\"\"\"  ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142905",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:47:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useOrderHandoff.ts (+23/-19) — edit via tool: ts: const ensureBatch = async (orde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useOrderHandoff.ts"
+    },
+    {
+      "id": "TASK-142906",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:47:57",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/MerchantOrders.tsx'\ns=open(p).read()\nold = \"\"\"  const confirmAccept = (order: MerchantOrder, choice: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142907",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:48:26",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/MerchantOrders.tsx'\ns=open(p).read()\nold=\"\"\"          onAssign={(batchId, courierId) => dispatch(assi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142908",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:48:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts (+20/-12) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts"
+    },
+    {
+      "id": "TASK-142909",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:49:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts (+7/-5) — edit via tool: ts: const BATCH_STATUS_FROM_DB: Record<strin",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-142910",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:49:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -3; npm run build 2>&1 | grep -E \"error|built in\" | head -5; npm run scan 2>&1 | tail -3; npm run check:sel",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142911",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:52:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+12/-7) — edit via tool: tsx: kosong. Batch kini <strong>dibac",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-142912",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:52:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/courier.ts (+7/-7) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/courier.ts"
+    },
+    {
+      "id": "TASK-142913",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:52:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiOrders.ts (+5/-4) — edit via tool: ts: * Sekalian hidrasi batch dari tabel ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiOrders.ts"
+    },
+    {
+      "id": "TASK-142914",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:52:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs (+12/-3) — edit via tool: assert.deepEqual(chunkIds([]), [])",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs"
     }
   ]
 }

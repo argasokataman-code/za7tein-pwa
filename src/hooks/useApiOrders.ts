@@ -4,9 +4,10 @@
  * `mergeOrders` menggantinya dengan order nyata supaya Terima/Tolak selalu
  * bekerja pada id yang bisa dipersist ke BE (lihat komentar slice).
  *
- * Sekalian hidrasi batch dari tabel `batches` D1 (`mergeBatches`, read-only):
- * daftar order sudah dimuat lebih dulu, jadi ia bisa jadi cadangan anggota batch
- * saat kolom `route` kosong.
+ * Sekalian hidrasi batch dari tabel `batches` D1 (`mergeBatches`): daftar order
+ * sudah dimuat lebih dulu, jadi ia bisa jadi cadangan anggota batch saat kolom
+ * `route` kosong. Tabel ini juga ditulis panel batch (`createBatchOnBe` /
+ * `patchBatchOnBe`), jadi hidrasi = menyegarkan, bukan sekadar menambah.
  */
 import { useEffect } from 'react'
 

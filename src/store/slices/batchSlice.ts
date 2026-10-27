@@ -72,15 +72,23 @@ const batchSlice = createSlice({
       if (batch) batch.routeOrder = action.payload.orderIds
     },
     /**
-     * Hidrasi batch dari BE: tambah yang belum ada, **jangan** menimpa yang sudah
-     * ada. Batch lokal mungkin sudah diubah merchant (tutup/assign) sementara tulis
-     * tabel belum ada di Worker; menimpa akan menghapus perubahan itu di tiap refetch
-     * (pola sama dengan `mergeOrders`, BUG-88046).
+     * Hidrasi batch dari BE: BE sekarang sumber kebenaran (tabel `batches`
+     * bisa ditulis, lihat `api/batches.ts`), jadi baris yang sama ditimpa
+     * dengan nilai BE supaya perubahan dari perangkat lain ikut terlihat.
+     *
+     * Batch lokal lama ber-id `batch-N` hanya ada di perangkat ini karena dulu
+     * tulis ke tabel belum ada; kalau tidak dibuang, panel menampilkan batch
+     * kembar (satu dari BE, satu sisa localStorage) untuk order yang sama.
      */
     mergeBatches(state, action: PayloadAction<Batch[]>) {
-      const known = new Set(state.batches.map((batch) => batch.id))
+      const incoming = new Map(action.payload.map((batch) => [batch.id, batch]))
+      state.batches = state.batches.filter(
+        (batch) => incoming.has(batch.id) || !batch.id.startsWith('batch-'),
+      )
       for (const batch of action.payload) {
-        if (!known.has(batch.id)) state.batches.push(batch)
+        const index = state.batches.findIndex((item) => item.id === batch.id)
+        if (index >= 0) state.batches[index] = batch
+        else state.batches.push(batch)
       }
     },
   },

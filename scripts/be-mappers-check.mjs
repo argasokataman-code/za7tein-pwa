@@ -15,6 +15,21 @@ import {
   toLedgerEntry,
   toRebateTiers,
 } from '../src/data/beMapping.ts'
+import { toMerchantBatch } from '../src/api/batches.ts'
+
+/** Baris `batches` D1 apa adanya (hasil tulis panel merchant). */
+const batchRow = {
+  id: 9,
+  merchant_id: 1,
+  courier_id: 1,
+  status: 'closed',
+  eta_prepare_seconds: null,
+  eta_delivery_seconds: 1500,
+  sla_prepare_deadline: null,
+  route: '[816]',
+  order_count: 1,
+  created_at: '2026-10-27 11:44:17',
+}
 
 // Opsi varian: D1 menyimpan teks JSON, PostgREST mengirim array. Bentuk rusak
 // jadi daftar kosong — satu varian cacat tidak boleh mengosongkan seluruh menu.
@@ -134,5 +149,14 @@ assert.equal(chunks.length, 2)
 assert.deepEqual(chunks.flat(), manyIds)
 assert.ok(chunks.every((c) => c.length <= 40))
 assert.deepEqual(chunkIds([]), [])
+
+// Batch ditulis panel merchant lalu dihidrasi ulang dari D1: status, kurir, dan
+// anggota harus kembali utuh — kalau pemetaan ini meleset, batch tampil kembar
+// atau "Kurir belum ditugaskan" padahal barisnya ada.
+assert.equal(toMerchantBatch(batchRow, []).status, 'closed')
+assert.equal(toMerchantBatch(batchRow, []).courierId, 'cr-1')
+assert.deepEqual(toMerchantBatch(batchRow, []).orderIds, ['api-816'])
+assert.equal(toMerchantBatch(batchRow, []).estimateMinutes, 25)
+assert.equal(toMerchantBatch({ ...batchRow, status: 'prepare' }, []).status, 'countdown')
 
 console.log('be-mappers: ok')

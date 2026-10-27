@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 
+import { createBatchOnBe } from '../api/batches'
 import { BATCH_COUNTDOWN_SECONDS, nextBatchId } from '../data/batch'
 import { DEFAULT_COOK_MINUTES, orderDeliveryType } from '../data/merchantOrders'
 import { useAppDispatch } from './useAppStore'
@@ -34,9 +35,13 @@ export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
    * Tanpa batch, panel Batch kurir tidak punya tempat memilih kurir, jadi
    * packing/aksi kurir membuatkan batch lebih dulu.
    */
-  const ensureBatch = (order: MerchantOrder) => {
+  const ensureBatch = async (order: MerchantOrder) => {
     if (orderDeliveryType(order) !== 'regular' || batchOf(order.id)) return
-    const batchId = nextBatchId(batches)
+    const estimateMinutes = order.cookMinutes ?? DEFAULT_COOK_MINUTES
+    // Tulis dulu ke BE: id barisnya dipakai sebagai id batch FE, supaya batch
+    // yang sama terlihat dari perangkat lain (dulu batch hanya hidup di Redux).
+    const beId = await createBatchOnBe({ orderIds: [order.id], estimateMinutes })
+    const batchId = beId !== null ? String(beId) : nextBatchId(batches)
     dispatch(
       addBatch({
         id: batchId,
@@ -44,7 +49,7 @@ export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
         courierId: null,
         orderIds: [order.id],
         status: 'countdown',
-        estimateMinutes: order.cookMinutes ?? DEFAULT_COOK_MINUTES,
+        estimateMinutes,
         countdownSeconds: BATCH_COUNTDOWN_SECONDS,
         autoSort: true,
         routeOrder: [],
@@ -75,7 +80,7 @@ export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
 
   /** Aksi "Pilih kurir batch": pastikan batch ada dulu, baru gulir ke panel. */
   const openBatch = (order: MerchantOrder) => {
-    ensureBatch(order)
+    void ensureBatch(order)
     showBatchPanel()
   }
 

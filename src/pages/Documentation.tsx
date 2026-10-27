@@ -1005,12 +1005,17 @@ export default function Documentation() {
                 (satu baris per transisi + <code className="doc-inline">at</code>) lewat{' '}
                 <code className="doc-inline">fetchOrderHistory</code> — jadi jam tiap kejadian
                 nyata, bukan dikarang; riwayat turunan tetap dipakai sebagai cadangan bila BE
-                kosong. Batch yang sudah ada di D1 ikut dihidrasi lewat tabel{' '}
-                <code className="doc-inline">batches</code> (
+                kosong. Batch kini <strong>dibaca dan ditulis</strong> ke tabel{' '}
+                <code className="doc-inline">batches</code>: panel membuat baris lewat{' '}
+                <code className="doc-inline">createBatchOnBe</code> (id numerik BE dipakai
+                sebagai id batch FE), lalu <code className="doc-inline">patchBatchOnBe</code>{' '}
+                menyimpan kurir, status (tutup lebih awal / mulai antar), dan anggota (
+                <code className="doc-inline">route</code>);{' '}
                 <code className="doc-inline">fetchMerchantBatches</code> →{' '}
-                <code className="doc-inline">mergeBatches</code>) — baca saja: hanya{' '}
-                <em>menambah</em>, tidak menimpa batch lokal yang sudah diubah merchant, sebab
-                endpoint tulis batch belum ada; <code className="doc-inline">courier_id</code>{' '}
+                <code className="doc-inline">mergeBatches</code> menghidrasi ulang sehingga
+                susunan batch ikut pindah perangkat, menimpa batch lokal ber-id{' '}
+                <code className="doc-inline">batch-N</code> yang dulu hanya hidup di
+                localStorage. <code className="doc-inline">courier_id</code>{' '}
                 numerik dipetakan ke id kurir FE (<code className="doc-inline">cr-N</code>).
               </li>
               <li>

@@ -448,7 +448,8 @@ export function ensureCustomerToken(): Promise<string> {
   return customerToken
 }
 
-function ensureMerchantToken(): Promise<string> {
+/** Sesi merchant demo — dipakai juga oleh modul batch (`api/batches.ts`). */
+export function ensureMerchantToken(): Promise<string> {
   if (!merchantToken) merchantToken = signInToken(DEMO_MERCHANT_EMAIL, DEMO_MERCHANT_PASSWORD)
   return merchantToken
 }

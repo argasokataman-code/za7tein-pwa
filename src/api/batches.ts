@@ -1,15 +1,16 @@
 /**
- * Batch kurir inhouse ↔ tabel `batches` D1 (baca saja).
+ * Batch kurir inhouse ↔ tabel `batches` D1 (baca **dan** tulis).
  *
- * Tabelnya sudah diekspos Worker (`GET /rest/v1/batches`) dan `orders.batch_id`
- * menyimpan keanggotaan order. Yang belum ada: endpoint **tulis** — jadi panel
- * batch masih membuat/mengubah batch di Redux (lihat `batchSlice`), dan modul ini
- * hanya **menghidrasi** batch nyata dari BE supaya batch yang ada di D1 kelihatan.
+ * Tabelnya diekspos Worker (`GET/POST/PATCH/DELETE /rest/v1/batches`) dan
+ * `orders.batch_id` menyimpan keanggotaan order. Panel batch menulis lewat
+ * modul ini supaya susunan batch (anggota, kurir, status) tetap ada saat
+ * merchant pindah perangkat atau memuat ulang halaman — sebelumnya batch hanya
+ * hidup di Redux/localStorage sehingga hilang di perangkat lain.
  */
 import { BATCH_COUNTDOWN_SECONDS } from '../data/batch'
 import type { Batch, BatchStatus, MerchantOrder } from '../types'
-import { DEMO_MERCHANT_ID } from './orders'
-import { rest } from './supabase'
+import { DEMO_MERCHANT_ID, ensureMerchantToken } from './orders'
+import { createWithReturn, patch, rest } from './supabase'
 
 interface BatchRow {
   id: number
@@ -32,6 +33,8 @@ interface BatchRow {
  */
 const BATCH_STATUS_FROM_DB: Record<string, BatchStatus> = {
   prepare: 'countdown',
+  closed: 'closed',
+  assigned: 'assigned',
   delivering: 'delivering',
   done: 'done',
 }
@@ -99,4 +102,76 @@ export async function fetchMerchantBatches(
     `?select=id,merchant_id,courier_id,status,eta_prepare_seconds,eta_delivery_seconds,sla_prepare_deadline,route,order_count,created_at&merchant_id=eq.${merchantId}&order=id.desc`,
   )
   return rows.map((row) => toMerchantBatch(row, orders))
+}
+
+/** Status batch FE → nilai `batches.status` D1 (tanpa constraint; bebas nilai). */
+const BATCH_STATUS_TO_DB: Record<BatchStatus, string> = {
+  countdown: 'prepare',
+  awaiting_courier: 'prepare',
+  assigned: 'prepare',
+  closed: 'closed',
+  delivering: 'delivering',
+  done: 'done',
+}
+
+/** `api-839` → `839`; id seed non-numerik → `NaN` (dilewati). */
+const numericOrderId = (id: string) => Number(String(id).replace(/\D/g, ''))
+
+export interface NewBatchInput {
+  orderIds: string[]
+  estimateMinutes: number
+  merchantId?: number | string
+}
+
+/**
+ * Buat batch di BE dan kembalikan id-nya (angka, dipakai sebagai id FE supaya
+ * dua perangkat menunjuk baris yang sama). `null` = gagal; pemanggil memakai
+ * id lokal sebagai cadangan.
+ */
+export async function createBatchOnBe({
+  orderIds,
+  estimateMinutes,
+  merchantId = DEMO_MERCHANT_ID,
+}: NewBatchInput): Promise<number | null> {
+  const route = orderIds.map(numericOrderId).filter((id) => Number.isFinite(id))
+  try {
+    const token = await ensureMerchantToken()
+    const rows = await createWithReturn<BatchRow>(token, 'batches', {
+      merchant_id: Number(String(merchantId).replace(/\D/g, '')) || 1,
+      courier_id: null,
+      status: BATCH_STATUS_TO_DB.countdown,
+      route: JSON.stringify(route),
+      order_count: orderIds.length,
+      eta_delivery_seconds: estimateMinutes * 60,
+    })
+    return rows?.[0]?.id ?? null
+  } catch {
+    return null
+  }
+}
+
+/** Tulis perubahan batch ke BE (best-effort; UI tidak menunggu jaringan). */
+export async function patchBatchOnBe(
+  batchId: string,
+  patchRow: { courierId?: string | null; status?: BatchStatus; orderIds?: string[] },
+): Promise<void> {
+  const id = numericOrderId(batchId)
+  if (!Number.isFinite(id)) return
+  const body: Record<string, unknown> = {}
+  if (patchRow.status) body.status = BATCH_STATUS_TO_DB[patchRow.status]
+  if (patchRow.courierId !== undefined) {
+    const cid = patchRow.courierId === null ? null : Number(String(patchRow.courierId).replace(/\D/g, ''))
+    body.courier_id = Number.isFinite(cid) ? cid : null
+  }
+  if (patchRow.orderIds) {
+    body.route = JSON.stringify(patchRow.orderIds.map(numericOrderId).filter(Number.isFinite))
+    body.order_count = patchRow.orderIds.length
+  }
+  if (!Object.keys(body).length) return
+  try {
+    const token = await ensureMerchantToken()
+    await patch(token, 'batches', `?id=eq.${id}`, body)
+  } catch {
+    /* best-effort */
+  }
 }
