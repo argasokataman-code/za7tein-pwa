@@ -200,6 +200,17 @@ export function penaltyLevel(level: string): number | null {
 }
 
 /**
+ * Pecah daftar id untuk query `in.(...)`. D1 menolak query dengan terlalu banyak
+ * variabel SQL (`too many SQL variables`), dan itu mematikan seluruh join —
+ * mis. 66 order merchant membuat `order_items` 400 dan dashboard jatuh ke cache.
+ */
+export function chunkIds(ids: number[], size = 40): number[][] {
+  const out: number[][] = []
+  for (let i = 0; i < ids.length; i += size) out.push(ids.slice(i, i + size))
+  return out
+}
+
+/**
  * `enterprise_ledger` → `LedgerEntry`. Nominal BE JOD bisa negatif (`fee`), jadi
  * `direction` diturunkan dari tandanya dan `amount` disimpan absolut.
  */

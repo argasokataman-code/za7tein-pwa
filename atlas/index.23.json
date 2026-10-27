@@ -4269,6 +4269,122 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-142460",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-27",
+      "time": "00:04:44",
+      "tags": [
+        "coverage",
+        "checkout",
+        "prod",
+        "be-v2"
+      ],
+      "summary": "Checkout marked every live Irbid address out of range: quote used mock Jakarta kitchen, not coverage.origin from BE. Fixed + prod verified.",
+      "conn": [
+        {
+          "id": "TASK-142449",
+          "type": "relates",
+          "raw": "TASK-142449:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142461",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:14:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/beMapping.ts (+16/-5) — edit via tool: ts: /** `SP-1` / `tingkat 2` → angka level;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/beMapping.ts"
+    },
+    {
+      "id": "TASK-142462",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:15:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+3/-2) — edit via tool: ts: import { createWith, createWithReturn, p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-142463",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:15:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs (+10/-9) — edit via tool: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs"
+    },
+    {
+      "id": "TASK-142464",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:16:18",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: node --import ./scripts/lib/ts-resolve.mjs scripts/be-mappers-check.mjs 2>&1 | tail -3; npm run lint 2>&1 | grep -E \"error|warning\" ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142465",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:16:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+12/-2) — edit via tool: tsx: quote, kanvas area layanan, sert",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

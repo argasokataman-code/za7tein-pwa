@@ -6,6 +6,7 @@
 import assert from 'node:assert/strict'
 
 import {
+  chunkIds,
   parsePunishment,
   parseVariantOptions,
   penaltyKind,
@@ -124,5 +125,14 @@ assert.equal(penaltyKind('apa saja'), 'sp')
 assert.equal(penaltyLevel('SP-2'), 2)
 assert.equal(penaltyLevel('tingkat 3'), 3)
 assert.equal(penaltyLevel('ringan'), null)
+
+// D1 menolak `in.(...)` dengan terlalu banyak variabel: 66 order merchant
+// pernah membuat order_items 400. Pecahan wajib menutup semua id, tanpa duplikat.
+const manyIds = Array.from({ length: 66 }, (_, i) => i + 1)
+const chunks = chunkIds(manyIds)
+assert.equal(chunks.length, 2)
+assert.deepEqual(chunks.flat(), manyIds)
+assert.ok(chunks.every((c) => c.length <= 40))
+assert.deepEqual(chunkIds([]), [])
 
 console.log('be-mappers: ok')

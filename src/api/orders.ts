@@ -23,6 +23,7 @@ import type {
 } from '../types'
 import { createWith, createWithReturn, patch, rest, restWith, rpc, signInToken } from './supabase'
 import { refToken } from './reference'
+import { chunkIds } from '../data/beMapping'
 
 export const DEMO_CUSTOMER_ID = 1
 export const DEMO_MERCHANT_ID = 1
@@ -450,6 +451,26 @@ function ensureCourierToken(): Promise<string> {
   return courierToken
 }
 
+/**
+ * `in.(...)` dipecah per potongan id. D1 menolak query dengan terlalu banyak
+ * variabel SQL; satu query besar membuat seluruh join order 400 dan layar
+ * jatuh ke cache ("Gagal memuat data terbaru").
+ */
+async function restWithIn<T>(
+  token: string,
+  table: string,
+  select: string,
+  column: string,
+  ids: number[],
+): Promise<T[]> {
+  const out: T[] = []
+  for (const part of chunkIds(ids)) {
+    const rows = await restWith<T>(token, table, `?select=${select}&${column}=in.(${part.join(',')})`)
+    out.push(...rows)
+  }
+  return out
+}
+
 export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promise<MerchantOrder[]> {
   const token = await ensureMerchantToken()
   const rows = await restWith<OrderRow>(
@@ -463,10 +484,12 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
   const orderIds = rows.map((row) => row.id)
   const customerIds = [...new Set(rows.map((row) => row.customer_id))]
   const [items, customers] = await Promise.all([
-    restWith<OrderItemRow>(
+    restWithIn<OrderItemRow>(
       token,
       'order_items',
-      `?select=order_id,menu_id,name,qty,line_total_jod,modifiers&order_id=in.(${orderIds.join(',')})`,
+      'order_id,menu_id,name,qty,line_total_jod,modifiers',
+      'order_id',
+      orderIds,
     ),
     restWith<CustomerNameRow>(
       token,
@@ -737,10 +760,12 @@ export async function fetchCustomerActiveOrders(
       'merchants',
       `?select=id,store_name&id=in.(${merchantIds.join(',')})`,
     ).catch(() => []),
-    restWith<{ order_id: number; name: string; qty: number }>(
+    restWithIn<{ order_id: number; name: string; qty: number }>(
       token,
       'order_items',
-      `?select=order_id,name,qty&order_id=in.(${orderIds.join(',')})`,
+      'order_id,name,qty',
+      'order_id',
+      orderIds,
     ).catch(() => []),
   ])
 

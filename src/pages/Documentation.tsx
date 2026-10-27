@@ -1053,6 +1053,16 @@ export default function Documentation() {
                 quote, kanvas area layanan, serta tulisan balik coverage.
               </li>
               <li>
+                <strong>D1 menolak IN yang kepanjangan.</strong> Setelah prod diarahkan ke
+                Worker v2, antrean merchant berisi 66 order dan join item dikirim sebagai satu{' '}
+                <code className="doc-inline">order_id=in.(66 id)</code> &rarr;{' '}
+                <code className="doc-inline">D1_ERROR: too many SQL variables</code>, jadi
+                dashboard menampilkan &ldquo;Gagal memuat data terbaru&rdquo; dan nol order.
+                Sekarang daftar id dipecah per 40 (<code className="doc-inline">chunkIds</code>,
+                self-check <code className="doc-inline">check:be-mappers</code>) dan join dijalankan
+                per potongan.
+              </li>
+              <li>
                 <strong>Audit integrasi + tiga tabel BE yang tadinya belum dibaca.</strong>{' '}
                 <code className="doc-inline">scripts/be-audit.mjs</code> mengekstrak setiap query{' '}
                 <code className="doc-inline">/rest/v1/…</code> dari{' '}
