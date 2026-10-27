@@ -5617,6 +5617,160 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-144308",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:50:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/Documentation.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"                order nyata. Order yang baru ditun",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-145200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "20:54:04",
+      "tags": [
+        "courier",
+        "tasks",
+        "batch",
+        "history"
+      ],
+      "summary": "Daftar tugas kurir = BE saja (seed dibuang, progres lokal dibawa), batch ditutup di BE saat order terakhir tuntas, riwayat sesi menyimpan or",
+      "conn": [
+        {
+          "id": "TASK-144300",
+          "type": "relates",
+          "raw": "TASK-144300:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-145201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "21:01:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantTrend.ts (+2/-2) — edit via tool: ts: import type { ChartBar, ChartSegment",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/merchantTrend.ts"
+    },
+    {
+      "id": "TASK-145202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "21:01:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TrendBars.tsx (+12/-10) — edit via tool: tsx: /** Format angka di atas ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TrendBars.tsx"
+    },
+    {
+      "id": "TASK-145203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "21:01:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_charts.scss (+15/-4) — edit via tool: /* 24 batang jam: gap 16px tidak m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_charts.scss"
+    },
+    {
+      "id": "TASK-145204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "21:02:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx (+11/-10) — edit via tool: tsx: import { orderStatusLabel }",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantDashboard.tsx"
+    },
+    {
+      "id": "TASK-145205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "21:02:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss (+22/-2) — edit via tool: /* Segmented periode di atas p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-4.scss"
+    },
+    {
+      "id": "TASK-145206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "21:03:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/trend-check.mjs (+59) — write via tool: // Self-check periode kartu pendapatan m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/trend-check.mjs"
     }
   ]
 }

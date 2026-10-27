@@ -47,7 +47,10 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 
 // Grafik tren harian (`TrendBars`: merchant + kurir) didokumentasikan di
 // MerchantDesignSection dan CourierDesignSection; halaman ini hanya merangkai
-// section, jadi jangan menambah entri chart di sini. Onboarding kurir (cover
+// section, jadi jangan menambah entri chart di sini. Kartu pendapatan merchant
+// kini punya baris baca yang berubah saat batang di-hover/diketuk/dipanah
+// (periode, nominal, order, rata-rata, porsi total) — rinciannya di
+// MerchantDesignSection, bukan diulang di halaman perangkai ini. Onboarding kurir (cover
 // login yang sama, tanpa kendaraan, semua jalan kaki) dan alarm tugas baru
 // (kartu dispatch: ilustrasi toko→kurir, order + waktu masuk) juga di
 // CourierDesignSection.

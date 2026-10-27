@@ -1,5 +1,5 @@
 import type { ChartBar, ChartSegment, MerchantOrder } from '../types'
-import { merchantOrders } from './merchantOrders'
+import { isOrderToday, merchantOrders } from './merchantOrders'
 
 /**
  * Data deret waktu untuk dashboard merchant (M2).
@@ -27,8 +27,9 @@ export interface TrendPoint {
 }
 
 /**
- * Tujuh hari terakhir, berakhir hari ini. Bentuknya naik menjelang akhir pekan
- * supaya grafiknya punya bentuk yang bisa dibaca, bukan rata.
+ * Tujuh hari terakhir, berakhir hari ini. Nilainya naik di hari-hari terakhir
+ * supaya grafiknya punya bentuk yang bisa dibaca, bukan rata; label harinya
+ * diturunkan dari tanggal berjalan, bukan ditulis mati.
  *
  * Dua hal yang dijaga supaya angka di grafik tidak bertentangan dengan kartu:
  * jumlah order tujuh baris ini sama dengan `merchantOrders.length` (8), dan
@@ -37,19 +38,23 @@ export interface TrendPoint {
  */
 export const merchantTrend: TrendPoint[] = (() => {
   const days = [
-    { label: 'Sen', orders: 0, revenueIdr: 0 },
-    { label: 'Sel', orders: 1, revenueIdr: 18000 },
-    { label: 'Rab', orders: 1, revenueIdr: 44000 },
-    { label: 'Kam', orders: 1, revenueIdr: 12000 },
-    { label: 'Jum', orders: 1, revenueIdr: 44000 },
-    { label: 'Sab', orders: 2, revenueIdr: 78000 },
-    { label: 'Min', orders: 2, revenueIdr: 60000 },
+    { orders: 0, revenueIdr: 0 },
+    { orders: 1, revenueIdr: 18000 },
+    { orders: 1, revenueIdr: 44000 },
+    { orders: 1, revenueIdr: 12000 },
+    { orders: 1, revenueIdr: 44000 },
+    { orders: 2, revenueIdr: 78000 },
+    { orders: 2, revenueIdr: 60000 },
   ]
   const today = new Date()
   return days.map((day, index) => {
     const date = new Date(today)
     date.setDate(today.getDate() - (days.length - 1 - index))
-    return { ...day, date: date.toISOString().slice(0, 10) }
+    // Label diturunkan dari tanggalnya, bukan ditulis "Sen…Min": deret ini
+    // bergerak mengikuti hari ini, jadi label mati akan berbohong begitu hari
+    // berganti (terukur: batang bertanggal Senin berlabel "Min").
+    const shortDay = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'][date.getDay()]
+    return { ...day, label: shortDay, date: isoLocalDay(date) }
   })
 })()
 
@@ -76,6 +81,199 @@ export function orderTrendBars(points: TrendPoint[] = merchantTrend): ChartBar[]
 /** Deret batang pendapatan per hari (dalam ribuan rupiah, biar terbaca). */
 export function revenueTrendBars(points: TrendPoint[] = merchantTrend): ChartBar[] {
   return points.map((point) => ({ label: point.label, value: Math.round(point.revenueIdr / 1000) }))
+}
+
+/**
+ * Periode kartu pendapatan. Default **harian** karena pertanyaan pertama
+ * merchant adalah "hari ini bagaimana", bukan "tahun ini bagaimana".
+ */
+export type RevenuePeriod = 'daily' | 'weekly' | 'yearly'
+
+export const REVENUE_PERIODS: { id: RevenuePeriod; label: string }[] = [
+  { id: 'daily', label: 'Harian' },
+  { id: 'weekly', label: 'Mingguan' },
+  { id: 'yearly', label: 'Tahunan' },
+]
+
+/**
+ * Satu batang pendapatan. Selain bentuk (`value`), batang membawa keterangan
+ * yang dibaca saat diarahkan: nama lengkap periode, jumlah order, dan nominal
+ * aslinya. Tanpa ini hover cuma mengulang tinggi batang.
+ */
+export interface RevenueBucket extends ChartBar {
+  /** Nama lengkap untuk pembaca hover, mis. `14:00–14:59` atau `Sabtu, 24 Okt`. */
+  fullLabel: string
+  /** Order yang membentuk batang ini (0 = jam/hari kosong). */
+  orders: number
+  /** Nominal rupiah asli; `value` cuma versi ribuan untuk tinggi batang. */
+  revenueIdr: number
+}
+
+export interface RevenueSeries {
+  bars: RevenueBucket[]
+  totalIdr: number
+  orders: number
+  /** Rata-rata per order; 0 kalau belum ada order. */
+  averageIdr: number
+  /** Label puncak: jam (`14:00`) untuk harian, hari/bulan untuk periode lain. */
+  peak: string
+  /** Indeks batang puncak — titik yang dipilih sebelum pengguna mengarahkan. */
+  peakIndex: number
+}
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des']
+const MONTHS_FULL = [
+  'Januari',
+  'Februari',
+  'Maret',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Agustus',
+  'September',
+  'Oktober',
+  'November',
+  'Desember',
+]
+const DAYS_FULL = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
+
+/** Tanggal lokal `YYYY-MM-DD`; `toISOString()` bisa mundur sehari sebelum 07:00 WIB. */
+function isoLocalDay(date: Date): string {
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${date.getFullYear()}-${month}-${day}`
+}
+
+/** `Sabtu, 24 Okt` dari tanggal ISO `YYYY-MM-DD`. */
+function fullDayLabel(isoDate: string): string {
+  const date = new Date(`${isoDate}T00:00:00`)
+  return `${DAYS_FULL[date.getDay()]}, ${date.getDate()} ${MONTHS[date.getMonth()]}`
+}
+
+/** `Oktober 2026` dari `YYYY-MM`. */
+function fullMonthLabel(isoMonth: string): string {
+  const [year, month] = isoMonth.split('-').map(Number)
+  return `${MONTHS_FULL[month - 1]} ${year}`
+}
+
+/**
+ * Dua belas bulan terakhir berakhir bulan ini. State demo seperti deret harian:
+ * repo ini front-end saja, jadi tidak ada query agregat sungguhan. Dijaga tetap
+ * berupa `TrendPoint` supaya total/puncak memakai fungsi yang sama.
+ */
+const YEARLY_SEED = [
+  { orders: 54, revenueIdr: 1_480_000 },
+  { orders: 61, revenueIdr: 1_720_000 },
+  { orders: 48, revenueIdr: 1_260_000 },
+  { orders: 66, revenueIdr: 1_960_000 },
+  { orders: 72, revenueIdr: 2_180_000 },
+  { orders: 58, revenueIdr: 1_640_000 },
+  { orders: 63, revenueIdr: 1_810_000 },
+  { orders: 70, revenueIdr: 2_040_000 },
+  { orders: 52, revenueIdr: 1_420_000 },
+  { orders: 68, revenueIdr: 1_980_000 },
+  { orders: 75, revenueIdr: 2_260_000 },
+  { orders: 81, revenueIdr: 2_460_000 },
+]
+
+export const merchantYearlyTrend: TrendPoint[] = (() => {
+  const now = new Date()
+  return YEARLY_SEED.map((point, index) => {
+    const date = new Date(now.getFullYear(), now.getMonth() - (YEARLY_SEED.length - 1 - index), 1)
+    return {
+      ...point,
+      label: MONTHS[date.getMonth()],
+      date: `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`,
+    }
+  })
+})()
+
+/**
+ * Pendapatan hari ini per jam (24 batang) dari order yang benar-benar ada.
+ * Order tanpa `placedAtMs` tidak bisa ditempatkan pada satu jam, jadi dilewati —
+ * lebih baik batang kosong daripada jam yang dikarang. Label hanya tiap 3 jam
+ * supaya 24 batang tetap terbaca di kolom 430px.
+ */
+export function hourlyRevenueSeries(
+  orders: MerchantOrder[] = merchantOrders,
+  now = Date.now(),
+): RevenueSeries {
+  const buckets = Array.from({ length: 24 }, () => ({ orders: 0, revenueIdr: 0 }))
+  for (const order of orders) {
+    if (order.status === 'ditolak' || order.status === 'batal') continue
+    if (order.placedAtMs === undefined || !isOrderToday(order, now)) continue
+    const hour = new Date(order.placedAtMs).getHours()
+    buckets[hour].orders += 1
+    buckets[hour].revenueIdr += order.total
+  }
+  const bars: RevenueBucket[] = buckets.map((bucket, hour) => {
+    const hh = String(hour).padStart(2, '0')
+    return {
+      label: hour % 3 === 0 ? hh : '',
+      fullLabel: `${hh}:00–${hh}:59`,
+      value: Math.round(bucket.revenueIdr / 1000),
+      orders: bucket.orders,
+      revenueIdr: bucket.revenueIdr,
+    }
+  })
+  const peakHour = buckets.reduce(
+    (best, bucket, hour) => (bucket.revenueIdr > buckets[best].revenueIdr ? hour : best),
+    0,
+  )
+  const totalIdr = buckets.reduce((sum, bucket) => sum + bucket.revenueIdr, 0)
+  const orderCount = buckets.reduce((sum, bucket) => sum + bucket.orders, 0)
+  return {
+    bars,
+    totalIdr,
+    orders: orderCount,
+    averageIdr: orderCount > 0 ? Math.round(totalIdr / orderCount) : 0,
+    peak: `${String(peakHour).padStart(2, '0')}:00`,
+    peakIndex: peakHour,
+  }
+}
+
+/** Satu bentuk untuk tiga tombol periode, supaya kartu tidak punya tiga jalur. */
+export function revenueSeries(
+  period: RevenuePeriod,
+  orders: MerchantOrder[] = merchantOrders,
+  now = Date.now(),
+): RevenueSeries {
+  if (period === 'daily') return hourlyRevenueSeries(orders, now)
+
+  const points = period === 'weekly' ? merchantTrend : merchantYearlyTrend
+  const totals = trendTotals(points)
+  // 12 batang di kolom 430px hanya selebar ~15px: nama bulan tiga huruf tidak
+  // muat (terukur terpotong), jadi sumbu memakai nomor bulan 01-12. Nama bulan
+  // lengkap dipakai di keterangan hover, bukan dipaksa masuk kolom.
+  const bars: RevenueBucket[] =
+    period === 'yearly'
+      ? points.map((point) => ({
+          label: point.date.slice(5),
+          fullLabel: fullMonthLabel(point.date),
+          value: Math.round(point.revenueIdr / 1000),
+          orders: point.orders,
+          revenueIdr: point.revenueIdr,
+        }))
+      : points.map((point) => ({
+          label: point.label,
+          fullLabel: fullDayLabel(point.date),
+          value: Math.round(point.revenueIdr / 1000),
+          orders: point.orders,
+          revenueIdr: point.revenueIdr,
+        }))
+  const peakIndex = Math.max(
+    0,
+    points.findIndex((point) => point === totals.best),
+  )
+  return {
+    bars,
+    totalIdr: totals.revenueIdr,
+    orders: totals.orders,
+    averageIdr: totals.orders > 0 ? Math.round(totals.revenueIdr / totals.orders) : 0,
+    peak: totals.best?.label ?? '-',
+    peakIndex,
+  }
 }
 
 /**

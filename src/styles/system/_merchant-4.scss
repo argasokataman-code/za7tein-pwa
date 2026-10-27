@@ -118,39 +118,6 @@
   }
 }
 
-/* Kartu pendapatan: satu titik fokus di beranda dapur. Sebelumnya kotak
-   keempat dari grid 2×2 yang keempat kartunya seragam (73/73/99/99px, semua
-   nilai 17,01px) sehingga uang dan jumlah porsi dicetak sama besar. Sekarang
-   angkanya 2xl dan tiga angka sisanya jadi baris teks di bawah.
-
-   Permukaannya oranye merek, mengikuti pola kartu ringkasan beranda Superadmin
-   (`.sa-card--brand`): kartu uang tampil sebagai bidang merek, bukan kartu putih
-   keempat. Semua teks memakai `--on-brand` (putih) seperti hero. Putih di atas
-   `--sa7tein-orange` murni cuma 4,02:1 (gagal AA untuk teks kecil, audit 012 #1),
-   jadi permukaannya memakai `--merchant-brand` — nada merek yang dipadatkan
-   sedikit, terukur 4,70:1. Tinta navy yang dipakai `.sa-card--brand` diukur cuma
-   2,87:1 di sini, jadi tidak ditiru. */
-.merchant-revenue {
-  @include card-surface;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  margin-bottom: var(--space-4);
-  padding: var(--space-4);
-
-  background: var(--merchant-brand);
-  border-color: var(--merchant-brand);
-  color: var(--on-brand);
-}
-
-.merchant-revenue-value {
-  font-size: var(--text-2xl);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-  color: var(--on-brand);
-}
-
 /* Kartu insentif = kartu uang kedua, tapi permukaan gelap navy supaya punya
    identitas sendiri di antara kartu putih: token `--navy` + `--on-navy` dari
    design system ("navy juga dipakai sebagai latar gelap"). Teks putih 11,5:1 di

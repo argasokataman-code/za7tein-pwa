@@ -490,20 +490,42 @@ export function orderStatusLabel(status: MerchantOrderStatus): string {
       </h3>
       <p className="doc-p">
         Beranda dapur punya <strong>satu titik fokus uang</strong>: kartu pendapatan lebar penuh
-        dengan angka <code className="doc-inline">--text-2xl</code> dan batang tujuh hari, lalu
+        dengan angka <code className="doc-inline">--text-2xl</code> dan batang waktu, lalu
         tiga angka antrean turun pangkat jadi satu baris teks 44px. Sebelumnya keempatnya kotak
         seragam di grid 2×2 (terukur 73/73/99/99px dengan semua nilai 17,01px), jadi "Rp256.000"
         dan "2 order" tercetak sama besar dan uangnya tidak menonjol.
       </p>
       <p className="doc-p">
         Komponen{' '}
-        <code className="doc-inline">TrendBars</code> ({'{'}komponen ui{'}'}) menggambar tujuh
-        batang HTML/CSS, satu per hari, dengan baseline nol dan angka per hari di atas batang.
+        <strong>Harian adalah default, dan bentuknya per jam</strong>: 24 batang dari order
+        hari ini, label tiap tiga jam supaya tetap terbaca di kolom 430px. Tombol
+        Harian/Mingguan/Tahunan memilih deret lain (7 hari, 12 bulan) lewat satu fungsi
+        <code className="doc-inline">revenueSeries</code>, jadi angka besar, batang, dan
+        subjudul tidak mungkin berasal dari deret berbeda. Order batal/tolak dan order tanpa
+        jam tidak dihitung. Kartu tetap memakai primitif <code className="doc-inline">ck-seg</code>,
+        hanya tintanya dibalik agar AA di permukaan merek. Komponen{' '}
+        <code className="doc-inline">TrendBars</code> ({'{'}komponen ui{'}'}) menggambar
+        batang HTML/CSS, satu per titik waktu, dengan baseline nol. Angka per batang tidak
+        dicetak di atas grafik: 7-24 angka sekaligus jadi derau dan saling bertabrakan.
+        Sebagai gantinya ada satu baris baca yang berubah saat batang diarahkan, diketuk, atau
+        digerakkan dengan panah: nama periode lengkap (&ldquo;14:00-14:59&rdquo;,
+        &ldquo;Sabtu, 24 Okt&rdquo;, &ldquo;Oktober 2026&rdquo;), nominal aslinya, jumlah order
+        yang membentuk batang itu, rata-rata per order, dan porsinya terhadap total periode.
+        Batang puncak dipilih lebih dulu supaya kartu tidak kosong sebelum disentuh. Seluruh
+        bidang grafik adalah target ketuk — bukan 24 target 11px yang mustahil di ponsel —
+        jadi pembacaan tetap bisa dilakukan tanpa hover. Ini yang membedakannya dari grafik
+        dekoratif: tinggi batang hanya bentuk, keputusan diambil dari angka yang bisa dibaca.
         Sparkline garis yang lama diganti karena kemiringannya bergantung pada min/max dan tidak
         punya baseline: hari tanpa nilai tak terlihat berbeda dari hari bernilai kecil, dan
-        &ldquo;puncak&rdquo; di subjudul tidak bisa diverifikasi dari bentuknya. Batang hari
-        terakhir ditebalkan sebagai penanda hari berjalan; total dan ringkasan tetap di kartu
-        induk, dan angka lengkapnya tersedia lewat <code className="doc-inline">aria-label</code>.
+        &ldquo;puncak&rdquo; di subjudul tidak bisa diverifikasi dari bentuknya. Penanda
+        &ldquo;sekarang&rdquo; mengikuti jam berjalan pada tampilan harian dan periode terakhir
+        pada mingguan/tahunan, bukan selalu batang terakhir; batang yang sedang dibaca tampil
+        penuh, sisanya diredupkan. Label sumbu dipisah dari kolom batang dan ditempel di posisi
+        batangnya: 24 batang hanya 11px per kolom, sedangkan &ldquo;00&rdquo; butuh 17px, jadi
+        label di dalam kolom pasti terpotong. Sumbu tahunan memakai nomor bulan 01-12 karena
+        nama tiga huruf tidak muat di kolom 15px; nama bulan lengkap tetap terbaca di baris
+        baca. Label hari diturunkan dari tanggal berjalan, bukan ditulis mati, supaya batang
+        tidak berlabel &ldquo;Min&rdquo; padahal tanggalnya Senin.
         Ini <strong> menggantikan</strong> bar chart &ldquo;Tren 7 hari&rdquo; (371px) yang lalu
         dihapus: bentuk harinya sudah tampil di kartu pendapatan, jadi menampilkannya dua kali
         bukan kelengkapan. Tidak ada library chart baru, dan warnanya mewarisi

@@ -1,4 +1,4 @@
-import { Bike, ChevronRight, Clock, PackageCheck, PlusCircle, Sparkles, Star, TicketPercent, TrendingUp } from 'lucide-react'
+import { Bike, ChevronRight, Clock, PackageCheck, PlusCircle, Sparkles, Star, TicketPercent } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -14,15 +14,16 @@ import { useMoney } from '../hooks/useMoney'
 import { apiEnabled } from '../api/supabase'
 import { jodToIdr } from '../data/currency'
 import { rebateProgress } from '../data/incentive'
-import { orderStatusLabel, isOrderToday } from '../data/merchantOrders'
+import { orderStatusLabel } from '../data/merchantOrders'
 import {
+  REVENUE_PERIODS,
   menuSalesRanking,
   orderMixSegments,
   paymentMixSegments,
-  revenueTrendBars,
+  revenueSeries,
   topMenuShare,
-  trendTotals,
   type MenuSalesRow,
+  type RevenuePeriod,
 } from '../data/merchantTrend'
 import { switchBlockCopy } from '../data/superadmin'
 import { setStoreActive, setStoreBusy } from '../store/slices/merchantSlice'
@@ -111,14 +112,28 @@ export default function MerchantDashboard() {
 
   const progress = rebateProgress(credit.settledThisPeriod)
 
-  // Pendapatan hari ini = penjualan hari kalender berjalan saja. Sebelumnya
-  // kartu ini menjumlah SEMUA order yang tersimpan (lintas hari), jadi angka
-  // besar dari order lama ikut terbaca sebagai omzet kasir hari ini.
-  const revenue = orders
-    .filter((o) => o.status !== 'ditolak' && o.status !== 'batal' && isOrderToday(o))
-    .reduce((sum, o) => sum + o.total, 0)
+  // Periode kartu pendapatan: harian (per jam, default), mingguan, tahunan.
+  // Satu fungsi (`revenueSeries`) memegang bentuk batang + total, jadi angka
+  // besar dan grafik tidak mungkin berasal dari deret berbeda.
+  const [period, setPeriod] = useState<RevenuePeriod>('daily')
+  // Jam berjalan dibekukan sekali per muat: penanda "sekarang" tidak perlu
+  // bergerak tiap render, dan `Date` di render memicu warning purity.
+  const [thisHour] = useState(() => new Date().getHours())
+  const series = revenueSeries(period, orders)
+  // Default baca = batang puncak, titik yang paling layak dijelaskan lebih dulu.
+  // Hover/panah menggantinya; ganti periode mengembalikan ke puncak periode itu.
+  const [selectedBucket, setSelectedBucket] = useState<number | null>(null)
+  const activeIndex = Math.min(selectedBucket ?? series.peakIndex, series.bars.length - 1)
+  const activeBucket = series.bars[activeIndex]
+  const activeShare =
+    series.totalIdr > 0 ? Math.round((activeBucket.revenueIdr / series.totalIdr) * 100) : 0
+  const periodTitle =
+    period === 'daily' ? 'Pendapatan hari ini' : period === 'weekly' ? 'Pendapatan 7 hari' : 'Pendapatan 12 bulan'
+  const periodDesc =
+    series.orders > 0
+      ? `${series.orders} order · rata-rata ${money(series.averageIdr)}`
+      : 'Belum ada order pada periode ini'
 
-  const trend = trendTotals()
   const menuSales = menuSalesRanking(orders)
   const topMenu = topMenuShare(menuSales)
   const topSold = menuSales[0]?.sold ?? 1
@@ -209,23 +224,65 @@ export default function MerchantDashboard() {
             sisanya turun pangkat jadi satu baris teks. */}
         <section className="merchant-revenue">
           <div className="chart-card-head">
-            <span className="chart-card-icon" aria-hidden="true">
-              <TrendingUp size={20} strokeWidth={1.75} />
-            </span>
             <div className="chart-card-heading">
-              <p className="chart-card-title" role="heading" aria-level={2}>Pendapatan hari ini</p>
-              <p className="chart-card-desc">
-                Penjualan hari ini · batang 7 hari (ribu rupiah) · puncak{' '}
-                {trend.best?.label ?? '-'}
-              </p>
+              <p className="chart-card-title" role="heading" aria-level={2}>{periodTitle}</p>
+              <p className="chart-card-desc">{periodDesc}</p>
             </div>
           </div>
-          <p className="merchant-revenue-value">{money(revenue)}</p>
-          <TrendBars
-            data={revenueTrendBars()}
-            formatValue={(value) => String(value)}
-            ariaLabel={`Pendapatan tujuh hari terakhir dalam ribuan rupiah: ${trend.revenueIdr} total, puncak ${trend.best?.label ?? '-'}`}
-          />
+          {/* Filter, bukan tab yang mengubah konten halaman. `group` +
+              `aria-pressed` tidak menjanjikan pola panah yang tidak ada. */}
+          <div className="ck-seg" role="group" aria-label="Pilih periode pendapatan">
+            {REVENUE_PERIODS.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                aria-pressed={period === option.id}
+                className={`ck-seg__item${period === option.id ? ' ck-seg__item--on' : ''}`}
+                onClick={() => {
+                  setPeriod(option.id)
+                  setSelectedBucket(null)
+                }}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          <p className="merchant-revenue-value">{money(series.totalIdr)}</p>
+          {series.orders > 0 ? (
+            <>
+              {/* Satu baris baca yang berubah saat batang diarahkan/ diketuk.
+                  Isinya bukan hiasan: nominal asli, jumlah order pembentuknya,
+                  rata-rata, dan porsinya terhadap total periode. */}
+              <div className="merchant-revenue-readout" aria-live="polite">
+                <span className="merchant-revenue-readout-top">
+                  <span className="merchant-revenue-readout-label">{activeBucket.fullLabel}</span>
+                  {activeShare > 0 ? (
+                    <span className="merchant-revenue-readout-share">{activeShare}% total</span>
+                  ) : null}
+                </span>
+                <span className="merchant-revenue-readout-figure">
+                  {activeBucket.orders > 0 ? money(activeBucket.revenueIdr) : 'Tidak ada order'}
+                </span>
+                <span className="merchant-revenue-readout-meta">
+                  {activeBucket.orders > 0
+                    ? `${activeBucket.orders} order · rata-rata ${money(
+                        Math.round(activeBucket.revenueIdr / activeBucket.orders),
+                      )}`
+                    : 'Arahkan ke batang lain atau geser sepanjang grafik.'}
+                </span>
+              </div>
+              <TrendBars
+                dense={period === 'daily'}
+                data={series.bars}
+                currentIndex={period === 'daily' ? thisHour : series.bars.length - 1}
+                selectedIndex={activeIndex}
+                onSelect={setSelectedBucket}
+                ariaLabel={`${periodTitle}: total ${money(series.totalIdr)} dari ${series.orders} order, puncak ${series.peak}`}
+              />
+            </>
+          ) : (
+            <p className="chart-card-desc">Belum ada penjualan pada periode ini.</p>
+          )}
         </section>
 
         {/* Baris "Antrean / Diproses / Selesai" dibuang: ketiga angkanya sudah
@@ -238,11 +295,11 @@ export default function MerchantDashboard() {
             sekarang bisa ditekan. Jadi navigasinya tidak berkurang, cuma
             berpindah ke tempat angkanya memang dibaca. */}
 
-        {/* Konsekuensi kartu pendapatan: bar chart "Tren 7 hari" 371px dihapus.
-            Bentuk harinya sudah ada di batang tujuh hari, dan dua kali
-            menunjukkan hal yang sama bukan kelengkapan. Angka yang menjaganya
-            tetap konsisten: `merchantTrend` adalah sumber yang sama untuk kartu,
-            batang, dan baris di atasnya. */}
+        {/* Bar chart "Tren 7 hari" terpisah tetap dihapus: periode yang sama
+            sekarang bisa dipilih langsung di kartu pendapatan (harian per jam,
+            mingguan, tahunan), dan dua kali menunjukkan hal yang sama bukan
+            kelengkapan. `revenueSeries` memegang total + batang untuk ketiga
+            periode, jadi angka besar tidak bisa berbeda dari grafiknya. */}
         {/* Peringkat menu: `decision data`, bukan laporan. Ember statistik cuma
             memberi tahu apa yang sedang terjadi; ini memberi tahu menu mana yang
             layak diperhatikan. Diturunkan dari `CartItem` di order yang sudah

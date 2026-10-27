@@ -1254,11 +1254,28 @@ function printVerdict(label, verdict, errors, measured) {
  * Dua sampel berturut-turut sama = render stabil.
  */
 async function settlePage(cdp, stableNeeded = 3, tries = 20) {
-  const sig = `document.body.innerText.length + '|' + document.querySelectorAll('*').length`
+  // Kerangka loading juga "diam", jadi kehadiran `aria-busy` harus jadi bagian
+  // dari sidik: tanpa ini tiga sampel stabil berturut-turut bisa berarti halaman
+  // masih memuat data (terukur: /merchant lolos dengan 0 kontrol).
+  const sig = `(() => {
+    const busy = document.querySelector('[aria-busy="true"]') ? 'busy|' : ''
+    const root = document.getElementById('root')
+    const mounted = root && root.childElementCount > 0 ? '' : 'unmounted|'
+    return busy + mounted + document.body.innerText.length + '|' + document.querySelectorAll('*').length
+  })()`
   let prev = null
   let same = 0
   for (let i = 0; i < tries; i++) {
     const now = await evaluate(cdp, sig)
+    if (process.env.GATE_DEBUG) process.stderr.write(`[settle] ${now}\n`)
+    // Kerangka dan root kosong bukan halaman: sampel yang identik di kondisi itu
+    // tetap "diam", jadi jangan pernah dihitung sebagai stabil.
+    if (now.startsWith('busy|') || now.startsWith('unmounted|')) {
+      prev = null
+      same = 0
+      await sleep(350)
+      continue
+    }
     // Butuh BEBERAPA sampel sama berturut-turut, bukan dua: layar loading pun
     // "diam" selama ratusan milidetik, dan dua sampel sebelum data mendarat
     // membuat gerbang mengukur kerangka, bukan halaman.

@@ -54,6 +54,7 @@
 
 .chart-bars-col {
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
   gap: var(--space-1);
   min-width: 0;
@@ -88,13 +89,57 @@
   opacity: 1;
 }
 
-.chart-bars-label {
+/* Grafik yang bisa dibaca: batang lain diredupkan supaya batang terpilih
+   (hover/panah) jelas, dan seluruh bidang grafik jadi satu target ketuk —
+   bukan 24 target 11px yang mustahil disentuh di ponsel. */
+.chart-bars--interactive {
+  cursor: pointer;
+  outline-offset: 4px;
+}
+
+.chart-bars--interactive:focus-visible {
+  outline: 2px solid currentColor;
+  border-radius: var(--radius-xs);
+}
+
+.chart-bars--interactive .chart-bars-bar {
+  opacity: 0.4;
+}
+
+.chart-bars--interactive .chart-bars-bar.is-current {
+  opacity: 0.72;
+}
+
+.chart-bars--interactive .chart-bars-bar.is-selected {
+  opacity: 1;
+}
+
+.chart-bars-axis-label.is-active {
+  font-weight: 700;
+  opacity: 1;
+}
+
+.chart-bars-wrap {
+  min-width: 0;
+}
+
+/* Sumbu label terpisah dari kolom batang. Kolom 11px (24 jam) atau 15px (12
+   bulan) tidak muat "00", jadi label diposisikan absolut di tengah batangnya
+   dan boleh memakai ruang tetangga yang kosong. */
+.chart-bars-axis {
+  position: relative;
+  height: 16px;
+  margin-top: var(--space-1);
   font-size: var(--text-xs);
   line-height: 1.2;
-  text-align: center;
+  font-variant-numeric: tabular-nums;
   opacity: 0.8;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.chart-bars-axis-label {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
   white-space: nowrap;
 }
 
@@ -277,6 +322,23 @@
     min-height: 92px;
     gap: var(--space-3);
   }
+}
+
+/* 24 batang jam: gap 16px tidak mungkin, jadi rapatkan ke satu langkah skala.
+   Tinggi track diturunkan supaya label jam tetap kebaca tanpa batang jadi garis. */
+.chart-bars--dense {
+  gap: var(--space-1);
+  min-height: 120px;
+}
+
+.chart-bars--dense .chart-bars-track {
+  height: 64px;
+}
+
+/* Batang 10px dengan radius 8px jadi bubur. Histogram per jam dibiarkan siku;
+   bentuknya membaca durasi, bukan chip. */
+.chart-bars--dense .chart-bars-bar {
+  border-radius: 0;
 }
 
 .chart-bar {
