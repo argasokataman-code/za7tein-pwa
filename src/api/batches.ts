@@ -9,7 +9,7 @@
  */
 import { BATCH_COUNTDOWN_SECONDS } from '../data/batch'
 import type { Batch, BatchStatus, MerchantOrder } from '../types'
-import { DEMO_MERCHANT_ID, ensureMerchantToken } from './orders'
+import { DEMO_MERCHANT_ID, ensureCourierToken, ensureMerchantToken } from './orders'
 import { createWithReturn, patch, rest } from './supabase'
 
 interface BatchRow {
@@ -150,8 +150,7 @@ export async function createBatchOnBe({
   }
 }
 
-/** Tulis perubahan batch ke BE (best-effort; UI tidak menunggu jaringan). */
-export async function patchBatchOnBe(
+/** Tulis perubahan batch ke BE (best-effort; UI tidak menunggu jaringan). */export async function patchBatchOnBe(
   batchId: string,
   patchRow: { courierId?: string | null; status?: BatchStatus; orderIds?: string[] },
 ): Promise<void> {
@@ -171,6 +170,48 @@ export async function patchBatchOnBe(
   try {
     const token = await ensureMerchantToken()
     await patch(token, 'batches', `?id=eq.${id}`, body)
+  } catch {
+    /* best-effort */
+  }
+}
+
+/** `sub` JWT = id user BE; `couriers.user_id` memakainya, bukan `couriers.id`. */
+function jwtSubject(token: string): number {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))
+    return Number(payload?.sub)
+  } catch {
+    return NaN
+  }
+}
+
+/**
+ * Batch yang ditugaskan ke **kurir yang sedang masuk**: baris `batches` milik
+ * `couriers.user_id = sub` yang belum `done`, terbaru dulu. Merchant menulis
+ * baris ini (`createBatchOnBe` / `patchBatchOnBe`), jadi kurir membaca tugas
+ * nyata — bukan batch seed. `null` = belum ada penugasan (atau BE mati).
+ */
+export async function fetchCourierBatch(): Promise<Batch | null> {
+  const token = await ensureCourierToken()
+  const uid = jwtSubject(token)
+  if (!Number.isFinite(uid)) return null
+  const couriers = await rest<{ id: number }>('couriers', `?select=id&user_id=eq.${uid}&limit=1`)
+  const courierId = couriers[0]?.id
+  if (!courierId) return null
+  const rows = await rest<BatchRow>(
+    'batches',
+    `?select=id,merchant_id,courier_id,status,eta_prepare_seconds,eta_delivery_seconds,sla_prepare_deadline,route,order_count,created_at&courier_id=eq.${courierId}&status=neq.done&order=id.desc&limit=1`,
+  )
+  return rows[0] ? toMerchantBatch(rows[0], []) : null
+}
+
+/** Kurir menekan "Mulai antar" → status batch di BE ikut berubah. */
+export async function startBatchOnBe(batchId: string): Promise<void> {
+  const token = await ensureCourierToken()
+  const id = numericOrderId(batchId)
+  if (!Number.isFinite(id)) return
+  try {
+    await patch(token, 'batches', `?id=eq.${id}`, { status: BATCH_STATUS_TO_DB.delivering })
   } catch {
     /* best-effort */
   }

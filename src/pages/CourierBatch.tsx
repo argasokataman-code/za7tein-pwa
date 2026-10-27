@@ -20,6 +20,7 @@ import {
 } from '../data/courierBatch'
 import { formatDistance } from '../data/merchant'
 import { setBatchAutoSort, setBatchRouteOrder, startBatchDelivery } from '../store/slices/courierSlice'
+import { startBatchOnBe } from '../api/batches'
 
 /**
  * Batch kurir inhouse (M5, PRD §8/§9.6). Kurir melihat batch yang ditugaskan
@@ -133,7 +134,12 @@ export default function CourierBatch() {
           <button
             type="button"
             className="btn btn-primary courier-primary"
-            onClick={() => dispatch(startBatchDelivery())}
+            onClick={() => {
+              dispatch(startBatchDelivery())
+              // Status batch ikut ditulis ke BE supaya merchant & perangkat lain
+              // melihat pengantaran dimulai, bukan tetap "ditutup lebih awal".
+              void startBatchOnBe(batch.id).catch(() => {})
+            }}
           >
             <Play size={18} strokeWidth={1.75} aria-hidden="true" />
             Mulai antar

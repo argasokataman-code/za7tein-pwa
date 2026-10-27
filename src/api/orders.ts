@@ -154,6 +154,11 @@ export async function createOrder(order: NewOrder): Promise<{ id: string; code: 
     zone_code: order.zoneCode ?? null,
     promo_id: order.promoId ?? null,
     promo_amount_jod: idrToJod(order.promoDiscountIdr ?? 0),
+    // Serah terima dikunci OTP; tanpa kode, `my_order_otp` mengembalikan null
+    // dan `verify_order_otp` kurir tak pernah cocok — order tak bisa selesai
+    // sehingga merchant menggantung di Diantar. Kode diturunkan dari kode order
+    // supaya customer (menampilkan) dan kurir (mengetik) melihat angka yang sama.
+    otp: otpOf(order.code),
   }, 'id,code')
   const row = rows[0]
   return { id: String(row?.id ?? ''), code: row?.code ?? order.code }
@@ -454,7 +459,8 @@ export function ensureMerchantToken(): Promise<string> {
   return merchantToken
 }
 
-function ensureCourierToken(): Promise<string> {
+/** Sesi kurir demo — dipakai modul batch untuk membaca batch yang ditugaskan. */
+export function ensureCourierToken(): Promise<string> {
   if (!courierToken) courierToken = signInToken(DEMO_COURIER_EMAIL, DEMO_COURIER_PASSWORD)
   return courierToken
 }

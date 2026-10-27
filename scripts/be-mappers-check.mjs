@@ -16,6 +16,7 @@ import {
   toRebateTiers,
 } from '../src/data/beMapping.ts'
 import { toMerchantBatch } from '../src/api/batches.ts'
+import { otpOf } from '../src/api/orders.ts'
 
 /** Baris `batches` D1 apa adanya (hasil tulis panel merchant). */
 const batchRow = {
@@ -158,5 +159,12 @@ assert.equal(toMerchantBatch(batchRow, []).courierId, 'cr-1')
 assert.deepEqual(toMerchantBatch(batchRow, []).orderIds, ['api-816'])
 assert.equal(toMerchantBatch(batchRow, []).estimateMinutes, 25)
 assert.equal(toMerchantBatch({ ...batchRow, status: 'prepare' }, []).status, 'countdown')
+
+// OTP ditulis saat checkout (customer menampilkan, kurir mengetik). Empat digit,
+// stabil untuk kode yang sama, dan berbeda antar order.
+const otp = otpOf('SA-MV5IZOGX')
+assert.match(otp, /^\d{4}$/)
+assert.equal(otp, otpOf('SA-MV5IZOGX'))
+assert.notEqual(otp, otpOf('SA-MVQ009BW'))
 
 console.log('be-mappers: ok')

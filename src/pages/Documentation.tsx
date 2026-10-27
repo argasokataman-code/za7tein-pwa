@@ -850,10 +850,27 @@ export default function Documentation() {
                 COD tetap dibayar merchant di luar aplikasi. Aturan murni di{' '}
                 <code className="doc-inline">src/data/courierBatch.ts</code> ditahan{' '}
                 <code className="doc-inline">scripts/courier-batch-check.mjs</code>. Catatan: rute
-                memakai jarak garis lurus (mock), bukan Google Routes (WALK), dan batch demo di-seed
-                karena penugasan kurir&harr;batch di BE masih OPEN-11 — tabel{' '}
-                <code className="doc-inline">batches</code> sendiri sudah ada dan batch merchant
-                disinkron read-only (<code className="doc-inline">src/api/batches.ts</code>).
+                memakai jarak garis lurus (mock), bukan Google Routes (WALK). Batch yang tampil kini
+                <strong> batch nyata</strong>: merchant menulis baris tabel{' '}
+                <code className="doc-inline">batches</code> (anggota, kurir, status) dan kurir
+                membacanya lewat <code className="doc-inline">fetchCourierBatch</code> — baris
+                dengan <code className="doc-inline">courier_id</code> milik kurir yang masuk,
+                dipetakan dari <code className="doc-inline">couriers.user_id</code> ={' '}
+                <code className="doc-inline">sub</code> token. Batch seed hanya dipakai sebelum BE
+                menjawab. Tombol <em>Mulai antar</em> ikut menulis status batch (
+                <code className="doc-inline">startBatchOnBe</code>), jadi merchant melihat
+                pengantaran dimulai dari perangkat mana pun.
+              </li>
+              <li>
+                <strong>OTP lahir bersama order.</strong> Serah terima dikunci kode 4 digit, tapi{' '}
+                <code className="doc-inline">orders.otp</code> dulu dibiarkan kosong saat checkout
+                sehingga <code className="doc-inline">my_order_otp</code> mengembalikan{' '}
+                <code className="doc-inline">null</code>, kurir tak bisa menyelesaikan tugas, dan
+                order menggantung di <em>Diantar</em>. Sekarang{' '}
+                <code className="doc-inline">createOrder</code> menulis{' '}
+                <code className="doc-inline">otpOf(code)</code> — customer menampilkan angka yang
+                sama, <code className="doc-inline">verify_order_otp</code> cocok, status naik ke{' '}
+                <code className="doc-inline">done</code>.
               </li>
               <li>
                 <strong>Urutan antar bisa digeser saat auto-sort mati (M5).</strong> Sakelar OFF

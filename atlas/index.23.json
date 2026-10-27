@@ -5204,6 +5204,184 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/be-mappers-check.mjs"
+    },
+    {
+      "id": "TASK-143110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "18:57:35",
+      "tags": [
+        "merchant",
+        "batch",
+        "d1",
+        "persistence"
+      ],
+      "summary": "Batch kurir ditulis ke tabel batches D1 (create/patch) + hidrasi BE sebagai sumber kebenaran; susunan batch ikut pindah perangkat",
+      "conn": [
+        {
+          "id": "BUG-142900",
+          "type": "relates",
+          "raw": "BUG-142900:relates"
+        },
+        {
+          "id": "TASK-142730",
+          "type": "relates",
+          "raw": "TASK-142730:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-143111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:08:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+5/-4) — edit via tool: ts: /** Sesi kurir demo — dipakai modul batc",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-143112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:09:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cat >> src/api/batches.ts <<'EOF'\n\n/** `sub` JWT = id user BE; `couriers.user_id` memakainya, bukan `couriers.id`. */\nfunction jwtSu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-143113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:09:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/hooks/useApiRealtime.ts'\ns=open(p).read()\ns=s.replace(\"import { fetchCourierOrders, fetchCustomerActiveOrde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-143114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:10:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/CourierBatch.tsx'\ns=open(p).read()\ns=s.replace(\"import { setBatchAutoSort, setBatchRouteOrder, startB",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-143115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:13:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+9/-4) — edit via tool: ts: zone_code: order.zoneCode ?? null,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-143116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:13:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | grep -E \"error|built in\" | head -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-143117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:14:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+22/-5) — edit via tool: tsx: <code className=\"doc-inline\">scr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-143118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "19:14:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -E \"error\" | head -5; npm run build 2>&1 | grep -E \"error|built in\" | head -3; npm run scan 2>&1 | grep -E ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

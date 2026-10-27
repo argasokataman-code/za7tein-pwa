@@ -4,13 +4,14 @@
 // tetap jalan sebagai jaring pengaman bila socket putus.
 import { useEffect, useRef } from 'react'
 
+import { fetchCourierBatch } from '../api/batches'
 import { fetchCourierOrders, fetchCustomerActiveOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
 import { notifyResync, subscribeOrders } from '../api/realtime'
 import { fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { markOrderCancelled, setOrderStage } from '../store/slices/cartSlice'
 import { hydrateActiveOrders } from '../store/slices/customerOrdersSlice'
-import { setTasks } from '../store/slices/courierSlice'
+import { setBatch, setTasks } from '../store/slices/courierSlice'
 import { markOrdersFailed, markOrdersHydrated, mergeOrders } from '../store/slices/merchantSlice'
 import { selectUnreadCount, setNotifications } from '../store/slices/notificationsSlice'
 import type { NotifAudience } from '../types'
@@ -64,6 +65,13 @@ export function useApiRealtime(audience: NotifAudience): void {
           fetchCourierOrders()
             .then((tasks) => {
               if (alive && tasks.length) dispatch(setTasks(tasks))
+            })
+            .catch(() => {})
+          // Batch yang ditugaskan merchant (tabel `batches`) — sebelumnya kurir
+          // hanya melihat batch seed, jadi penugasan nyata tak pernah sampai.
+          fetchCourierBatch()
+            .then((batch) => {
+              if (alive) dispatch(setBatch(batch))
             })
             .catch(() => {})
         }

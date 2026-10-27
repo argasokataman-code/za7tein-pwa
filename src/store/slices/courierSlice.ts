@@ -59,6 +59,13 @@ const courierSlice = createSlice({
     completeOnboarding(state, action: PayloadAction<CourierOnboarding>) {
       state.onboarding = action.payload
     },
+    /**
+     * Batch live dari BE yang ditugaskan ke kurir ini (`fetchCourierBatch`).
+     * `null` = tak ada penugasan; batch seed hanya dipakai sebelum BE menjawab.
+     */
+    setBatch(state, action: PayloadAction<Batch | null>) {
+      state.batch = action.payload
+    },
     /** Tambah tugas live dari BE; tugas yang sudah ada dibiarkan (progres lokal menang). */
     setTasks(state, action: PayloadAction<CourierTask[]>) {
       const have = new Set(state.tasks.map((t) => t.id))
@@ -180,6 +187,7 @@ const courierSlice = createSlice({
 export const {
   toggleOnline,
   completeOnboarding,
+  setBatch,
   setTasks,
   advanceCheckpoint,
   cancelTask,
