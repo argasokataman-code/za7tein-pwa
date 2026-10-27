@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { InstallAppCard } from './InstallAppCard'
 import { useInstallPrompt } from '../../hooks/useInstallPrompt'
@@ -24,6 +24,7 @@ const DISMISS_KEY = 'sa7tein:install-prompt-dismissed'
 export function InstallPromptSheet() {
   const { hidden } = useInstallPrompt()
   const [open, setOpen] = useState(false)
+  const boxRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (hidden || localStorage.getItem(DISMISS_KEY)) return
@@ -32,6 +33,25 @@ export function InstallPromptSheet() {
     const timer = window.setTimeout(() => setOpen(true), 1200)
     return () => window.clearTimeout(timer)
   }, [hidden])
+
+  /* Kartu ini duduk di zona jempol yang sama dengan `.page-fab`. Tingginya
+     bergantung lebar layar (teks membungkus), jadi tinggi aslinya diukur dan
+     diteruskan sebagai `--install-prompt-h`; CSS memakai angka itu untuk
+     menaikkan FAB. Tanpa pengukuran, FAB tertutup kartu sampai "Nanti saja"
+     ditekan (terukur di /merchant/menu, 390x844). */
+  useEffect(() => {
+    const box = boxRef.current
+    if (!box) return
+    const root = document.documentElement
+    const sync = () => root.style.setProperty('--install-prompt-h', `${Math.ceil(box.offsetHeight)}px`)
+    sync()
+    const observer = new ResizeObserver(sync)
+    observer.observe(box)
+    return () => {
+      observer.disconnect()
+      root.style.removeProperty('--install-prompt-h')
+    }
+  }, [open])
 
   if (hidden || !open) return null
 
@@ -42,7 +62,7 @@ export function InstallPromptSheet() {
 
   return (
     <aside className="install-prompt" aria-label="Pasang aplikasi">
-      <div className="install-prompt-box">
+      <div className="install-prompt-box" ref={boxRef}>
         <InstallAppCard forceVisible />
         <button type="button" className="install-prompt-later" onClick={dismiss}>
           Nanti saja

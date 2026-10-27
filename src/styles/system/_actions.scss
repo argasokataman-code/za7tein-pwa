@@ -30,6 +30,18 @@
   background: var(--orange-deep);
 }
 
+/* Kartu "Pasang aplikasi" (ui/InstallPromptSheet) menempati zona jempol yang
+   sama. Saat kartu tampil, FAB naik setinggi kartu — tingginya diukur di
+   komponen lalu dikirim sebagai `--install-prompt-h` (teks membungkus, jadi
+   angkanya bergantung lebar layar; jangan dikarang di sini). Tanpa ini FAB
+   "Tambah item" tertutup kartu dan klik mendarat di "Nanti saja". */
+body:has(.install-prompt) .page-fab {
+  bottom: calc(
+    var(--nav-height) + var(--space-3) + var(--install-prompt-h, 150px) + var(--space-3) +
+      env(safe-area-inset-bottom, 0px)
+  );
+}
+
 /* FAB mati (mis. kuota kurir penuh) tetap di tempatnya supaya tak ada
    pergeseran tata letak, tapi dinetralkan dan tak lagi mengundang sentuh. */
 .page-fab:disabled {

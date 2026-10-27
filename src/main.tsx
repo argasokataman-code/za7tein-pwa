@@ -37,7 +37,15 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   })
 
   const checkForUpdate = () => {
-    void navigator.serviceWorker.getRegistration().then((reg) => reg?.update())
+    void navigator.serviceWorker.getRegistration().then(async (reg) => {
+      if (!reg) return
+      await reg.update()
+      // `skipWaiting` biasanya langsung mengambil alih (lihat controllerchange
+      // di atas). Kalau worker baru masih menunggu, tawarkan muat ulang saat
+      // itu juga supaya pengguna tidak terjebak di build lama sampai tab
+      // ditutup — persis yang terjadi saat prod dipindah ke API v2.
+      if (reg.waiting || reg.installing) promptAppUpdate()
+    })
   }
   checkForUpdate()
   document.addEventListener('visibilitychange', () => {

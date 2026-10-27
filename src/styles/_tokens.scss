@@ -97,6 +97,11 @@
   --font-sans: 'Plus Jakarta Sans', 'Inter', 'Manrope', system-ui, -apple-system, sans-serif;
   --touch-min: 44px;
   --nav-height: 64px;
+  /* Tinggi kartu "Pasang aplikasi" saat tampil. Nilainya diukur runtime oleh
+     `InstallPromptSheet` (teks membungkus, jadi bergantung lebar); token ini
+     hanya default supaya `var()` tidak pernah kosong. Dipakai untuk menaikkan
+     `.page-fab` agar tidak tertutup kartu. */
+  --install-prompt-h: 0px;
   --shadow-subtle: 0 1px 2px rgba(23, 36, 52, 0.06);
   /* Kartu bertema/terangkat (kuota, program): dua lapis. Lapis tunggal 0,10–0,18
      alpha terbukti tak terbaca (pelajaran kartu navy, changelog) — kontak rapat

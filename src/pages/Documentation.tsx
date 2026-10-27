@@ -1063,6 +1063,26 @@ export default function Documentation() {
                 per potongan.
               </li>
               <li>
+                <strong>Rel merchant berhenti di &ldquo;Packing selesai&rdquo;.</strong> Tombol itu
+                dulu hanya menyalakan flag lokal <code className="doc-inline">packed</code>: status
+                tetap <code className="doc-inline">disiapkan</code>, tiket tidak pindah tab, dan
+                merchant tidak tahu langkah berikutnya. Sekarang packing selesai menulis status{' '}
+                <code className="doc-inline">siap</code> (BE{' '}
+                <code className="doc-inline">waitingCourier</code>, event{' '}
+                <code className="doc-inline">merchant_ready</code> di flow f18), tiket pindah ke tab
+                Siap, dan tiket itu menyebut langkah kurir: Quick menyerahkan ke kurir partner
+                (status lanjut <code className="doc-inline">diantar</code>), Regular memilih kurir
+                inhouse lalu menyetujui mulai antar di panel Batch kurir.
+              </li>
+              <li>
+                <strong>Kartu &ldquo;Pasang aplikasi&rdquo; menutup FAB.</strong> Kartu itu duduk di
+                zona jempol yang sama dengan <code className="doc-inline">.page-fab</code>, jadi klik
+                &ldquo;Tambah item&rdquo; mendarat di &ldquo;Nanti saja&rdquo;. Tingginya diukur
+                (<code className="doc-inline">ResizeObserver</code>) dan dikirim sebagai{' '}
+                <code className="doc-inline">--install-prompt-h</code>; CSS menaikkan FAB setinggi
+                kartu selama kartu tampil.
+              </li>
+              <li>
                 <strong>Audit integrasi + tiga tabel BE yang tadinya belum dibaca.</strong>{' '}
                 <code className="doc-inline">scripts/be-audit.mjs</code> mengekstrak setiap query{' '}
                 <code className="doc-inline">/rest/v1/…</code> dari{' '}

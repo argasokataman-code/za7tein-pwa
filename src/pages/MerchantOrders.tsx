@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ChevronRight, Inbox, PackageCheck, Star } from 'lucide-react'
+import { ChevronRight, Inbox, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useSearchParams } from 'react-router-dom'
 
@@ -15,17 +15,19 @@ import { BatchPanel } from '../components/merchant/BatchPanel'
 import { JourneyLine } from '../components/JourneyLine'
 import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { OrderChatLink } from '../components/merchant/OrderChatLink'
+import { DEFAULT_COOK_MINUTES, MerchantCookPanel } from '../components/merchant/MerchantCookPanel'
 import { MerchantEarnings } from '../components/merchant/MerchantEarnings'
 import { LoyalBadge } from '../components/ui/LoyalBadge'
 import { OrderTimeline } from '../components/merchant/OrderTimeline'
 import { OrderPaymentProof } from '../components/merchant/OrderPaymentProof'
+import { OrderTicketActions } from '../components/merchant/OrderTicketActions'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
+import { useOrderHandoff } from '../hooks/useOrderHandoff'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { BATCH_COUNTDOWN_SECONDS, nextBatchId } from '../data/batch'
-import { QUICK_DISPATCH_AVAILABLE } from '../data/marketplace'
 import { formatDistance } from '../data/merchant'
 import {
   DELIVERY_TYPE_LABEL,
@@ -78,11 +80,6 @@ const JOURNEY_STAGE: Partial<Record<MerchantOrderStatus, OrderStage>> = {
   selesai: 'selesai',
 }
 
-/* Estimasi masak sebagai pilihan tetap, bukan slider. Slider adalah kontrol
-   desktop (tarik presisi) dan di ponsel terasa seperti form web; segmented
-   control adalah pola native untuk rentang kecil yang diskret. */
-const COOK_OPTIONS = [15, 25, 35] as const
-const DEFAULT_COOK_MINUTES = 25
 
 /* Empty state per tab memberi konteks, bukan sekadar "kosong": merchant tahu
    kenapa tab ini belum berisi dan apa yang akan muncul. */
@@ -134,6 +131,7 @@ export default function MerchantOrders() {
   const [acceptId, setAcceptId] = useState<string | null>(null)
   /* Dispatch Quick (§9.4): pilih kurir partner lalu kirim assignment. */
   const [dispatchId, setDispatchId] = useState<string | null>(null)
+  const { batchOf, readyHint, showBatchPanel } = useOrderHandoff(batches, couriers)
 
   const activeTab = QUEUE_TABS.find((t) => t.id === tab) ?? QUEUE_TABS[0]
   const visible = ordersForStatuses(orders, activeTab.statuses)
@@ -214,6 +212,51 @@ export default function MerchantOrders() {
     setCancelId(null)
   }
 
+  /**
+   * Packing selesai = order benar-benar siap diambil, jadi statusnya ikut
+   * berpindah `disiapkan → siap` (BE `waitingCourier`, event `merchant_ready`
+   * di flow f18). Dulu tombol ini hanya menyalakan flag lokal `packed`:
+   * tiket tetap di tab Disiapkan dan merchant tidak tahu langkah berikutnya.
+   */
+  const togglePacked = (order: MerchantOrder) => {
+    const next = !order.packed
+    dispatch(setOrderPacked({ id: order.id, packed: next }))
+    if (order.status === 'diterima' || order.status === 'disiapkan' || order.status === 'siap') {
+      dispatch(setOrderStatus({ id: order.id, status: next ? 'siap' : 'disiapkan' }))
+      persistStatus(order.id, next ? 'siap' : 'disiapkan')
+    }
+    // Order Regular lama (dari BE, bukan hasil "Terima" di sesi ini) belum punya
+    // batch, jadi panel Batch kurir tak punya tempat memilih kurir untuknya.
+    // Packing membuat batch kalau belum ada, supaya langkah kurir punya rumah.
+    if (next && orderDeliveryType(order) === 'regular' && !batchOf(order.id)) {
+      const batchId = nextBatchId(batches)
+      dispatch(
+        addBatch({
+          id: batchId,
+          merchantId: MERCHANT_ID,
+          courierId: null,
+          orderIds: [order.id],
+          status: 'countdown',
+          estimateMinutes: order.cookMinutes ?? DEFAULT_COOK_MINUTES,
+          countdownSeconds: BATCH_COUNTDOWN_SECONDS,
+          autoSort: true,
+          routeOrder: [],
+          createdAt: new Date().toISOString(),
+        }),
+      )
+      dispatch(setOrderBatch({ id: order.id, batchId }))
+    }
+    toast.success(
+      next ? `${order.code} siap — menunggu kurir` : `${order.code} kembali ke dapur`,
+    )
+    notifyCustomer(
+      next ? 'Pesanan selesai dipacking' : 'Pesanan kembali ke dapur',
+      next
+        ? 'Pesananmu sudah dikemas dan menunggu kurir.'
+        : 'Packing pesananmu dibuka kembali.',
+    )
+  }
+
   /** Kurir mulai mengantar lebih awal (BR-B09) — semua order batch ikut jalan. */
   const approveStart = (batchId: string) => {
     const batch = batches.find((b) => b.id === batchId)
@@ -239,6 +282,10 @@ export default function MerchantOrders() {
     // Persist penugasan ke `orders.courier_id` (best-effort; id seed dilewati).
     // Baris `dispatch_assignments` ditulis BE saat mitra merespons (OPEN-11).
     void assignOrderCourier(dispatchId, partnerId).catch(() => {})
+    // Kurir sudah ditunjuk → rel lanjut ke Diantar (BE `waitingDelivery`),
+    // supaya tiket tidak menggantung di tab Siap tanpa langkah berikutnya.
+    dispatch(setOrderStatus({ id: dispatchId, status: 'diantar' }))
+    persistStatus(dispatchId, 'diantar')
     toast.success(`Order ${code} dikirim ke ${partnerName}`)
     notifyCustomer('Kurir ditugaskan', 'Pesananmu sedang dicarikan kurir.')
     setDispatchId(null)
@@ -382,6 +429,19 @@ export default function MerchantOrders() {
                     ) : null}
                   </>
                 ) : null}
+                {/* Dapur & kurir: satu komponen untuk dua tab, supaya rel tidak
+                    berhenti di "Packing selesai" (lihat OrderTicketActions). */}
+                <OrderTicketActions
+                  order={order}
+                  hint={order.status === 'siap' ? readyHint(order) : ''}
+                  onPacked={() => togglePacked(order)}
+                  onDispatch={() => setDispatchId(order.id)}
+                  onOpenBatch={() =>
+                    document
+                      .querySelector('.merchant-batch')
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                />
               </article>
             )
           })
@@ -510,88 +570,27 @@ export default function MerchantOrders() {
             {detailOrder.status === 'diterima' ||
             detailOrder.status === 'disiapkan' ||
             detailOrder.status === 'siap' ? (
-              <div className="merchant-cook">
-                <div className="merchant-cook-head">
-                  <span>Estimasi masak</span>
-                  <strong>{detailOrder.cookMinutes ?? DEFAULT_COOK_MINUTES} menit</strong>
-                </div>
-                <div
-                  className="merchant-cook-segments"
-                  role="group"
-                  aria-label={`Estimasi masak ${detailOrder.code}`}
-                >
-                  {COOK_OPTIONS.map((minutes) => {
-                    const active = (detailOrder.cookMinutes ?? DEFAULT_COOK_MINUTES) === minutes
-                    return (
-                      <button
-                        key={minutes}
-                        type="button"
-                        className={active ? 'is-active' : ''}
-                        aria-pressed={active}
-                        onClick={() => {
-                          dispatch(setCookMinutes({ id: detailOrder.id, minutes }))
-                          notifyCustomer('Pesanan sedang dimasak', 'Toko mulai memasak pesananmu.')
-                        }}
-                      >
-                        {minutes}
-                      </button>
-                    )
-                  })}
-                </div>
-
-                {/* Packing (MER-13): syarat kurir boleh mulai lebih awal saat batch
-                    ditutup lebih awal (BR-B09). Karena itu statusnya terlihat jelas
-                    di tiket packing, bukan tersembunyi di sheet. */}
-                <button
-                  type="button"
-                  className={`merchant-pack${detailOrder.packed ? ' is-packed' : ''}`}
-                  aria-pressed={Boolean(detailOrder.packed)}
-                  onClick={() => {
-                    const next = !detailOrder.packed
-                    dispatch(setOrderPacked({ id: detailOrder.id, packed: next }))
-                    notifyCustomer(
-                      next ? 'Pesanan selesai dipacking' : 'Pesanan kembali ke dapur',
-                      next
-                        ? 'Pesananmu sudah dikemas dan menunggu kurir.'
-                        : 'Packing pesananmu dibuka kembali.',
-                    )
-                  }}
-                >
-                  <PackageCheck size={18} strokeWidth={1.75} aria-hidden="true" />
-                  {detailOrder.packed ? 'Packing selesai' : 'Tandai packing selesai'}
-                </button>
-
-                {orderDeliveryType(detailOrder) === 'quick' ? (
-                  <>
-                    <p className="merchant-card-sub">
-                      Order Quick ditangani satu kurir partner. Kirim penugasan setelah packing
-                      selesai; kurir menerima atau menolak dengan alasan (§9.4/§9.5).
-                    </p>
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      disabled={!QUICK_DISPATCH_AVAILABLE || !detailOrder.packed}
-                      onClick={() => {
-                        setDetailId(null)
-                        setDispatchId(detailOrder.id)
-                      }}
-                    >
-                      Serahkan ke kurir partner
-                    </button>
-                  </>
-                ) : null}
-
-                <button
-                  type="button"
-                  className="merchant-btn-ghost merchant-signout"
-                  onClick={() => {
-                    setDetailId(null)
-                    setCancelId(detailOrder.id)
-                  }}
-                >
-                  Batalkan pesanan
-                </button>
-              </div>
+              <MerchantCookPanel
+                order={detailOrder}
+                hint={readyHint(detailOrder)}
+                onCookMinutes={(minutes) => {
+                  dispatch(setCookMinutes({ id: detailOrder.id, minutes }))
+                  notifyCustomer('Pesanan sedang dimasak', 'Toko mulai memasak pesananmu.')
+                }}
+                onTogglePacked={() => togglePacked(detailOrder)}
+                onDispatch={() => {
+                  setDetailId(null)
+                  setDispatchId(detailOrder.id)
+                }}
+                onOpenBatch={() => {
+                  setDetailId(null)
+                  showBatchPanel()
+                }}
+                onCancel={() => {
+                  setDetailId(null)
+                  setCancelId(detailOrder.id)
+                }}
+              />
             ) : null}
 
             {/* Lane guard (f12): order yang sudah di jalan bisa macet. Merchant

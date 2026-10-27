@@ -4385,6 +4385,336 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-142500",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:30:20",
+      "tags": [
+        "e2e",
+        "prod",
+        "v2",
+        "chunk"
+      ],
+      "summary": "Prod Vercel diarahkan ke Worker v2: env VITE_API_BASE_URL + redeploy; fix chunkIds D1 IN; e2e headed 5 peran PASS",
+      "conn": [
+        {
+          "id": "BUG-142460",
+          "type": "fixes",
+          "raw": "BUG-142460:fixes"
+        },
+        {
+          "id": "BUG-142427",
+          "type": "relates",
+          "raw": "BUG-142427:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142501",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:49:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx (+51/-1) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-142502",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:50:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/InstallPromptSheet.tsx (+4/-4) — edit via tool: tsx: import { useEffect, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/InstallPromptSheet.tsx"
+    },
+    {
+      "id": "TASK-142503",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:50:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_actions.scss (+15/-3) — edit via tool: .page-fab:hover {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_actions.scss"
+    },
+    {
+      "id": "TASK-142504",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:50:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/main.tsx (+11/-3) — edit via tool: tsx: const checkForUpdate = () => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/main.tsx"
+    },
+    {
+      "id": "TASK-142505",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:51:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+22/-2) — edit via tool: tsx: per potongan.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-142506",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:51:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk wc -l src/pages/MerchantOrders.tsx; npm run lint 2>&1 | grep -E \"error|✖|Found\" | head -5; npm run build 2>&1 | grep -E \"error|b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142507",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:51:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantCookPanel.tsx (+111) — write via tool: tsx: import { Packag",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantCookPanel.tsx"
+    },
+    {
+      "id": "TASK-142508",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:51:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/OrderTicketActions.tsx (+63) — write via tool: tsx: import { QUICK_",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/OrderTicketActions.tsx"
+    },
+    {
+      "id": "TASK-142509",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:52:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx (+14/-48) — edit via tool: tsx: {/* Dapur & kurir: satu kompon",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-142510",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:53:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -E \"error|warning.*MerchantOrders|Found\" | head -6; npm run build 2>&1 | grep -E \"error|built in\" | head -6",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142511",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:53:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/_tokens.scss (+6/-1) — edit via tool: --nav-height: 64px;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/_tokens.scss"
+    },
+    {
+      "id": "TASK-142512",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:53:44",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -E \"^✖|error\" | head -5; npm run build 2>&1 | grep -E \"error|built in\" | head -5; npm run scan 2>&1 | tail ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142513",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:59:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx (+31/-10) — edit via tool: tsx: const togglePacked = (order: M",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-142514",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:59:37",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/MerchantOrders.tsx'\ns=open(p).read()\ns=s.replace(\"import { MerchantCookPanel } from '../components/me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-142515",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "08:59:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useOrderHandoff.ts (+44) — write via tool: ts: import { useCallback } from 'react",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useOrderHandoff.ts"
+    },
+    {
+      "id": "TASK-142516",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-27",
+      "time": "09:00:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: python3 - <<'EOF'\np='src/pages/MerchantOrders.tsx'\ns=open(p).read()\nold_start = s.index(\"  const batchOf = (orderId: string) =>\")\nol",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
