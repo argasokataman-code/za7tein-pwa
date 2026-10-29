@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { ChevronRight, Inbox, Star } from 'lucide-react'
+import { Inbox, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 
 import { fetchPartnerCouriers } from '../api/dispatch'
 import { insertNotification } from '../api/notifications'
@@ -13,6 +13,7 @@ import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { AcceptOrderSheet, type AcceptChoice } from '../components/merchant/AcceptOrderSheet'
 import { BatchFilter } from '../components/merchant/BatchFilter'
 import { BatchPanel } from '../components/merchant/BatchPanel'
+import { MerchantOrderTicket } from '../components/merchant/MerchantOrderTicket'
 import { JourneyLine } from '../components/JourneyLine'
 import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { OrderChatLink } from '../components/merchant/OrderChatLink'
@@ -22,7 +23,6 @@ import { MerchantOrderCash } from '../components/merchant/MerchantOrderCash'
 import { LoyalBadge } from '../components/ui/LoyalBadge'
 import { OrderTimeline } from '../components/merchant/OrderTimeline'
 import { OrderPaymentProof } from '../components/merchant/OrderPaymentProof'
-import { OrderTicketActions } from '../components/merchant/OrderTicketActions'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { useMerchantOrdersSync } from '../hooks/useApiOrders'
@@ -34,23 +34,13 @@ import { formatDistance } from '../data/merchant'
 import {
   DELIVERY_TYPE_LABEL,
   QUEUE_TABS,
-  deliveryBadge,
-  orderAgeLabel,
-  orderAgeMinutes,
   orderDeliveryType,
   orderStatusLabel,
-  orderUrgency,
   ordersForStatuses,
   paymentGate,
   type QueueTabId,
 } from '../data/merchantOrders'
-import {
-  addBatch,
-  addOrderToBatch,
-  approveEarlyStart,
-  assignBatchCourier,
-  closeBatchEarly,
-} from '../store/slices/batchSlice'
+import { addBatch, addOrderToBatch } from '../store/slices/batchSlice'
 import { replacePartners, sendAssignment } from '../store/slices/partnerSlice'
 import {
   setCookMinutes,
@@ -113,7 +103,8 @@ export default function MerchantOrders() {
   const couriers = useAppSelector((s) => s.merchant.couriers)
   const batches = useAppSelector((s) => s.batch.batches)
   const partners = useAppSelector((s) => s.partner.partners)
-  const [params] = useSearchParams()
+  const [params, setParams] = useSearchParams()
+  const navigate = useNavigate()
   /* Tab awal bisa datang dari tautan (?tab=batal), dipakai legenda donut di
      dashboard: potongan "Batal/tolak 1 order" harus mendarat di daftar yang
      benar-benar berisi order batal, bukan di tab pertama. Nilai yang tidak
@@ -122,7 +113,26 @@ export default function MerchantOrders() {
     const dariTautan = params.get('tab')
     return QUEUE_TABS.some((t) => t.id === dariTautan) ? (dariTautan as QueueTabId) : 'masuk'
   })
-  const [detailId, setDetailId] = useState<string | null>(null)
+  const [view, setView] = useState<'queue' | 'batch'>(() =>
+    params.get('view') === 'batch' ? 'batch' : 'queue',
+  )
+  const [detailId, setDetailId] = useState<string | null>(() => params.get('order'))
+
+  const changeView = (next: 'queue' | 'batch') => {
+    setView(next)
+    const url = new URLSearchParams(params)
+    if (next === 'batch') url.set('view', 'batch')
+    else url.delete('view')
+    setParams(url, { replace: true })
+  }
+
+  const closeDetail = () => {
+    setDetailId(null)
+    if (!params.has('order')) return
+    const url = new URLSearchParams(params)
+    url.delete('order')
+    setParams(url, { replace: true })
+  }
   /* Saring daftar per batch (`null` = semua); order Regular bisa di beberapa batch. */
   const [batchFilter, setBatchFilter] = useState<string | null>(null)
   /* Konfirmasi 2-langkah: aksi yang keluar rel / menahan uang tidak boleh
@@ -235,11 +245,11 @@ export default function MerchantOrders() {
       dispatch(setOrderStatus({ id: order.id, status: next ? 'siap' : 'disiapkan' }))
       persistStatus(order.id, next ? 'siap' : 'disiapkan')
     }
-    // Order Regular dari BE bisa datang tanpa batch; tanpa batch panel kurir
+    // Order Regular dari BE bisa datang tanpa batch; tanpa batch detail kurir
     // tidak punya tempat memilih kurir. `ensureBatch` membuatnya sekali.
     if (next) void ensureBatch(order)
     toast.success(
-      next ? `${order.code} siap — menunggu kurir` : `${order.code} kembali ke dapur`,
+      next ? `${order.code} siap, menunggu kurir` : `${order.code} kembali ke dapur`,
     )
     notifyCustomer(
       next ? 'Pesanan selesai dipacking' : 'Pesanan kembali ke dapur',
@@ -247,24 +257,6 @@ export default function MerchantOrders() {
         ? 'Pesananmu sudah dikemas dan menunggu kurir.'
         : 'Packing pesananmu dibuka kembali.',
     )
-  }
-
-  /** Kurir mulai mengantar lebih awal (BR-B09) — semua order batch ikut jalan. */
-  const approveStart = (batchId: string) => {
-    const batch = batches.find((b) => b.id === batchId)
-    dispatch(approveEarlyStart({ batchId }))
-    void patchBatchOnBe(batchId, { status: 'delivering' })
-    batch?.orderIds.forEach((id) => {
-      dispatch(setOrderStatus({ id, status: 'diantar' }))
-      persistStatus(id, 'diantar')
-      // Kurir inhouse dipilih per batch di layar (batch milik state FE), jadi
-      // penugasannya ikut ditulis ke `orders.courier_id` supaya peran kurir dan
-      // ops melihat kurir yang sama, bukan `null`. Id kurir seed FE (`cr-1`)
-      // memuat angka yang sama dengan id di BE, jadi angkanya yang dikirim.
-      const cid = batch.courierId?.replace(/\D/g, '')
-      if (cid) void assignOrderCourier(id, cid).catch(() => {})
-    })
-    toast.success('Kurir mulai mengantar lebih awal')
   }
 
   /* Dispatch Quick (§9.4, M6): kirim assignment ke kurir partner terpilih.
@@ -290,167 +282,121 @@ export default function MerchantOrders() {
     setDispatchId(null)
   }
 
-  /* Ringkasan item untuk baris antrean: satu baris, dipotong dengan elipsis.
-     Daftar lengkap dengan harga ada di sheet detail. */
-  const itemSummary = (order: (typeof orders)[number]) =>
-    order.items.map((item) => `${item.quantity}× ${item.name}`).join(', ')
+  const queueCount = ordersForStatuses(orders, ['baru']).length
+  const readyCount = orders.filter((order) => order.status === 'siap').length
+  const needCourier = batches.filter(
+    (batch) =>
+      !batch.courierId &&
+      (batch.status === 'countdown' ||
+        batch.status === 'closed' ||
+        batch.status === 'awaiting_courier'),
+  ).length
 
   return (
     <div className="app-shell">
       <main className="merchant-page">
-        <MerchantPageHeader eyebrow="Antrean dapur" title="Order" />
+        <MerchantPageHeader eyebrow="Dapur" title="Antrean dapur" />
+        <p className="merchant-queue-sub">Pantau pesanan dan atur penugasan kurir.</p>
 
-        <BatchPanel
-          batches={batches}
-          orders={orders}
-          couriers={couriers}
-          onAssign={(batchId, courierId) => {
-            dispatch(assignBatchCourier({ batchId, courierId }))
-            void patchBatchOnBe(batchId, { courierId })
-          }}
-          onCloseEarly={(batchId) => {
-            dispatch(closeBatchEarly({ batchId }))
-            void patchBatchOnBe(batchId, { status: 'closed' })
-            toast.success('Batch ditutup — tidak menerima order baru')
-          }}
-          onApproveStart={approveStart}
-        />
-
-        <div className="merchant-tabs" role="tablist">
-          {QUEUE_TABS.map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              aria-selected={t.id === tab}
-              className={`merchant-tab ${t.id === tab ? 'active' : ''}`}
-              onClick={() => setTab(t.id)}
-            >
-              {t.label}
-              <span className="merchant-tab-count">
-                {ordersForStatuses(orders, t.statuses).length}
-              </span>
-            </button>
-          ))}
+        <div className="merchant-tabs merchant-queue-switch" role="tablist" aria-label="Ruang kerja">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={view === 'queue'}
+            className={`merchant-tab${view === 'queue' ? ' active' : ''}`}
+            onClick={() => changeView('queue')}
+          >
+            Pesanan masuk
+            <span className="merchant-tab-count">{queueCount}</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={view === 'batch'}
+            className={`merchant-tab${view === 'batch' ? ' active' : ''}`}
+            onClick={() => changeView('batch')}
+          >
+            Batch dapur
+            <span className="merchant-tab-count">{batches.length}</span>
+          </button>
         </div>
 
-        <BatchFilter batches={batches} value={batchFilter} onChange={setBatchFilter} />
+        {view === 'queue' ? (
+          <>
+            <div className="merchant-queue-stats">
+              <div className="merchant-stat merchant-stat--queue">
+                <span className="merchant-stat-value">{queueCount}</span>
+                <span className="merchant-stat-label">Perlu diproses</span>
+              </div>
+              <div className="merchant-stat merchant-stat--active">
+                <span className="merchant-stat-value">{readyCount}</span>
+                <span className="merchant-stat-label">Siap dikirim</span>
+              </div>
+              <div className="merchant-stat">
+                <span className="merchant-stat-value">{needCourier}</span>
+                <span className="merchant-stat-label">Butuh kurir</span>
+              </div>
+            </div>
 
-        {shown.length === 0 ? (
-          <div className="merchant-ticket-empty">
-            <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
-            <p className="merchant-ticket-empty-title">Tidak ada order di tab ini</p>
-            <p className="merchant-ticket-empty-sub">{EMPTY_HINT[activeTab.id]}</p>
-          </div>
-        ) : (
-          shown.map((order) => {
-            const ageMinutes = orderAgeMinutes(order)
-            const urgency = orderUrgency(order, ageMinutes)
-            const gate = paymentGate(order)
-            return (
-              <article key={order.id} className="merchant-ticket" data-order-status={order.status}>
-                {/* Slip tiket dua baris: kepala (nomor + umur + status) lalu
-                    badan (pelanggan, item, total). Seluruh slip bisa ditekan;
-                    aksi di bawahnya. Detail lengkap tetap di sheet. */}
+            <div className="merchant-tabs" role="tablist" aria-label="Antrean order">
+              {QUEUE_TABS.map((t) => (
                 <button
+                  key={t.id}
                   type="button"
-                  className="merchant-ticket-main"
-                  onClick={() => setDetailId(order.id)}
+                  role="tab"
+                  aria-selected={t.id === tab}
+                  className={`merchant-tab ${t.id === tab ? 'active' : ''}`}
+                  onClick={() => setTab(t.id)}
                 >
-                  <span className="merchant-ticket-stub">
-                    <span className="merchant-ticket-code">{order.code}</span>
-                    <span className="merchant-ticket-stub-end">
-                      {ageMinutes !== null ? (
-                        <span
-                          className={
-                            urgency === 'calm'
-                              ? 'merchant-ticket-age'
-                              : `merchant-ticket-age is-${urgency}`
-                          }
-                        >
-                          {orderAgeLabel(ageMinutes)}
-                        </span>
-                      ) : null}
-                      <span className="merchant-badge merchant-badge-soft">
-                        {deliveryBadge(order)}
-                      </span>
-                      <span className={`merchant-badge merchant-badge-${order.status}`}>
-                        {orderStatusLabel(order.status)}
-                      </span>
-                      {order.status === 'baru' && gate === 'awaiting' ? (
-                        <span className="merchant-badge">Menunggu bayar</span>
-                      ) : null}
-                    </span>
-                  </span>
-                  <span className="merchant-ticket-body">
-                    <img
-                      className="merchant-ticket-avatar"
-                      src={order.buyerAvatar}
-                      alt=""
-                      width={36}
-                      height={36}
-                    />
-                    <span className="merchant-ticket-copy">
-                      <span className="merchant-ticket-name">{order.customerName}</span>
-                      <span className="merchant-ticket-items">
-                        {itemSummary(order) || order.address}
-                      </span>
-                    </span>
-                    <span className="merchant-ticket-total">{moneyPlain(order.total)}</span>
-                    <ChevronRight
-                      size={18}
-                      strokeWidth={1.75}
-                      className="merchant-ticket-chevron"
-                      aria-hidden="true"
-                    />
+                  {t.label}
+                  <span className="merchant-tab-count">
+                    {ordersForStatuses(orders, t.statuses).length}
                   </span>
                 </button>
+              ))}
+            </div>
 
-                {order.status === 'baru' ? (
-                  <>
-                    <div className="merchant-actions">
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        disabled={gate === 'awaiting'}
-                        onClick={() => setAcceptId(order.id)}
-                      >
-                        {gate === 'verify' ? 'Verifikasi & Terima' : 'Terima'}
-                      </button>
-                      <button
-                        type="button"
-                        className="merchant-btn-ghost"
-                        onClick={() => setRejectId(order.id)}
-                      >
-                        Tolak
-                      </button>
-                    </div>
-                    {gate === 'awaiting' ? (
-                      <p className="merchant-card-sub">
-                        Menunggu pembayaran — Terima aktif setelah pembayaran berhasil.
-                      </p>
-                    ) : null}
-                  </>
-                ) : null}
-                {/* Dapur & kurir: satu komponen untuk dua tab, supaya rel tidak
-                    berhenti di "Packing selesai" (lihat OrderTicketActions). */}
-                <OrderTicketActions
+            <BatchFilter batches={batches} value={batchFilter} onChange={setBatchFilter} />
+
+            {shown.length === 0 ? (
+              <div className="merchant-ticket-empty">
+                <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
+                <p className="merchant-ticket-empty-title">Tidak ada order di tab ini</p>
+                <p className="merchant-ticket-empty-sub">{EMPTY_HINT[activeTab.id]}</p>
+              </div>
+            ) : (
+              shown.map((order) => (
+                <MerchantOrderTicket
+                  key={order.id}
                   order={order}
-                  hint={order.status === 'siap' ? readyHint(order) : ''}
+                  moneyPlain={moneyPlain}
+                  readyHint={readyHint(order)}
+                  onOpen={() => setDetailId(order.id)}
+                  onAccept={() => setAcceptId(order.id)}
+                  onReject={() => setRejectId(order.id)}
                   onPacked={() => togglePacked(order)}
                   onDispatch={() => setDispatchId(order.id)}
-                  onOpenBatch={() => openBatch(order)}
+                  onOpenBatch={() => {
+                    void openBatch(order)
+                  }}
                 />
-              </article>
-            )
-          })
+              ))
+            )}
+          </>
+        ) : (
+          <BatchPanel
+            batches={batches}
+            orders={orders}
+            couriers={couriers}
+            onOpen={(batchId) => navigate(`/batches/${batchId}`)}
+          />
         )}
       </main>
 
       <BottomSheet
         open={detailOrder !== null}
         title={detailOrder ? `Pesanan ${detailOrder.code}` : ''}
-        onClose={() => setDetailId(null)}
+        onClose={closeDetail}
       >
         {detailOrder ? (
           <>
@@ -538,7 +484,7 @@ export default function MerchantOrders() {
                     className="btn btn-primary"
                     disabled={paymentGate(detailOrder) === 'awaiting'}
                     onClick={() => {
-                      setDetailId(null)
+                      closeDetail()
                       setAcceptId(detailOrder.id)
                     }}
                   >
@@ -552,7 +498,7 @@ export default function MerchantOrders() {
                     type="button"
                     className="merchant-btn-ghost"
                     onClick={() => {
-                      setDetailId(null)
+                      closeDetail()
                       setRejectId(detailOrder.id)
                     }}
                   >
@@ -579,15 +525,15 @@ export default function MerchantOrders() {
                 }}
                 onTogglePacked={() => togglePacked(detailOrder)}
                 onDispatch={() => {
-                  setDetailId(null)
+                  closeDetail()
                   setDispatchId(detailOrder.id)
                 }}
                 onOpenBatch={() => {
-                  setDetailId(null)
+                  closeDetail()
                   openBatch(detailOrder)
                 }}
                 onCancel={() => {
-                  setDetailId(null)
+                  closeDetail()
                   setCancelId(detailOrder.id)
                 }}
               />
@@ -601,7 +547,7 @@ export default function MerchantOrders() {
                 type="button"
                 className="merchant-btn-ghost merchant-signout"
                 onClick={() => {
-                  setDetailId(null)
+                  closeDetail()
                   setCancelId(detailOrder.id)
                 }}
               >
@@ -614,7 +560,7 @@ export default function MerchantOrders() {
                 <Link
                   className="merchant-btn-ghost"
                   to={`/dispute?order=${detailOrder.code}&by=merchant`}
-                  onClick={() => setDetailId(null)}
+                  onClick={() => closeDetail()}
                 >
                   Ajukan Sengketa
                 </Link>

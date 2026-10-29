@@ -256,6 +256,25 @@ export default function Documentation() {
             </p>
             <ul className="doc-list">
               <li>
+                <strong>Batch dapur punya daftar dan layar detail sendiri.</strong> Panel batch
+                inline di atas antrean diganti dua ruang kerja di{' '}
+                <code className="doc-inline">/merchant/orders</code>:{' '}
+                <em>Pesanan masuk</em> (statistik antrean + slip order) dan{' '}
+                <em>Batch dapur</em> (tab siklus <code className="doc-inline">Hitung mundur</code>,{' '}
+                <code className="doc-inline">Menunggu kurir</code>,{' '}
+                <code className="doc-inline">Ditugaskan</code>,{' '}
+                <code className="doc-inline">Diantar</code>,{' '}
+                <code className="doc-inline">Selesai</code>, plus pencarian). Kartu batch membuka
+                rute <code className="doc-inline">/merchant/batches/:batchId</code>; di situ ada
+                ringkasan kapasitas, penugasan kurir lewat sheet, tutup lebih awal, setujui mulai
+                lebih awal, dan daftar order yang bisa dibuka kembali sebagai sheet detail di{' '}
+                <code className="doc-inline">/merchant/orders?view=batch&amp;order=&lt;id&gt;</code>.
+                Progres batch dihitung dari kapasitas ({'{'}isi{'}'}/24) supaya cocok dengan label
+                angka, bukan rasio packing yang membuat batch 1 order tampak penuh. Aksi batch
+                dipusatkan di <code className="doc-inline">useMerchantBatchActions</code> agar
+                daftar dan detail memakai toast, persist BE, dan perubahan status order yang sama.
+              </li>
+              <li>
                 <strong>Chat group order per pesanan kini bisa dibuka merchant.</strong> Detail
                 pesanan (<code className="doc-inline">/merchant/orders</code>) punya tombol{' '}
                 <em>Chat pesanan</em> → <code className="doc-inline">

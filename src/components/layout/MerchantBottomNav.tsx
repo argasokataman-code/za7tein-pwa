@@ -18,6 +18,7 @@ export function MerchantBottomNav() {
       end: false,
       badge: incoming,
       srText: incoming > 0 ? `${incoming} pesanan masuk` : undefined,
+      activePaths: ['/batches'],
     },
     { to: '/menu', label: 'Menu', Icon: BookOpenText, end: false },
     { to: '/couriers', label: 'Kurir', Icon: Bike, end: false },

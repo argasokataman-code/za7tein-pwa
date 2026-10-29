@@ -1,196 +1,162 @@
-import { Check, Circle, Lock, Play, Timer, Truck } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { ChevronRight, Inbox, Search, Timer, Truck } from 'lucide-react'
 
 import {
   BATCH_STATUS_LABEL,
+  BATCH_TABS,
   MAX_BATCH_ORDERS,
-  batchAllPacked,
   batchIsDone,
   batchNumber,
   batchOrders,
-  canStartEarly,
+  batchPackedCount,
+  batchProgress,
+  batchesForTab,
   countdownLabel,
-  orderPacked,
+  type BatchTabId,
 } from '../../data/batch'
-import { COURIER_STATUS_LABEL } from '../../data/courier'
 import type { Batch, Courier, MerchantOrder } from '../../types'
 
 interface BatchPanelProps {
   batches: Batch[]
   orders: MerchantOrder[]
   couriers: Courier[]
-  onAssign: (batchId: string, courierId: string) => void
-  onCloseEarly: (batchId: string) => void
-  onApproveStart: (batchId: string) => void
+  onOpen: (batchId: string) => void
 }
 
 /**
- * Panel batch kurir inhouse (PRD §8) di konsol merchant. Satu batch diantar satu
- * kurir inhouse — karena itu kurir dipilih **per batch**, bukan per order seperti
- * alur lama (C-01/C-02). Status, kapasitas, dan syarat mulai lebih awal dibaca
- * dari fungsi murni `src/data/batch.ts`, bukan dihitung di JSX.
- *
- * Batch dipisah dua bagian: **berjalan** dan **riwayat** (semua ordernya selesai).
- * Status `done` turunan dari order (`batchIsDone`), sebab tak ada penulisnya di
- * slice — tanpa pemisahan ini batch yang tuntas menumpuk bersama yang aktif.
+ * Daftar batch dapur, dipisah per tahap kerja. Dulu semua batch (termasuk
+ * riwayat) dirender inline di atas antrean, sehingga daftar order tenggelam.
+ * Sekarang satu daftar pada satu waktu; detail batch punya layar sendiri.
  */
-export function BatchPanel({
-  batches,
-  orders,
-  couriers,
-  onAssign,
-  onCloseEarly,
-  onApproveStart,
-}: BatchPanelProps) {
-  if (batches.length === 0) return null
+export function BatchPanel({ batches, orders, couriers, onOpen }: BatchPanelProps) {
+  const [tab, setTab] = useState<BatchTabId>('countdown')
+  const [query, setQuery] = useState('')
 
-  /** Kartu satu batch. `finished` mengunci labelnya ke "Selesai" di bagian riwayat. */
-  const renderBatch = (batch: Batch, finished: boolean) => {
-    const list = batchOrders(batch, orders)
-    const packed = batchAllPacked(batch, orders)
-    const startable = canStartEarly(batch, orders)
-    const selectingCourier = batch.status === 'countdown' || batch.status === 'closed'
-    const number = batchNumber(batch.id)
-    const title = number === null ? `Batch ${batches.indexOf(batch) + 1}` : `Batch #${number}`
+  const counts = useMemo(
+    () =>
+      Object.fromEntries(
+        BATCH_TABS.map((item) => [item.id, batchesForTab(batches, orders, item.id).length]),
+      ) as Record<BatchTabId, number>,
+    [batches, orders],
+  )
 
+  const visible = useMemo(() => {
+    const needle = query.trim().toLowerCase()
+    return batchesForTab(batches, orders, tab).filter((batch) => {
+      if (!needle) return true
+      const number = batchNumber(batch.id)
+      const list = batchOrders(batch, orders)
+      const courier = couriers.find((item) => item.id === batch.courierId)?.name ?? ''
+      return [`batch ${number ?? ''}`, ...list.map((order) => order.code), courier]
+        .join(' ')
+        .toLowerCase()
+        .includes(needle)
+    })
+  }, [batches, couriers, orders, query, tab])
+
+  if (batches.length === 0) {
     return (
-      <article key={batch.id} className="merchant-card merchant-batch-card">
-        <div className="merchant-batch-top">
-          <span className="merchant-batch-name">{title}</span>
-          <span className="merchant-batch-countdown">
-            <Timer size={14} strokeWidth={1.75} aria-hidden="true" />
-            {countdownLabel(batch.countdownSeconds)}
-          </span>
-        </div>
-
-        <div className="merchant-batch-meta">
-          <span className={`merchant-badge merchant-badge-${finished ? 'done' : batch.status}`}>
-            {BATCH_STATUS_LABEL[finished ? 'done' : batch.status]}
-          </span>
-          <span className="merchant-card-sub">
-            {list.length} / {MAX_BATCH_ORDERS} order
-            {packed ? ' · semua packing' : ''}
-          </span>
-        </div>
-
-        <ul className="merchant-batch-orders">
-          {list.map((order) => (
-            <li key={order.id}>
-              <span>{order.code}</span>
-              <span className={orderPacked(order) ? 'is-packed' : ''}>
-                {orderPacked(order) ? 'Packing selesai' : 'Belum packing'}
-              </span>
-            </li>
-          ))}
-          {list.length === 0 ? <li>Belum ada order di batch ini.</li> : null}
-        </ul>
-
-        {selectingCourier ? (
-          <div className="merchant-assign">
-            <div className="merchant-assign-head">
-              <span className="merchant-assign-label">Kurir inhouse</span>
-              <span className="merchant-assign-req">Satu untuk seluruh batch</span>
-            </div>
-            <div className="courier-pick" aria-label={`Pilih kurir ${title}`}>
-              {couriers.length === 0 ? (
-                <p className="courier-pick__empty">Belum ada kurir tersedia.</p>
-              ) : null}
-              {couriers.map((item) => {
-                const selected = batch.courierId === item.id
-                const initials = item.name
-                  .split(' ')
-                  .map((word) => word[0])
-                  .slice(0, 2)
-                  .join('')
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    aria-pressed={selected}
-                    className={`courier-pick__item${selected ? ' is-selected' : ''}`}
-                    onClick={() => onAssign(batch.id, item.id)}
-                  >
-                    <span
-                      className={`courier-pick__avatar${selected ? ' is-selected' : ''}`}
-                      aria-hidden="true"
-                    >
-                      {initials}
-                    </span>
-                    <span className="courier-pick__body">
-                      <span className="courier-pick__name">{item.name}</span>
-                      <span className="courier-pick__meta">
-                        {COURIER_STATUS_LABEL[item.status] ?? item.status}
-                      </span>
-                    </span>
-                    <span className="courier-pick__check" aria-hidden="true">
-                      {selected ? (
-                        <Check size={18} strokeWidth={1.75} />
-                      ) : (
-                        <Circle size={18} strokeWidth={1.75} />
-                      )}
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        ) : (
-          <p className="merchant-batch-courier">
-            <Truck size={16} strokeWidth={1.75} aria-hidden="true" />
-            {couriers.find((c) => c.id === batch.courierId)?.name ?? 'Kurir belum ditugaskan'}
-          </p>
-        )}
-
-        <div className="merchant-batch-actions">
-          {batch.status === 'countdown' ? (
-            <button
-              type="button"
-              className="merchant-btn-ghost"
-              onClick={() => onCloseEarly(batch.id)}
-            >
-              <Lock size={16} strokeWidth={1.75} aria-hidden="true" />
-              Tutup lebih awal
-            </button>
-          ) : null}
-          {batch.status === 'closed' ? (
-            <button
-              type="button"
-              className="btn btn-primary"
-              disabled={!startable || !batch.courierId}
-              onClick={() => onApproveStart(batch.id)}
-            >
-              <Play size={16} strokeWidth={1.75} aria-hidden="true" />
-              Setujui mulai lebih awal
-            </button>
-          ) : null}
-        </div>
-        {batch.status === 'closed' && !startable ? (
-          <p className="merchant-card-sub">
-            Kurir boleh mulai lebih awal setelah semua order di batch selesai packing.
-          </p>
-        ) : null}
-      </article>
+      <div className="merchant-batch-empty">
+        <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
+        <p className="merchant-batch-empty-title">Belum ada batch</p>
+        <p className="merchant-batch-empty-sub">
+          Batch dibuat saat order Regular diterima. Order Quick tidak memakai batch.
+        </p>
+      </div>
     )
   }
 
-  const active = batches.filter((batch) => !batchIsDone(batch, orders))
-  const finished = batches.filter((batch) => batchIsDone(batch, orders))
-
   return (
-    <section className="merchant-batch" aria-label="Batch kurir inhouse">
-      <div className="merchant-batch-head">
-        <h2 className="merchant-card-title">Batch kurir</h2>
-        <span className="merchant-card-sub">Maks {MAX_BATCH_ORDERS} order per batch</span>
+    <section className="merchant-batch-workspace" aria-label="Batch dapur">
+      <div className="merchant-tabs merchant-batch-tabs" role="tablist" aria-label="Tahap batch">
+        {BATCH_TABS.map((item) => (
+          <button
+            key={item.id}
+            type="button"
+            role="tab"
+            aria-selected={tab === item.id}
+            className={`merchant-tab${tab === item.id ? ' active' : ''}`}
+            onClick={() => setTab(item.id)}
+          >
+            {item.label}
+            <span className="merchant-tab-count">{counts[item.id]}</span>
+          </button>
+        ))}
       </div>
 
-      {active.map((batch) => renderBatch(batch, false))}
+      <label className="merchant-batch-search">
+        <Search size={16} strokeWidth={1.75} aria-hidden="true" />
+        <input
+          type="search"
+          value={query}
+          aria-label="Cari batch, kode order, atau kurir"
+          placeholder="Cari batch, kode order, atau kurir"
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </label>
 
-      {finished.length > 0 ? (
-        <div className="merchant-batch-head">
-          <h2 className="merchant-card-title">Riwayat batch</h2>
-          <span className="merchant-card-sub">Batch yang semua ordernya sudah selesai</span>
+      {visible.length === 0 ? (
+        <div className="merchant-batch-empty">
+          <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
+          <p className="merchant-batch-empty-title">Tidak ada batch di tahap ini</p>
+          <p className="merchant-batch-empty-sub">
+            {query.trim() ? 'Coba kata kunci lain.' : 'Batch akan pindah ke sini setelah tahap sebelumnya selesai.'}
+          </p>
         </div>
-      ) : null}
-      {finished.map((batch) => renderBatch(batch, true))}
+      ) : (
+        <div className="merchant-batch-list">
+          {visible.map((batch) => {
+            const list = batchOrders(batch, orders)
+            const packed = batchPackedCount(batch, orders)
+            const progress = batchProgress(batch, orders)
+            const done = batchIsDone(batch, orders)
+            const number = batchNumber(batch.id)
+            const courier = couriers.find((item) => item.id === batch.courierId)?.name
+            const status = done ? 'done' : batch.status
+            return (
+              <button
+                key={batch.id}
+                type="button"
+                className="merchant-batch-row"
+                onClick={() => onOpen(batch.id)}
+                aria-label={`Buka batch ${batch.id}`}
+              >
+                <span className="merchant-batch-row-top">
+                  <span className="merchant-batch-row-title">
+                    {number === null ? 'Batch' : `Batch #${number}`}
+                  </span>
+                  <span className={`merchant-badge merchant-badge-${status}`}>
+                    {batch.status === 'countdown' ? (
+                      <>
+                        <Timer size={12} strokeWidth={1.75} aria-hidden="true" />
+                        {countdownLabel(batch.countdownSeconds)}
+                      </>
+                    ) : (
+                      BATCH_STATUS_LABEL[status]
+                    )}
+                  </span>
+                </span>
+
+                <span className="merchant-batch-row-meta">
+                  {list.length}/{MAX_BATCH_ORDERS} order · {packed} selesai packing
+                </span>
+
+                <span className="merchant-batch-row-progress" aria-hidden="true">
+                  <span style={{ width: `${progress}%` }} />
+                </span>
+
+                <span className="merchant-batch-row-foot">
+                  <span className="merchant-batch-row-courier">
+                    <Truck size={15} strokeWidth={1.75} aria-hidden="true" />
+                    {courier ?? 'Kurir belum ditugaskan'}
+                  </span>
+                  <ChevronRight size={17} strokeWidth={1.75} aria-hidden="true" />
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      )}
     </section>
   )
 }

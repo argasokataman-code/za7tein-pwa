@@ -1,0 +1,1917 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sa7tein — Kitchen Queue slice</title>
+<style>
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('../../../public/assets/fonts/plus-jakarta-sans.woff2') format('woff2');
+    font-weight: 200 800;
+    font-display: swap;
+  }
+
+  :root {
+    --brand: #e44220;
+    --brand-strong: #b83213;
+    --brand-soft: #fff0eb;
+    --brand-line: #f3c5b8;
+    --ink: #172434;
+    --muted: #5b6b7f;
+    --line: #e2e8f0;
+    --line-strong: #cbd5e1;
+    --bg: #f4f4f6;
+    --surface: #fff;
+    --green: #047857;
+    --green-soft: #ecfdf5;
+    --amber: #b45309;
+    --amber-soft: #fff7ed;
+    --red: #be123c;
+    --red-soft: #fff1f2;
+    --shadow: 0 18px 50px rgb(23 36 52 / 12%);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: #ecebe8;
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button { font: inherit; color: inherit; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3, p { margin: 0; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  .i { width: 20px; height: 20px; flex: 0 0 auto; stroke: currentColor; stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 42px 34px;
+    width: min(1240px, 100%);
+    margin: 0 auto;
+    padding: 44px 34px 60px;
+  }
+
+  /* Satu frame = satu layar. Tinggi mengikuti layar terpanjang dalam satu baris;
+     layar pendek memakai sisa ruang, bukan memotong kartu. */
+  .phone {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid rgb(23 36 52 / 10%);
+    border-radius: 36px;
+    box-shadow: 0 1px 0 rgb(255 255 255 / 70%) inset, var(--shadow);
+  }
+
+  .screen {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    padding: 12px 20px 18px;
+  }
+
+  .brandbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 16px;
+  }
+
+  .wordmark { font-size: 21px; font-weight: 800; letter-spacing: -.04em; }
+  .wordmark span { color: var(--brand); }
+
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .icon-btn:hover { background: var(--bg); }
+  .icon-btn.is-on { background: var(--brand-soft); color: var(--brand-strong); }
+
+  .icon-btn:focus-visible,
+  .btn:focus-visible,
+  .tab:focus-visible,
+  .chip:focus-visible,
+  .nav-item:focus-visible,
+  .link:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+
+  .bell { position: relative; }
+  .bell .count {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border: 2px solid var(--surface);
+    border-radius: 99px;
+    background: var(--red);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .store-row {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding-bottom: 18px;
+  }
+
+  .store-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex: 0 0 auto;
+  }
+
+  .store-copy { min-width: 0; flex: 1; }
+  .store-name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
+  .store-note { margin-top: 1px; color: var(--muted); font-size: 12px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 22px;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .pill--green { background: var(--green-soft); color: var(--green); }
+  .pill--amber { background: var(--amber-soft); color: var(--amber); }
+  .pill--red { background: var(--red-soft); color: var(--red); }
+  .pill--orange { background: var(--brand-soft); color: var(--brand-strong); }
+  .pill--muted { background: #f1f5f9; color: #475569; }
+  .pill .i { width: 13px; height: 13px; }
+
+  .title-block { padding-bottom: 14px; }
+  .title-block h1 { font-size: 26px; font-weight: 800; letter-spacing: -.04em; line-height: 1.12; }
+  .title-block p { margin-top: 5px; color: var(--muted); font-size: 13px; }
+
+  .tabs {
+    display: flex;
+    gap: 18px;
+    border-bottom: 1px solid var(--line);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: 0 0 auto; white-space: nowrap; }
+
+  /* Siklus batch = filter tahap, bukan tab paksa 5 kolom. */
+  .tabs--stages {
+    gap: 6px;
+    padding: 2px 0 10px;
+    border-bottom: 0;
+    overflow-y: hidden;
+  }
+  .tabs--stages .tab {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 0 13px;
+    flex-direction: row;
+    gap: 6px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    background: var(--surface);
+    color: #475569;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .tabs--stages .tab.is-active {
+    border-color: var(--brand-line);
+    background: var(--brand-soft);
+    color: var(--brand-strong);
+  }
+  .tabs--stages .tab.is-active::after { display: none; }
+  .tabs--stages .tab .count {
+    min-width: 0;
+    height: auto;
+    padding: 0;
+    background: transparent;
+    color: currentColor;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: .65;
+  }
+  .tabs--stages .tab.is-active .count { opacity: 1; }
+
+  .tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 0 1px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .tab.is-active { color: var(--brand-strong); font-weight: 700; }
+  .tab.is-active::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    border-radius: 2px 2px 0 0;
+    background: var(--brand);
+  }
+
+  .tab .count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 99px;
+    background: #eef1f5;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .tab.is-active .count { background: var(--brand-soft); color: var(--brand-strong); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 14px 0;
+  }
+
+  .stat {
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+  }
+
+  .stat-label { color: var(--muted); font-size: 11px; font-weight: 600; }
+  .stat-value { margin-top: 2px; font-size: 23px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .stat-unit { margin-left: 2px; color: var(--muted); font-size: 11px; font-weight: 500; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 2px 0 10px;
+  }
+
+  .section-head h2 { font-size: 15px; font-weight: 700; }
+  .section-head a, .section-head span { color: var(--brand-strong); font-size: 12px; font-weight: 700; text-decoration: none; }
+
+  .order-list { display: grid; gap: 10px; }
+
+  .order-card {
+    display: flex;
+    gap: 11px;
+    padding: 11px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  .thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 11px;
+    object-fit: cover;
+    flex: 0 0 auto;
+    background: var(--brand-soft);
+  }
+
+  .order-main { min-width: 0; flex: 1; }
+  .order-top { display: flex; align-items: center; gap: 7px; }
+  .order-code { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .order-top time { margin-left: auto; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .order-title { margin-top: 2px; overflow: hidden; font-size: 14px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+  .order-meta { color: var(--muted); font-size: 11px; }
+
+  .order-actions { display: flex; gap: 8px; margin-top: 9px; }
+  .order-actions .btn { flex: 1; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .btn--primary { background: var(--brand); color: #fff; }
+  .btn--primary:hover { background: var(--brand-strong); }
+  .btn--ghost { border-color: var(--line-strong); background: var(--surface); color: #475569; }
+  .btn--ghost:hover { border-color: var(--muted); color: var(--ink); }
+  .btn--block { width: 100%; }
+  .btn--sm { min-height: 44px; padding: 0 11px; font-size: 12px; }
+  .btn[disabled] { border-color: var(--line); color: var(--muted); cursor: not-allowed; opacity: .62; }
+
+  .link {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--brand-strong);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .link .i { width: 15px; height: 15px; }
+
+  /* Nav mengikuti BottomNav app: 5 tab, ikon 24, label 13/700,
+     aksen label --orange-ink + ikon oranye saat aktif. */
+  .tabbar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding: 8px 0;
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-width: 0;
+    min-height: 52px;
+    padding: 4px 8px;
+    border: 0;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    cursor: pointer;
+  }
+
+  .nav-icon-wrap { position: relative; display: inline-flex; }
+  .nav-item .i { width: 24px; height: 24px; }
+  .nav-label { min-width: 0; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .nav-item.is-active { color: var(--brand-strong); }
+  .nav-item.is-active .i { color: var(--brand); stroke-width: 2.4; }
+
+  .nav-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    border: 1.5px solid var(--surface);
+    border-radius: 99px;
+    background: var(--brand);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* Header dalam layar */
+  .appbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0 14px;
+  }
+
+  .appbar h1 { flex: 1; font-size: 17px; font-weight: 700; letter-spacing: -.015em; }
+  .appbar .actions { display: flex; gap: 2px; }
+  .appbar .icon-btn { width: 44px; height: 44px; }
+
+  .batch-list { display: grid; gap: 10px; padding-top: 12px; }
+  .empty-state { padding: 28px 8px; color: var(--muted); font-size: 13px; text-align: center; }
+
+  .batch-card {
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  .batch-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .batch-top h3 { font-size: 15px; font-weight: 800; letter-spacing: -.015em; }
+  .batch-meta { margin-top: 2px; color: var(--muted); font-size: 11px; }
+
+  .progress {
+    height: 6px;
+    margin: 10px 0 8px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: #edf0f4;
+  }
+
+  .progress span { display: block; height: 100%; border-radius: inherit; background: var(--brand); }
+  .progress.is-done { background: var(--green-soft); }
+  .progress.is-done span { background: var(--green); }
+
+  .batch-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .courier-inline { display: inline-flex; align-items: center; gap: 7px; min-width: 0; color: #475569; font-size: 11px; font-weight: 600; }
+  .courier-inline.is-empty { color: var(--muted); font-weight: 500; }
+  .avatar { width: 21px; height: 21px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+
+  /* Detail batch */
+  .hero-card {
+    padding: 15px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+  }
+
+  .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .hero-top h2 { font-size: 25px; font-weight: 800; letter-spacing: -.04em; }
+  .hero-meta { margin-top: 2px; color: var(--muted); font-size: 12px; }
+  .hero-progress { height: 8px; margin: 13px 0; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .hero-actions .btn { flex: 1 1 auto; }
+  .hero-actions .btn[hidden] { display: none; }
+  .hero-courier {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .chips { display: flex; gap: 5px; overflow-x: auto; scrollbar-width: none; padding: 10px 0 12px; }
+  .chips::-webkit-scrollbar { display: none; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 44px;
+    padding: 0 11px;
+    border: 1px solid var(--line);
+    border-radius: 99px;
+    background: var(--surface);
+    color: #475569;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .chip strong { font-size: 11px; font-variant-numeric: tabular-nums; }
+  .chip.is-active { border-color: var(--brand-line); background: var(--brand-soft); color: var(--brand-strong); }
+
+  .order-rows { display: grid; }
+  .order-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .order-row:last-child { border-bottom: 0; }
+  .order-row-main { min-width: 0; flex: 1; }
+  .order-row .order-code { display: block; color: var(--muted); font-size: 11px; font-weight: 600; }
+  .order-row .order-name { overflow: hidden; font-size: 13px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+  .order-row time { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+
+  .more-order {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 10px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* Sheet pilih kurir */
+  .phone--sheet { position: relative; }
+  .sheet-stage { position: relative; display: flex; flex: 1; flex-direction: column; min-height: 0; overflow: hidden; }
+  .sheet-stage .screen { padding-bottom: 10px; }
+  .sheet-stage .tabbar { position: relative; z-index: 0; }
+
+  .scrim { position: absolute; z-index: 2; inset: 0; background: rgb(23 36 52 / 34%); }
+
+  .sheet {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 8px 20px 14px;
+    border-radius: 24px 24px 0 0;
+    background: var(--surface);
+    box-shadow: 0 -12px 30px rgb(23 36 52 / 18%);
+  }
+
+  .grabber { width: 38px; height: 4px; margin: 0 auto 12px; border-radius: 99px; background: var(--line-strong); }
+  .sheet h2 { font-size: 20px; font-weight: 800; letter-spacing: -.03em; }
+  .sheet > p { margin-top: 2px; color: var(--muted); font-size: 12px; }
+
+  .courier-list { display: grid; margin-top: 8px; }
+  .courier {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 58px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .courier:last-child { border-bottom: 0; }
+  .courier .avatar { width: 36px; height: 36px; }
+  .courier-copy { min-width: 0; flex: 1; }
+  .courier-name { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; }
+  .online-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex: 0 0 auto; }
+  .online-dot.is-off { background: var(--line-strong); }
+  .courier-meta { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .courier.is-offline .btn { border-color: var(--line); background: var(--bg); color: var(--muted); }
+
+  .info-note {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--bg);
+    color: #475569;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .info-note .i { width: 16px; height: 16px; color: var(--brand); }
+
+  /* Detail order */
+  .order-head { display: flex; align-items: center; gap: 8px; }
+  .order-head h2 { font-size: 24px; font-weight: 800; letter-spacing: -.04em; }
+  .order-head time { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+  .store-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .store-link .store-logo { width: 32px; height: 32px; border-radius: 8px; }
+  .store-link .i { width: 16px; height: 16px; margin-left: auto; color: var(--muted); }
+
+  .items { display: grid; gap: 11px; padding: 13px 0; }
+  .item { display: flex; align-items: center; gap: 10px; }
+  .item .thumb { width: 46px; height: 46px; border-radius: 9px; }
+  .item-main { min-width: 0; flex: 1; }
+  .item-name { font-size: 13px; font-weight: 700; }
+  .item-qty { color: var(--muted); font-size: 11px; }
+  .item-price { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .total-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--bg);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .total-row strong { font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+  .info-block {
+    display: flex;
+    gap: 10px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .info-block:last-of-type { border-bottom: 0; }
+  .info-block .i { width: 18px; height: 18px; margin-top: 1px; color: var(--muted); }
+  .info-copy { min-width: 0; flex: 1; }
+  .info-label { color: var(--muted); font-size: 11px; font-weight: 600; }
+  .info-main { margin-top: 1px; font-size: 13px; font-weight: 700; }
+  .info-sub { margin-top: 1px; color: var(--muted); font-size: 11px; }
+  .info-action { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: var(--bg); color: var(--brand-strong); cursor: pointer; }
+
+  .detail-footer { margin-top: auto; padding-top: 14px; }
+
+  /* Sukses */
+  .success { align-items: center; justify-content: center; padding-bottom: 24px; text-align: center; }
+  .success-art { width: 220px; max-width: 82%; margin-bottom: 18px; }
+  .success h1 { font-size: 32px; font-weight: 800; letter-spacing: -.045em; line-height: 1.1; }
+  .success h1 span { display: block; }
+  .success-copy { margin-top: 9px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+  .success-actions { display: grid; gap: 8px; width: 100%; margin-top: 26px; }
+
+  /* Interaksi prototype */
+  [hidden] { display: none !important; }
+  .order-card, .batch-card, .order-row { cursor: pointer; }
+  .order-card.is-muted { opacity: .58; }
+  .order-card.is-muted .order-title { text-decoration: line-through; text-decoration-thickness: 1px; }
+
+  .section-head .link { min-height: 44px; color: var(--brand-strong); font-size: 12px; }
+
+  .search-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 0 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    background: var(--surface);
+  }
+
+  .search-row .i { width: 17px; height: 17px; color: var(--muted); }
+  .search-row input {
+    min-width: 0;
+    flex: 1;
+    height: 42px;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px;
+    outline: 0;
+  }
+  .search-row input::placeholder { color: var(--muted); }
+  .search-row .icon-btn { width: 44px; height: 44px; }
+  .search-row .icon-btn .i { width: 16px; height: 16px; }
+
+  .filter-chips { padding-top: 10px; padding-bottom: 2px; }
+
+  .toast {
+    position: fixed;
+    z-index: 10000;
+    left: 50%;
+    bottom: 24px;
+    max-width: min(360px, calc(100vw - 32px));
+    padding: 11px 16px;
+    border-radius: 12px;
+    background: var(--ink);
+    color: #fff;
+    box-shadow: var(--shadow);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 14px);
+    transition: opacity .18s ease, transform .18s ease;
+  }
+
+  .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
+
+  .confirm {
+    width: min(340px, calc(100vw - 32px));
+    padding: 0;
+    border: 0;
+    border-radius: 20px;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 24px 60px rgb(23 36 52 / 28%);
+  }
+
+  .confirm::backdrop { background: rgb(23 36 52 / 38%); }
+  .confirm-card { padding: 20px; }
+  .confirm-card h2 { font-size: 19px; font-weight: 800; letter-spacing: -.025em; }
+  .confirm-card p { margin-top: 6px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+  .confirm-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 18px; }
+
+  @media (max-width: 1120px) {
+    .board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 760px) {
+    .board { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 24px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="sr" aria-hidden="true">
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M10.3 21a2 2 0 0 0 3.4 0"/><path d="M3.3 15.3A1 1 0 0 0 4 17h16a1 1 0 0 0 .7-1.7C19.4 14 18 12.5 18 8A6 6 0 0 0 6 8c0 4.5-1.4 6-2.7 7.3"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3z"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="m3 11 19-9-9 19-2-8-8-2z"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11l5-5V5a2 2 0 0 0-2-2z"/><path d="M15 21v-4a2 2 0 0 1 2-2h4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6M9 16h6"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.2 2h-.4a2 2 0 0 0-2 2v.2a2 2 0 0 1-1 1.7l-.4.3a2 2 0 0 1-2 0l-.2-.1a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.2.1a2 2 0 0 1 1 1.7v.5a2 2 0 0 1-1 1.7l-.2.1a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.2-.1a2 2 0 0 1 2 0l.4.3a2 2 0 0 1 1 1.7v.2a2 2 0 0 0 2 2h.4a2 2 0 0 0 2-2v-.2a2 2 0 0 1 1-1.7l.4-.3a2 2 0 0 1 2 0l.2.1a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.2-.1a2 2 0 0 1-1-1.7v-.5a2 2 0 0 1 1-1.7l.2-.1a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.2.1a2 2 0 0 1-2 0l-.4-.3a2 2 0 0 1-1-1.7V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+</svg>
+
+<main class="board">
+
+  <!-- 1. Beranda / Antrean dapur -->
+  <article class="phone" id="beranda">
+    <div class="screen">
+      <div class="brandbar">
+        <div class="wordmark">Sa7tein<span>.</span></div>
+        <button class="icon-btn bell" type="button" aria-label="Notifikasi, 2 baru">
+          <svg class="i"><use href="#i-bell"/></svg><span class="count">2</span>
+        </button>
+      </div>
+
+      <div class="store-row">
+        <img class="store-logo" src="../../../public/assets/img/menu/merchant-sate.webp" alt="Warung Sate Pak Ali">
+        <div class="store-copy">
+          <div class="store-name">Warung Sate Pak Ali <span class="pill pill--green">Aktif</span></div>
+          <p class="store-note">Deposit 8,50 JOD · COD bermasalah 0×</p>
+        </div>
+        <svg class="i" style="width:16px;height:16px;color:var(--muted)"><use href="#i-chevron"/></svg>
+      </div>
+
+      <div class="title-block">
+        <h1>Antrean dapur</h1>
+        <p>Pantau pesanan dan atur penugasan kurir.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Antrean">
+        <button class="tab is-active" type="button" role="tab" aria-selected="true">Pesanan masuk <span class="count">2</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false">Batch dapur <span class="count" id="home-batch-count">10</span></button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><div class="stat-label">Perlu diproses</div><div class="stat-value">2 <span class="stat-unit">order</span></div></div>
+        <div class="stat"><div class="stat-label">Siap dikirim</div><div class="stat-value" id="stat-ready">3 <span class="stat-unit">batch</span></div></div>
+        <div class="stat"><div class="stat-label">Butuh kurir</div><div class="stat-value" id="stat-courier">4 <span class="stat-unit">batch</span></div></div>
+      </div>
+
+      <div class="section-head"><h2>Pesanan masuk</h2><button class="link" id="show-all-orders" type="button">Lihat semua</button></div>
+
+      <div class="order-list">
+        <article class="order-card">
+          <img class="thumb" src="../../../public/assets/img/menu/sate-ayam.webp" alt="Ayam Bakar + Nasi">
+          <div class="order-main">
+            <div class="order-top"><span class="order-code">SA-MVSB1J36</span><span class="pill pill--red">Baru</span><time>08:12</time></div>
+            <h3 class="order-title">Ayam Bakar + Nasi</h3>
+            <p class="order-meta">2 item · 1.2 km · 4,60 JOD</p>
+            <div class="order-actions">
+              <button class="btn btn--primary" type="button">Terima</button>
+              <button class="btn btn--ghost" type="button">Tolak</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="order-card">
+          <img class="thumb" src="../../../public/assets/img/menu/nasi-goreng.webp" alt="Nasi Goreng + Es Teh">
+          <div class="order-main">
+            <div class="order-top"><span class="order-code">SA-MVSB1J37</span><span class="pill pill--red">Baru</span><time>08:15</time></div>
+            <h3 class="order-title">Nasi Goreng + Es Teh</h3>
+            <p class="order-meta">1 item · 0.8 km · 5,00 JOD</p>
+            <div class="order-actions">
+              <button class="btn btn--primary" type="button">Terima</button>
+              <button class="btn btn--ghost" type="button">Tolak</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <nav class="tabbar" aria-label="Navigasi merchant">
+      <button class="nav-item is-active" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-dashboard"/></svg></span><span class="nav-label">Beranda</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-clipboard"/></svg><span class="nav-badge">2</span></span><span class="nav-label">Order</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-book"/></svg></span><span class="nav-label">Menu</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-bike"/></svg></span><span class="nav-label">Kurir</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-settings"/></svg></span><span class="nav-label">Setelan</span></button>
+    </nav>
+  </article>
+
+  <!-- 2. Batch dapur -->
+  <article class="phone" id="batch">
+    <div class="screen">
+      <div class="appbar">
+        <button class="icon-btn" type="button" aria-label="Kembali"><svg class="i"><use href="#i-back"/></svg></button>
+        <h1>Batch dapur</h1>
+        <div class="actions">
+          <button class="icon-btn" type="button" aria-label="Cari"><svg class="i"><use href="#i-search"/></svg></button>
+          <button class="icon-btn" type="button" aria-label="Filter"><svg class="i"><use href="#i-filter"/></svg></button>
+        </div>
+      </div>
+
+      <div class="tabs tabs--stages" role="tablist" aria-label="Batch">
+        <button class="tab is-active" type="button" role="tab" aria-selected="true" data-batch-tab="countdown">Hitung mundur <span class="count">2</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="waiting">Menunggu kurir <span class="count">2</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="assigned">Ditugaskan <span class="count">2</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="delivering">Diantar <span class="count">1</span></button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="done">Selesai <span class="count">3</span></button>
+      </div>
+
+      <div class="search-row" id="batch-search" hidden>
+        <svg class="i"><use href="#i-search"/></svg>
+        <input type="search" placeholder="Cari batch atau order" aria-label="Cari batch atau order">
+        <button class="icon-btn" type="button" aria-label="Tutup pencarian"><svg class="i"><use href="#i-x"/></svg></button>
+      </div>
+
+      <div class="chips filter-chips" id="batch-filters" hidden>
+        <button class="chip is-active" type="button" data-batch-filter="all">Semua</button>
+        <button class="chip" type="button" data-batch-filter="unassigned">Butuh kurir</button>
+        <button class="chip" type="button" data-batch-filter="ready">Siap kirim</button>
+      </div>
+
+      <div class="batch-list">
+        <article class="batch-card">
+          <div class="batch-top"><h3>Batch #12</h3><span class="pill pill--amber"><svg class="i"><use href="#i-clock"/></svg>25 mnt</span></div>
+          <p class="batch-meta">3 dari 24 order · semua packing</p>
+          <div class="progress"><span style="width:40%"></span></div>
+          <div class="batch-foot">
+            <span class="courier-inline is-empty">Kurir belum ditugaskan</span>
+            <button class="link" type="button">Atur kurir <svg class="i"><use href="#i-chevron"/></svg></button>
+          </div>
+        </article>
+
+        <article class="batch-card">
+          <div class="batch-top"><h3>Batch #11</h3><span class="pill pill--green">Siap kirim</span></div>
+          <p class="batch-meta">3 dari 24 order · packing selesai</p>
+          <div class="progress is-done"><span style="width:100%"></span></div>
+          <div class="batch-foot">
+            <span class="courier-inline"><img class="avatar" src="../../../public/assets/img/profile.png" alt="">Kurir: Budi Santoso</span>
+            <svg class="i" style="width:15px;height:15px;color:var(--muted)"><use href="#i-chevron"/></svg>
+          </div>
+        </article>
+
+        <article class="batch-card">
+          <div class="batch-top"><h3>Batch #10</h3><span class="pill pill--amber">Diproses</span></div>
+          <p class="batch-meta">3 dari 24 order · packing berjalan</p>
+          <div class="progress"><span style="width:34%"></span></div>
+          <div class="batch-foot">
+            <span class="courier-inline is-empty">Kurir belum ditugaskan</span>
+            <button class="link" type="button">Atur kurir <svg class="i"><use href="#i-chevron"/></svg></button>
+          </div>
+        </article>
+
+        <article class="batch-card">
+          <div class="batch-top"><h3>Batch #9</h3><span class="pill pill--amber">Diproses</span></div>
+          <p class="batch-meta">3 dari 24 order · packing berjalan</p>
+          <div class="progress"><span style="width:34%"></span></div>
+          <div class="batch-foot">
+            <span class="courier-inline"><img class="avatar" src="../../../public/assets/img/profile.png" alt="">Kurir: Andi Pratama</span>
+            <svg class="i" style="width:15px;height:15px;color:var(--muted)"><use href="#i-chevron"/></svg>
+          </div>
+        </article>
+
+        <article class="batch-card">
+          <div class="batch-top"><h3>Batch #8</h3><span class="pill pill--green">Siap kirim</span></div>
+          <p class="batch-meta">4 dari 24 order · packing selesai</p>
+          <div class="progress is-done"><span style="width:100%"></span></div>
+          <div class="batch-foot">
+            <span class="courier-inline"><img class="avatar" src="../../../public/assets/img/profile.png" alt="">Kurir: Rudi Hartono</span>
+            <svg class="i" style="width:15px;height:15px;color:var(--muted)"><use href="#i-chevron"/></svg>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <nav class="tabbar" aria-label="Navigasi merchant">
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-dashboard"/></svg></span><span class="nav-label">Beranda</span></button>
+      <button class="nav-item is-active" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-clipboard"/></svg><span class="nav-badge">2</span></span><span class="nav-label">Order</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-book"/></svg></span><span class="nav-label">Menu</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-bike"/></svg></span><span class="nav-label">Kurir</span></button>
+      <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-settings"/></svg></span><span class="nav-label">Setelan</span></button>
+    </nav>
+  </article>
+
+  <!-- 3. Detail batch -->
+  <article class="phone" id="detail-batch">
+    <div class="screen">
+      <div class="appbar">
+        <button class="icon-btn" type="button" aria-label="Kembali"><svg class="i"><use href="#i-back"/></svg></button>
+        <h1>Detail Batch</h1>
+        <button class="icon-btn" type="button" aria-label="Menu lain"><svg class="i"><use href="#i-more"/></svg></button>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-top"><h2>Batch #12</h2><span class="pill pill--amber"><svg class="i"><use href="#i-clock"/></svg>25 mnt</span></div>
+        <p class="hero-meta">8/24 order · dalam antrian packing</p>
+        <div class="progress hero-progress"><span style="width:40%"></span></div>
+        <div class="hero-courier">
+          <span>Kurir belum ditugaskan</span>
+          <button class="btn btn--primary btn--sm" type="button">Atur kurir</button>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn--ghost btn--sm" type="button" data-batch-action="close">Tutup lebih awal</button>
+          <button class="btn btn--ghost btn--sm" type="button" data-batch-action="start" hidden>Setujui mulai lebih awal</button>
+        </div>
+      </div>
+
+      <div class="section-head" style="padding-top:14px"><h2>Daftar order</h2><span>3/8 selesai</span></div>
+
+      <div class="chips">
+        <button class="chip is-active" type="button">Semua <strong>8</strong></button>
+        <button class="chip" type="button">Selesai <strong>3</strong></button>
+        <button class="chip" type="button">Packing <strong>3</strong></button>
+        <button class="chip" type="button">Pending <strong>2</strong></button>
+      </div>
+
+      <div class="order-rows">
+        <div class="order-row" data-order="57241" data-status="packing">
+          <div class="order-row-main"><span class="order-code">SA-MVSB1J36</span><div class="order-name">Ayam Bakar + Nasi</div></div>
+          <time>08:12</time><span class="pill pill--amber">Packing</span>
+          <svg class="i" style="width:14px;height:14px;color:var(--muted)"><use href="#i-chevron"/></svg>
+        </div>
+        <div class="order-row" data-order="57242" data-status="packing">
+          <div class="order-row-main"><span class="order-code">SA-MVSB1J37</span><div class="order-name">Nasi Goreng + Es Teh</div></div>
+          <time>08:15</time><span class="pill pill--amber">Packing</span>
+          <svg class="i" style="width:14px;height:14px;color:var(--muted)"><use href="#i-chevron"/></svg>
+        </div>
+        <div class="order-row" data-order="57243" data-status="pending">
+          <div class="order-row-main"><span class="order-code">SA-MVSB1J38</span><div class="order-name">Mie Ayam + Jeruk</div></div>
+          <time>08:18</time><span class="pill pill--muted">Pending</span>
+          <svg class="i" style="width:14px;height:14px;color:var(--muted)"><use href="#i-chevron"/></svg>
+        </div>
+        <div class="order-row" data-order="57244" data-status="selesai">
+          <div class="order-row-main"><span class="order-code">SA-MVSB1J39</span><div class="order-name">Sate Ayam + Nasi</div></div>
+          <time>08:20</time><span class="pill pill--green">Selesai</span>
+          <svg class="i" style="width:14px;height:14px;color:var(--muted)"><use href="#i-chevron"/></svg>
+        </div>
+        <div class="order-row" data-order="57245" data-status="selesai">
+          <div class="order-row-main"><span class="order-code">SA-MVSB1J3A</span><div class="order-name">Tahu Crispy + Es Teh</div></div>
+          <time>08:23</time><span class="pill pill--green">Selesai</span>
+          <svg class="i" style="width:14px;height:14px;color:var(--muted)"><use href="#i-chevron"/></svg>
+        </div>
+      </div>
+
+      <button class="more-order" type="button">Lihat semua order <svg class="i" style="width:14px;height:14px"><use href="#i-chevron"/></svg></button>
+    </div>
+  </article>
+
+  <!-- 4. Pilih kurir -->
+  <article class="phone phone--sheet" id="pilih-kurir">
+    <div class="sheet-stage">
+      <div class="screen">
+        <div class="appbar">
+          <button class="icon-btn" type="button" aria-label="Kembali"><svg class="i"><use href="#i-back"/></svg></button>
+          <h1>Batch dapur</h1>
+          <div class="actions">
+            <button class="icon-btn" type="button" aria-label="Cari"><svg class="i"><use href="#i-search"/></svg></button>
+            <button class="icon-btn" type="button" aria-label="Filter"><svg class="i"><use href="#i-filter"/></svg></button>
+          </div>
+        </div>
+        <div class="tabs tabs--stages" role="tablist" aria-label="Batch">
+          <button class="tab is-active" type="button" role="tab" aria-selected="true" data-batch-tab="countdown">Hitung mundur <span class="count">2</span></button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="waiting">Menunggu kurir <span class="count">2</span></button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="assigned">Ditugaskan <span class="count">2</span></button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="delivering">Diantar <span class="count">1</span></button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-batch-tab="done">Selesai <span class="count">3</span></button>
+        </div>
+        <div class="batch-list">
+          <article class="batch-card">
+            <div class="batch-top"><h3>Batch #12</h3><span class="pill pill--amber"><svg class="i"><use href="#i-clock"/></svg>25 mnt</span></div>
+            <p class="batch-meta">3 dari 24 order · semua packing</p>
+            <div class="progress"><span style="width:40%"></span></div>
+            <div class="batch-foot">
+              <span class="courier-inline is-empty">Kurir belum ditugaskan</span>
+              <button class="link" type="button">Atur kurir <svg class="i"><use href="#i-chevron"/></svg></button>
+            </div>
+          </article>
+          <article class="batch-card">
+            <div class="batch-top"><h3>Batch #11</h3><span class="pill pill--green">Siap kirim</span></div>
+            <p class="batch-meta">3 dari 24 order · packing selesai</p>
+            <div class="progress is-done"><span style="width:100%"></span></div>
+          </article>
+        </div>
+      </div>
+
+      <nav class="tabbar" aria-label="Navigasi merchant">
+        <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-dashboard"/></svg></span><span class="nav-label">Beranda</span></button>
+        <button class="nav-item is-active" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-clipboard"/></svg><span class="nav-badge">2</span></span><span class="nav-label">Order</span></button>
+        <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-book"/></svg></span><span class="nav-label">Menu</span></button>
+        <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-bike"/></svg></span><span class="nav-label">Kurir</span></button>
+        <button class="nav-item" type="button"><span class="nav-icon-wrap"><svg class="i"><use href="#i-settings"/></svg></span><span class="nav-label">Setelan</span></button>
+      </nav>
+
+      <div class="scrim" aria-hidden="true"></div>
+
+      <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <div class="grabber" aria-hidden="true"></div>
+        <h2 id="sheet-title">Pilih kurir</h2>
+        <p id="sheet-batch-label">Tugaskan kurir untuk batch #12</p>
+
+        <ul class="courier-list">
+          <li class="courier">
+            <img class="avatar" src="../../../public/assets/img/profile.png" alt="">
+            <div class="courier-copy">
+              <div class="courier-name">Budi Santoso <span class="online-dot"></span></div>
+              <div class="courier-meta">Online · ★ 4.8 (124) · 1.2 km</div>
+            </div>
+            <button class="btn btn--primary btn--sm" type="button">Tugaskan</button>
+          </li>
+          <li class="courier">
+            <img class="avatar" src="../../../public/assets/img/profile.png" alt="">
+            <div class="courier-copy">
+              <div class="courier-name">Andi Pratama <span class="online-dot"></span></div>
+              <div class="courier-meta">Online · ★ 4.7 (98) · 1.6 km</div>
+            </div>
+            <button class="btn btn--primary btn--sm" type="button">Tugaskan</button>
+          </li>
+          <li class="courier">
+            <img class="avatar" src="../../../public/assets/img/profile.png" alt="">
+            <div class="courier-copy">
+              <div class="courier-name">Rudi Hartono <span class="online-dot"></span></div>
+              <div class="courier-meta">Online · ★ 4.9 (153) · 2.1 km</div>
+            </div>
+            <button class="btn btn--primary btn--sm" type="button">Tugaskan</button>
+          </li>
+          <li class="courier is-offline">
+            <img class="avatar" src="../../../public/assets/img/profile.png" alt="">
+            <div class="courier-copy">
+              <div class="courier-name">Deni Saputra <span class="online-dot is-off"></span></div>
+              <div class="courier-meta">Offline · ★ 4.5 (67) · 3.4 km</div>
+            </div>
+            <button class="btn btn--ghost btn--sm" type="button" data-courier-offline>Tugaskan</button>
+          </li>
+        </ul>
+
+        <div class="info-note">
+          <svg class="i"><use href="#i-info"/></svg>
+          <span>Pastikan kurir dalam kondisi online dan lokasi sesuai jangkauan pengantaran.</span>
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <!-- 5. Detail order -->
+  <article class="phone" id="detail-order">
+    <div class="screen">
+      <div class="appbar">
+        <button class="icon-btn" type="button" aria-label="Kembali"><svg class="i"><use href="#i-back"/></svg></button>
+        <h1>Detail Order</h1>
+        <button class="icon-btn" type="button" aria-label="Menu lain"><svg class="i"><use href="#i-more"/></svg></button>
+      </div>
+
+      <div class="order-head">
+        <h2>SA-MVSB1J36</h2><span class="pill pill--amber">Packing</span><time>08:12</time>
+      </div>
+
+      <div class="store-link">
+        <img class="store-logo" src="../../../public/assets/img/menu/merchant-sate.webp" alt="">
+        <span>Warung Sate Pak Ali</span>
+        <svg class="i"><use href="#i-chevron"/></svg>
+      </div>
+
+      <div class="items">
+        <div class="item">
+          <img class="thumb" src="../../../public/assets/img/menu/sate-ayam.webp" alt="">
+          <div class="item-main"><div class="item-name">Ayam Bakar + Nasi</div><div class="item-qty">x1</div></div>
+          <div class="item-price">3,60 JOD</div>
+        </div>
+        <div class="item">
+          <img class="thumb" src="../../../public/assets/img/menu/es-teh-manis.webp" alt="">
+          <div class="item-main"><div class="item-name">Es Teh Manis</div><div class="item-qty">x1</div></div>
+          <div class="item-price">1,00 JOD</div>
+        </div>
+      </div>
+
+      <div class="total-row"><span>Total pesanan</span><strong>4,60 JOD</strong></div>
+
+      <div class="info-block">
+        <svg class="i"><use href="#i-user"/></svg>
+        <div class="info-copy">
+          <div class="info-label">Customer</div>
+          <div class="info-main">Risky Maulana</div>
+          <div class="info-sub">+62 812 3456 7890</div>
+        </div>
+        <button class="info-action" type="button" aria-label="Telepon customer"><svg class="i"><use href="#i-phone"/></svg></button>
+      </div>
+
+      <div class="info-block">
+        <svg class="i"><use href="#i-pin"/></svg>
+        <div class="info-copy">
+          <div class="info-label">Alamat pengantaran</div>
+          <div class="info-main">Jl. Melati No. 12, Irbid</div>
+          <div class="info-sub">1.2 km · Est. 18 menit</div>
+        </div>
+        <button class="info-action" type="button" aria-label="Buka peta"><svg class="i"><use href="#i-pin"/></svg></button>
+      </div>
+
+      <div class="info-block">
+        <svg class="i"><use href="#i-note"/></svg>
+        <div class="info-copy">
+          <div class="info-label">Catatan</div>
+          <div class="info-main" style="font-weight:600">Tolong bungkus tanpa sambal ya</div>
+        </div>
+      </div>
+
+      <div class="detail-footer">
+        <button class="btn btn--primary btn--block" type="button">Sudah disiapkan</button>
+      </div>
+    </div>
+  </article>
+
+  <!-- 6. Batch siap dikirim -->
+  <article class="phone" id="sukses">
+    <div class="screen success">
+      <svg class="success-art" viewBox="0 0 220 168" role="img" aria-label="Ilustrasi toko dengan centang">
+        <g fill="none" stroke-linecap="round">
+          <path d="M35 142h150" stroke="#eadfd8" stroke-width="2"/>
+          <rect x="62" y="52" width="96" height="84" rx="10" fill="#fff4ee"/>
+          <path d="M54 54h112l-8-24H62z" fill="#f6b59f"/>
+          <path d="M71 54h18l5-24H78zM108 54h18l-3-24h-17zM145 54h18l6-24h-16z" fill="#fff" opacity=".7"/>
+          <rect x="86" y="93" width="48" height="43" rx="5" fill="#f4c9b7"/>
+          <rect x="94" y="103" width="32" height="8" rx="3" fill="#fff"/>
+          <circle cx="156" cy="112" r="31" fill="#e44220"/>
+          <path d="m143 112 9 9 18-20" stroke="#fff" stroke-width="5"/>
+          <path d="M45 35l6-8M178 29l-5-9M38 80l-9 2M192 72l9 3M70 24l-2-9M172 47l7-6" stroke="#f0a488" stroke-width="3"/>
+          <rect x="31" y="53" width="7" height="12" rx="2" transform="rotate(-24 31 53)" fill="#f6c04f"/>
+          <rect x="184" y="94" width="7" height="12" rx="2" transform="rotate(35 184 94)" fill="#f6c04f"/>
+          <rect x="52" y="110" width="6" height="11" rx="2" transform="rotate(18 52 110)" fill="#e44220"/>
+          <circle cx="183" cy="47" r="4" fill="#f6c04f"/>
+          <circle cx="44" cy="63" r="3" fill="#e44220"/>
+        </g>
+      </svg>
+
+      <h1>Batch #12 <span>siap dikirim!</span></h1>
+      <p class="success-copy">3 order sudah selesai packing.<br>Tinggal menunggu kurir.</p>
+
+      <div class="success-actions">
+        <button class="btn btn--primary btn--block" type="button">Lihat detail batch</button>
+        <button class="btn btn--ghost btn--block" type="button">Kembali ke antrean</button>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog class="confirm" id="reject-dialog" aria-labelledby="reject-title">
+  <div class="confirm-card">
+    <h2 id="reject-title">Tolak pesanan?</h2>
+    <p id="reject-copy">Pesanan akan ditolak dan tidak masuk ke antrean dapur.</p>
+    <div class="confirm-actions">
+      <button class="btn btn--ghost" type="button" data-reject-cancel>Batal</button>
+      <button class="btn" type="button" style="background:var(--red);color:#fff" data-reject-confirm>Tolak</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const IMG = '../../../public/assets/img/';
+  const icon = (name, className = 'i') => `<svg class="${className}"><use href="#${name}"/></svg>`;
+  const jod = (value) => `${value.toFixed(2).replace('.', ',')} JOD`;
+  const orderTotal = (order) => order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+  const pillClass = (status) => {
+    if (status === 'Diterima' || status === 'Selesai') return 'pill--green';
+    if (status === 'Ditolak') return 'pill--red';
+    return 'pill--orange';
+  };
+
+  const orderData = {
+    '57241': {
+      code: 'SA-MVSB1J36', title: 'Ayam Bakar + Nasi', time: '08:12', status: 'Diterima', rowStatus: 'Packing',
+      meta: '2 item · 1.2 km', batch: '12', img: 'menu/sate-ayam.webp',
+      items: [
+        { name: 'Ayam Bakar + Nasi', qty: 1, price: 3.6, img: 'menu/sate-ayam.webp' },
+        { name: 'Es Teh Manis', qty: 1, price: 1, img: 'menu/es-teh-manis.webp' },
+      ],
+      customer: 'Risky Maulana', phone: '+62 812 3456 7890',
+      address: 'Jl. Melati No. 12, Irbid', distance: '1.2 km', eta: '18 menit',
+      note: 'Tolong bungkus tanpa sambal ya',
+    },
+    '57242': {
+      code: 'SA-MVSB1J37', title: 'Nasi Goreng + Es Teh', time: '08:15', status: 'Diterima', rowStatus: 'Packing',
+      meta: '1 item · 0.8 km', batch: '12', img: 'menu/nasi-goreng.webp',
+      items: [{ name: 'Nasi Goreng + Es Teh', qty: 1, price: 5, img: 'menu/nasi-goreng.webp' }],
+      customer: 'Siti Aisyah', phone: '+62 813 2222 1111',
+      address: 'Jl. Kenanga No. 8, Irbid', distance: '0.8 km', eta: '14 menit',
+      note: 'Jangan terlalu pedas ya',
+    },
+    '57243': {
+      code: 'SA-MVSB1J38', title: 'Mie Ayam + Jeruk', time: '08:18', status: 'Diterima', rowStatus: 'Pending',
+      meta: '1 item · 1.5 km', batch: '12', img: 'menu/lontong.webp',
+      items: [{ name: 'Mie Ayam + Jeruk', qty: 1, price: 3.8, img: 'menu/lontong.webp' }],
+      customer: 'Ahmad Fauzi', phone: '+62 852 1111 2233',
+      address: 'Jl. Anggrek No. 3, Irbid', distance: '1.5 km', eta: '21 menit',
+      note: 'Tambah sawi',
+    },
+    '57244': {
+      code: 'SA-MVSB1J39', title: 'Sate Ayam + Nasi', time: '08:20', status: 'Selesai', rowStatus: 'Selesai',
+      meta: '1 item · 1.1 km', batch: '12', img: 'menu/sate-kambing.webp',
+      items: [{ name: 'Sate Ayam + Nasi', qty: 1, price: 4.4, img: 'menu/sate-kambing.webp' }],
+      customer: 'Dewi Lestari', phone: '+62 812 8888 7766',
+      address: 'Jl. Mawar No. 7, Irbid', distance: '1.1 km', eta: '16 menit',
+      note: 'Bungkus terpisah',
+    },
+    '57245': {
+      code: 'SA-MVSB1J3A', title: 'Tahu Crispy + Es Teh', time: '08:23', status: 'Selesai', rowStatus: 'Selesai',
+      meta: '1 item · 0.9 km', batch: '12', img: 'menu/cs-order-desk.webp',
+      items: [{ name: 'Tahu Crispy + Es Teh', qty: 1, price: 3.4, img: 'menu/cs-order-desk.webp' }],
+      customer: 'Bagus Pratama', phone: '+62 857 3333 4455',
+      address: 'Jl. Dahlia No. 9, Irbid', distance: '0.9 km', eta: '15 menit',
+      note: 'Sambal dipisah',
+    },
+    '57246': {
+      code: 'SA-MVSB1J3B', title: 'Nasi Uduk + Ayam', time: '08:25', status: 'Diterima', rowStatus: 'Packing',
+      meta: '1 item · 1.3 km', batch: '12', img: 'menu/nasi-goreng.webp',
+      items: [{ name: 'Nasi Uduk + Ayam', qty: 1, price: 4.2, img: 'menu/nasi-goreng.webp' }],
+      customer: 'Nadia Putri', phone: '+62 811 9090 1212',
+      address: 'Jl. Cempaka No. 4, Irbid', distance: '1.3 km', eta: '19 menit',
+      note: 'Tanpa bawang goreng',
+    },
+    '57247': {
+      code: 'SA-MVSB1J3C', title: 'Sate Kambing + Nasi', time: '08:28', status: 'Diterima', rowStatus: 'Pending',
+      meta: '1 item · 1.7 km', batch: '12', img: 'menu/sate-kambing.webp',
+      items: [{ name: 'Sate Kambing + Nasi', qty: 1, price: 5.4, img: 'menu/sate-kambing.webp' }],
+      customer: 'Fajar Nugroho', phone: '+62 878 1212 3434',
+      address: 'Jl. Flamboyan No. 11, Irbid', distance: '1.7 km', eta: '23 menit',
+      note: 'Sambal kacang terpisah',
+    },
+    '57248': {
+      code: 'SA-MVSB1J3D', title: 'Lontong Sayur', time: '08:31', status: 'Selesai', rowStatus: 'Selesai',
+      meta: '1 item · 1.0 km', batch: '12', img: 'menu/lontong.webp',
+      items: [{ name: 'Lontong Sayur', qty: 1, price: 3.2, img: 'menu/lontong.webp' }],
+      customer: 'Intan Permata', phone: '+62 813 5656 7878',
+      address: 'Jl. Teratai No. 2, Irbid', distance: '1.0 km', eta: '17 menit',
+      note: 'Kerupuk dipisah',
+    },
+    '57249': {
+      code: 'SA-MVSB1J3E', title: 'Ayam Bakar + Nasi', time: '08:33', status: 'Baru', rowStatus: 'Baru',
+      meta: '2 item · 1.4 km', batch: null, img: 'menu/sate-ayam.webp',
+      items: [
+        { name: 'Ayam Bakar + Nasi', qty: 1, price: 3.6, img: 'menu/sate-ayam.webp' },
+        { name: 'Es Teh Manis', qty: 1, price: 1, img: 'menu/es-teh-manis.webp' },
+      ],
+      customer: 'Risky Maulana', phone: '+62 812 3456 7890',
+      address: 'Jl. Melati No. 12, Irbid', distance: '1.4 km', eta: '19 menit',
+      note: 'Tolong bungkus tanpa sambal ya',
+    },
+    '57250': {
+      code: 'SA-MVSB1J3F', title: 'Nasi Goreng + Es Teh', time: '08:35', status: 'Baru', rowStatus: 'Baru',
+      meta: '1 item · 0.9 km', batch: null, img: 'menu/nasi-goreng.webp',
+      items: [{ name: 'Nasi Goreng + Es Teh', qty: 1, price: 5, img: 'menu/nasi-goreng.webp' }],
+      customer: 'Siti Aisyah', phone: '+62 813 2222 1111',
+      address: 'Jl. Kenanga No. 8, Irbid', distance: '0.9 km', eta: '15 menit',
+      note: 'Jangan terlalu pedas ya',
+    },
+    '57251': {
+      code: 'SA-MVSB1J3G', title: 'Mie Ayam + Jeruk', time: '08:38', status: 'Baru', rowStatus: 'Baru',
+      meta: '1 item · 1.5 km', batch: null, img: 'menu/lontong.webp',
+      items: [{ name: 'Mie Ayam + Jeruk', qty: 1, price: 3.8, img: 'menu/lontong.webp' }],
+      customer: 'Ahmad Fauzi', phone: '+62 852 1111 2233',
+      address: 'Jl. Anggrek No. 3, Irbid', distance: '1.5 km', eta: '21 menit',
+      note: 'Tambah sawi',
+    },
+  };
+
+  const BATCH_LABEL = {
+    countdown: 'Hitung mundur',
+    closed: 'Ditutup lebih awal',
+    awaiting_courier: 'Menunggu kurir',
+    assigned: 'Kurir ditugaskan',
+    delivering: 'Dalam pengantaran',
+    done: 'Selesai',
+  };
+
+  const batches = {
+    '12': { status: 'countdown', tab: 'countdown', time: '25 mnt', meta: '8/24 order · 3 selesai packing', progress: 38, done: 3, total: 8, courier: null },
+    '14': { status: 'countdown', tab: 'countdown', time: '18 mnt', meta: '1/24 order · hitung mundur', progress: 0, done: 0, total: 1, courier: null },
+    '11': { status: 'awaiting_courier', tab: 'waiting', time: '', meta: '3/24 order · packing selesai', progress: 100, done: 3, total: 3, courier: null },
+    '13': { status: 'closed', tab: 'waiting', time: '', meta: '6/24 order · ditutup lebih awal', progress: 100, done: 6, total: 6, courier: null },
+    '10': { status: 'assigned', tab: 'assigned', time: '', meta: '6/24 order · kurir ditugaskan', progress: 100, done: 6, total: 6, courier: 'Budi Santoso' },
+    '15': { status: 'assigned', tab: 'assigned', time: '', meta: '4/24 order · kurir ditugaskan', progress: 100, done: 4, total: 4, courier: 'Andi Pratama' },
+    '9': { status: 'delivering', tab: 'delivering', time: '', meta: '8/24 order · dalam pengantaran', progress: 100, done: 8, total: 8, courier: 'Rudi Hartono' },
+    '8': { status: 'done', tab: 'done', time: '', meta: '24 dari 24 order · selesai', progress: 100, done: 24, total: 24, courier: 'Budi Santoso' },
+    '7': { status: 'done', tab: 'done', time: '', meta: '24 dari 24 order · selesai', progress: 100, done: 24, total: 24, courier: 'Rudi Hartono' },
+    '6': { status: 'done', tab: 'done', time: '', meta: '24 dari 24 order · selesai', progress: 100, done: 24, total: 24, courier: 'Andi Pratama' },
+  };
+
+  const batchIds = ['12', '14', '11', '13', '10', '15', '9', '8', '7', '6'];
+  const batchIdsForTab = (tab) => batchIds.filter((id) => batches[id].tab === tab);
+  let selectedBatch = '12';
+  let selectedOrder = '57241';
+  let batchTab = 'countdown';
+  let sheetReturn = '#batch';
+  let rejectId = null;
+  let rowFilter = 'all';
+  let toastTimer = null;
+
+  function toast(message) {
+    const el = $('#toast');
+    el.textContent = message;
+    el.classList.add('is-on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('is-on'), 2600);
+  }
+
+  function scrollToPhone(id) {
+    const phone = document.querySelector(id);
+    if (phone) phone.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function orderCardHTML(id) {
+    const order = orderData[id];
+    const actions = order.status === 'Baru'
+      ? `<button class="btn btn--primary" type="button" data-accept="${id}">Terima</button>
+         <button class="btn btn--ghost" type="button" data-reject="${id}">Tolak</button>`
+      : `<button class="btn btn--ghost" type="button" data-view-order="${id}">Lihat detail</button>`;
+    return `<article class="order-card${order.status === 'Ditolak' ? ' is-muted' : ''}" data-order="${id}">
+      <img class="thumb" src="${IMG}${order.img}" alt="${order.title}">
+      <div class="order-main">
+        <div class="order-top"><span class="order-code">${order.code}</span><span class="pill ${pillClass(order.status)}">${order.status}</span><time>${order.time}</time></div>
+        <h3 class="order-title">${order.title}</h3>
+        <p class="order-meta">${order.meta} · ${jod(orderTotal(order))}</p>
+        <div class="order-actions">${actions}</div>
+      </div>
+    </article>`;
+  }
+
+  function batchCardHTML(id) {
+    const batch = batches[id];
+    const isDone = batch.progress >= 100;
+    const pillTone = batch.status === 'done' ? 'pill--green' : batch.status === 'assigned' || batch.status === 'delivering' ? 'pill--orange' : 'pill--amber';
+    const pill = batch.status === 'countdown'
+      ? `<span class="pill pill--amber">${icon('i-clock')}${batch.time}</span>`
+      : `<span class="pill ${pillTone}">${BATCH_LABEL[batch.status]}</span>`;
+    const foot = batch.courier
+      ? `<span class="courier-inline"><img class="avatar" src="${IMG}profile.png" alt="">Kurir: ${batch.courier}</span>
+         ${icon('i-chevron', 'i')}`
+      : `<span class="courier-inline is-empty">Kurir belum ditugaskan</span>
+         <button class="link" type="button" data-assign="${id}">Atur kurir ${icon('i-chevron')}</button>`;
+    return `<article class="batch-card" data-batch="${id}" data-status="${batch.status}" data-courier="${batch.courier ? '1' : '0'}">
+      <div class="batch-top"><h3>Batch #${id}</h3>${pill}</div>
+      <p class="batch-meta">${batch.meta}</p>
+      <div class="progress${isDone ? ' is-done' : ''}"><span style="width:${batch.progress}%"></span></div>
+      <div class="batch-foot">${foot}</div>
+    </article>`;
+  }
+
+  function renderBatchList(container, ids) {
+    if (!container) return;
+    container.innerHTML = ids.length
+      ? ids.map(batchCardHTML).join('')
+      : '<p class="empty-state">Tidak ada batch di tahap ini.</p>';
+  }
+
+  function updateIncomingStats() {
+    const ids = $$('#beranda .order-card').map((card) => card.dataset.order).filter(Boolean);
+    const count = ids.filter((id) => orderData[id]?.status === 'Baru').length;
+    const stat = $('#beranda .stat .stat-value');
+    if (stat) stat.innerHTML = `${count} <span class="stat-unit">order</span>`;
+    const tabCount = $('#beranda .tabs .tab .count:not(#home-batch-count)');
+    if (tabCount) tabCount.textContent = count;
+    $$('.nav-badge').forEach((badge) => { badge.textContent = count; });
+
+    const homeBatch = $('#home-batch-count');
+    if (homeBatch) homeBatch.textContent = batchIds.length;
+    const ready = batchIds.filter((id) => ['awaiting_courier', 'assigned'].includes(batches[id].status)).length;
+    const needCourier = batchIds.filter((id) => !batches[id].courier && ['countdown', 'closed', 'awaiting_courier'].includes(batches[id].status)).length;
+    const readyStat = $('#stat-ready');
+    const courierStat = $('#stat-courier');
+    if (readyStat) readyStat.innerHTML = `${ready} <span class="stat-unit">batch</span>`;
+    if (courierStat) courierStat.innerHTML = `${needCourier} <span class="stat-unit">batch</span>`;
+  }
+
+  function setOrderStatus(id, status) {
+    const order = orderData[id];
+    if (!order) return;
+    order.status = status;
+    const card = $(`#beranda .order-card[data-order="${id}"]`);
+    if (card) card.outerHTML = orderCardHTML(id);
+    updateIncomingStats();
+  }
+
+  function renderOrder(id) {
+    const order = orderData[id];
+    if (!order) return;
+    selectedOrder = id;
+    const phone = $('#detail-order');
+    $('.order-head h2', phone).textContent = order.code;
+    const headPill = $('.order-head .pill', phone);
+    headPill.className = `pill ${pillClass(order.rowStatus)}`;
+    headPill.textContent = order.rowStatus;
+    $('.order-head time', phone).textContent = order.time;
+    $('.items', phone).innerHTML = order.items.map((item) => `
+      <div class="item">
+        <img class="thumb" src="${IMG}${item.img}" alt="">
+        <div class="item-main"><div class="item-name">${item.name}</div><div class="item-qty">x${item.qty}</div></div>
+        <div class="item-price">${jod(item.price)}</div>
+      </div>`).join('');
+    $('.total-row strong', phone).textContent = jod(orderTotal(order));
+    const blocks = $$('.info-block', phone);
+    if (blocks[0]) {
+      $('.info-main', blocks[0]).textContent = order.customer;
+      $('.info-sub', blocks[0]).textContent = order.phone;
+    }
+    if (blocks[1]) {
+      $('.info-main', blocks[1]).textContent = order.address;
+      $('.info-sub', blocks[1]).textContent = `${order.distance} · Est. ${order.eta}`;
+    }
+    if (blocks[2]) $('.info-main', blocks[2]).textContent = order.note;
+    const footerButton = $('.detail-footer button', phone);
+    if (footerButton) footerButton.textContent = order.batch ? 'Sudah disiapkan' : 'Masukkan ke batch';
+    scrollToPhone('#detail-order');
+  }
+
+  function updateBatchDetail(id) {
+    const batch = batches[id];
+    if (!batch) return;
+    selectedBatch = id;
+    const phone = $('#detail-batch');
+    $('.hero-top h2', phone).textContent = `Batch #${id}`;
+    const pill = $('.hero-top .pill', phone);
+    const pillTone = batch.status === 'done' ? 'pill--green' : batch.status === 'assigned' || batch.status === 'delivering' ? 'pill--orange' : 'pill--amber';
+    pill.className = `pill ${pillTone}`;
+    pill.innerHTML = batch.status === 'countdown' ? `${icon('i-clock')}${batch.time}` : BATCH_LABEL[batch.status];
+    $('.hero-meta', phone).textContent = batch.meta;
+    const progress = $('.hero-progress', phone);
+    progress.classList.toggle('is-done', batch.progress >= 100);
+    $('span', progress).style.width = `${batch.progress}%`;
+    $('.hero-courier span', phone).textContent = batch.courier ? `Kurir: ${batch.courier}` : 'Kurir belum ditugaskan';
+    $('.hero-courier button', phone).textContent = batch.courier ? 'Ganti kurir' : 'Atur kurir';
+    const closeAction = $('[data-batch-action="close"]', phone);
+    if (closeAction) closeAction.hidden = batch.status !== 'countdown';
+    const startAction = $('[data-batch-action="start"]', phone);
+    if (startAction) {
+      startAction.hidden = batch.status !== 'closed';
+      startAction.disabled = !batch.courier;
+      startAction.title = batch.courier ? '' : 'Tugaskan kurir dulu';
+    }
+    $('.section-head span', phone).textContent = `${batch.done}/${batch.total} selesai`;
+  }
+
+  function openBatch(id) {
+    updateBatchDetail(id);
+    scrollToPhone('#detail-batch');
+  }
+
+  function openSheet(batchId, origin = '#batch') {
+    selectedBatch = batchId;
+    sheetReturn = origin;
+    const label = $('#sheet-batch-label');
+    if (label) label.textContent = `Tugaskan kurir untuk batch #${batchId}`;
+    const tabId = batches[batchId]?.tab ?? batchTab;
+    renderBatchList($('#pilih-kurir .batch-list'), [batchId, ...batchIdsForTab(tabId).filter((id) => id !== batchId)].slice(0, 2));
+    scrollToPhone('#pilih-kurir');
+  }
+
+  function assignCourier(name) {
+    const batch = batches[selectedBatch];
+    if (!batch) return;
+    batch.courier = name;
+    renderBatchList($('#batch .batch-list'), batchIdsForTab(batchTab));
+    renderBatchList($('#pilih-kurir .batch-list'), [selectedBatch, ...batchIdsForTab(batch.tab).filter((id) => id !== selectedBatch)].slice(0, 2));
+    applyBatchFilters();
+    updateBatchDetail(selectedBatch);
+    updateIncomingStats();
+    toast(`${name} ditugaskan ke Batch #${selectedBatch}`);
+    scrollToPhone(sheetReturn);
+  }
+
+  function showSuccess(heading, copy) {
+    const screen = $('#sukses');
+    $('h1', screen).innerHTML = `${heading} <span>siap dikirim!</span>`;
+    $('.success-copy', screen).innerHTML = copy;
+    scrollToPhone('#sukses');
+  }
+
+  function markReady() {
+    const order = orderData[selectedOrder];
+    if (!order) return;
+    if (!order.batch) {
+      toast(`${order.code} belum masuk batch. Atur batch dapur dulu.`);
+      scrollToPhone('#batch');
+      return;
+    }
+    if (order.status === 'Selesai') {
+      toast(`Pesanan #${selectedOrder} sudah selesai`);
+      return;
+    }
+    if (order.status === 'Ditolak') {
+      toast(`Pesanan #${selectedOrder} sudah ditolak`);
+      return;
+    }
+    order.status = 'Selesai';
+    order.rowStatus = 'Selesai';
+    const card = $(`#beranda .order-card[data-order="${selectedOrder}"]`);
+    if (card) card.outerHTML = orderCardHTML(selectedOrder);
+    updateIncomingStats();
+    const row = $(`#detail-batch .order-row[data-order="${selectedOrder}"]`);
+    if (row) {
+      const pill = $('.pill', row);
+      pill.className = 'pill pill--green';
+      pill.textContent = 'Selesai';
+      row.dataset.status = 'selesai';
+    }
+    const batch = batches[order.batch];
+    if (batch) {
+      batch.done = Math.min(batch.done + 1, batch.total);
+      batch.progress = Math.max(batch.progress, Math.round((batch.done / batch.total) * 100));
+      batch.meta = `${batch.done}/${batch.total} order · ${batch.done >= batch.total ? 'semua packing' : 'packing berjalan'}`;
+      updateBatchDetail(order.batch);
+    }
+    const remaining = Object.values(orderData).filter((item) => item.batch === order.batch && item.rowStatus !== 'Selesai').length;
+    if (batch && remaining === 0) {
+      showSuccess(`Batch #${order.batch}`, `${batch.total} order sudah selesai packing.<br>Tinggal menunggu kurir.`);
+    } else {
+      toast(`${order.code} selesai packing`);
+      scrollToPhone('#detail-batch');
+    }
+  }
+
+  function setBatchTab(tabId) {
+    batchTab = tabId;
+    $$('#batch [data-batch-tab], #pilih-kurir [data-batch-tab]').forEach((tab) => {
+      const active = tab.dataset.batchTab === tabId;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+    });
+    renderBatchList($('#batch .batch-list'), batchIdsForTab(tabId));
+    applyBatchFilters();
+  }
+
+  function updateTabCounts() {
+    $$('#batch [data-batch-tab], #pilih-kurir [data-batch-tab]').forEach((tab) => {
+      const count = batchIdsForTab(tab.dataset.batchTab).length;
+      const badge = $('.count', tab);
+      if (badge) badge.textContent = count;
+    });
+  }
+
+  function applyBatchFilters() {
+    const input = $('#batch-search input');
+    const query = input ? input.value.trim().toLowerCase() : '';
+    const filter = $('.filter-chips .chip.is-active')?.dataset.batchFilter || 'all';
+    $$('#batch .batch-card').forEach((card) => {
+      const matchesQuery = !query || card.innerText.toLowerCase().includes(query);
+      const matchesFilter = filter === 'all'
+        || (filter === 'unassigned' && card.dataset.courier === '0')
+        || (filter === 'ready' && ['awaiting_courier', 'assigned'].includes(card.dataset.status));
+      card.hidden = !(matchesQuery && matchesFilter);
+    });
+    const list = $('#batch .batch-list');
+    if (!list) return;
+    const visible = $$('.batch-card', list).filter((card) => !card.hidden);
+    let empty = $('.empty-state', list);
+    if (!empty && visible.length === 0) {
+      list.insertAdjacentHTML('beforeend', '<p class="empty-state">Tidak ada batch yang cocok.</p>');
+      empty = $('.empty-state', list);
+    }
+    if (empty) empty.hidden = visible.length > 0;
+  }
+
+  function applyRowFilter(kind) {
+    rowFilter = kind;
+    $$('#detail-batch .order-row').forEach((row) => {
+      row.hidden = kind !== 'all' && row.dataset.status !== kind;
+    });
+  }
+
+  function addExtraRows() {
+    const rows = $('#detail-batch .order-rows');
+    const existing = $$('.order-row[data-extra]', rows);
+    if (existing.length) {
+      existing.forEach((row) => row.remove());
+      return false;
+    }
+    rows.insertAdjacentHTML('beforeend', ['57246', '57247', '57248'].map((id) => {
+      const order = orderData[id];
+      const statusClass = order.rowStatus === 'Selesai' ? 'pill--green' : order.rowStatus === 'Pending' ? 'pill--muted' : 'pill--amber';
+      return `<div class="order-row" data-order="${id}" data-status="${order.rowStatus.toLowerCase()}" data-extra="1">
+        <div class="order-row-main"><span class="order-code">${order.code}</span><div class="order-name">${order.title}</div></div>
+        <time>${order.time}</time><span class="pill ${statusClass}">${order.rowStatus}</span>
+        ${icon('i-chevron')}
+      </div>`;
+    }).join(''));
+    applyRowFilter(rowFilter);
+    return true;
+  }
+
+  // Render awal: semua kartu memakai data yang sama dengan prototype.
+  $('#beranda .order-list').innerHTML = ['57249', '57250'].map(orderCardHTML).join('');
+  renderBatchList($('#batch .batch-list'), batchIdsForTab('countdown'));
+  renderBatchList($('#pilih-kurir .batch-list'), ['12', '14']);
+  updateTabCounts();
+  updateIncomingStats();
+  updateBatchDetail('12');
+  $$('.courier').forEach((row) => {
+    const button = $('button', row);
+    if (!button) return;
+    const name = $('.courier-name', row).textContent.trim();
+    if ($('.online-dot.is-off', row)) {
+      button.addEventListener('click', () => toast(`${name} sedang offline — pilih kurir online.`));
+    } else {
+      button.addEventListener('click', () => assignCourier(name));
+    }
+  });
+
+  // Search & filter batch.
+  $('#batch .appbar [aria-label="Cari"]').addEventListener('click', () => {
+    const wrap = $('#batch-search');
+    wrap.hidden = !wrap.hidden;
+    if (!wrap.hidden) $('#batch-search input').focus();
+  });
+  $('#batch .appbar [aria-label="Filter"]').addEventListener('click', (event) => {
+    const wrap = $('#batch-filters');
+    wrap.hidden = !wrap.hidden;
+    event.currentTarget.classList.toggle('is-on', !wrap.hidden);
+  });
+  $$('#pilih-kurir .appbar [aria-label="Cari"], #pilih-kurir .appbar [aria-label="Filter"]').forEach((button) => {
+    button.addEventListener('click', () => {
+      scrollToPhone('#batch');
+      $(`#batch .appbar [aria-label="${button.getAttribute('aria-label')}"]`).click();
+    });
+  });
+  $('[aria-label="Tutup pencarian"]').addEventListener('click', () => {
+    const wrap = $('#batch-search');
+    wrap.hidden = true;
+    $('#batch-search input').value = '';
+    applyBatchFilters();
+  });
+  $('#batch-search input').addEventListener('input', applyBatchFilters);
+
+  // Toggle semua pesanan masuk.
+  $('#show-all-orders').addEventListener('click', (event) => {
+    const button = event.currentTarget;
+    const existing = $('#beranda .order-card[data-order="57251"]');
+    if (existing) {
+      existing.remove();
+      button.textContent = 'Lihat semua';
+    } else {
+      $('#beranda .order-list').insertAdjacentHTML('beforeend', orderCardHTML('57251'));
+      button.textContent = 'Tutup';
+    }
+    updateIncomingStats();
+  });
+
+  // Detail batch: lihat semua order + chips.
+  $('#detail-batch .more-order').addEventListener('click', (event) => {
+    const opened = addExtraRows();
+    event.currentTarget.childNodes[0].textContent = opened ? 'Tutup daftar order ' : 'Lihat semua order ';
+  });
+  $$('#detail-batch .chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      $$('#detail-batch .chip').forEach((item) => item.classList.toggle('is-active', item === chip));
+      const label = chip.childNodes[0].textContent.trim().toLowerCase();
+      applyRowFilter(label === 'selesai' ? 'selesai' : label === 'packing' ? 'packing' : label === 'pending' ? 'pending' : 'all');
+    });
+  });
+
+  // Aksi utama.
+  $('#detail-batch .hero-courier button').addEventListener('click', () => openSheet(selectedBatch, '#detail-batch'));
+  $('#detail-batch [data-batch-action="close"]').addEventListener('click', () => {
+    const batch = batches[selectedBatch];
+    if (!batch || batch.status !== 'countdown') return;
+    batch.status = 'closed';
+    batch.tab = 'waiting';
+    batch.time = '';
+    batch.meta = `${batch.done}/${batch.total} order · ditutup lebih awal`;
+    updateTabCounts();
+    renderBatchList($('#batch .batch-list'), batchIdsForTab(batchTab));
+    applyBatchFilters();
+    updateBatchDetail(selectedBatch);
+    updateIncomingStats();
+    toast(`Batch #${selectedBatch} ditutup lebih awal`);
+  });
+  $('#detail-batch [data-batch-action="start"]').addEventListener('click', () => {
+    const batch = batches[selectedBatch];
+    if (!batch || batch.status !== 'closed') return;
+    if (!batch.courier) {
+      toast('Tugaskan kurir dulu sebelum mulai lebih awal.');
+      return;
+    }
+    batch.status = 'assigned';
+    batch.tab = 'assigned';
+    batch.meta = `${batch.done}/${batch.total} order · kurir ditugaskan`;
+    updateTabCounts();
+    renderBatchList($('#batch .batch-list'), batchIdsForTab(batchTab));
+    applyBatchFilters();
+    updateBatchDetail(selectedBatch);
+    updateIncomingStats();
+    toast(`Batch #${selectedBatch} mulai lebih awal`);
+  });
+  $('#detail-order .detail-footer button').addEventListener('click', markReady);
+  $('#sukses .btn--primary').addEventListener('click', () => openBatch(selectedBatch));
+  $('#sukses .btn--ghost').addEventListener('click', () => scrollToPhone('#batch'));
+
+  // Dialog tolak.
+  const rejectDialog = $('#reject-dialog');
+  $('[data-reject-cancel]').addEventListener('click', () => {
+    rejectDialog.close();
+    rejectId = null;
+  });
+  $('[data-reject-confirm]').addEventListener('click', () => {
+    if (rejectId) {
+      const id = rejectId;
+      setOrderStatus(id, 'Ditolak');
+      toast(`Pesanan #${id} ditolak`);
+    }
+    rejectDialog.close();
+    rejectId = null;
+  });
+
+  // Delegasi klik.
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+
+    const nav = target.closest('.nav-item');
+    if (nav) {
+      const label = $('.nav-label', nav)?.textContent.trim();
+      if (label === 'Beranda') scrollToPhone('#beranda');
+      else if (label === 'Order') scrollToPhone('#batch');
+      else toast(`Layar ${label} belum termasuk slice ini.`);
+      return;
+    }
+
+    const tab = target.closest('.tab');
+    if (tab) {
+      const phone = tab.closest('.phone')?.id;
+      if (phone === 'batch' && tab.dataset.batchTab) {
+        setBatchTab(tab.dataset.batchTab);
+      } else if (phone === 'pilih-kurir' && tab.dataset.batchTab) {
+        setBatchTab(tab.dataset.batchTab);
+        scrollToPhone('#batch');
+      } else if (phone === 'beranda' && tab.textContent.includes('Batch')) {
+        scrollToPhone('#batch');
+      }
+      return;
+    }
+
+    const filterChip = target.closest('#batch-filters .chip');
+    if (filterChip) {
+      $$('#batch-filters .chip').forEach((chip) => chip.classList.toggle('is-active', chip === filterChip));
+      applyBatchFilters();
+      return;
+    }
+
+    const accept = target.closest('[data-accept]');
+    if (accept) {
+      const id = accept.dataset.accept;
+      setOrderStatus(id, 'Diterima');
+      toast(`Pesanan #${id} diterima`);
+      return;
+    }
+
+    const reject = target.closest('[data-reject]');
+    if (reject) {
+      rejectId = reject.dataset.reject;
+      $('#reject-copy').textContent = `Pesanan #${rejectId} akan ditolak dan tidak masuk ke antrean dapur.`;
+      rejectDialog.showModal();
+      return;
+    }
+
+    const viewOrder = target.closest('[data-view-order]');
+    if (viewOrder) {
+      renderOrder(viewOrder.dataset.viewOrder);
+      return;
+    }
+
+    const assign = target.closest('[data-assign]');
+    if (assign) {
+      openSheet(assign.dataset.assign, assign.closest('.phone').id === 'pilih-kurir' ? '#batch' : `#${assign.closest('.phone').id}`);
+      return;
+    }
+
+    const scrim = target.closest('.scrim');
+    if (scrim) {
+      scrollToPhone(sheetReturn);
+      return;
+    }
+
+    const back = target.closest('[aria-label="Kembali"]');
+    if (back) {
+      const phone = back.closest('.phone')?.id;
+      if (phone === 'batch') scrollToPhone('#beranda');
+      else if (phone === 'detail-batch') scrollToPhone('#batch');
+      else if (phone === 'detail-order') scrollToPhone('#detail-batch');
+      else if (phone === 'pilih-kurir') scrollToPhone(sheetReturn);
+      return;
+    }
+
+    if (target.closest('[aria-label="Menu lain"]')) {
+      toast('Menu lain: salin ID, tutup batch, atau hubungi dukungan.');
+      return;
+    }
+
+    if (target.closest('.bell')) {
+      toast('3 notifikasi: pesanan baru SA-MVSB1J3E, SA-MVSB1J3F, SA-MVSB1J3G.');
+      return;
+    }
+
+    if (target.closest('#beranda .store-row')) {
+      toast('Profil Warung Sate Pak Ali');
+      return;
+    }
+
+    if (target.closest('.store-link')) {
+      toast('Membuka profil Warung Sate Pak Ali');
+      return;
+    }
+
+    if (target.closest('#detail-order [aria-label="Telepon customer"]')) {
+      toast('Menghubungi customer via telepon');
+      return;
+    }
+
+    if (target.closest('#detail-order [aria-label="Buka peta"]')) {
+      toast('Membuka lokasi pengantaran di peta');
+      return;
+    }
+
+    const orderCard = target.closest('#beranda .order-card');
+    if (orderCard && !target.closest('button')) {
+      renderOrder(orderCard.dataset.order);
+      return;
+    }
+
+    const batchCard = target.closest('.batch-card');
+    if (batchCard && !target.closest('button')) {
+      openBatch(batchCard.dataset.batch);
+      return;
+    }
+
+    const row = target.closest('#detail-batch .order-row');
+    if (row) {
+      renderOrder(row.dataset.order);
+    }
+  });
+
+  // Esc menutup sheet.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !$('#pilih-kurir .scrim').hidden) {
+      scrollToPhone(sheetReturn);
+    }
+  });
+})();
+</script>
+</body>
+</html>

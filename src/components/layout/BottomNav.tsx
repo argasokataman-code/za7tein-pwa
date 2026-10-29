@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react'
 import { createPortal } from 'react-dom'
 import { Heart, House, ShoppingBag, User } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import { useAppSelector } from '../../hooks/useAppStore'
 import { selectCartCount } from '../../store/slices/cartSlice'
@@ -13,6 +13,8 @@ export interface BottomNavItem {
   end?: boolean
   badge?: number
   srText?: string
+  /** Prefix rute lain yang masih dianggap bagian menu ini (mis. batch = Order). */
+  activePaths?: string[]
 }
 
 const defaultItems: BottomNavItem[] = [
@@ -24,6 +26,7 @@ const defaultItems: BottomNavItem[] = [
 
 export function BottomNav({ items: propItems }: { items?: BottomNavItem[] }) {
   const cartCount = useAppSelector((s) => selectCartCount(s.cart.items))
+  const { pathname } = useLocation()
 
   const items =
     propItems ??
@@ -54,12 +57,21 @@ export function BottomNav({ items: propItems }: { items?: BottomNavItem[] }) {
   // `NavLink` tetap membaca rute aktif dengan benar.
   return createPortal(
     <nav className="bottom-nav">
-      {items.map(({ to, label, Icon, end, badge, srText }) => (
+      {items.map(({ to, label, Icon, end, badge, srText, activePaths }) => (
         <NavLink
           key={to}
           to={to}
           end={end}
-          className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          className={({ isActive }) =>
+            `nav-item ${
+              isActive ||
+              activePaths?.some(
+                (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+              )
+                ? 'active'
+                : ''
+            }`
+          }
         >
           <span className="nav-icon-wrap">
             <Icon strokeWidth={1.75} />

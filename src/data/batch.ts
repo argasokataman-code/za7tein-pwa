@@ -22,6 +22,17 @@ export const BATCH_STATUS_LABEL: Record<BatchStatus, string> = {
   done: 'Selesai',
 }
 
+/** Tahap kerja batch di layar merchant, urut dari lahir sampai tuntas. */
+export type BatchTabId = 'countdown' | 'waiting' | 'assigned' | 'delivering' | 'done'
+
+export const BATCH_TABS = [
+  { id: 'countdown', label: 'Hitung mundur' },
+  { id: 'waiting', label: 'Menunggu kurir' },
+  { id: 'assigned', label: 'Ditugaskan' },
+  { id: 'delivering', label: 'Diantar' },
+  { id: 'done', label: 'Selesai' },
+] as const satisfies readonly { id: BatchTabId; label: string }[]
+
 /** Batch yang masih boleh menerima order baru: hitung mundur berjalan & belum penuh. */
 export function joinableBatches(batches: Batch[]): Batch[] {
   return batches.filter(
@@ -96,6 +107,38 @@ export function batchNumber(batchId: string | undefined): number | null {
 export function batchIsDone(batch: Batch, orders: MerchantOrder[]): boolean {
   const list = batchOrders(batch, orders)
   return list.length > 0 && list.every((order) => order.status === 'selesai')
+}
+
+/**
+ * Tahap batch untuk tab. `closed` dan `awaiting_courier` satu tab karena
+ * keduanya sama-sama menunggu kurir; kartu tetap membawa status aslinya.
+ */
+export function batchTabId(batch: Batch, orders: MerchantOrder[]): BatchTabId {
+  if (batchIsDone(batch, orders) || batch.status === 'done') return 'done'
+  if (batch.status === 'closed' || batch.status === 'awaiting_courier') return 'waiting'
+  if (batch.status === 'assigned') return 'assigned'
+  if (batch.status === 'delivering') return 'delivering'
+  return 'countdown'
+}
+
+export function batchesForTab(
+  batches: Batch[],
+  orders: MerchantOrder[],
+  tab: BatchTabId,
+): Batch[] {
+  return batches.filter((batch) => batchTabId(batch, orders) === tab)
+}
+
+/** Jumlah order batch yang sudah packing. */
+export function batchPackedCount(batch: Batch, orders: MerchantOrder[]): number {
+  return batchOrders(batch, orders).filter(orderPacked).length
+}
+
+/** Persentase kapasitas batch terisi, dibulatkan; cocok dengan label `n/24 order`. */
+export function batchProgress(batch: Batch, orders: MerchantOrder[]): number {
+  const list = batchOrders(batch, orders)
+  if (list.length === 0) return 0
+  return Math.round((list.length / MAX_BATCH_ORDERS) * 100)
 }
 
 /** Id batch baru: nomor bebas terkecil, supaya tak menabrak batch yang ada. */

@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { createBatchOnBe } from '../api/batches'
 import { BATCH_COUNTDOWN_SECONDS, nextBatchId } from '../data/batch'
@@ -24,6 +25,7 @@ const MERCHANT_ID = 'merchant-1'
  */
 export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const batchOf = useCallback(
     (orderId: string) => batches.find((b) => b.orderIds.includes(orderId)) ?? null,
@@ -35,8 +37,10 @@ export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
    * Tanpa batch, panel Batch kurir tidak punya tempat memilih kurir, jadi
    * packing/aksi kurir membuatkan batch lebih dulu.
    */
-  const ensureBatch = async (order: MerchantOrder) => {
-    if (orderDeliveryType(order) !== 'regular' || batchOf(order.id)) return
+  const ensureBatch = async (order: MerchantOrder): Promise<string | null> => {
+    if (orderDeliveryType(order) !== 'regular') return null
+    const existing = batchOf(order.id)
+    if (existing) return existing.id
     const estimateMinutes = order.cookMinutes ?? DEFAULT_COOK_MINUTES
     // Tulis dulu ke BE: id barisnya dipakai sebagai id batch FE, supaya batch
     // yang sama terlihat dari perangkat lain (dulu batch hanya hidup di Redux).
@@ -57,6 +61,7 @@ export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
       }),
     )
     dispatch(setOrderBatch({ id: order.id, batchId }))
+    return batchId
   }
 
   const readyHint = (order: MerchantOrder) => {
@@ -64,24 +69,25 @@ export function useOrderHandoff(batches: Batch[], couriers: Courier[]) {
       return 'Serahkan ke kurir partner; status berubah Diantar setelah kurir menerima.'
     }
     const batch = batchOf(order.id)
-    if (!batch) return 'Pilih kurir inhouse di panel Batch kurir.'
-    if (!batch.courierId) return 'Pilih kurir inhouse di panel Batch kurir di atas.'
+    if (!batch) return 'Buka Batch dapur untuk memilih kurir inhouse.'
+    if (!batch.courierId) return 'Pilih kurir inhouse di detail batch.'
     const name = couriers.find((c) => c.id === batch.courierId)?.name ?? 'Kurir'
     if (batch.status === 'closed') {
-      return `${name} sudah ditugaskan — setujui mulai antar di panel Batch kurir.`
+      return `${name} sudah ditugaskan. Setujui mulai antar di detail batch.`
     }
     return `${name} mengantar batch ini setelah kamu menutup batch lebih awal.`
   }
 
-  /** Panel batch ada di atas daftar; gulirkan, jangan pindahkan halaman. */
+  /** Daftar batch sekarang punya layar sendiri, bukan panel di atas antrean. */
   const showBatchPanel = () => {
-    document.querySelector('.merchant-batch')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    navigate('/orders?view=batch')
   }
 
-  /** Aksi "Pilih kurir batch": pastikan batch ada dulu, baru gulir ke panel. */
-  const openBatch = (order: MerchantOrder) => {
-    void ensureBatch(order)
-    showBatchPanel()
+  /** Aksi "Pilih kurir batch": pastikan batch ada, lalu buka detailnya. */
+  const openBatch = async (order: MerchantOrder) => {
+    const batchId = await ensureBatch(order)
+    if (batchId) navigate(`/batches/${batchId}`)
+    else showBatchPanel()
   }
 
   return { batchOf, ensureBatch, readyHint, showBatchPanel, openBatch }

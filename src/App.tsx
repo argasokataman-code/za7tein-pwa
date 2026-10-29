@@ -51,6 +51,7 @@ import Language from './pages/Language'
 import MenuDetail from './pages/MenuDetail'
 import MerchantCouriers from './pages/MerchantCouriers'
 import MerchantCoverage from './pages/MerchantCoverage'
+import MerchantBatchDetail from './pages/MerchantBatchDetail'
 import MerchantDashboard from './pages/MerchantDashboard'
 import MerchantMenu from './pages/MerchantMenu'
 import MerchantOnboarding from './pages/MerchantOnboarding'
@@ -213,6 +214,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/pending', MerchantPending],
   ['/', MerchantDashboard],
   ['/orders', MerchantOrders],
+  ['/batches/:batchId', MerchantBatchDetail],
   ['/notifications', Notifications],
   ['/order-chat', OrderChat],
   ['/menu', MerchantMenu],
