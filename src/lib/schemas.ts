@@ -52,7 +52,9 @@ export const merchantSignUpSchema = z.object({
 export const merchantMenuItemSchema = z.object({
   name: z.string().min(2, 'Nama minimal 2 karakter'),
   price: z.number().min(1000, 'Harga minimal Rp1.000'),
-  category: z.string().min(2, 'Kategori wajib diisi'),
+  // Kategori = id dari `menu_categories` BE (`"1"`, `"2"`, …), jadi cukup
+  // "ada pilihan". min(2) dulu membuat id satu digit selalu ditolak.
+  category: z.string().min(1, 'Kategori wajib diisi'),
   stock: z.number().min(0, 'Stok tidak boleh negatif'),
   // Estimasi masak per menu (menit). Diisi bersamaan dengan harga & stok di
   // form item, lalu dibaca kartu menu customer + estimasi order.
