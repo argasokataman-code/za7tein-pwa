@@ -1,20 +1,43 @@
 // ── /payment-amount (customer) — blok metode bayar ─────────────────────────
-// Audit 008 (anti-slop/audit-008-2026-10-10.md). Kartu metode jadi titik fokus
-// halaman: permukaan `--orange-soft` + tepi merek, seragam dengan kartu terpilih
-// di /payment-selection. Sebelumnya kartu putih di atas halaman hangat sehingga
-// tak terbaca sebagai kartu. Pembungkus kehilangan `padding: 20px` sisa
-// app/part-12 (gutter sudah datang dari .payment-amount-content), jadi kartu
-// memakai lebar penuh 390px, bukan 350px.
+// Audit 008 (anti-slop/audit-008-2026-10-10.md), direvisi 2026-10-29: kartu
+// metode bukan lagi bidang oranye penuh (terbaca sebagai kartu "disorot"
+// dengan tepi merek di semua sisi). Sekarang memakai bahasa kartu yang sama
+// dengan panel lain di halaman ini — `--surface` + `--border-strong` — dan
+// mengangkat dirinya lewat bayangan token, bukan lewat warna latar. Aksen
+// merek tinggal di chip nominal yang benar-benar dipilih.
+// Pembungkus kehilangan `padding: 20px` sisa app/part-12 (gutter sudah datang
+// dari .payment-amount-content), jadi kartu memakai lebar penuh 390px.
 
 .payment-method-display {
   padding: 0;
 }
 
-// Titik fokus: satu-satunya kartu berwarna di halaman. Teks di atas --orange-soft
-// lolos AA (nama 10,2:1, catatan 5,3:1, tombol 5,3:1).
 .payment-method-card {
-  background-color: var(--orange-soft);
-  border: 1px solid var(--sa7tein-orange);
+  background-color: var(--surface);
+  border: 1px solid var(--border-strong);
+  /* `--shadow-card` = dua lapis (kontak rapat + sebaran luas). Satu lapis
+     `--shadow-md` terbaca rata dan kartunya tampak mengambang tanpa bobot. */
+  box-shadow: var(--shadow-card);
+}
+
+// Kartu COD di dalamnya bukan kartu putih kedua: latar hangat + garis rambut
+// supaya tetap terbaca sebagai kelompok kontrol di atas permukaan putih.
+.payment-method-card .cod-cash-card {
+  border-color: var(--border);
+  background-color: var(--bg-warm);
+}
+
+// Kembalian adalah keluaran utama blok ini, jadi hint-nya tidak boleh jadi teks
+// paling redup di dalam kartu; nominal total dinaikkan satu tingkat supaya mata
+// mendarat di angka, bukan di label.
+.payment-method-card .cod-cash-hint {
+  margin-top: var(--space-3);
+  color: var(--text-primary);
+}
+
+.payment-method-card .cod-cash-row--total .cod-cash-amount {
+  font-size: var(--text-base);
+  font-weight: 700;
 }
 
 // Judul seksi mengikuti pola judul seksi halaman (ringkasan pesanan): satu
