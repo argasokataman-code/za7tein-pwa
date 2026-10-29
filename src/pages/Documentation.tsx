@@ -705,11 +705,10 @@ export default function Documentation() {
                 <code className="doc-inline">quota_subscriptions</code> dari paket{' '}
                 <code className="doc-inline">quota_packages</code>; kalau BE mati, slice kuota
                 (mock) tetap jalan. Pengurangan saldo &amp; pencatatan pembayaran paket belum ada di
-                BE. Setting "terima order tanpa kuota"
-                hanya bisa diubah <strong>saat toko tutup</strong> (§17) — saat toko buka, sakelarnya
-                mati dan sebabnya ditulis di tempat. Saat menyala, kartunya menjadi hijau penuh; di
-                atas permukaan pekat itu sakelar dan labelnya dinetralkan (trek translucent, tombol
-                navy) supaya oranye merek tidak bertabrakan dengan latar hijau.
+                BE. Setting "terima order tanpa kuota" <strong>disembunyikan dari demo</strong> karena
+                belum dipakai alur mana pun. State dan aturan blokir kuota tetap ada (default mati),
+                jadi toko yang kuota order-nya habis tetap tidak tampil di beranda sampai fitur ini
+                diaktifkan lagi.
               </li>
               <li>
                 <strong>Program marketing ala Odoo (§15).</strong> Program punya tipe, pemilik (toko

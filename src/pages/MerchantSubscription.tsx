@@ -28,7 +28,6 @@ import {
   purchaseSubscription,
   quotaStatusFor,
   replaceQuotaSubscriptions,
-  setAcceptWithoutQuota,
 } from '../store/slices/quotaSlice'
 import type { QuotaKind, QuotaPackage } from '../types'
 
@@ -67,9 +66,6 @@ export default function MerchantSubscription() {
   const dispatch = useAppDispatch()
   const { money } = useMoney()
   const subs = useAppSelector((s) => s.quota.subscriptions)
-  const acceptWithoutQuota = useAppSelector((s) => s.quota.acceptWithoutQuota)
-  // §17: setting "terima order tanpa kuota" hanya bisa diubah saat toko tutup.
-  const storeClosed = useAppSelector((s) => !s.merchant.isActive)
   const merchantId = String(DEMO_MERCHANT_ID)
   const [packages, setPackages] = useState<QuotaPackage[]>(mockQuotaPackages)
 
@@ -193,7 +189,7 @@ export default function MerchantSubscription() {
 
         <p className="merchant-card-sub">
           Sisa ≤ {Math.round(QUOTA_LOW_RATIO * 100)}% paket dihitung hampir habis. Saat kuota order
-          habis, toko disembunyikan dari beranda kecuali sakelar di bawah menyala.
+          habis, toko disembunyikan dari beranda.
         </p>
 
         <section className="merchant-section">
@@ -229,35 +225,6 @@ export default function MerchantSubscription() {
           </p>
         </section>
 
-        {/* Nada kartu mengikuti keadaan sakelar: hijau saat "terima order tanpa
-            kuota" menyala, netral saat mati. Latar penuh karena kartunya sendiri
-            adalah status. */}
-        <section className={acceptWithoutQuota ? 'merchant-card tone-success tone-fill' : 'merchant-card'}>
-          <p className="merchant-card-title">Terima order tanpa kuota</p>
-          <p className="merchant-card-sub">
-            Saat menyala, toko tetap tampil di beranda meski kuota order habis; order seperti itu
-            tidak memotong kuota.
-          </p>
-          {/* Seluruh baris jadi sasaran sentuh (audit 019): label membungkus input. */}
-          <label className="merchant-row">
-            <span>Izinkan order tanpa kuota</span>
-            <span className="toggle-wrap">
-              <input
-                className="toggle-input"
-                type="checkbox"
-                checked={acceptWithoutQuota}
-                disabled={!storeClosed}
-                onChange={(e) => dispatch(setAcceptWithoutQuota(e.target.checked))}
-              />
-              <span className="toggle-slider" />
-            </span>
-          </label>
-          <p className="merchant-card-sub">
-            {storeClosed
-              ? 'Toko sedang tutup, setting ini boleh diubah.'
-              : 'Toko sedang buka, tutup dulu untuk mengubah setting ini (§17).'}
-          </p>
-        </section>
       </main>
       <MerchantBottomNav />
     </div>

@@ -82,7 +82,7 @@ export default function MerchantBatchDetail() {
           back="/orders?view=batch"
         />
 
-        <article className="merchant-batch-hero">
+        <article className={`merchant-batch-hero merchant-batch-hero--${status}`}>
           <div className="merchant-batch-hero-top">
             <div>
               <p className="merchant-batch-hero-kicker">Ruang tunggu kurir</p>

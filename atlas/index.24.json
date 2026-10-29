@@ -2895,6 +2895,352 @@
           "raw": "TASK-212609:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-212614",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:38:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-batch.scss (+17/-7) — edit via tool: .merchant-batch-hero {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-batch.scss"
+    },
+    {
+      "id": "TASK-212615",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:38:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantBatchDetail.tsx (+1/-1) — edit via tool: tsx: <article className={`mercha",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantBatchDetail.tsx"
+    },
+    {
+      "id": "TASK-212616",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:38:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212617",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:38:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -8 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212618",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:41:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+2/-5) — edit via tool: tsx: const subs = useAppSelecto",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-212619",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:42:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+3/-4) — edit via tool: tsx: Setting \"terima order tanpa kuota",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212620",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:43:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+4/-5) — edit via tool: tsx: BE. Setting \"terima order tanpa k",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212621",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:43:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212622",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:43:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | grep -E \"MerchantSubscription|error\" | head -20; echo \"lint-exit:$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212623",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:44:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+2/-2) — edit via tool: tsx: Sisa ≤ {Math.round(QUOTA_L",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-212624",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:44:49",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4 && npm run scan 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212625",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:48:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss (+26/-18) — edit via tool: // ── /payment-amount (cu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss"
+    },
+    {
+      "id": "TASK-212626",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:49:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -5 pas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212627",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:53:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss (+26/-12) — edit via tool: .payment-method-card {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss"
+    },
+    {
+      "id": "TASK-212628",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:55:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss (+3/-3) — edit via tool: /* `--shadow-card` = dua la",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss"
+    },
+    {
+      "id": "TASK-212629",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:57:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss (+4/-3) — edit via tool: .payment-method-card .cod-c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_payment-amount.scss"
+    },
+    {
+      "id": "TASK-212630",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:57:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -3 && ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-153540",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-29",
+      "time": "23:59:05",
+      "tags": [
+        "ui",
+        "customer",
+        "cod",
+        "design-system"
+      ],
+      "summary": "Kartu metode COD /payment-amount: dari orange-soft penuh jadi surface + border-strong + shadow-card, rincian bg-warm, hint text-primary",
+      "conn": [
+        {
+          "id": "FEAT-153506",
+          "type": "relates",
+          "raw": "FEAT-153506:relates"
+        }
+      ],
+      "loc": "src/styles/system/_payment-amount.scss:15",
+      "commit": "dd77498"
     }
   ]
 }

@@ -215,6 +215,16 @@
   gap: var(--space-3);
   padding: var(--space-4);
   margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-subtle);
+}
+
+/* Kartu hitung mundur membawa tekanan waktu, jadi permukaannya menghangat dan
+   naik satu tingkat dari kartu biasa. Nada peringatan dipakai, bukan oranye
+   merek: oranye adalah aksi, waktu adalah status. */
+.merchant-batch-hero--countdown {
+  background: color-mix(in srgb, var(--warning-soft) 65%, var(--surface));
+  border-color: color-mix(in srgb, var(--warning-ink) 24%, var(--border-strong));
+  box-shadow: var(--shadow-md);
 }
 
 .merchant-batch-hero-top {
