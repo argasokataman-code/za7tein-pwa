@@ -44,16 +44,25 @@ export function CodLoyaltySection() {
             </tr>
             <tr>
               <td>Detail tugas (kurir)</td>
-              <td>Chip nominal, input uang diterima, kembalian, tombol OTP terkunci bila kurang</td>
               <td>
+                Rincian tagihan + kembalian per nominal sejak tugas masuk; chip nominal, input
+                uang diterima, dan kembalian tercatat saat checkpoint Tiba; tombol OTP terkunci
+                bila uang kurang
+              </td>
+              <td>
+                <code className="doc-inline">codCashOptions(total)</code> +{' '}
                 <code className="doc-inline">codChangeIdr(total, received)</code>
               </td>
             </tr>
             <tr>
               <td>Detail order (merchant)</td>
-              <td>Label "COD tunai · ditagih kurir" + nominal</td>
               <td>
-                <code className="doc-inline">order.total</code>
+                Rincian subtotal, ongkir/layanan/tips, tagihan tunai, plus kembalian per
+                nominal (uang pas / 1 JOD / 5 JOD)
+              </td>
+              <td>
+                <code className="doc-inline">order.items</code> + <code className="doc-inline">order.total</code> +{' '}
+                <code className="doc-inline">codCashOptions(total)</code>
               </td>
             </tr>
           </tbody>

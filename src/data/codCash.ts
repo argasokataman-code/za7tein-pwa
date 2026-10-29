@@ -10,6 +10,7 @@
  * nominal internal tetap IDR seperti seluruh app.
  */
 import { idrToJod, jodToIdr, moneyPlain } from './currency'
+import type { CartItem } from '../types'
 
 export interface CodCashOption {
   id: 'exact' | 'round-1' | 'round-5'
@@ -22,6 +23,15 @@ export interface CodCashOption {
 /** Selisih uang diterima dan tagihan. Kurang dari tagihan = 0, bukan negatif. */
 export function codChangeIdr(totalIdr: number, receivedIdr: number): number {
   return Math.max(0, receivedIdr - totalIdr)
+}
+
+/** Rincian tagihan tunai + pilihan kembalian untuk merchant dan kurir. */
+export interface CodCashDue {
+  subtotalIdr: number
+  /** Ongkir, layanan, dan tips: `total − subtotal`, tidak pernah negatif. */
+  extraIdr: number
+  totalIdr: number
+  options: CodCashOption[]
 }
 
 /**
@@ -53,6 +63,27 @@ export function codCashOptions(totalIdr: number): CodCashOption[] {
     })
   }
   return options
+}
+
+/**
+ * Rincian uang tunai yang dibayar customer di depan pintu, dipakai sisi
+ * merchant dan kurir supaya keduanya menyiapkan kembalian dari angka yang sama.
+ *
+ * Subtotal dihitung dari item; sisanya (`total − subtotal`) adalah ongkir,
+ * layanan, dan tips yang tidak dipecah karena `MerchantOrder`/`CourierTask`
+ * tidak menyimpan kolomnya (lihat komentar `InvoiceRow` di types.ts).
+ */
+export function codCashDue(
+  items: Pick<CartItem, 'price' | 'quantity'>[],
+  totalIdr: number,
+): CodCashDue {
+  const subtotalIdr = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  return {
+    subtotalIdr,
+    extraIdr: Math.max(0, totalIdr - subtotalIdr),
+    totalIdr,
+    options: codCashOptions(totalIdr),
+  }
 }
 
 /**

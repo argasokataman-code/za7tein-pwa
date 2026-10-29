@@ -8,6 +8,7 @@ import { JourneyLine } from '../components/JourneyLine'
 import { DeliveryActionCard, DeliveryStepper } from '../components/DeliveryCheckpoints'
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { OrderCelebration } from '../components/ui/OrderCelebration'
+import { CodCashDue } from '../components/ui/CodCashDue'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
@@ -192,52 +193,58 @@ export default function CourierTaskDetail() {
           </p>
         </section>
 
-        {showCash ? (
+        {/* COD tunai: pecahan tagihan + kembalian terlihat sejak tugas masuk,
+            supaya kurir bisa menyiapkan uang kembalian sebelum berangkat.
+            Input uang diterima tetap hanya di checkpoint `tiba`. */}
+        {task.paymentMethod === 'cod' ? (
           <section className="courier-section">
             <h2 className="courier-section-title">Uang tunai</h2>
-            <div className="cod-cash-card">
-              <div className="cod-cash-options" role="radiogroup" aria-label="Nominal uang diterima">
-                {cashOptions.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={cashChosenIdr === option.receivedIdr}
-                    className={
-                      cashChosenIdr === option.receivedIdr
-                        ? 'cod-cash-chip is-active'
-                        : 'cod-cash-chip'
-                    }
-                    onClick={() => {
-                      setCashChosenIdr(option.receivedIdr)
-                      setCashInput('')
+            <CodCashDue items={task.items} totalIdr={task.total} />
+            {showCash ? (
+              <div className="cod-cash-card">
+                <div className="cod-cash-options" role="radiogroup" aria-label="Nominal uang diterima">
+                  {cashOptions.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={cashChosenIdr === option.receivedIdr}
+                      className={
+                        cashChosenIdr === option.receivedIdr
+                          ? 'cod-cash-chip is-active'
+                          : 'cod-cash-chip'
+                      }
+                      onClick={() => {
+                        setCashChosenIdr(option.receivedIdr)
+                        setCashInput('')
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+                <label className="cod-cash-field">
+                  <span>Uang diterima (JOD)</span>
+                  <input
+                    inputMode="decimal"
+                    value={cashInput}
+                    placeholder="0,00"
+                    onChange={(event) => {
+                      setCashInput(event.target.value)
+                      setCashChosenIdr(null)
                     }}
-                  >
-                    {option.label}
-                  </button>
-                ))}
+                  />
+                </label>
+                <div className="cod-cash-row cod-cash-row--total">
+                  <span>Kembalian</span>
+                  <span className="cod-cash-amount">{money(cashChangeIdr)}</span>
+                </div>
               </div>
-              <label className="cod-cash-field">
-                <span>Uang diterima (JOD)</span>
-                <input
-                  inputMode="decimal"
-                  value={cashInput}
-                  placeholder="0,00"
-                  onChange={(event) => {
-                    setCashInput(event.target.value)
-                    setCashChosenIdr(null)
-                  }}
-                />
-              </label>
-              <div className="cod-cash-row">
-                <span>Tagihan</span>
-                <span className="cod-cash-amount">{money(task.total)}</span>
-              </div>
-              <div className="cod-cash-row cod-cash-row--total">
-                <span>Kembalian</span>
-                <span className="cod-cash-amount">{money(cashChangeIdr)}</span>
-              </div>
-            </div>
+            ) : (
+              <p className="cod-cash-hint">
+                Uang diterima dicatat saat serah terima (checkpoint Tiba).
+              </p>
+            )}
           </section>
         ) : null}
 

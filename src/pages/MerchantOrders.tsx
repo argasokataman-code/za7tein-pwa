@@ -18,6 +18,7 @@ import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { OrderChatLink } from '../components/merchant/OrderChatLink'
 import { MerchantCookPanel } from '../components/merchant/MerchantCookPanel'
 import { MerchantEarnings } from '../components/merchant/MerchantEarnings'
+import { MerchantOrderCash } from '../components/merchant/MerchantOrderCash'
 import { LoyalBadge } from '../components/ui/LoyalBadge'
 import { OrderTimeline } from '../components/merchant/OrderTimeline'
 import { OrderPaymentProof } from '../components/merchant/OrderPaymentProof'
@@ -524,6 +525,7 @@ export default function MerchantOrders() {
               {detailOrder.paymentMethod === 'cod' ? 'COD tunai · ditagih kurir' : 'Transfer'}
             </p>
             <p className="merchant-order-total">Total {money(detailOrder.total)}</p>
+            <MerchantOrderCash order={detailOrder} />
             <MerchantEarnings order={detailOrder} />
             <OrderPaymentProof order={detailOrder} />
             <OrderChatLink orderId={detailOrder.id} />

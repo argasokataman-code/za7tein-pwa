@@ -39,6 +39,14 @@ tetapi tidak ada jumlah order seumur akun, dan PRD tidak menyebut loyalitas
 7. Opsi COD ditutup bila kuota COD merchant habis (§17, MER-19), termasuk saat
    layar bayar dibuka langsung tanpa lewat pemilihan metode.
 8. Invoice merchant order COD tidak memotong `Pm` (§16.5); net = subtotal item.
+9. Permintaan pemilik (2026-10-29): merchant dan kurir melihat **rincian uang
+   tunai** yang dibayar customer di detail order/tugas COD, bukan hanya satu
+   nominal. Rincian = subtotal menu, ongkir/layanan/tips (sisa
+   `total − subtotal`, tidak dipecah karena order tidak menyimpan kolomnya),
+   tagihan tunai, lalu kembalian untuk tiap nominal `codCashOptions`. Merchant
+   melihatnya di detail order masuk sebelum menerima; kurir melihatnya sejak
+   tugas masuk, sedangkan input uang diterima tetap hanya di checkpoint `tiba`.
+   Satu komponen `CodCashDue` dipakai kedua sisi.
 
 ## Konsekuensi & pekerjaan BE
 
@@ -59,6 +67,7 @@ tetapi tidak ada jumlah order seumur akun, dan PRD tidak menyebut loyalitas
 
 - `src/data/codCash.ts` (`codCashOptions`, `codChangeIdr`, `codCashHint`).
 - `src/components/customer/CodCashSection.tsx`,
+  `src/components/ui/CodCashDue.tsx` (rincian tagihan + kembalian merchant/kurir),
   `src/components/ui/LoyalBadge.tsx`.
 - `src/pages/PaymentAmount.tsx`, `src/pages/CourierTaskDetail.tsx`,
   `src/pages/MerchantOrders.tsx`, `src/pages/Profile.tsx`.

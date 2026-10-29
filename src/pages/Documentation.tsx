@@ -1425,6 +1425,16 @@ export default function Documentation() {
                 <strong>f25</strong>).
               </li>
               <li>
+                Merchant dan kurir kini melihat <strong>rincian uang tunai COD</strong> di detail
+                order/tugas: subtotal menu, ongkir/layanan/tips, tagihan tunai, dan kembalian untuk
+                tiap nominal (uang pas, 1 JOD, 5 JOD). Merchant melihatnya di detail order masuk
+                sebelum menerima; kurir sejak tugas masuk, sedangkan input uang diterima tetap di
+                checkpoint Tiba. Satu komponen{' '}
+                <code className="doc-inline">CodCashDue</code> + fungsi{' '}
+                <code className="doc-inline">codCashDue()</code> dipakai kedua sisi (lihat bagian{' '}
+                <strong>COD Tunai &amp; Pelanggan Setia</strong>).
+              </li>
+              <li>
                 Tugas kurir kini dari <strong>satu RPC BE</strong> (
                 <code className="doc-inline">courier_orders()</code>): nama/HP customer, alamat,
                 lantai/unit, item, dan tip ikut dari database (bukan lagi placeholder{' '}

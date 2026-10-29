@@ -2,7 +2,7 @@
 // Jalankan: node --import ./scripts/lib/ts-resolve.mjs scripts/cod-cash-check.mjs
 import assert from 'node:assert/strict'
 
-import { codCashHint, codCashOptions, codChangeIdr } from '../src/data/codCash.ts'
+import { codCashDue, codCashHint, codCashOptions, codChangeIdr } from '../src/data/codCash.ts'
 import { jodToIdr } from '../src/data/currency.ts'
 import { LOYAL_ORDER_MIN, isLoyalCustomer } from '../src/data/people.ts'
 
@@ -30,6 +30,21 @@ assert.equal(exactJod.length, 2)
 // Hint menyebut uang pas atau nominal + kembalian, bukan kalimat kosong.
 assert.match(codCashHint(total, total), /uang pas/i)
 assert.match(codCashHint(total, options[1].receivedIdr), /kembalian/i)
+
+// Rincian merchant/kurir: subtotal dari item, sisa = ongkir + layanan.
+const due = codCashDue(
+  [
+    { price: jodToIdr(0.2), quantity: 1 },
+    { price: jodToIdr(0.1), quantity: 2 },
+  ],
+  total,
+)
+assert.equal(due.subtotalIdr, jodToIdr(0.4))
+assert.equal(due.extraIdr, total - due.subtotalIdr)
+assert.equal(due.totalIdr, total)
+assert.deepEqual(due.options, options)
+// Total di bawah subtotal (mis. diskon penuh) tidak menghasilkan ongkir negatif.
+assert.equal(codCashDue([{ price: total * 2, quantity: 1 }], total).extraIdr, 0)
 
 const baseCustomer = {
   id: 'cus-test',
