@@ -96,6 +96,14 @@
       #boot-splash .boot-progress { width: 72px; height: 4px; overflow: hidden; border-radius: 9999px; background: #EDE4DC; }
       #boot-splash .boot-progress::after { content: ''; display: block; width: 36px; height: 100%; border-radius: inherit; background: #F15A37; animation: boot-move 1.1s ease-in-out infinite alternate; }
       @keyframes boot-move { to { transform: translateX(36px); } }
+      /* Splash berhenti jadi penjara: kalau skrip aplikasi gagal dimuat (aset
+         lama hilang setelah deploy, service worker menyajikan index basi),
+         tombol pemulihan muncul dan melepas SW + cache. */
+      #boot-splash .boot-stall { display: none; gap: 12px; justify-items: center; }
+      #boot-splash .boot-hint { font-size: 14px; color: #6B625B; }
+      #boot-splash.boot-stall .boot-progress { display: none; }
+      #boot-splash.boot-stall .boot-stall { display: grid; }
+      #boot-splash .boot-stall button { min-height: 44px; padding: 12px 18px; border-radius: 12px; border: 1px solid #DDD3CA; background: #FFFFFF; color: #202020; font: inherit; }
       @media (prefers-reduced-motion: reduce) { #boot-splash .boot-progress::after { animation: none; width: 72px; } }
     </style>
     <title>Sa7tein — Marketplace Makanan Hyperlocal</title>
@@ -105,14 +113,61 @@
       <div class="boot-inner">
         <img src="/icons/sa7tein-wordmark.svg" alt="Sa7tein" width="240" height="131" />
         <span class="boot-progress" aria-hidden="true"></span>
+        <div class="boot-stall">
+          <span class="boot-hint">Aplikasi tidak selesai dimuat.</span>
+          <button id="boot-retry" type="button">Muat ulang tanpa cache</button>
+        </div>
       </div>
     </div>
     <script>
-      if (['/customer', '/merchant', '/courier'].some(function (base) {
-        return location.pathname === base || location.pathname.startsWith(base + '/');
-      })) {
-        document.getElementById('boot-splash').hidden = false;
-      }
+      (function () {
+        var splash = document.getElementById('boot-splash')
+        if (!splash) return
+        var isApp = ['/customer', '/merchant', '/courier'].some(function (base) {
+          return location.pathname === base || location.pathname.startsWith(base + '/')
+        })
+        if (!isApp) return
+        splash.hidden = false
+
+        // Pemulihan: lepas service worker + cache, lalu muat ulang dengan URL
+        // baru supaya cache HTTP tidak mengembalikan index basi yang menunjuk
+        // aset yang sudah hilang. Satu-satunya jalan keluar kalau splash macet.
+        var recovered = false
+        function recover() {
+          if (recovered) return
+          recovered = true
+          var go = function () {
+            var base = location.href.split('#')[0]
+            var sep = base.indexOf('?') === -1 ? '?' : '&'
+            location.replace(base + sep + 'v=' + Date.now())
+          }
+          try {
+            var clearCaches = 'caches' in window
+              ? caches.keys().then(function (keys) {
+                  return Promise.all(keys.map(function (key) { return caches.delete(key) }))
+                })
+              : Promise.resolve()
+            var clearWorkers = 'serviceWorker' in navigator
+              ? navigator.serviceWorker.getRegistrations().then(function (regs) {
+                  return Promise.all(regs.map(function (reg) { return reg.unregister() }))
+                })
+              : Promise.resolve()
+            Promise.all([clearCaches, clearWorkers]).then(go, go)
+          } catch (error) {
+            go()
+          }
+        }
+
+        var retry = document.getElementById('boot-retry')
+        if (retry) retry.addEventListener('click', recover)
+        // Splash macet = skrip aplikasi gagal dimuat. Tampilkan tombol segera
+        // saat itu terjadi, dan tetap ada batas waktu untuk kasus diam.
+        window.addEventListener('error', function () { splash.classList.add('boot-stall') }, true)
+        window.addEventListener('unhandledrejection', function () { splash.classList.add('boot-stall') })
+        setTimeout(function () {
+          if (!splash.classList.contains('boot-done')) splash.classList.add('boot-stall')
+        }, 10000)
+      })()
     </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

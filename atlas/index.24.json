@@ -4662,6 +4662,120 @@
         }
       ],
       "loc": "src/hooks/useBackClose.ts:1"
+    },
+    {
+      "id": "TASK-212701",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:16:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/index.html (+11/-3) — edit via tool: #boot-splash .boot-progress::after { con",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/index.html"
+    },
+    {
+      "id": "TASK-212702",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:16:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/lib/appUpdate.tsx (+54/-27) — edit via tool: tsx: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/lib/appUpdate.tsx"
+    },
+    {
+      "id": "TASK-212703",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:17:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212704",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:18:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+12/-2) — edit via tool: tsx: (docs/design/mobile-dna.md).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212705",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:18:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | rtk grep -cE \"error \"; npm run scan 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212706",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:18:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

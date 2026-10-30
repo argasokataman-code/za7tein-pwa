@@ -3,6 +3,33 @@ import toast from 'react-hot-toast'
 export type UpdateResult = 'updated' | 'current' | 'unsupported'
 
 /**
+ * Muat ulang yang benar-benar memuat versi baru.
+ *
+ * `location.reload()` saja berbahaya di PWA: kalau service worker lama masih
+ * memegang `index.html` lama (aset hashed-nya sudah dihapus deploy baru),
+ * reload mengembalikan halaman yang sama dan splash boot menggantung. Jadi
+ * lepas worker + cache dulu, lalu navigasi dengan URL baru supaya cache HTTP
+ * tidak menyajikan index basi.
+ */
+async function reloadFresh() {
+  try {
+    if ('caches' in window) {
+      const keys = await caches.keys()
+      await Promise.all(keys.map((key) => caches.delete(key)))
+    }
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(regs.map((reg) => reg.unregister()))
+    }
+  } catch {
+    // Cache/worker tidak bisa diakses: reload biasa tetap lebih baik daripada diam.
+  }
+  const base = window.location.href.split('#')[0]
+  const separator = base.includes('?') ? '&' : '?'
+  window.location.replace(`${base}${separator}v=${Date.now()}`)
+}
+
+/**
  * Toast "versi baru siap" + tombol muat ulang.
  *
  * Dipakai dua jalur: deteksi otomatis (`controllerchange` di `main.tsx`) dan
@@ -19,7 +46,7 @@ export function promptAppUpdate() {
           className="update-toast__action"
           onClick={() => {
             toast.dismiss(t.id)
-            window.location.reload()
+            void reloadFresh()
           }}
         >
           Muat ulang

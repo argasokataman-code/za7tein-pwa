@@ -687,6 +687,16 @@ export default function Documentation() {
                 (docs/design/mobile-dna.md).
               </li>
               <li>
+                <strong>PWA macet saat update tidak lagi jadi jalan buntu.</strong> Tombol{' '}
+                <strong>Muat ulang</strong> melepas service worker + cache lalu membuka URL baru,
+                bukan <code className="doc-inline">location.reload()</code> biasa yang bisa
+                mengembalikan <code className="doc-inline">index.html</code> lama (asetnya sudah
+                hilang setelah deploy). Splash boot juga punya jaring: kalau skrip aplikasi gagal
+                dimuat, dalam 10 detik muncul tombol <strong>Muat ulang tanpa cache</strong> yang
+                melakukan pemulihan yang sama, jadi aplikasi terinstal tidak tertahan di layar
+                loading selamanya.
+              </li>
+              <li>
                 <strong>Refund jalan ke BE (M2c, §16.6).</strong> Layar{' '}
                 <code className="doc-inline">/customer/refund</code> menampilkan alur §16.6 lengkap —
                 saldo DANA (otomatis), rekening bank lewat BI-FAST (biaya{' '}
