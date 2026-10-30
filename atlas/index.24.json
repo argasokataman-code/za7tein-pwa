@@ -4776,6 +4776,44 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-212707",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:20:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/index.html (+16/-5) — edit via tool: window.addEventListener('error', functio",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/index.html"
+    },
+    {
+      "id": "TASK-212708",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-30",
+      "time": "08:21:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -3; curl -s https://sa7tein-c.vercel.app/customer/home | rtk grep -c \"boot-retry\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

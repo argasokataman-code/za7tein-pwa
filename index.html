@@ -165,7 +165,18 @@
         window.addEventListener('error', function () { splash.classList.add('boot-stall') }, true)
         window.addEventListener('unhandledrejection', function () { splash.classList.add('boot-stall') })
         setTimeout(function () {
-          if (!splash.classList.contains('boot-done')) splash.classList.add('boot-stall')
+          if (splash.classList.contains('boot-done')) return
+          splash.classList.add('boot-stall')
+          // Jangan menunggu 200 pengguna menekan tombol: coba pulihkan sendiri
+          // sekali per sesi (guard sessionStorage mencegah loop reload).
+          var key = 'sa7tein:boot-recover'
+          try {
+            if (sessionStorage.getItem(key)) return
+            sessionStorage.setItem(key, '1')
+          } catch (error) {
+            return
+          }
+          setTimeout(recover, 4000)
         }, 10000)
       })()
     </script>
