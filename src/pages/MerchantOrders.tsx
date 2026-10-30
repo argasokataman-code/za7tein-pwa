@@ -11,7 +11,6 @@ import { apiEnabled } from '../api/supabase'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { AcceptOrderSheet, type AcceptChoice } from '../components/merchant/AcceptOrderSheet'
-import { BatchFilter } from '../components/merchant/BatchFilter'
 import { BatchPanel } from '../components/merchant/BatchPanel'
 import { MerchantOrderTicket } from '../components/merchant/MerchantOrderTicket'
 import { JourneyLine } from '../components/JourneyLine'
@@ -133,8 +132,6 @@ export default function MerchantOrders() {
     url.delete('order')
     setParams(url, { replace: true })
   }
-  /* Saring daftar per batch (`null` = semua); order Regular bisa di beberapa batch. */
-  const [batchFilter, setBatchFilter] = useState<string | null>(null)
   /* Konfirmasi 2-langkah: aksi yang keluar rel / menahan uang tidak boleh
      terjadi karena satu sentuhan salah (ConfirmSheet, pola yang sama dengan
      panel CS). Id disimpan, bukan objek, supaya tetap valid setelah re-render. */
@@ -147,8 +144,6 @@ export default function MerchantOrders() {
 
   const activeTab = QUEUE_TABS.find((t) => t.id === tab) ?? QUEUE_TABS[0]
   const visible = ordersForStatuses(orders, activeTab.statuses)
-  const shown =
-    batchFilter === null ? visible : visible.filter((order) => order.batchId === batchFilter)
   const detailOrder = orders.find((o) => o.id === detailId) ?? null
   const acceptOrder = orders.find((o) => o.id === acceptId) ?? null
   const codeOf = (id: string | null) => orders.find((o) => o.id === id)?.code ?? ''
@@ -325,16 +320,22 @@ export default function MerchantOrders() {
           <>
             <div className="merchant-queue-stats">
               <div className="merchant-stat merchant-stat--queue">
-                <span className="merchant-stat-value">{queueCount}</span>
                 <span className="merchant-stat-label">Perlu diproses</span>
+                <span className="merchant-stat-value">
+                  {queueCount} <span className="merchant-stat-unit">order</span>
+                </span>
               </div>
               <div className="merchant-stat merchant-stat--active">
-                <span className="merchant-stat-value">{readyCount}</span>
                 <span className="merchant-stat-label">Siap dikirim</span>
+                <span className="merchant-stat-value">
+                  {readyCount} <span className="merchant-stat-unit">order</span>
+                </span>
               </div>
               <div className="merchant-stat">
-                <span className="merchant-stat-value">{needCourier}</span>
                 <span className="merchant-stat-label">Butuh kurir</span>
+                <span className="merchant-stat-value">
+                  {needCourier} <span className="merchant-stat-unit">batch</span>
+                </span>
               </div>
             </div>
 
@@ -356,16 +357,14 @@ export default function MerchantOrders() {
               ))}
             </div>
 
-            <BatchFilter batches={batches} value={batchFilter} onChange={setBatchFilter} />
-
-            {shown.length === 0 ? (
+            {visible.length === 0 ? (
               <div className="merchant-ticket-empty">
                 <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
                 <p className="merchant-ticket-empty-title">Tidak ada order di tab ini</p>
                 <p className="merchant-ticket-empty-sub">{EMPTY_HINT[activeTab.id]}</p>
               </div>
             ) : (
-              shown.map((order) => (
+              visible.map((order) => (
                 <MerchantOrderTicket
                   key={order.id}
                   order={order}

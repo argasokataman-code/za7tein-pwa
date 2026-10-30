@@ -353,6 +353,20 @@ const authGate: Partial<Record<RoleBase, { entry: string; publicPaths: string[] 
   '/courier': { entry: '/onboarding', publicPaths: ['/onboarding', '/signin', '/offline'] },
 }
 
+/**
+ * Rute yang hanya masuk akal **sebelum** sesi aktif. Setelah masuk, back dari
+ * beranda tidak boleh membuka lagi layar masuk (MD-13 `NB-04`/`NB-05`).
+ */
+const AUTH_ONLY = new Set([
+  '/onboarding',
+  '/signin',
+  '/signup',
+  '/verification',
+  '/forgot-password',
+  '/forgot-password-otp',
+  '/create-password',
+])
+
 interface RoleRouterProps {
   basename: string
   routes: [string, ComponentType][]
@@ -435,6 +449,16 @@ function AuthGate({
   return <>{children}</>
 }
 
+/**
+ * Cermin `AuthGate`: rute auth tidak boleh dibuka lagi saat sesi aktif. Back dari
+ * beranda mendarat di beranda (`replace`), bukan layar masuk (MD-13).
+ */
+function GuestGate({ children, home, role }: { children: ReactNode; home: string; role: string }) {
+  const signedIn = useAppSelector((s) => s.auth.isAuthenticated && s.auth.role === role)
+  if (signedIn) return <Navigate to={home} replace />
+  return <>{children}</>
+}
+
 function RoleRouter({ basename, routes, home, offlinePath, entry, publicPaths = [] }: RoleRouterProps) {
   const open = new Set(publicPaths)
 
@@ -452,6 +476,10 @@ function RoleRouter({ basename, routes, home, offlinePath, entry, publicPaths = 
                     <AuthGate entry={entry} role={basename}>
                       <Component />
                     </AuthGate>
+                  ) : entry && AUTH_ONLY.has(path) ? (
+                    <GuestGate home={home} role={basename}>
+                      <Component />
+                    </GuestGate>
                   ) : (
                     <Component />
                   )

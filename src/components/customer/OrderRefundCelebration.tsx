@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
+import { useBackClose } from '../../hooks/useBackClose'
 import { OrderCelebration } from '../ui/OrderCelebration'
 
 interface OrderRefundCelebrationProps {
@@ -28,6 +29,8 @@ const AUTO_CLOSE_MS = 3200
  * "Tutup" tetap ada supaya bisa dipercepat (juga jalur keyboard).
  */
 export function OrderRefundCelebration({ code, refunded, onClose }: OrderRefundCelebrationProps) {
+  // Splash = overlay modal: back menutupnya (MD-13 NB-02).
+  useBackClose(true, onClose)
   useEffect(() => {
     const id = window.setTimeout(onClose, AUTO_CLOSE_MS)
     return () => window.clearTimeout(id)

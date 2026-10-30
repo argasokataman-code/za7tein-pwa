@@ -62,6 +62,7 @@ export function BottomNav({ items: propItems }: { items?: BottomNavItem[] }) {
           key={to}
           to={to}
           end={end}
+          replace
           className={({ isActive }) =>
             `nav-item ${
               isActive ||

@@ -1,5 +1,7 @@
-import { useEffect, useId, useRef, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react'
+import { useEffect, useRef, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
+
+import { useBackClose } from '../../hooks/useBackClose'
 
 interface BottomSheetProps {
   open: boolean
@@ -15,55 +17,25 @@ const FOCUSABLE =
 
 export function BottomSheet({ open, title, ariaLabel, onClose, children }: BottomSheetProps) {
   const panelRef = useRef<HTMLDivElement>(null)
-  const sheetKey = useId()
-  /* `onClose` sering berupa arrow function baru tiap render. Kalau ia jadi
-     dependency effect, setiap render (mis. dispatch saat submit form) menjalankan
-     cleanup yang memanggil `history.back()`, sehingga entri history sheet bisa
-     terbuang dan halaman ikut berpindah. Simpan di ref; effect cukup bergantung
-     pada `open` + key. */
+  /* Back platform menutup sheet, bukan memindahkan halaman (MD-13 `NB-02`).
+     Logika riwayat tinggal di satu hook yang dipakai semua overlay modal. */
+  useBackClose(open, onClose)
+  /* `onClose` sering berupa arrow function baru tiap render. Simpan di ref
+     supaya listener Escape tidak dipasang ulang tiap render. */
   const onCloseRef = useRef(onClose)
   onCloseRef.current = onClose
-  /* `history.back()` yang kita picu sendiri memunculkan `popstate`; di dev
-     StrictMode effect berjalan dua kali sehingga listener baru bisa sempat
-     menangkapnya. Penghitung ini membuat pop yang kita sebabkan sendiri
-     diabaikan, bukan menutup sheet. */
-  const suppressPop = useRef(0)
 
   useEffect(() => {
     if (!open) return
-    const key = sheetKey
-    // Sheet = modal: beri satu entri history supaya tombol back platform
-    // (Android system back / iOS swipe-back) menutup sheet, bukan memindahkan
-    // halaman (audit 013 #1). State router disalin supaya navigasi tak rusak.
-    if (history.state?.__sheet !== key) {
-      history.pushState({ ...history.state, __sheet: key }, '')
-      suppressPop.current = 0
-    }
-    const onPop = () => {
-      if (suppressPop.current > 0) {
-        suppressPop.current -= 1
-        return
-      }
-      onCloseRef.current()
-    }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onCloseRef.current()
     }
-    window.addEventListener('popstate', onPop)
     document.addEventListener('keydown', onKey)
     // Fokus ke panel (bukan field pertama) supaya keyboard lunak tidak langsung
     // terbuka saat sheet dibuka; Tab tetap terkurung di dalam dialog (audit 013 #7).
     panelRef.current?.focus()
-    return () => {
-      window.removeEventListener('popstate', onPop)
-      document.removeEventListener('keydown', onKey)
-      // Ditutup dari UI (backdrop/Batal/Escape): entri kita masih di atas, buang.
-      if (history.state?.__sheet === key) {
-        suppressPop.current += 1
-        history.back()
-      }
-    }
-  }, [open, sheetKey])
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
 
   if (!open) return null
 

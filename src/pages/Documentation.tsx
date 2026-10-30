@@ -666,6 +666,27 @@ export default function Documentation() {
                 jadi QRIS hilang dari layar walau aktif di database).
               </li>
               <li>
+                <strong>Layar bayar bersifat terminal.</strong> Setelah order dibuat, entri riwayat
+                layar bayar diganti (<code className="doc-inline">replace</code>) dengan layar
+                pesanan, keranjang dikosongkan, dan tombol kirim terkunci sejak validasi lolos — jadi
+                tombol kembali sistem tidak bisa membuka lagi layar bayar berisi item yang sama
+                (penyebab pembayaran ganda). Untuk VA/QRIS keranjang baru dikosongkan setelah
+                pembayaran diterima, supaya nominal di layar DANA tidak jatuh ke 0.
+              </li>
+              <li>
+                <strong>Tombol back punya kontrak</strong> (MD-13/MD-14). Satu hook{' '}
+                <code className="doc-inline">useBackClose</code> dipakai semua overlay modal (sheet,
+                splash pembayaran, perayaan tugas kurir, refund, alarm dispatch, popup notifikasi):
+                back menutup overlay, bukan memindah halaman. Tab bawah memakai{' '}
+                <code className="doc-inline">replace</code> sehingga back kembali ke beranda peran,
+                layar sukses (rating, PIN, pencairan, foto profil, pesanan dibuat) juga{' '}
+                <code className="doc-inline">replace</code>, rute masuk/onboarding menolak dibuka lagi
+                setelah sesi aktif, dan <code className="doc-inline">BackButton</code> tanpa riwayat
+                mendarat di akar peran, bukan keluar aplikasi. Aturan lengkapnya ada di{' '}
+                <code className="doc-inline">NB-01…NB-09</code> dan <code className="doc-inline">NR-01…NR-06</code>{' '}
+                (docs/design/mobile-dna.md).
+              </li>
+              <li>
                 <strong>Refund jalan ke BE (M2c, §16.6).</strong> Layar{' '}
                 <code className="doc-inline">/customer/refund</code> menampilkan alur §16.6 lengkap —
                 saldo DANA (otomatis), rekening bank lewat BI-FAST (biaya{' '}
@@ -1032,13 +1053,13 @@ export default function Documentation() {
                 terbaca: baris antrean cuma menampilkan chip &ldquo;Regular&rdquo;, nomor batch
                 tidak ada, dan status <code className="doc-inline">done</code> tak punya penulis
                 (batch menumpuk bersama yang aktif). Sekarang{' '}
-                <code className="doc-inline">/merchant/orders</code> punya tiga penanda: chip jenis
+                <code className="doc-inline">/merchant/orders</code> punya dua penanda: chip jenis
                 jadi <code className="doc-inline">Regular · #2</code> (
-                <code className="doc-inline">deliveryBadge</code>), penyaring{' '}
-                <code className="doc-inline">BatchFilter</code> (chip &ldquo;Semua&rdquo; + tiap
-                batch) menyaring daftar per <code className="doc-inline">order.batchId</code>, dan
-                sheet detail memasang <code className="doc-inline">OrderTimeline</code> — riwayat
-                kejadian termasuk &ldquo;Masuk batch #n&rdquo;. Batch yang semua ordernya selesai
+                <code className="doc-inline">deliveryBadge</code>) dan sheet detail memasang{' '}
+                <code className="doc-inline">OrderTimeline</code> — riwayat kejadian termasuk
+                &ldquo;Masuk batch #n&rdquo;. Penyaring batch per nomor di antrean dihapus karena
+                menduplikasi <em>Batch dapur</em> dan tidak dipakai alur demo. Batch yang semua
+                ordernya selesai
                 dipindah <code className="doc-inline">BatchPanel</code> ke bagian{' '}
                 <em>Riwayat batch</em>; status <code className="doc-inline">done</code> dihitung{' '}
                 <code className="doc-inline">batchIsDone()</code>, bukan kolom. Nomor batch dibaca
@@ -1553,13 +1574,16 @@ export default function Documentation() {
               </li>
               <li>
                 <strong>Rapi konsol menu merchant.</strong> Baris kategori di{' '}
-                <code className="doc-inline">/merchant/menu</code> kini memakai corak chip
-                kategori customer (kotak ikon + label, aktif oranye penuh), bukan pil
-                filter. Editor varian/atribut dirapikan: tiap baris nilai jadi grid tiga
+                <code className="doc-inline">/merchant/menu</code> memakai corak chip kategori
+                customer: foto transparan 56px + label, lebar rata, aktif ditandai label oranye
+                dan foto membesar, bukan pil filter atau kotak ikon. Editor varian/atribut dirapikan: tiap baris nilai jadi grid tiga
                 kolom (nama, tambahan harga, sakelar), satuan{' '}
                 <code className="doc-inline">JOD</code> tak lagi terlipat dua baris, input
                 seragam 72px, dan <em>Lepas</em> jadi tombol ikon dengan{' '}
-                <code className="doc-inline">aria-label</code>.
+                <code className="doc-inline">aria-label</code>. Harga item diinput dalam{' '}
+                <code className="doc-inline">JOD</code> (desimal), lalu baris bantuan menampilkan
+                perkiraan rupiah dari kurs hari ini; nilai yang disimpan tetap{' '}
+                <code className="doc-inline">price_jod</code> dan konversi IDR terjadi di layer API.
               </li>
               <li>
                 Backend live: konsol CS menandai risiko customer lewat registri customers

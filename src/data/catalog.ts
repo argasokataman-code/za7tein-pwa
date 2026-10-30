@@ -44,6 +44,20 @@ export function categoryIcon(label: string): LucideIcon {
 }
 
 /**
+ * Foto kategori yang sama dengan beranda customer, dipetakan dari label BE.
+ * Label BE lebih kasar ("Makanan Utama"), jadi makanan non-minum/non-snack
+ * memakai foto nasi; bukan aset baru, cuma pemetaan tampilan.
+ */
+export function categoryImage(label: string): string {
+  const key = label.toLowerCase()
+  if (key.includes('semua') || key === 'all') return '/assets/img/categories/semua.webp'
+  if (key.includes('minum')) return '/assets/img/categories/minuman.webp'
+  if (key.includes('camil') || key.includes('snack')) return '/assets/img/categories/camilan.webp'
+  if (key.includes('mie') || key.includes('noodle')) return '/assets/img/categories/mie.webp'
+  return '/assets/img/categories/nasi.webp'
+}
+
+/**
  * Peta bucket tampilan customer → id kategori ops/BE, untuk item demo
  * (`menuSeed`) yang tak punya `category_id` asli. Item dari BE memakai kolom
  * `menus.category_id` langsung.

@@ -34,7 +34,7 @@ export default function MerchantPayout() {
     if (!canSubmit) return
     dispatch(requestPayout({ amount, accountId }))
     toast.success('Pencairan diminta — menunggu diproses')
-    navigate('/wallet')
+    navigate('/wallet', { replace: true })
   }
 
   return (

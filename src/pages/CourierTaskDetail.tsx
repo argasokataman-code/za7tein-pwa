@@ -10,6 +10,7 @@ import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { OrderCelebration } from '../components/ui/OrderCelebration'
 import { CodCashDue } from '../components/ui/CodCashDue'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useBackClose } from '../hooks/useBackClose'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
 import { formatDistance, zoneLabel } from '../data/merchant'
@@ -48,6 +49,8 @@ export default function CourierTaskDetail() {
   const [cashInput, setCashInput] = useState('')
   const [cashChosenIdr, setCashChosenIdr] = useState<number | null>(null)
   const [showCelebration, setShowCelebration] = useState(false)
+  // Perayaan selesai = overlay modal: back menutupnya (MD-13 NB-02).
+  useBackClose(showCelebration, () => setShowCelebration(false))
 
   // Kunci gulir latar selama overlay perayaan terbuka.
   useEffect(() => {

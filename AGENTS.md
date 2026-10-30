@@ -43,7 +43,7 @@ Ringkasan mesin ada di `.rules.json` → `designReview`. Tidak ada cek pre-commi
 
 Repo ini **PWA mobile-first di dalam kolom ponsel**, bukan website yang menyusut. Skill `senior-fe`
 adalah tier web dan cuma ada kalau dipanggil; karena itu aturan mobile hidup di `docs/design/mobile-dna.md`
-(12 butir, `MD-01…MD-12`, tiap butir punya cara memeriksa) dan ringkasannya **selalu** ikut di sini.
+(14 butir, `MD-01…MD-14`, tiap butir punya cara memeriksa) dan ringkasannya **selalu** ikut di sini.
 
 Yang paling sering dilanggar, ulang tiap kali menggambar UI mobile:
 
@@ -64,7 +64,17 @@ Yang paling sering dilanggar, ulang tiap kali menggambar UI mobile:
   meluber lalu dipangkas `overflow: clip` leluhur dan **hilang** tanpa suara; beri `flex-wrap` +
   `min-width: 0`, jangan biarkan flex item menyusut di bawah isinya. `browser-gate` mengenali pola
   sahnya (carousel/rail geser, art yang sengaja dipangkas di tepi membulat, bleed margin negatif).
-  Rute non-app (`/`, `/documentation`) tidak dicetak DNA-nya — keduanya website penuh, bukan app.
+- **MD-13 Riwayat & back**: back = batalkan aksi terakhir — overlay dulu (sheet/dialog/celebration wajib
+  menutup, **tidak** menavigasi), lalu langkah alur, lalu layar sebelumnya; hanya di root peran ia keluar
+  app. Pindah tab `replace` (back → root peran, bukan tab sebelumnya), layar sukses/terminal `replace`,
+  `navigate(-1)` hanya bila ada entri (deep link → `to` eksplisit). Kontrak lengkap `NB-01…NB-09` +
+  daftar rute di `docs/design/mobile-dna.md`; alat ukurnya `browser-gate --back` (menyusul).
+- **MD-14 Restorasi & bfcache**: saat back, gulir kembali ke posisi entri (halaman baru mulai dari atas —
+  `scrollRestoration = 'manual'` wajib dipulihkan sendiri), halaman dari bfcache (`pageshow.persisted`)
+  **menyegarkan data** dan tidak menampilkan DOM basi, overlay kembali sesuai keadaan terakhir, dan efek
+  sekali-jalan (order/notifikasi/kuota) tidak terpicu dua kali. Kontrak `NR-01…NR-06` di mobile-dna.
+
+Rute non-app (`/`, `/documentation`) tidak dicetak DNA-nya — keduanya website penuh, bukan app.
 
 **Dua butir terakhir (MD-08, MD-09) sekarang BERGERBANG mekanis.** `npm run scan` (jalan di pre-commit)
 menghitung `uppercase` dan `rawShadow` di `src/styles/system/**` dan **MENOLAK kenaikan** lewat ratchet

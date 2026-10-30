@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { markNotificationsRead } from '../../api/notifications'
 import { notificationAudienceFromPath } from '../../data/notifications'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
+import { useBackClose } from '../../hooks/useBackClose'
 import { markAllRead, selectUnreadCount } from '../../store/slices/notificationsSlice'
 import { NotificationRow } from './NotificationRow'
 
@@ -53,6 +54,8 @@ export function NotificationBell({ variant = 'plain', panel = false }: Notificat
   const [open, setOpen] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  // Popup notifikasi desktop = overlay: back menutupnya (MD-13 NB-02).
+  useBackClose(open, () => setOpen(false))
 
   // Popup non-modal: tutup saat klik di luar atau Escape; fokus balik ke lonceng.
   useEffect(() => {

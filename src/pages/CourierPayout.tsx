@@ -45,7 +45,7 @@ export default function CourierPayout() {
     if (!canSubmit) return
     dispatch(requestCourierPayout({ amount, accountId }))
     toast.success(`Pencairan diminta, diterima ${moneyPlain(courierPayoutNet(amount))}`)
-    navigate('/wallet')
+    navigate('/wallet', { replace: true })
   }
 
   return (

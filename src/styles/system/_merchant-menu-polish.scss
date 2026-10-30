@@ -78,12 +78,9 @@
 
 .merchant-menu-chips {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-2);
   overflow-x: auto;
   scrollbar-width: none;
-  /* Fade tepi kanan = isyarat masih ada chip lain di luar layar; tanpa ini
-     "Camilan" tampak tidak ada padahal cuma perlu digeser. */
-  mask-image: linear-gradient(90deg, #000 calc(100% - 24px), transparent);
 }
 
 .merchant-menu-chips::-webkit-scrollbar {

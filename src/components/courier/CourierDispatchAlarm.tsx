@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { markNotificationRead } from '../../api/notifications'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
+import { useBackClose } from '../../hooks/useBackClose'
 import { useNotificationSound } from '../../hooks/useNotificationSound'
 import {
   clearNotificationAlarm,
@@ -37,6 +38,8 @@ export function CourierDispatchAlarm() {
     location.pathname === '/signin' ||
     location.pathname === '/partner' ||
     location.pathname.startsWith('/partner/')
+  // Alarm = overlay modal: back menutupnya, bukan memindah layar (MD-13 NB-02).
+  useBackClose(Boolean(alarm) && !suppressed, () => dispatch(clearNotificationAlarm()))
 
   useEffect(() => {
     if (!alarm || suppressed) return

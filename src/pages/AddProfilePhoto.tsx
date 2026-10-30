@@ -58,7 +58,7 @@ export default function AddProfilePhoto() {
                 </button>
                 <input accept="image/*" className="d-none" type="file" ref={fileRef} onChange={(event) => void onPick(event)} />
               </div>
-              <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
+              <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile', { replace: true }) }}>
                 Save Changes
               </button>
             </main>
@@ -74,7 +74,7 @@ export default function AddProfilePhoto() {
               <p className="profile-modal-text">
                 Congratulations! Your changes have been saved. Your profile is now up-to-date.
               </p>
-              <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
+              <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile', { replace: true }) }}>
                 Done
               </button>
             </div>
@@ -94,7 +94,7 @@ export default function AddProfilePhoto() {
                 <button type="button" className="btn-profile-outline" onClick={() => { navigate(-1) }}>
                   Cancel
                 </button>
-                <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile') }}>
+                <button type="button" className="btn-profile-primary" onClick={() => { toast.success("Changes saved!"); navigate('/profile', { replace: true }) }}>
                   Yes
                 </button>
               </div>

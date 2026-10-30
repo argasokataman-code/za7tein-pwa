@@ -85,6 +85,36 @@
   margin-bottom: var(--space-4);
 }
 
+/* Stat antrean mengikuti slice: kartu rata, tanpa bayangan, label di atas dan
+   angka sebagai satu-satunya titik fokus. Tint peran tetap dipakai sebagai latar;
+   tepi dipertegas supaya kartu tidak melebur dengan halaman. */
+.merchant-queue-stats .merchant-stat {
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border-color: var(--border-strong);
+}
+
+.merchant-queue-stats .merchant-stat-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.merchant-queue-stats .merchant-stat-value {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.merchant-queue-stats .merchant-stat-unit {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: normal;
+  color: var(--text-secondary);
+}
+
 .merchant-batch-workspace {
   display: grid;
   gap: var(--space-3);

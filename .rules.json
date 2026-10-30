@@ -56,7 +56,7 @@
     "trigger": "tugas apa pun yang menyentuh UI/UX, tampilan, tata letak, mobile, atau website: minta desain, bikin UI/UX, rapikan tampilan, layout, komponen visual, warna, tipografi, spacing, animasi, atau review desain",
     "wajib": [
       "muat skill senior-fe sebelum menulis atau menilai tampilan (skill({name:'senior-fe'}) atau /senior-fe)",
-      "mobile: ikuti routing stack di skill (SwiftUI/Compose/Flutter/RN appendix); repo ini PWA mobile-first di kolom ponsel, jadi tier mobile + docs/design/mobile-dna.md (MD-01..MD-11) SELALU berlaku",
+      "mobile: ikuti routing stack di skill (SwiftUI/Compose/Flutter/RN appendix); repo ini PWA mobile-first di kolom ponsel, jadi tier mobile + docs/design/mobile-dna.md (MD-01..MD-14) SELALU berlaku",
       "jalankan sampai Delivery Gate; tiap temuan cites HG-xx / PG-xx / QL-xx / SM-xx / MD-xx + alasan satu baris",
       "peka & proaktif: tampilan mlenceng (hierarki kabur, dua aksen bersaing, elemen kepotong/ketimpa, target <44px, kontras <AA, overflow-x, pola slop tanpa alasan) WAJIB diperbaiki di akarnya, tidak menunggu disuruh",
       "bukti angka/selector (rect, elementFromPoint, rasio kontras), bukan kesan; yang mustahil dibaca dari sumber diukur lewat browser-gate"
@@ -71,7 +71,7 @@
     "enforce": "pre-commit (Design gate) + langkah 2 alur AGENTS §0",
     "measures": "nilai mentah di src/styles/system/** (warna rgba/rgb/hsl, font-size px, border-radius px, jarak px ≥8) + tell slop: text-transform uppercase (eyebrow), box-shadow non-token (rawShadow), palet warna bergilir per item (toneCycle: varian numerik `tone-0`, nama semantik `tone-info` lewat), garis aksen berwarna tepi kartu (decorativeStripe: border-left/right ≥2px atau var(--space-*)), teks gradien & kaca (slopFx: background-clip:text, backdrop-filter) + warna/ukuran mentah di style={{ … }} TSX; warna heks mentah di system/ tetap FAIL keras. Pengecualian sengaja (mis. gradien terukur) ditandai `// token-ok` di baris itu.",
     "rule": "Design system wajib dipakai: nilai baru harus token (--text-*, --space-*, --radius-*, --shadow-*, warna peran). Gate bersifat ratchet — menambah nilai mentah atau tell slop = FAIL, menurunkan = boleh. `npm run scan -- --update-design-debt` MENOLAK baseline yang naik (harus diakui dgn --force bila memang disengaja), jadi bypass tak sengaja tertutup; perbarui baseline hanya setelah utang benar-benar turun.",
-    "layoutRules": "kolom 430px, jarak tepi 20px, header, zona jempol, bilah fixed dibatasi kolom: docs/design/DNA.md + docs/design/mobile-dna.md (MD-01..MD-11) + AGENTS §5; pelanggarannya ditangkap browser-gate, bukan scan"
+    "layoutRules": "kolom 430px, jarak tepi 20px, header, zona jempol, bilah fixed dibatasi kolom: docs/design/DNA.md + docs/design/mobile-dna.md (MD-01..MD-14) + AGENTS §5; pelanggarannya ditangkap browser-gate, bukan scan"
   },
   "scope": {
     "is": [
@@ -95,7 +95,7 @@
       "baca .rules.json dulu",
       "baca AGENTS.md",
       "baca .githooks/pre-commit",
-      "kalau tugas menyentuh UI/UX/mobile/website: muat skill senior-fe dulu + baca docs/design/mobile-dna.md (MD-01..MD-11, repo ini PWA mobile-first) — lihat designReview",
+      "kalau tugas menyentuh UI/UX/mobile/website: muat skill senior-fe dulu + baca docs/design/mobile-dna.md (MD-01..MD-14, repo ini PWA mobile-first) — lihat designReview",
       "testing per-peran: preflight dulu — node scripts/e2e-browsers.mjs preflight (lihat roleTesting)",
       "atlas query topik sebelum usul perubahan"
     ]
@@ -139,7 +139,7 @@
     "aturan_klik": "Klik HARUS lewat input nyata yang di-hit-test di titik tengah elemen (brave-debug.click, atau Input.dispatchMouseEvent di scripts/browser-gate.mjs). Gate melaporkan OVERLAY kalau titik tengahnya tertutup elemen lain. DILARANG menilai klik dari eval(\"el.click()\") atau dispatchEvent: keduanya menembus lapisan apa pun dan tidak membuktikan apa pun.",
     "dna_di_gerbang": {
       "kenapa": "Gerbang wajib se-detail DNA: lebar kolom + target sentuh saja tidak menangkap yang pemilik lihat (rel kanan bergerigi, panel melar, nominal tak sebaris judul). Tiap temuan menyebut ID MD-nya.",
-      "cek_baru": "MD-06 panel bawah >60% viewport (WARN; --strict = FAIL) · MD-07 nominal rata kanan & sebaris judul di dalam .list-row · MD-10 titik tengah bilah bawah tertutup · MD-11 rel kolom-1 baris daftar tidak seragam / teks membungkus · MD-12 konten keluar kotak induknya atau terpotong diam-diam. MD-01/02/03/05 tetap, kini bertanda ID.",
+      "cek_baru": "MD-06 panel bawah >60% viewport (WARN; --strict = FAIL) · MD-07 nominal rata kanan & sebaris judul di dalam .list-row · MD-10 titik tengah bilah bawah tertutup · MD-11 rel kolom-1 baris daftar tidak seragam / teks membungkus · MD-12 konten keluar kotak induknya atau terpotong diam-diam. MD-01/02/03/05 tetap, kini bertanda ID. MD-13 (riwayat & back) + MD-14 (restorasi & bfcache) menunggu gerbang --back: untuk sekarang diperiksa manual (overlay ditutup, tab replace, layar sukses replace, navigate(-1) berjaring).",
       "sheet_otomatis": "Rute berbilah pemicu (customer .cart-quick-bar) dibuka dengan klik NYATA lalu diukur ulang sebagai baris '(sheet terbuka)': MD-06/07/11 hidup di dalam panel. Animasi ditunggu sampai panel menempel tepi bawah sebelum diukur.",
       "marker_list_row": "Baris daftar wajib ber-kelas list-row (primitif src/styles/system/_list-row.scss, MD-11); itu yang diperiksa gerbang. Rute tanpa baris daftar mencetak MD-11— , bukan ✓ palsu.",
       "pengecualian_dna": "MD-03: scroller DI DALAM panel sheet sah (pengecualian mobile-dna.md) — gerbang mengenali panel sheet dan tidak menghukumnya. MD-10 dilewati saat sheet terbuka (modal memang menutupi bilah).",

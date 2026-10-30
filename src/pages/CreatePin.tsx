@@ -48,7 +48,7 @@ export default function CreatePin() {
                   className="btn-profile-primary"
                   onClick={() =>
                     pin.isComplete
-                      ? navigate('/pin-success')
+                      ? navigate('/pin-success', { replace: true })
                       : toast.error('Enter all 4 digits')
                   }
                 >

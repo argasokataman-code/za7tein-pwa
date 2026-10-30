@@ -80,6 +80,7 @@ export function OpsShell({ children }: OpsShellProps) {
               key={item.to}
               to={item.to}
               end={item.to === '/'}
+              replace
               className={({ isActive }) => `sa-nav-item${isActive ? ' is-active' : ''}`}
             >
               <item.icon size={18} strokeWidth={1.75} aria-hidden="true" />

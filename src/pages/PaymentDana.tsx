@@ -16,9 +16,11 @@ import { OrderCelebration } from '../components/ui/OrderCelebration'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { formatCountdown } from '../data/courier'
 import { mockUser } from '../data/user'
+import { clearCart } from '../store/slices/cartSlice'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
 import { useOrderQuota } from '../hooks/useOrderQuota'
-import { useAppSelector } from '../hooks/useAppStore'
+import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useBackClose } from '../hooks/useBackClose'
 import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
@@ -70,6 +72,7 @@ type DanaStatus = 'menunggu' | 'dibayar' | 'kedaluwarsa'
 export default function PaymentDana() {
   const { money } = useMoney()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const stored = useAppSelector((s) => s.cart.addresses)
   const addresses = Array.isArray(stored) ? stored : mockUser.addresses
@@ -84,9 +87,12 @@ export default function PaymentDana() {
 
   const address = addresses.find((a) => a.id === addressId) ?? addresses[0]
   // Total yang ditagih dari sumber yang sama dengan Checkout/PaymentAmount
-  // (termasuk `Ft` QRIS + pembulatan tagihan).
+  // (termasuk `Ft` QRIS + pembulatan tagihan). Keranjang sudah dikosongkan saat
+  // order dibuat, jadi struk terakhir jadi cadangan nominal — layar ini tidak
+  // boleh jatuh ke 0 setelah keranjang kosong.
   const charged = useChargedBreakdown()
-  const total = charged.totalIdr
+  const receipt = useAppSelector((s) => s.cart.lastReceipt)
+  const total = charged.totalIdr || receipt?.totalIdr || 0
 
   const [deadline] = useState(() => Date.now() + DANA_TTL_MS)
   const [status, setStatus] = useState<'menunggu' | 'dibayar'>('menunggu')
@@ -101,6 +107,11 @@ export default function PaymentDana() {
   const qrCells = QR_CELLS
   const { release: releaseQuota } = useOrderQuota()
   const expiredHandled = useRef(false)
+  /** Pembayaran hanya boleh "diterima" sekali, termasuk saat tap ganda. */
+  const paidHandled = useRef(false)
+  // Splash perayaan = overlay modal: back menutupnya, bukan memindah halaman
+  // (MD-13 NB-02).
+  useBackClose(celebrate, () => setCelebrate(false))
 
   /**
    * Kedaluwarsa = order otomatis batal + kuota dilepas (§7.5, §R-CUS-PAY).
@@ -131,11 +142,16 @@ export default function PaymentDana() {
   }
 
   const simulatePaid = () => {
+    if (paidHandled.current) return
+    paidHandled.current = true
     setStatus('dibayar')
     setCelebrate(true)
     // Sinkronkan order sampai pembayaran berhasil (f18): merchant baru boleh
     // konfirmasi setelah `payment_status = paid`.
     if (activeOrderId) void markOrderPaid(activeOrderId, 'customer').catch(() => {})
+    // Lunas = isi keranjang sudah menjadi order. Dikosongkan supaya tombol
+    // kembali sistem tidak bisa membuka lagi layar bayar yang masih penuh.
+    dispatch(clearCart())
     toast.success('Pembayaran diterima (simulasi)')
     void insertNotification({
       audience: 'customer',
@@ -301,7 +317,7 @@ export default function PaymentDana() {
               <button
                 type="button"
                 className="btn btn-primary dana-cta"
-                onClick={() => navigate('/order-placed')}
+                onClick={() => navigate('/order-placed', { replace: true })}
               >
                 Lihat pesanan
               </button>
@@ -350,7 +366,7 @@ export default function PaymentDana() {
                   className="order-arrived-rate-btn"
                   onClick={() => {
                     setCelebrate(false)
-                    navigate('/order-placed')
+                    navigate('/order-placed', { replace: true })
                   }}
                 >
                   Lihat pesanan
@@ -360,7 +376,7 @@ export default function PaymentDana() {
                   className="order-arrived-secondary-btn"
                   onClick={() => {
                     setCelebrate(false)
-                    navigate('/home')
+                    navigate('/home', { replace: true })
                   }}
                 >
                   Ke beranda

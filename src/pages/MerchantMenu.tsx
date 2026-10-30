@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ImagePlus, LayoutGrid, Minus, MoreVertical, Pencil, Plus, Trash2 } from 'lucide-react'
+import { ImagePlus, Minus, MoreVertical, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -13,7 +13,8 @@ import { SelectField } from '../components/ui/SelectField'
 import { useMerchantMenu } from '../hooks/useMerchantMenu'
 import { useMoney } from '../hooks/useMoney'
 import { useAppSelector } from '../hooks/useAppStore'
-import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, categoryIcon, countLowStock, countOutOfStock } from '../data/catalog'
+import { idrToJod, jodToIdr, moneyPlain } from '../data/currency'
+import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, categoryIcon, categoryImage, countLowStock, countOutOfStock } from '../data/catalog'
 import { useMenuCategories } from '../hooks/useMenuCategories'
 import { merchantToken } from '../api/reference'
 import { DEMO_MERCHANT_ID } from '../api/orders'
@@ -22,7 +23,13 @@ import { imageFileError, uploadImage } from '../lib/image'
 import { merchantMenuItemSchema, type MerchantMenuItemFormData } from '../lib/schemas'
 import type { MenuItem } from '../types'
 
-const EMPTY_FORM: MerchantMenuItemFormData = { name: '', price: 0, category: '', stock: 0, cookMinutes: 25 }
+const EMPTY_FORM: Partial<MerchantMenuItemFormData> = {
+  name: '',
+  price: undefined,
+  category: '',
+  stock: 0,
+  cookMinutes: 25,
+}
 
 /* Fallback kategori = taksonomi tampilan customer, dipakai hanya saat API mati.
    Saat API hidup, daftar datang dari `menu_categories` BE (`useMenuCategories`). */
@@ -130,11 +137,14 @@ export default function MerchantMenu() {
     handleSubmit,
     reset,
     control,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<MerchantMenuItemFormData>({
     resolver: zodResolver(merchantMenuItemSchema),
     defaultValues: EMPTY_FORM,
   })
+  const priceJod = watch('price')
+  const priceIdr = Number.isFinite(priceJod) ? jodToIdr(priceJod) : 0
 
   const openAdd = () => {
     reset(EMPTY_FORM)
@@ -148,7 +158,7 @@ export default function MerchantMenu() {
   const openEdit = (item: MenuItem) => {
     reset({
       name: item.name,
-      price: item.price,
+      price: idrToJod(item.price),
       category: item.categoryId ?? '',
       stock: item.stock,
       cookMinutes: item.cookMinutes ?? 25,
@@ -173,7 +183,7 @@ export default function MerchantMenu() {
       merchantId: String(DEMO_MERCHANT_ID),
       name: data.name,
       description: data.description ?? '',
-      priceIdr: data.price,
+      priceIdr: jodToIdr(data.price),
       categoryId: data.category || null,
       category: picked?.label ?? '',
       stock: data.stock,
@@ -271,28 +281,25 @@ export default function MerchantMenu() {
                 e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
               }}
             >
-              <LayoutGrid size={24} strokeWidth={2} aria-hidden="true" />
+              <img src={categoryImage('Semua')} alt="" width={56} height={56} decoding="async" />
               Semua
             </button>
-            {categories.map((c) => {
-              const Icon = categoryIcon(c.label)
-              return (
-                <button
-                  key={c.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={category === c.id}
-                  className={`category-btn${category === c.id ? ' active' : ''}`}
-                  onClick={(e) => {
-                    setCategory(c.id)
-                    e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
-                  }}
-                >
-                  {Icon && <Icon size={24} strokeWidth={2} aria-hidden="true" />}
-                  {c.label}
-                </button>
-              )
-            })}
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                role="tab"
+                aria-selected={category === c.id}
+                className={`category-btn${category === c.id ? ' active' : ''}`}
+                onClick={(e) => {
+                  setCategory(c.id)
+                  e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
+                }}
+              >
+                <img src={categoryImage(c.label)} alt="" width={56} height={56} decoding="async" />
+                {c.label}
+              </button>
+            ))}
           </div>
           <div className="merchant-menu-stockfilter" role="group" aria-label="Filter status stok">
             <button type="button" aria-pressed={stockFilter === 'all'} className={stockFilter === 'all' ? 'is-active' : ''} onClick={() => setStockFilter('all')}>
@@ -451,9 +458,25 @@ export default function MerchantMenu() {
             {errors.name && <span className="error-message">{errors.name.message}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="merchant-item-price" className="form-label">Harga (Rp)</label>
-            <input id="merchant-item-price" type="number" inputMode="numeric" min="0" className={`form-control${errors.price ? ' error' : ''}`} {...register('price', { valueAsNumber: true })} />
+            <label htmlFor="merchant-item-price" className="form-label">Harga (JOD)</label>
+            <input
+              id="merchant-item-price"
+              type="number"
+              inputMode="decimal"
+              min="0.01"
+              step="0.01"
+              placeholder="3.50"
+              aria-invalid={errors.price ? true : undefined}
+              aria-describedby={priceIdr > 0 ? 'merchant-item-price-idr' : undefined}
+              className={`form-control${errors.price ? ' error' : ''}`}
+              {...register('price', { valueAsNumber: true })}
+            />
             {errors.price && <span className="error-message">{errors.price.message}</span>}
+            {priceIdr > 0 && (
+              <p id="merchant-item-price-idr" className="admin-hint">
+                ≈ {moneyPlain(priceIdr)} (kurs hari ini)
+              </p>
+            )}
           </div>
           <div className="form-group">
             <span className="form-label">Kategori</span>

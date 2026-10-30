@@ -2,7 +2,7 @@
 // VA / QRIS), dan unggah bukti transfer untuk pesanan transfer legacy.
 import { Check } from 'lucide-react'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -22,6 +22,7 @@ import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useMoney } from '../hooks/useMoney'
 import {
+  clearCart,
   selectSubtotal,
   setTransferProof,
   setPromo,
@@ -86,6 +87,14 @@ export default function PaymentAmount() {
   const canPay =
     deliverable && items.length > 0 && (!needsProof || proof !== null) && !gated && !codBlocked
 
+  /**
+   * Kunci kirim: layar bayar bukan form yang boleh dikirim dua kali. Ref menahan
+   * tap ganda sebelum re-render sempat menonaktifkan tombol; state membuat
+   * tombolnya benar-benar terlihat sibuk.
+   */
+  const sentRef = useRef(false)
+  const [sending, setSending] = useState(false)
+
   const pickProof = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -94,6 +103,7 @@ export default function PaymentAmount() {
   }
 
   const pay = () => {
+    if (sentRef.current) return
     if (!deliverable) {
       toast.error('Alamat di luar area antar')
       return
@@ -120,6 +130,9 @@ export default function PaymentAmount() {
       toast.error('Kuota COD toko habis — pilih metode lain')
       return
     }
+    // Validasi lolos: dari titik ini layar tidak boleh menerima kiriman kedua.
+    sentRef.current = true
+    setSending(true)
     if (quotaKind) dispatch(reserveQuota({ kind: quotaKind, merchantId: activeMerchantId }))
     dispatch(setQuotaKind(quotaKind))
     // Tulis order ke backend (best-effort): UI tetap jalan sebagai mock kalau
@@ -172,6 +185,12 @@ export default function PaymentAmount() {
         dispatch(setOrderStage('baru'))
         toast.error('Order belum tersinkron ke server — pelacakan live menyusul.')
       })
+    // Keranjang sudah menjadi order. Dikosongkan di sini supaya kembali ke
+    // layar ini lewat tombol sistem tidak menawarkan pembayaran kedua untuk isi
+    // yang sama (kode order lama sudah terpakai, tombolnya jadi mati).
+    // VA/QRIS belum lunas: keranjang baru dikosongkan di layar DANA setelah
+    // pembayaran diterima, supaya nominal di sana tidak jatuh ke 0.
+    if (!isDana) dispatch(clearCart())
     // Emit notifikasi (best-effort): merchant dapat order baru; customer dapat
     // konfirmasi pembayaran untuk metode non-COD.
     void insertNotification({
@@ -190,7 +209,7 @@ export default function PaymentAmount() {
         title: 'Menunggu pembayaran',
         body: `Selesaikan pembayaran ${method.label} sebelum kode kedaluwarsa.`,
       }).catch(() => {})
-      navigate('/payment-dana')
+      navigate('/payment-dana', { replace: true })
       return
     }
     if (method.id !== 'cod') {
@@ -201,7 +220,9 @@ export default function PaymentAmount() {
         body: 'Pembayaran pesananmu sudah kami terima.',
       }).catch(() => {})
     }
-    navigate('/order-placed')
+    // Layar bayar bersifat terminal: entri riwayatnya diganti layar pesanan,
+    // jadi tombol back sistem tidak membawa customer kembali ke tombol bayar.
+    navigate('/order-placed', { replace: true })
   }
 
   return (
@@ -387,16 +408,22 @@ export default function PaymentAmount() {
             </div>
             <WalletTopUpGate />
             <div className="payment-amount-footer">
-              <button className="btn btn-primary pay-btn" disabled={!canPay} onClick={pay}>
-                {gated
-                  ? 'Top-up dulu · saldo kurang'
-                  : codBlocked
-                    ? 'Kuota COD habis'
-                    : method.id === 'cod'
-                      ? `Pesan — ${money(total)}, bayar tunai`
-                      : isDana
-                        ? `Lanjut bayar · ${money(total)}`
-                        : `Bayar — ${money(total)}`}
+              <button
+                className="btn btn-primary pay-btn"
+                disabled={!canPay || sending}
+                onClick={pay}
+              >
+                {sending
+                  ? 'Memproses…'
+                  : gated
+                    ? 'Top-up dulu · saldo kurang'
+                    : codBlocked
+                      ? 'Kuota COD habis'
+                      : method.id === 'cod'
+                        ? `Pesan — ${money(total)}, bayar tunai`
+                        : isDana
+                          ? `Lanjut bayar · ${money(total)}`
+                          : `Bayar — ${money(total)}`}
               </button>
             </div>
           </div>

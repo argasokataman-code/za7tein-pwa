@@ -18,6 +18,8 @@ Alur pembayaran DANA (VA/QRIS) + cabang COD. **Keputusan PO 2026-10-13: DANA men
 
 **COD (short):** `cod` → skip DANA, bayar saat serah terima (F2 cod hold). `transfer` manual sudah keluar dari rencana.
 
+**Sisi FE (layar bayar terminal):** sukses membuat order = layar bayar diganti `replace` ke `/order-placed` (bukan `push`), keranjang dikosongkan (COD/transfer saat order dibuat, VA/QRIS saat pembayaran diterima), dan tombol kirim dikunci sejak validasi lolos. Tujuannya: tombol kembali sistem tidak bisa memutar ulang layar bayar berisi item yang sama (pembayaran ganda); guard idempotensi webhook di atas tetap wajib.
+
 ## Aturan keras (jangan dilupakan)
 
 - DANA menggarap VA/QRIS (keputusan PO 2026-10-13). COD **skip DANA**.

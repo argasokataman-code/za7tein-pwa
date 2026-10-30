@@ -47,7 +47,8 @@ export default function RatingDriver() {
         ? `Rating terkirim. Tip ${moneyPlain(tip)} untuk kurir.`
         : 'Rating terkirim. Terima kasih.',
     )
-    navigate('/home')
+    // Rating terkirim = aksi selesai: back tidak kembali ke form rating.
+    navigate('/home', { replace: true })
   }
 
   return (

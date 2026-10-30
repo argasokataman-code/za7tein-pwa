@@ -84,7 +84,8 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
     dispatch(setActiveOrder({ id, code }))
     dispatch(setOrderStage(stage))
     closeSheet()
-    navigate('/order-placed')
+    // Pesanan sudah jadi: layar ini tidak boleh diputar ulang lewat back.
+    navigate('/order-placed', { replace: true })
   }
 
   /** Buang satu keranjang toko; keranjang aktif dibersihkan dari `items`. */
