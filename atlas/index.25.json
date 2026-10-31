@@ -980,6 +980,51 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "DEC-88205",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-31",
+      "time": "14:20:46",
+      "tags": [
+        "ui",
+        "orders",
+        "hierarchy"
+      ],
+      "summary": "Dua kontrol bertumpuk wajib beda bentuk: segmented seksi + tab garis kategori, bukan dua segmented/chip berisi",
+      "conn": [
+        {
+          "id": "FEAT-2203",
+          "type": "relates",
+          "raw": "FEAT-2203:relates"
+        },
+        {
+          "id": "FEAT-2202",
+          "type": "relates",
+          "raw": "FEAT-2202:relates"
+        }
+      ],
+      "loc": "src/styles/system/_my-order-kinds.scss:1"
+    },
+    {
+      "id": "BUG-1113",
+      "type": "bug",
+      "status": "open",
+      "date": "2026-10-31",
+      "time": "14:20:46",
+      "tags": [
+        "backend",
+        "d1"
+      ],
+      "summary": "D1 free tier row read harian habis: seluruh /rest/v1 balas 400, riwayat & gerbang mengukur keadaan kosong",
+      "conn": [
+        {
+          "id": "FEAT-2203",
+          "type": "relates",
+          "raw": "FEAT-2203:relates"
+        }
+      ]
     }
   ]
 }
