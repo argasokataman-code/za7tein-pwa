@@ -251,3 +251,275 @@
   border-radius: var(--radius-md);
   background: var(--bg-warm);
 }
+
+/* ── Rincian riwayat (sheet) ─────────────────────────────────────────────── */
+/* Pemicunya seluruh badan baris; chevron cuma penanda bahwa baris punya
+   rincian. Ditaruh di ujung kolom judul supaya rel kanan (nominal) tetap satu
+   garis lurus di semua baris (MD-11). */
+.my-order-open__chev {
+  flex: 0 0 auto;
+  margin-left: auto;
+  color: var(--text-disabled);
+}
+
+/* Seluruh badan baris membuka rincian; bentuk tidak berubah, hanya isyarat
+   tekan supaya tap tidak terasa mati. */
+.my-order-open:active {
+  opacity: 0.7;
+}
+
+/* Kode + tanggal + status dalam satu baris meta, bukan tiga baris terpisah. */
+.order-sheet-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.order-sheet-code {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.order-sheet-date {
+  font-variant-numeric: tabular-nums;
+}
+
+.order-sheet-dot {
+  color: var(--text-disabled);
+}
+
+/* Status = chip bertitik warna peran (MD-07), bukan kata abu di tengah string.
+   Latarnya netral, bukan `--warning-soft`: dengan oranye merek di `Beri rating`
+   dan `Pesan lagi`, tiga elemen hangat sekaligus membuat status terbaca sebagai
+   aksi. Amber tinggal di titiknya, hijau hanya untuk "sudah dinilai". */
+.order-sheet-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: auto;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--bg-warm);
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.order-sheet-chip--done {
+  background: var(--green-soft);
+  color: var(--success-ink);
+}
+
+.order-sheet-chip__dot {
+  width: var(--space-1);
+  height: var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--warning);
+}
+
+.order-sheet-chip--done .order-sheet-chip__dot {
+  background: var(--success);
+}
+
+/* Satu daftar bergaris rambut, bukan kartu putih berulang (MD-06). Panelnya
+   sendiri yang menggulir (satu penggulung di dalam sheet, MD-03), bukan daftar
+   ini: nota lengkap bisa lebih tinggi dari 58vh, dan memotong daftar item
+   sementara pecahan biaya ikut memanjang hanya membuat dua scroller bersarang. */
+.order-sheet-items {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.order-sheet-item {
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.order-sheet-name {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+/* Harga baris = nominal, jadi rata kanan di rel (MD-07). */
+.order-sheet-line-sum {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* `2 × 3,50 JOD` di bawah nama: satuan yang membuat total baris bisa diperiksa. */
+.order-sheet-sub {
+  grid-column: 1;
+  grid-row: 2;
+  margin-top: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pecahan biaya: daftar bergaris rambut yang sama, bukan kartu terpisah. */
+.order-sheet-fees,
+.order-sheet-payment {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.order-sheet-fee {
+  padding-block: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.order-sheet-fee-label {
+  grid-column: 1;
+  min-width: 0;
+}
+
+.order-sheet-fee-sum {
+  grid-column: 2;
+  justify-self: end;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.order-sheet-fee-sum.is-discount {
+  color: var(--success-ink);
+}
+
+/* Status bayar: titik warna peran + kata, sebaris dengan labelnya (MD-07).
+   Amber = belum tercatat, hijau = lunas. Tidak ada cap oranye merek di sini. */
+.order-sheet-pay {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  grid-column: 2;
+  justify-self: end;
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.order-sheet-pay--paid {
+  color: var(--success-ink);
+}
+
+.order-sheet-pay--paid .order-sheet-chip__dot {
+  background: var(--success);
+}
+
+/* Nota bisa memanjang; panel dibatasi 58vh supaya tetap sheet, bukan layar
+   penuh, lalu isinya digulir (MD-06: ambang 60% viewport). */
+.sheet-panel:has(.order-sheet-meta) {
+  max-height: 58vh;
+}
+
+/* Nominal rata kanan sebaris judulnya (MD-07), satu-satunya angka besar. */
+.order-sheet-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.order-sheet-total__sum {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Kaki panel (total + aksi) menempel di bawah: nota bisa lebih tinggi dari
+   58vh, dan angka terpenting tidak boleh menghilang di bawah gulir. Latar
+   `--surface` menutup baris yang lewat di belakangnya. */
+.order-sheet-foot {
+  position: sticky;
+  /* Turun sampai dasar panel (menutup strip 20px di bawahnya, tempat isi
+     menggulir terlihat setengah), lalu padding sendiri yang memberi jarak. */
+  bottom: calc(-1 * var(--space-5));
+  z-index: 1;
+  margin-top: var(--space-2);
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.order-sheet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+}
+
+/* Urutan prioritas mengikuti status: order yang belum dinilai membuka panel
+   dengan label "Belum dinilai", jadi aksi yang relevan adalah menilai; "Pesan
+   lagi" turun jadi tombol bergaris. Setelah dinilai, "Pesan lagi" yang jadi
+   satu-satunya tombol penuh. Satu aksen oranye per panel, tidak dua. */
+.order-sheet-actions .order-sheet-rate,
+.order-sheet-actions .order-sheet-reorder {
+  flex: 1 0 100%;
+  min-height: var(--touch-min);
+  font-size: var(--text-base);
+  text-decoration: none;
+}
+
+.order-sheet-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-5);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Aksi tambahan = teks bertarget 44px tanpa border; ia bukan tombol utama dan
+   tidak boleh terlihat seperti tombol utama. */
+.order-sheet-invoice {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 0;
+  background: none;
+  color: var(--text-secondary-strong);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}

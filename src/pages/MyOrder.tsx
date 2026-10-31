@@ -1,4 +1,4 @@
-import { Package, ReceiptText, RotateCcw, ShoppingBag, Star, Store } from 'lucide-react'
+import { ChevronRight, Package, ReceiptText, RotateCcw, ShoppingBag, Star, Store } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -8,6 +8,7 @@ import type { CustomerActiveOrder } from '../api/orders'
 import { apiEnabled } from '../api/supabase'
 import { ActiveOrderRow } from '../components/customer/ActiveOrderRow'
 import { itemsLine } from '../components/customer/orderStatus'
+import { OrderHistorySheet } from '../components/customer/OrderHistorySheet'
 import { OrderRefundCelebration } from '../components/customer/OrderRefundCelebration'
 import { BottomNav } from '../components/layout/BottomNav'
 import { BackButton } from '../components/ui/BackButton'
@@ -59,6 +60,8 @@ export default function MyOrder() {
   const [error, setError] = useState(false)
   /** Satu baris minta konfirmasi batal; dibagi ke semua baris daftar. */
   const [pendingId, setPendingId] = useState<string | null>(null)
+  /** Riwayat yang sedang dibuka rinciannya; `null` = sheet tertutup (MD-13). */
+  const [openOrder, setOpenOrder] = useState<OrderHistoryItem | null>(null)
 
   const tab: Tab = params.get('tab') === 'history' ? 'history' : 'active'
   const setTab = (next: Tab) => {
@@ -305,8 +308,21 @@ export default function MyOrder() {
                   <ul className="ck-list">
                     {history.map((order) => (
                       <li className="ck-row" key={order.id}>
-                        <span className="ck-row__line list-row">
-                          <span className="ck-row__title">{order.merchantName}</span>
+                        <button
+                          type="button"
+                          className="ck-row__line list-row my-order-open"
+                          onClick={() => setOpenOrder(order)}
+                          aria-label={`Rincian pesanan ${order.code} di ${order.merchantName}`}
+                        >
+                          <span className="ck-row__title">
+                            {order.merchantName}
+                            <ChevronRight
+                              className="my-order-open__chev"
+                              size={15}
+                              strokeWidth={1.75}
+                              aria-hidden="true"
+                            />
+                          </span>
                           <span className="ck-row__sum">{moneyPlain(order.totalIdr)}</span>
                           <span className="ck-row__meta">
                             <span className="ck-row__code">{order.code}</span>
@@ -317,7 +333,7 @@ export default function MyOrder() {
                           {order.items.length ? (
                             <span className="ck-row__sub">{itemsLine(order.items)}</span>
                           ) : null}
-                        </span>
+                        </button>
                         {/* Aksi: kiri = penilaian (tautan bila belum dinilai, chip
                             kalau sudah), kanan = "Pesan lagi" yang dominan. Rel
                             kanan tetap, jadi tombolnya jatuh di x yang sama tiap
@@ -362,6 +378,11 @@ export default function MyOrder() {
           )}
         </div>
       </main>
+      <OrderHistorySheet
+        order={openOrder}
+        onClose={() => setOpenOrder(null)}
+        onReorder={reorder}
+      />
       <BottomNav />
     </div>
   )

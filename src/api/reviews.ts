@@ -47,6 +47,10 @@ export interface RateableDish {
   name: string
   /** Jumlah porsi — dasar "Pesan lagi" mengisi keranjang dengan angka yang sama. */
   qty?: number
+  /** Harga satuan saat order dibuat (IDR). `null` = kolomnya kosong di BE. */
+  unitIdr?: number | null
+  /** `qty x unitIdr` menurut BE. `null` = kolomnya kosong. */
+  lineIdr?: number | null
 }
 
 /** Order customer yang sudah selesai dan belum diulas. */
@@ -175,12 +179,30 @@ export async function replyToReview(
   })
 }
 
+/** JOD di BE -> IDR note. `null`/`undefined` tetap `null` supaya UI bisa
+ *  menuliskan "-" daripada menampilkan nol yang mengarang fakta. */
+function money(jodValue: number | null | undefined): number | null {
+  return typeof jodValue === 'number' ? jodToIdr(jodValue) : null
+}
+
 interface OrderRow {
   id: number
   code: string
   merchant_id: number
   created_at: string
   total_jod?: number
+  /* Pecahan nota. Semua opsional: kolom bisa kosong, dan UI menulis "-". */
+  sub_total_jod?: number | null
+  delivery_fee_jod?: number | null
+  platform_fee_jod?: number | null
+  tip_jod?: number | null
+  promo_amount_jod?: number | null
+  discount_merchant_jod?: number | null
+  discount_applicator_jod?: number | null
+  transaction_fee_jod?: number | null
+  payment_method?: string | null
+  payment_status?: string | null
+  paid_at?: string | null
 }
 
 /** Baris `order_items` saat dibaca bersama nama hidangannya. */
@@ -189,41 +211,85 @@ interface OrderItemRow {
   order_id: number
   menu_id: number | null
   qty?: number
+  unit_price_jod?: number | null
+  line_total_jod?: number | null
   menus?: { name: string } | null
 }
 
 /**
- * Hidangan per order untuk rating menu item (§20.2). **Best-effort**: tabel
- * `order_items` di BE demo masih kosong dan bentuk kolomnya belum final, jadi
- * kegagalan apa pun dikembalikan sebagai peta kosong — riwayat pesanan tidak
- * boleh ikut gagal hanya karena hidangan belum tersedia.
+ * Hidangan per order untuk rating menu item (§20.2). **Best-effort**: kegagalan
+ * apa pun dikembalikan sebagai peta kosong — riwayat pesanan tidak boleh ikut
+ * gagal hanya karena hidangan tidak tersedia.
+ *
+ * Daftar id dipecah per 50. Satu permintaan `order_id=in.(...)` untuk seluruh
+ * riwayat (122 order) ditolak D1 dengan `too many SQL variables`, dan dulu
+ * kegagalan itu ditelan `catch` sehingga SEMUA baris riwayat kehilangan nama
+ * menu — termasuk tombol "Pesan lagi" yang jadi selalu gagal.
  */
+const DISH_CHUNK = 50
+
 async function fetchOrderDishes(
   token: string,
   orderIds: number[],
 ): Promise<Map<number, RateableDish[]>> {
   const byOrder = new Map<number, RateableDish[]>()
   if (!orderIds.length) return byOrder
-  try {
-    const rows = await restWith<OrderItemRow>(
-      token,
-      'order_items',
-      `?select=id,order_id,menu_id,qty,menus(name)&order_id=in.(${orderIds.join(',')})`,
-    )
-    for (const row of rows) {
-      const list = byOrder.get(row.order_id) ?? []
-      list.push({
-        id: String(row.id),
-        menuId: row.menu_id,
-        name: row.menus?.name ?? `Menu ${row.menu_id ?? row.id}`,
-        qty: row.qty ?? undefined,
-      })
-      byOrder.set(row.order_id, list)
+
+  const chunks: number[][] = []
+  for (let i = 0; i < orderIds.length; i += DISH_CHUNK) {
+    chunks.push(orderIds.slice(i, i + DISH_CHUNK))
+  }
+
+  const rows: OrderItemRow[] = []
+  for (const chunk of chunks) {
+    try {
+      rows.push(
+        ...(await restWith<OrderItemRow>(
+          token,
+          'order_items',
+          `?select=id,order_id,menu_id,qty,unit_price_jod,line_total_jod,menus(name)&order_id=in.(${chunk.join(',')})`,
+        )),
+      )
+    } catch {
+      // Satu potongan gagal tidak membatalkan potongan lain.
     }
-  } catch {
-    // Hidangan belum tersedia di BE; menu item tetap bisa dinilai begitu ada.
+  }
+
+  for (const row of rows) {
+    const list = byOrder.get(row.order_id) ?? []
+    list.push({
+      id: String(row.id),
+      menuId: row.menu_id,
+      name: row.menus?.name ?? `Menu ${row.menu_id ?? row.id}`,
+      qty: row.qty ?? undefined,
+      unitIdr: money(row.unit_price_jod),
+      lineIdr: money(row.line_total_jod),
+    })
+    byOrder.set(row.order_id, list)
   }
   return byOrder
+}
+
+/** Pecahan nota satu order. `null` = kolom tak ada / kosong di BE, dan UI
+ *  menuliskan "-" alih-alih mengarang angka. */
+export interface OrderReceipt {
+  subTotalIdr: number | null
+  deliveryFeeIdr: number | null
+  platformFeeIdr: number | null
+  tipIdr: number | null
+  promoIdr: number | null
+  /** Diskon yang ditanggung toko. */
+  discountMerchantIdr: number | null
+  /** Diskon yang ditanggung aplikator. */
+  discountApplicatorIdr: number | null
+  /** Biaya transaksi pembayaran (mis. QRIS 1,5%) yang ikut di total. */
+  transactionFeeIdr: number | null
+  /** `qris | dana_balance | cod` apa adanya dari BE. */
+  paymentMethod: string | null
+  /** `paid | unpaid | pending` apa adanya dari BE. */
+  paymentStatus: string | null
+  /** Waktu bayar diterima; `null` = BE belum mencatatnya. */
+  paidAt: string | null
 }
 
 /** Satu baris riwayat pesanan: order selesai + sudah dinilai atau belum (§20.2). */
@@ -231,6 +297,7 @@ export interface OrderHistoryItem extends ReviewableOrder {
   reviewed: boolean
   /** Nominal order (IDR) — baris riwayat memberi total, bukan hanya tanggal. */
   totalIdr: number
+  receipt: OrderReceipt
 }
 
 /**
@@ -246,7 +313,7 @@ export async function fetchOrderHistory(
     restWith<OrderRow>(
       token,
       'orders',
-      `?select=id,code,merchant_id,created_at,total_jod&customer_id=eq.${customerId}&status=eq.done&order=created_at.desc`,
+      `?select=id,code,merchant_id,created_at,total_jod,sub_total_jod,delivery_fee_jod,platform_fee_jod,tip_jod,promo_amount_jod,discount_merchant_jod,discount_applicator_jod,transaction_fee_jod,payment_method,payment_status,paid_at&customer_id=eq.${customerId}&status=eq.done&order=created_at.desc`,
     ),
     restWith<{ order_id: number }>(
       token,
@@ -276,6 +343,19 @@ export async function fetchOrderHistory(
     reviewed: done.has(o.id),
     totalIdr: jodToIdr(o.total_jod ?? 0),
     items: dishes.get(o.id) ?? [],
+    receipt: {
+      subTotalIdr: money(o.sub_total_jod),
+      deliveryFeeIdr: money(o.delivery_fee_jod),
+      platformFeeIdr: money(o.platform_fee_jod),
+      tipIdr: money(o.tip_jod),
+      promoIdr: money(o.promo_amount_jod),
+      discountMerchantIdr: money(o.discount_merchant_jod),
+      discountApplicatorIdr: money(o.discount_applicator_jod),
+      transactionFeeIdr: money(o.transaction_fee_jod),
+      paymentMethod: o.payment_method ?? null,
+      paymentStatus: o.payment_status ?? null,
+      paidAt: o.paid_at ?? null,
+    },
   }))
 }
 

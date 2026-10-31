@@ -70,6 +70,14 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // tampil di UI)` di berkas yang sama. Teks UI hanya kalimat yang bisa ditindak
 // pengguna. 51 temuan dipindah; daftar dan pengecualiannya di
 // docs/design/ui-dev-notes-leak-2026-10-31.md, entri ChangelogSection.
+//
+// Nota riwayat pesanan (2026-10-31): sheet di
+// `src/components/customer/OrderHistorySheet.tsx` membaca pecahan biaya dan
+// status bayar langsung dari `orders` (`sub_total_jod`, `delivery_fee_jod`,
+// `platform_fee_jod`, `tip_jod`, `discount_merchant_jod`,
+// `discount_applicator_jod`, `transaction_fee_jod`, `payment_method`,
+// `payment_status`, `paid_at`). Nilai kosong ditulis "-", dan cap "Lunas"
+// hanya muncul bila `paid_at` terisi, jadi tidak ada status bayar dikarang.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,
