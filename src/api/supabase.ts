@@ -114,6 +114,29 @@ async function workerToken(email: string): Promise<string> {
   return data.access_token ?? ''
 }
 
+/**
+ * Sesi demo yang di-cache per akun, **tanpa pernah menyimpan kegagalan**.
+ *
+ * Dulu tiap modul menyimpan promise-nya sendiri (`refSession`, `merchantToken`,
+ * …). Promise yang reject tersimpan selamanya: satu gangguan jaringan atau satu
+ * balasan non-2xx dari `/auth/*` membuat **semua** permintaan sesudahnya gagal
+ * sampai app dimuat ulang — gejalanya "pindah tab lalu gagal memuat server".
+ * Sekarang kegagalan dibuang dari cache supaya panggilan berikutnya mencoba lagi.
+ */
+const sessionCache = new Map<string, Promise<string>>()
+
+export function sessionFor(email: string, password: string): Promise<string> {
+  const key = `${email}:${password}`
+  const cached = sessionCache.get(key)
+  if (cached) return cached
+  const pending = signInToken(email, password).catch((error) => {
+    sessionCache.delete(key)
+    throw error
+  })
+  sessionCache.set(key, pending)
+  return pending
+}
+
 /** Login email/kata sandi; menyimpan token untuk `rest`/`create` berikutnya. */
 export async function signIn(email: string, password: string): Promise<void> {
   sessionToken = (await signInToken(email, password)) || null

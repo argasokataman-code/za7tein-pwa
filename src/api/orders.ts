@@ -21,7 +21,7 @@ import type {
   PaymentMethod,
   ZoneId,
 } from '../types'
-import { createWith, createWithReturn, patch, rest, restWith, rpc, signInToken } from './supabase'
+import { createWith, createWithReturn, patch, rest, restWith, rpc, sessionFor } from './supabase'
 import { refToken } from './reference'
 import { chunkIds } from '../data/beMapping'
 
@@ -439,30 +439,23 @@ function toMerchantOrder(
   }
 }
 
-let customerToken: Promise<string> | null = null
-let merchantToken: Promise<string> | null = null
-let courierToken: Promise<string> | null = null
-
 /**
- * Token per akun demo (login sekali per sesi halaman). Token eksplisit dipakai
- * untuk tiap tulis — token global `supabase.ts` tak dipakai di sini supaya
- * customer/merchant/courier tidak saling menimpa saat dipanggil bergantian.
+ * Token per akun demo (login sekali per sesi halaman, lihat `sessionFor`).
+ * Token eksplisit dipakai untuk tiap tulis — token global `supabase.ts` tak
+ * dipakai di sini supaya customer/merchant/courier tidak saling menimpa.
  */
 export function ensureCustomerToken(): Promise<string> {
-  if (!customerToken) customerToken = signInToken(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
-  return customerToken
+  return sessionFor(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
 }
 
 /** Sesi merchant demo — dipakai juga oleh modul batch (`api/batches.ts`). */
 export function ensureMerchantToken(): Promise<string> {
-  if (!merchantToken) merchantToken = signInToken(DEMO_MERCHANT_EMAIL, DEMO_MERCHANT_PASSWORD)
-  return merchantToken
+  return sessionFor(DEMO_MERCHANT_EMAIL, DEMO_MERCHANT_PASSWORD)
 }
 
 /** Sesi kurir demo — dipakai modul batch untuk membaca batch yang ditugaskan. */
 export function ensureCourierToken(): Promise<string> {
-  if (!courierToken) courierToken = signInToken(DEMO_COURIER_EMAIL, DEMO_COURIER_PASSWORD)
-  return courierToken
+  return sessionFor(DEMO_COURIER_EMAIL, DEMO_COURIER_PASSWORD)
 }
 
 /**

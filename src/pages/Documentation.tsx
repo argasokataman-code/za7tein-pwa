@@ -697,6 +697,16 @@ export default function Documentation() {
                 loading selamanya.
               </li>
               <li>
+                <strong>Sesi demo tidak lagi menyimpan kegagalan.</strong> Token per akun
+                (customer/merchant/kurir/mitra/CS) dulu di-cache sebagai promise; satu gangguan
+                jaringan membuat promise yang <em>reject</em> itu tersimpan selamanya sehingga
+                semua permintaan berikutnya gagal sampai app dimuat ulang — gejalanya
+                &ldquo;pindah tab lalu gagal memuat server&rdquo;. Sekarang lewat{' '}
+                <code className="doc-inline">sessionFor()</code>: kegagalan dibuang dari cache dan
+                panggilan berikutnya mencoba lagi. Dijaga{' '}
+                <code className="doc-inline">scripts/session-check.mjs</code>.
+              </li>
+              <li>
                 <strong>Refund jalan ke BE (M2c, §16.6).</strong> Layar{' '}
                 <code className="doc-inline">/customer/refund</code> menampilkan alur §16.6 lengkap —
                 saldo DANA (otomatis), rekening bank lewat BI-FAST (biaya{' '}

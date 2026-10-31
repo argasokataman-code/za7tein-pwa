@@ -35,7 +35,7 @@ import type {
   Wallet,
   ZoneGeometry,
 } from '../types'
-import { patch, restWith, signInToken } from './supabase'
+import { patch, restWith, sessionFor } from './supabase'
 
 export const DEMO_MERCHANT_ID = 1
 const DEMO_MERCHANT_USER_ID = 2
@@ -48,16 +48,13 @@ const MERCHANT_EMAIL =
 const MERCHANT_PASSWORD =
   (import.meta.env.VITE_DEMO_MERCHANT_PASSWORD as string | undefined) || 'demo1234'
 
-let refSession: Promise<string> | null = null
 export function refToken(): Promise<string> {
-  if (!refSession) refSession = signInToken(REF_EMAIL, REF_PASSWORD)
-  return refSession
+  return sessionFor(REF_EMAIL, REF_PASSWORD)
 }
-let merchantSession: Promise<string> | null = null
+
 /** Sesi akun merchant demo — dipakai modul yang menulis baris milik merchant (RLS owner). */
 export function merchantToken(): Promise<string> {
-  if (!merchantSession) merchantSession = signInToken(MERCHANT_EMAIL, MERCHANT_PASSWORD)
-  return merchantSession
+  return sessionFor(MERCHANT_EMAIL, MERCHANT_PASSWORD)
 }
 
 interface CourierRow {

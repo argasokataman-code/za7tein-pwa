@@ -14,7 +14,7 @@
  * belum ada (R-COU-PARTNER AC12). API gagal = pemanggil tetap memakai mock.
  */
 import { refToken } from './reference'
-import { apiEnabled, authUser, patch, restWith, signInToken } from './supabase'
+import { apiEnabled, authUser, patch, restWith, sessionFor } from './supabase'
 import type { CourierAssignment, CourierPartner, CourierPartnerStatus } from '../types'
 
 const PARTNER_EMAIL =
@@ -22,12 +22,9 @@ const PARTNER_EMAIL =
 const PARTNER_PASSWORD =
   (import.meta.env.VITE_DEMO_PARTNER_PASSWORD as string | undefined) || 'demo1234'
 
-let partnerSession: Promise<string> | null = null
-
 /** Token mitra (lazy, sekali per sesi halaman). */
 function partnerToken(): Promise<string> {
-  if (!partnerSession) partnerSession = signInToken(PARTNER_EMAIL, PARTNER_PASSWORD)
-  return partnerSession
+  return sessionFor(PARTNER_EMAIL, PARTNER_PASSWORD)
 }
 
 export interface PartnerCourierRow {

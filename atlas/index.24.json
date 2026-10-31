@@ -4814,6 +4814,177 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-212709",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:17:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/supabase.ts (+25/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/supabase.ts"
+    },
+    {
+      "id": "TASK-212710",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:17:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/reference.ts (+9/-11) — edit via tool: ts: let refSession: Promise<string> | null =",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/reference.ts"
+    },
+    {
+      "id": "TASK-212711",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:17:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+1/-1) — edit via tool: ts: import { createWith, createWithReturn, p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-212712",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:17:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/partner.ts (+1/-1) — edit via tool: ts: import { apiEnabled, authUser, patch, re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/partner.ts"
+    },
+    {
+      "id": "TASK-212713",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:17:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/profile.ts (+1/-1) — edit via tool: ts: import { authUpdateUser, authUser, creat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/profile.ts"
+    },
+    {
+      "id": "TASK-212714",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:18:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/session-check.mjs (+29) — write via tool: // Self-check sesi demo: kegagalan login",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/session-check.mjs"
+    },
+    {
+      "id": "TASK-212715",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:18:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: node --import ./scripts/lib/ts-resolve.mjs scripts/session-check.mjs 2>&1 | tail -5; npm run lint 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212716",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:18:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+12/-2) — edit via tool: tsx: loading selamanya.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212717",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "10:18:40",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4; npm run scan 2>&1 | grep -E \"FAIL|PASS|ok |gagal\" | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

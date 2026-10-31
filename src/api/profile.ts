@@ -9,7 +9,7 @@
 import { resolveCoverage } from '../data/zones'
 import type { Address, ZoneId } from '../types'
 import { refToken } from './reference'
-import { authUpdateUser, authUser, createWith, createWithReturn, deleteWith, patch, restWith, rpc, signInToken } from './supabase'
+import { authUpdateUser, authUser, createWith, createWithReturn, deleteWith, patch, restWith, rpc, sessionFor } from './supabase'
 
 /** User demo customer di backend (sama dengan `reference.ts`). */
 const DEMO_CUSTOMER_USER_ID = 1
@@ -21,10 +21,8 @@ const DEMO_CUSTOMER_PASSWORD =
   (import.meta.env.VITE_DEMO_CUSTOMER_PASSWORD as string | undefined) || 'demo1234'
 
 /** Sesi auth milik customer demo — metadata akun (nama/avatar) hanya lewat sini. */
-let customerSession: Promise<string> | null = null
 function customerToken(): Promise<string> {
-  if (!customerSession) customerSession = signInToken(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
-  return customerSession
+  return sessionFor(DEMO_CUSTOMER_EMAIL, DEMO_CUSTOMER_PASSWORD)
 }
 
 /** Zona master (bentuk argumen `resolveCoverage`) untuk hitung zona + jarak. */
