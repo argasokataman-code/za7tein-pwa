@@ -718,6 +718,97 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212789",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:02:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -2 && rtk git add -A && git commit -m \"feat(customer): kate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-1112",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-31",
+      "time": "14:02:51",
+      "tags": [
+        "api",
+        "orders",
+        "pagination"
+      ],
+      "summary": "Query riwayat gabungan done+canceled kena pagar 100 baris PostgREST; 9 pesanan selesai hilang, terukur 91+9",
+      "conn": [
+        {
+          "id": "BUG-1111",
+          "type": "relates",
+          "raw": "BUG-1111:relates"
+        },
+        {
+          "id": "FEAT-2202",
+          "type": "relates",
+          "raw": "FEAT-2202:relates"
+        }
+      ],
+      "loc": "src/api/reviews.ts:317"
+    },
+    {
+      "id": "FEAT-2203",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-10-31",
+      "time": "14:02:51",
+      "tags": [
+        "ui",
+        "orders",
+        "history"
+      ],
+      "summary": "Kategori riwayat Selesai/Dibatalkan; batal punya chip, sheet alasan+refund, tanpa cap LUNAS",
+      "conn": [
+        {
+          "id": "BUG-1112",
+          "type": "fixes",
+          "raw": "BUG-1112:fixes"
+        },
+        {
+          "id": "FEAT-2202",
+          "type": "relates",
+          "raw": "FEAT-2202:relates"
+        }
+      ],
+      "loc": "src/pages/MyOrder.tsx:283"
+    },
+    {
+      "id": "DEC-88204",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-31",
+      "time": "14:02:51",
+      "tags": [
+        "ui",
+        "receipt",
+        "payment"
+      ],
+      "summary": "Lunas dibaca dari payment_status; tanggal cap hanya bila paid_at ada. Bukan paid_at sebagai syarat",
+      "conn": [
+        {
+          "id": "FEAT-2203",
+          "type": "relates",
+          "raw": "FEAT-2203:relates"
+        }
+      ]
     }
   ]
 }
