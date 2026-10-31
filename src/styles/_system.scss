@@ -85,6 +85,7 @@
 @use "./system/post-order";
 @use "./system/checkout";
 @use "./system/my-order";
+@use "./system/my-order-kinds";
 @use "./system/actions";
 // Terakhir: menyatukan ukuran/bobot judul layar dari 16 kelas lama. Harus
 // setelah partial yang mendefinisikan kelas-kelas itu supaya menang pada

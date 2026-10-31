@@ -79,7 +79,9 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // `payment_status`, `paid_at`). Nilai kosong ditulis "-", dan cap "Lunas"
 // hanya muncul bila `payment_status` = paid (tanggalnya bila `paid_at` ada),
 // jadi tidak ada status bayar dikarang. Riwayat juga dibagi dua kategori
-// (Selesai / Dibatalkan) karena pesanan batal tidak pernah muncul sebelumnya.
+// (Selesai / Dibatalkan) karena pesanan batal tidak pernah muncul sebelumnya;
+// kategorinya tab garis di `src/styles/system/_my-order-kinds.scss`, bukan
+// segmented kedua di bawah segmented Aktif|Riwayat.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,

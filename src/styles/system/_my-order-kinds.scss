@@ -1,0 +1,61 @@
+// Kategori riwayat pesanan (Selesai / Dibatalkan).
+//
+// Kenapa tab garis, bukan segmented atau chip berisi:
+//   - Segmented di atasnya (Aktif | Riwayat) sudah memilih seksi halaman dan
+//     memakai fill putih di atas trek hangat. Segmented kedua tepat di bawahnya
+//     menghasilkan dua pil putih aktif dengan bobot sama; chip berisi juga
+//     menghasilkan blob aktif kedua (terukur: hijau `--green-soft` berisi).
+//     Dua kontrol bertumpuk wajib beda bentuk, bukan cuma beda warna.
+//   - Jadi kategori memakai pola tab garis yang sudah dipakai repo untuk sub-nav
+//     (`docs/design/slice/README.md:252`: tab 44px + indikator 2px di bawah).
+//     Garisnya memakai warna peran kategori (hijau/merah) dan titiknya tetap
+//     warna peran (MD-07), sehingga arti kategori terbaca tanpa blok warna.
+//   - Tinggi 44px (`--touch-min`) dan garis 2px, bukan 3px: garis tebal terbaca
+//     sebagai kartu bergaris aksen yang ditolak design gate.
+.my-order-kinds {
+  display: flex;
+  gap: var(--space-5);
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.my-order-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  /* Margin bawah negatif menempelkan garis aktif ke garis dasar baris, jadi
+     tidak ada celah 1px di antara indikator dan garis pemisah. */
+  margin-bottom: -1px;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.my-order-kind__count {
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.my-order-kind.is-on {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Warna garis = warna kategori, bukan oranye merek: oranye sudah dipakai
+   segmented di atasnya dan tombol aksi di halaman ini. */
+.my-order-kind--done.is-on {
+  border-bottom-color: var(--success);
+}
+
+.my-order-kind--canceled.is-on {
+  border-bottom-color: var(--danger);
+}

@@ -166,13 +166,6 @@
 }
 
 /* ── Riwayat: baris + aksi per baris ─────────────────────────────────────── */
-/* Kategori riwayat (Selesai / Dibatalkan) duduk tepat di bawah pemilih tab:
-   dua segmented bertumpuk memang dua keputusan berbeda (tab pesanan, lalu
-   kategori riwayat), jadi jaraknya dirapatkan supaya terbaca satu blok. */
-.my-order-kinds {
-  margin-bottom: var(--space-3);
-}
-
 .my-order-canceled {
   align-self: start;
 }

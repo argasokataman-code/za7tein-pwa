@@ -281,24 +281,29 @@ export default function MyOrder() {
             </div>
           ) : (
             <div>
-              {/* Dua kategori riwayat, satu daftar pada satu waktu (MD-06). Tanpa
-                  pemisah ini, pesanan batal tidak pernah muncul dan "selesai" jadi
-                  satu-satunya arti riwayat. */}
-              <div className="ck-seg my-order-kinds" role="tablist" aria-label="Pilih kategori riwayat">
+              {/* Dua kategori riwayat, satu daftar pada satu waktu (MD-06).
+                  Kontrolnya chip bertitik warna peran (MD-07), BUKAN segmented
+                  kedua: segmented di atasnya (Aktif|Riwayat) sudah jadi pemilih
+                  seksi, dan dua segmented bertumpuk menghasilkan dua pil putih
+                  aktif yang bersaing tanpa beda arti. Chip juga membawa warna
+                  kategori (hijau selesai, merah batal) yang tak bisa dibawa
+                  segmented netral. */}
+              <div className="my-order-kinds" role="tablist" aria-label="Pilih kategori riwayat">
                 {([
-                  ['done', 'Selesai', doneHistory.length],
-                  ['canceled', 'Dibatalkan', canceledHistory.length],
-                ] as const).map(([id, label, count]) => (
+                  ['done', 'Selesai', doneHistory.length, 'ck-chip__dot--done'],
+                  ['canceled', 'Dibatalkan', canceledHistory.length, 'ck-chip__dot--bad'],
+                ] as const).map(([id, label, count, dot]) => (
                   <button
                     key={id}
                     type="button"
                     role="tab"
                     aria-selected={historyKind === id}
-                    className={`ck-seg__item${historyKind === id ? ' ck-seg__item--on' : ''}`}
+                    className={`my-order-kind my-order-kind--${id}${historyKind === id ? ' is-on' : ''}`}
                     onClick={() => setHistoryKind(id)}
                   >
+                    <span className={`ck-chip__dot ${dot}`} aria-hidden="true" />
                     {label}
-                    <span className="ck-seg__count">{count}</span>
+                    <span className="my-order-kind__count">{count}</span>
                   </button>
                 ))}
               </div>
