@@ -175,9 +175,9 @@ export default function SaDashboard() {
               <span>{moneyFromJod(lastReport.pphFinalJod)}</span>
             </li>
           </ul>
-          <p className="sa-card-sub">
-            Tarif final menunggu konsultan pajak (OQ-2/3/4, OQ-17/18), angka ini placeholder.
-          </p>
+          {/* Catatan developer (dulu tampil di UI): tarif final menunggu konsultan
+              pajak (OQ-2/3/4, OQ-17/18), angka di kartu ini placeholder. Dipindah ke
+              komentar 2026-10-31. */}
           <Link className="sa-link" to="/tax">
             Lihat laporan lengkap
           </Link>

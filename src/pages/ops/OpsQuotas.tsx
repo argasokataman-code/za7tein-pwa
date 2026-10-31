@@ -69,9 +69,11 @@ export default function OpsQuotas() {
 
       <section className="sa-card">
         <p className="sa-note">
-          Harga paket ditagih sebagai transaksi biasa: pembayaran QRIS kena `Ft` 1,5%, saldo DANA
-          tidak. Menambah/mengubah paket di panel ini belum menulis ke BE (mock).
+          Harga paket ditagih sebagai transaksi biasa: pembayaran QRIS kena biaya transaksi 1,5%,
+          saldo DANA tidak.
         </p>
+        {/* Catatan developer (dulu tampil di UI): menambah atau mengubah paket di panel
+            ini belum menulis ke BE (mock). Dipindah ke komentar 2026-10-31. */}
       </section>
     </OpsShell>
   )

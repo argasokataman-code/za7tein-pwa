@@ -141,9 +141,11 @@ export default function MerchantRebate() {
             </ul>
           )}
           <p className="merchant-hint-inline">
-            Sumber: tabel deposits BE. Dana COD ditahan platform sampai diverifikasi; kredit
-            Founding masuk sebagai modal awal dompet.
+            Dana COD ditahan platform sampai diverifikasi; kredit Founding masuk sebagai modal awal
+            dompet.
           </p>
+          {/* Catatan developer (dulu tampil di UI): sumbernya tabel `deposits` di BE.
+              Dipindah ke komentar 2026-10-31. */}
         </section>
 
         <section className="merchant-card merchant-sim">

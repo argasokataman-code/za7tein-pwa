@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { DEMO_MERCHANT_ID } from '../api/orders'
 import { isOrderable } from '../data/catalog'
 import { mockMerchant } from '../data/merchant'
@@ -173,7 +172,8 @@ export default function MerchantPromoCarousel() {
           )}
         </section>
 
-        <PlatformNotice message="Slide disimpan di perangkat ini sampai backend punya tabel slide promo." />
+        {/* Catatan developer (dulu tampil di UI): slide disimpan di perangkat ini
+            sampai backend punya tabel slide promo. Dipindah ke komentar 2026-10-31. */}
 
         <div className="page-fab-spacer" aria-hidden="true" />
       </main>

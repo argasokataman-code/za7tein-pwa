@@ -73,10 +73,10 @@ export default function PersonalData() {
                   </div>
                 </div>
                 <form className="personal-data-form" noValidate onSubmit={handleSubmit(onSubmit)}>
-                  <p className="addr-form-hint">
-                    Nama, email, dan nomor HP tersimpan ke server. Tanggal lahir dan jenis
-                    kelamin belum punya kolom di backend, jadi belum ikut tersimpan.
-                  </p>
+                  <p className="addr-form-hint">Nama, email, dan nomor HP tersimpan ke server.</p>
+                  {/* Catatan developer (dulu tampil di UI): tanggal lahir dan jenis kelamin
+                      belum punya kolom di backend, jadi belum ikut tersimpan. Dipindah ke
+                      komentar 2026-10-31. */}
                   <div className="form-group-profile">
                     <label className="form-label-profile">
                       Full Name

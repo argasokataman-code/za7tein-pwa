@@ -47,10 +47,10 @@ export default function OpsPenalties() {
     <OpsShell>
       <section className="sa-card">
         <p className="sa-card-label">Terbitkan SP</p>
-        <p className="sa-card-sub">
-          SP tercatat sebagai punishment pada pihak yang bersangkutan. Bentuk & tingkatnya bebas
-          seperti katalog rule; ubah bila bentuknya berbeda.
-        </p>
+        <p className="sa-card-sub">SP tercatat sebagai punishment pada pihak yang bersangkutan.</p>
+        {/* Catatan developer (dulu tampil di UI, dan itu instruksi untuk developer
+            sendiri): bentuk dan tingkat SP bebas seperti katalog rule. Ubah bila
+            bentuknya berbeda. Dipindah ke komentar 2026-10-31. */}
         <div className="sa-form-grid">
           <label className="sa-field">
             <span>Pihak</span>

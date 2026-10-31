@@ -217,7 +217,10 @@ export default function PaymentDana() {
           </header>
 
           <div className="payment-dana-content">
-            <PlatformNotice message="Mode sandbox: kode, QR, dan tombol di layar ini simulasi. Tidak ada dana berpindah dan tidak ada kredensial DANA yang disimpan di aplikasi." />
+            {/* Catatan developer (dulu tampil di UI): mode sandbox. Kode, QR, dan
+                tombol di layar ini simulasi; tidak ada kredensial DANA yang disimpan di
+                aplikasi. Dipindah ke komentar 2026-10-31. */}
+            <PlatformNotice message="Simulasi. Tidak ada dana berpindah dari rekeningmu." />
 
             <section className="dana-sheet">
               <div className="dana-sheet__amount">
@@ -239,9 +242,10 @@ export default function PaymentDana() {
                         Salin nomor
                       </button>
                       <p className="dana-sheet__note">
-                        Bayar dari m-banking atau e-wallet apa pun. Kode contoh ini tidak terhubung ke
-                        DANA.
+                        Bayar dari m-banking atau e-wallet apa pun.
                       </p>
+                      {/* Catatan developer: kode contoh ini tidak terhubung ke DANA.
+                          Dipindah dari UI 2026-10-31. */}
                     </>
                   ) : (
                     <>
@@ -259,9 +263,9 @@ export default function PaymentDana() {
                           />
                         ))}
                       </div>
-                      <p className="dana-sheet__note">
-                        Contoh pola, bukan kode yang bisa dipindai. QR asli dibuat DANA (paymentCode).
-                      </p>
+                      <p className="dana-sheet__note">Contoh pola, bukan kode yang bisa dipindai.</p>
+                      {/* Catatan developer: QR asli dibuat DANA (`paymentCode`).
+                          Dipindah dari UI 2026-10-31. */}
                       <button type="button" className="dana-copy" onClick={saveQr}>
                         <Download size={18} strokeWidth={1.75} aria-hidden="true" />
                         Simpan QR
@@ -279,9 +283,9 @@ export default function PaymentDana() {
                 <div className="dana-sheet__state dana-sheet__state--done">
                   <CheckCircle2 size={40} strokeWidth={1.75} aria-hidden="true" />
                   <h2 className="dana-sheet__title">Pembayaran diterima</h2>
-                  <p className="dana-sheet__note">
-                    Pesanan diteruskan ke toko. Simulasi ini menggantikan webhook finish-notify DANA.
-                  </p>
+                  <p className="dana-sheet__note">Pesanan diteruskan ke toko.</p>
+                  {/* Catatan developer: simulasi ini menggantikan webhook
+                      finish-notify DANA. Dipindah dari UI 2026-10-31. */}
                 </div>
               ) : null}
 

@@ -7,7 +7,6 @@ import { DEMO_MERCHANT_ID } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
-import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { SelectField } from '../components/ui/SelectField'
 import {
   COVERAGE_UNIT_LABEL,
@@ -137,7 +136,9 @@ export default function MerchantCoverage() {
       <MerchantPageHeader eyebrow="Pengiriman" title="Area layanan" back="/" />
 
       <main className="merchant-page">
-        <PlatformNotice message="Area layanan disimpan ke `coverage_zones` di server saat tombol Simpan ditekan. Bentuk juga ikut tersimpan di perangkat." />
+        {/* Catatan developer (dulu tampil di UI): area layanan disimpan ke tabel
+            `coverage_zones` di server saat tombol Simpan ditekan; bentuknya juga ikut
+            tersimpan di perangkat. Dipindah ke komentar 2026-10-31. */}
 
         <div className="merchant-chip-row" role="group" aria-label="Mode area layanan">
           {(['area', 'radius'] as const).map((mode) => (

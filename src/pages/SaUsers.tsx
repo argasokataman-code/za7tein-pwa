@@ -301,10 +301,11 @@ export default function SaUsers() {
             )}
             <p className="sa-note">
               Kurir dipekerjakan merchant, bukan platform: deposit, earnings, dan blacklist-nya
-              tanggung jawab merchant (PRD <code className="sa-code">source.md:296</code>). Daftar
-              lintas merchant ini keputusan PO 2026-09-23 supaya SA bisa mengawasi — bukan untuk
+              tanggung jawab merchant. Daftar lintas merchant ini untuk pengawasan, bukan untuk
               mengelola kurir.
             </p>
+            {/* Catatan developer (dulu tampil di UI): rujukan PRD `source.md:296` dan
+                keputusan PO 2026-09-23. Dipindah ke komentar 2026-10-31. */}
             <p className="sa-note">
               Tidak ada kolom status live (Di toko / Mengantar) maupun beban order berjalan di sini:
               itu papan pantau merchant atas kurirnya sendiri (

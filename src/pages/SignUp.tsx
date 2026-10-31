@@ -159,10 +159,10 @@ export default function SignUp() {
             checked={acceptedTerms}
             onChange={(event) => setAcceptedTerms(event.target.checked)}
           />
-          <span>
-            Saya setuju pada syarat dan ketentuan serta pemberitahuan privasi Sa7tein. Isinya belum
-            tersedia karena semua alur di repo ini masih mode demo.
-          </span>
+          <span>Saya setuju pada syarat dan ketentuan serta pemberitahuan privasi Sa7tein.</span>
+          {/* Catatan developer (dulu tampil di UI): isi syarat dan ketentuan belum
+              tersedia karena semua alur di repo ini masih mode demo. Dipindah ke
+              komentar 2026-10-31. */}
         </label>
 
         <button type="submit" className="auth-submit" disabled={isSubmitting}>

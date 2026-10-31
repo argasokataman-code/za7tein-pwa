@@ -116,10 +116,9 @@ export default function SaTax() {
           itulah yang mengurangi saldo keuntungan di layar berikutnya. GST atas fee belum
           dipungut, jadi ditandai info.
         </p>
-        <p className="sa-note">
-          Tarif di tabel ini <strong>placeholder</strong>: tarif GST dan struktur PPh final
-          menunggu konsultan pajak (OQ-2/3/4, OQ-17/18). Jangan dipakai sebagai angka setor.
-        </p>
+        {/* Catatan developer (dulu tampil di UI): tarif di tabel ini placeholder. Tarif
+            GST dan struktur PPh final menunggu konsultan pajak (OQ-2/3/4, OQ-17/18),
+            jadi jangan dipakai sebagai angka setor. Dipindah ke komentar 2026-10-31. */}
         <ExchangeRateNote />
       </section>
     </SuperAdminShell>

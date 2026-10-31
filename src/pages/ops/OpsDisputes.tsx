@@ -175,8 +175,9 @@ function DisputeCard({
         />
         <p id={`decision-note-help-${dispute.id}`} className="admin-hint">
           Wajib, minimal {DECISION_NOTE_MIN} karakter ({note.trim().length}/{DECISION_NOTE_MIN}).
-          Persentase refund dan window 24 jam belum final (OQ-29).
         </p>
+        {/* Catatan developer (dulu tampil di UI): persentase refund dan window 24 jam
+            belum final (OQ-29). Dipindah ke komentar 2026-10-31. */}
       </ConfirmSheet>
     </article>
   )
@@ -270,12 +271,9 @@ export default function OpsDisputes() {
           </section>
         )}
 
-        <div className="admin-footnote">
-          <p className="admin-note">
-            Form “Ajukan Sengketa” ada di sisi customer (layar pesanan tiba) dan merchant (order
-            selesai); kiriman masuk ke antrean ini.
-          </p>
-        </div>
+        {/* Catatan developer (dulu tampil di UI): form "Ajukan Sengketa" ada di sisi
+            customer (layar pesanan tiba) dan merchant (order selesai); kiriman masuk ke
+            antrean ini. Dipindah ke komentar 2026-10-31. */}
       </div>
     </OpsShell>
   )

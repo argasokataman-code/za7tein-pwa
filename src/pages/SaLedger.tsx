@@ -125,10 +125,11 @@ export default function SaLedger() {
         <p className="sa-note">
           Angka di sini adalah bagian dari kewajiban platform (liability). Karena itu tidak ada
           tombol aksi: menahan atau melepas dana user bukan keputusan SA. Kolom{' '}
-          <strong>Pihak</strong> menunjuk id di registri pengguna — sebelumnya ledger tidak
-          menyimpan pihaknya sama sekali, jadi "monitoring detail merchant &amp; customer" tidak
-          bisa dijawab dari layar ini.
+          <strong>Pihak</strong> menunjuk id di registri pengguna.
         </p>
+        {/* Catatan developer (dulu tampil di UI): sebelumnya ledger tidak menyimpan
+            pihaknya sama sekali, jadi "monitoring detail merchant & customer" tidak bisa
+            dijawab dari layar ini. Dipindah ke komentar 2026-10-31. */}
         <ExchangeRateNote />
       </section>
     </SuperAdminShell>

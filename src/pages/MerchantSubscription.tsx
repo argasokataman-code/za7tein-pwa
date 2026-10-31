@@ -127,11 +127,15 @@ export default function MerchantSubscription() {
       <main className="merchant-page">
         <MerchantPageHeader eyebrow="Langganan" title="Kuota order" back="/" />
 
+        {/* Catatan developer (dulu tampil di UI): pembelian kuota belum tersedia.
+            Backend belum punya tabel langganan, jadi saldo kuota di bawah berasal dari
+            data aplikasi dan setting di halaman ini belum tersimpan ke server.
+            Dipindah ke komentar 2026-10-31. */}
         <PlatformNotice
           message={
             QUOTA_PURCHASE_AVAILABLE
               ? 'Beli kuota order atau kuota COD. Sisa kuota hangus di akhir periode.'
-              : 'Pembelian kuota belum tersedia. Backend belum punya tabel langganan, jadi saldo kuota di bawah berasal dari data aplikasi dan setting di halaman ini belum tersimpan ke server.'
+              : 'Saldo kuota di bawah belum bisa diubah dari halaman ini. Sisa kuota hangus di akhir periode.'
           }
         />
 

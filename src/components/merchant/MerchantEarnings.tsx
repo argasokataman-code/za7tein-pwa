@@ -23,9 +23,13 @@ export function MerchantEarnings({ order }: MerchantEarningsProps) {
     label: cancelled ? 'Tidak ada pendapatan' : 'Bersih untuk toko',
     amountIdr: cancelled ? 0 : invoice.netIdr,
   }
+  // Catatan developer (§16.5, §17): order COD tunai tidak kena potongan platform
+  // merchant; biaya layanan customer jadi hak toko dan ongkir tunai diteruskan ke
+  // kurir. Untuk order non-COD, BE belum menyimpan potongan per order. Dipindah dari
+  // UI 2026-10-31.
   const footnote = isCod
-    ? 'Order COD tunai: tidak ada potongan platform merchant (§16.5). Biaya layanan customer menjadi hak toko (§17); ongkir tunai diteruskan ke kurir.'
-    : 'Ongkir disalurkan ke kurir dan biaya layanan ke aplikator. Fee memakai tarif platform berlaku; BE belum menyimpan potongan per order.'
+    ? 'Order COD tunai: tidak ada potongan platform merchant. Biaya layanan customer menjadi hak toko; ongkir tunai diteruskan ke kurir.'
+    : 'Ongkir disalurkan ke kurir dan biaya layanan ke aplikator, memakai tarif platform yang berlaku.'
 
   return (
     <OrderPriceBreakdown

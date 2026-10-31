@@ -189,10 +189,10 @@ export default function OpsLedger() {
                 <span className="admin-ledger-amount">{money(entry.amountIdr)}</span>
               </div>
             ))}
-            <p className="admin-note">
-              Tiap transisi tidak bisa disunting. Arah debit-credit hold belum diputuskan
-              di demo ini, jadi hanya nominal dan waktunya yang ditampilkan.
-            </p>
+            <p className="admin-note">Tiap transisi tidak bisa disunting.</p>
+            {/* Catatan developer (dulu tampil di UI): arah debit-credit hold belum
+                diputuskan di demo ini, jadi hanya nominal dan waktunya yang
+                ditampilkan. Dipindah ke komentar 2026-10-31. */}
           </section>
         ) : null}
       </div>

@@ -552,9 +552,11 @@ export default function Checkout() {
                       dijelaskannya, bukan setelah total, supaya pembaca struk
                       tidak menebak baris mana yang info-only. */}
                   <p className="summary-info-note">
-                    Dua baris pajak di atas info-only dan belum masuk total. Tarif serta
-                    kewajiban setornya belum final (menunggu konsultan pajak, OQ-17/18).
+                    Dua baris pajak di atas info-only dan belum masuk total.
                   </p>
+                  {/* Catatan developer (dulu tampil di UI): tarif serta kewajiban
+                      setornya belum final (menunggu konsultan pajak, OQ-17/18). Dipindah
+                      ke komentar 2026-10-31. */}
                   {promo ? (
                     <div className="summary-item">
                       <span>Promo {promo.code}</span>

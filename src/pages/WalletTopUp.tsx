@@ -73,8 +73,10 @@ export default function WalletTopUp() {
                   </div>
                   <p className="wallet-form-note">
                     Akun baru wajib top-up minimal {money(MIN_TOPUP_NEW_ACCOUNT_IDR)} sebelum bisa
-                    order (R-TOPUP-01).
+                    order.
                   </p>
+                  {/* Catatan developer: id requirement R-TOPUP-01 ada di sini, bukan di
+                      layar. Dipindah dari UI 2026-10-31. */}
                 </section>
 
                 <section className="wallet-form" aria-label="Kanal pembayaran">
@@ -139,10 +141,11 @@ export default function WalletTopUp() {
                   )}
                   {pending.length > 0 ? (
                     <p className="wallet-form-note">
-                      Mock: tidak ada DANA sungguhan. Tombol simulasi mewakili webhook{' '}
-                      <code>top_up_completed</code> yang menaikkan saldo.
+                      Simulasi: tidak ada dana berpindah.
                     </p>
                   ) : null}
+                  {/* Catatan developer: tombol simulasi mewakili webhook
+                      `top_up_completed` yang menaikkan saldo. Dipindah dari UI 2026-10-31. */}
                 </section>
               </main>
             </div>

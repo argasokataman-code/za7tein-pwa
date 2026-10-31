@@ -10,7 +10,7 @@ import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { BottomSheet } from '../components/ui/BottomSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
-import { PlatformNotice } from '../components/ui/PlatformNotice'
+
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
@@ -234,11 +234,9 @@ export default function MerchantSettings() {
         {/* Profil & foto di halaman ini belum punya jalur tulis ke BE: yang
             tersimpan cuma state sesi. Ditulis di muka supaya "Unggah foto" dan
             tombol simpan tidak terbaca sebagai penyimpanan permanen. */}
-        <PlatformNotice
-          message={
-            'Perubahan nama, nomor, alamat, dan foto hanya berlaku sementara. Profil belum tersimpan permanen.'
-          }
-        />
+        {/* Catatan developer (dulu tampil di UI): perubahan nama, nomor, alamat, dan
+            foto hanya berlaku sementara. Profil belum tersimpan permanen karena `api/`
+            belum punya jalur tulis profil toko. Dipindah ke komentar 2026-10-31. */}
 
         {/* Foto toko (field D1, f16). Unggah/Ganti/Hapus ditangani di sini dan
             langsung tersimpan ke store — tidak menunggu tombol simpan form teks. */}
@@ -586,9 +584,9 @@ export default function MerchantSettings() {
               )
             })}
           </div>
-          <p className="merchant-hours-note">
-            Jadwal per hari hanya di sesi ini. Server menyimpan jam hari ini untuk pelanggan.
-          </p>
+          {/* Catatan developer (dulu tampil di UI): jadwal per hari hanya hidup di
+              sesi ini; server baru menyimpan jam hari ini untuk pelanggan. Dipindah ke
+              komentar 2026-10-31. */}
           <div className="merchant-actions">
             <button type="button" className="btn btn-primary" onClick={saveHours}>
               Simpan

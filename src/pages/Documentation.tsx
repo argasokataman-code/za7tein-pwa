@@ -63,6 +63,13 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
 // menandai SA legacy. Rincian di decision-ops-canonical.md.
+//
+// Aturan copy (2026-10-31): kalimat yang isinya pengingat internal (status
+// backend, mock, kode tiket OQ-/OPEN-/R-, nama tabel, path berkas, instruksi ke
+// developer) tidak dirender ke UI. Tempatnya komentar `Catatan developer (dulu
+// tampil di UI)` di berkas yang sama. Teks UI hanya kalimat yang bisa ditindak
+// pengguna. 51 temuan dipindah; daftar dan pengecualiannya di
+// docs/design/ui-dev-notes-leak-2026-10-31.md, entri ChangelogSection.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,

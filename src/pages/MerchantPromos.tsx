@@ -35,7 +35,7 @@ import { BottomSheet } from '../components/ui/BottomSheet'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { jod } from '../data/currency'
-import { PROGRAM_EDIT_AVAILABLE, PROGRAM_TONE, merchantPrograms, programSummary } from '../data/marketing'
+import { PROGRAM_TONE, merchantPrograms, programSummary } from '../data/marketing'
 import { mockMerchant } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { removeProgram, replaceMarketing, setStackable } from '../store/slices/marketingSlice'
@@ -266,8 +266,10 @@ export default function MerchantPromos() {
           </div>
         </section>
 
+        {/* Catatan developer (dulu tampil di UI): backend belum tersambung, jadi promo
+            tidak bisa dimuat. Dipindah ke komentar 2026-10-31. */}
         {!apiEnabled ? (
-          <PlatformNotice message="Backend belum tersambung — promo tidak bisa dimuat." />
+          <PlatformNotice message="Promo belum bisa dimuat. Tarik ulang halaman untuk mencoba lagi." />
         ) : null}
         {error ? (
           <PlatformNotice message="Gagal memuat promo. Tarik ulang halaman untuk mencoba lagi." />
@@ -402,30 +404,24 @@ export default function MerchantPromos() {
             </ul>
           )}
 
-          <p className="merchant-card-sub">
-            Aturan gabungan masih terbuka (OPEN-23) dan di sini memakai aturan paling sederhana yang
-            bisa dibuktikan: program yang boleh digabung dijumlahkan, yang berdiri sendiri hanya
-            jalan sendirian, dan yang diskonnya lebih besar yang dipakai.
-          </p>
+          {/* Catatan developer (dulu tampil di UI): aturan gabungan masih terbuka
+              (OPEN-23). Yang dipakai di sini aturan paling sederhana yang bisa
+              dibuktikan: program yang boleh digabung dijumlahkan, yang berdiri sendiri
+              hanya jalan sendirian, dan diskon terbesar yang dipakai. 2026-10-31. */}
         </section>
 
-        <PlatformNotice
-          message={
-            PROGRAM_EDIT_AVAILABLE
-              ? 'Program marketing bisa dibuat dan diubah dari sini.'
-              : 'Membuat atau mengubah program marketing belum tersedia. Backend belum punya tabel program (loyalty_programs), jadi daftar dan sakelar di atas hidup di state aplikasi dan belum tersimpan ke server.'
-          }
-        />
+        {/* Catatan developer (dulu tampil di UI): membuat atau mengubah program
+            marketing belum tersedia. Backend belum punya tabel program
+            (`loyalty_programs`), jadi daftar dan sakelar di atas hidup di state
+            aplikasi dan belum tersimpan ke server. 2026-10-31. */}
 
         <section className="merchant-card">
           <div className="merchant-row">
             <Info size={18} strokeWidth={1.75} aria-hidden="true" />
             <div>
-              <p className="merchant-card-title">Yang belum final</p>
+              <p className="merchant-card-title">Batas promo saat ini</p>
               <p className="merchant-card-sub">
-                Scope marketing/promo di PRD masih terbuka (MARK-1). Layar ini memakai tabel{' '}
-                <code className="doc-inline">marketing</code> apa adanya: satu kode = satu
-                jendela tanggal, tanpa batas per pelanggan dan tanpa promo bawaan platform.
+                Satu kode untuk satu jendela tanggal. Belum ada batas pemakaian per pelanggan.
               </p>
             </div>
           </div>

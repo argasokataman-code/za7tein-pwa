@@ -58,7 +58,9 @@ export default function MerchantPending() {
         Mau pesan makanan? <Link to="/customer/home">Buka aplikasi pembeli</Link>
       </p>
 
-      <p className="auth-note">{PENDING_COPY.note}</p>
+      {/* Catatan developer (dulu tampil di UI): halaman ini hanya alur layar. Repo ini
+          front-end, jadi belum ada backend yang benar-benar menyetujui toko. Dipindah
+          dari `PENDING_COPY.note` 2026-10-31. */}
     </AuthLayout>
   )
 }

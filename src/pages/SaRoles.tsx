@@ -158,9 +158,11 @@ export default function SaRoles() {
         <div className="sa-form">
           <p className="sa-perm-group-title">Operator CS yang sedang bertugas</p>
           <p className="sa-card-sub">
-            Aksi panel CS tercatat di audit trail atas nama operator ini. Di produksi ini datang
-            dari sesi CS; repo ini tanpa auth, jadi ditetapkan dari sini.
+            Aksi panel CS tercatat di audit trail atas nama operator ini.
           </p>
+          {/* Catatan developer (dulu tampil di UI): di produksi operator datang dari sesi
+              CS; repo ini tanpa auth, jadi ditetapkan dari layar ini. Dipindah ke
+              komentar 2026-10-31. */}
           <label className="sa-field sa-field--inline">
             <span>Bertugas sebagai</span>
             <select value={csActorId} onChange={(e) => dispatch(setCsActor({ id: e.target.value }))}>

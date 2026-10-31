@@ -167,12 +167,14 @@ export default function NotificationSettings() {
               </div>
               <p className="text-muted-profile">
                 {!supported
-                  ? 'Push butuh aplikasi terpasang (build/preview), tidak aktif di mode dev. '
+                  ? 'Push butuh aplikasi terpasang, jadi belum aktif di sini. '
                   : subscription
                     ? `Perangkat ini berlangganan push sejak ${registeredLabel}. `
-                    : 'Nyalakan untuk berlangganan push di perangkat ini. '}
-                Pengiriman dari server lewat skrip scripts/send-push.mjs.
+                    : 'Nyalakan untuk berlangganan push di perangkat ini.'}
               </p>
+              {/* Catatan developer (dulu tampil di UI): push hanya aktif di build atau
+                  preview, tidak di mode dev; pengiriman dari server lewat skrip
+                  scripts/send-push.mjs. Dipindah ke komentar 2026-10-31. */}
 
               <button
                 type="button"

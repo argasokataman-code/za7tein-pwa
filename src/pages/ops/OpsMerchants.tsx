@@ -164,11 +164,8 @@ export default function OpsMerchants() {
           </section>
         ) : null}
 
-        <div className="admin-footnote">
-          <p className="admin-note">
-            Suspend dan blacklist di sini hanya mengubah tampilan, bukan data sungguhan.
-          </p>
-        </div>
+        {/* Catatan developer (dulu tampil di UI): suspend dan blacklist di sini hanya
+            mengubah tampilan, bukan data sungguhan. Dipindah ke komentar 2026-10-31. */}
 
         {confirmBlacklist ? (
           <ConfirmSheet

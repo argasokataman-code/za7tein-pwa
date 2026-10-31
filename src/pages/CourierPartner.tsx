@@ -8,7 +8,6 @@ import {
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useApiPartner } from '../hooks/useApiPartner'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import {
@@ -159,7 +158,10 @@ export default function CourierPartner() {
           ) : null}
         </section>
 
-        <PlatformNotice message="Status dan assignment mitra disimpan ke BE (couriers + dispatch_assignments). Dispatch otomatis (OPEN-11) dan penerbit SP belum diputuskan ops (§18); tombol simulasi hanya memainkan akibat cabang tanpa respons di layar ini." />
+        {/* Catatan developer (dulu tampil di UI): status dan assignment mitra disimpan
+            ke tabel `couriers` + `dispatch_assignments`. Dispatch otomatis (OPEN-11) dan
+            penerbit SP belum diputuskan ops (§18); tombol simulasi hanya memainkan
+            akibat cabang tanpa respons di layar ini. Dipindah ke komentar 2026-10-31. */}
 
         <section className="courier-section">
           <h2 className="courier-section-title">
@@ -193,11 +195,11 @@ export default function CourierPartner() {
                     Tolak
                   </button>
                 </div>
-                <p className="courier-sla-note">
-                  Jendela respons sepanjang estimasi prepare. Di produksi, prepare habis
-                  tanpa respons dipicu BE (expire_assignments()): order dicari pengganti,
-                  mitra jadi offline, dan ops menjatuhkan SP.
-                </p>
+                <p className="courier-sla-note">Jendela respons sepanjang estimasi prepare.</p>
+                {/* Catatan developer (dulu tampil di UI): di produksi, prepare habis
+                    tanpa respons dipicu BE lewat `expire_assignments()`; order dicari
+                    pengganti, mitra jadi offline, dan ops menjatuhkan SP. Dipindah ke
+                    komentar 2026-10-31. */}
                 <button
                   type="button"
                   className="courier-partner-sim"

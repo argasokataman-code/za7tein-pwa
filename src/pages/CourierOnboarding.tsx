@@ -107,7 +107,9 @@ export default function CourierOnboarding() {
             {errors.agree.message}
           </span>
         ) : (
-          <span className="auth-hint">Mode demo: ketentuan lengkap belum tersedia.</span>
+          // Catatan developer (dulu tampil di UI): mode demo, ketentuan lengkap belum
+          // tersedia. Dipindah ke komentar 2026-10-31.
+          null
         )}
 
         <button type="submit" className="auth-submit" disabled={isSubmitting}>

@@ -173,8 +173,11 @@ export default function Reviews() {
             <div className="header-spacer" />
           </div>
           <div className="reviews-content">
+            {/* Catatan developer (dulu tampil di UI): backend belum tersambung, jadi
+                ulasan tidak bisa dikirim karena belum ada endpoint tulis. Dipindah ke
+                komentar 2026-10-31. */}
             {!apiEnabled ? (
-              <PlatformNotice message="Backend belum tersambung — ulasan tidak bisa dikirim." />
+              <PlatformNotice message="Ulasan belum bisa dikirim. Muat ulang halaman untuk mencoba lagi." />
             ) : null}
             {error ? (
               <PlatformNotice message="Gagal memuat pesanan. Muat ulang halaman untuk mencoba lagi." />
@@ -323,9 +326,10 @@ export default function Reviews() {
           </p>
         ) : null}
         <p className="reviews-field-note">
-          {photos.length > 0 ? `${photos.length} dari ${MAX_REVIEW_PHOTOS} foto. ` : ''}
-          Pratinjau lokal, foto belum disimpan server.
+          {photos.length > 0 ? `${photos.length} dari ${MAX_REVIEW_PHOTOS} foto.` : ''}
         </p>
+        {/* Catatan developer (dulu tampil di UI): foto hanya pratinjau lokal, belum
+            disimpan server. Dipindah ke komentar 2026-10-31. */}
 
         {/* §20.2: rating menu item = bintang saja, tanpa review, dan tanpa rating
             per variant. Sasarannya hidangan yang benar-benar dipesan
@@ -369,9 +373,9 @@ export default function Reviews() {
             ))}
           </>
         ) : !MENU_RATING_AVAILABLE ? (
-          <p className="reviews-field-note">
-            Rating per menu (bintang saja, tanpa review) belum bisa diisi di sini.
-          </p>
+          // Catatan developer (dulu tampil di UI): rating per menu (bintang saja,
+          // tanpa review) belum bisa diisi di sini. Dipindah ke komentar 2026-10-31.
+          <p className="reviews-field-note">Rating per menu belum tersedia.</p>
         ) : null}
 
         <div className="sheet-actions">

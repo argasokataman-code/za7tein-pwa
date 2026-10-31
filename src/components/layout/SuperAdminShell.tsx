@@ -169,7 +169,9 @@ export function SuperAdminShell({ children }: SuperAdminShellProps) {
             <h1 className="sa-top-title">{current.label}</h1>
             <p className="sa-top-hint">{current.hint}</p>
           </div>
-          <p className="sa-top-badge">Data demo · bukan transaksi sungguhan</p>
+          {/* Catatan developer (dulu tampil di UI): seluruh panel ini data demo, bukan
+              transaksi sungguhan. Badge dihapus 2026-10-31; kembalikan bila panel sudah
+              memakai data nyata. */}
         </header>
         <main className="sa-main" id="sa-main">
           {allowed ? (

@@ -273,8 +273,11 @@ export default function MyOrder() {
             </div>
           ) : (
             <div>
+              {/* Catatan developer (dulu tampil di UI): backend belum tersambung, jadi
+                  riwayat pesanan tidak bisa dimuat karena sumbernya API. Dipindah ke
+                  komentar 2026-10-31; pengguna cukup lihat cabang `error` di bawah. */}
               {!apiEnabled ? (
-                <PlatformNotice message="Backend belum tersambung — riwayat pesanan tidak bisa dimuat." />
+                <PlatformNotice message="Riwayat pesanan belum bisa dimuat. Muat ulang halaman untuk mencoba lagi." />
               ) : null}
               {error ? (
                 <PlatformNotice message="Gagal memuat riwayat. Muat ulang halaman untuk mencoba lagi." />

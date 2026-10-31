@@ -1,0 +1,148 @@
+{
+  "shard": 25,
+  "nodes": [
+    {
+      "id": "TASK-212758",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "11:21:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: <tbody>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-212759",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "11:21:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -4 && npm run scan 2>&1 | tail -6 && lsof -nP -iTCP -sTCP:L",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-1110",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-10-31",
+      "time": "11:24:30",
+      "tags": [
+        "ui",
+        "copy",
+        "debt"
+      ],
+      "summary": "51 catatan developer tampil sebagai teks UI (status backend, kode tiket, nama tabel, instruksi dev)",
+      "conn": [
+        {
+          "id": "BUG-1109",
+          "type": "relates",
+          "raw": "BUG-1109:relates"
+        }
+      ],
+      "loc": "src/pages/ops/OpsPenalties.tsx:51"
+    },
+    {
+      "id": "DEC-88202",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-10-31",
+      "time": "11:24:34",
+      "tags": [
+        "ui",
+        "convention",
+        "copy"
+      ],
+      "summary": "Catatan internal hanya di komentar kode; teks UI hanya kalimat yang bisa ditindak pengguna",
+      "conn": [
+        {
+          "id": "BUG-1110",
+          "type": "relates",
+          "raw": "BUG-1110:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212760",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "11:24:34",
+      "tags": [
+        "ui",
+        "copy",
+        "debt"
+      ],
+      "summary": "Pindahkan 51 catatan developer ke komentar; daftar di docs/design/ui-dev-notes-leak-2026-10-31.md",
+      "conn": [
+        {
+          "id": "BUG-1110",
+          "type": "fixes",
+          "raw": "BUG-1110:fixes"
+        },
+        {
+          "id": "DEC-88202",
+          "type": "relates",
+          "raw": "DEC-88202:relates"
+        }
+      ],
+      "loc": "docs/design/ui-dev-notes-leak-2026-10-31.md:1"
+    },
+    {
+      "id": "REQ-2201",
+      "type": "requirement",
+      "status": "active",
+      "date": "2026-10-31",
+      "time": "11:24:34",
+      "tags": [
+        "ui",
+        "copy"
+      ],
+      "summary": "Kalimat pengingat backend/mock/tiket tidak boleh dirender; wajib berupa komentar + kalimat yang bisa ditindak",
+      "conn": [
+        {
+          "id": "DEC-88202",
+          "type": "relates",
+          "raw": "DEC-88202:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212761",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "11:24:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+10/-3) — edit via tool: tsx: // Backoffice kanonik = `/ops` (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    }
+  ]
+}

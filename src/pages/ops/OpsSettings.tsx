@@ -73,10 +73,10 @@ export default function OpsSettings() {
     <OpsShell>
       <section className="sa-card">
         <p className="sa-card-label">Aturan yang dimiliki ops</p>
-        <p className="sa-card-sub">
-          Nilai ini dipakai lintas peran. Menyimpan di sini menulis ke BE
-          (`platform_params`); kolom yang belum ada di RPC ditulis langsung.
-        </p>
+        <p className="sa-card-sub">Nilai ini dipakai lintas peran.</p>
+        {/* Catatan developer (dulu tampil di UI): menyimpan di sini menulis ke tabel
+            `platform_params`; kolom yang belum ada di RPC ditulis langsung. Dipindah ke
+            komentar 2026-10-31. */}
       </section>
 
       <section className="sa-card">

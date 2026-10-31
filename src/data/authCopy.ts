@@ -21,7 +21,6 @@
 export const PENDING_COPY = {
   title: 'Menunggu persetujuan',
   subtitle: 'Pendaftaran tokomu sedang ditinjau tim CS. Setelah disetujui, toko bisa menerima order.',
-  note: 'Halaman ini hanya alur layar: repo ini front-end, jadi belum ada backend yang benar-benar menyetujui toko.',
 } as const
 
 /**

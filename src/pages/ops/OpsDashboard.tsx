@@ -38,9 +38,11 @@ export default function OpsDashboard() {
       <section className="sa-card">
         <p className="sa-card-label">Antrean hari ini</p>
         <p className="sa-card-sub">
-          Panel ini mock: aksi ops = state yang ditampilkan, tidak menyentuh uang atau order
-          sungguhan. Yang perlu keputusan dikumpulkan di bawah.
+          Yang perlu keputusan dikumpulkan di bawah.
         </p>
+        {/* Catatan developer (dulu tampil di UI): panel ini mock. Aksi ops = state
+            yang ditampilkan, tidak menyentuh uang atau order sungguhan. Dipindah ke
+            komentar 2026-10-31. */}
       </section>
 
       <section className="sa-stats">

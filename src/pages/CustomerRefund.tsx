@@ -175,13 +175,12 @@ export default function CustomerRefund() {
                   Riwayat.
                 </p>
               ) : null}
-              <PlatformNotice
-                message={
-                  REFUND_AVAILABLE
-                    ? 'Refund penuh: dana kembali ke saldo DANA atau rekening bank (BI-FAST).'
-                    : 'Layanan refund belum aktif.'
-                }
-              />
+              {/* Catatan developer (dulu tampil di UI): layanan refund belum aktif,
+                  `REFUND_AVAILABLE` masih false selama BE belum punya endpoint refund.
+                  Dipindah ke komentar 2026-10-31. */}
+              {REFUND_AVAILABLE ? (
+                <PlatformNotice message="Refund penuh: dana kembali ke saldo DANA atau rekening bank (BI-FAST)." />
+              ) : null}
 
               <section className="order-summary-section" aria-label="Nominal refund">
                 <h2 className="section-title">Nominal refund</h2>

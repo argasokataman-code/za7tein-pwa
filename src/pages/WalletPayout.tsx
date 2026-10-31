@@ -85,9 +85,9 @@ export default function WalletPayout() {
                       Semua saldo
                     </button>
                   </div>
-                  <p className="wallet-form-note">
-                    Fee penarikan belum final (OQ-22) — belum ada potongan yang ditampilkan.
-                  </p>
+                  {/* Catatan developer (dulu tampil di UI): fee penarikan belum final
+                      (OQ-22), jadi belum ada potongan yang ditampilkan. Dipindah ke
+                      komentar 2026-10-31. */}
                   {tooMuch ? (
                     <p className="wallet-warning" role="status">
                       Nominal melebihi saldo tersedia ({money(balance.available)}).

@@ -135,9 +135,10 @@ export default function SaProfit() {
         <p className="sa-note">
           {!canWithdraw
             ? `Role ${activeRole?.name} boleh melihat saldo, tapi tidak boleh menariknya (izin profit.withdraw).`
-            : (invalidReason ?? `Sisa setelah penarikan ini: ${jod((balance - parsed))}.`)}{' '}
-          Penarikan masuk sebagai <em>processing</em>; jadwal settlement final masih UNRESOLVED.
+            : (invalidReason ?? `Sisa setelah penarikan ini: ${jod((balance - parsed))}.`)}
         </p>
+        {/* Catatan developer (dulu tampil di UI): penarikan masuk sebagai processing,
+            jadwal settlement final masih UNRESOLVED. Dipindah ke komentar 2026-10-31. */}
       </section>
 
       <section className="sa-card">

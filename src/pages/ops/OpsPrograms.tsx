@@ -74,8 +74,10 @@ export default function OpsPrograms() {
         <p className="sa-card-label">Program aplikator</p>
         <p className="sa-card-sub">
           Diskon yang ditanggung platform, berlaku lintas merchant. Berbeda dengan program merchant
-          yang dibiayai toko. Bila BE kosong, daftar menampilkan seed mock.
+          yang dibiayai toko.
         </p>
+        {/* Catatan developer (dulu tampil di UI): bila BE kosong, daftar menampilkan
+            seed mock. Dipindah ke komentar 2026-10-31. */}
       </section>
 
       <section className="sa-card">

@@ -303,10 +303,10 @@ export default function DisputeSubmit() {
               Order {orderCode} sudah ada di antrean panel CS. Batasnya 1× per order.
             </p>
           ) : null}
-          <p className="admin-note">
-            1× per order, window 24 jam setelah order selesai. Kategori dan window masih sementara
-            (OQ-29): form ini state tampilan, bukan aturan yang dikunci.
-          </p>
+          <p className="admin-note">1× per order, window 24 jam setelah order selesai.</p>
+          {/* Catatan developer (dulu tampil di UI): kategori dan window masih sementara
+              (OQ-29). Form ini state tampilan, bukan aturan yang dikunci. Dipindah ke
+              komentar 2026-10-31. */}
         </form>
 
         <BottomSheet

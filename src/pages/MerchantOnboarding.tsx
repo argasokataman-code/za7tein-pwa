@@ -167,9 +167,9 @@ export default function MerchantOnboarding() {
 
           <section className="merchant-card">
             <p className="merchant-card-title">Pengiriman</p>
-            <p className="merchant-card-sub">
-              Tentukan jangkauan dan ongkir. Tarif per jarak / per area belum final di PRD.
-            </p>
+            <p className="merchant-card-sub">Tentukan jangkauan dan ongkir.</p>
+            {/* Catatan developer (dulu tampil di UI): tarif per jarak dan per area belum
+                final di PRD. Dipindah ke komentar 2026-10-31. */}
 
             <div className="form-group">
               <span className="form-label">Mode jangkauan</span>
