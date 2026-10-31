@@ -203,6 +203,10 @@ interface OrderRow {
   payment_method?: string | null
   payment_status?: string | null
   paid_at?: string | null
+  status?: string | null
+  cancel_reason?: string | null
+  cancel_by?: string | null
+  refund_status?: string | null
 }
 
 /** Baris `order_items` saat dibaca bersama nama hidangannya. */
@@ -270,8 +274,22 @@ async function fetchOrderDishes(
   return byOrder
 }
 
-/** Pecahan nota satu order. `null` = kolom tak ada / kosong di BE, dan UI
- *  menuliskan "-" alih-alih mengarang angka. */
+/** Kolom yang dibaca riwayat. Nota butuh pecahan biaya + status bayar, jadi
+ *  daftarnya panjang; `select=*` akan ikut menarik kolom yang tak dipakai. */
+const HISTORY_COLUMNS =
+  'id,code,merchant_id,created_at,total_jod,sub_total_jod,delivery_fee_jod,' +
+  'platform_fee_jod,tip_jod,promo_amount_jod,discount_merchant_jod,' +
+  'discount_applicator_jod,transaction_fee_jod,payment_method,payment_status,' +
+  'paid_at,status,cancel_reason,cancel_by,refund_status'
+
+/**
+ * Pagar baris PostgREST. Server demo memotong respons di 100 baris walau klien
+ * tidak memasang `limit`, jadi satu query gabungan `done,canceled` membuat
+ * pesanan batal **memakan kuota** pesanan selesai: terukur 91 selesai + 9 batal
+ * untuk 122 pesanan `done` di BE, artinya 9 pesanan selesai hilang tanpa jejak.
+ * Karena itu tiap status dibaca sendiri; masing-masing dapat pagar 100 miliknya.
+ */
+const HISTORY_PAGE_CAP = 100
 export interface OrderReceipt {
   subTotalIdr: number | null
   deliveryFeeIdr: number | null
@@ -294,6 +312,14 @@ export interface OrderReceipt {
 
 /** Satu baris riwayat pesanan: order selesai + sudah dinilai atau belum (§20.2). */
 export interface OrderHistoryItem extends ReviewableOrder {
+  /** `done` = selesai, `canceled` = dibatalkan. Riwayat memuat keduanya. */
+  status: 'done' | 'canceled'
+  /** Alasan batal apa adanya; `null` = tidak dicatat. */
+  cancelReason: string | null
+  /** `customer` | `merchant` | `system` | null. */
+  cancelBy: string | null
+  /** `none | pending | refunded` apa adanya dari BE. */
+  refundStatus: string | null
   reviewed: boolean
   /** Nominal order (IDR) — baris riwayat memberi total, bukan hanya tanggal. */
   totalIdr: number
@@ -301,26 +327,36 @@ export interface OrderHistoryItem extends ReviewableOrder {
 }
 
 /**
- * Riwayat pesanan customer: order `done`, terbaru dulu, dengan penanda sudah
- * dinilai. **Tanpa batas waktu** (§20.2 "tidak ada batas waktu pengisian"), jadi
- * tidak ada penyaring tanggal di sini.
+ * Riwayat pesanan customer: order `done` dan `canceled`, terbaru dulu, dengan
+ * penanda sudah dinilai. **Tanpa batas waktu** (§20.2 "tidak ada batas waktu
+ * pengisian"), jadi tidak ada penyaring tanggal di sini.
  */
 export async function fetchOrderHistory(
   customerId = DEMO_CUSTOMER_ID,
 ): Promise<OrderHistoryItem[]> {
   const token = await ensureCustomerToken()
-  const [orders, reviewed] = await Promise.all([
+  const historyQuery = (status: 'done' | 'canceled') =>
     restWith<OrderRow>(
       token,
       'orders',
-      `?select=id,code,merchant_id,created_at,total_jod,sub_total_jod,delivery_fee_jod,platform_fee_jod,tip_jod,promo_amount_jod,discount_merchant_jod,discount_applicator_jod,transaction_fee_jod,payment_method,payment_status,paid_at&customer_id=eq.${customerId}&status=eq.done&order=created_at.desc`,
-    ),
+      `?select=${HISTORY_COLUMNS}&customer_id=eq.${customerId}&status=eq.${status}` +
+        `&order=created_at.desc&limit=${HISTORY_PAGE_CAP}`,
+    )
+
+  const [doneRows, canceledRows, reviewed] = await Promise.all([
+    historyQuery('done'),
+    historyQuery('canceled'),
     restWith<{ order_id: number }>(
       token,
       'rating_reviews',
       `?select=order_id&customer_id=eq.${customerId}`,
     ),
   ])
+  /* Dua daftar digabung lalu diurutkan ulang: pemisahan per status hanya untuk
+     menembus pagar baris, bukan untuk mengubah urutan tampil. */
+  const orders = [...doneRows, ...canceledRows].sort((l, r) =>
+    l.created_at < r.created_at ? 1 : l.created_at > r.created_at ? -1 : 0,
+  )
   if (!orders.length) return []
 
   const done = new Set(reviewed.map((r) => r.order_id))
@@ -340,6 +376,10 @@ export async function fetchOrderHistory(
     merchantId: o.merchant_id,
     merchantName: byId.get(o.merchant_id) ?? 'Toko',
     createdAt: o.created_at,
+    status: o.status === 'canceled' ? 'canceled' : 'done',
+    cancelReason: o.cancel_reason ?? null,
+    cancelBy: o.cancel_by ?? null,
+    refundStatus: o.refund_status ?? null,
     reviewed: done.has(o.id),
     totalIdr: jodToIdr(o.total_jod ?? 0),
     items: dishes.get(o.id) ?? [],
@@ -364,7 +404,7 @@ export async function fetchReviewableOrders(
   customerId = DEMO_CUSTOMER_ID,
 ): Promise<ReviewableOrder[]> {
   const history = await fetchOrderHistory(customerId)
-  return history.filter((order) => !order.reviewed)
+  return history.filter((order) => order.status === 'done' && !order.reviewed)
 }
 
 /**

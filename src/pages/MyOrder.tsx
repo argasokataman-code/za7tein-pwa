@@ -62,6 +62,8 @@ export default function MyOrder() {
   const [pendingId, setPendingId] = useState<string | null>(null)
   /** Riwayat yang sedang dibuka rinciannya; `null` = sheet tertutup (MD-13). */
   const [openOrder, setOpenOrder] = useState<OrderHistoryItem | null>(null)
+  /** Kategori riwayat: selesai atau dibatalkan. Dua daftar, satu per waktu. */
+  const [historyKind, setHistoryKind] = useState<'done' | 'canceled'>('done')
 
   const tab: Tab = params.get('tab') === 'history' ? 'history' : 'active'
   const setTab = (next: Tab) => {
@@ -96,7 +98,10 @@ export default function MyOrder() {
     liveStores.find((s) => s.id === activeMerchantId) ??
     (activeMerchantId ? getStorefront(activeMerchantId) : undefined)
   const activeCount = activeOrders.length + (cartItems.length ? 1 : 0)
-  const unreviewed = history.filter((order) => !order.reviewed).length
+  const doneHistory = history.filter((order) => order.status === 'done')
+  const canceledHistory = history.filter((order) => order.status === 'canceled')
+  const shownHistory = historyKind === 'done' ? doneHistory : canceledHistory
+  const unreviewed = doneHistory.filter((order) => !order.reviewed).length
 
   const trackOrder = (order: CustomerActiveOrder) => {
     dispatch(setActiveOrder({ id: order.id, code: order.code }))
@@ -276,6 +281,27 @@ export default function MyOrder() {
             </div>
           ) : (
             <div>
+              {/* Dua kategori riwayat, satu daftar pada satu waktu (MD-06). Tanpa
+                  pemisah ini, pesanan batal tidak pernah muncul dan "selesai" jadi
+                  satu-satunya arti riwayat. */}
+              <div className="ck-seg my-order-kinds" role="tablist" aria-label="Pilih kategori riwayat">
+                {([
+                  ['done', 'Selesai', doneHistory.length],
+                  ['canceled', 'Dibatalkan', canceledHistory.length],
+                ] as const).map(([id, label, count]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    role="tab"
+                    aria-selected={historyKind === id}
+                    className={`ck-seg__item${historyKind === id ? ' ck-seg__item--on' : ''}`}
+                    onClick={() => setHistoryKind(id)}
+                  >
+                    {label}
+                    <span className="ck-seg__count">{count}</span>
+                  </button>
+                ))}
+              </div>
               {/* Catatan developer (dulu tampil di UI): backend belum tersambung, jadi
                   riwayat pesanan tidak bisa dimuat karena sumbernya API. Dipindah ke
                   komentar 2026-10-31; pengguna cukup lihat cabang `error` di bawah. */}
@@ -292,21 +318,29 @@ export default function MyOrder() {
                   <span className="my-order-skel__row" />
                   <span className="my-order-skel__row" />
                 </div>
-              ) : history.length === 0 ? (
+              ) : shownHistory.length === 0 ? (
                 <div className="my-order-empty">
                   <ReceiptText size={40} strokeWidth={1.5} aria-hidden="true" />
-                  <strong>Belum ada pesanan selesai</strong>
-                  <span>Pesanan yang sudah tiba akan muncul di sini beserta penilaiannya.</span>
+                  <strong>
+                    {historyKind === 'done' ? 'Belum ada pesanan selesai' : 'Tidak ada pesanan dibatalkan'}
+                  </strong>
+                  <span>
+                    {historyKind === 'done'
+                      ? 'Pesanan yang sudah tiba akan muncul di sini beserta penilaiannya.'
+                      : 'Pesanan yang dibatalkan muncul di sini, lengkap dengan alasannya.'}
+                  </span>
                 </div>
               ) : (
                 <>
-                  <p className="my-order-note">
-                    {unreviewed > 0
-                      ? `${unreviewed} pesanan belum dinilai.`
-                      : 'Penilaian bisa diisi kapan saja, tanpa batas waktu.'}
-                  </p>
+                  {historyKind === 'done' ? (
+                    <p className="my-order-note">
+                      {unreviewed > 0
+                        ? `${unreviewed} pesanan belum dinilai.`
+                        : 'Penilaian bisa diisi kapan saja, tanpa batas waktu.'}
+                    </p>
+                  ) : null}
                   <ul className="ck-list">
-                    {history.map((order) => (
+                    {shownHistory.map((order) => (
                       <li className="ck-row" key={order.id}>
                         <button
                           type="button"
@@ -330,6 +364,12 @@ export default function MyOrder() {
                               {new Date(order.createdAt).toLocaleDateString('id-ID', DATE_FORMAT)}
                             </span>
                           </span>
+                          {order.status === 'canceled' ? (
+                            <span className="ck-chip ck-chip--end my-order-canceled">
+                              <span className="ck-chip__dot ck-chip__dot--bad" aria-hidden="true" />
+                              Dibatalkan
+                            </span>
+                          ) : null}
                           {order.items.length ? (
                             <span className="ck-row__sub">{itemsLine(order.items)}</span>
                           ) : null}
@@ -339,7 +379,7 @@ export default function MyOrder() {
                             kanan tetap, jadi tombolnya jatuh di x yang sama tiap
                             baris (MD-11). */}
                         <span className="my-order-actions">
-                          {order.reviewed ? (
+                          {order.status === 'canceled' ? null : order.reviewed ? (
                             <span className="my-order-rated">
                               <Star size={15} strokeWidth={1.75} aria-hidden="true" />
                               Dinilai

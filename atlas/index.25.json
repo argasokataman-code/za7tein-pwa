@@ -604,6 +604,120 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212783",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "13:54:53",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/styles/system/_my-order.scss'\ns=open(p).read()\na = \"\"\".order-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212784",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "13:56:44",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\nimport sys\np='src/api/reviews.ts'\ns=open(p).read()\n\na = \"\"\"/** Pecah",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212785",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "13:57:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/components/customer/OrderHistorySheet.tsx'\ns=open(p).read()\na",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212786",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:00:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/styles/system/_my-order.scss'\ns=open(p).read()\na=\"\"\"  margin-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212787",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:01:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\nimport sys\np='src/pages/documentation/sections/ChangelogSection.tsx'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212788",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:01:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+4/-2) — edit via tool: tsx: // `payment_status`, `paid_at`). ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

@@ -77,7 +77,9 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // `platform_fee_jod`, `tip_jod`, `discount_merchant_jod`,
 // `discount_applicator_jod`, `transaction_fee_jod`, `payment_method`,
 // `payment_status`, `paid_at`). Nilai kosong ditulis "-", dan cap "Lunas"
-// hanya muncul bila `paid_at` terisi, jadi tidak ada status bayar dikarang.
+// hanya muncul bila `payment_status` = paid (tanggalnya bila `paid_at` ada),
+// jadi tidak ada status bayar dikarang. Riwayat juga dibagi dua kategori
+// (Selesai / Dibatalkan) karena pesanan batal tidak pernah muncul sebelumnya.
 const SECTIONS = [
   IntroductionSection,
   WhatsNewSection,

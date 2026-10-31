@@ -21,6 +21,18 @@ const DATE_FORMAT: Intl.DateTimeFormatOptions = {
 }
 
 /** `payment_method` di D1 memakai enum ketat (`qris | dana_balance | cod`). */
+const CANCEL_BY_LABEL: Record<string, string> = {
+  customer: 'Pembeli',
+  merchant: 'Toko',
+  system: 'Sistem',
+}
+
+const REFUND_LABEL: Record<string, string> = {
+  none: 'Tidak ada',
+  pending: 'Sedang diproses',
+  refunded: 'Sudah dikembalikan',
+}
+
 const PAYMENT_LABEL: Record<string, string> = {
   qris: 'QRIS',
   dana_balance: 'Saldo DANA',
@@ -60,7 +72,17 @@ export function OrderHistorySheet({ order, onClose, onReorder }: OrderHistoryShe
 
   const hasInvoice = Boolean(order && receipt && receipt.code === order.code)
   const breakdown = order ? receiptLines(order.receipt) : []
-  const paid = Boolean(order?.receipt.paidAt)
+  /* "Lunas" mengikuti `payment_status`, bukan `paid_at`: di D1 ada 794 order
+     `paid` yang `paid_at`-nya kosong, jadi menuntut timestamp membuat nota
+     lunas tidak pernah tampil. Tanggal bayar ditulis "-" bila memang tak ada. */
+  const paid = order?.receipt.paymentStatus === 'paid'
+  const isCanceled = order?.status === 'canceled'
+  const isCod = order?.receipt.paymentMethod === 'cod'
+  /* Uang tunai hanya diketahui kalau order ini dibuat dari perangkat yang sama
+     (`cart.lastReceipt`). Selain itu "-", bukan angka karangan. */
+  const cashIdr = order && receipt && receipt.code === order.code ? receipt.cashIdr : null
+  const changeIdr =
+    cashIdr != null && order ? Math.max(0, cashIdr - order.totalIdr) : null
 
   return (
     <BottomSheet
@@ -81,11 +103,31 @@ export function OrderHistorySheet({ order, onClose, onReorder }: OrderHistoryShe
             <time className="order-sheet-date" dateTime={order.createdAt}>
               {new Date(order.createdAt).toLocaleDateString('id-ID', DATE_FORMAT)}
             </time>
-            <span className={`order-sheet-chip${order.reviewed ? ' order-sheet-chip--done' : ''}`}>
+            <span
+              className={`order-sheet-chip${
+                isCanceled
+                  ? ' order-sheet-chip--canceled'
+                  : order.reviewed
+                    ? ' order-sheet-chip--done'
+                    : ''
+              }`}
+            >
               <span className="order-sheet-chip__dot" aria-hidden="true" />
-              {order.reviewed ? 'Sudah dinilai' : 'Belum dinilai'}
+              {isCanceled ? 'Dibatalkan' : order.reviewed ? 'Sudah dinilai' : 'Belum dinilai'}
             </span>
           </p>
+
+          {paid && !isCanceled ? (
+            <div className="order-sheet-stamp" aria-label="Pesanan sudah lunas">
+              <span className="order-sheet-stamp__main">LUNAS</span>
+              {/* Tanggal hanya dicetak kalau BE mencatatnya. "LUNAS -" terbaca
+                  seperti nota setengah jadi, dan 794 order demo memang `paid`
+                  tanpa `paid_at`. */}
+              {order.receipt.paidAt ? (
+                <span className="order-sheet-stamp__date">{dateLabel(order.receipt.paidAt)}</span>
+              ) : null}
+            </div>
+          ) : null}
 
           {order.items.length ? (
             <ul className="order-sheet-items">
@@ -127,9 +169,56 @@ export function OrderHistorySheet({ order, onClose, onReorder }: OrderHistoryShe
               <span className="order-sheet-fee-label">Status bayar</span>
               <span className={`order-sheet-pay${paid ? ' order-sheet-pay--paid' : ''}`}>
                 <span className="order-sheet-chip__dot" aria-hidden="true" />
-                {paid ? `Lunas ${dateLabel(order.receipt.paidAt)}` : 'Belum tercatat lunas'}
+                {paid
+                  ? order.receipt.paidAt
+                    ? `Lunas ${dateLabel(order.receipt.paidAt)}`
+                    : 'Lunas'
+                  : 'Belum tercatat lunas'}
               </span>
             </li>
+            {isCanceled ? (
+              <>
+                <li className="order-sheet-fee list-row">
+                  <span className="order-sheet-fee-label">Dibatalkan oleh</span>
+                  <span className="order-sheet-fee-sum">
+                    {order.cancelBy ? (CANCEL_BY_LABEL[order.cancelBy] ?? order.cancelBy) : '-'}
+                  </span>
+                </li>
+                <li className="order-sheet-fee list-row">
+                  <span className="order-sheet-fee-label">Alasan batal</span>
+                  <span className="order-sheet-fee-sum">{order.cancelReason ?? '-'}</span>
+                </li>
+                <li className="order-sheet-fee list-row">
+                  <span className="order-sheet-fee-label">Pengembalian dana</span>
+                  <span className="order-sheet-fee-sum">
+                    {order.refundStatus ? (REFUND_LABEL[order.refundStatus] ?? order.refundStatus) : '-'}
+                  </span>
+                </li>
+              </>
+            ) : null}
+            {/* Uang tunai: yang disiapkan customer saat COD dan kembaliannya.
+                Hanya ada bila order dibuat dari perangkat ini; selain itu "-". */}
+            {isCod ? (
+              <li className="order-sheet-fee list-row">
+                <span className="order-sheet-fee-label">Dibayar tunai</span>
+                <span className="order-sheet-fee-sum">
+                  {cashIdr == null ? '-' : moneyPlain(cashIdr)}
+                </span>
+              </li>
+            ) : paid ? (
+              <li className="order-sheet-fee list-row">
+                <span className="order-sheet-fee-label">Dibayar</span>
+                <span className="order-sheet-fee-sum">{moneyPlain(order.totalIdr)}</span>
+              </li>
+            ) : null}
+            {isCod ? (
+              <li className="order-sheet-fee list-row">
+                <span className="order-sheet-fee-label">Kembalian</span>
+                <span className="order-sheet-fee-sum">
+                  {changeIdr == null ? '-' : moneyPlain(changeIdr)}
+                </span>
+              </li>
+            ) : null}
           </ul>
 
           {hasInvoice && showInvoice ? <OrderInvoice orderCode={order.code} /> : null}
@@ -144,7 +233,7 @@ export function OrderHistorySheet({ order, onClose, onReorder }: OrderHistoryShe
             </div>
 
             <div className="order-sheet-actions">
-            {order.reviewed ? null : (
+            {order.reviewed || isCanceled ? null : (
               <Link className="my-order-cta order-sheet-rate" to={`/reviews?order=${order.code}`}>
                 Beri rating
               </Link>
@@ -162,7 +251,9 @@ export function OrderHistorySheet({ order, onClose, onReorder }: OrderHistoryShe
             <button
               type="button"
               className={
-                order.reviewed
+                /* Tanpa "Beri rating" (sudah dinilai atau batal), "Pesan lagi"
+                   adalah satu-satunya aksi, jadi ia yang jadi tombol penuh. */
+                order.reviewed || isCanceled
                   ? 'my-order-cta order-sheet-reorder'
                   : 'order-sheet-reorder order-sheet-secondary'
               }
