@@ -2476,6 +2476,139 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-212866",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:04:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx (+2/-2) — edit via tool: tsx: activeOrders.map((order) => (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-212867",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:04:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss (+12/-5) — edit via tool: /* Antar kartu 16px (irisan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss"
+    },
+    {
+      "id": "TASK-212868",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:04:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-active-gap.mjs (+64) — write via tool: // Jarak antar kartu tab",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-active-gap.mjs"
+    },
+    {
+      "id": "TASK-212869",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:05:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-active-fixture.mjs (+131) — write via tool: // Ukur jarak kartu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-active-fixture.mjs"
+    },
+    {
+      "id": "TASK-212870",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:06:08",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | tail -3 && node scripts/browser-g",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212871",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:06:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+15/-5) — edit via tool: tsx: kosong 49px, baris berisi 64,1px",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212872",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:06:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+10/-4) — edit via tool: Kepala kartu juga diberi `padding-rig",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
     }
   ]
 }

@@ -425,6 +425,12 @@ Kepala kartu juga diberi `padding-right: var(--space-6)` (24px) supaya nama toko
 dan meta berhenti `6px` sebelum chevron; dengan `12px` sebelumnya teks berakhir
 di `x 346` sementara chevron mulai di `x 340`.
 
+**Jebakan selektor bersaudara.** Tab Aktif membungkus tiap kartu dalam `<div>`
+sendiri (tempat tombol batal satu order), jadi `.oh-card + .oh-card` tidak pernah
+cocok di sana dan jarak kartu jatuh ke **0px** walau aturannya ada. Pembungkusnya
+kini berkelas `oh-active-item` dengan `margin-top: var(--space-4)`. Terukur pada
+data stub 390px: tiga kartu, dua celah, masing-masing `16px`.
+
 ### Fitur yang aktif di `order-history.html`
 
 Bukan gambar mati: satu blok `<script>` di akhir berkas menggerakkan seluruh

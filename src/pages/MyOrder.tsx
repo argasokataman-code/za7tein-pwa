@@ -459,7 +459,7 @@ export default function MyOrder() {
                 </div>
               ) : (
                 activeOrders.map((order) => (
-                  <div key={order.id}>
+                  <div className="oh-active-item" key={order.id}>
                     <ActiveOrderCard
                       order={order}
                       image={matchImage(order.merchantName, order.items, liveItems)}

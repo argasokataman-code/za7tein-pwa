@@ -1355,6 +1355,16 @@ export default function Documentation() {
                 2/2 PASS.
               </li>
               <li>
+                <strong>Jarak kartu tab Aktif sempat 0px.</strong> Tiap order berjalan dibungkus{' '}
+                <code className="doc-inline">&lt;div&gt;</code> sendiri (perlu untuk tombol batal di
+                bawah kartu), sehingga selektor <code className="doc-inline">.oh-card + .oh-card</code>{' '}
+                tidak pernah cocok dan kartu menempel. Pembungkusnya kini berkelas{' '}
+                <code className="doc-inline">oh-active-item</code> dengan{' '}
+                <code className="doc-inline">margin-top: var(--space-4)</code>. Terukur di 390px
+                dengan data stub: jarak antar kartu <code className="doc-inline">16px</code> (3 kartu,
+                dua celah), sebelumnya <code className="doc-inline">0px</code>.
+              </li>
+              <li>
                 <strong>Pemberitahuan perubahan status di layar lacak.</strong> Status order berubah
                 dari realtime tanpa penanda apa pun selain teks panel yang diam-diam berganti.{' '}
                 <code className="doc-inline">src/components/customer/OrderUpdateNotice.tsx</code>{' '}

@@ -188,6 +188,13 @@
   margin-top: var(--space-4);
 }
 
+/* Tab Aktif membungkus tiap kartu dalam `<div class="oh-active-item">` (perlu
+   untuk tombol batal satu order), jadi `.oh-card + .oh-card` tidak pernah
+   cocok di sana dan kartu menempel 0px. Jarak diambil dari pembungkusnya. */
+.oh-active-item + .oh-active-item {
+  margin-top: var(--space-4);
+}
+
 .oh-card__head {
   position: relative;
   display: flex;
