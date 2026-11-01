@@ -1,0 +1,165 @@
+// Rule sengketa merchant (§18) — halaman sendiri sejak 2026-11-01.
+//
+// Dulu blok ini menumpuk di `/merchant/settings`: tujuh chip, lalu tiga paragraf
+// uraian untuk tiap rule terpilih. Halaman setelan jadi panjang dan isinya
+// bercampur dengan setelan toko, padahal rule itu kebijakan yang mengikat order.
+// Sekarang satu baris per rule (ketuk baris = ikuti/lepas), uraian hanya muncul
+// pada rule yang memang diikuti.
+//
+// Baris memakai primitif `.list-row` (MD-11: rel kanan lebar tetap) supaya
+// sakelarnya berakhir di satu garis, bukan mengikuti panjang nama rule. Relnya
+// disempitkan ke `--touch-min`: isinya cuma sakelar 44px, dan sisa lebar itu
+// yang membuat baris kode + kategori muat satu baris (dua baris = tinggi baris
+// tidak seragam, MD-11).
+@use "./mixins" as *;
+
+
+.merchant-rules-note {
+  margin: 0 0 var(--space-4);
+  padding-inline: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.merchant-rules-count {
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.merchant-rules-empty {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.merchant-rules-head {
+  margin: 0 0 var(--space-2);
+  padding-inline: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.merchant-rules-applied {
+  margin-bottom: var(--space-4);
+}
+
+/* Uraian rule yang diikuti: satu kartu bergaris, dipisah garis rambut. */
+.merchant-rule-details {
+  margin: 0;
+  padding: var(--space-4);
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.merchant-rule-detail + .merchant-rule-detail {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.merchant-rule-detail-title {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Satu wadah bergaris rambut, bukan tujuh kartu putih bertumpuk (MD-06). */
+.merchant-rules {
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.merchant-rule + .merchant-rule {
+  border-top: 1px solid var(--border);
+}
+
+.merchant-rule-toggle {
+  @include list-row(var(--touch-min));
+
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  background: transparent;
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+}
+
+.merchant-rule-toggle:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: -2px;
+}
+
+/* Sakelar duduk sebaris nama rule, bukan di tengah blok uraian: baris yang
+   diikuti jauh lebih tinggi, jadi sakelar di tengah terlihat lepas dari
+   judulnya. */
+.merchant-rule-toggle > .merchant-toggle-switch {
+  align-self: start;
+  justify-self: end;
+  margin-top: var(--space-1);
+}
+
+.merchant-rule-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.merchant-rule-name {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.merchant-rule-code {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  text-wrap: pretty;
+}
+
+.merchant-rule-meta {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.merchant-rule-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.merchant-rules-foot {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  padding-inline: var(--space-1);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.merchant-rules-foot svg {
+  flex: 0 0 auto;
+  margin-top: var(--space-1);
+  color: var(--orange-ink);
+}

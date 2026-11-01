@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Check, Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, MapPinned, RefreshCw, Store, Trash2, Wallet } from 'lucide-react'
+import { Check, Clock, CreditCard, Globe, ImagePlus, LocateFixed, MapPin, MapPinned, RefreshCw, ShieldCheck, Store, Trash2, Wallet } from 'lucide-react'
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -24,13 +24,7 @@ import {
   mockOperatingHours,
 } from '../data/operatingHours'
 import type { OperatingHoursDay } from '../types'
-import {
-  DISPUTE_RULES,
-  INCIDENT_CATEGORIES,
-  compensationForRule,
-  punishmentForRule,
-  rulesForMerchant,
-} from '../data/rules'
+import { DISPUTE_RULES, rulesForMerchant } from '../data/rules'
 import { merchantToken, setStoreHours } from '../api/reference'
 import { imageFileError, uploadImage } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
@@ -42,13 +36,8 @@ import {
   setOperatingHours,
   setStoreProfile,
 } from '../store/slices/merchantSlice'
-import { toggleRule } from '../store/slices/rulesSlice'
 
 const TIER_LABEL: Record<string, string> = { free: 'Gratis', pro: 'Pro' }
-
-function categoryLabel(categoryId: string): string {
-  return INCIDENT_CATEGORIES.find((category) => category.id === categoryId)?.label ?? categoryId
-}
 
 export default function MerchantSettings() {
   const { money } = useMoney()
@@ -375,61 +364,18 @@ export default function MerchantSettings() {
         </section>
 
         <section className="merchant-card">
-          <p className="merchant-card-title">Rule sengketa</p>
-          <p className="merchant-card-sub">
-            Pilih rule yang diikuti toko ({selectedRules.length}/{DISPUTE_RULES.length}). Menurut §18
-            pelanggan dan kurir pada order tokomu mengikuti rule yang sama, jadi pilihan ini berlaku
-            untuk ketiganya. Isi rule dibuat tim ops lewat aplikasi internal; katalog di demo ini
-            contoh bentuknya.
-          </p>
-          <div className="merchant-chip-row">
-            {DISPUTE_RULES.map((rule) => {
-              const active = ruleSelection.ruleIds.includes(rule.id)
-              return (
-                <button
-                  key={rule.id}
-                  type="button"
-                  data-rule-id={rule.id}
-                  className={`merchant-chip${active ? ' is-active' : ''}`}
-                  aria-pressed={active}
-                  onClick={() => dispatch(toggleRule(rule.id))}
-                >
-                  {active ? <Check size={14} strokeWidth={2.5} aria-hidden="true" /> : null}
-                  {rule.name}
-                </button>
-              )
-            })}
+          <div className="merchant-row">
+            <ShieldCheck size={20} strokeWidth={1.75} aria-hidden="true" />
+            <div>
+              <p className="merchant-card-title">Rule sengketa</p>
+              <p className="merchant-card-sub">
+                {selectedRules.length} dari {DISPUTE_RULES.length} rule diikuti
+              </p>
+            </div>
           </div>
-          {selectedRules.length === 0 ? (
-            <p className="merchant-card-sub">
-              Belum ada rule dipilih. Insiden pada order tokomu belum punya rule yang berlaku.
-            </p>
-          ) : (
-            selectedRules.map((rule) => {
-              const compensation = compensationForRule(rule.id)
-              const punishment = punishmentForRule(rule.id)
-              return (
-                <div key={rule.id} className="merchant-row">
-                  <div>
-                    <p className="merchant-card-title">
-                      {rule.code} · {categoryLabel(rule.categoryId)}
-                    </p>
-                    <p className="merchant-card-sub">Mitigasi: {rule.mitigation}</p>
-                    <p className="merchant-card-sub">
-                      {compensation
-                        ? `Kompensasi ke ${compensation.recipient}: ${compensation.form} (${compensation.formula})`
-                        : 'Kompensasi: belum diatur ops'}
-                    </p>
-                    <p className="merchant-card-sub">
-                      {punishment
-                        ? `Punishment ke ${punishment.subject}: ${punishment.form} (${punishment.level})`
-                        : 'Punishment: tidak ada'}
-                    </p>
-                  </div>
-                </div>
-              )
-            })
-          )}
+          <Link className="merchant-btn-ghost merchant-wallet-manage" to="/rules">
+            Pilih rule
+          </Link>
         </section>
 
         <section className="merchant-card">

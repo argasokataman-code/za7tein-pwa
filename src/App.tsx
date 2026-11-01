@@ -65,6 +65,7 @@ import MerchantPromos from './pages/MerchantPromos'
 import MerchantPromoCarousel from './pages/MerchantPromoCarousel'
 import MerchantPromoSlideForm from './pages/MerchantPromoSlideForm'
 import MerchantReviews from './pages/MerchantReviews'
+import MerchantRules from './pages/MerchantRules'
 import MerchantSettings from './pages/MerchantSettings'
 import MerchantSignIn from './pages/MerchantSignIn'
 import MerchantSignUp from './pages/MerchantSignUp'
@@ -227,6 +228,7 @@ const merchantRoutes: [string, ComponentType][] = [
   ['/reviews', MerchantReviews],
   ['/couriers', MerchantCouriers],
   ['/coverage', MerchantCoverage],
+  ['/rules', MerchantRules],
   ['/settings', MerchantSettings],
   ['/wallet', MerchantWallet],
   ['/payout', MerchantPayout],

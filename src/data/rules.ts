@@ -287,3 +287,21 @@ export function snapshotRule(rule: DisputeRule): RuleSnapshot {
     usulan: true,
   }
 }
+
+/**
+ * Tanggal berlaku pilihan rule, dibaca manusia.
+ *
+ * Kolomnya tanggal saja (`YYYY-MM-DD`, dari `new Date().toISOString().slice(0, 10)`
+ * di `rulesSlice`). `new Date('2026-10-01')` ditafsirkan UTC, jadi di zona waktu
+ * negatif tanggalnya mundur sehari; karena itu bagian tanggalnya diurai sendiri
+ * lalu dibentuk sebagai tengah malam lokal.
+ */
+export function formatEffectiveFrom(iso: string): string {
+  const [year, month, day] = iso.split('-').map(Number)
+  if (!year || !month || !day) return 'tanggal tidak diketahui'
+  return new Date(year, month - 1, day).toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  })
+}

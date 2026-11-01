@@ -1426,8 +1426,10 @@ export default function Documentation() {
                 dikelola ops&rdquo;), jadi yang dibangun mesinnya: katalog di{' '}
                 <code className="doc-inline">src/data/rules.ts</code> (5 kategori insiden, 7 rule,
                 kompensasi &amp; punishment sebagai bagian rule), pilihan <strong>multi-select</strong>{' '}
-                toko di <code className="doc-inline">/merchant/settings</code> seksi &ldquo;Rule
-                sengketa&rdquo;, dan <code className="doc-inline">ruleForOrder()</code> yang menentukan
+                toko di <code className="doc-inline">/merchant/rules</code> (satu baris per rule,
+                sakelar <code className="doc-inline">role=&quot;switch&quot;</code>; pintunya kartu
+                ringkas di <code className="doc-inline">/merchant/settings</code>), dan{' '}
+                <code className="doc-inline">ruleForOrder()</code> yang menentukan
                 rule berlaku pada satu order beserta konsekuensinya, bagi toko, pelanggan, dan kurir
                 sekaligus karena §18 menulis ketiganya mengikuti rule yang sama. Bila toko belum memilih
                 rule untuk sebuah kategori, hasilnya ditandai <strong>OPEN-18</strong>: rule dasar tidak
