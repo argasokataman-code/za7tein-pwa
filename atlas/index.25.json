@@ -2132,6 +2132,198 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-212849",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:42:24",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -3 && git push origin main 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212850",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:48:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss (+29/-25) — edit via tool: /* ── strip tanggal ──────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss"
+    },
+    {
+      "id": "TASK-212851",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:48:19",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -5 && npm run scan 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212852",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:49:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-rhythm.mjs (+67) — write via tool: // Ukur ritme daftar riwayat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-rhythm.mjs"
+    },
+    {
+      "id": "TASK-212853",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:50:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss (+15/-8) — edit via tool: .oh-row__name {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss"
+    },
+    {
+      "id": "TASK-212854",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:51:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss (+5/-3) — edit via tool: /* Antar kartu 16px (irisan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss"
+    },
+    {
+      "id": "TASK-212855",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:51:27",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run scan 2>&1 | tail -8 && npm run build 2>&1 | ta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212856",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:52:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-css-check.mjs (+54) — write via tool: // Periksa CSS riwayat ya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-css-check.mjs"
+    },
+    {
+      "id": "TASK-212857",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "14:53:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+21/-3) — edit via tool: 4. **Baris item kartu 3 satu baris**;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "BUG-1114",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-11-01",
+      "time": "14:54:03",
+      "tags": [
+        "customer",
+        "order-history",
+        "layout"
+      ],
+      "summary": "Daftar riwayat pesanan terasa rapat: baris item 8px, antar kartu 12px, strip tanggal 4px dari kartu",
+      "conn": [
+        {
+          "id": "TASK-2216",
+          "type": "relates",
+          "raw": "TASK-2216:relates"
+        }
+      ],
+      "loc": "src/styles/system/_order-history.scss:186"
     }
   ]
 }
