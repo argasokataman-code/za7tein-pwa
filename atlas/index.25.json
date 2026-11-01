@@ -4084,6 +4084,312 @@
         }
       ],
       "loc": "src/components/ui/TimeField.tsx:1"
+    },
+    {
+      "id": "TASK-212944",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:08:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx (+119) — write via tool: tsx: import { ShieldCheck } from 'luci",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx"
+    },
+    {
+      "id": "TASK-212945",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:09:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx (+7/-6) — edit via tool: tsx: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx"
+    },
+    {
+      "id": "TASK-212946",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:09:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss (+109) — write via tool: // Rule sengketa merchant (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss"
+    },
+    {
+      "id": "TASK-212947",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:09:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss (+3/-2) — edit via tool: @use \"./system/merchant-hours\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-212948",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:10:36",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error |MerchantRules|MerchantSettings\" | head -6; npm r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212949",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:10:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/rules-probe.mjs (+138) — write via tool: // Ukur halaman /merchant",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/rules-probe.mjs"
+    },
+    {
+      "id": "TASK-212950",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:11:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss (+13/-10) — edit via tool: // Rule sengketa merchant",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss"
+    },
+    {
+      "id": "TASK-212951",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:12:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx (+10/-10) — edit via tool: tsx: <span className=\"merchant-rule-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx"
+    },
+    {
+      "id": "TASK-212952",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:12:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -1; npm run sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212953",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:12:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss (+13/-11) — edit via tool: .merchant-rule-code {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss"
+    },
+    {
+      "id": "TASK-212954",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:15:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx (+71/-53) — edit via tool: tsx: <ul className=\"merchant-rules\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx"
+    },
+    {
+      "id": "TASK-212955",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:15:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss (+44/-9) — edit via tool: .merchant-rules-empty {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss"
+    },
+    {
+      "id": "TASK-212956",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:15:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error |MerchantRules\" | head -3; npm run build 2>&1 | t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212957",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:16:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss (+5/-3) — edit via tool: // Baris memakai primitif `",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss"
+    },
+    {
+      "id": "TASK-212958",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:19:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -1; npm run sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-9994",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-01",
+      "time": "20:23:24",
+      "tags": [
+        "merchant",
+        "rules",
+        "design"
+      ],
+      "summary": "Pilihan rule sengketa jadi halaman /merchant/rules; uraian dipisah ke blok bawah agar tinggi baris seragam (MD-11)",
+      "conn": [
+        {
+          "id": "DEC-9993",
+          "type": "relates",
+          "raw": "DEC-9993:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantRules.tsx:1"
     }
   ]
 }
