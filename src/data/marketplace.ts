@@ -130,6 +130,28 @@ export const mockAssignments: CourierAssignment[] = [
  */
 export const QUOTA_LOW_RATIO = 0.2
 
+const PERIOD_DATE_FORMAT: Intl.DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+}
+
+/**
+ * Rentang periode kuota untuk dibaca manusia. Kolom BE
+ * (`quota_subscriptions.period_start/period_end`) berisi timestamp ISO penuh
+ * (`2026-10-29T16:00:37.092Z`), dan cetakan mentahnya tidak berarti apa pun di
+ * layar. Tanggal dibaca di zona waktu perangkat; jamnya dibuang karena periode
+ * kuota dihitung per hari.
+ */
+export function formatPeriodRange(startIso: string, endIso: string): string {
+  const start = new Date(startIso)
+  const end = new Date(endIso)
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+    return 'Periode tidak diketahui'
+  }
+  return `${start.toLocaleDateString('id-ID', PERIOD_DATE_FORMAT)} → ${end.toLocaleDateString('id-ID', PERIOD_DATE_FORMAT)}`
+}
+
 /**
  * `merchantId` memakai id merchant seperti yang dipakai sisi lain: toko demo
  * console merchant = `1` (`DEMO_MERCHANT_ID`, id live `merchants.id`), dan

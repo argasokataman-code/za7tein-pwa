@@ -20,6 +20,7 @@ import { jodToIdr } from '../data/currency'
 import {
   QUOTA_LOW_RATIO,
   QUOTA_PURCHASE_AVAILABLE,
+  formatPeriodRange,
   mockQuotaPackages,
 } from '../data/marketplace'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -185,7 +186,9 @@ export default function MerchantSubscription() {
                 {KIND_COPY[kind].note} · terpakai {used} · ter-reserve {reserved}
               </p>
               <p className="merchant-quota-card__meta">
-                {periode ? `${periode.periodStart} → ${periode.periodEnd}` : 'Belum ada periode aktif'}
+                {periode
+                  ? formatPeriodRange(periode.periodStart, periode.periodEnd)
+                  : 'Belum ada periode aktif'}
               </p>
             </section>
           )

@@ -72,6 +72,11 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // sambungan foto/panel, bukan pil 26px berisi teks "Sa7tein" di kiri-atas foto.
 // Aturannya di `system/_onboarding.scss`; rincian angka di ChangelogSection.
 //
+// Periode kuota merchant (2026-11-01) dibaca manusia: `data/marketplace.ts`
+// `formatPeriodRange()` mengubah `2026-10-29T16:00:37.092Z` jadi `30 Okt 2026`,
+// dipakai `/merchant/subscription`. API mengirim timestamp ISO penuh, jadi
+// mencetaknya apa adanya di kartu = kolom mesin bocor ke layar.
+//
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
 // menandai SA legacy. Rincian di decision-ops-canonical.md.
