@@ -2860,6 +2860,139 @@
         }
       ],
       "loc": "src/styles/system/_storefront.scss:148"
+    },
+    {
+      "id": "TASK-212884",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:20:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/ob-probe.mjs (+64) — write via tool: // Screenshot beberapa layar ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/ob-probe.mjs"
+    },
+    {
+      "id": "TASK-212885",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:21:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Onboarding.tsx (+16/-15) — edit via tool: tsx: <div className=\"onboarding-sheet\">",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Onboarding.tsx"
+    },
+    {
+      "id": "TASK-212886",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:21:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_onboarding.scss (+26/-40) — edit via tool: // ── Merek ─────────────────",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_onboarding.scss"
+    },
+    {
+      "id": "TASK-212887",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:22:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/ob-mark-probe.mjs (+80) — write via tool: // Ukur geometri tile me",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/ob-mark-probe.mjs"
+    },
+    {
+      "id": "TASK-212888",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:23:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | gr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212889",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:23:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+12/-7) — edit via tool: tsx: // Halaman Favorit (2026-11-01):",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212890",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:24:27",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -1 && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | gr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
