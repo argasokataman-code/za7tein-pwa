@@ -60,6 +60,13 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // disembunyikan, meta rating + waktu. Halaman ini tetap hanya merangkai
 // section.
 //
+// Halaman Favorit (2026-11-01): geometri warisan `app/part-11.scss` diganti
+// `system/_favorites.scss` (sudah ada di import map depan). Pola lamanya layar
+// `height: var(--app-vh)` + `overflow: hidden` dengan isi `overflow-y: auto`
+// yang dipusatkan, jadi ada dua penggulung dan baris pertama kartu terdorong ke
+// y 41,9 di bawah bilah judul 64px. Sekarang satu penggulung dokumen, bilah
+// judul sticky, grid dua kolom tanpa media query lebar jendela.
+//
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
 // menandai SA legacy. Rincian di decision-ops-canonical.md.

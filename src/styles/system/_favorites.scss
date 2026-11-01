@@ -1,0 +1,86 @@
+@use "./mixins" as *;
+
+// ── Favorit: satu penggulung, bar judul ikut arus dokumen ──────────────────
+//
+// Layar ini masih memakai pola lama `app/part-11.scss`: layar `height:
+// var(--app-vh)` + `overflow: hidden`, isi `overflow-y: auto` dan `flex` dengan
+// `justify-content: center`. Terukur di 390px dengan enam favorit, dua akibat:
+//
+//   1. **Dua penggulung bersarang** — isi 930px di wadah 844px, sementara
+//      dokumen tidak menggulir sama sekali (AGENTS §5: satu penggulung).
+//   2. **Kartu pertama tertutup bilah judul** — karena isi lebih tinggi dari
+//      wadah tapi dipusatkan, baris pertama terdorong ke atas: `y 41,9` padahal
+//      bilah judul setinggi 64px. Bukan soal padding-atas yang kurang; justru
+//      `padding-top: 104px` warisan tidak pernah dipakai karena `justify-content`
+//      memusatkan seluruh isi lebih dulu.
+//
+// Override di sini menggantikan geometrinya tanpa menyunting stylesheet
+// porting (AGENTS §3), dan seluruhnya memakai token.
+
+.app-shell .favorites-screen {
+  display: block;
+  height: auto;
+  min-height: 100dvh;
+  overflow: visible;
+}
+
+// Menempel, bukan `fixed`: bilah tetap terlihat saat menggulir, tapi ia ikut
+// arus dokumen sehingga isi tidak perlu padding-atas tebakan (104px warisan,
+// plus 104px + inset di `_topbar.scss` untuk mode app).
+.app-shell .favorites-header {
+  position: sticky;
+  top: 0;
+  height: auto;
+  padding-inline: var(--space-5);
+  border-bottom: 0;
+}
+
+.app-shell .favorites-content {
+  display: block;
+  flex: initial;
+  overflow: visible;
+  /* Bar judul mengambil ruangnya sendiri, jadi tanpa padding-atas kompensasi.
+     Sisa bawah 24px cukup: layar ini tidak punya bilah navigasi bawah. */
+  padding: 0 var(--space-5) var(--space-6);
+}
+
+.app-shell .favorites-title {
+  /* 44px = lebar tombol kembali di kiri. Warisan menulis 40px, jadi judul
+     melenceng 4px dari pusat kolom. */
+  padding-right: var(--touch-min);
+  font-size: var(--text-xl);
+}
+
+// Dua kolom selalu. Aturan warisan `min-width: 768px -> 3 kolom` merespons
+// lebar JENDELA, padahal kolom aplikasi terkunci 430px: di jendela 1440px
+// kartunya menyusut jadi tiga trek sempit. `minmax(0, 1fr)` menahan nama
+// panjang supaya tidak melebarkan trek.
+.app-shell .favorites-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-bottom: 0;
+}
+
+.app-shell .favorites-grid .food-card {
+  width: 100%;
+}
+
+// Keadaan kosong: mengisi kolom, bukan menempel 40px dari atas.
+.app-shell .favorites-content > .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100dvh - var(--nav-height) - var(--space-8));
+  padding: 0;
+  text-align: center;
+}
+
+// Ikon 80px warisan diberi `opacity: .5` sehingga oranye mereknya pudar jadi
+// salmon pucat. Warna peran penuh, ukuran tetap.
+.app-shell .favorites-content > .empty-state svg {
+  margin-bottom: var(--space-4);
+  color: var(--orange-ink);
+  opacity: 1;
+}

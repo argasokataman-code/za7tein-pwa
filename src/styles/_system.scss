@@ -126,3 +126,9 @@
 // Nada kartu (warna sebagai arti, bukan hiasan). Terakhir: kelas `.tone-*`
 // harus menang atas latar kartu yang lebih awal pada kekhususan yang sama.
 @use "./system/tones";
+
+// Favorit: mengganti pola penggulung warisan (layar `overflow: hidden` + isi
+// `overflow-y: auto` yang dipusatkan) dengan satu penggulung dokumen + bar judul
+// sticky. Ditaruh paling akhir karena harus menang atas `_topbar.scss` dalam
+// mode app (`padding-top: 104px + inset`) dan atas media query di `app/part-11`.
+@use "./system/favorites";
