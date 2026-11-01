@@ -5,6 +5,7 @@ import type { CustomerActiveOrder } from '../../api/orders'
 import type { OrderHistoryItem } from '../../api/reviews'
 import { ORDER_STAGE_STATUS } from '../../data/order-stage-copy'
 import { useMoney } from '../../hooks/useMoney'
+import type { OrderStage } from '../../types'
 import { itemsLine, orderStampLabel } from './orderStatus'
 
 /**
@@ -43,6 +44,26 @@ const REFUND_LABEL: Record<string, string> = {
   refunded: 'Dana sudah dikembalikan',
 }
 
+/**
+ * Warna lencana per tahap order. Lima tahap, lima warna peran (DNA MD-07: status
+ * dibaca dari warna, bukan dari kata). Sebelumnya semua tahap berbagi satu kelas
+ * `oh-badge--transit`, sehingga "Pesanan diterima" dan "Sedang diantar" tampak
+ * sama.
+ *
+ * - `baru` amber: menunggu toko menjawab
+ * - `disiapkan` biru: dapur bekerja
+ * - `siap` oranye merek: tinggal diambil kurir
+ * - `diantar` navy pekat: sedang di jalan
+ * - `selesai` hijau: tuntas
+ */
+const STAGE_BADGE: Record<OrderStage, string> = {
+  baru: 'oh-badge--new',
+  disiapkan: 'oh-badge--prepare',
+  siap: 'oh-badge--ready',
+  diantar: 'oh-badge--transit',
+  selesai: 'oh-badge--done',
+}
+
 export function HistoryOrderCard({ order, image, onOpen, onReorder }: HistoryOrderCardProps) {
   const { moneyPlain } = useMoney()
   const canceled = order.status === 'canceled'
@@ -63,6 +84,7 @@ export function HistoryOrderCard({ order, image, onOpen, onReorder }: HistoryOrd
             {order.code} · {orderStampLabel(order.createdAt)}
           </span>
           <span className={`oh-badge${canceled ? ' oh-badge--canceled' : ''}`}>
+            <span className="oh-badge__dot" aria-hidden="true" />
             {canceled ? 'Dibatalkan' : 'Selesai'}
           </span>
         </span>
@@ -135,7 +157,10 @@ export function ActiveOrderCard({ order, image, onTrack }: ActiveOrderCardProps)
           <span className="oh-card__meta">
             {order.code} · {order.placedAt}
           </span>
-          <span className="oh-badge oh-badge--transit">{copy.label}</span>
+          <span className={`oh-badge ${STAGE_BADGE[order.stage]}`}>
+            <span className="oh-badge__dot" aria-hidden="true" />
+            {copy.label}
+          </span>
         </span>
         <ChevronRight className="oh-card__chev" size={18} strokeWidth={2} aria-hidden="true" />
       </button>

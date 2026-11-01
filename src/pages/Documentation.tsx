@@ -1334,6 +1334,27 @@ export default function Documentation() {
                 <code className="doc-inline">/customer/orders?tab=history --strict</code> 2/2 PASS.
               </li>
               <li>
+                <strong>Ritme kartu pesanan dan warna lencana per tahap.</strong> Pada data nyata
+                (109 kartu) irisan terasa rapat: baris item <code className="doc-inline">8px</code>{' '}
+                atas-bawah, antar kartu <code className="doc-inline">12px</code>, strip tanggal{' '}
+                <code className="doc-inline">4px</code> dari kartu. Porting melonggarkannya lewat
+                token: baris item <code className="doc-inline">--space-3</code> (12px), antar kartu{' '}
+                <code className="doc-inline">--space-4</code> (16px), antar kelompok tanggal{' '}
+                <code className="doc-inline">--space-5</code> (20px), label strip{' '}
+                <code className="doc-inline">--text-sm</code>. Lencana status sebelumnya satu warna
+                (<code className="doc-inline">--info-soft</code>) untuk semua tahap; kini lima warna
+                peran lewat <code className="doc-inline">STAGE_BADGE</code> di{' '}
+                <code className="doc-inline">OrderHistoryCard.tsx</code> — baru amber, disiapkan
+                biru, siap oranye merek, diantar navy, selesai hijau — masing-masing dengan titik
+                status (DNA MD-07). Kepala kartu juga diberi{' '}
+                <code className="doc-inline">padding-right: var(--space-6)</code> supaya teks
+                berhenti 6px sebelum chevron (sebelumnya melewati 6px). Terukur di 390px: baris
+                kosong 49px, baris berisi 64,1px, kartu 350px, empat varian lencana berbeda warna,
+                <code className="doc-inline">meta.right</code> 334 vs <code className="doc-inline">chev.left</code>{' '}
+                340; gate <code className="doc-inline">/customer/orders?tab=history --strict --click</code>{' '}
+                2/2 PASS.
+              </li>
+              <li>
                 <strong>Pemberitahuan perubahan status di layar lacak.</strong> Status order berubah
                 dari realtime tanpa penanda apa pun selain teks panel yang diam-diam berganti.{' '}
                 <code className="doc-inline">src/components/customer/OrderUpdateNotice.tsx</code>{' '}

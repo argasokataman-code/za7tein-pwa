@@ -407,6 +407,24 @@ mengembalikan string kosong; `.oh-row__name:empty { display: none }` mencegah
 span kosong memakan satu baris. Diukur: baris kosong `49px`, baris berisi
 `64,1px`.
 
+**Lencana status berwarna per tahap (deviasi dari irisan).** Irisan memberi satu
+warna biru (`--info-soft`) untuk semua tahap berjalan, sehingga `Pesanan
+diterima` dan `Sedang diantar` tak bisa dibedakan sekilas. Porting memetakan
+lima tahap ke lima warna peran, tiap lencana bertitik (DNA MD-07):
+
+| tahap | label | latar | teks |
+|---|---|---|---|
+| `baru` | Pesanan diterima | `--warning-soft` | `--warning-ink` (4,54:1) |
+| `disiapkan` | Sedang disiapkan | `--info-soft` | `--info-ink` |
+| `siap` | Pesanan siap | `--orange-soft` | `--orange-soft-ink` (6,4:1) |
+| `diantar` | Sedang diantar | `--navy` | `--on-navy` |
+| `selesai` | Pesanan selesai / Selesai | `--green-soft` | `--success-ink` |
+| `canceled` | Dibatalkan | `--border` | `--text-secondary-strong` |
+
+Kepala kartu juga diberi `padding-right: var(--space-6)` (24px) supaya nama toko
+dan meta berhenti `6px` sebelum chevron; dengan `12px` sebelumnya teks berakhir
+di `x 346` sementara chevron mulai di `x 340`.
+
 ### Fitur yang aktif di `order-history.html`
 
 Bukan gambar mati: satu blok `<script>` di akhir berkas menggerakkan seluruh
