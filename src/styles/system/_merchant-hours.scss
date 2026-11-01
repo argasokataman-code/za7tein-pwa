@@ -1,23 +1,39 @@
-// Jadwal operasional (Setelan merchant): satu daftar tujuh baris, tiap baris
-// = nama hari + dua input jam native + tombol Libur. Native `type="time"`
-// dipakai supaya ponsel membuka pemilih jam sistem, bukan dropdown karangan.
-// Baris mengikuti satu rel: nama hari melebar, kontrol kanan lebar tetap.
+@use "./mixins" as *;
+
+// Jadwal operasional (Setelan merchant). Setiap hari = satu baris dua lapis:
+// lapis atas nama hari + sakelar "Libur", lapis bawah dua field jam native.
+//
+// Kenapa dua lapis, bukan satu baris berisi empat kontrol: di kolom 390px panel
+// sheet hanya menyisakan 350px, dan memaksa nama hari + dua input `type="time"`
+// + tombol Libur dalam satu rel menyisakan ~92px per input, sementara input jam
+// native butuh ~163px untuk terbaca tanpa memotong digit. Dua lapis juga
+// memberi tiap field caption sendiri ("Buka"/"Tutup") supaya dua jam yang
+// bersebelahan tidak ambigu.
+//
+// `type="time"` tetap native: ponsel membuka pemilih jam sistem, bukan dropdown
+// karangan. Saat hari diliburkan, field dinonaktifkan (bukan dihapus) supaya
+// jam yang tersimpan tidak hilang dan tinggi baris tidak melompat.
 
 .merchant-hours {
   display: flex;
   flex-direction: column;
-  /* MD-06: panel sheet tidak boleh memakan hampir seluruh layar. Daftar
-     dibatasi lalu menggulir di dalam; tombol Simpan tetap di luar daftar. */
-  max-height: 30vh;
+  /* MD-06: daftar dibatasi lalu menggulir di dalam panel; judul sheet dan bar
+     Simpan/Batal tetap terlihat. 38vh + judul + aksi = ~58% tinggi layar 844px,
+     di bawah batas 60%. */
+  max-height: 38vh;
   overflow-y: auto;
-  margin-bottom: var(--space-4);
+  overscroll-behavior: contain;
+  margin-bottom: var(--space-3);
+  /* Garis penutup saat daftar menggulir: baris yang terpotong di tepi bawah
+     terbaca sebagai daftar yang bisa digeser, bukan tata letak yang rusak. */
+  border-bottom: 1px solid var(--border);
 }
 
 .merchant-hours-row {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: var(--touch-min);
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-bottom: var(--space-2);
   border-bottom: 1px solid var(--border);
 }
 
@@ -25,67 +41,104 @@
   border-bottom: 0;
 }
 
-.merchant-hours-day {
-  flex: 1;
-  min-width: 0;
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-}
-
-.merchant-hours-input {
-  flex: 0 0 auto;
-  width: 5.75rem;
+/* Nama hari melebar, sakelar menempel di rel kanan (MD-11). */
+.merchant-hours-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   min-height: var(--touch-min);
-  padding-inline: var(--space-2);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  color: var(--text-primary);
-  font: inherit;
-  font-size: var(--text-sm);
-  font-variant-numeric: tabular-nums;
 }
 
-.merchant-hours-input:focus-visible {
+.merchant-hours-day {
+  min-width: 0;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Sakelar "Libur": label + track, seluruh baris ≥44px jadi sasaran sentuh
+   (MD-05). Saat aktif latarnya `--warning`, peran yang sama dengan chip
+   "Tutup" sebelumnya: hari libur = keadaan perlu perhatian, bukan aksi merek. */
+.merchant-hours-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 0 0 auto;
+  min-height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.merchant-hours-toggle:focus-visible {
   outline: 2px solid var(--sa7tein-orange);
   outline-offset: 2px;
 }
 
-.merchant-hours-off {
-  flex: 1;
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
+.merchant-hours-toggle .merchant-toggle-switch {
+  display: inline-block;
+  flex-shrink: 0;
 }
 
-/* Tombol "Libur" = sakelar per hari. Saat aktif (libur) latarnya lembut,
-   bukan warna merek: ini keadaan normal, bukan aksi utama. */
-.merchant-hours-off-btn {
-  flex: 0 0 auto;
-  min-height: var(--touch-min);
-  padding-inline: var(--space-2);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.merchant-hours-off-btn.is-on {
-  border-color: var(--warning);
-  background: var(--warning-soft);
+.merchant-hours-toggle.is-on {
   color: var(--warning-ink);
 }
 
-/* Catatan batas penyimpanan: lebih rapat dari `.merchant-hint-inline` supaya
-   panel tetap di bawah 60% viewport (MD-06). */
-.merchant-hours-note {
-  margin: 0 0 var(--space-3);
-  font-size: var(--text-xs);
-  line-height: 1.5;
-  color: var(--text-secondary-strong);
+.merchant-hours-toggle.is-on .merchant-toggle-switch {
+  background: var(--warning);
 }
 
-.merchant-hours-off-btn:focus-visible {
-  outline: 2px solid var(--sa7tein-orange);
-  outline-offset: 2px;
+.merchant-hours-toggle.is-on .merchant-toggle-switch::after {
+  transform: translateX(18px);
+}
+
+/* Dua field jam berbagi lebar sama; pemisah di tengah supaya "buka" dan
+   "tutup" terbaca sebagai rentang, bukan dua nilai lepas. */
+.merchant-hours-times {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-2);
+}
+
+.merchant-hours-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.merchant-hours-field-label {
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  color: var(--text-secondary);
+}
+
+.merchant-hours-input {
+  @include field-shape;
+  padding-inline: var(--space-3);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.merchant-hours-input:disabled {
+  border-color: var(--border);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  opacity: 1;
+}
+
+.merchant-hours-dash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
 }

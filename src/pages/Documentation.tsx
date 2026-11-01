@@ -77,6 +77,11 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // dipakai `/merchant/subscription`. API mengirim timestamp ISO penuh, jadi
 // mencetaknya apa adanya di kartu = kolom mesin bocor ke layar.
 //
+// Jam operasional merchant (2026-11-01) ditata ulang di
+// `system/_merchant-hours.scss`: tiap hari jadi baris dua lapis (nama hari +
+// sakelar Libur, lalu dua field jam native dengan caption Buka/Tutup), bukan
+// empat kontrol berdesakan dalam satu rel. Rincian angka di ChangelogSection.
+//
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
 // menandai SA legacy. Rincian di decision-ops-canonical.md.

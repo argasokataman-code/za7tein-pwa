@@ -549,37 +549,53 @@ export default function MerchantSettings() {
           <div className="merchant-hours">
             {WEEKDAY_ORDER.map((day) => {
               const row = hoursDraft.find((r) => r.day === day) ?? hoursForDay(hoursDraft, day)
+              const label = WEEKDAY_LABELS[day]
               return (
-                <div className="merchant-hours-row" key={day}>
-                  <span className="merchant-hours-day">{WEEKDAY_LABELS[day]}</span>
-                  {row.closed ? (
-                    <span className="merchant-hours-off">Tutup</span>
-                  ) : (
-                    <>
+                <div
+                  className={`merchant-hours-row${row.closed ? ' is-closed' : ''}`}
+                  key={day}
+                >
+                  <div className="merchant-hours-head">
+                    <span className="merchant-hours-day">{label}</span>
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={row.closed}
+                      aria-label={`Libur ${label}`}
+                      className={`merchant-hours-toggle${row.closed ? ' is-on' : ''}`}
+                      onClick={() => patchHours(day, { closed: !row.closed })}
+                    >
+                      <span>Libur</span>
+                      <span className="merchant-toggle-switch" aria-hidden="true" />
+                    </button>
+                  </div>
+                  <div className="merchant-hours-times">
+                    <label className="merchant-hours-field">
+                      <span className="merchant-hours-field-label">Buka</span>
                       <input
                         className="merchant-hours-input"
                         type="time"
                         value={row.open}
-                        aria-label={`Jam buka ${WEEKDAY_LABELS[day]}`}
+                        disabled={row.closed}
+                        aria-label={`Jam buka ${label}`}
                         onChange={(event) => patchHours(day, { open: event.target.value })}
                       />
+                    </label>
+                    <span className="merchant-hours-dash" aria-hidden="true">
+                      &ndash;
+                    </span>
+                    <label className="merchant-hours-field">
+                      <span className="merchant-hours-field-label">Tutup</span>
                       <input
                         className="merchant-hours-input"
                         type="time"
                         value={row.close}
-                        aria-label={`Jam tutup ${WEEKDAY_LABELS[day]}`}
+                        disabled={row.closed}
+                        aria-label={`Jam tutup ${label}`}
                         onChange={(event) => patchHours(day, { close: event.target.value })}
                       />
-                    </>
-                  )}
-                  <button
-                    type="button"
-                    className={row.closed ? 'merchant-hours-off-btn is-on' : 'merchant-hours-off-btn'}
-                    aria-pressed={row.closed}
-                    onClick={() => patchHours(day, { closed: !row.closed })}
-                  >
-                    Libur
-                  </button>
+                    </label>
+                  </div>
                 </div>
               )
             })}
