@@ -1,3 +1,4 @@
+import { RotateCcw, Star } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -5,6 +6,7 @@ import type { OrderHistoryItem, OrderReceipt } from '../../api/reviews'
 import { useAppSelector } from '../../hooks/useAppStore'
 import { useMoney } from '../../hooks/useMoney'
 import { BottomSheet } from '../ui/BottomSheet'
+import { orderStampLabel } from './orderStatus'
 import { OrderInvoice } from './OrderInvoice'
 
 interface OrderHistorySheetProps {
@@ -12,12 +14,6 @@ interface OrderHistorySheetProps {
   order: OrderHistoryItem | null
   onClose: () => void
   onReorder: (order: OrderHistoryItem) => void
-}
-
-const DATE_FORMAT: Intl.DateTimeFormatOptions = {
-  day: '2-digit',
-  month: 'short',
-  year: 'numeric',
 }
 
 /** `payment_method` di D1 memakai enum ketat (`qris | dana_balance | cod`). */
@@ -45,44 +41,31 @@ function paymentLabel(method: string | null): string {
   return PAYMENT_LABEL[method] ?? method
 }
 
-function dateLabel(iso: string | null): string {
-  if (!iso) return '-'
-  const date = new Date(iso)
-  return Number.isNaN(date.getTime()) ? '-' : date.toLocaleDateString('id-ID', DATE_FORMAT)
-}
-
 /**
- * Rincian satu pesanan selesai, dibuka dari baris riwayat `/orders`.
+ * Nota satu pesanan, dibuka dari kartu riwayat `/customer/orders`.
  *
- * Kenapa sheet, bukan accordion di dalam baris: daftar riwayat bisa ratusan
- * baris dan tiap baris sudah punya dua aksi sendiri, jadi baris yang mengembang
- * akan mendorong sisa daftar turun dan membuat tiga lapis kontrol berebut di
- * satu baris. Sheet menjaga posisi gulir daftar, dan back menutupnya lewat
- * `useBackClose` di `BottomSheet` (MD-13 `NB-02`).
+ * Bentuknya nota, bukan ringkasan: baris hidangan dengan harga satuan × jumlah,
+ * pecahan biaya, lalu metode dan status bayar. Sumbernya kolom `orders` +
+ * `order_items` di BE; kolom kosong ditulis "-", bukan angka karangan. Uang
+ * tunai hanya muncul kalau order ini dibuat dari perangkat yang sama
+ * (`cart.lastReceipt`) — di luar itu kembalian tidak bisa diketahui.
  *
- * Isinya bentuk nota, bukan sekadar total: baris hidangan dengan harga satuan x
- * jumlah, pecahan biaya, lalu metode dan status bayar. Sumbernya kolom `orders`
- * + `order_items` di BE; kolom yang kosong ditulis "-" dan status "Lunas" hanya
- * muncul kalau `paid_at` benar-benar tercatat (data demo banyak yang belum).
+ * Tata letak mengikuti irisan `docs/design/slice/order-history.html` bagian
+ * `.nota-*`: satu daftar bergaris rambut, total bergaris putus-putus, kaki panel
+ * yang menempel di dasar.
  */
 export function OrderHistorySheet({ order, onClose, onReorder }: OrderHistorySheetProps) {
   const { moneyPlain } = useMoney()
   const receipt = useAppSelector((s) => s.cart.lastReceipt)
   const [showInvoice, setShowInvoice] = useState(false)
 
-  const hasInvoice = Boolean(order && receipt && receipt.code === order.code)
+  const localReceipt = Boolean(order && receipt && receipt.code === order.code)
   const breakdown = order ? receiptLines(order.receipt) : []
-  /* "Lunas" mengikuti `payment_status`, bukan `paid_at`: di D1 ada 794 order
-     `paid` yang `paid_at`-nya kosong, jadi menuntut timestamp membuat nota
-     lunas tidak pernah tampil. Tanggal bayar ditulis "-" bila memang tak ada. */
   const paid = order?.receipt.paymentStatus === 'paid'
   const isCanceled = order?.status === 'canceled'
   const isCod = order?.receipt.paymentMethod === 'cod'
-  /* Uang tunai hanya diketahui kalau order ini dibuat dari perangkat yang sama
-     (`cart.lastReceipt`). Selain itu "-", bukan angka karangan. */
-  const cashIdr = order && receipt && receipt.code === order.code ? receipt.cashIdr : null
-  const changeIdr =
-    cashIdr != null && order ? Math.max(0, cashIdr - order.totalIdr) : null
+  const cashIdr = order && localReceipt ? receipt!.cashIdr : null
+  const changeIdr = cashIdr != null && order ? Math.max(0, cashIdr - order.totalIdr) : null
 
   return (
     <BottomSheet
@@ -95,175 +78,145 @@ export function OrderHistorySheet({ order, onClose, onReorder }: OrderHistoryShe
     >
       {order ? (
         <>
-          <p className="order-sheet-meta">
-            <span className="order-sheet-code">{order.code}</span>
-            <span className="order-sheet-dot" aria-hidden="true">
-              ·
-            </span>
-            <time className="order-sheet-date" dateTime={order.createdAt}>
-              {new Date(order.createdAt).toLocaleDateString('id-ID', DATE_FORMAT)}
-            </time>
-            <span
-              className={`order-sheet-chip${
-                isCanceled
-                  ? ' order-sheet-chip--canceled'
-                  : order.reviewed
-                    ? ' order-sheet-chip--done'
-                    : ''
-              }`}
-            >
-              <span className="order-sheet-chip__dot" aria-hidden="true" />
+          <p className="nota-meta">
+            <span>{order.code}</span>
+            <span aria-hidden="true">·</span>
+            <time dateTime={order.createdAt}>{orderStampLabel(order.createdAt)}</time>
+            <span className={`oh-badge${isCanceled ? ' oh-badge--canceled' : ''}`}>
               {isCanceled ? 'Dibatalkan' : order.reviewed ? 'Sudah dinilai' : 'Belum dinilai'}
             </span>
           </p>
 
-          {paid && !isCanceled ? (
-            <div className="order-sheet-stamp" aria-label="Pesanan sudah lunas">
-              <span className="order-sheet-stamp__main">LUNAS</span>
-              {/* Tanggal hanya dicetak kalau BE mencatatnya. "LUNAS -" terbaca
-                  seperti nota setengah jadi, dan 794 order demo memang `paid`
-                  tanpa `paid_at`. */}
-              {order.receipt.paidAt ? (
-                <span className="order-sheet-stamp__date">{dateLabel(order.receipt.paidAt)}</span>
-              ) : null}
-            </div>
+          {order.items.length ? (
+            <section className="nota-section">
+              <h3 className="nota-section__title">Rincian pesanan</h3>
+              <ul className="nota-list">
+                {order.items.map((dish) => (
+                  <li className="nota-line" key={dish.id}>
+                    <span className="nota-line__label">
+                      {dish.qty ?? 1} × {dish.name}{' '}
+                      {dish.unitIdr == null ? null : (
+                        <span className="nota-line--muted">@ {moneyPlain(dish.unitIdr)}</span>
+                      )}
+                    </span>
+                    <span className="nota-amount">
+                      {dish.lineIdr == null ? '-' : moneyPlain(dish.lineIdr)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
           ) : null}
 
-          {order.items.length ? (
-            <ul className="order-sheet-items">
-              {order.items.map((dish) => (
-                <li className="order-sheet-item list-row" key={dish.id}>
-                  <span className="order-sheet-name">{dish.name}</span>
-                  <span className="order-sheet-line-sum">
-                    {dish.lineIdr == null ? '-' : moneyPlain(dish.lineIdr)}
-                  </span>
-                  <span className="order-sheet-sub">
-                    {dish.unitIdr == null
-                      ? `${dish.qty ?? 1} porsi`
-                      : `${dish.qty ?? 1} × ${moneyPlain(dish.unitIdr)}`}
+          <section className="nota-section">
+            <h3 className="nota-section__title">Rincian pembayaran</h3>
+            <ul className="nota-list">
+              {breakdown.map((line) => (
+                <li className="nota-line" key={line.label}>
+                  <span className="nota-line__label">{line.label}</span>
+                  <span className="nota-amount">
+                    {line.valueIdr == null
+                      ? '-'
+                      : `${line.discount ? '−' : ''}${moneyPlain(Math.abs(line.valueIdr))}`}
                   </span>
                 </li>
               ))}
+              <li className="nota-line nota-line--total">
+                <span className="nota-line__label">
+                  Total bayar
+                  {paid && !isCanceled ? <span className="nota-stamp">LUNAS</span> : null}
+                </span>
+                <span className="nota-amount">{moneyPlain(order.totalIdr)}</span>
+              </li>
+              {/* Uang tunai: nominal yang disiapkan customer dan kembaliannya. */}
+              {isCod ? (
+                <li className="nota-line">
+                  <span className="nota-line__label">Uang diterima</span>
+                  <span className="nota-amount">
+                    {cashIdr == null ? '-' : moneyPlain(cashIdr)}
+                  </span>
+                </li>
+              ) : null}
+              {isCod ? (
+                <li className={`nota-line${changeIdr == null ? '' : ' nota-line--change'}`}>
+                  <span className="nota-line__label">Kembalian</span>
+                  <span className="nota-amount">
+                    {changeIdr == null ? '-' : moneyPlain(changeIdr)}
+                  </span>
+                </li>
+              ) : null}
             </ul>
+            <dl className="nota-list">
+              <div className="nota-pair">
+                <dt>Metode</dt>
+                <dd>{paymentLabel(order.receipt.paymentMethod)}</dd>
+              </div>
+              <div className="nota-pair">
+                <dt>Status bayar</dt>
+                <dd>{paid ? 'Sudah dibayar' : 'Belum dibayar'}</dd>
+              </div>
+            </dl>
+          </section>
+
+          {isCanceled ? (
+            <section className="nota-section">
+              <h3 className="nota-section__title">Pembatalan</h3>
+              <dl className="nota-list">
+                <div className="nota-pair">
+                  <dt>Dibatalkan oleh</dt>
+                  <dd>
+                    {order.cancelBy ? (CANCEL_BY_LABEL[order.cancelBy] ?? order.cancelBy) : '-'}
+                  </dd>
+                </div>
+                <div className="nota-pair">
+                  <dt>Alasan batal</dt>
+                  <dd>{order.cancelReason ?? '-'}</dd>
+                </div>
+                <div className="nota-pair">
+                  <dt>Pengembalian dana</dt>
+                  <dd>
+                    {order.refundStatus ? (REFUND_LABEL[order.refundStatus] ?? order.refundStatus) : '-'}
+                  </dd>
+                </div>
+              </dl>
+            </section>
           ) : null}
 
-          <ul className="order-sheet-fees">
-            {breakdown.map((line) => (
-              <li className="order-sheet-fee list-row" key={line.label}>
-                <span className="order-sheet-fee-label">{line.label}</span>
-                <span className={`order-sheet-fee-sum${line.discount ? ' is-discount' : ''}`}>
-                  {line.valueIdr == null
-                    ? '-'
-                    : `${line.discount ? '−' : ''}${moneyPlain(Math.abs(line.valueIdr))}`}
-                </span>
-              </li>
-            ))}
-          </ul>
+          {localReceipt && showInvoice ? <OrderInvoice orderCode={order.code} /> : null}
 
-          <ul className="order-sheet-payment">
-            <li className="order-sheet-fee list-row">
-              <span className="order-sheet-fee-label">Metode bayar</span>
-              <span className="order-sheet-fee-sum">{paymentLabel(order.receipt.paymentMethod)}</span>
-            </li>
-            <li className="order-sheet-fee list-row">
-              <span className="order-sheet-fee-label">Status bayar</span>
-              <span className={`order-sheet-pay${paid ? ' order-sheet-pay--paid' : ''}`}>
-                <span className="order-sheet-chip__dot" aria-hidden="true" />
-                {paid
-                  ? order.receipt.paidAt
-                    ? `Lunas ${dateLabel(order.receipt.paidAt)}`
-                    : 'Lunas'
-                  : 'Belum tercatat lunas'}
-              </span>
-            </li>
-            {isCanceled ? (
-              <>
-                <li className="order-sheet-fee list-row">
-                  <span className="order-sheet-fee-label">Dibatalkan oleh</span>
-                  <span className="order-sheet-fee-sum">
-                    {order.cancelBy ? (CANCEL_BY_LABEL[order.cancelBy] ?? order.cancelBy) : '-'}
-                  </span>
-                </li>
-                <li className="order-sheet-fee list-row">
-                  <span className="order-sheet-fee-label">Alasan batal</span>
-                  <span className="order-sheet-fee-sum">{order.cancelReason ?? '-'}</span>
-                </li>
-                <li className="order-sheet-fee list-row">
-                  <span className="order-sheet-fee-label">Pengembalian dana</span>
-                  <span className="order-sheet-fee-sum">
-                    {order.refundStatus ? (REFUND_LABEL[order.refundStatus] ?? order.refundStatus) : '-'}
-                  </span>
-                </li>
-              </>
-            ) : null}
-            {/* Uang tunai: yang disiapkan customer saat COD dan kembaliannya.
-                Hanya ada bila order dibuat dari perangkat ini; selain itu "-". */}
-            {isCod ? (
-              <li className="order-sheet-fee list-row">
-                <span className="order-sheet-fee-label">Dibayar tunai</span>
-                <span className="order-sheet-fee-sum">
-                  {cashIdr == null ? '-' : moneyPlain(cashIdr)}
-                </span>
-              </li>
-            ) : paid ? (
-              <li className="order-sheet-fee list-row">
-                <span className="order-sheet-fee-label">Dibayar</span>
-                <span className="order-sheet-fee-sum">{moneyPlain(order.totalIdr)}</span>
-              </li>
-            ) : null}
-            {isCod ? (
-              <li className="order-sheet-fee list-row">
-                <span className="order-sheet-fee-label">Kembalian</span>
-                <span className="order-sheet-fee-sum">
-                  {changeIdr == null ? '-' : moneyPlain(changeIdr)}
-                </span>
-              </li>
-            ) : null}
-          </ul>
-
-          {hasInvoice && showInvoice ? <OrderInvoice orderCode={order.code} /> : null}
-
-          {/* Kaki panel menempel: total dan aksi tidak boleh menghilang di bawah
-              gulir saat nota panjang. Sisanya (item, pecahan biaya, pembayaran)
-              yang menggulir. */}
-          <div className="order-sheet-foot">
-            <div className="order-sheet-total">
-              <span>Total dibayar</span>
-              <span className="order-sheet-total__sum">{moneyPlain(order.totalIdr)}</span>
+          <div className="nota-foot">
+            <div className="nota-total">
+              <span>Total</span>
+              <strong>{moneyPlain(order.totalIdr)}</strong>
             </div>
-
-            <div className="order-sheet-actions">
-            {order.reviewed || isCanceled ? null : (
-              <Link className="my-order-cta order-sheet-rate" to={`/reviews?order=${order.code}`}>
-                Beri rating
-              </Link>
-            )}
-            {hasInvoice ? (
+            <div className="nota-actions">
+              {localReceipt ? (
+                <button
+                  type="button"
+                  className="nota-action"
+                  aria-expanded={showInvoice}
+                  onClick={() => setShowInvoice((open) => !open)}
+                >
+                  {showInvoice ? 'Tutup invoice' : 'Invoice'}
+                </button>
+              ) : null}
+              {order.reviewed || isCanceled ? null : (
+                <Link className="nota-action" to={`/reviews?order=${order.code}`}>
+                  <Star size={15} strokeWidth={1.75} aria-hidden="true" />
+                  Beri rating
+                </Link>
+              )}
               <button
                 type="button"
-                className="order-sheet-invoice"
-                aria-expanded={showInvoice}
-                onClick={() => setShowInvoice((open) => !open)}
+                className="nota-action nota-action--primary"
+                onClick={() => {
+                  onClose()
+                  onReorder(order)
+                }}
               >
-                {showInvoice ? 'Tutup invoice' : 'Lihat invoice'}
+                <RotateCcw size={15} strokeWidth={1.75} aria-hidden="true" />
+                Pesan lagi
               </button>
-            ) : null}
-            <button
-              type="button"
-              className={
-                /* Tanpa "Beri rating" (sudah dinilai atau batal), "Pesan lagi"
-                   adalah satu-satunya aksi, jadi ia yang jadi tombol penuh. */
-                order.reviewed || isCanceled
-                  ? 'my-order-cta order-sheet-reorder'
-                  : 'order-sheet-reorder order-sheet-secondary'
-              }
-              onClick={() => {
-                onClose()
-                onReorder(order)
-              }}
-            >
-              Pesan lagi
-            </button>
             </div>
           </div>
         </>
@@ -290,9 +243,6 @@ function receiptLines(receipt: OrderReceipt): ReceiptLine[] {
     { label: 'Ongkir', valueIdr: receipt.deliveryFeeIdr },
     { label: 'Biaya layanan', valueIdr: receipt.platformFeeIdr },
   ]
-  /* Baris tambahan hanya muncul kalau nilainya ada dan bukan nol: nota tanpa
-     tip tidak perlu baris "Tip 0,00", dan baris kosong menyembunyikan diskon
-     yang benar-benar memotong total. */
   if (receipt.tipIdr) lines.push({ label: 'Tip kurir', valueIdr: receipt.tipIdr })
   if (receipt.transactionFeeIdr)
     lines.push({ label: 'Biaya transaksi', valueIdr: receipt.transactionFeeIdr })

@@ -74,3 +74,43 @@ export function itemsLine(
       .join(' · ') + (rest > 0 ? ` · +${rest}` : '')
   )
 }
+
+/* ── tanggal riwayat ───────────────────────────────────────────────────────
+   Tiga format, satu tempat: kunci pengelompokan, label strip tanggal, dan cap
+   waktu di kepala kartu. Ditulis di sini supaya daftar dan sheet tidak pernah
+   menyebut tanggal yang berbeda untuk order yang sama. */
+
+const DAY_LABEL_FORMAT: Intl.DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+}
+
+const STAMP_FORMAT: Intl.DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+}
+
+/** Kunci grup per hari (tahun-bulan-tanggal lokal), bukan ISO mentah. */
+export function orderDayKey(iso: string): string {
+  const date = new Date(iso)
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+}
+
+/** "27 Oktober 2026" — label strip tanggal. */
+export function orderDayLabel(iso: string): string {
+  return new Date(iso).toLocaleDateString('id-ID', DAY_LABEL_FORMAT)
+}
+
+/**
+ * "27 Okt 2026, 19:24" — jam ditulis manual: `toLocaleTimeString` id-ID
+ * memberi titik (19.24), sedangkan acuan desain memakai titik dua.
+ */
+export function orderStampLabel(iso: string): string {
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return '-'
+  const hh = String(date.getHours()).padStart(2, '0')
+  const mm = String(date.getMinutes()).padStart(2, '0')
+  return `${date.toLocaleDateString('id-ID', STAMP_FORMAT)}, ${hh}:${mm}`
+}

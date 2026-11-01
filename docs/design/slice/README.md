@@ -1,4 +1,4 @@
-# Irisan HTML Sa7tein — login, daftar, dan panel ops
+# Irisan HTML Sa7tein — login, daftar, panel ops, dan riwayat pesanan
 
 Folder ini berisi desain halaman login dan daftar customer, plus **14 layar
 menu panel ops + 1 kotak masuk notifikasi** atas permintaan pemilik
@@ -49,7 +49,9 @@ slice/
 | `ops/ops.css` | gaya panel ops (15 layar) |
 | `ops/ops-login.css` | gaya login desktop ops (memakai token `ops.css`) |
 | `ops/ops.js` | interaksi mock panel ops: dropdown Sa7tein, dialog validasi/konfirmasi, toast, popover lonceng, menu akun, login |
-| `index.html` | galeri: tautan halaman login + panel ops |
+| `order-history.html` | Riwayat pesanan customer (`/customer/orders?tab=history`) — kartu per order, kelompok tanggal, saring Semua/Selesai/Dibatalkan/Refund, aksi `Pesan lagi`. **Sudah diporting** ke React 2026-10-31 (`src/pages/MyOrder.tsx`, `src/components/customer/OrderHistoryCard.tsx`, `OrderHistorySheet.tsx`) |
+| `order-journey.html` | Journey pesanan aktif (`/order-placed?stage=diantar`) — status tahap, Journey Line 5 simpul, pembayaran COD, toko, kurir, tujuan, pop-up perubahan status. Bagian pop-up **sudah diporting** (`src/components/customer/OrderUpdateNotice.tsx`); layar journey-nya memakai `OrderStageScreen` yang sudah ada |
+| `index.html` | galeri: tautan halaman login + panel ops + riwayat pesanan + journey |
 
 ## Panel ops — 15 layar, satu stylesheet
 
@@ -344,6 +346,146 @@ jadi pindah layar tidak menggeser navigasi.
 Terukur di 390x942: tiap bingkai `gap 16`, `cut 0`, `overflow-x 0`, tab `y 292`
 sama dengan login, tab → field pertama `12px`. Bingkai "2 · salah" yang paling
 ketat (tiga pesan sekaligus).
+
+## Riwayat pesanan customer — `order-history.html`
+
+Irisan dari acuan pemilik `Sa7tein Order History App Screen.png` (diskrip ulang
+2026-10-31). Satu berkas, gaya inline, tanpa skrip, aset repo
+(`../../../public/assets/…`). Ukuran diambil dari acuan, bukan dari selera.
+
+Angka acuan (`852x1846` @2 → **426x923** CSS) dan hasil ukur di emulasi moli:
+
+| bagian | acuan (CSS) | terukur | catatan |
+|---|---|---|---|
+| kolom | 426 | 426 | kartu `16–410`, gutter `16` |
+| bilah status | `0–48` | **dihapus** | permintaan pemilik 2026-10-31: bingkai ponsel tiruan tidak dipakai di konsep |
+| tombol kembali | `56–96`, lebar `40` | `y 61`, `40x40` | putih, radius `12`, bayangan tipis |
+| track tab `Aktif/Riwayat` | `y 120,5–159` (h `38,5`) | `y 116`, h `38` | satu track pil abu `#E6E6F0`, bagian aktif oranye |
+| chip saring | `y 180,5–213,5` (h `33`) | `y 178`, h `33` | `Semua` oranye penuh, sisanya putih bergaris |
+| strip tanggal | h `39` | h `39` | latar `#E6E6F0`, radius `10`, label `13/700` |
+| kartu 1 | `274–457` (h `183`) | `y 277`, h `181` | kepala `90`, baris item `50`, kaki `41` |
+| kartu 2 | `511–690` (h `179`) | `y 513`, h `181` | |
+| kartu 3 | `738,5–867` (h `128,5`) | `y 749`, h `126` | tanpa kaki aksi, baris item satu baris (`--tight`) |
+| thumbnail | `84x70`, x `29` | `84x70`, x `29` | radius `12`, bukan persegi |
+| lencana status | h `16`, x `124,5` | h `17`, x `124,5` | hijau `Selesai`, abu `Dibatalkan` |
+| catatan kaki | `y 880` | `y 891` | terpusat, ikon jam |
+| indikator rumah | `y 912` | `y 925` | tanpa navigasi bawah (acuan tidak punya) |
+| overflow-x | `0` | `0` | |
+
+Isi kartu: thumbnail, nama toko `17/700`, `kode · tanggal jam` abu `12,5`,
+lencana, garis rambut, baris item (ikon tas + `n item pesanan` + daftar menu,
+nominal `16/800` rata kanan), garis rambut, lalu kaki: bintang oranye + `4.8`
++ `· Sudah dinilai` | pemisah vertikal | `Pesan lagi` atau `Lihat detail`.
+
+**Penyimpangan yang disengaja, dan alasannya:**
+
+1. **Target sentuh di bawah 44px** (tab `34`, chip `33`, kaki `40`). Acuan
+   memakai tinggi itu; mengikuti DNA 44px membuat layar melar ~40px dan tidak
+   lagi 1:1. Berlaku hanya untuk irisan ini, bukan untuk `auth/` dan `ops/`.
+2. **Palet acuan**, bukan token `_tokens.scss` apa adanya: latar `#F0F0FA`
+   (token `--bg-warm` `#F4F4F6`), kartu `#FAFAFA` (token `--surface` `#FFFFFF`),
+   track `#E6E6F0`. Warna merek tetap `#E44220`.
+3. **Kartu 3 tanpa kaki aksi** karena acuan juga berhenti setelah baris item.
+4. **Baris item kartu 3 satu baris**; acuan memberinya tinggi `36` sementara dua
+   kartu lain `50`.
+
+### Fitur yang aktif di `order-history.html`
+
+Bukan gambar mati: satu blok `<script>` di akhir berkas menggerakkan seluruh
+layar, tanpa dependensi.
+
+| kontrol | perilaku |
+|---|---|
+| tab `Aktif / Riwayat` | mengganti daftar; `Aktif` memuat 2 pesanan berjalan (status + perkiraan + `Lacak pesanan`) dan menyembunyikan baris saring; `Riwayat` memuat 3 pesanan |
+| chip `Semua / Selesai / Dibatalkan / Refund` | menyaring daftar; jumlah per kategori disimpan di `aria-label`, bukan di teks, supaya empat chip muat satu baris (terukur `clip 0`, total `328px` dari `346px` yang tersedia) |
+| tombol cari (kaca pembesar, ujung kanan baris saring) | mengganti baris chip dengan kolom cari. Kata kunci dicocokkan ke **nama toko, kode pesanan, dan nama menu** (tidak peka huruf besar). Catatan kaki berubah jadi `n hasil untuk "<kata>"`, keadaan kosong menyebut kata kuncinya. `Esc` atau tombol `X` menutup mode cari dan mengembalikan fokus ke tombol. Menggantikan tombol urut lama: ikon sliders di acuan memang terbaca sebagai cari/filter oleh pemilik |
+| kartu / chevron / `Lihat detail` | membuka sheet nota: item `qty × harga`, subtotal, ongkir, biaya layanan, tip, total, metode + status bayar, stempel `LUNAS` bila lunas, **`Uang diterima` + `Kembalian`** untuk pembayaran tunai (kembalian = uang - total, dibulatkan ke sen, hijau `--success-ink`), blok pembatalan (`Dibatalkan oleh`, alasan, pengembalian dana) untuk order batal |
+| `Pesan lagi` | menutup sheet lalu toast `n menu dari <toko> ditambahkan ke keranjang.` |
+| `Beri rating` | toast pembuka form ulasan |
+| `Lacak pesanan` (tab Aktif) | membuka **halaman journey** `order-journey.html?order=<id>`, bukan sheet lagi |
+| klik kartu pesanan aktif | juga ke halaman journey |
+| ikon bantuan | sheet `Pusat bantuan` + tombol `Chat dengan CS` |
+| tutup sheet | tombol `X`, klik latar, atau `Esc`; fokus kembali ke elemen pemicu |
+| tombol kembali | `history.back()` bila ada riwayat halaman, selain itu toast |
+
+Angka `Aktif 2` / `Riwayat 3` mengikuti data di berkas, bukan angka acuan
+`28 / 109` yang hanya gambar. Total nota dihitung dari item + biaya
+(`subtotal 6,00 + ongkir 0,90 + layanan 0,35 + tip 0,34 = 7,59`); order batal
+`4,00 + 0,35 + 0,15 = 4,50` dibayar tunai `5,00`, jadi `Kembalian 0,50`.
+`Uang diterima` dan `Kembalian` hanya muncul kalau `payment.cash` punya nilai,
+jadi order DANA/transfer tidak menampilkan baris kosong.
+
+### Gerak (MOTION 2, senior-fe)
+
+Gerak hanya dipakai untuk menjelaskan perubahan keadaan, bukan hiasan. Seluruh
+durasi/easing memakai token yang **disalin** dari `src/styles/_tokens.scss` ke
+`:root` berkas ini (`--motion-fast` 140, `--motion-enter` 250,
+`--motion-emphasis` 380, `--ease-standard`/`--ease-decelerate`), jadi tidak ada
+angka karangan dan tidak ada `var()` yang tak terdefinisi.
+
+| kejadian | gerak | nilai |
+|---|---|---|
+| tekan tombol ikon / chip / tutup sheet | mengecil sebentar | `scale(0.94)`, 140ms |
+| tekan kartu | latar kartu | `--bg-warm`, 140ms |
+| buka cari | chip memudar keluar lalu kolom cari tumbuh dari sisi kanan (`transform-origin: right center`) | opacity 140ms (tunda 60ms), skala 380ms |
+| tab / chip berganti | daftar masuk dari bawah | `list-in`, 250ms, `--ease-decelerate` |
+| buka sheet nota | panel naik dari bawah + latar memudar | panel `translateY(100%→0)` 380ms, latar opacity 200ms |
+| toast | masuk dari bawah, keluar memudar | 250ms masuk, 140ms keluar |
+| `prefers-reduced-motion: reduce` | semua durasi jadi 1ms | diukur `0.001s` |
+
+Terukur di Brave headless (Chromium, 426x923): transisi kolom cari `opacity
+140ms` + `transform 380ms` dengan nilai berjalan `matrix(0.94 …)` →
+`matrix(0.956 …)` → `none`; panel sheet `transform 380ms` dengan `top` bergerak
+`923 → 775 → 383`; `#sheet` memakai kelas `is-open`, bukan atribut `hidden`,
+supaya ada keadaan awal untuk dianimasikan.
+
+Gambar menu **tidak terlihat** di tangkapan moli (mesin itu tidak menggambar
+gambar apa pun, lihat `Memeriksa`); rupa foto dinilai dari peramban biasa.
+
+## Journey pesanan aktif — `order-journey.html`
+
+Dibuka dari kartu tab `Aktif` di riwayat (`?order=a1|a2`). Ini layar kedua;
+tidak ada di acuan pemilik, jadi isinya **disalin dari komponen app yang sudah
+ada**, bukan dikarang:
+
+| bagian | sumber di repo |
+|---|---|
+| label tahap + ETA + catatan kurir | `src/data/order-stage-copy.ts:9-43` (Baru/Disiapkan/Siap/Diantar/Selesai) |
+| Journey Line (rel 2px, simpul 26px, `journey-fill` 620ms, `journey-pulse` 2s) | `src/styles/system/_tracking.scss:89-216` |
+| ikon simpul | `src/components/JourneyLine.tsx:18-24` (clipboard-list, utensils, package-check, bike, house) |
+| label kartu tunai `Tagihan tunai` / `Uang disiapkan` / `Kembalian` | `src/components/customer/CodCashSection.tsx:34-47` |
+| teks bantuan tunai "Siapkan X, kembalian Y." | `src/data/codCash.ts:94-101` |
+| nama kurir, nomor, rating | `src/data/merchant.ts:315` (Budi Santoso, `+6281234567890`), `courierRating: 4.7` |
+
+**Yang aktif:**
+
+| kontrol | perilaku |
+|---|---|
+| kartu status | teks tahap, `Estimasi siap/tiba`, catatan kurir, chip `Diperbarui langsung dari toko` (titik berdenyut) |
+| Journey Line | simpul `done` hijau, `active` oranye berdenyut, `todo` abu; ruas menuju simpul aktif tumbuh dari kiri |
+| pembayaran | order COD: tagihan `3,60 JOD`, uang disiapkan `5,00 JOD`, kembalian `1,40 JOD`; order DANA: total + metode + status |
+| tombol telepon / chat kurir | memunculkan pop-up, bukan aksi sungguhan |
+| pop-up perubahan status | naik dari bawah, `role="status"` + `aria-live="polite"`, bilah hitung mundur 6 detik, tutup lewat `X` |
+| `Putar ulang simulasi` | mengembalikan tahap awal lalu menjalankan ulang timer |
+| tombol kembali | pop-up ditutup dulu, baru `history.back()` (MD-13) |
+
+**Simulasi realtime** (bukan dari server): tahap naik satu langkah setelah 5
+detik, lalu tiap 9 detik sampai `Selesai`, dan tiap kenaikan memunculkan pop-up.
+Order `a2` naik `Disiapkan → Siap → Diantar → Selesai`; `a1` hanya satu langkah
+(`Diantar → Selesai`) karena sudah di tahap akhir.
+
+**Terukur** (Brave headless, 426x923): pop-up `386x77` di `y 818`, `28px` dari
+bawah, di dalam kolom (`insideColumn true`), hit-test titik tengah mengenai
+pop-up sendiri; baris terakhir halaman (`y 766`) tetap **di atas** pop-up
+(`818`) setelah `body.is-updating` memberi `padding-bottom: 116px`; tombol tutup
+`32x32`; navigasi riwayat → journey menghasilkan `order-journey.html?order=a1`
+dengan `ref SA-MVZ4R2KQ`; `Esc`/`X` menutup pop-up; dua kali kembali: pertama
+menutup pop-up, kedua kembali ke `order-history.html`.
+
+**Deviasi yang disengaja:** tombol tutup pop-up `32px` dan tombol kembali `40px`
+(di bawah DNA `44px`, sama seperti irisan lain di folder ini); peta tidak
+digambar karena Leaflet tidak dipakai di irisan statis dan peta palsu akan
+mengarang data.
 
 ## Memeriksa
 

@@ -1025,6 +1025,1113 @@
           "raw": "FEAT-2203:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-212799",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:33:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\nimport sys\np='src/api/reviews.ts'\ns=open(p).read()\npairs=[\n(\"\"\"  rev",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212800",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:34:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderHistoryList.tsx (+296) — write via tool: tsx: import { Check, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderHistoryList.tsx"
+    },
+    {
+      "id": "TASK-212801",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:37:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\nimport sys\np='src/pages/MyOrder.tsx'\ns=open(p).read()\nlines=s.split(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212802",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:38:08",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/MyOrder.tsx'\ns=open(p).read()\ns=s.replace(\"import { Pla",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212803",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:39:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss (+366) — write via tool: // Riwayat pesanan berbentuk",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss"
+    },
+    {
+      "id": "TASK-212804",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:40:02",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/styles/_system.scss'\ns=open(p).read()\na='@use \"./system/my-or",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212805",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:44:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && rtk curl -s -o /dev/null -w \"%{http_code}\\n\" http://localhost:4173/customer/orders?ta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212806",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:49:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-verify.mjs (+113) — write via tool: // Harness verifikasi semen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/oh-verify.mjs"
+    },
+    {
+      "id": "TASK-212807",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:54:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slicing/order-history.html (+667) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slicing/order-history.html"
+    },
+    {
+      "id": "TASK-2210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "14:58:27",
+      "tags": [
+        "slicing",
+        "ui",
+        "customer"
+      ],
+      "summary": "Irisan HTML riwayat pesanan customer di docs/design/slice/order-history.html; porting React dibatalkan",
+      "conn": [
+        {
+          "id": "DEC-88204",
+          "type": "relates",
+          "raw": "DEC-88204:relates"
+        }
+      ],
+      "loc": "docs/design/slice/order-history.html:1"
+    },
+    {
+      "id": "TASK-212808",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "15:28:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html (+663) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html"
+    },
+    {
+      "id": "TASK-212809",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "15:57:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | tombol cari (kaca pembesar, ujung ka",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-2211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "15:57:49",
+      "tags": [
+        "slice",
+        "order-history",
+        "search"
+      ],
+      "summary": "order-history.html: tombol urut diganti mode cari (toko/kode/menu), chip tetap polos",
+      "conn": [
+        {
+          "id": "TASK-2210",
+          "type": "relates",
+          "raw": "TASK-2210:relates"
+        }
+      ],
+      "loc": "docs/design/slice/order-history.html:843"
+    },
+    {
+      "id": "TASK-212810",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "15:58:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html (+12/-1) — edit via tool: --shadow-subtle: 0 1px 2px r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html"
+    },
+    {
+      "id": "TASK-212811",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "15:59:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html (+26/-13) — edit via tool: /* ---------- toast -------",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html"
+    },
+    {
+      "id": "TASK-212812",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:02:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+28/-4) — edit via tool: Angka `Aktif 2` / `Riwayat 3` mengiku",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-2212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:02:13",
+      "tags": [
+        "slice",
+        "order-history",
+        "motion"
+      ],
+      "summary": "order-history.html: gerak MOTION 2 (sheet naik, cari tumbuh, daftar masuk, tekan) + reduced-motion",
+      "conn": [
+        {
+          "id": "TASK-2211",
+          "type": "relates",
+          "raw": "TASK-2211:relates"
+        }
+      ],
+      "loc": "docs/design/slice/order-history.html:806"
+    },
+    {
+      "id": "TASK-212813",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:03:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html (+1/-2) — edit via tool: payment: { method: 'COD tunai",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html"
+    },
+    {
+      "id": "TASK-212814",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:04:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | kartu / chevron / `Lihat detail` | m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-2213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:05:03",
+      "tags": [
+        "slice",
+        "order-history",
+        "payment"
+      ],
+      "summary": "nota: tambah Uang diterima + Kembalian (tunai), kembalian dihitung dari total",
+      "conn": [
+        {
+          "id": "TASK-2211",
+          "type": "relates",
+          "raw": "TASK-2211:relates"
+        }
+      ],
+      "loc": "docs/design/slice/order-history.html:1450"
+    },
+    {
+      "id": "TASK-212815",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:08:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-journey.html (+911) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-journey.html"
+    },
+    {
+      "id": "TASK-212816",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:09:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-index.mjs (+4/-3) — edit via tool: const APP_SCREENS = [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-index.mjs"
+    },
+    {
+      "id": "TASK-212817",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:09:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html (+5/-14) — edit via tool: /* Tahap order hidup di laya",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html"
+    },
+    {
+      "id": "TASK-212818",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:13:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-journey.html (+7/-7) — edit via tool: .update__close {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-journey.html"
+    },
+    {
+      "id": "TASK-212819",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:16:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+3/-2) — edit via tool: | `order-history.html` | Riwayat pesan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-212820",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:17:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+46/-1) — edit via tool: ## Journey pesanan aktif — `order-jou",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-2214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:17:10",
+      "tags": [
+        "slice",
+        "order-journey",
+        "realtime"
+      ],
+      "summary": "order-journey.html: Journey Line 5 simpul, COD cash, kurir, pop-up status simulasi; history klik kartu -> journey",
+      "conn": [
+        {
+          "id": "TASK-2211",
+          "type": "relates",
+          "raw": "TASK-2211:relates"
+        },
+        {
+          "id": "TASK-2213",
+          "type": "relates",
+          "raw": "TASK-2213:relates"
+        }
+      ],
+      "loc": "docs/design/slice/order-journey.html:1"
+    },
+    {
+      "id": "TASK-212821",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:20:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html (+7/-7) — edit via tool: .head {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/order-history.html"
+    },
+    {
+      "id": "TASK-212822",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:20:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | bilah status | `0–48` | **dihapus** ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-2215",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "16:21:20",
+      "tags": [
+        "slice",
+        "chrome"
+      ],
+      "summary": "hapus bilah status tiruan (9:41 + ikon) di order-history + order-journey; jarak atas pindah ke header",
+      "conn": [
+        {
+          "id": "TASK-2214",
+          "type": "relates",
+          "raw": "TASK-2214:relates"
+        }
+      ],
+      "loc": "docs/design/slice/order-history.html:88"
+    },
+    {
+      "id": "TASK-212823",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:00:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss (+662) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss"
+    },
+    {
+      "id": "TASK-212824",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:00:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-nota.scss (+181) — write via tool: // Nota pesanan (sheet rincian ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-nota.scss"
+    },
+    {
+      "id": "TASK-212825",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:00:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss (+2/-2) — edit via tool: @use \"./system/order-history\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-212826",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:00:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/orderStatus.ts (+53/-13) — edit via tool: ts: /** \"2× Sate Ayam · 1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/orderStatus.ts"
+    },
+    {
+      "id": "TASK-212827",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:01:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderHistoryCard.tsx (+166) — write via tool: tsx: import { Calenda",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderHistoryCard.tsx"
+    },
+    {
+      "id": "TASK-212828",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:01:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderHistorySheet.tsx (+256) — write via tool: tsx: import { Rotate",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderHistorySheet.tsx"
+    },
+    {
+      "id": "TASK-212829",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:01:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx (+499) — write via tool: tsx: import { ChevronLeft, Clock, Headset, P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-212830",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:02:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss (+2/-3) — edit via tool: .oh-cart {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-history.scss"
+    },
+    {
+      "id": "TASK-212831",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:02:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderUpdateNotice.tsx (+81) — write via tool: tsx: import { Refresh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderUpdateNotice.tsx"
+    },
+    {
+      "id": "TASK-212832",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:02:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss (+120) — write via tool: // Pemberitahuan perubahan st",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss"
+    },
+    {
+      "id": "TASK-212833",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:02:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss (+3/-2) — edit via tool: @use \"./system/order-history\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-212834",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:03:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderUpdateNotice.tsx (+1/-1) — edit via tool: tsx: {copy.label} · ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/OrderUpdateNotice.tsx"
+    },
+    {
+      "id": "TASK-212835",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:03:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && rm src/styles/system/_my-order.scss src/styles/system/_my-order-kinds.scss && npm run",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212836",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:03:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"MyOrder|OrderHistoryCard|OrderHistorySheet|OrderUpdateNo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212837",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:04:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN|ok  \" | tail -18 && npm run build 2>&1 | tail ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212838",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:16:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-search.scss (+6/-4) — edit via tool: .oh-chip {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-search.scss"
+    },
+    {
+      "id": "TASK-212839",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:17:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-search.scss (+12/-26) — edit via tool: /* Kolom cari menempati bar",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-search.scss"
+    },
+    {
+      "id": "TASK-212840",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:17:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx (+3/-16) — edit via tool: tsx: </div>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-212841",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:21:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss (+19/-16) — edit via tool: .order-update__close {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss"
+    },
+    {
+      "id": "TASK-212842",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:22:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss (+8/-7) — edit via tool: margin: calc(-1 * var(--space",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss"
+    },
+    {
+      "id": "TASK-212843",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:23:16",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"MyOrder|OrderHistory|OrderUpdate|orderStatus|error\" | he",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212844",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:23:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss (+7/-7) — edit via tool: /* Baris terakhir halaman tid",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_order-update.scss"
+    },
+    {
+      "id": "TASK-212845",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:23:45",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|0 FAIL\" | tail -3 && npm run build 2>&1 | tail -3 p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212846",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:24:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+51/-17) — edit via tool: tsx: <strong>Riwayat</strong> (pesan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212847",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:24:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: merchan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-2216",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:25:24",
+      "tags": [
+        "porting",
+        "order",
+        "history",
+        "ui"
+      ],
+      "summary": "Port irisan order-history + pemberitahuan status journey ke React; gate orders & order-placed PASS",
+      "conn": [
+        {
+          "id": "TASK-2214",
+          "type": "relates",
+          "raw": "TASK-2214:relates"
+        },
+        {
+          "id": "TASK-2215",
+          "type": "relates",
+          "raw": "TASK-2215:relates"
+        }
+      ],
+      "loc": "src/pages/MyOrder.tsx:229,src/components/customer/OrderHistoryCard.tsx:1,src/components/customer/OrderUpdateNotice.tsx:1,src/styles/system/_order-history.scss:1"
+    },
+    {
+      "id": "TASK-212848",
+      "type": "task",
+      "status": "done",
+      "date": "2026-10-31",
+      "time": "17:25:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+3/-3) — edit via tool: | `order-history.html` | Riwayat pesan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
     }
   ]
 }

@@ -1,0 +1,153 @@
+@use "./mixins" as *;
+
+// Baris saring dan pencarian riwayat pesanan — dipisah dari
+// `_order-history.scss` supaya tiap partial tetap di bawah 600 baris.
+// Chip dan tombol cari berbagi satu baris; kolom cari menggantikannya dengan
+// animasi yang sama seperti irisan `docs/design/slice/order-history.html`.
+
+/* ── saring + cari ───────────────────────────────────────────────────────── */
+.oh-filters {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.oh-chips {
+  display: flex;
+  flex: 1;
+  gap: var(--space-2);
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  transition:
+    opacity var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard),
+    visibility 0s linear 0s;
+}
+
+.oh-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.oh-chip {
+  flex: 0 0 auto;
+  /* DNA MD-05: target sentuh 44px. Irisan memakai 34px; di app target sentuh
+     menang atas tinggi pil. */
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color var(--motion-fast) var(--ease-standard),
+    color var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard);
+}
+
+.oh-chip:active {
+  transform: scale(0.94);
+}
+
+.oh-chip--on {
+  border-color: transparent;
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+  font-weight: 700;
+}
+
+/* Kolom cari menempati baris saring: chip memudar keluar, kolom tumbuh dari
+   sisi kanan. Tinggi baris tidak melompat, jadi perpindahannya terbaca satu
+   gerakan. Tombol pemicunya tinggal di kepala halaman (bukan di baris ini),
+   supaya keempat chip saring muat tanpa terpotong di kolom 430px. */
+.oh-filters.is-search .oh-chips {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-8px);
+  pointer-events: none;
+  transition-delay: 0s, 0s, var(--motion-fast);
+}
+
+.oh-search {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  opacity: 0;
+  visibility: hidden;
+  transform: scaleX(0.94) translateY(2px);
+  transform-origin: right center;
+  transition:
+    opacity var(--motion-fast) var(--ease-standard),
+    transform var(--motion-emphasis) var(--ease-decelerate),
+    visibility 0s linear var(--motion-fast);
+}
+
+.oh-filters.is-search .oh-search {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 60ms, 0s, 0s;
+}
+
+.oh-search__icon {
+  flex: 0 0 auto;
+  color: var(--text-secondary);
+}
+
+.oh-search__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-field);
+}
+
+.oh-search__input::placeholder {
+  color: var(--text-secondary);
+}
+
+.oh-search__input:focus {
+  outline: none;
+}
+
+.oh-search__input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.oh-search__clear {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-7);
+  height: var(--space-7);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform var(--motion-fast) var(--ease-standard);
+}
+
+.oh-search__clear:active {
+  transform: scale(0.92);
+}

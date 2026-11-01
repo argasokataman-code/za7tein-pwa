@@ -1,0 +1,1589 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slicing — Riwayat Pesanan (Sa7tein)</title>
+<style>
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('../../../public/assets/fonts/plus-jakarta-sans.woff2') format('woff2');
+    font-weight: 200 800;
+    font-display: swap;
+  }
+
+  :root {
+    --sa7tein-orange: #E44220;
+    --on-brand: #FFFFFF;
+    --bg-warm: #F0F0FA;
+    --surface: #FAFAFA;
+    --text-primary: #172434;
+    --text-secondary: #64748B;
+    --border: #E5E9EF;
+    --border-strong: #CBD5E1;
+    --field: #EFF1F4;
+
+    --success: #059669;
+    --success-ink: #047857;
+    --green-soft: #ECFDF5;
+    --neutral-soft: #E6E6F0;
+    --neutral-ink: #64748B;
+
+    --radius-sm: 10px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 9999px;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+
+    --text-xs: 12px;
+    --text-sm: 13px;
+    --text-md: 15px;
+    --text-lg: 24px;
+
+    --touch-min: 44px;
+
+    --shadow-subtle: 0 1px 2px rgba(23, 36, 52, 0.06);
+
+    /* Gerak: nilai disalin dari `src/styles/_tokens.scss` supaya irisan ini
+       memakai durasi/easing yang sama dengan app, bukan angka karangan. */
+    --motion-fast: 140ms;
+    --motion-standard: 200ms;
+    --motion-enter: 250ms;
+    --motion-exit: 200ms;
+    --motion-emphasis: 380ms;
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+    --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #E9EAEE;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .phone {
+    position: relative;
+    width: 100%;
+    max-width: 426px;
+    min-height: 923px;
+    margin-inline: auto;
+    padding: 0 16px 34px;
+    background: var(--bg-warm);
+  }
+
+  /* ---------- kepala halaman ---------- */
+  .head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    /* Tanpa bilah status tiruan, kepala halaman butuh jarak atas sendiri. */
+    padding-block: var(--space-4) 12px;
+  }
+
+  .icon-btn {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-subtle);
+    cursor: pointer;
+  }
+
+  .head__text { flex: 1; min-width: 0; }
+
+  .head__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .head__sub {
+    margin: 2px 0 0;
+    overflow: hidden;
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .support {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: none;
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .support__dot {
+    position: absolute;
+    top: 4px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    border: 2px solid var(--bg-warm);
+    border-radius: 50%;
+    background: var(--sa7tein-orange);
+  }
+
+  /* ---------- tab seksi: satu wadah pil abu, dua bagian ---------- */
+  .tabs {
+    display: flex;
+    gap: 2px;
+    padding: 2px;
+    margin-bottom: var(--space-5);
+    border-radius: var(--radius-pill);
+    background: var(--neutral-soft);
+  }
+
+  .tab {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 34px;
+    padding-inline: var(--space-3);
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+
+  .tab--on {
+    background: var(--sa7tein-orange);
+    color: var(--on-brand);
+    font-weight: 700;
+  }
+
+  /* ---------- chip saring + tombol urut ---------- */
+  .filters {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .filters__chips {
+    display: flex;
+    flex: 1;
+    gap: var(--space-2);
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .filters__chips::-webkit-scrollbar { display: none; }
+
+  .chip {
+    flex: 0 0 auto;
+    min-height: 33px;
+    padding-inline: 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .chip--on {
+    border-color: transparent;
+    background: var(--sa7tein-orange);
+    color: var(--on-brand);
+    font-weight: 700;
+  }
+
+  /* ---------- strip tanggal ---------- */
+  .day { margin-bottom: 12px; }
+
+  .day__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    height: 39px;
+    margin-bottom: 4px;
+    padding-inline: var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--neutral-soft);
+  }
+
+  .day__label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .day__label svg { color: var(--text-primary); }
+
+  .day__count {
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- kartu order ---------- */
+  .card {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .card + .card { margin-top: var(--space-3); }
+
+  .card__head {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 12px 8px;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .thumb {
+    flex: 0 0 auto;
+    width: 84px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--field);
+  }
+
+  .thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    padding-right: var(--space-4);
+  }
+
+  .card__name {
+    overflow: hidden;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .card__meta {
+    overflow: hidden;
+    color: var(--text-secondary);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    align-self: flex-start;
+    margin-top: 6px;
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    background: var(--green-soft);
+    color: var(--success-ink);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .badge--canceled {
+    background: var(--neutral-soft);
+    color: var(--neutral-ink);
+  }
+
+  .card__chev {
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    color: var(--border-strong);
+  }
+
+  .card__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card__row-icon {
+    flex: 0 0 auto;
+    color: var(--text-secondary);
+  }
+
+  .card__items {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .card__items-label {
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .card__items-name {
+    overflow: hidden;
+    color: var(--text-secondary);
+    font-size: 12.5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .card__row--tight .card__items {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .card__total {
+    flex: 0 0 auto;
+    font-size: 16px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* kaki: rating kiri, garis pemisah tengah, aksi kanan */
+  .card__foot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card__half {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 13px;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .card__half--end { justify-content: flex-end; font-weight: 700; }
+
+  .card__half svg { flex: 0 0 auto; }
+
+  .card__star { color: var(--sa7tein-orange); }
+
+  .card__score {
+    color: var(--sa7tein-orange);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card__divider {
+    flex: 0 0 auto;
+    width: 1px;
+    height: 16px;
+    background: var(--border-strong);
+  }
+
+  /* ---------- catatan kaki ---------- */
+  .note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 16px 0 20px;
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+  /* ---------- indikator rumah (acuan tanpa navigasi bawah) ---------- */
+  .home-bar {
+    display: block;
+    width: 132px;
+    height: 5px;
+    margin: 20px auto 0;
+    border-radius: var(--radius-pill);
+    background: var(--text-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--sa7tein-orange);
+    outline-offset: 2px;
+  }
+
+  /* ---------- tambahan: keadaan kosong, aksi aktif, sheet nota, toast ---------- */
+  .is-hidden { display: none !important; }
+
+  .active-note {
+    margin: 0 0 12px;
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+  /* Kolom cari menempati baris saring yang sama. Chip dan tombol fokus
+     memudar keluar, kolom cari tumbuh dari sisi tombol (origin kanan), jadi
+     tinggi baris tidak melompat dan perpindahannya terbaca sebagai satu
+     gerakan, bukan dua layar yang saling menimpa. */
+  .filters { position: relative; }
+
+  .filters__chips,
+  #btn-search {
+    transition:
+      opacity var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard),
+      visibility 0s linear 0s;
+  }
+
+  .filters.is-search .filters__chips {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-8px);
+    pointer-events: none;
+    transition-delay: 0s, 0s, var(--motion-fast);
+  }
+
+  .filters.is-search #btn-search {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.9);
+    pointer-events: none;
+    transition-delay: 0s, 0s, var(--motion-fast);
+  }
+
+  .search-field {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    padding-inline: 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    opacity: 0;
+    visibility: hidden;
+    transform: scaleX(0.94) translateY(2px);
+    transform-origin: right center;
+    transition:
+      opacity var(--motion-fast) var(--ease-standard),
+      transform var(--motion-emphasis) var(--ease-decelerate),
+      visibility 0s linear var(--motion-fast);
+  }
+
+  .filters.is-search .search-field {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 60ms, 0s, 0s;
+  }
+
+  .search-field__icon { flex: 0 0 auto; color: var(--text-secondary); }
+
+  .search-field__input {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 13px;
+  }
+
+  .search-field__input::placeholder { color: var(--text-secondary); }
+  .search-field__input:focus { outline: none; }
+  .search-field__input::-webkit-search-cancel-button { display: none; }
+
+  .search-field__clear {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--neutral-soft);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 48px 24px 56px;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+
+  .empty svg { color: var(--border-strong); }
+
+  .empty strong {
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .empty span { font-size: 13px; }
+
+  .badge--transit {
+    background: #EFF6FF;
+    color: #1D4ED8;
+  }
+
+  .badge--canceled .badge__dot,
+  .badge--transit .badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* ---------- sheet nota (MD-06: satu daftar, panel sendiri yang menggulir) ---------- */
+  .sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    visibility: hidden;
+    transition: visibility 0s linear var(--motion-exit);
+  }
+
+  /* Panel masuk dari bawah, latar memudar. Kelas `is-open` yang memegang
+     keadaan, bukan atribut `hidden`, supaya ada keadaan awal untuk
+     dianimasikan (MD-13: overlay ditutup sebelum navigasi). */
+  .sheet.is-open {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .sheet__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(23, 36, 52, 0.42);
+    border: 0;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity var(--motion-exit) var(--ease-standard);
+  }
+
+  .sheet.is-open .sheet__backdrop { opacity: 1; }
+
+  .sheet__panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 426px;
+    max-height: 82vh;
+    margin-inline: auto;
+    padding: 8px 16px 0;
+    border-radius: 24px 24px 0 0;
+    background: var(--surface);
+    box-shadow: 0 -8px 28px rgba(23, 36, 52, 0.18);
+    transform: translateY(100%);
+    transition: transform var(--motion-emphasis) var(--ease-decelerate);
+  }
+
+  .sheet.is-open .sheet__panel { transform: translateY(0); }
+
+  .sheet__handle {
+    width: 42px;
+    height: 4px;
+    margin: 0 auto 10px;
+    border-radius: var(--radius-pill);
+    background: var(--border-strong);
+  }
+
+  .sheet__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 10px;
+  }
+
+  .sheet__title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .sheet__meta {
+    margin: 2px 0 0;
+    color: var(--text-secondary);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sheet__close {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--neutral-soft);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .sheet__body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: 12px;
+  }
+
+  .sheet__foot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0 28px;
+    border-top: 1px solid var(--border);
+  }
+
+  .sheet__total {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .sheet__total span { color: var(--text-secondary); font-size: 12px; }
+
+  .sheet__total strong {
+    font-size: 18px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sheet__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding-inline: 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .sheet__action--primary {
+    border-color: transparent;
+    background: var(--sa7tein-orange);
+    color: var(--on-brand);
+  }
+
+  .nota-section {
+    padding-block: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .nota-section__title {
+    margin: 0 0 8px;
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .nota-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nota-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 5px;
+    font-size: 13px;
+  }
+
+  .nota-line__label { min-width: 0; }
+
+  .nota-line--muted { color: var(--text-secondary); }
+
+  /* Kembalian dibedakan karena itu angka yang dicari pelanggan setelah
+     menyerahkan uang, bukan sekadar baris biaya lain. */
+  .nota-line--change {
+    color: var(--success-ink);
+    font-weight: 700;
+  }
+
+  .nota-line--total {
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-strong);
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .nota-amount {
+    flex: 0 0 auto;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .nota-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    padding: 1px 7px;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    color: var(--success-ink);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    vertical-align: middle;
+  }
+
+  .nota-pair {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 4px;
+    font-size: 13px;
+  }
+
+  .nota-pair dt { color: var(--text-secondary); }
+  .nota-pair dd { margin: 0; font-weight: 600; text-align: end; }
+
+  .toasts {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .toast {
+    max-width: 386px;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    background: var(--text-primary);
+    color: var(--on-brand);
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(23, 36, 52, 0.24);
+  }
+  /* ---------- gerak: umpan balik tekan, daftar berganti, toast ---------- */
+  /* MOTION 2 (senior-fe): gerak hanya untuk menjelaskan perubahan keadaan
+     (panel masuk, daftar berganti, tombol menerima tekan), bukan dekorasi.
+     Semua durasi/easing dari token, dan seluruhnya padam saat pengguna
+     meminta gerak minim. */
+  .icon-btn,
+  .support,
+  .tab,
+  .chip,
+  .card__half,
+  .sheet__close,
+  .sheet__action,
+  .search-field__clear {
+    transition:
+      background-color var(--motion-fast) var(--ease-standard),
+      border-color var(--motion-fast) var(--ease-standard),
+      color var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard),
+      box-shadow var(--motion-fast) var(--ease-standard);
+  }
+
+  .icon-btn:active,
+  .support:active,
+  .chip:active,
+  .sheet__close:active,
+  .search-field__clear:active {
+    transform: scale(0.94);
+  }
+
+  .sheet__action:active { transform: scale(0.97); }
+  .card__half:active { opacity: 0.7; }
+
+  .card__head { transition: background-color var(--motion-fast) var(--ease-standard); }
+  .card__head:active { background: var(--bg-warm); }
+
+  @keyframes list-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .list--in { animation: list-in var(--motion-enter) var(--ease-decelerate) both; }
+
+  @keyframes toast-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes toast-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(6px) scale(0.98); }
+  }
+
+  .toast { animation: toast-in var(--motion-enter) var(--ease-decelerate) both; }
+  .toast.is-out { animation: toast-out var(--motion-fast) var(--ease-accelerate) both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+      transition-delay: 0s !important;
+    }
+  }
+
+</style>
+</head>
+<body>
+<main class="phone">
+
+
+  <header class="head">
+    <button class="icon-btn" type="button" aria-label="Kembali" id="btn-back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div class="head__text">
+      <h1 class="head__title">Pesanan Saya</h1>
+      <p class="head__sub">Riwayat pesananmu di Sa7tein</p>
+    </div>
+    <button class="support" type="button" aria-label="Pusat bantuan" id="btn-support">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg>
+      <span class="support__dot" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Pilih daftar pesanan">
+    <button class="tab" type="button" role="tab" id="tab-active" aria-selected="false" data-tab="active">
+      Aktif <span data-count="active">0</span>
+    </button>
+    <button class="tab tab--on" type="button" role="tab" id="tab-history" aria-selected="true" data-tab="history">
+      Riwayat <span data-count="history">0</span>
+    </button>
+  </div>
+
+  <div class="filters" role="group" aria-label="Saring riwayat pesanan" id="filters">
+    <div class="filters__chips" id="chips"></div>
+    <button class="icon-btn" type="button" id="btn-search" aria-label="Cari pesanan" aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+    </button>
+    <div class="search-field" id="search-box">
+      <svg class="search-field__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+      <input class="search-field__input" id="search-input" type="search" inputmode="search" autocomplete="off" placeholder="Cari toko, kode, atau menu" aria-label="Cari pesanan">
+      <button class="search-field__clear" type="button" id="search-close" aria-label="Tutup pencarian">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="list"></div>
+
+  <p class="note" id="note">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+    <span id="note-text">Menampilkan riwayat pesanan 3 bulan terakhir</span>
+  </p>
+
+  <span class="home-bar" aria-hidden="true"></span>
+</main>
+
+<div class="sheet" id="sheet" aria-hidden="true">
+  <button class="sheet__backdrop" type="button" data-close aria-label="Tutup rincian"></button>
+  <section class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1">
+    <span class="sheet__handle" aria-hidden="true"></span>
+    <header class="sheet__head">
+      <div style="flex:1;min-width:0">
+        <h2 class="sheet__title" id="sheet-title"></h2>
+        <p class="sheet__meta" id="sheet-meta"></p>
+      </div>
+      <button class="sheet__close" type="button" data-close aria-label="Tutup">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </header>
+    <div class="sheet__body" id="sheet-body"></div>
+    <footer class="sheet__foot" id="sheet-foot"></footer>
+  </section>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict'
+
+  /* ---------- data: isi nyata repo (Warung Sate Pak Ali, Warung Mie Jagoan) ---------- */
+  const IMG = '../../../public/assets/img/menu/'
+
+  const HISTORY = [
+    {
+      id: 'o1',
+      code: 'SA-MVQ009BW',
+      merchant: 'Warung Sate Pak Ali',
+      merchantId: 'am-1',
+      iso: '2026-10-27T19:24:00+07:00',
+      status: 'done',
+      image: IMG + 'sate-ayam.webp',
+      items: [
+        { name: 'Sate ayam (10 tusuk)', qty: 1, price: 4.0 },
+        { name: 'Nasi putih', qty: 1, price: 1.2 },
+        { name: 'Es teh manis', qty: 1, price: 0.8 },
+      ],
+      fees: { delivery: 0.9, service: 0.35, tip: 0.34, discount: 0 },
+      payment: { method: 'DANA', status: 'paid', paidAt: true },
+      rating: 4.8,
+      reviewed: true,
+    },
+    {
+      id: 'o2',
+      code: 'SA-MPXT3R5V',
+      merchant: 'Warung Sate Pak Ali',
+      merchantId: 'am-1',
+      iso: '2026-10-16T13:12:00+07:00',
+      status: 'done',
+      image: IMG + 'nasi-goreng.webp',
+      items: [{ name: 'Nasi Goreng Spesial', qty: 1, price: 2.0 }],
+      fees: { delivery: 0.6, service: 0.2, tip: 0.14, discount: 0 },
+      payment: { method: 'Transfer bank', status: 'paid', paidAt: true },
+      rating: 4.8,
+      reviewed: true,
+    },
+    {
+      id: 'o3',
+      code: 'SA-MV8KQ2PL',
+      merchant: 'Warung Mie Jagoan',
+      merchantId: 'am-3',
+      iso: '2026-10-14T18:50:00+07:00',
+      status: 'canceled',
+      image: IMG + 'es-teh-manis.webp',
+      items: [
+        { name: 'Mie Goreng', qty: 1, price: 3.2 },
+        { name: 'Es teh', qty: 1, price: 0.8 },
+      ],
+      fees: { delivery: 0.35, service: 0.15, tip: 0, discount: 0 },
+      payment: { method: 'COD tunai', status: 'paid', paidAt: true, cash: 5 },
+      refund: 'pending',
+      cancel: { by: 'Toko', reason: 'Menu habis saat jam sibuk' },
+      rating: null,
+      reviewed: false,
+    },
+  ]
+
+  const ACTIVE = [
+    {
+      id: 'a1',
+      code: 'SA-MVZ4R2KQ',
+      merchant: 'Warung Sate Pak Ali',
+      iso: '2026-10-31T19:05:00+07:00',
+      state: 'Sedang diantar',
+      eta: 'Perkiraan tiba 12 menit',
+      image: IMG + 'sate-ayam.webp',
+      items: [
+        { name: 'Sate ayam (10 tusuk)', qty: 1, price: 3.6 },
+        { name: 'Nasi putih', qty: 1, price: 1.0 },
+      ],
+      fees: { delivery: 0.6, service: 0, tip: 0, discount: 0 },
+      payment: { method: 'DANA', status: 'paid', paidAt: true },
+    },
+    {
+      id: 'a2',
+      code: 'SA-MVZ1P8MN',
+      merchant: 'Warung Mie Jagoan',
+      iso: '2026-10-31T18:40:00+07:00',
+      state: 'Sedang dimasak',
+      eta: 'Perkiraan siap 8 menit',
+      image: IMG + 'nasi-goreng.webp',
+      items: [{ name: 'Mie Goreng', qty: 1, price: 3.1 }],
+      fees: { delivery: 0.5, service: 0, tip: 0, discount: 0 },
+      payment: { method: 'COD tunai', status: 'unpaid', paidAt: false },
+    },
+  ]
+
+  const KINDS = [
+    { id: 'all', label: 'Semua' },
+    { id: 'done', label: 'Selesai' },
+    { id: 'canceled', label: 'Dibatalkan' },
+    { id: 'refund', label: 'Refund' },
+  ]
+
+  const DAY = { day: 'numeric', month: 'long', year: 'numeric' }
+  const DATE_STAMP = { day: 'numeric', month: 'short', year: 'numeric' }
+  const money = (n) => n.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' JOD'
+  const subtotal = (order) => order.items.reduce((sum, item) => sum + item.price * item.qty, 0)
+  const total = (order) => {
+    const base = subtotal(order) + order.fees.delivery + order.fees.service + order.fees.tip - order.fees.discount
+    return Math.round(base * 100) / 100
+  }
+  const qty = (order) => order.items.reduce((sum, item) => sum + item.qty, 0)
+  /* Kembalian hanya ada kalau pelanggan membayar tunai dan nominalnya tercatat.
+     Dibulatkan ke sen supaya 5,00 - 4,50 tidak muncul sebagai 0,4999. */
+  const changeFor = (order) => {
+    const cash = order.payment.cash
+    if (cash == null) return null
+    return Math.round((cash - total(order)) * 100) / 100
+  }
+  const dayKey = (iso) => {
+    const d = new Date(iso)
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
+  }
+  const dayLabel = (iso) => new Date(iso).toLocaleDateString('id-ID', DAY)
+  /* Jam ditulis manual: `toLocaleDateString` id-ID memberi titik (18.50),
+     sedangkan acuan memakai titik dua (18:50). */
+  const stampLabel = (iso) => {
+    const d = new Date(iso)
+    const hh = String(d.getHours()).padStart(2, '0')
+    const mm = String(d.getMinutes()).padStart(2, '0')
+    return d.toLocaleDateString('id-ID', DATE_STAMP) + ', ' + hh + ':' + mm
+  }
+  const isRefund = (order) => order.status === 'canceled' && Boolean(order.refund)
+
+  const state = { tab: 'history', kind: 'all', query: '' }
+  const $ = (sel) => document.querySelector(sel)
+  const esc = (text) => String(text).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
+
+  /* ---------- toast ---------- */
+  let toastSeq = 0
+  function toast(message) {
+    const host = $('#toasts')
+    const node = document.createElement('div')
+    node.className = 'toast'
+    node.dataset.id = String(++toastSeq)
+    node.textContent = message
+    host.appendChild(node)
+    while (host.children.length > 3) host.removeChild(host.firstElementChild)
+    window.setTimeout(() => {
+      node.classList.add('is-out')
+      window.setTimeout(() => node.remove(), 200)
+    }, 2400)
+  }
+
+  /* Daftar digambar ulang lewat `innerHTML`, jadi tidak ada keadaan awal untuk
+     dianimasikan. Kelas dipasang ulang dengan memaksa reflow supaya animasi
+     masuknya benar-benar berjalan tiap kali isi berganti. */
+  function animateList() {
+    const list = $('#list')
+    list.classList.remove('list--in')
+    void list.offsetWidth
+    list.classList.add('list--in')
+  }
+
+  /* ---------- ikon ---------- */
+  const ICON = {
+    check: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+    cross: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+    dot: '<span class="badge__dot" aria-hidden="true"></span>',
+    chevron: '<svg class="card__chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
+    bag: '<svg class="card__row-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg>',
+    star: '<svg class="card__star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>',
+    repeat: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg>',
+    calendar: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+    clock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>',
+    utensils: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>',
+  }
+
+  function badge(order) {
+    if (order.status === 'canceled') {
+      return '<span class="badge badge--canceled">' + ICON.cross + 'Dibatalkan</span>'
+    }
+    return '<span class="badge">' + ICON.check + 'Selesai</span>'
+  }
+
+  /* ---------- daftar riwayat ---------- */
+  function countFor(kind) {
+    if (kind === 'all') return HISTORY.length
+    if (kind === 'refund') return HISTORY.filter(isRefund).length
+    return HISTORY.filter((order) => order.status === kind).length
+  }
+
+  /* Label chip tetap polos seperti acuan; jumlahnya masuk ke `aria-label`,
+     bukan ke teks, supaya empat chip muat satu baris. */
+  function renderChips() {
+    $('#chips').innerHTML = KINDS.map(
+      (kind) =>
+        '<button class="chip' + (state.kind === kind.id ? ' chip--on' : '') + '" type="button" data-kind="' + kind.id +
+        '" aria-pressed="' + (state.kind === kind.id) + '" aria-label="' + kind.label + ', ' + countFor(kind.id) +
+        ' pesanan">' + kind.label + '</button>',
+    ).join('')
+  }
+
+  /** Kata kunci dicocokkan ke nama toko, kode pesanan, dan nama menu. */
+  function matches(order, query) {
+    if (!query) return true
+    const haystack = [order.merchant, order.code, order.items.map((item) => item.name).join(' ')]
+      .join(' ')
+      .toLowerCase()
+    return haystack.indexOf(query) !== -1
+  }
+
+  function filtered() {
+    const query = state.query.trim().toLowerCase()
+    return HISTORY.filter((order) => {
+      if (!matches(order, query)) return false
+      if (query) return true
+      if (state.kind === 'all') return true
+      if (state.kind === 'refund') return isRefund(order)
+      return order.status === state.kind
+    })
+  }
+
+  function historyCard(order) {
+    const names = order.items.map((item) => item.name).join(', ')
+    const right =
+      order.status === 'canceled'
+        ? '<button class="card__half card__half--end" type="button" data-reorder="' + order.id + '">' + ICON.repeat + 'Pesan lagi</button>'
+        : order.reviewed
+          ? '<button class="card__half card__half--end" type="button" data-open="' + order.id + '">Lihat detail' + ICON.chevron.replace('card__chev', 'card__chev--inline') + '</button>'
+          : '<button class="card__half card__half--end" type="button" data-rate="' + order.id + '">' + ICON.star + 'Beri rating</button>'
+
+    return (
+      '<article class="card">' +
+        '<button class="card__head" type="button" data-open="' + order.id + '" aria-label="Rincian pesanan ' + esc(order.code) + ' di ' + esc(order.merchant) + '">' +
+          '<span class="thumb"><img src="' + order.image + '" alt="" width="84" height="70" loading="lazy" decoding="async"></span>' +
+          '<span class="card__body">' +
+            '<span class="card__name">' + esc(order.merchant) + '</span>' +
+            '<span class="card__meta">' + esc(order.code) + ' &middot; ' + stampLabel(order.iso) + '</span>' +
+            badge(order) +
+          '</span>' +
+          ICON.chevron +
+        '</button>' +
+        '<div class="card__row">' + ICON.bag +
+          '<span class="card__items">' +
+            '<span class="card__items-label">' + qty(order) + ' item pesanan</span>' +
+            '<span class="card__items-name">' + esc(names) + '</span>' +
+          '</span>' +
+          '<span class="card__total">' + money(total(order)) + '</span>' +
+        '</div>' +
+        (order.status === 'canceled'
+          ? ''
+          : '<div class="card__foot">' +
+              '<span class="card__half">' + ICON.star +
+                '<span class="card__score">' + String(order.rating).replace('.', ',') + '</span>' +
+                '<span>&middot; Sudah dinilai</span>' +
+              '</span>' +
+              '<span class="card__divider" aria-hidden="true"></span>' +
+              right +
+            '</div>') +
+        (order.status === 'canceled'
+          ? '<div class="card__foot">' +
+              '<span class="card__half">' +
+                (order.refund === 'pending' ? 'Refund sedang diproses' : order.refund === 'refunded' ? 'Dana sudah dikembalikan' : 'Dibatalkan') +
+              '</span>' +
+              '<span class="card__divider" aria-hidden="true"></span>' +
+              right +
+            '</div>'
+          : '') +
+      '</article>'
+    )
+  }
+
+  function renderHistory() {
+    const rows = filtered()
+    if (!rows.length) {
+      const label = state.query.trim()
+        ? 'Tidak ada pesanan yang cocok dengan "' + state.query.trim() + '"'
+        : state.kind === 'canceled'
+          ? 'Tidak ada pesanan dibatalkan'
+          : state.kind === 'refund'
+            ? 'Tidak ada pesanan yang sedang direfund'
+            : state.kind === 'done'
+              ? 'Belum ada pesanan selesai'
+              : 'Belum ada pesanan'
+      $('#list').innerHTML =
+        '<div class="empty">' + ICON.utensils + '<strong>' + label + '</strong><span>Pesanan yang sudah selesai dikelompokkan per tanggal di sini.</span></div>'
+      return
+    }
+
+    const groups = []
+    rows.forEach((order) => {
+      const key = dayKey(order.iso)
+      const last = groups[groups.length - 1]
+      if (last && last.key === key) last.orders.push(order)
+      else groups.push({ key: key, label: dayLabel(order.iso), orders: [order] })
+    })
+
+    $('#list').innerHTML = groups
+      .map(
+        (group) =>
+          '<section class="day">' +
+            '<header class="day__head">' +
+              '<span class="day__label">' + ICON.calendar + group.label + '</span>' +
+              '<span class="day__count">' + group.orders.length + ' pesanan</span>' +
+            '</header>' +
+            group.orders.map(historyCard).join('') +
+          '</section>',
+      )
+      .join('')
+  }
+
+  /* ---------- daftar aktif ---------- */
+  function activeCard(order) {
+    return (
+      '<article class="card">' +
+        '<button class="card__head" type="button" data-track="' + order.id + '" aria-label="Lacak pesanan ' + esc(order.code) + '">' +
+          '<span class="thumb"><img src="' + order.image + '" alt="" width="84" height="70" loading="lazy" decoding="async"></span>' +
+          '<span class="card__body">' +
+            '<span class="card__name">' + esc(order.merchant) + '</span>' +
+            '<span class="card__meta">' + esc(order.code) + ' &middot; ' + stampLabel(order.iso) + '</span>' +
+            '<span class="badge badge--transit">' + ICON.dot + esc(order.state) + '</span>' +
+          '</span>' +
+          ICON.chevron +
+        '</button>' +
+        '<div class="card__row">' + ICON.bag +
+          '<span class="card__items">' +
+            '<span class="card__items-label">' + qty(order) + ' item pesanan</span>' +
+            '<span class="card__items-name">' + esc(order.items.map((item) => item.name).join(', ')) + '</span>' +
+          '</span>' +
+          '<span class="card__total">' + money(total(order)) + '</span>' +
+        '</div>' +
+        '<div class="card__foot">' +
+          '<span class="card__half">' + ICON.clock + esc(order.eta) + '</span>' +
+          '<span class="card__divider" aria-hidden="true"></span>' +
+          '<button class="card__half card__half--end" type="button" data-track="' + order.id + '">Lacak pesanan</button>' +
+        '</div>' +
+      '</article>'
+    )
+  }
+
+  function renderActive() {
+    $('#list').innerHTML =
+      '<p class="active-note">Pesanan yang sedang berjalan. Tiap kartu membawa satu status dan satu aksi.</p>' +
+      ACTIVE.map(activeCard).join('')
+  }
+
+  /* ---------- render per tab ---------- */
+  function render() {
+    const active = state.tab === 'active'
+    $('#tab-active').classList.toggle('tab--on', active)
+    $('#tab-history').classList.toggle('tab--on', !active)
+    $('#tab-active').setAttribute('aria-selected', String(active))
+    $('#tab-history').setAttribute('aria-selected', String(!active))
+    $('[data-count="active"]').textContent = ACTIVE.length
+    $('[data-count="history"]').textContent = HISTORY.length
+    $('#filters').classList.toggle('is-hidden', active)
+    $('#note').classList.toggle('is-hidden', active)
+
+    if (active) {
+      renderActive()
+      return
+    }
+    renderChips()
+    renderHistory()
+    $('#note-text').textContent = state.query.trim()
+      ? filtered().length + ' hasil untuk "' + state.query.trim() + '"'
+      : 'Menampilkan riwayat pesanan 3 bulan terakhir'
+  }
+
+  /* ---------- mode cari ---------- */
+  function openSearch() {
+    state.kind = 'all'
+    state.query = ''
+    $('#search-input').value = ''
+    $('#filters').classList.add('is-search')
+    $('#btn-search').setAttribute('aria-expanded', 'true')
+    renderChips()
+    renderHistory()
+    animateList()
+    $('#search-input').focus()
+  }
+
+  function closeSearch() {
+    if (!$('#filters').classList.contains('is-search')) return
+    $('#filters').classList.remove('is-search')
+    $('#btn-search').setAttribute('aria-expanded', 'false')
+    state.query = ''
+    $('#search-input').value = ''
+    render()
+    animateList()
+    $('#btn-search').focus()
+  }
+
+  /* ---------- sheet nota ---------- */
+  let lastFocus = null
+  let sheetTimer = 0
+  const sheet = $('#sheet')
+
+  function openSheet(html, title, meta) {
+    lastFocus = document.activeElement
+    $('#sheet-title').textContent = title
+    $('#sheet-meta').textContent = meta
+    $('#sheet-body').innerHTML = html
+    $('#sheet-foot').innerHTML = ''
+    window.clearTimeout(sheetTimer)
+    sheet.classList.add('is-open')
+    sheet.setAttribute('aria-hidden', 'false')
+    document.body.style.overflow = 'hidden'
+    $('.sheet__panel').focus()
+  }
+
+  function closeSheet() {
+    if (!sheet.classList.contains('is-open')) return
+    sheet.classList.remove('is-open')
+    sheet.setAttribute('aria-hidden', 'true')
+    document.body.style.overflow = ''
+    /* Fokus dikembalikan setelah panel selesai turun, supaya browser tidak
+       menggulir halaman ke elemen pemicu saat panel masih menutupi layar. */
+    window.clearTimeout(sheetTimer)
+    sheetTimer = window.setTimeout(() => {
+      if (lastFocus && document.contains(lastFocus)) lastFocus.focus()
+    }, 200)
+  }
+
+  function line(label, amount, cls) {
+    return '<li class="nota-line' + (cls ? ' ' + cls : '') + '"><span class="nota-line__label">' + label + '</span><span class="nota-amount">' + amount + '</span></li>'
+  }
+
+  function openNota(order) {
+    const paid = order.payment.status === 'paid'
+    const items = order.items
+      .map(
+        (item) =>
+          '<li class="nota-line"><span class="nota-line__label">' + item.qty + ' &times; ' + esc(item.name) +
+          ' <span class="nota-line--muted">@ ' + money(item.price) + '</span></span>' +
+          '<span class="nota-amount">' + money(item.price * item.qty) + '</span></li>',
+      )
+      .join('')
+
+    const change = changeFor(order)
+
+    const fees = [
+      line('Subtotal', money(subtotal(order))),
+      line('Ongkir', money(order.fees.delivery)),
+      line('Biaya layanan', money(order.fees.service)),
+      order.fees.tip ? line('Tip kurir', money(order.fees.tip)) : '',
+      order.fees.discount ? line('Diskon', '-' + money(order.fees.discount)) : '',
+      line('Total bayar', money(total(order)) + (paid ? '<span class="nota-stamp">LUNAS</span>' : ''), 'nota-line--total'),
+      order.payment.cash != null ? line('Uang diterima', money(order.payment.cash)) : '',
+      change != null ? line('Kembalian', money(change), 'nota-line--change') : '',
+    ].join('')
+
+    const cancel = order.status === 'canceled'
+      ? '<div class="nota-section"><h3 class="nota-section__title">Pembatalan</h3><dl class="nota-list">' +
+          '<div class="nota-pair"><dt>Dibatalkan oleh</dt><dd>' + esc(order.cancel.by) + '</dd></div>' +
+          '<div class="nota-pair"><dt>Alasan batal</dt><dd>' + esc(order.cancel.reason) + '</dd></div>' +
+          '<div class="nota-pair"><dt>Pengembalian dana</dt><dd>' + (order.refund === 'pending' ? 'Sedang diproses' : 'Sudah dikembalikan') + '</dd></div>' +
+        '</dl></div>'
+      : ''
+
+    const html =
+      '<div class="nota-section"><h3 class="nota-section__title">Rincian pesanan</h3><ul class="nota-list">' + items + '</ul></div>' +
+      '<div class="nota-section"><h3 class="nota-section__title">Rincian pembayaran</h3><ul class="nota-list">' + fees + '</ul>' +
+        '<dl class="nota-list" style="margin-top:8px">' +
+          '<div class="nota-pair"><dt>Metode</dt><dd>' + esc(order.payment.method) + '</dd></div>' +
+          '<div class="nota-pair"><dt>Status bayar</dt><dd>' + (paid ? 'Sudah dibayar' : 'Belum dibayar') + '</dd></div>' +
+        '</dl></div>' +
+      cancel
+
+    openSheet(html, order.merchant, order.code + ' · ' + stampLabel(order.iso))
+
+    $('#sheet-foot').innerHTML =
+      '<span class="sheet__total"><span>Total</span><strong>' + money(total(order)) + '</strong></span>' +
+      (order.reviewed || order.status === 'canceled'
+        ? '<button class="sheet__action sheet__action--primary" type="button" data-reorder="' + order.id + '">' + ICON.repeat + 'Pesan lagi</button>'
+        : '<button class="sheet__action" type="button" data-rate="' + order.id + '">' + ICON.star + 'Beri rating</button>' +
+          '<button class="sheet__action sheet__action--primary" type="button" data-reorder="' + order.id + '">' + ICON.repeat + 'Pesan lagi</button>')
+  }
+
+  function openHelp() {
+    const html =
+      '<div class="nota-section"><ul class="nota-list">' +
+        '<li class="nota-pair"><dt>Chat dengan CS</dt><dd>Setiap hari, 08.00–22.00</dd></li>' +
+        '<li class="nota-pair"><dt>Pusat bantuan</dt><dd>Pesanan, pembayaran, refund</dd></li>' +
+        '<li class="nota-pair"><dt>Laporkan masalah</dt><dd>Dari nota pesanan</dd></li>' +
+      '</ul></div>'
+    openSheet(html, 'Pusat bantuan', 'Tim Sa7tein siap membantu')
+    $('#sheet-foot').innerHTML = '<button class="sheet__action sheet__action--primary" style="flex:1;justify-content:center" type="button" data-help-chat>Chat dengan CS</button>'
+  }
+
+  /* Tahap order hidup di layar sendiri (`order-journey.html`), bukan di sheet,
+     karena isinya Journey Line + peta + kurir dan tidak muat sebagai panel. */
+  function openJourney(order) {
+    window.location.href = 'order-journey.html?order=' + encodeURIComponent(order.id)
+  }
+
+  /* ---------- event ---------- */
+  document.addEventListener('click', (event) => {
+    const target = event.target.closest('[data-tab],[data-kind],[data-open],[data-reorder],[data-rate],[data-track],[data-close],[data-help-chat],#btn-search,#btn-back,#btn-support,#search-close')
+    if (!target) return
+
+    if (target.id === 'btn-back') {
+      closeSheet()
+      if (window.history.length > 1) window.history.back()
+      else toast('Ini layar pertama. Tidak ada halaman sebelumnya.')
+      return
+    }
+    if (target.id === 'btn-support') {
+      openHelp()
+      return
+    }
+    if (target.id === 'btn-search') {
+      openSearch()
+      return
+    }
+    if (target.id === 'search-close') {
+      closeSearch()
+      return
+    }
+    if (target.dataset.tab) {
+      if (state.tab === target.dataset.tab) return
+      state.tab = target.dataset.tab
+      state.kind = 'all'
+      render()
+      animateList()
+      return
+    }
+    if (target.dataset.kind) {
+      state.kind = target.dataset.kind
+      renderChips()
+      renderHistory()
+      animateList()
+      return
+    }
+    if (target.dataset.close !== undefined) {
+      closeSheet()
+      return
+    }
+    if (target.dataset.helpChat !== undefined) {
+      toast('Chat dengan CS dibuka di app. Irisan ini hanya menampilkan layarnya.')
+      return
+    }
+    if (target.dataset.open) {
+      const order = HISTORY.find((row) => row.id === target.dataset.open)
+      if (order) openNota(order)
+      return
+    }
+    if (target.dataset.reorder) {
+      const order = HISTORY.find((row) => row.id === target.dataset.reorder)
+      if (!order) return
+      closeSheet()
+      toast(qty(order) + ' menu dari ' + order.merchant + ' ditambahkan ke keranjang.')
+      return
+    }
+    if (target.dataset.rate) {
+      const order = HISTORY.find((row) => row.id === target.dataset.rate)
+      if (order) toast('Form ulasan untuk ' + order.code + ' dibuka di app.')
+      return
+    }
+    if (target.dataset.track) {
+      const order = ACTIVE.find((row) => row.id === target.dataset.track)
+      if (order) openJourney(order)
+    }
+  })
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return
+    /* MD-13: lapisan teratas dulu. Sheet menutup sebelum pencarian. */
+    if (sheet.classList.contains('is-open')) closeSheet()
+    else closeSearch()
+  })
+
+  document.addEventListener('input', (event) => {
+    if (event.target.id !== 'search-input') return
+    state.query = event.target.value
+    renderHistory()
+    $('#note-text').textContent = state.query.trim()
+      ? filtered().length + ' hasil untuk "' + state.query.trim() + '"'
+      : 'Menampilkan riwayat pesanan 3 bulan terakhir'
+  })
+
+  /* MD-14: kembali lewat bfcache tidak boleh menampilkan DOM basi. Halaman
+     digambar ulang supaya isi dan hitungan chip cocok lagi. */
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) render()
+  })
+
+  render()
+})()
+</script>
+</body>
+</html>

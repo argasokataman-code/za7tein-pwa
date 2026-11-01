@@ -23,12 +23,25 @@ const SCREENS = [
   ['login-superadmin.html', 'Login — super admin', '/superadmin', 'USULAN — superAdminRoutes tanpa auth; isi minim']
 ]
 
-const rows = SCREENS.map(([file, title, route, note]) => {
-  const ok = existsSync(AUTH + file)
-  const href = `auth/${file}`
-  const label = ok ? `<a href="${href}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
-  return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${href}</td></tr>`
-})
+// [berkas, judul, rute asli, catatan] — layar aplikasi (bukan auth), di akar folder
+const APP_SCREENS = [
+  ['order-history.html', 'Riwayat pesanan — customer', '/customer/orders?tab=history', 'dari acuan pemilik `Sa7tein Order History App Screen.png`: kartu per order, kelompok tanggal, saring Semua/Selesai/Dibatalkan/Refund. Isi = data repo (Warung Sate Pak Ali, Warung Mie Jagoan)'],
+  ['order-journey.html', 'Journey pesanan aktif — customer', '/order-placed?stage=diantar', 'dibuka dari kartu tab Aktif: status tahap, Journey Line 5 simpul, pembayaran COD, toko, kurir, tujuan. Pop-up perubahan status disimulasikan tiap 5-9 detik'],
+]
+
+const rows = [
+  ...SCREENS.map(([file, title, route, note]) => {
+    const ok = existsSync(AUTH + file)
+    const href = `auth/${file}`
+    const label = ok ? `<a href="${href}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
+    return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${href}</td></tr>`
+  }),
+  ...APP_SCREENS.map(([file, title, route, note]) => {
+    const ok = existsSync(ROOT + file)
+    const label = ok ? `<a href="${file}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
+    return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${file}</td></tr>`
+  }),
+]
 
 const html = `<!doctype html>
 <html lang="id">
@@ -67,6 +80,7 @@ const html = `<!doctype html>
     <a href="auth/login-courier.html">kurir</a>
     <a href="auth/login-ops.html">ops</a>
     <a href="auth/login-superadmin.html">super admin</a>
+    <a href="order-history.html">riwayat pesanan</a>
     <a href="ops/ops-dashboard.html">panel ops (14 layar)</a>
     <a href="README.md">cara kerja</a>
   </div>
@@ -77,4 +91,4 @@ const html = `<!doctype html>
 `
 
 writeFileSync(ROOT + 'index.html', html)
-console.log(`galeri ditulis: ${ROOT}index.html · ${SCREENS.filter(([f]) => existsSync(AUTH + f)).length}/${SCREENS.length} berkas login ada`)
+console.log(`galeri ditulis: ${ROOT}index.html · ${SCREENS.filter(([f]) => existsSync(AUTH + f)).length}/${SCREENS.length} berkas login ada · ${APP_SCREENS.filter(([f]) => existsSync(ROOT + f)).length}/${APP_SCREENS.length} layar aplikasi ada`)

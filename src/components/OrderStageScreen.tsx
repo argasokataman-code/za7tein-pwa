@@ -7,6 +7,7 @@ import { DeliveryActionCard, DeliveryStepper } from './DeliveryCheckpoints'
 import { JourneyLine } from './JourneyLine'
 import { OrderInvoice } from './customer/OrderInvoice'
 import { CodCashSection } from './customer/CodCashSection'
+import { OrderUpdateNotice } from './customer/OrderUpdateNotice'
 
 import { insertNotification } from '../api/notifications'
 import { fetchOrderOtp, otpOf, updateOrderStatus } from '../api/orders'
@@ -292,6 +293,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
 
   return (
     <div className="app-shell">
+      <OrderUpdateNotice stage={stage} />
       <main>
         <div className="track-screen">
           <header className="track-header">

@@ -1297,9 +1297,7 @@ export default function Documentation() {
                 dua menu mirip, dan tak ada jalan memesan ulang. Kini{' '}
                 <code className="doc-inline">/orders</code> jadi <strong>Pesanan Saya</strong>: tab{' '}
                 <strong>Aktif</strong> (kartu keranjang + pesanan berjalan) dan{' '}
-                <strong>Riwayat</strong> (pesanan selesai). Baris pesanan berjalan turun dari
-                komponen bersama <code className="doc-inline">ActiveOrderRow</code> yang dipakai
-                juga oleh sheet dok keranjang — dua daftar tak lagi menyalin baris. Tiap riwayat
+                <strong>Riwayat</strong> (pesanan selesai). Tiap riwayat
                 dapat tombol <strong>Pesan lagi</strong> yang mencocokkan nama hidangan ke{' '}
                 <strong>katalog live</strong> (<code className="doc-inline">useAllMenuItems</code>/
                 <code className="doc-inline">useStorefronts</code>, mock <code className="doc-inline">menuSeed</code>{' '}
@@ -1312,6 +1310,42 @@ export default function Documentation() {
                 <code className="doc-inline">/orders</code> +
                 <code className="doc-inline">/orders?tab=history</code> 2/2 PASS, sapuan customer
                 94/94 PASS.
+              </li>
+              <li>
+                <strong>Pesanan Saya diporting dari irisan desain.</strong> Bentuk baris
+                dua-tab tidak lagi memakai primitif <code className="doc-inline">.ck-*</code> milik
+                dok keranjang: kepala dua baris (judul + subjudul, tombol cari di kepala), tab pil
+                oranye, empat chip saring, strip tanggal, dan kartu bergambar thumbnail 84&times;70
+                dengan kaki aksi. Komponennya{' '}
+                <code className="doc-inline">src/components/customer/OrderHistoryCard.tsx</code> (
+                <code className="doc-inline">HistoryOrderCard</code>/
+                <code className="doc-inline">ActiveOrderCard</code>) dan{' '}
+                <code className="doc-inline">OrderHistorySheet.tsx</code> (nota: rincian hidangan,
+                pecahan biaya, baris <strong>Uang diterima</strong>/<strong>Kembalian</strong> hanya
+                untuk COD yang dibuat di perangkat ini, blok pembatalan, kaki panel menempel). Gaya
+                di <code className="doc-inline">system/_order-history.scss</code>,{' '}
+                <code className="doc-inline">_order-search.scss</code>,{' '}
+                <code className="doc-inline">_order-nota.scss</code>;{' '}
+                <code className="doc-inline">_my-order.scss</code> +{' '}
+                <code className="doc-inline">_my-order-kinds.scss</code> dihapus (tak ada kelas yang
+                dipakai lagi). Sumber visual: <code className="doc-inline">docs/design/slice/order-history.html</code>.
+                Terukur di kolom 390px: chip 4 buah muat penuh (rel 350px, ujung kanan chip terakhir
+                349), tab &amp; chip 44px, kartu 350px, overflow-x 0; gate{' '}
+                <code className="doc-inline">/customer/orders?tab=history --strict</code> 2/2 PASS.
+              </li>
+              <li>
+                <strong>Pemberitahuan perubahan status di layar lacak.</strong> Status order berubah
+                dari realtime tanpa penanda apa pun selain teks panel yang diam-diam berganti.{' '}
+                <code className="doc-inline">src/components/customer/OrderUpdateNotice.tsx</code>{' '}
+                memunculkan kartu di atas bilah bawah saat tahap order <strong>berubah</strong>
+                (bukan saat layar dibuka), dengan <code className="doc-inline">role=&quot;status&quot;</code> +{' '}
+                <code className="doc-inline">aria-live=&quot;polite&quot;</code>, bilah hitung mundur 6
+                detik, tombol tutup 44px dan Escape. Saat tampil, <code className="doc-inline">body.is-order-update</code>{' '}
+                menambah ruang dasar halaman supaya baris terakhir tetap bisa digulir ke atasnya.
+                Sumber visual: <code className="doc-inline">docs/design/slice/order-journey.html</code>.
+                Terukur di 390px: kartu 350&times;62 di x20, jarak dari dasar 72px (di atas bilah
+                bawah 64px), ruang dasar 160px, overflow-x 0; gate{' '}
+                <code className="doc-inline">/customer/order-placed --strict --click</code> 2/2 PASS.
               </li>
               <li>
                 <strong>Rule sengketa: mesin §18 + pilihan merchant (M9a, R-DISPUTE-RULE).</strong>{' '}

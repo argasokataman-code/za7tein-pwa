@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pesanan · Journey · Sa7tein</title>
+<style>
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('../../../public/assets/fonts/plus-jakarta-sans.woff2') format('woff2');
+    font-weight: 200 800;
+    font-display: swap;
+  }
+
+  :root {
+    --sa7tein-orange: #E44220;
+    --on-brand: #FFFFFF;
+    --bg-warm: #F0F0FA;
+    --surface: #FAFAFA;
+    --text-primary: #172434;
+    --text-secondary: #64748B;
+    --border: #E5E9EF;
+    --border-strong: #CBD5E1;
+    --field: #EFF1F4;
+
+    --success: #059669;
+    --success-ink: #047857;
+    --green-soft: #ECFDF5;
+    --orange-soft: #FFF0EB;
+    --neutral-soft: #E6E6F0;
+    --journey-todo: var(--border-strong);
+
+    --radius-sm: 10px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 9999px;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+
+    --text-xs: 12px;
+    --text-sm: 13px;
+    --text-md: 15px;
+    --text-lg: 24px;
+
+    --shadow-subtle: 0 1px 2px rgba(23, 36, 52, 0.06);
+    --shadow-raised: 0 10px 30px rgba(23, 36, 52, 0.16);
+
+    /* Disalin dari `src/styles/_tokens.scss`; tanpa ini `var(--motion-*)`
+       tidak terdefinisi dan seluruh deklarasi transition batal. */
+    --motion-fast: 140ms;
+    --motion-standard: 200ms;
+    --motion-enter: 250ms;
+    --motion-exit: 200ms;
+    --motion-emphasis: 380ms;
+    --motion-journey: 650ms;
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-decelerate: cubic-bezier(0, 0, 0.2, 1);
+    --ease-accelerate: cubic-bezier(0.4, 0, 1, 1);
+
+    --shell-max: 426px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #E9EAEE;
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body { display: flex; justify-content: center; }
+
+  .phone {
+    width: 100%;
+    max-width: var(--shell-max);
+    min-height: 100vh;
+    padding: 0 var(--space-5);
+    background: var(--bg-warm);
+  }
+
+  /* ---------- header ---------- */
+  .track-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) 0 var(--space-3);
+  }
+
+  .track-back {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-subtle);
+    cursor: pointer;
+    transition: transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .track-back:active { transform: scale(0.94); }
+
+  .track-header-text { min-width: 0; }
+
+  .track-title {
+    margin: 0;
+    font-size: var(--text-md);
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .track-ref {
+    display: block;
+    margin-top: 1px;
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- status ---------- */
+  .track-status { padding: var(--space-4) 0 var(--space-4); }
+
+  .track-status-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+
+  .track-status-eta {
+    margin: var(--space-1) 0 0;
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .track-status-time {
+    margin: 2px 0 0;
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+  }
+
+  .track-live {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--green-soft);
+    color: var(--success-ink);
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+
+  .track-live__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: live-blink 1.8s var(--ease-standard) infinite;
+  }
+
+  @keyframes live-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+
+  /* ---------- journey line (dari `src/styles/system/_tracking.scss`) ---------- */
+  .journey {
+    padding: var(--space-5) 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .journey-rail { display: flex; }
+
+  .journey-cell {
+    position: relative;
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    color: var(--journey-todo);
+  }
+
+  .journey-cell + .journey-cell::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: var(--journey-todo);
+  }
+
+  .journey-cell--done { color: var(--success); }
+  .journey-cell--active { color: var(--sa7tein-orange); }
+
+  .journey-cell.journey-cell--done::before,
+  .journey-cell.journey-cell--active::before { background: var(--success); }
+
+  .journey-cell.journey-cell--active::before {
+    transform-origin: left center;
+    background: var(--sa7tein-orange);
+    animation: journey-fill 620ms var(--ease-decelerate) both;
+  }
+
+  @keyframes journey-fill {
+    from { transform: translateY(-50%) scaleX(0); }
+    to { transform: translateY(-50%) scaleX(1); }
+  }
+
+  .journey-node {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border: 1.5px solid var(--journey-todo);
+    border-radius: 50%;
+    background: var(--bg-warm);
+    color: var(--journey-todo);
+    transition:
+      background-color var(--motion-standard) var(--ease-standard),
+      border-color var(--motion-standard) var(--ease-standard),
+      color var(--motion-standard) var(--ease-standard);
+  }
+
+  .journey-node--done {
+    border-color: var(--success);
+    background: var(--green-soft);
+    color: var(--success);
+  }
+
+  .journey-node--active {
+    border-color: var(--sa7tein-orange);
+    background: var(--orange-soft);
+    color: var(--sa7tein-orange);
+    animation: journey-pulse 2s var(--ease-standard) infinite;
+  }
+
+  @keyframes journey-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(228, 66, 32, 0.32); }
+    50% { box-shadow: 0 0 0 7px rgba(228, 66, 32, 0); }
+  }
+
+  .journey-labels { display: flex; margin-top: var(--space-3); }
+
+  .journey-label {
+    flex: 1 1 0;
+    text-align: center;
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    transition: color var(--motion-standard) var(--ease-standard);
+  }
+
+  .journey-label--done { color: var(--success); }
+  .journey-label--active { color: var(--sa7tein-orange); font-weight: 700; }
+
+  /* ---------- kartu seksi ---------- */
+  .track-section {
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .track-section-title {
+    margin: 0 0 var(--space-3);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+
+  .track-card {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .track-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+  }
+
+  .track-row + .track-row { margin-top: var(--space-3); }
+
+  .track-icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: var(--bg-warm);
+    color: var(--text-primary);
+  }
+
+  .track-row-main { flex: 1; min-width: 0; }
+
+  .track-row-name {
+    display: block;
+    font-size: var(--text-md);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .track-row-note,
+  .track-row-meta {
+    display: block;
+    margin-top: 1px;
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .track-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--sa7tein-orange);
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+
+  .track-actions { display: flex; flex: 0 0 auto; gap: var(--space-2); }
+
+  .track-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--field);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition:
+      background-color var(--motion-fast) var(--ease-standard),
+      transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .track-action:active { transform: scale(0.94); }
+
+  .track-action--primary { background: var(--sa7tein-orange); color: var(--on-brand); }
+
+  /* ---------- pembayaran ---------- */
+  .cod-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: 6px;
+    font-size: var(--text-sm);
+  }
+
+  .cod-row span:first-child { color: var(--text-secondary); }
+
+  .cod-amount {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .cod-row--total {
+    margin-top: 2px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-strong);
+    font-weight: 800;
+  }
+
+  .cod-row--total .cod-amount { color: var(--success-ink); }
+
+  .cod-hint {
+    margin: var(--space-2) 0 0;
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+  }
+
+  /* ---------- catatan simulasi ---------- */
+  .sim-note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-3);
+    margin: var(--space-4) 0 var(--space-5);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+  }
+
+  .sim-replay {
+    padding: 6px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .sim-replay:active { transform: scale(0.96); }
+
+  .home-bar {
+    display: block;
+    width: 132px;
+    height: 5px;
+    margin: 4px auto 16px;
+    border-radius: var(--radius-pill);
+    background: var(--text-primary);
+  }
+
+  /* ---------- pop-up perubahan status (real-time) ---------- */
+  /* Ditempatkan di atas zona jempol, dibatasi lebar kolom seperti semua bilah
+     `fixed` lain. `role="status"` + `aria-live="polite"` supaya pembaca layar
+     mengumumkan perubahan tanpa merebut fokus. */
+  .update {
+    position: fixed;
+    right: max(var(--space-5), calc(50% - (var(--shell-max) / 2) + var(--space-5)));
+    bottom: 28px;
+    left: max(var(--space-5), calc(50% - (var(--shell-max) / 2) + var(--space-5)));
+    z-index: 950;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    max-width: calc(var(--shell-max) - (2 * var(--space-5)));
+    margin-inline: auto;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-raised);
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--motion-enter) var(--ease-decelerate),
+      transform var(--motion-emphasis) var(--ease-decelerate);
+  }
+
+  .update.is-on { opacity: 1; transform: translateY(0); }
+
+  /* Pop-up menutupi 77-100px di dasar layar. Tanpa ruang tambahan, baris
+     terakhir tidak bisa digulir ke atas pop-up dan tertutup permanen. */
+  body.is-updating .phone { padding-bottom: 116px; }
+
+  .update__icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--orange-soft);
+    color: var(--sa7tein-orange);
+  }
+
+  .update__text { flex: 1; min-width: 0; }
+
+  .update__title {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 800;
+    line-height: 1.3;
+  }
+
+  .update__body {
+    display: block;
+    margin-top: 1px;
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+  }
+
+  .update__close {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--neutral-soft);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: transform var(--motion-fast) var(--ease-standard);
+  }
+
+  .update__close:active { transform: scale(0.92); }
+
+  .update__bar {
+    position: absolute;
+    bottom: 0;
+    left: var(--space-4);
+    right: var(--space-4);
+    height: 2px;
+    border-radius: var(--radius-pill);
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .update.is-on .update__bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: var(--sa7tein-orange);
+    transform-origin: left center;
+    animation: update-countdown 6s linear both;
+  }
+
+  @keyframes update-countdown {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+  }
+
+  :focus-visible { outline: 2px solid var(--sa7tein-orange); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+      transition-delay: 0s !important;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="phone">
+
+
+  <header class="track-header">
+    <button class="track-back" type="button" id="btn-back" aria-label="Kembali ke pesanan saya">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div class="track-header-text">
+      <h1 class="track-title">Pesanan</h1>
+      <span class="track-ref" id="order-ref"></span>
+    </div>
+  </header>
+
+  <section class="track-status" aria-live="polite">
+    <h2 class="track-status-label" id="status-label"></h2>
+    <p class="track-status-eta" id="status-eta"></p>
+    <p class="track-status-time" id="status-note"></p>
+    <span class="track-live"><span class="track-live__dot" aria-hidden="true"></span>Diperbarui langsung dari toko</span>
+  </section>
+
+  <section class="journey" aria-label="Tahap pesanan">
+    <div class="journey-rail" id="journey-rail"></div>
+    <div class="journey-labels" id="journey-labels"></div>
+  </section>
+
+  <section class="track-section" id="payment-section">
+    <h2 class="track-section-title" id="payment-title">Pembayaran</h2>
+    <div class="track-card" id="payment-card"></div>
+  </section>
+
+  <section class="track-section">
+    <h2 class="track-section-title">Toko</h2>
+    <div class="track-card">
+      <div class="track-row">
+        <span class="track-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+        </span>
+        <span class="track-row-main">
+          <span class="track-row-name" id="merchant-name"></span>
+          <span class="track-row-meta" id="merchant-items"></span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="track-section">
+    <h2 class="track-section-title">Kurir</h2>
+    <div class="track-card">
+      <div class="track-row">
+        <span class="track-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg>
+        </span>
+        <span class="track-row-main">
+          <span class="track-row-name" id="courier-name"></span>
+          <span class="track-row-meta"><span class="track-rating"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg><span id="courier-rating"></span></span></span>
+        </span>
+        <span class="track-actions">
+          <button class="track-action" type="button" data-call aria-label="Telepon kurir">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+          </button>
+          <button class="track-action track-action--primary" type="button" data-chat aria-label="Chat kurir">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+          </button>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="track-section">
+    <h2 class="track-section-title">Tujuan</h2>
+    <div class="track-card">
+      <div class="track-row">
+        <span class="track-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <span class="track-row-main">
+          <span class="track-row-name" id="dest-name"></span>
+          <span class="track-row-meta" id="dest-meta"></span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <p class="sim-note">
+    <span>Perubahan status di layar ini disimulasikan, bukan dari server.</span>
+    <button class="sim-replay" type="button" id="btn-replay">Putar ulang simulasi</button>
+  </p>
+
+  <span class="home-bar" aria-hidden="true"></span>
+</main>
+
+<div class="update" id="update" role="status" aria-live="polite" hidden>
+  <span class="update__icon" aria-hidden="true">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg>
+  </span>
+  <span class="update__text">
+    <strong class="update__title" id="update-title"></strong>
+    <span class="update__body" id="update-body"></span>
+  </span>
+  <button class="update__close" type="button" id="update-close" aria-label="Tutup pemberitahuan">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <span class="update__bar" aria-hidden="true"></span>
+</div>
+
+<script>
+(() => {
+  'use strict'
+
+  /* ---------- tahap: id, label, ikon (lucide, path persis) ---------- */
+  const STAGES = [
+    {
+      id: 'baru',
+      label: 'Baru',
+      icon: '<rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>',
+    },
+    {
+      id: 'disiapkan',
+      label: 'Disiapkan',
+      icon: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>',
+    },
+    {
+      id: 'siap',
+      label: 'Siap',
+      icon: '<path d="M12 22V12"/><path d="m16 17 2 2 4-4"/><path d="M21 11.127V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.32-.753"/><path d="M3.29 7 12 12l8.71-5"/><path d="m7.5 4.27 8.997 5.148"/>',
+    },
+    {
+      id: 'diantar',
+      label: 'Diantar',
+      icon: '<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>',
+    },
+    {
+      id: 'selesai',
+      label: 'Selesai',
+      icon: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    },
+  ]
+
+  /* Copy tahap disalin dari `src/data/order-stage-copy.ts` supaya teks layar
+     ini sama dengan app, bukan karangan baru. */
+  const COPY = {
+    baru: { label: 'Pesanan diterima', etaLabel: 'Estimasi siap', eta: '12:47', note: 'Menunggu konfirmasi toko' },
+    disiapkan: { label: 'Sedang disiapkan', etaLabel: 'Estimasi siap', eta: '12:47', note: 'Dapur menyiapkan pesananmu' },
+    siap: { label: 'Pesanan siap', etaLabel: 'Estimasi siap', eta: '12:47', note: 'Menunggu kurir mengambil' },
+    diantar: { label: 'Sedang diantar', etaLabel: 'Estimasi tiba', eta: '13:05', note: 'Menuju alamatmu' },
+    selesai: { label: 'Pesanan selesai', etaLabel: 'Tiba pukul', eta: '13:05', note: 'Pesanan sudah diterima' },
+  }
+
+  const IMG = '../../../public/assets/img/menu/'
+
+  const ORDERS = {
+    a1: {
+      code: 'SA-MVZ4R2KQ',
+      merchant: 'Warung Sate Pak Ali',
+      stage: 'diantar',
+      items: [
+        { name: 'Sate ayam (10 tusuk)', qty: 1, price: 3.6 },
+        { name: 'Nasi putih', qty: 1, price: 1.0 },
+      ],
+      fees: { delivery: 0.6, service: 0 },
+      payment: { method: 'DANA', status: 'paid' },
+      courier: { name: 'Budi Santoso', rating: 4.7 },
+      destination: { label: 'Rumah · Jl. Kebon Sirih No. 8', meta: 'Jakarta Pusat · 1,2 km · Ongkir 0,60 JOD' },
+    },
+    a2: {
+      code: 'SA-MVZ1P8MN',
+      merchant: 'Warung Mie Jagoan',
+      stage: 'disiapkan',
+      items: [{ name: 'Mie Goreng', qty: 1, price: 3.1 }],
+      fees: { delivery: 0.5, service: 0 },
+      payment: { method: 'COD tunai', status: 'unpaid', cash: 5 },
+      courier: { name: 'Budi Santoso', rating: 4.7 },
+      destination: { label: 'Rumah · Jl. Kebon Sirih No. 8', meta: 'Jakarta Pusat · 1,2 km · Ongkir 0,50 JOD' },
+    },
+  }
+
+  const params = new URLSearchParams(window.location.search)
+  const orderKey = ORDERS[params.get('order')] ? params.get('order') : 'a1'
+  const order = ORDERS[orderKey]
+
+  const $ = (sel) => document.querySelector(sel)
+  const money = (n) => n.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' JOD'
+  const subtotal = (o) => o.items.reduce((sum, item) => sum + item.price * item.qty, 0)
+  const total = (o) => Math.round((subtotal(o) + o.fees.delivery + o.fees.service) * 100) / 100
+  const qty = (o) => o.items.reduce((sum, item) => sum + item.qty, 0)
+
+  let stage = order.stage
+  let timer = 0
+  let hideTimer = 0
+
+  function stageIndex(id) {
+    return STAGES.findIndex((s) => s.id === id)
+  }
+
+  function renderJourney() {
+    const active = stageIndex(stage)
+    $('#journey-rail').innerHTML = STAGES.map((s, i) => {
+      const state = i < active ? 'done' : i === active ? 'active' : 'todo'
+      return (
+        '<span class="journey-cell journey-cell--' + state + '">' +
+          '<span class="journey-node journey-node--' + state + '">' +
+            '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + s.icon + '</svg>' +
+          '</span>' +
+        '</span>'
+      )
+    }).join('')
+
+    $('#journey-labels').innerHTML = STAGES.map((s, i) => {
+      const state = i < active ? 'done' : i === active ? 'active' : 'todo'
+      return '<span class="journey-label journey-label--' + state + '">' + s.label + '</span>'
+    }).join('')
+  }
+
+  function renderStatus() {
+    const copy = COPY[stage]
+    $('#status-label').textContent = copy.label
+    $('#status-eta').textContent = copy.etaLabel + ' ' + copy.eta
+    $('#status-note').textContent = order.courier.name + ' · ' + copy.note
+  }
+
+  function renderStatic() {
+    $('#order-ref').textContent = order.code
+    $('#merchant-name').textContent = order.merchant
+    $('#merchant-items').textContent = qty(order) + ' item · ' + order.items.map((item) => item.name).join(', ')
+    $('#courier-name').textContent = order.courier.name
+    $('#courier-rating').textContent = String(order.courier.rating).replace('.', ',')
+    $('#dest-name').textContent = order.destination.label
+    $('#dest-meta').textContent = order.destination.meta
+
+    const paid = order.payment.status === 'paid'
+    const cash = order.payment.cash
+    const change = cash == null ? null : Math.max(0, Math.round((cash - total(order)) * 100) / 100)
+
+    /* Label kartu tunai mengikuti `src/components/customer/CodCashSection.tsx`:
+       Tagihan tunai / Uang disiapkan / Kembalian. */
+    $('#payment-title').textContent = cash == null ? 'Pembayaran' : 'Pembayaran COD'
+    $('#payment-card').innerHTML =
+      (cash == null
+        ? '<div class="cod-row"><span>Total tagihan</span><span class="cod-amount">' + money(total(order)) + '</span></div>'
+        : '<div class="cod-row"><span>Tagihan tunai</span><span class="cod-amount">' + money(total(order)) + '</span></div>' +
+          '<div class="cod-row"><span>Uang disiapkan</span><span class="cod-amount">' + money(cash) + '</span></div>' +
+          '<div class="cod-row cod-row--total"><span>Kembalian</span><span class="cod-amount">' + money(change) + '</span></div>') +
+      '<div class="cod-row"><span>Metode</span><span class="cod-amount">' + order.payment.method + '</span></div>' +
+      '<div class="cod-row"><span>Status bayar</span><span class="cod-amount">' + (paid ? 'Sudah dibayar' : 'Dibayar saat tiba') + '</span></div>' +
+      (cash == null ? '' : '<p class="cod-hint">Siapkan ' + money(cash) + ', kembalian ' + money(change) + '.</p>')
+  }
+
+  function render() {
+    renderStatus()
+    renderJourney()
+  }
+
+  /* ---------- pop-up perubahan status ---------- */
+  function hideUpdate() {
+    window.clearTimeout(hideTimer)
+    const box = $('#update')
+    box.classList.remove('is-on')
+    document.body.classList.remove('is-updating')
+    window.setTimeout(() => { if (!box.classList.contains('is-on')) box.hidden = true }, 240)
+  }
+
+  function showUpdate(next) {
+    const copy = COPY[next]
+    const box = $('#update')
+    window.clearTimeout(hideTimer)
+    box.hidden = false
+    $('#update-title').textContent = 'Status pesanan berubah'
+    $('#update-body').textContent = copy.label + ' · ' + order.courier.name + ', ' + copy.note.toLowerCase() + '.'
+    void box.offsetWidth
+    box.classList.add('is-on')
+    document.body.classList.add('is-updating')
+    /* Bilah hitung mundur 6 detik di CSS; JS menjaga waktunya sama. */
+    hideTimer = window.setTimeout(hideUpdate, 6000)
+  }
+
+  function advance() {
+    const next = STAGES[stageIndex(stage) + 1]
+    if (!next) return false
+    stage = next.id
+    render()
+    showUpdate(stage)
+    return stage !== 'selesai'
+  }
+
+  function start() {
+    window.clearTimeout(timer)
+    const tick = () => {
+      const more = advance()
+      if (more) timer = window.setTimeout(tick, 9000)
+    }
+    timer = window.setTimeout(tick, 5000)
+  }
+
+  function replay() {
+    window.clearTimeout(timer)
+    hideUpdate()
+    stage = order.stage
+    render()
+    start()
+  }
+
+  $('#update-close').addEventListener('click', hideUpdate)
+
+  $('#btn-replay').addEventListener('click', replay)
+
+  $('#btn-back').addEventListener('click', () => {
+    /* MD-13: lapisan teratas dulu. Pop-up menutup, baru meninggalkan layar. */
+    if ($('#update').classList.contains('is-on')) {
+      hideUpdate()
+      return
+    }
+    if (window.history.length > 1) window.history.back()
+    else window.location.href = 'order-history.html'
+  })
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return
+    if ($('#update').classList.contains('is-on')) hideUpdate()
+  })
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('[data-call],[data-chat]')) return
+    showUpdate(stage)
+    $('#update-title').textContent = event.target.closest('[data-call]') ? 'Telepon kurir' : 'Chat kurir'
+    $('#update-body').textContent = 'Aksi ini membuka aplikasi telepon/chat. Irisan ini hanya menampilkan layarnya.'
+  })
+
+  /* MD-14: dari bfcache, layar digambar ulang dan timer simulasi dijalankan
+     ulang supaya pop-up tidak muncul dua kali untuk tahap yang sama. */
+  window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return
+    render()
+    start()
+  })
+
+  renderStatic()
+  render()
+  start()
+})()
+</script>
+</body>
+</html>
