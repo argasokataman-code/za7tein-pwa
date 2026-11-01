@@ -4525,6 +4525,63 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-212965",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:41:59",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -1; npm run sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212966",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:43:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/MerchantRules.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"<spa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212967",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:44:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
