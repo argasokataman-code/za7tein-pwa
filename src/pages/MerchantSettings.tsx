@@ -8,8 +8,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { ConfirmSheet } from '../components/ui/ConfirmSheet'
-import { BottomSheet } from '../components/ui/BottomSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
+import { MerchantHoursSheet } from '../components/merchant/MerchantHoursSheet'
 
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -19,9 +19,9 @@ import { APP_VERSION } from '../data/appInfo'
 import { MAX_MERCHANT_TAGS, MERCHANT_TAG_OPTIONS, mockMerchant } from '../data/merchant'
 import {
   WEEKDAY_LABELS,
-  WEEKDAY_ORDER,
   hoursForDay,
   invalidHoursRows,
+  mockOperatingHours,
 } from '../data/operatingHours'
 import type { OperatingHoursDay } from '../types'
 import {
@@ -208,6 +208,14 @@ export default function MerchantSettings() {
 
   const patchHours = (day: number, patch: Partial<OperatingHoursDay>) => {
     setHoursDraft((rows) => rows.map((row) => (row.day === day ? { ...row, ...patch } : row)))
+  }
+
+  /* Atur ulang = jam bawaan aplikasi (`mockOperatingHours`), bukan kembali ke
+     jam tersimpan — membatalkan suntingan sudah tugas "Batal". Hanya menyentuh
+     draf, jadi tidak perlu konfirmasi: "Batal" tetap membatalkannya. */
+  const resetHours = () => {
+    setHoursDraft(mockOperatingHours.map((row) => ({ ...row })))
+    toast.success('Jam operasional dikembalikan ke jam bawaan')
   }
 
   const saveHours = () => {
@@ -545,77 +553,14 @@ export default function MerchantSettings() {
           Keluar
         </button>
 
-        <BottomSheet open={hoursOpen} title="Jam operasional" onClose={() => setHoursOpen(false)}>
-          <div className="merchant-hours">
-            {WEEKDAY_ORDER.map((day) => {
-              const row = hoursDraft.find((r) => r.day === day) ?? hoursForDay(hoursDraft, day)
-              const label = WEEKDAY_LABELS[day]
-              return (
-                <div
-                  className={`merchant-hours-row${row.closed ? ' is-closed' : ''}`}
-                  key={day}
-                >
-                  <div className="merchant-hours-head">
-                    <span className="merchant-hours-day">{label}</span>
-                    <button
-                      type="button"
-                      role="switch"
-                      aria-checked={row.closed}
-                      aria-label={`Libur ${label}`}
-                      className={`merchant-hours-toggle${row.closed ? ' is-on' : ''}`}
-                      onClick={() => patchHours(day, { closed: !row.closed })}
-                    >
-                      <span>Libur</span>
-                      <span className="merchant-toggle-switch" aria-hidden="true" />
-                    </button>
-                  </div>
-                  <div className="merchant-hours-times">
-                    <label className="merchant-hours-field">
-                      <span className="merchant-hours-field-label">Buka</span>
-                      <input
-                        className="merchant-hours-input"
-                        type="time"
-                        value={row.open}
-                        disabled={row.closed}
-                        aria-label={`Jam buka ${label}`}
-                        onChange={(event) => patchHours(day, { open: event.target.value })}
-                      />
-                    </label>
-                    <span className="merchant-hours-dash" aria-hidden="true">
-                      &ndash;
-                    </span>
-                    <label className="merchant-hours-field">
-                      <span className="merchant-hours-field-label">Tutup</span>
-                      <input
-                        className="merchant-hours-input"
-                        type="time"
-                        value={row.close}
-                        disabled={row.closed}
-                        aria-label={`Jam tutup ${label}`}
-                        onChange={(event) => patchHours(day, { close: event.target.value })}
-                      />
-                    </label>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-          {/* Catatan developer (dulu tampil di UI): jadwal per hari hanya hidup di
-              sesi ini; server baru menyimpan jam hari ini untuk pelanggan. Dipindah ke
-              komentar 2026-10-31. */}
-          <div className="merchant-actions">
-            <button type="button" className="btn btn-primary" onClick={saveHours}>
-              Simpan
-            </button>
-            <button
-              type="button"
-              className="merchant-btn-ghost"
-              onClick={() => setHoursOpen(false)}
-            >
-              Batal
-            </button>
-          </div>
-        </BottomSheet>
+        <MerchantHoursSheet
+          open={hoursOpen}
+          schedule={hoursDraft}
+          onPatch={patchHours}
+          onReset={resetHours}
+          onSave={saveHours}
+          onClose={() => setHoursOpen(false)}
+        />
 
         <ConfirmSheet
           open={signOutOpen}

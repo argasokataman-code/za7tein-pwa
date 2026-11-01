@@ -79,8 +79,13 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 //
 // Jam operasional merchant (2026-11-01) ditata ulang di
 // `system/_merchant-hours.scss`: tiap hari jadi baris dua lapis (nama hari +
-// sakelar Libur, lalu dua field jam native dengan caption Buka/Tutup), bukan
-// empat kontrol berdesakan dalam satu rel. Rincian angka di ChangelogSection.
+// sakelar Libur, lalu dua trigger jam ber-caption Buka/Tutup), bukan empat
+// kontrol berdesakan dalam satu rel. Pemilih jamnya sendiri: `TimeField` /
+// `TimePanel` (`src/components/ui/TimeField.tsx`, gaya di
+// `system/_time-field.scss`) memakai dua roda scroll-snap, bukan
+// `input type="time"` peramban yang chromenya milik sistem operasi. Sheet-nya
+// hidup di `components/merchant/MerchantHoursSheet.tsx` dan punya tombol
+// "Atur ulang ke jam bawaan". Rincian angka di ChangelogSection.
 //
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection

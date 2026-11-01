@@ -1,5 +1,3 @@
-@use "./mixins" as *;
-
 // Jadwal operasional (Setelan merchant). Setiap hari = satu baris dua lapis:
 // lapis atas nama hari + sakelar "Libur", lapis bawah dua field jam native.
 //
@@ -48,6 +46,30 @@
   justify-content: space-between;
   gap: var(--space-3);
   min-height: var(--touch-min);
+}
+
+/* Atur ulang: aksi sekunder, bukan primer. Teks sekunder + ikon kecil, target
+   tetap 44px, dan diletakkan di atas bar Simpan/Batal supaya tidak bersaing
+   dengan aksi utama. */
+.merchant-hours-reset {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  margin-bottom: var(--space-2);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.merchant-hours-reset:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
 }
 
 .merchant-hours-day {
@@ -118,20 +140,6 @@
   font-size: var(--text-xs);
   line-height: 1.2;
   color: var(--text-secondary);
-}
-
-.merchant-hours-input {
-  @include field-shape;
-  padding-inline: var(--space-3);
-  font-variant-numeric: tabular-nums;
-  text-align: center;
-}
-
-.merchant-hours-input:disabled {
-  border-color: var(--border);
-  background: var(--bg-warm);
-  color: var(--text-secondary);
-  opacity: 1;
 }
 
 .merchant-hours-dash {

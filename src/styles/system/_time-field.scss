@@ -1,0 +1,204 @@
+// Pemilih jam sendiri (pengganti `input type="time"` peramban). Dipakai sheet
+// "Jam operasional" di setelan merchant; bisa dipakai ulang untuk jam lain.
+//
+// Chromium dan Android memanggil pemilih jam milik sistem operasi: spinbox abu
+// di desktop, dial berbeda-beda di tiap merek ponsel. Nilainya sama, tampilannya
+// bukan milik design system. Karena itu trigger memakai bentuk field repo dan
+// pilihannya dua roda bergulir bertoken (jam + menit).
+
+.time-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-field);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.time-field:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+.time-field:disabled {
+  border-color: var(--border);
+  background: var(--bg-warm);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+.time-field-value {
+  font-weight: 500;
+}
+
+/* Panel mengalir di dalam sheet dan **mengganti** daftar hari: satu daftar pada
+   satu waktu (MD-06). Tidak ada panel melayang (induknya wadah bergulir, panel
+   melayang akan terpotong) dan tidak ada sheet bertumpuk. */
+.time-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.time-panel:focus {
+  outline: none;
+}
+
+.time-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+}
+
+.time-panel-title {
+  min-width: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.time-panel-done {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--orange-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.time-panel-done:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+/* Dua roda berdampingan: jam (24 pilihan) dan menit (12 pilihan). */
+.time-panel-wheels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2);
+}
+
+.time-wheel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.time-wheel-caption {
+  margin: 0;
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* Bingkai roda: lima baris terlihat, baris ketiga (tengah) adalah pilihan. */
+.time-wheel-track {
+  position: relative;
+  height: calc(var(--touch-min) * 5);
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--bg-warm);
+}
+
+/* Pita pilihan di tengah. Di bawah daftar (z-index), jadi teks baris aktif
+   tetap di atasnya; latarnya `--surface` supaya beda dari trek `--bg-warm`. */
+.time-wheel-band {
+  position: absolute;
+  top: calc(var(--touch-min) * 2);
+  right: var(--space-1);
+  left: var(--space-1);
+  z-index: 0;
+  height: var(--touch-min);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  pointer-events: none;
+}
+
+/* Kabut tepi: baris yang menjauh memudar, jadi terbaca sebagai roda, bukan
+   daftar terpotong. Warnanya diambil dari trek, bukan angka mentah. */
+.time-wheel-track::before,
+.time-wheel-track::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  height: calc(var(--touch-min) * 1.5);
+  pointer-events: none;
+}
+
+.time-wheel-track::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--bg-warm), transparent);
+}
+
+.time-wheel-track::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--bg-warm), transparent);
+}
+
+.time-wheel-list {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding-block: calc(var(--touch-min) * 2);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.time-wheel-list::-webkit-scrollbar {
+  display: none;
+}
+
+.time-wheel-item {
+  display: block;
+  width: 100%;
+  height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  scroll-snap-align: center;
+  cursor: pointer;
+}
+
+.time-wheel-item:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: -2px;
+}
+
+.time-wheel-item.is-active {
+  color: var(--orange-ink);
+  font-weight: 700;
+}
