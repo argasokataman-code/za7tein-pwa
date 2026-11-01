@@ -389,6 +389,24 @@ nominal `16/800` rata kanan), garis rambut, lalu kaki: bintang oranye + `4.8`
 4. **Baris item kartu 3 satu baris**; acuan memberinya tinggi `36` sementara dua
    kartu lain `50`.
 
+**Penyimpangan porting React (2026-11-01).** Setelah dipakai pada data nyata
+(109 kartu, `SA-MV…`), ritme irisan terasa rapat: strip tanggal menempel ke
+kartu, baris item hanya `8px` atas-bawah, dan antar kartu `12px`. Porting
+melonggarkannya, semua lewat token:
+
+| bagian | irisan | React (`src/styles/system/_order-history.scss`) | terukur 390px |
+|---|---|---|---|
+| strip tanggal → kartu | `4px` | `--space-2` (8px) | `8px` |
+| antar kartu | `12px` | `--space-4` (16px) | `16px` |
+| antar kelompok tanggal | `12px` | `--space-5` (20px) | `20px` |
+| padding baris item | `8px 12px` | `--space-3` (12px) | `12px`, tinggi `49`/`64,1` |
+| label strip tanggal | `13px` | `--text-sm` (15px) | `15px` |
+
+Kartu tanpa item (`0 item pesanan`, riwayat impor) membuat `itemsLine()`
+mengembalikan string kosong; `.oh-row__name:empty { display: none }` mencegah
+span kosong memakan satu baris. Diukur: baris kosong `49px`, baris berisi
+`64,1px`.
+
 ### Fitur yang aktif di `order-history.html`
 
 Bukan gambar mati: satu blok `<script>` di akhir berkas menggerakkan seluruh

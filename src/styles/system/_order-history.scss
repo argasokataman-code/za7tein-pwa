@@ -138,8 +138,11 @@
 }
 
 /* ── strip tanggal ───────────────────────────────────────────────────────── */
+/* Jarak antar kelompok tanggal dinaikkan dari 12px ke `--space-5`: pada data
+   nyata satu hari bisa berisi puluhan kartu, dan 12px membuat dua kelompok
+   terbaca sebagai satu dinding. */
 .oh-day {
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 
 .oh-day__head {
@@ -148,7 +151,8 @@
   justify-content: space-between;
   gap: var(--space-3);
   min-height: 39px;
-  margin-bottom: var(--space-1);
+  /* 8px, bukan 4px: strip tanggal tidak lagi menempel ke kartu pertamanya. */
+  margin-bottom: var(--space-2);
   padding-inline: var(--space-3);
   border-radius: var(--radius-sm);
   background: var(--border);
@@ -159,7 +163,7 @@
   align-items: center;
   gap: var(--space-2);
   color: var(--text-primary);
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 700;
 }
 
@@ -178,8 +182,10 @@
   box-shadow: var(--shadow-subtle);
 }
 
+/* Antar kartu 16px (irisan 12px): daftar nyata berisi puluhan kartu per hari,
+   12px membuat semuanya terbaca sebagai satu blok. */
 .oh-card + .oh-card {
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .oh-card__head {
@@ -188,7 +194,7 @@
   align-items: flex-start;
   gap: var(--space-3);
   width: 100%;
-  padding: var(--space-3) var(--space-3) var(--space-2);
+  padding: var(--space-3);
   border: 0;
   background: none;
   color: inherit;
@@ -232,7 +238,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-1);
   min-width: 0;
   padding-right: var(--space-3);
 }
@@ -268,8 +274,8 @@
   align-items: center;
   gap: var(--space-1);
   align-self: flex-start;
-  margin-top: var(--space-1);
-  padding: 2px var(--space-2);
+  margin-top: var(--space-2);
+  padding: 3px var(--space-2);
   border-radius: var(--radius-pill);
   background: var(--green-soft);
   color: var(--success-ink);
@@ -293,7 +299,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  /* 12px semua sisi; 8px atas-bawah membuat label item menempel garis kartu. */
+  padding: var(--space-3);
   border-top: 1px solid var(--border);
 }
 
@@ -306,21 +313,30 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-1);
   min-width: 0;
 }
 
 .oh-row__label {
   font-size: var(--text-xs);
   font-weight: 600;
+  line-height: 1.35;
 }
 
 .oh-row__name {
   overflow: hidden;
   color: var(--text-secondary);
   font-size: var(--text-xs);
+  line-height: 1.35;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/* Order tanpa item (riwayat lama/impor) membuat `itemsLine()` mengembalikan
+   string kosong; span kosong tetap memakan satu baris + gap 4px sehingga baris
+   terlihat renggang tanpa isi. Sembunyikan saat kosong. */
+.oh-row__name:empty {
+  display: none;
 }
 
 .oh-row__total {
