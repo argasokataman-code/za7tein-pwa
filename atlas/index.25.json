@@ -3206,6 +3206,217 @@
         }
       ],
       "loc": "src/data/marketplace.ts:133"
+    },
+    {
+      "id": "TASK-212900",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:41:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss (+141) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss"
+    },
+    {
+      "id": "TASK-212901",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:41:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx (+50/-36) — edit via tool: tsx: {WEEKDAY_ORDER.map((day) => ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-212902",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:41:59",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -3 && npm run build 2>&1 | tail -2 && npm run scan 2>&1 | gr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212903",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:42:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/hours-probe.mjs (+116) — write via tool: // Ukur sheet \"Jam operas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/hours-probe.mjs"
+    },
+    {
+      "id": "TASK-212904",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:43:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/hours-probe.mjs (+133) — write via tool: // Ukur sheet \"Jam operas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/hours-probe.mjs"
+    },
+    {
+      "id": "TASK-212905",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:44:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss (+16/-16) — edit via tool: /* MD-06: daftar dibatasi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss"
+    },
+    {
+      "id": "TASK-212906",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:45:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error|Finished\" | tail -2; npm run build 2>&1 | tail -1;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212907",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:46:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+9/-3) — edit via tool: tsx: // Periode kuota merchant (2026-1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212908",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:46:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: Terukur",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-212909",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:46:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"error\"; npm run build 2>&1 | tail -1; npm run scan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-9993",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-11-01",
+      "time": "19:47:23",
+      "tags": [
+        "merchant",
+        "settings",
+        "layout"
+      ],
+      "summary": "Jam operasional berdesakan satu rel; sekarang baris dua lapis + sakelar Libur, field jam 162,7px",
+      "conn": [
+        {
+          "id": "BUG-9992",
+          "type": "relates",
+          "raw": "BUG-9992:relates"
+        }
+      ],
+      "loc": "src/styles/system/_merchant-hours.scss:1"
     }
   ]
 }
