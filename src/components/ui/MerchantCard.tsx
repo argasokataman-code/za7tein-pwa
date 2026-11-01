@@ -84,16 +84,21 @@ export function MerchantCard({
             {store.deliveryTime}
           </span>
         ) : null}
-        {/* "Buka" tidak dilabeli: ubin yang bisa diketuk memang sudah berarti buka. */}
+      </span>
+
+      <span className="merchant-card__body">
+        {/* Status di permukaan kartu, bukan di atas foto. Sebelumnya ia chip
+            kiri-bawah di dalam `.merchant-card__media` dan bertabrakan dengan
+            chip waktu antar kanan-bawah: di kolom 167px kedua chip itu berjumlah
+            241px, terukur beririsan 90,5px ("Di luar jangkauan") dan 20,6px
+            ("Tutup") — teks status tertimpa. "Buka" tetap tidak dilabeli: ubin
+            yang bisa diketuk memang sudah berarti buka. */}
         {status === 'Buka' ? null : (
           <span className="merchant-card__status">
             <span className="merchant-card__dot" aria-hidden="true" />
             {status}
           </span>
         )}
-      </span>
-
-      <span className="merchant-card__body">
         <span className="merchant-card__name">{store.name}</span>
 
         <span className="merchant-card__facts">

@@ -530,6 +530,21 @@ export default function Documentation() {
                 <code className="doc-inline">--border</code> cuma ~4,3:1.
               </li>
               <li>
+                <strong>Lencana status toko pindah ke permukaan kartu.</strong> Lencana
+                &ldquo;Tutup&rdquo; / &ldquo;Di luar jangkauan&rdquo; dulu{' '}
+                <code className="doc-inline">position: absolute</code> di kiri-bawah foto, satu baris
+                dengan chip waktu antar yang menempel kanan-bawah. Di kisi dua kolom ruangnya tidak
+                cukup: media 167px di 390px, sementara kedua chip berjumlah{' '}
+                <code className="doc-inline">131,9 + 109,6</code>px &mdash; terukur beririsan 90,5px
+                (&ldquo;Di luar jangkauan&rdquo;) dan 20,6px (&ldquo;Tutup&rdquo;), sehingga teks
+                status tertimpa chip waktu. Sekarang lencananya baris pertama{' '}
+                <code className="doc-inline">.merchant-card__body</code>{' '}
+                (<code className="doc-inline">align-self: flex-start</code>), selebar kartu dan tidak
+                berebut ruang dengan chip foto. Konsekuensinya kartu berstatus naik dari 182px ke
+                210px, dan kartu tanpa status di baris kisi yang sama ikut stretch agar tetap rata.
+                Gate <code className="doc-inline">/home --strict --click</code> 2/2 PASS.
+              </li>
+              <li>
                 <strong>Kartu menu: baris meta rata + data BE yang tadi dibuang.</strong> Baris
                 rating/waktu/jarak mewarisi <code className="doc-inline">margin-bottom: 12px</code> dari
                 CSS lama pada <code className="doc-inline">.food-rating</code>, sehingga bintangnya

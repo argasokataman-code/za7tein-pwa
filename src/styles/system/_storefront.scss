@@ -34,7 +34,8 @@
 
 // Ubin toko dua kolom: foto 16:9 menempel di kepala kartu (cukup besar untuk
 // mengenali makanan, tidak setinggi 4:3 sehingga daftar tak jadi galeri), lalu
-// nama + satu baris fakta di permukaan kartu. Tinggi kartu ~186px, jadi satu
+// nama + satu baris fakta di permukaan kartu. Tinggi kartu ~182px untuk toko
+// yang buka, ~210px kalau ada lencana status (satu baris tambahan), jadi satu
 // baris kisi tetap menyajikan dua toko sekaligus.
 .merchant-store-card {
   @include card-surface;
@@ -143,12 +144,18 @@
 
 // Lencana status hanya muncul kalau tokonya TIDAK bisa dipesan. Menempelkan
 // kata "Buka" di tiap ubin hanya menambah derau: ubin yang bisa diketuk memang
-// sudah berarti buka. Titik warnanya yang membawa arti (MD-07). Sudut kiri-bawah
-// dipakai status, kanan-bawah chip waktu antar, kiri-atas promo.
+// sudah berarti buka. Titik warnanya yang membawa arti (MD-07).
+//
+// Dulu ia chip `position: absolute` di kiri-bawah foto. Di kisi dua kolom
+// (media 167px di 390px, 187px di 1440px) ia bertabrakan dengan chip waktu antar
+// yang menempel kanan-bawah: "Di luar jangkauan" 131,9px + "20-35 menit" 109,6px
+// = 241,5px, terukur beririsan 90,5px, dan "Tutup" pun masih beririsan 20,6px.
+// Menyingkat label tak cukup (sisa ruang cuma 151px), jadi status pindah ke
+// permukaan kartu sebagai baris pertama `.merchant-card__body` — tempat
+// selebar kartu yang tidak dipakai chip lain. Sisa foto: promo kiri-atas,
+// waktu antar kanan-bawah.
 .merchant-card__status {
-  position: absolute;
-  bottom: var(--space-2);
-  left: var(--space-2);
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 4px;
