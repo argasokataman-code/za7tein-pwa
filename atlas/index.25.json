@@ -3417,6 +3417,673 @@
         }
       ],
       "loc": "src/styles/system/_merchant-hours.scss:1"
+    },
+    {
+      "id": "TASK-212910",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:49:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx (+154) — write via tool: tsx: import { Clock } from 'lucide",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx"
+    },
+    {
+      "id": "TASK-212911",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:49:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss (+132) — write via tool: // Pemilih jam sendiri (penggan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss"
+    },
+    {
+      "id": "TASK-212912",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:49:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss (+2/-1) — edit via tool: @use \"./system/merchant-hours\";",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-212913",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:49:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx (+7/-1) — edit via tool: tsx: const [hoursOpen, setHoursOpen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-212914",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:50:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx (+52/-27) — edit via tool: tsx: <div className=\"merchant-hou",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-212915",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:50:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss (+1/-15) — edit via tool: .merchant-hours-dash {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss"
+    },
+    {
+      "id": "TASK-212916",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:50:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error\" | head -5; npm run build 2>&1 | tail -3; npm run ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212917",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:50:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss (+5/-6) — edit via tool: .time-field:focus-visible,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss"
+    },
+    {
+      "id": "TASK-212918",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:51:18",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -1; npm run sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212919",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:51:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/timefield-probe.mjs (+144) — write via tool: // Ukur pemilih jam s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/timefield-probe.mjs"
+    },
+    {
+      "id": "TASK-212920",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:52:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx (+149) — write via tool: tsx: import { Clock } from 'lucide",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx"
+    },
+    {
+      "id": "TASK-212921",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:52:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss (+32/-16) — edit via tool: /* Panel mengalir di dalam sh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss"
+    },
+    {
+      "id": "TASK-212922",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:52:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx (+19/-3) — edit via tool: tsx: >",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-212923",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:53:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx (+29/-31) — edit via tool: tsx: /** Id trigger, dipakai lay",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx"
+    },
+    {
+      "id": "TASK-212924",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:53:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\nimport re\np='src/pages/MerchantSettings.tsx'\ns=open(p).read()\ns=s.re",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212925",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:53:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss (+4/-5) — edit via tool: .time-field:focus-visible {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss"
+    },
+    {
+      "id": "TASK-212926",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:53:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/timefield-probe.mjs (+145) — write via tool: // Ukur pemilih jam s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/timefield-probe.mjs"
+    },
+    {
+      "id": "TASK-212927",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:54:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx (+209) — write via tool: tsx: import { Check, Clock } from ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx"
+    },
+    {
+      "id": "TASK-212928",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:54:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss (+205) — write via tool: // Pemilih jam sendiri (penggan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_time-field.scss"
+    },
+    {
+      "id": "TASK-212929",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:55:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error |TimeField\" | head -5; npm run build 2>&1 | tail ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212930",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:55:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx (+11/-10) — edit via tool: tsx: const wheelRef = useRef<HTM",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/TimeField.tsx"
+    },
+    {
+      "id": "TASK-212931",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:55:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error |TimeField\" | head -3; npm run build 2>&1 | tail ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212932",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:55:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/timewheel-probe.mjs (+152) — write via tool: // Ukur roda jam (pem",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/timewheel-probe.mjs"
+    },
+    {
+      "id": "TASK-212933",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:56:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+8/-4) — edit via tool: tsx: // Jam operasional merchant (2026",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212934",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:56:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx (+1/-1) — edit via tool: tsx: import { Check, Clock, CreditC",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-212935",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:57:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx (+1/-2) — edit via tool: tsx: const saveHours = () => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-212936",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:57:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss (+25/-1) — edit via tool: /* Atur ulang: aksi sekund",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-hours.scss"
+    },
+    {
+      "id": "TASK-212937",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:57:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error |MerchantSettings|TimeField\" | head -5; npm run b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212938",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:58:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantHoursSheet.tsx (+154) — write via tool: tsx: import { Rotat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantHoursSheet.tsx"
+    },
+    {
+      "id": "TASK-212939",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:58:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/MerchantSettings.tsx'\ns=open(p).read()\n# drop now-moved",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212940",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:58:59",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/MerchantSettings.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"i",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212941",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:59:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+9/-8) — edit via tool: tsx: // Jam operasional merchant (2026",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-212942",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "19:59:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: Gaya di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-212943",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:00:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -1; npm run sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-9993",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-01",
+      "time": "20:01:39",
+      "tags": [
+        "merchant",
+        "settings",
+        "design"
+      ],
+      "summary": "Pemilih jam pakai roda scroll-snap sendiri, bukan input type=time peramban; panel mengganti daftar hari",
+      "conn": [
+        {
+          "id": "BUG-9993",
+          "type": "led_to",
+          "raw": "BUG-9993:led_to"
+        }
+      ],
+      "loc": "src/components/ui/TimeField.tsx:1"
     }
   ]
 }
