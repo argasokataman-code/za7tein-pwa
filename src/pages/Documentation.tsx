@@ -1427,8 +1427,10 @@ export default function Documentation() {
                 <code className="doc-inline">src/data/rules.ts</code> (5 kategori insiden, 7 rule,
                 kompensasi &amp; punishment sebagai bagian rule), pilihan <strong>multi-select</strong>{' '}
                 toko di <code className="doc-inline">/merchant/rules</code> (satu baris per rule,
-                sakelar <code className="doc-inline">role=&quot;switch&quot;</code>; pintunya kartu
-                ringkas di <code className="doc-inline">/merchant/settings</code>), dan{' '}
+                sakelar <code className="doc-inline">role=&quot;switch&quot;</code>, uraian rule yang
+                diikuti disajikan sebagai pasangan label&ndash;nilai di{' '}
+                <code className="doc-inline">&lt;dl&gt;</code>; pintunya kartu ringkas di{' '}
+                <code className="doc-inline">/merchant/settings</code>), dan{' '}
                 <code className="doc-inline">ruleForOrder()</code> yang menentukan
                 rule berlaku pada satu order beserta konsekuensinya, bagi toko, pelanggan, dan kurir
                 sekaligus karena §18 menulis ketiganya mengikuti rule yang sama. Bila toko belum memilih

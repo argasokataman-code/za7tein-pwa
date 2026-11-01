@@ -133,11 +133,25 @@
   text-wrap: pretty;
 }
 
-.merchant-rule-meta {
-  margin: 0;
+/* Fakta rule (mitigasi, kompensasi, punishment, penanggung jawab) dibaca
+   sebagai pasangan label–nilai, bukan paragraf berawalan "Label: ". Rel label
+   lebar tetap supaya nilai mulai di garis yang sama pada keempat baris. */
+.merchant-rule-facts {
+  display: grid;
+  grid-template-columns: calc(var(--space-8) * 3) minmax(0, 1fr);
+  gap: var(--space-2) var(--space-3);
+  margin: var(--space-2) 0 0;
   font-size: var(--text-xs);
   line-height: 1.5;
+}
+
+.merchant-rule-facts dt {
   color: var(--text-secondary);
+}
+
+.merchant-rule-facts dd {
+  margin: 0;
+  color: var(--text-primary);
   text-wrap: pretty;
 }
 

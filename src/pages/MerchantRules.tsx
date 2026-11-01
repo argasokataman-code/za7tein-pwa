@@ -101,20 +101,33 @@ export default function MerchantRules() {
                   <li className="merchant-rule-detail" key={rule.id}>
                     <p className="merchant-rule-detail-title">{rule.name}</p>
                     <p className="merchant-rule-code">
-                      {rule.code} · {categoryLabel(rule.categoryId)} · penanggung jawab{' '}
-                      {PARTY_LABEL[rule.responsibleParty]?.toLowerCase()}
+                      {rule.code} · {categoryLabel(rule.categoryId)} ·{' '}
+                      {(PARTY_LABEL[rule.responsibleParty] ?? rule.responsibleParty).toLowerCase()}
                     </p>
-                    <p className="merchant-rule-meta">Mitigasi: {rule.mitigation}</p>
-                    <p className="merchant-rule-meta">
-                      {compensation
-                        ? `Kompensasi ke ${PARTY_LABEL[compensation.recipient] ?? compensation.recipient}: ${compensation.form} (${compensation.formula})`
-                        : 'Kompensasi: belum diatur ops'}
-                    </p>
-                    <p className="merchant-rule-meta">
-                      {punishment
-                        ? `Punishment ke ${PARTY_LABEL[punishment.subject] ?? punishment.subject}: ${punishment.form} (${punishment.level})`
-                        : 'Punishment: tidak ada'}
-                    </p>
+                    {/* Label dan nilainya dipisah kolom, bukan kalimat
+                        "Mitigasi: ..." berturut-turut. Tiga baris berlabel
+                        colon itu terbaca sebagai catatan kaki, padahal isinya
+                        data yang dibandingkan antar rule. */}
+                    <dl className="merchant-rule-facts">
+                      <dt>Mitigasi</dt>
+                      <dd>{rule.mitigation}</dd>
+                      <dt>Kompensasi</dt>
+                      <dd>
+                        {compensation
+                          ? `${compensation.form} (${compensation.formula}) ke ${(
+                              PARTY_LABEL[compensation.recipient] ?? compensation.recipient
+                            ).toLowerCase()}`
+                          : 'Belum diatur ops'}
+                      </dd>
+                      <dt>Punishment</dt>
+                      <dd>
+                        {punishment
+                          ? `${punishment.form} (${punishment.level}) ke ${(
+                              PARTY_LABEL[punishment.subject] ?? punishment.subject
+                            ).toLowerCase()}`
+                          : 'Tidak ada'}
+                      </dd>
+                    </dl>
                   </li>
                 )
               })}

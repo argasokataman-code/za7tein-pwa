@@ -4390,6 +4390,141 @@
         }
       ],
       "loc": "src/pages/MerchantRules.tsx:1"
+    },
+    {
+      "id": "TASK-212959",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:27:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx (+32/-18) — edit via tool: tsx: <li className=\"merchant-rule-de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantRules.tsx"
+    },
+    {
+      "id": "TASK-212960",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:27:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss (+29/-7) — edit via tool: .merchant-rule-meta {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_merchant-rules.scss"
+    },
+    {
+      "id": "TASK-212961",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:28:17",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/styles/system/_merchant-rules.scss'\ns=open(p).read()\ns=s.repl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212962",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:29:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/MerchantRules.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"    ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212963",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:30:05",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-9994",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:31:51",
+      "tags": [
+        "merchant",
+        "rules",
+        "design"
+      ],
+      "summary": "Rincian rule tampil sebagai paragraf catatan; diganti dl label-nilai berel 96px",
+      "conn": [
+        {
+          "id": "DEC-9994",
+          "type": "relates",
+          "raw": "DEC-9994:relates"
+        }
+      ],
+      "loc": "src/pages/MerchantRules.tsx:107"
+    },
+    {
+      "id": "TASK-212964",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "20:33:40",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/Documentation.tsx'\ns=open(p).read()\nold = \"\"\"          ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
