@@ -1426,8 +1426,9 @@ export default function Documentation() {
                 dikelola ops&rdquo;), jadi yang dibangun mesinnya: katalog di{' '}
                 <code className="doc-inline">src/data/rules.ts</code> (5 kategori insiden, 7 rule,
                 kompensasi &amp; punishment sebagai bagian rule), pilihan <strong>multi-select</strong>{' '}
-                toko di <code className="doc-inline">/merchant/rules</code> (satu baris per rule,
-                sakelar <code className="doc-inline">role=&quot;switch&quot;</code>, uraian rule yang
+                toko di <code className="doc-inline">/merchant/rules</code> (satu baris per rule:
+                nama + penanggung jawab, tanpa kode rule milik ops; sakelar{' '}
+                <code className="doc-inline">role=&quot;switch&quot;</code>, uraian rule yang
                 diikuti disajikan sebagai pasangan label&ndash;nilai di{' '}
                 <code className="doc-inline">&lt;dl&gt;</code>; pintunya kartu ringkas di{' '}
                 <code className="doc-inline">/merchant/settings</code>), dan{' '}

@@ -68,7 +68,9 @@ export default function MerchantRules() {
                 >
                   <span className="merchant-rule-main">
                     <span className="merchant-rule-name">{rule.name}</span>
-                    <span className="merchant-rule-code">{rule.code}</span>
+                    <span className="merchant-rule-sub">
+                      Penanggung jawab: {(PARTY_LABEL[rule.responsibleParty] ?? rule.responsibleParty).toLowerCase()}
+                    </span>
                   </span>
                   <span
                     className={`merchant-toggle-switch${active ? ' is-on' : ''}`}
@@ -100,10 +102,7 @@ export default function MerchantRules() {
                 return (
                   <li className="merchant-rule-detail" key={rule.id}>
                     <p className="merchant-rule-detail-title">{rule.name}</p>
-                    <p className="merchant-rule-code">
-                      {rule.code} · {categoryLabel(rule.categoryId)} ·{' '}
-                      {(PARTY_LABEL[rule.responsibleParty] ?? rule.responsibleParty).toLowerCase()}
-                    </p>
+                    <p className="merchant-rule-sub">{categoryLabel(rule.categoryId)}</p>
                     {/* Label dan nilainya dipisah kolom, bukan kalimat
                         "Mitigasi: ..." berturut-turut. Tiga baris berlabel
                         colon itu terbaca sebagai catatan kaki, padahal isinya
