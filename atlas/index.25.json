@@ -2609,6 +2609,141 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-212873",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:18:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/fav-probe.mjs (+104) — write via tool: // Ukur halaman Favorit den",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/fav-probe.mjs"
+    },
+    {
+      "id": "TASK-212874",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:19:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_favorites.scss (+87) — write via tool: @use \"./mixins\" as *;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_favorites.scss"
+    },
+    {
+      "id": "TASK-212875",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:19:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss (+9/-3) — edit via tool: // Nada kartu (warna sebagai arti, bukan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/_system.scss"
+    },
+    {
+      "id": "TASK-212876",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:19:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -2 && npm run build 2>&1 | tail -3 && npm run scan 2>&1 | ta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212877",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:20:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: <tr><td",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-212878",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-01",
+      "time": "15:24:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+12/-5) — edit via tool: tsx: // Grid menu customer (`.favorit",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-1115",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-11-01",
+      "time": "15:24:49",
+      "tags": [
+        "customer",
+        "favorites",
+        "layout"
+      ],
+      "summary": "Favorit: dua penggulung bersarang + kartu pertama tertutup bilah judul 64px (terukur y 41,9)",
+      "conn": [
+        {
+          "id": "BUG-1114",
+          "type": "relates",
+          "raw": "BUG-1114:relates"
+        }
+      ],
+      "loc": "src/styles/system/_favorites.scss:1"
     }
   ]
 }
