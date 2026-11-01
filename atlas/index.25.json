@@ -2993,6 +2993,27 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "DEC-9992",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-01",
+      "time": "19:25:59",
+      "tags": [
+        "customer",
+        "onboarding",
+        "brand"
+      ],
+      "summary": "Merek onboarding customer = tile 80px sa7tein-mark.svg di sambungan foto/panel, sama dengan onboarding kurir",
+      "conn": [
+        {
+          "id": "BUG-1116",
+          "type": "relates",
+          "raw": "BUG-1116:relates"
+        }
+      ],
+      "loc": "src/styles/system/_onboarding.scss:87"
     }
   ]
 }
