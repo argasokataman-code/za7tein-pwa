@@ -67,6 +67,11 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // y 41,9 di bawah bilah judul 64px. Sekarang satu penggulung dokumen, bilah
 // judul sticky, grid dua kolom tanpa media query lebar jendela.
 //
+// Merek onboarding customer (2026-11-01) disamakan dengan onboarding kurir dan
+// layar masuk/daftar: tile 80px `icons/sa7tein-mark.svg` ber-ring putih di
+// sambungan foto/panel, bukan pil 26px berisi teks "Sa7tein" di kiri-atas foto.
+// Aturannya di `system/_onboarding.scss`; rincian angka di ChangelogSection.
+//
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
 // menandai SA legacy. Rincian di decision-ops-canonical.md.

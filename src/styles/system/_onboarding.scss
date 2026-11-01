@@ -85,53 +85,40 @@
 }
 
 // ── Merek ─────────────────────────────────────────────────────────────────
-// Badge putih di atas foto/ warna, sama pola dengan layar auth: logo 26px +
-// nama. Bukan hiasan — dua peran adalah dua aplikasi terinstal berbeda.
-
+// Satu perlakuan merek untuk seluruh aplikasi: tile persegi `sa7tein-mark.svg`
+// 80px dengan ring putih, sama seperti kepala layar masuk/daftar
+// (`brandLayout="cover"`, `system/_auth-cover.scss`) dan onboarding kurir.
+// Sebelumnya layar ini satu-satunya yang memakai pil putih 26px berisi teks
+// "Sa7tein" di kiri-atas foto, jadi merek tampil dua rupa — kecil dan pudar di
+// sini, besar dan utuh di layar lain.
+//
+// Duduk di sambungan foto/panel: separuh badannya di atas tepi panel, jadi ia
+// yang menyambung dua bidang. Karena separuh badannya keluar dari
+// `.onboarding-media` (yang `overflow: hidden`), elemennya hidup di dalam
+// `.onboarding-sheet` dan diposisikan dari tepi atas panel.
 .onboarding-brand {
   position: absolute;
-  top: var(--space-4);
-  left: var(--space-4);
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-1) var(--space-3) var(--space-1) var(--space-1);
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Di app terinstal pil merek ini mengambang di tepi atas, jadi ia harus turun
-   melewati status bar OS / kamera punch-hole. Terukur di jendela app-mode
-   390px: tepinya 23px sementara safe-area 59px — namanya masuk ke area kamera. */
-@media (display-mode: standalone), (display-mode: fullscreen) {
-  .onboarding-brand {
-    top: calc(var(--space-4) + env(safe-area-inset-top));
-  }
-}
-
-.onboarding-brand-mark {
+  top: 0;
+  left: 50%;
+  z-index: 1;
   display: block;
-  width: 26px;
-  height: 26px;
-  border-radius: var(--radius-xs);
-}
-
-.onboarding-brand-name {
-  color: var(--text-primary);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  width: 80px;
+  height: 80px;
+  border: 4px solid var(--surface);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  transform: translate(-50%, -50%);
 }
 
 // ── Saran pasang aplikasi ─────────────────────────────────────────────────
 
 .onboarding-install {
   position: absolute;
-  // Di bawah badge merek (badge tinggi ~34px di y=16), supaya keduanya tidak
-  // saling menutup saat saran pasang muncul.
-  top: calc(var(--space-4) + 34px + var(--space-2));
+  // Dulu ia turun 34px supaya tidak menutupi pil merek di kiri-atas. Pil itu
+  // sudah tidak ada (merek pindah ke sambungan foto/panel), jadi saran pasang
+  // kembali ke jarak tepi kontrak: `--space-4`, plus safe-area di app terinstal.
+  top: calc(var(--space-4) + env(safe-area-inset-top, 0px));
   right: var(--space-3);
   left: var(--space-3);
   z-index: 2;
@@ -199,7 +186,10 @@
   position: relative;
   z-index: 2;
   margin-top: calc(-1 * var(--space-5));
-  padding: var(--space-5) var(--space-5) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  // Padding atas memberi ruang separuh bawah tile merek 80px (40px) + jarak 8px,
+  // supaya titik langkah di baris pertama panel tidak tertutup tile itu.
+  padding: calc(var(--space-5) + var(--space-6) + var(--space-1)) var(--space-5)
+    calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
   background: var(--surface);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   box-shadow: var(--shadow-md);

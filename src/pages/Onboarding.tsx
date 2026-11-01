@@ -108,20 +108,6 @@ export default function Onboarding() {
           />
         </div>
 
-        {/* Merek di atas foto: dua aplikasi terinstal berbeda, jadi pengguna
-            perlu tahu ini yang mana sejak layar pertama. */}
-        <span className="onboarding-brand">
-          <img
-            className="onboarding-brand-mark"
-            src="/icons/sa7tein-96x96.png"
-            alt=""
-            width={26}
-            height={26}
-            decoding="async"
-          />
-          <span className="onboarding-brand-name">Sa7tein</span>
-        </span>
-
         {showInstall && !appInstalled && (
           <aside className="onboarding-install" aria-label="Saran pasang aplikasi">
             <Download size={16} strokeWidth={1.75} aria-hidden="true" />
@@ -146,6 +132,20 @@ export default function Onboarding() {
       </div>
 
       <div className="onboarding-sheet">
+        {/* Merek seukuran dan sebentuk dengan onboarding lain (kurir, layar
+            masuk/daftar `brandLayout="cover"`): tile 80px `sa7tein-mark.svg`
+            ber-ring putih di sambungan foto/panel. Dulu ia pil 26px berisi
+            teks "Sa7tein" di kiri-atas foto — dua perlakuan merek untuk satu
+            aplikasi. Tanpa nama sebagai teks, sama seperti di layar pembeli. */}
+        <img
+          className="onboarding-brand"
+          src="/icons/sa7tein-mark.svg"
+          alt="Sa7tein"
+          width={80}
+          height={80}
+          decoding="async"
+        />
+
         <div className="onboarding-sheet-top">
           <div className="onboarding-dots" role="group" aria-label="Langkah pengenalan">
             {ONBOARDING_SLIDES.map((item, i) => (
