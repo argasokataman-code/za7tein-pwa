@@ -4851,6 +4851,65 @@
         }
       ],
       "loc": "scripts/browser-gate.mjs:745"
+    },
+    {
+      "id": "TASK-212980",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:35:19",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-9996",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:36:43",
+      "tags": [
+        "ui",
+        "courier",
+        "devnote"
+      ],
+      "summary": "Teks 'Kurir toko eksklusif milik satu merchant (PRD bab 04)' tampil di /courier/profile; jadi komentar",
+      "conn": [
+        {
+          "id": "DEC-9995",
+          "type": "relates",
+          "raw": "DEC-9995:relates"
+        }
+      ],
+      "loc": "src/pages/CourierProfile.tsx:115"
+    },
+    {
+      "id": "TASK-212981",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:38:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/Documentation.tsx'\ns=open(p).read()\nanchor = \"\"\"       ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

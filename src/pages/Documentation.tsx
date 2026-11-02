@@ -1786,6 +1786,16 @@ export default function Documentation() {
                 lubang di antara bintang dan tombol.
               </li>
               <li>
+                <strong>Aturan produk tidak dicetak sebagai kalimat UI</strong>: kartu toko di{' '}
+                <code className="doc-inline">/courier/profile</code> dulu menampilkan &ldquo;Kurir toko
+                ini eksklusif milik satu merchant (PRD bab 04)&rdquo;. Kalimat itu alasan desain,
+                bukan informasi yang dipakai kurir, dan menyebut nomor bab PRD di aplikasi demo
+                membuat layarnya terasa catatan developer. Sekarang ia komentar di{' '}
+                <code className="doc-inline">src/pages/CourierProfile.tsx</code>, dan kartu toko
+                tinggal nama toko + jam buka; aturannya sendiri tetap berlaku di PRD dan tetap
+                dijelaskan di halaman ini.
+              </li>
+              <li>
                 <strong>Layar kurir partner</strong> (<code className="doc-inline">/courier/partner</code>)
                 kini membaca dan menulis BE lewat <code className="doc-inline">src/api/partner.ts</code>:
                 identitas mitra dari <code className="doc-inline">couriers</code> (sesi akun mitra),

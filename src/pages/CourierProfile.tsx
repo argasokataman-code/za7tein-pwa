@@ -112,9 +112,8 @@ export default function CourierProfile() {
               </p>
             </div>
           </div>
-          <p className="courier-task-meta">
-            Kurir toko ini eksklusif milik satu merchant (PRD bab 04).
-          </p>
+          {/* Kurir toko eksklusif milik satu merchant (PRD bab 04). Aturan
+              produk, bukan kalimat untuk kurir: tidak ditampilkan di demo. */}
         </section>
           </>
         ) : null}
