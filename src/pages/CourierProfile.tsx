@@ -11,6 +11,7 @@ import { useAppUpdate } from '../hooks/useAppUpdate'
 import { useMoney } from '../hooks/useMoney'
 import { mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
+import { TIPS_ENABLED } from '../data/features'
 import { courierTipsAvailable } from '../data/courierWallet'
 import { APP_VERSION } from '../data/appInfo'
 import { toggleOnline } from '../store/slices/courierSlice'
@@ -85,18 +86,21 @@ export default function CourierProfile() {
           </button>
         </section>
 
-        <section className="courier-card">
-          <div className="courier-row">
-            <Landmark size={20} strokeWidth={1.75} aria-hidden="true" />
-            <div>
-              <p className="courier-card-title">Dompet kurir</p>
-              <p className="courier-card-sub">{money(balanceAvailable)} tips bisa ditarik</p>
+        {/* Dompet kurir berisi saldo tips; disembunyikan saat `TIPS_ENABLED` false. */}
+        {TIPS_ENABLED ? (
+          <section className="courier-card">
+            <div className="courier-row">
+              <Landmark size={20} strokeWidth={1.75} aria-hidden="true" />
+              <div>
+                <p className="courier-card-title">Dompet kurir</p>
+                <p className="courier-card-sub">{money(balanceAvailable)} tips bisa ditarik</p>
+              </div>
             </div>
-          </div>
-          <Link className="btn btn-primary courier-wallet-cta" to="/wallet">
-            Buka dompet
-          </Link>
-        </section>
+            <Link className="btn btn-primary courier-wallet-cta" to="/wallet">
+              Buka dompet
+            </Link>
+          </section>
+        ) : null}
 
         <section className="courier-card">
           <div className="courier-row">

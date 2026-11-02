@@ -2,6 +2,7 @@ import { Bike, Home, UserRound, Wallet } from 'lucide-react'
 
 import { useAppSelector } from '../../hooks/useAppStore'
 import { isActiveTask } from '../../data/courier'
+import { TIPS_ENABLED } from '../../data/features'
 import { BottomNav } from './BottomNav'
 import type { BottomNavItem } from './BottomNav'
 
@@ -40,7 +41,7 @@ export function CourierBottomNav() {
       badge: active,
       srText: active > 0 ? `${active} tugas berjalan` : undefined,
     },
-    { to: '/tips', label: 'Tips', Icon: Wallet, end: false },
+    ...(TIPS_ENABLED ? [{ to: '/tips', label: 'Tips', Icon: Wallet, end: false }] : []),
     { to: '/profile', label: 'Profil', Icon: UserRound, end: false },
   ]
 

@@ -15,6 +15,7 @@ import {
   isDoneTask,
   totalTips,
 } from '../data/courier'
+import { TIPS_ENABLED } from '../data/features'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { BATCH_STATUS_LABEL } from '../data/batch'
 import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
@@ -179,74 +180,93 @@ export default function CourierTasks() {
               <span className="courier-stat-value">{done.length}</span>
             </span>
           </div>
-          <div className="courier-stat courier-stat--tips">
-            <span className="courier-stat-icon" aria-hidden="true">
-              <Coins size={20} strokeWidth={1.75} />
-            </span>
-            <span className="courier-stat-copy">
-              <span className="courier-stat-label">Tips</span>
-              <span className="courier-stat-value">{money(totalTips(tasks))}</span>
-            </span>
-          </div>
+          {TIPS_ENABLED ? (
+            <div className="courier-stat courier-stat--tips">
+              <span className="courier-stat-icon" aria-hidden="true">
+                <Coins size={20} strokeWidth={1.75} />
+              </span>
+              <span className="courier-stat-copy">
+                <span className="courier-stat-label">Tips</span>
+                <span className="courier-stat-value">{money(totalTips(tasks))}</span>
+              </span>
+            </div>
+          ) : null}
         </div>
 
         {/* Performa: satu angka fokus (tips tujuh hari) + bentuk harinya.
             Sumbernya mock mingguan yang ditandai di data; PRD tak menetapkan
-            laporan performa kurir, jadi ini tampilan tren, bukan aturan. */}
-        <section className="courier-card courier-card--navy">
-          <div className="chart-card-head">
-            <span className="chart-card-icon" aria-hidden="true">
-              <HandCoins size={20} strokeWidth={1.75} />
-            </span>
-            <div className="chart-card-heading">
-              <p className="chart-card-title" role="heading" aria-level={2}>Tips 7 hari terakhir</p>
-              <p className="chart-card-desc">
-                {done.length} tugas selesai · {week.activeDays} hari ada tips (ribu rupiah) · puncak{' '}
-                {week.best.label}
-              </p>
+            laporan performa kurir, jadi ini tampilan tren, bukan aturan. Ikut
+            disembunyikan saat `TIPS_ENABLED` false. */}
+        {TIPS_ENABLED ? (
+          <section className="courier-card courier-card--navy">
+            <div className="chart-card-head">
+              <span className="chart-card-icon" aria-hidden="true">
+                <HandCoins size={20} strokeWidth={1.75} />
+              </span>
+              <div className="chart-card-heading">
+                <p className="chart-card-title" role="heading" aria-level={2}>Tips 7 hari terakhir</p>
+                <p className="chart-card-desc">
+                  {done.length} tugas selesai · {week.activeDays} hari ada tips (ribu rupiah) · puncak{' '}
+                  {week.best.label}
+                </p>
+              </div>
             </div>
-          </div>
-          <p className="courier-performa-value">{money(week.total)}</p>
-          <TrendBars
-            data={week.bars}
-            formatValue={(value) => String(Math.round(value / 1000))}
-            ariaLabel={`Tips tujuh hari terakhir: ${week.total} rupiah, ${week.activeDays} hari ada tips, puncak ${week.best.label}`}
-          />
-        </section>
+            <p className="courier-performa-value">{money(week.total)}</p>
+            <TrendBars
+              data={week.bars}
+              formatValue={(value) => String(Math.round(value / 1000))}
+              ariaLabel={`Tips tujuh hari terakhir: ${week.total} rupiah, ${week.activeDays} hari ada tips, puncak ${week.best.label}`}
+            />
+          </section>
+        ) : null}
 
         {/* Menu: pintasan ke semua yang bisa dilakukan kurir dari sini,
             termasuk Tips dan Profil yang juga ada di bilah bawah. Pintasan
-            bukan pengganti navigasi, jadi keduanya boleh ada. */}
+            bukan pengganti navigasi, jadi keduanya boleh ada. Saat fitur tips
+            disembunyikan (`TIPS_ENABLED` false) isinya tinggal Profil, yang
+            sudah ada di bilah bawah: satu pintasan duplikat tidak layak jadi
+            kartu sendiri, jadi menunya ikut hilang. */}
+        {TIPS_ENABLED ? (
         <nav className="courier-menu" aria-label="Menu kurir">
-          <Link className="courier-menu-item" to="/wallet">
-            <span className="courier-menu-icon" aria-hidden="true">
-              <Wallet size={20} strokeWidth={1.75} />
-            </span>
-            <span className="courier-menu-copy">
-              <span className="courier-menu-title">Dompet kurir</span>
-              <span className="courier-menu-sub">{money(balanceAvailable)} tips bisa ditarik</span>
-            </span>
-          </Link>
-          <Link className="courier-menu-item" to="/payout-accounts">
-            <span className="courier-menu-icon" aria-hidden="true">
-              <Landmark size={20} strokeWidth={1.75} />
-            </span>
-            <span className="courier-menu-copy">
-              <span className="courier-menu-title">Rekening pencairan</span>
-              <span className="courier-menu-sub">
-                {primary ? accountLabel(primary) : 'Belum ada rekening'}
-              </span>
-            </span>
-          </Link>
-          <Link className="courier-menu-item" to="/tips">
-            <span className="courier-menu-icon" aria-hidden="true">
-              <Coins size={20} strokeWidth={1.75} />
-            </span>
-            <span className="courier-menu-copy">
-              <span className="courier-menu-title">Riwayat tips</span>
-              <span className="courier-menu-sub">{money(totalTips(tasks))} dari tugas selesai</span>
-            </span>
-          </Link>
+          {/* Dompet, rekening pencairan, dan riwayat tips isinya tips semua,
+              jadi ikut disembunyikan saat `TIPS_ENABLED` false. */}
+          {TIPS_ENABLED ? (
+            <>
+              <Link className="courier-menu-item" to="/wallet">
+                <span className="courier-menu-icon" aria-hidden="true">
+                  <Wallet size={20} strokeWidth={1.75} />
+                </span>
+                <span className="courier-menu-copy">
+                  <span className="courier-menu-title">Dompet kurir</span>
+                  <span className="courier-menu-sub">
+                    {money(balanceAvailable)} tips bisa ditarik
+                  </span>
+                </span>
+              </Link>
+              <Link className="courier-menu-item" to="/payout-accounts">
+                <span className="courier-menu-icon" aria-hidden="true">
+                  <Landmark size={20} strokeWidth={1.75} />
+                </span>
+                <span className="courier-menu-copy">
+                  <span className="courier-menu-title">Rekening pencairan</span>
+                  <span className="courier-menu-sub">
+                    {primary ? accountLabel(primary) : 'Belum ada rekening'}
+                  </span>
+                </span>
+              </Link>
+              <Link className="courier-menu-item" to="/tips">
+                <span className="courier-menu-icon" aria-hidden="true">
+                  <Coins size={20} strokeWidth={1.75} />
+                </span>
+                <span className="courier-menu-copy">
+                  <span className="courier-menu-title">Riwayat tips</span>
+                  <span className="courier-menu-sub">
+                    {money(totalTips(tasks))} dari tugas selesai
+                  </span>
+                </span>
+              </Link>
+            </>
+          ) : null}
           <Link className="courier-menu-item" to="/profile">
             <span className="courier-menu-icon" aria-hidden="true">
               <UserRound size={20} strokeWidth={1.75} />
@@ -257,6 +277,7 @@ export default function CourierTasks() {
             </span>
           </Link>
         </nav>
+        ) : null}
 
         <section className="courier-section">
           <h2 className="courier-section-title">
@@ -284,9 +305,11 @@ export default function CourierTasks() {
                   <span className={`courier-badge courier-badge--${task.checkpoint}`}>
                     {COURIER_CHECKPOINT_BADGE[task.checkpoint]}
                   </span>
-                  <span className="courier-history-tip">
-                    {isDoneTask(task) ? `Tips ${money(task.tip)}` : 'Belum'}
-                  </span>
+                  {TIPS_ENABLED ? (
+                    <span className="courier-history-tip">
+                      {isDoneTask(task) ? `Tips ${money(task.tip)}` : 'Belum'}
+                    </span>
+                  ) : null}
                 </span>
               </Link>
             ))

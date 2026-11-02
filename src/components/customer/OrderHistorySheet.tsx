@@ -2,6 +2,7 @@ import { RotateCcw, Star } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { TIPS_ENABLED } from '../../data/features'
 import type { OrderHistoryItem, OrderReceipt } from '../../api/reviews'
 import { useAppSelector } from '../../hooks/useAppStore'
 import { useMoney } from '../../hooks/useMoney'
@@ -243,7 +244,7 @@ function receiptLines(receipt: OrderReceipt): ReceiptLine[] {
     { label: 'Ongkir', valueIdr: receipt.deliveryFeeIdr },
     { label: 'Biaya layanan', valueIdr: receipt.platformFeeIdr },
   ]
-  if (receipt.tipIdr) lines.push({ label: 'Tip kurir', valueIdr: receipt.tipIdr })
+  if (TIPS_ENABLED && receipt.tipIdr) lines.push({ label: 'Tip kurir', valueIdr: receipt.tipIdr })
   if (receipt.transactionFeeIdr)
     lines.push({ label: 'Biaya transaksi', valueIdr: receipt.transactionFeeIdr })
   if (receipt.discountMerchantIdr)

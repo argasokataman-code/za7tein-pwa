@@ -745,6 +745,17 @@ const MEASURE = `(async () => {
     const s = getComputedStyle(el)
     if (parseFloat(s.marginLeft) < 0 || parseFloat(s.marginRight) < 0) continue
     if (s.position === 'absolute' || s.position === 'fixed') continue
+    // Rotasi membesarkan bounding box tanpa isi benar-benar keluar: kotak 20px
+    // yang diputar 45° ber-bbox 28px (spinner react-hot-toast, MD-12 temuan
+    // palsu di /customer/rating-driver). Geser/skala tidak punya masalah itu,
+    // jadi hanya komponen rotasi (b/c matriks bukan nol) yang dilewati.
+    if (s.transform !== 'none') {
+      const m = s.transform.match(/matrix\(([^)]+)\)/)
+      if (m) {
+        const parts = m[1].split(',').map(Number)
+        if (Math.abs(parts[1]) > 0.0001 || Math.abs(parts[2]) > 0.0001) continue
+      }
+    }
     const r = el.getBoundingClientRect()
     if (r.width === 0) continue
     const pr = p.getBoundingClientRect()

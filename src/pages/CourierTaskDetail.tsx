@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useBackClose } from '../hooks/useBackClose'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
+import { TIPS_ENABLED } from '../data/features'
 import { formatDistance, zoneLabel } from '../data/merchant'
 import { codCashOptions, codChangeIdr } from '../data/codCash'
 import { jodToIdr } from '../data/currency'
@@ -278,7 +279,9 @@ export default function CourierTaskDetail() {
           <section className="courier-card courier-settled">
             <p className="courier-card-title">Pesanan selesai</p>
             <p className="courier-card-sub">
-              OTP terverifikasi. Tips kamu {money(task.tip)} masuk dompet.
+              {TIPS_ENABLED
+                ? `OTP terverifikasi. Tips kamu ${money(task.tip)} masuk dompet.`
+                : 'OTP terverifikasi. Tugas selesai.'}
             </p>
           </section>
         ) : isCancelled ? (
@@ -359,7 +362,11 @@ export default function CourierTaskDetail() {
             >
               <OrderCelebration
                 title="Pesanan selesai!"
-                message={`OTP terverifikasi. Tips kamu ${money(task.tip)} masuk dompet.`}
+                message={
+                  TIPS_ENABLED
+                    ? `OTP terverifikasi. Tips kamu ${money(task.tip)} masuk dompet.`
+                    : 'OTP terverifikasi. Tugas selesai.'
+                }
               >
                 <button
                   type="button"

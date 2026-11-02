@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { mockOrder } from '../data/merchant'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
+import { TIPS_ENABLED } from '../data/features'
 import { tipCourier } from '../store/slices/walletSlice'
 import { BackButton } from '../components/ui/BackButton'
 
@@ -63,7 +64,13 @@ export default function RatingDriver() {
                 Rating
               </h1>
             </header>
-            <div className="rating-driver-content">
+            <div
+              className={
+                TIPS_ENABLED
+                  ? 'rating-driver-content'
+                  : 'rating-driver-content rating-driver-content--center'
+              }
+            >
               <div className="rating-order-info">
                 <h2 className="rating-order-number">
                   Order {orderCode}
@@ -105,29 +112,33 @@ export default function RatingDriver() {
                 })}
               </div>
 
-              <section className="rating-tip" aria-labelledby="rating-tip-title">
-                <h2 className="rating-tip-title" id="rating-tip-title">Tip untuk kurir</h2>
-                <div className="wallet-presets" role="radiogroup" aria-label="Pilih nominal tip">
-                  {TIP_PRESETS_IDR.map((value) => (
-                    <button
-                      key={value}
-                      type="button"
-                      role="radio"
-                      aria-checked={tip === value}
-                      disabled={value > available}
-                      className={`wallet-preset${tip === value ? ' wallet-preset--active' : ''}`}
-                      onClick={() => setTip(value)}
-                    >
-                      {value === 0 ? 'Tanpa tip' : moneyPlain(value)}
-                    </button>
-                  ))}
-                </div>
-                <p className="rating-tip-note">
-                  {tip > 0
-                    ? `${moneyPlain(tip)} dipotong dari saldo wallet kamu, 100% ke kurir tanpa potongan platform. Sisa ${money(available - tip)}.`
-                    : 'Opsional. 100% ke kurir, tanpa potongan platform.'}
-                </p>
-              </section>
+              {/* Tip untuk kurir disembunyikan saat `TIPS_ENABLED` false, supaya
+                  demo tidak menawarkan nominal yang tak punya dompet penerima. */}
+              {TIPS_ENABLED ? (
+                <section className="rating-tip" aria-labelledby="rating-tip-title">
+                  <h2 className="rating-tip-title" id="rating-tip-title">Tip untuk kurir</h2>
+                  <div className="wallet-presets" role="radiogroup" aria-label="Pilih nominal tip">
+                    {TIP_PRESETS_IDR.map((value) => (
+                      <button
+                        key={value}
+                        type="button"
+                        role="radio"
+                        aria-checked={tip === value}
+                        disabled={value > available}
+                        className={`wallet-preset${tip === value ? ' wallet-preset--active' : ''}`}
+                        onClick={() => setTip(value)}
+                      >
+                        {value === 0 ? 'Tanpa tip' : moneyPlain(value)}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="rating-tip-note">
+                    {tip > 0
+                      ? `${moneyPlain(tip)} dipotong dari saldo wallet kamu, 100% ke kurir tanpa potongan platform. Sisa ${money(available - tip)}.`
+                      : 'Opsional. 100% ke kurir, tanpa potongan platform.'}
+                  </p>
+                </section>
+              ) : null}
             </div>
             <div className="rating-driver-footer">
               <button type="button" className="rating-submit-btn" onClick={submit}>

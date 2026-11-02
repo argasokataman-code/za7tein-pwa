@@ -16,6 +16,13 @@
   margin-bottom: var(--space-4);
 }
 
+/* Jumlah tile bisa ganjil: saat fitur tips disembunyikan (`TIPS_ENABLED` di
+   `src/data/features.ts`) tinggal tiga. Tile ganjil terakhir melebar penuh
+   supaya tidak ada sel kosong di sebelahnya. Empat tile tidak terpengaruh. */
+.courier-stats > .courier-stat:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 .courier-stat {
   display: flex;
   align-items: center;

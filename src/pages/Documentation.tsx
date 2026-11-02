@@ -1766,6 +1766,26 @@ export default function Documentation() {
                 pencairan tetap membaca satu fungsi, jadi angkanya tak bisa berbeda.
               </li>
               <li>
+                <strong>Fitur tips disembunyikan untuk demo</strong> (permintaan 2026-11-02):
+                sakelar <code className="doc-inline">TIPS_ENABLED</code> di{' '}
+                <code className="doc-inline">src/data/features.ts</code> kini <code className="doc-inline">false</code>,
+                dan yang berubah hanya permukaan UI &mdash; kode, tipe, mock, dan reducer tetap utuh supaya
+                bisa dinyalakan lagi dengan satu baris. Yang hilang saat mati: tab <em>Tips</em> di bilah
+                bawah kurir inhouse (nav jadi dua tab, Beranda + Profil), halaman{' '}
+                <code className="doc-inline">/tips</code>, tile &ldquo;Tips&rdquo; dan grafik tujuh hari di
+                beranda kurir, menu <em>Dompet kurir</em>/<em>Rekening pencairan</em>/<em>Riwayat tips</em>,
+                rute <code className="doc-inline">/wallet</code>, <code className="doc-inline">/payout</code>,
+                <code className="doc-inline">/payout-accounts</code>, kalimat &ldquo;Tips kamu &hellip; masuk
+                dompet&rdquo; di pesan selesai tugas, pilihan nominal tip di layar rating customer, dan baris
+                &ldquo;Tip kurir&rdquo; di nota pesanan. Alasannya satu: saldo yang bisa ditarik di demo ini{' '}
+                <em>hanya</em> tips (<code className="doc-inline">courierTipsBreakdown</code>), jadi dompet
+                tanpa tips selalu nol dan tidak punya isi. Tile ringkasan yang tersisa tinggal tiga dan tile
+                ganjil terakhir melebar penuh (<code className="doc-inline">.courier-stats &gt;
+                .courier-stat:last-child:nth-child(odd)</code>), sedangkan layar rating memusatkan isinya{' '}
+                (<code className="doc-inline">.rating-driver-content--center</code>) supaya tidak menyisakan
+                lubang di antara bintang dan tombol.
+              </li>
+              <li>
                 <strong>Layar kurir partner</strong> (<code className="doc-inline">/courier/partner</code>)
                 kini membaca dan menulis BE lewat <code className="doc-inline">src/api/partner.ts</code>:
                 identitas mitra dari <code className="doc-inline">couriers</code> (sesi akun mitra),

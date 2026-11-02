@@ -170,6 +170,18 @@ body.order-arrived-page,
   padding-inline: var(--space-5);
 }
 
+// Tanpa pemilih tip (`TIPS_ENABLED` false, `src/data/features.ts`) isi halaman
+// rating tinggal ~380px di kolom 700px, jadi tanpa ini sisa ruang menganga di
+// antara bintang dan tombol. Di layar ini tidak ada yang salah kalau isinya
+// diletakkan di tengah: satu pertanyaan, satu baris bintang, satu tombol.
+.rating-driver-content--center {
+  display: flex;
+  flex-direction: column;
+  /* `safe` supaya layar pendek tidak memangkas bagian atas saat isi lebih
+     tinggi dari wadahnya: jatuh ke rata atas, bukan terpotong. */
+  justify-content: safe center;
+}
+
 // ── Overlay perayaan (kurir) ────────────────────────────────────────────────
 // Blok `.order-arrived-*` yang sama dipakai kurir sebagai lapisan penuh di atas
 // layar detail, bukan halaman sendiri. Di-portal ke `body` dan dibatasi kolom

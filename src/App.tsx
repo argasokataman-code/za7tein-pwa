@@ -14,6 +14,7 @@ import { useApiSync } from './hooks/useApiReference'
 import { useApiOps } from './hooks/useApiOps'
 import { useApiNotifications } from './hooks/useApiNotifications'
 import { useApiRealtime } from './hooks/useApiRealtime'
+import { TIPS_ENABLED } from './data/features'
 import { notificationAudienceFromPath } from './data/notifications'
 import type { NotifAudience } from './types'
 
@@ -249,10 +250,16 @@ const courierRoutes: [string, ComponentType][] = [
   ['/batch', CourierBatch],
   ['/partner', CourierPartner],
   ['/notifications', Notifications],
-  ['/tips', CourierTips],
-  ['/wallet', CourierWallet],
-  ['/payout', CourierPayout],
-  ['/payout-accounts', CourierPayoutAccounts],
+  // Tips disembunyikan untuk demo (TIPS_ENABLED, `src/data/features.ts`).
+  // Rute dompet/pencairan ikut hilang karena saldo tarik = tips.
+  ...(TIPS_ENABLED
+    ? ([
+        ['/tips', CourierTips],
+        ['/wallet', CourierWallet],
+        ['/payout', CourierPayout],
+        ['/payout-accounts', CourierPayoutAccounts],
+      ] as [string, ComponentType][])
+    : []),
   ['/profile', CourierProfile],
   ['/offline', Offline],
 ]
