@@ -4582,6 +4582,275 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-212968",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:14:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/features.ts (+21) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/features.ts"
+    },
+    {
+      "id": "TASK-212969",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:15:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/CourierTaskDetail.tsx'\ns=open(p).read()\nimport re\nm=re.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212970",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:18:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/CourierTaskDetail.tsx'\ns=open(p).read()\ns=s.replace(\"im",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212971",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:19:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/CourierTasks.tsx'\ns=open(p).read()\nold = \"\"\"        {TI",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212972",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:20:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/tips-off-probe.mjs (+109) — write via tool: // Verifikasi TIPS_ENA",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/tips-off-probe.mjs"
+    },
+    {
+      "id": "TASK-212973",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:21:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/CourierTasks.tsx'\ns=open(p).read()\nold = \"\"\"        {/*",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212974",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:22:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-dashboard.scss (+9/-2) — edit via tool: /* Jumlah tile bisa ganj",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier-dashboard.scss"
+    },
+    {
+      "id": "TASK-212975",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:23:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/tips-off-task-probe.mjs (+125) — write via tool: // Detail tugas k",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/tips-off-task-probe.mjs"
+    },
+    {
+      "id": "TASK-212976",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:25:19",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/RatingDriver.tsx'\ns=open(p).read()\nold = '<div classNam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212977",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:26:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/Documentation.tsx'\ns=open(p).read()\nanchor = \"\"\"       ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212978",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:27:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-212979",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:28:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/toast-probe.mjs (+115) — write via tool: // Ukur elemen toast sete",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/toast-probe.mjs"
+    },
+    {
+      "id": "DEC-9995",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-02",
+      "time": "21:32:37",
+      "tags": [
+        "ui",
+        "courier",
+        "demo"
+      ],
+      "summary": "Fitur tips disembunyikan lewat flag TIPS_ENABLED=false (src/data/features.ts), kode/data utuh",
+      "conn": [
+        {
+          "id": "BUG-9994",
+          "type": "relates",
+          "raw": "BUG-9994:relates"
+        }
+      ],
+      "loc": "src/data/features.ts:1"
+    },
+    {
+      "id": "BUG-9995",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-02",
+      "time": "21:32:37",
+      "tags": [
+        "gate",
+        "md-12"
+      ],
+      "summary": "MD-12 menuduh elemen terotasi: spinner toast 20px diputar 45 derajat bbox 28px; rotasi dilewati",
+      "conn": [
+        {
+          "id": "DEC-9995",
+          "type": "relates",
+          "raw": "DEC-9995:relates"
+        }
+      ],
+      "loc": "scripts/browser-gate.mjs:745"
     }
   ]
 }
