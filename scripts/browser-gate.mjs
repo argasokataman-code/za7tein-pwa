@@ -669,8 +669,15 @@ const MEASURE = `(async () => {
   // MD-06 — panel yang menempel tepi bawah dan punya permukaan sendiri (bukan
   // scrim gelap) tidak boleh melewati ~60% viewport; lebih dari itu ia berhenti
   // menjadi sheet dan berubah jadi halaman yang menutupi layar.
+  //
+  // Pengecualian yang disengaja: kelas sheet-panel--full MEMANG halaman-penuh dan
+  // menyatakannya di kelasnya (dipakai ringkasan keranjang customer). Varian itu
+  // wajib membawa tombol tutup sendiri karena scrim tak lagi terjangkau, dan
+  // catatannya di docs/design/mobile-dna.md (MD-06). Panelnya tetap masuk
+  // sheetPanels, jadi MD-10 tetap dilewati saat varian ini terbuka.
   const vh = window.innerHeight
   for (const el of sheetPanels) {
+    if (el.classList.contains('sheet-panel--full')) continue
     const pct = Math.round((el.getBoundingClientRect().height / vh) * 100)
     if (pct > 60) {
       dnaFaults.push('MD-06 panel bawah ' + pct + '% viewport (>60%): ' + cls1(el))

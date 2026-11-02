@@ -1594,6 +1594,23 @@ export default function Documentation() {
                 Saya tak pernah berbeda perilaku.
               </li>
               <li>
+                <strong>Ringkasan keranjang memakai sheet setinggi layar (2026-11-02).</strong>{' '}
+                Isinya bisa dua puluh lebih pesanan berjalan, dan sebagai sheet biasa panelnya sudah
+                menyentuh <code className="doc-inline">90vh</code> sambil menggulir di dalam, jadi
+                daftar panjang selalu berhenti di tengah layar. <code className="doc-inline">BottomSheet</code>{' '}
+                kini punya varian <code className="doc-inline">full</code> (
+                <code className="doc-inline">.sheet-panel--full</code>,{' '}
+                <code className="doc-inline">100dvh</code>, sudut atas rata) yang dipakai{' '}
+                <code className="doc-inline">CartSummarySheet</code>: judul tetap di atas, segmented
+                dan daftar menggulir di dalam satu scroller, dan tombol tutup 44px muncul karena scrim
+                tak lagi terjangkau. Ini pengecualian sadar terhadap DNA MD-06 (sheet berhenti di ~60%
+                viewport), dicatat di <code className="doc-inline">docs/design/mobile-dna.md</code> dan
+                dihormati <code className="doc-inline">browser-gate</code> lewat kelas penanda, bukan
+                pelonggaran ambang. Terukur di jendela customer 390&times;839: panel 839px (100%),
+                radius 0, isi <code className="doc-inline">775/2429</code> px (menggulir), tombol tutup
+                44&times;44 dengan hit-test bersih, overflow-x 0.
+              </li>
+              <li>
                 <strong>Checkout tak lagi lahir sebagai draft.</strong> Default kolom{' '}
                 <code className="doc-inline">orders.status</code> adalah{' '}
                 <code className="doc-inline">&#39;cart&#39;</code> (draft), dan{' '}

@@ -1,0 +1,87 @@
+// Varian sheet setinggi layar (`.sheet-panel--full`).
+//
+// Dipakai ringkasan keranjang customer: satu tab-nya bisa memuat dua puluh lebih
+// pesanan berjalan, dan sebagai sheet biasa panelnya sudah menyentuh `90vh`
+// sambil menggulir di dalam. Varian ini mengisi seluruh layar, sudut atas rata,
+// judul tetap di tempat, dan isi menggulir di dalam panel.
+//
+// MD-06 menetapkan sheet berhenti di ~60% viewport supaya ia tidak diam-diam
+// jadi halaman. Varian ini pengecualian yang disengaja: scrim tak lagi
+// terjangkau, jadi tombol tutup yang terlihat wajib ada. Catatannya di
+// `docs/design/mobile-dna.md` (MD-06) dan diukur gerbang sebagai baris
+// `(sheet terbuka)`.
+
+@use "./mixins" as *;
+
+.sheet-panel--full {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: var(--space-3);
+
+  /* `vh` dulu untuk peramban tanpa `dvh`; nilai kedua menang bila didukung. */
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+
+  padding-top: calc(var(--space-4) + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* Judul tinggal di atas dan tidak ikut tergulir; ruang kanan disisihkan untuk
+   tombol tutup supaya teks tidak pernah lewat di bawahnya (MD-12). */
+.sheet-panel--full .sheet-title {
+  flex: 0 0 auto;
+
+  margin-bottom: 0;
+  padding-right: var(--touch-min);
+}
+
+/* Satu penggulung di dalam panel: isi sheet yang menggulir, bukan daftar di
+   dalam isi (MD-03 hanya mengizinkan satu scroller bersarang). */
+.sheet-panel--full > .ck-sheet {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* Daftar pesanan tidak lagi butuh batas tinggi sendiri saat panelnya sudah
+   setinggi layar; dua batas gulir bertumpuk terasa tersangkut. */
+.sheet-panel--full .ck-list--scroll {
+  max-height: none;
+  overflow-y: visible;
+}
+
+.sheet-full-close {
+  position: absolute;
+  top: calc(var(--space-3) + env(safe-area-inset-top, 0px));
+  right: var(--space-4);
+  z-index: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--touch-min);
+  height: var(--touch-min);
+
+  border: 0;
+  border-radius: var(--radius-pill);
+
+  background: var(--bg-warm);
+  color: var(--text-secondary-strong);
+
+  cursor: pointer;
+}
+
+.sheet-full-close:active {
+  background: var(--border);
+  color: var(--text-primary);
+}

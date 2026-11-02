@@ -108,7 +108,7 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
   const title = hasOrders && hasCart ? 'Keranjang & pesanan' : hasCart ? 'Keranjang' : 'Pesanan berjalan'
 
   return (
-    <BottomSheet open={open} onClose={closeSheet} title={title}>
+    <BottomSheet open={open} onClose={closeSheet} title={title} full>
       <div className="ck-sheet">
         {done ? (
           <OrderRefundCelebration code={done.code} refunded={done.refunded} onClose={dismissDone} />

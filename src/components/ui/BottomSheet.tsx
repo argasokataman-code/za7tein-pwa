@@ -1,3 +1,4 @@
+import { X } from 'lucide-react'
 import { useEffect, useRef, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
@@ -8,6 +9,13 @@ interface BottomSheetProps {
   title?: string
   /** Dipakai untuk `aria-label` saat panel membawa header sendiri (`title` kosong). */
   ariaLabel?: string
+  /**
+   * Panel mengisi seluruh tinggi layar (varian `sheet-panel--full`), bukan
+   * sheet pendek yang menempel tepi bawah. Hanya untuk permukaan yang memang
+   * butuh ruang penuh dan punya isi panjang; scrim jadi tak terjangkau, jadi
+   * varian ini menambahkan tombol tutup yang terlihat.
+   */
+  full?: boolean
   onClose: () => void
   children: ReactNode
 }
@@ -15,7 +23,7 @@ interface BottomSheetProps {
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-export function BottomSheet({ open, title, ariaLabel, onClose, children }: BottomSheetProps) {
+export function BottomSheet({ open, title, ariaLabel, full = false, onClose, children }: BottomSheetProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   /* Back platform menutup sheet, bukan memindahkan halaman (MD-13 `NB-02`).
      Logika riwayat tinggal di satu hook yang dipakai semua overlay modal. */
@@ -79,7 +87,7 @@ export function BottomSheet({ open, title, ariaLabel, onClose, children }: Botto
   return createPortal(
     <div className="sheet-overlay" onClick={onClose}>
       <div
-        className="sheet-panel"
+        className={`sheet-panel${full ? ' sheet-panel--full' : ''}`}
         role="dialog"
         aria-modal="true"
         aria-label={ariaLabel ?? title}
@@ -89,6 +97,16 @@ export function BottomSheet({ open, title, ariaLabel, onClose, children }: Botto
         onClick={(e) => e.stopPropagation()}
       >
         {title ? <h3 className="sheet-title">{title}</h3> : null}
+        {full ? (
+          <button
+            type="button"
+            className="sheet-full-close"
+            aria-label="Tutup"
+            onClick={onClose}
+          >
+            <X size={20} strokeWidth={1.75} aria-hidden="true" />
+          </button>
+        ) : null}
         {children}
       </div>
     </div>,

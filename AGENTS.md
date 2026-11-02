@@ -49,7 +49,8 @@ Yang paling sering dilanggar, ulang tiap kali menggambar UI mobile:
 
 - **MD-06 Sheet**: satu daftar pada satu waktu (segmented bila dua kategori), baris list bergaris rambut,
   **bukan** kartu putih berulang; tinggi dibatasi lalu menggulir di dalam. Panel ≤ ~60% viewport —
-  ukur `getBoundingClientRect()`.
+  ukur `getBoundingClientRect()`. Satu pengecualian bertanda: `.sheet-panel--full` (ringkasan keranjang
+  customer) memang halaman-penuh dan wajib punya tombol tutup sendiri.
 - **MD-07 Status & angka**: status = chip bertitik warna peran (bukan kata abu di dalam string
   `a · b · c`); `font-variant-numeric: tabular-nums`; nominal rata kanan **sebaris** judul.
 - **MD-08 Sentence case**: tak ada `text-transform: uppercase` untuk label seksi.
