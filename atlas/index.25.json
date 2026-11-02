@@ -5233,6 +5233,27 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "FEAT-9996",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-11-02",
+      "time": "22:00:20",
+      "tags": [
+        "courier",
+        "ui",
+        "history"
+      ],
+      "summary": "Tab Order kurir (/courier/orders): segmented Aktif|Riwayat, riwayat dari orders BE via fetchCourierHistory",
+      "conn": [
+        {
+          "id": "DEC-9995",
+          "type": "relates",
+          "raw": "DEC-9995:relates"
+        }
+      ],
+      "loc": "src/pages/CourierOrders.tsx:138"
     }
   ]
 }
