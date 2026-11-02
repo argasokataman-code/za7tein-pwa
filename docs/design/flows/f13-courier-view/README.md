@@ -32,6 +32,18 @@ Workflow sisi kurir **inhouse** pada PRD aktif `sa7tein-mvp-2026-10-11`: tugas d
 - **Sisi merchant ikut melihat kurir (AC2).** Sheet detail order di `/merchant/orders` memasang `MerchantCourierMap` untuk order `diantar`/`tiba` — peta + baris ETA memakai **aturan yang sama** (`useCourierTracking`, ambang ops yang sama), jadi merchant dan customer tak bisa melihat kurir di tempat berbeda. Notifikasi "hampir sampai" sengaja **tidak** dipancarkan dari konsol merchant (`useAlmostArrivedNotice` hanya dipakai sisi customer).
 - **Belum:** ETA per urutan batch (AC4 — id batch `ct-*` belum bergabung dengan id order `api-*`), GPS perangkat nyata.
 
+## Tab Order & riwayat (`/courier/orders`, 2026-11-02)
+
+Daftar tugas pindah dari beranda ke tab sendiri. Bilah bawah kurir: **Beranda**, **Order** (badge jumlah tugas berjalan), **Profil**. `/courier/orders` memilih satu kategori pada satu waktu lewat segmented **Aktif | Riwayat** (MD-06); kategori disimpan di `?tab=riwayat` dan perpindahannya memakai `replace`, jadi back kembali ke beranda.
+
+- **Aktif** = `courier.tasks` yang lolos `isActiveTask`, slip tugas yang sama dengan sebelumnya, tautan ke `/task/:id` (journey + stepper + OTP).
+- **Riwayat** = tabel `orders` BE, `status in (done, canceled)` dan `courier_id` milik kurir, dibaca `fetchCourierHistory` (`src/api/orders.ts`). Nama customer dari `customers`, ongkir dari `delivery_fee_jod`. Seed `ct-5`/`ct-6` hanya cadangan saat `apiEnabled` mati.
+- **Bukan tautan.** Detail tugas hanya mengenal tugas berjalan (checkpoint, OTP, item); menautkan riwayat berarti menawarkan pintu ke "Tugas tidak ditemukan".
+- **Tanggal = `created_at`.** D1 tidak menyimpan waktu selesai. Baris tanpa tanggal menulis "Tanggal tidak tercatat", tidak menebak dari checkpoint.
+- `taskHistory` (`src/data/courier.ts`) mengurutkan berakhir terbaru dulu dan menaruh baris tanpa `finishedAt` di bawah.
+
+**UNRESOLVED-by-absence:** riwayat kurir tidak disebut di PRD aktif (`R-COU-INHOUSE` §8). Bentuknya diturunkan dari data yang ada, bukan requirement baru.
+
 
 ## Terhubung (lihat `../INDEX.json`)
 

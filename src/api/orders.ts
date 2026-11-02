@@ -678,6 +678,87 @@ export async function fetchCourierOrders(): Promise<CourierTask[]> {
   return rows.map(toCourierTask)
 }
 
+/**
+ * Satu baris riwayat kurir (`/courier/orders` tab Riwayat). Sengaja bukan
+ * `CourierTask`: order yang sudah berakhir tidak butuh checkpoint, OTP, atau
+ * item, dan D1 **tidak menyimpan waktu selesai** — yang ada hanya
+ * `created_at`. Karena itu `at` diisi waktu order dibuat dan halaman
+ * menampilkannya sebagai tanggal, bukan mengaku waktu antar selesai.
+ */
+export interface CourierHistoryItem {
+  /** `api-<orders.id>`; id mentah dipakai untuk tautan detail. */
+  id: string
+  code: string
+  customerName: string
+  status: 'selesai' | 'batal'
+  /** `orders.created_at` (ISO) atau null bila BE tak mengirimnya. */
+  at: string | null
+  /** Ongkir yang jadi hak kurir; 0 untuk COD (dibayar merchant di luar app). */
+  feeIdr: number
+}
+
+interface CourierHistoryRow {
+  id: number
+  code: string
+  status: string
+  customer_id: number | null
+  delivery_fee_jod: number | null
+  created_at: string | null
+}
+
+/** `sub` JWT = id user BE; `couriers.user_id` memakainya, bukan `couriers.id`. */
+function jwtSub(token: string): number {
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')))
+    return Number(payload?.sub)
+  } catch {
+    return NaN
+  }
+}
+
+/**
+ * Riwayat order kurir yang sedang masuk: order `done`/`canceled` dengan
+ * `courier_id` miliknya, terbaru dulu. `courier_orders()` hanya mengembalikan
+ * tugas berjalan, jadi riwayat dibaca dari tabel `orders` langsung; nama
+ * customer diambil sekali lewat `customers` dan namanya kosong bila tak
+ * ditemukan (bukan dikarang).
+ */
+export async function fetchCourierHistory(): Promise<CourierHistoryItem[]> {
+  const token = await ensureCourierToken()
+  const uid = jwtSub(token)
+  if (!Number.isFinite(uid)) return []
+  const couriers = await rest<{ id: number }>('couriers', `?select=id&user_id=eq.${uid}&limit=1`)
+  const courierId = couriers[0]?.id
+  if (!courierId) return []
+  const rows = await rest<CourierHistoryRow>(
+    'orders',
+    `?select=id,code,status,customer_id,delivery_fee_jod,created_at&courier_id=eq.${courierId}` +
+      '&status=in.(done,canceled)&order=id.desc&limit=50',
+  )
+  if (!rows.length) return []
+  const customerIds = [...new Set(rows.map((row) => row.customer_id).filter((id): id is number => !!id))]
+  const names = new Map<number, string>()
+  if (customerIds.length) {
+    try {
+      const customers = await rest<{ id: number; name: string | null }>(
+        'customers',
+        `?select=id,name&id=in.(${customerIds.join(',')})`,
+      )
+      for (const customer of customers) names.set(customer.id, customer.name ?? '')
+    } catch {
+      /* best-effort: nama kosong lebih baik daripada riwayat hilang */
+    }
+  }
+  return rows.map((row) => ({
+    id: `api-${row.id}`,
+    code: row.code,
+    customerName: row.customer_id ? names.get(row.customer_id) || 'Pelanggan' : 'Pelanggan',
+    status: row.status === 'canceled' ? 'batal' : 'selesai',
+    at: row.created_at,
+    feeIdr: jodToIdr(row.delivery_fee_jod ?? 0),
+  }))
+}
+
 export interface CustomerOrderLive {
   id: string
   code: string

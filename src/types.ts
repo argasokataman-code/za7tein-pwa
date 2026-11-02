@@ -708,6 +708,13 @@ export interface CourierTask {
   checkpoint: CourierCheckpoint
   /** Waktu mulai jeda checkpoint ini — dasar hitung mundur SLA. */
   checkpointStartedAt?: string
+  /**
+   * Waktu tugas berakhir (`selesai` atau `batal`), dipakai riwayat kurir
+   * (`/courier/orders`) untuk urutan dan tanggal. Kosong = tugas masih berjalan,
+   * atau baris BE lama yang belum mengirim kolomnya; riwayat mengurutkan yang
+   * kosong di bawah, bukan menebak waktu dari checkpoint.
+   */
+  finishedAt?: string
   /** Kode OTP 4 digit dari customer. Tanpa OTP kurir tidak bisa settle (C-09). */
   otp: string
   otpVerified?: boolean

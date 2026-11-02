@@ -6,85 +6,20 @@ import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { TrendBars } from '../components/ui/TrendBars'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
-import { formatDistance, zoneLabel } from '../data/merchant'
 import { accountLabel } from '../data/payout'
-import {
-  COURIER_CHECKPOINT_BADGE,
-  courierSelf,
-  isActiveTask,
-  isDoneTask,
-  totalTips,
-} from '../data/courier'
+import { courierSelf, isActiveTask, isDoneTask, totalTips } from '../data/courier'
 import { TIPS_ENABLED } from '../data/features'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { BATCH_STATUS_LABEL } from '../data/batch'
 import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
 import { toggleOnline } from '../store/slices/courierSlice'
-import type { CourierTask } from '../types'
-
-/** Ringkasan satu tugas aktif sebagai slip: nomor di kepala, isi di badan,
- *  biaya dan pembayaran di kaki. Seluruh slip adalah tautan ke detail. */
-function TaskCard({ task }: { task: CourierTask }) {
-  const { money } = useMoney()
-  // Avatar slip = monogram inisial pelanggan (tugas kurir tak punya foto).
-  const initials = task.customerName
-    .split(' ')
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join('')
-    .toUpperCase()
-
-  return (
-    <Link className="courier-ticket" to={`/task/${task.id}`}>
-      <span className="courier-ticket-stub">
-        <span className="courier-task-code">{task.code}</span>
-        <span className="courier-ticket-stub-end">
-          <span className={`courier-badge courier-badge--${task.checkpoint}`}>
-            {COURIER_CHECKPOINT_BADGE[task.checkpoint]}
-          </span>
-        </span>
-      </span>
-
-      <span className="courier-ticket-body">
-        <span className="courier-ticket-avatar" aria-hidden="true">
-          {initials}
-        </span>
-        <span className="courier-ticket-copy">
-          <span className="courier-ticket-name">{task.customerName}</span>
-          <span className="courier-task-sub">
-            {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)}
-          </span>
-        </span>
-        <span className="courier-task-total">{money(task.total)}</span>
-        <ChevronRight
-          size={18}
-          strokeWidth={1.75}
-          className="courier-ticket-chevron"
-          aria-hidden="true"
-        />
-      </span>
-
-      <span className="courier-task-addr">
-        {task.address} · {task.floor} · {task.unit}
-      </span>
-
-      <span className="courier-task-foot">
-        <span className="courier-task-meta">
-          {task.items.map((item) => `${item.quantity}× ${item.name}`).join(', ')}
-        </span>
-        <span className="courier-task-cta">
-          {task.paymentMethod === 'cod' ? 'COD, tagih tunai' : 'Transfer, cek bukti'}
-        </span>
-      </span>
-    </Link>
-  )
-}
 
 /**
- * Beranda kurir (R-WALLET-01 + flow f13). Ini dashboard, bukan daftar tugas
- * saja: identitas + status siap/jeda di atas, ringkasan hari ini, pintasan ke
- * dompet dan rekening, baru tugas. Semua angka diturunkan dari `courierSlice`
- * yang sama dengan daftar di bawah, jadi tidak ada angka baru yang dikarang.
+ * Beranda kurir (R-WALLET-01 + flow f13). Ini dashboard, bukan daftar tugas:
+ * identitas + status siap/jeda, ringkasan hari ini, pintu batch, dan tautan ke
+ * tab Order. Daftar order (aktif + riwayat) tinggal di `/courier/orders` supaya
+ * satu data satu tempat. Semua angka diturunkan dari `courierSlice` yang sama
+ * dengan halaman itu, jadi tidak ada angka baru yang dikarang.
  * PRD aktif tidak punya requirement dashboard kurir, jadi ini murni tampilan
  * state yang ada.
  */
@@ -99,7 +34,6 @@ export default function CourierTasks() {
   const primary = accounts.find((a) => a.isPrimary) ?? accounts[0]
 
   const active = tasks.filter(isActiveTask)
-  const history = tasks.filter((task) => !isActiveTask(task))
   const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
   const done = tasks.filter(isDoneTask)
   const balanceAvailable = courierTipsAvailable(tasks, payouts)
@@ -279,42 +213,19 @@ export default function CourierTasks() {
         </nav>
         ) : null}
 
-        <section className="courier-section">
-          <h2 className="courier-section-title">
-            Berjalan {active.length > 0 ? `(${active.length})` : ''}
-          </h2>
-          {active.length === 0 ? (
-            <p className="courier-empty">Belum ada tugas berjalan.</p>
-          ) : (
-            active.map((task) => <TaskCard key={task.id} task={task} />)
-          )}
-        </section>
-
-        <section className="courier-section">
-          <h2 className="courier-section-title">Riwayat</h2>
-          {history.length === 0 ? (
-            <p className="courier-empty">Belum ada tugas selesai.</p>
-          ) : (
-            history.map((task) => (
-              <Link key={task.id} className="courier-history" to={`/task/${task.id}`}>
-                <span className="courier-ticket-copy">
-                  <span className="courier-task-code">{task.code}</span>
-                  <span className="courier-task-sub">{task.customerName}</span>
-                </span>
-                <span className="courier-ticket-stub-end">
-                  <span className={`courier-badge courier-badge--${task.checkpoint}`}>
-                    {COURIER_CHECKPOINT_BADGE[task.checkpoint]}
-                  </span>
-                  {TIPS_ENABLED ? (
-                    <span className="courier-history-tip">
-                      {isDoneTask(task) ? `Tips ${money(task.tip)}` : 'Belum'}
-                    </span>
-                  ) : null}
-                </span>
-              </Link>
-            ))
-          )}
-        </section>
+        {/* Daftar order pindah ke tab Order (`/courier/orders`): beranda
+            memuat identitas, ringkasan, dan pintu batch saja. Kalau daftar
+            tetap di sini, dua tempat memuat data yang sama dan salah satunya
+            selalu ketinggalan. */}
+        <Link className="courier-orders-link" to="/orders">
+          <span className="courier-orders-link-copy">
+            <span className="courier-orders-link-title">Lihat semua order</span>
+            <span className="courier-task-sub">
+              {active.length} berjalan · {done.length} selesai
+            </span>
+          </span>
+          <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
+        </Link>
       </main>
       <CourierBottomNav />
     </div>

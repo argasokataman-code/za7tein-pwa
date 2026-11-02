@@ -1,4 +1,4 @@
-import { Bike, Home, UserRound, Wallet } from 'lucide-react'
+import { Bike, ClipboardList, Home, UserRound, Wallet } from 'lucide-react'
 
 import { useAppSelector } from '../../hooks/useAppStore'
 import { isActiveTask } from '../../data/courier'
@@ -33,11 +33,14 @@ export function CourierBottomNav() {
   }
 
   const items: BottomNavItem[] = [
+    { to: '/', label: 'Beranda', Icon: Home, end: true },
     {
-      to: '/',
-      label: 'Beranda',
-      Icon: Home,
-      end: true,
+      // Badge tugas berjalan pindah ke Order: itu tab yang benar-benar
+      // menampilkan daftarnya, bukan beranda yang kini ringkasan.
+      to: '/orders',
+      label: 'Order',
+      Icon: ClipboardList,
+      end: false,
       badge: active,
       srText: active > 0 ? `${active} tugas berjalan` : undefined,
     },

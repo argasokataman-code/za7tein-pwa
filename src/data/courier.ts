@@ -230,6 +230,56 @@ export const courierTasks: CourierTask[] = [
     checkpoint: 'selesai',
     otp: '1180',
     otpVerified: true,
+    finishedAt: minutesAgo(95),
+  },
+  {
+    id: 'ct-5',
+    code: 'SA-1031',
+    customerId: 'cus-4',
+    customerName: 'Dimas',
+    customerPhone: '+6281200000005',
+    address: 'Jl. Cikini Raya No. 22',
+    floor: 'Lt. 1',
+    unit: 'Ruko B',
+    items: items.geprek,
+    total: 44000,
+    distanceMeters: 1600,
+    zone: 'syimali',
+    latitude: -6.2491,
+    longitude: 106.7913,
+    // Regular online: fee pengantaran jadi hak kurir (R-DELIV-FEE).
+    deliveryFeeIdr: merchantDeliveryConfig.ongkirIdr,
+    paymentMethod: 'transfer',
+    tip: 4000,
+    orderStage: 'selesai',
+    checkpoint: 'selesai',
+    otp: '6640',
+    otpVerified: true,
+    finishedAt: minutesAgo(1_450),
+  },
+  {
+    id: 'ct-6',
+    code: 'SA-1028',
+    customerId: 'cus-5',
+    customerName: 'Nadia',
+    customerPhone: '+6281200000006',
+    address: 'Apartemen Taman Rasuna',
+    floor: 'Tower 9 Lt. 5',
+    unit: 'Unit 5A',
+    items: items.mie,
+    total: 18000,
+    distanceMeters: 2100,
+    zone: 'hijazi',
+    latitude: -6.2831,
+    longitude: 106.8214,
+    deliveryFeeIdr: 0,
+    paymentMethod: 'cod',
+    tip: 0,
+    orderStage: 'diantar',
+    checkpoint: 'batal',
+    checkpointStartedAt: minutesAgo(75),
+    otp: '3091',
+    finishedAt: minutesAgo(62),
   },
 ]
 
@@ -241,6 +291,24 @@ export function isActiveTask(task: CourierTask): boolean {
 /** Tugas yang sudah selesai; riwayat dan sumber angka tips. */
 export function isDoneTask(task: CourierTask): boolean {
   return task.checkpoint === 'selesai'
+}
+
+/**
+ * Riwayat = tugas yang sudah berakhir, selesai maupun batal, urut terbaru.
+ * `finishedAt` kosong (baris BE lama) ditaruh di bawah dan diurutkan menurut
+ * kode, bukan ditebak dari `checkpointStartedAt`: riwayat yang menebak tanggal
+ * lebih buruk daripada riwayat yang mengaku tidak tahu.
+ */
+export function taskHistory(tasks: CourierTask[]): CourierTask[] {
+  return tasks
+    .filter((task) => !isActiveTask(task))
+    .slice()
+    .sort((a, b) => {
+      const left = a.finishedAt ? new Date(a.finishedAt).getTime() : 0
+      const right = b.finishedAt ? new Date(b.finishedAt).getTime() : 0
+      if (left !== right) return right - left
+      return a.code.localeCompare(b.code)
+    })
 }
 
 /** Milidetik sisa SLA untuk jeda checkpoint sekarang, atau null kalau jeda tak ber-SLA. */

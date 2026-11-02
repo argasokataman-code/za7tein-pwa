@@ -21,8 +21,13 @@ const payout = (amount) => [
 
 // Ledger fee: hanya order selesai dengan fee > 0 yang jadi baris (COD ber-fee 0).
 const fees = courierFeeEntries(courierTasks)
-assert.deepEqual(fees.map((entry) => entry.id), ['cfee-ct-4'], 'fee hanya dari order selesai')
+assert.deepEqual(
+  fees.map((entry) => entry.id),
+  ['cfee-ct-4', 'cfee-ct-5'],
+  'fee dari tiap order selesai ber-fee > 0, urut data demo',
+)
 assert.equal(fees[0].amount, courierTasks.find((t) => t.id === 'ct-4').deliveryFeeIdr)
+assert.equal(fees[1].amount, courierTasks.find((t) => t.id === 'ct-5').deliveryFeeIdr)
 assert.ok(fees.every((entry) => entry.kind === 'settlement' && entry.status === 'completed'))
 // ct-3 Regular online tapi belum selesai (checkpoint tiba) → fee belum dikirim.
 assert.ok(!fees.some((entry) => entry.id === 'cfee-ct-3'), 'order belum selesai belum dibayar')

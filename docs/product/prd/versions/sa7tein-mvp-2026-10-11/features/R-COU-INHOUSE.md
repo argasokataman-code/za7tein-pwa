@@ -21,7 +21,7 @@ Kurir **inhouse** adalah karyawan merchant (bukan mitra aplikator). Ia mengantar
 
 ## 3. Aktor & permukaan
 
-- **Kurir inhouse** — `/courier/batch` (kepala batch + urutan + mulai), `/courier/tasks` + `/task/:id` (checkpoint, OTP).
+- **Kurir inhouse** — `/courier/batch` (kepala batch + urutan + mulai), `/courier/tasks` (beranda: status + ringkasan), `/courier/orders` (segmented Aktif | Riwayat), `/task/:id` (checkpoint, OTP).
 - **Merchant** — assign kurir per batch (lihat R-BATCH).
 
 ## 4. Masukan → keluaran
@@ -66,6 +66,7 @@ Kurir **inhouse** adalah karyawan merchant (bukan mitra aplikator). Ia mengantar
 
 - Identitas lintas peran (`ct-*` vs `mo-*`) menyatu di **M11** (unifikasi identitas), belum sekarang.
 - Pembuatan akun kurir inhouse oleh merchant menunggu auth nyata (di luar repo mock).
+- **UNRESOLVED-by-absence:** layar riwayat kurir (`/courier/orders` tab Riwayat) tidak disebut PRD aktif. Implementasi membacanya dari `orders` (`done`/`canceled` milik kurir) karena `courier_orders()` hanya mengirim order berjalan, dan D1 tidak menyimpan waktu selesai sehingga tanggal memakai `created_at`. Butuh keputusan produk bila riwayat harus punya aturan sendiri (rentang, arsip, bukti serah terima).
 
 ## 9. Bukti
 

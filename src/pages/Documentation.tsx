@@ -991,8 +991,43 @@ export default function Documentation() {
                 <strong> menggantikan</strong> seed begitu BE mengirim tugas (progres checkpoint
                 lokal dibawa untuk id yang sama), sehingga tidak ada lagi 12 tugas campuran seed +
                 order nyata (riwayat seed ikut terbuang). Order yang baru dituntaskan tetap di
-                daftar sebagai riwayat walau RPC kurir tak lagi mengirimnya; riwayat lintas-perangkat masih terbatas karena RPC
-                hanya mengirim order berjalan — itu urusan BE, bukan layar.
+                daftar sebagai riwayat walau RPC kurir tak lagi mengirimnya; riwayat lintas-perangkat
+                dibaca langsung dari tabel <code className="doc-inline">orders</code> (lihat butir
+                berikut).
+              </li>
+              <li>
+                <strong>Tab Order: tugas berjalan dan riwayat di satu tempat (2026-11-02).</strong>{' '}
+                Beranda kurir dulu memuat dua daftar sekaligus (&ldquo;Berjalan&rdquo; dan
+                &ldquo;Riwayat&rdquo;), sehingga tugas dan ringkasan berebut ruang yang sama dan
+                daftar itu tak pernah bisa dijangkau dari tab mana pun. Bilah bawah kini tiga tab
+                (<strong>Beranda</strong>, <strong>Order</strong>, <strong>Profil</strong>) dengan
+                badge jumlah tugas berjalan di tab Order, dan{' '}
+                <code className="doc-inline">/courier/orders</code> memilih satu kategori pada satu
+                waktu lewat segmented <strong>Aktif | Riwayat</strong> (MD-06). Slip tugas aktif tetap
+                bentuk yang sudah ada (kode, customer, jarak/zona, total, alamat, isi, cara bayar) dan
+                tetap menuju <code className="doc-inline">/task/:id</code> untuk journey + stepper +
+                OTP.
+                <br />
+                Riwayat dibaca dari tabel <code className="doc-inline">orders</code> lewat{' '}
+                <code className="doc-inline">fetchCourierHistory</code>: baris{' '}
+                <code className="doc-inline">done</code>/<code className="doc-inline">canceled</code>{' '}
+                dengan <code className="doc-inline">courier_id</code> milik kurir, nama customer
+                diambil sekali dari <code className="doc-inline">customers</code>, ongkir dari{' '}
+                <code className="doc-inline">delivery_fee_jod</code>. RPC{' '}
+                <code className="doc-inline">courier_orders()</code> hanya mengirim order berjalan,
+                jadi riwayat tidak bisa diambil dari sana. D1 tidak menyimpan waktu selesai, sehingga
+                tanggal memakai <code className="doc-inline">created_at</code> dan diberi label apa
+                adanya, bukan dikarang. Baris riwayat sengaja bukan tautan: detail tugas hanya
+                mengenal tugas berjalan, dan pintu yang berakhir di &ldquo;Tugas tidak ditemukan&rdquo;
+                lebih buruk daripada baris yang jujur tidak bisa dibuka. Kategori disimpan di URL (
+                <code className="doc-inline">?tab=riwayat</code>) sehingga bisa diukur langsung oleh
+                gerbang; back tetap kembali ke beranda karena perpindahan tab memakai{' '}
+                <code className="doc-inline">replace</code>. Riwayat kurir belum ada di PRD aktif
+                (<code className="doc-inline">UNRESOLVED-by-absence</code>, R-COU-INHOUSE §8). Terukur:
+                gate <code className="doc-inline">/courier</code>,{' '}
+                <code className="doc-inline">/courier/orders</code>,{' '}
+                <code className="doc-inline">/courier/orders?tab=riwayat</code> 6/6 PASS pada 390px dan
+                1440px, overflow 0, dan 9 baris riwayat BE tampil dari 14 tugas berjalan.
               </li>
               <li>
                 <strong>OTP lahir bersama order.</strong> Serah terima dikunci kode 4 digit, tapi{' '}
