@@ -5501,6 +5501,28 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "DEC-9996",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-02",
+      "time": "22:12:27",
+      "tags": [
+        "courier",
+        "customer",
+        "ui",
+        "sheet"
+      ],
+      "summary": "Sheet keranjang customer full 100dvh lewat varian .sheet-panel--full; MD-06 pengecualian bertanda kelas",
+      "conn": [
+        {
+          "id": "FEAT-9996",
+          "type": "relates",
+          "raw": "FEAT-9996:relates"
+        }
+      ],
+      "loc": "src/styles/system/_sheet-full.scss:1"
     }
   ]
 }
