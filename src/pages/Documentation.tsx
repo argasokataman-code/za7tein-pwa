@@ -1022,7 +1022,10 @@ export default function Documentation() {
                 lebih buruk daripada baris yang jujur tidak bisa dibuka. Kategori disimpan di URL (
                 <code className="doc-inline">?tab=riwayat</code>) sehingga bisa diukur langsung oleh
                 gerbang; back tetap kembali ke beranda karena perpindahan tab memakai{' '}
-                <code className="doc-inline">replace</code>. Riwayat kurir belum ada di PRD aktif
+                <code className="doc-inline">replace</code>. Tautan &ldquo;Lihat semua order&rdquo; di
+                beranda hanya menyebut jumlah tugas berjalan: store kurir memuat tugas berjalan
+                saja, jadi angka &ldquo;selesai&rdquo; di sana akan selalu 0 dan bertabrakan dengan
+                tab Riwayat yang menghitung order BE. Riwayat kurir belum ada di PRD aktif
                 (<code className="doc-inline">UNRESOLVED-by-absence</code>, R-COU-INHOUSE §8). Terukur:
                 gate <code className="doc-inline">/courier</code>,{' '}
                 <code className="doc-inline">/courier/orders</code>,{' '}

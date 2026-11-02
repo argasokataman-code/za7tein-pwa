@@ -221,7 +221,7 @@ export default function CourierTasks() {
           <span className="courier-orders-link-copy">
             <span className="courier-orders-link-title">Lihat semua order</span>
             <span className="courier-task-sub">
-              {active.length} berjalan · {done.length} selesai
+              {active.length > 0 ? `${active.length} tugas berjalan` : 'Belum ada tugas berjalan'}
             </span>
           </span>
           <ChevronRight size={18} strokeWidth={1.75} aria-hidden="true" />
