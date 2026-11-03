@@ -25,7 +25,7 @@ import {
 } from '../data/operatingHours'
 import type { OperatingHoursDay } from '../types'
 import { DISPUTE_RULES, rulesForMerchant } from '../data/rules'
-import { merchantToken, setStoreHours } from '../api/reference'
+import { merchantToken, setStoreHours, updateMerchantProfile } from '../api/reference'
 import { imageFileError, uploadImage } from '../lib/image'
 import { merchantStoreSchema, type MerchantStoreFormData } from '../lib/schemas'
 import { logout } from '../store/slices/authSlice'
@@ -87,8 +87,14 @@ export default function MerchantSettings() {
     if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current)
     logoUrlRef.current = null
     try {
-      dispatch(setMerchantLogo(await uploadImage('merchant-photos', 'merchant', file, await merchantToken())))
-      toast.success('Foto toko diunggah ke R2')
+      const url = await uploadImage('merchant-photos', 'merchant', file, await merchantToken())
+      dispatch(setMerchantLogo(url))
+      try {
+        await updateMerchantProfile({ photo: url })
+        toast.success('Foto toko tersimpan')
+      } catch {
+        toast.success('Foto terunggah, tapi belum tersimpan ke server')
+      }
     } catch {
       const url = URL.createObjectURL(file)
       logoUrlRef.current = url
@@ -97,13 +103,18 @@ export default function MerchantSettings() {
     }
   }
 
-  const onLogoRemove = () => {
+  const onLogoRemove = async () => {
     if (logoUrlRef.current) {
       URL.revokeObjectURL(logoUrlRef.current)
       logoUrlRef.current = null
     }
     dispatch(removeMerchantLogo())
-    toast.success('Foto dihapus dari sesi ini')
+    try {
+      await updateMerchantProfile({ photo: null })
+      toast.success('Foto toko dihapus')
+    } catch {
+      toast.success('Foto dihapus dari sesi ini')
+    }
   }
 
   const { setPosition } = useLeafletMap('merchant-map', 'picker', {
@@ -151,13 +162,21 @@ export default function MerchantSettings() {
     if (!hoursOpen) setHoursDraft(operatingHours)
   }, [operatingHours, hoursOpen])
 
-  // Simpan mengubah state (bukan cuma toast "berhasil"), TAPI state itu hidup di
-  // memori sesi: `api/` belum punya penulisan profil toko, dan slice `merchant`
-  // tidak masuk whitelist persist. Karena itu toast-nya menyebut apa adanya —
-  // sebelumnya berbunyi "Setelan toko disimpan" seolah sudah tersimpan ke server.
-  const onSubmit = (data: MerchantStoreFormData) => {
+  // Simpan menulis ke BE (`merchants`) setelah state sesi diperbarui, supaya UI
+  // tidak menunggu jaringan. Kalau server menolak, toast menyebut apa adanya —
+  // jangan bilang "disimpan" untuk perubahan yang cuma hidup di sesi.
+  const onSubmit = async (data: MerchantStoreFormData) => {
     dispatch(setStoreProfile(data))
-    toast.success('Tersimpan di sesi ini — belum tersimpan ke server')
+    try {
+      await updateMerchantProfile({
+        storeName: data.name,
+        storePhone: data.phone,
+        storeAddress: data.address,
+      })
+      toast.success('Profil toko tersimpan')
+    } catch {
+      toast.success('Tersimpan di sesi ini — server tidak menerima perubahan')
+    }
   }
 
   // Keluar = keluar dari akun toko lalu kembali ke layar masuk merchant.
@@ -228,15 +247,12 @@ export default function MerchantSettings() {
       <main className="merchant-page">
         <MerchantPageHeader eyebrow="Profil & operasional" title="Setelan toko" />
 
-        {/* Profil & foto di halaman ini belum punya jalur tulis ke BE: yang
-            tersimpan cuma state sesi. Ditulis di muka supaya "Unggah foto" dan
-            tombol simpan tidak terbaca sebagai penyimpanan permanen. */}
-        {/* Catatan developer (dulu tampil di UI): perubahan nama, nomor, alamat, dan
-            foto hanya berlaku sementara. Profil belum tersimpan permanen karena `api/`
-            belum punya jalur tulis profil toko. Dipindah ke komentar 2026-10-31. */}
-
+        {/* Profil & foto kini punya jalur tulis ke `merchants` (store_name,
+            store_phone, store_address, photo). Jam per hari tetap satu pasang
+            kolom di server, dan tag toko menunggu moderasi ops. */}
         {/* Foto toko (field D1, f16). Unggah/Ganti/Hapus ditangani di sini dan
-            langsung tersimpan ke store — tidak menunggu tombol simpan form teks. */}
+            langsung tersimpan ke store + BE — tidak menunggu tombol simpan
+            form teks. */}
         <section className="merchant-card">
           <p className="merchant-card-title">Foto toko</p>
           <p className="merchant-card-sub">Tampil sebagai identitas toko di halaman pelanggan.</p>
@@ -523,7 +539,7 @@ export default function MerchantSettings() {
           body="Foto toko kembali ke placeholder. Kamu bisa mengunggahnya lagi kapan saja."
           confirmLabel="Hapus foto"
           onConfirm={() => {
-            onLogoRemove()
+            void onLogoRemove()
             setRemovePhotoOpen(false)
           }}
           onClose={() => setRemovePhotoOpen(false)}

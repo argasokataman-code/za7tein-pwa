@@ -1634,11 +1634,23 @@ export default function Documentation() {
                 tersimpan yang bisa menyimpang dari default.
               </li>
               <li>
+                <strong>Profil toko merchant punya jalur tulis.</strong> Simpan di{' '}
+                <code className="doc-inline">/merchant/settings</code> kini menulis{' '}
+                <code className="doc-inline">store_name</code>,{' '}
+                <code className="doc-inline">store_phone</code>, dan{' '}
+                <code className="doc-inline">store_address</code> ke tabel{' '}
+                <code className="doc-inline">merchants</code> lewat{' '}
+                <code className="doc-inline">updateMerchantProfile()</code> (
+                <code className="doc-inline">src/api/reference.ts</code>); foto toko menyimpan URL
+                R2 ke kolom <code className="doc-inline">photo</code>, dan Hapus foto mengirim{' '}
+                <code className="doc-inline">photo: null</code>. State sesi tetap diperbarui lebih
+                dulu, jadi UI tidak menunggu jaringan; kalau server menolak, toast menyebut
+                &ldquo;tersimpan di sesi ini&rdquo;, bukan klaim palsu. Tag toko masih mock dan
+                menunggu moderasi ops; jadwal 7 hari tetap satu pasang kolom di server.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
-                backend menandainya di muka: <strong>Setelan toko</strong> (merchant) kini menyebut
-                bahwa profil &amp; foto hanya berlaku selama sesi ini — sebelumnya ia menampilkan
-                "Setelan toko disimpan" padahal state-nya tidak pernah dikirim ke server (dan tak ikut
-                persist). Refund (§16.6) sudah punya jalur tulis (
+                backend menandainya di muka. Refund (§16.6) sudah punya jalur tulis (
                 <code className="doc-inline">src/api/refunds.ts</code>), jadi ia tidak lagi berflag
                 &ldquo;belum tersedia&rdquo;. Tujuan refund kini mengikuti metode bayar: saldo/VA
                 DANA hanya ke DANA, QRIS dengan akun DANA ter-binding boleh pilih DANA atau bank,

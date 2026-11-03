@@ -481,6 +481,43 @@ interface MerchantProfileRow {
   } | null
 }
 
+/**
+ * Kolom profil toko yang boleh ditulis merchant sendiri. Sengaja terpisah dari
+ * `MerchantProfilePatch` (yang berbentuk domain FE, termasuk `deliveryConfig`
+ * hasil map) supaya tulis di sini cuma memetakan kolom apa adanya — konversi
+ * `delivery_config` tetap milik `api/coverage.ts`.
+ *
+ * `photo: null` menghapus foto; backend menerimanya (diuji 204).
+ */
+export interface MerchantProfileWrite {
+  storeName?: string
+  storePhone?: string
+  storeAddress?: string
+  photo?: string | null
+}
+
+/**
+ * Tulis profil toko ke `merchants`. Merchant menulis barisnya sendiri (RLS) →
+ * token merchant, pola sama dengan `setStoreStatus`/`setStoreHours`.
+ *
+ * Best-effort: pemanggil yang menangkap kegagalan dan memilih pesan toast,
+ * karena state sesi sudah diperbarui lebih dulu (mock-first).
+ */
+export async function updateMerchantProfile(
+  profile: MerchantProfileWrite,
+  merchantId = DEMO_MERCHANT_ID,
+): Promise<void> {
+  const body: Record<string, string | null> = {}
+  if (profile.storeName !== undefined) body.store_name = profile.storeName
+  if (profile.storePhone !== undefined) body.store_phone = profile.storePhone
+  if (profile.storeAddress !== undefined) body.store_address = profile.storeAddress
+  if (profile.photo !== undefined) body.photo = profile.photo
+  // Tak ada kolom yang dikirim = tak ada permintaan jaringan.
+  if (Object.keys(body).length === 0) return
+  const token = await merchantToken()
+  await patch(token, 'merchants', `?id=eq.${merchantId}`, body)
+}
+
 export interface MerchantProfilePatch {
   storeName?: string
   storePhone?: string
