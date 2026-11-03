@@ -5523,6 +5523,152 @@
         }
       ],
       "loc": "src/styles/system/_sheet-full.scss:1"
+    },
+    {
+      "id": "TASK-213012",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-03",
+      "time": "19:22:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/reference.ts (+38/-1) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/reference.ts"
+    },
+    {
+      "id": "TASK-213013",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-03",
+      "time": "19:22:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx (+32/-21) — edit via tool: tsx: if (logoUrlRef.current) URL.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSettings.tsx"
+    },
+    {
+      "id": "TASK-213014",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-03",
+      "time": "19:23:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213015",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-03",
+      "time": "19:23:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+18/-6) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213016",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-03",
+      "time": "19:25:26",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -5; npm run scan 2>&1 | rtk grep -E \"FAIL|WARN\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213017",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-03",
+      "time": "19:26:27",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run build 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213018",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-03",
+      "time": "19:27:41",
+      "tags": [
+        "merchant",
+        "profile",
+        "api"
+      ],
+      "summary": "Profil toko merchant ditulis ke merchants (store_name/phone/address/photo) lewat updateMerchantProfile; foto R2 + photo:null",
+      "conn": [
+        {
+          "id": "TASK-9820",
+          "type": "relates",
+          "raw": "TASK-9820:relates"
+        },
+        {
+          "id": "TASK-9007",
+          "type": "relates",
+          "raw": "TASK-9007:relates"
+        },
+        {
+          "id": "FEAT-3003",
+          "type": "relates",
+          "raw": "FEAT-3003:relates"
+        }
+      ],
+      "loc": "src/api/reference.ts:501",
+      "commit": "b474075"
     }
   ]
 }
