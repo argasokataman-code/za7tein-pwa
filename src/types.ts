@@ -452,8 +452,11 @@ export interface Merchant {
    * `openTime`/`closeTime` (satu jam untuk semua hari).
    */
   operatingHours?: OperatingHoursDay[]
-  /** Foto toko (field `photo` D1, f16). Path aset atau object URL sesi unggah. */
-  logo: string
+  /**
+   * Foto toko (field `photo` D1, f16). Path aset, URL R2, atau object URL sesi
+   * unggah. `null` = belum ada foto (bukan diisi foto contoh).
+   */
+  logo: string | null
   bank: { name: string; account: string; holder: string }
 }
 

@@ -1649,6 +1649,19 @@ export default function Documentation() {
                 menunggu moderasi ops; jadwal 7 hari tetap satu pasang kolom di server.
               </li>
               <li>
+                <strong>Foto &amp; profil contoh yang menyesatkan dihapus.</strong> Seed merchant
+                tidak lagi meminjam foto menu sebagai &ldquo;foto toko&rdquo; (
+                <code className="doc-inline">mockMerchant.logo</code> ={' '}
+                <code className="doc-inline">null</code>) dan nomor/alamat palsu{' '}
+                <code className="doc-inline">0811-2222-3333</code> / Jakarta dikosongkan, jadi
+                refresh tidak lagi memperlihatkan data karangan sebelum hidrasi BE mendarat. Kartu
+                foto di Setelan memakai kotak kosong (tanpa ikon) selama profil belum termuat, dan
+                foto yang gagal dimuat dicatat per-<code className="doc-inline">src</code> sehingga
+                tidak menyisakan ikon gambar rusak. Simpan juga tidak menulis ke server sebelum
+                hidrasi berhasil: pernah kejadian klik otomatis browser-gate mengirim seed kosong
+                dan mengosongkan profil BE.
+              </li>
+              <li>
                 <strong>Pesan sukses tak boleh bohong.</strong> Layar yang belum punya jalur tulis ke
                 backend menandainya di muka. Refund (§16.6) sudah punya jalur tulis (
                 <code className="doc-inline">src/api/refunds.ts</code>), jadi ia tidak lagi berflag

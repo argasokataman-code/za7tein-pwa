@@ -47,10 +47,12 @@ export default function MerchantSettings() {
   const [coords, setCoords] = useState({ lat: mockMerchant.lat, lng: mockMerchant.lng })
   const [signOutOpen, setSignOutOpen] = useState(false)
   const [removePhotoOpen, setRemovePhotoOpen] = useState(false)
-  const [logoFailed, setLogoFailed] = useState(false)
+  /** Src yang gagal dimuat — bukan boolean, supaya foto baru tidak ikut disembunyikan. */
+  const [failedLogoSrc, setFailedLogoSrc] = useState<string | null>(null)
   const [hoursOpen, setHoursOpen] = useState(false)
 
   const logo = useAppSelector((state) => state.merchant.logo)
+  const profileHydrated = useAppSelector((state) => state.merchant.profileHydrated)
   const storeName = useAppSelector((state) => state.merchant.storeName)
   const storePhone = useAppSelector((state) => state.merchant.storePhone)
   const storeAddress = useAppSelector((state) => state.merchant.storeAddress)
@@ -69,9 +71,6 @@ export default function MerchantSettings() {
   // supaya blob tidak menumpuk.
   const logoUrlRef = useRef<string | null>(null)
   useEffect(() => () => { if (logoUrlRef.current) URL.revokeObjectURL(logoUrlRef.current) }, [])
-  // Foto dari BE bisa menunjuk berkas yang tak ada di repo. Gagal muat =
-  // tampilkan placeholder toko, bukan ikon gambar rusak.
-  useEffect(() => setLogoFailed(false), [logo])
 
   // Unggah ke R2 (URL publik). Kalau backend bukan Worker / R2 gagal, pakai
   // object URL lokal supaya pratinjau tetap ada (mock-first).
@@ -167,6 +166,13 @@ export default function MerchantSettings() {
   // jangan bilang "disimpan" untuk perubahan yang cuma hidup di sesi.
   const onSubmit = async (data: MerchantStoreFormData) => {
     dispatch(setStoreProfile(data))
+    // Sebelum profil BE mendarat, form masih berisi seed kosong. Menulis saat
+    // itu akan mengosongkan profil di server (pernah terjadi lewat klik otomatis
+    // browser-gate), jadi tulis hanya setelah hidrasi berhasil.
+    if (!profileHydrated) {
+      toast.success('Tersimpan di sesi ini — profil server belum termuat')
+      return
+    }
     try {
       await updateMerchantProfile({
         storeName: data.name,
@@ -264,18 +270,21 @@ export default function MerchantSettings() {
               className="d-none"
               onChange={(event) => void onLogoPick(event)}
             />
-            {logo && !logoFailed ? (
+            {logo && logo !== failedLogoSrc ? (
               <img
                 className="merchant-form-thumb"
                 src={logo}
                 alt="Foto toko"
                 width={64}
                 height={64}
-                onError={() => setLogoFailed(true)}
+                onError={() => setFailedLogoSrc(logo)}
               />
             ) : (
+              /* Sebelum hidrasi, kotaknya kosong (skeleton) — ikon toko baru
+                 muncul kalau BE memang menyatakan tak ada foto, supaya refresh
+                 tidak memperlihatkan keadaan "belum punya foto" palsu. */
               <span className="merchant-logo-empty" aria-hidden="true">
-                <Store size={24} strokeWidth={1.75} />
+                {profileHydrated ? <Store size={24} strokeWidth={1.75} /> : null}
               </span>
             )}
             <button
