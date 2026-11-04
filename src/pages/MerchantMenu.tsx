@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ImagePlus, Minus, MoreVertical, Pencil, Plus, Trash2 } from 'lucide-react'
+import { Check, Clock, ImagePlus, Minus, MoreVertical, Package, Pencil, Plus, Search, SlidersHorizontal, Trash2, TrendingUp } from 'lucide-react'
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -14,7 +14,7 @@ import { useMerchantMenu } from '../hooks/useMerchantMenu'
 import { useMoney } from '../hooks/useMoney'
 import { useAppSelector } from '../hooks/useAppStore'
 import { idrToJod, jodToIdr, moneyPlain } from '../data/currency'
-import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, categoryIcon, categoryImage, countLowStock, countOutOfStock } from '../data/catalog'
+import { CATEGORIES, MENU_LOW_STOCK_THRESHOLD, categoryImage, countLowStock, countOutOfStock } from '../data/catalog'
 import { useMenuCategories } from '../hooks/useMenuCategories'
 import { merchantToken } from '../api/reference'
 import { DEMO_MERCHANT_ID } from '../api/orders'
@@ -42,30 +42,50 @@ export default function MerchantMenu() {
   const categories = useMenuCategories(FALLBACK_CATEGORIES)
   const isActive = useAppSelector((state) => state.merchant.isActive)
   const storeName = useAppSelector((state) => state.merchant.storeName)
+  const todayOrderCount = useAppSelector((state) => state.merchant.todayOrderCount)
 
   const lowCount = countLowStock(items)
   const outCount = countOutOfStock(items)
   const readyCount = items.filter((item) => item.available && item.stock > 0).length
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'out'>('all')
-  const [category, setCategory] = useState<'all' | string>('all')
-  const visibleItems = items.filter((item) =>
-    (category === 'all' || item.categoryId === category) &&
-    (stockFilter === 'out' ? item.stock <= 0 :
-      stockFilter === 'low' ? item.stock > 0 && item.stock <= MENU_LOW_STOCK_THRESHOLD : true),
-  )
-  /* Daftar dikelompokkan per kategori ops/BE (`menu_categories`), urutannya
-     tetap; grup yang kosong setelah filter stok disembunyikan. */
-  const menuGroups = categories
-    .map((c) => ({
-      category: c,
-      items: visibleItems.filter((item) => item.categoryId === c.id),
-    }))
-    .filter((group) => group.items.length > 0)
+  /* `null` = belum memilih: kategori pertama yang berisi dipakai supaya halaman
+     tidak lagi menumpuk semua kategori (15 item terukur 2265px). */
+  const [pickedCategory, setPickedCategory] = useState<string | 'all' | null>(null)
+  const [query, setQuery] = useState('')
+  const [filterOpen, setFilterOpen] = useState(false)
 
-  /* Label kategori ops item; jatuh balik ke bucket customer bila kategori BE
-     tak dikenal (mis. saat API mati). */
-  const categoryLabel = (item: MenuItem) =>
-    categories.find((c) => c.id === item.categoryId)?.label ?? item.category
+  /* Saringan berlaku dua arah: rel kategori memilih himpunan, pencarian + filter
+     stok mempersempit isinya. `matchedItems` sengaja dihitung tanpa kategori
+     supaya angka di rel menunjukkan hasil nyata untuk tiap kategori. */
+  const needle = query.trim().toLowerCase()
+  const matchesStock = (item: MenuItem) =>
+    stockFilter === 'out'
+      ? item.stock <= 0
+      : stockFilter === 'low'
+        ? item.stock > 0 && item.stock <= MENU_LOW_STOCK_THRESHOLD
+        : true
+  const matchesQuery = (item: MenuItem) =>
+    needle === '' ||
+    item.name.toLowerCase().includes(needle) ||
+    item.description.toLowerCase().includes(needle)
+  const matchedItems = items.filter((item) => matchesStock(item) && matchesQuery(item))
+  const countIn = (categoryId: string) =>
+    matchedItems.filter((item) => item.categoryId === categoryId).length
+  /* Mencari berlaku lintas kategori: hasil yang tersaring kategori aktif akan
+     menyembunyikan barang yang dicari padahal ada di kategori lain. */
+  const category =
+    needle !== ''
+      ? 'all'
+      : pickedCategory ?? categories.find((c) => countIn(c.id) > 0)?.id ?? 'all'
+  const visibleItems =
+    category === 'all'
+      ? matchedItems
+      : matchedItems.filter((item) => item.categoryId === category)
+  const stockFilterLabel: Record<typeof stockFilter, string> = {
+    all: 'Semua stok',
+    low: 'Menipis',
+    out: 'Habis',
+  }
 
   const [overflowId, setOverflowId] = useState<string | null>(null)
   const [deleteItem, setDeleteItem] = useState<MenuItem | null>(null)
@@ -236,23 +256,9 @@ export default function MerchantMenu() {
     return () => document.removeEventListener('click', close)
   }, [overflowId])
 
-  /* Tinggi bar filter diukur runtime → kepala grup sticky duduk tepat di
-     bawahnya. Hardcode `top` pernah bikin tumpang-tindih; ukur, jangan tebak. */
-  const filtersRef = useRef<HTMLDivElement>(null)
-  const [filterH, setFilterH] = useState(0)
-  useEffect(() => {
-    const el = filtersRef.current
-    if (!el) return
-    const update = () => setFilterH(el.offsetHeight)
-    update()
-    const ro = new ResizeObserver(update)
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [])
-
   return (
     <div className="app-shell">
-      <main className="merchant-page" style={{ '--menu-filter-h': `${filterH}px` } as CSSProperties}>
+      <main className="merchant-page">
         <MerchantPageHeader
           eyebrow={storeName}
           title="Menu & Stok"
@@ -269,110 +275,106 @@ export default function MerchantMenu() {
           </span>
         </section>
 
-        <div className="merchant-menu-filters" ref={filtersRef}>
-          <div className="merchant-menu-chips categories-scroll" role="tablist" aria-label="Filter kategori menu">
+        {/* Rel kategori di kiri: satu kolom sempit yang selalu terlihat, jadi
+            merchant bisa berpindah kategori tanpa menggulir balik ke atas.
+            Angka di rel = hasil filter aktif, bukan total mentah. */}
+        <div className="merchant-menu-workspace">
+          <nav className="merchant-menu-rail" aria-label="Kategori menu">
             <button
               type="button"
-              role="tab"
-              aria-selected={category === 'all'}
-              className={`category-btn${category === 'all' ? ' active' : ''}`}
-              onClick={(e) => {
-                setCategory('all')
-                e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
-              }}
+              aria-current={category === 'all'}
+              className={category === 'all' ? 'is-active' : ''}
+              onClick={() => setPickedCategory('all')}
             >
-              <img src={categoryImage('Semua')} alt="" width={56} height={56} decoding="async" />
-              Semua
+              <img src={categoryImage('Semua')} alt="" width={28} height={28} decoding="async" />
+              <span className="merchant-menu-rail-label">Semua</span>
+              <span className="merchant-menu-rail-count">{matchedItems.length}</span>
             </button>
             {categories.map((c) => (
               <button
                 key={c.id}
                 type="button"
-                role="tab"
-                aria-selected={category === c.id}
-                className={`category-btn${category === c.id ? ' active' : ''}`}
-                onClick={(e) => {
-                  setCategory(c.id)
-                  e.currentTarget.scrollIntoView({ inline: 'nearest', block: 'nearest' })
-                }}
+                aria-current={category === c.id}
+                className={category === c.id ? 'is-active' : ''}
+                onClick={() => setPickedCategory(c.id)}
               >
-                <img src={categoryImage(c.label)} alt="" width={56} height={56} decoding="async" />
-                {c.label}
+                <img src={categoryImage(c.label)} alt="" width={28} height={28} decoding="async" />
+                <span className="merchant-menu-rail-label">{c.label}</span>
+                <span className="merchant-menu-rail-count">{countIn(c.id)}</span>
               </button>
             ))}
-          </div>
-          <div className="merchant-menu-stockfilter" role="group" aria-label="Filter status stok">
-            <button type="button" aria-pressed={stockFilter === 'all'} className={stockFilter === 'all' ? 'is-active' : ''} onClick={() => setStockFilter('all')}>
-              Semua stok
-            </button>
-            <button type="button" aria-pressed={stockFilter === 'low'} className={stockFilter === 'low' ? 'is-active' : ''} onClick={() => setStockFilter('low')}>
-              Menipis <em>{lowCount}</em>
-            </button>
-            <button type="button" aria-pressed={stockFilter === 'out'} className={stockFilter === 'out' ? 'is-active' : ''} onClick={() => setStockFilter('out')}>
-              Habis <em>{outCount}</em>
-            </button>
-          </div>
-        </div>
+          </nav>
 
-        {visibleItems.length === 0 && (
-          <p className="merchant-menu-empty">
-            {error
-              ? 'Gagal memuat menu dari server.'
-              : loading
-                ? 'Memuat menu…'
-                : 'Belum ada item dalam kategori ini.'}
-          </p>
-        )}
-        {menuGroups.map((group) => {
-          const GroupIcon = categoryIcon(group.category.label)
-          return (
-            <section
-              key={group.category.id}
-              className="merchant-menu-group"
-              aria-label={group.category.label}
-            >
-              <div className="merchant-menu-list-head">
-                <h2 className="merchant-section-title">
-                  {GroupIcon && <GroupIcon size={16} strokeWidth={1.75} aria-hidden="true" />}
-                  {group.category.label}
-                </h2>
-                <span>{group.items.length} item</span>
+          <div className="merchant-menu-panel">
+            <div className="merchant-menu-searchbar">
+              <div className="merchant-menu-searchfield">
+                <Search size={16} strokeWidth={1.75} aria-hidden="true" />
+                <input
+                  id="merchant-menu-search"
+                  type="search"
+                  value={query}
+                  placeholder="Cari menu..."
+                  aria-label="Cari menu"
+                  onChange={(e) => setQuery(e.target.value)}
+                />
               </div>
-              <div className="merchant-list">
-                {group.items.map((item, index) => (
-                  <div
-                    key={`${stockFilter}-${item.id}`}
-                    className={`merchant-menu-item stagger-in${item.available ? '' : ' is-unavailable'}`}
-                    style={{ '--stagger-index': index } as CSSProperties}
-                  >
-                    <div className="merchant-menu-primary">
-                      <img className="merchant-menu-thumb" src={item.image} alt={item.name} width={64} height={64} loading="lazy" decoding="async" />
-                      <div className="merchant-menu-body">
-                        <p className="merchant-menu-row-name">{item.name}</p>
-                        <p className="merchant-menu-row-meta">{categoryLabel(item)}</p>
-                        <p className="merchant-menu-row-price">{money(item.price)}</p>
-                      </div>
-                      <div className="merchant-menu-more-wrap">
-                        <button
-                          type="button"
-                          className="merchant-menu-more"
-                          aria-label={`Opsi ${item.name}`}
-                          onClick={(e) => { e.stopPropagation(); setOverflowId(overflowId === item.id ? null : item.id) }}
-                        >
-                          <MoreVertical size={18} strokeWidth={1.75} />
-                        </button>
-                        {overflowId === item.id && (
-                          <div className="merchant-overflow" onClick={(e) => e.stopPropagation()}>
-                            <button type="button" onClick={() => { setOverflowId(null); openEdit(item) }}>
-                              <Pencil size={16} strokeWidth={1.75} /> Ubah
-                            </button>
-                            <button type="button" className="is-danger" onClick={() => { setOverflowId(null); setDeleteItem(item) }}>
-                              <Trash2 size={16} strokeWidth={1.75} /> Hapus
-                            </button>
-                          </div>
-                        )}
-                      </div>
+              <button
+                type="button"
+                className={`merchant-menu-filterbtn${stockFilter === 'all' ? '' : ' is-active'}`}
+                aria-label={`Saring stok: ${stockFilterLabel[stockFilter]}`}
+                onClick={() => setFilterOpen(true)}
+              >
+                <SlidersHorizontal size={18} strokeWidth={1.75} aria-hidden="true" />
+                {stockFilter === 'all' ? null : (
+                  <span className="merchant-menu-filterdot" aria-hidden="true" />
+                )}
+              </button>
+            </div>
+
+            {visibleItems.length === 0 && (
+              <p className="merchant-menu-empty">
+                {error
+                  ? 'Gagal memuat menu dari server.'
+                  : loading
+                    ? 'Memuat menu…'
+                    : query.trim()
+                      ? 'Tidak ada menu yang cocok dengan pencarian.'
+                      : stockFilter !== 'all'
+                        ? `Tidak ada menu berstatus ${stockFilterLabel[stockFilter].toLowerCase()}.`
+                        : 'Belum ada item dalam kategori ini.'}
+              </p>
+            )}
+            {/* Satu daftar datar: desain tidak memakai kepala grup. Saat kategori
+                dipilih, rel sudah menyebut kategorinya; saat "Semua", kepala grup
+                memakan tinggi tanpa menambah keputusan. */}
+            <div className="merchant-list">
+              {visibleItems.map((item, index) => (
+                <div
+                  key={`${stockFilter}-${item.id}`}
+                  className={`merchant-menu-item stagger-in${item.available ? '' : ' is-unavailable'}`}
+                  style={{ '--stagger-index': index } as CSSProperties}
+                >
+                  {/* Foto mengisi sisi kiri kartu sampai tepi dan setinggi
+                      kartu penuh: ukuran 48px membuatnya jadi ikon, bukan foto
+                      hidangan. */}
+                  <img className="merchant-menu-thumb" src={item.image} alt="" width={100} height={112} loading="lazy" decoding="async" />
+                  <div className="merchant-menu-body">
+                    <div className="merchant-menu-row-top">
+                      <p className="merchant-menu-row-name">{item.name}</p>
+                      <p className="merchant-menu-row-price">{money(item.price)}</p>
                     </div>
+                    {/* Deskripsi tampil utuh (tanpa clamp): merchant perlu tahu
+                        isi hidangan saat memutuskan stok, dan teks yang dipotong
+                        memaksa buka sheet untuk hal sepele. Paragrafnya SELALU
+                        ada walau deskripsi kosong: tinggi dua barisnya cadangan,
+                        jadi kartu tanpa deskripsi tidak lebih pendek dari kartu
+                        lain (irama daftar rata). */}
+                    <p className="merchant-menu-row-desc">
+                      {item.available ? item.description ?? '' : 'Disembunyikan dari menu'}
+                    </p>
+                    {/* Kaki kartu: chip stok di kiri, ketersediaan + opsi di
+                        kanan pada satu rel, jadi tidak ada kontrol yang menumpuk
+                        di bawah foto. */}
                     <div className="merchant-menu-controls">
                       <button
                         type="button"
@@ -380,34 +382,71 @@ export default function MerchantMenu() {
                         onClick={() => openStock(item)}
                         aria-label={`Atur stok ${item.name}, ${item.stock} tersedia`}
                       >
-                        {item.stock <= 0 ? 'Habis · Isi stok' : `Stok ${item.stock} · Ubah`}
+                        <span className="merchant-menu-stock-pill">
+                          <Package size={12} strokeWidth={2} aria-hidden="true" />
+                          <span>Stok {item.stock}</span>
+                        </span>
                       </button>
-                      <button
-                        type="button"
-                        role="switch"
-                        aria-checked={item.available}
-                        aria-label={`Ketersediaan ${item.name}`}
-                        className={`merchant-menu-availability${item.available ? ' is-on' : ''}`}
-                        onClick={() => {
-                          if (item.available) {
-                            setHideTarget(item)
-                          } else {
-                            void setAvailable(item, true)
-                          }
-                        }}
-                      >
-                        <span>{item.available ? 'Tersedia' : 'Disembunyikan'}</span>
-                        <span className="merchant-toggle-switch" aria-hidden="true" />
-                      </button>
+                      <div className="merchant-menu-controls-end">
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked={item.available}
+                          aria-label={`Ketersediaan ${item.name}`}
+                          className={`merchant-menu-availability${item.available ? ' is-on' : ''}`}
+                          onClick={() => {
+                            if (item.available) {
+                              setHideTarget(item)
+                            } else {
+                              void setAvailable(item, true)
+                            }
+                          }}
+                        >
+                          <span className="merchant-toggle-switch" aria-hidden="true" />
+                        </button>
+                        <div className="merchant-menu-more-wrap">
+                          <button
+                            type="button"
+                            className="merchant-menu-more"
+                            aria-label={`Opsi ${item.name}`}
+                            onClick={(e) => { e.stopPropagation(); setOverflowId(overflowId === item.id ? null : item.id) }}
+                          >
+                            <MoreVertical size={18} strokeWidth={1.75} />
+                          </button>
+                          {overflowId === item.id && (
+                            <div className="merchant-overflow" onClick={(e) => e.stopPropagation()}>
+                              <button type="button" onClick={() => { setOverflowId(null); openEdit(item) }}>
+                                <Pencil size={16} strokeWidth={1.75} /> Ubah
+                              </button>
+                              <button type="button" className="is-danger" onClick={() => { setOverflowId(null); setDeleteItem(item) }}>
+                                <Trash2 size={16} strokeWidth={1.75} /> Hapus
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </section>
-          )
-        })}
-        {/* Ruang ekstra di ujung daftar supaya baris terakhir tidak tertutup FAB. */}
-        <div className="page-fab-spacer" aria-hidden="true" />
+                </div>
+              ))}
+            </div>
+            {/* Ruang ekstra di ujung daftar supaya baris terakhir tidak tertutup FAB. */}
+            <div className="page-fab-spacer" aria-hidden="true" />
+          </div>
+        </div>
+
+        {/* Ringkasan bawah: dua angka yang menjawab "katalognya sehat?" tanpa
+            membuka layar lain. Bukan kontrol, jadi tanpa tinggi --touch-min. */}
+        <section className="merchant-menu-statusbar" aria-label="Ringkasan katalog">
+          <div>
+            <Clock size={14} strokeWidth={1.75} aria-hidden="true" />
+            <span>{items.length} menu aktif</span>
+          </div>
+          <div>
+            <TrendingUp size={14} strokeWidth={1.75} aria-hidden="true" />
+            <span>Order hari ini: {todayOrderCount}</span>
+          </div>
+        </section>
       </main>
 
       {/* "Tambah" pindah dari pil selebar halaman ke zona jempol: pojok atas
@@ -422,6 +461,43 @@ export default function MerchantMenu() {
       </button>
 
       <MerchantBottomNav />
+
+      {/* ── filter stok sheet ── */}
+      <BottomSheet open={filterOpen} title="Saring menu" onClose={() => setFilterOpen(false)}>
+        <div className="merchant-menu-filterlist" role="radiogroup" aria-label="Saring menu">
+          {(
+            [
+              ['all', 'Semua stok', items.length],
+              ['low', 'Menipis', lowCount],
+              ['out', 'Habis', outCount],
+            ] as const
+          ).map(([value, label, count]) => (
+            <button
+              key={value}
+              type="button"
+              role="radio"
+              aria-checked={stockFilter === value}
+              className={stockFilter === value ? 'is-active' : ''}
+              onClick={() => {
+                setStockFilter(value)
+                setFilterOpen(false)
+              }}
+            >
+              <span>{label}</span>
+              <span className="merchant-menu-filter-count">{count}</span>
+              {/* Lingkaran pemilih tampil di semua baris (kosong = belum
+                  dipilih), jadi ketiga baris punya struktur dan tepi kanan
+                  yang sama; centang hanya muncul saat aktif. */}
+              <span className="merchant-menu-filter-pick" aria-hidden="true">
+                <Check size={12} strokeWidth={3} />
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="merchant-menu-filterfoot" role="status">
+          {visibleItems.length} menu · {stockFilterLabel[stockFilter]}
+        </p>
+      </BottomSheet>
 
       {/* ── stock sheet ── */}
       <BottomSheet open={stockItem !== null} title={stockItem?.name} onClose={closeStock}>

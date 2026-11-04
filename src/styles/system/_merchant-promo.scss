@@ -83,3 +83,50 @@
   min-height: var(--touch-min);
   color: var(--danger-ink);
 }
+
+/* Chip tag di ProgramFormSheet: tetap satu bahasa dengan kontrol lain
+   (garis rambut + radius pill). Tetap dipertahankan meski bar filter menu tidak
+   lagi memakainya. */
+.merchant-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--motion-fast) var(--ease-out),
+    border-color var(--motion-fast) var(--ease-out);
+}
+
+.merchant-chip:hover {
+  background: var(--bg-warm);
+}
+
+.merchant-chip.is-active {
+  border-color: var(--sa7tein-orange);
+  background: var(--sa7tein-orange);
+  color: var(--on-brand);
+}
+
+/* Chip tag yang kelebihan kuota: tetap terlihat, tapi tak bisa ditekan. */
+.merchant-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Baris chip di dalam form (pemilih kategori): membungkus, jangan menggulir
+   mendatar seperti filter halaman — di sheet semua opsi harus terlihat utuh. */
+.merchant-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

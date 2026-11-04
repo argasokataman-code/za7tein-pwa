@@ -71,25 +71,6 @@
    (`.merchant-menu-filters`); tiga kartu statistik stok digantikan filter chip
    supaya kategori bisa dipilih dan bar-nya tidak memakan ruang. */
 
-.merchant-menu-list-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-.merchant-menu-list-head .merchant-section-title {
-  margin: 0;
-  font-size: var(--text-lg);
-  font-weight: 700;
-}
-
-.merchant-menu-list-head > span {
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
 .merchant-list { gap: var(--space-3); }
 
 .merchant-menu-item {

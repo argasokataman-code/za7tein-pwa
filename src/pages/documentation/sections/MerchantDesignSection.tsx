@@ -28,57 +28,89 @@ export function MerchantDesignSection() {
         <code className="doc-inline">max-width: 18ch</code> + rata kanan sehingga
         pecah dua baris, dan status non-interaktif dipaksa{' '}
         <code className="doc-inline">min-height: var(--touch-min)</code> (itu untuk
-        tap target kontrol, bukan teks). Baris caption menghapus tumpuk chrome
-        ketiga di atas daftar.
-      </p>
+        tap target kontrol, bukan teks); captionnya menghapus tumpuk chrome ketiga
+        di atas daftar.</p>
       <h3 className="doc-h3">
-        Filter menu: satu bar sticky, kategori + status stok
+        Rel kategori: satu kolom, satu kategori terpilih
       </h3>
       <p className="doc-p">
-        <code className="doc-inline">/merchant/menu</code> punya satu bar filter
-        sticky (<code className="doc-inline">.merchant-menu-filters</code>, lewat{' '}
-        <code className="doc-inline">@mixin sticky-below-header</code>) berisi
-        dua baris: baris utama chip kategori (Semua/Makanan/Minuman/Camilan dari
-        mock <code className="doc-inline">CATEGORIES</code> + ikon lucide-nya,
-        digeser mendatar dengan mask fade), baris kedua segmented status stok
-        (Semua stok/Menipis/Habis). Kategori jadi filter utama, status stok
-        sekunder. Yang aktif di kategori memakai oranye merek; segmented sengaja
-        netral (track abu, thumb permukaan) supaya tidak ada dua "on" oranye
-        berdampingan. Keduanya digabung AND, jadi "Minuman + Habis" bisa.
+        <code className="doc-inline">/merchant/menu</code> tidak lagi menumpuk
+        semua kategori dalam satu halaman (15 item terukur &plusmn;2265px, 87%
+        tinggi halaman). Kini workspace dua kolom:{' '}
+        <code className="doc-inline">.merchant-menu-rail</code> (92px, sticky
+        sendiri, bukan{' '}
+        <code className="doc-inline">@mixin sticky-below-header</code> yang
+        latarnya melebar 20px dan menutupi tepi kiri daftar; garis rambut kanan
+        sebagai pemisah, bukan bingkai kartu) berisi foto kategori + label +
+        jumlah item, dan{' '}
+        <code className="doc-inline">.merchant-menu-panel</code> yang hanya
+        memuat kategori terpilih. Foto rel memakai{' '}
+        <code className="doc-inline">categoryImage()</code> dari{' '}
+        <code className="doc-inline">src/data/catalog.ts</code>, sama dengan chip
+        beranda customer, jadi bahasanya satu. Angka di rel mengikuti saringan
+        aktif (pencarian + stok), bukan total mentah, sehingga merchant melihat
+        hasil nyata sebelum berpindah.
       </p>
       <p className="doc-p">
-        Kepala tiap grup kategori juga sticky (pola <em>sticky section header</em>
-        ), duduk tepat di bawah bar filter lewat{' '}
-        <code className="doc-inline">
-          top: calc(var(--nav-height) + var(--menu-filter-h))
-        </code>
-        . Namanya tetap terbaca saat itemnya digulir, lalu terdorong oleh grup
-        berikutnya; <code className="doc-inline">z-index</code> di bawah bar
-        supaya kepala lama lewat di bawahnya. Kuncinya:{' '}
-        <code className="doc-inline">--menu-filter-h</code> diukur runtime
-        (ResizeObserver di <code className="doc-inline">MerchantMenu</code>),
-        bukan hardcode. Percobaan dengan <code className="doc-inline">top</code>{' '}
-        hardcoded dulu bikin kepala tumpang-tindih dengan bar (filter terukur 57px
-        termasuk tepi) dan kebaca "kepotong".{' '}
-        <code className="doc-inline">.merchant-page</code> menyimpan fallback{' '}
-        <code className="doc-inline">--menu-filter-h: 118px</code> kalau JS belum
-        jalan.
+        Saringan dipindah ke dalam panel:{' '}
+        <code className="doc-inline">.merchant-menu-searchbar</code> (isian cari
+        berlatar <code className="doc-inline">--bg-warm</code> + tombol saring 44px
+        berbentuk pil) yang membuka sheet "Saring menu". Tidak ada lagi baris
+        jumlah hasil di atas daftar: angka sudah dibawa rel kategori dan kaki
+        sheet, jadi tidak ada caption yang mengulang. Status stok (Semua
+        stok/Menipis/Habis) hidup di{' '}
+        <code className="doc-inline">.merchant-menu-filterlist</code> dalam{' '}
+        <code className="doc-inline">BottomSheet</code>: tiap baris membawa label,
+        angka, dan lingkaran pemilih 18px yang selalu tampil (terisi oranye +
+        centang saat aktif). Titik oranye di tombol saring menandakan saringan
+        aktif tanpa mewarnai seluruh tombol.
       </p>
       <p className="doc-p">
-        Dasar bar diberi hairline full-bleed lewat{' '}
-        <code className="doc-inline">::after</code>, dan latar kepala grup
-        melebar ke gutter lewat <code className="doc-inline">::before</code>,
-        supaya item tidak lewat di kiri-kanan kepala saat menempel.
+        Kartu item memakai foto full-bleed:{' '}
+        <code className="doc-inline">.merchant-menu-thumb</code> menempel tepi
+        kiri kartu dan setinggi kartu penuh (92px lebar,{' '}
+        <code className="doc-inline">align-self: stretch</code>), jadi hidangan
+        benar-benar terlihat. Thumbnail 48px sebelumnya terbaca sebagai ikon.
+        Ukuran kartu disalin 1:1 dari slice
+        (<code className="doc-inline">_merchant-menu-card.scss</code>): nama
+        13,5px, deskripsi 11,5px, chip 10,5px + ikon 11px, sakelar 36x20,
+        titik-tiga 24px, dan <code className="doc-inline">min-height: 122px</code>{' '}
+        supaya semua kartu rata; teks panjang menambah tinggi, bukan dipangkas.
+        Target sentuh tetap 44px lewat padding 12px + margin -12px.</p>
+      <p className="doc-p">
+        Nama menu boleh dua baris (tidak dipotong ellipsis) dan harganya sebaris
+        di rel kanan (<code className="doc-inline">.merchant-menu-row-top</code>),
+        sehingga semua baris punya satu nilai{' '}
+        <code className="doc-inline">rect.right</code> (MD-07/MD-11). Deskripsi
+        kini dicetak utuh tanpa <code className="doc-inline">line-clamp</code>:
+        teks yang terpotong memaksa merchant membuka sheet hanya untuk tahu isi
+        hidangan. Chip stok (<code className="doc-inline">--orange-soft</code>,
+        menipis <code className="doc-inline">--warning-soft</code>, habis{' '}
+        <code className="doc-inline">--red-soft</code>) dan tombol
+        ketersediaan/opsi berada pada satu baris kaki kartu; chip tetap setinggi{' '}
+        <code className="doc-inline">--touch-min</code> supaya bisa ditepuk.
       </p>
       <h3 className="doc-h3">
-        Daftar menu per kategori
+        Daftar menu satu kategori
       </h3>
       <p className="doc-p">
-        Hasil filter dikelompokkan per kategori (urutan mengikuti{' '}
-        <code className="doc-inline">CATEGORIES</code>); tiap grup punya kepala
-        sendiri (ikon + label + jumlah item), dan grup yang kosong disembunyikan.
-        Menambah kategori cukup di data itu, halaman ikut. Sebelumnya daftar rata
-        dan tidak ada cara menyaring per jenis makanan/minuman.
+        Di bawah daftar ada bar ringkasan dua sel{' '}
+        <code className="doc-inline">.merchant-menu-statusbar</code>: jumlah menu
+        aktif dan order hari ini, dipisah garis rambut. Ia chrome bawah, bukan
+        kartu: <code className="doc-inline">position: fixed</code> menempel di
+        tepi atas bilah nav, tanpa bingkai, radius, atau bayangan. Lantai{' '}
+        <code className="doc-inline">--nav-height</code> (64px) 5px lebih pendek
+        dari nav sungguhan, jadi bar memakai{' '}
+        <code className="doc-inline">--menu-nav-h</code> (64 + 5); FAB dinaikkan
+        setinggi bar dengan alasan yang sama.
+      </p>
+      <p className="doc-p">
+        Rel yang memilih kategori, jadi daftar di kanan adalah satu list datar
+        tanpa kepala grup: kepala "kategori + jumlah item" memakan tinggi dan
+        mengulang label yang sudah tampil di rel. Kategori berasal dari{' '}
+        <code className="doc-inline">CATEGORIES</code> (fallback) atau{' '}
+        <code className="doc-inline">menu_categories</code> BE; menambah kategori
+        cukup di data itu, halaman ikut.
       </p>
       <h3 className="doc-h3">
         Dompet &amp; rekening pencairan merchant

@@ -48,223 +48,276 @@
   color: var(--text-secondary);
 }
 
-/* ── Filter menu: kategori (utama) + status stok ─────────────────────────────
-   Daftar menu 15 item terukur ±2265px (87% tinggi halaman), jadi filter yang
-   duduk di atasnya hilang begitu digulir. Satu blok sticky (geometri di
-   `@mixin sticky-below-header`) berisi dua baris: chip kategori
-   (Makanan/Minuman/Camilan dari mock `CATEGORIES` + ikonnya) sebagai filter
-   utama, dan segmented status stok sebagai filter sekunder. Menggantikan tiga
-   kartu statistik 56px yang memakan ruang sebelum daftar. */
-.merchant-menu-filters {
-  @include sticky-below-header;
+/* ── Rel kategori + panel daftar ─────────────────────────────────────────────
+   Sebelumnya semua kategori ditumpuk dalam satu halaman (15 item ≈ 2265px), dan
+   bar filter yang jadi satu-satunya penanda kategori hilang begitu digulir.
+   Rel kiri yang menempel menjaga kategori selalu terjangkau; panel kanan hanya
+   memuat kategori terpilih, jadi fokus tidak pecah dan gulir jadi pendek.
+   Ikon rel memakai foto kategori yang sama dengan beranda customer. */
+.merchant-menu-workspace {
   display: grid;
+  /* 92px = 23% kolom, proporsi rel pada referensi desain. Di bawah 92px label
+     dua kata ("Makanan Utama") pecah di tengah kata. */
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: var(--space-2);
+  align-items: start;
+  margin-top: var(--space-3);
+}
+
+/* Rel = kolom, bukan kartu: garis rambut kanan yang memisahkannya dari daftar.
+   Bingkai penuh + radius di sini menambah satu lapis chrome di dalam layar yang
+   sudah punya header, toolbar, dan kartu. */
+.merchant-menu-rail {
+  /* Sticky sendiri, bukan `sticky-below-header`: mixin itu menyiapkan latar
+     selebar halaman lewat `::before` (inset -20px kiri/kanan), dan pada kolom
+     92px latar itu menutupi 20px tepi kiri daftar menu — kartu yang fotonya
+     full-bleed jadi terlihat "dijilat" rel. Rel tidak perlu latar selebar
+     halaman: isinya hanya di kolomnya sendiri. */
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-1);
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.merchant-menu-rail button {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  min-height: 0;
+  padding: var(--space-2) var(--space-1);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+}
+
+.merchant-menu-rail button img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.merchant-menu-rail button.is-active {
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+/* Penanda aktif = batang tipis di tepi kiri, bukan garis tepi kartu: yang
+   ditandai adalah posisi di dalam kolom, bukan kotak baru. */
+.merchant-menu-rail button.is-active::before {
+  content: '';
+  position: absolute;
+  top: var(--space-2);
+  bottom: var(--space-2);
+  left: 0;
+  width: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+}
+
+.merchant-menu-rail button:focus-visible,
+.merchant-menu-filterbtn:focus-visible,
+.merchant-menu-searchfield input:focus-visible,
+.merchant-menu-filterlist button:focus-visible {
+  outline: 2px solid var(--sa7tein-orange);
+  outline-offset: 2px;
+}
+
+/* Dua baris selalu disediakan: label satu baris ("Semua") dan dua baris
+   ("Makanan Utama") menghasilkan tinggi item yang sama, jadi rel tidak
+   bergelombang dan angka tiap kategori tidak berada di ketinggian berbeda. */
+.merchant-menu-rail-label {
+  display: grid;
+  align-content: center;
+  min-height: 2.4em;
+  max-width: 100%;
+  /* Jangan pecah di tengah kata: rel 92px cukup untuk "Makanan" (kata terpanjang),
+     sedangkan `anywhere` dulu memotongnya jadi "Makan an". */
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+.merchant-menu-rail-count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.merchant-menu-rail button.is-active .merchant-menu-rail-count {
+  color: var(--orange-ink);
+}
+
+.merchant-menu-panel {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* Irama daftar dipadatkan ke 8px: kartu sudah membawa bingkai sendiri, dan jarak
+   12px membuat tiga kartu saja memenuhi layar. */
+.merchant-menu-panel .merchant-list {
+  gap: var(--space-2);
+}
+
+/* Pencarian + tombol saring menempel di bawah header: daftar bisa panjang,
+   dan alat saring harus tetap terjangkau tanpa menggulir balik ke atas. */
+.merchant-menu-searchbar {
+  /* Sticky tanpa `sticky-below-header` dengan alasan yang sama seperti rel:
+     `::before` mixin itu melebar 20px ke kiri dan menutupi tepi kanan rel.
+     Alat saring punya kolom sendiri, jadi latarnya cukup selebar panel. */
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--space-2);
   padding-block: var(--space-2);
   background: var(--bg-warm);
-
-  /* Garis pemisah full-bleed di dasar bar. Tanpa ini, header grup yang
-     menggulir ke bawah bar (latar sama-sama --bg-warm) kebaca "kepotong",
-     bukan "lewat di bawah bar". */
-  &::after {
-    content: '';
-    position: absolute;
-    right: calc(-1 * var(--space-5));
-    bottom: 0;
-    left: calc(-1 * var(--space-5));
-    height: 1px;
-    background: var(--border);
-  }
 }
 
-.merchant-menu-chips {
+.merchant-menu-searchfield {
+  position: relative;
   display: flex;
-  gap: var(--space-2);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.merchant-menu-chips::-webkit-scrollbar {
-  display: none;
-}
-
-.merchant-chip {
-  display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  flex-shrink: 0;
+  min-width: 0;
+}
+
+.merchant-menu-searchfield svg {
+  position: absolute;
+  left: var(--space-3);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.merchant-menu-searchfield input {
+  width: 100%;
   min-height: var(--touch-min);
-  padding-inline: var(--space-3);
-  border: 1px solid var(--border-strong);
+  padding: 0 var(--space-3) 0 calc(var(--space-3) * 2 + var(--space-4));
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--bg-warm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+}
+
+.merchant-menu-searchfield input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* Tombol saring = 44px persegi, bentuk sama dengan kontrol baris lain. Titik
+   oranye kecil menandakan saringan aktif, tanpa mewarnai seluruh tombol. */
+.merchant-menu-filterbtn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 1px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--surface);
   color: var(--text-primary);
+  box-shadow: var(--shadow-subtle);
+  cursor: pointer;
+}
+
+.merchant-menu-filterbtn.is-active {
+  border-color: var(--orange-border);
+  color: var(--orange-ink);
+}
+
+.merchant-menu-filterdot {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--sa7tein-orange);
+}
+
+/* Daftar isi saringan di dalam sheet: satu baris per pilihan, angka rata kanan
+   supaya tiga baris tidak bergerigi. */
+.merchant-menu-filterlist {
+  display: grid;
+}
+
+.merchant-menu-filterlist button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 18px;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   font-size: var(--text-sm);
   font-weight: 600;
-  white-space: nowrap;
+  text-align: left;
   cursor: pointer;
-  transition:
-    background var(--motion-fast) var(--ease-out),
-    border-color var(--motion-fast) var(--ease-out);
 }
 
-.merchant-chip:hover {
-  background: var(--bg-warm);
+.merchant-menu-filterlist button:last-child {
+  border-bottom: 0;
 }
 
-.merchant-chip.is-active {
+.merchant-menu-filterlist button.is-active {
+  color: var(--orange-ink);
+  font-weight: 700;
+}
+
+.merchant-menu-filter-count {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.merchant-menu-filterlist button.is-active .merchant-menu-filter-count {
+  color: var(--orange-ink);
+}
+
+/* Lingkaran pemilih: selalu ada (kosong), terisi oranye + centang putih saat
+   aktif. Tanpa ini baris non-aktif terlihat seperti daftar statis, bukan
+   pilihan yang bisa diganti. */
+.merchant-menu-filter-pick {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  color: transparent;
+}
+
+.merchant-menu-filterlist button.is-active .merchant-menu-filter-pick {
   border-color: var(--sa7tein-orange);
   background: var(--sa7tein-orange);
   color: var(--on-brand);
 }
 
-/* Chip tag yang kelebihan kuota: tetap terlihat, tapi tak bisa ditekan. */
-.merchant-chip:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.merchant-menu-stockfilter em {
-  font-style: normal;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-secondary);
-}
-
-/* Segmented netral (track abu + thumb permukaan) supaya oranye hanya menandai
-   filter kategori yang aktif; dua "on" oranye berdampingan bikin bingung mana
-   filter utama. */
-.merchant-menu-stockfilter {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2px;
-  padding: 3px;
-  border-radius: var(--radius-pill);
-  background: var(--border);
-}
-
-.merchant-menu-stockfilter button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  min-height: var(--touch-min);
-  padding-inline: var(--space-2);
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
+/* Status hasil di kaki sheet: angka + keadaan saringan, sebaris. */
+.merchant-menu-filterfoot {
+  margin: var(--space-3) 0 0;
+  color: var(--text-secondary-strong);
+  font-size: var(--text-xs);
   font-weight: 600;
-  cursor: pointer;
-}
-
-.merchant-menu-stockfilter button:focus-visible {
-  outline: 2px solid var(--sa7tein-orange);
-  outline-offset: 2px;
-}
-
-.merchant-menu-stockfilter button.is-active {
-  background: var(--surface);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-subtle);
-}
-
-.merchant-menu-stockfilter button.is-active em {
-  color: var(--text-primary);
-}
-
-/* Kepala tiap grup sticky tepat di bawah bar filter: nama kategori tetap
-   terbaca saat itemnya digulir, lalu terdorong oleh grup berikutnya (pola
-   sticky section header). `top` = tinggi header + tinggi bar filter yang
-   DIUKUR runtime lewat `--menu-filter-h` (ResizeObserver di MerchantMenu) —
-   hardcode `top` dulu bikin kepala kepotong / tumpang-tindih dengan bar.
-   z-index di bawah bar (40) supaya kepala lama lewat di bawahnya. */
-.merchant-menu-group .merchant-menu-list-head {
-  position: sticky;
-  top: calc(var(--nav-height) + var(--menu-filter-h, 0px));
-  z-index: 39;
-  padding-block: var(--space-2);
-  background: var(--bg-warm);
-}
-
-/* Latar melebar ke gutter supaya item tidak lewat di kiri-kanan saat kepala
-   menempel. */
-.merchant-menu-group .merchant-menu-list-head::before {
-  content: '';
-  position: absolute;
-  inset: 0 calc(-1 * var(--space-5));
-  z-index: -1;
-  background: var(--bg-warm);
-}
-
-/* Daftar menu dikelompokkan per kategori memakai mock `CATEGORIES` + ikonnya
-   (Makanan/Minuman/Camilan). Tiap grup punya kepala sendiri — ikon + label +
-   jumlah item pada hasil filter aktif; grup yang kosong disembunyikan.
-   `align-items: center` menggantikan `baseline` dasar karena kini ada ikon di
-   sebelah label. */
-.merchant-menu-list-head {
-  align-items: center;
-}
-
-.merchant-menu-group + .merchant-menu-group {
-  margin-top: var(--space-5);
-}
-
-.merchant-menu-list-head .merchant-section-title {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.merchant-menu-list-head .merchant-section-title svg {
-  flex-shrink: 0;
-  color: var(--orange-ink);
-}
-
-/* ── Menu ⋮ (Ubah / Hapus) ───────────────────────────────────────────────────
-   Pindah dari _merchant.scss, sekaligus diperbaiki: tombolnya tidak menulis
-   `background` sama sekali sehingga mewarisi `buttonface` bawaan peramban —
-   terukur rgb(239,239,239) pada kedua tombol, tampil sebagai dua kotak abu di
-   dalam panel putih. Radius dalamnya juga 8px di dalam panel radius 10px yang
-   berpadding 4px, jadi lengkungnya tidak sejajar wadah. */
-.merchant-overflow {
-  position: absolute;
-  top: calc(100% + 4px);
-  right: 0;
-  z-index: 30;
-  min-width: 150px;
-  padding: var(--space-1);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-}
-
-.merchant-overflow button {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  width: 100%;
-  min-height: var(--touch-min);
-  padding-inline: var(--space-3);
-  /* Radius dalam = 10px panel dikurangi padding 4px, supaya sudutnya sejajar. */
-  border-radius: var(--radius-xs);
-  background: transparent;
-  font-size: var(--text-sm);
-  color: var(--text-primary);
-  text-align: left;
-}
-
-.merchant-overflow button:hover {
-  background: var(--bg-warm);
-}
-
-.merchant-overflow button:active {
-  background: var(--border);
-}
-
-.merchant-overflow button.is-danger {
-  color: var(--danger-ink);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── Stock sheet ─────────────────────────────────────────────────────────────
@@ -379,12 +432,4 @@
    seperti di stock sheet, supaya sebaris dengan label & kontrol lain (audit 013 #5). */
 .merchant-form .stock-stepper {
   justify-content: flex-start;
-}
-
-/* Baris chip di dalam form (pemilih kategori): membungkus, jangan menggulir
-   mendatar seperti filter halaman — di sheet semua opsi harus terlihat utuh. */
-.merchant-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
 }

@@ -444,3 +444,128 @@
   text-decoration: underline;
 }
 
+/* ── Menu ⋮ (Ubah / Hapus) ───────────────────────────────────────────────────
+   Pindah dari _merchant.scss, sekaligus diperbaiki: tombolnya tidak menulis
+   `background` sama sekali sehingga mewarisi `buttonface` bawaan peramban —
+   terukur rgb(239,239,239) pada kedua tombol, tampil sebagai dua kotak abu di
+   dalam panel putih. Radius dalamnya juga 8px di dalam panel radius 10px yang
+   berpadding 4px, jadi lengkungnya tidak sejajar wadah. */
+.merchant-overflow {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  /* Di atas bar ringkasan (900) dan bilah bawah: menu kartu yang berada di
+     bagian bawah daftar dulu tertutup chrome itu dan tombolnya tak bisa
+     ditekan. Sheet (1002) tetap di atas menu ini. */
+  z-index: 1000;
+  min-width: 150px;
+  padding: var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.merchant-overflow button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  /* Radius dalam = 10px panel dikurangi padding 4px, supaya sudutnya sejajar. */
+  border-radius: var(--radius-xs);
+  background: transparent;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.merchant-overflow button:hover {
+  background: var(--bg-warm);
+}
+
+.merchant-overflow button:active {
+  background: var(--border);
+}
+
+.merchant-overflow button.is-danger {
+  color: var(--danger-ink);
+}
+
+/* ── Ringkasan katalog di atas bilah nav ─────────────────────────────────────
+   Dua angka yang menjawab "katalognya sehat?" tanpa pindah layar. Ia chrome
+   bawah, bukan kartu: tanpa radius/bayangan, latar menutup penuh lebar kolom,
+   dan ikut menempel saat daftar digulir. */
+/* Variabel ditaruh di `.app-shell` karena FAB hidup di sana (bukan di dalam
+   `.merchant-page`), sementara bar dan padding halaman mewarisinya. */
+.app-shell:has(.merchant-menu-statusbar) {
+  /* Nav sungguhan lebih tinggi dari lantainya: `--nav-height` 64 adalah
+     min-height, sedangkan isi item nav (ikon 20 + gap 2 + label 13 + padding
+     8) menambah 5px. Bar ini menempel ke tepi atas nav, jadi selisihnya ikut
+     dihitung — memakai --nav-height saja membuat 5px bawah bar tertutup nav. */
+  --menu-nav-h: calc(var(--nav-height) + 5px);
+  --menu-statusbar-h: var(--space-9);
+}
+
+.merchant-page:has(.merchant-menu-statusbar) {
+  padding-bottom: calc(
+    var(--menu-nav-h) + var(--menu-statusbar-h) + var(--space-6) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+.merchant-menu-statusbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--menu-nav-h) + env(safe-area-inset-bottom, 0px));
+  z-index: 900;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+  background: var(--surface);
+  border-top: 1px solid var(--border-strong);
+  transform: none;
+}
+
+.merchant-menu-statusbar > div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--space-9);
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.merchant-menu-statusbar > div + div {
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--border);
+}
+
+.merchant-menu-statusbar svg {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+}
+
+/* FAB berbagi zona jempol yang sama dengan bar. Tanpa dinaikkan setinggi bar,
+   separuh lingkarannya terbelah garis atas bar (terlihat "menggantung"). FAB
+   hidup di dalam `.app-shell`, bukan `.merchant-page`, jadi leluhurnya itu. */
+.app-shell:has(.merchant-menu-statusbar) .page-fab {
+  bottom: calc(
+    var(--menu-nav-h) + var(--menu-statusbar-h) + var(--space-3) + env(safe-area-inset-bottom, 0px)
+  );
+}
+
+/* Kartu "Pasang aplikasi" menempati zona yang sama dan tingginya diukur runtime;
+   saat keduanya ada, FAB harus naik melewati kartu DAN bar ringkasan. */
+body:has(.install-prompt) .app-shell:has(.merchant-menu-statusbar) .page-fab {
+  bottom: calc(
+    var(--menu-nav-h) + var(--menu-statusbar-h) + var(--space-3) + var(--space-3) +
+      var(--install-prompt-h, 150px) + env(safe-area-inset-bottom, 0px)
+  );
+}

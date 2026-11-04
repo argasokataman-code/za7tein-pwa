@@ -645,6 +645,17 @@ export default function Documentation() {
                 attribute/varian Odoo (MER-07/MER-08) menyusul di bagian berikut.
               </li>
               <li>
+                <strong>Layar menu memakai desain slice 1:1</strong> (
+                <code className="doc-inline">docs/design/slice/merchant-menu.html</code>): rel
+                kategori di kiri (foto 28px, label dua baris, angka hasil saring), kartu dengan
+                foto 92px full-bleed menempel tepi kiri setinggi kartu, harga sebaris judul,
+                deskripsi utuh tanpa clamp, lalu chip stok + sakelar 36x20 + titik-tiga di kaki.
+                Tinggi kartu rata karena paragraf deskripsi selalu dirender (dua baris
+                dicadangkan) walau deskripsinya kosong. Popup Ubah/Hapus naik di atas kartu
+                berikutnya lewat <code className="doc-inline">:has(.merchant-overflow)</code>{' '}
+                (z-index 1001) dan di atas bar ringkasan.
+              </li>
+              <li>
                 <strong>Kurs: tabel BE jadi sumber prioritas</strong> (OQ-26):{" "}
                 <code className="doc-inline">refreshLiveRate</code> kini mencoba{' '}
                 <code className="doc-inline">exchange_rates</code> D1 lebih dulu
