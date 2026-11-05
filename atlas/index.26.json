@@ -2276,6 +2276,25 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-213220",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:57:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: rtk git add docs/product/prd/manifest.json docs/product/prd/versions/sa7tein-beta-2026-11-05 atlas && git commit -m \"docs(prd): inta",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
