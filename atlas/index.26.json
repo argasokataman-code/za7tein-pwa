@@ -1362,6 +1362,920 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-213173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:20:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx (+112) — write via tool: tsx: import { ArrowRig",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx"
+    },
+    {
+      "id": "TASK-213174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:20:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Home.tsx (+8/-1) — edit via tool: tsx: const promoStore = stores.find((store) =",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Home.tsx"
+    },
+    {
+      "id": "TASK-213175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:20:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_home-v2.scss (+66/-4) — edit via tool: .home-promo {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_home-v2.scss"
+    },
+    {
+      "id": "TASK-213176",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:21:17",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error|dist/sw\" | head -4; npm run lint 2>&1 | rtk grep ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213177",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:22:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+17/-2) — edit via tool: tsx: dipasang sekali di grup.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213178",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:23:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx (+8/-5) — edit via tool: tsx: import { ArrowRig",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/HomePromoBanner.tsx"
+    },
+    {
+      "id": "TASK-213179",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:23:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|dist/sw\" | head -3; npm run lint 2>&1 | rtk gr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213180",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:24:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+8/-6) — edit via tool: tsx: posisi 44px di bawah. Carousel be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213181",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:25:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | grep -E \"error TS|di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-9997",
+      "type": "feature",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:28:04",
+      "tags": [
+        "customer",
+        "home",
+        "carousel"
+      ],
+      "summary": "Banner promo beranda jadi carousel multi-toko (scroll-snap + auto 5s, jeda saat disentuh, hormat reduced-motion)",
+      "conn": [
+        {
+          "id": "FEAT-9996",
+          "type": "relates",
+          "raw": "FEAT-9996:relates"
+        }
+      ],
+      "loc": "src/components/customer/HomePromoBanner.tsx"
+    },
+    {
+      "id": "TASK-213182",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:46:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/analysis.md (+143) — write via tool: # An",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/analysis.md"
+    },
+    {
+      "id": "TASK-213183",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:47:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-PAY.md (+67) — write via t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-PAY.md"
+    },
+    {
+      "id": "TASK-213184",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:47:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-DISCOVERY.md (+76) — write",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-DISCOVERY.md"
+    },
+    {
+      "id": "TASK-213185",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:47:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-ACC.md (+75) — write via tool:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-ACC.md"
+    },
+    {
+      "id": "TASK-213186",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:47:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-CART.md (+71) — write via ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-CART.md"
+    },
+    {
+      "id": "TASK-213187",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:47:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-ORDER.md (+77) — write via",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-ORDER.md"
+    },
+    {
+      "id": "TASK-213188",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:47:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-ACC-AGREEMENT.md (+67) — write",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-ACC-AGREEMENT.md"
+    },
+    {
+      "id": "TASK-213189",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:48:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-MEMBERSHIP.md (+70) — writ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-MEMBERSHIP.md"
+    },
+    {
+      "id": "TASK-213190",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:48:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-CHAT.md (+71) — write via ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-CHAT.md"
+    },
+    {
+      "id": "TASK-213191",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:48:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-REFUND.md (+68) — write vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-REFUND.md"
+    },
+    {
+      "id": "TASK-213192",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:48:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-RATING.md (+62) — write vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-RATING.md"
+    },
+    {
+      "id": "TASK-213193",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:48:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-INVOICE.md (+68) — write via t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-INVOICE.md"
+    },
+    {
+      "id": "TASK-213194",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:48:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-POINTS.md (+71) — write vi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-POINTS.md"
+    },
+    {
+      "id": "TASK-213195",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:49:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-NOTIF.md (+72) — write via tool: # R-NOTIF — Notifikasi in-app, web pus",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-NOTIF.md"
+    },
+    {
+      "id": "TASK-213196",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:50:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-PROFILE.md (+73) — write via tool: # R-MER-PROFILE — Profil merchan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-PROFILE.md"
+    },
+    {
+      "id": "TASK-213197",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:50:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-OPS.md (+104) — write via tool: # R-MER-OPS — Jam operasional, dism",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-OPS.md"
+    },
+    {
+      "id": "TASK-213198",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:50:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-COVERAGE.md (+88) — write via tool: # R-MER-COVERAGE — Coverage pol",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-COVERAGE.md"
+    },
+    {
+      "id": "TASK-213199",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:50:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-CATALOG.md (+161) — write via tool: # R-MER-CATALOG — Menu, kategor",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-CATALOG.md"
+    },
+    {
+      "id": "TASK-213200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:51:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-PROMO.md (+173) — write via tool: # R-MER-PROMO — Program marketing",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-PROMO.md"
+    },
+    {
+      "id": "TASK-213201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:51:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-ORDER.md (+108) — write via tool: # R-MER-ORDER — Accept/reject, ub",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-ORDER.md"
+    },
+    {
+      "id": "TASK-213202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:51:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-CREW.md (+125) — write via tool: # R-MER-CREW — Karyawan merchant, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-CREW.md"
+    },
+    {
+      "id": "TASK-213203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:52:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-BATCH.md (+82) — write via tool: # R-BATCH — Batch lahir saat accept, 2",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-BATCH.md"
+    },
+    {
+      "id": "TASK-213204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:52:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-COURIER.md (+95) — write via tool: # R-COURIER — Karyawan kurir: assign",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-COURIER.md"
+    },
+    {
+      "id": "TASK-213205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:52:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-MEMBERSHIP.md (+100) — write via tool: # R-MER-MEMBERSHIP — Pengaju",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-MEMBERSHIP.md"
+    },
+    {
+      "id": "TASK-213206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:52:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-QUOTA.md (+136) — write via tool: # R-QUOTA — Kuota customer, kuota mer",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-QUOTA.md"
+    },
+    {
+      "id": "TASK-213207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:53:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-DASHBOARD.md (+124) — write via tool: # R-MER-DASHBOARD — Line/pie/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MER-DASHBOARD.md"
+    },
+    {
+      "id": "TASK-213208",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:53:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MONEY.md (+135) — write via tool: # R-MONEY — Rumus harga, settlement 3",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-MONEY.md"
+    },
+    {
+      "id": "TASK-213209",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:53:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CURRENCY.md (+83) — write via tool: # R-CURRENCY — Kurs harian, pembula",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CURRENCY.md"
+    },
+    {
+      "id": "TASK-213210",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:53:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-DISPUTE.md (+119) — write via tool: # R-DISPUTE — User Agreement, auto ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-DISPUTE.md"
+    },
+    {
+      "id": "TASK-213211",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:54:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-OPS.md (+99) — write via tool: # R-OPS — Aplikasi ops: 24 kebutuhan, Cl",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-OPS.md"
+    },
+    {
+      "id": "TASK-213212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:54:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-HISTORY.md (+115) — write via tool: # R-HISTORY — Entri riwayat, jejak ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-HISTORY.md"
+    },
+    {
+      "id": "TASK-213213",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:54:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CONFIG.md (+98) — write via tool: # R-CONFIG — applicationConfiguration",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CONFIG.md"
+    },
+    {
+      "id": "TASK-213214",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:54:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-REALTIME.md (+125) — write via tool: # R-REALTIME — WebSocket berversi,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-REALTIME.md"
+    },
+    {
+      "id": "TASK-213215",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:55:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-ARCH.md (+82) — write via tool: # R-ARCH — Cloudflare penuh, DO+SQLite,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-ARCH.md"
+    },
+    {
+      "id": "TASK-213216",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:55:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-NFR.md (+73) — write via tool: # R-NFR — Idempotensi uang, ledger appen",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-NFR.md"
+    },
+    {
+      "id": "TASK-213217",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:55:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md (+29) — write via tool: # Milestones: sa7tein-beta-2026-11-05",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md"
+    },
+    {
+      "id": "TASK-213218",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:56:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint 2>&1 | tail -5; echo \"exit:$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213219",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:56:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run lint >/dev/null 2>&1; echo \"lint exit:$?\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }
