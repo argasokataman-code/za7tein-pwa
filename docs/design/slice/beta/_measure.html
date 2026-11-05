@@ -29,7 +29,9 @@
 <iframe id="f" src="auth/masuk.html" title="Irisan terukur"></iframe>
 <script>
   const page = new URLSearchParams(location.search).get('page') || 'masuk'
-  document.getElementById('f').src = 'auth/' + page + '.html'
+  // `page` tanpa garis miring = berkas di `auth/`; `page` berisi garis miring
+  // dipakai apa adanya, mis. `?page=verifikasi/merchant` atau `?page=akun/akun`.
+  document.getElementById('f').src = page.includes('/') ? page + '.html' : 'auth/' + page + '.html'
 </script>
 </body>
 </html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein beta · Profil kurir</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Sumber bentuk: acuan pemilik `../auth/login-1to1.html` (d0eaa47) untuk bar
+  atas, field, dan tombol.
+
+  Takaran app: satu judul, satu baris bantu, dua isian, satu baris persetujuan,
+  tombol. Tanpa kotak penjelasan bertumpuk.
+
+  Sumber isi: PRD A9 (§5 ACC-03/07, §11.3) "kurir inhouse didaftarkan owner
+  sebagai karyawan", A10 "karyawan tidak butuh verifikasi ops". Label, consent,
+  dan tombol = `CourierOnboarding.tsx:56,76,103,116` verbatim; pesan salah nama
+  dan nomor = `src/lib/schemas.ts:26,15` verbatim; teks tersimpan =
+  `CourierOnboarding.tsx:32` verbatim.
+
+  USULAN UI: kalimat "Kamu ditambahkan Warung Sate Pak Ali sebagai kurir".
+  PRD menyebut owner yang mendaftarkan, tetapi tidak menamai kalimat
+  undangannya; nama warung memakai data mock (`merchant.ts:171`).
+-->
+<link rel="stylesheet" href="../beta.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Kurir · profil pertama</strong><span>A9, A10 · ditambahkan owner, tanpa verifikasi ops</span></p>
+
+<div class="frames">
+
+  <!-- ── 1 · kosong ─────────────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>1 · kosong</strong><span>consent belum dicentang, tombol tetap bisa ditekan</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="../auth/masuk.html" aria-label="Kembali ke masuk">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral"><span class="dot"></span>Kurir</span>
+        </div>
+
+        <h1 class="title">Lengkapi profil kurir</h1>
+        <p class="lead">Kamu ditambahkan <strong>Warung Sate Pak Ali</strong> sebagai kurir.</p>
+
+        <form novalidate onsubmit="return false">
+          <div class="field">
+            <label class="label" for="kurir-nama">Nama</label>
+            <input class="input" id="kurir-nama" name="kurir-nama" type="text" autocomplete="name" placeholder="Nama yang dipakai customer" />
+          </div>
+
+          <div class="field">
+            <label class="label" for="kurir-wa">Nomor WhatsApp</label>
+            <input class="input" id="kurir-wa" name="kurir-wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890" />
+            <p class="hint">Nomor ini juga dipakai untuk masuk.</p>
+          </div>
+
+          <label class="consent">
+            <input class="checkbox" id="kurir-ua" name="kurir-ua" type="checkbox" />
+            <span class="consent__text"><strong>Saya setuju pada ketentuan layanan Sa7tein.</strong></span>
+          </label>
+
+          <button class="btn" type="button">Simpan &amp; lanjut masuk</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 · isian salah ────────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>2 · isian salah</strong><span>pesan repo verbatim</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="../auth/masuk.html" aria-label="Kembali ke masuk">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral"><span class="dot"></span>Kurir</span>
+        </div>
+
+        <h1 class="title">Lengkapi profil kurir</h1>
+
+        <form novalidate onsubmit="return false">
+          <div class="field">
+            <label class="label" for="kurir-nama-2">Nama</label>
+            <input class="input is-error" id="kurir-nama-2" name="kurir-nama-2" type="text" autocomplete="name" value="A" aria-invalid="true" aria-describedby="err-kurir-nama-2" />
+            <p class="error" id="err-kurir-nama-2" role="alert">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" />
+              </svg>
+              Nama minimal 2 karakter
+            </p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="kurir-wa-2">Nomor WhatsApp</label>
+            <input class="input is-error" id="kurir-wa-2" name="kurir-wa-2" type="tel" inputmode="tel" autocomplete="tel" value="0812" aria-invalid="true" aria-describedby="err-kurir-wa-2" />
+            <p class="error" id="err-kurir-wa-2" role="alert">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" />
+              </svg>
+              Format nomor WA tidak valid (+62… atau +962…)
+            </p>
+          </div>
+
+          <label class="consent">
+            <input class="checkbox" id="kurir-ua-2" name="kurir-ua-2" type="checkbox" checked />
+            <span class="consent__text"><strong>Saya setuju pada ketentuan layanan Sa7tein.</strong></span>
+          </label>
+
+          <button class="btn" type="button">Simpan &amp; lanjut masuk</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 · tersimpan ──────────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>3 · tersimpan</strong><span>lanjut masuk dengan nomor yang sama</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--ok"><span class="dot"></span>Tersimpan</span>
+        </div>
+
+        <div class="waiting">
+          <span class="waiting__mark">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+          </span>
+          <p class="waiting__title">Profil kurir tersimpan</p>
+          <p class="waiting__text">Masuk dengan nomor yang sama untuk mulai menerima order.</p>
+        </div>
+
+        <div class="footer footer--dock">
+          <a class="btn" href="../auth/masuk.html">Lanjut masuk</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

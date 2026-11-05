@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein beta · Inbox User Agreement</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Sumber bentuk: acuan pemilik `../auth/login-1to1.html` (d0eaa47) untuk bar
+  atas; baris pesan memakai satu panel bergaris rambut (MD-06), chip status
+  memakai atom prototype (`NearbyDishes.tsx:49`).
+
+  Takaran app: satu judul, satu baris bantu, daftar pesan. Bukan kartu promo
+  berulang dan bukan paragraf penjelas.
+
+  Sumber isi: PRD §17 + §19.3 + ACC-06 lewat `features/R-ACC-AGREEMENT.md`:
+    A1-A2 owner/customer setuju saat daftar, A3 karyawan melihat isi + inbox
+    tanpa consent, A4 tanggal berlaku paling cepat H+1, A5 berlaku otomatis
+    tanpa persetujuan ulang dan tanpa layar pengunci, A6 pesan inbox memuat
+    rule yang ditambah/diubah/dihapus + tanggal berlaku, A7 penerima semua
+    customer + owner + karyawan, A8 inbox khusus perubahan User Agreement.
+
+  ISI RULE ADALAH CONTOH: PRD hanya mendefinisikan model rule, tidak menamai
+  isinya (`R-ACC-AGREEMENT.md:60`). Kalimat di sini diberi label contoh, bukan
+  aturan bisnis baru. Tanggal memakai hari ini (5 November 2026) + H+2 supaya
+  memenuhi A4.
+
+  Empty state memakai kalimat PRD §5 apa adanya: "Belum ada perubahan aturan."
+-->
+<link rel="stylesheet" href="../beta.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Inbox · User Agreement</strong><span>A3-A8 · perubahan berlaku otomatis, tanpa layar pengunci</span></p>
+
+<div class="frames">
+
+  <!-- ── 1 · inbox customer ─────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>1 · inbox</strong><span>penerima: customer, owner, karyawan</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="akun.html" aria-label="Kembali ke akun">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+        </div>
+
+        <h1 class="title">Inbox</h1>
+        <p class="lead">Perubahan aturan yang berlaku untukmu.</p>
+
+        <div class="msglist">
+          <a class="msg msg--new" href="perjanjian.html">
+            <span class="msg__head">
+              <span class="msg__title">Aturan sengketa diperbarui</span>
+              <span class="msg__time">Hari ini</span>
+            </span>
+            <span class="msg__body">2 rule diubah, 1 rule ditambah. Berlaku 7 November 2026.</span>
+          </a>
+
+          <a class="msg" href="perjanjian.html">
+            <span class="msg__head">
+              <span class="msg__title">Pembatalan pesanan ditambah</span>
+              <span class="msg__time">3 Okt</span>
+            </span>
+            <span class="msg__body">1 rule ditambah. Berlaku 3 Oktober 2026.</span>
+          </a>
+        </div>
+
+        <p class="hint">Inbox ini khusus perubahan User Agreement.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 · isi pesan ──────────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>2 · isi pesan</strong><span>rule ditambah/diubah/dihapus + tanggal</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="perjanjian.html" aria-label="Kembali ke inbox">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--warn"><span class="dot"></span>Berlaku 7 Nov</span>
+        </div>
+
+        <h1 class="title">Aturan sengketa diperbarui</h1>
+        <p class="lead">Contoh isi rule, bukan kutipan PRD.</p>
+
+        <ul class="rulelist">
+          <li class="rule">
+            <span class="chip chip--neutral">Diubah</span>
+            <span class="rule__text">Batas waktu ajukan sengketa jadi 1 x 24 jam setelah pesanan selesai.</span>
+          </li>
+          <li class="rule">
+            <span class="chip chip--neutral">Diubah</span>
+            <span class="rule__text">Bukti foto wajib untuk sengketa pesanan yang tidak diterima.</span>
+          </li>
+          <li class="rule">
+            <span class="chip chip--neutral">Ditambah</span>
+            <span class="rule__text">Kompensasi keterlambatan dihitung dari selisih waktu antar, bukan estimasi masak.</span>
+          </li>
+        </ul>
+
+        <div class="banner banner--info">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><path d="M12 8h.01" />
+          </svg>
+          <p>Berlaku otomatis pada tanggal itu. Tidak perlu menyetujui ulang.</p>
+        </div>
+
+        <div class="footer">
+          <a class="link" href="perjanjian.html">Kembali ke inbox</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 · karyawan merchant ──────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>3 · karyawan</strong><span>baca saja, tanpa tombol setuju</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="akun.html" aria-label="Kembali ke akun">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral"><span class="dot"></span>Karyawan</span>
+        </div>
+
+        <h1 class="title">Inbox</h1>
+        <p class="lead">Bakso Pak Kumis menambah kamu sebagai karyawan.</p>
+
+        <div class="msglist">
+          <a class="msg msg--new" href="perjanjian.html">
+            <span class="msg__head">
+              <span class="msg__title">Aturan sengketa diperbarui</span>
+              <span class="msg__time">Hari ini</span>
+            </span>
+            <span class="msg__body">2 rule diubah, 1 rule ditambah. Berlaku 7 November 2026.</span>
+          </a>
+        </div>
+
+        <p class="hint">Kamu bisa membaca aturannya. Persetujuan dipegang owner toko.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4 · inbox kosong ───────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>4 · kosong</strong><span>kalimat dari PRD §5</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="akun.html" aria-label="Kembali ke akun">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+        </div>
+
+        <div class="waiting">
+          <span class="waiting__mark">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 6h16v12H4z" /><path d="m4 7 8 6 8-6" />
+            </svg>
+          </span>
+          <p class="waiting__title">Belum ada perubahan aturan.</p>
+          <p class="waiting__text">Kalau ops mengubah rule, pesannya muncul di sini.</p>
+        </div>
+
+        <div class="footer footer--dock">
+          <a class="btn btn--ghost" href="akun.html">Kembali ke akun</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

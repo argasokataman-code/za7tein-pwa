@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein beta · Tambah peran</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Sumber bentuk: acuan pemilik `../auth/login-1to1.html` (d0eaa47) untuk bar
+  atas, field, dan tombol; baris pilihan memakai atom prototype
+  (`OrdersTab.tsx:116`): baris kartu terpisah, radius 16, garis `--border`.
+
+  Takaran app: satu judul, satu baris bantu, satu pilihan yang bisa ditekan,
+  lalu catatan satu baris untuk peran yang tidak bisa didaftarkan sendiri.
+
+  Sumber isi: PRD §5.1 + ACC-06 (A6: role tambahan didaftarkan dari DALAM akun,
+  halaman registrasi hanya untuk nomor belum terdaftar), A5 (boleh banyak role
+  merchant), A9 (kurir inhouse didaftarkan owner sebagai karyawan), A10
+  (karyawan tidak butuh verifikasi ops, merchant butuh), ACC-06/A1-A2 (owner
+  menyetujui User Agreement untuk seluruh karyawan).
+
+  Field form owner memakai label repo `MerchantOnboarding.tsx:139,148,158`
+  (`Nama toko`, `Nomor WhatsApp toko`, `Alamat toko`). Tombol `Kirim untuk
+  persetujuan` = `MerchantOnboarding.tsx:244` verbatim. Teks keadaan menunggu =
+  `authCopy.ts:22-23` verbatim.
+
+  USULAN UI: pilihan "Buka warung" sebagai pintu tunggal. PRD A6 menyebut role
+  tambahan didaftarkan dari dalam akun, tetapi tidak menamai layarnya; bentuk
+  ini satu-satunya jalan yang tidak menambah aturan bisnis baru.
+-->
+<link rel="stylesheet" href="../beta.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Akun · tambah peran</strong><span>ACC-06, A5, A9, A10 · dari dalam akun, bukan halaman daftar</span></p>
+
+<div class="frames">
+
+  <!-- ── 1 · pilih peran yang bisa didaftarkan sendiri ──────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>1 · pilih peran</strong><span>hanya owner warung yang mendaftar sendiri</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="../akun/akun.html" aria-label="Kembali ke akun">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+        </div>
+
+        <h1 class="title">Tambah peran</h1>
+        <p class="lead">Nomor <strong>+62 812 3456 7890</strong> tetap satu akun.</p>
+
+        <div class="rolelist">
+          <a class="role" href="tambah-peran.html">
+            <span class="role__avatar" aria-hidden="true">WS</span>
+            <span class="role__body">
+              <span class="role__name">Buka warung</span>
+              <span class="role__meta">Daftar sebagai owner, ditinjau ops</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        </div>
+
+        <p class="hint">Karyawan dan kurir toko ditambahkan owner dari setelan toko. Tidak perlu daftar sendiri.</p>
+
+        <div class="footer">
+          <a class="link" href="../akun/akun.html">Tutup</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 · form warung ────────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>2 · profil warung</strong><span>owner menyetujui UA untuk seluruh karyawan</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <a class="backlink" href="tambah-peran.html" aria-label="Kembali">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral"><span class="dot"></span>Owner</span>
+        </div>
+
+        <h1 class="title">Buka warung</h1>
+        <p class="lead">Data ini tampil ke pembeli setelah disetujui.</p>
+
+        <form novalidate onsubmit="return false">
+          <div class="field">
+            <label class="label" for="toko-nama">Nama toko</label>
+            <input class="input" id="toko-nama" name="toko-nama" type="text" autocomplete="organization" value="Warung Sate Pak Ali" />
+          </div>
+
+          <div class="field">
+            <label class="label" for="toko-wa">Nomor WhatsApp toko</label>
+            <input class="input" id="toko-wa" name="toko-wa" type="tel" inputmode="tel" autocomplete="tel" value="+62 812 0000 0011" />
+          </div>
+
+          <div class="field">
+            <label class="label" for="toko-alamat">Alamat toko</label>
+            <input class="input" id="toko-alamat" name="toko-alamat" type="text" autocomplete="street-address" value="Irbid, Al-Hashmi" />
+          </div>
+
+          <label class="consent">
+            <input class="checkbox" id="toko-ua" name="toko-ua" type="checkbox" checked />
+            <span class="consent__text"><strong>Saya setuju User Agreement untuk toko ini.</strong> Berlaku juga bagi karyawan yang saya tambahkan.</span>
+          </label>
+
+          <button class="btn" type="button">Kirim untuk persetujuan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 · terkirim ke ops ────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>3 · terkirim</strong><span>peran lain tetap bisa dipakai sambil menunggu</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--warn"><span class="dot"></span>Menunggu</span>
+        </div>
+
+        <div class="waiting">
+          <span class="waiting__mark">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" />
+            </svg>
+          </span>
+          <p class="waiting__title">Menunggu persetujuan</p>
+          <p class="waiting__text">Warung Sate Pak Ali sedang ditinjau tim CS. Peran lain tetap bisa dipakai.</p>
+        </div>
+
+        <div class="footer footer--dock">
+          <a class="btn btn--ghost" href="../akun/akun.html">Kembali ke akun</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -33,7 +33,7 @@
 <body>
 <div class="wrap">
   <h1>Irisan beta — akun &amp; masuk</h1>
-  <p class="lead">Lima layar M1 dari PRD aktif <code>sa7tein-beta-2026-11-05</code>: reverse OTP WhatsApp, satu nomor satu akun, banyak peran, persetujuan User Agreement. Satu berkas per layar berisi tiga bingkai keadaan, dibuka langsung lewat peramban tanpa build.</p>
+  <p class="lead">Sepuluh layar M1 dari PRD aktif <code>sa7tein-beta-2026-11-05</code>: reverse OTP WhatsApp, satu nomor satu akun, banyak peran, persetujuan User Agreement. Satu berkas per layar berisi tiga sampai empat bingkai keadaan, dibuka langsung lewat peramban tanpa build.</p>
 
   <div class="bar">
     <a href="auth/masuk.html">masuk</a>
@@ -41,6 +41,11 @@
     <a href="auth/menunggu.html">verifikasi</a>
     <a href="auth/pilih-role.html">pilih peran</a>
     <a href="auth/daftar.html">daftar</a>
+    <a href="auth/tambah-peran.html">tambah peran</a>
+    <a href="verifikasi/merchant.html">verifikasi warung</a>
+    <a href="onboarding/kurir.html">profil kurir</a>
+    <a href="akun/akun.html">akun</a>
+    <a href="akun/perjanjian.html">inbox UA</a>
     <a href="../index.html">galeri EDISI 01</a>
   </div>
 
@@ -89,11 +94,51 @@
         <td class="route">/signup</td>
         <td class="file">auth/daftar.html</td>
       </tr>
+      <tr>
+        <td>
+          <a href="auth/tambah-peran.html">Tambah peran dari dalam akun</a>
+          <div class="note">Pintu tunggal: buka warung sebagai owner. Karyawan dan kurir toko ditambahkan owner, bukan daftar sendiri (A9). Form owner + consent UA untuk seluruh karyawan, lalu menunggu ops.</div>
+        </td>
+        <td class="route">/account/roles/add</td>
+        <td class="file">auth/tambah-peran.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="verifikasi/merchant.html">Verifikasi warung oleh ops</a>
+          <div class="note">Menunggu persetujuan, perlu perbaikan, dan disetujui. Alasan penolakan adalah contoh, bukan aturan PRD.</div>
+        </td>
+        <td class="route">/merchant/pending</td>
+        <td class="file">verifikasi/merchant.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="onboarding/kurir.html">Profil kurir</a>
+          <div class="note">Kurir ditambahkan owner (A9), tanpa verifikasi ops (A10). Nama, nomor WhatsApp, consent, lalu lanjut masuk.</div>
+        </td>
+        <td class="route">/courier/onboarding</td>
+        <td class="file">onboarding/kurir.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="akun/akun.html">Akun per peran</a>
+          <div class="note">Satu layar akun dengan role aktif: pembeli dan owner warung, plus dialog keluar. Baris diambil dari Profile.tsx dan MerchantSettings.tsx.</div>
+        </td>
+        <td class="route">/account</td>
+        <td class="file">akun/akun.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="akun/perjanjian.html">Inbox User Agreement</a>
+          <div class="note">Daftar perubahan, isi pesan dengan rule ditambah/diubah/dihapus + tanggal berlaku, tampilan karyawan tanpa consent, dan keadaan kosong.</div>
+        </td>
+        <td class="route">/inbox</td>
+        <td class="file">akun/perjanjian.html</td>
+      </tr>
     </tbody>
   </table>
 
   <h2>Yang sengaja belum diiris</h2>
-  <p class="body">Tambah peran dari dalam akun (ACC-06), verifikasi merchant oleh ops, dan inbox perubahan User Agreement ada di milestone lain. Jangan mengarang layarnya di sini; tunggu PRD dan flow-nya selesai direbase.</p>
+  <p class="body">Sesi kedaluwarsa dan keluar paksa belum punya layar. Penerapan A8 (akun merchant tidak bisa memesan ke warungnya sendiri) hidup di discovery dan ikut milestone M2. Antrean verifikasi warung di panel ops ada di galeri ops, bukan di sini.</p>
 
   <h2>Batas kejujuran</h2>
   <p class="body">Webhook WhatsApp Business Platform tidak ada di repo ini, jadi layar verifikasi hanya keadaan simulasi. Masa berlaku kode, batas permintaan, dan nomor tujuan WhatsApp adalah contoh; nilainya diatur ops lewat <code>applicationConfiguration</code> (§12.2) dan PRD tidak mencantumkan angka awalnya.</p>

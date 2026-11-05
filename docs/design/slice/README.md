@@ -531,7 +531,7 @@ mengarang data.
 
 ## Irisan beta — `beta/` (PRD `sa7tein-beta-2026-11-05`)
 
-Lima layar akun M1. **Bentuknya bukan tafsiran baru**: kerangka dari acuan pemilik
+Sepuluh layar akun M1. **Bentuknya bukan tafsiran baru**: kerangka dari acuan pemilik
 `auth/login-1to1.html` (commit `d0eaa47`), atom dari prototype
 `docs/design/v2-source/` (rujukan 1:1, `docs/design/ui-v2.md:12`).
 
@@ -544,6 +544,22 @@ Lima layar akun M1. **Bentuknya bukan tafsiran baru**: kerangka dari acuan pemil
 | kartu (`.card`) | prototype `NearbyDishes.tsx:98`, `OrdersTab.tsx:116` | putih + `--border` + radius 16 + `--shadow-subtle` |
 | baris peran (`.role`) | prototype `OrdersTab.tsx:116` | kartu terpisah, jarak 8px (bukan satu kotak bergaris rambut) |
 | chip (`.chip`) | prototype `NearbyDishes.tsx:49` | pil bertepi |
+| daftar setelan (`.list`) | MD-06 (`docs/design/mobile-dna.md`) | satu panel, baris bergaris rambut `--border`, tinggi baris `--touch-min` |
+
+### Sepuluh layar, dan dari mana isinya
+
+| berkas | isi | sumber teks |
+|---|---|---|
+| `auth/masuk.html` | nomor kosong, nomor tidak sah, sedang membuat kode, kode gagal dibuat | `schemas.ts:15` verbatim; keadaan gagal = USULAN |
+| `auth/kirim-kode.html` | pesan siap kirim, batas permintaan, kode baru, WhatsApp tidak terbuka | PRD §5.1; kalimat pesan = USULAN |
+| `auth/menunggu.html` | menunggu, nomor pengirim beda, kode kedaluwarsa | PRD §5 tabel state |
+| `auth/pilih-role.html` | banyak peran, satu peran, pindah peran | ACC-02/04/07; data `user.ts:8`, `merchant.ts:171,228` |
+| `auth/daftar.html` | nomor baru, isian salah, User Agreement dibuka | `schemas.ts:26,15` verbatim; pesan consent = USULAN |
+| `auth/tambah-peran.html` | pilih peran, form owner, terkirim ke ops | A6/A9/A10; label `MerchantOnboarding.tsx:139,148,158`, tombol `:244` |
+| `verifikasi/merchant.html` | menunggu, perlu perbaikan, disetujui | `authCopy.ts:22-23`, `MerchantPending.tsx:50,53`; alasan tolak = USULAN |
+| `onboarding/kurir.html` | profil kosong, isian salah, tersimpan | `CourierOnboarding.tsx:56,76,103,116`; kalimat undangan = USULAN |
+| `akun/akun.html` | akun pembeli, akun owner, dialog keluar | `Profile.tsx:144-176,197-205`, `MerchantSettings.tsx:439-495` |
+| `akun/perjanjian.html` | inbox, isi pesan, tampilan karyawan, kosong | `R-ACC-AGREEMENT` A1-A8; isi rule = contoh (PRD hanya model, `:60`) |
 
 ### Takaran app, bukan halaman web
 
@@ -558,11 +574,12 @@ Aturan yang sekarang dipakai:
 | aturan | angka | bukti |
 |---|---|---|
 | satu judul per layar, satu baris bantu paling banyak | layar form `masuk`: **9 kata / 2 blok**; `daftar`: 14 kata / 4 blok | terukur `_measure.html` |
-| tidak ada kotak penjelasan di alur akun | `.note` tidak dipakai di 5 layar ini | `slice-check` 0 FAIL |
+| tidak ada kotak penjelasan di alur akun | `.note` tidak dipakai di 10 layar ini | `slice-check` 0 FAIL |
 | judul tidak mengulang tab | `masuk`/`daftar` tanpa `<h1>` terlihat; hanya `sr-only` untuk pembaca layar | tab `Masuk` sudah menyebut layar; acuan `login-1to1.html` pun tanpa judul |
 | aksi mengikuti isi, bukan ditempel di dasar | jarak kartu → tombol **20px** di `kirim-kode` | `.footer { margin-top: var(--space-5) }` |
 | layar keadaan menaruh blok status di tengah, aksi di zona jempol | `menunggu` sisa ruang terbagi, tombol `16px` dari dasar | `.waiting { flex: 1; justify-content: center }` + `.footer--dock` |
-| tidak ada kontrol mati | 0 tombol nonaktif tanpa alasan | `pilih-role` bingkai 1 tanpa tombol "Tambah peran" palsu |
+| tidak ada kontrol mati | 0 tombol nonaktif tanpa alasan | `pilih-role` bingkai 1 tanpa tombol "Tambah peran" palsu; `tambah-peran` bingkai 1 punya satu pintu nyata, sisa peran dijelaskan satu baris, bukan tombol palsu |
+| aksi merusak dipisah dari daftar | `Keluar` di luar `.list`, `--danger-ink` | terbaca sebagai aksi, bukan baris setelan biasa |
 
 **Sisa ruang di bawah form dibiarkan kosong, dan itu bukan kelalaian.** Acuan
 `login-1to1.html` penuh karena punya masuk-sosial, pemisah `atau`, dan kata
@@ -572,9 +589,10 @@ menambah isi karangan hanya untuk mengisi ruang. Terukur di `masuk`: isi berakhi
 ditengahkan: `169px` di atas + `185px` di bawah, dan tab jadi terpisah dari
 isiannya).
 
-Layar anak (`kirim-kode`, `menunggu`, `pilih-role`) memakai bar atas berisi tombol
-kembali 44px + wordmark repo, bukan kepala foto: layar akar yang butuh identitas
-besar, layar anak butuh jalan kembali (MD-13).
+Layar anak (`kirim-kode`, `menunggu`, `pilih-role`, `tambah-peran`, `verifikasi/*`,
+`onboarding/*`, `akun/*`) memakai bar atas berisi tombol kembali 44px + wordmark
+repo, bukan kepala foto: layar akar yang butuh identitas besar, layar anak butuh
+jalan kembali (MD-13).
 
 **Deviasi yang disengaja, dengan angkanya:**
 
@@ -586,9 +604,12 @@ besar, layar anak butuh jalan kembali (MD-13).
 | label seksi tanpa `uppercase` | — | MD-08 + ratchet `npm run scan`; prototype memakai `uppercase tracking-wider` (`OrdersTab.tsx:31`) |
 | bingkai `menunggu` tidak pakai kepala foto | — | layar keadaan, bukan layar masuk |
 
-**Terukur** (emulasi 390x844 di `beta/_measure.html`, 15 bingkai): `docOverflow 0`,
-elemen keluar bingkai `0`, isi terpotong `0`, target di bawah 44px `0`. Bingkai
-`daftar` nomor 3 memakai `390x906` (`.phone--tall`) karena disclosure terbuka.
+**Terukur** (emulasi 390x844 di `beta/_measure.html`, **33 bingkai** di 10 berkas):
+`docOverflow 0`, elemen keluar bingkai `0`, isi terpotong `0`, elemen keluar bingkai
+bawah `0`. Target terkecil `20px` adalah kotak checkbox yang dibungkus
+`<label class="consent">` setinggi `44px` (MD-05 mengukur label pembungkusnya, bukan
+kotak 20px); baris daftar `list__row` dan tombol `≥44px`. Bingkai `daftar` nomor 3
+memakai `390x906` (`.phone--tall`) karena disclosure terbuka.
 
 **Batas kejujuran:** mesin ukur (moli) tidak bisa menggambar gambar apa pun
 (`naturalWidth` selalu 0), jadi kepala foto dan tile merek selalu tampak sebagai
@@ -598,7 +619,9 @@ peramban biasa.
 
 **Alat ukur** `beta/_measure.html?page=<nama>`: bingkai 390px di dalam iframe 1000px
 supaya seluruh bingkai + keterangan muat di viewport (hit-test tidak mengembalikan
-`null` hanya karena tombolnya di luar bidang pandang). Berkas berawalan `_` dilewati
+`null` hanya karena tombolnya di luar bidang pandang). `page` tanpa garis miring
+dibaca dari `auth/`; `page` bergaris miring dipakai apa adanya
+(`?page=akun/akun`, `?page=verifikasi/merchant`). Berkas berawalan `_` dilewati
 `slice-check`.
 
 ## Memeriksa

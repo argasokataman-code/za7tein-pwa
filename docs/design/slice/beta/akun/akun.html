@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein beta · Akun per peran</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Sumber bentuk: acuan pemilik `../auth/login-1to1.html` (d0eaa47) untuk bar
+  atas; baris setelan memakai daftar bergaris rambut di dalam satu panel
+  (MD-06), bukan kartu putih berulang.
+
+  Takaran app: identitas akun dua baris, lalu daftar baris. Satu layar akun
+  dipakai bergantian per peran (A4/A7: role aktif, pindah tanpa login ulang),
+  bukan tiga layar berbeda yang masing-masing mengarang menu.
+
+  Sumber isi:
+    - Baris akun customer = `Profile.tsx:144-176` (label + sub persis).
+    - Baris akun merchant = `MerchantSettings.tsx:439-495` (jam operasional,
+      rekening pencairan) + `MerchantOnboarding.tsx:139,148,158`.
+    - Dialog keluar = `Profile.tsx:197,199,202,205` verbatim.
+    - Nomor WA dan nama = `src/data/user.ts:8-10`; warung, rekening, owner =
+      `src/data/merchant.ts:171,185,211-214`.
+
+  USULAN UI: baris "Ganti peran" di akun. PRD A7 menjanjikan pindah peran tanpa
+  login ulang, tetapi menaruhnya di layar pemilih peran; baris ini hanya pintu
+  menuju layar itu (`auth/pilih-role.html`), bukan aturan baru.
+-->
+<link rel="stylesheet" href="../beta.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Akun · per peran</strong><span>A4, A7 · satu akun, role aktif berganti</span></p>
+
+<div class="frames">
+
+  <!-- ── 1 · akun customer ──────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>1 · pembeli</strong><span>baris akun dari Profile.tsx</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral"><span class="dot"></span>Pembeli</span>
+        </div>
+
+        <h1 class="title">Akun</h1>
+        <p class="identity"><strong>Dimas Ardianto</strong><br />+62 812 3456 7890</p>
+
+        <div class="list">
+          <a class="list__row" href="akun.html">
+            <span class="list__body">Profil<span class="list__meta">Nama &amp; nomor WhatsApp</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="akun.html">
+            <span class="list__body">Alamat pengantaran<span class="list__meta">Kelola lokasi antar dan titik peta</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="akun.html">
+            <span class="list__body">Riwayat pesanan<span class="list__meta">Pesanan selesai &amp; penilaian toko</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="perjanjian.html">
+            <span class="list__body">Notifikasi<span class="list__meta">Aturan berubah &amp; pemberitahuan pesanan</span></span>
+            <span class="chip chip--ok">2 baru</span>
+          </a>
+          <a class="list__row" href="perjanjian.html">
+            <span class="list__body">Ketentuan &amp; kebijakan<span class="list__meta">User Agreement yang kamu setujui</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="../auth/pilih-role.html">
+            <span class="list__body">Ganti peran<span class="list__meta">Tanpa keluar akun</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        </div>
+
+        <a class="link link--danger" href="akun.html">Keluar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 · akun merchant ──────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>2 · owner warung</strong><span>baris setelan dari MerchantSettings.tsx</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral"><span class="dot"></span>Owner</span>
+        </div>
+
+        <h1 class="title">Akun</h1>
+        <p class="identity"><strong>Warung Sate Pak Ali</strong><br />Ali Santoso · +62 812 0000 0011</p>
+
+        <div class="list">
+          <a class="list__row" href="akun.html">
+            <span class="list__body">Setelan toko<span class="list__meta">Nama, nomor HP, alamat toko</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="akun.html">
+            <span class="list__body">Jam operasional<span class="list__meta">Tutup hari ini</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="akun.html">
+            <span class="list__body">Rekening pencairan<span class="list__meta">BCA 8830 1122 3344 · a.n. Ali Santoso</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="akun.html">
+            <span class="list__body">Karyawan<span class="list__meta">Kurir toko &amp; staf yang kamu tambahkan</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="perjanjian.html">
+            <span class="list__body">Ketentuan &amp; kebijakan<span class="list__meta">Berlaku untuk toko dan seluruh karyawan</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+          <a class="list__row" href="../auth/pilih-role.html">
+            <span class="list__body">Ganti peran<span class="list__meta">Tanpa keluar akun</span></span>
+            <svg class="list__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        </div>
+
+        <a class="link link--danger" href="akun.html">Keluar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 · konfirmasi keluar ──────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>3 · keluar</strong><span>teks dialog dari Profile.tsx</span></p>
+    <div class="phone">
+      <div class="body">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral"><span class="dot"></span>Pembeli</span>
+        </div>
+
+        <h1 class="title">Akun</h1>
+        <p class="identity"><strong>Dimas Ardianto</strong><br />+62 812 3456 7890</p>
+
+        <div class="dialog dialog--dock">
+          <p class="dialog__title">Yakin mau keluar?</p>
+          <p class="dialog__body">Kamu akan kembali ke layar masuk.</p>
+          <div class="dialog__actions">
+            <a class="btn btn--ghost" href="akun.html">Batal</a>
+            <a class="btn btn--danger" href="../auth/masuk.html">Keluar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

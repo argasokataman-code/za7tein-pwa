@@ -143,6 +143,50 @@
     </div>
   </div>
 
+  <!-- ── 4 · kode gagal dibuat ──────────────────────────────────────────── -->
+  <!-- USULAN UI: PRD §5.1 tidak menyebut kegagalan sistem saat membuat kode.
+       Keadaannya nyata (jaringan putus, layanan lambat), jadi digambar dan
+       ditandai, bukan disembunyikan. -->
+  <div class="frame">
+    <p class="caption"><strong>4 · gagal membuat kode</strong><span>gangguan, bukan salah nomor</span></p>
+    <div class="phone">
+      <header class="hero">
+        <div class="carousel" aria-hidden="true">
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/lontong.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+        </div>
+      </header>
+
+      <div class="body">
+        <img class="brandmark" src="../../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
+
+        <nav class="tabs" aria-label="Pilih masuk atau daftar">
+          <a class="tab tab--active" href="masuk.html" aria-current="page">Masuk</a>
+          <a class="tab" href="daftar.html">Daftar</a>
+        </nav>
+
+        <form novalidate onsubmit="return false">
+          <div class="field">
+            <label class="label" for="wa-4">Nomor WhatsApp</label>
+            <input class="input" id="wa-4" name="wa-4" type="tel" inputmode="tel" autocomplete="tel" value="+62 812 3456 7890" />
+          </div>
+
+          <div class="banner banner--warn" role="alert">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" />
+            </svg>
+            <p><strong>Kode gagal dibuat.</strong> Periksa koneksi, lalu coba lagi.</p>
+          </div>
+
+          <button class="btn" type="button">Coba lagi</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>
 </body>
 </html>
