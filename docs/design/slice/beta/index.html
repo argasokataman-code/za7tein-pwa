@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Irisan beta Sa7tein — akun &amp; masuk</title>
+<style>
+  :root { --merek: #E44220; --ink: #172434; --muted: #64748B; --line: #E2E8F0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 40px 24px 80px; background: #f7f7f5; color: var(--ink);
+         font-family: 'Plus Jakarta Sans', 'Inter', Manrope, system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 960px; margin: 0 auto; }
+  h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -.02em; }
+  .lead { margin: 0 0 22px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .bar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin: 0 0 28px; padding: 14px 18px;
+         border-radius: 16px; background: #fff; box-shadow: 0 2px 8px rgba(23,36,52,.06); font-size: 14px; }
+  .bar a { color: var(--merek); font-weight: 600; text-decoration: none; }
+  .bar a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden;
+          box-shadow: 0 2px 8px rgba(23,36,52,.06); }
+  th { padding: 12px 16px; background: #fff; color: var(--muted); font-size: 12px; font-weight: 700; text-align: left; }
+  td { padding: 12px 16px; border-top: 1px solid #ededed; font-size: 14px; vertical-align: top; line-height: 1.45; }
+  a { color: var(--ink); font-weight: 600; text-decoration: none; }
+  a:hover { color: var(--merek); }
+  .note { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+  .route, .file { color: var(--muted); font-size: 13px; width: 22%; }
+  .route { font-variant-numeric: tabular-nums; }
+  code { padding: 1px 5px; border-radius: 6px; background: #f4f4f6; font-size: 12.5px; }
+  h2 { margin: 34px 0 10px; font-size: 17px; }
+  p.body { margin: 0 0 10px; color: #334155; font-size: 14px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Irisan beta — akun &amp; masuk</h1>
+  <p class="lead">Lima layar M1 dari PRD aktif <code>sa7tein-beta-2026-11-05</code>: reverse OTP WhatsApp, satu nomor satu akun, banyak peran, persetujuan User Agreement. Satu berkas per layar berisi tiga bingkai keadaan, dibuka langsung lewat peramban tanpa build.</p>
+
+  <div class="bar">
+    <a href="auth/masuk.html">masuk</a>
+    <a href="auth/kirim-kode.html">kirim kode</a>
+    <a href="auth/menunggu.html">verifikasi</a>
+    <a href="auth/pilih-role.html">pilih peran</a>
+    <a href="auth/daftar.html">daftar</a>
+    <a href="../index.html">galeri EDISI 01</a>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Layar</th><th class="route">Rute target</th><th class="file">Berkas</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="auth/masuk.html">Masuk dengan nomor WhatsApp</a>
+          <div class="note">Nomor kosong, nomor tidak sah, dan permintaan kode berjalan. Tidak ada email, sandi, atau tombol sosial.</div>
+        </td>
+        <td class="route">/signin</td>
+        <td class="file">auth/masuk.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="auth/kirim-kode.html">Kirim kode dari WhatsApp</a>
+          <div class="note">Pesan pra-isi berisi kode (USULAN kalimat), tombol ke wa.me, batas permintaan, dan kode baru yang membatalkan kode lama.</div>
+        </td>
+        <td class="route">/signin/kirim</td>
+        <td class="file">auth/kirim-kode.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="auth/menunggu.html">Menunggu verifikasi</a>
+          <div class="note">Menunggu webhook, ditolak karena nomor pengirim berbeda, dan kode kedaluwarsa.</div>
+        </td>
+        <td class="route">/signin/verifikasi</td>
+        <td class="file">auth/menunggu.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="auth/pilih-role.html">Pilih peran</a>
+          <div class="note">Banyak peran dengan role terakhir, satu peran tanpa merchant, dan pindah peran tanpa login ulang.</div>
+        </td>
+        <td class="route">/role-select</td>
+        <td class="file">auth/pilih-role.html</td>
+      </tr>
+      <tr>
+        <td>
+          <a href="auth/daftar.html">Daftar akun</a>
+          <div class="note">Registrasi nomor baru, tiga isian salah, dan User Agreement dibuka. Consent wajib sebelum tombol aktif.</div>
+        </td>
+        <td class="route">/signup</td>
+        <td class="file">auth/daftar.html</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Yang sengaja belum diiris</h2>
+  <p class="body">Tambah peran dari dalam akun (ACC-06), verifikasi merchant oleh ops, dan inbox perubahan User Agreement ada di milestone lain. Jangan mengarang layarnya di sini; tunggu PRD dan flow-nya selesai direbase.</p>
+
+  <h2>Batas kejujuran</h2>
+  <p class="body">Webhook WhatsApp Business Platform tidak ada di repo ini, jadi layar verifikasi hanya keadaan simulasi. Masa berlaku kode, batas permintaan, dan nomor tujuan WhatsApp adalah contoh; nilainya diatur ops lewat <code>applicationConfiguration</code> (§12.2) dan PRD tidak mencantumkan angka awalnya.</p>
+</div>
+</body>
+</html>

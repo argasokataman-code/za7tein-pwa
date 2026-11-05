@@ -29,6 +29,15 @@ const APP_SCREENS = [
   ['order-journey.html', 'Journey pesanan aktif — customer', '/order-placed?stage=diantar', 'dibuka dari kartu tab Aktif: status tahap, Journey Line 5 simpul, pembayaran COD, toko, kurir, tujuan. Pop-up perubahan status disimulasikan tiap 5-9 detik'],
 ]
 
+// [berkas, judul, rute asli, catatan] — irisan BETA (PRD `sa7tein-beta-2026-11-05`), M1
+const BETA_SCREENS = [
+  ['beta/auth/masuk.html', 'Beta · masuk nomor WhatsApp', '/signin', 'reverse OTP §5.1 ACC-01: nomor kosong, nomor tidak sah, permintaan kode berjalan. Tanpa email/sandi/sosial'],
+  ['beta/auth/kirim-kode.html', 'Beta · kirim kode', '/signin/kirim', 'pesan pra-isi + wa.me, batas permintaan, kode baru membatalkan kode lama. Kalimat pesan = USULAN'],
+  ['beta/auth/menunggu.html', 'Beta · verifikasi', '/signin/verifikasi', 'menunggu webhook, nomor pengirim beda (ditolak), kode kedaluwarsa'],
+  ['beta/auth/pilih-role.html', 'Beta · pilih peran', '/role-select', 'banyak peran + role terakhir, satu peran tanpa merchant, pindah peran tanpa login ulang (ACC-02/04/07)'],
+  ['beta/auth/daftar.html', 'Beta · daftar akun', '/signup', 'nomor baru + consent User Agreement (ACC-06, ACC-13); tiga isian salah'],
+]
+
 const rows = [
   ...SCREENS.map(([file, title, route, note]) => {
     const ok = existsSync(AUTH + file)
@@ -37,6 +46,11 @@ const rows = [
     return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${href}</td></tr>`
   }),
   ...APP_SCREENS.map(([file, title, route, note]) => {
+    const ok = existsSync(ROOT + file)
+    const label = ok ? `<a href="${file}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
+    return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${file}</td></tr>`
+  }),
+  ...BETA_SCREENS.map(([file, title, route, note]) => {
     const ok = existsSync(ROOT + file)
     const label = ok ? `<a href="${file}">${title}</a>` : `<span class="todo">${title} <em>belum</em></span>`
     return `<tr><td>${label}<div class="note">${note}</div></td><td class="route">${route}</td><td class="file">${file}</td></tr>`
@@ -73,7 +87,7 @@ const html = `<!doctype html>
 <body>
 <div class="wrap">
   <h1>Login, daftar &amp; panel ops</h1>
-  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi. Panel ops: 14 layar, mulai dari dashboard.</p>
+  <p class="lead">Satu berkas per layar, dibuka langsung lewat peramban. Arsip review, bukan kode produksi. Panel ops: 14 layar, mulai dari dashboard. Deretan beta memakai PRD aktif (reverse OTP WhatsApp).</p>
   <div class="bar">
     <a href="auth/login-1to1.html">customer (acuan)</a>
     <a href="auth/login-merchant.html">penjual</a>
@@ -82,6 +96,7 @@ const html = `<!doctype html>
     <a href="auth/login-superadmin.html">super admin</a>
     <a href="order-history.html">riwayat pesanan</a>
     <a href="ops/ops-dashboard.html">panel ops (14 layar)</a>
+    <a href="beta/index.html">beta M1 (akun)</a>
     <a href="README.md">cara kerja</a>
   </div>
   <table>${rows.join('\n')}</table>

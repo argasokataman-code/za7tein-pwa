@@ -143,7 +143,94 @@ for (const file of files) {
   if (inline > 12) warn(`${inline} atribut style inline — pindahkan polanya ke slice.css`)
 }
 
+// ── Irisan BETA: docs/design/slice/beta/**/*.html ──────────────────────────
+// Aturan login EDISI 01 (kata sandi, korsel kepala, badge cakram) tidak berlaku
+// di sini: beta memakai reverse OTP tanpa foto kepala. Yang diperiksa hanya
+// hal yang sama-sama berlaku di semua irisan: stylesheet nyata, kelas & token
+// terdefinisi, aset dari `public/`, tanpa skrip, tanpa emoji, tanpa em dash,
+// label nyata, dan pesan salah yang lengkap untuk pembaca layar.
+const BETA_ROOT = 'docs/design/slice/beta/'
+const betaCss = readFileSync(BETA_ROOT + 'beta.css', 'utf8')
+const betaClasses = new Set([...betaCss.matchAll(/\.([A-Za-z][\w-]*)/g)].map(m => m[1]))
+const betaTokens = new Set([...betaCss.matchAll(/--([\w-]+)\s*:/g)].map(m => m[1]))
+
+function walk(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    const full = dir + entry.name
+    return entry.isDirectory() ? walk(full + '/') : [full]
+  })
+}
+
+// Berkas berawalan `_` = alat ukur (`_measure.html`), bukan layar; `index.html`
+// = galeri folder ini. Keduanya tidak memuat beta.css dan tidak diperiksa.
+const betaFiles = walk(BETA_ROOT)
+  .filter(f => f.endsWith('.html') && !f.endsWith('/index.html') && !/[\\/]_[^/]*$/.test(f))
+  .sort()
+for (const file of betaFiles) {
+  const name = file.slice(BETA_ROOT.length)
+  const src = readFileSync(file, 'utf8')
+  const relDir = file.slice(0, file.lastIndexOf('/') + 1)
+  const fail = m => fails.push(`beta/${name}: ${m}`)
+  const warn = m => warns.push(`beta/${name}: ${m}`)
+
+  if (!/<link rel="stylesheet" href="(?:\.\.\/)+beta\.css"/.test(src)) fail('tidak memuat beta.css')
+  if (!/class="phone"/.test(src)) fail('tidak ada bingkai .phone')
+
+  for (const m of src.matchAll(/class="([^"]+)"/g)) {
+    for (const cls of m[1].trim().split(/\s+/)) {
+      if (!cls || /\$|\{/.test(cls)) continue
+      if (!betaClasses.has(cls)) fail(`kelas tak punya aturan: .${cls}`)
+    }
+  }
+
+  for (const m of src.matchAll(/var\(--([\w-]+)/g)) {
+    if (!betaTokens.has(m[1])) fail(`token tak terdefinisi: --${m[1]}`)
+  }
+
+  for (const m of src.matchAll(/(?:src|href)="([^"]+)"/g)) {
+    const v = m[1]
+    if (/\.(webp|png|jpe?g|svg)$/.test(v) && !/^(\.\.\/){5}public\//.test(v)) {
+      fail(`path aset salah (harus ../../../../../public/…): ${v}`)
+    }
+    if (/^https?:\/\//.test(v) && !/^https:\/\/wa\.me\//.test(v)) fail(`tautan eksternal di luar wa.me: ${v}`)
+  }
+
+  if (/<script\b/.test(src)) fail('ada <script>')
+  if (EMOJI.test(src)) fail('ada emoji')
+  if (/text-transform:\s*uppercase/.test(src)) fail('uppercase (MD-08)')
+  if (src.includes('\u2014') || src.includes('\u2013')) fail('em/en dash (HG-11)')
+
+  for (const m of src.matchAll(/<form\b[^>]*>/g)) {
+    if (!/\bnovalidate\b/.test(m[0])) fail('<form> tanpa novalidate')
+  }
+  if (/\srequired[\s/>]/.test(src)) fail('atribut `required` memicu pesan bawaan peramban')
+  if (/\spattern=/.test(src)) fail('atribut `pattern` memicu pesan bawaan peramban')
+  if (/\sminlength=|maxlength=/.test(src)) fail('atribut minlength/maxlength memicu pesan bawaan peramban')
+
+  // Label: `for="…"` eksplisit ATAU input berada di dalam <label> pembungkus.
+  const labelBlocks = [...src.matchAll(/<label\b[^>]*>([\s\S]*?)<\/label>/g)].map(m => m[1]).join('\n')
+  for (const m of src.matchAll(/<input\b[^>]*\sid="([^"]+)"/g)) {
+    const explicit = new RegExp(`<label[^>]*for="${m[1]}"`).test(src)
+    const wrapped = new RegExp(`id="${m[1]}"`).test(labelBlocks)
+    if (!explicit && !wrapped) fail(`input #${m[1]} tanpa <label for="…"> atau <label> pembungkus`)
+  }
+
+  for (const m of src.matchAll(/<p class="error"[^>]*>/g)) {
+    if (!/role="alert"/.test(m[0])) fail('`.error` tanpa role="alert"')
+  }
+  for (const m of src.matchAll(/class="input is-error"[^>]*>/g)) {
+    if (!/aria-invalid="true"/.test(m[0])) fail('input `.is-error` tanpa aria-invalid="true"')
+    const d = m[0].match(/aria-describedby="([^"]+)"/)
+    if (!d) fail('input `.is-error` tanpa aria-describedby')
+    else if (!src.includes(`id="${d[1]}"`)) fail(`aria-describedby menunjuk id yang tidak ada: ${d[1]}`)
+  }
+
+  for (const m of src.matchAll(/href="([^"]+\.html)"/g)) {
+    if (!existsSync(relDir + m[1])) warn(`tautan ke berkas yang belum ada: ${m[1]}`)
+  }
+}
+
 for (const f of fails) console.log('FAIL ' + f)
 for (const w of warns) console.log('WARN ' + w)
-console.log(`\n${files.length} berkas diperiksa · ${fails.length} FAIL · ${warns.length} WARN`)
+console.log(`\n${files.length + betaFiles.length} berkas diperiksa (${files.length} auth EDISI 01, ${betaFiles.length} beta) · ${fails.length} FAIL · ${warns.length} WARN`)
 process.exit(fails.length ? 1 : 0)

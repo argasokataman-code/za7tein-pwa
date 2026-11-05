@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein beta · Masuk dengan nomor WhatsApp</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Sumber bentuk: PRD aktif `sa7tein-beta-2026-11-05` §5.1 (reverse OTP WhatsApp),
+  ACC-01 (registrasi & login hanya lewat reverse OTP), ACC-02 (satu nomor satu
+  akun). Tidak ada email, tidak ada kata sandi, tidak ada tombol sosial: ketiganya
+  dihapus PRD beta (ACC-13: email bukan identitas).
+
+  Layar ini = langkah 1 dari 4 di §5.1: pengguna mengisi nomor WhatsApp.
+  Langkah 2-4 ada di `kirim-kode.html` (kode dibuat, tombol wa.me) dan
+  `menunggu.html` (webhook memverifikasi).
+
+  Pesan salah = `src/lib/schemas.ts:15` verbatim, bukan kalimat baru.
+  Tombol `Lanjut` menuju layar berikutnya (tautan nyata), bukan kontrol mati.
+-->
+<link rel="stylesheet" href="../beta.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Masuk · nomor WhatsApp</strong><span>customer, merchant, kurir memakai layar ini · PRD §5.1 ACC-01</span></p>
+
+<div class="frames">
+
+  <!-- ── 1 · kosong ─────────────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>1 · kosong</strong><span>nomor belum diisi</span></p>
+    <div class="phone">
+      <div class="screen">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+        </div>
+
+        <div class="content">
+          <nav class="seg" aria-label="Pilih masuk atau daftar">
+            <a class="seg__item seg__item--active" href="masuk.html" aria-current="page">Masuk</a>
+            <a class="seg__item" href="daftar.html">Daftar</a>
+          </nav>
+
+          <h1 class="title">Masuk dengan nomor WhatsApp</h1>
+          <p class="lead">Kamu yang mengirim kode ke sa7tein dari WhatsApp. Kami tidak mengirim pesan, jadi tidak ada biaya.</p>
+
+          <div class="field">
+            <label class="label" for="wa-1">Nomor WhatsApp</label>
+            <input class="input" id="wa-1" name="wa-1" type="tel" inputmode="tel" autocomplete="tel" placeholder="+62 812 3456 7890" />
+            <p class="hint">Boleh nomor Indonesia (+62) atau Yordania (+962). Nomor ini jadi identitas akun, bukan email.</p>
+          </div>
+
+          <div class="note">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+            </svg>
+            <p><strong>Kode tidak dikirim ke kamu.</strong> sa7tein hanya menerima pesan. Satu kode berlaku sekali dan tidak bisa dipakai orang lain.</p>
+          </div>
+        </div>
+
+        <div class="footer">
+          <a class="btn btn--block" href="kirim-kode.html">Lanjut</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 · nomor tidak sah ────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>2 · nomor tidak sah</strong><span>pesan dari schemas.ts:15</span></p>
+    <div class="phone">
+      <div class="screen">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+        </div>
+
+        <div class="content">
+          <nav class="seg" aria-label="Pilih masuk atau daftar">
+            <a class="seg__item seg__item--active" href="masuk.html" aria-current="page">Masuk</a>
+            <a class="seg__item" href="daftar.html">Daftar</a>
+          </nav>
+
+          <h1 class="title">Masuk dengan nomor WhatsApp</h1>
+          <p class="lead">Kamu yang mengirim kode ke sa7tein dari WhatsApp. Kami tidak mengirim pesan, jadi tidak ada biaya.</p>
+
+          <div class="field">
+            <label class="label" for="wa-2">Nomor WhatsApp</label>
+            <input class="input is-error" id="wa-2" name="wa-2" type="tel" inputmode="tel" autocomplete="tel" value="0812 3456" aria-invalid="true" aria-describedby="err-2" />
+            <p class="error" id="err-2" role="alert">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" />
+              </svg>
+              Format nomor WA tidak valid (+62… atau +962…)
+            </p>
+            <p class="hint">Tulis dengan kode negara, tanpa spasi atau tanda hubung.</p>
+          </div>
+
+          <div class="note">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+            </svg>
+            <p><strong>Kode tidak dikirim ke kamu.</strong> sa7tein hanya menerima pesan. Satu kode berlaku sekali dan tidak bisa dipakai orang lain.</p>
+          </div>
+        </div>
+
+        <div class="footer">
+          <a class="btn btn--block" href="kirim-kode.html">Lanjut</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 · membuat kode ───────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>3 · membuat kode</strong><span>tombol nonaktif saat permintaan jalan</span></p>
+    <div class="phone">
+      <div class="screen">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+        </div>
+
+        <div class="content">
+          <nav class="seg" aria-label="Pilih masuk atau daftar">
+            <a class="seg__item seg__item--active" href="masuk.html" aria-current="page">Masuk</a>
+            <a class="seg__item" href="daftar.html">Daftar</a>
+          </nav>
+
+          <h1 class="title">Masuk dengan nomor WhatsApp</h1>
+          <p class="lead">Kamu yang mengirim kode ke sa7tein dari WhatsApp. Kami tidak mengirim pesan, jadi tidak ada biaya.</p>
+
+          <div class="field">
+            <label class="label" for="wa-3">Nomor WhatsApp</label>
+            <input class="input" id="wa-3" name="wa-3" type="tel" inputmode="tel" autocomplete="tel" value="+62 812 3456 7890" />
+            <p class="hint">Boleh nomor Indonesia (+62) atau Yordania (+962). Nomor ini jadi identitas akun, bukan email.</p>
+          </div>
+
+          <div class="note">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 2v4" /><path d="M12 18v4" /><path d="M4.9 4.9l2.9 2.9" /><path d="M16.2 16.2l2.9 2.9" /><path d="M2 12h4" /><path d="M18 12h4" /><path d="M4.9 19.1l2.9-2.9" /><path d="M16.2 7.8l2.9-2.9" />
+            </svg>
+            <p><strong>Menyiapkan kode.</strong> Jangan tutup layar ini. Kode dibuat sekali untuk sesi ini.</p>
+          </div>
+        </div>
+
+        <div class="footer">
+          <button class="btn btn--block" type="button" disabled>Membuat kode…</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

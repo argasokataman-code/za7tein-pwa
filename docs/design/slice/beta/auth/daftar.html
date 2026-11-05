@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sa7tein beta · Daftar akun</title>
+<!--
+  ARSIP REVIEW, bukan kode produksi.
+
+  Sumber: PRD §5 ACC-01 (registrasi lewat reverse OTP), ACC-02 (satu nomor satu
+  akun), ACC-06 (merchant & customer wajib setuju User Agreement saat
+  mendaftar), ACC-13 (email bukan identitas akun), §17 (perubahan rule berlaku
+  H+1, notifikasi + inbox, tanpa persetujuan ulang).
+
+  Pesan salah `Nama minimal 2 karakter` dan `Format nomor WA tidak valid
+  (+62… atau +962…)` diambil verbatim dari `src/lib/schemas.ts:26,15`.
+  Pesan consent (`Setujui User Agreement untuk membuat akun.`) belum ada di repo
+  dan ditandai USULAN, karena repo belum punya layar consent.
+
+  Halaman ini hanya untuk nomor yang BELUM terdaftar (ACC-06): peran tambahan
+  didaftarkan dari dalam akun, bukan di sini.
+-->
+<link rel="stylesheet" href="../beta.css" />
+</head>
+<body>
+
+<p class="caption"><strong>Daftar · akun baru</strong><span>ACC-01, ACC-02, ACC-06, ACC-13 · PRD §5</span></p>
+
+<div class="frames">
+
+  <!-- ── 1 · kosong ─────────────────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>1 · kosong</strong><span>consent belum dicentang, tombol nonaktif</span></p>
+    <div class="phone">
+      <div class="screen">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral">Langkah 1 dari 2</span>
+        </div>
+
+        <div class="content">
+          <nav class="seg" aria-label="Pilih masuk atau daftar">
+            <a class="seg__item" href="masuk.html">Masuk</a>
+            <a class="seg__item seg__item--active" href="daftar.html" aria-current="page">Daftar</a>
+          </nav>
+
+          <h1 class="title">Buat akun</h1>
+          <p class="lead">Nomor WhatsApp jadi identitas akun. Email tidak dipakai lagi.</p>
+
+          <div class="field">
+            <label class="label" for="nama-1">Nama</label>
+            <input class="input" id="nama-1" name="nama-1" type="text" autocomplete="name" placeholder="Nama kamu" />
+          </div>
+
+          <div class="field">
+            <label class="label" for="wa-1">Nomor WhatsApp</label>
+            <input class="input" id="wa-1" name="wa-1" type="tel" inputmode="tel" autocomplete="tel" placeholder="+62 812 3456 7890" />
+            <p class="hint">Boleh nomor Indonesia (+62) atau Yordania (+962).</p>
+          </div>
+
+          <label class="consent">
+            <input class="checkbox" id="ua-1" name="ua-1" type="checkbox" aria-describedby="ua-hint-1" />
+            <span class="consent__text">
+              <strong>Saya setuju User Agreement sa7tein.</strong> Isinya aturan kompensasi dan punishment yang dipakai saat sengketa.
+              <span id="ua-hint-1" class="hint">Berlaku untuk customer dan owner merchant.</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="footer">
+          <button class="btn btn--block" type="button" disabled>Buat akun</button>
+          <p class="hint">Setujui User Agreement dulu untuk melanjutkan.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2 · tiga isian salah ───────────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>2 · isian salah</strong><span>dua pesan repo + satu pesan consent</span></p>
+    <div class="phone">
+      <div class="screen">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral">Langkah 1 dari 2</span>
+        </div>
+
+        <div class="content">
+          <nav class="seg" aria-label="Pilih masuk atau daftar">
+            <a class="seg__item" href="masuk.html">Masuk</a>
+            <a class="seg__item seg__item--active" href="daftar.html" aria-current="page">Daftar</a>
+          </nav>
+
+          <h1 class="title">Buat akun</h1>
+
+          <div class="field">
+            <label class="label" for="nama-2">Nama</label>
+            <input class="input is-error" id="nama-2" name="nama-2" type="text" autocomplete="name" value="D" aria-invalid="true" aria-describedby="err-nama-2" />
+            <p class="error" id="err-nama-2" role="alert">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" />
+              </svg>
+              Nama minimal 2 karakter
+            </p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="wa-2">Nomor WhatsApp</label>
+            <input class="input is-error" id="wa-2" name="wa-2" type="tel" inputmode="tel" autocomplete="tel" value="0812 3456" aria-invalid="true" aria-describedby="err-wa-2" />
+            <p class="error" id="err-wa-2" role="alert">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" />
+              </svg>
+              Format nomor WA tidak valid (+62… atau +962…)
+            </p>
+          </div>
+
+          <label class="consent">
+            <input class="checkbox" id="ua-2" name="ua-2" type="checkbox" aria-invalid="true" aria-describedby="err-ua-2" />
+            <span class="consent__text">
+              <strong>Saya setuju User Agreement sa7tein.</strong> Isinya aturan kompensasi dan punishment yang dipakai saat sengketa.
+            </span>
+          </label>
+          <p class="error" id="err-ua-2" role="alert">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" /><path d="M12 8v4" /><path d="M12 16h.01" />
+            </svg>
+            Setujui User Agreement untuk membuat akun.
+          </p>
+        </div>
+
+        <div class="footer">
+          <button class="btn btn--block" type="button">Buat akun</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3 · User Agreement dibuka ──────────────────────────────────────── -->
+  <div class="frame">
+    <p class="caption"><strong>3 · User Agreement dibuka</strong><span>ringkasan, bukan layar pengunci</span></p>
+    <div class="phone">
+      <div class="screen">
+        <div class="appbar">
+          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
+          <span class="appbar__spacer"></span>
+          <span class="chip chip--neutral">Langkah 1 dari 2</span>
+        </div>
+
+        <div class="content">
+          <nav class="seg" aria-label="Pilih masuk atau daftar">
+            <a class="seg__item" href="masuk.html">Masuk</a>
+            <a class="seg__item seg__item--active" href="daftar.html" aria-current="page">Daftar</a>
+          </nav>
+
+          <h1 class="title">Buat akun</h1>
+
+          <div class="field">
+            <label class="label" for="nama-3">Nama</label>
+            <input class="input" id="nama-3" name="nama-3" type="text" autocomplete="name" value="Dimas Ardianto" />
+          </div>
+
+          <div class="field">
+            <label class="label" for="wa-3">Nomor WhatsApp</label>
+            <input class="input" id="wa-3" name="wa-3" type="tel" inputmode="tel" autocomplete="tel" value="+62 812 3456 7890" />
+          </div>
+
+          <details class="disclosure" open>
+            <summary>
+              Ringkasan User Agreement
+              <svg class="disclosure__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </summary>
+            <div class="disclosure__body">
+              <ul>
+                <li>Aturan kompensasi dan punishment dipakai saat sengketa, disusun ops.</li>
+                <li>Setiap perubahan diberi tanggal berlaku paling cepat H+1, lalu berlaku otomatis.</li>
+                <li>Perubahan dikirim ke notifikasi dan inbox, tanpa persetujuan ulang.</li>
+              </ul>
+              <p>Karyawan merchant tidak menyetujui, tetapi bisa membaca isinya kapan saja.</p>
+            </div>
+          </details>
+
+          <label class="consent">
+            <input class="checkbox" id="ua-3" name="ua-3" type="checkbox" checked />
+            <span class="consent__text">
+              <strong>Saya setuju User Agreement sa7tein.</strong> Versi yang saya setujui dicatat di akun.
+            </span>
+          </label>
+        </div>
+
+        <div class="footer">
+          <a class="btn btn--block" href="kirim-kode.html">Buat akun</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
