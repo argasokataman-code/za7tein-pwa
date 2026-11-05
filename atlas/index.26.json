@@ -3331,6 +3331,202 @@
           "raw": "DEC-88150:implements"
         }
       ]
+    },
+    {
+      "id": "TASK-213272",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:52:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css (+824) — write via tool: /* ===============================",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css"
+    },
+    {
+      "id": "TASK-213273",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:52:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/masuk.html (+174) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/masuk.html"
+    },
+    {
+      "id": "TASK-213274",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:53:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/kirim-kode.html (+167) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/kirim-kode.html"
+    },
+    {
+      "id": "TASK-213275",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:53:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/menunggu.html (+145) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/menunggu.html"
+    },
+    {
+      "id": "TASK-213276",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:53:53",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/daftar.html (+222) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/daftar.html"
+    },
+    {
+      "id": "TASK-213277",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:54:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs (+21/-2) — edit via tool: if (!/<link rel=\"stylesheet\" href=\"(?:\\.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/slice-check.mjs"
+    },
+    {
+      "id": "TASK-213278",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:55:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+47/-1) — edit via tool: ## Irisan beta — `beta/` (PRD `sa7tei",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213279",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:55:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/.rules.json (+9/-1) — edit via tool: \"designDebt\": \"docs/design/legacy-debt.j",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-213280",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:55:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+3/-1) — edit via tool: - **Gate mekanis (design system dipakai ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "BUG-88202",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:55:41",
+      "tags": [
+        "design",
+        "slice",
+        "beta"
+      ],
+      "summary": "Irisan beta mengarang bahasa visual sendiri dan mengubah pengecualian kontras merek 4,12:1 yang sudah diputuskan; dibangun ulang dari acuan ",
+      "conn": [
+        {
+          "id": "TASK-88201",
+          "type": "fixes",
+          "raw": "TASK-88201:fixes"
+        },
+        {
+          "id": "DEC-88150",
+          "type": "relates",
+          "raw": "DEC-88150:relates"
+        }
+      ]
     }
   ]
 }

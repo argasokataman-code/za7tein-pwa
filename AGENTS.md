@@ -35,6 +35,8 @@ Repo ini **showcase UI/UX**. Karena itu setiap tugas yang menyentuh tampilan **w
 
 - **Gate mekanis (design system dipakai atau tidak).** `npm run scan` — kali ini **juga jalan di pre-commit** — menolak **nilai mentah baru** di `src/styles/system/**` (warna `rgba/rgb/hsl`, `font-size` px, `border-radius` px, jarak px ≥8) dan warna mentah di `style={{ … }}` TSX. Nilai baru harus token (`--text-*`, `--space-*`, `--radius-*`, warna peran). Sifatnya **ratchet**: baseline `docs/design/design-debt.json` hanya boleh turun, dan diperbarui hanya setelah utang benar-benar turun (`npm run scan -- --update-design-debt`). Untuk variasi warna kartu, **pakai peran token yang sudah ada** (status soft/ink, `--orange-soft`, `--navy`) — bukan warna baru. Aturan mesin: `.rules.json` → `designGate`.
 
+- **Irisan HTML (`docs/design/slice/`) juga wajib adopsi, bukan mengarang.** Bentuk auth dari acuan pemilik `slice/auth/login-1to1.html` (commit `d0eaa47`) lewat `slice/auth/login.css`; atom layar app/beta dari prototype `docs/design/v2-source/` (`docs/design/ui-v2.md:12` "1:1 dengan prototype"). Dilarang mengubah keputusan pemilik yang sudah tercatat: teks putih di `--sa7tein-orange` = 4,12:1 adalah pengecualian merek (`ui-v2.md:98`), bukan bug kontras. Deviasi wajib masuk `docs/design/slice/README.md` dengan angka + alasan. Gate: `node scripts/slice-check.mjs`; ukur di `docs/design/slice/beta/_measure.html?page=<nama>` (moli tidak menggambar gambar). Aturan mesin: `.rules.json` → `sliceDesign`.
+
 Ringkasan mesin ada di `.rules.json` → `designReview`. Tidak ada cek pre-commit yang bisa membuktikan skill benar-benar dipakai; enforcement lewat protokol ini, dan commit yang menyentuh UI wajib menyebut ID temuan di laporannya.
 
 ---

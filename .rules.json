@@ -50,6 +50,14 @@
     "revert": "Belum merge: git switch main; git branch -D ui-v2; git push origin --delete ui-v2. Sudah merge: git checkout ui-v1-stable -- <berkas v2>. Detail: docs/design/ui-v2.md bagian 8."
   },
   "designDebt": "docs/design/legacy-debt.json (inline SVG count per TSX file may only decrease without a recorded decorative exception)",
+  "sliceDesign": {
+    "dir": "docs/design/slice/",
+    "bentuk": "irisan auth memakai acuan pemilik docs/design/slice/auth/login-1to1.html (commit d0eaa47) lewat auth/login.css: kepala foto 240, tile merek 80/-40, tab garis-bawah, field radius 10 + shadow-card, tombol dasar layar",
+    "atom": "layar aplikasi/beta memakai atom prototype docs/design/v2-source/ (kartu putih + --border + radius 16 + bayangan tipis, chip pil bertepi, judul weight 800)",
+    "rule": "irisan HTML TIDAK BOLEH mengarang bahasa visual baru (docs/design/ui-v2.md:12 '1:1 dengan prototype'). Tiap deviasi wajib tercatat di docs/design/slice/README.md dengan angka + alasan; jangan mengubah keputusan pemilik yang sudah dicatat (mis. teks putih di --sa7tein-orange 4,12:1 = pengecualian merek, ui-v2.md:98)",
+    "gate": "node scripts/slice-check.mjs (kelas/token/aset/validasi + korsel 5 slide di folder beta)",
+    "ukur": "docs/design/slice/beta/_measure.html?page=<nama> (390x844; moli tidak menggambar gambar, naturalWidth selalu 0)"
+  },
   "designReview": {
     "enforce": true,
     "skill": "senior-fe",

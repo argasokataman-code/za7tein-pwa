@@ -7,9 +7,14 @@
 <!--
   ARSIP REVIEW, bukan kode produksi.
 
-  Sumber: PRD §5.1 "Akun dengan lebih dari satu role" + ACC-02 (satu nomor satu
-  akun, banyak role merchant, satu role customer) + ACC-04 (login membuka role
-  terakhir dipakai) + ACC-07 (pindah role tanpa login ulang).
+  Sumber bentuk: acuan pemilik `../auth/login-1to1.html` (d0eaa47) untuk bar
+  atas dan tombol; baris peran memakai atom prototype
+  (`OrdersTab.tsx:116`): baris = kartu putih terpisah, garis `--border`,
+  radius 16, bayangan tipis, jarak 8px, bukan satu kotak berisi garis rambut.
+
+  Sumber isi: PRD §5.1 "Akun dengan lebih dari satu role" + ACC-02 (satu nomor
+  satu akun, banyak role merchant, satu role customer) + ACC-04 (login membuka
+  role terakhir dipakai) + ACC-07 (pindah role tanpa login ulang).
 
   Nama orang, merchant, dan peran memakai data mock repo, bukan karangan:
   `Dimas Ardianto` (src/data/user.ts:8), `Warung Sate Pak Ali`
@@ -33,73 +38,71 @@
   <div class="frame">
     <p class="caption"><strong>1 · banyak peran</strong><span>login membuka role terakhir</span></p>
     <div class="phone">
-      <div class="screen">
+      <div class="body">
         <div class="appbar">
           <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
           <span class="appbar__spacer"></span>
           <span class="chip chip--ok"><span class="dot"></span>Terverifikasi</span>
         </div>
 
-        <div class="content">
-          <h1 class="title">Masuk sebagai apa?</h1>
-          <p class="lead">Satu nomor untuk semua peran. Kamu bisa pindah kapan saja tanpa login ulang.</p>
+        <h1 class="title">Masuk sebagai apa?</h1>
+        <p class="lead">Satu nomor untuk semua peran. Kamu bisa pindah kapan saja tanpa login ulang.</p>
 
-          <div class="list">
-            <a class="role" href="pilih-role.html">
-              <span class="role__avatar" aria-hidden="true">PB</span>
-              <span class="role__body">
-                <span class="role__name">Pembeli</span>
-                <span class="role__meta">Dimas Ardianto · terakhir dipakai</span>
-              </span>
-              <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-
-            <a class="role" href="pilih-role.html">
-              <span class="role__avatar" aria-hidden="true">WS</span>
-              <span class="role__body">
-                <span class="role__name">Warung Sate Pak Ali</span>
-                <span class="role__meta">Owner · pesanan, menu, laporan</span>
-              </span>
-              <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-
-            <a class="role" href="pilih-role.html">
-              <span class="role__avatar" aria-hidden="true">BK</span>
-              <span class="role__body">
-                <span class="role__name">Bakso Pak Kumis</span>
-                <span class="role__meta">Karyawan · akses pesanan</span>
-              </span>
-              <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-
-            <a class="role" href="pilih-role.html">
-              <span class="role__avatar" aria-hidden="true">KU</span>
-              <span class="role__body">
-                <span class="role__name">Kurir Warung Sate Pak Ali</span>
-                <span class="role__meta">Karyawan · antar pesanan</span>
-              </span>
-              <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-          </div>
-
-          <div class="note">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 2 4 7v6c0 5 3.4 8.3 8 9 4.6-.7 8-4 8-9V7l-8-5z" />
+        <div class="rolelist">
+          <a class="role" href="pilih-role.html">
+            <span class="role__avatar" aria-hidden="true">PB</span>
+            <span class="role__body">
+              <span class="role__name">Pembeli</span>
+              <span class="role__meta">Dimas Ardianto · terakhir dipakai</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
             </svg>
-            <p><strong>Notifikasi semua peran tetap masuk.</strong> Membuka notifikasi memindahkanmu ke peran yang bersangkutan.</p>
-          </div>
+          </a>
+
+          <a class="role" href="pilih-role.html">
+            <span class="role__avatar" aria-hidden="true">WS</span>
+            <span class="role__body">
+              <span class="role__name">Warung Sate Pak Ali</span>
+              <span class="role__meta">Owner · pesanan, menu, laporan</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+
+          <a class="role" href="pilih-role.html">
+            <span class="role__avatar" aria-hidden="true">BK</span>
+            <span class="role__body">
+              <span class="role__name">Bakso Pak Kumis</span>
+              <span class="role__meta">Karyawan · akses pesanan</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+
+          <a class="role" href="pilih-role.html">
+            <span class="role__avatar" aria-hidden="true">KU</span>
+            <span class="role__body">
+              <span class="role__name">Kurir Warung Sate Pak Ali</span>
+              <span class="role__meta">Karyawan · antar pesanan</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="note">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2 4 7v6c0 5 3.4 8.3 8 9 4.6-.7 8-4 8-9V7l-8-5z" />
+          </svg>
+          <p><strong>Notifikasi semua peran tetap masuk.</strong> Membuka notifikasi memindahkanmu ke peran yang bersangkutan.</p>
         </div>
 
         <div class="footer">
-          <button class="btn btn--ghost btn--block" type="button" disabled>Tambah peran</button>
+          <button class="btn btn--ghost" type="button" disabled>Tambah peran</button>
           <p class="hint">Tambah peran ada di dalam akun setelah masuk, bukan di halaman ini.</p>
         </div>
       </div>
@@ -110,40 +113,38 @@
   <div class="frame">
     <p class="caption"><strong>2 · satu peran</strong><span>belum punya peran merchant</span></p>
     <div class="phone">
-      <div class="screen">
+      <div class="body">
         <div class="appbar">
           <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
           <span class="appbar__spacer"></span>
           <span class="chip chip--ok"><span class="dot"></span>Terverifikasi</span>
         </div>
 
-        <div class="content">
-          <h1 class="title">Masuk sebagai apa?</h1>
-          <p class="lead">Akun ini baru punya satu peran.</p>
+        <h1 class="title">Masuk sebagai apa?</h1>
+        <p class="lead">Akun ini baru punya satu peran.</p>
 
-          <div class="list">
-            <a class="role" href="pilih-role.html">
-              <span class="role__avatar" aria-hidden="true">PB</span>
-              <span class="role__body">
-                <span class="role__name">Pembeli</span>
-                <span class="role__meta">Dimas Ardianto · terakhir dipakai</span>
-              </span>
-              <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-          </div>
-
-          <div class="note">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 9l9-6 9 6v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" /><path d="M9 20v-6h6v6" />
+        <div class="rolelist">
+          <a class="role" href="pilih-role.html">
+            <span class="role__avatar" aria-hidden="true">PB</span>
+            <span class="role__body">
+              <span class="role__name">Pembeli</span>
+              <span class="role__meta">Dimas Ardianto · terakhir dipakai</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
             </svg>
-            <p><strong>Punya warung?</strong> Peran merchant ditambahkan dari dalam akun setelah masuk, lalu diverifikasi ops. Nomor yang sama tetap dipakai.</p>
-          </div>
+          </a>
+        </div>
+
+        <div class="note">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-6 9 6v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" /><path d="M9 20v-6h6v6" />
+          </svg>
+          <p><strong>Punya warung?</strong> Peran merchant ditambahkan dari dalam akun setelah masuk, lalu diverifikasi ops. Nomor yang sama tetap dipakai.</p>
         </div>
 
         <div class="footer">
-          <a class="btn btn--block" href="pilih-role.html">Masuk sebagai pembeli</a>
+          <a class="btn" href="pilih-role.html">Masuk sebagai pembeli</a>
           <p class="hint">Penambahan peran merchant belum diiris. Layarnya menyusul setelah alur verifikasi ops.</p>
         </div>
       </div>
@@ -154,59 +155,58 @@
   <div class="frame">
     <p class="caption"><strong>3 · pindah peran</strong><span>tanpa login ulang, tanpa keluar sesi</span></p>
     <div class="phone">
-      <div class="screen">
+      <div class="body">
         <div class="appbar">
           <a class="backlink" href="pilih-role.html" aria-label="Kembali">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
             </svg>
           </a>
+          <span class="appbar__spacer"></span>
           <span class="chip chip--neutral"><span class="dot"></span>Pembeli aktif</span>
         </div>
 
-        <div class="content">
-          <h1 class="title">Ganti peran</h1>
-          <p class="lead">Peran yang dipakai sekarang ditandai. Pilih peran lain untuk pindah.</p>
+        <h1 class="title">Ganti peran</h1>
+        <p class="lead">Peran yang dipakai sekarang ditandai. Pilih peran lain untuk pindah.</p>
 
-          <div class="list">
-            <a class="role role--idle" href="pilih-role.html" aria-current="true">
-              <span class="role__avatar" aria-hidden="true">PB</span>
-              <span class="role__body">
-                <span class="role__name">Pembeli</span>
-                <span class="role__meta">Sedang dipakai</span>
-              </span>
-              <span class="chip chip--ok"><span class="dot"></span>Aktif</span>
-            </a>
+        <div class="rolelist">
+          <a class="role role--idle" href="pilih-role.html" aria-current="true">
+            <span class="role__avatar" aria-hidden="true">PB</span>
+            <span class="role__body">
+              <span class="role__name">Pembeli</span>
+              <span class="role__meta">Sedang dipakai</span>
+            </span>
+            <span class="chip chip--ok"><span class="dot"></span>Aktif</span>
+          </a>
 
-            <a class="role" href="pilih-role.html">
-              <span class="role__avatar" aria-hidden="true">WS</span>
-              <span class="role__body">
-                <span class="role__name">Warung Sate Pak Ali</span>
-                <span class="role__meta">Owner · pesanan, menu, laporan</span>
-              </span>
-              <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-
-            <a class="role" href="pilih-role.html">
-              <span class="role__avatar" aria-hidden="true">KU</span>
-              <span class="role__body">
-                <span class="role__name">Kurir Warung Sate Pak Ali</span>
-                <span class="role__meta">Karyawan · antar pesanan</span>
-              </span>
-              <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </a>
-          </div>
-
-          <div class="note">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M20 6 9 17l-5-5" />
+          <a class="role" href="pilih-role.html">
+            <span class="role__avatar" aria-hidden="true">WS</span>
+            <span class="role__body">
+              <span class="role__name">Warung Sate Pak Ali</span>
+              <span class="role__meta">Owner · pesanan, menu, laporan</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
             </svg>
-            <p><strong>Tidak keluar dari akun.</strong> Keranjang dan pesanan berjalan tetap tersimpan per peran.</p>
-          </div>
+          </a>
+
+          <a class="role" href="pilih-role.html">
+            <span class="role__avatar" aria-hidden="true">KU</span>
+            <span class="role__body">
+              <span class="role__name">Kurir Warung Sate Pak Ali</span>
+              <span class="role__meta">Karyawan · antar pesanan</span>
+            </span>
+            <svg class="role__chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="note">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+          <p><strong>Tidak keluar dari akun.</strong> Keranjang dan pesanan berjalan tetap tersimpan per peran.</p>
         </div>
 
         <div class="footer">

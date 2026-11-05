@@ -7,8 +7,13 @@
 <!--
   ARSIP REVIEW, bukan kode produksi.
 
-  Sumber: PRD §5 ACC-01 (registrasi lewat reverse OTP), ACC-02 (satu nomor satu
-  akun), ACC-06 (merchant & customer wajib setuju User Agreement saat
+  Sumber bentuk: acuan pemilik `../auth/login-1to1.html` (d0eaa47): kepala foto
+  utuh 240px, tile merek 80px, tab garis-bawah, field putih berbayang kartu,
+  tombol di dasar layar. Sama seperti `../auth/signup-customer.html`, yang
+  membedakan hanya isinya.
+
+  Sumber isi: PRD §5 ACC-01 (registrasi lewat reverse OTP), ACC-02 (satu nomor
+  satu akun), ACC-06 (merchant & customer wajib setuju User Agreement saat
   mendaftar), ACC-13 (email bukan identitas akun), §17 (perubahan rule berlaku
   H+1, notifikasi + inbox, tanpa persetujuan ulang).
 
@@ -17,7 +22,7 @@
   Pesan consent (`Setujui User Agreement untuk membuat akun.`) belum ada di repo
   dan ditandai USULAN, karena repo belum punya layar consent.
 
-  Halaman ini hanya untuk nomor yang BELUM terdaftar (ACC-06): peran tambahan
+  Halaman ini hanya untuk nomor yang BELUM terdaftar (ACC-02): peran tambahan
   didaftarkan dari dalam akun, bukan di sini.
 -->
 <link rel="stylesheet" href="../beta.css" />
@@ -32,22 +37,28 @@
   <div class="frame">
     <p class="caption"><strong>1 · kosong</strong><span>consent belum dicentang, tombol nonaktif</span></p>
     <div class="phone">
-      <div class="screen">
-        <div class="appbar">
-          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
-          <span class="appbar__spacer"></span>
-          <span class="chip chip--neutral">Langkah 1 dari 2</span>
+      <header class="hero">
+        <div class="carousel" aria-hidden="true">
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/lontong.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
         </div>
+      </header>
 
-        <div class="content">
-          <nav class="seg" aria-label="Pilih masuk atau daftar">
-            <a class="seg__item" href="masuk.html">Masuk</a>
-            <a class="seg__item seg__item--active" href="daftar.html" aria-current="page">Daftar</a>
-          </nav>
+      <div class="body">
+        <img class="brandmark" src="../../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
 
-          <h1 class="title">Buat akun</h1>
-          <p class="lead">Nomor WhatsApp jadi identitas akun. Email tidak dipakai lagi.</p>
+        <nav class="tabs" aria-label="Pilih masuk atau daftar">
+          <a class="tab" href="masuk.html">Masuk</a>
+          <a class="tab tab--active" href="daftar.html" aria-current="page">Daftar</a>
+        </nav>
 
+        <h1 class="title">Buat akun</h1>
+        <p class="lead">Nomor WhatsApp jadi identitas akun. Email tidak dipakai lagi.</p>
+
+        <form novalidate onsubmit="return false">
           <div class="field">
             <label class="label" for="nama-1">Nama</label>
             <input class="input" id="nama-1" name="nama-1" type="text" autocomplete="name" placeholder="Nama kamu" />
@@ -66,12 +77,10 @@
               <span id="ua-hint-1" class="hint">Berlaku untuk customer dan owner merchant.</span>
             </span>
           </label>
-        </div>
 
-        <div class="footer">
-          <button class="btn btn--block" type="button" disabled>Buat akun</button>
+          <button class="btn btn--dock" type="button" disabled>Buat akun</button>
           <p class="hint">Setujui User Agreement dulu untuk melanjutkan.</p>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -80,21 +89,27 @@
   <div class="frame">
     <p class="caption"><strong>2 · isian salah</strong><span>dua pesan repo + satu pesan consent</span></p>
     <div class="phone">
-      <div class="screen">
-        <div class="appbar">
-          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
-          <span class="appbar__spacer"></span>
-          <span class="chip chip--neutral">Langkah 1 dari 2</span>
+      <header class="hero">
+        <div class="carousel" aria-hidden="true">
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/lontong.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
         </div>
+      </header>
 
-        <div class="content">
-          <nav class="seg" aria-label="Pilih masuk atau daftar">
-            <a class="seg__item" href="masuk.html">Masuk</a>
-            <a class="seg__item seg__item--active" href="daftar.html" aria-current="page">Daftar</a>
-          </nav>
+      <div class="body">
+        <img class="brandmark" src="../../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
 
-          <h1 class="title">Buat akun</h1>
+        <nav class="tabs" aria-label="Pilih masuk atau daftar">
+          <a class="tab" href="masuk.html">Masuk</a>
+          <a class="tab tab--active" href="daftar.html" aria-current="page">Daftar</a>
+        </nav>
 
+        <h1 class="title">Buat akun</h1>
+
+        <form novalidate onsubmit="return false">
           <div class="field">
             <label class="label" for="nama-2">Nama</label>
             <input class="input is-error" id="nama-2" name="nama-2" type="text" autocomplete="name" value="D" aria-invalid="true" aria-describedby="err-nama-2" />
@@ -129,11 +144,9 @@
             </svg>
             Setujui User Agreement untuk membuat akun.
           </p>
-        </div>
 
-        <div class="footer">
-          <button class="btn btn--block" type="button">Buat akun</button>
-        </div>
+          <button class="btn btn--dock" type="button">Buat akun</button>
+        </form>
       </div>
     </div>
   </div>
@@ -141,22 +154,28 @@
   <!-- ── 3 · User Agreement dibuka ──────────────────────────────────────── -->
   <div class="frame">
     <p class="caption"><strong>3 · User Agreement dibuka</strong><span>ringkasan, bukan layar pengunci</span></p>
-    <div class="phone">
-      <div class="screen">
-        <div class="appbar">
-          <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
-          <span class="appbar__spacer"></span>
-          <span class="chip chip--neutral">Langkah 1 dari 2</span>
+    <div class="phone phone--tall">
+      <header class="hero">
+        <div class="carousel" aria-hidden="true">
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/nasi-goreng.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-kambing.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/lontong.webp" alt="" />
+          <img class="slide" src="../../../../../public/assets/img/menu/sate-ayam.webp" alt="" />
         </div>
+      </header>
 
-        <div class="content">
-          <nav class="seg" aria-label="Pilih masuk atau daftar">
-            <a class="seg__item" href="masuk.html">Masuk</a>
-            <a class="seg__item seg__item--active" href="daftar.html" aria-current="page">Daftar</a>
-          </nav>
+      <div class="body">
+        <img class="brandmark" src="../../../../../public/icons/sa7tein-mark.svg" alt="Sa7tein" />
 
-          <h1 class="title">Buat akun</h1>
+        <nav class="tabs" aria-label="Pilih masuk atau daftar">
+          <a class="tab" href="masuk.html">Masuk</a>
+          <a class="tab tab--active" href="daftar.html" aria-current="page">Daftar</a>
+        </nav>
 
+        <h1 class="title">Buat akun</h1>
+
+        <form novalidate onsubmit="return false">
           <div class="field">
             <label class="label" for="nama-3">Nama</label>
             <input class="input" id="nama-3" name="nama-3" type="text" autocomplete="name" value="Dimas Ardianto" />
@@ -190,11 +209,9 @@
               <strong>Saya setuju User Agreement sa7tein.</strong> Versi yang saya setujui dicatat di akun.
             </span>
           </label>
-        </div>
 
-        <div class="footer">
-          <a class="btn btn--block" href="kirim-kode.html">Buat akun</a>
-        </div>
+          <a class="btn btn--dock" href="kirim-kode.html">Buat akun</a>
+        </form>
       </div>
     </div>
   </div>

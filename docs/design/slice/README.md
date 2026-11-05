@@ -529,10 +529,56 @@ menutup pop-up, kedua kembali ke `order-history.html`.
 digambar karena Leaflet tidak dipakai di irisan statis dan peta palsu akan
 mengarang data.
 
+## Irisan beta — `beta/` (PRD `sa7tein-beta-2026-11-05`)
+
+Lima layar akun M1. **Bentuknya bukan tafsiran baru**: kerangka dari acuan pemilik
+`auth/login-1to1.html` (commit `d0eaa47`), atom dari prototype
+`docs/design/v2-source/` (rujukan 1:1, `docs/design/ui-v2.md:12`).
+
+| bagian | sumber | nilai terukur |
+|---|---|---|
+| kepala foto 240px + korsel 5 slide | `auth/login.css` `.hero`, `.carousel` | `y 0..240`, 5 slide, slide ke-5 duplikat pertama |
+| tile merek 80px, menimpa foto 40px | `auth/login.css` `.brandmark` | `y 200`, tumpang 40 |
+| tab garis-bawah `Masuk \| Daftar` | `auth/login.css` `.tabs` | `y 292`, indikator `inset 0 -2px` |
+| field 44px, radius 10, `--shadow-card` | `auth/login.css` `.input` | `y 476`, h 44 |
+| tombol di dasar layar | `auth/login.css` `.submit` (`margin-top:auto`) | `y 784`, `16px` dari dasar bingkai |
+| kartu (`.card`) | prototype `NearbyDishes.tsx:98`, `OrdersTab.tsx:116` | putih + `--border` + radius 16 + `--shadow-subtle` |
+| baris peran (`.role`) | prototype `OrdersTab.tsx:116` | kartu terpisah, jarak 8px (bukan satu kotak bergaris rambut) |
+| chip (`.chip`) | prototype `NearbyDishes.tsx:49` | pil bertepi |
+
+Layar anak (`kirim-kode`, `menunggu`, `pilih-role`) memakai bar atas berisi tombol
+kembali 44px + wordmark repo, bukan kepala foto: layar akar yang butuh identitas
+besar, layar anak butuh jalan kembali (MD-13).
+
+**Deviasi yang disengaja, dengan angkanya:**
+
+| deviasi | angka | alasan |
+|---|---|---|
+| teks putih di `--sa7tein-orange` | 4,12:1 | pengecualian identitas merek yang sudah diputuskan (`ui-v2.md:98`), bukan kelalaian. Versi sebelumnya di irisan ini sempat diganti `--orange-deep` (5,22:1) dan itu salah: mengubah keputusan pemilik tanpa dasar |
+| tab aktif `--sa7tein-orange` di `--bg-warm` | 3,75:1 | **ikut acuan** (`login.css` `.tab--active`). Di bawah AA untuk teks 15px dan **belum ada keputusan pemilik**; dicatat sebagai temuan, bukan diubah diam-diam |
+| chip aktif memakai `--orange-ink` di `--orange-soft` | 5,40:1 | prototype `#E44222` di `#FFEAE2` hanya 3,6:1 dan gagal AA untuk teks 11px |
+| label seksi tanpa `uppercase` | — | MD-08 + ratchet `npm run scan`; prototype memakai `uppercase tracking-wider` (`OrdersTab.tsx:31`) |
+| bingkai `menunggu` tidak pakai kepala foto | — | layar keadaan, bukan layar masuk |
+
+**Terukur** (emulasi 390x844 di `beta/_measure.html`, 15 bingkai): `docOverflow 0`,
+elemen keluar bingkai `0`, isi terpotong `0`, target di bawah 44px `0`. Bingkai
+`daftar` nomor 3 memakai `390x906` (`.phone--tall`) karena disclosure terbuka.
+
+**Batas kejujuran:** mesin ukur (moli) tidak bisa menggambar gambar apa pun
+(`naturalWidth` selalu 0), jadi kepala foto dan tile merek selalu tampak sebagai
+blok oranye/kotak putih di tangkapan layar pengukuran. Itu keterbatasan alat, bukan
+gagal muat: keenam aset mengembalikan `200` dari server statis. Rupa foto dinilai di
+peramban biasa.
+
+**Alat ukur** `beta/_measure.html?page=<nama>`: bingkai 390px di dalam iframe 1000px
+supaya seluruh bingkai + keterangan muat di viewport (hit-test tidak mengembalikan
+`null` hanya karena tombolnya di luar bidang pandang). Berkas berawalan `_` dilewati
+`slice-check`.
+
 ## Memeriksa
 
 ```bash
-node scripts/slice-check.mjs    # kelas, token, aset, emoji, <script>, validasi, badge (folder auth/)
+node scripts/slice-check.mjs    # kelas, token, aset, emoji, <script>, validasi, badge (folder auth/), korsel 5 slide (folder beta/)
 node scripts/slice-index.mjs    # tulis ulang galeri index.html
 ```
 

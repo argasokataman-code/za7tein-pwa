@@ -174,7 +174,26 @@ for (const file of betaFiles) {
   const warn = m => warns.push(`beta/${name}: ${m}`)
 
   if (!/<link rel="stylesheet" href="(?:\.\.\/)+beta\.css"/.test(src)) fail('tidak memuat beta.css')
-  if (!/class="phone"/.test(src)) fail('tidak ada bingkai .phone')
+  if (!/class="phone/.test(src)) fail('tidak ada bingkai .phone')
+
+  // Kepala foto = bentuk acuan pemilik (`auth/login-1to1.html`). Bila dipakai,
+  // korselnya wajib 5 slide dengan yang ke-5 duplikat pertama: itu yang menutup
+  // putaran tanpa membuka dasar oranye (kepala berkedip).
+  for (const hero of src.matchAll(/<header class="hero">([\s\S]*?)<\/header>/g)) {
+    const slides = [...hero[1].matchAll(/<img class="slide" src="([^"]+)"/g)].map(m => m[1])
+    if (slides.length !== 5) fail(`hero: ${slides.length} slide, wajib 5 (yang ke-5 duplikat pertama)`)
+    else if (slides[4] !== slides[0]) fail('hero: slide ke-5 bukan duplikat slide pertama')
+    if (!/class="carousel"/.test(hero[1])) fail('hero tanpa .carousel')
+  }
+
+  // Tile merek memakai aset repo, bukan teks nama merek.
+  for (const m of src.matchAll(/<img class="brandmark" src="([^"]+)"/g)) {
+    if (!m[1].endsWith('public/icons/sa7tein-mark.svg')) fail(`brandmark bukan logo repo: ${m[1]}`)
+  }
+  if (/class="brandmark"[^>]*alt="[^"]*"\s*\/?>/.test(src) === false && /brandmark/.test(src)) {
+    // alt wajib ada supaya pembaca layar tetap tahu ini identitas merek.
+    if (!/class="brandmark"[^>]*alt="[^"]+"/.test(src)) fail('brandmark tanpa alt')
+  }
 
   for (const m of src.matchAll(/class="([^"]+)"/g)) {
     for (const cls of m[1].trim().split(/\s+/)) {
