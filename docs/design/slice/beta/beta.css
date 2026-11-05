@@ -349,10 +349,15 @@ body {
 
 form {
   display: flex;
-  flex: 1;
+  flex: 0 0 auto;
   flex-direction: column;
   gap: var(--space-3);
   min-height: 0;
+  /* Mengikuti acuan (`auth/login-1to1.html`): isian menyusul tepat di bawah
+     tab, tidak diapungkan ke tengah. Sisa ruang di bawah adalah akibat PRD beta
+     menghapus masuk-sosial dan kata sandi dari layar acuan, bukan kelalaian
+     susun; layar beta tidak menambah isi karangan hanya untuk mengisi ruang. */
+  margin-top: var(--space-5);
 }
 
 .field {
@@ -550,9 +555,10 @@ form {
   cursor: not-allowed;
 }
 
-/* Tombol utama menempel dasar layar, seperti acuan (`margin-top: auto`). */
-.btn--dock { margin-top: auto; }
-
+/* Takaran app: aksi MENGIKUTI isi, bukan dilempar ke dasar layar. Menempelkan
+   tombol di dasar sementara isian menempel di atas meninggalkan lubang kosong
+   setengah layar di antara keduanya (terukur 320px di `masuk`), dan itu pola
+   halaman web, bukan aplikasi. */
 .actionrow { display: flex; gap: var(--space-2); }
 .actionrow > * { flex: 1; }
 
@@ -560,9 +566,13 @@ form {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  margin-top: auto;
-  padding-top: var(--space-3);
+  margin-top: var(--space-5);
 }
+
+/* Pengecualian yang disengaja: layar KEADAAN (menunggu/ditolak/kedaluwarsa)
+   tidak punya isi untuk diikuti, jadi aksinya tetap di zona jempol. Blok status
+   di atasnya yang mengisi ruang (`.waiting` flex:1), bukan lubang kosong. */
+.footer--dock { margin-top: auto; }
 
 .link {
   display: inline-flex;
@@ -580,10 +590,12 @@ form {
 
 .waiting {
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-3);
-  padding: var(--space-6) 0 0;
+  padding: var(--space-5) 0;
   text-align: center;
 }
 

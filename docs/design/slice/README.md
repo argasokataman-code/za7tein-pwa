@@ -540,11 +540,37 @@ Lima layar akun M1. **Bentuknya bukan tafsiran baru**: kerangka dari acuan pemil
 | kepala foto 240px + korsel 5 slide | `auth/login.css` `.hero`, `.carousel` | `y 0..240`, 5 slide, slide ke-5 duplikat pertama |
 | tile merek 80px, menimpa foto 40px | `auth/login.css` `.brandmark` | `y 200`, tumpang 40 |
 | tab garis-bawah `Masuk \| Daftar` | `auth/login.css` `.tabs` | `y 292`, indikator `inset 0 -2px` |
-| field 44px, radius 10, `--shadow-card` | `auth/login.css` `.input` | `y 476`, h 44 |
-| tombol di dasar layar | `auth/login.css` `.submit` (`margin-top:auto`) | `y 784`, `16px` dari dasar bingkai |
+| field 44px, radius 10, `--shadow-card` | `auth/login.css` `.input` | `y 536`, h 44 |
 | kartu (`.card`) | prototype `NearbyDishes.tsx:98`, `OrdersTab.tsx:116` | putih + `--border` + radius 16 + `--shadow-subtle` |
 | baris peran (`.role`) | prototype `OrdersTab.tsx:116` | kartu terpisah, jarak 8px (bukan satu kotak bergaris rambut) |
 | chip (`.chip`) | prototype `NearbyDishes.tsx:49` | pil bertepi |
+
+### Takaran app, bukan halaman web
+
+Keputusan pemilik 2026-11-05: irisan ini **app**, bukan halaman web yang menyusut.
+Versi pertama irisan gagal di sini walau bentuknya sudah 1:1: satu field dilayani
+judul + paragraf pengantar + petunjuk + kotak penjelasan (4 blok teks), dan
+tombolnya dilempar ke dasar layar sementara isian menempel di atas. Hasil
+terukur: lubang kosong **320px** di antara isian dan tombol.
+
+Aturan yang sekarang dipakai:
+
+| aturan | angka | bukti |
+|---|---|---|
+| satu judul per layar, satu baris bantu paling banyak | layar form `masuk`: **9 kata / 2 blok**; `daftar`: 14 kata / 4 blok | terukur `_measure.html` |
+| tidak ada kotak penjelasan di alur akun | `.note` tidak dipakai di 5 layar ini | `slice-check` 0 FAIL |
+| judul tidak mengulang tab | `masuk`/`daftar` tanpa `<h1>` terlihat; hanya `sr-only` untuk pembaca layar | tab `Masuk` sudah menyebut layar; acuan `login-1to1.html` pun tanpa judul |
+| aksi mengikuti isi, bukan ditempel di dasar | jarak kartu → tombol **20px** di `kirim-kode` | `.footer { margin-top: var(--space-5) }` |
+| layar keadaan menaruh blok status di tengah, aksi di zona jempol | `menunggu` sisa ruang terbagi, tombol `16px` dari dasar | `.waiting { flex: 1; justify-content: center }` + `.footer--dock` |
+| tidak ada kontrol mati | 0 tombol nonaktif tanpa alasan | `pilih-role` bingkai 1 tanpa tombol "Tambah peran" palsu |
+
+**Sisa ruang di bawah form dibiarkan kosong, dan itu bukan kelalaian.** Acuan
+`login-1to1.html` penuh karena punya masuk-sosial, pemisah `atau`, dan kata
+sandi; PRD beta menghapus ketiganya (ACC-01: hanya reverse OTP). Layar beta tidak
+menambah isi karangan hanya untuk mengisi ruang. Terukur di `masuk`: isi berakhir
+`y 659`, bingkai `844`, sisa **185px** di bawah (setelah sebelumnya dicoba
+ditengahkan: `169px` di atas + `185px` di bawah, dan tab jadi terpisah dari
+isiannya).
 
 Layar anak (`kirim-kode`, `menunggu`, `pilih-role`) memakai bar atas berisi tombol
 kembali 44px + wordmark repo, bukan kepala foto: layar akar yang butuh identitas

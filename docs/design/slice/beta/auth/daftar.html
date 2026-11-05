@@ -12,6 +12,10 @@
   tombol di dasar layar. Sama seperti `../auth/signup-customer.html`, yang
   membedakan hanya isinya.
 
+  Takaran app: judul, dua isian, satu baris persetujuan, tombol. Rincian
+  agreement dibuka di lembar sendiri (frame 3), bukan ditumpuk sebagai paragraf
+  di dalam form.
+
   Sumber isi: PRD §5 ACC-01 (registrasi lewat reverse OTP), ACC-02 (satu nomor
   satu akun), ACC-06 (merchant & customer wajib setuju User Agreement saat
   mendaftar), ACC-13 (email bukan identitas akun), §17 (perubahan rule berlaku
@@ -22,7 +26,7 @@
   Pesan consent (`Setujui User Agreement untuk membuat akun.`) belum ada di repo
   dan ditandai USULAN, karena repo belum punya layar consent.
 
-  Halaman ini hanya untuk nomor yang BELUM terdaftar (ACC-02): peran tambahan
+  Halaman ini hanya untuk nomor yang BELUM terdaftar (A6): peran tambahan
   didaftarkan dari dalam akun, bukan di sini.
 -->
 <link rel="stylesheet" href="../beta.css" />
@@ -55,8 +59,7 @@
           <a class="tab tab--active" href="daftar.html" aria-current="page">Daftar</a>
         </nav>
 
-        <h1 class="title">Buat akun</h1>
-        <p class="lead">Nomor WhatsApp jadi identitas akun. Email tidak dipakai lagi.</p>
+        <h1 class="sr-only">Daftar</h1>
 
         <form novalidate onsubmit="return false">
           <div class="field">
@@ -67,19 +70,15 @@
           <div class="field">
             <label class="label" for="wa-1">Nomor WhatsApp</label>
             <input class="input" id="wa-1" name="wa-1" type="tel" inputmode="tel" autocomplete="tel" placeholder="+62 812 3456 7890" />
-            <p class="hint">Boleh nomor Indonesia (+62) atau Yordania (+962).</p>
+            <p class="hint">Nomor ini jadi identitas akun, bukan email.</p>
           </div>
 
           <label class="consent">
-            <input class="checkbox" id="ua-1" name="ua-1" type="checkbox" aria-describedby="ua-hint-1" />
-            <span class="consent__text">
-              <strong>Saya setuju User Agreement sa7tein.</strong> Isinya aturan kompensasi dan punishment yang dipakai saat sengketa.
-              <span id="ua-hint-1" class="hint">Berlaku untuk customer dan owner merchant.</span>
-            </span>
+            <input class="checkbox" id="ua-1" name="ua-1" type="checkbox" />
+            <span class="consent__text"><strong>Saya setuju User Agreement.</strong></span>
           </label>
 
-          <button class="btn btn--dock" type="button" disabled>Buat akun</button>
-          <p class="hint">Setujui User Agreement dulu untuk melanjutkan.</p>
+          <button class="btn" type="button" disabled>Buat akun</button>
         </form>
       </div>
     </div>
@@ -107,7 +106,7 @@
           <a class="tab tab--active" href="daftar.html" aria-current="page">Daftar</a>
         </nav>
 
-        <h1 class="title">Buat akun</h1>
+        <h1 class="sr-only">Daftar</h1>
 
         <form novalidate onsubmit="return false">
           <div class="field">
@@ -134,9 +133,7 @@
 
           <label class="consent">
             <input class="checkbox" id="ua-2" name="ua-2" type="checkbox" aria-invalid="true" aria-describedby="err-ua-2" />
-            <span class="consent__text">
-              <strong>Saya setuju User Agreement sa7tein.</strong> Isinya aturan kompensasi dan punishment yang dipakai saat sengketa.
-            </span>
+            <span class="consent__text"><strong>Saya setuju User Agreement.</strong></span>
           </label>
           <p class="error" id="err-ua-2" role="alert">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -145,7 +142,7 @@
             Setujui User Agreement untuk membuat akun.
           </p>
 
-          <button class="btn btn--dock" type="button">Buat akun</button>
+          <button class="btn" type="button">Buat akun</button>
         </form>
       </div>
     </div>
@@ -173,7 +170,7 @@
           <a class="tab tab--active" href="daftar.html" aria-current="page">Daftar</a>
         </nav>
 
-        <h1 class="title">Buat akun</h1>
+        <h1 class="sr-only">Daftar</h1>
 
         <form novalidate onsubmit="return false">
           <div class="field">
@@ -188,29 +185,26 @@
 
           <details class="disclosure" open>
             <summary>
-              Ringkasan User Agreement
+              User Agreement
               <svg class="disclosure__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="m6 9 6 6 6-6" />
               </svg>
             </summary>
             <div class="disclosure__body">
               <ul>
-                <li>Aturan kompensasi dan punishment dipakai saat sengketa, disusun ops.</li>
-                <li>Setiap perubahan diberi tanggal berlaku paling cepat H+1, lalu berlaku otomatis.</li>
-                <li>Perubahan dikirim ke notifikasi dan inbox, tanpa persetujuan ulang.</li>
+                <li>Aturan kompensasi dan punishment dipakai saat sengketa.</li>
+                <li>Perubahan berlaku H+1, dikirim ke notifikasi dan inbox.</li>
               </ul>
-              <p>Karyawan merchant tidak menyetujui, tetapi bisa membaca isinya kapan saja.</p>
+              <p>Karyawan merchant tidak menyetujui, tapi bisa membacanya.</p>
             </div>
           </details>
 
           <label class="consent">
             <input class="checkbox" id="ua-3" name="ua-3" type="checkbox" checked />
-            <span class="consent__text">
-              <strong>Saya setuju User Agreement sa7tein.</strong> Versi yang saya setujui dicatat di akun.
-            </span>
+            <span class="consent__text"><strong>Saya setuju User Agreement.</strong> Versi yang saya setujui dicatat.</span>
           </label>
 
-          <a class="btn btn--dock" href="kirim-kode.html">Buat akun</a>
+          <a class="btn" href="kirim-kode.html">Buat akun</a>
         </form>
       </div>
     </div>

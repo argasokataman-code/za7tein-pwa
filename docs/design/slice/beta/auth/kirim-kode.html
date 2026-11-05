@@ -11,15 +11,17 @@
   kartu/field/tombol; layar ini layar anak, jadi memakai bar atas (tombol
   kembali 44px + wordmark repo) bukan kepala foto.
 
-  Sumber isi: PRD §5.1 langkah 2 dan 3. Sistem membuat kode unik untuk sesi,
-  lalu aplikasi menampilkan tombol yang membuka wa.me dengan pesan BERISI KODE
-  SUDAH TERISI; pengguna menekan kirim di WhatsApp.
+  Takaran app, bukan halaman web: satu judul, satu baris bantu, satu kartu isi,
+  aksi di dasar layar. Tidak ada paragraf penjelas bertumpuk.
+
+  Sumber isi: PRD §5.1 langkah 2-3. Sistem membuat kode unik untuk sesi, lalu
+  aplikasi menampilkan tombol yang membuka wa.me dengan pesan BERISI KODE SUDAH
+  TERISI; pengguna menekan kirim di WhatsApp.
 
   Isi pesan pra-isi = USULAN penyusun irisan. PRD hanya menetapkan bahwa pesan
   menyebut sedang registrasi atau login dan mengingatkan agar tidak dikirim atas
-  permintaan orang lain; kalimat persisnya tidak dicantumkan. Nomor tujuan dan
-  kode di layar ini contoh, bukan nomor produksi. Masa berlaku, batas permintaan,
-  dan panjang rentang diatur ops lewat `applicationConfiguration` (§12.2).
+  permintaan orang lain (AC2); kalimat persisnya tidak dicantumkan. Nomor tujuan
+  dan kode di layar ini contoh, bukan nomor produksi.
 -->
 <link rel="stylesheet" href="../beta.css" />
 </head>
@@ -44,11 +46,11 @@
           <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
         </div>
 
-        <h1 class="title">Kirim kode dari WhatsApp</h1>
-        <p class="lead">Buka WhatsApp, lalu tekan kirim. Kodenya sudah terisi, jadi kamu tidak perlu mengetik.</p>
+        <h1 class="title">Kirim kode</h1>
+        <p class="lead">Tinggal tekan kirim di WhatsApp.</p>
 
         <div class="card">
-          <p class="card__label">Pesan yang terisi otomatis</p>
+          <p class="card__label">Pesan siap kirim</p>
           <p class="bubble">Halo sa7tein, saya sedang login di sa7tein. Kode saya <span class="code">SA7-4192</span>. Jangan kirim kode ini kalau ada orang lain yang memintanya.</p>
           <p class="timer">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -56,13 +58,6 @@
             </svg>
             Berlaku 09:41
           </p>
-        </div>
-
-        <div class="note">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2 4 7v6c0 5 3.4 8.3 8 9 4.6-.7 8-4 8-9V7l-8-5z" />
-          </svg>
-          <p><strong>Kirim dari +62 812 3456 7890.</strong> Pesan dari nomor lain ditolak, karena nomor pengirim harus sama dengan nomor yang kamu isi.</p>
         </div>
 
         <div class="footer">
@@ -88,11 +83,11 @@
           <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
         </div>
 
-        <h1 class="title">Kirim kode dari WhatsApp</h1>
-        <p class="lead">Kode yang sama masih berlaku. Kirim pesan yang sudah terisi di WhatsApp.</p>
+        <h1 class="title">Kirim kode</h1>
+        <p class="lead">Kode yang lama masih berlaku.</p>
 
         <div class="card">
-          <p class="card__label">Pesan yang terisi otomatis</p>
+          <p class="card__label">Pesan siap kirim</p>
           <p class="bubble">Halo sa7tein, saya sedang login di sa7tein. Kode saya <span class="code">SA7-4192</span>. Jangan kirim kode ini kalau ada orang lain yang memintanya.</p>
           <p class="timer">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -100,13 +95,6 @@
             </svg>
             Berlaku 09:41
           </p>
-        </div>
-
-        <div class="note">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2 4 7v6c0 5 3.4 8.3 8 9 4.6-.7 8-4 8-9V7l-8-5z" />
-          </svg>
-          <p><strong>Batas permintaan tercapai.</strong> Nomor ini sudah meminta kode beberapa kali. Tunggu sampai rentangnya lewat sebelum meminta kode baru.</p>
         </div>
 
         <div class="footer">
@@ -132,11 +120,11 @@
           <img class="wordmark" src="../../../../../public/icons/sa7tein-wordmark.svg" alt="Sa7tein" />
         </div>
 
-        <h1 class="title">Kirim kode dari WhatsApp</h1>
-        <p class="lead">Kode baru sudah dibuat. Kalau kamu sempat mengirim kode sebelumnya, pesan itu tidak berlaku lagi.</p>
+        <h1 class="title">Kirim kode</h1>
+        <p class="lead">Kode baru. Kode lama batal.</p>
 
         <div class="card">
-          <p class="card__label">Pesan yang terisi otomatis</p>
+          <p class="card__label">Pesan siap kirim</p>
           <p class="bubble">Halo sa7tein, saya sedang login di sa7tein. Kode saya <span class="code">SA7-8821</span>. Jangan kirim kode ini kalau ada orang lain yang memintanya.</p>
           <p class="timer">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -146,16 +134,9 @@
           </p>
         </div>
 
-        <div class="note">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
-          <p><strong>Satu kode untuk satu sesi.</strong> Kode lama batal saat kode baru diminta, jadi hanya pesan terbaru yang bisa diverifikasi.</p>
-        </div>
-
         <div class="footer">
           <a class="btn" href="https://wa.me/962790000000?text=Halo%20sa7tein%2C%20saya%20sedang%20login%20di%20sa7tein.%20Kode%20saya%20SA7-8821.%20Jangan%20kirim%20kode%20ini%20kalau%20ada%20orang%20lain%20yang%20memintanya.">Buka WhatsApp</a>
-          <a class="link" href="menunggu.html">Sudah kirim, lanjut</a>
+          <a class="link" href="menunggu.html">Sudah kirim</a>
         </div>
       </div>
     </div>

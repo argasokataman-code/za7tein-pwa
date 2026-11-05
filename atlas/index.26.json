@@ -3527,6 +3527,215 @@
           "raw": "DEC-88150:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-213281",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:58:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/kirim-kode.html (+148) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/kirim-kode.html"
+    },
+    {
+      "id": "TASK-213282",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:58:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/menunggu.html (+130) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/menunggu.html"
+    },
+    {
+      "id": "TASK-213283",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:58:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/pilih-role.html (+202) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/pilih-role.html"
+    },
+    {
+      "id": "TASK-213284",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:58:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/daftar.html (+216) — write via tool: <!doctype html>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/daftar.html"
+    },
+    {
+      "id": "TASK-213285",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "09:00:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css (+18/-13) — edit via tool: /* Takaran app: aksi MENGIKUTI i",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css"
+    },
+    {
+      "id": "TASK-213286",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "09:01:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css (+12/-7) — edit via tool: form {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css"
+    },
+    {
+      "id": "TASK-213287",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "09:03:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css (+12/-12) — edit via tool: form {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/beta.css"
+    },
+    {
+      "id": "TASK-213288",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "09:05:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/pilih-role.html (+5/-8) — edit via tool: </div>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/beta/auth/pilih-role.html"
+    },
+    {
+      "id": "TASK-213289",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "09:05:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+36/-10) — edit via tool: | bagian | sumber | nilai terukur |",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213290",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "09:06:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/.rules.json (+2/-1) — edit via tool: \"atom\": \"layar aplikasi/beta memakai ato",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-213291",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "09:06:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+1/-1) — edit via tool: - **Irisan HTML (`docs/design/slice/`) j",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
     }
   ]
 }
