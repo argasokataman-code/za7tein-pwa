@@ -1,13 +1,15 @@
 # Rencana Diagram Flow Bisnis Sa7tein
 
 Dokumen perencanaan untuk diagram flow bisnis (archify). Peta arsitektur sudah jadi:
-`docs/design/app-map/`. **Status: 21 flow lama selesai (F1–F22 + F24), semua lolos gate** — lihat `INDEX.json` / `index.html`. F24 = penanganan masalah CS (bird's eye §5). Gelombang PRD aktif: `f25-batch-lifecycle` (Regular inhouse), `f26-quick-dispatch` (Quick: dispatch + kurir partner, rencana M6), `f28-coverage-editor`; slug lain (`f27`, `f29`–`f32`) direncanakan di `ui-impact.md`.
+`docs/design/app-map/`. **Status: 21 flow lama selesai (F1–F22 + F24), semua lolos gate** — lihat `INDEX.json` / `index.html`. F24 = penanganan masalah CS (bird's eye §5). Gelombang revisi sebelumnya: `f25-batch-lifecycle` (batch inhouse), `f28-coverage-editor`; `f26-quick-dispatch` **dihapus** oleh revisi beta (kurir partner/Quick/dispatch tidak ada) dan foldernya dipertahankan sebagai arsip. Slug lain (`f27`, `f29`–`f32`) direncanakan di `ui-impact.md`.
 
-Sumber otoritatif: PRD aktif `sa7tein-mvp-2026-10-11` (marketplace + delivery MVP; aktif 2026-10-15)
-(`docs/product/prd/versions/sa7tein-mvp-2026-10-11/{source.pdf,analysis.md,milestones.md}`, dampak flow di `ui-impact.md`).
-**Catatan migrasi:** flow di bawah masih menggambarkan model revisi lama `irbid-mvp-v2-2026-09-21`
-(kini `superseded`): COD hold, zona Hijazi/Syimali, kurir karyawan merchant. Perubahan flow
-mengikuti M0-M11; selama migrasi, tiap flow yang disentuh wajib lolos `./scripts/flows-gate.sh <slug>`.
+Sumber otoritatif: PRD aktif `sa7tein-beta-2026-11-05` (Beta v1, 135 halaman; aktif 2026-11-05)
+(`docs/product/prd/versions/sa7tein-beta-2026-11-05/{source.pdf,analysis.md,milestones.md}`, dampak per layar di `ui-impact.md`).
+**Catatan rebase:** flow di bawah masih menggambarkan model revisi lama `irbid-mvp-v2-2026-09-21` →
+`sa7tein-mvp-2026-10-11` (keduanya `superseded`): COD hold, zona Hijazi/Syimali, kurir inhouse + partner/Quick.
+Revisi beta menghapus partner/Quick/dispatch, mengubah batch jadi 3 status tanpa timer, dan mengganti auth
+menjadi reverse OTP multi-role. Rebase mengikuti M0–M9; selama itu tiap flow yang disentuh wajib lolos
+`./scripts/flows-gate.sh <slug>` dan menyebut requirement beta yang menjadi dasarnya.
 Setiap flow wajib merujuk requirement `R-*` dan milestone. Item `UNRESOLVED` tetap
 ditandai `UNRESOLVED` di diagram, jangan diisi tebakan.
 

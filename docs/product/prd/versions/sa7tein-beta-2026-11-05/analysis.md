@@ -1,6 +1,6 @@
 # Analysis: sa7tein-beta-2026-11-05
 
-Status: REVIEWED (proposed, **belum aktif**). Active baseline untuk delta: `sa7tein-mvp-2026-10-11` + kode repo per 2026-11-05.
+Status: REVIEWED (**aktif sejak 2026-11-05**, lihat `decision-sa7tein-beta.md`). Baseline delta: `sa7tein-mvp-2026-10-11` + kode repo per 2026-11-05.
 Revisi ini adalah PRD 135 halaman yang menggantikan dokumen 47 halaman dengan judul sama. Bukan tambal-sulam: sembilan domain berubah bentuk (auth, peran kurir, batch, uang, kuota, katalog, program marketing, dispute, ops), dan tiga domain baru muncul (membership merchant, sa7tein poin, invoice order).
 
 ## Source inventory

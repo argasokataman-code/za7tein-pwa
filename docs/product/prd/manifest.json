@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "activeRevision": "sa7tein-mvp-2026-10-11",
+  "activeRevision": "sa7tein-beta-2026-11-05",
   "revisions": [
     {
       "id": "radius-mvp-legacy",
@@ -68,21 +68,23 @@
     {
       "id": "sa7tein-mvp-2026-10-11",
       "documentVersion": "0.1",
-      "status": "active",
+      "status": "superseded",
       "source": "versions/sa7tein-mvp-2026-10-11/source.pdf",
       "sha256": "00427dec72749d6a67e8f3bedec7346ee00f44641d1a1e52c9869b0b45d7cd6c",
       "originalFilename": "PRD sa7tein — Online Food Marketplace & Delivery (MVP).pdf",
       "supersedes": "irbid-mvp-v2-2026-09-21",
+      "supersededBy": "sa7tein-beta-2026-11-05",
       "decisionRecord": "versions/sa7tein-mvp-2026-10-11/analysis.md",
       "milestonePlan": "versions/sa7tein-mvp-2026-10-11/milestones.md"
     },
     {
       "id": "sa7tein-beta-2026-11-05",
-      "documentVersion": "UNVERIFIED",
-      "status": "proposed",
+      "documentVersion": "0.1",
+      "status": "active",
       "source": "versions/sa7tein-beta-2026-11-05/source.pdf",
       "sha256": "16f8d78d4da1534b40cb97ab6c350e0731460f6cfc674467601d8f51ed0297eb",
       "originalFilename": "PRD sa7tein — Online Food Marketplace & Delivery (MVP) (1).pdf",
+      "supersedes": "sa7tein-mvp-2026-10-11",
       "decisionRecord": "versions/sa7tein-beta-2026-11-05/analysis.md",
       "milestonePlan": "versions/sa7tein-beta-2026-11-05/milestones.md"
     }

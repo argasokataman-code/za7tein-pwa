@@ -1,6 +1,6 @@
 /**
- * Katalog event realtime + matriks audiens (PRD aktif `sa7tein-mvp-2026-10-11`
- * §19, NFR-05/06, ARC-08). Fungsi murni: "event apa ke siapa" tinggal di sini
+ * Katalog event realtime + matriks audiens (PRD `sa7tein-mvp-2026-10-11` §19,
+ * NFR-05/06, ARC-08; kini superseded, matriks beta di §18). Fungsi murni: "event apa ke siapa" tinggal di sini
  * supaya seluruh baris §19 bisa diuji tanpa browser.
  *
  * **Nama event tidak dikarang.** §19 memakai label Indonesia dan tidak menetapkan

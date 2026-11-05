@@ -2295,6 +2295,450 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-213221",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:04:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/decision-sa7tein-beta.md (+50) — write via tool: # Keputusan sumber produk",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/decision-sa7tein-beta.md"
+    },
+    {
+      "id": "TASK-213222",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:04:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/manifest.json (+1/-1) — edit via tool: \"activeRevision\": \"sa7tein-beta-202",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/manifest.json"
+    },
+    {
+      "id": "TASK-213223",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:04:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+3/-3) — edit via tool: PRD produk diregistrasi di `docs/product",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213224",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:04:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/.rules.json (+1/-1) — edit via tool: \"activeRevision\": \"sa7tein-beta-2026-11-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/.rules.json"
+    },
+    {
+      "id": "TASK-213225",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:04:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/README.md (+1/-1) — edit via tool: **Revisi aktif selalu dibaca dari `mani",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/README.md"
+    },
+    {
+      "id": "TASK-213226",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:05:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/INDEX.json (+1/-1) — edit via tool: \"$comment\": \"Peta integrasi antar flo",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-213227",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:05:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/PLAN.md (+7/-5) — edit via tool: Sumber otoritatif: PRD aktif `sa7tein-be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/PLAN.md"
+    },
+    {
+      "id": "TASK-213228",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:05:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+16/-19) — edit via tool: tsx: <li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213229",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:05:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/IntroductionSection.tsx (+1/-1) — edit via tool: tsx: is a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/IntroductionSection.tsx"
+    },
+    {
+      "id": "TASK-213230",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:05:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/chat.ts (+1/-1) — edit via tool: ts: * Peserta & lifecycle chat per order (PR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/chat.ts"
+    },
+    {
+      "id": "TASK-213231",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/rating.ts (+1/-1) — edit via tool: ts: * Aturan rating & review (PRD `sa7tein-m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/rating.ts"
+    },
+    {
+      "id": "TASK-213232",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/tracking.ts (+1/-1) — edit via tool: ts: * Aturan pelacakan kurir (PRD `sa7tein-m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/tracking.ts"
+    },
+    {
+      "id": "TASK-213233",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/notif.ts (+2/-2) — edit via tool: ts: * Katalog emit notifikasi + penjaga audi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/notif.ts"
+    },
+    {
+      "id": "TASK-213234",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/realtime.ts (+2/-2) — edit via tool: ts: * Katalog event realtime + matriks audie",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/realtime.ts"
+    },
+    {
+      "id": "TASK-213235",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/types.ts (+8/-5) — edit via tool: ts: // ── Domain PRD sa7tein-mvp-2026-10-11 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-213236",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:38",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/marketplace.ts (+1/-1) — edit via tool: ts: // ── Domain M0 revisi mvp (sa7tein-mv",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/marketplace.ts"
+    },
+    {
+      "id": "TASK-213237",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/integration/courier-partner/be-contract.md (+12/-7) — edit via tool: # Kontrak BE — AP",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/integration/courier-partner/be-contract.md"
+    },
+    {
+      "id": "TASK-213238",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:48",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/decision-sa7tein-mvp.md (+2/-1) — edit via tool: - Tanggal aktivasi: **202",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/decision-sa7tein-mvp.md"
+    },
+    {
+      "id": "TASK-213239",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/analysis.md (+1/-1) — edit via tool: Stat",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/analysis.md"
+    },
+    {
+      "id": "TASK-213240",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:06:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md (+1/-1) — edit via tool: St",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md"
+    },
+    {
+      "id": "TASK-213241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:07:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md (+1/-1) — edit via tool: - ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md"
+    },
+    {
+      "id": "TASK-213242",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:08:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/ui-impact.md (+141) — write via tool: # U",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/ui-impact.md"
+    },
+    {
+      "id": "DEC-88150",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-05",
+      "time": "08:09:35",
+      "tags": [
+        "prd",
+        "beta",
+        "activation"
+      ],
+      "summary": "Aktifkan PRD beta 135 hal (sa7tein-beta-2026-11-05): reverse OTP multi-role, kurir karyawan, batch 3 status, F ke merchant, kuota 2 sisi, me",
+      "conn": [
+        {
+          "id": "DEC-88020",
+          "type": "led_to",
+          "raw": "DEC-88020:led_to"
+        },
+        {
+          "id": "DEC-014",
+          "type": "relates",
+          "raw": "DEC-014:relates"
+        }
+      ],
+      "loc": "docs/product/prd/manifest.json:3"
     }
   ]
 }

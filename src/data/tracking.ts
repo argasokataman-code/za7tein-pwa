@@ -1,5 +1,5 @@
 /**
- * Aturan pelacakan kurir (PRD aktif `sa7tein-mvp-2026-10-11` §9.7, COU-06, L1).
+ * Aturan pelacakan kurir (PRD `sa7tein-mvp-2026-10-11` §9.7, COU-06, L1; kini superseded).
  * Fungsi murni: layar hanya menyalurkan waktu dan geometri, keputusan aturannya di
  * sini supaya bisa diuji tanpa browser.
  */

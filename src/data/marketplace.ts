@@ -11,7 +11,7 @@ import type {
 } from '../types'
 import { jodToIdr } from './currency'
 
-// ── Domain M0: PRD sa7tein-mvp-2026-10-11 (marketplace + delivery) ───────────
+// ── Domain M0 revisi mvp (sa7tein-mvp-2026-10-11, superseded) ────────────────
 // Konstanta + seed mock untuk slice batch, partner, kuota, marketing, refund,
 // coverage, dan rule dispute. Semua nilai **mock** (repo ini front-end saja,
 // AGENTS.md §1); kontrak BE ada di analysis.md. Nominal uang dalam JOD kecuali

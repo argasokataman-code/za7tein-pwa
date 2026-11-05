@@ -1,5 +1,5 @@
 {
-  "$comment": "Peta integrasi antar flow. Satu baris = satu sambungan eksplisit antar folder flow. Sumber otoritatif: PRD sa7tein-mvp-2026-10-11 (aktif 2026-10-15); flow di bawah masih menggambarkan revisi lama irbid-mvp-v2-2026-09-21 (kini superseded), migrasi mengikuti M0-M11. ID pakai notasi <slug>:<node|transition|edge>. Untuk BE: dipakai baca event -> entity (bahan ERD, skema asli milik repo backend). Repo ini front-end saja — diagram menggambarkan layar & state, bukan implementasi backend (AGENTS.md §1).",
+  "$comment": "Peta integrasi antar flow. Satu baris = satu sambungan eksplisit antar folder flow. Sumber otoritatif: PRD sa7tein-beta-2026-11-05 (aktif 2026-11-05, 135 halaman). Flow di bawah masih menggambarkan model revisi lama (irbid-mvp-v2-2026-09-21 lalu sa7tein-mvp-2026-10-11, keduanya superseded); rebase dilakukan bersama milestone M0-M9, dan flow yang bentuknya berubah wajib diperbarui sebelum kodenya disentuh. ID pakai notasi <slug>:<node|transition|edge>. Untuk BE: dipakai baca event -> entity (bahan ERD, skema asli milik repo backend). Repo ini front-end saja — diagram menggambarkan layar & state, bukan implementasi backend (AGENTS.md §1).",
   "schema_version": 1,
   "flows": {
     "f1-order-lifecycle": { "type": "workflow", "status": "done", "role": "umbrella", "basis": "R-COD-01, R-DELIV-01, R-TOPUP-01, R-FEE-01", "biz": "decided" },
@@ -14,8 +14,8 @@
     "f10-exchange-rate": { "type": "sequence", "status": "done", "role": "support", "basis": "R-CURR-01, C-14", "biz": "partial" },
     "f11-push-notification": { "type": "sequence", "status": "done", "role": "support", "basis": "R-PUSH-01, C-18", "biz": "partial" },
     "f12-merchant-console": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "C-06, C-07, plan-merchant", "biz": "partial" },
-    "f13-courier-view": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-COU-INHOUSE + R-TRACK + R-DELIV-FEE (PRD §7.2, §9.2, §9.7, §12 COU-06/COU-11..13) — sa7tein-mvp-2026-10-11", "biz": "decided" },
-    "f14-chat-order": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "R-CUS-CHAT (PRD sa7tein-mvp-2026-10-11 §20.1, CUS-26, COU-07) + C-18 (in-app chat), C-12", "biz": "decided" },
+    "f13-courier-view": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-COURIER + R-BATCH + R-CUS-ORDER (beta §9, §7.2, §8; kurir = karyawan merchant). Bentuk beta tanpa partner/Quick; diagram masih model lama sampai rebase M5", "biz": "decided" },
+    "f14-chat-order": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "R-CUS-CHAT (beta §19.1, CUS-26) + C-18 (in-app chat), C-12. Peserta = akun + kurir setelah assign", "biz": "decided" },
     "f15-super-admin": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "C-12, PRD 5C, R-DISPUTE-01", "biz": "partial" },
     "f16-merchant-onboarding": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PRD 5C deposit + Insentif Founding (5 JOD), I-1/I-2, C-12", "biz": "partial" },
     "f17-payment-dana": { "type": "sequence", "status": "done", "role": "support", "basis": "keputusan PO 2026-10-13 (DANA), DEC-1039, OQ-25", "biz": "decided" },
@@ -25,9 +25,9 @@
     "f21-account-auth": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PRD §Registrasi (source.md:760) + E.164 (:727) + PO 2026-09-22 (Google + nomor WA, Level 1)", "biz": "decided" },
     "f22-super-admin-sa": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "PO 2026-09-23 (cakupan Super Admin, decision-irbid-mvp.md) + C-12 + R-DISPUTE-01 + R-LEDGER-01 + C-13", "biz": "partial" },
     "f24-cs-problem": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "BRS notif-order-e2e-2026-10-11 (proposed) + R-NOTIF-02 + R-DISPUTE-01 + C-12", "biz": "proposed" },
-    "f25-batch-lifecycle": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-BATCH + R-AUTOSORT + R-COU-INHOUSE + R-COU-PARTNER + R-COU-DISPATCH + R-DELIV-FEE (PRD §7.2/§7.3, §8, §9.2–§9.7, §12, §13, §11) — sa7tein-mvp-2026-10-11", "biz": "decided" },
-    "f26-quick-dispatch": { "type": "workflow", "status": "proposed", "role": "drilldown", "basis": "R-COU-PARTNER + R-COU-DISPATCH + R-DELIV-FEE (PRD §7.3, §9.3–§9.5, §12, §13, §16.3) — sa7tein-mvp-2026-10-11", "biz": "decided" },
-    "f28-coverage-editor": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "R-MER-COVERAGE + MER-04 + C-13 (PRD §9.1/§11) — sa7tein-mvp-2026-10-11", "biz": "decided" }
+    "f25-batch-lifecycle": { "type": "workflow", "status": "partial", "role": "drilldown", "basis": "R-BATCH + R-AUTOSORT + R-COURIER (beta §8 BR-B01..B22, §7.2, §7.5): 3 status, maks 24, tanpa timer/extend/packing. Diagram masih model lama sampai rebase M5", "biz": "decided" },
+    "f26-quick-dispatch": { "type": "workflow", "status": "proposed", "role": "drilldown", "basis": "DIHAPUS di beta: R-COURIER tidak lagi punya kurir partner, Quick, atau dispatch. Folder disimpan sebagai arsip; jangan dipakai sebagai acuan", "biz": "decided" },
+    "f28-coverage-editor": { "type": "workflow", "status": "done", "role": "drilldown", "basis": "R-MER-COVERAGE + MER-04 + C-13 (beta §9.1, §11): mode area polygon atau radius, fee WALK", "biz": "decided" }
   },
   "links": [
     { "from": "f1-order-lifecycle:order", "to": "f2-cod-hold:none->held", "as": "drilldown", "event": "hold_created", "req": "R-COD-01" },
@@ -111,8 +111,8 @@
     { "req": "R-NOTIF-02", "flows": ["f1-order-lifecycle", "f11-push-notification", "f24-cs-problem", "f8-dispute"], "entities": ["notifications", "disputes", "incident_resolutions"], "unresolved": ["SLA penanganan CS", "pemilik alert SLA (CS vs SA)", "ambang tolak berulang"], "note": "CS hanya saat masalah; SA hanya eskalasi (DEC-2003) — 0 emit audience 'cs' di kode saat ini" }
   ],
   "contract": {
-    "$comment": "Pemetaan flow yang ada ke kontrak Sa7tein API v1. Sumber kebenaran kontrak: openapi.yaml (DRAFT 0.1.0). Repo ini front-end mock (AGENTS.md §1) — tabel ini dokumentasi penyelarasan, bukan implementasi. Item `status: unresolved` berarti kontrak sendiri belum memutuskan (lihat x-unresolved pada spec) dan tidak boleh ditebak. Revisi PRD aktif `sa7tein-mvp-2026-10-11` menambah entri R-ACC-01 s/d R-NFR (magic link, multi-cart, refund, catalog Odoo, marketing, kuota, batch, partner/dispatch, track, realtime, money baru, ops, arsitektur Cloudflare); delta penuh + status per item ada di docs/design/flows/API-SPEC.md Bagian B (§17-§18).",
-    "api": "Sa7tein API — marketplace + delivery (sa7tein-mvp-2026-10-11)",
+    "$comment": "Pemetaan flow yang ada ke kontrak Sa7tein API v1. Sumber kebenaran kontrak: openapi.yaml (DRAFT 0.1.0). Repo ini front-end mock (AGENTS.md §1) — tabel ini dokumentasi penyelarasan, bukan implementasi. Item `status: unresolved` berarti kontrak sendiri belum memutuskan (lihat x-unresolved pada spec) dan tidak boleh ditebak. Revisi PRD aktif `sa7tein-beta-2026-11-05` membawa 34 requirement R-* (auth reverse OTP + multi-role, QRIS/COD berkuota, Pk, Ft dinamis, kuota dua sisi, membership, poin, invoice PDF, dispute non-uang, ops 24 kebutuhan, ARC-01..18, NFR-01..07). Delta beta ada di `versions/sa7tein-beta-2026-11-05/analysis.md`; Bagian B `docs/design/flows/API-SPEC.md` masih menggambarkan delta revisi sebelumnya dan diselaraskan per milestone.",
+    "api": "Sa7tein API — marketplace + delivery (revisi PRD aktif sa7tein-beta-2026-11-05)",
     "version": "0.1.0-draft",
     "source": "https://sa7tein-api.vercel.app/openapi.yaml",
     "servers": [

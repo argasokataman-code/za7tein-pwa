@@ -5,6 +5,7 @@
 - Analisis: `versions/sa7tein-mvp-2026-10-11/analysis.md` (REVIEWED). Milestone: `versions/sa7tein-mvp-2026-10-11/milestones.md` (M0–M11). Dampak UI/flow: `versions/sa7tein-mvp-2026-10-11/ui-impact.md`.
 - Menggantikan: `irbid-mvp-v2-2026-09-21` (kini `superseded`), yang sebelumnya menggantikan `irbid-mvp-2026-09-12` dan `radius-mvp-legacy`.
 - Tanggal aktivasi: **2026-10-15** (keputusan pemilik).
+- Status: **`superseded` sejak 2026-11-05** oleh `sa7tein-beta-2026-11-05` (lihat `decision-sa7tein-beta.md`). Dokumen ini disimpan sebagai jejak keputusan, bukan acuan aturan aktif.
 
 ## Alasan
 

@@ -1144,11 +1144,14 @@ export interface AuthBannerSlide {
   alt: string
 }
 
-// ── Domain PRD sa7tein-mvp-2026-10-11 (marketplace + delivery) ───────────────
-// Tipe di bawah milik revisi aktif (aktif 2026-10-15), menggantikan model
-// `irbid-mvp-v2-2026-09-21` (COD hold, zona Hijazi/Syimali, kurir karyawan
-// merchant). Ditulis **aditif**: tipe lama tetap ada sampai bagiannya
-// dimigrasikan di M1-M11 (lihat versions/sa7tein-mvp-2026-10-11/milestones.md).
+// ── Domain PRD sa7tein-mvp-2026-10-11 (marketplace + delivery, superseded) ───
+// Tipe di bawah milik revisi `sa7tein-mvp-2026-10-11` (aktif 2026-10-15 s/d
+// 2026-11-05), menggantikan model `irbid-mvp-v2-2026-09-21` (COD hold, zona
+// Hijazi/Syimali, kurir karyawan merchant). Revisi aktif kini
+// `sa7tein-beta-2026-11-05`: model beta (reverse OTP multi-role, batch 3 status,
+// Pk + Ft dinamis, kuota dua sisi, membership, poin, invoice PDF) belum ada di
+// sini dan ditambahkan bertahap di M0-M9
+// (lihat docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md).
 // Semua nominal harga domain ini **JOD**; konversi ke IDR terjadi saat transaksi.
 
 // — Order & batch (PRD §7, §8) —

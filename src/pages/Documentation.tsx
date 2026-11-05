@@ -596,22 +596,19 @@ export default function Documentation() {
               </li>
               <li>
                 <strong>PRD aktif berganti</strong> ke{' '}
-                <code className="doc-inline">sa7tein-mvp-2026-10-11</code> (marketplace +
-                delivery), menggantikan <code className="doc-inline">irbid-mvp-v2-2026-09-21</code>{' '}
-                yang jadi <code className="doc-inline">superseded</code> (catatan keputusan di{' '}
-                <code className="doc-inline">docs/product/prd/decision-sa7tein-mvp.md</code>).
-                Migrasi M0–M11 masuk bertahap: M0 menambah tipe domain + konstanta uang
-                (Pc/Pm, multiplier Quick, Ft QRIS) dan slice{' '}
-                <code className="doc-inline">batch</code>/<code className="doc-inline">partner</code>/
-                <code className="doc-inline">quota</code>/<code className="doc-inline">marketing</code>;
-                M1 (discovery) menggrup toko per tag, menyembunyikan toko blok-kuota, menonaktifkan
-                toko tutup/luar-coverage, dan menambah bilah urut/filter di{' '}
-                <code className="doc-inline">/customer/home</code>; M4 (konsol merchant) memecah
-                accept order jadi <strong>Regular → batch</strong> (baru/gabung, hitung mundur,
-                packing, tutup lebih awal, satu kurir inhouse) dan <strong>Quick → kurir partner</strong>{' '}
-                di <code className="doc-inline">/merchant/orders</code> (flow{' '}
-                <code className="doc-inline">f25-batch-lifecycle</code>). Milestone &amp; kriteria
-                penerimaan: <code className="doc-inline">docs/product/prd/versions/sa7tein-mvp-2026-10-11/milestones.md</code>.
+                <code className="doc-inline">sa7tein-beta-2026-11-05</code> (Beta v1, 135 halaman),
+                menggantikan <code className="doc-inline">sa7tein-mvp-2026-10-11</code> yang menjadi{' '}
+                <code className="doc-inline">superseded</code> (catatan keputusan di{' '}
+                <code className="doc-inline">docs/product/prd/decision-sa7tein-beta.md</code>).
+                Model berubah di sembilan domain: auth reverse OTP + multi-role, kurir = karyawan
+                merchant (partner/Quick/dispatch dihapus), batch 3 status tanpa timer, F ke merchant +
+                Pk + Ft dinamis, QRIS + COD berkuota, kuota dua sisi, katalog varian otomatis + combo,
+                4 tipe program + budget, dispute non-uang. Tiga domain baru: membership, sa7tein poin,
+                invoice PDF. Rencana M0–M9 dan dampak per layar:{' '}
+                <code className="doc-inline">
+                  docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md
+                </code>
+                .
               </li>
               <li>
                 <strong>Editor coverage merchant</strong> (M4b): Setelan toko &rarr;{' '}

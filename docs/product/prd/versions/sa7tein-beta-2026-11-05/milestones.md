@@ -1,6 +1,6 @@
 # Milestones: sa7tein-beta-2026-11-05
 
-Status: PROPOSED (revisi **belum aktif**; `manifest.json` `activeRevision` tetap `sa7tein-mvp-2026-10-11`). Analisis sumber selesai (`analysis.md`, REVIEWED, 135 halaman). Rencana ini tidak boleh dieksekusi sebelum keputusan aktivasi tertulis (README intake §5–§6).
+Status: ACTIVE sejak 2026-11-05 (`manifest.json` `activeRevision` = `sa7tein-beta-2026-11-05`; `sa7tein-mvp-2026-10-11` `superseded`). Analisis sumber selesai (`analysis.md`, REVIEWED, 135 halaman). Semua milestone masih `planned` karena belum ada requirement beta yang `complete` di repo.
 
 Target: repo ini (`sa7tein-pwa`), front-end mock. Urutan mengikuti dependensi: **model & kontrak → auth → discovery/katalog → uang → merchant → batch/kurir → monetisasi → lintas domain → ops → verifikasi** (README §6). Setiap milestone = mock state + kontrak handoff BE; tidak ada backend (AGENTS §1).
 
@@ -19,7 +19,7 @@ Target: repo ini (`sa7tein-pwa`), front-end mock. Urutan mengikuti dependensi: *
 
 ## Notes
 
-- **Revisi ini `proposed`, bukan aktif.** Manifest `activeRevision` masih `sa7tein-mvp-2026-10-11`; aktivasi menuntut keputusan produk tertulis + pembaruan AGENTS/`.rules.json`/`Documentation.tsx`/`flows/INDEX.json`/atlas dalam commit yang sama (README §5–§6). Jangan mengeksekusi milestone ini sebelum itu.
+- **Revisi ini aktif sejak 2026-11-05.** `manifest.json` `activeRevision` = `sa7tein-beta-2026-11-05`; `sa7tein-mvp-2026-10-11` `superseded` (keputusan: `docs/product/prd/decision-sa7tein-beta.md`). Sinkronisasi AGENTS/`.rules.json`/`Documentation.tsx`/`flows/INDEX.json`/atlas dilakukan di commit aktivasi yang sama. Aktivasi **tidak** menutup blocker `OPEN-*` di bawah.
 - **Delta yang memblokir urutan.** (1) Auth reverse OTP mengubah semua halaman login, jadi M1 sebelum layar peran lain. (2) Uang berubah arah (F ke merchant, Pk, Ft dinamis) sehingga checkout, payout, refund, dan ops finance harus serempak di M3. (3) Kurir partner/Quick/dispatch dihapus, bukan dibiarkan: `partnerSlice`, `CourierPartner.tsx`, `CourierPayout*`, dispatch ops masuk daftar arsip M5. (4) Katalog & marketing berubah paling dalam (varian otomatis, combo, 4 tipe program, budget) sehingga M2 dan M4 tidak bisa diselesaikan dengan menambah field.
 - **Blocker non-teknis.** OPEN-01 payment gateway (seluruh alur uang), OPEN-02 provider kurs + fallback, OPEN-25 query lintas instance + skala, OPEN-27 legal, OPEN-28 metrik keberhasilan, OPEN-31 fitur bonus paket. Jangan diisi tebakan (AGENTS §0, README §7).
 - **Status.** Semua milestone `planned` karena tidak ada requirement beta yang `complete` di repo saat ini; feature definitions (34 file) sudah lengkap dengan acceptance terukur, sehingga keputusan aktivasi bisa langsung menurunkan status per milestone menjadi `partial` saat pekerjaan dimulai.

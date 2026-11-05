@@ -1,8 +1,13 @@
 # Kontrak BE — API kurir partner & dispatch (M6)
 
+> **ARSIP (2026-11-05).** Revisi PRD aktif `sa7tein-beta-2026-11-05` menghapus kurir
+> partner, Quick, dan dispatch: kurir adalah **karyawan merchant** ber-hak "Antar order"
+> (`R-COURIER`, PRD §9, §11.3). Dokumen ini disimpan sebagai catatan historis dan
+> **bukan** acuan implementasi. Flow `f26-quick-dispatch` juga diarsipkan.
+
 Repo ini front-end (AGENTS.md §1). Dokumen ini mencatat jalur data kurir partner /
-Quick, mana yang **sudah dipakai** dan mana yang masih usulan. Rujukan: PRD aktif
-`sa7tein-mvp-2026-10-11` §7.3, §9.3, §9.4 (usulan), §9.5, §13 (OPS-10/OPS-13),
+Quick, mana yang **sudah dipakai** dan mana yang masih usulan. Rujukan: PRD
+`sa7tein-mvp-2026-10-11` (superseded) §7.3, §9.3, §9.4 (usulan), §9.5, §13 (OPS-10/OPS-13),
 §16.3, §18; flow `docs/design/flows/f26-quick-dispatch/`; gap per layar
 `ui-impact.md` §8.
 

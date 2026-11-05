@@ -1,6 +1,6 @@
 /**
- * Katalog emit notifikasi + penjaga audience (PRD aktif `sa7tein-mvp-2026-10-11`
- * §20.3, CUS-29). Fungsi murni: layar hanya membaca katalog, keputusan "event apa
+ * Katalog emit notifikasi + penjaga audience (PRD `sa7tein-mvp-2026-10-11` §20.3,
+ * CUS-29; kini superseded, katalog beta menyusul di M1). Fungsi murni: layar hanya membaca katalog, keputusan "event apa
  * ke siapa" tinggal di sini supaya bisa diuji tanpa browser.
  *
  * Empat kanal customer §20.3 masing-masing punya satu entri, dan tiap entri

@@ -1,7 +1,7 @@
 import type { OrderType } from '../types'
 
 /**
- * Peserta & lifecycle chat per order (PRD aktif `sa7tein-mvp-2026-10-11` §20.1,
+ * Peserta & lifecycle chat per order (PRD `sa7tein-mvp-2026-10-11` §20.1, kini superseded;
  * CUS-26, COU-07). Chat dibuka saat order dibuat dengan peserta awal customer +
  * merchant; kurir baru bergabung saat ia benar-benar memegang order itu.
  */

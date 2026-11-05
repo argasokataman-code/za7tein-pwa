@@ -1,5 +1,5 @@
 /**
- * Aturan rating & review (PRD aktif `sa7tein-mvp-2026-10-11` §20.2, §10 CUS-27/28,
+ * Aturan rating & review (PRD `sa7tein-mvp-2026-10-11` §20.2, §10 CUS-27/28, kini superseded;
  * §14). Fungsi murni: "apa yang dinilai dan dengan bentuk apa" tinggal di sini
  * supaya bisa diuji tanpa browser, dan supaya layar tidak menebak sendiri.
  *
