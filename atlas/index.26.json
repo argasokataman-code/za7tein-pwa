@@ -1229,6 +1229,139 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-213166",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-04",
+      "time": "08:32:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && git commit -F - <<'MSG' 2>&1 | tail -25\nfeat(merchant): terapkan desain slice menu 1:",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213167",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-04",
+      "time": "08:32:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+13/-2) — edit via tool: tsx: attribute/varian Odoo (MER-07/ME",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213168",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-04",
+      "time": "08:33:28",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && git add src/pages/Documentation.tsx && git commit -F - <<'MSG' 2>&1 | tail -12\nfeat(m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213169",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:12:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantPage.tsx (+6/-5) — edit via tool: tsx: {/* Aturan §15.3 tidak dicetak di ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantPage.tsx"
+    },
+    {
+      "id": "TASK-213170",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:12:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useProgramDiscount.ts (+4/-4) — edit via tool: ts: const note = [",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useProgramDiscount.ts"
+    },
+    {
+      "id": "TASK-213171",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:13:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+8/-2) — edit via tool: tsx: yang paling menguntungkan yang di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "07:13:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | grep -E \"error TS|di",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

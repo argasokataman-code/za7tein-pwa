@@ -831,6 +831,12 @@ export default function Documentation() {
                 berlaku: program stackable digabung, program yang berdiri sendiri hanya sendiri —
                 yang paling menguntungkan yang dipakai (semantik kombinasi masih{' '}
                 <strong>OPEN-23</strong>, jadi aturannya ditulis di kode, bukan disembunyikan).
+                Aturan itu <strong>tidak dicetak sebagai kalimat di UI</strong>: paragraf
+                &ldquo;program yang berdiri sendiri hanya berlaku kalau tak digabung &hellip;
+                (&sect;15.3)&rdquo; di halaman toko dan nomor bab di catatan promo checkout dihapus
+                2026-11-05, karena keduanya alasan desain yang dibaca customer. Rujukannya tinggal
+                komentar di <code className="doc-inline">src/pages/MerchantPage.tsx</code> dan{' '}
+                <code className="doc-inline">src/hooks/useProgramDiscount.ts</code>.
                 Hadiah yang belum dihitung (produk, gratis ongkir, item termurah, tukar poin) tetap
                 tampil dengan alasan dan bernilai 0 — bukan hilang diam-diam.
               </li>

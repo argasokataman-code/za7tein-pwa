@@ -65,9 +65,12 @@ export function useProgramDiscount(): ProgramDiscount {
     // Satu catatan, bukan dua paragraf berturut-turut: aturan penggabungan lebih
     // dulu (itu yang menjelaskan kenapa angka lain tidak muncul), lalu sebab per
     // program. Semua yang tak masuk total bisa dibaca dalam satu tempat.
+    // Alasan penggabungan datang dari PRD §15.3 (semantik OPEN-23). Nomor bab
+    // tidak ikut ke layar: kalimat ini dibaca customer di checkout, bukan
+    // catatan developer. Rujukannya tinggal di komentar ini.
     const note = [
       combo.rejected.length > 0
-        ? 'Program lain tidak dipakai karena ada program yang tak bisa digabung (§15.3).'
+        ? 'Program lain tidak dipakai karena ada program yang tak bisa digabung.'
         : null,
       ...infoRows.map((row) => `${row.name}: ${row.note}`),
     ]

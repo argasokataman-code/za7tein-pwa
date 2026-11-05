@@ -254,10 +254,11 @@ export default function MerchantPage() {
 
               {/* Kupon di atas sudah menampilkan tiap program; tak ada daftar
                   kartu ulang (informasi sama, tampil dua kali = sampah visual). */}
-              <p className="summary-info-note">
-                Program yang berdiri sendiri hanya berlaku kalau tak digabung; kalau ada beberapa,
-                yang paling menguntungkan yang dipakai (§15.3).
-              </p>
+              {/* Aturan §15.3 tidak dicetak di layar: "program yang berdiri sendiri
+                  hanya berlaku kalau tak digabung; kalau ada beberapa, yang paling
+                  menguntungkan yang dipakai" adalah alasan desain, bukan informasi
+                  yang dipakai customer memilih menu. Kupon di atas sudah
+                  menampilkan tiap program; hitungannya diumumkan di checkout. */}
             </section>
           ) : null}
 
