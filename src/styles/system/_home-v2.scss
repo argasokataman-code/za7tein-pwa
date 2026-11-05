@@ -13,9 +13,70 @@
   margin-bottom: var(--space-4);
 }
 
+/* Lintasan carousel: rail geser satu kartu penuh, bukan tumpukan vertikal.
+   `scroll-snap` supaya kartu selalu berhenti rapi di tepi kiri, dan scrollbar
+   disembunyikan karena penanda posisinya adalah titik di bawah. */
+.home-promo__track {
+  display: flex;
+
+  gap: var(--space-3);
+
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.home-promo__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Titik posisi: kotak sentuh 44px, tanda visualnya kecil. Titik yang lebih
+   kecil dari 44px sulit ditekan dan tidak terbaca sebagai kontrol. */
+.home-promo__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: var(--space-2);
+}
+
+.home-promo__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--touch-min);
+  height: var(--touch-min);
+
+  border: 0;
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.home-promo__dot-mark {
+  width: var(--space-2);
+  height: var(--space-2);
+
+  border-radius: var(--radius-pill);
+
+  background: var(--border-strong);
+}
+
+.home-promo__dot--on .home-promo__dot-mark {
+  width: var(--space-5);
+
+  background: var(--sa7tein-orange);
+}
+
 .home-promo__card {
   position: relative;
   display: flex;
+
+  /* Satu kartu = satu layar lintasan: lebar penuh rel, bukan menyusut. */
+  flex: 0 0 100%;
+
+  scroll-snap-align: start;
 
   overflow: hidden;
 

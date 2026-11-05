@@ -65,7 +65,13 @@ export default function Home() {
     const best = Math.max(promoByStore.get(deal.merchantId) ?? 0, deal.discountPercent ?? 0)
     promoByStore.set(deal.merchantId, best)
   }
-  const promoStore = stores.find((store) => promoByStore.has(store.id))
+  // Semua toko yang punya menu berdiskon, urut seperti daftar toko. Banner
+  // beranda kini carousel: satu slide per toko promo, maksimal empat supaya
+  // lintasannya tidak jadi daftar panjang di layar yang isinya sudah padat.
+  const promoSlides = stores
+    .filter((store) => promoByStore.has(store.id))
+    .slice(0, 4)
+    .map((store) => ({ store, maxDiscount: promoByStore.get(store.id) ?? 0 }))
 
   // Chip kategori tetap (Semua + 4) — selalu tampil, seperti prototype v2.
   // Menyaring TOKO, bukan item: sebuah toko tampil kalau ia melayani kategori
@@ -121,11 +127,10 @@ export default function Home() {
           />
 
           <div className={`home-content${cartCount > 0 ? ' home-content--cart' : ''}`}>
-            {promoStore ? (
+            {promoSlides.length ? (
               <HomePromoBanner
-                store={promoStore}
-                maxDiscount={promoByStore.get(promoStore.id) ?? 0}
-                onOpen={() => navigate(`/merchant/${promoStore.id}`)}
+                promos={promoSlides}
+                onOpen={(storeId) => navigate(`/merchant/${storeId}`)}
               />
             ) : null}
 

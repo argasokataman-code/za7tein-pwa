@@ -394,6 +394,23 @@ export default function Documentation() {
                 dipasang sekali di grup.
               </li>
               <li>
+                <strong>Banner promo beranda jadi carousel (2026-11-05).</strong> Dulu{' '}
+                <code className="doc-inline">HomePromoBanner</code> hanya menampilkan satu toko
+                (<code className="doc-inline">Home.tsx</code> memilih yang pertama punya diskon),
+                sehingga toko promo lainnya tak terlihat dari beranda meski kartunya menulis
+                &ldquo;Promo hemat N%&rdquo;. Sekarang semua toko berdiskon (maksimal empat) jadi
+                slide di dalam <code className="doc-inline">.home-promo__track</code>: satu kartu per
+                lintasan, <code className="doc-inline">scroll-snap-type: x mandatory</code>, titik
+                posisi 44px di bawah. Carousel berjalan otomatis tiap lima detik, tetapi berhenti
+                sementara saat disentuh, di-hover, atau difokuskan supaya tidak melawan jempol yang
+                sedang membaca; <code className="doc-inline">prefers-reduced-motion</code> mematikan
+                gerak otomatisnya. Tombol tiap slide membuka toko masing-masing, dan angka diskon
+                tetap dihitung dari menu yang benar-benar berdiskon. Terukur 390px: 4 slide, track
+                390px, isi 1596px, 4 titik 44px, klik titik kedua menggulir ke 402px. Gate{' '}
+                <code className="doc-inline">/customer/home --strict --click</code> 2/2 PASS,
+                overflow 0, MD-12 lolos.
+              </li>
+              <li>
                 <strong>Setelan merchant tidak lagi terasa seperti halaman web.</strong> Tautan
                 bergaya tombol ("Atur area layanan", "Buka dompet", "Kelola rekening") kehilangan
                 garis bawah bawaan peramban lewat satu aturan di{' '}
