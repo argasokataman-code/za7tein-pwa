@@ -2986,6 +2986,27 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/decision-sa7tein-beta.md"
+    },
+    {
+      "id": "TASK-88160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:23:18",
+      "tags": [
+        "prd",
+        "traceability",
+        "beta"
+      ],
+      "summary": "Traceability 1:1 revisi beta: 161 ID sumber -> R-*, disposisi OPEN-01..86, glossary, R-CUS-ADDRESS",
+      "conn": [
+        {
+          "id": "DEC-88150",
+          "type": "implements",
+          "raw": "DEC-88150:implements"
+        }
+      ],
+      "commit": "6df2b77"
     }
   ]
 }
