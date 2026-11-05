@@ -2,7 +2,7 @@
 
 - ID: `sa7tein-beta-2026-11-05`
 - Sumber: `versions/sa7tein-beta-2026-11-05/source.pdf` (PRD *sa7tein — Online Food Marketplace & Delivery (MVP)*, versi cetak 0.1 draft, 135 halaman, berkas `… (1).pdf`).
-- Analisis: `versions/sa7tein-beta-2026-11-05/analysis.md` (REVIEWED, 34 baris Requirement delta, konflik `B-01..B-17`). Milestone: `versions/sa7tein-beta-2026-11-05/milestones.md` (M0–M9, semua `planned`). Dampak UI/flow: `versions/sa7tein-beta-2026-11-05/ui-impact.md`.
+- Analisis: `versions/sa7tein-beta-2026-11-05/analysis.md` (REVIEWED, 34 baris Requirement delta, konflik `B-01..B-17`). Milestone: `versions/sa7tein-beta-2026-11-05/milestones.md` (M0–M9, semua `planned`). Dampak UI/flow: `versions/sa7tein-beta-2026-11-05/ui-impact.md`. Pemeriksaan 1:1: `versions/sa7tein-beta-2026-11-05/traceability.md` (161 ID sumber → `R-*`, disposisi `OPEN-01..86`) dan `versions/sa7tein-beta-2026-11-05/glossary.md` (konvensi, latar belakang, tujuan, lingkup, 47 istilah, referensi).
 - Menggantikan: `sa7tein-mvp-2026-10-11` (kini `superseded`), yang sebelumnya menggantikan `irbid-mvp-v2-2026-09-21`, `irbid-mvp-2026-09-12`, dan `radius-mvp-legacy`.
 - Tanggal aktivasi: **2026-11-05** (keputusan pemilik, sesi branch `beta-v1`).
 

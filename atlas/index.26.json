@@ -2739,6 +2739,253 @@
         }
       ],
       "loc": "docs/product/prd/manifest.json:3"
+    },
+    {
+      "id": "TASK-213243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:16:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/analysis.md (+1/-1) — edit via tool: | R-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/analysis.md"
+    },
+    {
+      "id": "TASK-213244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:16:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-ADDRESS.md (+68) — write v",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-ADDRESS.md"
+    },
+    {
+      "id": "TASK-213245",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:17:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-ADDRESS.md (+6/-6) — edit ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-ADDRESS.md"
+    },
+    {
+      "id": "TASK-213246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:17:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md (+1/-1) — edit via tool: | ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/milestones.md"
+    },
+    {
+      "id": "TASK-213247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:18:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /tmp/gen-docs.mjs (+252) — write via tool: import { readFileSync, readdirSync, writ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/tmp/gen-docs.mjs"
+    },
+    {
+      "id": "TASK-213248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:19:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/app-map/app-map.architecture.json (+48) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/app-map/app-map.architecture.json"
+    },
+    {
+      "id": "TASK-213249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:20:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/app-map/app-map.architecture.json (+1/-1) — edit via tool: { \"id\": \"a-handoff\",",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/app-map/app-map.architecture.json"
+    },
+    {
+      "id": "TASK-213250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:21:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/app-map/README.md (+54) — write via tool: # Peta Aplikasi per Role (archify)",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/app-map/README.md"
+    },
+    {
+      "id": "TASK-213251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:21:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/traceability.md (+1/-1) — edit via tool: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/traceability.md"
+    },
+    {
+      "id": "TASK-213252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:21:37",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run scan 2>&1 | tail -8 && npm run lint 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:22:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:22:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/README.md (+7/-3) — edit via tool: 5. **Define per fitur (wajib, sebelum a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/README.md"
+    },
+    {
+      "id": "TASK-213255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-05",
+      "time": "08:22:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/decision-sa7tein-beta.md (+1/-1) — edit via tool: - Analisis: `versions/sa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/decision-sa7tein-beta.md"
     }
   ]
 }

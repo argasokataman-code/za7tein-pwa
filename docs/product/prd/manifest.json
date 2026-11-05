@@ -86,7 +86,10 @@
       "originalFilename": "PRD sa7tein — Online Food Marketplace & Delivery (MVP) (1).pdf",
       "supersedes": "sa7tein-mvp-2026-10-11",
       "decisionRecord": "versions/sa7tein-beta-2026-11-05/analysis.md",
-      "milestonePlan": "versions/sa7tein-beta-2026-11-05/milestones.md"
+      "milestonePlan": "versions/sa7tein-beta-2026-11-05/milestones.md",
+      "traceability": "versions/sa7tein-beta-2026-11-05/traceability.md",
+      "glossary": "versions/sa7tein-beta-2026-11-05/glossary.md",
+      "uiImpact": "versions/sa7tein-beta-2026-11-05/ui-impact.md"
     }
   ]
 }
