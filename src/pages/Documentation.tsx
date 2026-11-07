@@ -1260,6 +1260,28 @@ export default function Documentation() {
                 checkout.
               </li>
               <li>
+                <strong>Checkout membuka toko yang benar, bukan toko lain.</strong>{' '}
+                Menekan Checkout pada baris &ldquo;Warung Sate Pak Ali&rdquo; bisa membuka isi
+                toko lain karena <code className="doc-inline">switchCart</code> hanya bergerak
+                bila <code className="doc-inline">activeMerchantId</code> berbeda dari toko yang
+                ditekan, sementara <code className="doc-inline">cart.items</code> justru sudah
+                berisi baris toko lain (keranjang lama tanpa <code className="doc-inline">merchantId</code>).
+                Sekarang <code className="doc-inline">openCart</code> (
+                <code className="doc-inline">src/store/slices/cartSlice.ts</code>) menulis ulang
+                state dari daftar yang tampil: keranjang toko yang ditekan menjadi{' '}
+                <code className="doc-inline">items</code>, sisanya kembali ke{' '}
+                <code className="doc-inline">carts</code> per toko, dan baris lama ikut ditulisi{' '}
+                <code className="doc-inline">merchantId</code> hasil pembacaan katalog. Dipakai
+                sheet keranjang dan kartu Pesanan Saya. Diukur di app-mode dengan keranjang
+                campur toko (2&times; Sate Ayam + 1&times; Sate Ayam + 1&times; Ayam Gongso):
+                Checkout baris Sate membuka &ldquo;Pesanan dari Warung Sate Pak Ali&rdquo; berisi
+                tiga Sate saja, dan sebaliknya baris Gongso membuka tokonya sendiri. Akar
+                pencampurannya juga ditutup: <code className="doc-inline">addItem</code> tidak
+                lagi menyetel <code className="doc-inline">activeMerchantId</code> saat{' '}
+                <code className="doc-inline">items</code> masih berisi baris lama, dan
+                &ldquo;Pesan lagi&rdquo; menolak ketika toko asal pesanan tidak ditemukan.
+              </li>
+              <li>
                 <strong>Journey menampilkan data order, bukan konstanta.</strong> Layar{' '}
                 <code className="doc-inline">/order-placed</code> dulu memakai nama toko, jam buka,
                 kurir, dan alamat dari mock. Sekarang{' '}

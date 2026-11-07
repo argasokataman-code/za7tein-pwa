@@ -13,10 +13,10 @@ import { useMoney } from '../../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import {
   clearCart,
+  openCart,
   removeCart,
   setActiveOrder,
   setOrderStage,
-  switchCart,
 } from '../../store/slices/cartSlice'
 import type { OrderStage } from '../../types'
 import { ActiveOrderRow } from './ActiveOrderRow'
@@ -81,8 +81,11 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
     onClose()
   }
 
-  const openCheckout = (merchantId: string | null, isActive: boolean) => {
-    if (!isActive && merchantId) dispatch(switchCart(merchantId))
+  const openCheckout = (store: { merchantId: string | null }) => {
+    // Ditulis ulang dari daftar yang ditampilkan: `switchCart` saja melewatkan
+    // perpindahan ketika `activeMerchantId` sudah menunjuk toko ini sementara
+    // `items` justru berisi baris toko lain (keranjang lama campur toko).
+    dispatch(openCart({ merchantId: store.merchantId, groups: cartStores }))
     closeSheet()
     navigate('/checkout')
   }
@@ -192,7 +195,7 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
                     <button
                       type="button"
                       className="ck-go ck-go--end"
-                      onClick={() => openCheckout(store.merchantId, store.active)}
+                      onClick={() => openCheckout(store)}
                     >
                       Checkout
                     </button>

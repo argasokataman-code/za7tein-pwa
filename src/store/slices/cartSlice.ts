@@ -151,7 +151,13 @@ const cartSlice = createSlice({
       // Keranjang milik toko mana? Keranjang toko lain disimpan di `carts`,
       // tidak menimpa keranjang aktif (PRD §6 — satu keranjang per merchant).
       const target = merchantId ?? state.activeMerchantId ?? 'default'
-      if (state.activeMerchantId === null) state.activeMerchantId = target
+      // `activeMerchantId` hanya ditetapkan saat keranjang aktif benar-benar
+      // kosong. Dulu ia selalu diisi, sehingga baris lama tanpa `merchantId`
+      // yang sudah ada di `items` ikut tercampur dengan menu toko baru —
+      // sumber tombol Checkout toko A yang membuka isi toko B.
+      if (state.activeMerchantId === null && state.items.length === 0) {
+        state.activeMerchantId = target
+      }
       let bucket: CartItem[]
       if (target === state.activeMerchantId) {
         bucket = state.items
@@ -217,6 +223,49 @@ const cartSlice = createSlice({
     clearCart(state) {
       state.items = []
       state.activeMerchantId = null
+    },
+    /**
+     * Buka satu keranjang toko untuk checkout (dari sheet ringkasan atau
+     * Pesanan Saya).
+     *
+     * State ditulis ulang dari daftar yang **benar-benar ditampilkan**, bukan
+     * digeser dengan `switchCart`. Keranjang lama bisa memuat baris beberapa
+     * toko sekaligus (item tanpa `merchantId` dari versi sebelumnya) sementara
+     * `activeMerchantId` menunjuk toko lain; `switchCart` yang mengandalkan
+     * keduanya cocok akan melewati perpindahan, sehingga tombol Checkout toko A
+     * membuka isi toko B. Baris yang tokonya baru terbaca dari katalog ikut
+     * ditulisi `merchantId` supaya pengelompokan berikutnya tak menebak lagi.
+     */
+    openCart(
+      state,
+      action: PayloadAction<{
+        merchantId: string | null
+        groups: { merchantId: string | null; items: CartItem[] }[]
+      }>,
+    ) {
+      const target = action.payload.merchantId ?? 'default'
+      const carts: Record<string, CartItem[]> = {}
+      let items: CartItem[] = []
+      let matched = false
+      for (const group of action.payload.groups) {
+        const key = group.merchantId ?? 'default'
+        const lines = group.items.map((line) => ({
+          ...line,
+          merchantId: group.merchantId ?? line.merchantId,
+        }))
+        if (key === target) {
+          items = lines
+          matched = true
+        } else {
+          carts[key] = lines
+        }
+      }
+      // Payload tak cocok dengan state (mis. baris sudah berubah): jangan
+      // mengosongkan keranjang hanya karena tombolnya basi.
+      if (!matched) return
+      state.items = items
+      state.carts = carts
+      state.activeMerchantId = target === 'default' ? null : target
     },
     /**
      * Pindah keranjang aktif ke toko lain (PRD §6). Keranjang toko lama
@@ -391,6 +440,7 @@ export const {
   removeItem,
   clearCart,
   switchCart,
+  openCart,
   removeCart,
   setOrderNote,
   setDeliveryType,

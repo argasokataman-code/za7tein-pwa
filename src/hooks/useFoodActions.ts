@@ -18,7 +18,9 @@ export function useFoodActions() {
     addToCart(id: string, quantity = 1) {
       const food = items.find((f) => f.id === id)
       if (!food) return
-      dispatch(addItem({ food, quantity }))
+      // Toko asal wajib ikut: tanpa `merchantId` item jatuh ke keranjang aktif
+      // dan mencampur toko di satu checkout.
+      dispatch(addItem({ food, quantity, merchantId: food.merchantId }))
       toast.success(`${food.name} added to cart`)
     },
     toggleFav(id: string) {

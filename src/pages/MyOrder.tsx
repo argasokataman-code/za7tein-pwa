@@ -29,7 +29,7 @@ import { useAllMenuItems, useStorefronts } from '../hooks/useApiCatalog'
 import { useCancelOrder } from '../hooks/useCancelOrder'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { addItem, setActiveOrder, setOrderStage, switchCart } from '../store/slices/cartSlice'
+import { addItem, openCart, setActiveOrder, setOrderStage, switchCart } from '../store/slices/cartSlice'
 
 /**
  * Pesanan Saya — satu menu untuk dua keadaan pesanan (PRD §6/§20.2):
@@ -214,20 +214,26 @@ export default function MyOrder() {
    */
   const reorder = (order: OrderHistoryItem) => {
     const store = liveStores.find((s) => s.name === order.merchantName)
-    const inStore = liveItems.filter((item) => item.merchantId === store?.id)
+    // Tanpa toko asal, item akan masuk keranjang aktif dan mencampur dua toko
+    // dalam satu checkout — lebih baik menolak terang-terangan.
+    if (!store) {
+      toast.error('Toko pesanan ini tidak ada lagi di katalog.')
+      return
+    }
+    const inStore = liveItems.filter((item) => item.merchantId === store.id)
     const pool = inStore.length ? inStore : liveItems
     let added = 0
     for (const dish of order.items) {
       const food = pool.find((f) => dish.name.includes(f.name) || f.name.includes(dish.name))
       if (!food) continue
-      dispatch(addItem({ food, quantity: dish.qty ?? 1, merchantId: store?.id }))
+      dispatch(addItem({ food, quantity: dish.qty ?? 1, merchantId: store.id }))
       added += 1
     }
     if (added === 0) {
       toast.error('Menu pesanan ini tidak ada lagi di katalog.')
       return
     }
-    if (store) dispatch(switchCart(store.id))
+    dispatch(switchCart(store.id))
     toast.success(`${added} menu ditambahkan ke keranjang.`)
     navigate('/checkout')
   }
@@ -423,7 +429,10 @@ export default function MyOrder() {
                     ? storeNameFor(group.merchantId, liveStores, group.items[0]?.merchantName)
                     : 'Keranjang'
                   const open = () => {
-                    if (!group.active && group.merchantId) dispatch(switchCart(group.merchantId))
+                    // Satu jalur dengan sheet keranjang: tulis ulang state dari
+                    // daftar yang tampil, jangan andalkan `switchCart` yang bisa
+                    // melewati perpindahan saat penanda toko aktif tertinggal.
+                    dispatch(openCart({ merchantId: group.merchantId, groups }))
                     navigate('/checkout')
                   }
                   return (
