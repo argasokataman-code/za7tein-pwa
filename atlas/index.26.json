@@ -5503,6 +5503,27 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214100",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:41:49",
+      "tags": [
+        "customer",
+        "address",
+        "geolocation"
+      ],
+      "summary": "GPS alamat: isi otomatis field kosong dari alamat terdekat (prefillApartment), satu tombol lokasi per waktu (form/list), self-check diperlua",
+      "conn": [
+        {
+          "id": "TASK-214001",
+          "type": "relates",
+          "raw": "TASK-214001:relates"
+        }
+      ],
+      "loc": "src/pages/AddressSelection.tsx"
     }
   ]
 }
