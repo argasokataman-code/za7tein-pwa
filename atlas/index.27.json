@@ -925,6 +925,276 @@
       ],
       "loc": "src/store/slices/cartSlice.ts:241",
       "commit": "ccfe86a"
+    },
+    {
+      "id": "TASK-214158",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:52:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useQuotaSync.ts (+39) — write via tool: ts: import { useEffect } from 'react'",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useQuotaSync.ts"
+    },
+    {
+      "id": "TASK-214159",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:52:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/quotaSlice.ts (+14/-9) — edit via tool: ts: export function quotaKindForOr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/quotaSlice.ts"
+    },
+    {
+      "id": "TASK-214160",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:52:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAmount.tsx (+5/-2) — edit via tool: tsx: const activeMerchantId = useAppSe",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAmount.tsx"
+    },
+    {
+      "id": "TASK-214161",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:53:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentSelection.tsx (+5/-2) — edit via tool: tsx: const activeMerchantId = useAp",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentSelection.tsx"
+    },
+    {
+      "id": "TASK-214162",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:53:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSubscription.tsx (+3/-2) — edit via tool: tsx: import { fetchQuotaSubscri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantSubscription.tsx"
+    },
+    {
+      "id": "TASK-214163",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:53:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/quota-check.mjs (+6/-1) — edit via tool: assert.equal(quotaKindForOrder([sub('cod",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/quota-check.mjs"
+    },
+    {
+      "id": "TASK-214164",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:54:06",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -4; npm run build 2>&1 | tail -3; node --import ./scripts/li",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214165",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:54:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAmount.tsx (+2/-1) — edit via tool: tsx: import { quotaKindForOrder, codQu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAmount.tsx"
+    },
+    {
+      "id": "TASK-214166",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:54:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -4; node --import ./scripts/lib/ts-resolve.mjs scripts/quot",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214167",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:54:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/quota-check.mjs (+1/-1) — edit via tool: assert.equal(quotaKindForOrder([sub('cod",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/quota-check.mjs"
+    },
+    {
+      "id": "TASK-214168",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:56:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+22/-2) — edit via tool: tsx: <strong>disembunyikan dari beran",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214169",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:57:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"warning|error\"; npm run build 2>&1 | tail -3; npm r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214170",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:57:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | tail -3; npm run lint 2>&1 | grep -E \"error",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-146200",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:58:08",
+      "tags": [
+        "customer",
+        "quota",
+        "cod",
+        "payment"
+      ],
+      "summary": "COD ditolak 'kuota habis' karena gate baca mock am-N; useQuotaSync ambil quota_subscriptions BE dan unknown kini tidak memblokir",
+      "conn": [
+        {
+          "id": "BUG-146100",
+          "type": "relates",
+          "raw": "BUG-146100:relates"
+        }
+      ],
+      "loc": "src/hooks/useQuotaSync.ts:1",
+      "commit": "11eac51"
     }
   ]
 }
