@@ -5524,6 +5524,85 @@
         }
       ],
       "loc": "src/pages/AddressSelection.tsx"
+    },
+    {
+      "id": "TASK-214101",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:44:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/batch.ts (+20/-10) — edit via tool: ts: /** Tahap kerja batch di layar merchant,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/batch.ts"
+    },
+    {
+      "id": "TASK-214102",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:44:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+9/-5) — edit via tool: tsx: <em>Batch dapur</em> (tab <code c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214103",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:45:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error \" | head -5; npm run build 2>&1 | tail -2; npm ru",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "DEC-102103",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-08",
+      "time": "05:46:33",
+      "tags": [
+        "merchant",
+        "batch",
+        "ui"
+      ],
+      "summary": "Daftar batch dapur dapat tab Semua (default) plus lima tab tahap; tab tahap saja bisa tampak kosong",
+      "conn": [
+        {
+          "id": "BUG-102102",
+          "type": "relates",
+          "raw": "BUG-102102:relates"
+        }
+      ],
+      "loc": "src/data/batch.ts:29",
+      "commit": "507f638"
     }
   ]
 }
