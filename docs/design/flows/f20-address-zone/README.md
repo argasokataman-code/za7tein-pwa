@@ -18,7 +18,7 @@ Kartu bisnis ini juga tampil sebagai **kartu pertama** di dalam diagram (`f20-ad
 
 ## Alur
 
-**Lane Layar form alamat & peta:** Customer tambah alamat — pasang pin di peta (pin awal `DEFAULT_NEW_ADDRESS_PIN`, peta Leaflet) + label + teks alamat → zona tampil hasil haversine ke dapur merchant (**Hijazi / Syimali, ≤2 km**; di luar jangkauan = tidak ada zona aktif) → simpan `address` (+ `isDefault` bila dipilih) → pilih alamat untuk order, alamat default dipilih otomatis.
+**Lane Layar form alamat & peta:** Customer tambah alamat — tekan **Pakai lokasi saat ini** (geolokasi perangkat, satu kali ambil) atau pasang pin manual di peta (pin awal `DEFAULT_NEW_ADDRESS_PIN`, peta Leaflet) + label + teks alamat → zona tampil hasil haversine ke dapur merchant (**Hijazi / Syimali, ≤2 km**; di luar jangkauan = tidak ada zona aktif) → simpan `address` (+ `isDefault` bila dipilih) → pilih alamat untuk order, alamat default dipilih otomatis. Geolokasi di daftar alamat memilih **alamat tersimpan terdekat** bila ≤200 m (`nearestSavedAddress`, `NEAREST_ADDRESS_METERS`); kalau tidak ada yang dekat, form baru dibuka dengan pin di titik GPS.
 
 **Lane Layar checkout: gate & ongkir:** Checkout menjalankan gate coverage — jarak merchant ↔ alamat dibandingkan `merchant.deliveryConfig` (mode `radius`: `radiusMeters`; mode `area`: zona harus aktif untuk merchant itu) → PASS: ongkir tampil (`feeByDistance` per tier jarak ATAU `feeByArea` per zona) → lanjut ke order, zona ikut sebagai snapshot.
 

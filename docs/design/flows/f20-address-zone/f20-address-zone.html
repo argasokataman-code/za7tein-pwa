@@ -5191,8 +5191,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <path data-edge-from="zone" data-edge-to="pick" data-edge-label="alamat tersimpan" data-edge-key="7" data-edge-id="e-zone-pick" data-composition-points="256,272;256,300;369,300;369,146" d="M 256 272 L 256 300 L 369 300 L 369 146" class="a-default" stroke-width="1.4" marker-end="url(#arrowhead)"/>
 
         <!-- Nodes -->
-        <g id="node-pin" data-node-id="pin" data-node-label="Pasang pin alamat" tabindex="0" role="button" aria-label="Focus Pasang pin alamat, peta leaflet · default pin, Layar form alamat &amp; peta › Alamat &amp; zona" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="peta leaflet · default pin" data-node-context="Layar form alamat &amp; peta › Alamat &amp; zona">
-          <title>Pasang pin alamat · peta leaflet · default pin · Layar form alamat &amp; peta › Alamat &amp; zona</title>
+        <g id="node-pin" data-node-id="pin" data-node-label="Pasang pin alamat" tabindex="0" role="button" aria-label="Focus Pasang pin alamat, peta leaflet · GPS / geser pin, Layar form alamat &amp; peta › Alamat &amp; zona" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="peta leaflet · GPS / geser pin" data-node-context="Layar form alamat &amp; peta › Alamat &amp; zona">
+          <title>Pasang pin alamat · peta leaflet · GPS / geser pin · Layar form alamat &amp; peta › Alamat &amp; zona</title>
           <rect x="48" y="94" width="176" height="52" rx="6" class="c-mask"/>
           <rect x="48" y="94" width="176" height="52" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(54 100) scale(0.6875)">
@@ -5202,7 +5202,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="136" y="115" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Pasang pin alamat</text>
-          <text data-detail="context" x="136" y="132" class="t-muted" font-size="8" text-anchor="middle">peta leaflet · default pin</text>
+          <text data-detail="context" x="136" y="132" class="t-muted" font-size="8" text-anchor="middle">peta leaflet · GPS / geser pin</text>
         </g>
 
         <g id="node-pick" data-node-id="pick" data-node-label="Pilih alamat" tabindex="0" role="button" aria-label="Focus Pilih alamat, default auto dipilih, Layar form alamat &amp; peta › Alamat &amp; zona" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="default auto dipilih" data-node-context="Layar form alamat &amp; peta › Alamat &amp; zona">
@@ -5566,7 +5566,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <h3>Alur inti: alamat → gate → order</h3>
         </div>
         <ul>
-          <li>&bull; Tambah alamat: pin + label + teks → zona tampil: **Hijazi / Syimali ≤2 km** (`C-13`, per-merchant `is_active_*`) → simpan `address`</li>
+          <li>&bull; Tambah alamat: tombol **Pakai lokasi saat ini** (geolokasi) atau geser pin, + label + teks → zona tampil: **Hijazi / Syimali ≤2 km** (`C-13`, per-merchant `is_active_*`) → simpan `address`</li>
           <li>&bull; Gate `isDeliverable()`: mode `radius` (jarak ≤ `radiusMeters`) atau `area` (zona harus aktif). Kode repo sudah pakai Hijazi/Syimali; A/B/C = LEGACY</li>
           <li>&bull; PASS → ongkir tampil (`feeByDistance` ATAU `feeByArea`) → lanjut order; zona jadi snapshot (order lama tidak berubah)</li>
         </ul>
@@ -11060,6 +11060,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var guided = shell && shell.querySelector('.guided-views');
       var cards = shell && shell.querySelector('.cards');
       var viewBox = svg && svg.viewBox && svg.viewBox.baseVal;
+      var unboundedWidth = Boolean(svg && svg.getAttribute('data-reader-width') === 'unbounded');
       var ratio = viewBox && viewBox.height > 0 ? viewBox.width / viewBox.height : 0;
       var frame = 0;
       var settleFrame = 0;
@@ -11089,7 +11090,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
       function eligible() {
         return Boolean(
-          shell && diagram && svg && ratio >= WIDE_RATIO &&
+          shell && diagram && svg && (ratio >= WIDE_RATIO || unboundedWidth) &&
           window.innerWidth >= MIN_DESKTOP_WIDTH &&
           html.getAttribute('data-embed') !== 'true' &&
           html.getAttribute('data-present') !== 'true' &&
@@ -11149,15 +11150,18 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
         var chrome = chromeMetrics();
         var viewportCap = Math.max(0, window.innerWidth - chrome.bodyX);
-        var minWidth = Math.min(MIN_READER_WIDTH, viewportCap);
-        var maxWidth = Math.min(MAX_READER_WIDTH, viewportCap);
+        // Unbounded diagrams opt out of the viewport/reader cap: the page may
+        // grow wider than the viewport and scroll horizontally so a detailed
+        // flow stays readable instead of being shrunk to fit.
+        var minWidth = unboundedWidth ? MIN_READER_WIDTH : Math.min(MIN_READER_WIDTH, viewportCap);
+        var maxWidth = unboundedWidth ? Number.MAX_SAFE_INTEGER : Math.min(MAX_READER_WIDTH, viewportCap);
         var fixedHeight = chrome.bodyY + chrome.diagramY + SAFE_BOTTOM_GAP +
           outerHeight(header) + outerHeight(guided) + outerHeight(cards);
         var availableSvgHeight = Math.max(1, window.innerHeight - fixedHeight);
         var desiredWidth = availableSvgHeight * ratio + chrome.diagramX;
         var width = Math.max(minWidth, Math.min(maxWidth, desiredWidth));
         applyWidth(width);
-        settleOverflow(minWidth);
+        if (!unboundedWidth) settleOverflow(minWidth);
         return {
           ratio: ratio,
           width: Math.round(width),

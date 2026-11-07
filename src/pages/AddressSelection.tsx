@@ -1,4 +1,4 @@
-import { Check, MoreVertical, Pencil, Plus, Star, Trash2 } from 'lucide-react'
+import { Check, LocateFixed, MoreVertical, Pencil, Plus, Star, Trash2 } from 'lucide-react'
 // Alamat pengantaran. PRD mewajibkan gedung, lantai, dan unit, plus pin yang
 // masih dalam radius 2 km dari toko — di luar itu checkout diblokir.
 import { useEffect, useState } from 'react'
@@ -17,8 +17,9 @@ import {
   updateCustomerAddress,
 } from '../api/profile'
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
+import { NEAREST_ADDRESS_METERS, nearestSavedAddress } from '../data/addressLocation'
 import { DEFAULT_NEW_ADDRESS_PIN, formatDistance } from '../data/merchant'
-import { resolveCoverage } from '../data/zones'
+import { MERCHANT_KITCHEN, resolveCoverage } from '../data/zones'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useMoney } from '../hooks/useMoney'
@@ -49,8 +50,16 @@ export default function AddressSelection() {
     lat: DEFAULT_NEW_ADDRESS_PIN.lat,
     lng: DEFAULT_NEW_ADDRESS_PIN.lng,
   })
+  // Titik GPS terakhir: dipakai peta untuk pan sekali, bukan setiap pin digeser.
+  const [focus, setFocus] = useState<{ lat: number; lng: number } | null>(null)
+  const [locating, setLocating] = useState(false)
   const stored = useAppSelector((s) => s.cart.addresses)
   const zones = useAppSelector((s) => s.superAdmin.zones)
+  // Dapur merchant yang dipakai menghitung ongkir juga dipakai menghitung
+  // "jarak dari toko" di form; sebelumnya jarak memakai konstanta mock, jadi
+  // form bisa menulis "8.626 km dari toko" padahal ongkirnya menyatakan dalam
+  // jangkauan.
+  const kitchen = useAppSelector((s) => s.coverage.origin) ?? MERCHANT_KITCHEN
   const quoteFor = useDeliveryQuote()
   const addresses = Array.isArray(stored) ? stored : mockUser.addresses
 
@@ -78,15 +87,17 @@ export default function AddressSelection() {
   // Zona & jarak dihitung dari poligon master SA, bukan angka tetap: di produksi
   // ini hasil server (F20), di repo ini `resolveCoverage` jadi stand-in-nya. Jadi
   // kalau SA menggeser poligon, titik pin di form ikut berubah statusnya.
-  const coverage = resolveCoverage({ lat: pin.lat, lng: pin.lng }, zones)
+  const coverage = resolveCoverage({ lat: pin.lat, lng: pin.lng }, zones, kitchen)
   // Gate & ongkir dari coverage merchant (§9.1); `resolveCoverage` hanya
   // menyimpan snapshot jarak/zona legacy untuk metadata alamat.
   const pinQuote = quoteFor(pin)
   const pinDeliverable = pinQuote.covered
 
-  const openAdd = () => {
+  const openAdd = (at?: { lat: number; lng: number }) => {
     setEditingId(null)
-    setPin({ lat: DEFAULT_NEW_ADDRESS_PIN.lat, lng: DEFAULT_NEW_ADDRESS_PIN.lng })
+    const nextPin = at ?? { lat: DEFAULT_NEW_ADDRESS_PIN.lat, lng: DEFAULT_NEW_ADDRESS_PIN.lng }
+    setPin(nextPin)
+    setFocus(at ?? null)
     reset({
       building: '',
       floor: '',
@@ -97,9 +108,67 @@ export default function AddressSelection() {
     setShowForm(true)
   }
 
+  /**
+   * Ambil koordinat perangkat sekali (bukan watch): layar ini menetapkan satu
+   * titik alamat, jadi posisi yang terus diperbarui justru menggeser pin saat
+   * customer mengetik detail gedung. Izin ditolak/timeout = pin manual tetap.
+   */
+  const withCurrentLocation = (onFix: (lat: number, lng: number) => void) => {
+    if (locating) return
+    if (!navigator.geolocation) {
+      toast.error('Browser tidak mendukung lokasi')
+      return
+    }
+    setLocating(true)
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const next = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+        setLocating(false)
+        setPin(next)
+        setFocus(next)
+        onFix(next.lat, next.lng)
+      },
+      () => {
+        setLocating(false)
+        toast.error('Akses lokasi ditolak. Geser pin manual.')
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+    )
+  }
+
+  /**
+   * Dari daftar alamat: kalau posisi sekarang dekat alamat yang sudah disimpan,
+   * alamat itu langsung dipakai. Kalau tidak, form baru dibuka dengan pin di
+   * titik GPS supaya customer tinggal melengkapi gedung/lantai/unit.
+   *
+   * Ini bukan reverse geocoding: Worker belum punya layanan koordinat → teks
+   * alamat, jadi yang dideteksi adalah alamat tersimpan, bukan jalan baru.
+   */
+  const locateFromList = () =>
+    withCurrentLocation((lat, lng) => {
+      const near = nearestSavedAddress({ lat, lng }, addresses)
+      if (near && near.meters <= NEAREST_ADDRESS_METERS) {
+        const quote = quoteFor(near.address)
+        if (quote.covered) {
+          dispatch(setAddress(near.address.id))
+          toast.success(
+            `Alamat terdekat dipakai: ${near.address.name} (${formatDistance(Math.round(near.meters))})`,
+          )
+          return
+        }
+      }
+      openAdd({ lat, lng })
+      if (quoteFor({ lat, lng }).covered) {
+        toast.success('Lokasi ditemukan. Lengkapi detail alamat.')
+      } else {
+        toast.error('Lokasi di luar jangkauan toko. Geser pin atau pilih alamat lain.')
+      }
+    })
+
   const openEdit = (address: Address) => {
     setEditingId(address.id)
     setPin({ lat: address.lat, lng: address.lng })
+    setFocus(null)
     reset({
       building: address.building,
       floor: address.floor,
@@ -113,11 +182,12 @@ export default function AddressSelection() {
   const closeForm = () => {
     setShowForm(false)
     setEditingId(null)
+    setFocus(null)
     reset()
   }
 
   const onSubmit = (data: ApartmentFormData) => {
-    const result = resolveCoverage({ lat: pin.lat, lng: pin.lng }, zones)
+    const result = resolveCoverage({ lat: pin.lat, lng: pin.lng }, zones, kitchen)
     if (editingId) {
       const current = addresses.find((a) => a.id === editingId)
       if (!current) return
@@ -199,6 +269,16 @@ export default function AddressSelection() {
               </h1>
             </header>
             <div className="address-selection-content">
+              <button
+                type="button"
+                className="addr-locate"
+                onClick={locateFromList}
+                disabled={locating}
+                aria-busy={locating}
+              >
+                <LocateFixed size={18} strokeWidth={1.75} aria-hidden="true" />
+                <span>{locating ? 'Mencari lokasi...' : 'Pakai lokasi saat ini'}</span>
+              </button>
               {addresses.length === 0 ? (
                 <p className="address-empty">
                   Belum ada alamat pengantaran. Tambah satu untuk bisa lanjut checkout.
@@ -276,9 +356,20 @@ export default function AddressSelection() {
                   <p className="addr-form-hint">
                     Wajib diisi. Pin GPS saja tidak cukup untuk kurir menemukan pintu.
                   </p>
+                  <button
+                    type="button"
+                    className="addr-locate"
+                    onClick={() => withCurrentLocation(() => toast.success('Lokasi saat ini dipakai'))}
+                    disabled={locating}
+                    aria-busy={locating}
+                  >
+                    <LocateFixed size={18} strokeWidth={1.75} aria-hidden="true" />
+                    <span>{locating ? 'Mencari lokasi...' : 'Pakai lokasi saat ini'}</span>
+                  </button>
                   <AddressMapPicker
                     lat={pin.lat}
                     lng={pin.lng}
+                    focus={focus}
                     onMove={(lat, lng) => setPin({ lat, lng })}
                   />
                   <p className="addr-form-coverage" data-deliverable={pinDeliverable}>
@@ -317,7 +408,7 @@ export default function AddressSelection() {
                   </div>
                 </form>
               ) : (
-                <button type="button" className="add-address-btn" aria-label="Tambah alamat baru" onClick={openAdd}>
+                <button type="button" className="add-address-btn" aria-label="Tambah alamat baru" onClick={() => openAdd()}>
                   <Plus size={22} strokeWidth={1.75} />
                   <span>
                     Tambah Alamat

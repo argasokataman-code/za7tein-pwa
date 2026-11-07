@@ -1182,6 +1182,34 @@ export default function Documentation() {
                 (id batch belum bergabung dengan id order).
               </li>
               <li>
+                <strong>Alamat customer bisa diambil dari lokasi perangkat.</strong> Form alamat
+                dulu hanya menerima pin yang digeser di peta, jadi customer harus mencari
+                sendiri titiknya. Sekarang <code className="doc-inline">AddressSelection</code>{' '}
+                punya tombol <em>Pakai lokasi saat ini</em> di daftar alamat dan di form:
+                satu kali ambil (bukan <code className="doc-inline">watchPosition</code>) lewat{' '}
+                <code className="doc-inline">navigator.geolocation.getCurrentPosition</code>,
+                lalu pin peta pindah dan coverage dihitung ulang. Di daftar alamat, GPS memilih{' '}
+                <strong>alamat tersimpan terdekat</strong> bila jaraknya ≤200 m
+                (<code className="doc-inline">nearestSavedAddress</code> +{' '}
+                <code className="doc-inline">NEAREST_ADDRESS_METERS</code> di{' '}
+                <code className="doc-inline">src/data/addressLocation.ts</code>, aturan murni
+                ditahan <code className="doc-inline">scripts/address-location-check.mjs</code>);
+                kalau tidak ada yang dekat, form baru dibuka dengan pin di titik GPS. Ini bukan
+                reverse geocoding: Worker belum punya layanan koordinat &rarr; teks alamat, jadi
+                yang dideteksi adalah alamat milik customer sendiri. Jarak &ldquo;dari toko&rdquo;
+                di form kini memakai <code className="doc-inline">coverage.origin</code> yang sama
+                dengan ongkir, bukan konstanta mock, sehingga tidak lagi menulis
+                &ldquo;8.626 km dari toko&rdquo; untuk alamat yang ongkirnya menyatakan dalam
+                jangkauan. Izin ditolak/timeout: pin manual tetap bisa dipakai dan pesan galat
+                muncul. Terukur di app-mode: GPS dekat alamat menyimpan pilihan
+                &ldquo;Rumah&rdquo;, GPS di luar jangkauan membuka form dengan
+                &ldquo;Di luar jangkauan toko&rdquo;, GPS di dalam jangkauan menulis
+                &ldquo;727 m dari toko &middot; ongkir 0,36 JOD&rdquo;, izin ditolak menampilkan
+                pesan dan form tetap terbuka; gate{' '}
+                <code className="doc-inline">/customer/address-selection --strict --click</code>{' '}
+                2/2 PASS.
+              </li>
+              <li>
                 <strong>Journey menampilkan data order, bukan konstanta.</strong> Layar{' '}
                 <code className="doc-inline">/order-placed</code> dulu memakai nama toko, jam buka,
                 kurir, dan alamat dari mock. Sekarang{' '}

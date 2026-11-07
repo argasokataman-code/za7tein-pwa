@@ -15,9 +15,8 @@ import type { MapMode, MapStop, PickerOptions } from '../lib/leaflet-draw'
  * mana peta memang menjadi bagian utama dan posisi kurir ditampilkan (tanpa garis
  * rute, §9.6). Opsi `courier` memindahkan pin kurir tanpa membangun ulang peta.
  *
- * `single` hanya menampilkan pin toko — dipakai pratinjau lokasi di Setelan.
- * `stops` mengganti rute toko→alamat tunggal dengan rute bernomor berhenti
- * (batch kurir, M5): titik toko tetap jadi asal, sisanya pin bernomor urut.
+ * `single` hanya menampilkan pin toko (pratinjau lokasi di Setelan); `stops`
+ * mengganti rute dengan rute bernomor berhenti (batch kurir, M5).
  */
 export function useLeafletMap(
   mapId: string,
@@ -36,6 +35,7 @@ export function useLeafletMap(
   const mapRef = useRef<LeafletMap | null>(null)
   const markerRef = useRef<LeafletMarker | null>(null)
   const courierRef = useRef<LeafletMarker | null>(null)
+  const pendingPositionRef = useRef<[number, number] | null>(null)
   const onMoveRef = useRef(options.picker?.onMove)
   const pickerInitialRef = useRef<[number, number]>(options.picker?.initial ?? RESTAURANT)
   const pickerPopupRef = useRef(options.picker?.popup ?? 'Lokasi toko, geser untuk menyesuaikan')
@@ -101,6 +101,13 @@ export function useLeafletMap(
           pickerPopupRef.current,
           (lat, lng) => onMoveRef.current?.(lat, lng),
         )
+        // Geolokasi bisa selesai sebelum Leaflet termuat; pakai permintaan pertama.
+        const pending = pendingPositionRef.current
+        if (pending) {
+          markerRef.current.setLatLng(pending)
+          map.setView(pending)
+          pendingPositionRef.current = null
+        }
       } else {
         // Semua pin non-pemilih digambar di helper supaya hook tetap di bawah
         // batas baris; helper mengembalikan marker kurir kalau memang digambar.
@@ -121,6 +128,7 @@ export function useLeafletMap(
       mapRef.current = null
       markerRef.current = null
       courierRef.current = null
+      pendingPositionRef.current = null
     }
   }, [mapId, mode, options.single, stopsKey])
 
@@ -129,9 +137,13 @@ export function useLeafletMap(
       mapRef.current?.fitBounds([RESTAURANT, DESTINATION], { padding: [48, 48] }),
     /** Pindahkan pin pemilih ke koordinat baru (dipakai geolokasi). */
     setPosition: (lat: number, lng: number) => {
-      markerRef.current?.setLatLng([lat, lng])
-      mapRef.current?.panTo([lat, lng])
       onMoveRef.current?.(lat, lng)
+      if (!markerRef.current) {
+        pendingPositionRef.current = [lat, lng]
+        return
+      }
+      markerRef.current.setLatLng([lat, lng])
+      mapRef.current?.panTo([lat, lng])
     },
   }
 }

@@ -41,3 +41,27 @@
 .addr-form-actions > * {
   margin-top: 0;
 }
+
+// Tombol lokasi (flow f20): satu aksi sekunder selebar kolom, 44px, di atas
+// daftar alamat dan di atas peta. Warna dari peran token, bukan warna baru.
+.addr-locate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: var(--touch-min);
+  margin-bottom: var(--space-3);
+  padding-inline: var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.addr-locate:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
