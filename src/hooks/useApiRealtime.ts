@@ -4,7 +4,7 @@
 // tetap jalan sebagai jaring pengaman bila socket putus.
 import { useEffect, useRef } from 'react'
 
-import { fetchCourierBatch } from '../api/batches'
+import { fetchCourierBatch, fetchMerchantBatches } from '../api/batches'
 import { fetchCourierOrders, fetchCustomerActiveOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
 import { notifyResync, subscribeOrders } from '../api/realtime'
 import { fetchNotifications } from '../api/reference'
@@ -13,12 +13,21 @@ import { markOrderCancelled, setOrderStage } from '../store/slices/cartSlice'
 import { hydrateActiveOrders } from '../store/slices/customerOrdersSlice'
 import { setBatch, setTasks } from '../store/slices/courierSlice'
 import { markOrdersFailed, markOrdersHydrated, mergeOrders } from '../store/slices/merchantSlice'
+import { mergeBatches } from '../store/slices/batchSlice'
 import { selectUnreadCount, setNotifications } from '../store/slices/notificationsSlice'
 import type { NotifAudience } from '../types'
 import { useAppDispatch, useAppSelector } from './useAppStore'
 import { useNotificationSound } from './useNotificationSound'
 
 const DEBOUNCE_MS = 250
+/**
+ * Interval penyegaran saat socket tidak hidup. Worker backend tidak punya
+ * endpoint Phoenix (`src/api/realtime.ts`), jadi `subscribeOrders` tak pernah
+ * memanggil balik: tanpa interval, perubahan dari perangkat lain (order masuk
+ * batch, kurir ditugaskan, batch ditutup) baru terlihat setelah muat ulang.
+ */
+const POLL_MS = 20_000
+const COURIER_POLL_MS = 15_000
 
 export function useApiRealtime(audience: NotifAudience): void {
   const dispatch = useAppDispatch()
@@ -50,12 +59,16 @@ export function useApiRealtime(audience: NotifAudience): void {
           .catch(() => {})
         if (audience === 'merchant') {
           fetchMerchantOrders()
-            .then((orders) => {
+            .then(async (orders) => {
               if (!alive) return
               // Ganti penuh (bukan gabung seed): antrean = order BE, sumber
               // tunggal kebenaran, supaya realtime & persistensi konsisten.
               dispatch(mergeOrders(orders))
               dispatch(markOrdersHydrated())
+              // Anggota batch (`batches.route` + `orders.batch_id`) ikut
+              // disegarkan, kalau tidak panel batch tertinggal sampai reload.
+              const batches = await fetchMerchantBatches(undefined, orders)
+              if (alive) dispatch(mergeBatches(batches))
             })
             .catch(() => {
               if (alive) dispatch(markOrdersFailed())
@@ -101,12 +114,22 @@ export function useApiRealtime(audience: NotifAudience): void {
 
     refresh()
     const unsubscribe = subscribeOrders(refresh)
+    // Jaring pengaman: socket Worker tak tersedia, jadi tarik berkala + saat
+    // tab kembali terlihat. Tanpa ini, perpindahan order ke batch dari
+    // perangkat lain hanya muncul setelah muat ulang halaman.
+    const poll = setInterval(refresh, audience === 'courier' ? COURIER_POLL_MS : POLL_MS)
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') refresh()
+    }
+    document.addEventListener('visibilitychange', onVisible)
     // Socket mati selama offline; saat online lagi tarik kondisi terbaru dan
     // pastikan langganan hidup kembali.
     window.addEventListener('online', refresh)
     return () => {
       alive = false
       if (timer) clearTimeout(timer)
+      clearInterval(poll)
+      document.removeEventListener('visibilitychange', onVisible)
       window.removeEventListener('online', refresh)
       unsubscribe()
     }

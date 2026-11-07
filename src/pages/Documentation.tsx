@@ -1276,7 +1276,17 @@ export default function Documentation() {
                 kembali <code className="doc-inline">null</code>). Sheet Terima juga memberi label
                 nomor batch nyata (<code className="doc-inline">batchNumber</code>), bukan nomor
                 urutan pilihan, supaya &ldquo;Batch #28&rdquo; di sheet = &ldquo;Batch #28&rdquo;
-                di detail.
+                di detail. Karena Worker tidak punya endpoint realtime Phoenix,
+                perpindahan dari perangkat lain (order masuk batch, kurir ditugaskan,
+                batch ditutup) ditarik berkala oleh <code className="doc-inline">useApiRealtime</code>{' '}
+                (merchant 20 dtk, kurir 15 dtk) — cabang merchant kini ikut menyegarkan{' '}
+                <code className="doc-inline">fetchMerchantBatches</code> →{' '}
+                <code className="doc-inline">mergeBatches</code>, bukan hanya{' '}
+                <code className="doc-inline">orders</code>, dan{' '}
+                <code className="doc-inline">mergeBatches</code> mempertahankan{' '}
+                <code className="doc-inline">autoSort</code>/<code className="doc-inline">routeOrder</code>{' '}
+                lokal yang tidak punya kolom BE. Tanpa itu panel batch baru berubah
+                setelah muat ulang.
               </li>
               <li>
                 <strong>Kolom FE ↔ D1 disamakan (join manual, kolom nyata).</strong> Worker

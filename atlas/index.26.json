@@ -2724,6 +2724,120 @@
       ],
       "loc": "src/api/batches.ts:135",
       "commit": "112fa02"
+    },
+    {
+      "id": "TASK-213256",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:40:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts (+19/-11) — edit via tool: ts: mergeBatches(state, action: P",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts"
+    },
+    {
+      "id": "TASK-213257",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:40:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiRealtime.ts (+4/-3) — edit via tool: ts: import { hydrateActiveOrders } fro",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-213258",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:41:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiRealtime.ts (+9/-1) — edit via tool: ts: const DEBOUNCE_MS = 250",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-213259",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:41:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error\" | head -3; npm run build 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:44:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+13/-3) — edit via tool: tsx: urutan pilihan, supaya &ldquo;Ba",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:45:19",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -2; npm run sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

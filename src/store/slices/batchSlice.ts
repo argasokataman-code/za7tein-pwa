@@ -82,13 +82,21 @@ const batchSlice = createSlice({
      */
     mergeBatches(state, action: PayloadAction<Batch[]>) {
       const incoming = new Map(action.payload.map((batch) => [batch.id, batch]))
+      const prev = new Map(state.batches.map((batch) => [batch.id, batch]))
       state.batches = state.batches.filter(
         (batch) => incoming.has(batch.id) || !batch.id.startsWith('batch-'),
       )
       for (const batch of action.payload) {
         const index = state.batches.findIndex((item) => item.id === batch.id)
-        if (index >= 0) state.batches[index] = batch
-        else state.batches.push(batch)
+        // Urutan manual (`routeOrder`) + sakelar auto-sort tidak punya kolom BE;
+        // tanpa dibawa, penyegaran berkala menghapus susunan rute yang sudah
+        // disusun merchant/kurir di perangkat ini.
+        const local = index >= 0 ? prev.get(batch.id) : undefined
+        const merged: Batch = local
+          ? { ...batch, autoSort: local.autoSort, routeOrder: local.routeOrder }
+          : batch
+        if (index >= 0) state.batches[index] = merged
+        else state.batches.push(merged)
       }
     },
   },
