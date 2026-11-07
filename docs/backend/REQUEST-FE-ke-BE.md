@@ -9,6 +9,25 @@
 
 > Dokumen ini ditulis supaya BE tidak perlu menebak: tiap butir memuat **endpoint persis**, **argumen**, **bentuk balikan yang FE harapkan**, **flow/PRD terkait**, dan **cara memverifikasi** (status HTTP hasil probe hari ini).
 
+## 0b. Pembaruan probe 2026-11-07 (menggantikan status di bawah)
+
+Probe ulang langsung ke Worker dengan token magic-link per peran (`customer`, `merchant`, `courier`, `cs`, `superadmin`) menunjukkan **delapan butir sudah selesai**; bagian §1, §3, §4, dan §5.1 di bawah adalah potret 2026-10-18 dan tidak lagi berlaku untuk butir ini.
+
+| Butir | Status 2026-10-18 | Hasil 2026-11-07 | Bukti |
+|---|---|---|---|
+| `my_order_otp`, `verify_order_otp` | `501` | hidup | `200` (order tanpa OTP → `null`/`false`) |
+| `courier_orders` | `501` | hidup | `200` + baris tugas |
+| `ops_set_platform_params` | `501` | hidup | `200` dengan token `cs`; non-ops `403` |
+| Tabel `payout_accounts`, `payment_methods`, `platform_profit`, `profit_withdrawals` | `400 no such table` | hidup | `200` (tabel kosong tetap `200 []`) |
+| Tulis generik `POST/PATCH/DELETE` | `404` | hidup | `PATCH merchants|users|refunds → 204`, `DELETE push_subscriptions → 204` |
+| `issue_sp` | belum ada | hidup | argumen `p_subject_type`, `p_subject_id`, `p_kind`, `p_level`, `p_reason`; non-ops `403` |
+| `dispatch_partner` | tidak tercatat | hidup | `dispatch_partner(p_order)` mengembalikan id assignment; BE memilih kandidat |
+| `run_cron_jobs`, `expire_unpaid_orders`, `close_stale_chats`, `quota_low_alerts` | manual | hidup | `run_cron_jobs → {expired_orders, stale_chats, quota_alerts, idempotency_cleared}` |
+| `courier_location`, `update_courier_location` | belum ada | hidup | `200 {latitude,longitude,last_seen_at,age_ms,stale}`; `stale` >120 dtk |
+| `platform_params` | "belum ada angkanya" | terisi | `quick_multiplier 1.5`, `almost_arrived_minutes 5`, `transaction_fee_rate 0.015`, fee `0.2/0.25` |
+
+Konsumsi FE: `src/api/liveLocation.ts` + `src/hooks/useOrderCourierLocation.ts` (posisi kurir), `issue_sp` di `src/api/ops.ts`, `dispatch_partner` di `src/api/dispatch.ts`, `run_cron_jobs` di tombol pemeliharaan `/ops/settings`. Masih `501`: `dispatch_courier`, `expire_assignments`, `courier_active_order`.
+
 ## 0. Cara membaca
 
 - **Status** memakai kode HTTP hasil probe langsung ke Worker (bukan asumsi).

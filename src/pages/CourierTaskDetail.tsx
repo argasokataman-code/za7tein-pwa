@@ -29,6 +29,7 @@ import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/cou
 import { finishBatchOnBe } from '../api/batches'
 import { insertNotification } from '../api/notifications'
 import { recordCheckpoint, updateOrderStatus, verifyOrderOtp } from '../api/orders'
+import { startCourierLocationWatch } from '../api/liveLocation'
 import type { MerchantOrderStatus } from '../types'
 
 /** Checkpoint kurir yang baru dimasuki → status order BE. */
@@ -64,6 +65,15 @@ export default function CourierTaskDetail() {
   }, [showCelebration])
 
   const task = tasks.find((t) => t.id === id)
+
+  // Kirim posisi hanya selama pengantaran aktif (batasan PRD L1: app terbuka,
+  // layar menyala). Di luar `berangkat`/`tiba` watch dihentikan, bukan dibiarkan
+  // mengirim posisi diam.
+  const sharesLocation = task?.checkpoint === 'berangkat' || task?.checkpoint === 'tiba'
+  useEffect(() => {
+    if (!sharesLocation) return
+    return startCourierLocationWatch()
+  }, [sharesLocation, task?.id])
 
   if (!task) {
     return (
@@ -255,6 +265,11 @@ export default function CourierTaskDetail() {
         <section className="courier-section">
           <h2 className="courier-section-title">Status pesanan</h2>
           <JourneyLine stage={task.orderStage} />
+          {sharesLocation ? (
+            <p className="courier-task-meta">
+              Lokasi dibagikan ke customer selama pengantaran.
+            </p>
+          ) : null}
         </section>
 
         <section className="courier-section">

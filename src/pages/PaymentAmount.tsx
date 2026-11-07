@@ -162,6 +162,7 @@ export default function PaymentAmount() {
     rememberDeliveryType(code, deliveryType)
     void createOrder({
       code,
+      items,
       subTotalIdr: subtotal,
       deliveryFeeIdr: charged.deliveryFeeIdr,
       platformFeeIdr: charged.platformFeeCustomerIdr,

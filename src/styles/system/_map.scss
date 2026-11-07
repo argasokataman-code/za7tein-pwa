@@ -32,13 +32,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: var(--touch-min);
+  height: var(--touch-min);
   border: 1px solid var(--border);
   border-radius: var(--radius-xs);
   background: var(--surface);
   color: var(--text-primary);
   cursor: pointer;
+  /* Tombol harus di atas kanvas Leaflet (pane tile/marker), bukan di bawahnya. */
+  z-index: 700;
 }
 
 // ── Penanda dan rute peta ─────────────────────────────────────────────────

@@ -3,7 +3,7 @@ import { Inbox, Star } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 
-import { fetchPartnerCouriers } from '../api/dispatch'
+import { fetchPartnerCouriers, dispatchPartnerOrder } from '../api/dispatch'
 import { insertNotification } from '../api/notifications'
 import { assignOrderCourier, markOrderPaid, updateOrderStatus } from '../api/orders'
 import { createBatchOnBe, patchBatchOnBe } from '../api/batches'
@@ -275,6 +275,28 @@ export default function MerchantOrders() {
     toast.success(`Order ${code} dikirim ke ${partnerName}`)
     notifyCustomer('Kurir ditugaskan', 'Pesananmu sedang dicarikan kurir.')
     setDispatchId(null)
+  }
+
+  /**
+   * Tugaskan tanpa memilih nama: BE `dispatch_partner(p_order)` memilih kandidat
+   * (idle terlama + batas jarak, tie-break OPEN-11). Baris assignment yang
+   * dibuat BE dipakai mitra untuk approve/reject.
+   */
+  const dispatchAutomatically = () => {
+    if (!dispatchId) return
+    const id = dispatchId
+    const code = dispatchOrder?.code ?? ''
+    void dispatchPartnerOrder(id).then((assignmentId) => {
+      if (assignmentId === null) {
+        toast.error('Belum ada kurir partner yang bisa ditugaskan otomatis')
+        return
+      }
+      dispatch(setOrderStatus({ id, status: 'diantar' }))
+      persistStatus(id, 'diantar')
+      toast.success(`Order ${code} ditugaskan otomatis`)
+      notifyCustomer('Kurir ditugaskan', 'Pesananmu sedang dicarikan kurir.')
+      setDispatchId(null)
+    })
   }
 
   const queueCount = ordersForStatuses(orders, ['baru']).length
@@ -613,6 +635,9 @@ export default function MerchantOrders() {
                 ))}
               </div>
             )}
+            <button type="button" className="btn btn-primary" onClick={dispatchAutomatically}>
+              Tugaskan otomatis
+            </button>
           </>
         ) : null}
       </BottomSheet>

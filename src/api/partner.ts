@@ -35,6 +35,8 @@ export interface PartnerCourierRow {
   availability: string | null
   active_order_count: number | null
   last_seen_at: string | null
+  latitude: number | null
+  longitude: number | null
   created_at: string
 }
 
@@ -88,6 +90,8 @@ export function toPartner(
     activeOrders: row.active_order_count ?? 0,
     warningLetters,
     lastLocationAt: sqlIso(row.last_seen_at),
+    lastLat: row.latitude,
+    lastLng: row.longitude,
     joinedAt: sqlIso(row.created_at) ?? row.created_at,
   }
 }
@@ -159,7 +163,6 @@ export async function setPartnerAvailability(
   const token = await partnerToken()
   await patch(token, 'couriers', `?id=eq.${id}`, {
     availability: status === 'offline' ? 'offline' : status,
-    last_seen_at: new Date().toISOString(),
   })
 }
 

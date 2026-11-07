@@ -297,7 +297,7 @@ Penandaan §17 dipakai juga di sini. Ringkas status per G: **G1–G14 = `[BELUM]
 | G4 | **Ledger append-only + hold lifecycle.** Reserve/cut/settle/release; **reversal = entry baru**, bukan edit | f2, f7 | §5.4 |
 | G5 | **Dispute lifecycle.** `disputes` kosong: butuh status/enum, `resolve`, `appeals`, freeze hold + **pause auto-settle** | f8, f24, f22 | §5.8 |
 | G6 | **OTP server.** Generate: sudah ada tapi **predictable** (`1000 + 7*id`); `otp_verified` tak pernah true; `orders.otp` **bisa dibaca kurir & merchant** (self-verify). Lihat §5.5.1 | f1, f5, f13 | §5.5.1 |
-| G7 | **`order_items` diisi.** Tabel ada, nol baris | f1, f12 | §5.3 |
+| G7 | **`order_items` diisi.** FE kini menulis baris per item saat checkout (`createOrder`), kolom nyata D1 `unit_price_jod`/`line_total_jod`; order lama buatan sebelum perubahan tetap kosong | f1, f12 | §5.3 |
 | G8 | **`incident_resolutions` dibuat** (jejak tutup insiden CS) | f24, f15 | §2.3, §5.8 |
 | G9 | **`notifications` + `checkpoints` masuk publikasi Realtime** (atau setujui polling 5s) | f11 | §1, §5.7 |
 | G10 | **Geofence server.** `zones.polygon` ada (array `[lat,lng]`) → `POST /coverage/resolve` | f20, f16 | §5.2 |
@@ -386,7 +386,7 @@ Format: **PostgREST sekarang** → **kontrak target** → **wajib BE**.
 | List per peran | `GET orders?...&merchant_id=eq.<id>` / `&courier_id=eq.<id>` / `?select=id,code,status&id=eq.<oid>` |
 
 **Wajib BE:**
-- **`order_items` diisi** (G7) supaya detail pesanan & fee per baris bisa diaudit (`f1:checkout`, `f12`). Bentuk usulan: `(id, order_id, menu_id, name, price_jod, qty, modifiers jsonb, subtotal_jod)`.
+- **`order_items` diisi** (G7) supaya detail pesanan & fee per baris bisa diaudit (`f1:checkout`, `f12`). FE menulis `(order_id, menu_id, name, qty, unit_price_jod, line_total_jod, modifiers, note)` setelah order dibuat; bentuk ini yang ada di D1 (bukan `price_jod`/`subtotal_jod`).
 - Status enum + transisi (§7). `placed` vs `quotation` = **OST-1 UNRESOLVED**.
 - `orders.batch_id` (kosong di trace `C-17`): putuskan apakah batching dipakai.
 - **`order_status_history`** (G14) untuk event `order_status_changed`.
@@ -1360,8 +1360,8 @@ Format: **domain** · endpoint target · status BE · sumber. Endpoint §5 di at
 | Endpoint target | Backend live | Status | Catatan |
 |---|---|---|---|
 | WebSocket ber-versi (matriks audiens §19) | Supabase Realtime | `[SEBAGIAN]` | semua perubahan observable dipublikasikan; reconnect → resync (NFR-05/06) |
-| `courier_location` (posisi bergerak) | tidak ada (pin statis) | `[BELUM]` | andal hanya saat app kurir terbuka (L1) |
-| `courier_almost_arrived` | tidak ada | `[BELUM]` | ambang = config ops |
+| `courier_location` (posisi bergerak) | RPC `courier_location` + `update_courier_location` | `[ADA]` | FE kirim saat Berangkat/Tiba, baca per order; `stale` server 120 dtk (L1) |
+| `courier_almost_arrived` | turunan FE (`almostArrived`) | `[SEBAGIAN]` | ambang `platform_params.almost_arrived_minutes` = 5 |
 | chat group per order (+ gambar R2) | `chats`/`chat_messages` 1:1-nya | `[SEBAGIAN]` | peserta: customer + merchant sejak order dibuat; kurir gabung setelah batch assign / assignment approve |
 | push fan-out web push | `push_subscriptions` | `[SEBAGIAN]` | iOS push hanya bila PWA di-install (L2) |
 
@@ -1479,7 +1479,7 @@ Baris = requirement revisi aktif; status kolom = kondisi **BE** (bukan FE). Semu
 | R-BATCH | f25 | `POST /batches`, maks 24 order (BR-B04) | `batch_closed`, `batch_started` | `[BELUM]` |
 | R-AUTOSORT | f25, f13 | Compute Route Matrix 25×24, WALK | — | `[BELUM]` |
 | R-DELIV-FEE | f25, f26 | `F` → kurir (inhouse/partner); Quick = multiplier | — | `[BELUM]` |
-| R-TRACK | f13 | `courier_location`, ambang notif ops | `courier_location`, `courier_almost_arrived` | `[BELUM]` |
+| R-TRACK | f13 | `courier_location` + `update_courier_location`, ambang notif ops | `courier_location` | `[SEBAGIAN]` (PIN LIVE, notif FE) |
 | R-MONEY | f4, f17 | S/Dm/Da/F/Pc/Pm/Ft + settlement 3 kolom | `fee_computed`, `ledger_entry` | `[BELUM]` |
 | R-CURRENCY | f10 | kurs harian, pembulatan dua arah | `rate_fetched` | `[BELUM]` (OPEN-02) |
 | R-DISPUTE-RULE | f8, f24 | rule/kompensasi/punishment + snapshot ke order | `dispute_opened`, `dispute_resolved` | `[BELUM]` |

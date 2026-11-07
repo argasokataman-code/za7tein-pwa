@@ -8,9 +8,15 @@ import { JourneyLine } from './JourneyLine'
 import { OrderInvoice } from './customer/OrderInvoice'
 import { CodCashSection } from './customer/CodCashSection'
 import { OrderUpdateNotice } from './customer/OrderUpdateNotice'
+import { OrderItemsSummary } from './customer/OrderItemsSummary'
 
 import { insertNotification } from '../api/notifications'
-import { fetchOrderOtp, otpOf, updateOrderStatus } from '../api/orders'
+import {
+  fetchOrderOtp,
+  otpOf,
+  updateOrderStatus,
+} from '../api/orders'
+import { numericOrderId } from '../api/liveLocation'
 import { DELIVERY_OTP_DEMO } from '../data/courier'
 import { DISPUTE_WINDOW_HOURS, RESOLUTIONS, disputeStatusLabel, resolvedOrderToken } from '../data/admin'
 import { BottomSheet } from './ui/BottomSheet'
@@ -26,6 +32,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAlmostArrivedNotice } from '../hooks/useAlmostArrivedNotice'
 import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useCourierTracking } from '../hooks/useCourierTracking'
+import { useCustomerOrderDetail } from '../hooks/useCustomerOrderDetail'
 import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
@@ -68,7 +75,6 @@ const IconPin = () => <MapPin size={20} strokeWidth={1.75} aria-hidden="true" />
 const IconPhone = () => <Phone size={16} strokeWidth={1.75} aria-hidden="true" />
 
 const IconChat = () => <MessageCircle size={16} strokeWidth={1.75} aria-hidden="true" />
-
 
 const IconRecenter = () => <Crosshair size={20} strokeWidth={1.75} aria-hidden="true" />
 
@@ -139,6 +145,8 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
     }
   }, [activeOrder])
 
+  const detail = useCustomerOrderDetail(activeOrder?.id)
+
   // State tersimpan bisa berasal dari bentuk sebelum tahap pesanan ada, jadi
   // nilainya divalidasi di sini. Tanpa ini STATUS[undefined] melempar dan
   // seluruh halaman gagal dirender. `?stage=` menang atas semuanya supaya
@@ -184,9 +192,9 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
 
   // Pengantaran satu-satunya tahap di mana peta memang layak dominan.
   const isDelivery = stage === 'diantar'
-  // Lokasi kurir di demo diturunkan dari waktu tempuh (§9.7) — event
-  // `courier_location` (§19) belum ada. Rule-nya di `data/tracking.ts`.
-  const tracking = useCourierTracking(stage)
+  // Lokasi kurir diambil dari BE (`courier_location`) selama pengantaran; rute
+  // mock hanya dipakai bila BE belum punya posisi untuk order ini.
+  const tracking = useCourierTracking(stage, numericOrderId(activeOrder?.id))
   // Hanya sisi customer yang memancarkan notifikasi "hampir sampai"; konsol
   // merchant memakai posisi yang sama tanpa mengirim notif milik customer.
   useAlmostArrivedNotice(tracking.almost)
@@ -199,11 +207,23 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
   const courier = mockCouriers[0]
   const copy = ORDER_STAGE_STATUS[stage]
   const quote = address ? quoteFor(address) : null
-  // building menyimpan "Kompleks — Tower" dalam satu string; dipisah supaya
-  // baris pertama menyebut kompleksnya dan baris kedua unitnya, seperti PRD.
+  // building = "Kompleks — Tower"; baris pertama kompleks, kedua unit (PRD).
   const [alamatKompleks, alamatTower] = address
     ? address.building.split(' — ')
     : ['', '']
+  // Nilai tampilan: BE dulu, mock hanya saat order tak punya baris BE.
+  const merchantName = detail?.merchantName ?? mockMerchant.name
+  const merchantHours = detail?.merchantOpen && detail.merchantClose
+    ? `${detail.merchantOpen}–${detail.merchantClose}`
+    : `${mockMerchant.openTime}–${mockMerchant.closeTime}`
+  const courierName = detail ? (detail.courierName ?? 'Belum ditugaskan') : courier.name
+  const courierPhone = detail?.courierPhone ?? courier.phone
+  const liveAddress = detail?.address ?? null
+  const addressKompleks = liveAddress ? liveAddress.building || liveAddress.label : alamatKompleks
+  const addressDetail = liveAddress
+    ? [liveAddress.floor, liveAddress.unit].filter(Boolean).join(' · ')
+    : [alamatTower, address?.floor, address?.unit].filter(Boolean).join(' · ')
+  // Lifecycle hold COD digerakkan status order live (bukan tombol operator).
 
   // Lifecycle hold COD digerakkan status order live (bukan tombol operator).
   // Satu transisi PRD = satu event status + satu entry ledger, jadi kurir match
@@ -327,10 +347,8 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                 <IconStore />
               </span>
               <div className="track-row-text">
-                <p className="track-row-name">{mockMerchant.name}</p>
-                <p className="track-row-note">
-                  Buka {mockMerchant.openTime}–{mockMerchant.closeTime}
-                </p>
+                <p className="track-row-name">{merchantName}</p>
+                <p className="track-row-note">Buka {merchantHours}</p>
               </div>
             </div>
           </section>
@@ -343,19 +361,23 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
               </span>
               <div className="track-row-text">
                 <p className="track-row-name">
-                  {courier.name}
-                  <span className="track-rating">
-                    <Star size={12} strokeWidth={1.75} fill="currentColor" aria-hidden="true" />
-                    {mockOrder.courierRating}
-                  </span>
+                  {courierName}
+                  {!detail || detail.courierName ? (
+                    <span className="track-rating">
+                      <Star size={12} strokeWidth={1.75} fill="currentColor" aria-hidden="true" />
+                      {mockOrder.courierRating}
+                    </span>
+                  ) : null}
                 </p>
                 <p className="track-row-note">{copy.courier}</p>
               </div>
               <div className="track-actions">
-                <a className="track-action" href={`tel:${courier.phone}`}>
-                  <IconPhone />
-                  Hubungi
-                </a>
+                {courierPhone ? (
+                  <a className="track-action" href={`tel:${courierPhone}`}>
+                    <IconPhone />
+                    Hubungi
+                  </a>
+                ) : null}
                 <button
                   className="track-action"
                   type="button"
@@ -368,7 +390,7 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
             </div>
           </section>
 
-          {address ? (
+          {address || liveAddress ? (
             <section className="track-section">
               <h2 className="track-section-title">Tujuan</h2>
               <div className="track-row">
@@ -376,20 +398,25 @@ export default function OrderStageScreen({ stage: fixedStage }: Props) {
                   <IconPin />
                 </span>
                 <div className="track-row-text">
-                  <p className="track-row-name">{alamatKompleks}</p>
-                  <p className="track-row-note">
-                    {[alamatTower, address.floor, address.unit].filter(Boolean).join(' · ')}
-                  </p>
+                  <p className="track-row-name">{addressKompleks}</p>
+                  <p className="track-row-note">{addressDetail}</p>
                   <p className="track-row-meta">
-                    {address.address} · {formatDistance(address.distanceMeters)}
-                    {quote?.covered
-                      ? ` · ongkir ${money(quote.feeIdr)}`
-                      : ' · di luar jangkauan'}
+                    {liveAddress
+                      ? [liveAddress.line, liveAddress.label].filter(Boolean).join(' · ')
+                      : address
+                        ? `${address.address} · ${formatDistance(address.distanceMeters)}${
+                            quote?.covered
+                              ? ` · ongkir ${money(quote.feeIdr)}`
+                              : ' · di luar jangkauan'
+                          }`
+                        : ''}
                   </p>
                 </div>
               </div>
             </section>
           ) : null}
+
+          {detail ? <OrderItemsSummary detail={detail} /> : null}
           <OrderInvoice orderCode={orderCode} />
           {/* Checkpoint pengiriman (F5/M5): customer hanya progres + kode OTP
               serah terima (C-09). Aksi Ambil/Berangkat/Tiba milik kurir (F13). */}

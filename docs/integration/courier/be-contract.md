@@ -114,3 +114,19 @@ Aplikasi memetakan `wallet → wallet`; DANA VA/QRIS masih proksi `xendit_*`
 (kontrak DANA belum diperbarui, lihat `docs/integration/dana/be-contract.md` D2).
 Saat membaca, `IN_PAYMENT` memetakan `xendit_va → dana_va`, `xendit_qris →
 dana_qris`.
+
+## 5. Lokasi kurir bergerak (R-TRACK)
+
+- **Kirim:** `POST /rest/v1/rpc/update_courier_location { p_lat, p_lng }`, hanya
+  akun kurir (`400 "bukan kurir"` untuk peran lain). FE memanggilnya lewat
+  `startCourierLocationWatch` (`src/api/liveLocation.ts`) hanya selama checkpoint
+  Berangkat/Tiba, dengan jeda kirim minimum 10 detik. Batasan L1: app harus
+  terbuka dan layar menyala, bukan background tracking.
+- **Baca:** `POST /rest/v1/rpc/courier_location { p_order_id }`. Balikan
+  `{id,name,latitude,longitude,last_seen_at,age_ms,stale}` atau `null` bila order
+  tanpa kurir. `403` untuk bukan peserta order; `401` tanpa token.
+- **Stale:** dihitung server, `true` bila `last_seen_at` lebih tua dari **120
+  detik**. FE menampilkan "menunggu sinyal lokasi kurir", bukan pin lama.
+- Lokasi disimpan satu baris di `couriers` (posisi terakhir), bukan riwayat.
+  `PATCH couriers.availability` **tidak boleh** menulis `last_seen_at` — kolom itu
+  milik pengiriman lokasi, bukan penanda ganti status.

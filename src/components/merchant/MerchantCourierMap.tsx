@@ -1,4 +1,5 @@
 import { etaCopy } from '../../data/tracking'
+import { numericOrderId } from '../../api/liveLocation'
 import { useCourierTracking } from '../../hooks/useCourierTracking'
 import { useLeafletMap } from '../../hooks/useLeafletMap'
 
@@ -20,13 +21,15 @@ interface MerchantCourierMapProps {
  */
 export function MerchantCourierMap({ orderId, stage }: MerchantCourierMapProps) {
   const mapId = `merchant-courier-map-${orderId}`
-  const tracking = useCourierTracking(stage)
+  const tracking = useCourierTracking(stage, numericOrderId(orderId))
   useLeafletMap(mapId, 'delivery', { courier: tracking.courierPosition })
 
   return (
     <section className="track-map track-map--delivery" data-courier-map={orderId}>
       <div className="order-map-container" id={mapId} />
-      {tracking.etaMinutes === null ? null : (
+      {tracking.stale ? (
+        <p className="merchant-order-meta">Menunggu sinyal lokasi kurir.</p>
+      ) : tracking.etaMinutes === null ? null : (
         <p className="merchant-order-meta">{etaCopy(tracking.etaMinutes, tracking.almost)}</p>
       )}
     </section>

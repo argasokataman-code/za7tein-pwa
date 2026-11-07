@@ -30,14 +30,14 @@ keputusan final (lihat §5).
 
 - `couriers`: `user_id` (akun mitra), `courier_type='partner'`, `availability` (`available|reserved|busy|offline|unavailable`), `active_order_count`, `last_seen_at`.
 - `dispatch_assignments`: `order_id`, `courier_id`, `status` (`reserved` = menunggu respons, `approved|rejected|expired`), `reject_reason`, `reserved_at`, `responded_at`.
-- `punishments`: `subject_type='courier'`, `subject_id=couriers.id`, `status='issued'`.
+- `punishments`: `subject_type='courier'`, `subject_id=couriers.id`, `status='issued'`. Penulisan lewat RPC `issue_sp(p_subject_type, p_subject_id, p_kind, p_level, p_reason)`; kolom tampilan (`subject_name`, `form`, `level_label`) dilengkapi PATCH setelah baris dibuat.
 
 ### 1.2 Masih diusulkan
 
 - `courier_partners` terpisah + `courier_assignments` (§5, model kurir ganda belum diputuskan).
 - `orders.delivery_kind` (`regular|quick`) dan `orders.courier_partner_id`.
-- Tabel/endpoint SP khusus partner — cukup `punishments` selama penerbitnya belum diputuskan.
-- Config ops: `dispatch_max_kms`, `location_freshness_seconds`, `quick_fee_multiplier` (parameter, bukan konstanta FE).
+- Tabel/endpoint SP khusus partner — cukup `punishments`; RPC `issue_sp` sudah ada.
+- Parameter ops: `dispatch_max_kms`, `location_freshness_seconds` (BE memakai **120 detik** tetap), `quick_fee_multiplier` (kini `platform_params.quick_multiplier = 1.5`).
 
 ## 2. Endpoint
 
@@ -47,9 +47,9 @@ keputusan final (lihat §5).
 | set availability | `PATCH couriers?id=eq.<id> {availability}` | ✅ dipakai |
 | approve/reject | `PATCH dispatch_assignments?id=eq.<id> {status, responded_at, reject_reason}` | ✅ dipakai (REST langsung; RPC belum) |
 | kirim assignment | `POST dispatch_assignments {order_id, courier_id}` (default `reserved`) | ✅ dipakai saat merchant menugaskan |
-| `dispatch_courier(p_order_id)` | RPC pilih kandidat (**idle terlama + batas jarak**, tie-break, OPEN-11) | ❌ usulan |
-| `expire_assignments()` | `pg_cron`: `reserved` lewat tenggat → `expired`, mitra `offline`, pengganti, SP | ❌ usulan |
-| `issue_sp(...)` | RPC | ❌ menunggu keputusan penerbit |
+| `dispatch_partner(p_order)` | RPC pilih kandidat (**idle terlama + batas jarak**, tie-break, OPEN-11) | ✅ dipakai (`dispatchPartnerOrder`) |
+| `expire_assignments()` | `pg_cron`: `reserved` lewat tenggat → `expired`, mitra `offline`, pengganti, SP | ❌ usulan (`501`) |
+| `issue_sp(...)` | RPC terbitkan SP; non-ops `403` | ✅ dipakai (`issuePenaltyRemote`) |
 
 ### Event (realtime / notifikasi)
 
@@ -73,9 +73,9 @@ keputusan final (lihat §5).
 ## 4. Urutan pengerjaan
 
 1. ✅ `couriers` partner + `dispatch_assignments` + baca/tulis board mitra.
-2. ✅ Approve/reject + availability tersimpan.
-3. ⏳ `dispatch_courier()` (butuh keputusan OPEN-11) + event realtime.
-4. ⏳ `expire_assignments()` + `issue_sp()` setelah PO memutuskan penerbit SP.
+2. ✅ Approve/reject + availability tersimpan (tanpa menulis `last_seen_at`; itu milik pengiriman lokasi).
+3. ✅ `dispatch_partner(p_order)` hidup: BE memilih kandidat. Event realtime belum.
+4. ⏳ `expire_assignments()` (`501`) setelah PO memutuskan penerbit SP; `issue_sp()` sudah hidup.
 5. ⏳ Fee Quick 100% + talangan COD Quick (ranah uang, terpisah).
 
 ## 5. UNRESOLVED (jangan diisi tebakan)
@@ -83,5 +83,5 @@ keputusan final (lihat §5).
 - **Penerbit SP** (§18, OPS-10): ops manual vs trigger otomatis. Implementasi membaca `punishments`, tidak menulis.
 - **Algoritma dispatch** (OPEN-11): dokumen ini menuliskan **usulan** PRD apa adanya.
 - **Tabel partner**: `courier_partners` terpisah vs `couriers` + penanda jenis. Kode memakai yang kedua sementara; keputusan PO masih terbuka.
-- **Parameter ops** (`dispatch_max_kms`, `location_freshness_seconds`, `quick_fee_multiplier`): config ops, belum ada angkanya.
+- **Parameter ops** (`dispatch_max_kms`, `quick_fee_multiplier`): `quick_multiplier` sudah ada di `platform_params` (1.5, dibaca `/ops/settings`); `dispatch_max_kms` belum diputuskan. `location_freshness_seconds` tidak lagi terbuka: BE memakai **120 detik** tetap.
 - **Pemulihan "Quick tak tersedia"** (`f26` Q10): batal / refund / ubah ke Regular belum diputuskan.

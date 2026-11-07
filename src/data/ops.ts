@@ -6,7 +6,7 @@ import {
 } from './rules'
 import { ALMOST_ARRIVED_MINUTES } from './tracking'
 import { PLATFORM_FEE_JOD } from './merchant'
-import { QUICK_MULTIPLIER_DEFAULT } from './marketplace'
+import { QUICK_MULTIPLIER_DEFAULT, TRANSACTION_FEE_RATE } from './marketplace'
 import type {
   DisputeRule,
   Incident,
@@ -54,6 +54,7 @@ export const MOCK_PLATFORM_CONFIG: OpsPlatformConfig = {
   almostArrivedMinutes: ALMOST_ARRIVED_MINUTES,
   platformFeeCustomerJod: PLATFORM_FEE_JOD,
   platformFeeMerchantJod: PLATFORM_FEE_JOD,
+  transactionFeeRate: TRANSACTION_FEE_RATE,
 }
 
 /** Antrean tag menunggu moderasi (moderasi tag, R-OPS). */

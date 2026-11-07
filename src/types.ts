@@ -1204,6 +1204,9 @@ export interface CourierPartner {
   warningLetters: number
   /** ISO; kesegaran lokasi untuk kandidat dispatch (§9.4). */
   lastLocationAt: string | null
+  /** Posisi terakhir dari `couriers.latitude/longitude`; `null` belum pernah kirim. */
+  lastLat?: number | null
+  lastLng?: number | null
   joinedAt: string
 }
 
@@ -1621,6 +1624,8 @@ export interface OpsPlatformConfig {
   platformFeeCustomerJod: number
   /** Pm — platform fee merchant, hanya saat online tanpa kuota (§16.3). */
   platformFeeMerchantJod: number
+  /** Ft — tarif biaya transaksi QRIS (mis. 0,015 = 1,5%). */
+  transactionFeeRate: number
 }
 
 /** Status usulan tag merchant (moderasi ops, R-OPS). */

@@ -10,32 +10,39 @@ import {
   walkMinutes,
 } from '../data/tracking'
 import { DESTINATION, RESTAURANT, ROUTE } from '../lib/leaflet-draw'
+import { useOrderCourierLocation } from './useOrderCourierLocation'
 
 export interface CourierTracking {
   /** Tahap ini memang menyiarkan lokasi kurir? (§9.7: hanya saat delivery aktif) */
   showsLocation: boolean
   /** Sisa menit; `null` saat lokasi tidak disiarkan. */
   etaMinutes: number | null
-  /** Posisi kurir sepanjang rute mock; `undefined` saat tidak disiarkan. */
+  /** Posisi kurir: data BE bila ada, jatuh ke rute mock bila belum. */
   courierPosition?: [number, number]
   /** Sudah masuk ambang "kurir hampir sampai". */
   almost: boolean
+  /** `true` saat posisi berasal dari BE (`courier_location`), bukan rute mock. */
+  live?: boolean
+  /** Posisi BE lebih tua dari ambang server (120 detik). */
+  stale?: boolean
 }
 
 /**
- * Pelacakan kurir di demo diturunkan dari **waktu tempuh**, bukan dikirim BE:
- * event `courier_location` (§19) belum dibangun. Satu tick = satu menit mock, jadi
- * pin benar-benar bergerak selama pengantaran aktif dan berhenti di luar itu.
- * Rule-nya ada di `src/data/tracking.ts` supaya bisa diuji tanpa browser.
+ * Pelacakan kurir memakai posisi BE bila ada (`courier_location`, order live),
+ * dan jatuh ke rute mock berbasis waktu tempuh hanya saat BE belum punya
+ * posisi. Satu tick mock = satu menit, jadi pin tetap bergerak selama
+ * pengantaran aktif walau perangkat kurir belum mengirim apa pun.
+ * Rule mock ada di `src/data/tracking.ts` supaya bisa diuji tanpa browser.
  */
-export function useCourierTracking(stage: string): CourierTracking {
+export function useCourierTracking(stage: string, orderId?: number | null): CourierTracking {
+  const showsLocation = tracksLocation(stage)
+  const live = useOrderCourierLocation(showsLocation ? (orderId ?? null) : null)
   const totalMinutes = walkMinutes(
     haversineMeters(
       { lat: RESTAURANT[0], lng: RESTAURANT[1] },
       { lat: DESTINATION[0], lng: DESTINATION[1] },
     ),
   )
-  const showsLocation = tracksLocation(stage)
   const [elapsedMinutes, setElapsedMinutes] = useState(0)
 
   useEffect(() => {
@@ -52,10 +59,17 @@ export function useCourierTracking(stage: string): CourierTracking {
     return { showsLocation, etaMinutes: null, almost: false }
   }
 
+  const livePosition: [number, number] | undefined =
+    live && Number.isFinite(live.latitude) && Number.isFinite(live.longitude)
+      ? [live.latitude, live.longitude]
+      : undefined
+
   return {
     showsLocation,
     etaMinutes,
-    courierPosition: positionAlong(ROUTE, progress) ?? undefined,
+    courierPosition: livePosition ?? positionAlong(ROUTE, progress) ?? undefined,
     almost,
+    live: Boolean(livePosition),
+    stale: livePosition ? Boolean(live?.stale) : undefined,
   }
 }

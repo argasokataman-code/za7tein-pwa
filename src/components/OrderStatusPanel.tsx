@@ -31,12 +31,18 @@ export function OrderStatusPanel({ stage, cancelled, tracking }: OrderStatusPane
       ) : (
         <>
           <p className="track-status-eta" role={tracking.almost ? 'status' : undefined}>
-            {tracking.almost ? 'Kurir hampir sampai' : copy.etaLabel}
+            {tracking.stale
+              ? 'Menunggu sinyal lokasi kurir'
+              : tracking.almost
+                ? 'Kurir hampir sampai'
+                : copy.etaLabel}
           </p>
           <p className="track-status-time">
-            {tracking.etaMinutes === null
-              ? copy.eta
-              : etaCopy(tracking.etaMinutes, tracking.almost)}
+            {tracking.stale
+              ? 'Posisi terakhir lebih dari dua menit lalu.'
+              : tracking.etaMinutes === null
+                ? copy.eta
+                : etaCopy(tracking.etaMinutes, tracking.almost)}
           </p>
         </>
       )}

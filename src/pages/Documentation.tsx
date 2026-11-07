@@ -1129,8 +1129,13 @@ export default function Documentation() {
                 &ldquo;lokasi live&rdquo; (&sect;9.7) tak bisa dibedakan dari gambar statis.
                 Sekarang satu marker <strong>digeser</strong> (<code className="doc-inline">useLeafletMap</code>{' '}
                 opsi <code className="doc-inline">courier</code> &rarr; <code className="doc-inline">setLatLng</code>,
-                peta tak dibangun ulang) mengikuti kemajuan waktu tempuh di demo karena event{' '}
-                <code className="doc-inline">courier_location</code> belum ada. Ambang
+                peta tak dibangun ulang). Posisi diambil dari RPC{' '}
+                <code className="doc-inline">courier_location</code> untuk order live; rute
+                waktu-tempuh hanya fallback saat BE belum punya posisi. Kurir mengirim lewat{' '}
+                <code className="doc-inline">update_courier_location</code> selama checkpoint
+                Berangkat/Tiba (batasan L1), dan <code className="doc-inline">stale</code> dari
+                server (120 detik) tampil sebagai &ldquo;menunggu sinyal lokasi kurir&rdquo;.
+                Ambang
                 &ldquo;kurir hampir sampai&rdquo; <strong>berbasis waktu</strong> dan{' '}
                 <strong>bertanda konfigurasi ops</strong>{' '}
                 (<code className="doc-inline">ALMOST_ARRIVED_MINUTES</code> = 5,{' '}
@@ -1142,6 +1147,22 @@ export default function Documentation() {
                 <code className="doc-inline">src/data/tracking.ts</code>, ditahan{' '}
                 <code className="doc-inline">scripts/tracking-check.mjs</code>. Belum: ETA per urutan batch
                 (id batch belum bergabung dengan id order).
+              </li>
+              <li>
+                <strong>Journey menampilkan data order, bukan konstanta.</strong> Layar{' '}
+                <code className="doc-inline">/order-placed</code> dulu memakai nama toko, jam buka,
+                kurir, dan alamat dari mock. Sekarang{' '}
+                <code className="doc-inline">useCustomerOrderDetail</code> (hook baru) membaca{' '}
+                <code className="doc-inline">orders</code> + <code className="doc-inline">merchants</code> +{' '}
+                <code className="doc-inline">couriers</code> + <code className="doc-inline">addresses</code> +{' '}
+                <code className="doc-inline">order_items</code>, lalu komponen{' '}
+                <code className="doc-inline">OrderItemsSummary</code> menampilkan daftar item, total, metode
+                bayar, dan waktu order. Checkout juga menulis baris{' '}
+                <code className="doc-inline">order_items</code> (kolom nyata{' '}
+                <code className="doc-inline">unit_price_jod</code>/
+                <code className="doc-inline">line_total_jod</code>) supaya rincian itu tidak hilang setelah
+                keranjang dikosongkan. Order lama tanpa baris item hanya menampilkan total, bukan daftar
+                kosong.
               </li>
               <li>
                 <strong>Notifikasi: katalog emit + penjaga audience (M7c, R-NOTIF).</strong>{' '}
@@ -1376,10 +1397,11 @@ export default function Documentation() {
                 kontrak <code className="doc-inline">couriers.courier_type</code> sudah dipakai di
                 pemilih dispatch. Kini panel ops juga{' '}
                 <strong>menulis balik</strong>: sakelar rule →{' '}
-                <code className="doc-inline">PATCH dispute_rules</code>, terbitkan SP →{' '}
-                <code className="doc-inline">POST punishments</code> (nama pihak bebas-ketik
-                diresolusi ke <code className="doc-inline">subject_id</code>; tidak ketemu = entri
-                lokal disertai toast). Cabut SP ikut menulis balik:{' '}
+                <code className="doc-inline">PATCH dispute_rules</code>, terbitkan SP → RPC{' '}
+                <code className="doc-inline">issue_sp</code> lalu{' '}
+                <code className="doc-inline">PATCH punishments</code> untuk kolom tampilan (nama
+                pihak bebas-ketik diresolusi ke <code className="doc-inline">subject_id</code>;
+                tidak ketemu = entri lokal disertai toast). Cabut SP ikut menulis balik:{' '}
                 <code className="doc-inline">PATCH punishments</code>{' '}
                 <code className="doc-inline">{'{status:&quot;revoked&quot;}'}</code> — baris tetap,
                 riwayat tidak dihapus. Kolom <code className="doc-inline">status</code>/
@@ -1387,7 +1409,11 @@ export default function Documentation() {
                 <code className="doc-inline">level_label</code> ditambahkan ke D1 secara{' '}
                 <em>additive</em> supaya sama dengan migrasi Supabase (default{' '}
                 <code className="doc-inline">issued</code>), jadi bentuk &amp; tingkat yang diketik
-                ops tersimpan apa adanya, bukan dipaksa ke label katalog.
+                ops tersimpan apa adanya, bukan dipaksa ke label katalog. Tombol{' '}
+                <strong>Jalankan pemeliharaan</strong> di{' '}
+                <code className="doc-inline">/ops/settings</code> memanggil RPC{' '}
+                <code className="doc-inline">run_cron_jobs</code> (expire order belum bayar, tutup
+                chat basi, peringatan kuota) dan menampilkan jumlah yang berubah.
               </li>
               <li>
                 PRD meminta penilaian &ldquo;diisi di layar detail order, yang dibuka lewat{' '}

@@ -33,6 +33,7 @@ interface ParamsRow {
   platform_fee_customer_jod: number
   platform_fee_merchant_jod: number
   almost_arrived_minutes: number
+  transaction_fee_rate: number
 }
 interface TagRow {
   id: number
@@ -61,7 +62,7 @@ export async function fetchPlatformConfig(): Promise<Partial<OpsPlatformConfig>>
   const rows = await restWith<ParamsRow>(
     token,
     'platform_params',
-    '?select=quick_multiplier,platform_fee_customer_jod,platform_fee_merchant_jod,almost_arrived_minutes&limit=1',
+    '?select=quick_multiplier,platform_fee_customer_jod,platform_fee_merchant_jod,almost_arrived_minutes,transaction_fee_rate&limit=1',
   )
   const row = rows[0]
   if (!row) return {}
@@ -70,6 +71,7 @@ export async function fetchPlatformConfig(): Promise<Partial<OpsPlatformConfig>>
     platformFeeCustomerJod: row.platform_fee_customer_jod,
     platformFeeMerchantJod: row.platform_fee_merchant_jod,
     almostArrivedMinutes: row.almost_arrived_minutes,
+    transactionFeeRate: row.transaction_fee_rate,
   }
 }
 
@@ -84,6 +86,7 @@ export async function savePlatformConfig(config: OpsPlatformConfig): Promise<voi
   })
   await patch(token, 'platform_params', '?id=eq.true', {
     almost_arrived_minutes: config.almostArrivedMinutes,
+    transaction_fee_rate: config.transactionFeeRate,
   })
 }
 
@@ -271,6 +274,30 @@ export async function issuePenaltyRemote(input: {
   )
   const subjectId = rows[0]?.id
   if (!subjectId) return false
+  // BE kini punya RPC `issue_sp` (diverifikasi 2026-11-07). Argumen nyata:
+  // `p_subject_type`, `p_subject_id`, `p_kind`, `p_level`, `p_reason`. Kolom
+  // tampilan (nama, bentuk, label level) tidak ditulis RPC, jadi dilengkapi
+  // lewat PATCH setelah barisnya dibuat.
+  try {
+    const id = await rpc<number>(token, 'issue_sp', {
+      p_subject_type: input.subject,
+      p_subject_id: subjectId,
+      p_kind: penaltyKind(input.form),
+      p_level: penaltyLevel(input.level),
+      p_reason: input.reason,
+    })
+    if (Number.isFinite(id)) {
+      await patch(token, 'punishments', `?id=eq.${id}`, {
+        subject_name: input.subjectName,
+        form: input.form,
+        level_label: input.level,
+        status: 'issued',
+      }).catch(() => {})
+      return true
+    }
+  } catch {
+    // RPC belum ada / menolak → jalur tulis tabel lama tetap dipakai.
+  }
   await createWith(token, 'punishments', {
     subject_type: input.subject,
     subject_id: subjectId,
@@ -285,6 +312,30 @@ export async function issuePenaltyRemote(input: {
     status: 'issued',
   })
   return true
+}
+
+/**
+ * Pemeliharaan BE: `run_cron_jobs()` menjalankan `expire_unpaid_orders`,
+ * `close_stale_chats`, `quota_low_alerts`, dan pembersihan idempotency dalam
+ * satu panggilan. Dulu dijalankan manual; sekarang tersedia sebagai endpoint
+ * yang bisa dipicu ops (diverifikasi 2026-11-07).
+ */
+export interface OpsMaintenanceResult {
+  expired_orders: number
+  stale_chats: number
+  quota_alerts: number
+  idempotency_cleared: number
+}
+
+export async function runOpsMaintenance(): Promise<OpsMaintenanceResult | null> {
+  if (!apiEnabled) return null
+  try {
+    const token = await refToken()
+    const result = await rpc<OpsMaintenanceResult>(token, 'run_cron_jobs', {})
+    return result ?? null
+  } catch {
+    return null
+  }
 }
 
 /**

@@ -68,6 +68,8 @@ interface OrderRow {
 
 export interface NewOrder {
   code: string
+  /** Baris keranjang saat checkout; ditulis ke `order_items` (best-effort). */
+  items?: CartItem[]
   subTotalIdr: number
   deliveryFeeIdr: number
   platformFeeIdr: number
@@ -161,7 +163,27 @@ export async function createOrder(order: NewOrder): Promise<{ id: string; code: 
     otp: otpOf(order.code),
   }, 'id,code')
   const row = rows[0]
-  return { id: String(row?.id ?? ''), code: row?.code ?? order.code }
+  const id = String(row?.id ?? '')
+  // Rincian item ditulis setelah order ada (butuh `order_id`). Best-effort:
+  // checkout tetap jalan kalau tabel menolak, dan layar order jatuh ke
+  // snapshot invoice lokal. Kolom nyata D1: `unit_price_jod`, `line_total_jod`.
+  if (id && order.items?.length) {
+    await Promise.all(
+      order.items.map((item) =>
+        createWith(token, 'order_items', {
+          order_id: Number(id),
+          menu_id: /^\d+$/.test(item.menuId ?? '') ? Number(item.menuId) : null,
+          name: item.name,
+          qty: item.quantity,
+          unit_price_jod: idrToJod(item.price),
+          line_total_jod: idrToJod(item.price * item.quantity),
+          modifiers: item.modifiers ?? null,
+          note: item.notes ?? null,
+        }).catch(() => {}),
+      ),
+    )
+  }
+  return { id, code: row?.code ?? order.code }
 }
 
 /** `api-<n>` / `<n>` → id numerik; seed non-numerik → NaN. */
@@ -786,8 +808,137 @@ export async function fetchCustomerOrder(orderId: string): Promise<CustomerOrder
   }
 }
 
-/** Status `orders` yang masih berjalan (belum `done`/`canceled`). */
-const ACTIVE_DB_STATUSES = [
+/** Rincian order customer untuk layar journey (`/order-placed`). */
+export interface CustomerOrderDetail {
+  id: string
+  code: string
+  dbStatus: string
+  stage: OrderStage
+  createdAt: string
+  /** Toko asal beserta jam buka (jam D1, bukan konstanta mock). */
+  merchantName: string | null
+  merchantOpen: string | null
+  merchantClose: string | null
+  /** Kurir yang ditugaskan; `null` selama order belum punya `courier_id`. */
+  courierName: string | null
+  courierPhone: string | null
+  address: {
+    label: string
+    building: string
+    floor: string
+    unit: string
+    line: string
+  } | null
+  items: { id: string; name: string; qty: number; lineTotalIdr: number }[]
+  subTotalIdr: number
+  deliveryFeeIdr: number
+  platformFeeIdr: number
+  promoAmountIdr: number
+  totalIdr: number
+  paymentMethod: PaymentMethod['id'] | null
+}
+
+interface OrderDetailRow extends OrderRow {
+  sub_total_jod: number | null
+  delivery_fee_jod: number | null
+  platform_fee_jod: number | null
+  promo_amount_jod: number | null
+  delivery_address_id: number | null
+}
+
+/**
+ * Satu order customer + relasi yang dibutuhkan layar journey: toko, kurir,
+ * alamat, dan rincian item. Join dikerjakan manual (Worker menolak embed
+ * PostgREST), dan tiap bagian gagal-sendiri supaya order tetap tampil walau
+ * salah satu tabel menolak.
+ */
+export async function fetchCustomerOrderDetail(
+  orderId: string,
+): Promise<CustomerOrderDetail | null> {
+  const oid = numericOrderId(orderId)
+  if (!Number.isFinite(oid)) return null
+  const token = await ensureCustomerToken()
+  const rows = await restWith<OrderDetailRow>(
+    token,
+    'orders',
+    `?select=id,code,status,merchant_id,courier_id,delivery_address_id,sub_total_jod,delivery_fee_jod,platform_fee_jod,promo_amount_jod,total_jod,payment_method,created_at&id=eq.${oid}&limit=1`,
+  )
+  const row = rows[0]
+  if (!row) return null
+
+  const [merchants, couriers, addresses, items] = await Promise.all([
+    restWith<{ id: number; store_name: string | null; open_time: string | null; close_time: string | null }>(
+      token,
+      'merchants',
+      `?select=id,store_name,open_time,close_time&id=eq.${row.merchant_id}&limit=1`,
+    ).catch(() => []),
+    row.courier_id
+      ? restWith<{ id: number; name: string; phone: string | null }>(
+          token,
+          'couriers',
+          `?select=id,name,phone&id=eq.${row.courier_id}&limit=1`,
+        ).catch(() => [])
+      : Promise.resolve([]),
+    row.delivery_address_id
+      ? restWith<{
+          label: string | null
+          name: string | null
+          building: string | null
+          floor: string | null
+          unit: string | null
+          address: string | null
+        }>(
+          token,
+          'addresses',
+          `?select=label,name,building,floor,unit,address&id=eq.${row.delivery_address_id}&limit=1`,
+        ).catch(() => [])
+      : Promise.resolve([]),
+    restWith<{ id: number; name: string; qty: number; line_total_jod: number | null }>(
+      token,
+      'order_items',
+      `?select=id,name,qty,line_total_jod&order_id=eq.${row.id}&order=id.asc`,
+    ).catch(() => []),
+  ])
+
+  const merchant = merchants[0]
+  const courier = couriers[0]
+  const addr = addresses[0]
+  return {
+    id: String(row.id),
+    code: row.code,
+    dbStatus: row.status,
+    stage: STAGE_OF_STATUS[row.status] ?? 'baru',
+    createdAt: row.created_at,
+    merchantName: merchant?.store_name ?? null,
+    merchantOpen: merchant?.open_time ?? null,
+    merchantClose: merchant?.close_time ?? null,
+    courierName: courier?.name ?? null,
+    courierPhone: courier?.phone ?? null,
+    address: addr
+      ? {
+          label: addr.label ?? addr.name ?? '',
+          building: addr.building ?? '',
+          floor: addr.floor ?? '',
+          unit: addr.unit ?? '',
+          line: addr.address ?? '',
+        }
+      : null,
+    items: items.map((item) => ({
+      id: String(item.id),
+      name: item.name,
+      qty: item.qty,
+      lineTotalIdr: jodToIdr(item.line_total_jod ?? 0),
+    })),
+    subTotalIdr: jodToIdr(row.sub_total_jod ?? 0),
+    deliveryFeeIdr: jodToIdr(row.delivery_fee_jod ?? 0),
+    platformFeeIdr: jodToIdr(row.platform_fee_jod ?? 0),
+    promoAmountIdr: jodToIdr(row.promo_amount_jod ?? 0),
+    totalIdr: jodToIdr(row.total_jod ?? 0),
+    paymentMethod: IN_PAYMENT[row.payment_method] ?? null,
+  }
+}
+
+/** Status `orders` yang masih berjalan (belum `done`/`canceled`). */const ACTIVE_DB_STATUSES = [
   'cart',
   'quotation',
   'placed',
