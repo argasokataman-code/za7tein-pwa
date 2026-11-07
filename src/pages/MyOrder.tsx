@@ -133,9 +133,12 @@ export default function MyOrder() {
   // dan gambar kartu, supaya menu yang sudah berubah di BE ikut terbaca.
   const liveStores = useStorefronts(storefronts)
   const liveItems = useAllMenuItems(menuSeed)
+  // Keranjang lama bisa berisi id menu mock (`mm-*`) atau id menu live (numerik),
+  // jadi katalog cadangan memuat keduanya sebelum menyebut toko asal item.
+  const catalogItems = useMemo(() => [...liveItems, ...menuSeed], [liveItems])
   const groups = useMemo(
-    () => cartGroups(cartItems, activeMerchantId, otherCarts),
-    [cartItems, activeMerchantId, otherCarts],
+    () => cartGroups(cartItems, activeMerchantId, otherCarts, catalogItems),
+    [cartItems, activeMerchantId, otherCarts, catalogItems],
   )
   const activeCount = activeOrders.length + groups.length
 

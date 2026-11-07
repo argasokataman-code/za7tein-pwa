@@ -207,7 +207,12 @@ function repairPersistedCart() {
     if (cart.selectedPaymentId === 'xendit_qris') cart.selectedPaymentId = 'dana_qris'
     const legacyItems = (cart.items ?? []).some((i: any) => {
       const food = menuSeed.find((f) => f.id === i.id)
-      return !food || (!i.modifiers && i.price !== food.price)
+      // Id yang tidak ada di katalog mock berarti menu live dari BE (id
+      // numerik): itu bukan state warisan, jadi jangan dianggap perlu repair.
+      // Tanpa penjagaan ini setiap item live dibuang saat app dibuka ulang dan
+      // keranjang customer menghilang sendiri.
+      if (!food) return false
+      return !i.modifiers && i.price !== food.price
     })
     // Alamat versi lama belum menyimpan `zone` (snapshot coverage Hijazi/Syimali,
     // migrasi zona 2026-09-23). Tanpa field itu semua alamat jadi "di luar
@@ -229,7 +234,10 @@ function repairPersistedCart() {
 
     const items = (cart.items ?? []).flatMap((item: any) => {
       const food = menuSeed.find((f) => f.id === item.id)
-      if (!food) return []
+      // Menu live (id numerik) tidak dikenal katalog mock: pertahankan apa
+      // adanya, termasuk `merchantId`/`merchantName` yang dipakai keranjang
+      // untuk menyebut toko asal.
+      if (!food) return [item]
       if (item.modifiers) return [item]
       return [{ ...item, name: food.name, image: food.image, price: food.price }]
     })

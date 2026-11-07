@@ -1,18 +1,19 @@
 import { Store, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { BottomSheet } from '../ui/BottomSheet'
+import { cartGroups } from '../../data/cartGroups'
+import { menuSeed } from '../../data/catalog'
 import { storeNameFor, storefronts } from '../../data/storefronts'
 import type { CustomerActiveOrder } from '../../api/orders'
 import { useCancelOrder } from '../../hooks/useCancelOrder'
-import { useStorefronts } from '../../hooks/useApiCatalog'
+import { useAllMenuItems, useStorefronts } from '../../hooks/useApiCatalog'
 import { useMoney } from '../../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import {
   clearCart,
   removeCart,
-  selectSubtotal,
   setActiveOrder,
   setOrderStage,
   switchCart,
@@ -55,19 +56,20 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
   // Toko live (mock sebagai fallback): id keranjang dari BE numerik, bukan
   // `am-N` milik mock, jadi tanpa daftar live semua baris menjadi "Toko lain".
   const liveStores = useStorefronts(storefronts)
+  const liveItems = useAllMenuItems(menuSeed)
+  const catalogItems = useMemo(() => [...liveItems, ...menuSeed], [liveItems])
 
-  const storeName = (id: string, fallbackName?: string | null) =>
+  const storeName = (id: string | null, fallbackName?: string | null) =>
     storeNameFor(id, liveStores, fallbackName)
+  const storeOf = (id: string | null) => (id ? liveStores.find((s) => s.id === id) : undefined)
 
-  // Keranjang aktif dulu, lalu keranjang toko lain. Satu entri = satu toko.
-  const cartStores = [
-    ...(cartItems.length
-      ? [{ merchantId: activeMerchantId ?? 'default', items: cartItems, isActive: true }]
-      : []),
-    ...Object.entries(otherCarts)
-      .filter(([, items]) => items.length > 0)
-      .map(([merchantId, items]) => ({ merchantId, items, isActive: false })),
-  ]
+  // Keranjang aktif dulu, lalu keranjang toko lain; satu entri = satu toko.
+  // Item lama yang masih menumpuk di keranjang aktif tetap dipisah per
+  // `merchantId` supaya barisnya bisa disebut tokonya, bukan "Toko".
+  const cartStores = useMemo(
+    () => cartGroups(cartItems, activeMerchantId, otherCarts, catalogItems),
+    [cartItems, activeMerchantId, otherCarts, catalogItems],
+  )
 
   const hasOrders = activeOrders.length > 0
   const hasCart = cartStores.length > 0
@@ -79,8 +81,8 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
     onClose()
   }
 
-  const openCheckout = (merchantId: string, isActive: boolean) => {
-    if (!isActive) dispatch(switchCart(merchantId))
+  const openCheckout = (merchantId: string | null, isActive: boolean) => {
+    if (!isActive && merchantId) dispatch(switchCart(merchantId))
     closeSheet()
     navigate('/checkout')
   }
@@ -94,8 +96,9 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
   }
 
   /** Buang satu keranjang toko; keranjang aktif dibersihkan dari `items`. */
-  const discardCart = (merchantId: string, isActive: boolean) => {
-    dispatch(isActive ? clearCart() : removeCart(merchantId))
+  const discardCart = (merchantId: string | null, isActive: boolean) => {
+    if (isActive) dispatch(clearCart())
+    else if (merchantId) dispatch(removeCart(merchantId))
     setPending(null)
   }
 
@@ -163,22 +166,33 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
         ) : (
           <ul className="ck-list">
             {cartStores.map((store) => {
-              const count = store.items.reduce((sum, i) => sum + i.quantity, 0)
+              const count = store.count
               const name = storeName(store.merchantId, store.items[0]?.merchantName)
-              const confirming = pending?.kind === 'cart' && pending.id === store.merchantId
+              const info = storeOf(store.merchantId)
+              // Detail toko (jarak, estimasi, buka/tutup) supaya beberapa baris
+              // tidak cuma terbedakan oleh nama yang mirip.
+              const detail = [
+                info?.distance,
+                info?.deliveryTime,
+                info && !info.isOpen ? 'Tutup' : null,
+              ].filter(Boolean)
+              const rowId = store.merchantId ?? 'default'
+              const confirming = pending?.kind === 'cart' && pending.id === rowId
               return (
-                <li key={store.merchantId} className="ck-row">
+                <li key={rowId} className="ck-row">
                   <span className="ck-row__line list-row">
                     <span className="ck-row__title">
                       <Store size={15} strokeWidth={1.75} aria-hidden="true" />
                       {name}
                     </span>
-                    <span className="ck-row__sum">{money(selectSubtotal(store.items))}</span>
-                    <span className="ck-row__meta">{count} menu</span>
+                    <span className="ck-row__sum">{money(store.subtotal)}</span>
+                    <span className="ck-row__meta">
+                      {[...detail, `${count} menu`].join(' · ')}
+                    </span>
                     <button
                       type="button"
                       className="ck-go ck-go--end"
-                      onClick={() => openCheckout(store.merchantId, store.isActive)}
+                      onClick={() => openCheckout(store.merchantId, store.active)}
                     >
                       Checkout
                     </button>
@@ -190,7 +204,7 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
                         type="button"
                         className="ck-icon"
                         aria-label={`Buang keranjang ${name}`}
-                        onClick={() => setPending({ kind: 'cart', id: store.merchantId })}
+                        onClick={() => setPending({ kind: 'cart', id: rowId })}
                       >
                         <Trash2 size={16} strokeWidth={2} aria-hidden="true" />
                       </button>
@@ -210,7 +224,7 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
                         <button
                           type="button"
                           className="ck-confirm__btn ck-confirm__btn--danger"
-                          onClick={() => discardCart(store.merchantId, store.isActive)}
+                          onClick={() => discardCart(store.merchantId, store.active)}
                         >
                           Buang
                         </button>

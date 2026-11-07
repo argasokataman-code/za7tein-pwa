@@ -12,7 +12,7 @@ export interface CartGroup {
   /** Jumlah porsi (bukan jumlah baris menu). */
   count: number
   subtotal: number
-  /** Blok ini keranjang yang sedang aktif (tombolnya langsung ke checkout). */
+  /** Blok ini ikut keranjang checkout (tombolnya langsung ke pembayaran). */
   active: boolean
 }
 
@@ -24,20 +24,27 @@ const sumPrice = (items: CartItem[]) => items.reduce((sum, item) => sum + item.p
  *
  * Keranjang aktif disimpan di `items` dan idealnya hanya berisi satu toko,
  * tetapi state yang dipersist dari versi lama bisa memuat item beberapa toko
- * sekaligus (dan `activeMerchantId` kosong). Karena itu item aktif dipisah
- * menurut `item.merchantId` masing-masing: tanpa ini semua menu tergabung di
- * satu baris "2× Sate Ayam · 1× Sate Ayam" dan customer tak tahu mana dari
- * toko mana.
+ * sekaligus, tanpa `activeMerchantId`, bahkan tanpa `item.merchantId` (field
+ * itu baru ditulis sejak keranjang mengenal toko). Karena itu item aktif
+ * dipisah menurut `item.merchantId`, lalu dicocokkan ke katalog live sebagai
+ * cadangan: tanpa ini semua menu tergabung di satu baris "2× Sate Ayam · 1×
+ * Sate Ayam" dan customer tak tahu mana dari toko mana.
  */
 export function cartGroups(
   items: CartItem[],
   activeMerchantId: string | null,
   otherCarts: Record<string, CartItem[]>,
+  catalog: { id: string; merchantId?: string }[] = [],
 ): CartGroup[] {
+  const merchantOfMenu = new Map(catalog.map((menu) => [menu.id, menu.merchantId]))
   const buckets = new Map<string | null, CartItem[]>()
+  /** Toko yang itemnya ada di keranjang checkout. */
+  const checkoutStores = new Set<string | null>()
 
   for (const item of items) {
-    const key = item.merchantId ?? activeMerchantId ?? null
+    const key =
+      item.merchantId ?? merchantOfMenu.get(item.id) ?? activeMerchantId ?? null
+    checkoutStores.add(key)
     const bucket = buckets.get(key)
     if (bucket) bucket.push(item)
     else buckets.set(key, [item])
@@ -55,12 +62,11 @@ export function cartGroups(
     items: groupItems,
     count: sumQuantity(groupItems),
     subtotal: sumPrice(groupItems),
-    active: merchantId === activeMerchantId,
+    // Keranjang checkout selalu di atas. Blok toko lain baru bisa dipindah
+    // kalau memang tersimpan di `carts`; item lama yang masih menumpuk di
+    // `items` tetap ikut checkout supaya tidak hilang saat dipindah.
+    active: checkoutStores.has(merchantId),
   }))
-
-  // Keranjang aktif selalu di atas. Tanpa id aktif (state lama), blok pertama
-  // dianggap aktif supaya tombol checkout tetap ada di kartu pertama.
-  if (!groups.some((group) => group.active) && groups.length) groups[0].active = true
 
   return groups.sort((a, b) => Number(b.active) - Number(a.active))
 }

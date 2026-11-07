@@ -15,6 +15,7 @@ const item = (id, name, merchantId, quantity = 1, price = 1000, merchantName) =>
 })
 
 // Dua toko di keranjang aktif (state lama) tidak boleh tergabung dalam satu blok.
+// Keduanya ikut keranjang checkout karena item-nya memang tersimpan di `items`.
 {
   const groups = cartGroups(
     [item('a', 'Sate Ayam', '1', 2), item('b', 'Sate Ayam', '10', 1)],
@@ -26,7 +27,7 @@ const item = (id, name, merchantId, quantity = 1, price = 1000, merchantName) =>
     groups.map((g) => [g.merchantId, g.count, g.active]),
     [
       ['1', 2, true],
-      ['10', 1, false],
+      ['10', 1, true],
     ],
   )
 }
@@ -49,7 +50,7 @@ const item = (id, name, merchantId, quantity = 1, price = 1000, merchantName) =>
 {
   const groups = cartGroups([], null, { '10': [item('b', 'Ayam Bakar', '10')] })
   assert.equal(groups.length, 1)
-  assert.equal(groups[0].active, true)
+  assert.equal(groups[0].active, false)
 }
 
 // State demo lama tanpa id toko tetap tampil sebagai satu blok netral.
@@ -58,6 +59,39 @@ const item = (id, name, merchantId, quantity = 1, price = 1000, merchantName) =>
   assert.equal(groups.length, 1)
   assert.equal(groups[0].merchantId, null)
   assert.equal(groups[0].active, true)
+}
+
+// Item lama tanpa `merchantId` dicocokkan ke katalog live, bukan dibiarkan
+// menumpuk di blok "Keranjang" tanpa nama toko.
+{
+  const groups = cartGroups(
+    [item('76', 'Nasi Goreng Spesial', undefined), item('77', 'Sate Kambing', undefined)],
+    null,
+    {},
+    [
+      { id: '76', merchantId: '1' },
+      { id: '77', merchantId: '1' },
+    ],
+  )
+  assert.equal(groups.length, 1)
+  assert.equal(groups[0].merchantId, '1')
+}
+
+// Dua menu dari dua toko tetap terpisah walau keranjang aktif tak menyebut toko.
+{
+  const groups = cartGroups(
+    [item('76', 'Nasi Goreng Spesial', undefined), item('35', 'Ayam Bakar', undefined)],
+    null,
+    {},
+    [
+      { id: '76', merchantId: '1' },
+      { id: '35', merchantId: '10' },
+    ],
+  )
+  assert.deepEqual(
+    groups.map((group) => group.merchantId),
+    ['1', '10'],
+  )
 }
 
 // Nama toko yang disimpan di item dipakai kalau daftar toko belum termuat.

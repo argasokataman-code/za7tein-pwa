@@ -1253,6 +1253,11 @@ export default function Documentation() {
                 dua toko: &ldquo;Warung Sate Pak Ali&rdquo; 1 menu dan &ldquo;Waroeng
                 Nusantara&rdquo; 2 menu sebagai dua kartu terpisah; self-check
                 <code className="doc-inline">scripts/cart-groups-check.mjs</code>.
+                Sheet yang terbuka dari tombol &ldquo;Lihat keranjang&rdquo; memakai
+                pengelompokan yang sama, dan tiap barisnya menulis detail toko
+                (jarak, estimasi, dan &ldquo;Tutup&rdquo; bila sedang tutup) sebelum
+                jumlah menu, jadi beberapa keranjang bisa dibedakan tanpa membuka
+                checkout.
               </li>
               <li>
                 <strong>Journey menampilkan data order, bukan konstanta.</strong> Layar{' '}

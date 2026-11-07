@@ -304,6 +304,272 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-214128",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:02:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/cartGroups.ts (+27/-23) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/cartGroups.ts"
+    },
+    {
+      "id": "TASK-214129",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:03:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx (+4/-4) — edit via tool: tsx: const groups = useMemo(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-214130",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:03:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/cart-groups-check.mjs (+40/-7) — edit via tool: // State demo lama tanpa id toko te",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/cart-groups-check.mjs"
+    },
+    {
+      "id": "TASK-214131",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:03:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/cartGroups.ts (+2/-2) — edit via tool: ts: /** Blok ini ikut keranjang checkout (t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/cartGroups.ts"
+    },
+    {
+      "id": "TASK-214132",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:03:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && node --import ./scripts/lib/ts-resolve.mjs scripts/cart-groups-check.mjs && npm run b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214133",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:04:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx (+9/-6) — edit via tool: tsx: const liveStores = useStorefronts(store",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-214134",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:04:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build >/dev/null 2>&1; node scripts/e2e-browsers.mjs eval customer \"(()=>{con",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214135",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:04:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/index.ts (+9/-4) — edit via tool: ts: const legacyItems = (cart.items ?? []).s",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-214136",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:05:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/index.ts (+9/-6) — edit via tool: ts: const items = (cart.items ?? []).flatMap",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/index.ts"
+    },
+    {
+      "id": "TASK-214137",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:05:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | head -2; node scripts/e2e-browsers",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214138",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:06:17",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error \" | head -3; npm run build 2>&1 | grep -E \"error ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214139",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:07:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx (+10/-8) — edit via tool: tsx: import { useMem",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx"
+    },
+    {
+      "id": "TASK-214140",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:07:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | grep -E \"error TS|built in\" | head -3; npm run lint 2>&1 | grep ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214141",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:09:42",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+9/-4) — edit via tool: tsx: dua toko: &ldquo;Warung Sate Pak ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }
