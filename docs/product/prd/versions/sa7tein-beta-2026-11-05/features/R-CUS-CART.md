@@ -53,7 +53,7 @@ State `carts{merchantId→cart}`; reservasi stok dua scope; event `cart_updated`
 
 | # | Kriteria | Cara ukur | Status |
 |---|---|---|---|
-| AC1 | Dua cart merchant berbeda aktif bersamaan | tambah menu 2 merchant → 2 card di daftar | ⛔ `cartSlice.ts:17` masih satu cart |
+| AC1 | Dua cart merchant berbeda aktif bersamaan | tambah menu 2 merchant → 2 card di daftar | ✅ `cartSlice.ts:59` (`carts: Record<merchantId, CartItem[]>`), `:222` `switchCart`; tampilan `Checkout.tsx:45-107` + `MyOrder.tsx:409-438` |
 | AC2 | Item stok habis pindah ke section tanpa hilang | set stok 0 → item di section "tidak dapat diproses", qty tetap | ⛔ |
 | AC3 | Order tetap bisa dibuat dari item yang bisa diproses | checkout dengan 1 item able + 1 unable → order berisi 1 item | ⛔ |
 | AC4 | Keluar detail cart tanpa order melepas promo & poin | pilih promo → back → buka lagi → tidak terpilih | ⛔ |

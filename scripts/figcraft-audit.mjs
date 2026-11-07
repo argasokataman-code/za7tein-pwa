@@ -40,7 +40,12 @@ const OVERFLOW_EXEMPT_NAMES = new Set([
 const GENERIC_LAYER_NAMES = new Set(['Layer', 'Rectangle', 'Ikon', 'Group']);
 
 const DEAD_BUTTON_EXEMPT = new Set([
-  'Button Kirim ulang dalam 04:12', // nonaktif: state batas permintaan
+  'Button bayar', // terminal alur: pesanan dibuat, BE tidak ada di repo mock (AGENTS §1)
+  'Button tukar', // tukar arah JOD<->IDR: state di layar kurs, bukan navigasi (CurrencyModal.tsx:15)
+  'Button lacak', // layar lacak order belum punya bingkai: F29 berakhir di checkout, F13 baru onboarding kurir
+  'Button lanjut bayar', // terminal F29: lanjut ke /payment-selection (di luar flow ini)
+  'Button favorit', // toggle simpan: tujuan /favorites di luar flow F29 (state, bukan navigasi)
+  'Button tandai favorit', // idem, di dalam sheet warung tutup
 ]);
 const CONTRAST_EXEMPT_PAIRS = new Set([
   '#FFFFFF/#E44220', // putih di oranye merek 4,12:1, keputusan pemilik ui-v2.md:98
@@ -133,14 +138,15 @@ function readDocument(file) {
     return out;
   };
   for (const node of nodes.values()) absOf(node);
-  // doc.pages berisi id halaman; objek halaman hidup di nodes (type "page").
-  const pageId = Array.isArray(doc.pages) ? doc.pages[0] : doc.pages;
-  const page =
-    nodes.get(Number(doc.current_page ?? pageId)) ||
-    nodes.get(Number(pageId)) ||
-    [...nodes.values()].find((n) => n.type === 'page') ||
-    { children: [], flows: [] };
-  return { doc, nodes, page, absOf };
+  // Satu file = satu alur, dan alurnya dipecah menjadi halaman (menu Pages),
+  // bukan file terpisah: audit wajib membaca SEMUA halaman, bukan halaman aktif.
+  // Kalau hanya halaman aktif dibaca, memindahkan bingkai ke halaman lain
+  // membuatnya lolos dari gerbang tanpa jejak.
+  const pageIds = Array.isArray(doc.pages) ? doc.pages : [doc.pages];
+  const pages = pageIds
+    .map((id) => nodes.get(Number(id)))
+    .filter((p) => p && p.type === 'page');
+  return { doc, nodes, pages, absOf };
 }
 
 // ── util ───────────────────────────────────────────────────────────────────
@@ -151,10 +157,40 @@ const hex = (c) =>
     .join('')
     .toUpperCase();
 
+// Isian gambar menyimpan `#D9D9D9` sebagai alas di bawah gambarnya. Alas itu
+// tidak pernah terlihat, jadi tidak boleh dihitung sebagai warna UI (dulu
+// dilaporkan sebagai warna luar token dan memaksa baseline naik).
+const hasImageFill = (node) =>
+  (node.fills || []).some((f) => f && f.type === 'image' && f.visible !== false);
+
 const solidColors = (node) =>
+  hasImageFill(node)
+    ? []
+    : (node.fills || [])
+        .filter((f) => f && f.type === 'solid' && f.color && f.visible !== false)
+        .map((f) => hex(f.color));
+
+// Gradien sah di repo ini hanya `--promo-from` → `--promo-to` (ui-v2.md:12, satu-satunya
+// gradien). Gerbang lama tidak mengenalinya sama sekali: tiap stop jadi warna luar token
+// DAN teks putih di atasnya diukur terhadap latar halaman (1,1:1). Sekarang stop ikut
+// diperiksa sebagai warna token, dan kontras teks memakai stop TERBURUK.
+// Gradien disimpan app sebagai `type: "gradient"` (bukan `linearGradient`), dengan
+// stop berupa { color: {r,g,b,a}, position }. Dua bentuk itu harus diterima, kalau
+// tidak stop-nya tak terbaca dan teks putih di atasnya diukur terhadap latar halaman.
+const isGradientFill = (f) =>
+  f && (f.type === 'linearGradient' || f.type === 'gradient') && f.visible !== false;
+
+const gradientStopColors = (node) =>
   (node.fills || [])
-    .filter((f) => f && f.type === 'solid' && f.color && f.visible !== false)
-    .map((f) => hex(f.color));
+    .filter(isGradientFill)
+    .flatMap((f) => f.stops || [])
+    .map((s) => {
+      const raw = typeof s === 'string' ? s : s && s.color ? hex(s.color) : null;
+      if (!raw) return null;
+      // `#RRGGBBAA` → `#RRGGBB` (token tidak menyimpan alpha).
+      return (raw.length === 9 ? raw.slice(0, 7) : raw).toUpperCase();
+    })
+    .filter(Boolean);
 
 // Garis tepi bisa datang dari dua bentuk: `stroke` (satu) dan `strokes` (daftar).
 // Mengabaikan `strokes` membuat 43 garis luar token lolos tanpa terlihat.
@@ -183,6 +219,16 @@ function tokens() {
   if (!existsSync(abs)) return new Set();
   const text = readFileSync(abs, 'utf8');
   return new Set((text.match(/#[0-9a-fA-F]{6}\b/g) || []).map((h) => h.toUpperCase()));
+}
+
+// Nilai satu token dari `_tokens.scss`, mis. `text-disabled` -> `#94A3B8`.
+// Dipakai untuk membedakan kontrol nonaktif (memang tak beraksi) dari kontrol
+// mati (terlihat aktif tapi tidak melakukan apa pun — FR-26).
+function tokenValue(name) {
+  const abs = resolve(ROOT, TOKENS_PATH);
+  if (!existsSync(abs)) return null;
+  const m = readFileSync(abs, 'utf8').match(new RegExp(`--${name}:\\s*(#[0-9a-fA-F]{6})`));
+  return m ? m[1].toUpperCase() : null;
 }
 
 // Skala radius dibaca dari _tokens.scss (--radius-*), bukan daftar karangan:
@@ -220,12 +266,22 @@ const blendHex = (fg, bg, alpha) => {
 
 // ── audit ──────────────────────────────────────────────────────────────────
 function audit() {
-  const { nodes, page, doc, absOf } = readDocument(targetFile);
-  const frames = (page.children || [])
-    .map((id) => nodes.get(id))
-    .filter((n) => n && n.type === 'frame');
+  const { nodes, pages, doc, absOf } = readDocument(targetFile);
+  const pageOfFrame = new Map();
+  const frames = [];
+  for (const page of pages) {
+    for (const id of page.children || []) {
+      const node = nodes.get(id);
+      if (!node || node.type !== 'frame') continue;
+      frames.push(node);
+      pageOfFrame.set(node.id, page.name);
+    }
+  }
   const frameIds = new Set(frames.map((f) => f.id));
   const allowed = tokens();
+  // `--overlay: rgba(32, 32, 32, 0.4)` (_tokens.scss:110) — parser token hanya
+  // membaca heks; nilai rgba ini dipakai apa adanya sebagai #202020 @40%.
+  allowed.add('#202020');
   const radiusOk = radiusScale();
 
   const findings = [];
@@ -309,19 +365,96 @@ function audit() {
         }
       }
     }
-
     // tombol tanpa aksi
+    const disabledHex = tokenValue('text-disabled');
+    const looksDisabled = (node) => {
+      let hit = false;
+      walk(node, (n) => {
+        if (hit) return;
+        if (disabledHex && [...solidColors(n), ...strokeColors(n)].includes(disabledHex)) hit = true;
+      });
+      return hit;
+    };
+
+    // FR-24 juga berlaku untuk kontrol yang aksinya dikecualikan. Loop di atas
+    // hanya memeriksa node ber-aksi, jadi tombol yang masuk DEAD_BUTTON_EXEMPT
+    // (mis. `Button lacak`) tak pernah diukur: pengecualian aksi berubah jadi izin
+    // kontrol 90x36. Kejadian nyata 2026-11-07 — `Button lacak` lolos di 36 px.
+    for (const node of flat) {
+      if (actionsOf(node).length) continue;
+      // `Tombol*` ikut diukur: stepper qty dulu memakai dua tombol 32x32 bernama
+      // `Tombol kurang`/`Tombol tambah` yang lolos hanya karena tak berawalan
+      // `Button`. Ukuran sentuh tidak peduli nama.
+      if (!/^(?:Button|Tombol)\b/.test(node.name || '')) continue;
+      if (node.visible === false) continue;
+      // Lapisan hias di dalam kontrol ber-aksi bukan target terpisah: `Tombol`
+      // 36x36 di dalam `Back` 44x44 hanya lingkaran visual, kliknya milik `Back`.
+      let anc = nodes.get(node.parent);
+      let nestedInControl = false;
+      while (anc && anc.type !== 'page') {
+        if (actionsOf(anc).length) {
+          nestedInControl = true;
+          break;
+        }
+        anc = nodes.get(anc.parent);
+      }
+      if (nestedInControl) continue;
+      // Kontrol nonaktif (mis. `Button Kirim ulang dalam 04:12`) memang tak
+      // punya target sentuh; itu keadaan, bukan pelanggaran ukuran.
+      if (looksDisabled(node)) continue;
+      const b = box(node);
+      if (b.w < TOUCH_MIN || b.h < TOUCH_MIN) {
+        add('hotspot', 'FR-24', 'fail', {
+          frame: frame.name,
+          node: node.name,
+          detail: `${Math.round(b.w)}x${Math.round(b.h)} < ${TOUCH_MIN} (tanpa aksi)`,
+        });
+      }
+    }
     for (const node of flat) {
       if (!/^Button\b/i.test(node.name || '')) continue;
       if (actionsOf(node).length) continue;
       if (DEAD_BUTTON_EXEMPT.has(node.name)) continue;
+      // Nama bervarian (`Button favorit 1`, `Button favorit 2`) ikut pengecualian
+      // named-nya — kalau tidak, tiap varian harus didaftarkan satu per satu.
+      if ([...DEAD_BUTTON_EXEMPT].some((k) => node.name.startsWith(`${k} `))) continue;
+      // Kontrol yang dicat dengan token nonaktif memang tidak beraksi
+      // (mis. `Button tambah` di warung tutup). Itu keadaan, bukan tombol mati.
+      if (looksDisabled(node)) continue;
       add('deadButton', 'FR-26', 'fail', { frame: frame.name, node: node.name });
+    }
+
+    // FR-40: teks di dalam chip/pil menempel tepi.
+    // Chip = bingkai pendek (<= 32 px) yang memuat satu lapisan teks. Kalau kotak
+    // teksnya selebar bingkai dan x-nya 0, tidak ada padding sama sekali, jadi
+    // huruf pertama/terakhir menyentuh tepi chip. Terjadi 2026-11-07 di
+    // `Pil jumlah menu`, `Chip zona`, `Chip stok habis`, `Chip nonaktif`.
+    for (const node of flat) {
+      if (node.type !== 'frame' || node.visible === false) continue;
+      // Hanya kontainer beriisian bernama `Chip ...` / `Pil ...`. Bingkai lain yang
+      // teksnya selebar dirinya (blok teks `Layer`, tab) sah: teks itu memang
+      // mengisi kotaknya, bukan chip yang butuh padding.
+      if (!/(?:^|\s)(?:Chip|Pil)\b/.test(node.name || '')) continue;
+      if (!solidColors(node).length) continue;
+      const fb = box(node);
+      if (fb.h > 32 || fb.h < 18) continue;
+      const kids = (node.children || []).map((id) => nodes.get(id)).filter(Boolean);
+      const texts = kids.filter((k) => k.type === 'text');
+      if (texts.length !== 1) continue;
+      const t = box(texts[0]);
+      if (t.x <= 0.5 && t.w >= fb.w - 0.5) {
+        add('chipFlush', 'FR-40', 'fail', {
+          frame: frame.name,
+          node: `${node.name} / ${texts[0].name}`,
+          detail: `teks ${Math.round(t.w)}x${Math.round(t.h)} selebar chip ${Math.round(fb.w)}x${Math.round(fb.h)}, padding 0`,
+        });
+      }
     }
 
     // luberan keluar kotak induk
     for (const node of flat) {
       const parent = nodes.get(node.parent);
-      if (!parent || parent.id === page.id) continue;
+      if (!parent || parent.type === 'page') continue;
       if (node.visible === false) continue;
       const b = box(node);
       const p = box(parent);
@@ -341,7 +474,7 @@ function audit() {
 
     // warna & radius
     for (const node of flat) {
-      for (const c of [...solidColors(node), ...strokeColors(node)]) {
+      for (const c of [...solidColors(node), ...gradientStopColors(node), ...strokeColors(node)]) {
         if (allowed.has(c)) continue;
         const key = c;
         if (!offTokenColors.has(key)) offTokenColors.set(key, { count: 0, where: [] });
@@ -374,7 +507,7 @@ function audit() {
     // kontras teks (latar: kotak berisi titik teks yang dicat sebelumnya, lalu isi bingkai)
     const painted = [
       { __abs: absOf(frame), name: frame.name, fills: frame.fills, type: 'frame', id: frame.id },
-      ...flat.filter((n) => n.type !== 'text' && solidColors(n).length),
+      ...flat.filter((n) => n.type !== 'text' && (solidColors(n).length || gradientStopColors(n).length)),
     ];
     for (const node of flat) {
       if (node.type !== 'text' || !node.characters) continue;
@@ -391,7 +524,12 @@ function audit() {
         })
         .pop();
       if (!bgNode) continue;
-      const bg = solidColors(bgNode)[0];
+      // Latar gradien: pakai stop terburuk (kontras terendah) supaya teks terbukti
+      // terbaca di seluruh bidang, bukan cuma di satu ujung.
+      const solidBg = solidColors(bgNode)[0];
+      const stops = gradientStopColors(bgNode);
+      const bg = solidBg || stops.slice().sort((a, b) => contrast(fg, a) - contrast(fg, b))[0];
+      if (!bg) continue;
       // Opasitas lapisan ikut dihitung: putih 72% di navy BUKAN putih penuh.
       const alpha = typeof node.opacity === 'number' ? node.opacity : 1;
       const fgEff = alpha >= 1 ? fg : blendHex(fg, bg, alpha);
@@ -412,7 +550,11 @@ function audit() {
     }
   }
 
-  // gutter: anak Body yang mengalir wajib x=20 selebar isi
+  // gutter: anak Body yang mengalir tidak boleh masuk pita tepi 20 px.
+  // Aturan lama menuntut x=20 selebar 350 untuk SEMUA anak, padahal dua kartu
+  // berdampingan (20 + 168, 202 + 168) dan chip kecil memang sah. Yang dilarang
+  // adalah isi yang menyentuh tepi: x < 20 atau x + w > 370. Elemen selebar
+  // bingkai (Action bar, Hero, Overlay, Home indicator) dilewatkan.
   for (const frame of frames) {
     const flat = [];
     walk(frame, (n) => flat.push(n));
@@ -422,11 +564,14 @@ function audit() {
       const node = nodes.get(id);
       if (!node || isAbsolute(node)) continue;
       const b = box(node);
-      if (Math.abs(b.x - GUTTER) > 0.5 || Math.abs(b.w - CONTENT_W) > 0.5) {
+      if (b.w >= frame.width - 1) continue;
+      const leftOk = b.x >= GUTTER - 0.5;
+      const rightOk = b.x + b.w <= frame.width - GUTTER + 0.5;
+      if (!leftOk || !rightOk) {
         add('gutter', 'FR-10', 'warn', {
           frame: frame.name,
           node: `${body.name} > ${node.name}`,
-          detail: `x${Math.round(b.x)} w${Math.round(b.w)} (acuan ${GUTTER}/${CONTENT_W})`,
+          detail: `x${Math.round(b.x)} w${Math.round(b.w)} (isi harus di dalam ${GUTTER}..${frame.width - GUTTER})`,
         });
       }
     }
@@ -436,57 +581,63 @@ function audit() {
   // Gerbang lama hanya memeriksa ISI bingkai, jadi bingkai yang digeser 6 px dari
   // kolomnya (kejadian: `Verifikasi / 4` di x=1368, kolomnya 1362) lolos tanpa
   // jejak dan section tampak mencong di kanvas. Grid: kolom 454, baris 1120.
+  // Grid dihitung PER HALAMAN: tiap halaman mulai dari barisnya sendiri.
   const GRID_X = 454;
   const GRID_Y = 1120;
-  const firstRow = Math.min(...frames.map((f) => box(f).y));
-  for (const frame of frames) {
-    const b = box(frame);
-    const offX = Math.round(b.x) % GRID_X;
-    const offY = (Math.round(b.y) - Math.round(firstRow)) % GRID_Y;
-    if (offX === 0 && offY === 0) continue;
-    add('canvasGrid', 'FR-37', 'fail', {
-      frame: frame.name,
-      node: 'bingkai',
-      detail: `x${Math.round(b.x)} y${Math.round(b.y)} bukan kolom ${GRID_X} / baris ${GRID_Y}`,
-    });
-  }
-  const pageChildren = (page.children || []).map((id) => nodes.get(id)).filter(Boolean);
-  const columnX = new Set(frames.map((f) => Math.round(box(f).x)));
-  for (const node of pageChildren) {
-    if (node.type !== 'text') continue;
-    const b = box(node);
-    if (node.name === 'Caption sub') {
-      if (!columnX.has(Math.round(b.x))) {
-        add('canvasGrid', 'FR-37', 'fail', {
-          frame: '-',
-          node: `Caption sub "${String(node.characters || '').slice(0, 40)}"`,
-          detail: `x${Math.round(b.x)} tidak ada kolom bingkai di situ`,
-        });
+  for (const page of pages) {
+    const pageFrames = frames.filter((f) => pageOfFrame.get(f.id) === page.name);
+    if (!pageFrames.length) continue;
+    const firstRow = Math.min(...pageFrames.map((f) => box(f).y));
+    for (const frame of pageFrames) {
+      const b = box(frame);
+      const offX = Math.round(b.x) % GRID_X;
+      const offY = (Math.round(b.y) - Math.round(firstRow)) % GRID_Y;
+      if (offX === 0 && offY === 0) continue;
+      add('canvasGrid', 'FR-37', 'fail', {
+        frame: frame.name,
+        node: 'bingkai',
+        detail: `x${Math.round(b.x)} y${Math.round(b.y)} bukan kolom ${GRID_X} / baris ${GRID_Y}`,
+      });
+    }
+    const pageChildren = (page.children || []).map((id) => nodes.get(id)).filter(Boolean);
+    const columnX = new Set(pageFrames.map((f) => Math.round(box(f).x)));
+    for (const node of pageChildren) {
+      if (node.type !== 'text') continue;
+      const b = box(node);
+      if (node.name === 'Caption sub') {
+        if (!columnX.has(Math.round(b.x))) {
+          add('canvasGrid', 'FR-37', 'fail', {
+            frame: '-',
+            node: `Caption sub "${String(node.characters || '').slice(0, 40)}"`,
+            detail: `x${Math.round(b.x)} tidak ada kolom bingkai di situ (${page.name})`,
+          });
+          continue;
+        }
+        const aligned = pageFrames.some(
+          (f) => Math.round(box(f).x) === Math.round(b.x) && Math.abs(box(f).y - 80 - b.y) <= 1,
+        );
+        if (!aligned) {
+          add('canvasGrid', 'FR-37', 'fail', {
+            frame: '-',
+            node: `Caption sub "${String(node.characters || '').slice(0, 40)}"`,
+            detail: `y${Math.round(b.y)} bukan 80 px di atas bingkai kolomnya (${page.name})`,
+          });
+        }
         continue;
       }
-      const aligned = frames.some(
-        (f) => Math.round(box(f).x) === Math.round(b.x) && Math.abs(box(f).y - 80 - b.y) <= 1,
-      );
-      if (!aligned) {
-        add('canvasGrid', 'FR-37', 'fail', {
-          frame: '-',
-          node: `Caption sub "${String(node.characters || '').slice(0, 40)}"`,
-          detail: `y${Math.round(b.y)} bukan 80 px di atas bingkai kolomnya`,
-        });
-      }
-      continue;
-    }
-    if (node.name === 'Screen title') {
-      const sectionOk = Math.abs(b.x) <= 1 && frames.some((f) => Math.abs(box(f).y - 150 - b.y) <= 1);
-      if (!sectionOk) {
-        add('canvasGrid', 'FR-37', 'fail', {
-          frame: '-',
-          node: `Screen title "${String(node.characters || '').slice(0, 40)}"`,
-          detail: `x${Math.round(b.x)} y${Math.round(b.y)} bukan x0 dan 150 px di atas baris bingkai`,
-        });
+      if (node.name === 'Screen title') {
+        const sectionOk = Math.abs(b.x) <= 1 && pageFrames.some((f) => Math.abs(box(f).y - 150 - b.y) <= 1);
+        if (!sectionOk) {
+          add('canvasGrid', 'FR-37', 'fail', {
+            frame: '-',
+            node: `Screen title "${String(node.characters || '').slice(0, 40)}"`,
+            detail: `x${Math.round(b.x)} y${Math.round(b.y)} bukan x0 dan 150 px di atas baris bingkai (${page.name})`,
+          });
+        }
       }
     }
   }
+  const flows = pages.flatMap((p) => p.flows || []);
 
   // bingkai tanpa jalan masuk dan tanpa kembali.
   // Varian keadaan ("Masuk / 2 · nomor tidak sah") bukan tujuan navigasi: ia
@@ -496,13 +647,13 @@ function audit() {
   const prefixOf = (name) => String(name || '').split(' / ')[0];
   const reachablePrefix = new Set(
     frames
-      .filter((f) => (incoming.get(f.id) || 0) > 0 || (page.flows || []).some((x) => x.start === f.id))
+      .filter((f) => (incoming.get(f.id) || 0) > 0 || flows.some((x) => x.start === f.id))
       .map((f) => prefixOf(f.name))
   );
   for (const frame of frames) {
     if ((incoming.get(frame.id) || 0) > 0) continue;
     if (hasBack.get(frame.id)) continue;
-    if ((page.flows || []).some((f) => f.start === frame.id)) continue;
+    if (flows.some((f) => f.start === frame.id)) continue;
     if (reachablePrefix.has(prefixOf(frame.name))) continue;
     add('orphanFrame', 'FR-27', 'warn', {
       frame: frame.name,
@@ -571,6 +722,38 @@ function audit() {
     });
   }
 
+  // Ikon di dalam kotak kecil (tombol, tile, checkbox ≤56 px) wajib duduk di
+  // tengah. Kejadian nyata 2026-11-07: `Ikon pin` 20x20 di tile 40 diletakkan di
+  // (15,13) dan `Ikon kurs` 22x22 di tombol 40 di (13,14) — meleset 5 px dari
+  // tengah, sementara pin putih di atas tile putih malah tak terlihat sama sekali.
+  // Kotak besar (baris daftar, header, bar) tidak diperiksa: di situ ikon memang
+  // menempel kiri/kanan mengikuti teks, dan rujukannya bukan titik tengah.
+  for (const node of nodes.values()) {
+    if (node.type !== 'vector' || node.visible === false) continue;
+    const parent = nodes.get(node.parent);
+    if (!parent || parent.type !== 'frame') continue;
+    if (parent.width > 56 || parent.height > 56) continue;
+    if (isAbsolute(node)) continue;
+    const b = box(node);
+    const p = box(parent);
+    if (b.w >= p.w || b.h >= p.h) continue;
+    const dx = (p.w - b.w) / 2 - b.x;
+    const dy = (p.h - b.h) / 2 - b.y;
+    if (Math.abs(dx) <= 1 && Math.abs(dy) <= 1) continue;
+    let owner = null;
+    for (let cur = parent; cur; cur = nodes.get(cur.parent)) {
+      if (frameIds.has(cur.id)) {
+        owner = cur;
+        break;
+      }
+    }
+    add('iconCenter', 'FR-39', 'fail', {
+      frame: owner ? owner.name : '-',
+      node: `${node.name} (${node.id}) di ${parent.name}`,
+      detail: `meleset ${dx.toFixed(1)},${dy.toFixed(1)} dari tengah ${Math.round(p.w)}x${Math.round(p.h)}`,
+    });
+  }
+
   stats.fontCombos = fontComboKeys.size;
   if (fontComboKeys.size > MAX_FONT_COMBOS) {
     add('fontCombos', 'FR-20', 'fail', {
@@ -596,13 +779,21 @@ function audit() {
     });
   }
 
-  return { findings, stats, flows: page.flows || [], doc };
+  // halaman asal tiap temuan: gerbang kini membaca banyak halaman dalam satu file,
+  // dan "bingkai tanpa jalan masuk" harus bisa ditelusuri ke halamannya.
+  const pageByFrameName = new Map(frames.map((f) => [f.name, pageOfFrame.get(f.id) || '-']));
+  for (const f of findings) {
+    if (!f.frame || f.frame === '-') continue;
+    f.page = pageByFrameName.get(f.frame) || '-';
+  }
+
+  return { findings, stats, flows, doc };
 }
 
 // ── ratchet ────────────────────────────────────────────────────────────────
 function keyOf(f) {
   if (f.check === 'offTokenColor' || f.check === 'offScaleRadius') return f.detail.split(' (')[0];
-  return `${f.frame}|${f.node}|${f.detail}`;
+  return `${f.page ?? '-'}|${f.frame}|${f.node}|${f.detail}`;
 }
 
 function summarise(findings) {

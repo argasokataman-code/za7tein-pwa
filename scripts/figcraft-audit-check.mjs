@@ -41,7 +41,7 @@ const doc = {
   version: 1,
   imageIndex: [],
   name: 'fixture',
-  pages: [1],
+  pages: [1, 30],
   current_page: 1,
   styles: [],
   variables: { collections: [], variables: [] },
@@ -57,7 +57,7 @@ const doc = {
     10: node(10, 'frame', 'Uji / 1', {
       w: 390,
       h: 844,
-      children: [11, 12, 13, 14, 15, 16, 17, 18, 20],
+      children: [11, 12, 13, 14, 15, 16, 17, 18, 20, 21],
       props: {
         fills: [{ type: 'solid', color: { r: 0.956, g: 0.956, b: 0.965, a: 1 } }],
         corners: { radii: [30, 30, 30, 30], smoothing: 0 },
@@ -168,6 +168,34 @@ const doc = {
         strokes: [{ type: 'solid', color: COLOR }],
       },
     }),
+    // Ikon di dalam kotak kecil yang tidak di tengah (kejadian nyata: `Ikon pin`
+    // 20x20 di tile 40 duduk di (15,13), `Ikon kurs` 22x22 di (13,14)).
+    21: node(21, 'frame', 'Tile Ikon', {
+      parent: 10,
+      x: 300,
+      y: 600,
+      w: 40,
+      h: 40,
+      children: [22, 23],
+      props: { fills: [], corners: { radii: [16, 16, 16, 16] } },
+    }),
+    22: node(22, 'vector', 'Ikon Geser', {
+      parent: 21,
+      x: 15,
+      y: 13,
+      w: 20,
+      h: 20,
+      props: { strokes: [{ type: 'solid', color: COLOR }] },
+    }),
+    // Pembanding: ikon yang sudah center tidak boleh ikut dilaporkan.
+    23: node(23, 'vector', 'Ikon Center', {
+      parent: 21,
+      x: 10,
+      y: 10,
+      w: 20,
+      h: 20,
+      props: { strokes: [{ type: 'solid', color: COLOR }] },
+    }),
     // Bingkai kedua digeser 6 px dari kolom 454 (kejadian nyata: `Verifikasi / 4` x1368).
     19: node(19, 'frame', 'Uji / 2', {
       w: 390,
@@ -179,6 +207,90 @@ const doc = {
         fills: [{ type: 'solid', color: { r: 0.956, g: 0.956, b: 0.965, a: 1 } }],
         corners: { radii: [30, 30, 30, 30], smoothing: 0 },
         layout: { mode: 'none' },
+      },
+    }),
+    // Halaman kedua, BUKAN halaman aktif: pelanggaran di sini harus tetap terbaca.
+    // Gerbang lama hanya membaca halaman aktif, jadi memindahkan bingkai bermasalah
+    // ke halaman lain membuatnya lolos tanpa jejak (kejadian nyata 2026-11-07).
+    30: {
+      id: 30,
+      type: 'page',
+      name: 'Page 2',
+      children: [31],
+      flows: [],
+      background: { r: 1, g: 1, b: 1, a: 1 },
+    },
+    31: node(31, 'frame', 'Uji halaman dua', {
+      w: 390,
+      h: 844,
+      children: [32, 33, 34, 35],
+      props: {
+        fills: [{ type: 'solid', color: { r: 0.956, g: 0.956, b: 0.965, a: 1 } }],
+        corners: { radii: [30, 30, 30, 30], smoothing: 0 },
+        layout: { mode: 'none' },
+      },
+    }),
+    32: node(32, 'frame', 'Button Kecil', {
+      parent: 31,
+      x: 20,
+      y: 20,
+      w: 20,
+      h: 20,
+      props: {
+        fills: [],
+        interactions: [
+          { trigger: { type: 'onClick' }, actions: [{ type: 'navigate', dest: 10 }] },
+        ],
+      },
+    }),
+    // Kontrol yang aksinya dikecualikan tetap wajib 44 px (FR-24). Tanpa node ini,
+    // pengecualian `deadButton` diam-diam mematikan pemeriksaan ukuran: kejadian
+    // nyata `Button lacak` 90x36 lolos karena namanya masuk DEAD_BUTTON_EXEMPT.
+    33: node(33, 'frame', 'Button Kecil Tanpa Aksi', {
+      parent: 31,
+      x: 20,
+      y: 80,
+      w: 90,
+      h: 36,
+      props: { fills: [] },
+    }),
+    // Tombol stepper bernama `Tombol*`: dulu tak diukur karena pemeriksaan hanya
+    // mencari `Button*`. Kejadian nyata 2026-11-07: `Tombol kurang` 32x32.
+    34: node(34, 'frame', 'Tombol Stepper Kecil', {
+      parent: 31,
+      x: 20,
+      y: 140,
+      w: 32,
+      h: 32,
+      props: { fills: [] },
+    }),
+    // Chip dengan teks selebar chip-nya (padding 0). Kejadian nyata: `Pil jumlah
+    // menu`, `Chip zona`, `Chip stok habis`, `Chip nonaktif`.
+    35: node(35, 'frame', 'Chip Tanpa Padding', {
+      parent: 31,
+      x: 130,
+      y: 140,
+      w: 80,
+      h: 24,
+      children: [36],
+      props: { fills: [{ type: 'solid', color: COLOR }], corners: { radii: [12, 12, 12, 12] } },
+    }),
+    36: node(36, 'text', 'Teks Chip', {
+      parent: 35,
+      x: 0,
+      y: 4,
+      w: 80,
+      h: 16,
+      props: {
+        characters: 'Chip',
+        style: {
+          font_family: 'Plus Jakarta Sans',
+          font_style: 'Medium',
+          font_size: 13,
+          line_height: { unit: 'percent', value: 150 },
+          letter_spacing: { unit: 'percent', value: 0 },
+        },
+        fills: [{ type: 'solid', color: COLOR }],
       },
     }),
   },
@@ -211,18 +323,18 @@ const run = () => {
     );
     return { code: 0, out };
   } catch (err) {
-    return { code: err.status ?? 1, out: String(err.stdout || '') };
+    return { code: err.status ?? 1, out: String(err.stdout || "") , err: String(err.stderr || "")};
   }
 };
 
-const { code, out } = run();
+const { code, out, err: stderr } = run();
 rmSync(tmp, { recursive: true, force: true });
 
 let report;
 try {
   report = JSON.parse(out);
 } catch {
-  console.error('GAGAL — keluaran audit bukan JSON:\n' + out.slice(0, 800));
+  console.error("GAGAL — keluaran audit bukan JSON:\n" + out.slice(0, 800) + "\nSTDERR:" + (stderr||""));
   process.exit(1);
 }
 
@@ -238,8 +350,33 @@ const expectations = [
   ['stretchedIcon', 'Chevron 158x14 vs 6x14 (ikon melar) tidak tertangkap'],
   ['canvasGrid', 'bingkai x6 (di luar kolom 454) tidak tertangkap'],
   ['iconFill', 'vektor dengan sizingH fill (ikon melar 26x26 -> 56x26) tidak tertangkap'],
+  ['iconCenter', 'ikon 20x20 di (15,13) dalam tile 40 (tidak di tengah) tidak tertangkap'],
+  ['chipFlush', 'teks chip selebar chip (padding 0) tidak tertangkap'],
 ];
 const failures = expectations.filter(([check]) => !has(check)).map(([, msg]) => msg);
+
+// Halaman non-aktif wajib ikut diaudit: gerbang lama melewatkannya diam-diam.
+const offPage = (report.findings || []).filter((f) => f.page === 'Page 2');
+if (!offPage.length) failures.push('pelanggaran di halaman non-aktif (Page 2) tidak terbaca');
+if (!offPage.some((f) => f.check === 'hotspot')) {
+  failures.push('hotspot 20x20 di halaman non-aktif tidak tertangkap');
+}
+// Pengecualian aksi (deadButton) tidak boleh mematikan FR-24.
+if (
+  !(report.findings || []).some(
+    (f) => f.check === 'hotspot' && f.node === 'Button Kecil Tanpa Aksi'
+  )
+) {
+  failures.push('tombol tanpa aksi 90x36 tidak diperiksa FR-24 (lubang pengecualian deadButton)');
+}
+// Kontrol bernama `Tombol*` (stepper qty) juga wajib 44 px.
+if (
+  !(report.findings || []).some(
+    (f) => f.check === 'hotspot' && f.node === 'Tombol Stepper Kecil'
+  )
+) {
+  failures.push('tombol stepper 32x32 bernama `Tombol*` tidak diperiksa FR-24');
+}
 
 if (code !== 1) failures.push(`exit code ${code}, harusnya 1 (ada regresi)`);
 if (!(report.regressions || []).length) failures.push('regresi tidak dilaporkan ke baseline');
@@ -251,6 +388,6 @@ if (failures.length) {
 }
 
 console.log(
-  `LULUS — ${expectations.length} pemeriksaan tertangkap, exit 1, ` +
-    `${report.regressions.length} regresi dilaporkan.`
+  `LULUS — ${expectations.length} pemeriksaan tertangkap, halaman non-aktif ikut diaudit, ` +
+    `exit 1, ${report.regressions.length} regresi dilaporkan.`
 );

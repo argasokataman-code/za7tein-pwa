@@ -1,0 +1,369 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "F29 — Discovery, katalog & cart per merchant (beta)",
+    "quality_profile": "showcase",
+    "reader_width": "unbounded"
+  },
+  "lanes": [
+    {
+      "id": "belanja",
+      "label": "Customer — cari yang bisa melayani alamatnya sekarang"
+    },
+    {
+      "id": "katalog",
+      "label": "Katalog & status merchant"
+    },
+    {
+      "id": "guard",
+      "label": "Status yang mengubah tampilan",
+      "variant": "exception"
+    }
+  ],
+  "phases": [
+    {
+      "id": "temukan",
+      "label": "Temukan merchant",
+      "fromCol": 0,
+      "toCol": 2
+    },
+    {
+      "id": "nilai",
+      "label": "Nilai status di kartu",
+      "fromCol": 3,
+      "toCol": 3,
+      "variant": "emphasis"
+    },
+    {
+      "id": "susun",
+      "label": "Susun cart per merchant",
+      "fromCol": 4,
+      "toCol": 6
+    }
+  ],
+  "mainPath": [
+    "alamat",
+    "browse",
+    "cari",
+    "daftar",
+    "detail",
+    "cart",
+    "order"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "alamat"
+    ],
+    "allowedTerminals": [
+      "order",
+      "kuota",
+      "tutup",
+      "schedule",
+      "busy"
+    ],
+    "requiredEdges": [
+      {
+        "from": "alamat",
+        "to": "browse"
+      },
+      {
+        "from": "browse",
+        "to": "cari"
+      },
+      {
+        "from": "cari",
+        "to": "daftar"
+      },
+      {
+        "from": "daftar",
+        "to": "detail"
+      },
+      {
+        "from": "detail",
+        "to": "cart"
+      },
+      {
+        "from": "cart",
+        "to": "order"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "alamat",
+      "lane": "belanja",
+      "col": 0,
+      "type": "frontend",
+      "label": "Alamat default",
+      "sublabel": "titik awal coverage",
+      "width": 116
+    },
+    {
+      "id": "browse",
+      "lane": "belanja",
+      "col": 1,
+      "type": "frontend",
+      "label": "Beranda",
+      "sublabel": "group hanya per tag",
+      "width": 112
+    },
+    {
+      "id": "cari",
+      "lane": "belanja",
+      "col": 2,
+      "type": "frontend",
+      "label": "Cari & filter",
+      "sublabel": "5 filter · sort",
+      "width": 112
+    },
+    {
+      "id": "daftar",
+      "lane": "belanja",
+      "col": 3,
+      "type": "frontend",
+      "label": "Kartu merchant",
+      "sublabel": "status di kartu",
+      "width": 116
+    },
+    {
+      "id": "detail",
+      "lane": "belanja",
+      "col": 4,
+      "type": "frontend",
+      "label": "Detail merchant",
+      "sublabel": "program · review",
+      "width": 118
+    },
+    {
+      "id": "cart",
+      "lane": "belanja",
+      "col": 5,
+      "type": "frontend",
+      "label": "Cart per merchant",
+      "sublabel": "order draft",
+      "width": 118
+    },
+    {
+      "id": "cartlain",
+      "lane": "belanja",
+      "col": 6,
+      "type": "frontend",
+      "label": "Keranjang lain",
+      "sublabel": "pindah · buang",
+      "width": 118
+    },
+    {
+      "id": "status",
+      "lane": "katalog",
+      "col": 3,
+      "type": "backend",
+      "label": "Status turunan",
+      "sublabel": "buka · busy · coverage",
+      "width": 124
+    },
+    {
+      "id": "menu",
+      "lane": "katalog",
+      "col": 4,
+      "type": "backend",
+      "label": "Menu & varian",
+      "sublabel": "stok · schedule · hide",
+      "width": 120
+    },
+    {
+      "id": "order",
+      "lane": "katalog",
+      "col": 6,
+      "type": "external",
+      "label": "Daftar order",
+      "sublabel": "cart = card",
+      "width": 112
+    },
+    {
+      "id": "kuota",
+      "lane": "guard",
+      "col": 1,
+      "type": "security",
+      "label": "Blok kuota",
+      "sublabel": "disembunyikan",
+      "tag": "gate",
+      "width": 112
+    },
+    {
+      "id": "tutup",
+      "lane": "guard",
+      "col": 3,
+      "type": "security",
+      "label": "Tutup / luar area",
+      "sublabel": "tampil, tak bisa dipilih",
+      "width": 136
+    },
+    {
+      "id": "schedule",
+      "lane": "guard",
+      "col": 4,
+      "type": "security",
+      "label": "Luar jam tersedia",
+      "sublabel": "tampil, tak bisa cart",
+      "width": 126
+    },
+    {
+      "id": "busy",
+      "lane": "guard",
+      "col": 5,
+      "type": "security",
+      "label": "Busy",
+      "sublabel": "cart jalan, order ditahan",
+      "width": 128
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-alamat-browse",
+      "from": "alamat",
+      "to": "browse",
+      "label": "alamat dipilih",
+      "role": "main"
+    },
+    {
+      "id": "e-browse-cari",
+      "from": "browse",
+      "to": "cari",
+      "label": "cari / urutkan",
+      "role": "main"
+    },
+    {
+      "id": "e-cari-daftar",
+      "from": "cari",
+      "to": "daftar",
+      "label": "hasil",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-daftar-detail",
+      "from": "daftar",
+      "to": "detail",
+      "label": "buka kartu",
+      "role": "main"
+    },
+    {
+      "id": "e-detail-cart",
+      "from": "detail",
+      "to": "cart",
+      "label": "tambah menu",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-cart-order",
+      "from": "cart",
+      "to": "order",
+      "label": "order terbentuk",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-cart-lain",
+      "from": "cart",
+      "to": "cartlain",
+      "label": "buka cart lain",
+      "role": "branch"
+    },
+    {
+      "id": "e-lain-cart",
+      "from": "cartlain",
+      "to": "cart",
+      "label": "pindah",
+      "role": "branch"
+    },
+    {
+      "id": "e-lain-order",
+      "from": "cartlain",
+      "to": "order",
+      "label": "checkout cart itu",
+      "role": "branch",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-daftar-status",
+      "from": "daftar",
+      "to": "status",
+      "label": "hitung status",
+      "role": "branch"
+    },
+    {
+      "id": "e-detail-menu",
+      "from": "detail",
+      "to": "menu",
+      "label": "katalog",
+      "role": "branch"
+    },
+    {
+      "id": "e-menu-cart",
+      "from": "menu",
+      "to": "cart",
+      "label": "varian + qty",
+      "role": "branch"
+    },
+    {
+      "id": "e-browse-kuota",
+      "from": "browse",
+      "to": "kuota",
+      "label": "blok kuota",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "e-status-tutup",
+      "from": "status",
+      "to": "tutup",
+      "label": "tutup",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "e-menu-schedule",
+      "from": "menu",
+      "to": "schedule",
+      "label": "di luar jam",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "e-status-busy",
+      "from": "status",
+      "to": "busy",
+      "label": "busy",
+      "variant": "dashed",
+      "role": "error"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "orange",
+      "title": "Bisnis: kenapa flow ini ada",
+      "items": [
+        "**Masalah:** customer tidak bisa menebak dari kartu yang tampak sama apakah merchant benar-benar bisa melayani alamatnya sekarang. Status tutup, busy, di luar jangkauan, dan blok kuota harus terbaca sebelum memilih.",
+        "**Kenapa cart terpisah per merchant:** satu order = satu merchant, jadi customer memesan dari beberapa merchant sekaligus dan tiap merchant punya cart sendiri (`R-CUS-CART` A1). Cart yang tidak sedang dibuka tetap terjangkau lewat seksi **Keranjang lain** dan kartunya sendiri di daftar pesanan, jadi customer tidak perlu menghapus dulu untuk berpindah."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Alur & aturan",
+      "items": [
+        "Alamat default → beranda (**group hanya per tag**, `R-CUS-DISCOVERY` A4) → cari/filter (5 filter: tag, favorit, jarak, rating, jumlah order) → kartu merchant dengan status → detail + menu → cart per merchant → daftar order. Dari cart, **Keranjang lain** membuka cart warung lain untuk dipindah atau dibuang; tiap cart punya checkout sendiri (A1/AC1).",
+        "Merchant tutup / di luar jangkauan **tampil** tapi tidak bisa dipilih (`A6`); busy boleh diisi cart tapi order ditahan (`A7`); blok kuota **disembunyikan** (`A8`); menu hide hilang dari list **dan** pencarian (`A11`); menu di luar jadwal tampil tanpa bisa masuk cart (`A12`)."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Sumber & UNRESOLVED",
+      "items": [
+        "Dasar: `features/R-CUS-DISCOVERY.md` A1–A14 · `features/R-CUS-CART.md` A1–A13 · PRD §10 CUS-04..CUS-18, §13.1/13.3/13.6, §7.1 · layar `src/pages/Home.tsx`, `Search.tsx`, `Filter.tsx`, `MerchantPage.tsx`, `MenuDetail.tsx`.",
+        "UNRESOLVED: query lintas instance DO untuk browse/search (OPEN-25) — di mock cukup filter lokal · label section \"tidak dapat diproses\" ditentukan desain (`R-CUS-CART` §8) · \"kriteria lain\" pada sort tidak dirinci (`R-CUS-DISCOVERY` §8)."
+      ]
+    }
+  ]
+}

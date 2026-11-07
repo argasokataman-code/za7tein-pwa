@@ -1,0 +1,2210 @@
+{
+  "shard": 27,
+  "nodes": [
+    {
+      "id": "TASK-213367",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:41:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+2/-2) — edit via tool: file sintetis, ikut `npm run check:self`",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213368",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:41:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+1/-1) — edit via tool: **FR-31.** Jangan mengoperasi seluru",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213369",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:42:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+6/-6) — edit via tool: ```",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213370",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:42:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | `F29 · Discovery` | 10 | Beranda 3, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213371",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:43:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/README.md (+19/-4) — edit via tool: ## Gerbang",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/README.md"
+    },
+    {
+      "id": "TASK-213372",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:43:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88242",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:43:57",
+      "tags": [
+        "figcraft",
+        "design",
+        "discovery"
+      ],
+      "summary": "F29 Discovery: 10 bingkai (beranda 3, cari 2, detail 2, keranjang 2, checkout 1) dari flow f29 + R-CUS-DISCOVERY/CART",
+      "conn": [
+        {
+          "id": "DEC-88240",
+          "type": "implements",
+          "raw": "DEC-88240:implements"
+        },
+        {
+          "id": "TASK-88241",
+          "type": "relates",
+          "raw": "TASK-88241:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213373",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:43:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"Found|error\" | tail -3; AT=~/.local/share/fnm/node-versi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213374",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:44:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"warning|error\"; npm run lint 2>&1 | grep -E \"^Found",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213375",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "14:08:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+5/-2) — edit via tool: 'Button bayar', // terminal alur: pesan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213376",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "14:10:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+1/-1) — edit via tool: bingkai 48 · lapisan 2012 · interaks",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213377",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "14:11:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+44/-27) — edit via tool: Halaman `F29 · Discovery` diisi dari",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213378",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "14:11:52",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: npm run governance:check 2>&1 | tail -6; npm run lint 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "14:11:58",
+      "tags": [
+        "figcraft",
+        "f29",
+        "design-system"
+      ],
+      "summary": "F29 Discovery digambar ulang dari design system src/ (Beranda, Cari, Detail, Keranjang, Checkout)",
+      "conn": [
+        {
+          "id": "TASK-88242",
+          "type": "led_to",
+          "raw": "TASK-88242:led_to"
+        },
+        {
+          "id": "DEC-88240",
+          "type": "relates",
+          "raw": "DEC-88240:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213379",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "14:30:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+16/-4) — edit via tool: const solidColors = (node) =>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213380",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "14:59:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+12/-4) — edit via tool: // Isian gambar menyimpan `#D9D9D9` se",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213381",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:00:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+16/-6) — edit via tool: function tokens() {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213382",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:01:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+4/-1) — edit via tool: if (DEAD_BUTTON_EXEMPT.has(node.name)) ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213383",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:07:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+1/-1) — edit via tool: bingkai 48 · lapisan 2046 · interaks",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213384",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:07:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: Bukti: `npm run figcraft:audit` PASS (",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213385",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:08:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+8/-2) — edit via tool: **FR-10.** Isi berlebar penuh memaka",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213386",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:08:50",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -4 && npm run build 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:08:59",
+      "tags": [
+        "figcraft",
+        "f29",
+        "discovery"
+      ],
+      "summary": "F29 Discovery 10 bingkai dibangun ulang dari anatomi prototype EDISI 02; gerbang PASS 0 temuan",
+      "conn": [
+        {
+          "id": "TASK-88243",
+          "type": "led_to",
+          "raw": "TASK-88243:led_to"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "DEC-88245",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-07",
+      "time": "15:08:59",
+      "tags": [
+        "figcraft",
+        "gate"
+      ],
+      "summary": "Gerbang FigCraft: gutter jadi batas pita tepi, gradien type=gradient, alas gambar #D9D9D9 diabaikan, tombol nonaktif dikenali dari token tex",
+      "conn": [
+        {
+          "id": "DEC-88240",
+          "type": "led_to",
+          "raw": "DEC-88240:led_to"
+        }
+      ],
+      "loc": "scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-88246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:37:00",
+      "tags": [
+        "figcraft",
+        "f29",
+        "detail"
+      ],
+      "summary": "Hapus pill 'Tetangga terverifikasi' (4257/4322) dari Detail 1 & 2; rapikan hero: pill 138, nama 174, tagline 210, scrim 0.55",
+      "conn": [
+        {
+          "id": "DEC-88245",
+          "type": "implements",
+          "raw": "DEC-88245:implements"
+        },
+        {
+          "id": "TASK-88241",
+          "type": "relates",
+          "raw": "TASK-88241:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:3041"
+    },
+    {
+      "id": "TASK-88247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:52:44",
+      "tags": [
+        "figcraft",
+        "f29",
+        "ikon"
+      ],
+      "summary": "Rapikan ikon F29: pin/kurs/cari/filter center, chevron alamat 12x6 @179,25, nav ikon y6 label y34, header cari 48 sejajar",
+      "conn": [
+        {
+          "id": "TASK-88246",
+          "type": "relates",
+          "raw": "TASK-88246:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:2673"
+    },
+    {
+      "id": "TASK-213387",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:55:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+33/-1) — edit via tool: // Ikon di dalam kotak kecil (tombol, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213388",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:55:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs (+30/-2) — edit via tool: // Ikon di dalam kotak kecil yan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs"
+    },
+    {
+      "id": "TASK-213389",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:55:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+12/-3) — edit via tool: non-aktif untuk membuktikan ini.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213390",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:56:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+2/-2) — edit via tool: npm run figcraft:audit:test         ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213391",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:56:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+1/-1) — edit via tool: (FR-01…FR-39) dan ditegakkan mesin: `npm",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213392",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "15:56:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+18/-5) — edit via tool: Angka gerbang: `npm run figcraft:audi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "DEC-88248",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-07",
+      "time": "15:58:46",
+      "tags": [
+        "figcraft",
+        "gate",
+        "ikon"
+      ],
+      "summary": "FR-39: vektor di induk <=56x56 wajib center <=1px; gerbang+self-check 11 cek. F12/F13/F16: 14 ikon tombol sudah center",
+      "conn": [
+        {
+          "id": "TASK-88247",
+          "type": "led_to",
+          "raw": "TASK-88247:led_to"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213393",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:08:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+1/-1) — edit via tool: 'Button tukar', // tukar arah JOD<->IDR",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213394",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:12:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+3/-2) — edit via tool: | `Checkout / 1 · tinjau` | serah-teri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213395",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:13:32",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: gdescrib \"$TMPDIR/figcraft-check/b2.png\" \"Beranda 2. Fokus baris alamat paling atas: tombol kanan berisi ikon apa, center, dan tidak",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213396",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:15:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+7/-6) — edit via tool: harian` (navigate, bukan sekadar state",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-88249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:15:51",
+      "tags": [
+        "figcraft",
+        "kurs",
+        "figma"
+      ],
+      "summary": "F29: halaman Kurs / 1 (49 bingkai, 2090 lapisan) + ikon exchange di header beranda 1-3, klik navigate; tombol+tile 44, chip/dag acuan harga",
+      "conn": [
+        {
+          "id": "DEC-88248",
+          "type": "relates",
+          "raw": "DEC-88248:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "BUG-88250",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:21:04",
+      "tags": [
+        "figcraft",
+        "text",
+        "image-fill"
+      ],
+      "summary": "Teks punya fills[1] image sisa image.place (Lontong 4297/4362, Jam buka 4340/4285); dibuang, sisa solid. Catatan harga 4267 2px dari action ",
+      "conn": [
+        {
+          "id": "TASK-88249",
+          "type": "relates",
+          "raw": "TASK-88249:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213397",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:26:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: | `Detail / 2 · warung tutup` | warung",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-88251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:26:19",
+      "tags": [
+        "figcraft",
+        "sheet",
+        "slop"
+      ],
+      "summary": "Sheet tutup 4373: scrim 40% ditambah, 2 tombol -> 1 (Mengerti), jam dobel dibuang, ikon jam menganggur dihapus, geometri 8pt 390x200 y644",
+      "conn": [
+        {
+          "id": "BUG-88250",
+          "type": "relates",
+          "raw": "BUG-88250:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213398",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:40:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+2/-2) — edit via tool: 'Button lacak', // layar lacak order be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213399",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:47:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+1/-1) — edit via tool: bingkai 56 · lapisan 2549 · interaks",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213400",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:47:41",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+1/-1) — edit via tool: halaman per alur: `F21 · Auth & consent`",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213401",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:47:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+8/-1) — edit via tool: | `Kurs / 1 · acuan harian` | kurs JOD",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213402",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:48:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+3/-1) — edit via tool: bukan karangan bingkai.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213403",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:48:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -5 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213404",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:48:46",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:48:56",
+      "tags": [
+        "figcraft",
+        "f29",
+        "discovery"
+      ],
+      "summary": "F29 11->18 bingkai: menu varian, filter 5 PRD, busy, luar jangkauan, keranjang item tak diproses, pesanan cart card, beranda toast+kupon",
+      "conn": [
+        {
+          "id": "TASK-88251",
+          "type": "relates",
+          "raw": "TASK-88251:relates"
+        },
+        {
+          "id": "BUG-88250",
+          "type": "relates",
+          "raw": "BUG-88250:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213405",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:50:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+42/-25) — edit via tool: for (const a of acts) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213406",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:50:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs (+24/-13) — edit via tool: 32: node(32, 'frame', 'Button K",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs"
+    },
+    {
+      "id": "TASK-213407",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:51:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+22/-22) — edit via tool: // FR-24 juga berlaku untuk kontrol y",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213408",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "16:58:58",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+1/-2) — edit via tool: 'Button bayar',",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213409",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:00:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+1/-1) — edit via tool: bingkai 56 · lapisan 2555 · interaks",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213410",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:00:30",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+9/-4) — edit via tool: - `Pesanan / 1 · cart sebagai card` — ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213411",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:01:12",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-88253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:01:18",
+      "tags": [
+        "figcraft",
+        "gate",
+        "design"
+      ],
+      "summary": "FR-24 kini mengukur tombol tanpa aksi (kecuali nonaktif); Pesanan / 1 dibangun ulang ikut MyOrder + OrderHistoryCard",
+      "conn": [
+        {
+          "id": "TASK-88252",
+          "type": "relates",
+          "raw": "TASK-88252:relates"
+        }
+      ],
+      "loc": "scripts/figcraft-audit.mjs:380"
+    },
+    {
+      "id": "TASK-213412",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:01:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+7/-1) — edit via tool: - **Sampai Delivery Gate.** Setiap temua",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213413",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:02:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+37/-6) — edit via tool: - [ ] FR-28/29 simpan + batch",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213414",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:02:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+1/-1) — edit via tool: | **1** | **PETA** | Baca `docs/design/a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213415",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:04:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+7/-3) — edit via tool: - **PRE-05 — postflight sebelum kata",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213416",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:06:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight.mjs (+162) — write via tool: #!/usr/bin/env node",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight.mjs"
+    },
+    {
+      "id": "TASK-213417",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:06:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts (+104) — write via tool: ts: // design-preflight",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts"
+    },
+    {
+      "id": "TASK-213418",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:07:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/pesanan-1-cart-sebagai-card.md (+44) — write via tool: # Preflight de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/pesanan-1-cart-sebagai-card.md"
+    },
+    {
+      "id": "TASK-213419",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:07:31",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+8/-1) — edit via tool: Tanpa ketiganya, menggambar = menebak. K",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213420",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:07:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts (+9/-9) — edit via tool: ts: function readState(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts"
+    },
+    {
+      "id": "TASK-213421",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:08:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts (+6/-2) — edit via tool: ts: export function pre",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts"
+    },
+    {
+      "id": "TASK-213422",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:08:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight-check.mjs (+73) — write via tool: #!/usr/bin/env node",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight-check.mjs"
+    },
+    {
+      "id": "TASK-213423",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:08:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+13/-3) — edit via tool: Konsekuensi praktis: satu bingkai b",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213424",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:08:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run check:self 2>&1 | tail -4 && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | head -",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213425",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:09:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight-check.mjs (+1/-1) — edit via tool: console.log('ok   design-prefli",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight-check.mjs"
+    },
+    {
+      "id": "TASK-88254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:09:21",
+      "tags": [
+        "figcraft",
+        "gate",
+        "process"
+      ],
+      "summary": "Preflight desain ditegakkan: checklist ber-path:line + approve 12 jam, plugin menolak mutasi FigCraft tanpa persetujuan",
+      "conn": [
+        {
+          "id": "TASK-88253",
+          "type": "relates",
+          "raw": "TASK-88253:relates"
+        }
+      ],
+      "loc": "scripts/design-preflight.mjs:1"
+    },
+    {
+      "id": "TASK-213426",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:11:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/keranjang-1-dan-checkout-1-kerapian-baris.md (+45) — write via tool: ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/keranjang-1-dan-checkout-1-kerapian-baris.md"
+    },
+    {
+      "id": "TASK-88255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:18:23",
+      "tags": [
+        "figcraft",
+        "design",
+        "keranjang",
+        "checkout"
+      ],
+      "summary": "Rapikan 3 bingkai: baris item pakai side-column sumber (total+stepper 44), chip ber-padding, tak ada duplikat harga",
+      "conn": [
+        {
+          "id": "TASK-88254",
+          "type": "relates",
+          "raw": "TASK-88254:relates"
+        },
+        {
+          "id": "TASK-88253",
+          "type": "relates",
+          "raw": "TASK-88253:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:3129"
+    },
+    {
+      "id": "TASK-213427",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:20:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+6/-3) — edit via tool: if (actionsOf(node).length) continue;",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213428",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:21:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs (+49/-10) — edit via tool: 33: node(33, 'frame', 'Button K",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs"
+    },
+    {
+      "id": "TASK-88256",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:23:36",
+      "tags": [
+        "figcraft",
+        "gate",
+        "design"
+      ],
+      "summary": "Audit kini mengukur Tombol* 44px + chipFlush FR-40; 3 bingkai keranjang/menu disamakan, 9 chip dipadding",
+      "conn": [
+        {
+          "id": "TASK-88255",
+          "type": "relates",
+          "raw": "TASK-88255:relates"
+        },
+        {
+          "id": "TASK-88254",
+          "type": "relates",
+          "raw": "TASK-88254:relates"
+        }
+      ],
+      "loc": "scripts/figcraft-audit.mjs:384"
+    },
+    {
+      "id": "TASK-88257",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:25:54",
+      "tags": [
+        "figcraft",
+        "design",
+        "ikon"
+      ],
+      "summary": "Tombol hapus item tak diproses pakai ikon Trash2 16px terpusat (bukan teks Hapus); stepper dapat border token + latar transparan",
+      "conn": [
+        {
+          "id": "TASK-88256",
+          "type": "relates",
+          "raw": "TASK-88256:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:4416"
+    },
+    {
+      "id": "DEC-88258",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-07",
+      "time": "17:29:31",
+      "tags": [
+        "figcraft",
+        "motion",
+        "discovery"
+      ],
+      "summary": "Motion F29: maju push 320 easeInOut, back dissolve 220, dialog 220, sheet 200, toast smartAnimate 300, tab tetap instant",
+      "conn": [
+        {
+          "id": "TASK-88257",
+          "type": "relates",
+          "raw": "TASK-88257:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:2673"
+    },
+    {
+      "id": "TASK-213429",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:30:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight.mjs (+18/-4) — edit via tool: - [ ] Screenshot + deskripsi bingkai",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/design-preflight.mjs"
+    },
+    {
+      "id": "TASK-213430",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:31:02",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts (+14/-6) — edit via tool: ts: const text = readF",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/opencode/design-preflight/index.ts"
+    },
+    {
+      "id": "TASK-88259",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:32:13",
+      "tags": [
+        "preflight",
+        "motion",
+        "gate"
+      ],
+      "summary": "Preflight wajib bagian 6 gerak: peta transisi, yang tidak dianimasikan, reduced-motion; approve + plugin menolak tanpa itu",
+      "conn": [
+        {
+          "id": "DEC-88258",
+          "type": "relates",
+          "raw": "DEC-88258:relates"
+        },
+        {
+          "id": "TASK-88254",
+          "type": "relates",
+          "raw": "TASK-88254:relates"
+        }
+      ],
+      "loc": "scripts/design-preflight.mjs:86"
+    },
+    {
+      "id": "TASK-213431",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:44:56",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/beranda-kartu-menu.md (+60) — write via tool: # Preflight desain — Be",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/beranda-kartu-menu.md"
+    },
+    {
+      "id": "TASK-88260",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:47:07",
+      "tags": [
+        "figcraft",
+        "design",
+        "kartu-beranda"
+      ],
+      "summary": "Kartu menu Beranda 2673/5008 dirapikan ke NearbyDishes.tsx:96-199: irama 130/154/176/200/208, plus pindah ke baris harga, bintang terisi",
+      "conn": [
+        {
+          "id": "DEC-88258",
+          "type": "relates",
+          "raw": "DEC-88258:relates"
+        },
+        {
+          "id": "TASK-88257",
+          "type": "relates",
+          "raw": "TASK-88257:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:3873"
+    },
+    {
+      "id": "TASK-213432",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:52:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/tombol-filter-beranda.md (+64) — write via tool: # Preflight desain —",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/tombol-filter-beranda.md"
+    },
+    {
+      "id": "TASK-213433",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:57:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/baris-chip-dan-kategori-beranda.md (+62) — write via tool: # Prefligh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/baris-chip-dan-kategori-beranda.md"
+    },
+    {
+      "id": "TASK-88261",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "17:58:48",
+      "tags": [
+        "figcraft",
+        "design",
+        "chip",
+        "kategori"
+      ],
+      "summary": "Chip filter 4 bingkai disamakan 111,3x44 gap 8 (dulu 44/34/34); kategori 5 tile jarak 12,5 seragam (dulu 12/13)",
+      "conn": [
+        {
+          "id": "TASK-88260",
+          "type": "relates",
+          "raw": "TASK-88260:relates"
+        },
+        {
+          "id": "TASK-88259",
+          "type": "relates",
+          "raw": "TASK-88259:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:3870"
+    },
+    {
+      "id": "TASK-213434",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:09:57",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/keranjang-lain-dan-dua-cart.md (+67) — write via tool: # Preflight de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/keranjang-lain-dan-dua-cart.md"
+    },
+    {
+      "id": "TASK-213435",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:17:54",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+2/-1) — edit via tool: | `Checkout / 1 · tinjau` | serah-teri",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-213436",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:18:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-CART.md (+1/-1) — edit via",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-CUS-CART.md"
+    },
+    {
+      "id": "TASK-88262",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:18:33",
+      "tags": [
+        "figcraft",
+        "design",
+        "multi-cart"
+      ],
+      "summary": "Tambah 2 bingkai multi-cart: Checkout / 2 keranjang lain (5190) + Pesanan / 2 dua cart aktif (5298); R-CUS-CART AC1 terbukti di kode",
+      "conn": [
+        {
+          "id": "TASK-88261",
+          "type": "relates",
+          "raw": "TASK-88261:relates"
+        },
+        {
+          "id": "DEC-88258",
+          "type": "relates",
+          "raw": "DEC-88258:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:5190"
+    },
+    {
+      "id": "TASK-213437",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:20:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/f29-discovery.json (+18/-9) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/f29-discovery.json"
+    },
+    {
+      "id": "TASK-213438",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:22:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/INDEX.json (+1/-1) — edit via tool: { \"req\": \"R-CUS-CART\", \"flows\": [\"f1-",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/INDEX.json"
+    },
+    {
+      "id": "TASK-213439",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:22:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/README.md (+6/-4) — edit via tool: **Lane Customer:** `Alam",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/README.md"
+    },
+    {
+      "id": "TASK-88263",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:22:51",
+      "tags": [
+        "flow",
+        "f29",
+        "multicart",
+        "docs"
+      ],
+      "summary": "Flow f29 dapat node Keranjang lain (cartlain) + 3 edge; INDEX R-CUS-CART kini termasuk f29; gate PASS 9/9 + visual 4 viewport",
+      "conn": [
+        {
+          "id": "TASK-88262",
+          "type": "relates",
+          "raw": "TASK-88262:relates"
+        },
+        {
+          "id": "TASK-88261",
+          "type": "relates",
+          "raw": "TASK-88261:relates"
+        }
+      ],
+      "loc": "docs/design/flows/f29-discovery/f29-discovery.json:146"
+    },
+    {
+      "id": "TASK-213440",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:24:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/foto-baris-item-disamakan.md (+60) — write via tool: # Preflight desa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/foto-baris-item-disamakan.md"
+    },
+    {
+      "id": "TASK-88264",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:25:26",
+      "tags": [
+        "figcraft",
+        "design",
+        "item-row",
+        "foto"
+      ],
+      "summary": "9 baris item 94px disamakan ke bentuk foto 4883 (64x69 di 6,13, sudut membulat); gambar per menu dipertahankan",
+      "conn": [
+        {
+          "id": "TASK-88262",
+          "type": "relates",
+          "raw": "TASK-88262:relates"
+        },
+        {
+          "id": "TASK-88261",
+          "type": "relates",
+          "raw": "TASK-88261:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft:4387"
+    },
+    {
+      "id": "TASK-213441",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:28:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/radius-foto-kartu-disamakan.md (+58) — write via tool: # Preflight de",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/radius-foto-kartu-disamakan.md"
+    },
+    {
+      "id": "TASK-88265",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:32:15",
+      "tags": [
+        "figcraft",
+        "design",
+        "radius"
+      ],
+      "summary": "Semua foto kartu F29 radius 8px (--radius-xs), vektor foto item disetel ulang ke 8px; 45 kotak + 8 vektor",
+      "conn": [
+        {
+          "id": "TASK-88264",
+          "type": "led_to",
+          "raw": "TASK-88264:led_to"
+        },
+        {
+          "id": "DEC-88258",
+          "type": "relates",
+          "raw": "DEC-88258:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213442",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:35:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/nominal-keranjang-lain-jod.md (+57) — write via tool: # Preflight des",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/nominal-keranjang-lain-jod.md"
+    },
+    {
+      "id": "BUG-88266",
+      "type": "bug",
+      "status": "fixed",
+      "date": "2026-11-07",
+      "time": "18:36:00",
+      "tags": [
+        "figcraft",
+        "currency",
+        "checkout"
+      ],
+      "summary": "Keranjang lain di Checkout/2 pakai 'Rp104.000'/'Rp18.000' padahal app hanya JOD; diganti 4,52/0,78 JOD, baris 61->60, blok 122->121",
+      "conn": [
+        {
+          "id": "TASK-88265",
+          "type": "relates",
+          "raw": "TASK-88265:relates"
+        },
+        {
+          "id": "DEC-88258",
+          "type": "relates",
+          "raw": "DEC-88258:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213443",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:44:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/riwayat-pesanan-di-pesanan-saya.md (+60) — write via tool: # Prefligh",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/riwayat-pesanan-di-pesanan-saya.md"
+    },
+    {
+      "id": "TASK-213444",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:53:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+6/-4) — edit via tool: | `Pesanan / 3 · tab riwayat` | tab `R",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-88267",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "18:53:41",
+      "tags": [
+        "design",
+        "figcraft",
+        "order-history"
+      ],
+      "summary": "Bingkai Pesanan /3 riwayat + /4 kosong: tab, chip, strip tanggal, 2 kartu, catatan (60 bingkai)",
+      "conn": [
+        {
+          "id": "TASK-88265",
+          "type": "relates",
+          "raw": "TASK-88265:relates"
+        },
+        {
+          "id": "DEC-88258",
+          "type": "relates",
+          "raw": "DEC-88258:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213445",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "19:33:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/radius-kartu-satu-nilai.md (+59) — write via tool: # Preflight desain",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/radius-kartu-satu-nilai.md"
+    },
+    {
+      "id": "TASK-213446",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "19:36:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+1/-1) — edit via tool: `Kartu/Card/Banner/Dialog` hanya menyi",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "TASK-88268",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "19:36:48",
+      "tags": [
+        "design",
+        "figcraft",
+        "radius"
+      ],
+      "summary": "Seragamkan radius kartu ke --radius-lg 16: 10 frame (kartu kosong, banner promo, dialog buang, 3 kartu Kurs, Banner, Baris favorit)",
+      "conn": [
+        {
+          "id": "TASK-88267",
+          "type": "relates",
+          "raw": "TASK-88267:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    },
+    {
+      "id": "TASK-213447",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "19:38:13",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/kartu-keadaan-kosong-riwayat.md (+58) — write via tool: # Preflight d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/preflight/kartu-keadaan-kosong-riwayat.md"
+    },
+    {
+      "id": "TASK-88269",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "19:38:55",
+      "tags": [
+        "design",
+        "figcraft",
+        "radius",
+        "empty-state"
+      ],
+      "summary": "Keadaan kosong riwayat (5552) jadi kartu putih r16 + garis, 350x205, sejajar Kartu kosong lain",
+      "conn": [
+        {
+          "id": "TASK-88268",
+          "type": "relates",
+          "raw": "TASK-88268:relates"
+        }
+      ],
+      "loc": "design/beta-v1.figcraft"
+    }
+  ]
+}

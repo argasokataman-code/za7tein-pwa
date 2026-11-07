@@ -5676,6 +5676,203 @@
         }
       ],
       "loc": "design/beta-v1.figcraft:556"
+    },
+    {
+      "id": "TASK-213359",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:08:37",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/f29-discovery.json (+88) — write via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f29-discovery/f29-discovery.json"
+    },
+    {
+      "id": "TASK-213360",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:26:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+9/-8) — edit via tool: // Satu file = satu alur, dan alurnya d",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
+    },
+    {
+      "id": "TASK-213361",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:27:25",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs (+2/-2) — edit via tool: pages: [1, 30],",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit-check.mjs"
+    },
+    {
+      "id": "TASK-213362",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:27:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-debt.json (+6/-6) — edit via tool: {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-debt.json"
+    },
+    {
+      "id": "TASK-213363",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:28:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md (+16/-6) — edit via tool: **FR-37 (kanvas).** Bingkai, `Capti",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/figcraft-rules.md"
+    },
+    {
+      "id": "TASK-213364",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:28:22",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md (+16/-10) — edit via tool: - **FR-14/FR-16/FR-31** jangan resize/ub",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/AGENTS.md"
+    },
+    {
+      "id": "TASK-213365",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:28:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md (+34/-3) — edit via tool: Bukti: `npm run figcraft:audit` PASS ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/slice/README.md"
+    },
+    {
+      "id": "DEC-88240",
+      "type": "decision",
+      "status": "active",
+      "date": "2026-11-07",
+      "time": "13:29:03",
+      "tags": [
+        "figcraft",
+        "design"
+      ],
+      "summary": "Satu file FigCraft = banyak halaman (menu Pages), satu halaman per alur; jangan pecah jadi file terpisah",
+      "conn": [
+        {
+          "id": "TASK-88232",
+          "type": "led_to",
+          "raw": "TASK-88232:led_to"
+        }
+      ],
+      "loc": "docs/design/figcraft-rules.md:258"
+    },
+    {
+      "id": "TASK-88241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:29:03",
+      "tags": [
+        "figcraft",
+        "gate"
+      ],
+      "summary": "beta-v1 dipecah 5 halaman (F21/F29/F12/F13/F16); gerbang audit baca semua halaman + grid per halaman",
+      "conn": [
+        {
+          "id": "DEC-88240",
+          "type": "implements",
+          "raw": "DEC-88240:implements"
+        },
+        {
+          "id": "BUG-88230",
+          "type": "fixes",
+          "raw": "BUG-88230:fixes"
+        }
+      ],
+      "loc": "scripts/figcraft-audit.mjs:136"
+    },
+    {
+      "id": "TASK-213366",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "13:39:33",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs (+4/-3) — edit via tool: const DEAD_BUTTON_EXEMPT = new Set([",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/figcraft-audit.mjs"
     }
   ]
 }

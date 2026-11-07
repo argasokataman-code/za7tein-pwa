@@ -111,6 +111,13 @@ Urutan bangun = urutan milestone (M1 → M11), lalu nilai baca. Status: `todo` /
 - **UNRESOLVED:** tarif GST makanan spesifik, PPN ekspor jasa, status PKP (R-TAX-01; OQ-2/3/4/17/18)
 - **Sumber:** R-FEE-01, R-TAX-01; M2, M7
 
+### F29 — Discovery, katalog & cart per merchant ✅ done (baru 2026-11-07)
+- **Slug:** `f29-discovery` · **Type:** `workflow` v2 · **Milestone:** M2 (butuh M1)
+- **Alur:** alamat default → beranda (**group hanya per tag**) → cari & filter (5 filter, sort jarak/order/rating) → kartu merchant dengan status → detail + menu → **cart per merchant** (order draft) → daftar order (cart = card)
+- **Guard:** blok kuota **disembunyikan** · tutup/luar jangkauan tampil tapi tak bisa dipilih · busy boleh diisi cart, order ditahan · menu di luar jadwal tampil, tak bisa cart
+- **Dasar:** `sa7tein-beta-2026-11-05` §10 `CUS-04..CUS-18`, §7.1, §13.1/13.3/13.6 + `features/R-CUS-DISCOVERY.md` A1–A14, `features/R-CUS-CART.md` A1–A13
+- **UNRESOLVED:** query lintas instance DO (OPEN-25) · label section "tidak dapat diproses" · "kriteria lain" pada sort
+
 ### F21 — Registrasi & masuk akun ✅ done (rebase beta 2026-11-07)
 - **Slug:** `f21-account-auth` · **Type:** `workflow` · **Milestone:** M8
 - **Alur akun:** nomor WhatsApp → **pengguna mengirim kode** (reverse OTP) → webhook mencocokkan nomor pengirim → kode sekali pakai (masa berlaku + batas permintaan) → **buka peran terakhir**; pindah peran tanpa login ulang

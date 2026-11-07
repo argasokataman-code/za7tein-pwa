@@ -1,6 +1,6 @@
 {
   "version": 1,
   "file": "design/beta-v1.figcraft",
-  "note": "Ratchet: angka hanya boleh turun. Perbarui setelah utang benar-benar turun.",
+  "note": "Ratchet: angka hanya boleh turun. Perbarui setelah utang benar-benar turun. Satu file = satu alur, dipecah per halaman (menu Pages); audit membaca semua halaman, bukan hanya yang aktif.",
   "checks": {}
 }

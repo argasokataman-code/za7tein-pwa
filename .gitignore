@@ -34,3 +34,4 @@ dev-dist
 # Regenerasi: scripts/flows-gate.sh --all
 docs/design/flows/*/*.visual-check.*
 .env*
+.design-preflight.json

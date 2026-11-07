@@ -1222,6 +1222,37 @@ Bukti: `npm run figcraft:audit` PASS (38 bingkai, 1433 lapisan, 91 interaksi); `
 LULUS 9 pemeriksaan; 38 bingkai sekarang menempati kolom `0/454/908/1362/1816` dan baris kelipatan
 1120 dari baris pertama (y260).
 
+### Satu file, banyak halaman (2026-11-07, FR-38)
+
+Permintaan pemilik: alur jangan dijadikan satu kanvas raksasa, tapi juga **jangan** dipecah jadi
+banyak file. FigCraft sudah punya menu Pages, jadi itu yang dipakai: `design/beta-v1.figcraft`
+sekarang punya 5 halaman, satu per alur.
+
+| Halaman | Bingkai | Isi |
+|---|---|---|
+| `F21 · Auth & consent` | 18 | Masuk 4, Kirim kode 4, Verifikasi 4, Pilih peran 5, User Agreement 1 |
+| `F29 · Discovery` | 10 | Beranda 3, Cari 2, Detail warung 2, Keranjang 2, Checkout 1 |
+| `F12 · Akun & inbox` | 7 | Akun 3, Inbox 4 |
+| `F13 · Kurir` | 3 | Onboarding kurir 3 |
+| `F16 · Onboarding merchant` | 10 | Daftar 3, Tambah peran 4, Verifikasi merchant 3 |
+
+Yang ikut berubah di gerbang, bukan cuma datanya:
+
+| Arah | Isi |
+|---|---|
+| Gerbang | `readDocument` mengembalikan **semua** halaman; dulu `doc.current_page` saja, jadi bingkai yang dipindah ke halaman lain hilang dari audit tanpa jejak |
+| Grid | FR-37 dihitung per halaman (baris pertama = bingkai teratas halaman itu), bukan satu baris global |
+| Baseline | kunci ratchet jadi `halaman\|bingkai\|lapisan\|detail`; bingkai bernama sama di halaman berbeda tidak saling menutupi |
+| Self-check | halaman kedua (`Page 2`, bukan `current_page`) diberi hotspot 20x20; audit wajib melaporkannya |
+
+Bukti: `npm run figcraft:audit` PASS (60 bingkai, 2798 lapisan, 196 interaksi, 5 halaman);
+`npm run figcraft:audit:test` LULUS 12 pemeriksaan + halaman non-aktif.
+
+Jebakan yang tertangkap saat pemecahan: `node.reparent` ke halaman **mempertahankan** `x`/`y` page,
+jadi bingkai `F13` sempat tertinggal di `y8100` dan gerbang FR-37 langsung menandainya. Yang juga
+tertinggal: `edit.paste` menyalin `interactions` apa adanya, `dest` masih menunjuk id bingkai di
+dokumen asal, jadi tautan harus dipetakan ulang setelah pindah halaman.
+
 ### Ikon gepeng: `sizingH: fill` massal (2026-11-07, FR-20b)
 
 Gejala yang dilihat pemilik di baris `Verifikasi`: ikon status tampak seperti **elips gepeng**, bukan
@@ -1247,3 +1278,198 @@ setiap vektor ber-`sizingH: "fill"`. Self-check menambah fixture vektor `56x26` 
 
 Sisa kecil yang tidak diubah dan bukan regresi: ikon `26` di dalam lingkaran `56` (46%) terasa agak kecil;
 memperbesar ke ~30 berarti mendesain ulang, sedangkan tugas ini memulihkan ukuran asli.
+
+### F29 Discovery: 10 bingkai dari flow, bukan dari selera (2026-11-07)
+
+Halaman `F29 · Discovery` diisi dari `docs/design/flows/f29-discovery/` dan aturan
+`R-CUS-DISCOVERY` A1-A14 + `R-CUS-CART` A1-A13, bukan dari karangan. **Geometri dan copy diambil dari
+design system repo ini** (`src/styles/_tokens.scss`, `src/styles/system/*`, komponen `src/pages/*`),
+bukan dari `docs/design/v2-source/` yang hanya punya beranda prototipe. Angka yang dipakai, semuanya
+dari `src/`:
+
+| Permukaan | Sumber angka |
+|---|---|
+| Hero beranda | `.hero` radius bawah `--radius-xl` 24, padding `16/20/20` (`CustomerHomeHero.css:13`), tile alamat 44 (`:102`) |
+| Promo beranda | `.home-promo` tinggi min 160, radius `--radius-2xl` 32 (`_home-v2.scss:85`), isian `--promo-from` `#175273` |
+| Bar cari | `.search-bar` tinggi 56, radius `--radius-lg` 16, border `--border`, `--shadow-sm` (`_search.scss:26-33`); `.filter-link` 44x44 |
+| Chip saran | `.chip` padding `--space-2 --space-3`, radius `--radius-lg`, `--text-xs` 13 (`_search.scss:74-86`) |
+| Ubin toko | `.merchant-store-card` media 16:9, body padding `--space-3` 12, nama `--text-sm` 15/700 (`_storefront.scss:35-113`) |
+| Kartu menu | `.favorites-grid` 2 kolom gap 12, foto 4:3, `.food-card-content` padding 12, harga `--text-base` 16/800 `--orange-ink`, `.food-card-add` 44 pill (`_food-card.scss:244-316`) |
+| Hero toko | `.store-hero` 240, radius bawah 16, badge pill `--text-xs` 13/700, logo 56 radius 16, nama `--text-xl` 21/800 (`_storefront.scss:298-398`) |
+| Sheet keranjang | `.sheet-panel--full` penuh layar radius 0, padding `--space-4` + safe-area, `.ck-row` min-height 44 grid `1fr 128px`, `.ck-go` 44 pill oranye (`_sheet-full.scss:16-35`, `_cart-dock.scss:119-406`) |
+| Checkout | `.checkout-header` padding `16/20` + border bawah, `.delivery-mode__option` min-height 104 radius 16, `.summary-total` `--text-lg` 17/800 `--orange-ink`, `.checkout-actions` fixed bawah (`_checkout.scss:184-209`, `_cart-2.scss:330-402`, `app/part-10.scss:202-231`) |
+| Bilah bawah | `--nav-height` 64, ikon 24, label 13/600, indikator 134x5 |
+
+Isi tiap bingkai:
+
+| Bingkai | Yang dibuktikan | Sumber data/copy |
+|---|---|---|
+| `Beranda / 1 · warung buka` | hero + promo + rail kategori + toolbar urutan + dua ubin toko (buka, luar area) | `src/pages/Home.tsx:110-231`, `src/data/storefronts.ts:13` |
+| `Beranda / 2 · cart jalan` | bilah keranjang navy mengapung di atas nav; status warung jadi `Busy` | `_home-v2.scss:265-302`, `.cart-quick-bar` |
+| `Beranda / 3 · filter tanpa hasil` | filter tanpa hasil = keadaan kosong berpenjelasan + tombol atur ulang | `Home.tsx` (state kosong) |
+| `Cari / 1 · hasil` | pencarian `sate` menyaring warung **dan** menu; chip recent tetap tampil di atas hasil | `Search.tsx:84-189` |
+| `Cari / 2 · tanpa hasil` | kata kunci nihil memberi jalan keluar ("Hapus filter") | `Search.tsx:173-189` |
+| `Detail / 1 · warung buka` | hero toko + meta + `Menu 12 item` + 4 kartu menu dengan tombol tambah | `MerchantPage.tsx:129-284` |
+| `Detail / 2 · warung tutup` | warung tutup: menu tetap terbaca, scrim + sheet `StoreBlockedSheet` dengan satu aksi `Mengerti` | `StoreBlockedSheet.tsx:19-31`, `_merchant-2.scss:425-445,509-535` |
+| `Keranjang / 1 · satu warung` | baris per warung: jumlah menu, subtotal rata kanan, tombol `Checkout`, buang 44x44 | `CartSummarySheet.tsx:160-217` |
+| `Keranjang / 2 · konfirmasi buang` | membuang keranjang satu warung minta konfirmasi inline, tidak mencampur dua warung | `CartSummarySheet.tsx:194-213` |
+| `Checkout / 1 · tinjau` | serah-terima ke M3: jenis pengantaran, alamat, ringkasan, tombol bayar | `Checkout.tsx:191-634` |
+| `Checkout / 2 · keranjang lain` | satu checkout tetap satu warung: seksi `Keranjang lain` (thumb 44, nama, `n item`, subtotal, buang 44x44), catatan pesanan, lalu daftar item keranjang aktif | `Checkout.tsx:45-107`, `_checkout.scss:43-176`, `R-CUS-CART` A1/AC1 |
+| `Kurs / 1 · acuan harian` | kurs JOD→IDR acuan + konverter dua arah + acuan harga lokal; tombol tukar arah | `CurrencyModal.tsx:160-330`, PRD `R-CURRENCY` A1–A6 |
+| `Menu / 1 · varian` | porsi/pedas (single, wajib pilih 1), tambahan (multi, berbayar), catatan per menu, stepper qty + total | `MenuDetail.tsx:236-431`, `src/data/foods.ts:9-39` |
+| `Filter / 1 · lima jenis` | lima filter PRD (tag, favorit, jarak maks, rating min, order selesai) + urutan + terapkan/reset | `R-CUS-DISCOVERY` A3/A5, `R-CUS-DISCOVERY.md` AC7 |
+| `Detail / 3 · warung busy` | busy: menu tetap bisa masuk cart, CTA order ditahan + alasannya | `R-CUS-DISCOVERY` A7, §5 state `busy` |
+| `Detail / 4 · di luar jangkauan` | cabang `store.isOpen` di sheet: alasan luar jangkauan, bukan tutup | `StoreBlockedSheet.tsx:22-31`, `R-CUS-DISCOVERY` A6 |
+| `Keranjang / 3 · item tak diproses` | item tak diproses dipisah per sebab (stok habis / di luar jam), tidak dihapus, tidak ikut total | `R-CUS-CART` A4/A6/A8, `R-CUS-DISCOVERY` §5 |
+| `Pesanan / 1 · cart sebagai card` | tab Aktif: keranjang jadi kartu sendiri (toko, `2 menu`, item, subtotal, CTA), lalu dua order berjalan berkepala thumbnail + kode/waktu + chip tahap, baris item + total, kaki `Estimasi` + `Lacak pesanan` | `MyOrder.tsx:286-437`, `OrderHistoryCard.tsx:141-187`, `R-CUS-CART` A3/A5 |
+| `Pesanan / 2 · dua cart aktif` | tab `Aktif · 3`: dua keranjang warung berbeda tampil sebagai dua kartu, masing-masing dengan subtotal dan tombol bayar sendiri, lalu satu order berjalan | `MyOrder.tsx:409-438`, `_order-history.scss:487-565`, `R-CUS-CART` A1/AC1 |
+| `Pesanan / 3 · tab riwayat` | tab `Riwayat · 3`: chip saring `Semua/Selesai/Dibatalkan/Refund` (aktif oranye), strip tanggal `6 November 2026 · 2 pesanan`, dua kartu riwayat (lencana bertitik, baris item + total rata kanan, kaki `Sudah dinilai` + `Pesan lagi`, `Dana sudah dikembalikan` + `Pesan lagi`), catatan penutup | `MyOrder.tsx:286-417`, `OrderHistoryCard.tsx:74-131`, `_order-history.scss:97-451`, `orderStatus.ts:105-112`, `R-CUS-ORDER` |
+| `Pesanan / 4 · riwayat kosong` | chip `Selesai` tanpa hasil: satu blok kosong (ikon struk, judul, keterangan) tepat di bawah chip, tanpa kartu/tanggal tersisa | `MyOrder.tsx:345-380`, `_order-history.scss:452-470` |
+| `Beranda / 4 · sesudah tambah` | toast konfirmasi isi keranjang, kupon terpasang terbaca di banner, tab pesanan jadi tujuan | `MenuDetail.tsx:206-212` (toast), `App.tsx:568` (state) |
+
+Angka gerbang: `npm run figcraft:audit` PASS (60 bingkai, 2798 lapisan, 196 interaksi
+(167 navigate, 29 back), 189 hotspot, 8 kombinasi huruf, 5 halaman). Nol luberan, nol hotspot
+< 44 px, nol `dest` menggantung, nol warna/radius di luar token, nol kontras gagal, nol ikon di
+luar titik tengah kotaknya (FR-39).
+
+**Kerapian ikon (2026-11-07, FR-39).** Sembilan vektor duduk tidak di tengah kotaknya dan tidak
+terlihat "salah" oleh gerbang lama, karena masih di dalam kotak (FR-15 lolos) dan ukurannya wajar
+(FR-19 lolos): `Ikon pin` 20 px di tile 40 `(15,13)`, `Ikon kurs` 22 px di tombol 40 `(13,14)`,
+`Ikon cari`/`Ikon filter` 20 px di field 48 `(17,17)`/`(18,20)`, `Hati 1/2` 16 px di tombol 44
+`(17.48,18.11)`, `Plus 1/2` 16 px di `(19,19)`. Semua dipindah ke titik tengah (`(10,10)`, `(9,9)`,
+`(14,14)`, `(14,14)`). Dua cacat lain ikut dibetulkan: `Ikon chevron` 16×16 `@234` yang menggantung
+jauh dari teks alamat kini path `M0 0 L6 6 L12 0` 12×6 `@179,25` (6 px setelah ujung teks 121 px),
+dan bottom nav yang menaruh ikon `y12` + label `y28` (bertumpuk 8 px) kini `y6`/`y34` dengan sumbu
+ikon = sumbu label (`36.5/36.5/36.5/37` di kolom 97/98). `Ikon pin` juga putih di atas tile putih
+solid, jadi tak terlihat; tile dan tombol kurs kini sama-sama `#FFFFFF` @18% seperti prototype
+`Header.tsx:28,48`.
+
+**Halaman kurs (2026-11-07).** Tombol di baris alamat berisi ikon exchange (dua panah melingkar +
+simbol mata uang, glyph `CurrencyExchangeIcon.tsx` prototype) dan **membuka** `Kurs / 1 · acuan
+harian` (navigate, bukan sekadar state). Tiga hal yang menyimpang dari prototype dan sengaja:
+kotak tombol **44×44**, bukan `w-10` 40, karena ia hotspot (FR-24); tile alamat ikut dinaikkan ke
+44×44 (dari 40) supaya sepasang dengan tombol itu, lebar baris tetap 350; label field/`Pilihan cepat`
+memakai sentence case 13/600 `#475569`, bukan eyebrow uppercase 11 px (MD-08 + kontras 6,9:1 di
+`--bg-warm`, sedangkan `#64748B` hanya 4,33:1 dan ditolak gerbang); dan tombol "Salin hasil
+konversi" prototype **tidak** dibuat karena aksinya tidak punya sumber PRD (R-CURRENCY hanya
+mengatur acuan, pembulatan, dan penguncian nominal), jadi ia akan jadi kontrol mati.
+
+Halaman ini **di luar** flow `f29-discovery` (flow berhenti di order dibuat): ia layar bantu yang
+dipanggil dari header beranda, sumbernya `CurrencyModal.tsx` + `R-CURRENCY`, bukan langkah
+discovery. Karena itu flow tidak diubah; pencatatannya di sini supaya tidak dikira bingkai nyasar.
+
+**Tujuh bingkai penutup celah F29 (2026-11-07).** F29 naik 11 → 18 bingkai; yang ditambahkan
+menutup node flow yang tadinya tak punya layar (`menu`, `kuota`/`busy`, `order`) plus dua cabang sheet.
+
+- `Menu / 1 · varian` — grup `TINGKAT PEDAS` (single, "Wajib pilih 1", `#B83213`) dan `TAMBAHAN`
+  (multi, `+0,32 JOD`/`+0,20 JOD` = 8.000/5.000 IDR pada acuan 25.239) mengikuti `foods.ts:9-39`;
+  stepper qty 100×40 + tombol dua baris (label + total) karena `mdd-add` merender keduanya
+  (`MenuDetail.tsx:420-429`). CTA bernavigasi ke `Keranjang / 1`; `Baris menu 1` di detail jadi
+  jalan masuknya.
+- `Filter / 1 · lima jenis` — **menyimpang dari `src/pages/Filter.tsx`**: halaman legacy itu memuat
+  rentang harga, tipe pembayaran, dan bintang, sedangkan PRD `A5` menetapkan tepat lima filter
+  (tag, favorit, jarak maksimum, rating minimum, jumlah order selesai) + `A3` urutan
+  (jarak/rating/order terbanyak). Yang digambar adalah PRD, bukan legacy; AC7 mengukur "hanya 5
+  jenis". Tombol `Button filter` di beranda/cari sekarang punya tujuan (pengecualian lama di
+  `DEAD_BUTTON_EXEMPT` dihapus).
+- `Detail / 3 · warung busy` — chip `Busy` `#FFF7ED`/`#B45309` (warning-soft/warning-ink), catatan
+  oranye, dan CTA nonaktif `#E2E8F0` + teks `#475569` (bukan `#94A3B8`: 2,08:1 ditolak gerbang).
+  Menu tetap bisa ditambah — itu `A7`, bukan tombol mati.
+- `Detail / 4 · di luar jangkauan` — memakai bingkai `Detail / 2` lalu mengganti cabang sheet ke
+  `store.isOpen` (`StoreBlockedSheet.tsx:24`), bukan menutup alasan tutup.
+- `Keranjang / 3 · item tak diproses` — dua baris tak-diproses dengan sebab berbeda dan **warna per
+  peran**: `Stok habis` `--red-soft`/`--danger-ink`, `Di luar jam` `--warning-soft`/`--warning-ink`.
+  Alasan dibedakan lewat warna sebab, bukan sekadar teks. Total tetap 3,89 JOD karena item itu tidak
+  ikut dihitung (`R-CUS-CART` A6).
+- `Pesanan / 1 · cart sebagai card` — **dibangun ulang 2026-11-07** mengikuti `MyOrder.tsx` +
+  `OrderHistoryCard.tsx`, bukan ringkasan bebas: tab `Aktif` berhitung (`Aktif · 2`), kartu keranjang
+  (nama toko, pil `2 menu`, baris item, `Subtotal` + nominal, `Lanjut ke pembayaran` → `Checkout / 1`),
+  lalu dua kartu order berjalan dengan thumbnail 84×70, kode + jam (`SA7-2481 · 12:20`), chip tahap
+  (`Sedang disiapkan` biru / `Sedang diantar` navy), baris `2 item pesanan` + total, dan kaki
+  `Estimasi siap 12:47` + `Lacak pesanan` rata kanan. Bingkai lama hanya punya rel kemajuan dan dua
+  kartu riwayat dengan `Pesan lagi` selebar kartu, padahal sumbernya kaki terbagi dua. `Button lacak`
+  tetap `DEAD_BUTTON_EXEMPT` dengan alasan tertulis: layar lacak belum punya bingkai (F29 berhenti
+  di checkout, F13 baru onboarding kurir), jadi menautkannya ke tujuan karangan akan lebih buruk.
+- `Beranda / 4 · sesudah tambah` — toast navy 350×52 di `y712` (16 px di atas nav), pil kupon
+  berubah jadi `HEMAT10 terpasang` `#ECFDF5`/`#047857` (green-soft/success-ink), tab `My Order`
+  aktif. Label nav tetap `Home/My Order/Favorites/Profile` karena itu bunyi `BottomNav.tsx:21-24`,
+  bukan karangan bingkai.
+
+**Sheet tutup dirapikan (2026-11-07).** `Sheet tutup` (4373) sebelumnya punya empat ciri slop
+sekaligus: scrim tidak ada (sheet mengapung di atas konten terang), **dua tombol** padahal
+`StoreBlockedSheet.tsx:27-31` hanya merender satu aksi (`Mengerti`), judul dan kalimatnya
+**mengulang jam buka** ("Buka lagi pukul 10.00" lalu "Buka lagi 10.00 – 22.00"), dan ikon jam
+16 px menganggur di `y142` tanpa teks — 4 px di atas baris tombol. Sekarang: `Overlay`
+390×844 `#202020` 40% di bawah sheet, satu judul `Maaf, toko sedang tutup` 21/800, satu paragraf
+15/500 `#64748B` berisi nama warung + jam tutup (`StoreBlockedSheet.tsx:22-26`), satu tombol
+`Mengerti` 350×48 radius 12 oranye. Geometri 8 pt: panel 390×200 di `y644`, padding 24, judul→isi
+16, isi→tombol 24, tombol 24 dari tepi bawah.
+
+**Deviasi yang disengaja, dengan angka dan alasan:**
+
+1. **Mata uang.** Semua nominal memakai IDR saja (`Rp47.000`), termasuk baris ringkasan yang
+   di repo memakai `money()` (`Rp56.000 · ±2,43 JOD`, `src/data/currency.ts:17,154`). Alasannya
+   ruang: kolom nominal di baris keranjang hanya 110 px, dan dua mata uang di satu baris memotong
+   nama warung. Gate kontras tidak membaca angka, jadi ini pilihan keterbacaan, bukan aturan PRD.
+2. **`Checkout / 1` adalah bingkai serah-terima.** Flow `f29-discovery` berhenti di "order
+   terbentuk"; aturan bayar/invoice milik M3 (`R-MONEY`, `R-CUS-PAY`). Bingkai ini ada agar
+   tombol "Lanjut ke checkout" punya tujuan nyata di prototipe, dan isinya hanya meninjau state
+   yang sudah ada. Kalau M3 menetapkan bentuk lain, bingkai ini diganti.
+3. **Tombol terminal tidak punya `dest`.** Backend tidak ada di repo ini (AGENTS §1), jadi
+   `Button bayar`, `Button lanjut bayar`, `Button kurs` (toggle mata uang, state) dan
+   `Button filter` (layar `/filter` tak punya bingkai di F29) masuk `DEAD_BUTTON_EXEMPT` di
+   `scripts/figcraft-audit.mjs:42-47` dengan alasan tertulis, sejajar dengan pengecualian lama
+   `Button Kirim ulang dalam 04:12`.
+4. **Promo beranda pakai isian solid `--promo-from` `#175273`, bukan gradien `--promo-from` →
+   `--promo-to`** (`_tokens.scss:61-66`). Gerbang kontras membaca isian bingkai; gradien membuat
+   teks putihnya diukur di atas `--bg-warm` (1,10:1) sehingga dilaporkan gagal. Satu kekayaan
+   visual dilepas agar keterbacaan bisa dibuktikan mesin, bukan diklaim.
+5. **Scrim hero toko berupa blok `#172434` opasitas 0,5 setinggi 90 px di `y150`, bukan gradien.**
+   `stops` ber-alpha (`#17243400` → `#172434CC`) dirender sebagai satu blok oleh app, jadi tepinya
+   terlihat sebagai garis keras di tengah foto; blok pendek di belakang logo + nama terbaca sebagai
+   panel, bukan potongan foto. Overlay tutup toko memakai `#172434` opasitas 0,4 (warna
+   `--overlay` `rgba(32,32,32,0.4)` bukan token nama, jadi gerbang `offTokenColor` menolaknya).
+6. **Delapan kombinasi huruf, dipatok.** Gerbang `fontCombos` (FR-20) menolak lebih dari 8 pasangan
+   `ukuran|gaya`; dokumen dinormalkan ke 13/Medium, 13/SemiBold, 15/Medium, 15/SemiBold,
+   16/SemiBold, 17/SemiBold, 21/ExtraBold, 28/ExtraBold. Konsekuensinya `Bold` 13-17 px dan
+   `22/ExtraBold` di judul promo tidak dipakai lagi (promo turun ke 21).
+
+Jebakan yang tertangkap gerbang saat membangun halaman ini, supaya tidak diulang:
+
+- Teks 13 px ber-`lineHeight 150%` setinggi 26 px, bukan 20 px: baris `Jam warung` menabrak
+  `Meta warung` yang membungkus dua baris. Perbaikan di akar = copy dipendekkan dan lebar teks
+  dinaikkan ke 240, bukan menggeser y.
+- Label bilah bawah rata kiri karena `textAlign` bawaan, jadi "Beranda" tampak terpotong di tepi
+  kolom. 20 label disetel `center`; yang salah tata letak, bukan ukurannya.
+- `Kepala menu` 24 px tidak memuat teks 26 px -> luberan 2 px. Tinggi baris dinaikkan ke 28.
+- `node.set` dengan `cornerRadius: 0` tidak mengubah radius yang sudah 1; nilai harus diganti
+  eksplisit ke radius skala (8).
+
+### Satu radius untuk semua permukaan kartu (2026-11-07)
+
+Sebelumnya tiap seksi punya nilai sendiri: `Kartu kosong`/`Banner promo`/`Dialog buang`/tiga kartu
+`Kurs` 24 px, `Banner` di `Masuk / 1` 12 px, sementara 31 `Kartu …` lain dan seluruh kartu di app
+16 px (`src/styles/system/_cards.scss:3` "Kartu: satu radius, satu garis, satu elevasi",
+`_order-history.scss:180`, `_checkout.scss:24,50,197,312`). Akibatnya layar `Kurs` memuat dua
+peringkat radius untuk benda yang sama-sama kartu, dan dialog pembuangan lebih bulat dari kartu di
+belakangnya.
+
+Diseragamkan ke `--radius-lg` 16 (`src/styles/_tokens.scss:74`), 10 frame: `Banner
+promo` 3866+5026, `Kartu kosong` 4172+4217, `Dialog buang` 4510, `Kartu kurs acuan` 4579, `Kartu
+konversi` 4586, `Kartu acuan harga` 4630, `Banner` 376, dan `Baris favorit` 4711 (12 -> 16).
+
+Peringkat lain sengaja tetap berbeda karena bukan kartu: `Sheet tutup` 32 (`--radius-2xl`),
+`Brandmark` 24 (logo kotak), tombol 12 (`--radius-md`), `Input`/`Code input` 10 (`--radius-sm`),
+thumb & badge 8 (`--radius-xs`), chip/pil 9999, `Track` pil. Rekap akhir: nama berawalan
+`Kartu/Card/Banner/Dialog` hanya menyisakan radius 16 (80 frame), 30 tanpa isian, 0 nilai lain.
+
+Bukti: `npm run figcraft:audit` PASS (60 bingkai, 2798 lapisan, 196 interaksi, 0 temuan);
+screenshot `Kurs / 1`, `Beranda / 3`, `Keranjang / 2`, `Filter / 1` dicek lewat `gdescrib`:
+tidak ada sudut tajam, tidak ada elemen terpotong.
+
+Ikutan sesudahnya: `Pesanan / 4 · riwayat kosong` sebelumnya memakai blok transparan tanpa sudut, jadi
+terbaca sebagai kotak di tengah layar. Node `Keadaan kosong` 5552 (kini `Kartu kosong riwayat`)
+diberi permukaan kartu yang sama dengan `Kartu kosong` lain: putih `#FFFFFF`, garis `#E2E8F0` 1 px,
+radius 16, 350x205 di `(20,228)`, padding 48 atas-bawah + 32 kiri-kanan, isi gap 8. Sumber app
+(`src/styles/system/_order-history.scss:453-475`) memang tidak berlatar kartu; deviasi ini dicatat
+sebagai keputusan bentuk agar seksi keadaan-kosong di file desain seragam.

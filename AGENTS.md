@@ -10,7 +10,7 @@ Empat langkah, **berurutan**. Jangan lompat ke kode, jangan lompat ke browser. U
 
 | # | Langkah | Kerjakan | Gagal kalau |
 |---|---|---|---|
-| **1** | **PETA** | Baca `docs/design/app-map/` (peta komponen, role, kontrak BE), `docs/design/DNA.md`, dan `src/components/`. Cari yang bisa **dipakai ulang sebelum menggambar apa pun**. | Mulai menulis kode tanpa tahu komponen yang sudah ada. Contoh nyata: `.app-shell` adalah kontrak shell repo ini, tapi baru ketahuan setelah gerbang mengeluh "kolom 0px" — padahal ada di peta dan di `src/styles/system/_app-shell.scss`. |
+| **1** | **PETA** | Baca `docs/design/app-map/` (peta komponen, role, kontrak BE), `docs/design/DNA.md`, dan `src/components/`. Cari yang bisa **dipakai ulang sebelum menggambar apa pun**. Tugas desain: tambahkan **preflight §0b** (anatomi `path:line` + brief 8-12 baris + butir DNA) sebelum layer/kode pertama. | Mulai menulis kode tanpa tahu komponen yang sudah ada. Contoh nyata: `.app-shell` adalah kontrak shell repo ini, tapi baru ketahuan setelah gerbang mengeluh "kolom 0px" — padahal ada di peta dan di `src/styles/system/_app-shell.scss`. |
 | **2** | **AUDIT SURFACE** | `npm run scan`. Statik, nol server, selesai dalam ratusan milidetik: token tak terdefinisi, kelas tanpa aturan CSS, kontrol mati, tautan mati. | Menjalankan browser untuk mencari hal yang bisa dibaca dari berkas. |
 | **3** | **UBAH** | Tulis memakai komponen + token hasil langkah 1. Gaya baru ke `src/styles/system/`, token dari `_tokens.scss`. Perubahan sekecil mungkin, di akarnya. | Menambah komponen/dependency padahal yang ada bisa dipakai; menyalin pola yang sama ke beberapa berkas. |
 | **4** | **VERIFIKASI** | `npm run lint && npm run build && npm run scan && npm run check:self`, lalu `browser-gate` **hanya** untuk yang tidak bisa dilihat dari sumber (§8). | Mengklaim "sudah benar" tanpa angka. |
@@ -28,6 +28,20 @@ Repo ini **showcase UI/UX**. Karena itu setiap tugas yang menyentuh tampilan **w
 - **Trigger.** Permintaan bermuatan desain: "desain", "bikin UI/UX", "rapikan tampilan", "mobile", "website", layout, komponen visual, warna, tipografi, spacing, animasi, atau review desain.
 - **Cara.** Muat skill: `skill({ name: "senior-fe" })` atau `/senior-fe`. Kalau task-nya mobile, ikuti routing stack di skill itu (SwiftUI / Compose / Flutter / React Native appendix).
 - **Sampai Delivery Gate.** Setiap temuan cites ID + alasan satu baris: `HG-xx` = HIGH, `PG-xx` = MEDIUM, `QL-xx` = LOW. Fix yang disetujui, lalu tulis laporan.
+- **Preflight sebelum menggambar (ENFORCE, urutan tidak boleh dibalik).** Tiga keluaran wajib ada **sebelum** layer pertama dibuat:
+  1. **Anatomi bersumber**: daftar elemen bingkai (judul, sub, tab, kepala kartu, baris item, kaki, aksi) dengan `path:line` sumbernya — `MyOrder.tsx:286-437`, `OrderHistoryCard.tsx:141-187`, bukan ringkasan dari percakapan atau nama file.
+  2. **Brief 8-12 baris** di kepala pekerjaan: tujuan bingkai, state yang ditampilkan (mis. tab `Aktif` vs `Riwayat`), elemen yang **sengaja tidak ada**, dan angka geometri (padding, tinggi kartu, jarak antar blok).
+  3. **Butir DNA yang diawasi** untuk bingkai itu: `MD-06/07/11/12` bila ada daftar/lembar, `MD-13` bila ada back/overlay; sebut nomornya, bukan "mobile".
+  4. **Peta gerak** (bagian 6 checklist): daftar interaksi bingkai + transisinya (maju `push` 320 ms, kembali `dissolve` 220 ms, overlay/sheet `dissolve` 200 ms, tab `instant`), yang **sengaja tidak dianimasikan** (tab replace, angka stepper, chip status), larangan animasi dekoratif (loop/parallax/auto-play, layar > 400 ms), dan `prefers-reduced-motion`. Motion diputuskan di awal supaya anti-slop gerak jalan sebelum bingkai digambar, bukan ditempel setelahnya (F29 sempat 91 interaksi `instant` semua).
+  Tanpa keempatnya, menggambar = menebak. Kejadian 2026-11-07: `Pesanan / 1` digambar dari ringkasan (rel kemajuan + `Pesan lagi` selebar kartu) padahal sumbernya kaki terbagi dua + thumb 84x70, lalu harus dibangun ulang.
+  **Cara pakai (wajib, sebelum tool FigCraft yang mengubah dokumen):**
+  ```bash
+  npm run design:preflight -- --frame "Nama Bingkai"      # tulis template checklist
+  # isi docs/design/preflight/<slug>.md: sumber path:line, brief berangka, DNA, anti-slop, verifikasi, gerak (bagian 6)
+  npm run design:preflight -- --approve --frame "Nama Bingkai"
+  ```
+  `--approve` menolak checklist yang masih punya `- [ ]`, kurang 2 rujukan `path:line`, kurang 4 butir `MD-xx`, brief tanpa angka, atau bagian 6 gerak yang tidak menyebut 2 jenis transisi + durasi `ms` + `prefers-reduced-motion`. Persetujuan disimpan di `.design-preflight.json` (gitignored) dan berlaku 12 jam. Plugin `plugins2/design-preflight` (sumber: `scripts/opencode/design-preflight/index.ts`, symlink ke config global) **menolak** tool `figcraft` yang mengubah dokumen (create/set/batch/delete/duplicate/reparent/save_file) selama persetujuan belum ada atau kedaluwarsa; baca-saja (`get_node`, `inspect_*`, `list_*`, `screenshot`) tetap boleh. Log: `/tmp/design-preflight.log`, mode bayangan `DESIGN_PREFLIGHT_SHADOW=1`.
+- **Postflight sebelum kata "selesai".** Setelah gambar: `get_node` untuk angka (bukan hanya lihat PNG), `senior-fe` Delivery Gate (minimal `HG`/`PG`/`MD`), lalu `npm run figcraft:audit`. Temuan gate FigCraft **tidak** menggantikan review rasa: gate mengukur invarian (44px, token, kontras, luberan), bukan kepadatan atau hierarki. Bingkai yang baru diubah wajib punya baris temuan ID di laporan, atau ditulis eksplisit "tidak ada temuan HG/PG/MD".
 - **Peka & proaktif.** Kalau tampilan "mlenceng" — hierarki kabur, dua aksen bersaing, elemen kepotong/ketimpa, target <44px, kontras <AA, overflow-x, atau pola slop tanpa alasan — **perbaiki di akarnya, jangan tunggu disuruh.** Satu masalah, satu akar, satu tempat.
 - **Bukti, bukan kesan.** Laporan menyebut angka/selector (`getBoundingClientRect`, `elementFromPoint`, rasio kontras). Yang mustahil dibaca dari sumber diukur lewat `browser-gate` (§8).
 - **Mode audit.** Kalau yang diminta review, pakai mode "After" skill: findings bernomor di `anti-slop/audit-NNN-YYYY-MM-DD.md`, dan **jangan ubah apa pun** sebelum itemnya disetujui.
@@ -106,7 +120,7 @@ diverifikasi angka dulu sebelum disebut bug.
 ## 0d. File desain FigCraft (`design/*.figcraft`) — aturan + gerbang
 
 `design/*.figcraft` **bukan** kanvas bebas. Aturan kerjanya ada di `docs/design/figcraft-rules.md`
-(FR-01…FR-36) dan ditegakkan mesin: `npm run figcraft:audit` (jalan di pre-commit kalau ada file
+(FR-01…FR-40) dan ditegakkan mesin: `npm run figcraft:audit` (jalan di pre-commit kalau ada file
 `design/*.figcraft`). Ratchet `docs/design/figcraft-debt.json` hanya boleh turun; pelanggaran baru =
 commit gagal.
 
@@ -119,16 +133,26 @@ Yang paling sering menjebak, ulang di sini:
 - **FR-07/FR-10** anak auto layout mengabaikan `x`/`y`; lebar isi pakai `sizingH: "fill"`, bukan 350 mati.
 - **FR-18** satu paragraf = satu lapisan teks (FigCraft tanpa rich text inline).
 - **FR-24** aksi `back` menempel di kotak 44×44, bukan ikon 18×18 di dalamnya.
-- **FR-14/FR-16/FR-31** jangan resize/ubah `sizing` 34 bingkai sekaligus; probe 1 bingkai, dan paksa
-  reflow dengan menyentuh induk setelahnya.
+- **FR-14/FR-16/FR-31** jangan resize/ubah `sizing` semua bingkai sekaligus; probe 1 bingkai, dan
+  paksa reflow dengan menyentuh induk setelahnya.
+- **FR-38 halaman** satu file `design/beta-v1.figcraft` = beberapa **halaman** (menu Pages), satu
+  halaman per alur: `F21 · Auth & consent` (18 bingkai), `F29 · Discovery` (18), `F12 · Akun & inbox` (7),
+  `F13 · Kurir` (3), `F16 · Onboarding merchant` (10). Jangan pecah jadi file terpisah. Grid FR-37
+  dihitung per halaman, dan gerbang wajib membaca **semua** halaman (dulu hanya `doc.current_page`,
+  jadi bingkai bermasalah yang dipindah ke halaman lain lolos diam-diam).
+- **FR-39 ikon di kotak kecil** vektor yang induknya ≤56×56 px (tombol/tile/checkbox) wajib di
+  tengah, toleransi 1 px. Kejadian 2026-11-07: `Ikon pin` 20 px di tile 40 duduk di `(15,13)`,
+  `Ikon kurs` 22 px di `(13,14)`, `Hati 1` di `(17.48,18.11)`, `Plus 1` di `(19,19)`; semuanya masih
+  di dalam kotak jadi FR-15 lolos, dan ukurannya wajar jadi FR-19 lolos.
 - **FR-34/FR-35** selesai = angka (luberan 0 di 390 dan 360, hotspot < 44 = 0, dest menggantung 0)
   plus bukti piksel untuk urutan cat.
 
 Gerbangnya: `npm run figcraft:audit` (ratchet `docs/design/figcraft-debt.json`, angka hanya boleh
-turun) dan self-check `npm run figcraft:audit:test` (8 pemeriksaan diuji dengan file sintetis, ikut
-`npm run check:self`). Angka terakhir (2026-11-07): 34 bingkai, 82 interaksi, 0 luberan, 0 hotspot
+turun) dan self-check `npm run figcraft:audit:test` (12 pemeriksaan + halaman non-aktif diuji dengan
+file sintetis, ikut `npm run check:self`). Angka terakhir (2026-11-07): 60 bingkai di 5 halaman,
+2798 lapisan, 196 interaksi, 0 luberan, 0 hotspot
 < 44 px, 0 dest menggantung, 0 warna/radius di luar token (isian **dan** `strokes[]`), 0 kontras
-gagal, 0 bingkai nyasar, 0 ikon melar.
+gagal, 0 bingkai nyasar, 0 ikon melar, 0 ikon di luar titik tengah kotaknya.
 
 Yang paling menjebak gerbang: **vektor melar tidak terlihat sebagai bug geometri.** `Chevron`
 158x14 (asli 6x14) di `Verifikasi merchant / 3` lolos karena bentuknya ikut melar dan tetap di dalam

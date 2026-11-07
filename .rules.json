@@ -71,7 +71,20 @@
       "bukti angka/selector (rect, elementFromPoint, rasio kontras), bukan kesan; yang mustahil dibaca dari sumber diukur lewat browser-gate"
     ],
     "auditMode": "review pakai mode After skill: findings bernomor di anti-slop/audit-NNN-YYYY-MM-DD.md, jangan ubah apa pun sebelum item disetujui",
-    "catatan": "Skill cuma ada kalau dipanggil, jadi aturan mobile hidup juga di docs/design/mobile-dna.md + ringkasan AGENTS §0c (selalu ikut konteks). Enforcement mekanis: (a) ratchet designGate (nilai mentah, uppercase, rawShadow), (b) browser-gate untuk layout/hit-test. Rasa tak bisa di-lint — 'gede banget/slop' hanya tertangkap pengukuran + visi (gdescrib), dan temuan visi wajib diverifikasi angka dulu. Commit yang menyentuh UI wajib menyebut ID temuan di laporan."
+    "catatan": "Skill cuma ada kalau dipanggil, jadi aturan mobile hidup juga di docs/design/mobile-dna.md + ringkasan AGENTS §0c (selalu ikut konteks). Enforcement mekanis: (a) ratchet designGate (nilai mentah, uppercase, rawShadow), (b) browser-gate untuk layout/hit-test. Rasa tak bisa di-lint — 'gede banget/slop' hanya tertangkap pengukuran + visi (gdescrib), dan temuan visi wajib diverifikasi angka dulu. Commit yang menyentuh UI wajib menyebut ID temuan di laporan.",
+    "preflight": [
+      "URUTAN: preflight dulu, gambar kemudian. Tiga keluaran wajib sebelum layer pertama: (1) anatomi bersumber dengan path:line per elemen, (2) brief 8-12 baris (tujuan, state, elemen yang sengaja tidak ada, angka geometri), (3) butir DNA yang diawasi (MD-06/07/11/12 untuk daftar & sheet, MD-13 untuk back/overlay)",
+      "sumber anatomi wajib dibaca dari kode/prototipe (path:line), BUKAN dari ringkasan percakapan, nama file, atau memori bingkai lama",
+      "tanpa preflight, menggambar = menebak; kejadian 2026-11-07 bingkai `Pesanan / 1` digambar dari ringkasan lalu harus dibangun ulang",
+      "cara pakai: npm run design:preflight -- --frame \"<nama>\" -> isi docs/design/preflight/<slug>.md -> npm run design:preflight -- --approve --frame \"<nama>\"",
+      "enforcement mekanis: plugin plugins2/design-preflight (sumber scripts/opencode/design-preflight/index.ts) menolak tool figcraft yang mengubah dokumen (create/set/batch/delete/duplicate/reparent/save_file) bila .design-preflight.json tidak ada/kedaluwarsa (12 jam); tool baca-saja tetap boleh",
+      "gerak wajib diputuskan di bagian 6 checklist sebelum menggambar: peta interaksi + transisi (push 320 / dissolve 220 / overlay 200 / tab instant), daftar yang sengaja TIDAK dianimasikan (tab replace MD-13, angka stepper, chip), larangan animasi dekoratif (loop/parallax/auto-play, layar > 400 ms), prefers-reduced-motion; --approve dan plugin menolak checklist tanpa itu"
+    ],
+    "postflight": [
+      "sebelum kata selesai: get_node untuk angka (bukan hanya lihat PNG), senior-fe Delivery Gate (HG/PG/QL/MD), lalu npm run figcraft:audit",
+      "gate FigCraft tidak menggantikan review rasa: ia mengukur invarian (44px, token, kontras, luberan), bukan kepadatan/hierarki",
+      "laporan menyebut baris temuan ID atau eksplisit 'tidak ada temuan HG/PG/MD'"
+    ]
   },
   "designGate": {
     "command": "npm run scan",
@@ -410,6 +423,7 @@
     "enforce": "pre-commit (FigCraft audit), hanya kalau ada design/*.figcraft",
     "measures": "luberan keluar kotak induk, hotspot <44px, dest menggantung, tombol tanpa aksi, warna di luar token, radius di luar skala, kombinasi huruf >8, jarak tepi bukan 20/350, bingkai tanpa jalan masuk (varian seasal dikecualikan), kontras teks (opasitas ikut dikompositkan)",
     "rule": "Aturan FR-01..FR-36 wajib diikuti saat mengedit file FigCraft. Ratchet: baseline hanya boleh turun; pelanggaran baru = commit gagal. `--update-baseline` menolak kenaikan kecuali --force.",
-    "status": "2026-11-07: PASS, 0 temuan; baseline kosong"
+    "status": "2026-11-07: PASS, 0 temuan; baseline kosong",
+    "preflight": "Setiap bingkai baru/diubah: preflight disetujui (npm run design:preflight -- --approve) SEBELUM tool FigCraft mengubah dokumen; plugin plugins2/design-preflight menolak mutasi tanpa persetujuan. Isi: sumber anatomi path:line, brief berangka, DNA (MD-xx), anti-slop, verifikasi. Detail: docs/design/figcraft-rules.md 11a (PRE-01..PRE-05)."
   }
 }

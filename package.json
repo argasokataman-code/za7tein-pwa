@@ -17,6 +17,7 @@
     "figcraft:audit": "node scripts/figcraft-audit.mjs",
     "figcraft:audit:baseline": "node scripts/figcraft-audit.mjs --update-baseline",
     "figcraft:audit:test": "node scripts/figcraft-audit-check.mjs",
+    "design:preflight": "node scripts/design-preflight.mjs",
     "check:db-time": "node scripts/db-time-check.mjs",
     "check:be-mappers": "node --import ./scripts/lib/ts-resolve.mjs scripts/be-mappers-check.mjs",
     "check:self": "node scripts/check-self.mjs",
