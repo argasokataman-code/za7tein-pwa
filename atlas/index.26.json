@@ -2702,6 +2702,28 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "BUG-102100",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:38:24",
+      "tags": [
+        "batch",
+        "be",
+        "orphan"
+      ],
+      "summary": "Accept order tidak menulis orders.batch_id; PATCH D1 paralel saling menimpa sehingga batch_id hilang",
+      "conn": [
+        {
+          "id": "DEC-88101",
+          "type": "relates",
+          "raw": "DEC-88101:relates"
+        }
+      ],
+      "loc": "src/api/batches.ts:135",
+      "commit": "112fa02"
     }
   ]
 }
