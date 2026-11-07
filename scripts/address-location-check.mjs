@@ -5,6 +5,7 @@ import assert from 'node:assert/strict'
 import {
   NEAREST_ADDRESS_METERS,
   nearestSavedAddress,
+  prefillApartment,
 } from '../src/data/addressLocation.ts'
 
 /** Titik acuan; jarak diukur geodesik, bukan selisih derajat mentah. */
@@ -34,5 +35,28 @@ assert.ok((far?.meters ?? 0) > NEAREST_ADDRESS_METERS)
 // 0,001 derajat lintang ≈ 111 m, masih di dalam ambang 200 m.
 const oneStep = nearestSavedAddress(here, [home])
 assert.ok((oneStep?.meters ?? 0) > 40 && (oneStep?.meters ?? 0) < 80)
+
+// Isi otomatis hanya menyentuh field kosong.
+const nearDetail = {
+  building: 'Green View Tower A',
+  floor: 'Lt 12',
+  unit: 'Unit 1208',
+  notes: 'Titip resepsionis',
+}
+const empty = { building: '', floor: '', unit: '', notes: '' }
+assert.deepEqual(prefillApartment(nearDetail, empty), nearDetail)
+
+// Ketikan customer tidak ditimpa.
+const typed = { building: 'Menara B', floor: '', unit: 'Unit 9', notes: 'Lift kode 7' }
+assert.deepEqual(prefillApartment(nearDetail, typed), {
+  floor: 'Lt 12',
+})
+assert.equal(prefillApartment(nearDetail, typed).building, undefined)
+
+// Alamat terdekat tanpa catatan tidak mengisi field catatan.
+assert.deepEqual(prefillApartment({ ...nearDetail, notes: null }, { ...empty, building: 'X' }), {
+  floor: 'Lt 12',
+  unit: 'Unit 1208',
+})
 
 console.log('address-location-check: OK')

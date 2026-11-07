@@ -34,3 +34,34 @@ export function nearestSavedAddress(
   }
   return best
 }
+
+/** Detail alamat yang bisa diisi dari alamat tersimpan terdekat. */
+export interface ApartmentDetail {
+  building: string
+  floor: string
+  unit: string
+  notes?: string | null
+}
+
+export type ApartmentPatch = Partial<Pick<ApartmentDetail, 'building' | 'floor' | 'unit' | 'notes'>>
+
+/**
+ * Isi field form yang masih kosong dari alamat tersimpan terdekat.
+ *
+ * Hanya field kosong yang diisi, jadi membuka form lewat "Pakai lokasi saat
+ * ini" tidak pernah menimpa ketikan customer. Unit ikut diisi karena GPS di
+ * dalam 200 m hampir selalu berarti gedung yang sama, tetapi pemanggil wajib
+ * memberi tahu bahwa lantai/unit perlu diperiksa — data tetangga bisa saja
+ * yang terambil.
+ *
+ * Backend belum punya reverse geocoding, jadi ini satu-satunya "isi otomatis"
+ * yang jujur: detail milik customer sendiri, bukan alamat jalan baru.
+ */
+export function prefillApartment(near: ApartmentDetail, current: ApartmentDetail): ApartmentPatch {
+  const patch: ApartmentPatch = {}
+  if (!current.building.trim() && near.building.trim()) patch.building = near.building
+  if (!current.floor.trim() && near.floor.trim()) patch.floor = near.floor
+  if (!current.unit.trim() && near.unit.trim()) patch.unit = near.unit
+  if (!(current.notes ?? '').trim() && (near.notes ?? '').trim()) patch.notes = near.notes ?? undefined
+  return patch
+}

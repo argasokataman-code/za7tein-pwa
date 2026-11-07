@@ -5256,6 +5256,253 @@
         }
       ],
       "loc": "src/pages/AddressSelection.tsx"
+    },
+    {
+      "id": "TASK-214002",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:37:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/addressLocation.ts (+42/-11) — edit via tool: ts: export function nearestSavedAddr",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/addressLocation.ts"
+    },
+    {
+      "id": "TASK-214003",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:37:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddressSelection.tsx (+1/-1) — edit via tool: tsx: import { NEAREST_ADDRESS_METER",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddressSelection.tsx"
+    },
+    {
+      "id": "TASK-214004",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:37:49",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/address-location-check.mjs (+5/-4) — edit via tool: import {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/address-location-check.mjs"
+    },
+    {
+      "id": "TASK-214005",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:38:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && node --import ./scripts/lib/ts-resolve.mjs scripts/address-location-check.mjs; npm ru",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214006",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:38:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/address-location-check.mjs (+3/-4) — edit via tool: assert.deepEqual(prefillApartme",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/address-location-check.mjs"
+    },
+    {
+      "id": "TASK-214007",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:38:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddressSelection.tsx (+3/-3) — edit via tool: tsx: for (const [key, value] of Obj",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddressSelection.tsx"
+    },
+    {
+      "id": "TASK-214008",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:39:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: Di daft",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-214009",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:39:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+9/-5) — edit via tool: tsx: <code className=\"doc-inline\">src/",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214010",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:39:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f20-address-zone/README.md (+1/-1) — edit via tool: Geolokasi di daftar a",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f20-address-zone/README.md"
+    },
+    {
+      "id": "TASK-214011",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:39:40",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddressSelection.tsx (+15/-11) — edit via tool: tsx: <div className=\"address-sele",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/AddressSelection.tsx"
+    },
+    {
+      "id": "TASK-214012",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:40:00",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | rtk grep -E \"error TS|built in\"; npm run lint 2>&1 | grep -E \" e",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214013",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:40:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: Tombol ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-214014",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:40:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+2/-1) — edit via tool: tsx: punya tombol <em>Pakai lokasi saa",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

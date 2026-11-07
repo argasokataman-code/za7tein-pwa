@@ -17,7 +17,7 @@ import {
   updateCustomerAddress,
 } from '../api/profile'
 import { apartmentSchema, type ApartmentFormData } from '../lib/schemas'
-import { NEAREST_ADDRESS_METERS, nearestSavedAddress } from '../data/addressLocation'
+import { NEAREST_ADDRESS_METERS, nearestSavedAddress, prefillApartment } from '../data/addressLocation'
 import { DEFAULT_NEW_ADDRESS_PIN, formatDistance } from '../data/merchant'
 import { MERCHANT_KITCHEN, resolveCoverage } from '../data/zones'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -67,6 +67,8 @@ export default function AddressSelection() {
     register,
     handleSubmit,
     reset,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm<ApartmentFormData>({ resolver: zodResolver(apartmentSchema) })
 
@@ -93,16 +95,16 @@ export default function AddressSelection() {
   const pinQuote = quoteFor(pin)
   const pinDeliverable = pinQuote.covered
 
-  const openAdd = (at?: { lat: number; lng: number }) => {
+  const openAdd = (at?: { lat: number; lng: number }, seed?: Address) => {
     setEditingId(null)
     const nextPin = at ?? { lat: DEFAULT_NEW_ADDRESS_PIN.lat, lng: DEFAULT_NEW_ADDRESS_PIN.lng }
     setPin(nextPin)
     setFocus(at ?? null)
     reset({
-      building: '',
-      floor: '',
-      unit: '',
-      notes: '',
+      building: seed?.building ?? '',
+      floor: seed?.floor ?? '',
+      unit: seed?.unit ?? '',
+      notes: seed?.notes ?? '',
       isDefault: !addresses.some((a) => a.isDefault),
     })
     setShowForm(true)
@@ -137,9 +139,34 @@ export default function AddressSelection() {
   }
 
   /**
+   * Isi otomatis field gedung/lantai/unit dari alamat tersimpan terdekat.
+   * Hanya field yang masih kosong, jadi tidak menimpa ketikan customer.
+   * Mengembalikan `null` bila tak ada alamat dalam 200 m.
+   */
+  const fillDetailsFromNearby = (at: { lat: number; lng: number }) => {
+    const near = nearestSavedAddress(at, addresses)
+    if (!near || near.meters > NEAREST_ADDRESS_METERS) return null
+    const current = getValues()
+    const patch = prefillApartment(
+      near.address,
+      {
+        building: current.building ?? '',
+        floor: current.floor ?? '',
+        unit: current.unit ?? '',
+        notes: current.notes ?? '',
+      },
+    )
+    for (const [key, value] of Object.entries(patch)) {
+      if (typeof value === 'string') setValue(key as keyof ApartmentFormData, value)
+    }
+    return { address: near.address, filled: Object.keys(patch).length }
+  }
+
+  /**
    * Dari daftar alamat: kalau posisi sekarang dekat alamat yang sudah disimpan,
-   * alamat itu langsung dipakai. Kalau tidak, form baru dibuka dengan pin di
-   * titik GPS supaya customer tinggal melengkapi gedung/lantai/unit.
+   * alamat itu langsung dipakai. Kalau tidak (atau alamat itu di luar
+   * jangkauan), form baru dibuka di titik GPS dengan detail gedung/lantai/unit
+   * dari alamat terdekat bila ada, supaya customer tidak mengetik ulang.
    *
    * Ini bukan reverse geocoding: Worker belum punya layanan koordinat → teks
    * alamat, jadi yang dideteksi adalah alamat tersimpan, bukan jalan baru.
@@ -147,21 +174,24 @@ export default function AddressSelection() {
   const locateFromList = () =>
     withCurrentLocation((lat, lng) => {
       const near = nearestSavedAddress({ lat, lng }, addresses)
-      if (near && near.meters <= NEAREST_ADDRESS_METERS) {
-        const quote = quoteFor(near.address)
+      const close = near && near.meters <= NEAREST_ADDRESS_METERS ? near.address : null
+      if (close) {
+        const quote = quoteFor(close)
         if (quote.covered) {
-          dispatch(setAddress(near.address.id))
+          dispatch(setAddress(close.id))
           toast.success(
-            `Alamat terdekat dipakai: ${near.address.name} (${formatDistance(Math.round(near.meters))})`,
+            `Alamat terdekat dipakai: ${close.name} (${formatDistance(Math.round(near?.meters ?? 0))})`,
           )
           return
         }
       }
-      openAdd({ lat, lng })
-      if (quoteFor({ lat, lng }).covered) {
-        toast.success('Lokasi ditemukan. Lengkapi detail alamat.')
-      } else {
+      openAdd({ lat, lng }, close ?? undefined)
+      if (!quoteFor({ lat, lng }).covered) {
         toast.error('Lokasi di luar jangkauan toko. Geser pin atau pilih alamat lain.')
+      } else if (close) {
+        toast.success(`Detail alamat ${close.name} diisi. Periksa lantai dan unit.`)
+      } else {
+        toast.success('Lokasi ditemukan. Lengkapi detail alamat.')
       }
     })
 
@@ -269,16 +299,20 @@ export default function AddressSelection() {
               </h1>
             </header>
             <div className="address-selection-content">
-              <button
-                type="button"
-                className="addr-locate"
-                onClick={locateFromList}
-                disabled={locating}
-                aria-busy={locating}
-              >
-                <LocateFixed size={18} strokeWidth={1.75} aria-hidden="true" />
-                <span>{locating ? 'Mencari lokasi...' : 'Pakai lokasi saat ini'}</span>
-              </button>
+              {/* Form sudah punya tombolnya sendiri; dua tombol identik terlihat
+                  sekaligus saat form terbuka. Tampilkan satu per waktu. */}
+              {!showForm ? (
+                <button
+                  type="button"
+                  className="addr-locate"
+                  onClick={locateFromList}
+                  disabled={locating}
+                  aria-busy={locating}
+                >
+                  <LocateFixed size={18} strokeWidth={1.75} aria-hidden="true" />
+                  <span>{locating ? 'Mencari lokasi...' : 'Pakai lokasi saat ini'}</span>
+                </button>
+              ) : null}
               {addresses.length === 0 ? (
                 <p className="address-empty">
                   Belum ada alamat pengantaran. Tambah satu untuk bisa lanjut checkout.
@@ -359,7 +393,18 @@ export default function AddressSelection() {
                   <button
                     type="button"
                     className="addr-locate"
-                    onClick={() => withCurrentLocation(() => toast.success('Lokasi saat ini dipakai'))}
+                    onClick={() =>
+                      withCurrentLocation((lat, lng) => {
+                        const filled = fillDetailsFromNearby({ lat, lng })
+                        if (filled && filled.filled > 0) {
+                          toast.success(
+                            `Detail dari alamat ${filled.address.name} diisi. Periksa lantai dan unit.`,
+                          )
+                        } else {
+                          toast.success('Lokasi saat ini dipakai')
+                        }
+                      })
+                    }
                     disabled={locating}
                     aria-busy={locating}
                   >

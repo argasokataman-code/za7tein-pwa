@@ -1185,7 +1185,8 @@ export default function Documentation() {
                 <strong>Alamat customer bisa diambil dari lokasi perangkat.</strong> Form alamat
                 dulu hanya menerima pin yang digeser di peta, jadi customer harus mencari
                 sendiri titiknya. Sekarang <code className="doc-inline">AddressSelection</code>{' '}
-                punya tombol <em>Pakai lokasi saat ini</em> di daftar alamat dan di form:
+                punya tombol <em>Pakai lokasi saat ini</em> di daftar alamat atau di form (satu
+                per waktu, tidak dobel):
                 satu kali ambil (bukan <code className="doc-inline">watchPosition</code>) lewat{' '}
                 <code className="doc-inline">navigator.geolocation.getCurrentPosition</code>,
                 lalu pin peta pindah dan coverage dihitung ulang. Di daftar alamat, GPS memilih{' '}
@@ -1194,7 +1195,11 @@ export default function Documentation() {
                 <code className="doc-inline">NEAREST_ADDRESS_METERS</code> di{' '}
                 <code className="doc-inline">src/data/addressLocation.ts</code>, aturan murni
                 ditahan <code className="doc-inline">scripts/address-location-check.mjs</code>);
-                kalau tidak ada yang dekat, form baru dibuka dengan pin di titik GPS. Ini bukan
+                kalau tidak ada yang dekat, form baru dibuka dengan pin di titik GPS. Field
+                gedung/lantai/unit/catatan yang masih kosong diisi dari alamat tersimpan
+                terdekat lewat <code className="doc-inline">prefillApartment()</code> (field yang
+                sudah diketik tidak ditimpa), dan pesan menyebut nama alamat sumbernya supaya
+                lantai/unit diperiksa. Ini bukan
                 reverse geocoding: Worker belum punya layanan koordinat &rarr; teks alamat, jadi
                 yang dideteksi adalah alamat milik customer sendiri. Jarak &ldquo;dari toko&rdquo;
                 di form kini memakai <code className="doc-inline">coverage.origin</code> yang sama
