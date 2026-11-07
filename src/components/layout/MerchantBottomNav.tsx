@@ -3,11 +3,11 @@ import { Bike, BookOpenText, ClipboardList, LayoutDashboard, Settings } from 'lu
 import { useAppSelector } from '../../hooks/useAppStore'
 import { BottomNav } from './BottomNav'
 import type { BottomNavItem } from './BottomNav'
-import { countByTab } from '../../data/merchantOrders'
+import { inboxCount } from '../../data/merchantOrders'
 
 export function MerchantBottomNav() {
   const orders = useAppSelector((s) => s.merchant.orders)
-  const incoming = countByTab(orders, 'masuk')
+  const incoming = inboxCount(orders)
 
   const items: BottomNavItem[] = [
     { to: '/', label: 'Beranda', Icon: LayoutDashboard, end: true },

@@ -385,11 +385,9 @@ export default function MerchantDashboard() {
                 centerLabel="order"
               />            <ul className="chart-legend">
                 {orderMix.map((segment) => {
-                  // Hanya potongan yang punya tab persis yang bisa ditekan.
-                  // "Diantar" subset dari tab `diproses` (diterima/dimasak/diantar/
-                  // tiba), jadi tautan ke sana akan mendarat di daftar yang lebih
-                  // luas dari labelnya — lebih menyesatkan daripada tidak ada
-                  // tautan sama sekali.
+                  // Setiap potongan donut punya tab dengan himpunan status yang
+                  // persis sama (`orderMixSegments`), jadi tautannya mendarat di
+                  // daftar yang panjangnya = angka di legenda.
                   const isi = (
                     <>
                       <span className={`chart-legend-dot chart-tone-bg--${segment.tone}`} />

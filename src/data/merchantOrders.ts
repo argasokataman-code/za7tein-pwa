@@ -85,19 +85,51 @@ export function deliveryBadge(
 /** Estimasi masak default saat order diterima (menit). */
 export const DEFAULT_COOK_MINUTES = 25
 
-/** Tab antrean merchant — satu sumber untuk label dan status anggotanya. */
+/**
+ * Tab antrean merchant — satu sumber untuk label dan status anggotanya.
+ *
+ * Antrean = order yang menunggu keputusan merchant (`baru`, Terima/Tolak).
+ * Order yang sudah diterima bukan lagi "antrean": permukaan kerjanya "Batch
+ * dapur", tempat ia masuk batch, dipacking, dan ditugaskan ke kurir. Riwayat =
+ * order tuntas/ditolak/batal, keluar dari daftar kerja.
+ */
 export const QUEUE_TABS = [
-  { id: 'masuk', label: 'Antrean', statuses: ['baru'] },
-  // Proses dapur dipecah per tahap yang merchant kendalikan, bukan satu tab
-  // "Diproses" yang mencampur disiapkan, siap, dan diantar.
-  { id: 'disiapkan', label: 'Disiapkan', statuses: ['diterima', 'disiapkan'] },
-  { id: 'siap', label: 'Siap', statuses: ['siap'] },
-  { id: 'diantar', label: 'Diantar', statuses: ['diantar', 'tiba'] },
-  { id: 'selesai', label: 'Selesai', statuses: ['selesai'] },
-  { id: 'batal', label: 'Batal', statuses: ['ditolak', 'batal'] },
+  { id: 'antrean', label: 'Antrean', statuses: ['baru'] },
+  { id: 'riwayat', label: 'Riwayat', statuses: ['selesai', 'ditolak', 'batal'] },
 ] as const
 
 export type QueueTabId = (typeof QUEUE_TABS)[number]['id']
+
+/**
+ * Order yang sudah diterima dan masih berjalan. Tidak punya tab sendiri:
+ * permukaan kerjanya "Batch dapur" (`/merchant/orders?view=batch`), dan yang
+ * belum punya batch tampil di grup "Belum masuk batch" pada tampilan itu
+ * (Quick tidak pernah masuk batch, BR-B01).
+ */
+export const ACTIVE_ORDER_STATUSES = ['diterima', 'disiapkan', 'siap', 'diantar', 'tiba'] as const
+
+/**
+ * Id tab lama yang masih bisa datang dari tautan tersimpan (`?tab=siap`,
+ * `?tab=batal`, `?tab=masuk`) atau potongan donut dashboard versi sebelumnya.
+ * Dipetakan ke tab yang sekarang memuat statusnya, bukan diabaikan — tautan
+ * lama tidak boleh mendarat di tab pertama yang kebetulan kosong.
+ */
+const QUEUE_TAB_ALIAS: Record<string, QueueTabId> = {
+  masuk: 'antrean',
+  disiapkan: 'antrean',
+  siap: 'antrean',
+  diproses: 'antrean',
+  diantar: 'antrean',
+  selesai: 'riwayat',
+  batal: 'riwayat',
+}
+
+/** Tab tujuan dari nilai `?tab=`; nilai tak dikenal jatuh ke tab pertama. */
+export function queueTabFromParam(value: string | null): QueueTabId {
+  if (value && QUEUE_TABS.some((tab) => tab.id === value)) return value as QueueTabId
+  if (value && QUEUE_TAB_ALIAS[value]) return QUEUE_TAB_ALIAS[value]
+  return 'antrean'
+}
 
 export const ORDER_STATUS_LABEL: Record<MerchantOrderStatus, string> = {
   baru: 'Baru',
@@ -299,6 +331,15 @@ export function countByTab(orders: MerchantOrder[], tabId: QueueTabId): number {
   const tab = QUEUE_TABS.find((t) => t.id === tabId)
   if (!tab) return 0
   return ordersForStatuses(orders, tab.statuses).length
+}
+
+/**
+ * Badge nav "Order": yang perlu keputusan merchant (`baru`), bukan seluruh isi
+ * tab Antrean. Tab Antrean juga memuat order yang sudah diterima, jadi memakai
+ * `countByTab` akan menampilkan 23 padahal yang menunggu hanya 0.
+ */
+export function inboxCount(orders: MerchantOrder[]): number {
+  return ordersForStatuses(orders, ['baru']).length
 }
 
 /** Umur order dalam menit, atau `null` kalau waktunya tak tersedia. */

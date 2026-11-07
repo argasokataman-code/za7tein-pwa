@@ -277,20 +277,25 @@ export function revenueSeries(
 }
 
 /**
- * Komposisi status order untuk donut. Satu potongan per tab antrean merchant
- * (Antrean/Disiapkan/Siap/Diantar/Selesai/Batal) supaya tiap potongan bisa
- * ditekan dan mendarat di daftar yang isinya persis sama.
+ * Komposisi status order untuk donut. Potongan mengikuti tahap kerja (Baru,
+ * Diproses, Diantar, Riwayat), tetapi hanya potongan yang himpunan statusnya
+ * persis sama dengan sebuah tab antrean yang diberi `tab` — Riwayat. Tiga
+ * tahap lain bagian dari tab Antrean, jadi menautkannya akan mendarat di
+ * daftar yang lebih luas dari labelnya.
  */
 export function orderMixSegments(orders: MerchantOrder[] = merchantOrders): ChartSegment[] {
   const count = (statuses: string[]) =>
     orders.filter((order) => statuses.includes(order.status)).length
   const segments: ChartSegment[] = [
-    { label: 'Baru', value: count(['baru']), tone: 'warning', tab: 'masuk' },
-    { label: 'Disiapkan', value: count(['diterima', 'disiapkan']), tone: 'brand', tab: 'disiapkan' },
-    { label: 'Siap', value: count(['siap']), tone: 'brand', tab: 'siap' },
-    { label: 'Diantar', value: count(['diantar', 'tiba']), tone: 'success', tab: 'diantar' },
-    { label: 'Selesai', value: count(['selesai']), tone: 'muted', tab: 'selesai' },
-    { label: 'Batal/tolak', value: count(['ditolak', 'batal']), tone: 'danger', tab: 'batal' },
+    { label: 'Baru', value: count(['baru']), tone: 'warning' },
+    { label: 'Diproses', value: count(['diterima', 'disiapkan', 'siap']), tone: 'brand' },
+    { label: 'Diantar', value: count(['diantar', 'tiba']), tone: 'success' },
+    {
+      label: 'Riwayat',
+      value: count(['selesai', 'ditolak', 'batal']),
+      tone: 'muted',
+      tab: 'riwayat',
+    },
   ]
   return segments.filter((segment) => segment.value > 0)
 }

@@ -17,6 +17,17 @@ interface MerchantEarningsProps {
 export function MerchantEarnings({ order }: MerchantEarningsProps) {
   const cancelled = order.status === 'batal'
   const isCod = order.paymentMethod === 'cod'
+  // Order lama di BE bisa punya `total_jod` tanpa satu baris `order_items`.
+  // `merchantInvoice([])` lalu menghasilkan subtotal 0,00 dan "Bersih 0,00",
+  // padahal total pesanannya bukan nol: angka itu salah, bukan kosong. Lebih
+  // jujur menyebut rinciannya tidak tersedia daripada menampilkan nol.
+  if (!cancelled && order.items.length === 0) {
+    return (
+      <p className="merchant-card-sub">
+        Rincian pendapatan tidak tersedia untuk pesanan ini.
+      </p>
+    )
+  }
   const invoice = merchantInvoice(order.items, { paymentMethod: order.paymentMethod })
   const rows = cancelled ? [] : invoice.rows
   const total = {

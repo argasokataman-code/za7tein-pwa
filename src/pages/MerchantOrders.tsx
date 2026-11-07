@@ -12,7 +12,8 @@ import { MerchantBottomNav } from '../components/layout/MerchantBottomNav'
 import { MerchantPageHeader } from '../components/merchant/MerchantPageHeader'
 import { AcceptOrderSheet, type AcceptChoice } from '../components/merchant/AcceptOrderSheet'
 import { BatchPanel } from '../components/merchant/BatchPanel'
-import { MerchantOrderTicket } from '../components/merchant/MerchantOrderTicket'
+import { MerchantOrderItems } from '../components/merchant/MerchantOrderItems'
+import { MerchantTicketList } from '../components/merchant/MerchantTicketList'
 import { JourneyLine } from '../components/JourneyLine'
 import { MerchantCourierMap } from '../components/merchant/MerchantCourierMap'
 import { OrderChatLink } from '../components/merchant/OrderChatLink'
@@ -31,12 +32,14 @@ import { useMoney } from '../hooks/useMoney'
 import { BATCH_COUNTDOWN_SECONDS, nextBatchId } from '../data/batch'
 import { formatDistance } from '../data/merchant'
 import {
+  ACTIVE_ORDER_STATUSES,
   DELIVERY_TYPE_LABEL,
   QUEUE_TABS,
   orderDeliveryType,
   orderStatusLabel,
   ordersForStatuses,
   paymentGate,
+  queueTabFromParam,
   type QueueTabId,
 } from '../data/merchantOrders'
 import { addBatch, addOrderToBatch } from '../store/slices/batchSlice'
@@ -75,12 +78,8 @@ const JOURNEY_STAGE: Partial<Record<MerchantOrderStatus, OrderStage>> = {
 /* Empty state per tab memberi konteks, bukan sekadar "kosong": merchant tahu
    kenapa tab ini belum berisi dan apa yang akan muncul. */
 const EMPTY_HINT: Record<QueueTabId, string> = {
-  masuk: 'Order baru muncul di sini begitu pelanggan memesan.',
-  disiapkan: 'Order yang sudah kamu terima dan sedang dimasak ada di sini.',
-  siap: 'Order yang selesai dimasak dan menunggu kurir ada di sini.',
-  diantar: 'Order yang sedang dibawa kurir ke pelanggan ada di sini.',
-  selesai: 'Order yang tuntas akan tersimpan di sini.',
-  batal: 'Order yang ditolak atau dibatalkan tampil di sini.',
+  antrean: 'Order baru muncul di sini begitu pelanggan memesan.',
+  riwayat: 'Order yang tuntas, ditolak, atau dibatalkan tersimpan di sini.',
 }
 
 /** Gerbang konfirmasi merchant (f18) ada di `data/merchantOrders.ts`. */
@@ -104,14 +103,11 @@ export default function MerchantOrders() {
   const partners = useAppSelector((s) => s.partner.partners)
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
-  /* Tab awal bisa datang dari tautan (?tab=batal), dipakai legenda donut di
-     dashboard: potongan "Batal/tolak 1 order" harus mendarat di daftar yang
-     benar-benar berisi order batal, bukan di tab pertama. Nilai yang tidak
-     dikenal jatuh ke tab pertama supaya tautan lama tidak membuat layar kosong. */
-  const [tab, setTab] = useState<QueueTabId>(() => {
-    const dariTautan = params.get('tab')
-    return QUEUE_TABS.some((t) => t.id === dariTautan) ? (dariTautan as QueueTabId) : 'masuk'
-  })
+  /* Tab awal bisa datang dari tautan (`?tab=diantar`), dipakai legenda donut
+     di dashboard. Id tab lama (`?tab=siap`, `?tab=batal`) masih dipetakan
+     lewat `queueTabFromParam` supaya tautan tersimpan tidak mendarat di tab
+     pertama yang kebetulan kosong. */
+  const [tab, setTab] = useState<QueueTabId>(() => queueTabFromParam(params.get('tab')))
   const [view, setView] = useState<'queue' | 'batch'>(() =>
     params.get('view') === 'batch' ? 'batch' : 'queue',
   )
@@ -307,6 +303,14 @@ export default function MerchantOrders() {
 
   const queueCount = ordersForStatuses(orders, ['baru']).length
   const readyCount = orders.filter((order) => order.status === 'siap').length
+  /* Order berjalan yang belum tercatat di batch mana pun: Quick (BR-B01: tidak
+     pernah masuk batch) dan Regular yang batch-nya belum dibuat (`ensureBatch`
+     baru jalan saat packing selesai). Tanpa grup ini mereka tak punya
+     permukaan setelah keluar dari Antrean. */
+  const batchedIds = new Set(batches.flatMap((batch) => batch.orderIds))
+  const unbatched = ordersForStatuses(orders, ACTIVE_ORDER_STATUSES).filter(
+    (order) => !order.batchId && !batchedIds.has(order.id),
+  )
   const needCourier = batches.filter(
     (batch) =>
       !batch.courierId &&
@@ -392,31 +396,52 @@ export default function MerchantOrders() {
                 <p className="merchant-ticket-empty-sub">{EMPTY_HINT[activeTab.id]}</p>
               </div>
             ) : (
-              visible.map((order) => (
-                <MerchantOrderTicket
-                  key={order.id}
-                  order={order}
-                  moneyPlain={moneyPlain}
-                  readyHint={readyHint(order)}
-                  onOpen={() => setDetailId(order.id)}
-                  onAccept={() => setAcceptId(order.id)}
-                  onReject={() => setRejectId(order.id)}
-                  onPacked={() => togglePacked(order)}
-                  onDispatch={() => setDispatchId(order.id)}
-                  onOpenBatch={() => {
-                    void openBatch(order)
-                  }}
-                />
-              ))
+              <MerchantTicketList
+                orders={visible}
+                moneyPlain={moneyPlain}
+                readyHint={readyHint}
+                onOpen={(order) => setDetailId(order.id)}
+                onAccept={(order) => setAcceptId(order.id)}
+                onReject={(order) => setRejectId(order.id)}
+                onPacked={togglePacked}
+                onDispatch={(order) => setDispatchId(order.id)}
+                onOpenBatch={(order) => {
+                  void openBatch(order)
+                }}
+              />
             )}
           </>
         ) : (
-          <BatchPanel
-            batches={batches}
-            orders={orders}
-            couriers={couriers}
-            onOpen={(batchId) => navigate(`/batches/${batchId}`)}
-          />
+          <>
+            {unbatched.length > 0 ? (
+              <section className="merchant-section" aria-label="Order belum masuk batch">
+                <div className="merchant-section-head">
+                  <h2>Belum masuk batch</h2>
+                </div>
+                <p className="merchant-card-sub">
+                  Order berjalan yang belum punya batch. Order Quick memang tidak memakai batch.
+                </p>
+                <MerchantTicketList
+                  orders={unbatched}
+                  moneyPlain={moneyPlain}
+                  readyHint={readyHint}
+                  onOpen={(order) => setDetailId(order.id)}
+                  onAccept={(order) => setAcceptId(order.id)}
+                  onReject={(order) => setRejectId(order.id)}
+                  onPacked={togglePacked}
+                  onDispatch={(order) => setDispatchId(order.id)}
+                  onOpenBatch={(order) => {
+                    void openBatch(order)
+                  }}
+                />              </section>
+            ) : null}
+            <BatchPanel
+              batches={batches}
+              orders={orders}
+              couriers={couriers}
+              onOpen={(batchId) => navigate(`/batches/${batchId}`)}
+            />
+          </>
         )}
       </main>
 
@@ -481,16 +506,7 @@ export default function MerchantOrders() {
               <MerchantCourierMap orderId={detailOrder.id} stage={detailOrder.status} />
             ) : null}
 
-            <ul className="merchant-order-items">
-              {detailOrder.items.map((item) => (
-                <li key={item.id}>
-                  <span>
-                    {item.quantity}× {item.name}
-                  </span>
-                  <span>{money(item.price * item.quantity)}</span>
-                </li>
-              ))}
-            </ul>
+            <MerchantOrderItems order={detailOrder} money={money} />
 
             <p className="merchant-order-meta">
               {detailOrder.address} · {formatDistance(detailOrder.distanceMeters)} ·{' '}

@@ -4,7 +4,7 @@
 import assert from 'node:assert/strict'
 
 import { menuSalesRanking, topMenuShare } from '../src/data/merchantTrend.ts'
-import { QUEUE_TABS, isOrderToday } from '../src/data/merchantOrders.ts'
+import { ACTIVE_ORDER_STATUSES, QUEUE_TABS, isOrderToday, queueTabFromParam } from '../src/data/merchantOrders.ts'
 
 const item = (menuId, name, quantity, price) => ({
   id: `api-line-${Math.random().toString(36).slice(2, 8)}`,
@@ -77,10 +77,31 @@ assert.equal(
 )
 assert.equal(isOrderToday({}, siang), true, 'seed tanpa tanggal tetap terhitung')
 
-// Tab antrean memecah proses dapur: Disiapkan, Siap, Diantar (bukan satu tab).
+// Tab antrean: Antrean (menunggu keputusan) + Riwayat; order berjalan hidup di
+// "Batch dapur". Setiap status order harus tercakup TEPAT satu permukaan —
+// tab, atau grup "Belum masuk batch" — kalau tidak ada order yang tak bisa
+// dijangkau dari layar antrean.
 assert.deepEqual(
-  QUEUE_TABS.filter((t) => ['disiapkan', 'siap', 'diantar'].includes(t.id)).map((t) => t.label),
-  ['Disiapkan', 'Siap', 'Diantar'],
+  QUEUE_TABS.map((t) => t.label),
+  ['Antrean', 'Riwayat'],
 )
+assert.deepEqual([...QUEUE_TABS[0].statuses], ['baru'], 'Antrean = order yang menunggu keputusan')
+const covered = [...QUEUE_TABS.flatMap((t) => t.statuses), ...ACTIVE_ORDER_STATUSES]
+assert.equal(new Set(covered).size, covered.length, 'tidak ada status di dua permukaan')
+assert.deepEqual(
+  [...covered].sort(),
+  ['baru', 'diterima', 'disiapkan', 'siap', 'diantar', 'tiba', 'selesai', 'ditolak', 'batal'].sort(),
+  'semua status merchant tercakup satu permukaan',
+)
+
+// Tautan tab lama (`?tab=siap`, `?tab=batal`, `?tab=masuk`) tetap mendarat di
+// tab yang memuat statusnya, bukan di tab pertama.
+assert.equal(queueTabFromParam('masuk'), 'antrean')
+assert.equal(queueTabFromParam('siap'), 'antrean')
+assert.equal(queueTabFromParam('diproses'), 'antrean')
+assert.equal(queueTabFromParam('diantar'), 'antrean')
+assert.equal(queueTabFromParam('batal'), 'riwayat')
+assert.equal(queueTabFromParam('antrean'), 'antrean')
+assert.equal(queueTabFromParam('ngawur'), 'antrean')
 
 console.log('merchant-rank-check: OK')

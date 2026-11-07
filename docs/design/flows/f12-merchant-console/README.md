@@ -12,6 +12,8 @@ Workflow sisi merchant: toggle toko, antrean order, terima/tolak, kurir sendiri.
 
 **Lane Toko & Antrean:** Buka/Tutup (`isActive`, state tampilan) → Antrean order (kode · total · zona ≤2 km) → Terima/Tolak (`MerchantOrderStatus`) → Estimasi masak (timer **15/25/35 m** — source.md; catatan: `plan-merchant.md` FE memakai slider 15–30, **PRD aktif menang**) → Siap diambil (2-way confirm).
 
+**Permukaan antrean (FE, 2 tab):** `Antrean` = hanya order `baru` (kotak Terima/Tolak); `Riwayat` = `selesai`/`ditolak`/`batal`. Order yang sudah diterima pindah ke permukaan kerjanya, `Batch dapur` (`/merchant/orders?view=batch`): batch `orders.batch_id`, packing, dan penugasan kurir. Order berjalan yang belum punya batch tampil di grup **Belum masuk batch** pada tampilan itu (Quick tidak pernah masuk batch, BR-B01), jadi tidak ada order yang hilang dari layar. Sumber: `QUEUE_TABS` + `ACTIVE_ORDER_STATUSES` di `src/data/merchantOrders.ts`.
+
 **Lane Kurir milik merchant:** Kelola kurir (maks 3 · mock) → **Pilih kurir sendiri** — edge emphasis ke `kurir match → hold_cut` (sambungan ke F2).
 
 **Lane Guard:** Order macet (timer habis tanpa checkpoint) → reassign sendiri / batal → refund customer dari dana hold.

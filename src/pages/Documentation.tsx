@@ -87,6 +87,30 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // hidup di `components/merchant/MerchantHoursSheet.tsx` dan punya tombol
 // "Atur ulang ke jam bawaan". Rincian angka di ChangelogSection.
 //
+// Antrean merchant (2026-11-07) jadi dua tab, bukan enam tab status. Antrean
+// hanya memuat order yang menunggu keputusan (`baru`, tombol Terima/Tolak);
+// setelah diterima alurnya pindah ke "Batch dapur" (`orders.batch_id`), jadi
+// menaruhnya lagi di antrean cuma menampilkan order yang sama dua kali.
+// Riwayat memuat yang tuntas/ditolak/batal. Order berjalan yang belum punya
+// batch muncul di grup "Belum masuk batch" pada tampilan Batch dapur (Quick
+// tidak pernah masuk batch, BR-B01) — tanpa grup itu mereka tak punya
+// permukaan setelah keluar dari Antrean. Kontraknya di
+// `data/merchantOrders.ts`: `QUEUE_TABS` = Antrean / Riwayat,
+// `ACTIVE_ORDER_STATUSES` untuk grup tersebut, `queueTabFromParam()` agar
+// `?tab=siap` dan `?tab=batal` dari tautan lama mendarat di tab yang memuat
+// statusnya, dan `inboxCount()` untuk badge nav "Order". Donut dashboard tetap
+// menunjukkan komposisi per tahap, tetapi hanya potongan Riwayat yang menaut
+// ke tab karena hanya itu yang himpunannya persis sama. Rincian di
+// ChangelogSection.
+//
+// Order lama di BE bisa punya `total_jod` tanpa satu pun baris `order_items`
+// (terbukti di order 858/861/864/868: tabel kosong, total 7,71 / 2,68 / 6,00 /
+// 3,23 JOD). Detail order merchant dulu menampilkan daftar kosong dan
+// "Subtotal menu 0,00 / Bersih untuk toko 0,00" — angka salah, bukan kosong.
+// Sekarang `components/merchant/MerchantOrderItems.tsx` menyebut "Rincian menu
+// pesanan ini tidak tersedia" dan `MerchantEarnings` menolak menghitung bila
+// item kosong. Order baru tetap aman: `createOrder` menulis `order_items`.
+//
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
 // menandai SA legacy. Rincian di decision-ops-canonical.md.
