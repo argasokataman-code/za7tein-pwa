@@ -12,7 +12,7 @@ import {
   batchProgress,
   batchesForTab,
   countdownLabel,
-  type BatchTabId,
+  type BatchTabFilter,
 } from '../../data/batch'
 import { QUICK_ENABLED } from '../../data/features'
 import type { Batch, Courier, MerchantOrder } from '../../types'
@@ -30,14 +30,15 @@ interface BatchPanelProps {
  * Sekarang satu daftar pada satu waktu; detail batch punya layar sendiri.
  */
 export function BatchPanel({ batches, orders, couriers, onOpen }: BatchPanelProps) {
-  const [tab, setTab] = useState<BatchTabId>('countdown')
+  // Default `Semua`: tab tahap saja bisa tampak kosong walau batchnya ada.
+  const [tab, setTab] = useState<BatchTabFilter>('all')
   const [query, setQuery] = useState('')
 
   const counts = useMemo(
     () =>
       Object.fromEntries(
         BATCH_TABS.map((item) => [item.id, batchesForTab(batches, orders, item.id).length]),
-      ) as Record<BatchTabId, number>,
+      ) as Record<BatchTabFilter, number>,
     [batches, orders],
   )
 
@@ -103,7 +104,11 @@ export function BatchPanel({ batches, orders, couriers, onOpen }: BatchPanelProp
           <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
           <p className="merchant-batch-empty-title">Tidak ada batch di tahap ini</p>
           <p className="merchant-batch-empty-sub">
-            {query.trim() ? 'Coba kata kunci lain.' : 'Batch akan pindah ke sini setelah tahap sebelumnya selesai.'}
+            {query.trim()
+              ? 'Coba kata kunci lain.'
+              : tab === 'all'
+                ? 'Belum ada batch yang bisa ditampilkan.'
+                : 'Batch akan pindah ke sini setelah tahap sebelumnya selesai.'}
           </p>
         </div>
       ) : (

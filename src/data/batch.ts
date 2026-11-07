@@ -25,13 +25,23 @@ export const BATCH_STATUS_LABEL: Record<BatchStatus, string> = {
 /** Tahap kerja batch di layar merchant, urut dari lahir sampai tuntas. */
 export type BatchTabId = 'countdown' | 'waiting' | 'assigned' | 'delivering' | 'done'
 
+/** Filter daftar batch: satu tahap, atau semua tahap sekaligus. */
+export type BatchTabFilter = 'all' | BatchTabId
+
+/**
+ * Tab daftar batch. `Semua` ada karena tab tahap saja bisa membuat layar
+ * tampak kosong padahal batchnya ada (mis. semua batch sudah lewat tahap
+ * Hitung mundur): pemilik melihat "0 / 0 / 0 / 0 / 22" lalu menyangka
+ * kategorinya kurang. Tab tahap tetap ada sebagai saringan kerja.
+ */
 export const BATCH_TABS = [
+  { id: 'all', label: 'Semua' },
   { id: 'countdown', label: 'Hitung mundur' },
   { id: 'waiting', label: 'Menunggu kurir' },
   { id: 'assigned', label: 'Ditugaskan' },
   { id: 'delivering', label: 'Diantar' },
   { id: 'done', label: 'Selesai' },
-] as const satisfies readonly { id: BatchTabId; label: string }[]
+] as const satisfies readonly { id: BatchTabFilter; label: string }[]
 
 /** Batch yang masih boleh menerima order baru: hitung mundur berjalan & belum penuh. */
 export function joinableBatches(batches: Batch[]): Batch[] {
@@ -133,8 +143,9 @@ export function batchTabId(batch: Batch, orders: MerchantOrder[]): BatchTabId {
 export function batchesForTab(
   batches: Batch[],
   orders: MerchantOrder[],
-  tab: BatchTabId,
+  tab: BatchTabFilter,
 ): Batch[] {
+  if (tab === 'all') return batches
   return batches.filter((batch) => batchTabId(batch, orders) === tab)
 }
 

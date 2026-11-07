@@ -332,11 +332,15 @@ export default function Documentation() {
                 inline di atas antrean diganti dua ruang kerja di{' '}
                 <code className="doc-inline">/merchant/orders</code>:{' '}
                 <em>Pesanan masuk</em> (statistik antrean + slip order) dan{' '}
-                <em>Batch dapur</em> (tab siklus <code className="doc-inline">Hitung mundur</code>,{' '}
+                <em>Batch dapur</em> (tab <code className="doc-inline">Semua</code> sebagai
+                daftar penuh, lalu saringan siklus{' '}
+                <code className="doc-inline">Hitung mundur</code>,{' '}
                 <code className="doc-inline">Menunggu kurir</code>,{' '}
                 <code className="doc-inline">Ditugaskan</code>,{' '}
                 <code className="doc-inline">Diantar</code>,{' '}
-                <code className="doc-inline">Selesai</code>, plus pencarian). Kartu batch membuka
+                <code className="doc-inline">Selesai</code>, plus pencarian). Tab{' '}
+                <code className="doc-inline">Semua</code> dipilih lebih dulu supaya daftar tidak
+                tampak kosong saat semua batch sudah lewat hitung mundur. Kartu batch membuka
                 rute <code className="doc-inline">/merchant/batches/:batchId</code>; di situ ada
                 ringkasan kapasitas, penugasan kurir lewat sheet, tutup lebih awal, setujui mulai
                 lebih awal, dan daftar order yang bisa dibuka kembali sebagai sheet detail di{' '}
