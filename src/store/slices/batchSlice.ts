@@ -83,8 +83,12 @@ const batchSlice = createSlice({
     mergeBatches(state, action: PayloadAction<Batch[]>) {
       const incoming = new Map(action.payload.map((batch) => [batch.id, batch]))
       const prev = new Map(state.batches.map((batch) => [batch.id, batch]))
+      // Batch yang berasal dari BE (`id` numerik) hanya boleh hidup selama masih
+      // ada di respons: setelah barisnya dihapus/dibersihkan di D1, salinan lama
+      // di Redux harus ikut hilang. Id `batch-N` adalah batch lokal yang belum
+      // (atau gagal) ditulis ke BE, jadi ia tetap dipertahankan.
       state.batches = state.batches.filter(
-        (batch) => incoming.has(batch.id) || !batch.id.startsWith('batch-'),
+        (batch) => incoming.has(batch.id) || batch.id.startsWith('batch-'),
       )
       for (const batch of action.payload) {
         const index = state.batches.findIndex((item) => item.id === batch.id)

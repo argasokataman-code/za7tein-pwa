@@ -1389,6 +1389,20 @@ export default function Documentation() {
                 dengan alasan &ldquo;Belum packing&rdquo; padahal tiket sudah di tab Siap.
               </li>
               <li>
+                <strong>Order yang dibatalkan tidak lagi berlabel &ldquo;Packing&rdquo;.</strong> Batch
+                yang memuat order batal masih menggambar barisnya dengan badge Packing, dan hitungan
+                &ldquo;belum packing&rdquo; ikut menghitung order yang sudah tidak dikerjakan.
+                <code className="doc-inline">orderCanceled()</code> di{' '}
+                <code className="doc-inline">src/data/batch.ts</code> kini memisahkan order batal:
+                baris di <code className="doc-inline">/merchant/batches/:batchId</code> memakai badge
+                <code className="doc-inline">merchant-badge-batal</code> bertuliskan &ldquo;Batal&rdquo;,
+                filter Packing tidak lagi memuatnya, dan batch yang seluruh ordernya batal dihitung
+                selesai sehingga tidak menggantung di tab aktif. Salinan batch dari BE juga tidak
+                abadi lagi di Redux: <code className="doc-inline">mergeBatches</code> membuang batch
+                ber-id numerik yang sudah tidak ada di respons, sementara batch lokal ber-id{' '}
+                <code className="doc-inline">batch-N</code> tetap dipertahankan.
+              </li>
+              <li>
                 <strong>Kartu &ldquo;Pasang aplikasi&rdquo; menutup FAB.</strong> Kartu itu duduk di
                 zona jempol yang sama dengan <code className="doc-inline">.page-fab</code>, jadi klik
                 &ldquo;Tambah item&rdquo; mendarat di &ldquo;Nanti saja&rdquo;. Tingginya diukur

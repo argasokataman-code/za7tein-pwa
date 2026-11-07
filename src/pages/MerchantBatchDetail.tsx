@@ -16,6 +16,7 @@ import {
   batchProgress,
   canStartEarly,
   countdownLabel,
+  orderCanceled,
   orderPacked,
 } from '../data/batch'
 import { useMerchantBatchActions } from '../hooks/useMerchantBatchActions'
@@ -25,6 +26,7 @@ import type { MerchantOrder } from '../types'
 type RowFilter = 'all' | 'packing' | 'done'
 
 function rowStatus(order: MerchantOrder): 'packing' | 'done' {
+  if (orderCanceled(order)) return 'done'
   return orderPacked(order) ? 'done' : 'packing'
 }
 
@@ -70,7 +72,8 @@ export default function MerchantBatchDetail() {
 
   const status = done ? 'done' : batch.status
   const canAssign = ['countdown', 'closed', 'awaiting_courier'].includes(batch.status)
-  const packingCount = list.length - packed
+  const activeList = list.filter((order) => !orderCanceled(order))
+  const packingCount = activeList.length - activeList.filter(orderPacked).length
   const doneCount = packed
 
   return (
@@ -184,6 +187,12 @@ export default function MerchantBatchDetail() {
           <div className="merchant-batch-order-list">
             {rows.map((order) => {
               const packedOrder = orderPacked(order)
+              const canceled = orderCanceled(order)
+              const badge = canceled
+                ? { tone: 'batal', label: 'Batal' }
+                : packedOrder
+                  ? { tone: 'selesai', label: 'Selesai' }
+                  : { tone: 'disiapkan', label: 'Packing' }
               return (
                 <button
                   key={order.id}
@@ -197,10 +206,8 @@ export default function MerchantBatchDetail() {
                     <span className="merchant-batch-order-code">{order.code}</span>
                     <span className="merchant-batch-order-name">{order.customerName}</span>
                   </span>
-                  <span
-                    className={`merchant-badge merchant-badge-${packedOrder ? 'selesai' : 'disiapkan'}`}
-                  >
-                    {packedOrder ? 'Selesai' : 'Packing'}
+                  <span className={`merchant-badge merchant-badge-${badge.tone}`}>
+                    {badge.label}
                   </span>
                   <span className="merchant-batch-order-meta">
                     {order.items.map((item) => `${item.quantity}× ${item.name}`).join(', ')}

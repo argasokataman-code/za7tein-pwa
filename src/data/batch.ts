@@ -74,10 +74,19 @@ export function orderPacked(order: MerchantOrder): boolean {
   return order.status === 'diantar' || order.status === 'tiba' || order.status === 'selesai'
 }
 
+/**
+ * Order yang sudah dibatalkan/ditolak tidak lagi dikerjakan dapur. Dipakai untuk
+ * mengeluarkannya dari hitungan "belum packing" dan syarat mulai lebih awal:
+ * order batal tidak butuh packing dan tidak boleh menahan batch.
+ */
+export function orderCanceled(order: MerchantOrder): boolean {
+  return order.status === 'batal' || order.status === 'ditolak'
+}
+
 /** Semua order batch sudah ditandai packing (syarat mulai lebih awal, BR-B09). */
 export function batchAllPacked(batch: Batch, orders: MerchantOrder[]): boolean {
   const list = batchOrders(batch, orders)
-  return list.length > 0 && list.every((order) => orderPacked(order))
+  return list.length > 0 && list.every((order) => orderCanceled(order) || orderPacked(order))
 }
 
 /**
@@ -106,7 +115,7 @@ export function batchNumber(batchId: string | undefined): number | null {
  */
 export function batchIsDone(batch: Batch, orders: MerchantOrder[]): boolean {
   const list = batchOrders(batch, orders)
-  return list.length > 0 && list.every((order) => order.status === 'selesai')
+  return list.length > 0 && list.every((order) => order.status === 'selesai' || orderCanceled(order))
 }
 
 /**
