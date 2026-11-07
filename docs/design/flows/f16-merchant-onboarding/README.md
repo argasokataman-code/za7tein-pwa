@@ -2,6 +2,16 @@
 
 Onboarding merchant: registrasi toko → approval Super Admin → deposit 3,50 JOD → kredit Founding 5 JOD → aktif → onboarding kurir. Layar ada di repo: `/merchant/signup`, `/merchant/onboarding` (form profil toko, langkah `profil`), `/merchant/pending`. Dasar bisnis: PRD aktif §5C (deposit COD) + §Insentif Founding Merchant (`docs/product/prd/versions/irbid-mvp-v2-2026-09-21/source.md:145-193`) + `I-1`/`I-2` + `C-12`; lihat `../BUSINESS.md`. Repo ini front-end saja (AGENTS.md §1).
 
+> **Status rebase (2026-11-07): diagram di halaman ini BELUM diperbarui.** Isinya masih model
+> `irbid-mvp-v2-2026-09-21` (deposit 3,50 JOD, kredit Founding). Requirement beta yang mengubah flow ini:
+> **rekening bank wajib saat onboarding merchant** dengan validasi nama pemilik (`R-MER-PROFILE` A7,
+> ACC-05/MER-36; state "rekening belum diisi → onboarding tidak selesai"), **consent User Agreement oleh
+> owner** yang berlaku untuk seluruh karyawan (`R-ACC-AGREEMENT` A1–A2), dan **verifikasi warung oleh ops**
+> (`R-ACC` A10). Bentuk layarnya sudah ada di `design/beta-v1.figcraft`: `Tambah peran / 2 · profil warung`
+> (903, 5 field termasuk `Nomor rekening` + `Nama pemilik rekening`) dan keadaan galat
+> `Tambah peran / 2b · rekening tidak cocok` (2543). Diagram wajib diregenerasi lewat
+> `./scripts/flows-gate.sh f16-merchant-onboarding` sebelum kode onboarding disentuh.
+
 | Berkas | Isi |
 |---|---|
 | `f16-merchant-onboarding.json` | Spec archify (workflow v2) — sumber yang diedit |

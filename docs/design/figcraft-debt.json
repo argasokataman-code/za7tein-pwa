@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "file": "design/beta-v1.figcraft",
+  "note": "Ratchet: angka hanya boleh turun. Perbarui setelah utang benar-benar turun.",
+  "checks": {}
+}

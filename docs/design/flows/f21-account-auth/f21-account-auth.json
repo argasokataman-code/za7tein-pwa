@@ -2,17 +2,17 @@
   "schema_version": 2,
   "diagram_type": "workflow",
   "meta": {
-    "title": "F21 — Registrasi & Masuk Akun",
+    "title": "F21 — Registrasi & Masuk Akun (reverse OTP, satu nomor banyak peran)",
     "quality_profile": "showcase"
   },
   "lanes": [
     {
-      "id": "customer",
-      "label": "Customer — daftar & masuk"
+      "id": "akun",
+      "label": "Akun — satu nomor, banyak peran"
     },
     {
-      "id": "merchant",
-      "label": "Merchant & kurir — daftar"
+      "id": "peran",
+      "label": "Peran warung, ops & karyawan"
     },
     {
       "id": "guard",
@@ -22,202 +22,255 @@
   ],
   "phases": [
     {
-      "id": "masuk",
-      "label": "Masuk Google",
+      "id": "kirim",
+      "label": "Kirim kode dari WhatsApp",
       "fromCol": 0,
       "toCol": 1
     },
     {
-      "id": "nomor",
-      "label": "Nomor WA wajib (E.164)",
+      "id": "cocok",
+      "label": "Cocokkan nomor pengirim",
       "fromCol": 2,
-      "toCol": 3,
+      "toCol": 2,
       "variant": "emphasis"
     },
     {
-      "id": "lanjut",
-      "label": "Lanjut peran",
-      "fromCol": 4,
-      "toCol": 4
+      "id": "buka",
+      "label": "Buka peran",
+      "fromCol": 3,
+      "toCol": 5
     }
   ],
   "mainPath": [
-    "welcome",
-    "method",
-    "phone",
-    "verify",
-    "order"
+    "masuk",
+    "kirim",
+    "webhook",
+    "verifikasi",
+    "peranTerakhir"
   ],
   "semanticChecks": {
     "allowedRoots": [
-      "welcome"
+      "masuk"
     ],
     "allowedTerminals": [
-      "order",
-      "onboard",
-      "guard"
+      "peranTerakhir",
+      "kru",
+      "nomorSalah",
+      "kodeBatal",
+      "batas"
     ],
     "requiredEdges": [
       {
-        "from": "welcome",
-        "to": "method"
+        "from": "masuk",
+        "to": "kirim"
       },
       {
-        "from": "method",
-        "to": "phone"
+        "from": "kirim",
+        "to": "webhook"
       },
       {
-        "from": "phone",
-        "to": "verify"
+        "from": "webhook",
+        "to": "verifikasi"
       },
       {
-        "from": "verify",
-        "to": "order"
+        "from": "verifikasi",
+        "to": "peranTerakhir"
       }
     ]
   },
   "nodes": [
     {
-      "id": "welcome",
-      "lane": "customer",
+      "id": "masuk",
+      "lane": "akun",
       "col": 0,
       "type": "frontend",
-      "label": "Onboarding",
-      "sublabel": "buka app · pilih peran",
-      "width": 120
+      "label": "Nomor WhatsApp",
+      "sublabel": "satu akun",
+      "width": 108
     },
     {
-      "id": "method",
-      "lane": "customer",
+      "id": "kirim",
+      "lane": "akun",
       "col": 1,
       "type": "frontend",
-      "label": "Login Google",
-      "sublabel": "menggantikan sandi",
-      "width": 126
+      "label": "Kirim kode",
+      "sublabel": "dari WhatsApp",
+      "width": 104
     },
     {
-      "id": "phone",
-      "lane": "customer",
+      "id": "webhook",
+      "lane": "akun",
       "col": 2,
-      "type": "frontend",
-      "label": "Nomor WA",
-      "sublabel": "wajib · E.164",
-      "width": 120
+      "type": "security",
+      "label": "Cocokkan nomor",
+      "sublabel": "pengirim = diisi",
+      "width": 118
     },
     {
-      "id": "verify",
-      "lane": "customer",
+      "id": "verifikasi",
+      "lane": "akun",
       "col": 3,
       "type": "security",
-      "label": "Verifikasi nomor",
-      "sublabel": "format + E.164 · Level 1",
-      "width": 126
+      "label": "Kode sekali pakai",
+      "sublabel": "berlaku + batas",
+      "width": 116
     },
     {
-      "id": "order",
-      "lane": "customer",
+      "id": "peranTerakhir",
+      "lane": "akun",
       "col": 4,
       "type": "external",
-      "label": "Boleh order",
-      "sublabel": "gate top-up 3,5 JOD (f3)",
-      "width": 132
-    },
-    {
-      "id": "mSignup",
-      "lane": "merchant",
-      "col": 1,
-      "type": "frontend",
-      "label": "Daftar toko",
-      "sublabel": "nama · email · telepon",
-      "width": 132
-    },
-    {
-      "id": "mPhone",
-      "lane": "merchant",
-      "col": 2,
-      "type": "frontend",
-      "label": "Nomor WA toko",
-      "sublabel": "wajib · E.164",
+      "label": "Peran terakhir",
+      "sublabel": "tanpa login ulang",
       "width": 124
     },
     {
-      "id": "onboard",
-      "lane": "merchant",
-      "col": 3,
-      "type": "external",
-      "label": "Onboarding merchant",
-      "sublabel": "deposit 3,50 JOD · f16",
-      "width": 140
+      "id": "tambahPeran",
+      "lane": "peran",
+      "col": 2,
+      "type": "frontend",
+      "label": "Tambah peran",
+      "sublabel": "dari dalam akun",
+      "width": 112
     },
     {
-      "id": "guard",
+      "id": "rekening",
+      "lane": "peran",
+      "col": 3,
+      "type": "security",
+      "label": "Rekening + nama",
+      "sublabel": "wajib merchant",
+      "width": 118
+    },
+    {
+      "id": "opsReview",
+      "lane": "peran",
+      "col": 4,
+      "type": "external",
+      "label": "Ops verifikasi",
+      "sublabel": "aplikasi ops",
+      "width": 106
+    },
+    {
+      "id": "kru",
+      "lane": "peran",
+      "col": 5,
+      "type": "frontend",
+      "label": "Karyawan & kurir",
+      "sublabel": "ditambah owner",
+      "width": 118
+    },
+    {
+      "id": "batas",
+      "lane": "guard",
+      "col": 1,
+      "type": "security",
+      "label": "Batas kirim",
+      "sublabel": "tunggu dulu",
+      "tag": "gate",
+      "width": 104
+    },
+    {
+      "id": "nomorSalah",
+      "lane": "guard",
+      "col": 2,
+      "type": "security",
+      "label": "Nomor beda",
+      "sublabel": "minta ulang",
+      "width": 104
+    },
+    {
+      "id": "kodeBatal",
       "lane": "guard",
       "col": 3,
       "type": "security",
-      "label": "Guard pendaftaran",
-      "sublabel": "nomor tak sah / duplikat",
-      "tag": "gate",
-      "width": 128
+      "label": "Kode batal",
+      "sublabel": "pakai / kedaluwarsa",
+      "width": 116
     }
   ],
   "edges": [
     {
-      "id": "e-welcome-method",
-      "from": "welcome",
-      "to": "method",
-      "label": "mulai",
+      "id": "e-masuk-kirim",
+      "from": "masuk",
+      "to": "kirim",
+      "label": "format E.164",
       "role": "main"
     },
     {
-      "id": "e-method-phone",
-      "from": "method",
-      "to": "phone",
-      "label": "akun Google ok",
+      "id": "e-kirim-webhook",
+      "from": "kirim",
+      "to": "webhook",
+      "label": "pesan terkirim",
+      "role": "main",
+      "variant": "emphasis"
+    },
+    {
+      "id": "e-webhook-verifikasi",
+      "from": "webhook",
+      "to": "verifikasi",
+      "label": "nomor sama",
       "role": "main"
     },
     {
-      "id": "e-phone-verify",
-      "from": "phone",
-      "to": "verify",
-      "label": "format lolos",
-      "role": "main"
+      "id": "e-verifikasi-peran",
+      "from": "verifikasi",
+      "to": "peranTerakhir",
+      "label": "sesi dibuka",
+      "role": "main",
+      "variant": "emphasis"
     },
     {
-      "id": "e-verify-order",
-      "from": "verify",
-      "to": "order",
-      "label": "nomor sah · profil & PIN",
-      "variant": "emphasis",
-      "role": "main"
-    },
-    {
-      "id": "e-welcome-msignup",
-      "from": "welcome",
-      "to": "mSignup",
-      "label": "daftar merchant",
-      "role": "branch"
-    },
-    {
-      "id": "e-msignup-mphone",
-      "from": "mSignup",
-      "to": "mPhone",
-      "label": "form toko",
-      "role": "main"
-    },
-    {
-      "id": "e-mphone-onboard",
-      "from": "mPhone",
-      "to": "onboard",
-      "label": "nomor terverifikasi",
-      "role": "branch"
-    },
-    {
-      "id": "e-verify-guard",
-      "from": "verify",
-      "to": "guard",
-      "label": "tak sah / duplikat",
+      "id": "e-kirim-batas",
+      "from": "kirim",
+      "to": "batas",
+      "label": "terlalu sering",
       "variant": "dashed",
       "role": "error"
+    },
+    {
+      "id": "e-webhook-nomorSalah",
+      "from": "webhook",
+      "to": "nomorSalah",
+      "label": "nomor beda",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "e-verifikasi-kodeBatal",
+      "from": "verifikasi",
+      "to": "kodeBatal",
+      "label": "batal",
+      "variant": "dashed",
+      "role": "error"
+    },
+    {
+      "id": "e-verifikasi-tambah",
+      "from": "verifikasi",
+      "to": "tambahPeran",
+      "label": "tambah peran",
+      "role": "branch"
+    },
+    {
+      "id": "e-tambah-rekening",
+      "from": "tambahPeran",
+      "to": "rekening",
+      "label": "isi profil",
+      "role": "main"
+    },
+    {
+      "id": "e-rekening-ops",
+      "from": "rekening",
+      "to": "opsReview",
+      "label": "ajukan",
+      "role": "main"
+    },
+    {
+      "id": "e-ops-kru",
+      "from": "opsReview",
+      "to": "kru",
+      "label": "warung aktif",
+      "role": "branch"
     }
   ],
   "cards": [
@@ -225,26 +278,24 @@
       "dot": "orange",
       "title": "Bisnis: kenapa flow ini ada",
       "items": [
-        "**Masalah:** akun sampah & nomor palsu. Nomor WA satu-satunya kanal kontak kurir↔customer + fallback `wa.me` (`f11`), jadi nomor wajib sah dan ternormalisasi **E.164** (PRD `source.md:727`, `:760`)",
-        "**Skenario & nilai:** customer **login Google** → isi nomor WA (validasi format E.164) → bisa order; merchant/kurir daftar toko → nomor WA → lanjut onboarding `f16` (deposit 3,50 JOD + approval SA). Penyaring akun sampah tetap gate top-up 3,5 JOD (`f3`)"
+        "**Masalah:** login menentukan siapa yang boleh melihat order, uang, dan batch; identitasnya satu, nomor WhatsApp.",
+        "**Kenapa reverse OTP:** pesan pengguna→bisnis tidak berbiaya, sedangkan OTP keluar butuh WhatsApp Business API berbayar (§5 ACC-01)."
       ]
     },
     {
       "dot": "amber",
       "title": "Alur & aturan",
       "items": [
-        "Customer: onboarding → **login Google** → **nomor WA wajib (E.164)** → verifikasi format → profil & PIN → gate top-up 3,5 JOD sebelum bisa order (`f3`)",
-        "Merchant & kurir: form toko (nama, email, telepon, sandi) → nomor WA toko → diserahkan ke `f16` (deposit 3,50 JOD, approval SA, `deliveryConfig`)",
-        "**Google menggantikan sandi, bukan nomor WA** — akun Google tidak memberi nomor telepon; nomor diisi manual + validasi E.164 (Level 1, gratis). OTP/WA Business = Level 2 yang PRD tunda"
+        "Nomor diisi → **pengguna mengirim kode** → webhook memastikan nomor pengirim sama → kode **sekali pakai** → buka **peran terakhir** (`R-ACC` A1–A4).",
+        "Peran tambahan dari dalam akun (`A6`); merchant wajib rekening dengan nama pemilik cocok (`A11`); verifikasi warung oleh ops (`A10`); kurir = karyawan merchant (`A9`)."
       ]
     },
     {
       "dot": "slate",
       "title": "Sumber & UNRESOLVED",
       "items": [
-        "Dasar: PRD `source.md:760` (nomor WA wajib) · `:727` (E.164) · `:725-731` (Level 1 `wa.me`; Level 2 ditolak) · **keputusan PO 2026-09-22: login Google + nomor WA wajib, tanpa OTP**",
-        "Layar sudah ada di repo (mock): `SignIn` (+ tombol Google demo), `SignUp`, `AccountSetup`, `ForgotPassword*`, `MerchantSignUp`, `MerchantPending`",
-        "UNRESOLVED: apakah merchant/kurir juga boleh Google · sesi/token & PIN belum punya dasar di PRD · ganti nomor & retensi · WA Business API (Level 2) TIDAK dipakai di MVP (PO 2026-09-23) — fallback tetap `wa.me`"
+        "Dasar: `features/R-ACC.md` A1–A13 · PRD §5, §5.1, §11.3, §12 · desain `design/beta-v1.figcraft` (27 bingkai auth).",
+        "UNRESOLVED: masa berlaku & batas permintaan = `applicationConfiguration` (§12.2); webhook WA tidak ada di repo mock; pindah owner (`A12`) menunggu `R-MER-CREW` (blocked)."
       ]
     }
   ]

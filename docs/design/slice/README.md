@@ -624,6 +624,274 @@ dibaca dari `auth/`; `page` bergaris miring dipakai apa adanya
 (`?page=akun/akun`, `?page=verifikasi/merchant`). Berkas berawalan `_` dilewati
 `slice-check`.
 
+### Berkas desain FigCraft — `design/beta-v1.figcraft`
+
+33 bingkai 390x844 (10 kelompok) dipindahkan ke FigCraft. Geometri, token, dan teks
+mengikuti irisan HTML; empat hal sengaja **berbeda** dari irisan, semuanya karena
+irisan mentah tidak bisa dipakai apa adanya di alat desain:
+
+| Hal | Irisan HTML | FigCraft | Alasan |
+|---|---|---|---|
+| Tile merek 80px | `<img src="sa7tein-mark.svg">` | gambar PNG hasil render SVG yang sama (`radius 24`, ring putih 4px, `shadow-md`) | SVG diimpor FigCraft memecah jadi vektor terpisah dan glyph-nya terpotong; raster memakai aset yang identik |
+| Kepala appbar | wordmark `40x22` (`sa7tein-wordmark.svg`) | tile merek 28px + teks "Sa7tein" 15px Bold `--text-primary` | wordmark SVG itu kotak oranye dengan teks putih; pada tinggi 22px teksnya tidak terbaca lalu tampak sebagai blok oranye rusak |
+| Aksi utama | `.footer` mengalir di bawah isi | `.footer` dan tombol form di-dock `y = 844 - 48` (zona jempol, `bottom` 16px dari tepi kolom) | layar pendek menyisakan 40-57% ruang kosong di bawah; aksi yang mengalir di tengah terbaca belum selesai. Tautan sekunder (Tutup / Ubah nomor / Keluar / Kembali ke inbox) tetap mengalir bersama isinya |
+| Kanvas | — | grid 4 kolom (pitch 454), baris pitch 1120, judul kelompok di atas tiap baris, catatan sumber di bawah judul | tanpa judul, 33 bingkai terbaca sebagai satu blok tanpa batas kelompok |
+
+### Arah seni "papan nota" (2026-11-07)
+
+`design/beta-v1.figcraft` kini memakai satu arah seni eksplisit, bukan tata letak
+netral. Dial: **ENERGY 2 / RHYTHM 2 / MOTION 2 / DENSITY 2 / FEEL 2**. Satu motif
+identitas yang diulang: **kepala navy menyerupai papan nota warung** (`#172434`,
+sudut bawah 28px) dengan judul putih 28px ExtraBold, lalu isi di atas kertas hangat
+`#F4F4F6`.
+
+| Keputusan | Angka | Alasan satu baris |
+|---|---|---|
+| Kepala navy per layar aplikasi | tinggi = teks kepala terakhir + 20, radius `[0,0,28,28]` | memberi satu bidang gelap sebagai jangkar merek; layar tidak lagi terbaca sebagai formulir kosong |
+| Judul layar | 28px ExtraBold, line 116%, tracking -1,5% | 21px terbaca sebagai label, bukan judul; kontras ukuran/berat inilah hierarki utama |
+| Daftar = satu panel | panel putih radius 16 + garis rambut `#E6E6EA`; baris tanpa bayangan, pemisah `#EFF0F2` 1px | MD-06: satu daftar pada satu waktu, bukan kartu putih berulang; bayangan di tiap baris = PG-08 |
+| Baris daftar | tinggi 72, padding 14/16, judul 17 Bold, meta 13 `#475569` | target sentuh > 44 dan dua tingkat teks yang jelas |
+| Status | chip bertitik (`2 baru`, `Aktif`), bukan kata abu di dalam string | MD-07 |
+| Aksi sekunder form | baris "Tambah peran" bergaris putus, radius 16 | mengisi ruang kosong dengan isi nyata, bukan kartu karangan |
+| Nomor aktif | baris bawah `0812-3456-789 · Ubah nomor` (13px, `#64748B`, tabular) | pintu keluar akun harus terbaca di layar, bukan disembunyikan |
+| Arah warna | oranye hanya untuk aksi utama dan tile peran; navy untuk kepala dan judul | satu aksen per layar (QL-02) |
+
+Bingkai auth (`masuk`, `kirim kode`, `verifikasi`, `daftar`) **tidak** ikut kepala
+navy: bentuknya keputusan pemilik `slice/auth/login-1to1.html` (`d0eaa47`) dan
+sudah 1:1, jadi hanya bagian aplikasi yang memakai arah ini.
+
+### Warna per peran + prototipe hidup
+
+Tile peran memakai warna semantik peran, bukan siklus warna: `PB` pembeli
+`#EEF2F7`/`#172434`, `WS` owner `#FFF0EB`/`#B83213`, `BK` karyawan
+`#F1F5F9`/`#475569`, `KU` kurir `#FFF7E6`/`#B45309`. Semua dari keluarga token
+yang sudah ada; tidak ada warna baru di luar peran.
+
+Dua bingkai demo interaksi ada di baris kanvas terakhir: `Interaksi / 1 ·
+daftar` (id 1647) dan `Interaksi / 2 · baris terbuka` (id 1696). Yang tersambung:
+
+| Dari | Aksi | Ke | Gerak |
+|---|---|---|---|
+| `Role Pembeli` (1647) | klik | `Interaksi / 2` (1696) | `smartAnimate` 340ms, spring `mass 1 / stiffness 380 / damping 34` |
+| `Role Pembeli` (1696) | klik | `Interaksi / 1` | `smartAnimate` 300ms |
+| `Tambah peran` (1586, 1647) | klik | `Tambah peran / 1` (864) | `slideIn` kiri 300ms |
+| baris `Buka warung` (864) | klik | `Buka warung` (903) | `slideIn` kiri 300ms |
+| `Kirim untuk persetujuan` (903) | klik | `Terkirim` (940) | `slideIn` kiri 300ms |
+| `Kembali ke akun` (940) | klik | `Pilih peran / 1` (1586) | `dissolve` 260ms |
+| panah kembali & `Tutup` | klik | kembali | `back` |
+
+Jalankan `proto.present {start: 1647}` untuk mencoba. Tiap bingkai juga punya
+`Home indicator` 134x5 (opacity 18%) sebagai detail perangkat.
+
+### Bilah aksi bawah + state tombol (2026-11-07, setelah review "ai slop")
+
+Empat cacat yang membuat tombol terbaca template, dan perbaikannya:
+
+| Cacat | Angka sebelum | Perbaikan |
+|---|---|---|
+| Tombol mengapung di tengah bidang kosong | `Lanjut` di `y` relatif body `267`, sisa kosong 400px di bawahnya | **Action bar** 390x84 permukaan `#FFFFFF` + garis rambut atas `#E2E8F0` di `y = bodyH - 84`; tombol 350x52 di dalamnya, inset 16 |
+| Label putih di latar terang | `Membuat kode…` dan `Buat akun` (state awal) `#E2E8F0` + label `#FFFFFF` = kontras ~1:1, teks hilang | label `--text-secondary-strong` `#475569` di atas `#E2E8F0` = 5,75:1, sesuai `.btn:disabled` di `beta.css:550` |
+| Chip pastel berputar | 3 pil `#EEF2F7` / `#FFF0EB` / `#FFF7E6` sejajar | dihapus; diganti satu baris 13px `#64748B` ("Untuk pembeli, warung, dan kurir. Satu nomor, satu akun.") |
+| Ruang kosong menumpuk di satu tempat | semua isi menempel atas, 266px kosong di bawah form | spacer atas dihitung `(barTop - 32 - tinggiIsi) / 2`, diklem 40..150, jadi udara terbagi atas/bawah |
+
+Tombol: tinggi 52, radius 14, label 16 SemiBold tracking -0,2%, **tanpa bayangan**.
+`--shadow-brand` (`0 8px 20px rgba(228,66,32,.28)`) dari `beta.css:529` sengaja
+tidak dipakai: glow oranye di tombol selebar 350px adalah sinyal template paling
+khas, dan kontras 4,12:1 sudah cukup tanpa bayangan.
+
+### Chevron baris daftar (2026-11-07)
+
+Chevron hasil impor digambar **18x18 (rasio 1:1)** — `M0 18 L18 9 L0 0` di dalam
+kotak 32 dengan grup `translate(7,7)`. Chevron yang benar itu **1:2**; rasio 1:1
+membuat bentuknya terbaca sebagai bracket gempal, bukan panah.
+
+| Bentuk | Sebelum | Sesudah |
+|---|---|---|
+| Baris peran (16px) | 16x16, rasio 1:1 | path `(5,1)(11,8)(5,15)` = 6x14, cap & join `round` |
+| Baris akun (18px) | 18x18, rasio 1:1 | path `(5,75,1,25)(12,25,9)(5,75,16,75)` = 6,5x15,5 |
+| Caret kartu ringkasan | 18x18, rasio 1:1 | menunjuk atas 14x7 |
+
+Hasil sapuan: 29 chevron diganti, 0 yang masih bersifat 1:1 (dihitung dari
+`width/height` tiap vektor). Semua chevron berakhir di rel yang sama:
+`right = 353` di 6 baris akun (diukur `absoluteBounds`), jadi MD-11 "satu rel
+kanan per baris" terpenuhi. Baris `Notifikasi` sebelumnya hanya berchip `2 baru`
+tanpa chevron; sekarang chip 258 + chevron 347..353, `gap: 8`.
+
+### Kepala diberi pekerjaan, bukan ornamen (2026-11-07)
+
+Pertanyaan "kepala navy terasa kosong, ornamen apa yang cocok" dicoba dijawab dengan
+ornamen lebih dulu, dan gagal secara terukur:
+
+| Percobaan | Hasil |
+|---|---|
+| Fringe tenda warung, garis 1,5px putih 14%, 6 lengkung 65px | menabrak baris lead (lead berakhir `y 147`, pita mulai `y 126`) |
+| Pita tenda terisi putih 7%, 8 lengkung r 24,375 | terbaca gerigi, bukan tenda, dan menutupi label daftar |
+
+Kesimpulan: kepala kosong karena **isinya cuma judul**, bukan karena kurang hiasan.
+Perbaikan yang dipakai: baris identitas akun pindah dari dasar layar
+(`Nomor aktif`, `y 796`) ke dalam kepala pada `y 164`, 350x44, `mainAlign:
+space-between` — nomor 14px `#A9B6C8` tabular di kiri, `Ubah nomor` 14px SemiBold
+`#FFFFFF` di kanan. Kepala naik 158 -> 220, spacer setelah lead 22 -> 89.
+
+Hasil: tidak ada piksel hiasan yang ditambahkan, kepala penuh informasi nyata, dan
+baris nomor yang tadinya mengambang sendirian di dasar layar hilang.
+
+### Latar makanan (2026-11-07, menggantikan latar peta)
+
+Bidang kosong di bawah daftar dibaca "sepi". Percobaan pertama memakai
+`public/assets/illustrations/service-area.svg` (peta area layanan) dan ditolak:
+peta nyambung ke pengantaran, bukan ke aplikasi makanan. Aset yang dipakai
+sekarang **foto makanan repo**: `public/assets/img/promo/promo-spread.webp`
+(flat-lay sate + nasi kuning, 2752x1536) — bukan ornamen karangan.
+
+Empat bentuk dicoba, dan tiga di antaranya gagal secara terukur:
+
+| Bentuk | Angka | Hasil |
+|---|---|---|
+| Foto badan penuh | opasitas 0,40 | `Keluar` di `Akun / 1`, label field `Buka warung`, catatan `Inbox` duduk di atas foto; kontras jatuh |
+| Foto di dalam kepala navy | foto + selubung `#172434` 0,72 + gradasi | judul putih di atas sate terang, kontras jatuh; bentuk tidak terbaca lagi |
+| Tekstur 0,16 + pita bawah | 14 bingkai | garis sambung terlihat di pertemuan tekstur dan fade |
+| **Pita bawah saja** (dipakai) | lihat tabel di bawah | tidak ada satu pun teks di atas foto |
+
+Aturan yang sempat dipakai: **foto hanya mengisi ruang yang tidak punya teks.**
+Keputusan ini **dicabut** pada sesi yang sama (lihat "Normalisasi konsistensi"):
+pita hanya terpasang di 6 dari 15 bingkai, dan justru ketidakseragaman itu yang
+dibaca sebagai berantakan.
+
+| Hal | Angka |
+|---|---|
+| Raster | `magick promo-spread.webp -gravity center -crop 2200x1000+0+0 -resize 780x` -> `header-food.png` (780x355) |
+| Rect pita | lebar 390, `mode:"fill"`, opasitas **0,80**, sampai dasar bingkai |
+| Mulai pita | `y = elemen terendah (teks/vektor/daun, tanpa spacer & header & bilah) + 24` |
+| Tinggi pita | `min(844 - y, 360)`; kalau hasilnya < 150 pita **tidak dipasang** |
+| Fade | di atas pita, `y - 60`, tinggi 210, gradasi `#F4F4F6` -> `#F4F4F6` -> `#F4F4F600` (opak 105px pertama supaya tidak ada garis sambung) |
+| Bingkai dapat pita | 5 dari 15: `Pilih peran / 1`, `Pilih peran / 3`, `Tambah peran / 1`, `Inbox / 1`, `Inbox / 2`, `Inbox / 3` |
+
+Bingkai yang **tidak** dapat pita tetap polos karena teksnya mencapai `y >= 675`
+(`Akun` 1-3, `Buka warung`, `Lengkapi profil kurir`, dua bingkai `Interaksi`):
+menaruh foto di sana berarti menaruh teks di atas foto, dan itu persis yang
+ditolak pada percobaan pertama. Bingkai auth juga tidak dapat pita — di sana
+sudah ada foto hero 240px sendiri.
+
+Footer aksi: tiga bingkai yang punya `Consent` di atas bilah (`Buka warung`,
+`Lengkapi profil kurir` 1-2) diberi `Latar footer` putih `y 700`, tinggi 144,
+plus `Fade footer` 60px di atasnya. Sebelumnya teks consent duduk di atas pita.
+
+### Normalisasi konsistensi (2026-11-07, setelah review "gak rapi / ai slop")
+
+Delapan belas lapisan dekorasi (pita foto, fade, latar/fade footer) **dihapus**.
+Alasannya terukur: pita hanya ada di 6 dari 15 bingkai app, jadi satu layar
+berfoto dan layar sebelahnya kosong. Ketidakseragaman itu yang terbaca sebagai
+berantakan, bukan kurangnya hiasan.
+
+Yang diukur sebelum dan sesudah:
+
+| Ukuran | Sebelum | Sesudah |
+|---|---|---|
+| Pad bawah kepala navy | 11 / 12 / 13 / 20 / 24 (5 nilai) | **20** di 15/15 bingkai |
+| Jarak kepala ke konten pertama | 0 / 3 / 7 / 9 / 11 / 16 / 35 / 41 (8 nilai) | **20** di 14/14 (sisanya `flex spacer`, bukan konten) |
+| Kombinasi `font-size\|weight` | 32 | **11** |
+| Kombinasi `font-size\|weight\|warna` | 60 | **27** |
+| Tinggi baris daftar | 64 + 72 | **72** di 31 baris |
+| Panel daftar | 3 kartu bertumpuk (radius 16 per baris) + 1 panel | **panel putih radius 16**, garis rambut `#EFF0F2` `strokeSides:[t]` antar baris |
+
+Aturan tipografi yang sekarang berlaku (hanya 11 kombinasi):
+
+| Peran | Ukuran | Weight | Warna |
+|---|---|---|---|
+| Judul layar | 28 | ExtraBold | `#FFFFFF` (di kepala navy) |
+| Judul auth (`Kirim kode`) | 21 | ExtraBold | `#172434` (bentuk pemilik, tidak disentuh) |
+| Judul baris daftar | 17 | SemiBold | `#172434` |
+| Teks isi / judul kartu | 15 | SemiBold | `#172434` atau warna peran |
+| Teks isi sekunder | 15 | Medium | `#475569` |
+| Meta di kepala | 15 | Medium | `#A9B6C8` |
+| Bantuan / label | 13 | Medium | `#475569` |
+| Label status | 13 | SemiBold | warna peran (`#BE123C` / `#B45309` / `#047857`) |
+| Tombol | 16 | SemiBold | `#FFFFFF` |
+| Isian field | 16 | Medium | `#172434` / `#64748B` (placeholder) |
+| Badge 2 baris | 14 | SemiBold atau Medium | `#172434` / `#A9B6C8` / `#FFFFFF` |
+
+Perubahan mekanis: 39 teks 13px diseragamkan (Bold/ExtraBold -> Medium, status
+berwarna -> SemiBold), 22 teks 17px dan 12px diseragamkan (17 -> SemiBold, 12 ->
+13 SemiBold), 76 teks 14-15px Bold/ExtraBold -> SemiBold.
+
+### Chip dan kepala yang tumpah (2026-11-07, setelah review `figcraft://node/1306`)
+
+Tiga cacat di `Inbox / 2 · isi pesan` dan satu di `Akun / 3 · keluar`:
+
+| Cacat | Sebab | Perbaikan |
+|---|---|---|
+| Chip status jadi **lingkaran 78x72** | `minHeight: 72` dari pembungkus baris, `cornerRadius: 999` | `minHeight: null` lalu `height: 28`; sekarang 78x28 |
+| Chip kepala `Berlaku 7 Nov` menyembul keluar kepala | `minHeight: 72` juga, di dalam appbar 68 | `height: 32`, kepala appbar 68 |
+| Subjudul `Contoh isi rule...` terpotong kepala navy | kepala 168, teks berakhir 179 | kepala = 179 + 20 = **199**, jarak ke konten 20 |
+| `Akun / 3`: judul + nomor keluar dari kepala, appbar 136 | appbar punya `flex spacer` 112, chip 72 | `flex spacer` 44, appbar **68**, kepala = 190 |
+
+Sapuan seluruh dokumen: nol pil ber-radius 999 dengan tinggi > 44 (sisa 8 `Mark`
+56x56 yang memang bulat), nol teks tumpah keluar kepala, pad kepala **20** di
+15/15, jarak kepala ke konten **20** di 14/14 (sisanya `Dialog` yang ditahan
+`flex spacer`).
+
+Ikut diseragamkan di `Inbox / 2`: `Rules` jadi panel putih radius 16 dengan garis
+rambut `#EFF0F2` `strokeSides:[t]` (sebelumnya tiga baris telanjang), `Banner`
+radius 12 -> 16, label status `Diubah` / `Ditambah` 13 SemiBold dengan warna peran
+(`#B45309` / `#047857`), titik 6px ikut warna label.
+
+Yang **tidak** berubah: warna peran token, radius, tipografi, susunan field, teks
+(mock repo + `USULAN` yang sudah ditandai), 20px gutter, dan tinggi bingkai 844.
+Bingkai `daftar` nomor 3 dipendekkan dari 906 ke 844 dengan `gap` form 8px supaya
+satu baris grid tetap rata; isi tetap utuh (nol elemen keluar bingkai).
+
+### Status verifikasi bergerak (2026-11-07, setelah review `figcraft://node/980`)
+
+Enam bingkai `Waiting` warisan lama (Mark 56px di tengah + 500px kosong, tanpa
+kepala navy) dibangun ulang dengan pola yang sama seperti 15 bingkai app lain:
+kepala navy, satu panel status, bilah aksi.
+
+| Bingkai | Isi baru |
+|---|---|
+| `Verifikasi merchant / 1 · menunggu` | stepper 3 langkah (1 selesai, 2 berjalan, 3 menunggu) + kartu `Sedang memeriksa data` dengan 3 bar skeleton 10px |
+| `Verifikasi merchant / 2 · perlu perbaikan` | stepper langkah 2 merah + bilah progres 66% `#BE123C` + kartu `Yang perlu diperbaiki` (baris alamat + chevron) |
+| `Verifikasi merchant / 3 · disetujui` | stepper 3/3 hijau + bilah 100% + kartu interaktif `Terima order` (sakelar 46x28 hidup) dan `Jam operasional` |
+| `Tambah peran / 3 · terkirim` | kartu status `Menunggu persetujuan` + 2 skeleton + catatan; tombol `Kembali ke akun` |
+| `Onboarding kurir / 3 · tersimpan` | kartu `Profil kurir tersimpan` + catatan; tombol `Lanjut masuk` |
+| `Inbox / 4 · kosong` | panel kosong: Mark 56px + `Belum ada pesan`; tanpa bilah aksi (tidak ada aksi) |
+
+Animasi prototipe (bukan gambar diam). Tiga bingkai merchant dirangkai jadi satu
+putaran yang berjalan sendiri saat dipratinjau:
+
+| Dari | Pemicu | Ke | Transisi |
+|---|---|---|---|
+| `Verifikasi merchant / 1` | `afterDelay 2400ms` | `/ 2` | `smartAnimate` 650ms `easeInOut` |
+| `Verifikasi merchant / 2` | `afterDelay 2200ms` | `/ 3` | `smartAnimate` 650ms `easeInOut` |
+| `Verifikasi merchant / 3` | `afterDelay 3000ms` | `/ 1` | `smartAnimate` 800ms `easeInOut` |
+
+Karena semua bingkai memakai nama lapisan yang sama (`Progres verifikasi`,
+`Step 1..3`, `Track`, `Isi 33/66/100`, `Action bar`), `smartAnimate` menyambung
+posisinya: titik langkah berganti warna di tempat, isi bilah progres memanjang,
+dan kuncinya bergeser ke kanan dari 33% ke 100%.
+
+Ukuran sesudah perubahan:
+
+| Ukuran | Hasil |
+|---|---|
+| Bingkai berkepala navy | **21 / 35** (sebelumnya 15) |
+| Bingkai tanpa kepala | **14**, semuanya keluarga auth: `Masuk` 4, `Kirim kode` 4, `Verifikasi` 3, `Daftar` 3 (form pemilik, sengaja tidak navy) |
+| Pad bawah kepala | **20** di 21/21 |
+| Jarak kepala ke konten | **20** di 20/20 (sisanya `Dialog` yang ditahan `flex spacer`) |
+| Teks tumpah keluar kepala | **0** |
+| Pil radius 999 tinggi > 44 | **0** (sisa `Mark` 56x56 bulat) |
+| Baris daftar | 72px, satu panel putih radius 16 |
+
+Teks karangan yang perlu disetujui pemilik (ditandai `USULAN`, bukan dari mock):
+
+- Jam tangan di stepper: `Hari ini, 09.12` / `14.28` / `14.31`, dan `Biasanya 1 x 24 jam`.
+- `Jam operasional` + `Setiap hari, 09.00 - 21.00` (kartu `Toko aktif`).
+- `Kami kabari lewat WhatsApp begitu selesai`, `Order baru akan muncul di beranda merchant.`
+- `Begitu masuk, profil ini dipakai untuk peran kurir warung ini.`
+
+Teks lain disalin dari bingkai lama (`Menunggu persetujuan`, `Alamat toko di luar
+cakupan layanan`, `Perbaiki data pendaftaran`, `Buka beranda merchant`).
+
 ## Memeriksa
 
 ```bash
@@ -637,3 +905,345 @@ beku. Foto kepala karena itu tidak pernah terlihat di tangkapan layar pengukuran
 — yang terbukti di sana hanya geometri (kepala `322px`, badge `76px`, tombol
 `24px` dari dasar, nol isi terpotong). Logonya bisa diperiksa dengan menyuntik
 SVG-nya inline. Penilaian rupa foto harus dari peramban biasa.
+
+## Audit FigCraft M1 dan perbaikan menyeluruh (2026-11-07)
+
+Berkas: `design/beta-v1.figcraft`. Cakupan: 34 bingkai (sebelumnya 35; bingkai
+demo `Interaksi / 1 · daftar` dihapus karena duplikat `Pilih peran / 1` dengan
+gaya lama, dan `Interaksi / 2` dipindah menjadi `Pilih peran / 4 · baris
+terbuka` di kolom keempat seksi `Pilih peran`).
+
+### Prototype
+
+| Ukuran | Sebelum | Sesudah |
+|---|---|---|
+| Interaksi (aksi keluar) | 15 | 73 |
+| Bingkai punya aksi keluar | 9 / 35 | 34 / 34 |
+| Bingkai buntu | 26 | 0 |
+| Bingkai terjangkau dari `Masuk / 1` | 10 | 25 / 34 |
+| Tujuan menggantung | 1 (menunjuk frame terhapus) | 0 |
+| Titik mulai flow | `Pilih peran` = frame demo | `Masuk` 275, `Pilih peran` 1586, `Akun` 1105 |
+
+Rantai yang sekarang bisa dicoba: `Masuk / 1` (275) -> `Kirim kode / 1` (390)
+-> `Verifikasi / 1` (545, lanjut sendiri setelah 2,6 detik) -> `Pilih peran / 1`
+(1586) -> `Akun / 1` (1105) -> `Inbox / 1` (1266). Cabang: `Daftar` (740 -> 775
+-> 818 -> 1586), `Tambah peran` (864 -> 903 -> 940 -> verifikasi toko 959),
+`karyawan ditambahkan` (Inbox / 3 -> onboarding kurir 1018 -> 1050 -> 1086).
+
+9 bingkai keadaan (nomor tidak sah, gagal membuat kode, batas permintaan, kode
+baru, WhatsApp tidak terbuka, nomor tidak cocok, kode kedaluwarsa, satu peran,
+inbox kosong) tetap tidak punya jalan masuk: di PRD keadaan itu dipicu validasi
+atau isi data, bukan aksi pengguna, dan FigCraft di berkas ini tidak memakai
+variabel. Itu dibatasi, bukan cacat yang terlewat.
+
+### Tata letak
+
+| Temuan | Bukti sebelum | Tindakan |
+|---|---|---|
+| 8 tombol utama terpotong | `Button` duduk di `y=776` dalam wadah `Footer` tinggi 0/38/44 dengan `clip` aktif | wadah jadi `Action bar` 390x84 absolut di `y=760` + hairline atas; tombol `350x52` di `y=16` |
+| Label putih di atas putih | `Button Batalkan` (563) dan `Button Batal` (1259) | teks `#172434` |
+| Dialog keluar dua tombol bertumpuk | `Keluar` 316px dan `Batal` 154px di `x=0` | 154px sejajar, jarak 8, `Batal` bertepi `#E2E8F0` |
+| Duplikat aksi di bilah bawah | `Ubah nomor` / `Sudah kirim` menimpa tombol utama di 390, 468, 507 | dihapus; `Kirim ulang dalam 04:12` jadi keterangan 13px di atas tombol (429) |
+| Keterangan di belakang tombol | `Punya warung?...` (682) dan `Ganti nomor` (584) | dipindah ke atas bilah, lebar 350, `13 Medium` / `15 SemiBold` |
+| Konten tumpah dari kepala | `Progress` 4px menimpa `Lead` setelah kepala `Verifikasi` diberi judul | `Progress` dihapus |
+| Judul 21px di `Kirim kode` | 4 node | 28 ExtraBold, tracking -1,5% (sama dengan judul layar lain) |
+| Warna avatar bergilir | `#EEF2F7 #FFF0EB #F1F5F9 #FFF7E6` di 4 baris peran | satu `#EEF2F7`, inisial `#172434` |
+| Label tidak cocok isi | `3 peran di nomor ini` untuk 4 baris | `4 peran di nomor ini` |
+| Nomor beda format | `0812-3456-789` 14px | `+62 812 3456 7890` 15px |
+| `+ Tambah peran` 14px | 3 node | 15 SemiBold |
+| Judul seksi beda nama dengan bingkai | `Masuk · kirim kode` vs `Kirim kode / N`, dst. | judul seksi = nama bingkai: `Masuk`, `Kirim kode`, `Verifikasi`, `Pilih peran`, `Daftar`, `Tambah peran`, `Verifikasi merchant`, `Onboarding kurir`, `Akun`, `Inbox` |
+| Bingkai demo di luar pola kanvas | `Interaksi / 1-2` di `y=11230`, jarak 46px (lainnya 126px), tanpa judul seksi | `Interaksi / 1` dihapus, `Interaksi / 2` jadi `Pilih peran / 4` di `x=1362 y=3620`, diberi keterangan |
+
+Ukuran sesudah:
+
+| Ukuran | Hasil |
+|---|---|
+| Bingkai 390x844 | **34 / 34** |
+| Isi terpotong wadah ber-`clip` | **0** |
+| Wadah tinggi 0 | **0** |
+| Kombinasi `fontSize|fontStyle` | **8** (tadinya 11) |
+| Jarak antar seksi | **126** di semua baris; judul seksi ke bingkai 70 + 80 |
+| Frame tanpa aksi keluar | **0** |
+
+### Sengaja tidak diubah
+
+- **Warna judul seksi `#E44220`.** Pemilik meminta judul seksi dibaca di kanvas;
+  rasio di kanvas putih 4,12:1 (lolos AA teks besar). Mengembalikannya ke
+  `#172434` akan mengulang keluhan yang sama.
+- **Tumpukan `spacer` tinggi tetap** di 12 bingkai. Menggantinya ke pad/gap
+  otomatis tidak mengubah satu piksel yang dilihat pemilik, dan menyentuh 12
+  bingkai sekaligus berisiko menggeser baris. Dicatat sebagai utang, bukan
+  diperbaiki buta.
+- **Keluarga auth tetap tanpa kepala navy** (`Masuk` 4, `Kirim kode` 4,
+  `Verifikasi` 3, `Daftar` 3), sesuai keputusan pemilik di `login-1to1.html`.
+  `Verifikasi` hanya diberi judul + satu baris bantu supaya hierarkinya sama
+  dengan layar lain.
+
+## Uji jalan dan responsivitas mobile (2026-11-07)
+
+### Prototipe berjalan
+
+`proto.present start=545` (Verifikasi / 1) berpindah sendiri ke `Pilih peran / 1`
+(1586) setelah 2,6 detik; `presenter.current` berubah 545 -> 1586 dengan
+`history: [545]`. Graf interaksi: 73 aksi keluar, 0 bingkai buntu, 0 tujuan
+menggantung.
+
+### Responsivitas terukur
+
+Bingkai digambar 390x844, tetapi tata letaknya sekarang **reflow** saat lebar
+bingkai berubah: 199 node diberi `sizingH: fill` (konten 350 px di gutter 20 px,
+bukan lebar mati) dan 204 node absolute diberi constraint `leftRight` /
+`center` / `bottom`, jadi bilah aksi dan home indicator menempel tepi bawah
+berapapun tingginya.
+
+Diukur dengan mengubah lebar bingkai lalu memindai setiap layer yang melewati
+kotak induknya (`get_node depth:20`, toleransi 1 px):
+
+| Bingkai | Layer keluar tepi kanan | Layer keluar tepi bawah |
+|---|---|---|
+| 390x844 (native) | 0 | 0 |
+| 360x780 | 0 | 1 (Layer consent, 1 px, terpotong di dalam panel) |
+| 320x568 | 0 | 45 |
+
+Konten ikut menyusut: baris daftar 350 px (390) -> 320 px (360) -> 280 px
+(320), gutter tetap 20 px, dan `Consent` 350 -> 320 -> 280 dengan teks
+318 -> 288. Bilah aksi 390 -> 360 -> 320 lebar, tombolnya 350 -> 320 -> 280.
+Sisa 45 layer di 320x568 semuanya vertikal (isi lebih tinggi dari layar 568),
+bukan luberan kanan: itu kasus gulir, bukan tata letak rusak.
+
+Catatan mesin: `proto.settings responsive:true` **hanya menyetel viewport**
+(`inspect_ui.presenter.viewport` ikut 360x780) dan tidak mengubah lebar bingkai,
+jadi pratinjau mengecil utuh (skala 0,974), bukan reflow. Reflow dibuktikan lewat
+`set_properties {width}` + pemindaian di atas. Port React tetap wajib memakai
+lebar fluid + `env(safe-area-inset-*)`; angka di tabel ini adalah patokan
+sasarannya.
+
+### Diperbaiki saat uji
+
+| Temuan | Bukti | Tindakan |
+|---|---|---|
+| `Ubah nomor` terpotong | kotak teks 89-90 px untuk 11 karakter 15 SemiBold (~95 px) di `Identitas akun` ber-`clip` | kotak 110 px di 1586 dan 1696 |
+| Baris `Notifikasi` bergeser | subjudul 2 baris (h=40) membuat blok y=3, sedangkan baris lain y=13 | teks jadi `Aturan berubah & info pesanan`, 1 baris, `#475569` |
+| Nomor kurir beda format | `0812 3456 7890` di `Onboarding kurir / 1` | `+62 812 3456 7890` |
+
+## Normalisasi token FigCraft (2026-11-07, `npm run figcraft:audit` PASS)
+
+Utang pertama file `design/beta-v1.figcraft` diukur gerbang: 9 warna di luar token
+(80 isian), 6 radius di luar skala (80 lapisan), 15 kontras gagal, 6 bingkai tanpa
+jalan masuk. Semuanya sudah turun ke nol; gerbang sekarang mencetak
+`PASS — tidak ada temuan`.
+
+### Warna: 9 nilai -> token
+
+| Nilai lama | Isian | Token | Alasan |
+|---|---|---|---|
+| `#E8441C` | 27 | `--sa7tein-orange` `#E44220` | sisa oranye v1 di tile `Brand` kepala; satu merek satu heks |
+| `#A9B6C8` | 20 | `--on-navy` `#FFFFFF` @ 72% | teks redup **di atas kepala navy**, bukan di kertas. Hasil komposit `#BEC2C6` = 8,76:1, hampir sama dengan `#A9B6C8` (7,0:1), dan tidak menambah warna baru |
+| `#EEF2F7` | 11 | `--bg-warm` `#F4F4F6` | latar tile avatar, selisih 6/255 per kanal |
+| `#EFF0F2` | 12 | `--border` `#E2E8F0` | skeleton, track progres, garis rambut |
+| `#E6E6EA` | 2 | `--border` `#E2E8F0` | penghubung progres yang belum lewat |
+| `#FCFCFD` | 1 | `--bg-warm` `#F4F4F6` | latar panel `Detail peran` |
+| `#FFF7E6` | 1 | `--warning-soft` `#FFF7ED` | avatar kurir |
+| `#BBE5D3` | 1 | `--success` `#059669` | penghubung progres yang sudah lewat; 3,77:1 di putih (non-teks, ambang 3) |
+| `#B91C1C` | 2 | `--danger-ink` `#BE123C` | label `Keluar`; 6,29:1 di putih |
+
+### Kontras: 15 temuan -> 0
+
+| Sebelum | Sesudah | Angka |
+|---|---|---|
+| Tab aktif `#E44220` 15 SemiBold di `#F4F4F6` | `--orange-ink` `#B83213` | 3,75:1 -> 5,46:1 |
+| Baris bantu `#64748B` 13 Medium di `#F4F4F6` | `--text-secondary-strong` `#475569` | 4,33:1 -> 6,90:1 (token ini memang dibuat untuk kasus itu, `_tokens.scss:23`) |
+| `Angka`/`Meta` `#94A3B8` 13 di putih | `#475569` | 2,56:1 -> 7,58:1 |
+
+Tab aktif tetap ditandai garis bawah `--sa7tein-orange`; yang berubah hanya
+label teksnya. Ini **deviasi tercatat** dari irisan auth (label dulu memakai heks
+merek langsung) dan alasannya angka: 15 px bukan teks besar, jadi ambangnya 4,5:1.
+
+### Radius: 6 nilai -> skala token
+
+| Lama | Lapisan | Token | Catatan |
+|---|---|---|---|
+| 14 | 26 | `--radius-md` 12 | tombol 52 px; 12 adalah token "input, tombol" |
+| 20 | 7 | `--radius-xl` 24 | tile `Brandmark` 80 px |
+| 28 | 20 | `--radius-xl` 24, sisi `[0,0,24,24]` | kepala navy; tetap hanya sudut bawah yang membulat |
+| 3 | 34 | pill 999 | `Home indicator` 134x5, bentuknya tidak berubah |
+| 4 | 6 | `--radius-xs` 8 | checkbox 20 px | 
+| 6 | 5 | `--radius-xs` 8 | skeleton |
+
+Radius `30` pada 34 bingkai (selubung perangkat) dan `32` pada `Hero foto` tidak
+disentuh: yang pertama bukan UI, yang kedua sudah `--radius-2xl`.
+
+### Bingkai varian tidak ditalinkan
+
+`Masuk / 2`, `Masuk / 4`, `Verifikasi / 2`, `Verifikasi / 3`, `Pilih peran / 2`,
+`Inbox / 4` memang tidak punya `navigate` masuk: itu **keadaan**, bukan tujuan.
+Gerbang sekarang menerima varian bila ada saudara seasal (teks sebelum ` / `)
+yang terjangkau. `Inbox / 4` punya panah `Back` (1371) yang ternyata
+`navigate` ke 1266; tujuh panah `Back` di file ini diubah ke aksi `back` supaya
+riwayat prototipe benar, termasuk `Onboarding kurir / 2` yang dulu melompat
+ke `Pilih peran`.
+
+### Bukti
+
+```
+npm run figcraft:audit
+bingkai 34 · lapisan 1281 · interaksi 82 (navigate 66, back 16) · hotspot 80 · huruf 8
+PASS — tidak ada temuan.
+```
+
+### Chevron melar 26x di `Verifikasi merchant / 3` (2026-11-07, temuan pemilik)
+
+Gerbang sebelumnya melaporkan PASS untuk bingkai 999 padahal kartu `Terima order`
+tampak rusak. Penyebabnya satu properti, bukan satu gambar:
+
+| Gejala | Angka | Akar |
+|---|---|---|
+| Bentuk ">" raksasa di kanan baris `Jam operasional` | `Chevron` (2396) **158x14**, aslinya 6x14 = 26x | `sizingH: "fill"` di baris `mainAlign: spaceBetween` dengan 2 anak |
+| `Setiap hari, 09.00 - 21.00` pecah dua baris, "21.00" yatim | `Keterangan` terhimpit 158 px (seharusnya 310) | chevron `fill` mengambil 158 px sisanya |
+
+Kenapa gerbang lolos: vektor menyimpan geometri di `vertices`, jadi saat di-stretch
+bentuknya **ikut** melar. Tidak ada yang keluar kotak (158+158 = 316 pas), tidak ada
+tumpang tindih, dan warnanya token. Yang salah bukan posisi, melainkan **rasio**.
+
+Perbaikan: `sizingH/V: "fixed"` + `width: 6`, lalu reflow otomatis — `Keterangan`
+310 px, meta 1 baris (20), `Baris jam` 63 -> 43, `Terima order` 169 -> 149, hint naik
+ke y=606. Bukti piksel: chevron 6x14 di x=310, rentang jam satu baris.
+
+Dua lubang gerbang yang ketahuan dari kasus ini, keduanya sudah ditutup:
+
+1. **Ikon melar** — cek baru `stretchedIcon` (FR-20b): vektor bernama sama dibandingkan
+   satu sama lain, selisih >2x = FAIL. `Chevron` 158 vs 6 tertangkap; nama generik
+   `Layer` dikecualikan karena dipakai banyak ikon berbeda.
+2. **Garis tepi dari `strokes[]` tidak diperiksa** — dulu hanya `stroke` (tunggal) yang
+   dibaca, sehingga 43 garis `#E6E6EA` (25) dan `#EFF0F2` (18) lolos. Sekarang keduanya
+   dihitung dan sudah dipetakan ke `--border` `#E2E8F0`.
+
+Self-check gerbang naik dari 7 ke 8 pemeriksaan: fixture sintetis memuat pasangan
+`Chevron` 6x14 dan 158x14, dan gerbang wajib melaporkannya.
+
+### Tiga keadaan auth yang belum punya layar (2026-11-07, R-ACC A3/A4/A11)
+
+Ditemukan saat mencocokkan alur login dengan `docs/product/prd/versions/sa7tein-beta-2026-11-05/features/R-ACC.md`.
+Tiga aturan berstatus `partial` tidak punya bentuk layar sama sekali; sekarang ada, semuanya menumpang
+pola yang sudah dipakai supaya tidak menambah bahasa visual baru.
+
+| Aturan | Bingkai baru | Cara dibuat | Angka |
+|---|---|---|---|
+| A4/AC7 login membuka **peran terakhir** | `Pilih peran / 5 · peran terakhir` (2488) | salinan `Pilih peran / 2 · satu peran` (660); judul/lead/tombol diganti | 5 bingkai `Pilih peran`, interaksi `545 -> 2488` menggantikan `545 -> 1586` |
+| A3 kode **sekali pakai** | `Verifikasi / 4 · kode sudah dipakai` (2514) | salinan `Verifikasi / 3 · kode kedaluwarsa` (588); chip + judul + lead diganti | isi 4 teks: `Sudah dipakai` / `Kode sudah dipakai` / `Satu kode hanya untuk satu login. Minta kode baru.` |
+| A11 merchant wajib **rekening** + validasi nama | field di `Tambah peran / 2` (903) + galat `Tambah peran / 2b · rekening tidak cocok` (2543) | field disalin dari `Field Alamat toko` (926); galat memakai pola `Daftar / 2 · isian salah` (`#E11D48` garis input, ikon `#BE123C`, teks 13 SemiBold) | form 403 -> 425 px, 5 field, field bergalat 93 px (71 + 18 baris galat), form berakhir y=612 < Consent y=670 |
+
+Yang **tidak** ditambahkan, dengan alasan:
+
+- Layar "ops memverifikasi rekening" tidak digambar di PWA ini; PRD §12 menaruh verifikasi merchant di aplikasi ops.
+- Tidak ada layar baru untuk A8 (order ke warung sendiri) dan A12 (pindah owner): A8 milik discovery, A12 menunggu `R-MER-CREW` yang masih `blocked`.
+- Diagram `docs/design/flows/f21-account-auth` **sudah direbase** ke beta (2026-11-07): 12 node, 3 lane, 5 kolom, guard batas/nomor beda/kode batal. Gate: `./scripts/flows-gate.sh f21-account-auth` PASS (9/9, visual pass). Catatan lama soal Google + nomor WA sudah dihapus dari README/INDEX/PLAN; yang tersisa hanya di `src/` (kode belum diubah).
+
+Bukti gerbang: `npm run figcraft:audit` -> 37 bingkai, 87 interaksi (navigate 70, back 17), PASS;
+`npm run scan` -> 0 FAIL; `npm run governance:check` -> OK.
+
+### User Agreement baca penuh (2026-11-07, R-ACC-AGREEMENT state "onboarding")
+
+PRD minta "layar consent dengan ringkasan + **tautan baca penuh**" (`R-ACC-AGREEMENT.md:38`). Sebelumnya
+hanya ada ringkasan: `Daftar / 3 · User Agreement dibuka` (818) menampilkan tiga butir di dalam
+`Disclosure`, tanpa jalan ke teks penuh, dan `Tambah peran / 2` (903) hanya punya kalimat persetujuan.
+
+| Item | Isi | Angka |
+|---|---|---|
+| Bingkai baru | `User Agreement / 1 · bingkai baca penuh` (2598, x1816 y10340) | salinan `Inbox / 2 · isi pesan` (1305), 844 tinggi |
+| Isi | chip `Berlaku 7 Nov`, judul `User Agreement`, lead "Ringkasan aturan kompensasi dan punishment. Contoh isi, bukan kutipan PRD.", 3 aturan, banner "Berlaku otomatis pada tanggal itu. Tidak perlu menyetujui ulang." (A5), tombol `Kembali` | 3 aturan, 1 banner, 1 tombol back |
+| Jalan masuk | `Disclosure body` (845) → 2598 dan baris persetujuan (933) → 2598 | 2 interaksi `navigate`, `slideIn` 320 ms |
+| Kenapa bukan layar baru untuk kurir | kurir = karyawan merchant, `A3`: karyawan **tidak** menyetujui, hanya boleh membaca; `A1` hanya merchant & customer | tidak ada layar consent kurir |
+| Tap target | baris persetujuan 933 dinaikkan 42 → 44 px supaya lolos FR-24 | `318x44` |
+
+Yang tidak diisi, sengaja: sisa ruang bawah 325 px (footer berakhir y=507, home indicator y=832) sama
+persis dengan `Inbox / 2` (1305). Layar baca tidak mendock CTA di zona jempol; menambah isi karangan
+untuk menutup ruang itu melanggar aturan "sisa ruang dibiarkan".
+
+Catatan angka ruang kosong di layar status (diukur dari node, bukan kesan): `Tambah peran / 3` (940)
+punya `flex spacer` 478 px dan `Onboarding kurir / 3` (1086) 499 px, sementara `Verifikasi merchant / 3`
+(999) hanya 202 px. Jadi 999 **bukan** outlier; pola CTA terdock di bawah konsisten, tidak diubah.
+
+### Carousel onboarding customer dipertahankan (keputusan pemilik, 2026-11-07)
+
+PRD aktif `sa7tein-beta-2026-11-05` **tidak** memuat requirement tur perkenalan/carousel untuk peran mana
+pun (pencarian `carousel|slide|tour|perkenalan|pertama kali|welcome` di seluruh `versions/sa7tein-beta-2026-11-05/`:
+nol; yang kena hanya `MerchantPromoSlideForm` dan slider poin). Tetap ada di kode:
+`src/pages/Onboarding.tsx:12` (carousel, isi `src/data/onboarding.ts`), rute `/customer/onboarding`
+(`src/App.tsx:163`).
+
+Keputusan pemilik: **tidak mengikuti PRD untuk titik ini, carousel dibiarkan apa adanya.** Konsekuensi
+yang dicatat supaya tidak jadi jebakan nanti:
+
+- Ini **deviasi sadar**, bukan requirement. Jangan menambahkan carousel serupa ke merchant, kurir, atau ops.
+  Onboarding merchant/kurir tetap form (`MerchantOnboarding.tsx:23`, `CourierOnboarding.tsx:19`), dan
+  consent User Agreement masuk lewat layar `User Agreement / 1 · baca penuh` (2598 di FigCraft).
+- Isi slide tetap tunduk pada aturan repo: foto dari `public/assets/`, tanpa emoji, tanpa URL eksternal,
+  ikon lucide.
+- Kalau nanti PRD beta menambah requirement onboarding per peran, carousel customer ini yang diperiksa
+  lebih dulu: pertahankan sebagai tur perkenalan atau ganti ke layar consent.
+- Bukan blocker: tidak ada requirement beta yang bergantung pada carousel ini.
+
+### Logo hilang di 31 header (2026-11-07, temuan pemilik)
+
+Gejala: di layar aplikasi, tile logo di kiri teks `Sa7tein` tampak kotak oranye polos tanpa simbol,
+sementara di layar auth (yang memakai `Brandmark` 72x72) logo terlihat utuh.
+
+Akar: dua bentuk berbeda dipakai untuk hal yang sama. `Brandmark` (auth) = bingkai putih + **isian gambar**
+`images/aed995cd…` (19.139 B, logo squircle oranye + glyph biru), sedangkan `Brand` 28x28 (header app)
+cuma **isian warna** `#E44220` tanpa gambar sama sekali. Riwayat versi membuktikan ini bukan efek edit
+terakhir: ketiga versi tersimpan (`versions/1a1b405eadf`, `1a1b43cd950`, `1a1b458507a`) juga tidak punya
+anak/gambar di tile `Brand`.
+
+Perbaikan: isian gambar yang sama dipasang ke **31** tile `Brand` (28x28, radius 8, `scale_mode: fill`).
+Bukti: ekspor `Brand` pada skala 8 menunjukkan glyph; ekspor bingkai `Pilih peran / 2` skala 4 menunjukkan
+kotak oranye berisi simbol biru di kiri `Sa7tein`. `npm run figcraft:audit` tetap PASS (38 bingkai,
+91 interaksi), karena isian gambar tidak dihitung sebagai warna luar token.
+
+Catatan: `Mark` (56x56, dipakai di kartu status) tetap vektor garis, bukan logo, jadi tidak diubah.
+
+### Kanvas mencong: gerbang grid (2026-11-07, FR-37)
+
+Keluhan pemilik: section di kanvas "mencong, gak jelas". Penyebabnya bukan isi bingkai, melainkan
+posisinya di kanvas: `Verifikasi / 4 · kode sudah dipakai` (2514) duduk di `x1368` padahal kolomnya
+`1362` (selisih 6 px). Gerbang lama hanya memeriksa ISI bingkai (luberan, hotspot, kontras, warna),
+jadi bingkai yang digeser beberapa piksel lolos tanpa jejak, dan `Caption sub`-nya (2595) juga ikut
+di `x1368` sehingga judul/penjelas tampak tidak rata dengan tiga bingkai lain di barisnya.
+
+Perbaikan dua arah:
+
+| Arah | Isi |
+|---|---|
+| Data | 2514 digeser `x1368 → 1362`; `Caption sub` 2595 `x1368 → 1362` |
+| Gerbang | FR-37 `canvasGrid` di `scripts/figcraft-audit.mjs`: bingkai wajib `x = n x 454`, `y = baris pertama + n x 1120`; `Caption sub` wajib 80 px di atas bingkai di kolom yang sama; `Screen title` wajib `x0` dan 150 px di atas baris |
+| Self-check | `scripts/figcraft-audit-check.mjs` menambah bingkai sintetis di `x6`, jadi grid 454 diuji, bukan diasumsikan (9 pemeriksaan) |
+
+Bukti: `npm run figcraft:audit` PASS (38 bingkai, 1433 lapisan, 91 interaksi); `npm run figcraft:audit:test`
+LULUS 9 pemeriksaan; 38 bingkai sekarang menempati kolom `0/454/908/1362/1816` dan baris kelipatan
+1120 dari baris pertama (y260).
+
+### Ikon gepeng: `sizingH: fill` massal (2026-11-07, FR-20b)
+
+Gejala yang dilihat pemilik di baris `Verifikasi`: ikon status tampak seperti **elips gepeng**, bukan
+lingkaran, dan tanda centang di baris consent melebar. Bukan mata yang salah, dan bukan bingkai yang
+mencong: bentuknya memang ter-stretch.
+
+| Bukti | Angka |
+|---|---|
+| Gelembung chat `Waiting` (556, 576, 597, 2525) | versi lama `26x26`, sekarang `56x26` (2,15x) |
+| Ikon `Inbox kosong` (2456) | versi lama `16x18`, sekarang `56x18` (3,5x) |
+| Centang consent (851, 932, 1079, 2587) | versi lama `13x13`, sekarang `18x13` (1,38x) |
+| Penyebab | seluruh 9 vektor itu ber-`sizingH: "fill"` di dalam baris auto layout |
+| Kapan | suntingan massal di versi tersimpan `versions/1a1b458507a.json`; dua versi sebelumnya masih kotak |
+
+Perbaikan: `sizingH`/`sizingV` dikembalikan ke `fixed` dan lebar/tinggi asli dipulihkan, lalu induknya
+(`Mark`, `Checkbox`) memusatkan lewat `mainAlign`/`crossAlign`. Hasil: `556` = `26x26 @ x15 y15`,
+`2456` = `16x18`, centang `13x13`.
+
+Kenapa gerbang tidak menangkap: `stretchedIcon` (FR-19) membandingkan vektor **bernama sama**, dan nama
+ikon-ikon ini `Layer` (generik, dikecualikan) atau `Ikon`. Karena kesembilannya melar seragam, tidak ada
+pembanding yang berbeda. Jadi gerbang sekarang memeriksa **mekanismenya**: `iconFill` (FR-20b) menggagalkan
+setiap vektor ber-`sizingH: "fill"`. Self-check menambah fixture vektor `56x26` ber-`fill` (10 pemeriksaan).
+
+Sisa kecil yang tidak diubah dan bukan regresi: ikon `26` di dalam lingkaran `56` (46%) terasa agak kecil;
+memperbesar ke ~30 berarti mendesain ulang, sedangkan tugas ini memulihkan ukuran asli.

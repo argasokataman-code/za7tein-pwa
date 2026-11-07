@@ -72,3 +72,8 @@ Actor: akun (nomor WA). Sesi: akun + role aktif. Webhook WhatsApp Cloud API memv
 
 - Kode lama: `api/supabase.ts:99`, `src/pages/SignIn.tsx`, `SignUp.tsx`, `Verification.tsx`, `CourierSignIn.tsx:23`, `src/store/slices/authSlice.ts:14`.
 - Flow terkait: `docs/design/flows/INDEX.json` → `auth` (mismatch terbuka), `f21-account-auth`, `f16` (rekrut kurir).
+- Desain FigCraft (`design/beta-v1.figcraft`, 2026-11-07) mencakup tiga aturan yang sebelumnya belum punya layar; ini **bentuk layar**, bukan implementasi (AC di §7 tetap ⛔):
+  - A4/AC7 peran terakhir → bingkai `Pilih peran / 5 · peran terakhir` (2488); `Verifikasi / 1` (545) mengarah ke sana setelah indikator menunggu.
+  - A3 kode sekali pakai → bingkai `Verifikasi / 4 · kode sudah dipakai` (2514), salinan pola `Verifikasi / 3 · kode kedaluwarsa`.
+  - A11 rekening + validasi nama pemilik → `Tambah peran / 2 · profil warung` (903) bertambah field `Nomor rekening` + `Nama pemilik rekening`, dan keadaan galat `Tambah peran / 2b · rekening tidak cocok` (2543) memakai pola galat yang sudah ada di `Daftar / 2 · isian salah` (`#E11D48` garis + ikon `#BE123C`).
+- Peran ops (verifikasi merchant, pindah owner) tidak digambar di PWA ini: PRD §12 menaruhnya di aplikasi ops terpisah.

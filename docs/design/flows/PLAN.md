@@ -111,12 +111,13 @@ Urutan bangun = urutan milestone (M1 → M11), lalu nilai baca. Status: `todo` /
 - **UNRESOLVED:** tarif GST makanan spesifik, PPN ekspor jasa, status PKP (R-TAX-01; OQ-2/3/4/17/18)
 - **Sumber:** R-FEE-01, R-TAX-01; M2, M7
 
-### F21 — Registrasi & masuk akun ✅ done
+### F21 — Registrasi & masuk akun ✅ done (rebase beta 2026-11-07)
 - **Slug:** `f21-account-auth` · **Type:** `workflow` · **Milestone:** M8
-- **Alur customer:** onboarding → login Google → nomor WA wajib (E.164) → verifikasi format → profil & PIN → gate top-up 3,5 JOD sebelum bisa order (`f3`)
-- **Alur merchant/kurir:** form toko → nomor WA toko → diserahkan ke `f16` (deposit 3,50 JOD + approval SA)
-- **Dasar:** PRD `source.md:760` (nomor WA wajib) + `:727` (E.164) + keputusan PO 2026-09-22 (Google menggantikan sandi, nomor WA wajib Level 1)
-- **UNRESOLVED:** apakah merchant/kurir juga boleh Google · sesi/token & PIN belum berdasar PRD · ganti nomor & retensi · verifikasi otomatis (Level 2) ditunda
+- **Alur akun:** nomor WhatsApp → **pengguna mengirim kode** (reverse OTP) → webhook mencocokkan nomor pengirim → kode sekali pakai (masa berlaku + batas permintaan) → **buka peran terakhir**; pindah peran tanpa login ulang
+- **Alur peran:** tambah peran warung dari dalam akun → rekening + nama pemilik (wajib merchant) → verifikasi **ops** → owner menambah karyawan/kurir (kurir = karyawan, tanpa verifikasi ops)
+- **Guard:** batas kirim · nomor tidak cocok · kode batal (kedaluwarsa atau sudah dipakai)
+- **Dasar:** `sa7tein-beta-2026-11-05` §5 ACC-01..ACC-08, §5.1, §11.3, §12 + `features/R-ACC.md` A1..A13
+- **UNRESOLVED:** nilai masa berlaku/batas permintaan = `applicationConfiguration` (§12.2) · webhook WhatsApp tidak ada di repo mock (FE saja) · pindah owner (`A12`) menunggu `R-MER-CREW` (blocked)
 
 ### F5 — Verifikasi pengiriman (checkpoint + OTP + SLA) ✅ done
 - **Slug:** `f5-delivery-verification` · **Type:** `lifecycle` · **Milestone:** M5

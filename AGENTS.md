@@ -103,6 +103,40 @@ diverifikasi angka dulu sebelum disebut bug.
 
 ---
 
+## 0d. File desain FigCraft (`design/*.figcraft`) — aturan + gerbang
+
+`design/*.figcraft` **bukan** kanvas bebas. Aturan kerjanya ada di `docs/design/figcraft-rules.md`
+(FR-01…FR-36) dan ditegakkan mesin: `npm run figcraft:audit` (jalan di pre-commit kalau ada file
+`design/*.figcraft`). Ratchet `docs/design/figcraft-debt.json` hanya boleh turun; pelanggaran baru =
+commit gagal.
+
+Yang paling sering menjebak, ulang di sini:
+
+- **FR-05** `Body` satu-satunya anak flow bingkai; dekorasi (header navy, hero foto, scrim) `absolute`
+  di bingkai. Dua saudara seukuran bingkai = yang satu menutupi yang lain (kejadian: hero auth hilang
+  7 bingkai, PNG 37.687 B vs 182.323 B sesudah dipulihkan).
+- **FR-01** geometri diambil dari irisan HTML (`docs/design/slice/beta/beta.css`), bukan perkiraan.
+- **FR-07/FR-10** anak auto layout mengabaikan `x`/`y`; lebar isi pakai `sizingH: "fill"`, bukan 350 mati.
+- **FR-18** satu paragraf = satu lapisan teks (FigCraft tanpa rich text inline).
+- **FR-24** aksi `back` menempel di kotak 44×44, bukan ikon 18×18 di dalamnya.
+- **FR-14/FR-16/FR-31** jangan resize/ubah `sizing` 34 bingkai sekaligus; probe 1 bingkai, dan paksa
+  reflow dengan menyentuh induk setelahnya.
+- **FR-34/FR-35** selesai = angka (luberan 0 di 390 dan 360, hotspot < 44 = 0, dest menggantung 0)
+  plus bukti piksel untuk urutan cat.
+
+Gerbangnya: `npm run figcraft:audit` (ratchet `docs/design/figcraft-debt.json`, angka hanya boleh
+turun) dan self-check `npm run figcraft:audit:test` (8 pemeriksaan diuji dengan file sintetis, ikut
+`npm run check:self`). Angka terakhir (2026-11-07): 34 bingkai, 82 interaksi, 0 luberan, 0 hotspot
+< 44 px, 0 dest menggantung, 0 warna/radius di luar token (isian **dan** `strokes[]`), 0 kontras
+gagal, 0 bingkai nyasar, 0 ikon melar.
+
+Yang paling menjebak gerbang: **vektor melar tidak terlihat sebagai bug geometri.** `Chevron`
+158x14 (asli 6x14) di `Verifikasi merchant / 3` lolos karena bentuknya ikut melar dan tetap di dalam
+kotak; yang rusak rasionya. Cek `stretchedIcon` (FR-20b) membandingkan vektor bernama sama, jadi
+ikon di baris `spaceBetween` wajib `sizingH: "fixed"` (§0d butir FR-07/FR-10).
+
+---
+
 ## 1. Repo ini apa, dan apa batasnya
 
 **Showcase UI/UX dan design system.** Semua yang ada di sini adalah **front-end**.

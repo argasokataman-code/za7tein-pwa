@@ -84,6 +84,14 @@ check "PRD registry, flow specs and design tokens" "npm run governance:check"
 check "Design gate (surface scan)" "npm run scan"
 check "Scan self-check" "npm run scan:test"
 
+# Gerbang file FigCraft (design/*.figcraft): luberan, hotspot < 44 px, dest
+# menggantung, tombol mati, warna/radius luar token, jumlah kombinasi huruf,
+# bingkai tanpa jalan masuk. Ratchet: docs/design/figcraft-debt.json hanya
+# boleh turun. Aturan: docs/design/figcraft-rules.md (FR-01..FR-36).
+if ls design/*.figcraft >/dev/null 2>&1; then
+  check "FigCraft audit" "npm run figcraft:audit"
+fi
+
 check "Linter (oxlint)" "npx oxlint --quiet"
 
 # ───────────── 4. BUILD ─────────────

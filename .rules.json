@@ -401,5 +401,15 @@
     "ukur_dulu_paham_belakangan": "Jangan mengukur lewat browser sebelum paham masalahnya dari sumber. Contoh nyata: tombol submit \"tenggelam\" sebenarnya bisa dilihat dari tinggi foto di CSS, bukan dari pengukuran y=933.",
     "tool_baru": "Jangan membuat skrip/tool baru sebelum memeriksa bahwa belum ada yang bisa dipakai (scripts/, komponen bersama).",
     "klaim_bug": "Setiap temuan alat WAJIB diverifikasi dengan mata (baca kodenya) sebelum disebut bug. Alat bisa false positive: parser tag pernah melaporkan tombol ber-onClick sebagai kontrol mati."
+  },
+  "figcraftRules": {
+    "doc": "docs/design/figcraft-rules.md",
+    "files": "design/*.figcraft",
+    "command": "npm run figcraft:audit",
+    "baseline": "docs/design/figcraft-debt.json",
+    "enforce": "pre-commit (FigCraft audit), hanya kalau ada design/*.figcraft",
+    "measures": "luberan keluar kotak induk, hotspot <44px, dest menggantung, tombol tanpa aksi, warna di luar token, radius di luar skala, kombinasi huruf >8, jarak tepi bukan 20/350, bingkai tanpa jalan masuk (varian seasal dikecualikan), kontras teks (opasitas ikut dikompositkan)",
+    "rule": "Aturan FR-01..FR-36 wajib diikuti saat mengedit file FigCraft. Ratchet: baseline hanya boleh turun; pelanggaran baru = commit gagal. `--update-baseline` menolak kenaikan kecuali --force.",
+    "status": "2026-11-07: PASS, 0 temuan; baseline kosong"
   }
 }
