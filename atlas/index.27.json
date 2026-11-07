@@ -570,6 +570,139 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214142",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:26:47",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/merchantSlice.ts (+41/-2) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-214143",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:27:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/merchantSlice.ts (+12/-5) — edit via tool: ts: /** Order Regular bergabung",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/merchantSlice.ts"
+    },
+    {
+      "id": "TASK-214144",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:27:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts (+17/-7) — edit via tool: ts: interface BatchState {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts"
+    },
+    {
+      "id": "TASK-214145",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:27:29",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -15 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214146",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:27:46",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -12 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214147",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:27:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/merge-guard-check.ts (+109) — write via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/private/var/folders/jl/cjw12ct55md1fk1fwjszl1x00000gn/T/opencode/merge-guard-check.ts"
+    },
+    {
+      "id": "TASK-214148",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:29:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+18/-2) — edit via tool: tsx: </li>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

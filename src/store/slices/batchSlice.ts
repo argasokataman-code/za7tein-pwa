@@ -5,10 +5,20 @@ import type { Batch, BatchStatus } from '../../types'
 
 interface BatchState {
   batches: Batch[]
+  /**
+   * Anggota batch yang sudah ditulis klien tapi belum terbaca balik dari
+   * `orders_batches.route`/`orders.batch_id`. `mergeBatches` menyatukannya
+   * sebentar supaya batch tidak tampak kosong di jendela jeda baca D1.
+   */
+  pendingMembers: Record<string, { orderIds: string[]; at: number }>
 }
+
+/** Umur penjagaan anggota batch (ms); sejalan dengan `merchantSlice`. */
+const PENDING_MEMBERS_MS = 30_000
 
 const initialState: BatchState = {
   batches: mockBatches,
+  pendingMembers: {},
 }
 
 /**
@@ -30,6 +40,12 @@ const batchSlice = createSlice({
       if (!batch) return
       if (batch.orderIds.includes(action.payload.orderId)) return
       batch.orderIds.push(action.payload.orderId)
+      // `route`/`order_count` di BE baru terlihat setelah PATCH-nya mendarat;
+      // catat di sini supaya refetch di jendela itu tidak mengosongkan batch.
+      state.pendingMembers[batch.id] = {
+        orderIds: [...batch.orderIds],
+        at: Date.now(),
+      }
       // `routeOrder` hanya menyimpan urutan manual (auto-sort OFF). Saat ON,
       // urutan diturunkan dari auto-sort, jadi tak ditulis mentah di sini.
     },
@@ -81,6 +97,7 @@ const batchSlice = createSlice({
      * kembar (satu dari BE, satu sisa localStorage) untuk order yang sama.
      */
     mergeBatches(state, action: PayloadAction<Batch[]>) {
+      const now = Date.now()
       const incoming = new Map(action.payload.map((batch) => [batch.id, batch]))
       const prev = new Map(state.batches.map((batch) => [batch.id, batch]))
       // Batch yang berasal dari BE (`id` numerik) hanya boleh hidup selama masih
@@ -96,11 +113,30 @@ const batchSlice = createSlice({
         // tanpa dibawa, penyegaran berkala menghapus susunan rute yang sudah
         // disusun merchant/kurir di perangkat ini.
         const local = index >= 0 ? prev.get(batch.id) : undefined
-        const merged: Batch = local
-          ? { ...batch, autoSort: local.autoSort, routeOrder: local.routeOrder }
-          : batch
+        let orderIds = batch.orderIds
+        const pending = state.pendingMembers[batch.id]
+        if (pending) {
+          const caughtUp = pending.orderIds.every((id) => batch.orderIds.includes(id))
+          if (caughtUp || now - pending.at > PENDING_MEMBERS_MS) {
+            delete state.pendingMembers[batch.id]
+          } else {
+            orderIds = [
+              ...batch.orderIds,
+              ...pending.orderIds.filter((id) => !batch.orderIds.includes(id)),
+            ]
+          }
+        }
+        const merged: Batch = {
+          ...batch,
+          orderIds,
+          ...(local ? { autoSort: local.autoSort, routeOrder: local.routeOrder } : {}),
+        }
         if (index >= 0) state.batches[index] = merged
         else state.batches.push(merged)
+      }
+      // Penjagaan untuk batch yang tak lagi ada di respons BE tak berguna lagi.
+      for (const [id, entry] of Object.entries(state.pendingMembers)) {
+        if (now - entry.at > PENDING_MEMBERS_MS) delete state.pendingMembers[id]
       }
     },
   },

@@ -28,8 +28,47 @@ import type {
   OperatingHoursDay,
 } from '../../types'
 
+/**
+ * Umur penjagaan tulis lokal (ms). Tulis status/batch ke D1 tidak langsung
+ * terbaca balik oleh query berikutnya: realtime memicu refetch tepat setelah
+ * PATCH, dan jawabannya bisa masih berisi baris lama. Tanpa penjagaan ini,
+ * order yang baru diterima sempat kembali ke tab Antrean lalu pindah lagi.
+ * Nilainya cukup panjang untuk menutup jeda baca itu, cukup pendek supaya
+ * perubahan nyata dari perangkat lain tetap menang.
+ */
+const PENDING_WRITE_MS = 30_000
+
+/** Tulis status/batch lokal yang belum terbukti terbaca balik dari BE. */
+interface PendingWrite {
+  status?: MerchantOrderStatus
+  batchId?: string
+  at: number
+}
+
+/**
+ * Urutan maju status merchant. Dipakai `mergeOrders` supaya penjagaan hanya
+ * menahan BE yang tertinggal, bukan memutar balik order yang sudah lebih jauh
+ * (mis. kurir sudah `diantar` saat penjagaan `diterima` masih hidup).
+ */
+const STATUS_RANK: Record<MerchantOrderStatus, number> = {
+  baru: 0,
+  diterima: 1,
+  disiapkan: 2,
+  siap: 3,
+  diantar: 4,
+  tiba: 5,
+  selesai: 6,
+  ditolak: 7,
+  batal: 8,
+}
+
 interface MerchantState {
   orders: MerchantOrder[]
+  /**
+   * Per id order: nilai status/batch yang baru ditulis klien dan belum
+   * dikonfirmasi BE. Dibaca `mergeOrders` (lihat `PENDING_WRITE_MS`).
+   */
+  pendingWrites: Record<string, PendingWrite>
   /**
    * Kurir milik merchant yang sedang login (C-06). Dikelola dari halaman Kurir:
    * tambah/hapus, jam tugas, dan pemilihan kurir per order.
@@ -126,6 +165,7 @@ const initialState: MerchantState = {
    * "hidup lagi" tiap reload — persis kebingungan yang dilaporkan merchant.
    */
   orders: [],
+  pendingWrites: {},
   couriers: mockCouriers,
   isActive: mockMerchant.isActive,
   isBusy: readBusy(),
@@ -264,6 +304,13 @@ const merchantSlice = createSlice({
     ) {
       const order = state.orders.find((o) => o.id === action.payload.id)
       if (order) order.status = action.payload.status
+      // Catat tulis lokal: refetch yang datang sebelum PATCH terlihat di BE
+      // tidak boleh mengembalikan order ke tahap sebelumnya (`mergeOrders`).
+      state.pendingWrites[action.payload.id] = {
+        ...state.pendingWrites[action.payload.id],
+        status: action.payload.status,
+        at: Date.now(),
+      }
     },
     /**
      * Order live dari API mengisi antrean (satu sumber kebenaran). State mulai
@@ -282,16 +329,34 @@ const merchantSlice = createSlice({
      * ini boleh dibuang.
      */
     mergeOrders(state, action: PayloadAction<MerchantOrder[]>) {
+      const now = Date.now()
       const local = new Map(state.orders.map((order) => [order.id, order]))
       state.orders = action.payload.map((row) => {
         const prev = local.get(row.id)
         if (!prev) return row
-        return {
+        const merged: MerchantOrder = {
           ...row,
           batchId: row.batchId ?? prev.batchId,
           packed: row.packed ?? prev.packed,
           cookMinutes: row.cookMinutes ?? prev.cookMinutes,
         }
+        const pending = state.pendingWrites[row.id]
+        if (!pending) return merged
+        if (now - pending.at > PENDING_WRITE_MS) {
+          delete state.pendingWrites[row.id]
+          return merged
+        }
+        // Penjagaan lepas begitu BE mengejar (atau melewati) tulis lokal.
+        const statusCaughtUp =
+          !pending.status || STATUS_RANK[row.status] >= STATUS_RANK[pending.status]
+        const batchCaughtUp = !pending.batchId || row.batchId === pending.batchId
+        if (statusCaughtUp && batchCaughtUp) {
+          delete state.pendingWrites[row.id]
+          return merged
+        }
+        if (!statusCaughtUp && pending.status) merged.status = pending.status
+        if (!batchCaughtUp && pending.batchId) merged.batchId = pending.batchId
+        return merged
       })
     },
     setCookMinutes(state, action: PayloadAction<{ id: string; minutes: number }>) {
@@ -302,6 +367,13 @@ const merchantSlice = createSlice({
     setOrderBatch(state, action: PayloadAction<{ id: string; batchId: string }>) {
       const order = state.orders.find((o) => o.id === action.payload.id)
       if (order) order.batchId = action.payload.batchId
+      // Sama seperti status: `orders.batch_id` di BE bisa tertinggal beberapa
+      // detik, dan refetch di jeda itu akan mengeluarkan order dari batchnya.
+      state.pendingWrites[action.payload.id] = {
+        ...state.pendingWrites[action.payload.id],
+        batchId: action.payload.batchId,
+        at: Date.now(),
+      }
     },
     /** Merchant menandai order selesai packing (MER-13). */
     setOrderPacked(state, action: PayloadAction<{ id: string; packed: boolean }>) {

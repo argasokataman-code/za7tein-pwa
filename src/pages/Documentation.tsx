@@ -1706,6 +1706,22 @@ export default function Documentation() {
                 diteruskan dari data lama.
               </li>
               <li>
+                <strong>Tulis status tahan jeda baca D1.</strong> Penjagaan di atas menahan kolom
+                yang tak ada di BE; kali ini yang tertinggal justru kolom yang <em>ada</em>. Setelah
+                merchant menerima order, PATCH <code className="doc-inline">orders.status</code> dan{' '}
+                <code className="doc-inline">orders.batch_id</code> memicu refetch realtime, dan
+                jawaban refetch bisa masih berisi baris lama: kartu order melompat balik ke tab
+                Antrean beberapa detik, lalu pindah lagi. Sekarang{' '}
+                <code className="doc-inline">merchantSlice.pendingWrites</code> mencatat status/batch
+                yang baru ditulis klien, dan{' '}
+                <code className="doc-inline">mergeOrders</code> hanya menimpa bila baris BE sudah
+                mengejar (atau melewati) nilai itu; penjagaan kedaluwarsa 30 detik dan dilepas
+                begitu BE cocok, jadi perubahan dari perangkat lain tetap menang.{' '}
+                <code className="doc-inline">batchSlice.pendingMembers</code> menahan hal yang sama
+                untuk anggota batch yang baru digabung, supaya panel batch tidak tampak kosong di
+                jendela jeda itu.
+              </li>
+              <li>
                 <strong>Satu rel kanan per baris daftar (MD-11).</strong> Baris ringkasan dulu
                 menaruh nominal di kolom kanan baris pertama, sementara chip status, kode, dan waktu
                 dijejalkan di kolom kiri baris kedua. Akibatnya (terukur, bukan kesan):{' '}
