@@ -55,6 +55,11 @@ assert.equal(
 // Prioritas kolam (§17): COD hanya kuota COD; online → kuota order dulu, lalu COD.
 assert.equal(quotaKindForOrder([sub('cod', 5, 0, 0)], 'am-1', true), 'cod')
 assert.equal(quotaKindForOrder([sub('cod', 5, 5, 0)], 'am-1', true), null)
+// Toko tanpa catatan kuota COD tidak boleh dianggap habis: dulu gate COD
+// menolak toko live (id numerik) karena mock hanya punya catatan `am-N`,
+// sehingga "Kuota COD toko habis" muncul walau BE punya sisa.
+assert.equal(quotaKindForOrder([], '10', true), 'cod')
+assert.equal(quotaKindForOrder([sub('cod', 5, 5, 0, '10')], '10', true), null)
 assert.equal(quotaKindForOrder(one, 'am-1', false), 'order')
 assert.equal(
   quotaKindForOrder([sub('order', 5, 5, 0), sub('cod', 5, 0, 0)], 'am-1', false),

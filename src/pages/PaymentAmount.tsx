@@ -35,6 +35,7 @@ import {
   setQuotaKind,
 } from '../store/slices/cartSlice'
 import { quotaKindForOrder, codQuotaStatus, reserveQuota } from '../store/slices/quotaSlice'
+import { useQuotaSync } from '../hooks/useQuotaSync'
 import { BackButton } from '../components/ui/BackButton'
 
 export default function PaymentAmount() {
@@ -69,6 +70,9 @@ export default function PaymentAmount() {
   const charged = useChargedBreakdown()
   const total = charged.totalIdr
   const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
+  // Kuota toko ini dari BE: gate COD membaca angka nyata, bukan seed mock yang
+  // milik toko demo (`src/data/marketplace.ts`).
+  useQuotaSync(activeMerchantId)
   const quotaSubs = useAppSelector((s) => s.quota.subscriptions)
   const method = methods.find((m) => m.id === paymentId) ?? methods[0]
   // COD hanya tersedia bila merchant punya sisa kuota COD (§17, MER-19).

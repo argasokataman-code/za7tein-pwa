@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import { switchBlockCopy, switchIsDown } from '../data/superadmin'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
+import { useQuotaSync } from '../hooks/useQuotaSync'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { setPayment } from '../store/slices/cartSlice'
 import { codQuotaStatus } from '../store/slices/quotaSlice'
@@ -38,6 +39,9 @@ export default function PaymentSelection() {
   // COD juga butuh kuota COD merchant (§17): tanpa sisa kuota, metode itu
   // ditutup walau kill switch SA tidak aktif.
   const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
+  // Kuota toko ini dari BE: tanpa ini gate COD membaca seed mock milik toko
+  // demo (`am-N`) dan menolak COD toko live yang sebenarnya punya sisa.
+  useQuotaSync(activeMerchantId)
   const subscriptions = useAppSelector((s) => s.quota.subscriptions)
   const codQuotaCopy =
     codQuotaStatus(subscriptions, activeMerchantId) === 'exhausted' ? COD_QUOTA_COPY : null

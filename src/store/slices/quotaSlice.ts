@@ -91,7 +91,12 @@ export function quotaKindForOrder(
   merchantId: string | null,
   isCod: boolean,
 ): QuotaKind | null {
-  if (isCod) return quotaAvailableFor(subs, merchantId, 'cod') > 0 ? 'cod' : null
+  if (isCod) {
+    // §17: toko tanpa catatan kuota COD tidak boleh diperlakukan "habis".
+    // Catatan yang memang habis (`exhausted`) tetap ditolak.
+    if (quotaStatusFor(subs, merchantId, 'cod') === 'unknown') return 'cod'
+    return quotaAvailableFor(subs, merchantId, 'cod') > 0 ? 'cod' : null
+  }
   if (quotaAvailableFor(subs, merchantId, 'order') > 0) return 'order'
   return quotaAvailableFor(subs, merchantId, 'cod') > 0 ? 'cod' : null
 }

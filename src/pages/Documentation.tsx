@@ -861,6 +861,26 @@ export default function Documentation() {
                 <strong>disembunyikan dari beranda</strong>, bukan sekadar dikartu-abukan.
               </li>
               <li>
+                <strong>Gate COD membaca kuota BE, bukan seed demo.</strong> Metode COD
+                (<code className="doc-inline">/payment-selection</code>) dan tombol buat order
+                (<code className="doc-inline">/payment-amount</code>) dulu menghitung sisa dari{' '}
+                <code className="doc-inline">mockQuotaSubscriptions</code>{' '}
+                (<code className="doc-inline">src/data/marketplace.ts</code>) yang hanya punya
+                catatan id toko demo <code className="doc-inline">am-N</code>. Dua akibat nyata:
+                toko live (id numerik, mis. <code className="doc-inline">1</code>) dianggap tanpa
+                catatan lalu ditolak &ldquo;Kuota COD toko habis&rdquo; walau BE punya sisa, dan
+                toko demo <code className="doc-inline">1</code> kehabisan setelah dua order karena
+                mock-nya menyisakan 2 dari 40. Sekarang{' '}
+                <code className="doc-inline">useQuotaSync</code>{' '}
+                (<code className="doc-inline">src/hooks/useQuotaSync.ts</code>) mengambil{' '}
+                <code className="doc-inline">quota_subscriptions</code> lewat{' '}
+                <code className="doc-inline">src/api/quota.ts</code> untuk toko numerik dan
+                menimpanya ke slice kuota; hasil kosong (RLS/jaringan) tidak menimpa apa pun, dan{' '}
+                <code className="doc-inline">quotaKindForOrder</code> memperlakukan{' '}
+                <code className="doc-inline">unknown</code> sebagai boleh (§17: data yang tak ada
+                tidak memblokir), sementara catatan yang benar-benar habis tetap ditolak.
+              </li>
+              <li>
                 <strong>Layar langganan kuota (merchant).</strong> Halaman{' '}
                 <code className="doc-inline">/merchant/subscription</code> menampilkan dua jenis kuota
                 berdampingan — kuota <strong>order</strong> dan kuota <strong>COD</strong> — beserta
