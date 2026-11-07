@@ -13,7 +13,8 @@ import { WalletTopUpGate } from '../components/ui/WalletTopUpGate'
 import { formatDistance, needsTopUpGate } from '../data/merchant'
 import { mockMerchant } from '../data/merchant'
 import { customerInvoiceRows } from '../data/invoice'
-import { codCashHint, codCashOptions } from '../data/codCash'
+import { COD_CASH_MAX_JOD, codCashHint, codCashOptions, parseCodCashJod } from '../data/codCash'
+import { idrToJod } from '../data/currency'
 import { rememberDeliveryType } from '../data/merchantOrders'
 import { mockUser } from '../data/user'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
@@ -77,15 +78,36 @@ export default function PaymentAmount() {
   const gated = needsTopUpGate(walletAvailable)
   const codCashIdr = useAppSelector((s) => s.cart.codCashIdr)
   const cashOptions = method.id === 'cod' ? codCashOptions(total) : []
-  // Nominal tersimpan hanya dipakai kalau masih cocok dengan tagihan sekarang;
-  // sisa pilihan order lama tidak boleh menghasilkan kembalian palsu.
-  const cashSelection =
-    codCashIdr !== null && cashOptions.some((option) => option.receivedIdr === codCashIdr)
-      ? codCashIdr
-      : null
-  const cashReceived = cashSelection ?? total
+  // Nominal bebas (mis. customer membawa 50 JOD): teks mentah disimpan lokal
+  // supaya koma desimal bisa diketik tanpa React menormalkannya di tengah input,
+  // sedangkan angka uangnya tetap di store (`cart.codCashIdr`) supaya struk dan
+  // layar pesanan membaca nominal yang sama dengan yang terlihat di sini.
+  // Nilai tersimpan yang bukan salah satu chip dipulihkan ke kolom saat halaman
+  // dibuka lagi (mis. setelah kembali dari layar metode bayar).
+  const [cashInput, setCashInput] = useState(() => {
+    if (codCashIdr === null) return ''
+    if (cashOptions.some((option) => option.receivedIdr === codCashIdr)) return ''
+    return String(idrToJod(codCashIdr)).replace('.', ',')
+  })
+  const customCashIdr = parseCodCashJod(cashInput)?.idr ?? 0
+  // Kolom berisi sesuatu yang tidak bisa dibaca (huruf, nol, di atas batas):
+  // tahan tombol pesan, jangan diam-diam kembali ke "uang pas".
+  const cashInvalid = cashInput.trim() !== '' && customCashIdr === 0
+  // Nominal tersimpan hanya dipakai kalau masih menutup tagihan sekarang; sisa
+  // pilihan order lama tidak boleh menghasilkan kembalian palsu.
+  const storedCashIdr = codCashIdr !== null && codCashIdr >= total ? codCashIdr : null
+  const cashReceived = customCashIdr > 0 ? customCashIdr : (storedCashIdr ?? total)
+  // Uang yang diketik kurang dari tagihan: tampilkan selisihnya dan tahan tombol
+  // pesan, bukan diam-diam memakai nominal lain.
+  const cashShortIdr = Math.max(0, total - cashReceived)
+  const cashBlocked = cashInvalid || cashShortIdr > 0
   const canPay =
-    deliverable && items.length > 0 && (!needsProof || proof !== null) && !gated && !codBlocked
+    deliverable &&
+    items.length > 0 &&
+    (!needsProof || proof !== null) &&
+    !gated &&
+    !codBlocked &&
+    !cashBlocked
 
   /**
    * Kunci kirim: layar bayar bukan form yang boleh dikirim dua kali. Ref menahan
@@ -393,14 +415,46 @@ export default function PaymentAmount() {
                                 ? 'cod-cash-chip is-active'
                                 : 'cod-cash-chip'
                             }
-                            onClick={() => dispatch(setCodCash(option.receivedIdr))}
+                            onClick={() => {
+                              setCashInput('')
+                              dispatch(setCodCash(option.receivedIdr))
+                            }}
                           >
                             {option.label}
                           </button>
                         ))}
                       </div>
-                      <p className="cod-cash-hint" role="status">
-                        {codCashHint(total, cashReceived, money)}
+                      <label className="cod-cash-field" htmlFor="cod-cash-custom">
+                        <span>Atau isi nominal lain (JOD)</span>
+                        <input
+                          id="cod-cash-custom"
+                          type="text"
+                          inputMode="decimal"
+                          autoComplete="off"
+                          value={cashInput}
+                          placeholder={`Contoh: ${Math.ceil(idrToJod(total) + 1)}`}
+                          aria-describedby="cod-cash-hint"
+                          aria-invalid={cashBlocked}
+                          onChange={(event) => {
+                            const next = event.target.value
+                            setCashInput(next)
+                            const parsed = parseCodCashJod(next)
+                            dispatch(setCodCash(parsed ? parsed.idr : null))
+                          }}
+                        />
+                      </label>
+                      <p
+                        id="cod-cash-hint"
+                        className={
+                          cashBlocked ? 'cod-cash-hint cod-cash-hint--error' : 'cod-cash-hint'
+                        }
+                        role="status"
+                      >
+                        {cashInvalid
+                          ? `Nominal harus antara 0,01 dan ${COD_CASH_MAX_JOD} JOD.`
+                          : cashShortIdr > 0
+                            ? `Uang kurang ${money(cashShortIdr)} dari tagihan.`
+                            : codCashHint(total, cashReceived, money)}
                       </p>
                     </div>
                   ) : null}

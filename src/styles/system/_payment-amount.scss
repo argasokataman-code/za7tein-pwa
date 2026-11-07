@@ -35,6 +35,11 @@
   color: var(--text-primary);
 }
 
+// Galat nominal (uang kurang) tetap menang atas warna hint normal di kartu ini.
+.payment-method-card .cod-cash-hint--error {
+  color: var(--danger-ink);
+}
+
 .payment-method-card .cod-cash-row--total .cod-cash-amount {
   font-size: var(--text-base);
   font-weight: 700;

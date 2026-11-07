@@ -30,9 +30,13 @@ export function CodLoyaltySection() {
           <tbody>
             <tr>
               <td>Ringkasan bayar (customer)</td>
-              <td>Chip uang pas / nominal bulat, hint siapkan uang, kembalian</td>
               <td>
-                <code className="doc-inline">codCashOptions(total)</code>
+                Chip uang pas / nominal bulat, kolom nominal bebas (mis. 50 JOD), hint siapkan
+                uang + kembalian, dan pesan galat bila uang kurang dari tagihan
+              </td>
+              <td>
+                <code className="doc-inline">codCashOptions(total)</code> +{' '}
+                <code className="doc-inline">parseCodCashJod(text)</code>
               </td>
             </tr>
             <tr>
@@ -72,8 +76,18 @@ export function CodLoyaltySection() {
       <DocCode lang="typescript">
         {`codCashOptions(totalIdr)          // uang pas, bulat 1 JOD, bulat 5 JOD
 codChangeIdr(totalIdr, receivedIdr) // max(0, selisih) — tidak pernah negatif
-codCashHint(totalIdr, receivedIdr)  // "Siapkan uang pas" / "Kembalian ..."`}
+codCashHint(totalIdr, receivedIdr)  // "Siapkan uang pas" / "Kembalian ..."
+parseCodCashJod("50,5")             // { jod: 50.5, idr: ... } atau null bila tak sah`}
       </DocCode>
+
+      <p className="doc-p">
+        Customer boleh mengetik nominal lain (mis. membawa 50 JOD) selain tiga chip cepat. Angka
+        yang diketik dibaca <code className="doc-inline">parseCodCashJod()</code> (koma atau titik
+        desimal, maksimum 500 JOD untuk menahan salah ketik), lalu disimpan ke{' '}
+        <code className="doc-inline">cart.codCashIdr</code> supaya struk dan layar pesanan membaca
+        nominal yang sama. Uang yang kurang dari tagihan menahan tombol pesan dan menampilkan
+        selisihnya, bukan diam-diam kembali ke &ldquo;uang pas&rdquo;.
+      </p>
 
       <p className="doc-p">
         Pembulatan memakai JOD karena itu mata uang tunai di tempat; nominal internal tetap IDR.

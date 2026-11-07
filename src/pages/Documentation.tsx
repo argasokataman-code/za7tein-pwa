@@ -420,6 +420,18 @@ export default function Documentation() {
                 dipasang sekali di grup.
               </li>
               <li>
+                <strong>Nominal uang tunai COD bisa diketik sendiri (2026-11-08).</strong> Di
+                ringkasan bayar, customer tidak lagi terbatas pada chip uang pas / 1 JOD / 5 JOD:
+                kolom <code className="doc-inline">Atau isi nominal lain (JOD)</code> menerima angka
+                bebas (contoh 50 JOD, maksimum 500 JOD sebagai penjaga salah ketik) lewat{' '}
+                <code className="doc-inline">parseCodCashJod()</code> di{' '}
+                <code className="doc-inline">src/data/codCash.ts</code>. Hint langsung menghitung
+                kembalian, uang yang kurang menahan tombol pesan dengan kalimat selisih, dan nominal
+                tak sah memakai pesan galat bertoken. Nilainya ditulis ke{' '}
+                <code className="doc-inline">cart.codCashIdr</code>, sumber yang juga dibaca struk
+                dan layar pesanan, jadi tidak ada dua angka untuk satu pesanan.
+              </li>
+              <li>
                 <strong>Banner promo beranda jadi carousel (2026-11-05).</strong> Dulu{' '}
                 <code className="doc-inline">HomePromoBanner</code> hanya menampilkan satu toko
                 (<code className="doc-inline">Home.tsx</code> memilih yang pertama punya diskon),

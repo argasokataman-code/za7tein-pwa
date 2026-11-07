@@ -107,6 +107,17 @@
   color: var(--text-secondary);
 }
 
+/* Nominal yang diketik kurang dari tagihan: pesannya jadi galat, bukan bantuan.
+   Warna peran `--danger-ink` (bukan merah karangan) supaya kontrasnya AA. */
+.cod-cash-hint--error {
+  color: var(--danger-ink);
+  font-weight: 600;
+}
+
+.cod-cash-field input[aria-invalid='true'] {
+  border-color: var(--danger);
+}
+
 .cod-cash-cancel {
   width: 100%;
   min-height: var(--touch-min);

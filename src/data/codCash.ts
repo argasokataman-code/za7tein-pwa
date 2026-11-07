@@ -20,9 +20,32 @@ export interface CodCashOption {
   changeIdr: number
 }
 
+/**
+ * Batas atas nominal bebas yang boleh diketik customer (JOD). Bukan aturan
+ * bisnis: penjaga salah ketik supaya `10.000` tidak tampil sebagai kembalian
+ * raksasa di kartu pembayaran.
+ */
+export const COD_CASH_MAX_JOD = 500
+
 /** Selisih uang diterima dan tagihan. Kurang dari tagihan = 0, bukan negatif. */
 export function codChangeIdr(totalIdr: number, receivedIdr: number): number {
   return Math.max(0, receivedIdr - totalIdr)
+}
+
+/**
+ * Baca nominal JOD yang diketik customer menjadi IDR.
+ *
+ * Menerima koma maupun titik desimal (keyboard ponsel mengirim keduanya),
+ * menolak tanda minus, huruf, lebih dari dua desimal, nol, dan nominal di atas
+ * `COD_CASH_MAX_JOD`. `null` = kosong/tidak sah, sehingga pemanggil bisa jatuh
+ * ke nominal lain tanpa menampilkan angka palsu.
+ */
+export function parseCodCashJod(text: string): { jod: number; idr: number } | null {
+  const clean = text.trim().replace(/\s/g, '').replace(',', '.')
+  if (!clean || !/^\d*\.?\d{0,2}$/.test(clean) || clean === '.') return null
+  const jod = Number(clean)
+  if (!Number.isFinite(jod) || jod <= 0 || jod > COD_CASH_MAX_JOD) return null
+  return { jod, idr: jodToIdr(jod) }
 }
 
 /** Rincian tagihan tunai + pilihan kembalian untuk merchant dan kurir. */

@@ -28,6 +28,15 @@ tetapi tidak ada jumlah order seumur akun, dan PRD tidak menyebut loyalitas
    / 5 JOD) di ringkasan bayar. Pilihannya disimpan di `cart.codCashIdr` dan
    ikut snapshot invoice, sehingga layar pesanan dan invoice memakai angka yang
    sama.
+3b. Permintaan pemilik (2026-11-08): selain tiga chip, customer boleh mengetik
+   **nominal bebas** (contoh 50 JOD) dan melihat kembaliannya sendiri sebelum
+   memesan. Angka dibaca `parseCodCashJod()` (koma atau titik desimal, maksimum
+   `COD_CASH_MAX_JOD = 500` JOD sebagai penjaga salah ketik) dan disimpan di
+   state yang sama (`cart.codCashIdr`), jadi struk tidak memakai angka lain.
+   Uang yang kurang dari tagihan menahan tombol pesan dan menampilkan
+   selisihnya; nominal tak sah (huruf, nol, di atas batas) ditolak dengan pesan
+   galat, bukan diam-diam kembali ke "uang pas". Tidak ada perubahan kontrak BE:
+   nominal ini hanya tampilan + snapshot lokal seperti chip.
 4. Kurir memasukkan uang yang benar-benar diterima (chip atau input JOD).
    Kembalian dihitung `max(0, diterima − tagihan)`; tombol OTP/serah terima
    ditolak kalau uang kurang. Merchant melihat "COD tunai · ditagih kurir".

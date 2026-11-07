@@ -2,7 +2,14 @@
 // Jalankan: node --import ./scripts/lib/ts-resolve.mjs scripts/cod-cash-check.mjs
 import assert from 'node:assert/strict'
 
-import { codCashDue, codCashHint, codCashOptions, codChangeIdr } from '../src/data/codCash.ts'
+import {
+  COD_CASH_MAX_JOD,
+  codCashDue,
+  codCashHint,
+  codCashOptions,
+  codChangeIdr,
+  parseCodCashJod,
+} from '../src/data/codCash.ts'
 import { jodToIdr } from '../src/data/currency.ts'
 import { LOYAL_ORDER_MIN, isLoyalCustomer } from '../src/data/people.ts'
 
@@ -30,6 +37,20 @@ assert.equal(exactJod.length, 2)
 // Hint menyebut uang pas atau nominal + kembalian, bukan kalimat kosong.
 assert.match(codCashHint(total, total), /uang pas/i)
 assert.match(codCashHint(total, options[1].receivedIdr), /kembalian/i)
+
+// Nominal bebas yang diketik customer: koma dan titik sama-sama diterima, dan
+// hasilnya IDR yang dipakai store supaya struk tidak menyimpan angka lain.
+assert.equal(parseCodCashJod('50')?.idr, jodToIdr(50))
+assert.equal(parseCodCashJod('50,5')?.idr, jodToIdr(50.5))
+assert.equal(parseCodCashJod('50.5')?.idr, jodToIdr(50.5))
+assert.equal(parseCodCashJod(' 50 ')?.idr, parseCodCashJod('50')?.idr)
+// Kosong, bukan angka, nol, minus, dan di atas batas ditolak (null), bukan 0.
+for (const bad of ['', '  ', '.', ',', 'abc', '0', '-5', '1,234', '50,505', String(COD_CASH_MAX_JOD + 1)]) {
+  assert.equal(parseCodCashJod(bad), null, `harus null: ${bad}`)
+}
+// Batas atas sendiri masih sah, dan kembaliannya dihitung dari angka itu.
+assert.equal(parseCodCashJod(String(COD_CASH_MAX_JOD))?.idr, jodToIdr(COD_CASH_MAX_JOD))
+assert.equal(codChangeIdr(total, parseCodCashJod('50')?.idr ?? 0), jodToIdr(50) - total)
 
 // Rincian merchant/kurir: subtotal dari item, sisa = ongkir + layanan.
 const due = codCashDue(
