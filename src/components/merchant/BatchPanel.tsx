@@ -14,6 +14,7 @@ import {
   countdownLabel,
   type BatchTabId,
 } from '../../data/batch'
+import { QUICK_ENABLED } from '../../data/features'
 import type { Batch, Courier, MerchantOrder } from '../../types'
 
 interface BatchPanelProps {
@@ -60,7 +61,9 @@ export function BatchPanel({ batches, orders, couriers, onOpen }: BatchPanelProp
         <Inbox size={28} strokeWidth={1.75} aria-hidden="true" />
         <p className="merchant-batch-empty-title">Belum ada batch</p>
         <p className="merchant-batch-empty-sub">
-          Batch dibuat saat order Regular diterima. Order Quick tidak memakai batch.
+          {QUICK_ENABLED
+            ? 'Batch dibuat saat order Regular diterima. Order Quick tidak memakai batch.'
+            : 'Batch dibuat saat order diterima merchant.'}
         </p>
       </div>
     )

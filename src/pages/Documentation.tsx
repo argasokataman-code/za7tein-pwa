@@ -1378,9 +1378,9 @@ export default function Documentation() {
                 <code className="doc-inline">siap</code> (BE{' '}
                 <code className="doc-inline">waitingCourier</code>, event{' '}
                 <code className="doc-inline">merchant_ready</code> di flow f18), tiket pindah ke tab
-                Siap, dan tiket itu menyebut langkah kurir: Quick menyerahkan ke kurir partner
-                (status lanjut <code className="doc-inline">diantar</code>), Regular memilih kurir
-                inhouse lalu menyetujui mulai antar di panel Batch kurir. Order Regular yang datang
+                Siap, dan tiket itu menyebut langkah kurir: Regular memilih kurir inhouse lalu
+                menyetujui mulai antar di panel Batch kurir. Sejak 2026-11-08 semua order memakai
+                jalur Regular karena Quick dimatikan bersama kurir partner. Order Regular yang datang
                 dari BE tanpa batch dibuatkan batch saat packing atau saat aksi kurir dibuka, supaya
                 panel itu tidak pernah kosong untuk tiket yang menunjuk ke sana. Centang
                 &ldquo;packing&rdquo; tidak disimpan BE, jadi ia diturunkan dari status saat sync
@@ -1810,9 +1810,10 @@ export default function Documentation() {
                 <code className="doc-inline">paid</code>, <strong>COD dibayar tunai saat serah
                 terima</strong> (bukan hold — PRD aktif menggantikan alur hold saldo f2), transfer
                 diverifikasi merchant saat diterima. Order belum lunas membawa chip &ldquo;Menunggu
-                bayar&rdquo;. Setelah diterima, order <strong>Regular</strong> masuk batch kurir
-                inhouse dan order <strong>Quick</strong> menunggu kurir partner (flow{' '}
-                <strong>f25</strong>).
+                bayar&rdquo;. Setelah diterima, order masuk batch kurir inhouse (jalur Regular).
+                Sejak 2026-11-08 Quick dimatikan karena kurir partner tidak dipakai, jadi order
+                lama yang masih tercatat Quick pun dibaca sebagai Regular di konsol merchant dan
+                tidak ada lagi tiket yang menunggu kurir partner (flow <strong>f25</strong>).
               </li>
               <li>
                 Merchant dan kurir kini melihat <strong>rincian uang tunai COD</strong> di detail

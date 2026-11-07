@@ -1,5 +1,6 @@
 import type { CartItem, MerchantOrder, MerchantOrderStatus, OrderType } from '../types'
 import { batchNumber } from './batch'
+import { QUICK_ENABLED } from './features'
 
 /** Label jenis pengantaran (PRD §7.2 Regular/batch, §7.3 Quick/partner). */
 export const DELIVERY_TYPE_LABEL: Record<OrderType, string> = {
@@ -64,9 +65,18 @@ export function deliveryTypeFor(code: string): OrderType {
   return storedDeliveryTypes()[code] ?? MOCK_ORDER_DELIVERY_TYPE[code] ?? 'regular'
 }
 
-/** Jenis pengantaran efektif sebuah order: nilai tersimpan menang, lalu overlay. */
+/**
+ * Jenis pengantaran efektif sebuah order: nilai tersimpan menang, lalu overlay.
+ *
+ * Saat `QUICK_ENABLED = false` (kurir partner tidak dipakai), order yang masih
+ * tercatat `quick` dibaca sebagai `regular` di seluruh permukaan merchant:
+ * label/chip jadi "Regular", order lama ikut jalur batch, dan petunjuk
+ * "Serahkan ke kurir partner" tidak pernah muncul. Nilai mentahnya tetap utuh
+ * di BE/localStorage supaya Quick bisa dinyalakan lagi tanpa migrasi data.
+ */
 export function orderDeliveryType(order: Pick<MerchantOrder, 'deliveryType' | 'code'>): OrderType {
-  return order.deliveryType ?? deliveryTypeFor(order.code)
+  const type = order.deliveryType ?? deliveryTypeFor(order.code)
+  return QUICK_ENABLED ? type : 'regular'
 }
 
 /**

@@ -30,6 +30,7 @@ import { useOrderHandoff } from '../hooks/useOrderHandoff'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useMoney } from '../hooks/useMoney'
 import { BATCH_COUNTDOWN_SECONDS, nextBatchId } from '../data/batch'
+import { QUICK_ENABLED } from '../data/features'
 import { formatDistance } from '../data/merchant'
 import {
   ACTIVE_ORDER_STATUSES,
@@ -419,7 +420,9 @@ export default function MerchantOrders() {
                   <h2>Belum masuk batch</h2>
                 </div>
                 <p className="merchant-card-sub">
-                  Order berjalan yang belum punya batch. Order Quick memang tidak memakai batch.
+                  {QUICK_ENABLED
+                    ? 'Order berjalan yang belum punya batch. Order Quick memang tidak memakai batch.'
+                    : 'Order berjalan yang belum punya batch.'}
                 </p>
                 <MerchantTicketList
                   orders={unbatched}
