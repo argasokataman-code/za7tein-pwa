@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Check, Circle } from 'lucide-react'
 
-import { countdownLabel, joinableBatches } from '../../data/batch'
+import { batchNumber, countdownLabel, joinableBatches } from '../../data/batch'
 import { DELIVERY_TYPE_LABEL, orderDeliveryType } from '../../data/merchantOrders'
 import { BottomSheet } from '../ui/BottomSheet'
 import type { Batch, MerchantOrder } from '../../types'
@@ -78,8 +78,9 @@ export function AcceptOrderSheet({
             </span>
           </button>
 
-          {options.map((batch, index) => {
+          {options.map((batch) => {
             const selected = batchId === batch.id
+            const number = batchNumber(batch.id)
             return (
               <button
                 key={batch.id}
@@ -90,7 +91,9 @@ export function AcceptOrderSheet({
                 onClick={() => setBatchId(batch.id)}
               >
                 <span className="merchant-option-body">
-                  <span className="merchant-option-title">Batch #{index + 1}</span>
+                  <span className="merchant-option-title">
+                    {number === null ? 'Batch' : `Batch #${number}`}
+                  </span>
                   <span className="merchant-option-sub">
                     {batch.orderIds.length} order · sisa {countdownLabel(batch.countdownSeconds)}
                   </span>

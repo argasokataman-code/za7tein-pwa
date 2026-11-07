@@ -193,6 +193,30 @@ function numericOrderId(orderId: string): number {
 }
 
 /**
+ * Antrean tulis per order.
+ *
+ * Worker D1 menulis satu baris utuh pada PATCH, jadi dua PATCH bersamaan pada
+ * order yang sama saling menimpa kolom: `batch_id` hilang kalau `status`
+ * ditulis berbarengan (terbukti: dua PATCH paralel → `batch_id` kembali null).
+ * Terima order memang menulis keduanya sekaligus, jadi semua penulis baris
+ * `orders` lewat antrean ini supaya berurutan, bukan balapan.
+ */
+const orderWriteQueue = new Map<number, Promise<unknown>>()
+
+export function serializeOrderWrite<T>(orderId: number, task: () => Promise<T>): Promise<T> {
+  if (!Number.isFinite(orderId)) return task()
+  const prev = orderWriteQueue.get(orderId) ?? Promise.resolve()
+  const next = prev.then(task, task)
+  orderWriteQueue.set(orderId, next)
+  void next
+    .catch(() => undefined)
+    .then(() => {
+      if (orderWriteQueue.get(orderId) === next) orderWriteQueue.delete(orderId)
+    })
+  return next
+}
+
+/**
  * Persist penugasan kurir ke `orders.courier_id` (best-effort).
  *
  * Bentuk id di state: order = `api-<id>` hasil sync BE (atau numerik polos),
@@ -206,7 +230,7 @@ export async function assignOrderCourier(orderId: string, courierId: string): Pr
   const cid = /^\d+$/.test(cidRaw) ? Number(cidRaw) : NaN
   if (!Number.isFinite(oid) || !Number.isFinite(cid)) return
   const token = await ensureMerchantToken()
-  await patch(token, 'orders', `?id=eq.${oid}`, { courier_id: cid })
+  await serializeOrderWrite(oid, () => patch(token, 'orders', `?id=eq.${oid}`, { courier_id: cid }))
   // Assignment milik **aplikator** (PRD P1), bukan merchant: RLS menolak tulis
   // `dispatch_assignments`/`couriers` dari sesi merchant (403), jadi penjadwalan
   // memakai sesi CS. Default BE `reserved` = menunggu respons.
@@ -268,12 +292,14 @@ export async function updateOrderStatus(
       : by === 'customer'
         ? await ensureCustomerToken()
         : await ensureMerchantToken()
-  await patch(token, 'orders', `?id=eq.${oid}`, {
-    status: OUT_STATUS[status] ?? 'cart',
-    ...(status === 'batal' || status === 'ditolak'
-      ? { cancel_by: by, ...(extra?.cancelReason ? { cancel_reason: extra.cancelReason } : {}) }
-      : {}),
-  })
+  await serializeOrderWrite(oid, () =>
+    patch(token, 'orders', `?id=eq.${oid}`, {
+      status: OUT_STATUS[status] ?? 'cart',
+      ...(status === 'batal' || status === 'ditolak'
+        ? { cancel_by: by, ...(extra?.cancelReason ? { cancel_reason: extra.cancelReason } : {}) }
+        : {}),
+    }),
+  )
 }
 
 /**
@@ -288,7 +314,9 @@ export async function markOrderPaid(
   const oid = numericOrderId(orderId)
   if (!Number.isFinite(oid)) return
   const token = by === 'merchant' ? await ensureMerchantToken() : await ensureCustomerToken()
-  await patch(token, 'orders', `?id=eq.${oid}`, { payment_status: 'paid' })
+  await serializeOrderWrite(oid, () =>
+    patch(token, 'orders', `?id=eq.${oid}`, { payment_status: 'paid' }),
+  )
 }
 
 /** Titik verifikasi kurir — nilai `checkpoints.kind` backend. */

@@ -167,9 +167,15 @@ export default function MerchantOrders() {
     if (orderDeliveryType(order) === 'regular') {
       const target = choice.batchId ? batches.find((b) => b.id === choice.batchId) : undefined
       if (target) {
+        // Idempotent: order yang sudah tercatat di batch tidak ditambahkan dua
+        // kali (`route`/`order_count` di BE menjadi kembar).
+        const members = target.orderIds.includes(order.id)
+          ? target.orderIds
+          : [...target.orderIds, order.id]
         dispatch(addOrderToBatch({ batchId: target.id, orderId: order.id }))
-        // Keanggotaan batch ikut ditulis ke BE (`route`), bukan hanya ke Redux.
-        void patchBatchOnBe(target.id, { orderIds: [...target.orderIds, order.id] })
+        // Keanggotaan batch ikut ditulis ke BE (`route` + `orders.batch_id`),
+        // bukan hanya ke Redux.
+        void patchBatchOnBe(target.id, { orderIds: members })
         dispatch(setOrderBatch({ id: order.id, batchId: target.id }))
       } else {
         // Batch baru dibuat di BE dulu supaya id-nya sama di semua perangkat.

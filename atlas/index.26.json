@@ -2417,6 +2417,291 @@
           "raw": "TASK-213210:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-213241",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:25:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts (+21/-1) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-213242",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:26:12",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts (+11/-5) — edit via tool: ts: const batchId = rows?.[0]?.id ?? null",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-213243",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:26:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -5 && npm run build 2>&1 | tail -8 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213244",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:28:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts (+11/-11) — edit via tool: ts: /**",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-213245",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:28:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx (+10/-5) — edit via tool: tsx: if (target) {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MerchantOrders.tsx"
+    },
+    {
+      "id": "TASK-213246",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:29:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error|warning.*batches|warning.*MerchantOrders\" | head -",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213247",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:31:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/AcceptOrderSheet.tsx (+1/-1) — edit via tool: tsx: import { batchNu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/AcceptOrderSheet.tsx"
+    },
+    {
+      "id": "TASK-213248",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:31:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"^\\s*[0-9]+:|error\" | tail -5; npm run build 2>&1 | tail ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213249",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:33:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+2/-2) — edit via tool: ts: const token = await ensureMerchantToken(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-213250",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:34:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts (+1/-1) — edit via tool: ts: import { DEMO_MERCHANT_ID, ensureCourier",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-213251",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:34:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"error\"; npm run build 2>&1 | tail -3 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213252",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:35:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+19/-2) — edit via tool: tsx: numerik dipetakan ke id kurir FE",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213253",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:35:57",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"Found|error\" | tail -3; npm run build 2>&1 | tail -3; np",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213254",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:37:08",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts (+2/-2) — edit via tool: ts: route: JSON.stringify(route),",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/batches.ts"
+    },
+    {
+      "id": "TASK-213255",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "22:37:35",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -3 && git status --short | rtk grep -v \"^ M atlas\" passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
     }
   ]
 }

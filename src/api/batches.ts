@@ -9,7 +9,7 @@
  */
 import { BATCH_COUNTDOWN_SECONDS } from '../data/batch'
 import type { Batch, BatchStatus, MerchantOrder } from '../types'
-import { DEMO_MERCHANT_ID, ensureCourierToken, ensureMerchantToken } from './orders'
+import { DEMO_MERCHANT_ID, ensureCourierToken, ensureMerchantToken, serializeOrderWrite } from './orders'
 import { createWithReturn, patch, rest } from './supabase'
 
 interface BatchRow {
@@ -124,6 +124,30 @@ const numericOrderId = (id: string) => {
   return Number(/^api-(\d+)$/.exec(raw)?.[1] ?? (/^\d+$/.test(raw) ? raw : NaN))
 }
 
+/**
+ * Tulis keanggotaan batch ke baris order (`orders.batch_id`).
+ *
+ * `batches.route` saja tidak cukup: kurir & konsol merchant membaca
+ * `orders.batch_id` untuk tahu order mana yang ada di batch, jadi tanpa kolom
+ * ini batch terlihat kosong setelah reload di sisi kurir walau panel merchant
+ * (yang membaca `route`) menampilkannya.
+ */
+export async function setOrderBatchOnBe(orderId: string, batchId: string): Promise<void> {
+  const oid = numericOrderId(orderId)
+  const bid = numericOrderId(batchId)
+  if (!Number.isFinite(oid) || !Number.isFinite(bid)) return
+  try {
+    const token = await ensureMerchantToken()
+    // Antrean yang sama dengan `status`/`payment_status`: PATCH D1 menulis satu
+    // baris utuh, jadi menulis `batch_id` paralel dengan kolom lain akan hilang.
+    await serializeOrderWrite(oid, () =>
+      patch(token, 'orders', `?id=eq.${oid}`, { batch_id: bid }),
+    )
+  } catch {
+    /* best-effort */
+  }
+}
+
 export interface NewBatchInput {
   orderIds: string[]
   estimateMinutes: number
@@ -140,7 +164,7 @@ export async function createBatchOnBe({
   estimateMinutes,
   merchantId = DEMO_MERCHANT_ID,
 }: NewBatchInput): Promise<number | null> {
-  const route = orderIds.map(numericOrderId).filter((id) => Number.isFinite(id))
+  const route = [...new Set(orderIds.map(numericOrderId).filter(Number.isFinite))]
   try {
     const token = await ensureMerchantToken()
     const rows = await createWithReturn<BatchRow>(token, 'batches', {
@@ -148,16 +172,23 @@ export async function createBatchOnBe({
       courier_id: null,
       status: BATCH_STATUS_TO_DB.countdown,
       route: JSON.stringify(route),
-      order_count: orderIds.length,
+      order_count: route.length,
       eta_delivery_seconds: estimateMinutes * 60,
     })
-    return rows?.[0]?.id ?? null
+    const batchId = rows?.[0]?.id ?? null
+    // Keanggotaan juga ditulis ke baris order (`orders.batch_id`): kurir dan
+    // hidrasi merchant membaca kolom itu, bukan `batches.route`.
+    if (batchId !== null) {
+      await Promise.all(orderIds.map((id) => setOrderBatchOnBe(id, String(batchId))))
+    }
+    return batchId
   } catch {
     return null
   }
 }
 
-/** Tulis perubahan batch ke BE (best-effort; UI tidak menunggu jaringan). */export async function patchBatchOnBe(
+/** Tulis perubahan batch ke BE (best-effort; UI tidak menunggu jaringan). */
+export async function patchBatchOnBe(
   batchId: string,
   patchRow: { courierId?: string | null; status?: BatchStatus; orderIds?: string[] },
 ): Promise<void> {
@@ -170,8 +201,12 @@ export async function createBatchOnBe({
     body.courier_id = Number.isFinite(cid) ? cid : null
   }
   if (patchRow.orderIds) {
-    body.route = JSON.stringify(patchRow.orderIds.map(numericOrderId).filter(Number.isFinite))
-    body.order_count = patchRow.orderIds.length
+    // Id yang sama bisa datang dua kali (order sudah anggota batch tapi Redux
+    // belum tahu). `route` tanpa duplikat supaya kurir tidak melihat order
+    // ganda dan `order_count` tidak membengkak.
+    const unique = [...new Set(patchRow.orderIds.map(numericOrderId).filter(Number.isFinite))]
+    body.route = JSON.stringify(unique)
+    body.order_count = unique.length
   }
   if (!Object.keys(body).length) return
   try {
@@ -179,6 +214,14 @@ export async function createBatchOnBe({
     await patch(token, 'batches', `?id=eq.${id}`, body)
   } catch {
     /* best-effort */
+  }
+  // `route` sendiri tidak cukup: order yang baru digabung ke batch berjalan
+  // harus ikut tercatat di `orders.batch_id`, kalau tidak kurir melihat batch
+  // yang isinya cuma anggota lama.
+  if (patchRow.orderIds) {
+    await Promise.all(
+      patchRow.orderIds.map((orderId) => setOrderBatchOnBe(orderId, String(id))),
+    )
   }
 }
 
