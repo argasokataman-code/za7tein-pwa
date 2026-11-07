@@ -15,6 +15,7 @@ import { mockMerchant } from '../data/merchant'
 import { customerInvoiceRows } from '../data/invoice'
 import { COD_CASH_MAX_JOD, codCashHint, codCashOptions, parseCodCashJod } from '../data/codCash'
 import { idrToJod } from '../data/currency'
+import { QUICK_ENABLED } from '../data/features'
 import { rememberDeliveryType } from '../data/merchantOrders'
 import { mockUser } from '../data/user'
 import { useApiPaymentMethods } from '../hooks/useApiPaymentMethods'
@@ -48,7 +49,10 @@ export default function PaymentAmount() {
   const addressId = useAppSelector((s) => s.cart.selectedAddressId)
   const paymentId = useAppSelector((s) => s.cart.selectedPaymentId)
   const proof = useAppSelector((s) => s.cart.transferProof)
+  // Quick dimatikan saat kurir partner tidak dipakai; sesi lama yang masih
+  // menyimpan 'quick' ditagih dan dicatat sebagai Regular.
   const deliveryType = useAppSelector((s) => s.cart.deliveryType)
+  const chargedDeliveryType = QUICK_ENABLED ? deliveryType : 'regular'
   // Daftar + urutan metode dari BE (mock dulu, API menimpa).
   const methods = useApiPaymentMethods()
 
@@ -181,7 +185,7 @@ export default function PaymentAmount() {
     )
     // `orders` BE belum punya kolom jenis pengantaran; simpan pilihan customer
     // per kode supaya konsol merchant membaca cabang yang benar (ui-impact §8).
-    rememberDeliveryType(code, deliveryType)
+    rememberDeliveryType(code, chargedDeliveryType)
     void createOrder({
       code,
       items,
@@ -302,7 +306,7 @@ export default function PaymentAmount() {
                 </div>
                 <div className="summary-item">
                   <span>
-                    Ongkir {deliverable && deliveryType === 'quick' ? '(Quick)' : ''}
+                    Ongkir {deliverable && chargedDeliveryType === 'quick' ? '(Quick)' : ''}
                   </span>
                   <span>
                     {deliverable ? money(charged.deliveryFeeIdr) : '—'}

@@ -23,6 +23,7 @@ Pilih **toko** (beranda) → pilih **menu** dari toko itu (halaman toko) → Che
 
 - **Prepaid (via wallet):** saldo dipotong segera saat order dibuat → gate saldo minimum 3,5 JOD untuk akun baru.
 - **COD via wallet:** hold saldo saat order → dipotong saat kurir match → settle saat OTP. (Catatan 2026-10-25: PRD aktif menggantikan ini dengan COD tunai, lihat `decision-cod-cash-loyalty.md`.) Sejak 2026-11-08 customer juga boleh mengetik **nominal tunai bebas** (contoh 50 JOD, maksimum 500 JOD) di samping tiga chip cepat, dan melihat kembaliannya sebelum memesan.
+- **Quick (kurir mitra, satu order):** **dimatikan di demo** sejak 2026-11-08 (`QUICK_ENABLED = false`). Checkout hanya menawarkan Regular, sesi lama yang masih `quick` ditagih sebagai Regular, dan tombol dispatch merchant tidak dirender. Kode + requirement PRD §7.3/§9.3 tetap ada di `R-COU-PARTNER.md` untuk dinyalakan lagi.
 - **Transfer manual:** fee flat 0,37 JOD tetap berlaku (semua metode, PO 2026-09-22).
 - **Tip kurir:** opsional & sukarela, 100% ke kurir, tanpa komisi platform — dipilih saat checkout **atau setelah terima** → dipotong dari wallet customer → kredit wallet kurir via internal ledger (R-WALLET-01). Titik masuk "setelah terima" = **prompt pasca-order `f19-rating-review`** (nilai + tip dalam satu layar, keputusan PO 2026-09-22); layar tip terpisah tidak dibuat. Withdraw tips ada di `f6-cashout-payout`.
 

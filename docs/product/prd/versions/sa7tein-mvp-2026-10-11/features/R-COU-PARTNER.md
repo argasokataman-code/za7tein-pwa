@@ -1,7 +1,16 @@
 # R-COU-PARTNER — Kurir mitra aplikator (satu order per waktu)
 
 Sumber: PRD aktif `sa7tein-mvp-2026-10-11` §7.3, §9.3, §9.5, §12 (COU-15..18) · flow `f26-quick-dispatch`, `f21-account-auth` · milestone **M6**.
-Status: partial · terakhir ditinjau: 2026-10-20.
+Status: partial · terakhir ditinjau: 2026-11-08.
+
+> **Demo 2026-11-08:** kurir mitra tidak dipakai lagi, jadi Quick dimatikan lewat
+> `QUICK_ENABLED = false` (`src/data/features.ts`). Checkout customer hanya
+> menampilkan Regular, tarif Quick tidak lagi dikenakan pada sesi yang masih
+> menyimpan `deliveryType = 'quick'`, dan tombol dispatch merchant
+> ("Serahkan ke kurir partner") tidak dirender. Kode, tipe, slice partner, dan
+> `quickMultiplier` di ops tetap utuh supaya bisa dinyalakan lagi. Requirement
+> di bawah tetap menggambarkan PRD aktif; implementasinya kini tersembunyi, bukan
+> dihapus.
 
 ## 1. Untuk apa
 

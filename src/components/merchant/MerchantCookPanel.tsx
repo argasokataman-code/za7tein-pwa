@@ -1,5 +1,6 @@
 import { PackageCheck } from 'lucide-react'
 
+import { QUICK_ENABLED } from '../../data/features'
 import { QUICK_DISPATCH_AVAILABLE } from '../../data/marketplace'
 import { DEFAULT_COOK_MINUTES, orderDeliveryType } from '../../data/merchantOrders'
 import type { MerchantOrder } from '../../types'
@@ -80,7 +81,7 @@ export function MerchantCookPanel({
       {order.packed ? (
         <>
           <p className="merchant-card-sub">{hint}</p>
-          {orderDeliveryType(order) === 'quick' ? (
+          {QUICK_ENABLED && orderDeliveryType(order) === 'quick' ? (
             <button
               type="button"
               className="btn btn-primary"

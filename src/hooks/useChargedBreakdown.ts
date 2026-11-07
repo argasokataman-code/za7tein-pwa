@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { chargedBreakdown, payMethodKind, type ChargedBreakdown } from '../data/marketplace'
 import { mockUser } from '../data/user'
 import { selectSubtotal } from '../store/slices/cartSlice'
+import { QUICK_ENABLED } from '../data/features'
 import { useAppSelector } from './useAppStore'
 import { useDeliveryQuote } from './useDeliveryQuote'
 import { useLiveRate } from './useLiveRate'
@@ -37,7 +38,9 @@ export function useChargedBreakdown(): ChargedBreakdown {
     return chargedBreakdown({
       subtotalIdr: selectSubtotal(items),
       deliveryFeeIdr:
-        deliveryType === 'quick' ? baseDeliveryFeeIdr * quickMultiplier : baseDeliveryFeeIdr,
+        QUICK_ENABLED && deliveryType === 'quick'
+          ? baseDeliveryFeeIdr * quickMultiplier
+          : baseDeliveryFeeIdr,
       discountIdr: (promo?.discountIdr ?? 0) + program.discountIdr,
       method: payMethodKind(paymentId ?? 'wallet'),
     })

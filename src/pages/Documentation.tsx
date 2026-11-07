@@ -461,27 +461,21 @@ export default function Documentation() {
                 cukup selebar isinya dengan warna bahaya.
               </li>
               <li>
-                <strong>Mode pengantaran dipilih customer, bukan ditebak merchant.</strong> Checkout
-                kini punya dua kartu <strong>Regular</strong> (kurir toko, batch) dan{' '}
-                <strong>Quick</strong> (antar langsung, satu order). Tarif Quick memakai pengali ops
-                dari setelan platform, bukan konstanta layar: terukur ongkir zona Hijazi 0,20 → 0,24
-                JOD (×1,2) dan total ikut naik 0,04 JOD saat Quick dipilih. Pilihan disimpan per kode
-                order (kolom jenis pengantaran belum ada di BE), sehingga konsol merchant membaca
-                cabang yang benar. Copy kedua kartu memakai pola yang sama, siapa mengantar lalu
-                cakupan rutenya: "Kurir toko, berbagi rute antar pesanan" dan "Antar langsung, tanpa
-                berbagi rute" (sejak 2026-11-08 istilah kurir partner tidak dipakai lagi di
-                permukaan customer) — Regular tidak direndahkan, Quick tetap mencetak delta biayanya
-                (+0,04 JOD) supaya fitur terasa istimewa tanpa mengaburkan harga. Kartu Quick juga
-                memakai latar oranye muda permanen + batas <code className="doc-inline">
-                --orange-border</code>, jadi fiturnya terbaca sebelum dipilih; isi{' '}
-                <code className="doc-inline">--orange-soft</code> penuh + centang tetap satu-satunya
-                penanda "terpilih". Bug yang dilaporkan ikut diperbaiki: detail order Regular dulu
-                menampilkan "Serahkan ke kurir partner" setiap kali <code className="doc-inline">
-                batchId</code> kosong — termasuk order dari BE yang belum masuk batch. Sekarang cabang
-                ditentukan <code className="doc-inline">orderDeliveryType()</code>: Regular hanya
-                menunjuk panel Batch, Quick yang menawarkan penugasan partner. Diuji pada order BE
-                nyata: Regular tanpa batch tidak lagi punya tombol partner, dan order yang sama
-                berubah menjadi cabang Quick begitu modenya tersimpan.
+                <strong>Mode pengantaran mengikuti peran yang benar-benar ada.</strong> Checkout
+                semula punya dua kartu: <strong>Regular</strong> (kurir toko, batch) dan{' '}
+                <strong>Quick</strong> (satu order, kurir partner) dengan tarif zona × pengali ops.
+                Sejak 2026-11-08 kurir partner tidak dipakai, jadi Quick dimatikan lewat{' '}
+                <code className="doc-inline">QUICK_ENABLED = false</code>: kartunya tidak dirender,
+                sesi lama yang masih menyimpan <code className="doc-inline">deliveryType = quick</code>{' '}
+                dibaca serta ditagih sebagai Regular (pengali tidak dikenakan di{' '}
+                <code className="doc-inline">useChargedBreakdown</code>), catatan &ldquo;(Quick)&rdquo;
+                di ringkasan bayar hilang, dan tombol &ldquo;Serahkan ke kurir partner&rdquo; di
+                konsol merchant jatuh ke jalur batch. Kode Quick, slice partner, dan{' '}
+                <code className="doc-inline">quickMultiplier</code> di ops tetap utuh supaya bisa
+                dinyalakan lagi; requirement PRD-nya tercatat di{' '}
+                <code className="doc-inline">R-COU-PARTNER.md</code>. Pilihan pengantaran tetap
+                disimpan per kode order (kolom jenis pengantaran belum ada di BE), sehingga konsol
+                merchant membaca cabang yang benar.
               </li>
               <li>
                 <strong>Chat group order dirapikan untuk tiga pihak.</strong> Daftar peserta

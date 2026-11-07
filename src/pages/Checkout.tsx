@@ -27,6 +27,7 @@ import {
 import { mockUser } from '../data/user'
 import { getStorefront, swapBrokenImage } from '../data/storefronts'
 import { QUICK_DISPATCH_AVAILABLE } from '../data/marketplace'
+import { QUICK_ENABLED } from '../data/features'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
 import { switchBlockCopy } from '../data/superadmin'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
@@ -36,6 +37,7 @@ import { useProgramDiscount } from '../hooks/useProgramDiscount'
 import { useMoney } from '../hooks/useMoney'
 import { selectOtherCarts, selectSubtotal, removeCart, setDeliveryType, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
+import type { OrderType } from '../types'
 
 /**
  * Daftar keranjang toko lain (PRD §6). Dirender di dua tempat — keranjang aktif
@@ -137,7 +139,11 @@ export default function Checkout() {
   const quote = address ? quoteFor(address) : null
   const deliverable = quote?.covered ?? false
   const fee = quote?.feeIdr ?? 0
-  const deliveryType = useAppSelector((s) => s.cart.deliveryType)
+  const storedDeliveryType = useAppSelector((s) => s.cart.deliveryType)
+  // Quick dimatikan saat kurir partner tidak dipakai: mode yang tersimpan
+  // (`cart.deliveryType`) bisa masih 'quick' dari sesi lama, jadi dibaca sebagai
+  // Regular supaya tarif dan ringkasan tidak memakai pengali yang tak bisa dipilih.
+  const deliveryType: OrderType = QUICK_ENABLED ? storedDeliveryType : 'regular'
   const quickMultiplier = useAppSelector((s) => s.ops.config.quickMultiplier)
   const quickFee = Math.round(fee * quickMultiplier)
   // Promo terpasang (`cart.promo`) memotong total di sini dan di PaymentAmount —
@@ -230,9 +236,9 @@ export default function Checkout() {
                 </div>
 
                 {/* Mode pengantaran (PRD §6, CUS-14..20): Regular lewat batch
-                    kurir inhouse, Quick satu order per kurir partner. Ongkir
-                    Quick = tarif zona × pengali ops, jadi angkanya tampil di
-                    opsi — bukan kejutan di ringkasan. */}
+                    kurir inhouse. Quick (satu order per kurir partner) hanya
+                    dirender bila `QUICK_ENABLED`; ongkirnya tarif zona × pengali
+                    ops, jadi angkanya tampil di opsi — bukan kejutan di ringkasan. */}
                 <div className="checkout-section">
                   <h2 className="section-title s7-parallax--title">Jenis pengantaran</h2>
                   <div
@@ -260,38 +266,41 @@ export default function Checkout() {
                       </span>
                       <span className="delivery-mode__fee">{moneyPlain(fee)}</span>
                       {/* Baris delta selalu ada di kedua kartu supaya baris harga
-                          Quick dan Regular duduk di garis yang sama. */}
+                          Quick dan Regular duduk di garis yang sama. Saat Quick
+                          dimatikan, kartunya tidak dirender sama sekali. */}
                       <span className="delivery-mode__delta" aria-hidden="true" />
                     </button>
-                    <button
-                      type="button"
-                      role="radio"
-                      aria-checked={deliveryType === 'quick'}
-                      className={`delivery-mode__option delivery-mode__option--quick${
-                        deliveryType === 'quick' ? ' is-selected' : ''
-                      }`}
-                      disabled={!QUICK_DISPATCH_AVAILABLE}
-                      onClick={() => dispatch(setDeliveryType('quick'))}
-                    >
-                      <span className="delivery-mode__title">
-                        <span className="delivery-mode__name">
-                          <Bike size={18} strokeWidth={1.75} aria-hidden="true" />
-                          Quick
+                    {QUICK_ENABLED ? (
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={deliveryType === 'quick'}
+                        className={`delivery-mode__option delivery-mode__option--quick${
+                          deliveryType === 'quick' ? ' is-selected' : ''
+                        }`}
+                        disabled={!QUICK_DISPATCH_AVAILABLE}
+                        onClick={() => dispatch(setDeliveryType('quick'))}
+                      >
+                        <span className="delivery-mode__title">
+                          <span className="delivery-mode__name">
+                            <Bike size={18} strokeWidth={1.75} aria-hidden="true" />
+                            Quick
+                          </span>
+                          <span className="delivery-mode__mark" aria-hidden="true">
+                            {deliveryType === 'quick' ? <Check size={14} strokeWidth={2.5} /> : null}
+                          </span>
                         </span>
-                        <span className="delivery-mode__mark" aria-hidden="true">
-                          {deliveryType === 'quick' ? <Check size={14} strokeWidth={2.5} /> : null}
+                        <span className="delivery-mode__sub">
+                          Antar langsung, tanpa berbagi rute.
                         </span>
-                      </span>
-                      <span className="delivery-mode__sub">
-                        Antar langsung, tanpa berbagi rute.
-                      </span>
-                      <span className="delivery-mode__fee">{moneyPlain(quickFee)}</span>
-                      <span className="delivery-mode__delta">
-                        {quickFee > fee ? `+${moneyPlain(quickFee - fee)} dari Regular` : ''}
-                      </span>
-                    </button>
+                        <span className="delivery-mode__fee">{moneyPlain(quickFee)}</span>
+                        <span className="delivery-mode__delta">
+                          {quickFee > fee ? `+${moneyPlain(quickFee - fee)} dari Regular` : ''}
+                        </span>
+                      </button>
+                    ) : null}
                   </div>
-                  {!QUICK_DISPATCH_AVAILABLE ? (
+                  {QUICK_ENABLED && !QUICK_DISPATCH_AVAILABLE ? (
                     <p className="summary-info-note">
                       Quick belum tersedia di area ini.
                     </p>

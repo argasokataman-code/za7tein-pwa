@@ -1,3 +1,4 @@
+import { QUICK_ENABLED } from '../../data/features'
 import { QUICK_DISPATCH_AVAILABLE } from '../../data/marketplace'
 import { orderDeliveryType } from '../../data/merchantOrders'
 import type { MerchantOrder } from '../../types'
@@ -42,7 +43,7 @@ export function OrderTicketActions({
     <>
       <p className="merchant-card-sub">{hint}</p>
       <div className="merchant-actions">
-        {orderDeliveryType(order) === 'quick' ? (
+        {QUICK_ENABLED && orderDeliveryType(order) === 'quick' ? (
           <button
             type="button"
             className="btn btn-primary"
