@@ -5603,6 +5603,158 @@
       ],
       "loc": "src/data/batch.ts:29",
       "commit": "507f638"
+    },
+    {
+      "id": "TASK-214104",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:50:18",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts (+7/-5) — edit via tool: ts: /** Toko asal. Tanpa ini, item m",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-214105",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:50:19",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/types.ts (+8/-2) — edit via tool: ts: /** Toko asal item — keranjang dipisah p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-214106",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:50:24",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MenuDetail.tsx (+5/-4) — edit via tool: tsx: addItem({",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MenuDetail.tsx"
+    },
+    {
+      "id": "TASK-214107",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:50:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/storefronts.ts (+23/-3) — edit via tool: ts: export function getStorefront(id: str",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/storefronts.ts"
+    },
+    {
+      "id": "TASK-214108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:50:34",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx (+7/-3) — edit via tool: tsx: const activeOrde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx"
+    },
+    {
+      "id": "TASK-214109",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:50:52",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Checkout.tsx (+1/-1) — edit via tool: tsx: import { getStorefront, storeNameFor, ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-214110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:51:03",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Checkout.tsx (+7/-6) — edit via tool: tsx: function OtherCarts({",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Checkout.tsx"
+    },
+    {
+      "id": "TASK-214111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "05:51:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts (+7/-5) — edit via tool: ts: .map(([merchantId, items]) => ({",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts"
     }
   ]
 }

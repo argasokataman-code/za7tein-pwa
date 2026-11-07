@@ -522,6 +522,12 @@ export interface CartItem {
   /** Toko asal item — keranjang dipisah per merchant (PRD §6/§11). */
   merchantId?: string
   /**
+   * Nama toko saat item dimasukkan. Keranjang dipersist, dan id toko live
+   * (numerik) tidak selalu bisa dipetakan ke daftar storefront mock; nama ini
+   * menjaga baris keranjang tetap terbaca walau daftar toko belum termuat.
+   */
+  merchantName?: string
+  /**
    * Identitas menu dari BE (`order_items.menu_id`). `id` adalah kunci unik
    * per baris order (aman untuk React key), jadi peringkat penjualan harus
    * memakai field ini supaya satu menu tidak terhitung sekali per order.

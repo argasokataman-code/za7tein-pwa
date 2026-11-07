@@ -3,9 +3,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { BottomSheet } from '../ui/BottomSheet'
-import { getStorefront } from '../../data/storefronts'
+import { storeNameFor, storefronts } from '../../data/storefronts'
 import type { CustomerActiveOrder } from '../../api/orders'
 import { useCancelOrder } from '../../hooks/useCancelOrder'
+import { useStorefronts } from '../../hooks/useApiCatalog'
 import { useMoney } from '../../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../../hooks/useAppStore'
 import {
@@ -51,8 +52,12 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
   const otherCarts = useAppSelector((s) => s.cart.carts)
   const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
   const activeOrders = useAppSelector((s) => s.customerOrders.active)
+  // Toko live (mock sebagai fallback): id keranjang dari BE numerik, bukan
+  // `am-N` milik mock, jadi tanpa daftar live semua baris menjadi "Toko lain".
+  const liveStores = useStorefronts(storefronts)
 
-  const storeName = (id: string) => getStorefront(id)?.name ?? (id === 'default' ? 'Toko' : 'Toko lain')
+  const storeName = (id: string, fallbackName?: string | null) =>
+    storeNameFor(id, liveStores, fallbackName)
 
   // Keranjang aktif dulu, lalu keranjang toko lain. Satu entri = satu toko.
   const cartStores = [
@@ -159,7 +164,7 @@ export function CartSummarySheet({ open, onClose }: CartSummarySheetProps) {
           <ul className="ck-list">
             {cartStores.map((store) => {
               const count = store.items.reduce((sum, i) => sum + i.quantity, 0)
-              const name = storeName(store.merchantId)
+              const name = storeName(store.merchantId, store.items[0]?.merchantName)
               const confirming = pending?.kind === 'cart' && pending.id === store.merchantId
               return (
                 <li key={store.merchantId} className="ck-row">

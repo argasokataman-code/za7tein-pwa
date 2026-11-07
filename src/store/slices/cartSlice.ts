@@ -143,9 +143,11 @@ const cartSlice = createSlice({
         notes?: string
         /** Toko asal. Tanpa ini, item masuk keranjang aktif (perilaku lama). */
         merchantId?: string
+        /** Nama toko asal, disimpan supaya keranjang tetap terbaca tanpa daftar toko. */
+        merchantName?: string
       }>,
     ) {
-      const { food, quantity = 1, unitPrice, modifiers, notes, merchantId } = action.payload
+      const { food, quantity = 1, unitPrice, modifiers, notes, merchantId, merchantName } = action.payload
       // Keranjang milik toko mana? Keranjang toko lain disimpan di `carts`,
       // tidak menimpa keranjang aktif (PRD §6 — satu keranjang per merchant).
       const target = merchantId ?? state.activeMerchantId ?? 'default'
@@ -170,6 +172,7 @@ const cartSlice = createSlice({
         bucket.push({
           id: food.id,
           merchantId: target,
+          merchantName,
           name: food.name,
           price: unitPrice ?? food.price,
           quantity,
@@ -429,6 +432,8 @@ export const selectOtherCarts = (carts: Record<string, CartItem[]>) =>
       merchantId,
       count: items.reduce((sum, i) => sum + i.quantity, 0),
       subtotal: items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+      /** Nama toko yang tersimpan di item, cadangan bila daftar toko belum termuat. */
+      merchantName: items[0]?.merchantName,
     }))
 
 export default cartSlice.reducer

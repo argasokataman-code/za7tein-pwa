@@ -22,13 +22,14 @@ import { OrderRefundCelebration } from '../components/customer/OrderRefundCelebr
 import { canCancelOrder, itemsLine, orderDayKey, orderDayLabel } from '../components/customer/orderStatus'
 import { BottomNav } from '../components/layout/BottomNav'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
+import { cartGroups } from '../data/cartGroups'
 import { menuSeed } from '../data/catalog'
-import { getStorefront, storefronts } from '../data/storefronts'
+import { storeNameFor, storefronts } from '../data/storefronts'
 import { useAllMenuItems, useStorefronts } from '../hooks/useApiCatalog'
 import { useCancelOrder } from '../hooks/useCancelOrder'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
-import { addItem, selectSubtotal, setActiveOrder, setOrderStage, switchCart } from '../store/slices/cartSlice'
+import { addItem, setActiveOrder, setOrderStage, switchCart } from '../store/slices/cartSlice'
 
 /**
  * Pesanan Saya — satu menu untuk dua keadaan pesanan (PRD §6/§20.2):
@@ -128,16 +129,15 @@ export default function MyOrder() {
     loadHistory()
   }, [loadHistory])
 
-  const cartStores = Object.values(otherCarts).filter((items) => items.length > 0).length
-  const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
   // Katalog + toko live (mock sebagai fallback) — dipakai tombol "Pesan lagi"
   // dan gambar kartu, supaya menu yang sudah berubah di BE ikut terbaca.
   const liveStores = useStorefronts(storefronts)
   const liveItems = useAllMenuItems(menuSeed)
-  const activeStore =
-    liveStores.find((s) => s.id === activeMerchantId) ??
-    (activeMerchantId ? getStorefront(activeMerchantId) : undefined)
-  const activeCount = activeOrders.length + (cartItems.length ? 1 : 0)
+  const groups = useMemo(
+    () => cartGroups(cartItems, activeMerchantId, otherCarts),
+    [cartItems, activeMerchantId, otherCarts],
+  )
+  const activeCount = activeOrders.length + groups.length
 
   const counts = useMemo(
     () => ({
@@ -414,27 +414,33 @@ export default function MyOrder() {
             </>
           ) : (
             <div className="oh-list" key="active">
-              {cartItems.length ? (
-                <section className="oh-cart">
-                  <div className="oh-cart__head">
-                    <Store size={16} strokeWidth={1.75} aria-hidden="true" />
-                    <span className="oh-cart__store">
-                      {activeStore?.name ?? (activeMerchantId ? 'Toko lain' : 'Keranjang')}
-                    </span>
-                    <span className="oh-badge">{cartCount} menu</span>
-                  </div>
-                  <p className="oh-cart__items">{itemsLine(cartItems)}</p>
-                  <div className="oh-cart__foot">
-                    <span>Subtotal</span>
-                    <span className="oh-cart__sum">{money(selectSubtotal(cartItems))}</span>
-                  </div>
-                  <button type="button" className="oh-cta" onClick={() => navigate('/checkout')}>
-                    Lanjut ke pembayaran
-                  </button>
-                  {cartStores > 0 ? (
-                    <p className="oh-cart__items">{cartStores} keranjang di toko lain</p>
-                  ) : null}
-                </section>
+              {groups.length ? (
+                groups.map((group) => {
+                  const name = group.merchantId
+                    ? storeNameFor(group.merchantId, liveStores, group.items[0]?.merchantName)
+                    : 'Keranjang'
+                  const open = () => {
+                    if (!group.active && group.merchantId) dispatch(switchCart(group.merchantId))
+                    navigate('/checkout')
+                  }
+                  return (
+                    <section className="oh-cart" key={group.merchantId ?? 'default'}>
+                      <div className="oh-cart__head">
+                        <Store size={16} strokeWidth={1.75} aria-hidden="true" />
+                        <span className="oh-cart__store">{name}</span>
+                        <span className="oh-badge">{group.count} menu</span>
+                      </div>
+                      <p className="oh-cart__items">{itemsLine(group.items)}</p>
+                      <div className="oh-cart__foot">
+                        <span>Subtotal</span>
+                        <span className="oh-cart__sum">{money(group.subtotal)}</span>
+                      </div>
+                      <button type="button" className="oh-cta" onClick={open}>
+                        {group.active ? 'Lanjut ke pembayaran' : 'Buka keranjang'}
+                      </button>
+                    </section>
+                  )
+                })
               ) : null}
 
               {!hydrated && apiEnabled ? (

@@ -25,7 +25,7 @@ import {
   platformGstIdr,
 } from '../data/merchant'
 import { mockUser } from '../data/user'
-import { getStorefront, swapBrokenImage } from '../data/storefronts'
+import { getStorefront, storeNameFor, storefronts, swapBrokenImage } from '../data/storefronts'
 import { QUICK_DISPATCH_AVAILABLE } from '../data/marketplace'
 import { QUICK_ENABLED } from '../data/features'
 import { PlatformNotice } from '../components/ui/PlatformNotice'
@@ -35,9 +35,10 @@ import { useChargedBreakdown } from '../hooks/useChargedBreakdown'
 import { useDeliveryQuote } from '../hooks/useDeliveryQuote'
 import { useProgramDiscount } from '../hooks/useProgramDiscount'
 import { useMoney } from '../hooks/useMoney'
+import { useStorefronts } from '../hooks/useApiCatalog'
 import { selectOtherCarts, selectSubtotal, removeCart, setDeliveryType, setOrderNote, setPromo, switchCart, updateQuantity } from '../store/slices/cartSlice'
 import { BackButton } from '../components/ui/BackButton'
-import type { OrderType } from '../types'
+import type { OrderType, Storefront } from '../types'
 
 /**
  * Daftar keranjang toko lain (PRD §6). Dirender di dua tempat — keranjang aktif
@@ -47,11 +48,14 @@ import type { OrderType } from '../types'
 function OtherCarts({
   carts,
   formatAmount,
+  stores,
   onSwitch,
   onRemove,
 }: {
   carts: ReturnType<typeof selectOtherCarts>
   formatAmount: (idr: number) => string
+  /** Daftar toko live supaya nama & logo baris cocok dengan id BE. */
+  stores: Storefront[]
   onSwitch: (merchantId: string) => void
   onRemove: (merchantId: string) => void
 }) {
@@ -61,8 +65,8 @@ function OtherCarts({
       <h2 className="section-title s7-parallax--title">Keranjang lain</h2>
       <div className="checkout-other-carts">
         {carts.map((cart) => {
-          const store = getStorefront(cart.merchantId)
-          const name = store?.name ?? 'Toko lain'
+          const store = stores.find((s) => s.id === cart.merchantId) ?? getStorefront(cart.merchantId)
+          const name = storeNameFor(cart.merchantId, stores, cart.merchantName)
           return (
             <div className="checkout-other-cart list-row" key={cart.merchantId}>
               <button
@@ -118,11 +122,16 @@ export default function Checkout() {
   const activeMerchantId = useAppSelector((s) => s.cart.activeMerchantId)
   const otherCarts = useAppSelector((s) => selectOtherCarts(s.cart.carts))
   const orderNote = useAppSelector((s) => s.cart.orderNote)
-  const activeStore = activeMerchantId ? getStorefront(activeMerchantId) : undefined
-  // Toko demo (keranjang lama tanpa merchantId) tetap memakai nama mock; toko
-  // yang idnya tak dikenal tampil sebagai "Toko lain" — jangan menamainya
-  // dengan toko lain yang kebetulan ada di mock.
-  const storeName = activeStore?.name ?? (activeMerchantId ? 'Toko lain' : mockMerchant.name)
+  // Toko live (mock fallback): id keranjang dari BE numerik, bukan `am-N`.
+  const liveStores = useStorefronts(storefronts)
+  const activeStore = activeMerchantId
+    ? liveStores.find((s) => s.id === activeMerchantId) ?? getStorefront(activeMerchantId)
+    : undefined
+  // Toko demo (keranjang lama tanpa merchantId) memakai nama mock; nama yang
+  // tersimpan di item jadi cadangan bila daftar toko belum termuat.
+  const storeName = activeMerchantId
+    ? storeNameFor(activeMerchantId, liveStores, items[0]?.merchantName)
+    : mockMerchant.name
   const storeHours = activeStore
     ? `Buka ${activeStore.openTime}–${activeStore.closeTime}`
     : `Buka ${mockMerchant.openTime}–${mockMerchant.closeTime}`
@@ -219,6 +228,7 @@ export default function Checkout() {
               <OtherCarts
                 carts={otherCarts}
                 formatAmount={moneyPlain}
+                stores={liveStores}
                 onSwitch={(id) => dispatch(switchCart(id))}
                 onRemove={(id) => dispatch(removeCart(id))}
               />
@@ -311,6 +321,7 @@ export default function Checkout() {
                   <OtherCarts
                     carts={otherCarts}
                     formatAmount={moneyPlain}
+                    stores={liveStores}
                     onSwitch={(id) => dispatch(switchCart(id))}
                     onRemove={(id) => dispatch(removeCart(id))}
                   />

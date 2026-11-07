@@ -203,6 +203,7 @@ export default function MenuDetail() {
       addItem({
         food,
         merchantId: food.merchantId,
+        merchantName: storefront?.name,
         quantity,
         unitPrice,
         modifiers: summary || undefined,

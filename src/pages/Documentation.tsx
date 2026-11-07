@@ -1219,6 +1219,42 @@ export default function Documentation() {
                 2/2 PASS.
               </li>
               <li>
+                <strong>Baris keranjang memakai nama toko yang benar.</strong> Ringkasan
+                keranjang hanya mengenal id toko mock (<code className="doc-inline">am-N</code>),
+                sedangkan keranjang menyimpan id toko live dari BE (numerik). Akibatnya setiap
+                baris jatuh ke label &ldquo;Toko lain&rdquo; dan beberapa keranjang tidak bisa
+                dibedakan. Sekarang <code className="doc-inline">storeNameFor()</code> di
+                <code className="doc-inline">src/data/storefronts.ts</code> mencari daftar
+                storefront live lebih dulu, lalu nama toko yang disimpan di item saat masuk
+                keranjang (<code className="doc-inline">CartItem.merchantName</code>), baru
+                terakhir label netral &ldquo;Toko&rdquo;. Dipakai sheet keranjang
+                (<code className="doc-inline">CartSummarySheet</code>), bagian
+                &ldquo;Keranjang lain&rdquo; di checkout, dan kartu keranjang di Pesanan Saya.
+                Terukur di app-mode dengan dua toko live: baris menampilkan
+                &ldquo;Warung Sate Pak Ali&rdquo; dan &ldquo;Waroeng Nusantara&rdquo;, bukan
+                &ldquo;Toko lain&rdquo;; self-check
+                <code className="doc-inline">scripts/store-name-check.mjs</code>.
+              </li>
+              <li>
+                <strong>Keranjang Pesanan Saya dipisah per toko.</strong> Tab Aktif dulu
+                menggambar satu kartu keranjang gabungan: judulnya bisa berbunyi
+                &ldquo;Keranjang&rdquo; (tanpa nama toko), dan menu dari dua toko
+                menyatu di satu baris seperti &ldquo;2&times; Sate Ayam &middot; 1&times;
+                Sate Ayam&rdquo;, jadi customer tak tahu mana menu milik toko mana.
+                Sekarang <code className="doc-inline">cartGroups()</code> di
+                <code className="doc-inline">src/data/cartGroups.ts</code> memecah
+                keranjang aktif menurut <code className="doc-inline">item.merchantId</code>
+                dan menggabungkan keranjang toko lain, lalu
+                <code className="doc-inline">src/pages/MyOrder.tsx</code> merender satu
+                kartu per toko: nama toko, jumlah menu, daftar menu, subtotal, dan tombol
+                &ldquo;Lanjut ke pembayaran&rdquo; (keranjang aktif) atau &ldquo;Buka
+                keranjang&rdquo; yang memindahkan keranjang lalu membuka checkout.
+                Jumlah tab Aktif ikut menghitung tiap kartu. Terukur di app-mode dengan
+                dua toko: &ldquo;Warung Sate Pak Ali&rdquo; 1 menu dan &ldquo;Waroeng
+                Nusantara&rdquo; 2 menu sebagai dua kartu terpisah; self-check
+                <code className="doc-inline">scripts/cart-groups-check.mjs</code>.
+              </li>
+              <li>
                 <strong>Journey menampilkan data order, bukan konstanta.</strong> Layar{' '}
                 <code className="doc-inline">/order-placed</code> dulu memakai nama toko, jam buka,
                 kurir, dan alamat dari mock. Sekarang{' '}

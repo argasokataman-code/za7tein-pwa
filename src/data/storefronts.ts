@@ -92,6 +92,26 @@ export function getStorefront(id: string): Storefront | undefined {
 }
 
 /**
+ * Nama toko untuk id apa pun yang tersimpan di keranjang.
+ *
+ * Keranjang menyimpan id toko live dari BE (numerik), sedangkan daftar mock
+ * memakai id `am-N`, jadi daftar storefront yang sedang dimuat wajib dicari
+ * lebih dulu. Bila keduanya tidak mengenal id itu (mis. daftar toko belum
+ * termuat), nama yang disimpan saat item masuk keranjang dipakai. Tanpa ini
+ * semua baris keranjang jatuh ke label "Toko lain" dan toko yang berbeda tak
+ * bisa dibedakan.
+ */
+export function storeNameFor(
+  id: string | null | undefined,
+  live: Storefront[] = [],
+  fallbackName?: string | null,
+): string {
+  if (!id) return fallbackName?.trim() || 'Keranjang'
+  const known = live.find((store) => store.id === id) ?? getStorefront(id)
+  return known?.name ?? (fallbackName?.trim() || 'Toko')
+}
+
+/**
  * Foto pengganti bila backend menunjuk gambar yang tidak ada — mis. path
  * `/assets/img/merchant/*.svg` yang tak pernah dikirim ke repo ini. Dipakai
  * saat `photo` null (catalog.ts) maupun saat gambar gagal dimuat (`onError`).
