@@ -703,6 +703,34 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "BUG-146000",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:30:41",
+      "tags": [
+        "merchant",
+        "sync",
+        "batch",
+        "antrean"
+      ],
+      "summary": "Order balik ke Antrean 1-2 detik setelah diterima: mergeOrders menimpa status dgn baris BE yang belum mengejar; pendingWrites TTL 30s + pend",
+      "conn": [
+        {
+          "id": "BUG-88046",
+          "type": "relates",
+          "raw": "BUG-88046:relates"
+        },
+        {
+          "id": "BUG-142900",
+          "type": "relates",
+          "raw": "BUG-142900:relates"
+        }
+      ],
+      "loc": "src/store/slices/merchantSlice.ts:284",
+      "commit": "3fe52e0"
     }
   ]
 }
