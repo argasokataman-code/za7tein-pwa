@@ -283,7 +283,7 @@ export default function Checkout() {
                         </span>
                       </span>
                       <span className="delivery-mode__sub">
-                        Kurir partner, khusus untuk pesananmu.
+                        Antar langsung, tanpa berbagi rute.
                       </span>
                       <span className="delivery-mode__fee">{moneyPlain(quickFee)}</span>
                       <span className="delivery-mode__delta">
@@ -293,7 +293,7 @@ export default function Checkout() {
                   </div>
                   {!QUICK_DISPATCH_AVAILABLE ? (
                     <p className="summary-info-note">
-                      Quick belum tersedia — belum ada kurir partner di area ini.
+                      Quick belum tersedia di area ini.
                     </p>
                   ) : null}
                 </div>

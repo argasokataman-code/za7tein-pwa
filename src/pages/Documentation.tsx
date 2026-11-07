@@ -463,13 +463,14 @@ export default function Documentation() {
               <li>
                 <strong>Mode pengantaran dipilih customer, bukan ditebak merchant.</strong> Checkout
                 kini punya dua kartu <strong>Regular</strong> (kurir toko, batch) dan{' '}
-                <strong>Quick</strong> (kurir partner, satu order). Tarif Quick memakai pengali ops
+                <strong>Quick</strong> (antar langsung, satu order). Tarif Quick memakai pengali ops
                 dari setelan platform, bukan konstanta layar: terukur ongkir zona Hijazi 0,20 → 0,24
                 JOD (×1,2) dan total ikut naik 0,04 JOD saat Quick dipilih. Pilihan disimpan per kode
                 order (kolom jenis pengantaran belum ada di BE), sehingga konsol merchant membaca
                 cabang yang benar. Copy kedua kartu memakai pola yang sama, siapa mengantar lalu
-                cakupan rutenya: "Kurir toko, berbagi rute antar pesanan" dan "Kurir partner, khusus
-                untuk pesananmu" — Regular tidak direndahkan, Quick tetap mencetak delta biayanya
+                cakupan rutenya: "Kurir toko, berbagi rute antar pesanan" dan "Antar langsung, tanpa
+                berbagi rute" (sejak 2026-11-08 istilah kurir partner tidak dipakai lagi di
+                permukaan customer) — Regular tidak direndahkan, Quick tetap mencetak delta biayanya
                 (+0,04 JOD) supaya fitur terasa istimewa tanpa mengaburkan harga. Kartu Quick juga
                 memakai latar oranye muda permanen + batas <code className="doc-inline">
                 --orange-border</code>, jadi fiturnya terbaca sebelum dipilih; isi{' '}
