@@ -4129,6 +4129,45 @@
           "raw": "BUG-88202:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-88212",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "09:29:12",
+      "tags": [
+        "figcraft",
+        "design",
+        "setup"
+      ],
+      "summary": "FigCraft siap dipakai repo: font Plus Jakarta Sans dari ~/Library/Fonts, desain di design/, verifikasi di temp",
+      "conn": [
+        {
+          "id": "TASK-88210",
+          "type": "relates",
+          "raw": "TASK-88210:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213312",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-07",
+      "time": "09:29:16",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/.local/share/opencode/shell/commit-msg2.txt (+6) — write via tool: chore(atlas): sinkron node FigCraft + bu",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/.local/share/opencode/shell/commit-msg2.txt"
     }
   ]
 }
