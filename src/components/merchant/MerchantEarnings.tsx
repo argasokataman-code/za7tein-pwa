@@ -17,22 +17,43 @@ interface MerchantEarningsProps {
 export function MerchantEarnings({ order }: MerchantEarningsProps) {
   const cancelled = order.status === 'batal'
   const isCod = order.paymentMethod === 'cod'
-  // Order lama di BE bisa punya `total_jod` tanpa satu baris `order_items`.
+  // Order lama di BE bisa punya total order tanpa satu baris `order_items`.
   // `merchantInvoice([])` lalu menghasilkan subtotal 0,00 dan "Bersih 0,00",
-  // padahal total pesanannya bukan nol: angka itu salah, bukan kosong. Lebih
-  // jujur menyebut rinciannya tidak tersedia daripada menampilkan nol.
-  if (!cancelled && order.items.length === 0) {
+  // padahal total pesanannya bukan nol: angka itu salah. Kalau kolom
+  // `sub_total_jod` ada, pakai itu sebagai dasar; kalau tidak, jangan mengarang
+  // angka sama sekali.
+  if (!cancelled && order.items.length === 0 && order.subTotalIdr == null) {
     return (
       <p className="merchant-card-sub">
         Rincian pendapatan tidak tersedia untuk pesanan ini.
       </p>
     )
   }
+  const feeMerchantIdr = order.platformFeeMerchantIdr ?? 0
+  const orderLevelRows =
+    order.items.length === 0
+      ? [
+          { label: 'Subtotal pesanan', amountIdr: order.subTotalIdr ?? 0 },
+          ...(feeMerchantIdr > 0
+            ? [
+                {
+                  label: 'Biaya platform merchant',
+                  amountIdr: feeMerchantIdr,
+                  kind: 'discount' as const,
+                },
+              ]
+            : []),
+        ]
+      : null
   const invoice = merchantInvoice(order.items, { paymentMethod: order.paymentMethod })
-  const rows = cancelled ? [] : invoice.rows
+  const rows = cancelled ? [] : (orderLevelRows ?? invoice.rows)
   const total = {
     label: cancelled ? 'Tidak ada pendapatan' : 'Bersih untuk toko',
-    amountIdr: cancelled ? 0 : invoice.netIdr,
+    amountIdr: cancelled
+      ? 0
+      : orderLevelRows
+        ? Math.max(0, (order.subTotalIdr ?? 0) - feeMerchantIdr)
+        : invoice.netIdr,
   }
   // Catatan developer (§16.5, §17): order COD tunai tidak kena potongan platform
   // merchant; biaya layanan customer jadi hak toko dan ongkir tunai diteruskan ke

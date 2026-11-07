@@ -644,6 +644,16 @@ export interface MerchantOrder {
   packed?: boolean
   cookMinutes?: number
   /**
+   * Rincian harga tingkat order dari BE (`orders.sub_total_jod` dan kawan-kawan,
+   * sudah dikonversi ke IDR). Dipakai saat `order_items` kosong: order lama bisa
+   * punya total tanpa satu baris menu, dan angka order tetap harus terbaca.
+   */
+  subTotalIdr?: number
+  deliveryFeeIdr?: number
+  platformFeeIdr?: number
+  /** `orders.platform_fee_merchant_jod` — potongan milik merchant. */
+  platformFeeMerchantIdr?: number
+  /**
    * `Courier.id` yang dipilih merchant untuk order ini. Platform tidak pernah
    * menugaskan kurir (C-06) — kurir karyawan merchant, jadi rujukan ini hanya
    * diisi dari aksi merchant (F12 `:assign` → `hold_cut`).

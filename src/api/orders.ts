@@ -51,6 +51,12 @@ interface OrderRow {
   customer_id: number
   merchant_id: number
   total_jod: number
+  /** Rincian harga tingkat order (IDR saat dipakai FE). Item-level ada di `order_items`. */
+  sub_total_jod?: number | null
+  delivery_fee_jod?: number | null
+  platform_fee_jod?: number | null
+  /** Potongan platform yang dibebankan ke merchant (bukan ke customer). */
+  platform_fee_merchant_jod?: number | null
   payment_method: string
   payment_status?: string
   /** Kolom masa depan untuk bukti transfer legacy (belum ada di BE). */
@@ -464,6 +470,13 @@ function toMerchantOrder(
     address: row.zone_code ? `Zona ${row.zone_code}` : 'Alamat belum tersedia',
     items: toCartItems(row.id, items),
     total: jodToIdr(row.total_jod),
+    // Subtotal & ongkir dipakai detail order saat baris `order_items` tidak ada
+    // (order lama): angka order tetap bisa ditampilkan tanpa mengarang menu.
+    subTotalIdr: row.sub_total_jod != null ? jodToIdr(row.sub_total_jod) : undefined,
+    deliveryFeeIdr: row.delivery_fee_jod != null ? jodToIdr(row.delivery_fee_jod) : undefined,
+    platformFeeIdr: row.platform_fee_jod != null ? jodToIdr(row.platform_fee_jod) : undefined,
+    platformFeeMerchantIdr:
+      row.platform_fee_merchant_jod != null ? jodToIdr(row.platform_fee_merchant_jod) : undefined,
     distanceMeters: 0,
     zone,
     status,
@@ -533,7 +546,7 @@ export async function fetchMerchantOrders(merchantId = DEMO_MERCHANT_ID): Promis
   const rows = await restWith<OrderRow>(
     token,
     'orders',
-    `?select=id,code,status,customer_id,merchant_id,total_jod,payment_method,payment_status,zone_code,created_at,placed_at,courier_id,batch_id,delivery_type,cook_minutes&merchant_id=eq.${merchantId}&order=created_at.desc`,
+    `?select=id,code,status,customer_id,merchant_id,total_jod,sub_total_jod,delivery_fee_jod,platform_fee_jod,platform_fee_merchant_jod,payment_method,payment_status,zone_code,created_at,placed_at,courier_id,batch_id,delivery_type,cook_minutes&merchant_id=eq.${merchantId}&order=created_at.desc`,
   )
   if (!rows.length) return []
   // Embed PostgREST tak didukung Worker → item & pembeli di-join manual dengan

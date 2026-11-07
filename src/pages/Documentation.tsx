@@ -106,10 +106,12 @@ import { AssetsLicensingSection } from './documentation/sections/AssetsLicensing
 // Order lama di BE bisa punya `total_jod` tanpa satu pun baris `order_items`
 // (terbukti di order 858/861/864/868: tabel kosong, total 7,71 / 2,68 / 6,00 /
 // 3,23 JOD). Detail order merchant dulu menampilkan daftar kosong dan
-// "Subtotal menu 0,00 / Bersih untuk toko 0,00" — angka salah, bukan kosong.
-// Sekarang `components/merchant/MerchantOrderItems.tsx` menyebut "Rincian menu
-// pesanan ini tidak tersedia" dan `MerchantEarnings` menolak menghitung bila
-// item kosong. Order baru tetap aman: `createOrder` menulis `order_items`.
+// "Subtotal menu 0,00 / Bersih untuk toko 0,00" (angka salah, bukan kosong).
+// Sekarang `components/merchant/MerchantOrderItems.tsx` menampilkan rincian
+// tingkat order dari kolom BE (subtotal/ongkir/biaya layanan) + catatan bahwa
+// baris menu memang tidak tersimpan, dan `MerchantEarnings` memakai
+// `sub_total_jod` sebagai dasar pendapatan. Order baru tetap aman:
+// `createOrder` menulis `order_items`.
 //
 // Backoffice kanonik = `/ops` (PO 2026-10-24). `/admin` sudah dipensiunkan
 // (URL lama redirect); AdminDesignSection mencatat keputusan, SuperAdminSection
