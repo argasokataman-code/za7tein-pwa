@@ -731,6 +731,200 @@
       ],
       "loc": "src/store/slices/merchantSlice.ts:284",
       "commit": "3fe52e0"
+    },
+    {
+      "id": "TASK-214149",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:43:50",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts (+10/-4) — edit via tool: ts: // Keranjang milik toko mana? K",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-214150",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:44:01",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts (+3/-2) — edit via tool: ts: clearCart,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/cartSlice.ts"
+    },
+    {
+      "id": "TASK-214151",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:44:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx (+8/-5) — edit via tool: tsx: const openChecko",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/customer/CartSummarySheet.tsx"
+    },
+    {
+      "id": "TASK-214152",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:44:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx (+7/-4) — edit via tool: tsx: const open = () => {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/MyOrder.tsx"
+    },
+    {
+      "id": "TASK-214153",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:44:23",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useFoodActions.ts (+8/-6) — edit via tool: ts: addToCart(id: string, quantity = 1",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useFoodActions.ts"
+    },
+    {
+      "id": "TASK-214154",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:44:55",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"error|✗|Found\" | tail -5; npm run build 2>&1 | tail -4 p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214155",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:46:11",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+26/-4) — edit via tool: tsx: jumlah menu, jadi beberapa keran",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214156",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:46:29",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/cart-open-check.mjs (+119) — write via tool: // Self-check `openCart` — tombol Chec",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/cart-open-check.mjs"
+    },
+    {
+      "id": "TASK-214157",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:46:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"^✗|error|Found [0-9]+ warning\" | tail -3; npm run build ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-146100",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:48:32",
+      "tags": [
+        "customer",
+        "cart",
+        "checkout",
+        "multistore"
+      ],
+      "summary": "Checkout toko A membuka isi toko B: switchCart lewat saat activeMerchantId sudah menunjuk toko itu padahal items berisi baris toko lain; ope",
+      "conn": [
+        {
+          "id": "BUG-146000",
+          "type": "relates",
+          "raw": "BUG-146000:relates"
+        }
+      ],
+      "loc": "src/store/slices/cartSlice.ts:241",
+      "commit": "ccfe86a"
     }
   ]
 }
