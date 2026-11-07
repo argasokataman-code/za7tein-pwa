@@ -3734,6 +3734,180 @@
           "raw": "FEAT-001:relates"
         }
       ]
+    },
+    {
+      "id": "TASK-213308",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:08:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/types.ts (+13/-3) — edit via tool: ts: /** Ditandai selesai packing (MER-13). B",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-213309",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:08:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+5/-2) — edit via tool: ts: subTotalIdr: row.sub_total_jod != null ?",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-213310",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:09:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantOrderItems.tsx (+68) — write via tool: tsx: import type { M",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantOrderItems.tsx"
+    },
+    {
+      "id": "TASK-213311",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:09:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantEarnings.tsx (+41/-20) — edit via tool: tsx: export functio",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/merchant/MerchantEarnings.tsx"
+    },
+    {
+      "id": "TASK-213312",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:09:54",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -5; npm run build 2>&1 | tail -4 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-213313",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:10:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx (+1/-1) — edit via tool: tsx: <td><co",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/ChangelogSection.tsx"
+    },
+    {
+      "id": "TASK-213314",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:10:20",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+9/-7) — edit via tool: tsx: // Order lama di BE bisa punya `t",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-213315",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:11:30",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -2 && node scripts/browser-gate.mjs --route \"/merchant/orde",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-102102",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "00:12:31",
+      "tags": [
+        "merchant",
+        "order-detail",
+        "be-data"
+      ],
+      "summary": "Order lama BE tanpa order_items: detail merchant kini tampilkan rincian tingkat order dari kolom BE, bukan kosong",
+      "conn": [
+        {
+          "id": "BUG-102100",
+          "type": "relates",
+          "raw": "BUG-102100:relates"
+        }
+      ],
+      "loc": "src/components/merchant/MerchantOrderItems.tsx:1",
+      "commit": "ee4494d"
     }
   ]
 }
