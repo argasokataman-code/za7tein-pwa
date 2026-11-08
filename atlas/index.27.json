@@ -1195,6 +1195,124 @@
       ],
       "loc": "src/hooks/useQuotaSync.ts:1",
       "commit": "11eac51"
+    },
+    {
+      "id": "TASK-214171",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:59:21",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts (+15/-4) — edit via tool: ts: const initialState: BatchState",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/store/slices/batchSlice.ts"
+    },
+    {
+      "id": "TASK-214172",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "06:59:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/scripts/batch-check.mjs (+32/-10) — edit via tool: // Id batch baru tidak boleh menabrak id",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/scripts/batch-check.mjs"
+    },
+    {
+      "id": "TASK-214173",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:00:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"^✗|error\" | head -3; npm run build 2>&1 | tail -2; npm r",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214174",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:02:59",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+19/-2) — edit via tool: tsx: jendela jeda itu.",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214175",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:03:33",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \"error\"; npm run build 2>&1 | tail -2; npm run scan ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-146300",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:04:55",
+      "tags": [
+        "merchant",
+        "batch",
+        "persist",
+        "redux"
+      ],
+      "summary": "Terima order melempar 'Cannot set properties of undefined (setting batch id)' karena state batch tersimpan belum punya pendingMembers; pendi",
+      "conn": [
+        {
+          "id": "BUG-146000",
+          "type": "relates",
+          "raw": "BUG-146000:relates"
+        }
+      ],
+      "loc": "src/store/slices/batchSlice.ts:45",
+      "commit": "1b6d1b5"
     }
   ]
 }
