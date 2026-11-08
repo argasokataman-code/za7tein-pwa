@@ -4,6 +4,7 @@ import { Link, Navigate, useSearchParams } from 'react-router-dom'
 
 import { CourierPageHeader } from '../components/courier/CourierPageHeader'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
+import { QUICK_ENABLED } from '../data/features'
 import { useAppSelector } from '../hooks/useAppStore'
 import { apiEnabled } from '../api/supabase'
 import { fetchCourierHistory } from '../api/orders'
@@ -177,7 +178,7 @@ export default function CourierOrders() {
   }
 
   // Partner tidak memakai batch/riwayat toko: permukaannya `/partner`.
-  if (courierKind === 'partner') return <Navigate to="/partner" replace />
+  if (QUICK_ENABLED && courierKind === 'partner') return <Navigate to="/partner" replace />
 
   const active = tasks.filter(isActiveTask)
   const history = apiEnabled ? (liveHistory ?? []) : historyFromTasks(tasks)

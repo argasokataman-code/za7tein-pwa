@@ -481,7 +481,12 @@ export default function Documentation() {
                 dinyalakan lagi; requirement PRD-nya tercatat di{' '}
                 <code className="doc-inline">R-COU-PARTNER.md</code>. Pilihan pengantaran tetap
                 disimpan per kode order (kolom jenis pengantaran belum ada di BE), sehingga konsol
-                merchant membaca cabang yang benar.
+                merchant membaca cabang yang benar. Layar masuk kurir ikut mengikuti sakelar yang
+                sama: segmented &ldquo;Kurir toko / Kurir partner&rdquo; hanya dirender saat{' '}
+                <code className="doc-inline">QUICK_ENABLED</code> hidup, dan jenis akun yang
+                disimpan saat masuk dipaksa <code className="doc-inline">inhouse</code> saat mati
+                supaya sesi lama tidak jatuh ke permukaan <code className="doc-inline">/partner</code>{' '}
+                yang sudah tidak dipakai.
               </li>
               <li>
                 <strong>Chat group order dirapikan untuk tiga pihak.</strong> Daftar peserta

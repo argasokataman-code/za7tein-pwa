@@ -12,7 +12,7 @@ import { useCourierOnline } from '../hooks/useCourierOnline'
 import { useMoney } from '../hooks/useMoney'
 import { mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
-import { TIPS_ENABLED } from '../data/features'
+import { QUICK_ENABLED, TIPS_ENABLED } from '../data/features'
 import { courierTipsAvailable } from '../data/courierWallet'
 import { APP_VERSION } from '../data/appInfo'
 import { logout } from '../store/slices/authSlice'
@@ -29,7 +29,8 @@ export default function CourierProfile() {
   const balanceAvailable = courierTipsAvailable(tasks, payouts)
   const active = tasks.filter(isActiveTask).length
   const courierKind = useAppSelector((s) => s.auth.courierKind)
-  const isPartner = courierKind === 'partner'
+  // Permukaan mitra hanya ada selama layanan partner/Quick hidup.
+  const isPartner = QUICK_ENABLED && courierKind === 'partner'
   const partners = useAppSelector((s) => s.partner.partners)
   const selfId = useAppSelector((s) => s.partner.selfId)
   const partner = partners.find((p) => p.id === selfId)

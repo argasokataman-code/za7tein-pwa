@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { AuthLayout } from '../components/ui/AuthLayout'
 import { AUTH_COURIER_COVER_PHOTOS, AUTH_PHOTO, AUTH_ROLE_LABEL } from '../data/auth'
+import { QUICK_ENABLED } from '../data/features'
 import { useAppDispatch } from '../hooks/useAppStore'
 import { courierSignInSchema, type CourierSignInFormData } from '../lib/schemas'
 import { signIn, setCourierKind } from '../store/slices/authSlice'
@@ -43,10 +44,12 @@ export default function CourierSignIn() {
 
   const onSubmit = () => {
     toast.success('Tautan masuk dikirim ke emailmu.')
-    dispatch(setCourierKind(kind))
+    // Saat layanan partner/Quick dimatikan, akun yang bisa masuk hanya kurir
+    // toko — jangan menyimpan jenis yang permukaannya sudah tidak ada.
+    dispatch(setCourierKind(QUICK_ENABLED ? kind : 'inhouse'))
     dispatch(signIn('/courier'))
     // Partner punya permukaan sendiri: satu order per waktu, tanpa batch.
-    navigate(kind === 'partner' ? '/partner' : '/')
+    navigate(QUICK_ENABLED && kind === 'partner' ? '/partner' : '/')
   }
 
   return (
@@ -59,30 +62,36 @@ export default function CourierSignIn() {
     >
       {/* Dua pilihan setara, bukan tab navigasi: yang dipilih adalah jenis
           akun, dan isi form tetap sama. Rel putih + pil aktif `--orange-soft`
-          supaya tombol utama tetap satu-satunya bidang oranye penuh. */}
-      <div className="auth-seg" role="group" aria-label="Jenis akun kurir">
-        <label className="auth-seg-item">
-          <input
-            type="radio"
-            name="courier-kind"
-            value="inhouse"
-            checked={kind === 'inhouse'}
-            onChange={() => setKind('inhouse')}
-          />
-          Kurir toko
-        </label>
-        <label className="auth-seg-item">
-          <input
-            type="radio"
-            name="courier-kind"
-            value="partner"
-            checked={kind === 'partner'}
-            onChange={() => setKind('partner')}
-          />
-          Kurir partner
-        </label>
-      </div>
-      <p className="auth-hint auth-seg-hint">Kurir toko dibuat merchant; kurir partner dibuat tim ops.</p>
+          supaya tombol utama tetap satu-satunya bidang oranye penuh.
+          Pilihan ini hilang saat layanan partner/Quick dimatikan
+          (`QUICK_ENABLED`), karena tidak ada akun partner yang bisa masuk. */}
+      {QUICK_ENABLED ? (
+        <div className="auth-seg" role="group" aria-label="Jenis akun kurir">
+          <label className="auth-seg-item">
+            <input
+              type="radio"
+              name="courier-kind"
+              value="inhouse"
+              checked={kind === 'inhouse'}
+              onChange={() => setKind('inhouse')}
+            />
+            Kurir toko
+          </label>
+          <label className="auth-seg-item">
+            <input
+              type="radio"
+              name="courier-kind"
+              value="partner"
+              checked={kind === 'partner'}
+              onChange={() => setKind('partner')}
+            />
+            Kurir partner
+          </label>
+        </div>
+      ) : null}
+      {QUICK_ENABLED ? (
+        <p className="auth-hint auth-seg-hint">Kurir toko dibuat merchant; kurir partner dibuat tim ops.</p>
+      ) : null}
 
       <form className="auth-form" noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className="auth-field">

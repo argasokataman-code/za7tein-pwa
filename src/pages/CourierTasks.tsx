@@ -9,7 +9,7 @@ import { useCourierOnline } from '../hooks/useCourierOnline'
 import { useMoney } from '../hooks/useMoney'
 import { accountLabel } from '../data/payout'
 import { courierSelf, isActiveTask, isDoneTask, totalTips } from '../data/courier'
-import { TIPS_ENABLED } from '../data/features'
+import { TIPS_ENABLED, QUICK_ENABLED } from '../data/features'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { BATCH_STATUS_LABEL } from '../data/batch'
 import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
@@ -45,7 +45,7 @@ export default function CourierTasks() {
 
   // Partner bukan karyawan merchant: tidak ada batch, tips, atau dompet toko.
   // Permukaannya satu layar `/partner` (COU-15 satu order per waktu).
-  if (courierKind === 'partner') return <Navigate to="/partner" replace />
+  if (QUICK_ENABLED && courierKind === 'partner') return <Navigate to="/partner" replace />
 
   return (
     <div className="app-shell">

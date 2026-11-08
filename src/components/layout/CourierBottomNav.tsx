@@ -1,5 +1,6 @@
 import { Bike, ClipboardList, Home, UserRound, Wallet } from 'lucide-react'
 
+import { QUICK_ENABLED } from '../../data/features'
 import { useAppSelector } from '../../hooks/useAppStore'
 import { isActiveTask } from '../../data/courier'
 import { TIPS_ENABLED } from '../../data/features'
@@ -17,7 +18,7 @@ export function CourierBottomNav() {
   )
 
   // Partner tidak punya batch/tips/dompet toko — hanya tawaran Quick dan akun.
-  if (courierKind === 'partner') {
+  if (QUICK_ENABLED && courierKind === 'partner') {
     const partnerItems: BottomNavItem[] = [
       {
         to: '/partner',
