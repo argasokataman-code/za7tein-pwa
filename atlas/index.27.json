@@ -1373,6 +1373,217 @@
       ],
       "loc": "src/data/batch.ts:161",
       "commit": "a485df3"
+    },
+    {
+      "id": "TASK-214178",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:18:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useCourierOnline.ts (+27) — write via tool: ts: import { useCallback } from 'reac",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useCourierOnline.ts"
+    },
+    {
+      "id": "TASK-214179",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:18:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/courierStatus.ts (+54) — write via tool: ts: import { ensureCourierToken } from './",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/courierStatus.ts"
+    },
+    {
+      "id": "TASK-214180",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:18:34",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && grep -n \"setCouriers\" src/store/slices/merchantSlice.ts | head -3; npm run lint 2>&1 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214181",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:19:10",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -2; node scripts/e2e-browsers.mjs preflight 2>&1 | tail -8 ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214182",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:26:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/api/batches.ts'\ns=open(p).read()\ns=s.replace(\"\"\"    // Penuga",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214183",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:26:38",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -2; BASE=https://sa7tein-api-cf.sa7tein-pwa.workers.dev; ML",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214184",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:26:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useMerchantBatchActions.ts (+2/-3) — edit via tool: ts: [batches, dispatch],",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useMerchantBatchActions.ts"
+    },
+    {
+      "id": "TASK-214185",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:27:14",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error \" | head -3; npm run build 2>&1 | tail -2 && node",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214186",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:27:44",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+8/-2) — edit via tool: tsx: localStorage. <code className=\"do",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214187",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:28:31",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/hooks/useApiRealtime.ts'\ns=open(p).read()\ns=s.replace(\"// tet",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-102105",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:30:08",
+      "tags": [
+        "courier",
+        "batch",
+        "assignment"
+      ],
+      "summary": "Assign kurir hanya tulis batches.courier_id; orders.courier_id null sehingga courier_orders() kosong dan kurir tak dapat tugas",
+      "conn": [
+        {
+          "id": "BUG-102104",
+          "type": "relates",
+          "raw": "BUG-102104:relates"
+        }
+      ],
+      "loc": "src/api/batches.ts:159"
     }
   ]
 }
