@@ -8,7 +8,8 @@ import { useAppSelector } from '../hooks/useAppStore'
 import { apiEnabled } from '../api/supabase'
 import { fetchCourierHistory } from '../api/orders'
 import { useMoney } from '../hooks/useMoney'
-import { formatDistance, zoneLabel } from '../data/merchant'
+import { zoneLabel } from '../data/merchant'
+import { distanceLabel } from '../data/courier'
 import {
   COURIER_CHECKPOINT_BADGE,
   isActiveTask,
@@ -61,7 +62,7 @@ function ActiveTaskCard({ task }: { task: CourierTask }) {
         <span className="courier-ticket-copy">
           <span className="courier-ticket-name">{task.customerName}</span>
           <span className="courier-task-sub">
-            {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)}
+            {distanceLabel(task.distanceMeters)} · Zona {zoneLabel(task.zone)}
           </span>
         </span>
         <span className="courier-task-total">{money(task.total)}</span>

@@ -29,6 +29,12 @@ interface CourierState {
    * hanya slice ini yang memakainya. Null sampai onboarding selesai.
    */
   onboarding: CourierOnboarding | null
+  /**
+   * BE sudah menjawab daftar tugas minimal sekali. Dipakai layar detail supaya
+   * deep link tidak sempat mencetak "Tugas tidak ditemukan" saat muatan masih
+   * di jalan — daftar seed dan daftar BE tidak memuat id yang sama.
+   */
+  tasksLoaded: boolean
 }
 
 export interface CourierOnboarding {
@@ -43,6 +49,7 @@ const initialState: CourierState = {
   payoutAccounts: mockCourierPayoutAccounts,
   payouts: [],
   onboarding: null,
+  tasksLoaded: false,
 }
 
 const makeId = (prefix: string, count: number) => `${prefix}-${count + 1}-${Date.now()}`
@@ -76,6 +83,9 @@ const courierSlice = createSlice({
      * OTP) dibawa untuk id yang sama supaya realtime tidak memundurkan langkah.
      */
     setTasks(state, action: PayloadAction<CourierTask[]>) {
+      // Muatan kosong tetap dihitung "sudah dijawab": layar detail butuh tahu
+      // kapan berhenti menampilkan keadaan memuat.
+      state.tasksLoaded = true
       if (!action.payload.length) return
       const local = new Map(state.tasks.map((task) => [task.id, task]))
       // Order selesai tidak lagi dikirim RPC kurir; kalau dibuang, riwayat sesi

@@ -45,6 +45,30 @@ Daftar tugas pindah dari beranda ke tab sendiri. Bilah bawah kurir: **Beranda**,
 **UNRESOLVED-by-absence:** riwayat kurir tidak disebut di PRD aktif (`R-COU-INHOUSE` §8). Bentuknya diturunkan dari data yang ada, bukan requirement baru.
 
 
+## Detail tugas (`/courier/task/:id`, 2026-11-08)
+
+Satu perjalanan dibaca berurutan dari atas: **Rute** (titik **Ambil di** = toko: nama, alamat, tombol
+Telepon; titik **Antar ke** = customer: alamat hasil `taskAddress()`, tombol Telepon baru terbuka saat
+checkpoint `tiba`), **Catatan customer** (`orders.order_note`, hanya bila ada), **Isi pesanan**
+(qty + modifier, baris `list-row`), **Uang tunai/Pembayaran**, **Status pesanan** + **Checkpoint**,
+lalu kartu aksi. Tombol **Buka peta** muncul untuk tiap titik yang punya koordinat
+(`merchants.latitude/longitude`, `addresses.latitude/longitude`).
+
+- **Sumber data.** `courier_orders()` hanya mengirim order + customer + item. Toko, catatan,
+  tenggat, dan koordinat dilengkapi `fetchCourierTaskExtras()` (`src/api/orders.ts`) lewat tiga
+  query bertoken kurir (`orders`, `merchants`, `addresses`); semuanya best-effort, gagal baca
+  hanya menghilangkan blok tambahan.
+- **Jarak tak terukur bukan nol.** `distance_m` null → `distanceLabel()` menulis "jarak belum
+  tersedia"; sebelumnya `0 m` membuat kurir mengira sudah di depan pintu.
+- **Alamat tidak dobel.** `taskAddress()` menyusun `address + floor + unit` dengan membandingkan
+  bagian utuh, karena `full_address` BE bisa sudah memuat keduanya.
+- **Deep link saat daftar belum mendarat** menampilkan "Memuat tugas" (`courier.tasksLoaded`),
+  bukan "Tugas tidak ditemukan" yang sempat berkedip untuk id `api-…`.
+- **Penghasilan tugas** di kartu selesai = ongkir hak kurir (`delivery_fee_jod`) + tips.
+
+**UNRESOLVED:** koordinat toko dan titik antar hanya terisi bila baris BE punya lat/lng;
+`courier_orders()` sendiri belum mengirim jarak, jadi jarak tetap kosong sampai BE menghitungnya.
+
 ## Terhubung (lihat `../INDEX.json`)
 
 `f25-batch-lifecycle:assign → f13-courier-view:masuk` (`batch_assigned`); `f13:selesai → f25:fee_dana` (`order_completed`); `f13:selesai → f14-chat-order:courierjoin` (chat order).

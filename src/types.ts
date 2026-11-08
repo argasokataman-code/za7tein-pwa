@@ -702,9 +702,28 @@ export interface CourierTask {
   unit: string
   items: CartItem[]
   total: number
-  distanceMeters: number
+  /**
+   * Jarak ke titik antar. `null` = BE tidak mengirim `distance_m` (RPC kurir
+   * memang belum menghitungnya) — dulu diisi `0`, sehingga kurir membaca
+   * "0 m" seolah sudah di depan pintu.
+   */
+  distanceMeters: number | null
   zone: ZoneId
   paymentMethod: PaymentMethod['id']
+  /**
+   * Titik ambil (M5, PRD bab 04): toko tempat kurir mengambil pesanan. Kurir
+   * harus tahu harus ke mana **sebelum** ke customer; kosong untuk tugas seed
+   * lama yang belum punya data toko.
+   */
+  pickupName?: string
+  pickupAddress?: string
+  pickupPhone?: string
+  pickupLatitude?: number
+  pickupLongitude?: number
+  /** Catatan customer (`orders.order_note`) — mis. "titip satpam". */
+  note?: string
+  /** Tenggat antar (`orders.delivery_deadline`, ISO). Kosong = BE tak mengisi. */
+  deadlineAt?: string | null
   /**
    * Koordinat tujuan (M5) — dasar auto-sort rute (§9.6) dan peta batch. Opsional:
    * jalur BE (`courier_orders()`) belum mengirimnya, jadi auto-sort jatuh ke

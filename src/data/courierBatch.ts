@@ -99,7 +99,9 @@ export function autoSortTasks(
 ): CourierTask[] {
   const located = tasks.filter((task) => task.latitude != null && task.longitude != null)
   if (located.length !== tasks.length) {
-    return [...tasks].sort((a, b) => a.distanceMeters - b.distanceMeters)
+    return [...tasks].sort(
+      (a, b) => (a.distanceMeters ?? Number.POSITIVE_INFINITY) - (b.distanceMeters ?? Number.POSITIVE_INFINITY),
+    )
   }
   const rest = [...tasks]
   const ordered: CourierTask[] = []

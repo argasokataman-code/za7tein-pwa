@@ -7,7 +7,7 @@ import { useLeafletMap } from '../hooks/useLeafletMap'
 import { useMoney } from '../hooks/useMoney'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { BATCH_STATUS_LABEL, batchCapacityLeft, countdownLabel } from '../data/batch'
-import { COURIER_CHECKPOINT_BADGE, isDoneTask } from '../data/courier'
+import { COURIER_CHECKPOINT_BADGE, distanceLabel, isDoneTask } from '../data/courier'
 import {
   WALK_ROUTE_BETA_NOTE,
   batchDisplayStatus,
@@ -204,7 +204,7 @@ export default function CourierBatch() {
                             {task.customerName} · {task.address}
                           </span>
                           <span className="courier-batch-stop-foot">
-                            <span>{formatDistance(task.distanceMeters)} dari toko</span>
+                            <span>{distanceLabel(task.distanceMeters)} dari toko</span>
                             {task.deliveryFeeIdr ? (
                               <span className="courier-batch-fee">
                                 <Coins size={14} strokeWidth={1.75} aria-hidden="true" />

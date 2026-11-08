@@ -93,6 +93,123 @@
   color: var(--text-secondary);
 }
 
+/* ── Rute tugas: titik ambil → titik antar ─────────────────────────────── */
+
+.courier-route {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.courier-route-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+.courier-stop {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.courier-stop-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--space-7);
+  height: var(--space-7);
+  border-radius: var(--radius-pill);
+  background: var(--orange-soft);
+  color: var(--orange-ink);
+}
+
+.courier-stop-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.courier-stop-label {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.courier-stop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.courier-stop-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ── Catatan customer & isi pesanan ────────────────────────────────────── */
+
+.courier-note-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  color: var(--orange-ink);
+}
+
+.courier-note-text {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.courier-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.courier-item {
+  min-width: 0;
+}
+
+.courier-item-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Baris dengan modifier punya dua baris teks, yang tanpa modifier satu.
+     Tinggi sel dikunci supaya rel baris daftar seragam (MD-11), bukan
+     bergerigi 42/23px. */
+  min-height: var(--space-9);
+  min-width: 0;
+}
+
+.courier-item-name {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.courier-item-qty {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 .courier-toggle {
   display: inline-flex;
   align-items: center;

@@ -342,3 +342,26 @@ export function formatCountdown(ms: number): string {
 export function totalTips(tasks: CourierTask[]): number {
   return tasks.filter(isDoneTask).reduce((sum, task) => sum + task.tip, 0)
 }
+
+/**
+ * Alamat antar untuk ditampilkan: jalan + lantai + unit, **tanpa pengulangan**.
+ * `full_address` di BE sudah memuat lantai/unit ("Meral · 2 · A1"), jadi dulu
+ * layar mencetak "Meral · 2 · A1 · 2 · A1". Bagian yang sudah ada di alamat
+ * dilewati, bukan direkatkan ulang.
+ */
+export function taskAddress(task: Pick<CourierTask, 'address' | 'floor' | 'unit'>): string {
+  const address = task.address.trim()
+  // Dibandingkan per bagian utuh, bukan substring: alamat "Jl. Hijazi No. 12"
+  // memuat "2" sehingga pembanding `includes` membuang lantai 2 yang sah.
+  const parts = address.split('·').map((part) => part.trim())
+  const extras = [task.floor, task.unit]
+    .map((part) => (part ?? '').trim())
+    .filter((part) => part && part !== '-' && !parts.includes(part))
+  return [address, ...extras].filter(Boolean).join(' · ')
+}
+
+/** Jarak antar untuk ditampilkan; `null` = BE tidak mengirimnya (bukan "0 m"). */
+export function distanceLabel(meters: number | null | undefined): string {
+  if (meters == null) return 'jarak belum tersedia'
+  return meters < 1000 ? `${meters} m` : `${(meters / 1000).toFixed(1).replace('.', ',')} km`
+}

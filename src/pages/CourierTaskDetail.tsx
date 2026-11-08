@@ -1,4 +1,4 @@
-import { MapPin, Phone } from 'lucide-react'
+import { MapPin, Navigation, Package, Phone, StickyNote, Store } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { toast } from 'react-hot-toast'
@@ -14,16 +14,18 @@ import { useBackClose } from '../hooks/useBackClose'
 import { useMoney } from '../hooks/useMoney'
 import { useTick } from '../hooks/useTick'
 import { TIPS_ENABLED } from '../data/features'
-import { formatDistance, zoneLabel } from '../data/merchant'
+import { zoneLabel } from '../data/merchant'
 import { codCashOptions, codChangeIdr } from '../data/codCash'
 import { jodToIdr } from '../data/currency'
 import {
   COURIER_ACTION_LABEL,
   COURIER_GUARD_MINUTES,
   courierSelf,
+  distanceLabel,
   elapsedMinutes,
   isDoneTask,
   nextCheckpoint,
+  taskAddress,
 } from '../data/courier'
 import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/courierSlice'
 import { finishBatchOnBe } from '../api/batches'
@@ -39,12 +41,76 @@ const NEXT_STATUS: Record<string, MerchantOrderStatus> = {
   tiba: 'tiba',
 }
 
+/**
+ * Tautan navigasi ke satu titik. `null` bila BE tidak mengirim koordinat —
+ * kurir tetap melihat alamat teks, bukan tombol yang membuka peta kosong.
+ */
+function mapsUrl(lat?: number, lng?: number): string | null {
+  if (lat == null || lng == null) return null
+  return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
+}
+
+interface RouteStopProps {
+  kind: 'pickup' | 'dropoff'
+  label: string
+  title: string
+  detail: string
+  meta?: string
+  phone?: string
+  latitude?: number
+  longitude?: number
+}
+
+/**
+ * Satu titik rute (ambil / antar). Dua aksi yang selalu ada di kurir: telepon
+ * dan buka peta. Keduanya target sentuh 44px, bukan ikon kecil.
+ */
+function RouteStop({ kind, label, title, detail, meta, phone, latitude, longitude }: RouteStopProps) {
+  const Icon = kind === 'pickup' ? Store : MapPin
+  const maps = mapsUrl(latitude, longitude)
+  return (
+    <div className={`courier-stop courier-stop--${kind}`}>
+      <span className="courier-stop-icon" aria-hidden="true">
+        <Icon size={20} strokeWidth={1.75} />
+      </span>
+      <div className="courier-stop-body">
+        <p className="courier-stop-label">{label}</p>
+        <p className="courier-card-title">{title}</p>
+        <p className="courier-card-sub">{detail}</p>
+        {meta ? <p className="courier-task-meta">{meta}</p> : null}
+        {phone || maps ? (
+          <div className="courier-stop-actions">
+            {phone ? (
+              <a className="courier-stop-action" href={`tel:${phone}`}>
+                <Phone size={16} strokeWidth={1.75} aria-hidden="true" />
+                Telepon
+              </a>
+            ) : null}
+            {maps ? (
+              <a
+                className="courier-stop-action"
+                href={maps}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Navigation size={16} strokeWidth={1.75} aria-hidden="true" />
+                Buka peta
+              </a>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
 export default function CourierTaskDetail() {
   const { money } = useMoney()
   const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const tasks = useAppSelector((s) => s.courier.tasks)
+  const tasksLoaded = useAppSelector((s) => s.courier.tasksLoaded)
   const batch = useAppSelector((s) => s.courier.batch)
   const { now } = useTick()
   const [otp, setOtp] = useState('')
@@ -76,11 +142,20 @@ export default function CourierTaskDetail() {
   }, [sharesLocation, task?.id])
 
   if (!task) {
+    // Deep link saat muatan BE belum mendarat: tampilkan keadaan memuat, bukan
+    // "tidak ditemukan" (daftar seed tidak memuat id `api-…`).
     return (
       <div className="app-shell">
         <main className="courier-page">
-          <CourierPageHeader title="Tugas tidak ditemukan" eyebrow="Detail tugas" />
-          <p className="courier-empty">Tugas ini tidak ada di daftar kurir.</p>
+          <CourierPageHeader
+            title={tasksLoaded ? 'Tugas tidak ditemukan' : 'Memuat tugas'}
+            eyebrow="Detail tugas"
+          />
+          <p className="courier-empty">
+            {tasksLoaded
+              ? 'Tugas ini tidak ada di daftar kurir.'
+              : 'Mengambil daftar tugas dari server.'}
+          </p>
           <button type="button" className="btn btn-primary" onClick={() => navigate('/')}>
             Kembali ke daftar tugas
           </button>
@@ -103,6 +178,22 @@ export default function CourierTaskDetail() {
   const cashReceivedIdr = cashChosenIdr ?? (customCashIdr || task.total)
   const cashChangeIdr = codChangeIdr(task.total, cashReceivedIdr)
   const showCash = task.paymentMethod === 'cod' && task.checkpoint === 'tiba'
+
+  // Tenggat antar dari BE (bila ada), ditulis sebagai jam + sisa/lewat menit.
+  // Kurir butuh angka ini untuk memilih order mana yang dikerjakan dulu.
+  const deadline = task.deadlineAt ? new Date(task.deadlineAt) : null
+  const deadlineMinutes = deadline
+    ? Math.round((deadline.getTime() - now) / 60_000)
+    : null
+  const deadlineText =
+    deadline && deadlineMinutes != null
+      ? `${deadline.toLocaleTimeString('id-ID', {
+          hour: '2-digit',
+          minute: '2-digit',
+        })} (${deadlineMinutes < 0 ? `lewat ${Math.abs(deadlineMinutes)} menit` : `sisa ${deadlineMinutes} menit`})`
+      : ''
+  // Penghasilan tugas = ongkir hak kurir + tips (R-COU-INHOUSE, C-06).
+  const earnings = (task.deliveryFeeIdr ?? 0) + task.tip
 
   // Tanpa OTP yang benar kurir tidak bisa settle (C-09). Order live diverifikasi
   // di BE lewat RPC `verify_order_otp` (set `otp_verified` + checkpoint); tugas
@@ -180,31 +271,79 @@ export default function CourierTaskDetail() {
           back
         />
 
-        <section className="courier-card">
-          <div className="courier-row">
-            <MapPin size={20} strokeWidth={1.75} aria-hidden="true" />
-            <div>
-              <p className="courier-card-title">{task.customerName}</p>
-              <p className="courier-card-sub">
-                {task.address} · {task.floor} · {task.unit}
+        {/* Rute lengkap: kurir harus tahu ke mana **mengambil** sebelum ke mana
+            mengantar. Dulu layar hanya memuat titik antar, jadi kurir tidak
+            punya alamat toko sama sekali. */}
+        <section className="courier-section" aria-label="Rute tugas">
+          <h2 className="courier-section-title">Rute</h2>
+          <div className="courier-card courier-route">
+            <RouteStop
+              kind="pickup"
+              label="Ambil di"
+              title={task.pickupName ?? 'Toko'}
+              detail={task.pickupAddress ?? 'Alamat toko belum tersedia'}
+              phone={task.pickupPhone}
+              latitude={task.pickupLatitude}
+              longitude={task.pickupLongitude}
+            />
+            <div className="courier-route-divider" aria-hidden="true" />
+            <RouteStop
+              kind="dropoff"
+              label="Antar ke"
+              title={task.customerName}
+              detail={taskAddress(task)}
+              meta={`${distanceLabel(task.distanceMeters)} · Zona ${zoneLabel(task.zone)}`}
+              // Nomor customer baru dibuka saat kurir sudah tiba (guard F13);
+              // sebelum itu kurir tidak punya alasan menelepon.
+              phone={isGuard ? task.customerPhone : undefined}
+              latitude={task.latitude}
+              longitude={task.longitude}
+            />
+          </div>
+        </section>
+
+        {task.note ? (
+          <section className="courier-section">
+            <h2 className="courier-section-title">Catatan customer</h2>
+            <div className="courier-card courier-note-card">
+              <StickyNote size={18} strokeWidth={1.75} aria-hidden="true" />
+              <p className="courier-note-text">{task.note}</p>
+            </div>
+          </section>
+        ) : null}
+
+        <section className="courier-section">
+          <h2 className="courier-section-title">Isi pesanan</h2>
+          <div className="courier-card">
+            <div className="courier-row">
+              <Package size={20} strokeWidth={1.75} aria-hidden="true" />
+              <p className="courier-card-title">
+                {task.items.length
+                  ? `${task.items.reduce((sum, item) => sum + item.quantity, 0)} item`
+                  : 'Rincian menu belum tersedia'}
               </p>
             </div>
+            {task.items.length ? (
+              <ul className="courier-items">
+                {task.items.map((item) => (
+                  <li className="list-row courier-item" key={item.id}>
+                    <span className="courier-item-copy">
+                      <span className="courier-item-name">{item.name}</span>
+                      {item.modifiers ? (
+                        <span className="courier-card-sub">{item.modifiers}</span>
+                      ) : null}
+                    </span>
+                    <span className="courier-item-qty">{item.quantity}×</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="courier-card-sub">
+                Backend tidak mengirim rincian menu untuk pesanan ini; cek isi paket
+                saat mengambil di toko.
+              </p>
+            )}
           </div>
-          <p className="courier-task-meta">
-            {formatDistance(task.distanceMeters)} · Zona {zoneLabel(task.zone)} ·{' '}
-            {task.paymentMethod === 'cod'
-              ? `COD ${money(task.total)}`
-              : task.paymentMethod === 'transfer'
-                ? `Transfer ${money(task.total)}`
-                : `Sudah dibayar ${money(task.total)}`}
-          </p>
-          <p className="courier-task-meta">
-            {task.paymentMethod === 'cod'
-              ? 'Tagih tunai ke customer saat serah terima.'
-              : task.paymentMethod === 'transfer'
-                ? 'Cek bukti transfer customer sebelum serah terima.'
-                : 'Sudah dibayar — tidak ada tagihan saat serah terima.'}
-          </p>
         </section>
 
         {/* COD tunai: pecahan tagihan + kembalian terlihat sejak tugas masuk,
@@ -260,11 +399,38 @@ export default function CourierTaskDetail() {
               </p>
             )}
           </section>
-        ) : null}
+        ) : (
+          <section className="courier-section">
+            <h2 className="courier-section-title">Pembayaran</h2>
+            <div className="courier-card">
+              <div className="cod-cash-row cod-cash-row--total">
+                <span>
+                  {task.paymentMethod === 'transfer' ? 'Tagih transfer' : 'Sudah dibayar'}
+                </span>
+                <span className="cod-cash-amount">{money(task.total)}</span>
+              </div>
+              <p className="cod-cash-hint">
+                {task.paymentMethod === 'transfer'
+                  ? 'Cek bukti transfer customer sebelum serah terima.'
+                  : 'Tidak ada tagihan saat serah terima.'}
+              </p>
+            </div>
+          </section>
+        )}
 
         <section className="courier-section">
           <h2 className="courier-section-title">Status pesanan</h2>
           <JourneyLine stage={task.orderStage} />
+          {task.deadlineAt ? (
+            <p className="courier-task-meta">
+              Tenggat antar {deadlineText}
+            </p>
+          ) : null}
+          {task.checkpointStartedAt ? (
+            <p className="courier-task-meta">
+              Sudah {Math.max(0, Math.round(elapsed))} menit di tahap ini.
+            </p>
+          ) : null}
           {sharesLocation ? (
             <p className="courier-task-meta">
               Lokasi dibagikan ke customer selama pengantaran.
@@ -298,6 +464,18 @@ export default function CourierTaskDetail() {
                 ? `OTP terverifikasi. Tips kamu ${money(task.tip)} masuk dompet.`
                 : 'OTP terverifikasi. Tugas selesai.'}
             </p>
+            <div className="cod-cash-row">
+              <span>Ongkir hak kurir</span>
+              <span className="cod-cash-amount">{money(task.deliveryFeeIdr ?? 0)}</span>
+            </div>
+            <div className="cod-cash-row">
+              <span>Tips</span>
+              <span className="cod-cash-amount">{money(task.tip)}</span>
+            </div>
+            <div className="cod-cash-row cod-cash-row--total">
+              <span>Penghasilan tugas ini</span>
+              <span className="cod-cash-amount">{money(earnings)}</span>
+            </div>
           </section>
         ) : isCancelled ? (
           <section className="courier-card courier-settled">
@@ -329,13 +507,9 @@ export default function CourierTaskDetail() {
                   <div className="courier-guard">
                     <p className="courier-card-sub">
                       {canCall
-                        ? 'Sudah lewat 5 menit, hubungi customer sekarang.'
+                        ? 'Sudah lewat 5 menit, hubungi customer sekarang (tombol Telepon di blok Antar ke).'
                         : `Hubungi customer bila menunggu lebih dari ${COURIER_GUARD_MINUTES.call} menit.`}
                     </p>
-                    <a className="courier-guard-call" href={`tel:${task.customerPhone}`}>
-                      <Phone size={16} strokeWidth={1.75} aria-hidden="true" />
-                      Hubungi customer
-                    </a>
                     <button
                       type="button"
                       className="courier-btn-ghost"

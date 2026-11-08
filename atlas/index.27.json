@@ -1584,6 +1584,386 @@
         }
       ],
       "loc": "src/api/batches.ts:159"
+    },
+    {
+      "id": "TASK-214188",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:35:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/types.ts (+24/-5) — edit via tool: ts: items: CartItem[]",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-214189",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:35:32",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+109/-2) — edit via tool: ts: /** Kolom order yang dibutuhkan layar ku",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-214190",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:36:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/courier.ts (+23/-3) — edit via tool: ts: export function totalTips(tasks: Courier",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/courier.ts"
+    },
+    {
+      "id": "TASK-214191",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:36:05",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/courierBatch.ts (+3/-1) — edit via tool: ts: return [...tasks].sort(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/courierBatch.ts"
+    },
+    {
+      "id": "TASK-214192",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:36:17",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierBatch.tsx (+1/-1) — edit via tool: tsx: import { COURIER_CHECKPOINT_BADGE,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierBatch.tsx"
+    },
+    {
+      "id": "TASK-214193",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:36:35",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+29/-27) — edit via tool: tsx: import { MapPin, Navigation",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-214194",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:37:26",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+75/-27) — edit via tool: tsx: {/* Rute lengkap: kurir har",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-214195",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:38:09",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier.scss (+112/-4) — edit via tool: .courier-card-sub {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-214196",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:38:19",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214197",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:38:51",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \"^Found|error\" | head -10; npm run build 2>&1 | tail -5 p",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214198",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:38:56",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | tail -2; npm run scan 2>&1 | tail -6 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214199",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:39:04",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier.scss (+6/-2) — edit via tool: .courier-item {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-214200",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:39:27",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/data/courier.ts (+10/-7) — edit via tool: ts: export function taskAddress(task: Pick<C",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/data/courier.ts"
+    },
+    {
+      "id": "TASK-214201",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:40:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+24/-3) — edit via tool: tsx: <code className=\"doc-inline\">ver",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
+    },
+    {
+      "id": "TASK-214202",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:40:43",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214203",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:41:25",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run build 2>&1 | tail -2 && node scripts/e2e-browsers.mjs eval courier \"(async()=",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214204",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:42:06",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier.scss (+10/-5) — edit via tool: .courier-item-copy {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_courier.scss"
+    },
+    {
+      "id": "TASK-214205",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:43:28",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+2/-1) — edit via tool: tsx: const tasks = useAppSelector(",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-214206",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:44:03",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='scripts/courier-tasks-check.mjs'\ns=open(p).read()\ns=s.replace(\"\"\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-214207",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:44:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md (+25/-1) — edit via tool: ## Detail tugas (`/c",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md"
     }
   ]
 }

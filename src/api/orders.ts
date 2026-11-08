@@ -691,7 +691,112 @@ interface CourierOrderRpcRow {
   items: { name: string; qty: number; line_total_jod: number; modifiers: string | null }[] | null
 }
 
-function toCourierTask(row: CourierOrderRpcRow): CourierTask {
+/** Kolom order yang dibutuhkan layar kurir tapi tidak dikirim RPC `courier_orders()`. */
+interface CourierTaskExtraRow {
+  id: number
+  merchant_id: number | null
+  order_note: string | null
+  delivery_fee_jod: number | null
+  delivery_deadline: string | null
+  delivery_address_id: number | null
+}
+
+interface PickupRow {
+  id: number
+  store_name: string | null
+  store_address: string | null
+  store_phone: string | null
+  latitude: number | null
+  longitude: number | null
+}
+
+interface CoordRow {
+  id: number
+  latitude: number | null
+  longitude: number | null
+}
+
+/** Data tambahan per order kurir: titik ambil, catatan, tenggat, koordinat antar. */
+interface CourierTaskExtra {
+  pickup?: { name?: string; address?: string; phone?: string; latitude?: number; longitude?: number }
+  note?: string
+  deadlineAt?: string | null
+  deliveryFeeIdr: number
+  latitude?: number
+  longitude?: number
+}
+
+/**
+ * Kumpulkan data yang tidak ada di RPC kurir (toko, catatan, tenggat, koordinat
+ * antar). Tiga query per penyegaran, bukan per order, dan semuanya best-effort:
+ * gagal baca = layar tetap tampil tanpa blok tambahan, bukan kosong.
+ */
+async function fetchCourierTaskExtras(
+  token: string,
+  orderIds: number[],
+): Promise<Map<number, CourierTaskExtra>> {
+  const out = new Map<number, CourierTaskExtra>()
+  if (!orderIds.length) return out
+  try {
+    const rows = await restWithIn<CourierTaskExtraRow>(
+      token,
+      'orders',
+      'id,merchant_id,order_note,delivery_fee_jod,delivery_deadline,delivery_address_id',
+      'id',
+      orderIds,
+    )
+    const merchantIds = [
+      ...new Set(rows.map((row) => row.merchant_id).filter((id): id is number => id != null)),
+    ]
+    const addressIds = [
+      ...new Set(rows.map((row) => row.delivery_address_id).filter((id): id is number => id != null)),
+    ]
+    const [merchants, addresses] = await Promise.all([
+      merchantIds.length
+        ? restWith<PickupRow>(
+            token,
+            'merchants',
+            `?select=id,store_name,store_address,store_phone,latitude,longitude&id=in.(${merchantIds.join(',')})`,
+          )
+        : Promise.resolve<PickupRow[]>([]),
+      addressIds.length
+        ? restWith<CoordRow>(
+            token,
+            'addresses',
+            `?select=id,latitude,longitude&id=in.(${addressIds.join(',')})`,
+          )
+        : Promise.resolve<CoordRow[]>([]),
+    ])
+    const merchantById = new Map(merchants.map((m) => [m.id, m]))
+    const addressById = new Map(addresses.map((a) => [a.id, a]))
+    for (const row of rows) {
+      const store = row.merchant_id != null ? merchantById.get(row.merchant_id) : undefined
+      const point =
+        row.delivery_address_id != null ? addressById.get(row.delivery_address_id) : undefined
+      out.set(row.id, {
+        pickup: store
+          ? {
+              name: store.store_name ?? undefined,
+              address: store.store_address ?? undefined,
+              phone: store.store_phone ?? undefined,
+              latitude: store.latitude ?? undefined,
+              longitude: store.longitude ?? undefined,
+            }
+          : undefined,
+        note: row.order_note ?? undefined,
+        deadlineAt: row.delivery_deadline,
+        deliveryFeeIdr: jodToIdr(row.delivery_fee_jod ?? 0),
+        latitude: point?.latitude ?? undefined,
+        longitude: point?.longitude ?? undefined,
+      })
+    }
+  } catch {
+    /* best-effort: blok tambahan hilang, tugas tetap tampil */
+  }
+  return out
+}
+
+function toCourierTask(row: CourierOrderRpcRow, extra?: CourierTaskExtra): CourierTask {
   const zone: ZoneId = row.zone_code === 'syimali' ? 'syimali' : 'hijazi'
   const items: CartItem[] = (row.items ?? []).map((it, index) => ({
     id: `api-${row.id}-${index}`,
@@ -707,21 +812,35 @@ function toCourierTask(row: CourierOrderRpcRow): CourierTask {
     customerId: String(row.customer_id),
     customerName: row.customer_name ?? `Customer ${row.customer_id}`,
     customerPhone: row.customer_phone ?? '-',
+    // Jalan dulu, bukan `full_address`: `full_address` di BE sudah memuat
+    // lantai/unit ("Meral · 2 · A1"), lalu layar menambahkannya lagi sehingga
+    // alamat terbaca "Meral · 2 · A1 · 2 · A1".
     address:
-      row.full_address ??
       row.address_line ??
+      row.full_address ??
       (row.zone_code ? `Zona ${row.zone_code}` : 'Alamat belum tersedia'),
     floor: row.floor ?? '-',
     unit: row.unit ?? '-',
     items,
     total: jodToIdr(row.total_jod),
-    distanceMeters: row.distance_m ?? 0,
+    // `distance_m` dari RPC masih null; jangan diisi 0 (= "sudah di depan pintu").
+    distanceMeters: row.distance_m ?? null,
     zone,
     paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
     tip: jodToIdr(row.tip_jod ?? 0),
     orderStage: STAGE_OF_STATUS[row.status] ?? 'baru',
     checkpoint: CHECKPOINT_OF_STATUS[row.status] ?? 'masuk',
     checkpointStartedAt: row.checkpoint_at ?? undefined,
+    pickupName: extra?.pickup?.name,
+    pickupAddress: extra?.pickup?.address,
+    pickupPhone: extra?.pickup?.phone,
+    pickupLatitude: extra?.pickup?.latitude,
+    pickupLongitude: extra?.pickup?.longitude,
+    note: extra?.note,
+    deadlineAt: extra?.deadlineAt ?? null,
+    deliveryFeeIdr: extra?.deliveryFeeIdr ?? 0,
+    latitude: extra?.latitude,
+    longitude: extra?.longitude,
     // Kurir tidak pernah tahu OTP (customer yang menunjukkan); verifikasinya
     // lewat RPC `verify_order_otp`, bukan perbandingan lokal.
     otp: '',
@@ -738,7 +857,12 @@ function toCourierTask(row: CourierOrderRpcRow): CourierTask {
 export async function fetchCourierOrders(): Promise<CourierTask[]> {
   const token = await ensureCourierToken()
   const rows = await rpc<CourierOrderRpcRow[]>(token, 'courier_orders')
-  return rows.map(toCourierTask)
+  if (!rows.length) return []
+  const extras = await fetchCourierTaskExtras(
+    token,
+    rows.map((row) => row.id),
+  )
+  return rows.map((row) => toCourierTask(row, extras.get(row.id)))
 }
 
 /**

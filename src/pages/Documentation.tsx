@@ -2011,6 +2011,27 @@ export default function Documentation() {
                 bukan token merchant.
               </li>
               <li>
+                Detail tugas kurir kini memuat satu perjalanan penuh, bukan hanya titik antar:
+                dua titik <strong>Ambil di</strong> (nama toko, alamat, tombol telepon) dan{' '}
+                <strong>Antar ke</strong> (nama customer, alamat tanpa pengulangan lantai/unit,
+                tombol telepon baru muncul saat kurir tiba), tombol <strong>Buka peta</strong> ke
+                koordinat tiap titik, <strong>catatan customer</strong> (
+                <code className="doc-inline">orders.order_note</code>), daftar{' '}
+                <strong>isi pesanan</strong> beserta modifier, serta <strong>tenggat antar</strong>{' '}
+                (<code className="doc-inline">orders.delivery_deadline</code>) dan lama di tahap
+                berjalan. Kolom yang tidak dikirim RPC{' '}
+                <code className="doc-inline">courier_orders()</code> dilengkapi tiga query bertoken
+                kurir (orders, merchants, addresses) lewat{' '}
+                <code className="doc-inline">fetchCourierTaskExtras</code>; ketiganya best-effort,
+                gagal baca hanya menghilangkan blok tambahan. Dua bug layar ikut dibetulkan: alamat
+                dulu tercetak &ldquo;Meral · 2 · A1 · 2 · A1&rdquo; (
+                <code className="doc-inline">taskAddress</code> membandingkan per bagian, bukan
+                substring), dan jarak tak terukur dulu tampil &ldquo;0 m&rdquo; (
+                <code className="doc-inline">distanceLabel</code> kini mengembalikan &ldquo;jarak
+                belum tersedia&rdquo;). Kartu selesai memecah <strong>ongkir hak kurir</strong> +{' '}
+                <strong>tips</strong> menjadi penghasilan tugas.
+              </li>
+              <li>
                 Coverage alamat kini dari <strong>RPC BE</strong>{' '}
                 <code className="doc-inline">resolve_coverage</code> (poligon zona + radius merchant
                 + toggle zona aktif), bukan hitung poligon klien; konsol SA menulis master zona ke
