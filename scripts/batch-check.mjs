@@ -13,6 +13,7 @@ import {
   joinableBatches,
   nextBatchId,
 } from '../src/data/batch.ts'
+import batchReducer, { addOrderToBatch, mergeBatches } from '../src/store/slices/batchSlice.ts'
 
 const batch = (over = {}) => ({
   id: 'batch-1',
@@ -78,5 +79,27 @@ assert.equal(
   'batch-2',
   'lubang id di tengah dipakai dulu supaya tidak menabrak batch-3',
 )
+
+// State tersimpan lama tidak punya `pendingMembers` (field ini lahir setelah
+// slice `batch` sudah ada di localStorage) dan `autoMergeLevel1` menyalin slice
+// tersimpan apa adanya. Dulu penulisan pertama gagal dengan
+// "Cannot set properties of undefined (setting '36')" saat merchant menerima
+// order, jadi reducer harus menyiapkan field itu sendiri.
+{
+  const legacy = { batches: [batch({ id: '36', orderIds: ['o-1'] })], pendingMembers: undefined }
+  const next = batchReducer(legacy, addOrderToBatch({ batchId: '36', orderId: 'o-2' }))
+  assert.deepEqual(next.batches[0].orderIds, ['o-1', 'o-2'])
+  assert.deepEqual(Object.keys(next.pendingMembers), ['36'])
+  assert.deepEqual(next.pendingMembers['36'].orderIds, ['o-1', 'o-2'])
+}
+
+// `mergeBatches` juga membaca field itu; batch lokal yang tidak ada di respons
+// BE harus tetap selamat tanpa melempar error.
+{
+  const legacy = { batches: [batch({ id: 'batch-1', orderIds: ['o-1'] })], pendingMembers: undefined }
+  const next = batchReducer(legacy, mergeBatches([]))
+  assert.deepEqual(next.batches.map((b) => b.id), ['batch-1'])
+  assert.deepEqual(next.pendingMembers, {})
+}
 
 console.log('batch-check: OK')

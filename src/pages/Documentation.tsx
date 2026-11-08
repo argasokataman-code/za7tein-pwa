@@ -1764,6 +1764,23 @@ export default function Documentation() {
                 jendela jeda itu.
               </li>
               <li>
+                <strong>Slice tersimpan lama tidak boleh membuat reducer melempar.</strong>{' '}
+                <code className="doc-inline">batchSlice.pendingMembers</code> lahir setelah slice{' '}
+                <code className="doc-inline">batch</code> sudah tersimpan di localStorage, dan{' '}
+                <code className="doc-inline">autoMergeLevel1</code> menyalin slice tersimpan apa
+                adanya menimpa initial state. Akibatnya penulisan pertama saat merchant menerima
+                order gagal: <em>Cannot set properties of undefined (setting &lsquo;36&rsquo;)</em>.
+                Sekarang field itu disiapkan lewat <code className="doc-inline">pendingOf()</code>{' '}
+                di <code className="doc-inline">src/store/slices/batchSlice.ts</code> — dipakai{' '}
+                <code className="doc-inline">addOrderToBatch</code> dan{' '}
+                <code className="doc-inline">mergeBatches</code> — bukan dengan membuang seluruh
+                batch (batch lokal ber-id <code className="doc-inline">batch-N</code> belum tentu
+                sudah ada di BE). Diukur di jendela merchant app-mode dengan state tersimpan yang
+                memang belum punya field itu: terima order tidak lagi melempar,{' '}
+                <code className="doc-inline">batch.pendingMembers</code> terisi kunci batch, dan
+                order masuk ke <code className="doc-inline">orderIds</code>.
+              </li>
+              <li>
                 <strong>Satu rel kanan per baris daftar (MD-11).</strong> Baris ringkasan dulu
                 menaruh nominal di kolom kanan baris pertama, sementara chip status, kode, dan waktu
                 dijejalkan di kolom kiri baris kedua. Akibatnya (terukur, bukan kesan):{' '}

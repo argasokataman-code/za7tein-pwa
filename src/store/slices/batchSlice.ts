@@ -22,6 +22,17 @@ const initialState: BatchState = {
 }
 
 /**
+ * `pendingMembers` ditambahkan setelah slice `batch` sudah tersimpan di
+ * localStorage, dan `autoMergeLevel1` menyalin slice tersimpan apa adanya
+ * menimpa initial state. State lama karena itu bisa masuk dengan
+ * `pendingMembers: undefined`, dan penulisan pertama (`addOrderToBatch`) gagal
+ * `Cannot set properties of undefined`. Field ini hanya penjagaan sementara,
+ * jadi yang benar adalah menyiapkannya di sini, bukan membuang seluruh batch
+ * (batch lokal `batch-N` belum tentu sudah ada di BE).
+ */
+const pendingOf = (state: BatchState) => (state.pendingMembers ??= {})
+
+/**
  * Batch kurir inhouse (PRD §8). Satu batch = wadah order Regular milik merchant,
  * diantar oleh satu kurir inhouse. Maks 24 order (BR-B04) ditegakkan di pemanggil;
  * slice hanya menyimpan state yang ditampilkan. Repo ini mock: hitung mundur dan
@@ -42,7 +53,7 @@ const batchSlice = createSlice({
       batch.orderIds.push(action.payload.orderId)
       // `route`/`order_count` di BE baru terlihat setelah PATCH-nya mendarat;
       // catat di sini supaya refetch di jendela itu tidak mengosongkan batch.
-      state.pendingMembers[batch.id] = {
+      pendingOf(state)[batch.id] = {
         orderIds: [...batch.orderIds],
         at: Date.now(),
       }
@@ -98,6 +109,7 @@ const batchSlice = createSlice({
      */
     mergeBatches(state, action: PayloadAction<Batch[]>) {
       const now = Date.now()
+      const pendingMembers = pendingOf(state)
       const incoming = new Map(action.payload.map((batch) => [batch.id, batch]))
       const prev = new Map(state.batches.map((batch) => [batch.id, batch]))
       // Batch yang berasal dari BE (`id` numerik) hanya boleh hidup selama masih
@@ -114,11 +126,11 @@ const batchSlice = createSlice({
         // disusun merchant/kurir di perangkat ini.
         const local = index >= 0 ? prev.get(batch.id) : undefined
         let orderIds = batch.orderIds
-        const pending = state.pendingMembers[batch.id]
+        const pending = pendingMembers[batch.id]
         if (pending) {
           const caughtUp = pending.orderIds.every((id) => batch.orderIds.includes(id))
           if (caughtUp || now - pending.at > PENDING_MEMBERS_MS) {
-            delete state.pendingMembers[batch.id]
+            delete pendingMembers[batch.id]
           } else {
             orderIds = [
               ...batch.orderIds,
@@ -135,8 +147,8 @@ const batchSlice = createSlice({
         else state.batches.push(merged)
       }
       // Penjagaan untuk batch yang tak lagi ada di respons BE tak berguna lagi.
-      for (const [id, entry] of Object.entries(state.pendingMembers)) {
-        if (now - entry.at > PENDING_MEMBERS_MS) delete state.pendingMembers[id]
+      for (const [id, entry] of Object.entries(pendingMembers)) {
+        if (now - entry.at > PENDING_MEMBERS_MS) delete pendingMembers[id]
       }
     },
   },
