@@ -722,6 +722,16 @@ export interface CourierTask {
   pickupLongitude?: number
   /** Catatan customer (`orders.order_note`) — mis. "titip satpam". */
   note?: string
+  /**
+   * Uang tunai yang disiapkan customer untuk COD (`orders.cod_cash_amount_jod`,
+   * IDR) + kembalian yang dijanjikan (`orders.cod_change_jod`). `null` = customer
+   * tidak memilih (order lama / bukan COD) — kurir jatuh ke "uang pas", bukan
+   * mengarang nominal.
+   */
+  codCashReceivedIdr?: number | null
+  codChangeIdr?: number | null
+  /** Catatan uang tunai dari customer (`orders.cod_cash_note`). */
+  codCashNote?: string | null
   /** Tenggat antar (`orders.delivery_deadline`, ISO). Kosong = BE tak mengisi. */
   deadlineAt?: string | null
   /**

@@ -1985,6 +1985,236 @@
         }
       ],
       "loc": "src/pages/CourierTaskDetail.tsx:248"
+    },
+    {
+      "id": "TASK-260109",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:49:07",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts (+10/-3) — edit via tool: ts: /** Nilai diskon promo (IDR) yang sudah ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/orders.ts"
+    },
+    {
+      "id": "TASK-260110",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:49:45",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAmount.tsx (+10/-3) — edit via tool: tsx: promoId: promo?.id ?? null,",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/PaymentAmount.tsx"
+    },
+    {
+      "id": "TASK-260111",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:49:51",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/types.ts (+12/-2) — edit via tool: ts: /** Catatan customer (`orders.order_note",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/types.ts"
+    },
+    {
+      "id": "TASK-260112",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:50:14",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx (+19/-5) — edit via tool: tsx: const cashOptions = task.pay",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierTaskDetail.tsx"
+    },
+    {
+      "id": "TASK-260113",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:50:36",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/CodCashDue.tsx (+4/-3) — edit via tool: tsx: import { codCashDue } from '",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/components/ui/CodCashDue.tsx"
+    },
+    {
+      "id": "TASK-260114",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:51:26",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error |Error\" | head -5; npm run build 2>&1 | tail -3; ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260115",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:51:43",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_cod-cash.scss (+14/-6) — edit via tool: .cod-cash-card {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/styles/system/_cod-cash.scss"
+    },
+    {
+      "id": "TASK-260116",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:52:11",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run scan 2>&1 | grep -E \"FAIL|WARN\" | tail -2 && npm run build 2>&1 | tail -2 pas",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260117",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:53:55",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CodLoyaltySection.tsx (+21/-16) — edit via tool: tsx: <td>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/documentation/sections/CodLoyaltySection.tsx"
+    },
+    {
+      "id": "TASK-260118",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:54:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -c \" error \"; npm run build 2>&1 | tail -1; npm run scan",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-260109",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:54:51",
+      "tags": [
+        "courier",
+        "cod",
+        "guest"
+      ],
+      "summary": "Kurir selalu lihat kembalian uang pas: cod_cash_* tidak pernah ditulis checkout; wording tips masih muncul walau TIPS_ENABLED false",
+      "conn": [
+        {
+          "id": "TASK-260108",
+          "type": "relates",
+          "raw": "TASK-260108:relates"
+        }
+      ],
+      "loc": "src/api/orders.ts:172"
+    },
+    {
+      "id": "TASK-260119",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:56:15",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx (+15/-3) — edit via tool: tsx: belum tersedia&rdquo;). Kartu se",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/Documentation.tsx"
     }
   ]
 }

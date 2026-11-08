@@ -2032,6 +2032,18 @@ export default function Documentation() {
                 <strong>tips</strong> menjadi penghasilan tugas.
               </li>
               <li>
+                Uang tunai COD kini <strong>satu angka di dua layar</strong>: checkout menulis
+                pilihan customer ke <code className="doc-inline">orders.cod_cash_option</code>,{' '}
+                <code className="doc-inline">cod_cash_amount_jod</code>, dan{' '}
+                <code className="doc-inline">cod_change_jod</code> (sebelumnya tiga kolom itu
+                kosong, jadi kurir selalu melihat kembalian default &ldquo;uang pas&rdquo;). Detail
+                tugas menampilkan blok <strong>Disiapkan customer</strong> + kembalian dari angka
+                itu, dan chip nominal memakai nominal tersebut sebagai pilihan aktif. Karena fitur
+                tips dimatikan (<code className="doc-inline">TIPS_ENABLED = false</code>), baris
+                rincian bertuliskan <strong>Ongkir &amp; layanan</strong> (bukan &ldquo;&hellip; &amp;
+                tips&rdquo;) dan baris Tips di kartu selesai hanya muncul saat fitur itu hidup.
+              </li>
+              <li>
                 Coverage alamat kini dari <strong>RPC BE</strong>{' '}
                 <code className="doc-inline">resolve_coverage</code> (poligon zona + radius merchant
                 + toggle zona aktif), bukan hitung poligon klien; konsol SA menulis master zona ke

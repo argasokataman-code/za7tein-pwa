@@ -200,6 +200,13 @@ export default function PaymentAmount() {
       paymentMethod: method.id,
       promoId: promo?.id ?? null,
       promoDiscountIdr,
+      // Uang tunai yang disiapkan customer ikut ditulis: kurir memakainya untuk
+      // menyiapkan kembalian yang sama, bukan menghitung ulang dari tagihan.
+      codCashReceivedIdr: method.id === 'cod' ? cashReceived : undefined,
+      codCashOptionId:
+        method.id === 'cod'
+          ? (cashOptions.find((option) => option.receivedIdr === cashReceived)?.id ?? 'custom')
+          : undefined,
     })
       .then((created) => {
         dispatch(setActiveOrder(created))

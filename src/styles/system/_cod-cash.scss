@@ -24,6 +24,14 @@
   background: var(--surface);
 }
 
+/* Uang yang disiapkan customer: dibedakan dari rincian tagihan supaya kurir
+   melihat nominal yang harus disiapkan, bukan mencampurnya dengan tagihan. */
+.cod-cash-card--prepared {
+  margin-top: var(--space-3);
+  border-color: var(--border-strong);
+  background: var(--orange-soft);
+}
+
 .cod-cash-options {
   display: flex;
   flex-wrap: wrap;

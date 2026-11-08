@@ -1,4 +1,5 @@
 import { codCashDue } from '../../data/codCash'
+import { TIPS_ENABLED } from '../../data/features'
 import { useMoney } from '../../hooks/useMoney'
 import type { CartItem } from '../../types'
 
@@ -24,7 +25,9 @@ export function CodCashDue({ items, totalIdr }: CodCashDueProps) {
       </div>
       {due.extraIdr > 0 ? (
         <div className="cod-cash-row">
-          <span>Ongkir, layanan &amp; tips</span>
+          {/* "tips" hanya disebut kalau fitur tips hidup: saat mati, selisih
+              total − subtotal memang ongkir + layanan saja. */}
+          <span>{TIPS_ENABLED ? 'Ongkir, layanan & tips' : 'Ongkir & layanan'}</span>
           <span className="cod-cash-amount">{money(due.extraIdr)}</span>
         </div>
       ) : null}

@@ -10,6 +10,7 @@
  * dipatok. Saat auth nyata masuk, ketiganya berasal dari sesi.
  */
 import { idrToJod, jodToIdr } from '../data/currency'
+import { codChangeIdr } from '../data/codCash'
 import { deliveryTypeFor, orderStatusLabel } from '../data/merchantOrders'
 import type {
   CartItem,
@@ -87,6 +88,13 @@ export interface NewOrder {
   promoId?: number | null
   /** Nilai diskon promo (IDR) yang sudah dipotong dari total. */
   promoDiscountIdr?: number
+  /**
+   * Uang tunai yang disiapkan customer untuk COD (IDR) + pilihan chip-nya.
+   * Disimpan supaya kurir menyiapkan kembalian dari angka yang sama dengan yang
+   * dipilih customer, bukan menebak dari tagihan.
+   */
+  codCashReceivedIdr?: number
+  codCashOptionId?: string
 }
 
 /**
@@ -162,6 +170,20 @@ export async function createOrder(order: NewOrder): Promise<{ id: string; code: 
     zone_code: order.zoneCode ?? null,
     promo_id: order.promoId ?? null,
     promo_amount_jod: idrToJod(order.promoDiscountIdr ?? 0),
+    // Uang tunai COD yang disiapkan customer. Ditulis di sini supaya kurir
+    // membaca nominal + kembalian yang **sama** dengan yang dipilih customer,
+    // bukan menghitung ulang dari tagihan (dulu kolom ini tidak pernah diisi,
+    // jadi layar kurir selalu jatuh ke "uang pas").
+    cod_cash_option:
+      order.paymentMethod === 'cod' ? (order.codCashOptionId ?? null) : null,
+    cod_cash_amount_jod:
+      order.paymentMethod === 'cod' && order.codCashReceivedIdr != null
+        ? idrToJod(order.codCashReceivedIdr)
+        : null,
+    cod_change_jod:
+      order.paymentMethod === 'cod' && order.codCashReceivedIdr != null
+        ? idrToJod(codChangeIdr(order.totalIdr, order.codCashReceivedIdr))
+        : null,
     // Serah terima dikunci OTP; tanpa kode, `my_order_otp` mengembalikan null
     // dan `verify_order_otp` kurir tak pernah cocok — order tak bisa selesai
     // sehingga merchant menggantung di Diantar. Kode diturunkan dari kode order
@@ -699,6 +721,9 @@ interface CourierTaskExtraRow {
   delivery_fee_jod: number | null
   delivery_deadline: string | null
   delivery_address_id: number | null
+  cod_cash_amount_jod: number | null
+  cod_change_jod: number | null
+  cod_cash_note: string | null
 }
 
 interface PickupRow {
@@ -724,6 +749,9 @@ interface CourierTaskExtra {
   deliveryFeeIdr: number
   latitude?: number
   longitude?: number
+  codCashReceivedIdr: number | null
+  codChangeIdr: number | null
+  codCashNote: string | null
 }
 
 /**
@@ -741,7 +769,7 @@ async function fetchCourierTaskExtras(
     const rows = await restWithIn<CourierTaskExtraRow>(
       token,
       'orders',
-      'id,merchant_id,order_note,delivery_fee_jod,delivery_deadline,delivery_address_id',
+      'id,merchant_id,order_note,delivery_fee_jod,delivery_deadline,delivery_address_id,cod_cash_amount_jod,cod_change_jod,cod_cash_note',
       'id',
       orderIds,
     )
@@ -788,6 +816,10 @@ async function fetchCourierTaskExtras(
         deliveryFeeIdr: jodToIdr(row.delivery_fee_jod ?? 0),
         latitude: point?.latitude ?? undefined,
         longitude: point?.longitude ?? undefined,
+        codCashReceivedIdr:
+          row.cod_cash_amount_jod != null ? jodToIdr(row.cod_cash_amount_jod) : null,
+        codChangeIdr: row.cod_change_jod != null ? jodToIdr(row.cod_change_jod) : null,
+        codCashNote: row.cod_cash_note,
       })
     }
   } catch {
@@ -839,6 +871,9 @@ function toCourierTask(row: CourierOrderRpcRow, extra?: CourierTaskExtra): Couri
     note: extra?.note,
     deadlineAt: extra?.deadlineAt ?? null,
     deliveryFeeIdr: extra?.deliveryFeeIdr ?? 0,
+    codCashReceivedIdr: extra?.codCashReceivedIdr ?? null,
+    codChangeIdr: extra?.codChangeIdr ?? null,
+    codCashNote: extra?.codCashNote ?? null,
     latitude: extra?.latitude,
     longitude: extra?.longitude,
     // Kurir tidak pernah tahu OTP (customer yang menunjukkan); verifikasinya

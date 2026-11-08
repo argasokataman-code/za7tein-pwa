@@ -49,19 +49,24 @@ export function CodLoyaltySection() {
             <tr>
               <td>Detail tugas (kurir)</td>
               <td>
-                Rincian tagihan + kembalian per nominal sejak tugas masuk; chip nominal, input
+                Rincian tagihan + kembalian per nominal sejak tugas masuk; blok
+                <strong>Disiapkan customer</strong> (nominal + kembalian dari pilihan customer saat
+                checkout) jadi nilai awal; chip nominal, input
                 uang diterima, dan kembalian tercatat saat checkpoint Tiba; tombol OTP terkunci
                 bila uang kurang
               </td>
               <td>
                 <code className="doc-inline">codCashOptions(total)</code> +{' '}
-                <code className="doc-inline">codChangeIdr(total, received)</code>
+                <code className="doc-inline">codChangeIdr(total, received)</code> +{' '}
+                <code className="doc-inline">orders.cod_cash_amount_jod</code>/
+                <code className="doc-inline">cod_change_jod</code>
               </td>
             </tr>
             <tr>
               <td>Detail order (merchant)</td>
               <td>
-                Rincian subtotal, ongkir/layanan/tips, tagihan tunai, plus kembalian per
+                Rincian subtotal, ongkir &amp; layanan (kata &ldquo;tips&rdquo; hanya muncul saat
+                fitur tips hidup), tagihan tunai, plus kembalian per
                 nominal (uang pas / 1 JOD / 5 JOD)
               </td>
               <td>

@@ -175,8 +175,22 @@ export default function CourierTaskDetail() {
   // yang sama dengan customer, input bebas menampung nominal lain (JOD).
   const cashOptions = task.paymentMethod === 'cod' ? codCashOptions(task.total) : []
   const customCashIdr = cashInput.trim() ? jodToIdr(Number(cashInput.replace(',', '.'))) : 0
-  const cashReceivedIdr = cashChosenIdr ?? (customCashIdr || task.total)
+  // Uang yang **disiapkan customer** (`orders.cod_cash_amount_jod`) jadi nilai
+  // awal kembalian, bukan tebakan "uang pas": kurir harus menyiapkan nominal
+  // yang sama dengan yang dipilih customer saat checkout.
+  const preparedCashIdr =
+    task.codCashReceivedIdr != null && task.codCashReceivedIdr >= task.total
+      ? task.codCashReceivedIdr
+      : null
+  const cashDefaultIdr = preparedCashIdr ?? task.total
+  const cashReceivedIdr = cashChosenIdr ?? (customCashIdr || cashDefaultIdr)
   const cashChangeIdr = codChangeIdr(task.total, cashReceivedIdr)
+  const preparedChangeIdr =
+    task.codChangeIdr != null
+      ? task.codChangeIdr
+      : preparedCashIdr != null
+        ? codChangeIdr(task.total, preparedCashIdr)
+        : 0
   const showCash = task.paymentMethod === 'cod' && task.checkpoint === 'tiba'
 
   // Tenggat antar dari BE (bila ada), ditulis sebagai jam + sisa/lewat menit.
@@ -353,6 +367,21 @@ export default function CourierTaskDetail() {
           <section className="courier-section">
             <h2 className="courier-section-title">Uang tunai</h2>
             <CodCashDue items={task.items} totalIdr={task.total} />
+            {preparedCashIdr != null ? (
+              <div className="cod-cash-card cod-cash-card--prepared">
+                <div className="cod-cash-row">
+                  <span>Disiapkan customer</span>
+                  <span className="cod-cash-amount">{money(preparedCashIdr)}</span>
+                </div>
+                <div className="cod-cash-row cod-cash-row--total">
+                  <span>Kembalian</span>
+                  <span className="cod-cash-amount">{money(preparedChangeIdr)}</span>
+                </div>
+                {task.codCashNote ? (
+                  <p className="cod-cash-hint">{task.codCashNote}</p>
+                ) : null}
+              </div>
+            ) : null}
             {showCash ? (
               <div className="cod-cash-card">
                 <div className="cod-cash-options" role="radiogroup" aria-label="Nominal uang diterima">
@@ -361,9 +390,9 @@ export default function CourierTaskDetail() {
                       key={option.id}
                       type="button"
                       role="radio"
-                      aria-checked={cashChosenIdr === option.receivedIdr}
+                      aria-checked={cashReceivedIdr === option.receivedIdr}
                       className={
-                        cashChosenIdr === option.receivedIdr
+                        cashReceivedIdr === option.receivedIdr
                           ? 'cod-cash-chip is-active'
                           : 'cod-cash-chip'
                       }
@@ -395,7 +424,9 @@ export default function CourierTaskDetail() {
               </div>
             ) : (
               <p className="cod-cash-hint">
-                Uang diterima dicatat saat serah terima (checkpoint Tiba).
+                {preparedCashIdr != null
+                  ? 'Kembalian di atas dihitung dari uang yang disiapkan customer; uang diterima dicatat saat checkpoint Tiba.'
+                  : 'Uang diterima dicatat saat serah terima (checkpoint Tiba).'}
               </p>
             )}
           </section>
@@ -464,18 +495,24 @@ export default function CourierTaskDetail() {
                 ? `OTP terverifikasi. Tips kamu ${money(task.tip)} masuk dompet.`
                 : 'OTP terverifikasi. Tugas selesai.'}
             </p>
-            <div className="cod-cash-row">
-              <span>Ongkir hak kurir</span>
-              <span className="cod-cash-amount">{money(task.deliveryFeeIdr ?? 0)}</span>
-            </div>
-            <div className="cod-cash-row">
-              <span>Tips</span>
-              <span className="cod-cash-amount">{money(task.tip)}</span>
-            </div>
-            <div className="cod-cash-row cod-cash-row--total">
-              <span>Penghasilan tugas ini</span>
-              <span className="cod-cash-amount">{money(earnings)}</span>
-            </div>
+            {earnings > 0 ? (
+              <>
+                <div className="cod-cash-row">
+                  <span>Ongkir hak kurir</span>
+                  <span className="cod-cash-amount">{money(task.deliveryFeeIdr ?? 0)}</span>
+                </div>
+                {TIPS_ENABLED ? (
+                  <div className="cod-cash-row">
+                    <span>Tips</span>
+                    <span className="cod-cash-amount">{money(task.tip)}</span>
+                  </div>
+                ) : null}
+                <div className="cod-cash-row cod-cash-row--total">
+                  <span>Penghasilan tugas ini</span>
+                  <span className="cod-cash-amount">{money(earnings)}</span>
+                </div>
+              </>
+            ) : null}
           </section>
         ) : isCancelled ? (
           <section className="courier-card courier-settled">
