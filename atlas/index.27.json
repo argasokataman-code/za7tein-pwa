@@ -1964,6 +1964,27 @@
         }
       ],
       "loc": "/Users/vanviakingali/Project/sa7tein-pwa/docs/design/flows/f13-courier-view/README.md"
+    },
+    {
+      "id": "TASK-260108",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "07:47:13",
+      "tags": [
+        "courier",
+        "ui",
+        "detail"
+      ],
+      "summary": "Detail tugas kurir: rute ambil+antar, telepon, peta, catatan, isi pesanan, tenggat; fix alamat dobel & jarak 0 m",
+      "conn": [
+        {
+          "id": "BUG-102105",
+          "type": "relates",
+          "raw": "BUG-102105:relates"
+        }
+      ],
+      "loc": "src/pages/CourierTaskDetail.tsx:248"
     }
   ]
 }
