@@ -140,6 +140,32 @@ export function batchTabId(batch: Batch, orders: MerchantOrder[]): BatchTabId {
   return 'countdown'
 }
 
+/** Peringkat tahap untuk urutan kerja: yang masih berjalan selalu di atas riwayat. */
+const TAB_RANK: Record<BatchTabId, number> = {
+  countdown: 0,
+  waiting: 1,
+  assigned: 2,
+  delivering: 3,
+  done: 4,
+}
+
+/**
+ * Urutan daftar batch untuk merchant: tahap aktif dulu (Hitung mundur →
+ * Selesai), lalu id terbaru di dalam tahap yang sama.
+ *
+ * Query BE memakai `order=id.desc`, yaitu urutan pembuatan tanpa melihat
+ * tahap, sehingga batch yang masih berjalan bisa mendarat di bawah tumpukan
+ * batch riwayat bernomor besar. Urutan tampilan tidak boleh diserahkan ke
+ * urutan baris query.
+ */
+export function sortBatchesForWork(batches: Batch[], orders: MerchantOrder[]): Batch[] {
+  return [...batches].sort((a, b) => {
+    const rank = TAB_RANK[batchTabId(a, orders)] - TAB_RANK[batchTabId(b, orders)]
+    if (rank !== 0) return rank
+    return (batchNumber(b.id) ?? -1) - (batchNumber(a.id) ?? -1)
+  })
+}
+
 export function batchesForTab(
   batches: Batch[],
   orders: MerchantOrder[],

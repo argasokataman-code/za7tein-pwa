@@ -11,6 +11,7 @@ import {
   batchPackedCount,
   batchProgress,
   batchesForTab,
+  sortBatchesForWork,
   countdownLabel,
   type BatchTabFilter,
 } from '../../data/batch'
@@ -44,7 +45,8 @@ export function BatchPanel({ batches, orders, couriers, onOpen }: BatchPanelProp
 
   const visible = useMemo(() => {
     const needle = query.trim().toLowerCase()
-    return batchesForTab(batches, orders, tab).filter((batch) => {
+    const rows = sortBatchesForWork(batchesForTab(batches, orders, tab), orders)
+    return rows.filter((batch) => {
       if (!needle) return true
       const number = batchNumber(batch.id)
       const list = batchOrders(batch, orders)

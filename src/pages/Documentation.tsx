@@ -339,8 +339,10 @@ export default function Documentation() {
                 <code className="doc-inline">Ditugaskan</code>,{' '}
                 <code className="doc-inline">Diantar</code>,{' '}
                 <code className="doc-inline">Selesai</code>, plus pencarian). Tab{' '}
-                <code className="doc-inline">Semua</code> dipilih lebih dulu supaya daftar tidak
-                tampak kosong saat semua batch sudah lewat hitung mundur. Kartu batch membuka
+                <code className="doc-inline">Semua</code> dipilih lebih dulu dan daftarnya diurutkan
+                per tahap kerja (batch berjalan di atas riwayat, id terbaru dulu di tahap yang
+                sama), bukan mengikuti urutan query BE <code className="doc-inline">id.desc</code>{' '}
+                yang bisa menaruh batch aktif di bawah tumpukan riwayat. Kartu batch membuka
                 rute <code className="doc-inline">/merchant/batches/:batchId</code>; di situ ada
                 ringkasan kapasitas, penugasan kurir lewat sheet, tutup lebih awal, setujui mulai
                 lebih awal, dan daftar order yang bisa dibuka kembali sebagai sheet detail di{' '}

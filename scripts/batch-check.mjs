@@ -12,6 +12,7 @@ import {
   countdownLabel,
   joinableBatches,
   nextBatchId,
+  sortBatchesForWork,
 } from '../src/data/batch.ts'
 import batchReducer, { addOrderToBatch, mergeBatches } from '../src/store/slices/batchSlice.ts'
 
@@ -70,6 +71,26 @@ assert.equal(canStartEarly(twoOrders, [{ id: 'a', packed: true }, { id: 'b', pac
 assert.equal(canStartEarly(batch({ orderIds: ['a', 'b'], status: 'countdown' }), orders), false)
 // Batch tanpa order nyata → jangan anggap "semua packing" (list kosong).
 assert.equal(batchAllPacked(batch({ orderIds: [] }), orders), false)
+
+// Urutan daftar: batch berjalan di atas riwayat, id besar dulu di tahap yang
+// sama. Query BE `id.desc` saja menaruh batch aktif di bawah tumpukan done.
+{
+  const workOrders = [
+    { id: 'o-1', code: 'SA-1', status: 'disiapkan', packed: false },
+    { id: 'o-2', code: 'SA-2', status: 'selesai', packed: true },
+  ]
+  const list = [
+    batch({ id: '40', status: 'done', orderIds: ['o-2'] }),
+    batch({ id: '31', status: 'countdown', orderIds: ['o-1'] }),
+    batch({ id: '39', status: 'delivering', orderIds: ['o-1'] }),
+    batch({ id: '36', status: 'countdown', orderIds: ['o-1'] }),
+  ]
+  assert.deepEqual(
+    sortBatchesForWork(list, workOrders).map((b) => b.id),
+    ['36', '31', '39', '40'],
+    'tahap aktif dulu, id terbaru di dalam tahap yang sama',
+  )
+}
 
 // Id batch baru tidak boleh menabrak id yang ada.
 assert.equal(nextBatchId([]), 'batch-1')
