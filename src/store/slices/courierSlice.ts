@@ -54,6 +54,10 @@ const courierSlice = createSlice({
     toggleOnline(state) {
       state.isOnline = !state.isOnline
     },
+    /** Keadaan dari BE (`couriers.availability`); bukan tebakan lokal. */
+    setOnline(state, action: PayloadAction<boolean>) {
+      state.isOnline = action.payload
+    },
     /** Simpan profil dari onboarding kurir, sebelum masuk. */
     completeOnboarding(state, action: PayloadAction<CourierOnboarding>) {
       state.onboarding = action.payload
@@ -209,6 +213,7 @@ const courierSlice = createSlice({
 
 export const {
   toggleOnline,
+  setOnline,
   completeOnboarding,
   setBatch,
   setTasks,

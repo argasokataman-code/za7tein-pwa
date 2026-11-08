@@ -8,13 +8,13 @@ import { ConfirmSheet } from '../components/ui/ConfirmSheet'
 import { InstallAppCard } from '../components/ui/InstallAppCard'
 import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
 import { useAppUpdate } from '../hooks/useAppUpdate'
+import { useCourierOnline } from '../hooks/useCourierOnline'
 import { useMoney } from '../hooks/useMoney'
 import { mockMerchant } from '../data/merchant'
 import { courierSelf, isActiveTask } from '../data/courier'
 import { TIPS_ENABLED } from '../data/features'
 import { courierTipsAvailable } from '../data/courierWallet'
 import { APP_VERSION } from '../data/appInfo'
-import { toggleOnline } from '../store/slices/courierSlice'
 import { logout } from '../store/slices/authSlice'
 
 export default function CourierProfile() {
@@ -22,7 +22,7 @@ export default function CourierProfile() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { checking: checkingUpdate, checkForUpdate } = useAppUpdate()
-  const isOnline = useAppSelector((s) => s.courier.isOnline)
+  const { isOnline, toggle: toggleOnline } = useCourierOnline()
   const tasks = useAppSelector((s) => s.courier.tasks)
   const payouts = useAppSelector((s) => s.courier.payouts)
   const onboarding = useAppSelector((s) => s.courier.onboarding)
@@ -80,7 +80,7 @@ export default function CourierProfile() {
           <button
             type="button"
             className={`courier-toggle ${isOnline ? 'is-on' : ''}`}
-            onClick={() => dispatch(toggleOnline())}
+            onClick={toggleOnline}
           >
             {isOnline ? 'Jeda dulu' : 'Siap sekarang'}
           </button>

@@ -4,7 +4,8 @@ import { Link, Navigate } from 'react-router-dom'
 import { CourierHomeHero } from '../components/courier/CourierHomeHero'
 import { CourierBottomNav } from '../components/layout/CourierBottomNav'
 import { TrendBars } from '../components/ui/TrendBars'
-import { useAppDispatch, useAppSelector } from '../hooks/useAppStore'
+import { useAppSelector } from '../hooks/useAppStore'
+import { useCourierOnline } from '../hooks/useCourierOnline'
 import { useMoney } from '../hooks/useMoney'
 import { accountLabel } from '../data/payout'
 import { courierSelf, isActiveTask, isDoneTask, totalTips } from '../data/courier'
@@ -12,7 +13,6 @@ import { TIPS_ENABLED } from '../data/features'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { BATCH_STATUS_LABEL } from '../data/batch'
 import { batchDisplayStatus, batchProgress, nextBatchTask } from '../data/courierBatch'
-import { toggleOnline } from '../store/slices/courierSlice'
 
 /**
  * Beranda kurir (R-WALLET-01 + flow f13). Ini dashboard, bukan daftar tugas:
@@ -25,8 +25,7 @@ import { toggleOnline } from '../store/slices/courierSlice'
  */
 export default function CourierTasks() {
   const { money } = useMoney()
-  const dispatch = useAppDispatch()
-  const isOnline = useAppSelector((s) => s.courier.isOnline)
+  const { isOnline, toggle: toggleOnline } = useCourierOnline()
   const tasks = useAppSelector((s) => s.courier.tasks)
   const batch = useAppSelector((s) => s.courier.batch)
   const payouts = useAppSelector((s) => s.courier.payouts)
@@ -58,7 +57,7 @@ export default function CourierTasks() {
           name={courierSelf.name}
           phone={courierSelf.phone}
           online={isOnline}
-          onToggleOnline={() => dispatch(toggleOnline())}
+          onToggleOnline={toggleOnline}
         />
 
         {/* Batch kurir inhouse (M5): satu pintu ke urutan antar. Muncul hanya

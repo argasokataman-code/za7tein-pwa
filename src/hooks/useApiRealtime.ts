@@ -3,16 +3,16 @@
 // (antrean merchant / tugas kurir) tanpa reload. Polling `useApiNotifications`
 // tetap jalan sebagai jaring pengaman bila socket putus.
 import { useEffect, useRef } from 'react'
-
 import { fetchCourierBatch, fetchMerchantBatches } from '../api/batches'
+import { fetchCourierOnline } from '../api/courierStatus'
 import { fetchCourierOrders, fetchCustomerActiveOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
 import { notifyResync, subscribeOrders } from '../api/realtime'
-import { fetchNotifications } from '../api/reference'
+import { fetchCouriers, fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { markOrderCancelled, setOrderStage } from '../store/slices/cartSlice'
 import { hydrateActiveOrders } from '../store/slices/customerOrdersSlice'
-import { setBatch, setTasks } from '../store/slices/courierSlice'
-import { markOrdersFailed, markOrdersHydrated, mergeOrders } from '../store/slices/merchantSlice'
+import { setBatch, setOnline, setTasks } from '../store/slices/courierSlice'
+import { markOrdersFailed, markOrdersHydrated, mergeOrders, setCouriers } from '../store/slices/merchantSlice'
 import { mergeBatches } from '../store/slices/batchSlice'
 import { selectUnreadCount, setNotifications } from '../store/slices/notificationsSlice'
 import type { NotifAudience } from '../types'
@@ -69,6 +69,11 @@ export function useApiRealtime(audience: NotifAudience): void {
               // disegarkan, kalau tidak panel batch tertinggal sampai reload.
               const batches = await fetchMerchantBatches(undefined, orders)
               if (alive) dispatch(mergeBatches(batches))
+              // Status siap/jeda kurir (`couriers.availability`) dibaca
+              // merchant dari BE. Tanpa penyegaran ini, kurir yang baru
+              // menekan "Siap sekarang" tetap tertulis offline sampai reload.
+              const couriers = await fetchCouriers()
+              if (alive && couriers.length) dispatch(setCouriers(couriers))
             })
             .catch(() => {
               if (alive) dispatch(markOrdersFailed())
@@ -85,6 +90,13 @@ export function useApiRealtime(audience: NotifAudience): void {
           fetchCourierBatch()
             .then((batch) => {
               if (alive) dispatch(setBatch(batch))
+            })
+            .catch(() => {})
+          // Sakelar kurir mengikuti baris BE, bukan default lokal, supaya
+          // status di layar ini dan di konsol merchant tidak berbeda.
+          fetchCourierOnline()
+            .then((online) => {
+              if (alive && online !== null) dispatch(setOnline(online))
             })
             .catch(() => {})
         }

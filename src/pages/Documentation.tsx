@@ -1415,6 +1415,12 @@ export default function Documentation() {
                 <code className="doc-inline">batch-N</code> yang dulu hanya hidup di
                 localStorage. <code className="doc-inline">courier_id</code>{' '}
                 numerik dipetakan ke id kurir FE (<code className="doc-inline">cr-N</code>).
+                Menugaskan kurir ke batch juga menulis{' '}
+                <code className="doc-inline">orders.courier_id</code> tiap anggota (
+                <code className="doc-inline">setOrderCourierOnBe</code>): daftar tugas kurir
+                dibaca dari RPC <code className="doc-inline">courier_orders()</code> yang
+                menyaring kolom order, jadi dulu batch tertulis &ldquo;ditugaskan&rdquo; tetapi
+                kurir tidak menerima satu order pun.
                 <strong>Terima order = anggota batch di data, bukan hanya di layar.</strong>{' '}
                 <code className="doc-inline">setOrderBatchOnBe</code> menulis{' '}
                 <code className="doc-inline">orders.batch_id</code> setiap kali order Regular

@@ -148,6 +148,28 @@ export async function setOrderBatchOnBe(orderId: string, batchId: string): Promi
   }
 }
 
+/**
+ * Tulis kurir penanggung jawab ke baris order (`orders.courier_id`).
+ *
+ * `batches.courier_id` saja tidak cukup: daftar tugas kurir dibaca dari RPC
+ * `courier_orders()` yang menyaring `orders.courier_id`. Tanpa kolom ini,
+ * batch terlihat "ditugaskan" di merchant tetapi kurir tidak menerima satu
+ * order pun.
+ */
+export async function setOrderCourierOnBe(orderId: string, courierId: string): Promise<void> {
+  const oid = numericOrderId(orderId)
+  const cid = Number(String(courierId).replace(/\D/g, ''))
+  if (!Number.isFinite(oid) || !Number.isFinite(cid)) return
+  try {
+    const token = await ensureMerchantToken()
+    await serializeOrderWrite(oid, () =>
+      patch(token, 'orders', `?id=eq.${oid}`, { courier_id: cid }),
+    )
+  } catch {
+    /* best-effort */
+  }
+}
+
 export interface NewBatchInput {
   orderIds: string[]
   estimateMinutes: number
@@ -222,6 +244,14 @@ export async function patchBatchOnBe(
     await Promise.all(
       patchRow.orderIds.map((orderId) => setOrderBatchOnBe(orderId, String(id))),
     )
+    // Penugasan kurir juga milik order: RPC `courier_orders()` membaca
+    // `orders.courier_id`, bukan `batches.courier_id`.
+    const courierId = patchRow.courierId
+    if (courierId) {
+      await Promise.all(
+        patchRow.orderIds.map((orderId) => setOrderCourierOnBe(orderId, courierId)),
+      )
+    }
   }
 }
 

@@ -17,11 +17,14 @@ export function useMerchantBatchActions(batches: Batch[]) {
 
   const assignCourier = useCallback(
     (batchId: string, courierId: string) => {
+      const batch = batches.find((item) => item.id === batchId)
       dispatch(assignBatchCourier({ batchId, courierId }))
-      void patchBatchOnBe(batchId, { courierId })
+      // Anggota batch ikut ditulis supaya `orders.courier_id` terisi: daftar
+      // tugas kurir membaca kolom order, bukan `batches.courier_id`.
+      void patchBatchOnBe(batchId, { courierId, orderIds: batch?.orderIds })
       toast.success('Kurir ditugaskan ke batch')
     },
-    [dispatch],
+    [batches, dispatch],
   )
 
   const closeEarly = useCallback(
