@@ -981,6 +981,145 @@ export async function fetchCourierHistory(): Promise<CourierHistoryItem[]> {
   }))
 }
 
+interface CourierPastOrderRow {
+  id: number
+  code: string
+  status: string
+  customer_id: number | null
+  merchant_id: number | null
+  delivery_address_id: number | null
+  total_jod: number
+  delivery_fee_jod: number | null
+  tip_jod: number | null
+  payment_method: string
+  zone_code: string | null
+  created_at: string
+  order_note: string | null
+  delivery_deadline: string | null
+  cod_cash_amount_jod: number | null
+  cod_change_jod: number | null
+  cod_cash_note: string | null
+  otp_verified: boolean | null
+}
+
+interface PastItemRow {
+  order_id: number
+  name: string
+  qty: number
+  line_total_jod: number
+  modifiers: string | null
+}
+
+interface PastAddressRow {
+  id: number
+  address: string | null
+  full_address: string | null
+  floor: string | null
+  unit: string | null
+  latitude: number | null
+  longitude: number | null
+}
+
+/**
+ * Detail satu order yang **sudah berakhir** milik kurir ini.
+ *
+ * `courier_orders()` hanya mengirim tugas berjalan, jadi baris riwayat tidak
+ * punya `CourierTask`. Tombol riwayat dulu sengaja tidak bisa diklik karena
+ * `/task/:id` pasti berakhir "Tugas tidak ditemukan"; fungsi ini membaca baris
+ * `orders` + `order_items` + `addresses` + `merchants` dengan token kurir
+ * supaya layar detail yang sama bisa menampilkan isi pesanan, rute, uang tunai,
+ * dan penghasilan order yang baru diantar. `null` = bukan miliknya / tak ada.
+ */
+export async function fetchCourierPastTask(orderId: string): Promise<CourierTask | null> {
+  const oid = numericOrderId(orderId)
+  if (!Number.isFinite(oid)) return null
+  const token = await ensureCourierToken()
+  const rows = await restWith<CourierPastOrderRow>(
+    token,
+    'orders',
+    '?select=id,code,status,customer_id,merchant_id,delivery_address_id,total_jod,delivery_fee_jod,tip_jod,payment_method,zone_code,created_at,order_note,delivery_deadline,cod_cash_amount_jod,cod_change_jod,cod_cash_note,otp_verified' +
+      `&id=eq.${oid}&limit=1`,
+  )
+  const row = rows[0]
+  if (!row) return null
+  const [items, addressRows, merchantRows, customerRows] = await Promise.all([
+    restWith<PastItemRow>(token, 'order_items', `?select=order_id,name,qty,line_total_jod,modifiers&order_id=eq.${oid}`).catch(
+      () => [] as PastItemRow[],
+    ),
+    row.delivery_address_id != null
+      ? restWith<PastAddressRow>(
+          token,
+          'addresses',
+          `?select=id,address,full_address,floor,unit,latitude,longitude&id=eq.${row.delivery_address_id}&limit=1`,
+        ).catch(() => [] as PastAddressRow[])
+      : Promise.resolve([] as PastAddressRow[]),
+    row.merchant_id != null
+      ? restWith<PickupRow>(
+          token,
+          'merchants',
+          `?select=id,store_name,store_address,store_phone,latitude,longitude&id=eq.${row.merchant_id}&limit=1`,
+        ).catch(() => [] as PickupRow[])
+      : Promise.resolve([] as PickupRow[]),
+    row.customer_id != null
+      ? restWith<{ id: number; name: string | null }>(
+          token,
+          'customers',
+          `?select=id,name&id=eq.${row.customer_id}&limit=1`,
+        ).catch(() => [] as { id: number; name: string | null }[])
+      : Promise.resolve([] as { id: number; name: string | null }[]),
+  ])
+  const address = addressRows[0]
+  const store = merchantRows[0]
+  const zone: ZoneId = row.zone_code === 'syimali' ? 'syimali' : 'hijazi'
+  const cartItems: CartItem[] = items.map((item, index) => ({
+    id: `api-${row.id}-${index}`,
+    name: item.name,
+    price: jodToIdr(item.line_total_jod / Math.max(1, item.qty)),
+    quantity: item.qty,
+    image: '',
+    modifiers: item.modifiers ?? undefined,
+  }))
+  return {
+    id: `api-${row.id}`,
+    code: row.code,
+    customerId: String(row.customer_id ?? ''),
+    customerName: customerRows[0]?.name ?? 'Pelanggan',
+    // Nomor customer tidak dikirim `customers` (kolom phone tak ada di D1).
+    customerPhone: '-',
+    address:
+      address?.full_address ??
+      address?.address ??
+      (row.zone_code ? `Zona ${row.zone_code}` : 'Alamat belum tersedia'),
+    floor: address?.floor ?? '-',
+    unit: address?.unit ?? '-',
+    items: cartItems,
+    total: jodToIdr(row.total_jod),
+    // Riwayat tidak menyimpan jarak tempuh (RPC hanya untuk tugas berjalan).
+    distanceMeters: null,
+    zone,
+    paymentMethod: IN_PAYMENT[row.payment_method] ?? 'cod',
+    tip: jodToIdr(row.tip_jod ?? 0),
+    orderStage: STAGE_OF_STATUS[row.status] ?? 'selesai',
+    checkpoint: row.status === 'canceled' ? 'batal' : 'selesai',
+    pickupName: store?.store_name ?? undefined,
+    pickupAddress: store?.store_address ?? undefined,
+    pickupPhone: store?.store_phone ?? undefined,
+    pickupLatitude: store?.latitude ?? undefined,
+    pickupLongitude: store?.longitude ?? undefined,
+    note: row.order_note ?? undefined,
+    deadlineAt: row.delivery_deadline,
+    deliveryFeeIdr: jodToIdr(row.delivery_fee_jod ?? 0),
+    codCashReceivedIdr:
+      row.cod_cash_amount_jod != null ? jodToIdr(row.cod_cash_amount_jod) : null,
+    codChangeIdr: row.cod_change_jod != null ? jodToIdr(row.cod_change_jod) : null,
+    codCashNote: row.cod_cash_note,
+    latitude: address?.latitude ?? undefined,
+    longitude: address?.longitude ?? undefined,
+    otp: '',
+    otpVerified: row.otp_verified ?? true,
+  }
+}
+
 export interface CustomerOrderLive {
   id: string
   code: string

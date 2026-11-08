@@ -1126,9 +1126,16 @@ export default function Documentation() {
                 <code className="doc-inline">courier_orders()</code> hanya mengirim order berjalan,
                 jadi riwayat tidak bisa diambil dari sana. D1 tidak menyimpan waktu selesai, sehingga
                 tanggal memakai <code className="doc-inline">created_at</code> dan diberi label apa
-                adanya, bukan dikarang. Baris riwayat sengaja bukan tautan: detail tugas hanya
-                mengenal tugas berjalan, dan pintu yang berakhir di &ldquo;Tugas tidak ditemukan&rdquo;
-                lebih buruk daripada baris yang jujur tidak bisa dibuka. Kategori disimpan di URL (
+                adanya, bukan dikarang. Baris riwayat <strong>kini tautan</strong> ke layar detail
+                yang sama (<code className="doc-inline">/task/api-&lt;id&gt;</code>): detail memuat
+                tugas berjalan dari store, dan bila id-nya order yang sudah berakhir ia membaca{' '}
+                <code className="doc-inline">fetchCourierPastTask</code> — baris{' '}
+                <code className="doc-inline">orders</code> +{' '}
+                <code className="doc-inline">order_items</code> + <code className="doc-inline">addresses</code>{' '}
+                + <code className="doc-inline">merchants</code> dengan token kurir. Jadi isi pesanan,
+                rute ambil/antar, uang tunai, dan penghasilan (ongkir hak kurir) order yang baru
+                diantar bisa dibuka lagi. Sebelumnya baris itu sengaja tidak bisa diklik karena
+                pintunya pasti berakhir di &ldquo;Tugas tidak ditemukan&rdquo;. Kategori disimpan di URL (
                 <code className="doc-inline">?tab=riwayat</code>) sehingga bisa diukur langsung oleh
                 gerbang; back tetap kembali ke beranda karena perpindahan tab memakai{' '}
                 <code className="doc-inline">replace</code>. Tautan &ldquo;Lihat semua order&rdquo; di

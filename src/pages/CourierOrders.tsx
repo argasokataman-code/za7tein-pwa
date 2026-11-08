@@ -92,20 +92,21 @@ function ActiveTaskCard({ task }: { task: CourierTask }) {
 }
 
 /**
- * Baris riwayat: kode + customer di kiri, status + tanggal di rel kanan.
- * Memakai primitif `list-row` (MD-11) supaya rel kanan satu garis.
+ * Baris riwayat: kode + customer di kiri, status + tanggal di rel kanan,
+ * tautan ke detail order yang sama dengan tugas berjalan. Memakai primitif
+ * `list-row` (MD-11) supaya rel kanan satu garis.
  *
- * Sengaja **bukan** tautan. Detail tugas (`/task/:id`) membaca `courier.tasks`
- * yang hanya berisi tugas berjalan; order yang sudah berakhir tidak punya
- * checkpoint, OTP, atau item di sana. Menjadikannya tautan berarti menawarkan
- * pintu yang pasti berakhir di "Tugas tidak ditemukan".
+ * Dulu baris ini sengaja bukan tautan karena `/task/:id` hanya membaca
+ * `courier.tasks`. Detail kini punya jalur riwayat (`fetchCourierPastTask`)
+ * yang membaca baris `orders` + `order_items`, jadi kurir bisa melihat isi
+ * pesanan dan penghasilan order yang baru diantar.
  */
 function HistoryRow({ item }: { item: CourierHistoryItem }) {
   const { money } = useMoney()
   const checkpoint: CourierCheckpoint = item.status
 
   return (
-    <div className="courier-order-row list-row">
+    <Link className="courier-order-row list-row" to={`/task/${item.id}`}>
       <span className="courier-order-main">
         <span className="courier-task-code">{item.code}</span>
         <span className="courier-order-name">
@@ -119,7 +120,7 @@ function HistoryRow({ item }: { item: CourierHistoryItem }) {
         </span>
         <span className="courier-order-date">{dateLabel(item.at)}</span>
       </span>
-    </div>
+    </Link>
   )
 }
 

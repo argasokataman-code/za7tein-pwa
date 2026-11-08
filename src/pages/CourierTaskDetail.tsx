@@ -29,9 +29,9 @@ import {
 import { advanceCheckpoint, cancelTask, completeTask } from '../store/slices/courierSlice'
 import { finishBatchOnBe } from '../api/batches'
 import { insertNotification } from '../api/notifications'
-import { recordCheckpoint, updateOrderStatus, verifyOrderOtp } from '../api/orders'
+import { fetchCourierPastTask, recordCheckpoint, updateOrderStatus, verifyOrderOtp } from '../api/orders'
 import { startCourierLocationWatch } from '../api/liveLocation'
-import type { MerchantOrderStatus } from '../types'
+import type { CourierTask, MerchantOrderStatus } from '../types'
 
 /** Checkpoint kurir yang baru dimasuki → status order BE. */
 const NEXT_STATUS: Record<string, MerchantOrderStatus> = {
@@ -120,6 +120,10 @@ export default function CourierTaskDetail() {
   const [cashInput, setCashInput] = useState('')
   const [cashChosenIdr, setCashChosenIdr] = useState<number | null>(null)
   const [showCelebration, setShowCelebration] = useState(false)
+  // Order yang sudah berakhir tak ada di `courier.tasks` (RPC kurir hanya tugas
+  // berjalan), jadi detail riwayat diambil dari baris `orders` saat dibuka.
+  const [pastTask, setPastTask] = useState<CourierTask | null>(null)
+  const [pastLoaded, setPastLoaded] = useState(false)
   // Perayaan selesai = overlay modal: back menutupnya (MD-13 NB-02).
   useBackClose(showCelebration, () => setShowCelebration(false))
 
@@ -133,7 +137,24 @@ export default function CourierTaskDetail() {
     }
   }, [showCelebration])
 
-  const task = tasks.find((t) => t.id === id)
+  const liveTask = tasks.find((t) => t.id === id)
+  useEffect(() => {
+    if (liveTask || !id || !/^api-\d+$/.test(id)) return
+    let alive = true
+    fetchCourierPastTask(id)
+      .then((row) => {
+        if (!alive) return
+        setPastTask(row)
+        setPastLoaded(true)
+      })
+      .catch(() => {
+        if (alive) setPastLoaded(true)
+      })
+    return () => {
+      alive = false
+    }
+  }, [id, liveTask])
+  const task = liveTask ?? pastTask
 
   // Kirim posisi hanya selama pengantaran aktif (batasan PRD L1: app terbuka,
   // layar menyala). Di luar `berangkat`/`tiba` watch dihentikan, bukan dibiarkan
@@ -145,19 +166,20 @@ export default function CourierTaskDetail() {
   }, [sharesLocation, task?.id])
 
   if (!task) {
-    // Deep link saat muatan BE belum mendarat: tampilkan keadaan memuat, bukan
-    // "tidak ditemukan" (daftar seed tidak memuat id `api-…`).
+    // Riwayat (`api-…`) dimuat terpisah; tunggu jawabannya sebelum mengklaim
+    // "tidak ditemukan". Deep link saat muatan BE belum mendarat juga memuat.
+    const loading = !tasksLoaded || (!pastLoaded && /^api-\d+$/.test(id ?? ''))
     return (
       <div className="app-shell">
         <main className="courier-page">
           <CourierPageHeader
-            title={tasksLoaded ? 'Tugas tidak ditemukan' : 'Memuat tugas'}
+            title={loading ? 'Memuat tugas' : 'Tugas tidak ditemukan'}
             eyebrow="Detail tugas"
           />
           <p className="courier-empty">
-            {tasksLoaded
-              ? 'Tugas ini tidak ada di daftar kurir.'
-              : 'Mengambil daftar tugas dari server.'}
+            {loading
+              ? 'Mengambil detail tugas dari server.'
+              : 'Tugas ini tidak ada di daftar kurir.'}
           </p>
           <button type="button" className="btn btn-primary" onClick={() => navigate('/')}>
             Kembali ke daftar tugas
@@ -427,9 +449,11 @@ export default function CourierTaskDetail() {
               </div>
             ) : (
               <p className="cod-cash-hint">
-                {preparedCashIdr != null
-                  ? 'Kembalian di atas dihitung dari uang yang disiapkan customer; uang diterima dicatat saat checkpoint Tiba.'
-                  : 'Uang diterima dicatat saat serah terima (checkpoint Tiba).'}
+                {isFinished || isCancelled
+                  ? 'Serah terima sudah selesai; nominal di atas adalah uang yang disiapkan customer dan kembaliannya.'
+                  : preparedCashIdr != null
+                    ? 'Kembalian di atas dihitung dari uang yang disiapkan customer; uang diterima dicatat saat checkpoint Tiba.'
+                    : 'Uang diterima dicatat saat serah terima (checkpoint Tiba).'}
               </p>
             )}
           </section>

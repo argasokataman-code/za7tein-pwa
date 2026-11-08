@@ -2504,6 +2504,122 @@
         }
       ],
       "loc": "src/store/slices/courierSlice.ts:60"
+    },
+    {
+      "id": "TASK-260133",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:17:04",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/CourierOrders.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"    ",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260134",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:17:47",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/CourierTaskDetail.tsx'\ns=open(p).read()\ns=s.replace(\"im",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260135",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:19:21",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/CourierTaskDetail.tsx'\ns=open(p).read()\ns=s.replace(\"\"\"",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260136",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:20:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260137",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:21:09",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error \" | head -3; git status --short | head -20 passed",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "FEAT-260112",
+      "type": "feature",
+      "status": "active",
+      "date": "2026-11-08",
+      "time": "08:21:13",
+      "tags": [
+        "courier",
+        "history",
+        "detail"
+      ],
+      "summary": "Baris riwayat kurir jadi tautan; detail order selesai dibaca fetchCourierPastTask (orders+order_items+addresses+merchants)",
+      "conn": [
+        {
+          "id": "BUG-260111",
+          "type": "relates",
+          "raw": "BUG-260111:relates"
+        }
+      ],
+      "loc": "src/api/orders.ts:1033"
     }
   ]
 }
