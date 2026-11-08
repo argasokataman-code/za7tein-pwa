@@ -20,7 +20,6 @@ import { jodToIdr } from '../data/currency'
 import {
   COURIER_ACTION_LABEL,
   COURIER_GUARD_MINUTES,
-  courierSelf,
   distanceLabel,
   elapsedMinutes,
   isDoneTask,
@@ -112,6 +111,10 @@ export default function CourierTaskDetail() {
   const tasks = useAppSelector((s) => s.courier.tasks)
   const tasksLoaded = useAppSelector((s) => s.courier.tasksLoaded)
   const batch = useAppSelector((s) => s.courier.batch)
+  // Nama kurir untuk notifikasi ke customer: milik akun yang masuk (BE),
+  // bukan nama kurir demo di data seed.
+  const self = useAppSelector((s) => s.courier.self)
+  const courierName = self?.name || 'Kurir'
   const { now } = useTick()
   const [otp, setOtp] = useState('')
   const [cashInput, setCashInput] = useState('')
@@ -267,7 +270,7 @@ export default function CourierTaskDetail() {
       berangkat: { title: 'Kurir menuju lokasimu', body: 'Kurir sedang dalam perjalanan.' },
       tiba: {
         title: 'Kurir sudah sampai',
-        body: `${courierSelf.name} menunggu di depan. Siapkan kode OTP untuk serah terima.`,
+        body: `${courierName} menunggu di depan. Siapkan kode OTP untuk serah terima.`,
       },
     }
     const msg = STAGE_NOTIF[next ?? '']

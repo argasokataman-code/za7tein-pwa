@@ -3,15 +3,14 @@
 // (antrean merchant / tugas kurir) tanpa reload. Polling `useApiNotifications`
 // tetap jalan sebagai jaring pengaman bila socket putus.
 import { useEffect, useRef } from 'react'
-import { fetchCourierBatch, fetchMerchantBatches } from '../api/batches'
-import { fetchCourierOnline } from '../api/courierStatus'
-import { fetchCourierOrders, fetchCustomerActiveOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
+import { fetchMerchantBatches } from '../api/batches'
+import { refreshCourierData } from '../api/courierSync'
+import { fetchCustomerActiveOrders, fetchCustomerOrder, fetchMerchantOrders } from '../api/orders'
 import { notifyResync, subscribeOrders } from '../api/realtime'
 import { fetchCouriers, fetchNotifications } from '../api/reference'
 import { apiEnabled } from '../api/supabase'
 import { markOrderCancelled, setOrderStage } from '../store/slices/cartSlice'
 import { hydrateActiveOrders } from '../store/slices/customerOrdersSlice'
-import { setBatch, setOnline, setTasks } from '../store/slices/courierSlice'
 import { markOrdersFailed, markOrdersHydrated, mergeOrders, setCouriers } from '../store/slices/merchantSlice'
 import { mergeBatches } from '../store/slices/batchSlice'
 import { selectUnreadCount, setNotifications } from '../store/slices/notificationsSlice'
@@ -80,25 +79,7 @@ export function useApiRealtime(audience: NotifAudience): void {
             })
         }
         if (audience === 'courier') {
-          fetchCourierOrders()
-            .then((tasks) => {
-              if (alive && tasks.length) dispatch(setTasks(tasks))
-            })
-            .catch(() => {})
-          // Batch yang ditugaskan merchant (tabel `batches`) — sebelumnya kurir
-          // hanya melihat batch seed, jadi penugasan nyata tak pernah sampai.
-          fetchCourierBatch()
-            .then((batch) => {
-              if (alive) dispatch(setBatch(batch))
-            })
-            .catch(() => {})
-          // Sakelar kurir mengikuti baris BE, bukan default lokal, supaya
-          // status di layar ini dan di konsol merchant tidak berbeda.
-          fetchCourierOnline()
-            .then((online) => {
-              if (alive && online !== null) dispatch(setOnline(online))
-            })
-            .catch(() => {})
+          refreshCourierData(() => alive, dispatch)
         }
         if (audience === 'customer' && activeOrderId) {
           fetchCustomerOrder(activeOrderId)

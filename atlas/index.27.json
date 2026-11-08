@@ -2331,6 +2331,179 @@
         }
       ],
       "loc": "src/pages/CourierSignIn.tsx:68"
+    },
+    {
+      "id": "TASK-260125",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:06:46",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/courierStatus.ts (+55/-2) — edit via tool: ts: export interface CourierSelf {",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/courierStatus.ts"
+    },
+    {
+      "id": "TASK-260126",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:07:10",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiRealtime.ts (+6/-5) — edit via tool: ts: fetchCourierSelf()",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/hooks/useApiRealtime.ts"
+    },
+    {
+      "id": "TASK-260127",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:08:00",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierProfile.tsx (+4/-3) — edit via tool: tsx: </section>",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/pages/CourierProfile.tsx"
+    },
+    {
+      "id": "TASK-260128",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:09:20",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run build 2>&1 | tail -2; npm run sca",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260129",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:09:39",
+      "tags": [
+        "auto"
+      ],
+      "summary": "change: /Users/vanviakingali/Project/sa7tein-pwa/src/api/courierSync.ts (+46) — write via tool: ts: // Penyegaran data kurir dari BE, dipaka",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ],
+      "loc": "/Users/vanviakingali/Project/sa7tein-pwa/src/api/courierSync.ts"
+    },
+    {
+      "id": "TASK-260130",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:10:13",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | grep -E \" error \" | head -5; npm run build 2>&1 | tail -3; npm ru",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260131",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:13:58",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && python3 - <<'PY'\np='src/pages/documentation/sections/ChangelogSection.tsx'\ns=open(p).",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "TASK-260132",
+      "type": "task",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:14:07",
+      "tags": [
+        "auto",
+        "verify"
+      ],
+      "summary": "verify: cd /Users/vanviakingali/Project/sa7tein-pwa && npm run lint 2>&1 | rtk grep -cE \" error \"; npm run check:self 2>&1 | tail -1; npm ru",
+      "conn": [
+        {
+          "id": "FEAT-001",
+          "type": "relates",
+          "raw": "FEAT-001:relates"
+        }
+      ]
+    },
+    {
+      "id": "BUG-260111",
+      "type": "bug",
+      "status": "done",
+      "date": "2026-11-08",
+      "time": "08:14:12",
+      "tags": [
+        "courier",
+        "seed",
+        "dummy"
+      ],
+      "summary": "Beranda/Order kurir penuh seed: tasks mulai dari courierTasks dan setTasks([]) tak mengosongkan; identitas+toko kini dari BE",
+      "conn": [
+        {
+          "id": "BUG-260110",
+          "type": "relates",
+          "raw": "BUG-260110:relates"
+        }
+      ],
+      "loc": "src/store/slices/courierSlice.ts:60"
     }
   ]
 }

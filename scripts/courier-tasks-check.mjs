@@ -1,9 +1,10 @@
 // Self-check reducer daftar tugas kurir (`setTasks`).
 // Jalankan: node --import ./scripts/lib/ts-resolve.mjs scripts/courier-tasks-check.mjs
 //
-// Tiga sifat yang dijaga: seed hilang begitu BE menjawab, progres checkpoint
-// lokal tidak mundur saat realtime menyegarkan, dan order yang baru dituntaskan
-// tetap ada di riwayat (RPC kurir tidak lagi mengirim order `done`).
+// Empat sifat yang dijaga: daftar mulai KOSONG (tak ada seed), muatan kosong
+// dari BE benar-benar mengosongkan daftar, progres checkpoint lokal tidak mundur
+// saat realtime menyegarkan, dan order yang baru dituntaskan tetap ada di
+// riwayat (RPC kurir tidak lagi mengirim order `done`).
 import assert from 'node:assert/strict'
 
 import reducer, { setTasks, advanceCheckpoint, completeTask } from '../src/store/slices/courierSlice.ts'
@@ -36,13 +37,12 @@ const apiTask = (id, checkpoint = 'ambil') => ({
   checkpoint,
 })
 
-// Daftar awal = seed; setelah BE mengirim tugas, seed hilang.
+// Daftar awal kosong: beranda kurir tidak boleh menampilkan tugas seed.
 let state = reducer(undefined, { type: '@@init' })
-const seedCount = state.tasks.length
-assert.ok(seedCount > 0)
+assert.equal(state.tasks.length, 0)
 // Sebelum BE menjawab, layar detail belum boleh mengklaim "tidak ditemukan".
 assert.equal(state.tasksLoaded, false)
-// Seed hilang seluruhnya (termasuk riwayat seed); daftar = muatan BE.
+// Daftar = muatan BE apa adanya.
 state = reducer(state, setTasks([apiTask(1), apiTask(2)]))
 assert.equal(state.tasks.length, 2)
 assert.ok(state.tasks.some((task) => task.id === 'api-1'))
@@ -60,10 +60,11 @@ state = reducer(state, setTasks([apiTask(2)]))
 assert.ok(state.tasks.some((task) => task.id === 'api-1' && task.checkpoint === 'selesai'))
 assert.equal(state.tasks.find((task) => task.id === 'api-2').checkpoint, 'ambil')
 
-// Muatan kosong (BE belum siap) tidak menghapus daftar yang sudah ada, tapi
-// tetap menandai bahwa BE sudah menjawab.
+// Muatan kosong = kurir memang tidak punya tugas aktif. Yang tersisa hanya
+// riwayat sesi yang baru dituntaskan (api-1); seed demo tidak pernah kembali.
 state = reducer(state, setTasks([]))
-assert.ok(state.tasks.some((task) => task.id === 'api-2'))
+assert.ok(state.tasks.every((task) => task.checkpoint === 'selesai'))
+assert.deepEqual(state.tasks.map((task) => task.id), ['api-1'])
 assert.equal(state.tasksLoaded, true)
 
 // Alamat tidak boleh mencetak lantai/unit dua kali: `full_address` BE sudah

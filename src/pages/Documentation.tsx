@@ -1085,13 +1085,24 @@ export default function Documentation() {
                 lewat sesi kurir — tanpa itu tiket tetap di tab <em>Siap</em> merchant padahal
                 kurirnya sudah jalan. Setelah order terakhir batch tuntas, batch ditutup di BE
                 (<code className="doc-inline">finishBatchOnBe</code>), jadi merchant melihat riwayat
-                batch, bukan &ldquo;dalam pengantaran&rdquo; selamanya. Daftar tugas kurir sekarang
-                <strong> menggantikan</strong> seed begitu BE mengirim tugas (progres checkpoint
-                lokal dibawa untuk id yang sama), sehingga tidak ada lagi 12 tugas campuran seed +
-                order nyata (riwayat seed ikut terbuang). Order yang baru dituntaskan tetap di
-                daftar sebagai riwayat walau RPC kurir tak lagi mengirimnya; riwayat lintas-perangkat
-                dibaca langsung dari tabel <code className="doc-inline">orders</code> (lihat butir
-                berikut).
+                batch, bukan &ldquo;dalam pengantaran&rdquo; selamanya. Daftar tugas kurir
+                <strong> mulai kosong</strong> dan sepenuhnya milik BE: dulu seed
+                <code className="doc-inline">courierTasks</code> tampil lebih dulu (3 tugas aktif,
+                1 menunggu OTP, 2 selesai — kode SA-1041/SA-1040/SA-1039 dengan customer Rani/Budi/
+                Sinta), dan muatan BE yang kosong tidak pernah mengosongkannya karena
+                <code className="doc-inline">setTasks([])</code> langsung <em>return</em>. Sekarang
+                setiap muatan BE dipakai apa adanya (progres checkpoint lokal dibawa untuk id yang
+                sama), dan yang tersisa hanya riwayat sesi yang baru dituntaskan. Identitas kurir
+                juga dibaca dari baris <code className="doc-inline">couriers</code> milik JWT
+                (<code className="doc-inline">fetchCourierSelf</code>, lewat{' '}
+                <code className="doc-inline">refreshCourierData</code>): beranda dan profil tidak
+                lagi mencetak nama/nomor seed (<code className="doc-inline">+62812&hellip;</code>,
+                terukur berubah jadi nomor baris BE), dan kartu toko memakai{' '}
+                <code className="doc-inline">merchant_id</code> kurir untuk membaca{' '}
+                <code className="doc-inline">merchants</code> (nama + jam buka nyata), bukan toko
+                seed. Order yang baru dituntaskan tetap di daftar sebagai riwayat walau RPC kurir tak
+                lagi mengirimnya; riwayat lintas-perangkat dibaca langsung dari tabel{' '}
+                <code className="doc-inline">orders</code> (lihat butir berikut).
               </li>
               <li>
                 <strong>Tab Order: tugas berjalan dan riwayat di satu tempat (2026-11-02).</strong>{' '}

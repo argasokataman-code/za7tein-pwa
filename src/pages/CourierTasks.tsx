@@ -8,7 +8,7 @@ import { useAppSelector } from '../hooks/useAppStore'
 import { useCourierOnline } from '../hooks/useCourierOnline'
 import { useMoney } from '../hooks/useMoney'
 import { accountLabel } from '../data/payout'
-import { courierSelf, isActiveTask, isDoneTask, totalTips } from '../data/courier'
+import { isActiveTask, isDoneTask, totalTips } from '../data/courier'
 import { TIPS_ENABLED, QUICK_ENABLED } from '../data/features'
 import { courierTipsAvailable, courierWeeklyTips } from '../data/courierWallet'
 import { BATCH_STATUS_LABEL } from '../data/batch'
@@ -32,6 +32,12 @@ export default function CourierTasks() {
   const accounts = useAppSelector((s) => s.courier.payoutAccounts)
   const primary = accounts.find((a) => a.isPrimary) ?? accounts[0]
 
+  // Identitas dari BE (`couriers`); onboarding jadi cadangan sebelum muatan
+  // pertama, lalu sebutan netral. Tak ada lagi nama/nomor kurir demo.
+  const self = useAppSelector((s) => s.courier.self)
+  const onboarding = useAppSelector((s) => s.courier.onboarding)
+  const selfName = self?.name || onboarding?.name || 'Kurir'
+  const selfPhone = self?.phone || onboarding?.phone || ''
   const active = tasks.filter(isActiveTask)
   const waitingOtp = tasks.filter((task) => task.checkpoint === 'tiba').length
   const done = tasks.filter(isDoneTask)
@@ -54,8 +60,8 @@ export default function CourierTasks() {
             merek di puncak beranda (komponen `CourierHomeHero`), bukan lagi
             tiga blok terpisah: kartu identitas + ringkasan statline. */}
         <CourierHomeHero
-          name={courierSelf.name}
-          phone={courierSelf.phone}
+          name={selfName}
+          phone={selfPhone}
           online={isOnline}
           onToggleOnline={toggleOnline}
         />

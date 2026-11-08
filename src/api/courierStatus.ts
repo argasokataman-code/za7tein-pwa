@@ -11,6 +11,59 @@ function subject(token: string): number {
   }
 }
 
+export interface CourierSelf {
+  id: number
+  name: string
+  phone: string
+  merchantId: number | null
+  vehicle: string | null
+  photo: string | null
+  courierType: string | null
+}
+
+/**
+ * Identitas kurir yang sedang masuk, dari baris BE `couriers` milik JWT ini.
+ *
+ * Sebelumnya beranda dan profil kurir membaca `courierSelf` (`data/courier.ts`),
+ * yaitu baris seed kurir demo: nama "Budi Santoso" + nomor `+62812…` yang tidak
+ * ada hubungannya dengan akun yang benar-benar masuk. `null` = tak terbaca
+ * (BE mati / sesi belum siap); pemanggil memakai nama dari onboarding atau
+ * sebutan netral, bukan angka seed.
+ */
+export async function fetchCourierSelf(): Promise<CourierSelf | null> {
+  try {
+    const token = await ensureCourierToken()
+    const uid = subject(token)
+    if (!Number.isFinite(uid)) return null
+    const rows = await restWith<{
+      id: number
+      name: string | null
+      phone: string | null
+      merchant_id: number | null
+      vehicle: string | null
+      photo: string | null
+      courier_type: string | null
+    }>(
+      token,
+      'couriers',
+      `?select=id,name,phone,merchant_id,vehicle,photo,courier_type&user_id=eq.${uid}&limit=1`,
+    )
+    const row = rows[0]
+    if (!row) return null
+    return {
+      id: row.id,
+      name: row.name ?? '',
+      phone: row.phone ?? '',
+      merchantId: row.merchant_id,
+      vehicle: row.vehicle,
+      photo: row.photo,
+      courierType: row.courier_type,
+    }
+  } catch {
+    return null
+  }
+}
+
 /**
  * Status siap-terima-tugas kurir di BE (`couriers.availability`).
  *

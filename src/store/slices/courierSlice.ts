@@ -1,17 +1,29 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-import { courierTasks as seedTasks, nextCheckpoint } from '../../data/courier'
+import { nextCheckpoint } from '../../data/courier'
 import { courierBatchTasks } from '../../data/courierBatch'
 import {
   COURIER_PAYOUT_FEE_IDR,
   courierTipsAvailable,
   mockCourierPayoutAccounts,
 } from '../../data/courierWallet'
+import type { CourierSelf } from '../../api/courierStatus'
 import type { Batch, CourierTask, PayoutAccount, PayoutEntry } from '../../types'
 
 interface CourierState {
-  /** Kurir siap menerima tugas. Tidak dipersist — mock, reset saat reload. */
+  /** Kurir siap menerima tugas. Tidak dipersist — dibaca dari BE, reset saat reload. */
   isOnline: boolean
+  /**
+   * Identitas kurir yang masuk (`couriers` BE). `null` sampai BE menjawab atau
+   * bila sesi belum siap — layar jatuh ke profil onboarding, **bukan** ke baris
+   * kurir demo (`courierSelf`).
+   */
+  self: CourierSelf | null
+  /**
+   * Tugas kurir. Mulai kosong: daftar seed lama (`data/courier.ts`) membuat
+   * beranda menampilkan 3 tugas, 1 menunggu OTP, dan 2 selesai padahal BE
+   * belum/kosong. Sumbernya RPC `courier_orders()`.
+   */
   tasks: CourierTask[]
   /**
    * Batch kurir inhouse yang ditugaskan merchant (M5, BR-B07), diisi dari BE
@@ -44,7 +56,8 @@ export interface CourierOnboarding {
 
 const initialState: CourierState = {
   isOnline: true,
-  tasks: seedTasks,
+  self: null,
+  tasks: [],
   batch: null,
   payoutAccounts: mockCourierPayoutAccounts,
   payouts: [],
@@ -65,6 +78,10 @@ const courierSlice = createSlice({
     setOnline(state, action: PayloadAction<boolean>) {
       state.isOnline = action.payload
     },
+    /** Identitas kurir dari baris BE `couriers` milik sesi ini. */
+    setSelf(state, action: PayloadAction<CourierSelf | null>) {
+      state.self = action.payload
+    },
     /** Simpan profil dari onboarding kurir, sebelum masuk. */
     completeOnboarding(state, action: PayloadAction<CourierOnboarding>) {
       state.onboarding = action.payload
@@ -77,16 +94,15 @@ const courierSlice = createSlice({
       state.batch = action.payload
     },
     /**
-     * Daftar tugas = BE begitu BE punya tugas. Seed hanya jaring sebelum muatan
-     * pertama; sebelumnya seed ikut menumpuk selamanya sehingga kurir melihat
-     * 12 tugas padahal order nyata cuma beberapa. Progres lokal (checkpoint,
+     * Daftar tugas = muatan BE apa adanya (`courier_orders()`). Muatan kosong
+     * berarti kurir memang tidak punya tugas, jadi daftar dikosongkan — bukan
+     * dipertahankan supaya seed demo tetap terlihat. Progres lokal (checkpoint,
      * OTP) dibawa untuk id yang sama supaya realtime tidak memundurkan langkah.
      */
     setTasks(state, action: PayloadAction<CourierTask[]>) {
       // Muatan kosong tetap dihitung "sudah dijawab": layar detail butuh tahu
       // kapan berhenti menampilkan keadaan memuat.
       state.tasksLoaded = true
-      if (!action.payload.length) return
       const local = new Map(state.tasks.map((task) => [task.id, task]))
       // Order selesai tidak lagi dikirim RPC kurir; kalau dibuang, riwayat sesi
       // ini ikut hilang padahal kurir baru saja menuntaskannya. Hanya order BE
@@ -224,6 +240,7 @@ const courierSlice = createSlice({
 export const {
   toggleOnline,
   setOnline,
+  setSelf,
   completeOnboarding,
   setBatch,
   setTasks,
